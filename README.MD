@@ -1,384 +1,284 @@
-# NFL Data Engineering Pipeline
+# NFL Data Engineering Pipeline 🏈
 
-## Project Overview
-This project implements an end-to-end data engineering pipeline for N## Key Design Principles:**
-- **Local Development First:** Python files can be developed and tested locally
-- **Databricks Deployment:** Notebooks designed for Databricks execution  
-- **Modular Design:** Shared utilities and configuration in `src/` directory
-- **Testability:** Comprehensive test coverage for core functions
-- **AI Integration:** Complete MCP configuration for AI-assisted development
-- **Web Automation:** Puppeteer MCP for data validation and additional source collectionl Football League (NFL) data, specifically focusing on game data analysis. The pipeline is designed to ingest raw data, process it, and transform it into a structured format suitable for analysis and downstream applications, such as machine learning models or business intelligence dashboards. The entire pipeline is built using AWS S3 for storage and Databricks as the compute platform, adhering to the principles of a modern data lakehouse architecture.
+A comprehensive data engineering solution for NFL analytics using AWS S3, nfl-data-py, and the Medallion Architecture pattern.
 
-This project serves as a foundation for three potential use cases:
-1. **NFL Game Log Data Pipeline** - Basic game data ingestion and transformation
-2. **Player Performance Analysis and Prediction** - Advanced analytics and ML modeling  
-3. **NFL Betting and Odds Analysis** - Sports betting analytics integration
+## 🎯 Project Overview
 
-The README.md is designed to provide comprehensive context for developers and AI coding assistants like GitHub Copilot, explaining the project's purpose, architecture, and file structure to facilitate efficient development and maintenance.
+This project implements a complete NFL data pipeline that:
+- **Ingests** raw NFL data from nfl-data-py API
+- **Transforms** data through Bronze → Silver → Gold layers  
+- **Stores** data in AWS S3 with proper partitioning
+- **Enables** advanced NFL analytics and insights
 
-## Project Goal
-The primary objective of this pipeline is to extract NFL game data from the `nfl-data-py` library and progressively refine it through a medallion architecture pattern. This ensures data quality, reliability, and reusability for various analytical use cases.
+## 🏗️ Architecture
 
-**Core Pipeline Objectives:**
-1. **Bronze Layer**: Ingest raw NFL game data for specified seasons and weeks
-2. **Silver Layer**: Cleanse, standardize, and validate the data with quality checks  
-3. **Gold Layer**: Create aggregated, business-ready datasets for analytics and reporting
+```
+📊 Data Sources          🥉 Bronze Layer         🥈 Silver Layer         🥇 Gold Layer
+┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
+│   nfl-data-py   │ ──→  │   Raw NFL Data  │ ──→  │  Cleaned Data   │ ──→  │  Aggregated     │
+│   • Games       │      │   • Parquet     │      │   • Validated   │      │  Analytics      │
+│   • Play-by-play│      │   • Partitioned │      │   • Enriched    │      │   • KPIs        │
+│   • Team Stats  │      │   • Timestamped │      │   • Standardized│      │   • Reports     │
+└─────────────────┘      └─────────────────┘      └─────────────────┘      └─────────────────┘
+                                 │                          │                         │
+                            s3://nfl-raw             s3://nfl-refined         s3://nfl-trusted
+```
 
-**Key Features:**
-- Parameterized notebooks for flexible execution
-- Comprehensive data quality validation
-- AWS S3 integration with partitioned storage
-- Delta Lake format for ACID transactions
-- Model Context Protocol (MCP) integration for AI-assisted development
+## 🚀 Quick Start
 
-## Architecture Overview
+### Prerequisites
+- Python 3.9+
+- AWS Account with S3 buckets
+- AWS CLI configured
 
-### Storage Layer (AWS S3 - us-east-2)
-**Your Dedicated S3 Buckets:**
-- **Bronze Layer:** `nfl-raw` - Raw data ingestion from nfl-data-py
-- **Silver Layer:** `nfl-refined` - Cleaned and standardized data  
-- **Gold Layer:** `nfl-trusted` - Business-ready aggregations and analytics
+### 1. Environment Setup
+```bash
+# Clone the repository
+git clone https://github.com/gesmith0606/nfl_data_engineering.git
+cd nfl_data_engineering
 
-**Data Format Strategy:**
-- Bronze: Parquet files for efficient columnar storage
-- Silver/Gold: Delta Lake format for ACID transactions (when using full Databricks)
-- Local Development: Parquet files with CSV exports for analysis
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\\Scripts\\activate
 
-### Compute Layer Architecture
-**Current Setup (Local Development + S3):**
-- **Local Python Environment:** Primary development and execution environment
-- **AWS S3 Integration:** Direct boto3 connectivity to your buckets
-- **Databricks Community Edition:** Learning and prototyping (DBFS only)
-- **Future Migration Path:** Upgrade to Databricks Standard/Premium for production scale
+# Install dependencies
+pip install -r requirements.txt
+```
 
-**Databricks Workspace (Ready for Upgrade):**
-- **URL:** `dbc-c9b1be11-c0c8.cloud.databricks.com`
-- **User:** `smithge0606@gmail.com`
-- **Current Limitation:** Community Edition - no direct S3 access
-- **Upgrade Benefits:** Full S3 mounting, secrets management, cluster libraries
+### 2. AWS Configuration
+```bash
+# Configure AWS credentials
+aws configure
 
-**Bronze Layer (Raw)**  
-- Contains unprocessed data directly from `nfl-data-py`
-- Preserves original data structure and values
-- Adds audit columns (created_at, updated_at, data_source)
-- Storage format: Parquet for fast ingestion
+# Or set environment variables in .env file
+cp .env.example .env
+# Edit .env with your AWS credentials
+```
 
-**Silver Layer (Cleaned)**  
-- Data quality validation and cleansing applied
-- Standardized team names, date formats, and data types
-- Null value handling and duplicate removal
-- Derived fields added (total_score, winning_team)
-- Storage format: Delta Lake for ACID transactions
+### 3. Test Setup
+```bash
+# Test AWS connectivity
+python test_aws_connectivity.py
 
-**Gold Layer (Curated)**  
-- Business-ready aggregated datasets
-- Team season statistics (wins, losses, scoring averages)
-- Weekly league-wide metrics and trends  
-- Optimized for analytics tools and reporting
-- Storage format: Delta Lake with Z-ordering for performance
+# Test NFL data integration
+python test_nfl_data.py
+```
 
-## Data Source
-The pipeline uses the **nfl-data-py** Python library as its primary data source. This library provides programmatic access to comprehensive NFL datasets originally sourced from nflfastR.
+### 4. Run Data Ingestion
+```bash
+# Ingest game schedules
+python bronze_ingestion_simple.py --season 2023 --week 1 --data-type schedules
 
-**Available Data Types:**
-- **Game Schedules**: Basic game information (teams, dates, scores)
-- **Play-by-Play Data**: Detailed information for every play in every game
-- **Player Statistics**: Individual player performance metrics
-- **Team Statistics**: Aggregated team-level metrics
-- **Roster Information**: Player roster data by team and season
+# Ingest play-by-play data
+python bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 
-**Current Focus**: This pipeline initially focuses on **game-level data** including:
-- Game schedules and basic information
-- Final scores and game outcomes
-- Team matchups and game dates
-- Season and week organization
+# View ingested data
+python list_bronze_contents.py
+```
 
-**Future Expansion Opportunities:**
-- Player performance metrics and statistics
-- Play-by-play analysis for advanced metrics (EPA, WPA)
-- Injury reports and roster changes
-- Weather data and game conditions
-- Betting odds and market data integration
-
-## Project Structure
-The project follows a modular structure optimized for local development and Databricks deployment:
+## 📁 Project Structure
 
 ```
 nfl_data_engineering/
-├── .vscode/
-│   └── mcp.json                    # Model Context Protocol configuration
-├── notebooks/                      # Databricks notebooks (medallion architecture)
-│   ├── bronze_ingestion.py         # Raw data ingestion from nfl-data-py
-│   ├── silver_transformation.py    # Data cleaning and standardization
-│   └── gold_aggregation.py         # Business metrics and aggregations
-├── src/                            # Shared Python modules
-│   ├── __init__.py
-│   ├── config.py                   # Configuration management (S3 paths, settings)
-│   └── utils.py                    # Utility functions (Spark, validation, S3)
-├── tests/                          # Unit and integration tests  
-│   ├── __init__.py
-│   └── test_utils.py               # Tests for utility functions
-├── .env.example                    # Environment variables template
-├── .gitignore                      # Git ignore patterns
-├── requirements.txt                # Python dependencies
-├── setup.sh                       # Project setup script
-├── README.md                       # This documentation
-└── copilot-instructions.md         # AI assistant context and guidelines
+├── 📄 README.md                          # This file
+├── 📄 requirements.txt                   # Python dependencies
+├── 📄 .env                              # Environment variables
+├── 📄 development_tasks.md              # Development roadmap
+├── 
+├── 📂 src/                              # Core source code
+│   ├── 📄 config.py                     # Configuration settings
+│   ├── 📄 utils.py                      # Utility functions  
+│   └── 📄 nfl_data_integration.py       # NFL data fetching & validation
+├── 
+├── 📂 notebooks/                        # Data processing notebooks
+│   ├── 📄 bronze_ingestion.py           # Raw data ingestion
+│   ├── 📄 silver_transformation.py      # Data cleaning & validation
+│   └── 📄 gold_aggregation.py           # Analytics & aggregation
+├── 
+├── 📂 tests/                           # Unit tests
+│   └── 📄 test_utils.py                # Utility function tests
+├── 
+├── 📂 scripts/                         # Standalone scripts
+│   ├── 📄 bronze_ingestion_simple.py   # CLI data ingestion
+│   ├── 📄 list_bronze_contents.py      # S3 content viewer
+│   └── 📄 test_*.py                    # Various test scripts
+└── 
+└── 📂 docs/                           # Documentation
+    ├── 📄 AWS_IAM_SETUP_INSTRUCTIONS.md
+    └── 📄 project_details.md
 ```
 
-**Key Design Principles:**
-- **Local Development**: Python files can be developed and tested locally
-- **Databricks Deployment**: Notebooks designed for Databricks execution  
-- **Modular Design**: Shared utilities and configuration in `src/` directory
-- **Testability**: Comprehensive test coverage for core functions
-- **AI Integration**: MCP configuration for AI-assisted development
+## 🥉 Bronze Layer (Raw Data)
 
-## How to Run the Project
+**Purpose:** Ingest raw NFL data with minimal processing
+**Storage:** `s3://nfl-raw/`
+**Format:** Parquet files with partitioning
 
-### Prerequisites
-**Required Services:**
-- AWS Account with S3 access (✅ **Your buckets configured:** `nfl-raw`, `nfl-refined`, `nfl-trusted`)
-- Python 3.8+ for local development and pipeline execution
-- Optional: Databricks workspace for advanced features (✅ **Your workspace:** `dbc-c9b1be11-c0c8.cloud.databricks.com`)
+### Supported Data Types:
+- **Game Schedules**: Season schedules with scores, dates, teams
+- **Play-by-Play**: Detailed play data with yards, downs, players
+- **Team Stats**: Team information and statistics
 
-**Required Credentials:**
-- AWS credentials configured locally (via `aws configure` or environment variables)
-- S3 read/write permissions for your three buckets in `us-east-2` region
-
-**Current Development Mode:**
-- **Primary Execution:** Local Python environment with direct S3 integration
-- **Databricks Community:** Available for learning and notebook prototyping (no S3 access)
-- **Upgrade Path:** Databricks Standard/Premium when ready for production scale
-
-### Environment Setup
-
-**1. Local Environment Setup:**
-```bash
-# Clone and navigate to project
-git clone <repository-url>
-cd nfl_data_engineering
-
-# Run setup script
-./setup.sh
-
-# Configure environment variables
-cp .env.example .env
-# Edit .env with your AWS S3 bucket and Databricks details
+### Partitioning Structure:
+```
+s3://nfl-raw/
+├── games/season=2023/week=1/schedules_20240815_123456.parquet
+├── plays/season=2023/week=1/pbp_20240815_123456.parquet
+└── teams/season=2023/teams_20240815_123456.parquet
 ```
 
-**2. AWS Configuration:**
-```bash
-# Configure AWS credentials for your buckets
-aws configure
-# When prompted, use us-east-2 as your default region
+## 🥈 Silver Layer (Cleaned Data)
 
-# Verify access to your specific buckets
-aws s3 ls s3://nfl-raw
-aws s3 ls s3://nfl-refined  
-aws s3 ls s3://nfl-trusted
+**Purpose:** Clean, validate, and enrich Bronze data
+**Storage:** `s3://nfl-refined/`
+**Status:** 🚧 In Development
+
+### Planned Transformations:
+- Data type validation and correction
+- Missing value handling
+- Player name standardization
+- Team abbreviation consistency
+- Date/time standardization
+
+## 🥇 Gold Layer (Analytics Ready)
+
+**Purpose:** Business-ready aggregated data
+**Storage:** `s3://nfl-trusted/`  
+**Status:** 📋 Planned
+
+### Planned Aggregations:
+- Team performance metrics
+- Player statistics by season/week
+- Game outcome predictions
+- Historical trend analysis
+
+## 🛠️ Key Components
+
+### 1. NFL Data Integration (`src/nfl_data_integration.py`)
+- Fetches data from nfl-data-py API
+- Handles rate limits and errors
+- Validates data quality
+- Supports multiple data types
+
+### 2. Bronze Layer Ingestion (`bronze_ingestion_simple.py`)
+- Command-line interface for data ingestion
+- Configurable season, week, and data type
+- Automatic S3 upload with proper partitioning
+- Built-in data validation
+
+### 3. AWS S3 Integration
+- Full CRUD operations tested
+- Parquet format support
+- Proper IAM permissions configured
+- Cross-region connectivity (us-east-2)
+
+## 📊 Current Status
+
+### ✅ Completed (August 15, 2025)
+- [x] **Task 1.1**: Local Environment Configuration
+- [x] **Task 1.2**: AWS S3 Connectivity Testing  
+- [x] **Task 2.1**: NFL Data Integration
+
+### 📊 Data Successfully Ingested:
+- **Games**: 2023 Season Week 1 (16 games, 50 columns)
+- **Plays**: 2023 Season Week 1 (2,816 plays, 32 columns)
+- **Storage**: 0.21 MB in S3 Bronze layer
+
+### 🚧 In Progress
+- **Task 2.2**: S3 Upload Implementation Enhancement
+- **Task 2.3**: Bronze Layer CLI Enhancement
+
+### 📋 Planned
+- Silver Layer Data Transformation
+- Gold Layer Analytics Aggregation
+- Databricks Integration
+- Automated Pipeline Orchestration
+
+## 🔧 Configuration
+
+### Environment Variables (.env)
+```bash
+# AWS Configuration
+AWS_REGION=us-east-2
+AWS_ACCOUNT_ID=512821312570
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+
+# S3 Buckets
+S3_BUCKET_BRONZE=nfl-raw
+S3_BUCKET_SILVER=nfl-refined  
+S3_BUCKET_GOLD=nfl-trusted
+
+# NFL Data Settings
+DEFAULT_SEASON=2024
+DEFAULT_WEEK=1
+LOG_LEVEL=INFO
 ```
 
-**3. Environment Variables Setup:**
+## 🧪 Testing
+
 ```bash
-# Copy and configure environment file
-cp .env.example .env
+# Test AWS connectivity
+python test_aws_connectivity.py
 
-# Edit .env with your credentials - buckets are pre-configured:
-# S3_BUCKET_BRONZE=nfl-raw
-# S3_BUCKET_SILVER=nfl-refined
-# S3_BUCKET_GOLD=nfl-trusted
-# AWS_REGION=us-east-2
-# DATABRICKS_WORKSPACE_URL=https://dbc-c9b1be11-c0c8.cloud.databricks.com
-```
+# Test NFL data fetching
+python test_nfl_data.py
 
-**4. Optional: Databricks Community Edition Setup:**
-- Access your workspace: `dbc-c9b1be11-c0c8.cloud.databricks.com`
-- Upload notebooks from `notebooks/` directory for learning
-- Note: Community Edition cannot access your S3 buckets directly
-
-**5. AI Development Environment (MCP Setup):**
-```bash
-# Install Node.js MCPs for AI-assisted development
-npm install -g @modelcontextprotocol/server-filesystem
-npm install -g @modelcontextprotocol/server-sequential-thinking
-npm install -g puppeteer-mcp-server
-
-# Verify MCP installation
-npm list -g | grep -E "(modelcontextprotocol|puppeteer-mcp)"
-```
-
-**MCP Capabilities:**
-- **File Management:** Complete project organization and navigation
-- **Problem Solving:** Sequential thinking for complex pipeline challenges  
-- **Web Automation:** NFL data validation and additional source collection
-
-### Execution Steps
-
-**Current Mode: Local Python + S3 Integration**
-
-The pipeline runs locally with direct S3 integration. Future Databricks upgrade will enable cluster-based processing.
-
-**Step 1: Bronze Layer Ingestion**
-```bash
-# Run locally with Python
-cd /Users/georgesmith/repos/nfl_data_engineering
-source venv/bin/activate
-python notebooks/bronze_ingestion.py --season 2024 --week 1
-
-# Output: Raw game data stored in s3://nfl-raw/games/season=2024/week=1/
-```
-
-**Step 2: Silver Layer Transformation**  
-```bash
-# Run data cleaning and validation
-python notebooks/silver_transformation.py --season 2024 --week 1
-
-# Input: s3://nfl-raw/games/season=2024/week=1/
-# Output: Cleaned data in s3://nfl-refined/games/season=2024/week=1/
-```
-
-**Step 3: Gold Layer Aggregation**
-```bash
-# Run business aggregations
-python notebooks/gold_aggregation.py --season 2024
-
-# Input: All s3://nfl-refined/games/season=2024/ data
-# Output: Team stats in s3://nfl-trusted/team_stats/season=2024/
-```
-
-**Alternative: Databricks Community Edition (Learning Mode)**
-- Upload notebooks to `dbc-c9b1be11-c0c8.cloud.databricks.com`
-- Modify to use sample data or DBFS storage
-- Great for learning PySpark and Databricks concepts
-
-### Local Testing
-```bash
-# Activate virtual environment
-source venv/bin/activate
+# Test S3 full operations
+python test_s3_full_operations.py
 
 # Run unit tests
-python -m pytest tests/ -v
-
-# Test configuration
-python -c "from src.config import get_s3_path; print(get_s3_path('bronze', 'games', 2024, 1))"
+python -m pytest tests/
 ```
 
-## Development Guidelines
+## 📈 Usage Examples
 
-### Local Development Workflow
-**Environment Management:**
-- Use virtual environment for dependency isolation
-- Keep `requirements.txt` updated with exact versions
-- Test imports locally before deploying to Databricks
-
-**Code Organization:**
-- `src/config.py`: Centralized configuration management
-- `src/utils.py`: Reusable data processing functions
-- `notebooks/`: Databricks notebooks for pipeline execution
-- `tests/`: Unit tests for utility functions
-
-**Best Practices:**
-- Parameterize notebooks for flexible execution
-- Use Delta Lake format for data persistence
-- Implement data quality checks in Silver layer
-- Follow naming conventions: `snake_case` for files, `UPPER_CASE` for constants
-
-### Testing Strategy
-**Unit Testing:**
+### Basic Data Ingestion
 ```bash
-# Run all tests
-python -m pytest tests/ -v
+# Ingest current week games
+python bronze_ingestion_simple.py --season 2024 --week 1 --data-type schedules
 
-# Test specific module
-python -m pytest tests/test_utils.py -v
-
-# Test with coverage
-python -m pytest tests/ --cov=src --cov-report=html
+# Ingest historical play-by-play
+python bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 ```
 
-**Integration Testing:**
-- Test S3 connectivity with sample data
-- Validate Databricks cluster access
-- Verify end-to-end pipeline with small dataset
+### Check Ingested Data
+```bash
+# View Bronze layer contents
+python list_bronze_contents.py
 
-### Data Quality Monitoring
-**Bronze Layer Validation:**
-- Check for successful data ingestion
-- Validate expected columns and data types
-- Monitor for missing weeks/games
+# Test data quality
+python src/nfl_data_integration.py
+```
 
-**Silver Layer Validation:**
-- Verify data cleaning transformations
-- Check for null values in critical fields
-- Validate referential integrity
+## 🚀 Future Enhancements
 
-**Gold Layer Validation:**
-- Ensure aggregation accuracy
-- Check for business rule compliance
-- Validate against known metrics
+- **Real-time Data Ingestion**: Live game data streaming
+- **Advanced Analytics**: Player performance models
+- **Visualization Dashboard**: Interactive NFL analytics
+- **API Layer**: REST API for data access
+- **Data Lineage**: Track data flow and transformations
+- **Cost Optimization**: S3 lifecycle policies and compression
 
-### Performance Optimization
-**Databricks Tuning:**
-- Use appropriate cluster size for data volume
-- Optimize Spark configurations for workload
-- Leverage auto-scaling for variable loads
+## 🤝 Contributing
 
-**Data Partitioning:**
-- Partition by season and week for query performance
-- Use Z-order optimization for frequently queried columns
-- Monitor partition sizes to avoid small file problems
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Future Improvements
+## 📝 License
 
-### Pipeline Automation
-**Orchestration Options:**
-- **Databricks Jobs**: Native scheduling with parameter support
-- **Apache Airflow**: Complex dependency management and monitoring
-- **AWS Step Functions**: Cloud-native orchestration with AWS services
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-**Scheduling Strategy:**
-- Weekly execution during NFL season (Tuesday post-game)
-- Backfill capabilities for historical data processing
-- Parameterized execution for flexible date ranges
+## 🙏 Acknowledgments
 
-### Data Quality & Monitoring
-**Advanced Quality Checks:**
-- Great Expectations integration for comprehensive data validation
-- Automated anomaly detection for statistical outliers
-- Data lineage tracking with Delta Lake history
+- **nfl-data-py**: For providing excellent NFL data API
+- **AWS**: For cloud infrastructure
+- **Apache Parquet**: For efficient data storage
+- **NFL**: For the amazing game that makes this data possible! 🏈
 
-**Observability:**
-- CloudWatch metrics for pipeline health monitoring
-- Databricks dashboard for data quality KPIs
-- Alerting for failed jobs or data quality issues
+---
 
-### Enhanced Data Sources
-**Additional Integrations with MCP Support:**
-- **Player injury reports** and status updates (via Puppeteer MCP web scraping)
-- **Weather data** with detailed game conditions (automated collection)
-- **Real-time betting odds** and market movements (web automation)
-- **Social media sentiment** analysis from Twitter/Reddit (future enhancement)
-- **Advanced tracking data** (Next Gen Stats) via web scraping validation
-
-**MCP-Enabled Data Validation:**
-- Cross-reference nfl-data-py results with ESPN.com, NFL.com
-- Automated data quality checks against multiple sources
-- Real-time monitoring for data discrepancies
-- Sequential problem-solving for data pipeline issues
-
-**External APIs:**
-- ESPN API for additional game metadata
-- Pro Football Reference for historical statistics
-- Fantasy sports platforms for player valuations
-
-### Analytics Capabilities
-**Advanced Analytics:**
-- Machine learning models for game outcome prediction
-- Player performance forecasting
-- Team strength ratings and ELO calculations
-- Win probability models by game situation
-
-**Visualization & BI:**
-- Tableau/Power BI dashboards for business users
-- Jupyter notebooks for data science exploration
-- Real-time streaming analytics for live games
+**Built with ❤️ for NFL Analytics**
