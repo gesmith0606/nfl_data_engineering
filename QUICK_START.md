@@ -38,7 +38,14 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 
 ### Step 5: View Results
 ```bash
+# Quick Bronze layer inventory
 python scripts/list_bronze_contents.py
+
+# Detailed data exploration with samples
+python scripts/explore_bronze_data.py
+
+# View complete data catalog
+cat docs/BRONZE_LAYER_DATA_INVENTORY.md
 ```
 
 ## 📊 What You'll Get

@@ -128,10 +128,13 @@ Create a functional NFL data pipeline that ingests game data, cleans it, and pro
 - `test_nfl_data.py` - NFL library functionality testing
 - `list_bronze_contents.py` - S3 Bronze layer content viewer
 
-**Data Successfully Ingested:**
-- 📄 Games: 2023 Season Week 1 (16 games, 50 columns)
-- 📄 Plays: 2023 Season Week 1 (2,816 plays, 32 columns)
-- 📦 Storage: S3 Bronze layer with proper partitioning (season/week)
+**Bronze Layer Data Inventory:** � [Complete catalog](docs/BRONZE_LAYER_DATA_INVENTORY.md)
+
+| Data Type | Season | Week | Records | Columns | Size | File Path |
+|-----------|--------|------|---------|---------|------|-----------|
+| **Games** | 2023 | 1 | 16 games | 50 | 0.03 MB | `games/season=2023/week=1/schedules_*.parquet` |
+| **Plays** | 2023 | 1 | 2,816 plays | 32 | 0.18 MB | `plays/season=2023/week=1/pbp_*.parquet` |
+| **Total** | - | - | - | - | **0.21 MB** | S3 Bronze Layer Ready ✅ |
 
 **Success Criteria:** ✅ ALL MET
 - NFL data library working with multiple data types
