@@ -184,7 +184,8 @@ nfl_data_engineering/
 │   └── test_utils.py                # Unit tests for utilities
 ├── docs/                            # Documentation and guides
 │   ├── AWS_IAM_SETUP_INSTRUCTIONS.md # AWS configuration guide ✅
-│   └── BRONZE_LAYER_DATA_INVENTORY.md # Complete Bronze data catalog ✅
+│   ├── BRONZE_LAYER_DATA_INVENTORY.md # Complete Bronze data catalog ✅
+│   └── VSCODE_CONFIGURATION.md        # VS Code settings documentation ✅
 ├── .env.example                     # Environment variables template
 ├── .gitignore                       # Git ignore patterns
 ├── requirements.txt                 # Python dependencies (40+ packages)
