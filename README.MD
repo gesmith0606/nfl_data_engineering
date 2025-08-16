@@ -21,10 +21,20 @@ This project implements a complete NFL data pipeline that:
 - **Full validation suite** ensuring data quality
 
 ### 🛠️ **Infrastructure Ready**
-- **AWS S3 Integration**: 3 buckets configured (raw, refined, trusted)
-- **Python Environment**: Complete with nfl-data-py, boto3, pandas
+- **AWS S3 Integration**: 3 buckets configured in us-east-2 region
+  - `nfl-raw` (Bronze layer) - Raw data ingestion
+  - `nfl-refined` (Silver layer) - Cleaned and standardized data  
+  - `nfl-trusted` (Gold layer) - Business-ready aggregations
+- **Python Environment**: Complete with nfl-data-py, boto3, pandas (40+ packages)
 - **Testing Suite**: AWS connectivity, NFL API, data validation tests
 - **Documentation**: Comprehensive setup guides and API documentation
+
+### 🔮 **Future Scaling Options**
+- **Current**: Local Python development with direct S3 integration
+- **Databricks Ready**: Workspace configured (`dbc-c9b1be11-c0c8.cloud.databricks.com`)
+  - Community Edition available for learning PySpark concepts
+  - Upgrade path to Standard/Premium for production S3 integration
+- **Architecture**: Designed for seamless migration when processing needs scale
 
 ## 🎯 **Next Session Goals**
 
@@ -60,26 +70,57 @@ Add more data variety for richer Silver layer development:
 
 ### Prerequisites
 - Python 3.9+
-- AWS Account with S3 buckets
-- AWS CLI configured
+- AWS Account with S3 access
+- Git installed
 
-### 1. Environment Setup
+### 1. Clone and Setup Environment
 ```bash
-# Clone the repository
 git clone https://github.com/gesmith0606/nfl_data_engineering.git
 cd nfl_data_engineering
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\\Scripts\\activate
+# Activate included virtual environment
+source venv/bin/activate
 
-# Install dependencies
-pip install -r requirements.txt
+# Verify dependencies (already installed)
+pip list | grep -E "(nfl-data-py|boto3|pandas)"
 ```
 
-### 2. AWS Configuration
+### 2. Configure AWS Credentials
 ```bash
-# Configure AWS credentials
+# Option A: Use AWS CLI
+aws configure
+# Enter: Access Key, Secret Key, Region (us-east-2), Format (json)
+
+# Option B: Edit environment file
+cp .env.example .env
+# Edit .env with your AWS credentials
+```
+
+### 3. Test Your Setup  
+```bash
+# Validate AWS S3 connectivity and NFL data access
+python scripts/validate_project.py
+```
+
+### 4. Ingest NFL Data (Bronze Layer)
+```bash
+# Ingest game schedules for 2023 Week 1
+python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type schedules
+
+# Ingest play-by-play data  
+python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
+```
+
+### 5. Explore Your Data
+```bash
+# Quick Bronze layer inventory
+python scripts/list_bronze_contents.py
+
+# Interactive data exploration
+python scripts/explore_bronze_data.py
+```
+
+**🎯 Result**: You'll have NFL data flowing through your Bronze layer with ~2,800 plays and 16 games stored in S3!
 aws configure
 
 # Or set environment variables in .env file
@@ -137,9 +178,7 @@ nfl_data_engineering/
 └── 
 └── 📂 docs/                           # Documentation
     ├── 📄 AWS_IAM_SETUP_INSTRUCTIONS.md  # AWS configuration guide
-    ├── 📄 BRONZE_LAYER_DATA_INVENTORY.md # Current data catalog
-    ├── 📄 IMPLEMENTATION_SUMMARY.md      # Technical implementation details
-    └── 📄 project_details.md             # Project specifications
+    └── 📄 BRONZE_LAYER_DATA_INVENTORY.md # Current data catalog
 ```
 
 ## 🥉 Bronze Layer (Raw Data)
