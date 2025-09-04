@@ -4,6 +4,49 @@
       "type": "stdio",
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
+    },
+    "aws-core-server": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["awslabs.core-mcp-server@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "INFO"
+      }
+    },
+    "aws-s3-server": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["awslabs.s3-mcp-server@latest"],
+      "env": {
+        "AWS_REGION": "us-east-2"
+      }
+    },
+    "aws-docs-server": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["awslabs.aws-docs-mcp-server@latest"],
+      "env": {}
+    },
+    "github-server": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "$GITHUB_PERSONAL_ACCESS_TOKEN"
+      }
+    },
+    "duckduckgo-search": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@nickclyde/duckduckgo-mcp-server"],
+      "env": {}
     }
   }
 }
