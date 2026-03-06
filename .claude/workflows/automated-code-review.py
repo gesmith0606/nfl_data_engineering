@@ -38,7 +38,7 @@ class AutomatedCodeReviewer:
         self.project_root = project_root
         self.claude_agents_path = project_root / ".claude" / "agents"
         self.review_history_path = project_root / ".claude" / "review_history"
-        self.review_history_path.mkdir(exist_ok=True)
+        self.review_history_path.mkdir(parents=True, exist_ok=True)
         
     def run_git_triggered_review(self, commit_hash: Optional[str] = None) -> ReviewResult:
         """Run automated code review triggered by git operation"""
@@ -396,7 +396,15 @@ class AutomatedCodeReviewer:
 def main():
     """Main entry point for automated code review"""
     
-    project_root = Path(__file__).parent.parent
+    # Get project root from git
+    try:
+        git_root = subprocess.run(['git', 'rev-parse', '--show-toplevel'], 
+                                capture_output=True, text=True, check=True)
+        project_root = Path(git_root.stdout.strip())
+    except subprocess.CalledProcessError:
+        # Fallback to file location
+        project_root = Path(__file__).parent.parent
+        
     reviewer = AutomatedCodeReviewer(project_root)
     
     # Get commit hash if provided

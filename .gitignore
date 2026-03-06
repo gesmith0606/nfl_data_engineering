@@ -216,3 +216,6 @@ logs/
 .vscode/settings.json
 .vscode/launch.json
 .vscode/extensions.json
+
+# Automated code review history
+.claude/review_history/
