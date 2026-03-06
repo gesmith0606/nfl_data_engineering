@@ -16,9 +16,9 @@ logger = logging.getLogger(__name__)
 
 class NFLDataFetcher:
     """Class for fetching NFL data with error handling and validation"""
-    
+
     def __init__(self):
-        self.available_seasons = list(range(1999, 2025))  # nfl-data-py coverage
+        self.available_seasons = list(range(1999, 2026))  # nfl-data-py coverage
         
     def fetch_game_schedules(self, seasons: List[int], week: Optional[int] = None) -> pd.DataFrame:
         """
@@ -152,6 +152,154 @@ class NFLDataFetcher:
             logger.error(f"Error fetching team stats: {str(e)}")
             raise
     
+    def fetch_player_weekly(self, seasons: List[int], week: Optional[int] = None) -> pd.DataFrame:
+        """
+        Fetch weekly player statistics (rushing, receiving, passing).
+
+        Args:
+            seasons: List of seasons to fetch
+            week: Specific week to filter (optional)
+
+        Returns:
+            DataFrame with per-player weekly stats
+        """
+        try:
+            logger.info(f"Fetching player weekly stats for seasons: {seasons}")
+            valid_seasons = [s for s in seasons if s in self.available_seasons]
+            if not valid_seasons:
+                raise ValueError("No valid seasons provided")
+
+            df = nfl.import_weekly_data(valid_seasons)
+            logger.info(f"Fetched {len(df)} player-week rows")
+
+            if week is not None and 'week' in df.columns:
+                df = df[df['week'] == week].copy()
+                logger.info(f"Filtered to {len(df)} rows for week {week}")
+
+            df['data_source'] = 'nfl-data-py'
+            df['ingestion_timestamp'] = datetime.now()
+            return df
+
+        except Exception as e:
+            logger.error(f"Error fetching player weekly stats: {str(e)}")
+            raise
+
+    def fetch_snap_counts(self, seasons: List[int], week: Optional[int] = None) -> pd.DataFrame:
+        """
+        Fetch snap counts and route participation per player per week.
+
+        Args:
+            seasons: List of seasons to fetch
+            week: Specific week to filter (optional)
+
+        Returns:
+            DataFrame with snap count data
+        """
+        try:
+            logger.info(f"Fetching snap counts for seasons: {seasons}")
+            valid_seasons = [s for s in seasons if s in self.available_seasons]
+            if not valid_seasons:
+                raise ValueError("No valid seasons provided")
+
+            df = nfl.import_snap_counts(valid_seasons)
+            logger.info(f"Fetched {len(df)} snap count rows")
+
+            if week is not None and 'week' in df.columns:
+                df = df[df['week'] == week].copy()
+
+            df['data_source'] = 'nfl-data-py'
+            df['ingestion_timestamp'] = datetime.now()
+            return df
+
+        except Exception as e:
+            logger.error(f"Error fetching snap counts: {str(e)}")
+            raise
+
+    def fetch_injuries(self, seasons: List[int], week: Optional[int] = None) -> pd.DataFrame:
+        """
+        Fetch weekly injury reports.
+
+        Args:
+            seasons: List of seasons to fetch
+            week: Specific week to filter (optional)
+
+        Returns:
+            DataFrame with injury report data
+        """
+        try:
+            logger.info(f"Fetching injuries for seasons: {seasons}")
+            valid_seasons = [s for s in seasons if s in self.available_seasons]
+            if not valid_seasons:
+                raise ValueError("No valid seasons provided")
+
+            df = nfl.import_injuries(valid_seasons)
+            logger.info(f"Fetched {len(df)} injury rows")
+
+            if week is not None and 'week' in df.columns:
+                df = df[df['week'] == week].copy()
+
+            df['data_source'] = 'nfl-data-py'
+            df['ingestion_timestamp'] = datetime.now()
+            return df
+
+        except Exception as e:
+            logger.error(f"Error fetching injuries: {str(e)}")
+            raise
+
+    def fetch_rosters(self, seasons: List[int]) -> pd.DataFrame:
+        """
+        Fetch roster data including depth chart positions.
+
+        Args:
+            seasons: List of seasons to fetch
+
+        Returns:
+            DataFrame with roster data
+        """
+        try:
+            logger.info(f"Fetching rosters for seasons: {seasons}")
+            valid_seasons = [s for s in seasons if s in self.available_seasons]
+            if not valid_seasons:
+                raise ValueError("No valid seasons provided")
+
+            df = nfl.import_rosters(valid_seasons)
+            logger.info(f"Fetched {len(df)} roster rows")
+
+            df['data_source'] = 'nfl-data-py'
+            df['ingestion_timestamp'] = datetime.now()
+            return df
+
+        except Exception as e:
+            logger.error(f"Error fetching rosters: {str(e)}")
+            raise
+
+    def fetch_player_seasonal(self, seasons: List[int]) -> pd.DataFrame:
+        """
+        Fetch full-season player aggregates.
+
+        Args:
+            seasons: List of seasons to fetch
+
+        Returns:
+            DataFrame with seasonal player stats
+        """
+        try:
+            logger.info(f"Fetching player seasonal data for seasons: {seasons}")
+            valid_seasons = [s for s in seasons if s in self.available_seasons]
+            if not valid_seasons:
+                raise ValueError("No valid seasons provided")
+
+            df = nfl.import_seasonal_data(valid_seasons)
+            logger.info(f"Fetched {len(df)} seasonal player rows")
+
+            df['data_source'] = 'nfl-data-py'
+            df['ingestion_timestamp'] = datetime.now()
+            return df
+
+        except Exception as e:
+            logger.error(f"Error fetching player seasonal data: {str(e)}")
+            raise
+
     def validate_data(self, df: pd.DataFrame, data_type: str) -> Dict[str, any]:
         """
         Validate fetched data
@@ -182,7 +330,12 @@ class NFLDataFetcher:
             required_columns = {
                 'schedules': ['game_id', 'season', 'week', 'home_team', 'away_team'],
                 'pbp': ['game_id', 'play_id', 'season', 'week'],
-                'teams': ['team_abbr', 'team_name']
+                'teams': ['team_abbr', 'team_name'],
+                'player_weekly': ['player_id', 'season', 'week'],
+                'snap_counts': ['player_id', 'season', 'week'],
+                'injuries': ['season', 'week'],
+                'rosters': ['player_id', 'season'],
+                'player_seasonal': ['player_id', 'season'],
             }
             
             if data_type in required_columns:

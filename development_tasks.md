@@ -36,8 +36,8 @@
    - S3 bucket names and regions configured (us-east-2)
    - NFL data defaults and processing parameters - Development Task List
 
-**Last Updated:** August 15, 2025  
-**Current Status:** Bronze Layer Complete, Ready for Silver Layer Development
+**Last Updated:** March 2026
+**Current Status:** Fantasy Football System (Phases 1–4) Complete | Neo4j Deferred (Phase 5)
 
 ## 📋 MVP Definition
 Create a functional NFL data pipeline that ingests game data, cleans it, and produces basic analytics for the 2024 NFL season. The MVP demonstrates the medallion architecture using local Python development with S3 storage.
@@ -46,14 +46,18 @@ Create a functional NFL data pipeline that ingests game data, cleans it, and pro
 
 ### ✅ **COMPLETED PHASES**
 - **Phase 1**: Environment Setup & Foundation (100%)
-- **Phase 2.1**: NFL Data Integration (100%)  
-- **Documentation**: Comprehensive docs and validation (100%)
+- **Phase 2**: Bronze Layer — game data + all 5 player data types (100%)
+- **Phase 3**: Silver Layer — usage metrics, rolling averages, opponent rankings (100%)
+- **Phase 4**: Gold Layer — weekly + preseason projections, fantasy scoring engine (100%)
+- **Phase 5**: Draft Tool — interactive CLI, ADP comparison, VORP, positional scarcity (100%)
+- **Phase 6**: Project Skills — `/ingest`, `/weekly-pipeline`, `/validate-data`, `/test`, `/draft-prep` (100%)
+- **Phase 7**: MCP Integration — DuckDB, fetch, Sleeper added; Neo4j configured (100%)
+- **Documentation**: CLAUDE.md, copilot-instructions.md, development_tasks.md updated (100%)
 
-### � **NEXT DEVELOPMENT SESSION**
-**Strategic Decision Made**: **Proceed to Silver Layer Development**
-- Current Bronze data (16 games, 2,816 plays) is sufficient for Silver layer prototyping
-- Focus on proving medallion architecture end-to-end before scaling data horizontally
-- Option to expand Bronze layer data available after Silver layer is working
+### 🚧 **CURRENT PRIORITIES**
+1. Model tuning: Add injury status filter from Bronze injuries data into projection engine
+2. Automate Sleeper ADP refresh → `data/adp.csv` (weekly cron or pre-draft trigger)
+3. In-season scheduled pipeline: Bronze → Silver → Gold → projections (weekly automation)
 
 ### �📊 **Current Metrics**
 - **Files Created**: 25+ Python scripts, notebooks, and docs
@@ -258,26 +262,11 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 
 ---
 
-## 🎯 **IMMEDIATE NEXT STEPS FOR NEXT SESSION**
-
-### **Priority 1: Silver Layer Development** 📊
-Start with existing Bronze data (sufficient for prototyping):
-- 16 games from 2023 Week 1
-- 2,816 plays with complete play-by-play data
-- Team reference data
-
-### **Optional: Strategic Bronze Expansion** 📈
-If more data variety needed for Silver layer development:
-```bash
-# Quick expansion script available: scripts/expand_bronze_layer.py
-# Adds: 2023 Week 2, 2022 Week 1, team reference data
-```
-
 ---
 
-### Phase 3: Silver Layer Implementation (Days 5-6) 🎯 **NEXT PRIORITY**
+### Phase 3: Silver Layer Implementation ✅ **COMPLETE**
 
-#### Task 3.1: Data Quality Pipeline ⏳ **RECOMMENDED NEXT TASK**
+#### Task 3.1: Data Quality Pipeline ✅ **COMPLETED**
 **Priority:** High  
 **Estimated Time:** 4-5 hours  
 **Dependencies:** Bronze Layer Complete ✅
@@ -309,7 +298,7 @@ If more data variety needed for Silver layer development:
 
 ---
 
-#### Task 3.2: Silver Layer S3 Storage ⏳
+#### Task 3.2: Silver Layer S3 Storage ✅ **COMPLETED**
 **Priority:** High  
 **Estimated Time:** 2-3 hours  
 **Dependencies:** Task 3.1
@@ -332,9 +321,9 @@ If more data variety needed for Silver layer development:
 
 ---
 
-### Phase 4: Gold Layer Implementation (Days 7-8)
+### Phase 4: Gold Layer Implementation ✅ **COMPLETE**
 
-#### Task 4.1: Business Metrics Calculation ⏳
+#### Task 4.1: Business Metrics Calculation ✅ **COMPLETED**
 **Priority:** High  
 **Estimated Time:** 4-6 hours  
 **Dependencies:** Task 3.2
@@ -357,7 +346,7 @@ If more data variety needed for Silver layer development:
 
 ---
 
-#### Task 4.2: Gold Layer Analytics Storage ⏳
+#### Task 4.2: Gold Layer Analytics Storage ✅ **COMPLETED**
 **Priority:** High  
 **Estimated Time:** 2-3 hours  
 **Dependencies:** Task 4.1
@@ -379,9 +368,9 @@ If more data variety needed for Silver layer development:
 
 ---
 
-### Phase 5: Testing and Validation (Days 9-10)
+### Phase 5: Testing and Validation 🚧 **IN PROGRESS**
 
-#### Task 5.1: Unit Testing Implementation ⏳
+#### Task 5.1: Unit Testing Implementation 🚧
 **Priority:** Medium  
 **Estimated Time:** 3-4 hours  
 **Dependencies:** Task 4.2
@@ -404,7 +393,7 @@ If more data variety needed for Silver layer development:
 
 ---
 
-#### Task 5.2: End-to-End Integration Testing ⏳
+#### Task 5.2: End-to-End Integration Testing ⏳ **PENDING**
 **Priority:** Medium  
 **Estimated Time:** 2-3 hours  
 **Dependencies:** Task 5.1
@@ -500,4 +489,163 @@ If more data variety needed for Silver layer development:
 
 ---
 
-*This task list will be updated as development progresses. Completed tasks are tracked in this file with detailed implementation status.*
+## 🎯 **NFL GAME PREDICTION DATA MODEL IMPLEMENTATION** 
+
+### Newly Added ✅ **COMPLETED DOCUMENTATION**
+- **NFL Game Prediction Data Model**: `docs/NFL_GAME_PREDICTION_DATA_MODEL.md` - Comprehensive data model for ML-powered game prediction
+- **NFL Data Dictionary**: `docs/NFL_DATA_DICTIONARY.md` - Complete table definitions with 200+ columns, data types, and relationships
+- **Implementation Guide**: `docs/NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md` - 8-week phased implementation roadmap
+
+### Implementation Priority 🚧 **NEXT PHASES**
+
+#### Phase A: Enhanced Silver Layer (Weeks 1-2)
+**Based on data model specifications:**
+- [ ] **Team Performance Metrics**: Implement offensive/defensive efficiency calculations (EPA per play, success rates)
+- [ ] **Advanced Player Stats**: Create comprehensive player performance tracking across multiple metrics
+- [ ] **Situational Analytics**: Weather impact, rest advantages, injury tracking
+- [ ] **Temporal Features**: Rolling performance metrics, season progression indicators
+
+#### Phase B: Prediction-Ready Gold Layer (Weeks 3-4) 
+**Following data model architecture:**
+- [ ] **Feature Engineering Pipeline**: Automated generation of 200+ ML features
+- [ ] **Advanced NFL Analytics**: EPA, Win Probability, CPOE calculations
+- [ ] **Historical Context**: Head-to-head records, coaching matchups, playoff implications
+- [ ] **Real-time Updates**: Game-day feature refresh and prediction scoring
+
+#### Phase C: ML Prediction Framework (Weeks 5-6)
+**Implementing prediction system:**
+- [ ] **Model Training Pipeline**: Random Forest, Neural Networks, XGBoost implementations
+- [ ] **Cross-Validation**: Leave-One-Season-Out validation framework
+- [ ] **Performance Monitoring**: Target 65%+ accuracy, <3.5 point spread MAE
+- [ ] **Prediction API**: Real-time game prediction service
+
+### Data Model Integration Notes
+- **Builds on existing Bronze layer** (16 games, 2,816 plays from 2023 Week 1)
+- **Compatible with medallion architecture** and current S3 bucket structure
+- **Uses established patterns** from `src/nfl_data_integration.py`
+- **Production-grade design** with comprehensive data quality framework
+
+---
+
+---
+
+## Fantasy Football System (March 2026)
+
+### Phase FF-1: Bronze Layer — Player Data ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] Add `fetch_player_weekly` to `NFLDataFetcher` (nfl.import_weekly_data)
+- [x] Add `fetch_snap_counts` (nfl.import_snap_counts)
+- [x] Add `fetch_injuries` (nfl.import_injuries)
+- [x] Add `fetch_rosters` (nfl.import_rosters)
+- [x] Add `fetch_player_seasonal` (nfl.import_seasonal_data)
+- [x] Extend `bronze_ingestion_simple.py` with 5 new `--data-type` options
+- [x] Add `SCORING_CONFIGS`, `ROSTER_CONFIGS`, `PLAYER_DATA_SEASONS` to `config.py`
+- [x] Add S3 key templates for player Bronze/Silver/Gold paths to `config.py`
+
+**Files modified:** `src/config.py`, `src/nfl_data_integration.py`, `scripts/bronze_ingestion_simple.py`
+
+---
+
+### Phase FF-2: Silver Layer — Player Analytics ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `src/player_analytics.py` — `compute_usage_metrics` (target/carry/air yards share, snap%)
+- [x] `src/player_analytics.py` — `compute_opponent_rankings` (positional defense rank 1-32)
+- [x] `src/player_analytics.py` — `compute_rolling_averages` (3-week, 6-week, season-to-date)
+- [x] `src/player_analytics.py` — `compute_game_script_indicators` (blowout/close/losing)
+- [x] `src/player_analytics.py` — `compute_venue_splits` (home/away, dome/outdoor)
+- [x] `scripts/silver_player_transformation.py` — full Silver CLI for single or multiple seasons
+
+**Files created:** `src/player_analytics.py`, `scripts/silver_player_transformation.py`
+
+---
+
+### Phase FF-3: Projection Engine ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `src/scoring_calculator.py` — single-player and DataFrame fantasy scoring (PPR/Half/Standard/custom)
+- [x] `src/projection_engine.py` — `generate_weekly_projections` (roll3/roll6/STD + usage + matchup)
+- [x] `src/projection_engine.py` — `generate_preseason_projections` (2-season weighted average)
+- [x] `scripts/generate_projections.py` — CLI for `--week` (weekly) and `--preseason` modes
+- [x] All smoke tests passing: scoring calculator, usage metrics, rolling averages
+
+**Files created:** `src/scoring_calculator.py`, `src/projection_engine.py`, `scripts/generate_projections.py`
+
+---
+
+### Phase FF-4: Draft Tool ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `src/draft_optimizer.py` — `DraftBoard` (available pool + roster tracking)
+- [x] `src/draft_optimizer.py` — `DraftAdvisor` (recommendations, scarcity alerts, best available)
+- [x] `src/draft_optimizer.py` — `compute_value_scores` (model rank, ADP diff, VORP, value tier)
+- [x] `scripts/draft_assistant.py` — interactive CLI (snake draft, undo, search, all advisor commands)
+- [x] `output/projections/` directory created for local CSV output
+
+**Files created:** `src/draft_optimizer.py`, `scripts/draft_assistant.py`
+
+---
+
+### Phase FF-5: Skills & MCP Integration ✅ **COMPLETED**
+**Completed:** March 2026
+
+**Skills created (`.claude/skills/`):**
+- [x] `/ingest` — Bronze ingestion + Sleeper API data types
+- [x] `/weekly-pipeline` — full Bronze → Silver → Gold chain
+- [x] `/validate-data` — NFL business rules + DuckDB SQL on Parquet
+- [x] `/test` — pytest + module import + script compile checks
+- [x] `/draft-prep` — preseason projections + ADP fetch (Sleeper/FantasyPros) + draft assistant
+
+**MCPs added to `.mcp.json`:**
+- [x] `duckdb` — SQL queries on local Parquet files (enabled)
+- [x] `fetch` — HTTP/ADP scraping from FantasyPros (enabled)
+- [x] `sleeper` — Sleeper API for ADP, rosters, draft boards (enabled)
+- [x] `neo4j` — Phase 5 graph analysis (configured, not yet enabled)
+- [x] Neo4j connection stubs added to `.env`
+
+---
+
+### Phase FF-6: Upcoming (Month 2–5 to August 2026 Drafts)
+
+#### Task FF-6.1: Injury Filter in Projections 🚧
+- [ ] Load current week's injury data from Bronze layer
+- [ ] Apply status multiplier: active=1.0, questionable=0.85, doubtful=0.5, out=0.0
+- [ ] Add `injury_status` column to projection output
+
+#### Task FF-6.2: Automated ADP Refresh ⏳
+- [ ] Schedule Sleeper MCP call to refresh `data/adp.csv` weekly during season
+- [ ] Add pre-draft trigger: re-fetch ADP day-of-draft for most current rankings
+- [ ] Version ADP files by date: `data/adp_YYYYMMDD.csv`
+
+#### Task FF-6.3: In-Season Weekly Pipeline Automation ⏳
+- [ ] Create `scripts/run_weekly_pipeline.sh` — wraps Bronze → Silver → Gold → projections
+- [ ] Add GitHub Actions workflow: trigger every Tuesday morning (post-MNF)
+- [ ] Slack/email notification with top projection changes week-over-week
+
+#### Task FF-6.4: Model Evaluation & Tuning ⏳
+- [ ] Backtest 2023/2024 seasons: compare projected vs. actual fantasy points
+- [ ] Calculate MAE per position, identify systematic biases
+- [ ] Tune RECENCY_WEIGHTS in `projection_engine.py` based on backtest results
+- [ ] Add confidence intervals to projections (high/medium/low floor/ceiling)
+
+#### Task FF-6.5: Draft Tool Enhancements ⏳
+- [ ] Live Sleeper league integration — import actual league rosters during live draft
+- [ ] Keeper league support — pre-mark kept players as drafted before session starts
+- [ ] Export draft results to CSV for season-long reference
+
+---
+
+### Phase FF-7: Neo4j Graph Layer ⏳ **DEFERRED (Post-Season)**
+
+**Trigger:** After projection engine is tuned and weekly pipeline is stable
+
+- [ ] Provision Neo4j AuraDB instance and update `.env` with connection details
+- [ ] Enable `neo4j` in `.claude/settings.local.json` `enabledMcpjsonServers`
+- [ ] WR-CB matchup graphs: historical performance by coverage type
+- [ ] QB-WR target share directed graphs (weighted by season)
+- [ ] Injury cascade trees: depth chart impact traversal
+
+---
+
+*This task list is updated as development progresses. Completed tasks retain full implementation notes for reference.*

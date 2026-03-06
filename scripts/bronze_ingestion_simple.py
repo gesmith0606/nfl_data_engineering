@@ -60,10 +60,13 @@ def upload_to_s3(df: pd.DataFrame, bucket: str, key: str, aws_credentials: dict)
 def main():
     """Main ingestion function"""
     
+    PLAYER_DATA_TYPES = ['player_weekly', 'snap_counts', 'injuries', 'rosters', 'player_seasonal']
+    ALL_DATA_TYPES = ['schedules', 'pbp', 'teams'] + PLAYER_DATA_TYPES
+
     parser = argparse.ArgumentParser(description='NFL Data Bronze Layer Ingestion')
     parser.add_argument('--season', type=int, default=2023, help='NFL Season (default: 2023)')
     parser.add_argument('--week', type=int, default=1, help='NFL Week (default: 1)')
-    parser.add_argument('--data-type', choices=['schedules', 'pbp', 'teams'], 
+    parser.add_argument('--data-type', choices=ALL_DATA_TYPES,
                        default='schedules', help='Data type to ingest')
     
     args = parser.parse_args()
@@ -109,7 +112,37 @@ def main():
             print(f"🏈 Fetching team data for {args.season}...")
             df = fetcher.fetch_team_stats([args.season])
             s3_key = f"teams/season={args.season}/teams_{datetime.now().strftime('%Y%m%d_%H%M%S')}.parquet"
-        
+
+        elif args.data_type == 'player_weekly':
+            print(f"👤 Fetching player weekly stats for {args.season}, week {args.week}...")
+            df = fetcher.fetch_player_weekly([args.season], week=args.week)
+            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+            s3_key = f"players/weekly/season={args.season}/week={args.week}/player_weekly_{ts}.parquet"
+
+        elif args.data_type == 'snap_counts':
+            print(f"📊 Fetching snap counts for {args.season}, week {args.week}...")
+            df = fetcher.fetch_snap_counts([args.season], week=args.week)
+            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+            s3_key = f"players/snaps/season={args.season}/week={args.week}/snap_counts_{ts}.parquet"
+
+        elif args.data_type == 'injuries':
+            print(f"🏥 Fetching injury reports for {args.season}, week {args.week}...")
+            df = fetcher.fetch_injuries([args.season], week=args.week)
+            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+            s3_key = f"players/injuries/season={args.season}/week={args.week}/injuries_{ts}.parquet"
+
+        elif args.data_type == 'rosters':
+            print(f"📋 Fetching roster data for {args.season}...")
+            df = fetcher.fetch_rosters([args.season])
+            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+            s3_key = f"players/rosters/season={args.season}/rosters_{ts}.parquet"
+
+        elif args.data_type == 'player_seasonal':
+            print(f"📈 Fetching player seasonal data for {args.season}...")
+            df = fetcher.fetch_player_seasonal([args.season])
+            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+            s3_key = f"players/seasonal/season={args.season}/player_seasonal_{ts}.parquet"
+
         # Validate data
         validation = fetcher.validate_data(df, args.data_type)
         print(f"\\n📊 Data Summary:")

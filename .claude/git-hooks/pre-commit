@@ -1,0 +1,65 @@
+#!/bin/sh
+#
+# Pre-commit hook for automated code review
+# 
+# This hook runs the git-code-reviewer agent before every commit
+# to ensure code quality and apply automatic fixes.
+
+echo "🔍 Running automated pre-commit code review..."
+
+# Get the project root directory
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+
+# Path to automated code review script
+REVIEW_SCRIPT="$PROJECT_ROOT/.claude/workflows/automated-code-review.py"
+
+# Check if the review script exists
+if [ ! -f "$REVIEW_SCRIPT" ]; then
+    echo "❌ Code review script not found at $REVIEW_SCRIPT"
+    echo "Run: cp .claude/git-hooks/pre-commit .git/hooks/pre-commit"
+    exit 1
+fi
+
+# Make sure the script is executable
+chmod +x "$REVIEW_SCRIPT"
+
+# Run the automated code review
+echo "📋 Analyzing staged changes..."
+python3 "$REVIEW_SCRIPT"
+
+# Capture exit code
+REVIEW_EXIT_CODE=$?
+
+# Handle different exit codes
+case $REVIEW_EXIT_CODE in
+    0)
+        echo "✅ Code review passed! Proceeding with commit."
+        ;;
+    1)
+        echo "❌ Critical issues found! Commit blocked."
+        echo ""
+        echo "Please fix the critical issues above before committing."
+        echo "You can also run the review manually:"
+        echo "  python3 .claude/workflows/automated-code-review.py"
+        exit 1
+        ;;
+    2)
+        echo "⚠️  Code review passed with warnings."
+        echo ""
+        echo "Consider addressing the warnings above."
+        echo "Commit will proceed in 5 seconds... (Ctrl+C to cancel)"
+        sleep 5
+        echo "✅ Proceeding with commit despite warnings."
+        ;;
+    *)
+        echo "❌ Code review system error (exit code: $REVIEW_EXIT_CODE)"
+        echo "Review the logs above and try again."
+        exit 1
+        ;;
+esac
+
+# Stage any auto-fixed files
+git add -u
+
+echo "🚀 Pre-commit review completed successfully!"
+exit 0
