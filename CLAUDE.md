@@ -16,10 +16,14 @@ python scripts/bronze_ingestion_simple.py --season 2024 --data-type player_seaso
 # data-types: schedules, pbp, teams, player_weekly, snap_counts, injuries, rosters, player_seasonal
 
 # Silver → Gold → Draft
-python scripts/silver_player_transformation.py --season 2024
+python scripts/silver_player_transformation.py --seasons 2020 2021 2022 2023 2024
 python scripts/generate_projections.py --preseason --season 2026 --scoring half_ppr
 python scripts/generate_projections.py --week 1 --season 2026 --scoring ppr
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
+
+# Backtesting & ADP
+python scripts/backtest_projections.py --seasons 2022,2023,2024 --scoring half_ppr
+python scripts/refresh_adp.py --season 2026
 
 # Code quality
 python -m black src/ tests/ scripts/
@@ -70,6 +74,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/silver_player_transformation.py` | Silver CLI |
 | `scripts/generate_projections.py` | Gold CLI — `--week` or `--preseason` |
 | `scripts/draft_assistant.py` | Interactive draft CLI — snake, auction (`--auction`), simulation (`--simulate`) |
+| `scripts/backtest_projections.py` | Compare projected vs actual; MAE/RMSE/bias per position |
+| `scripts/refresh_adp.py` | Fetch ADP from Sleeper API → data/adp_latest.csv |
 | `scripts/check_pipeline_health.py` | S3 freshness + size checks across all layers |
 | `.github/workflows/weekly-pipeline.yml` | Tuesday cron; auto-opens GitHub issue on failure |
 
@@ -99,8 +105,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 ## Status
 
-**Done**: Bronze (8 types) → Silver (usage/rolling/rankings) → Gold (projections) → Draft tool (snake/auction/mock/waiver) → Pipeline monitoring (GHA + health check) → S3 deduplication fix → Projection engine (bye weeks, rookies, Vegas lines)
+**Done**: Bronze (8 types) → Silver (usage/rolling/rankings) → Gold (projections w/ injury adjustments, regression shrinkage, floor/ceiling) → Draft tool (snake/auction/mock/waiver) → Pipeline monitoring (GHA + health check) → S3 deduplication fix → Projection engine (bye weeks, rookies, Vegas lines) → Backtesting (MAE 4.91, r=0.52 across 3 seasons) → Sleeper ADP refresh → 71 unit tests passing
 
-**In progress**: Injury status filter in projections | Sleeper ADP auto-refresh | Weekly pipeline cron tuning
+**In progress**: Weekly pipeline cron tuning | Local-first data reads (S3 as fallback)
 
 **Planned**: Neo4j Phase 5 | ML upgrade (RF/XGBoost) | Live Sleeper league integration

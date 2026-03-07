@@ -22,11 +22,27 @@ from dotenv import load_dotenv
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
+import glob as globmod
+
 from nfl_data_integration import NFLDataFetcher
-from projection_engine import generate_weekly_projections, generate_preseason_projections
+from projection_engine import generate_weekly_projections, generate_preseason_projections, apply_injury_adjustments, add_floor_ceiling
 from scoring_calculator import list_scoring_formats
 from utils import download_latest_parquet
 import config
+
+PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..')
+SILVER_DIR = os.path.join(PROJECT_ROOT, 'data', 'silver')
+BRONZE_DIR = os.path.join(PROJECT_ROOT, 'data', 'bronze')
+GOLD_DIR = os.path.join(PROJECT_ROOT, 'data', 'gold')
+
+
+def _read_local_parquet(base_dir: str, key_pattern: str) -> pd.DataFrame:
+    """Read latest parquet from a local directory matching a glob pattern."""
+    pattern = os.path.join(base_dir, key_pattern)
+    files = sorted(globmod.glob(pattern))
+    if not files:
+        return pd.DataFrame()
+    return pd.read_parquet(files[-1])
 
 
 # ---------------------------------------------------------------------------
@@ -123,9 +139,15 @@ def main():
     # -----------------------------------------------------------------------
     else:
         print(f"\nFetching Silver-layer data for season {args.season}...")
-        # Try S3 first; fall back to fetching from nfl-data-py directly
         silver_df = pd.DataFrame()
-        if has_aws:
+
+        # Try local Silver first
+        silver_df = _read_local_parquet(SILVER_DIR, f"players/usage/season={args.season}/*.parquet")
+        if not silver_df.empty:
+            print(f"Loaded {len(silver_df):,} rows from local Silver layer")
+
+        # Try S3 if local is empty
+        if silver_df.empty and has_aws:
             try:
                 s3 = _s3_client(creds)
                 prefix = f"players/usage/season={args.season}/week={args.week}/"
@@ -144,11 +166,15 @@ def main():
 
         # Load opponent rankings
         opp_rankings = pd.DataFrame()
-        if has_aws and not silver_df.empty:
+        opp_rankings = _read_local_parquet(SILVER_DIR, f"defense/positional/season={args.season}/*.parquet")
+        if not opp_rankings.empty:
+            print(f"Loaded {len(opp_rankings):,} opponent ranking rows from local Silver")
+
+        if opp_rankings.empty and has_aws:
             try:
                 opp_prefix = f"defense/positional/season={args.season}/week={args.week}/"
                 opp_rankings = download_latest_parquet(s3, silver_bucket, opp_prefix)
-                print(f"Loaded {len(opp_rankings):,} opponent ranking rows")
+                print(f"Loaded {len(opp_rankings):,} opponent ranking rows from S3")
             except Exception as e:
                 print(f"WARN: Could not load opponent rankings: {e}")
 
@@ -160,6 +186,29 @@ def main():
             week=args.week,
             scoring_format=args.scoring,
         )
+
+        # Load injury data and apply adjustments
+        injuries_df = _read_local_parquet(BRONZE_DIR, f"players/injuries/season={args.season}/*.parquet")
+        if not injuries_df.empty:
+            print(f"Loaded {len(injuries_df):,} injury rows from local Bronze")
+        if injuries_df.empty and has_aws:
+            try:
+                inj_prefix = f"players/injuries/season={args.season}/week={args.week}/"
+                injuries_df = download_latest_parquet(s3, config.S3_BUCKET_BRONZE, inj_prefix)
+                print(f"Loaded {len(injuries_df):,} injury report rows from S3")
+            except Exception as e:
+                print(f"WARN: Could not load injury data: {e}")
+        if injuries_df.empty:
+            try:
+                injuries_df = fetcher.fetch_injuries([args.season], week=args.week)
+                print(f"Fetched {len(injuries_df):,} injury rows from nfl-data-py")
+            except Exception as e:
+                print(f"WARN: Could not fetch injuries: {e}")
+        if not injuries_df.empty and not projections.empty:
+            projections = apply_injury_adjustments(projections, injuries_df)
+            injured = (projections['injury_multiplier'] < 1.0).sum()
+            print(f"Injury adjustments applied: {injured} players affected")
+
         s3_key = (f"projections/season={args.season}/week={args.week}/"
                   f"projections_{args.scoring}_{ts}.parquet")
         local_name = f"week{args.week}_{args.season}_{args.scoring}_{ts}.csv"
@@ -167,6 +216,9 @@ def main():
     if projections.empty:
         print("ERROR: No projections generated. Check that data is available.")
         return 1
+
+    # Add floor/ceiling after all adjustments
+    projections = add_floor_ceiling(projections)
 
     print(f"\nProjections generated: {len(projections):,} players")
 
@@ -189,6 +241,12 @@ def main():
         csv_path = os.path.join(args.output_dir, local_name)
         projections.to_csv(csv_path, index=False)
         print(f"\nSaved CSV -> {csv_path}")
+
+    # Always save to local Gold layer
+    gold_path = os.path.join(GOLD_DIR, s3_key)
+    os.makedirs(os.path.dirname(gold_path), exist_ok=True)
+    projections.to_parquet(gold_path, index=False)
+    print(f"Saved Gold -> data/gold/{s3_key}")
 
     if args.output in ('s3', 'both') and has_aws:
         try:

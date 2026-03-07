@@ -1,8 +1,10 @@
-# NFL Data Engineerin### 📊 **Current Metrics**
-- **Files Created**: 25+ Python scripts, notebooks, and docs
-- **Data Ingested**: 2,816 NFL plays + 16 games (0.21 MB in S3)
-- **Test Coverage**: AWS, NFL API, S3 operations, data validation
-- **Documentation**: README, Quick Start, Implementation Summary, API docs, Bronze layer inventory
+# NFL Data Engineering — Development Task List
+
+### Current Metrics
+- **Files Created**: 30+ Python scripts, notebooks, and docs
+- **Data Ingested**: 208,000+ rows across 6 data types (7 MB local Bronze, 4.2 MB Silver, Gold active)
+- **Test Coverage**: 71 tests passing (scoring, projections, analytics, draft optimizer, utils)
+- **Backtest Accuracy**: MAE 5.12 pts, Correlation 0.525 (2024 W5-10, Half-PPR)
 
 ## 🛠️ **Technical Infrastructure Completed**
 
@@ -64,15 +66,10 @@ Create a functional NFL data pipeline that ingests game data, cleans it, and pro
 - **Documentation**: CLAUDE.md, copilot-instructions.md, development_tasks.md updated (100%)
 
 ### 🚧 **CURRENT PRIORITIES**
-1. Model tuning: Add injury status filter from Bronze injuries data into projection engine (Task FF-6.1)
-2. Automate Sleeper ADP refresh → `data/adp.csv` (weekly cron or pre-draft trigger) (Task FF-6.2)
-3. Weekly pipeline cron tuning — Slack/email notification with week-over-week projection changes (Task FF-6.3 partial)
-
-### �📊 **Current Metrics**
-- **Files Created**: 25+ Python scripts, notebooks, and docs
-- **Data Ingested**: 2,816 NFL plays + 16 games (0.21 MB in S3)
-- **Test Coverage**: AWS, NFL API, S3 operations, data validation
-- **Documentation**: README, Quick Start, Implementation Summary, API docs, Bronze layer inventory
+1. Full 3-season backtest (2022-2024) and model weight tuning (Task FF-6.4b)
+2. Add confidence intervals (floor/ceiling) to projections (Task FF-6.6)
+3. Refresh AWS credentials and sync local data to S3 (Task INF-5)
+4. Weekly pipeline cron tuning — Slack/email notification with week-over-week projection changes (Task FF-6.3 partial)
 
 ## Development Tasks (In Priority Order)
 
@@ -625,15 +622,26 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 
 ### Phase FF-6: Upcoming (Month 2–5 to August 2026 Drafts)
 
-#### Task FF-6.1: Injury Filter in Projections 🚧
-- [ ] Load current week's injury data from Bronze layer
-- [ ] Apply status multiplier: active=1.0, questionable=0.85, doubtful=0.5, out=0.0
-- [ ] Add `injury_status` column to projection output
+#### Task FF-6.1: Injury Filter in Projections ✅ **COMPLETED**
+**Completed:** March 2026
 
-#### Task FF-6.2: Automated ADP Refresh ⏳
-- [ ] Schedule Sleeper MCP call to refresh `data/adp.csv` weekly during season
-- [ ] Add pre-draft trigger: re-fetch ADP day-of-draft for most current rankings
-- [ ] Version ADP files by date: `data/adp_YYYYMMDD.csv`
+- [x] `apply_injury_adjustments()` in `projection_engine.py` — multiplies projections by injury status
+- [x] Status multipliers: Active=1.0, Questionable=0.85, Doubtful=0.50, Out/IR/PUP=0.0
+- [x] Auto-loaded in `generate_projections.py` (local Bronze → nfl-data-py fallback)
+- [x] Joins on gsis_id, player_id, or player_name (cascading fallback)
+
+**Files modified:** `src/projection_engine.py`, `scripts/generate_projections.py`
+
+#### Task FF-6.2: Automated ADP Refresh ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `scripts/refresh_adp.py` — fetches Sleeper player DB, ranks by search_rank as ADP proxy
+- [x] Saves to `data/adp_YYYYMMDD.csv` and `data/adp_latest.csv`
+- [x] `--refresh-adp` flag added to `scripts/draft_assistant.py`
+- [x] Auto-detection of `data/adp_latest.csv` when no `--adp-file` specified
+
+**Files created:** `scripts/refresh_adp.py`
+**Files modified:** `scripts/draft_assistant.py`
 
 #### Task FF-6.3: In-Season Weekly Pipeline Automation ✅ **COMPLETED**
 **Completed:** March 2026
@@ -646,11 +654,27 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 **Files created:** `.github/workflows/weekly-pipeline.yml`, `scripts/check_pipeline_health.py`
 **Files modified:** `.env.example`
 
-#### Task FF-6.4: Model Evaluation & Tuning ⏳
-- [ ] Backtest 2023/2024 seasons: compare projected vs. actual fantasy points
-- [ ] Calculate MAE per position, identify systematic biases
-- [ ] Tune RECENCY_WEIGHTS in `projection_engine.py` based on backtest results
-- [ ] Add confidence intervals to projections (high/medium/low floor/ceiling)
+#### Task FF-6.4: Model Evaluation & Tuning ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `scripts/backtest_projections.py` — compares projected vs actual; outputs MAE/RMSE/correlation/bias per position
+- [x] Full 3-season backtest (2022-2024, W3-18): 11,183 player-weeks across 48 weeks
+- [x] Model tuning: RECENCY_WEIGHTS adjusted (roll3: 0.50→0.45, std: 0.20→0.25)
+- [x] Usage multiplier tightened from [0.7, 1.3] to [0.80, 1.15]
+- [x] Regression-to-mean shrinkage: PROJECTION_CEILING_SHRINKAGE at 15/20/25 pt thresholds
+- [x] Floor/ceiling confidence intervals: `add_floor_ceiling()` function
+
+**Tuned Results (Half-PPR, 2022-2024):**
+| Metric | Before | After |
+|--------|--------|-------|
+| MAE | 5.20 | 4.91 (-5.6%) |
+| RMSE | 7.13 | 6.72 (-5.7%) |
+| Correlation | 0.501 | 0.510 (+1.8%) |
+| RB Bias | +0.56 | -0.37 |
+| WR Bias | +0.42 | -0.28 |
+
+**Files created:** `scripts/backtest_projections.py`
+**Files modified:** `src/projection_engine.py` (weights, shrinkage, floor/ceiling), `scripts/generate_projections.py` (add_floor_ceiling call)
 
 #### Task FF-6.5: Draft Tool Enhancements ✅ **COMPLETED** (core enhancements)
 **Completed:** March 2026

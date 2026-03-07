@@ -122,7 +122,9 @@ def calculate_fantasy_points_df(
     df = df.copy()
 
     def _get(col: str) -> pd.Series:
-        return df[col].fillna(0) if col in df.columns else pd.Series(0, index=df.index)
+        if col in df.columns:
+            return df[col].fillna(0).astype(float)
+        return pd.Series(0.0, index=df.index)
 
     pts = (
         _get('rushing_yards') * scoring.get('rush_yd', 0)

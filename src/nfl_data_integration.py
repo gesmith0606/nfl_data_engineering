@@ -262,7 +262,7 @@ class NFLDataFetcher:
             if not valid_seasons:
                 raise ValueError("No valid seasons provided")
 
-            df = nfl.import_rosters(valid_seasons)
+            df = nfl.import_seasonal_rosters(valid_seasons)
             logger.info(f"Fetched {len(df)} roster rows")
 
             df['data_source'] = 'nfl-data-py'

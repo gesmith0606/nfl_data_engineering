@@ -818,6 +818,12 @@ def main():
         ),
     )
 
+    # --- ADP refresh ---
+    parser.add_argument(
+        '--refresh-adp', action='store_true',
+        help='Fetch latest ADP data from Sleeper API before starting the draft session.',
+    )
+
     args = parser.parse_args()
 
     # Validate mutual exclusivity of mode flags
@@ -852,12 +858,36 @@ def main():
         return 1
 
     # -----------------------------------------------------------------------
+    # Refresh ADP from Sleeper (optional)
+    # -----------------------------------------------------------------------
+    if args.refresh_adp:
+        print("Refreshing ADP data from Sleeper API...")
+        import subprocess
+        refresh_script = os.path.join(os.path.dirname(__file__), 'refresh_adp.py')
+        result = subprocess.run(
+            [sys.executable, refresh_script, '--season', str(args.season)],
+            capture_output=True, text=True,
+        )
+        if result.returncode == 0:
+            print("ADP refresh complete.")
+            if not args.adp_file:
+                args.adp_file = os.path.join('data', 'adp_latest.csv')
+        else:
+            print(f"WARN: ADP refresh failed: {result.stderr[:200]}")
+
+    # -----------------------------------------------------------------------
     # Load ADP data (optional)
     # -----------------------------------------------------------------------
     adp_df = None
-    if args.adp_file and os.path.exists(args.adp_file):
-        print(f"Loading ADP data from: {args.adp_file}")
-        adp_df = pd.read_csv(args.adp_file)
+    adp_path = args.adp_file
+    if not adp_path:
+        # Auto-detect latest ADP file
+        default_adp = os.path.join('data', 'adp_latest.csv')
+        if os.path.exists(default_adp):
+            adp_path = default_adp
+    if adp_path and os.path.exists(adp_path):
+        print(f"Loading ADP data from: {adp_path}")
+        adp_df = pd.read_csv(adp_path)
 
     # -----------------------------------------------------------------------
     # Load rostered players (optional, for waiver wire)

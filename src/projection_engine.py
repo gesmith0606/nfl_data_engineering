@@ -16,7 +16,7 @@ Designed to work entirely from DataFrames — no direct S3 calls here.
 
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 import logging
 
 from scoring_calculator import calculate_fantasy_points_df
@@ -27,9 +27,20 @@ logger = logging.getLogger(__name__)
 # Weights for blending rolling windows
 # ---------------------------------------------------------------------------
 RECENCY_WEIGHTS = {
-    'roll3': 0.50,   # Last 3 weeks — most predictive
+    'roll3': 0.45,   # Last 3 weeks — most predictive
     'roll6': 0.30,   # Last 6 weeks
-    'std':   0.20,   # Season-to-date
+    'std':   0.25,   # Season-to-date — increased to dampen boom/bust swings
+}
+
+# Regression-to-mean shrinkage applied after scoring.
+# Backtest shows high projections systematically overshoot:
+#   Proj 15-20 → actual ~13.7 (shrink ~0.80)
+#   Proj 20-25 → actual ~15.6 (shrink ~0.70)
+#   Proj 25+   → actual ~17   (shrink ~0.65)
+PROJECTION_CEILING_SHRINKAGE = {
+    15.0: 0.90,   # projections 15-20 pts → multiply by 0.90
+    20.0: 0.85,   # projections 20-25 pts → multiply by 0.85
+    25.0: 0.80,   # projections 25+ pts   → multiply by 0.80
 }
 
 # Stats to project by position
@@ -117,19 +128,22 @@ def _weighted_baseline(df: pd.DataFrame, stat: str) -> pd.Series:
 
 def _usage_multiplier(df: pd.DataFrame, position: str) -> pd.Series:
     """
-    Return a [0.7, 1.3] multiplier based on usage stability.
+    Return a [0.80, 1.15] multiplier based on usage stability.
     High snap%/target-share → multiplier > 1 (more reliable).
     Low usage → multiplier < 1 (less reliable, regression toward mean).
+
+    Range tightened from [0.7, 1.3] based on backtest analysis showing
+    that a wider range amplifies over-projection for high-usage players.
     """
     usage_col = USAGE_STABILITY_STAT.get(position, 'snap_pct')
     if usage_col not in df.columns:
         return pd.Series(1.0, index=df.index)
 
     usage = df[usage_col].fillna(df[usage_col].median())
-    # Normalize to [0.7, 1.3] range based on percentile
+    # Normalize to [0.80, 1.15] range based on percentile
     percentile = usage.rank(pct=True)
-    multiplier = 0.7 + 0.6 * percentile
-    return multiplier.clip(0.7, 1.3)
+    multiplier = 0.80 + 0.35 * percentile
+    return multiplier.clip(0.80, 1.15)
 
 
 def _matchup_factor(
@@ -428,15 +442,25 @@ def project_position(
         'proj_targets': 'targets',
         'proj_carries': 'carries',
     }
-    # Temporarily rename projected cols for scoring calculator
-    scoring_input = proj_df.rename(columns=rename_map)
+    # Drop original stat columns that conflict with projected column renames
+    orig_stat_cols = [v for v in rename_map.values() if v in proj_df.columns]
+    scoring_input = proj_df.drop(columns=orig_stat_cols, errors='ignore')
+    scoring_input = scoring_input.rename(columns=rename_map).reset_index(drop=True)
     scoring_input = calculate_fantasy_points_df(
         scoring_input, scoring_format=scoring_format, output_col='projected_points'
     )
-    # Put original proj_ columns back
-    for proj_col, stat_col in rename_map.items():
-        if stat_col in scoring_input.columns:
-            scoring_input[proj_col] = scoring_input[stat_col]
+    # Rename scoring columns back to proj_ prefix for clarity
+    reverse_map = {v: k for k, v in rename_map.items()}
+    scoring_input = scoring_input.rename(columns=reverse_map)
+
+    # Apply regression-to-mean shrinkage for high projections.
+    # Backtest shows projections above 15 pts systematically overshoot.
+    pts = scoring_input['projected_points']
+    shrink = pd.Series(1.0, index=scoring_input.index)
+    for threshold in sorted(PROJECTION_CEILING_SHRINKAGE.keys()):
+        factor = PROJECTION_CEILING_SHRINKAGE[threshold]
+        shrink = shrink.where(pts < threshold, factor)
+    scoring_input['projected_points'] = (pts * shrink).round(2)
 
     return scoring_input
 
@@ -628,6 +652,130 @@ def generate_weekly_projections(
 
     logger.info(f"Projections generated: {len(result)} players for {season} week {week}")
     return result
+
+
+# ---------------------------------------------------------------------------
+# Floor / ceiling confidence intervals
+# ---------------------------------------------------------------------------
+
+# Position-specific variance multipliers derived from backtest RMSE:
+#   QB RMSE ~8.4, RB ~6.8, WR ~6.6, TE ~5.4
+_FLOOR_CEILING_MULT = {'QB': 0.45, 'RB': 0.40, 'WR': 0.38, 'TE': 0.35}
+
+
+def add_floor_ceiling(df: pd.DataFrame) -> pd.DataFrame:
+    """Add projected_floor and projected_ceiling columns based on position variance.
+
+    Should be called AFTER all adjustments (injury, Vegas, bye) are applied
+    so that floor/ceiling are always consistent with projected_points.
+
+    Args:
+        df: Projections DataFrame with 'projected_points' and 'position' columns.
+
+    Returns:
+        DataFrame with projected_floor and projected_ceiling columns added.
+    """
+    df = df.copy()
+    pts = df['projected_points']
+    pos_mult = df['position'].map(_FLOOR_CEILING_MULT).fillna(0.40)
+    df['projected_floor'] = (pts * (1.0 - pos_mult)).clip(lower=0).round(2)
+    df['projected_ceiling'] = (pts * (1.0 + pos_mult)).round(2)
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Injury adjustments
+# ---------------------------------------------------------------------------
+
+INJURY_MULTIPLIERS: Dict[str, float] = {
+    'Active': 1.0,
+    'Questionable': 0.85,
+    'Doubtful': 0.50,
+    'Out': 0.0,
+    'Injured Reserve': 0.0,
+    'IR': 0.0,
+    'Physically Unable to Perform': 0.0,
+    'PUP': 0.0,
+    'Suspension': 0.0,
+}
+
+
+def apply_injury_adjustments(
+    projections_df: pd.DataFrame,
+    injuries_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Adjust projected fantasy points based on weekly injury report status.
+
+    Players not listed on the injury report are assumed healthy (multiplier 1.0).
+    Players listed as Out/IR/PUP receive zero projected points.
+
+    Args:
+        projections_df: Projection output from ``generate_weekly_projections()``.
+        injuries_df:    Injury report DataFrame (from ``nfl.import_injuries()``).
+                        Expected columns: ``gsis_id`` or ``player_name``,
+                        ``report_status``.
+
+    Returns:
+        Projections DataFrame with added ``injury_status`` (str) and
+        ``injury_multiplier`` (float) columns.  ``projected_points`` and
+        all ``proj_*`` stat columns are scaled by the multiplier.
+    """
+    df = projections_df.copy()
+    df['injury_status'] = 'Active'
+    df['injury_multiplier'] = 1.0
+
+    if injuries_df is None or injuries_df.empty:
+        logger.info("No injury data provided; all players treated as Active")
+        return df
+
+    # Determine join column — prefer gsis_id, fall back to player_name
+    if 'gsis_id' in df.columns and 'gsis_id' in injuries_df.columns:
+        join_col = 'gsis_id'
+    elif 'player_id' in df.columns and 'gsis_id' in injuries_df.columns:
+        join_col = None  # need to map
+        injuries_df = injuries_df.rename(columns={'gsis_id': 'player_id'})
+        join_col = 'player_id'
+    elif 'player_name' in df.columns and 'full_name' in injuries_df.columns:
+        join_col = 'player_name'
+        injuries_df = injuries_df.rename(columns={'full_name': 'player_name'})
+    elif 'player_name' in df.columns and 'player_name' in injuries_df.columns:
+        join_col = 'player_name'
+    else:
+        logger.warning("Cannot join injury data — no common identifier column found")
+        return df
+
+    # Build a lookup: player -> most severe status
+    status_col = 'report_status' if 'report_status' in injuries_df.columns else 'status'
+    if status_col not in injuries_df.columns:
+        logger.warning("Injury DataFrame missing status column; skipping adjustment")
+        return df
+
+    inj_lookup = (
+        injuries_df[[join_col, status_col]]
+        .dropna(subset=[join_col, status_col])
+        .drop_duplicates(subset=[join_col], keep='last')
+        .set_index(join_col)[status_col]
+        .to_dict()
+    )
+
+    df['injury_status'] = df[join_col].map(inj_lookup).fillna('Active')
+    df['injury_multiplier'] = df['injury_status'].map(
+        lambda s: INJURY_MULTIPLIERS.get(s, 0.85)  # unknown status → cautious
+    )
+
+    # Scale projections
+    proj_cols = [
+        c for c in df.columns
+        if c.startswith('proj_') and c not in ('proj_season', 'proj_week')
+    ]
+    for col in proj_cols:
+        df[col] = (df[col] * df['injury_multiplier']).round(2)
+    df['projected_points'] = (df['projected_points'] * df['injury_multiplier']).round(2)
+
+    injured_count = (df['injury_multiplier'] < 1.0).sum()
+    logger.info("Injury adjustments applied: %d players affected", injured_count)
+    return df
 
 
 def _build_spread_by_team(
