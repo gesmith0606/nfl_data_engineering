@@ -206,6 +206,7 @@ cython_debug/
 *.parquet
 *.csv
 *.json
+!.planning/*.json
 data/
 
 # Logs
