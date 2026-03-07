@@ -2,13 +2,22 @@
 Utility functions for the NFL Data Engineering Pipeline
 """
 import logging
+import os
 import pandas as pd
-from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import *
-from pyspark.sql.types import *
 from typing import Optional, Dict, Any
 import boto3
 from botocore.exceptions import ClientError
+
+# PySpark is an optional dependency — guard the import so that modules
+# using only the pandas/boto3 helpers (get_latest_s3_key, download_latest_parquet,
+# validate_s3_path, etc.) can load without a Java runtime installed.
+try:
+    from pyspark.sql import SparkSession, DataFrame
+    from pyspark.sql.functions import *
+    from pyspark.sql.types import *
+    _PYSPARK_AVAILABLE = True
+except (ImportError, Exception):
+    _PYSPARK_AVAILABLE = False
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -166,7 +175,89 @@ def write_validation_report(validation_results: Dict[str, Any], output_path: str
         )
         
         logger.info(f"Validation report written to {output_path}")
-        
+
     except Exception as e:
         logger.error(f"Failed to write validation report: {e}")
         raise
+
+
+def get_latest_s3_key(
+    s3_client,
+    bucket: str,
+    prefix: str,
+    suffix: str = ".parquet",
+) -> Optional[str]:
+    """Return the S3 key of the most recently written object matching suffix under prefix.
+
+    Args:
+        s3_client: Configured boto3 S3 client.
+        bucket: S3 bucket name.
+        prefix: S3 key prefix to search (e.g. "players/usage/season=2024/week=1/").
+        suffix: File extension filter. Defaults to ".parquet".
+
+    Returns:
+        S3 key string of the latest object, or None if no matching objects exist.
+    """
+    candidates = []
+    paginator = s3_client.get_paginator('list_objects_v2')
+    try:
+        for page in paginator.paginate(Bucket=bucket, Prefix=prefix):
+            for obj in page.get('Contents', []):
+                if obj['Key'].endswith(suffix):
+                    candidates.append((obj['LastModified'], obj['Key']))
+    except ClientError as e:
+        logger.error(f"Failed to list objects at s3://{bucket}/{prefix}: {e}")
+        return None
+
+    if not candidates:
+        logger.warning(f"No {suffix} objects found at s3://{bucket}/{prefix}")
+        return None
+
+    candidates.sort(key=lambda x: x[0], reverse=True)
+    latest_key = candidates[0][1]
+    logger.info(
+        f"Resolved latest key: {latest_key} "
+        f"(selected 1 of {len(candidates)} candidate(s))"
+    )
+    return latest_key
+
+
+def download_latest_parquet(
+    s3_client,
+    bucket: str,
+    prefix: str,
+    tmp_dir: str = "/tmp",
+) -> pd.DataFrame:
+    """Download the single most recently written Parquet file from an S3 prefix.
+
+    Prevents duplicate rows that occur when multiple timestamped files accumulate
+    in the same partition directory. Always reads exactly one file -- the latest
+    by S3 LastModified timestamp.
+
+    Args:
+        s3_client: Configured boto3 S3 client.
+        bucket: S3 bucket name.
+        prefix: S3 key prefix to search.
+        tmp_dir: Local directory for temporary download. Defaults to "/tmp".
+
+    Returns:
+        DataFrame containing the latest file's data, or empty DataFrame if none found.
+    """
+    key = get_latest_s3_key(s3_client, bucket, prefix)
+    if key is None:
+        return pd.DataFrame()
+
+    safe_name = key.replace('/', '_')
+    tmp_path = os.path.join(tmp_dir, safe_name)
+
+    try:
+        s3_client.download_file(bucket, key, tmp_path)
+        df = pd.read_parquet(tmp_path)
+        logger.info(f"Loaded {len(df):,} rows from s3://{bucket}/{key}")
+        return df
+    except Exception as e:
+        logger.error(f"Failed to download or read s3://{bucket}/{key}: {e}")
+        return pd.DataFrame()
+    finally:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)

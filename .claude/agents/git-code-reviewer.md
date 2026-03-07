@@ -133,7 +133,7 @@ Comprehensive validation covering:
 **NFL Domain Logic (PROJECT-SPECIFIC)**
 - [ ] NFL business rules properly validated
 - [ ] Team abbreviations use standard 32-team list
-- [ ] Season/week ranges within valid bounds (1999-2025, weeks 1-22)
+- [ ] Season/week ranges within valid bounds (1999-2026, weeks 1-22)
 - [ ] Play-by-play data follows NFL data model schema
 - [ ] Fantasy scoring calculations match configuration
 

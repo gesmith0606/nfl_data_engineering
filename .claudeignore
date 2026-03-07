@@ -1,0 +1,37 @@
+# Claude Code ignore file — prevents scanning of irrelevant directories/files
+# Follows .gitignore syntax
+
+# Virtual environment — hundreds of pycache dirs, zero project relevance
+venv/
+
+# Compiled Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Data files — large, binary, not code
+*.parquet
+output/
+data/
+
+# Review history — JSON metrics, not code
+.claude/review_history/
+
+# Legacy notebooks (not active development)
+notebooks/
+
+# Detailed reference docs — load explicitly when needed
+docs/
+
+# Build / distribution artifacts
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDE and OS noise
+.DS_Store
+*.swp
+*.swo
+.vscode/settings.json

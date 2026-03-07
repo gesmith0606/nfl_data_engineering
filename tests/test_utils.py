@@ -16,21 +16,24 @@ class TestConfig(unittest.TestCase):
     """Test configuration functions"""
     
     def test_get_s3_path_basic(self):
-        """Test basic S3 path generation"""
+        """Test basic S3 path generation for the bronze layer (bucket: nfl-raw)."""
         path = get_s3_path("bronze")
         self.assertTrue(path.startswith("s3://"))
-        self.assertIn("/bronze/", path)
-    
+        # Config uses separate buckets per layer; "nfl-raw" is the bronze bucket.
+        self.assertIn("nfl-raw", path)
+
     def test_get_s3_path_with_dataset(self):
-        """Test S3 path with dataset"""
+        """Test S3 path with dataset for the silver layer (bucket: nfl-refined)."""
         path = get_s3_path("silver", "games")
-        self.assertIn("/silver/", path)
+        # Config uses separate buckets per layer; "nfl-refined" is the silver bucket.
+        self.assertIn("nfl-refined", path)
         self.assertIn("/games/", path)
-    
+
     def test_get_s3_path_with_partitions(self):
-        """Test S3 path with season and week partitions"""
+        """Test S3 path with season and week partitions for the gold layer (bucket: nfl-trusted)."""
         path = get_s3_path("gold", "team_stats", 2024, 1)
-        self.assertIn("/gold/", path)
+        # Config uses separate buckets per layer; "nfl-trusted" is the gold bucket.
+        self.assertIn("nfl-trusted", path)
         self.assertIn("/team_stats/", path)
         self.assertIn("season=2024", path)
         self.assertIn("week=1", path)

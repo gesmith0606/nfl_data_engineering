@@ -10,6 +10,41 @@ echo "🔍 Running automated pre-commit code review..."
 # Get the project root directory
 PROJECT_ROOT=$(git rev-parse --show-toplevel)
 
+# ── Credential scan ────────────────────────────────────────────────────────
+echo "🔒 Scanning for credentials in staged files..."
+
+CREDENTIAL_FOUND=0
+
+# Patterns that indicate a hardcoded credential value
+CRED_PATTERNS='AKIA[0-9A-Z]{16}|ghp_[0-9a-zA-Z]{36}|github_pat_[0-9a-zA-Z_]{82}|-----BEGIN (RSA|EC|OPENSSH) PRIVATE KEY-----'
+
+# Check staged files only (not working tree)
+STAGED_FILES=$(git diff --cached --name-only)
+
+for FILE in $STAGED_FILES; do
+    # Skip binary files and .env.example (which has placeholder values)
+    case "$FILE" in
+        *.png|*.jpg|*.gif|*.ico|*.pdf|*.parquet|*.env.example) continue ;;
+    esac
+
+    # Check the staged content of the file (not the working tree version)
+    if git show ":$FILE" 2>/dev/null | grep -qE "$CRED_PATTERNS"; then
+        echo "❌ Credential pattern detected in staged file: $FILE"
+        CREDENTIAL_FOUND=1
+    fi
+done
+
+if [ $CREDENTIAL_FOUND -eq 1 ]; then
+    echo ""
+    echo "🚫 Commit blocked: potential credentials found in staged files."
+    echo "   Remove the credentials and use environment variables instead."
+    echo "   If this is a false positive, review the flagged file above."
+    exit 1
+fi
+
+echo "✅ No credentials detected in staged files."
+# ── End credential scan ────────────────────────────────────────────────────
+
 # Path to automated code review script
 REVIEW_SCRIPT="$PROJECT_ROOT/.claude/workflows/automated-code-review.py"
 

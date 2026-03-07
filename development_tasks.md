@@ -36,8 +36,8 @@
    - S3 bucket names and regions configured (us-east-2)
    - NFL data defaults and processing parameters - Development Task List
 
-**Last Updated:** March 2026
-**Current Status:** Fantasy Football System (Phases 1–4) Complete | Neo4j Deferred (Phase 5)
+**Last Updated:** March 2026 (session update: projection engine improvements, draft tool enhancements, S3 deduplication, pipeline monitoring, security hardening, token efficiency)
+**Current Status:** Fantasy Football System (Phases 1–4) Complete | Pipeline Monitoring + Security Hardening Complete | Neo4j Deferred (Phase 5)
 
 ## 📋 MVP Definition
 Create a functional NFL data pipeline that ingests game data, cleans it, and produces basic analytics for the 2024 NFL season. The MVP demonstrates the medallion architecture using local Python development with S3 storage.
@@ -52,12 +52,21 @@ Create a functional NFL data pipeline that ingests game data, cleans it, and pro
 - **Phase 5**: Draft Tool — interactive CLI, ADP comparison, VORP, positional scarcity (100%)
 - **Phase 6**: Project Skills — `/ingest`, `/weekly-pipeline`, `/validate-data`, `/test`, `/draft-prep` (100%)
 - **Phase 7**: MCP Integration — DuckDB, fetch, Sleeper added; Neo4j configured (100%)
+- **Phase 8**: Automated Code Review — git hooks, /simplify integration, quality tracking (100%)
+- **Phase 9**: Specialized Agents — data-engineer, data-modeler, git-code-reviewer (100%)
+- **Phase 10**: NFL Game Prediction Data Model — comprehensive ML model with 200+ features (100%)
+- **Phase 11**: Projection Engine Improvements — bye weeks, rookie fallback, Vegas lines (100%)
+- **Phase 12**: Draft Tool Enhancements — mock draft simulation, auction draft, waiver wire (100%)
+- **Phase 13**: S3 Deduplication Fix — shared utility functions, scoped prefixes (100%)
+- **Phase 14**: Pipeline Monitoring and Alerting — GitHub Actions cron, health check script (100%)
+- **Phase 15**: Security Hardening — credential scanning pre-commit hook, credentials rotated (100%)
+- **Phase 16**: Token Efficiency — .claudeignore, CLAUDE.md slimmed, agent framework extracted (100%)
 - **Documentation**: CLAUDE.md, copilot-instructions.md, development_tasks.md updated (100%)
 
 ### 🚧 **CURRENT PRIORITIES**
-1. Model tuning: Add injury status filter from Bronze injuries data into projection engine
-2. Automate Sleeper ADP refresh → `data/adp.csv` (weekly cron or pre-draft trigger)
-3. In-season scheduled pipeline: Bronze → Silver → Gold → projections (weekly automation)
+1. Model tuning: Add injury status filter from Bronze injuries data into projection engine (Task FF-6.1)
+2. Automate Sleeper ADP refresh → `data/adp.csv` (weekly cron or pre-draft trigger) (Task FF-6.2)
+3. Weekly pipeline cron tuning — Slack/email notification with week-over-week projection changes (Task FF-6.3 partial)
 
 ### �📊 **Current Metrics**
 - **Files Created**: 25+ Python scripts, notebooks, and docs
@@ -569,8 +578,12 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 - [x] `src/projection_engine.py` — `generate_preseason_projections` (2-season weighted average)
 - [x] `scripts/generate_projections.py` — CLI for `--week` (weekly) and `--preseason` modes
 - [x] All smoke tests passing: scoring calculator, usage metrics, rolling averages
+- [x] Bye week handling: `get_bye_teams()` + zero-out logic for players on bye
+- [x] Rookie/new player fallback: `_rookie_baseline()` + `_determine_usage_role()` for players with no history
+- [x] Vegas lines integration: `_vegas_multiplier()` in `projection_engine.py` scales projections using game totals
 
 **Files created:** `src/scoring_calculator.py`, `src/projection_engine.py`, `scripts/generate_projections.py`
+**Files modified:** `src/projection_engine.py` (bye weeks, rookie fallback, Vegas multiplier), `src/player_analytics.py` (`compute_implied_team_totals`)
 
 ---
 
@@ -582,8 +595,12 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 - [x] `src/draft_optimizer.py` — `compute_value_scores` (model rank, ADP diff, VORP, value tier)
 - [x] `scripts/draft_assistant.py` — interactive CLI (snake draft, undo, search, all advisor commands)
 - [x] `output/projections/` directory created for local CSV output
+- [x] Mock draft simulation: `--simulate` flag launches `MockDraftSimulator` class with draft grades
+- [x] Auction draft support: `--auction --budget` flag launches `AuctionDraftBoard` class; supports `nominate`, `bid`, `sold`, `value`, and `budget` commands
+- [x] Waiver wire recommendations: `waiver [pos]` command in CLI, `--rostered-file` arg for existing rosters, `waiver_recommendations()` method
 
 **Files created:** `src/draft_optimizer.py`, `scripts/draft_assistant.py`
+**Files modified:** `src/draft_optimizer.py` (MockDraftSimulator, AuctionDraftBoard, waiver_recommendations), `scripts/draft_assistant.py` (--simulate, --auction, --rostered-file flags)
 
 ---
 
@@ -618,10 +635,16 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 - [ ] Add pre-draft trigger: re-fetch ADP day-of-draft for most current rankings
 - [ ] Version ADP files by date: `data/adp_YYYYMMDD.csv`
 
-#### Task FF-6.3: In-Season Weekly Pipeline Automation ⏳
-- [ ] Create `scripts/run_weekly_pipeline.sh` — wraps Bronze → Silver → Gold → projections
-- [ ] Add GitHub Actions workflow: trigger every Tuesday morning (post-MNF)
-- [ ] Slack/email notification with top projection changes week-over-week
+#### Task FF-6.3: In-Season Weekly Pipeline Automation ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `.github/workflows/weekly-pipeline.yml` — Tuesday 9am UTC cron, auto NFL week detection, opens GitHub issue on failure
+- [x] `scripts/check_pipeline_health.py` — S3 freshness checks, file size validation, partition existence verification
+- [x] `.env.example` updated with `PIPELINE_WEEK_OVERRIDE` and `HEALTH_CHECK_MAX_AGE_DAYS` variables
+- [ ] Slack/email notification with top projection changes week-over-week (still deferred)
+
+**Files created:** `.github/workflows/weekly-pipeline.yml`, `scripts/check_pipeline_health.py`
+**Files modified:** `.env.example`
 
 #### Task FF-6.4: Model Evaluation & Tuning ⏳
 - [ ] Backtest 2023/2024 seasons: compare projected vs. actual fantasy points
@@ -629,10 +652,15 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 - [ ] Tune RECENCY_WEIGHTS in `projection_engine.py` based on backtest results
 - [ ] Add confidence intervals to projections (high/medium/low floor/ceiling)
 
-#### Task FF-6.5: Draft Tool Enhancements ⏳
-- [ ] Live Sleeper league integration — import actual league rosters during live draft
-- [ ] Keeper league support — pre-mark kept players as drafted before session starts
-- [ ] Export draft results to CSV for season-long reference
+#### Task FF-6.5: Draft Tool Enhancements ✅ **COMPLETED** (core enhancements)
+**Completed:** March 2026
+
+- [x] Mock draft simulation (`--simulate` flag, `MockDraftSimulator` class, draft grades) — see Phase FF-4 above
+- [x] Auction draft support (`--auction --budget`, `AuctionDraftBoard` class, nominate/bid/sold/value/budget commands) — see Phase FF-4 above
+- [x] Waiver wire recommendations (`waiver [pos]` command, `--rostered-file` arg, `waiver_recommendations()` method) — see Phase FF-4 above
+- [ ] Live Sleeper league integration — import actual league rosters during live draft (deferred)
+- [ ] Keeper league support — pre-mark kept players as drafted before session starts (deferred)
+- [ ] Export draft results to CSV for season-long reference (deferred)
 
 ---
 
@@ -645,6 +673,114 @@ python scripts/bronze_ingestion_simple.py --season 2023 --week 1 --data-type pbp
 - [ ] WR-CB matchup graphs: historical performance by coverage type
 - [ ] QB-WR target share directed graphs (weighted by season)
 - [ ] Injury cascade trees: depth chart impact traversal
+
+---
+
+## 🤖 **Automated Code Review System (March 2026)**
+
+### Phase ACR-1: Git-Integrated Code Review ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `git-code-reviewer` agent with automatic /simplify integration
+- [x] Pre-commit hook (`pre-commit`) - blocks commits with critical issues
+- [x] Post-commit hook (`post-commit`) - tracks quality metrics over time
+- [x] Automated review workflow (`automated-code-review.py`) - comprehensive Python script
+- [x] Installation script (`install-hooks.sh`) - one-command setup
+- [x] Quality history tracking in `.claude/review_history/` with JSON metrics
+
+**Key Features Implemented:**
+- **Static Analysis**: Complexity, security, performance checks on changed files
+- **Auto-Simplification**: Functions >50 lines automatically simplified using /simplify
+- **NFL Domain Validation**: Team validation, S3 patterns, fantasy scoring rules
+- **Smart Blocking**: Critical issues block commits, warnings allow after delay
+- **Historical Tracking**: Quality trends, complexity scores, auto-fixes applied
+
+**Files created:** `.claude/agents/git-code-reviewer.md`, `.claude/workflows/automated-code-review.py`, `.claude/git-hooks/pre-commit`, `.claude/git-hooks/post-commit`, `.claude/git-hooks/install-hooks.sh`, `.claude/git-hooks/README.md`
+
+---
+
+## 📊 **Specialized Agents & Data Modeling (March 2026)**
+
+### Phase SA-1: Data Engineering Agents ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] **data-engineer agent**: Expert guidance for Databricks, AWS S3, modern data stack best practices
+- [x] **data-modeler agent**: Comprehensive data modeling with MCP research capabilities
+- [x] MCP integration for research-driven recommendations
+- [x] Production-grade code examples and implementation patterns
+
+**Files created:** `.claude/agents/data-engineer.md`, `.claude/agents/data-modeler.md`
+
+---
+
+### Phase SA-2: NFL Game Prediction Data Model ✅ **COMPLETED**  
+**Completed:** March 2026
+
+- [x] **Comprehensive data model**: 200+ ML features for NFL game prediction targeting 65%+ accuracy
+- [x] **Complete data dictionary**: Table definitions, data types, relationships, validation rules
+- [x] **Implementation guide**: 8-week phased roadmap for production deployment
+- [x] **Medallion architecture integration**: Compatible with Bronze→Silver→Gold pipeline
+
+**Key Model Components:**
+- **Team Performance Metrics**: Offensive/defensive efficiency, EPA per play, success rates
+- **Player Impact Features**: Usage metrics, snap percentages, target shares, injury risk
+- **Situational Analytics**: Weather impact, rest advantages, coaching changes, playoff implications
+- **Temporal Features**: Rolling performance, season progression, momentum indicators
+- **Advanced Analytics**: Win Probability, CPOE, explosive play rates, red zone efficiency
+
+**Files created:** `docs/NFL_GAME_PREDICTION_DATA_MODEL.md`, `docs/NFL_DATA_DICTIONARY.md`, `docs/NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md`
+
+---
+
+## Infrastructure & Quality (March 2026)
+
+### Phase INF-1: S3 Deduplication Fix ✅ **COMPLETED**
+**Completed:** March 2026
+
+**Problem:** Multiple scripts each implemented their own ad-hoc logic to download the latest Parquet file from a timestamped S3 prefix, causing duplicated code and inconsistent behavior (some scanned the full bucket prefix instead of the season/week partition).
+
+**Solution:**
+- [x] `get_latest_s3_key(bucket, prefix)` added to `src/utils.py` — returns the most recent key under a given prefix by sorting on LastModified
+- [x] `download_latest_parquet(bucket, prefix)` added to `src/utils.py` — wraps `get_latest_s3_key` and returns a pandas DataFrame
+- [x] Removed duplicate `download_parquet_prefix` implementations from Silver and projection scripts
+- [x] Read prefixes scoped to `season=YYYY/week=WW/` level across all callers to prevent cross-partition reads
+
+**Files modified:** `src/utils.py`, `scripts/silver_player_transformation.py`, `scripts/generate_projections.py`
+
+---
+
+### Phase INF-2: Pipeline Monitoring and Alerting ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `.github/workflows/weekly-pipeline.yml` — Tuesday 9am UTC scheduled run; auto-detects current NFL week; opens a GitHub issue on pipeline failure with error details
+- [x] `scripts/check_pipeline_health.py` — validates S3 freshness (age vs. `HEALTH_CHECK_MAX_AGE_DAYS`), minimum file size thresholds, and partition existence for all three layers
+- [x] `.env.example` updated with two new variables: `PIPELINE_WEEK_OVERRIDE` (force a specific week) and `HEALTH_CHECK_MAX_AGE_DAYS` (staleness threshold for health checks)
+
+**Files created:** `.github/workflows/weekly-pipeline.yml`, `scripts/check_pipeline_health.py`
+**Files modified:** `.env.example`
+
+---
+
+### Phase INF-3: Security Hardening ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] Pre-commit credential scanning hook — blocks commits containing AWS key patterns (`AKIA*`), GitHub PAT patterns (`github_pat_*`), and private key headers (`-----BEGIN * PRIVATE KEY-----`)
+- [x] AWS credentials rotated (new access key issued, old key deactivated)
+- [x] Confirmed `.env` is present in `.gitignore` and has never been committed to the repository history
+
+**Files modified:** `.claude/git-hooks/pre-commit` (credential scanning rules added)
+
+---
+
+### Phase INF-4: Token Efficiency and Context Slimming ✅ **COMPLETED**
+**Completed:** March 2026
+
+- [x] `.claudeignore` created — excludes `venv/`, `__pycache__/`, `output/`, `data/`, `docs/`, and `*.parquet` from Claude Code context to reduce token consumption
+- [x] `CLAUDE.md` slimmed from 372 lines to 106 lines by removing redundant narrative, retaining only commands, architecture diagram, key file table, config, business rules, and status
+- [x] Agent framework documentation moved out of `CLAUDE.md` into `.claude/AGENT_FRAMEWORK.md` to keep the primary reference file concise
+
+**Files created:** `.claudeignore`, `.claude/AGENT_FRAMEWORK.md`
+**Files modified:** `CLAUDE.md`
 
 ---
 

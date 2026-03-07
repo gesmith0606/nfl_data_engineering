@@ -107,9 +107,14 @@ class AutomatedCodeReviewer:
             # Filter for Python files
             python_files = [f for f in all_files if f.endswith('.py') and f.strip()]
             
-            # Filter out test files and __pycache__ for primary review
-            main_files = [f for f in python_files if not f.startswith('tests/') and '__pycache__' not in f]
-            
+            # Filter out test files, __pycache__, and deleted files
+            main_files = [
+                f for f in python_files
+                if not f.startswith('tests/')
+                and '__pycache__' not in f
+                and (self.project_root / f).exists()
+            ]
+
             return main_files
             
         except subprocess.CalledProcessError as e:

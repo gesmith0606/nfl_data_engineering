@@ -15,6 +15,7 @@ import sys
 import os
 import argparse
 from datetime import datetime
+from typing import Optional
 
 import boto3
 import pandas as pd
@@ -31,6 +32,7 @@ from player_analytics import (
     compute_game_script_indicators,
     compute_venue_splits,
 )
+from utils import download_latest_parquet, get_latest_s3_key
 import config
 
 
@@ -58,30 +60,12 @@ def upload_df(df: pd.DataFrame, bucket: str, key: str, creds: dict) -> str:
     return uri
 
 
-def download_parquet_prefix(bucket: str, prefix: str, creds: dict) -> pd.DataFrame:
-    """Download all Parquet files under an S3 prefix and concat into a DataFrame."""
-    s3 = _s3_client(creds)
-    paginator = s3.get_paginator('list_objects_v2')
-    frames = []
-    for page in paginator.paginate(Bucket=bucket, Prefix=prefix):
-        for obj in page.get('Contents', []):
-            key = obj['Key']
-            if not key.endswith('.parquet'):
-                continue
-            tmp = f"/tmp/{key.replace('/', '_')}"
-            s3.download_file(bucket, key, tmp)
-            frames.append(pd.read_parquet(tmp))
-            os.remove(tmp)
-    if not frames:
-        return pd.DataFrame()
-    return pd.concat(frames, ignore_index=True)
-
 
 # ---------------------------------------------------------------------------
 # Main transform logic
 # ---------------------------------------------------------------------------
 
-def run_silver_transform(seasons: list, week: int | None, creds: dict, silver_bucket: str, bronze_bucket: str):
+def run_silver_transform(seasons: list, week: Optional[int], creds: dict, silver_bucket: str, bronze_bucket: str):
     """Fetch Bronze data, transform, and write to Silver."""
     fetcher = NFLDataFetcher()
     ts = datetime.now().strftime('%Y%m%d_%H%M%S')

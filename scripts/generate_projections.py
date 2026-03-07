@@ -25,6 +25,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 from nfl_data_integration import NFLDataFetcher
 from projection_engine import generate_weekly_projections, generate_preseason_projections
 from scoring_calculator import list_scoring_formats
+from utils import download_latest_parquet
 import config
 
 
@@ -40,21 +41,6 @@ def _s3_client(creds):
         region_name=creds['region'],
     )
 
-
-def download_parquet_prefix(bucket, prefix, creds) -> pd.DataFrame:
-    s3 = _s3_client(creds)
-    paginator = s3.get_paginator('list_objects_v2')
-    frames = []
-    for page in paginator.paginate(Bucket=bucket, Prefix=prefix):
-        for obj in page.get('Contents', []):
-            key = obj['Key']
-            if not key.endswith('.parquet'):
-                continue
-            tmp = f"/tmp/{key.replace('/', '_')}"
-            s3.download_file(bucket, key, tmp)
-            frames.append(pd.read_parquet(tmp))
-            os.remove(tmp)
-    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
 
 
 def upload_df(df, bucket, key, creds) -> str:
@@ -141,8 +127,9 @@ def main():
         silver_df = pd.DataFrame()
         if has_aws:
             try:
-                prefix = f"players/usage/season={args.season}/"
-                silver_df = download_parquet_prefix(silver_bucket, prefix, creds)
+                s3 = _s3_client(creds)
+                prefix = f"players/usage/season={args.season}/week={args.week}/"
+                silver_df = download_latest_parquet(s3, silver_bucket, prefix)
                 print(f"Loaded {len(silver_df):,} rows from Silver S3 layer")
             except Exception as e:
                 print(f"WARN: Could not load from Silver S3: {e}")
@@ -159,8 +146,8 @@ def main():
         opp_rankings = pd.DataFrame()
         if has_aws and not silver_df.empty:
             try:
-                opp_prefix = f"defense/positional/season={args.season}/"
-                opp_rankings = download_parquet_prefix(silver_bucket, opp_prefix, creds)
+                opp_prefix = f"defense/positional/season={args.season}/week={args.week}/"
+                opp_rankings = download_latest_parquet(s3, silver_bucket, opp_prefix)
                 print(f"Loaded {len(opp_rankings):,} opponent ranking rows")
             except Exception as e:
                 print(f"WARN: Could not load opponent rankings: {e}")

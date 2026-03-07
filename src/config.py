@@ -103,6 +103,9 @@ PLAYER_S3_KEYS = {
     "player_seasonal": "players/seasonal/season={season}/player_seasonal_{ts}.parquet",
 }
 
+# Files are written with a timestamp suffix to preserve full history.
+# Readers MUST use download_latest_parquet() from src/utils.py to resolve
+# the canonical (most recent) file for a given partition prefix.
 # S3 key templates for Silver layer player analytics
 SILVER_PLAYER_S3_KEYS = {
     "usage_metrics": "players/usage/season={season}/week={week}/usage_{ts}.parquet",
@@ -110,6 +113,9 @@ SILVER_PLAYER_S3_KEYS = {
     "rolling_averages": "players/rolling/season={season}/week={week}/rolling_{ts}.parquet",
 }
 
+# Files are written with a timestamp suffix to preserve full history.
+# Readers MUST use download_latest_parquet() from src/utils.py to resolve
+# the canonical (most recent) file for a given partition prefix.
 # S3 key templates for Gold layer projections
 GOLD_PROJECTION_S3_KEYS = {
     "weekly_projections": "projections/season={season}/week={week}/projections_{ts}.parquet",

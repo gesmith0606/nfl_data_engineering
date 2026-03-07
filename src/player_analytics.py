@@ -285,6 +285,87 @@ def compute_game_script_indicators(
 
 
 # ---------------------------------------------------------------------------
+# Vegas Lines Integration
+# ---------------------------------------------------------------------------
+
+def compute_implied_team_totals(schedules_df: pd.DataFrame) -> Dict[str, float]:
+    """
+    Derive implied team scoring totals from Vegas over/under and spread lines.
+
+    Formulas:
+        implied_home = (total_line / 2) - (spread_line / 2)
+        implied_away = (total_line / 2) + (spread_line / 2)
+
+    ``spread_line`` is the home-team spread (negative when home is favored).
+    Missing ``total_line`` or ``spread_line`` values default to a 23.0
+    league-average implied total for each affected team.
+
+    Args:
+        schedules_df: Game schedule DataFrame from ``nfl.import_schedules()``.
+                      Must contain ``home_team`` and ``away_team`` columns.
+                      Should contain ``total_line`` and ``spread_line`` columns.
+
+    Returns:
+        Dict mapping team abbreviation to implied scoring total (float).
+        If a team appears in multiple games (e.g., post-season re-use of the
+        same DataFrame), the last encountered game's value is kept — callers
+        should pre-filter to the relevant week before calling this function.
+
+    Example:
+        >>> totals = compute_implied_team_totals(schedules_df)
+        >>> totals['KC']
+        26.5
+    """
+    LEAGUE_AVG_TOTAL: float = 23.0
+
+    required_team_cols = {'home_team', 'away_team'}
+    if not required_team_cols.issubset(schedules_df.columns):
+        logger.warning(
+            "schedules_df missing home_team/away_team columns; "
+            "returning empty implied totals"
+        )
+        return {}
+
+    df = schedules_df.copy()
+
+    # Fill missing line data with league-average assumptions before arithmetic
+    if 'total_line' not in df.columns:
+        logger.warning("total_line column not found; defaulting all to %.1f", LEAGUE_AVG_TOTAL)
+        df['total_line'] = LEAGUE_AVG_TOTAL * 2  # will halve below
+    else:
+        # A missing total_line means we default each team in that game to LEAGUE_AVG_TOTAL
+        # Set total_line NaN rows to 2 * LEAGUE_AVG_TOTAL so the /2 yields the average
+        df['total_line'] = df['total_line'].fillna(LEAGUE_AVG_TOTAL * 2)
+
+    if 'spread_line' not in df.columns:
+        logger.warning("spread_line column not found; treating spread as 0 for all games")
+        df['spread_line'] = 0.0
+    else:
+        # Missing spread → treat as pick-em (0), so each team gets total_line / 2
+        df['spread_line'] = df['spread_line'].fillna(0.0)
+
+    # Vectorised implied totals
+    df['implied_home'] = (df['total_line'] / 2) - (df['spread_line'] / 2)
+    df['implied_away'] = (df['total_line'] / 2) + (df['spread_line'] / 2)
+
+    # Clip to a sane range: no team is implied to score < 5 or > 45
+    df['implied_home'] = df['implied_home'].clip(5.0, 45.0)
+    df['implied_away'] = df['implied_away'].clip(5.0, 45.0)
+
+    implied_totals: Dict[str, float] = {}
+    for _, row in df.iterrows():
+        implied_totals[row['home_team']] = float(row['implied_home'])
+        implied_totals[row['away_team']] = float(row['implied_away'])
+
+    logger.info(
+        "Implied team totals computed for %d teams across %d games",
+        len(implied_totals),
+        len(df),
+    )
+    return implied_totals
+
+
+# ---------------------------------------------------------------------------
 # Home/Away + Dome Splits
 # ---------------------------------------------------------------------------
 
