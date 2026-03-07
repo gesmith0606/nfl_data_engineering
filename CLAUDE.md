@@ -110,3 +110,11 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 **In progress**: Weekly pipeline cron tuning | Local-first data reads (S3 as fallback)
 
 **Planned**: Neo4j Phase 5 | ML upgrade (RF/XGBoost) | Live Sleeper league integration
+
+## ECC Plugin (Everything Claude Code)
+
+Installed via `/plugin install everything-claude-code@everything-claude-code`.
+Rules (common + Python) installed in `.claude/rules/`. Full repo at `~/repos/everything-claude-code/` — `git pull` to update.
+
+**Key ECC commands**: `/plan`, `/tdd`, `/code-review`, `/build-fix`, `/e2e`, `/security-scan`, `/verify`, `/learn`, `/compact`
+**ECC rules active in `.claude/rules/`**: coding-style, git-workflow, testing, performance, patterns, hooks, agents, security, development-workflow (Python)
