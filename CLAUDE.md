@@ -128,3 +128,9 @@ Installed locally via `npx get-shit-done-cc@latest --claude --local`. Full repo 
 **Brownfield**: `/gsd:map-codebase` — analyze existing code before planning new work
 **Utilities**: `/gsd:progress`, `/gsd:pause-work`, `/gsd:resume-work`, `/gsd:debug`
 **Update**: `npx get-shit-done-cc@latest`
+
+## Reference Repos
+
+These repos are cloned locally for reference, updates, and reuse across projects:
+- `~/repos/everything-claude-code/` — ECC guides, skills, rules, examples. See `the-shortform-guide.md` and `the-longform-guide.md` for advanced patterns.
+- `~/repos/get-shit-done/` — GSD source, docs, and user guide at `docs/USER-GUIDE.md`.
