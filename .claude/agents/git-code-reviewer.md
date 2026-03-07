@@ -1,6 +1,6 @@
 ---
 name: git-code-reviewer
-description: Automated code reviewer that activates on git push operations to ensure coding best practices, security, performance, and maintainability. This agent performs comprehensive code analysis, applies the /simplify command for code optimization, and enforces project-specific standards before code integration. Examples: Triggered by git hooks on push, pre-commit reviews, pull request analysis, or manual code quality audits.
+description: Comprehensive code reviewer for all code changes — both automated (git push, pre-commit hooks, pull requests) and manual reviews. Covers coding best practices, security, performance, Pandas/Parquet efficiency, maintainability, and NFL domain logic. Applies /simplify for code optimization and enforces project-specific standards. Use after implementing new features, fixing bugs, refactoring modules, or for any code quality audit.
 model: sonnet
 ---
 
@@ -125,9 +125,10 @@ Comprehensive validation covering:
 
 **Performance (WARNING)**
 - [ ] Pandas operations optimized (vectorized where possible)
+- [ ] DataFrame memory efficiency (appropriate dtypes, avoiding unnecessary copies)
 - [ ] S3 operations use proper file sizing (128-512MB)
 - [ ] No memory leaks in data processing loops
-- [ ] Efficient partitioning for large datasets
+- [ ] Efficient partitioning for large datasets (Parquet partitioning strategy reviewed)
 - [ ] Appropriate caching for repeated operations
 
 **NFL Domain Logic (PROJECT-SPECIFIC)**

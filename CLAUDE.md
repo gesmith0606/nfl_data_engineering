@@ -118,3 +118,13 @@ Rules (common + Python) installed in `.claude/rules/`. Full repo at `~/repos/eve
 
 **Key ECC commands**: `/plan`, `/tdd`, `/code-review`, `/build-fix`, `/e2e`, `/security-scan`, `/verify`, `/learn`, `/compact`
 **ECC rules active in `.claude/rules/`**: coding-style, git-workflow, testing, performance, patterns, hooks, agents, security, development-workflow (Python)
+
+## GSD (Get Shit Done) v1.22.4
+
+Installed locally via `npx get-shit-done-cc@latest --claude --local`. Full repo at `~/repos/get-shit-done/` — `git pull` to update.
+
+**Core workflow**: `/gsd:new-project` → `/gsd:discuss-phase N` → `/gsd:plan-phase N` → `/gsd:execute-phase N` → `/gsd:verify-work N`
+**Quick tasks**: `/gsd:quick` — ad-hoc tasks with GSD guarantees (atomic commits, state tracking)
+**Brownfield**: `/gsd:map-codebase` — analyze existing code before planning new work
+**Utilities**: `/gsd:progress`, `/gsd:pause-work`, `/gsd:resume-work`, `/gsd:debug`
+**Update**: `npx get-shit-done-cc@latest`
