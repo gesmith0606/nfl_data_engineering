@@ -7,11 +7,11 @@
 
 ### Infrastructure Prerequisites
 
-- [ ] **INFRA-01**: Bronze ingestion script works locally without AWS credentials (local-first with S3 as optional)
-- [ ] **INFRA-02**: Season validation is dynamic (current year + 1) instead of hardcoded 2025
-- [ ] **INFRA-03**: Adapter layer isolates all nfl-data-py import_* calls into a single module for future nflreadpy migration
-- [ ] **INFRA-04**: Bronze CLI uses registry/dispatch pattern instead of if/elif chain (supports 15+ data types)
-- [ ] **INFRA-05**: Per-data-type season availability config (NGS starts 2016, PFR starts 2018, etc.)
+- [x] **INFRA-01**: Bronze ingestion script works locally without AWS credentials (local-first with S3 as optional)
+- [x] **INFRA-02**: Season validation is dynamic (current year + 1) instead of hardcoded 2025
+- [x] **INFRA-03**: Adapter layer isolates all nfl-data-py import_* calls into a single module for future nflreadpy migration
+- [x] **INFRA-04**: Bronze CLI uses registry/dispatch pattern instead of if/elif chain (supports 15+ data types)
+- [x] **INFRA-05**: Per-data-type season availability config (NGS starts 2016, PFR starts 2018, etc.)
 
 ### Play-by-Play Data
 
@@ -77,11 +77,11 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 5 (gap closure) | Pending |
-| INFRA-02 | Phase 5 (gap closure) | Pending |
-| INFRA-03 | Phase 5 (gap closure) | Pending |
-| INFRA-04 | Phase 5 (gap closure) | Pending |
-| INFRA-05 | Phase 5 (gap closure) | Pending |
+| INFRA-01 | Phase 5 (gap closure) | Complete |
+| INFRA-02 | Phase 5 (gap closure) | Complete |
+| INFRA-03 | Phase 5 (gap closure) | Complete |
+| INFRA-04 | Phase 5 (gap closure) | Complete |
+| INFRA-05 | Phase 5 (gap closure) | Complete |
 | PBP-01 | Phase 2 | Complete |
 | PBP-02 | Phase 2 | Complete |
 | PBP-03 | Phase 2 | Complete |
@@ -108,4 +108,4 @@
 
 ---
 *Requirements defined: 2026-03-08*
-*Last updated: 2026-03-08 after gap closure planning*
+*Last updated: 2026-03-08 after Phase 5 verification backfill*
