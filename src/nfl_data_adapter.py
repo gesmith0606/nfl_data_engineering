@@ -6,13 +6,36 @@ All other code fetches NFL data through :class:`NFLDataAdapter`.
 """
 
 import logging
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 import pandas as pd
 
 from src.config import validate_season_for_type
 
 logger = logging.getLogger(__name__)
+
+
+def format_validation_output(result: Dict[str, any]) -> Optional[str]:
+    """Format a validation result dict into human-readable output lines.
+
+    Args:
+        result: Dict returned by ``NFLDataFetcher.validate_data()``, containing
+            ``is_valid``, ``row_count``, ``column_count``, and ``issues``.
+
+    Returns:
+        A formatted string suitable for printing, or ``None`` if *result*
+        is falsy.
+    """
+    if not result:
+        return None
+
+    issues = result.get("issues", [])
+    if issues:
+        lines = [f"  \u26a0 Validation: {issue}" for issue in issues]
+        return "\n".join(lines)
+
+    col_count = result.get("column_count", 0)
+    return f"  \u2713 Validation passed: {col_count}/{col_count} columns valid"
 
 
 class NFLDataAdapter:
@@ -67,6 +90,29 @@ class NFLDataAdapter:
         except Exception:
             logger.exception("Error in %s", label)
             return pd.DataFrame()
+
+    # ------------------------------------------------------------------
+    # Validation
+    # ------------------------------------------------------------------
+
+    def validate_data(self, df: pd.DataFrame, data_type: str) -> Dict[str, any]:
+        """Validate a DataFrame against schema rules for *data_type*.
+
+        Delegates to ``NFLDataFetcher.validate_data()`` which checks required
+        columns, null percentages, and type-specific rules.
+
+        Args:
+            df: DataFrame to validate.
+            data_type: Bronze data type key (e.g. ``'schedules'``, ``'pbp'``).
+
+        Returns:
+            Dict with ``is_valid``, ``row_count``, ``column_count``, and
+            ``issues`` (list of warning strings).
+        """
+        from src.nfl_data_integration import NFLDataFetcher
+
+        fetcher = NFLDataFetcher()
+        return fetcher.validate_data(df, data_type)
 
     # ------------------------------------------------------------------
     # Fetch methods (one per data type)
