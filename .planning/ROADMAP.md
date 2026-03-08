@@ -140,7 +140,7 @@ Plans:
 
 **Gap Closure:** Closes integration gap (validate_data not called during ingestion) and E2E flow gap (Bronze Ingestion breaks at validation step).
 
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 06-01-PLAN.md — Add validate_data() to adapter + wire into ingestion script with tests
