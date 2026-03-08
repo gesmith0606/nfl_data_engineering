@@ -1,198 +1,927 @@
-# NFL Game Prediction Data Dictionary
+# NFL Data Dictionary
 
-**Version:** 1.0  
-**Last Updated:** March 4, 2026  
-**Purpose:** Detailed technical specifications for NFL game prediction data model  
-**Related Document:** [NFL_GAME_PREDICTION_DATA_MODEL.md](./NFL_GAME_PREDICTION_DATA_MODEL.md)
+**Version:** 2.0
+**Last Updated:** March 8, 2026
+**Purpose:** Complete schema reference for all Bronze data types in the NFL Data Engineering pipeline
+**Related:** [src/config.py](../src/config.py) | [src/nfl_data_adapter.py](../src/nfl_data_adapter.py) | [scripts/bronze_ingestion_simple.py](../scripts/bronze_ingestion_simple.py)
+
+This document is the single source of truth for Bronze layer schemas. Column specs for locally available data types are auto-generated from Parquet files. For data types requiring API ingestion, representative columns are documented from test mocks, config constants, and adapter method signatures.
+
+---
 
 ## Table of Contents
-- [Bronze Layer Tables](#bronze-layer-tables)
+
+- [Bronze Layer -- Locally Verified](#bronze-layer----locally-verified)
+  - [Schedules (Games)](#schedules-games)
+  - [Player Weekly Stats](#player-weekly-stats)
+  - [Player Seasonal Stats](#player-seasonal-stats)
+  - [Snap Counts](#snap-counts)
+  - [Injuries](#injuries)
+  - [Rosters](#rosters)
+- [Bronze Layer -- From Config/Tests](#bronze-layer----from-configtests)
+  - [Play-by-Play (PBP)](#play-by-play-pbp)
+  - [NGS Passing](#ngs-passing)
+  - [NGS Rushing](#ngs-rushing)
+  - [NGS Receiving](#ngs-receiving)
+  - [PFR Weekly Passing](#pfr-weekly-passing)
+  - [PFR Weekly Rushing](#pfr-weekly-rushing)
+  - [PFR Weekly Receiving](#pfr-weekly-receiving)
+  - [PFR Weekly Defense](#pfr-weekly-defense)
+  - [PFR Seasonal Passing](#pfr-seasonal-passing)
+  - [PFR Seasonal Rushing](#pfr-seasonal-rushing)
+  - [PFR Seasonal Receiving](#pfr-seasonal-receiving)
+  - [PFR Seasonal Defense](#pfr-seasonal-defense)
+  - [QBR Weekly](#qbr-weekly)
+  - [QBR Seasonal](#qbr-seasonal)
+  - [Depth Charts](#depth-charts)
+  - [Draft Picks](#draft-picks)
+  - [Combine](#combine)
+  - [Teams](#teams)
 - [Silver Layer Tables](#silver-layer-tables)
 - [Gold Layer Tables](#gold-layer-tables)
 - [Data Types and Constraints](#data-types-and-constraints)
 - [Business Rules](#business-rules)
-- [Source System Mappings](#source-system-mappings)
 
 ---
 
-## Bronze Layer Tables
+## DATA_TYPE_SEASON_RANGES Quick Reference
 
-### 1. Games (Current - Implemented)
+The following table summarizes the valid season ranges for each data type, as defined in `src/config.py`:
 
-**Table Name:** `games`  
-**S3 Location:** `s3://nfl-raw/games/season=YYYY/week=WW/`  
-**Partitioning:** `season`, `week`  
-**File Format:** Parquet (Snappy compression)  
-**Source System:** nfl-data-py API  
-**Update Frequency:** Weekly during season  
+| Data Type | Min Season | Max Season | nfl-data-py Function | Adapter Method |
+|-----------|-----------|-----------|---------------------|----------------|
+| schedules | 1999 | dynamic | `import_schedules()` | `fetch_schedules()` |
+| pbp | 1999 | dynamic | `import_pbp_data()` | `fetch_pbp()` |
+| player_weekly | 2002 | dynamic | `import_weekly_data()` | `fetch_weekly_data()` |
+| player_seasonal | 2002 | dynamic | `import_seasonal_data()` | `fetch_seasonal_data()` |
+| snap_counts | 2012 | dynamic | `import_snap_counts()` | `fetch_snap_counts()` |
+| injuries | 2009 | dynamic | `import_injuries()` | `fetch_injuries()` |
+| rosters | 2002 | dynamic | `import_seasonal_rosters()` | `fetch_rosters()` |
+| teams | 1999 | dynamic | `import_team_desc()` | `fetch_team_descriptions()` |
+| ngs | 2016 | dynamic | `import_ngs_data()` | `fetch_ngs()` |
+| pfr_weekly | 2018 | dynamic | `import_weekly_pfr()` | `fetch_pfr_weekly()` |
+| pfr_seasonal | 2018 | dynamic | `import_seasonal_pfr()` | `fetch_pfr_seasonal()` |
+| qbr | 2006 | dynamic | `import_qbr()` | `fetch_qbr()` |
+| depth_charts | 2001 | dynamic | `import_depth_charts()` | `fetch_depth_charts()` |
+| draft_picks | 2000 | dynamic | `import_draft_picks()` | `fetch_draft_picks()` |
+| combine | 2000 | dynamic | `import_combine_data()` | `fetch_combine()` |
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| game_id | STRING | NO | Unique game identifier from nfl-data-py | Format: YYYY_WW_AWAY_HOME | "2023_01_KC_DET" |
-| season | INT | NO | NFL season year | Range: 1999-2025 | 2023 |
-| week | INT | NO | NFL week number | Range: 1-22 (1-18 regular, 19-22 playoffs) | 1 |
-| home_team | STRING | NO | Home team abbreviation | Must exist in teams reference | "KC" |
-| away_team | STRING | NO | Away team abbreviation | Must exist in teams reference | "DET" |
-| gameday | DATE | YES | Game date | Must be valid date | "2023-09-07" |
-| gametime | TIME | YES | Kickoff time | Eastern Time format | "20:20:00" |
-| home_score | INT | YES | Final home team score | Range: 0-100 | 21 |
-| away_score | INT | YES | Final away team score | Range: 0-100 | 20 |
-| result | INT | YES | Home team margin (home_score - away_score) | Range: -100 to 100 | 1 |
-| total | INT | YES | Combined final score (home_score + away_score) | Range: 0-200 | 41 |
-| overtime | INT | YES | Overtime indicator | 0=No, 1=Yes | 0 |
-| location | STRING | YES | Game location | "Home" or neutral site city | "Home" |
-| spread_line | DECIMAL(4,1) | YES | Closing point spread | Negative favors home team | -3.5 |
-| away_moneyline | INT | YES | Away team money line | Positive for underdogs | 150 |
-| home_moneyline | INT | YES | Home team money line | Negative for favorites | -170 |
-| total_line | DECIMAL(4,1) | YES | Over/under total | Points | 47.5 |
-| under_odds | INT | YES | Under betting odds | Typically -110 | -110 |
-| over_odds | INT | YES | Over betting odds | Typically -110 | -110 |
-| away_rest | INT | YES | Away team days of rest | Range: 3-14 | 7 |
-| home_rest | INT | YES | Home team days of rest | Range: 3-14 | 7 |
-| div_game | BOOLEAN | YES | Division game indicator | TRUE/FALSE | FALSE |
-| roof | STRING | YES | Stadium roof type | "dome", "outdoors", "closed", "open" | "outdoors" |
-| away_qb_name | STRING | YES | Starting away quarterback | Player name | "Jared Goff" |
-| home_qb_name | STRING | YES | Starting home quarterback | Player name | "Patrick Mahomes" |
-| away_coach | STRING | YES | Away team head coach | Coach name | "Dan Campbell" |
-| home_coach | STRING | YES | Home team head coach | Coach name | "Andy Reid" |
-| referee | STRING | YES | Game referee | Official name | "Brad Allen" |
-| stadium | STRING | YES | Stadium name | Official stadium name | "GEHA Field at Arrowhead Stadium" |
-| data_source | STRING | NO | Data source identifier | Always "nfl-data-py" | "nfl-data-py" |
-| ingestion_timestamp | TIMESTAMP | NO | ETL processing timestamp | UTC timestamp | "2023-09-08 12:30:15" |
-| seasons_requested | STRING | YES | Original seasons parameter | JSON array format | "[2023]" |
-| week_filter | INT | YES | Original week filter | Week number or null | 1 |
+**Note:** "dynamic" max season = `datetime.date.today().year + 1` (currently 2027). This allows referencing next year's draft/combine data without hardcoding.
 
-**Primary Key:** `game_id`  
-**Foreign Keys:** None (reference table)  
-**Indexes:** `season`, `week`, `home_team`, `away_team`
+---
 
-### 2. Plays (Current - Implemented)
+## Bronze Layer -- Locally Verified
 
-**Table Name:** `plays`  
-**S3 Location:** `s3://nfl-raw/plays/season=YYYY/week=WW/`  
-**Partitioning:** `season`, `week`  
-**File Format:** Parquet (Snappy compression)  
-**Source System:** nfl-data-py API  
-**Update Frequency:** Weekly during season  
+These data types have complete column specs auto-generated from local Parquet files in `data/bronze/`.
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| game_id | STRING | NO | Foreign key to games table | Must exist in games table | "2023_01_KC_DET" |
-| play_id | STRING | NO | Unique play identifier within game | Incremental within game | "1" |
-| season | INT | NO | NFL season year | Range: 1999-2025 | 2023 |
-| week | INT | NO | NFL week number | Range: 1-22 | 1 |
-| home_team | STRING | NO | Home team abbreviation | Must match games.home_team | "KC" |
-| away_team | STRING | NO | Away team abbreviation | Must match games.away_team | "DET" |
-| possession_team | STRING | YES | Team with possession | Must be home_team or away_team | "DET" |
-| play_type | STRING | YES | Type of play | "pass", "run", "punt", "field_goal", etc. | "pass" |
-| down | INT | YES | Down number | Range: 1-4 | 1 |
-| ydstogo | INT | YES | Yards to go for first down | Range: 0-99 | 10 |
-| yards_gained | INT | YES | Net yards gained on play | Range: -99 to 99 | 7 |
-| quarter_seconds_remaining | INT | YES | Seconds remaining in quarter | Range: 0-900 | 894 |
-| passer_player_name | STRING | YES | Quarterback name on pass plays | Player name or null | "Jared Goff" |
-| receiver_player_name | STRING | YES | Target receiver name on pass plays | Player name or null | "Amon-Ra St. Brown" |
-| offense_formation | STRING | YES | Offensive formation | Formation type | "SHOTGUN" |
-| offense_personnel | STRING | YES | Offensive personnel grouping | Personnel notation | "11 PERSONNEL" |
-| defense_personnel | STRING | YES | Defensive personnel grouping | Personnel notation | "NICKEL" |
-| defenders_in_box | INT | YES | Number of defenders in box | Range: 0-11 | 7 |
-| n_offense | INT | YES | Number of offensive players | Should be 11 | 11 |
-| n_defense | INT | YES | Number of defensive players | Should be 11 | 11 |
-| ngs_air_yards | DECIMAL(5,2) | YES | Next Gen Stats air yards | Can be negative | 8.5 |
-| time_to_throw | DECIMAL(4,2) | YES | Time from snap to throw (seconds) | Range: 0-20 | 2.87 |
-| was_pressure | BOOLEAN | YES | QB pressure indicator | TRUE/FALSE/null | FALSE |
-| route | STRING | YES | Receiver route type | Route description | "SLANT" |
-| defense_man_zone_type | STRING | YES | Coverage type | "Man", "Zone", "Mixed" | "Zone" |
-| defense_coverage_type | STRING | YES | Specific coverage | Coverage description | "Cover 2" |
-| data_source | STRING | NO | Data source identifier | Always "nfl-data-py" | "nfl-data-py" |
-| ingestion_timestamp | TIMESTAMP | NO | ETL processing timestamp | UTC timestamp | "2023-09-08 12:35:22" |
+---
 
-**Primary Key:** `game_id`, `play_id`  
-**Foreign Keys:** `game_id` → `games.game_id`  
-**Indexes:** `season`, `week`, `possession_team`, `play_type`
+### Schedules (Games)
 
-### 3. Teams (Future - Planned)
+**Source:** `nfl-data-py` function `import_schedules()` via `NFLDataAdapter.fetch_schedules()`
+**Seasons:** 1999-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/schedules/season=YYYY/`
+**Local Path:** `data/bronze/schedules/season=YYYY/` (also `data/bronze/games/season=YYYY/` for legacy ingestion)
+**Known Quirks:** The `NFLDataFetcher.fetch_game_schedules()` in `nfl_data_integration.py` adds metadata columns (`data_source`, `ingestion_timestamp`, `seasons_requested`, `week_filter`) that are not part of the upstream schema.
 
-**Table Name:** `teams`  
-**S3 Location:** `s3://nfl-raw/teams/`  
-**Partitioning:** None (reference table)  
-**File Format:** Parquet (Snappy compression)  
-**Source System:** nfl-data-py API  
-**Update Frequency:** Annually or as needed  
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | Yes | Unique game identifier (YYYY_WW_AWAY_HOME) | "2021_01_TB_DAL" |
+| season | int64 | Yes | NFL season year | 2021 |
+| game_type | string | Yes | Game type (REG, WC, DIV, CON, SB) | "REG" |
+| week | int64 | Yes | NFL week number (1-18 regular, 19-22 playoffs) | 1 |
+| gameday | string | Yes | Game date string | "2021-09-09" |
+| weekday | string | Yes | Day of the week | "Thursday" |
+| gametime | string | Yes | Kickoff time (Eastern) | "20:20" |
+| away_team | string | Yes | Away team abbreviation | "TB" |
+| away_score | int64 | Yes | Final away team score | 31 |
+| home_team | string | Yes | Home team abbreviation | "DAL" |
+| home_score | int64 | Yes | Final home team score | 29 |
+| location | string | Yes | Game location indicator | "Home" |
+| result | int64 | Yes | Home team margin (home_score - away_score) | -2 |
+| total | int64 | Yes | Combined score (home + away) | 60 |
+| overtime | int64 | Yes | Overtime flag (1 = OT, 0 = regulation) | 0 |
+| old_game_id | int64 | Yes | Legacy game ID from older data sources | 2021091000 |
+| gsis | int64 | Yes | NFL GSIS game identifier | 5844 |
+| nfl_detail_id | string | Yes | NFL detail API identifier | "..." |
+| pfr | string | Yes | Pro Football Reference game ID | "202109090dal" |
+| pff | double | Yes | Pro Football Focus game ID | NaN |
+| espn | int64 | Yes | ESPN game identifier | 401326313 |
+| ftn | double | Yes | FTN game identifier | NaN |
+| away_rest | int64 | Yes | Days rest for away team | 7 |
+| home_rest | int64 | Yes | Days rest for home team | 7 |
+| away_moneyline | double | Yes | Away team moneyline odds | -200 |
+| home_moneyline | double | Yes | Home team moneyline odds | 170 |
+| spread_line | double | Yes | Point spread (negative = home favored) | -7.5 |
+| away_spread_odds | double | Yes | Away spread odds | -110 |
+| home_spread_odds | double | Yes | Home spread odds | -110 |
+| total_line | double | Yes | Over/under line | 51.5 |
+| under_odds | double | Yes | Under odds | -110 |
+| over_odds | double | Yes | Over odds | -110 |
+| div_game | int64 | Yes | Division game flag (1 = divisional) | 0 |
+| roof | string | Yes | Roof type (outdoors, dome, closed, open) | "outdoors" |
+| surface | string | Yes | Playing surface type | "grass" |
+| temp | double | Yes | Temperature in Fahrenheit | 82.0 |
+| wind | double | Yes | Wind speed in mph | 7.0 |
+| away_qb_id | string | Yes | Away starting QB GSIS ID | "00-0034857" |
+| home_qb_id | string | Yes | Home starting QB GSIS ID | "00-0033873" |
+| away_qb_name | string | Yes | Away starting QB name | "Tom Brady" |
+| home_qb_name | string | Yes | Home starting QB name | "Dak Prescott" |
+| away_coach | string | Yes | Away head coach | "Bruce Arians" |
+| home_coach | string | Yes | Home head coach | "Mike McCarthy" |
+| referee | string | Yes | Referee name | "Scott Novak" |
+| stadium_id | string | Yes | Stadium identifier | "DAL00" |
+| stadium | string | Yes | Stadium name | "AT&T Stadium" |
+| data_source | string | Yes | Ingestion source tag | "nfl-data-py" |
+| ingestion_timestamp | timestamp[ns] | Yes | When data was ingested | 2026-03-06 22:37:34 |
+| seasons_requested | string | Yes | Seasons requested in API call | "[2021]" |
+| week_filter | null | Yes | Week filter applied (null if none) | null |
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| team_abbr | STRING | NO | Primary team abbreviation | 2-4 character code | "KC" |
-| team_name | STRING | NO | Official team name | Full team name | "Kansas City Chiefs" |
-| team_city | STRING | NO | Team city | City name | "Kansas City" |
-| team_division | STRING | NO | Division identifier | AFC/NFC + EAST/WEST/NORTH/SOUTH | "AFC_WEST" |
-| team_conference | STRING | NO | Conference identifier | "AFC" or "NFC" | "AFC" |
-| team_logo_url | STRING | YES | Logo image URL | Valid URL or null | "https://..." |
-| team_primary_color | STRING | YES | Primary color hex code | 6-character hex | "#E31837" |
-| team_secondary_color | STRING | YES | Secondary color hex code | 6-character hex | "#FFB81C" |
-| stadium_name | STRING | YES | Home stadium name | Official stadium name | "GEHA Field at Arrowhead Stadium" |
-| stadium_capacity | INT | YES | Stadium capacity | Range: 50000-100000 | 76416 |
-| stadium_surface | STRING | YES | Playing surface type | "Grass", "FieldTurf", etc. | "Grass" |
-| stadium_roof_type | STRING | YES | Roof configuration | "Open", "Dome", "Retractable" | "Open" |
-| data_source | STRING | NO | Data source identifier | Always "nfl-data-py" | "nfl-data-py" |
-| ingestion_timestamp | TIMESTAMP | NO | ETL processing timestamp | UTC timestamp | "2023-08-15 10:00:00" |
+---
 
-**Primary Key:** `team_abbr`  
-**Foreign Keys:** None (reference table)  
-**Indexes:** `team_division`, `team_conference`
+### Player Weekly Stats
 
-### 4. Players (Future - Planned)
+**Source:** `nfl-data-py` function `import_weekly_data()` via `NFLDataAdapter.fetch_weekly_data()`
+**Seasons:** 2002-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/players/weekly/season=YYYY/week=WW/`
+**Local Path:** `data/bronze/players/weekly/season=YYYY/week=WW/`
+**Known Quirks:** Column `receiving_air_yards` (not `air_yards`) -- mapped to `air_yards` in Silver layer prep functions. The `wopr` column becomes `wopr_x`/`wopr_y` in seasonal data due to merge artifacts.
 
-**Table Name:** `players`  
-**S3 Location:** `s3://nfl-raw/players/season=YYYY/`  
-**Partitioning:** `season`  
-**File Format:** Parquet (Snappy compression)  
-**Source System:** nfl-data-py API  
-**Update Frequency:** Weekly during season  
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| player_id | string | Yes | Player GSIS identifier | "00-0033873" |
+| player_name | string | Yes | Short player name | "P.Mahomes" |
+| player_display_name | string | Yes | Full display name | "Patrick Mahomes" |
+| position | string | Yes | Player position | "QB" |
+| position_group | string | Yes | Position group (QB, RB, WR, TE) | "QB" |
+| headshot_url | string | Yes | URL to player headshot image | "https://..." |
+| recent_team | string | Yes | Most recent team abbreviation | "KC" |
+| season | int32 | Yes | NFL season year | 2021 |
+| week | int32 | Yes | NFL week number | 1 |
+| season_type | string | Yes | Season type (REG, POST) | "REG" |
+| opponent_team | string | Yes | Opponent team abbreviation | "CLE" |
+| completions | int32 | Yes | Passing completions | 27 |
+| attempts | int32 | Yes | Passing attempts | 36 |
+| passing_yards | float | Yes | Total passing yards | 337.0 |
+| passing_tds | int32 | Yes | Passing touchdowns | 3 |
+| interceptions | float | Yes | Interceptions thrown | 0.0 |
+| sacks | float | Yes | Times sacked | 1.0 |
+| sack_yards | float | Yes | Yards lost to sacks | -8.0 |
+| sack_fumbles | int32 | Yes | Fumbles on sacks | 0 |
+| sack_fumbles_lost | int32 | Yes | Sack fumbles lost to defense | 0 |
+| passing_air_yards | float | Yes | Total air yards on pass attempts | 180.0 |
+| passing_yards_after_catch | float | Yes | Total YAC on completions | 157.0 |
+| passing_first_downs | float | Yes | First downs via passing | 18.0 |
+| passing_epa | float | Yes | Expected points added on pass plays | 12.5 |
+| passing_2pt_conversions | int32 | Yes | Successful 2-point passing conversions | 0 |
+| pacr | float | Yes | Passer Air Conversion Ratio | 1.87 |
+| dakota | float | Yes | DAKOTA completion model metric | 0.75 |
+| carries | int32 | Yes | Rushing attempts | 5 |
+| rushing_yards | float | Yes | Total rushing yards | 18.0 |
+| rushing_tds | int32 | Yes | Rushing touchdowns | 0 |
+| rushing_fumbles | float | Yes | Fumbles on rushing plays | 0.0 |
+| rushing_fumbles_lost | float | Yes | Rushing fumbles lost | 0.0 |
+| rushing_first_downs | float | Yes | First downs via rushing | 1.0 |
+| rushing_epa | float | Yes | Expected points added on rush plays | -1.2 |
+| rushing_2pt_conversions | int32 | Yes | Successful 2-point rushing conversions | 0 |
+| receptions | int32 | Yes | Total receptions | 0 |
+| targets | int32 | Yes | Times targeted as receiver | 0 |
+| receiving_yards | float | Yes | Total receiving yards | 0.0 |
+| receiving_tds | int32 | Yes | Receiving touchdowns | 0 |
+| receiving_fumbles | float | Yes | Fumbles after reception | 0.0 |
+| receiving_fumbles_lost | float | Yes | Receiving fumbles lost | 0.0 |
+| receiving_air_yards | float | Yes | Air yards on targets received | 0.0 |
+| receiving_yards_after_catch | float | Yes | YAC on receptions | 0.0 |
+| receiving_first_downs | float | Yes | First downs via receiving | 0.0 |
+| receiving_epa | float | Yes | Expected points added on receiving plays | 0.0 |
+| receiving_2pt_conversions | int32 | Yes | Successful 2-point receiving conversions | 0 |
+| racr | float | Yes | Receiver Air Conversion Ratio | NaN |
+| target_share | float | Yes | Share of team targets | 0.0 |
+| air_yards_share | float | Yes | Share of team air yards | 0.0 |
+| wopr | float | Yes | Weighted Opportunity Rating | 0.0 |
+| special_teams_tds | float | Yes | Special teams touchdowns | 0.0 |
+| fantasy_points | float | Yes | Standard scoring fantasy points | 18.2 |
+| fantasy_points_ppr | float | Yes | PPR scoring fantasy points | 18.2 |
+| data_source | string | Yes | Ingestion source tag | "nfl-data-py" |
+| ingestion_timestamp | timestamp[ns] | Yes | When data was ingested | 2026-03-06 22:37:34 |
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| player_id | STRING | NO | Unique player identifier | nfl-data-py player ID | "00-0019596" |
-| season | INT | NO | NFL season year | Range: 1999-2025 | 2023 |
-| player_name | STRING | NO | Full player name | First Last format | "Patrick Mahomes" |
-| team | STRING | NO | Current team abbreviation | Must exist in teams table | "KC" |
-| position | STRING | NO | Primary position | Standard position abbreviations | "QB" |
-| jersey_number | INT | YES | Jersey number | Range: 0-99 | 15 |
-| height | INT | YES | Height in inches | Range: 60-90 | 75 |
-| weight | INT | YES | Weight in pounds | Range: 150-400 | 225 |
-| birth_date | DATE | YES | Birth date | Valid date | "1995-09-17" |
-| years_exp | INT | YES | Years of NFL experience | Range: 0-25 | 6 |
-| college | STRING | YES | College attended | College name | "Texas Tech" |
-| data_source | STRING | NO | Data source identifier | Always "nfl-data-py" | "nfl-data-py" |
-| ingestion_timestamp | TIMESTAMP | NO | ETL processing timestamp | UTC timestamp | "2023-09-08 10:00:00" |
+---
 
-**Primary Key:** `player_id`, `season`  
-**Foreign Keys:** `team` → `teams.team_abbr`  
-**Indexes:** `season`, `team`, `position`
+### Player Seasonal Stats
 
-### 5. Weather (Future - Planned)
+**Source:** `nfl-data-py` function `import_seasonal_data()` via `NFLDataAdapter.fetch_seasonal_data()`
+**Seasons:** 2002-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/players/seasonal/season=YYYY/`
+**Local Path:** `data/bronze/players/seasonal/season=YYYY/`
+**Known Quirks:** Contains `wopr_x` and `wopr_y` columns (merge artifact from nfl-data-py joining weekly and seasonal shares). Additional seasonal share columns (`tgt_sh`, `ay_sh`, `yac_sh`, `ry_sh`, etc.) are seasonal-only aggregates not present in weekly data.
 
-**Table Name:** `weather`  
-**S3 Location:** `s3://nfl-raw/weather/season=YYYY/week=WW/`  
-**Partitioning:** `season`, `week`  
-**File Format:** Parquet (Snappy compression)  
-**Source System:** Weather API (OpenWeatherMap, AccuWeather)  
-**Update Frequency:** Game day + historical backfill  
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| player_id | string | Yes | Player GSIS identifier | "00-0033873" |
+| season | int64 | Yes | NFL season year | 2021 |
+| season_type | string | Yes | Season type (REG, POST) | "REG" |
+| completions | int32 | Yes | Season total completions | 436 |
+| attempts | int32 | Yes | Season total passing attempts | 658 |
+| passing_yards | double | Yes | Season total passing yards | 4839.0 |
+| passing_tds | int32 | Yes | Season total passing TDs | 37 |
+| interceptions | double | Yes | Season total interceptions | 13.0 |
+| sacks | double | Yes | Season total sacks taken | 28.0 |
+| sack_yards | double | Yes | Season total sack yards lost | -180.0 |
+| sack_fumbles | int32 | Yes | Season total sack fumbles | 3 |
+| sack_fumbles_lost | int32 | Yes | Season total sack fumbles lost | 1 |
+| passing_air_yards | double | Yes | Season total air yards | 3200.0 |
+| passing_yards_after_catch | double | Yes | Season total YAC | 1639.0 |
+| passing_first_downs | double | Yes | Season total passing first downs | 230.0 |
+| passing_epa | double | Yes | Season total passing EPA | 120.5 |
+| passing_2pt_conversions | int32 | Yes | Season total passing 2pt conversions | 1 |
+| pacr | double | Yes | Season PACR | 1.51 |
+| dakota | double | Yes | Season DAKOTA metric | 0.68 |
+| carries | int32 | Yes | Season total carries | 66 |
+| rushing_yards | double | Yes | Season total rushing yards | 381.0 |
+| rushing_tds | int32 | Yes | Season total rushing TDs | 2 |
+| rushing_fumbles | double | Yes | Season total rushing fumbles | 2.0 |
+| rushing_fumbles_lost | double | Yes | Season total rushing fumbles lost | 1.0 |
+| rushing_first_downs | double | Yes | Season total rushing first downs | 20.0 |
+| rushing_epa | double | Yes | Season total rushing EPA | 5.3 |
+| rushing_2pt_conversions | int32 | Yes | Season total rushing 2pt conversions | 0 |
+| receptions | int32 | Yes | Season total receptions | 0 |
+| targets | int32 | Yes | Season total targets | 0 |
+| receiving_yards | double | Yes | Season total receiving yards | 0.0 |
+| receiving_tds | int32 | Yes | Season total receiving TDs | 0 |
+| receiving_fumbles | double | Yes | Season total receiving fumbles | 0.0 |
+| receiving_fumbles_lost | double | Yes | Season total receiving fumbles lost | 0.0 |
+| receiving_air_yards | double | Yes | Season total receiving air yards | 0.0 |
+| receiving_yards_after_catch | double | Yes | Season total receiving YAC | 0.0 |
+| receiving_first_downs | double | Yes | Season total receiving first downs | 0.0 |
+| receiving_epa | double | Yes | Season total receiving EPA | 0.0 |
+| receiving_2pt_conversions | int32 | Yes | Season total receiving 2pt conversions | 0 |
+| racr | double | Yes | Season RACR | NaN |
+| target_share | double | Yes | Season average target share | 0.0 |
+| air_yards_share | double | Yes | Season average air yards share | 0.0 |
+| wopr_x | double | Yes | WOPR from weekly data merge | 0.0 |
+| special_teams_tds | double | Yes | Season total special teams TDs | 0.0 |
+| fantasy_points | double | Yes | Season total standard fantasy points | 350.2 |
+| fantasy_points_ppr | double | Yes | Season total PPR fantasy points | 350.2 |
+| games | int64 | Yes | Games played in season | 17 |
+| tgt_sh | double | Yes | Seasonal target share | 0.0 |
+| ay_sh | double | Yes | Seasonal air yards share | 0.0 |
+| yac_sh | double | Yes | Seasonal YAC share | 0.0 |
+| wopr_y | double | Yes | WOPR from seasonal data merge | 0.0 |
+| ry_sh | double | Yes | Seasonal rushing yards share | 0.15 |
+| rtd_sh | double | Yes | Seasonal rushing TD share | 0.08 |
+| rfd_sh | double | Yes | Seasonal rushing first down share | 0.10 |
+| rtdfd_sh | double | Yes | Seasonal rushing TD + first down share | 0.09 |
+| dom | double | Yes | Dominator rating (target share + rushing share) | 0.15 |
+| w8dom | double | Yes | Weighted dominator rating | 0.12 |
+| yptmpa | double | Yes | Yards per team pass attempt | 0.0 |
+| ppr_sh | double | Yes | PPR fantasy points share | 0.05 |
+| data_source | string | Yes | Ingestion source tag | "nfl-data-py" |
+| ingestion_timestamp | timestamp[ns] | Yes | When data was ingested | 2026-03-06 22:37:34 |
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| game_id | STRING | NO | Foreign key to games table | Must exist in games table | "2023_01_KC_DET" |
-| temperature | INT | YES | Temperature at kickoff (Fahrenheit) | Range: -20 to 120 | 72 |
-| humidity | INT | YES | Relative humidity percentage | Range: 0-100 | 65 |
-| wind_speed | INT | YES | Wind speed in mph | Range: 0-50 | 8 |
-| wind_direction | STRING | YES | Wind direction | Cardinal/ordinal directions | "SW" |
-| precipitation | STRING | YES | Precipitation type | "None", "Rain", "Snow", "Mixed" | "None" |
-| weather_detail | STRING | YES | Detailed weather description | Free text description | "Partly cloudy" |
-| data_source | STRING | NO | Weather data source | API identifier | "OpenWeatherMap" |
-| ingestion_timestamp | TIMESTAMP | NO | ETL processing timestamp | UTC timestamp | "2023-09-08 15:00:00" |
+---
 
-**Primary Key:** `game_id`  
-**Foreign Keys:** `game_id` → `games.game_id`  
-**Indexes:** `season`, `week`
+### Snap Counts
+
+**Source:** `nfl-data-py` function `import_snap_counts()` via `NFLDataAdapter.fetch_snap_counts()`
+**Seasons:** 2012-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/players/snaps/season=YYYY/week=WW/`
+**Local Path:** `data/bronze/players/snaps/season=YYYY/week=WW/`
+**Known Quirks:** Uses `offense_pct` (not `snap_pct`) and `player` (not `player_id`) -- column name mapping handled in `silver_player_transformation.py`. The adapter method signature is `fetch_snap_counts(season, week)` taking positional args, not `seasons` list.
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | Yes | Unique game identifier | "2021_01_TB_DAL" |
+| pfr_game_id | string | Yes | Pro Football Reference game ID | "202109090dal" |
+| season | int32 | Yes | NFL season year | 2021 |
+| game_type | string | Yes | Game type (REG, POST) | "REG" |
+| week | int32 | Yes | NFL week number | 1 |
+| player | string | Yes | Player name | "Dak Prescott" |
+| pfr_player_id | string | Yes | PFR player identifier | "PresDa01" |
+| position | string | Yes | Player position | "QB" |
+| team | string | Yes | Team abbreviation | "DAL" |
+| opponent | string | Yes | Opponent team abbreviation | "TB" |
+| offense_snaps | double | Yes | Number of offensive snaps played | 72.0 |
+| offense_pct | double | Yes | Percentage of offensive snaps (0-100) | 100.0 |
+| defense_snaps | double | Yes | Number of defensive snaps played | 0.0 |
+| defense_pct | double | Yes | Percentage of defensive snaps (0-100) | 0.0 |
+| st_snaps | double | Yes | Number of special teams snaps played | 0.0 |
+| st_pct | double | Yes | Percentage of special teams snaps (0-100) | 0.0 |
+| data_source | string | Yes | Ingestion source tag | "nfl-data-py" |
+| ingestion_timestamp | timestamp[ns] | Yes | When data was ingested | 2026-03-06 22:37:34 |
+
+---
+
+### Injuries
+
+**Source:** `nfl-data-py` function `import_injuries()` via `NFLDataAdapter.fetch_injuries()`
+**Seasons:** 2009-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/players/injuries/season=YYYY/`
+**Local Path:** `data/bronze/players/injuries/season=YYYY/`
+**Known Quirks:** Injury status multipliers used in projection engine: Active=1.0, Questionable=0.85, Doubtful=0.50, Out/IR/PUP=0.0. The `report_status` column contains the game-day designation used for these multipliers.
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int32 | Yes | NFL season year | 2021 |
+| game_type | string | Yes | Game type (REG, POST) | "REG" |
+| team | string | Yes | Team abbreviation | "KC" |
+| week | int32 | Yes | NFL week number | 1 |
+| gsis_id | string | Yes | Player GSIS identifier | "00-0033873" |
+| position | string | Yes | Player position | "QB" |
+| full_name | string | Yes | Player full name | "Patrick Mahomes" |
+| first_name | string | Yes | Player first name | "Patrick" |
+| last_name | string | Yes | Player last name | "Mahomes" |
+| report_primary_injury | string | Yes | Primary injury from game report | "Knee" |
+| report_secondary_injury | string | Yes | Secondary injury from game report | null |
+| report_status | string | Yes | Game report status (Questionable, Doubtful, Out) | "Questionable" |
+| practice_primary_injury | string | Yes | Primary injury from practice report | "Knee" |
+| practice_secondary_injury | string | Yes | Secondary injury from practice report | null |
+| practice_status | string | Yes | Practice participation status | "Limited Participation" |
+| date_modified | timestamp[ns, tz=UTC] | Yes | When injury record was last modified | 2021-09-08T18:00:00Z |
+| data_source | string | Yes | Ingestion source tag | "nfl-data-py" |
+| ingestion_timestamp | timestamp[ns] | Yes | When data was ingested | 2026-03-06 22:37:34 |
+
+---
+
+### Rosters
+
+**Source:** `nfl-data-py` function `import_seasonal_rosters()` via `NFLDataAdapter.fetch_rosters()`
+**Seasons:** 2002-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/players/rosters/season=YYYY/`
+**Local Path:** `data/bronze/players/rosters/season=YYYY/`
+**Known Quirks:** MUST use `import_seasonal_rosters` (not `import_rosters`) -- the latter returns a different schema. Contains cross-platform IDs (ESPN, Yahoo, Sleeper, PFR, PFF, Rotowire, etc.) for player matching across data sources.
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int32 | Yes | NFL season year | 2021 |
+| team | string | Yes | Team abbreviation | "KC" |
+| position | string | Yes | Primary position | "QB" |
+| depth_chart_position | string | Yes | Depth chart position designation | "QB" |
+| jersey_number | double | Yes | Jersey number | 15.0 |
+| status | string | Yes | Roster status (ACT, RES, CUT, etc.) | "ACT" |
+| player_name | string | Yes | Player name | "Patrick Mahomes" |
+| first_name | string | Yes | First name | "Patrick" |
+| last_name | string | Yes | Last name | "Mahomes" |
+| birth_date | timestamp[ns] | Yes | Date of birth | 1995-09-17 |
+| height | double | Yes | Height in inches | 75.0 |
+| weight | int32 | Yes | Weight in pounds | 225 |
+| college | string | Yes | College attended | "Texas Tech" |
+| player_id | string | Yes | GSIS player identifier | "00-0033873" |
+| espn_id | string | Yes | ESPN player ID | "3139477" |
+| sportradar_id | string | Yes | Sportradar UUID | "..." |
+| yahoo_id | string | Yes | Yahoo player ID | "30123" |
+| rotowire_id | string | Yes | Rotowire player ID | "12110" |
+| pff_id | string | Yes | PFF player ID | "46088" |
+| pfr_id | string | Yes | PFR player ID | "MahoPa00" |
+| fantasy_data_id | string | Yes | FantasyData player ID | "17870" |
+| sleeper_id | string | Yes | Sleeper app player ID | "4046" |
+| years_exp | int32 | Yes | Years of NFL experience | 4 |
+| headshot_url | string | Yes | URL to player headshot | "https://..." |
+| ngs_position | string | Yes | Next Gen Stats position classification | "QUARTERBACK" |
+| week | int32 | Yes | Roster week snapshot | 1 |
+| game_type | string | Yes | Game type for roster snapshot | "REG" |
+| status_description_abbr | string | Yes | Status description abbreviation | "A01" |
+| football_name | string | Yes | Football-specific name | "Patrick" |
+| esb_id | string | Yes | Elias Sports Bureau ID | "MAH687290" |
+| gsis_it_id | string | Yes | GSIS IT system ID | "47218" |
+| smart_id | string | Yes | NFL SMART ID | "3200..." |
+| entry_year | int32 | Yes | Year entered NFL | 2017 |
+| rookie_year | double | Yes | Rookie season year | 2017.0 |
+| draft_club | string | Yes | Team that drafted the player | "KC" |
+| draft_number | double | Yes | Overall draft pick number | 10.0 |
+| age | double | Yes | Player age at time of season | 26.0 |
+| data_source | string | Yes | Ingestion source tag | "nfl-data-py" |
+| ingestion_timestamp | timestamp[ns] | Yes | When data was ingested | 2026-03-06 22:37:34 |
+
+---
+
+## Bronze Layer -- From Config/Tests
+
+These data types require API ingestion to get full Parquet schemas. Representative columns are documented from test mocks (`tests/test_advanced_ingestion.py`, `tests/test_pbp_ingestion.py`), config constants (`PBP_COLUMNS` in `src/config.py`), and `validate_data()` required columns in `src/nfl_data_integration.py`.
+
+> **Note:** Full schemas are available after running `python scripts/bronze_ingestion_simple.py --data-type [type] --season YYYY`
+
+---
+
+### Play-by-Play (PBP)
+
+**Source:** `nfl-data-py` function `import_pbp_data()` via `NFLDataAdapter.fetch_pbp()`
+**Seasons:** 1999-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pbp/season=YYYY/`
+**Local Path:** `data/bronze/pbp/season=YYYY/`
+**Known Quirks:** Full PBP data has 300+ columns; we curate to 103 via `PBP_COLUMNS` in `src/config.py`. Always use `include_participation=False` (default) to avoid column merge issues. Processed one season at a time for memory safety. `downcast=True` reduces numeric precision for ~40% memory savings.
+
+The following 103 columns are curated via `PBP_COLUMNS` in `src/config.py`:
+
+| Column | Category | Description | Example |
+|--------|----------|-------------|---------|
+| game_id | Game/play ID | Unique game identifier | "2023_01_KC_DET" |
+| play_id | Game/play ID | Unique play identifier within game | 43 |
+| season | Game/play ID | NFL season year | 2023 |
+| week | Game/play ID | NFL week number | 1 |
+| season_type | Game/play ID | Season type (REG, POST) | "REG" |
+| game_date | Game/play ID | Date of game | "2023-09-07" |
+| posteam | Game/play ID | Possession team abbreviation | "DET" |
+| defteam | Game/play ID | Defending team abbreviation | "KC" |
+| home_team | Game/play ID | Home team abbreviation | "KC" |
+| away_team | Game/play ID | Away team abbreviation | "DET" |
+| home_score | Score context | Home team score at time of play | 0 |
+| away_score | Score context | Away team score at time of play | 0 |
+| posteam_score | Score context | Possession team score | 0 |
+| defteam_score | Score context | Defending team score | 0 |
+| posteam_score_post | Score context | Possession team score after play | 0 |
+| defteam_score_post | Score context | Defending team score after play | 0 |
+| score_differential | Score context | Score difference (posteam - defteam) | 0 |
+| score_differential_post | Score context | Score difference after play | 0 |
+| down | Play situation | Down number (1-4) | 1 |
+| ydstogo | Play situation | Yards to go for first down | 10 |
+| yardline_100 | Play situation | Yards from opponent end zone (0-100) | 75 |
+| goal_to_go | Play situation | Goal-to-go situation flag | 0 |
+| qtr | Play situation | Quarter (1-5, 5=OT) | 1 |
+| quarter_seconds_remaining | Play situation | Seconds remaining in quarter | 894 |
+| half_seconds_remaining | Play situation | Seconds remaining in half | 1794 |
+| game_seconds_remaining | Play situation | Seconds remaining in game | 3594 |
+| drive | Play situation | Drive number within game | 1 |
+| posteam_timeouts_remaining | Play situation | Possession team timeouts left | 3 |
+| defteam_timeouts_remaining | Play situation | Defending team timeouts left | 3 |
+| play_type | Play type/result | Type of play (pass, run, punt, etc.) | "pass" |
+| yards_gained | Play type/result | Net yards gained on play | 7 |
+| shotgun | Play type/result | Shotgun formation flag | 1 |
+| no_huddle | Play type/result | No huddle flag | 0 |
+| qb_dropback | Play type/result | QB dropback flag | 1 |
+| qb_scramble | Play type/result | QB scramble flag | 0 |
+| qb_kneel | Play type/result | QB kneel flag | 0 |
+| qb_spike | Play type/result | QB spike flag | 0 |
+| pass_attempt | Play type/result | Pass attempt flag | 1 |
+| rush_attempt | Play type/result | Rush attempt flag | 0 |
+| pass_length | Play type/result | Pass length category (short, deep) | "short" |
+| pass_location | Play type/result | Pass location (left, middle, right) | "middle" |
+| run_location | Play type/result | Run location (left, middle, right) | null |
+| run_gap | Play type/result | Run gap (end, tackle, guard) | null |
+| complete_pass | Play type/result | Complete pass flag | 1 |
+| incomplete_pass | Play type/result | Incomplete pass flag | 0 |
+| interception | Play type/result | Interception flag | 0 |
+| sack | Play type/result | Sack flag | 0 |
+| fumble | Play type/result | Fumble flag | 0 |
+| fumble_lost | Play type/result | Fumble lost flag | 0 |
+| penalty | Play type/result | Penalty flag | 0 |
+| first_down | Play type/result | First down achieved flag | 0 |
+| third_down_converted | Play type/result | Third down converted flag | 0 |
+| third_down_failed | Play type/result | Third down failed flag | 0 |
+| fourth_down_converted | Play type/result | Fourth down converted flag | 0 |
+| fourth_down_failed | Play type/result | Fourth down failed flag | 0 |
+| touchdown | Play type/result | Touchdown scored flag | 0 |
+| pass_touchdown | Play type/result | Passing touchdown flag | 0 |
+| rush_touchdown | Play type/result | Rushing touchdown flag | 0 |
+| safety | Play type/result | Safety flag | 0 |
+| epa | EPA metrics | Expected Points Added for play | 0.52 |
+| ep | EPA metrics | Expected Points before play | 1.23 |
+| air_epa | EPA metrics | EPA from air yards component | 0.31 |
+| yac_epa | EPA metrics | EPA from yards after catch component | 0.21 |
+| comp_air_epa | EPA metrics | Completed pass air EPA | 0.31 |
+| comp_yac_epa | EPA metrics | Completed pass YAC EPA | 0.21 |
+| qb_epa | EPA metrics | EPA attributed to quarterback | 0.52 |
+| wpa | WPA metrics | Win Probability Added | 0.012 |
+| vegas_wpa | WPA metrics | Vegas-adjusted WPA | 0.010 |
+| air_wpa | WPA metrics | WPA from air yards | 0.008 |
+| yac_wpa | WPA metrics | WPA from YAC | 0.004 |
+| comp_air_wpa | WPA metrics | Completed pass air WPA | 0.008 |
+| comp_yac_wpa | WPA metrics | Completed pass YAC WPA | 0.004 |
+| wp | WPA metrics | Win probability before play | 0.52 |
+| def_wp | WPA metrics | Defensive win probability | 0.48 |
+| home_wp | WPA metrics | Home team win probability | 0.52 |
+| away_wp | WPA metrics | Away team win probability | 0.48 |
+| home_wp_post | WPA metrics | Home win probability after play | 0.53 |
+| away_wp_post | WPA metrics | Away win probability after play | 0.47 |
+| cpoe | Completion metrics | Completion Percentage Over Expected | 5.2 |
+| cp | Completion metrics | Completion probability | 0.72 |
+| xpass | Completion metrics | Expected pass rate | 0.55 |
+| pass_oe | Completion metrics | Pass rate over expected | 0.05 |
+| air_yards | Yardage | Air yards on pass attempt | 9 |
+| yards_after_catch | Yardage | Yards after catch | -2 |
+| passing_yards | Yardage | Passing yards on play | 7 |
+| receiving_yards | Yardage | Receiving yards on play | 7 |
+| rushing_yards | Yardage | Rushing yards on play | 0 |
+| success | Success | Successful play flag (EPA > 0) | 1 |
+| passer_player_id | Player IDs | Passer GSIS ID | "00-0033873" |
+| passer_player_name | Player IDs | Passer name | "P.Mahomes" |
+| receiver_player_id | Player IDs | Receiver GSIS ID | "00-0035228" |
+| receiver_player_name | Player IDs | Receiver name | "T.Kelce" |
+| rusher_player_id | Player IDs | Rusher GSIS ID | null |
+| rusher_player_name | Player IDs | Rusher name | null |
+| spread_line | Vegas lines | Point spread for game | -3.5 |
+| total_line | Vegas lines | Over/under line | 51.5 |
+| series | Series | Series number within game | 1 |
+| series_success | Series | Series resulted in first down or TD | 1 |
+| series_result | Series | Series outcome | "First down" |
+| temp | Weather/venue | Temperature (Fahrenheit) | 72 |
+| wind | Weather/venue | Wind speed (mph) | 8 |
+| roof | Weather/venue | Roof type | "outdoors" |
+| surface | Weather/venue | Playing surface | "grass" |
+
+---
+
+### NGS Passing
+
+**Source:** `nfl-data-py` function `import_ngs_data(stat_type='passing')` via `NFLDataAdapter.fetch_ngs(stat_type='passing')`
+**Seasons:** 2016-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/ngs/passing/season=YYYY/`
+**Local Path:** `data/bronze/ngs/passing/season=YYYY/`
+**Known Quirks:** NGS data is only available from 2016 onward (when tracking chips were introduced). All three NGS stat types share common identification columns but have stat-type-specific metrics. Full schema includes ~20 additional passing-specific columns available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int64 | Yes | NFL season year | 2024 |
+| season_type | string | Yes | Season type (REG, POST) | "REG" |
+| week | int64 | Yes | NFL week number | 1 |
+| player_display_name | string | Yes | Player full display name | "Patrick Mahomes" |
+| player_position | string | Yes | Player position | "QB" |
+| team_abbr | string | Yes | Team abbreviation | "KC" |
+| player_gsis_id | string | Yes | GSIS player identifier | "00-0033873" |
+
+Additional columns available after ingestion (passing-specific):
+
+| Column | Description |
+|--------|-------------|
+| avg_time_to_throw | Average time from snap to throw (seconds) |
+| avg_completed_air_yards | Average air yards on completions |
+| avg_intended_air_yards | Average air yards on all attempts |
+| avg_air_yards_differential | Difference between intended and completed air yards |
+| aggressiveness | Percentage of tight-window throws |
+| max_completed_air_distance | Longest completed pass (air distance) |
+| avg_air_yards_to_sticks | Average air yards relative to first-down marker |
+| attempts | Total pass attempts |
+| pass_yards | Total passing yards |
+| pass_touchdowns | Total passing touchdowns |
+| interceptions | Total interceptions thrown |
+| passer_rating | NFL passer rating |
+| completions | Total completions |
+| completion_percentage | Completion rate |
+| expected_completion_percentage | xComp from NGS model |
+| completion_percentage_above_expectation | CPOE metric |
+| avg_air_distance | Average distance ball travels in air |
+| max_air_distance | Maximum air distance on any attempt |
+
+---
+
+### NGS Rushing
+
+**Source:** `nfl-data-py` function `import_ngs_data(stat_type='rushing')` via `NFLDataAdapter.fetch_ngs(stat_type='rushing')`
+**Seasons:** 2016-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/ngs/rushing/season=YYYY/`
+**Local Path:** `data/bronze/ngs/rushing/season=YYYY/`
+**Known Quirks:** Full schema includes rushing-specific metrics available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int64 | Yes | NFL season year | 2024 |
+| season_type | string | Yes | Season type (REG, POST) | "REG" |
+| week | int64 | Yes | NFL week number | 1 |
+| player_display_name | string | Yes | Player full display name | "Derrick Henry" |
+| player_position | string | Yes | Player position | "RB" |
+| team_abbr | string | Yes | Team abbreviation | "BAL" |
+| player_gsis_id | string | Yes | GSIS player identifier | "00-0033923" |
+
+Additional columns available after ingestion (rushing-specific):
+
+| Column | Description |
+|--------|-------------|
+| rush_attempts | Total rushing attempts |
+| rush_yards | Total rushing yards |
+| avg_rush_yards | Average rushing yards per attempt |
+| rush_touchdowns | Total rushing touchdowns |
+| efficiency | Rushing efficiency metric |
+| percent_attempts_gte_eight_defenders | Percentage of rushes vs 8+ defenders in box |
+| avg_time_to_los | Average time to reach line of scrimmage |
+| rush_yards_over_expected | Yards gained vs expected (RYOE) |
+| avg_rush_yards_over_expected | Average RYOE per carry |
+| rush_pct_over_expected | Rush yards over expected as percentage |
+| expected_rush_yards | Expected yards based on situation |
+
+---
+
+### NGS Receiving
+
+**Source:** `nfl-data-py` function `import_ngs_data(stat_type='receiving')` via `NFLDataAdapter.fetch_ngs(stat_type='receiving')`
+**Seasons:** 2016-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/ngs/receiving/season=YYYY/`
+**Local Path:** `data/bronze/ngs/receiving/season=YYYY/`
+**Known Quirks:** Full schema includes receiving-specific metrics available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int64 | Yes | NFL season year | 2024 |
+| season_type | string | Yes | Season type (REG, POST) | "REG" |
+| week | int64 | Yes | NFL week number | 1 |
+| player_display_name | string | Yes | Player full display name | "Tyreek Hill" |
+| player_position | string | Yes | Player position | "WR" |
+| team_abbr | string | Yes | Team abbreviation | "MIA" |
+| player_gsis_id | string | Yes | GSIS player identifier | "00-0033040" |
+
+Additional columns available after ingestion (receiving-specific):
+
+| Column | Description |
+|--------|-------------|
+| avg_cushion | Average cushion (yards between receiver and nearest defender at snap) |
+| avg_separation | Average separation from nearest defender at catch point |
+| avg_intended_air_yards | Average intended air yards on targets |
+| catch_percentage | Percentage of targets caught |
+| avg_yac | Average yards after catch |
+| avg_expected_yac | Expected yards after catch from NGS model |
+| avg_yac_above_expectation | YAC over expected |
+| targets | Total targets |
+| receptions | Total receptions |
+| yards | Total receiving yards |
+| rec_touchdowns | Total receiving touchdowns |
+| avg_air_yards_differential | Difference between intended and actual air yards |
+| percent_share_of_intended_air_yards | Share of team intended air yards |
+
+---
+
+### PFR Weekly Passing
+
+**Source:** `nfl-data-py` function `import_weekly_pfr(s_type='pass')` via `NFLDataAdapter.fetch_pfr_weekly(s_type='pass')`
+**Seasons:** 2018-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pfr/weekly/pass/season=YYYY/`
+**Local Path:** `data/bronze/pfr/weekly/pass/season=YYYY/`
+**Known Quirks:** PFR weekly data uses `pfr_player_name` and `pfr_player_id` (not GSIS IDs). Requires cross-referencing with rosters via PFR ID for player matching. Full schema includes passing-specific columns (e.g., `passing_bad_throws`, `times_sacked`, `times_blitzed`, `times_hurried`) available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | Yes | Unique game identifier | "2024_01_KC_BAL" |
+| season | int64 | Yes | NFL season year | 2024 |
+| week | int64 | Yes | NFL week number | 1 |
+| team | string | Yes | Team abbreviation | "KC" |
+| pfr_player_name | string | Yes | PFR player name | "Patrick Mahomes" |
+| pfr_player_id | string | Yes | PFR player identifier | "MahoPa00" |
+
+---
+
+### PFR Weekly Rushing
+
+**Source:** `nfl-data-py` function `import_weekly_pfr(s_type='rush')` via `NFLDataAdapter.fetch_pfr_weekly(s_type='rush')`
+**Seasons:** 2018-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pfr/weekly/rush/season=YYYY/`
+**Local Path:** `data/bronze/pfr/weekly/rush/season=YYYY/`
+**Known Quirks:** Same identification columns as PFR passing. Full schema includes rushing-specific columns (e.g., `carries`, `rushing_yards`, `rushing_tds`, `broken_tackles`) available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | Yes | Unique game identifier | "2024_01_KC_BAL" |
+| season | int64 | Yes | NFL season year | 2024 |
+| week | int64 | Yes | NFL week number | 1 |
+| team | string | Yes | Team abbreviation | "KC" |
+| pfr_player_name | string | Yes | PFR player name | "Isiah Pacheco" |
+| pfr_player_id | string | Yes | PFR player identifier | "PachIs00" |
+
+---
+
+### PFR Weekly Receiving
+
+**Source:** `nfl-data-py` function `import_weekly_pfr(s_type='rec')` via `NFLDataAdapter.fetch_pfr_weekly(s_type='rec')`
+**Seasons:** 2018-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pfr/weekly/rec/season=YYYY/`
+**Local Path:** `data/bronze/pfr/weekly/rec/season=YYYY/`
+**Known Quirks:** Same identification columns as PFR passing. Full schema includes receiving-specific columns (e.g., `targets`, `receptions`, `receiving_yards`, `yards_before_contact`) available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | Yes | Unique game identifier | "2024_01_KC_BAL" |
+| season | int64 | Yes | NFL season year | 2024 |
+| week | int64 | Yes | NFL week number | 1 |
+| team | string | Yes | Team abbreviation | "KC" |
+| pfr_player_name | string | Yes | PFR player name | "Travis Kelce" |
+| pfr_player_id | string | Yes | PFR player identifier | "KelcTr00" |
+
+---
+
+### PFR Weekly Defense
+
+**Source:** `nfl-data-py` function `import_weekly_pfr(s_type='def')` via `NFLDataAdapter.fetch_pfr_weekly(s_type='def')`
+**Seasons:** 2018-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pfr/weekly/def/season=YYYY/`
+**Local Path:** `data/bronze/pfr/weekly/def/season=YYYY/`
+**Known Quirks:** Same identification columns as PFR passing. Full schema includes defensive columns (e.g., `tackles_solo`, `tackles_assists`, `sacks`, `interceptions`, `passes_defended`) available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | Yes | Unique game identifier | "2024_01_KC_BAL" |
+| season | int64 | Yes | NFL season year | 2024 |
+| week | int64 | Yes | NFL week number | 1 |
+| team | string | Yes | Team abbreviation | "KC" |
+| pfr_player_name | string | Yes | PFR player name | "Chris Jones" |
+| pfr_player_id | string | Yes | PFR player identifier | "JoneCh05" |
+
+---
+
+### PFR Seasonal Passing
+
+**Source:** `nfl-data-py` function `import_seasonal_pfr(s_type='pass')` via `NFLDataAdapter.fetch_pfr_seasonal(s_type='pass')`
+**Seasons:** 2018-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pfr/seasonal/pass/season=YYYY/`
+**Local Path:** `data/bronze/pfr/seasonal/pass/season=YYYY/`
+**Known Quirks:** PFR seasonal uses `player` and `pfr_id` as identifiers (different from weekly which uses `pfr_player_name` and `pfr_player_id`). Full schema includes season-aggregated passing metrics available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| player | string | Yes | Player name | "Patrick Mahomes" |
+| team | string | Yes | Team abbreviation | "KC" |
+| season | int64 | Yes | NFL season year | 2024 |
+| pfr_id | string | Yes | PFR player identifier | "MahoPa00" |
+
+---
+
+### PFR Seasonal Rushing
+
+**Source:** `nfl-data-py` function `import_seasonal_pfr(s_type='rush')` via `NFLDataAdapter.fetch_pfr_seasonal(s_type='rush')`
+**Seasons:** 2018-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pfr/seasonal/rush/season=YYYY/`
+**Local Path:** `data/bronze/pfr/seasonal/rush/season=YYYY/`
+**Known Quirks:** Same identification columns as PFR seasonal passing. Full schema includes season-aggregated rushing metrics available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| player | string | Yes | Player name | "Derrick Henry" |
+| team | string | Yes | Team abbreviation | "BAL" |
+| season | int64 | Yes | NFL season year | 2024 |
+| pfr_id | string | Yes | PFR player identifier | "HenrDe00" |
+
+---
+
+### PFR Seasonal Receiving
+
+**Source:** `nfl-data-py` function `import_seasonal_pfr(s_type='rec')` via `NFLDataAdapter.fetch_pfr_seasonal(s_type='rec')`
+**Seasons:** 2018-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pfr/seasonal/rec/season=YYYY/`
+**Local Path:** `data/bronze/pfr/seasonal/rec/season=YYYY/`
+**Known Quirks:** Same identification columns as PFR seasonal passing. Full schema includes season-aggregated receiving metrics available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| player | string | Yes | Player name | "Tyreek Hill" |
+| team | string | Yes | Team abbreviation | "MIA" |
+| season | int64 | Yes | NFL season year | 2024 |
+| pfr_id | string | Yes | PFR player identifier | "HillTy00" |
+
+---
+
+### PFR Seasonal Defense
+
+**Source:** `nfl-data-py` function `import_seasonal_pfr(s_type='def')` via `NFLDataAdapter.fetch_pfr_seasonal(s_type='def')`
+**Seasons:** 2018-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/pfr/seasonal/def/season=YYYY/`
+**Local Path:** `data/bronze/pfr/seasonal/def/season=YYYY/`
+**Known Quirks:** Same identification columns as PFR seasonal passing. Full schema includes season-aggregated defensive metrics available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| player | string | Yes | Player name | "Chris Jones" |
+| team | string | Yes | Team abbreviation | "KC" |
+| season | int64 | Yes | NFL season year | 2024 |
+| pfr_id | string | Yes | PFR player identifier | "JoneCh05" |
+
+---
+
+### QBR Weekly
+
+**Source:** `nfl-data-py` function `import_qbr(frequency='weekly')` via `NFLDataAdapter.fetch_qbr(frequency='weekly')`
+**Seasons:** 2006-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/qbr/season=YYYY/`
+**Local Path:** `data/bronze/qbr/season=YYYY/`
+**Known Quirks:** QBR filenames use frequency prefix (`qbr_weekly_*.parquet` vs `qbr_seasonal_*.parquet`) to prevent weekly/seasonal file collisions in the same directory. The `frequency` parameter must be passed to the adapter. Full schema includes additional QB metrics (e.g., `qbr_raw`, `sack_adj_epa`, `pass_epa`, `rush_epa`) available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int64 | Yes | NFL season year | 2024 |
+| season_type | string | Yes | Season type | "Regular" |
+| qbr_total | double | Yes | Total QBR (0-100 scale) | 72.5 |
+| pts_added | double | Yes | Points added by QB play | 45.3 |
+| epa_total | double | Yes | Total EPA for QB | 120.1 |
+| qb_plays | int64 | Yes | Total QB plays | 580 |
+
+---
+
+### QBR Seasonal
+
+**Source:** `nfl-data-py` function `import_qbr(frequency='season')` via `NFLDataAdapter.fetch_qbr(frequency='season')`
+**Seasons:** 2006-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/qbr/season=YYYY/`
+**Local Path:** `data/bronze/qbr/season=YYYY/`
+**Known Quirks:** Same S3/local path as QBR weekly but with `qbr_seasonal_` filename prefix. Same column structure as weekly but values are season-aggregated.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int64 | Yes | NFL season year | 2024 |
+| season_type | string | Yes | Season type | "Regular" |
+| qbr_total | double | Yes | Season total QBR (0-100 scale) | 72.5 |
+| pts_added | double | Yes | Season total points added | 45.3 |
+| epa_total | double | Yes | Season total EPA | 120.1 |
+| qb_plays | int64 | Yes | Season total QB plays | 580 |
+
+---
+
+### Depth Charts
+
+**Source:** `nfl-data-py` function `import_depth_charts()` via `NFLDataAdapter.fetch_depth_charts()`
+**Seasons:** 2001-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/depth_charts/season=YYYY/`
+**Local Path:** `data/bronze/depth_charts/season=YYYY/`
+**Known Quirks:** Depth charts are published weekly and can change throughout the season. Contains `club_code` (not `team` or `team_abbr`). Full schema includes additional columns (e.g., `depth_team`, `last_name`, `first_name`, `formation`, `jersey_number`) available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int64 | Yes | NFL season year | 2024 |
+| club_code | string | Yes | Team abbreviation | "KC" |
+| week | int64 | Yes | NFL week number | 1 |
+| position | string | Yes | Position on depth chart | "QB" |
+| full_name | string | Yes | Player full name | "Patrick Mahomes" |
+| gsis_id | string | Yes | GSIS player identifier | "00-0033873" |
+
+---
+
+### Draft Picks
+
+**Source:** `nfl-data-py` function `import_draft_picks()` via `NFLDataAdapter.fetch_draft_picks()`
+**Seasons:** 2000-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/draft_picks/season=YYYY/`
+**Local Path:** `data/bronze/draft_picks/season=YYYY/`
+**Known Quirks:** Uses `pfr_player_name` for player identification (same as PFR weekly). Full schema includes additional columns (e.g., `pfr_player_id`, `college`, `age`, `to`, `ap1`, `pb`, `st`, `wAV`, `drAV`, `g`, `cmp`, `pass_att`, `pass_yds`, `pass_td`, `pass_int`, `rush_att`, `rush_yds`, `rush_td`, `rec`, `rec_yds`, `rec_td`) available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int64 | Yes | Draft year | 2024 |
+| round | int64 | Yes | Draft round (1-7) | 1 |
+| pick | int64 | Yes | Overall pick number | 10 |
+| team | string | Yes | Team that made the pick | "KC" |
+| pfr_player_name | string | Yes | Player name (PFR format) | "Xavier Worthy" |
+| position | string | Yes | Player position | "WR" |
+
+---
+
+### Combine
+
+**Source:** `nfl-data-py` function `import_combine_data()` via `NFLDataAdapter.fetch_combine()`
+**Seasons:** 2000-2027 (from DATA_TYPE_SEASON_RANGES)
+**S3 Path:** `s3://nfl-raw/combine/season=YYYY/`
+**Local Path:** `data/bronze/combine/season=YYYY/`
+**Known Quirks:** Height is stored as string in `X-YY` format (feet-inches). Weight is integer (pounds). Full schema includes additional drill columns (e.g., `forty`, `bench`, `vertical`, `broad_jump`, `cone`, `shuttle`, `pfr_id`, `draft_team`, `draft_round`, `draft_pick`, `draft_ovr`) available after ingestion.
+
+Representative columns (from test mocks and validate_data):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| season | int64 | Yes | Combine year | 2024 |
+| player_name | string | Yes | Player name | "Xavier Worthy" |
+| pos | string | Yes | Player position | "WR" |
+| school | string | Yes | College/university | "Texas" |
+| ht | string | Yes | Height (feet-inches format) | "5-11" |
+| wt | int64 | Yes | Weight in pounds | 165 |
+
+---
+
+### Teams
+
+**Source:** `nfl-data-py` function `import_team_desc()` via `NFLDataAdapter.fetch_team_descriptions()`
+**Seasons:** 1999-2027 (from DATA_TYPE_SEASON_RANGES; static reference data)
+**S3 Path:** `s3://nfl-raw/teams/`
+**Local Path:** `data/bronze/teams/`
+**Known Quirks:** This is a static reference table (no season/week partitioning). The adapter method takes no arguments (`fetch_team_descriptions()`). Returns all 32 current NFL teams. Full schema includes columns like `team_abbr`, `team_name`, `team_id`, `team_nick`, `team_conf`, `team_division`, `team_color`, `team_color2`, `team_color3`, `team_color4`, `team_logo_wikipedia`, `team_logo_espn`, `team_wordmark`, `team_conference_logo`, `team_league_logo`, `team_logo_squared`, `team_logo_espn_dark`.
+
+Representative columns (from validate_data required columns):
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| team_abbr | string | Yes | Team abbreviation (2-3 chars) | "KC" |
+| team_name | string | Yes | Full team name | "Kansas City Chiefs" |
 
 ---
 
@@ -200,318 +929,188 @@
 
 ### 1. Games (Silver)
 
-**Table Name:** `games_silver`  
-**S3 Location:** `s3://nfl-refined/games/season=YYYY/week=WW/`  
-**Partitioning:** `season`, `week`  
-**File Format:** Delta Lake (Parquet + transaction log)  
-**Source System:** Bronze games table + enrichments  
-**Update Frequency:** Daily during season  
+**Table Name:** `games_silver`
+**S3 Location:** `s3://nfl-refined/games/season=YYYY/week=WW/`
+**Partitioning:** `season`, `week`
+**Source System:** Bronze games table + enrichments
+**Update Frequency:** Daily during season
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| game_id | STRING | NO | Primary key from bronze | Validated format | "2023_01_KC_DET" |
-| season | INT | NO | Validated season year | Range: 1999-2025 | 2023 |
-| week | INT | NO | Validated week number | Range: 1-22 | 1 |
-| game_date | DATE | NO | Standardized game date | No nulls allowed | "2023-09-07" |
-| game_time_et | TIME | YES | Eastern Time kickoff | Converted to ET | "20:20:00" |
-| home_team_id | STRING | NO | Standardized home team ID | From teams reference | "KC" |
-| away_team_id | STRING | NO | Standardized away team ID | From teams reference | "DET" |
-| home_score | INT | NO | Validated home score | Range: 0-100, no nulls | 21 |
-| away_score | INT | NO | Validated away score | Range: 0-100, no nulls | 20 |
-| game_result | INT | NO | Home team margin | home_score - away_score | 1 |
-| total_points | INT | NO | Total points scored | home_score + away_score | 41 |
-| overtime_flag | BOOLEAN | NO | Overtime occurred | TRUE/FALSE, default FALSE | FALSE |
-| neutral_site_flag | BOOLEAN | NO | Neutral site game | Derived from location | FALSE |
-| dome_game_flag | BOOLEAN | NO | Indoor/dome game | From stadium reference | FALSE |
-| division_game_flag | BOOLEAN | NO | Division matchup | From team divisions | FALSE |
-| playoff_flag | BOOLEAN | NO | Playoff game | week > 18 | FALSE |
-| prime_time_flag | BOOLEAN | NO | Prime time game | SNF/MNF/TNF | TRUE |
-| game_type | STRING | NO | Game type category | "REG", "WC", "DIV", "CONF", "SB" | "REG" |
-| season_type | STRING | NO | Season phase | "Regular", "Playoffs" | "Regular" |
-| week_category | STRING | NO | Season timing | "Early", "Mid", "Late" | "Early" |
-| home_rest_days | INT | NO | Home team rest | Default 7 if null | 7 |
-| away_rest_days | INT | NO | Away team rest | Default 7 if null | 7 |
-| rest_differential | INT | NO | Rest advantage | home_rest - away_rest | 0 |
-| spread | DECIMAL(4,1) | YES | Closing point spread | Negative favors home | -3.5 |
-| total_line | DECIMAL(4,1) | YES | Closing total | Points | 47.5 |
-| home_favorite_flag | BOOLEAN | YES | Home team favored | spread < 0 | TRUE |
-| spread_cover_result | STRING | YES | Spread outcome | "Home_Cover", "Away_Cover", "Push" | "Away_Cover" |
-| total_result | STRING | YES | Total outcome | "Over", "Under", "Push" | "Under" |
-| temperature | INT | YES | Game temperature | From weather table | 72 |
-| wind_speed | INT | YES | Wind speed | From weather table | 8 |
-| precipitation_flag | BOOLEAN | YES | Precipitation present | TRUE/FALSE/null | FALSE |
-| weather_category | STRING | YES | Weather classification | "Good", "Fair", "Poor" | "Good" |
-| data_quality_score | DECIMAL(3,2) | NO | Quality assessment | Range: 0.00-1.00 | 0.95 |
-| validation_status | STRING | NO | Validation result | "PASSED", "WARNING", "FAILED" | "PASSED" |
-| load_timestamp | TIMESTAMP | NO | Silver ETL timestamp | UTC timestamp | "2023-09-08 14:00:00" |
-
-**Primary Key:** `game_id`  
-**Foreign Keys:** `home_team_id`, `away_team_id` → `teams_silver.team_id`  
-**Indexes:** `season`, `week`, `game_date`, `home_team_id`, `away_team_id`
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| game_id | STRING | NO | Primary key from bronze | "2023_01_KC_DET" |
+| season | INT | NO | Validated season year | 2023 |
+| week | INT | NO | Validated week number | 1 |
+| game_date | DATE | NO | Standardized game date | "2023-09-07" |
+| game_time_et | TIME | YES | Eastern Time kickoff | "20:20:00" |
+| home_team_id | STRING | NO | Standardized home team ID | "KC" |
+| away_team_id | STRING | NO | Standardized away team ID | "DET" |
+| home_score | INT | NO | Validated home score | 21 |
+| away_score | INT | NO | Validated away score | 20 |
+| game_result | INT | NO | Home team margin | 1 |
+| total_points | INT | NO | Total points scored | 41 |
+| overtime_flag | BOOLEAN | NO | Overtime occurred | FALSE |
+| neutral_site_flag | BOOLEAN | NO | Neutral site game | FALSE |
+| dome_game_flag | BOOLEAN | NO | Indoor/dome game | FALSE |
+| division_game_flag | BOOLEAN | NO | Division matchup | FALSE |
+| playoff_flag | BOOLEAN | NO | Playoff game | FALSE |
+| prime_time_flag | BOOLEAN | NO | Prime time game | TRUE |
+| game_type | STRING | NO | Game type category | "REG" |
+| season_type | STRING | NO | Season phase | "Regular" |
+| week_category | STRING | NO | Season timing | "Early" |
+| home_rest_days | INT | NO | Home team rest | 7 |
+| away_rest_days | INT | NO | Away team rest | 7 |
+| rest_differential | INT | NO | Rest advantage | 0 |
+| spread | DECIMAL(4,1) | YES | Closing point spread | -3.5 |
+| total_line | DECIMAL(4,1) | YES | Closing total | 47.5 |
+| home_favorite_flag | BOOLEAN | YES | Home team favored | TRUE |
+| spread_cover_result | STRING | YES | Spread outcome | "Away_Cover" |
+| total_result | STRING | YES | Total outcome | "Under" |
+| temperature | INT | YES | Game temperature | 72 |
+| wind_speed | INT | YES | Wind speed | 8 |
+| precipitation_flag | BOOLEAN | YES | Precipitation present | FALSE |
+| weather_category | STRING | YES | Weather classification | "Good" |
+| data_quality_score | DECIMAL(3,2) | NO | Quality assessment | 0.95 |
+| validation_status | STRING | NO | Validation result | "PASSED" |
+| load_timestamp | TIMESTAMP | NO | Silver ETL timestamp | "2023-09-08 14:00:00" |
 
 ### 2. Teams (Silver)
 
-**Table Name:** `teams_silver`  
-**S3 Location:** `s3://nfl-refined/teams/`  
-**Partitioning:** None (reference table)  
-**File Format:** Delta Lake (Parquet + transaction log)  
-**Source System:** Bronze teams + external references  
-**Update Frequency:** Weekly or as needed  
+**Table Name:** `teams_silver`
+**S3 Location:** `s3://nfl-refined/teams/`
+**Source System:** Bronze teams + external references
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| team_id | STRING | NO | Primary standardized team ID | 2-4 character code | "KC" |
-| team_abbr | STRING | NO | Official abbreviation | Alternative abbreviations | "KC" |
-| team_name | STRING | NO | Standardized team name | Current official name | "Kansas City Chiefs" |
-| team_city | STRING | NO | Team city | Current city | "Kansas City" |
-| team_state | STRING | YES | State abbreviation | 2-character state code | "MO" |
-| division_id | STRING | NO | Division identifier | AFC/NFC_EAST/WEST/NORTH/SOUTH | "AFC_WEST" |
-| conference | STRING | NO | Conference | "AFC" or "NFC" | "AFC" |
-| founded_year | INT | YES | Franchise founded year | Range: 1920-2025 | 1960 |
-| stadium_id | STRING | YES | Stadium identifier | Unique stadium ID | "ARROWHEAD" |
-| stadium_name | STRING | YES | Current stadium name | Official name | "GEHA Field at Arrowhead Stadium" |
-| stadium_capacity | INT | YES | Stadium capacity | Range: 50000-100000 | 76416 |
-| stadium_surface | STRING | YES | Playing surface | "Grass", "Turf" variations | "Grass" |
-| stadium_roof_type | STRING | YES | Roof configuration | "Open", "Dome", "Retractable" | "Open" |
-| stadium_elevation | INT | YES | Elevation in feet | Range: -300 to 6000 | 742 |
-| time_zone | STRING | YES | Stadium time zone | Standard time zone | "America/Chicago" |
-| stadium_lat | DECIMAL(8,6) | YES | Stadium latitude | Valid coordinates | 39.048889 |
-| stadium_lng | DECIMAL(9,6) | YES | Stadium longitude | Valid coordinates | -94.484444 |
-| stadium_city | STRING | YES | Stadium city | May differ from team city | "Kansas City" |
-| stadium_state | STRING | YES | Stadium state | 2-character code | "MO" |
-| primary_color | STRING | YES | Primary color hex | 6-character hex code | "#E31837" |
-| secondary_color | STRING | YES | Secondary color hex | 6-character hex code | "#FFB81C" |
-| logo_url | STRING | YES | Logo image URL | Valid URL | "https://..." |
-| team_website | STRING | YES | Official website | Valid URL | "https://www.chiefs.com" |
-| load_timestamp | TIMESTAMP | NO | Silver ETL timestamp | UTC timestamp | "2023-08-15 12:00:00" |
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team_id | STRING | NO | Primary standardized team ID | "KC" |
+| team_abbr | STRING | NO | Official abbreviation | "KC" |
+| team_name | STRING | NO | Standardized team name | "Kansas City Chiefs" |
+| team_city | STRING | NO | Team city | "Kansas City" |
+| division_id | STRING | NO | Division identifier | "AFC_WEST" |
+| conference | STRING | NO | Conference | "AFC" |
+| stadium_name | STRING | YES | Current stadium name | "GEHA Field at Arrowhead Stadium" |
+| stadium_surface | STRING | YES | Playing surface | "Grass" |
+| stadium_roof_type | STRING | YES | Roof configuration | "Open" |
+| load_timestamp | TIMESTAMP | NO | Silver ETL timestamp | "2023-08-15 12:00:00" |
 
-**Primary Key:** `team_id`  
-**Foreign Keys:** None (reference table)  
-**Indexes:** `division_id`, `conference`, `stadium_id`
+### 3. Player Usage Metrics (Silver)
 
-### 3. Plays (Silver)
+**S3 Location:** `s3://nfl-refined/players/usage/season=YYYY/week=WW/`
+**Source:** Bronze player_weekly + snap_counts
+**Produced by:** `scripts/silver_player_transformation.py`
 
-**Table Name:** `plays_silver`  
-**S3 Location:** `s3://nfl-refined/plays/season=YYYY/week=WW/`  
-**Partitioning:** `season`, `week`  
-**File Format:** Delta Lake (Parquet + transaction log)  
-**Source System:** Bronze plays + enrichments  
-**Update Frequency:** Daily during season  
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| player_id | STRING | NO | GSIS player identifier | "00-0033873" |
+| player_name | STRING | NO | Player display name | "Patrick Mahomes" |
+| position | STRING | NO | Player position | "QB" |
+| team | STRING | NO | Team abbreviation | "KC" |
+| season | INT | NO | NFL season year | 2024 |
+| week | INT | NO | NFL week number | 1 |
+| target_share | FLOAT | YES | Percentage of team targets | 0.0 |
+| air_yards_share | FLOAT | YES | Percentage of team air yards | 0.0 |
+| rush_share | FLOAT | YES | Percentage of team carries | 0.0 |
+| snap_pct | FLOAT | YES | Percentage of offensive snaps played | 100.0 |
+| usage_score | FLOAT | YES | Composite usage metric (weighted combination) | 0.85 |
+| opportunity_score | FLOAT | YES | Target + carry opportunity metric | 25.0 |
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| game_id | STRING | NO | Foreign key to games | Validated reference | "2023_01_KC_DET" |
-| play_id | STRING | NO | Primary key within game | Sequential within game | "43" |
-| season | INT | NO | Season year | Validated range | 2023 |
-| week | INT | NO | Week number | Validated range | 1 |
-| drive_id | STRING | YES | Drive identifier | game_id + drive sequence | "2023_01_KC_DET_1" |
-| sequence_number | INT | NO | Play sequence in drive | Sequential per drive | 1 |
-| quarter | INT | NO | Quarter number | Range: 1-5 (5=OT) | 1 |
-| game_seconds_remaining | INT | NO | Total game seconds left | Range: 0-3600 | 3534 |
-| quarter_seconds_remaining | INT | NO | Quarter seconds left | Range: 0-900 | 894 |
-| play_clock | DECIMAL(4,1) | YES | Play clock when snapped | Range: 0-40 | 23.5 |
-| game_state | STRING | NO | Game situation | "Normal", "Two_Minute", "Overtime" | "Normal" |
-| possession_team_id | STRING | NO | Team with possession | Validated team ID | "DET" |
-| defense_team_id | STRING | NO | Defending team | Validated team ID | "KC" |
-| home_team_id | STRING | NO | Home team | From games table | "KC" |
-| away_team_id | STRING | NO | Away team | From games table | "DET" |
-| yardline_100 | INT | NO | Yards from goal | Range: 0-100 | 75 |
-| down | INT | NO | Down number | Range: 1-4 | 1 |
-| ydstogo | INT | NO | Yards to go | Range: 0-99 | 10 |
-| goal_to_go_flag | BOOLEAN | NO | Goal-to-go situation | yardline_100 <= ydstogo | FALSE |
-| play_type | STRING | NO | Standardized play type | Controlled vocabulary | "pass" |
-| play_type_detail | STRING | YES | Detailed play type | Extended classification | "short_pass" |
-| rush_attempt | BOOLEAN | NO | Rush attempt flag | TRUE/FALSE | FALSE |
-| pass_attempt | BOOLEAN | NO | Pass attempt flag | TRUE/FALSE | TRUE |
-| penalty_flag | BOOLEAN | NO | Penalty occurred | TRUE/FALSE | FALSE |
-| touchdown_flag | BOOLEAN | NO | Touchdown scored | TRUE/FALSE | FALSE |
-| interception_flag | BOOLEAN | NO | Interception occurred | TRUE/FALSE | FALSE |
-| fumble_flag | BOOLEAN | NO | Fumble occurred | TRUE/FALSE | FALSE |
-| safety_flag | BOOLEAN | NO | Safety scored | TRUE/FALSE | FALSE |
-| special_teams_flag | BOOLEAN | NO | Special teams play | TRUE/FALSE | FALSE |
-| yards_gained | INT | NO | Net yards gained | Range: -99 to 99 | 7 |
-| first_down_flag | BOOLEAN | NO | First down achieved | TRUE/FALSE | FALSE |
-| field_goal_flag | BOOLEAN | NO | Field goal attempt | TRUE/FALSE | FALSE |
-| punt_flag | BOOLEAN | NO | Punt occurred | TRUE/FALSE | FALSE |
-| turnover_flag | BOOLEAN | NO | Turnover occurred | TRUE/FALSE | FALSE |
-| penalty_yards | INT | NO | Penalty yards | Range: 0-50, default 0 | 0 |
-| score_differential | INT | NO | Possession team advantage | pos_score - def_score | -3 |
-| home_score | INT | NO | Home score after play | Range: 0-100 | 0 |
-| away_score | INT | NO | Away score after play | Range: 0-100 | 0 |
-| possession_score | INT | NO | Possession team score | Derived field | 0 |
-| defense_score | INT | NO | Defense team score | Derived field | 0 |
-| offense_formation | STRING | YES | Offensive formation | Controlled vocabulary | "SHOTGUN" |
-| offense_personnel | STRING | YES | Offensive personnel | Standard notation | "11 PERSONNEL" |
-| defense_personnel | STRING | YES | Defensive personnel | Standard notation | "BASE" |
-| no_huddle_flag | BOOLEAN | NO | No huddle snap | TRUE/FALSE | FALSE |
-| passer_id | STRING | YES | Quarterback player ID | From players reference | "00-0033873" |
-| passer_name | STRING | YES | Standardized QB name | First Last format | "Jared Goff" |
-| rusher_id | STRING | YES | Ball carrier player ID | From players reference | null |
-| rusher_name | STRING | YES | Standardized rusher name | First Last format | null |
-| receiver_id | STRING | YES | Target receiver player ID | From players reference | "00-0035228" |
-| receiver_name | STRING | YES | Standardized receiver name | First Last format | "Amon-Ra St. Brown" |
-| air_yards | INT | YES | Quarterback air yards | Range: -20 to 80 | 9 |
-| yards_after_catch | INT | YES | YAC on reception | Range: -20 to 80 | -2 |
-| time_to_throw | DECIMAL(4,2) | YES | Seconds to throw | Range: 0-20 | 2.87 |
-| qb_hit_flag | BOOLEAN | YES | QB was hit | TRUE/FALSE/null | FALSE |
-| qb_pressure_flag | BOOLEAN | YES | QB under pressure | TRUE/FALSE/null | FALSE |
-| blitz_flag | BOOLEAN | YES | Defense blitzed | TRUE/FALSE/null | FALSE |
-| expected_yards | DECIMAL(5,2) | YES | Expected yards for situation | Advanced metric | 6.2 |
-| success_flag | BOOLEAN | YES | Successful play | 50% of expected yards | TRUE |
-| load_timestamp | TIMESTAMP | NO | Silver ETL timestamp | UTC timestamp | "2023-09-08 14:30:00" |
+### 4. Opponent Rankings (Silver)
 
-**Primary Key:** `game_id`, `play_id`  
-**Foreign Keys:** 
-- `game_id` → `games_silver.game_id`
-- `possession_team_id` → `teams_silver.team_id`
-- `defense_team_id` → `teams_silver.team_id`
-- `passer_id` → `players_silver.player_id`  
+**S3 Location:** `s3://nfl-refined/defense/positional/season=YYYY/week=WW/`
+**Source:** Bronze player_weekly aggregated by opponent defense
+**Produced by:** `scripts/silver_player_transformation.py`
 
-**Indexes:** `season`, `week`, `possession_team_id`, `play_type`
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | STRING | NO | Defensive team abbreviation | "KC" |
+| position | STRING | NO | Offensive position ranked against | "QB" |
+| season | INT | NO | NFL season year | 2024 |
+| week | INT | NO | Through-week for ranking calculation | 10 |
+| opp_rank | INT | NO | Positional ranking (1=toughest, 32=easiest) | 5 |
+| points_allowed_avg | FLOAT | YES | Average fantasy points allowed to position | 15.2 |
+| games_counted | INT | YES | Number of games in ranking calculation | 10 |
+
+### 5. Rolling Averages (Silver)
+
+**S3 Location:** `s3://nfl-refined/players/rolling/season=YYYY/week=WW/`
+**Source:** Bronze player_weekly with 3-week and 6-week rolling windows
+**Produced by:** `scripts/silver_player_transformation.py`
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| player_id | STRING | NO | GSIS player identifier | "00-0033873" |
+| season | INT | NO | NFL season year | 2024 |
+| week | INT | NO | NFL week number | 10 |
+| roll3_passing_yards | FLOAT | YES | 3-week rolling avg passing yards | 285.3 |
+| roll3_rushing_yards | FLOAT | YES | 3-week rolling avg rushing yards | 22.7 |
+| roll3_receiving_yards | FLOAT | YES | 3-week rolling avg receiving yards | 0.0 |
+| roll3_passing_tds | FLOAT | YES | 3-week rolling avg passing TDs | 2.33 |
+| roll3_rushing_tds | FLOAT | YES | 3-week rolling avg rushing TDs | 0.33 |
+| roll3_receiving_tds | FLOAT | YES | 3-week rolling avg receiving TDs | 0.0 |
+| roll3_fantasy_points | FLOAT | YES | 3-week rolling avg fantasy points | 22.5 |
+| roll6_passing_yards | FLOAT | YES | 6-week rolling avg passing yards | 275.8 |
+| roll6_rushing_yards | FLOAT | YES | 6-week rolling avg rushing yards | 20.1 |
+| roll6_receiving_yards | FLOAT | YES | 6-week rolling avg receiving yards | 0.0 |
+| roll6_passing_tds | FLOAT | YES | 6-week rolling avg passing TDs | 2.17 |
+| roll6_rushing_tds | FLOAT | YES | 6-week rolling avg rushing TDs | 0.17 |
+| roll6_receiving_tds | FLOAT | YES | 6-week rolling avg receiving TDs | 0.0 |
+| roll6_fantasy_points | FLOAT | YES | 6-week rolling avg fantasy points | 21.8 |
+| std_passing_yards | FLOAT | YES | Std deviation of passing yards | 45.2 |
+| std_rushing_yards | FLOAT | YES | Std deviation of rushing yards | 12.3 |
+| std_receiving_yards | FLOAT | YES | Std deviation of receiving yards | 0.0 |
+| std_fantasy_points | FLOAT | YES | Std deviation of fantasy points | 5.8 |
 
 ---
 
 ## Gold Layer Tables
 
-### 1. Team_Performance_Metrics (Gold)
+### 1. Weekly Projections (Gold)
 
-**Table Name:** `team_performance_metrics`  
-**S3 Location:** `s3://nfl-trusted/team_performance/season=YYYY/metric_type=offense/`  
-**Partitioning:** `season`, `metric_type`  
-**File Format:** Delta Lake (Parquet + transaction log)  
-**Source System:** Silver plays and games aggregated  
-**Update Frequency:** Daily during season  
+**S3 Location:** `s3://nfl-trusted/projections/season=YYYY/week=WW/`
+**Source:** Silver usage + rolling averages + opponent rankings + injuries
+**Produced by:** `scripts/generate_projections.py --week W --season YYYY --scoring [ppr|half_ppr|standard]`
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| team_id | STRING | NO | Team identifier | From teams reference | "KC" |
-| season | INT | NO | Season year | Partition key | 2023 |
-| metric_type | STRING | NO | Metric category | "offense", "defense", "special_teams" | "offense" |
-| week_number | INT | NO | Through week number | 0=season, 1-22=through week | 17 |
-| games_played | INT | NO | Games in calculation | Range: 1-22 | 16 |
-| points_per_game | DECIMAL(5,2) | YES | Points scored per game | Range: 0-60 | 28.18 |
-| yards_per_game | DECIMAL(6,2) | YES | Total yards per game | Range: 0-700 | 389.5 |
-| passing_yards_per_game | DECIMAL(6,2) | YES | Passing yards per game | Range: 0-500 | 267.8 |
-| rushing_yards_per_game | DECIMAL(6,2) | YES | Rushing yards per game | Range: 0-300 | 121.7 |
-| turnovers_per_game | DECIMAL(4,2) | YES | Turnovers per game | Range: 0-5 | 1.2 |
-| third_down_conversion_rate | DECIMAL(5,4) | YES | Third down success rate | Range: 0-1 | 0.4231 |
-| red_zone_efficiency | DECIMAL(5,4) | YES | Red zone TD rate | Range: 0-1 | 0.6154 |
-| time_of_possession | DECIMAL(5,2) | YES | Minutes per game | Range: 15-45 | 30.25 |
-| epa_per_play | DECIMAL(6,4) | YES | Expected Points Added per play | Range: -1 to 1 | 0.0892 |
-| success_rate | DECIMAL(5,4) | YES | Successful play percentage | Range: 0-1 | 0.4756 |
-| explosive_play_rate | DECIMAL(5,4) | YES | 20+ yard play percentage | Range: 0-1 | 0.0821 |
-| passing_epa_per_play | DECIMAL(6,4) | YES | EPA per pass attempt | Range: -1 to 1 | 0.1234 |
-| rushing_epa_per_play | DECIMAL(6,4) | YES | EPA per rush attempt | Range: -1 to 1 | 0.0123 |
-| neutral_script_epa | DECIMAL(6,4) | YES | EPA in neutral situations | Range: -1 to 1 | 0.0987 |
-| pressure_rate_allowed | DECIMAL(5,4) | YES | QB pressure rate allowed | Range: 0-1 | 0.2340 |
-| early_down_epa | DECIMAL(6,4) | YES | EPA on 1st/2nd down | Range: -1 to 1 | 0.0456 |
-| late_down_epa | DECIMAL(6,4) | YES | EPA on 3rd/4th down | Range: -1 to 1 | 0.1234 |
-| goal_to_go_epa | DECIMAL(6,4) | YES | Red zone EPA | Range: -1 to 1 | 0.2134 |
-| two_minute_epa | DECIMAL(6,4) | YES | Two-minute drill EPA | Range: -1 to 1 | 0.1876 |
-| comeback_win_rate | DECIMAL(5,4) | YES | Win rate when trailing | Range: 0-1 | 0.2500 |
-| opp_avg_points_per_game | DECIMAL(5,2) | YES | Opponent average PPG | Strength of schedule | 22.3 |
-| opp_avg_yards_per_game | DECIMAL(6,2) | YES | Opponent average YPG | Strength of schedule | 342.1 |
-| schedule_difficulty | DECIMAL(5,4) | YES | SOS rating | Range: 0-1 | 0.5234 |
-| load_timestamp | TIMESTAMP | NO | Gold ETL timestamp | UTC timestamp | "2023-12-31 08:00:00" |
+**Projection Model:** `roll3(50%) + roll6(30%) + STD(20%) x usage_mult [0.7-1.3] x matchup [0.85-1.15] x vegas [0.80-1.20]`
 
-**Primary Key:** `team_id`, `season`, `metric_type`, `week_number`  
-**Foreign Keys:** `team_id` → `teams_silver.team_id`  
-**Indexes:** `season`, `team_id`, `metric_type`, `week_number`
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| player_id | STRING | NO | GSIS player identifier | "00-0033873" |
+| player_name | STRING | NO | Player display name | "Patrick Mahomes" |
+| position | STRING | NO | Player position (QB/RB/WR/TE) | "QB" |
+| team | STRING | NO | Team abbreviation | "KC" |
+| season | INT | NO | NFL season year | 2024 |
+| week | INT | NO | NFL week number | 10 |
+| projected_points | FLOAT | NO | Projected fantasy points (always >= 0) | 22.5 |
+| floor | FLOAT | YES | Low-end projection estimate | 15.2 |
+| ceiling | FLOAT | YES | High-end projection estimate | 32.1 |
+| is_bye_week | BOOLEAN | NO | True if player is on bye | FALSE |
+| injury_status | STRING | YES | Injury designation (Active/Questionable/Doubtful/Out) | "Active" |
+| injury_multiplier | FLOAT | YES | Projection adjustment for injury (0.0-1.0) | 1.0 |
+| usage_multiplier | FLOAT | YES | Usage-based projection adjustment (0.7-1.3) | 1.05 |
+| matchup_multiplier | FLOAT | YES | Opponent-based adjustment (0.85-1.15) | 0.95 |
+| vegas_multiplier | FLOAT | YES | Vegas implied total adjustment (0.80-1.20) | 1.02 |
+| scoring_format | STRING | NO | Scoring format used | "half_ppr" |
+| opponent | STRING | YES | Opponent team abbreviation | "BUF" |
+| opp_rank | INT | YES | Opponent positional rank (1-32) | 8 |
 
-### 2. Game_Prediction_Features (Gold)
+### 2. Preseason Projections (Gold)
 
-**Table Name:** `game_prediction_features`  
-**S3 Location:** `s3://nfl-trusted/prediction_features/season=YYYY/week=WW/`  
-**Partitioning:** `season`, `week`  
-**File Format:** Delta Lake (Parquet + transaction log)  
-**Source System:** Multiple Gold layer aggregations  
-**Update Frequency:** Daily before games  
+**S3 Location:** `s3://nfl-trusted/projections/preseason/season=YYYY/`
+**Source:** Silver historical data + rookie baselines
+**Produced by:** `scripts/generate_projections.py --preseason --season YYYY --scoring [ppr|half_ppr|standard]`
 
-| Column Name | Data Type | Nullable | Description | Business Rules | Example |
-|-------------|-----------|----------|-------------|---------------|---------|
-| game_id | STRING | NO | Primary key | From games table | "2023_17_KC_LV" |
-| season | INT | NO | Season year | Partition key | 2023 |
-| week | INT | NO | Week number | Partition key | 17 |
-| prediction_date | DATE | NO | Feature calculation date | Must be before game | "2023-12-25" |
-| days_until_game | INT | NO | Days ahead prediction | Range: 0-7 | 0 |
-| home_team_id | STRING | NO | Home team | From teams reference | "LV" |
-| away_team_id | STRING | NO | Away team | From teams reference | "KC" |
-| home_team_seed | INT | YES | Playoff seed | Range: 1-14 or null | null |
-| away_team_seed | INT | YES | Playoff seed | Range: 1-14 or null | null |
-| division_game_flag | BOOLEAN | NO | Division matchup | TRUE/FALSE | TRUE |
-| conference_game_flag | BOOLEAN | NO | Conference matchup | TRUE/FALSE | TRUE |
-| prime_time_flag | BOOLEAN | NO | Prime time game | TRUE/FALSE | TRUE |
-| playoff_flag | BOOLEAN | NO | Playoff game | TRUE/FALSE | FALSE |
-| dome_game_flag | BOOLEAN | NO | Indoor game | TRUE/FALSE | TRUE |
-| home_field_advantage | DECIMAL(5,4) | NO | Historical home win rate | Range: 0-1 | 0.6250 |
-| home_team_elo | INT | NO | Elo rating | Range: 1000-2000 | 1687 |
-| away_team_elo | INT | NO | Elo rating | Range: 1000-2000 | 1743 |
-| elo_differential | INT | NO | Home - Away Elo | Range: -1000 to 1000 | -56 |
-| power_ranking_diff | INT | YES | Power ranking difference | Range: -31 to 31 | -3 |
-| home_recent_record | DECIMAL(4,3) | NO | Last 4 games win % | Range: 0-1 | 0.750 |
-| away_recent_record | DECIMAL(4,3) | NO | Last 4 games win % | Range: 0-1 | 1.000 |
-| home_recent_ppg | DECIMAL(5,2) | NO | Last 4 games PPG | Range: 0-60 | 24.75 |
-| away_recent_ppg | DECIMAL(5,2) | NO | Last 4 games PPG | Range: 0-60 | 31.50 |
-| home_recent_papg | DECIMAL(5,2) | NO | Last 4 games PAPG | Range: 0-60 | 22.00 |
-| away_recent_papg | DECIMAL(5,2) | NO | Last 4 games PAPG | Range: 0-60 | 15.25 |
-| home_season_record | DECIMAL(5,4) | NO | Season win percentage | Range: 0-1 | 0.5625 |
-| away_season_record | DECIMAL(5,4) | NO | Season win percentage | Range: 0-1 | 0.8750 |
-| home_point_differential | DECIMAL(6,2) | NO | Season point differential | Range: -500 to 500 | 18.00 |
-| away_point_differential | DECIMAL(6,2) | NO | Season point differential | Range: -500 to 500 | 156.00 |
-| home_sos | DECIMAL(5,4) | NO | Strength of schedule | Range: 0-1 | 0.5234 |
-| away_sos | DECIMAL(5,4) | NO | Strength of schedule | Range: 0-1 | 0.4876 |
-| home_epa_per_play | DECIMAL(6,4) | NO | Season EPA/play | Range: -1 to 1 | 0.0234 |
-| away_epa_per_play | DECIMAL(6,4) | NO | Season EPA/play | Range: -1 to 1 | 0.1456 |
-| home_def_epa_per_play | DECIMAL(6,4) | NO | Defensive EPA/play | Range: -1 to 1 | -0.0123 |
-| away_def_epa_per_play | DECIMAL(6,4) | NO | Defensive EPA/play | Range: -1 to 1 | -0.0876 |
-| home_success_rate | DECIMAL(5,4) | NO | Offensive success rate | Range: 0-1 | 0.4523 |
-| away_success_rate | DECIMAL(5,4) | NO | Offensive success rate | Range: 0-1 | 0.4987 |
-| home_def_success_rate | DECIMAL(5,4) | NO | Defensive success rate | Range: 0-1 | 0.5123 |
-| away_def_success_rate | DECIMAL(5,4) | NO | Defensive success rate | Range: 0-1 | 0.5456 |
-| home_qb_epa_per_play | DECIMAL(6,4) | YES | Starting QB EPA | Range: -1 to 1 | 0.0456 |
-| away_qb_epa_per_play | DECIMAL(6,4) | YES | Starting QB EPA | Range: -1 to 1 | 0.2134 |
-| home_qb_cpoe | DECIMAL(6,4) | YES | QB CPOE | Range: -0.2 to 0.2 | 0.0234 |
-| away_qb_cpoe | DECIMAL(6,4) | YES | QB CPOE | Range: -0.2 to 0.2 | 0.0567 |
-| home_qb_pressure_rate | DECIMAL(5,4) | YES | QB pressure rate | Range: 0-1 | 0.2340 |
-| away_qb_pressure_rate | DECIMAL(5,4) | YES | QB pressure rate | Range: 0-1 | 0.1987 |
-| home_key_injuries | INT | NO | Key player injuries | Range: 0-10 | 2 |
-| away_key_injuries | INT | NO | Key player injuries | Range: 0-10 | 1 |
-| home_injury_cap_impact | DECIMAL(8,2) | YES | Injury cap impact ($M) | Range: 0-100 | 15.50 |
-| away_injury_cap_impact | DECIMAL(8,2) | YES | Injury cap impact ($M) | Range: 0-100 | 8.25 |
-| home_rest_days | INT | NO | Rest days | Range: 3-14 | 7 |
-| away_rest_days | INT | NO | Rest days | Range: 3-14 | 7 |
-| rest_advantage | INT | NO | Rest differential | Range: -11 to 11 | 0 |
-| away_travel_distance | INT | YES | Travel miles | Range: 0-5000 | 1654 |
-| h2h_home_wins | INT | YES | H2H home wins (last 5) | Range: 0-5 | 2 |
-| h2h_away_wins | INT | YES | H2H away wins (last 5) | Range: 0-5 | 3 |
-| h2h_avg_total | DECIMAL(5,2) | YES | H2H average total | Range: 10-80 | 48.6 |
-| h2h_home_avg_margin | DECIMAL(5,2) | YES | H2H home margin | Range: -50 to 50 | -3.4 |
-| home_coach_experience | INT | YES | HC years experience | Range: 0-50 | 11 |
-| away_coach_experience | INT | YES | HC years experience | Range: 0-50 | 5 |
-| coach_h2h_record | DECIMAL(4,3) | YES | HC H2H record | Range: 0-1 | 0.400 |
-| temperature | INT | YES | Game temperature (F) | Range: -20 to 120 | 72 |
-| wind_speed | INT | YES | Wind speed (mph) | Range: 0-50 | 8 |
-| precipitation_flag | BOOLEAN | YES | Rain/snow expected | TRUE/FALSE/null | FALSE |
-| weather_impact_score | DECIMAL(4,3) | YES | Weather impact | Range: 0-1 | 0.100 |
-| closing_spread | DECIMAL(4,1) | YES | Vegas closing spread | Range: -28 to 28 | -3.5 |
-| closing_total | DECIMAL(4,1) | YES | Vegas closing total | Range: 30-70 | 47.5 |
-| market_movement | DECIMAL(4,1) | YES | Line movement | Range: -14 to 14 | 1.0 |
-| public_betting_pct | DECIMAL(5,4) | YES | Public money % | Range: 0-1 | 0.6740 |
-| actual_home_score | INT | YES | Actual home score | Post-game only | 31 |
-| actual_away_score | INT | YES | Actual away score | Post-game only | 17 |
-| actual_margin | INT | YES | Actual home margin | Post-game only | 14 |
-| actual_total | INT | YES | Actual total score | Post-game only | 48 |
-| spread_result | STRING | YES | Spread outcome | "Home_Cover", "Away_Cover", "Push" | "Home_Cover" |
-| total_result | STRING | YES | Total outcome | "Over", "Under", "Push" | "Over" |
-| home_win_flag | BOOLEAN | YES | Home team won | Post-game only | TRUE |
-| load_timestamp | TIMESTAMP | NO | Gold ETL timestamp | UTC timestamp | "2023-12-25 12:00:00" |
-
-**Primary Key:** `game_id`  
-**Foreign Keys:** 
-- `home_team_id` → `teams_silver.team_id`
-- `away_team_id` → `teams_silver.team_id`  
-
-**Indexes:** `season`, `week`, `prediction_date`, `home_team_id`, `away_team_id`
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| player_id | STRING | NO | GSIS player identifier | "00-0033873" |
+| player_name | STRING | NO | Player display name | "Patrick Mahomes" |
+| position | STRING | NO | Player position (QB/RB/WR/TE) | "QB" |
+| team | STRING | NO | Team abbreviation | "KC" |
+| season | INT | NO | NFL season year | 2026 |
+| projected_points_total | FLOAT | NO | Full-season projected points | 380.5 |
+| games_projected | INT | NO | Expected games to play | 17 |
+| per_game_projection | FLOAT | NO | Per-game projected points | 22.4 |
+| is_rookie | BOOLEAN | NO | Rookie flag | FALSE |
+| scoring_format | STRING | NO | Scoring format used | "half_ppr" |
+| tier | STRING | YES | Draft tier classification | "Elite" |
 
 ---
 
@@ -519,346 +1118,83 @@
 
 ### Standard Data Types
 
-| Data Type | Description | Range/Format | Example |
-|-----------|-------------|--------------|---------|
-| STRING | Variable length text | UTF-8, max 65535 chars | "Kansas City Chiefs" |
-| INT | 32-bit integer | -2,147,483,648 to 2,147,483,647 | 2023 |
-| BIGINT | 64-bit integer | Large numbers | 1234567890 |
-| DECIMAL(p,s) | Fixed precision decimal | p=precision, s=scale | DECIMAL(5,2) = 123.45 |
-| BOOLEAN | True/false value | TRUE, FALSE, null | TRUE |
-| DATE | Date only | YYYY-MM-DD | "2023-09-07" |
-| TIME | Time only | HH:MM:SS | "20:20:00" |
-| TIMESTAMP | Date and time | YYYY-MM-DD HH:MM:SS UTC | "2023-09-07 20:20:00" |
+| Data Type | Description | Example |
+|-----------|-------------|---------|
+| string | Variable length text (UTF-8) | "Kansas City Chiefs" |
+| int32 | 32-bit integer | 2023 |
+| int64 | 64-bit integer | 1234567890 |
+| float | 32-bit floating point | 12.5 |
+| double | 64-bit floating point | 123.456789 |
+| timestamp[ns] | Nanosecond timestamp | 2023-09-07 20:20:00 |
+| timestamp[ns, tz=UTC] | Timezone-aware timestamp | 2023-09-08T18:00:00Z |
+| null | Null-only column (no data) | null |
 
-### Constraint Types
+### Key Constraints
 
-#### Primary Key Constraints
-- **Single Column**: `game_id` (unique, not null)
-- **Composite Key**: `game_id + play_id` (combination unique, both not null)
-
-#### Foreign Key Constraints
-- **Referential Integrity**: Child table column references parent table primary key
-- **Cascade Options**: ON DELETE RESTRICT, ON UPDATE CASCADE
-
-#### Check Constraints
-```sql
--- Season validation
-CHECK (season >= 1999 AND season <= 2025)
-
--- Week validation  
-CHECK (week >= 1 AND week <= 22)
-
--- Score validation
-CHECK (home_score >= 0 AND home_score <= 100)
-CHECK (away_score >= 0 AND away_score <= 100)
-
--- Down validation
-CHECK (down IN (1, 2, 3, 4))
-
--- Yards to go validation
-CHECK (ydstogo >= 0 AND ydstogo <= 99)
-
--- Percentage validation
-CHECK (success_rate >= 0 AND success_rate <= 1)
-
--- EPA validation
-CHECK (epa_per_play >= -10 AND epa_per_play <= 10)
-```
-
-#### Unique Constraints
-```sql
--- Games table
-UNIQUE (season, week, home_team, away_team)
-
--- Teams table  
-UNIQUE (team_abbr)
-UNIQUE (team_name)
-
--- Players table
-UNIQUE (player_id, season)
-```
-
-#### Not Null Constraints
-- All primary key columns
-- All foreign key columns
-- Core business fields (scores, dates, team IDs)
-- Calculated/derived fields in Gold layer
+- **Season Range:** 1999-2027 (varies by data type; see DATA_TYPE_SEASON_RANGES in `src/config.py`)
+- **Week Range:** 1-18 regular season, 19-22 playoffs
+- **Team Count:** 32 NFL teams
+- **Down Range:** 1-4
+- **Distance Range:** 1-99 yards
+- **Yard Line Range:** 0-100
 
 ---
 
 ## Business Rules
 
-### Data Quality Rules
+### Bronze Layer Validation
 
-#### Bronze Layer Rules
-1. **Game ID Format**: Must match pattern `YYYY_WW_AWAY_HOME`
-2. **Team Abbreviations**: Must exist in NFL team reference list
-3. **Season Range**: 1999-2025 (nfl-data-py coverage)
-4. **Week Range**: 1-18 regular season, 19-22 playoffs
-5. **Score Logic**: Non-negative integers, realistic ranges
+Validation is performed by `NFLDataFetcher.validate_data()` in `src/nfl_data_integration.py`. Each data type has required columns that are checked on ingestion:
 
-#### Silver Layer Rules
-1. **Referential Integrity**: All foreign keys must have valid parent records
-2. **Score Consistency**: `game_result = home_score - away_score`
-3. **Total Consistency**: `total_points = home_score + away_score`
-4. **Date Logic**: Game dates must be reasonable for season/week
-5. **Team Logic**: Home team ≠ Away team
+| Data Type | Required Columns |
+|-----------|-----------------|
+| schedules | game_id, season, week, home_team, away_team |
+| pbp | game_id, play_id, season, week |
+| teams | team_abbr, team_name |
+| player_weekly | player_id, season, week |
+| snap_counts | player_id, season, week |
+| injuries | season, week |
+| rosters | player_id, season |
+| player_seasonal | player_id, season |
+| ngs | season, season_type, week, player_display_name, player_position, team_abbr, player_gsis_id |
+| pfr_weekly | game_id, season, week, team, pfr_player_name, pfr_player_id |
+| pfr_seasonal | player, team, season, pfr_id |
+| qbr | season, season_type, qbr_total, pts_added, epa_total, qb_plays |
+| depth_charts | season, club_code, week, position, full_name, gsis_id |
+| draft_picks | season, round, pick, team, pfr_player_name, position |
+| combine | season, player_name, pos, school, ht, wt |
 
-#### Gold Layer Rules
-1. **Aggregation Consistency**: Team totals must match sum of individual games
-2. **Percentage Bounds**: All rate/percentage fields between 0-1
-3. **EPA Reasonableness**: EPA values typically between -2 and 2
-4. **Temporal Logic**: Performance trends must be chronologically consistent
+### Fantasy Scoring Rules
 
-### NFL Business Rules
+| Metric | PPR | Half-PPR | Standard |
+|--------|-----|----------|----------|
+| Reception | 1.0 | 0.5 | 0.0 |
+| Rush/Rec Yard | 0.1 | 0.1 | 0.1 |
+| Rush/Rec TD | 6.0 | 6.0 | 6.0 |
+| Pass Yard | 0.04 | 0.04 | 0.04 |
+| Pass TD | 4.0 | 4.0 | 4.0 |
+| Interception | -2.0 | -2.0 | -2.0 |
+| Fumble Lost | -2.0 | -2.0 | -2.0 |
+| 2pt Conversion | 2.0 | 2.0 | 2.0 |
 
-#### Game Rules
-1. **Games per Week**: Regular season weeks have 16 games (with exceptions)
-2. **Playoff Structure**: Wild Card (6 games), Divisional (4 games), Conference (2 games), Super Bowl (1 game)
-3. **Division Games**: Teams play division opponents twice per season
-4. **Bye Weeks**: Teams have one bye week during regular season
+### Injury Status Multipliers
 
-#### Team Rules
-1. **Team Count**: 32 teams total (16 AFC, 16 NFC)
-2. **Division Structure**: 8 divisions with 4 teams each
-3. **Roster Limits**: 53 active players, specific position requirements
-4. **Salary Cap**: Annual team salary limitations
-
-#### Player Rules
-1. **Position Groups**: QB, RB, WR, TE, OL, DL, LB, DB, ST
-2. **Jersey Numbers**: Position-specific number ranges
-3. **Eligibility**: Rookie eligibility, veteran status rules
-4. **Contract Rules**: Salary cap implications, franchise tags
-
-#### Scoring Rules
-1. **Touchdown**: 6 points
-2. **Extra Point**: 1 point (kick), 2 points (conversion)
-3. **Field Goal**: 3 points
-4. **Safety**: 2 points
-5. **Maximum Realistic Score**: ~70 points per team
-
----
-
-## Source System Mappings
-
-### nfl-data-py API Mappings
-
-#### Games Data Source
-```python
-# Source: nfl.import_schedules([season])
-source_mapping = {
-    'game_id': 'game_id',           # Direct mapping
-    'season': 'season',             # Direct mapping  
-    'week': 'week',                 # Direct mapping
-    'gameday': 'gameday',           # Direct mapping
-    'gametime': 'gametime',         # Direct mapping
-    'away_team': 'away_team',       # Direct mapping
-    'home_team': 'home_team',       # Direct mapping
-    'away_score': 'away_score',     # Direct mapping
-    'home_score': 'home_score',     # Direct mapping
-    'result': 'result',             # Direct mapping
-    'total': 'total',               # Direct mapping
-    'overtime': 'overtime',         # Direct mapping
-    'old_game_id': None,            # Ignore field
-    'gsis': None,                   # Ignore field
-    'nfl_detail_id': None,          # Ignore field
-    'pfr': None,                    # Ignore field
-    'pff': None,                    # Ignore field
-    'espn': None                    # Ignore field
-}
-```
-
-#### Plays Data Source
-```python
-# Source: nfl.import_pbp_data([season], columns=[...])
-source_mapping = {
-    'game_id': 'game_id',                           # Direct mapping
-    'play_id': 'play_id',                           # Direct mapping
-    'season': 'season',                             # Direct mapping
-    'week': 'week',                                 # Direct mapping
-    'home_team': 'home_team',                       # Direct mapping
-    'away_team': 'away_team',                       # Direct mapping
-    'posteam': 'possession_team',                   # Field rename
-    'defteam': 'defense_team',                      # Field rename
-    'quarter_seconds_remaining': 'quarter_seconds_remaining',  # Direct mapping
-    'down': 'down',                                 # Direct mapping
-    'ydstogo': 'ydstogo',                          # Direct mapping
-    'yards_gained': 'yards_gained',                 # Direct mapping
-    'play_type': 'play_type',                       # Direct mapping
-    'passer_player_name': 'passer_player_name',     # Direct mapping
-    'receiver_player_name': 'receiver_player_name', # Direct mapping
-    'rusher_player_name': 'rusher_player_name',     # Add to schema
-    'interception': 'interception_flag',            # Type conversion
-    'fumble': 'fumble_flag',                        # Type conversion
-    'touchdown': 'touchdown_flag',                  # Type conversion
-    'penalty': 'penalty_flag',                      # Type conversion
-    'epa': 'epa',                                   # Add to schema
-    'wpa': 'wpa',                                   # Add to schema
-    'air_yards': 'air_yards',                       # Direct mapping
-    'yards_after_catch': 'yards_after_catch',       # Direct mapping
-    'qb_hit': 'qb_hit_flag',                        # Type conversion
-    'pass_attempt': 'pass_attempt',                 # Direct mapping
-    'rush_attempt': 'rush_attempt',                 # Direct mapping
-}
-```
-
-#### Teams Data Source
-```python
-# Source: nfl.import_team_desc()
-source_mapping = {
-    'team_abbr': 'team_abbr',       # Direct mapping
-    'team_name': 'team_name',       # Direct mapping
-    'team_id': 'team_id',           # Direct mapping
-    'team_color': 'primary_color',  # Field rename
-    'team_color2': 'secondary_color', # Field rename
-    'team_logo_wikipedia': 'logo_url', # Field rename
-    'team_logo_espn': None,         # Alternative logo source
-    'team_wordmark': None,          # Ignore field
-    'team_conference': 'conference', # Field rename
-    'team_division': 'division'     # Field rename
-}
-```
-
-### External Data Sources
-
-#### Weather API Integration
-```python
-# Source: OpenWeatherMap API
-weather_api_mapping = {
-    'game_id': lambda x: generate_game_id(x),  # Derived field
-    'temp': 'temperature',                      # Field mapping
-    'humidity': 'humidity',                     # Direct mapping  
-    'wind_speed': 'wind_speed',                 # Direct mapping
-    'wind_deg': 'wind_direction',               # Convert degrees to cardinal
-    'weather.main': 'precipitation',            # Weather condition mapping
-    'weather.description': 'weather_detail',   # Detailed description
-    'dt': 'weather_timestamp'                  # Unix timestamp conversion
-}
-
-# Weather condition mapping
-weather_condition_map = {
-    'Clear': 'None',
-    'Clouds': 'None', 
-    'Rain': 'Rain',
-    'Drizzle': 'Rain',
-    'Thunderstorm': 'Rain',
-    'Snow': 'Snow',
-    'Mist': 'None',
-    'Fog': 'None'
-}
-```
-
-#### Betting Lines Integration
-```python
-# Source: Vegas Insider, Action Network
-betting_lines_mapping = {
-    'game_id': lambda x: map_to_game_id(x),    # External ID mapping
-    'spread': 'closing_spread',                 # Point spread
-    'total': 'closing_total',                   # Over/under
-    'home_ml': 'home_moneyline',               # Money line
-    'away_ml': 'away_moneyline',               # Money line
-    'consensus_spread': 'market_movement',      # Line movement
-    'public_bets_pct': 'public_betting_pct'    # Public betting percentage
-}
-```
-
-#### Player Tracking Data
-```python
-# Source: NFL Next Gen Stats
-ngs_mapping = {
-    'gameId': 'game_id',                       # Game identifier mapping
-    'playId': 'play_id',                       # Play identifier mapping
-    'nflId': 'player_id',                      # Player identifier mapping
-    'frameId': 'tracking_frame',               # Frame sequence
-    'time': 'tracking_timestamp',              # Timestamp
-    'x': 'field_x_coordinate',                 # Field X position
-    'y': 'field_y_coordinate',                 # Field Y position  
-    'speed': 'player_speed',                   # Speed (yards/second)
-    'acceleration': 'player_acceleration',      # Acceleration
-    'direction': 'player_direction',           # Direction (degrees)
-    'orientation': 'player_orientation',       # Body orientation
-    'event': 'play_event'                      # Play event marker
-}
-```
-
-### Data Transformation Rules
-
-#### Team Name Standardization
-```python
-team_name_mapping = {
-    'ARI': {'abbr': 'ARI', 'name': 'Arizona Cardinals', 'city': 'Arizona'},
-    'ATL': {'abbr': 'ATL', 'name': 'Atlanta Falcons', 'city': 'Atlanta'},
-    'BAL': {'abbr': 'BAL', 'name': 'Baltimore Ravens', 'city': 'Baltimore'},
-    'BUF': {'abbr': 'BUF', 'name': 'Buffalo Bills', 'city': 'Buffalo'},
-    'CAR': {'abbr': 'CAR', 'name': 'Carolina Panthers', 'city': 'Carolina'},
-    'CHI': {'abbr': 'CHI', 'name': 'Chicago Bears', 'city': 'Chicago'},
-    'CIN': {'abbr': 'CIN', 'name': 'Cincinnati Bengals', 'city': 'Cincinnati'},
-    'CLE': {'abbr': 'CLE', 'name': 'Cleveland Browns', 'city': 'Cleveland'},
-    'DAL': {'abbr': 'DAL', 'name': 'Dallas Cowboys', 'city': 'Dallas'},
-    'DEN': {'abbr': 'DEN', 'name': 'Denver Broncos', 'city': 'Denver'},
-    'DET': {'abbr': 'DET', 'name': 'Detroit Lions', 'city': 'Detroit'},
-    'GB': {'abbr': 'GB', 'name': 'Green Bay Packers', 'city': 'Green Bay'},
-    'HOU': {'abbr': 'HOU', 'name': 'Houston Texans', 'city': 'Houston'},
-    'IND': {'abbr': 'IND', 'name': 'Indianapolis Colts', 'city': 'Indianapolis'},
-    'JAX': {'abbr': 'JAX', 'name': 'Jacksonville Jaguars', 'city': 'Jacksonville'},
-    'KC': {'abbr': 'KC', 'name': 'Kansas City Chiefs', 'city': 'Kansas City'},
-    'LAC': {'abbr': 'LAC', 'name': 'Los Angeles Chargers', 'city': 'Los Angeles'},
-    'LAR': {'abbr': 'LAR', 'name': 'Los Angeles Rams', 'city': 'Los Angeles'},
-    'LV': {'abbr': 'LV', 'name': 'Las Vegas Raiders', 'city': 'Las Vegas'},
-    'MIA': {'abbr': 'MIA', 'name': 'Miami Dolphins', 'city': 'Miami'},
-    'MIN': {'abbr': 'MIN', 'name': 'Minnesota Vikings', 'city': 'Minnesota'},
-    'NE': {'abbr': 'NE', 'name': 'New England Patriots', 'city': 'New England'},
-    'NO': {'abbr': 'NO', 'name': 'New Orleans Saints', 'city': 'New Orleans'},
-    'NYG': {'abbr': 'NYG', 'name': 'New York Giants', 'city': 'New York'},
-    'NYJ': {'abbr': 'NYJ', 'name': 'New York Jets', 'city': 'New York'},
-    'PHI': {'abbr': 'PHI', 'name': 'Philadelphia Eagles', 'city': 'Philadelphia'},
-    'PIT': {'abbr': 'PIT', 'name': 'Pittsburgh Steelers', 'city': 'Pittsburgh'},
-    'SEA': {'abbr': 'SEA', 'name': 'Seattle Seahawks', 'city': 'Seattle'},
-    'SF': {'abbr': 'SF', 'name': 'San Francisco 49ers', 'city': 'San Francisco'},
-    'TB': {'abbr': 'TB', 'name': 'Tampa Bay Buccaneers', 'city': 'Tampa Bay'},
-    'TEN': {'abbr': 'TEN', 'name': 'Tennessee Titans', 'city': 'Tennessee'},
-    'WAS': {'abbr': 'WAS', 'name': 'Washington Commanders', 'city': 'Washington'}
-}
-```
-
-#### Play Type Standardization
-```python
-play_type_mapping = {
-    'pass': 'pass',
-    'run': 'run', 
-    'punt': 'punt',
-    'field_goal': 'field_goal',
-    'extra_point': 'extra_point',
-    'kickoff': 'kickoff',
-    'qb_kneel': 'kneel',
-    'qb_spike': 'spike',
-    'no_play': 'penalty',
-    None: 'unknown'
-}
-```
-
-#### Formation Standardization
-```python
-formation_mapping = {
-    'SHOTGUN': 'shotgun',
-    'SINGLEBACK': 'singleback', 
-    'I_FORM': 'i_formation',
-    'PISTOL': 'pistol',
-    'WILDCAT': 'wildcat',
-    'JUMBO': 'jumbo',
-    'EMPTY': 'empty_backfield',
-    None: 'unknown'
-}
-```
+| Status | Multiplier | Effect on Projections |
+|--------|------------|----------------------|
+| Active | 1.0 | Full projection |
+| Questionable | 0.85 | 15% reduction |
+| Doubtful | 0.50 | 50% reduction |
+| Out | 0.0 | Zero projection |
+| IR | 0.0 | Zero projection |
+| PUP | 0.0 | Zero projection |
 
 ---
 
 **Document Control:**
-- **Version**: 1.0
-- **Last Modified**: March 4, 2026
-- **Next Review**: June 4, 2026
+- **Version**: 2.0
+- **Last Modified**: March 8, 2026
 - **Owner**: Data Engineering Team
-- **Approvers**: Data Architecture, NFL Analytics Team
 
 **Change Log:**
-- v1.0 (2026-03-04): Initial comprehensive data dictionary created for NFL game prediction model
+- v2.0 (2026-03-08): Comprehensive rewrite covering all 15 Bronze data types (24+ with sub-types). Auto-generated column specs from local Parquet files. Added representative columns for API-only types from test mocks and config.
+- v1.0 (2026-03-04): Initial data dictionary with Games, Plays, and stub entries.
