@@ -25,7 +25,7 @@
 - [ ] **ADV-01**: NGS data ingested for 3 stat types (passing, rushing, receiving) for seasons 2016-2025
 - [ ] **ADV-02**: PFR weekly stats ingested for 4 sub-types (pass, rush, rec, def) for seasons 2018-2025
 - [ ] **ADV-03**: PFR seasonal stats ingested for 4 sub-types for seasons 2018-2025
-- [ ] **ADV-04**: QBR data ingested (weekly + seasonal) for seasons 2006-2025
+- [x] **ADV-04**: QBR data ingested (weekly + seasonal) for seasons 2006-2025
 - [ ] **ADV-05**: Depth charts ingested for seasons 2020-2025
 
 ### Context Data
@@ -42,8 +42,8 @@
 
 ### Validation
 
-- [ ] **VAL-01**: validate_data() in NFLDataFetcher supports all new data types with required column checks
-- [ ] **VAL-02**: All new fetch methods have error handling for API timeouts and empty responses
+- [x] **VAL-01**: validate_data() in NFLDataFetcher supports all new data types with required column checks
+- [x] **VAL-02**: All new fetch methods have error handling for API timeouts and empty responses
 - [ ] **VAL-03**: Tests added for new fetch methods (minimum 1 per data type)
 
 ## v2 Requirements
@@ -89,7 +89,7 @@
 | ADV-01 | Phase 3 | Pending |
 | ADV-02 | Phase 3 | Pending |
 | ADV-03 | Phase 3 | Pending |
-| ADV-04 | Phase 3 | Pending |
+| ADV-04 | Phase 3 | Complete |
 | ADV-05 | Phase 3 | Pending |
 | CTX-01 | Phase 3 | Pending |
 | CTX-02 | Phase 3 | Pending |
@@ -97,8 +97,8 @@
 | DOC-02 | Phase 4 | Pending |
 | DOC-03 | Phase 4 | Pending |
 | DOC-04 | Phase 4 | Pending |
-| VAL-01 | Phase 3 | Pending |
-| VAL-02 | Phase 3 | Pending |
+| VAL-01 | Phase 3 | Complete |
+| VAL-02 | Phase 3 | Complete |
 | VAL-03 | Phase 3 | Pending |
 
 **Coverage:**
