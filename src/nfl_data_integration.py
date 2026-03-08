@@ -9,6 +9,7 @@ import pandas as pd
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 import logging
+from src.config import get_max_season
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -375,7 +376,7 @@ class NFLDataFetcher:
                 # Check season range
                 if 'season' in df.columns:
                     seasons = df['season'].unique()
-                    invalid_seasons = [s for s in seasons if s < 1999 or s > 2025]
+                    invalid_seasons = [s for s in seasons if s < 1999 or s > get_max_season()]
                     if invalid_seasons:
                         validation_results['issues'].append(f"Invalid seasons: {invalid_seasons}")
             
