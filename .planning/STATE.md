@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-08T20:51:11.406Z"
+last_updated: "2026-03-08T20:55:38.562Z"
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # Project State
@@ -58,3 +58,4 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 - [Phase 03]: validate_data() uses common columns shared across sub-types (conservative Bronze validation)
 - [Phase 03]: Parametrized tests for sub-typed sources (NGS/PFR); explicit QBR frequency tests to document Plan 01 fix
 - [Phase 04]: No row counts in inventory (too slow); metrics: file count, size, seasons, columns, last modified
+- [Phase 04]: Auto-generated Parquet schemas for 6 local data types; representative columns from test mocks for 9 API-only types
