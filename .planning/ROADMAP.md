@@ -1,7 +1,7 @@
 # Roadmap: NFL Data Platform — Bronze Expansion
 
 **Created:** 2026-03-08
-**Phases:** 4
+**Phases:** 6
 **Requirements covered:** 23/23
 
 ## Phase Overview
@@ -109,13 +109,55 @@ Plans:
 
 ---
 
+### Phase 5: Phase 1 Verification Backfill
+
+**Goal:** Produce formal VERIFICATION.md for Phase 1 infrastructure to close the 5 INFRA requirement gaps identified by milestone audit.
+
+**Requirements:** INFRA-01, INFRA-02, INFRA-03, INFRA-04, INFRA-05
+
+**Gap Closure:** Closes requirement gaps from v1.0 audit — all 5 INFRA requirements are functionally complete but lack formal verification artifacts.
+
+**Plans:** 0 plans (pending)
+
+**Success Criteria:**
+1. `01-VERIFICATION.md` exists in Phase 1 directory with must-have truths for all 5 INFRA requirements
+2. All INFRA requirements verified as SATISFIED with code evidence
+3. SUMMARY frontmatter updated with requirements-completed fields
+
+**Dependencies:** None (verification-only, code already exists)
+**Research needed:** No
+
+---
+
+### Phase 6: Wire Bronze Validation
+
+**Goal:** Connect validate_data() to the bronze ingestion pipeline so ingested data is schema-checked before saving.
+
+**Requirements:** VAL-01 (integration path)
+
+**Gap Closure:** Closes integration gap (validate_data not called during ingestion) and E2E flow gap (Bronze Ingestion breaks at validation step).
+
+**Plans:** 0 plans (pending)
+
+**Success Criteria:**
+1. `bronze_ingestion_simple.py` calls `validate_data()` after fetch, before save
+2. Validation failure logs a warning but does not block save (Bronze layer accepts raw data)
+3. Integration test verifies validate_data() is invoked during ingestion
+4. `BRONZE_LAYER_DATA_INVENTORY.md` validation claim is accurate
+
+**Dependencies:** Phase 5 (verification backfill should complete first for clean audit)
+**Research needed:** No
+
+---
+
 ## Phase Ordering Rationale
 
 - **Phase 1 before all:** Cannot ingest new data without local-first support and validation fixes
 - **Phase 2 before 3:** PBP is the foundation; NGS/PFR add incremental value on top
 - **Phase 3 before 4:** Documentation needs actual data to be accurate
 - **Each phase is independently valuable:** Phase 2 alone enables a basic prediction model
+- **Phases 5-6 are gap closure:** Added after v1.0 audit to close verification and integration gaps
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after phase 4 planning*
+*Last updated: 2026-03-08 after gap closure planning*
