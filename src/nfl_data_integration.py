@@ -336,6 +336,19 @@ class NFLDataFetcher:
                 'injuries': ['season', 'week'],
                 'rosters': ['player_id', 'season'],
                 'player_seasonal': ['player_id', 'season'],
+                'ngs': ['season', 'season_type', 'week', 'player_display_name',
+                        'player_position', 'team_abbr', 'player_gsis_id'],
+                'pfr_weekly': ['game_id', 'season', 'week', 'team',
+                               'pfr_player_name', 'pfr_player_id'],
+                'pfr_seasonal': ['player', 'team', 'season', 'pfr_id'],
+                'qbr': ['season', 'season_type', 'qbr_total', 'pts_added',
+                        'epa_total', 'qb_plays'],
+                'depth_charts': ['season', 'club_code', 'week', 'position',
+                                 'full_name', 'gsis_id'],
+                'draft_picks': ['season', 'round', 'pick', 'team',
+                                'pfr_player_name', 'position'],
+                'combine': ['season', 'player_name', 'pos', 'school',
+                            'ht', 'wt'],
             }
             
             if data_type in required_columns:
