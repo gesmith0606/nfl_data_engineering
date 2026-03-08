@@ -67,6 +67,12 @@ Plans:
 
 **Requirements:** ADV-01 to ADV-05, CTX-01, CTX-02, VAL-01 to VAL-03
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — QBR frequency fix + validate_data() extensions for 7 new data types
+- [ ] 03-02-PLAN.md — Test suite for all 7 new data types (adapter fetch + validation)
+
 **Success Criteria:**
 1. NGS data in `data/bronze/ngs/{stat_type}/season=YYYY/` for passing/rushing/receiving
 2. PFR weekly + seasonal data in `data/bronze/pfr/` for pass/rush/rec/def
@@ -105,4 +111,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after phase 2 planning*
+*Last updated: 2026-03-08 after phase 3 planning*
