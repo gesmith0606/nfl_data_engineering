@@ -124,6 +124,59 @@ GOLD_PROJECTION_S3_KEYS = {
 }
 
 
+# Curated PBP columns (~103) for game prediction models.
+# Covers EPA, WPA, CPOE, air yards, success, player IDs, Vegas lines,
+# play situation, and weather. Excludes participation merge columns.
+PBP_COLUMNS = [
+    # Game/play identifiers (10)
+    "game_id", "play_id", "season", "week", "season_type", "game_date",
+    "posteam", "defteam", "home_team", "away_team",
+    # Score context (8)
+    "home_score", "away_score", "posteam_score", "defteam_score",
+    "posteam_score_post", "defteam_score_post",
+    "score_differential", "score_differential_post",
+    # Play situation (11)
+    "down", "ydstogo", "yardline_100", "goal_to_go",
+    "qtr", "quarter_seconds_remaining", "half_seconds_remaining",
+    "game_seconds_remaining", "drive",
+    "posteam_timeouts_remaining", "defteam_timeouts_remaining",
+    # Play type and result (22)
+    "play_type", "yards_gained", "shotgun", "no_huddle",
+    "qb_dropback", "qb_scramble", "qb_kneel", "qb_spike",
+    "pass_attempt", "rush_attempt", "pass_length", "pass_location",
+    "run_location", "run_gap",
+    "complete_pass", "incomplete_pass", "interception", "sack",
+    "fumble", "fumble_lost", "penalty",
+    "first_down", "third_down_converted", "third_down_failed",
+    "fourth_down_converted", "fourth_down_failed",
+    "touchdown", "pass_touchdown", "rush_touchdown", "safety",
+    # EPA metrics (7)
+    "epa", "ep", "air_epa", "yac_epa", "comp_air_epa", "comp_yac_epa",
+    "qb_epa",
+    # WPA metrics (11)
+    "wpa", "vegas_wpa", "air_wpa", "yac_wpa", "comp_air_wpa", "comp_yac_wpa",
+    "wp", "def_wp", "home_wp", "away_wp",
+    "home_wp_post", "away_wp_post",
+    # Completion metrics (4)
+    "cpoe", "cp", "xpass", "pass_oe",
+    # Yardage (5)
+    "air_yards", "yards_after_catch", "passing_yards", "receiving_yards",
+    "rushing_yards",
+    # Success (1)
+    "success",
+    # Player IDs (6)
+    "passer_player_id", "passer_player_name",
+    "receiver_player_id", "receiver_player_name",
+    "rusher_player_id", "rusher_player_name",
+    # Vegas lines (2)
+    "spread_line", "total_line",
+    # Series (3)
+    "series", "series_success", "series_result",
+    # Weather/venue (4)
+    "temp", "wind", "roof", "surface",
+]
+
+
 def get_max_season() -> int:
     """Return the maximum valid NFL season year (current year + 1).
 

@@ -191,6 +191,7 @@ class NFLDataAdapter:
         seasons: List[int],
         columns: Optional[List[str]] = None,
         downcast: bool = True,
+        include_participation: bool = False,
     ) -> pd.DataFrame:
         """Fetch play-by-play data.
 
@@ -198,6 +199,9 @@ class NFLDataAdapter:
             seasons: List of season years.
             columns: Optional column filter.
             downcast: Whether to downcast numeric types for memory savings.
+            include_participation: Whether to merge participation data.
+                Defaults to False to avoid column merge issues with
+                curated column lists.
 
         Returns:
             DataFrame of play-by-play data.
@@ -212,6 +216,7 @@ class NFLDataAdapter:
             seasons,
             columns=columns,
             downcast=downcast,
+            include_participation=include_participation,
         )
 
     def fetch_ngs(
