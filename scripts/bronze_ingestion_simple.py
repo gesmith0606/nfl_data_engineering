@@ -204,7 +204,7 @@ def _build_method_kwargs(entry: dict, args) -> dict:
 
     # QBR frequency
     if method_name == "fetch_qbr":
-        kwargs["frequency"] = "weekly"
+        kwargs["frequency"] = args.frequency
 
     return kwargs
 
@@ -255,6 +255,13 @@ def main():
         type=str,
         default=None,
         help="Sub-type for NGS (passing/rushing/receiving) or PFR (pass/rush/rec/def)",
+    )
+    parser.add_argument(
+        "--frequency",
+        type=str,
+        choices=["weekly", "seasonal"],
+        default="weekly",
+        help="Frequency for QBR data (default: weekly)",
     )
     parser.add_argument(
         "--seasons",
@@ -339,7 +346,10 @@ def main():
             week=args.week,
             sub_type=getattr(args, "sub_type", None) or "",
         )
-        filename = f"{args.data_type}_{ts}.parquet"
+        if args.data_type == "qbr":
+            filename = f"qbr_{args.frequency}_{ts}.parquet"
+        else:
+            filename = f"{args.data_type}_{ts}.parquet"
         local_dir = os.path.join("data", "bronze", bronze_subpath)
         local_path = os.path.join(local_dir, filename)
 
