@@ -168,10 +168,10 @@ Plans:
 - format_validation_output() exported but unused by CLI (duplicated inline logic)
 - tests/test_generate_inventory.py fails collection (pyarrow not in venv)
 
-**Plans:** 0/1 plans
+**Plans:** 1 plan
 
 Plans:
-- [ ] 07-01-PLAN.md — Fix SUMMARY frontmatter, hardcoded season, unused helper, pyarrow dependency
+- [ ] 07-01-PLAN.md — Fix hardcoded season bound, wire format_validation_output(), verify already-resolved items
 
 **Success Criteria:**
 1. 02-01-SUMMARY.md has `requirements-completed: [PBP-01, PBP-02, PBP-03, PBP-04]` in frontmatter
@@ -195,4 +195,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after Phase 7 gap closure planning*
+*Last updated: 2026-03-08 after Phase 7 planning*
