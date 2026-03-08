@@ -15,7 +15,7 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 
 | Phase | Name | Status | Plans |
 |-------|------|--------|-------|
-| 1 | Infrastructure Prerequisites | Pending | 0/0 |
+| 1 | Infrastructure Prerequisites | In Progress | 1/2 |
 | 2 | Core PBP Ingestion | Pending | 0/0 |
 | 3 | Advanced Stats & Context Data | Pending | 0/0 |
 | 4 | Documentation Update | Pending | 0/0 |
@@ -31,5 +31,10 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 | Roadmap | .planning/ROADMAP.md |
 | Codebase Map | .planning/codebase/ |
 
+## Decisions
+
+- **Phase 1:** Used callable upper bound in DATA_TYPE_SEASON_RANGES for dynamic max season
+- **Phase 1:** Lazy nfl_data_py import in adapter for graceful degradation
+
 ---
-*Last updated: 2026-03-08 after project initialization*
+*Last updated: 2026-03-08 after completing 01-01-PLAN.md*
