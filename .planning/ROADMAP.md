@@ -1,7 +1,7 @@
 # Roadmap: NFL Data Platform — Bronze Expansion
 
 **Created:** 2026-03-08
-**Phases:** 6
+**Phases:** 7
 **Requirements covered:** 23/23
 
 ## Phase Overview
@@ -156,6 +156,34 @@ Plans:
 
 ---
 
+### Phase 7: Tech Debt Cleanup
+
+**Goal:** Close all non-critical tech debt items from v1.0 milestone audit — fix SUMMARY frontmatter, hardcoded season bound, unused helper, and missing test dependency.
+
+**Requirements:** PBP-01, PBP-02, PBP-03, PBP-04 (documentation gap closure)
+
+**Gap Closure:** Closes tech debt from v1.0 audit:
+- 02-01-SUMMARY.md missing `requirements-completed` frontmatter (PBP-01–04)
+- Hardcoded `s > 2025` in NFLDataFetcher.validate_data() should use get_max_season()
+- format_validation_output() exported but unused by CLI (duplicated inline logic)
+- tests/test_generate_inventory.py fails collection (pyarrow not in venv)
+
+**Plans:** 0/1 plans
+
+Plans:
+- [ ] 07-01-PLAN.md — Fix SUMMARY frontmatter, hardcoded season, unused helper, pyarrow dependency
+
+**Success Criteria:**
+1. 02-01-SUMMARY.md has `requirements-completed: [PBP-01, PBP-02, PBP-03, PBP-04]` in frontmatter
+2. NFLDataFetcher.validate_data() uses get_max_season() instead of hardcoded 2025
+3. bronze_ingestion_simple.py calls format_validation_output() instead of inlining formatting
+4. `pip install pyarrow` in venv and test_generate_inventory.py collects successfully
+
+**Dependencies:** None (all fixes are independent single-file changes)
+**Research needed:** No
+
+---
+
 ## Phase Ordering Rationale
 
 - **Phase 1 before all:** Cannot ingest new data without local-first support and validation fixes
@@ -163,7 +191,8 @@ Plans:
 - **Phase 3 before 4:** Documentation needs actual data to be accurate
 - **Each phase is independently valuable:** Phase 2 alone enables a basic prediction model
 - **Phases 5-6 are gap closure:** Added after v1.0 audit to close verification and integration gaps
+- **Phase 7 is tech debt cleanup:** Added after second v1.0 audit to close remaining non-critical items
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after Phase 6 planning*
+*Last updated: 2026-03-08 after Phase 7 gap closure planning*
