@@ -18,7 +18,7 @@
 - [ ] **PBP-01**: Full PBP ingested with ~80 curated columns including EPA, WPA, CPOE, air yards, success rate
 - [ ] **PBP-02**: PBP processes one season at a time to manage memory (not all seasons at once)
 - [ ] **PBP-03**: PBP uses column subsetting via columns parameter (not all 390 columns)
-- [ ] **PBP-04**: PBP ingested for seasons 2020-2025 in Bronze layer
+- [ ] **PBP-04**: PBP ingested for seasons 2010-2025 in Bronze layer
 
 ### Advanced Stats
 
