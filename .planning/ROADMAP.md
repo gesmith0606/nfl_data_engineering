@@ -140,7 +140,10 @@ Plans:
 
 **Gap Closure:** Closes integration gap (validate_data not called during ingestion) and E2E flow gap (Bronze Ingestion breaks at validation step).
 
-**Plans:** 0 plans (pending)
+**Plans:** 1 plan
+
+Plans:
+- [ ] 06-01-PLAN.md — Add validate_data() to adapter + wire into ingestion script with tests
 
 **Success Criteria:**
 1. `bronze_ingestion_simple.py` calls `validate_data()` after fetch, before save
@@ -163,4 +166,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after Phase 5 planning*
+*Last updated: 2026-03-08 after Phase 6 planning*
