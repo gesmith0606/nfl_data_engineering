@@ -15,10 +15,10 @@
 
 ### Play-by-Play Data
 
-- [ ] **PBP-01**: Full PBP ingested with ~80 curated columns including EPA, WPA, CPOE, air yards, success rate
-- [ ] **PBP-02**: PBP processes one season at a time to manage memory (not all seasons at once)
-- [ ] **PBP-03**: PBP uses column subsetting via columns parameter (not all 390 columns)
-- [ ] **PBP-04**: PBP ingested for seasons 2010-2025 in Bronze layer
+- [x] **PBP-01**: Full PBP ingested with ~80 curated columns including EPA, WPA, CPOE, air yards, success rate
+- [x] **PBP-02**: PBP processes one season at a time to manage memory (not all seasons at once)
+- [x] **PBP-03**: PBP uses column subsetting via columns parameter (not all 390 columns)
+- [x] **PBP-04**: PBP ingested for seasons 2010-2025 in Bronze layer
 
 ### Advanced Stats
 
@@ -82,10 +82,10 @@
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
-| PBP-01 | Phase 2 | Pending |
-| PBP-02 | Phase 2 | Pending |
-| PBP-03 | Phase 2 | Pending |
-| PBP-04 | Phase 2 | Pending |
+| PBP-01 | Phase 2 | Complete |
+| PBP-02 | Phase 2 | Complete |
+| PBP-03 | Phase 2 | Complete |
+| PBP-04 | Phase 2 | Complete |
 | ADV-01 | Phase 3 | Pending |
 | ADV-02 | Phase 3 | Pending |
 | ADV-03 | Phase 3 | Pending |
