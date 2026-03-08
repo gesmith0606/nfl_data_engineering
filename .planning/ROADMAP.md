@@ -21,6 +21,12 @@
 
 **Requirements:** INFRA-01, INFRA-02, INFRA-03, INFRA-04, INFRA-05
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Config + adapter layer (dynamic seasons, season ranges, nfl-data-py adapter)
+- [ ] 01-02-PLAN.md — Registry CLI + local-first storage + test suite
+
 **Success Criteria:**
 1. `bronze_ingestion_simple.py` saves to `data/bronze/` locally when no AWS credentials present
 2. Season validation accepts 2026 without code changes
@@ -94,4 +100,4 @@
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after research synthesis*
+*Last updated: 2026-03-08 after phase 1 planning*
