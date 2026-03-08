@@ -1,8 +1,9 @@
 """
 Configuration settings for the NFL Data Engineering Pipeline
 """
+import datetime
 import os
-from typing import Dict, Any
+from typing import Callable, Dict, Any, Tuple
 
 # AWS S3 Configuration - Updated with your specific buckets
 S3_BUCKET_BRONZE = os.getenv("S3_BUCKET_BRONZE", "nfl-raw")
@@ -121,6 +122,62 @@ GOLD_PROJECTION_S3_KEYS = {
     "weekly_projections": "projections/season={season}/week={week}/projections_{ts}.parquet",
     "season_projections": "projections/preseason/season={season}/season_proj_{ts}.parquet",
 }
+
+
+def get_max_season() -> int:
+    """Return the maximum valid NFL season year (current year + 1).
+
+    This allows referencing next year's draft/combine data without
+    hardcoding a specific year.
+
+    Returns:
+        The current calendar year plus one.
+    """
+    return datetime.date.today().year + 1
+
+
+# Per-data-type valid season ranges.
+# Each entry maps a data type name to (min_season, max_season_callable).
+# The callable is deferred so the upper bound stays dynamic.
+DATA_TYPE_SEASON_RANGES: Dict[str, Tuple[int, Callable[[], int]]] = {
+    "schedules": (1999, get_max_season),
+    "pbp": (1999, get_max_season),
+    "player_weekly": (2002, get_max_season),
+    "player_seasonal": (2002, get_max_season),
+    "snap_counts": (2012, get_max_season),
+    "injuries": (2009, get_max_season),
+    "rosters": (2002, get_max_season),
+    "teams": (1999, get_max_season),
+    "ngs": (2016, get_max_season),
+    "pfr_weekly": (2018, get_max_season),
+    "pfr_seasonal": (2018, get_max_season),
+    "qbr": (2006, get_max_season),
+    "depth_charts": (2001, get_max_season),
+    "draft_picks": (2000, get_max_season),
+    "combine": (2000, get_max_season),
+}
+
+
+def validate_season_for_type(data_type: str, season: int) -> bool:
+    """Check whether a season is within the valid range for a data type.
+
+    Args:
+        data_type: One of the keys in DATA_TYPE_SEASON_RANGES.
+        season: The NFL season year to validate.
+
+    Returns:
+        True if the season is valid for the given data type, False otherwise.
+
+    Raises:
+        ValueError: If data_type is not recognized.
+    """
+    if data_type not in DATA_TYPE_SEASON_RANGES:
+        raise ValueError(
+            f"Unknown data type '{data_type}'. "
+            f"Valid types: {sorted(DATA_TYPE_SEASON_RANGES.keys())}"
+        )
+    min_season, max_season_fn = DATA_TYPE_SEASON_RANGES[data_type]
+    return min_season <= season <= max_season_fn()
 
 
 def get_s3_path(layer: str, dataset: str = "", season: int = None, week: int = None) -> str:
