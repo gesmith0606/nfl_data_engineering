@@ -91,6 +91,13 @@ Plans:
 
 **Requirements:** DOC-01 to DOC-04
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Bronze inventory script + BRONZE_LAYER_DATA_INVENTORY.md update
+- [ ] 04-02-PLAN.md — NFL Data Dictionary update for all 15+ Bronze data types
+- [ ] 04-03-PLAN.md — Prediction data model status badges + implementation guide rewrite
+
 **Success Criteria:**
 1. `NFL_DATA_DICTIONARY.md` has entries for all 15+ Bronze data types with actual column names
 2. `NFL_GAME_PREDICTION_DATA_MODEL.md` marks implemented tables vs planned
@@ -111,4 +118,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after phase 3 planning*
+*Last updated: 2026-03-08 after phase 4 planning*
