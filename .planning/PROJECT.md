@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and game outcome predictions. Currently local-first with S3 as optional storage.
+A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and game outcome predictions. Features 15+ Bronze data types (PBP, NGS, PFR, QBR, depth charts, combine, draft picks), registry-driven ingestion, and local-first storage.
 
 ## Core Value
 
@@ -12,52 +12,42 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Validated
 
-- Bronze layer: 6 data types ingested (schedules, player_weekly, player_seasonal, snap_counts, injuries, rosters) for 2020-2024
-- Silver layer: usage metrics, rolling averages, opponent rankings
-- Gold layer: weekly + preseason projections (PPR/Half-PPR/Standard)
-- Draft tool: snake, auction, mock draft, waiver wire
-- Pipeline monitoring: GHA cron + health check
-- Backtesting: MAE 4.91, r=0.51 across 3 seasons
-- 71 unit tests passing
+- ✓ Infrastructure: local-first storage, dynamic season validation, adapter pattern, registry CLI — v1.0
+- ✓ PBP: 103 curated columns (EPA/WPA/CPOE/air yards) for 2010-2025, memory-safe batching — v1.0
+- ✓ Advanced stats: NGS, PFR weekly/seasonal, QBR, depth charts, draft picks, combine — v1.0
+- ✓ Documentation: data dictionary, Bronze inventory, prediction model badges, implementation guide — v1.0
+- ✓ Validation: validate_data() for all data types, wired into ingestion pipeline — v1.0
+- ✓ Bronze layer: 6 original types (schedules, player_weekly, player_seasonal, snap_counts, injuries, rosters) — pre-v1.0
+- ✓ Silver layer: usage metrics, rolling averages, opponent rankings — pre-v1.0
+- ✓ Gold layer: weekly + preseason projections (PPR/Half-PPR/Standard) — pre-v1.0
+- ✓ Draft tool: snake, auction, mock draft, waiver wire — pre-v1.0
+- ✓ Pipeline monitoring: GHA cron + health check — pre-v1.0
+- ✓ Backtesting: MAE 4.91, r=0.51 across 3 seasons — pre-v1.0
+- ✓ 141 total tests passing (71 original + 70 milestone) — v1.0
 
 ### Active
 
-- [ ] Update data model and data dictionary to reflect actual nfl-data-py capabilities and game prediction needs
-- [ ] Expand Bronze layer with new data types for game prediction (full PBP, NGS, PFR advanced, draft picks, combine, depth charts, QBR, betting lines, officials)
-- [ ] Update Bronze Layer Data Inventory doc to reflect current state (31 files, not 2)
-- [ ] Extend NFLDataFetcher with new fetch methods
-- [ ] Extend bronze_ingestion_simple.py CLI with new data types
-- [ ] Ingest new data types for 2020-2025
+(Fresh for next milestone — define with `/gsd:new-milestone`)
 
 ### Out of Scope
 
 - Neo4j Phase 5 — deferred until prediction model is validated
-- ML model training (RF/XGBoost) — depends on complete bronze data first
-- Live Sleeper league integration — deferred to draft season
 - S3 sync — AWS credentials expired, local-first workflow active
+- Live Sleeper league integration — deferred to draft season
 
 ## Context
 
-Existing documentation (do not duplicate — reference and update in place):
-- `CLAUDE.md` — project reference, commands, architecture
-- `copilot-instructions.md` — AI assistant instructions, data flow, patterns
-- `development_tasks.md` — complete task history (16 phases done)
-- `docs/NFL_DATA_DICTIONARY.md` — table definitions, 200+ columns
-- `docs/NFL_GAME_PREDICTION_DATA_MODEL.md` — ML prediction model design
-- `docs/NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md` — 8-week implementation roadmap
-- `docs/BRONZE_LAYER_DATA_INVENTORY.md` — bronze inventory (stale)
-- `.planning/codebase/` — GSD codebase map (7 documents)
+Shipped v1.0 with 10,095 LOC Python across 7 phases and 11 plans.
+Tech stack: Python 3.9, pandas, pyarrow, nfl-data-py, local Parquet storage (S3 optional).
+Bronze layer now has 15+ data types covering schedules, player stats, PBP, NGS, PFR, QBR, depth charts, combine, draft picks.
+Silver/Gold layers serve fantasy football projections; game prediction ML is the next frontier.
 
-nfl-data-py provides additional data sources not yet ingested:
-- `import_pbp_data` — full PBP (300+ cols with EPA, WPA, CPOE, air yards)
-- `import_ngs_data` — Next Gen Stats (time to throw, separation, RYOE)
-- `import_seasonal_pfr` / `import_weekly_pfr` — Pro Football Reference advanced stats
-- `import_draft_picks` — draft capital and player evaluation
-- `import_combine_data` — combine measurables
-- `import_depth_charts` — positional depth
-- `import_qbr` — ESPN quarterback ratings
-- `import_win_totals` / `import_sc_lines` — betting lines
-- `import_officials` — referee data
+Existing documentation (reference in place):
+- `CLAUDE.md` — project reference, commands, architecture
+- `docs/NFL_DATA_DICTIONARY.md` — table definitions for all 15+ Bronze types
+- `docs/NFL_GAME_PREDICTION_DATA_MODEL.md` — ML prediction model design
+- `docs/NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md` — implementation roadmap
+- `docs/BRONZE_LAYER_DATA_INVENTORY.md` — bronze inventory (auto-generated)
 
 ## Constraints
 
@@ -70,10 +60,15 @@ nfl-data-py provides additional data sources not yet ingested:
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Local-first storage | AWS credentials expired March 2026 | -- Pending (refresh creds later) |
-| nfl-data-py as primary source | Battle-tested, covers 95% of needed data | Good |
-| Parquet format | Columnar, compressed, pandas-native | Good |
-| Update existing docs in-place | Avoid duplication with 6+ existing doc files | -- Pending |
+| Local-first storage | AWS credentials expired March 2026 | ✓ Good — fast iteration |
+| nfl-data-py as primary source | Battle-tested, covers 95% of needed data | ✓ Good |
+| Parquet format | Columnar, compressed, pandas-native | ✓ Good |
+| Registry dispatch pattern | Adding a data type is config-only | ✓ Good |
+| Adapter pattern (NFLDataAdapter) | Isolates nfl-data-py for future migration | ✓ Good |
+| 103 PBP columns (not ~80) | All EPA/WPA/CPOE variants needed for prediction | ✓ Good |
+| Warn-never-block validation | Bronze accepts raw data; validation is informational | ✓ Good |
+| QBR frequency-prefixed filenames | Prevents weekly/seasonal collision | ✓ Good |
+| No row counts in inventory | Too slow for large datasets | ✓ Good |
 
 ---
-*Last updated: 2026-03-07 after GSD project initialization*
+*Last updated: 2026-03-08 after v1.0 milestone*
