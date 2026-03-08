@@ -8,7 +8,7 @@
 
 | # | Phase | Goal | Requirements | Success Criteria |
 |---|-------|------|--------------|------------------|
-| 1 | Infrastructure Prerequisites | Fix blockers before adding new data types | INFRA-01 to INFRA-05 | 5 |
+| 1 | 2/2 | Complete   | 2026-03-08 | 5 |
 | 2 | Core PBP Ingestion | Ingest full play-by-play with EPA/WPA/CPOE | PBP-01 to PBP-04 | 4 |
 | 3 | Advanced Stats & Context Data | Ingest NGS, PFR, QBR, depth charts, draft, combine | ADV-01 to ADV-05, CTX-01 to CTX-02, VAL-01 to VAL-03 | 10 |
 | 4 | Documentation Update | Align all docs with actual data state | DOC-01 to DOC-04 | 4 |
@@ -21,7 +21,7 @@
 
 **Requirements:** INFRA-01, INFRA-02, INFRA-03, INFRA-04, INFRA-05
 
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 01-01-PLAN.md — Config + adapter layer (dynamic seasons, season ranges, nfl-data-py adapter)

@@ -7,10 +7,10 @@
 
 ### Infrastructure Prerequisites
 
-- [ ] **INFRA-01**: Bronze ingestion script works locally without AWS credentials (local-first with S3 as optional)
+- [x] **INFRA-01**: Bronze ingestion script works locally without AWS credentials (local-first with S3 as optional)
 - [x] **INFRA-02**: Season validation is dynamic (current year + 1) instead of hardcoded 2025
 - [x] **INFRA-03**: Adapter layer isolates all nfl-data-py import_* calls into a single module for future nflreadpy migration
-- [ ] **INFRA-04**: Bronze CLI uses registry/dispatch pattern instead of if/elif chain (supports 15+ data types)
+- [x] **INFRA-04**: Bronze CLI uses registry/dispatch pattern instead of if/elif chain (supports 15+ data types)
 - [x] **INFRA-05**: Per-data-type season availability config (NGS starts 2016, PFR starts 2018, etc.)
 
 ### Play-by-Play Data
@@ -77,10 +77,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
-| INFRA-04 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
 | PBP-01 | Phase 2 | Pending |
 | PBP-02 | Phase 2 | Pending |
