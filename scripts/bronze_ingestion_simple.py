@@ -195,11 +195,43 @@ def _build_method_kwargs(entry: dict, args) -> dict:
         key = "stat_type" if method_name == "fetch_ngs" else "s_type"
         kwargs[key] = args.sub_type
 
+    # PBP: curated columns, downcast, no participation merge
+    if method_name == "fetch_pbp":
+        from src.config import PBP_COLUMNS
+        kwargs["columns"] = PBP_COLUMNS
+        kwargs["downcast"] = True
+        kwargs["include_participation"] = False
+
     # QBR frequency
     if method_name == "fetch_qbr":
         kwargs["frequency"] = "weekly"
 
     return kwargs
+
+
+def parse_seasons_range(seasons_str: str) -> list:
+    """Parse a seasons range string into a list of ints.
+
+    Accepts either a single season ("2024") or a range ("2010-2025").
+
+    Args:
+        seasons_str: Season range string, e.g. "2010-2025" or "2024".
+
+    Returns:
+        List of season ints.
+
+    Raises:
+        ValueError: If start > end in a range.
+    """
+    if "-" in seasons_str:
+        parts = seasons_str.split("-")
+        start, end = int(parts[0]), int(parts[1])
+        if start > end:
+            raise ValueError(
+                f"Invalid season range: start ({start}) > end ({end})"
+            )
+        return list(range(start, end + 1))
+    return [int(seasons_str)]
 
 
 def main():
@@ -223,6 +255,12 @@ def main():
         type=str,
         default=None,
         help="Sub-type for NGS (passing/rushing/receiving) or PFR (pass/rush/rec/def)",
+    )
+    parser.add_argument(
+        "--seasons",
+        type=str,
+        default=None,
+        help="Season range for batch ingestion, e.g., 2010-2025 (overrides --season)",
     )
     parser.add_argument(
         "--s3",
@@ -255,66 +293,81 @@ def main():
         print(f"Error: --week is required for {args.data_type}")
         return 1
 
-    # --- Validate season ---
+    # --- Handle --seasons batch mode ---
+    if args.seasons:
+        season_list = parse_seasons_range(args.seasons)
+    else:
+        season_list = [args.season]
+
+    # --- Validate all seasons upfront ---
     if entry["requires_season"]:
-        if not validate_season_for_type(args.data_type, args.season):
-            min_s, max_fn = DATA_TYPE_SEASON_RANGES[args.data_type]
-            print(
-                f"Error: season {args.season} is not valid for {args.data_type} "
-                f"(valid range: {min_s}-{max_fn()})"
-            )
-            return 1
+        for s in season_list:
+            if not validate_season_for_type(args.data_type, s):
+                min_s, max_fn = DATA_TYPE_SEASON_RANGES[args.data_type]
+                print(
+                    f"Error: season {s} is not valid for {args.data_type} "
+                    f"(valid range: {min_s}-{max_fn()})"
+                )
+                return 1
 
     print(f"NFL Bronze Layer Ingestion")
-    print(f"Season: {args.season}, Week: {args.week}, Data Type: {args.data_type}")
+    print(f"Data Type: {args.data_type}, Seasons: {season_list}, Week: {args.week}")
     print("=" * 60)
 
-    # --- Dispatch via registry ---
+    # --- Loop one season at a time (memory-safe for large datasets like PBP) ---
     adapter = NFLDataAdapter()
-    method = getattr(adapter, entry["adapter_method"])
-    kwargs = _build_method_kwargs(entry, args)
-    df = method(**kwargs)
+    total = len(season_list)
+    for idx, season in enumerate(season_list, 1):
+        args.season = season
+        if total > 1:
+            print(f"\nIngesting season {season}... ({idx}/{total})")
 
-    if df.empty:
-        print("  No data returned.")
-        return 1
+        method = getattr(adapter, entry["adapter_method"])
+        kwargs = _build_method_kwargs(entry, args)
+        df = method(**kwargs)
 
-    print(f"  Records: {len(df):,}  Columns: {len(df.columns)}")
+        if df.empty:
+            print(f"  No data returned for season {season}.")
+            continue
 
-    # --- Build local path ---
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    bronze_subpath = entry["bronze_path"].format(
-        season=args.season,
-        week=args.week,
-        sub_type=getattr(args, "sub_type", None) or "",
-    )
-    filename = f"{args.data_type}_{ts}.parquet"
-    local_dir = os.path.join("data", "bronze", bronze_subpath)
-    local_path = os.path.join(local_dir, filename)
+        print(f"  Records: {len(df):,}  Columns: {len(df.columns)}")
 
-    # --- Save locally (primary) ---
-    save_local(df, local_path)
+        # --- Build local path ---
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        bronze_subpath = entry["bronze_path"].format(
+            season=season,
+            week=args.week,
+            sub_type=getattr(args, "sub_type", None) or "",
+        )
+        filename = f"{args.data_type}_{ts}.parquet"
+        local_dir = os.path.join("data", "bronze", bronze_subpath)
+        local_path = os.path.join(local_dir, filename)
 
-    # --- Optional S3 upload ---
-    if args.s3:
-        load_dotenv()
-        aws_credentials = {
-            "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
-            "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY"),
-            "region": os.getenv("AWS_REGION"),
-        }
-        bronze_bucket = os.getenv("S3_BUCKET_BRONZE", "nfl-raw")
+        # --- Save locally (primary) ---
+        save_local(df, local_path)
 
-        if not all(aws_credentials.values()):
-            print("  Warning: AWS credentials missing, skipping S3 upload.")
-        else:
-            s3_key = f"{bronze_subpath}/{filename}"
-            try:
-                upload_to_s3(df, bronze_bucket, s3_key, aws_credentials)
-            except Exception:
-                print("  S3 upload failed; local copy is available.")
+        # --- Optional S3 upload ---
+        if args.s3:
+            load_dotenv()
+            aws_credentials = {
+                "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
+                "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY"),
+                "region": os.getenv("AWS_REGION"),
+            }
+            bronze_bucket = os.getenv("S3_BUCKET_BRONZE", "nfl-raw")
 
-    print(f"\nIngestion complete: {len(df):,} records -> {local_path}")
+            if not all(aws_credentials.values()):
+                print("  Warning: AWS credentials missing, skipping S3 upload.")
+            else:
+                s3_key = f"{bronze_subpath}/{filename}"
+                try:
+                    upload_to_s3(df, bronze_bucket, s3_key, aws_credentials)
+                except Exception:
+                    print("  S3 upload failed; local copy is available.")
+
+        print(f"  Ingestion complete: {len(df):,} records -> {local_path}")
+
+    print(f"\nBatch ingestion finished: {total} season(s) processed.")
     return 0
 
 
