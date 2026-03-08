@@ -31,31 +31,23 @@
 ```
 
 ## Quality Gates
-- Every `git commit` triggers automated code review (`.claude/workflows/automated-code-review.py`)
-- Functions >50 lines: auto-simplified via /simplify (WARNING)
+- Every `git push` triggers automated code review via Claude Code hook (`.claude/hooks/post-push-review.js`)
+- Review runs as `git-code-reviewer` subagent in background
 - Hardcoded credentials / injection vulnerabilities: BLOCKING
 - NFL patterns (team validation, S3 paths): WARNING
 - Minimum 80% test coverage for new features
-- All public interfaces need updated docstrings
 
 ## Automated Code Review Flow
 ```
-git commit
+git push
     ↓
-🔒 Credential scan (blocks AKIA*, github_pat_*, private keys)
+Claude Code PostToolUse hook detects push
     ↓
-🔍 Static analysis of changed Python files
+git-code-reviewer subagent spawned in background
     ↓
-✅ /simplify applied to complex functions
+Reviews diff of pushed commits
     ↓
-❌ Block on critical issues | ⚠️ Warn + 5s delay | ✅ Pass
-    ↓
-📊 Quality metrics saved to .claude/review_history/
-```
-
-## Hook Installation
-```bash
-.claude/git-hooks/install-hooks.sh
+Reports findings in conversation
 ```
 
 ## Model Selection
