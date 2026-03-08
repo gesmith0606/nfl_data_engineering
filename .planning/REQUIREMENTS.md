@@ -22,16 +22,16 @@
 
 ### Advanced Stats
 
-- [ ] **ADV-01**: NGS data ingested for 3 stat types (passing, rushing, receiving) for seasons 2016-2025
-- [ ] **ADV-02**: PFR weekly stats ingested for 4 sub-types (pass, rush, rec, def) for seasons 2018-2025
-- [ ] **ADV-03**: PFR seasonal stats ingested for 4 sub-types for seasons 2018-2025
+- [x] **ADV-01**: NGS data ingested for 3 stat types (passing, rushing, receiving) for seasons 2016-2025
+- [x] **ADV-02**: PFR weekly stats ingested for 4 sub-types (pass, rush, rec, def) for seasons 2018-2025
+- [x] **ADV-03**: PFR seasonal stats ingested for 4 sub-types for seasons 2018-2025
 - [x] **ADV-04**: QBR data ingested (weekly + seasonal) for seasons 2006-2025
-- [ ] **ADV-05**: Depth charts ingested for seasons 2020-2025
+- [x] **ADV-05**: Depth charts ingested for seasons 2020-2025
 
 ### Context Data
 
-- [ ] **CTX-01**: Draft picks data ingested for seasons 2000-2025
-- [ ] **CTX-02**: Combine data ingested for seasons 2000-2025
+- [x] **CTX-01**: Draft picks data ingested for seasons 2000-2025
+- [x] **CTX-02**: Combine data ingested for seasons 2000-2025
 
 ### Documentation
 
@@ -44,7 +44,7 @@
 
 - [x] **VAL-01**: validate_data() in NFLDataFetcher supports all new data types with required column checks
 - [x] **VAL-02**: All new fetch methods have error handling for API timeouts and empty responses
-- [ ] **VAL-03**: Tests added for new fetch methods (minimum 1 per data type)
+- [x] **VAL-03**: Tests added for new fetch methods (minimum 1 per data type)
 
 ## v2 Requirements
 
@@ -86,20 +86,20 @@
 | PBP-02 | Phase 2 | Complete |
 | PBP-03 | Phase 2 | Complete |
 | PBP-04 | Phase 2 | Complete |
-| ADV-01 | Phase 3 | Pending |
-| ADV-02 | Phase 3 | Pending |
-| ADV-03 | Phase 3 | Pending |
+| ADV-01 | Phase 3 | Complete |
+| ADV-02 | Phase 3 | Complete |
+| ADV-03 | Phase 3 | Complete |
 | ADV-04 | Phase 3 | Complete |
-| ADV-05 | Phase 3 | Pending |
-| CTX-01 | Phase 3 | Pending |
-| CTX-02 | Phase 3 | Pending |
+| ADV-05 | Phase 3 | Complete |
+| CTX-01 | Phase 3 | Complete |
+| CTX-02 | Phase 3 | Complete |
 | DOC-01 | Phase 4 | Pending |
 | DOC-02 | Phase 4 | Pending |
 | DOC-03 | Phase 4 | Pending |
 | DOC-04 | Phase 4 | Pending |
 | VAL-01 | Phase 3 | Complete |
 | VAL-02 | Phase 3 | Complete |
-| VAL-03 | Phase 3 | Pending |
+| VAL-03 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 23 total

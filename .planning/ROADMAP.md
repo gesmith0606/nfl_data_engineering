@@ -10,7 +10,7 @@
 |---|-------|------|--------------|------------------|
 | 1 | 2/2 | Complete   | 2026-03-08 | 5 |
 | 2 | Core PBP Ingestion | Ingest full play-by-play with EPA/WPA/CPOE | PBP-01 to PBP-04 | 4 |
-| 3 | 1/2 | In Progress|  | 10 |
+| 3 | 2/2 | Complete   | 2026-03-08 | 10 |
 | 4 | Documentation Update | Align all docs with actual data state | DOC-01 to DOC-04 | 4 |
 
 ## Phase Details
@@ -67,7 +67,7 @@ Plans:
 
 **Requirements:** ADV-01 to ADV-05, CTX-01, CTX-02, VAL-01 to VAL-03
 
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 03-01-PLAN.md — QBR frequency fix + validate_data() extensions for 7 new data types
