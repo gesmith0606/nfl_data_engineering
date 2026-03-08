@@ -24,8 +24,8 @@
 **Plans:** 2/2 plans complete
 
 Plans:
-- [ ] 01-01-PLAN.md — Config + adapter layer (dynamic seasons, season ranges, nfl-data-py adapter)
-- [ ] 01-02-PLAN.md — Registry CLI + local-first storage + test suite
+- [x] 01-01-PLAN.md — Config + adapter layer (dynamic seasons, season ranges, nfl-data-py adapter)
+- [x] 01-02-PLAN.md — Registry CLI + local-first storage + test suite
 
 **Success Criteria:**
 1. `bronze_ingestion_simple.py` saves to `data/bronze/` locally when no AWS credentials present
@@ -45,9 +45,14 @@ Plans:
 
 **Requirements:** PBP-01, PBP-02, PBP-03, PBP-04
 
+**Plans:** 1 plan
+
+Plans:
+- [ ] 02-01-PLAN.md — PBP column curation, adapter/CLI wiring, --seasons batch flag, test suite
+
 **Success Criteria:**
-1. PBP parquet files exist in `data/bronze/plays/season=YYYY/` for 2020-2025
-2. Each file contains ~80 curated columns including epa, wpa, cpoe, air_yards, success
+1. PBP parquet files exist in `data/bronze/pbp/season=YYYY/` for 2010-2025
+2. Each file contains ~103 curated columns including epa, wpa, cpoe, air_yards, success
 3. Single-season ingestion completes without OOM (peak memory < 2GB)
 4. `python scripts/bronze_ingestion_simple.py --data-type pbp --season 2024` works end-to-end
 
@@ -100,4 +105,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after phase 1 planning*
+*Last updated: 2026-03-08 after phase 2 planning*
