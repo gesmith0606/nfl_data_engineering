@@ -339,6 +339,19 @@ def main():
 
         print(f"  Records: {len(df):,}  Columns: {len(df.columns)}")
 
+        # --- Validate schema ---
+        try:
+            val_result = adapter.validate_data(df, args.data_type)
+            if val_result:
+                if val_result.get("issues"):
+                    for issue in val_result["issues"]:
+                        print(f"  \u26a0 Validation: {issue}")
+                else:
+                    col_count = val_result.get("column_count", len(df.columns))
+                    print(f"  \u2713 Validation passed: {col_count}/{col_count} columns valid")
+        except Exception as e:
+            print(f"  \u26a0 Validation error: {e}")
+
         # --- Build local path ---
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         bronze_subpath = entry["bronze_path"].format(

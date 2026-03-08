@@ -5,6 +5,7 @@ and validation output formatting.
 Covers requirement VAL-01: validate_data() called during ingestion.
 """
 
+import inspect
 from unittest.mock import patch, MagicMock
 
 import pandas as pd
@@ -145,3 +146,55 @@ class TestValidationOutput:
         assert isinstance(output, str)
         assert "air_yards" in output
         assert "weather_detail" in output
+
+
+# ------------------------------------------------------------------
+# TestIngestionValidation — wiring in bronze_ingestion_simple.py
+# ------------------------------------------------------------------
+
+
+class TestIngestionValidation:
+    """Structural test verifying validate_data() is called in the ingestion script."""
+
+    def test_validation_called_in_script(self):
+        """bronze_ingestion_simple.py calls adapter.validate_data() after fetch."""
+        import importlib
+        import sys
+
+        # Import the script as a module
+        script_path = "scripts.bronze_ingestion_simple"
+        # Use direct source reading to check the call site exists
+        with open("scripts/bronze_ingestion_simple.py", "r") as f:
+            source = f.read()
+
+        # Verify the validate_data call is present between fetch and save
+        assert "adapter.validate_data(" in source, (
+            "validate_data() call not found in bronze_ingestion_simple.py"
+        )
+
+        # Verify it appears BEFORE save_local (wired between fetch and save)
+        val_pos = source.index("adapter.validate_data(")
+        save_pos = source.index("save_local(df,")
+        assert val_pos < save_pos, (
+            "validate_data() must be called before save_local()"
+        )
+
+        # Verify it's wrapped in try/except (non-blocking)
+        # Find the try block containing validate_data
+        lines = source.split("\n")
+        val_line_idx = None
+        for i, line in enumerate(lines):
+            if "adapter.validate_data(" in line:
+                val_line_idx = i
+                break
+        assert val_line_idx is not None
+
+        # Walk backwards to find the enclosing try
+        found_try = False
+        for i in range(val_line_idx - 1, max(0, val_line_idx - 5), -1):
+            if "try:" in lines[i]:
+                found_try = True
+                break
+        assert found_try, (
+            "validate_data() should be wrapped in try/except for non-blocking behavior"
+        )
