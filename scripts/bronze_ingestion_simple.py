@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 # Add project root to path so `src.*` imports work
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from src.nfl_data_adapter import NFLDataAdapter
+from src.nfl_data_adapter import NFLDataAdapter, format_validation_output
 from src.config import validate_season_for_type, DATA_TYPE_SEASON_RANGES
 
 # ---------------------------------------------------------------------------
@@ -342,15 +342,11 @@ def main():
         # --- Validate schema ---
         try:
             val_result = adapter.validate_data(df, args.data_type)
-            if val_result:
-                if val_result.get("issues"):
-                    for issue in val_result["issues"]:
-                        print(f"  \u26a0 Validation: {issue}")
-                else:
-                    col_count = val_result.get("column_count", len(df.columns))
-                    print(f"  \u2713 Validation passed: {col_count}/{col_count} columns valid")
+            output = format_validation_output(val_result)
+            if output:
+                print(output)
         except Exception as e:
-            print(f"  \u26a0 Validation error: {e}")
+            print(f"  Warning Validation error: {e}")
 
         # --- Build local path ---
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
