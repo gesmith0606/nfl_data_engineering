@@ -117,7 +117,10 @@ Plans:
 
 **Gap Closure:** Closes requirement gaps from v1.0 audit — all 5 INFRA requirements are functionally complete but lack formal verification artifacts.
 
-**Plans:** 0 plans (pending)
+**Plans:** 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — Create 01-VERIFICATION.md with code evidence + update SUMMARY frontmatter
 
 **Success Criteria:**
 1. `01-VERIFICATION.md` exists in Phase 1 directory with must-have truths for all 5 INFRA requirements
@@ -160,4 +163,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after gap closure planning*
+*Last updated: 2026-03-08 after Phase 5 planning*
