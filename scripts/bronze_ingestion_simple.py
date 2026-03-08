@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
-Simple Bronze Layer Ingestion
-Standalone script to ingest NFL data into S3 Bronze layer
+Simple Bronze Layer Ingestion — Registry-driven CLI with local-first storage.
+
+Uses DATA_TYPE_REGISTRY for dispatch (no if/elif chain). Saves to data/bronze/
+by default; optionally uploads to S3 with --s3 flag.
 """
 
 import sys
@@ -12,162 +14,309 @@ from datetime import datetime
 import argparse
 from dotenv import load_dotenv
 
-# Add src to path
-sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+# Add project root to path so `src.*` imports work
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from nfl_data_integration import NFLDataFetcher
+from src.nfl_data_adapter import NFLDataAdapter
+from src.config import validate_season_for_type, DATA_TYPE_SEASON_RANGES
+
+# ---------------------------------------------------------------------------
+# DATA_TYPE_REGISTRY — single source of truth for all Bronze data types.
+# Adding a new type only requires a new entry here.
+# ---------------------------------------------------------------------------
+
+DATA_TYPE_REGISTRY = {
+    "schedules": {
+        "adapter_method": "fetch_schedules",
+        "bronze_path": "schedules/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+    "pbp": {
+        "adapter_method": "fetch_pbp",
+        "bronze_path": "pbp/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+    "player_weekly": {
+        "adapter_method": "fetch_weekly_data",
+        "bronze_path": "players/weekly/season={season}/week={week}",
+        "requires_week": True,
+        "requires_season": True,
+    },
+    "player_seasonal": {
+        "adapter_method": "fetch_seasonal_data",
+        "bronze_path": "players/seasonal/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+    "snap_counts": {
+        "adapter_method": "fetch_snap_counts",
+        "bronze_path": "players/snaps/season={season}/week={week}",
+        "requires_week": True,
+        "requires_season": True,
+    },
+    "injuries": {
+        "adapter_method": "fetch_injuries",
+        "bronze_path": "players/injuries/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+    "rosters": {
+        "adapter_method": "fetch_rosters",
+        "bronze_path": "players/rosters/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+    "teams": {
+        "adapter_method": "fetch_team_descriptions",
+        "bronze_path": "teams",
+        "requires_week": False,
+        "requires_season": False,
+    },
+    "ngs": {
+        "adapter_method": "fetch_ngs",
+        "bronze_path": "ngs/{sub_type}/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+        "sub_types": ["passing", "rushing", "receiving"],
+    },
+    "pfr_weekly": {
+        "adapter_method": "fetch_pfr_weekly",
+        "bronze_path": "pfr/weekly/{sub_type}/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+        "sub_types": ["pass", "rush", "rec", "def"],
+    },
+    "pfr_seasonal": {
+        "adapter_method": "fetch_pfr_seasonal",
+        "bronze_path": "pfr/seasonal/{sub_type}/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+        "sub_types": ["pass", "rush", "rec", "def"],
+    },
+    "qbr": {
+        "adapter_method": "fetch_qbr",
+        "bronze_path": "qbr/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+    "depth_charts": {
+        "adapter_method": "fetch_depth_charts",
+        "bronze_path": "depth_charts/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+    "draft_picks": {
+        "adapter_method": "fetch_draft_picks",
+        "bronze_path": "draft_picks/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+    "combine": {
+        "adapter_method": "fetch_combine",
+        "bronze_path": "combine/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
+}
+
 
 def upload_to_s3(df: pd.DataFrame, bucket: str, key: str, aws_credentials: dict) -> str:
-    """
-    Upload DataFrame to S3 as Parquet
-    
+    """Upload DataFrame to S3 as Parquet.
+
     Args:
-        df: DataFrame to upload
-        bucket: S3 bucket name
-        key: S3 key (path)
-        aws_credentials: AWS credentials dict
-        
+        df: DataFrame to upload.
+        bucket: S3 bucket name.
+        key: S3 key (path).
+        aws_credentials: AWS credentials dict.
+
     Returns:
-        S3 URI of uploaded file
+        S3 URI of uploaded file.
     """
     try:
-        # Create S3 client
         s3_client = boto3.client(
-            's3',
-            aws_access_key_id=aws_credentials['access_key'],
-            aws_secret_access_key=aws_credentials['secret_key'],
-            region_name=aws_credentials['region']
+            "s3",
+            aws_access_key_id=aws_credentials["access_key"],
+            aws_secret_access_key=aws_credentials["secret_key"],
+            region_name=aws_credentials["region"],
         )
-        
-        # Save DataFrame to temporary parquet file
         temp_file = f"/tmp/{key.replace('/', '_')}.parquet"
         df.to_parquet(temp_file, index=False)
-        
-        # Upload to S3
         s3_client.upload_file(temp_file, bucket, key)
-        
-        # Clean up temp file
         os.remove(temp_file)
-        
         s3_uri = f"s3://{bucket}/{key}"
-        print(f"✅ Uploaded to: {s3_uri}")
+        print(f"  Uploaded to: {s3_uri}")
         return s3_uri
-        
     except Exception as e:
-        print(f"❌ Upload failed: {str(e)}")
+        print(f"  S3 upload failed: {str(e)}")
         raise
 
-def main():
-    """Main ingestion function"""
-    
-    PLAYER_DATA_TYPES = ['player_weekly', 'snap_counts', 'injuries', 'rosters', 'player_seasonal']
-    ALL_DATA_TYPES = ['schedules', 'pbp', 'teams'] + PLAYER_DATA_TYPES
 
-    parser = argparse.ArgumentParser(description='NFL Data Bronze Layer Ingestion')
-    parser.add_argument('--season', type=int, default=2023, help='NFL Season (default: 2023)')
-    parser.add_argument('--week', type=int, default=1, help='NFL Week (default: 1)')
-    parser.add_argument('--data-type', choices=ALL_DATA_TYPES,
-                       default='schedules', help='Data type to ingest')
-    
+def save_local(df: pd.DataFrame, local_path: str) -> str:
+    """Save DataFrame as Parquet to the local filesystem.
+
+    Args:
+        df: DataFrame to save.
+        local_path: Full path including filename.
+
+    Returns:
+        The local path written.
+    """
+    os.makedirs(os.path.dirname(local_path), exist_ok=True)
+    df.to_parquet(local_path, index=False)
+    print(f"  Saved locally: {local_path}")
+    return local_path
+
+
+def _build_method_kwargs(entry: dict, args) -> dict:
+    """Build keyword arguments for the adapter fetch method.
+
+    Args:
+        entry: Registry entry dict for the data type.
+        args: Parsed CLI arguments.
+
+    Returns:
+        kwargs dict to unpack into the adapter method.
+    """
+    method_name = entry["adapter_method"]
+    kwargs: dict = {}
+
+    # snap_counts adapter takes (season, week) positional — handle specially
+    if method_name == "fetch_snap_counts":
+        return {"season": args.season, "week": args.week}
+
+    # Most methods take seasons as a list
+    if entry["requires_season"]:
+        kwargs["seasons"] = [args.season]
+
+    # Sub-type methods (ngs, pfr_weekly, pfr_seasonal)
+    if "sub_types" in entry:
+        key = "stat_type" if method_name == "fetch_ngs" else "s_type"
+        kwargs[key] = args.sub_type
+
+    # QBR frequency
+    if method_name == "fetch_qbr":
+        kwargs["frequency"] = "weekly"
+
+    return kwargs
+
+
+def main():
+    """Main ingestion function using registry dispatch."""
+
+    parser = argparse.ArgumentParser(description="NFL Data Bronze Layer Ingestion")
+    parser.add_argument(
+        "--season", type=int, default=2024, help="NFL season (default: 2024)"
+    )
+    parser.add_argument(
+        "--week", type=int, default=1, help="NFL week (default: 1)"
+    )
+    parser.add_argument(
+        "--data-type",
+        choices=sorted(DATA_TYPE_REGISTRY.keys()),
+        default="schedules",
+        help="Data type to ingest",
+    )
+    parser.add_argument(
+        "--sub-type",
+        type=str,
+        default=None,
+        help="Sub-type for NGS (passing/rushing/receiving) or PFR (pass/rush/rec/def)",
+    )
+    parser.add_argument(
+        "--s3",
+        action="store_true",
+        default=False,
+        help="Upload to S3 in addition to local save (requires AWS credentials)",
+    )
+
     args = parser.parse_args()
-    
-    print(f"🏈 NFL Bronze Layer Ingestion")
+
+    entry = DATA_TYPE_REGISTRY[args.data_type]
+
+    # --- Validate sub-type if required ---
+    if "sub_types" in entry:
+        if args.sub_type is None:
+            print(
+                f"Error: --sub-type required for {args.data_type}. "
+                f"Valid values: {entry['sub_types']}"
+            )
+            return 1
+        if args.sub_type not in entry["sub_types"]:
+            print(
+                f"Error: invalid --sub-type '{args.sub_type}'. "
+                f"Valid values: {entry['sub_types']}"
+            )
+            return 1
+
+    # --- Validate week if required ---
+    if entry["requires_week"] and args.week is None:
+        print(f"Error: --week is required for {args.data_type}")
+        return 1
+
+    # --- Validate season ---
+    if entry["requires_season"]:
+        if not validate_season_for_type(args.data_type, args.season):
+            min_s, max_fn = DATA_TYPE_SEASON_RANGES[args.data_type]
+            print(
+                f"Error: season {args.season} is not valid for {args.data_type} "
+                f"(valid range: {min_s}-{max_fn()})"
+            )
+            return 1
+
+    print(f"NFL Bronze Layer Ingestion")
     print(f"Season: {args.season}, Week: {args.week}, Data Type: {args.data_type}")
     print("=" * 60)
-    
-    # Load environment variables
-    load_dotenv()
-    
-    # Get AWS credentials
-    aws_credentials = {
-        'access_key': os.getenv('AWS_ACCESS_KEY_ID'),
-        'secret_key': os.getenv('AWS_SECRET_ACCESS_KEY'),
-        'region': os.getenv('AWS_REGION')
-    }
-    
-    bronze_bucket = os.getenv('S3_BUCKET_BRONZE')
-    
-    if not all(aws_credentials.values()) or not bronze_bucket:
-        print("❌ Missing AWS credentials or bucket configuration in .env file")
+
+    # --- Dispatch via registry ---
+    adapter = NFLDataAdapter()
+    method = getattr(adapter, entry["adapter_method"])
+    kwargs = _build_method_kwargs(entry, args)
+    df = method(**kwargs)
+
+    if df.empty:
+        print("  No data returned.")
         return 1
-    
-    # Initialize data fetcher
-    fetcher = NFLDataFetcher()
-    
-    try:
-        # Fetch data based on type
-        if args.data_type == 'schedules':
-            print(f"📅 Fetching game schedules for {args.season}, week {args.week}...")
-            df = fetcher.fetch_game_schedules([args.season], week=args.week)
-            s3_key = f"games/season={args.season}/week={args.week}/schedules_{datetime.now().strftime('%Y%m%d_%H%M%S')}.parquet"
-            
-        elif args.data_type == 'pbp':
-            print(f"🎯 Fetching play-by-play data for {args.season}, week {args.week}...")
-            columns = ['game_id', 'home_team', 'away_team', 'week', 'season', 'play_id', 
-                      'play_type', 'yards_gained', 'down', 'ydstogo']
-            df = fetcher.fetch_play_by_play([args.season], columns=columns, week=args.week)
-            s3_key = f"plays/season={args.season}/week={args.week}/pbp_{datetime.now().strftime('%Y%m%d_%H%M%S')}.parquet"
-            
-        elif args.data_type == 'teams':
-            print(f"🏈 Fetching team data for {args.season}...")
-            df = fetcher.fetch_team_stats([args.season])
-            s3_key = f"teams/season={args.season}/teams_{datetime.now().strftime('%Y%m%d_%H%M%S')}.parquet"
 
-        elif args.data_type == 'player_weekly':
-            print(f"👤 Fetching player weekly stats for {args.season}, week {args.week}...")
-            df = fetcher.fetch_player_weekly([args.season], week=args.week)
-            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-            s3_key = f"players/weekly/season={args.season}/week={args.week}/player_weekly_{ts}.parquet"
+    print(f"  Records: {len(df):,}  Columns: {len(df.columns)}")
 
-        elif args.data_type == 'snap_counts':
-            print(f"📊 Fetching snap counts for {args.season}, week {args.week}...")
-            df = fetcher.fetch_snap_counts([args.season], week=args.week)
-            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-            s3_key = f"players/snaps/season={args.season}/week={args.week}/snap_counts_{ts}.parquet"
+    # --- Build local path ---
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    bronze_subpath = entry["bronze_path"].format(
+        season=args.season,
+        week=args.week,
+        sub_type=getattr(args, "sub_type", None) or "",
+    )
+    filename = f"{args.data_type}_{ts}.parquet"
+    local_dir = os.path.join("data", "bronze", bronze_subpath)
+    local_path = os.path.join(local_dir, filename)
 
-        elif args.data_type == 'injuries':
-            print(f"🏥 Fetching injury reports for {args.season}, week {args.week}...")
-            df = fetcher.fetch_injuries([args.season], week=args.week)
-            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-            s3_key = f"players/injuries/season={args.season}/week={args.week}/injuries_{ts}.parquet"
+    # --- Save locally (primary) ---
+    save_local(df, local_path)
 
-        elif args.data_type == 'rosters':
-            print(f"📋 Fetching roster data for {args.season}...")
-            df = fetcher.fetch_rosters([args.season])
-            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-            s3_key = f"players/rosters/season={args.season}/rosters_{ts}.parquet"
+    # --- Optional S3 upload ---
+    if args.s3:
+        load_dotenv()
+        aws_credentials = {
+            "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
+            "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY"),
+            "region": os.getenv("AWS_REGION"),
+        }
+        bronze_bucket = os.getenv("S3_BUCKET_BRONZE", "nfl-raw")
 
-        elif args.data_type == 'player_seasonal':
-            print(f"📈 Fetching player seasonal data for {args.season}...")
-            df = fetcher.fetch_player_seasonal([args.season])
-            ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-            s3_key = f"players/seasonal/season={args.season}/player_seasonal_{ts}.parquet"
+        if not all(aws_credentials.values()):
+            print("  Warning: AWS credentials missing, skipping S3 upload.")
+        else:
+            s3_key = f"{bronze_subpath}/{filename}"
+            try:
+                upload_to_s3(df, bronze_bucket, s3_key, aws_credentials)
+            except Exception:
+                print("  S3 upload failed; local copy is available.")
 
-        # Validate data
-        validation = fetcher.validate_data(df, args.data_type)
-        print(f"\\n📊 Data Summary:")
-        print(f"   Records: {validation['row_count']:,}")
-        print(f"   Columns: {validation['column_count']}")
-        print(f"   Validation: {'✅ PASSED' if validation['is_valid'] else '❌ FAILED'}")
-        
-        if validation['issues']:
-            print(f"   Issues: {len(validation['issues'])}")
-            for issue in validation['issues'][:3]:  # Show first 3 issues
-                print(f"     - {issue}")
-        
-        # Upload to S3
-        print(f"\\n📤 Uploading to Bronze layer...")
-        s3_uri = upload_to_s3(df, bronze_bucket, s3_key, aws_credentials)
-        
-        print(f"\\n🎉 Ingestion Complete!")
-        print(f"📍 Data Location: {s3_uri}")
-        print(f"📊 Records Ingested: {len(df):,}")
-        
-        return 0
-        
-    except Exception as e:
-        print(f"\\n❌ Ingestion failed: {str(e)}")
-        return 1
+    print(f"\nIngestion complete: {len(df):,} records -> {local_path}")
+    return 0
+
 
 if __name__ == "__main__":
     exit_code = main()
