@@ -26,7 +26,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 **Milestone Goal:** Ingest all 15 registered Bronze data types with 10 years of history (2016-2025), prioritizing 2025 season data.
 
-- [ ] **Phase 8: Pre-Backfill Guards** - Config fixes, dependency pins, and rate-limit protection before bulk ingestion
+- [x] **Phase 8: Pre-Backfill Guards** - Config fixes, dependency pins, and rate-limit protection before bulk ingestion (completed 2026-03-09)
 - [ ] **Phase 9: New Data Type Ingestion** - Ingest all 9 new Bronze data types for 2016-2025
 - [ ] **Phase 10: Existing Type Backfill** - Extend 6 existing data types from 2020-2024 to 2016-2025
 - [ ] **Phase 11: Orchestration and Validation** - Batch script, failure handling, validation, and inventory regeneration
@@ -41,7 +41,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
   1. Running `bronze_ingestion_simple.py` for injuries with season 2025 skips gracefully (config cap at 2024)
   2. `GITHUB_TOKEN` is set and nfl-data-py downloads use authenticated requests (5000/hr rate limit)
   3. `pip install -r requirements.txt` on a fresh venv installs exact pinned versions of nfl-data-py and numpy<2
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 08-01-PLAN.md — Config guards, dependency pin comments, GITHUB_TOKEN, and injury cap test
@@ -105,7 +105,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 5. Phase 1 Verification Backfill | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 6. Wire Bronze Validation | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 7. Tech Debt Cleanup | v1.0 | 1/1 | Complete | 2026-03-08 |
-| 8. Pre-Backfill Guards | v1.1 | 0/1 | Not started | - |
+| 8. Pre-Backfill Guards | 1/1 | Complete   | 2026-03-09 | - |
 | 9. New Data Type Ingestion | v1.1 | 0/3 | Not started | - |
 | 10. Existing Type Backfill | v1.1 | 0/1 | Not started | - |
 | 11. Orchestration and Validation | v1.1 | 0/2 | Not started | - |

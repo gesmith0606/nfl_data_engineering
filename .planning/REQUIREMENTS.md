@@ -9,9 +9,9 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 
 ### Setup
 
-- [ ] **SETUP-01**: Config caps injury season range at 2024 (data source discontinued)
-- [ ] **SETUP-02**: GITHUB_TOKEN configured for nfl-data-py downloads to avoid rate limiting
-- [ ] **SETUP-03**: nfl-data-py version pinned in requirements to prevent breaking changes
+- [x] **SETUP-01**: Config caps injury season range at 2024 (data source discontinued)
+- [x] **SETUP-02**: GITHUB_TOKEN configured for nfl-data-py downloads to avoid rate limiting
+- [x] **SETUP-03**: nfl-data-py version pinned in requirements to prevent breaking changes
 
 ### New Data Types
 
@@ -70,9 +70,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SETUP-01 | Phase 8 | Pending |
-| SETUP-02 | Phase 8 | Pending |
-| SETUP-03 | Phase 8 | Pending |
+| SETUP-01 | Phase 8 | Complete |
+| SETUP-02 | Phase 8 | Complete |
+| SETUP-03 | Phase 8 | Complete |
 | INGEST-01 | Phase 9 | Pending |
 | INGEST-02 | Phase 9 | Pending |
 | INGEST-03 | Phase 9 | Pending |
