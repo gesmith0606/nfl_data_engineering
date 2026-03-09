@@ -35,8 +35,8 @@ mccabe==0.7.0
 mistune==3.1.3
 moto==5.1.10
 mypy_extensions==1.1.0
-nfl_data_py==0.3.3
-numpy==1.26.4
+nfl_data_py==0.3.3    # pinned: archived Sept 2025, last stable release
+numpy==1.26.4         # pinned: numpy 2.x breaks pandas 1.5.3 (ABI incompatibility)
 outcome==1.3.0.post0
 packaging==25.0
 pandas==1.5.3
