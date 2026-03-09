@@ -486,6 +486,134 @@ class TestEmptyDataHandling:
         mock_save.assert_not_called()
 
 
+# ------------------------------------------------------------------
+# INGEST-05..08: Sub-type variant ingestion — all-variants-by-default,
+# single-variant filter, QBR filename prefix
+# ------------------------------------------------------------------
+
+
+class TestPFRWeeklyAllVariants:
+    """Tests for PFR weekly variant looping (all sub-types by default)."""
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_pfr_weekly_loops_all_sub_types_when_none(self, MockAdapter, tmp_path, capsys):
+        """When --data-type pfr_weekly and no --sub-type, CLI loops all 4 sub_types."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_pfr_weekly.return_value = _pfr_weekly_df()
+        mock_adapter.validate_data.return_value = {
+            "is_valid": True, "issues": [], "row_count": 1, "column_count": 6,
+        }
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "pfr_weekly", "--seasons", "2024"]):
+            with patch(
+                "scripts.bronze_ingestion_simple.save_local",
+                return_value=str(tmp_path / "test.parquet"),
+            ):
+                main()
+
+        assert mock_adapter.fetch_pfr_weekly.call_count == 4
+        call_s_types = [
+            c.kwargs.get("s_type") for c in mock_adapter.fetch_pfr_weekly.call_args_list
+        ]
+        assert set(call_s_types) == {"pass", "rush", "rec", "def"}
+
+
+class TestPFRSeasonalVariants:
+    """Tests for PFR seasonal variant looping and filtering."""
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_pfr_seasonal_loops_all_sub_types_when_none(self, MockAdapter, tmp_path, capsys):
+        """When --data-type pfr_seasonal and no --sub-type, CLI loops all 4 sub_types."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_pfr_seasonal.return_value = _pfr_seasonal_df()
+        mock_adapter.validate_data.return_value = {
+            "is_valid": True, "issues": [], "row_count": 1, "column_count": 4,
+        }
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "pfr_seasonal", "--seasons", "2024"]):
+            with patch(
+                "scripts.bronze_ingestion_simple.save_local",
+                return_value=str(tmp_path / "test.parquet"),
+            ):
+                main()
+
+        assert mock_adapter.fetch_pfr_seasonal.call_count == 4
+        call_s_types = [
+            c.kwargs.get("s_type") for c in mock_adapter.fetch_pfr_seasonal.call_args_list
+        ]
+        assert set(call_s_types) == {"pass", "rush", "rec", "def"}
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_pfr_seasonal_single_sub_type_filter(self, MockAdapter, tmp_path, capsys):
+        """When --data-type pfr_seasonal --sub-type pass, only pass variant is ingested."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_pfr_seasonal.return_value = _pfr_seasonal_df()
+        mock_adapter.validate_data.return_value = {
+            "is_valid": True, "issues": [], "row_count": 1, "column_count": 4,
+        }
+        MockAdapter.return_value = mock_adapter
+
+        with patch(
+            "sys.argv",
+            ["prog", "--data-type", "pfr_seasonal", "--sub-type", "pass", "--seasons", "2024"],
+        ):
+            with patch(
+                "scripts.bronze_ingestion_simple.save_local",
+                return_value=str(tmp_path / "test.parquet"),
+            ):
+                main()
+
+        assert mock_adapter.fetch_pfr_seasonal.call_count == 1
+        assert mock_adapter.fetch_pfr_seasonal.call_args.kwargs.get("s_type") == "pass"
+
+
+class TestQBRFilenamePrefix:
+    """Tests for QBR filename frequency prefix in output files."""
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_qbr_filename_uses_frequency_prefix(self, MockAdapter, tmp_path, capsys):
+        """QBR output filenames include frequency prefix (qbr_weekly_*, qbr_season_*)."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_qbr.return_value = _qbr_df()
+        mock_adapter.validate_data.return_value = {
+            "is_valid": True, "issues": [], "row_count": 1, "column_count": 6,
+        }
+        MockAdapter.return_value = mock_adapter
+
+        saved_paths = []
+
+        def capture_save(df, path):
+            saved_paths.append(path)
+            return path
+
+        with patch("sys.argv", ["prog", "--data-type", "qbr", "--seasons", "2024"]):
+            with patch(
+                "scripts.bronze_ingestion_simple.save_local",
+                side_effect=capture_save,
+            ):
+                main()
+
+        # Should have 2 files: one weekly, one season
+        assert len(saved_paths) == 2
+        filenames = [os.path.basename(p) for p in saved_paths]
+        assert any(f.startswith("qbr_weekly_") for f in filenames), (
+            f"Expected a qbr_weekly_* file, got: {filenames}"
+        )
+        assert any(f.startswith("qbr_season_") for f in filenames), (
+            f"Expected a qbr_season_* file, got: {filenames}"
+        )
+
+
 class TestTeamsNoSeasonPath:
     """Tests for teams data type (requires_season=False)."""
 
