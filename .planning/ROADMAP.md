@@ -27,7 +27,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 **Milestone Goal:** Ingest all 15 registered Bronze data types with 10 years of history (2016-2025), prioritizing 2025 season data.
 
 - [x] **Phase 8: Pre-Backfill Guards** - Config fixes, dependency pins, and rate-limit protection before bulk ingestion (completed 2026-03-09)
-- [ ] **Phase 9: New Data Type Ingestion** - Ingest all 9 new Bronze data types for 2016-2025
+- [x] **Phase 9: New Data Type Ingestion** - Ingest all 9 new Bronze data types for 2016-2025 (completed 2026-03-09)
 - [ ] **Phase 10: Existing Type Backfill** - Extend 6 existing data types from 2020-2024 to 2016-2025
 - [ ] **Phase 11: Orchestration and Validation** - Batch script, failure handling, validation, and inventory regeneration
 
@@ -56,7 +56,7 @@ Plans:
   3. Running PBP ingestion for any season 2016-2025 produces a Parquet file with 103 curated columns without exceeding available memory
   4. Depth chart ingestion handles 2025 schema differences without error
   5. `validate_data()` passes on every ingested file across all 9 data types
-**Plans:** 3 plans
+**Plans:** 3/3 plans complete
 
 Plans:
 - [x] 09-01-PLAN.md — CLI enhancements (variant looping, schema diff, summary) + simple types (teams, draft picks, combine, depth charts)
@@ -106,7 +106,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 6. Wire Bronze Validation | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 7. Tech Debt Cleanup | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 8. Pre-Backfill Guards | v1.1 | 1/1 | Complete | 2026-03-09 |
-| 9. New Data Type Ingestion | v1.1 | 2/3 | In progress | - |
+| 9. New Data Type Ingestion | 3/3 | Complete   | 2026-03-09 | - |
 | 10. Existing Type Backfill | v1.1 | 0/1 | Not started | - |
 | 11. Orchestration and Validation | v1.1 | 0/2 | Not started | - |
 

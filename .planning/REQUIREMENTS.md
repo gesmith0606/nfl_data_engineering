@@ -19,10 +19,10 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 - [x] **INGEST-02**: Draft picks data ingested for 2000-2025
 - [x] **INGEST-03**: Combine data ingested for 2000-2025
 - [x] **INGEST-04**: Depth charts ingested for 2001-2025 (2025 schema change logged via schema diff)
-- [ ] **INGEST-05**: QBR weekly + seasonal ingested for 2016-2025
-- [ ] **INGEST-06**: NGS passing, rushing, receiving ingested for 2016-2025
-- [ ] **INGEST-07**: PFR weekly (pass/rush/rec/def) ingested for 2018-2025
-- [ ] **INGEST-08**: PFR seasonal (pass/rush/rec/def) ingested for 2018-2025
+- [x] **INGEST-05**: QBR weekly + seasonal ingested for 2016-2025
+- [x] **INGEST-06**: NGS passing, rushing, receiving ingested for 2016-2025
+- [x] **INGEST-07**: PFR weekly (pass/rush/rec/def) ingested for 2018-2025
+- [x] **INGEST-08**: PFR seasonal (pass/rush/rec/def) ingested for 2018-2025
 - [x] **INGEST-09**: PBP ingested for 2016-2025 (103 curated columns)
 
 ### Existing Type Backfill
@@ -77,10 +77,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INGEST-02 | Phase 9 | Complete |
 | INGEST-03 | Phase 9 | Complete |
 | INGEST-04 | Phase 9 | Complete |
-| INGEST-05 | Phase 9 | Pending |
-| INGEST-06 | Phase 9 | Pending |
-| INGEST-07 | Phase 9 | Pending |
-| INGEST-08 | Phase 9 | Pending |
+| INGEST-05 | Phase 9 | Complete |
+| INGEST-06 | Phase 9 | Complete |
+| INGEST-07 | Phase 9 | Complete |
+| INGEST-08 | Phase 9 | Complete |
 | INGEST-09 | Phase 9 | Complete |
 | BACKFILL-01 | Phase 10 | Pending |
 | BACKFILL-02 | Phase 10 | Pending |
