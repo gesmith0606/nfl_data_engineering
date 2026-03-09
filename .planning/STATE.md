@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bronze Backfill
 status: in-progress
-stopped_at: Completed 09-03-PLAN.md
-last_updated: "2026-03-09T20:04:26.757Z"
-last_activity: 2026-03-09 — Phase 9 Plan 03 completed
+stopped_at: Completed 09-01-PLAN.md
+last_updated: "2026-03-09T20:06:00.000Z"
+last_activity: 2026-03-09 — Phase 9 Plan 01 completed
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 2
-  percent: 14
+  total_plans: 7
+  completed_plans: 3
+  percent: 42
 ---
 
 # Project State
@@ -30,11 +30,11 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 ## Current Position
 
 Phase: 9 of 11 (New Data Type Ingestion)
-Plan: 3 of 3 in current phase (Plan 03 complete; Plans 01, 02 pending)
-Status: Phase 9 Plan 03 complete
-Last activity: 2026-03-09 — Phase 9 Plan 03 completed
+Plan: 1 of 3 in current phase (Plans 01, 03 complete; Plan 02 pending)
+Status: Phase 9 Plan 01 complete
+Last activity: 2026-03-09 — Phase 9 Plan 01 completed
 
-Progress: [██░░░░░░░░] 28% (2/7 v1.1 plans)
+Progress: [████░░░░░░] 42% (3/7 v1.1 plans)
 
 ## Key Artifacts
 
@@ -62,6 +62,9 @@ Progress: [██░░░░░░░░] 28% (2/7 v1.1 plans)
 - [v1.1]: Used static lambda: 2024 for injury cap to match existing callable pattern in DATA_TYPE_SEASON_RANGES
 - [v1.1]: Kept GITHUB_PERSONAL_ACCESS_TOKEN alongside new GITHUB_TOKEN for backward compatibility
 - [v1.1]: PBP ingestion path unchanged for 2016-2025 backfill -- existing v1.0 code handled full range
+- [v1.1]: QBR frequency choices changed to ['weekly','season'] to match nfl-data-py API parameter naming
+- [v1.1]: Variant looping wraps season loop for cleaner schema diff tracking per variant
+- [v1.1]: Depth charts 2025 schema has 11 new + 14 removed columns vs 2024 -- ingested as-is per Bronze-stores-raw policy
 
 ### Pending Todos
 
@@ -75,9 +78,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T20:04:26Z
-Stopped at: Completed 09-03-PLAN.md
-Resume file: .planning/phases/09-new-data-type-ingestion/09-03-SUMMARY.md
+Last session: 2026-03-09T20:06:00Z
+Stopped at: Completed 09-01-PLAN.md
+Resume file: .planning/phases/09-new-data-type-ingestion/09-01-SUMMARY.md
 
 ---
-*Last updated: 2026-03-09 after Phase 9 Plan 03 completion*
+*Last updated: 2026-03-09 after Phase 9 Plan 01 completion*

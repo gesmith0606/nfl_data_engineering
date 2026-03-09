@@ -59,9 +59,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 09-01-PLAN.md — CLI enhancements (variant looping, schema diff, summary) + simple types (teams, draft picks, combine, depth charts)
+- [x] 09-01-PLAN.md — CLI enhancements (variant looping, schema diff, summary) + simple types (teams, draft picks, combine, depth charts)
 - [ ] 09-02-PLAN.md — Sub-type data types (QBR, NGS, PFR weekly, PFR seasonal)
-- [ ] 09-03-PLAN.md — PBP backfill (2016-2025)
+- [x] 09-03-PLAN.md — PBP backfill (2016-2025)
 
 ### Phase 10: Existing Type Backfill
 **Goal**: All 6 existing data types have complete 2016-2025 coverage (2016-2024 for injuries)
@@ -106,10 +106,10 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 6. Wire Bronze Validation | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 7. Tech Debt Cleanup | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 8. Pre-Backfill Guards | v1.1 | 1/1 | Complete | 2026-03-09 |
-| 9. New Data Type Ingestion | v1.1 | 0/3 | Planned | - |
+| 9. New Data Type Ingestion | v1.1 | 2/3 | In progress | - |
 | 10. Existing Type Backfill | v1.1 | 0/1 | Not started | - |
 | 11. Orchestration and Validation | v1.1 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-09 after Phase 9 planning*
+*Last updated: 2026-03-09 after Phase 9 Plan 01 completion*

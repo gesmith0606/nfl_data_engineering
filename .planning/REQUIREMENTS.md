@@ -15,10 +15,10 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 
 ### New Data Types
 
-- [ ] **INGEST-01**: Teams reference data ingested for 2016-2025
-- [ ] **INGEST-02**: Draft picks data ingested for 2016-2025
-- [ ] **INGEST-03**: Combine data ingested for 2016-2025
-- [ ] **INGEST-04**: Depth charts ingested for 2016-2025 (handle 2025 schema change)
+- [x] **INGEST-01**: Teams reference data ingested (full valid range)
+- [x] **INGEST-02**: Draft picks data ingested for 2000-2025
+- [x] **INGEST-03**: Combine data ingested for 2000-2025
+- [x] **INGEST-04**: Depth charts ingested for 2001-2025 (2025 schema change logged via schema diff)
 - [ ] **INGEST-05**: QBR weekly + seasonal ingested for 2016-2025
 - [ ] **INGEST-06**: NGS passing, rushing, receiving ingested for 2016-2025
 - [ ] **INGEST-07**: PFR weekly (pass/rush/rec/def) ingested for 2018-2025
@@ -73,10 +73,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SETUP-01 | Phase 8 | Complete |
 | SETUP-02 | Phase 8 | Complete |
 | SETUP-03 | Phase 8 | Complete |
-| INGEST-01 | Phase 9 | Pending |
-| INGEST-02 | Phase 9 | Pending |
-| INGEST-03 | Phase 9 | Pending |
-| INGEST-04 | Phase 9 | Pending |
+| INGEST-01 | Phase 9 | Complete |
+| INGEST-02 | Phase 9 | Complete |
+| INGEST-03 | Phase 9 | Complete |
+| INGEST-04 | Phase 9 | Complete |
 | INGEST-05 | Phase 9 | Pending |
 | INGEST-06 | Phase 9 | Pending |
 | INGEST-07 | Phase 9 | Pending |
@@ -100,4 +100,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-08*
-*Last updated: 2026-03-08 after v1.1 roadmap creation*
+*Last updated: 2026-03-09 after Phase 9 Plan 01 completion*
