@@ -23,7 +23,7 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 - [ ] **INGEST-06**: NGS passing, rushing, receiving ingested for 2016-2025
 - [ ] **INGEST-07**: PFR weekly (pass/rush/rec/def) ingested for 2018-2025
 - [ ] **INGEST-08**: PFR seasonal (pass/rush/rec/def) ingested for 2018-2025
-- [ ] **INGEST-09**: PBP ingested for 2016-2025 (103 curated columns)
+- [x] **INGEST-09**: PBP ingested for 2016-2025 (103 curated columns)
 
 ### Existing Type Backfill
 
@@ -81,7 +81,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INGEST-06 | Phase 9 | Pending |
 | INGEST-07 | Phase 9 | Pending |
 | INGEST-08 | Phase 9 | Pending |
-| INGEST-09 | Phase 9 | Pending |
+| INGEST-09 | Phase 9 | Complete |
 | BACKFILL-01 | Phase 10 | Pending |
 | BACKFILL-02 | Phase 10 | Pending |
 | BACKFILL-03 | Phase 10 | Pending |
