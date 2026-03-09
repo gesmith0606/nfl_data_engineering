@@ -338,3 +338,174 @@ class TestQBRFrequencyKwargs:
         kwargs = _build_method_kwargs(entry, args)
 
         assert kwargs["frequency"] == "seasonal"
+
+
+# ------------------------------------------------------------------
+# INGEST-01..04: CLI enhancements — variant looping, schema diff,
+# ingestion summary, empty data handling, teams no-season path
+# ------------------------------------------------------------------
+
+def _teams_df():
+    """DataFrame with team description columns."""
+    return pd.DataFrame({
+        "team_abbr": ["KC", "BUF"],
+        "team_name": ["Chiefs", "Bills"],
+        "team_conf": ["AFC", "AFC"],
+        "team_division": ["West", "East"],
+    })
+
+
+class TestVariantLooping:
+    """Tests for CLI variant looping when sub-type/frequency is None."""
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_ngs_loops_all_sub_types_when_none(self, MockAdapter, tmp_path, capsys):
+        """When --data-type ngs and --sub-type is None, CLI loops all sub_types."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_ngs.return_value = _ngs_df()
+        mock_adapter.validate_data.return_value = {"is_valid": True, "issues": [], "row_count": 1, "column_count": 7}
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "ngs", "--seasons", "2024"]):
+            with patch("scripts.bronze_ingestion_simple.save_local", return_value=str(tmp_path / "test.parquet")):
+                main()
+
+        # Should have been called 3 times: passing, rushing, receiving
+        assert mock_adapter.fetch_ngs.call_count == 3
+        call_stat_types = [c.kwargs.get("stat_type") for c in mock_adapter.fetch_ngs.call_args_list]
+        assert set(call_stat_types) == {"passing", "rushing", "receiving"}
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_qbr_loops_both_frequencies_when_none(self, MockAdapter, tmp_path, capsys):
+        """When --data-type qbr and --frequency is None, CLI loops weekly + season."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_qbr.return_value = _qbr_df()
+        mock_adapter.validate_data.return_value = {"is_valid": True, "issues": [], "row_count": 1, "column_count": 6}
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "qbr", "--seasons", "2024"]):
+            with patch("scripts.bronze_ingestion_simple.save_local", return_value=str(tmp_path / "test.parquet")):
+                main()
+
+        # Should have been called 2 times: weekly, season
+        assert mock_adapter.fetch_qbr.call_count == 2
+        call_freqs = [c.kwargs.get("frequency") for c in mock_adapter.fetch_qbr.call_args_list]
+        assert set(call_freqs) == {"weekly", "season"}
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_pfr_weekly_single_sub_type(self, MockAdapter, tmp_path, capsys):
+        """When --data-type pfr_weekly and --sub-type pass, only that sub-type is ingested."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_pfr_weekly.return_value = _pfr_weekly_df()
+        mock_adapter.validate_data.return_value = {"is_valid": True, "issues": [], "row_count": 1, "column_count": 6}
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "pfr_weekly", "--sub-type", "pass", "--seasons", "2024"]):
+            with patch("scripts.bronze_ingestion_simple.save_local", return_value=str(tmp_path / "test.parquet")):
+                main()
+
+        assert mock_adapter.fetch_pfr_weekly.call_count == 1
+        assert mock_adapter.fetch_pfr_weekly.call_args.kwargs.get("s_type") == "pass"
+
+
+class TestSchemaDiffLogging:
+    """Tests for schema diff detection between consecutive seasons."""
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_schema_diff_detects_added_columns(self, MockAdapter, tmp_path, capsys):
+        """Schema diff logging detects added/removed columns between seasons."""
+        from scripts.bronze_ingestion_simple import main
+
+        df_2023 = pd.DataFrame({"season": [2023], "col_a": [1], "col_b": [2]})
+        df_2024 = pd.DataFrame({"season": [2024], "col_a": [1], "col_c": [3]})
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_draft_picks.side_effect = [df_2023, df_2024]
+        mock_adapter.validate_data.return_value = {"is_valid": True, "issues": [], "row_count": 1, "column_count": 3}
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "draft_picks", "--seasons", "2023-2024"]):
+            with patch("scripts.bronze_ingestion_simple.save_local", return_value=str(tmp_path / "test.parquet")):
+                main()
+
+        captured = capsys.readouterr()
+        # Should mention added and removed columns
+        assert "col_c" in captured.out  # added
+        assert "col_b" in captured.out  # removed
+
+
+class TestIngestionSummary:
+    """Tests for ingestion summary at end of each variant run."""
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_summary_shows_ingested_and_skipped(self, MockAdapter, tmp_path, capsys):
+        """Ingestion summary prints ingested/skipped counts."""
+        from scripts.bronze_ingestion_simple import main
+
+        df_ok = _draft_picks_df()
+        df_empty = pd.DataFrame()
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_draft_picks.side_effect = [df_ok, df_empty, df_ok]
+        mock_adapter.validate_data.return_value = {"is_valid": True, "issues": [], "row_count": 1, "column_count": 6}
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "draft_picks", "--seasons", "2022-2024"]):
+            with patch("scripts.bronze_ingestion_simple.save_local", return_value=str(tmp_path / "test.parquet")):
+                main()
+
+        captured = capsys.readouterr()
+        assert "2/3 seasons ingested" in captured.out
+        assert "1 skipped" in captured.out
+
+
+class TestEmptyDataHandling:
+    """Tests for empty DataFrame warning and skip behavior."""
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_empty_data_warning_and_skip(self, MockAdapter, tmp_path, capsys):
+        """Empty DataFrame triggers warning with data type name and skip."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_draft_picks.return_value = pd.DataFrame()
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "draft_picks", "--seasons", "2024"]):
+            with patch("scripts.bronze_ingestion_simple.save_local") as mock_save:
+                main()
+
+        captured = capsys.readouterr()
+        assert "No data returned for draft_picks season 2024, skipping" in captured.out
+        mock_save.assert_not_called()
+
+
+class TestTeamsNoSeasonPath:
+    """Tests for teams data type (requires_season=False)."""
+
+    @patch("scripts.bronze_ingestion_simple.NFLDataAdapter")
+    def test_teams_fetches_once_without_season(self, MockAdapter, tmp_path, capsys):
+        """Teams fetches once without season loop, saves to data/bronze/teams/."""
+        from scripts.bronze_ingestion_simple import main
+
+        mock_adapter = MagicMock()
+        mock_adapter.fetch_team_descriptions.return_value = _teams_df()
+        mock_adapter.validate_data.return_value = {"is_valid": True, "issues": [], "row_count": 2, "column_count": 4}
+        MockAdapter.return_value = mock_adapter
+
+        with patch("sys.argv", ["prog", "--data-type", "teams"]):
+            with patch("scripts.bronze_ingestion_simple.save_local", return_value=str(tmp_path / "test.parquet")) as mock_save:
+                main()
+
+        # Should be called exactly once
+        mock_adapter.fetch_team_descriptions.assert_called_once()
+        # Path should be under data/bronze/teams/ with no season= in it
+        save_path = mock_save.call_args[0][1]
+        assert "data/bronze/teams/" in save_path.replace(os.sep, "/")
+        assert "season=" not in save_path
