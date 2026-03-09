@@ -41,10 +41,10 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
   1. Running `bronze_ingestion_simple.py` for injuries with season 2025 skips gracefully (config cap at 2024)
   2. `GITHUB_TOKEN` is set and nfl-data-py downloads use authenticated requests (5000/hr rate limit)
   3. `pip install -r requirements.txt` on a fresh venv installs exact pinned versions of nfl-data-py and numpy<2
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 08-01: Config guards and dependency pins
+- [ ] 08-01-PLAN.md — Config guards, dependency pin comments, GITHUB_TOKEN, and injury cap test
 
 ### Phase 9: New Data Type Ingestion
 **Goal**: All 9 new Bronze data types are ingested with full 2016-2025 coverage
@@ -112,4 +112,4 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after v1.1 roadmap creation*
+*Last updated: 2026-03-09 after Phase 8 planning*
