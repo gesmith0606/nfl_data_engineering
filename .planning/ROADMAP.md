@@ -44,10 +44,10 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 **Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 08-01-PLAN.md — Config guards, dependency pin comments, GITHUB_TOKEN, and injury cap test
+- [x] 08-01-PLAN.md — Config guards, dependency pin comments, GITHUB_TOKEN, and injury cap test
 
 ### Phase 9: New Data Type Ingestion
-**Goal**: All 9 new Bronze data types are ingested with full 2016-2025 coverage
+**Goal**: All 9 new Bronze data types are ingested with full coverage per type's valid season range
 **Depends on**: Phase 8
 **Requirements**: INGEST-01, INGEST-02, INGEST-03, INGEST-04, INGEST-05, INGEST-06, INGEST-07, INGEST-08, INGEST-09
 **Success Criteria** (what must be TRUE):
@@ -56,12 +56,12 @@ Plans:
   3. Running PBP ingestion for any season 2016-2025 produces a Parquet file with 103 curated columns without exceeding available memory
   4. Depth chart ingestion handles 2025 schema differences without error
   5. `validate_data()` passes on every ingested file across all 9 data types
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 09-01: Simple data types (teams, draft picks, combine, depth charts)
-- [ ] 09-02: Sub-type data types (NGS, PFR weekly, PFR seasonal, QBR)
-- [ ] 09-03: PBP backfill (2016-2025)
+- [ ] 09-01-PLAN.md — CLI enhancements (variant looping, schema diff, summary) + simple types (teams, draft picks, combine, depth charts)
+- [ ] 09-02-PLAN.md — Sub-type data types (QBR, NGS, PFR weekly, PFR seasonal)
+- [ ] 09-03-PLAN.md — PBP backfill (2016-2025)
 
 ### Phase 10: Existing Type Backfill
 **Goal**: All 6 existing data types have complete 2016-2025 coverage (2016-2024 for injuries)
@@ -105,11 +105,11 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 5. Phase 1 Verification Backfill | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 6. Wire Bronze Validation | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 7. Tech Debt Cleanup | v1.0 | 1/1 | Complete | 2026-03-08 |
-| 8. Pre-Backfill Guards | 1/1 | Complete   | 2026-03-09 | - |
-| 9. New Data Type Ingestion | v1.1 | 0/3 | Not started | - |
+| 8. Pre-Backfill Guards | v1.1 | 1/1 | Complete | 2026-03-09 |
+| 9. New Data Type Ingestion | v1.1 | 0/3 | Planned | - |
 | 10. Existing Type Backfill | v1.1 | 0/1 | Not started | - |
 | 11. Orchestration and Validation | v1.1 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-09 after Phase 8 planning*
+*Last updated: 2026-03-09 after Phase 9 planning*
