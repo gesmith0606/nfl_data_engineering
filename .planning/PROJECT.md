@@ -27,7 +27,15 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-(Fresh for next milestone — define with `/gsd:new-milestone`)
+#### Current Milestone: v1.1 Bronze Backfill
+
+**Goal:** Ingest all 15 registered Bronze data types with 10 years of history (2016-2025), prioritizing 2025 season data.
+
+**Target features:**
+- Ingest all 9 missing Bronze data types (PBP, NGS, PFR, QBR, depth charts, draft picks, combine, teams)
+- Backfill existing 6 data types to 2016-2025 range
+- Ensure 2025 season data is present for all applicable types
+- Validate all ingested data passes Bronze validation
 
 ### Out of Scope
 
