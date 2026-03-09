@@ -3,6 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 Bronze Expansion** — Phases 1-7 (shipped 2026-03-08)
+- 🚧 **v1.1 Bronze Backfill** — Phases 8-11 (in progress)
 
 ## Phases
 
@@ -21,7 +22,79 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 </details>
 
+### 🚧 v1.1 Bronze Backfill (In Progress)
+
+**Milestone Goal:** Ingest all 15 registered Bronze data types with 10 years of history (2016-2025), prioritizing 2025 season data.
+
+- [ ] **Phase 8: Pre-Backfill Guards** - Config fixes, dependency pins, and rate-limit protection before bulk ingestion
+- [ ] **Phase 9: New Data Type Ingestion** - Ingest all 9 new Bronze data types for 2016-2025
+- [ ] **Phase 10: Existing Type Backfill** - Extend 6 existing data types from 2020-2024 to 2016-2025
+- [ ] **Phase 11: Orchestration and Validation** - Batch script, failure handling, validation, and inventory regeneration
+
+## Phase Details
+
+### Phase 8: Pre-Backfill Guards
+**Goal**: Pipeline is protected against known failure modes before any bulk data fetching begins
+**Depends on**: Phase 7 (v1.0 complete)
+**Requirements**: SETUP-01, SETUP-02, SETUP-03
+**Success Criteria** (what must be TRUE):
+  1. Running `bronze_ingestion_simple.py` for injuries with season 2025 skips gracefully (config cap at 2024)
+  2. `GITHUB_TOKEN` is set and nfl-data-py downloads use authenticated requests (5000/hr rate limit)
+  3. `pip install -r requirements.txt` on a fresh venv installs exact pinned versions of nfl-data-py and numpy<2
+**Plans**: TBD
+
+Plans:
+- [ ] 08-01: Config guards and dependency pins
+
+### Phase 9: New Data Type Ingestion
+**Goal**: All 9 new Bronze data types are ingested with full 2016-2025 coverage
+**Depends on**: Phase 8
+**Requirements**: INGEST-01, INGEST-02, INGEST-03, INGEST-04, INGEST-05, INGEST-06, INGEST-07, INGEST-08, INGEST-09
+**Success Criteria** (what must be TRUE):
+  1. Running `bronze_ingestion_simple.py` for teams, draft_picks, and combine produces valid Parquet files in `data/bronze/`
+  2. Running ingestion for NGS (3 sub-types), PFR weekly (4 sub-types), PFR seasonal (4 sub-types), and QBR (2 frequencies) produces correctly-named Parquet files for each variant
+  3. Running PBP ingestion for any season 2016-2025 produces a Parquet file with 103 curated columns without exceeding available memory
+  4. Depth chart ingestion handles 2025 schema differences without error
+  5. `validate_data()` passes on every ingested file across all 9 data types
+**Plans**: TBD
+
+Plans:
+- [ ] 09-01: Simple data types (teams, draft picks, combine, depth charts)
+- [ ] 09-02: Sub-type data types (NGS, PFR weekly, PFR seasonal, QBR)
+- [ ] 09-03: PBP backfill (2016-2025)
+
+### Phase 10: Existing Type Backfill
+**Goal**: All 6 existing data types have complete 2016-2025 coverage (2016-2024 for injuries)
+**Depends on**: Phase 8
+**Requirements**: BACKFILL-01, BACKFILL-02, BACKFILL-03, BACKFILL-04, BACKFILL-05, BACKFILL-06
+**Success Criteria** (what must be TRUE):
+  1. Schedules, player weekly, player seasonal, and rosters each have Parquet files for seasons 2016-2025 in `data/bronze/`
+  2. Snap counts have Parquet files for seasons 2016-2025 with correct week-level partitioning
+  3. Injuries have Parquet files for seasons 2016-2024 (not 2025, source discontinued)
+  4. `validate_data()` passes on all backfilled files
+**Plans**: TBD
+
+Plans:
+- [ ] 10-01: Backfill existing data types to 2016-2025
+
+### Phase 11: Orchestration and Validation
+**Goal**: Full backfill is repeatable via a single command and completeness is verified
+**Depends on**: Phase 9, Phase 10
+**Requirements**: ORCH-01, ORCH-02, VALID-01, VALID-02
+**Success Criteria** (what must be TRUE):
+  1. A single script ingests all 15 data types in sequence with progress output showing type, season, and status
+  2. When a data type fails mid-run, the script skips it and continues; a summary at the end lists all failures
+  3. `BRONZE_LAYER_DATA_INVENTORY.md` reflects all 15 data types with 10-year coverage after regeneration
+**Plans**: TBD
+
+Plans:
+- [ ] 11-01: Batch orchestration script with failure handling
+- [ ] 11-02: Validation sweep and inventory regeneration
+
 ## Progress
+
+**Execution Order:**
+Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to complete.
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -32,7 +105,11 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 | 5. Phase 1 Verification Backfill | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 6. Wire Bronze Validation | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 7. Tech Debt Cleanup | v1.0 | 1/1 | Complete | 2026-03-08 |
+| 8. Pre-Backfill Guards | v1.1 | 0/1 | Not started | - |
+| 9. New Data Type Ingestion | v1.1 | 0/3 | Not started | - |
+| 10. Existing Type Backfill | v1.1 | 0/1 | Not started | - |
+| 11. Orchestration and Validation | v1.1 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-08 after v1.0 milestone completion*
+*Last updated: 2026-03-08 after v1.1 roadmap creation*

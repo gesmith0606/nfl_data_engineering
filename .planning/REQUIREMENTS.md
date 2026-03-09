@@ -70,34 +70,34 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SETUP-01 | — | Pending |
-| SETUP-02 | — | Pending |
-| SETUP-03 | — | Pending |
-| INGEST-01 | — | Pending |
-| INGEST-02 | — | Pending |
-| INGEST-03 | — | Pending |
-| INGEST-04 | — | Pending |
-| INGEST-05 | — | Pending |
-| INGEST-06 | — | Pending |
-| INGEST-07 | — | Pending |
-| INGEST-08 | — | Pending |
-| INGEST-09 | — | Pending |
-| BACKFILL-01 | — | Pending |
-| BACKFILL-02 | — | Pending |
-| BACKFILL-03 | — | Pending |
-| BACKFILL-04 | — | Pending |
-| BACKFILL-05 | — | Pending |
-| BACKFILL-06 | — | Pending |
-| ORCH-01 | — | Pending |
-| ORCH-02 | — | Pending |
-| VALID-01 | — | Pending |
-| VALID-02 | — | Pending |
+| SETUP-01 | Phase 8 | Pending |
+| SETUP-02 | Phase 8 | Pending |
+| SETUP-03 | Phase 8 | Pending |
+| INGEST-01 | Phase 9 | Pending |
+| INGEST-02 | Phase 9 | Pending |
+| INGEST-03 | Phase 9 | Pending |
+| INGEST-04 | Phase 9 | Pending |
+| INGEST-05 | Phase 9 | Pending |
+| INGEST-06 | Phase 9 | Pending |
+| INGEST-07 | Phase 9 | Pending |
+| INGEST-08 | Phase 9 | Pending |
+| INGEST-09 | Phase 9 | Pending |
+| BACKFILL-01 | Phase 10 | Pending |
+| BACKFILL-02 | Phase 10 | Pending |
+| BACKFILL-03 | Phase 10 | Pending |
+| BACKFILL-04 | Phase 10 | Pending |
+| BACKFILL-05 | Phase 10 | Pending |
+| BACKFILL-06 | Phase 10 | Pending |
+| ORCH-01 | Phase 11 | Pending |
+| ORCH-02 | Phase 11 | Pending |
+| VALID-01 | Phase 11 | Pending |
+| VALID-02 | Phase 11 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 22 total
-- Mapped to phases: 0
-- Unmapped: 22 ⚠️
+- Mapped to phases: 22
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-08*
-*Last updated: 2026-03-08 after initial definition*
+*Last updated: 2026-03-08 after v1.1 roadmap creation*
