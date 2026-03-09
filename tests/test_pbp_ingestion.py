@@ -1,8 +1,9 @@
 """
-Tests for Phase 2 PBP ingestion: column curation, adapter wiring, CLI batch.
+Tests for PBP ingestion: column curation, adapter wiring, CLI batch, range coverage.
 
 Covers requirements PBP-01 (curated columns), PBP-02 (single-season processing),
-PBP-03 (column subsetting via kwargs), PBP-04 (output path and batch range).
+PBP-03 (column subsetting via kwargs), PBP-04 (output path and batch range),
+INGEST-09 (2016-2025 range coverage, exact column count regression guard).
 """
 
 import argparse
@@ -162,3 +163,37 @@ class TestSeasonsRangeParsing:
 
         with pytest.raises(ValueError):
             parse_seasons_range("2025-2010")
+
+
+# ------------------------------------------------------------------
+# INGEST-09: PBP season range coverage and regression guards
+# ------------------------------------------------------------------
+
+class TestPBPRangeCoverage:
+    """Verify PBP config supports full 2016-2025 backfill range (INGEST-09)."""
+
+    def test_pbp_seasons_2016_2025_valid(self):
+        """Every season 2016-2025 must be valid for the pbp data type."""
+        from src.config import validate_season_for_type
+
+        for season in range(2016, 2026):
+            assert validate_season_for_type("pbp", season), (
+                f"Season {season} should be valid for pbp"
+            )
+
+    def test_pbp_columns_exact_count_103(self):
+        """PBP_COLUMNS must have exactly 103 entries (regression guard)."""
+        from src.config import PBP_COLUMNS
+
+        assert len(PBP_COLUMNS) == 103, (
+            f"PBP_COLUMNS regression: expected exactly 103, got {len(PBP_COLUMNS)}"
+        )
+
+    def test_pbp_season_range_lower_bound(self):
+        """PBP data type must support seasons back to at least 1999."""
+        from src.config import DATA_TYPE_SEASON_RANGES
+
+        min_season, _ = DATA_TYPE_SEASON_RANGES["pbp"]
+        assert min_season <= 1999, (
+            f"PBP min season should be <= 1999, got {min_season}"
+        )
