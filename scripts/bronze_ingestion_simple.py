@@ -234,6 +234,26 @@ def parse_seasons_range(seasons_str: str) -> list:
     return [int(seasons_str)]
 
 
+def log_schema_diff(data_type: str, season: int, current_cols: set, prev_cols: set):
+    """Log schema differences between consecutive seasons.
+
+    Args:
+        data_type: The data type being ingested.
+        season: The current season year.
+        current_cols: Column set of the current season's DataFrame.
+        prev_cols: Column set of the previous season's DataFrame.
+    """
+    added = current_cols - prev_cols
+    removed = prev_cols - current_cols
+    if added or removed:
+        parts = []
+        if added:
+            parts.append(f"{len(added)} new columns: {sorted(added)}")
+        if removed:
+            parts.append(f"{len(removed)} removed columns: {sorted(removed)}")
+        print(f"  Schema diff {data_type} season {season}: {', '.join(parts)}")
+
+
 def main():
     """Main ingestion function using registry dispatch."""
 
@@ -259,9 +279,9 @@ def main():
     parser.add_argument(
         "--frequency",
         type=str,
-        choices=["weekly", "seasonal"],
-        default="weekly",
-        help="Frequency for QBR data (default: weekly)",
+        choices=["weekly", "season"],
+        default=None,
+        help="Frequency for QBR data (default: None = both weekly + season)",
     )
     parser.add_argument(
         "--seasons",
@@ -280,15 +300,9 @@ def main():
 
     entry = DATA_TYPE_REGISTRY[args.data_type]
 
-    # --- Validate sub-type if required ---
+    # --- Validate sub-type if provided (None means "all variants") ---
     if "sub_types" in entry:
-        if args.sub_type is None:
-            print(
-                f"Error: --sub-type required for {args.data_type}. "
-                f"Valid values: {entry['sub_types']}"
-            )
-            return 1
-        if args.sub_type not in entry["sub_types"]:
+        if args.sub_type is not None and args.sub_type not in entry["sub_types"]:
             print(
                 f"Error: invalid --sub-type '{args.sub_type}'. "
                 f"Valid values: {entry['sub_types']}"
@@ -321,72 +335,107 @@ def main():
     print(f"Data Type: {args.data_type}, Seasons: {season_list}, Week: {args.week}")
     print("=" * 60)
 
-    # --- Loop one season at a time (memory-safe for large datasets like PBP) ---
     adapter = NFLDataAdapter()
+
+    # --- Determine variants to iterate ---
+    if "sub_types" in entry and args.sub_type is None:
+        variants = [("sub_type", st) for st in entry["sub_types"]]
+    elif args.data_type == "qbr" and args.frequency is None:
+        variants = [("frequency", f) for f in ["weekly", "season"]]
+    else:
+        variants = [(None, None)]  # single pass
+
     total = len(season_list)
-    for idx, season in enumerate(season_list, 1):
-        args.season = season
-        if total > 1:
-            print(f"\nIngesting season {season}... ({idx}/{total})")
+    for variant_key, variant_val in variants:
+        # Set the variant on args for _build_method_kwargs
+        if variant_key == "sub_type":
+            args.sub_type = variant_val
+            print(f"\n--- Variant: sub_type={variant_val} ---")
+        elif variant_key == "frequency":
+            args.frequency = variant_val
+            print(f"\n--- Variant: frequency={variant_val} ---")
 
-        method = getattr(adapter, entry["adapter_method"])
-        kwargs = _build_method_kwargs(entry, args)
-        df = method(**kwargs)
+        ingested = 0
+        skipped = 0
+        prev_cols = None
 
-        if df.empty:
-            print(f"  No data returned for season {season}.")
-            continue
+        # --- Loop one season at a time (memory-safe for large datasets like PBP) ---
+        for idx, season in enumerate(season_list, 1):
+            args.season = season
+            if total > 1:
+                print(f"\nIngesting season {season}... ({idx}/{total})")
 
-        print(f"  Records: {len(df):,}  Columns: {len(df.columns)}")
+            method = getattr(adapter, entry["adapter_method"])
+            kwargs = _build_method_kwargs(entry, args)
+            df = method(**kwargs)
 
-        # --- Validate schema ---
-        try:
-            val_result = adapter.validate_data(df, args.data_type)
-            output = format_validation_output(val_result)
-            if output:
-                print(output)
-        except Exception as e:
-            print(f"  Warning Validation error: {e}")
+            if df.empty:
+                print(f"  No data returned for {args.data_type} season {season}, skipping")
+                skipped += 1
+                continue
 
-        # --- Build local path ---
-        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        bronze_subpath = entry["bronze_path"].format(
-            season=season,
-            week=args.week,
-            sub_type=getattr(args, "sub_type", None) or "",
-        )
-        if args.data_type == "qbr":
-            filename = f"qbr_{args.frequency}_{ts}.parquet"
-        else:
-            filename = f"{args.data_type}_{ts}.parquet"
-        local_dir = os.path.join("data", "bronze", bronze_subpath)
-        local_path = os.path.join(local_dir, filename)
+            print(f"  Records: {len(df):,}  Columns: {len(df.columns)}")
 
-        # --- Save locally (primary) ---
-        save_local(df, local_path)
+            # --- Schema diff logging ---
+            current_cols = set(df.columns)
+            if prev_cols is not None:
+                log_schema_diff(args.data_type, season, current_cols, prev_cols)
+            prev_cols = current_cols
 
-        # --- Optional S3 upload ---
-        if args.s3:
-            load_dotenv()
-            aws_credentials = {
-                "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
-                "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY"),
-                "region": os.getenv("AWS_REGION"),
-            }
-            bronze_bucket = os.getenv("S3_BUCKET_BRONZE", "nfl-raw")
+            # --- Validate schema ---
+            try:
+                val_result = adapter.validate_data(df, args.data_type)
+                output = format_validation_output(val_result)
+                if output:
+                    print(output)
+            except Exception as e:
+                print(f"  Warning Validation error: {e}")
 
-            if not all(aws_credentials.values()):
-                print("  Warning: AWS credentials missing, skipping S3 upload.")
+            # --- Build local path ---
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            bronze_subpath = entry["bronze_path"].format(
+                season=season,
+                week=args.week,
+                sub_type=getattr(args, "sub_type", None) or "",
+            )
+            if args.data_type == "qbr":
+                filename = f"qbr_{args.frequency}_{ts}.parquet"
             else:
-                s3_key = f"{bronze_subpath}/{filename}"
-                try:
-                    upload_to_s3(df, bronze_bucket, s3_key, aws_credentials)
-                except Exception:
-                    print("  S3 upload failed; local copy is available.")
+                filename = f"{args.data_type}_{ts}.parquet"
+            local_dir = os.path.join("data", "bronze", bronze_subpath)
+            local_path = os.path.join(local_dir, filename)
 
-        print(f"  Ingestion complete: {len(df):,} records -> {local_path}")
+            # --- Save locally (primary) ---
+            save_local(df, local_path)
 
-    print(f"\nBatch ingestion finished: {total} season(s) processed.")
+            # --- Optional S3 upload ---
+            if args.s3:
+                load_dotenv()
+                aws_credentials = {
+                    "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
+                    "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY"),
+                    "region": os.getenv("AWS_REGION"),
+                }
+                bronze_bucket = os.getenv("S3_BUCKET_BRONZE", "nfl-raw")
+
+                if not all(aws_credentials.values()):
+                    print("  Warning: AWS credentials missing, skipping S3 upload.")
+                else:
+                    s3_key = f"{bronze_subpath}/{filename}"
+                    try:
+                        upload_to_s3(df, bronze_bucket, s3_key, aws_credentials)
+                    except Exception:
+                        print("  S3 upload failed; local copy is available.")
+
+            print(f"  Ingestion complete: {len(df):,} records -> {local_path}")
+            ingested += 1
+
+        # --- Ingestion summary per variant ---
+        total_attempted = ingested + skipped
+        skip_detail = f", {skipped} skipped: empty data" if skipped else ""
+        print(f"\n{ingested}/{total_attempted} seasons ingested{skip_detail}")
+
+    print(f"\nBatch ingestion finished.")
     return 0
 
 
