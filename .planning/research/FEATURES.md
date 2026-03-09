@@ -1,192 +1,221 @@
-# Feature Landscape: NFL Game Prediction Data Platform
+# Feature Landscape
 
-**Domain:** NFL game outcome prediction (win/loss, spread, totals)
+**Domain:** Bronze layer backfill for 9 new NFL data types across 10 years (2016-2025)
 **Researched:** 2026-03-08
-**Mode:** Ecosystem (what data types exist, which matter, what to skip)
-
-## Current State
-
-The platform already has a working Bronze layer with 6 data types (schedules, player_weekly, player_seasonal, snap_counts, injuries, rosters) primarily serving fantasy football projections. The goal is to expand Bronze to also feed game prediction models. nfl-data-py is the primary data source, with 10+ additional import functions available but not yet ingested.
-
----
+**Confidence:** HIGH (all features verified against existing codebase, config, adapter, and data dictionary)
 
 ## Table Stakes
 
-Features users expect. Missing any of these means a game prediction model is fundamentally incomplete.
+Features users expect. Missing = backfill feels incomplete.
 
-| Feature / Data Type | Why Expected | nfl-data-py Function | Complexity | Status |
-|---------------------|--------------|----------------------|------------|--------|
-| **Play-by-Play with EPA/WPA** | EPA is the single most predictive play-level metric for team quality. Rolling EPA per play is the backbone of modern game prediction. PBP includes ~372 columns covering EPA, WPA, CPOE, success rate, air yards, and play context. | `import_pbp_data(years, columns)` | HIGH (large data: ~50K rows/season, 372 cols) | Not ingested |
-| **Game Schedules with Betting Lines** | Spread and total lines embed market consensus on team strength. Closing lines are the strongest single predictor of game outcomes -- they already price in injuries, weather, matchups. Already partially available in schedules. | `import_schedules(years)` -- already ingested but verify spread_line, total_line columns present | LOW | Partially done |
-| **Team Season Aggregates (from PBP)** | Team-level offensive/defensive EPA, success rate, turnover rate, and explosive play rate per game. These are Silver-layer derivatives of PBP, not a separate Bronze source. | Derived from PBP in Silver layer | MED | Not built |
-| **Injury Reports** | Injury status of key players (especially QBs) materially changes win probability. Already ingested. | Already ingested | LOW | Done |
-| **Rosters / Depth Charts** | Knowing who starts matters. Depth charts tell you backup vs starter situations. Rosters already ingested; depth charts available but not ingested. | `import_depth_charts(years)` | LOW | Rosters done, depth charts not |
-| **Win Totals / Betting Lines** | Pre-season and weekly betting lines capture market-implied team strength. Separate from schedule spread_line -- these are futures markets. | `import_win_totals(years)` | LOW | Not ingested |
-| **Scoring Lines (Weekly)** | Weekly spread and over/under lines from sportsbooks. May overlap with schedule data but provides additional detail. | `import_sc_lines(years)` | LOW | Not ingested |
+### Tier 1: Core Ingestion (9 New Data Types)
 
-### PBP Column Prioritization
+| Feature | Why Expected | Complexity | Dependencies |
+|---------|--------------|------------|--------------|
+| PBP ingestion (2016-2025) | Foundation for game prediction ML; 103 curated columns already defined in `PBP_COLUMNS` | High | Memory-safe single-season loop (already built), `downcast=True`, `include_participation=False` |
+| NGS passing/rushing/receiving (2016-2025) | Tracking data is the gold standard for player evaluation; 3 sub-types | Medium | `--sub-type` dispatch already in registry; each sub-type is a separate fetch call |
+| PFR weekly pass/rush/rec/def (2018-2025) | Advanced box-score metrics (pressures, broken tackles); 4 sub-types | Medium | `--sub-type` dispatch already in registry; uses `pfr_player_id` (not GSIS) |
+| PFR seasonal pass/rush/rec/def (2018-2025) | Season aggregates for baseline comparisons; 4 sub-types | Medium | Same sub-type dispatch; uses `pfr_id` (different key name from weekly) |
+| QBR weekly + seasonal (2016-2025) | ESPN's proprietary QB metric; already has `--frequency` flag | Low | `--frequency weekly/seasonal` already in CLI; filename prefix prevents collisions |
+| Depth charts (2016-2025) | Starter/backup status drives projection multipliers | Low | Simple season-list fetch, no sub-types |
+| Draft picks (2016-2025) | Player capital for rookie projections and trade analysis | Low | Simple season-list fetch, no sub-types |
+| Combine (2016-2025) | Athletic testing for prospect evaluation | Low | Simple season-list fetch, no sub-types |
+| Teams (static, one-time) | Reference data for all team lookups | Low | No season partitioning; `requires_season=False` |
 
-The full PBP dataset has ~372 columns. For game prediction, prioritize these column groups:
+### Tier 2: Batch Ingestion Infrastructure
 
-**Must-have columns (ingest always):**
-- `epa` -- Expected Points Added per play
-- `wpa` -- Win Probability Added per play
-- `cpoe` -- Completion Percentage Over Expected
-- `success` -- Binary: did the play earn positive EPA?
-- `air_yards`, `yards_after_catch` -- Passing efficiency decomposition
-- `qb_hit`, `sack`, `interception`, `fumble_lost` -- Negative play indicators
-- `play_type`, `pass_attempt`, `rush_attempt` -- Play classification
-- `down`, `ydstogo`, `yardline_100` -- Situational context
-- `score_differential`, `game_seconds_remaining` -- Game state
-- `no_huddle`, `shotgun` -- Tempo and formation
-- `penalty`, `penalty_yards` -- Penalty impact
-- `touchdown`, `first_down` -- Positive outcome markers
-- `home_team`, `away_team`, `posteam`, `defteam` -- Team identifiers
-- `season`, `week`, `game_id`, `play_id` -- Keys
+| Feature | Why Expected | Complexity | Dependencies |
+|---------|--------------|------------|--------------|
+| `--seasons 2016-2025` range flag works for all 9 types | Backfilling one season at a time is unusable | Already built | `parse_seasons_range()` + season-by-season loop exist in CLI |
+| Season range validation per data type | NGS starts 2016, PFR starts 2018, QBR starts 2006 -- invalid seasons must be rejected cleanly | Already built | `validate_season_for_type()` + `DATA_TYPE_SEASON_RANGES` in config.py |
+| Sub-type iteration for NGS/PFR | Must ingest all 3 NGS sub-types and all 4 PFR sub-types without manual repetition | Low | Add `--all-sub-types` flag or loop wrapper; currently requires separate CLI invocations |
+| Validation for all 9 types | `validate_data()` must check required columns for each type | Already built | All 9 types have `required_columns` entries in `nfl_data_integration.py` |
+| Progress reporting for multi-season batch | "Ingesting season 2020... (5/10)" feedback | Already built | Season loop in `main()` already prints progress |
 
-**Useful but optional:**
-- `air_epa`, `yac_epa` -- EPA decomposition (air vs YAC)
-- `xyac_success`, `xyac_mean_yardage` -- Expected YAC models
-- `comp_air_epa`, `comp_yac_epa` -- Completion-specific EPA splits
-- `wp`, `home_wp` -- Pre-play win probability
-- `offense_formation`, `offense_personnel`, `defenders_in_box` -- Scheme context
+### Tier 3: Existing Type Backfill (6 Types, Extended Range)
 
-**Skip for game prediction:**
-- Player name/ID fields (aggregate to team level)
-- Punt/kickoff detail columns
-- Penalty detail fields beyond yards
-- Expected fantasy point columns
-
----
+| Feature | Why Expected | Complexity | Dependencies |
+|---------|--------------|------------|--------------|
+| Schedules backfill to 2016 | Currently have 2020-2025; need 2016-2019 | Low | Same `--seasons 2016-2019` flag, same adapter |
+| Player weekly backfill to 2016 | Currently have 2020-2024; need 2016-2019 + 2025 | Low | Same adapter; weekly fetch returns all weeks for a season |
+| Player seasonal backfill to 2016 | Currently have 2020-2024; need 2016-2019 + 2025 | Low | Same adapter |
+| Snap counts backfill to 2016 | Currently have 2020-2024; need 2016-2019 + 2025; starts at 2012 | Medium | Uses positional `(season, week)` -- needs all-weeks iteration or accept full-season fetch |
+| Injuries backfill to 2016 | Currently have 2020-2024; need 2016-2019 + 2025; starts at 2009 | Low | Same adapter |
+| Rosters backfill to 2016 | Currently have 2020-2024; need 2016-2019 + 2025 | Low | Same adapter; uses `import_seasonal_rosters` |
 
 ## Differentiators
 
-Features that improve prediction accuracy beyond baseline. Not expected but provide measurable edge.
+Features that add value beyond basic backfill. Not expected, but improve the platform.
 
-| Feature / Data Type | Value Proposition | nfl-data-py Function | Complexity | Notes |
-|---------------------|-------------------|----------------------|------------|-------|
-| **Next Gen Stats (NGS)** | Time to throw, separation, rush yards over expected (RYOE), completion probability. These capture talent/scheme quality that box scores miss. RYOE in particular is a better rushing metric than yards per carry. | `import_ngs_data(stat_type, years)` -- types: "passing", "rushing", "receiving" | MED | Weekly aggregates, not play-level. ~20 cols per type. |
-| **PFR Advanced Stats** | Pro Football Reference stats: pressure rate, blitz rate, play-action rate, true passing yards. Complementary to PBP-derived metrics, adds defensive scheme context. | `import_seasonal_pfr(years)` / `import_weekly_pfr(years, s_type)` | MED | s_type: "pass", "rush", "rec", "def" |
-| **Weather Data** | Research shows weather adds ~2 percentage points of prediction accuracy. Wind >15mph drops FG success 3%, heavy snow reduces scoring by 10 points. Most impactful for totals predictions. | Not in nfl-data-py. Available in PBP (`weather`, `temp`, `wind`) or via external API. Some fields in schedules. | MED | PBP includes partial weather. Full weather needs external source or schedule enrichment. |
-| **Quarterback Ratings (QBR)** | ESPN's Total QBR is a more complete QB metric than passer rating, including rushing and sacks. Useful as a team-quality proxy since QB play drives ~60% of team EPA variance. | `import_qbr(years, frequency)` -- frequency: "season" or "weekly" | LOW | Simple tabular data, small footprint. |
-| **Rolling / Exponentially Weighted Metrics** | Exponentially weighted rolling EPA (e.g., half-life of 10 games) predicts future performance better than raw season averages. This is a Silver-layer feature, not a new Bronze source. | Derived in Silver from PBP | MED | Key differentiator is the weighting scheme, not the raw data. |
-| **Rest Days / Schedule Context** | Short weeks (Thursday games), bye weeks, travel distance, time zone changes. Already partially in schedules (home_rest, away_rest). Extend with travel distance calculation. | Derived from schedules + team locations | LOW | Stadium lat/lng already in data model. |
-| **Coaching Data** | Head coach identity and tenure affect team performance, particularly in-game decision-making (4th down, 2-point attempts). Available in schedules (home_coach, away_coach). | Already in schedules | LOW | Limited predictive power alone, but useful as categorical feature. |
-
-### NGS Column Highlights
-
-**Passing:** avg_time_to_throw, avg_completed_air_yards, avg_intended_air_yards, aggressiveness, max_completed_air_distance, avg_air_yards_to_sticks, passer_rating, completion_percentage, expected_completion_percentage, completion_percentage_above_expectation
-
-**Rushing:** efficiency, rush_yards_over_expected, rush_yards_over_expected_per_att, avg_rush_yards, rush_pct_over_expected
-
-**Receiving:** avg_separation, avg_intended_air_yards, avg_cushion, avg_yac, avg_expected_yac, avg_yac_above_expectation, pct_share_of_intended_air_yards
-
----
+| Feature | Value Proposition | Complexity | Dependencies |
+|---------|-------------------|------------|--------------|
+| `--all-sub-types` flag | Single command ingests all NGS sub-types or all PFR sub-types: `--data-type ngs --all-sub-types --seasons 2016-2025` instead of 3 separate runs | Low | Loop over `entry["sub_types"]` list in registry |
+| QBR both-frequencies mode | `--frequency both` ingests weekly AND seasonal QBR in one pass | Low | Loop over `["weekly", "seasonal"]` when frequency="both" |
+| Backfill manifest/report | After batch run, print summary: seasons ingested, row counts, file sizes, validation pass/fail per type | Medium | Accumulate stats during season loop, print at end |
+| Idempotent re-ingestion | Skip seasons that already have local Parquet files (unless `--force` flag) | Medium | Check `os.path.exists()` on expected local path before fetching |
+| Parallel sub-type ingestion | Fetch NGS passing/rushing/receiving concurrently within a season | Medium | `concurrent.futures.ThreadPoolExecutor`; nfl-data-py HTTP calls are I/O-bound |
+| Backfill orchestration script | Single `scripts/backfill_all.py` that ingests all 15 types in dependency order | Medium | Wrapper calling existing CLI; teams first (no season), then season-partitioned types |
+| Data freshness check | Verify 2025 data is actually current-season complete (not partial mid-season) | Low | Check max week in fetched data vs expected 18 weeks for completed 2025 season |
+| Disk space estimation | Before backfill, estimate total disk usage from known per-season sizes | Low | PBP is ~150MB/season; others are <5MB/season; print warning before proceeding |
 
 ## Anti-Features
 
-Features that sound useful but are not worth the complexity, have poor signal-to-noise, or create maintenance burden disproportionate to predictive value.
+Features to explicitly NOT build during this milestone.
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| **Combine Data for Game Prediction** | Research shows combine metrics have minimal predictive value for NFL game outcomes. Forty time and vertical jump weakly predict individual player performance and even that is position-specific. For game-level prediction, combine data is noise. | Use actual in-season performance metrics (EPA, NGS) which capture realized ability, not potential. |
-| **Draft Capital / Draft Picks** | Draft position is a weak proxy for talent. After year 1-2, actual performance data dominates. Only marginally useful for rookie projections, which the fantasy system already handles. | Use roster/depth chart data + actual stats. Draft pick data (`import_draft_picks`) is useful for the fantasy draft tool, not game prediction. |
-| **Referee / Officials Data** | NFL analysis shows "no evidence of systematic bias in penalties." Refs work ~17 games/year -- too small a sample for reliable patterns. Penalty volume varies but doesn't systematically predict outcomes beyond noise. | Include penalty yards as an aggregate team stat from PBP. Skip referee identity as a feature. |
-| **Play-Level Player Tracking (raw NGS)** | Raw tracking data (x,y coordinates at 10Hz) is massive, requires specialized processing, and the useful signals are already distilled into NGS aggregate stats. Not available via nfl-data-py anyway. | Use NGS aggregate stats (`import_ngs_data`) which distill tracking into useful metrics. |
-| **Historical Head-to-Head Records** | Team matchup history beyond 2-3 years has negligible predictive value due to roster turnover, coaching changes, and scheme evolution. A "rivalry effect" is mostly narrative, not statistical. | Use recent (rolling 2-3 season) team performance metrics instead. If needed, division_game_flag captures the relevant context. |
-| **Stadium Elevation / Altitude** | Denver is the only stadium with meaningful elevation (5,280 ft). One-team edge is better handled as a Denver-specific adjustment than a general feature. | Include dome_game_flag and surface type. Skip elevation as a general feature. |
-| **Detailed Penalty Breakdown by Type** | Individual penalty types (holding vs DPI vs false start) add dimensionality without proven predictive lift for game outcomes. | Aggregate to total penalty yards per game in Silver layer. |
-| **Full Weather API Integration** | Building and maintaining a separate weather data pipeline is high complexity for ~2 percentage points of accuracy gain. PBP data already includes partial weather. | Extract weather from PBP data fields (temp, wind, weather description) or from schedule data. Do not build a separate weather ingestion pipeline. |
-
----
+| S3 upload during backfill | AWS credentials are expired; local-first workflow is active | Keep `--s3` flag but default to off; fix S3 sync in a separate milestone |
+| Silver/Gold processing of new types | This milestone is Bronze-only; Silver transformations need new analytics code | Defer to next milestone; Bronze data is self-contained and useful on its own |
+| Week-level partitioning for seasonal data | PFR seasonal, player seasonal, combine, draft picks are season-level data | Store as `season=YYYY/` only; do not force week partitioning on non-weekly data |
+| Custom column selection for NGS/PFR/QBR | Unlike PBP (which curates 103 of 300+ columns), these types have manageable column counts | Ingest all columns; filter at Silver layer if needed |
+| Real-time / incremental ingestion | Backfill is a one-time batch operation for historical data | Use `--seasons` range for batch; weekly pipeline handles incremental during season |
+| Rate limiting / retry logic for nfl-data-py | The library handles its own HTTP retries internally | Let nfl-data-py manage retries; adapter's `_safe_call` catches exceptions |
+| Schema evolution tracking | Column sets are stable across seasons for these data types | Accept whatever nfl-data-py returns; validate required columns only |
 
 ## Feature Dependencies
 
 ```
-PBP Data (Bronze) --> Team EPA Aggregates (Silver) --> Game Prediction Features (Gold)
-                  --> Success Rate by Down/Distance (Silver) --> Situational Model (Gold)
-                  --> Turnover Rates (Silver) --> Game Prediction Features (Gold)
+Teams (static, no season) -- ingest first, reference data for all other types
 
-Schedules (Bronze) --> Rest/Travel Features (Silver) --> Game Prediction Features (Gold)
-                   --> Betting Lines (Silver) --> Market-Adjusted Predictions (Gold)
+Schedules (2016-2025)
+  |
+  v
+PBP (2016-2025) -- depends on schedules for game_id context
+  |
+  v
+NGS (2016-2025) -- supplements PBP with tracking data
+PFR weekly (2018-2025) -- supplements PBP with advanced box-score
+PFR seasonal (2018-2025) -- seasonal aggregates of PFR weekly
+QBR (2016-2025) -- QB-specific overlay on PBP
 
-NGS Data (Bronze) --> QB Efficiency Metrics (Silver) --> Enhanced Prediction (Gold)
-                  --> RB RYOE Metrics (Silver) --> Enhanced Prediction (Gold)
+Depth charts (2016-2025) -- independent, feeds projection engine
+Draft picks (2016-2025) -- independent, feeds prospect evaluation
+Combine (2016-2025) -- independent, feeds prospect evaluation
 
-Injuries (Bronze) + Depth Charts (Bronze) --> Starter Availability (Silver) --> Injury-Adjusted Predictions (Gold)
-
-PFR Advanced (Bronze) --> Defensive Scheme Metrics (Silver) --> Matchup-Adjusted Predictions (Gold)
-
-Win Totals (Bronze) --> Pre-Season Priors (Silver) --> Early-Season Predictions (Gold)
+Rosters (2016-2025) -- independent, but links player IDs across sources
+Player weekly (2016-2025) -- independent
+Player seasonal (2016-2025) -- independent
+Snap counts (2016-2025) -- independent
+Injuries (2016-2025) -- independent
 ```
 
-**Critical path:** PBP is the foundation. Everything else adds incremental value but PBP + Schedules alone can build a competitive model.
+Note: Dependencies above are logical (what makes sense to have first), not technical blockers. Each data type can be ingested independently because the Bronze layer is raw storage with no cross-type joins.
 
----
+## Sub-Type Handling Details
+
+### NGS: 3 Sub-Types
+
+| Sub-Type | `--sub-type` Value | Adapter Kwarg | Season Range | Notes |
+|----------|--------------------|---------------|-------------|-------|
+| Passing | `passing` | `stat_type="passing"` | 2016-2025 | ~20 passing-specific columns (time_to_throw, aggressiveness, etc.) |
+| Rushing | `rushing` | `stat_type="rushing"` | 2016-2025 | ~12 rushing-specific columns (RYOE, time_to_LOS, etc.) |
+| Receiving | `receiving` | `stat_type="receiving"` | 2016-2025 | ~13 receiving-specific columns (separation, cushion, YAC over expected) |
+
+Each sub-type writes to a separate path: `data/bronze/ngs/{sub_type}/season=YYYY/`. 10 seasons x 3 sub-types = 30 ingestion operations.
+
+### PFR: 4 Sub-Types x 2 Frequencies = 8 Logical Types
+
+| Frequency | Sub-Type | `--sub-type` Value | Adapter Kwarg | Season Range | Notes |
+|-----------|----------|--------------------|---------------|-------------|-------|
+| Weekly | Passing | `pass` | `s_type="pass"` | 2018-2025 | Uses `pfr_player_name` / `pfr_player_id` |
+| Weekly | Rushing | `rush` | `s_type="rush"` | 2018-2025 | Same ID columns as passing |
+| Weekly | Receiving | `rec` | `s_type="rec"` | 2018-2025 | Same ID columns as passing |
+| Weekly | Defense | `def` | `s_type="def"` | 2018-2025 | Same ID columns as passing |
+| Seasonal | Passing | `pass` | `s_type="pass"` | 2018-2025 | Uses `player` / `pfr_id` (DIFFERENT from weekly) |
+| Seasonal | Rushing | `rush` | `s_type="rush"` | 2018-2025 | Same as seasonal passing |
+| Seasonal | Receiving | `rec` | `s_type="rec"` | 2018-2025 | Same as seasonal passing |
+| Seasonal | Defense | `def` | `s_type="def"` | 2018-2025 | Same as seasonal passing |
+
+PFR weekly: 8 seasons x 4 sub-types = 32 ingestion operations.
+PFR seasonal: 8 seasons x 4 sub-types = 32 ingestion operations.
+
+### QBR: 2 Frequencies (Not Sub-Types)
+
+| Frequency | `--frequency` Value | Filename Prefix | Season Range | Notes |
+|-----------|---------------------|-----------------|-------------|-------|
+| Weekly | `weekly` | `qbr_weekly_` | 2016-2025 | Per-game QBR |
+| Seasonal | `seasonal` | `qbr_seasonal_` | 2016-2025 | Season aggregate |
+
+Both frequencies write to the same path (`data/bronze/qbr/season=YYYY/`) but are differentiated by filename prefix. 10 seasons x 2 frequencies = 20 ingestion operations.
+
+## Ingestion Operation Count Summary
+
+| Data Type | Seasons | Sub-Types/Freq | Total Operations |
+|-----------|---------|----------------|------------------|
+| PBP | 10 (2016-2025) | 1 | 10 |
+| NGS | 10 (2016-2025) | 3 | 30 |
+| PFR weekly | 8 (2018-2025) | 4 | 32 |
+| PFR seasonal | 8 (2018-2025) | 4 | 32 |
+| QBR | 10 (2016-2025) | 2 | 20 |
+| Depth charts | 10 (2016-2025) | 1 | 10 |
+| Draft picks | 10 (2016-2025) | 1 | 10 |
+| Combine | 10 (2016-2025) | 1 | 10 |
+| Teams | 1 (static) | 1 | 1 |
+| **Total new** | | | **155** |
+
+For existing type backfill (4 additional seasons each for 2016-2019, plus 2025 for most):
+
+| Data Type | Additional Seasons | Operations |
+|-----------|--------------------|------------|
+| Schedules | 4 (2016-2019) | 4 |
+| Player weekly | 5 (2016-2019, 2025) | 5 |
+| Player seasonal | 5 (2016-2019, 2025) | 5 |
+| Snap counts | 5 (2016-2019, 2025) | 5 |
+| Injuries | 5 (2016-2019, 2025) | 5 |
+| Rosters | 5 (2016-2019, 2025) | 5 |
+| **Total existing backfill** | | **29** |
+
+**Grand total: ~184 ingestion operations.**
+
+## 2025-2026 Data Freshness Considerations
+
+| Data Type | 2025 Status | 2026 Status | Notes |
+|-----------|-------------|-------------|-------|
+| PBP | Full season available (W1-18 + playoffs) | Not started (season begins Sept 2026) | 2025 season completed Jan 2026 |
+| NGS | Full 2025 season | No data until Sept 2026 | Tracking data published weekly during season |
+| PFR weekly/seasonal | Full 2025 season | No data until Sept 2026 | PFR publishes after each game |
+| QBR | Full 2025 season | No data until Sept 2026 | ESPN publishes after each game |
+| Depth charts | Full 2025 season | Partial (offseason depth charts may exist) | Teams publish throughout offseason |
+| Draft picks | Full through 2025 draft | 2026 draft is April 2026 -- available soon | Historical + upcoming |
+| Combine | Full through 2025 combine | 2026 combine already happened (Feb 2026) | Should be available via nfl-data-py |
+| Teams | Static, always current | Same | No season dependency |
+| Schedules | Full 2025 | 2026 schedule not yet released | NFL schedule release is typically May |
+| Player weekly/seasonal | Full 2025 | No data until Sept 2026 | Depends on games being played |
+| Snap counts | Full 2025 | No data until Sept 2026 | Same as weekly |
+| Injuries | Full 2025 | No data until Sept 2026 | Injury reports during season only |
+| Rosters | Full 2025 | 2026 offseason rosters may be available | Free agency changes in March |
+
+**Key insight:** The 2026 combine data may already be available. Worth attempting `--season 2026` for combine and draft picks. All other 2026 data requires the NFL season to begin (September 2026).
+
+## Snap Counts Special Case
+
+Snap counts is the only data type using positional `(season, week)` args instead of `seasons` list. The current CLI handles this, but backfill across 10 seasons x 18 weeks = 180 week-level operations per season is impractical.
+
+**Investigation needed:** Does `nfl-data-py` `import_snap_counts(season, week)` accept `week=None` or `week=0` to fetch all weeks? If not, the adapter or CLI needs a week-iteration wrapper for snap count backfill. The existing data (2020-2024) uses week-level files, suggesting manual week-by-week ingestion was done previously.
+
+**Recommendation:** Test whether the adapter can fetch all weeks at once. If not, add a `--all-weeks` flag that iterates weeks 1-18 for the given season(s). This is the highest-complexity backfill operation due to the week dimension.
 
 ## MVP Recommendation
 
-### Phase 1: Foundation (must-have for any prediction model)
-1. **PBP ingestion** -- Ingest play-by-play data for 2020-2025 with prioritized columns. This is the single highest-value data type. ~50K plays/season, but column-pruning keeps it manageable.
-2. **Verify schedule betting lines** -- Confirm spread_line, total_line, over_under columns are present and populated in existing Bronze schedules data.
-3. **Team EPA aggregates in Silver** -- Build rolling offensive/defensive EPA per play, success rate, and turnover rate by team-week. This is the core predictive feature set.
+Prioritize in this order:
 
-### Phase 2: Enhancement (meaningful accuracy gains)
-4. **Depth charts** -- Identify starter availability, especially QB.
-5. **Win totals / scoring lines** -- Market-implied team strength as a feature and model anchor.
-6. **QBR data** -- Quick win: small data, easy ingest, complements EPA.
-7. **NGS data** -- Time to throw, RYOE, separation. Three stat types, each ~20 columns.
+1. **Teams (static)** -- one-time, zero complexity, reference data
+2. **PBP (2016-2025)** -- highest value for ML; largest dataset (~150MB/season); validate memory safety first
+3. **Schedules backfill (2016-2019)** -- completes the game context for PBP
+4. **NGS (2016-2025, all 3 sub-types)** -- highest-value tracking data for player evaluation
+5. **QBR (2016-2025, both frequencies)** -- low complexity, high value for QB analysis
+6. **Depth charts (2016-2025)** -- feeds projection engine starter/backup logic
+7. **Draft picks + Combine (2016-2025)** -- prospect data, lower priority for current prediction models
+8. **PFR weekly + seasonal (2018-2025, all 4 sub-types each)** -- advanced metrics, but most operations (64 total)
+9. **Existing type backfill (2016-2019, 2025)** -- extends history for types already working
 
-### Phase 3: Advanced (diminishing returns but still valuable)
-8. **PFR advanced stats** -- Pressure rate, blitz rate, play-action metrics.
-9. **Weather extraction from PBP** -- Parse existing PBP weather fields into structured features.
-10. **Rest/travel distance features** -- Derive from schedules + team location data.
-
-### Defer Indefinitely
-- Combine data, draft capital, referee data, raw tracking data, head-to-head history, stadium elevation, full weather API, detailed penalty breakdowns.
-
----
-
-## Data Volume Estimates
-
-| Data Type | Rows/Season | Columns (pruned) | Size Estimate | Seasons |
-|-----------|-------------|-------------------|---------------|---------|
-| PBP | ~50,000 | ~60 (from 372) | ~15-20 MB/season | 2020-2025 |
-| NGS Passing | ~1,500 | ~20 | <1 MB/season | 2020-2025 |
-| NGS Rushing | ~1,000 | ~15 | <1 MB/season | 2020-2025 |
-| NGS Receiving | ~2,000 | ~20 | <1 MB/season | 2020-2025 |
-| Depth Charts | ~5,000 | ~10 | ~2 MB/season | 2020-2025 |
-| Win Totals | ~32 | ~10 | <0.1 MB/season | 2020-2025 |
-| Scoring Lines | ~5,000 | ~15 | ~1 MB/season | 2020-2025 |
-| QBR Weekly | ~600 | ~15 | <0.5 MB/season | 2020-2025 |
-| PFR Advanced | ~2,000 | ~30 | ~1 MB/season | 2020-2025 |
-| **Total new Bronze** | | | **~120-150 MB** | 6 seasons |
-
-This is modest. The platform currently holds 7 MB of Bronze data. PBP is the only large addition.
-
----
-
-## Important Note: nfl-data-py Archival
-
-The nfl-data-py repository was archived by its maintainer in September 2025. The library still functions (it reads from nflverse data releases, not a live API), but there will be no new features or bug fixes. The successor is `nflreadpy`, a Python port of the R `nflreadr` package.
-
-**Recommendation:** Continue using nfl-data-py for now (it works, data is available through 2025 season). Monitor nflreadpy maturity. Plan migration when nflreadpy reaches feature parity and the team needs 2026+ data. This is a Phase 3+ concern, not a blocker.
-
----
+**Defer:** `--all-sub-types` flag and `backfill_all.py` orchestration script are nice-to-haves. The existing CLI with `--seasons 2016-2025` works for manual execution. Add orchestration only if manual process proves too painful.
 
 ## Sources
 
-- [Frontiers: Advancing NFL win prediction (2025)](https://www.frontiersin.org/journals/sports-and-active-living/articles/10.3389/fspor.2025.1638446/full) -- ML model comparison, feature importance via SHAP
-- [nflfastR documentation](https://nflfastr.com/articles/nflfastR.html) -- PBP field descriptions, EPA/WPA/CPOE definitions
-- [nfl-data-py GitHub](https://github.com/nflverse/nfl_data_py) -- Available import functions, archival status
-- [nfl-data-py PyPI](https://pypi.org/project/nfl-data-py/) -- Function signatures, parameter docs
-- [NFL.com Next Gen Stats: New metrics for 2025](https://www.nfl.com/news/next-gen-stats-new-advanced-metrics-you-need-to-know-for-the-2025-nfl-season) -- NGS field descriptions
-- [Covers: NFL Advanced Metrics](https://www.covers.com/nfl/key-advanced-metrics-betting-tips) -- EPA, CPOE, DVOA explanations
-- [Open Source Football: NFL game prediction](https://opensourcefootball.com/posts/2021-01-21-nfl-game-prediction-using-logistic-regression/) -- Rolling EPA weighting approach
-- [ParlaySavant: How to Build Sports Prediction Models 2026](https://www.parlaysavant.com/insights/sports-prediction-models-2026) -- Weather impact quantification (+2pp accuracy)
-- [Sharp Football Analysis: Weather Impact](https://www.sharpfootballanalysis.com/sportsbook/weather-impact-on-nfl-betting/) -- Wind/precipitation scoring effects
-- [ESPN: Debunking officiating conspiracy theories](https://www.espn.com/nfl/story/_/id/46087159/debunking-nfl-officiating-conspiracy-theories-data) -- Referee bias analysis
-- [nflreadpy GitHub](https://github.com/nflverse/nflreadpy) -- nfl-data-py successor
-- [PubMed: Predictive Value of NFL Combine](https://pubmed.ncbi.nlm.nih.gov/27100168/) -- Combine metrics vs NFL performance
-- [nfelo model performance](https://www.nfeloapp.com/games/nfl-model-performance/) -- Elo-based NFL prediction benchmarks
-- [Quinnipiac: Predicting NFL Scores](https://iq.qu.edu/experiential-learning/course-projects-and-capstones/student-projects/predicting-nfl-total-score-and-point-spread-bets/) -- Spread/total prediction research
+- `src/config.py` -- DATA_TYPE_SEASON_RANGES, PBP_COLUMNS, validate_season_for_type
+- `scripts/bronze_ingestion_simple.py` -- DATA_TYPE_REGISTRY, batch ingestion loop, sub-type handling
+- `src/nfl_data_adapter.py` -- all 15 fetch method signatures and kwarg patterns
+- `src/nfl_data_integration.py` -- validate_data() required columns for all 15 types
+- `docs/NFL_DATA_DICTIONARY.md` -- full schema documentation for all Bronze types
+- `.planning/PROJECT.md` -- v1.1 milestone context and constraints

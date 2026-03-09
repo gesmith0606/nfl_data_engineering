@@ -1,378 +1,417 @@
-# Domain Pitfalls
+# Pitfalls Research
 
-**Domain:** NFL data pipeline expansion (Bronze layer, 9+ new nfl-data-py data types)
+**Domain:** Bronze backfill of 9 new NFL data types across 10 years (2016-2025)
 **Researched:** 2026-03-08
+**Confidence:** HIGH (project-specific quirks verified from codebase, nflverse docs, and GitHub issues)
 
 ## Critical Pitfalls
 
-Mistakes that cause rewrites or major issues.
+### Pitfall 1: nfl-data-py Is Archived -- No Bug Fixes Coming
 
-### Pitfall 1: nfl-data-py Is Archived -- Dependency Is Dead
+**What goes wrong:**
+The `nfl-data-py` repository was [archived by nflverse on September 25, 2025](https://github.com/nflverse/nfl_data_py). No further maintenance, bug fixes, or Python version updates will be released. The replacement is [nflreadpy](https://nflreadpy.nflverse.com/), which returns Polars DataFrames and has a different API (`load_*` instead of `import_*`). Known unfixed bugs include: NumPy 2.0 `np.float_` incompatibility ([issue #98](https://github.com/nflverse/nfl_data_py/issues/98)), Python 3.13 install failure, and `import_injuries` 404 for 2025 season.
 
-**What goes wrong:** The project depends entirely on `nfl_data_py==0.3.3` for all data ingestion. The nfl-data-py repository was [archived by the nflverse team on September 25, 2025](https://github.com/nflverse/nfl_data_py) and is now read-only. No bug fixes, no new season support, no Python version updates. The replacement is [nflreadpy](https://github.com/nflverse/nflreadpy), which uses Polars instead of pandas and has a different API (`load_*` instead of `import_*`).
+**Why it happens:**
+The project is pinned to `nfl-data-py==0.3.3` and `numpy==1.26.4`. This works today because nfl-data-py pulls from nflverse-data GitHub releases which are still active. But adding 9 new data types deepens the dependency on a dead library.
 
-**Why it happens:** The project pinned `nfl_data_py==0.3.3` and never evaluated successor libraries. The archived library still works for now because it pulls data from nflverse GitHub repos, but those data endpoints could change without the library being updated to match.
-
-**Consequences:**
-- Any nflverse data format change breaks all ingestion silently (returns empty DataFrames or crashes)
-- Python 3.13+ is already broken (known issue #122, never fixed)
-- NumPy 2.0 breaks `import_pbp_data` with `AttributeError: np.float_` (issue #98, never fixed)
-- Adding 9 new data types deepens the dependency on a dead library
-- Future migration becomes harder the more code depends on nfl-data-py's API
+**How to avoid:**
+- Pin exact versions in `requirements.txt`: `nfl-data-py==0.3.3`, `numpy<2` (already done)
+- Complete the full backfill NOW while nflverse-data release URLs are stable
+- The existing `NFLDataAdapter` in `src/nfl_data_adapter.py` already isolates all `nfl.import_*` calls -- this is the correct pattern. Do not add nfl-data-py imports anywhere else
+- Plan nflreadpy migration as a separate future milestone, not part of this backfill
 
 **Warning signs:**
-- `pip install nfl-data-py` starts showing deprecation warnings
-- NumPy or Python upgrades break imports
-- nflverse GitHub data URLs change and nfl-data-py cannot follow them
+- `AttributeError: np.float_` on import -- means numpy was upgraded past 2.0
+- 404 errors from GitHub releases -- means nflverse-data URLs changed
+- Import failures after any `pip install --upgrade`
 
-**Prevention:**
-- **Phase 1 decision:** Either (a) migrate to nflreadpy before expanding, or (b) expand on nfl-data-py with an explicit adapter layer that isolates the library calls, making future migration a single-module swap
-- Option (b) is pragmatic: nfl-data-py still works today on Python 3.9 with NumPy 1.x, and the nflverse data repos it reads from are the same ones nflreadpy reads. But build the adapter now
-- Add a thin `DataSourceAdapter` class that wraps all `nfl.import_*` calls. New data types go through the adapter. When migration happens, only the adapter changes
-- Pin `numpy<2.0` explicitly in requirements.txt as a safety measure
-
-**Detection:** Monitor nflverse data repo structure for breaking changes. Pin the library version (already done). Track nflreadpy releases for feature parity.
-
-**Confidence:** HIGH -- archived status confirmed via GitHub, nflreadpy is the official successor per nflverse.
-
-**Phase:** Address in Phase 1 (before adding any new data types). Either migrate or build the adapter layer.
+**Phase to address:**
+Pre-work (verify dependency pins) before any backfill phase begins.
 
 ---
 
-### Pitfall 2: import_rosters vs import_seasonal_rosters
+### Pitfall 2: PBP Memory Explosion on Multi-Season Loads
 
-**What goes wrong:** `nfl.import_rosters()` exists in nfl-data-py but returns incorrect or incomplete data. The correct function is `nfl.import_seasonal_rosters()`. This is already known and fixed in the current codebase (`fetch_rosters` on line 265 of `nfl_data_integration.py`), but anyone adding new fetch methods or writing tests may accidentally use the wrong function. The same trap pattern exists across other nfl-data-py functions.
+**What goes wrong:**
+Each PBP season is ~40K rows x 400+ columns, roughly 150-300 MB in RAM. Loading 10 seasons simultaneously causes OOM kills. Setting `include_participation=True` doubles column count and memory. The current Bronze layer is 7 MB total -- PBP alone will be ~500 MB on disk.
 
-**Why it happens:** Both functions exist, both accept the same parameters, and the naming suggests `import_rosters` is the canonical one. The nfl-data-py documentation does not clearly warn about this. Similar confusing function pairs may exist for new data types.
+**Why it happens:**
+The ingestion script already loops one season at a time (line 327 of `bronze_ingestion_simple.py`) and passes `columns=PBP_COLUMNS` (103 curated columns) with `include_participation=False`. These protections are correct. The risk is that a developer bypasses the CLI and calls the adapter directly with `seasons=[2016, 2017, ..., 2025]`.
 
-**Consequences:** Roster data is wrong or incomplete, causing downstream join failures in Silver/Gold layers. Player-team mappings break, draft tool shows stale rosters.
+**How to avoid:**
+- The per-season loop in `bronze_ingestion_simple.py` is correct -- do not change it
+- Always pass `columns=PBP_COLUMNS` to avoid loading all 400+ columns
+- Always pass `include_participation=False` (already the adapter default)
+- Add `gc.collect()` after each season's Parquet write to release memory
+- For backfill, add a `--dry-run` flag that fetches one season first
 
 **Warning signs:**
-- DataFrame has fewer rows than expected
-- Missing columns that documentation says should exist
-- Player counts per team are suspiciously low
+- Process killed by OOM killer with no error message
+- Script hangs for 5+ minutes with no progress output
+- System swap usage spikes during PBP ingestion
 
-**Prevention:**
-- Document this prominently in the codebase (add a comment in `nfl_data_integration.py` near the import)
-- Add a linting rule or grep check in CI: flag any use of `nfl.import_rosters(` (without `seasonal_`)
-- If building a `DataSourceAdapter`, make the adapter the only place `nfl.*` functions are called
-- For every new `import_*` function, verify the correct function signature against the GitHub source code, not the PyPI documentation
-
-**Detection:** Compare row counts against known NFL data constraints (32 teams, 53-man rosters = ~1,700 rows per season)
-
-**Confidence:** HIGH -- confirmed in project memory and existing code fix.
-
-**Phase:** Address in Phase 1 (documentation + guard) since the fix already exists but lacks enforcement.
+**Phase to address:**
+Phase 1 (PBP backfill) -- verify per-season batching is enforced, add memory monitoring.
 
 ---
 
-### Pitfall 3: Play-by-Play Data Is 100x Larger Than Current Bronze Layer
+### Pitfall 3: Injury Data Source Is Dead After 2024
 
-**What goes wrong:** The current Bronze layer is 7 MB across 31 files. A single season of PBP data is approximately 50,000 rows with 390 columns -- roughly 150-300 MB in memory per season. Loading 6 seasons (2020-2025) simultaneously would consume 1-2 GB of RAM. The existing pipeline pattern of "fetch all seasons at once, filter later" will cause OOM kills.
+**What goes wrong:**
+The nflverse injury data source died after the 2024 season. `import_injuries()` returns 404 errors for 2025. This is confirmed by [nflverse's data schedule](https://nflreadr.nflverse.com/articles/nflverse_data_schedule.html): "data source died after the 2024 season." The existing Bronze layer has injuries for 2020-2024 only.
 
-**Why it happens:** The current data types (player_weekly, snap_counts, etc.) are player-aggregated and small. PBP is play-level: every snap, penalty, timeout, and two-minute warning for every game. Developers who have only worked with the small data types will apply the same patterns.
+**Why it happens:**
+The upstream NFL data source for injuries was discontinued. nflverse has no replacement. The `DATA_TYPE_SEASON_RANGES` in config.py currently says injuries go from 2009 to dynamic max (`get_max_season`), which is wrong for 2025+.
 
-**Consequences:**
-- `MemoryError` or OOM kills during ingestion
-- GitHub Actions runners (7GB limit) will crash on multi-season PBP loads
-- Local disk fills up (6 seasons of PBP parquet = 500+ MB)
-- Slow ingestion (minutes vs. seconds per season)
-- Existing `download_latest_parquet()` reads full files into memory -- fine for 1 MB, dangerous for 300 MB
+**How to avoid:**
+- Update `DATA_TYPE_SEASON_RANGES["injuries"]` max to a static `2024` (not `get_max_season`)
+- Backfill injuries for 2016-2019 (currently only have 2020-2024) while the API still serves historical data
+- For 2025+ injury data, plan a separate source (e.g., Sleeper MCP injury status)
+- Add a fallback warning in the ingestion script when a data type has a known dead end
 
 **Warning signs:**
-- Ingestion script hangs for 5+ minutes on a single data type
-- System swap usage spikes
-- `MemoryError` or process killed without error message
+- HTTP 404 or empty DataFrame for injury season 2025
+- Validation showing 0 rows returned for a season
 
-**Prevention:**
-- Process PBP one season at a time, never all seasons in a single DataFrame
-- Use `downcast=True` parameter on `import_pbp_data()` to convert float64 to float32 (~30% memory reduction)
-- Partition PBP parquet files by season AND week (not just season) to keep individual files manageable
-- For Silver/Gold processing of PBP, use DuckDB for SQL-on-Parquet instead of loading into pandas (already configured as MCP)
-- Consider using `nfl.cache_pbp()` for local caching (4-5x faster on subsequent loads)
-- Do NOT filter columns at Bronze layer -- store the full dataset (Medallion principle: Bronze = raw). Filter at Silver.
-
-**Detection:** Monitor memory during test ingestion of a single PBP season before scaling to multi-season.
-
-**Confidence:** HIGH -- PBP data size is well-documented in nflverse community (~50K rows x 390 cols per season).
-
-**Phase:** Address in Phase 1 (PBP ingestion design). Must be solved before PBP is added as a data type.
+**Phase to address:**
+Phase 1 (existing data type backfill) -- fix season range, backfill 2016-2019, document the gap.
 
 ---
 
-### Pitfall 4: Different Data Types Have Different Season Ranges
+### Pitfall 4: Depth Chart Schema Change in 2025+
 
-**What goes wrong:** The current code uses a single `available_seasons = range(1999, 2026)` for all data types. But each nfl-data-py function has different historical availability:
+**What goes wrong:**
+Starting in 2025, nflverse depth chart data uses ISO8601 timestamps instead of week-number assignments. This is confirmed by [nflverse's data schedule](https://nflreadr.nflverse.com/articles/nflverse_data_schedule.html): "2025+ uses ISO8601 timestamps instead of week assignments." Code that filters by `week` column will silently return empty results for 2025+ data.
 
-| Data Type | Earliest Season | Notes |
-|-----------|----------------|-------|
-| Schedules | 1999 | Full coverage |
-| PBP | 1999 | Full coverage, but pre-2006 is sparse |
-| Player weekly | 1999 | Quality improves after 2010 |
-| NGS (passing/rushing/receiving) | **2016** | Next Gen Stats tracking started 2016 |
-| PFR advanced (pass/rush/rec) | **2018** | Pro Football Reference advanced stats |
-| Combine | ~2000 | Varies by year |
-| Draft picks | ~1980 | Historical draft data |
-| QBR | ~2006 | ESPN metric, limited history |
-| Depth charts | ~2001 | Varies, some years incomplete |
-| Win totals / SC lines | ~2020 | Betting data, very recent only |
-| Officials | ~2015 | Referee data |
+**Why it happens:**
+The upstream data source changed format. The registry entry has `requires_week: False` (correct for fetching), but downstream consumers may assume a `week` column exists in the returned data.
 
-**Why it happens:** The current `NFLDataFetcher` applies the same season validation to every data type. When someone requests NGS data for 2015, it passes validation but the API returns an empty DataFrame silently (no error raised).
-
-**Consequences:**
-- Empty DataFrames that pass validation (row_count = 0 is caught, but 3 rows when you expected 500 is not)
-- Misleading "data ingested" messages for seasons that don't exist
-- Downstream Silver/Gold layers produce garbage from incomplete data
-- Backfill scripts that loop over 2020-2025 will silently produce empty data for types that start later
+**How to avoid:**
+- When backfilling 2016-2024, validate that the `week` column exists in all returned DataFrames
+- For 2025+, add a schema transformation that maps timestamps to approximate weeks
+- Validate schema consistency across years BEFORE writing to storage
+- Consider adding a `schema_version` metadata field
 
 **Warning signs:**
-- Empty DataFrames from fetch calls with no error raised
-- High null percentages in joined datasets
-- Inconsistent season coverage across Bronze tables
+- Missing `week` column in depth chart DataFrames for 2025+
+- Downstream Silver transforms failing on `week` column lookups
+- Schema validation warnings about unexpected columns
 
-**Prevention:**
-- Add per-data-type season ranges in `src/config.py`:
-  ```python
-  DATA_TYPE_SEASONS = {
-      'ngs_passing': range(2016, 2026),
-      'ngs_rushing': range(2016, 2026),
-      'pfr_weekly': range(2018, 2026),
-      'win_totals': range(2020, 2026),
-      ...
-  }
-  ```
-- Validate requested seasons against the data-type-specific range, not the global range
-- Add a minimum row count assertion per data type per season (e.g., NGS passing should have 32+ rows per season)
-- Document the source of each data type (NFL NGS, PFR, ESPN, PFF) and its coverage window
+**Phase to address:**
+Phase 2 (new data type ingestion) -- depth charts need special handling for schema evolution.
 
-**Detection:** Ingested data with suspiciously few rows. Empty or near-empty parquet files. Season gaps in Silver layer aggregations.
+---
 
-**Confidence:** MEDIUM -- NGS starting at 2016 and PFR from 2018 confirmed via nflverse docs. Other ranges are approximate and need verification against actual API responses.
+### Pitfall 5: GitHub Rate Limiting on Bulk Downloads
 
-**Phase:** Address in Phase 1 (config + validation) before ingesting any new data types.
+**What goes wrong:**
+nfl-data-py downloads from `https://github.com/nflverse/nflverse-data/releases/`. GitHub rate limits unauthenticated requests to 60/hour and authenticated to 5,000/hour. A full backfill of 15 data types across 10 years is ~150+ individual downloads. PFR alone is 4 stat types x 2 frequencies x 8 seasons = 64 calls. Without auth tokens or delays, you hit 403 errors partway through.
+
+**Why it happens:**
+The existing `_safe_call` in the adapter returns an empty DataFrame on error but does NOT retry. A 403 from rate limiting looks the same as "no data exists" -- silent data gaps.
+
+**How to avoid:**
+- Set `GITHUB_TOKEN` environment variable so downloads use authenticated rate limits (5000/hr)
+- Add a configurable delay between API calls (1-2 seconds) in the batch loop
+- Add retry logic with exponential backoff for 403/429 responses
+- Batch by data type (all seasons of PBP, then all seasons of NGS) rather than by season
+- Log HTTP status codes, not just empty/non-empty DataFrame results
+
+**Warning signs:**
+- HTTP 403 or 429 errors in logs
+- Empty DataFrames returned for seasons that should have data
+- Ingestion speed degrading as the run progresses
+- Successive data types returning empty after the first few succeed
+
+**Phase to address:**
+Phase 1 (pre-backfill) -- add rate limiting, retry logic, and GITHUB_TOKEN to adapter.
+
+---
+
+### Pitfall 6: Schema Drift Across Years for the Same Data Type
+
+**What goes wrong:**
+NFL data schemas are not stable across years. Known examples from this project:
+- `snap_counts`: uses `offense_pct` (not `snap_pct`) and `player` (not `player_id`)
+- `player_weekly`: uses `receiving_air_yards` (not `air_yards`)
+- `player_seasonal`: has `wopr_x`/`wopr_y` merge artifacts from nfl-data-py joining
+- PBP: `xpass`, `pass_oe`, `cpoe` may be absent in pre-2016 data
+- Team abbreviations change: `OAK` -> `LV` (2020), `SD` -> `LAC` (2017), `STL` -> `LA` (2016)
+
+When backfilling 2016-2025, early seasons may have fewer columns, different names, or different dtypes.
+
+**Why it happens:**
+The NFL adds tracking capabilities over time. nfl-data-py returns whatever the upstream source provides. Bronze layer stores raw data, but Parquet files with mismatched schemas across years cannot be trivially queried together.
+
+**How to avoid:**
+- Store each season as a separate Parquet file (already the pattern) -- do NOT concatenate across years
+- Run `validate_data()` on each season's DataFrame independently
+- Build a schema registry that records actual columns returned per (data_type, season) pair
+- For PBP, always pass `columns=PBP_COLUMNS` to force consistent schema (missing columns become NaN)
+- Maintain a team abbreviation mapping table for historical join resolution
+
+**Warning signs:**
+- `validate_data()` reporting missing required columns for early seasons
+- Parquet read errors when loading files from different seasons into the same DataFrame
+- Team abbreviation mismatches in joins (e.g., "OAK" in 2019 vs. "LV" in 2020)
+
+**Phase to address:**
+Phase 1 (before backfill) -- add per-season schema logging; Phase 3 (validation) -- cross-year schema comparison.
 
 ---
 
 ## Moderate Pitfalls
 
-### Pitfall 5: Column Name Inconsistencies Across Data Types
+### Pitfall 7: QBR Weekly vs. Seasonal Filename Collision
 
-**What goes wrong:** nfl-data-py uses different column naming conventions across functions. The project already hit this with `receiving_air_yards` vs `air_yards`, `offense_pct` vs `snap_pct`, and `player` vs `player_id`. Adding 9 new data types introduces more naming conflicts:
+**What goes wrong:**
+QBR data comes in two frequencies: `weekly` and `seasonal`, both fetched via `import_qbr(frequency=...)`. If both are saved with the same filename pattern, one overwrites the other. The existing code handles this with `qbr_{frequency}_{ts}.parquet` (line 358-359 of `bronze_ingestion_simple.py`), but a batch backfill script might not replicate this logic.
 
-- Player ID: `player_id`, `gsis_id`, `pfr_player_id`, `ngs_player_id`, `pfr_id`
-- Team: `team`, `recent_team`, `team_abbr`, `posteam`
-- Name: `player_name`, `player`, `passer_player_name`, `player_display_name`
+**Why it happens:**
+The QBR registry entry has no `sub_types` key (unlike NGS and PFR). The frequency distinction is handled in filename logic, not path structure -- a one-off pattern easy to forget.
 
-**Why it happens:** Each upstream data source (NFL NGS, PFF, PFR, ESPN) uses its own schema. nfl-data-py passes these through without normalization.
+**How to avoid:**
+- Already solved in `bronze_ingestion_simple.py` -- verify any new batch script replicates this
+- Consider restructuring QBR path to `qbr/{frequency}/season={season}/` for consistency with NGS/PFR
+- Test by ingesting both weekly and seasonal QBR for a single season, verify two distinct files
 
-**Prevention:**
-- Define a canonical column schema in `src/config.py` for each data type
-- Build column mapping into the fetch layer (not the Silver transformation)
-- Add schema validation assertions immediately after fetch: assert expected columns exist before writing to Bronze
-- Standardize on `player_id` (GSIS ID) as the canonical join key and map all other identifiers to it
+**Warning signs:**
+- Only one QBR file per season when there should be two
+- QBR seasonal data unexpectedly having `week` columns
 
-**Detection:** `KeyError` exceptions in Silver transformations. Columns with all NaN values after joins.
-
-**Confidence:** HIGH -- multiple instances already documented in CONCERNS.md.
-
-**Phase:** Phase 1 (schema registry) and ongoing for each new data type.
+**Phase to address:**
+Phase 2 (QBR ingestion) -- verify both frequencies produce distinct files.
 
 ---
 
-### Pitfall 6: NGS and PFR Functions Require stat_type Parameter
+### Pitfall 8: NGS Data Only Available from 2016 -- Silent Empty Returns
 
-**What goes wrong:** Several nfl-data-py functions require a `stat_type` parameter that splits a single "data type" into 3 separate API calls:
+**What goes wrong:**
+NGS (Next Gen Stats) data only exists from 2016 onward. The NFL's RFID tracking system was deployed in 2016. Requesting earlier seasons returns empty DataFrames with no error. The `DATA_TYPE_SEASON_RANGES` correctly shows `ngs: (2016, get_max_season)`, and `_filter_seasons` silently skips invalid seasons with only a log warning.
 
-- `import_ngs_data(stat_type, years)` -- stat_type: `"passing"`, `"rushing"`, `"receiving"`
-- `import_seasonal_pfr(s_type, years)` -- s_type: `"pass"`, `"rush"`, `"rec"`
-- `import_weekly_pfr(s_type, years)` -- s_type: `"pass"`, `"rush"`, `"rec"`
+**Why it happens:**
+Different data types have different availability windows. A batch script that tries 2010-2025 for everything will get empty results for NGS 2010-2015 with no clear error.
 
-Note the inconsistencies:
-- NGS uses full words (`"passing"`, `"rushing"`, `"receiving"`), PFR uses abbreviations (`"pass"`, `"rush"`, `"rec"`)
-- Parameter name differs: `stat_type` vs `s_type`
-- PyPI documentation was historically incorrect about the NGS parameter name (documented as `columns` when it should be `stat_type` -- see issue #34)
+**How to avoid:**
+- The existing `_filter_seasons` + `DATA_TYPE_SEASON_RANGES` validation is correct
+- Add a per-type summary at the end of batch ingestion showing seasons attempted vs. seasons with data
+- Validate expected row counts are non-zero for each season
+- NGS has 3 sub-types (passing, rushing, receiving) -- each needs a separate ingestion call
 
-**Why it happens:** nfl-data-py wraps different upstream data sources with different conventions and never normalized them.
+**Warning signs:**
+- Empty Parquet files (0 rows) written for seasons before availability window
+- Batch completion reporting fewer seasons than expected with no error
 
-**Prevention:**
-- Create three separate CLI data types per function: `ngs_passing`, `ngs_rushing`, `ngs_receiving`, `pfr_pass`, `pfr_rush`, `pfr_rec`
-- Do NOT concatenate the three stat types into one DataFrame (their schemas differ: passing has `avg_time_to_throw`, rushing has `rush_yards_over_expected`)
-- Store as separate Parquet files with the stat_type in the S3 key
-- Verify parameter names against the actual nfl-data-py source code, not PyPI docs
-
-**Detection:** `TypeError` from missing stat_type. DataFrames with mixed schemas if someone concatenates.
-
-**Confidence:** HIGH -- confirmed via PyPI documentation and GitHub issue #34.
-
-**Phase:** Phase 2 (when implementing NGS and PFR fetch methods).
+**Phase to address:**
+Phase 2 (NGS ingestion) -- validate availability window, add summary reporting.
 
 ---
 
-### Pitfall 7: Hardcoded Season Upper Bound Will Block 2026 Data
+### Pitfall 9: Snap Counts Adapter Has Unique (season, week) Signature
 
-**What goes wrong:** `NFLDataFetcher.available_seasons` is hardcoded as `range(1999, 2026)`, and `validate_data()` line 365 rejects seasons > 2025. The draft assistant defaults to `--season 2026`, which would be filtered out. Adding 9 new data types without fixing this means none of them will work for the current season.
+**What goes wrong:**
+Every adapter method except `fetch_snap_counts` takes `seasons: List[int]`. `fetch_snap_counts` takes `(season: int, week: int)` -- two positional ints. A batch script that generically calls `adapter.method(seasons=[s])` will break for snap counts.
 
-**Prevention:**
-- Replace `range(1999, 2026)` with `range(1999, datetime.date.today().year + 1)` or a config constant
-- Fix the validation check on line 365 to use the same dynamic range
-- Add a test that verifies the current year is always valid
+**Why it happens:**
+The underlying `nfl.import_snap_counts()` takes `(season, week)` not a list. The adapter mirrors this, and `_build_method_kwargs` has special-case handling (line 186-187 of `bronze_ingestion_simple.py`). For 10-year backfill, this means 10 seasons x 18 weeks = 180 individual API calls.
 
-**Detection:** Fetch calls for 2026 returning "No valid seasons provided" error.
+**How to avoid:**
+- The existing special-case in `_build_method_kwargs` handles this correctly
+- For backfill, snap counts need nested loops (season x week), not just season-level iteration
+- Add progress reporting: "Ingesting snap_counts season 2016 week 5/18..."
+- Consider if weekly granularity is needed for all 10 years or just recent seasons
 
-**Confidence:** HIGH -- confirmed in code and CONCERNS.md.
+**Warning signs:**
+- `TypeError: fetch_snap_counts() got an unexpected keyword argument 'seasons'`
+- Snap counts returning all weeks when only one was requested
 
-**Phase:** Phase 1 (prerequisite fix before any new data types).
-
----
-
-### Pitfall 8: No Local-First Support in Bronze Ingestion Script
-
-**What goes wrong:** The current `bronze_ingestion_simple.py` requires AWS credentials and fails immediately if they are missing (line 90-92: `return 1`). Silver and Gold scripts have been updated for local-first operation, but Bronze ingestion has not. Since AWS credentials are expired, adding 9 new data types to this script means none of them can be ingested.
-
-**Prevention:**
-- Add local file output to `bronze_ingestion_simple.py`: write parquet to `data/bronze/{dataset}/season={YYYY}/week={WW}/`
-- Follow the same pattern used in `silver_player_transformation.py` and `generate_projections.py`
-- Add `--no-s3` flag or auto-detect invalid credentials and fall back to local
-- S3 upload becomes optional, not required
-
-**Detection:** Bronze ingestion failing with "Missing AWS credentials" before any data is fetched.
-
-**Confidence:** HIGH -- confirmed in code review.
-
-**Phase:** Phase 1 (prerequisite fix).
+**Phase to address:**
+Phase 1 (existing type backfill) -- snap counts need week-level loop, not just season-level.
 
 ---
 
-### Pitfall 9: Validation Only Checks Required Columns for 8 Known Types
+### Pitfall 10: Disk Space Exhaustion During Full Backfill
 
-**What goes wrong:** `validate_data()` has a hardcoded `required_columns` dict with 8 entries (lines 330-338). Adding 9 new data types without updating this dict means validation returns `is_valid: True` for any DataFrame, even empty or malformed ones. Validation becomes a false safety net.
+**What goes wrong:**
+The current Bronze layer is 7 MB across 31 files. Full backfill estimate:
+- PBP: ~50 MB/season x 10 seasons = ~500 MB
+- NGS: ~5 MB/season x 3 types x 10 seasons = ~150 MB
+- PFR: ~2 MB/season x 4 types x 2 frequencies x 8 seasons = ~128 MB
+- Existing types extended: ~50 MB
+- All other new types: ~50 MB
+- **Estimated total: 850 MB to 1.2 GB** (100x increase from current 7 MB)
 
-**Prevention:**
-- Add required columns for every new data type to the validation dict
-- Better: make required columns configurable per data type in `src/config.py` rather than hardcoded in the validation method
-- Add minimum row count checks (e.g., "NGS passing for one season should have at least 32 rows for 32 starting QBs")
-- Add column-presence assertions separate from null-percentage checks
+Each ingestion run creates a NEW timestamped file. Re-running the backfill doubles disk usage.
 
-**Detection:** Validation always passing for new data types regardless of content.
+**Why it happens:**
+The timestamped file convention preserves history but means re-runs create duplicates, not updates.
 
-**Confidence:** HIGH -- confirmed in code (lines 330-338).
+**How to avoid:**
+- Before backfill, verify ~2 GB free disk space
+- Add a `--replace` flag that removes old files before writing
+- Or add a dedup/cleanup step that keeps only the latest file per partition
+- Monitor disk usage during long batch runs
 
-**Phase:** Phase 1 (extend validation as each new data type is added).
+**Warning signs:**
+- `OSError: [Errno 28] No space left on device`
+- Multiple timestamped files in the same partition directory
+- Disk usage growing faster than expected
 
----
-
-## Minor Pitfalls
-
-### Pitfall 10: Bronze Ingestion CLI Uses elif Chain Instead of Dispatch
-
-**What goes wrong:** Adding 9 new data types to `bronze_ingestion_simple.py` means adding 9 more `elif` blocks to the existing 8-way chain (lines 99-144). This creates a 17-way if/elif chain that is hard to read, test, and maintain. Each block has slightly different logic for S3 key construction, making it easy to introduce copy-paste bugs.
-
-**Prevention:**
-- Refactor to a dispatch table before expanding:
-  ```python
-  DATA_TYPE_CONFIG = {
-      'ngs_passing': {'fetch_method': 'fetch_ngs_passing', 's3_prefix': 'ngs/passing', 'weekly': False},
-      ...
-  }
-  ```
-- Each data type becomes a config entry, not a code branch
-
-**Phase:** Phase 1 (refactor before adding new types, not after).
+**Phase to address:**
+Phase 1 (pre-backfill) -- disk space check and dedup strategy.
 
 ---
 
-### Pitfall 11: PBP Currently Fetches Only 10-13 Columns
+### Pitfall 11: Column Name Inconsistencies Across Data Types
 
-**What goes wrong:** The existing `fetch_play_by_play()` defaults to 13 columns (line 85-87) and the bronze ingestion script requests only 10 (lines 106-108). For game prediction purposes, the valuable columns are EPA, WPA, CPOE, air yards, completion probability, and other advanced metrics -- none of which are in the current default.
+**What goes wrong:**
+nfl-data-py uses different column naming conventions across functions:
+- Player ID: `player_id`, `gsis_id`, `pfr_player_id`, `ngs_player_id`, `pfr_id`, `player_gsis_id`
+- Team: `team`, `recent_team`, `team_abbr`, `posteam`, `club_code`
+- Name: `player_name`, `player`, `passer_player_name`, `player_display_name`, `pfr_player_name`, `full_name`
 
-**Prevention:**
-- Bronze should store ALL columns (Medallion Architecture principle: Bronze = raw, unfiltered)
-- Remove the `columns` parameter default from the Bronze-level PBP fetch
-- Create named column subsets in config for Silver-layer filtering
-- Use Parquet columnar storage -- unused columns have near-zero read cost when queried by column
+**Why it happens:**
+Each upstream source (NFL NGS, PFR, ESPN) uses its own schema. nfl-data-py passes these through without normalization. This is correct for Bronze (raw data), but creates join headaches at Silver.
 
-**Phase:** Phase 2 (when redesigning PBP ingestion for full column support).
+**How to avoid:**
+- At Bronze layer: store as-is (do not rename columns)
+- Document canonical join keys per data type in the data dictionary
+- At Silver layer: build explicit column mapping transforms
+- Standardize on GSIS `player_id` as the canonical join key
 
----
+**Warning signs:**
+- `KeyError` in Silver transformations
+- Columns with all NaN values after joins
+- Duplicate rows from join key mismatches
 
-### Pitfall 12: Broad Exception Handling Hides Data Source Errors
-
-**What goes wrong:** Every fetch method catches `Exception` and re-raises after logging. When adding 9 new data types, some will have unique failure modes:
-- Combine data: may not exist for the current season (combine hasn't happened yet in March)
-- Win totals: may not be published until late summer
-- Depth charts: schema may change mid-season as teams update rosters
-- NGS data: may return errors if stat_type is wrong
-
-All of these get caught as generic `Exception` with no guidance on the actual problem.
-
-**Prevention:**
-- Add data-type-specific error handling that gives actionable messages:
-  - "Combine data not yet available for 2026 season (typically published in March after the Combine)"
-  - "NGS data requires stat_type parameter: passing, rushing, or receiving"
-  - "Win totals typically available starting in June for the upcoming season"
-- Distinguish between "data doesn't exist yet" (expected, temporal) and "API is broken" (unexpected)
-
-**Phase:** Phase 2 (after basic ingestion works, before production use).
+**Phase to address:**
+Phase 2 (as each new data type is added) and Phase 3 (Silver integration).
 
 ---
 
-### Pitfall 13: S3 Key Pattern Inconsistency for New Data Types
+### Pitfall 12: NGS and PFR Parameter Name Inconsistencies
 
-**What goes wrong:** The existing S3 key patterns lack consistency:
-- `games/season=YYYY/week=WW/schedules_*.parquet`
-- `plays/season=YYYY/week=WW/pbp_*.parquet`
-- `players/weekly/season=YYYY/week=WW/player_weekly_*.parquet`
+**What goes wrong:**
+- `import_ngs_data()` uses `stat_type` with full words: `"passing"`, `"rushing"`, `"receiving"`
+- `import_weekly_pfr()` / `import_seasonal_pfr()` use `s_type` with abbreviations: `"pass"`, `"rush"`, `"rec"`, `"def"`
+- PyPI documentation was historically incorrect about the NGS parameter name ([issue #34](https://github.com/nflverse/nfl_data_py/issues/34))
 
-Some use category names (`games`, `plays`), others use entity names (`players/weekly`). No convention exists for NGS, PFR, combine, draft, etc.
+**Why it happens:**
+nfl-data-py wraps different upstream sources with different conventions and never normalized them.
 
-**Prevention:**
-- Define S3/local key templates in `src/config.py` for ALL data types before implementation
-- Establish a consistent pattern: `{source}/{data_type}/season=YYYY/[week=WW/]{data_type}_YYYYMMDD_HHMMSS.parquet`
-- Seasonal data (combine, draft, rosters) should omit the `week=` partition
-- Stat-typed data (NGS, PFR) should include stat_type in the key or directory
+**How to avoid:**
+- The existing adapter handles this correctly: `fetch_ngs` passes `stat_type=`, `fetch_pfr_weekly` passes `s_type=`
+- The registry in `bronze_ingestion_simple.py` uses `sub_types` lists and maps the correct keyword arg
+- Verify against actual nfl-data-py source code, not PyPI docs
+- Do NOT concatenate different stat types into one DataFrame (their schemas differ)
 
-**Phase:** Phase 1 (define key patterns before writing any new ingestion code).
+**Warning signs:**
+- `TypeError` from wrong parameter name
+- DataFrames with mixed schemas if stat types are concatenated
+
+**Phase to address:**
+Phase 2 (NGS and PFR ingestion).
 
 ---
 
-## Phase-Specific Warnings
+## Technical Debt Patterns
 
-| Phase Topic | Likely Pitfall | Mitigation |
-|-------------|---------------|------------|
-| Phase 1: Setup | nfl-data-py archived (Pitfall 1) | Decide: migrate to nflreadpy or build adapter layer |
-| Phase 1: Setup | Season cap at 2025 (Pitfall 7) | Dynamic year calculation |
-| Phase 1: Setup | No local Bronze writes (Pitfall 8) | Add local-first support to bronze_ingestion_simple.py |
-| Phase 1: Config | Season ranges vary (Pitfall 4) | Define per-type season ranges in config.py |
-| Phase 1: Config | Key pattern chaos (Pitfall 13) | Define all S3/local key templates upfront |
-| Phase 1: Refactor | elif chain (Pitfall 10) | Dispatch table before adding types |
-| Phase 2: PBP | Memory explosion (Pitfall 3) | Per-season processing, downcast=True, full columns |
-| Phase 2: NGS/PFR | stat_type confusion (Pitfall 6) | 3 API calls per type, verify param names |
-| Phase 2: All types | Column drift (Pitfall 5) | Schema registry, centralized mapping |
-| Phase 2: All types | Broken validation (Pitfall 9) | Extend validation dict per type |
-| Phase 3: Joins | Player ID mismatches (Pitfall 5) | Standardize on GSIS ID, add ID resolution |
-| Phase 3: Combine/Draft | Temporal unavailability (Pitfall 12) | Actionable error messages per type |
-| All phases | API function traps (Pitfall 2) | Verify against GitHub source, not PyPI docs |
+| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
+|----------|-------------------|----------------|-----------------|
+| Skip validation on backfill | 2x faster ingestion | Corrupt data undetected | Never -- validation is warn-only, negligible cost |
+| Load all PBP columns | Simpler code | 3x memory usage, schema instability | Never -- always use `PBP_COLUMNS` |
+| Skip `gc.collect()` between PBP seasons | Marginally faster | OOM on machines with <16 GB RAM | Only if >32 GB RAM |
+| Hardcode season ranges | Quick fix | Breaks next year | Never -- use `DATA_TYPE_SEASON_RANGES` |
+| Ignore empty DataFrames | No error handling | Silent data gaps | Never -- log and flag |
+| No delay between API calls | Faster backfill | 403 rate limit hits | Never -- add 1-2s delay |
+| Single run with no dedup | Quick completion | Duplicate files on re-run | MVP only -- add dedup before second run |
+| Stay on nfl-data-py forever | No migration work | Dead dependency, frozen on Python 3.9 | Acceptable for this milestone only |
 
-## Priority Order for Addressing Pitfalls
+## Integration Gotchas
 
-1. **Before any expansion:** Fix Pitfalls 7 (season cap), 8 (local-first bronze), 1 (adapter layer decision)
-2. **During Phase 1:** Address Pitfalls 4 (season ranges), 9 (validation), 10 (dispatch refactor), 5 (schema registry), 13 (key patterns)
-3. **Per data type:** Address Pitfalls 6 (NGS/PFR stat_type), 3 (PBP memory), 11 (PBP columns) as each type is implemented
-4. **After basic expansion:** Address Pitfalls 12 (error handling), 2 (rosters guard enforcement)
+| Integration | Common Mistake | Correct Approach |
+|-------------|----------------|------------------|
+| `import_rosters()` | Using the broken function | Use `import_seasonal_rosters()` -- fixed in adapter |
+| `import_ngs_data()` | Passing `years` as first positional arg | Use keyword: `stat_type="passing", years=[2024]` |
+| `import_qbr()` | Forgetting `frequency` param | Defaults to `"weekly"` -- pass explicitly for seasonal |
+| `import_pbp_data()` | Setting `include_participation=True` | Causes OOM -- always `False` |
+| `import_snap_counts()` | Passing seasons as list | Takes `(season, week)` positional ints |
+| `import_injuries()` | Requesting 2025 data | Data source dead after 2024 -- will 404 |
+| `import_depth_charts()` | Assuming `week` column exists in 2025+ | 2025+ uses ISO timestamps instead |
+| GitHub release downloads | No auth token | Set `GITHUB_TOKEN` for 5000/hr vs. 60/hr limit |
+| numpy version | Upgrading to 2.x | Pin `numpy<2` -- nfl-data-py uses deprecated `np.float_` |
+
+## Performance Traps
+
+| Trap | Symptoms | Prevention | When It Breaks |
+|------|----------|------------|----------------|
+| Multi-season PBP load | OOM kill, process hangs | One season at a time + `gc.collect()` | >2 seasons on 8 GB RAM |
+| No delay between API calls | 403 errors mid-backfill | 1-2s delay + GITHUB_TOKEN | >60 calls/hr unauthenticated |
+| Full-column PBP reads | 3x slower, 3x memory | Always pass `columns=PBP_COLUMNS` | Any PBP load |
+| Snap counts 10yr x 18wk | 180 API calls, ~30 min | Accept sequential, add progress bar | Always slow |
+| Re-running backfill | Disk fills 2x | Dedup before re-run or `--replace` flag | Second run of any backfill |
+| All data types in one batch | Rate limited at ~60 calls | Split into multiple runs or add GITHUB_TOKEN | >60 unauthenticated calls |
+
+## "Looks Done But Isn't" Checklist
+
+- [ ] **PBP backfill:** Verify all 103 curated columns present per season -- early seasons may lack `xpass`, `pass_oe`, `cpoe`
+- [ ] **NGS backfill:** Verify all 3 sub-types (passing, rushing, receiving) ingested per season, starting from 2016 only
+- [ ] **PFR backfill:** Verify 4 stat types x 2 frequencies = 8 combinations per season, starting from 2018 only
+- [ ] **QBR backfill:** Verify BOTH weekly AND seasonal files exist per season (frequency-prefixed filenames)
+- [ ] **Injuries backfill:** Confirm 2025 is NOT attempted (data source dead) -- max is 2024; backfill 2016-2019
+- [ ] **Depth charts 2025:** Confirm schema change (ISO timestamps vs. weeks) is handled or documented
+- [ ] **Snap counts:** Confirm week-level loop ran for all 18 weeks per season, not just week 1
+- [ ] **Team abbreviations:** Confirm OAK/SD/STL data has correct historical abbreviations in each season
+- [ ] **Disk space:** Confirm total Bronze is ~1 GB (not 2+ GB from duplicates)
+- [ ] **Validation:** Confirm `validate_data()` ran on every file with required columns defined for all 15 types
+- [ ] **Rate limiting:** Confirm no 403 errors in logs, GITHUB_TOKEN was set
+- [ ] **Dependencies:** Confirm `numpy<2` and `nfl-data-py==0.3.3` pinned in requirements.txt
+
+## Recovery Strategies
+
+| Pitfall | Recovery Cost | Recovery Steps |
+|---------|---------------|----------------|
+| PBP OOM crash | LOW | Kill process, restart with single-season mode, add `gc.collect()` |
+| Duplicate files from re-run | LOW | Script to find and remove all but latest timestamp per partition |
+| Schema mismatch across years | MEDIUM | Re-validate each file, build schema registry, document gaps |
+| Rate limiting (403s) | LOW | Wait 1 hour, set GITHUB_TOKEN, re-run with delays |
+| Injury 2025 data missing | LOW | Accept gap, update season range to static 2024 |
+| Depth chart schema change | MEDIUM | Add transformation step for 2025+, re-ingest with new schema handling |
+| Numpy 2.0 breakage | LOW | `pip install "numpy<2"` -- crash happens before write, no data corruption |
+| Disk full during backfill | MEDIUM | Free space, dedup existing files, restart from last successful season |
+| Wrong import_rosters | LOW | Already fixed in adapter -- re-run with correct function |
+| GITHUB_TOKEN not set | LOW | Set token, re-run failed data types only |
+
+## Pitfall-to-Phase Mapping
+
+| Pitfall | Prevention Phase | Verification |
+|---------|------------------|--------------|
+| nfl-data-py archived | Pre-work | Pin versions, verify all imports work |
+| PBP memory explosion | Phase 1 (PBP) | Monitor RSS during ingestion, verify <4 GB peak |
+| Injury data dead after 2024 | Phase 1 (existing backfill) | Update config range, verify 2016-2024 ingested, 2025 skipped |
+| Depth chart schema change | Phase 2 (new types) | Compare 2024 vs 2025 schemas, add migration if needed |
+| GitHub rate limiting | Phase 1 (pre-backfill) | Add delays, set GITHUB_TOKEN, verify no 403s in logs |
+| Schema drift across years | Phase 1 + Phase 3 | Per-season schema log; cross-year comparison report |
+| QBR filename collision | Phase 2 (QBR) | Verify two files per season (weekly + seasonal) |
+| NGS availability window | Phase 2 (NGS) | Verify 2016 is earliest with data, log empty returns |
+| Snap counts unique signature | Phase 1 (existing backfill) | Verify week-level loop, check 180 files created |
+| Disk space exhaustion | Phase 1 (pre-backfill) | Check disk space, add dedup, estimate total size |
+| Column name inconsistencies | Phase 2 + Phase 3 | Document join keys, validate at Silver layer |
+| NGS/PFR param differences | Phase 2 | Already handled in adapter -- verify via test |
 
 ## Sources
 
-- [nfl-data-py GitHub (archived)](https://github.com/nflverse/nfl_data_py) -- HIGH confidence, verified archived status
-- [nflreadpy GitHub (replacement)](https://github.com/nflverse/nflreadpy) -- HIGH confidence, official successor
-- [nflreadpy documentation](https://nflreadpy.nflverse.com/) -- HIGH confidence
-- [nflreadpy load functions API](https://nflreadpy.nflverse.com/api/load_functions/) -- HIGH confidence
-- [nfl-data-py PyPI](https://pypi.org/project/nfl-data-py/) -- HIGH confidence, function signatures
-- [nfl-data-py Issue #34 (docs error)](https://github.com/nflverse/nfl_data_py/issues/34) -- HIGH confidence, stat_type vs columns param
-- [nfl-data-py Issue #98 (NumPy 2.0)](https://github.com/nflverse/nfl_data_py/issues/98) -- HIGH confidence, np.float_ removed
-- [nfl-data-py Issue #122 (Python 3.13)](https://github.com/nflverse/nfl_data_py/issues/122) -- HIGH confidence, install failure
-- Project files: `src/nfl_data_integration.py`, `.planning/codebase/CONCERNS.md`, `.planning/PROJECT.md` -- HIGH confidence, direct code review
+- [nfl-data-py GitHub (archived)](https://github.com/nflverse/nfl_data_py) -- confirmed archived Sep 25, 2025
+- [nflreadpy (successor)](https://nflreadpy.nflverse.com/) -- official replacement, Polars-based
+- [nflverse Data Schedule](https://nflreadr.nflverse.com/articles/nflverse_data_schedule.html) -- availability windows, injury death, depth chart schema change
+- [nfl-data-py PyPI](https://pypi.org/project/nfl-data-py/) -- function signatures
+- [nfl-data-py Issue #98 (NumPy 2.0)](https://github.com/nflverse/nfl_data_py/issues/98) -- np.float_ incompatibility
+- [nfl-data-py Issue #34 (docs error)](https://github.com/nflverse/nfl_data_py/issues/34) -- stat_type param mislabeled
+- [nflverse-data releases](https://github.com/nflverse/nflverse-data/releases) -- data hosting, download source
+- [nflverse NGS data repo](https://github.com/nflverse/ngs-data) -- NGS data sourcing details
+- Project codebase: `src/nfl_data_adapter.py`, `src/config.py`, `scripts/bronze_ingestion_simple.py`, `src/nfl_data_integration.py`
+- Project memory: known quirks from v1.0 (snap_counts schema, import_rosters bug, PBP participation OOM)
 
 ---
-
-*Pitfalls audit: 2026-03-08*
+*Pitfalls research for: NFL Bronze data backfill (9 new types, 10 years)*
+*Researched: 2026-03-08*
