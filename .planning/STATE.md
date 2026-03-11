@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bronze Backfill
 status: in-progress
-stopped_at: Completed 10-01-PLAN.md
-last_updated: "2026-03-11T23:31:10Z"
-last_activity: 2026-03-11 — Phase 10 Plan 01 completed
+stopped_at: Completed 10-02-PLAN.md
+last_updated: "2026-03-11T23:36:13Z"
+last_activity: 2026-03-11 — Phase 10 complete (Plan 02 finished)
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 7
-  completed_plans: 5
-  percent: 71
+  completed_plans: 6
+  percent: 86
 ---
 
 # Project State
@@ -29,12 +29,12 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 
 ## Current Position
 
-Phase: 10 of 11 (Existing Type Backfill)
-Plan: 1 of 2 in current phase (Plan 01 complete)
-Status: Phase 10 Plan 01 complete
-Last activity: 2026-03-11 — Phase 10 Plan 01 completed
+Phase: 10 of 11 (Existing Type Backfill) -- COMPLETE
+Plan: 2 of 2 in current phase (Phase 10 complete)
+Status: Phase 10 complete, Phase 11 next
+Last activity: 2026-03-11 — Phase 10 Plan 02 completed
 
-Progress: [███████░░░] 71% (5/7 v1.1 plans)
+Progress: [████████░░] 86% (6/7 v1.1 plans)
 
 ## Key Artifacts
 
@@ -70,6 +70,8 @@ Progress: [███████░░░] 71% (5/7 v1.1 plans)
 - [v1.1]: QBR schema change at 2020 boundary: 30 columns (2006-2019) vs 23 columns (2020+)
 - [v1.1]: fetch_snap_counts changed from (season, week) to (seasons: List[int]) matching all other adapter methods
 - [v1.1]: week_partition registry flag added for automatic per-week file splitting (replaces snap_counts special case)
+- [v1.1]: Backfilled schedules 2020-2025 and snap_counts 2020-2024 to fill gaps from expired S3 credentials
+- [v1.1]: player_weekly/seasonal 2025 remain absent -- nflverse HTTP 404, data not yet published
 
 ### Pending Todos
 
@@ -84,9 +86,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T23:31:10Z
-Stopped at: Completed 10-01-PLAN.md
-Resume file: .planning/phases/10-existing-type-backfill/10-01-SUMMARY.md
+Last session: 2026-03-11T23:36:13Z
+Stopped at: Completed 10-02-PLAN.md
+Resume file: .planning/phases/10-existing-type-backfill/10-02-SUMMARY.md
 
 ---
-*Last updated: 2026-03-11 after Phase 10 Plan 01 completion*
+*Last updated: 2026-03-11 after Phase 10 Plan 02 completion*

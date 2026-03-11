@@ -72,11 +72,11 @@ Plans:
   2. Snap counts have Parquet files for seasons 2016-2025 with correct week-level partitioning
   3. Injuries have Parquet files for seasons 2016-2024 (not 2025, source discontinued)
   4. `validate_data()` passes on all backfilled files
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
-- [ ] 10-01-PLAN.md — Fix snap_counts adapter, add week partitioning, backfill 5 simple types
-- [ ] 10-02-PLAN.md — Backfill snap_counts with week partitioning, verify full coverage
+- [x] 10-01-PLAN.md — Fix snap_counts adapter, add week partitioning, backfill 5 simple types
+- [x] 10-02-PLAN.md — Backfill snap_counts with week partitioning, verify full coverage
 
 ### Phase 11: Orchestration and Validation
 **Goal**: Full backfill is repeatable via a single command and completeness is verified
@@ -108,7 +108,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 7. Tech Debt Cleanup | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 8. Pre-Backfill Guards | v1.1 | 1/1 | Complete | 2026-03-09 |
 | 9. New Data Type Ingestion | v1.1 | 3/3 | Complete | 2026-03-09 |
-| 10. Existing Type Backfill | 1/2 | In Progress|  | - |
+| 10. Existing Type Backfill | v1.1 | 2/2 | Complete | 2026-03-11 |
 | 11. Orchestration and Validation | v1.1 | 0/2 | Not started | - |
 
 ---
