@@ -27,12 +27,12 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 
 ### Existing Type Backfill
 
-- [ ] **BACKFILL-01**: Schedules extended to 2016-2025
-- [ ] **BACKFILL-02**: Player weekly extended to 2016-2025
-- [ ] **BACKFILL-03**: Player seasonal extended to 2016-2025
-- [ ] **BACKFILL-04**: Snap counts extended to 2016-2025 (handle week-level iteration)
-- [ ] **BACKFILL-05**: Injuries extended to 2016-2024 (source discontinued after 2024)
-- [ ] **BACKFILL-06**: Rosters extended to 2016-2025
+- [x] **BACKFILL-01**: Schedules extended to 2016-2025
+- [x] **BACKFILL-02**: Player weekly extended to 2016-2025
+- [x] **BACKFILL-03**: Player seasonal extended to 2016-2025
+- [x] **BACKFILL-04**: Snap counts extended to 2016-2025 (handle week-level iteration)
+- [x] **BACKFILL-05**: Injuries extended to 2016-2024 (source discontinued after 2024)
+- [x] **BACKFILL-06**: Rosters extended to 2016-2025
 
 ### Orchestration
 
@@ -82,12 +82,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INGEST-07 | Phase 9 | Complete |
 | INGEST-08 | Phase 9 | Complete |
 | INGEST-09 | Phase 9 | Complete |
-| BACKFILL-01 | Phase 10 | Pending |
-| BACKFILL-02 | Phase 10 | Pending |
-| BACKFILL-03 | Phase 10 | Pending |
-| BACKFILL-04 | Phase 10 | Pending |
-| BACKFILL-05 | Phase 10 | Pending |
-| BACKFILL-06 | Phase 10 | Pending |
+| BACKFILL-01 | Phase 10 | Complete |
+| BACKFILL-02 | Phase 10 | Complete |
+| BACKFILL-03 | Phase 10 | Complete |
+| BACKFILL-04 | Phase 10 | Complete |
+| BACKFILL-05 | Phase 10 | Complete |
+| BACKFILL-06 | Phase 10 | Complete |
 | ORCH-01 | Phase 11 | Pending |
 | ORCH-02 | Phase 11 | Pending |
 | VALID-01 | Phase 11 | Pending |

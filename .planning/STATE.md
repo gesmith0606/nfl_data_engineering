@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bronze Backfill
-status: completed
-stopped_at: Completed 09-02-PLAN.md
-last_updated: "2026-03-09T22:41:59.391Z"
-last_activity: 2026-03-09 — Phase 9 Plan 02 completed
+status: in-progress
+stopped_at: Completed 10-01-PLAN.md
+last_updated: "2026-03-11T23:31:10Z"
+last_activity: 2026-03-11 — Phase 10 Plan 01 completed
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
-  percent: 57
+  total_plans: 7
+  completed_plans: 5
+  percent: 71
 ---
 
 # Project State
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-08)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game outcome predictions
-**Current focus:** Phase 9 - New Data Type Ingestion
+**Current focus:** Phase 10 - Existing Type Backfill
 
 ## Current Milestone
 
@@ -29,12 +29,12 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 
 ## Current Position
 
-Phase: 9 of 11 (New Data Type Ingestion)
-Plan: 2 of 3 in current phase (Plans 01, 02, 03 complete)
-Status: Phase 9 Plan 02 complete
-Last activity: 2026-03-09 — Phase 9 Plan 02 completed
+Phase: 10 of 11 (Existing Type Backfill)
+Plan: 1 of 2 in current phase (Plan 01 complete)
+Status: Phase 10 Plan 01 complete
+Last activity: 2026-03-11 — Phase 10 Plan 01 completed
 
-Progress: [██████░░░░] 57% (4/7 v1.1 plans)
+Progress: [███████░░░] 71% (5/7 v1.1 plans)
 
 ## Key Artifacts
 
@@ -68,6 +68,8 @@ Progress: [██████░░░░] 57% (4/7 v1.1 plans)
 - [v1.1]: QBR 2024+2025 seasonal returns 0 rows -- confirmed nflverse delay, skipped gracefully
 - [v1.1]: PFR seasonal def missing 'team' column across all seasons -- validation warns, data saved per Bronze-stores-raw
 - [v1.1]: QBR schema change at 2020 boundary: 30 columns (2006-2019) vs 23 columns (2020+)
+- [v1.1]: fetch_snap_counts changed from (season, week) to (seasons: List[int]) matching all other adapter methods
+- [v1.1]: week_partition registry flag added for automatic per-week file splitting (replaces snap_counts special case)
 
 ### Pending Todos
 
@@ -75,15 +77,16 @@ None yet.
 
 ### Blockers/Concerns
 
-- Snap counts backfill: unknown whether `import_snap_counts(season, week=None)` returns all weeks or requires 1-18 loop (affects Phase 10 plan size)
+- Snap counts backfill: RESOLVED -- adapter fixed to pass seasons list, nfl.import_snap_counts returns all weeks per season
 - QBR 2024 returned 0 rows on 2026-03-08 -- likely temporary nflverse delay, low impact
 - Depth chart 2025 schema change needs verification during Phase 9
+- Player weekly/seasonal 2025 data returns 404 from nflverse -- not yet published
 
 ## Session Continuity
 
-Last session: 2026-03-09T21:44:01Z
-Stopped at: Completed 09-02-PLAN.md
-Resume file: .planning/phases/09-new-data-type-ingestion/09-02-SUMMARY.md
+Last session: 2026-03-11T23:31:10Z
+Stopped at: Completed 10-01-PLAN.md
+Resume file: .planning/phases/10-existing-type-backfill/10-01-SUMMARY.md
 
 ---
-*Last updated: 2026-03-09 after Phase 9 Plan 02 completion*
+*Last updated: 2026-03-11 after Phase 10 Plan 01 completion*
