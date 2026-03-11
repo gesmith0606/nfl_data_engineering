@@ -53,8 +53,9 @@ DATA_TYPE_REGISTRY = {
     "snap_counts": {
         "adapter_method": "fetch_snap_counts",
         "bronze_path": "players/snaps/season={season}/week={week}",
-        "requires_week": True,
+        "requires_week": False,
         "requires_season": True,
+        "week_partition": True,
     },
     "injuries": {
         "adapter_method": "fetch_injuries",
@@ -181,10 +182,6 @@ def _build_method_kwargs(entry: dict, args) -> dict:
     """
     method_name = entry["adapter_method"]
     kwargs: dict = {}
-
-    # snap_counts adapter takes (season, week) positional — handle specially
-    if method_name == "fetch_snap_counts":
-        return {"season": args.season, "week": args.week}
 
     # Most methods take seasons as a list
     if entry["requires_season"]:
@@ -393,6 +390,28 @@ def main():
 
             # --- Build local path ---
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+            # --- Week partition: split by week column into per-week files ---
+            if entry.get("week_partition") and "week" in df.columns:
+                for week_num in sorted(df["week"].unique()):
+                    week_df = df[df["week"] == week_num]
+                    week_subpath = entry["bronze_path"].format(
+                        season=season,
+                        week=int(week_num),
+                        sub_type=getattr(args, "sub_type", None) or "",
+                    )
+                    week_filename = f"{args.data_type}_{ts}.parquet"
+                    week_dir = os.path.join("data", "bronze", week_subpath)
+                    week_path = os.path.join(week_dir, week_filename)
+                    save_local(week_df, week_path)
+                print(
+                    f"  Week-partitioned: {len(df['week'].unique())} weeks, "
+                    f"{len(df):,} total records"
+                )
+                print(f"  Ingestion complete: {len(df):,} records (week-partitioned)")
+                ingested += 1
+                continue
+
             bronze_subpath = entry["bronze_path"].format(
                 season=season,
                 week=args.week,

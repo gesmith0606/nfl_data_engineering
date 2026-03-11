@@ -170,22 +170,21 @@ class NFLDataAdapter:
             "fetch_seasonal_data", nfl.import_seasonal_data, seasons
         )
 
-    def fetch_snap_counts(self, season: int, week: int) -> pd.DataFrame:
-        """Fetch snap count data for a single season/week.
+    def fetch_snap_counts(self, seasons: List[int]) -> pd.DataFrame:
+        """Fetch snap count data for one or more seasons.
 
         Args:
-            season: Season year.
-            week: Week number.
+            seasons: List of season years.
 
         Returns:
-            DataFrame of snap counts.
+            DataFrame of snap counts (all weeks included).
         """
-        if not validate_season_for_type("snap_counts", season):
-            logger.warning("Season %d not valid for snap_counts", season)
+        seasons = self._filter_seasons("snap_counts", seasons)
+        if not seasons:
             return pd.DataFrame()
         nfl = self._import_nfl()
         return self._safe_call(
-            "fetch_snap_counts", nfl.import_snap_counts, season, week
+            "fetch_snap_counts", nfl.import_snap_counts, seasons
         )
 
     def fetch_injuries(
