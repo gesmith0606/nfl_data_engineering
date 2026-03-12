@@ -86,11 +86,11 @@ Plans:
   1. A single script ingests all 15 data types in sequence with progress output showing type, season, and status
   2. When a data type fails mid-run, the script skips it and continues; a summary at the end lists all failures
   3. `BRONZE_LAYER_DATA_INVENTORY.md` reflects all 15 data types with 10-year coverage after regeneration
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 11-01: Batch orchestration script with failure handling
-- [ ] 11-02: Validation sweep and inventory regeneration
+- [ ] 11-01-PLAN.md — Batch ingestion script with progress, failure handling, skip-existing, and validation (ORCH-01, ORCH-02, VALID-01)
+- [ ] 11-02-PLAN.md — Regenerate Bronze inventory reflecting full 10-year dataset (VALID-02)
 
 ## Progress
 
@@ -113,4 +113,4 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-09 after Phase 10 planning*
+*Last updated: 2026-03-12 after Phase 11 planning*
