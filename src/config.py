@@ -22,7 +22,8 @@ S3_PATHS = {
 DEFAULT_SEASON = 2024
 DEFAULT_WEEK = 1
 
-# Seasons available for player projection training data (5 seasons)
+# Seasons available for player projection training data (5 seasons).
+# Note: 2025 uses nflverse stats_player tag (not legacy player_stats tag).
 PLAYER_DATA_SEASONS = list(range(2020, 2026))
 
 # Databricks Configuration - Updated with your workspace
@@ -208,6 +209,21 @@ DATA_TYPE_SEASON_RANGES: Dict[str, Tuple[int, Callable[[], int]]] = {
     "depth_charts": (2001, get_max_season),
     "draft_picks": (2000, get_max_season),
     "combine": (2000, get_max_season),
+}
+
+# Season threshold for nflverse stats_player tag (replaces archived player_stats tag).
+# Seasons >= this value are fetched directly from GitHub releases instead of via nfl-data-py.
+STATS_PLAYER_MIN_SEASON = 2025
+
+# Column renames: stats_player schema -> backward-compatible Bronze schema.
+# The new tag renamed 5 columns; downstream code (scoring_calculator, player_analytics,
+# projection_engine) expects the old names.
+STATS_PLAYER_COLUMN_MAP = {
+    "passing_interceptions": "interceptions",
+    "sacks_suffered": "sacks",
+    "sack_yards_lost": "sack_yards",
+    "team": "recent_team",
+    "passing_cpoe": "dakota",
 }
 
 
