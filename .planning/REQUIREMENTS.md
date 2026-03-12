@@ -42,7 +42,7 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 ### Validation
 
 - [x] **VALID-01**: All ingested data passes Bronze validate_data() checks
-- [ ] **VALID-02**: Bronze inventory regenerated reflecting full 10-year dataset
+- [x] **VALID-02**: Bronze inventory regenerated reflecting full 10-year dataset
 
 ## v2 Requirements
 
@@ -91,7 +91,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ORCH-01 | Phase 11 | Complete |
 | ORCH-02 | Phase 11 | Complete |
 | VALID-01 | Phase 11 | Complete |
-| VALID-02 | Phase 11 | Pending |
+| VALID-02 | Phase 11 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 22 total
