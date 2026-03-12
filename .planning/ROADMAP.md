@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 Bronze Expansion** — Phases 1-7 (shipped 2026-03-08)
-- 🚧 **v1.1 Bronze Backfill** — Phases 8-11 (in progress)
+- 🚧 **v1.1 Bronze Backfill** — Phases 8-12 (in progress)
 
 ## Phases
 
@@ -30,6 +30,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 - [x] **Phase 9: New Data Type Ingestion** - Ingest all 9 new Bronze data types for 2016-2025 (completed 2026-03-09)
 - [x] **Phase 10: Existing Type Backfill** - Extend 6 existing data types from 2020-2024 to 2016-2025 (completed 2026-03-12)
 - [x] **Phase 11: Orchestration and Validation** - Batch script, failure handling, validation, and inventory regeneration (completed 2026-03-12)
+- [ ] **Phase 12: 2025 Player Stats Gap Closure** - Fetch 2025 player weekly/seasonal stats from nflverse's new `stats_player` release tag, closing BACKFILL-02/03 gaps
 
 ## Phase Details
 
@@ -110,7 +111,22 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 9. New Data Type Ingestion | v1.1 | 3/3 | Complete | 2026-03-09 |
 | 10. Existing Type Backfill | v1.1 | Complete    | 2026-03-12 | 2026-03-11 |
 | 11. Orchestration and Validation | 2/2 | Complete    | 2026-03-12 | - |
+| 12. 2025 Player Stats Gap Closure | v1.1 | 0/0 | Not planned | - |
+
+### Phase 12: 2025 Player Stats Gap Closure
+**Goal**: Fetch 2025 player weekly and seasonal stats from nflverse's new `stats_player` release tag (replacing archived `player_stats` tag), with column mapping for backward compatibility
+**Depends on**: Phase 11
+**Requirements**: BACKFILL-02, BACKFILL-03
+**Success Criteria** (what must be TRUE):
+  1. `data/bronze/players/weekly/season=2025/` contains a Parquet file with schema compatible with 2016-2024 files (53 data columns + metadata)
+  2. `data/bronze/players/seasonal/season=2025/` contains a Parquet file derived from weekly aggregation
+  3. `validate_data()` passes on both 2025 files
+  4. Existing Silver pipeline (`silver_player_transformation.py`) processes 2025 data without error
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 12 to break down)
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-12 after Phase 11 planning*
+*Last updated: 2026-03-12 after Phase 12 added (2025 player stats gap closure)*
