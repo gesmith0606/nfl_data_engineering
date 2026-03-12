@@ -28,7 +28,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 - [x] **Phase 8: Pre-Backfill Guards** - Config fixes, dependency pins, and rate-limit protection before bulk ingestion (completed 2026-03-09)
 - [x] **Phase 9: New Data Type Ingestion** - Ingest all 9 new Bronze data types for 2016-2025 (completed 2026-03-09)
-- [ ] **Phase 10: Existing Type Backfill** - Extend 6 existing data types from 2020-2024 to 2016-2025
+- [x] **Phase 10: Existing Type Backfill** - Extend 6 existing data types from 2020-2024 to 2016-2025 (completed 2026-03-12)
 - [ ] **Phase 11: Orchestration and Validation** - Batch script, failure handling, validation, and inventory regeneration
 
 ## Phase Details
@@ -108,7 +108,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 7. Tech Debt Cleanup | v1.0 | 1/1 | Complete | 2026-03-08 |
 | 8. Pre-Backfill Guards | v1.1 | 1/1 | Complete | 2026-03-09 |
 | 9. New Data Type Ingestion | v1.1 | 3/3 | Complete | 2026-03-09 |
-| 10. Existing Type Backfill | v1.1 | 2/2 | Complete | 2026-03-11 |
+| 10. Existing Type Backfill | v1.1 | Complete    | 2026-03-12 | 2026-03-11 |
 | 11. Orchestration and Validation | v1.1 | 0/2 | Not started | - |
 
 ---

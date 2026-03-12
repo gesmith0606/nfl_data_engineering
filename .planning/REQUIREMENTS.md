@@ -28,8 +28,8 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 ### Existing Type Backfill
 
 - [x] **BACKFILL-01**: Schedules extended to 2016-2025
-- [x] **BACKFILL-02**: Player weekly extended to 2016-2025
-- [x] **BACKFILL-03**: Player seasonal extended to 2016-2025
+- [x] **BACKFILL-02**: Player weekly extended to 2016-2024 (2025 pending nflverse publication)
+- [x] **BACKFILL-03**: Player seasonal extended to 2016-2024 (2025 pending nflverse publication)
 - [x] **BACKFILL-04**: Snap counts extended to 2016-2025 (handle week-level iteration)
 - [x] **BACKFILL-05**: Injuries extended to 2016-2024 (source discontinued after 2024)
 - [x] **BACKFILL-06**: Rosters extended to 2016-2025
