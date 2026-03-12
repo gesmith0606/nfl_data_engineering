@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bronze Backfill
-status: completed
-stopped_at: Completed 10-02-PLAN.md
-last_updated: "2026-03-12T00:01:04.823Z"
-last_activity: 2026-03-11 — Phase 10 Plan 02 completed
+status: in-progress
+stopped_at: Completed 11-01-PLAN.md
+last_updated: "2026-03-12T00:48:50.263Z"
+last_activity: 2026-03-12 — Phase 11 Plan 01 completed
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
-  percent: 86
+  total_plans: 8
+  completed_plans: 7
+  percent: 88
 ---
 
 # Project State
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-08)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game outcome predictions
-**Current focus:** Phase 10 - Existing Type Backfill
+**Current focus:** Phase 11 - Orchestration and Validation
 
 ## Current Milestone
 
@@ -29,12 +29,12 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 
 ## Current Position
 
-Phase: 10 of 11 (Existing Type Backfill) -- COMPLETE
-Plan: 2 of 2 in current phase (Phase 10 complete)
-Status: Phase 10 complete, Phase 11 next
-Last activity: 2026-03-11 — Phase 10 Plan 02 completed
+Phase: 11 of 11 (Orchestration and Validation)
+Plan: 1 of 2 in current phase
+Status: Phase 11 in progress, Plan 01 complete
+Last activity: 2026-03-12 — Phase 11 Plan 01 completed
 
-Progress: [████████░░] 86% (6/7 v1.1 plans)
+Progress: [█████████░] 88% (7/8 v1.1 plans)
 
 ## Key Artifacts
 
@@ -72,6 +72,8 @@ Progress: [████████░░] 86% (6/7 v1.1 plans)
 - [v1.1]: week_partition registry flag added for automatic per-week file splitting (replaces snap_counts special case)
 - [v1.1]: Backfilled schedules 2020-2025 and snap_counts 2020-2024 to fill gaps from expired S3 credentials
 - [v1.1]: player_weekly/seasonal 2025 remain absent -- nflverse HTTP 404, data not yet published
+- [v1.1]: Batch ingestion builds fetch kwargs inline (no _build_method_kwargs import) to avoid argparse coupling
+- [v1.1]: Skip-existing uses glob pattern on bronze dirs; Result tuple tracks (type, variant, season, status, detail)
 
 ### Pending Todos
 
@@ -86,9 +88,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T23:36:13Z
-Stopped at: Completed 10-02-PLAN.md
-Resume file: .planning/phases/10-existing-type-backfill/10-02-SUMMARY.md
+Last session: 2026-03-12T00:48:06Z
+Stopped at: Completed 11-01-PLAN.md
+Resume file: .planning/phases/11-orchestration-and-validation/11-01-SUMMARY.md
 
 ---
-*Last updated: 2026-03-11 after Phase 10 Plan 02 completion*
+*Last updated: 2026-03-12 after Phase 11 Plan 01 completion*

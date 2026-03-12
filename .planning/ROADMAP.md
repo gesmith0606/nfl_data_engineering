@@ -86,7 +86,7 @@ Plans:
   1. A single script ingests all 15 data types in sequence with progress output showing type, season, and status
   2. When a data type fails mid-run, the script skips it and continues; a summary at the end lists all failures
   3. `BRONZE_LAYER_DATA_INVENTORY.md` reflects all 15 data types with 10-year coverage after regeneration
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 11-01-PLAN.md — Batch ingestion script with progress, failure handling, skip-existing, and validation (ORCH-01, ORCH-02, VALID-01)
@@ -109,7 +109,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 8. Pre-Backfill Guards | v1.1 | 1/1 | Complete | 2026-03-09 |
 | 9. New Data Type Ingestion | v1.1 | 3/3 | Complete | 2026-03-09 |
 | 10. Existing Type Backfill | v1.1 | Complete    | 2026-03-12 | 2026-03-11 |
-| 11. Orchestration and Validation | v1.1 | 0/2 | Not started | - |
+| 11. Orchestration and Validation | 1/2 | In Progress|  | - |
 
 ---
 *Roadmap created: 2026-03-08*

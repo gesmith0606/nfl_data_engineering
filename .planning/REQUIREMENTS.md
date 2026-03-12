@@ -36,12 +36,12 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 
 ### Orchestration
 
-- [ ] **ORCH-01**: Batch ingestion script runs all data types in sequence with progress reporting
-- [ ] **ORCH-02**: Script handles failures gracefully (skip failed type, continue, report at end)
+- [x] **ORCH-01**: Batch ingestion script runs all data types in sequence with progress reporting
+- [x] **ORCH-02**: Script handles failures gracefully (skip failed type, continue, report at end)
 
 ### Validation
 
-- [ ] **VALID-01**: All ingested data passes Bronze validate_data() checks
+- [x] **VALID-01**: All ingested data passes Bronze validate_data() checks
 - [ ] **VALID-02**: Bronze inventory regenerated reflecting full 10-year dataset
 
 ## v2 Requirements
@@ -88,9 +88,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BACKFILL-04 | Phase 10 | Complete |
 | BACKFILL-05 | Phase 10 | Complete |
 | BACKFILL-06 | Phase 10 | Complete |
-| ORCH-01 | Phase 11 | Pending |
-| ORCH-02 | Phase 11 | Pending |
-| VALID-01 | Phase 11 | Pending |
+| ORCH-01 | Phase 11 | Complete |
+| ORCH-02 | Phase 11 | Complete |
+| VALID-01 | Phase 11 | Complete |
 | VALID-02 | Phase 11 | Pending |
 
 **Coverage:**
