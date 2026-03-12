@@ -3,11 +3,11 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bronze Backfill
 status: completed
-stopped_at: Completed 11-02-PLAN.md
-last_updated: "2026-03-12T00:54:23.222Z"
+stopped_at: Phase 12 context gathered
+last_updated: "2026-03-12T02:20:03.877Z"
 last_activity: 2026-03-12 — Phase 11 Plan 02 completed
 progress:
-  total_phases: 4
+  total_phases: 5
   completed_phases: 4
   total_plans: 8
   completed_plans: 8
@@ -76,6 +76,10 @@ Progress: [██████████] 100% (8/8 v1.1 plans)
 - [v1.1]: Skip-existing uses glob pattern on bronze dirs; Result tuple tracks (type, variant, season, status, detail)
 - [Phase 11]: No changes needed to generate_inventory.py -- existing script handled all 25 data type groupings correctly
 
+### Roadmap Evolution
+
+- Phase 12 added: 2025 Player Stats Gap Closure — fetch from nflverse `stats_player` tag to close BACKFILL-02/03 gaps
+
 ### Pending Todos
 
 None yet.
@@ -85,13 +89,13 @@ None yet.
 - Snap counts backfill: RESOLVED -- adapter fixed to pass seasons list, nfl.import_snap_counts returns all weeks per season
 - QBR 2024 returned 0 rows on 2026-03-08 -- likely temporary nflverse delay, low impact
 - Depth chart 2025 schema change needs verification during Phase 9
-- Player weekly/seasonal 2025 data returns 404 from nflverse -- not yet published
+- Player weekly/seasonal 2025 data returns 404 from nflverse old `player_stats` tag -- RESOLVED: data available under new `stats_player` tag (Phase 12)
 
 ## Session Continuity
 
-Last session: 2026-03-12T00:51:38.920Z
-Stopped at: Completed 11-02-PLAN.md
-Resume file: None
+Last session: 2026-03-12T02:20:03.874Z
+Stopped at: Phase 12 context gathered
+Resume file: .planning/phases/12-2025-player-stats-gap-closure/12-CONTEXT.md
 
 ---
 *Last updated: 2026-03-12 after Phase 11 Plan 02 completion (v1.1 milestone complete)*
