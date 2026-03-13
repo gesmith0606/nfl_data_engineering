@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 Bronze Expansion** — Phases 1-7 (shipped 2026-03-08)
-- 🚧 **v1.1 Bronze Backfill** — Phases 8-12 (in progress)
+- ✅ **v1.1 Bronze Backfill** — Phases 8-14 (shipped 2026-03-13)
 
 ## Phases
 
@@ -22,7 +22,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 </details>
 
-### 🚧 v1.1 Bronze Backfill (In Progress)
+### ✅ v1.1 Bronze Backfill (Shipped 2026-03-13)
 
 **Milestone Goal:** Ingest all 15 registered Bronze data types with 10 years of history (2016-2025), prioritizing 2025 season data.
 
@@ -32,7 +32,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 - [x] **Phase 11: Orchestration and Validation** - Batch script, failure handling, validation, and inventory regeneration (completed 2026-03-12)
 - [x] **Phase 12: 2025 Player Stats Gap Closure** - Fetch 2025 player weekly/seasonal stats from nflverse's new `stats_player` release tag, closing BACKFILL-02/03 gaps (completed 2026-03-13)
 - [x] **Phase 13: Bronze-Silver Path Alignment** - Fix path mismatches between Bronze write paths and Silver read paths; fix snap_counts validate_data() false negative (completed 2026-03-13)
-- [ ] **Phase 14: Bronze Cosmetic Cleanup** - Normalize player_weekly week=0/ paths, deduplicate draft_picks files, fix GITHUB_TOKEN documentation
+- [x] **Phase 14: Bronze Cosmetic Cleanup** - Normalize player_weekly week=0/ paths, deduplicate draft_picks files, fix GITHUB_TOKEN documentation (completed 2026-03-13)
 
 ## Phase Details
 
@@ -115,7 +115,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 11. Orchestration and Validation | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 12. 2025 Player Stats Gap Closure | v1.1 | 2/2 | Complete | 2026-03-13 |
 | 13. Bronze-Silver Path Alignment | 1/1 | Complete    | 2026-03-13 | - |
-| 14. Bronze Cosmetic Cleanup | v1.1 | 1 plan | Planned | - |
+| 14. Bronze Cosmetic Cleanup | v1.1 | 1/1 | Complete | 2026-03-13 |
 
 ### Phase 12: 2025 Player Stats Gap Closure
 **Goal**: Fetch 2025 player weekly and seasonal stats from nflverse's new `stats_player` release tag (replacing archived `player_stats` tag), with column mapping for backward compatibility
@@ -159,8 +159,8 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 14-01-PLAN.md — Filesystem cleanup (player_weekly paths, draft_picks dedup) and GITHUB_TOKEN doc corrections
+- [x] 14-01-PLAN.md — Filesystem cleanup (player_weekly paths, draft_picks dedup) and GITHUB_TOKEN doc corrections
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-13 after Phase 14 planning*
+*Last updated: 2026-03-13 after Phase 14 Plan 01 completion*
