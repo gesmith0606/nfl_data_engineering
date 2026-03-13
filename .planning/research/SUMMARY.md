@@ -11,7 +11,7 @@ This milestone is a pure execution problem, not an architecture problem. The v1.
 
 The recommended approach is to execute the backfill in a carefully ordered sequence: start with small, simple data types (teams, draft picks, combine) to validate the pipeline end-to-end, then progress to types with sub-type dispatch (NGS, PFR, QBR), and finish with PBP (the largest and slowest dataset at ~100 MB/season). Existing data types (schedules, player weekly, etc.) should be backfilled to 2016-2019 alongside or after the new types. A backfill orchestration script wrapping the existing CLI eliminates manual error across ~24 CLI invocations.
 
-The primary risks are: (1) GitHub rate limiting during bulk downloads -- mitigated by setting `GITHUB_TOKEN` and adding inter-call delays, (2) nfl-data-py is archived with no future fixes -- mitigated by completing the backfill now while nflverse-data URLs are stable and keeping dependency pins strict, (3) known data source gaps -- injury data is dead after 2024 and depth chart schemas changed in 2025. These are well-understood and have clear workarounds.
+The primary risks are: (1) GitHub rate limiting during bulk downloads -- mitigated by setting `GITHUB_TOKEN` (for StatsPlayerAdapter and gh CLI; nfl-data-py itself does not use it) and adding inter-call delays, (2) nfl-data-py is archived with no future fixes -- mitigated by completing the backfill now while nflverse-data URLs are stable and keeping dependency pins strict, (3) known data source gaps -- injury data is dead after 2024 and depth chart schemas changed in 2025. These are well-understood and have clear workarounds.
 
 ## Key Findings
 

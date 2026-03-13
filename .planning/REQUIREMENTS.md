@@ -10,7 +10,7 @@ Requirements for Bronze Backfill milestone. Each maps to roadmap phases.
 ### Setup
 
 - [x] **SETUP-01**: Config caps injury season range at 2024 (data source discontinued)
-- [x] **SETUP-02**: GITHUB_TOKEN configured for nfl-data-py downloads to avoid rate limiting
+- [x] **SETUP-02**: GITHUB_TOKEN configured for StatsPlayerAdapter, GitHub Actions, and gh CLI (note: nfl-data-py v0.3.3 does NOT use it for downloads)
 - [x] **SETUP-03**: nfl-data-py version pinned in requirements to prevent breaking changes
 
 ### New Data Types

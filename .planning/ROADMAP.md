@@ -42,7 +42,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 **Requirements**: SETUP-01, SETUP-02, SETUP-03
 **Success Criteria** (what must be TRUE):
   1. Running `bronze_ingestion_simple.py` for injuries with season 2025 skips gracefully (config cap at 2024)
-  2. `GITHUB_TOKEN` is set and nfl-data-py downloads use authenticated requests (5000/hr rate limit)
+  2. `GITHUB_TOKEN` is set for StatsPlayerAdapter and GitHub tooling (note: nfl-data-py itself does not use it)
   3. `pip install -r requirements.txt` on a fresh venv installs exact pinned versions of nfl-data-py and numpy<2
 **Plans:** 1/1 plans complete
 

@@ -111,7 +111,7 @@ nfl-data-py downloads from `https://github.com/nflverse/nflverse-data/releases/`
 The existing `_safe_call` in the adapter returns an empty DataFrame on error but does NOT retry. A 403 from rate limiting looks the same as "no data exists" -- silent data gaps.
 
 **How to avoid:**
-- Set `GITHUB_TOKEN` environment variable so downloads use authenticated rate limits (5000/hr)
+- Set `GITHUB_TOKEN` environment variable (used by StatsPlayerAdapter and gh CLI; nfl-data-py v0.3.3 does not read this token) for authenticated GitHub API rate limits (5000/hr)
 - Add a configurable delay between API calls (1-2 seconds) in the batch loop
 - Add retry logic with exponential backoff for 403/429 responses
 - Batch by data type (all seasons of PBP, then all seasons of NGS) rather than by season
@@ -338,7 +338,7 @@ Phase 2 (NGS and PFR ingestion).
 | `import_snap_counts()` | Passing seasons as list | Takes `(season, week)` positional ints |
 | `import_injuries()` | Requesting 2025 data | Data source dead after 2024 -- will 404 |
 | `import_depth_charts()` | Assuming `week` column exists in 2025+ | 2025+ uses ISO timestamps instead |
-| GitHub release downloads | No auth token | Set `GITHUB_TOKEN` for 5000/hr vs. 60/hr limit |
+| GitHub API calls (StatsPlayerAdapter, gh CLI) | No auth token | Set `GITHUB_TOKEN` for 5000/hr vs. 60/hr limit (nfl-data-py does not use it) |
 | numpy version | Upgrading to 2.x | Pin `numpy<2` -- nfl-data-py uses deprecated `np.float_` |
 
 ## Performance Traps
