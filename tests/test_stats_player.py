@@ -5,7 +5,6 @@ import os
 from unittest.mock import MagicMock, patch
 
 import pandas as pd
-import pytest
 
 from src.config import STATS_PLAYER_COLUMN_MAP, STATS_PLAYER_MIN_SEASON
 
@@ -25,9 +24,17 @@ def _make_stats_player_weekly_df(season: int = 2025) -> pd.DataFrame:
     """
     n = 10
     return pd.DataFrame({
-        "player_id": ["QB01"] * 3 + ["RB01"] * 2 + ["RB02"] + ["WR01"] * 2 + ["WR02"] * 2,
-        "player_name": ["P Mahomes"] * 3 + ["I Pacheco"] * 2 + ["J Cook"] + ["S Diggs"] * 2 + ["G Davis"] * 2,
-        "player_display_name": ["Patrick Mahomes"] * 3 + ["Isiah Pacheco"] * 2 + ["James Cook"] + ["Stefon Diggs"] * 2 + ["Gabe Davis"] * 2,
+        "player_id": (
+            ["QB01"] * 3 + ["RB01"] * 2 + ["RB02"] + ["WR01"] * 2 + ["WR02"] * 2
+        ),
+        "player_name": (
+            ["P Mahomes"] * 3 + ["I Pacheco"] * 2 + ["J Cook"]
+            + ["S Diggs"] * 2 + ["G Davis"] * 2
+        ),
+        "player_display_name": (
+            ["Patrick Mahomes"] * 3 + ["Isiah Pacheco"] * 2 + ["James Cook"]
+            + ["Stefon Diggs"] * 2 + ["Gabe Davis"] * 2
+        ),
         "position": ["QB"] * 3 + ["RB"] * 3 + ["WR"] * 4,
         "position_group": ["QB"] * 3 + ["RB"] * 3 + ["WR"] * 4,
         "headshot_url": ["http://img"] * n,
@@ -159,3 +166,227 @@ class TestRoutingLogic:
         new = [s for s in seasons if s >= STATS_PLAYER_MIN_SEASON]
         assert old == [2023, 2024]
         assert new == [2025, 2026]
+
+
+# ---------------------------------------------------------------------------
+# Helpers for Task 2 tests
+# ---------------------------------------------------------------------------
+
+def _mock_parquet_bytes(df: pd.DataFrame) -> bytes:
+    """Serialize a DataFrame to in-memory Parquet bytes for mock HTTP responses."""
+    buf = io.BytesIO()
+    df.to_parquet(buf, index=False)
+    return buf.getvalue()
+
+
+def _make_urlopen_mock(parquet_bytes: bytes) -> MagicMock:
+    """Create a mock that mimics urllib.request.urlopen context manager."""
+    resp = MagicMock()
+    resp.read.return_value = parquet_bytes
+    resp.__enter__ = MagicMock(return_value=resp)
+    resp.__exit__ = MagicMock(return_value=False)
+    return resp
+
+
+# ---------------------------------------------------------------------------
+# Task 2 Tests: Adapter methods and conditional routing
+# ---------------------------------------------------------------------------
+
+class TestFetchStatsPlayer:
+    """Tests for NFLDataAdapter._fetch_stats_player()."""
+
+    def test_downloads_and_applies_column_mapping(self):
+        """_fetch_stats_player returns DataFrame with old column names."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        raw_df = _make_stats_player_weekly_df()
+        mock_resp = _make_urlopen_mock(_mock_parquet_bytes(raw_df))
+
+        adapter = NFLDataAdapter()
+        with patch("urllib.request.urlopen", return_value=mock_resp):
+            result = adapter._fetch_stats_player(2025)
+
+        assert not result.empty
+        # Mapped columns present
+        assert "interceptions" in result.columns
+        assert "sacks" in result.columns
+        assert "sack_yards" in result.columns
+        assert "recent_team" in result.columns
+        assert "dakota" in result.columns
+        # Original new-schema names gone
+        assert "passing_interceptions" not in result.columns
+        assert "sacks_suffered" not in result.columns
+        assert "team" not in result.columns
+
+    def test_uses_github_token_when_set(self):
+        """Auth header set when GITHUB_TOKEN env var present."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        raw_df = _make_stats_player_weekly_df()
+        mock_resp = _make_urlopen_mock(_mock_parquet_bytes(raw_df))
+
+        adapter = NFLDataAdapter()
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "ghp_test123"}, clear=False):
+            with patch("urllib.request.urlopen", return_value=mock_resp) as mock_url:
+                adapter._fetch_stats_player(2025)
+
+                # Inspect the Request object passed to urlopen
+                call_args = mock_url.call_args
+                req = call_args[0][0]
+                assert req.get_header("Authorization") == "token ghp_test123"
+
+    def test_falls_back_without_token(self):
+        """No auth header when GITHUB_TOKEN not set; logs warning."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        raw_df = _make_stats_player_weekly_df()
+        mock_resp = _make_urlopen_mock(_mock_parquet_bytes(raw_df))
+
+        adapter = NFLDataAdapter()
+        env = {k: v for k, v in os.environ.items()
+               if k not in ("GITHUB_TOKEN", "GITHUB_PERSONAL_ACCESS_TOKEN")}
+        with patch.dict(os.environ, env, clear=True):
+            with patch("urllib.request.urlopen", return_value=mock_resp) as mock_url:
+                result = adapter._fetch_stats_player(2025)
+
+                req = mock_url.call_args[0][0]
+                assert not req.has_header("Authorization")
+                assert not result.empty
+
+    def test_returns_empty_on_http_error(self):
+        """HTTP errors return empty DataFrame (matches _safe_call pattern)."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        with patch("urllib.request.urlopen", side_effect=Exception("HTTP 404")):
+            result = adapter._fetch_stats_player(2025)
+
+        assert isinstance(result, pd.DataFrame)
+        assert result.empty
+
+
+class TestFetchWeeklyDataRouting:
+    """Tests for conditional routing in fetch_weekly_data."""
+
+    def test_2025_delegates_to_stats_player(self):
+        """fetch_weekly_data([2025]) should call _fetch_stats_player."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        mock_df = _make_stats_player_weekly_df().rename(
+            columns=STATS_PLAYER_COLUMN_MAP
+        )
+
+        with patch.object(adapter, "_fetch_stats_player", return_value=mock_df) as mock_fetch:
+            result = adapter.fetch_weekly_data([2025])
+
+        mock_fetch.assert_called_once_with(2025)
+        assert not result.empty
+
+    def test_2024_delegates_to_import_weekly_data(self):
+        """fetch_weekly_data([2024]) should NOT call _fetch_stats_player."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        mock_df = pd.DataFrame({"player_id": ["A"], "season": [2024]})
+
+        with patch.object(adapter, "_fetch_stats_player") as mock_sp:
+            with patch.object(adapter, "_import_nfl") as mock_nfl:
+                mock_nfl_mod = MagicMock()
+                mock_nfl_mod.import_weekly_data.return_value = mock_df
+                mock_nfl.return_value = mock_nfl_mod
+                adapter.fetch_weekly_data([2024])
+
+        mock_sp.assert_not_called()
+        mock_nfl_mod.import_weekly_data.assert_called_once()
+
+    def test_mixed_seasons_splits_and_concatenates(self):
+        """fetch_weekly_data([2024, 2025]) uses both paths and concats."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        old_df = pd.DataFrame({"player_id": ["OLD1"], "season": [2024]})
+        new_df = pd.DataFrame({"player_id": ["NEW1"], "season": [2025]})
+
+        with patch.object(adapter, "_fetch_stats_player", return_value=new_df) as mock_sp:
+            with patch.object(adapter, "_import_nfl") as mock_nfl:
+                mock_nfl_mod = MagicMock()
+                mock_nfl_mod.import_weekly_data.return_value = old_df
+                mock_nfl.return_value = mock_nfl_mod
+                result = adapter.fetch_weekly_data([2024, 2025])
+
+        mock_sp.assert_called_once_with(2025)
+        assert len(result) == 2
+        assert set(result["season"].tolist()) == {2024, 2025}
+
+
+class TestAggregateSeasonalFromWeekly:
+    """Tests for _aggregate_seasonal_from_weekly."""
+
+    def test_produces_correct_schema_with_games(self):
+        """Aggregated seasonal has games column and sum columns."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        weekly = _make_stats_player_weekly_df()
+        # Apply column mapping first (as the real flow does)
+        weekly = weekly.rename(columns=STATS_PLAYER_COLUMN_MAP)
+
+        result = adapter._aggregate_seasonal_from_weekly(weekly)
+
+        assert "games" in result.columns
+        assert "season_type" in result.columns
+        # All seasonal share columns should be present
+        for col in ["tgt_sh", "ay_sh", "ry_sh"]:
+            assert col in result.columns, f"Missing share column: {col}"
+
+    def test_filters_to_reg_only(self):
+        """Only REG season_type rows included in aggregation."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        weekly = _make_stats_player_weekly_df()
+        weekly = weekly.rename(columns=STATS_PLAYER_COLUMN_MAP)
+
+        result = adapter._aggregate_seasonal_from_weekly(weekly)
+
+        # POST rows from fixture should be excluded
+        assert (result["season_type"] == "REG").all()
+
+    def test_games_count_from_distinct_weeks(self):
+        """games column equals distinct week count per player in REG."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        weekly = _make_stats_player_weekly_df()
+        weekly = weekly.rename(columns=STATS_PLAYER_COLUMN_MAP)
+
+        result = adapter._aggregate_seasonal_from_weekly(weekly)
+
+        # QB01 has weeks 1,2,3 all REG -> 3 games
+        qb_row = result[result["player_id"] == "QB01"]
+        assert len(qb_row) == 1
+        assert qb_row.iloc[0]["games"] == 3
+
+
+class TestFetchSeasonalDataRouting:
+    """Tests for conditional routing in fetch_seasonal_data."""
+
+    def test_2025_delegates_to_aggregation(self):
+        """fetch_seasonal_data([2025]) should use _fetch_stats_player + aggregation."""
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        weekly_mapped = _make_stats_player_weekly_df().rename(
+            columns=STATS_PLAYER_COLUMN_MAP
+        )
+        seasonal_mock = pd.DataFrame({"player_id": ["A"], "games": [3]})
+
+        with patch.object(adapter, "_fetch_stats_player", return_value=weekly_mapped):
+            with patch.object(
+                adapter, "_aggregate_seasonal_from_weekly", return_value=seasonal_mock
+            ) as mock_agg:
+                result = adapter.fetch_seasonal_data([2025])
+
+        mock_agg.assert_called_once()
+        assert not result.empty

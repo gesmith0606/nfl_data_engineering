@@ -5,12 +5,19 @@ This is the ONLY module in the project that should ``import nfl_data_py``.
 All other code fetches NFL data through :class:`NFLDataAdapter`.
 """
 
+import io
 import logging
+import os
+import urllib.request
 from typing import Dict, List, Optional
 
 import pandas as pd
 
-from src.config import validate_season_for_type
+from src.config import (
+    STATS_PLAYER_COLUMN_MAP,
+    STATS_PLAYER_MIN_SEASON,
+    validate_season_for_type,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +99,251 @@ class NFLDataAdapter:
             return pd.DataFrame()
 
     # ------------------------------------------------------------------
+    # stats_player helpers (2025+ data)
+    # ------------------------------------------------------------------
+
+    _STATS_PLAYER_URL = (
+        "https://github.com/nflverse/nflverse-data/releases/download/"
+        "stats_player/stats_player_week_{season}.parquet"
+    )
+
+    # Columns to sum when aggregating weekly -> seasonal.
+    _SUM_COLS = [
+        "attempts", "completions", "passing_yards", "passing_tds",
+        "interceptions", "sacks", "sack_yards",
+        "sack_fumbles", "sack_fumbles_lost",
+        "passing_air_yards", "passing_yards_after_catch",
+        "passing_first_downs", "passing_epa", "passing_2pt_conversions",
+        "carries", "rushing_yards", "rushing_tds",
+        "rushing_fumbles", "rushing_fumbles_lost",
+        "rushing_first_downs", "rushing_epa", "rushing_2pt_conversions",
+        "receptions", "targets", "receiving_yards", "receiving_tds",
+        "receiving_fumbles", "receiving_fumbles_lost",
+        "receiving_air_yards", "receiving_yards_after_catch",
+        "receiving_first_downs", "receiving_epa", "receiving_2pt_conversions",
+        "special_teams_tds", "fantasy_points", "fantasy_points_ppr",
+    ]
+
+    def _fetch_stats_player(self, season: int) -> pd.DataFrame:
+        """Download player stats from nflverse ``stats_player`` release tag.
+
+        Args:
+            season: NFL season year (must be >= STATS_PLAYER_MIN_SEASON).
+
+        Returns:
+            DataFrame with columns renamed via STATS_PLAYER_COLUMN_MAP,
+            or empty DataFrame on failure.
+        """
+        url = self._STATS_PLAYER_URL.format(season=season)
+        headers: Dict[str, str] = {}
+        token = os.getenv("GITHUB_TOKEN") or os.getenv(
+            "GITHUB_PERSONAL_ACCESS_TOKEN"
+        )
+        if token:
+            headers["Authorization"] = f"token {token}"
+        else:
+            logger.warning(
+                "No GITHUB_TOKEN found. Using unauthenticated GitHub API "
+                "(60 req/hr limit)."
+            )
+
+        req = urllib.request.Request(url, headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                data = resp.read()
+            df = pd.read_parquet(io.BytesIO(data))
+            logger.info(
+                "stats_player %d: %d rows, %d columns",
+                season, len(df), len(df.columns),
+            )
+
+            # Apply column mapping for backward compatibility
+            mapped = df.rename(columns=STATS_PLAYER_COLUMN_MAP)
+
+            # Log schema diff
+            mapped_count = sum(
+                1 for c in STATS_PLAYER_COLUMN_MAP if c in df.columns
+            )
+            logger.info(
+                "stats_player %d schema: %d columns mapped, %d total",
+                season, mapped_count, len(mapped.columns),
+            )
+            return mapped
+        except Exception:
+            logger.exception(
+                "Failed to download stats_player for season %d", season
+            )
+            return pd.DataFrame()
+
+    def _aggregate_seasonal_from_weekly(
+        self, weekly_df: pd.DataFrame
+    ) -> pd.DataFrame:
+        """Aggregate weekly player stats into a seasonal summary.
+
+        Filters to regular season, groups by player, sums counting stats,
+        and recalculates team-share columns (tgt_sh, ay_sh, etc.).
+
+        Args:
+            weekly_df: Weekly DataFrame with mapped (old-schema) column names.
+
+        Returns:
+            Seasonal DataFrame with ``games``, ``season_type``, and share columns.
+        """
+        if weekly_df.empty:
+            return pd.DataFrame()
+
+        # Filter to regular season only
+        reg = weekly_df[weekly_df["season_type"] == "REG"].copy()
+        if reg.empty:
+            return pd.DataFrame()
+
+        group_cols = [
+            "player_id", "player_name", "player_display_name",
+            "position", "position_group", "headshot_url", "season",
+        ]
+        # Keep only group cols that exist in the DataFrame
+        group_cols = [c for c in group_cols if c in reg.columns]
+
+        # Sum columns -- filter to those present
+        sum_cols = [c for c in self._SUM_COLS if c in reg.columns]
+
+        # Build aggregation dict
+        agg_dict: Dict[str, any] = {}
+        for col in sum_cols:
+            agg_dict[col] = "sum"
+        agg_dict["week"] = "nunique"
+        agg_dict["recent_team"] = "last"
+
+        # Weighted average for dakota (weight by attempts)
+        if "dakota" in reg.columns and "attempts" in reg.columns:
+            # Pre-compute weighted dakota
+            reg["_dakota_weighted"] = (
+                reg["dakota"].fillna(0) * reg["attempts"].fillna(0)
+            )
+            agg_dict["_dakota_weighted"] = "sum"
+
+        seasonal = reg.groupby(group_cols, as_index=False).agg(agg_dict)
+
+        # Rename week count -> games
+        seasonal = seasonal.rename(columns={"week": "games"})
+
+        # Compute weighted average dakota
+        if "_dakota_weighted" in seasonal.columns:
+            mask = seasonal["attempts"] > 0
+            seasonal.loc[mask, "dakota"] = (
+                seasonal.loc[mask, "_dakota_weighted"]
+                / seasonal.loc[mask, "attempts"]
+            )
+            seasonal.loc[~mask, "dakota"] = None
+            seasonal = seasonal.drop(columns=["_dakota_weighted"])
+
+        # Add season_type
+        seasonal["season_type"] = "REG"
+
+        # ----- Recalculate team-share columns -----
+        # Compute team totals for share denominators
+        team_totals = reg.groupby(
+            ["season", "recent_team"], as_index=False
+        ).agg(
+            team_targets=("targets", "sum"),
+            team_receiving_air_yards=("receiving_air_yards", "sum"),
+            team_receiving_yards=("receiving_yards", "sum"),
+            team_receiving_yards_after_catch=("receiving_yards_after_catch", "sum"),
+            team_receptions=("receptions", "sum"),
+            team_receiving_first_downs=("receiving_first_downs", "sum"),
+            team_receiving_tds=("receiving_tds", "sum"),
+        )
+
+        seasonal = seasonal.merge(
+            team_totals, on=["season", "recent_team"], how="left"
+        )
+
+        def _safe_div(num, denom):
+            """Element-wise division, returning 0.0 where denom is 0."""
+            return num.where(denom > 0, 0.0) / denom.where(denom > 0, 1.0)
+
+        # tgt_sh: target share
+        seasonal["tgt_sh"] = _safe_div(
+            seasonal["targets"], seasonal["team_targets"]
+        )
+        # ay_sh: air yards share
+        seasonal["ay_sh"] = _safe_div(
+            seasonal["receiving_air_yards"],
+            seasonal["team_receiving_air_yards"],
+        )
+        # yac_sh: yards after catch share
+        seasonal["yac_sh"] = _safe_div(
+            seasonal["receiving_yards_after_catch"],
+            seasonal["team_receiving_yards_after_catch"],
+        )
+        # ry_sh: receiving yards share
+        seasonal["ry_sh"] = _safe_div(
+            seasonal["receiving_yards"], seasonal["team_receiving_yards"]
+        )
+        # wopr_x: 1.5*tgt_sh + 0.7*ay_sh (Weighted Opportunity Rating)
+        seasonal["wopr_x"] = 1.5 * seasonal["tgt_sh"] + 0.7 * seasonal["ay_sh"]
+        # wopr_y: similar weight variant
+        seasonal["wopr_y"] = seasonal["tgt_sh"] + seasonal["ay_sh"]
+        # dom: dominance = receiving yards share (alias)
+        seasonal["dom"] = seasonal["ry_sh"]
+        # w8dom: reception-weighted dominance
+        seasonal["w8dom"] = _safe_div(
+            seasonal["receptions"], seasonal["team_receptions"]
+        ) * seasonal["ry_sh"]
+        # ppr_sh: PPR points share (use fantasy_points_ppr / team total)
+        if "fantasy_points_ppr" in seasonal.columns:
+            team_ppr = reg.groupby(
+                ["season", "recent_team"], as_index=False
+            ).agg(team_ppr=("fantasy_points_ppr", "sum"))
+            seasonal = seasonal.merge(
+                team_ppr, on=["season", "recent_team"], how="left"
+            )
+            seasonal["ppr_sh"] = _safe_div(
+                seasonal["fantasy_points_ppr"], seasonal["team_ppr"]
+            )
+            seasonal = seasonal.drop(columns=["team_ppr"], errors="ignore")
+        else:
+            seasonal["ppr_sh"] = 0.0
+
+        # rfd_sh: receiving first down share
+        seasonal["rfd_sh"] = _safe_div(
+            seasonal["receiving_first_downs"],
+            seasonal["team_receiving_first_downs"],
+        )
+        # rtd_sh: receiving TD share
+        seasonal["rtd_sh"] = _safe_div(
+            seasonal["receiving_tds"], seasonal["team_receiving_tds"]
+        )
+        # rtdfd_sh: combined receiving TD + first down share
+        team_rtdfd = (
+            seasonal["team_receiving_tds"]
+            + seasonal["team_receiving_first_downs"]
+        )
+        player_rtdfd = (
+            seasonal["receiving_tds"] + seasonal["receiving_first_downs"]
+        )
+        seasonal["rtdfd_sh"] = _safe_div(player_rtdfd, team_rtdfd)
+
+        # yptmpa: yards per team pass attempt (receiving yards / team attempts)
+        team_att = reg.groupby(
+            ["season", "recent_team"], as_index=False
+        ).agg(team_attempts=("attempts", "sum"))
+        seasonal = seasonal.merge(
+            team_att, on=["season", "recent_team"], how="left"
+        )
+        seasonal["yptmpa"] = _safe_div(
+            seasonal["receiving_yards"], seasonal["team_attempts"]
+        )
+
+        # Drop intermediate team total columns
+        team_cols = [
+            c for c in seasonal.columns if c.startswith("team_")
+        ]
+        seasonal = seasonal.drop(columns=team_cols, errors="ignore")
+
+        return seasonal
+
+    # ------------------------------------------------------------------
     # Validation
     # ------------------------------------------------------------------
 
@@ -138,6 +390,10 @@ class NFLDataAdapter:
     ) -> pd.DataFrame:
         """Fetch weekly player stats.
 
+        For seasons < STATS_PLAYER_MIN_SEASON, uses ``nfl.import_weekly_data``.
+        For seasons >= STATS_PLAYER_MIN_SEASON, downloads directly from the
+        nflverse ``stats_player`` release tag.
+
         Args:
             seasons: List of season years.
             columns: Optional list of columns to select.
@@ -148,13 +404,38 @@ class NFLDataAdapter:
         seasons = self._filter_seasons("player_weekly", seasons)
         if not seasons:
             return pd.DataFrame()
-        nfl = self._import_nfl()
-        return self._safe_call(
-            "fetch_weekly_data", nfl.import_weekly_data, seasons, columns
-        )
+
+        old_seasons = [s for s in seasons if s < STATS_PLAYER_MIN_SEASON]
+        new_seasons = [s for s in seasons if s >= STATS_PLAYER_MIN_SEASON]
+
+        frames: List[pd.DataFrame] = []
+
+        if old_seasons:
+            nfl = self._import_nfl()
+            df = self._safe_call(
+                "fetch_weekly_data", nfl.import_weekly_data, old_seasons, columns
+            )
+            if not df.empty:
+                frames.append(df)
+
+        for s in new_seasons:
+            df = self._fetch_stats_player(s)
+            if not df.empty:
+                if columns:
+                    available = [c for c in columns if c in df.columns]
+                    df = df[available]
+                frames.append(df)
+
+        if not frames:
+            return pd.DataFrame()
+        return pd.concat(frames, ignore_index=True)
 
     def fetch_seasonal_data(self, seasons: List[int]) -> pd.DataFrame:
         """Fetch seasonal player stats.
+
+        For seasons < STATS_PLAYER_MIN_SEASON, uses ``nfl.import_seasonal_data``.
+        For seasons >= STATS_PLAYER_MIN_SEASON, downloads weekly data from the
+        ``stats_player`` tag and aggregates it into a seasonal summary.
 
         Args:
             seasons: List of season years.
@@ -165,10 +446,30 @@ class NFLDataAdapter:
         seasons = self._filter_seasons("player_seasonal", seasons)
         if not seasons:
             return pd.DataFrame()
-        nfl = self._import_nfl()
-        return self._safe_call(
-            "fetch_seasonal_data", nfl.import_seasonal_data, seasons
-        )
+
+        old_seasons = [s for s in seasons if s < STATS_PLAYER_MIN_SEASON]
+        new_seasons = [s for s in seasons if s >= STATS_PLAYER_MIN_SEASON]
+
+        frames: List[pd.DataFrame] = []
+
+        if old_seasons:
+            nfl = self._import_nfl()
+            df = self._safe_call(
+                "fetch_seasonal_data", nfl.import_seasonal_data, old_seasons
+            )
+            if not df.empty:
+                frames.append(df)
+
+        for s in new_seasons:
+            weekly = self._fetch_stats_player(s)
+            if not weekly.empty:
+                seasonal = self._aggregate_seasonal_from_weekly(weekly)
+                if not seasonal.empty:
+                    frames.append(seasonal)
+
+        if not frames:
+            return pd.DataFrame()
+        return pd.concat(frames, ignore_index=True)
 
     def fetch_snap_counts(self, seasons: List[int]) -> pd.DataFrame:
         """Fetch snap count data for one or more seasons.
