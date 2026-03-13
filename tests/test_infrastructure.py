@@ -194,9 +194,10 @@ class TestLocalFirstStorage:
         from bronze_ingestion_simple import DATA_TYPE_REGISTRY
 
         entry = DATA_TYPE_REGISTRY["player_weekly"]
-        path = entry["bronze_path"].format(season=2024, week=5, sub_type="")
+        path = entry["bronze_path"].format(season=2024, sub_type="")
         assert "season=2024" in path
-        assert "week=5" in path
+        # player_weekly stores full-season files at season level (no week partition)
+        assert "players/weekly" in path
 
     def test_save_local_creates_directories(self, tmp_path):
         from bronze_ingestion_simple import save_local
