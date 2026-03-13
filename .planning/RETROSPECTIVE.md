@@ -2,6 +2,54 @@
 
 *A living document updated after each milestone. Lessons feed forward into future planning.*
 
+## Milestone: v1.1 — Bronze Backfill
+
+**Shipped:** 2026-03-13
+**Phases:** 7 | **Plans:** 12 | **Sessions:** ~6
+
+### What Was Built
+- 9 new Bronze data types ingested with full historical coverage (PBP 2016-2025, NGS, PFR, QBR, depth charts, draft picks, combine, teams)
+- 6 existing types backfilled from 2020-2024 to 2016-2025 range
+- Batch ingestion CLI with progress reporting, failure handling, skip-existing deduplication
+- stats_player adapter for 2025 data from nflverse's new release tag with column mapping
+- Bronze-Silver path alignment fixes for snap_counts and schedules
+- Complete Bronze inventory: 517 files, 93 MB across 15 data types, all validated
+- Filesystem cleanup: normalized week=0/ paths, deduplicated draft_picks
+
+### What Worked
+- Milestone audit identified real gaps early (snap_counts/schedules path mismatches, validate_data false negative) — resolved via gap-closure Phases 13-14
+- stats_player adapter discovery (Phase 12) unblocked 2025 data that was 404'ing on the old tag
+- Registry-driven architecture from v1.0 made adding 9 new data types config-only
+- Week partition registry flag generalized snap_counts special case for future types
+- Dry-run-by-default pattern for cleanup scripts prevented accidental data loss
+
+### What Was Inefficient
+- Initial 4-phase roadmap (8-11) expanded to 7 phases (8-14) — gap closure phases added late
+- ROADMAP.md plan checkboxes not updated during execution (6 left unchecked despite completion)
+- Multiple audit cycles still needed (first audit found integration gaps, second confirmed fixes)
+- PBP backfill was a no-op (v1.0 code already handled 2016-2025) — could have been validated without a separate plan
+
+### Patterns Established
+- stats_player adapter: conditional routing based on STATS_PLAYER_MIN_SEASON for nflverse tag migration
+- Week partition: registry flag `week_partition: True` for automatic per-week file splitting
+- Batch ingestion: skip-existing with glob pattern, Result tuple tracking (type, variant, season, status, detail)
+- Cleanup scripts: dry-run default with `--execute` flag for filesystem operations
+- Column mapping: passing_cpoe -> dakota for backward compatibility across nflverse schema changes
+
+### Key Lessons
+1. Plan for gap-closure phases upfront — a 4-phase roadmap becoming 7 is avoidable if integration testing is part of initial scope
+2. Keep ROADMAP.md checkboxes synchronized — stale checkboxes create false audit failures
+3. nflverse tag changes (player_stats -> stats_player) require monitoring; build adapters with version routing
+4. Bronze-Silver path alignment should be verified as part of ingestion phases, not as a separate phase
+5. Batch ingestion with skip-existing is essential for large backfills — saves hours on reruns
+
+### Cost Observations
+- Model mix: ~80% opus, ~20% sonnet
+- Sessions: ~6
+- Notable: Gap-closure phases (13, 14) were small and fast; bulk work was in Phases 9-11
+
+---
+
 ## Milestone: v1.0 — Bronze Expansion
 
 **Shipped:** 2026-03-08
@@ -53,14 +101,19 @@
 | Milestone | Sessions | Phases | Key Change |
 |-----------|----------|--------|------------|
 | v1.0 | ~5 | 7 | First GSD milestone; 3 audit cycles to pass |
+| v1.1 | ~6 | 7 | Gap-closure phases (13-14) added from audit; 2 audit cycles |
 
 ### Cumulative Quality
 
 | Milestone | Tests | Coverage | Key Metric |
 |-----------|-------|----------|------------|
 | v1.0 | 141 | — | 23/23 requirements satisfied, 9/9 integrations connected |
+| v1.1 | 186 | — | 22/22 requirements satisfied, 7/7 integrations wired, 2/2 E2E flows |
 
 ### Top Lessons (Verified Across Milestones)
 
 1. Milestone audits catch real gaps — invest in audit-first before marking complete
 2. Wire validation into pipelines during initial implementation, not as gap closure
+3. Plan for integration testing within ingestion phases, not as separate gap-closure work
+4. Registry/adapter patterns pay dividends — v1.1 added 9 types with zero architectural changes
+5. nflverse API instability (tag renames, schema changes) requires defensive adapter routing

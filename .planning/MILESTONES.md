@@ -1,5 +1,21 @@
 # Milestones
 
+## v1.1 Bronze Backfill (Shipped: 2026-03-13)
+
+**Phases completed:** 7 phases, 12 plans, 0 tasks
+
+**Commits:** 50+ | **LOC:** 12,084 Python | **Tests:** 186 passing
+
+**Key accomplishments:**
+- Ingested 9 new Bronze data types (PBP, NGS, PFR, QBR, depth charts, draft picks, combine, teams) with full historical coverage
+- Backfilled 6 existing types from 2020-2024 to 2016-2025 range (517 files, 93 MB total)
+- Built batch ingestion CLI with progress reporting, failure handling, and skip-existing deduplication
+- Implemented stats_player adapter for 2025 data via nflverse's new release tag with column mapping
+- Fixed Bronze-Silver path alignment for snap_counts and schedules, ensuring end-to-end pipeline
+- Complete Bronze inventory: 15 data types, 10 years of history, all passing validate_data()
+
+---
+
 ## v1.0 Bronze Expansion (Shipped: 2026-03-08)
 
 **Phases completed:** 7 phases, 11 plans, 0 tasks
