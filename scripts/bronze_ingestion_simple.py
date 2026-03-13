@@ -40,8 +40,8 @@ DATA_TYPE_REGISTRY = {
     },
     "player_weekly": {
         "adapter_method": "fetch_weekly_data",
-        "bronze_path": "players/weekly/season={season}/week={week}",
-        "requires_week": True,
+        "bronze_path": "players/weekly/season={season}",
+        "requires_week": False,
         "requires_season": True,
     },
     "player_seasonal": {
