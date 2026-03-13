@@ -114,7 +114,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 10. Existing Type Backfill | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 11. Orchestration and Validation | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 12. 2025 Player Stats Gap Closure | v1.1 | 2/2 | Complete | 2026-03-13 |
-| 13. Bronze-Silver Path Alignment | 1/1 | Complete   | 2026-03-13 | - |
+| 13. Bronze-Silver Path Alignment | 1/1 | Complete    | 2026-03-13 | - |
 | 14. Bronze Cosmetic Cleanup | v1.1 | 0/0 | Planned | - |
 
 ### Phase 12: 2025 Player Stats Gap Closure
