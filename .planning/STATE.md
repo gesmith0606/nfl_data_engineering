@@ -1,11 +1,11 @@
 ---
 gsd_state_version: 1.0
-milestone: null
-milestone_name: null
-status: idle
+milestone: v1.2
+milestone_name: Silver Expansion
+status: defining_requirements
 stopped_at: null
-last_updated: "2026-03-13T12:45:00.000Z"
-last_activity: 2026-03-13 — v1.1 milestone archived
+last_updated: "2026-03-13T14:00:00.000Z"
+last_activity: 2026-03-13 — Milestone v1.2 started
 progress:
   total_phases: 0
   completed_phases: 0
@@ -21,16 +21,18 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game outcome predictions
-**Current focus:** Planning next milestone
+**Current focus:** v1.2 Silver Expansion
 
 ## Current Milestone
 
-No active milestone. Run `/gsd:new-milestone` to start next.
+v1.2 Silver Expansion — Expand Silver layer with PBP team metrics, tendencies, situational breakdowns, advanced player profiles, strength of schedule, and historical context using rolling windows.
 
 ## Current Position
 
-Status: Idle — v1.1 Bronze Backfill shipped, v1.0 + v1.1 archived
-Last activity: 2026-03-13 — v1.1 milestone archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-13 — Milestone v1.2 started
 
 ## Key Artifacts
 

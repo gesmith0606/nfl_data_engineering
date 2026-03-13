@@ -33,7 +33,14 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-(No active milestone — run `/gsd:new-milestone` to start next)
+**Current Milestone: v1.2 Silver Expansion**
+
+- [ ] PBP-derived team metrics (EPA/play, success rate, CPOE, red zone efficiency) with rolling windows
+- [ ] Team tendencies (pace, pass rate over expected, 4th down aggressiveness) with rolling windows
+- [ ] Situational breakdowns (game script splits, home/away, divisional) with rolling windows
+- [ ] Advanced player profiles (NGS separation/RYOE, PFR pressure/blitz, QBR) with rolling windows
+- [ ] Strength of schedule (opponent-adjusted EPA, schedule difficulty rankings) with rolling windows
+- [ ] Historical context (combine measurables + draft capital linked to players for rookie/breakout modeling)
 
 ### Out of Scope
 
@@ -82,5 +89,7 @@ Existing documentation:
 | Batch ingestion with skip-existing | Idempotent reruns, graceful failure handling | ✓ Good |
 | Dry-run default for cleanup scripts | Safe filesystem operations | ✓ Good |
 
+| Rolling windows for team metrics | In-season predictions need recency; season aggregates miss momentum | — Pending |
+
 ---
-*Last updated: 2026-03-13 after v1.1 milestone*
+*Last updated: 2026-03-13 after v1.2 milestone started*
