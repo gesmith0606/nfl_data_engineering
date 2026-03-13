@@ -113,8 +113,8 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 9. New Data Type Ingestion | v1.1 | 3/3 | Complete | 2026-03-09 |
 | 10. Existing Type Backfill | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 11. Orchestration and Validation | v1.1 | 2/2 | Complete | 2026-03-12 |
-| 12. 2025 Player Stats Gap Closure | 2/2 | Complete    | 2026-03-13 | - |
-| 13. Bronze-Silver Path Alignment | v1.1 | 0/0 | Planned | - |
+| 12. 2025 Player Stats Gap Closure | v1.1 | 2/2 | Complete | 2026-03-13 |
+| 13. Bronze-Silver Path Alignment | v1.1 | 1/1 | Planned | - |
 | 14. Bronze Cosmetic Cleanup | v1.1 | 0/0 | Planned | - |
 
 ### Phase 12: 2025 Player Stats Gap Closure
@@ -142,7 +142,10 @@ Plans:
   2. Silver `_read_local_schedules()` reads from `schedules/season=YYYY/` (matching Bronze write path)
   3. `validate_data()` for snap_counts returns `is_valid: True` (player column mapped correctly)
   4. Residual `data/bronze/players/snap_counts/` directory removed (5 pre-Phase-10 files)
-**Plans:** 0/0 plans
+**Plans:** 1 plan
+
+Plans:
+- [ ] 13-01-PLAN.md — Fix Silver reader paths, validate_data snap_counts columns, remove old directory
 
 ### Phase 14: Bronze Cosmetic Cleanup
 **Goal**: Clean up cosmetic inconsistencies and documentation inaccuracies from backfill phases
@@ -157,4 +160,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-13 after gap closure planning (Phases 13-14)*
+*Last updated: 2026-03-13 after Phase 13 planning*
