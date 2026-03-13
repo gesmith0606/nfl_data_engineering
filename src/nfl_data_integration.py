@@ -333,7 +333,7 @@ class NFLDataFetcher:
                 'pbp': ['game_id', 'play_id', 'season', 'week'],
                 'teams': ['team_abbr', 'team_name'],
                 'player_weekly': ['player_id', 'season', 'week'],
-                'snap_counts': ['player_id', 'season', 'week'],
+                'snap_counts': ['player', 'season', 'week'],
                 'injuries': ['season', 'week'],
                 'rosters': ['player_id', 'season'],
                 'player_seasonal': ['player_id', 'season'],

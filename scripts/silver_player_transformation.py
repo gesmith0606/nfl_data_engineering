@@ -75,7 +75,22 @@ def _prepare_snap_data(snap_df: pd.DataFrame, weekly_df: pd.DataFrame) -> pd.Dat
 # ---------------------------------------------------------------------------
 
 def _read_local_bronze(data_type: str, season: int) -> pd.DataFrame:
-    """Read the latest parquet file from local Bronze directory."""
+    """Read the latest parquet file from local Bronze directory.
+
+    For snap_counts, reads from players/snaps/ (week-partitioned) and
+    concatenates all week files for the season.  For other data types,
+    reads the latest file from players/{data_type}/season={season}/.
+    """
+    if data_type == 'snap_counts':
+        # Snap counts are stored week-partitioned under players/snaps/
+        pattern = os.path.join(
+            BRONZE_DIR, 'players', 'snaps', f'season={season}', 'week=*', '*.parquet',
+        )
+        files = sorted(globmod.glob(pattern))
+        if not files:
+            return pd.DataFrame()
+        return pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
+
     pattern = os.path.join(BRONZE_DIR, 'players', data_type, f'season={season}', '*.parquet')
     files = sorted(globmod.glob(pattern))
     if not files:
@@ -86,7 +101,7 @@ def _read_local_bronze(data_type: str, season: int) -> pd.DataFrame:
 
 def _read_local_schedules(season: int) -> pd.DataFrame:
     """Read schedule data from local Bronze directory."""
-    pattern = os.path.join(BRONZE_DIR, 'games', f'season={season}', '*.parquet')
+    pattern = os.path.join(BRONZE_DIR, 'schedules', f'season={season}', '*.parquet')
     files = sorted(globmod.glob(pattern))
     if not files:
         return pd.DataFrame()
