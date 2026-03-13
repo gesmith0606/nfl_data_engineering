@@ -111,7 +111,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 9. New Data Type Ingestion | v1.1 | 3/3 | Complete | 2026-03-09 |
 | 10. Existing Type Backfill | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 11. Orchestration and Validation | v1.1 | 2/2 | Complete | 2026-03-12 |
-| 12. 2025 Player Stats Gap Closure | v1.1 | 0/2 | Planned | - |
+| 12. 2025 Player Stats Gap Closure | 1/2 | In Progress|  | - |
 
 ### Phase 12: 2025 Player Stats Gap Closure
 **Goal**: Fetch 2025 player weekly and seasonal stats from nflverse's new `stats_player` release tag (replacing archived `player_stats` tag), with column mapping for backward compatibility
@@ -122,7 +122,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
   2. `data/bronze/players/seasonal/season=2025/` contains a Parquet file derived from weekly aggregation
   3. `validate_data()` passes on both 2025 files
   4. Existing Silver pipeline (`silver_player_transformation.py`) processes 2025 data without error
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 12-01-PLAN.md — Config constants, adapter methods, conditional routing, and tests

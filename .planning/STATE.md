@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bronze Backfill
-status: completed
-stopped_at: Phase 12 context gathered
-last_updated: "2026-03-12T02:20:03.877Z"
-last_activity: 2026-03-12 — Phase 11 Plan 02 completed
+status: in-progress
+stopped_at: Completed 12-01-PLAN.md
+last_updated: "2026-03-13T00:07:00Z"
+last_activity: 2026-03-12 — Phase 12 Plan 01 completed
 progress:
   total_phases: 5
   completed_phases: 4
-  total_plans: 8
-  completed_plans: 8
-  percent: 100
+  total_plans: 10
+  completed_plans: 9
+  percent: 90
 ---
 
 # Project State
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-08)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game outcome predictions
-**Current focus:** Phase 11 - Orchestration and Validation
+**Current focus:** Phase 12 - 2025 Player Stats Gap Closure
 
 ## Current Milestone
 
@@ -29,12 +29,12 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 
 ## Current Position
 
-Phase: 11 of 11 (Orchestration and Validation)
-Plan: 2 of 2 in current phase
-Status: v1.1 milestone complete -- all 8 plans across 4 phases done
-Last activity: 2026-03-12 — Phase 11 Plan 02 completed
+Phase: 12 of 12 (2025 Player Stats Gap Closure)
+Plan: 1 of 2 in current phase
+Status: Plan 01 complete -- adapter methods + tests implemented
+Last activity: 2026-03-12 — Phase 12 Plan 01 completed
 
-Progress: [██████████] 100% (8/8 v1.1 plans)
+Progress: [█████████░] 90% (9/10 plans)
 
 ## Key Artifacts
 
@@ -75,6 +75,10 @@ Progress: [██████████] 100% (8/8 v1.1 plans)
 - [v1.1]: Batch ingestion builds fetch kwargs inline (no _build_method_kwargs import) to avoid argparse coupling
 - [v1.1]: Skip-existing uses glob pattern on bronze dirs; Result tuple tracks (type, variant, season, status, detail)
 - [Phase 11]: No changes needed to generate_inventory.py -- existing script handled all 25 data type groupings correctly
+- [Phase 12]: Map passing_cpoe -> dakota for backward compatibility (downstream uses dakota)
+- [Phase 12]: Used urllib.request (stdlib) instead of requests to avoid new dependency
+- [Phase 12]: 13 share columns computed from team totals for seasonal aggregation
+- [Phase 12]: Weighted average for dakota column (weight by attempts)
 
 ### Roadmap Evolution
 
@@ -93,9 +97,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T02:20:03.874Z
-Stopped at: Phase 12 context gathered
-Resume file: .planning/phases/12-2025-player-stats-gap-closure/12-CONTEXT.md
+Last session: 2026-03-13T00:07:00Z
+Stopped at: Completed 12-01-PLAN.md
+Resume file: .planning/phases/12-2025-player-stats-gap-closure/12-01-SUMMARY.md
 
 ---
-*Last updated: 2026-03-12 after Phase 11 Plan 02 completion (v1.1 milestone complete)*
+*Last updated: 2026-03-13 after Phase 12 Plan 01 completion*
