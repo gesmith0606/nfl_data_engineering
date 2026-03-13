@@ -115,7 +115,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 11. Orchestration and Validation | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 12. 2025 Player Stats Gap Closure | v1.1 | 2/2 | Complete | 2026-03-13 |
 | 13. Bronze-Silver Path Alignment | 1/1 | Complete    | 2026-03-13 | - |
-| 14. Bronze Cosmetic Cleanup | v1.1 | 0/0 | Planned | - |
+| 14. Bronze Cosmetic Cleanup | v1.1 | 1 plan | Planned | - |
 
 ### Phase 12: 2025 Player Stats Gap Closure
 **Goal**: Fetch 2025 player weekly and seasonal stats from nflverse's new `stats_player` release tag (replacing archived `player_stats` tag), with column mapping for backward compatibility
@@ -156,8 +156,11 @@ Plans:
   1. player_weekly 2016-2019 files stored at season level (not under `week=0/` subdirectory)
   2. draft_picks has exactly 1 file per season (duplicate append artifacts removed)
   3. GITHUB_TOKEN documentation accurately reflects that nfl-data-py does NOT use it for downloads
-**Plans:** 0/0 plans
+**Plans:** 1 plan
+
+Plans:
+- [ ] 14-01-PLAN.md — Filesystem cleanup (player_weekly paths, draft_picks dedup) and GITHUB_TOKEN doc corrections
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-13 after Phase 13 planning*
+*Last updated: 2026-03-13 after Phase 14 planning*
