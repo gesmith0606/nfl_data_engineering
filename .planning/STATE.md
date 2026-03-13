@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bronze Backfill
 status: completed
-stopped_at: Completed 12-02-PLAN.md
-last_updated: "2026-03-13T00:23:18.510Z"
+stopped_at: Completed 13-01-PLAN.md
+last_updated: "2026-03-13T02:00:25.372Z"
 last_activity: 2026-03-12 — Phase 12 Plan 02 completed
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 10
-  completed_plans: 10
+  total_phases: 7
+  completed_phases: 6
+  total_plans: 11
+  completed_plans: 11
   percent: 100
 ---
 
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-08)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game outcome predictions
-**Current focus:** Phase 12 - 2025 Player Stats Gap Closure
+**Current focus:** Phase 13 - Bronze-Silver Path Alignment (Gap Closure)
 
 ## Current Milestone
 
@@ -29,12 +29,12 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 
 ## Current Position
 
-Phase: 12 of 12 (2025 Player Stats Gap Closure)
-Plan: 2 of 2 in current phase
-Status: Phase 12 complete -- 2025 player stats ingested, validated, Silver processed
-Last activity: 2026-03-12 — Phase 12 Plan 02 completed
+Phase: 13 of 14 (Bronze-Silver Path Alignment)
+Plan: 1 of 1 in current phase
+Status: Phase 13 complete -- Silver reader paths aligned with Bronze write paths
+Last activity: 2026-03-12 — Phase 13 Plan 01 completed
 
-Progress: [██████████] 100% (10/10 plans)
+Progress: [██████████] 100% (11/11 plans)
 
 ## Key Artifacts
 
@@ -80,6 +80,7 @@ Progress: [██████████] 100% (10/10 plans)
 - [Phase 12]: 13 share columns computed from team totals for seasonal aggregation
 - [Phase 12]: Weighted average for dakota column (weight by attempts)
 - [Phase 12]: Changed player_weekly registry to season-only path matching 2020-2024 storage pattern
+- [Phase 13]: snap_counts reader concatenates all week-partitioned files (pd.concat) rather than taking latest
 
 ### Roadmap Evolution
 
@@ -98,9 +99,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-13T00:19:28.096Z
-Stopped at: Completed 12-02-PLAN.md
+Last session: 2026-03-13T02:00:25.368Z
+Stopped at: Completed 13-01-PLAN.md
 Resume file: None
 
 ---
-*Last updated: 2026-03-13 after Phase 12 Plan 02 completion*
+*Last updated: 2026-03-13 after Phase 13 Plan 01 completion*
