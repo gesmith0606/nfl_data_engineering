@@ -30,7 +30,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 - [x] **Phase 9: New Data Type Ingestion** - Ingest all 9 new Bronze data types for 2016-2025 (completed 2026-03-09)
 - [x] **Phase 10: Existing Type Backfill** - Extend 6 existing data types from 2020-2024 to 2016-2025 (completed 2026-03-12)
 - [x] **Phase 11: Orchestration and Validation** - Batch script, failure handling, validation, and inventory regeneration (completed 2026-03-12)
-- [ ] **Phase 12: 2025 Player Stats Gap Closure** - Fetch 2025 player weekly/seasonal stats from nflverse's new `stats_player` release tag, closing BACKFILL-02/03 gaps
+- [x] **Phase 12: 2025 Player Stats Gap Closure** - Fetch 2025 player weekly/seasonal stats from nflverse's new `stats_player` release tag, closing BACKFILL-02/03 gaps (completed 2026-03-13)
 
 ## Phase Details
 
@@ -111,7 +111,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
 | 9. New Data Type Ingestion | v1.1 | 3/3 | Complete | 2026-03-09 |
 | 10. Existing Type Backfill | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 11. Orchestration and Validation | v1.1 | 2/2 | Complete | 2026-03-12 |
-| 12. 2025 Player Stats Gap Closure | 1/2 | In Progress|  | - |
+| 12. 2025 Player Stats Gap Closure | 2/2 | Complete   | 2026-03-13 | - |
 
 ### Phase 12: 2025 Player Stats Gap Closure
 **Goal**: Fetch 2025 player weekly and seasonal stats from nflverse's new `stats_player` release tag (replacing archived `player_stats` tag), with column mapping for backward compatibility
@@ -122,7 +122,7 @@ Phases 9 and 10 can execute in parallel after Phase 8. Phase 11 requires both to
   2. `data/bronze/players/seasonal/season=2025/` contains a Parquet file derived from weekly aggregation
   3. `validate_data()` passes on both 2025 files
   4. Existing Silver pipeline (`silver_player_transformation.py`) processes 2025 data without error
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 12-01-PLAN.md — Config constants, adapter methods, conditional routing, and tests
