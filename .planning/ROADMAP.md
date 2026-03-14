@@ -122,7 +122,7 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 13. Bronze-Silver Path Alignment | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 14. Bronze Cosmetic Cleanup | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 15. PBP Team Metrics and Tendencies | 3/3 | Complete    | 2026-03-14 | - |
-| 16. Strength of Schedule and Situational Splits | 2/2 | Complete   | 2026-03-14 | - |
+| 16. Strength of Schedule and Situational Splits | 2/2 | Complete    | 2026-03-14 | - |
 | 17. Advanced Player Profiles | v1.2 | 0/? | Not started | - |
 | 18. Historical Context | v1.2 | 0/? | Not started | - |
 
