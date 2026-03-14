@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Silver Expansion
 status: completed
-stopped_at: Completed 16-02-PLAN.md
-last_updated: "2026-03-14T18:58:53.256Z"
+stopped_at: Phase 17 context gathered
+last_updated: "2026-03-14T19:29:08.466Z"
 last_activity: 2026-03-14 — Completed 16-02 situational splits (home/away, divisional, game script EPA splits + CLI wiring)
 progress:
   total_phases: 4
@@ -83,9 +83,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-14T18:55:38.083Z
-Stopped at: Completed 16-02-PLAN.md
-Resume file: None
+Last session: 2026-03-14T19:29:08.463Z
+Stopped at: Phase 17 context gathered
+Resume file: .planning/phases/17-advanced-player-profiles/17-CONTEXT.md
 
 ---
 *Last updated: 2026-03-14 after 16-02 plan execution*
