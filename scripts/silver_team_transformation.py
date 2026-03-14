@@ -24,7 +24,12 @@ from dotenv import load_dotenv
 # Project root on path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from team_analytics import compute_pbp_metrics, compute_tendency_metrics
+from team_analytics import (
+    compute_pbp_metrics,
+    compute_tendency_metrics,
+    compute_sos_metrics,
+    compute_situational_splits,
+)
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
 BRONZE_DIR = os.path.join(PROJECT_ROOT, "data", "bronze")
@@ -112,8 +117,10 @@ def run_silver_team_transform(
         1. Read PBP from local Bronze
         2. Compute PBP performance metrics (EPA, success rate, CPOE, red zone)
         3. Compute tendency metrics (pace, PROE, 4th down, early-down run rate)
-        4. Save both tables as Parquet with timestamped filenames
-        5. Optionally upload to S3
+        4. Compute SOS metrics (opponent-adjusted EPA, schedule difficulty)
+        5. Compute situational splits (home/away, divisional, game script EPA)
+        6. Save all 4 tables as Parquet with timestamped filenames
+        7. Optionally upload to S3
 
     Args:
         seasons: List of NFL season years to process.
@@ -156,7 +163,29 @@ def run_silver_team_transform(
                 f"{tendencies_df['team'].nunique()} teams"
             )
 
-        # 4. Save to Silver layer (local + optional S3)
+        # 4. Compute SOS metrics
+        print("  Computing SOS metrics...")
+        sos_df = compute_sos_metrics(pbp_df)
+        if sos_df.empty:
+            print("    WARNING: No SOS metrics produced.")
+        else:
+            print(
+                f"    SOS: {len(sos_df):,} rows, "
+                f"{sos_df['team'].nunique()} teams"
+            )
+
+        # 5. Compute situational splits
+        print("  Computing situational splits...")
+        sit_df = compute_situational_splits(pbp_df)
+        if sit_df.empty:
+            print("    WARNING: No situational splits produced.")
+        else:
+            print(
+                f"    Situational: {len(sit_df):,} rows, "
+                f"{sit_df['team'].nunique()} teams"
+            )
+
+        # 6. Save to Silver layer (local + optional S3)
         print("  Saving to Silver layer...")
 
         pbp_key = f"teams/pbp_metrics/season={season}/pbp_metrics_{ts}.parquet"
@@ -169,6 +198,18 @@ def run_silver_team_transform(
             _save_local_silver(tendencies_df, tend_key, ts)
             if s3_bucket:
                 _try_s3_upload(tendencies_df, s3_bucket, tend_key)
+
+        if not sos_df.empty:
+            sos_key = f"teams/sos/season={season}/sos_{ts}.parquet"
+            _save_local_silver(sos_df, sos_key, ts)
+            if s3_bucket:
+                _try_s3_upload(sos_df, s3_bucket, sos_key)
+
+        if not sit_df.empty:
+            sit_key = f"teams/situational/season={season}/situational_{ts}.parquet"
+            _save_local_silver(sit_df, sit_key, ts)
+            if s3_bucket:
+                _try_s3_upload(sit_df, s3_bucket, sit_key)
 
         print(f"  Season {season} complete.")
 
