@@ -26,7 +26,8 @@ from src.team_analytics import (
     compute_tendency_metrics,
 )
 
-from src.team_analytics import _build_opponent_schedule, compute_sos_metrics
+from src.team_analytics import _build_opponent_schedule, compute_sos_metrics, compute_situational_splits
+from src.config import TEAM_DIVISIONS
 
 
 def _make_pbp_rows(
@@ -979,3 +980,276 @@ class TestSOS:
         # D should have no row in week 2 (bye week)
         d_w2 = result[(result["team"] == "D") & (result["week"] == 2)]
         assert len(d_w2) == 0
+
+
+# ---------------------------------------------------------------------------
+# Situational Splits Tests (Plan 16-02)
+# ---------------------------------------------------------------------------
+
+
+def _build_situational_pbp() -> pd.DataFrame:
+    """Build a synthetic PBP DataFrame with 4 teams from real divisions over 4 weeks.
+
+    Teams:
+        PHI, DAL (NFC East — divisional rivals)
+        KC, DEN (AFC West — divisional rivals)
+
+    Schedule:
+        Week 1: PHI (home) vs DAL (away) — divisional
+        Week 2: KC (home) vs DEN (away) — divisional
+        Week 3: PHI (home) vs KC (away) — non-divisional
+        Week 4: DAL (home) vs DEN (away) — non-divisional
+
+    Score differentials per play set to test game script:
+        Week 1 PHI offense: score_differential = 10 (leading), then -10 (trailing)
+        Week 1 DAL offense: score_differential = -10 (trailing), then 3 (neutral)
+        Week 2 KC offense: score_differential = 0 (neutral)
+        Week 2 DEN offense: score_differential = 14 (leading)
+        Week 3 PHI offense: score_differential = -3 (neutral)
+        Week 3 KC offense: score_differential = 8 (leading)
+        Week 4 DAL offense: score_differential = -14 (trailing)
+        Week 4 DEN offense: score_differential = 0 (neutral)
+    """
+    frames = []
+
+    # Week 1: PHI (home) vs DAL (away) — divisional
+    frames.append(pd.DataFrame([
+        {"posteam": "PHI", "defteam": "DAL", "season": 2024, "week": 1,
+         "season_type": "REG", "play_type": "pass", "epa": 0.50, "success": 1,
+         "home_team": "PHI", "away_team": "DAL", "score_differential": 10,
+         "game_id": "2024_01_DAL_PHI"},
+        {"posteam": "PHI", "defteam": "DAL", "season": 2024, "week": 1,
+         "season_type": "REG", "play_type": "run", "epa": 0.20, "success": 1,
+         "home_team": "PHI", "away_team": "DAL", "score_differential": -10,
+         "game_id": "2024_01_DAL_PHI"},
+    ]))
+    frames.append(pd.DataFrame([
+        {"posteam": "DAL", "defteam": "PHI", "season": 2024, "week": 1,
+         "season_type": "REG", "play_type": "pass", "epa": -0.30, "success": 0,
+         "home_team": "PHI", "away_team": "DAL", "score_differential": -10,
+         "game_id": "2024_01_DAL_PHI"},
+        {"posteam": "DAL", "defteam": "PHI", "season": 2024, "week": 1,
+         "season_type": "REG", "play_type": "run", "epa": 0.10, "success": 1,
+         "home_team": "PHI", "away_team": "DAL", "score_differential": 3,
+         "game_id": "2024_01_DAL_PHI"},
+    ]))
+
+    # Week 2: KC (home) vs DEN (away) — divisional
+    frames.append(pd.DataFrame([
+        {"posteam": "KC", "defteam": "DEN", "season": 2024, "week": 2,
+         "season_type": "REG", "play_type": "pass", "epa": 0.40, "success": 1,
+         "home_team": "KC", "away_team": "DEN", "score_differential": 0,
+         "game_id": "2024_02_DEN_KC"},
+        {"posteam": "KC", "defteam": "DEN", "season": 2024, "week": 2,
+         "season_type": "REG", "play_type": "run", "epa": 0.10, "success": 1,
+         "home_team": "KC", "away_team": "DEN", "score_differential": 0,
+         "game_id": "2024_02_DEN_KC"},
+    ]))
+    frames.append(pd.DataFrame([
+        {"posteam": "DEN", "defteam": "KC", "season": 2024, "week": 2,
+         "season_type": "REG", "play_type": "pass", "epa": 0.60, "success": 1,
+         "home_team": "KC", "away_team": "DEN", "score_differential": 14,
+         "game_id": "2024_02_DEN_KC"},
+        {"posteam": "DEN", "defteam": "KC", "season": 2024, "week": 2,
+         "season_type": "REG", "play_type": "run", "epa": 0.30, "success": 1,
+         "home_team": "KC", "away_team": "DEN", "score_differential": 14,
+         "game_id": "2024_02_DEN_KC"},
+    ]))
+
+    # Week 3: PHI (home) vs KC (away) — non-divisional
+    frames.append(pd.DataFrame([
+        {"posteam": "PHI", "defteam": "KC", "season": 2024, "week": 3,
+         "season_type": "REG", "play_type": "pass", "epa": 0.30, "success": 1,
+         "home_team": "PHI", "away_team": "KC", "score_differential": -3,
+         "game_id": "2024_03_KC_PHI"},
+        {"posteam": "PHI", "defteam": "KC", "season": 2024, "week": 3,
+         "season_type": "REG", "play_type": "run", "epa": -0.10, "success": 0,
+         "home_team": "PHI", "away_team": "KC", "score_differential": -3,
+         "game_id": "2024_03_KC_PHI"},
+    ]))
+    frames.append(pd.DataFrame([
+        {"posteam": "KC", "defteam": "PHI", "season": 2024, "week": 3,
+         "season_type": "REG", "play_type": "pass", "epa": 0.70, "success": 1,
+         "home_team": "PHI", "away_team": "KC", "score_differential": 8,
+         "game_id": "2024_03_KC_PHI"},
+        {"posteam": "KC", "defteam": "PHI", "season": 2024, "week": 3,
+         "season_type": "REG", "play_type": "run", "epa": 0.20, "success": 1,
+         "home_team": "PHI", "away_team": "KC", "score_differential": 8,
+         "game_id": "2024_03_KC_PHI"},
+    ]))
+
+    # Week 4: DAL (home) vs DEN (away) — non-divisional
+    frames.append(pd.DataFrame([
+        {"posteam": "DAL", "defteam": "DEN", "season": 2024, "week": 4,
+         "season_type": "REG", "play_type": "pass", "epa": -0.20, "success": 0,
+         "home_team": "DAL", "away_team": "DEN", "score_differential": -14,
+         "game_id": "2024_04_DAL_DEN"},
+        {"posteam": "DAL", "defteam": "DEN", "season": 2024, "week": 4,
+         "season_type": "REG", "play_type": "run", "epa": -0.40, "success": 0,
+         "home_team": "DAL", "away_team": "DEN", "score_differential": -14,
+         "game_id": "2024_04_DAL_DEN"},
+    ]))
+    frames.append(pd.DataFrame([
+        {"posteam": "DEN", "defteam": "DAL", "season": 2024, "week": 4,
+         "season_type": "REG", "play_type": "pass", "epa": 0.50, "success": 1,
+         "home_team": "DAL", "away_team": "DEN", "score_differential": 0,
+         "game_id": "2024_04_DAL_DEN"},
+        {"posteam": "DEN", "defteam": "DAL", "season": 2024, "week": 4,
+         "season_type": "REG", "play_type": "run", "epa": 0.10, "success": 1,
+         "home_team": "DAL", "away_team": "DEN", "score_differential": 0,
+         "game_id": "2024_04_DAL_DEN"},
+    ]))
+
+    return pd.concat(frames, ignore_index=True)
+
+
+class TestSituational:
+    """Tests for compute_situational_splits."""
+
+    def test_home_away_split(self):
+        """home_off_epa populated when team is home, away_off_epa when away; NaN for the other."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        # PHI is home in week 1 (vs DAL) — home_off_epa should be populated
+        phi_w1 = result[(result["team"] == "PHI") & (result["week"] == 1)]
+        assert len(phi_w1) == 1
+        assert not pd.isna(phi_w1["home_off_epa"].iloc[0])
+        # PHI offense EPA W1: mean(0.50, 0.20) = 0.35
+        assert abs(phi_w1["home_off_epa"].iloc[0] - 0.35) < 1e-6
+        # PHI is not away in week 1, so away_off_epa should be NaN
+        assert pd.isna(phi_w1["away_off_epa"].iloc[0])
+
+        # DAL is away in week 1 — away_off_epa should be populated
+        dal_w1 = result[(result["team"] == "DAL") & (result["week"] == 1)]
+        assert not pd.isna(dal_w1["away_off_epa"].iloc[0])
+        # DAL offense EPA W1: mean(-0.30, 0.10) = -0.10
+        assert abs(dal_w1["away_off_epa"].iloc[0] - (-0.10)) < 1e-6
+        # DAL is not home in week 1
+        assert pd.isna(dal_w1["home_off_epa"].iloc[0])
+
+    def test_home_away_defense(self):
+        """home_def_epa and away_def_epa correctly assigned."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        # PHI is home in week 1 — home_def_epa = mean of DAL's offensive plays EPA
+        # DAL offense EPA W1: mean(-0.30, 0.10) = -0.10
+        phi_w1 = result[(result["team"] == "PHI") & (result["week"] == 1)]
+        assert not pd.isna(phi_w1["home_def_epa"].iloc[0])
+        assert abs(phi_w1["home_def_epa"].iloc[0] - (-0.10)) < 1e-6
+        assert pd.isna(phi_w1["away_def_epa"].iloc[0])
+
+    def test_divisional_tagging(self):
+        """div_off_epa populated for same-division opponents, nondiv_off_epa for cross-division."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        # PHI vs DAL (week 1) = divisional (both NFC East)
+        phi_w1 = result[(result["team"] == "PHI") & (result["week"] == 1)]
+        assert not pd.isna(phi_w1["div_off_epa"].iloc[0])
+        assert abs(phi_w1["div_off_epa"].iloc[0] - 0.35) < 1e-6
+        # Non-divisional should be NaN for this week
+        assert pd.isna(phi_w1["nondiv_off_epa"].iloc[0])
+
+        # PHI vs KC (week 3) = non-divisional
+        phi_w3 = result[(result["team"] == "PHI") & (result["week"] == 3)]
+        assert not pd.isna(phi_w3["nondiv_off_epa"].iloc[0])
+        # PHI offense EPA W3: mean(0.30, -0.10) = 0.10
+        assert abs(phi_w3["nondiv_off_epa"].iloc[0] - 0.10) < 1e-6
+        assert pd.isna(phi_w3["div_off_epa"].iloc[0])
+
+    def test_game_script_leading(self):
+        """leading_off_epa computed from plays where score_differential >= 7."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        # PHI W1: score_differential = [10, -10]. Leading play: epa=0.50
+        phi_w1 = result[(result["team"] == "PHI") & (result["week"] == 1)]
+        assert not pd.isna(phi_w1["leading_off_epa"].iloc[0])
+        assert abs(phi_w1["leading_off_epa"].iloc[0] - 0.50) < 1e-6
+
+    def test_game_script_trailing(self):
+        """trailing_off_epa computed from plays where score_differential <= -7."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        # PHI W1: score_differential = [10, -10]. Trailing play: epa=0.20
+        phi_w1 = result[(result["team"] == "PHI") & (result["week"] == 1)]
+        assert not pd.isna(phi_w1["trailing_off_epa"].iloc[0])
+        assert abs(phi_w1["trailing_off_epa"].iloc[0] - 0.20) < 1e-6
+
+    def test_neutral_excluded(self):
+        """Plays with -6 <= score_differential <= 6 excluded from leading/trailing splits."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        # KC W2: score_differential = [0, 0]. Both neutral — leading/trailing should be NaN
+        kc_w2 = result[(result["team"] == "KC") & (result["week"] == 2)]
+        assert pd.isna(kc_w2["leading_off_epa"].iloc[0])
+        assert pd.isna(kc_w2["trailing_off_epa"].iloc[0])
+
+    def test_rolling_on_splits(self):
+        """All situational columns have _roll3, _roll6, _std variants."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        split_cols = [
+            "home_off_epa", "away_off_epa", "home_def_epa", "away_def_epa",
+            "div_off_epa", "nondiv_off_epa", "div_def_epa", "nondiv_def_epa",
+            "leading_off_epa", "trailing_off_epa", "leading_def_epa", "trailing_def_epa",
+        ]
+        for col in split_cols:
+            assert f"{col}_roll3" in result.columns, f"Missing {col}_roll3"
+            assert f"{col}_roll6" in result.columns, f"Missing {col}_roll6"
+            assert f"{col}_std" in result.columns, f"Missing {col}_std"
+
+    def test_nan_for_non_applicable(self):
+        """Away week produces NaN for home_off_epa; non-divisional week produces NaN for div_off_epa."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        # KC is away in week 3 (at PHI) — home_off_epa should be NaN
+        kc_w3 = result[(result["team"] == "KC") & (result["week"] == 3)]
+        assert pd.isna(kc_w3["home_off_epa"].iloc[0])
+
+        # KC vs PHI (week 3) is non-divisional — div_off_epa should be NaN
+        assert pd.isna(kc_w3["div_off_epa"].iloc[0])
+
+    def test_wide_format(self):
+        """One row per (team, season, week) in output."""
+        pbp = _build_situational_pbp()
+        result = compute_situational_splits(pbp)
+
+        # Check uniqueness of (team, season, week)
+        key_counts = result.groupby(["team", "season", "week"]).size()
+        assert (key_counts == 1).all(), "Multiple rows for same (team, season, week)"
+
+        # Should have 8 team-weeks total (4 teams x 2 weeks each from the fixture)
+        # PHI: W1, W3; DAL: W1, W4; KC: W2, W3; DEN: W2, W4
+        assert len(result) == 8
+
+
+class TestIdempotency:
+    """Tests for idempotent computation of SOS and situational splits."""
+
+    def test_sos_idempotent(self):
+        """compute_sos_metrics on same input twice produces identical DataFrames."""
+        pbp = _build_four_team_three_week_sos_pbp()
+        result1 = compute_sos_metrics(pbp)
+        result2 = compute_sos_metrics(pbp)
+
+        # Sort both for comparison
+        result1 = result1.sort_values(["team", "season", "week"]).reset_index(drop=True)
+        result2 = result2.sort_values(["team", "season", "week"]).reset_index(drop=True)
+        pd.testing.assert_frame_equal(result1, result2)
+
+    def test_situational_idempotent(self):
+        """compute_situational_splits on same input twice produces identical DataFrames."""
+        pbp = _build_situational_pbp()
+        result1 = compute_situational_splits(pbp)
+        result2 = compute_situational_splits(pbp)
+
+        result1 = result1.sort_values(["team", "season", "week"]).reset_index(drop=True)
+        result2 = result2.sort_values(["team", "season", "week"]).reset_index(drop=True)
+        pd.testing.assert_frame_equal(result1, result2)

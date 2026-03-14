@@ -14,6 +14,8 @@ import numpy as np
 from typing import List, Optional
 import logging
 
+from config import TEAM_DIVISIONS
+
 logger = logging.getLogger(__name__)
 
 
@@ -685,6 +687,157 @@ def compute_sos_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
 
     logger.info(
         "SOS metrics complete: %d rows, %d teams, seasons %s-%s",
+        len(result),
+        result["team"].nunique(),
+        result["season"].min(),
+        result["season"].max(),
+    )
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Situational Splits Functions (Plan 16-02)
+# ---------------------------------------------------------------------------
+
+
+def compute_situational_splits(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute situational EPA splits: home/away, divisional, and game script.
+
+    Produces a wide-format DataFrame with one row per (team, season, week)
+    containing 12 split columns plus rolling window variants.
+
+    Split columns:
+        - home_off_epa, away_off_epa: offensive EPA when playing at home/away
+        - home_def_epa, away_def_epa: defensive EPA when playing at home/away
+        - div_off_epa, nondiv_off_epa: offensive EPA vs divisional/non-divisional opponents
+        - div_def_epa, nondiv_def_epa: defensive EPA vs divisional/non-divisional opponents
+        - leading_off_epa, trailing_off_epa: offensive EPA when leading (>=7) or trailing (<=-7)
+        - leading_def_epa, trailing_def_epa: defensive EPA when leading (>=7) or trailing (<=-7)
+
+    Non-applicable situations produce NaN (e.g., home_off_epa is NaN for away games).
+    Neutral plays (-6 <= score_differential <= 6) are excluded from game script splits.
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame with home_team, away_team,
+                score_differential, and standard PBP columns.
+
+    Returns:
+        Wide-format DataFrame with situational split columns plus rolling variants.
+    """
+    valid = _filter_valid_plays(pbp_df)
+
+    if valid.empty:
+        logger.warning("No valid plays after filtering; returning empty DataFrame")
+        return pd.DataFrame()
+
+    # Ensure required columns exist
+    for col in ["home_team", "score_differential"]:
+        if col not in valid.columns:
+            logger.warning("Missing column %s; returning empty DataFrame", col)
+            return pd.DataFrame()
+
+    # --- Tag each play ---
+    valid = valid.copy()
+    valid["is_home_off"] = valid["posteam"] == valid["home_team"]
+    valid["is_home_def"] = valid["defteam"] == valid["home_team"]
+
+    # Divisional tagging (handle missing teams gracefully)
+    valid["posteam_div"] = valid["posteam"].map(TEAM_DIVISIONS)
+    valid["defteam_div"] = valid["defteam"].map(TEAM_DIVISIONS)
+    valid["is_divisional"] = (
+        valid["posteam_div"].notna()
+        & valid["defteam_div"].notna()
+        & (valid["posteam_div"] == valid["defteam_div"])
+    )
+
+    # Game script tagging
+    valid["is_leading"] = valid["score_differential"] >= 7
+    valid["is_trailing"] = valid["score_differential"] <= -7
+
+    # --- Helper to compute mean EPA for a filtered subset ---
+    def _mean_epa(df: pd.DataFrame, team_col: str, mask: pd.Series) -> pd.DataFrame:
+        """Compute mean EPA grouped by (team_col, season, week) for rows where mask is True."""
+        subset = df[mask]
+        if subset.empty:
+            return pd.DataFrame(columns=[team_col, "season", "week", "epa"])
+        return (
+            subset.groupby([team_col, "season", "week"])["epa"]
+            .mean()
+            .reset_index()
+        )
+
+    # --- Compute all 12 splits ---
+    # Home/away offense
+    home_off = _mean_epa(valid, "posteam", valid["is_home_off"])
+    home_off = home_off.rename(columns={"posteam": "team", "epa": "home_off_epa"})
+
+    away_off = _mean_epa(valid, "posteam", ~valid["is_home_off"])
+    away_off = away_off.rename(columns={"posteam": "team", "epa": "away_off_epa"})
+
+    # Home/away defense
+    home_def = _mean_epa(valid, "defteam", valid["is_home_def"])
+    home_def = home_def.rename(columns={"defteam": "team", "epa": "home_def_epa"})
+
+    away_def = _mean_epa(valid, "defteam", ~valid["is_home_def"])
+    away_def = away_def.rename(columns={"defteam": "team", "epa": "away_def_epa"})
+
+    # Divisional offense/defense
+    div_off = _mean_epa(valid, "posteam", valid["is_divisional"])
+    div_off = div_off.rename(columns={"posteam": "team", "epa": "div_off_epa"})
+
+    nondiv_off = _mean_epa(valid, "posteam", ~valid["is_divisional"])
+    nondiv_off = nondiv_off.rename(columns={"posteam": "team", "epa": "nondiv_off_epa"})
+
+    div_def = _mean_epa(valid, "defteam", valid["is_divisional"])
+    div_def = div_def.rename(columns={"defteam": "team", "epa": "div_def_epa"})
+
+    nondiv_def = _mean_epa(valid, "defteam", ~valid["is_divisional"])
+    nondiv_def = nondiv_def.rename(columns={"defteam": "team", "epa": "nondiv_def_epa"})
+
+    # Game script offense (exclude neutral)
+    leading_off = _mean_epa(valid, "posteam", valid["is_leading"])
+    leading_off = leading_off.rename(columns={"posteam": "team", "epa": "leading_off_epa"})
+
+    trailing_off = _mean_epa(valid, "posteam", valid["is_trailing"])
+    trailing_off = trailing_off.rename(columns={"posteam": "team", "epa": "trailing_off_epa"})
+
+    # Game script defense
+    leading_def = _mean_epa(valid, "defteam", valid["is_leading"])
+    leading_def = leading_def.rename(columns={"defteam": "team", "epa": "leading_def_epa"})
+
+    trailing_def = _mean_epa(valid, "defteam", valid["is_trailing"])
+    trailing_def = trailing_def.rename(columns={"defteam": "team", "epa": "trailing_def_epa"})
+
+    # --- Merge all splits into wide format ---
+    # Start with all unique (team, season, week) combinations from offense + defense
+    off_keys = valid[["posteam", "season", "week"]].rename(columns={"posteam": "team"})
+    def_keys = valid[["defteam", "season", "week"]].rename(columns={"defteam": "team"})
+    all_keys = pd.concat([off_keys, def_keys]).drop_duplicates().reset_index(drop=True)
+
+    result = all_keys
+    for split_df in [
+        home_off, away_off, home_def, away_def,
+        div_off, nondiv_off, div_def, nondiv_def,
+        leading_off, trailing_off, leading_def, trailing_def,
+    ]:
+        if not split_df.empty:
+            result = result.merge(split_df, on=["team", "season", "week"], how="left")
+
+    # --- Apply rolling windows ---
+    split_cols = [
+        "home_off_epa", "away_off_epa", "home_def_epa", "away_def_epa",
+        "div_off_epa", "nondiv_off_epa", "div_def_epa", "nondiv_def_epa",
+        "leading_off_epa", "trailing_off_epa", "leading_def_epa", "trailing_def_epa",
+    ]
+    # Ensure all split columns exist (some might be missing if all empty)
+    for col in split_cols:
+        if col not in result.columns:
+            result[col] = np.nan
+
+    result = apply_team_rolling(result, split_cols)
+
+    logger.info(
+        "Situational splits complete: %d rows, %d teams, seasons %s-%s",
         len(result),
         result["team"].nunique(),
         result["season"].min(),
