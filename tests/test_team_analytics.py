@@ -26,6 +26,13 @@ from src.team_analytics import (
     compute_tendency_metrics,
 )
 
+# SOS functions imported separately (added in Plan 16-01 Task 2)
+try:
+    from src.team_analytics import _build_opponent_schedule, compute_sos_metrics
+except ImportError:
+    _build_opponent_schedule = None
+    compute_sos_metrics = None
+
 
 def _make_pbp_rows(
     posteam: str,
@@ -735,3 +742,246 @@ class TestTendencyMetricsOrchestrator:
         assert len(a_w1) == 1
         assert pd.isna(a_w1["pace_roll3"].iloc[0])
         assert pd.isna(a_w1["pace_std"].iloc[0])
+
+
+# ---------------------------------------------------------------------------
+# Config SOS Tests (Plan 16-01)
+# ---------------------------------------------------------------------------
+
+
+class TestConfigSOS:
+    """Tests for TEAM_DIVISIONS and SILVER_TEAM_S3_KEYS SOS entries."""
+
+    def test_team_divisions_has_32_teams(self):
+        from src.config import TEAM_DIVISIONS
+        assert len(TEAM_DIVISIONS) == 32
+
+    def test_team_divisions_8_divisions_4_teams_each(self):
+        from src.config import TEAM_DIVISIONS
+        from collections import Counter
+        division_counts = Counter(TEAM_DIVISIONS.values())
+        assert len(division_counts) == 8, f"Expected 8 divisions, got {len(division_counts)}"
+        for div, count in division_counts.items():
+            assert count == 4, f"Division {div} has {count} teams, expected 4"
+
+    def test_silver_team_s3_keys_has_sos(self):
+        from src.config import SILVER_TEAM_S3_KEYS
+        assert "sos" in SILVER_TEAM_S3_KEYS
+
+    def test_silver_team_s3_keys_has_situational(self):
+        from src.config import SILVER_TEAM_S3_KEYS
+        assert "situational" in SILVER_TEAM_S3_KEYS
+
+
+# ---------------------------------------------------------------------------
+# SOS Test Fixture and Tests (Plan 16-01)
+# ---------------------------------------------------------------------------
+
+
+def _build_four_team_three_week_sos_pbp() -> pd.DataFrame:
+    """Build a synthetic PBP DataFrame with 4 teams over 3 weeks.
+
+    Schedule:
+        Week 1: A vs B, C vs D
+        Week 2: A vs C, B vs D
+        Week 3: A vs D, B vs C
+
+    Each team plays one game per week with deterministic EPA values.
+    EPA values are set so that SOS calculations produce predictable results.
+
+    Team A offense EPA: W1=0.10, W2=0.20, W3=0.30
+    Team B offense EPA: W1=0.40, W2=-0.10, W3=0.50
+    Team C offense EPA: W1=0.60, W2=-0.20, W3=0.10
+    Team D offense EPA: W1=-0.30, W2=0.80, W3=-0.40
+    """
+    frames = []
+
+    # Week 1: A vs B
+    frames.append(_make_pbp_rows("A", "B", 2024, 1, [
+        {"play_type": "pass", "epa": 0.10, "success": 1},
+        {"play_type": "run", "epa": 0.10, "success": 1},
+    ]))
+    frames.append(_make_pbp_rows("B", "A", 2024, 1, [
+        {"play_type": "pass", "epa": 0.40, "success": 1},
+        {"play_type": "run", "epa": 0.40, "success": 1},
+    ]))
+
+    # Week 1: C vs D
+    frames.append(_make_pbp_rows("C", "D", 2024, 1, [
+        {"play_type": "pass", "epa": 0.60, "success": 1},
+        {"play_type": "run", "epa": 0.60, "success": 1},
+    ]))
+    frames.append(_make_pbp_rows("D", "C", 2024, 1, [
+        {"play_type": "pass", "epa": -0.30, "success": 0},
+        {"play_type": "run", "epa": -0.30, "success": 0},
+    ]))
+
+    # Week 2: A vs C
+    frames.append(_make_pbp_rows("A", "C", 2024, 2, [
+        {"play_type": "pass", "epa": 0.20, "success": 1},
+        {"play_type": "run", "epa": 0.20, "success": 1},
+    ]))
+    frames.append(_make_pbp_rows("C", "A", 2024, 2, [
+        {"play_type": "pass", "epa": -0.20, "success": 0},
+        {"play_type": "run", "epa": -0.20, "success": 0},
+    ]))
+
+    # Week 2: B vs D
+    frames.append(_make_pbp_rows("B", "D", 2024, 2, [
+        {"play_type": "pass", "epa": -0.10, "success": 0},
+        {"play_type": "run", "epa": -0.10, "success": 0},
+    ]))
+    frames.append(_make_pbp_rows("D", "B", 2024, 2, [
+        {"play_type": "pass", "epa": 0.80, "success": 1},
+        {"play_type": "run", "epa": 0.80, "success": 1},
+    ]))
+
+    # Week 3: A vs D
+    frames.append(_make_pbp_rows("A", "D", 2024, 3, [
+        {"play_type": "pass", "epa": 0.30, "success": 1},
+        {"play_type": "run", "epa": 0.30, "success": 1},
+    ]))
+    frames.append(_make_pbp_rows("D", "A", 2024, 3, [
+        {"play_type": "pass", "epa": -0.40, "success": 0},
+        {"play_type": "run", "epa": -0.40, "success": 0},
+    ]))
+
+    # Week 3: B vs C
+    frames.append(_make_pbp_rows("B", "C", 2024, 3, [
+        {"play_type": "pass", "epa": 0.50, "success": 1},
+        {"play_type": "run", "epa": 0.50, "success": 1},
+    ]))
+    frames.append(_make_pbp_rows("C", "B", 2024, 3, [
+        {"play_type": "pass", "epa": 0.10, "success": 1},
+        {"play_type": "run", "epa": 0.10, "success": 1},
+    ]))
+
+    pbp = pd.concat(frames, ignore_index=True)
+    # Add game_id column for opponent schedule extraction
+    pbp["game_id"] = pbp.apply(
+        lambda r: f"{r['season']}_{r['week']:02d}_{'_'.join(sorted([r['posteam'], r['defteam']]))}",
+        axis=1,
+    )
+    # Add home/away and score_differential for Plan 02 compatibility
+    pbp["home_team"] = pbp["posteam"]
+    pbp["away_team"] = pbp["defteam"]
+    pbp["score_differential"] = 0.0
+    return pbp
+
+
+@pytest.mark.skipif(compute_sos_metrics is None, reason="SOS functions not yet implemented")
+class TestSOS:
+    """Tests for SOS (Strength of Schedule) computation."""
+
+    def test_week1_adj_equals_raw(self):
+        """Week 1 adjusted EPA should equal raw EPA since no opponents faced yet."""
+        pbp = _build_four_team_three_week_sos_pbp()
+        result = compute_sos_metrics(pbp)
+
+        # Team A week 1: raw off_epa = 0.10, adj_off_epa should == raw
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        assert len(a_w1) == 1
+        assert abs(a_w1["adj_off_epa"].iloc[0] - 0.10) < 1e-6
+        assert abs(a_w1["adj_def_epa"].iloc[0] - 0.40) < 1e-6  # B's off EPA is A's def EPA
+        # SOS score should be NaN for week 1
+        assert pd.isna(a_w1["off_sos_score"].iloc[0])
+        assert pd.isna(a_w1["def_sos_score"].iloc[0])
+
+    def test_lagged_opponent_adjustment(self):
+        """Week 2+ adj_off_epa should subtract mean opponents' DEF EPA from weeks < current."""
+        pbp = _build_four_team_three_week_sos_pbp()
+        result = compute_sos_metrics(pbp)
+
+        # Team A week 2: played B in W1.
+        # off_sos = mean of B's def_epa in W1 = B's def EPA W1
+        # B's def EPA W1 = mean EPA when B is defteam = A's off plays EPA = 0.10
+        # So A's off_sos_score = 0.10
+        # A's raw off_epa W2 = 0.20
+        # adj_off_epa = 0.20 - 0.10 = 0.10
+        a_w2 = result[(result["team"] == "A") & (result["week"] == 2)]
+        assert len(a_w2) == 1
+        assert abs(a_w2["off_sos_score"].iloc[0] - 0.10) < 1e-6
+        assert abs(a_w2["adj_off_epa"].iloc[0] - 0.10) < 1e-6
+
+    def test_sos_ranking(self):
+        """SOS rankings should be 1-N integers with rank 1 = hardest schedule."""
+        pbp = _build_four_team_three_week_sos_pbp()
+        result = compute_sos_metrics(pbp)
+
+        # Week 2 should have 4 teams with ranks 1-4
+        w2 = result[result["week"] == 2]
+        assert len(w2) == 4
+        off_ranks = sorted(w2["off_sos_rank"].dropna().tolist())
+        # Should be 1.0, 2.0, 3.0, 4.0 (or with ties)
+        assert min(off_ranks) == 1.0
+        assert max(off_ranks) <= 4.0
+
+        # Week 1 should have NaN ranks (SOS score is NaN)
+        w1 = result[result["week"] == 1]
+        assert w1["off_sos_rank"].isna().all()
+
+    def test_sos_separate_offense_defense(self):
+        """Off SOS uses opponents' DEF EPA; def SOS uses opponents' OFF EPA."""
+        pbp = _build_four_team_three_week_sos_pbp()
+        result = compute_sos_metrics(pbp)
+
+        # Team A week 2: played B in W1
+        # off_sos = B's def_epa W1 = 0.10 (when B was on defense against A)
+        # def_sos = B's off_epa W1 = 0.40 (when B was on offense against A)
+        a_w2 = result[(result["team"] == "A") & (result["week"] == 2)]
+        assert abs(a_w2["off_sos_score"].iloc[0] - 0.10) < 1e-6
+        assert abs(a_w2["def_sos_score"].iloc[0] - 0.40) < 1e-6
+
+    def test_rolling_on_sos(self):
+        """SOS output should have _roll3, _roll6, _std columns on stat columns."""
+        pbp = _build_four_team_three_week_sos_pbp()
+        result = compute_sos_metrics(pbp)
+
+        for col in ["off_sos_score", "def_sos_score", "adj_off_epa", "adj_def_epa"]:
+            assert f"{col}_roll3" in result.columns, f"Missing {col}_roll3"
+            assert f"{col}_roll6" in result.columns, f"Missing {col}_roll6"
+            assert f"{col}_std" in result.columns, f"Missing {col}_std"
+
+    def test_bye_week_skipped(self):
+        """Team with no plays in a week should have no row (not NaN fill)."""
+        # Create PBP where team D has a bye in week 2
+        frames = []
+        # Week 1: A vs B, C vs D (all play)
+        frames.append(_make_pbp_rows("A", "B", 2024, 1, [
+            {"play_type": "pass", "epa": 0.10, "success": 1},
+        ]))
+        frames.append(_make_pbp_rows("B", "A", 2024, 1, [
+            {"play_type": "pass", "epa": 0.40, "success": 1},
+        ]))
+        frames.append(_make_pbp_rows("C", "D", 2024, 1, [
+            {"play_type": "pass", "epa": 0.60, "success": 1},
+        ]))
+        frames.append(_make_pbp_rows("D", "C", 2024, 1, [
+            {"play_type": "pass", "epa": -0.30, "success": 0},
+        ]))
+        # Week 2: A vs C, B plays someone (not D). D has bye.
+        frames.append(_make_pbp_rows("A", "C", 2024, 2, [
+            {"play_type": "pass", "epa": 0.20, "success": 1},
+        ]))
+        frames.append(_make_pbp_rows("C", "A", 2024, 2, [
+            {"play_type": "pass", "epa": -0.20, "success": 0},
+        ]))
+        frames.append(_make_pbp_rows("B", "C", 2024, 2, [
+            {"play_type": "pass", "epa": 0.50, "success": 1},
+        ]))
+        # Note: only B offense vs C, C defense - B has no defense and C is not on offense vs B in W2
+        # Actually let's add C on offense vs B too for balance
+        frames.append(_make_pbp_rows("C", "B", 2024, 2, [
+            {"play_type": "pass", "epa": 0.10, "success": 1},
+        ]))
+
+        pbp = pd.concat(frames, ignore_index=True)
+        pbp["game_id"] = pbp.apply(
+            lambda r: f"{r['season']}_{r['week']:02d}_{'_'.join(sorted([r['posteam'], r['defteam']]))}",
+            axis=1,
+        )
+        result = compute_sos_metrics(pbp)
+
+        # D should have no row in week 2 (bye week)
+        d_w2 = result[(result["team"] == "D") & (result["week"] == 2)]
+        assert len(d_w2) == 0

@@ -77,6 +77,18 @@ SCORING_CONFIGS: Dict[str, Dict[str, float]] = {
     },
 }
 
+# NFL Team Divisions (32 teams, 8 divisions, 4 teams each)
+TEAM_DIVISIONS = {
+    "ARI": "NFC West", "ATL": "NFC South", "BAL": "AFC North", "BUF": "AFC East",
+    "CAR": "NFC South", "CHI": "NFC North", "CIN": "AFC North", "CLE": "AFC North",
+    "DAL": "NFC East", "DEN": "AFC West", "DET": "NFC North", "GB": "NFC North",
+    "HOU": "AFC South", "IND": "AFC South", "JAX": "AFC South", "KC": "AFC West",
+    "LA": "NFC West", "LAC": "AFC West", "LV": "AFC West", "MIA": "AFC East",
+    "MIN": "NFC North", "NE": "AFC East", "NO": "NFC South", "NYG": "NFC East",
+    "NYJ": "AFC East", "PHI": "NFC East", "PIT": "AFC North", "SEA": "NFC West",
+    "SF": "NFC West", "TB": "NFC South", "TEN": "AFC South", "WAS": "NFC East",
+}
+
 # Fantasy roster configurations by league format
 ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
     "standard": {
@@ -122,6 +134,8 @@ SILVER_PLAYER_S3_KEYS = {
 SILVER_TEAM_S3_KEYS = {
     "pbp_metrics": "teams/pbp_metrics/season={season}/pbp_metrics_{ts}.parquet",
     "tendencies": "teams/tendencies/season={season}/tendencies_{ts}.parquet",
+    "sos": "teams/sos/season={season}/sos_{ts}.parquet",
+    "situational": "teams/situational/season={season}/situational_{ts}.parquet",
 }
 
 # Files are written with a timestamp suffix to preserve full history.
