@@ -24,9 +24,9 @@ Requirements for Silver layer expansion. Each maps to roadmap phases.
 
 ### Situational Breakdowns
 
-- [ ] **SIT-01**: Home/away performance splits with rolling windows
-- [ ] **SIT-02**: Divisional vs non-divisional game tags and performance splits
-- [ ] **SIT-03**: Game script splits (leading/trailing by 7+) with rolling EPA
+- [x] **SIT-01**: Home/away performance splits with rolling windows
+- [x] **SIT-02**: Divisional vs non-divisional game tags and performance splits
+- [x] **SIT-03**: Game script splits (leading/trailing by 7+) with rolling EPA
 
 ### Strength of Schedule
 
@@ -99,9 +99,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFRA-03 | Phase 15 | Complete |
 | SOS-01 | Phase 16 | Complete |
 | SOS-02 | Phase 16 | Complete |
-| SIT-01 | Phase 16 | Pending |
-| SIT-02 | Phase 16 | Pending |
-| SIT-03 | Phase 16 | Pending |
+| SIT-01 | Phase 16 | Complete |
+| SIT-02 | Phase 16 | Complete |
+| SIT-03 | Phase 16 | Complete |
 | PROF-01 | Phase 17 | Pending |
 | PROF-02 | Phase 17 | Pending |
 | PROF-03 | Phase 17 | Pending |

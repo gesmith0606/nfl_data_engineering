@@ -43,7 +43,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 **Milestone Goal:** Expand Silver layer with PBP-derived team analytics, strength of schedule, situational splits, advanced player profiles, and historical context — all with rolling windows — to feed game prediction models and improve fantasy projections.
 
 - [x] **Phase 15: PBP Team Metrics and Tendencies** - Team EPA, success rate, CPOE, red zone efficiency, pace, PROE, 4th down aggressiveness from PBP with rolling windows; fix existing rolling window bug; new Silver CLI and config registration (completed 2026-03-14)
-- [ ] **Phase 16: Strength of Schedule and Situational Splits** - Opponent-adjusted EPA rankings and schedule difficulty; home/away, divisional, and game script performance splits with rolling windows
+- [x] **Phase 16: Strength of Schedule and Situational Splits** - Opponent-adjusted EPA rankings and schedule difficulty; home/away, divisional, and game script performance splits with rolling windows (completed 2026-03-14)
 - [ ] **Phase 17: Advanced Player Profiles** - NGS separation/RYOE/TTT, PFR pressure/blitz rates, QBR rolling windows per player-week via new advanced analytics module
 - [ ] **Phase 18: Historical Context** - Combine measurables and draft capital linked to player IDs as a static dimension table for rookie/breakout modeling
 
@@ -74,7 +74,7 @@ Plans:
   2. Week 1 opponent-adjusted EPA equals raw EPA for all teams (no circular dependency)
   3. Situational splits at `data/silver/teams/situational/` contain home/away, divisional/non-divisional tags, and game script splits (leading/trailing by 7+) with rolling EPA
   4. Running the same CLI twice on identical input produces identical output (idempotency)
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [ ] 16-01-PLAN.md -- Config updates (TEAM_DIVISIONS, S3 keys) and SOS computation with tests
 - [ ] 16-02-PLAN.md -- Situational splits (home/away, divisional, game script) and CLI wiring
@@ -122,7 +122,7 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 13. Bronze-Silver Path Alignment | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 14. Bronze Cosmetic Cleanup | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 15. PBP Team Metrics and Tendencies | 3/3 | Complete    | 2026-03-14 | - |
-| 16. Strength of Schedule and Situational Splits | 1/2 | In Progress|  | - |
+| 16. Strength of Schedule and Situational Splits | 2/2 | Complete   | 2026-03-14 | - |
 | 17. Advanced Player Profiles | v1.2 | 0/? | Not started | - |
 | 18. Historical Context | v1.2 | 0/? | Not started | - |
 
