@@ -4,6 +4,7 @@
 
 - ✅ **v1.0 Bronze Expansion** — Phases 1-7 (shipped 2026-03-08)
 - ✅ **v1.1 Bronze Backfill** — Phases 8-14 (shipped 2026-03-13)
+- [ ] **v1.2 Silver Expansion** — Phases 15-18 (in progress)
 
 ## Phases
 
@@ -37,7 +38,65 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 
 </details>
 
+### v1.2 Silver Expansion (In Progress)
+
+**Milestone Goal:** Expand Silver layer with PBP-derived team analytics, strength of schedule, situational splits, advanced player profiles, and historical context — all with rolling windows — to feed game prediction models and improve fantasy projections.
+
+- [ ] **Phase 15: PBP Team Metrics and Tendencies** - Team EPA, success rate, CPOE, red zone efficiency, pace, PROE, 4th down aggressiveness from PBP with rolling windows; fix existing rolling window bug; new Silver CLI and config registration
+- [ ] **Phase 16: Strength of Schedule and Situational Splits** - Opponent-adjusted EPA rankings and schedule difficulty; home/away, divisional, and game script performance splits with rolling windows
+- [ ] **Phase 17: Advanced Player Profiles** - NGS separation/RYOE/TTT, PFR pressure/blitz rates, QBR rolling windows per player-week via new advanced analytics module
+- [ ] **Phase 18: Historical Context** - Combine measurables and draft capital linked to player IDs as a static dimension table for rookie/breakout modeling
+
+## Phase Details
+
+### Phase 15: PBP Team Metrics and Tendencies
+**Goal**: Users can generate PBP-derived team performance and tendency metrics with rolling windows for any season 2016-2025 via a new Silver team CLI
+**Depends on**: Phase 14 (Bronze layer complete with PBP data)
+**Requirements**: PBP-01, PBP-02, PBP-03, PBP-04, PBP-05, TEND-01, TEND-02, TEND-03, TEND-04, INFRA-01, INFRA-02, INFRA-03
+**Success Criteria** (what must be TRUE):
+  1. Running `silver_team_transformation.py --seasons 2024` produces Parquet files at `data/silver/teams/pbp_metrics/season=2024/` containing EPA/play, success rate, CPOE, red zone efficiency per team-week with 3-game and 6-game rolling columns
+  2. The same CLI run produces team tendency metrics (pace, PROE, 4th down aggressiveness, early-down run rate) with rolling windows in `data/silver/teams/tendencies/season=2024/`
+  3. Rolling windows in both new and existing Silver modules group by (entity, season) so that Week 1 rolling values are NaN (not contaminated by prior season)
+  4. All new Silver output paths are registered in `config.py` and retrievable via `download_latest_parquet()`
+  5. Playoff weeks are excluded from all team metrics (max week in output is 18)
+**Plans**: TBD
+
+### Phase 16: Strength of Schedule and Situational Splits
+**Goal**: Users can see opponent-adjusted team rankings and situational performance splits that account for schedule difficulty and game context
+**Depends on**: Phase 15 (requires team EPA outputs)
+**Requirements**: SOS-01, SOS-02, SIT-01, SIT-02, SIT-03
+**Success Criteria** (what must be TRUE):
+  1. Running the team CLI produces SOS output at `data/silver/teams/sos/` with opponent-adjusted EPA and schedule difficulty rankings (1-32) per team per week, using only lagged (week N-1) opponent strength
+  2. Week 1 opponent-adjusted EPA equals raw EPA for all teams (no circular dependency)
+  3. Situational splits at `data/silver/situational/splits/` contain home/away, divisional/non-divisional tags, and game script splits (leading/trailing by 7+) with rolling EPA
+  4. Running the same CLI twice on identical input produces identical output (idempotency)
+**Plans**: TBD
+
+### Phase 17: Advanced Player Profiles
+**Goal**: Users can generate NGS, PFR, and QBR-derived player profile metrics with rolling windows for enhanced QB, RB, WR, and TE evaluation
+**Depends on**: Phase 15 (infrastructure patterns established; independent of SOS/situational data)
+**Requirements**: PROF-01, PROF-02, PROF-03, PROF-04, PROF-05, PROF-06
+**Success Criteria** (what must be TRUE):
+  1. Running `silver_advanced_transformation.py --seasons 2024` produces advanced player profiles at `data/silver/players/advanced/season=2024/` with NGS WR/TE separation and catch probability, QB time-to-throw and aggressiveness, and RB rush yards over expected — all with rolling windows
+  2. PFR pressure rate per QB and blitz rate per defensive team are included with rolling windows
+  3. QBR rolling windows (total QBR, points added) are included per QB
+  4. Players without advanced stats are preserved in output via left-join (no silent row drops); NaN coverage is logged at write time
+  5. Sparse columns use `min_periods=3` for rolling averages to require meaningful history before producing values
+**Plans**: TBD
+
+### Phase 18: Historical Context
+**Goal**: Users can access combine measurables and draft capital linked to player IDs for rookie evaluation and breakout modeling
+**Depends on**: Phase 15 (infrastructure patterns; independent of Phases 16-17)
+**Requirements**: HIST-01, HIST-02
+**Success Criteria** (what must be TRUE):
+  1. A static dimension table at `data/silver/players/historical/combine_draft_profiles.parquet` contains combine measurables (speed score, burst score, catch radius) and draft capital (pick value via trade chart) linked to player IDs
+  2. The join uses name + draft year matching and logs unmatched players with match rate metrics; row count after join equals row count before join (no explosion)
+**Plans**: TBD
+
 ## Progress
+
+**Execution Order:**
+Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -55,7 +114,11 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 | 12. 2025 Player Stats Gap Closure | v1.1 | 2/2 | Complete | 2026-03-13 |
 | 13. Bronze-Silver Path Alignment | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 14. Bronze Cosmetic Cleanup | v1.1 | 1/1 | Complete | 2026-03-13 |
+| 15. PBP Team Metrics and Tendencies | v1.2 | 0/? | Not started | - |
+| 16. Strength of Schedule and Situational Splits | v1.2 | 0/? | Not started | - |
+| 17. Advanced Player Profiles | v1.2 | 0/? | Not started | - |
+| 18. Historical Context | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-13 after v1.1 milestone*
+*Last updated: 2026-03-13 after v1.2 milestone roadmap*

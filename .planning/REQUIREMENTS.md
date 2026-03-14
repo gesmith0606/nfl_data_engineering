@@ -85,37 +85,37 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PBP-01 | — | Pending |
-| PBP-02 | — | Pending |
-| PBP-03 | — | Pending |
-| PBP-04 | — | Pending |
-| PBP-05 | — | Pending |
-| TEND-01 | — | Pending |
-| TEND-02 | — | Pending |
-| TEND-03 | — | Pending |
-| TEND-04 | — | Pending |
-| SIT-01 | — | Pending |
-| SIT-02 | — | Pending |
-| SIT-03 | — | Pending |
-| SOS-01 | — | Pending |
-| SOS-02 | — | Pending |
-| PROF-01 | — | Pending |
-| PROF-02 | — | Pending |
-| PROF-03 | — | Pending |
-| PROF-04 | — | Pending |
-| PROF-05 | — | Pending |
-| PROF-06 | — | Pending |
-| HIST-01 | — | Pending |
-| HIST-02 | — | Pending |
-| INFRA-01 | — | Pending |
-| INFRA-02 | — | Pending |
-| INFRA-03 | — | Pending |
+| PBP-01 | Phase 15 | Pending |
+| PBP-02 | Phase 15 | Pending |
+| PBP-03 | Phase 15 | Pending |
+| PBP-04 | Phase 15 | Pending |
+| PBP-05 | Phase 15 | Pending |
+| TEND-01 | Phase 15 | Pending |
+| TEND-02 | Phase 15 | Pending |
+| TEND-03 | Phase 15 | Pending |
+| TEND-04 | Phase 15 | Pending |
+| INFRA-01 | Phase 15 | Pending |
+| INFRA-02 | Phase 15 | Pending |
+| INFRA-03 | Phase 15 | Pending |
+| SOS-01 | Phase 16 | Pending |
+| SOS-02 | Phase 16 | Pending |
+| SIT-01 | Phase 16 | Pending |
+| SIT-02 | Phase 16 | Pending |
+| SIT-03 | Phase 16 | Pending |
+| PROF-01 | Phase 17 | Pending |
+| PROF-02 | Phase 17 | Pending |
+| PROF-03 | Phase 17 | Pending |
+| PROF-04 | Phase 17 | Pending |
+| PROF-05 | Phase 17 | Pending |
+| PROF-06 | Phase 17 | Pending |
+| HIST-01 | Phase 18 | Pending |
+| HIST-02 | Phase 18 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 25 total
-- Mapped to phases: 0
-- Unmapped: 25 ⚠️
+- Mapped to phases: 25
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-13*
-*Last updated: 2026-03-13 after initial definition*
+*Last updated: 2026-03-13 after roadmap creation — traceability complete*
