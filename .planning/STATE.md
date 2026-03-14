@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Silver Expansion
-status: planning
-stopped_at: Phase 15 context gathered
-last_updated: "2026-03-14T03:23:09.787Z"
-last_activity: 2026-03-13 — v1.2 roadmap created (4 phases, 25 requirements mapped)
+status: executing
+stopped_at: Completed 15-01-PLAN.md
+last_updated: "2026-03-14T03:43:37.054Z"
+last_activity: 2026-03-14 — Completed 15-01 foundation (bug fix + team_analytics skeleton)
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 3
+  completed_plans: 1
+  percent: 33
 ---
 
 # Project State
@@ -30,11 +30,11 @@ v1.2 Silver Expansion — Expand Silver layer with PBP team metrics, tendencies,
 ## Current Position
 
 Phase: 15 of 18 (PBP Team Metrics and Tendencies) — 1 of 4 in milestone
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-03-13 — v1.2 roadmap created (4 phases, 25 requirements mapped)
+Plan: 1 of 3 complete in current phase
+Status: Executing
+Last activity: 2026-03-14 — Completed 15-01 foundation (bug fix + team_analytics skeleton)
 
-Progress: [░░░░░░░░░░] 0% (v1.2 milestone)
+Progress: [███░░░░░░░] 33% (v1.2 milestone)
 
 ## Key Artifacts
 
@@ -58,6 +58,8 @@ Progress: [░░░░░░░░░░] 0% (v1.2 milestone)
 - [v1.2]: New Silver modules separate from existing player_analytics.py — protect test suite
 - [v1.2]: SOS uses lagged (week N-1) opponent strength only — avoid circular dependency
 - [v1.2]: Combine/draft stored as static dimension table — avoid row explosion
+- [15-01]: Rolling window groupby uses [entity, season] tuple — prevents cross-season contamination
+- [15-01]: team_analytics.py mirrors player_analytics.py rolling pattern with [team, season] groupby
 
 ### Pending Todos
 
@@ -71,9 +73,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-14T03:23:09.785Z
-Stopped at: Phase 15 context gathered
-Resume file: .planning/phases/15-pbp-team-metrics-and-tendencies/15-CONTEXT.md
+Last session: 2026-03-14T03:43:37.052Z
+Stopped at: Completed 15-01-PLAN.md
+Resume file: None
 
 ---
-*Last updated: 2026-03-13 after v1.2 roadmap creation*
+*Last updated: 2026-03-14 after 15-01 plan execution*

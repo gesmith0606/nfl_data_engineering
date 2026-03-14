@@ -13,7 +13,7 @@ Requirements for Silver layer expansion. Each maps to roadmap phases.
 - [ ] **PBP-02**: Team success rate (offense + defense) with rolling windows
 - [ ] **PBP-03**: Team CPOE aggregate (per QB and per team) with rolling windows
 - [ ] **PBP-04**: Red zone efficiency (offense + defense — TD rate, success rate, pass/rush split inside 20) with rolling windows
-- [ ] **PBP-05**: Existing rolling window bug fixed — groupby must use (entity, season) not entity alone
+- [x] **PBP-05**: Existing rolling window bug fixed — groupby must use (entity, season) not entity alone
 
 ### Team Tendencies
 
@@ -49,7 +49,7 @@ Requirements for Silver layer expansion. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: New Silver tables registered in config.py for health checks and download_latest_parquet()
+- [x] **INFRA-01**: New Silver tables registered in config.py for health checks and download_latest_parquet()
 - [ ] **INFRA-02**: Silver team transformation CLI script (separate from player transformation)
 - [ ] **INFRA-03**: All new Silver output follows season/week partition convention with timestamped filenames
 
@@ -89,12 +89,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PBP-02 | Phase 15 | Pending |
 | PBP-03 | Phase 15 | Pending |
 | PBP-04 | Phase 15 | Pending |
-| PBP-05 | Phase 15 | Pending |
+| PBP-05 | Phase 15 | Complete |
 | TEND-01 | Phase 15 | Pending |
 | TEND-02 | Phase 15 | Pending |
 | TEND-03 | Phase 15 | Pending |
 | TEND-04 | Phase 15 | Pending |
-| INFRA-01 | Phase 15 | Pending |
+| INFRA-01 | Phase 15 | Complete |
 | INFRA-02 | Phase 15 | Pending |
 | INFRA-03 | Phase 15 | Pending |
 | SOS-01 | Phase 16 | Pending |
