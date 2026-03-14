@@ -17,10 +17,10 @@ Requirements for Silver layer expansion. Each maps to roadmap phases.
 
 ### Team Tendencies
 
-- [ ] **TEND-01**: Pace (plays per game) per team with rolling windows
-- [ ] **TEND-02**: Pass Rate Over Expected (PROE) per team with rolling windows
-- [ ] **TEND-03**: 4th down aggressiveness index (go rate, success rate) with rolling windows
-- [ ] **TEND-04**: Early-down run rate with rolling windows
+- [x] **TEND-01**: Pace (plays per game) per team with rolling windows
+- [x] **TEND-02**: Pass Rate Over Expected (PROE) per team with rolling windows
+- [x] **TEND-03**: 4th down aggressiveness index (go rate, success rate) with rolling windows
+- [x] **TEND-04**: Early-down run rate with rolling windows
 
 ### Situational Breakdowns
 
@@ -50,8 +50,8 @@ Requirements for Silver layer expansion. Each maps to roadmap phases.
 ### Infrastructure
 
 - [x] **INFRA-01**: New Silver tables registered in config.py for health checks and download_latest_parquet()
-- [ ] **INFRA-02**: Silver team transformation CLI script (separate from player transformation)
-- [ ] **INFRA-03**: All new Silver output follows season/week partition convention with timestamped filenames
+- [x] **INFRA-02**: Silver team transformation CLI script (separate from player transformation)
+- [x] **INFRA-03**: All new Silver output follows season/week partition convention with timestamped filenames
 
 ## Future Requirements
 
@@ -90,13 +90,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PBP-03 | Phase 15 | Complete |
 | PBP-04 | Phase 15 | Complete |
 | PBP-05 | Phase 15 | Complete |
-| TEND-01 | Phase 15 | Pending |
-| TEND-02 | Phase 15 | Pending |
-| TEND-03 | Phase 15 | Pending |
-| TEND-04 | Phase 15 | Pending |
+| TEND-01 | Phase 15 | Complete |
+| TEND-02 | Phase 15 | Complete |
+| TEND-03 | Phase 15 | Complete |
+| TEND-04 | Phase 15 | Complete |
 | INFRA-01 | Phase 15 | Complete |
-| INFRA-02 | Phase 15 | Pending |
-| INFRA-03 | Phase 15 | Pending |
+| INFRA-02 | Phase 15 | Complete |
+| INFRA-03 | Phase 15 | Complete |
 | SOS-01 | Phase 16 | Pending |
 | SOS-02 | Phase 16 | Pending |
 | SIT-01 | Phase 16 | Pending |

@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Silver Expansion
 status: executing
-stopped_at: Completed 15-02-PLAN.md
-last_updated: "2026-03-14T03:48:20.719Z"
-last_activity: 2026-03-14 — Completed 15-02 PBP performance metrics (EPA, success rate, CPOE, red zone)
+stopped_at: Completed 15-03-PLAN.md
+last_updated: "2026-03-14T03:53:11Z"
+last_activity: 2026-03-14 — Completed 15-03 tendency metrics (pace, PROE, 4th down, early-down run rate)
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 67
+  completed_plans: 3
+  percent: 100
 ---
 
 # Project State
@@ -30,11 +30,11 @@ v1.2 Silver Expansion — Expand Silver layer with PBP team metrics, tendencies,
 ## Current Position
 
 Phase: 15 of 18 (PBP Team Metrics and Tendencies) — 1 of 4 in milestone
-Plan: 2 of 3 complete in current phase
-Status: Executing
-Last activity: 2026-03-14 — Completed 15-02 PBP performance metrics (EPA, success rate, CPOE, red zone)
+Plan: 3 of 3 complete in current phase
+Status: Phase 15 Complete
+Last activity: 2026-03-14 — Completed 15-03 tendency metrics (pace, PROE, 4th down, early-down run rate)
 
-Progress: [███████░░░] 67% (v1.2 milestone)
+Progress: [██████████] 100% (Phase 15 complete)
 
 ## Key Artifacts
 
@@ -62,6 +62,8 @@ Progress: [███████░░░] 67% (v1.2 milestone)
 - [15-01]: team_analytics.py mirrors player_analytics.py rolling pattern with [team, season] groupby
 - [Phase 15]: Red zone TD rate uses nunique(drive) denominator, not play count
 - [Phase 15]: CPOE is offense-only metric -- no defensive CPOE column
+- [15-03]: 4th down aggressiveness accepts raw PBP to include punt/FG in denominator
+- [15-03]: PROE uses pandas mean() for xpass auto-NaN-exclusion
 
 ### Pending Todos
 
@@ -75,9 +77,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-14T03:48:20.717Z
-Stopped at: Completed 15-02-PLAN.md
+Last session: 2026-03-14T03:53:11Z
+Stopped at: Completed 15-03-PLAN.md (Phase 15 complete)
 Resume file: None
 
 ---
-*Last updated: 2026-03-14 after 15-01 plan execution*
+*Last updated: 2026-03-14 after 15-03 plan execution*
