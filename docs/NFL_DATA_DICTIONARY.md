@@ -38,6 +38,8 @@ This document is the single source of truth for Bronze layer schemas. Column spe
   - [Combine](#combine)
   - [Teams](#teams)
 - [Silver Layer Tables](#silver-layer-tables)
+  - [Silver Team PBP Metrics](#silver-team-pbp-metrics)
+  - [Silver Team Tendencies](#silver-team-tendencies)
 - [Gold Layer Tables](#gold-layer-tables)
 - [Data Types and Constraints](#data-types-and-constraints)
 - [Business Rules](#business-rules)
@@ -1058,6 +1060,77 @@ Representative columns (from validate_data required columns):
 | std_rushing_yards | FLOAT | YES | Std deviation of rushing yards | 12.3 |
 | std_receiving_yards | FLOAT | YES | Std deviation of receiving yards | 0.0 |
 | std_fantasy_points | FLOAT | YES | Std deviation of fantasy points | 5.8 |
+
+### Silver Team PBP Metrics
+
+**Local Path:** `data/silver/teams/pbp_metrics/season=YYYY/pbp_metrics_{ts}.parquet`
+**S3 Location:** `s3://nfl-refined/teams/pbp_metrics/season=YYYY/`
+**Grain:** One row per (team, season, week)
+**Source:** `src/team_analytics.py::compute_pbp_metrics()`
+**CLI:** `python scripts/silver_team_transformation.py --season YYYY`
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| team | STRING | NO | NFL team abbreviation | KC |
+| season | INT | NO | NFL season year | 2024 |
+| week | INT | NO | NFL week number (1-18) | 5 |
+| off_epa_per_play | FLOAT | YES | Mean offensive EPA per play | 0.12 |
+| off_pass_epa | FLOAT | YES | Mean offensive EPA on pass plays | 0.18 |
+| off_rush_epa | FLOAT | YES | Mean offensive EPA on rush plays | 0.05 |
+| def_epa_per_play | FLOAT | YES | Mean defensive EPA per play (opponent offense) | -0.08 |
+| off_success_rate | FLOAT | YES | Offensive play success rate | 0.48 |
+| def_success_rate | FLOAT | YES | Defensive play success rate (opponent offense) | 0.42 |
+| off_cpoe | FLOAT | YES | Offensive CPOE (Completion Probability Over Expected) | 2.3 |
+| off_rz_epa | FLOAT | YES | Offensive red zone EPA per play (yardline_100 <= 20) | 0.35 |
+| off_rz_success_rate | FLOAT | YES | Offensive red zone success rate | 0.55 |
+| off_rz_pass_rate | FLOAT | YES | Offensive red zone pass rate | 0.62 |
+| off_rz_td_rate | FLOAT | YES | Offensive red zone TD rate (TDs / unique drives) | 0.60 |
+| def_rz_epa | FLOAT | YES | Defensive red zone EPA per play | -0.10 |
+| def_rz_success_rate | FLOAT | YES | Defensive red zone success rate | 0.40 |
+| def_rz_pass_rate | FLOAT | YES | Defensive red zone pass rate | 0.58 |
+| def_rz_td_rate | FLOAT | YES | Defensive red zone TD rate (TDs / unique drives) | 0.45 |
+
+Each stat column above also has rolling window variants:
+- `{col}_roll3` -- 3-week lagged rolling average
+- `{col}_roll6` -- 6-week lagged rolling average
+- `{col}_std` -- Season-to-date lagged expanding average
+
+**Notes:**
+- Red zone TD rate uses `nunique(drive)` as denominator (drive-based), not play count
+- CPOE is offense-only (no `def_cpoe` column)
+- Rolling windows: `shift(1).rolling(window, min_periods=1).mean()` grouped by `(team, season)` -- no cross-season contamination
+- Week 1 rolling values are NaN (no prior data due to shift)
+
+### Silver Team Tendencies
+
+**Local Path:** `data/silver/teams/tendencies/season=YYYY/tendencies_{ts}.parquet`
+**S3 Location:** `s3://nfl-refined/teams/tendencies/season=YYYY/`
+**Grain:** One row per (team, season, week)
+**Source:** `src/team_analytics.py::compute_tendency_metrics()`
+**CLI:** `python scripts/silver_team_transformation.py --season YYYY`
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| team | STRING | NO | NFL team abbreviation | KC |
+| season | INT | NO | NFL season year | 2024 |
+| week | INT | NO | NFL week number (1-18) | 5 |
+| pace | INT | YES | Total pass+run plays per game (team-week) | 65 |
+| proe | FLOAT | YES | Pass Rate Over Expected: actual_pass_rate - mean(xpass) | 0.04 |
+| fourth_down_go_rate | FLOAT | YES | 4th down go rate: (pass+run) / (pass+run+punt+FG) on 4th down | 0.33 |
+| fourth_down_success_rate | FLOAT | YES | 4th down success rate: converted / (converted+failed) on go attempts | 0.50 |
+| early_down_run_rate | FLOAT | YES | Run rate on 1st and 2nd down: rush_attempts / total early-down plays | 0.45 |
+
+Each stat column above also has rolling window variants:
+- `{col}_roll3` -- 3-week lagged rolling average
+- `{col}_roll6` -- 6-week lagged rolling average
+- `{col}_std` -- Season-to-date lagged expanding average
+
+**Notes:**
+- Pace counts pass+run plays only (excludes punts, field goals, penalties)
+- PROE: NaN xpass values are excluded from `mean(xpass)` but included in total play count for actual_pass_rate
+- 4th down aggressiveness uses raw PBP (includes punt/field_goal play_type in denominator)
+- Teams with zero 4th down attempts in a week get NaN for both 4th down columns
+- Rolling window convention: lagged via `shift(1)`, `min_periods=1`, grouped by `(team, season)` -- no cross-season contamination
 
 ---
 
