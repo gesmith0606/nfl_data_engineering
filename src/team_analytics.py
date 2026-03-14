@@ -346,3 +346,190 @@ def compute_pbp_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
         result["season"].max(),
     )
     return result
+
+
+# ---------------------------------------------------------------------------
+# Tendency Metric Functions (Plan 03)
+# ---------------------------------------------------------------------------
+
+
+def compute_pace(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Compute pace (total pass+run plays per game) per team-week.
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, pace.
+    """
+    result = (
+        valid_plays.groupby(["posteam", "season", "week"])
+        .size()
+        .reset_index(name="pace")
+        .rename(columns={"posteam": "team"})
+    )
+    logger.info("Pace computed for %d team-weeks", len(result))
+    return result[["team", "season", "week", "pace"]]
+
+
+def compute_proe(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Compute Pass Rate Over Expected (PROE) per team-week.
+
+    PROE = actual_pass_rate - mean(xpass).
+    NaN xpass rows are excluded from mean(xpass) by pandas, but included
+    in total play count for actual_pass_rate.
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, proe.
+    """
+    agg = valid_plays.groupby(["posteam", "season", "week"]).agg(
+        total_plays=("pass_attempt", "count"),
+        pass_plays=("pass_attempt", "sum"),
+        mean_xpass=("xpass", "mean"),  # NaN excluded by pandas mean
+    ).reset_index()
+
+    agg["actual_pass_rate"] = agg["pass_plays"] / agg["total_plays"]
+    agg["proe"] = agg["actual_pass_rate"] - agg["mean_xpass"]
+
+    result = agg.rename(columns={"posteam": "team"})
+    logger.info("PROE computed for %d team-weeks", len(result))
+    return result[["team", "season", "week", "proe"]]
+
+
+def compute_fourth_down_aggressiveness(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute 4th down aggressiveness (go rate and success rate) per team-week.
+
+    Accepts raw PBP and applies its own filtering: season_type=='REG',
+    week<=18, down==4, play_type in ['pass','run','punt','field_goal'].
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame (unfiltered).
+
+    Returns:
+        DataFrame with columns: team, season, week, fourth_down_go_rate,
+        fourth_down_success_rate.
+    """
+    df = pbp_df.copy()
+
+    # Apply basic filters
+    if "season_type" in df.columns:
+        df = df[df["season_type"] == "REG"]
+    if "week" in df.columns:
+        df = df[df["week"] <= 18]
+
+    # 4th down plays only
+    df = df[df["down"] == 4]
+
+    # Only meaningful 4th down decisions
+    df = df[df["play_type"].isin(["pass", "run", "punt", "field_goal"])]
+
+    if df.empty:
+        logger.info("No 4th down plays found")
+        return pd.DataFrame(columns=[
+            "team", "season", "week", "fourth_down_go_rate", "fourth_down_success_rate",
+        ])
+
+    # go_attempt: pass or run on 4th down
+    df["go_attempt"] = df["play_type"].isin(["pass", "run"]).astype(int)
+
+    agg = df.groupby(["posteam", "season", "week"]).agg(
+        go_attempts=("go_attempt", "sum"),
+        total_decisions=("go_attempt", "count"),
+        converted=("fourth_down_converted", "sum"),
+        failed=("fourth_down_failed", "sum"),
+    ).reset_index()
+
+    agg["fourth_down_go_rate"] = agg["go_attempts"] / agg["total_decisions"]
+
+    # Success rate: only on go attempts; NaN when zero go attempts
+    total_go_outcomes = agg["converted"] + agg["failed"]
+    agg["fourth_down_success_rate"] = np.where(
+        total_go_outcomes > 0,
+        agg["converted"] / total_go_outcomes,
+        np.nan,
+    )
+
+    result = agg.rename(columns={"posteam": "team"})
+    logger.info("4th down aggressiveness computed for %d team-weeks", len(result))
+    return result[["team", "season", "week", "fourth_down_go_rate", "fourth_down_success_rate"]]
+
+
+def compute_early_down_run_rate(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Compute early-down (1st and 2nd down) run rate per team-week.
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, early_down_run_rate.
+    """
+    early = valid_plays[valid_plays["down"] <= 2].copy()
+
+    if early.empty:
+        logger.info("No early-down plays found")
+        return pd.DataFrame(columns=["team", "season", "week", "early_down_run_rate"])
+
+    agg = early.groupby(["posteam", "season", "week"]).agg(
+        rush_attempts=("rush_attempt", "sum"),
+        total_plays=("rush_attempt", "count"),
+    ).reset_index()
+
+    agg["early_down_run_rate"] = agg["rush_attempts"] / agg["total_plays"]
+
+    result = agg.rename(columns={"posteam": "team"})
+    logger.info("Early-down run rate computed for %d team-weeks", len(result))
+    return result[["team", "season", "week", "early_down_run_rate"]]
+
+
+def compute_tendency_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Orchestrate all tendency metric computations and apply rolling windows.
+
+    Pipeline:
+        1. Filter valid plays (for pace, PROE, early-down run rate)
+        2. Compute pace, PROE, early-down run rate from valid plays
+        3. Compute 4th down aggressiveness from raw PBP (needs punt/FG)
+        4. Merge all on (team, season, week)
+        5. Apply rolling windows to all stat columns
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame.
+
+    Returns:
+        DataFrame with all tendency metrics plus rolling (_roll3, _roll6, _std) columns.
+    """
+    valid = _filter_valid_plays(pbp_df)
+
+    if valid.empty:
+        logger.warning("No valid plays after filtering; returning empty DataFrame")
+        return pd.DataFrame()
+
+    # Compute individual metrics
+    pace_df = compute_pace(valid)
+    proe_df = compute_proe(valid)
+    early_df = compute_early_down_run_rate(valid)
+    fourth_df = compute_fourth_down_aggressiveness(pbp_df)  # Raw PBP for punt/FG
+
+    # Merge all on (team, season, week)
+    merged = pace_df.merge(proe_df, on=["team", "season", "week"], how="outer")
+    merged = merged.merge(early_df, on=["team", "season", "week"], how="outer")
+    if not fourth_df.empty:
+        merged = merged.merge(fourth_df, on=["team", "season", "week"], how="outer")
+
+    # Identify stat columns (everything except team/season/week)
+    key_cols = {"team", "season", "week"}
+    stat_cols = [c for c in merged.columns if c not in key_cols]
+
+    # Apply rolling windows
+    result = apply_team_rolling(merged, stat_cols)
+
+    logger.info(
+        "Tendency metrics complete: %d rows, %d teams, seasons %s-%s",
+        len(result),
+        result["team"].nunique(),
+        result["season"].min(),
+        result["season"].max(),
+    )
+    return result

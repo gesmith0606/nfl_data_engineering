@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unit tests for team_analytics PBP metric computation functions."""
+"""Unit tests for team_analytics PBP metric and tendency computation functions."""
 
 import pandas as pd
 import numpy as np
@@ -19,6 +19,11 @@ from src.team_analytics import (
     compute_team_cpoe,
     compute_red_zone_metrics,
     compute_pbp_metrics,
+    compute_pace,
+    compute_proe,
+    compute_fourth_down_aggressiveness,
+    compute_early_down_run_rate,
+    compute_tendency_metrics,
 )
 
 
@@ -456,3 +461,277 @@ class TestPBPCrossSeason:
         w1_raw = x_2024_w1["off_epa_per_play"].iloc[0]
         w2_roll3 = x_2024_w2["off_epa_per_play_roll3"].iloc[0]
         assert abs(w2_roll3 - w1_raw) < 1e-6
+
+
+# ---------------------------------------------------------------------------
+# Tendency Metric Tests (Plan 03)
+# ---------------------------------------------------------------------------
+
+
+def _make_tendency_pbp_rows(
+    posteam: str,
+    defteam: str,
+    season: int,
+    week: int,
+    plays: List[Dict],
+) -> pd.DataFrame:
+    """Helper to create synthetic PBP rows with tendency-relevant columns."""
+    rows = []
+    for play in plays:
+        row = {
+            "posteam": posteam,
+            "defteam": defteam,
+            "season": season,
+            "week": week,
+            "season_type": play.get("season_type", "REG"),
+            "play_type": play.get("play_type", "pass"),
+            "epa": play.get("epa", 0.0),
+            "success": play.get("success", 0),
+            "cpoe": play.get("cpoe", None),
+            "pass_attempt": play.get("pass_attempt", 1 if play.get("play_type", "pass") == "pass" else 0),
+            "rush_attempt": play.get("rush_attempt", 1 if play.get("play_type", "pass") == "run" else 0),
+            "xpass": play.get("xpass", None),
+            "down": play.get("down", 1),
+            "fourth_down_converted": play.get("fourth_down_converted", 0),
+            "fourth_down_failed": play.get("fourth_down_failed", 0),
+            "yardline_100": play.get("yardline_100", 50),
+            "drive": play.get("drive", 1),
+            "touchdown": play.get("touchdown", 0),
+        }
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+class TestPace:
+    """Tests for compute_pace."""
+
+    def test_pace_counts_pass_run_plays(self):
+        """Pace should equal count of pass+run plays per team-week."""
+        valid = _filter_valid_plays(
+            _make_tendency_pbp_rows("A", "B", 2024, 1, [
+                {"play_type": "pass", "epa": 0.1, "pass_attempt": 1, "rush_attempt": 0},
+                {"play_type": "pass", "epa": 0.2, "pass_attempt": 1, "rush_attempt": 0},
+                {"play_type": "run", "epa": -0.1, "pass_attempt": 0, "rush_attempt": 1},
+            ])
+        )
+        result = compute_pace(valid)
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        assert len(a_w1) == 1
+        assert a_w1["pace"].iloc[0] == 3
+
+    def test_pace_per_team_week(self):
+        """Different teams should have independent pace counts."""
+        frames = []
+        # Team A: 4 plays
+        frames.append(_make_tendency_pbp_rows("A", "B", 2024, 1, [
+            {"play_type": "pass", "epa": 0.1}, {"play_type": "run", "epa": 0.1},
+            {"play_type": "pass", "epa": 0.1}, {"play_type": "run", "epa": 0.1},
+        ]))
+        # Team B: 2 plays
+        frames.append(_make_tendency_pbp_rows("B", "A", 2024, 1, [
+            {"play_type": "pass", "epa": 0.1}, {"play_type": "run", "epa": 0.1},
+        ]))
+        valid = _filter_valid_plays(pd.concat(frames, ignore_index=True))
+        result = compute_pace(valid)
+        assert result[result["team"] == "A"]["pace"].iloc[0] == 4
+        assert result[result["team"] == "B"]["pace"].iloc[0] == 2
+
+    def test_pace_columns(self):
+        """Result should have team, season, week, pace columns."""
+        valid = _filter_valid_plays(
+            _make_tendency_pbp_rows("A", "B", 2024, 1, [
+                {"play_type": "pass", "epa": 0.1},
+            ])
+        )
+        result = compute_pace(valid)
+        assert set(result.columns) == {"team", "season", "week", "pace"}
+
+
+class TestPROE:
+    """Tests for compute_proe."""
+
+    def test_proe_basic(self):
+        """PROE = actual_pass_rate - mean(xpass)."""
+        valid = _filter_valid_plays(
+            _make_tendency_pbp_rows("A", "B", 2024, 1, [
+                {"play_type": "pass", "epa": 0.1, "pass_attempt": 1, "rush_attempt": 0, "xpass": 0.6},
+                {"play_type": "pass", "epa": 0.2, "pass_attempt": 1, "rush_attempt": 0, "xpass": 0.7},
+                {"play_type": "run", "epa": -0.1, "pass_attempt": 0, "rush_attempt": 1, "xpass": 0.5},
+            ])
+        )
+        result = compute_proe(valid)
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        # actual_pass_rate = 2/3 = 0.6667
+        # mean_xpass = (0.6 + 0.7 + 0.5) / 3 = 0.6
+        # proe = 0.6667 - 0.6 = 0.0667
+        expected_proe = (2.0 / 3.0) - 0.6
+        assert abs(a_w1["proe"].iloc[0] - expected_proe) < 1e-4
+
+    def test_proe_xpass_nan_excluded_from_mean(self):
+        """NaN xpass rows excluded from mean(xpass) but included in total play count."""
+        valid = _filter_valid_plays(
+            _make_tendency_pbp_rows("A", "B", 2024, 1, [
+                {"play_type": "pass", "epa": 0.1, "pass_attempt": 1, "rush_attempt": 0, "xpass": 0.5},
+                {"play_type": "pass", "epa": 0.2, "pass_attempt": 1, "rush_attempt": 0, "xpass": None},
+                {"play_type": "run", "epa": -0.1, "pass_attempt": 0, "rush_attempt": 1, "xpass": 0.4},
+            ])
+        )
+        result = compute_proe(valid)
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        # actual_pass_rate = 2/3 = 0.6667
+        # mean_xpass = (0.5 + 0.4) / 2 = 0.45 (NaN excluded by pandas mean)
+        expected_proe = (2.0 / 3.0) - 0.45
+        assert abs(a_w1["proe"].iloc[0] - expected_proe) < 1e-4
+
+    def test_proe_columns(self):
+        """Result should have team, season, week, proe columns."""
+        valid = _filter_valid_plays(
+            _make_tendency_pbp_rows("A", "B", 2024, 1, [
+                {"play_type": "pass", "epa": 0.1, "xpass": 0.5},
+            ])
+        )
+        result = compute_proe(valid)
+        assert set(result.columns) == {"team", "season", "week", "proe"}
+
+
+class TestFourthDown:
+    """Tests for compute_fourth_down_aggressiveness."""
+
+    def test_go_rate(self):
+        """Go rate = (pass+run on 4th) / (pass+run+punt+FG on 4th)."""
+        pbp = _make_tendency_pbp_rows("A", "B", 2024, 1, [
+            # 4th down plays
+            {"play_type": "pass", "epa": 0.5, "down": 4, "fourth_down_converted": 1, "fourth_down_failed": 0},
+            {"play_type": "run", "epa": -0.2, "down": 4, "fourth_down_converted": 0, "fourth_down_failed": 1},
+            {"play_type": "punt", "epa": 0.0, "down": 4, "fourth_down_converted": 0, "fourth_down_failed": 0},
+            {"play_type": "field_goal", "epa": 0.0, "down": 4, "fourth_down_converted": 0, "fourth_down_failed": 0},
+            # Non-4th-down plays (should be ignored)
+            {"play_type": "pass", "epa": 0.1, "down": 1},
+            {"play_type": "run", "epa": 0.2, "down": 2},
+        ])
+        result = compute_fourth_down_aggressiveness(pbp)
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        # go_rate = 2 / 4 = 0.5
+        assert abs(a_w1["fourth_down_go_rate"].iloc[0] - 0.5) < 1e-6
+
+    def test_success_rate(self):
+        """Success rate = converted / (converted + failed) on go attempts."""
+        pbp = _make_tendency_pbp_rows("A", "B", 2024, 1, [
+            {"play_type": "pass", "epa": 0.5, "down": 4, "fourth_down_converted": 1, "fourth_down_failed": 0},
+            {"play_type": "run", "epa": -0.2, "down": 4, "fourth_down_converted": 0, "fourth_down_failed": 1},
+            {"play_type": "punt", "epa": 0.0, "down": 4},
+        ])
+        result = compute_fourth_down_aggressiveness(pbp)
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        # success_rate = 1 / (1 + 1) = 0.5
+        assert abs(a_w1["fourth_down_success_rate"].iloc[0] - 0.5) < 1e-6
+
+    def test_zero_attempts_gives_nan(self):
+        """Team with zero 4th down attempts in a week gets NaN."""
+        pbp = _make_tendency_pbp_rows("A", "B", 2024, 1, [
+            {"play_type": "pass", "epa": 0.1, "down": 1},
+            {"play_type": "run", "epa": 0.2, "down": 2},
+        ])
+        result = compute_fourth_down_aggressiveness(pbp)
+        # Team A has no 4th down plays, should be absent or NaN
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        if len(a_w1) > 0:
+            assert pd.isna(a_w1["fourth_down_go_rate"].iloc[0])
+        else:
+            # No row is also acceptable
+            pass
+
+    def test_fourth_down_columns(self):
+        """Result should have correct columns."""
+        pbp = _make_tendency_pbp_rows("A", "B", 2024, 1, [
+            {"play_type": "pass", "epa": 0.5, "down": 4, "fourth_down_converted": 1, "fourth_down_failed": 0},
+            {"play_type": "punt", "epa": 0.0, "down": 4},
+        ])
+        result = compute_fourth_down_aggressiveness(pbp)
+        expected = {"team", "season", "week", "fourth_down_go_rate", "fourth_down_success_rate"}
+        assert expected.issubset(set(result.columns))
+
+
+class TestEarlyDownRunRate:
+    """Tests for compute_early_down_run_rate."""
+
+    def test_early_down_uses_down_le_2(self):
+        """Early-down run rate uses only down <= 2 plays."""
+        valid = _filter_valid_plays(
+            _make_tendency_pbp_rows("A", "B", 2024, 1, [
+                # Early downs (1 and 2)
+                {"play_type": "run", "epa": 0.1, "down": 1, "pass_attempt": 0, "rush_attempt": 1},
+                {"play_type": "run", "epa": 0.2, "down": 2, "pass_attempt": 0, "rush_attempt": 1},
+                {"play_type": "pass", "epa": 0.3, "down": 1, "pass_attempt": 1, "rush_attempt": 0},
+                # Late downs (3 and 4) -- should be excluded
+                {"play_type": "run", "epa": -0.1, "down": 3, "pass_attempt": 0, "rush_attempt": 1},
+                {"play_type": "pass", "epa": -0.2, "down": 4, "pass_attempt": 1, "rush_attempt": 0},
+            ])
+        )
+        result = compute_early_down_run_rate(valid)
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        # Early-down plays: down 1 run, down 2 run, down 1 pass -> 3 plays
+        # Rush attempts on early downs = 2
+        # early_down_run_rate = 2/3 = 0.6667
+        assert abs(a_w1["early_down_run_rate"].iloc[0] - (2.0 / 3.0)) < 1e-4
+
+    def test_early_down_columns(self):
+        """Result should have team, season, week, early_down_run_rate columns."""
+        valid = _filter_valid_plays(
+            _make_tendency_pbp_rows("A", "B", 2024, 1, [
+                {"play_type": "run", "epa": 0.1, "down": 1, "pass_attempt": 0, "rush_attempt": 1},
+            ])
+        )
+        result = compute_early_down_run_rate(valid)
+        assert set(result.columns) == {"team", "season", "week", "early_down_run_rate"}
+
+
+class TestTendencyMetricsOrchestrator:
+    """Tests for compute_tendency_metrics orchestrator."""
+
+    def test_tendency_metrics_has_all_columns(self):
+        """Orchestrator should produce all tendency columns plus rolling variants."""
+        frames = []
+        for week in range(1, 4):
+            frames.append(_make_tendency_pbp_rows("A", "B", 2024, week, [
+                {"play_type": "pass", "epa": 0.1, "down": 1, "pass_attempt": 1, "rush_attempt": 0, "xpass": 0.6},
+                {"play_type": "run", "epa": 0.2, "down": 2, "pass_attempt": 0, "rush_attempt": 1, "xpass": 0.4},
+                {"play_type": "pass", "epa": 0.3, "down": 4, "pass_attempt": 1, "rush_attempt": 0,
+                 "fourth_down_converted": 1, "fourth_down_failed": 0},
+                {"play_type": "punt", "epa": 0.0, "down": 4},
+            ]))
+            frames.append(_make_tendency_pbp_rows("B", "A", 2024, week, [
+                {"play_type": "pass", "epa": -0.1, "down": 1, "pass_attempt": 1, "rush_attempt": 0, "xpass": 0.5},
+                {"play_type": "run", "epa": -0.2, "down": 2, "pass_attempt": 0, "rush_attempt": 1, "xpass": 0.5},
+            ]))
+        pbp = pd.concat(frames, ignore_index=True)
+        result = compute_tendency_metrics(pbp)
+
+        # Base columns should exist
+        for col in ["pace", "proe", "fourth_down_go_rate", "fourth_down_success_rate", "early_down_run_rate"]:
+            assert col in result.columns, f"Missing column: {col}"
+
+        # Rolling columns should exist
+        for col in ["pace", "proe", "early_down_run_rate"]:
+            assert f"{col}_roll3" in result.columns, f"Missing {col}_roll3"
+            assert f"{col}_roll6" in result.columns, f"Missing {col}_roll6"
+            assert f"{col}_std" in result.columns, f"Missing {col}_std"
+
+    def test_tendency_week1_rolling_is_nan(self):
+        """Week 1 rolling values should be NaN (no prior data)."""
+        frames = []
+        for week in range(1, 4):
+            frames.append(_make_tendency_pbp_rows("A", "B", 2024, week, [
+                {"play_type": "pass", "epa": 0.1, "down": 1, "pass_attempt": 1, "rush_attempt": 0, "xpass": 0.6},
+                {"play_type": "run", "epa": 0.2, "down": 2, "pass_attempt": 0, "rush_attempt": 1, "xpass": 0.4},
+            ]))
+            frames.append(_make_tendency_pbp_rows("B", "A", 2024, week, [
+                {"play_type": "pass", "epa": -0.1, "down": 1, "pass_attempt": 1, "rush_attempt": 0, "xpass": 0.5},
+            ]))
+        pbp = pd.concat(frames, ignore_index=True)
+        result = compute_tendency_metrics(pbp)
+
+        a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        assert len(a_w1) == 1
+        assert pd.isna(a_w1["pace_roll3"].iloc[0])
+        assert pd.isna(a_w1["pace_std"].iloc[0])
