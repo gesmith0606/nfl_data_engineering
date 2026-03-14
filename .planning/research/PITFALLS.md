@@ -1,316 +1,270 @@
 # Pitfalls Research
 
-**Domain:** Bronze backfill of 9 new NFL data types across 10 years (2016-2025)
-**Researched:** 2026-03-08
-**Confidence:** HIGH (project-specific quirks verified from codebase, nflverse docs, and GitHub issues)
+**Domain:** NFL data engineering — Silver layer expansion with PBP analytics, rolling windows, team metrics, and advanced player profiles
+**Researched:** 2026-03-13
+**Confidence:** HIGH (grounded in existing codebase analysis, confirmed implementation patterns, and established data engineering anti-patterns)
+
+---
 
 ## Critical Pitfalls
 
-### Pitfall 1: nfl-data-py Is Archived -- No Bug Fixes Coming
+### Pitfall 1: Rolling Windows Bleed Across Season Boundaries
 
 **What goes wrong:**
-The `nfl-data-py` repository was [archived by nflverse on September 25, 2025](https://github.com/nflverse/nfl_data_py). No further maintenance, bug fixes, or Python version updates will be released. The replacement is [nflreadpy](https://nflreadpy.nflverse.com/), which returns Polars DataFrames and has a different API (`load_*` instead of `import_*`). Known unfixed bugs include: NumPy 2.0 `np.float_` incompatibility ([issue #98](https://github.com/nflverse/nfl_data_py/issues/98)), Python 3.13 install failure, and `import_injuries` 404 for 2025 season.
+The current `compute_rolling_averages()` in `src/player_analytics.py` groups by `player_id` only — not `(player_id, season)`. A 3-week rolling average for Week 1 of 2024 silently includes Weeks 16–18 of 2023. The same flaw propagates to team-level metrics if the Silver expansion groups by `posteam` instead of `(posteam, season)` when computing EPA/play or CPOE rolling windows.
+
+This is not a theoretical issue — the existing `_std` (season-to-date) average on line ~219 of `player_analytics.py` correctly uses `groupby(['player_id', 'season'])`. The rolling windows on lines ~211–215 do not:
+
+```python
+# Current (line ~212) — season-blind, WRONG for multi-season datasets:
+df.groupby('player_id')[col].transform(
+    lambda s: s.shift(1).rolling(window, min_periods=1).mean()
+)
+```
+
+Backtest datasets covering 2020–2024 contain ~26K player-week rows. The contamination is only visible when Week 1 rolling values are inspected or when backtesting Week 1–3 predictions.
 
 **Why it happens:**
-The project is pinned to `nfl-data-py==0.3.3` and `numpy==1.26.4`. This works today because nfl-data-py pulls from nflverse-data GitHub releases which are still active. But adding 9 new data types deepens the dependency on a dead library.
+The groupby('player_id') pattern is intuitive — you want each player's rolling history. Within a single season it produces correct output because all weeks sort contiguously. Multi-season runs expose the flaw only when you look at Week 1 values.
 
 **How to avoid:**
-- Pin exact versions in `requirements.txt`: `nfl-data-py==0.3.3`, `numpy<2` (already done)
-- Complete the full backfill NOW while nflverse-data release URLs are stable
-- The existing `NFLDataAdapter` in `src/nfl_data_adapter.py` already isolates all `nfl.import_*` calls -- this is the correct pattern. Do not add nfl-data-py imports anywhere else
-- Plan nflreadpy migration as a separate future milestone, not part of this backfill
+Change the groupby key to `['player_id', 'season']` for all rolling windows:
+
+```python
+df.groupby(['player_id', 'season'])[col].transform(
+    lambda s: s.shift(1).rolling(window, min_periods=1).mean()
+)
+```
+
+Apply the same pattern to team-level rolling metrics in new PBP Silver transforms. Add a regression test:
+
+```python
+week1_rolls = df.loc[df['week'] == 1, 'fantasy_points_ppr_roll3']
+assert week1_rolls.isna().all(), "Week 1 roll3 should be NaN (no prior in-season games)"
+```
 
 **Warning signs:**
-- `AttributeError: np.float_` on import -- means numpy was upgraded past 2.0
-- 404 errors from GitHub releases -- means nflverse-data URLs changed
-- Import failures after any `pip install --upgrade`
+- Week 1 rolling averages are non-null and non-zero for veterans when they should be NaN
+- Backtest Week 1–3 MAE is anomalously lower than Week 4+ MAE (contamination makes early predictions look too good)
+- Multi-season Silver output shows fewer NaN rolling values than single-season output
 
 **Phase to address:**
-Pre-work (verify dependency pins) before any backfill phase begins.
+PBP Team Metrics (first Silver expansion phase) — fix the existing player_analytics.py pattern simultaneously, so the correction propagates rather than requiring a retroactive patch after team metrics are built on the same flawed convention.
 
 ---
 
-### Pitfall 2: PBP Memory Explosion on Multi-Season Loads
+### Pitfall 2: Loading Raw PBP Into Silver Transform Causes OOM on Multi-Season Backfills
 
 **What goes wrong:**
-Each PBP season is ~40K rows x 400+ columns, roughly 150-300 MB in RAM. Loading 10 seasons simultaneously causes OOM kills. Setting `include_participation=True` doubles column count and memory. The current Bronze layer is 7 MB total -- PBP alone will be ~500 MB on disk.
+A single PBP season is ~50K rows × 103 columns. In memory as float64, that is approximately 400–500 MB. Three seasons (the rolling window context needed for SOS calculations) reaches 1.2–1.5 GB, leaving no headroom on a 16 GB machine. A 10-season backfill (2016–2025) of team metrics that loads all seasons simultaneously OOMs or triggers OS swap, making the Silver backfill impractical.
+
+The Bronze ingestion script already solved this by processing one season at a time (Phase 2 decision, documented in `docs/NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md`). Silver expansion developers may not realize this constraint applies equally to Silver reads.
 
 **Why it happens:**
-The ingestion script already loops one season at a time (line 327 of `bronze_ingestion_simple.py`) and passes `columns=PBP_COLUMNS` (103 curated columns) with `include_participation=False`. These protections are correct. The risk is that a developer bypasses the CLI and calls the adapter directly with `seasons=[2016, 2017, ..., 2025]`.
+Team metric rolling windows appear to require cross-season data (e.g., "what was this team's EPA in the last 3 games of last season?"). The temptation is to load all seasons, compute rolling values across the concatenated DataFrame, and write output. This works for player_weekly (5K rows/season) but not for PBP (50K rows/season).
 
 **How to avoid:**
-- The per-season loop in `bronze_ingestion_simple.py` is correct -- do not change it
-- Always pass `columns=PBP_COLUMNS` to avoid loading all 400+ columns
-- Always pass `include_participation=False` (already the adapter default)
-- Add `gc.collect()` after each season's Parquet write to release memory
-- For backfill, add a `--dry-run` flag that fetches one season first
+Always aggregate PBP to game-level or team-week-level **before** any cross-season operations:
+
+```python
+# Step 1: aggregate within the season (50K rows → 512 team-game rows)
+team_weekly = (
+    pbp_df[pbp_df['season_type'] == 'REG']
+    .groupby(['posteam', 'season', 'week'])
+    .agg(epa_per_play=('epa', 'mean'), success_rate=('success', 'mean'), ...)
+    .reset_index()
+)
+# Step 2: write team_weekly to Silver, then compute rolling across seasons from Silver
+```
+
+A Silver team-week summary table (`data/silver/teams/weekly/season=YYYY/`) contains 512 rows/season (32 teams × 16 weeks), not 50K. Cross-season rolling against this table is trivial.
+
+Enforce: never `pd.read_parquet(pbp_path)` in Silver scripts without `columns=` subsetting. Use pyarrow column projection at read time:
+
+```python
+pbp_df = pd.read_parquet(pbp_path, columns=['epa', 'posteam', 'defteam', 'week', 'season', 'success', 'play_type'])
+```
 
 **Warning signs:**
-- Process killed by OOM killer with no error message
-- Script hangs for 5+ minutes with no progress output
-- System swap usage spikes during PBP ingestion
+- Silver team metrics transform takes >2 minutes per season
+- Process memory exceeds 2 GB during Silver runs (monitor with `tracemalloc` or `/usr/bin/time -l`)
+- Scripts complete for a single recent season but crash when run on the full 2016–2025 backfill
 
 **Phase to address:**
-Phase 1 (PBP backfill) -- verify per-season batching is enforced, add memory monitoring.
+PBP Team Metrics (first phase) — establish the aggregation-first pattern as the baseline Silver convention before any rolling logic is added. Document it explicitly: "PBP Silver outputs are always aggregated summaries, never row-level play data."
 
 ---
 
-### Pitfall 3: Injury Data Source Is Dead After 2024
+### Pitfall 3: Opponent-Adjusted Metrics Create Circular Dependencies in Rolling SOS
 
 **What goes wrong:**
-The nflverse injury data source died after the 2024 season. `import_injuries()` returns 404 errors for 2025. This is confirmed by [nflverse's data schedule](https://nflreadr.nflverse.com/articles/nflverse_data_schedule.html): "data source died after the 2024 season." The existing Bronze layer has injuries for 2020-2024 only.
+Computing opponent-adjusted EPA (team A's EPA adjusted for the strength of team B's defense) requires knowing team B's defensive EPA strength, which was itself computed against other opponents including team A. If both teams played each other in Week 1, adjusting Week 5 performance creates a feedback loop: team A's Week 5 adjusted EPA depends on team B's defense strength, which depends on team A's Week 1 offensive EPA, which was also adjusted.
+
+Naive implementations either converge to wrong values (iterative adjustment without convergence check) or silently produce NaN-contaminated outputs (NaN propagation through the circular chain).
+
+The existing `compute_opponent_rankings()` avoids this because it uses simple un-adjusted averages computed post-season, with no circular dependency. Rolling in-season SOS changes the dependency structure.
 
 **Why it happens:**
-The upstream NFL data source for injuries was discontinued. nflverse has no replacement. The `DATA_TYPE_SEASON_RANGES` in config.py currently says injuries go from 2009 to dynamic max (`get_max_season`), which is wrong for 2025+.
+The mathematical structure looks like a standard join: "for each team-week, look up opponent's defensive EPA rating." Developers don't recognize that the opponent's rating is itself derived from data that includes the current team's past performances against that opponent.
 
 **How to avoid:**
-- Update `DATA_TYPE_SEASON_RANGES["injuries"]` max to a static `2024` (not `get_max_season`)
-- Backfill injuries for 2016-2019 (currently only have 2020-2024) while the API still serves historical data
-- For 2025+ injury data, plan a separate source (e.g., Sleeper MCP injury status)
-- Add a fallback warning in the ingestion script when a data type has a known dead end
+Apply the one-lag rule universally: when computing team A's adjusted metric for week N, use opponent strength metrics computed through week N-1 only:
+
+```python
+# Step 1: compute raw (unadjusted) team EPA by week
+raw_epa = pbp_agg.groupby(['team', 'season', 'week'])['epa'].mean()
+
+# Step 2: lag the raw values before joining as opponent strength
+opponent_strength = raw_epa.shift(1)  # lag within (team, season) groups
+
+# Step 3: join opponent strength using the lagged values only
+```
+
+Test: assert that Week 1 adjusted EPA equals raw EPA — with no prior data, the adjustment should be zero.
+
+Test idempotency: run the SOS transform twice on the same input, compare outputs byte-for-byte. A circular dependency will produce different values on repeated runs if any randomness is involved in convergence.
 
 **Warning signs:**
-- HTTP 404 or empty DataFrame for injury season 2025
-- Validation showing 0 rows returned for a season
+- Week 1 adjusted EPA is non-zero (no prior opponent data should mean no adjustment)
+- Running the transform twice gives different results (non-idempotent)
+- Teams that played each other in Week 1 show anomalous adjusted values after Week 4
+- SOS rankings change retroactively when new weeks are added (should only change for weeks that haven't been locked in)
 
 **Phase to address:**
-Phase 1 (existing data type backfill) -- fix season range, backfill 2016-2019, document the gap.
+Strength of Schedule phase — circular dependency only manifests when rolling SOS is implemented. Define and test the lagged computation pattern before any SOS code ships.
 
 ---
 
-### Pitfall 4: Depth Chart Schema Change in 2025+
+### Pitfall 4: NGS / PFR / QBR Availability Gaps Produce Silent NaN Columns in Rolling Averages
 
 **What goes wrong:**
-Starting in 2025, nflverse depth chart data uses ISO8601 timestamps instead of week-number assignments. This is confirmed by [nflverse's data schedule](https://nflreadr.nflverse.com/articles/nflverse_data_schedule.html): "2025+ uses ISO8601 timestamps instead of week assignments." Code that filters by `week` column will silently return empty results for 2025+ data.
+NGS data starts in 2016; PFR in 2018; QBR in 2006 but only for qualified QBs. Many players in nfl-data-py weekly data have no NGS record in some weeks (only targeted players appear in NGS receiving; QBs who threw fewer than ~20 passes may not qualify for QBR). When joining NGS separation or PFR pressure rates to player-week Silver tables, the left join silently produces NaN for 20–60% of rows depending on position.
+
+Rolling averages applied to NaN-heavy columns with `min_periods=1` (the current default in `compute_rolling_averages()`) produce "averages" that are actually single-game observations — statistically meaningless but formatted identically to well-supported averages in the Parquet output.
 
 **Why it happens:**
-The upstream data source changed format. The registry entry has `requires_week: False` (correct for fetching), but downstream consumers may assume a `week` column exists in the returned data.
+The `how='left'` merge is correct for data completeness. The issue is that downstream code treats all Silver columns as uniformly populated. Sparse NGS/PFR metrics get the same rolling treatment as high-coverage weekly stats like `targets` and `yards`.
 
 **How to avoid:**
-- When backfilling 2016-2024, validate that the `week` column exists in all returned DataFrames
-- For 2025+, add a schema transformation that maps timestamps to approximate weeks
-- Validate schema consistency across years BEFORE writing to storage
-- Consider adding a `schema_version` metadata field
+- Track and log NaN coverage at Silver write time for all NGS/PFR/QBR-derived columns:
+
+```python
+for col in ['ngs_separation', 'pfr_pressure_rate', 'qbr']:
+    coverage = df[col].notna().mean()
+    logger.info(f"Coverage: {col} = {coverage:.1%}")
+    if coverage < 0.20:  # threshold depends on position filter
+        logger.warning(f"Sparse metric {col}: only {coverage:.1%} populated")
+```
+
+- Use `min_periods=3` (not `min_periods=1`) for rolling windows on sparse NGS/PFR/QBR columns to require meaningful history before producing an average.
+- Separate metrics into "high coverage" (snap_pct, targets, yards → all skill position players) and "sparse/optional" (NGS separation → targeted WRs only; QBR → qualified QBs only). Document each metric's expected coverage in the Silver schema.
+- Do not include sparse metrics in the default rolling average loop (`ROLLING_STAT_COLS` in `player_analytics.py`). Handle them in a separate function with explicit coverage validation.
 
 **Warning signs:**
-- Missing `week` column in depth chart DataFrames for 2025+
-- Downstream Silver transforms failing on `week` column lookups
-- Schema validation warnings about unexpected columns
+- NaN rate >50% for NGS or PFR columns in Silver output for WR/RB rows
+- Rolling averages for the same metric showing wildly different values for similar players (one has 5 data points, another has 1 because the join only caught one week)
+- Gold projections for QBs show NaN QBR feature columns in the projection DataFrame
 
 **Phase to address:**
-Phase 2 (new data type ingestion) -- depth charts need special handling for schema evolution.
+Advanced Player Profiles phase — coverage tracking must be built before NGS/PFR metrics are added to Silver rolling averages, not as a post-hoc fix.
 
 ---
 
-### Pitfall 5: GitHub Rate Limiting on Bulk Downloads
+### Pitfall 5: Combine / Draft Capital Join Causes Row Explosion in Silver
 
 **What goes wrong:**
-nfl-data-py downloads from `https://github.com/nflverse/nflverse-data/releases/`. GitHub rate limits unauthenticated requests to 60/hour and authenticated to 5,000/hour. A full backfill of 15 data types across 10 years is ~150+ individual downloads. PFR alone is 4 stat types x 2 frequencies x 8 seasons = 64 calls. Without auth tokens or delays, you hit 403 errors partway through.
+Combine data is one row per player (no season/week partition). Draft picks are one row per player per draft year. When joining either to the player-week Silver table on `player_id` alone, the join succeeds but each player's single combine/draft row gets duplicated across all weeks of all seasons for that player. A player with 5 seasons × 18 weeks = 90 Silver rows gets 90 identical combine rows after the join — a 90× duplication of static data.
+
+This inflates the Silver table size (combine data has ~50 columns), breaks any aggregation that double-counts the join key, and makes the table semantically incorrect: combine data is a player attribute, not a weekly observation.
+
+A subtler version: joining by `player_name` instead of `player_id` causes multi-player collisions. "Mike Williams" returned 3 different players in nfl-data-py across different seasons.
 
 **Why it happens:**
-The existing `_safe_call` in the adapter returns an empty DataFrame on error but does NOT retry. A 403 from rate limiting looks the same as "no data exists" -- silent data gaps.
+Combine and draft data don't have week/season partitions, so the natural join key appears to be just `player_id`. Developers use a standard `df.merge()` without thinking through the cardinality — the Silver player-week table has one row per player per week, and a 1:1 join on `player_id` alone produces 1:N.
 
 **How to avoid:**
-- Set `GITHUB_TOKEN` environment variable (used by StatsPlayerAdapter and gh CLI; nfl-data-py v0.3.3 does not read this token) for authenticated GitHub API rate limits (5000/hr)
-- Add a configurable delay between API calls (1-2 seconds) in the batch loop
-- Add retry logic with exponential backoff for 403/429 responses
-- Batch by data type (all seasons of PBP, then all seasons of NGS) rather than by season
-- Log HTTP status codes, not just empty/non-empty DataFrame results
+Treat combine/draft capital as a **player profile dimension table**, not a fact table:
+- Store it separately: `data/silver/players/profiles/combine_draft_profiles.parquet` — one row per player, containing `player_id`, combine measurables, draft round, draft pick, AV, career_av, etc.
+- In downstream Gold/projection code and ML feature matrices, join the profile table at feature-construction time, not during Silver transformation of weekly data.
+- If embedding in a weekly Silver table is required (e.g., for a flat ML feature export), explicitly document the join as a broadcast join and verify row count is unchanged after the join.
+- Always join on GSIS `player_id` (or `gsis_id` for combine). Never join on player names.
+
+```python
+# Correct: dimension table stays separate
+assert len(weekly_silver.merge(combine_profiles, on='player_id', how='left')) == len(weekly_silver), \
+    "Combine join should not change row count"
+```
 
 **Warning signs:**
-- HTTP 403 or 429 errors in logs
-- Empty DataFrames returned for seasons that should have data
-- Ingestion speed degrading as the run progresses
-- Successive data types returning empty after the first few succeed
+- Silver usage parquet file size grows significantly after combine/draft join is added (should be ~same row count)
+- Row count of Silver output exceeds row count of player_weekly Bronze source
+- Duplicate player entries for the same season/week after merge
 
 **Phase to address:**
-Phase 1 (pre-backfill) -- add rate limiting, retry logic, and GITHUB_TOKEN to adapter.
+Historical Context phase (combine + draft capital) — establish the profile dimension table pattern before writing any join logic.
 
 ---
 
-### Pitfall 6: Schema Drift Across Years for the Same Data Type
+### Pitfall 6: New Silver Outputs Bypass the download_latest_parquet() Read Convention
 
 **What goes wrong:**
-NFL data schemas are not stable across years. Known examples from this project:
-- `snap_counts`: uses `offense_pct` (not `snap_pct`) and `player` (not `player_id`)
-- `player_weekly`: uses `receiving_air_yards` (not `air_yards`)
-- `player_seasonal`: has `wopr_x`/`wopr_y` merge artifacts from nfl-data-py joining
-- PBP: `xpass`, `pass_oe`, `cpoe` may be absent in pre-2016 data
-- Team abbreviations change: `OAK` -> `LV` (2020), `SD` -> `LAC` (2017), `STL` -> `LA` (2016)
+The project's read convention is `download_latest_parquet()` from `src/utils.py` for S3 reads, and the corresponding glob-and-sort pattern for local reads. The existing `_read_local_bronze()` function uses `files[-1]` (last by alphabetical sort = latest timestamp). New Silver writers for PBP team metrics, SOS rankings, or player profiles that use ad-hoc paths or non-standard naming conventions will be invisible to `generate_projections.py` and `backtest_projections.py`, which look for Silver tables at registered paths.
 
-When backfilling 2016-2025, early seasons may have fewer columns, different names, or different dtypes.
+Additionally, the existing `SILVER_PLAYER_S3_KEYS` in `config.py` only covers three tables: `usage_metrics`, `opponent_rankings`, `rolling_averages`. Adding five new Silver tables without registering them in config creates fragile path strings scattered across scripts.
 
 **Why it happens:**
-The NFL adds tracking capabilities over time. nfl-data-py returns whatever the upstream source provides. Bronze layer stores raw data, but Parquet files with mismatched schemas across years cannot be trivially queried together.
+The local-first workflow makes path registration feel optional — you can read any file with a direct path. The convention matters for S3 (when credentials are re-established), for the health check script, and for ensuring the GHA weekly pipeline finds the right tables.
 
 **How to avoid:**
-- Store each season as a separate Parquet file (already the pattern) -- do NOT concatenate across years
-- Run `validate_data()` on each season's DataFrame independently
-- Build a schema registry that records actual columns returned per (data_type, season) pair
-- For PBP, always pass `columns=PBP_COLUMNS` to force consistent schema (missing columns become NaN)
-- Maintain a team abbreviation mapping table for historical join resolution
+- Register every new Silver output in `config.py::SILVER_PLAYER_S3_KEYS` before writing the first file:
+  - `team_metrics`, `team_tendencies`, `situational_splits`, `player_profiles`, `sos_rankings`
+- Write a `_read_local_silver()` helper in `silver_player_transformation.py` that mirrors `_read_local_bronze()` — takes `(table_name, season, week=None)` and uses the registered key pattern.
+- Add the new Silver tables to `check_pipeline_health.py` so the health check validates their presence.
+- Before shipping any new Silver table, run: `download_latest_parquet()` (S3) or `_read_local_silver()` (local) and confirm the correct file is returned.
 
 **Warning signs:**
-- `validate_data()` reporting missing required columns for early seasons
-- Parquet read errors when loading files from different seasons into the same DataFrame
-- Team abbreviation mismatches in joins (e.g., "OAK" in 2019 vs. "LV" in 2020)
+- New Silver tables exist on disk but `generate_projections.py` doesn't use them (reads old data)
+- Adding `--season 2024` to a Silver-dependent script reads files from a different season
+- S3 health check passes but new Silver tables are not checked
+- `check_pipeline_health.py` reports "OK" despite new Silver tables being missing
 
 **Phase to address:**
-Phase 1 (before backfill) -- add per-season schema logging; Phase 3 (validation) -- cross-year schema comparison.
+Every Silver expansion phase — establish the path convention at the start of each phase as a precondition, not as a cleanup step.
 
 ---
 
-## Moderate Pitfalls
-
-### Pitfall 7: QBR Weekly vs. Seasonal Filename Collision
+### Pitfall 7: Playoff Weeks Contaminate Regular-Season Rolling Metrics
 
 **What goes wrong:**
-QBR data comes in two frequencies: `weekly` and `seasonal`, both fetched via `import_qbr(frequency=...)`. If both are saved with the same filename pattern, one overwrites the other. The existing code handles this with `qbr_{frequency}_{ts}.parquet` (line 358-359 of `bronze_ingestion_simple.py`), but a batch backfill script might not replicate this logic.
+PBP data includes `season_type` values of `'REG'` (regular season, weeks 1–18) and `'POST'` (playoffs, weeks 19–22). Team EPA, CPOE, and success rate computed from playoff games are not predictive of regular-season performance — playoff opponents, game scripts, and defensive schemes are systematically different. If playoff games are included in rolling team metrics used to project Week 1 of the next season, teams with deep playoff runs receive inflated or deflated EPA estimates that don't reflect their regular-season profile.
+
+This also affects the within-season rolling window: if the Silver transform processes games by week number, and postseason games are coded as weeks 19–22, a 3-week rolling average for Week 1 of the next season picks up playoff data from weeks 20–22.
 
 **Why it happens:**
-The QBR registry entry has no `sub_types` key (unlike NGS and PFR). The frequency distinction is handled in filename logic, not path structure -- a one-off pattern easy to forget.
+The `PBP_COLUMNS` list includes `season_type` but Silver developers may filter on `week <= 18` rather than `season_type == 'REG'`. Week 19–22 exists in PBP data; filtering by week number is correct for regular-season only if the `season_type` filter is also applied.
 
 **How to avoid:**
-- Already solved in `bronze_ingestion_simple.py` -- verify any new batch script replicates this
-- Consider restructuring QBR path to `qbr/{frequency}/season={season}/` for consistency with NGS/PFR
-- Test by ingesting both weekly and seasonal QBR for a single season, verify two distinct files
+Always filter at the earliest point in PBP Silver transforms:
+
+```python
+pbp_reg = pbp_df[pbp_df['season_type'] == 'REG'].copy()
+```
+
+Write a test that verifies `posteam_team_epa_per_play` is only computed for regular-season games:
+
+```python
+assert pbp_df[pbp_df['season_type'] == 'POST']['epa_per_play'].isna().all()  # no playoff rows in aggregation
+```
+
+For within-season rolling, verify that the maximum week in any Silver team-metrics table is 18, not 22.
 
 **Warning signs:**
-- Only one QBR file per season when there should be two
-- QBR seasonal data unexpectedly having `week` columns
+- Teams with Super Bowl appearances show anomalously high/low EPA in Week 1 projections
+- Team-week Silver table contains rows with `week > 18`
+- Week 1 rolling averages for defending Super Bowl teams differ from other teams with equivalent regular-season performance
 
 **Phase to address:**
-Phase 2 (QBR ingestion) -- verify both frequencies produce distinct files.
-
----
-
-### Pitfall 8: NGS Data Only Available from 2016 -- Silent Empty Returns
-
-**What goes wrong:**
-NGS (Next Gen Stats) data only exists from 2016 onward. The NFL's RFID tracking system was deployed in 2016. Requesting earlier seasons returns empty DataFrames with no error. The `DATA_TYPE_SEASON_RANGES` correctly shows `ngs: (2016, get_max_season)`, and `_filter_seasons` silently skips invalid seasons with only a log warning.
-
-**Why it happens:**
-Different data types have different availability windows. A batch script that tries 2010-2025 for everything will get empty results for NGS 2010-2015 with no clear error.
-
-**How to avoid:**
-- The existing `_filter_seasons` + `DATA_TYPE_SEASON_RANGES` validation is correct
-- Add a per-type summary at the end of batch ingestion showing seasons attempted vs. seasons with data
-- Validate expected row counts are non-zero for each season
-- NGS has 3 sub-types (passing, rushing, receiving) -- each needs a separate ingestion call
-
-**Warning signs:**
-- Empty Parquet files (0 rows) written for seasons before availability window
-- Batch completion reporting fewer seasons than expected with no error
-
-**Phase to address:**
-Phase 2 (NGS ingestion) -- validate availability window, add summary reporting.
-
----
-
-### Pitfall 9: Snap Counts Adapter Has Unique (season, week) Signature
-
-**What goes wrong:**
-Every adapter method except `fetch_snap_counts` takes `seasons: List[int]`. `fetch_snap_counts` takes `(season: int, week: int)` -- two positional ints. A batch script that generically calls `adapter.method(seasons=[s])` will break for snap counts.
-
-**Why it happens:**
-The underlying `nfl.import_snap_counts()` takes `(season, week)` not a list. The adapter mirrors this, and `_build_method_kwargs` has special-case handling (line 186-187 of `bronze_ingestion_simple.py`). For 10-year backfill, this means 10 seasons x 18 weeks = 180 individual API calls.
-
-**How to avoid:**
-- The existing special-case in `_build_method_kwargs` handles this correctly
-- For backfill, snap counts need nested loops (season x week), not just season-level iteration
-- Add progress reporting: "Ingesting snap_counts season 2016 week 5/18..."
-- Consider if weekly granularity is needed for all 10 years or just recent seasons
-
-**Warning signs:**
-- `TypeError: fetch_snap_counts() got an unexpected keyword argument 'seasons'`
-- Snap counts returning all weeks when only one was requested
-
-**Phase to address:**
-Phase 1 (existing type backfill) -- snap counts need week-level loop, not just season-level.
-
----
-
-### Pitfall 10: Disk Space Exhaustion During Full Backfill
-
-**What goes wrong:**
-The current Bronze layer is 7 MB across 31 files. Full backfill estimate:
-- PBP: ~50 MB/season x 10 seasons = ~500 MB
-- NGS: ~5 MB/season x 3 types x 10 seasons = ~150 MB
-- PFR: ~2 MB/season x 4 types x 2 frequencies x 8 seasons = ~128 MB
-- Existing types extended: ~50 MB
-- All other new types: ~50 MB
-- **Estimated total: 850 MB to 1.2 GB** (100x increase from current 7 MB)
-
-Each ingestion run creates a NEW timestamped file. Re-running the backfill doubles disk usage.
-
-**Why it happens:**
-The timestamped file convention preserves history but means re-runs create duplicates, not updates.
-
-**How to avoid:**
-- Before backfill, verify ~2 GB free disk space
-- Add a `--replace` flag that removes old files before writing
-- Or add a dedup/cleanup step that keeps only the latest file per partition
-- Monitor disk usage during long batch runs
-
-**Warning signs:**
-- `OSError: [Errno 28] No space left on device`
-- Multiple timestamped files in the same partition directory
-- Disk usage growing faster than expected
-
-**Phase to address:**
-Phase 1 (pre-backfill) -- disk space check and dedup strategy.
-
----
-
-### Pitfall 11: Column Name Inconsistencies Across Data Types
-
-**What goes wrong:**
-nfl-data-py uses different column naming conventions across functions:
-- Player ID: `player_id`, `gsis_id`, `pfr_player_id`, `ngs_player_id`, `pfr_id`, `player_gsis_id`
-- Team: `team`, `recent_team`, `team_abbr`, `posteam`, `club_code`
-- Name: `player_name`, `player`, `passer_player_name`, `player_display_name`, `pfr_player_name`, `full_name`
-
-**Why it happens:**
-Each upstream source (NFL NGS, PFR, ESPN) uses its own schema. nfl-data-py passes these through without normalization. This is correct for Bronze (raw data), but creates join headaches at Silver.
-
-**How to avoid:**
-- At Bronze layer: store as-is (do not rename columns)
-- Document canonical join keys per data type in the data dictionary
-- At Silver layer: build explicit column mapping transforms
-- Standardize on GSIS `player_id` as the canonical join key
-
-**Warning signs:**
-- `KeyError` in Silver transformations
-- Columns with all NaN values after joins
-- Duplicate rows from join key mismatches
-
-**Phase to address:**
-Phase 2 (as each new data type is added) and Phase 3 (Silver integration).
-
----
-
-### Pitfall 12: NGS and PFR Parameter Name Inconsistencies
-
-**What goes wrong:**
-- `import_ngs_data()` uses `stat_type` with full words: `"passing"`, `"rushing"`, `"receiving"`
-- `import_weekly_pfr()` / `import_seasonal_pfr()` use `s_type` with abbreviations: `"pass"`, `"rush"`, `"rec"`, `"def"`
-- PyPI documentation was historically incorrect about the NGS parameter name ([issue #34](https://github.com/nflverse/nfl_data_py/issues/34))
-
-**Why it happens:**
-nfl-data-py wraps different upstream sources with different conventions and never normalized them.
-
-**How to avoid:**
-- The existing adapter handles this correctly: `fetch_ngs` passes `stat_type=`, `fetch_pfr_weekly` passes `s_type=`
-- The registry in `bronze_ingestion_simple.py` uses `sub_types` lists and maps the correct keyword arg
-- Verify against actual nfl-data-py source code, not PyPI docs
-- Do NOT concatenate different stat types into one DataFrame (their schemas differ)
-
-**Warning signs:**
-- `TypeError` from wrong parameter name
-- DataFrames with mixed schemas if stat types are concatenated
-
-**Phase to address:**
-Phase 2 (NGS and PFR ingestion).
+PBP Team Metrics (first phase) — the `season_type` filter must be added to all PBP aggregation functions as a baseline requirement, not as a later refinement.
 
 ---
 
@@ -318,100 +272,100 @@ Phase 2 (NGS and PFR ingestion).
 
 | Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
 |----------|-------------------|----------------|-----------------|
-| Skip validation on backfill | 2x faster ingestion | Corrupt data undetected | Never -- validation is warn-only, negligible cost |
-| Load all PBP columns | Simpler code | 3x memory usage, schema instability | Never -- always use `PBP_COLUMNS` |
-| Skip `gc.collect()` between PBP seasons | Marginally faster | OOM on machines with <16 GB RAM | Only if >32 GB RAM |
-| Hardcode season ranges | Quick fix | Breaks next year | Never -- use `DATA_TYPE_SEASON_RANGES` |
-| Ignore empty DataFrames | No error handling | Silent data gaps | Never -- log and flag |
-| No delay between API calls | Faster backfill | 403 rate limit hits | Never -- add 1-2s delay |
-| Single run with no dedup | Quick completion | Duplicate files on re-run | MVP only -- add dedup before second run |
-| Stay on nfl-data-py forever | No migration work | Dead dependency, frozen on Python 3.9 | Acceptable for this milestone only |
+| Load full-season PBP then aggregate | Simpler code, no pre-aggregation step | OOM on 3+ season backfills; 2–5 min per season | Never — always aggregate at read time using column subsetting |
+| `groupby('player_id')` for rolling windows | Less typing than `groupby(['player_id', 'season'])` | Season-boundary contamination in backtests and Gold projections | Never — one line change, no complexity cost |
+| `min_periods=1` for sparse NGS/PFR rolling | No NaN in output, "feels complete" | Rolling averages from 1–2 data points are statistically meaningless; downstream ML overfit to noise | Never for model features; acceptable for exploratory/manual analysis only |
+| Join combine/draft to player-week fact table | All features in one wide table for ML | Row explosion (90× static data duplication), inflated file size, fragile if schema changes | Only for a final flat ML feature export, clearly documented, never stored in Silver |
+| Hardcode window sizes and thresholds | Quick implementation | Blocks experimentation; different Gold consumers want different window sizes | Parameterize from day one; 3 and 6 are fine defaults |
+| Glob-and-sort instead of `download_latest_parquet()` for Silver reads | Works locally, no S3 dependency | Silent stale reads when S3 is re-enabled; not compatible with health check convention | Local-only dev experiments only; must swap before any S3 sync |
+| Compute SOS from raw PBP on each weekly run | No intermediate table needed | Re-aggregating 50K × 103 PBP rows repeatedly adds 30–60s/season; compounds in GHA 6-minute timeout | Acceptable for one-time backfill; cache team-week summaries for weekly pipeline |
+| Skip `season_type` filter on PBP | One less filter step | Playoff games contaminate regular-season metrics silently | Never — one `.copy()` + boolean filter |
+
+---
 
 ## Integration Gotchas
 
 | Integration | Common Mistake | Correct Approach |
 |-------------|----------------|------------------|
-| `import_rosters()` | Using the broken function | Use `import_seasonal_rosters()` -- fixed in adapter |
-| `import_ngs_data()` | Passing `years` as first positional arg | Use keyword: `stat_type="passing", years=[2024]` |
-| `import_qbr()` | Forgetting `frequency` param | Defaults to `"weekly"` -- pass explicitly for seasonal |
-| `import_pbp_data()` | Setting `include_participation=True` | Causes OOM -- always `False` |
-| `import_snap_counts()` | Passing seasons as list | Takes `(season, week)` positional ints |
-| `import_injuries()` | Requesting 2025 data | Data source dead after 2024 -- will 404 |
-| `import_depth_charts()` | Assuming `week` column exists in 2025+ | 2025+ uses ISO timestamps instead |
-| GitHub API calls (StatsPlayerAdapter, gh CLI) | No auth token | Set `GITHUB_TOKEN` for 5000/hr vs. 60/hr limit (nfl-data-py does not use it) |
-| numpy version | Upgrading to 2.x | Pin `numpy<2` -- nfl-data-py uses deprecated `np.float_` |
+| PBP `pd.read_parquet(pbp_path)` | No `columns=` argument — loads all 103 Bronze columns into memory | Pass `columns=[list of needed columns]`; column projection via pyarrow avoids loading unused data |
+| NGS `import_ngs_data(stat_type='receiving')` | Assuming all WRs have an NGS record each week | Only targeted players appear; join with `how='left'` and log NaN rate per column |
+| PFR sub-types (`pass`, `rush`, `rec`, `def`) | Merging all 4 sub-types simultaneously on `(player_id, week)` | Each sub-type covers a different player population; join them one at a time onto player-week master, in separate passes |
+| QBR `import_qbr(frequency='weekly')` | Using QBR presence to confirm a QB started | QBR only includes QBs with qualifying playing time; absence means did not qualify, not necessarily did not play |
+| Combine `import_combine_data()` | Assuming every player_weekly player has a combine row | ~30–40% of players have no combine data (UDFAs, international, pre-2000); always `how='left'` join |
+| Draft picks join | Joining on `player_name` for players without `gsis_id` match | Use `pfr_id` or `gsis_id` as primary key; document that pre-2016 draft capital has ~20% unlinked players |
+| PBP playoff games | Filtering `week <= 18` to exclude playoffs | Filter `season_type == 'REG'` — week 19–22 exists in PBP; week-number filter alone is insufficient for some edge cases |
+| Team abbreviations | OAK (2019) ≠ LV (2020), SD (2016) ≠ LAC (2017) | Use the team abbreviation crosswalk from `data/bronze/teams/`; or normalize to `nfl.import_team_desc()` canonical abbreviations |
+| Schedules merge for opponent lookup | Building opponent lookup per week from schedules without deduplicating postseason games | Filter schedules to `game_type == 'REG'` before building opponent map used in regular-season ranking |
+
+---
 
 ## Performance Traps
 
 | Trap | Symptoms | Prevention | When It Breaks |
 |------|----------|------------|----------------|
-| Multi-season PBP load | OOM kill, process hangs | One season at a time + `gc.collect()` | >2 seasons on 8 GB RAM |
-| No delay between API calls | 403 errors mid-backfill | 1-2s delay + GITHUB_TOKEN | >60 calls/hr unauthenticated |
-| Full-column PBP reads | 3x slower, 3x memory | Always pass `columns=PBP_COLUMNS` | Any PBP load |
-| Snap counts 10yr x 18wk | 180 API calls, ~30 min | Accept sequential, add progress bar | Always slow |
-| Re-running backfill | Disk fills 2x | Dedup before re-run or `--replace` flag | Second run of any backfill |
-| All data types in one batch | Rate limited at ~60 calls | Split into multiple runs or add GITHUB_TOKEN | >60 unauthenticated calls |
+| Raw PBP in Silver transform (no aggregation) | Silver parquet is 200–500 MB/season instead of <1 MB; transform takes 2–5 min/season | Aggregate to team-week before Silver write; use column subsetting at read time | Immediately on 3+ season backfills |
+| `groupby().transform()` on 103-column DataFrame | 60–90s per season for rolling computation on PBP-sourced data | Select only needed columns before transform; roll on 5–10 target columns, not all 103 | At 3+ seasons or when adding new rolling metrics |
+| Recomputing historical SOS each weekly run | O(seasons × teams) recalculation of stable past data | Cache team-week summaries; on weekly runs, only recompute current season rows | After 5 seasons of history, cumulative time matters in GHA 6-minute timeout |
+| `iterrows()` in Vegas implied totals | Currently iterates schedule rows to build dict (player_analytics.py line ~357) — 32 rows is fine, but if adapted for PBP game-by-game it degrades | Vectorize with `df.set_index(['home_team'])[['implied_home']].to_dict()` | At 32 teams it is trivial; matters if iterated per play |
+| PBP duplicate play_id rows | Cartesian product when joining PBP player IDs to NGS/PFR if duplicate play IDs exist (known nfl-data-py issue for some seasons) | Deduplicate PBP on `(game_id, play_id)` before any player-level join | Silently doubles player stat totals for affected seasons |
+| Multi-season PBP load for rolling context | Need 3 weeks of prior season for Week 1 rolling — loads full prior season unnecessarily | Load prior season summary table (512 rows), not prior season PBP (50K rows) | First weekly run of a new season where prior-season Silver summaries are available |
+
+---
 
 ## "Looks Done But Isn't" Checklist
 
-- [ ] **PBP backfill:** Verify all 103 curated columns present per season -- early seasons may lack `xpass`, `pass_oe`, `cpoe`
-- [ ] **NGS backfill:** Verify all 3 sub-types (passing, rushing, receiving) ingested per season, starting from 2016 only
-- [ ] **PFR backfill:** Verify 4 stat types x 2 frequencies = 8 combinations per season, starting from 2018 only
-- [ ] **QBR backfill:** Verify BOTH weekly AND seasonal files exist per season (frequency-prefixed filenames)
-- [ ] **Injuries backfill:** Confirm 2025 is NOT attempted (data source dead) -- max is 2024; backfill 2016-2019
-- [ ] **Depth charts 2025:** Confirm schema change (ISO timestamps vs. weeks) is handled or documented
-- [ ] **Snap counts:** Confirm week-level loop ran for all 18 weeks per season, not just week 1
-- [ ] **Team abbreviations:** Confirm OAK/SD/STL data has correct historical abbreviations in each season
-- [ ] **Disk space:** Confirm total Bronze is ~1 GB (not 2+ GB from duplicates)
-- [ ] **Validation:** Confirm `validate_data()` ran on every file with required columns defined for all 15 types
-- [ ] **Rate limiting:** Confirm no 403 errors in logs, GITHUB_TOKEN was set
-- [ ] **Dependencies:** Confirm `numpy<2` and `nfl-data-py==0.3.3` pinned in requirements.txt
+- [ ] **Playoff filter:** Silver team-metrics table contains no rows with `week > 18` or `season_type == 'POST'`
+- [ ] **Season-scoped rolling:** Assert that Week 1 rolling values are NaN or equal to the single in-season observation (no prior-season bleed into roll3, roll6)
+- [ ] **NGS/PFR coverage:** NaN rate per metric is logged at Silver write time; CI assertion fails if NaN >80% for a metric expected to cover the filtered position group
+- [ ] **Combine/draft join cardinality:** `len(silver_with_profiles) == len(silver_without_profiles)` — no row explosion
+- [ ] **Circular SOS check:** Week 1 adjusted EPA equals raw EPA (zero adjustment with no prior opponent data)
+- [ ] **Silver path registration:** Every new Silver output has a key in `config.py::SILVER_PLAYER_S3_KEYS` and is checked by `check_pipeline_health.py`
+- [ ] **download_latest_parquet() compliance:** New Silver tables are readable via the existing utility functions, not only via direct path strings
+- [ ] **Memory gate:** Full 2016–2025 Silver team-metrics backfill stays under 2 GB peak memory (verifiable with `tracemalloc` or `/usr/bin/time -l`)
+- [ ] **QBR null handling:** Gold QB projections do not silently drop QBR features for QBs who don't appear in QBR data; they receive positional average fallback or an explicit null flag
+- [ ] **CPOE null handling:** CPOE in PBP is only populated for pass plays (~40% of rows); team-level CPOE aggregation uses `nanmean`, not `mean`, to avoid nullifying games where no pass plays occurred in a subset
+
+---
 
 ## Recovery Strategies
 
 | Pitfall | Recovery Cost | Recovery Steps |
 |---------|---------------|----------------|
-| PBP OOM crash | LOW | Kill process, restart with single-season mode, add `gc.collect()` |
-| Duplicate files from re-run | LOW | Script to find and remove all but latest timestamp per partition |
-| Schema mismatch across years | MEDIUM | Re-validate each file, build schema registry, document gaps |
-| Rate limiting (403s) | LOW | Wait 1 hour, set GITHUB_TOKEN, re-run with delays |
-| Injury 2025 data missing | LOW | Accept gap, update season range to static 2024 |
-| Depth chart schema change | MEDIUM | Add transformation step for 2025+, re-ingest with new schema handling |
-| Numpy 2.0 breakage | LOW | `pip install "numpy<2"` -- crash happens before write, no data corruption |
-| Disk full during backfill | MEDIUM | Free space, dedup existing files, restart from last successful season |
-| Wrong import_rosters | LOW | Already fixed in adapter -- re-run with correct function |
-| GITHUB_TOKEN not set | LOW | Set token, re-run failed data types only |
+| Season-boundary rolling contamination discovered post-build | MEDIUM | Fix groupby key in `player_analytics.py` (one-line change); re-run Silver for all seasons; Silver outputs are idempotent via timestamped writes, so corrected files automatically take precedence via latest-file read |
+| OOM crash during 10-season PBP Silver backfill | LOW | Add column subsetting and per-season aggregation; re-run backfill sequentially with `--seasons 2016 2017 ...` |
+| Circular opponent-adjusted SOS values baked into Gold | HIGH | Roll back Silver SOS files by keeping the prior timestamped version; fix lagged computation pattern; regenerate SOS then Gold; validate via backtest that Week 1 adjusted EPA = raw EPA |
+| Combine/draft join row explosion in Silver | MEDIUM | Drop the inflated Silver table; move combine/draft to profile dimension table (`data/silver/players/profiles/`); regenerate Silver; downstream Gold still uses player_weekly Silver unchanged |
+| NGS NaN-heavy rolling averages in Gold features | LOW | Add `min_periods=3` guard and coverage logging; re-run Silver for affected seasons; Gold automatically picks up corrected Silver via latest-file convention |
+| New Silver tables not found by `download_latest_parquet()` | LOW | Register correct paths in `SILVER_PLAYER_S3_KEYS` and confirm glob pattern matches; no data loss |
+| Playoff weeks in team EPA rolling averages | LOW | Add `season_type == 'REG'` filter to PBP aggregation function; re-run Silver team metrics; compare before/after for teams with >2 playoff wins |
+
+---
 
 ## Pitfall-to-Phase Mapping
 
 | Pitfall | Prevention Phase | Verification |
 |---------|------------------|--------------|
-| nfl-data-py archived | Pre-work | Pin versions, verify all imports work |
-| PBP memory explosion | Phase 1 (PBP) | Monitor RSS during ingestion, verify <4 GB peak |
-| Injury data dead after 2024 | Phase 1 (existing backfill) | Update config range, verify 2016-2024 ingested, 2025 skipped |
-| Depth chart schema change | Phase 2 (new types) | Compare 2024 vs 2025 schemas, add migration if needed |
-| GitHub rate limiting | Phase 1 (pre-backfill) | Add delays, set GITHUB_TOKEN, verify no 403s in logs |
-| Schema drift across years | Phase 1 + Phase 3 | Per-season schema log; cross-year comparison report |
-| QBR filename collision | Phase 2 (QBR) | Verify two files per season (weekly + seasonal) |
-| NGS availability window | Phase 2 (NGS) | Verify 2016 is earliest with data, log empty returns |
-| Snap counts unique signature | Phase 1 (existing backfill) | Verify week-level loop, check 180 files created |
-| Disk space exhaustion | Phase 1 (pre-backfill) | Check disk space, add dedup, estimate total size |
-| Column name inconsistencies | Phase 2 + Phase 3 | Document join keys, validate at Silver layer |
-| NGS/PFR param differences | Phase 2 | Already handled in adapter -- verify via test |
+| Rolling window season-boundary bleed | PBP Team Metrics (Phase 1) | Test: Week 1 roll3 values are NaN; backtest Week 1–3 MAE should not improve significantly vs baseline |
+| PBP memory / full-season load | PBP Team Metrics (Phase 1) | Peak memory <2 GB on 10-season backfill; measured with tracemalloc |
+| Playoff-week EPA contamination | PBP Team Metrics (Phase 1) | Assert max week in Silver team-metrics table is 18; compare Super Bowl team EPA before/after fix |
+| New Silver path convention bypass | Every phase | Integration test: write Silver file, read via utility function, confirm latest version returned |
+| Opponent-adjusted circular SOS | Strength of Schedule phase | Week 1 adj_EPA == raw_EPA; idempotency test: run transform twice, diff output |
+| NGS/PFR silent NaN coverage | Advanced Player Profiles phase | NaN rate logged per metric; CI fails if coverage unexpectedly low for targeted position group |
+| Combine/draft join cardinality | Historical Context phase | Assert row count unchanged after combine/draft join; profile table is separate parquet |
+| QBR null in Gold QB projections | Advanced Player Profiles phase | Unit test: QB missing from QBR still gets a projection (positional average fallback) |
+
+---
 
 ## Sources
 
-- [nfl-data-py GitHub (archived)](https://github.com/nflverse/nfl_data_py) -- confirmed archived Sep 25, 2025
-- [nflreadpy (successor)](https://nflreadpy.nflverse.com/) -- official replacement, Polars-based
-- [nflverse Data Schedule](https://nflreadr.nflverse.com/articles/nflverse_data_schedule.html) -- availability windows, injury death, depth chart schema change
-- [nfl-data-py PyPI](https://pypi.org/project/nfl-data-py/) -- function signatures
-- [nfl-data-py Issue #98 (NumPy 2.0)](https://github.com/nflverse/nfl_data_py/issues/98) -- np.float_ incompatibility
-- [nfl-data-py Issue #34 (docs error)](https://github.com/nflverse/nfl_data_py/issues/34) -- stat_type param mislabeled
-- [nflverse-data releases](https://github.com/nflverse/nflverse-data/releases) -- data hosting, download source
-- [nflverse NGS data repo](https://github.com/nflverse/ngs-data) -- NGS data sourcing details
-- Project codebase: `src/nfl_data_adapter.py`, `src/config.py`, `scripts/bronze_ingestion_simple.py`, `src/nfl_data_integration.py`
-- Project memory: known quirks from v1.0 (snap_counts schema, import_rosters bug, PBP participation OOM)
+- `src/player_analytics.py` — confirmed rolling average groupby gap (lines 210–215 vs. season-scoped std on line 219)
+- `scripts/silver_player_transformation.py` — local file reader patterns, established Silver path convention
+- `src/config.py` — `PBP_COLUMNS` (103 columns), `SILVER_PLAYER_S3_KEYS` (3 registered tables), `DATA_TYPE_SEASON_RANGES` (NGS 2016+, PFR 2018+, QBR 2006+)
+- `.planning/PROJECT.md` — v1.2 milestone feature list, confirmed PBP is 50K rows × 103 columns, season ranges per data type
+- `docs/NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md` — Phase 2 PBP memory-safe batching decision; team abbreviation changes documented
+- `docs/NFL_DATA_DICTIONARY.md` — NGS/PFR/QBR availability windows and coverage characteristics
+- CLAUDE.md / MEMORY.md — known quirks: `snap_counts` uses `offense_pct` not `snap_pct`; `receiving_air_yards` not `air_yards`; `import_rosters` vs `import_seasonal_rosters` — confirms the column-name surprise pattern repeats across data types and must be anticipated for NGS/PFR/QBR joins
 
 ---
-*Pitfalls research for: NFL Bronze data backfill (9 new types, 10 years)*
-*Researched: 2026-03-08*
+*Pitfalls research for: NFL Silver layer expansion — PBP analytics, rolling windows, team metrics, advanced player profiles*
+*Researched: 2026-03-13*

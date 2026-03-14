@@ -1,245 +1,413 @@
-# Architecture Patterns
+# Architecture Research
 
-**Domain:** Bronze backfill of 9 new data types across 10 years (2016-2025) into existing NFL data engineering platform
-**Researched:** 2026-03-08
+**Domain:** Silver layer expansion — PBP analytics, rolling windows, advanced metrics, SOS, historical context
+**Researched:** 2026-03-13
+**Confidence:** HIGH (based on direct inspection of all Bronze files, Silver schemas, and existing src/ modules)
 
-## Recommended Architecture
+## Standard Architecture
 
-**No new architecture needed.** The existing registry-dispatch pattern in `bronze_ingestion_simple.py` + `NFLDataAdapter` already supports all 9 data types. The v1.0 milestone built the adapter methods, registry entries, validation rules, and storage paths. The backfill is purely an execution problem -- running ingestion commands across season ranges.
-
-### What Already Exists (No Changes Required)
-
-| Component | Location | Status |
-|-----------|----------|--------|
-| `NFLDataAdapter` fetch methods | `src/nfl_data_adapter.py` | All 15 methods implemented |
-| `DATA_TYPE_REGISTRY` entries | `scripts/bronze_ingestion_simple.py` | All 15 types registered |
-| `DATA_TYPE_SEASON_RANGES` | `src/config.py` | All 15 ranges defined |
-| `validate_data()` required columns | `src/nfl_data_integration.py` | All 15 schemas defined |
-| `PBP_COLUMNS` (103 curated) | `src/config.py` | Defined, used by `_build_method_kwargs` |
-| `--seasons` batch mode | `scripts/bronze_ingestion_simple.py` | `parse_seasons_range()` with per-season loop |
-| Sub-type dispatch (NGS, PFR) | `scripts/bronze_ingestion_simple.py` | `--sub-type` arg wired |
-| QBR frequency dispatch | `scripts/bronze_ingestion_simple.py` | `--frequency` arg wired |
-
-### Component Boundaries
-
-| Component | Responsibility | Communicates With |
-|-----------|---------------|-------------------|
-| `bronze_ingestion_simple.py` | CLI entry point, registry dispatch, local save | NFLDataAdapter, config.py |
-| `NFLDataAdapter` | Wraps nfl-data-py, season validation, error handling | nfl-data-py (external) |
-| `NFLDataFetcher.validate_data()` | Schema validation (required columns, nulls) | Called by adapter |
-| `config.py` | Season ranges, PBP columns, S3 paths | Referenced by all |
-| `data/bronze/` | Local Parquet storage | Written by ingestion script |
-
-### Data Flow (Existing -- Unchanged)
+### System Overview
 
 ```
-CLI args (--data-type, --season/--seasons, --sub-type, --frequency)
-    |
-    v
-DATA_TYPE_REGISTRY lookup --> adapter_method name, bronze_path template
-    |
-    v
-NFLDataAdapter.fetch_*() --> nfl-data-py API call --> pd.DataFrame
-    |
-    v
-NFLDataAdapter.validate_data() --> warn-never-block (issues logged, not raised)
-    |
-    v
-save_local() --> data/bronze/{bronze_path}/filename_{timestamp}.parquet
+Bronze Layer (data/bronze/)
+├── pbp/season=YYYY/               ← 103-col play-by-play (EPA, WPA, CPOE, situation)
+├── ngs/{passing,receiving,rushing}/season=YYYY/   ← separation, RYOE, CPOE
+├── pfr/weekly/{pass,rush,rec,def}/season=YYYY/    ← pressure, blitz, adot
+├── pfr/seasonal/{pass,rush,rec,def}/season=YYYY/  ← season aggregates
+├── qbr/season=YYYY/               ← ESPN QBR weekly + seasonal
+├── combine/season=YYYY/           ← measurables: forty, wt, ht, vertical...
+├── draft_picks/season=YYYY/       ← round, pick, w_av, car_av, gsis_id
+├── schedules/ or games/season=YYYY/ ← home/away, scores, spread, total
+└── players/{weekly,seasonal,...}/ ← existing 6 original types
+        |
+        v (Silver CLI reads Bronze; new modules join on game_id, season, team, player_id)
+        |
+Silver Layer (data/silver/) — NEW layout for v1.2
+├── teams/
+│   ├── pbp_metrics/season=YYYY/   ← EPA/play, success rate, CPOE, red zone efficiency
+│   ├── tendencies/season=YYYY/    ← pace, pass rate OE, 4th-down aggressiveness
+│   └── sos/season=YYYY/           ← opponent-adjusted EPA, schedule difficulty rankings
+├── players/
+│   ├── usage/season=YYYY/         ← EXISTING: usage metrics + rolling avgs (113 cols)
+│   ├── advanced/season=YYYY/      ← NEW: NGS + PFR + QBR profiles with rolling windows
+│   └── historical/season=YYYY/    ← NEW: combine measurables + draft capital linked by gsis_id
+├── defense/
+│   ├── positional/season=YYYY/    ← EXISTING: avg_pts_allowed, rank (6 cols)
+│   └── coverage/season=YYYY/      ← NEW: PFR def coverage stats + EPA allowed per position
+└── situational/
+    └── splits/season=YYYY/        ← NEW: game_script / home_away / divisional breakdowns
+        |
+        v (Gold reads Silver; new metrics feed projection multipliers and prediction features)
+        |
+Gold Layer (data/gold/)  ← unchanged in v1.2 (projection_engine.py reads Silver usage)
 ```
 
-## Storage Path Patterns for All 9 New Types
+### Component Responsibilities
 
-These are already defined in `DATA_TYPE_REGISTRY["bronze_path"]`:
+| Component | Responsibility | Input | Output |
+|-----------|---------------|-------|--------|
+| `src/player_analytics.py` | EXISTING — usage, rolling avgs, opponent rankings, game script, venue | player_weekly + snap_counts + schedules | `players/usage/` enriched DF |
+| `src/team_analytics.py` | NEW — PBP-derived team metrics + tendencies + SOS | PBP Bronze + schedules | `teams/pbp_metrics/`, `teams/tendencies/`, `teams/sos/` |
+| `src/advanced_player_analytics.py` | NEW — NGS/PFR/QBR profiles + rolling windows | NGS + PFR + QBR Bronze | `players/advanced/` enriched DF |
+| `src/historical_context.py` | NEW — combine + draft capital linked to active players | combine + draft_picks Bronze | `players/historical/` DF |
+| `src/situational_analytics.py` | NEW — game script / home_away / divisional splits | player_weekly + schedules | `situational/splits/` DF |
+| `scripts/silver_player_transformation.py` | EXISTING CLI — orchestrates player-level transforms | calls player_analytics functions | writes `players/usage/` |
+| `scripts/silver_team_transformation.py` | NEW CLI — orchestrates team-level transforms | calls team_analytics functions | writes `teams/` and `defense/coverage/` |
+| `scripts/silver_advanced_transformation.py` | NEW CLI — orchestrates advanced player + historical transforms | calls advanced_player_analytics + historical_context | writes `players/advanced/` + `players/historical/` |
 
-| Data Type | Local Path | Partition Strategy | Estimated Size/Season |
-|-----------|-----------|-------------------|----------------------|
-| **pbp** | `data/bronze/pbp/season={YYYY}/` | **Per-season** (not weekly) | ~80-120 MB (103 cols, ~50K plays) |
-| **ngs** | `data/bronze/ngs/{sub_type}/season={YYYY}/` | Per-season, 3 sub_types | ~2-5 MB each |
-| **pfr_weekly** | `data/bronze/pfr/weekly/{sub_type}/season={YYYY}/` | Per-season, 4 sub_types | ~1-3 MB each |
-| **pfr_seasonal** | `data/bronze/pfr/seasonal/{sub_type}/season={YYYY}/` | Per-season, 4 sub_types | ~0.5-1 MB each |
-| **qbr** | `data/bronze/qbr/season={YYYY}/` | Per-season, freq-prefixed filename | ~0.1-0.3 MB |
-| **depth_charts** | `data/bronze/depth_charts/season={YYYY}/` | Per-season | ~2-4 MB |
-| **draft_picks** | `data/bronze/draft_picks/season={YYYY}/` | Per-season | ~0.05 MB |
-| **combine** | `data/bronze/combine/season={YYYY}/` | Per-season | ~0.05 MB |
-| **teams** | `data/bronze/teams/` | **No season partition** (static) | ~0.01 MB |
+## Recommended Project Structure
 
-### PBP Size Concern and Mitigation
+```
+src/
+├── player_analytics.py          # EXISTING — add no new functions here for v1.2
+├── team_analytics.py            # NEW — compute_pbp_team_metrics(), compute_team_tendencies(), compute_sos()
+├── advanced_player_analytics.py # NEW — compute_ngs_profiles(), compute_pfr_profiles(), compute_qbr_features()
+├── historical_context.py        # NEW — compute_draft_capital(), link_combine_to_roster()
+├── situational_analytics.py     # NEW — compute_situational_splits()
+├── config.py                    # MODIFY — add SILVER_TEAM_S3_KEYS, SILVER_ADVANCED_S3_KEYS
+├── projection_engine.py         # MODIFY — add new multiplier hooks (team tendencies, SOS)
+└── ...                          # unchanged
 
-PBP is the only data type with significant size. At ~100 MB per season with 103 columns:
+scripts/
+├── silver_player_transformation.py   # EXISTING — no structural change needed
+├── silver_team_transformation.py     # NEW CLI for team metrics + SOS + situational
+├── silver_advanced_transformation.py # NEW CLI for NGS/PFR/QBR profiles + historical
 
-- **10 seasons = ~1 GB total** -- manageable for local storage
-- **Memory during ingestion:** The `--seasons` batch mode already loops one season at a time (`for idx, season in enumerate(season_list, 1):`), so peak memory is one season (~100 MB DataFrame), not 10
-- **No weekly partitioning needed:** PBP is fetched per-season from nfl-data-py (the API returns a full season). Splitting into weekly files during Bronze ingestion would add complexity for no benefit -- Silver/Gold layers can filter by week when reading
-- **Downcast enabled:** `_build_method_kwargs` passes `downcast=True` for PBP, reducing float64 to float32 where safe (~30% memory reduction)
+data/silver/
+├── players/
+│   ├── usage/season=YYYY/            # EXISTING output (unchanged)
+│   ├── advanced/season=YYYY/         # NEW
+│   └── historical/                   # NEW (no season partition — combine/draft are static-ish)
+├── teams/
+│   ├── pbp_metrics/season=YYYY/      # NEW
+│   ├── tendencies/season=YYYY/       # NEW
+│   └── sos/season=YYYY/             # NEW
+├── defense/
+│   ├── positional/season=YYYY/       # EXISTING
+│   └── coverage/season=YYYY/         # NEW
+└── situational/
+    └── splits/season=YYYY/           # NEW
+```
 
-### QBR Filename Convention
+### Structure Rationale
 
-QBR uses frequency-prefixed filenames to avoid weekly/seasonal collision in the same directory:
-- `data/bronze/qbr/season=2024/qbr_weekly_20260308_120000.parquet`
-- `data/bronze/qbr/season=2024/qbr_seasonal_20260308_120000.parquet`
+- **`src/team_analytics.py` (separate module):** PBP aggregation is team-level, not player-level. Mixing it into `player_analytics.py` would bloat that module (currently 418 lines) and create confusing coupling. Team metrics and SOS have different grain (team-week vs player-week) — they write to separate Silver paths and are consumed differently by `projection_engine.py`.
+- **`src/advanced_player_analytics.py` (separate module):** NGS, PFR, QBR use different join keys (`player_gsis_id`, `pfr_player_id`, `player_id`) and require their own rolling window logic on different column sets. Keeping separate from `player_analytics.py` preserves the existing Silver `players/usage/` schema with zero risk of column collision.
+- **`src/historical_context.py` (separate module):** Combine + draft capital are not weekly data — they are career-time attributes. The join logic (gsis_id → player roster → combine/draft) is distinct. Keeping separate ensures it can be built and tested independently.
+- **`scripts/silver_team_transformation.py` (new CLI):** The existing `silver_player_transformation.py` is player-scoped. Adding team-level PBP transforms into it would require loading large PBP files for a script currently used for quick player-only refreshes. A separate CLI allows independent execution.
+- **`data/silver/players/historical/` (no season partition):** Combine and draft capital are year-of-entry attributes, not season-varying. They are referenced as static context for projections and should be stored without a season partition to simplify reads.
 
-This is already handled in `bronze_ingestion_simple.py` lines 358-359.
+## Architectural Patterns
 
-## Validation Rules Already Implemented
+### Pattern 1: PBP Aggregation — Play-Filter then Group-By Team
 
-From `NFLDataFetcher.validate_data()` in `src/nfl_data_integration.py`:
+**What:** PBP data (103 cols, ~50K plays/season) is too large to load fully for every Silver run. The correct pattern filters to the relevant play types first, then aggregates to team-week grain.
 
-| Data Type | Required Columns | Additional Rules |
-|-----------|-----------------|------------------|
-| pbp | `game_id`, `play_id`, `season`, `week` | None beyond null checks |
-| ngs | `season`, `season_type`, `week`, `player_display_name`, `player_position`, `team_abbr`, `player_gsis_id` | None |
-| pfr_weekly | `game_id`, `season`, `week`, `team`, `pfr_player_name`, `pfr_player_id` | None |
-| pfr_seasonal | `player`, `team`, `season`, `pfr_id` | None |
-| qbr | `season`, `season_type`, `qbr_total`, `pts_added`, `epa_total`, `qb_plays` | None |
-| depth_charts | `season`, `club_code`, `week`, `position`, `full_name`, `gsis_id` | None |
-| draft_picks | `season`, `round`, `pick`, `team`, `pfr_player_name`, `position` | None |
-| combine | `season`, `player_name`, `pos`, `school`, `ht`, `wt` | None |
-| teams | `team_abbr`, `team_name` | None |
+**When to use:** Every function in `team_analytics.py` that touches PBP.
 
-**Validation mode is warn-never-block** -- Bronze accepts raw data and logs issues without failing ingestion. This is correct for a data lake.
+**Trade-offs:** Slightly more verbose than loading and groupby-ing full PBP, but reduces peak memory ~70% per season by dropping non-relevant plays early.
 
-## Patterns to Follow
-
-### Pattern 1: Single-Season Batch Loop (Already Implemented)
-**What:** The `--seasons` range mode iterates one season at a time, not all at once.
-**When:** Always for PBP; good practice for all batch ingestion.
-**Why:** PBP for 10 seasons simultaneously would require ~1 GB RAM. The per-season loop caps peak memory.
-**Code:** `bronze_ingestion_simple.py` lines 326-389.
-
-### Pattern 2: Sub-Type Iteration for NGS and PFR
-**What:** NGS has 3 sub_types (`passing`, `rushing`, `receiving`), PFR has 4 (`pass`, `rush`, `rec`, `def`). Each must be ingested separately.
-**When:** Backfilling NGS or PFR data.
-**Why:** The nfl-data-py API requires a single stat_type per call.
 **Example:**
-```bash
-# NGS: 3 sub_types x 10 seasons = 30 ingestion runs
-for sub in passing rushing receiving; do
-  python scripts/bronze_ingestion_simple.py --data-type ngs --sub-type $sub --seasons 2016-2025
-done
+```python
+def compute_pbp_team_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute EPA/play, success rate, CPOE, red zone efficiency per team per week."""
+    # Filter to scrimmage plays only (exclude penalties, kickoffs, etc.)
+    plays = pbp_df[pbp_df['play_type'].isin(['pass', 'run'])].copy()
 
-# PFR weekly: 4 sub_types x 8 seasons = 32 ingestion runs
-for sub in pass rush rec def; do
-  python scripts/bronze_ingestion_simple.py --data-type pfr_weekly --sub-type $sub --seasons 2018-2025
-done
+    dropbacks = plays[plays['qb_dropback'] == 1]
+    rushes = plays[plays['rush_attempt'] == 1]
+    rz = plays[plays['yardline_100'] <= 20]
+
+    team_epa = (
+        plays.groupby(['season', 'week', 'posteam'])
+        .agg(
+            epa_per_play=('epa', 'mean'),
+            success_rate=('success', 'mean'),
+            plays=('play_id', 'count'),
+        )
+        .reset_index()
+        .rename(columns={'posteam': 'team'})
+    )
+    cpoe = (
+        dropbacks.groupby(['season', 'week', 'posteam'])
+        .agg(cpoe=('cpoe', 'mean'))
+        .reset_index()
+        .rename(columns={'posteam': 'team'})
+    )
+    rz_eff = (
+        rz.groupby(['season', 'week', 'posteam'])
+        .agg(
+            rz_epa=('epa', 'mean'),
+            rz_td_rate=('touchdown', 'mean'),
+        )
+        .reset_index()
+        .rename(columns={'posteam': 'team'})
+    )
+    return team_epa.merge(cpoe, on=['season', 'week', 'team'], how='left') \
+                   .merge(rz_eff, on=['season', 'week', 'team'], how='left')
 ```
 
-### Pattern 3: QBR Dual Frequency
-**What:** QBR needs both `--frequency weekly` and `--frequency seasonal` runs.
-**When:** Backfilling QBR data.
-**Why:** Weekly and seasonal QBR are different datasets from ESPN, both stored in same season directory with frequency-prefixed filenames.
+### Pattern 2: Rolling Windows on Team/Player Data — Shift-then-Roll
+
+**What:** All rolling averages must shift(1) before rolling to avoid data leakage (current week's value must not appear in the current week's rolling average).
+
+**When to use:** Every rolling average computation in every new module.
+
+**Trade-offs:** The `shift(1)` pattern is already established in `player_analytics.compute_rolling_averages`. New modules must follow the same pattern for consistency with how `projection_engine.py` consumes Silver data.
+
 **Example:**
-```bash
-python scripts/bronze_ingestion_simple.py --data-type qbr --frequency weekly --seasons 2016-2025
-python scripts/bronze_ingestion_simple.py --data-type qbr --frequency seasonal --seasons 2016-2025
+```python
+def _add_rolling_to_team_df(df: pd.DataFrame, cols: list, windows: list = [3, 6]) -> pd.DataFrame:
+    df = df.sort_values(['team', 'season', 'week'])
+    for window in windows:
+        for col in cols:
+            if col in df.columns:
+                df[f"{col}_roll{window}"] = (
+                    df.groupby('team')[col]
+                    .transform(lambda s: s.shift(1).rolling(window, min_periods=1).mean())
+                )
+    return df
 ```
 
-### Pattern 4: Teams is Season-Independent
-**What:** Teams data (`import_team_desc()`) returns a static list of all 32 teams. No season parameter.
-**When:** Ingesting teams.
-**Why:** The adapter method takes no seasons argument; the registry has `requires_season: False`.
+### Pattern 3: Cross-Source Player Join — Use gsis_id as Canonical Key
+
+**What:** NGS uses `player_gsis_id`, PFR uses `pfr_player_id`, QBR uses `player_id`. The canonical join key in Silver is `player_id` (gsis_id) as used in `players/usage/`. Join NGS directly. PFR and QBR require a cross-reference via `players/rosters/` or `draft_picks` (which has both `gsis_id` and `pfr_player_id`).
+
+**When to use:** Any function in `advanced_player_analytics.py` that merges NGS/PFR/QBR into player-week grain.
+
+**Trade-offs:** PFR and QBR will have non-matches for some players (name-only PFR records, unqualified QBR entries). Use left-joins from the player_weekly base and fill NaN for missing advanced stats. Never inner-join — this would silently drop players.
+
+**Join chain:**
+```
+player_weekly (gsis_id) ← left join → NGS (player_gsis_id)
+player_weekly (player_id) ← left join → QBR (player_id, via gsis_id match)
+player_weekly ← left join → draft_picks (gsis_id) → PFR weekly (pfr_player_id)
+```
+
+### Pattern 4: SOS Computation — Rolling Opponent Quality
+
+**What:** Strength-of-schedule at week W is the average opponent EPA-per-play from weeks 1..W-1 (using already-played games, not future schedule). This requires the team PBP metrics computed in Pattern 1 to exist first — SOS depends on team metrics.
+
+**When to use:** `compute_sos()` in `team_analytics.py`.
+
+**Trade-offs:** SOS is a derived metric that requires team EPA metrics as input. Build order within `silver_team_transformation.py` must compute `pbp_team_metrics` before `sos`. Both can be written to Silver in the same CLI run.
+
 **Example:**
-```bash
-python scripts/bronze_ingestion_simple.py --data-type teams
-# One file: data/bronze/teams/teams_{timestamp}.parquet
+```python
+def compute_sos(team_metrics_df: pd.DataFrame) -> pd.DataFrame:
+    """Rolling opponent-quality SOS. team_metrics_df must have epa_per_play."""
+    # team_metrics_df grain: season, week, team, epa_per_play
+    # Build opponent lookup from schedules (passed in separately)
+    ...
+    # For each team at each week, look back at opponents' epa_per_play through that week
+    # and compute rolling mean (windows 3, 6, season-to-date)
 ```
 
-## Anti-Patterns to Avoid
+### Pattern 5: Historical Context — Static Join to Active Roster
 
-### Anti-Pattern 1: Fetching All PBP Seasons at Once
-**What:** Passing `--seasons 1999-2025` and loading all 26 seasons of PBP simultaneously.
-**Why bad:** Would attempt to hold ~2.6 GB in memory. The per-season loop prevents this, but someone might bypass the CLI and call `adapter.fetch_pbp(seasons=list(range(1999,2026)))` directly.
-**Instead:** Always loop one season at a time for PBP. The CLI already does this.
+**What:** Combine measurables (forty, wt, ht, vertical, etc.) and draft capital (round, pick, w_av) are career attributes. They are linked to active players via `gsis_id`, which is present in both `draft_picks` (column: `gsis_id`) and `combine` (requires cross-reference via `pfr_id`, then to roster).
 
-### Anti-Pattern 2: Weekly Partitioning for Season-Level Data
-**What:** Splitting NGS, PFR, QBR, depth_charts, etc. into weekly subdirectories.
-**Why bad:** These datasets are returned per-season by nfl-data-py. Artificially splitting adds complexity without read-performance benefit at Bronze scale.
-**Instead:** Store per-season. Silver layer can filter by week.
+**When to use:** `compute_draft_capital()` and `link_combine_to_roster()` in `historical_context.py`.
 
-### Anti-Pattern 3: Adding Metadata Columns in Adapter
-**What:** The old `NFLDataFetcher` added `data_source`, `ingestion_timestamp`, `seasons_requested`, `week_filter` to DataFrames.
-**Why bad:** Mixes ingestion metadata with source data at the adapter level. The new `NFLDataAdapter` correctly does NOT add these columns.
-**Instead:** Ingestion metadata lives in the filename timestamp and directory structure.
+**Trade-offs:** Not all players have combine data (undrafted free agents, international players, historical gaps). Not all draft picks have `gsis_id` (older picks pre-2009). Build with left-joins from active roster; treat historical context as enrichment, not required fields.
 
-### Anti-Pattern 4: Treating Schedules Path Inconsistency as Normal
-**What:** Existing schedules data lives in `data/bronze/games/` (legacy) but registry says `schedules/`.
-**Why bad:** Two paths for the same data type causes confusion in downstream reads.
-**Instead:** New ingestion will write to `data/bronze/schedules/` per registry. Legacy `games/` directory can remain but should not be used for new reads. Consider a backfill note in the inventory.
+**Join chain:**
+```
+rosters (player_id=gsis_id, pfr_id) ← left join → draft_picks (gsis_id)
+rosters (pfr_id) ← left join → combine (pfr_id)
+```
 
-## What Needs to Be Built (New Components)
+## Data Flow
 
-### Required: Backfill Orchestration Script
-**What:** A shell script or Python script that runs all the necessary ingestion commands in the right order with error handling and progress reporting.
-**Why:** Running 50+ individual CLI commands manually is error-prone. A script ensures completeness and can resume from failures.
-**Estimated CLI invocations (using --seasons batch mode):**
+### Silver Expansion Data Flow
 
-| Data Type | Sub-types | Frequencies | CLI Invocations |
-|-----------|-----------|-------------|-----------------|
-| teams | -- | -- | 1 |
-| pbp | -- | -- | 1 (--seasons 2016-2025) |
-| ngs | 3 | -- | 3 |
-| pfr_weekly | 4 | -- | 4 |
-| pfr_seasonal | 4 | -- | 4 |
-| qbr | -- | 2 | 2 |
-| depth_charts | -- | -- | 1 |
-| draft_picks | -- | -- | 1 |
-| combine | -- | -- | 1 |
-| existing 6 types | -- | -- | 6 (2016-2019 + 2025 gaps) |
-| **Total** | | | **~24 CLI invocations** |
+```
+Bronze PBP (pbp/season=YYYY/)
+    |
+    v
+silver_team_transformation.py
+    |
+    +-- team_analytics.compute_pbp_team_metrics()  --> silver/teams/pbp_metrics/season=YYYY/
+    |
+    +-- team_analytics.compute_team_tendencies()   --> silver/teams/tendencies/season=YYYY/
+    |         (requires pbp_team_metrics as input)
+    |
+    +-- team_analytics.compute_sos()               --> silver/teams/sos/season=YYYY/
+              (requires pbp_team_metrics as input)
 
-### Required: Existing Data Type Backfill (2016-2019 + 2025)
-The 6 existing data types only have 2020-2024 data. Backfilling to 2016-2025 means:
-- **schedules:** Add 2016-2019 (2025 exists)
-- **player_weekly, player_seasonal:** Add 2016-2019 + 2025 (min season is 2002, so all valid)
-- **snap_counts:** Add 2016-2019 + 2025 (min season is 2012, valid)
-- **injuries:** Add 2016-2019 + 2025 (min season is 2009, valid)
-- **rosters:** Add 2016-2019 + 2025 (min season is 2002, valid)
+Bronze NGS + PFR + QBR
+    |
+    v
+silver_advanced_transformation.py
+    |
+    +-- advanced_player_analytics.compute_ngs_profiles()    --> silver/players/advanced/season=YYYY/
+    +-- advanced_player_analytics.compute_pfr_profiles()    (merged into same advanced file)
+    +-- advanced_player_analytics.compute_qbr_features()    (merged into same advanced file)
 
-### Required: Inventory Refresh
-After backfill, regenerate `docs/BRONZE_LAYER_DATA_INVENTORY.md` using `python scripts/generate_inventory.py --output docs/BRONZE_LAYER_DATA_INVENTORY.md`.
+Bronze combine + draft_picks + rosters
+    |
+    v
+silver_advanced_transformation.py (or standalone)
+    |
+    +-- historical_context.link_combine_to_roster()         --> silver/players/historical/
+    +-- historical_context.compute_draft_capital()          (merged into same historical file)
 
-### Optional: Snap Counts Week Handling
-**Current issue:** `snap_counts` registry entry has `requires_week: True` and the adapter takes `(season, week)` positional args. For backfill, we need all weeks per season. The `--seasons` batch mode loops seasons but does NOT loop weeks. Options:
-1. Add a `--weeks` range flag (e.g., `--weeks 1-18`) to the ingestion script
-2. Change snap_counts adapter to accept `seasons` list like other methods and return all weeks
-3. Use a wrapper script that loops weeks 1-18 for each season
+Bronze player_weekly + schedules (already in Silver pipeline)
+    |
+    v
+silver_player_transformation.py (EXISTING — no change)
+    |
+    +-- player_analytics.compute_usage_metrics()            --> silver/players/usage/season=YYYY/
+    +-- player_analytics.compute_rolling_averages()
+    +-- player_analytics.compute_game_script_indicators()
+    +-- player_analytics.compute_venue_splits()
+    +-- player_analytics.compute_opponent_rankings()         --> silver/defense/positional/season=YYYY/
+```
 
-Option 2 is cleanest but changes the adapter signature. Option 3 is safest for backfill.
+### Gold Consumption of New Silver Data
 
-### Optional: Player Weekly Week Handling
-Same issue as snap_counts -- `player_weekly` registry has `requires_week: True`. For a full-season backfill, the existing data was ingested as full-season files (no week partition despite the registry path template). Need to decide: backfill per-week or per-season? Given existing data is stored per-season in `data/bronze/players/weekly/season=YYYY/`, backfilling per-season is consistent.
+```
+silver/players/usage/         ← EXISTING feed into projection_engine.py (unchanged)
+silver/teams/pbp_metrics/     ← NEW feed: team EPA/play used as Vegas-equivalent multiplier
+silver/teams/sos/             ← NEW feed: schedule difficulty factor (replaces simple rank-based matchup)
+silver/players/advanced/      ← NEW feed: NGS separation / RYOE / pressure rate for QB/RB/WR/TE adjustments
+silver/players/historical/    ← NEW feed: draft capital / combine athleticism for rookie projection baseline
+```
 
-## Scalability Considerations
+### Key Data Flows
 
-| Concern | Current (31 files, 7 MB) | Post-Backfill (~200+ files, ~1.5 GB) | Notes |
-|---------|--------------------------|--------------------------------------|-------|
-| Disk space | Trivial | ~1.5 GB (PBP dominates) | Fine for local dev |
-| Ingestion time | Minutes | 1-3 hours (API rate limits) | PBP downloads are slow (~30s/season) |
-| Read performance | Instant | Instant per-file | download_latest_parquet reads one file |
-| Memory | < 50 MB peak | ~150 MB peak (PBP single season) | Per-season loop prevents OOM |
+1. **PBP to team EPA:** Bronze PBP (50K plays) → filter scrimmage plays → groupby team+week → ~32 teams × ~18 weeks = 576 rows per season. Fast, low-memory after initial filter.
+2. **NGS to player profiles:** Bronze NGS (passing 614 rows, receiving 1435 rows, rushing 601 rows per season) → join on player_gsis_id → 2-3K rows per season. Trivially fast.
+3. **PFR to player profiles:** Bronze PFR weekly/def (7992 rows per season) → join on pfr_player_id via draft_picks cross-reference → left-join into player_weekly base. ~5K matched rows per season.
+4. **Combine/draft to historical:** Bronze combine (321 rows/year) + draft_picks (257 rows/year) → join on gsis_id/pfr_id → one static file (multi-season, all-time). Updated once per draft year.
 
-## Suggested Build Order
+## Integration Points with Existing Silver Pipeline
 
-Based on dependencies and risk:
+### player_analytics.py — No Modifications Required
 
-1. **Teams** (1 run, no dependencies, static data, fast sanity check that pipeline works)
-2. **Draft picks + Combine** (simple, season-only, small files, validates basic --seasons flow)
-3. **Depth charts** (season-only, medium size, useful for Silver layer)
-4. **QBR** (tests frequency-prefixed filename logic -- both weekly and seasonal)
-5. **PFR seasonal + PFR weekly** (tests sub-type dispatch, 4 sub_types each)
-6. **NGS** (tests sub-type dispatch, 3 sub_types, 2016+ only)
-7. **PBP** (largest dataset, do last so any bugs found earlier save re-ingestion time)
-8. **Existing 6 types backfill** (add 2016-2019 + 2025 to schedules, player_weekly, etc.)
-9. **Inventory refresh + validation** (regenerate docs, run validate_project.py)
+The existing module provides: `compute_usage_metrics`, `compute_rolling_averages`, `compute_game_script_indicators`, `compute_venue_splits`, `compute_implied_team_totals`, and `compute_opponent_rankings`. These already write the 113-column `players/usage/` Silver table.
 
-**Rationale:** Start with small/fast types to validate the pipeline works end-to-end. Escalate to complex types (sub-types, frequencies). Do PBP last since it is the slowest (~30s per season download) and largest (~100 MB per season). Finding and fixing bugs on small types first avoids wasting time re-ingesting PBP.
+**v1.2 does NOT modify this file.** New metrics live in new modules and new Silver paths. This preserves:
+- The 71+ existing test suite (none need changing)
+- The exact `players/usage/` schema that `projection_engine.py` reads
+- The `silver_player_transformation.py` CLI contract
+
+### projection_engine.py — Optional Extension Points
+
+The projection engine currently reads `players/usage/` Silver. After v1.2 ships, two hooks are available for future Gold enhancement:
+
+| Hook | Where | New Silver Data |
+|------|-------|-----------------|
+| `RECENCY_WEIGHTS` blending | `projection_engine.py` line ~30 | Replace simple opponent rank with SOS-adjusted EPA from `teams/sos/` |
+| `usage_multiplier` computation | `projection_engine.py` line ~140 | Supplement target_share/carry_share with NGS separation (WR) / RYOE (RB) from `players/advanced/` |
+
+These are v1.2 stretch goals, not blockers — the new Silver tables are the prerequisite.
+
+### config.py — Additions Required
+
+Add Silver S3 key templates for new paths:
+
+```python
+SILVER_TEAM_S3_KEYS = {
+    "pbp_metrics": "teams/pbp_metrics/season={season}/pbp_metrics_{ts}.parquet",
+    "tendencies": "teams/tendencies/season={season}/tendencies_{ts}.parquet",
+    "sos": "teams/sos/season={season}/sos_{ts}.parquet",
+}
+SILVER_ADVANCED_S3_KEYS = {
+    "advanced_players": "players/advanced/season={season}/advanced_{ts}.parquet",
+    "historical": "players/historical/historical_{ts}.parquet",
+    "situational": "situational/splits/season={season}/splits_{ts}.parquet",
+    "coverage": "defense/coverage/season={season}/coverage_{ts}.parquet",
+}
+```
+
+## Build Order (Dependency-Driven)
+
+This ordering respects data dependencies and isolates risk — each step can be tested independently before proceeding.
+
+| Step | Module/Script | Reads From | Writes To | Why This Order |
+|------|--------------|-----------|----------|----------------|
+| 1 | `src/team_analytics.py` | (new module) | — | No deps; write + test in isolation |
+| 2 | `scripts/silver_team_transformation.py` | Bronze PBP + schedules | `teams/pbp_metrics/`, `teams/tendencies/` | PBP metrics first; SOS depends on them |
+| 3 | SOS in `team_analytics.py` | Output of step 2 | `teams/sos/` | Must have PBP metrics to compute opponent quality |
+| 4 | `src/advanced_player_analytics.py` | (new module) | — | No deps; write + test in isolation |
+| 5 | `scripts/silver_advanced_transformation.py` (NGS + PFR + QBR) | Bronze NGS/PFR/QBR + player_weekly | `players/advanced/` | Need player_id cross-reference from existing usage table |
+| 6 | `src/historical_context.py` | (new module) | — | No deps; combine/draft logic is self-contained |
+| 7 | historical in `silver_advanced_transformation.py` | Bronze combine + draft_picks + rosters | `players/historical/` | Rosters needed for gsis_id link; rosters Bronze must exist |
+| 8 | `src/situational_analytics.py` | (new module) | — | No deps; pure computation from existing player_weekly |
+| 9 | situational in `silver_team_transformation.py` | Silver `players/usage/` | `situational/splits/` | Reads enriched Silver (with game_script already computed) |
+
+**Summary:** Team metrics → SOS → Advanced player profiles → Historical context → Situational splits.
+
+## Anti-Patterns
+
+### Anti-Pattern 1: Adding New Metrics to `player_analytics.py`
+
+**What people do:** Append `compute_pbp_team_metrics()` or `compute_ngs_profiles()` to the existing `player_analytics.py` because it already handles Silver transforms.
+
+**Why it's wrong:** `player_analytics.py` operates at player-week grain from player_weekly Bronze. PBP aggregation operates at team-week grain from PBP Bronze. NGS/PFR profiles require different Bronze sources with different join keys. Mixing them creates a 1000+ line god module with confusing imports and makes independent testing impossible.
+
+**Do this instead:** One module per analytic domain. `team_analytics.py`, `advanced_player_analytics.py`, `historical_context.py`, `situational_analytics.py`. Each tested independently.
+
+### Anti-Pattern 2: Loading Full PBP for Each Team Metric
+
+**What people do:** `pbp_df = pd.read_parquet('data/bronze/pbp/season=2024/pbp.parquet')` then immediately groupby team — fine for one season, but if looped over 10 seasons it loads 1+ GB sequentially.
+
+**Why it's wrong:** At 2016-2025 (10 seasons), full PBP loads sum to ~1 GB peak if not managed. Silver transforms run per-season in a loop, so this is not catastrophic, but the filter-first pattern cuts memory ~70% per iteration.
+
+**Do this instead:** Filter to relevant `play_type` rows immediately after reading. Process one season at a time in the CLI loop (existing pattern from `silver_player_transformation.py`).
+
+### Anti-Pattern 3: Inner-Joining NGS/PFR to Player Weekly
+
+**What people do:** Use `how='inner'` when merging NGS or PFR data into the player-weekly base table to keep only matched rows.
+
+**Why it's wrong:** NGS has minimum ~614 passing records per season — only qualified QBs. PFR coverage is better but still misses UDFAs and obscure backups. An inner-join silently drops all players without advanced stats, breaking downstream projections for those players.
+
+**Do this instead:** Always left-join from player_weekly as the base. NaN values in advanced metric columns are expected and handled by `projection_engine.py` via fillna defaults.
+
+### Anti-Pattern 4: Storing Advanced + Usage in the Same Parquet File
+
+**What people do:** Extend the existing 113-column `players/usage/` Silver table with new NGS/PFR columns by modifying `silver_player_transformation.py`.
+
+**Why it's wrong:** The `players/usage/` schema is a stable contract consumed by `projection_engine.py` and 71 tests. Adding 30+ new columns risks column name collisions (NGS has `aggressiveness`, PFR has `times_pressured` which conflicts with player_weekly context), increases file size ~30%, and forces Silver CLI re-runs whenever any new source changes.
+
+**Do this instead:** Write separate Silver tables: `players/advanced/` for NGS/PFR/QBR, `players/historical/` for combine/draft. Gold and the projection engine read from multiple Silver tables with explicit left-joins.
+
+### Anti-Pattern 5: Season Partition for Historical Context
+
+**What people do:** Store combine and draft capital as `players/historical/season=2024/historical_2024.parquet`.
+
+**Why it's wrong:** A player's combine measurables and draft round do not change year to year. Season-partitioning creates 25 identical or near-identical copies and forces callers to decide which season to read.
+
+**Do this instead:** Store as `players/historical/historical_{ts}.parquet` (no season partition). Use `download_latest_parquet()` to always read the latest. Append new draft classes when they join the league.
+
+## Scaling Considerations
+
+| Concern | Current (Silver: 6 files, ~4 MB) | Post v1.2 Silver (~30 files, ~20-30 MB) | Notes |
+|---------|----------------------------------|----------------------------------------|-------|
+| Disk space | Trivial | Trivial | Team metrics are tiny (576 rows/season); even 10 seasons = <1 MB per metric type |
+| Memory during transform | ~150 MB peak (player_weekly join) | ~250 MB peak (PBP filter + team groupby) | PBP filter-first keeps peak manageable |
+| Read performance | Instant | Instant | download_latest_parquet reads one file; team metrics are tiny |
+| CLI runtime | ~30s per season | ~90s per season (adds PBP processing) | PBP is 50K rows; groupby is fast |
+| Gold compatibility | No change | projection_engine.py needs left-join hooks | Additive — existing paths unchanged |
 
 ## Sources
 
-- `src/config.py` -- DATA_TYPE_SEASON_RANGES, PBP_COLUMNS, validate_season_for_type()
-- `src/nfl_data_adapter.py` -- NFLDataAdapter with all 15 fetch methods
-- `src/nfl_data_integration.py` -- NFLDataFetcher.validate_data() with required columns for all 15 types
-- `scripts/bronze_ingestion_simple.py` -- DATA_TYPE_REGISTRY, _build_method_kwargs, parse_seasons_range, per-season loop
-- `docs/NFL_DATA_DICTIONARY.md` -- Schema reference for all Bronze types
-- `docs/BRONZE_LAYER_DATA_INVENTORY.md` -- Current inventory (31 files, 6 types, 2020-2024)
-- `.planning/PROJECT.md` -- v1.1 milestone definition
+- `src/player_analytics.py` — existing Silver module, current function signatures and column outputs
+- `scripts/silver_player_transformation.py` — existing Silver CLI, storage path patterns
+- `src/config.py` — PBP_COLUMNS (103 cols), SILVER_PLAYER_S3_KEYS, DATA_TYPE_SEASON_RANGES
+- `src/projection_engine.py` — RECENCY_WEIGHTS, USAGE_STABILITY_STAT, usage multiplier patterns
+- `data/silver/players/usage/season=2024/*.parquet` — confirmed 113-column schema
+- `data/bronze/pbp/season=2024/*.parquet` — confirmed 103 cols, 49,492 plays, EPA/WPA/CPOE present
+- `data/bronze/ngs/*/season=2024/*.parquet` — confirmed column sets for passing (29 cols), receiving (23 cols), rushing (22 cols)
+- `data/bronze/pfr/weekly/def/season=2024/*.parquet` — confirmed 29 cols (pressure, blitz, coverage)
+- `data/bronze/pfr/weekly/pass/season=2024/*.parquet` — confirmed 24 cols (bad throws, pressure)
+- `data/bronze/pfr/seasonal/*/season=2024/*.parquet` — confirmed schemas for pass/rec/rush/def
+- `data/bronze/qbr/season=2024/*.parquet` — confirmed 30 cols including qbr_total, epa_total, pts_added
+- `data/bronze/combine/season=2024/*.parquet` — confirmed 18 cols (forty, wt, ht, vertical, pfr_id)
+- `data/bronze/draft_picks/season=2024/*.parquet` — confirmed 36 cols including gsis_id, pfr_player_id, round, pick, w_av
+- `.planning/PROJECT.md` — v1.2 milestone definition, existing decisions
+
+---
+*Architecture research for: NFL Silver layer expansion (v1.2)*
+*Researched: 2026-03-13*

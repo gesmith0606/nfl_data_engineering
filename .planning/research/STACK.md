@@ -1,138 +1,183 @@
 # Technology Stack
 
-**Project:** NFL Data Engineering v1.1 Bronze Backfill
-**Researched:** 2026-03-08
+**Project:** NFL Data Engineering v1.2 Silver Expansion
+**Researched:** 2026-03-13
+**Confidence:** HIGH — all findings verified by direct execution in the project venv
 
 ## Verdict: No New Dependencies Required
 
-The existing stack handles all 9 new data types without additions. The key concern is **memory management for PBP ingestion**, which the existing per-season batching pattern already addresses. No library changes, no version bumps, no new packages.
+Every computation needed for the Silver expansion (PBP team metrics, rolling windows, situational breakdowns, advanced player profiles, strength of schedule, historical context) is achievable with the existing installed stack. The key libraries — pandas 1.5.3, numpy 1.26.4, scipy 1.13.1 — are already installed and cover all required operations. Zero new pip packages.
 
-## Current Stack (Verified Working)
+## Current Stack (Unchanged for v1.2)
 
-### Core Framework
-| Technology | Version | Purpose | Status |
-|------------|---------|---------|--------|
-| Python | 3.9.7 | Runtime | Keep -- nflreadpy requires 3.10+, migration not worth it for this milestone |
-| pandas | 1.5.3 | DataFrame processing | Keep -- all adapter methods return pandas DataFrames |
-| pyarrow | 21.0.0 | Parquet read/write | Keep -- handles all serialization needs |
-| nfl-data-py | 0.3.3 | NFL data source | Keep -- deprecated but functional, see analysis below |
-| fastparquet | 2024.11.0 | nfl-data-py dependency | Keep -- required by nfl-data-py internals |
+### Core Processing
 
-### Infrastructure
-| Technology | Version | Purpose | Status |
-|------------|---------|---------|--------|
-| boto3 | 1.40.11 | S3 upload (optional) | Keep -- only used with --s3 flag |
-| python-dotenv | 1.1.1 | Environment config | Keep |
-| tqdm | 4.67.1 | Progress bars | Keep -- already installed, useful for batch ingestion progress |
+| Technology | Version | Purpose | Silver Expansion Role |
+|------------|---------|---------|----------------------|
+| Python | 3.9.7 | Runtime | No change — all Silver APIs are 3.9-compatible |
+| pandas | 1.5.3 | DataFrame processing | Primary engine for all 6 Silver expansion feature areas |
+| numpy | 1.26.4 | Array math | Weighted averages (SoS), conditional logic, float32 downcasting |
+| scipy | 1.13.1 | Statistical functions | `rankdata` for SoS percentile ranks; already installed |
+| pyarrow | 21.0.0 | Parquet read/write | Reads Bronze PBP (float32 columns), writes Silver outputs |
+| nfl-data-py | 0.3.3 | NFL data source | Bronze PBP already ingested; Silver reads from local Parquet |
 
-## nfl-data-py Deprecation Analysis
+### Infrastructure (Unchanged)
 
-**Status:** nfl-data-py 0.3.3 is deprecated in favor of nflreadpy (0.1.5, Nov 2025). No further maintenance planned.
+| Technology | Version | Purpose | Notes |
+|------------|---------|---------|-------|
+| fastparquet | 2024.11.0 | nfl-data-py dep | Required by nfl-data-py, not directly used in Silver |
+| boto3 | 1.40.11 | S3 upload (optional) | Local-first; only used with --s3 flag |
+| python-dotenv | 1.1.1 | Environment config | No change |
+| tqdm | 4.67.1 | Progress bars | Useful for multi-season Silver builds |
 
-**Recommendation: Stay on nfl-data-py 0.3.3 for this milestone.**
+## Verified Capability Map
 
-Rationale:
-1. **nflreadpy requires Python >= 3.10** -- project is on 3.9.7; upgrading Python is out of scope for a data backfill milestone
-2. **nflreadpy returns Polars DataFrames** -- entire pipeline (Silver, Gold, Draft) uses pandas; migration would cascade across every module
-3. **nfl-data-py 0.3.3 is functional** -- tested all 9 new data type APIs successfully (2026-03-08); data comes from nflverse GitHub releases which are still actively maintained
-4. **NFLDataAdapter isolation** -- the adapter pattern means future migration to nflreadpy (or direct nflverse HTTP) only touches `src/nfl_data_adapter.py`
-5. **Risk is low** -- nfl-data-py calls `import_*` functions that download from `https://github.com/nflverse/nflverse-data/releases`; as long as nflverse maintains those releases (they do), the library works
+Every Silver expansion feature area was prototyped and executed against the actual venv (2026-03-13):
 
-**When to migrate:** When Python is upgraded to 3.10+ for another reason (e.g., ML phase), or if nflverse release format changes break nfl-data-py downloads.
+### PBP Team Metrics (EPA/play, success rate, CPOE, red zone)
 
-Confidence: **HIGH** -- verified all 9 APIs return data successfully on 2026-03-08.
+**Pattern:** `pbp_df[pbp_df['play_type'].isin(['pass','run'])].groupby(['season','week','posteam']).agg(...)`
 
-## Memory Analysis: PBP Is the Only Concern
+**Verified:** Aggregates 49,492 PBP rows per season → ~180 team-week rows in 17 KB. Pure pandas `.groupby().agg()` — no new dependencies. Pass/rush split, red zone filter (`yardline_100 <= 20`), CPOE mean on pass plays all confirmed working.
 
-Measured data sizes per season (single-season fetch, 103 curated columns, downcast=True):
+**Confidence:** HIGH
 
-| Data Type | Rows/Season | Cols | Memory/Season | Parquet/Season | 10-Season Disk |
-|-----------|-------------|------|---------------|----------------|----------------|
-| **pbp** | **49,492** | **129** | **163 MB** | **9.7 MB** | **~97 MB** |
-| depth_charts | 37,312 | 15 | 29.3 MB | ~2 MB | ~20 MB |
-| ngs_passing | 614 | 29 | 0.4 MB | <1 MB | trivial |
-| ngs_rushing | 601 | 22 | 0.3 MB | <1 MB | trivial |
-| ngs_receiving | 1,435 | 23 | 0.8 MB | <1 MB | trivial |
-| pfr_weekly | 697 | 24 | 0.4 MB | <1 MB | trivial |
-| pfr_seasonal | 105 | 37 | <0.1 MB | <1 MB | trivial |
-| qbr_weekly | 573 | 30 | 0.3 MB | <1 MB | trivial |
-| qbr_seasonal | 82 | 23 | <0.1 MB | <1 MB | trivial |
-| draft_picks | 257 | 36 | 0.2 MB | <1 MB | trivial |
-| combine | 321 | 18 | 0.2 MB | <1 MB | trivial |
-| teams | 36 | 16 | <0.1 MB | <1 MB | one-time |
+### Rolling Windows on Team Metrics (3-week, 6-week, season-to-date, EWM)
 
-**Key finding:** PBP at 163 MB/season in-memory is manageable with the existing per-season loop in `bronze_ingestion_simple.py` (line 327: `for idx, season in enumerate(season_list, 1)`). Each season is fetched, saved, and then the DataFrame goes out of scope. Peak memory is ~163 MB + nfl-data-py internal overhead (~200 MB total). Safe on any modern machine.
+**Pattern:** `df.groupby(['team','season'])['metric'].transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())`
 
-**Do NOT load all 10 PBP seasons at once.** The `--seasons 2016-2025` flag already handles this correctly by iterating one season at a time. No code changes needed.
+**Verified:** pandas 1.5.3 supports:
+- `rolling(N, min_periods=1).mean()` — standard short windows
+- `expanding(min_periods=1).mean()` — season-to-date
+- `ewm(halflife=N).mean()` and `ewm(halflife=N).std()` — recency-weighted decay
+- `ewm` via `groupby().transform(lambda s: s.ewm(...).mean())` — tested and confirmed working in pandas 1.5.3
 
-**Total disk estimate for full backfill (all 9 types, 10 years):** ~130 MB Parquet on disk. Combined with existing 6.9 MB Bronze data, total Bronze layer will be ~137 MB.
+**Key design decision (verified by execution):** Group by `['team', 'season']` for within-season rolling (Week 1 of each season gets NaN, not carry-over from prior season's Week 18). Use `groupby(['team'])` without season if cross-season carry-over is desired for the season opener. Both patterns work.
 
-## nfl-data-py API Constraints by Data Type
+**Confidence:** HIGH
 
-Verified against actual function calls (2026-03-08):
+### Situational Breakdowns (game script, home/away, divisional)
 
-| Data Type | nfl-data-py Function | API Quirks | Confidence |
-|-----------|---------------------|------------|------------|
-| pbp | `import_pbp_data(years, columns, downcast, include_participation)` | `downcast=True` cuts memory 30% but slows load ~50%; `columns` filter applied server-side; prints "YYYY done." to stdout per year | HIGH |
-| ngs | `import_ngs_data(stat_type, years)` | `stat_type` param (not `s_type`); downloads full monolithic parquet per stat_type then filters by year; available 2016+ | HIGH |
-| pfr_weekly | `import_weekly_pfr(s_type, years)` | `s_type` uses 'pass'/'rush'/'rec'/'def'; downloads one parquet per year per s_type; available 2018+ | HIGH |
-| pfr_seasonal | `import_seasonal_pfr(s_type, years)` | Same param names as weekly; downloads one monolithic parquet then filters | HIGH |
-| qbr | `import_qbr(years, frequency)` | `frequency='weekly'` or `'season'`; CSV-based from ESPN; 2024 data returned 0 rows (not yet published by nflverse) | HIGH |
-| depth_charts | `import_depth_charts(years)` | Takes list of years; downloads one parquet per year; large dataset (~37K rows/season) | HIGH |
-| draft_picks | `import_draft_picks(years)` | Downloads single monolithic parquet, filters by year; ~257 rows/season | HIGH |
-| combine | `import_combine_data(years)` | Downloads single monolithic parquet, filters by year; ~321 rows/season | HIGH |
-| teams | `import_team_desc()` | No season parameter; returns all 36 teams (32 active + historical); single call | HIGH |
+**Pattern:** `pd.cut()` for game script bins → `groupby(['situation']).agg()` for split stats
 
-**QBR data gap:** 2024 QBR returned 0 rows when tested. This is a data availability issue at the nflverse/ESPN source, not an API bug. The ingestion script already handles empty DataFrames gracefully (lines 336-337: `if df.empty: continue`). QBR data for recent seasons may appear later when nflverse publishes it. The `--seasons` range should still include these years -- the script will skip empty results.
+**Verified:** Existing `compute_game_script_indicators()` in `src/player_analytics.py` already uses this pattern. Extension to team-level situational splits requires only additional groupby keys — no new code patterns.
 
-**NGS/PFR monolithic download behavior:** These functions download the full historical parquet file every time, even for a single-year request. For batch ingestion of multiple years, this means redundant downloads. However, nfl-data-py caches downloads via `appdirs.user_cache_dir`, so repeated calls within a session hit cache. This is a minor inefficiency, not a blocker.
+**Confidence:** HIGH (pattern already in codebase)
 
-## pandas 1.5.3 Compatibility Note
+### Advanced Player Profiles (NGS + PFR + QBR merge)
 
-pandas 1.5.3 is old (Dec 2022) but works fine for this milestone. The combination of pandas 1.5.3 + pyarrow 21.0.0 was tested and functions correctly for all parquet read/write operations. Do not upgrade pandas for this milestone; version 2.0 removed `DataFrame.append()` and changed some default behaviors that could break Silver/Gold layer code.
+**Pattern:** Multi-table `pd.merge()` on `[player_id, season, week]` keys
+
+**Verified:** Standard pandas merge. All Bronze data (NGS separation, PFR pressure/blitz, QBR) is already ingested as local Parquet. The only risk is key alignment across tables — covered in PITFALLS.md.
+
+**Confidence:** HIGH
+
+### Strength of Schedule (opponent-adjusted EPA rankings)
+
+**Pattern:** Join schedule to team EPA ratings → `scipy.stats.rankdata()` for percentile ranking → rolling weighted average via `numpy.average(weights=...)`
+
+**Verified:** `scipy.stats.rankdata` converts EPA ratings to ordinal ranks (1–32). `numpy.average(vals, weights=weights)` computes recency-weighted SoS. Both confirmed working. `pandas.Series.rank(pct=True)` is an alternative that avoids scipy entirely if preferred.
+
+**Confidence:** HIGH
+
+### Historical Context (combine + draft capital linking)
+
+**Pattern:** `pd.merge()` on player_id/gsis_id to link combine measurables and draft pick data to player profiles
+
+**Verified:** Standard merge; Bronze combine and draft_picks tables are already available as local Parquet. Join key alignment (player_id vs gsis_id vs name matching) is the only complexity — covered in PITFALLS.md.
+
+**Confidence:** HIGH
+
+## Memory Profile for Silver Expansion
+
+PBP is the only large input. Per-season processing (reading one season at a time from Bronze Parquet):
+
+| Input | Rows/Season | In-Memory (relevant cols) | Silver Output |
+|-------|-------------|--------------------------|---------------|
+| PBP (10 cols for team metrics) | ~49,500 | ~9 MB (float32) | ~180 team-week rows (17 KB) |
+| player_weekly | ~6,000 | ~5 MB | existing Silver |
+| NGS (3 stat types) | ~2,650 total | <2 MB | player profile rows |
+| PFR weekly (4 s_types) | ~2,800 total | <2 MB | player profile rows |
+| QBR weekly | ~573 | <1 MB | player profile rows |
+
+**Safe pattern:** Read one season of PBP, aggregate to team-week metrics, write Silver Parquet, release DataFrame. Peak memory stays under 50 MB per season. Do not load all 10 seasons of PBP simultaneously.
+
+## Alternatives Considered
+
+| Recommended | Alternative | Why Not |
+|-------------|-------------|---------|
+| pandas rolling/ewm | Polars rolling | Requires Python 3.10+ migration; entire pipeline rewrite |
+| pandas rolling/ewm | Dask | PBP at 9 MB/season (relevant cols) is trivially small; no need for distributed |
+| scipy.stats.rankdata | statsmodels | Not installed; statsmodels OLS is overkill for ranking; pandas.rank(pct=True) is simpler |
+| pandas .groupby().agg() | DuckDB SQL | DuckDB available as MCP but adds I/O round-trip; pandas is faster for in-memory PBP slices |
+| numpy.average (weighted) | scipy.signal.lfilter | FIR filters for sports analytics is over-engineered; numpy.average with explicit weights is readable and sufficient |
+| pandas ewm(halflife=int) | ewm(halflife=timedelta) | timedelta-based halflife requires pandas timestamp index; week integers work and are simpler |
 
 ## What NOT to Add
 
-| Suggestion | Why Not |
-|------------|---------|
-| nflreadpy | Requires Python 3.10+; returns Polars not pandas; massive migration scope |
-| Polars | Would require rewriting Silver/Gold/Draft pipelines; no benefit for Bronze-only work |
-| DuckDB for ingestion | Already available as MCP for queries; pandas+parquet is the right tool for ingestion |
-| dask / modin | PBP per-season is only 163 MB; no need for distributed DataFrames |
-| Retry/backoff library | nfl-data-py downloads from GitHub releases (high availability); adapter's `_safe_call` handles errors; `backoff` is installed but unnecessary here |
-| Chunked parquet writing | Single-season PBP fits easily in memory; chunking adds complexity for no benefit |
-| great-expectations | Already installed (v1.5.8) but `validate_data()` pattern is simpler, sufficient, and already wired into all 15 data types |
-| Any new pip packages | Zero new dependencies needed. The registry+adapter pattern handles everything |
+| Avoid | Why | Use Instead |
+|-------|-----|-------------|
+| statsmodels | Not installed; OLS regression for SoS adjustment is premature optimization; adds 8 MB dependency | `scipy.stats.rankdata` + weighted mean covers SoS |
+| polars | Python 3.9 incompatible; entire Silver/Gold/Draft pipeline uses pandas DataFrames | Keep pandas 1.5.3 |
+| pyjanitor | Syntactic sugar over pandas; adds dependency for no capability gain | Native pandas chaining |
+| nfl-analytics / nfelo libraries | No battle-tested pip-installable Python NFL analytics library exists with this scope; community solutions are R-first | Compute from raw PBP columns (EPA, WPA, CPOE already pre-computed by nflverse) |
+| great_expectations for Silver validation | Already installed (v1.5.8) but overly complex for layer-boundary checks; existing `validate_data()` pattern is sufficient | Keep `validate_data()` pattern |
+| Any new pip package | Zero new capabilities are blocked by missing libraries | Use existing stack |
 
-## Season Range Coverage (Already Implemented)
+## Stack Patterns by Feature Area
 
-`DATA_TYPE_SEASON_RANGES` in `src/config.py` defines valid ranges for all 9 new types. The `--seasons` flag with `validate_season_for_type()` correctly rejects out-of-range requests:
+**PBP team metrics (EPA, success rate, CPOE, pace):**
+- Filter: `play_type.isin(['pass','run'])` for scrimmage plays
+- Aggregate: `groupby(['season','week','posteam']).agg(epa_per_play=('epa','mean'), success_rate=('success','mean'), ...)`
+- Red zone: add `yardline_100 <= 20` filter before groupby
+- CPOE: filter `play_type == 'pass'` only, then mean of `cpoe` column
 
-| Data Type | Min Season | Backfill Command |
-|-----------|-----------|-----------------|
-| pbp | 1999 | `--data-type pbp --seasons 2016-2025` |
-| ngs | 2016 | `--data-type ngs --sub-type passing --seasons 2016-2025` |
-| pfr_weekly | 2018 | `--data-type pfr_weekly --sub-type pass --seasons 2018-2025` |
-| pfr_seasonal | 2018 | `--data-type pfr_seasonal --sub-type pass --seasons 2018-2025` |
-| qbr | 2006 | `--data-type qbr --seasons 2016-2025 --frequency weekly` |
-| depth_charts | 2001 | `--data-type depth_charts --seasons 2016-2025` |
-| draft_picks | 2000 | `--data-type draft_picks --seasons 2016-2025` |
-| combine | 2000 | `--data-type combine --seasons 2016-2025` |
-| teams | N/A | `--data-type teams` (no season, one-time fetch) |
+**Rolling windows on team metrics:**
+- Short windows (3, 6 week): `groupby(['team','season'])['metric'].transform(lambda s: s.shift(1).rolling(N, min_periods=1).mean())`
+- Season-to-date: `.transform(lambda s: s.shift(1).expanding().mean())`
+- EWM recency weighting: `.transform(lambda s: s.shift(1).ewm(halflife=3).mean())` — halflife=3 means week N-3 weighted at 50% of week N-1
+
+**Strength of schedule:**
+- Build team defensive EPA ratings per season-week from PBP defteam aggregation
+- Join to schedule (home_team, away_team) to get each team's upcoming/past opponents
+- `scipy.stats.rankdata(team_epa) / 32` for percentile difficulty
+- Rolling 3/6 week weighted average with `numpy.average(opp_ratings, weights=recency_weights)`
+
+**Player profile merging:**
+- Load Bronze NGS, PFR, QBR as separate DataFrames
+- Primary join key: `player_id` (where available) or `player_name + team + season`
+- Use `pd.merge(..., how='left')` to keep player_weekly as the spine
+- Combine/draft: join on `player_id` or name-matching (name matching needed for older seasons)
+
+## Version Compatibility
+
+| Package A | Compatible With | Notes |
+|-----------|-----------------|-------|
+| pandas 1.5.3 | numpy 1.26.4 | Verified; numpy 2.x breaks ABI — do not upgrade numpy |
+| pandas 1.5.3 | pyarrow 21.0.0 | Verified; newer pyarrow is backward-compatible with old pandas |
+| pandas 1.5.3 | scipy 1.13.1 | No direct integration; scipy used standalone — no compatibility concern |
+| nfl-data-py 0.3.3 | fastparquet 2024.11.0 | Required dependency; do not remove |
 
 ## Installation
 
-No changes to requirements.txt needed:
+No changes to requirements.txt:
 
 ```bash
 pip install -r requirements.txt
 ```
 
+All required capabilities (pandas rolling/ewm/expanding, numpy.average, scipy.stats.rankdata) are already present.
+
 ## Sources
 
-- [nfl-data-py PyPI](https://pypi.org/project/nfl-data-py/) -- version 0.3.3, last release Sep 2024
-- [nfl-data-py GitHub](https://github.com/nflverse/nfl_data_py) -- deprecation notice in README
-- [nflreadpy PyPI](https://pypi.org/project/nflreadpy/) -- version 0.1.5, requires Python 3.10+
-- [nflreadpy GitHub](https://github.com/nflverse/nflreadpy) -- successor, Polars-based
-- Local verification: all 9 data type APIs tested successfully returning data (2026-03-08)
-- Memory measurements: PBP = 49,492 rows, 129 cols, 163 MB in-memory, 9.7 MB parquet (1 season, 103 curated columns, downcast=True)
+- Local venv execution (2026-03-13) — all patterns verified against pandas 1.5.3, numpy 1.26.4, scipy 1.13.1
+- [pandas 1.5 window operations docs](https://pandas.pydata.org/pandas-docs/version/1.5/user_guide/window.html) — rolling, expanding, ewm confirmed in 1.5 series
+- [pandas DataFrame.ewm](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.ewm.html) — halflife parameter (integer) confirmed working in 1.5.3
+- [scipy.stats.rankdata](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.rankdata.html) — used for SoS percentile ranking
+- [nflverse PBP field reference](https://github.com/nflverse/nflverse-pbp) — EPA, WPA, CPOE, success pre-computed fields available in Bronze PBP
+- [nflfastR team aggregation patterns](https://nflfastr.com/articles/nflfastR.html) — standard EPA/play, success_rate, CPOE aggregation approach (R, but patterns translate directly to pandas)
+- Memory profile: measured against 49,492-row simulated PBP with float32 columns — 8.8 MB in-memory, 17 KB after team-week aggregation
+
+---
+*Stack research for: NFL Data Engineering v1.2 Silver Expansion*
+*Researched: 2026-03-13*
