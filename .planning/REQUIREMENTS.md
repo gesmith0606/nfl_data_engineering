@@ -35,12 +35,12 @@ Requirements for Silver layer expansion. Each maps to roadmap phases.
 
 ### Advanced Player Profiles
 
-- [ ] **PROF-01**: NGS WR/TE profile (separation, catch probability, intended air yards) with rolling windows
-- [ ] **PROF-02**: NGS QB profile (time-to-throw, aggressiveness, completed air yards) with rolling windows
-- [ ] **PROF-03**: NGS RB profile (rush yards over expected, efficiency) with rolling windows
-- [ ] **PROF-04**: PFR pressure rate (hits + hurries + sacks / dropbacks) per QB with rolling windows
-- [ ] **PROF-05**: PFR blitz rate per defensive team with rolling windows
-- [ ] **PROF-06**: QBR rolling windows (total QBR, points added) per QB
+- [x] **PROF-01**: NGS WR/TE profile (separation, catch probability, intended air yards) with rolling windows
+- [x] **PROF-02**: NGS QB profile (time-to-throw, aggressiveness, completed air yards) with rolling windows
+- [x] **PROF-03**: NGS RB profile (rush yards over expected, efficiency) with rolling windows
+- [x] **PROF-04**: PFR pressure rate (hits + hurries + sacks / dropbacks) per QB with rolling windows
+- [x] **PROF-05**: PFR blitz rate per defensive team with rolling windows
+- [x] **PROF-06**: QBR rolling windows (total QBR, points added) per QB
 
 ### Historical Context
 
@@ -102,12 +102,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SIT-01 | Phase 16 | Complete |
 | SIT-02 | Phase 16 | Complete |
 | SIT-03 | Phase 16 | Complete |
-| PROF-01 | Phase 17 | Pending |
-| PROF-02 | Phase 17 | Pending |
-| PROF-03 | Phase 17 | Pending |
-| PROF-04 | Phase 17 | Pending |
-| PROF-05 | Phase 17 | Pending |
-| PROF-06 | Phase 17 | Pending |
+| PROF-01 | Phase 17 | Complete |
+| PROF-02 | Phase 17 | Complete |
+| PROF-03 | Phase 17 | Complete |
+| PROF-04 | Phase 17 | Complete |
+| PROF-05 | Phase 17 | Complete |
+| PROF-06 | Phase 17 | Complete |
 | HIST-01 | Phase 18 | Pending |
 | HIST-02 | Phase 18 | Pending |
 
