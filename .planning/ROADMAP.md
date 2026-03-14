@@ -72,9 +72,12 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Running the team CLI produces SOS output at `data/silver/teams/sos/` with opponent-adjusted EPA and schedule difficulty rankings (1-32) per team per week, using only lagged (week N-1) opponent strength
   2. Week 1 opponent-adjusted EPA equals raw EPA for all teams (no circular dependency)
-  3. Situational splits at `data/silver/situational/splits/` contain home/away, divisional/non-divisional tags, and game script splits (leading/trailing by 7+) with rolling EPA
+  3. Situational splits at `data/silver/teams/situational/` contain home/away, divisional/non-divisional tags, and game script splits (leading/trailing by 7+) with rolling EPA
   4. Running the same CLI twice on identical input produces identical output (idempotency)
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 16-01-PLAN.md -- Config updates (TEAM_DIVISIONS, S3 keys) and SOS computation with tests
+- [ ] 16-02-PLAN.md -- Situational splits (home/away, divisional, game script) and CLI wiring
 
 ### Phase 17: Advanced Player Profiles
 **Goal**: Users can generate NGS, PFR, and QBR-derived player profile metrics with rolling windows for enhanced QB, RB, WR, and TE evaluation
@@ -119,10 +122,10 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 13. Bronze-Silver Path Alignment | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 14. Bronze Cosmetic Cleanup | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 15. PBP Team Metrics and Tendencies | 3/3 | Complete    | 2026-03-14 | - |
-| 16. Strength of Schedule and Situational Splits | v1.2 | 0/? | Not started | - |
+| 16. Strength of Schedule and Situational Splits | v1.2 | 0/2 | Not started | - |
 | 17. Advanced Player Profiles | v1.2 | 0/? | Not started | - |
 | 18. Historical Context | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-14 after Phase 15 planning*
+*Last updated: 2026-03-14 after Phase 16 planning*
