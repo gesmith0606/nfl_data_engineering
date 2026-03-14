@@ -300,3 +300,159 @@ class TestRedZoneZeroTrips:
         else:
             # Empty result is acceptable
             pass
+
+
+def _build_six_week_single_team_pbp() -> pd.DataFrame:
+    """Build 6 weeks of PBP for a single team with known EPA values."""
+    epa_values = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+    frames = []
+    for week, epa_val in enumerate(epa_values, start=1):
+        # Team X on offense vs Y defense, 2 plays per week
+        frames.append(_make_pbp_rows("X", "Y", 2024, week, [
+            {"play_type": "pass", "epa": epa_val, "success": 1,
+             "cpoe": epa_val * 10, "pass_attempt": 1},
+            {"play_type": "run", "epa": epa_val - 0.05, "success": 0,
+             "cpoe": None, "pass_attempt": 0},
+        ]))
+        # Y on offense vs X defense (so X has defense stats too)
+        frames.append(_make_pbp_rows("Y", "X", 2024, week, [
+            {"play_type": "pass", "epa": -epa_val, "success": 0,
+             "cpoe": -epa_val * 5, "pass_attempt": 1},
+        ]))
+    return pd.concat(frames, ignore_index=True)
+
+
+class TestPBPRolling:
+    """Integration tests for rolling window behavior on PBP metrics."""
+
+    def test_week1_rolling_is_nan(self):
+        """Week 1 rolling values should be NaN (no prior data)."""
+        pbp = _build_six_week_single_team_pbp()
+        result = compute_pbp_metrics(pbp)
+
+        x_w1 = result[(result["team"] == "X") & (result["week"] == 1)]
+        assert len(x_w1) == 1
+        assert pd.isna(x_w1["off_epa_per_play_roll3"].iloc[0])
+        assert pd.isna(x_w1["off_epa_per_play_roll6"].iloc[0])
+        assert pd.isna(x_w1["off_epa_per_play_std"].iloc[0])
+
+    def test_week2_roll3_equals_week1_raw(self):
+        """Week 2 roll3 should equal week 1 raw value (shift(1) + 1 data point)."""
+        pbp = _build_six_week_single_team_pbp()
+        result = compute_pbp_metrics(pbp)
+
+        x_w1 = result[(result["team"] == "X") & (result["week"] == 1)]
+        x_w2 = result[(result["team"] == "X") & (result["week"] == 2)]
+
+        w1_raw = x_w1["off_epa_per_play"].iloc[0]
+        w2_roll3 = x_w2["off_epa_per_play_roll3"].iloc[0]
+        assert abs(w2_roll3 - w1_raw) < 1e-6
+
+    def test_week4_roll3_equals_mean_weeks1_to_3(self):
+        """Week 4 roll3 should be mean of weeks 1-3 raw values."""
+        pbp = _build_six_week_single_team_pbp()
+        result = compute_pbp_metrics(pbp)
+
+        x = result[result["team"] == "X"].sort_values("week")
+        raw_w1_to_w3 = x[x["week"].isin([1, 2, 3])]["off_epa_per_play"].values
+        expected_roll3 = np.mean(raw_w1_to_w3)
+
+        w4_roll3 = x[x["week"] == 4]["off_epa_per_play_roll3"].iloc[0]
+        assert abs(w4_roll3 - expected_roll3) < 1e-6
+
+    def test_week4_roll6_equals_mean_weeks1_to_3(self):
+        """Week 4 roll6 with only 3 prior points (min_periods=1) = mean of weeks 1-3."""
+        pbp = _build_six_week_single_team_pbp()
+        result = compute_pbp_metrics(pbp)
+
+        x = result[result["team"] == "X"].sort_values("week")
+        raw_w1_to_w3 = x[x["week"].isin([1, 2, 3])]["off_epa_per_play"].values
+        expected_roll6 = np.mean(raw_w1_to_w3)
+
+        w4_roll6 = x[x["week"] == 4]["off_epa_per_play_roll6"].iloc[0]
+        assert abs(w4_roll6 - expected_roll6) < 1e-6
+
+    def test_week4_std_equals_mean_weeks1_to_3(self):
+        """Week 4 STD (expanding average) should equal mean of weeks 1-3."""
+        pbp = _build_six_week_single_team_pbp()
+        result = compute_pbp_metrics(pbp)
+
+        x = result[result["team"] == "X"].sort_values("week")
+        raw_w1_to_w3 = x[x["week"].isin([1, 2, 3])]["off_epa_per_play"].values
+        expected_std = np.mean(raw_w1_to_w3)
+
+        w4_std = x[x["week"] == 4]["off_epa_per_play_std"].iloc[0]
+        assert abs(w4_std - expected_std) < 1e-6
+
+
+class TestPBPCrossSeason:
+    """Test that rolling windows reset at season boundaries."""
+
+    def test_new_season_week1_rolling_is_nan(self):
+        """2024 week 1 rolling values should be NaN even if 2023 data exists."""
+        frames = []
+        # 2023 weeks 16-18
+        for week in [16, 17, 18]:
+            frames.append(_make_pbp_rows("X", "Y", 2023, week, [
+                {"play_type": "pass", "epa": 0.5, "success": 1, "cpoe": 3.0, "pass_attempt": 1},
+                {"play_type": "run", "epa": 0.3, "success": 1, "cpoe": None, "pass_attempt": 0},
+            ]))
+            frames.append(_make_pbp_rows("Y", "X", 2023, week, [
+                {"play_type": "pass", "epa": -0.2, "success": 0, "cpoe": -1.0, "pass_attempt": 1},
+            ]))
+        # 2024 weeks 1-3
+        for week in [1, 2, 3]:
+            frames.append(_make_pbp_rows("X", "Y", 2024, week, [
+                {"play_type": "pass", "epa": 0.8, "success": 1, "cpoe": 5.0, "pass_attempt": 1},
+                {"play_type": "run", "epa": 0.1, "success": 0, "cpoe": None, "pass_attempt": 0},
+            ]))
+            frames.append(_make_pbp_rows("Y", "X", 2024, week, [
+                {"play_type": "pass", "epa": -0.3, "success": 0, "cpoe": -2.0, "pass_attempt": 1},
+            ]))
+
+        pbp = pd.concat(frames, ignore_index=True)
+        result = compute_pbp_metrics(pbp)
+
+        # 2024 week 1 rolling should be NaN (no cross-season leakage)
+        x_2024_w1 = result[
+            (result["team"] == "X") & (result["season"] == 2024) & (result["week"] == 1)
+        ]
+        assert len(x_2024_w1) == 1
+        assert pd.isna(x_2024_w1["off_epa_per_play_roll3"].iloc[0])
+        assert pd.isna(x_2024_w1["off_epa_per_play_std"].iloc[0])
+
+    def test_new_season_week2_uses_only_current_season(self):
+        """2024 week 2 roll3 should only use 2024 week 1 data."""
+        frames = []
+        # 2023 weeks 16-18 with different EPA
+        for week in [16, 17, 18]:
+            frames.append(_make_pbp_rows("X", "Y", 2023, week, [
+                {"play_type": "pass", "epa": 0.5, "success": 1, "cpoe": 3.0, "pass_attempt": 1},
+            ]))
+            frames.append(_make_pbp_rows("Y", "X", 2023, week, [
+                {"play_type": "pass", "epa": -0.2, "success": 0, "cpoe": -1.0, "pass_attempt": 1},
+            ]))
+        # 2024 weeks 1-3 with distinct EPA
+        epa_2024 = [0.8, 0.6, 0.4]
+        for week, epa_val in zip([1, 2, 3], epa_2024):
+            frames.append(_make_pbp_rows("X", "Y", 2024, week, [
+                {"play_type": "pass", "epa": epa_val, "success": 1, "cpoe": 5.0, "pass_attempt": 1},
+            ]))
+            frames.append(_make_pbp_rows("Y", "X", 2024, week, [
+                {"play_type": "pass", "epa": -0.3, "success": 0, "cpoe": -2.0, "pass_attempt": 1},
+            ]))
+
+        pbp = pd.concat(frames, ignore_index=True)
+        result = compute_pbp_metrics(pbp)
+
+        x_2024_w1 = result[
+            (result["team"] == "X") & (result["season"] == 2024) & (result["week"] == 1)
+        ]
+        x_2024_w2 = result[
+            (result["team"] == "X") & (result["season"] == 2024) & (result["week"] == 2)
+        ]
+
+        # Week 2 roll3 should equal week 1 raw value (only 1 prior data point in 2024)
+        w1_raw = x_2024_w1["off_epa_per_play"].iloc[0]
+        w2_roll3 = x_2024_w2["off_epa_per_play_roll3"].iloc[0]
+        assert abs(w2_roll3 - w1_raw) < 1e-6
