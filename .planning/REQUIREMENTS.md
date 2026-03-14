@@ -9,10 +9,10 @@ Requirements for Silver layer expansion. Each maps to roadmap phases.
 
 ### PBP Team Metrics
 
-- [ ] **PBP-01**: Team EPA per play (offense + defense, pass/rush splits) computed from Bronze PBP with 3-game and 6-game rolling windows
-- [ ] **PBP-02**: Team success rate (offense + defense) with rolling windows
-- [ ] **PBP-03**: Team CPOE aggregate (per QB and per team) with rolling windows
-- [ ] **PBP-04**: Red zone efficiency (offense + defense — TD rate, success rate, pass/rush split inside 20) with rolling windows
+- [x] **PBP-01**: Team EPA per play (offense + defense, pass/rush splits) computed from Bronze PBP with 3-game and 6-game rolling windows
+- [x] **PBP-02**: Team success rate (offense + defense) with rolling windows
+- [x] **PBP-03**: Team CPOE aggregate (per QB and per team) with rolling windows
+- [x] **PBP-04**: Red zone efficiency (offense + defense — TD rate, success rate, pass/rush split inside 20) with rolling windows
 - [x] **PBP-05**: Existing rolling window bug fixed — groupby must use (entity, season) not entity alone
 
 ### Team Tendencies
@@ -85,10 +85,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PBP-01 | Phase 15 | Pending |
-| PBP-02 | Phase 15 | Pending |
-| PBP-03 | Phase 15 | Pending |
-| PBP-04 | Phase 15 | Pending |
+| PBP-01 | Phase 15 | Complete |
+| PBP-02 | Phase 15 | Complete |
+| PBP-03 | Phase 15 | Complete |
+| PBP-04 | Phase 15 | Complete |
 | PBP-05 | Phase 15 | Complete |
 | TEND-01 | Phase 15 | Pending |
 | TEND-02 | Phase 15 | Pending |

@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Silver Expansion
 status: executing
-stopped_at: Completed 15-01-PLAN.md
-last_updated: "2026-03-14T03:43:37.054Z"
-last_activity: 2026-03-14 — Completed 15-01 foundation (bug fix + team_analytics skeleton)
+stopped_at: Completed 15-02-PLAN.md
+last_updated: "2026-03-14T03:48:20.719Z"
+last_activity: 2026-03-14 — Completed 15-02 PBP performance metrics (EPA, success rate, CPOE, red zone)
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
-  percent: 33
+  completed_plans: 2
+  percent: 67
 ---
 
 # Project State
@@ -30,11 +30,11 @@ v1.2 Silver Expansion — Expand Silver layer with PBP team metrics, tendencies,
 ## Current Position
 
 Phase: 15 of 18 (PBP Team Metrics and Tendencies) — 1 of 4 in milestone
-Plan: 1 of 3 complete in current phase
+Plan: 2 of 3 complete in current phase
 Status: Executing
-Last activity: 2026-03-14 — Completed 15-01 foundation (bug fix + team_analytics skeleton)
+Last activity: 2026-03-14 — Completed 15-02 PBP performance metrics (EPA, success rate, CPOE, red zone)
 
-Progress: [███░░░░░░░] 33% (v1.2 milestone)
+Progress: [███████░░░] 67% (v1.2 milestone)
 
 ## Key Artifacts
 
@@ -60,6 +60,8 @@ Progress: [███░░░░░░░] 33% (v1.2 milestone)
 - [v1.2]: Combine/draft stored as static dimension table — avoid row explosion
 - [15-01]: Rolling window groupby uses [entity, season] tuple — prevents cross-season contamination
 - [15-01]: team_analytics.py mirrors player_analytics.py rolling pattern with [team, season] groupby
+- [Phase 15]: Red zone TD rate uses nunique(drive) denominator, not play count
+- [Phase 15]: CPOE is offense-only metric -- no defensive CPOE column
 
 ### Pending Todos
 
@@ -73,8 +75,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-14T03:43:37.052Z
-Stopped at: Completed 15-01-PLAN.md
+Last session: 2026-03-14T03:48:20.717Z
+Stopped at: Completed 15-02-PLAN.md
 Resume file: None
 
 ---

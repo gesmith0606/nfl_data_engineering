@@ -59,7 +59,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
   3. Rolling windows in both new and existing Silver modules group by (entity, season) so that Week 1 rolling values are NaN (not contaminated by prior season)
   4. All new Silver output paths are registered in `config.py` and retrievable via `download_latest_parquet()`
   5. Playoff weeks are excluded from all team metrics (max week in output is 18)
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 Plans:
 - [ ] 15-01-PLAN.md -- Fix rolling window bug, register config paths, create team_analytics.py skeleton
 - [ ] 15-02-PLAN.md -- PBP performance metrics (EPA, success rate, CPOE, red zone) with tests
@@ -118,7 +118,7 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 12. 2025 Player Stats Gap Closure | v1.1 | 2/2 | Complete | 2026-03-13 |
 | 13. Bronze-Silver Path Alignment | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 14. Bronze Cosmetic Cleanup | v1.1 | 1/1 | Complete | 2026-03-13 |
-| 15. PBP Team Metrics and Tendencies | 1/3 | In Progress|  | - |
+| 15. PBP Team Metrics and Tendencies | 2/3 | In Progress|  | - |
 | 16. Strength of Schedule and Situational Splits | v1.2 | 0/? | Not started | - |
 | 17. Advanced Player Profiles | v1.2 | 0/? | Not started | - |
 | 18. Historical Context | v1.2 | 0/? | Not started | - |
