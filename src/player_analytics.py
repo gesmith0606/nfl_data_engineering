@@ -210,7 +210,7 @@ def compute_rolling_averages(
         roll_cols = {}
         for col in stat_cols:
             roll_cols[f"{col}_roll{window}"] = (
-                df.groupby('player_id')[col]
+                df.groupby(['player_id', 'season'])[col]
                 .transform(lambda s: s.shift(1).rolling(window, min_periods=1).mean())
             )
         df = df.assign(**roll_cols)

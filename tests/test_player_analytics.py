@@ -153,5 +153,110 @@ class TestComputeImpliedTeamTotals(unittest.TestCase):
         self.assertEqual(totals, {})
 
 
+class TestRollingSeasonFix(unittest.TestCase):
+    """Regression tests for PBP-05: rolling windows must not leak across seasons."""
+
+    def _make_cross_season_data(self):
+        """Create 2-season player data: 2023 weeks 16-18 + 2024 weeks 1-3."""
+        rows = []
+        # Season 2023 weeks 16-18
+        for week in [16, 17, 18]:
+            rows.append({
+                'season': 2023,
+                'week': week,
+                'player_id': 'p1',
+                'player_name': 'Cross Season Player',
+                'recent_team': 'KC',
+                'position': 'WR',
+                'rushing_yards': 100.0,
+                'receiving_yards': 80.0,
+                'targets': 10,
+                'receptions': 7,
+                'carries': 5,
+                'passing_yards': 0,
+                'passing_tds': 0,
+                'interceptions': 0,
+                'rushing_tds': 1,
+                'receiving_tds': 1,
+                'air_yards': 50,
+                'target_share': 0.30,
+                'carry_share': 0.15,
+                'snap_pct': 0.90,
+            })
+        # Season 2024 weeks 1-3
+        for week in [1, 2, 3]:
+            rows.append({
+                'season': 2024,
+                'week': week,
+                'player_id': 'p1',
+                'player_name': 'Cross Season Player',
+                'recent_team': 'KC',
+                'position': 'WR',
+                'rushing_yards': 50.0,
+                'receiving_yards': 60.0,
+                'targets': 8,
+                'receptions': 5,
+                'carries': 3,
+                'passing_yards': 0,
+                'passing_tds': 0,
+                'interceptions': 0,
+                'rushing_tds': 0,
+                'receiving_tds': 0,
+                'air_yards': 35,
+                'target_share': 0.25,
+                'carry_share': 0.10,
+                'snap_pct': 0.80,
+            })
+        return pd.DataFrame(rows)
+
+    def test_roll3_resets_at_season_boundary(self):
+        """Roll3 for 2024 week 1 must be NaN -- no data from 2023 should leak."""
+        df = self._make_cross_season_data()
+        result = compute_rolling_averages(df, windows=[3])
+        w1_2024 = result[
+            (result['season'] == 2024)
+            & (result['week'] == 1)
+            & (result['player_id'] == 'p1')
+        ]
+        self.assertFalse(w1_2024.empty, "2024 week 1 row missing")
+        val = w1_2024.iloc[0]['rushing_yards_roll3']
+        self.assertTrue(
+            pd.isna(val),
+            f"roll3 for 2024 week 1 should be NaN (no prior 2024 data), got {val}",
+        )
+
+    def test_roll3_week3_uses_only_current_season(self):
+        """Roll3 for 2024 week 3 should use only 2024 week 1 data (shift by 1)."""
+        df = self._make_cross_season_data()
+        result = compute_rolling_averages(df, windows=[3])
+        w3_2024 = result[
+            (result['season'] == 2024)
+            & (result['week'] == 3)
+            & (result['player_id'] == 'p1')
+        ]
+        self.assertFalse(w3_2024.empty, "2024 week 3 row missing")
+        # shift(1) on weeks [1,2,3] -> [NaN, w1, w2]
+        # rolling(3, min_periods=1) at week 3 -> mean(w1, w2) = mean(50, 50) = 50
+        val = w3_2024.iloc[0]['rushing_yards_roll3']
+        self.assertAlmostEqual(val, 50.0, places=1,
+                               msg=f"Expected 50.0 (only 2024 data), got {val}")
+
+    def test_std_expanding_resets_at_season_boundary(self):
+        """STD (season-to-date) expanding average must reset at season boundary."""
+        df = self._make_cross_season_data()
+        result = compute_rolling_averages(df, windows=[3])
+        w1_2024 = result[
+            (result['season'] == 2024)
+            & (result['week'] == 1)
+            & (result['player_id'] == 'p1')
+        ]
+        self.assertFalse(w1_2024.empty, "2024 week 1 row missing")
+        val = w1_2024.iloc[0]['rushing_yards_std']
+        self.assertTrue(
+            pd.isna(val),
+            f"STD for 2024 week 1 should be NaN (no prior season data), got {val}",
+        )
+
+
 if __name__ == '__main__':
     unittest.main()
