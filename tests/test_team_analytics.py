@@ -26,12 +26,7 @@ from src.team_analytics import (
     compute_tendency_metrics,
 )
 
-# SOS functions imported separately (added in Plan 16-01 Task 2)
-try:
-    from src.team_analytics import _build_opponent_schedule, compute_sos_metrics
-except ImportError:
-    _build_opponent_schedule = None
-    compute_sos_metrics = None
+from src.team_analytics import _build_opponent_schedule, compute_sos_metrics
 
 
 def _make_pbp_rows(
@@ -869,7 +864,6 @@ def _build_four_team_three_week_sos_pbp() -> pd.DataFrame:
     return pbp
 
 
-@pytest.mark.skipif(compute_sos_metrics is None, reason="SOS functions not yet implemented")
 class TestSOS:
     """Tests for SOS (Strength of Schedule) computation."""
 

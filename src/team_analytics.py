@@ -533,3 +533,161 @@ def compute_tendency_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
         result["season"].max(),
     )
     return result
+
+
+# ---------------------------------------------------------------------------
+# Strength of Schedule (SOS) Functions (Plan 16-01)
+# ---------------------------------------------------------------------------
+
+
+def _build_opponent_schedule(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Extract unique (team, season, week, opponent) from play-by-play data.
+
+    Groups by (game_id, posteam) to get one row per team-game, then extracts
+    the opponent (defteam). This avoids inflating the schedule with per-play rows.
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, opponent.
+    """
+    games = (
+        valid_plays[["game_id", "posteam", "defteam", "season", "week"]]
+        .drop_duplicates(subset=["game_id", "posteam"])
+        .rename(columns={"posteam": "team", "defteam": "opponent"})
+    )
+    result = games[["team", "season", "week", "opponent"]].reset_index(drop=True)
+    logger.info("Opponent schedule built: %d team-games", len(result))
+    return result
+
+
+def compute_sos_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute opponent-adjusted EPA and schedule difficulty rankings.
+
+    Pipeline:
+        1. Filter valid plays and compute raw team EPA per week
+        2. Build opponent schedule from PBP
+        3. For each team-week, compute lagged SOS using opponents' EPA
+           from weeks 1 through W-1 only
+        4. Week 1: adj_epa = raw_epa (no opponents faced yet), SOS = NaN
+        5. Week 2+: off_sos = mean(opponents' def_epa through W-1),
+           adj_off_epa = raw_off_epa - off_sos
+        6. Rank 1-N per season-week (rank 1 = hardest schedule)
+        7. Apply rolling windows to SOS stat columns
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame.
+
+    Returns:
+        DataFrame with columns: team, season, week, off_sos_score,
+        def_sos_score, adj_off_epa, adj_def_epa, off_sos_rank, def_sos_rank
+        plus rolling (_roll3, _roll6, _std) columns.
+    """
+    valid = _filter_valid_plays(pbp_df)
+
+    if valid.empty:
+        logger.warning("No valid plays after filtering; returning empty DataFrame")
+        return pd.DataFrame()
+
+    # Step 1: Get raw team EPA per week
+    team_epa = compute_team_epa(valid)
+
+    # Step 2: Build opponent schedule from PBP
+    schedule = _build_opponent_schedule(valid)
+
+    # Step 3: For each team-week, compute lagged SOS
+    rows = []
+    for (team, season), group in schedule.groupby(["team", "season"]):
+        weeks = sorted(group["week"].unique())
+        for week in weeks:
+            # Get raw EPA for this team-week
+            raw = team_epa[
+                (team_epa["team"] == team)
+                & (team_epa["season"] == season)
+                & (team_epa["week"] == week)
+            ]
+            if raw.empty:
+                continue  # Bye week — skip
+
+            raw_off = raw["off_epa_per_play"].iloc[0]
+            raw_def = raw["def_epa_per_play"].iloc[0]
+
+            # Opponents faced in prior weeks
+            prior_opps = group[group["week"] < week]
+
+            if prior_opps.empty:
+                # Week 1: no opponents faced yet
+                rows.append(
+                    {
+                        "team": team,
+                        "season": season,
+                        "week": week,
+                        "off_sos_score": np.nan,
+                        "def_sos_score": np.nan,
+                        "adj_off_epa": raw_off,
+                        "adj_def_epa": raw_def,
+                    }
+                )
+            else:
+                # Get each opponent's EPA from the specific week they were faced
+                opp_epa_rows = []
+                for _, opp_row in prior_opps.iterrows():
+                    opp_team = opp_row["opponent"]
+                    opp_week = opp_row["week"]
+                    opp_data = team_epa[
+                        (team_epa["team"] == opp_team)
+                        & (team_epa["season"] == season)
+                        & (team_epa["week"] == opp_week)
+                    ]
+                    if not opp_data.empty:
+                        opp_epa_rows.append(opp_data.iloc[0])
+
+                if opp_epa_rows:
+                    opp_epa_df = pd.DataFrame(opp_epa_rows)
+                    # off_sos = opponents' DEF EPA (how well opponents defended)
+                    off_sos = opp_epa_df["def_epa_per_play"].mean()
+                    # def_sos = opponents' OFF EPA (how well opponents attacked)
+                    def_sos = opp_epa_df["off_epa_per_play"].mean()
+                else:
+                    off_sos = np.nan
+                    def_sos = np.nan
+
+                rows.append(
+                    {
+                        "team": team,
+                        "season": season,
+                        "week": week,
+                        "off_sos_score": off_sos,
+                        "def_sos_score": def_sos,
+                        "adj_off_epa": raw_off - off_sos if not np.isnan(off_sos) else raw_off,
+                        "adj_def_epa": raw_def - def_sos if not np.isnan(def_sos) else raw_def,
+                    }
+                )
+
+    result = pd.DataFrame(rows)
+
+    if result.empty:
+        logger.warning("No SOS rows computed; returning empty DataFrame")
+        return pd.DataFrame()
+
+    # Step 4: Add rankings per season-week (rank 1 = hardest schedule)
+    result["off_sos_rank"] = result.groupby(["season", "week"])[
+        "off_sos_score"
+    ].rank(ascending=False, method="min")
+    result["def_sos_rank"] = result.groupby(["season", "week"])[
+        "def_sos_score"
+    ].rank(ascending=False, method="min")
+
+    # Step 5: Apply rolling windows to stat columns
+    stat_cols = ["off_sos_score", "def_sos_score", "adj_off_epa", "adj_def_epa"]
+    result = apply_team_rolling(result, stat_cols)
+
+    logger.info(
+        "SOS metrics complete: %d rows, %d teams, seasons %s-%s",
+        len(result),
+        result["team"].nunique(),
+        result["season"].min(),
+        result["season"].max(),
+    )
+    return result
