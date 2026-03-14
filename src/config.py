@@ -125,6 +125,7 @@ SILVER_PLAYER_S3_KEYS = {
     "usage_metrics": "players/usage/season={season}/week={week}/usage_{ts}.parquet",
     "opponent_rankings": "defense/positional/season={season}/week={week}/opp_rankings_{ts}.parquet",
     "rolling_averages": "players/rolling/season={season}/week={week}/rolling_{ts}.parquet",
+    "advanced_profiles": "players/advanced/season={season}/advanced_profiles_{ts}.parquet",
 }
 
 # Files are written with a timestamp suffix to preserve full history.
