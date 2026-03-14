@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Silver Expansion
 status: in_progress
-stopped_at: Completed 17-01-PLAN.md
-last_updated: "2026-03-14T21:40:41Z"
-last_activity: 2026-03-14 — Completed 17-01 player advanced analytics module (NGS/PFR/QBR compute functions + 28 tests)
+stopped_at: Completed 17-02-PLAN.md
+last_updated: "2026-03-14T22:35:00Z"
+last_activity: 2026-03-14 — Completed 17-02 Silver advanced transformation CLI (NGS/PFR/QBR merge across 6 seasons)
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 7
-  completed_plans: 6
-  percent: 86
+  completed_plans: 7
+  percent: 100
 ---
 
 # Project State
@@ -30,11 +30,11 @@ v1.2 Silver Expansion — Expand Silver layer with PBP team metrics, tendencies,
 ## Current Position
 
 Phase: 17 of 18 (Advanced Player Profiles) — 3 of 4 in milestone
-Plan: 1 of 1 complete in current phase
-Status: In Progress
-Last activity: 2026-03-14 — Completed 17-01 player advanced analytics module (NGS/PFR/QBR compute functions + 28 tests)
+Plan: 2 of 2 complete in current phase
+Status: Phase Complete
+Last activity: 2026-03-14 — Completed 17-02 Silver advanced transformation CLI (NGS/PFR/QBR merge across 6 seasons)
 
-Progress: [█████████░] 86% (17-01 complete)
+Progress: [██████████] 100% (17-02 complete, phase done)
 
 ## Key Artifacts
 
@@ -73,6 +73,9 @@ Progress: [█████████░] 86% (17-01 complete)
 - [17-01]: Generic _compute_profile helper DRYs up 6 NGS/PFR/QBR compute functions
 - [17-01]: Player rolling uses min_periods=3 (stricter than team min_periods=1) per success criteria
 - [17-01]: PFR team blitz rate reuses apply_team_rolling from team_analytics (team-level groupby)
+- [17-02]: Synthetic player_gsis_id from name+team enables PFR/QBR rolling despite missing GSIS IDs
+- [17-02]: Three-tier join: GSIS ID (NGS), normalized name+team (PFR/QBR), team-only (PFR blitz)
+- [17-02]: Overlap detection before merge prevents pandas _x/_y suffix columns across NGS sources
 
 ### Pending Todos
 
@@ -86,9 +89,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-14T21:40:41Z
-Stopped at: Completed 17-01-PLAN.md
-Resume file: .planning/phases/17-advanced-player-profiles/17-01-SUMMARY.md
+Last session: 2026-03-14T22:35:00Z
+Stopped at: Completed 17-02-PLAN.md
+Resume file: .planning/phases/17-advanced-player-profiles/17-02-SUMMARY.md
 
 ---
-*Last updated: 2026-03-14 after 17-01 plan execution*
+*Last updated: 2026-03-14 after 17-02 plan execution*

@@ -44,7 +44,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 
 - [x] **Phase 15: PBP Team Metrics and Tendencies** - Team EPA, success rate, CPOE, red zone efficiency, pace, PROE, 4th down aggressiveness from PBP with rolling windows; fix existing rolling window bug; new Silver CLI and config registration (completed 2026-03-14)
 - [x] **Phase 16: Strength of Schedule and Situational Splits** - Opponent-adjusted EPA rankings and schedule difficulty; home/away, divisional, and game script performance splits with rolling windows (completed 2026-03-14)
-- [ ] **Phase 17: Advanced Player Profiles** - NGS separation/RYOE/TTT, PFR pressure/blitz rates, QBR rolling windows per player-week via new advanced analytics module
+- [x] **Phase 17: Advanced Player Profiles** - NGS separation/RYOE/TTT, PFR pressure/blitz rates, QBR rolling windows per player-week via new advanced analytics module (completed 2026-03-14)
 - [ ] **Phase 18: Historical Context** - Combine measurables and draft capital linked to player IDs as a static dimension table for rookie/breakout modeling
 
 ## Phase Details
@@ -89,7 +89,7 @@ Plans:
   3. QBR rolling windows (total QBR, points added) are included per QB
   4. Players without advanced stats are preserved in output via left-join (no silent row drops); NaN coverage is logged at write time
   5. Sparse columns use `min_periods=3` for rolling averages to require meaningful history before producing values
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [ ] 17-01-PLAN.md -- Config registration, player_advanced_analytics.py module with all 6 compute functions and tests
 - [ ] 17-02-PLAN.md -- silver_advanced_transformation.py CLI with join orchestration and full-season output
@@ -126,7 +126,7 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 14. Bronze Cosmetic Cleanup | v1.1 | 1/1 | Complete | 2026-03-13 |
 | 15. PBP Team Metrics and Tendencies | 3/3 | Complete    | 2026-03-14 | - |
 | 16. Strength of Schedule and Situational Splits | 2/2 | Complete    | 2026-03-14 | - |
-| 17. Advanced Player Profiles | 1/2 | In Progress|  | - |
+| 17. Advanced Player Profiles | 2/2 | Complete   | 2026-03-14 | - |
 | 18. Historical Context | v1.2 | 0/? | Not started | - |
 
 ---
