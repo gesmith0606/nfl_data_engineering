@@ -22,6 +22,7 @@ from typing import List, Optional
 
 import numpy as np
 import pandas as pd
+from team_analytics import apply_team_rolling
 
 logger = logging.getLogger(__name__)
 
@@ -315,8 +316,6 @@ def compute_pfr_team_blitz_rate(pfr_def_df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         Team-level DataFrame with pfr_def_ prefixed columns + rolling windows.
     """
-    from team_analytics import apply_team_rolling
-
     df = pfr_def_df.copy()
 
     available = [c for c in PFR_DEF_BLITZ_COLS if c in df.columns]

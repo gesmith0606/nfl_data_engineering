@@ -108,6 +108,11 @@ def main() -> int:
 
     # Step 3: Write output
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # NOTE: Historical profiles use a flat key with no {season}/{week} partition.
+    # This is intentional -- combine/draft data is a static dimension table spanning
+    # all seasons, not a weekly time-series. This is an exception to the week-scoped
+    # read convention documented in CLAUDE.md. Consumers should read this file
+    # directly rather than using download_latest_parquet() with a season/week prefix.
     key = SILVER_PLAYER_S3_KEYS["historical_profiles"].format(ts=ts)
     out_path = os.path.join(SILVER_DIR, key)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
