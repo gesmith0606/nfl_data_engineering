@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Silver Expansion
 status: completed
-stopped_at: Completed 18-02-PLAN.md
-last_updated: "2026-03-15T21:22:54.284Z"
-last_activity: 2026-03-15 — Completed 18-02 silver historical transformation CLI (9892-row dimension table)
+stopped_at: Completed 19-01-PLAN.md
+last_updated: "2026-03-15T21:50:43.185Z"
+last_activity: 2026-03-15 — Completed 19-01 v1.2 tech debt cleanup (4 audit gaps closed)
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 9
-  completed_plans: 9
+  total_phases: 5
+  completed_phases: 5
+  total_plans: 10
+  completed_plans: 10
   percent: 100
 ---
 
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game outcome predictions
-**Current focus:** Phase 18 — Historical Context
+**Current focus:** Phase 19 — v1.2 Tech Debt Cleanup
 
 ## Current Milestone
 
@@ -29,10 +29,10 @@ v1.2 Silver Expansion — Expand Silver layer with PBP team metrics, tendencies,
 
 ## Current Position
 
-Phase: 18 of 18 (Historical Context) — 4 of 4 in milestone
-Plan: 2 of 2 complete in current phase
+Phase: 19 of 19 (v1.2 Tech Debt Cleanup) — 5 of 5 in milestone
+Plan: 1 of 1 complete in current phase
 Status: Complete
-Last activity: 2026-03-15 — Completed 18-02 silver historical transformation CLI (9892-row dimension table)
+Last activity: 2026-03-15 — Completed 19-01 v1.2 tech debt cleanup (4 audit gaps closed)
 
 Progress: [██████████] 100% (all plans complete)
 
@@ -81,6 +81,10 @@ Progress: [██████████] 100% (all plans complete)
 - [18-01]: Compensatory picks 225-262 use linear extrapolation with 0.042/pick decay and 0.4 floor
 - [Phase 18]: NaN propagation for all composite scores -- no imputation
 - [Phase 18]: Fixed NaN-NaN cross-product bug in outer join by separating null keys before merge
+- [19-01]: No new tests needed -- all changes are wiring/documentation fixes to existing working code
+- [19-01]: Historical profiles health check uses flat prefix with no format vars (static dimension table)
+- [Phase 19]: No new tests needed -- all changes are wiring/documentation fixes to existing working code
+- [Phase 19]: Historical profiles health check uses flat prefix with no format vars (static dimension table)
 
 ### Pending Todos
 
@@ -94,9 +98,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T21:19:55.828Z
-Stopped at: Completed 18-02-PLAN.md
+Last session: 2026-03-15T21:50:38.988Z
+Stopped at: Completed 19-01-PLAN.md
 Resume file: None
 
 ---
-*Last updated: 2026-03-15 after 18-02 plan execution*
+*Last updated: 2026-03-15 after 19-01 plan execution*

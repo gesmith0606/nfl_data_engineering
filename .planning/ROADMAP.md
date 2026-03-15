@@ -46,7 +46,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 - [x] **Phase 16: Strength of Schedule and Situational Splits** - Opponent-adjusted EPA rankings and schedule difficulty; home/away, divisional, and game script performance splits with rolling windows (completed 2026-03-14)
 - [x] **Phase 17: Advanced Player Profiles** - NGS separation/RYOE/TTT, PFR pressure/blitz rates, QBR rolling windows per player-week via new advanced analytics module (completed 2026-03-14)
 - [x] **Phase 18: Historical Context** - Combine measurables and draft capital linked to player IDs as a static dimension table for rookie/breakout modeling (completed 2026-03-15)
-- [ ] **Phase 19: v1.2 Tech Debt Cleanup** - Close audit gaps: wire health check for 6 new Silver paths, use config constants in silver_team_transformation.py, fix deferred import, document historical partition exception
+- [x] **Phase 19: v1.2 Tech Debt Cleanup** - Close audit gaps: wire health check for 6 new Silver paths, use config constants in silver_team_transformation.py, fix deferred import, document historical partition exception (completed 2026-03-15)
 
 ## Phase Details
 
@@ -145,7 +145,7 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 16. Strength of Schedule and Situational Splits | v1.2 | 2/2 | Complete | 2026-03-14 |
 | 17. Advanced Player Profiles | v1.2 | 2/2 | Complete | 2026-03-14 |
 | 18. Historical Context | v1.2 | 2/2 | Complete | 2026-03-15 |
-| 19. v1.2 Tech Debt Cleanup | v1.2 | 0/1 | Planned | - |
+| 19. v1.2 Tech Debt Cleanup | 1/1 | Complete   | 2026-03-15 | - |
 
 ---
 *Roadmap created: 2026-03-08*
