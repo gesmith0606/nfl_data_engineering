@@ -45,7 +45,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 - [x] **Phase 15: PBP Team Metrics and Tendencies** - Team EPA, success rate, CPOE, red zone efficiency, pace, PROE, 4th down aggressiveness from PBP with rolling windows; fix existing rolling window bug; new Silver CLI and config registration (completed 2026-03-14)
 - [x] **Phase 16: Strength of Schedule and Situational Splits** - Opponent-adjusted EPA rankings and schedule difficulty; home/away, divisional, and game script performance splits with rolling windows (completed 2026-03-14)
 - [x] **Phase 17: Advanced Player Profiles** - NGS separation/RYOE/TTT, PFR pressure/blitz rates, QBR rolling windows per player-week via new advanced analytics module (completed 2026-03-14)
-- [ ] **Phase 18: Historical Context** - Combine measurables and draft capital linked to player IDs as a static dimension table for rookie/breakout modeling
+- [x] **Phase 18: Historical Context** - Combine measurables and draft capital linked to player IDs as a static dimension table for rookie/breakout modeling (completed 2026-03-15)
 
 ## Phase Details
 
@@ -101,7 +101,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. A static dimension table at `data/silver/players/historical/combine_draft_profiles.parquet` contains combine measurables (speed score, burst score, catch radius) and draft capital (pick value via trade chart) linked to player IDs
   2. The join uses pfr_id matching and logs unmatched players with match rate metrics; row count after join equals row count before join (no explosion)
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [ ] 18-01-PLAN.md -- Config registration, historical_profiles.py compute module with tests
 - [ ] 18-02-PLAN.md -- silver_historical_transformation.py CLI with end-to-end pipeline
@@ -130,7 +130,7 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 15. PBP Team Metrics and Tendencies | v1.2 | 3/3 | Complete | 2026-03-14 |
 | 16. Strength of Schedule and Situational Splits | v1.2 | 2/2 | Complete | 2026-03-14 |
 | 17. Advanced Player Profiles | v1.2 | 2/2 | Complete | 2026-03-14 |
-| 18. Historical Context | 1/2 | In Progress|  | - |
+| 18. Historical Context | 2/2 | Complete   | 2026-03-15 | - |
 
 ---
 *Roadmap created: 2026-03-08*
