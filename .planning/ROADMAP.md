@@ -101,7 +101,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. A static dimension table at `data/silver/players/historical/combine_draft_profiles.parquet` contains combine measurables (speed score, burst score, catch radius) and draft capital (pick value via trade chart) linked to player IDs
   2. The join uses pfr_id matching and logs unmatched players with match rate metrics; row count after join equals row count before join (no explosion)
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 Plans:
 - [ ] 18-01-PLAN.md -- Config registration, historical_profiles.py compute module with tests
 - [ ] 18-02-PLAN.md -- silver_historical_transformation.py CLI with end-to-end pipeline
@@ -130,7 +130,7 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 15. PBP Team Metrics and Tendencies | v1.2 | 3/3 | Complete | 2026-03-14 |
 | 16. Strength of Schedule and Situational Splits | v1.2 | 2/2 | Complete | 2026-03-14 |
 | 17. Advanced Player Profiles | v1.2 | 2/2 | Complete | 2026-03-14 |
-| 18. Historical Context | v1.2 | 0/2 | Not started | - |
+| 18. Historical Context | 1/2 | In Progress|  | - |
 
 ---
 *Roadmap created: 2026-03-08*

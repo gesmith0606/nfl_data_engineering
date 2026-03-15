@@ -44,8 +44,8 @@ Requirements for Silver layer expansion. Each maps to roadmap phases.
 
 ### Historical Context
 
-- [ ] **HIST-01**: Combine measurables (speed score, burst score, catch radius) linked to player IDs via name+draft year join
-- [ ] **HIST-02**: Draft capital (pick value via trade chart) linked to player IDs
+- [x] **HIST-01**: Combine measurables (speed score, burst score, catch radius) linked to player IDs via name+draft year join
+- [x] **HIST-02**: Draft capital (pick value via trade chart) linked to player IDs
 
 ### Infrastructure
 
@@ -108,8 +108,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROF-04 | Phase 17 | Complete |
 | PROF-05 | Phase 17 | Complete |
 | PROF-06 | Phase 17 | Complete |
-| HIST-01 | Phase 18 | Pending |
-| HIST-02 | Phase 18 | Pending |
+| HIST-01 | Phase 18 | Complete |
+| HIST-02 | Phase 18 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 25 total

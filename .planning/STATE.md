@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Silver Expansion
-status: completed
-stopped_at: Phase 18 context gathered
-last_updated: "2026-03-15T14:42:37.166Z"
-last_activity: 2026-03-14 — Completed 17-02 Silver advanced transformation CLI (NGS/PFR/QBR merge across 6 seasons)
+status: executing
+stopped_at: Completed 18-01-PLAN.md
+last_updated: "2026-03-15T21:16:03.740Z"
+last_activity: 2026-03-15 — Completed 18-01 historical profiles compute module (8 functions, 15 tests)
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 7
-  completed_plans: 7
-  percent: 100
+  total_plans: 9
+  completed_plans: 8
+  percent: 89
 ---
 
 # Project State
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game outcome predictions
-**Current focus:** Phase 17 — Advanced Player Profiles
+**Current focus:** Phase 18 — Historical Context
 
 ## Current Milestone
 
@@ -29,12 +29,12 @@ v1.2 Silver Expansion — Expand Silver layer with PBP team metrics, tendencies,
 
 ## Current Position
 
-Phase: 17 of 18 (Advanced Player Profiles) — 3 of 4 in milestone
-Plan: 2 of 2 complete in current phase
-Status: Phase Complete
-Last activity: 2026-03-14 — Completed 17-02 Silver advanced transformation CLI (NGS/PFR/QBR merge across 6 seasons)
+Phase: 18 of 18 (Historical Context) — 4 of 4 in milestone
+Plan: 1 of 2 complete in current phase
+Status: In Progress
+Last activity: 2026-03-15 — Completed 18-01 historical profiles compute module (8 functions, 15 tests)
 
-Progress: [██████████] 100% (17-02 complete, phase done)
+Progress: [█████████░] 89% (18-01 complete, 18-02 remaining)
 
 ## Key Artifacts
 
@@ -76,6 +76,10 @@ Progress: [██████████] 100% (17-02 complete, phase done)
 - [17-02]: Synthetic player_gsis_id from name+team enables PFR/QBR rolling despite missing GSIS IDs
 - [17-02]: Three-tier join: GSIS ID (NGS), normalized name+team (PFR/QBR), team-only (PFR blitz)
 - [17-02]: Overlap detection before merge prevents pandas _x/_y suffix columns across NGS sources
+- [18-01]: NaN propagation for all composite scores -- no imputation or fill
+- [18-01]: Catch radius proxy uses raw height_inches (simplest meaningful proxy)
+- [18-01]: Compensatory picks 225-262 use linear extrapolation with 0.042/pick decay and 0.4 floor
+- [Phase 18]: NaN propagation for all composite scores -- no imputation
 
 ### Pending Todos
 
@@ -89,9 +93,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T14:42:37.162Z
-Stopped at: Phase 18 context gathered
-Resume file: .planning/phases/18-historical-context/18-CONTEXT.md
+Last session: 2026-03-15T21:16:03.738Z
+Stopped at: Completed 18-01-PLAN.md
+Resume file: None
 
 ---
-*Last updated: 2026-03-14 after 17-02 plan execution*
+*Last updated: 2026-03-15 after 18-01 plan execution*
