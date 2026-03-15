@@ -1,7 +1,7 @@
 # NFL Game Prediction Data Model
 
-**Version:** 2.0
-**Last Updated:** March 8, 2026
+**Version:** 3.0
+**Last Updated:** March 15, 2026
 **Purpose:** Comprehensive data model designed for NFL game prediction using machine learning and advanced analytics
 
 ## Status Legend
@@ -34,7 +34,7 @@ nfl-data-py    Raw Data      Cleaned &    Analytics     ML Features
 #### Layer Responsibilities
 
 - **Bronze Layer (s3://nfl-raw)** -- **Implemented**: Raw data ingestion from nfl-data-py with minimal transformation
-- **Silver Layer (s3://nfl-refined)** -- **Partially Implemented**: Fantasy analytics (usage, rolling avgs, opp rankings) implemented; game prediction features planned
+- **Silver Layer (s3://nfl-refined)** -- **Partially Implemented**: Fantasy analytics (usage, rolling avgs, opp rankings), team PBP metrics, team tendencies, strength of schedule, situational splits, and advanced player profiles implemented; game prediction features (matchup features, enhanced games/plays/player_stats tables) planned
 - **Gold Layer (s3://nfl-trusted)** -- **Partially Implemented**: Fantasy projections implemented; game outcome predictions planned
 - **Platinum Layer** -- **Planned**: Real-time prediction serving and model inference (future extension)
 
@@ -242,24 +242,107 @@ Storage: s3://nfl-refined/rolling_stats/season=YYYY/
 
 See [NFL Data Dictionary -- Rolling Averages](NFL_DATA_DICTIONARY.md#5-rolling-averages-silver) for full column specs.
 
+### Team PBP Metrics (Silver) -- Implemented
+
+Built by `scripts/silver_team_transformation.py`, computed by `src/team_analytics.py` (Phase 15).
+
+#### Team EPA Aggregates (Silver) -- Implemented
+
+```
+Storage: data/silver/teams/pbp_metrics/season=YYYY/
+```
+
+Team-level EPA aggregates computed from play-by-play data. Covers offense and defense EPA per play, passing and rushing splits, completion percentage over expected (CPOE), success rate, and red zone efficiency. One row per team per season.
+
+Key columns:
+- team, season
+- off_epa_per_play, def_epa_per_play
+- pass_epa_per_play, rush_epa_per_play
+- cpoe, success_rate
+- red_zone_success_rate
+
+### Team Tendencies (Silver) -- Implemented
+
+Built by `scripts/silver_team_transformation.py` (Phase 16).
+
+```
+Storage: data/silver/teams/tendencies/season=YYYY/
+```
+
+Offensive and defensive scheme tendencies derived from play-by-play data. Captures pace, pass rate preferences, and fourth-down aggressiveness signals.
+
+Key columns:
+- team, season
+- plays_per_game (pace)
+- pass_rate_over_expected (PROE)
+- fourth_down_go_rate (aggressiveness)
+- early_down_run_rate
+
+### Strength of Schedule (Silver) -- Implemented
+
+Built by `scripts/silver_team_transformation.py` (Phase 16).
+
+```
+Storage: data/silver/teams/sos/season=YYYY/
+```
+
+Opponent-adjusted EPA rankings for each team's offense and defense schedule. Ranks all 32 teams on the quality of opponents faced, used to contextualize raw EPA metrics.
+
+Key columns:
+- team, season
+- off_sos_rank (1-32, opponent defensive EPA rank)
+- def_sos_rank (1-32, opponent offensive EPA rank)
+
+### Situational Splits (Silver) -- Implemented
+
+Built by `scripts/silver_team_transformation.py` (Phase 16).
+
+```
+Storage: data/silver/teams/situational/season=YYYY/
+```
+
+Team performance segmented by game context: home vs. away, divisional vs. non-divisional, and game script (leading, trailing, close games). Supports situational feature construction for the game prediction pipeline.
+
+Key columns:
+- team, season, split_type (home/away/divisional/non_divisional/leading/trailing/close)
+- epa_per_play, success_rate, pass_rate, win_rate
+
+### Advanced Player Profiles (Silver) -- Implemented
+
+Built by `scripts/silver_advanced_transformation.py`, computed by `src/player_advanced_analytics.py` (Phase 17).
+
+```
+Storage: data/silver/players/advanced/season=YYYY/
+```
+
+Player-level advanced metrics aggregated from NGS, PFR, and QBR sources. Covers all three position groups (QB, RB, WR/TE) with tracking-based and pressure-based signals.
+
+Key columns:
+- player_id, player_name, position, team, season
+- **Receiving (NGS):** avg_separation, catch_probability, avg_intended_air_yards
+- **Passing (NGS):** avg_time_to_throw, aggressiveness, completion_percentage_above_expectation (CPAE)
+- **Rushing (NGS):** rush_yards_over_expected (RYOE), efficiency
+- **Pressure (PFR):** times_pressured, sack_rate, hurry_rate, team_blitz_rate
+- **QBR:** qbr_total, qbr_points_added
+
 ### Game Prediction Features -- Planned
 
 The following Silver tables are designed for the game prediction pipeline (v2 requirements SLV-01 to SLV-03).
 
-#### Team EPA Aggregates (Silver) -- Planned
+#### Rolling Team EPA (Silver) -- Planned
 
 ```
 Storage: s3://nfl-refined/team_epa/season=YYYY/week=WW/
 ```
 
-Rolling offensive and defensive EPA per play, aggregated at the team-week level. Will support requirements SLV-01 (team EPA aggregates) and SLV-02 (exponentially weighted rolling metrics).
+Week-scoped rolling offensive and defensive EPA per play, extending the implemented season-level PBP metrics table with exponentially weighted rolling windows. Will support requirements SLV-01 (team EPA aggregates) and SLV-02 (exponentially weighted rolling metrics).
 
 Key planned columns:
 - team_id, season, week
-- off_epa_per_play, def_epa_per_play (rolling averages)
+- off_epa_per_play, def_epa_per_play (rolling 3/6 game windows)
 - pass_epa_per_play, rush_epa_per_play
 - success_rate, explosive_play_rate
-- Schedule-adjusted metrics
+- Schedule-adjusted metrics combining team_epa + sos tables
 
 #### Matchup Features (Silver) -- Planned
 
@@ -548,14 +631,19 @@ See `src/nfl_data_integration.py` for the validation implementation.
 | 2 | Core PBP Ingestion | **Implemented** |
 | 3 | Advanced Stats & Context Data | **Implemented** |
 | 4 | Documentation Update | **Implemented** |
+| 5–14 | Fantasy Analytics Pipeline (Bronze → Silver → Gold → Draft) | **Implemented** |
+| 15 | Silver Team PBP Metrics | **Implemented** |
+| 16 | Silver Team Tendencies, SOS, Situational Splits | **Implemented** |
+| 17 | Silver Advanced Player Profiles (NGS, PFR, QBR) | **Implemented** |
 
 ### Upcoming Phases (v2)
 
 | Phase | Name | Requirements | Status |
 |-------|------|-------------|--------|
-| 5 | Silver Prediction Layer | SLV-01, SLV-02, SLV-03 | **Planned** |
-| 6 | ML Pipeline | ML-01, ML-02, ML-03 | **Planned** |
-| 7 | nflreadpy Migration | MIG-01 | **Planned** |
+| 18 | Rolling Team EPA (week-scoped) | SLV-01, SLV-02 | **Planned** |
+| 19 | Matchup Features | SLV-03 | **Planned** |
+| 20 | ML Pipeline | ML-01, ML-02, ML-03 | **Planned** |
+| 21 | nflreadpy Migration | MIG-01 | **Planned** |
 
 See [NFL Data Model Implementation Guide](NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md) for detailed phase descriptions.
 
@@ -563,7 +651,7 @@ See [NFL Data Model Implementation Guide](NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md
 
 ## Conclusion
 
-This data model provides a comprehensive foundation for NFL game prediction. The Bronze layer is fully implemented with 15+ data types covering games, players, advanced stats, and context data. The Silver and Gold layers have working fantasy analytics pipelines, with game prediction features planned as v2 work. The ML integration layer is designed to produce 200+ features targeting 65%+ prediction accuracy.
+This data model provides a comprehensive foundation for NFL game prediction. The Bronze layer is fully implemented with 15+ data types covering games, players, advanced stats, and context data. The Silver layer now includes five implemented subsections beyond the original fantasy analytics pipeline: team PBP metrics (EPA, CPOE, success rate, red zone), team tendencies (pace, PROE, 4th-down aggressiveness), strength of schedule rankings, situational splits (home/away, divisional, game script), and advanced player profiles aggregating NGS tracking, PFR pressure data, and QBR. The Gold layer has working fantasy projections, with game outcome predictions planned as v2 work. The ML integration layer is designed to produce 200+ features targeting 65%+ prediction accuracy.
 
 ---
-*Version 2.0 -- Updated March 8, 2026 to add implementation status badges and cross-reference NFL Data Dictionary*
+*Version 3.0 -- Updated March 15, 2026 to document Silver layer expansion through Phase 17 (team metrics, tendencies, SOS, situational splits, advanced player profiles)*

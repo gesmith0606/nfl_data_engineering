@@ -1,7 +1,7 @@
 # NFL Data Platform Implementation Guide
 
-**Version:** 2.0
-**Last Updated:** March 8, 2026
+**Version:** 3.0
+**Last Updated:** March 15, 2026
 **Purpose:** Living roadmap for the NFL data platform -- grounded in actual accomplishments, forward-looking for planned work
 **Related Documents:**
 - [NFL_GAME_PREDICTION_DATA_MODEL.md](./NFL_GAME_PREDICTION_DATA_MODEL.md) -- Data model with implementation status badges
@@ -26,9 +26,11 @@
 ```
 nfl-data-py + Sleeper API
         |
-Bronze (s3://nfl-raw/)     -- raw game, player, snap, injury, roster data (15+ types)
+Bronze (s3://nfl-raw/)     -- raw game, player, snap, injury, roster data (25+ types)
         |
-Silver (s3://nfl-refined/) -- usage metrics, rolling averages, opp rankings
+Silver (s3://nfl-refined/) -- usage metrics, rolling averages, opp rankings,
+                              team PBP metrics, tendencies, SOS, situational splits,
+                              advanced player profiles
         |
 Gold   (s3://nfl-trusted/) -- weekly + preseason projections (PPR/Half-PPR/Standard)
         |
@@ -45,7 +47,7 @@ Read convention: Always use `download_latest_parquet()` from `src/utils.py` -- n
 
 ### Phase 1: Infrastructure Prerequisites
 
-**Requirements:** INFRA-01, INFRA-02, INFRA-03, INFRA-04, INFRA-05
+**Milestone:** v1.0 Bronze Expansion | **Completed:** 2026-03-08
 
 Built the foundational infrastructure required before ingesting new data types.
 
@@ -62,7 +64,7 @@ Built the foundational infrastructure required before ingesting new data types.
 
 ### Phase 2: Core PBP Ingestion
 
-**Requirements:** PBP-01, PBP-02, PBP-03, PBP-04
+**Milestone:** v1.0 Bronze Expansion | **Completed:** 2026-03-08
 
 Ingested full play-by-play data -- the foundation for game prediction analytics.
 
@@ -78,7 +80,7 @@ Ingested full play-by-play data -- the foundation for game prediction analytics.
 
 ### Phase 3: Advanced Stats and Context Data
 
-**Requirements:** ADV-01 through ADV-05, CTX-01, CTX-02, VAL-01 through VAL-03
+**Milestone:** v1.0 Bronze Expansion | **Completed:** 2026-03-08
 
 Ingested all remaining data types to complete the Bronze layer.
 
@@ -99,7 +101,7 @@ Ingested all remaining data types to complete the Bronze layer.
 
 ### Phase 4: Documentation Update
 
-**Requirements:** DOC-01 through DOC-04
+**Milestone:** v1.0 Bronze Expansion | **Completed:** 2026-03-08
 
 Aligned all documentation with the actual data state after Phases 1-3.
 
@@ -112,6 +114,218 @@ Aligned all documentation with the actual data state after Phases 1-3.
 **Key decisions:**
 - Auto-generated Parquet schemas for 6 local data types; representative columns from test mocks for 9 API-only types
 - No row counts in inventory (too slow); metrics: file count, size, seasons, columns, last modified
+
+### Phase 5: Phase 1 Verification Backfill
+
+**Milestone:** v1.0 Bronze Expansion | **Completed:** 2026-03-08
+
+Closed the requirements traceability gap for Phase 1 by formally verifying all 5 INFRA requirements with code evidence.
+
+**Key deliverables:**
+- **01-VERIFICATION.md**: Formal verification report with grep-verifiable code evidence for INFRA-01 through INFRA-05
+- **REQUIREMENTS.md traceability**: All 5 INFRA requirements updated from Pending to Complete
+
+**Key decisions:**
+- Re-verification approach: evidence gathered from existing source files, no code changes needed since Phase 1 was functionally complete
+
+### Phase 6: Wire Bronze Validation
+
+**Milestone:** v1.0 Bronze Expansion | **Completed:** 2026-03-08
+
+Wired `validate_data()` into the Bronze ingestion pipeline with warn-never-block semantics.
+
+**Key deliverables:**
+- **NFLDataAdapter.validate_data()**: Delegates to NFLDataFetcher with lazy import; produces human-readable pass/warning output via `format_validation_output()`
+- **Bronze ingestion wiring**: Every fetch is validated before save, wrapped in try/except so validation issues never block data persistence
+- **8 tests** in `tests/test_bronze_validation.py`: delegation, lazy import, return structure, output formatting, and integration wiring
+
+**Key decisions:**
+- Warn-never-block: validation issues print warnings but never prevent data save
+- Lazy import of NFLDataFetcher inside validate_data() matches existing adapter isolation pattern
+
+### Phase 7: Tech Debt Cleanup
+
+**Milestone:** v1.0 Bronze Expansion | **Completed:** 2026-03-08
+
+Resolved four v1.0 audit items: dynamic season bounds and DRY validation output.
+
+**Key deliverables:**
+- **Dynamic season validation**: Replaced hardcoded `s > 2025` bound with `get_max_season()` from `src/config.py` -- future-proofed for 2027+
+- **DRY validation output**: Replaced 10 lines of inline formatting with delegation to `format_validation_output()`
+
+**Key decisions:**
+- Used existing `get_max_season()` rather than introducing a new utility
+- Season bounds pattern: always use `get_max_season()`, never hardcode year constants
+
+---
+
+### Phase 8: Pre-Backfill Guards
+
+**Milestone:** v1.1 Bronze Backfill | **Completed:** 2026-03-09
+
+Added safety guards to protect bulk backfill operations from known data source limitations.
+
+**Key deliverables:**
+- **Injury season cap**: `DATA_TYPE_SEASON_RANGES` for injuries capped at `lambda: 2024` -- prevents nflverse crash for 2025+ seasons where injury data is not published
+- **Dependency pin documentation**: Inline `# pinned:` comments on `nfl_data_py` and `numpy` in `requirements.txt` for long-term stability
+- **GITHUB_TOKEN documentation**: Added to `.env` with notes clarifying nfl-data-py does not use it for rate limiting
+
+**Key decisions:**
+- Static `lambda: 2024` cap matches existing callable pattern in `DATA_TYPE_SEASON_RANGES`
+- Static cap pattern: use `lambda: YEAR` for discontinued or capped nflverse data types
+
+### Phase 9: New Data Type Ingestion
+
+**Milestone:** v1.1 Bronze Backfill | **Completed:** 2026-03-09
+
+Enhanced the Bronze CLI and ingested three categories of new data types across their full valid season ranges.
+
+**Key deliverables:**
+- **CLI variant looping**: `bronze_ingestion_simple.py` now auto-iterates all sub-types and frequencies when none is specified -- no more mandatory `--sub-type` flag
+- **Schema diff logging**: `log_schema_diff()` compares column sets between consecutive seasons; caught depth_charts 2025 schema change (11 new, 14 removed columns)
+- **Ingestion summary**: Per-variant counts of ingested/skipped seasons printed after each run
+- **Simple types ingested**: teams (1 file), draft_picks (26 seasons, 2000-2025), combine (26 seasons, 2000-2025), depth_charts (25 seasons, 2001-2025)
+- **Sub-type data ingested**: NGS (passing/rushing/receiving, 2016-2025), PFR weekly (pass/rush/rec/def, 2018-2025), PFR seasonal (same 4 sub-types, 2018-2025), QBR weekly + seasonal (2006-2025)
+- **PBP backfill**: Full play-by-play for seasons 2016-2025 (10 seasons, ~484K total rows, 103 columns each)
+
+**Key decisions:**
+- QBR frequency parameter changed from `["weekly", "seasonal"]` to `["weekly", "season"]` to match nfl-data-py API
+- Variant loop wraps the season loop (not inside it) for cleaner per-variant schema diff tracking
+- Bronze stores raw data -- depth_charts 2025 schema change ingested as-is; Silver normalizes
+
+### Phase 10: Existing Type Backfill
+
+**Milestone:** v1.1 Bronze Backfill | **Completed:** 2026-03-12
+
+Backfilled all 6 existing Bronze data types to achieve full 10-year coverage (2016-2025).
+
+**Key deliverables:**
+- **Snap counts backfill**: 215 week-partitioned Parquet files for all 10 seasons (2016-2025), including 2020-2024 gap from expired S3 credentials
+- **Schedules backfill**: 6 season files for 2020-2025 (previously S3-only, credentials expired)
+- **Full coverage verified**: 6/6 Bronze data types pass with 10-year history (player_weekly/seasonal 2025 excluded -- nflverse HTTP 404, data not yet published at time of backfill)
+
+**Key decisions:**
+- snap_counts `player_id` validation issue noted (schema uses `player`, not `player_id`) -- handled in Phase 13
+- player_weekly and player_seasonal 2025 accepted as unavailable pending nflverse publication
+
+### Phase 11: Orchestration and Validation
+
+**Milestone:** v1.1 Bronze Backfill | **Completed:** 2026-03-12
+
+Validated the completed backfill with an orchestration script and regenerated the Bronze inventory.
+
+**Key deliverables:**
+- **Updated Bronze inventory**: `docs/BRONZE_LAYER_DATA_INVENTORY.md` regenerated via `scripts/generate_inventory.py`; confirmed 25 data types, 517 files, 93.28 MB across 2000-2025 seasons
+- **Coverage report**: All 25 data type groupings documented with file count, size, seasons, columns, and last modified
+
+**Key decisions:**
+- No code changes to `generate_inventory.py` were needed -- the existing script correctly scanned all 25 groupings
+
+### Phase 12: 2025 Player Stats Gap Closure
+
+**Milestone:** v1.1 Bronze Backfill | **Completed:** 2026-03-13
+
+Closed the 2025 player statistics gap by sourcing weekly and seasonal data from the nflverse `stats_player` endpoint and processing through Silver.
+
+**Key deliverables:**
+- **2025 weekly player stats**: 19,421 rows, 115 columns ingested (includes 62 additional columns vs 2024 such as defensive/kicker stats)
+- **2025 seasonal player stats**: 2,025 rows, 60 columns including all 13 team-share columns
+- **Silver 2025 pipeline**: 46,011 player-week rows with usage metrics, rolling averages, game script indicators, venue splits, and opponent rankings
+- **Registry path fix**: `player_weekly` changed to season-only path (`players/weekly/season={season}/`) to match existing 2020-2024 storage pattern
+
+**Key decisions:**
+- Season-only bronze path for `player_weekly` (no week partition) -- matches how Silver reads the data
+- High null percentages in EPA, kicker, and advanced columns are expected (position-specific stats)
+
+### Phase 13: Bronze-Silver Path Alignment
+
+**Milestone:** v1.1 Bronze Backfill | **Completed:** 2026-03-13
+
+Corrected Silver reader paths that had diverged from the reorganized Bronze filesystem.
+
+**Key deliverables:**
+- **snap_counts reader**: Fixed `_read_local_bronze()` to read from `players/snaps/` with week-partitioned concatenation (`pd.concat`) instead of single-file latest read
+- **schedules reader**: Fixed path from non-existent `games/` to correct `schedules/`
+- **validate_data() correction**: snap_counts required column changed from `player_id` to `player` (matches actual nfl-data-py schema)
+
+**Key decisions:**
+- Week-partitioned Bronze data: concatenate all week files when reading into Silver (not take-latest)
+- Removed residual `data/bronze/players/snap_counts/` directory (superseded by `players/snaps/`)
+
+### Phase 14: Bronze Cosmetic Cleanup
+
+**Milestone:** v1.1 Bronze Backfill | **Completed:** 2026-03-13
+
+Normalized the Bronze filesystem layout and corrected documentation that had mischaracterized GITHUB_TOKEN behavior.
+
+**Key deliverables:**
+- **player_weekly path normalization**: Moved 2016-2019 files from erroneous `week=0/` subdirectories to season level
+- **draft_picks deduplication**: Removed 26 duplicate files (kept newest per season across all 26 seasons)
+- **GITHUB_TOKEN doc correction**: Clarified in REQUIREMENTS.md, ROADMAP.md, and research files that nfl-data-py does NOT use the token for rate limiting
+- **Cleanup script**: `scripts/bronze_cosmetic_cleanup.py` created with dry-run-by-default safety pattern
+
+**Key decisions:**
+- Cleanup scripts use dry-run as the default mode, requiring an explicit `--execute` flag to prevent accidental data loss
+
+---
+
+### Phase 15: PBP Team Metrics and Tendencies
+
+**Milestone:** v1.2 Silver Expansion | **Completed:** 2026-03-14
+
+Built the Silver team analytics layer from PBP data, fixing a cross-season rolling window bug in the process.
+
+**Key deliverables:**
+- **Rolling window bug fix** (PBP-05): Changed player rolling window groupby from `player_id` to `[player_id, season]` in `player_analytics.py` -- prevents Week 1 values from being contaminated by prior season data
+- **`src/team_analytics.py`**: New module with `_filter_valid_plays()` and `apply_team_rolling()` shared utilities; mirrors `player_analytics.py` patterns grouped by `[team, season]`
+- **PBP performance metrics**: `compute_pbp_metrics()` produces offensive/defensive EPA per play, success rate, CPOE (offense only), red zone efficiency (TD rate using unique drive denominator) -- per team-week with 3-game, 6-game, and STD rolling windows
+- **Tendency metrics**: `compute_tendency_metrics()` produces pace (plays per minute), PROE (pass rate over expected), 4th down aggressiveness (go rate), and early-down run rate -- all with rolling windows. 4th down function accepts raw PBP to include punt/FG play types in denominator
+- **`scripts/silver_team_transformation.py`**: New Silver CLI producing `pbp_metrics` and `tendencies` Parquet files per season at `data/silver/teams/`
+- **Config registration**: `SILVER_TEAM_S3_KEYS` added to `config.py` for both output paths
+- **36 tests** in `tests/test_team_analytics.py` covering all metric functions
+
+**Key decisions:**
+- Rolling windows group by `[entity, season]` to prevent cross-season contamination -- applied to both new team module and fixed player module
+- Red zone TD rate uses unique drive denominator (not play count)
+- PROE uses pandas `mean()` for xpass to auto-exclude NaN while preserving all rows in actual pass rate
+
+### Phase 16: Strength of Schedule and Situational Splits
+
+**Milestone:** v1.2 Silver Expansion | **Completed:** 2026-03-14
+
+Extended the Silver team layer with opponent-adjusted EPA rankings and context-aware performance splits.
+
+**Key deliverables:**
+- **`compute_sos_metrics()`**: Opponent-adjusted EPA and schedule difficulty rankings (1-32 per team per week) using only lagged (week N-1) opponent strength to avoid circular dependency. Week 1 opponent-adjusted EPA equals raw EPA. Bye weeks produce no row in SOS output
+- **`TEAM_DIVISIONS` config**: 32-team division lookup enabling divisional game tagging
+- **`compute_situational_splits()`**: 12 EPA split columns in wide format (home/away offense+defense, divisional/non-divisional offense+defense, leading/trailing offense+defense) with 3-game, 6-game, and STD rolling windows (51 total output columns)
+- **Silver team CLI extended**: Single CLI pass now produces 4 datasets per season (pbp_metrics, tendencies, sos, situational) at `data/silver/teams/`
+- **247 full test suite** including 11 new situational and idempotency tests
+
+**Key decisions:**
+- SOS uses per-game opponent EPA from the specific week faced, not cumulative season-to-date
+- Game script threshold: leading >= 7, trailing <= -7, neutral plays excluded from both categories
+- Wide format pivot before rolling windows prevents cross-situation contamination
+- Non-applicable situations produce NaN (not zero) for clean downstream filtering
+
+### Phase 17: Advanced Player Profiles
+
+**Milestone:** v1.2 Silver Expansion | **Completed:** 2026-03-14
+
+Built the Silver advanced player analytics layer merging NGS, PFR, and QBR metrics onto player rosters.
+
+**Key deliverables:**
+- **`src/player_advanced_analytics.py`**: New module with 6 compute functions (NGS WR/TE separation + catch probability, NGS QB time-to-throw + aggressiveness, NGS RB rush yards over expected, PFR QB pressure rate, PFR defensive blitz rate, QBR rolling profiles) plus a generic `_compute_profile()` helper to DRY up the pattern. Player rolling uses `min_periods=3` (stricter than team `min_periods=1`)
+- **`scripts/silver_advanced_transformation.py`**: New CLI script orchestrating Bronze read, three-tier join, merge, rolling, and Silver write for all 6 PLAYER_DATA_SEASONS (2020-2025). Produces 47,447 total player-week rows with 128 advanced stat columns
+- **Three-tier join strategy**: GSIS ID (NGS), normalized name+team synthetic ID (PFR/QBR), team-only (PFR blitz rate)
+- **Overlap detection**: Duplicate column detection before each merge prevents `_x`/`_y` suffix columns across NGS sources
+- **Config registration**: `SILVER_PLAYER_S3_KEYS` extended with `advanced_profiles` path
+
+**Key decisions:**
+- Synthetic `player_gsis_id` (name+team concatenation) for PFR and QBR data -- enables rolling window groupby despite missing GSIS IDs
+- PFR pressure 12% match rate is correct and expected -- PFR pass data covers QBs only (~700/5,653 player-weeks)
+- Team abbreviation normalization: LAR->LA and WSH->WAS to prevent silent join failures
+- QBR absent for 2024-2025 seasons as expected per research
 
 ---
 
@@ -126,6 +340,24 @@ Built by `scripts/silver_player_transformation.py`:
 - **Player usage metrics**: Target share, carry share, snap percentage, air yards share, red zone opportunities
 - **Opponent rankings**: 1-32 rankings for points allowed to each position (QB, RB, WR, TE)
 - **Rolling averages**: 3-game and 6-game rolling stats, weighted by recency (roll3: 45%, roll6: 30%, std: 25%)
+
+### Silver Layer: Team Analytics
+
+Built by `scripts/silver_team_transformation.py` (Phase 15-16):
+
+- **PBP performance metrics**: Offensive/defensive EPA per play, success rate, CPOE, red zone efficiency per team-week with 3-game and 6-game rolling windows
+- **Tendency metrics**: Pace (plays/minute), PROE (pass rate over expected), 4th down go rate, early-down run rate with rolling windows
+- **Strength of schedule**: Opponent-adjusted EPA and schedule difficulty rankings (1-32) per team per week; uses lagged opponent strength to avoid circular dependency
+- **Situational splits**: Home/away, divisional, and game script (leading/trailing by 7+) EPA splits in wide format with rolling windows -- 12 split columns, 51 total output columns
+
+### Silver Layer: Advanced Player Profiles
+
+Built by `scripts/silver_advanced_transformation.py` (Phase 17):
+
+- **NGS metrics**: WR/TE separation and catch probability, QB time-to-throw and aggressiveness, RB rush yards over expected -- all with rolling windows
+- **PFR metrics**: QB pressure rate allowed, team defensive blitz rate -- with rolling windows
+- **QBR profiles**: Total QBR and points added per QB with rolling windows (available 2020-2023)
+- **Coverage**: 47,447 player-weeks across 2020-2025 with 128 advanced stat columns; sparse columns use `min_periods=3`
 
 ### Gold Layer: Fantasy Projections
 
@@ -164,108 +396,62 @@ Built by `scripts/backtest_projections.py`:
 
 ### Test Suite
 
-71 unit tests passing across:
+71+ unit tests passing across:
 - `tests/test_scoring_calculator.py` (14 tests)
 - `tests/test_projection_engine.py` (19 tests)
-- `tests/test_player_analytics.py` (7 tests)
+- `tests/test_player_analytics.py` (7 tests, including 3 rolling window regression tests added in Phase 15)
 - `tests/test_draft_optimizer.py` (13 tests)
 - `tests/test_utils.py` (5 tests)
 - `tests/test_nfl_data_adapter.py` and `tests/test_advanced_ingestion.py` (13+ tests)
+- `tests/test_bronze_validation.py` (8 tests added Phase 6)
+- `tests/test_infrastructure.py` (extended through Phases 7-12)
+- `tests/test_team_analytics.py` (36 tests added Phases 15-16)
+- `tests/test_pbp_ingestion.py` (13 tests added Phase 9)
+
+Full suite at 246+ passing tests as of Phase 16 completion.
 
 ---
 
-## Upcoming Phases (v2)
+## Upcoming Phases (v1.2 and beyond)
 
-### Phase 5: Silver Prediction Layer
+### Phase 18: Historical Context (In Progress -- v1.2)
 
-**Requirements:** SLV-01, SLV-02, SLV-03
+**Goal:** Create a static Silver dimension table linking combine measurables and draft capital to player IDs for rookie evaluation and breakout modeling.
 
-Build the Silver layer tables needed for game outcome prediction. This phase transforms raw Bronze data into analytics-ready team and matchup features.
+**Planned deliverables:**
+- **`src/historical_profiles.py`** (or inline in CLI): Compute functions for combine composite scores -- speed score (`weight * 200 / forty^4`), BMI, burst score (vertical + broad jump), catch radius proxy (height); position percentiles across all years
+- **Draft capital mapping**: Jimmy Johnson trade value chart (pick 1-262 mapped to trade value points) as a hardcoded lookup
+- **`scripts/silver_historical_transformation.py`**: CLI with no `--seasons` flag (always processes full 2000-2025 range); idempotent full regeneration on every run
+- **Output**: Single flat Parquet file at `data/silver/players/historical/combine_draft_profiles.parquet` (dimension table, not a fact table -- no season partitioning)
+- **Join strategy**: Full outer join on `pfr_id` (combine ↔ draft_picks), then `gsis_id` linkage from draft_picks for downstream player matching. Undrafted combine attendees preserved with NaN draft capital; drafted players without combine preserved with NaN measurables
 
-| Req | Description | Details |
-|-----|-------------|---------|
-| SLV-01 | Team EPA aggregates | Rolling offensive/defensive EPA per play at team-week level |
-| SLV-02 | Exponentially weighted rolling metrics | Team performance metrics with recency weighting |
-| SLV-03 | Matchup feature generation | Team A offense vs Team B defense feature combinations |
+**Success criteria:**
+1. Output contains one row per player (no duplicates)
+2. Match rate logged at INFO level; unmatched players at WARNING level; pipeline never fails on match quality
+3. Config registered in `SILVER_PLAYER_S3_KEYS` as `historical_profiles`
 
-**Planned tables:**
+### Phase 19 and beyond: Silver Prediction Layer (Planned -- v2)
 
-1. **Team EPA Aggregates** (`s3://nfl-refined/team_epa/season=YYYY/week=WW/`)
-   - Offensive EPA per play (pass, rush, overall)
-   - Defensive EPA per play allowed (pass, rush, overall)
-   - Success rate (percentage of positive-EPA plays)
-   - Explosive play rate (20+ yard plays)
-   - Rolling windows: 3-game, 6-game, season-to-date
+Build the Silver tables needed for game outcome prediction -- transforming Bronze PBP into analytics-ready team and matchup features for ML models.
 
-2. **Exponentially Weighted Metrics** (`s3://nfl-refined/team_ewm/season=YYYY/week=WW/`)
-   - Points per game (exponentially weighted, half-life = 4 weeks)
-   - Turnover differential
-   - Third down conversion/stop rate
-   - Red zone efficiency
-   - Time of possession trends
+| Dataset | Description | Output Path |
+|---------|-------------|-------------|
+| Team EPA aggregates | Rolling offensive/defensive EPA per play at team-week level | `nfl-refined/team_epa/` |
+| Exponentially weighted metrics | Points per game, turnover differential, third down rates (half-life = 4 weeks) | `nfl-refined/team_ewm/` |
+| Matchup features | Team A offense vs Team B defense EPA differentials per game | `nfl-refined/matchup_features/` |
 
-3. **Matchup Features** (`s3://nfl-refined/matchup_features/season=YYYY/week=WW/`)
-   - Offense vs defense EPA differential (for each game)
-   - Pass matchup advantage (team pass EPA vs opponent pass defense EPA)
-   - Rush matchup advantage (team rush EPA vs opponent rush defense EPA)
-   - Recent form differential (last 4 games)
-   - Rest advantage, home/away adjustment
+### ML Pipeline (Planned -- v2)
 
-**Tech approach:** pandas DataFrames with rolling window calculations. Output as Parquet files in `s3://nfl-refined/`. DuckDB for validation queries.
+Build the game outcome prediction model from Bronze/Silver features.
 
-**Input data:** PBP (Phase 2), schedules, player weekly stats, snap counts
+- **Feature categories**: Team performance (40+ features), player impact (30+), situational (20+), temporal (30+), historical (20+), market lines (15+), advanced stats (40+), composite ratings (10+)
+- **Models**: XGBoost (primary), Random Forest (baseline)
+- **Validation**: Leave-one-season-out cross-validation
+- **Targets**: Win prediction (65%+), ATS accuracy (53%+), spread MAE (<3.5 points)
 
-**Dependencies:** Bronze PBP data (Phase 2), advanced stats (Phase 3)
+### nflreadpy Migration (Planned)
 
-### Phase 6: ML Pipeline
-
-**Requirements:** ML-01, ML-02, ML-03
-
-Build the prediction model from Bronze/Silver data to game outcome predictions.
-
-| Req | Description | Details |
-|-----|-------------|---------|
-| ML-01 | Feature engineering pipeline | 200+ ML features per game from team, player, situational, and market data |
-| ML-02 | Model training | Random Forest / XGBoost with leave-one-season-out validation |
-| ML-03 | Accuracy target | 65%+ win prediction accuracy, <3.5 point spread MAE |
-
-**Feature categories (200+ total):**
-
-1. **Team performance (40+ features):** EPA per play (off/def/pass/rush), success rate, explosive play rate, turnover margin, red zone efficiency, third down rates
-2. **Player impact (30+ features):** Starting QB EPA, CPOE, pressure rate; key skill player usage and efficiency ratings; injury severity scores
-3. **Situational (20+ features):** Home/away, division game, conference game, prime time, dome/outdoor, rest days, travel distance
-4. **Temporal (30+ features):** Rolling averages at multiple windows (3/6/10 games), season week number, momentum indicators, bye week effects
-5. **Historical (20+ features):** Head-to-head records (last 5 meetings), coaching matchup history, franchise historical performance
-6. **Market (15+ features):** Opening/closing spread, total, line movement, moneyline implied probability
-7. **Advanced stats (40+ features):** NGS metrics (completion probability, separation, rush efficiency), PFR advanced stats, QBR components
-8. **Composite (10+ features):** Power ratings, Elo-style rankings, schedule-adjusted efficiency
-
-**Model architecture:**
-- **Primary:** XGBoost gradient boosted trees (best for tabular data with mixed feature types)
-- **Secondary:** Random Forest (robust baseline, less prone to overfitting)
-- **Validation:** Leave-one-season-out cross-validation (train on N-1 seasons, test on held-out season)
-- **Feature selection:** Recursive feature elimination, SHAP-based importance analysis
-
-**Evaluation metrics:**
-- Win prediction accuracy (target: 65%+)
-- Against-the-spread accuracy (target: 53%+, profitable threshold: 52.4%)
-- Point spread MAE (target: <3.5 points)
-- Total points MAE
-- Calibration (predicted probability vs actual frequency)
-
-**Tech approach:** scikit-learn for pipeline, XGBoost/LightGBM for models. Feature store as Parquet in Gold layer.
-
-**Dependencies:** Silver prediction layer (Phase 5)
-
-### Phase 7: nflreadpy Migration
-
-**Requirements:** MIG-01
-
-Migrate from nfl-data-py to nflreadpy when feature parity is confirmed.
-
-**Impact:** Changes only in `src/nfl_data_adapter.py` (by design -- INFRA-03 adapter isolation).
-
-**Dependencies:** Confirmed feature parity in nflreadpy
+Migrate from nfl-data-py to nflreadpy when feature parity is confirmed. Impact is limited to `src/nfl_data_adapter.py` by design (INFRA-03 adapter isolation).
 
 ### Deferred: Neo4j Graph Layer
 
@@ -276,7 +462,7 @@ Graph-based analytics for relationship-driven insights:
 - **Injury cascade analysis:** Model how injuries to one player affect usage and performance of related players (e.g., WR1 injury increases WR2 target share).
 - **Team scheme graphs:** Connect personnel groupings to play types and outcomes for scheme identification.
 
-Deferred until the tabular prediction model (Phase 6) is validated. Graph features will be added as supplementary inputs to improve prediction accuracy.
+Deferred until the tabular prediction model is validated. Graph features will be added as supplementary inputs to improve prediction accuracy.
 
 ---
 
@@ -299,8 +485,14 @@ pip install -r requirements.txt
 # Bronze ingestion (local-first)
 python scripts/bronze_ingestion_simple.py --season 2024 --data-type player_weekly
 
-# Silver transformation
+# Silver transformation -- fantasy analytics
 python scripts/silver_player_transformation.py --seasons 2020 2021 2022 2023 2024
+
+# Silver transformation -- team PBP metrics, tendencies, SOS, situational splits
+python scripts/silver_team_transformation.py --seasons 2024
+
+# Silver transformation -- advanced player profiles (NGS/PFR/QBR)
+python scripts/silver_advanced_transformation.py --seasons 2020 2021 2022 2023 2024
 
 # Gold projections
 python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr
@@ -322,11 +514,12 @@ See [CLAUDE.md](../CLAUDE.md) for the full command reference and file map.
 
 The platform validates data at multiple points:
 
-**Bronze ingestion validation** (`NFLDataFetcher.validate_data()`):
-- Required column checks per data type
-- Season range validation (per `DATA_TYPE_SEASON_RANGES`)
+**Bronze ingestion validation** (`NFLDataFetcher.validate_data()` via `NFLDataAdapter.validate_data()`):
+- Required column checks per data type (all 25 types have rules)
+- Season range validation (per `DATA_TYPE_SEASON_RANGES`, including static caps like injuries at 2024)
 - Empty response handling
 - API timeout error handling with retries
+- Warn-never-block semantics: issues print warnings but never prevent data save
 
 **Silver transformation validation** (`silver_player_transformation.py`):
 - Position filtering (QB, RB, WR, TE only for fantasy)
@@ -345,38 +538,49 @@ The platform validates data at multiple points:
 SELECT season, COUNT(*) as games
 FROM read_parquet('data/bronze/schedules/season=*/schedules_*.parquet')
 GROUP BY season ORDER BY season;
+
+-- Example: verify Silver team metrics coverage
+SELECT season, team, COUNT(*) as weeks
+FROM read_parquet('data/silver/teams/pbp_metrics/season=*/pbp_metrics_*.parquet')
+GROUP BY season, team ORDER BY season, team;
 ```
 
 ### Key Files Reference
 
 | File | Purpose |
 |------|---------|
-| `src/config.py` | S3 paths, SCORING_CONFIGS, ROSTER_CONFIGS, PLAYER_DATA_SEASONS |
-| `src/nfl_data_adapter.py` | NFLDataAdapter -- all nfl-data-py imports isolated here |
-| `src/nfl_data_integration.py` | NFLDataFetcher -- fetch methods + validate_data() |
+| `src/config.py` | S3 paths, SCORING_CONFIGS, ROSTER_CONFIGS, SILVER_TEAM_S3_KEYS, SILVER_PLAYER_S3_KEYS, DATA_TYPE_SEASON_RANGES |
+| `src/nfl_data_adapter.py` | NFLDataAdapter -- all nfl-data-py imports isolated here; validate_data() and format_validation_output() |
+| `src/nfl_data_integration.py` | NFLDataFetcher -- fetch methods + validate_data() with dynamic season bounds |
 | `src/player_analytics.py` | Usage metrics, opp rankings, rolling avgs, Vegas implied totals |
+| `src/team_analytics.py` | PBP metrics, tendency metrics, SOS, situational splits for teams (Phase 15-16) |
+| `src/player_advanced_analytics.py` | NGS/PFR/QBR compute functions and rolling utilities for advanced player profiles (Phase 17) |
 | `src/scoring_calculator.py` | Fantasy points -- single dict + vectorized DataFrame |
 | `src/projection_engine.py` | Weekly/preseason projections; bye week, rookie, Vegas multiplier |
 | `src/draft_optimizer.py` | DraftBoard, AuctionDraftBoard, MockDraftSimulator, DraftAdvisor |
 | `src/utils.py` | Shared utils incl. download_latest_parquet |
-| `scripts/bronze_ingestion_simple.py` | Bronze CLI -- all 15+ data types via registry |
-| `scripts/silver_player_transformation.py` | Silver CLI |
+| `scripts/bronze_ingestion_simple.py` | Bronze CLI -- all 25+ data types via registry; variant looping, schema diff, ingestion summary |
+| `scripts/bronze_cosmetic_cleanup.py` | One-time Bronze filesystem cleanup with dry-run/execute modes |
+| `scripts/silver_player_transformation.py` | Silver CLI -- fantasy usage metrics, rolling averages, opp rankings |
+| `scripts/silver_team_transformation.py` | Silver CLI -- team PBP metrics, tendencies, SOS, situational splits (Phase 15-16) |
+| `scripts/silver_advanced_transformation.py` | Silver CLI -- advanced player profiles via NGS/PFR/QBR merge (Phase 17) |
 | `scripts/generate_projections.py` | Gold CLI (--week or --preseason) |
 | `scripts/draft_assistant.py` | Interactive draft CLI (snake, auction, mock, waiver) |
 | `scripts/backtest_projections.py` | Compare projected vs actual; MAE/RMSE/bias |
 | `scripts/generate_inventory.py` | Bronze data inventory generator |
+| `scripts/check_pipeline_health.py` | S3 freshness + file size checks across all layers |
 
 ### Project Structure
 
 | Directory | Purpose |
 |-----------|---------|
-| `src/` | Core modules (config, adapter, analytics, scoring, projections, draft, utils) |
+| `src/` | Core modules (config, adapter, analytics, team analytics, advanced analytics, scoring, projections, draft, utils) |
 | `scripts/` | CLI scripts for each pipeline stage |
 | `tests/` | Unit tests (pytest) |
-| `data/bronze/` | Local Bronze storage (mirrors S3) |
-| `data/silver/` | Local Silver storage |
+| `data/bronze/` | Local Bronze storage (mirrors S3) -- 25+ data types, 517+ files |
+| `data/silver/` | Local Silver storage -- players/ (usage, advanced), teams/ (pbp_metrics, tendencies, sos, situational) |
 | `data/gold/` | Local Gold storage |
-| `docs/` | Documentation (data dictionary, data model, implementation guide) |
+| `docs/` | Documentation (data dictionary, data model, implementation guide, Bronze inventory) |
 | `.github/workflows/` | GitHub Actions pipeline |
 
 ---
@@ -404,7 +608,20 @@ GROUP BY season ORDER BY season;
 - 32 teams
 - Projected points >= 0 for skill positions (QB/RB/WR/TE)
 - Player training data: 2020-2025 (PLAYER_DATA_SEASONS)
+- PBP analysis range: 2016-2025 (NGS start year)
+- Combine/draft history: 2000-2025
 
 ---
 
-*Version 2.0 -- Rewritten March 8, 2026 to reflect actual GSD Phases 1-4 and v2 roadmap*
+## Milestone Summary
+
+| Milestone | Phases | Shipped | Scope |
+|-----------|--------|---------|-------|
+| v1.0 Bronze Expansion | 1-7 | 2026-03-08 | Infrastructure, PBP, advanced stats, docs, validation wiring, tech debt |
+| v1.1 Bronze Backfill | 8-14 | 2026-03-13 | Guards, new type ingestion, backfill, orchestration, 2025 gap closure, path alignment, cleanup |
+| v1.2 Silver Expansion | 15-18 | In progress | Team PBP metrics, SOS/situational splits, advanced player profiles, historical context |
+| v2.0 Game Prediction | 19+ | Planned | Silver prediction layer, ML pipeline, matchup features |
+
+---
+
+*Version 3.0 -- Updated March 15, 2026 to reflect GSD Phases 5-17 (v1.1 Bronze Backfill complete, v1.2 Silver Expansion Phases 15-17 complete)*
