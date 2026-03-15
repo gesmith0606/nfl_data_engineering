@@ -41,7 +41,16 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-(None — planning next milestone)
+- [ ] Weather data ingestion (external source) with historical coverage
+- [ ] Coaching staff tracking (HC/OC/DC per game, mid-season changes)
+- [ ] Special teams metrics (kicking accuracy, punt/kick returns, blocked kicks)
+- [ ] Penalty aggregation (team rates, types, opponent-drawn rates)
+- [ ] Rest & travel factors (days rest, bye timing, travel distance, time zones)
+- [ ] Turnover luck / fumble recovery regression metrics
+- [ ] Referee crew tendencies (penalty rates, scoring impact by crew)
+- [ ] Playoff/elimination context (standings, clinch/elimination scenarios)
+- [ ] Red zone trip volume (drive-level counts, not just efficiency rates)
+- [ ] Silver transforms for all new and derived features with rolling windows
 
 ### Out of Scope
 
@@ -98,4 +107,4 @@ Existing documentation:
 | Lagged SOS (week N-1 only) | Avoids circular dependency in opponent-adjusted EPA | ✓ Good |
 
 ---
-*Last updated: 2026-03-15 after v1.2 milestone*
+*Last updated: 2026-03-15 after starting v1.3 Prediction Data Foundation milestone*
