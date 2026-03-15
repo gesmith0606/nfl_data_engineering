@@ -24,6 +24,7 @@ from dotenv import load_dotenv
 # Project root on path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
+from config import SILVER_TEAM_S3_KEYS
 from team_analytics import (
     compute_pbp_metrics,
     compute_tendency_metrics,
@@ -188,25 +189,25 @@ def run_silver_team_transform(
         # 6. Save to Silver layer (local + optional S3)
         print("  Saving to Silver layer...")
 
-        pbp_key = f"teams/pbp_metrics/season={season}/pbp_metrics_{ts}.parquet"
+        pbp_key = SILVER_TEAM_S3_KEYS["pbp_metrics"].format(season=season, ts=ts)
         _save_local_silver(pbp_metrics_df, pbp_key, ts)
         if s3_bucket:
             _try_s3_upload(pbp_metrics_df, s3_bucket, pbp_key)
 
         if not tendencies_df.empty:
-            tend_key = f"teams/tendencies/season={season}/tendencies_{ts}.parquet"
+            tend_key = SILVER_TEAM_S3_KEYS["tendencies"].format(season=season, ts=ts)
             _save_local_silver(tendencies_df, tend_key, ts)
             if s3_bucket:
                 _try_s3_upload(tendencies_df, s3_bucket, tend_key)
 
         if not sos_df.empty:
-            sos_key = f"teams/sos/season={season}/sos_{ts}.parquet"
+            sos_key = SILVER_TEAM_S3_KEYS["sos"].format(season=season, ts=ts)
             _save_local_silver(sos_df, sos_key, ts)
             if s3_bucket:
                 _try_s3_upload(sos_df, s3_bucket, sos_key)
 
         if not sit_df.empty:
-            sit_key = f"teams/situational/season={season}/situational_{ts}.parquet"
+            sit_key = SILVER_TEAM_S3_KEYS["situational"].format(season=season, ts=ts)
             _save_local_silver(sit_df, sit_key, ts)
             if s3_bucket:
                 _try_s3_upload(sit_df, s3_bucket, sit_key)
