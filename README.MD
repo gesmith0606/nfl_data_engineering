@@ -11,7 +11,7 @@ nfl-data-py + Sleeper API
         |
 Bronze  (data/bronze/ + s3://nfl-raw/)
         raw game, player, snap, injury, roster, PBP, NGS, PFR, QBR,
-        depth charts, draft picks, combine — 15+ data types, 93 MB local
+        depth charts, draft picks, combine — 25+ data types, 93 MB local
         |
 Silver  (data/silver/ + s3://nfl-refined/)
         player usage metrics, rolling averages, opponent rankings
@@ -32,7 +32,7 @@ Storage uses a local-first approach. S3 is optional — all scripts work without
 
 ## Current Capabilities
 
-### Bronze Layer (93 MB, 15+ data types, 2000-2025)
+### Bronze Layer (93 MB, 25+ data types, 2000-2025)
 
 Ingested via `scripts/bronze_ingestion_simple.py`:
 
@@ -215,7 +215,7 @@ nfl_data_engineering/
 │   └── utils.py                       # get_latest_s3_key, download_latest_parquet, shared utils
 │
 ├── scripts/
-│   ├── bronze_ingestion_simple.py     # Bronze CLI — all 15+ data types
+│   ├── bronze_ingestion_simple.py     # Bronze CLI — all 25+ data types
 │   ├── silver_player_transformation.py # Fantasy analytics Silver CLI
 │   ├── silver_team_transformation.py  # Team metrics Silver CLI
 │   ├── silver_advanced_transformation.py # Advanced player profiles Silver CLI
@@ -238,7 +238,7 @@ nfl_data_engineering/
 │   └── test_utils.py                  # 5 tests — S3 paths, validation
 │
 ├── data/                              # Local data store (gitignored)
-│   ├── bronze/                        # 93 MB across 15+ data types
+│   ├── bronze/                        # 93 MB across 25+ data types
 │   ├── silver/                        # 16 MB analytics-ready features
 │   └── gold/                          # Projection outputs
 │
@@ -282,7 +282,7 @@ source venv/bin/activate
 python -m pytest tests/ -v
 ```
 
-71 unit tests pass across scoring, projections, player analytics, draft optimization, and utilities. Test files map 1:1 to source modules.
+274 tests pass across scoring, projections, player analytics, team analytics, advanced profiles, draft optimization, ingestion, and utilities.
 
 Code quality:
 

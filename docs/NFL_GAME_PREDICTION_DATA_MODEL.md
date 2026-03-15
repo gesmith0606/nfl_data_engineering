@@ -102,7 +102,7 @@ All Bronze tables below are ingested and stored in `data/bronze/` (local) and `s
 
 - **Source:** `nfl-data-py` via `NFLDataAdapter.fetch_player_weekly()`
 - **Storage:** `s3://nfl-raw/player_weekly/season=YYYY/`
-- **Seasons:** 1999-2025
+- **Seasons:** 2002-2025
 - **Key columns:** player_id, player_name, position, recent_team, completions, attempts, passing_yards, rushing_yards, receptions, receiving_yards, targets, fantasy_points
 - **Full column specs:** See [NFL Data Dictionary -- Player Weekly](NFL_DATA_DICTIONARY.md#player-weekly-stats)
 
@@ -110,7 +110,7 @@ All Bronze tables below are ingested and stored in `data/bronze/` (local) and `s
 
 - **Source:** `nfl-data-py` via `NFLDataAdapter.fetch_player_seasonal()`
 - **Storage:** `s3://nfl-raw/player_seasonal/season=YYYY/`
-- **Seasons:** 1999-2025
+- **Seasons:** 2002-2025
 - **Full column specs:** See [NFL Data Dictionary -- Player Seasonal](NFL_DATA_DICTIONARY.md#player-seasonal-stats)
 
 #### Rosters -- Implemented
@@ -640,10 +640,8 @@ See `src/nfl_data_integration.py` for the validation implementation.
 
 | Phase | Name | Requirements | Status |
 |-------|------|-------------|--------|
-| 18 | Rolling Team EPA (week-scoped) | SLV-01, SLV-02 | **Planned** |
-| 19 | Matchup Features | SLV-03 | **Planned** |
-| 20 | ML Pipeline | ML-01, ML-02, ML-03 | **Planned** |
-| 21 | nflreadpy Migration | MIG-01 | **Planned** |
+| 18 | Historical Context (Combine/Draft Profiles) | HIST-01, HIST-02 | **In Progress** |
+| 19+ | Silver Prediction Layer, ML Pipeline, nflreadpy Migration | SLV-01–03, ML-01–03, MIG-01 | **Planned** |
 
 See [NFL Data Model Implementation Guide](NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md) for detailed phase descriptions.
 
@@ -651,7 +649,7 @@ See [NFL Data Model Implementation Guide](NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md
 
 ## Conclusion
 
-This data model provides a comprehensive foundation for NFL game prediction. The Bronze layer is fully implemented with 15+ data types covering games, players, advanced stats, and context data. The Silver layer now includes five implemented subsections beyond the original fantasy analytics pipeline: team PBP metrics (EPA, CPOE, success rate, red zone), team tendencies (pace, PROE, 4th-down aggressiveness), strength of schedule rankings, situational splits (home/away, divisional, game script), and advanced player profiles aggregating NGS tracking, PFR pressure data, and QBR. The Gold layer has working fantasy projections, with game outcome predictions planned as v2 work. The ML integration layer is designed to produce 200+ features targeting 65%+ prediction accuracy.
+This data model provides a comprehensive foundation for NFL game prediction. The Bronze layer is fully implemented with 25+ data types covering games, players, advanced stats, and context data. The Silver layer now includes five implemented subsections beyond the original fantasy analytics pipeline: team PBP metrics (EPA, CPOE, success rate, red zone), team tendencies (pace, PROE, 4th-down aggressiveness), strength of schedule rankings, situational splits (home/away, divisional, game script), and advanced player profiles aggregating NGS tracking, PFR pressure data, and QBR. The Gold layer has working fantasy projections, with game outcome predictions planned as v2 work. The ML integration layer is designed to produce 200+ features targeting 65%+ prediction accuracy.
 
 ---
 *Version 3.0 -- Updated March 15, 2026 to document Silver layer expansion through Phase 17 (team metrics, tendencies, SOS, situational splits, advanced player profiles)*

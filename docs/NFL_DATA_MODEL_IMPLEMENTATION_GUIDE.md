@@ -396,19 +396,19 @@ Built by `scripts/backtest_projections.py`:
 
 ### Test Suite
 
-71+ unit tests passing across:
+274 tests passing across:
 - `tests/test_scoring_calculator.py` (14 tests)
 - `tests/test_projection_engine.py` (19 tests)
 - `tests/test_player_analytics.py` (7 tests, including 3 rolling window regression tests added in Phase 15)
 - `tests/test_draft_optimizer.py` (13 tests)
 - `tests/test_utils.py` (5 tests)
-- `tests/test_nfl_data_adapter.py` and `tests/test_advanced_ingestion.py` (13+ tests)
+- `tests/test_advanced_ingestion.py` (22 tests)
 - `tests/test_bronze_validation.py` (8 tests added Phase 6)
 - `tests/test_infrastructure.py` (extended through Phases 7-12)
 - `tests/test_team_analytics.py` (36 tests added Phases 15-16)
 - `tests/test_pbp_ingestion.py` (13 tests added Phase 9)
 
-Full suite at 246+ passing tests as of Phase 16 completion.
+Full suite at 274 passing tests as of Phase 17 completion.
 
 ---
 
