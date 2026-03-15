@@ -232,13 +232,27 @@ def join_combine_draft(
     Returns:
         Merged DataFrame with one row per player.
     """
-    merged = combine_df.merge(
-        draft_df,
+    # Separate null pfr_ids BEFORE merge to avoid NaN-NaN cross-product.
+    # Pandas outer join matches NaN keys, causing row explosion.
+    combine_with_id = combine_df[combine_df["pfr_id"].notna()].copy()
+    combine_no_id = combine_df[combine_df["pfr_id"].isna()].copy()
+    draft_with_id = draft_df[draft_df["pfr_player_id"].notna()].copy()
+    draft_no_id = draft_df[draft_df["pfr_player_id"].isna()].copy()
+
+    # Outer join only on rows that have join keys
+    merged = combine_with_id.merge(
+        draft_with_id,
         left_on="pfr_id",
         right_on="pfr_player_id",
         how="outer",
         suffixes=("_combine", "_draft"),
     )
+
+    # Append null-key rows from both sides (no join, just concat)
+    if not combine_no_id.empty:
+        merged = pd.concat([merged, combine_no_id], ignore_index=True)
+    if not draft_no_id.empty:
+        merged = pd.concat([merged, draft_no_id], ignore_index=True)
 
     # Coalesce overlapping columns: prefer combine, fall back to draft
     if "season_combine" in merged.columns and "season_draft" in merged.columns:
