@@ -1,5 +1,19 @@
 # Milestones
 
+## v1.2 Silver Expansion (Shipped: 2026-03-15)
+
+**Phases completed:** 5 phases, 10 plans, 25 requirements
+**Commits:** 60 | **LOC:** 16,821 Python | **Tests:** 289 passing (103 new)
+
+**Key accomplishments:**
+- PBP-derived team performance metrics (EPA, success rate, CPOE, red zone efficiency) and tendencies (pace, PROE, 4th-down aggressiveness) with 3/6-game rolling windows
+- Opponent-adjusted EPA with lagged schedule difficulty rankings (1-32) and situational splits (home/away, divisional, game script) with rolling windows
+- Advanced player profiles from NGS/PFR/QBR data (separation, RYOE, TTT, pressure, blitz, QBR) with three-tier join strategy across 47K+ player-weeks
+- Historical dimension table with combine measurables (speed score, burst, catch radius) and Jimmy Johnson draft chart values for 9,892 players
+- Pipeline health monitoring for all 7 Silver paths, config-driven S3 keys, and tech debt cleanup closing all audit gaps
+
+---
+
 ## v1.1 Bronze Backfill (Shipped: 2026-03-13)
 
 **Phases completed:** 7 phases, 12 plans, 0 tasks

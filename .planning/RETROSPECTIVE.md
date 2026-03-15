@@ -94,6 +94,53 @@
 
 ---
 
+## Milestone: v1.2 — Silver Expansion
+
+**Shipped:** 2026-03-15
+**Phases:** 5 | **Plans:** 10 | **Sessions:** ~4
+
+### What Was Built
+- PBP-derived team performance metrics (EPA, success rate, CPOE, red zone efficiency) and tendencies (pace, PROE, 4th-down aggressiveness) with 3/6-game rolling windows
+- Opponent-adjusted EPA with lagged schedule difficulty rankings and situational splits (home/away, divisional, game script)
+- Advanced player profiles from NGS/PFR/QBR data with three-tier join strategy across 47K+ player-weeks
+- Historical dimension table with combine measurables and Jimmy Johnson draft chart values for 9,892 players
+- Pipeline health monitoring for all 7 Silver paths; tech debt cleanup closing all audit gaps
+- 103 new tests (289 total)
+
+### What Worked
+- Single tech debt cleanup phase (19) efficiently closed all 4 audit gaps in one plan
+- Audit-then-fix pattern from v1.0/v1.1 now well-established — only 1 gap-closure phase needed (vs 2-3 in prior milestones)
+- Separate modules (team_analytics.py, player_advanced_analytics.py, historical_profiles.py) kept existing test suite stable
+- Three-tier join strategy (GSIS ID, name+team, team-only) solved the cross-source player matching problem cleanly
+- Rolling window convention (entity, season groupby with shift(1)) was established once in Phase 15 and reused in all subsequent phases
+
+### What Was Inefficient
+- Phase 19 was only needed because health check wiring and config imports weren't done during Phases 15-17 — should be part of initial implementation checklist
+- ROADMAP.md plan checkboxes still not auto-updated (same issue as v1.1)
+- Phase 19 row in progress table had formatting error (missing milestone column)
+
+### Patterns Established
+- Team rolling: `apply_team_rolling(df, cols, [team, season])` with min_periods=1
+- Player rolling: `apply_player_rolling(df, cols, [player_id, season])` with min_periods=3
+- Static dimension table: no season/week partition, flat Parquet file (historical profiles)
+- Three-tier player join: GSIS ID (primary) → name+team (secondary) → team-only (tertiary)
+- Lagged SOS: opponent strength uses week N-1 data only to avoid circular dependency
+- Synthetic player IDs: name+team hash when GSIS ID unavailable (PFR/QBR sources)
+
+### Key Lessons
+1. Wire health check monitoring as part of each feature phase, not as a cleanup step
+2. Config constant imports (not hard-coded paths) should be a code review checklist item
+3. Three-tier join pattern is robust for cross-source player matching — reuse in future modules
+4. Rolling window convention must include groupby columns to prevent cross-season contamination
+5. Static dimension tables are the right pattern for rarely-changing reference data (combine, draft)
+
+### Cost Observations
+- Model mix: ~70% opus, ~30% sonnet (more sonnet for execution phases)
+- Sessions: ~4
+- Notable: Fastest milestone yet (3 days) — established patterns from v1.0/v1.1 accelerated execution significantly
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
@@ -102,6 +149,7 @@
 |-----------|----------|--------|------------|
 | v1.0 | ~5 | 7 | First GSD milestone; 3 audit cycles to pass |
 | v1.1 | ~6 | 7 | Gap-closure phases (13-14) added from audit; 2 audit cycles |
+| v1.2 | ~4 | 5 | Single gap-closure phase (19); fastest milestone (3 days) |
 
 ### Cumulative Quality
 
@@ -109,11 +157,13 @@
 |-----------|-------|----------|------------|
 | v1.0 | 141 | — | 23/23 requirements satisfied, 9/9 integrations connected |
 | v1.1 | 186 | — | 22/22 requirements satisfied, 7/7 integrations wired, 2/2 E2E flows |
+| v1.2 | 289 | — | 25/25 requirements satisfied, 22/25 integrations wired, 3/4 E2E flows |
 
 ### Top Lessons (Verified Across Milestones)
 
 1. Milestone audits catch real gaps — invest in audit-first before marking complete
-2. Wire validation into pipelines during initial implementation, not as gap closure
-3. Plan for integration testing within ingestion phases, not as separate gap-closure work
-4. Registry/adapter patterns pay dividends — v1.1 added 9 types with zero architectural changes
+2. Wire validation/health checks into pipelines during initial implementation, not as gap closure
+3. Plan for integration testing within feature phases, not as separate gap-closure work
+4. Registry/adapter patterns pay dividends — adding new types and modules is config-only
 5. nflverse API instability (tag renames, schema changes) requires defensive adapter routing
+6. Established conventions (rolling windows, join patterns) compound — v1.2 was 2x faster than v1.0

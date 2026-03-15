@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), registry-driven ingestion, batch orchestration, and local-first storage with 517 files totaling 93 MB.
+A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), an expanded Silver layer with PBP-derived team analytics, advanced player profiles, strength of schedule, and historical context — all with rolling windows — plus registry-driven ingestion, batch orchestration, and local-first storage.
 
 ## Core Value
 
@@ -30,17 +30,18 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ 2025 player stats via stats_player adapter with column mapping — v1.1
 - ✓ Bronze-Silver path alignment (snap_counts, schedules) — v1.1
 - ✓ Bronze inventory: 15 data types, 10 years, all validated — v1.1
+- ✓ PBP-derived team metrics (EPA, success rate, CPOE, red zone) with 3/6-game rolling windows — v1.2
+- ✓ Team tendencies (pace, PROE, 4th-down aggressiveness, early-down run rate) with rolling windows — v1.2
+- ✓ Opponent-adjusted EPA with lagged SOS and schedule difficulty rankings (1-32) — v1.2
+- ✓ Situational splits (home/away, divisional, game script) with rolling EPA — v1.2
+- ✓ Advanced player profiles (NGS separation/RYOE/TTT, PFR pressure/blitz, QBR) with rolling windows — v1.2
+- ✓ Historical dimension table: combine measurables + draft capital for 9,892 players — v1.2
+- ✓ Pipeline health monitoring for all 7 Silver paths — v1.2
+- ✓ 289 total tests passing — v1.2
 
 ### Active
 
-**Current Milestone: v1.2 Silver Expansion**
-
-- [ ] PBP-derived team metrics (EPA/play, success rate, CPOE, red zone efficiency) with rolling windows
-- [ ] Team tendencies (pace, pass rate over expected, 4th down aggressiveness) with rolling windows
-- [ ] Situational breakdowns (game script splits, home/away, divisional) with rolling windows
-- [ ] Advanced player profiles (NGS separation/RYOE, PFR pressure/blitz, QBR) with rolling windows
-- [ ] Strength of schedule (opponent-adjusted EPA, schedule difficulty rankings) with rolling windows
-- [ ] Historical context (combine measurables + draft capital linked to players for rookie/breakout modeling)
+(None — planning next milestone)
 
 ### Out of Scope
 
@@ -51,11 +52,12 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ## Context
 
-Shipped v1.1 with 12,084 LOC Python across 14 phases and 23 plans (two milestones).
+Shipped v1.2 with 16,821 LOC Python across 19 phases and 33 plans (three milestones).
 Tech stack: Python 3.9, pandas, pyarrow, nfl-data-py, local Parquet storage (S3 optional).
 Bronze layer: 15 data types covering schedules, player stats, PBP, NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts — 517 files, 93 MB.
-Silver layer: usage metrics, rolling averages, opponent rankings.
+Silver layer: team metrics (EPA, tendencies, SOS, situational), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 7 output paths.
 Gold layer: weekly + preseason projections with injury adjustments, regression shrinkage, floor/ceiling.
+Tests: 289 passing across 5 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -89,7 +91,11 @@ Existing documentation:
 | Batch ingestion with skip-existing | Idempotent reruns, graceful failure handling | ✓ Good |
 | Dry-run default for cleanup scripts | Safe filesystem operations | ✓ Good |
 
-| Rolling windows for team metrics | In-season predictions need recency; season aggregates miss momentum | — Pending |
+| Rolling windows for team metrics | In-season predictions need recency; season aggregates miss momentum | ✓ Good |
+| Separate team_analytics.py module | Protects existing player_analytics.py test suite | ✓ Good |
+| Three-tier join for advanced profiles | GSIS ID (NGS), name+team (PFR/QBR), team-only (blitz) | ✓ Good |
+| Static dimension table for historical | No season/week partition; avoids row explosion | ✓ Good |
+| Lagged SOS (week N-1 only) | Avoids circular dependency in opponent-adjusted EPA | ✓ Good |
 
 ---
-*Last updated: 2026-03-13 after v1.2 milestone started*
+*Last updated: 2026-03-15 after v1.2 milestone*
