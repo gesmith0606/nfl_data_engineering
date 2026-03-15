@@ -50,6 +50,19 @@ REQUIRED_BRONZE_PREFIXES = {
     "games":         "games/season={season}/week={week}/",
 }
 
+# Silver partition prefixes that must exist for each season/week.
+# Keys are human-readable labels; values are prefix templates.
+REQUIRED_SILVER_PREFIXES = {
+    "usage_metrics": "players/usage/season={season}/week={week}/",
+    "pbp_metrics": "teams/pbp_metrics/season={season}/",
+    "tendencies": "teams/tendencies/season={season}/",
+    "sos": "teams/sos/season={season}/",
+    "situational": "teams/situational/season={season}/",
+    "advanced_profiles": "players/advanced/season={season}/",
+    # Historical profiles: static dimension table, no season/week partition
+    "historical_profiles": "players/historical/",
+}
+
 # Gold projection prefix template.
 GOLD_PROJECTION_PREFIX = "projections/season={season}/week={week}/"
 
@@ -322,18 +335,21 @@ def run_health_checks(
     if layer_filter in (None, "silver"):
         print("\n--- Silver Layer ---")
 
-        silver_prefix = f"players/usage/season={season}/week={week}/"
-        all_results.append(
-            check_layer_freshness(
-                s3, silver_bucket, "Silver usage metrics",
-                prefix=silver_prefix,
-                max_age_days=max_age_days,
-            )
-        )
+        for data_type, prefix_tmpl in REQUIRED_SILVER_PREFIXES.items():
+            prefix = prefix_tmpl.format(season=season, week=week)
+            label = f"Silver {data_type}"
 
-        all_results.extend(
-            check_file_sizes(s3, silver_bucket, "Silver usage metrics", silver_prefix)
-        )
+            all_results.append(
+                check_layer_freshness(
+                    s3, silver_bucket, label,
+                    prefix=prefix,
+                    max_age_days=max_age_days,
+                )
+            )
+
+            all_results.extend(
+                check_file_sizes(s3, silver_bucket, label, prefix)
+            )
 
     # ---------------------------------------------------------
     # GOLD layer checks
