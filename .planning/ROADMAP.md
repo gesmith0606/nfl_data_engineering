@@ -4,7 +4,7 @@
 
 - ✅ **v1.0 Bronze Expansion** — Phases 1-7 (shipped 2026-03-08)
 - ✅ **v1.1 Bronze Backfill** — Phases 8-14 (shipped 2026-03-13)
-- [ ] **v1.2 Silver Expansion** — Phases 15-18 (in progress)
+- [ ] **v1.2 Silver Expansion** — Phases 15-19 (in progress)
 
 ## Phases
 
@@ -46,6 +46,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 - [x] **Phase 16: Strength of Schedule and Situational Splits** - Opponent-adjusted EPA rankings and schedule difficulty; home/away, divisional, and game script performance splits with rolling windows (completed 2026-03-14)
 - [x] **Phase 17: Advanced Player Profiles** - NGS separation/RYOE/TTT, PFR pressure/blitz rates, QBR rolling windows per player-week via new advanced analytics module (completed 2026-03-14)
 - [x] **Phase 18: Historical Context** - Combine measurables and draft capital linked to player IDs as a static dimension table for rookie/breakout modeling (completed 2026-03-15)
+- [ ] **Phase 19: v1.2 Tech Debt Cleanup** - Close audit gaps: wire health check for 6 new Silver paths, use config constants in silver_team_transformation.py, fix deferred import, document historical partition exception
 
 ## Phase Details
 
@@ -106,6 +107,19 @@ Plans:
 - [ ] 18-01-PLAN.md -- Config registration, historical_profiles.py compute module with tests
 - [ ] 18-02-PLAN.md -- silver_historical_transformation.py CLI with end-to-end pipeline
 
+### Phase 19: v1.2 Tech Debt Cleanup
+**Goal**: Close all integration and flow gaps identified by the v1.2 milestone audit — wire health monitoring for new Silver paths, eliminate hard-coded S3 paths, fix deferred import, document partition exception
+**Depends on**: Phase 18 (all feature phases complete)
+**Requirements**: INFRA-01, INFRA-03, PROF-05 (gap closure — requirements already satisfied, fixing implementation quality)
+**Gap Closure:** Closes gaps from v1.2-MILESTONE-AUDIT.md
+**Success Criteria** (what must be TRUE):
+  1. `check_pipeline_health.py` monitors all 6 new Silver paths (teams/pbp_metrics, teams/tendencies, teams/sos, teams/situational, players/advanced, players/historical)
+  2. `silver_team_transformation.py` imports and uses `SILVER_TEAM_S3_KEYS` from `config.py` instead of hard-coded f-strings
+  3. `player_advanced_analytics.py` uses top-level import of `apply_team_rolling` instead of deferred import
+  4. Historical profiles partition exception is documented in code comment
+Plans:
+- [ ] 19-01-PLAN.md -- All tech debt fixes (health check paths, config imports, deferred import, partition docs)
+
 ## Progress
 
 **Execution Order:**
@@ -130,7 +144,8 @@ Phases execute in numeric order: 15 -> 16 -> 17 -> 18
 | 15. PBP Team Metrics and Tendencies | v1.2 | 3/3 | Complete | 2026-03-14 |
 | 16. Strength of Schedule and Situational Splits | v1.2 | 2/2 | Complete | 2026-03-14 |
 | 17. Advanced Player Profiles | v1.2 | 2/2 | Complete | 2026-03-14 |
-| 18. Historical Context | 2/2 | Complete    | 2026-03-15 | - |
+| 18. Historical Context | v1.2 | 2/2 | Complete | 2026-03-15 |
+| 19. v1.2 Tech Debt Cleanup | v1.2 | 0/1 | Planned | - |
 
 ---
 *Roadmap created: 2026-03-08*
