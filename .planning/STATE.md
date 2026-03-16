@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Prediction Data Foundation
 status: completed
-stopped_at: Completed 21-02-PLAN.md
+stopped_at: Completed 21-01-PLAN.md and 21-02-PLAN.md
 last_updated: "2026-03-16T22:32:09.692Z"
 last_activity: 2026-03-16 — Completed Phase 20 (PBP re-ingestion + officials data for 2016-2025)
 progress:
@@ -29,10 +29,10 @@ v1.3 Prediction Data Foundation — Ready to plan Phase 20
 
 ## Current Position
 
-Phase: 20 of 23 (Infrastructure and Data Expansion)
-Plan: 2 of 2 in current phase (COMPLETE)
-Status: Phase Complete
-Last activity: 2026-03-16 — Completed Phase 20 (PBP re-ingestion + officials data for 2016-2025)
+Phase: 21 of 23 (PBP-Derived Team Metrics)
+Plan: 2 of 3 in current phase
+Status: Plans 01 and 02 complete
+Last activity: 2026-03-16 — Completed Phase 21 Plans 01+02 (core PBP metrics + ST/drive/TOP functions)
 
 Progress: [██████████] 100%
 
@@ -66,6 +66,9 @@ Carried from v1.2. See PROJECT.md Key Decisions table.
 - [Phase 21]: Touchback proxy: KO uses return_yards==0 + kickoff_returner_player_id IS NULL; punt uses punt_in_endzone==1
 - [Phase 21]: FG buckets use kick_distance with NFL-standard <30/30-39/40-49/50+ split
 - [Phase 21]: Added _filter_st_plays helper (Plan 01 dep) as Rule 3 auto-fix in Plan 02
+- **Phase 21-01**: Penalty metrics use penalty==1 flag with penalty_team off/def split
+- **Phase 21-01**: Turnover luck uses expanding window with shift(1) lag, not rolling
+- **Phase 21-01**: is_turnover_lucky threshold: >0.60=lucky, <0.40=unlucky
 
 ### Pending Todos
 
@@ -77,9 +80,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T22:32:09.689Z
-Stopped at: Completed 21-02-PLAN.md
-Resume file: None
+Last session: 2026-03-16T22:32:29Z
+Stopped at: Completed 21-01-PLAN.md and 21-02-PLAN.md
+Resume file: .planning/phases/21-pbp-derived-team-metrics/21-03-PLAN.md
 
 ---
 *Last updated: 2026-03-15 after v1.3 roadmap created*
