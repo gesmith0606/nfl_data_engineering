@@ -1739,3 +1739,72 @@ def compute_sack_rates(valid_plays: pd.DataFrame) -> pd.DataFrame:
 
     logger.info("Sack rates computed for %d team-weeks", len(result))
     return result
+
+
+# ---------------------------------------------------------------------------
+# PBP-Derived Metrics Orchestrator (Phase 21, Plan 03)
+# ---------------------------------------------------------------------------
+
+
+def compute_pbp_derived_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Orchestrate all PBP-derived metric computations and apply rolling windows.
+
+    Calls 11 individual compute functions, merges results on (team, season, week),
+    and applies rolling windows to all stat columns except turnover luck (which uses
+    its own expanding window internally).
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame.
+
+    Returns:
+        DataFrame with all PBP-derived metrics plus rolling (_roll3, _roll6, _std) columns.
+    """
+    valid = _filter_valid_plays(pbp_df)
+
+    if valid.empty:
+        logger.warning("No valid plays after filtering; returning empty DataFrame")
+        return pd.DataFrame()
+
+    # Functions receiving raw PBP (apply own filters)
+    penalties_df = compute_penalty_metrics(pbp_df)
+    opp_penalties_df = compute_opp_drawn_penalties(pbp_df)
+    turnover_df = compute_turnover_luck(pbp_df)
+    fg_df = compute_fg_accuracy(pbp_df)
+    return_df = compute_return_metrics(pbp_df)
+    top_df = compute_top(pbp_df)
+
+    # Functions receiving filtered valid plays
+    rz_trips_df = compute_red_zone_trips(valid)
+    third_down_df = compute_third_down_rates(valid)
+    explosive_df = compute_explosive_plays(valid)
+    drive_df = compute_drive_efficiency(valid)
+    sack_df = compute_sack_rates(valid)
+
+    # Merge all on (team, season, week)
+    dfs = [
+        penalties_df, opp_penalties_df, turnover_df, rz_trips_df,
+        fg_df, return_df, third_down_df, explosive_df, drive_df,
+        sack_df, top_df,
+    ]
+
+    merged = dfs[0]
+    for df in dfs[1:]:
+        if not df.empty:
+            merged = merged.merge(df, on=["team", "season", "week"], how="outer")
+
+    # Identify stat columns, excluding turnover luck (uses expanding window internally)
+    key_cols = {"team", "season", "week"}
+    turnover_cols = {
+        "fumbles_lost", "fumbles_forced", "own_fumble_recovery_rate",
+        "opp_fumble_recovery_rate", "is_turnover_lucky",
+    }
+    stat_cols = [c for c in merged.columns if c not in key_cols and c not in turnover_cols]
+
+    # Apply rolling windows
+    result = apply_team_rolling(merged, stat_cols)
+
+    logger.info(
+        "PBP-derived metrics complete: %d rows, %d teams, %d columns",
+        len(result), result["team"].nunique(), len(result.columns),
+    )
+    return result

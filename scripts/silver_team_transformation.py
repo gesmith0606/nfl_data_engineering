@@ -30,6 +30,7 @@ from team_analytics import (
     compute_tendency_metrics,
     compute_sos_metrics,
     compute_situational_splits,
+    compute_pbp_derived_metrics,
 )
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -186,7 +187,19 @@ def run_silver_team_transform(
                 f"{sit_df['team'].nunique()} teams"
             )
 
-        # 6. Save to Silver layer (local + optional S3)
+        # 6. Compute PBP-derived metrics
+        print("  Computing PBP-derived metrics...")
+        pbp_derived_df = compute_pbp_derived_metrics(pbp_df)
+        if pbp_derived_df.empty:
+            print("    WARNING: No PBP-derived metrics produced.")
+        else:
+            print(
+                f"    PBP-derived: {len(pbp_derived_df):,} rows, "
+                f"{pbp_derived_df['team'].nunique()} teams, "
+                f"{len(pbp_derived_df.columns)} columns"
+            )
+
+        # 7. Save to Silver layer (local + optional S3)
         print("  Saving to Silver layer...")
 
         pbp_key = SILVER_TEAM_S3_KEYS["pbp_metrics"].format(season=season, ts=ts)
@@ -211,6 +224,12 @@ def run_silver_team_transform(
             _save_local_silver(sit_df, sit_key, ts)
             if s3_bucket:
                 _try_s3_upload(sit_df, s3_bucket, sit_key)
+
+        if not pbp_derived_df.empty:
+            derived_key = SILVER_TEAM_S3_KEYS["pbp_derived"].format(season=season, ts=ts)
+            _save_local_silver(pbp_derived_df, derived_key, ts)
+            if s3_bucket:
+                _try_s3_upload(pbp_derived_df, s3_bucket, derived_key)
 
         print(f"  Season {season} complete.")
 

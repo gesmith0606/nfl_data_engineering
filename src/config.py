@@ -183,6 +183,7 @@ SILVER_TEAM_S3_KEYS = {
     "tendencies": "teams/tendencies/season={season}/tendencies_{ts}.parquet",
     "sos": "teams/sos/season={season}/sos_{ts}.parquet",
     "situational": "teams/situational/season={season}/situational_{ts}.parquet",
+    "pbp_derived": "teams/pbp_derived/season={season}/pbp_derived_{ts}.parquet",
 }
 
 # Files are written with a timestamp suffix to preserve full history.
