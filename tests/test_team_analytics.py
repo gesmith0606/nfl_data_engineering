@@ -1471,3 +1471,336 @@ class TestComputeTOP:
         b_def = result[result["team"] == "B"]
         assert len(b_def) == 1
         assert abs(b_def["def_top_seconds"].iloc[0] - 525.0) < 1e-6
+
+
+# ---------------------------------------------------------------------------
+# Phase 21 Plan 01: PBP-Derived Metric Functions Tests
+# ---------------------------------------------------------------------------
+
+
+class TestFilterStPlays:
+    """Tests for _filter_st_plays helper."""
+
+    def test_keeps_st_plays_excludes_regular(self):
+        """ST plays are kept, regular pass/run plays excluded."""
+        rows = [
+            # Regular plays (should be excluded)
+            {"play_type": "pass", "special_teams_play": 0, "season_type": "REG", "week": 1,
+             "posteam": "A", "defteam": "B", "season": 2024},
+            {"play_type": "run", "special_teams_play": 0, "season_type": "REG", "week": 1,
+             "posteam": "A", "defteam": "B", "season": 2024},
+            # ST via flag
+            {"play_type": "kickoff", "special_teams_play": 1, "season_type": "REG", "week": 1,
+             "posteam": "A", "defteam": "B", "season": 2024},
+            # ST via play_type (punt)
+            {"play_type": "punt", "special_teams_play": 0, "season_type": "REG", "week": 1,
+             "posteam": "A", "defteam": "B", "season": 2024},
+            # ST via play_type (field_goal)
+            {"play_type": "field_goal", "special_teams_play": 1, "season_type": "REG", "week": 1,
+             "posteam": "A", "defteam": "B", "season": 2024},
+        ]
+        pbp = pd.DataFrame(rows)
+        result = _filter_st_plays(pbp)
+        assert len(result) == 3
+        assert set(result["play_type"]) == {"kickoff", "punt", "field_goal"}
+
+    def test_excludes_non_reg_plays(self):
+        """POST season plays are excluded."""
+        rows = [
+            {"play_type": "punt", "special_teams_play": 1, "season_type": "POST", "week": 1,
+             "posteam": "A", "defteam": "B", "season": 2024},
+            {"play_type": "punt", "special_teams_play": 1, "season_type": "REG", "week": 1,
+             "posteam": "A", "defteam": "B", "season": 2024},
+        ]
+        pbp = pd.DataFrame(rows)
+        result = _filter_st_plays(pbp)
+        assert len(result) == 1
+
+
+class TestComputePenaltyMetrics:
+    """Tests for compute_penalty_metrics."""
+
+    def test_penalty_off_def_split(self):
+        """Penalties split correctly by penalty_team == posteam/defteam."""
+        rows = [
+            # Off penalty 1 (penalty_team == posteam A)
+            {"posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+             "season_type": "REG", "play_type": "pass", "penalty": 1,
+             "penalty_team": "A", "penalty_yards": 5, "epa": 0.0},
+            # Off penalty 2
+            {"posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+             "season_type": "REG", "play_type": "run", "penalty": 1,
+             "penalty_team": "A", "penalty_yards": 10, "epa": 0.0},
+            # Def penalty (penalty_team == defteam B, while A on offense)
+            {"posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+             "season_type": "REG", "play_type": "pass", "penalty": 1,
+             "penalty_team": "B", "penalty_yards": 15, "epa": 0.0},
+            # Non-penalty play (should be excluded)
+            {"posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+             "season_type": "REG", "play_type": "pass", "penalty": 0,
+             "penalty_team": None, "penalty_yards": 0, "epa": 0.1},
+        ]
+        pbp = pd.DataFrame(rows)
+        result = compute_penalty_metrics(pbp)
+
+        # Team A row
+        a = result[result["team"] == "A"]
+        assert len(a) == 1
+        assert a["off_penalties"].iloc[0] == 2
+        assert a["off_penalty_yards"].iloc[0] == 15
+
+        # Team B should appear via def perspective
+        # B has def_penalties (penalty_team B == defteam B) -> 1 penalty, 15 yards
+        b = result[result["team"] == "B"]
+        assert len(b) == 1
+        assert b["def_penalties"].iloc[0] == 1
+        assert b["def_penalty_yards"].iloc[0] == 15
+
+    def test_excludes_non_reg(self):
+        """Non-REG season plays excluded from penalty metrics."""
+        rows = [
+            {"posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+             "season_type": "POST", "play_type": "pass", "penalty": 1,
+             "penalty_team": "A", "penalty_yards": 5, "epa": 0.0},
+        ]
+        pbp = pd.DataFrame(rows)
+        result = compute_penalty_metrics(pbp)
+        assert result.empty
+
+
+class TestComputeOppDrawnPenalties:
+    """Tests for compute_opp_drawn_penalties."""
+
+    def test_drawn_penalties_are_opponent_committed(self):
+        """Off penalties drawn = defensive penalties grouped by posteam."""
+        rows = [
+            # Def penalty committed by B when A is on offense -> A draws it
+            {"posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+             "season_type": "REG", "play_type": "pass", "penalty": 1,
+             "penalty_team": "B", "penalty_yards": 15, "epa": 0.0},
+            # Off penalty committed by A -> B's defense draws it
+            {"posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+             "season_type": "REG", "play_type": "run", "penalty": 1,
+             "penalty_team": "A", "penalty_yards": 10, "epa": 0.0},
+        ]
+        pbp = pd.DataFrame(rows)
+        result = compute_opp_drawn_penalties(pbp)
+
+        # Team A drew 1 offensive penalty (B's defensive penalty)
+        a = result[result["team"] == "A"]
+        assert a["off_penalties_drawn"].iloc[0] == 1
+        assert a["off_penalty_yards_drawn"].iloc[0] == 15
+
+        # Team B drew 1 defensive penalty (A's offensive penalty)
+        b = result[result["team"] == "B"]
+        assert b["def_penalties_drawn"].iloc[0] == 1
+        assert b["def_penalty_yards_drawn"].iloc[0] == 10
+
+
+class TestComputeTurnoverLuck:
+    """Tests for compute_turnover_luck."""
+
+    def test_fumble_recovery_rate_and_luck_flag(self):
+        """Own recovery rate computed correctly; lucky flag set when > 0.60."""
+        rows = []
+        # Team A has 4 fumbles: 3 recovered by A, 1 by B
+        for i in range(3):
+            rows.append({
+                "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+                "season_type": "REG", "play_type": "run", "fumble": 1,
+                "fumble_recovery_1_team": "A", "epa": -0.5,
+            })
+        rows.append({
+            "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+            "season_type": "REG", "play_type": "run", "fumble": 1,
+            "fumble_recovery_1_team": "B", "epa": -1.0,
+        })
+        pbp = pd.DataFrame(rows)
+        result = compute_turnover_luck(pbp)
+
+        a = result[result["team"] == "A"]
+        assert len(a) >= 1
+        # Own recovery rate = 3/4 = 0.75
+        assert abs(a["own_fumble_recovery_rate"].iloc[0] - 0.75) < 1e-6
+        # fumbles_lost = 1
+        assert a["fumbles_lost"].iloc[0] == 1
+        # Lucky flag (0.75 > 0.60)
+        assert a["is_turnover_lucky"].iloc[0] == 1
+
+    def test_uses_expanding_not_rolling(self):
+        """Turnover luck uses expanding window with shift(1), not rolling."""
+        rows = []
+        # Week 1: 2 fumbles, 1 recovered
+        rows.append({
+            "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+            "season_type": "REG", "play_type": "run", "fumble": 1,
+            "fumble_recovery_1_team": "A", "epa": -0.5,
+        })
+        rows.append({
+            "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+            "season_type": "REG", "play_type": "run", "fumble": 1,
+            "fumble_recovery_1_team": "B", "epa": -1.0,
+        })
+        # Week 2: 1 fumble, recovered
+        rows.append({
+            "posteam": "A", "defteam": "B", "season": 2024, "week": 2,
+            "season_type": "REG", "play_type": "run", "fumble": 1,
+            "fumble_recovery_1_team": "A", "epa": -0.3,
+        })
+        pbp = pd.DataFrame(rows)
+        result = compute_turnover_luck(pbp)
+
+        a = result[result["team"] == "A"].sort_values("week")
+        # Week 1 STD should be NaN (shift(1) on first week)
+        assert pd.isna(a.iloc[0]["own_fumble_recovery_rate_std"])
+        # Week 2 STD should be week 1's value (0.5) via expanding after shift
+        assert abs(a.iloc[1]["own_fumble_recovery_rate_std"] - 0.5) < 1e-6
+
+
+class TestComputeRedZoneTrips:
+    """Tests for compute_red_zone_trips."""
+
+    def test_trips_count_drives_not_plays(self):
+        """RZ trips = drive nunique, not play count."""
+        # 8 plays across 4 drives in the red zone
+        plays = []
+        for drive_id in [1, 2, 3, 4]:
+            plays.append({
+                "play_type": "pass", "epa": 0.1, "success": 1, "cpoe": 1.0,
+                "pass_attempt": 1, "yardline_100": 15, "drive": drive_id, "touchdown": 0,
+            })
+            plays.append({
+                "play_type": "run", "epa": 0.2, "success": 1, "cpoe": None,
+                "pass_attempt": 0, "yardline_100": 10, "drive": drive_id, "touchdown": 0,
+            })
+
+        pbp = _make_pbp_rows("A", "B", 2024, 1, plays)
+        valid = _filter_valid_plays(pbp)
+        result = compute_red_zone_trips(valid)
+
+        a = result[result["team"] == "A"]
+        assert a["off_rz_trips"].iloc[0] == 4  # 4 drives, not 8 plays
+
+    def test_non_rz_plays_excluded(self):
+        """Plays at yardline_100 > 20 not counted as RZ trips."""
+        plays = [
+            {"play_type": "pass", "epa": 0.1, "success": 1, "cpoe": 1.0,
+             "pass_attempt": 1, "yardline_100": 50, "drive": 1, "touchdown": 0},
+        ]
+        pbp = _make_pbp_rows("A", "B", 2024, 1, plays)
+        valid = _filter_valid_plays(pbp)
+        result = compute_red_zone_trips(valid)
+        assert result.empty
+
+
+class TestComputeThirdDownRates:
+    """Tests for compute_third_down_rates."""
+
+    def test_conversion_rate_formula(self):
+        """off_third_down_rate = converted / (converted + failed)."""
+        plays = []
+        # 3 converted, 2 failed -> rate = 3/5 = 0.6
+        for _ in range(3):
+            plays.append({
+                "play_type": "pass", "epa": 0.1, "success": 1, "cpoe": 1.0,
+                "pass_attempt": 1, "yardline_100": 50, "drive": 1, "touchdown": 0,
+                "down": 3, "third_down_converted": 1, "third_down_failed": 0,
+            })
+        for _ in range(2):
+            plays.append({
+                "play_type": "run", "epa": -0.2, "success": 0, "cpoe": None,
+                "pass_attempt": 0, "yardline_100": 50, "drive": 1, "touchdown": 0,
+                "down": 3, "third_down_converted": 0, "third_down_failed": 1,
+            })
+
+        pbp = _make_pbp_rows("A", "B", 2024, 1, plays)
+        # Add down column (not set by _make_pbp_rows by default)
+        pbp["down"] = pbp.apply(lambda r: r.get("down", 1), axis=1)
+        # Fix: _make_pbp_rows doesn't include down/third_down_converted/failed
+        # Manually set them
+        pbp["down"] = 3
+        pbp["third_down_converted"] = [1, 1, 1, 0, 0]
+        pbp["third_down_failed"] = [0, 0, 0, 1, 1]
+
+        valid = _filter_valid_plays(pbp)
+        result = compute_third_down_rates(valid)
+
+        a = result[result["team"] == "A"]
+        assert abs(a["off_third_down_rate"].iloc[0] - 0.6) < 1e-6
+
+
+class TestComputeExplosivePlays:
+    """Tests for compute_explosive_plays."""
+
+    def test_explosive_thresholds(self):
+        """20+ yd pass and 10+ yd rush counted correctly."""
+        plays = []
+        # 10 pass plays: 2 with yards_gained >= 20
+        for i in range(10):
+            yg = 25 if i < 2 else 5
+            plays.append({
+                "play_type": "pass", "epa": 0.1, "success": 1, "cpoe": 1.0,
+                "pass_attempt": 1, "yardline_100": 50, "drive": 1, "touchdown": 0,
+                "yards_gained": yg,
+            })
+        # 10 run plays: 3 with yards_gained >= 10
+        for i in range(10):
+            yg = 15 if i < 3 else 3
+            plays.append({
+                "play_type": "run", "epa": 0.1, "success": 1, "cpoe": None,
+                "pass_attempt": 0, "yardline_100": 50, "drive": 1, "touchdown": 0,
+                "yards_gained": yg,
+            })
+
+        pbp = _make_pbp_rows("A", "B", 2024, 1, plays)
+        # Set yards_gained (not set by default in helper)
+        pbp["yards_gained"] = [25, 25] + [5] * 8 + [15, 15, 15] + [3] * 7
+
+        valid = _filter_valid_plays(pbp)
+        result = compute_explosive_plays(valid)
+
+        a = result[result["team"] == "A"]
+        assert abs(a["off_explosive_pass_rate"].iloc[0] - 0.2) < 1e-6
+        assert abs(a["off_explosive_rush_rate"].iloc[0] - 0.3) < 1e-6
+
+
+class TestComputeSackRates:
+    """Tests for compute_sack_rates."""
+
+    def test_sack_rate_formula(self):
+        """off_sack_rate = sacks / dropbacks (pass_attempt sum)."""
+        plays = []
+        # 20 plays with pass_attempt=1, 3 with sack=1
+        for i in range(20):
+            plays.append({
+                "play_type": "pass", "epa": 0.0, "success": 0, "cpoe": None,
+                "pass_attempt": 1, "yardline_100": 50, "drive": 1, "touchdown": 0,
+            })
+
+        pbp = _make_pbp_rows("A", "B", 2024, 1, plays)
+        pbp["sack"] = [1, 1, 1] + [0] * 17
+
+        valid = _filter_valid_plays(pbp)
+        result = compute_sack_rates(valid)
+
+        a = result[result["team"] == "A"]
+        assert abs(a["off_sack_rate"].iloc[0] - 0.15) < 1e-6
+
+    def test_def_sack_rate(self):
+        """Defensive sack rate computed from defteam perspective."""
+        plays = []
+        for i in range(10):
+            plays.append({
+                "play_type": "pass", "epa": 0.0, "success": 0, "cpoe": None,
+                "pass_attempt": 1, "yardline_100": 50, "drive": 1, "touchdown": 0,
+            })
+
+        pbp = _make_pbp_rows("A", "B", 2024, 1, plays)
+        pbp["sack"] = [1, 1] + [0] * 8
+
+        valid = _filter_valid_plays(pbp)
+        result = compute_sack_rates(valid)
+
+        # B is defteam for A's plays -> B's def_sack_rate = 2/10 = 0.2
+        b = result[result["team"] == "B"]
+        assert abs(b["def_sack_rate"].iloc[0] - 0.2) < 1e-6
