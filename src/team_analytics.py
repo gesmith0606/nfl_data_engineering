@@ -129,6 +129,400 @@ def apply_team_rolling(
 
 
 # ---------------------------------------------------------------------------
+# Special Teams Filter Helper (needed by Plan 02 compute functions)
+# ---------------------------------------------------------------------------
+
+
+def _filter_st_plays(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Filter play-by-play data to special teams plays (regular season, week <= 18).
+
+    Uses a union filter: ``special_teams_play == 1`` OR
+    ``play_type in ('field_goal', 'punt', 'kickoff', 'extra_point')``.
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame.
+
+    Returns:
+        Filtered copy of the DataFrame containing only ST plays.
+    """
+    df = pbp_df.copy()
+
+    if "season_type" in df.columns:
+        df = df[df["season_type"] == "REG"]
+    if "week" in df.columns:
+        df = df[df["week"] <= 18]
+
+    st_types = ["field_goal", "punt", "kickoff", "extra_point"]
+    st_mask = pd.Series(False, index=df.index)
+    if "special_teams_play" in df.columns:
+        st_mask = st_mask | (df["special_teams_play"] == 1)
+    if "play_type" in df.columns:
+        st_mask = st_mask | df["play_type"].isin(st_types)
+
+    result = df[st_mask].reset_index(drop=True)
+    logger.info(
+        "Filtered to %d ST plays from %d total rows", len(result), len(pbp_df)
+    )
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Complex PBP-Derived Metric Functions (Plan 02)
+# ---------------------------------------------------------------------------
+
+
+def _parse_top_seconds(top_str) -> float:
+    """Parse a time-of-possession string in 'M:SS' format to total seconds.
+
+    Args:
+        top_str: Time string like '7:13' or NaN.
+
+    Returns:
+        Float seconds (e.g. 433.0) or np.nan if parsing fails.
+    """
+    if pd.isna(top_str):
+        return np.nan
+    try:
+        parts = str(top_str).split(":")
+        return float(parts[0]) * 60 + float(parts[1])
+    except (ValueError, IndexError):
+        return np.nan
+
+
+def _fg_bucket(distance) -> Optional[str]:
+    """Classify a field goal kick distance into an NFL-standard bucket.
+
+    Args:
+        distance: Kick distance in yards.
+
+    Returns:
+        'short' (<30), 'mid' (30-39), 'long' (40-49), '50plus' (50+),
+        or None if distance is NaN.
+    """
+    if pd.isna(distance):
+        return None
+    if distance < 30:
+        return "short"
+    elif distance < 40:
+        return "mid"
+    elif distance < 50:
+        return "long"
+    else:
+        return "50plus"
+
+
+def compute_fg_accuracy(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute field goal accuracy by distance bucket per team-week.
+
+    Filters to special teams plays with ``field_goal_attempt == 1``, then
+    classifies each attempt by ``kick_distance`` into NFL-standard buckets
+    (short <30, mid 30-39, long 40-49, 50+).
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame.
+
+    Returns:
+        DataFrame with columns: team, season, week, fg_att, fg_pct,
+        fg_pct_short, fg_pct_mid, fg_pct_long, fg_pct_50plus.
+    """
+    output_cols = [
+        "team", "season", "week", "fg_att", "fg_pct",
+        "fg_pct_short", "fg_pct_mid", "fg_pct_long", "fg_pct_50plus",
+    ]
+
+    st = _filter_st_plays(pbp_df)
+    if "field_goal_attempt" not in st.columns:
+        logger.info("No field_goal_attempt column; returning empty FG DataFrame")
+        return pd.DataFrame(columns=output_cols)
+
+    fg = st[st["field_goal_attempt"] == 1].copy()
+    if fg.empty:
+        logger.info("No field goal attempts found")
+        return pd.DataFrame(columns=output_cols)
+
+    fg["made"] = (fg["field_goal_result"] == "made").astype(int)
+    fg["bucket"] = fg["kick_distance"].apply(_fg_bucket)
+
+    # Overall accuracy per team-week
+    overall = fg.groupby(["posteam", "season", "week"]).agg(
+        fg_att=("made", "count"),
+        fg_pct=("made", "mean"),
+    ).reset_index().rename(columns={"posteam": "team"})
+
+    # Per-bucket accuracy
+    bucket_acc = (
+        fg.dropna(subset=["bucket"])
+        .groupby(["posteam", "season", "week", "bucket"])["made"]
+        .mean()
+        .reset_index()
+        .rename(columns={"posteam": "team", "made": "pct"})
+    )
+
+    # Pivot buckets to columns
+    for bucket_name in ["short", "mid", "long", "50plus"]:
+        col_name = f"fg_pct_{bucket_name}"
+        bucket_data = bucket_acc[bucket_acc["bucket"] == bucket_name][
+            ["team", "season", "week", "pct"]
+        ].rename(columns={"pct": col_name})
+        overall = overall.merge(
+            bucket_data, on=["team", "season", "week"], how="left"
+        )
+
+    logger.info("FG accuracy computed for %d team-weeks", len(overall))
+    return overall[output_cols]
+
+
+def compute_return_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute kick/punt return averages and touchback rates per team-week.
+
+    Touchback detection uses proxy columns since no explicit touchback column
+    exists: kickoff touchback = ``return_yards == 0`` AND
+    ``kickoff_returner_player_id IS NULL``; punt touchback =
+    ``punt_in_endzone == 1``.
+
+    Metrics are attributed to the *returning* team (defteam for kickoffs and
+    punts, since the kicking/punting team is posteam).
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame.
+
+    Returns:
+        DataFrame with columns: team, season, week, ko_return_avg,
+        ko_touchback_rate, punt_return_avg, punt_touchback_rate.
+    """
+    output_cols = [
+        "team", "season", "week", "ko_return_avg", "ko_touchback_rate",
+        "punt_return_avg", "punt_touchback_rate",
+    ]
+
+    st = _filter_st_plays(pbp_df)
+    if st.empty:
+        logger.info("No ST plays found; returning empty return metrics")
+        return pd.DataFrame(columns=output_cols)
+
+    # --- Kickoff returns ---
+    ko = st[st.get("kickoff_attempt", pd.Series(dtype=float)) == 1].copy()
+    ko_result = pd.DataFrame(columns=["team", "season", "week", "ko_return_avg", "ko_touchback_rate"])
+
+    if not ko.empty and "return_yards" in ko.columns:
+        ko["is_touchback"] = (ko["return_yards"] == 0) & (
+            ko["kickoff_returner_player_id"].isna()
+        )
+        ko_agg = ko.groupby(["defteam", "season", "week"]).agg(
+            total_kickoffs=("is_touchback", "count"),
+            touchbacks=("is_touchback", "sum"),
+        ).reset_index()
+
+        # Return avg excludes touchbacks
+        ko_returns = ko[~ko["is_touchback"]]
+        if not ko_returns.empty:
+            ko_ret_avg = (
+                ko_returns.groupby(["defteam", "season", "week"])["return_yards"]
+                .mean()
+                .reset_index()
+                .rename(columns={"return_yards": "ko_return_avg"})
+            )
+            ko_agg = ko_agg.merge(
+                ko_ret_avg, on=["defteam", "season", "week"], how="left"
+            )
+        else:
+            ko_agg["ko_return_avg"] = np.nan
+
+        ko_agg["ko_touchback_rate"] = ko_agg["touchbacks"] / ko_agg["total_kickoffs"]
+        ko_result = ko_agg.rename(columns={"defteam": "team"})[
+            ["team", "season", "week", "ko_return_avg", "ko_touchback_rate"]
+        ]
+
+    # --- Punt returns ---
+    punts = st[st.get("punt_attempt", pd.Series(dtype=float)) == 1].copy()
+    punt_result = pd.DataFrame(columns=["team", "season", "week", "punt_return_avg", "punt_touchback_rate"])
+
+    if not punts.empty and "return_yards" in punts.columns:
+        punts["is_touchback"] = punts.get("punt_in_endzone", pd.Series(0, index=punts.index)) == 1
+        punt_agg = punts.groupby(["defteam", "season", "week"]).agg(
+            total_punts=("is_touchback", "count"),
+            touchbacks=("is_touchback", "sum"),
+        ).reset_index()
+
+        # Return avg excludes touchbacks
+        punt_returns = punts[~punts["is_touchback"]]
+        if not punt_returns.empty:
+            punt_ret_avg = (
+                punt_returns.groupby(["defteam", "season", "week"])["return_yards"]
+                .mean()
+                .reset_index()
+                .rename(columns={"return_yards": "punt_return_avg"})
+            )
+            punt_agg = punt_agg.merge(
+                punt_ret_avg, on=["defteam", "season", "week"], how="left"
+            )
+        else:
+            punt_agg["punt_return_avg"] = np.nan
+
+        punt_agg["punt_touchback_rate"] = punt_agg["touchbacks"] / punt_agg["total_punts"]
+        punt_result = punt_agg.rename(columns={"defteam": "team"})[
+            ["team", "season", "week", "punt_return_avg", "punt_touchback_rate"]
+        ]
+
+    # --- Merge kickoff and punt ---
+    if ko_result.empty and punt_result.empty:
+        logger.info("No return metrics computed")
+        return pd.DataFrame(columns=output_cols)
+
+    if ko_result.empty:
+        result = punt_result.copy()
+        result["ko_return_avg"] = np.nan
+        result["ko_touchback_rate"] = np.nan
+    elif punt_result.empty:
+        result = ko_result.copy()
+        result["punt_return_avg"] = np.nan
+        result["punt_touchback_rate"] = np.nan
+    else:
+        result = ko_result.merge(
+            punt_result, on=["team", "season", "week"], how="outer"
+        )
+
+    logger.info("Return metrics computed for %d team-weeks", len(result))
+    return result[output_cols]
+
+
+def compute_drive_efficiency(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Compute drive efficiency metrics (3-and-out rate, avg drive stats) per team-week.
+
+    Groups plays by drive first, then aggregates to team-week level.
+    A 3-and-out is a drive with <= 3 plays AND no first downs AND no touchdowns.
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, off_three_and_out_rate,
+        off_avg_drive_plays, off_avg_drive_yards, off_drives_per_game,
+        def_three_and_out_rate, def_avg_drive_plays, def_avg_drive_yards.
+    """
+    output_cols = [
+        "team", "season", "week", "off_three_and_out_rate",
+        "off_avg_drive_plays", "off_avg_drive_yards", "off_drives_per_game",
+        "def_three_and_out_rate", "def_avg_drive_plays", "def_avg_drive_yards",
+    ]
+
+    if valid_plays.empty:
+        logger.info("No valid plays; returning empty drive efficiency DataFrame")
+        return pd.DataFrame(columns=output_cols)
+
+    def _drive_agg(df: pd.DataFrame, team_col: str, prefix: str) -> pd.DataFrame:
+        """Aggregate drive-level stats for a given team column."""
+        # Drive-level aggregation
+        drive_stats = df.groupby([team_col, "season", "week", "drive"]).agg(
+            plays=("play_id", "count") if "play_id" in df.columns else ("epa", "count"),
+            first_downs=("first_down", "sum") if "first_down" in df.columns else ("success", "sum"),
+            touchdowns=("touchdown", "sum") if "touchdown" in df.columns else ("epa", lambda x: 0),
+            drive_yards=("yards_gained", "sum") if "yards_gained" in df.columns else ("epa", lambda x: 0),
+        ).reset_index()
+
+        # Flag 3-and-out drives
+        drive_stats["is_three_and_out"] = (
+            (drive_stats["plays"] <= 3)
+            & (drive_stats["first_downs"] == 0)
+            & (drive_stats["touchdowns"] == 0)
+        )
+
+        # Aggregate to team-week
+        team_week = drive_stats.groupby([team_col, "season", "week"]).agg(
+            three_and_out_rate=("is_three_and_out", "mean"),
+            avg_drive_plays=("plays", "mean"),
+            avg_drive_yards=("drive_yards", "mean"),
+            drives_per_game=("drive", "nunique"),
+        ).reset_index()
+
+        team_week = team_week.rename(columns={
+            team_col: "team",
+            "three_and_out_rate": f"{prefix}_three_and_out_rate",
+            "avg_drive_plays": f"{prefix}_avg_drive_plays",
+            "avg_drive_yards": f"{prefix}_avg_drive_yards",
+            "drives_per_game": f"{prefix}_drives_per_game",
+        })
+
+        return team_week
+
+    off = _drive_agg(valid_plays, "posteam", "off")
+    def_df = _drive_agg(valid_plays, "defteam", "def")
+    # Drop def_drives_per_game (not in output spec)
+    if "def_drives_per_game" in def_df.columns:
+        def_df = def_df.drop(columns=["def_drives_per_game"])
+
+    result = off.merge(def_df, on=["team", "season", "week"], how="outer")
+
+    logger.info("Drive efficiency computed for %d team-weeks", len(result))
+    return result[output_cols]
+
+
+def compute_top(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute time of possession (seconds) per team-week.
+
+    Parses ``drive_time_of_possession`` from 'M:SS' string format to seconds,
+    takes the max per drive (since each play in a drive carries the same
+    drive-level TOP value), then sums across drives per team-week.
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame.
+
+    Returns:
+        DataFrame with columns: team, season, week, off_top_seconds, def_top_seconds.
+    """
+    output_cols = ["team", "season", "week", "off_top_seconds", "def_top_seconds"]
+
+    df = pbp_df.copy()
+
+    # Basic filters
+    if "season_type" in df.columns:
+        df = df[df["season_type"] == "REG"]
+    if "week" in df.columns:
+        df = df[df["week"] <= 18]
+
+    if "drive_time_of_possession" not in df.columns:
+        logger.info("No drive_time_of_possession column; returning empty TOP DataFrame")
+        return pd.DataFrame(columns=output_cols)
+
+    df["top_seconds"] = df["drive_time_of_possession"].apply(_parse_top_seconds)
+
+    if df["top_seconds"].isna().all():
+        logger.info("All TOP values are NaN; returning empty TOP DataFrame")
+        return pd.DataFrame(columns=output_cols)
+
+    # Offense TOP: max TOP per drive (all plays in a drive have same value), then sum
+    off_drive = (
+        df.groupby(["posteam", "season", "week", "drive"])["top_seconds"]
+        .max()
+        .reset_index()
+    )
+    off_top = (
+        off_drive.groupby(["posteam", "season", "week"])["top_seconds"]
+        .sum()
+        .reset_index()
+        .rename(columns={"posteam": "team", "top_seconds": "off_top_seconds"})
+    )
+
+    # Defense TOP: same logic but grouped by defteam
+    def_drive = (
+        df.groupby(["defteam", "season", "week", "drive"])["top_seconds"]
+        .max()
+        .reset_index()
+    )
+    def_top = (
+        def_drive.groupby(["defteam", "season", "week"])["top_seconds"]
+        .sum()
+        .reset_index()
+        .rename(columns={"defteam": "team", "top_seconds": "def_top_seconds"})
+    )
+
+    result = off_top.merge(def_top, on=["team", "season", "week"], how="outer")
+
+    logger.info("TOP computed for %d team-weeks", len(result))
+    return result[output_cols]
+
+
+# ---------------------------------------------------------------------------
 # PBP Performance Metric Functions (Plan 02)
 # ---------------------------------------------------------------------------
 
