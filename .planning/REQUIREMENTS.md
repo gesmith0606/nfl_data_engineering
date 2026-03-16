@@ -80,35 +80,35 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | — | Pending |
-| INFRA-02 | — | Pending |
-| INFRA-03 | — | Pending |
-| PBP-01 | — | Pending |
-| PBP-02 | — | Pending |
-| PBP-03 | — | Pending |
-| PBP-04 | — | Pending |
-| PBP-05 | — | Pending |
-| PBP-06 | — | Pending |
-| PBP-07 | — | Pending |
-| PBP-08 | — | Pending |
-| PBP-09 | — | Pending |
-| PBP-10 | — | Pending |
-| PBP-11 | — | Pending |
-| SCHED-01 | — | Pending |
-| SCHED-02 | — | Pending |
-| SCHED-03 | — | Pending |
-| SCHED-04 | — | Pending |
-| SCHED-05 | — | Pending |
-| CROSS-01 | — | Pending |
-| CROSS-02 | — | Pending |
-| INTEG-01 | — | Pending |
-| INTEG-02 | — | Pending |
+| INFRA-01 | Phase 20 | Pending |
+| INFRA-02 | Phase 20 | Pending |
+| INFRA-03 | Phase 20 | Pending |
+| PBP-01 | Phase 21 | Pending |
+| PBP-02 | Phase 21 | Pending |
+| PBP-03 | Phase 21 | Pending |
+| PBP-04 | Phase 21 | Pending |
+| PBP-05 | Phase 21 | Pending |
+| PBP-06 | Phase 21 | Pending |
+| PBP-07 | Phase 21 | Pending |
+| PBP-08 | Phase 21 | Pending |
+| PBP-09 | Phase 21 | Pending |
+| PBP-10 | Phase 21 | Pending |
+| PBP-11 | Phase 21 | Pending |
+| INTEG-02 | Phase 21 | Pending |
+| SCHED-01 | Phase 22 | Pending |
+| SCHED-02 | Phase 22 | Pending |
+| SCHED-03 | Phase 22 | Pending |
+| SCHED-04 | Phase 22 | Pending |
+| SCHED-05 | Phase 22 | Pending |
+| CROSS-01 | Phase 23 | Pending |
+| CROSS-02 | Phase 23 | Pending |
+| INTEG-01 | Phase 23 | Pending |
 
 **Coverage:**
 - v1.3 requirements: 23 total
-- Mapped to phases: 0
-- Unmapped: 23
+- Mapped to phases: 23
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-15*
-*Last updated: 2026-03-15 after initial definition*
+*Last updated: 2026-03-15 after roadmap creation — all 23 requirements mapped*
