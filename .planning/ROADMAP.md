@@ -72,11 +72,11 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
   2. Officials Bronze data exists locally for 2016-2025 with referee crew assignments per game, accessible via the standard `download_latest_parquet()` pattern
   3. Stadium coordinates for all 32 NFL teams (plus international venues) are available as a config lookup, with latitude/longitude values that produce sensible haversine distances (e.g., NYJ-to-LAR approximately 2,450 miles)
   4. Existing Silver pipeline (team_analytics, player_analytics) still passes all 289 tests with no regressions from the PBP column expansion
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 20-01: TBD
-- [ ] 20-02: TBD
+- [ ] 20-01-PLAN.md — Config expansion (PBP columns, stadium coordinates, officials wiring) + unit tests
+- [ ] 20-02-PLAN.md — PBP re-ingestion (2016-2025) and officials ingestion + full regression suite
 
 ### Phase 21: PBP-Derived Team Metrics
 **Goal**: Eleven new team-level metrics are computed from PBP data with rolling windows and written as Silver parquet — penalties, opponent-drawn penalties, turnover luck, red zone trip volume, special teams FG/punt/return, 3rd down rates, explosive plays, drive efficiency, sack rates, and time of possession
@@ -160,4 +160,4 @@ Note: Phases 21 and 22 can execute in parallel (both depend only on Phase 20).
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-15 after v1.3 roadmap created*
+*Last updated: 2026-03-16 after Phase 20 planning completed*
