@@ -88,12 +88,12 @@ Plans:
   3. Penalty metrics use the `penalty == 1` flag (not `play_type == 'penalty'`), special teams metrics use a dedicated ST play-type filter (not `_filter_valid_plays()`), and red zone trips use drive-level grouping producing 3-5 trips per team per game (not 15+ from play-level counting)
   4. All new functions in `team_analytics.py` have unit tests, and existing tests remain green
   5. New Silver output paths follow the existing `teams/` naming convention and are readable via `download_latest_parquet()`
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 21-01: TBD
-- [ ] 21-02: TBD
-- [ ] 21-03: TBD
+- [ ] 21-01-PLAN.md — Core metrics: penalties, opp-drawn, turnover luck, RZ trips, 3rd down, explosive, sack rates + unit tests
+- [ ] 21-02-PLAN.md — Complex metrics: FG accuracy, punt/kick returns, drive efficiency, TOP + unit tests
+- [ ] 21-03-PLAN.md — Orchestrator, rolling windows, config/script/health-check wiring + integration tests
 
 ### Phase 22: Schedule-Derived Context
 **Goal**: Weather, rest/travel, and coaching features are extracted from schedules Bronze into a new game_context Silver module with per-team per-week granularity
@@ -153,11 +153,11 @@ Note: Phases 21 and 22 can execute in parallel (both depend only on Phase 20).
 | 17. Advanced Player Profiles | v1.2 | 2/2 | Complete | 2026-03-14 |
 | 18. Historical Context | v1.2 | 2/2 | Complete | 2026-03-15 |
 | 19. v1.2 Tech Debt Cleanup | v1.2 | 1/1 | Complete | 2026-03-15 |
-| 20. Infrastructure and Data Expansion | 2/2 | Complete    | 2026-03-16 | - |
+| 20. Infrastructure and Data Expansion | v1.3 | 2/2 | Complete | 2026-03-16 |
 | 21. PBP-Derived Team Metrics | v1.3 | 0/3 | Not started | - |
 | 22. Schedule-Derived Context | v1.3 | 0/2 | Not started | - |
 | 23. Cross-Source Features and Integration | v1.3 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-16 after Phase 20 planning completed*
+*Last updated: 2026-03-16 after Phase 21 planning completed*
