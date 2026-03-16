@@ -57,7 +57,7 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
 **Milestone Goal:** Expand the Silver layer with penalty, turnover, special teams, weather, rest/travel, coaching, referee, and playoff context features — completing the prediction data foundation for future ML model work.
 
 - [x] **Phase 20: Infrastructure and Data Expansion** — Expand PBP columns, ingest officials data, add stadium coordinates (completed 2026-03-16)
-- [ ] **Phase 21: PBP-Derived Team Metrics** — Penalties, turnovers, special teams, red zone trips, sack rates, explosives, drive efficiency, 3rd down, TOP with rolling windows
+- [x] **Phase 21: PBP-Derived Team Metrics** — Penalties, turnovers, special teams, red zone trips, sack rates, explosives, drive efficiency, 3rd down, TOP with rolling windows (completed 2026-03-16)
 - [ ] **Phase 22: Schedule-Derived Context** — Weather, rest/travel, coaching changes via new game_context module
 - [ ] **Phase 23: Cross-Source Features and Integration** — Referee tendencies, playoff context, pipeline health for all new Silver paths
 
@@ -154,7 +154,7 @@ Note: Phases 21 and 22 can execute in parallel (both depend only on Phase 20).
 | 18. Historical Context | v1.2 | 2/2 | Complete | 2026-03-15 |
 | 19. v1.2 Tech Debt Cleanup | v1.2 | 1/1 | Complete | 2026-03-15 |
 | 20. Infrastructure and Data Expansion | v1.3 | 2/2 | Complete | 2026-03-16 |
-| 21. PBP-Derived Team Metrics | 2/3 | In Progress|  | - |
+| 21. PBP-Derived Team Metrics | 3/3 | Complete   | 2026-03-16 | - |
 | 22. Schedule-Derived Context | v1.3 | 0/2 | Not started | - |
 | 23. Cross-Source Features and Integration | v1.3 | 0/2 | Not started | - |
 

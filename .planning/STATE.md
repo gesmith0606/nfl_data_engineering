@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Prediction Data Foundation
 status: completed
-stopped_at: Completed 21-01-PLAN.md and 21-02-PLAN.md
-last_updated: "2026-03-16T22:32:09.692Z"
-last_activity: 2026-03-16 — Completed Phase 20 (PBP re-ingestion + officials data for 2016-2025)
+stopped_at: Completed 21-03-PLAN.md (Phase 21 complete)
+last_updated: "2026-03-16T22:40:06.776Z"
+last_activity: 2026-03-16 — Completed Phase 21 Plan 03 (PBP-derived orchestrator + pipeline wiring)
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 5
   percent: 100
 ---
 
@@ -30,9 +30,9 @@ v1.3 Prediction Data Foundation — Ready to plan Phase 20
 ## Current Position
 
 Phase: 21 of 23 (PBP-Derived Team Metrics)
-Plan: 2 of 3 in current phase
-Status: Plans 01 and 02 complete
-Last activity: 2026-03-16 — Completed Phase 21 Plans 01+02 (core PBP metrics + ST/drive/TOP functions)
+Plan: 3 of 3 in current phase (COMPLETE)
+Status: Phase 21 complete - all 3 plans executed
+Last activity: 2026-03-16 — Completed Phase 21 Plan 03 (PBP-derived orchestrator + pipeline wiring)
 
 Progress: [██████████] 100%
 
@@ -69,6 +69,8 @@ Carried from v1.2. See PROJECT.md Key Decisions table.
 - **Phase 21-01**: Penalty metrics use penalty==1 flag with penalty_team off/def split
 - **Phase 21-01**: Turnover luck uses expanding window with shift(1) lag, not rolling
 - **Phase 21-01**: is_turnover_lucky threshold: >0.60=lucky, <0.40=unlucky
+- **Phase 21-03**: Turnover luck columns excluded from rolling windows (uses expanding window internally)
+- **Phase 21-03**: compute_pbp_derived_metrics orchestrator merges 11 functions following compute_pbp_metrics pattern
 
 ### Pending Todos
 
@@ -80,9 +82,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T22:32:29Z
-Stopped at: Completed 21-01-PLAN.md and 21-02-PLAN.md
-Resume file: .planning/phases/21-pbp-derived-team-metrics/21-03-PLAN.md
+Last session: 2026-03-16T22:40:06.774Z
+Stopped at: Completed 21-03-PLAN.md (Phase 21 complete)
+Resume file: None
 
 ---
 *Last updated: 2026-03-15 after v1.3 roadmap created*
