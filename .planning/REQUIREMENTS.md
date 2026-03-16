@@ -9,9 +9,9 @@ Requirements for v1.3 Prediction Data Foundation. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: PBP column expansion (~25 columns for penalties, special teams, fumbles, drives) with re-ingestion of historical PBP data
-- [ ] **INFRA-02**: Officials Bronze ingestion via `import_officials()` with historical coverage (2016-2025)
-- [ ] **INFRA-03**: Stadium coordinates CSV (~35 venues) for travel distance computation
+- [x] **INFRA-01**: PBP column expansion (~25 columns for penalties, special teams, fumbles, drives) with re-ingestion of historical PBP data
+- [x] **INFRA-02**: Officials Bronze ingestion via `import_officials()` with historical coverage (2016-2025)
+- [x] **INFRA-03**: Stadium coordinates CSV (~35 venues) for travel distance computation
 
 ### PBP-Derived Metrics
 
@@ -80,9 +80,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 20 | Pending |
-| INFRA-02 | Phase 20 | Pending |
-| INFRA-03 | Phase 20 | Pending |
+| INFRA-01 | Phase 20 | Complete |
+| INFRA-02 | Phase 20 | Complete |
+| INFRA-03 | Phase 20 | Complete |
 | PBP-01 | Phase 21 | Pending |
 | PBP-02 | Phase 21 | Pending |
 | PBP-03 | Phase 21 | Pending |
