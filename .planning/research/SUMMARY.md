@@ -1,189 +1,198 @@
 # Project Research Summary
 
-**Project:** NFL Data Engineering v1.2 Silver Layer Expansion
-**Domain:** Sports data engineering — medallion architecture Silver layer extension with PBP-derived analytics
-**Researched:** 2026-03-13
+**Project:** NFL Data Engineering — v1.3 Prediction Data Foundation
+**Domain:** NFL analytics / medallion pipeline feature expansion
+**Researched:** 2026-03-15
 **Confidence:** HIGH
 
 ## Executive Summary
 
-The v1.2 Silver expansion adds PBP-derived team metrics, rolling window analytics, strength of schedule, situational breakdowns, and advanced player profiles (NGS/PFR/QBR) to the existing medallion architecture. Research confirmed that zero new dependencies are required — pandas 1.5.3, numpy 1.26.4, scipy 1.13.1, and pyarrow 21.0.0 already cover every computation needed. All Bronze source data (PBP, NGS, PFR, QBR, combine, draft_picks) is confirmed locally available for the target 2016–2025 range. The recommended approach is to split the expansion across four new source modules (`team_analytics.py`, `advanced_player_analytics.py`, `historical_context.py`, `situational_analytics.py`) and two new CLI scripts, leaving `player_analytics.py` and the existing `players/usage/` Silver schema completely unchanged to protect the 71-test suite and downstream Gold consumers.
+The v1.3 milestone adds 9 new feature categories (weather, coaching, special teams, penalties, rest/travel, turnover luck, referee tendencies, playoff context, red zone trip volume) to an already-working Bronze-Silver-Gold medallion pipeline. The central finding across all four research areas is that 7 of 9 features require zero new Bronze ingestion — they derive entirely from schedules data (`temp`, `wind`, `roof`, `away_rest`, `home_rest`, `away_coach`, `home_coach`, `referee`, `div_game`, `game_type`) and from PBP columns already ingested (`penalty`, `fumble`, `fumble_lost`, `interception`, `yardline_100`, `drive`). Only two areas need new data: a static 32-row stadium coordinates table for travel distance, and an `officials` Bronze type for full referee crew data (though the head referee name is already in schedules and is sufficient for the core feature).
 
-The highest-priority deliverable is the PBP team metrics pipeline: EPA/play, success rate, CPOE, red zone efficiency, pace, and pass rate over expected, all with 3-game and 6-game rolling windows. These feed directly into Gold matchup multiplier improvements and are prerequisites for strength-of-schedule computation. Strength of schedule must be built in the same CLI run as PBP team metrics because it depends on team EPA rankings. NGS/PFR/QBR advanced player profiles are additive P2 work that improves QB/RB/WR projections without modifying the current projection engine weights.
+The recommended approach is to extend the existing architecture with one new Silver module (`game_context.py`) and four new functions in the existing `team_analytics.py`, producing five new Silver output paths all joined on `[team, season, week]`. The critical infrastructure prerequisite is expanding `PBP_COLUMNS` in `config.py` by approximately 20-25 columns to expose penalty detail, special teams play columns, and fumble recovery attribution — all of which exist in the nflverse PBP dataset but were deliberately excluded when the 103-column curated set was built for EPA analysis. This column expansion must happen first because it unblocks penalty aggregation, special teams metrics, and turnover luck computation.
 
-The single most critical risk is rolling window season-boundary contamination: the existing `compute_rolling_averages()` in `player_analytics.py` groups by `player_id` alone (not `(player_id, season)`), allowing Week 1 averages to silently incorporate the prior season's final weeks. This flaw must be fixed in `player_analytics.py` simultaneously with implementing team-level rolling windows, so the correction propagates consistently rather than requiring a retroactive patch. Two other must-address risks are playoff-week EPA contamination (filter `season_type == 'REG'` at every PBP read) and PBP memory management (aggregate to team-week grain before any cross-season operations; never load all 10 seasons simultaneously).
+The primary risks are implementation traps, not data availability. The most consequential: `_filter_valid_plays()` in `team_analytics.py` silently drops all special teams plays (it keeps only pass/run play types), so new special teams functions must use a dedicated filter; penalties are identified by a `penalty == 1` binary flag, not by `play_type == 'penalty'` (which has zero rows in the dataset); and red zone trip volume requires drive-level grouping (`nunique` on `drive` where any play entered `yardline_100 <= 20`), not play-level counting (which inflates counts by 4-5x). Turnover luck is the highest-signal feature in this milestone — fumble recovery is statistically random (~50% long-run rate), and teams far from 50% regress sharply — but computing it correctly requires fumble recovery attribution columns (`fumble_recovery_1_team`) not in the current Bronze PBP.
 
 ## Key Findings
 
 ### Recommended Stack
 
-No new packages are needed. The entire Silver expansion is achievable with the existing venv. All patterns were directly verified by execution against pandas 1.5.3, numpy 1.26.4, and scipy 1.13.1 on 2026-03-13. The read-column-subset-first pattern (`pd.read_parquet(path, columns=[...])`) and the per-season processing loop (already in `silver_player_transformation.py`) are the two non-negotiable implementation constraints. Do not upgrade numpy (2.x breaks ABI with pandas 1.5.3); do not introduce polars (Python 3.9 incompatible).
+No new runtime dependencies are needed for 7 of 9 features. The existing Python 3.9.7 / pandas 1.5.3 / numpy 1.26.4 / pyarrow 21.0.0 / nfl-data-py 0.3.3 stack is sufficient. `import_officials()` already exists in the installed nfl-data-py 0.3.3 and can be wired up as a new Bronze data type without any package changes. Weather data from an external API (meteostat, Open-Meteo) is explicitly not recommended — schedules Bronze already contains game-time temperature and wind speed from official NFL sources, which is more accurate than nearest-weather-station data that an API would return.
 
 **Core technologies:**
-- **pandas 1.5.3**: Primary engine for all aggregation, rolling windows (`.rolling()`, `.expanding()`, `.ewm()`), and multi-table merges — all patterns verified by direct execution
-- **numpy 1.26.4**: Weighted averages for SOS (`numpy.average(weights=...)`), float32 downcasting — no upgrade; numpy 2.x breaks ABI
-- **scipy 1.13.1**: `rankdata()` for SOS percentile ranking (1–32) — already installed; `pandas.Series.rank(pct=True)` is an equivalent fallback
-- **pyarrow 21.0.0**: Column-projection reads (`columns=` kwarg) reduce PBP in-memory size ~70%; already installed
+- pandas 1.5.3 — all groupby/agg transforms for new Silver metrics — no change from v1.2
+- numpy 1.26.4 — haversine distance for travel calculation (6-line implementation, no geopy needed)
+- nfl-data-py 0.3.3 — `import_officials()` for referee crew data (already installed, no upgrade needed)
+- pyarrow 21.0.0 — column-projected Parquet reads for expanded PBP columns (reduces memory load)
 
-See [STACK.md](./STACK.md) for full analysis including alternatives considered and version compatibility matrix.
+**Conditional addition (defer unless backtesting shows value):**
+- meteostat 1.6.8 — only if precipitation/humidity beyond schedules `temp`/`wind` proves predictive in backtesting
+
+See [STACK.md](./STACK.md) for full analysis including PBP column expansion list, stadium coordinate pattern, and alternatives considered.
 
 ### Expected Features
 
-**Must have (P1 — table stakes for Gold game prediction model, feeds SLV-01 to SLV-03):**
-- Team EPA/play (offense + defense, pass/rush splits) with 3-game and 6-game rolling windows
-- Success rate by team (offense + defense) with rolling windows — standard EPA complement used in every public NFL prediction model
-- Red zone efficiency (offense + defense) — most direct TD-count predictor; single highest-leverage projection improvement
-- CPOE team aggregate per QB and team with rolling windows — differentiates QB quality from scheme
-- Pass Rate Over Expected (PROE) per team — quantifies run-heavy vs pass-heavy scheme; critical for RB/WR share projections
-- Pace (plays per game) per team — total volume predictor; affects all position projections multiplicatively
-- Strength of Schedule (opponent-adjusted EPA, ranks 1–32) — normalizes team rankings; must be computed in same run as team EPA
-- Situational tags (home/away, divisional, game script) as standalone Silver table — promotes existing inline logic
+**Must have (P1 — table stakes, all derivable from existing Bronze):**
+- Weather categorization — wind >15 mph reduces passing EPA 8-12%; every Vegas model includes weather; LOW complexity using schedules `temp`/`wind`/`roof`; dome games get neutral weather via `is_dome` flag
+- Rest days differential — peer-reviewed research shows rolling 3-week net rest has more predictive signal than raw rest days; use existing `away_rest`/`home_rest` from schedules; derive `rest_advantage = home_rest - away_rest`
+- Penalty aggregation — committed + opponent-drawn penalty rates capture team discipline and scheming advantage; MEDIUM complexity using `penalty == 1` flag from PBP (not `play_type == 'penalty'`, which returns zero rows)
+- Turnover luck metrics — highest regression-to-mean signal in NFL analytics (fumble recovery R-squared YoY = 0.01); requires extended PBP columns for fumble recovery attribution
+- Red zone trip volume — fills a gap in existing Silver (v1.2 has red zone efficiency rate but not trip count volume); requires drive-level PBP grouping, not play-level
+- Referee tendencies — rare differentiator at low cost; referee name already in schedules Bronze; aggregate penalty rates per referee across seasons
+- Playoff/elimination context — standings derivable from schedules game results via cumsum; use simple proxies (`win_pct`, `games_behind_division_leader`), not full NFL tiebreaker logic
 
-**Should have (P2 — competitive differentiators, add after P1 backtest validation):**
-- NGS player profiles: WR/TE separation + catch probability, QB time-to-throw + aggressiveness, RB RYOE
-- PFR pressure rate (QB) and blitz rate (team defense) with rolling windows
-- QBR rolling windows (low-effort once NGS passing pipeline is built)
-- 4th down aggressiveness index with rolling windows
+**Should have (P2 — competitive differentiators, small external data or higher complexity):**
+- Special teams metrics — FG%, punt net average, return yards, blocked kicks; requires expanded PBP columns (`field_goal_result`, `kick_distance`, punt columns) and dedicated ST filter
+- Travel distance — haversine from 32 static stadium coordinates; extend rest-days signal with cross-country travel and time zone change flags
+- Coaching HC change detection — detect mid-season HC changes week-over-week from schedules `home_coach`/`away_coach`; compute tenure and adjustment window flags
 
-**Defer to v1.3+ (P3):**
-- Combine measurables + draft capital linked to players — high join complexity (name-based cross-reference required); outputs are static; defer until rookie breakout modeling is an explicit Gold target
-- EWMA rolling windows — add only if backtesting shows EWMA outperforms fixed 3/6-game windows
-- Forward-looking SOS (schedule-remaining) — different use case from current backward-looking SOS
+**Defer to v1.4+ (P3):**
+- Coaching OC/DC tracking — no automated data source; requires 2-4 hours manual CSV curation from Pro Football Reference (scraping violates ToS)
+- Turnover-adjusted EPA — play-level classification of "skill" vs. "luck" turnovers; HIGH complexity, depends on turnover luck foundation being validated first
+- Penalty type breakdown — requires parsing `desc` text field which is unstructured; aggregate penalty rates capture 90% of the signal
 
-**Explicit anti-features (confirmed by research — never build):**
-- Play-level Silver copy of Bronze PBP — adds zero transformation value; query Bronze PBP directly via DuckDB
-- WPA team rolling aggregates — WPA sums to near-zero per game; EPA is the correct aggregation unit
-- Real-time within-game metrics — out of scope for batch Parquet pipeline; weekly batch is the correct granularity
-- NGS before 2016 — tracking chips not deployed; nfl-data-py returns empty or raises errors
+**Anti-features (explicitly excluded after research):**
+- External weather API integration — schedules data is more accurate and zero added complexity; only needed for future-game forecasting (a Gold-layer concern)
+- Real-time referee assignment tracking — historical tendencies are the actual predictive signal; live scraping adds fragility for marginal timing gain
+- Elo ratings — redundant with EPA + SOS + situational splits already in Silver v1.2
+- Full NFL tiebreaker logic for playoff context — weeks of development for a feature that matters only in Weeks 15-18; Vegas spread already prices in playoff implications
 
-See [FEATURES.md](./FEATURES.md) for full feature landscape, dependency graph, and MVP definition.
+See [FEATURES.md](./FEATURES.md) for full feature landscape, dependency graph, and prioritization matrix.
 
 ### Architecture Approach
 
-The expansion follows a clean module-per-domain separation anchored by four new `src/` modules and two new CLI scripts. The existing `player_analytics.py` and `silver_player_transformation.py` are untouched, preserving the 71-test suite and the 113-column `players/usage/` Silver schema that `projection_engine.py` reads. New Silver tables live at separate paths (`data/silver/teams/`, `data/silver/players/advanced/`, `data/silver/situational/`) and are consumed by Gold via explicit left-joins. Every new Silver output must be registered in `config.py::SILVER_PLAYER_S3_KEYS` and verified via `download_latest_parquet()` before shipping.
+The architecture adds one new Silver module (`src/game_context.py`) and four new functions to the existing `src/team_analytics.py`, producing five new Silver output paths all sharing the universal join key `[team, season, week]`. Schedule-derived features (weather, rest/travel, coaching, referee tendencies, playoff context) belong in `game_context.py`, which reads existing schedules Bronze and unpivots home/away game rows into per-team rows via a shared `_unpivot_schedules()` helper. PBP-derived features (penalties, turnover luck, special teams, red zone trips) extend `team_analytics.py` following its established groupby-aggregate-merge-rolling pattern. The Gold layer assembles these into a ~130-column prediction feature vector via left joins on the team-week key.
 
 **Major components:**
-1. **`src/team_analytics.py`** (NEW) — `compute_pbp_team_metrics()`, `compute_team_tendencies()`, `compute_sos()`; operates at team-week grain from PBP Bronze; writes `teams/pbp_metrics/`, `teams/tendencies/`, `teams/sos/`
-2. **`src/advanced_player_analytics.py`** (NEW) — `compute_ngs_profiles()`, `compute_pfr_profiles()`, `compute_qbr_features()`; always left-joins from player_weekly base to avoid silently dropping players without advanced stats; writes `players/advanced/`
-3. **`src/historical_context.py`** (NEW) — `compute_draft_capital()`, `link_combine_to_roster()`; outputs a static dimension table at `players/historical/` (no season partition); never joined to weekly Silver fact table
-4. **`src/situational_analytics.py`** (NEW) — promotes existing inline `compute_game_script_indicators()` and `compute_venue_splits()` logic to standalone Silver output at `situational/splits/`
-5. **`scripts/silver_team_transformation.py`** (NEW CLI) — orchestrates PBP team metrics → SOS → situational; processes one season at a time
-6. **`scripts/silver_advanced_transformation.py`** (NEW CLI) — orchestrates NGS/PFR/QBR + historical context; separate from team CLI for independent execution
+1. `src/game_context.py` (NEW) — five functions: `compute_weather_features()`, `compute_rest_travel()`, `compute_coaching_changes()`, `compute_referee_tendencies()`, `compute_playoff_context()`. Writes to `teams/game_context/season=YYYY/`. Requires `STADIUM_COORDINATES` dict added to config.
+2. `src/team_analytics.py` (EXTEND) — four new functions: `compute_penalty_metrics()`, `compute_turnover_luck()`, `compute_special_teams_metrics()`, `compute_red_zone_trips()`. Writes to four new Silver paths under `teams/`.
+3. `src/config.py` (MODIFY) — expand `PBP_COLUMNS` by ~20-25 columns to `PBP_EXTENDED_COLUMNS`; add five new `SILVER_TEAM_S3_KEYS` entries; add `STADIUM_COORDINATES` dict (32 teams, static).
+4. `scripts/silver_game_context_transformation.py` (NEW) — orchestrates game_context functions, writes Silver; parallel to existing silver_team_transformation.py.
+5. `scripts/silver_team_transformation.py` (MODIFY) — calls four new team_analytics functions alongside existing ones.
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for full component map, data flow diagrams, anti-patterns, and build order.
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for full component map, data flow diagrams, anti-patterns, join strategy, and 7-phase build order with rationale.
 
 ### Critical Pitfalls
 
-1. **Rolling windows bleed across season boundaries** — Group by `(player_id, season)` not `player_id` alone; this bug exists in current `player_analytics.py` lines 210–215 and must be fixed; assert Week 1 roll3 values are NaN in tests
-2. **Playoff weeks contaminate regular-season team metrics** — Apply `pbp_df[pbp_df['season_type'] == 'REG']` at every PBP read; `week <= 18` filter alone is insufficient for edge cases; verify max week in Silver team-metrics is 18
-3. **PBP loads OOM on multi-season backfills** — Column-subset at read time (`pd.read_parquet(path, columns=[...])`); aggregate 50K plays to ~512 team-week rows before any cross-season operations; process one season at a time
-4. **Circular dependency in rolling SOS** — Compute opponent quality using lagged (week N-1) EPA values only; assert Week 1 adjusted EPA equals raw EPA; run idempotency test (two transforms on same input must produce identical output); recovery cost is HIGH
-5. **NGS/PFR/QBR silent NaN columns in rolling averages** — Log NaN coverage at Silver write time for all sparse metrics; use `min_periods=3` (not 1) for NGS/PFR rolling to require meaningful history before producing an average
-6. **New Silver tables bypass path convention** — Register every new Silver output in `config.py::SILVER_PLAYER_S3_KEYS` before writing first file; verify via `download_latest_parquet()` before shipping
-7. **Combine/draft join causes row explosion** — Store combine/draft as a player dimension table (one row per player, no season partition); never join to weekly Silver fact table; assert row count unchanged after join
+1. **PBP 103-column gap blocks penalties, special teams, and turnover luck** — `penalty_type`, `penalty_yards`, `field_goal_result`, `kick_distance`, `fumble_recovery_1_team`, and ~15 more columns exist in nflverse PBP but are not in the current `PBP_COLUMNS`. Create `PBP_EXTENDED_COLUMNS` in config.py; do not replace existing `PBP_COLUMNS`. Must be addressed in Phase 1 before any PBP-derived feature work begins.
 
-See [PITFALLS.md](./PITFALLS.md) for all 7 pitfalls with full recovery strategies, warning signs, and a phase-to-pitfall mapping.
+2. **`_filter_valid_plays()` silently drops special teams plays** — the existing filter keeps only `play_type in ('pass', 'run')`. Special teams functions must use a dedicated `_filter_special_teams_plays()` keeping `play_type in ('punt', 'kickoff', 'field_goal', 'extra_point')`. Never modify the existing filter — it is tested and correct for its purpose.
+
+3. **`play_type == 'penalty'` returns zero rows** — penalties on nullified plays have `play_type = 'no_play'`; penalties during valid plays keep the underlying play type. Always identify penalty plays via `penalty == 1` flag. Use `penalty == 1 AND penalty_yards != 0` for accepted-only penalties.
+
+4. **Rest days Week 1 distortion** — `away_rest`/`home_rest` correctly show 200+ days for Week 1. Cap at 14 days in feature engineering; add `is_post_bye` flag for rest >= 13 days; add `is_short_rest` flag for rest < 6 days. Always use the existing columns, never recompute from game dates.
+
+5. **Red zone trip play-level overcounting** — drive-level grouping is required: group by `[game_id, posteam, drive]`, check `yardline_100.min() <= 20` per drive, count unique qualifying drives. Expected output is 3-5 trips per team per game. Play-level counting produces 15-20+ and correlates with pace rather than red zone ability.
+
+See [PITFALLS.md](./PITFALLS.md) for all 10 pitfalls with recovery strategies, warning signs, and a "Looks Done But Isn't" verification checklist.
 
 ## Implications for Roadmap
 
-Based on the dependency graph in FEATURES.md and the build order in ARCHITECTURE.md, a four-phase approach is recommended (plus a deferred P3 phase for historical context). The ordering is driven by hard dependencies (SOS requires team EPA; advanced profiles require player_id cross-reference tables), risk isolation (each phase is independently testable), and the principle that P1 features ship with backtest validation gates before P2 work begins.
+Based on dependency analysis from ARCHITECTURE.md's build order and the pitfall-to-phase mapping from PITFALLS.md, a 7-phase structure is recommended. The ordering is driven by hard dependencies (PBP column expansion unblocks three later phases; referee tendencies joins data from both PBP and schedules modules), risk isolation (each phase independently testable), and the principle that infrastructure prerequisites ship before features that depend on them.
 
-### Phase 1: PBP Team Metrics Foundation
+### Phase 1: PBP Column Expansion (Infrastructure)
+**Rationale:** Hard prerequisite for Phases 2, 3, and 7 — penalties, special teams, and turnover luck all require columns not in current Bronze PBP. Attempting any PBP-derived feature without this causes silent KeyErrors and empty DataFrames. Must be first.
+**Delivers:** `PBP_EXTENDED_COLUMNS` config entry (~128 total columns), ingestion or supplemental join of additional PBP columns for 2016-2025, verified column availability in Bronze parquet files.
+**Addresses:** Foundational prerequisite for penalty aggregation, special teams metrics, turnover luck.
+**Avoids:** Pitfall 2 (missing PBP columns), Pitfall 6 (fumble recovery attribution impossible without `fumble_recovery_1_team`), Pitfall 3 (special teams analysis returning empty frames).
 
-**Rationale:** All P1 features depend on PBP aggregation being available; SOS depends on team EPA; this phase contains the hardest correctness problems (OOM risk, playoff contamination, season-boundary rolling bleed) and must be solved first. Fixing the existing rolling window season-boundary bug in `player_analytics.py` simultaneously prevents the flaw from propagating into every subsequent phase.
-**Delivers:** `team_analytics.py` module + `silver_team_transformation.py` CLI; Silver outputs for `teams/pbp_metrics/` (EPA/play, success rate, CPOE, red zone efficiency, pace, PROE) with rolling windows (3-game, 6-game, season-to-date) for seasons 2016–2025; bug fix to rolling window groupby in `player_analytics.py`
-**Addresses:** Team EPA per play, success rate, CPOE, red zone efficiency, pace, PROE (all P1 from FEATURES.md)
-**Avoids:** PBP OOM pitfall (column subsetting + per-season loop), playoff contamination pitfall (`season_type == 'REG'` filter), rolling season-boundary bleed pitfall (fix groupby key to `(player_id, season)`)
+### Phase 2: PBP-Derived Team Metrics (Penalties, Turnover Luck, Red Zone Trips)
+**Rationale:** Extends `team_analytics.py` — the project's best-tested, most mature module (847 lines, established groupby-aggregate-merge-rolling pattern). Three features share the same PBP source and the same pattern, so implementing together shares test infrastructure and reduces context-switching cost.
+**Delivers:** Three new Silver paths: `teams/penalties/`, `teams/turnover_luck/`, `teams/rz_trips/` with rolling windows (_roll3, _roll6, _std variants via `apply_team_rolling()`).
+**Implements:** `compute_penalty_metrics()`, `compute_turnover_luck()`, `compute_red_zone_trips()` in `team_analytics.py`.
+**Avoids:** Pitfall 10 (use `penalty == 1` flag not `play_type`), Pitfall 6 (fumble recovery attribution via `fumble_recovery_1_team`), Pitfall 9 (drive-level red zone grouping).
 
-### Phase 2: Strength of Schedule
+### Phase 3: Special Teams Metrics
+**Rationale:** Separate from Phase 2 because special teams require a dedicated filter chain and more complex column combinations (kick_distance + field_goal_result + punt columns + returner columns). Phase 2 validates the extension pattern; Phase 3 applies it to a more complex play-type subset.
+**Delivers:** `teams/special_teams/` Silver path — FG%, punt average, kickoff touchback rate, return yards, blocked kick counts, special teams EPA per team-week.
+**Implements:** `compute_special_teams_metrics()` and `_filter_special_teams_plays()` in `team_analytics.py`.
+**Avoids:** Pitfall 3 (dedicated ST filter required; `_filter_valid_plays()` must not be used or modified).
 
-**Rationale:** Hard dependency on Phase 1 team EPA outputs; SOS is the highest-complexity P1 feature (circular dependency risk) and benefits from isolation in its own phase so the lagged computation pattern can be thoroughly tested before Gold consumes it.
-**Delivers:** `compute_sos()` in `team_analytics.py`; Silver output at `teams/sos/season=YYYY/`; idempotency tests; regression test for Week 1 adj_EPA == raw_EPA
-**Addresses:** Strength of Schedule P1 feature; feeds updated Gold matchup multiplier (replaces simple rank-based opponent ranking)
-**Avoids:** Circular SOS dependency pitfall (lagged opponent quality, idempotency tests); recovery cost is HIGH if baked into Gold without validation
+### Phase 4: Schedule-Derived Context Features (Weather, Rest/Travel, Coaching)
+**Rationale:** Creates the new `game_context.py` module and `silver_game_context_transformation.py` script — more infrastructure than Phases 2-3 but reads existing schedules Bronze (no new Bronze dependency). Weather and rest are lowest-complexity features and can be validated quickly before tackling coaching tenure logic.
+**Delivers:** New module `src/game_context.py`, new script `scripts/silver_game_context_transformation.py`, `teams/game_context/` Silver path with weather bins, rest advantage, travel distance, coaching tenure, and `STADIUM_COORDINATES` dict in config.py.
+**Implements:** `_unpivot_schedules()`, `compute_weather_features()`, `compute_rest_travel()`, `compute_coaching_changes()`.
+**Avoids:** Pitfall 1 (external weather API is unnecessary; schedules data is more accurate), Pitfall 5 (cap Week 1 rest at 14 days; add `is_post_bye`, `is_short_rest`, `is_international` flags), Pitfall 4 (HC detection from schedules is automated; OC/DC deferred — no automated source exists).
 
-### Phase 3: Situational Splits
+### Phase 5: Referee Tendencies
+**Rationale:** Joins data from two sources (schedules `referee` column + penalty counts from Phase 2 Silver). Can only run after Phase 2 (penalty Silver available) and Phase 4 (game_context module exists to extend). Uses schedules `referee` column directly — the officials Bronze type is not needed for the core feature.
+**Delivers:** Referee historical statistics (penalties/game rolling, scoring impact, home bias) added to `teams/game_context/` Silver (or a dedicated `teams/referee/` path).
+**Implements:** `compute_referee_tendencies()` in `game_context.py`.
+**Avoids:** Pitfall 7 (use schedules `referee` column as primary source; normalize referee name strings; unique count should be ~20-25 active per season, not 50+).
 
-**Rationale:** Low-complexity promotion of already-implemented logic; independent of PBP outputs; depends only on schedules Bronze (2020–2025 available locally) and existing Silver usage table. Establishes the standalone Silver table pattern before the more complex Phase 4 work.
-**Delivers:** `situational_analytics.py` module; Silver output at `situational/splits/season=YYYY/`; home/away, divisional, and game-script tags with rolling splits; registered in `config.py` and verified via `download_latest_parquet()`
-**Addresses:** Situational tags P1 feature; promotes existing inline Silver logic to a proper, registered output
-**Avoids:** Silver path convention bypass pitfall (register in config.py before first write)
+### Phase 6: Playoff/Elimination Context
+**Rationale:** Most complex computation in the milestone — requires cumulative within-season standings, division rank computation, and strict look-ahead prevention via `cumsum` with `shift(1)`. Placed last among feature phases because it benefits from all other game_context infrastructure being stable. Use standings proxies, not full NFL tiebreaker logic.
+**Delivers:** `wins`, `losses`, `win_pct`, `division_rank`, `games_behind_division_leader`, `is_above_500`, `late_season_contention` added to `teams/game_context/` Silver.
+**Implements:** `compute_playoff_context()` in `game_context.py`.
+**Avoids:** Pitfall 8 (no full tiebreaker logic; Vegas spread already prices playoff implications; handle ties as W-L-T not W-L; look-ahead bias via `cumsum` + `shift(1)` within season groups).
 
-### Phase 4: Advanced Player Profiles (NGS/PFR/QBR)
-
-**Rationale:** P2 work gated on P1–P2 backtest validation showing team EPA rolling windows improve Gold MAE; NGS/PFR/QBR sparse-join and NaN-coverage pitfalls are solved in isolation without risking the team metrics pipeline; requires player_id cross-reference from existing usage Silver table
-**Delivers:** `advanced_player_analytics.py` module + `silver_advanced_transformation.py` CLI; Silver output at `players/advanced/season=YYYY/`; NGS separation/RYOE/TTT, PFR pressure/blitz, QBR rolling windows per player-week; NaN coverage logging; `min_periods=3` on sparse columns
-**Addresses:** NGS player profiles, PFR pressure/blitz, QBR rolling windows (all P2 from FEATURES.md)
-**Avoids:** NGS/PFR silent NaN pitfall (coverage logging + `min_periods=3`), inner-join player drop anti-pattern (always left-join from player_weekly)
-
-### Deferred: Historical Context (P3)
-
-**Rationale:** Combine + draft capital join is the highest-risk join in the project (name-based cross-reference for pre-2016 data, ~30–40% UFDA NaN rate, row explosion risk); outputs are static (not weekly); defer until rookie breakout modeling is an explicit Gold target
-**Delivers:** `historical_context.py` module; static `players/historical/combine_draft_profiles.parquet`; one row per player; annual refresh at draft time
-**Addresses:** Combine measurables + draft capital P3 feature from FEATURES.md
-**Avoids:** Combine/draft row explosion pitfall (dimension table pattern, row count assertion after join)
+### Phase 7: Pipeline Health and Integration Testing
+**Rationale:** Five new Silver output paths need health monitoring checks and end-to-end integration tests verifying that the Gold prediction feature vector assembles correctly (~130 columns) from the new Silver joins. This is a first-class deliverable, not an afterthought.
+**Delivers:** Updated `check_pipeline_health.py` covering all five new Silver paths; integration tests for Gold feature vector assembly; Silver output validation (red zone trips 3-5/game, penalty column presence, referee count sanity, fumble recovery rate near 50%).
+**Avoids:** All 13 items from PITFALLS.md "Looks Done But Isn't" checklist become integration test assertions.
 
 ### Phase Ordering Rationale
 
-- **Team metrics before SOS**: Hard data dependency — SOS is computed from team EPA rankings computed in Phase 1; both can run in the same CLI but team EPA must complete first
-- **Fix rolling window bug in Phase 1**: The groupby season-boundary bug in `player_analytics.py` affects backtesting accuracy across all seasons; fixing in Phase 1 prevents all subsequent phases from being built on contaminated Silver rolling averages
-- **Phases 1–3 before Phase 4**: Backtest gate — run `backtest_projections.py` after Phases 1–3 to confirm MAE improvement before investing in NGS/PFR/QBR profiles (P2 only justified by demonstrated P1 improvement)
-- **Historical context deferred**: Name-based cross-reference for pre-2016 draft picks has ~20% unlinked player rate; static output provides low weekly ROI compared to P1/P2 improvements
-- **Each phase is independently testable**: New modules have no cross-dependencies; each can be built and tested in isolation before the next phase begins
+- PBP column expansion first because it is a hard prerequisite for three later phases; silent failures (empty frames, KeyErrors) are the consequence of skipping this step.
+- PBP-derived features (Phases 2-3) before schedule-derived (Phase 4) because they extend mature, well-tested code (`team_analytics.py`) — lower risk for early phases.
+- Special teams (Phase 3) after core PBP metrics (Phase 2) because it requires a custom filter and is more complex; Phase 2 validates the extension pattern first.
+- Schedule features (Phase 4) after PBP features because they require creating a new module — higher infrastructure risk, better done after the simpler extension pattern is proven.
+- Referee tendencies (Phase 5) after both PBP and schedule features because it joins Silver from Phase 2 with Bronze schedules data from Phase 4.
+- Playoff context (Phase 6) last among features because cumulative standings is the most complex transform and benefits from all infrastructure being stable.
+- Health/integration testing (Phase 7) at end to validate the assembled feature vector before any ML or Gold projection work consumes the new Silver data.
 
 ### Research Flags
 
-Phases with well-documented patterns (standard — skip additional research during planning):
-- **Phase 1 (PBP Team Metrics)**: pandas groupby/agg patterns fully verified by direct execution; PBP schema confirmed; working code snippets in ARCHITECTURE.md and STACK.md
-- **Phase 3 (Situational Splits)**: Logic already exists in `player_analytics.py`; this is a refactor to a standalone table, not new research
+Phases likely needing deeper research or validation during planning:
+- **Phase 1 (PBP column expansion):** Verify which of the ~20-25 extended columns are actually populated in nflverse PBP for seasons 2016-2025. Column schema can change between nflverse versions. Run a column audit on a sample season parquet before committing to the full expanded list. Also decide between re-ingestion vs. supplemental-join approach based on local Bronze freshness.
+- **Phase 5 (Referee tendencies):** Referee name consistency across seasons needs a normalization pass before aggregation. Unique referee count should be ~20-25 active per season; if much higher, name variants are causing splitting. Build alias lookup table.
+- **Phase 6 (Playoff context):** Standings validation requires spot-checking against published standings for at least 2 historical seasons. NFL ties (result == 0) must be handled correctly with the W-L-T formula: (W + 0.5*T) / G.
 
-Phases that benefit from deeper research during planning:
-- **Phase 2 (SOS)**: The lagged opponent-quality computation and idempotency testing approach should be designed carefully before implementation; recovery cost is HIGH if circular dependency bakes into Gold
-- **Phase 4 (Advanced Player Profiles)**: PFR player ID cross-reference via `draft_picks` (pfr_player_id → gsis_id) should be validated against actual data before implementation; NGS position-filter coverage rates need measurement to set realistic `min_periods` thresholds
+Phases with standard patterns (skip or minimize research-phase):
+- **Phase 2 (PBP team metrics):** Well-established pattern in existing `team_analytics.py`; 3 new functions follow the exact same groupby-aggregate-merge-rolling template as existing `compute_team_epa()` and `compute_red_zone_metrics()`.
+- **Phase 3 (Special teams):** Pattern is clear once Phase 2 is working; primary risk is filter selection, which is fully documented.
+- **Phase 4 (Schedule features):** Schedules data schema is confirmed against data dictionary; `_unpivot_schedules()` pattern mirrors `compute_venue_splits()` in `player_analytics.py`. Weather, rest, and coaching transforms are date math and conditional logic.
+- **Phase 7 (Pipeline health):** Follows existing `check_pipeline_health.py` pattern with new Silver path entries.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All patterns executed against actual venv on 2026-03-13; zero new dependencies confirmed; memory profiles measured against real data |
-| Features | HIGH | Feature scope derived from `docs/NFL_GAME_PREDICTION_DATA_MODEL.md` (SLV-01 to SLV-03) and Bronze schema inventory; Bronze data availability confirmed from local filesystem |
-| Architecture | HIGH | Based on direct inspection of all Bronze schemas, existing Silver module source, projection engine consumption patterns, and confirmed column counts |
-| Pitfalls | HIGH | Grounded in codebase analysis (rolling window bug confirmed at specific lines in `player_analytics.py`); all pitfalls tied to specific code patterns or confirmed data characteristics |
+| Stack | HIGH | All core recommendations verified against installed package versions and local codebase inspection. No new dependencies required for 7 of 9 features. meteostat rated MEDIUM — not yet tested in project. |
+| Features | HIGH | All 9 feature categories verified against existing Bronze schema columns in docs/NFL_DATA_DICTIONARY.md and config.py. Predictive value claims for rest differential and turnover luck backed by peer-reviewed sources. |
+| Architecture | HIGH | Based on direct inspection of all source files: team_analytics.py (847 lines), player_analytics.py (418 lines), config.py PBP_COLUMNS (lines 156-203), SILVER_TEAM_S3_KEYS, silver_team_transformation.py patterns. |
+| Pitfalls | HIGH | All 10 pitfalls verified via direct code inspection: `_filter_valid_plays()` source confirmed, PBP_COLUMNS gaps confirmed, schedules column list confirmed against data dictionary. |
 
 **Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **SOS lagged computation validation**: The specific implementation of rolling opponent quality using lagged EPA values should be prototyped and validated (Week 1 adj_EPA == raw_EPA assertion) before the full SOS phase ships. Recovery cost is HIGH if circular dependency is baked into Gold.
-- **PFR player ID coverage rate**: The `pfr_player_id → gsis_id` cross-reference via `draft_picks` should be measured against actual 2024 player_weekly data before Phase 4 begins. The expected ~80% match rate needs empirical confirmation.
-- **NGS weekly qualification thresholds**: The minimum-target or minimum-play count that qualifies a player for a weekly NGS record needs confirmation from Bronze data inspection. This determines realistic NaN rates and appropriate `min_periods` settings for Phase 4.
-- **Schedules backfill (2016–2019)**: Situational tags currently have Bronze schedules only for 2020–2025. If Phase 3 needs to cover the full 2016–2025 PBP range, a Bronze schedules backfill must precede Phase 3 execution. For v1.2 launch, 2020–2025 coverage is sufficient and acceptable.
-- **Gold projection engine hooks**: The two identified hooks in `projection_engine.py` (SOS-adjusted matchup multiplier, NGS-supplemented usage multiplier) are stretch goals post-v1.2 Silver, not Phase 1–4 blockers. Integration points should be confirmed during Phase 2 and Phase 4 planning respectively.
+- **nfl-data-py archival (September 2025):** The nfl-data-py package was archived by nflverse in September 2025 (MEDIUM confidence from web search). The package is read-only but remains functional on Python 3.9. Long-term migration path is nflreadpy (requires Python 3.10+). Flag for v1.4 planning — do not block v1.3 work on it, but avoid introducing patterns that would be hard to migrate.
+- **OC/DC coaching data:** No automated source exists. Head coach change detection from schedules is the automated path. If OC/DC tracking proves valuable after HC tracking is validated, plan 2-4 hours of manual CSV curation from Pro Football Reference (scraping violates their ToS).
+- **PBP column backfill strategy:** Two options — (a) re-ingest all 10 seasons of PBP with expanded column set (~2-4 hours, 500+ MB), or (b) ingest supplemental columns only and join on `game_id + play_id`. Option (b) avoids re-downloading but adds join complexity. Decide during Phase 1 planning based on current local Bronze file freshness.
+- **meteostat vs. Open-Meteo for future game forecasting:** Schedules weather works for historical analysis, but pre-kickoff game prediction requires forecast-grade weather. This is a Gold-layer concern for a future milestone. Open-Meteo (free, no API key) is the preferred alternative to meteostat when needed.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- `src/player_analytics.py` — confirmed rolling window groupby gap (lines 210–215 vs season-scoped std line 219); existing module patterns and function signatures
-- `data/bronze/pbp/season=2024/*.parquet` — confirmed 103 cols, 49,492 plays per season, EPA/WPA/CPOE/success present
-- `data/silver/players/usage/season=2024/*.parquet` — confirmed 113-column schema consumed by `projection_engine.py`
-- Local venv execution 2026-03-13 — all pandas/numpy/scipy patterns verified against actual installed versions (pandas 1.5.3, numpy 1.26.4, scipy 1.13.1)
-- `docs/NFL_GAME_PREDICTION_DATA_MODEL.md` — Silver layer planned schema (SLV-01 to SLV-03), feature categories, out-of-scope decisions
-- `docs/NFL_DATA_DICTIONARY.md` — PBP 103-column schema, NGS schemas (29/23/22 cols), PFR schemas, QBR schema (30 cols)
-- `data/bronze/ngs/*/season=2024/*.parquet` — confirmed column sets for passing, receiving, rushing
-- `data/bronze/pfr/weekly/def/season=2024/*.parquet` — confirmed 29 cols (pressure, blitz, coverage)
-- `data/bronze/combine/season=2024/*.parquet` — confirmed 18 cols including forty, wt, ht, pfr_id
-- `data/bronze/draft_picks/season=2024/*.parquet` — confirmed 36 cols including gsis_id, pfr_player_id, round, pick, w_av
+- Direct codebase inspection — `src/team_analytics.py` (847 lines), `src/player_analytics.py` (418 lines), `src/config.py` PBP_COLUMNS (103 columns, lines 156-203), `_filter_valid_plays()` filter logic confirmed
+- `docs/NFL_DATA_DICTIONARY.md` — confirmed schedules columns: temp, wind, roof, surface, away_rest, home_rest, away_coach, home_coach, referee, stadium, div_game, game_type
+- nflverse PBP Data Dictionary — full column reference for 370+ PBP columns including penalty, ST, fumble recovery: https://nflreadr.nflverse.com/articles/dictionary_pbp.html
+- nfl-data-py source code — verified `import_officials()` in installed v0.3.3: https://github.com/nflverse/nfl_data_py
+- nflverse officials raw CSV — 2015+ coverage: https://raw.githubusercontent.com/nflverse/nfldata/master/data/officials.csv
+- `.planning/PROJECT.md` — v1.3 milestone requirements
 
 ### Secondary (MEDIUM confidence)
-- [pandas 1.5 window operations docs](https://pandas.pydata.org/pandas-docs/version/1.5/user_guide/window.html) — rolling, expanding, ewm confirmed in 1.5 series
-- [nflfastR team aggregation patterns](https://nflfastr.com/articles/nflfastR.html) — standard EPA/play, success_rate, CPOE approach (R patterns translated to pandas)
-- [scipy.stats.rankdata docs](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.rankdata.html) — used for SOS percentile ranking
-- `docs/NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md` — Phase 2 PBP memory-safe batching decision; team abbreviation change crosswalk (OAK→LV, SD→LAC)
+- Lopez & Bliss (2024) — rolling 3-week net rest signal, post-2011 CBA analysis: https://www.frontiersin.org/journals/behavioral-economics/articles/10.3389/frbhe.2024.1479832/full
+- Harvard Sports Analysis Collective — fumble recovery 50% randomness, referee penalty patterns: https://harvardsportsanalysis.org
+- PMC research — turnover margin R-squared year-over-year = 0.01: https://pmc.ncbi.nlm.nih.gov/articles/PMC5969004/
+- Sharp Football Analysis — wind >15 mph passing EPA impact: https://www.sharpfootballanalysis.com
+- nfl-data-py archival status: https://github.com/nflverse/nfl_data_py (read-only as of September 2025)
 
 ### Tertiary (LOW confidence)
-- NGS minimum qualification thresholds — inferred from "only targeted players appear" pattern; exact weekly minimums need empirical measurement from Bronze data
-- PFR player ID match rate — estimated ~80%; needs measurement against actual `draft_picks` × `player_weekly` join before Phase 4 implementation
+- nflpenalties.com — referee tendency concept validation only (used for directional confirmation, not a data source)
+- Sports Book Review fatigue index — travel/fatigue signal directional confirmation
 
 ---
-*Research completed: 2026-03-13*
+*Research completed: 2026-03-15*
 *Ready for roadmap: yes*

@@ -1,183 +1,310 @@
-# Technology Stack
+# Stack Research
 
-**Project:** NFL Data Engineering v1.2 Silver Expansion
-**Researched:** 2026-03-13
-**Confidence:** HIGH — all findings verified by direct execution in the project venv
+**Domain:** NFL Prediction Data Foundation (v1.3 milestone)
+**Researched:** 2026-03-15
+**Confidence:** HIGH for PBP-derivable features (verified columns exist); MEDIUM for weather enrichment (new dependency)
 
-## Verdict: No New Dependencies Required
+## Executive Summary
 
-Every computation needed for the Silver expansion (PBP team metrics, rolling windows, situational breakdowns, advanced player profiles, strength of schedule, historical context) is achievable with the existing installed stack. The key libraries — pandas 1.5.3, numpy 1.26.4, scipy 1.13.1 — are already installed and cover all required operations. Zero new pip packages.
+Of the 9 new feature areas in this milestone, 7 require ZERO new dependencies -- they derive entirely from existing Bronze PBP data (370+ columns) and schedules data. Only 2 areas need attention:
 
-## Current Stack (Unchanged for v1.2)
+1. **Weather enrichment**: The schedules table already has `temp` and `wind` columns, but they have significant NaN gaps (dome games show NaN, not "72F/0mph"). A new dependency (`meteostat`) is recommended ONLY if richer weather data (precipitation, humidity, hourly conditions) is needed beyond what schedules provides.
 
-### Core Processing
+2. **Officials/referee data**: `nfl.import_officials()` already exists in the installed nfl-data-py 0.3.3 -- it just needs a new Bronze registry entry and adapter method.
 
-| Technology | Version | Purpose | Silver Expansion Role |
-|------------|---------|---------|----------------------|
-| Python | 3.9.7 | Runtime | No change — all Silver APIs are 3.9-compatible |
-| pandas | 1.5.3 | DataFrame processing | Primary engine for all 6 Silver expansion feature areas |
-| numpy | 1.26.4 | Array math | Weighted averages (SoS), conditional logic, float32 downcasting |
-| scipy | 1.13.1 | Statistical functions | `rankdata` for SoS percentile ranks; already installed |
-| pyarrow | 21.0.0 | Parquet read/write | Reads Bronze PBP (float32 columns), writes Silver outputs |
-| nfl-data-py | 0.3.3 | NFL data source | Bronze PBP already ingested; Silver reads from local Parquet |
+Everything else -- special teams, penalties, turnover luck, rest/travel, red zone trips, playoff context, coaching changes -- is derivable from existing PBP columns (which have 370+ fields, though only 103 are currently curated) and schedules data.
 
-### Infrastructure (Unchanged)
+## Recommended Stack
 
-| Technology | Version | Purpose | Notes |
-|------------|---------|---------|-------|
-| fastparquet | 2024.11.0 | nfl-data-py dep | Required by nfl-data-py, not directly used in Silver |
-| boto3 | 1.40.11 | S3 upload (optional) | Local-first; only used with --s3 flag |
-| python-dotenv | 1.1.1 | Environment config | No change |
-| tqdm | 4.67.1 | Progress bars | Useful for multi-season Silver builds |
+### Core Technologies (NO CHANGES)
 
-## Verified Capability Map
+| Technology | Version | Purpose | v1.3 Role |
+|------------|---------|---------|-----------|
+| Python | 3.9.7 | Runtime | No change |
+| pandas | 1.5.3 | DataFrame processing | All Silver transforms, groupby/agg for new metrics |
+| numpy | 1.26.4 | Array math | Haversine distance for travel, conditional logic |
+| pyarrow | 21.0.0 | Parquet read/write | Reads Bronze PBP (full column set), writes Silver |
+| nfl-data-py | 0.3.3 | NFL data source | `import_officials()` for referee data (already installed) |
 
-Every Silver expansion feature area was prototyped and executed against the actual venv (2026-03-13):
+### New Dependency (Conditional)
 
-### PBP Team Metrics (EPA/play, success rate, CPOE, red zone)
+| Library | Version | Purpose | When to Use |
+|---------|---------|---------|-------------|
+| meteostat | 1.6.8 | Historical weather data via NOAA | ONLY if precipitation/humidity/hourly data needed beyond schedules `temp`/`wind` columns |
 
-**Pattern:** `pbp_df[pbp_df['play_type'].isin(['pass','run'])].groupby(['season','week','posteam']).agg(...)`
+**Recommendation: Start WITHOUT meteostat.** The schedules table provides game-level temp, wind, roof, and surface. For dome/indoor games, temp and wind are NaN -- but you can impute "72F, 0 mph" for dome games using the `roof` column. This covers 90% of weather modeling needs. Add meteostat later only if backtesting shows weather features beyond temp/wind improve prediction accuracy.
 
-**Verified:** Aggregates 49,492 PBP rows per season → ~180 team-week rows in 17 KB. Pure pandas `.groupby().agg()` — no new dependencies. Pass/rush split, red zone filter (`yardline_100 <= 20`), CPOE mean on pass plays all confirmed working.
+### Supporting Libraries (Already Installed, New Uses)
 
-**Confidence:** HIGH
+| Library | Version | New Purpose | Details |
+|---------|---------|-------------|---------|
+| scipy | 1.13.1 | Haversine approximation for travel distance | `scipy` is installed but not needed -- numpy trig is sufficient for great-circle distance |
+| tqdm | 4.67.1 | Progress bars for officials backfill ingestion | Already used in batch ingestion |
 
-### Rolling Windows on Team Metrics (3-week, 6-week, season-to-date, EWM)
+## What's Already Available (Key Discovery)
 
-**Pattern:** `df.groupby(['team','season'])['metric'].transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())`
+### PBP Data: 370+ Columns, Only 103 Currently Curated
 
-**Verified:** pandas 1.5.3 supports:
-- `rolling(N, min_periods=1).mean()` — standard short windows
-- `expanding(min_periods=1).mean()` — season-to-date
-- `ewm(halflife=N).mean()` and `ewm(halflife=N).std()` — recency-weighted decay
-- `ewm` via `groupby().transform(lambda s: s.ewm(...).mean())` — tested and confirmed working in pandas 1.5.3
+The nflverse PBP dataset contains ~370 columns. The project's `PBP_COLUMNS` in `config.py` curates 103 of them. The following columns exist in the full PBP but are NOT in `PBP_COLUMNS` -- they need to be added:
 
-**Key design decision (verified by execution):** Group by `['team', 'season']` for within-season rolling (Week 1 of each season gets NaN, not carry-over from prior season's Week 18). Use `groupby(['team'])` without season if cross-season carry-over is desired for the season opener. Both patterns work.
+**Penalty columns (needed for penalty aggregation):**
+- `penalty` -- ALREADY in PBP_COLUMNS (binary)
+- `penalty_team` -- team abbreviation for penalized team
+- `penalty_player_id`, `penalty_player_name` -- who committed it
+- `penalty_yards` -- yardage assessed
+- `penalty_type` -- string type (e.g., "Holding", "Pass Interference")
 
-**Confidence:** HIGH
+**Special teams columns (needed for ST metrics):**
+- `punt_attempt`, `punt_blocked`, `punt_inside_twenty`, `punt_in_endzone`, `punt_out_of_bounds`, `punt_downed`, `punt_fair_catch`
+- `kickoff_attempt`, `kickoff_inside_twenty`, `kickoff_in_endzone`, `kickoff_out_of_bounds`, `kickoff_downed`, `kickoff_fair_catch`
+- `field_goal_attempt`, `field_goal_result` (made/missed/blocked)
+- `extra_point_attempt`, `extra_point_result` (good/failed/blocked)
+- `kick_distance` -- numeric yards for kicks, punts, FGs
+- `punt_returner_player_id`, `punt_returner_player_name`
+- `kickoff_returner_player_id`, `kickoff_returner_player_name`
+- `kicker_player_id`, `kicker_player_name`
+- `blocked_player_id`, `blocked_player_name`
+- `own_kickoff_recovery`, `own_kickoff_recovery_td`
+- `return_yards` -- if available; otherwise derive from `yards_gained` on ST plays
 
-### Situational Breakdowns (game script, home/away, divisional)
+**Fumble recovery columns (needed for turnover luck):**
+- `fumble`, `fumble_lost` -- ALREADY in PBP_COLUMNS
+- `fumble_forced`, `fumble_not_forced`
+- `fumble_recovery_1_team`, `fumble_recovery_1_yards`, `fumble_recovery_1_player_id`
+- `fumble_recovery_2_team`, `fumble_recovery_2_yards`
+- `fumbled_1_team`, `fumbled_1_player_id`
 
-**Pattern:** `pd.cut()` for game script bins → `groupby(['situation']).agg()` for split stats
+**Drive columns (needed for red zone trip volume):**
+- `drive` -- ALREADY in PBP_COLUMNS
+- `series`, `series_success`, `series_result` -- ALREADY in PBP_COLUMNS
+- (Red zone trips = count of unique drives entering yardline_100 <= 20)
 
-**Verified:** Existing `compute_game_script_indicators()` in `src/player_analytics.py` already uses this pattern. Extension to team-level situational splits requires only additional groupby keys — no new code patterns.
+### Schedules Data: Already Has Rest, Coaches, Referee, Weather
 
-**Confidence:** HIGH (pattern already in codebase)
+The schedules Bronze table (from `import_schedules()`) already contains:
 
-### Advanced Player Profiles (NGS + PFR + QBR merge)
+| Column | Purpose | Status |
+|--------|---------|--------|
+| `away_rest`, `home_rest` | Days rest for each team | Available, integer |
+| `away_coach`, `home_coach` | Head coach names per game | Available, string |
+| `referee` | Head referee name | Available, string |
+| `temp` | Temperature (Fahrenheit) | Available, NaN for domes |
+| `wind` | Wind speed (mph) | Available, NaN for domes |
+| `roof` | Roof type (outdoors/dome/closed/open) | Available, string |
+| `surface` | Playing surface type | Available, string |
+| `weekday` | Day of week (for prime time detection) | Available, string |
+| `gametime` | Kickoff time (for time zone analysis) | Available, string |
+| `stadium`, `stadium_id` | Stadium identification | Available, string |
+| `div_game` | Divisional game flag | Available, integer |
+| `game_type` | REG/WC/DIV/CON/SB for playoff context | Available, string |
 
-**Pattern:** Multi-table `pd.merge()` on `[player_id, season, week]` keys
+### Officials Data: import_officials() in nfl-data-py
 
-**Verified:** Standard pandas merge. All Bronze data (NGS separation, PFR pressure/blitz, QBR) is already ingested as local Parquet. The only risk is key alignment across tables — covered in PITFALLS.md.
+The installed nfl-data-py 0.3.3 has `import_officials()` which returns per-game, per-official rows from the nflverse dataset (2015+). Each row contains:
+- `game_id` -- joins to schedules
+- Official name, position (Referee, Umpire, etc.), jersey number
+- `season` (derived from game_id)
 
-**Confidence:** HIGH
+This means referee CREW data (not just the head referee from schedules) is available for deeper analysis.
 
-### Strength of Schedule (opponent-adjusted EPA rankings)
+## Feature-to-Data Source Mapping
 
-**Pattern:** Join schedule to team EPA ratings → `scipy.stats.rankdata()` for percentile ranking → rolling weighted average via `numpy.average(weights=...)`
+| Feature Area | Data Source | New Dependency? | New PBP Columns Needed? |
+|--------------|------------|-----------------|------------------------|
+| Weather data | Schedules Bronze (`temp`, `wind`, `roof`, `surface`) | NO (or meteostat if richer data needed) | NO |
+| Coaching staff | Schedules Bronze (`away_coach`, `home_coach`) | NO | NO |
+| Special teams metrics | PBP Bronze (full column set) | NO | YES -- ~20 ST columns |
+| Penalty aggregation | PBP Bronze (full column set) | NO | YES -- 5 penalty columns |
+| Rest/travel factors | Schedules Bronze (`away_rest`, `home_rest`, `weekday`, `gametime`, `stadium`) | NO | NO |
+| Turnover luck | PBP Bronze (full column set) | NO | YES -- ~8 fumble recovery columns |
+| Referee tendencies | Schedules Bronze (`referee`) + Officials Bronze (new) | NO (import_officials already in nfl-data-py) | NO |
+| Playoff/elimination | Schedules Bronze (`game_type`) + derived standings | NO | NO |
+| Red zone trip volume | PBP Bronze (`drive`, `yardline_100`) | NO (columns already in PBP_COLUMNS) | NO |
 
-**Verified:** `scipy.stats.rankdata` converts EPA ratings to ordinal ranks (1–32). `numpy.average(vals, weights=weights)` computes recency-weighted SoS. Both confirmed working. `pandas.Series.rank(pct=True)` is an alternative that avoids scipy entirely if preferred.
+## Implementation Changes Required
 
-**Confidence:** HIGH
+### 1. Expand PBP_COLUMNS in config.py
 
-### Historical Context (combine + draft capital linking)
+Add ~35 columns to the curated PBP_COLUMNS list for penalty, special teams, and fumble recovery data. These columns exist in the nflverse PBP dataset but are currently excluded from the 103-column curated list.
 
-**Pattern:** `pd.merge()` on player_id/gsis_id to link combine measurables and draft pick data to player profiles
+```python
+# Add to PBP_COLUMNS in config.py:
+# Penalty detail (5)
+"penalty_team", "penalty_player_id", "penalty_player_name",
+"penalty_yards", "penalty_type",
+# Special teams - punts (8)
+"punt_attempt", "punt_blocked", "punt_inside_twenty",
+"punt_in_endzone", "punt_out_of_bounds", "punt_downed",
+"punt_fair_catch", "kick_distance",
+# Special teams - kickoffs (7)
+"kickoff_attempt", "kickoff_inside_twenty", "kickoff_in_endzone",
+"kickoff_out_of_bounds", "kickoff_downed", "kickoff_fair_catch",
+"own_kickoff_recovery",
+# Special teams - FG/XP (4)
+"field_goal_attempt", "field_goal_result",
+"extra_point_attempt", "extra_point_result",
+# Special teams - players (6)
+"kicker_player_id", "kicker_player_name",
+"punt_returner_player_id", "punt_returner_player_name",
+"kickoff_returner_player_id", "kickoff_returner_player_name",
+# Fumble recovery detail (5)
+"fumble_forced", "fumble_not_forced",
+"fumble_recovery_1_team", "fumble_recovery_1_yards",
+"fumble_recovery_2_team",
+```
 
-**Verified:** Standard merge; Bronze combine and draft_picks tables are already available as local Parquet. Join key alignment (player_id vs gsis_id vs name matching) is the only complexity — covered in PITFALLS.md.
+This brings PBP_COLUMNS from 103 to ~138 columns. Memory impact is minimal (~2 MB more per season due to added columns being mostly binary/sparse).
 
-**Confidence:** HIGH
+### 2. Add Officials to Bronze Registry
 
-## Memory Profile for Silver Expansion
+Add `officials` as a new Bronze data type in `DATA_TYPE_REGISTRY` and `DATA_TYPE_SEASON_RANGES`:
 
-PBP is the only large input. Per-season processing (reading one season at a time from Bronze Parquet):
+```python
+# In config.py DATA_TYPE_SEASON_RANGES:
+"officials": (2015, get_max_season),
 
-| Input | Rows/Season | In-Memory (relevant cols) | Silver Output |
-|-------|-------------|--------------------------|---------------|
-| PBP (10 cols for team metrics) | ~49,500 | ~9 MB (float32) | ~180 team-week rows (17 KB) |
-| player_weekly | ~6,000 | ~5 MB | existing Silver |
-| NGS (3 stat types) | ~2,650 total | <2 MB | player profile rows |
-| PFR weekly (4 s_types) | ~2,800 total | <2 MB | player profile rows |
-| QBR weekly | ~573 | <1 MB | player profile rows |
+# In bronze_ingestion_simple.py DATA_TYPE_REGISTRY:
+"officials": {
+    "adapter_method": "fetch_officials",
+    "bronze_path": "officials/season={season}",
+    "requires_week": False,
+    "requires_season": True,
+},
+```
 
-**Safe pattern:** Read one season of PBP, aggregate to team-week metrics, write Silver Parquet, release DataFrame. Peak memory stays under 50 MB per season. Do not load all 10 seasons of PBP simultaneously.
+### 3. Add fetch_officials to NFLDataAdapter
+
+A thin wrapper calling `nfl.import_officials(years)` -- follows the exact same pattern as existing adapter methods.
+
+### 4. Stadium Coordinates (for Travel Distance)
+
+The `import_team_desc()` function (already used, data type `teams`) returns team metadata. Stadium lat/lon coordinates are NOT in the nflverse team data. For travel distance calculation, use a static lookup dict of 32 stadium coordinates (hardcoded, since stadiums rarely change). This is standard practice in NFL analytics -- no API needed.
+
+```python
+# Static lookup -- add to config.py or a new reference module
+STADIUM_COORDS = {
+    "ARI": (33.5276, -112.2626),  # State Farm Stadium
+    "ATL": (33.7554, -84.4010),   # Mercedes-Benz Stadium
+    # ... 30 more teams
+}
+```
+
+## Installation
+
+### If proceeding without meteostat (recommended initial approach):
+
+```bash
+# No changes to requirements.txt
+pip install -r requirements.txt
+```
+
+### If adding meteostat later for enhanced weather:
+
+```bash
+pip install meteostat==1.6.8
+```
+
+**meteostat dependencies:** matplotlib (already not installed -- would add ~30 MB if pulled in). Use `pip install meteostat --no-deps` and manually install only `pandas` (already have it). Meteostat itself is lightweight (~50 KB) but matplotlib is a heavy transitive dependency.
+
+**Alternative:** Use meteostat's underlying data source directly via HTTP (NOAA Global Summary of the Day) to avoid the dependency entirely. This is more work but keeps the dependency tree clean.
 
 ## Alternatives Considered
 
-| Recommended | Alternative | Why Not |
-|-------------|-------------|---------|
-| pandas rolling/ewm | Polars rolling | Requires Python 3.10+ migration; entire pipeline rewrite |
-| pandas rolling/ewm | Dask | PBP at 9 MB/season (relevant cols) is trivially small; no need for distributed |
-| scipy.stats.rankdata | statsmodels | Not installed; statsmodels OLS is overkill for ranking; pandas.rank(pct=True) is simpler |
-| pandas .groupby().agg() | DuckDB SQL | DuckDB available as MCP but adds I/O round-trip; pandas is faster for in-memory PBP slices |
-| numpy.average (weighted) | scipy.signal.lfilter | FIR filters for sports analytics is over-engineered; numpy.average with explicit weights is readable and sufficient |
-| pandas ewm(halflife=int) | ewm(halflife=timedelta) | timedelta-based halflife requires pandas timestamp index; week integers work and are simpler |
+| Recommended | Alternative | When to Use Alternative |
+|-------------|-------------|-------------------------|
+| Schedules temp/wind columns | meteostat API | Only if precipitation/humidity data proves valuable in backtesting |
+| Schedules temp/wind columns | Open-Meteo API | Free, no key needed, but requires HTTP calls -- adds complexity vs using existing data |
+| Schedules temp/wind columns | Tom Bliss NFL Weather dataset (Kaggle) | Static CSV covering 2000-2020 -- good for historical backfill but stops at 2020 |
+| Static stadium coordinate dict | Google Maps API | Overkill; 32 stadiums change once every few years |
+| nfl-data-py import_officials | Web scraping nflpenalties.com | Fragile; nflverse data is structured and maintained |
+| Deriving ST metrics from PBP | Pro-Football-Reference scraping | Unnecessary; all ST play-level data is in PBP |
 
 ## What NOT to Add
 
 | Avoid | Why | Use Instead |
 |-------|-----|-------------|
-| statsmodels | Not installed; OLS regression for SoS adjustment is premature optimization; adds 8 MB dependency | `scipy.stats.rankdata` + weighted mean covers SoS |
-| polars | Python 3.9 incompatible; entire Silver/Gold/Draft pipeline uses pandas DataFrames | Keep pandas 1.5.3 |
-| pyjanitor | Syntactic sugar over pandas; adds dependency for no capability gain | Native pandas chaining |
-| nfl-analytics / nfelo libraries | No battle-tested pip-installable Python NFL analytics library exists with this scope; community solutions are R-first | Compute from raw PBP columns (EPA, WPA, CPOE already pre-computed by nflverse) |
-| great_expectations for Silver validation | Already installed (v1.5.8) but overly complex for layer-boundary checks; existing `validate_data()` pattern is sufficient | Keep `validate_data()` pattern |
-| Any new pip package | Zero new capabilities are blocked by missing libraries | Use existing stack |
+| meteostat (initially) | Schedules already has temp/wind/roof; adding a dependency for marginal gain is premature | Use schedules `temp`/`wind` + impute domes |
+| nflscraPy | Overlaps heavily with nfl-data-py; repo is less maintained | Existing nfl-data-py 0.3.3 |
+| nflreadpy | Python 3.10+ required; would force runtime upgrade | Stay on nfl-data-py 0.3.3 for now |
+| requests/beautifulsoup for coaching data | Schedules already has `home_coach`/`away_coach` per game | Use schedules data directly |
+| Any standings API | Standings/playoff context can be derived from schedules win/loss data | Compute cumulative W-L from schedules results |
+| geopy for distance | Heavyweight dependency for a simple haversine formula | numpy cos/sin/arctan2 (6 lines of code) |
 
 ## Stack Patterns by Feature Area
 
-**PBP team metrics (EPA, success rate, CPOE, pace):**
-- Filter: `play_type.isin(['pass','run'])` for scrimmage plays
-- Aggregate: `groupby(['season','week','posteam']).agg(epa_per_play=('epa','mean'), success_rate=('success','mean'), ...)`
-- Red zone: add `yardline_100 <= 20` filter before groupby
-- CPOE: filter `play_type == 'pass'` only, then mean of `cpoe` column
+**Weather features (from schedules):**
+- Read schedules Bronze, extract `temp`, `wind`, `roof`, `surface`
+- Impute dome games: where `roof in ('dome', 'closed')`, set `temp=72, wind=0`
+- Create binary features: `is_cold` (temp < 35), `is_windy` (wind > 15), `is_dome` (roof != 'outdoors')
+- Join to game_id for per-game weather context
 
-**Rolling windows on team metrics:**
-- Short windows (3, 6 week): `groupby(['team','season'])['metric'].transform(lambda s: s.shift(1).rolling(N, min_periods=1).mean())`
-- Season-to-date: `.transform(lambda s: s.shift(1).expanding().mean())`
-- EWM recency weighting: `.transform(lambda s: s.shift(1).ewm(halflife=3).mean())` — halflife=3 means week N-3 weighted at 50% of week N-1
+**Coaching staff tracking (from schedules):**
+- Extract `home_coach`, `away_coach` per game from schedules
+- Detect mid-season coaching changes: where coach name changes between consecutive weeks for same team
+- Compute coach tenure: games since coach's first appearance with team
+- OC/DC not available in nflverse data -- HC only (document as limitation)
 
-**Strength of schedule:**
-- Build team defensive EPA ratings per season-week from PBP defteam aggregation
-- Join to schedule (home_team, away_team) to get each team's upcoming/past opponents
-- `scipy.stats.rankdata(team_epa) / 32` for percentile difficulty
-- Rolling 3/6 week weighted average with `numpy.average(opp_ratings, weights=recency_weights)`
+**Special teams metrics (from expanded PBP):**
+- Filter PBP to `play_type in ('punt', 'field_goal', 'kickoff', 'extra_point')`
+- Aggregate per team-week: FG%, punt distance, punt inside-20 rate, kickoff touchback rate, return yards allowed
+- Use `kick_distance` for FG distance buckets, punt average
 
-**Player profile merging:**
-- Load Bronze NGS, PFR, QBR as separate DataFrames
-- Primary join key: `player_id` (where available) or `player_name + team + season`
-- Use `pd.merge(..., how='left')` to keep player_weekly as the spine
-- Combine/draft: join on `player_id` or name-matching (name matching needed for older seasons)
+**Penalty aggregation (from expanded PBP):**
+- Filter to `penalty == 1`
+- Group by `penalty_team` for committed penalties; group by opposing team for drawn penalties
+- Aggregate: penalty count, total penalty yards, penalties per play
+- Break down by `penalty_type` for type-specific rates
+
+**Rest and travel factors (from schedules):**
+- `away_rest`, `home_rest` already in schedules -- compute `rest_differential = home_rest - away_rest`
+- Travel distance: lookup home team stadium coords, away team stadium coords, compute haversine
+- Time zone differential: derive from stadium coords (or static timezone lookup)
+- Bye week detection: `home_rest >= 10` or missing from schedule for a week
+- Short week (Thursday): `weekday == 'Thursday'` and `home_rest < 7`
+
+**Turnover luck / fumble recovery regression (from expanded PBP):**
+- Total fumbles: count `fumble == 1` per team (as offense)
+- Fumbles lost: count `fumble_lost == 1` per team
+- Recovery rate: `fumbles_lost / total_fumbles` -- league average is ~50%
+- Deviation from 50%: indicates luck; teams far from 50% tend to regress
+- Also compute interception rate from existing `interception` column
+
+**Referee tendencies (from schedules + officials):**
+- Schedules `referee` column gives head referee per game
+- Officials Bronze gives full crew (7 officials per game, 2015+)
+- Join to penalty data: aggregate penalty rates per referee/crew
+- Compute referee-specific flags/game, yards/game averages
+
+**Playoff/elimination context (derived from schedules):**
+- Compute cumulative W-L record from schedules `result` column per team per season
+- Division standings: group by division, rank by wins
+- Clinch/elimination: simplified model using games remaining + win differential
+- `game_type` column distinguishes REG/WC/DIV/CON/SB directly
+
+**Red zone trip volume (from existing PBP columns):**
+- Already have `drive`, `yardline_100` in PBP_COLUMNS
+- Count unique drives where any play has `yardline_100 <= 20` per team-week
+- This gives trip COUNT (not just efficiency, which already exists in team_analytics.py)
 
 ## Version Compatibility
 
 | Package A | Compatible With | Notes |
 |-----------|-----------------|-------|
-| pandas 1.5.3 | numpy 1.26.4 | Verified; numpy 2.x breaks ABI — do not upgrade numpy |
-| pandas 1.5.3 | pyarrow 21.0.0 | Verified; newer pyarrow is backward-compatible with old pandas |
-| pandas 1.5.3 | scipy 1.13.1 | No direct integration; scipy used standalone — no compatibility concern |
-| nfl-data-py 0.3.3 | fastparquet 2024.11.0 | Required dependency; do not remove |
-
-## Installation
-
-No changes to requirements.txt:
-
-```bash
-pip install -r requirements.txt
-```
-
-All required capabilities (pandas rolling/ewm/expanding, numpy.average, scipy.stats.rankdata) are already present.
+| pandas 1.5.3 | numpy 1.26.4 | No change -- verified in v1.2 |
+| nfl-data-py 0.3.3 | import_officials() | Function exists, verified in source code; returns CSV from nflverse GitHub |
+| meteostat 1.6.8 | pandas 1.5.3 | Compatible; meteostat returns pandas DataFrames |
+| Python 3.9.7 | All packages above | No upgrade needed |
 
 ## Sources
 
-- Local venv execution (2026-03-13) — all patterns verified against pandas 1.5.3, numpy 1.26.4, scipy 1.13.1
-- [pandas 1.5 window operations docs](https://pandas.pydata.org/pandas-docs/version/1.5/user_guide/window.html) — rolling, expanding, ewm confirmed in 1.5 series
-- [pandas DataFrame.ewm](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.ewm.html) — halflife parameter (integer) confirmed working in 1.5.3
-- [scipy.stats.rankdata](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.rankdata.html) — used for SoS percentile ranking
-- [nflverse PBP field reference](https://github.com/nflverse/nflverse-pbp) — EPA, WPA, CPOE, success pre-computed fields available in Bronze PBP
-- [nflfastR team aggregation patterns](https://nflfastr.com/articles/nflfastR.html) — standard EPA/play, success_rate, CPOE aggregation approach (R, but patterns translate directly to pandas)
-- Memory profile: measured against 49,492-row simulated PBP with float32 columns — 8.8 MB in-memory, 17 KB after team-week aggregation
+- [nflverse PBP Data Dictionary](https://nflreadr.nflverse.com/articles/dictionary_pbp.html) -- full column reference for 370+ PBP columns including penalty, ST, fumble recovery (HIGH confidence)
+- [nfl-data-py source code](https://github.com/nflverse/nfl_data_py) -- verified `import_officials()` exists in installed v0.3.3 (HIGH confidence)
+- [Meteostat Python library](https://dev.meteostat.net/python) -- NOAA-based historical weather, CC BY 4.0 license (MEDIUM confidence -- not yet tested in project)
+- [Tom Bliss NFL Weather Data](https://www.datawithbliss.com/weather-data/) -- historical NFL weather using meteostat, covers 2000-2020 (MEDIUM confidence)
+- [nflverse officials data](https://raw.githubusercontent.com/nflverse/nfldata/master/data/officials.csv) -- raw CSV source for import_officials, 2015+ (HIGH confidence)
+- Local project inspection (2026-03-15) -- verified schedules columns (temp, wind, roof, coach, referee, rest), PBP_COLUMNS curated list, DATA_TYPE_REGISTRY, NFLDataAdapter patterns (HIGH confidence)
+- [NFL Penalty Stats Tracker](https://www.nflpenalties.com/) -- independent verification of referee/penalty data availability (LOW confidence -- used for concept validation only)
 
 ---
-*Stack research for: NFL Data Engineering v1.2 Silver Expansion*
-*Researched: 2026-03-13*
+*Stack research for: NFL Data Engineering v1.3 Prediction Data Foundation*
+*Researched: 2026-03-15*

@@ -1,270 +1,207 @@
 # Feature Research
 
-**Domain:** NFL Silver Layer Expansion — PBP-derived team metrics, rolling window analytics, situational breakdowns, advanced player profiles
-**Researched:** 2026-03-13
-**Confidence:** HIGH (existing Bronze schema verified against local Parquet files; feature scope derived from `docs/NFL_GAME_PREDICTION_DATA_MODEL.md`, `src/player_analytics.py`, and PBP column inventory in `docs/NFL_DATA_DICTIONARY.md`)
+**Domain:** NFL Prediction Data Foundation — weather, coaching, special teams, penalties, rest/travel, turnover luck, referee tendencies, playoff context, red zone trip volume
+**Researched:** 2026-03-15
+**Confidence:** HIGH (all 9 feature categories verified against existing Bronze schema; 7 of 9 derivable from existing Bronze data without new external sources)
 
 ---
 
-## Context: What Already Exists in Silver
+## Context: What Already Exists
 
-The v1.1 Silver layer already produces three output families from `src/player_analytics.py` and `scripts/silver_player_transformation.py`. New features must integrate with these without breaking downstream consumers.
+### Bronze Data Available for Derivation
 
-| Existing Silver Output | Storage Path | What It Produces | Who Consumes It |
-|------------------------|--------------|------------------|-----------------|
-| Player usage metrics | `data/silver/player_usage/season=YYYY/` | target_share, carry_share, snap_pct, air_yards_share per player-week | Gold projection engine (usage multiplier 0.80–1.15) |
-| Opponent rankings | `data/silver/opp_rankings/season=YYYY/` | Rank 1-32 by pts allowed per position per team-week | Gold projection engine (matchup multiplier 0.85–1.15) |
-| Rolling averages | `data/silver/rolling_stats/season=YYYY/` | 3-game + 6-game + season-to-date for 15 player stats | Gold projection engine (roll3=45%, roll6=30%, std=25%) |
+| Bronze Source | Key Columns for v1.3 Features | Already Ingested |
+|---------------|-------------------------------|-----------------|
+| `schedules` | `gameday`, `home_team`, `away_team`, `home_coach`, `away_coach`, `referee`, `stadium`, `stadium_id`, `temp`, `wind`, `roof`, `surface`, `div_game`, `overtime`, `spread_line`, `total_line` | Yes (1999-2025) |
+| `pbp` | `penalty`, `fumble`, `fumble_lost`, `interception`, `drive`, `yardline_100`, `goal_to_go`, `touchdown`, `epa`, `play_type`, `posteam`, `defteam`, `game_seconds_remaining`, `score_differential` | Yes (2010-2025, 103 columns) |
+| `player_weekly` | `interceptions`, `sack_fumbles`, `sack_fumbles_lost`, `rushing_fumbles`, `rushing_fumbles_lost`, `receiving_fumbles`, `receiving_fumbles_lost` | Yes (2002-2025) |
+| `teams` | `team_abbr`, `team_division`, `team_conference` | Yes (static) |
 
-`compute_game_script_indicators()` and `compute_venue_splits()` exist in `player_analytics.py` but are inline-embedded in the usage table — not stored as standalone Silver tables. They are partially implemented and should become proper standalone outputs in v1.2.
+### Silver Data Already Built (v1.2)
+
+| Silver Output | Relevant to v1.3 | Relationship |
+|---------------|-------------------|-------------|
+| Team EPA/success rate | Red zone, penalties | Baseline for comparing penalty-adjusted EPA |
+| Situational splits (home/away, game script) | Rest/travel, playoff context | Extend with rest differential and elimination flags |
+| SOS (opponent-adjusted EPA) | All features | Normalize new features by opponent quality |
+| Team tendencies (pace, PROE) | Penalties, special teams | Context for penalty-adjusted decision metrics |
 
 ---
 
 ## Feature Landscape
 
-### Table Stakes (Users Expect These)
+### Table Stakes (Prediction Model Expects These)
 
-These are the minimum features a Silver layer must have to support the planned Gold game prediction model. Without them, the prediction model design in `docs/NFL_GAME_PREDICTION_DATA_MODEL.md` (SLV-01 to SLV-03) cannot be executed.
+These features appear in virtually every serious NFL prediction model. Missing them leaves predictive signal on the table that competitors capture.
 
 | Feature | Why Expected | Complexity | Bronze Dependency | Notes |
 |---------|--------------|------------|-------------------|-------|
-| Team EPA per play (offense + defense) | Foundation of all modern NFL prediction models; nflfastR ecosystem considers it non-negotiable | MEDIUM | `pbp`: `epa`, `play_type`, `posteam`, `defteam`, `season`, `week` | Scrimmage plays only; exclude punts, kickoffs, kneels, spikes. Compute pass_epa and rush_epa splits separately. |
-| Success rate per team (offense + defense) | Directly complements EPA; success = EPA > 0 per play; universally used | LOW | `pbp`: `success`, `play_type`, `posteam` | Group by team-week. Offensive and defensive variants. |
-| CPOE team aggregate | Separates QB quality from receiver drops/run-after-catch; play-level `cpoe` already in PBP | MEDIUM | `pbp`: `cpoe`, `passer_player_id`, `posteam`, `pass_attempt` | Aggregate per QB (player profile) and per team-week. NULL when no pass plays. |
-| Rolling windows on all team metrics | Season-only averages miss momentum and hot/cold streaks; 3-game and 6-game are the established pattern | MEDIUM | Derived from team EPA aggregates | Follow `shift(1)` before rolling convention from `compute_rolling_averages()`. |
-| Pace (plays per game) | Total opportunity count determines all position volumes; critical multiplier for projection model | LOW | `pbp`: `play_type`, `posteam`, `game_id` | Count non-special-teams plays per team per game; exclude kneels, spikes, kick plays. |
-| Pass Rate Over Expected (PROE) | `pass_oe` is already in PBP play-level; team PROE is the aggregate; identifies run-heavy schemes | LOW | `pbp`: `pass_oe`, `posteam`, `play_type` | Mean of play-level `pass_oe` grouped by team-week; exclude spikes/kneels from denominator. |
-| Red zone efficiency (offense + defense) | Best single predictor of TD count per game; cannot be inferred from total yardage | MEDIUM | `pbp`: `yardline_100`, `touchdown`, `play_type`, `posteam` | Red zone = `yardline_100 <= 20`. Compute TD rate, success rate, and pass/rush split inside red zone. |
-| Situational breakdowns (home/away, divisional) | `div_game` and `home_team` already in schedules; promotes inline tags to a proper standalone table | LOW | `schedules`: `div_game`, `home_team`, `away_team` | Tag each team-week row. Build rolling home/away splits for key metrics. |
-| Strength of Schedule (opponent-adjusted EPA) | Required to normalize team rankings so a team facing weak opponents is not overrated | HIGH | Requires team EPA table to exist first (sequential, same build) | Build in second pass: compute raw EPA, then adjust each game's EPA for average opponent quality faced. |
+| **Weather categorization** | Wind >15 mph reduces passing EPA by 8-12%; temp <32F shifts run/pass balance; rain reduces scoring ~3 pts/game. Every Vegas model includes weather. | LOW | `schedules`: `temp`, `wind`, `roof`, `surface` | Already in Bronze. Categorize into bins (dome, good, cold, windy, precipitation). Dome games get neutral weather. Flag "weather games" where wind>15 OR temp<32. |
+| **Rest days differential** | Post-2011 CBA research shows rolling 3-week net rest has more signal than single-game rest. Thursday games after Sunday = 3 days rest. Bye weeks provide 13 days. | MEDIUM | `schedules`: `gameday`, `home_team`, `away_team` | Compute days_rest per team per game from date deltas. Net rest = team_rest minus opponent_rest. Rolling 3-week cumulative net rest. |
+| **Turnover luck / fumble recovery regression** | Fumble recovery is ~50% random (R-squared of year-over-year turnover margin is 0.01). Teams with extreme recovery rates regress hard. Essential regression-to-mean feature. | MEDIUM | `pbp`: `fumble`, `fumble_lost`, `interception`, `posteam`, `defteam` | Compute forced fumbles vs recovered fumbles per team-game. Recovery rate. Expected turnovers (based on sacks, passes defended). Turnover luck = actual minus expected. |
+| **Red zone trip volume** | Existing Silver has red zone *efficiency* (TD rate). But trip COUNT is the volume multiplier — a team scoring on 50% of 6 trips differs from 50% of 2 trips. Drive-level aggregation needed. | MEDIUM | `pbp`: `drive`, `yardline_100`, `posteam`, `game_id` | Count distinct drives that cross the 20-yard line per team per game. Separate offensive and defensive trip counts. Combine with existing red zone efficiency for expected red zone points. |
+| **Penalty aggregation** | Penalty yards per game correlates with undisciplined play and coaching quality. Opponent-drawn penalty rate reveals scheming advantage. Penalty EPA measures actual impact. | MEDIUM | `pbp`: `penalty`, `epa`, `posteam`, `defteam`, `yards_gained` | Committed penalties per game, penalty yards, penalty EPA. Split by offense/defense. Opponent-drawn rate (penalties your opponents commit). Rolling 3/6 game windows. |
+| **Playoff/elimination context** | Teams mathematically eliminated play differently than teams fighting for seeding. Win-and-in games show elevated performance. Garbage-time games pollute season averages. | MEDIUM | `schedules`: `gameday`, `home_score`, `away_score`, `div_game`; `teams`: division/conference | Requires standings computation from game results. Tag games with: playoff_clinched, eliminated, division_leader, wildcard_contender. Late-season (weeks 15-18) context flags. |
 
 ### Differentiators (Competitive Advantage)
 
-Features that make this analytics layer competitive with open-source NFL analytics tools (nflfastR, nflreadr) while staying within the existing projection model's architecture.
+Features that most hobbyist models skip but pro-level models include. Higher complexity but meaningful signal.
 
 | Feature | Value Proposition | Complexity | Bronze Dependency | Notes |
 |---------|-------------------|------------|-------------------|-------|
-| NGS separation + catch probability (WR/TE profile) | Route-running quality independent of QB accuracy; identifies breakout WRs before box scores show it | MEDIUM | `ngs` receiving: `avg_separation`, `avg_intended_air_yards`, `catch_probability` — already ingested 2016-2025 | Join to `player_id` via `player_gsis_id`. Weekly. Add rolling windows. |
-| NGS time-to-throw + aggressiveness (QB profile) | Measures QB decision-making speed and downfield aggression independent of completion% | MEDIUM | `ngs` passing: `avg_time_to_throw`, `aggressiveness`, `avg_completed_air_yards` — already ingested | Rolling windows. Join to player_weekly via `player_gsis_id`. |
-| NGS RYOE (Rushing Yards Over Expected, RB profile) | Separates RB skill from offensive line quality; one of the best breakout signals for RBs | MEDIUM | `ngs` rushing: `rush_yards_over_expected`, `efficiency` — already ingested | Rolling windows. Requires `player_gsis_id` join. |
-| PFR pressure rate (QB profile) | Quantifies pass-blocking quality and QB performance under duress; predictive of fumbles and sacks | MEDIUM | `pfr_weekly` (pass): `times_sacked`, `times_hit`, `times_hurried` — already ingested 2018-2025 | pressure_rate = (hits + hurries + sacks) / dropbacks. Rolling windows. |
-| PFR blitz rate (defensive tendency) | Indicates defensive playcalling philosophy; blitz-heavy teams inflate WR/TE target depth | MEDIUM | `pfr_weekly` (def): `blitz` column — already ingested | Normalize per team per game. Rolling windows. Requires defensive team join. |
-| QBR rolling windows | ESPN's composite QB metric; better than raw stats for head-to-head comparisons; already in Bronze | LOW | `qbr` weekly: `qbr_total`, `pts_added` — already ingested 2006-2025 | Apply same rolling window transform as other player stats. |
-| 4th down aggressiveness index | Reflects modern coaching analytics adoption; aggressive coaches maintain lead differently | MEDIUM | `pbp`: `fourth_down_converted`, `fourth_down_failed`, `play_type`, `ydstogo` | Compute go-rate on 4th down vs expected go-rate by field position (public go-for-it calculator benchmarks). Rolling windows. |
-| Combine measurables linked to players | Speed score, burst score, catch radius — enables rookie projection improvement and breakout-year identification | MEDIUM | `combine` (already ingested 2000-2025) + `rosters` or `player_weekly` for player_id join | Speed score = weight_lbs * 200 / 40_time^4. Static join table, one-time build, refresh annually. |
-| Draft capital per player | Pick value (Johnson trade chart) as a rookie baseline signal; first-round picks outperform ADP | MEDIUM | `draft_picks` (already ingested 2000-2025) | Map pick number to trade chart value. Link `player_id` via name + draft_year join against rosters. |
+| **Coaching staff tracking with change detection** | New HC/OC produces ~2-3 week adjustment period with lower offensive efficiency. Mid-season coordinator changes create inflection points. Fantasy analysts track this manually; automating it is rare. | HIGH | `schedules`: `home_coach`, `away_coach` (HC only); **external source needed for OC/DC** | HC available in schedules. OC/DC requires external data (manual CSV or web scraping). Detect changes via week-over-week coach name comparison. Flag games_since_coaching_change. |
+| **Referee crew tendencies** | Referee crews show consistent penalty rate patterns (Bill Vinovich averages fewest flags since 2016). DPI-prone crews inflate passing props. Over/under crews affect total scoring. Betting markets adjust when crew assignments are announced. | MEDIUM | `schedules`: `referee` | Referee name already in schedules. Compute per-referee: penalties/game, penalty yards/game, scoring average. Join to upcoming games. Rolling referee stats across seasons. |
+| **Travel distance and time zone factors** | West-to-east travel for 1pm ET games shows measurable disadvantage (circadian misalignment). International games (London, Germany) create extreme travel. Back-to-back road games compound fatigue. | MEDIUM | `schedules`: `stadium_id`, `home_team`, `away_team`; **stadium coordinates lookup needed** | Requires a static stadium-to-coordinates mapping (32 stadiums + international venues). Compute great-circle distance, time zone crossings, consecutive away games. |
+| **Special teams metrics** | Kicking accuracy, punt net yards, kick return average, and blocked kicks affect field position and scoring. Special teams EPA is available in PBP but rarely aggregated at team level. | MEDIUM | `pbp`: `play_type` (includes 'punt', 'field_goal', 'kickoff', 'extra_point'), `epa`, `yards_gained`, `posteam` | Filter PBP to special teams plays. Compute: FG%, punt net avg, kick return avg, special teams EPA per game. Blocked kick counts. Coverage unit EPA. |
+| **Turnover-adjusted EPA** | Standard EPA already penalizes turnovers, but separating "skill turnovers" (bad decisions) from "luck turnovers" (tipped-ball INTs, strip fumbles) provides a cleaner team quality signal. | HIGH | `pbp`: all turnover columns + `epa` | Requires play-level turnover classification. Compute EPA with turnovers removed, EPA with expected (not actual) turnover count. The delta measures luck-adjusted team quality. |
 
 ### Anti-Features (Commonly Requested, Often Problematic)
 
 | Feature | Why Requested | Why Problematic | Alternative |
 |---------|---------------|-----------------|-------------|
-| Play-level Silver table (copy of Bronze PBP) | Preserves granularity for ad-hoc queries downstream | A Silver copy of 103-column PBP adds zero transformation value and doubles storage. DuckDB can query Bronze PBP directly for any analytical query. | Query Bronze PBP directly using DuckDB for play-level analysis. Silver should aggregate, not copy. |
-| WPA rolling aggregates at team level | WPA is in PBP; rolling WPA sounds useful | WPA collapses toward zero when summed across plays per game (it sums to approximately the win probability change for the whole game, not a useful average). EPA is the correct aggregation unit. | Use EPA exclusively for team-level rolling aggregates. |
-| Real-time within-game metrics | Faster feedback loops during live games | Requires streaming infrastructure (Kafka/Flink); completely out of scope for batch Parquet pipeline. nfl-data-py only provides post-game data. | Weekly batch refresh is the correct granularity. Accept one-week lag. |
-| Weather normalization factor on EPA | Temperature and wind affect scoring and EPA | Schedules and PBP already include `temp` and `wind`. Weather API was explicitly evaluated and rejected in the prediction model design doc (adds ~2pp improvement for high complexity). | Tag outdoor vs dome games using `roof` column. Optionally filter outdoor games for weather-sensitive analysis. |
-| Positional matchup grades (WR1 vs CB1) | Useful for DFS and individual projection adjustments | Requires a graph join (WR to CB assignment); cannot be expressed cleanly in flat Parquet. Explicitly deferred to Phase 5 Neo4j. | Use opponent positional rankings (already implemented) as the proxy matchup signal. |
-| NGS data before 2016 | More historical coverage | Next Gen Stats tracking chips were not deployed before 2016. nfl-data-py returns empty or raises errors for NGS before 2016. | Accept 2016 as the NGS historical floor. Do not attempt to backfill or interpolate. |
-| Per-play EPA normalization by down-and-distance | Some analysts argue raw EPA is biased by situation | Creates a new derived metric that diverges from the public nflfastR standard, making cross-validation harder. MAE improvement is marginal per published research. | Use raw EPA. Note situational context via down and yardline tags in play-level Bronze if needed. |
+| **External weather API integration** | "More granular weather data" — hourly forecasts, precipitation type, humidity | PBP already has temp/wind per game; schedules has roof/surface. External API adds a new dependency, rate limits, and historical backfill complexity for ~1-2 percentage points of model improvement. Not worth the infrastructure cost at this stage. | Use `temp` and `wind` from existing Bronze schedules data. Categorize into weather bins. Dome flag from `roof` column. |
+| **Real-time referee assignment tracking** | "Get referee assignments as soon as announced" | Referee assignments come 1-2 days before games. Historical tendencies (which we compute from schedules) are the actual signal. Real-time scraping adds fragility for marginal timing gain. | Compute referee historical stats from schedules `referee` column. Apply to upcoming games when schedule data includes referee (typically available by Wednesday). |
+| **Detailed penalty type breakdown** | "Track holding vs DPI vs false start separately" | PBP `penalty` column is just a flag (0/1). Getting penalty type requires parsing the `desc` text field, which is messy and inconsistent. The aggregate penalty rate per team captures 90% of the signal. | Use penalty flag + EPA for aggregate impact. If penalty type needed later, parse `desc` field in a separate enhancement phase. |
+| **Coaching scheme classification** | "Label teams as West Coast, Air Raid, Shanahan zone-run" | Scheme labels are subjective, change within games, and mix concepts. The existing PROE, early_down_run_rate, pace, and shotgun rate from v1.2 tendencies already capture scheme behavior quantitatively without subjective labels. | Continue using quantitative tendencies (PROE, pace, shotgun %, no-huddle %) already in Silver. |
+| **Player-level rest tracking** | "Track individual player rest and load management" | Requires injury report cross-referencing, practice participation data, and snap count trends — massive complexity. Team-level rest differential captures the schedulable advantage. | Use team-level rest days from schedules. Player availability is already handled by injury adjustments in Gold projections. |
+| **Elo ratings** | "Compute team Elo like FiveThirtyEight" | Elo is a single-number summary that loses the multi-dimensional signal captured by EPA, SOS, and situational splits already in Silver. It is redundant with what the ML model will learn from the feature vector. | The existing EPA + SOS + situational features already provide richer team quality signals than Elo. An ML model trained on these features will outperform Elo-based predictions. |
 
 ---
 
 ## Feature Dependencies
 
 ```
-[Bronze PBP (epa, cpoe, success, pass_oe, play_type, posteam, defteam)]
-    └──required by──> [Team EPA per play + Success Rate]
-                          └──required by──> [Strength of Schedule (SOS)]
-                          └──feeds──>       [Rolling Team EPA windows (3g, 6g)]
-                                                └──enhances──> [Gold matchup multiplier]
+Weather Categorization (from schedules)
+    └── no dependencies, standalone Bronze derivation
 
-[Bronze PBP (pass_oe, posteam)]
-    └──required by──> [Pass Rate Over Expected (PROE) per team]
+Rest Days Differential (from schedules)
+    └── requires: schedules with gameday dates
+    └── enhances: Situational Splits (add rest context to home/away)
 
-[Bronze PBP (yardline_100, touchdown, play_type)]
-    └──required by──> [Red Zone Efficiency per team]
+Travel Distance
+    └── requires: Stadium Coordinates Lookup (static CSV, ~35 rows)
+    └── enhances: Rest Days Differential (combined rest+travel fatigue score)
 
-[Bronze PBP (play_type, posteam, game_id)]
-    └──required by──> [Pace (plays per game)]
+Penalty Aggregation (from PBP)
+    └── requires: existing PBP Bronze data
+    └── enhances: Team EPA (penalty-adjusted EPA variant)
 
-[Bronze PBP (fourth_down_converted, fourth_down_failed)]
-    └──required by──> [4th Down Aggressiveness Index]
+Turnover Luck Metrics (from PBP)
+    └── requires: existing PBP Bronze data
+    └── enhances: Team EPA (luck-adjusted EPA variant)
 
-[Bronze Schedules (div_game, home_team, away_team)]
-    └──required by──> [Situational Breakdowns (home/away, divisional tags)]
-    └──already used──> [compute_game_script_indicators() — inline in usage table]
+Red Zone Trip Volume (from PBP)
+    └── requires: existing PBP Bronze data
+    └── enhances: existing Red Zone Efficiency (volume * efficiency = expected points)
 
-[Bronze NGS receiving]
-    └──required by──> [Player Profile: separation, catch probability, RYOE]
+Referee Tendencies (from schedules)
+    └── requires: schedules with referee names
+    └── enhances: Penalty Aggregation (referee-adjusted penalty expectation)
 
-[Bronze NGS passing]
-    └──required by──> [Player Profile: time-to-throw, aggressiveness, QB CPOE]
+Playoff/Elimination Context
+    └── requires: schedules with scores (completed games)
+    └── requires: teams with division/conference structure
+    └── sequential: must process games in chronological order within a season
 
-[Bronze NGS rushing]
-    └──required by──> [Player Profile: RYOE, time-to-LOS]
+Coaching Staff Tracking
+    └── requires: schedules with home_coach/away_coach (HC available)
+    └── requires: External OC/DC source (manual CSV or scraping) for full value
+    └── enhances: All team metrics (flag regime changes for window adjustments)
 
-[Bronze PFR Weekly (pass)]
-    └──required by──> [QB Profile: pressure rate, hits, hurries]
-
-[Bronze PFR Weekly (def)]
-    └──required by──> [Team Profile: blitz rate]
-
-[Bronze QBR (weekly)]
-    └──required by──> [QBR rolling window per QB]
-
-[Bronze Combine + Draft Picks]
-    └──required by──> [Historical Context: combine measurables + draft capital]
-    └──requires──>    [player_id fuzzy join via rosters or player_weekly]
-
-[Existing Silver: rolling_stats (player)]
-    └──already consumed by──> [Gold projection engine (roll3, roll6, std)]
-    └──NOT replaced by──>     [New team-level rolling metrics — these are separate tables]
-
-[Team EPA per play (new Silver table)]
-    └──must exist before──> [Strength of Schedule (SOS)]
-    └──conflicts with──>    [WPA team aggregates — see anti-features]
+Special Teams Metrics (from PBP)
+    └── requires: existing PBP Bronze data (punt, field_goal, kickoff, extra_point play types)
+    └── standalone: does not depend on other v1.3 features
 ```
 
 ### Dependency Notes
 
-- **SOS requires team EPA to be computed first.** SOS is calculated as the average offensive EPA of all opponents a team has faced. This means team EPA aggregation must complete in the same Silver build run before the SOS pass runs. Implement as sequential steps in the same script, not separate pipelines.
-- **Combine and draft capital require a fuzzy name join.** Bronze `combine` and `draft_picks` tables do not contain GSIS player IDs. They must be joined to `rosters` or `player_weekly` via player name + draft year. Name formatting differences (e.g., "Patrick Mahomes II" vs "Patrick Mahomes") require normalization. This is the highest-risk join in the entire milestone.
-- **NGS profiles are additive to existing player metrics.** The existing usage metrics (target_share, snap_pct) remain the primary projection inputs. NGS metrics are additive columns that improve rookie and breakout-year modeling without disrupting the current rolling average weights in the projection engine.
-- **PROE and 4th down aggressiveness are team-level tendencies, not player-level.** They belong in a dedicated `team_tendencies` Silver table, not appended to the player usage table.
-- **Game script and venue splits are already implemented in `player_analytics.py`.** The v1.2 work is to promote these from inline-embedded columns to a standalone `situational` Silver table with proper rolling window splits.
+- **Travel Distance requires Stadium Coordinates:** A one-time static lookup table of ~35 venues (32 NFL stadiums + international). This is a 30-minute manual data entry task, not a complex dependency.
+- **Coaching OC/DC requires external data:** HC names are in schedules, but OC/DC changes (which have the most fantasy impact) need a separate data source. This can be a manually maintained CSV initially.
+- **Playoff Context requires chronological processing:** Standings must be computed game-by-game within each season. Cannot be parallelized across weeks, but can be parallelized across seasons.
+- **Seven of nine features derive entirely from existing Bronze data.** Only coaching (OC/DC) and travel (coordinates) need new external data, both of which are small static datasets.
 
 ---
 
 ## MVP Definition
 
-The MVP for v1.2 is the minimum set of features that (a) directly improves Gold projection accuracy and (b) lays the foundation for the planned game prediction model at Gold layer.
+### Launch With (v1.3 Core)
 
-### Launch With (v1.2 core — P1)
+Features derivable entirely from existing Bronze data, with clear predictive signal.
 
-- [ ] Team EPA per play (offense + defense, pass + rush splits) with 3-game and 6-game rolling windows — feeds matchup multiplier improvement in Gold
-- [ ] Success rate by team (offense + defense) with rolling windows — standard EPA complement; used in every public NFL prediction model
-- [ ] Red zone efficiency (offense + defense) with rolling windows — most direct predictor of TD count; highest-leverage single projection improvement
-- [ ] CPOE team aggregate per QB and per team with rolling windows — differentiates QB quality from scheme; improves QB projection variance estimate
-- [ ] Pass Rate Over Expected (PROE) per team with rolling windows — quantifies run-heavy vs pass-heavy tendency; critical for RB/WR share projections
-- [ ] Pace (plays per game) per team with rolling windows — total volume predictor; affects all position projections multiplicatively
-- [ ] Strength of Schedule (opponent-adjusted EPA per team) — normalizes team rankings against varying opponent quality; required for SOS column in Gold
-- [ ] Situational tags (home/away, divisional, game script) as standalone Silver table — promotes existing inline logic to proper output; low effort, high value for Gold features
+- [x] **Weather categorization** — LOW complexity, HIGH signal for passing models, zero new dependencies
+- [x] **Rest days differential** — MEDIUM complexity, established predictive value, date math on schedules
+- [x] **Penalty aggregation** — MEDIUM complexity, PBP-derived, captures team discipline and opponent exploitation
+- [x] **Turnover luck metrics** — MEDIUM complexity, strongest regression-to-mean signal in NFL analytics
+- [x] **Red zone trip volume** — MEDIUM complexity, fills a gap in existing red zone efficiency (volume missing)
+- [x] **Referee tendencies** — MEDIUM complexity, referee name already in schedules, useful for over/under signals
+- [x] **Playoff/elimination context** — MEDIUM complexity, standings derivable from game results, important late-season
 
-### Add After Validation (v1.2 extensions — P2)
+### Add After Validation (v1.3 Extended)
 
-- [ ] NGS player profiles (WR/TE separation, QB time-to-throw, RB RYOE) with rolling windows — add after confirming team EPA rolling windows are stable and backtest shows improvement
-- [ ] PFR pressure rate (QB) and blitz rate (team defense) with rolling windows — add when integrating into QB and WR Silver player profiles
-- [ ] QBR rolling windows — low-effort add-on once NGS passing profile is built (same Bronze data, same transform)
-- [ ] 4th down aggressiveness index with rolling windows — add after team tendencies table is established
+Features requiring small external data sources or higher complexity transforms.
 
-### Future Consideration (v2+ — P3)
+- [ ] **Special teams metrics** — Trigger: after PBP-derived features are stable; adds field position signal
+- [ ] **Travel distance** — Trigger: after rest days are computed; requires stadium coordinates CSV (one-time creation)
+- [ ] **Coaching staff tracking (HC)** — Trigger: after standings computation proves chronological processing works; HC detection from schedules data
 
-- [ ] Combine measurables + draft capital linked to players — defer until rookie breakout modeling is an explicit Gold target; the name-based join is complex and the output is a one-time static table
-- [ ] Exponentially-weighted rolling windows (EWMA) — add if backtesting shows EWMA outperforms fixed 3-game/6-game windows; requires backtest infrastructure update to test the hypothesis
-- [ ] SOS with forward-looking schedule-remaining adjustment — current SOS is backward-looking (past opponents faced); forward-looking requires schedule data lookup and is a different use case (preseason projections vs in-season)
+### Future Consideration (v1.4+)
+
+- [ ] **Coaching OC/DC tracking** — Requires external data source; defer until HC tracking proves value
+- [ ] **Turnover-adjusted EPA** — HIGH complexity; requires play-level turnover classification; defer until base turnover luck metrics are validated
+- [ ] **Penalty type breakdown** — Requires PBP `desc` text parsing; defer until aggregate penalty rates prove useful
 
 ---
 
 ## Feature Prioritization Matrix
 
-| Feature | User Value | Implementation Cost | Priority |
-|---------|------------|---------------------|----------|
-| Team EPA/play + rolling windows | HIGH | MEDIUM | P1 |
-| Success rate + rolling windows | HIGH | LOW | P1 |
-| Red zone efficiency + rolling windows | HIGH | MEDIUM | P1 |
-| CPOE team aggregate + rolling windows | HIGH | MEDIUM | P1 |
-| Pass Rate Over Expected (PROE) | HIGH | LOW | P1 |
-| Pace (plays per game) | HIGH | LOW | P1 |
-| Strength of Schedule (SOS) | HIGH | HIGH | P1 |
-| Situational tags (home/away, divisional) | MEDIUM | LOW | P1 |
-| NGS player profiles (separation, RYOE) | HIGH | MEDIUM | P2 |
-| PFR pressure + blitz rates | MEDIUM | MEDIUM | P2 |
-| QBR rolling windows | MEDIUM | LOW | P2 |
-| 4th down aggressiveness index | MEDIUM | MEDIUM | P2 |
-| Combine measurables + draft capital | MEDIUM | HIGH | P3 |
-| Exponentially-weighted rolling (EWMA) | LOW | MEDIUM | P3 |
-| SOS forward-looking (schedule-remaining) | LOW | HIGH | P3 |
+| Feature | Predictive Value | Implementation Cost | Data Source | Priority |
+|---------|-----------------|---------------------|-------------|----------|
+| Weather categorization | MEDIUM | LOW | Existing Bronze (schedules) | P1 |
+| Rest days differential | MEDIUM | MEDIUM | Existing Bronze (schedules) | P1 |
+| Penalty aggregation | MEDIUM | MEDIUM | Existing Bronze (PBP) | P1 |
+| Turnover luck metrics | HIGH | MEDIUM | Existing Bronze (PBP) | P1 |
+| Red zone trip volume | HIGH | MEDIUM | Existing Bronze (PBP) | P1 |
+| Referee tendencies | MEDIUM | MEDIUM | Existing Bronze (schedules) | P1 |
+| Playoff/elimination context | MEDIUM | MEDIUM | Existing Bronze (schedules + teams) | P1 |
+| Special teams metrics | MEDIUM | MEDIUM | Existing Bronze (PBP) | P2 |
+| Travel distance | LOW-MEDIUM | MEDIUM | Static CSV + schedules | P2 |
+| Coaching HC tracking | MEDIUM | MEDIUM | Existing Bronze (schedules) | P2 |
+| Coaching OC/DC tracking | HIGH | HIGH | External source needed | P3 |
+| Turnover-adjusted EPA | HIGH | HIGH | Derived from turnover luck | P3 |
 
 **Priority key:**
-- P1: Must have for v1.2 core — directly feeds Gold layer improvements
-- P2: Should have — add after P1 is validated via backtest improvement
-- P3: Nice to have — defer to v1.3 or beyond
+- P1: Core v1.3 milestone — all derivable from existing Bronze data
+- P2: Extended v1.3 — small external data or higher complexity
+- P3: Future — requires external sources or depends on P1/P2 validation
 
 ---
 
-## Output Table Map
+## Competitor Feature Analysis
 
-Each Silver feature group maps to a named output table (local Parquet, local-first):
-
-| Output Table | Partition | Contents | Source Bronze Data | Feeds Gold Layer |
-|-------------|-----------|----------|--------------------|------------------|
-| `team_epa/season=YYYY/week=WW/` | season + week | Off/def EPA per play, pass/rush splits, success rate, rolling windows (3g, 6g, std) | PBP | Game prediction matchup features, updated opp rankings |
-| `team_tendencies/season=YYYY/week=WW/` | season + week | PROE, pace, 4th down aggression, rolling windows | PBP | Projection volume multiplier |
-| `sos/season=YYYY/week=WW/` | season + week | Opponent-adjusted EPA rank 1-32, raw SOS score | team_epa (same run) | Gold matchup multiplier replacement/supplement |
-| `situational/season=YYYY/week=WW/` | season + week | Home/away flags, divisional flag, game script label, rolling home/away EPA splits | Schedules + PBP | Gold context features |
-| `player_profiles/season=YYYY/week=WW/` | season + week | NGS separation/RYOE/TTT, PFR pressure/blitz, QBR rolling per player-week | NGS, PFR, QBR | Gold QB/WR/RB projections |
-| `player_context/` | static (annual refresh) | Combine measurables + draft capital score per player_id | Combine, Draft Picks | Gold rookie/breakout baseline |
-
----
-
-## Rolling Window Specification
-
-All new rolling window metrics follow the pattern established in `compute_rolling_averages()` in `src/player_analytics.py`:
-
-- **3-game window** (`_roll3`): Short-term form; `shift(1)` before `rolling(3, min_periods=1).mean()`
-- **6-game window** (`_roll6`): Medium-term trend; same shift-before-rolling pattern
-- **Season-to-date** (`_std`): Full season expanding mean; `shift(1)` before `expanding().mean()`
-- **Exponentially weighted** (`_ewm`): P3 only — not in v1.2
-
-Column naming convention (extending the existing player stat pattern to team metrics):
-
-```
-{metric}_{window}
-
-Examples for team metrics:
-  off_epa_per_play_roll3
-  def_epa_per_play_roll6
-  red_zone_td_rate_std
-  pass_rate_oe_roll3
-  pace_roll3
-  success_rate_roll6
-```
-
-The `shift(1)` before rolling is non-negotiable: it ensures week N's rolling average uses only weeks 1 through N-1, preventing the current week's outcome from leaking into the prediction feature. This is the existing pattern in `player_analytics.py` and must be maintained for all new metrics. Missing this causes data leakage in backtesting.
-
-For team-level metrics, the groupby key is `(team, season)` instead of `(player_id)` — but the transform mechanics are identical.
-
----
-
-## Bronze Data Availability Confirmation
-
-All Bronze data needed for P1 and P2 features is locally available (confirmed from filesystem at `/Users/georgesmith/repos/nfl_data_engineering/data/bronze/`):
-
-| Bronze Data Type | Local Path Confirmed | Seasons Available | Needed For |
-|-----------------|---------------------|-------------------|------------|
-| PBP | `data/bronze/pbp/season=2016..2025/` | 2016-2025 (10 files) | All P1 team metrics |
-| Schedules | `data/bronze/games/season=2020..2025/` | 2020-2025 | Situational tags |
-| NGS | Via ingestion pipeline | 2016-2025 | P2 player profiles |
-| PFR Weekly | Via ingestion pipeline | 2018-2025 | P2 pressure/blitz |
-| QBR | Via ingestion pipeline | 2006-2025 | P2 QBR rolling |
-| Combine | `data/bronze/combine/season=2000..2025/` | 2000-2025 | P3 player context |
-| Draft Picks | `data/bronze/draft_picks/season=2000..2025/` | 2000-2025 | P3 player context |
-
-**PBP is the critical P1 dependency.** The 103-column Bronze PBP schema already contains all columns needed for P1: `epa`, `cpoe`, `success`, `pass_oe`, `xpass`, `play_type`, `posteam`, `defteam`, `yardline_100`, `touchdown`, `fourth_down_converted`, `fourth_down_failed`, `pass_attempt`, `rush_attempt`, `game_id`, `season`, `week`. No new Bronze ingestion is required before starting P1 work.
-
-**Schedules only cover 2020-2025 locally.** If situational tags need to reach back to 2016, schedules must be backfilled for 2016-2019. This is a low-complexity Bronze operation but must happen before the situational Silver table can cover the full 2016-2025 range. For v1.2 launch, 2020-2025 coverage is sufficient.
+| Feature | Pro Models (Sharp Football, PFF) | Hobbyist Models (Kaggle, tutorials) | Our Approach |
+|---------|----------------------------------|--------------------------------------|-------------|
+| Weather | Full weather API integration, hourly data | Often ignored or dome-only flag | Categorize from existing temp/wind/roof in schedules — 80% of the signal for 10% of the effort |
+| Rest/travel | Detailed fatigue indices with travel distance, time zones, altitude | Days-rest differential only | Days-rest differential first (P1), travel distance extension (P2) |
+| Turnovers | Fumble recovery rate regression, expected turnovers, turnover-adjusted metrics | Raw turnover margin | Turnover luck (P1) with expected turnover models; turnover-adjusted EPA deferred to P3 |
+| Penalties | Penalty EPA, type breakdown, opponent-drawn rates, referee-adjusted | Total penalties per game | Aggregate penalty EPA and opponent-drawn rates (P1); type breakdown deferred (anti-feature) |
+| Referee | Crew-specific over/under, DPI rates, penalty yards per game | Almost never included | Historical referee tendencies from schedules data (P1) — rare differentiator at low cost |
+| Special teams | Full special teams EPA, coverage unit grades, returner value | Kicking accuracy only or ignored | PBP-derived special teams EPA and FG% (P2) |
+| Coaching | Scheme labels, coordinator tracking, change impact windows | Ignored | HC change detection from schedules (P2); OC/DC deferred (P3) |
+| Playoff context | Elimination/clinch flags, motivation indices | Win-loss record only | Standings-derived context flags (P1) |
+| Red zone | Trip volume + efficiency + expected points | Efficiency rate only | Volume from PBP drives (P1) combined with existing v1.2 efficiency |
 
 ---
 
 ## Sources
 
-- `docs/NFL_GAME_PREDICTION_DATA_MODEL.md` — Silver layer planned schema (SLV-01 to SLV-03), prediction model feature categories, out-of-scope decisions
-- `docs/NFL_DATA_DICTIONARY.md` — PBP 103-column schema, NGS schemas, PFR schemas
-- `src/player_analytics.py` — Existing rolling window implementation pattern (shift(1), expanding, 3/6-game windows, groupby conventions)
-- `scripts/silver_player_transformation.py` — Existing Silver pipeline structure and output table paths
-- `.planning/PROJECT.md` — v1.2 milestone requirements, constraints, deferred items
-- `CLAUDE.md` — Architecture, scoring configs, projection model weights (roll3=45%, roll6=30%, std=25%)
+- **Existing Bronze schema:** Verified against `docs/NFL_DATA_DICTIONARY.md` and `src/config.py` PBP_COLUMNS (103 columns) — HIGH confidence
+- **Weather impact:** Web search findings on wind >15 mph reducing passing EPA 8-12%, temp <32F favoring rush — [Sharp Football Analysis](https://www.sharpfootballanalysis.com), [Parlay Savant 2026 Guide](https://www.parlaysavant.com/insights/sports-prediction-models-2026) — MEDIUM confidence
+- **Rest differential research:** Lopez & Bliss (2024) study showing post-2011 CBA diminished bye advantage; rolling 3-week net rest has more signal — [Frontiers paper](https://www.frontiersin.org/journals/behavioral-economics/articles/10.3389/frbhe.2024.1479832/full), [SumerSports analysis](https://sumersports.com/the-zone/nfl-schedule-rest-differential-analysis/), [arXiv](https://arxiv.org/abs/2408.10867) — HIGH confidence (peer-reviewed)
+- **Turnover luck:** Fumble recovery ~50% random, R-squared 0.01 year-over-year — [PMC research](https://pmc.ncbi.nlm.nih.gov/articles/PMC5969004/), [Harvard Sports Analysis Collective](https://harvardsportsanalysis.org/2014/10/how-random-are-turnovers/), [StatsbyLopez](https://statsbylopez.com/2013/12/18/fumble-luck-part-i/) — HIGH confidence (multiple academic sources)
+- **Referee tendencies:** Consistent crew-specific patterns, home team penalty bias — [Harvard Sports Analysis Collective](https://harvardsportsanalysis.org/2025/09/inside-the-flags-a-data-driven-investigation-of-nfl-penalties/), [nflpenalties.com](https://www.nflpenalties.com/all-referees.php?year=2023&view=total), [ESPN](https://www.espn.com/nfl/story/_/id/46087159/debunking-nfl-officiating-conspiracy-theories-data) — MEDIUM confidence (effect size debated)
+- **nfl-data-py officials function:** `import_officials()` exists in nfl-data-py but we already have `referee` in schedules — [nfl-data-py GitHub](https://github.com/nflverse/nfl_data_py) — HIGH confidence
+- **Travel/fatigue:** [Sports Book Review fatigue index](https://www.sportsbookreview.com/picks/nfl/fatigue-index/) — MEDIUM confidence
 
 ---
-
-*Feature research for: NFL Silver Layer Expansion (v1.2)*
-*Researched: 2026-03-13*
+*Feature research for: NFL Prediction Data Foundation (v1.3)*
+*Researched: 2026-03-15*

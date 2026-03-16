@@ -1,413 +1,451 @@
-# Architecture Research
+# Architecture Patterns
 
-**Domain:** Silver layer expansion — PBP analytics, rolling windows, advanced metrics, SOS, historical context
-**Researched:** 2026-03-13
-**Confidence:** HIGH (based on direct inspection of all Bronze files, Silver schemas, and existing src/ modules)
+**Domain:** NFL prediction data foundation features (weather, coaching, special teams, penalties, rest/travel, turnover luck, referee tendencies, playoff context, red zone trips)
+**Researched:** 2026-03-15
+**Confidence:** HIGH (based on direct inspection of all Bronze files, Silver schemas, existing src/ modules, and PBP column inventory)
 
-## Standard Architecture
+## Recommended Architecture
 
-### System Overview
+### Key Insight: Most "New" Features Require No New Bronze Ingestion
 
-```
-Bronze Layer (data/bronze/)
-├── pbp/season=YYYY/               ← 103-col play-by-play (EPA, WPA, CPOE, situation)
-├── ngs/{passing,receiving,rushing}/season=YYYY/   ← separation, RYOE, CPOE
-├── pfr/weekly/{pass,rush,rec,def}/season=YYYY/    ← pressure, blitz, adot
-├── pfr/seasonal/{pass,rush,rec,def}/season=YYYY/  ← season aggregates
-├── qbr/season=YYYY/               ← ESPN QBR weekly + seasonal
-├── combine/season=YYYY/           ← measurables: forty, wt, ht, vertical...
-├── draft_picks/season=YYYY/       ← round, pick, w_av, car_av, gsis_id
-├── schedules/ or games/season=YYYY/ ← home/away, scores, spread, total
-└── players/{weekly,seasonal,...}/ ← existing 6 original types
-        |
-        v (Silver CLI reads Bronze; new modules join on game_id, season, team, player_id)
-        |
-Silver Layer (data/silver/) — NEW layout for v1.2
-├── teams/
-│   ├── pbp_metrics/season=YYYY/   ← EPA/play, success rate, CPOE, red zone efficiency
-│   ├── tendencies/season=YYYY/    ← pace, pass rate OE, 4th-down aggressiveness
-│   └── sos/season=YYYY/           ← opponent-adjusted EPA, schedule difficulty rankings
-├── players/
-│   ├── usage/season=YYYY/         ← EXISTING: usage metrics + rolling avgs (113 cols)
-│   ├── advanced/season=YYYY/      ← NEW: NGS + PFR + QBR profiles with rolling windows
-│   └── historical/season=YYYY/    ← NEW: combine measurables + draft capital linked by gsis_id
-├── defense/
-│   ├── positional/season=YYYY/    ← EXISTING: avg_pts_allowed, rank (6 cols)
-│   └── coverage/season=YYYY/      ← NEW: PFR def coverage stats + EPA allowed per position
-└── situational/
-    └── splits/season=YYYY/        ← NEW: game_script / home_away / divisional breakdowns
-        |
-        v (Gold reads Silver; new metrics feed projection multipliers and prediction features)
-        |
-Gold Layer (data/gold/)  ← unchanged in v1.2 (projection_engine.py reads Silver usage)
-```
+The schedules Bronze data already contains: `temp`, `wind`, `roof`, `surface`, `away_rest`, `home_rest`, `away_coach`, `home_coach`, `referee`, `stadium`, `div_game`. The PBP Bronze data already contains: `penalty`, `fumble`, `fumble_lost`, `interception`, `touchdown`, `yardline_100`, `drive`, `series`, `series_result`, plus all EPA/WPA columns.
 
-### Component Responsibilities
+The only genuinely new external data that might be needed is a weather API for detailed forecasts (precipitation, humidity), but the schedules-based temp/wind is sufficient for historical analysis. A weather API is a Gold-layer concern for future game forecasting, not a Silver-layer requirement.
 
-| Component | Responsibility | Input | Output |
-|-----------|---------------|-------|--------|
-| `src/player_analytics.py` | EXISTING — usage, rolling avgs, opponent rankings, game script, venue | player_weekly + snap_counts + schedules | `players/usage/` enriched DF |
-| `src/team_analytics.py` | NEW — PBP-derived team metrics + tendencies + SOS | PBP Bronze + schedules | `teams/pbp_metrics/`, `teams/tendencies/`, `teams/sos/` |
-| `src/advanced_player_analytics.py` | NEW — NGS/PFR/QBR profiles + rolling windows | NGS + PFR + QBR Bronze | `players/advanced/` enriched DF |
-| `src/historical_context.py` | NEW — combine + draft capital linked to active players | combine + draft_picks Bronze | `players/historical/` DF |
-| `src/situational_analytics.py` | NEW — game script / home_away / divisional splits | player_weekly + schedules | `situational/splits/` DF |
-| `scripts/silver_player_transformation.py` | EXISTING CLI — orchestrates player-level transforms | calls player_analytics functions | writes `players/usage/` |
-| `scripts/silver_team_transformation.py` | NEW CLI — orchestrates team-level transforms | calls team_analytics functions | writes `teams/` and `defense/coverage/` |
-| `scripts/silver_advanced_transformation.py` | NEW CLI — orchestrates advanced player + historical transforms | calls advanced_player_analytics + historical_context | writes `players/advanced/` + `players/historical/` |
-
-## Recommended Project Structure
+**Architecture: 1 new Silver module (game_context.py) + extend existing team_analytics.py + config/path updates + 1 new transformation script.**
 
 ```
-src/
-├── player_analytics.py          # EXISTING — add no new functions here for v1.2
-├── team_analytics.py            # NEW — compute_pbp_team_metrics(), compute_team_tendencies(), compute_sos()
-├── advanced_player_analytics.py # NEW — compute_ngs_profiles(), compute_pfr_profiles(), compute_qbr_features()
-├── historical_context.py        # NEW — compute_draft_capital(), link_combine_to_roster()
-├── situational_analytics.py     # NEW — compute_situational_splits()
-├── config.py                    # MODIFY — add SILVER_TEAM_S3_KEYS, SILVER_ADVANCED_S3_KEYS
-├── projection_engine.py         # MODIFY — add new multiplier hooks (team tendencies, SOS)
-└── ...                          # unchanged
+EXISTING BRONZE DATA                    SILVER MODULES
+===================                    ==================
 
-scripts/
-├── silver_player_transformation.py   # EXISTING — no structural change needed
-├── silver_team_transformation.py     # NEW CLI for team metrics + SOS + situational
-├── silver_advanced_transformation.py # NEW CLI for NGS/PFR/QBR profiles + historical
+schedules/season=YYYY/     ------>     src/game_context.py (NEW)
+  temp, wind, roof, surface               compute_weather_features()
+  away_rest, home_rest                     compute_rest_travel()
+  away_coach, home_coach                   compute_coaching_changes()
+  referee                                  compute_referee_tendencies()
+  home_score, away_score                   compute_playoff_context()
 
-data/silver/
-├── players/
-│   ├── usage/season=YYYY/            # EXISTING output (unchanged)
-│   ├── advanced/season=YYYY/         # NEW
-│   └── historical/                   # NEW (no season partition — combine/draft are static-ish)
-├── teams/
-│   ├── pbp_metrics/season=YYYY/      # NEW
-│   ├── tendencies/season=YYYY/       # NEW
-│   └── sos/season=YYYY/             # NEW
-├── defense/
-│   ├── positional/season=YYYY/       # EXISTING
-│   └── coverage/season=YYYY/         # NEW
-└── situational/
-    └── splits/season=YYYY/           # NEW
+pbp/season=YYYY/           ------>     src/team_analytics.py (EXTEND)
+  penalty, fumble, fumble_lost             compute_penalty_metrics()
+  interception, touchdown                  compute_turnover_luck()
+  yardline_100, drive                      compute_red_zone_trips()
+  play_type (punt, field_goal)             compute_special_teams_metrics()
+  field_goal_result, kick_distance
+  extra_point_result, punt_blocked
 ```
 
-### Structure Rationale
+### Component Boundaries
 
-- **`src/team_analytics.py` (separate module):** PBP aggregation is team-level, not player-level. Mixing it into `player_analytics.py` would bloat that module (currently 418 lines) and create confusing coupling. Team metrics and SOS have different grain (team-week vs player-week) — they write to separate Silver paths and are consumed differently by `projection_engine.py`.
-- **`src/advanced_player_analytics.py` (separate module):** NGS, PFR, QBR use different join keys (`player_gsis_id`, `pfr_player_id`, `player_id`) and require their own rolling window logic on different column sets. Keeping separate from `player_analytics.py` preserves the existing Silver `players/usage/` schema with zero risk of column collision.
-- **`src/historical_context.py` (separate module):** Combine + draft capital are not weekly data — they are career-time attributes. The join logic (gsis_id → player roster → combine/draft) is distinct. Keeping separate ensures it can be built and tested independently.
-- **`scripts/silver_team_transformation.py` (new CLI):** The existing `silver_player_transformation.py` is player-scoped. Adding team-level PBP transforms into it would require loading large PBP files for a script currently used for quick player-only refreshes. A separate CLI allows independent execution.
-- **`data/silver/players/historical/` (no season partition):** Combine and draft capital are year-of-entry attributes, not season-varying. They are referenced as static context for projections and should be stored without a season partition to simplify reads.
+| Component | Responsibility | Communicates With |
+|-----------|---------------|-------------------|
+| `src/game_context.py` (NEW) | Schedule-derived game context: weather, rest/travel, coaching, referee, playoff standings | Reads Bronze schedules; writes Silver `teams/game_context/` |
+| `src/team_analytics.py` (EXTEND) | PBP-derived team metrics: penalties, turnover luck, special teams, red zone trips | Reads Bronze PBP; writes to new Silver team paths |
+| `src/config.py` (MODIFY) | New Silver key templates, PBP_COLUMNS expansion, stadium coordinate data | Referenced by transformation scripts |
+| `scripts/silver_team_transformation.py` (MODIFY) | Orchestrate new team_analytics functions alongside existing ones | Calls team_analytics new functions, writes Silver |
+| `scripts/silver_game_context_transformation.py` (NEW) | Orchestrate game_context functions | Calls game_context, writes Silver |
 
-## Architectural Patterns
+### Data Flow
 
-### Pattern 1: PBP Aggregation — Play-Filter then Group-By Team
+```
+Bronze Schedules (existing, 2016-2025)
+    |
+    v
+src/game_context.py (NEW MODULE)
+    |
+    |--- compute_weather_features(schedules_df)
+    |       Input:  temp, wind, roof, surface from schedules
+    |       Output: is_dome, is_cold(<32F), is_hot(>85F), is_windy(>15mph),
+    |               weather_impact_score, temp_bucket, wind_bucket
+    |       Grain:  one row per team-week
+    |
+    |--- compute_rest_travel(schedules_df)
+    |       Input:  home_rest, away_rest, stadium from schedules
+    |       Output: days_rest, is_short_rest(<6), is_long_rest(>8),
+    |               rest_advantage, travel_distance_miles,
+    |               timezone_change, is_cross_country
+    |       Grain:  one row per team-week
+    |       Note:   STADIUM_COORDINATES dict in config.py (32 stadiums, static)
+    |
+    |--- compute_coaching_changes(schedules_df)
+    |       Input:  home_coach, away_coach from schedules
+    |       Output: head_coach, coach_tenure_games (cumulative),
+    |               is_new_coach (tenure < 17 games),
+    |               coach_win_pct_rolling (6-game window)
+    |       Grain:  one row per team-week
+    |       Note:   Coach changes detected by comparing coach name week-to-week
+    |
+    |--- compute_referee_tendencies(schedules_df, penalties_df)
+    |       Input:  referee from schedules + penalty counts from team_analytics
+    |       Output: ref_penalties_per_game_roll6, ref_home_penalty_bias,
+    |               ref_scoring_impact_avg
+    |       Grain:  one row per team-week (keyed by referee for that game)
+    |       Note:   Requires penalty metrics from team_analytics as input
+    |
+    |--- compute_playoff_context(schedules_df)
+    |       Input:  home_score, away_score, home_team, away_team, div_game
+    |       Output: wins, losses, win_pct, division_rank (1-4),
+    |               conference_rank (1-16), games_back,
+    |               is_eliminated (simplified), playoff_leverage_score
+    |       Grain:  one row per team-week (cumulative within season)
+    |
+    v
+Silver: teams/game_context/season=YYYY/game_context_{ts}.parquet
+    Join key: [team, season, week]
 
-**What:** PBP data (103 cols, ~50K plays/season) is too large to load fully for every Silver run. The correct pattern filters to the relevant play types first, then aggregates to team-week grain.
 
-**When to use:** Every function in `team_analytics.py` that touches PBP.
+Bronze PBP (existing, 103+ columns, 2016-2025)
+    |
+    v
+src/team_analytics.py (EXTENDED — 4 new functions + 1 new orchestrator)
+    |
+    |--- compute_penalty_metrics(pbp_df)
+    |       Input:  penalty, penalty_yards columns from PBP
+    |       Output: off_penalties_per_game, off_penalty_yards_per_game,
+    |               def_penalties_per_game, def_penalty_yards_per_game,
+    |               off_penalty_first_downs, opponent_drawn_penalty_rate
+    |       Filter: All plays with penalty==1 (including special teams)
+    |       Note:   Uses raw pbp_df, NOT _filter_valid_plays() —
+    |               penalties occur on all play types
+    |
+    |--- compute_turnover_luck(valid_plays)
+    |       Input:  fumble, fumble_lost, interception from PBP
+    |       Output: off_fumbles, off_fumbles_lost, off_fumble_recovery_rate,
+    |               off_turnover_luck (actual_recovery - 0.50 expected),
+    |               def_fumbles_forced, def_fumbles_recovered,
+    |               def_fumble_recovery_rate, def_turnover_luck,
+    |               off_interceptions_thrown, def_interceptions_gained
+    |       Note:   NFL long-term fumble recovery rate is ~50% — deviation
+    |               from 50% is "luck" that regresses to mean
+    |
+    |--- compute_special_teams_metrics(pbp_df)
+    |       Input:  play_type, field_goal_result, extra_point_result,
+    |               kick_distance, punt columns from PBP
+    |       Output: fg_attempts, fg_made, fg_pct, fg_pct_40plus,
+    |               xp_attempts, xp_made, xp_pct,
+    |               punt_count, punt_avg_yards, punt_inside_20_pct,
+    |               kick_return_avg_yards, punt_return_avg_yards,
+    |               blocked_kicks_for, blocked_kicks_against
+    |       Filter: play_type in ('field_goal', 'extra_point', 'punt', 'kickoff')
+    |       Note:   Uses raw pbp_df — special teams plays are excluded
+    |               by _filter_valid_plays()
+    |
+    |--- compute_red_zone_trips(valid_plays)
+    |       Input:  yardline_100, drive, touchdown from PBP
+    |       Output: off_rz_trips (unique drives entering RZ),
+    |               off_rz_td_count, off_rz_fg_count,
+    |               off_rz_scoring_pct (TD+FG / trips),
+    |               def_rz_trips, def_rz_td_count, def_rz_fg_count,
+    |               def_rz_scoring_pct
+    |       Note:   Drive-level counting (nunique on drive),
+    |               NOT play-level counting — avoids inflating trips
+    |               Complements existing compute_red_zone_metrics() which
+    |               provides efficiency RATES; this adds VOLUME counts
+    |
+    v
+Silver: teams/penalties/season=YYYY/penalties_{ts}.parquet
+Silver: teams/turnover_luck/season=YYYY/turnover_luck_{ts}.parquet
+Silver: teams/special_teams/season=YYYY/special_teams_{ts}.parquet
+Silver: teams/rz_trips/season=YYYY/rz_trips_{ts}.parquet
+    All join key: [team, season, week]
+    All include rolling (_roll3, _roll6, _std) variants via apply_team_rolling()
+```
 
-**Trade-offs:** Slightly more verbose than loading and groupby-ing full PBP, but reduces peak memory ~70% per season by dropping non-relevant plays early.
+## Patterns to Follow
+
+### Pattern 1: Schedule Unpivot — Home/Away to Team-Level Rows
+
+The schedules table has one row per game with separate home/away columns. Every game_context function must unpivot into per-team rows.
+
+**What:** Read schedules, create two DataFrames (home perspective, away perspective), concat, producing one row per team-week.
+
+**When:** Every function in `game_context.py`.
 
 **Example:**
 ```python
-def compute_pbp_team_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
-    """Compute EPA/play, success rate, CPOE, red zone efficiency per team per week."""
-    # Filter to scrimmage plays only (exclude penalties, kickoffs, etc.)
-    plays = pbp_df[pbp_df['play_type'].isin(['pass', 'run'])].copy()
+def _unpivot_schedules(schedules_df: pd.DataFrame) -> pd.DataFrame:
+    """Convert game-level schedules to team-level rows.
 
-    dropbacks = plays[plays['qb_dropback'] == 1]
-    rushes = plays[plays['rush_attempt'] == 1]
-    rz = plays[plays['yardline_100'] <= 20]
+    Each game produces two rows: one for the home team, one for the away team.
+    Columns specific to home/away perspective are renamed to generic names.
+    """
+    home = schedules_df.rename(columns={
+        "home_team": "team", "away_team": "opponent",
+        "home_score": "team_score", "away_score": "opp_score",
+        "home_rest": "days_rest", "home_coach": "head_coach",
+    })
+    home["is_home"] = True
 
-    team_epa = (
-        plays.groupby(['season', 'week', 'posteam'])
-        .agg(
-            epa_per_play=('epa', 'mean'),
-            success_rate=('success', 'mean'),
-            plays=('play_id', 'count'),
-        )
-        .reset_index()
-        .rename(columns={'posteam': 'team'})
-    )
-    cpoe = (
-        dropbacks.groupby(['season', 'week', 'posteam'])
-        .agg(cpoe=('cpoe', 'mean'))
-        .reset_index()
-        .rename(columns={'posteam': 'team'})
-    )
-    rz_eff = (
-        rz.groupby(['season', 'week', 'posteam'])
-        .agg(
-            rz_epa=('epa', 'mean'),
-            rz_td_rate=('touchdown', 'mean'),
-        )
-        .reset_index()
-        .rename(columns={'posteam': 'team'})
-    )
-    return team_epa.merge(cpoe, on=['season', 'week', 'team'], how='left') \
-                   .merge(rz_eff, on=['season', 'week', 'team'], how='left')
+    away = schedules_df.rename(columns={
+        "away_team": "team", "home_team": "opponent",
+        "away_score": "team_score", "home_score": "opp_score",
+        "away_rest": "days_rest", "away_coach": "head_coach",
+    })
+    away["is_home"] = False
+
+    return pd.concat([home, away], ignore_index=True)
 ```
 
-### Pattern 2: Rolling Windows on Team/Player Data — Shift-then-Roll
+### Pattern 2: PBP Extension — Follow Existing team_analytics.py Structure
 
-**What:** All rolling averages must shift(1) before rolling to avoid data leakage (current week's value must not appear in the current week's rolling average).
+New PBP-derived functions follow the exact pattern of `compute_team_epa`, `compute_red_zone_metrics`, etc.: groupby posteam/defteam + season + week, aggregate, merge offense + defense, return `[team, season, week, metric_cols...]`.
 
-**When to use:** Every rolling average computation in every new module.
+**What:** Each new metric function takes `valid_plays` (or raw `pbp_df` for special plays/penalties), aggregates by team-week, returns a team-week DataFrame.
 
-**Trade-offs:** The `shift(1)` pattern is already established in `player_analytics.compute_rolling_averages`. New modules must follow the same pattern for consistency with how `projection_engine.py` consumes Silver data.
+**When:** Every new function added to `team_analytics.py`.
 
 **Example:**
 ```python
-def _add_rolling_to_team_df(df: pd.DataFrame, cols: list, windows: list = [3, 6]) -> pd.DataFrame:
-    df = df.sort_values(['team', 'season', 'week'])
-    for window in windows:
-        for col in cols:
-            if col in df.columns:
-                df[f"{col}_roll{window}"] = (
-                    df.groupby('team')[col]
-                    .transform(lambda s: s.shift(1).rolling(window, min_periods=1).mean())
-                )
+def compute_penalty_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute penalty rates per team-week from raw PBP.
+
+    Uses raw pbp_df (not _filter_valid_plays) because penalties
+    occur on all play types including special teams.
+    """
+    df = pbp_df.copy()
+    # Regular season filter only
+    if "season_type" in df.columns:
+        df = df[df["season_type"] == "REG"]
+    if "week" in df.columns:
+        df = df[df["week"] <= 18]
+
+    pen = df[df["penalty"] == 1]
+
+    off = pen.groupby(["posteam", "season", "week"]).agg(
+        off_penalties=("penalty", "count"),
+        off_penalty_yards=("penalty_yards", "sum"),
+    ).reset_index().rename(columns={"posteam": "team"})
+
+    defense = pen.groupby(["defteam", "season", "week"]).agg(
+        def_penalties=("penalty", "count"),
+        def_penalty_yards=("penalty_yards", "sum"),
+    ).reset_index().rename(columns={"defteam": "team"})
+
+    result = off.merge(defense, on=["team", "season", "week"], how="outer")
+    logger.info("Penalty metrics computed for %d team-weeks", len(result))
+    return result
+```
+
+### Pattern 3: Orchestrator per Output Path
+
+Each new Silver output gets an orchestrator function that chains sub-functions, merges, and applies `apply_team_rolling()`. This mirrors `compute_pbp_metrics()` and `compute_tendency_metrics()`.
+
+**What:** Single entry-point function per Silver output path that computes all sub-metrics, merges on `[team, season, week]`, applies rolling windows.
+
+**When:** Every new Silver output path.
+
+### Pattern 4: Config-Driven Silver Paths
+
+New Silver paths are registered in `config.py` `SILVER_TEAM_S3_KEYS`:
+
+```python
+# Additions to SILVER_TEAM_S3_KEYS in config.py
+SILVER_TEAM_S3_KEYS = {
+    # ... existing entries ...
+    "game_context": "teams/game_context/season={season}/game_context_{ts}.parquet",
+    "penalties": "teams/penalties/season={season}/penalties_{ts}.parquet",
+    "turnover_luck": "teams/turnover_luck/season={season}/turnover_luck_{ts}.parquet",
+    "special_teams": "teams/special_teams/season={season}/special_teams_{ts}.parquet",
+    "rz_trips": "teams/rz_trips/season={season}/rz_trips_{ts}.parquet",
+}
+```
+
+### Pattern 5: Cumulative Within-Season Computation (Playoff Context)
+
+Playoff context requires computing running win/loss records — a cumulative within-season calculation that differs from the rolling-window pattern.
+
+**What:** Sort by `[team, season, week]`, compute cumsum of wins/losses, derive standings within division/conference at each week point.
+
+**When:** `compute_playoff_context()` in `game_context.py`.
+
+**Example:**
+```python
+def compute_playoff_context(team_games_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute running standings and playoff leverage per team-week."""
+    df = team_games_df.sort_values(["team", "season", "week"])
+    df["win"] = (df["team_score"] > df["opp_score"]).astype(int)
+    df["loss"] = (df["team_score"] < df["opp_score"]).astype(int)
+
+    # Cumulative wins/losses within season
+    df["wins"] = df.groupby(["team", "season"])["win"].cumsum()
+    df["losses"] = df.groupby(["team", "season"])["loss"].cumsum()
+    df["win_pct"] = df["wins"] / (df["wins"] + df["losses"])
+
+    # Division rank at each week (requires knowing division membership)
+    # Use TEAM_DIVISIONS from config.py
+    ...
     return df
 ```
 
-### Pattern 3: Cross-Source Player Join — Use gsis_id as Canonical Key
+## Anti-Patterns to Avoid
 
-**What:** NGS uses `player_gsis_id`, PFR uses `pfr_player_id`, QBR uses `player_id`. The canonical join key in Silver is `player_id` (gsis_id) as used in `players/usage/`. Join NGS directly. PFR and QBR require a cross-reference via `players/rosters/` or `draft_picks` (which has both `gsis_id` and `pfr_player_id`).
+### Anti-Pattern 1: Creating New Bronze Data Types for Schedule-Resident Data
 
-**When to use:** Any function in `advanced_player_analytics.py` that merges NGS/PFR/QBR into player-week grain.
+**What:** Adding a `weather` Bronze type or `coaching` Bronze type that re-ingests data already present in schedules.
+**Why bad:** Duplicates data, adds ingestion complexity, creates sync issues. The schedules table already has temp, wind, roof, surface, home_coach, away_coach, referee, home_rest, away_rest.
+**Instead:** Extract features directly from existing Bronze schedules in the Silver layer. Only add a new Bronze source for genuinely external data (e.g., precipitation/humidity from a weather API, which is a future Gold-layer concern).
 
-**Trade-offs:** PFR and QBR will have non-matches for some players (name-only PFR records, unqualified QBR entries). Use left-joins from the player_weekly base and fill NaN for missing advanced stats. Never inner-join — this would silently drop players.
+### Anti-Pattern 2: Merging All New Features into Existing Silver Files
 
-**Join chain:**
-```
-player_weekly (gsis_id) ← left join → NGS (player_gsis_id)
-player_weekly (player_id) ← left join → QBR (player_id, via gsis_id match)
-player_weekly ← left join → draft_picks (gsis_id) → PFR weekly (pfr_player_id)
-```
+**What:** Adding penalty rates, turnover luck, and weather features into the existing `teams/pbp_metrics/` Silver output.
+**Why bad:** Makes individual features hard to test, debug, and recompute independently. Breaks the existing test suite for pbp_metrics. Forces full recomputation when only one feature domain changes.
+**Instead:** Separate Silver output paths per feature domain. Gold layer joins them when building prediction feature vectors.
 
-### Pattern 4: SOS Computation — Rolling Opponent Quality
+### Anti-Pattern 3: Look-Ahead Bias in Cumulative Features
 
-**What:** Strength-of-schedule at week W is the average opponent EPA-per-play from weeks 1..W-1 (using already-played games, not future schedule). This requires the team PBP metrics computed in Pattern 1 to exist first — SOS depends on team metrics.
+**What:** For playoff context, computing win_pct using the full season's results and applying it retroactively to early weeks.
+**Why bad:** Creates data leakage. Week 5's win_pct should only reflect weeks 1-4.
+**Instead:** Use cumsum within the sorted team-season group. For rolling features, use `shift(1)` before rolling (already established in `apply_team_rolling()`).
 
-**When to use:** `compute_sos()` in `team_analytics.py`.
+### Anti-Pattern 4: External Weather API for Historical Data
 
-**Trade-offs:** SOS is a derived metric that requires team EPA metrics as input. Build order within `silver_team_transformation.py` must compute `pbp_team_metrics` before `sos`. Both can be written to Silver in the same CLI run.
+**What:** Calling a weather API (e.g., OpenWeatherMap) for all games from 2016-2024 when schedules already has game-time temperature and wind speed.
+**Why bad:** Expensive API calls, rate-limited, and schedules data already provides actual game-time observations (not forecasts).
+**Instead:** Use schedules temp/wind for all historical seasons. Only consider a weather API for future game forecasts in the Gold layer (not Silver).
 
-**Example:**
-```python
-def compute_sos(team_metrics_df: pd.DataFrame) -> pd.DataFrame:
-    """Rolling opponent-quality SOS. team_metrics_df must have epa_per_play."""
-    # team_metrics_df grain: season, week, team, epa_per_play
-    # Build opponent lookup from schedules (passed in separately)
-    ...
-    # For each team at each week, look back at opponents' epa_per_play through that week
-    # and compute rolling mean (windows 3, 6, season-to-date)
-```
+### Anti-Pattern 5: Using _filter_valid_plays() for Penalty and Special Teams Metrics
 
-### Pattern 5: Historical Context — Static Join to Active Roster
+**What:** Passing PBP through `_filter_valid_plays()` before computing penalty or special teams metrics.
+**Why bad:** `_filter_valid_plays()` removes all non-pass/run plays (punts, field goals, kickoffs) and all penalty-only plays. This would drop the exact plays needed for these features.
+**Instead:** Use raw `pbp_df` with only season_type and week filters for penalties and special teams. Use `_filter_valid_plays()` only for turnover luck and red zone trips (which are based on scrimmage plays).
 
-**What:** Combine measurables (forty, wt, ht, vertical, etc.) and draft capital (round, pick, w_av) are career attributes. They are linked to active players via `gsis_id`, which is present in both `draft_picks` (column: `gsis_id`) and `combine` (requires cross-reference via `pfr_id`, then to roster).
+## Join Strategy
 
-**When to use:** `compute_draft_capital()` and `link_combine_to_roster()` in `historical_context.py`.
-
-**Trade-offs:** Not all players have combine data (undrafted free agents, international players, historical gaps). Not all draft picks have `gsis_id` (older picks pre-2009). Build with left-joins from active roster; treat historical context as enrichment, not required fields.
-
-**Join chain:**
-```
-rosters (player_id=gsis_id, pfr_id) ← left join → draft_picks (gsis_id)
-rosters (pfr_id) ← left join → combine (pfr_id)
-```
-
-## Data Flow
-
-### Silver Expansion Data Flow
+All new Silver tables share the universal team-level join key: `[team, season, week]`.
 
 ```
-Bronze PBP (pbp/season=YYYY/)
-    |
-    v
-silver_team_transformation.py
-    |
-    +-- team_analytics.compute_pbp_team_metrics()  --> silver/teams/pbp_metrics/season=YYYY/
-    |
-    +-- team_analytics.compute_team_tendencies()   --> silver/teams/tendencies/season=YYYY/
-    |         (requires pbp_team_metrics as input)
-    |
-    +-- team_analytics.compute_sos()               --> silver/teams/sos/season=YYYY/
-              (requires pbp_team_metrics as input)
+Gold Prediction Feature Vector Assembly:
+========================================
 
-Bronze NGS + PFR + QBR
-    |
-    v
-silver_advanced_transformation.py
-    |
-    +-- advanced_player_analytics.compute_ngs_profiles()    --> silver/players/advanced/season=YYYY/
-    +-- advanced_player_analytics.compute_pfr_profiles()    (merged into same advanced file)
-    +-- advanced_player_analytics.compute_qbr_features()    (merged into same advanced file)
+EXISTING Silver (from v1.2):
+  teams/pbp_metrics/      [team, season, week]  -- EPA, success rate, CPOE, RZ efficiency
+  teams/tendencies/       [team, season, week]  -- pace, PROE, 4th-down, early-down run rate
+  teams/sos/              [team, season, week]  -- opponent-adjusted EPA, schedule difficulty
+  teams/situational/      [team, season, week]  -- home/away, divisional, game script splits
+  players/usage/          [player_id, season, week]  -- target share, rolling avgs
+  players/advanced/       [player_id, season, week]  -- NGS, PFR, QBR profiles
 
-Bronze combine + draft_picks + rosters
-    |
-    v
-silver_advanced_transformation.py (or standalone)
-    |
-    +-- historical_context.link_combine_to_roster()         --> silver/players/historical/
-    +-- historical_context.compute_draft_capital()          (merged into same historical file)
+NEW Silver (v1.3):
+  teams/game_context/     [team, season, week]  -- weather, rest, coaching, referee, playoff
+  teams/penalties/        [team, season, week]  -- penalty rates and yards
+  teams/turnover_luck/    [team, season, week]  -- fumble recovery luck, TO differential
+  teams/special_teams/    [team, season, week]  -- FG%, punt avg, return yards
+  teams/rz_trips/         [team, season, week]  -- RZ trip volume counts (not just rates)
 
-Bronze player_weekly + schedules (already in Silver pipeline)
-    |
-    v
-silver_player_transformation.py (EXISTING — no change)
-    |
-    +-- player_analytics.compute_usage_metrics()            --> silver/players/usage/season=YYYY/
-    +-- player_analytics.compute_rolling_averages()
-    +-- player_analytics.compute_game_script_indicators()
-    +-- player_analytics.compute_venue_splits()
-    +-- player_analytics.compute_opponent_rankings()         --> silver/defense/positional/season=YYYY/
+GAME-LEVEL JOIN (for prediction model):
+  schedules + home_team features (left join all team Silver tables)
+           + away_team features (left join all team Silver tables)
+           = one row per game with ~130+ feature columns
 ```
 
-### Gold Consumption of New Silver Data
+## Module Responsibility Matrix
 
-```
-silver/players/usage/         ← EXISTING feed into projection_engine.py (unchanged)
-silver/teams/pbp_metrics/     ← NEW feed: team EPA/play used as Vegas-equivalent multiplier
-silver/teams/sos/             ← NEW feed: schedule difficulty factor (replaces simple rank-based matchup)
-silver/players/advanced/      ← NEW feed: NGS separation / RYOE / pressure rate for QB/RB/WR/TE adjustments
-silver/players/historical/    ← NEW feed: draft capital / combine athleticism for rookie projection baseline
-```
+| Feature | Source Bronze | Module | Output Silver Path | Key Bronze Columns |
+|---------|-------------|--------|-------------------|-------------------|
+| Weather | schedules | game_context.py (NEW) | teams/game_context/ | temp, wind, roof, surface |
+| Rest/Travel | schedules | game_context.py (NEW) | teams/game_context/ | home_rest, away_rest, stadium |
+| Coaching | schedules | game_context.py (NEW) | teams/game_context/ | home_coach, away_coach |
+| Referee | schedules + penalties | game_context.py (NEW) | teams/game_context/ | referee + penalty counts |
+| Playoff Context | schedules | game_context.py (NEW) | teams/game_context/ | home_score, away_score, div_game |
+| Penalties | PBP | team_analytics.py (EXTEND) | teams/penalties/ | penalty, penalty_yards |
+| Turnover Luck | PBP | team_analytics.py (EXTEND) | teams/turnover_luck/ | fumble, fumble_lost, interception |
+| Special Teams | PBP | team_analytics.py (EXTEND) | teams/special_teams/ | play_type, field_goal_result, kick_distance, punt cols |
+| Red Zone Trips | PBP | team_analytics.py (EXTEND) | teams/rz_trips/ | yardline_100, drive, touchdown |
 
-### Key Data Flows
+## PBP Column Expansion Required
 
-1. **PBP to team EPA:** Bronze PBP (50K plays) → filter scrimmage plays → groupby team+week → ~32 teams × ~18 weeks = 576 rows per season. Fast, low-memory after initial filter.
-2. **NGS to player profiles:** Bronze NGS (passing 614 rows, receiving 1435 rows, rushing 601 rows per season) → join on player_gsis_id → 2-3K rows per season. Trivially fast.
-3. **PFR to player profiles:** Bronze PFR weekly/def (7992 rows per season) → join on pfr_player_id via draft_picks cross-reference → left-join into player_weekly base. ~5K matched rows per season.
-4. **Combine/draft to historical:** Bronze combine (321 rows/year) + draft_picks (257 rows/year) → join on gsis_id/pfr_id → one static file (multi-season, all-time). Updated once per draft year.
+The existing `PBP_COLUMNS` in config.py (103 columns) includes most needed columns but is MISSING several required for special teams and penalty detail:
 
-## Integration Points with Existing Silver Pipeline
+| Column | Currently in PBP_COLUMNS? | Needed For | Action |
+|--------|--------------------------|-----------|--------|
+| penalty | YES | Penalties | None |
+| fumble | YES | Turnover luck | None |
+| fumble_lost | YES | Turnover luck | None |
+| interception | YES | Turnover luck | None |
+| touchdown | YES | Red zone trips | None |
+| yardline_100 | YES | Red zone trips | None |
+| drive | YES | Red zone trips | None |
+| `penalty_yards` | NO | Penalty yards | ADD to PBP_COLUMNS |
+| `penalty_type` | NO | Penalty type breakdown | ADD (optional, nice-to-have) |
+| `field_goal_result` | NO | FG accuracy | ADD to PBP_COLUMNS |
+| `extra_point_result` | NO | XP accuracy | ADD to PBP_COLUMNS |
+| `kick_distance` | NO | FG/punt distance | ADD to PBP_COLUMNS |
+| `punt_blocked` | NO | Blocked kicks | ADD to PBP_COLUMNS |
+| `return_yards` | NO | Return averages | ADD to PBP_COLUMNS |
+| `kickoff_attempt` | NO | Kickoff identification | ADD to PBP_COLUMNS |
 
-### player_analytics.py — No Modifications Required
+**Action: Expand PBP_COLUMNS by ~8 columns.** This is a config-only change. Existing PBP files will need re-ingestion for affected seasons, OR the special teams function can load raw PBP without the column filter (accepting larger memory footprint for special teams computation only).
 
-The existing module provides: `compute_usage_metrics`, `compute_rolling_averages`, `compute_game_script_indicators`, `compute_venue_splits`, `compute_implied_team_totals`, and `compute_opponent_rankings`. These already write the 113-column `players/usage/` Silver table.
-
-**v1.2 does NOT modify this file.** New metrics live in new modules and new Silver paths. This preserves:
-- The 71+ existing test suite (none need changing)
-- The exact `players/usage/` schema that `projection_engine.py` reads
-- The `silver_player_transformation.py` CLI contract
-
-### projection_engine.py — Optional Extension Points
-
-The projection engine currently reads `players/usage/` Silver. After v1.2 ships, two hooks are available for future Gold enhancement:
-
-| Hook | Where | New Silver Data |
-|------|-------|-----------------|
-| `RECENCY_WEIGHTS` blending | `projection_engine.py` line ~30 | Replace simple opponent rank with SOS-adjusted EPA from `teams/sos/` |
-| `usage_multiplier` computation | `projection_engine.py` line ~140 | Supplement target_share/carry_share with NGS separation (WR) / RYOE (RB) from `players/advanced/` |
-
-These are v1.2 stretch goals, not blockers — the new Silver tables are the prerequisite.
-
-### config.py — Additions Required
-
-Add Silver S3 key templates for new paths:
-
-```python
-SILVER_TEAM_S3_KEYS = {
-    "pbp_metrics": "teams/pbp_metrics/season={season}/pbp_metrics_{ts}.parquet",
-    "tendencies": "teams/tendencies/season={season}/tendencies_{ts}.parquet",
-    "sos": "teams/sos/season={season}/sos_{ts}.parquet",
-}
-SILVER_ADVANCED_S3_KEYS = {
-    "advanced_players": "players/advanced/season={season}/advanced_{ts}.parquet",
-    "historical": "players/historical/historical_{ts}.parquet",
-    "situational": "situational/splits/season={season}/splits_{ts}.parquet",
-    "coverage": "defense/coverage/season={season}/coverage_{ts}.parquet",
-}
-```
+**Recommended approach:** Add columns to PBP_COLUMNS, then re-ingest PBP for 2016-2025. This is ~10 minutes of batch ingestion and keeps the architecture clean.
 
 ## Build Order (Dependency-Driven)
 
-This ordering respects data dependencies and isolates risk — each step can be tested independently before proceeding.
+```
+Phase 1: PBP Column Expansion
+  config.py: add ~8 columns to PBP_COLUMNS
+  bronze_ingestion: re-ingest PBP with expanded columns (optional; or load raw)
+  No Silver output yet — just infrastructure
 
-| Step | Module/Script | Reads From | Writes To | Why This Order |
-|------|--------------|-----------|----------|----------------|
-| 1 | `src/team_analytics.py` | (new module) | — | No deps; write + test in isolation |
-| 2 | `scripts/silver_team_transformation.py` | Bronze PBP + schedules | `teams/pbp_metrics/`, `teams/tendencies/` | PBP metrics first; SOS depends on them |
-| 3 | SOS in `team_analytics.py` | Output of step 2 | `teams/sos/` | Must have PBP metrics to compute opponent quality |
-| 4 | `src/advanced_player_analytics.py` | (new module) | — | No deps; write + test in isolation |
-| 5 | `scripts/silver_advanced_transformation.py` (NGS + PFR + QBR) | Bronze NGS/PFR/QBR + player_weekly | `players/advanced/` | Need player_id cross-reference from existing usage table |
-| 6 | `src/historical_context.py` | (new module) | — | No deps; combine/draft logic is self-contained |
-| 7 | historical in `silver_advanced_transformation.py` | Bronze combine + draft_picks + rosters | `players/historical/` | Rosters needed for gsis_id link; rosters Bronze must exist |
-| 8 | `src/situational_analytics.py` | (new module) | — | No deps; pure computation from existing player_weekly |
-| 9 | situational in `silver_team_transformation.py` | Silver `players/usage/` | `situational/splits/` | Reads enriched Silver (with game_script already computed) |
+Phase 2: PBP-Derived Team Features (penalties, turnover luck, red zone trips)
+  team_analytics.py: add compute_penalty_metrics(), compute_turnover_luck(),
+                     compute_red_zone_trips()
+  silver_team_transformation.py: call new functions, write new Silver paths
+  Tests for each new function
+  Dependencies: Phase 1 (PBP columns)
 
-**Summary:** Team metrics → SOS → Advanced player profiles → Historical context → Situational splits.
+Phase 3: Special Teams Metrics
+  team_analytics.py: add compute_special_teams_metrics()
+  silver_team_transformation.py: call new function
+  Dependencies: Phase 1 (PBP columns — field_goal_result, kick_distance)
 
-## Anti-Patterns
+Phase 4: Schedule-Derived Features (weather, rest/travel, coaching)
+  game_context.py: NEW module with compute_weather_features(),
+                   compute_rest_travel(), compute_coaching_changes()
+  config.py: add STADIUM_COORDINATES dict
+  silver_game_context_transformation.py: NEW script
+  Dependencies: None (reads existing schedules Bronze)
 
-### Anti-Pattern 1: Adding New Metrics to `player_analytics.py`
+Phase 5: Referee Tendencies
+  game_context.py: add compute_referee_tendencies()
+  Dependencies: Phase 2 (needs penalty counts from Silver) + Phase 4 (game_context module exists)
 
-**What people do:** Append `compute_pbp_team_metrics()` or `compute_ngs_profiles()` to the existing `player_analytics.py` because it already handles Silver transforms.
+Phase 6: Playoff Context
+  game_context.py: add compute_playoff_context()
+  Dependencies: Phase 4 (game_context module exists)
+  Note: Most complex computation (cumulative standings, division rankings)
 
-**Why it's wrong:** `player_analytics.py` operates at player-week grain from player_weekly Bronze. PBP aggregation operates at team-week grain from PBP Bronze. NGS/PFR profiles require different Bronze sources with different join keys. Mixing them creates a 1000+ line god module with confusing imports and makes independent testing impossible.
+Phase 7: Pipeline Health + Integration Testing
+  scripts/check_pipeline_health.py: add checks for new Silver paths
+  Integration tests verifying end-to-end Silver output
+  Dependencies: All previous phases
+```
 
-**Do this instead:** One module per analytic domain. `team_analytics.py`, `advanced_player_analytics.py`, `historical_context.py`, `situational_analytics.py`. Each tested independently.
+**Rationale for this order:**
+1. PBP column expansion first because it unblocks phases 2-3
+2. PBP-derived features next because they extend an existing, well-tested module (team_analytics.py)
+3. Special teams after basic PBP features because it needs the same column expansion but is more complex (punt/kick/FG play types)
+4. Schedule-derived features after PBP because they require a new module (game_context.py) — more infrastructure
+5. Referee tendencies after penalties + game_context because it joins data from both
+6. Playoff context last because it's the most complex computation (cumulative standings)
 
-### Anti-Pattern 2: Loading Full PBP for Each Team Metric
+## Scalability Considerations
 
-**What people do:** `pbp_df = pd.read_parquet('data/bronze/pbp/season=2024/pbp.parquet')` then immediately groupby team — fine for one season, but if looped over 10 seasons it loads 1+ GB sequentially.
-
-**Why it's wrong:** At 2016-2025 (10 seasons), full PBP loads sum to ~1 GB peak if not managed. Silver transforms run per-season in a loop, so this is not catastrophic, but the filter-first pattern cuts memory ~70% per iteration.
-
-**Do this instead:** Filter to relevant `play_type` rows immediately after reading. Process one season at a time in the CLI loop (existing pattern from `silver_player_transformation.py`).
-
-### Anti-Pattern 3: Inner-Joining NGS/PFR to Player Weekly
-
-**What people do:** Use `how='inner'` when merging NGS or PFR data into the player-weekly base table to keep only matched rows.
-
-**Why it's wrong:** NGS has minimum ~614 passing records per season — only qualified QBs. PFR coverage is better but still misses UDFAs and obscure backups. An inner-join silently drops all players without advanced stats, breaking downstream projections for those players.
-
-**Do this instead:** Always left-join from player_weekly as the base. NaN values in advanced metric columns are expected and handled by `projection_engine.py` via fillna defaults.
-
-### Anti-Pattern 4: Storing Advanced + Usage in the Same Parquet File
-
-**What people do:** Extend the existing 113-column `players/usage/` Silver table with new NGS/PFR columns by modifying `silver_player_transformation.py`.
-
-**Why it's wrong:** The `players/usage/` schema is a stable contract consumed by `projection_engine.py` and 71 tests. Adding 30+ new columns risks column name collisions (NGS has `aggressiveness`, PFR has `times_pressured` which conflicts with player_weekly context), increases file size ~30%, and forces Silver CLI re-runs whenever any new source changes.
-
-**Do this instead:** Write separate Silver tables: `players/advanced/` for NGS/PFR/QBR, `players/historical/` for combine/draft. Gold and the projection engine read from multiple Silver tables with explicit left-joins.
-
-### Anti-Pattern 5: Season Partition for Historical Context
-
-**What people do:** Store combine and draft capital as `players/historical/season=2024/historical_2024.parquet`.
-
-**Why it's wrong:** A player's combine measurables and draft round do not change year to year. Season-partitioning creates 25 identical or near-identical copies and forces callers to decide which season to read.
-
-**Do this instead:** Store as `players/historical/historical_{ts}.parquet` (no season partition). Use `download_latest_parquet()` to always read the latest. Append new draft classes when they join the league.
-
-## Scaling Considerations
-
-| Concern | Current (Silver: 6 files, ~4 MB) | Post v1.2 Silver (~30 files, ~20-30 MB) | Notes |
-|---------|----------------------------------|----------------------------------------|-------|
-| Disk space | Trivial | Trivial | Team metrics are tiny (576 rows/season); even 10 seasons = <1 MB per metric type |
-| Memory during transform | ~150 MB peak (player_weekly join) | ~250 MB peak (PBP filter + team groupby) | PBP filter-first keeps peak manageable |
-| Read performance | Instant | Instant | download_latest_parquet reads one file; team metrics are tiny |
-| CLI runtime | ~30s per season | ~90s per season (adds PBP processing) | PBP is 50K rows; groupby is fast |
-| Gold compatibility | No change | projection_engine.py needs left-join hooks | Additive — existing paths unchanged |
+| Concern | At 10 seasons (current) | At 20 seasons | Notes |
+|---------|------------------------|---------------|-------|
+| PBP memory per season | ~120 MB raw PBP | Same per season | Per-season loop in transformation script handles this |
+| New Silver file count | 5 new paths x 10 seasons = 50 files | 5 x 20 = 100 | Manageable; glob + latest-file pattern |
+| Feature vector width | ~80 existing + ~50 new = ~130 features | Same | Pandas handles easily |
+| game_context computation | ~500 rows per season (32 teams x ~17 weeks) | Same | Trivially fast |
+| Stadium coordinates | 32 stadiums (static dict) | Same | Hardcode in config.py |
+| Playoff context | ~500 rows x cumsum | Same per season | Fast; no cross-season computation |
 
 ## Sources
 
-- `src/player_analytics.py` — existing Silver module, current function signatures and column outputs
-- `scripts/silver_player_transformation.py` — existing Silver CLI, storage path patterns
-- `src/config.py` — PBP_COLUMNS (103 cols), SILVER_PLAYER_S3_KEYS, DATA_TYPE_SEASON_RANGES
-- `src/projection_engine.py` — RECENCY_WEIGHTS, USAGE_STABILITY_STAT, usage multiplier patterns
-- `data/silver/players/usage/season=2024/*.parquet` — confirmed 113-column schema
-- `data/bronze/pbp/season=2024/*.parquet` — confirmed 103 cols, 49,492 plays, EPA/WPA/CPOE present
-- `data/bronze/ngs/*/season=2024/*.parquet` — confirmed column sets for passing (29 cols), receiving (23 cols), rushing (22 cols)
-- `data/bronze/pfr/weekly/def/season=2024/*.parquet` — confirmed 29 cols (pressure, blitz, coverage)
-- `data/bronze/pfr/weekly/pass/season=2024/*.parquet` — confirmed 24 cols (bad throws, pressure)
-- `data/bronze/pfr/seasonal/*/season=2024/*.parquet` — confirmed schemas for pass/rec/rush/def
-- `data/bronze/qbr/season=2024/*.parquet` — confirmed 30 cols including qbr_total, epa_total, pts_added
-- `data/bronze/combine/season=2024/*.parquet` — confirmed 18 cols (forty, wt, ht, vertical, pfr_id)
-- `data/bronze/draft_picks/season=2024/*.parquet` — confirmed 36 cols including gsis_id, pfr_player_id, round, pick, w_av
-- `.planning/PROJECT.md` — v1.2 milestone definition, existing decisions
-
----
-*Architecture research for: NFL Silver layer expansion (v1.2)*
-*Researched: 2026-03-13*
+- `src/team_analytics.py` -- existing team PBP metrics module (847 lines), established patterns for compute functions, orchestrators, and rolling windows
+- `src/player_analytics.py` -- existing player analytics module (418 lines), schedule unpivot patterns in `compute_venue_splits()`
+- `src/config.py` -- PBP_COLUMNS (103 columns, lines 156-203), SILVER_TEAM_S3_KEYS (lines 136-141), TEAM_DIVISIONS
+- `src/projection_engine.py` -- Gold layer consumption patterns for Silver data
+- `docs/NFL_DATA_DICTIONARY.md` -- schedules schema confirms: temp, wind, roof, surface, away_rest, home_rest, away_coach, home_coach, referee, stadium columns
+- `scripts/silver_team_transformation.py` -- existing team transformation CLI patterns
+- `scripts/bronze_ingestion_simple.py` -- DATA_TYPE_REGISTRY pattern for ingestion
+- `.planning/PROJECT.md` -- v1.3 milestone requirements
+- Confidence: HIGH -- all recommendations based on direct codebase inspection of existing modules, Bronze schemas, and Silver output patterns
