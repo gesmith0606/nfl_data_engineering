@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Prediction Data Foundation
-status: executing
-stopped_at: Completed 20-01-PLAN.md
-last_updated: "2026-03-16T15:56:13.454Z"
-last_activity: 2026-03-15 — Roadmap created (4 phases, 9 plans, 23 requirements mapped)
+status: completed
+stopped_at: Completed 20-02-PLAN.md
+last_updated: "2026-03-16T16:01:07.661Z"
+last_activity: 2026-03-16 — Completed Phase 20 (PBP re-ingestion + officials data for 2016-2025)
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 50
+  completed_plans: 2
+  percent: 100
 ---
 
 # Project State
@@ -30,11 +30,11 @@ v1.3 Prediction Data Foundation — Ready to plan Phase 20
 ## Current Position
 
 Phase: 20 of 23 (Infrastructure and Data Expansion)
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-03-16 — Completed 20-01 (PBP expansion, officials, stadium coordinates)
+Plan: 2 of 2 in current phase (COMPLETE)
+Status: Phase Complete
+Last activity: 2026-03-16 — Completed Phase 20 (PBP re-ingestion + officials data for 2016-2025)
 
-Progress: [█████░░░░░] 50%
+Progress: [██████████] 100%
 
 ## Key Artifacts
 
@@ -60,6 +60,9 @@ Carried from v1.2. See PROJECT.md Key Decisions table.
 - **Phase 20-01**: Officials season range starts at 2015 (nflverse confirmed coverage)
 - **Phase 20-01**: PBP expanded to 140 columns (37 new: penalty, ST, fumble recovery, drive detail)
 - **Phase 20-01**: Stadium coordinates include 6 international venues
+- **Phase 20-02**: PBP re-ingested for 2016-2025 with 140-column schema (was 103)
+- **Phase 20-02**: Officials data ingested for 2016-2025 (~1,900 rows/season, 7 crew positions)
+- **Phase 20-02**: 302 tests pass with zero regressions after data expansion
 
 ### Pending Todos
 
@@ -71,9 +74,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T15:55:23Z
-Stopped at: Completed 20-01-PLAN.md
-Resume file: .planning/phases/20-infrastructure-and-data-expansion/20-01-SUMMARY.md
+Last session: 2026-03-16T16:01:07.659Z
+Stopped at: Completed 20-02-PLAN.md
+Resume file: .planning/phases/20-infrastructure-and-data-expansion/20-02-SUMMARY.md
 
 ---
 *Last updated: 2026-03-15 after v1.3 roadmap created*
