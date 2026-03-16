@@ -15,6 +15,9 @@ import pytest
 from src.config import (
     get_max_season,
     DATA_TYPE_SEASON_RANGES,
+    STADIUM_COORDINATES,
+    TEAM_DIVISIONS,
+    PBP_COLUMNS,
     validate_season_for_type,
 )
 from src.nfl_data_adapter import NFLDataAdapter
@@ -40,12 +43,12 @@ class TestDynamicSeasonValidation:
             actual = get_max_season()
             assert actual >= 2027  # Will be true for 2026+
 
-    def test_season_ranges_has_all_15_types(self):
+    def test_season_ranges_has_all_16_types(self):
         expected_types = {
             "schedules", "pbp", "player_weekly", "player_seasonal",
             "snap_counts", "injuries", "rosters", "teams", "ngs",
             "pfr_weekly", "pfr_seasonal", "qbr", "depth_charts",
-            "draft_picks", "combine",
+            "draft_picks", "combine", "officials",
         }
         assert expected_types == set(DATA_TYPE_SEASON_RANGES.keys())
 
@@ -144,8 +147,8 @@ class TestDataTypeRegistry:
         from bronze_ingestion_simple import DATA_TYPE_REGISTRY
         self.registry = DATA_TYPE_REGISTRY
 
-    def test_registry_has_15_entries(self):
-        assert len(self.registry) >= 15
+    def test_registry_has_16_entries(self):
+        assert len(self.registry) >= 16
 
     def test_each_entry_has_required_keys(self):
         required = {"adapter_method", "bronze_path", "requires_week", "requires_season"}
@@ -206,3 +209,142 @@ class TestLocalFirstStorage:
         df = pd.DataFrame({"x": [1]})
         save_local(df, deep_path)
         assert os.path.exists(deep_path)
+
+
+# ------------------------------------------------------------------
+# Phase 20: PBP Column Expansion (INFRA-01)
+# ------------------------------------------------------------------
+
+def _haversine_miles(lat1, lon1, lat2, lon2):
+    """Compute great-circle distance in miles between two lat/lon points."""
+    import math
+    R = 3958.8
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = (
+        math.sin(dlat / 2) ** 2
+        + math.cos(math.radians(lat1))
+        * math.cos(math.radians(lat2))
+        * math.sin(dlon / 2) ** 2
+    )
+    return R * 2 * math.asin(math.sqrt(a))
+
+
+class TestPBPColumnsExpanded:
+    """Validate PBP_COLUMNS expansion from ~103 to ~140 columns."""
+
+    def test_pbp_columns_expanded(self):
+        """PBP_COLUMNS has >= 128 entries and contains key original columns."""
+        assert len(PBP_COLUMNS) >= 128, f"Expected >= 128, got {len(PBP_COLUMNS)}"
+        for col in [
+            "game_id", "play_id", "epa", "wpa", "cpoe",
+            "passer_player_id", "spread_line", "surface",
+        ]:
+            assert col in PBP_COLUMNS, f"Missing original column: {col}"
+
+    def test_pbp_columns_no_duplicates(self):
+        """No duplicate entries in PBP_COLUMNS."""
+        assert len(PBP_COLUMNS) == len(set(PBP_COLUMNS)), (
+            f"Found {len(PBP_COLUMNS) - len(set(PBP_COLUMNS))} duplicate columns"
+        )
+
+    def test_pbp_columns_grouped(self):
+        """New columns (penalty_type) appear after surface (appended)."""
+        surface_idx = PBP_COLUMNS.index("surface")
+        penalty_idx = PBP_COLUMNS.index("penalty_type")
+        assert penalty_idx > surface_idx, "penalty_type should appear after surface"
+
+    def test_pbp_new_columns_present(self):
+        """All key new columns from the expansion are present."""
+        new_columns = [
+            "penalty_type", "penalty_yards", "penalty_team",
+            "kick_distance", "return_yards",
+            "field_goal_result", "field_goal_attempt",
+            "extra_point_result", "extra_point_attempt",
+            "punt_blocked", "punt_inside_twenty",
+            "kickoff_inside_twenty",
+            "fumble_forced", "fumble_not_forced",
+            "fumble_recovery_1_team", "fumble_recovery_1_yards",
+            "fumble_recovery_1_player_id",
+            "drive_play_count", "drive_time_of_possession",
+        ]
+        for col in new_columns:
+            assert col in PBP_COLUMNS, f"Missing new column: {col}"
+
+
+# ------------------------------------------------------------------
+# Phase 20: Officials Data Type (INFRA-02)
+# ------------------------------------------------------------------
+
+class TestOfficialsDataType:
+    """Validate officials data type wiring across config, adapter, and registry."""
+
+    def test_officials_season_range(self):
+        """Officials season range starts at 2015 per user decision."""
+        assert "officials" in DATA_TYPE_SEASON_RANGES
+        min_season, max_fn = DATA_TYPE_SEASON_RANGES["officials"]
+        assert min_season == 2015, f"Expected 2015, got {min_season}"
+        assert callable(max_fn)
+
+    def test_officials_adapter_method_exists(self):
+        """NFLDataAdapter has a callable fetch_officials method."""
+        assert hasattr(NFLDataAdapter, "fetch_officials")
+        assert callable(getattr(NFLDataAdapter, "fetch_officials"))
+
+    def test_officials_registry_entry(self):
+        """Officials entry exists in DATA_TYPE_REGISTRY with correct wiring."""
+        import scripts.bronze_ingestion_simple as bis
+
+        assert "officials" in bis.DATA_TYPE_REGISTRY
+        reg = bis.DATA_TYPE_REGISTRY["officials"]
+        assert reg["adapter_method"] == "fetch_officials"
+        assert reg["bronze_path"] == "officials/season={season}"
+        assert reg["requires_week"] is False
+        assert reg["requires_season"] is True
+
+
+# ------------------------------------------------------------------
+# Phase 20: Stadium Coordinates (INFRA-03)
+# ------------------------------------------------------------------
+
+class TestStadiumCoordinates:
+    """Validate STADIUM_COORDINATES completeness and format."""
+
+    def test_stadium_coordinates_all_teams(self):
+        """All 32 team abbreviations from TEAM_DIVISIONS are in STADIUM_COORDINATES."""
+        missing = set(TEAM_DIVISIONS.keys()) - set(STADIUM_COORDINATES.keys())
+        assert not missing, f"Teams missing from STADIUM_COORDINATES: {missing}"
+
+    def test_stadium_coordinates_international(self):
+        """All 6 international venues are present."""
+        international = ["LON_TOT", "LON_WEM", "MUN", "MEX", "SAO", "MAD"]
+        for venue in international:
+            assert venue in STADIUM_COORDINATES, f"Missing international venue: {venue}"
+
+    def test_stadium_coordinates_tuple_format(self):
+        """Each entry is a 4-tuple (float, float, str, str)."""
+        for key, val in STADIUM_COORDINATES.items():
+            assert isinstance(val, tuple) and len(val) == 4, (
+                f"{key}: expected 4-tuple, got {type(val).__name__}"
+            )
+            lat, lon, tz, name = val
+            assert isinstance(lat, (int, float)), f"{key}: lat not numeric"
+            assert isinstance(lon, (int, float)), f"{key}: lon not numeric"
+            assert isinstance(tz, str), f"{key}: timezone not string"
+            assert isinstance(name, str), f"{key}: venue name not string"
+
+    def test_stadium_haversine_nyj_to_lar(self):
+        """Haversine distance NYJ to LA is approximately 2400-2500 miles."""
+        nyj = STADIUM_COORDINATES["NYJ"]
+        la = STADIUM_COORDINATES["LA"]
+        dist = _haversine_miles(nyj[0], nyj[1], la[0], la[1])
+        assert 2400 <= dist <= 2500, f"NYJ-LA distance {dist:.0f} not in 2400-2500 range"
+
+    def test_stadium_shared_venues(self):
+        """NYG/NYJ share MetLife; LA/LAC share SoFi (identical coordinates)."""
+        assert STADIUM_COORDINATES["NYG"][:2] == STADIUM_COORDINATES["NYJ"][:2]
+        assert STADIUM_COORDINATES["LA"][:2] == STADIUM_COORDINATES["LAC"][:2]
+
+    def test_stadium_total_count(self):
+        """38 total entries: 32 teams + 6 international."""
+        assert len(STADIUM_COORDINATES) == 38

@@ -37,11 +37,11 @@ class TestPBPColumns:
             assert col in PBP_COLUMNS, f"Missing required column: {col}"
 
     def test_pbp_columns_count(self):
-        """PBP_COLUMNS should have between 90 and 120 entries."""
+        """PBP_COLUMNS should have between 128 and 160 entries."""
         from src.config import PBP_COLUMNS
 
-        assert 90 <= len(PBP_COLUMNS) <= 120, (
-            f"Expected 90-120 columns, got {len(PBP_COLUMNS)}"
+        assert 128 <= len(PBP_COLUMNS) <= 160, (
+            f"Expected 128-160 columns, got {len(PBP_COLUMNS)}"
         )
 
     def test_pbp_columns_no_participation(self):
@@ -181,12 +181,12 @@ class TestPBPRangeCoverage:
                 f"Season {season} should be valid for pbp"
             )
 
-    def test_pbp_columns_exact_count_103(self):
-        """PBP_COLUMNS must have exactly 103 entries (regression guard)."""
+    def test_pbp_columns_exact_count_140(self):
+        """PBP_COLUMNS must have exactly 140 entries (regression guard)."""
         from src.config import PBP_COLUMNS
 
-        assert len(PBP_COLUMNS) == 103, (
-            f"PBP_COLUMNS regression: expected exactly 103, got {len(PBP_COLUMNS)}"
+        assert len(PBP_COLUMNS) == 140, (
+            f"PBP_COLUMNS regression: expected exactly 140, got {len(PBP_COLUMNS)}"
         )
 
     def test_pbp_season_range_lower_bound(self):
