@@ -1238,3 +1238,504 @@ def compute_situational_splits(pbp_df: pd.DataFrame) -> pd.DataFrame:
         result["season"].max(),
     )
     return result
+
+
+# ---------------------------------------------------------------------------
+# PBP-Derived Metric Functions (Phase 21, Plan 01)
+# ---------------------------------------------------------------------------
+
+
+def _filter_st_plays(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Filter play-by-play data to special teams plays only.
+
+    Keeps rows where ``special_teams_play == 1`` OR ``play_type`` is one of
+    field_goal, punt, kickoff, extra_point. Also applies REG season and
+    week <= 18 guards (same pattern as compute_fourth_down_aggressiveness).
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame.
+
+    Returns:
+        Filtered DataFrame containing only special teams plays.
+    """
+    df = pbp_df.copy()
+
+    # Regular season only
+    if "season_type" in df.columns:
+        df = df[df["season_type"] == "REG"]
+    if "week" in df.columns:
+        df = df[df["week"] <= 18]
+
+    st_types = ["field_goal", "punt", "kickoff", "extra_point"]
+    st_flag_mask = pd.Series(False, index=df.index)
+    if "special_teams_play" in df.columns:
+        st_flag_mask = df["special_teams_play"] == 1
+
+    type_mask = pd.Series(False, index=df.index)
+    if "play_type" in df.columns:
+        type_mask = df["play_type"].isin(st_types)
+
+    result = df[st_flag_mask | type_mask].reset_index(drop=True)
+    logger.info("Filtered to %d special teams plays from %d rows", len(result), len(pbp_df))
+    return result
+
+
+def compute_penalty_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute team penalty counts and yards split by offense/defense per game.
+
+    Receives raw PBP and applies its own season_type/week filters. Uses
+    ``penalty == 1`` flag and splits offensive vs defensive penalties via
+    ``penalty_team == posteam`` or ``penalty_team == defteam``.
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame (unfiltered).
+
+    Returns:
+        DataFrame with columns: team, season, week, off_penalties,
+        off_penalty_yards, def_penalties, def_penalty_yards.
+    """
+    df = pbp_df.copy()
+
+    # Apply basic filters
+    if "season_type" in df.columns:
+        df = df[df["season_type"] == "REG"]
+    if "week" in df.columns:
+        df = df[df["week"] <= 18]
+
+    # Filter to penalty plays
+    if "penalty" not in df.columns:
+        logger.warning("No penalty column found; returning empty DataFrame")
+        return pd.DataFrame(columns=[
+            "team", "season", "week",
+            "off_penalties", "off_penalty_yards", "def_penalties", "def_penalty_yards",
+        ])
+
+    pen = df[df["penalty"] == 1].copy()
+    pen = pen.dropna(subset=["penalty_team"])
+
+    if pen.empty:
+        logger.info("No penalty plays found")
+        return pd.DataFrame(columns=[
+            "team", "season", "week",
+            "off_penalties", "off_penalty_yards", "def_penalties", "def_penalty_yards",
+        ])
+
+    # Offensive penalties (penalty_team == posteam)
+    off_pen = pen[pen["penalty_team"] == pen["posteam"]]
+    off_agg = (
+        off_pen.groupby(["posteam", "season", "week"])
+        .agg(off_penalties=("penalty", "sum"), off_penalty_yards=("penalty_yards", "sum"))
+        .reset_index()
+        .rename(columns={"posteam": "team"})
+    )
+
+    # Defensive penalties (penalty_team == defteam)
+    def_pen = pen[pen["penalty_team"] == pen["defteam"]]
+    def_agg = (
+        def_pen.groupby(["defteam", "season", "week"])
+        .agg(def_penalties=("penalty", "sum"), def_penalty_yards=("penalty_yards", "sum"))
+        .reset_index()
+        .rename(columns={"defteam": "team"})
+    )
+
+    result = off_agg.merge(def_agg, on=["team", "season", "week"], how="outer")
+    result = result.fillna({"off_penalties": 0, "off_penalty_yards": 0, "def_penalties": 0, "def_penalty_yards": 0})
+
+    logger.info("Penalty metrics computed for %d team-weeks", len(result))
+    return result
+
+
+def compute_opp_drawn_penalties(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute opponent-drawn penalty counts and yards per team-game.
+
+    'Drawn' penalties are those committed by the opponent. Offensive penalties
+    drawn = defensive penalties grouped by the offensive team (posteam benefits
+    from opponent's defensive penalties).
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame (unfiltered).
+
+    Returns:
+        DataFrame with columns: team, season, week, off_penalties_drawn,
+        off_penalty_yards_drawn, def_penalties_drawn, def_penalty_yards_drawn.
+    """
+    df = pbp_df.copy()
+
+    if "season_type" in df.columns:
+        df = df[df["season_type"] == "REG"]
+    if "week" in df.columns:
+        df = df[df["week"] <= 18]
+
+    if "penalty" not in df.columns:
+        logger.warning("No penalty column found; returning empty DataFrame")
+        return pd.DataFrame(columns=[
+            "team", "season", "week",
+            "off_penalties_drawn", "off_penalty_yards_drawn",
+            "def_penalties_drawn", "def_penalty_yards_drawn",
+        ])
+
+    pen = df[df["penalty"] == 1].copy()
+    pen = pen.dropna(subset=["penalty_team"])
+
+    if pen.empty:
+        logger.info("No penalty plays found")
+        return pd.DataFrame(columns=[
+            "team", "season", "week",
+            "off_penalties_drawn", "off_penalty_yards_drawn",
+            "def_penalties_drawn", "def_penalty_yards_drawn",
+        ])
+
+    # Offensive penalties drawn = defensive penalties (penalty_team == defteam)
+    # grouped by posteam (the offense benefits)
+    def_committed = pen[pen["penalty_team"] == pen["defteam"]]
+    off_drawn = (
+        def_committed.groupby(["posteam", "season", "week"])
+        .agg(off_penalties_drawn=("penalty", "sum"), off_penalty_yards_drawn=("penalty_yards", "sum"))
+        .reset_index()
+        .rename(columns={"posteam": "team"})
+    )
+
+    # Defensive penalties drawn = offensive penalties (penalty_team == posteam)
+    # grouped by defteam (the defense benefits)
+    off_committed = pen[pen["penalty_team"] == pen["posteam"]]
+    def_drawn = (
+        off_committed.groupby(["defteam", "season", "week"])
+        .agg(def_penalties_drawn=("penalty", "sum"), def_penalty_yards_drawn=("penalty_yards", "sum"))
+        .reset_index()
+        .rename(columns={"defteam": "team"})
+    )
+
+    result = off_drawn.merge(def_drawn, on=["team", "season", "week"], how="outer")
+    result = result.fillna({
+        "off_penalties_drawn": 0, "off_penalty_yards_drawn": 0,
+        "def_penalties_drawn": 0, "def_penalty_yards_drawn": 0,
+    })
+
+    logger.info("Opponent-drawn penalty metrics computed for %d team-weeks", len(result))
+    return result
+
+
+def compute_turnover_luck(pbp_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute fumble-based turnover luck metrics with expanding window.
+
+    Uses season-to-date cumulative recovery rate with shift(1) lag (NOT
+    rolling windows). A team is 'turnover lucky' when own recovery rate
+    exceeds 0.60 and 'unlucky' when below 0.40.
+
+    Args:
+        pbp_df: Raw play-by-play DataFrame (unfiltered).
+
+    Returns:
+        DataFrame with columns: team, season, week, fumbles_lost,
+        fumbles_forced, own_fumble_recovery_rate, opp_fumble_recovery_rate,
+        is_turnover_lucky.
+    """
+    df = pbp_df.copy()
+
+    if "season_type" in df.columns:
+        df = df[df["season_type"] == "REG"]
+    if "week" in df.columns:
+        df = df[df["week"] <= 18]
+
+    empty_cols = [
+        "team", "season", "week", "fumbles_lost", "fumbles_forced",
+        "own_fumble_recovery_rate", "opp_fumble_recovery_rate", "is_turnover_lucky",
+    ]
+
+    if "fumble" not in df.columns:
+        logger.warning("No fumble column found; returning empty DataFrame")
+        return pd.DataFrame(columns=empty_cols)
+
+    fumbles = df[df["fumble"] == 1].copy()
+
+    if fumbles.empty:
+        logger.info("No fumble plays found")
+        return pd.DataFrame(columns=empty_cols)
+
+    # Offensive fumble stats (team had ball)
+    fumbles["own_recovered"] = (
+        fumbles["fumble_recovery_1_team"] == fumbles["posteam"]
+    ).astype(int)
+    fumbles["own_lost"] = (
+        fumbles["fumble_recovery_1_team"] != fumbles["posteam"]
+    ).astype(int)
+    # Handle null recovery team as not counted
+    null_recovery = fumbles["fumble_recovery_1_team"].isna()
+    fumbles.loc[null_recovery, "own_recovered"] = 0
+    fumbles.loc[null_recovery, "own_lost"] = 0
+
+    off_agg = (
+        fumbles.groupby(["posteam", "season", "week"])
+        .agg(
+            fumbles_lost=("own_lost", "sum"),
+            total_own_fumbles=("fumble", "sum"),
+            own_recovered=("own_recovered", "sum"),
+        )
+        .reset_index()
+        .rename(columns={"posteam": "team"})
+    )
+    off_agg["own_fumble_recovery_rate"] = np.where(
+        off_agg["total_own_fumbles"] > 0,
+        off_agg["own_recovered"] / off_agg["total_own_fumbles"],
+        np.nan,
+    )
+
+    # Defensive fumble stats (opponent had ball)
+    fumbles["forced_recovered"] = (
+        fumbles["fumble_recovery_1_team"] == fumbles["defteam"]
+    ).astype(int)
+
+    def_agg = (
+        fumbles.groupby(["defteam", "season", "week"])
+        .agg(
+            fumbles_forced=("fumble", "sum"),
+            def_recovered=("forced_recovered", "sum"),
+        )
+        .reset_index()
+        .rename(columns={"defteam": "team"})
+    )
+    def_agg["opp_fumble_recovery_rate"] = np.where(
+        def_agg["fumbles_forced"] > 0,
+        def_agg["def_recovered"] / def_agg["fumbles_forced"],
+        np.nan,
+    )
+
+    # Merge
+    result = off_agg[["team", "season", "week", "fumbles_lost", "own_fumble_recovery_rate"]].merge(
+        def_agg[["team", "season", "week", "fumbles_forced", "opp_fumble_recovery_rate"]],
+        on=["team", "season", "week"],
+        how="outer",
+    )
+
+    # Fill NaN counts with 0
+    result = result.fillna({"fumbles_lost": 0, "fumbles_forced": 0})
+
+    # Season-to-date expanding recovery rate with shift(1) lag
+    result = result.sort_values(["team", "season", "week"])
+    for col in ["own_fumble_recovery_rate", "opp_fumble_recovery_rate"]:
+        result[f"{col}_std"] = (
+            result.groupby(["team", "season"])[col]
+            .transform(lambda s: s.shift(1).expanding().mean())
+        )
+
+    # Turnover luck flag based on current-week own recovery rate
+    result["is_turnover_lucky"] = np.where(
+        result["own_fumble_recovery_rate"] > 0.60, 1,
+        np.where(result["own_fumble_recovery_rate"] < 0.40, -1, 0),
+    )
+
+    logger.info("Turnover luck metrics computed for %d team-weeks", len(result))
+    return result
+
+
+def compute_red_zone_trips(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Compute red zone trip volume using drive-level unique counts.
+
+    Red zone is yardline_100 <= 20. Trips are counted as unique drives
+    entering the red zone, producing 3-5 per team-game (not play count).
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, off_rz_trips, def_rz_trips.
+    """
+    rz = valid_plays[valid_plays["yardline_100"] <= 20].copy()
+
+    if rz.empty:
+        logger.info("No red zone plays found")
+        return pd.DataFrame(columns=["team", "season", "week", "off_rz_trips", "def_rz_trips"])
+
+    # Offensive RZ trips
+    off_trips = (
+        rz.groupby(["posteam", "season", "week"])["drive"]
+        .nunique()
+        .reset_index()
+        .rename(columns={"posteam": "team", "drive": "off_rz_trips"})
+    )
+
+    # Defensive RZ trips
+    def_trips = (
+        rz.groupby(["defteam", "season", "week"])["drive"]
+        .nunique()
+        .reset_index()
+        .rename(columns={"defteam": "team", "drive": "def_rz_trips"})
+    )
+
+    result = off_trips.merge(def_trips, on=["team", "season", "week"], how="outer")
+    result = result.fillna({"off_rz_trips": 0, "def_rz_trips": 0})
+
+    logger.info("Red zone trips computed for %d team-weeks", len(result))
+    return result
+
+
+def compute_third_down_rates(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Compute 3rd down conversion rates for offense and defense.
+
+    Rate = third_down_converted / (third_down_converted + third_down_failed).
+    Division by zero produces NaN.
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, off_third_down_rate,
+        def_third_down_rate.
+    """
+    third = valid_plays[valid_plays["down"] == 3].copy()
+
+    if third.empty:
+        logger.info("No 3rd down plays found")
+        return pd.DataFrame(columns=["team", "season", "week", "off_third_down_rate", "def_third_down_rate"])
+
+    # Offensive 3rd down rate
+    off_agg = (
+        third.groupby(["posteam", "season", "week"])
+        .agg(converted=("third_down_converted", "sum"), failed=("third_down_failed", "sum"))
+        .reset_index()
+    )
+    total = off_agg["converted"] + off_agg["failed"]
+    off_agg["off_third_down_rate"] = np.where(total > 0, off_agg["converted"] / total, np.nan)
+    off_agg = off_agg.rename(columns={"posteam": "team"})[["team", "season", "week", "off_third_down_rate"]]
+
+    # Defensive 3rd down rate
+    def_agg = (
+        third.groupby(["defteam", "season", "week"])
+        .agg(converted=("third_down_converted", "sum"), failed=("third_down_failed", "sum"))
+        .reset_index()
+    )
+    total_d = def_agg["converted"] + def_agg["failed"]
+    def_agg["def_third_down_rate"] = np.where(total_d > 0, def_agg["converted"] / total_d, np.nan)
+    def_agg = def_agg.rename(columns={"defteam": "team"})[["team", "season", "week", "def_third_down_rate"]]
+
+    result = off_agg.merge(def_agg, on=["team", "season", "week"], how="outer")
+
+    logger.info("3rd down rates computed for %d team-weeks", len(result))
+    return result
+
+
+def compute_explosive_plays(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Compute explosive play rates for offense and defense.
+
+    Explosive pass = yards_gained >= 20. Explosive rush = yards_gained >= 10.
+    Rates are computed as explosive plays / total plays of that type.
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, off_explosive_pass_rate,
+        off_explosive_rush_rate, def_explosive_pass_rate, def_explosive_rush_rate.
+    """
+    empty_cols = [
+        "team", "season", "week",
+        "off_explosive_pass_rate", "off_explosive_rush_rate",
+        "def_explosive_pass_rate", "def_explosive_rush_rate",
+    ]
+
+    if valid_plays.empty:
+        return pd.DataFrame(columns=empty_cols)
+
+    df = valid_plays.copy()
+    df["explosive_pass"] = ((df["play_type"] == "pass") & (df["yards_gained"] >= 20)).astype(int)
+    df["explosive_rush"] = ((df["play_type"] == "run") & (df["yards_gained"] >= 10)).astype(int)
+    df["is_pass"] = (df["play_type"] == "pass").astype(int)
+    df["is_rush"] = (df["play_type"] == "run").astype(int)
+
+    # Offense
+    off_agg = (
+        df.groupby(["posteam", "season", "week"])
+        .agg(
+            exp_pass=("explosive_pass", "sum"),
+            exp_rush=("explosive_rush", "sum"),
+            total_pass=("is_pass", "sum"),
+            total_rush=("is_rush", "sum"),
+        )
+        .reset_index()
+    )
+    off_agg["off_explosive_pass_rate"] = np.where(
+        off_agg["total_pass"] > 0, off_agg["exp_pass"] / off_agg["total_pass"], np.nan
+    )
+    off_agg["off_explosive_rush_rate"] = np.where(
+        off_agg["total_rush"] > 0, off_agg["exp_rush"] / off_agg["total_rush"], np.nan
+    )
+    off_agg = off_agg.rename(columns={"posteam": "team"})[
+        ["team", "season", "week", "off_explosive_pass_rate", "off_explosive_rush_rate"]
+    ]
+
+    # Defense
+    def_agg = (
+        df.groupby(["defteam", "season", "week"])
+        .agg(
+            exp_pass=("explosive_pass", "sum"),
+            exp_rush=("explosive_rush", "sum"),
+            total_pass=("is_pass", "sum"),
+            total_rush=("is_rush", "sum"),
+        )
+        .reset_index()
+    )
+    def_agg["def_explosive_pass_rate"] = np.where(
+        def_agg["total_pass"] > 0, def_agg["exp_pass"] / def_agg["total_pass"], np.nan
+    )
+    def_agg["def_explosive_rush_rate"] = np.where(
+        def_agg["total_rush"] > 0, def_agg["exp_rush"] / def_agg["total_rush"], np.nan
+    )
+    def_agg = def_agg.rename(columns={"defteam": "team"})[
+        ["team", "season", "week", "def_explosive_pass_rate", "def_explosive_rush_rate"]
+    ]
+
+    result = off_agg.merge(def_agg, on=["team", "season", "week"], how="outer")
+
+    logger.info("Explosive play rates computed for %d team-weeks", len(result))
+    return result
+
+
+def compute_sack_rates(valid_plays: pd.DataFrame) -> pd.DataFrame:
+    """Compute sack rates for offense and defense.
+
+    Offensive sack rate = sacks / dropbacks (pass_attempt sum, which includes
+    sacks in PBP data). Defensive sack rate uses the same formula from the
+    defender's perspective.
+
+    Args:
+        valid_plays: Filtered PBP DataFrame (output of _filter_valid_plays).
+
+    Returns:
+        DataFrame with columns: team, season, week, off_sack_rate, def_sack_rate.
+    """
+    if valid_plays.empty:
+        return pd.DataFrame(columns=["team", "season", "week", "off_sack_rate", "def_sack_rate"])
+
+    df = valid_plays.copy()
+
+    # Ensure sack column exists
+    if "sack" not in df.columns:
+        logger.warning("No sack column found; returning empty DataFrame")
+        return pd.DataFrame(columns=["team", "season", "week", "off_sack_rate", "def_sack_rate"])
+
+    # Offensive sack rate
+    off_agg = (
+        df.groupby(["posteam", "season", "week"])
+        .agg(sacks=("sack", "sum"), dropbacks=("pass_attempt", "sum"))
+        .reset_index()
+    )
+    off_agg["off_sack_rate"] = np.where(
+        off_agg["dropbacks"] > 0, off_agg["sacks"] / off_agg["dropbacks"], np.nan
+    )
+    off_agg = off_agg.rename(columns={"posteam": "team"})[["team", "season", "week", "off_sack_rate"]]
+
+    # Defensive sack rate
+    def_agg = (
+        df.groupby(["defteam", "season", "week"])
+        .agg(sacks=("sack", "sum"), dropbacks=("pass_attempt", "sum"))
+        .reset_index()
+    )
+    def_agg["def_sack_rate"] = np.where(
+        def_agg["dropbacks"] > 0, def_agg["sacks"] / def_agg["dropbacks"], np.nan
+    )
+    def_agg = def_agg.rename(columns={"defteam": "team"})[["team", "season", "week", "def_sack_rate"]]
+
+    result = off_agg.merge(def_agg, on=["team", "season", "week"], how="outer")
+
+    logger.info("Sack rates computed for %d team-weeks", len(result))
+    return result
