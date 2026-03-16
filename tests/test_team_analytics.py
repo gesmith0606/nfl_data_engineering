@@ -41,6 +41,7 @@ from src.team_analytics import (
     compute_explosive_plays,
     compute_sack_rates,
     _filter_st_plays,
+    compute_pbp_derived_metrics,
 )
 from src.config import TEAM_DIVISIONS
 
@@ -1804,3 +1805,231 @@ class TestComputeSackRates:
         # B is defteam for A's plays -> B's def_sack_rate = 2/10 = 0.2
         b = result[result["team"] == "B"]
         assert abs(b["def_sack_rate"].iloc[0] - 0.2) < 1e-6
+
+
+# ---------------------------------------------------------------------------
+# PBP-Derived Metrics Orchestrator Tests (Phase 21, Plan 03)
+# ---------------------------------------------------------------------------
+
+
+def _build_derived_metrics_pbp() -> pd.DataFrame:
+    """Build comprehensive synthetic PBP for orchestrator integration tests.
+
+    Creates 2 teams x 3 weeks with penalty, fumble, 3rd down, sack, red zone,
+    special teams (FG, punt, kickoff), drive, and explosive play data.
+    """
+    frames = []
+
+    for week in range(1, 4):
+        # Team A offense vs Team B defense
+        plays_a = []
+        for i in range(6):
+            play = {
+                "play_type": "pass" if i % 2 == 0 else "run",
+                "epa": 0.1 * (i + 1),
+                "success": 1 if i < 3 else 0,
+                "cpoe": 2.0 if i % 2 == 0 else None,
+                "pass_attempt": 1 if i % 2 == 0 else 0,
+                "rush_attempt": 0 if i % 2 == 0 else 1,
+                "yardline_100": 15 if i < 2 else 50,  # first 2 plays in red zone
+                "drive": i // 2 + 1,
+                "touchdown": 0,
+                "down": 3 if i == 2 else 1,
+                "third_down_converted": 1 if i == 2 else 0,
+                "third_down_failed": 0,
+                "yards_gained": 25 if i == 0 else 5,  # explosive pass on i==0
+                "sack": 1 if i == 3 else 0,
+            }
+            plays_a.append(play)
+
+        pbp_a = _make_pbp_rows("A", "B", 2024, week, plays_a)
+        # Propagate extra fields that _make_pbp_rows doesn't handle
+        pbp_a["down"] = [1, 1, 3, 1, 1, 1]
+        pbp_a["third_down_converted"] = [0, 0, 1, 0, 0, 0]
+        pbp_a["third_down_failed"] = [0, 0, 0, 0, 0, 0]
+        pbp_a["yards_gained"] = [25, 5, 5, 5, 5, 5]
+        pbp_a["sack"] = [0, 0, 0, 1, 0, 0]
+        pbp_a["rush_attempt"] = [0, 1, 0, 0, 0, 1]
+        # Add extra columns needed by various compute functions
+        pbp_a["home_team"] = "A"
+        pbp_a["away_team"] = "B"
+        pbp_a["score_differential"] = 0
+        pbp_a["game_id"] = f"2024_{week:02d}_A_B"
+
+        # Add penalty plays for team A
+        pen_rows = []
+        for j in range(2):
+            pen_rows.append({
+                "posteam": "A", "defteam": "B", "season": 2024, "week": week,
+                "season_type": "REG", "play_type": "pass", "epa": 0.0,
+                "penalty": 1, "penalty_team": "A" if j == 0 else "B",
+                "penalty_yards": 10, "home_team": "A", "away_team": "B",
+                "score_differential": 0, "game_id": f"2024_{week:02d}_A_B",
+                "pass_attempt": 0, "rush_attempt": 0, "down": 1,
+                "third_down_converted": 0, "third_down_failed": 0,
+                "yards_gained": 0, "sack": 0, "yardline_100": 50,
+                "drive": 1, "touchdown": 0, "success": 0,
+            })
+        pen_df = pd.DataFrame(pen_rows)
+
+        # Add fumble play
+        fumble_rows = [{
+            "posteam": "A", "defteam": "B", "season": 2024, "week": week,
+            "season_type": "REG", "play_type": "run", "epa": -0.5,
+            "fumble": 1, "fumble_recovery_1_team": "B",
+            "home_team": "A", "away_team": "B",
+            "score_differential": 0, "game_id": f"2024_{week:02d}_A_B",
+            "pass_attempt": 0, "rush_attempt": 1, "down": 1,
+            "third_down_converted": 0, "third_down_failed": 0,
+            "yards_gained": -2, "sack": 0, "yardline_100": 40,
+            "drive": 1, "touchdown": 0, "success": 0,
+        }]
+        fumble_df = pd.DataFrame(fumble_rows)
+
+        # ST plays: field goal, punt, kickoff
+        st_rows = [
+            {
+                "posteam": "A", "defteam": "B", "season": 2024, "week": week,
+                "season_type": "REG", "play_type": "field_goal",
+                "special_teams_play": 1, "field_goal_attempt": 1,
+                "field_goal_result": "made", "kick_distance": 35,
+                "kicker_player_id": "K1", "kicker_player_name": "Kicker1",
+                "home_team": "A", "away_team": "B",
+                "score_differential": 0, "game_id": f"2024_{week:02d}_A_B",
+                "epa": 0.0, "pass_attempt": 0, "rush_attempt": 0,
+                "down": 4, "yardline_100": 18, "drive": 4,
+                "touchdown": 0, "success": 0,
+            },
+            {
+                "posteam": "A", "defteam": "B", "season": 2024, "week": week,
+                "season_type": "REG", "play_type": "punt",
+                "special_teams_play": 1, "punt_attempt": 1,
+                "return_yards": 10,
+                "punt_returner_player_id": "PR1",
+                "home_team": "A", "away_team": "B",
+                "score_differential": 0, "game_id": f"2024_{week:02d}_A_B",
+                "epa": 0.0, "pass_attempt": 0, "rush_attempt": 0,
+                "down": 4, "yardline_100": 60, "drive": 5,
+                "touchdown": 0, "success": 0,
+            },
+            {
+                "posteam": "A", "defteam": "B", "season": 2024, "week": week,
+                "season_type": "REG", "play_type": "kickoff",
+                "special_teams_play": 1, "kickoff_attempt": 1,
+                "return_yards": 25,
+                "kickoff_returner_player_id": "KR1",
+                "home_team": "A", "away_team": "B",
+                "score_differential": 0, "game_id": f"2024_{week:02d}_A_B",
+                "epa": 0.0, "pass_attempt": 0, "rush_attempt": 0,
+                "down": None, "yardline_100": None, "drive": 6,
+                "touchdown": 0, "success": 0,
+            },
+        ]
+        st_df = pd.DataFrame(st_rows)
+
+        # Drive TOP data (add to regular plays)
+        pbp_a["drive_time_of_possession"] = "3:30"
+        pbp_a["drive_play_count"] = 6
+
+        # Team B offense vs Team A defense (mirror)
+        plays_b = []
+        for i in range(4):
+            play = {
+                "play_type": "pass" if i < 2 else "run",
+                "epa": -0.1 * (i + 1),
+                "success": 0,
+                "cpoe": -1.0 if i < 2 else None,
+                "pass_attempt": 1 if i < 2 else 0,
+                "rush_attempt": 0 if i < 2 else 1,
+                "yardline_100": 50,
+                "drive": i // 2 + 1,
+                "touchdown": 0,
+                "down": 3 if i == 1 else 1,
+                "third_down_converted": 0,
+                "third_down_failed": 1 if i == 1 else 0,
+                "yards_gained": 3,
+                "sack": 0,
+            }
+            plays_b.append(play)
+
+        pbp_b = _make_pbp_rows("B", "A", 2024, week, plays_b)
+        pbp_b["down"] = [1, 3, 1, 1]
+        pbp_b["third_down_converted"] = [0, 0, 0, 0]
+        pbp_b["third_down_failed"] = [0, 1, 0, 0]
+        pbp_b["yards_gained"] = [3, 3, 3, 3]
+        pbp_b["sack"] = [0, 0, 0, 0]
+        pbp_b["rush_attempt"] = [0, 0, 1, 1]
+        pbp_b["home_team"] = "A"
+        pbp_b["away_team"] = "B"
+        pbp_b["score_differential"] = 0
+        pbp_b["game_id"] = f"2024_{week:02d}_A_B"
+        pbp_b["drive_time_of_possession"] = "2:45"
+        pbp_b["drive_play_count"] = 4
+
+        frames.extend([pbp_a, pen_df, fumble_df, st_df, pbp_b])
+
+    pbp = pd.concat(frames, ignore_index=True)
+    # Ensure penalty column exists and defaults to 0 where not set
+    if "penalty" not in pbp.columns:
+        pbp["penalty"] = 0
+    pbp["penalty"] = pbp["penalty"].fillna(0).astype(int)
+    # Ensure fumble column exists and defaults to 0 where not set
+    if "fumble" not in pbp.columns:
+        pbp["fumble"] = 0
+    pbp["fumble"] = pbp["fumble"].fillna(0).astype(int)
+
+    return pbp
+
+
+class TestPBPDerivedMetricsOrchestrator:
+    """Integration tests for compute_pbp_derived_metrics orchestrator."""
+
+    def test_compute_pbp_derived_metrics(self):
+        """Orchestrator produces merged output with key columns from multiple categories."""
+        pbp = _build_derived_metrics_pbp()
+        result = compute_pbp_derived_metrics(pbp)
+
+        # Result should not be empty
+        assert not result.empty
+
+        # Key columns present
+        assert "team" in result.columns
+        assert "season" in result.columns
+        assert "week" in result.columns
+
+        # Penalty column present
+        assert "off_penalties" in result.columns
+
+        # ST column present
+        assert "fg_att" in result.columns
+
+        # Drive column present
+        assert "off_three_and_out_rate" in result.columns
+
+        # Turnover column present
+        assert "fumbles_lost" in result.columns
+
+        # Rolling columns present for non-turnover metrics
+        assert "off_penalties_roll3" in result.columns
+        assert "off_penalties_roll6" in result.columns
+        assert "off_penalties_std" in result.columns
+
+    def test_pbp_derived_rolling(self):
+        """Rolling windows applied to non-turnover metrics but NOT turnover luck columns."""
+        pbp = _build_derived_metrics_pbp()
+        result = compute_pbp_derived_metrics(pbp)
+
+        # Rolling applied to regular metrics
+        assert "off_penalties_roll3" in result.columns
+        assert "off_third_down_rate_roll3" in result.columns
+        assert "fg_att_roll3" in result.columns
+
+        # Rolling NOT applied to turnover luck columns
+        assert "fumbles_lost_roll3" not in result.columns
+        assert "own_fumble_recovery_rate_roll3" not in result.columns
+        assert "is_turnover_lucky_roll3" not in result.columns
+
+        # Shift(1) lag: week 1 rolling values should be NaN (no prior data)
+        team_a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
+        if not team_a_w1.empty:
+            assert pd.isna(team_a_w1["off_penalties_roll3"].iloc[0])
