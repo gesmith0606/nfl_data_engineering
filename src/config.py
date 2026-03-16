@@ -89,6 +89,51 @@ TEAM_DIVISIONS = {
     "SF": "NFC West", "TB": "NFC South", "TEN": "AFC South", "WAS": "NFC East",
 }
 
+# Stadium coordinates for travel distance computation (Phase 22).
+# Each entry: team_abbr -> (latitude, longitude, timezone, venue_name)
+# Shared stadiums: NYG/NYJ (MetLife), LA/LAC (SoFi).
+STADIUM_COORDINATES = {
+    "ARI": (33.5277, -112.2626, "America/Phoenix", "State Farm Stadium"),
+    "ATL": (33.7554, -84.4010, "America/New_York", "Mercedes-Benz Stadium"),
+    "BAL": (39.2780, -76.6228, "America/New_York", "M&T Bank Stadium"),
+    "BUF": (42.7738, -78.7870, "America/New_York", "Highmark Stadium"),
+    "CAR": (35.2258, -80.8528, "America/New_York", "Bank of America Stadium"),
+    "CHI": (41.8623, -87.6167, "America/Chicago", "Soldier Field"),
+    "CIN": (39.0955, -84.5161, "America/New_York", "Paycor Stadium"),
+    "CLE": (41.5061, -81.6995, "America/New_York", "Huntington Bank Field"),
+    "DAL": (32.7473, -97.0945, "America/Chicago", "AT&T Stadium"),
+    "DEN": (39.7439, -105.0201, "America/Denver", "Empower Field at Mile High"),
+    "DET": (42.3400, -83.0456, "America/New_York", "Ford Field"),
+    "GB": (44.5013, -88.0622, "America/Chicago", "Lambeau Field"),
+    "HOU": (29.6847, -95.4107, "America/Chicago", "NRG Stadium"),
+    "IND": (39.7601, -86.1639, "America/New_York", "Lucas Oil Stadium"),
+    "JAX": (30.3239, -81.6373, "America/New_York", "EverBank Stadium"),
+    "KC": (39.0489, -94.4839, "America/Chicago", "GEHA Field at Arrowhead Stadium"),
+    "LA": (33.9534, -118.3390, "America/Los_Angeles", "SoFi Stadium"),
+    "LAC": (33.9534, -118.3390, "America/Los_Angeles", "SoFi Stadium"),
+    "LV": (36.0909, -115.1833, "America/Los_Angeles", "Allegiant Stadium"),
+    "MIA": (25.9580, -80.2389, "America/New_York", "Hard Rock Stadium"),
+    "MIN": (44.9736, -93.2575, "America/Chicago", "U.S. Bank Stadium"),
+    "NE": (42.0909, -71.2643, "America/New_York", "Gillette Stadium"),
+    "NO": (29.9511, -90.0812, "America/Chicago", "Caesars Superdome"),
+    "NYG": (40.8128, -74.0742, "America/New_York", "MetLife Stadium"),
+    "NYJ": (40.8128, -74.0742, "America/New_York", "MetLife Stadium"),
+    "PHI": (39.9008, -75.1675, "America/New_York", "Lincoln Financial Field"),
+    "PIT": (40.4468, -80.0158, "America/New_York", "Acrisure Stadium"),
+    "SEA": (47.5952, -122.3316, "America/Los_Angeles", "Lumen Field"),
+    "SF": (37.4033, -121.9694, "America/Los_Angeles", "Levi's Stadium"),
+    "TB": (27.9759, -82.5033, "America/New_York", "Raymond James Stadium"),
+    "TEN": (36.1665, -86.7713, "America/Chicago", "Nissan Stadium"),
+    "WAS": (38.9076, -76.8645, "America/New_York", "Northwest Stadium"),
+    # International venues
+    "LON_TOT": (51.6043, -0.0662, "Europe/London", "Tottenham Hotspur Stadium"),
+    "LON_WEM": (51.5560, -0.2795, "Europe/London", "Wembley Stadium"),
+    "MUN": (48.2188, 11.6247, "Europe/Berlin", "Allianz Arena"),
+    "MEX": (19.3029, -99.1505, "America/Mexico_City", "Estadio Azteca"),
+    "SAO": (-23.5275, -46.6780, "America/Sao_Paulo", "Neo Quimica Arena"),
+    "MAD": (40.4530, -3.6883, "Europe/Madrid", "Santiago Bernabeu"),
+}
+
 # Fantasy roster configurations by league format
 ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
     "standard": {
@@ -150,7 +195,7 @@ GOLD_PROJECTION_S3_KEYS = {
 }
 
 
-# Curated PBP columns (~103) for game prediction models.
+# Curated PBP columns (~140) for game prediction models.
 # Covers EPA, WPA, CPOE, air yards, success, player IDs, Vegas lines,
 # play situation, and weather. Excludes participation merge columns.
 PBP_COLUMNS = [
@@ -200,6 +245,32 @@ PBP_COLUMNS = [
     "series", "series_success", "series_result",
     # Weather/venue (4)
     "temp", "wind", "roof", "surface",
+    # Penalty detail (5)
+    "penalty_type", "penalty_yards", "penalty_team",
+    "penalty_player_id", "penalty_player_name",
+    # Special teams flags (4)
+    "special_teams_play", "st_play_type",
+    "kickoff_attempt", "punt_attempt",
+    # Special teams results (6)
+    "kick_distance", "return_yards",
+    "field_goal_result", "field_goal_attempt",
+    "extra_point_result", "extra_point_attempt",
+    # Special teams detail (5)
+    "punt_blocked",
+    "kickoff_returner_player_id", "punt_returner_player_id",
+    "kicker_player_id", "kicker_player_name",
+    # Punt detail (5)
+    "punt_inside_twenty", "punt_in_endzone",
+    "punt_out_of_bounds", "punt_downed", "punt_fair_catch",
+    # Kickoff detail (5)
+    "kickoff_inside_twenty", "kickoff_in_endzone",
+    "kickoff_out_of_bounds", "kickoff_downed", "kickoff_fair_catch",
+    # Fumble recovery (5)
+    "fumble_forced", "fumble_not_forced",
+    "fumble_recovery_1_team", "fumble_recovery_1_yards",
+    "fumble_recovery_1_player_id",
+    # Drive detail (2)
+    "drive_play_count", "drive_time_of_possession",
 ]
 
 
@@ -234,6 +305,7 @@ DATA_TYPE_SEASON_RANGES: Dict[str, Tuple[int, Callable[[], int]]] = {
     "depth_charts": (2001, get_max_season),
     "draft_picks": (2000, get_max_season),
     "combine": (2000, get_max_season),
+    "officials": (2015, get_max_season),
 }
 
 # Season threshold for nflverse stats_player tag (replaces archived player_stats tag).
