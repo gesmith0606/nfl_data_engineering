@@ -154,7 +154,7 @@ Note: Phases 21 and 22 can execute in parallel (both depend only on Phase 20).
 | 18. Historical Context | v1.2 | 2/2 | Complete | 2026-03-15 |
 | 19. v1.2 Tech Debt Cleanup | v1.2 | 1/1 | Complete | 2026-03-15 |
 | 20. Infrastructure and Data Expansion | v1.3 | 2/2 | Complete | 2026-03-16 |
-| 21. PBP-Derived Team Metrics | v1.3 | 0/3 | Not started | - |
+| 21. PBP-Derived Team Metrics | 1/3 | In Progress|  | - |
 | 22. Schedule-Derived Context | v1.3 | 0/2 | Not started | - |
 | 23. Cross-Source Features and Integration | v1.3 | 0/2 | Not started | - |
 

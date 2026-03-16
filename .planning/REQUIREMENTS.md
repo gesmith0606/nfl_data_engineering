@@ -19,13 +19,13 @@ Requirements for v1.3 Prediction Data Foundation. Each maps to roadmap phases.
 - [ ] **PBP-02**: Opponent-drawn penalty rates with rolling windows
 - [ ] **PBP-03**: Turnover luck metrics (fumble recovery rate, earned vs lucky turnovers, regression-to-mean indicator)
 - [ ] **PBP-04**: Red zone trip volume (drive-level counts per team/game, not just efficiency rates)
-- [ ] **PBP-05**: Special teams FG accuracy by distance bucket (short/mid/long) with rolling windows
-- [ ] **PBP-06**: Special teams punt/kick return averages and touchback rates with rolling windows
+- [x] **PBP-05**: Special teams FG accuracy by distance bucket (short/mid/long) with rolling windows
+- [x] **PBP-06**: Special teams punt/kick return averages and touchback rates with rolling windows
 - [ ] **PBP-07**: 3rd down conversion rates (off/def) with rolling windows
 - [ ] **PBP-08**: Explosive play rates (20+ yd pass, 10+ yd rush) off/def with rolling windows
-- [ ] **PBP-09**: Drive efficiency (3-and-out rate, avg drive length in plays and yards, drives/game) with rolling windows
+- [x] **PBP-09**: Drive efficiency (3-and-out rate, avg drive length in plays and yards, drives/game) with rolling windows
 - [ ] **PBP-10**: Team sack rates (OL protection rate + defensive pass rush rate) with rolling windows
-- [ ] **PBP-11**: Time of possession per team with rolling windows
+- [x] **PBP-11**: Time of possession per team with rolling windows
 
 ### Schedule-Derived Features
 
@@ -87,13 +87,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PBP-02 | Phase 21 | Pending |
 | PBP-03 | Phase 21 | Pending |
 | PBP-04 | Phase 21 | Pending |
-| PBP-05 | Phase 21 | Pending |
-| PBP-06 | Phase 21 | Pending |
+| PBP-05 | Phase 21 | Complete |
+| PBP-06 | Phase 21 | Complete |
 | PBP-07 | Phase 21 | Pending |
 | PBP-08 | Phase 21 | Pending |
-| PBP-09 | Phase 21 | Pending |
+| PBP-09 | Phase 21 | Complete |
 | PBP-10 | Phase 21 | Pending |
-| PBP-11 | Phase 21 | Pending |
+| PBP-11 | Phase 21 | Complete |
 | INTEG-02 | Phase 21 | Pending |
 | SCHED-01 | Phase 22 | Pending |
 | SCHED-02 | Phase 22 | Pending |

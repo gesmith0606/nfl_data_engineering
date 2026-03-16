@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Prediction Data Foundation
 status: completed
-stopped_at: Phase 21 context gathered
-last_updated: "2026-03-16T21:21:27.413Z"
+stopped_at: Completed 21-02-PLAN.md
+last_updated: "2026-03-16T22:32:09.692Z"
 last_activity: 2026-03-16 — Completed Phase 20 (PBP re-ingestion + officials data for 2016-2025)
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 5
+  completed_plans: 3
   percent: 100
 ---
 
@@ -63,6 +63,9 @@ Carried from v1.2. See PROJECT.md Key Decisions table.
 - **Phase 20-02**: PBP re-ingested for 2016-2025 with 140-column schema (was 103)
 - **Phase 20-02**: Officials data ingested for 2016-2025 (~1,900 rows/season, 7 crew positions)
 - **Phase 20-02**: 302 tests pass with zero regressions after data expansion
+- [Phase 21]: Touchback proxy: KO uses return_yards==0 + kickoff_returner_player_id IS NULL; punt uses punt_in_endzone==1
+- [Phase 21]: FG buckets use kick_distance with NFL-standard <30/30-39/40-49/50+ split
+- [Phase 21]: Added _filter_st_plays helper (Plan 01 dep) as Rule 3 auto-fix in Plan 02
 
 ### Pending Todos
 
@@ -74,9 +77,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T21:21:27.410Z
-Stopped at: Phase 21 context gathered
-Resume file: .planning/phases/21-pbp-derived-team-metrics/21-CONTEXT.md
+Last session: 2026-03-16T22:32:09.689Z
+Stopped at: Completed 21-02-PLAN.md
+Resume file: None
 
 ---
 *Last updated: 2026-03-15 after v1.3 roadmap created*
