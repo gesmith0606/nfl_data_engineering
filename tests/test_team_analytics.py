@@ -32,6 +32,16 @@ from src.team_analytics import (
 )
 
 from src.team_analytics import _build_opponent_schedule, compute_sos_metrics, compute_situational_splits
+from src.team_analytics import (
+    compute_penalty_metrics,
+    compute_opp_drawn_penalties,
+    compute_turnover_luck,
+    compute_red_zone_trips,
+    compute_third_down_rates,
+    compute_explosive_plays,
+    compute_sack_rates,
+    _filter_st_plays,
+)
 from src.config import TEAM_DIVISIONS
 
 
