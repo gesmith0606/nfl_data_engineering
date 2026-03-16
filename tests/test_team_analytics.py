@@ -24,6 +24,11 @@ from src.team_analytics import (
     compute_fourth_down_aggressiveness,
     compute_early_down_run_rate,
     compute_tendency_metrics,
+    compute_fg_accuracy,
+    compute_return_metrics,
+    compute_drive_efficiency,
+    compute_top,
+    _parse_top_seconds,
 )
 
 from src.team_analytics import _build_opponent_schedule, compute_sos_metrics, compute_situational_splits
@@ -1253,3 +1258,206 @@ class TestIdempotency:
         result1 = result1.sort_values(["team", "season", "week"]).reset_index(drop=True)
         result2 = result2.sort_values(["team", "season", "week"]).reset_index(drop=True)
         pd.testing.assert_frame_equal(result1, result2)
+
+
+# ---------------------------------------------------------------------------
+# Complex PBP-Derived Metric Tests (Plan 21-02)
+# ---------------------------------------------------------------------------
+
+
+class TestParseTopSeconds:
+    """Tests for _parse_top_seconds helper."""
+
+    def test_normal_value(self):
+        assert _parse_top_seconds("7:13") == 433.0
+
+    def test_zero_minutes(self):
+        assert _parse_top_seconds("0:45") == 45.0
+
+    def test_nan_input(self):
+        assert np.isnan(_parse_top_seconds(np.nan))
+
+    def test_invalid_string(self):
+        assert np.isnan(_parse_top_seconds("bad"))
+
+
+class TestComputeFGAccuracy:
+    """Tests for compute_fg_accuracy."""
+
+    def test_fg_accuracy_buckets(self):
+        """Verify FG accuracy per distance bucket with known synthetic data."""
+        rows = []
+        # 5 FG attempts: short made, mid made, mid missed, long made, 50plus blocked
+        fgs = [
+            {"kick_distance": 22, "field_goal_result": "made"},
+            {"kick_distance": 35, "field_goal_result": "made"},
+            {"kick_distance": 35, "field_goal_result": "missed"},
+            {"kick_distance": 45, "field_goal_result": "made"},
+            {"kick_distance": 52, "field_goal_result": "blocked"},
+        ]
+        for fg in fgs:
+            rows.append({
+                "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+                "season_type": "REG", "play_type": "field_goal",
+                "special_teams_play": 1, "field_goal_attempt": 1,
+                "kick_distance": fg["kick_distance"],
+                "field_goal_result": fg["field_goal_result"],
+            })
+        pbp = pd.DataFrame(rows)
+        result = compute_fg_accuracy(pbp)
+
+        assert len(result) == 1
+        row = result.iloc[0]
+        assert row["team"] == "A"
+        assert row["fg_att"] == 5
+        assert abs(row["fg_pct"] - 0.6) < 1e-6  # 3/5
+        assert abs(row["fg_pct_short"] - 1.0) < 1e-6  # 1/1
+        assert abs(row["fg_pct_mid"] - 0.5) < 1e-6  # 1/2
+        assert abs(row["fg_pct_long"] - 1.0) < 1e-6  # 1/1
+        assert abs(row["fg_pct_50plus"] - 0.0) < 1e-6  # 0/1
+
+
+class TestComputeReturnMetrics:
+    """Tests for compute_return_metrics."""
+
+    def test_kickoff_and_punt_returns(self):
+        """Verify touchback detection and return averages with synthetic data."""
+        rows = []
+        # 4 kickoffs from A kicking to B: 2 touchbacks, 2 returns (25, 30 yds)
+        kickoffs = [
+            {"return_yards": 0, "kickoff_returner_player_id": None},
+            {"return_yards": 0, "kickoff_returner_player_id": None},
+            {"return_yards": 25, "kickoff_returner_player_id": "P001"},
+            {"return_yards": 30, "kickoff_returner_player_id": "P001"},
+        ]
+        for ko in kickoffs:
+            rows.append({
+                "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+                "season_type": "REG", "play_type": "kickoff",
+                "special_teams_play": 1, "kickoff_attempt": 1,
+                "punt_attempt": 0,
+                "return_yards": ko["return_yards"],
+                "kickoff_returner_player_id": ko["kickoff_returner_player_id"],
+                "punt_in_endzone": 0,
+            })
+        # 2 punts from A punting to B: 1 touchback, 1 return (12 yds)
+        punts = [
+            {"return_yards": 0, "punt_in_endzone": 1},
+            {"return_yards": 12, "punt_in_endzone": 0},
+        ]
+        for p in punts:
+            rows.append({
+                "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+                "season_type": "REG", "play_type": "punt",
+                "special_teams_play": 1, "punt_attempt": 1,
+                "kickoff_attempt": 0,
+                "return_yards": p["return_yards"],
+                "kickoff_returner_player_id": None,
+                "punt_in_endzone": p["punt_in_endzone"],
+            })
+
+        pbp = pd.DataFrame(rows)
+        result = compute_return_metrics(pbp)
+
+        assert len(result) == 1
+        row = result.iloc[0]
+        assert row["team"] == "B"  # Returning team
+        assert abs(row["ko_return_avg"] - 27.5) < 1e-6  # mean(25, 30)
+        assert abs(row["ko_touchback_rate"] - 0.5) < 1e-6  # 2/4
+        assert abs(row["punt_return_avg"] - 12.0) < 1e-6
+        assert abs(row["punt_touchback_rate"] - 0.5) < 1e-6  # 1/2
+
+
+class TestComputeDriveEfficiency:
+    """Tests for compute_drive_efficiency."""
+
+    def test_three_and_out_detection(self):
+        """Verify 3-and-out detection and avg drive stats with 4 synthetic drives."""
+        rows = []
+        drives = [
+            # Drive 1: 3 plays, 0 first downs, 0 TDs -> 3-and-out
+            [{"first_down": 0, "touchdown": 0, "yards_gained": 2},
+             {"first_down": 0, "touchdown": 0, "yards_gained": 1},
+             {"first_down": 0, "touchdown": 0, "yards_gained": -1}],
+            # Drive 2: 6 plays, 2 first downs, 0 TDs -> NOT 3-and-out
+            [{"first_down": 1, "touchdown": 0, "yards_gained": 12},
+             {"first_down": 0, "touchdown": 0, "yards_gained": 3},
+             {"first_down": 0, "touchdown": 0, "yards_gained": 5},
+             {"first_down": 1, "touchdown": 0, "yards_gained": 15},
+             {"first_down": 0, "touchdown": 0, "yards_gained": -2},
+             {"first_down": 0, "touchdown": 0, "yards_gained": 7}],
+            # Drive 3: 2 plays, 0 first downs, 0 TDs -> 3-and-out (<=3 plays)
+            [{"first_down": 0, "touchdown": 0, "yards_gained": 3},
+             {"first_down": 0, "touchdown": 0, "yards_gained": -5}],
+            # Drive 4: 8 plays, 3 first downs, 1 TD -> NOT 3-and-out
+            [{"first_down": 1, "touchdown": 0, "yards_gained": 10},
+             {"first_down": 0, "touchdown": 0, "yards_gained": 4},
+             {"first_down": 1, "touchdown": 0, "yards_gained": 8},
+             {"first_down": 0, "touchdown": 0, "yards_gained": 5},
+             {"first_down": 0, "touchdown": 0, "yards_gained": 3},
+             {"first_down": 1, "touchdown": 0, "yards_gained": 15},
+             {"first_down": 0, "touchdown": 0, "yards_gained": 6},
+             {"first_down": 0, "touchdown": 1, "yards_gained": 20}],
+        ]
+        for drive_num, plays in enumerate(drives, 1):
+            for play in plays:
+                rows.append({
+                    "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+                    "season_type": "REG", "play_type": "pass",
+                    "epa": 0.1, "success": 1, "play_id": f"d{drive_num}_p{len(rows)}",
+                    "drive": drive_num,
+                    "first_down": play["first_down"],
+                    "touchdown": play["touchdown"],
+                    "yards_gained": play["yards_gained"],
+                })
+
+        from src.team_analytics import _filter_valid_plays
+        pbp = pd.DataFrame(rows)
+        valid = _filter_valid_plays(pbp)
+        result = compute_drive_efficiency(valid)
+
+        # Offensive stats for team A
+        off = result[result["team"] == "A"]
+        assert len(off) == 1
+        row = off.iloc[0]
+        assert abs(row["off_three_and_out_rate"] - 0.5) < 1e-6  # 2/4 drives
+        assert row["off_drives_per_game"] == 4
+        # avg drive plays = mean(3, 6, 2, 8) = 4.75
+        assert abs(row["off_avg_drive_plays"] - 4.75) < 1e-6
+
+
+class TestComputeTOP:
+    """Tests for compute_top."""
+
+    def test_top_sum_from_drives(self):
+        """Verify TOP sums parsed M:SS values across drives correctly."""
+        rows = []
+        # Drive 1: "5:30" (330 sec) -- 3 plays all with same TOP
+        for _ in range(3):
+            rows.append({
+                "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+                "season_type": "REG", "play_type": "pass",
+                "drive": 1,
+                "drive_time_of_possession": "5:30",
+            })
+        # Drive 2: "3:15" (195 sec) -- 2 plays
+        for _ in range(2):
+            rows.append({
+                "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+                "season_type": "REG", "play_type": "pass",
+                "drive": 2,
+                "drive_time_of_possession": "3:15",
+            })
+
+        pbp = pd.DataFrame(rows)
+        result = compute_top(pbp)
+
+        # Team A offense: 330 + 195 = 525 seconds
+        a_off = result[result["team"] == "A"]
+        assert len(a_off) == 1
+        assert abs(a_off["off_top_seconds"].iloc[0] - 525.0) < 1e-6
+
+        # Team B defense TOP should also be 525 (same drives, defteam perspective)
+        b_def = result[result["team"] == "B"]
+        assert len(b_def) == 1
+        assert abs(b_def["def_top_seconds"].iloc[0] - 525.0) < 1e-6
