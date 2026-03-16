@@ -704,3 +704,32 @@ class NFLDataAdapter:
         return self._safe_call(
             "fetch_combine", nfl.import_combine_data, seasons
         )
+
+    def fetch_officials(self, seasons: List[int]) -> pd.DataFrame:
+        """Fetch officials/referee crew data for the given seasons.
+
+        Returns game-level official assignments with columns:
+        game_id, official_name, official_position, official_id, season.
+
+        Note: Raw nfl-data-py columns are renamed for clarity:
+        name -> official_name, off_pos -> official_position.
+
+        Args:
+            seasons: List of season years.
+
+        Returns:
+            DataFrame of officials data.
+        """
+        seasons = self._filter_seasons("officials", seasons)
+        if not seasons:
+            return pd.DataFrame()
+        nfl = self._import_nfl()
+        df = self._safe_call(
+            "fetch_officials", nfl.import_officials, seasons
+        )
+        if not df.empty:
+            df = df.rename(columns={
+                "name": "official_name",
+                "off_pos": "official_position",
+            })
+        return df

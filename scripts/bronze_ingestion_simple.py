@@ -120,6 +120,12 @@ DATA_TYPE_REGISTRY = {
         "requires_week": False,
         "requires_season": True,
     },
+    "officials": {
+        "adapter_method": "fetch_officials",
+        "bronze_path": "officials/season={season}",
+        "requires_week": False,
+        "requires_season": True,
+    },
 }
 
 
