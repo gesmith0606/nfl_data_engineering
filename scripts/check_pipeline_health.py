@@ -59,6 +59,7 @@ REQUIRED_SILVER_PREFIXES = {
     "sos": "teams/sos/season={season}/",
     "situational": "teams/situational/season={season}/",
     "pbp_derived": "teams/pbp_derived/season={season}/",
+    "game_context": "teams/game_context/season={season}/",
     "advanced_profiles": "players/advanced/season={season}/",
     # Historical profiles: static dimension table, no season/week partition
     "historical_profiles": "players/historical/",
