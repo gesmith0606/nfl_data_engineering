@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import pytz
 
-from src.config import STADIUM_COORDINATES, STADIUM_ID_COORDS
+from config import STADIUM_COORDINATES, STADIUM_ID_COORDS
 
 logger = logging.getLogger(__name__)
 
