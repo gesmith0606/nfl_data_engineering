@@ -105,11 +105,11 @@ Plans:
   3. Rest/travel columns include days since last game (capped at 14), `is_post_bye`, `is_short_rest`, `rest_advantage`, travel distance (haversine miles), and time zone differential — Week 1 rest capped correctly
   4. Coaching columns include head coach name per team per week, `coaching_change` flag detecting mid-season and off-season HC changes, and coaching tenure in weeks
   5. All game_context features are joinable on `[team, season, week]` to existing Silver data
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 22-01: TBD
-- [ ] 22-02: TBD
+- [ ] 22-01-PLAN.md — Core game_context module (unpivot, weather, rest, travel, coaching compute functions) + STADIUM_ID_COORDS config + unit tests
+- [ ] 22-02-PLAN.md — CLI script wiring, pipeline health check, full 2016-2025 transformation run
 
 ### Phase 23: Cross-Source Features and Integration
 **Goal**: Referee tendency profiles and playoff/elimination context are computed by joining data across Silver modules, and pipeline health monitoring covers all new v1.3 Silver paths
@@ -154,10 +154,10 @@ Note: Phases 21 and 22 can execute in parallel (both depend only on Phase 20).
 | 18. Historical Context | v1.2 | 2/2 | Complete | 2026-03-15 |
 | 19. v1.2 Tech Debt Cleanup | v1.2 | 1/1 | Complete | 2026-03-15 |
 | 20. Infrastructure and Data Expansion | v1.3 | 2/2 | Complete | 2026-03-16 |
-| 21. PBP-Derived Team Metrics | 3/3 | Complete    | 2026-03-16 | - |
+| 21. PBP-Derived Team Metrics | v1.3 | 3/3 | Complete | 2026-03-16 |
 | 22. Schedule-Derived Context | v1.3 | 0/2 | Not started | - |
 | 23. Cross-Source Features and Integration | v1.3 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-16 after Phase 21 planning completed*
+*Last updated: 2026-03-16 after Phase 22 planning completed*
