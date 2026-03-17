@@ -29,11 +29,11 @@ Requirements for v1.3 Prediction Data Foundation. Each maps to roadmap phases.
 
 ### Schedule-Derived Features
 
-- [ ] **SCHED-01**: Weather features (temperature, wind speed, roof type, surface type) from schedules Bronze as Silver columns
-- [ ] **SCHED-02**: Rest days (days since last game, bye week timing, short week flag) per team/week
-- [ ] **SCHED-03**: Travel distance between venues using stadium coordinates lookup
-- [ ] **SCHED-04**: Time zone differential for cross-country games
-- [ ] **SCHED-05**: Head coach per game with coaching change detection flag (mid-season and off-season)
+- [x] **SCHED-01**: Weather features (temperature, wind speed, roof type, surface type) from schedules Bronze as Silver columns
+- [x] **SCHED-02**: Rest days (days since last game, bye week timing, short week flag) per team/week
+- [x] **SCHED-03**: Travel distance between venues using stadium coordinates lookup
+- [x] **SCHED-04**: Time zone differential for cross-country games
+- [x] **SCHED-05**: Head coach per game with coaching change detection flag (mid-season and off-season)
 
 ### Cross-Source Features
 
@@ -95,11 +95,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PBP-10 | Phase 21 | Complete |
 | PBP-11 | Phase 21 | Complete |
 | INTEG-02 | Phase 21 | Complete |
-| SCHED-01 | Phase 22 | Pending |
-| SCHED-02 | Phase 22 | Pending |
-| SCHED-03 | Phase 22 | Pending |
-| SCHED-04 | Phase 22 | Pending |
-| SCHED-05 | Phase 22 | Pending |
+| SCHED-01 | Phase 22 | Complete |
+| SCHED-02 | Phase 22 | Complete |
+| SCHED-03 | Phase 22 | Complete |
+| SCHED-04 | Phase 22 | Complete |
+| SCHED-05 | Phase 22 | Complete |
 | CROSS-01 | Phase 23 | Pending |
 | CROSS-02 | Phase 23 | Pending |
 | INTEG-01 | Phase 23 | Pending |

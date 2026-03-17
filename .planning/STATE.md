@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Prediction Data Foundation
-status: completed
-stopped_at: Phase 22 context gathered
-last_updated: "2026-03-16T23:22:07.485Z"
-last_activity: 2026-03-16 — Completed Phase 21 Plan 03 (PBP-derived orchestrator + pipeline wiring)
+status: in_progress
+stopped_at: Completed 22-01-PLAN.md
+last_updated: "2026-03-17T22:44:00.000Z"
+last_activity: 2026-03-17 — Completed Phase 22 Plan 01 (game context module + tests)
 progress:
   total_phases: 4
   completed_phases: 2
@@ -29,12 +29,12 @@ v1.3 Prediction Data Foundation — Ready to plan Phase 20
 
 ## Current Position
 
-Phase: 21 of 23 (PBP-Derived Team Metrics)
-Plan: 3 of 3 in current phase (COMPLETE)
-Status: Phase 21 complete - all 3 plans executed
-Last activity: 2026-03-16 — Completed Phase 21 Plan 03 (PBP-derived orchestrator + pipeline wiring)
+Phase: 22 of 23 (Schedule-Derived Context)
+Plan: 1 of 2 in current phase
+Status: Plan 01 complete - game context module + 22 unit tests
+Last activity: 2026-03-17 — Completed Phase 22 Plan 01 (game context module + tests)
 
-Progress: [██████████] 100%
+Progress: [█████████░] 90%
 
 ## Key Artifacts
 
@@ -71,6 +71,9 @@ Carried from v1.2. See PROJECT.md Key Decisions table.
 - **Phase 21-01**: is_turnover_lucky threshold: >0.60=lucky, <0.40=unlucky
 - **Phase 21-03**: Turnover luck columns excluded from rolling windows (uses expanding window internally)
 - **Phase 21-03**: compute_pbp_derived_metrics orchestrator merges 11 functions following compute_pbp_metrics pattern
+- **Phase 22-01**: STADIUM_ID_COORDS uses actual Bronze data IDs (15 differed from research estimates)
+- **Phase 22-01**: Arizona timezone: 0h diff in summer (both UTC-7), 1h in winter (AZ stays UTC-7, LA falls to UTC-8)
+- **Phase 22-01**: LON01 = Twickenham Stadium (not Wembley alt) per actual data
 
 ### Pending Todos
 
@@ -82,9 +85,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T23:22:07.482Z
-Stopped at: Phase 22 context gathered
-Resume file: .planning/phases/22-schedule-derived-context/22-CONTEXT.md
+Last session: 2026-03-17T22:44:00.000Z
+Stopped at: Completed 22-01-PLAN.md
+Resume file: .planning/phases/22-schedule-derived-context/22-02-PLAN.md
 
 ---
 *Last updated: 2026-03-15 after v1.3 roadmap created*
