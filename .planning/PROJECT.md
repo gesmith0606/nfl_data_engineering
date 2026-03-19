@@ -38,19 +38,19 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Historical dimension table: combine measurables + draft capital for 9,892 players — v1.2
 - ✓ Pipeline health monitoring for all 7 Silver paths — v1.2
 - ✓ 289 total tests passing — v1.2
+- ✓ PBP-derived metrics Silver layer (164 columns: EPA, success rate, CPOE, red zone, penalties) — v1.3
+- ✓ Game context Silver layer (weather, rest, travel, coaching, surface factors) — v1.3
+- ✓ Referee tendency profiles (expanding-window penalty rates per crew with shift(1) lag) — v1.3
+- ✓ Playoff/elimination context (cumulative W-L-T, division rank, games behind, late-season contention) — v1.3
+- ✓ Full prediction feature vector assembly: 337 columns from 8 Silver sources — v1.3
+- ✓ Pipeline health monitoring for all 11 Silver paths — v1.3
+- ✓ 360 total tests passing — v1.3
 
 ### Active
 
 - [ ] Weather data ingestion (external source) with historical coverage
-- [ ] Coaching staff tracking (HC/OC/DC per game, mid-season changes)
 - [ ] Special teams metrics (kicking accuracy, punt/kick returns, blocked kicks)
-- [ ] Penalty aggregation (team rates, types, opponent-drawn rates)
-- [ ] Rest & travel factors (days rest, bye timing, travel distance, time zones)
-- [ ] Turnover luck / fumble recovery regression metrics
-- [ ] Referee crew tendencies (penalty rates, scoring impact by crew)
-- [ ] Playoff/elimination context (standings, clinch/elimination scenarios)
 - [ ] Red zone trip volume (drive-level counts, not just efficiency rates)
-- [ ] Silver transforms for all new and derived features with rolling windows
 
 ### Out of Scope
 
@@ -64,9 +64,9 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 Shipped v1.2 with 16,821 LOC Python across 19 phases and 33 plans (three milestones).
 Tech stack: Python 3.9, pandas, pyarrow, nfl-data-py, local Parquet storage (S3 optional).
 Bronze layer: 15 data types covering schedules, player stats, PBP, NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts — 517 files, 93 MB.
-Silver layer: team metrics (EPA, tendencies, SOS, situational), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 7 output paths.
+Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived, game context, referee tendencies, playoff context), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 11 output paths.
 Gold layer: weekly + preseason projections with injury adjustments, regression shrinkage, floor/ceiling.
-Tests: 289 passing across 5 test files.
+Tests: 360 passing across 7 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -107,4 +107,4 @@ Existing documentation:
 | Lagged SOS (week N-1 only) | Avoids circular dependency in opponent-adjusted EPA | ✓ Good |
 
 ---
-*Last updated: 2026-03-15 after starting v1.3 Prediction Data Foundation milestone*
+*Last updated: 2026-03-19 after completing Phase 23 (cross-source features and integration) — v1.3 milestone*
