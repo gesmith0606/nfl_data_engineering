@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), an expanded Silver layer with PBP-derived team analytics, advanced player profiles, strength of schedule, and historical context — all with rolling windows — plus registry-driven ingestion, batch orchestration, and local-first storage.
+A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), a rich Silver layer with 11 output paths covering PBP-derived team metrics, game context (weather, rest, travel, coaching), referee tendencies, playoff context, advanced player profiles, and historical dimensions — all assembled into a 337-column prediction feature vector — plus registry-driven ingestion, batch orchestration, and local-first storage.
 
 ## Core Value
 
@@ -38,8 +38,11 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Historical dimension table: combine measurables + draft capital for 9,892 players — v1.2
 - ✓ Pipeline health monitoring for all 7 Silver paths — v1.2
 - ✓ 289 total tests passing — v1.2
-- ✓ PBP-derived metrics Silver layer (164 columns: EPA, success rate, CPOE, red zone, penalties) — v1.3
-- ✓ Game context Silver layer (weather, rest, travel, coaching, surface factors) — v1.3
+- ✓ PBP expanded to 140 columns (penalty, ST, fumble recovery, drive details) with re-ingestion for 2016-2025 — v1.3
+- ✓ Officials Bronze ingested for 2016-2025 with referee crew assignments — v1.3
+- ✓ Stadium coordinates (38 venues) for haversine travel distance — v1.3
+- ✓ 11 PBP-derived team metrics (penalties, turnovers, red zone trips, FG accuracy, returns, 3rd down, explosives, drives, sacks, TOP) with rolling windows — v1.3
+- ✓ Game context Silver layer (weather, rest, travel, coaching, surface) per team per week — v1.3
 - ✓ Referee tendency profiles (expanding-window penalty rates per crew with shift(1) lag) — v1.3
 - ✓ Playoff/elimination context (cumulative W-L-T, division rank, games behind, late-season contention) — v1.3
 - ✓ Full prediction feature vector assembly: 337 columns from 8 Silver sources — v1.3
@@ -48,25 +51,28 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-- [ ] Weather data ingestion (external source) with historical coverage
-- [ ] Special teams metrics (kicking accuracy, punt/kick returns, blocked kicks)
-- [ ] Red zone trip volume (drive-level counts, not just efficiency rates)
+- [ ] ML prediction model (XGBoost/LightGBM) using 337-column feature vector for game spreads/totals
+- [ ] Fantasy projection upgrade replacing weighted-average baseline with ML model
+- [ ] Live Sleeper league integration for in-season draft/waiver decisions
 
 ### Out of Scope
 
 - Neo4j Phase 5 — deferred until prediction model is validated
 - S3 sync — AWS credentials expired, local-first workflow active
-- Live Sleeper league integration — deferred to draft season
 - nflreadpy migration — requires Python 3.10+; separate future milestone
+- External weather API (meteostat) — schedules already provides temp/wind/roof/surface
+- OC/DC coordinator tracking — no automated source; requires manual curation
+- Full NFL tiebreaker logic — simple standings proxy captures 95% of value
 
 ## Context
 
-Shipped v1.2 with 16,821 LOC Python across 19 phases and 33 plans (three milestones).
-Tech stack: Python 3.9, pandas, pyarrow, nfl-data-py, local Parquet storage (S3 optional).
-Bronze layer: 15 data types covering schedules, player stats, PBP, NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts — 517 files, 93 MB.
-Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived, game context, referee tendencies, playoff context), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 11 output paths.
+Shipped v1.3 with 20,642 LOC Python across 23 phases and 42 plans (four milestones).
+Tech stack: Python 3.9, pandas, pyarrow, pytz, nfl-data-py, local Parquet storage (S3 optional).
+Bronze layer: 15 data types covering schedules, player stats, PBP (140 cols), NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts, officials — 517 files, 93 MB.
+Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 11 output paths.
 Gold layer: weekly + preseason projections with injury adjustments, regression shrinkage, floor/ceiling.
-Tests: 360 passing across 7 test files.
+Prediction feature vector: 337 columns assembled from 8 Silver sources via left joins on [team, season, week].
+Tests: 360 passing across 8 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -99,12 +105,17 @@ Existing documentation:
 | Week partition registry flag | Automatic per-week file splitting (snap_counts) | ✓ Good |
 | Batch ingestion with skip-existing | Idempotent reruns, graceful failure handling | ✓ Good |
 | Dry-run default for cleanup scripts | Safe filesystem operations | ✓ Good |
-
 | Rolling windows for team metrics | In-season predictions need recency; season aggregates miss momentum | ✓ Good |
 | Separate team_analytics.py module | Protects existing player_analytics.py test suite | ✓ Good |
 | Three-tier join for advanced profiles | GSIS ID (NGS), name+team (PFR/QBR), team-only (blitz) | ✓ Good |
 | Static dimension table for historical | No season/week partition; avoids row explosion | ✓ Good |
 | Lagged SOS (week N-1 only) | Avoids circular dependency in opponent-adjusted EPA | ✓ Good |
+| PBP expanded to 140 columns | Penalty, ST, fumble recovery, drive fields needed for v1.3 metrics | ✓ Good |
+| STADIUM_ID_COORDS dict (not CSV) | Config lookup matches nflverse stadium_id strings directly | ✓ Good |
+| Turnover luck uses expanding window | Regression-to-mean needs full-season context, not 3-game rolling | ✓ Good |
+| Referee tendencies from schedules referee col | Simpler than joining Officials Bronze; crew chief name sufficient | ✓ Good |
+| Playoff context with simple proxy | Cumulative W-L-T + division rank captures 95% of elimination signal | ✓ Good |
+| Game context per-game facts (no rolling) | Weather/rest/travel are single-game properties, not trends | ✓ Good |
 
 ---
-*Last updated: 2026-03-19 after completing Phase 23 (cross-source features and integration) — v1.3 milestone*
+*Last updated: 2026-03-19 after v1.3 milestone*

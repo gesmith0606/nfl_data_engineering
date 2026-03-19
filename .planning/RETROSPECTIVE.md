@@ -2,6 +2,53 @@
 
 *A living document updated after each milestone. Lessons feed forward into future planning.*
 
+## Milestone: v1.3 — Prediction Data Foundation
+
+**Shipped:** 2026-03-19
+**Phases:** 4 | **Plans:** 9 | **Sessions:** ~4
+
+### What Was Built
+- Expanded PBP Bronze to 140 columns and ingested officials data for 2016-2025
+- 11 PBP-derived team metrics (penalties, turnovers, red zone trips, FG accuracy, returns, 3rd down, explosives, drives, sacks, TOP) with rolling windows in Silver
+- Game context Silver module: weather, rest/travel distance, timezone differential, coaching tenure
+- Referee tendency profiles with expanding-window penalty rates and playoff/elimination context
+- 337-column prediction feature vector assembled from 8 Silver sources
+- Pipeline health monitoring for all 11 Silver paths; 360 tests passing (71 new)
+
+### What Worked
+- Parallel execution of Phases 21 and 22 (both depended only on Phase 20) compressed timeline
+- Health check wiring done in-phase (learned from v1.2 lesson) — no gap-closure phase needed
+- Audit passed on first cycle (tech_debt only, 0 requirement gaps) — best audit result yet
+- game_context.py as a new module kept team_analytics.py stable during heavy expansion
+- Feature vector integration test (test_feature_vector.py) caught join issues early
+
+### What Was Inefficient
+- Officials Bronze ingested (INFRA-02) but never consumed by any Silver pipeline — referee tendencies use schedules `referee` column instead. Infrastructure work with no downstream consumer.
+- Duplicate `_filter_st_plays` in team_analytics.py (lines 136 and 1248) from out-of-order plan execution — same issue as v1.1 duplicate patterns
+- STADIUM_ID_COORDS has 42 entries but no dedicated unit test (only STADIUM_COORDINATES tested)
+- Nyquist validation left in draft state for 3 of 4 phases — validation step was consistently skipped
+
+### Patterns Established
+- Expanding window for regression metrics: `shift(1).expanding().mean()` for turnover luck, referee tendency
+- Per-game facts pattern: weather/rest/travel output raw values (no rolling) — they're single-game properties
+- Cross-source join: unpivot schedules → merge with Silver metrics for derived features
+- Cumulative standings: W-L-T with shift(1) lag for playoff/elimination context
+- Feature vector assembly: left joins on [team, season, week] across all Silver sources
+
+### Key Lessons
+1. Audit on first cycle is achievable when gap-closure patterns from prior milestones are internalized
+2. Don't ingest data without a confirmed downstream consumer — Officials Bronze is wasted infrastructure
+3. Expanding windows (not rolling) are correct for regression-to-mean and cumulative metrics
+4. Feature vector integration test should be written early (Phase 23) — validates entire Silver pipeline
+5. Parallel phase execution works well when dependency graph is clean (21‖22 after 20)
+
+### Cost Observations
+- Model mix: ~60% opus, ~40% sonnet (more sonnet for parallel execution phases)
+- Sessions: ~4
+- Notable: 4 days for 4 phases — sustained pace from v1.2; parallel execution of Phases 21+22 was the key accelerator
+
+---
+
 ## Milestone: v1.1 — Bronze Backfill
 
 **Shipped:** 2026-03-13
@@ -150,6 +197,7 @@
 | v1.0 | ~5 | 7 | First GSD milestone; 3 audit cycles to pass |
 | v1.1 | ~6 | 7 | Gap-closure phases (13-14) added from audit; 2 audit cycles |
 | v1.2 | ~4 | 5 | Single gap-closure phase (19); fastest milestone (3 days) |
+| v1.3 | ~4 | 4 | Clean audit on first cycle (0 requirement gaps); parallel phase execution |
 
 ### Cumulative Quality
 
@@ -158,6 +206,7 @@
 | v1.0 | 141 | — | 23/23 requirements satisfied, 9/9 integrations connected |
 | v1.1 | 186 | — | 22/22 requirements satisfied, 7/7 integrations wired, 2/2 E2E flows |
 | v1.2 | 289 | — | 25/25 requirements satisfied, 22/25 integrations wired, 3/4 E2E flows |
+| v1.3 | 360 | — | 23/23 requirements satisfied, 22/23 integrations wired, 4/4 E2E flows |
 
 ### Top Lessons (Verified Across Milestones)
 
@@ -167,3 +216,5 @@
 4. Registry/adapter patterns pay dividends — adding new types and modules is config-only
 5. nflverse API instability (tag renames, schema changes) requires defensive adapter routing
 6. Established conventions (rolling windows, join patterns) compound — v1.2 was 2x faster than v1.0
+7. Don't ingest data without a confirmed downstream consumer — avoid orphaned infrastructure
+8. Feature vector integration tests validate entire Silver pipeline early and catch join issues
