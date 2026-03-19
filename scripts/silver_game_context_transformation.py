@@ -25,7 +25,7 @@ from dotenv import load_dotenv
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from config import SILVER_TEAM_S3_KEYS
-from game_context import compute_game_context
+from game_context import compute_game_context, compute_referee_tendencies, compute_playoff_context, _unpivot_schedules
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
 BRONZE_DIR = os.path.join(PROJECT_ROOT, "data", "bronze")
@@ -35,6 +35,22 @@ SILVER_DIR = os.path.join(PROJECT_ROOT, "data", "silver")
 # ---------------------------------------------------------------------------
 # Local file helpers
 # ---------------------------------------------------------------------------
+
+
+def _read_local_pbp_derived(season: int) -> pd.DataFrame:
+    """Read the latest pbp_derived parquet file from local Silver directory.
+
+    Args:
+        season: NFL season year.
+
+    Returns:
+        DataFrame with pbp_derived data, or empty DataFrame if not found.
+    """
+    pattern = os.path.join(SILVER_DIR, "teams", "pbp_derived", f"season={season}", "*.parquet")
+    files = sorted(globmod.glob(pattern))
+    if not files:
+        return pd.DataFrame()
+    return pd.read_parquet(files[-1])
 
 
 def _read_local_schedules(season: int) -> pd.DataFrame:
@@ -162,9 +178,38 @@ def run_game_context_transform(
         if s3_bucket:
             _try_s3_upload(context_df, s3_bucket, gc_key)
 
+        # 4. Compute referee tendencies (requires pbp_derived Silver)
+        print("  Computing referee tendencies...")
+        unpivoted = _unpivot_schedules(schedules_df)
+        pbp_derived_df = _read_local_pbp_derived(season)
+        if pbp_derived_df.empty:
+            print(f"    WARNING: No pbp_derived data for season {season}, skipping referee tendencies.")
+        else:
+            referee_df = compute_referee_tendencies(unpivoted, pbp_derived_df)
+            ref_key = SILVER_TEAM_S3_KEYS["referee_tendencies"].format(season=season, ts=ts)
+            _save_local_silver(referee_df, ref_key, ts)
+            if s3_bucket:
+                _try_s3_upload(referee_df, s3_bucket, ref_key)
+            print(
+                f"    Referee tendencies: {len(referee_df):,} rows, "
+                f"{referee_df['team'].nunique()} teams"
+            )
+
+        # 5. Compute playoff context (standings, division rank, contention)
+        print("  Computing playoff context...")
+        playoff_df = compute_playoff_context(unpivoted)
+        play_key = SILVER_TEAM_S3_KEYS["playoff_context"].format(season=season, ts=ts)
+        _save_local_silver(playoff_df, play_key, ts)
+        if s3_bucket:
+            _try_s3_upload(playoff_df, s3_bucket, play_key)
+        print(
+            f"    Playoff context: {len(playoff_df):,} rows, "
+            f"{playoff_df['team'].nunique()} teams"
+        )
+
         print(f"  Season {season} complete.")
 
-        # 4. Track prior season for coaching context in next iteration
+        # 6. Track prior season for coaching context in next iteration
         prior_season_df = schedules_df
 
     print("\nSilver game context transformation complete.")
