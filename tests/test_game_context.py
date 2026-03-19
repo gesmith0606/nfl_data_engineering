@@ -18,6 +18,8 @@ from src.game_context import (
     compute_travel_features,
     compute_coaching_features,
     compute_game_context,
+    compute_referee_tendencies,
+    compute_playoff_context,
 )
 
 
@@ -473,3 +475,307 @@ def test_game_context_with_prior_season(sample_schedules_df):
     assert len(result) == 2 * len(sample_schedules_df)
     # BAL and KC should have coaching_change based on prior season comparison
     assert "coaching_change" in result.columns
+
+
+# ---------------------------------------------------------------------------
+# Fixtures for referee tendencies and playoff context tests
+# ---------------------------------------------------------------------------
+
+@pytest.fixture
+def sample_unpivoted_with_scores():
+    """Unpivoted-style DataFrame for 4 teams (BAL, CIN from AFC North;
+    BUF, MIA from AFC East) across 3 weeks with referee and score columns.
+
+    BAL: 3-0 (24-17, 31-20, 28-14 vs CIN)
+    CIN: 0-3 (inverse of BAL)
+    BUF: 2-1 (21-14, 10-17, 27-20 vs MIA)
+    MIA: 1-2 (inverse of BUF)
+    """
+    rows = [
+        # Week 1: BAL vs CIN (BAL wins 24-17), referee Brad Allen
+        {"game_id": "2023_01_BAL_CIN", "season": 2023, "week": 1, "team": "BAL",
+         "opponent": "CIN", "head_coach": "John Harbaugh", "opponent_coach": "Zac Taylor",
+         "rest_days": 7, "opponent_rest": 7, "is_home": True, "temp": 75.0, "wind": 5.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "BAL00",
+         "stadium": "M&T Bank", "game_type": "REG", "gameday": "2023-09-10",
+         "location": "Home", "referee": "Brad Allen", "team_score": 24, "opp_score": 17},
+        {"game_id": "2023_01_BAL_CIN", "season": 2023, "week": 1, "team": "CIN",
+         "opponent": "BAL", "head_coach": "Zac Taylor", "opponent_coach": "John Harbaugh",
+         "rest_days": 7, "opponent_rest": 7, "is_home": False, "temp": 75.0, "wind": 5.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "BAL00",
+         "stadium": "M&T Bank", "game_type": "REG", "gameday": "2023-09-10",
+         "location": "Home", "referee": "Brad Allen", "team_score": 17, "opp_score": 24},
+        # Week 1: BUF vs MIA (BUF wins 21-14), referee Carl Cheffers
+        {"game_id": "2023_01_BUF_MIA", "season": 2023, "week": 1, "team": "BUF",
+         "opponent": "MIA", "head_coach": "Sean McDermott", "opponent_coach": "Mike McDaniel",
+         "rest_days": 7, "opponent_rest": 7, "is_home": True, "temp": 70.0, "wind": 8.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "BUF00",
+         "stadium": "Highmark", "game_type": "REG", "gameday": "2023-09-10",
+         "location": "Home", "referee": "Carl Cheffers", "team_score": 21, "opp_score": 14},
+        {"game_id": "2023_01_BUF_MIA", "season": 2023, "week": 1, "team": "MIA",
+         "opponent": "BUF", "head_coach": "Mike McDaniel", "opponent_coach": "Sean McDermott",
+         "rest_days": 7, "opponent_rest": 7, "is_home": False, "temp": 70.0, "wind": 8.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "BUF00",
+         "stadium": "Highmark", "game_type": "REG", "gameday": "2023-09-10",
+         "location": "Home", "referee": "Carl Cheffers", "team_score": 14, "opp_score": 21},
+        # Week 2: BAL vs CIN (BAL wins 31-20), referee Carl Cheffers
+        {"game_id": "2023_02_CIN_BAL", "season": 2023, "week": 2, "team": "BAL",
+         "opponent": "CIN", "head_coach": "John Harbaugh", "opponent_coach": "Zac Taylor",
+         "rest_days": 7, "opponent_rest": 7, "is_home": False, "temp": 72.0, "wind": 6.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "CIN00",
+         "stadium": "Paycor", "game_type": "REG", "gameday": "2023-09-17",
+         "location": "Home", "referee": "Carl Cheffers", "team_score": 31, "opp_score": 20},
+        {"game_id": "2023_02_CIN_BAL", "season": 2023, "week": 2, "team": "CIN",
+         "opponent": "BAL", "head_coach": "Zac Taylor", "opponent_coach": "John Harbaugh",
+         "rest_days": 7, "opponent_rest": 7, "is_home": True, "temp": 72.0, "wind": 6.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "CIN00",
+         "stadium": "Paycor", "game_type": "REG", "gameday": "2023-09-17",
+         "location": "Home", "referee": "Carl Cheffers", "team_score": 20, "opp_score": 31},
+        # Week 2: BUF vs MIA (MIA wins 17-10), referee Brad Allen
+        {"game_id": "2023_02_MIA_BUF", "season": 2023, "week": 2, "team": "BUF",
+         "opponent": "MIA", "head_coach": "Sean McDermott", "opponent_coach": "Mike McDaniel",
+         "rest_days": 7, "opponent_rest": 7, "is_home": False, "temp": 85.0, "wind": 3.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "MIA00",
+         "stadium": "Hard Rock", "game_type": "REG", "gameday": "2023-09-17",
+         "location": "Home", "referee": "Brad Allen", "team_score": 10, "opp_score": 17},
+        {"game_id": "2023_02_MIA_BUF", "season": 2023, "week": 2, "team": "MIA",
+         "opponent": "BUF", "head_coach": "Mike McDaniel", "opponent_coach": "Sean McDermott",
+         "rest_days": 7, "opponent_rest": 7, "is_home": True, "temp": 85.0, "wind": 3.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "MIA00",
+         "stadium": "Hard Rock", "game_type": "REG", "gameday": "2023-09-17",
+         "location": "Home", "referee": "Brad Allen", "team_score": 17, "opp_score": 10},
+        # Week 3: BAL vs CIN (BAL wins 28-14), referee Brad Allen
+        {"game_id": "2023_03_BAL_CIN", "season": 2023, "week": 3, "team": "BAL",
+         "opponent": "CIN", "head_coach": "John Harbaugh", "opponent_coach": "Zac Taylor",
+         "rest_days": 7, "opponent_rest": 7, "is_home": True, "temp": 68.0, "wind": 4.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "BAL00",
+         "stadium": "M&T Bank", "game_type": "REG", "gameday": "2023-09-24",
+         "location": "Home", "referee": "Brad Allen", "team_score": 28, "opp_score": 14},
+        {"game_id": "2023_03_BAL_CIN", "season": 2023, "week": 3, "team": "CIN",
+         "opponent": "BAL", "head_coach": "Zac Taylor", "opponent_coach": "John Harbaugh",
+         "rest_days": 7, "opponent_rest": 7, "is_home": False, "temp": 68.0, "wind": 4.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "BAL00",
+         "stadium": "M&T Bank", "game_type": "REG", "gameday": "2023-09-24",
+         "location": "Home", "referee": "Brad Allen", "team_score": 14, "opp_score": 28},
+        # Week 3: BUF vs MIA (BUF wins 27-20), referee Carl Cheffers
+        {"game_id": "2023_03_BUF_MIA", "season": 2023, "week": 3, "team": "BUF",
+         "opponent": "MIA", "head_coach": "Sean McDermott", "opponent_coach": "Mike McDaniel",
+         "rest_days": 7, "opponent_rest": 7, "is_home": True, "temp": 65.0, "wind": 10.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "BUF00",
+         "stadium": "Highmark", "game_type": "REG", "gameday": "2023-09-24",
+         "location": "Home", "referee": "Carl Cheffers", "team_score": 27, "opp_score": 20},
+        {"game_id": "2023_03_BUF_MIA", "season": 2023, "week": 3, "team": "MIA",
+         "opponent": "BUF", "head_coach": "Mike McDaniel", "opponent_coach": "Sean McDermott",
+         "rest_days": 7, "opponent_rest": 7, "is_home": False, "temp": 65.0, "wind": 10.0,
+         "roof": "outdoors", "surface": "grass", "stadium_id": "BUF00",
+         "stadium": "Highmark", "game_type": "REG", "gameday": "2023-09-24",
+         "location": "Home", "referee": "Carl Cheffers", "team_score": 20, "opp_score": 27},
+    ]
+    return pd.DataFrame(rows)
+
+
+@pytest.fixture
+def sample_pbp_derived_for_referee():
+    """PBP-derived penalty data matching the 4 teams x 3 weeks above.
+
+    Brad Allen games: Week 1 BAL/CIN (4+5=9 off, 5+4=9 def -> 18 total per game)
+                      Week 2 BUF/MIA (3+4=7 off, 4+3=7 def -> 14 total)
+                      Week 3 BAL/CIN (5+3=8 off, 3+5=8 def -> 16 total)
+    Carl Cheffers:    Week 1 BUF/MIA (4+3=7 off, 3+4=7 def -> 14 total)
+                      Week 2 BAL/CIN (6+4=10 off, 4+6=10 def -> 20 total)
+                      Week 3 BUF/MIA (3+5=8 off, 5+3=8 def -> 16 total)
+    """
+    rows = [
+        # Week 1
+        {"team": "BAL", "season": 2023, "week": 1, "off_penalties": 4, "def_penalties": 5},
+        {"team": "CIN", "season": 2023, "week": 1, "off_penalties": 5, "def_penalties": 4},
+        {"team": "BUF", "season": 2023, "week": 1, "off_penalties": 4, "def_penalties": 3},
+        {"team": "MIA", "season": 2023, "week": 1, "off_penalties": 3, "def_penalties": 4},
+        # Week 2
+        {"team": "BAL", "season": 2023, "week": 2, "off_penalties": 6, "def_penalties": 4},
+        {"team": "CIN", "season": 2023, "week": 2, "off_penalties": 4, "def_penalties": 6},
+        {"team": "BUF", "season": 2023, "week": 2, "off_penalties": 3, "def_penalties": 4},
+        {"team": "MIA", "season": 2023, "week": 2, "off_penalties": 4, "def_penalties": 3},
+        # Week 3
+        {"team": "BAL", "season": 2023, "week": 3, "off_penalties": 5, "def_penalties": 3},
+        {"team": "CIN", "season": 2023, "week": 3, "off_penalties": 3, "def_penalties": 5},
+        {"team": "BUF", "season": 2023, "week": 3, "off_penalties": 3, "def_penalties": 5},
+        {"team": "MIA", "season": 2023, "week": 3, "off_penalties": 5, "def_penalties": 3},
+    ]
+    return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# Referee tendencies tests
+# ---------------------------------------------------------------------------
+
+def test_unpivot_carries_referee_and_scores():
+    """_unpivot_schedules output contains referee, team_score, opp_score columns."""
+    df = pd.DataFrame([{
+        "game_id": "2023_01_KC_BAL", "season": 2023, "week": 1,
+        "home_team": "BAL", "away_team": "KC",
+        "home_coach": "John Harbaugh", "away_coach": "Andy Reid",
+        "home_rest": 7, "away_rest": 7,
+        "temp": 75.0, "wind": 5.0, "roof": "outdoors", "surface": "grass",
+        "stadium_id": "BAL00", "stadium": "M&T Bank", "game_type": "REG",
+        "gameday": "2023-09-10", "location": "Home",
+        "referee": "Brad Allen", "home_score": 24, "away_score": 17,
+    }])
+    result = _unpivot_schedules(df)
+    assert "referee" in result.columns
+    assert "team_score" in result.columns
+    assert "opp_score" in result.columns
+    # Home team gets home_score as team_score
+    bal = result[result["team"] == "BAL"].iloc[0]
+    assert bal["team_score"] == 24
+    assert bal["opp_score"] == 17
+    # Away team gets away_score as team_score
+    kc = result[result["team"] == "KC"].iloc[0]
+    assert kc["team_score"] == 17
+    assert kc["opp_score"] == 24
+
+
+def test_referee_tendencies_expanding_window(
+    sample_unpivoted_with_scores, sample_pbp_derived_for_referee
+):
+    """ref_penalties_per_game uses shift(1) expanding mean; Week 1 is NaN."""
+    result = compute_referee_tendencies(
+        sample_unpivoted_with_scores, sample_pbp_derived_for_referee
+    )
+    assert "ref_penalties_per_game" in result.columns
+
+    # Week 1: no prior data for any referee -> NaN
+    week1 = result[result["week"] == 1]
+    assert week1["ref_penalties_per_game"].isna().all(), "Week 1 should be NaN (shift lag)"
+
+    # Week 2+: should have valid float values
+    week2_plus = result[result["week"] >= 2]
+    assert week2_plus["ref_penalties_per_game"].notna().all(), "Week 2+ should have values"
+
+    # Brad Allen Week 2: prior game was Week 1 BAL/CIN with 18 total penalties
+    # So entering Week 2, Brad Allen's expanding mean = 18.0
+    brad_w2 = result[
+        (result["week"] == 2) & (result["team"] == "BUF")
+    ]
+    # BUF Week 2 ref is Brad Allen; his only prior game had 18 total penalties
+    assert brad_w2.iloc[0]["ref_penalties_per_game"] == pytest.approx(18.0, abs=0.1)
+
+
+def test_referee_tendencies_name_normalization(
+    sample_unpivoted_with_scores, sample_pbp_derived_for_referee
+):
+    """strip().title() produces clean referee names."""
+    # Inject messy referee names
+    dirty = sample_unpivoted_with_scores.copy()
+    dirty["referee"] = dirty["referee"].apply(
+        lambda x: f"  {x.lower()}  " if isinstance(x, str) else x
+    )
+    result = compute_referee_tendencies(dirty, sample_pbp_derived_for_referee)
+    # Should still produce valid results -- ref names normalized internally
+    assert result["ref_penalties_per_game"].notna().any()
+    # Week 2+ should have values (normalization didn't break the join)
+    week2 = result[result["week"] >= 2]
+    assert week2["ref_penalties_per_game"].notna().all()
+
+
+# ---------------------------------------------------------------------------
+# Playoff context tests
+# ---------------------------------------------------------------------------
+
+def test_playoff_context_standings(sample_unpivoted_with_scores):
+    """Cumulative W-L-T with shift(1): Week 1 zeros, Week 2 shows prior results."""
+    result = compute_playoff_context(sample_unpivoted_with_scores)
+
+    # BAL Week 1: entering the game, no prior games -> 0-0-0
+    bal_w1 = result[(result["team"] == "BAL") & (result["week"] == 1)].iloc[0]
+    assert bal_w1["wins"] == 0
+    assert bal_w1["losses"] == 0
+
+    # BAL Week 2: entering game with 1 prior win -> wins=1
+    bal_w2 = result[(result["team"] == "BAL") & (result["week"] == 2)].iloc[0]
+    assert bal_w2["wins"] == 1
+    assert bal_w2["losses"] == 0
+
+    # BAL Week 3: entering game with 2 prior wins -> wins=2
+    bal_w3 = result[(result["team"] == "BAL") & (result["week"] == 3)].iloc[0]
+    assert bal_w3["wins"] == 2
+    assert bal_w3["losses"] == 0
+
+
+def test_playoff_context_division_rank(sample_unpivoted_with_scores):
+    """Teams ranked 1-4 within division by win_pct."""
+    result = compute_playoff_context(sample_unpivoted_with_scores)
+
+    # After Week 2 (entering Week 3): BAL is 2-0, CIN is 0-2 in AFC North
+    bal_w3 = result[(result["team"] == "BAL") & (result["week"] == 3)].iloc[0]
+    cin_w3 = result[(result["team"] == "CIN") & (result["week"] == 3)].iloc[0]
+    assert bal_w3["division_rank"] == 1
+    assert cin_w3["division_rank"] == 2
+
+    # BUF is 1-1, MIA is 1-1 in AFC East -> tied, both rank 1
+    buf_w3 = result[(result["team"] == "BUF") & (result["week"] == 3)].iloc[0]
+    mia_w3 = result[(result["team"] == "MIA") & (result["week"] == 3)].iloc[0]
+    assert buf_w3["division_rank"] in [1, 2]
+    assert mia_w3["division_rank"] in [1, 2]
+
+
+def test_playoff_context_games_behind(sample_unpivoted_with_scores):
+    """Leader has 0.0 games_behind; trailing team has positive value."""
+    result = compute_playoff_context(sample_unpivoted_with_scores)
+
+    # Entering Week 3: BAL 2-0, CIN 0-2
+    bal_w3 = result[(result["team"] == "BAL") & (result["week"] == 3)].iloc[0]
+    cin_w3 = result[(result["team"] == "CIN") & (result["week"] == 3)].iloc[0]
+    assert bal_w3["games_behind_division_leader"] == 0.0
+    assert cin_w3["games_behind_division_leader"] == 2.0
+
+
+def test_playoff_context_late_season_contention():
+    """True only when win_pct >= 0.4 AND week >= 10."""
+    # Create minimal data for late-season test
+    rows = []
+    # Team A: 5-4 entering week 10 (win_pct=0.556) -> True
+    # Team B: 3-6 entering week 10 (win_pct=0.333) -> False
+    for w in range(1, 11):
+        for team, score, opp_score in [("BAL", 24, 17), ("CIN", 14, 21)]:
+            # BAL wins every game, CIN loses every game
+            rows.append({
+                "game_id": f"2023_{w:02d}_{team}", "season": 2023, "week": w,
+                "team": team, "opponent": "CIN" if team == "BAL" else "BAL",
+                "head_coach": "Coach", "opponent_coach": "Other",
+                "rest_days": 7, "opponent_rest": 7, "is_home": True,
+                "temp": 70.0, "wind": 5.0, "roof": "outdoors", "surface": "grass",
+                "stadium_id": "BAL00", "stadium": "Stadium", "game_type": "REG",
+                "gameday": f"2023-09-{10+w:02d}", "location": "Home",
+                "referee": "Brad Allen", "team_score": score, "opp_score": opp_score,
+            })
+
+    df = pd.DataFrame(rows)
+    result = compute_playoff_context(df)
+
+    # BAL at week 10: entering with 9-0 -> win_pct=1.0, week=10 -> True
+    bal_w10 = result[(result["team"] == "BAL") & (result["week"] == 10)].iloc[0]
+    assert bal_w10["late_season_contention"] is True or bal_w10["late_season_contention"] == True
+
+    # CIN at week 10: entering with 0-9 -> win_pct=0.0, week=10 -> False
+    cin_w10 = result[(result["team"] == "CIN") & (result["week"] == 10)].iloc[0]
+    assert cin_w10["late_season_contention"] is False or cin_w10["late_season_contention"] == False
+
+    # BAL at week 9: entering with 8-0 -> win_pct=1.0 but week=9 -> False
+    bal_w9 = result[(result["team"] == "BAL") & (result["week"] == 9)].iloc[0]
+    assert bal_w9["late_season_contention"] is False or bal_w9["late_season_contention"] == False
+
+
+def test_playoff_context_week1_defaults(sample_unpivoted_with_scores):
+    """All Week 1 rows have default standings values."""
+    result = compute_playoff_context(sample_unpivoted_with_scores)
+    week1 = result[result["week"] == 1]
+
+    assert (week1["wins"] == 0).all()
+    assert (week1["losses"] == 0).all()
+    assert (week1["ties"] == 0).all()
+    assert (week1["win_pct"] == 0.0).all()
+    assert (week1["division_rank"] >= 1).all()
+    assert (week1["division_rank"] <= 4).all()
+    assert (week1["games_behind_division_leader"] == 0.0).all()
+    assert (~week1["late_season_contention"]).all()
