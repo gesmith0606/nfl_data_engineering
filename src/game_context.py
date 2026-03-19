@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import pytz
 
-from config import STADIUM_COORDINATES, STADIUM_ID_COORDS
+from config import STADIUM_COORDINATES, STADIUM_ID_COORDS, TEAM_DIVISIONS
 
 logger = logging.getLogger(__name__)
 
@@ -87,6 +87,8 @@ def _unpivot_schedules(schedules_df: pd.DataFrame) -> pd.DataFrame:
         "away_coach": "opponent_coach",
         "home_rest": "rest_days",
         "away_rest": "opponent_rest",
+        "home_score": "team_score",
+        "away_score": "opp_score",
     }).assign(is_home=True)
 
     away = schedules_df.rename(columns={
@@ -96,6 +98,8 @@ def _unpivot_schedules(schedules_df: pd.DataFrame) -> pd.DataFrame:
         "home_coach": "opponent_coach",
         "away_rest": "rest_days",
         "home_rest": "opponent_rest",
+        "away_score": "team_score",
+        "home_score": "opp_score",
     }).assign(is_home=False)
 
     cols = [
@@ -103,6 +107,7 @@ def _unpivot_schedules(schedules_df: pd.DataFrame) -> pd.DataFrame:
         "head_coach", "opponent_coach", "rest_days", "opponent_rest",
         "is_home", "temp", "wind", "roof", "surface",
         "stadium_id", "stadium", "game_type", "gameday", "location",
+        "referee", "team_score", "opp_score",
     ]
 
     # Only select columns that exist in both frames
@@ -283,6 +288,147 @@ def compute_coaching_features(
     df["coaching_tenure"] = coaching_tenure
 
     return df
+
+
+def compute_referee_tendencies(
+    unpivoted_df: pd.DataFrame,
+    pbp_derived_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """Compute referee penalty tendency entering each game.
+
+    For each referee-season, computes the expanding mean of total penalties
+    per game with a shift(1) lag so only prior games are used (no look-ahead).
+
+    Args:
+        unpivoted_df: Per-team unpivoted schedules with referee column.
+        pbp_derived_df: PBP-derived metrics with off_penalties, def_penalties
+            per team-season-week.
+
+    Returns:
+        DataFrame with columns: team, season, week, ref_penalties_per_game.
+        Week 1 values are NaN (no prior referee data).
+    """
+    df = unpivoted_df[["team", "season", "week", "game_id", "referee"]].copy()
+
+    # Normalize referee names
+    df["referee"] = df["referee"].str.strip().str.title()
+
+    # Get penalty totals per team-week from pbp_derived
+    penalties = pbp_derived_df[["team", "season", "week", "off_penalties", "def_penalties"]].copy()
+    penalties["team_total_penalties"] = penalties["off_penalties"] + penalties["def_penalties"]
+
+    # Merge penalties onto unpivoted (each team row gets its own penalty count)
+    merged = df.merge(
+        penalties[["team", "season", "week", "team_total_penalties"]],
+        on=["team", "season", "week"],
+        how="left",
+    )
+
+    # Compute total penalties per game: sum both teams' penalties for each game_id
+    game_penalties = (
+        merged.groupby(["season", "game_id", "referee"])["team_total_penalties"]
+        .sum()
+        .reset_index()
+        .rename(columns={"team_total_penalties": "total_penalties_in_game"})
+    )
+
+    # Sort by referee, season, week (need week from game_id or merge back)
+    # Get week from the original data
+    game_weeks = (
+        df[["season", "game_id", "week"]]
+        .drop_duplicates(subset=["season", "game_id"])
+    )
+    game_penalties = game_penalties.merge(game_weeks, on=["season", "game_id"], how="left")
+    game_penalties = game_penalties.sort_values(["referee", "season", "week"])
+
+    # Expanding mean with shift(1) per referee-season
+    game_penalties["ref_penalties_per_game"] = (
+        game_penalties.groupby(["referee", "season"])["total_penalties_in_game"]
+        .transform(lambda s: s.shift(1).expanding().mean())
+    )
+
+    # Map back to team rows via [season, game_id, referee]
+    result = df.merge(
+        game_penalties[["season", "game_id", "referee", "ref_penalties_per_game"]],
+        on=["season", "game_id", "referee"],
+        how="left",
+    )
+
+    return result[["team", "season", "week", "ref_penalties_per_game"]]
+
+
+def compute_playoff_context(unpivoted_df: pd.DataFrame) -> pd.DataFrame:
+    """Compute cumulative standings and playoff contention context.
+
+    Produces W-L-T record, division rank, games behind leader, and late-season
+    contention flag using cumulative sums with shift(1) lag (entering-game state).
+
+    Only regular season games (game_type == 'REG') count toward standings.
+
+    Args:
+        unpivoted_df: Per-team unpivoted schedules with team_score, opp_score.
+
+    Returns:
+        DataFrame with columns: team, season, week, wins, losses, ties,
+        win_pct, division_rank, games_behind_division_leader,
+        late_season_contention.
+    """
+    df = unpivoted_df.copy()
+
+    # Filter to regular season only for standings computation
+    reg = df[df["game_type"] == "REG"].copy()
+
+    # Determine game results
+    reg["win"] = (reg["team_score"] > reg["opp_score"]).astype(int)
+    reg["loss"] = (reg["team_score"] < reg["opp_score"]).astype(int)
+    reg["tie"] = (reg["team_score"] == reg["opp_score"]).astype(int)
+
+    # Sort for cumulative computation
+    reg = reg.sort_values(["team", "season", "week"]).reset_index(drop=True)
+
+    # Cumulative sums with shift(1) -- entering-game record
+    cum_names = {"win": "wins", "loss": "losses", "tie": "ties"}
+    for src_col, dst_col in cum_names.items():
+        reg[dst_col] = (
+            reg.groupby(["team", "season"])[src_col]
+            .transform(lambda s: s.shift(1).cumsum())
+        )
+
+    # Fill Week 1 NaN from shift with 0
+    reg["wins"] = reg["wins"].fillna(0).astype(int)
+    reg["losses"] = reg["losses"].fillna(0).astype(int)
+    reg["ties"] = reg["ties"].fillna(0).astype(int)
+
+    # Win percentage
+    games_played = reg["wins"] + reg["losses"] + reg["ties"]
+    reg["win_pct"] = np.where(games_played > 0, reg["wins"] / games_played, 0.0)
+
+    # Division assignment
+    reg["division"] = reg["team"].map(TEAM_DIVISIONS)
+
+    # Division rank by win_pct (descending), tiebreak by wins (descending)
+    reg["division_rank"] = (
+        reg.groupby(["season", "week", "division"])
+        .apply(
+            lambda g: g.sort_values(["win_pct", "wins"], ascending=[False, False])
+            .assign(rank=range(1, len(g) + 1))["rank"]
+        )
+        .droplevel([0, 1, 2])  # Drop the groupby index levels
+    )
+
+    # Games behind division leader
+    reg["leader_wins"] = reg.groupby(["season", "week", "division"])["wins"].transform("max")
+    reg["games_behind_division_leader"] = (reg["leader_wins"] - reg["wins"]).astype(float)
+
+    # Late season contention
+    reg["late_season_contention"] = (reg["win_pct"] >= 0.4) & (reg["week"] >= 10)
+
+    # Select output columns
+    output_cols = [
+        "team", "season", "week", "wins", "losses", "ties", "win_pct",
+        "division_rank", "games_behind_division_leader", "late_season_contention",
+    ]
+    return reg[output_cols].reset_index(drop=True)
 
 
 def compute_game_context(
