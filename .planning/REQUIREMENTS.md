@@ -37,8 +37,8 @@ Requirements for v1.3 Prediction Data Foundation. Each maps to roadmap phases.
 
 ### Cross-Source Features
 
-- [ ] **CROSS-01**: Referee tendency profiles (penalty rate, scoring impact per crew) joining schedules referee with penalty Silver metrics
-- [ ] **CROSS-02**: Playoff/elimination context (win/loss standings, division rank, clinch/elimination flag) using simple proxy method
+- [x] **CROSS-01**: Referee tendency profiles (penalty rate, scoring impact per crew) joining schedules referee with penalty Silver metrics
+- [x] **CROSS-02**: Playoff/elimination context (win/loss standings, division rank, clinch/elimination flag) using simple proxy method
 
 ### Integration
 
@@ -100,8 +100,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SCHED-03 | Phase 22 | Complete |
 | SCHED-04 | Phase 22 | Complete |
 | SCHED-05 | Phase 22 | Complete |
-| CROSS-01 | Phase 23 | Pending |
-| CROSS-02 | Phase 23 | Pending |
+| CROSS-01 | Phase 23 | Complete |
+| CROSS-02 | Phase 23 | Complete |
 | INTEG-01 | Phase 23 | Pending |
 
 **Coverage:**

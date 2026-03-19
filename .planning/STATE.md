@@ -2,16 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Prediction Data Foundation
-status: completed
-stopped_at: Phase 23 context gathered
-last_updated: "2026-03-18T01:57:00.165Z"
-last_activity: 2026-03-17 — Completed Phase 22 Plan 02 (game context Silver pipeline + health check)
+status: unknown
+stopped_at: Completed 23-01-PLAN.md
+last_updated: "2026-03-19T01:29:56.815Z"
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 7
-  completed_plans: 7
-  percent: 100
+  total_plans: 9
+  completed_plans: 8
 ---
 
 # Project State
@@ -21,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-15)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** v1.3 Prediction Data Foundation — Phase 20
+**Current focus:** Phase 23 — cross-source-features-and-integration
 
 ## Current Milestone
 
@@ -29,12 +27,8 @@ v1.3 Prediction Data Foundation — Ready to plan Phase 20
 
 ## Current Position
 
-Phase: 22 of 23 (Schedule-Derived Context)
-Plan: 2 of 2 in current phase (COMPLETE)
-Status: Phase 22 complete - game context module + Silver pipeline + health check
-Last activity: 2026-03-17 — Completed Phase 22 Plan 02 (game context Silver pipeline + health check)
-
-Progress: [██████████] 100%
+Phase: 23 (cross-source-features-and-integration) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -77,6 +71,9 @@ Carried from v1.2. See PROJECT.md Key Decisions table.
 - **Phase 22-02**: Fixed game_context.py import from src.config to config (consistent with other src/ modules)
 - **Phase 22-02**: OAK/SD travel NaN expected for pre-relocation team codes (2016-2019)
 - [Phase 22]: Fixed game_context.py import from src.config to config (consistent with other src/ modules)
+- [Phase 23]: Division rank uses (win_pct desc, wins desc) sort for tiebreaking
+- [Phase 23]: Games behind uses straight win difference (football convention, not baseball half-game)
+- [Phase 23]: Referee penalty rate: game-level sum (both teams), expanding mean per referee-season with shift(1)
 
 ### Pending Todos
 
@@ -88,9 +85,9 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-18T01:57:00.162Z
-Stopped at: Phase 23 context gathered
-Resume file: .planning/phases/23-cross-source-features-and-integration/23-CONTEXT.md
+Last session: 2026-03-19T01:29:56.812Z
+Stopped at: Completed 23-01-PLAN.md
+Resume file: None
 
 ---
 *Last updated: 2026-03-15 after v1.3 roadmap created*
