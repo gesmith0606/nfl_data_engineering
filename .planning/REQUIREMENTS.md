@@ -42,7 +42,7 @@ Requirements for v1.3 Prediction Data Foundation. Each maps to roadmap phases.
 
 ### Integration
 
-- [ ] **INTEG-01**: Pipeline health monitoring for all new Silver output paths
+- [x] **INTEG-01**: Pipeline health monitoring for all new Silver output paths
 - [x] **INTEG-02**: All new features use rolling windows (3-game, 6-game, season-to-date) with shift(1) lag to prevent look-ahead bias
 
 ## Future Requirements
@@ -102,7 +102,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SCHED-05 | Phase 22 | Complete |
 | CROSS-01 | Phase 23 | Complete |
 | CROSS-02 | Phase 23 | Complete |
-| INTEG-01 | Phase 23 | Pending |
+| INTEG-01 | Phase 23 | Complete |
 
 **Coverage:**
 - v1.3 requirements: 23 total

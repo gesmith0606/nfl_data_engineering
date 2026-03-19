@@ -59,7 +59,7 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
 - [x] **Phase 20: Infrastructure and Data Expansion** — Expand PBP columns, ingest officials data, add stadium coordinates (completed 2026-03-16)
 - [x] **Phase 21: PBP-Derived Team Metrics** — Penalties, turnovers, special teams, red zone trips, sack rates, explosives, drive efficiency, 3rd down, TOP with rolling windows (completed 2026-03-16)
 - [x] **Phase 22: Schedule-Derived Context** — Weather, rest/travel, coaching changes via new game_context module (completed 2026-03-17)
-- [ ] **Phase 23: Cross-Source Features and Integration** — Referee tendencies, playoff context, pipeline health for all new Silver paths
+- [x] **Phase 23: Cross-Source Features and Integration** — Referee tendencies, playoff context, pipeline health for all new Silver paths (completed 2026-03-19)
 
 ## Phase Details
 
@@ -156,7 +156,7 @@ Note: Phases 21 and 22 can execute in parallel (both depend only on Phase 20).
 | 20. Infrastructure and Data Expansion | v1.3 | 2/2 | Complete | 2026-03-16 |
 | 21. PBP-Derived Team Metrics | v1.3 | 3/3 | Complete | 2026-03-16 |
 | 22. Schedule-Derived Context | v1.3 | 2/2 | Complete | 2026-03-17 |
-| 23. Cross-Source Features and Integration | 1/2 | In Progress|  | - |
+| 23. Cross-Source Features and Integration | 2/2 | Complete   | 2026-03-19 | - |
 
 ---
 *Roadmap created: 2026-03-08*
