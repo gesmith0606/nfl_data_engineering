@@ -120,11 +120,11 @@ Plans:
   2. Playoff/elimination context columns include `wins`, `losses`, `win_pct`, `division_rank`, `games_behind_division_leader`, and `late_season_contention` — computed via cumulative sum with `shift(1)` lag, handling ties as W-L-T, and spot-checked against published standings for at least 2 historical seasons
   3. `check_pipeline_health.py` validates all new Silver output paths with freshness and file size checks
   4. A test assembles the full prediction feature vector (~130 columns) from all Silver sources via left joins on `[team, season, week]` without join errors or unexpected nulls
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 23-01: TBD
-- [ ] 23-02: TBD
+- [ ] 23-01-PLAN.md — Referee tendencies + playoff context compute functions in game_context.py with unit tests
+- [ ] 23-02-PLAN.md — Pipeline wiring, Silver data generation (2016-2025), health check, feature vector integration test
 
 ## Progress
 
@@ -155,9 +155,9 @@ Note: Phases 21 and 22 can execute in parallel (both depend only on Phase 20).
 | 19. v1.2 Tech Debt Cleanup | v1.2 | 1/1 | Complete | 2026-03-15 |
 | 20. Infrastructure and Data Expansion | v1.3 | 2/2 | Complete | 2026-03-16 |
 | 21. PBP-Derived Team Metrics | v1.3 | 3/3 | Complete | 2026-03-16 |
-| 22. Schedule-Derived Context | 2/2 | Complete    | 2026-03-17 | - |
+| 22. Schedule-Derived Context | v1.3 | 2/2 | Complete | 2026-03-17 |
 | 23. Cross-Source Features and Integration | v1.3 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-16 after Phase 22 planning completed*
+*Last updated: 2026-03-18 after Phase 23 planning completed*
