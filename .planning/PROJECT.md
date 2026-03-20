@@ -51,9 +51,11 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-- [ ] ML prediction model (XGBoost/LightGBM) using 337-column feature vector for game spreads/totals
-- [ ] Fantasy projection upgrade replacing weighted-average baseline with ML model
-- [ ] Live Sleeper league integration for in-season draft/waiver decisions
+- [ ] Comprehensive docs refresh (data dictionary for all layers, update stale docs, CLAUDE.md)
+- [ ] ML prediction model (XGBoost/LightGBM) for point spreads using 337-column feature vector
+- [ ] ML prediction model (XGBoost/LightGBM) for over/unders using 337-column feature vector
+- [ ] Backtest ML models against historical closing lines to find market edges
+- [ ] Weekly prediction pipeline generating own lines with edge detection vs Vegas
 
 ### Out of Scope
 
@@ -63,6 +65,8 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - External weather API (meteostat) — schedules already provides temp/wind/roof/surface
 - OC/DC coordinator tracking — no automated source; requires manual curation
 - Full NFL tiebreaker logic — simple standings proxy captures 95% of value
+- Fantasy projection ML upgrade — separate future milestone after game prediction validated
+- Live Sleeper league integration — separate future milestone
 
 ## Context
 
@@ -117,5 +121,16 @@ Existing documentation:
 | Playoff context with simple proxy | Cumulative W-L-T + division rank captures 95% of elimination signal | ✓ Good |
 | Game context per-game facts (no rolling) | Weather/rest/travel are single-game properties, not trends | ✓ Good |
 
+## Current Milestone: v1.4 ML Game Prediction
+
+**Goal:** Build ML models that predict point spreads and over/unders with edges against Vegas closing lines.
+
+**Target features:**
+- Comprehensive docs refresh (data dictionary, implementation guide, CLAUDE.md)
+- XGBoost/LightGBM spread prediction model trained on 337-column feature vector
+- Over/under prediction model
+- Backtesting framework comparing model lines vs historical closing lines
+- Weekly prediction pipeline with edge detection
+
 ---
-*Last updated: 2026-03-19 after v1.3 milestone*
+*Last updated: 2026-03-19 after v1.4 milestone started*
