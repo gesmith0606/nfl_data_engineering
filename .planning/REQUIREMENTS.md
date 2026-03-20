@@ -74,32 +74,32 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DOCS-01 | — | Pending |
-| DOCS-02 | — | Pending |
-| DOCS-03 | — | Pending |
-| DOCS-04 | — | Pending |
-| DOCS-05 | — | Pending |
-| FEAT-01 | — | Pending |
-| FEAT-02 | — | Pending |
-| FEAT-03 | — | Pending |
-| FEAT-04 | — | Pending |
-| MODL-01 | — | Pending |
-| MODL-02 | — | Pending |
-| MODL-03 | — | Pending |
-| MODL-04 | — | Pending |
-| MODL-05 | — | Pending |
-| BACK-01 | — | Pending |
-| BACK-02 | — | Pending |
-| BACK-03 | — | Pending |
-| PRED-01 | — | Pending |
-| PRED-02 | — | Pending |
-| PRED-03 | — | Pending |
+| DOCS-01 | Phase 24 | Pending |
+| DOCS-02 | Phase 24 | Pending |
+| DOCS-03 | Phase 24 | Pending |
+| DOCS-04 | Phase 24 | Pending |
+| DOCS-05 | Phase 24 | Pending |
+| FEAT-01 | Phase 25 | Pending |
+| FEAT-02 | Phase 25 | Pending |
+| FEAT-03 | Phase 25 | Pending |
+| FEAT-04 | Phase 25 | Pending |
+| MODL-01 | Phase 25 | Pending |
+| MODL-02 | Phase 25 | Pending |
+| MODL-03 | Phase 25 | Pending |
+| MODL-04 | Phase 25 | Pending |
+| MODL-05 | Phase 25 | Pending |
+| BACK-01 | Phase 26 | Pending |
+| BACK-02 | Phase 26 | Pending |
+| BACK-03 | Phase 26 | Pending |
+| PRED-01 | Phase 27 | Pending |
+| PRED-02 | Phase 27 | Pending |
+| PRED-03 | Phase 27 | Pending |
 
 **Coverage:**
 - v1.4 requirements: 20 total
-- Mapped to phases: 0
-- Unmapped: 20 ⚠️
+- Mapped to phases: 20
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-20*
-*Last updated: 2026-03-20 after initial definition*
+*Last updated: 2026-03-20 after roadmap creation*
