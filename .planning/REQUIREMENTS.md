@@ -1,0 +1,105 @@
+# Requirements: NFL Data Engineering Platform
+
+**Defined:** 2026-03-20
+**Core Value:** A rich NFL data lake powering both fantasy football projections and game prediction models
+
+## v1.4 Requirements
+
+Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
+
+### Documentation
+
+- [ ] **DOCS-01**: Data dictionary updated with all 11 Silver layer table schemas and column definitions
+- [ ] **DOCS-02**: Data dictionary updated with Gold layer prediction output schemas
+- [ ] **DOCS-03**: CLAUDE.md refreshed with current architecture, key files, test counts, and status
+- [ ] **DOCS-04**: Implementation guide updated with v1.3 phases and current prediction model status badges
+- [ ] **DOCS-05**: Bronze inventory regenerated showing PBP 140 columns and officials data type
+
+### Feature Engineering
+
+- [ ] **FEAT-01**: Game-level differential features computed (home_metric - away_metric) from Silver team data
+- [ ] **FEAT-02**: All Silver sources audited and verified to use only week N-1 data for week N predictions
+- [ ] **FEAT-03**: Feature importance analysis using XGBoost built-in importance and/or SHAP values
+- [ ] **FEAT-04**: Early-season (Weeks 1-3) NaN handling strategy implemented for sparse rolling features
+
+### Model Training
+
+- [ ] **MODL-01**: XGBoost spread prediction model trained on differential features with walk-forward CV
+- [ ] **MODL-02**: XGBoost over/under prediction model trained on differential features with walk-forward CV
+- [ ] **MODL-03**: Walk-forward cross-validation framework (train seasons 1..N, validate N+1)
+- [ ] **MODL-04**: Optuna hyperparameter tuning for tree depth, learning rate, and regularization
+- [ ] **MODL-05**: Conservative default hyperparameters (shallow trees, strong regularization, early stopping)
+
+### Backtesting
+
+- [ ] **BACK-01**: ATS accuracy computed against historical closing lines with vig-adjusted profit/loss
+- [ ] **BACK-02**: 2024 season sealed as untouched holdout for final model validation
+- [ ] **BACK-03**: Per-season stability analysis across training and validation windows
+
+### Prediction Pipeline
+
+- [ ] **PRED-01**: Weekly prediction pipeline generating model spread and total lines for upcoming games
+- [ ] **PRED-02**: Edge detection comparing model lines vs Vegas closing lines per game
+- [ ] **PRED-03**: Confidence scoring with tiers (high/medium/low edge) per game prediction
+
+## Future Requirements
+
+Deferred to future milestones. Tracked but not in current roadmap.
+
+### Fantasy ML Upgrade
+
+- **FANT-01**: Replace weighted-average fantasy projections with ML model
+- **FANT-02**: Position-specific ML models for QB/RB/WR/TE projections
+
+### Sleeper Integration
+
+- **SLPR-01**: Live Sleeper league sync for roster/waiver decisions
+- **SLPR-02**: Automated waiver wire recommendations based on projections
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Neural networks / deep learning | Gradient boosting dominates tabular sports prediction; ~1,900 games too small for NN |
+| Real-time prediction serving | Batch weekly predictions sufficient; no live inference needed |
+| Neo4j graph features | Deferred until prediction model validated |
+| Vegas lines as input features | Research explicitly flags this — zero edge by definition |
+| LightGBM as primary model | XGBoost sufficient; LightGBM adds complexity without clear benefit at this scale |
+| S3 sync | AWS credentials expired; local-first workflow |
+| Player-level game prediction features | Team-level differentials sufficient for game outcomes |
+
+## Traceability
+
+Which phases cover which requirements. Updated during roadmap creation.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| DOCS-01 | — | Pending |
+| DOCS-02 | — | Pending |
+| DOCS-03 | — | Pending |
+| DOCS-04 | — | Pending |
+| DOCS-05 | — | Pending |
+| FEAT-01 | — | Pending |
+| FEAT-02 | — | Pending |
+| FEAT-03 | — | Pending |
+| FEAT-04 | — | Pending |
+| MODL-01 | — | Pending |
+| MODL-02 | — | Pending |
+| MODL-03 | — | Pending |
+| MODL-04 | — | Pending |
+| MODL-05 | — | Pending |
+| BACK-01 | — | Pending |
+| BACK-02 | — | Pending |
+| BACK-03 | — | Pending |
+| PRED-01 | — | Pending |
+| PRED-02 | — | Pending |
+| PRED-03 | — | Pending |
+
+**Coverage:**
+- v1.4 requirements: 20 total
+- Mapped to phases: 0
+- Unmapped: 20 ⚠️
+
+---
+*Requirements defined: 2026-03-20*
+*Last updated: 2026-03-20 after initial definition*
