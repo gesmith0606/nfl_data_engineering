@@ -1,7 +1,7 @@
 # NFL Game Prediction Data Model
 
-**Version:** 3.0
-**Last Updated:** March 15, 2026
+**Version:** 3.1
+**Last Updated:** March 21, 2026
 **Purpose:** Comprehensive data model designed for NFL game prediction using machine learning and advanced analytics
 
 ## Status Legend
@@ -16,7 +16,7 @@
 
 This document presents a comprehensive NFL data model specifically designed for game prediction within a medallion architecture (Bronze -> Silver -> Gold). The model incorporates modern sports analytics best practices, machine learning features, and advanced NFL metrics including Expected Points Added (EPA), Completion Percentage Over Expected (CPOE), and Win Probability.
 
-Based on 2024-2025 research, this model supports prediction methodologies using Random Forest, Neural Networks, and XGBoost algorithms while maintaining compatibility with our existing Bronze layer data from nfl-data-py.
+Based on 2024-2025 research, this model uses XGBoost for prediction (Random Forest and LightGBM dropped per v1.4 decision -- XGBoost sufficient at ~1,900 game scale) while maintaining compatibility with our existing Bronze layer data from nfl-data-py.
 
 For full column specifications of all Bronze data types, see the [NFL Data Dictionary](NFL_DATA_DICTIONARY.md).
 
@@ -34,8 +34,8 @@ nfl-data-py    Raw Data      Cleaned &    Analytics     ML Features
 #### Layer Responsibilities
 
 - **Bronze Layer (s3://nfl-raw)** -- **Implemented**: Raw data ingestion from nfl-data-py with minimal transformation
-- **Silver Layer (s3://nfl-refined)** -- **Partially Implemented**: Fantasy analytics (usage, rolling avgs, opp rankings), team PBP metrics, team tendencies, strength of schedule, situational splits, and advanced player profiles implemented; game prediction features (matchup features, enhanced games/plays/player_stats tables) planned
-- **Gold Layer (s3://nfl-trusted)** -- **Partially Implemented**: Fantasy projections implemented; game outcome predictions planned
+- **Silver Layer (s3://nfl-refined)** -- **Implemented** (v1.2-v1.3, shipped 2026-03-19): 12 output paths covering fantasy analytics (usage, rolling avgs, opp rankings), team PBP metrics (EPA, CPOE, success rate, red zone), PBP-derived metrics (penalties, turnovers, FG, drives, explosives), team tendencies, SOS, situational splits, advanced player profiles (NGS, PFR, QBR), game context (weather, rest, travel, coaching), referee tendencies, playoff context, and historical player profiles (combine + draft). 337-column prediction feature vector assembled from 8 Silver sources.
+- **Gold Layer (s3://nfl-trusted)** -- **Partially Implemented**: Fantasy projections implemented (25 columns); game outcome predictions planned for v1.4 Phase 27
 - **Platinum Layer** -- **Planned**: Real-time prediction serving and model inference (future extension)
 
 ## Conceptual Data Model
@@ -552,9 +552,9 @@ The ML pipeline will produce 200+ features per game (requirement ML-01), includi
 
 | Model | Role | Target |
 |-------|------|--------|
-| Random Forest | Primary classifier | Win/loss prediction |
-| XGBoost | Ensemble component | Spread prediction, point total |
-| Neural Network | Secondary model | Complex interaction features |
+| XGBoost | Primary model | Spread prediction, point total |
+
+> **v1.4 Decision:** Random Forest and Neural Network dropped. XGBoost is sufficient at the ~1,900 game training scale. Conservative hyperparameters mandatory (shallow trees, strong regularization, early stopping). 2024 season sealed as untouched holdout.
 
 **Target performance (ML-03):** 65%+ accuracy, <3.5 point spread MAE.
 
@@ -640,8 +640,10 @@ See `src/nfl_data_integration.py` for the validation implementation.
 
 | Phase | Name | Requirements | Status |
 |-------|------|-------------|--------|
-| 18 | Historical Context (Combine/Draft Profiles) | HIST-01, HIST-02 | **In Progress** |
-| 19+ | Silver Prediction Layer, ML Pipeline, nflreadpy Migration | SLV-01–03, ML-01–03, MIG-01 | **Planned** |
+| 18-19 | Historical Context + Bronze-Silver Alignment | HIST-01, HIST-02 | **Implemented** (v1.2) |
+| 20-23 | PBP Expansion, Game Context, Referee/Playoff, Feature Vector | v1.3 requirements | **Implemented** (v1.3, shipped 2026-03-19) |
+| 24 | Documentation Refresh | DOCS-01–05 | **In Progress** (v1.4) |
+| 25-27 | ML Feature Assembly, Model Training, Prediction Pipeline | PRED-01–03, ML-01–03 | **Planned** (v1.4) |
 
 See [NFL Data Model Implementation Guide](NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md) for detailed phase descriptions.
 
@@ -652,4 +654,4 @@ See [NFL Data Model Implementation Guide](NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md
 This data model provides a comprehensive foundation for NFL game prediction. The Bronze layer is fully implemented with 25+ data types covering games, players, advanced stats, and context data. The Silver layer now includes five implemented subsections beyond the original fantasy analytics pipeline: team PBP metrics (EPA, CPOE, success rate, red zone), team tendencies (pace, PROE, 4th-down aggressiveness), strength of schedule rankings, situational splits (home/away, divisional, game script), and advanced player profiles aggregating NGS tracking, PFR pressure data, and QBR. The Gold layer has working fantasy projections, with game outcome predictions planned as v2 work. The ML integration layer is designed to produce 200+ features targeting 65%+ prediction accuracy.
 
 ---
-*Version 3.0 -- Updated March 15, 2026 to document Silver layer expansion through Phase 17 (team metrics, tendencies, SOS, situational splits, advanced player profiles)*
+*Version 3.1 -- Updated March 21, 2026. Silver layer fully implemented (12 output paths, 337-column feature vector). XGBoost only (Random Forest, LightGBM dropped). Phases 18-23 marked complete. v1.4 ML pipeline in progress.*

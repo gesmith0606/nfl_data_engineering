@@ -1,8 +1,8 @@
 # NFL Data Dictionary
 
-**Version:** 2.0
-**Last Updated:** March 8, 2026
-**Purpose:** Complete schema reference for all Bronze data types in the NFL Data Engineering pipeline
+**Version:** 3.0
+**Last Updated:** March 21, 2026
+**Purpose:** Complete schema reference for all Bronze, Silver, and Gold data types in the NFL Data Engineering pipeline
 **Related:** [src/config.py](../src/config.py) | [src/nfl_data_adapter.py](../src/nfl_data_adapter.py) | [scripts/bronze_ingestion_simple.py](../scripts/bronze_ingestion_simple.py)
 
 This document is the single source of truth for Bronze layer schemas. Column specs for locally available data types are auto-generated from Parquet files. For data types requiring API ingestion, representative columns are documented from test mocks, config constants, and adapter method signatures.
@@ -1630,54 +1630,74 @@ Each of the 5 base metrics has `_roll3`, `_roll6`, and `_std` rolling window var
 
 ## Gold Layer Tables
 
-### 1. Weekly Projections (Gold)
+### 1. Fantasy Projections
 
-**S3 Location:** `s3://nfl-trusted/projections/season=YYYY/week=WW/`
-**Source:** Silver usage + rolling averages + opponent rankings + injuries
+**Status:** Active
+**Source Module:** `src/projection_engine.py`
+**Local Path:** `data/gold/projections/`
+**S3 Path:** `s3://nfl-trusted/projections/season=YYYY/week=WW/`
+**Columns:** 25
 **Produced by:** `scripts/generate_projections.py --week W --season YYYY --scoring [ppr|half_ppr|standard]`
 
 **Projection Model:** `roll3(50%) + roll6(30%) + STD(20%) x usage_mult [0.7-1.3] x matchup [0.85-1.15] x vegas [0.80-1.20]`
 
+> Schema extracted from actual Gold parquet files using `pyarrow.parquet.read_schema()`.
+
 | Column Name | Data Type | Nullable | Description | Example |
 |-------------|-----------|----------|-------------|---------|
-| player_id | STRING | NO | GSIS player identifier | "00-0033873" |
-| player_name | STRING | NO | Player display name | "Patrick Mahomes" |
-| position | STRING | NO | Player position (QB/RB/WR/TE) | "QB" |
-| team | STRING | NO | Team abbreviation | "KC" |
-| season | INT | NO | NFL season year | 2024 |
+| player_id | string | NO | Unique player identifier from nfl-data-py | "00-0033873" |
+| player_name | string | NO | Player display name | "Patrick Mahomes" |
+| position | string | NO | Player position (QB/RB/WR/TE) | "QB" |
+| recent_team | string | NO | Most recent team abbreviation | "KC" |
+| proj_season | int64 | NO | Projected season year | 2024 |
+| proj_week | int64 | NO | Projected week number | 17 |
+| proj_passing_yards | double | YES | Projected passing yards for the week | 285.3 |
+| proj_passing_tds | double | YES | Projected passing touchdowns for the week | 2.3 |
+| proj_interceptions | double | YES | Projected interceptions thrown for the week | 0.7 |
+| proj_rushing_yards | double | YES | Projected rushing yards for the week | 22.5 |
+| proj_rushing_tds | double | YES | Projected rushing touchdowns for the week | 0.3 |
+| proj_carries | double | YES | Projected carry attempts for the week | 4.0 |
+| proj_receptions | double | YES | Projected receptions for the week | 0.0 |
+| proj_receiving_yards | double | YES | Projected receiving yards for the week | 0.0 |
+| proj_receiving_tds | double | YES | Projected receiving touchdowns for the week | 0.0 |
+| proj_targets | double | YES | Projected target count for the week | 0.0 |
+| projected_points | double | NO | Total projected fantasy points for the scoring format | 22.5 |
+| is_bye_week | bool | NO | True if player is on bye (all projections zeroed) | false |
+| is_rookie_projection | bool | NO | True if using rookie fallback baselines | false |
+| vegas_multiplier | double | YES | Adjustment factor from implied team total (total/23.0) | 1.02 |
+| position_rank | int64 | YES | Rank within position group for the week | 5 |
+| injury_status | string | YES | Injury designation (Active/Questionable/Doubtful/Out/IR/PUP) | "Active" |
+| injury_multiplier | double | YES | Projection adjustment for injury status (0.0-1.0) | 1.0 |
+| projected_floor | double | YES | Low-end projection based on position-specific variance | 15.2 |
+| projected_ceiling | double | YES | High-end projection based on position-specific variance | 32.1 |
+
+### 2. Game Predictions
+
+**Status:** Planned (v1.4)
+**Source Module:** `scripts/generate_predictions.py` (Phase 27)
+**Local Path:** `data/gold/predictions/season=YYYY/week=WW/`
+**S3 Path:** `s3://nfl-trusted/predictions/season=YYYY/week=WW/`
+**Columns:** 15 (planned)
+
+> This schema is planned for v1.4 Phase 27. Columns are derived from requirements PRED-01, PRED-02, PRED-03.
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| game_id | STRING | NO | Unique game identifier | "2025_10_KC_BUF" |
+| season | INT | NO | NFL season year | 2025 |
 | week | INT | NO | NFL week number | 10 |
-| projected_points | FLOAT | NO | Projected fantasy points (always >= 0) | 22.5 |
-| floor | FLOAT | YES | Low-end projection estimate | 15.2 |
-| ceiling | FLOAT | YES | High-end projection estimate | 32.1 |
-| is_bye_week | BOOLEAN | NO | True if player is on bye | FALSE |
-| injury_status | STRING | YES | Injury designation (Active/Questionable/Doubtful/Out) | "Active" |
-| injury_multiplier | FLOAT | YES | Projection adjustment for injury (0.0-1.0) | 1.0 |
-| usage_multiplier | FLOAT | YES | Usage-based projection adjustment (0.7-1.3) | 1.05 |
-| matchup_multiplier | FLOAT | YES | Opponent-based adjustment (0.85-1.15) | 0.95 |
-| vegas_multiplier | FLOAT | YES | Vegas implied total adjustment (0.80-1.20) | 1.02 |
-| scoring_format | STRING | NO | Scoring format used | "half_ppr" |
-| opponent | STRING | YES | Opponent team abbreviation | "BUF" |
-| opp_rank | INT | YES | Opponent positional rank (1-32) | 8 |
-
-### 2. Preseason Projections (Gold)
-
-**S3 Location:** `s3://nfl-trusted/projections/preseason/season=YYYY/`
-**Source:** Silver historical data + rookie baselines
-**Produced by:** `scripts/generate_projections.py --preseason --season YYYY --scoring [ppr|half_ppr|standard]`
-
-| Column Name | Data Type | Nullable | Description | Example |
-|-------------|-----------|----------|-------------|---------|
-| player_id | STRING | NO | GSIS player identifier | "00-0033873" |
-| player_name | STRING | NO | Player display name | "Patrick Mahomes" |
-| position | STRING | NO | Player position (QB/RB/WR/TE) | "QB" |
-| team | STRING | NO | Team abbreviation | "KC" |
-| season | INT | NO | NFL season year | 2026 |
-| projected_points_total | FLOAT | NO | Full-season projected points | 380.5 |
-| games_projected | INT | NO | Expected games to play | 17 |
-| per_game_projection | FLOAT | NO | Per-game projected points | 22.4 |
-| is_rookie | BOOLEAN | NO | Rookie flag | FALSE |
-| scoring_format | STRING | NO | Scoring format used | "half_ppr" |
-| tier | STRING | YES | Draft tier classification | "Elite" |
+| home_team | STRING | NO | Home team abbreviation | "KC" |
+| away_team | STRING | NO | Away team abbreviation | "BUF" |
+| model_spread | FLOAT | NO | Model-predicted point spread (negative = home favored) | -3.5 |
+| model_total | FLOAT | NO | Model-predicted over/under total points | 48.2 |
+| vegas_spread | FLOAT | YES | Vegas closing line spread for comparison | -4.0 |
+| vegas_total | FLOAT | YES | Vegas closing line over/under for comparison | 47.5 |
+| spread_edge | FLOAT | YES | Model spread minus Vegas spread (positive = model sees more home advantage) | 0.5 |
+| total_edge | FLOAT | YES | Model total minus Vegas total (positive = model sees higher scoring) | 0.7 |
+| spread_confidence_tier | STRING | YES | Edge magnitude tier: high (>3pts), medium (1.5-3pts), low (<1.5pts) | "low" |
+| total_confidence_tier | STRING | YES | Edge magnitude tier: high (>3pts), medium (1.5-3pts), low (<1.5pts) | "medium" |
+| model_version | STRING | NO | Version identifier for the model that generated this prediction | "v1.4.0" |
+| prediction_timestamp | TIMESTAMP | NO | UTC datetime when prediction was generated | "2025-11-05T14:30:00Z" |
 
 ---
 
@@ -1758,10 +1778,11 @@ Validation is performed by `NFLDataFetcher.validate_data()` in `src/nfl_data_int
 ---
 
 **Document Control:**
-- **Version**: 2.0
-- **Last Modified**: March 8, 2026
+- **Version**: 3.0
+- **Last Modified**: March 21, 2026
 - **Owner**: Data Engineering Team
 
 **Change Log:**
+- v3.0 (2026-03-21): Complete Silver and Gold layer documentation. Replaced 2 aspirational Silver tables with 12 real schemas extracted from Parquet files (719 columns total). Updated Gold section with actual fantasy projection schema (25 columns from parquet) and planned game prediction schema (15 columns from PRED-01/02/03 requirements).
 - v2.0 (2026-03-08): Comprehensive rewrite covering all 15 Bronze data types (24+ with sub-types). Auto-generated column specs from local Parquet files. Added representative columns for API-only types from test mocks and config.
 - v1.0 (2026-03-04): Initial data dictionary with Games, Plays, and stub entries.
