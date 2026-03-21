@@ -19,7 +19,7 @@ Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
 
 - [x] **FEAT-01**: Game-level differential features computed (home_metric - away_metric) from Silver team data
 - [x] **FEAT-02**: All Silver sources audited and verified to use only week N-1 data for week N predictions
-- [ ] **FEAT-03**: Feature importance analysis using XGBoost built-in importance and/or SHAP values
+- [x] **FEAT-03**: Feature importance analysis using XGBoost built-in importance and/or SHAP values
 - [x] **FEAT-04**: Early-season (Weeks 1-3) NaN handling strategy implemented for sparse rolling features
 
 ### Model Training
@@ -27,7 +27,7 @@ Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
 - [x] **MODL-01**: XGBoost spread prediction model trained on differential features with walk-forward CV
 - [x] **MODL-02**: XGBoost over/under prediction model trained on differential features with walk-forward CV
 - [x] **MODL-03**: Walk-forward cross-validation framework (train seasons 1..N, validate N+1)
-- [ ] **MODL-04**: Optuna hyperparameter tuning for tree depth, learning rate, and regularization
+- [x] **MODL-04**: Optuna hyperparameter tuning for tree depth, learning rate, and regularization
 - [x] **MODL-05**: Conservative default hyperparameters (shallow trees, strong regularization, early stopping)
 
 ### Backtesting
@@ -81,12 +81,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DOCS-05 | Phase 24 | Complete |
 | FEAT-01 | Phase 25 | Complete |
 | FEAT-02 | Phase 25 | Complete |
-| FEAT-03 | Phase 25 | Pending |
+| FEAT-03 | Phase 25 | Complete |
 | FEAT-04 | Phase 25 | Complete |
 | MODL-01 | Phase 25 | Complete |
 | MODL-02 | Phase 25 | Complete |
 | MODL-03 | Phase 25 | Complete |
-| MODL-04 | Phase 25 | Pending |
+| MODL-04 | Phase 25 | Complete |
 | MODL-05 | Phase 25 | Complete |
 | BACK-01 | Phase 26 | Pending |
 | BACK-02 | Phase 26 | Pending |

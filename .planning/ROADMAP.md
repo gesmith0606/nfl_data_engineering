@@ -70,7 +70,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 **Milestone Goal:** Build ML models that predict NFL point spreads and over/unders, backtest against historical closing lines, and generate weekly predictions with edge detection vs Vegas.
 
 - [x] **Phase 24: Documentation Refresh** - Update all project docs to reflect v1.3 completion and v1.4 architecture (completed 2026-03-21)
-- [ ] **Phase 25: Feature Assembly and Model Training** - Build game-level differential features and train XGBoost spread/total models with walk-forward CV
+- [x] **Phase 25: Feature Assembly and Model Training** - Build game-level differential features and train XGBoost spread/total models with walk-forward CV (completed 2026-03-21)
 - [ ] **Phase 26: Backtesting and Validation** - Validate models against historical closing lines with ATS accuracy and profit analysis
 - [ ] **Phase 27: Prediction Pipeline** - Weekly prediction generation with edge detection and confidence scoring vs Vegas lines
 
@@ -107,7 +107,7 @@ Plans:
 Plans:
 - [x] 25-01: Game-level differential feature assembly with lag verification
 - [x] 25-02: Walk-forward CV framework and XGBoost model training
-- [ ] 25-03: Training CLI with hyperparameter tuning and feature importance
+- [x] 25-03: Training CLI with hyperparameter tuning and feature importance
 
 ### Phase 26: Backtesting and Validation
 **Goal**: Quantified evidence of model performance against historical Vegas closing lines across multiple seasons
@@ -168,7 +168,7 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 | 22. Schedule-Derived Context | v1.3 | 2/2 | Complete | 2026-03-17 |
 | 23. Cross-Source Features and Integration | v1.3 | 2/2 | Complete | 2026-03-19 |
 | 24. Documentation Refresh | v1.4 | 2/2 | Complete    | 2026-03-21 |
-| 25. Feature Assembly and Model Training | v1.4 | 2/3 | In Progress|  |
+| 25. Feature Assembly and Model Training | v1.4 | 3/3 | Complete   | 2026-03-21 |
 | 26. Backtesting and Validation | v1.4 | 0/2 | Not started | - |
 | 27. Prediction Pipeline | v1.4 | 0/1 | Not started | - |
 

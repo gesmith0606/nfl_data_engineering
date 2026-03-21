@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: ML Game Prediction
 status: unknown
-stopped_at: Completed 25-02-PLAN.md
-last_updated: "2026-03-21T02:10:48.919Z"
+stopped_at: Completed 25-03-PLAN.md
+last_updated: "2026-03-21T02:16:23.885Z"
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State
@@ -59,6 +59,7 @@ Recent decisions for v1.4:
 - [Phase 25]: Vectorized diff computation with pd.concat to avoid DataFrame fragmentation
 - [Phase 25]: 337 feature columns (322 diff + 15 context) from 8 Silver sources via game_context bridge
 - [Phase 25]: early_stopping_rounds popped from params and passed to XGBRegressor constructor separately
+- [Phase 25]: Added --model-dir flag for test isolation via pytest tmp_path
 
 ### Pending Todos
 
@@ -72,8 +73,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-21T02:10:48.917Z
-Stopped at: Completed 25-02-PLAN.md
+Last session: 2026-03-21T02:16:23.883Z
+Stopped at: Completed 25-03-PLAN.md
 Resume file: None
 
 ---
