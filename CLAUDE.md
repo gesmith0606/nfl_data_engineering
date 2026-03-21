@@ -13,7 +13,7 @@ python scripts/validate_project.py
 # Bronze ingestion
 python scripts/bronze_ingestion_simple.py --season 2024 --week 1 --data-type player_weekly
 python scripts/bronze_ingestion_simple.py --season 2024 --data-type player_seasonal
-# data-types: schedules, pbp, teams, player_weekly, snap_counts, injuries, rosters, player_seasonal
+# data-types: schedules, pbp, teams, player_weekly, snap_counts, injuries, rosters, player_seasonal, ngs, pfr_stats, qbr, depth_charts, draft_picks, combine, officials
 
 # Silver → Gold → Draft
 python scripts/silver_player_transformation.py --seasons 2020 2021 2022 2023 2024
@@ -45,11 +45,15 @@ python -m flake8 src/ tests/ scripts/
 ```
 nfl-data-py + Sleeper API
         ↓
-Bronze (s3://nfl-raw/)     — raw game, player, snap, injury, roster data
+Bronze (s3://nfl-raw/)     — 15+ data types: PBP (140 cols), player stats, schedules,
+                              snap counts, injuries, rosters, NGS, PFR, QBR, depth charts,
+                              draft picks, combine, officials, teams
         ↓
-Silver (s3://nfl-refined/) — usage metrics, rolling averages, opp rankings (1-32)
+Silver (s3://nfl-refined/) — 12 paths: player usage/advanced/historical, team PBP metrics/
+                              tendencies/SOS/situational, game context, referee, defense,
+                              playoff context, PBP-derived (164 cols)
         ↓
-Gold   (s3://nfl-trusted/) — weekly + preseason projections (PPR/Half-PPR/Standard)
+Gold   (s3://nfl-trusted/) — fantasy projections (PPR/Half-PPR/Standard) + game predictions (v1.4)
         ↓
 Draft Tool                 — ADP comparison, VORP, mock draft, auction, waiver wire
         ↓
@@ -64,14 +68,22 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | File | Purpose |
 |------|---------|
 | `src/config.py` | S3 paths, SCORING_CONFIGS, ROSTER_CONFIGS, PLAYER_DATA_SEASONS |
-| `src/nfl_data_integration.py` | NFLDataFetcher — all 8 fetch methods + validate_data() |
+| `src/nfl_data_adapter.py` | NFLDataAdapter — unified data fetching with local-first reads |
+| `src/nfl_data_integration.py` | NFLDataFetcher — legacy fetcher (see nfl_data_adapter.py) + validate_data() |
 | `src/player_analytics.py` | Usage metrics, opp rankings, rolling avgs, Vegas implied totals |
+| `src/team_analytics.py` | Team PBP metrics, tendencies, SOS, situational splits |
+| `src/player_advanced_analytics.py` | Advanced player profiles, target shares, efficiency metrics |
+| `src/game_context.py` | Game context features, referee tendencies, playoff context, defense positional |
+| `src/historical_profiles.py` | Career trajectories, historical performance, rookie/veteran classification |
 | `src/scoring_calculator.py` | Fantasy points — single dict + vectorized DataFrame |
 | `src/projection_engine.py` | Weekly/preseason projections; bye week, rookie fallback, Vegas multiplier |
 | `src/draft_optimizer.py` | DraftBoard, AuctionDraftBoard, MockDraftSimulator, DraftAdvisor |
 | `src/utils.py` | Shared utils incl. `get_latest_s3_key`, `download_latest_parquet` |
-| `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 8 data types |
-| `scripts/silver_player_transformation.py` | Silver CLI |
+| `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 15+ data types via registry |
+| `scripts/silver_player_transformation.py` | Silver player CLI — usage metrics, rolling averages |
+| `scripts/silver_team_transformation.py` | Silver team CLI — PBP metrics, tendencies, SOS, situational |
+| `scripts/silver_game_context_transformation.py` | Silver game context CLI — weather, referee, playoff, defense |
+| `scripts/silver_advanced_transformation.py` | Silver advanced profiles CLI — NGS/PFR/QBR merge |
 | `scripts/generate_projections.py` | Gold CLI — `--week` or `--preseason` |
 | `scripts/draft_assistant.py` | Interactive draft CLI — snake, auction (`--auction`), simulation (`--simulate`) |
 | `scripts/backtest_projections.py` | Compare projected vs actual; MAE/RMSE/bias per position |
@@ -105,11 +117,11 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 ## Status
 
-**Done**: Bronze (8 types) → Silver (usage/rolling/rankings) → Gold (projections w/ injury adjustments, regression shrinkage, floor/ceiling) → Draft tool (snake/auction/mock/waiver) → Pipeline monitoring (GHA + health check) → S3 deduplication fix → Projection engine (bye weeks, rookies, Vegas lines) → Backtesting (MAE 4.91, r=0.52 across 3 seasons) → Sleeper ADP refresh → 71 unit tests passing
+**Done**: v1.0 Bronze Expansion (15+ data types, PBP 140 cols) → v1.1 Bronze Backfill (2020-2025 historical) → v1.2 Silver Expansion (12 Silver paths, team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector, cross-source validation) → Fantasy: projections (PPR/Half/Standard, bye/rookie/Vegas/injury), draft tool (snake/auction/mock/waiver), backtesting (MAE 4.91) → 360 tests passing
 
-**In progress**: Weekly pipeline cron tuning | Local-first data reads (S3 as fallback)
+**In progress**: v1.4 ML Game Prediction (XGBoost spread/total models, walk-forward CV, edge detection)
 
-**Planned**: Neo4j Phase 5 | ML upgrade (RF/XGBoost) | Live Sleeper league integration
+**Planned**: Neo4j Phase 5 (WR-CB matchups, target networks) | Live Sleeper league integration
 
 ## ECC Plugin (Everything Claude Code)
 
