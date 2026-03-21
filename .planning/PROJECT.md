@@ -51,7 +51,7 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-- [ ] Comprehensive docs refresh (data dictionary for all layers, update stale docs, CLAUDE.md)
+- ✓ Comprehensive docs refresh (data dictionary for all layers, update stale docs, CLAUDE.md) — Validated in Phase 24
 - [ ] ML prediction model (XGBoost/LightGBM) for point spreads using 337-column feature vector
 - [ ] ML prediction model (XGBoost/LightGBM) for over/unders using 337-column feature vector
 - [ ] Backtest ML models against historical closing lines to find market edges
@@ -133,4 +133,4 @@ Existing documentation:
 - Weekly prediction pipeline with edge detection
 
 ---
-*Last updated: 2026-03-19 after v1.4 milestone started*
+*Last updated: 2026-03-20 after Phase 24 (documentation-refresh) completed*
