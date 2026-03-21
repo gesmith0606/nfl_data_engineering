@@ -17,10 +17,10 @@ Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
 
 ### Feature Engineering
 
-- [ ] **FEAT-01**: Game-level differential features computed (home_metric - away_metric) from Silver team data
-- [ ] **FEAT-02**: All Silver sources audited and verified to use only week N-1 data for week N predictions
+- [x] **FEAT-01**: Game-level differential features computed (home_metric - away_metric) from Silver team data
+- [x] **FEAT-02**: All Silver sources audited and verified to use only week N-1 data for week N predictions
 - [ ] **FEAT-03**: Feature importance analysis using XGBoost built-in importance and/or SHAP values
-- [ ] **FEAT-04**: Early-season (Weeks 1-3) NaN handling strategy implemented for sparse rolling features
+- [x] **FEAT-04**: Early-season (Weeks 1-3) NaN handling strategy implemented for sparse rolling features
 
 ### Model Training
 
@@ -79,10 +79,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DOCS-03 | Phase 24 | Complete |
 | DOCS-04 | Phase 24 | Complete |
 | DOCS-05 | Phase 24 | Complete |
-| FEAT-01 | Phase 25 | Pending |
-| FEAT-02 | Phase 25 | Pending |
+| FEAT-01 | Phase 25 | Complete |
+| FEAT-02 | Phase 25 | Complete |
 | FEAT-03 | Phase 25 | Pending |
-| FEAT-04 | Phase 25 | Pending |
+| FEAT-04 | Phase 25 | Complete |
 | MODL-01 | Phase 25 | Pending |
 | MODL-02 | Phase 25 | Pending |
 | MODL-03 | Phase 25 | Pending |
