@@ -90,7 +90,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 
 Plans:
 - [ ] 24-01: Silver and Gold data dictionary updates
-- [ ] 24-02: CLAUDE.md, implementation guide, and Bronze inventory refresh
+- [x] 24-02: CLAUDE.md, implementation guide, and Bronze inventory refresh
 
 ### Phase 25: Feature Assembly and Model Training
 **Goal**: XGBoost models for spread and over/under prediction trained on properly assembled game-level differential features with walk-forward cross-validation
@@ -167,7 +167,7 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 | 21. PBP-Derived Team Metrics | v1.3 | 3/3 | Complete | 2026-03-16 |
 | 22. Schedule-Derived Context | v1.3 | 2/2 | Complete | 2026-03-17 |
 | 23. Cross-Source Features and Integration | v1.3 | 2/2 | Complete | 2026-03-19 |
-| 24. Documentation Refresh | v1.4 | 0/2 | Not started | - |
+| 24. Documentation Refresh | v1.4 | 1/2 | In Progress|  |
 | 25. Feature Assembly and Model Training | v1.4 | 0/3 | Not started | - |
 | 26. Backtesting and Validation | v1.4 | 0/2 | Not started | - |
 | 27. Prediction Pipeline | v1.4 | 0/1 | Not started | - |
