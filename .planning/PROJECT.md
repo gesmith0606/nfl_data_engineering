@@ -48,12 +48,16 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Full prediction feature vector assembly: 337 columns from 8 Silver sources — v1.3
 - ✓ Pipeline health monitoring for all 11 Silver paths — v1.3
 - ✓ 360 total tests passing — v1.3
+- ✓ Game-level differential feature assembly (337-col vectors, home-away differentials) — v1.4
+- ✓ XGBoost model training with walk-forward CV (temporal split, holdout guard) — v1.4
+- ✓ Training CLI with Optuna hyperparameter tuning and feature importance reporting — v1.4
+- ✓ 396 total tests passing — v1.4
 
 ### Active
 
 - ✓ Comprehensive docs refresh (data dictionary for all layers, update stale docs, CLAUDE.md) — Validated in Phase 24
-- [ ] ML prediction model (XGBoost/LightGBM) for point spreads using 337-column feature vector
-- [ ] ML prediction model (XGBoost/LightGBM) for over/unders using 337-column feature vector
+- ✓ ML prediction model (XGBoost) for point spreads using 337-column feature vector — Validated in Phase 25
+- ✓ ML prediction model (XGBoost) for over/unders using 337-column feature vector — Validated in Phase 25
 - [ ] Backtest ML models against historical closing lines to find market edges
 - [ ] Weekly prediction pipeline generating own lines with edge detection vs Vegas
 
@@ -76,7 +80,7 @@ Bronze layer: 15 data types covering schedules, player stats, PBP (140 cols), NG
 Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 11 output paths.
 Gold layer: weekly + preseason projections with injury adjustments, regression shrinkage, floor/ceiling.
 Prediction feature vector: 337 columns assembled from 8 Silver sources via left joins on [team, season, week].
-Tests: 360 passing across 8 test files.
+Tests: 396 passing across 11 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -133,4 +137,4 @@ Existing documentation:
 - Weekly prediction pipeline with edge detection
 
 ---
-*Last updated: 2026-03-20 after Phase 24 (documentation-refresh) completed*
+*Last updated: 2026-03-21 after Phase 25 (feature-assembly-and-model-training) completed*
