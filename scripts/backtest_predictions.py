@@ -23,11 +23,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from feature_engineering import assemble_multiyear_features, get_feature_columns
 from model_training import load_model
+from config import HOLDOUT_SEASON
 from prediction_backtester import (
     BREAK_EVEN_PCT,
     compute_profit,
     evaluate_ats,
+    evaluate_holdout,
     evaluate_ou,
+    compute_season_stability,
 )
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
@@ -168,11 +171,58 @@ def run_backtest(
         if tgt == "spread":
             results = evaluate_ats(all_data)
             print_ats_report(results, f"Overall ({len(results)} games)")
-            print_per_season_breakdown(results, "spread")
+            correct_col, push_col = "ats_correct", "push"
         else:
             results = evaluate_ou(all_data)
             print_ou_report(results, f"Overall ({len(results)} games)")
-            print_per_season_breakdown(results, "total")
+            correct_col, push_col = "ou_correct", "push_ou"
+
+        # Per-season stability breakdown
+        per_season_df, stability = compute_season_stability(
+            results, correct_col=correct_col, push_col=push_col
+        )
+        label = "ATS" if tgt == "spread" else "O/U"
+        print(f"\n  PER-SEASON BREAKDOWN")
+        print(f"  {'=' * 60}")
+        print(f"  {'Season':<8} {'Games':>6} {label + ' Acc':>8} {'Profit':>10} {'ROI':>8}")
+        print(f"  {'-' * 46}")
+        for _, row in per_season_df.iterrows():
+            print(
+                f"  {int(row['season']):<8} {int(row['games']):>6} "
+                f"{row['ats_accuracy']:>7.1%} {row['profit']:>+10.2f} {row['roi']:>+7.2f}%"
+            )
+        print(f"  {'=' * 60}")
+        print(
+            f"  Stability: Mean {stability['mean_accuracy']:.1%} "
+            f"+/- {stability['std_accuracy']:.1%} "
+            f"(min {stability['min_accuracy']:.1%}, max {stability['max_accuracy']:.1%})"
+        )
+
+        # Leakage warning
+        if stability["leakage_warning"]:
+            for _, row in per_season_df.iterrows():
+                if row["ats_accuracy"] > 0.58:
+                    print(
+                        f"\n  WARNING: Season {int(row['season'])} shows "
+                        f"{row['ats_accuracy']:.1%} {label} accuracy (> 58% threshold)."
+                    )
+                    print("  Investigate potential data leakage before trusting results.")
+
+        # Sealed holdout section (spread only, when 2024 data present)
+        if tgt == "spread" and HOLDOUT_SEASON in results["season"].values:
+            holdout_result = evaluate_holdout(results, metadata, holdout_season=HOLDOUT_SEASON)
+            ps = holdout_result["profit_stats"]
+            print(f"\n{'=' * 60}")
+            print(f"SEALED HOLDOUT -- {HOLDOUT_SEASON} Season ({holdout_result['n_games']} games)")
+            print(f"{'=' * 60}")
+            print(f"  ATS Accuracy: {holdout_result['ats_accuracy']:.1%}")
+            print(f"  Record:       {ps['wins']}-{ps['losses']}-{ps['pushes']} (W-L-P)")
+            print(f"  Profit:       {ps['profit']:+.2f} units")
+            print(f"  ROI:          {ps['roi']:+.2f}%")
+            print(f"\n  NOTE: Model trained on {min(metadata.get('training_seasons', []))}–"
+                  f"{max(metadata.get('training_seasons', []))} only. {HOLDOUT_SEASON} data was NEVER")
+            print(f"  seen during training or hyperparameter tuning.")
+            print(f"{'=' * 60}")
 
     print(f"\nNote: spread_line assumed to be closing line (nflverse convention).")
 

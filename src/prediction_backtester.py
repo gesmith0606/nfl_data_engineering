@@ -12,7 +12,13 @@ Exports:
     BREAK_EVEN_PCT: Win percentage needed to break even at -110 (52.38%).
 """
 
+import numpy as np
 import pandas as pd
+
+from config import HOLDOUT_SEASON
+
+# Leakage detection threshold — above 58% ATS accuracy triggers investigation
+LEAKAGE_THRESHOLD = 0.58
 
 # Standard -110 vig constants
 VIG_WIN = 100.0 / 110.0  # +0.9091 units per win at -110
@@ -93,3 +99,84 @@ def compute_profit(
         "roi": roi,
         "games_bet": games_bet,
     }
+
+
+def evaluate_holdout(
+    results_df: pd.DataFrame,
+    metadata: dict,
+    holdout_season: int = HOLDOUT_SEASON,
+) -> dict:
+    """Evaluate model on sealed holdout season.
+
+    Args:
+        results_df: DataFrame with ats_correct, push, season columns (from evaluate_ats).
+        metadata: Model metadata dict (from load_model). Must contain training_seasons.
+        holdout_season: Season to evaluate (default: 2024).
+
+    Returns:
+        Dict with ats_accuracy, profit_stats, n_games, season.
+
+    Raises:
+        ValueError: If holdout_season appears in metadata['training_seasons'].
+    """
+    if holdout_season in metadata.get("training_seasons", []):
+        raise ValueError(
+            f"Holdout season {holdout_season} found in training_seasons. "
+            "Model has data leakage -- cannot evaluate holdout."
+        )
+    holdout = results_df[results_df["season"] == holdout_season].copy()
+    if holdout.empty:
+        return {"ats_accuracy": 0.0, "profit_stats": {}, "n_games": 0, "season": holdout_season}
+
+    non_push = holdout[~holdout["push"]]
+    accuracy = non_push["ats_correct"].mean() if len(non_push) > 0 else 0.0
+    profit_stats = compute_profit(holdout)
+    return {
+        "ats_accuracy": float(accuracy),
+        "profit_stats": profit_stats,
+        "n_games": len(holdout),
+        "season": holdout_season,
+    }
+
+
+def compute_season_stability(
+    results_df: pd.DataFrame,
+    correct_col: str = "ats_correct",
+    push_col: str = "push",
+) -> tuple:
+    """Compute per-season ATS breakdown and stability metrics.
+
+    Args:
+        results_df: DataFrame with season, ats_correct, push columns.
+        correct_col: Column name for correct predictions.
+        push_col: Column name for push flag.
+
+    Returns:
+        Tuple of (per_season_df, stability_summary).
+        per_season_df: DataFrame with season, games, ats_accuracy, profit, roi.
+        stability_summary: Dict with mean_accuracy, std_accuracy, min_accuracy,
+            max_accuracy, leakage_warning.
+    """
+    rows = []
+    for season, group in results_df.groupby("season"):
+        non_push = group[~group[push_col]]
+        accuracy = float(non_push[correct_col].mean()) if len(non_push) > 0 else 0.0
+        profit_stats = compute_profit(group, correct_col, push_col)
+        rows.append({
+            "season": int(season),
+            "games": len(group),
+            "ats_accuracy": accuracy,
+            "profit": profit_stats["profit"],
+            "roi": profit_stats["roi"],
+        })
+
+    per_season_df = pd.DataFrame(rows)
+    accuracies = per_season_df["ats_accuracy"].values
+    stability_summary = {
+        "mean_accuracy": float(np.mean(accuracies)) if len(accuracies) > 0 else 0.0,
+        "std_accuracy": float(np.std(accuracies)) if len(accuracies) > 1 else 0.0,
+        "min_accuracy": float(np.min(accuracies)) if len(accuracies) > 0 else 0.0,
+        "max_accuracy": float(np.max(accuracies)) if len(accuracies) > 0 else 0.0,
+        "leakage_warning": bool(np.any(accuracies > LEAKAGE_THRESHOLD)),
+    }
+    return per_season_df, stability_summary
