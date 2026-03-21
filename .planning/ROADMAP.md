@@ -106,7 +106,7 @@ Plans:
 
 Plans:
 - [x] 25-01: Game-level differential feature assembly with lag verification
-- [ ] 25-02: Walk-forward CV framework and XGBoost model training
+- [x] 25-02: Walk-forward CV framework and XGBoost model training
 - [ ] 25-03: Training CLI with hyperparameter tuning and feature importance
 
 ### Phase 26: Backtesting and Validation
@@ -168,7 +168,7 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 | 22. Schedule-Derived Context | v1.3 | 2/2 | Complete | 2026-03-17 |
 | 23. Cross-Source Features and Integration | v1.3 | 2/2 | Complete | 2026-03-19 |
 | 24. Documentation Refresh | v1.4 | 2/2 | Complete    | 2026-03-21 |
-| 25. Feature Assembly and Model Training | v1.4 | 1/3 | In Progress|  |
+| 25. Feature Assembly and Model Training | v1.4 | 2/3 | In Progress|  |
 | 26. Backtesting and Validation | v1.4 | 0/2 | Not started | - |
 | 27. Prediction Pipeline | v1.4 | 0/1 | Not started | - |
 

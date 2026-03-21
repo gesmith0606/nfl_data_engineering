@@ -24,11 +24,11 @@ Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
 
 ### Model Training
 
-- [ ] **MODL-01**: XGBoost spread prediction model trained on differential features with walk-forward CV
-- [ ] **MODL-02**: XGBoost over/under prediction model trained on differential features with walk-forward CV
-- [ ] **MODL-03**: Walk-forward cross-validation framework (train seasons 1..N, validate N+1)
+- [x] **MODL-01**: XGBoost spread prediction model trained on differential features with walk-forward CV
+- [x] **MODL-02**: XGBoost over/under prediction model trained on differential features with walk-forward CV
+- [x] **MODL-03**: Walk-forward cross-validation framework (train seasons 1..N, validate N+1)
 - [ ] **MODL-04**: Optuna hyperparameter tuning for tree depth, learning rate, and regularization
-- [ ] **MODL-05**: Conservative default hyperparameters (shallow trees, strong regularization, early stopping)
+- [x] **MODL-05**: Conservative default hyperparameters (shallow trees, strong regularization, early stopping)
 
 ### Backtesting
 
@@ -83,11 +83,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FEAT-02 | Phase 25 | Complete |
 | FEAT-03 | Phase 25 | Pending |
 | FEAT-04 | Phase 25 | Complete |
-| MODL-01 | Phase 25 | Pending |
-| MODL-02 | Phase 25 | Pending |
-| MODL-03 | Phase 25 | Pending |
+| MODL-01 | Phase 25 | Complete |
+| MODL-02 | Phase 25 | Complete |
+| MODL-03 | Phase 25 | Complete |
 | MODL-04 | Phase 25 | Pending |
-| MODL-05 | Phase 25 | Pending |
+| MODL-05 | Phase 25 | Complete |
 | BACK-01 | Phase 26 | Pending |
 | BACK-02 | Phase 26 | Pending |
 | BACK-03 | Phase 26 | Pending |

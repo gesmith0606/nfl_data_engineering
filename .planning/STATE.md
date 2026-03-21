@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: ML Game Prediction
 status: unknown
-stopped_at: Completed 25-01-PLAN.md
-last_updated: "2026-03-21T02:06:29.604Z"
+stopped_at: Completed 25-02-PLAN.md
+last_updated: "2026-03-21T02:10:48.919Z"
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 4
 ---
 
 # Project State
@@ -28,7 +28,7 @@ v1.4 ML Game Prediction — 4 phases (24-27), 20 requirements, 8 plans
 ## Current Position
 
 Phase: 25 (feature-assembly-and-model-training) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 
 ## Key Artifacts
 
@@ -58,6 +58,7 @@ Recent decisions for v1.4:
 - [Phase 24]: Document all 12 Silver paths (not 11) -- research confirmed 12 exist on disk
 - [Phase 25]: Vectorized diff computation with pd.concat to avoid DataFrame fragmentation
 - [Phase 25]: 337 feature columns (322 diff + 15 context) from 8 Silver sources via game_context bridge
+- [Phase 25]: early_stopping_rounds popped from params and passed to XGBRegressor constructor separately
 
 ### Pending Todos
 
@@ -71,8 +72,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-21T02:06:29.601Z
-Stopped at: Completed 25-01-PLAN.md
+Last session: 2026-03-21T02:10:48.917Z
+Stopped at: Completed 25-02-PLAN.md
 Resume file: None
 
 ---
