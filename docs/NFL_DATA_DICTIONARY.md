@@ -929,208 +929,702 @@ Representative columns (from validate_data required columns):
 
 ## Silver Layer Tables
 
-### 1. Games (Silver)
+The Silver layer contains 12 output paths organized into three domains: defense, players, and teams. All schemas below are extracted from actual Parquet files using `pyarrow.parquet.read_schema()`.
 
-**Table Name:** `games_silver`
-**S3 Location:** `s3://nfl-refined/games/season=YYYY/week=WW/`
-**Partitioning:** `season`, `week`
-**Source System:** Bronze games table + enrichments
-**Update Frequency:** Daily during season
+### 1. Defense Positional Rankings
 
-| Column Name | Data Type | Nullable | Description | Example |
-|-------------|-----------|----------|-------------|---------|
-| game_id | STRING | NO | Primary key from bronze | "2023_01_KC_DET" |
-| season | INT | NO | Validated season year | 2023 |
-| week | INT | NO | Validated week number | 1 |
-| game_date | DATE | NO | Standardized game date | "2023-09-07" |
-| game_time_et | TIME | YES | Eastern Time kickoff | "20:20:00" |
-| home_team_id | STRING | NO | Standardized home team ID | "KC" |
-| away_team_id | STRING | NO | Standardized away team ID | "DET" |
-| home_score | INT | NO | Validated home score | 21 |
-| away_score | INT | NO | Validated away score | 20 |
-| game_result | INT | NO | Home team margin | 1 |
-| total_points | INT | NO | Total points scored | 41 |
-| overtime_flag | BOOLEAN | NO | Overtime occurred | FALSE |
-| neutral_site_flag | BOOLEAN | NO | Neutral site game | FALSE |
-| dome_game_flag | BOOLEAN | NO | Indoor/dome game | FALSE |
-| division_game_flag | BOOLEAN | NO | Division matchup | FALSE |
-| playoff_flag | BOOLEAN | NO | Playoff game | FALSE |
-| prime_time_flag | BOOLEAN | NO | Prime time game | TRUE |
-| game_type | STRING | NO | Game type category | "REG" |
-| season_type | STRING | NO | Season phase | "Regular" |
-| week_category | STRING | NO | Season timing | "Early" |
-| home_rest_days | INT | NO | Home team rest | 7 |
-| away_rest_days | INT | NO | Away team rest | 7 |
-| rest_differential | INT | NO | Rest advantage | 0 |
-| spread | DECIMAL(4,1) | YES | Closing point spread | -3.5 |
-| total_line | DECIMAL(4,1) | YES | Closing total | 47.5 |
-| home_favorite_flag | BOOLEAN | YES | Home team favored | TRUE |
-| spread_cover_result | STRING | YES | Spread outcome | "Away_Cover" |
-| total_result | STRING | YES | Total outcome | "Under" |
-| temperature | INT | YES | Game temperature | 72 |
-| wind_speed | INT | YES | Wind speed | 8 |
-| precipitation_flag | BOOLEAN | YES | Precipitation present | FALSE |
-| weather_category | STRING | YES | Weather classification | "Good" |
-| data_quality_score | DECIMAL(3,2) | NO | Quality assessment | 0.95 |
-| validation_status | STRING | NO | Validation result | "PASSED" |
-| load_timestamp | TIMESTAMP | NO | Silver ETL timestamp | "2023-09-08 14:00:00" |
-
-### 2. Teams (Silver)
-
-**Table Name:** `teams_silver`
-**S3 Location:** `s3://nfl-refined/teams/`
-**Source System:** Bronze teams + external references
+**Source Module:** `src/player_analytics.py`
+**Local Path:** `data/silver/defense/positional/`
+**S3 Path:** `s3://nfl-refined/defense/positional/season=YYYY/`
+**Columns:** 6
 
 | Column Name | Data Type | Nullable | Description | Example |
 |-------------|-----------|----------|-------------|---------|
-| team_id | STRING | NO | Primary standardized team ID | "KC" |
-| team_abbr | STRING | NO | Official abbreviation | "KC" |
-| team_name | STRING | NO | Standardized team name | "Kansas City Chiefs" |
-| team_city | STRING | NO | Team city | "Kansas City" |
-| division_id | STRING | NO | Division identifier | "AFC_WEST" |
-| conference | STRING | NO | Conference | "AFC" |
-| stadium_name | STRING | YES | Current stadium name | "GEHA Field at Arrowhead Stadium" |
-| stadium_surface | STRING | YES | Playing surface | "Grass" |
-| stadium_roof_type | STRING | YES | Roof configuration | "Open" |
-| load_timestamp | TIMESTAMP | NO | Silver ETL timestamp | "2023-08-15 12:00:00" |
+| season | int32 | NO | NFL season year | 2024 |
+| week | int32 | NO | NFL week number | 10 |
+| team | string | NO | Defensive team abbreviation | "KC" |
+| position | string | NO | Offensive position ranked against | "QB" |
+| avg_pts_allowed | double | YES | Average fantasy points allowed to position per game | 18.5 |
+| rank | int64 | YES | Positional ranking (1=toughest, 32=easiest) | 5 |
 
-### 3. Player Usage Metrics (Silver)
+### 2. Advanced Player Profiles
 
-**S3 Location:** `s3://nfl-refined/players/usage/season=YYYY/week=WW/`
-**Source:** Bronze player_weekly + snap_counts
-**Produced by:** `scripts/silver_player_transformation.py`
+**Source Module:** `src/player_advanced_analytics.py`
+**Local Path:** `data/silver/players/advanced/`
+**S3 Path:** `s3://nfl-refined/players/advanced/season=YYYY/`
+**Columns:** 119
 
-| Column Name | Data Type | Nullable | Description | Example |
-|-------------|-----------|----------|-------------|---------|
-| player_id | STRING | NO | GSIS player identifier | "00-0033873" |
-| player_name | STRING | NO | Player display name | "Patrick Mahomes" |
-| position | STRING | NO | Player position | "QB" |
-| team | STRING | NO | Team abbreviation | "KC" |
-| season | INT | NO | NFL season year | 2024 |
-| week | INT | NO | NFL week number | 1 |
-| target_share | FLOAT | YES | Percentage of team targets | 0.0 |
-| air_yards_share | FLOAT | YES | Percentage of team air yards | 0.0 |
-| rush_share | FLOAT | YES | Percentage of team carries | 0.0 |
-| snap_pct | FLOAT | YES | Percentage of offensive snaps played | 100.0 |
-| usage_score | FLOAT | YES | Composite usage metric (weighted combination) | 0.85 |
-| opportunity_score | FLOAT | YES | Target + carry opportunity metric | 25.0 |
-
-### 4. Opponent Rankings (Silver)
-
-**S3 Location:** `s3://nfl-refined/defense/positional/season=YYYY/week=WW/`
-**Source:** Bronze player_weekly aggregated by opponent defense
-**Produced by:** `scripts/silver_player_transformation.py`
+#### Identifiers
 
 | Column Name | Data Type | Nullable | Description | Example |
 |-------------|-----------|----------|-------------|---------|
-| team | STRING | NO | Defensive team abbreviation | "KC" |
-| position | STRING | NO | Offensive position ranked against | "QB" |
-| season | INT | NO | NFL season year | 2024 |
-| week | INT | NO | Through-week for ranking calculation | 10 |
-| opp_rank | INT | NO | Positional ranking (1=toughest, 32=easiest) | 5 |
-| points_allowed_avg | FLOAT | YES | Average fantasy points allowed to position | 15.2 |
-| games_counted | INT | YES | Number of games in ranking calculation | 10 |
+| player_gsis_id | string | NO | GSIS player identifier | "00-0033873" |
+| player_display_name | string | NO | Player display name | "Patrick Mahomes" |
+| position | string | NO | Player position | "QB" |
+| recent_team | string | NO | Most recent team abbreviation | "KC" |
+| season | int32 | NO | NFL season year | 2024 |
+| week | int32 | NO | NFL week number | 10 |
+| player_display_name_norm | string | YES | Normalized player name for fuzzy matching | "patrick mahomes" |
 
-### 5. Rolling Averages (Silver)
-
-**S3 Location:** `s3://nfl-refined/players/rolling/season=YYYY/week=WW/`
-**Source:** Bronze player_weekly with 3-week and 6-week rolling windows
-**Produced by:** `scripts/silver_player_transformation.py`
+#### NGS Receiving Metrics (raw + roll3 + roll6 + std = 28 columns)
 
 | Column Name | Data Type | Nullable | Description | Example |
 |-------------|-----------|----------|-------------|---------|
-| player_id | STRING | NO | GSIS player identifier | "00-0033873" |
-| season | INT | NO | NFL season year | 2024 |
-| week | INT | NO | NFL week number | 10 |
-| roll3_passing_yards | FLOAT | YES | 3-week rolling avg passing yards | 285.3 |
-| roll3_rushing_yards | FLOAT | YES | 3-week rolling avg rushing yards | 22.7 |
-| roll3_receiving_yards | FLOAT | YES | 3-week rolling avg receiving yards | 0.0 |
-| roll3_passing_tds | FLOAT | YES | 3-week rolling avg passing TDs | 2.33 |
-| roll3_rushing_tds | FLOAT | YES | 3-week rolling avg rushing TDs | 0.33 |
-| roll3_receiving_tds | FLOAT | YES | 3-week rolling avg receiving TDs | 0.0 |
-| roll3_fantasy_points | FLOAT | YES | 3-week rolling avg fantasy points | 22.5 |
-| roll6_passing_yards | FLOAT | YES | 6-week rolling avg passing yards | 275.8 |
-| roll6_rushing_yards | FLOAT | YES | 6-week rolling avg rushing yards | 20.1 |
-| roll6_receiving_yards | FLOAT | YES | 6-week rolling avg receiving yards | 0.0 |
-| roll6_passing_tds | FLOAT | YES | 6-week rolling avg passing TDs | 2.17 |
-| roll6_rushing_tds | FLOAT | YES | 6-week rolling avg rushing TDs | 0.17 |
-| roll6_receiving_tds | FLOAT | YES | 6-week rolling avg receiving TDs | 0.0 |
-| roll6_fantasy_points | FLOAT | YES | 6-week rolling avg fantasy points | 21.8 |
-| std_passing_yards | FLOAT | YES | Std deviation of passing yards | 45.2 |
-| std_rushing_yards | FLOAT | YES | Std deviation of rushing yards | 12.3 |
-| std_receiving_yards | FLOAT | YES | Std deviation of receiving yards | 0.0 |
-| std_fantasy_points | FLOAT | YES | Std deviation of fantasy points | 5.8 |
+| ngs_avg_separation | double | YES | Average yards of separation from nearest defender | 2.8 |
+| ngs_catch_percentage | double | YES | NGS-tracked catch rate | 0.72 |
+| ngs_avg_intended_air_yards | double | YES | Average depth of target in yards | 9.5 |
+| ngs_avg_cushion | double | YES | Average yards of cushion at snap | 6.2 |
+| ngs_avg_yac | double | YES | Average yards after catch | 4.1 |
+| ngs_avg_expected_yac | double | YES | Expected yards after catch from NGS model | 3.8 |
+| ngs_avg_yac_above_expectation | double | YES | YAC minus expected YAC | 0.3 |
 
-### Silver Team PBP Metrics
+Each metric above has `_roll3`, `_roll6`, and `_std` rolling window variants (21 additional columns).
 
-**Local Path:** `data/silver/teams/pbp_metrics/season=YYYY/pbp_metrics_{ts}.parquet`
-**S3 Location:** `s3://nfl-refined/teams/pbp_metrics/season=YYYY/`
-**Grain:** One row per (team, season, week)
-**Source:** `src/team_analytics.py::compute_pbp_metrics()`
-**CLI:** `python scripts/silver_team_transformation.py --season YYYY`
+#### NGS Passing Metrics (raw + roll3 + roll6 + std = 24 columns)
 
-| Column | Type | Nullable | Description | Example |
-|--------|------|----------|-------------|---------|
-| team | STRING | NO | NFL team abbreviation | KC |
-| season | INT | NO | NFL season year | 2024 |
-| week | INT | NO | NFL week number (1-18) | 5 |
-| off_epa_per_play | FLOAT | YES | Mean offensive EPA per play | 0.12 |
-| off_pass_epa | FLOAT | YES | Mean offensive EPA on pass plays | 0.18 |
-| off_rush_epa | FLOAT | YES | Mean offensive EPA on rush plays | 0.05 |
-| def_epa_per_play | FLOAT | YES | Mean defensive EPA per play (opponent offense) | -0.08 |
-| off_success_rate | FLOAT | YES | Offensive play success rate | 0.48 |
-| def_success_rate | FLOAT | YES | Defensive play success rate (opponent offense) | 0.42 |
-| off_cpoe | FLOAT | YES | Offensive CPOE (Completion Probability Over Expected) | 2.3 |
-| off_rz_epa | FLOAT | YES | Offensive red zone EPA per play (yardline_100 <= 20) | 0.35 |
-| off_rz_success_rate | FLOAT | YES | Offensive red zone success rate | 0.55 |
-| off_rz_pass_rate | FLOAT | YES | Offensive red zone pass rate | 0.62 |
-| off_rz_td_rate | FLOAT | YES | Offensive red zone TD rate (TDs / unique drives) | 0.60 |
-| def_rz_epa | FLOAT | YES | Defensive red zone EPA per play | -0.10 |
-| def_rz_success_rate | FLOAT | YES | Defensive red zone success rate | 0.40 |
-| def_rz_pass_rate | FLOAT | YES | Defensive red zone pass rate | 0.58 |
-| def_rz_td_rate | FLOAT | YES | Defensive red zone TD rate (TDs / unique drives) | 0.45 |
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| ngs_avg_time_to_throw | double | YES | Average seconds from snap to throw | 2.65 |
+| ngs_aggressiveness | double | YES | Percentage of tight-window throws | 18.5 |
+| ngs_avg_completed_air_yards | double | YES | Average air yards on completions | 6.8 |
+| ngs_avg_air_yards_differential | double | YES | Completed air yards minus intended air yards | -2.7 |
+| ngs_completion_percentage_above_expectation | double | YES | Completion rate minus expected completion rate | 3.2 |
+| ngs_expected_completion_percentage | double | YES | NGS model expected completion rate | 0.65 |
 
-Each stat column above also has rolling window variants:
-- `{col}_roll3` -- 3-week lagged rolling average
-- `{col}_roll6` -- 6-week lagged rolling average
-- `{col}_std` -- Season-to-date lagged expanding average
+Each metric above has `_roll3`, `_roll6`, and `_std` rolling window variants (18 additional columns).
+
+#### NGS Rushing Metrics (raw + roll3 + roll6 + std = 20 columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| ngs_rush_yards_over_expected | double | YES | Total rushing yards above expected | 12.5 |
+| ngs_rush_yards_over_expected_per_att | double | YES | RYOE per carry attempt | 0.8 |
+| ngs_efficiency | double | YES | NGS rushing efficiency rating | 85.2 |
+| ngs_avg_time_to_los | double | YES | Average seconds to reach line of scrimmage | 2.9 |
+| ngs_rush_pct_over_expected | double | YES | Rush percentage compared to expected | 0.05 |
+
+Each metric above has `_roll3`, `_roll6`, and `_std` rolling window variants (15 additional columns).
+
+#### PFR Offensive Pressure Metrics (raw + roll3 + roll6 + std = 24 columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| pfr_times_pressured_pct | double | YES | Percentage of dropbacks under pressure | 0.28 |
+| pfr_times_sacked | double | YES | Number of times sacked | 2.0 |
+| pfr_times_hurried | double | YES | Number of times hurried | 5.0 |
+| pfr_times_hit | double | YES | Number of times hit while throwing | 3.0 |
+| pfr_times_blitzed | double | YES | Number of times opponent sent blitz | 8.0 |
+| pfr_passing_bad_throw_pct | double | YES | Percentage of passes graded as bad throws | 0.18 |
+
+Each metric above has `_roll3`, `_roll6`, and `_std` rolling window variants (18 additional columns).
+
+#### PFR Defensive Pressure Metrics (raw + roll3 + roll6 + std = 16 columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| pfr_def_times_blitzed | double | YES | Team total defensive blitzes | 12.0 |
+| pfr_def_times_hurried | double | YES | Team total QB hurries generated | 4.0 |
+| pfr_def_sacks | double | YES | Team total sacks generated | 3.0 |
+| pfr_def_pressures | double | YES | Team total pressures generated | 8.0 |
+
+Each metric above has `_roll3`, `_roll6`, and `_std` rolling window variants (12 additional columns).
+
+### 3. Historical Player Profiles
+
+**Source Module:** `src/historical_profiles.py`
+**Local Path:** `data/silver/players/historical/`
+**S3 Path:** `s3://nfl-refined/players/historical/`
+**Columns:** 63
+
+> Static dimension table (no season/week partition). One row per player combining combine measurables, draft capital, and career summary stats.
+
+#### Draft and Identity
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| draft_year | double | YES | Year player was drafted | 2017.0 |
+| draft_team | string | YES | Team that drafted the player | "KC" |
+| draft_round | double | YES | Draft round selected | 1.0 |
+| draft_ovr | double | YES | Overall draft pick number | 10.0 |
+| pfr_id | string | YES | Pro Football Reference player ID | "MahoPa00" |
+| cfb_id | string | YES | College Football Reference ID | "patrick-mahomes-1" |
+| player_name | string | NO | Player display name | "Patrick Mahomes" |
+| pos | string | YES | Player position | "QB" |
+| school | string | YES | College attended | "Texas Tech" |
+| gsis_id | string | YES | GSIS player identifier | "00-0033873" |
+| pfr_player_id | string | YES | PFR player ID (alternate key) | "MahoPa00" |
+| cfb_player_id | string | YES | CFB player ID (alternate key) | "patrick-mahomes-1" |
+| pfr_player_name | string | YES | Name as listed on PFR | "Patrick Mahomes" |
+| hof | bool | YES | Hall of Fame inductee flag | false |
+| category | string | YES | Player category classification | "offense" |
+| side | string | YES | Side of ball (offense/defense/special) | "O" |
+| college | string | YES | College name | "Texas Tech" |
+| round | double | YES | Draft round (duplicate key from combine) | 1.0 |
+| pick | double | YES | Draft pick within round | 10.0 |
+| team | string | YES | Team abbreviation | "KC" |
+| season | double | YES | Reference season for profile | 2024.0 |
+
+#### Combine Measurables
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| ht | string | YES | Height in feet-inches format | "6-3" |
+| wt | double | YES | Weight in pounds | 230.0 |
+| forty | double | YES | 40-yard dash time in seconds | 4.80 |
+| bench | double | YES | Bench press reps at 225 lbs | 22.0 |
+| vertical | double | YES | Vertical jump in inches | 34.0 |
+| broad_jump | double | YES | Broad jump in inches | 116.0 |
+| cone | double | YES | 3-cone drill time in seconds | 6.88 |
+| shuttle | double | YES | 20-yard shuttle time in seconds | 4.21 |
+| height_inches | double | YES | Height converted to inches | 75.0 |
+
+#### Career Summary Stats
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| age | double | YES | Player age at reference season | 29.0 |
+| to | double | YES | Last active season | 2024.0 |
+| allpro | double | YES | Number of All-Pro selections | 3.0 |
+| probowls | double | YES | Number of Pro Bowl selections | 6.0 |
+| seasons_started | double | YES | Number of seasons as starter | 7.0 |
+| w_av | double | YES | Weighted approximate value (career) | 95.0 |
+| car_av | null | YES | Career approximate value | null |
+| dr_av | double | YES | Draft class approximate value | 72.0 |
+| games | double | YES | Total career games played | 112.0 |
+| pass_completions | double | YES | Career passing completions | 2100.0 |
+| pass_attempts | double | YES | Career passing attempts | 3200.0 |
+| pass_yards | double | YES | Career passing yards | 26000.0 |
+| pass_tds | double | YES | Career passing touchdowns | 200.0 |
+| pass_ints | double | YES | Career interceptions thrown | 55.0 |
+| rush_atts | double | YES | Career rushing attempts | 320.0 |
+| rush_yards | double | YES | Career rushing yards | 1400.0 |
+| rush_tds | double | YES | Career rushing touchdowns | 12.0 |
+| receptions | double | YES | Career receptions | 0.0 |
+| rec_yards | double | YES | Career receiving yards | 0.0 |
+| rec_tds | double | YES | Career receiving touchdowns | 0.0 |
+| def_solo_tackles | double | YES | Career solo tackles (defenders) | 0.0 |
+| def_ints | double | YES | Career defensive interceptions | 0.0 |
+| def_sacks | double | YES | Career defensive sacks | 0.0 |
+
+#### Derived Metrics
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| draft_value | double | YES | Draft capital value based on pick position | 18.2 |
+| has_pfr_id | bool | YES | Whether PFR ID was successfully matched | true |
+| speed_score | double | YES | Size-adjusted speed metric (weight x 200 / forty^4) | 98.5 |
+| bmi | double | YES | Body mass index from height and weight | 28.8 |
+| burst_score | double | YES | Explosiveness metric from vertical and broad jump | 120.5 |
+| catch_radius | double | YES | Receiving range from height and arm length | 10.2 |
+| speed_score_pos_pctl | double | YES | Speed score percentile within position group | 0.75 |
+| bmi_pos_pctl | double | YES | BMI percentile within position group | 0.55 |
+| burst_score_pos_pctl | double | YES | Burst score percentile within position group | 0.68 |
+| catch_radius_pos_pctl | double | YES | Catch radius percentile within position group | 0.82 |
+
+### 4. Player Usage Metrics
+
+**Source Module:** `src/player_analytics.py`
+**Local Path:** `data/silver/players/usage/`
+**S3 Path:** `s3://nfl-refined/players/usage/season=YYYY/`
+**Columns:** 173
+
+#### Identifiers
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| player_id | string | NO | GSIS player identifier | "00-0033873" |
+| player_name | string | NO | Player short name | "P.Mahomes" |
+| player_display_name | string | YES | Player full display name | "Patrick Mahomes" |
+| position | string | NO | Player position | "QB" |
+| position_group | string | YES | Position group classification | "QB" |
+| headshot_url | string | YES | URL to player headshot image | "https://..." |
+| season | int32 | NO | NFL season year | 2024 |
+| week | int32 | NO | NFL week number | 10 |
+| season_type | string | YES | Season type (REG/POST) | "REG" |
+| game_id | string | YES | Unique game identifier | "2024_10_KC_BUF" |
+| recent_team | string | YES | Most recent team abbreviation | "KC" |
+| opponent_team | string | YES | Opponent team abbreviation | "BUF" |
+
+#### Passing Stats
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| completions | int32 | YES | Pass completions in game | 24 |
+| attempts | int32 | YES | Pass attempts in game | 35 |
+| passing_yards | int32 | YES | Passing yards in game | 292 |
+| passing_tds | int32 | YES | Passing touchdowns in game | 3 |
+| interceptions | int32 | YES | Interceptions thrown in game | 1 |
+| sacks | int32 | YES | Times sacked in game | 2 |
+| sack_yards | int32 | YES | Yards lost on sacks | -14 |
+| sack_fumbles | int32 | YES | Fumbles on sacks | 0 |
+| sack_fumbles_lost | int32 | YES | Fumbles lost on sacks | 0 |
+| passing_air_yards | int32 | YES | Total air yards on pass attempts | 310 |
+| passing_yards_after_catch | int32 | YES | Yards after catch by receivers | 95 |
+| passing_first_downs | int32 | YES | First downs via passing | 15 |
+| passing_epa | double | YES | Expected points added on pass plays | 8.5 |
+| dakota | double | YES | Adjusted EPA + CPOE composite metric | 12.3 |
+| passing_2pt_conversions | int32 | YES | Successful 2-point passing conversions | 0 |
+| pacr | double | YES | Passing air conversion ratio | 0.94 |
+
+#### Rushing Stats
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| carries | int32 | YES | Rushing attempts in game | 4 |
+| rushing_yards | int32 | YES | Rushing yards in game | 22 |
+| rushing_tds | int32 | YES | Rushing touchdowns in game | 0 |
+| rushing_fumbles | int32 | YES | Fumbles on rushing plays | 0 |
+| rushing_fumbles_lost | int32 | YES | Fumbles lost on rushing plays | 0 |
+| rushing_first_downs | int32 | YES | First downs via rushing | 2 |
+| rushing_epa | double | YES | Expected points added on rush plays | 1.2 |
+| rushing_2pt_conversions | int32 | YES | Successful 2-point rushing conversions | 0 |
+
+#### Receiving Stats
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| receptions | int32 | YES | Receptions in game | 0 |
+| targets | int32 | YES | Times targeted in game | 0 |
+| receiving_yards | int32 | YES | Receiving yards in game | 0 |
+| receiving_tds | int32 | YES | Receiving touchdowns in game | 0 |
+| receiving_fumbles | int32 | YES | Fumbles on receptions | 0 |
+| receiving_fumbles_lost | int32 | YES | Fumbles lost on receptions | 0 |
+| receiving_air_yards | int32 | YES | Air yards on targets received | 0 |
+| receiving_yards_after_catch | int32 | YES | Yards after catch on receptions | 0 |
+| receiving_first_downs | int32 | YES | First downs via receiving | 0 |
+| receiving_epa | double | YES | Expected points added on receptions | 0.0 |
+| receiving_2pt_conversions | int32 | YES | Successful 2-point receiving conversions | 0 |
+| racr | double | YES | Receiving air conversion ratio | 0.0 |
+| target_share | double | YES | Share of team targets for the week | 0.0 |
+| air_yards_share | double | YES | Share of team air yards for the week | 0.0 |
+| wopr | double | YES | Weighted opportunity rating (targets + air yards) | 0.0 |
+
+#### Special Teams and Defense
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| special_teams_tds | int32 | YES | Special teams touchdowns | 0 |
+| def_tackles_solo | int32 | YES | Solo tackles on defense | 0 |
+| def_tackles_with_assist | int32 | YES | Tackles with assists | 0 |
+| def_tackle_assists | int32 | YES | Tackle assists | 0 |
+| def_tackles_for_loss | int32 | YES | Tackles for loss | 0 |
+| def_tackles_for_loss_yards | int32 | YES | Yards on tackles for loss | 0 |
+| def_fumbles_forced | int32 | YES | Forced fumbles on defense | 0 |
+| def_sacks | double | YES | Defensive sacks recorded | 0.0 |
+| def_sack_yards | double | YES | Yards on defensive sacks | 0.0 |
+| def_qb_hits | int32 | YES | Quarterback hits on defense | 0 |
+| def_interceptions | int32 | YES | Defensive interceptions | 0 |
+| def_interception_yards | int32 | YES | Return yards on interceptions | 0 |
+| def_pass_defended | int32 | YES | Passes defended on defense | 0 |
+| def_tds | int32 | YES | Defensive touchdowns scored | 0 |
+| def_fumbles | int32 | YES | Defensive fumble recoveries | 0 |
+| def_safeties | int32 | YES | Safeties recorded on defense | 0 |
+| misc_yards | int32 | YES | Miscellaneous yardage | 0 |
+| fumble_recovery_own | int32 | YES | Own fumble recoveries | 0 |
+| fumble_recovery_yards_own | int32 | YES | Yards on own fumble recoveries | 0 |
+| fumble_recovery_opp | int32 | YES | Opponent fumble recoveries | 0 |
+| fumble_recovery_yards_opp | int32 | YES | Yards on opponent fumble recoveries | 0 |
+| fumble_recovery_tds | int32 | YES | Touchdowns on fumble recoveries | 0 |
+| penalties | int32 | YES | Penalties committed | 0 |
+| penalty_yards | int32 | YES | Penalty yards assessed | 0 |
+| punt_returns | int32 | YES | Punt returns made | 0 |
+| punt_return_yards | int32 | YES | Punt return yardage | 0 |
+| kickoff_returns | int32 | YES | Kickoff returns made | 0 |
+| kickoff_return_yards | int32 | YES | Kickoff return yardage | 0 |
+
+#### Kicking Stats
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| fg_made | int32 | YES | Field goals made | 0 |
+| fg_att | int32 | YES | Field goal attempts | 0 |
+| fg_missed | int32 | YES | Field goals missed | 0 |
+| fg_blocked | int32 | YES | Field goals blocked | 0 |
+| fg_long | double | YES | Longest field goal made (yards) | 0.0 |
+| fg_pct | double | YES | Field goal percentage | 0.0 |
+| fg_made_0_19 | int32 | YES | FG made from 0-19 yards | 0 |
+| fg_made_20_29 | int32 | YES | FG made from 20-29 yards | 0 |
+| fg_made_30_39 | int32 | YES | FG made from 30-39 yards | 0 |
+| fg_made_40_49 | int32 | YES | FG made from 40-49 yards | 0 |
+| fg_made_50_59 | int32 | YES | FG made from 50-59 yards | 0 |
+| fg_made_60_ | int32 | YES | FG made from 60+ yards | 0 |
+| fg_missed_0_19 | int32 | YES | FG missed from 0-19 yards | 0 |
+| fg_missed_20_29 | int32 | YES | FG missed from 20-29 yards | 0 |
+| fg_missed_30_39 | int32 | YES | FG missed from 30-39 yards | 0 |
+| fg_missed_40_49 | int32 | YES | FG missed from 40-49 yards | 0 |
+| fg_missed_50_59 | int32 | YES | FG missed from 50-59 yards | 0 |
+| fg_missed_60_ | int32 | YES | FG missed from 60+ yards | 0 |
+| fg_made_list | string | YES | Comma-separated list of FG distances made | "" |
+| fg_missed_list | string | YES | Comma-separated list of FG distances missed | "" |
+| fg_blocked_list | string | YES | Comma-separated list of FG distances blocked | "" |
+| fg_made_distance | int32 | YES | Total distance of FG made | 0 |
+| fg_missed_distance | int32 | YES | Total distance of FG missed | 0 |
+| fg_blocked_distance | int32 | YES | Total distance of FG blocked | 0 |
+| pat_made | int32 | YES | PAT kicks made | 0 |
+| pat_att | int32 | YES | PAT kick attempts | 0 |
+| pat_missed | int32 | YES | PAT kicks missed | 0 |
+| pat_blocked | int32 | YES | PAT kicks blocked | 0 |
+| pat_pct | double | YES | PAT kick percentage | 0.0 |
+| gwfg_made | int32 | YES | Game-winning field goals made | 0 |
+| gwfg_att | int32 | YES | Game-winning field goal attempts | 0 |
+| gwfg_missed | int32 | YES | Game-winning field goals missed | 0 |
+| gwfg_blocked | int32 | YES | Game-winning field goals blocked | 0 |
+| gwfg_distance | int32 | YES | Distance of game-winning FG attempt | 0 |
+
+#### Fantasy and Usage Metrics
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| fantasy_points | double | YES | Standard scoring fantasy points | 18.5 |
+| fantasy_points_ppr | double | YES | PPR scoring fantasy points | 22.5 |
+| air_yards | int32 | YES | Total air yards on targets | 85 |
+| team_targets | int32 | YES | Total team targets for the week | 32 |
+| team_air_yards | int32 | YES | Total team air yards for the week | 310 |
+| team_carries | int32 | YES | Total team carries for the week | 28 |
+| carry_share | double | YES | Share of team carries for the week | 0.0 |
+| rz_target_share | double | YES | Share of team red zone targets | 0.0 |
+| snap_pct | double | YES | Percentage of offensive snaps played | 100.0 |
+
+#### Rolling Averages (roll3 + roll6 + std = 45 columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| passing_yards_roll3 | double | YES | 3-week rolling avg passing yards | 285.3 |
+| passing_tds_roll3 | double | YES | 3-week rolling avg passing TDs | 2.3 |
+| interceptions_roll3 | double | YES | 3-week rolling avg interceptions | 0.7 |
+| rushing_yards_roll3 | double | YES | 3-week rolling avg rushing yards | 22.7 |
+| rushing_tds_roll3 | double | YES | 3-week rolling avg rushing TDs | 0.3 |
+| carries_roll3 | double | YES | 3-week rolling avg carries | 4.0 |
+| receiving_yards_roll3 | double | YES | 3-week rolling avg receiving yards | 0.0 |
+| receiving_tds_roll3 | double | YES | 3-week rolling avg receiving TDs | 0.0 |
+| receptions_roll3 | double | YES | 3-week rolling avg receptions | 0.0 |
+| targets_roll3 | double | YES | 3-week rolling avg targets | 0.0 |
+| air_yards_roll3 | double | YES | 3-week rolling avg air yards | 0.0 |
+| target_share_roll3 | double | YES | 3-week rolling avg target share | 0.0 |
+| carry_share_roll3 | double | YES | 3-week rolling avg carry share | 0.0 |
+| snap_pct_roll3 | double | YES | 3-week rolling avg snap percentage | 100.0 |
+| fantasy_points_ppr_roll3 | double | YES | 3-week rolling avg PPR fantasy points | 22.5 |
+
+The same 15 stats have `_roll6` (6-week rolling average) and `_std` (season-to-date expanding standard deviation) variants, for 30 additional columns.
+
+#### Game Context
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team_score | int64 | YES | Player's team score in the game | 27 |
+| opp_score | int64 | YES | Opponent team score in the game | 24 |
+| score_diff | int64 | YES | Team score minus opponent score | 3 |
+| game_script | dictionary | YES | Game script category (blowout_win/close_win/close_loss/blowout_loss) | "close_win" |
+| is_home | bool | YES | Whether the player's team was at home | true |
+| is_dome | bool | YES | Whether the game was played in a dome | false |
+
+### 5. Game Context
+
+**Source Module:** `src/game_context.py`
+**Local Path:** `data/silver/teams/game_context/`
+**S3 Path:** `s3://nfl-refined/teams/game_context/season=YYYY/`
+**Columns:** 22
+
+> Per-game facts for each team-week. Not rolling -- each row represents a single game's conditions.
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | string | NO | NFL team abbreviation | "KC" |
+| season | int64 | NO | NFL season year | 2024 |
+| week | int64 | NO | NFL week number | 10 |
+| game_id | string | YES | Unique game identifier | "2024_10_KC_BUF" |
+| is_home | bool | YES | Whether team is the home team | true |
+| game_type | string | YES | Game type (REG/WC/DIV/CON/SB) | "REG" |
+| is_dome | bool | YES | Whether game is played in a dome | false |
+| temperature | double | YES | Game temperature in Fahrenheit | 45.0 |
+| wind_speed | double | YES | Wind speed in MPH | 12.0 |
+| is_high_wind | bool | YES | Wind speed exceeds threshold (15+ mph) | false |
+| is_cold | bool | YES | Temperature below cold threshold (32F) | false |
+| surface | string | YES | Playing surface type | "grass" |
+| rest_days | int64 | YES | Days of rest since last game | 7 |
+| opponent_rest | int64 | YES | Opponent days of rest since last game | 10 |
+| is_short_rest | bool | YES | Team on short rest (4 or fewer days) | false |
+| is_post_bye | bool | YES | Game immediately following bye week | false |
+| rest_advantage | int64 | YES | Rest days minus opponent rest days | -3 |
+| travel_miles | double | YES | Haversine travel distance to game venue | 1050.5 |
+| tz_diff | double | YES | Time zone difference from home (hours) | -2.0 |
+| head_coach | string | YES | Team head coach name | "Andy Reid" |
+| coaching_change | bool | YES | New head coach this season | false |
+| coaching_tenure | int64 | YES | Number of seasons with current head coach | 12 |
+
+### 6. PBP-Derived Team Metrics
+
+**Source Module:** `src/team_analytics.py`
+**Local Path:** `data/silver/teams/pbp_derived/`
+**S3 Path:** `s3://nfl-refined/teams/pbp_derived/season=YYYY/`
+**Columns:** 164
+
+> Extended team metrics derived from play-by-play data covering penalties, turnovers, field goals, special teams, third down, explosive plays, drives, sacks, and time of possession. Each base metric has `_roll3`, `_roll6`, and `_std` rolling window variants.
+
+#### Identifiers
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | string | NO | NFL team abbreviation | "KC" |
+| season | int64 | NO | NFL season year | 2024 |
+| week | int64 | NO | NFL week number | 10 |
+
+#### Penalty Metrics (8 base columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| off_penalties | float | YES | Offensive penalties committed | 4.0 |
+| off_penalty_yards | float | YES | Offensive penalty yardage | 35.0 |
+| def_penalties | float | YES | Defensive penalties committed | 3.0 |
+| def_penalty_yards | float | YES | Defensive penalty yardage | 25.0 |
+| off_penalties_drawn | float | YES | Penalties drawn by offense against opponent | 3.0 |
+| off_penalty_yards_drawn | float | YES | Penalty yards drawn by offense | 28.0 |
+| def_penalties_drawn | float | YES | Penalties drawn by defense against opponent | 2.0 |
+| def_penalty_yards_drawn | float | YES | Penalty yards drawn by defense | 15.0 |
+
+#### Turnover Metrics (5 base columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| fumbles_lost | double | YES | Fumbles lost by offense | 1.0 |
+| own_fumble_recovery_rate | double | YES | Rate of recovering own fumbles | 0.50 |
+| fumbles_forced | float | YES | Fumbles forced by defense | 2.0 |
+| opp_fumble_recovery_rate | double | YES | Rate of recovering opponent fumbles | 0.67 |
+| is_turnover_lucky | double | YES | Turnover luck indicator (recovery rate vs expanding mean) | 0.15 |
+
+Note: `own_fumble_recovery_rate_std` and `opp_fumble_recovery_rate_std` are the expanding-window standard deviation columns used for the turnover luck calculation.
+
+#### Red Zone and Field Goal Metrics (8 base columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| off_rz_trips | double | YES | Offensive red zone trips per game | 3.0 |
+| def_rz_trips | double | YES | Defensive red zone trips allowed per game | 2.5 |
+| fg_att | double | YES | Field goal attempts per game | 1.5 |
+| fg_pct | double | YES | Overall field goal percentage | 0.85 |
+| fg_pct_short | double | YES | FG percentage from short range (0-29 yds) | 1.00 |
+| fg_pct_mid | double | YES | FG percentage from mid range (30-39 yds) | 0.90 |
+| fg_pct_long | double | YES | FG percentage from long range (40-49 yds) | 0.75 |
+| fg_pct_50plus | double | YES | FG percentage from 50+ yards | 0.50 |
+
+#### Special Teams Metrics (4 base columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| ko_return_avg | float | YES | Average kickoff return yards | 22.5 |
+| ko_touchback_rate | double | YES | Kickoff touchback percentage | 0.65 |
+| punt_return_avg | float | YES | Average punt return yards | 8.5 |
+| punt_touchback_rate | double | YES | Punt touchback percentage | 0.12 |
+
+#### Third Down and Explosive Plays (6 base columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| off_third_down_rate | float | YES | Offensive third down conversion rate | 0.42 |
+| def_third_down_rate | float | YES | Defensive third down conversion rate allowed | 0.38 |
+| off_explosive_pass_rate | double | YES | Rate of 20+ yard pass completions | 0.08 |
+| off_explosive_rush_rate | double | YES | Rate of 10+ yard rushing plays | 0.12 |
+| def_explosive_pass_rate | double | YES | Rate of 20+ yard passes allowed | 0.06 |
+| def_explosive_rush_rate | double | YES | Rate of 10+ yard rushes allowed | 0.10 |
+
+#### Drive and Pressure Metrics (10 base columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| off_three_and_out_rate | double | YES | Offensive three-and-out rate | 0.18 |
+| off_avg_drive_plays | double | YES | Average plays per offensive drive | 5.8 |
+| off_avg_drive_yards | float | YES | Average yards per offensive drive | 32.5 |
+| off_drives_per_game | int64 | YES | Total offensive drives per game | 12 |
+| def_three_and_out_rate | double | YES | Defensive three-and-out rate forced | 0.22 |
+| def_avg_drive_plays | double | YES | Average plays per defensive drive allowed | 5.2 |
+| def_avg_drive_yards | float | YES | Average yards per defensive drive allowed | 28.5 |
+| off_sack_rate | float | YES | Offensive sack rate (times sacked / dropbacks) | 0.06 |
+| def_sack_rate | float | YES | Defensive sack rate (sacks / opponent dropbacks) | 0.08 |
+
+#### Time of Possession (2 base columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| off_top_seconds | double | YES | Offensive time of possession in seconds | 1850.0 |
+| def_top_seconds | double | YES | Defensive time of possession (opponent) in seconds | 1750.0 |
+
+All 43 base stat columns above have `_roll3` (3-week lagged rolling average), `_roll6` (6-week lagged rolling average), and `_std` (season-to-date expanding average) variants, yielding 129 rolling columns + 3 identifiers + 2 extra std columns (own/opp fumble recovery) + 43 base = 164 total.
+
+### 7. Team PBP Metrics
+
+**Source Module:** `src/team_analytics.py`
+**Local Path:** `data/silver/teams/pbp_metrics/`
+**S3 Path:** `s3://nfl-refined/teams/pbp_metrics/season=YYYY/`
+**Columns:** 63
+
+> Core EPA, success rate, CPOE, and red zone efficiency metrics per team per week with rolling windows.
+
+#### Identifiers
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | string | NO | NFL team abbreviation | "KC" |
+| season | int64 | NO | NFL season year | 2024 |
+| week | int64 | NO | NFL week number | 10 |
+
+#### Base Metrics (15 columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| off_epa_per_play | float | YES | Mean offensive EPA per play | 0.12 |
+| off_pass_epa | float | YES | Mean offensive EPA on pass plays | 0.18 |
+| off_rush_epa | float | YES | Mean offensive EPA on rush plays | 0.05 |
+| def_epa_per_play | float | YES | Mean defensive EPA per play (opponent offense) | -0.08 |
+| off_success_rate | float | YES | Offensive play success rate (positive EPA) | 0.48 |
+| def_success_rate | float | YES | Defensive play success rate (opponent positive EPA) | 0.42 |
+| off_cpoe | float | YES | Offensive CPOE (completion pct over expected) | 2.3 |
+| off_rz_epa | float | YES | Offensive red zone EPA per play | 0.35 |
+| off_rz_success_rate | float | YES | Offensive red zone success rate | 0.55 |
+| off_rz_pass_rate | float | YES | Offensive red zone pass rate | 0.62 |
+| off_rz_td_rate | double | YES | Offensive red zone TD rate (TDs / unique drives) | 0.60 |
+| def_rz_epa | float | YES | Defensive red zone EPA per play | -0.10 |
+| def_rz_success_rate | float | YES | Defensive red zone success rate | 0.40 |
+| def_rz_pass_rate | float | YES | Defensive red zone pass rate | 0.58 |
+| def_rz_td_rate | double | YES | Defensive red zone TD rate (TDs / unique drives) | 0.45 |
+
+Each of the 15 base metrics has `_roll3`, `_roll6`, and `_std` rolling window variants (45 additional columns).
 
 **Notes:**
 - Red zone TD rate uses `nunique(drive)` as denominator (drive-based), not play count
 - CPOE is offense-only (no `def_cpoe` column)
-- Rolling windows: `shift(1).rolling(window, min_periods=1).mean()` grouped by `(team, season)` -- no cross-season contamination
-- Week 1 rolling values are NaN (no prior data due to shift)
+- Rolling windows: `shift(1).rolling(window, min_periods=1).mean()` grouped by `(team, season)`
 
-### Silver Team Tendencies
+### 8. Playoff Context
 
-**Local Path:** `data/silver/teams/tendencies/season=YYYY/tendencies_{ts}.parquet`
-**S3 Location:** `s3://nfl-refined/teams/tendencies/season=YYYY/`
-**Grain:** One row per (team, season, week)
-**Source:** `src/team_analytics.py::compute_tendency_metrics()`
-**CLI:** `python scripts/silver_team_transformation.py --season YYYY`
+**Source Module:** `src/game_context.py`
+**Local Path:** `data/silver/teams/playoff_context/`
+**S3 Path:** `s3://nfl-refined/teams/playoff_context/season=YYYY/`
+**Columns:** 10
 
-| Column | Type | Nullable | Description | Example |
-|--------|------|----------|-------------|---------|
-| team | STRING | NO | NFL team abbreviation | KC |
-| season | INT | NO | NFL season year | 2024 |
-| week | INT | NO | NFL week number (1-18) | 5 |
-| pace | INT | YES | Total pass+run plays per game (team-week) | 65 |
-| proe | FLOAT | YES | Pass Rate Over Expected: actual_pass_rate - mean(xpass) | 0.04 |
-| fourth_down_go_rate | FLOAT | YES | 4th down go rate: (pass+run) / (pass+run+punt+FG) on 4th down | 0.33 |
-| fourth_down_success_rate | FLOAT | YES | 4th down success rate: converted / (converted+failed) on go attempts | 0.50 |
-| early_down_run_rate | FLOAT | YES | Run rate on 1st and 2nd down: rush_attempts / total early-down plays | 0.45 |
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | string | NO | NFL team abbreviation | "KC" |
+| season | int64 | NO | NFL season year | 2024 |
+| week | int64 | NO | NFL week number | 14 |
+| wins | int64 | YES | Cumulative wins through this week | 10 |
+| losses | int64 | YES | Cumulative losses through this week | 3 |
+| ties | int64 | YES | Cumulative ties through this week | 0 |
+| win_pct | double | YES | Cumulative winning percentage | 0.769 |
+| division_rank | int64 | YES | Current division rank (1-4) | 1 |
+| games_behind_division_leader | double | YES | Games behind division leader | 0.0 |
+| late_season_contention | bool | YES | Whether team is in playoff contention late season | true |
 
-Each stat column above also has rolling window variants:
-- `{col}_roll3` -- 3-week lagged rolling average
-- `{col}_roll6` -- 6-week lagged rolling average
-- `{col}_std` -- Season-to-date lagged expanding average
+### 9. Referee Tendencies
+
+**Source Module:** `src/game_context.py`
+**Local Path:** `data/silver/teams/referee_tendencies/`
+**S3 Path:** `s3://nfl-refined/teams/referee_tendencies/season=YYYY/`
+**Columns:** 4
+
+> Expanding-window penalty rates per referee crew, shifted by one week to avoid data leakage.
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | string | NO | NFL team abbreviation | "KC" |
+| season | int64 | NO | NFL season year | 2024 |
+| week | int64 | NO | NFL week number | 10 |
+| ref_penalties_per_game | double | YES | Referee crew average penalties per game (expanding window, lagged) | 12.5 |
+
+### 10. Situational Splits
+
+**Source Module:** `src/team_analytics.py`
+**Local Path:** `data/silver/teams/situational/`
+**S3 Path:** `s3://nfl-refined/teams/situational/season=YYYY/`
+**Columns:** 51
+
+> Team EPA segmented by game context: home/away, divisional/non-divisional, and game script (leading/trailing). Each base metric has `_roll3`, `_roll6`, and `_std` rolling window variants.
+
+#### Identifiers
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | string | NO | NFL team abbreviation | "KC" |
+| season | int64 | NO | NFL season year | 2024 |
+| week | int32 | NO | NFL week number | 10 |
+
+#### Base Metrics (12 columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| home_off_epa | float | YES | Offensive EPA per play in home games | 0.15 |
+| away_off_epa | float | YES | Offensive EPA per play in away games | 0.08 |
+| home_def_epa | float | YES | Defensive EPA per play in home games | -0.10 |
+| away_def_epa | float | YES | Defensive EPA per play in away games | -0.05 |
+| div_off_epa | float | YES | Offensive EPA in divisional games | 0.12 |
+| nondiv_off_epa | float | YES | Offensive EPA in non-divisional games | 0.10 |
+| div_def_epa | float | YES | Defensive EPA in divisional games | -0.08 |
+| nondiv_def_epa | float | YES | Defensive EPA in non-divisional games | -0.06 |
+| leading_off_epa | float | YES | Offensive EPA when leading in score | 0.05 |
+| trailing_off_epa | float | YES | Offensive EPA when trailing in score | 0.18 |
+| leading_def_epa | float | YES | Defensive EPA when leading in score | -0.12 |
+| trailing_def_epa | float | YES | Defensive EPA when trailing in score | -0.03 |
+
+Each of the 12 base metrics has `_roll3`, `_roll6`, and `_std` rolling window variants (36 additional columns).
+
+### 11. Strength of Schedule
+
+**Source Module:** `src/team_analytics.py`
+**Local Path:** `data/silver/teams/sos/`
+**S3 Path:** `s3://nfl-refined/teams/sos/season=YYYY/`
+**Columns:** 21
+
+#### Identifiers
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | string | NO | NFL team abbreviation | "KC" |
+| season | int64 | NO | NFL season year | 2024 |
+| week | int32 | NO | NFL week number | 10 |
+
+#### Base Metrics (6 columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| off_sos_score | double | YES | Offensive strength of schedule score | 0.05 |
+| def_sos_score | double | YES | Defensive strength of schedule score | -0.02 |
+| adj_off_epa | float | YES | Opponent-adjusted offensive EPA per play | 0.14 |
+| adj_def_epa | float | YES | Opponent-adjusted defensive EPA per play | -0.09 |
+| off_sos_rank | double | YES | Offensive SOS rank (1=hardest schedule) | 8.0 |
+| def_sos_rank | double | YES | Defensive SOS rank (1=hardest schedule) | 12.0 |
+
+Each base metric except ranks has `_roll3`, `_roll6`, and `_std` rolling window variants. The `off_sos_score`, `def_sos_score`, `adj_off_epa`, and `adj_def_epa` columns each have 3 variants (12 additional columns).
+
+### 12. Team Tendencies
+
+**Source Module:** `src/team_analytics.py`
+**Local Path:** `data/silver/teams/tendencies/`
+**S3 Path:** `s3://nfl-refined/teams/tendencies/season=YYYY/`
+**Columns:** 23
+
+#### Identifiers
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| team | string | NO | NFL team abbreviation | "KC" |
+| season | int64 | NO | NFL season year | 2024 |
+| week | int64 | NO | NFL week number | 10 |
+
+#### Base Metrics (5 columns)
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| pace | int64 | YES | Total pass + run plays per game | 65 |
+| proe | double | YES | Pass Rate Over Expected (actual pass rate - mean xpass) | 0.04 |
+| early_down_run_rate | double | YES | Run rate on 1st and 2nd down | 0.45 |
+| fourth_down_go_rate | double | YES | 4th down go-for-it rate | 0.33 |
+| fourth_down_success_rate | float | YES | 4th down conversion rate on go attempts | 0.50 |
+
+Each of the 5 base metrics has `_roll3`, `_roll6`, and `_std` rolling window variants (15 additional columns).
 
 **Notes:**
-- Pace counts pass+run plays only (excludes punts, field goals, penalties)
-- PROE: NaN xpass values are excluded from `mean(xpass)` but included in total play count for actual_pass_rate
-- 4th down aggressiveness uses raw PBP (includes punt/field_goal play_type in denominator)
-- Teams with zero 4th down attempts in a week get NaN for both 4th down columns
-- Rolling window convention: lagged via `shift(1)`, `min_periods=1`, grouped by `(team, season)` -- no cross-season contamination
+- Pace counts pass + run plays only (excludes punts, field goals, penalties)
+- PROE: NaN xpass values excluded from mean but included in actual pass rate denominator
+- Rolling window convention: lagged via `shift(1)`, `min_periods=1`, grouped by `(team, season)`
 
 ---
 
