@@ -69,7 +69,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 
 **Milestone Goal:** Build ML models that predict NFL point spreads and over/unders, backtest against historical closing lines, and generate weekly predictions with edge detection vs Vegas.
 
-- [ ] **Phase 24: Documentation Refresh** - Update all project docs to reflect v1.3 completion and v1.4 architecture
+- [x] **Phase 24: Documentation Refresh** - Update all project docs to reflect v1.3 completion and v1.4 architecture (completed 2026-03-21)
 - [ ] **Phase 25: Feature Assembly and Model Training** - Build game-level differential features and train XGBoost spread/total models with walk-forward CV
 - [ ] **Phase 26: Backtesting and Validation** - Validate models against historical closing lines with ATS accuracy and profit analysis
 - [ ] **Phase 27: Prediction Pipeline** - Weekly prediction generation with edge detection and confidence scoring vs Vegas lines
@@ -89,7 +89,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 **Plans**: 2 plans
 
 Plans:
-- [ ] 24-01: Silver and Gold data dictionary updates
+- [x] 24-01: Silver and Gold data dictionary updates
 - [x] 24-02: CLAUDE.md, implementation guide, and Bronze inventory refresh
 
 ### Phase 25: Feature Assembly and Model Training
@@ -167,7 +167,7 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 | 21. PBP-Derived Team Metrics | v1.3 | 3/3 | Complete | 2026-03-16 |
 | 22. Schedule-Derived Context | v1.3 | 2/2 | Complete | 2026-03-17 |
 | 23. Cross-Source Features and Integration | v1.3 | 2/2 | Complete | 2026-03-19 |
-| 24. Documentation Refresh | v1.4 | 1/2 | In Progress|  |
+| 24. Documentation Refresh | v1.4 | 2/2 | Complete   | 2026-03-21 |
 | 25. Feature Assembly and Model Training | v1.4 | 0/3 | Not started | - |
 | 26. Backtesting and Validation | v1.4 | 0/2 | Not started | - |
 | 27. Prediction Pipeline | v1.4 | 0/1 | Not started | - |

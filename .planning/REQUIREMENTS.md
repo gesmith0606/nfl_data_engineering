@@ -9,8 +9,8 @@ Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
 
 ### Documentation
 
-- [ ] **DOCS-01**: Data dictionary updated with all 11 Silver layer table schemas and column definitions
-- [ ] **DOCS-02**: Data dictionary updated with Gold layer prediction output schemas
+- [x] **DOCS-01**: Data dictionary updated with all 11 Silver layer table schemas and column definitions
+- [x] **DOCS-02**: Data dictionary updated with Gold layer prediction output schemas
 - [x] **DOCS-03**: CLAUDE.md refreshed with current architecture, key files, test counts, and status
 - [x] **DOCS-04**: Implementation guide updated with v1.3 phases and current prediction model status badges
 - [x] **DOCS-05**: Bronze inventory regenerated showing PBP 140 columns and officials data type
@@ -74,8 +74,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DOCS-01 | Phase 24 | Pending |
-| DOCS-02 | Phase 24 | Pending |
+| DOCS-01 | Phase 24 | Complete |
+| DOCS-02 | Phase 24 | Complete |
 | DOCS-03 | Phase 24 | Complete |
 | DOCS-04 | Phase 24 | Complete |
 | DOCS-05 | Phase 24 | Complete |
