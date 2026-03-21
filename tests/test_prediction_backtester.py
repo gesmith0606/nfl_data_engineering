@@ -24,10 +24,10 @@ class TestATSEvaluation:
             "predicted_margin": [5],
         })
         result = evaluate_ats(df)
-        assert result["home_covers"].iloc[0] is True
-        assert result["push"].iloc[0] is False
-        assert result["model_picks_home"].iloc[0] is True
-        assert result["ats_correct"].iloc[0] is True
+        assert bool(result["home_covers"].iloc[0]) is True
+        assert bool(result["push"].iloc[0]) is False
+        assert bool(result["model_picks_home"].iloc[0]) is True
+        assert bool(result["ats_correct"].iloc[0]) is True
 
     def test_away_covers(self):
         """Away team covers when actual_margin < spread_line."""
@@ -37,10 +37,10 @@ class TestATSEvaluation:
             "predicted_margin": [5],
         })
         result = evaluate_ats(df)
-        assert result["home_covers"].iloc[0] is False
+        assert bool(result["home_covers"].iloc[0]) is False
         # Model picked home (5 > 3) but home didn't cover -> incorrect
-        assert result["model_picks_home"].iloc[0] is True
-        assert result["ats_correct"].iloc[0] is False
+        assert bool(result["model_picks_home"].iloc[0]) is True
+        assert bool(result["ats_correct"].iloc[0]) is False
 
     def test_push(self):
         """Push when actual_margin == spread_line exactly."""
@@ -50,9 +50,9 @@ class TestATSEvaluation:
             "predicted_margin": [5],
         })
         result = evaluate_ats(df)
-        assert result["push"].iloc[0] is True
+        assert bool(result["push"].iloc[0]) is True
         # ats_correct is False on pushes (excluded from W/L)
-        assert result["ats_correct"].iloc[0] is False
+        assert bool(result["ats_correct"].iloc[0]) is False
 
     def test_model_picks_away(self):
         """Model picks away when predicted_margin < spread_line."""
@@ -62,10 +62,10 @@ class TestATSEvaluation:
             "predicted_margin": [1],  # 1 < 3 -> model picks away
         })
         result = evaluate_ats(df)
-        assert result["model_picks_home"].iloc[0] is False
-        assert result["home_covers"].iloc[0] is False
+        assert bool(result["model_picks_home"].iloc[0]) is False
+        assert bool(result["home_covers"].iloc[0]) is False
         # Both say away -> correct
-        assert result["ats_correct"].iloc[0] is True
+        assert bool(result["ats_correct"].iloc[0]) is True
 
     def test_multiple_games(self):
         """Evaluate multiple games at once."""
@@ -106,9 +106,9 @@ class TestOUEvaluation:
             "predicted_total": [47],
         })
         result = evaluate_ou(df)
-        assert result["actual_over"].iloc[0] is True
-        assert result["model_picks_over"].iloc[0] is True
-        assert result["ou_correct"].iloc[0] is True
+        assert bool(result["actual_over"].iloc[0]) is True
+        assert bool(result["model_picks_over"].iloc[0]) is True
+        assert bool(result["ou_correct"].iloc[0]) is True
 
     def test_under_hits(self):
         """Under hits when actual_total < total_line."""
@@ -118,9 +118,9 @@ class TestOUEvaluation:
             "predicted_total": [43],
         })
         result = evaluate_ou(df)
-        assert result["actual_over"].iloc[0] is False
-        assert result["model_picks_over"].iloc[0] is False
-        assert result["ou_correct"].iloc[0] is True
+        assert bool(result["actual_over"].iloc[0]) is False
+        assert bool(result["model_picks_over"].iloc[0]) is False
+        assert bool(result["ou_correct"].iloc[0]) is True
 
     def test_push_ou(self):
         """Push when actual_total == total_line exactly."""
@@ -130,8 +130,8 @@ class TestOUEvaluation:
             "predicted_total": [47],
         })
         result = evaluate_ou(df)
-        assert result["push_ou"].iloc[0] is True
-        assert result["ou_correct"].iloc[0] is False
+        assert bool(result["push_ou"].iloc[0]) is True
+        assert bool(result["ou_correct"].iloc[0]) is False
 
     def test_model_picks_under(self):
         """Model picks under when predicted_total < total_line."""
@@ -141,10 +141,10 @@ class TestOUEvaluation:
             "predicted_total": [42],  # 42 < 45 -> model picks under
         })
         result = evaluate_ou(df)
-        assert result["model_picks_over"].iloc[0] is False
-        assert result["actual_over"].iloc[0] is True
+        assert bool(result["model_picks_over"].iloc[0]) is False
+        assert bool(result["actual_over"].iloc[0]) is True
         # Model wrong: picked under but actual was over
-        assert result["ou_correct"].iloc[0] is False
+        assert bool(result["ou_correct"].iloc[0]) is False
 
     def test_does_not_mutate_input(self):
         """evaluate_ou returns a copy, not mutating the input."""
@@ -239,7 +239,7 @@ class TestCLI:
             "backtest_predictions",
             os.path.join(scripts_dir, "backtest_predictions.py"),
         )
-        mod = importlib.util.load_module_from_spec(spec)
+        mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         assert hasattr(mod, "main")
         assert callable(mod.main)
