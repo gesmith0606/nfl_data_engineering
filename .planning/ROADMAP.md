@@ -86,7 +86,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
   3. CLAUDE.md reflects current architecture (15 Bronze types, 11 Silver paths, 360 tests, v1.3 status)
   4. Implementation guide shows v1.3 phases as complete with current prediction model status badges
   5. Bronze inventory shows PBP at 140 columns and includes officials data type
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 24-01: Silver and Gold data dictionary updates
@@ -102,7 +102,7 @@ Plans:
   3. Every feature used for week N predictions comes exclusively from week N-1 or earlier data (verified by audit tests)
   4. Early-season weeks (1-3) produce predictions without crashing despite sparse rolling features
   5. Feature importance report shows top 20 features ranked by contribution to spread/total predictions
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 25-01: Game-level differential feature assembly with lag verification
@@ -117,7 +117,7 @@ Plans:
   1. Running `python scripts/backtest_predictions.py` produces ATS accuracy, vig-adjusted profit/loss, and ROI for the spread model across training and validation seasons
   2. 2024 season results are computed from a model that never saw 2024 data during training (sealed holdout)
   3. Per-season breakdown shows whether model performance is stable or degrading across validation windows
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 26-01: Backtesting framework with ATS accuracy and profit accounting
@@ -132,7 +132,7 @@ Plans:
   2. Each prediction shows the edge (model line minus Vegas line) with direction and magnitude
   3. Predictions are classified into confidence tiers (high/medium/low edge) so users can filter for strongest plays
   4. Output is saved as Gold-layer Parquet following existing partition conventions (season/week)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 27-01: Weekly prediction pipeline with edge detection and confidence scoring
