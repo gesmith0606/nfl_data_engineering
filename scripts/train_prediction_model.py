@@ -188,7 +188,13 @@ def main(argv: list = None) -> int:
 
     # Load data
     all_data = assemble_multiyear_features(seasons)
+    if all_data.empty:
+        print("ERROR: No game data assembled. Check Silver data availability.")
+        return 1
     feature_cols = get_feature_columns(all_data)
+    if not feature_cols:
+        print("ERROR: No feature columns found in assembled data.")
+        return 1
     print(f"{len(all_data)} games, {len(feature_cols)} features, seasons {min(seasons)}-{max(seasons)}")
 
     if args.no_tune:

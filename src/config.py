@@ -403,7 +403,8 @@ def validate_season_for_type(data_type: str, season: int) -> bool:
 
 # ── Prediction Model Configuration ──────────────────────────────────────
 
-# Seasons used for game prediction training (longer history than fantasy)
+# All seasons with prediction data (includes holdout). For training, use TRAINING_SEASONS.
+# Use PREDICTION_SEASONS only for post-holdout evaluation or full data assembly.
 PREDICTION_SEASONS = list(range(2016, 2025))  # 2016-2024
 HOLDOUT_SEASON = 2024  # Sealed — never used during tuning
 TRAINING_SEASONS = list(range(2016, 2024))  # 2016-2023

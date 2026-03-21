@@ -88,10 +88,11 @@ def walk_forward_cv(
 
     for val_season in val_seasons:
         # Guard: never validate on holdout season
-        assert val_season != HOLDOUT_SEASON, (
-            f"Validation season {val_season} equals HOLDOUT_SEASON {HOLDOUT_SEASON}. "
-            "The holdout season must never be used during cross-validation."
-        )
+        if val_season == HOLDOUT_SEASON:
+            raise ValueError(
+                f"Validation season {val_season} equals HOLDOUT_SEASON {HOLDOUT_SEASON}. "
+                "The holdout season must never be used during cross-validation."
+            )
 
         train = all_data[all_data["season"] < val_season]
         val = all_data[all_data["season"] == val_season]
@@ -191,9 +192,11 @@ def train_final_model(
         verbose=False,
     )
 
-    # Run walk-forward CV for metadata
+    # Run walk-forward CV for metadata — restore early_stopping_rounds
+    cv_params = params.copy()
+    cv_params["early_stopping_rounds"] = early_stopping_rounds
     cv_result = walk_forward_cv(
-        all_data, feature_cols, target_col, params=params,
+        all_data, feature_cols, target_col, params=cv_params,
     )
 
     # Save model and metadata
@@ -240,12 +243,18 @@ def load_model(
 
     Raises:
         FileNotFoundError: If model.json or metadata.json not found.
+        xgboost.core.XGBoostError: If model file is corrupt or unreadable.
     """
     if model_dir is None:
         model_dir = MODEL_DIR
 
     model_path = os.path.join(model_dir, target_name, "model.json")
     metadata_path = os.path.join(model_dir, target_name, "metadata.json")
+
+    if not os.path.isfile(model_path):
+        raise FileNotFoundError(f"Model not found: {model_path}")
+    if not os.path.isfile(metadata_path):
+        raise FileNotFoundError(f"Metadata not found: {metadata_path}")
 
     model = xgb.XGBRegressor()
     model.load_model(model_path)

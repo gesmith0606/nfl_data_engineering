@@ -222,19 +222,21 @@ def assemble_game_features(season: int) -> pd.DataFrame:
 
         game_df = game_df.merge(sched_subset, on="game_id", how="inner")
 
-    # Step 7: Compute derived labels
+    # Step 7: Compute derived labels and game_type in one batch to avoid fragmentation
+    derived = {}
     if "home_score" in game_df.columns and "away_score" in game_df.columns:
-        game_df["actual_margin"] = game_df["home_score"] - game_df["away_score"]
-        game_df["actual_total"] = game_df["home_score"] + game_df["away_score"]
+        derived["actual_margin"] = game_df["home_score"].values - game_df["away_score"].values
+        derived["actual_total"] = game_df["home_score"].values + game_df["away_score"].values
 
-    # Step 8: Add game_type column for filtering
     if "game_type_home" in game_df.columns:
-        game_df["game_type"] = game_df["game_type_home"]
+        derived["game_type"] = game_df["game_type_home"].values
     elif "game_type" not in game_df.columns:
-        game_df["game_type"] = "REG"  # All from inner join with REG schedules
+        derived["game_type"] = "REG"
 
-    # Filter to REG only (inner join with REG schedules should already do this)
-    # Use .copy() to defragment the DataFrame after many column additions
+    if derived:
+        game_df = pd.concat([game_df, pd.DataFrame(derived, index=game_df.index)], axis=1)
+
+    # Filter to REG only and defragment
     game_df = game_df[game_df["game_type"] == "REG"].copy()
 
     return game_df
@@ -276,7 +278,7 @@ def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
             # But allow context columns like is_dome_home, rest_advantage_home
             if col.endswith("_home") or col.endswith("_away"):
                 # Allow specific context columns through
-                base = col.rsplit("_", 1)[0] if col.endswith("_home") else col.rsplit("_", 1)[0]
+                base = col.rsplit("_", 1)[0]
                 context_bases = {
                     "is_dome", "rest_advantage", "is_short_rest",
                     "is_post_bye", "travel_miles", "tz_diff",
