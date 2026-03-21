@@ -10,7 +10,14 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from prediction_backtester import evaluate_ats, evaluate_ou, compute_profit
+from prediction_backtester import (
+    evaluate_ats,
+    evaluate_ou,
+    compute_profit,
+    evaluate_holdout,
+    compute_season_stability,
+    LEAKAGE_THRESHOLD,
+)
 
 
 class TestATSEvaluation:
@@ -224,6 +231,165 @@ class TestProfitAccounting:
         result = compute_profit(df)
         assert result["games_bet"] == 0
         assert result["profit"] == 0.0
+
+
+class TestHoldoutValidation:
+    """Tests for evaluate_holdout() — sealed holdout season evaluation."""
+
+    def _make_results_df(self, seasons, n_per_season=10):
+        """Create synthetic results DataFrame with ATS columns already set."""
+        rows = []
+        for season in seasons:
+            for i in range(n_per_season):
+                rows.append({
+                    "season": season,
+                    "actual_margin": 7 if i % 2 == 0 else -3,
+                    "spread_line": 3,
+                    "predicted_margin": 5,
+                    "push": False,
+                    "home_covers": i % 2 == 0,
+                    "model_picks_home": True,
+                    "ats_correct": i % 2 == 0,  # 50% accuracy
+                })
+        return pd.DataFrame(rows)
+
+    def test_leakage_guard_raises(self):
+        """evaluate_holdout raises ValueError if holdout_season in training_seasons."""
+        df = self._make_results_df([2023, 2024])
+        metadata = {"training_seasons": [2020, 2021, 2022, 2023, 2024]}
+        with pytest.raises(ValueError, match="data leakage"):
+            evaluate_holdout(df, metadata, holdout_season=2024)
+
+    def test_filters_to_holdout_season(self):
+        """evaluate_holdout only evaluates the holdout season rows."""
+        df = self._make_results_df([2023, 2024], n_per_season=10)
+        metadata = {"training_seasons": [2020, 2021, 2022, 2023]}
+        result = evaluate_holdout(df, metadata, holdout_season=2024)
+        assert result["n_games"] == 10
+        assert result["season"] == 2024
+
+    def test_returns_required_keys(self):
+        """evaluate_holdout returns dict with ats_accuracy, profit_stats, n_games, season."""
+        df = self._make_results_df([2023, 2024], n_per_season=8)
+        metadata = {"training_seasons": [2020, 2021, 2022, 2023]}
+        result = evaluate_holdout(df, metadata, holdout_season=2024)
+        assert "ats_accuracy" in result
+        assert "profit_stats" in result
+        assert "n_games" in result
+        assert "season" in result
+        assert isinstance(result["profit_stats"], dict)
+
+    def test_accuracy_calculation(self):
+        """evaluate_holdout computes correct accuracy from non-push games."""
+        df = self._make_results_df([2024], n_per_season=10)
+        metadata = {"training_seasons": [2020, 2021, 2022, 2023]}
+        result = evaluate_holdout(df, metadata, holdout_season=2024)
+        # 50% correct (every other game)
+        assert abs(result["ats_accuracy"] - 0.5) < 0.01
+
+    def test_empty_holdout_season(self):
+        """evaluate_holdout handles missing holdout season data gracefully."""
+        df = self._make_results_df([2023], n_per_season=5)
+        metadata = {"training_seasons": [2020, 2021, 2022, 2023]}
+        result = evaluate_holdout(df, metadata, holdout_season=2024)
+        assert result["n_games"] == 0
+        assert result["ats_accuracy"] == 0.0
+
+
+class TestStabilityAnalysis:
+    """Tests for compute_season_stability() — per-season ATS breakdown."""
+
+    def _make_multiseason_df(self):
+        """Create synthetic results with known per-season accuracy.
+
+        Season 2020: 6/10 correct = 60%
+        Season 2021: 5/10 correct = 50%
+        Season 2022: 4/10 correct = 40%
+        """
+        rows = []
+        # 2020: first 6 correct
+        for i in range(10):
+            rows.append({
+                "season": 2020,
+                "ats_correct": i < 6,
+                "push": False,
+            })
+        # 2021: first 5 correct
+        for i in range(10):
+            rows.append({
+                "season": 2021,
+                "ats_correct": i < 5,
+                "push": False,
+            })
+        # 2022: first 4 correct
+        for i in range(10):
+            rows.append({
+                "season": 2022,
+                "ats_correct": i < 4,
+                "push": False,
+            })
+        return pd.DataFrame(rows)
+
+    def test_returns_per_season_df(self):
+        """compute_season_stability returns DataFrame with required columns."""
+        df = self._make_multiseason_df()
+        per_season_df, _ = compute_season_stability(df)
+        assert list(per_season_df.columns) == ["season", "games", "ats_accuracy", "profit", "roi"]
+        assert len(per_season_df) == 3
+
+    def test_per_season_accuracy(self):
+        """Per-season accuracy matches known values."""
+        df = self._make_multiseason_df()
+        per_season_df, _ = compute_season_stability(df)
+        acc = dict(zip(per_season_df["season"], per_season_df["ats_accuracy"]))
+        assert abs(acc[2020] - 0.6) < 0.01
+        assert abs(acc[2021] - 0.5) < 0.01
+        assert abs(acc[2022] - 0.4) < 0.01
+
+    def test_stability_summary_keys(self):
+        """stability_summary dict has mean, std, min, max accuracy and leakage_warning."""
+        df = self._make_multiseason_df()
+        _, summary = compute_season_stability(df)
+        assert "mean_accuracy" in summary
+        assert "std_accuracy" in summary
+        assert "min_accuracy" in summary
+        assert "max_accuracy" in summary
+        assert "leakage_warning" in summary
+
+    def test_stability_summary_values(self):
+        """stability_summary computes correct mean/std/min/max."""
+        df = self._make_multiseason_df()
+        _, summary = compute_season_stability(df)
+        # mean of 0.6, 0.5, 0.4 = 0.5
+        assert abs(summary["mean_accuracy"] - 0.5) < 0.01
+        assert abs(summary["min_accuracy"] - 0.4) < 0.01
+        assert abs(summary["max_accuracy"] - 0.6) < 0.01
+        assert summary["std_accuracy"] > 0  # non-zero std
+
+    def test_leakage_warning_triggered(self):
+        """leakage_warning True when any season exceeds 58% ATS accuracy."""
+        df = self._make_multiseason_df()  # 2020 is 60% > 58%
+        _, summary = compute_season_stability(df)
+        assert summary["leakage_warning"] is True
+
+    def test_leakage_warning_not_triggered(self):
+        """leakage_warning False when all seasons below 58%."""
+        # All seasons at 50%
+        rows = []
+        for season in [2020, 2021, 2022]:
+            for i in range(10):
+                rows.append({"season": season, "ats_correct": i < 5, "push": False})
+        df = pd.DataFrame(rows)
+        _, summary = compute_season_stability(df)
+        assert summary["leakage_warning"] is False
+
+    def test_single_season(self):
+        """compute_season_stability handles single-season input."""
+        rows = [{"season": 2023, "ats_correct": i < 5, "push": False} for i in range(10)]
+        df = pd.DataFrame(rows)
+        per_season_df, summary = compute_season_stability(df)
+        assert len(per_season_df) == 1
+        assert summary["std_accuracy"] == 0.0  # single season -> 0 std
 
 
 class TestCLI:
