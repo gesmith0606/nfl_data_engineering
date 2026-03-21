@@ -120,7 +120,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 26-01: Backtesting framework with ATS accuracy and profit accounting
+- [x] 26-01: Backtesting framework with ATS accuracy and profit accounting
 - [ ] 26-02: Holdout validation and stability analysis
 
 ### Phase 27: Prediction Pipeline
@@ -169,7 +169,7 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 | 23. Cross-Source Features and Integration | v1.3 | 2/2 | Complete | 2026-03-19 |
 | 24. Documentation Refresh | v1.4 | 2/2 | Complete    | 2026-03-21 |
 | 25. Feature Assembly and Model Training | v1.4 | 3/3 | Complete    | 2026-03-21 |
-| 26. Backtesting and Validation | v1.4 | 0/2 | Not started | - |
+| 26. Backtesting and Validation | v1.4 | 1/2 | In Progress|  |
 | 27. Prediction Pipeline | v1.4 | 0/1 | Not started | - |
 
 ---

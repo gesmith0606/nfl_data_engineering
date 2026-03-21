@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: ML Game Prediction
 status: unknown
-stopped_at: Completed 25-03-PLAN.md
-last_updated: "2026-03-21T02:21:20.043Z"
+stopped_at: Completed 26-01-PLAN.md
+last_updated: "2026-03-21T21:28:29.667Z"
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 7
+  completed_plans: 6
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 25 — feature-assembly-and-model-training
+**Current focus:** Phase 26 — backtesting-and-validation
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v1.4 ML Game Prediction — 4 phases (24-27), 20 requirements, 8 plans
 
 ## Current Position
 
-Phase: 26
-Plan: Not started
+Phase: 26 (backtesting-and-validation) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -60,6 +60,7 @@ Recent decisions for v1.4:
 - [Phase 25]: 337 feature columns (322 diff + 15 context) from 8 Silver sources via game_context bridge
 - [Phase 25]: early_stopping_rounds popped from params and passed to XGBRegressor constructor separately
 - [Phase 25]: Added --model-dir flag for test isolation via pytest tmp_path
+- [Phase 26]: Pushes excluded from W/L record and profit (money returned at -110 vig)
 
 ### Pending Todos
 
@@ -73,8 +74,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-21T02:16:23.883Z
-Stopped at: Completed 25-03-PLAN.md
+Last session: 2026-03-21T21:28:29.664Z
+Stopped at: Completed 26-01-PLAN.md
 Resume file: None
 
 ---
