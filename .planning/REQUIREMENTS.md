@@ -45,6 +45,62 @@ Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
 ## Future Requirements
 
 Deferred to future milestones. Tracked but not in current roadmap.
+Full details: `.planning/VISION.md`
+
+### v2.0 — Player-Level Prediction Features
+
+- **PLYR-01**: QB quality differential features (individual EPA, CPOE, pressure rate, starter/backup detection)
+- **PLYR-02**: Positional replacement quality scoring (talent gap between starter and backup, weighted by positional importance)
+- **PLYR-03**: WR-CB matchup modeling via Neo4j (target share networks, separation by coverage type)
+- **PLYR-04**: Depth chart delta features (week-over-week roster changes, new starters count, lineup cohesion)
+- **PLYR-05**: Personnel and formation grouping rates (11/12/21 personnel, pre-snap motion rates)
+
+### v2.1 — Model Architecture Upgrade
+
+- **ENSMBL-01**: Diverse model ensemble (XGBoost + LightGBM + CatBoost + Ridge)
+- **ENSMBL-02**: Meta-learner stacking on out-of-fold predictions
+- **ENSMBL-03**: Probabilistic output — P(home covers) with calibration verification
+- **ENSMBL-04**: Quantile regression (10th/25th/50th/75th/90th percentile predictions)
+- **ENSMBL-05**: Context-specific sub-models (divisional, primetime, weather, playoff)
+
+### v2.2 — Advanced Feature Engineering
+
+- **ADVFEAT-01**: Adaptive rolling windows (exponential decay, season-aware blending)
+- **ADVFEAT-02**: Momentum features (EPA trend slope, acceleration/deceleration)
+- **ADVFEAT-03**: Situational motivation features (clinched, eliminated, fighting for last spot)
+- **ADVFEAT-04**: Pace-adjusted metrics (per-play normalization)
+- **ADVFEAT-05**: Regime detection via change-point analysis (coaching/QB/injury regime shifts)
+- **ADVFEAT-06**: Bayesian prior integration (preseason power ratings updated weekly)
+
+### v2.3 — Market Data Integration
+
+- **MKT-01**: Historical odds database (opening/closing lines across multiple books)
+- **MKT-02**: Line movement features (magnitude, direction, reverse line movement)
+- **MKT-03**: Market consensus features (cross-book average, disagreement signal)
+- **MKT-04**: Closing Line Value (CLV) tracking as primary evaluation metric
+
+### v2.4 — Betting Framework
+
+- **BET-01**: Expected Value calculation per game with vig adjustment
+- **BET-02**: Kelly criterion bankroll management (half/quarter-Kelly options)
+- **BET-03**: Line shopping optimization across books
+- **BET-04**: Shadow betting tracker with full P&L accounting
+- **BET-05**: Confidence calibration (predicted probability vs observed frequency)
+- **BET-06**: Niche market analysis (identify highest-edge market segments)
+
+### v3.0 — Production Infrastructure
+
+- **PROD-01**: Automated weekly pipeline (Tuesday ingest → Wednesday retrain → Thursday predict)
+- **PROD-02**: In-season model retraining with walk-forward weekly updates
+- **PROD-03**: Model monitoring and drift detection with automated alerts
+- **PROD-04**: A/B testing framework for parallel model version comparison
+
+### v3.1 — Alternative Data Sources
+
+- **ALT-01**: Practice report parsing (Wed/Thu/Fri participation trends)
+- **ALT-02**: Coaching decision modeling (4th down, 2-pt, clock management)
+- **ALT-03**: Advanced player tracking features (separation, route win rate, pressure time)
+- **ALT-04**: News/social NLP sentiment scoring from beat reporters
 
 ### Fantasy ML Upgrade
 
@@ -60,13 +116,9 @@ Deferred to future milestones. Tracked but not in current roadmap.
 
 | Feature | Reason |
 |---------|--------|
-| Neural networks / deep learning | Gradient boosting dominates tabular sports prediction; ~1,900 games too small for NN |
+| Neural networks / deep learning | Gradient boosting dominates tabular sports prediction; ~2,400 games too small for NN |
 | Real-time prediction serving | Batch weekly predictions sufficient; no live inference needed |
-| Neo4j graph features | Deferred until prediction model validated |
-| Vegas lines as input features | Research explicitly flags this — zero edge by definition |
-| LightGBM as primary model | XGBoost sufficient; LightGBM adds complexity without clear benefit at this scale |
 | S3 sync | AWS credentials expired; local-first workflow |
-| Player-level game prediction features | Team-level differentials sufficient for game outcomes |
 
 ## Traceability
 

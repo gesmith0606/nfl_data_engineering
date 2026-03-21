@@ -61,16 +61,26 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - [ ] Backtest ML models against historical closing lines to find market edges
 - [ ] Weekly prediction pipeline generating own lines with edge detection vs Vegas
 
+### Planned (Future Milestones)
+
+Full details: `.planning/VISION.md` | Requirements: `.planning/REQUIREMENTS.md`
+
+- v2.0 Player-Level Features — QB quality, injury replacement quality, WR-CB matchups (Neo4j), depth chart deltas, personnel groupings
+- v2.1 Model Ensemble — XGBoost + LightGBM + CatBoost + Ridge stacking, probabilistic output, quantile regression
+- v2.2 Advanced Features — adaptive rolling windows, momentum/trend, motivation, pace-adjustment, regime detection
+- v2.3 Market Data — historical odds database, line movement features, CLV tracking
+- v2.4 Betting Framework — Kelly criterion, EV calculation, line shopping, shadow betting tracker, calibration
+- v3.0 Production Infra — automated weekly pipeline, in-season retraining, drift detection, A/B testing
+- v3.1 Alternative Data — practice reports, coaching decisions, tracking data, news NLP
+- Fantasy ML Upgrade — replace weighted-average projections with ML models
+- Live Sleeper Integration — real-time league sync and waiver recommendations
+
 ### Out of Scope
 
-- Neo4j Phase 5 — deferred until prediction model is validated
 - S3 sync — AWS credentials expired, local-first workflow active
 - nflreadpy migration — requires Python 3.10+; separate future milestone
-- External weather API (meteostat) — schedules already provides temp/wind/roof/surface
-- OC/DC coordinator tracking — no automated source; requires manual curation
-- Full NFL tiebreaker logic — simple standings proxy captures 95% of value
-- Fantasy projection ML upgrade — separate future milestone after game prediction validated
-- Live Sleeper league integration — separate future milestone
+- Neural networks / deep learning — gradient boosting dominates tabular sports prediction at this data scale
+- Real-time prediction serving — batch weekly predictions sufficient
 
 ## Context
 
