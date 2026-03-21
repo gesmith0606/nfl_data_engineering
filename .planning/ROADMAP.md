@@ -102,7 +102,7 @@ Plans:
   3. Every feature used for week N predictions comes exclusively from week N-1 or earlier data (verified by audit tests)
   4. Early-season weeks (1-3) produce predictions without crashing despite sparse rolling features
   5. Feature importance report shows top 20 features ranked by contribution to spread/total predictions
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [ ] 25-01: Game-level differential feature assembly with lag verification
