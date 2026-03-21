@@ -110,8 +110,8 @@ def scan_local(base_dir: str = "data/bronze") -> Dict[str, dict]:
             season_range = "N/A"
 
         total_size = sum(f["size_bytes"] for f in files)
-        # Use column count from first file
-        col_count = files[0]["column_count"] or 0
+        # Use column count from last file (latest schema)
+        col_count = files[-1]["column_count"] or 0
         last_mod = max(f["mtime"] for f in files)
 
         results[data_type] = {

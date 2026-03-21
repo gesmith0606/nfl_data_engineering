@@ -1,7 +1,7 @@
 # NFL Data Platform Implementation Guide
 
-**Version:** 3.0
-**Last Updated:** March 15, 2026
+**Version:** 4.0
+**Last Updated:** March 20, 2026
 **Purpose:** Living roadmap for the NFL data platform -- grounded in actual accomplishments, forward-looking for planned work
 **Related Documents:**
 - [NFL_GAME_PREDICTION_DATA_MODEL.md](./NFL_GAME_PREDICTION_DATA_MODEL.md) -- Data model with implementation status badges
@@ -18,7 +18,7 @@
 | Data source | nfl-data-py (via NFLDataAdapter) | Active |
 | Infrastructure | AWS S3 (us-east-2), GitHub Actions | Active |
 | Python libraries | boto3, nfl-data-py, numpy | Active |
-| ML (planned) | XGBoost, LightGBM, scikit-learn | Planned |
+| ML (planned) | XGBoost, scikit-learn | Planned |
 | Graph DB (planned) | Neo4j | Planned |
 
 ### Architecture
@@ -327,6 +327,124 @@ Built the Silver advanced player analytics layer merging NGS, PFR, and QBR metri
 - Team abbreviation normalization: LAR->LA and WSH->WAS to prevent silent join failures
 - QBR absent for 2024-2025 seasons as expected per research
 
+### Phase 18: Historical Context
+
+**Milestone:** v1.2 Silver Expansion | **Completed:** 2026-03-15
+
+Built a static Silver dimension table linking combine measurables and draft capital to player IDs.
+
+**Key deliverables:**
+- **`src/historical_profiles.py`**: Combine composite scores (speed score, BMI, burst score, catch radius), position percentiles, Jimmy Johnson trade value mapping
+- **`scripts/silver_historical_transformation.py`**: CLI producing single flat Parquet at `data/silver/players/historical/`
+- **Dimension table**: Full outer join on `pfr_id` (combine + draft_picks) with `gsis_id` linkage for downstream matching; 9,892 player rows
+- **Config registration**: `SILVER_PLAYER_S3_KEYS` extended with `historical_profiles` path
+
+### Phase 19: v1.2 Tech Debt Cleanup
+
+**Milestone:** v1.2 Silver Expansion | **Completed:** 2026-03-15
+
+Resolved tech debt items accumulated during v1.2 Silver work.
+
+**Key deliverables:**
+- Code cleanup and documentation updates across Silver modules
+- Pipeline health monitoring extended to all 7 Silver paths
+- Test additions bringing total to 289 passing tests
+
+---
+
+### Phase 20: Infrastructure and Data Expansion
+
+**Milestone:** v1.3 Prediction Data Foundation | **Completed:** 2026-03-16
+
+Expanded PBP to 140 columns and ingested officials data for referee analysis.
+
+**Key deliverables:**
+- **PBP expansion**: 103 -> 140 columns adding penalty details, special teams, fumble recovery, drive fields; re-ingested for all 2016-2025 seasons
+- **Officials Bronze**: Referee crew assignments ingested for 2016-2025 (5 columns per game)
+- **`src/nfl_data_adapter.py` updates**: Extended PBP column list and added officials data type to registry
+- **Stadium coordinates**: `STADIUM_ID_COORDS` dict (38 venues) for haversine travel distance calculation
+
+### Phase 21: PBP-Derived Team Metrics
+
+**Milestone:** v1.3 Prediction Data Foundation | **Completed:** 2026-03-16
+
+Built 11 additional PBP-derived team metrics for the prediction feature vector.
+
+**Key deliverables:**
+- **11 new metric categories**: Penalties, turnovers, red zone trips, FG accuracy, kick/punt returns, 3rd down conversion, explosive plays, drive efficiency, sacks, time of possession, turnover luck
+- **164-column output**: `data/silver/teams/pbp_derived/` with 3-game and 6-game rolling windows
+- **Turnover luck**: Expanding-window fumble recovery rate for regression-to-mean modeling
+- **Silver team CLI extended**: Now produces 5 datasets per season (added pbp_derived)
+
+### Phase 22: Schedule-Derived Context
+
+**Milestone:** v1.3 Prediction Data Foundation | **Completed:** 2026-03-17
+
+Built game context features, referee tendencies, playoff context, and defensive positional stats from schedules and PBP data.
+
+**Key deliverables:**
+- **`src/game_context.py`**: New module with 4 compute functions for game-level context features
+- **Game context**: Weather, rest days, travel distance (haversine), coaching matchup, surface type per team per week (22 columns)
+- **Referee tendencies**: Expanding-window penalty rates per crew with `shift(1)` lag to prevent leakage (4 columns)
+- **Playoff context**: Cumulative W-L-T, division rank, games behind leader, late-season contention flags (10 columns)
+- **Defense positional stats**: Points allowed by position group for matchup modeling (6 columns)
+- **`scripts/silver_game_context_transformation.py`**: Silver CLI producing 4 datasets per season
+
+### Phase 23: Cross-Source Features and Integration
+
+**Milestone:** v1.3 Prediction Data Foundation | **Completed:** 2026-03-19
+
+Assembled the full prediction feature vector from 8 Silver sources and validated cross-source consistency.
+
+**Key deliverables:**
+- **337-column prediction feature vector**: Left joins on [team, season, week] from 8 Silver sources (PBP metrics, tendencies, SOS, situational, PBP-derived, game context, referee tendencies, playoff context)
+- **Cross-source validation**: Schema checks, join completeness verification, feature coverage reporting
+- **Pipeline health monitoring**: Extended to all 11 Silver paths
+- **360 total tests passing** across 8 test files
+
+---
+
+## Upcoming Phases (v1.4 ML Game Prediction)
+
+### Phase 24: Documentation Refresh (In Progress)
+
+**Goal:** Update all project documentation to reflect v1.3 completion and v1.4 architecture.
+
+**Planned deliverables:**
+- Data dictionary updated with all Silver and Gold layer schemas
+- CLAUDE.md refreshed with current architecture, key files, and status
+- Implementation guide updated with phases 18-23 and v1.4 roadmap
+- Bronze inventory regenerated
+
+### Phase 25: Feature Assembly and Model Training (Planned)
+
+**Goal:** Build XGBoost spread and over/under prediction models trained on game-level differential features with walk-forward cross-validation.
+
+**Planned deliverables:**
+- Game-level differential feature assembly (home-away) reducing ~680 features to ~180
+- Walk-forward CV framework with expanding training windows
+- XGBoost models for spread and total prediction
+- Feature importance reporting
+
+### Phase 26: Backtesting and Validation (Planned)
+
+**Goal:** Validate models against historical closing lines with ATS accuracy and profit analysis.
+
+**Planned deliverables:**
+- Backtesting framework with ATS accuracy and vig-adjusted profit/loss
+- 2024 season sealed holdout validation
+- Per-season stability analysis
+
+### Phase 27: Prediction Pipeline (Planned)
+
+**Goal:** Weekly prediction generation with edge detection and confidence scoring vs Vegas lines.
+
+**Planned deliverables:**
+- Weekly prediction pipeline producing model spread and total lines
+- Edge detection (model line minus Vegas line) with direction and magnitude
+- Confidence tier classification (high/medium/low edge)
+- Gold-layer Parquet output with season/week partitioning
+
 ---
 
 ## Existing Capabilities
@@ -396,7 +514,7 @@ Built by `scripts/backtest_projections.py`:
 
 ### Test Suite
 
-274 tests passing across:
+360 tests passing across:
 - `tests/test_scoring_calculator.py` (14 tests)
 - `tests/test_projection_engine.py` (19 tests)
 - `tests/test_player_analytics.py` (7 tests, including 3 rolling window regression tests added in Phase 15)
@@ -408,46 +526,11 @@ Built by `scripts/backtest_projections.py`:
 - `tests/test_team_analytics.py` (36 tests added Phases 15-16)
 - `tests/test_pbp_ingestion.py` (13 tests added Phase 9)
 
-Full suite at 274 passing tests as of Phase 17 completion.
+Full suite at 360 passing tests as of Phase 23 (v1.3) completion.
 
 ---
 
-## Upcoming Phases (v1.2 and beyond)
-
-### Phase 18: Historical Context (In Progress -- v1.2)
-
-**Goal:** Create a static Silver dimension table linking combine measurables and draft capital to player IDs for rookie evaluation and breakout modeling.
-
-**Planned deliverables:**
-- **`src/historical_profiles.py`** (or inline in CLI): Compute functions for combine composite scores -- speed score (`weight * 200 / forty^4`), BMI, burst score (vertical + broad jump), catch radius proxy (height); position percentiles across all years
-- **Draft capital mapping**: Jimmy Johnson trade value chart (pick 1-262 mapped to trade value points) as a hardcoded lookup
-- **`scripts/silver_historical_transformation.py`**: CLI with no `--seasons` flag (always processes full 2000-2025 range); idempotent full regeneration on every run
-- **Output**: Single flat Parquet file at `data/silver/players/historical/combine_draft_profiles.parquet` (dimension table, not a fact table -- no season partitioning)
-- **Join strategy**: Full outer join on `pfr_id` (combine ↔ draft_picks), then `gsis_id` linkage from draft_picks for downstream player matching. Undrafted combine attendees preserved with NaN draft capital; drafted players without combine preserved with NaN measurables
-
-**Success criteria:**
-1. Output contains one row per player (no duplicates)
-2. Match rate logged at INFO level; unmatched players at WARNING level; pipeline never fails on match quality
-3. Config registered in `SILVER_PLAYER_S3_KEYS` as `historical_profiles`
-
-### Phase 19 and beyond: Silver Prediction Layer (Planned -- v2)
-
-Build the Silver tables needed for game outcome prediction -- transforming Bronze PBP into analytics-ready team and matchup features for ML models.
-
-| Dataset | Description | Output Path |
-|---------|-------------|-------------|
-| Team EPA aggregates | Rolling offensive/defensive EPA per play at team-week level | `nfl-refined/team_epa/` |
-| Exponentially weighted metrics | Points per game, turnover differential, third down rates (half-life = 4 weeks) | `nfl-refined/team_ewm/` |
-| Matchup features | Team A offense vs Team B defense EPA differentials per game | `nfl-refined/matchup_features/` |
-
-### ML Pipeline (Planned -- v2)
-
-Build the game outcome prediction model from Bronze/Silver features.
-
-- **Feature categories**: Team performance (40+ features), player impact (30+), situational (20+), temporal (30+), historical (20+), market lines (15+), advanced stats (40+), composite ratings (10+)
-- **Models**: XGBoost (primary), Random Forest (baseline)
-- **Validation**: Leave-one-season-out cross-validation
-- **Targets**: Win prediction (65%+), ATS accuracy (53%+), spread MAE (<3.5 points)
+## Future Work
 
 ### nflreadpy Migration (Planned)
 
@@ -578,7 +661,7 @@ GROUP BY season, team ORDER BY season, team;
 | `scripts/` | CLI scripts for each pipeline stage |
 | `tests/` | Unit tests (pytest) |
 | `data/bronze/` | Local Bronze storage (mirrors S3) -- 25+ data types, 517+ files |
-| `data/silver/` | Local Silver storage -- players/ (usage, advanced), teams/ (pbp_metrics, tendencies, sos, situational) |
+| `data/silver/` | Local Silver storage -- 12 paths: players/ (usage, advanced, historical), teams/ (pbp_metrics, tendencies, sos, situational, pbp_derived, game_context, referee_tendencies, playoff_context), defense/positional |
 | `data/gold/` | Local Gold storage |
 | `docs/` | Documentation (data dictionary, data model, implementation guide, Bronze inventory) |
 | `.github/workflows/` | GitHub Actions pipeline |
@@ -619,9 +702,10 @@ GROUP BY season, team ORDER BY season, team;
 |-----------|--------|---------|-------|
 | v1.0 Bronze Expansion | 1-7 | 2026-03-08 | Infrastructure, PBP, advanced stats, docs, validation wiring, tech debt |
 | v1.1 Bronze Backfill | 8-14 | 2026-03-13 | Guards, new type ingestion, backfill, orchestration, 2025 gap closure, path alignment, cleanup |
-| v1.2 Silver Expansion | 15-18 | In progress | Team PBP metrics, SOS/situational splits, advanced player profiles, historical context |
-| v2.0 Game Prediction | 19+ | Planned | Silver prediction layer, ML pipeline, matchup features |
+| v1.2 Silver Expansion | 15-19 | Shipped 2026-03-15 | Team PBP metrics, SOS/situational splits, advanced player profiles, historical context, tech debt |
+| v1.3 Prediction Data Foundation | 20-23 | Shipped 2026-03-19 | PBP expansion (140 cols), officials, PBP-derived metrics, game context, referee tendencies, playoff context, 337-col feature vector |
+| v1.4 ML Game Prediction | 24-27 | In Progress | Documentation refresh, XGBoost models, backtesting, prediction pipeline |
 
 ---
 
-*Version 3.0 -- Updated March 15, 2026 to reflect GSD Phases 5-17 (v1.1 Bronze Backfill complete, v1.2 Silver Expansion Phases 15-17 complete)*
+*Version 4.0 -- Updated March 20, 2026 to reflect Phases 18-23 (v1.2 Silver Expansion complete, v1.3 Prediction Data Foundation complete, v1.4 ML Game Prediction in progress)*
