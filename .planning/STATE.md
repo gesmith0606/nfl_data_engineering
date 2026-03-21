@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: ML Game Prediction
 status: unknown
-stopped_at: Completed 26-01-PLAN.md
-last_updated: "2026-03-21T21:28:29.667Z"
+stopped_at: Completed 26-02-PLAN.md
+last_updated: "2026-03-21T21:33:58.095Z"
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 7
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # Project State
@@ -61,6 +61,8 @@ Recent decisions for v1.4:
 - [Phase 25]: early_stopping_rounds popped from params and passed to XGBRegressor constructor separately
 - [Phase 25]: Added --model-dir flag for test isolation via pytest tmp_path
 - [Phase 26]: Pushes excluded from W/L record and profit (money returned at -110 vig)
+- [Phase 26]: LEAKAGE_THRESHOLD=0.58 per STATE.md blocker guidance
+- [Phase 26]: Holdout section only for spread target (ATS is primary market-beating metric)
 
 ### Pending Todos
 
@@ -74,8 +76,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-21T21:28:29.664Z
-Stopped at: Completed 26-01-PLAN.md
+Last session: 2026-03-21T21:33:58.092Z
+Stopped at: Completed 26-02-PLAN.md
 Resume file: None
 
 ---

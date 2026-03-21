@@ -71,7 +71,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 
 - [x] **Phase 24: Documentation Refresh** - Update all project docs to reflect v1.3 completion and v1.4 architecture (completed 2026-03-21)
 - [x] **Phase 25: Feature Assembly and Model Training** - Build game-level differential features and train XGBoost spread/total models with walk-forward CV (completed 2026-03-21)
-- [ ] **Phase 26: Backtesting and Validation** - Validate models against historical closing lines with ATS accuracy and profit analysis
+- [x] **Phase 26: Backtesting and Validation** - Validate models against historical closing lines with ATS accuracy and profit analysis (completed 2026-03-21)
 - [ ] **Phase 27: Prediction Pipeline** - Weekly prediction generation with edge detection and confidence scoring vs Vegas lines
 
 ## Phase Details
@@ -121,7 +121,7 @@ Plans:
 
 Plans:
 - [x] 26-01: Backtesting framework with ATS accuracy and profit accounting
-- [ ] 26-02: Holdout validation and stability analysis
+- [x] 26-02: Holdout validation and stability analysis
 
 ### Phase 27: Prediction Pipeline
 **Goal**: Users can generate weekly game predictions with edge detection against current Vegas lines
@@ -169,7 +169,7 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 | 23. Cross-Source Features and Integration | v1.3 | 2/2 | Complete | 2026-03-19 |
 | 24. Documentation Refresh | v1.4 | 2/2 | Complete    | 2026-03-21 |
 | 25. Feature Assembly and Model Training | v1.4 | 3/3 | Complete    | 2026-03-21 |
-| 26. Backtesting and Validation | v1.4 | 1/2 | In Progress|  |
+| 26. Backtesting and Validation | v1.4 | 2/2 | Complete   | 2026-03-21 |
 | 27. Prediction Pipeline | v1.4 | 0/1 | Not started | - |
 
 ---

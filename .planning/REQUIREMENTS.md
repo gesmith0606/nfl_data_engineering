@@ -33,8 +33,8 @@ Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
 ### Backtesting
 
 - [x] **BACK-01**: ATS accuracy computed against historical closing lines with vig-adjusted profit/loss
-- [ ] **BACK-02**: 2024 season sealed as untouched holdout for final model validation
-- [ ] **BACK-03**: Per-season stability analysis across training and validation windows
+- [x] **BACK-02**: 2024 season sealed as untouched holdout for final model validation
+- [x] **BACK-03**: Per-season stability analysis across training and validation windows
 
 ### Prediction Pipeline
 
@@ -141,8 +141,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MODL-04 | Phase 25 | Complete |
 | MODL-05 | Phase 25 | Complete |
 | BACK-01 | Phase 26 | Complete |
-| BACK-02 | Phase 26 | Pending |
-| BACK-03 | Phase 26 | Pending |
+| BACK-02 | Phase 26 | Complete |
+| BACK-03 | Phase 26 | Complete |
 | PRED-01 | Phase 27 | Pending |
 | PRED-02 | Phase 27 | Pending |
 | PRED-03 | Phase 27 | Pending |
