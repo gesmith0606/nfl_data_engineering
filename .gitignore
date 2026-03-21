@@ -218,5 +218,8 @@ logs/
 .vscode/launch.json
 .vscode/extensions.json
 
+# Model artifacts
+models/
+
 # Automated code review history
 .claude/review_history/

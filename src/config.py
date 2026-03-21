@@ -401,6 +401,52 @@ def validate_season_for_type(data_type: str, season: int) -> bool:
     return min_season <= season <= max_season_fn()
 
 
+# ── Prediction Model Configuration ──────────────────────────────────────
+
+# Seasons used for game prediction training (longer history than fantasy)
+PREDICTION_SEASONS = list(range(2016, 2025))  # 2016-2024
+HOLDOUT_SEASON = 2024  # Sealed — never used during tuning
+TRAINING_SEASONS = list(range(2016, 2024))  # 2016-2023
+VALIDATION_SEASONS = [2019, 2020, 2021, 2022, 2023]  # Walk-forward folds
+
+# Model output directory
+MODEL_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "models")
+
+# Conservative XGBoost defaults — shallow trees, strong regularization
+CONSERVATIVE_PARAMS = {
+    "objective": "reg:squarederror",
+    "max_depth": 4,
+    "learning_rate": 0.05,
+    "n_estimators": 500,
+    "min_child_weight": 5,
+    "subsample": 0.8,
+    "colsample_bytree": 0.7,
+    "reg_alpha": 1.0,
+    "reg_lambda": 5.0,
+    "early_stopping_rounds": 50,
+    "random_state": 42,
+    "verbosity": 0,
+}
+
+# Label columns that must NEVER appear in feature set
+LABEL_COLUMNS = [
+    "home_score", "away_score", "actual_margin", "actual_total",
+    "result", "spread_line", "total_line", "team_score", "opp_score",
+]
+
+# Silver team source subdirectories (local path pattern)
+SILVER_TEAM_LOCAL_DIRS = {
+    "pbp_metrics": "teams/pbp_metrics",
+    "tendencies": "teams/tendencies",
+    "sos": "teams/sos",
+    "situational": "teams/situational",
+    "pbp_derived": "teams/pbp_derived",
+    "game_context": "teams/game_context",
+    "referee_tendencies": "teams/referee_tendencies",
+    "playoff_context": "teams/playoff_context",
+}
+
+
 def get_s3_path(layer: str, dataset: str = "", season: int = None, week: int = None) -> str:
     """
     Generate S3 path for a specific layer and dataset
