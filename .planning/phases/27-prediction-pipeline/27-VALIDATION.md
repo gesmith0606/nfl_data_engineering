@@ -19,7 +19,7 @@ created: 2026-03-21
 |----------|-------|
 | **Framework** | pytest 7.x |
 | **Config file** | tests/ directory (existing) |
-| **Quick run command** | `python -m pytest tests/test_prediction_pipeline.py -v` |
+| **Quick run command** | `python -m pytest tests/test_generate_predictions.py -v` |
 | **Full suite command** | `python -m pytest tests/ -v` |
 | **Estimated runtime** | ~15 seconds |
 
@@ -27,7 +27,7 @@ created: 2026-03-21
 
 ## Sampling Rate
 
-- **After every task commit:** Run `python -m pytest tests/test_prediction_pipeline.py -v`
+- **After every task commit:** Run `python -m pytest tests/test_generate_predictions.py -v`
 - **After every plan wave:** Run `python -m pytest tests/ -v`
 - **Before `/gsd:verify-work`:** Full suite must be green
 - **Max feedback latency:** 15 seconds
@@ -38,11 +38,11 @@ created: 2026-03-21
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 27-01-01 | 01 | 1 | PRED-01 | unit | `python -m pytest tests/test_prediction_pipeline.py::test_generate_predictions -v` | ❌ W0 | ⬜ pending |
-| 27-01-02 | 01 | 1 | PRED-02 | unit | `python -m pytest tests/test_prediction_pipeline.py::test_edge_detection -v` | ❌ W0 | ⬜ pending |
-| 27-01-03 | 01 | 1 | PRED-03 | unit | `python -m pytest tests/test_prediction_pipeline.py::test_confidence_tiers -v` | ❌ W0 | ⬜ pending |
-| 27-01-04 | 01 | 1 | PRED-01 | integration | `python -m pytest tests/test_prediction_pipeline.py::test_gold_parquet_output -v` | ❌ W0 | ⬜ pending |
-| 27-01-05 | 01 | 1 | PRED-01 | integration | `python -m pytest tests/test_prediction_pipeline.py::test_cli_flags -v` | ❌ W0 | ⬜ pending |
+| 27-01-01 | 01 | 1 | PRED-01 | unit | `python -m pytest tests/test_generate_predictions.py::test_generate_predictions -v` | ❌ W0 | ⬜ pending |
+| 27-01-02 | 01 | 1 | PRED-02 | unit | `python -m pytest tests/test_generate_predictions.py::test_edge_detection -v` | ❌ W0 | ⬜ pending |
+| 27-01-03 | 01 | 1 | PRED-03 | unit | `python -m pytest tests/test_generate_predictions.py::test_confidence_tiers -v` | ❌ W0 | ⬜ pending |
+| 27-01-04 | 01 | 1 | PRED-01 | integration | `python -m pytest tests/test_generate_predictions.py::test_gold_parquet_output -v` | ❌ W0 | ⬜ pending |
+| 27-01-05 | 01 | 1 | PRED-01 | integration | `python -m pytest tests/test_generate_predictions.py::test_cli_flags -v` | ❌ W0 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -50,7 +50,7 @@ created: 2026-03-21
 
 ## Wave 0 Requirements
 
-- [ ] `tests/test_prediction_pipeline.py` — stubs for PRED-01, PRED-02, PRED-03
+- [ ] `tests/test_generate_predictions.py` — stubs for PRED-01, PRED-02, PRED-03
 - [ ] Test fixtures for mock model artifacts, mock feature data, mock schedules with spread_line/total_line
 
 *Existing infrastructure covers framework and conftest needs.*
