@@ -2,6 +2,52 @@
 
 *A living document updated after each milestone. Lessons feed forward into future planning.*
 
+## Milestone: v1.4 — ML Game Prediction
+
+**Shipped:** 2026-03-22
+**Phases:** 4 | **Plans:** 8 | **Sessions:** ~3
+
+### What Was Built
+- Complete Silver and Gold data dictionary (12 tables, 734 columns documented from Parquet)
+- Game-level differential feature assembly (337 features from 8 Silver sources, home-away differentials)
+- XGBoost spread and over/under models with walk-forward CV (5 season-boundary folds) and 2024 sealed holdout
+- Training CLI with Optuna TPE tuning (50 trials), conservative defaults, and gain-based feature importance
+- Backtesting framework with ATS accuracy and vig-adjusted profit accounting at -110 odds
+- Weekly prediction pipeline with edge detection vs Vegas lines, confidence tiers, and Gold Parquet output
+- 439 tests passing (79 new tests across 3 new test files)
+
+### What Worked
+- TDD approach for prediction pipeline (Phase 27) — tests written first, implementation followed cleanly
+- Walk-forward CV framework reusable across spread and total models — same code, different target
+- Sealed holdout guard (raises error if 2024 in training set) prevents accidental data leakage
+- Single-plan Phase 27 was right-sized — prediction pipeline was a focused, well-scoped deliverable
+- No gap-closure phases needed — all 20/20 requirements complete on first pass
+
+### What Was Inefficient
+- Documentation phase (24) required reading all existing docs to audit staleness — could benefit from automated doc drift detection
+- Feature assembly (Phase 25) had the most complex plan (3 plans) but could potentially have been 2 with tighter scoping
+
+### Patterns Established
+- Walk-forward CV: `WalkForwardCV(min_train_seasons=3)` with temporal split and holdout guard
+- Model persistence: XGBoost JSON format with metadata dict for reproducibility
+- Edge detection: `model_line - vegas_line` with tier thresholds (>=3.0 high, >=1.5 medium, else low)
+- Backtesting evaluation: ATS accuracy + vig-adjusted profit at standard -110 odds
+- Confidence tiers: independent per-metric (spread_tier != total_tier for same game)
+
+### Key Lessons
+1. Zero gap-closure phases is achievable when requirements are well-defined upfront and scoped tightly
+2. XGBoost + walk-forward CV is the right baseline for tabular sports prediction — simple, interpretable, fast
+3. Sealed holdout with a guard clause is essential — prevents accidental leakage during iterative development
+4. Confidence tiers should be independent per metric — a game can have high spread edge but low total edge
+5. TDD for ML pipelines works well when the interface is well-defined (inputs/outputs clear before training)
+
+### Cost Observations
+- Model mix: ~60% opus (execution), ~40% sonnet (verification)
+- Sessions: ~3
+- Notable: Fastest 4-phase milestone (2 days) — established ML patterns from research phase accelerated execution
+
+---
+
 ## Milestone: v1.3 — Prediction Data Foundation
 
 **Shipped:** 2026-03-19
@@ -198,6 +244,7 @@
 | v1.1 | ~6 | 7 | Gap-closure phases (13-14) added from audit; 2 audit cycles |
 | v1.2 | ~4 | 5 | Single gap-closure phase (19); fastest milestone (3 days) |
 | v1.3 | ~4 | 4 | Clean audit on first cycle (0 requirement gaps); parallel phase execution |
+| v1.4 | ~3 | 4 | Zero gap-closure phases; fastest milestone (2 days); ML pipeline complete |
 
 ### Cumulative Quality
 
@@ -207,6 +254,7 @@
 | v1.1 | 186 | — | 22/22 requirements satisfied, 7/7 integrations wired, 2/2 E2E flows |
 | v1.2 | 289 | — | 25/25 requirements satisfied, 22/25 integrations wired, 3/4 E2E flows |
 | v1.3 | 360 | — | 23/23 requirements satisfied, 22/23 integrations wired, 4/4 E2E flows |
+| v1.4 | 439 | — | 20/20 requirements satisfied, 0 gap-closure phases needed |
 
 ### Top Lessons (Verified Across Milestones)
 
@@ -218,3 +266,5 @@
 6. Established conventions (rolling windows, join patterns) compound — v1.2 was 2x faster than v1.0
 7. Don't ingest data without a confirmed downstream consumer — avoid orphaned infrastructure
 8. Feature vector integration tests validate entire Silver pipeline early and catch join issues
+9. Zero gap-closure is achievable with tight upfront requirements and well-scoped phases
+10. TDD works for ML pipelines when interfaces are well-defined before implementation
