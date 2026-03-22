@@ -132,10 +132,10 @@ Plans:
   2. Each prediction shows the edge (model line minus Vegas line) with direction and magnitude
   3. Predictions are classified into confidence tiers (high/medium/low edge) so users can filter for strongest plays
   4. Output is saved as Gold-layer Parquet following existing partition conventions (season/week)
-**Plans**: 2 plans
+**Plans**: 1 plan
 
 Plans:
-- [ ] 27-01: Weekly prediction pipeline with edge detection and confidence scoring
+- [ ] 27-01-PLAN.md — TDD: Weekly prediction pipeline with edge detection, confidence tiers, and Gold Parquet output
 
 ## Progress
 
@@ -174,4 +174,4 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-20 after v1.4 roadmap created*
+*Last updated: 2026-03-22 after phase 27 planning*
