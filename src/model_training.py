@@ -26,7 +26,6 @@ from config import (
     CONSERVATIVE_PARAMS,
     HOLDOUT_SEASON,
     MODEL_DIR,
-    TRAINING_SEASONS,
     VALIDATION_SEASONS,
 )
 
@@ -141,6 +140,7 @@ def train_final_model(
     params: Optional[Dict[str, Any]] = None,
     target_name: Optional[str] = None,
     model_dir: Optional[str] = None,
+    cv_result: Optional["WalkForwardResult"] = None,
 ) -> Tuple[xgb.XGBRegressor, Dict[str, Any]]:
     """Train a final model on all training data and save to disk.
 
@@ -155,6 +155,7 @@ def train_final_model(
         params: XGBoost parameters. Defaults to CONSERVATIVE_PARAMS.
         target_name: Subdirectory name ('spread' or 'total').
         model_dir: Base directory for model output. Defaults to MODEL_DIR.
+        cv_result: Pre-computed WalkForwardResult to avoid re-running CV.
 
     Returns:
         Tuple of (trained XGBRegressor model, metadata dict).
@@ -192,12 +193,13 @@ def train_final_model(
         verbose=False,
     )
 
-    # Run walk-forward CV for metadata — restore early_stopping_rounds
-    cv_params = params.copy()
-    cv_params["early_stopping_rounds"] = early_stopping_rounds
-    cv_result = walk_forward_cv(
-        all_data, feature_cols, target_col, params=cv_params,
-    )
+    # Run walk-forward CV for metadata if not pre-computed
+    if cv_result is None:
+        cv_params = params.copy()
+        cv_params["early_stopping_rounds"] = early_stopping_rounds
+        cv_result = walk_forward_cv(
+            all_data, feature_cols, target_col, params=cv_params,
+        )
 
     # Save model and metadata
     output_dir = os.path.join(model_dir, target_name)

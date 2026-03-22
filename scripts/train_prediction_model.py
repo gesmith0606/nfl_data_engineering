@@ -18,7 +18,7 @@ import xgboost as xgb
 
 from config import CONSERVATIVE_PARAMS, MODEL_DIR, TRAINING_SEASONS
 from feature_engineering import assemble_multiyear_features, get_feature_columns
-from model_training import WalkForwardResult, load_model, train_final_model, walk_forward_cv
+from model_training import train_final_model, walk_forward_cv
 
 # Target column mapping: CLI flag -> DataFrame column name
 TARGET_MAP = {
@@ -195,15 +195,19 @@ def main(argv: list = None) -> int:
     if not feature_cols:
         print("ERROR: No feature columns found in assembled data.")
         return 1
-    print(f"{len(all_data)} games, {len(feature_cols)} features, seasons {min(seasons)}-{max(seasons)}")
+    print(
+        f"{len(all_data)} games, {len(feature_cols)} features, "
+        f"seasons {min(seasons)}-{max(seasons)}"
+    )
 
+    pre_cv_result = None
     if args.no_tune:
         # Use conservative defaults
         best_params = CONSERVATIVE_PARAMS.copy()
         print("\nSkipping Optuna tuning, using conservative defaults...")
-        cv_result = walk_forward_cv(all_data, feature_cols, target_col, params=best_params)
-        print(f"\nWalk-forward CV MAE: {cv_result.mean_mae:.4f}")
-        for fold in cv_result.fold_details:
+        pre_cv_result = walk_forward_cv(all_data, feature_cols, target_col, params=best_params)
+        print(f"\nWalk-forward CV MAE: {pre_cv_result.mean_mae:.4f}")
+        for fold in pre_cv_result.fold_details:
             print(
                 f"  Fold {fold['val_season']}: "
                 f"train {fold['train_seasons'][0]}-{fold['train_seasons'][-1]} "
@@ -219,12 +223,13 @@ def main(argv: list = None) -> int:
         )
 
     # Train final model
-    print(f"\nTraining final model...")
+    print("\nTraining final model...")
     model, metadata = train_final_model(
         all_data, feature_cols, target_col,
         params=best_params,
         target_name=args.target,
         model_dir=model_dir,
+        cv_result=pre_cv_result,
     )
 
     output_dir = os.path.join(model_dir, args.target)

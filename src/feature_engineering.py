@@ -176,8 +176,10 @@ def assemble_game_features(season: int) -> pd.DataFrame:
 
     # Compute differentials for numeric columns only
     # Build all diff columns at once to avoid DataFrame fragmentation
-    skip_bases = _NON_DIFF_COLS | {"team", "game_type", "is_home", "head_coach",
-                                    "surface", "coaching_change"}
+    skip_bases = _NON_DIFF_COLS | {
+        "team", "game_type", "is_home", "head_coach",
+        "surface", "coaching_change",
+    }
     diff_data = {}
     for col_base in sorted(common_base):
         if col_base in skip_bases:
@@ -193,15 +195,15 @@ def assemble_game_features(season: int) -> pd.DataFrame:
         game_df = pd.concat([game_df, diff_df], axis=1)
 
     # Step 5: Add non-differential context columns
-    # Division game flag
+    # Division game flag — computed into diff_data to avoid fragmentation
     if "team_home" in game_df.columns and "team_away" in game_df.columns:
-        game_df["div_game"] = game_df.apply(
-            lambda r: TEAM_DIVISIONS.get(r["team_home"]) == TEAM_DIVISIONS.get(r["team_away"]),
-            axis=1,
-        ).astype(int)
+        home_div = game_df["team_home"].map(TEAM_DIVISIONS)
+        away_div = game_df["team_away"].map(TEAM_DIVISIONS)
+        div_game_vals = (home_div == away_div).astype(int).values
     else:
-        # Try to infer from game_id pattern (e.g., "2024_01_ARI_BUF")
-        game_df["div_game"] = 0  # Default; will be overwritten from schedules
+        div_game_vals = pd.array([0] * len(game_df), dtype="int64")
+    context_df = pd.DataFrame({"div_game": div_game_vals}, index=game_df.index)
+    game_df = pd.concat([game_df, context_df], axis=1)
 
     # Step 6: Join Bronze schedules for labels
     schedules = _read_bronze_schedules(season)
