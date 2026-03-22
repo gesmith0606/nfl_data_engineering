@@ -72,7 +72,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 - [x] **Phase 24: Documentation Refresh** - Update all project docs to reflect v1.3 completion and v1.4 architecture (completed 2026-03-21)
 - [x] **Phase 25: Feature Assembly and Model Training** - Build game-level differential features and train XGBoost spread/total models with walk-forward CV (completed 2026-03-21)
 - [x] **Phase 26: Backtesting and Validation** - Validate models against historical closing lines with ATS accuracy and profit analysis (completed 2026-03-21)
-- [ ] **Phase 27: Prediction Pipeline** - Weekly prediction generation with edge detection and confidence scoring vs Vegas lines
+- [x] **Phase 27: Prediction Pipeline** - Weekly prediction generation with edge detection and confidence scoring vs Vegas lines (completed 2026-03-22)
 
 ## Phase Details
 
@@ -135,7 +135,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 27-01-PLAN.md — TDD: Weekly prediction pipeline with edge detection, confidence tiers, and Gold Parquet output
+- [x] 27-01-PLAN.md — TDD: Weekly prediction pipeline with edge detection, confidence tiers, and Gold Parquet output
 
 ## Progress
 
@@ -170,7 +170,7 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 | 24. Documentation Refresh | v1.4 | 2/2 | Complete    | 2026-03-21 |
 | 25. Feature Assembly and Model Training | v1.4 | 3/3 | Complete    | 2026-03-21 |
 | 26. Backtesting and Validation | v1.4 | 2/2 | Complete    | 2026-03-21 |
-| 27. Prediction Pipeline | v1.4 | 0/1 | Not started | - |
+| 27. Prediction Pipeline | v1.4 | 1/1 | Complete   | 2026-03-22 |
 
 ---
 *Roadmap created: 2026-03-08*

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: ML Game Prediction
 status: unknown
-stopped_at: Phase 27 context gathered
-last_updated: "2026-03-22T00:51:47.311Z"
+stopped_at: Completed 27-01-PLAN.md
+last_updated: "2026-03-22T01:29:15.847Z"
 progress:
   total_phases: 4
-  completed_phases: 3
-  total_plans: 7
-  completed_plans: 7
+  completed_phases: 4
+  total_plans: 8
+  completed_plans: 8
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 26 — backtesting-and-validation
+**Current focus:** Phase 27 — prediction-pipeline
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v1.4 ML Game Prediction — 4 phases (24-27), 20 requirements, 8 plans
 
 ## Current Position
 
-Phase: 27
-Plan: Not started
+Phase: 27 (prediction-pipeline) — EXECUTING
+Plan: 1 of 1
 
 ## Key Artifacts
 
@@ -63,6 +63,8 @@ Recent decisions for v1.4:
 - [Phase 26]: Pushes excluded from W/L record and profit (money returned at -110 vig)
 - [Phase 26]: LEAKAGE_THRESHOLD=0.58 per STATE.md blocker guidance
 - [Phase 26]: Holdout section only for spread target (ATS is primary market-beating metric)
+- [Phase 27]: Edge convention: spread_edge = model_spread - vegas_spread (positive = more home advantage)
+- [Phase 27]: Confidence tiers at fixed thresholds: high >= 3.0, medium >= 1.5, low < 1.5
 
 ### Pending Todos
 
@@ -76,9 +78,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-22T00:51:47.308Z
-Stopped at: Phase 27 context gathered
-Resume file: .planning/phases/27-prediction-pipeline/27-CONTEXT.md
+Last session: 2026-03-22T01:29:15.844Z
+Stopped at: Completed 27-01-PLAN.md
+Resume file: None
 
 ---
 *Last updated: 2026-03-20 after v1.4 roadmap created*

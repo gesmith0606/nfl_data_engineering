@@ -38,9 +38,9 @@ Requirements for ML Game Prediction milestone. Each maps to roadmap phases.
 
 ### Prediction Pipeline
 
-- [ ] **PRED-01**: Weekly prediction pipeline generating model spread and total lines for upcoming games
-- [ ] **PRED-02**: Edge detection comparing model lines vs Vegas closing lines per game
-- [ ] **PRED-03**: Confidence scoring with tiers (high/medium/low edge) per game prediction
+- [x] **PRED-01**: Weekly prediction pipeline generating model spread and total lines for upcoming games
+- [x] **PRED-02**: Edge detection comparing model lines vs Vegas closing lines per game
+- [x] **PRED-03**: Confidence scoring with tiers (high/medium/low edge) per game prediction
 
 ## Future Requirements
 
@@ -143,9 +143,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BACK-01 | Phase 26 | Complete |
 | BACK-02 | Phase 26 | Complete |
 | BACK-03 | Phase 26 | Complete |
-| PRED-01 | Phase 27 | Pending |
-| PRED-02 | Phase 27 | Pending |
-| PRED-03 | Phase 27 | Pending |
+| PRED-01 | Phase 27 | Complete |
+| PRED-02 | Phase 27 | Complete |
+| PRED-03 | Phase 27 | Complete |
 
 **Coverage:**
 - v1.4 requirements: 20 total
