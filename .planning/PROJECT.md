@@ -62,7 +62,7 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ ML prediction model (XGBoost) for point spreads using 337-column feature vector — Validated in Phase 25
 - ✓ ML prediction model (XGBoost) for over/unders using 337-column feature vector — Validated in Phase 25
 - ✓ Backtest ML models against historical closing lines to find market edges — Validated in Phase 26
-- [ ] Weekly prediction pipeline generating own lines with edge detection vs Vegas
+- ✓ Weekly prediction pipeline generating own lines with edge detection vs Vegas — Validated in Phase 27
 
 ### Planned (Future Milestones)
 
@@ -93,7 +93,7 @@ Bronze layer: 15 data types covering schedules, player stats, PBP (140 cols), NG
 Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 11 output paths.
 Gold layer: weekly + preseason projections with injury adjustments, regression shrinkage, floor/ceiling.
 Prediction feature vector: 337 columns assembled from 8 Silver sources via left joins on [team, season, week].
-Tests: 426 passing across 12 test files.
+Tests: 439 passing across 13 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -150,4 +150,4 @@ Existing documentation:
 - Weekly prediction pipeline with edge detection
 
 ---
-*Last updated: 2026-03-21 after Phase 26 (backtesting-and-validation) completed*
+*Last updated: 2026-03-22 after Phase 27 (prediction-pipeline) completed — v1.4 milestone complete*
