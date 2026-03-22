@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.4 ML Game Prediction (Shipped: 2026-03-22)
+
+**Phases completed:** 4 phases, 8 plans, 11 tasks
+
+**Key accomplishments:**
+
+- Complete Silver (12 tables, 719 columns) and Gold (25 + 15 columns) schema documentation extracted from parquet files, replacing 2 aspirational Silver tables with real schemas
+- CLAUDE.md refreshed with 15+ Bronze types, 12 Silver paths, 360 tests, v1.3 complete status; implementation guide updated with phases 18-23 completed and 24-27 planned; Bronze inventory regenerated showing PBP at 140 columns and officials data type
+- Game-level differential feature assembly from 8 Silver team sources producing 272 REG game rows with 322 diff_ columns and 337 total features per season
+- Walk-forward CV framework with 5 season-boundary folds and XGBoost model training with JSON serialization and 2024 holdout guard
+- Training CLI with Optuna TPE tuning (50 trials), --no-tune conservative defaults, and gain-based feature importance report (top 20 console + CSV)
+- ATS and O/U evaluation library with vig-adjusted profit accounting at -110 odds, plus CLI for running backtests against historical Vegas closing lines
+- Sealed 2024 holdout evaluation with leakage guard plus per-season ATS stability analysis with 58% leakage threshold warning
+- Weekly prediction pipeline with edge detection vs Vegas lines, confidence tiers (high/medium/low at 3.0/1.5 thresholds), and Gold Parquet output
+
+---
+
 ## v1.3 Prediction Data Foundation (Shipped: 2026-03-19)
 
 **Phases completed:** 4 phases, 9 plans, 23 requirements

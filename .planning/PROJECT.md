@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), a rich Silver layer with 11 output paths covering PBP-derived team metrics, game context (weather, rest, travel, coaching), referee tendencies, playoff context, advanced player profiles, and historical dimensions — all assembled into a 337-column prediction feature vector — plus registry-driven ingestion, batch orchestration, and local-first storage.
+A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and ML game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), a rich Silver layer with 11 output paths, a 337-column prediction feature vector, XGBoost models for point spread and over/under prediction with walk-forward cross-validation, backtesting against historical Vegas closing lines, and a weekly prediction pipeline with edge detection and confidence tiers — plus registry-driven ingestion, batch orchestration, and local-first storage.
 
 ## Core Value
 
@@ -55,14 +55,16 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Prediction backtester with ATS/O-U evaluation and vig-adjusted profit at -110 odds — v1.4
 - ✓ Sealed 2024 holdout validation with leakage guard and per-season stability analysis — v1.4
 - ✓ 426 total tests passing — v1.4
+- ✓ Comprehensive docs refresh (data dictionary for all layers, CLAUDE.md, implementation guide) — v1.4
+- ✓ ML prediction model (XGBoost) for point spreads using 337-column feature vector — v1.4
+- ✓ ML prediction model (XGBoost) for over/unders using 337-column feature vector — v1.4
+- ✓ Backtest ML models against historical closing lines with ATS accuracy and profit analysis — v1.4
+- ✓ Weekly prediction pipeline generating own lines with edge detection vs Vegas — v1.4
+- ✓ 439 total tests passing — v1.4
 
 ### Active
 
-- ✓ Comprehensive docs refresh (data dictionary for all layers, update stale docs, CLAUDE.md) — Validated in Phase 24
-- ✓ ML prediction model (XGBoost) for point spreads using 337-column feature vector — Validated in Phase 25
-- ✓ ML prediction model (XGBoost) for over/unders using 337-column feature vector — Validated in Phase 25
-- ✓ Backtest ML models against historical closing lines to find market edges — Validated in Phase 26
-- ✓ Weekly prediction pipeline generating own lines with edge detection vs Vegas — Validated in Phase 27
+(None — v1.4 complete, next milestone not yet defined)
 
 ### Planned (Future Milestones)
 
@@ -87,12 +89,13 @@ Full details: `.planning/VISION.md` | Requirements: `.planning/REQUIREMENTS.md`
 
 ## Context
 
-Shipped v1.3 with 20,642 LOC Python across 23 phases and 42 plans (four milestones).
-Tech stack: Python 3.9, pandas, pyarrow, pytz, nfl-data-py, local Parquet storage (S3 optional).
+Shipped v1.4 with 23,571 LOC Python across 27 phases and 50 plans (five milestones).
+Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, optuna, nfl-data-py, local Parquet storage (S3 optional).
 Bronze layer: 15 data types covering schedules, player stats, PBP (140 cols), NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts, officials — 517 files, 93 MB.
 Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 11 output paths.
-Gold layer: weekly + preseason projections with injury adjustments, regression shrinkage, floor/ceiling.
+Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with spread/total models, edge detection, confidence tiers.
 Prediction feature vector: 337 columns assembled from 8 Silver sources via left joins on [team, season, week].
+ML models: XGBoost spread + over/under with walk-forward CV, Optuna tuning, sealed 2024 holdout.
 Tests: 439 passing across 13 test files.
 
 Existing documentation:
@@ -137,17 +140,20 @@ Existing documentation:
 | Referee tendencies from schedules referee col | Simpler than joining Officials Bronze; crew chief name sufficient | ✓ Good |
 | Playoff context with simple proxy | Cumulative W-L-T + division rank captures 95% of elimination signal | ✓ Good |
 | Game context per-game facts (no rolling) | Weather/rest/travel are single-game properties, not trends | ✓ Good |
+| XGBoost over LightGBM/CatBoost | Simplest gradient boosting, proven on tabular NFL data | ✓ Good |
+| Walk-forward CV (train 1..N, validate N+1) | Respects temporal ordering; no future leakage | ✓ Good |
+| Sealed 2024 holdout | Never touched during tuning; honest final evaluation | ✓ Good |
+| Conservative default hyperparameters | Shallow trees (max_depth=4), strong L1/L2 regularization, early stopping | ✓ Good |
+| Confidence tiers at 3.0/1.5 thresholds | Simple, interpretable edge buckets for user filtering | ✓ Good |
+| Vig-adjusted profit at -110 odds | Standard sportsbook vig; realistic profit accounting | ✓ Good |
 
-## Current Milestone: v1.4 ML Game Prediction
+## Completed Milestone: v1.4 ML Game Prediction (shipped 2026-03-22)
 
-**Goal:** Build ML models that predict point spreads and over/unders with edges against Vegas closing lines.
+See `.planning/MILESTONES.md` for full details.
 
-**Target features:**
-- Comprehensive docs refresh (data dictionary, implementation guide, CLAUDE.md)
-- XGBoost/LightGBM spread prediction model trained on 337-column feature vector
-- Over/under prediction model
-- Backtesting framework comparing model lines vs historical closing lines
-- Weekly prediction pipeline with edge detection
+## Next Milestone: TBD
+
+Run `/gsd:new-milestone` to define the next milestone.
 
 ---
-*Last updated: 2026-03-22 after Phase 27 (prediction-pipeline) completed — v1.4 milestone complete*
+*Last updated: 2026-03-22 after v1.4 milestone completion*
