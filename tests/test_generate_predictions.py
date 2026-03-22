@@ -247,3 +247,66 @@ class TestGenerateWeekPredictions:
 
         with pytest.raises(FileNotFoundError):
             load_model("spread", model_dir="/nonexistent/path")
+
+
+# ---------------------------------------------------------------------------
+# Integration tests
+# ---------------------------------------------------------------------------
+
+
+class TestIntegration:
+    def test_gold_parquet_output(
+        self,
+        tmp_path,
+        mock_game_features,
+        mock_spread_model,
+        mock_total_model,
+        mock_metadata,
+    ):
+        """Gold Parquet round-trip: write predictions, read back, verify schema."""
+        result = generate_week_predictions(
+            mock_game_features, 10, mock_spread_model, mock_metadata, mock_total_model, mock_metadata
+        )
+
+        # Write to Gold path structure
+        gold_dir = tmp_path / "predictions" / "season=2025" / "week=10"
+        gold_dir.mkdir(parents=True)
+        gold_path = gold_dir / "predictions_test.parquet"
+        result.to_parquet(gold_path, index=False)
+
+        # Read back and verify
+        loaded = pd.read_parquet(gold_path)
+        assert len(loaded) == 4
+
+        # Check key columns present
+        for col in [
+            "game_id",
+            "model_spread",
+            "vegas_spread",
+            "spread_edge",
+            "spread_confidence_tier",
+            "model_total",
+            "vegas_total",
+            "total_edge",
+            "total_confidence_tier",
+        ]:
+            assert col in loaded.columns, f"Missing column: {col}"
+
+        # Check data types
+        assert loaded["model_spread"].dtype == np.float64
+        assert loaded["model_total"].dtype == np.float64
+        assert loaded["spread_confidence_tier"].dtype == object
+
+    def test_empty_week(
+        self,
+        mock_game_features,
+        mock_spread_model,
+        mock_total_model,
+        mock_metadata,
+    ):
+        """Requesting a week with no games returns empty DataFrame."""
+        result = generate_week_predictions(
+            mock_game_features, 99, mock_spread_model, mock_metadata, mock_total_model, mock_metadata
+        )
+        assert len(result) == 0
+        assert isinstance(result, pd.DataFrame)
