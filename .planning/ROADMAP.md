@@ -170,7 +170,7 @@ Phases execute in numeric order: 24 -> 25 -> 26 -> 27
 | 24. Documentation Refresh | v1.4 | 2/2 | Complete    | 2026-03-21 |
 | 25. Feature Assembly and Model Training | v1.4 | 3/3 | Complete    | 2026-03-21 |
 | 26. Backtesting and Validation | v1.4 | 2/2 | Complete    | 2026-03-21 |
-| 27. Prediction Pipeline | v1.4 | 1/1 | Complete   | 2026-03-22 |
+| 27. Prediction Pipeline | v1.4 | 1/1 | Complete    | 2026-03-22 |
 
 ---
 *Roadmap created: 2026-03-08*
