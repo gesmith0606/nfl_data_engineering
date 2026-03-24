@@ -69,17 +69,33 @@ Deferred to future milestones. Tracked but not in current roadmap.
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated by roadmapper) | | |
+| INFRA-01 | Phase 28 | Pending |
+| INFRA-02 | Phase 28 | Pending |
+| PLAYER-01 | Phase 28 | Pending |
+| PLAYER-02 | Phase 28 | Pending |
+| PLAYER-03 | Phase 28 | Pending |
+| PLAYER-04 | Phase 28 | Pending |
+| PLAYER-05 | Phase 28 | Pending |
+| FSEL-01 | Phase 29 | Pending |
+| FSEL-02 | Phase 29 | Pending |
+| FSEL-03 | Phase 29 | Pending |
+| FSEL-04 | Phase 29 | Pending |
+| ENS-01 | Phase 30 | Pending |
+| ENS-02 | Phase 30 | Pending |
+| ENS-03 | Phase 30 | Pending |
+| ENS-04 | Phase 30 | Pending |
+| ENS-05 | Phase 30 | Pending |
+| ADV-01 | Phase 31 | Pending |
+| ADV-02 | Phase 31 | Pending |
+| ADV-03 | Phase 31 | Pending |
 
 **Coverage:**
 - v2.0 requirements: 19 total
-- Mapped to phases: 0
-- Unmapped: 19
+- Mapped to phases: 19
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-24*
-*Last updated: 2026-03-24 after initial definition*
+*Last updated: 2026-03-24 after roadmap creation (traceability populated)*
