@@ -64,7 +64,16 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-(None — v1.4 complete, next milestone not yet defined)
+**Current Milestone: v2.0 Prediction Model Improvement**
+
+**Goal:** Transform the baseline prediction model (53% ATS, 50% holdout) into a competitive edge-finding system through player-level features, model ensembles, feature selection, and advanced signal extraction.
+
+**Target features:**
+- Player-level features: QB quality metrics (EPA/QBR rolling), starter vs backup detection, key injury impact on team performance
+- Model ensemble: XGBoost + LightGBM + CatBoost stacking with Ridge meta-learner
+- Feature selection: Reduce 283 features to optimal subset via importance/correlation filtering
+- Advanced features: Adaptive rolling windows, momentum/trend detection, regime detection
+- Leakage fix: Commit the same-week raw stat exclusion from feature engineering (already implemented)
 
 ### Planned (Future Milestones)
 
@@ -147,13 +156,36 @@ Existing documentation:
 | Confidence tiers at 3.0/1.5 thresholds | Simple, interpretable edge buckets for user filtering | ✓ Good |
 | Vig-adjusted profit at -110 odds | Standard sportsbook vig; realistic profit accounting | ✓ Good |
 
-## Completed Milestone: v1.4 ML Game Prediction (shipped 2026-03-22)
+## Current Milestone: v2.0 Prediction Model Improvement
 
-See `.planning/MILESTONES.md` for full details.
+**Goal:** Improve ATS accuracy from 53% baseline to 55%+ through better features, model diversity, and signal extraction.
 
-## Next Milestone: TBD
+**Baseline (post-leakage fix):**
+- ATS: 53.2% overall, 50.0% sealed 2024 holdout
+- O/U: 51.9% overall (below 52.38% break-even)
+- 283 features, ~2,100 training games, XGBoost only
 
-Run `/gsd:new-milestone` to define the next milestone.
+**Target:**
+- ATS: 55%+ overall, 53%+ on holdout
+- Profitable at -110 vig on holdout season
+- Reduced feature set with better signal-to-noise
+
+## Evolution
+
+This document evolves at phase transitions and milestone boundaries.
+
+**After each phase transition** (via `/gsd:transition`):
+1. Requirements invalidated? → Move to Out of Scope with reason
+2. Requirements validated? → Move to Validated with phase reference
+3. New requirements emerged? → Add to Active
+4. Decisions to log? → Add to Key Decisions
+5. "What This Is" still accurate? → Update if drifted
+
+**After each milestone** (via `/gsd:complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
 
 ---
-*Last updated: 2026-03-22 after v1.4 milestone completion*
+*Last updated: 2026-03-23 after v2.0 milestone started*
