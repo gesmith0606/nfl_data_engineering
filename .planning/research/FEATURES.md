@@ -1,207 +1,249 @@
 # Feature Research
 
-**Domain:** NFL Prediction Data Foundation — weather, coaching, special teams, penalties, rest/travel, turnover luck, referee tendencies, playoff context, red zone trip volume
-**Researched:** 2026-03-15
-**Confidence:** HIGH (all 9 feature categories verified against existing Bronze schema; 7 of 9 derivable from existing Bronze data without new external sources)
+**Domain:** NFL game prediction model improvement (player-level features, ensembles, feature selection, advanced signals)
+**Researched:** 2026-03-24
+**Confidence:** MEDIUM-HIGH (existing system well-understood; new feature categories verified via academic papers and open-source model analysis; ensemble gains are domain-agnostic and HIGH confidence)
 
 ---
 
-## Context: What Already Exists
+## Context: What Already Exists (v1.4 Baseline)
 
-### Bronze Data Available for Derivation
+This is a SUBSEQUENT milestone. Do not re-build what exists.
 
-| Bronze Source | Key Columns for v1.3 Features | Already Ingested |
-|---------------|-------------------------------|-----------------|
-| `schedules` | `gameday`, `home_team`, `away_team`, `home_coach`, `away_coach`, `referee`, `stadium`, `stadium_id`, `temp`, `wind`, `roof`, `surface`, `div_game`, `overtime`, `spread_line`, `total_line` | Yes (1999-2025) |
-| `pbp` | `penalty`, `fumble`, `fumble_lost`, `interception`, `drive`, `yardline_100`, `goal_to_go`, `touchdown`, `epa`, `play_type`, `posteam`, `defteam`, `game_seconds_remaining`, `score_differential` | Yes (2010-2025, 103 columns) |
-| `player_weekly` | `interceptions`, `sack_fumbles`, `sack_fumbles_lost`, `rushing_fumbles`, `rushing_fumbles_lost`, `receiving_fumbles`, `receiving_fumbles_lost` | Yes (2002-2025) |
-| `teams` | `team_abbr`, `team_division`, `team_conference` | Yes (static) |
+| Already Built | Status |
+|---------------|--------|
+| 283 leakage-free game-level features (227 rolling team metrics + 56 pre-game context) | Done |
+| Team EPA, success rate, CPOE, tendencies, SOS, situational splits (rolling 3/6-game) | Done |
+| Game context: weather, rest, travel, dome, coaching tenure, surface | Done |
+| Referee tendencies, playoff context, W-L record | Done |
+| XGBoost spread + O/U models with walk-forward CV, Optuna tuning | Done |
+| Sealed 2024 holdout (53.2% ATS overall, 50.0% holdout) | Done |
+| Edge detection vs Vegas closing lines, confidence tiers | Done |
 
-### Silver Data Already Built (v1.2)
-
-| Silver Output | Relevant to v1.3 | Relationship |
-|---------------|-------------------|-------------|
-| Team EPA/success rate | Red zone, penalties | Baseline for comparing penalty-adjusted EPA |
-| Situational splits (home/away, game script) | Rest/travel, playoff context | Extend with rest differential and elimination flags |
-| SOS (opponent-adjusted EPA) | All features | Normalize new features by opponent quality |
-| Team tendencies (pace, PROE) | Penalties, special teams | Context for penalty-adjusted decision metrics |
+**Gap:** The 50.0% holdout result is essentially coin-flip. The existing 283 features are all team-level aggregates. Player-level signal (QB quality, injury replacement quality) is captured only indirectly through team EPA rolling averages, which react slowly to roster changes.
 
 ---
 
 ## Feature Landscape
 
-### Table Stakes (Prediction Model Expects These)
+### Table Stakes (Required for This Milestone)
 
-These features appear in virtually every serious NFL prediction model. Missing them leaves predictive signal on the table that competitors capture.
+Features the improved model must have. Missing these means leaving the most impactful signal on the table.
 
-| Feature | Why Expected | Complexity | Bronze Dependency | Notes |
-|---------|--------------|------------|-------------------|-------|
-| **Weather categorization** | Wind >15 mph reduces passing EPA by 8-12%; temp <32F shifts run/pass balance; rain reduces scoring ~3 pts/game. Every Vegas model includes weather. | LOW | `schedules`: `temp`, `wind`, `roof`, `surface` | Already in Bronze. Categorize into bins (dome, good, cold, windy, precipitation). Dome games get neutral weather. Flag "weather games" where wind>15 OR temp<32. |
-| **Rest days differential** | Post-2011 CBA research shows rolling 3-week net rest has more signal than single-game rest. Thursday games after Sunday = 3 days rest. Bye weeks provide 13 days. | MEDIUM | `schedules`: `gameday`, `home_team`, `away_team` | Compute days_rest per team per game from date deltas. Net rest = team_rest minus opponent_rest. Rolling 3-week cumulative net rest. |
-| **Turnover luck / fumble recovery regression** | Fumble recovery is ~50% random (R-squared of year-over-year turnover margin is 0.01). Teams with extreme recovery rates regress hard. Essential regression-to-mean feature. | MEDIUM | `pbp`: `fumble`, `fumble_lost`, `interception`, `posteam`, `defteam` | Compute forced fumbles vs recovered fumbles per team-game. Recovery rate. Expected turnovers (based on sacks, passes defended). Turnover luck = actual minus expected. |
-| **Red zone trip volume** | Existing Silver has red zone *efficiency* (TD rate). But trip COUNT is the volume multiplier — a team scoring on 50% of 6 trips differs from 50% of 2 trips. Drive-level aggregation needed. | MEDIUM | `pbp`: `drive`, `yardline_100`, `posteam`, `game_id` | Count distinct drives that cross the 20-yard line per team per game. Separate offensive and defensive trip counts. Combine with existing red zone efficiency for expected red zone points. |
-| **Penalty aggregation** | Penalty yards per game correlates with undisciplined play and coaching quality. Opponent-drawn penalty rate reveals scheming advantage. Penalty EPA measures actual impact. | MEDIUM | `pbp`: `penalty`, `epa`, `posteam`, `defteam`, `yards_gained` | Committed penalties per game, penalty yards, penalty EPA. Split by offense/defense. Opponent-drawn rate (penalties your opponents commit). Rolling 3/6 game windows. |
-| **Playoff/elimination context** | Teams mathematically eliminated play differently than teams fighting for seeding. Win-and-in games show elevated performance. Garbage-time games pollute season averages. | MEDIUM | `schedules`: `gameday`, `home_score`, `away_score`, `div_game`; `teams`: division/conference | Requires standings computation from game results. Tag games with: playoff_clinched, eliminated, division_leader, wildcard_contender. Late-season (weeks 15-18) context flags. |
+| Feature | Why Required | Complexity | Dependency on Existing |
+|---------|--------------|------------|------------------------|
+| Starting QB quality differential | QB injuries cause 8-12 point power ranking drops; team EPA lags 2-3 weeks before reflecting starter change; a direct QB metric captures this immediately | MEDIUM | Requires Bronze `player_weekly` (passing EPA) + `injuries` + `depth_charts` + `rosters` — all in Bronze |
+| Backup QB detection flag + quality drop | When a team's starting QB is injured or benched, current team EPA still reflects the previous starter; a "backup playing" flag + backup tier dramatically reduces this ghost signal | MEDIUM | Requires `depth_charts` Bronze + `injuries` Bronze + `player_weekly` for backup's rolling EPA |
+| Feature importance analysis (SHAP or gain) | Model currently a black box; must understand which of 283 features actually drive predictions before adding 30-50 more | LOW | XGBoost gain importance already available via `model.feature_importances_`; SHAP adds finer granularity |
+| Correlation-based redundancy filtering | 283 features likely contain high collinearity (e.g., EPA rolling_3 and EPA rolling_6 are r>0.9); removing redundant features reduces overfitting on 2,100-game dataset | LOW | Requires pandas `.corr()` on assembled game features |
+| SHAP-based feature selection | Identifies features with near-zero contribution to predictions; more robust than gain importance alone because it accounts for interaction effects | MEDIUM | Requires `shap` library (not yet a project dependency); works on existing XGBoost models |
 
 ### Differentiators (Competitive Advantage)
 
-Features that most hobbyist models skip but pro-level models include. Higher complexity but meaningful signal.
+Features that meaningfully separate this model from the v1.4 baseline and from Elo-based competitors like nfelo.
 
-| Feature | Value Proposition | Complexity | Bronze Dependency | Notes |
-|---------|-------------------|------------|-------------------|-------|
-| **Coaching staff tracking with change detection** | New HC/OC produces ~2-3 week adjustment period with lower offensive efficiency. Mid-season coordinator changes create inflection points. Fantasy analysts track this manually; automating it is rare. | HIGH | `schedules`: `home_coach`, `away_coach` (HC only); **external source needed for OC/DC** | HC available in schedules. OC/DC requires external data (manual CSV or web scraping). Detect changes via week-over-week coach name comparison. Flag games_since_coaching_change. |
-| **Referee crew tendencies** | Referee crews show consistent penalty rate patterns (Bill Vinovich averages fewest flags since 2016). DPI-prone crews inflate passing props. Over/under crews affect total scoring. Betting markets adjust when crew assignments are announced. | MEDIUM | `schedules`: `referee` | Referee name already in schedules. Compute per-referee: penalties/game, penalty yards/game, scoring average. Join to upcoming games. Rolling referee stats across seasons. |
-| **Travel distance and time zone factors** | West-to-east travel for 1pm ET games shows measurable disadvantage (circadian misalignment). International games (London, Germany) create extreme travel. Back-to-back road games compound fatigue. | MEDIUM | `schedules`: `stadium_id`, `home_team`, `away_team`; **stadium coordinates lookup needed** | Requires a static stadium-to-coordinates mapping (32 stadiums + international venues). Compute great-circle distance, time zone crossings, consecutive away games. |
-| **Special teams metrics** | Kicking accuracy, punt net yards, kick return average, and blocked kicks affect field position and scoring. Special teams EPA is available in PBP but rarely aggregated at team level. | MEDIUM | `pbp`: `play_type` (includes 'punt', 'field_goal', 'kickoff', 'extra_point'), `epa`, `yards_gained`, `posteam` | Filter PBP to special teams plays. Compute: FG%, punt net avg, kick return avg, special teams EPA per game. Blocked kick counts. Coverage unit EPA. |
-| **Turnover-adjusted EPA** | Standard EPA already penalizes turnovers, but separating "skill turnovers" (bad decisions) from "luck turnovers" (tipped-ball INTs, strip fumbles) provides a cleaner team quality signal. | HIGH | `pbp`: all turnover columns + `epa` | Requires play-level turnover classification. Compute EPA with turnovers removed, EPA with expected (not actual) turnover count. The delta measures luck-adjusted team quality. |
+| Feature | Value Proposition | Complexity | Dependency |
+|---------|-------------------|------------|------------|
+| XGBoost + LightGBM ensemble (Ridge meta-learner) | LightGBM's leaf-wise splitting finds different patterns than XGBoost's depth-wise splitting; stacking their out-of-fold predictions via Ridge adds ~0.5-1.5% ATS accuracy on tabular sports data | HIGH | LightGBM is new dependency; requires out-of-fold (OOF) prediction assembly within walk-forward CV |
+| Adaptive rolling windows (3/6/10 game) | Current model uses fixed 3 and 6-game windows; teams vary in how quickly they stabilize — a rookie OC team should use shorter window than a veteran system team; adding a 10-game window for "regime" and exponential decay variant captures multi-speed trends | MEDIUM | Builds on existing `team_analytics.py` rolling logic; new columns added to Silver team metrics |
+| Team momentum signal | Winning streak direction (momentum_streak: +3 = won last 3, -2 = lost last 2) and points-vs-spread trend (ATS_streak) are leading indicators before EPA rolling catches up; shown to be statistically significant in sports prediction literature | MEDIUM | Requires schedule results + spread_line from Bronze `schedules`; new derived column, no new Bronze sources needed |
+| Regime detection via performance stability | Identify when a team is in a "regime change" (new coach, QB injury, trade deadline addition) by detecting sudden shifts in rolling EPA standard deviation; flag these games as uncertain and reduce confidence tier | HIGH | Requires rolling std of EPA differential; changepoint detection (via simple threshold on rolling_std delta, no exotic libraries required) |
+| CatBoost as third ensemble base learner | CatBoost uses symmetric trees and ordered boosting that reduces overfitting on small N datasets; adding it as a third base learner in the stacking ensemble provides independent error variance, improving ensemble stability | HIGH | New dependency: `catboost`; structurally parallel to LightGBM addition |
+| Quantile regression for prediction intervals | Instead of point estimate only, produce a confidence interval for each spread prediction (e.g., "model: -3.5 ± 4.2"); games where interval is narrow deserve higher edge confidence | MEDIUM | XGBoost supports quantile regression natively via `objective="reg:quantileerror"`; no new library needed |
+| Depth chart delta features | Week-over-week change in a team's depth chart at QB, WR1, OL (composite) positions signals roster flux before it shows up in EPA; especially powerful for detecting mid-season trade deadline impacts | HIGH | Requires Bronze `depth_charts` + `rosters`; needs player-level aggregation logic, new Silver path |
 
 ### Anti-Features (Commonly Requested, Often Problematic)
 
 | Feature | Why Requested | Why Problematic | Alternative |
 |---------|---------------|-----------------|-------------|
-| **External weather API integration** | "More granular weather data" — hourly forecasts, precipitation type, humidity | PBP already has temp/wind per game; schedules has roof/surface. External API adds a new dependency, rate limits, and historical backfill complexity for ~1-2 percentage points of model improvement. Not worth the infrastructure cost at this stage. | Use `temp` and `wind` from existing Bronze schedules data. Categorize into weather bins. Dome flag from `roof` column. |
-| **Real-time referee assignment tracking** | "Get referee assignments as soon as announced" | Referee assignments come 1-2 days before games. Historical tendencies (which we compute from schedules) are the actual signal. Real-time scraping adds fragility for marginal timing gain. | Compute referee historical stats from schedules `referee` column. Apply to upcoming games when schedule data includes referee (typically available by Wednesday). |
-| **Detailed penalty type breakdown** | "Track holding vs DPI vs false start separately" | PBP `penalty` column is just a flag (0/1). Getting penalty type requires parsing the `desc` text field, which is messy and inconsistent. The aggregate penalty rate per team captures 90% of the signal. | Use penalty flag + EPA for aggregate impact. If penalty type needed later, parse `desc` field in a separate enhancement phase. |
-| **Coaching scheme classification** | "Label teams as West Coast, Air Raid, Shanahan zone-run" | Scheme labels are subjective, change within games, and mix concepts. The existing PROE, early_down_run_rate, pace, and shotgun rate from v1.2 tendencies already capture scheme behavior quantitatively without subjective labels. | Continue using quantitative tendencies (PROE, pace, shotgun %, no-huddle %) already in Silver. |
-| **Player-level rest tracking** | "Track individual player rest and load management" | Requires injury report cross-referencing, practice participation data, and snap count trends — massive complexity. Team-level rest differential captures the schedulable advantage. | Use team-level rest days from schedules. Player availability is already handled by injury adjustments in Gold projections. |
-| **Elo ratings** | "Compute team Elo like FiveThirtyEight" | Elo is a single-number summary that loses the multi-dimensional signal captured by EPA, SOS, and situational splits already in Silver. It is redundant with what the ML model will learn from the feature vector. | The existing EPA + SOS + situational features already provide richer team quality signals than Elo. An ML model trained on these features will outperform Elo-based predictions. |
+| Full 53-man roster player features | "Individual skill matters" | Combinatorial explosion: 53 players x 2 teams x multiple metrics = 300+ new columns; extreme sparsity for non-starters; negligible improvement over team EPA aggregates for the 90% of players who aren't QB | Limit player features to QB only (highest individual impact) and key-player injury flags at other positions |
+| Raw injury count as feature | "More injuries = worse team" | Raw count treats a backup LB injury identically to a QB injury; noisy signal; positional importance varies 10x | Use position-weighted injury score (QB weight=5, OL weight=2, skill positions weight=1.5, LB/DB weight=1.0) |
+| Neural network for game prediction | "Deep learning beats tree models" | NFL game dataset is ~2,100 games (2016-2025); neural nets require 10x-100x more data to generalize; consistently underperform gradient boosting on tabular sports data at this scale per 2025 Frontiers paper | XGBoost + LightGBM + CatBoost stacking achieves equivalent or better performance with interpretability |
+| Player-to-player matchup features (WR vs CB) | "Mahomes vs Sauce Gardner matters" | Requires Neo4j graph model (deferred to v3.1); dense matrix of 50+ WR vs 50+ CB combinations is mostly empty; confounds game-level prediction with position matchup prediction | Team-level passing EPA vs opponent's coverage EPA differential is a sufficient proxy at this granularity |
+| Line movement as input feature | "Sharp money knows more" | Model learns to track market rather than find independent signal; at best achieves 52.4% ATS (break-even) by echoing the closing line | Use Vegas closing line ONLY as evaluation benchmark (ATS accuracy, CLV), never as input |
+| Automated weekly model retraining | "Fresh model every week" | With only 2,100 games in training, adding 16 new games each week produces tiny marginal improvement; risk of overfitting to small recent sample; operational complexity high | Retrain seasonally (once/year before season start); monitor drift with ATS rolling 8-week window |
+| Player sentiment / Twitter data | "Media narrative has signal" | Unstructured data; requires NLP pipeline; signal is noise at weekly aggregation; not reproducible from free data sources | Focus on structured depth chart changes and injury reports, which capture the same information more reliably |
 
 ---
 
 ## Feature Dependencies
 
 ```
-Weather Categorization (from schedules)
-    └── no dependencies, standalone Bronze derivation
-
-Rest Days Differential (from schedules)
-    └── requires: schedules with gameday dates
-    └── enhances: Situational Splits (add rest context to home/away)
-
-Travel Distance
-    └── requires: Stadium Coordinates Lookup (static CSV, ~35 rows)
-    └── enhances: Rest Days Differential (combined rest+travel fatigue score)
-
-Penalty Aggregation (from PBP)
-    └── requires: existing PBP Bronze data
-    └── enhances: Team EPA (penalty-adjusted EPA variant)
-
-Turnover Luck Metrics (from PBP)
-    └── requires: existing PBP Bronze data
-    └── enhances: Team EPA (luck-adjusted EPA variant)
-
-Red Zone Trip Volume (from PBP)
-    └── requires: existing PBP Bronze data
-    └── enhances: existing Red Zone Efficiency (volume * efficiency = expected points)
-
-Referee Tendencies (from schedules)
-    └── requires: schedules with referee names
-    └── enhances: Penalty Aggregation (referee-adjusted penalty expectation)
-
-Playoff/Elimination Context
-    └── requires: schedules with scores (completed games)
-    └── requires: teams with division/conference structure
-    └── sequential: must process games in chronological order within a season
-
-Coaching Staff Tracking
-    └── requires: schedules with home_coach/away_coach (HC available)
-    └── requires: External OC/DC source (manual CSV or scraping) for full value
-    └── enhances: All team metrics (flag regime changes for window adjustments)
-
-Special Teams Metrics (from PBP)
-    └── requires: existing PBP Bronze data (punt, field_goal, kickoff, extra_point play types)
-    └── standalone: does not depend on other v1.3 features
+Existing 283 game-level features (v1.4)
+    |
+    +---> [TABLE STAKES] SHAP / gain importance analysis
+    |         Requires: existing XGBoost models + shap library
+    |         Output: ranked feature importance, drop bottom 30%
+    |
+    +---> [TABLE STAKES] Correlation redundancy filter
+    |         Requires: assembled game features DataFrame
+    |         Output: reduced feature set (target: 80-120 features)
+    |
+    v
+Reduced feature set (80-120 features)
+    |
+    +---> [TABLE STAKES] Starting QB quality differential
+    |         Requires: Bronze player_weekly (pass_epa) + depth_charts + injuries
+    |         Output: home_qb_epa_roll3, away_qb_epa_roll3, qb_epa_diff,
+    |                  home_qb_backup_flag, qb_quality_tier_diff
+    |
+    +---> [TABLE STAKES] Backup QB detection + quality drop
+    |         Requires: Bronze injuries (Doubtful/Out status) + depth_charts + player_weekly
+    |         Output: home_backup_qb (0/1), away_backup_qb (0/1), qb_replacement_quality_diff
+    |
+    +---> [DIFFERENTIATOR] Adaptive rolling windows (10-game + exp decay)
+    |         Requires: existing team_analytics.py rolling logic
+    |         Output: new columns in Silver teams/pbp_metrics (roll10 variants)
+    |
+    +---> [DIFFERENTIATOR] Momentum signal (winning streak, ATS streak)
+    |         Requires: Bronze schedules (results + spread_line, no new sources)
+    |         Output: home_momentum_streak, away_momentum_streak, home_ats_streak
+    |
+    v
+Enriched feature set (~100-150 features with player + momentum signals)
+    |
+    +---> [DIFFERENTIATOR] XGBoost base model (already exists, retrain on reduced features)
+    |
+    +---> [DIFFERENTIATOR] LightGBM base model (new dependency)
+    |         Requires: lightgbm library + OOF prediction assembly within walk-forward CV
+    |
+    +---> [DIFFERENTIATOR] CatBoost base model (new dependency)
+    |         Requires: catboost library
+    |
+    v
+OOF predictions from 3 base models
+    |
+    v
+[DIFFERENTIATOR] Ridge meta-learner
+    Requires: sklearn Ridge (already a transitive dep via scipy)
+    Output: final ensemble spread / total predictions
+    |
+    v
+[DIFFERENTIATOR] Quantile regression intervals (XGBoost quantile objective)
+    Requires: no new library; XGBoost native
+    Output: prediction_interval_width per game
+    |
+    v
+Updated edge detection + confidence tiers
+    |
+    v
+Weekly prediction pipeline (already exists, update inputs)
 ```
 
 ### Dependency Notes
 
-- **Travel Distance requires Stadium Coordinates:** A one-time static lookup table of ~35 venues (32 NFL stadiums + international). This is a 30-minute manual data entry task, not a complex dependency.
-- **Coaching OC/DC requires external data:** HC names are in schedules, but OC/DC changes (which have the most fantasy impact) need a separate data source. This can be a manually maintained CSV initially.
-- **Playoff Context requires chronological processing:** Standings must be computed game-by-game within each season. Cannot be parallelized across weeks, but can be parallelized across seasons.
-- **Seven of nine features derive entirely from existing Bronze data.** Only coaching (OC/DC) and travel (coordinates) need new external data, both of which are small static datasets.
+- **QB features depend on Bronze depth_charts + injuries:** These Bronze sources are already ingested for 2016-2025 (v1.1). The work is aggregation logic, not new data ingestion.
+- **Feature selection must precede ensemble:** Adding 3 base learners to 283 noisy features compounds overfitting; reduce first, then ensemble.
+- **Momentum signal requires no new Bronze sources:** Computed from existing Bronze `schedules` which already has `result` and `spread_line`.
+- **Adaptive windows enhance, not replace, existing windows:** Add roll_10 and exp_decay variants alongside existing roll_3/roll_6; do not remove existing columns until feature selection confirms they are inferior.
+- **Regime detection depends on adaptive windows:** Rolling std of EPA requires longer history (10-game window) to detect meaningful regime shifts.
+- **OOF stacking requires modified CV loop:** The existing `walk_forward_cv` in `model_training.py` must be extended to collect out-of-fold predictions for each fold, not just MAE scores.
 
 ---
 
 ## MVP Definition
 
-### Launch With (v1.3 Core)
+### Launch With (v2.0 — this milestone)
 
-Features derivable entirely from existing Bronze data, with clear predictive signal.
+Minimum viable product to validate whether player-level + ensemble changes move holdout ATS from 50% toward 53%+.
 
-- [x] **Weather categorization** — LOW complexity, HIGH signal for passing models, zero new dependencies
-- [x] **Rest days differential** — MEDIUM complexity, established predictive value, date math on schedules
-- [x] **Penalty aggregation** — MEDIUM complexity, PBP-derived, captures team discipline and opponent exploitation
-- [x] **Turnover luck metrics** — MEDIUM complexity, strongest regression-to-mean signal in NFL analytics
-- [x] **Red zone trip volume** — MEDIUM complexity, fills a gap in existing red zone efficiency (volume missing)
-- [x] **Referee tendencies** — MEDIUM complexity, referee name already in schedules, useful for over/under signals
-- [x] **Playoff/elimination context** — MEDIUM complexity, standings derivable from game results, important late-season
+- [ ] Feature importance analysis (SHAP + gain) — identify which of 283 features contribute signal
+- [ ] Correlation/redundancy filter — reduce to 80-120 feature subset, retrain XGBoost, verify no regression
+- [ ] Starting QB quality differential — EPA-based rolling metric with backup detection flag
+- [ ] LightGBM base model — second learner with Ridge stacking over XGBoost + LightGBM OOF predictions
+- [ ] Momentum signal (win streak + ATS trend) — simple derived column from existing schedules data
+- [ ] Holdout evaluation on 2024 season — compare 2024 ATS accuracy before and after each change
 
-### Add After Validation (v1.3 Extended)
+### Add After Validation (v2.x)
 
-Features requiring small external data sources or higher complexity transforms.
+Features to add once the v2.0 changes show measurable improvement in holdout accuracy.
 
-- [ ] **Special teams metrics** — Trigger: after PBP-derived features are stable; adds field position signal
-- [ ] **Travel distance** — Trigger: after rest days are computed; requires stadium coordinates CSV (one-time creation)
-- [ ] **Coaching staff tracking (HC)** — Trigger: after standings computation proves chronological processing works; HC detection from schedules data
+- [ ] CatBoost as third base learner — adds independent error variance; only worth the complexity if LightGBM stacking already shows uplift
+- [ ] Adaptive rolling windows (10-game) — extend existing Silver team metrics; test whether 10-game window adds signal over 3/6
+- [ ] Quantile regression intervals — once spread model is stable, add prediction intervals for edge confidence refinement
+- [ ] Regime detection flag — experimental; adds complexity, test whether it reduces false positives on regime-change games
+- [ ] Depth chart delta features — requires new Silver path; high complexity; defer until base improvements are validated
 
-### Future Consideration (v1.4+)
+### Future Consideration (v3+)
 
-- [ ] **Coaching OC/DC tracking** — Requires external data source; defer until HC tracking proves value
-- [ ] **Turnover-adjusted EPA** — HIGH complexity; requires play-level turnover classification; defer until base turnover luck metrics are validated
-- [ ] **Penalty type breakdown** — Requires PBP `desc` text parsing; defer until aggregate penalty rates prove useful
+Features to defer to later milestones.
+
+- [ ] WR-CB matchup graph (Neo4j) — requires v3.1 infrastructure; not available from flat Parquet
+- [ ] Live in-season model updates — requires production infra (v3.0 milestone)
+- [ ] Market data / line movement — requires paid data feed (v2.3 milestone)
+- [ ] News NLP / practice reports — unstructured data pipeline (v3.1 milestone)
 
 ---
 
 ## Feature Prioritization Matrix
 
-| Feature | Predictive Value | Implementation Cost | Data Source | Priority |
-|---------|-----------------|---------------------|-------------|----------|
-| Weather categorization | MEDIUM | LOW | Existing Bronze (schedules) | P1 |
-| Rest days differential | MEDIUM | MEDIUM | Existing Bronze (schedules) | P1 |
-| Penalty aggregation | MEDIUM | MEDIUM | Existing Bronze (PBP) | P1 |
-| Turnover luck metrics | HIGH | MEDIUM | Existing Bronze (PBP) | P1 |
-| Red zone trip volume | HIGH | MEDIUM | Existing Bronze (PBP) | P1 |
-| Referee tendencies | MEDIUM | MEDIUM | Existing Bronze (schedules) | P1 |
-| Playoff/elimination context | MEDIUM | MEDIUM | Existing Bronze (schedules + teams) | P1 |
-| Special teams metrics | MEDIUM | MEDIUM | Existing Bronze (PBP) | P2 |
-| Travel distance | LOW-MEDIUM | MEDIUM | Static CSV + schedules | P2 |
-| Coaching HC tracking | MEDIUM | MEDIUM | Existing Bronze (schedules) | P2 |
-| Coaching OC/DC tracking | HIGH | HIGH | External source needed | P3 |
-| Turnover-adjusted EPA | HIGH | HIGH | Derived from turnover luck | P3 |
+| Feature | Model Value | Implementation Cost | Priority |
+|---------|-------------|---------------------|----------|
+| SHAP feature selection / redundancy filter | HIGH | LOW | P1 |
+| Starting QB EPA differential | HIGH | MEDIUM | P1 |
+| Backup QB detection flag | HIGH | MEDIUM | P1 |
+| LightGBM + Ridge stacking (2-model) | HIGH | MEDIUM | P1 |
+| Momentum signal (win/ATS streak) | MEDIUM | LOW | P1 |
+| CatBoost (3rd base learner) | MEDIUM | MEDIUM | P2 |
+| Adaptive 10-game rolling windows | MEDIUM | MEDIUM | P2 |
+| Quantile regression intervals | MEDIUM | LOW | P2 |
+| Regime detection flag | LOW | HIGH | P3 |
+| Depth chart delta features | MEDIUM | HIGH | P3 |
 
 **Priority key:**
-- P1: Core v1.3 milestone — all derivable from existing Bronze data
-- P2: Extended v1.3 — small external data or higher complexity
-- P3: Future — requires external sources or depends on P1/P2 validation
+- P1: Core v2.0 milestone deliverable
+- P2: Add if P1 shows improvement and capacity permits
+- P3: Defer to future milestone; requires validation that earlier features are working
+
+---
+
+## Realistic Improvement Expectations
+
+Based on research and the existing 50.0% holdout baseline:
+
+| Change | Expected ATS Lift | Confidence | Rationale |
+|--------|-------------------|------------|-----------|
+| Feature selection (reduce noise) | +0.5-1.5% | MEDIUM | Established result: removing noisy features reduces overfitting on small N; sports prediction papers consistently show this |
+| Starting QB differential | +0.5-1.5% | MEDIUM | nfelo's QB adjustment is their largest single signal; FiveThirtyEight's QB VALUE metric provides 2-3 point line adjustment; this is the single highest-impact player feature |
+| Backup QB detection flag | +0.5-1.0% | MEDIUM | QB injuries cause 8-12 point power ranking shifts; current model is blind to this for 2-3 weeks post-injury |
+| LightGBM + stacking | +0.3-0.8% | MEDIUM-LOW | Literature shows 0.5-1.5% gains for stacking gradient boosting models on tabular data; sports-specific evidence is thinner |
+| Momentum signals | +0.2-0.5% | LOW | Statistical significance in sports literature but effect size is small after controlling for team quality |
+| Combined (all P1 features) | +1.5-4.0% | MEDIUM | Non-additive due to overlap; realistic target is 52-54% holdout ATS |
+
+**Key reality check:** Moving from 50% to 53%+ on a sealed holdout is ambitious. Each 1% improvement requires finding a systematic market inefficiency. The QB signal is the most likely source. If feature selection alone moves holdout from 50% to 51.5%, that validates the approach and justifies adding ensemble complexity.
 
 ---
 
 ## Competitor Feature Analysis
 
-| Feature | Pro Models (Sharp Football, PFF) | Hobbyist Models (Kaggle, tutorials) | Our Approach |
-|---------|----------------------------------|--------------------------------------|-------------|
-| Weather | Full weather API integration, hourly data | Often ignored or dome-only flag | Categorize from existing temp/wind/roof in schedules — 80% of the signal for 10% of the effort |
-| Rest/travel | Detailed fatigue indices with travel distance, time zones, altitude | Days-rest differential only | Days-rest differential first (P1), travel distance extension (P2) |
-| Turnovers | Fumble recovery rate regression, expected turnovers, turnover-adjusted metrics | Raw turnover margin | Turnover luck (P1) with expected turnover models; turnover-adjusted EPA deferred to P3 |
-| Penalties | Penalty EPA, type breakdown, opponent-drawn rates, referee-adjusted | Total penalties per game | Aggregate penalty EPA and opponent-drawn rates (P1); type breakdown deferred (anti-feature) |
-| Referee | Crew-specific over/under, DPI rates, penalty yards per game | Almost never included | Historical referee tendencies from schedules data (P1) — rare differentiator at low cost |
-| Special teams | Full special teams EPA, coverage unit grades, returner value | Kicking accuracy only or ignored | PBP-derived special teams EPA and FG% (P2) |
-| Coaching | Scheme labels, coordinator tracking, change impact windows | Ignored | HC change detection from schedules (P2); OC/DC deferred (P3) |
-| Playoff context | Elimination/clinch flags, motivation indices | Win-loss record only | Standings-derived context flags (P1) |
-| Red zone | Trip volume + efficiency + expected points | Efficiency rate only | Volume from PBP drives (P1) combined with existing v1.2 efficiency |
+| Feature | nfelo | FiveThirtyEight | Our v1.4 | Our v2.0 Target |
+|---------|-------|-----------------|----------|-----------------|
+| QB quality metric | Dedicated QB Elo model (nfeloqb) — rolling offensive/defensive passing performance | QB VALUE (rolling EPA/CPOE) — ±2-3 point line adjustment | Indirect via team EPA | Direct QB EPA differential + backup flag |
+| Team quality metric | Custom Elo (game-by-game update) | Elo rating (season-long) | 283 Silver features | 80-120 selected Silver features |
+| Player injury handling | QB game-day probability model | Manual adjustment | Bronze injury status → team Silver (lagged) | Backup QB flag (immediate signal) |
+| Model architecture | Single Elo formula with QB overlay | Single Elo with QB/HFA adjustments | Single XGBoost | XGBoost + LightGBM stacked via Ridge |
+| Feature count | ~15 (Elo + adjustments) | ~12 | 283 | ~100-150 (selected) |
+| ATS accuracy | 53.7% vs closing (2009-2025) | Not published vs closing | 53.2% overall, 50.0% holdout | Target: 53%+ holdout |
+
+**Observation:** nfelo achieves 53.7% ATS with just ~15 features including a dedicated QB model. This strongly validates that QB adjustment is the highest-leverage player feature to add. Our richer team-level context (weather, refs, situational splits) should complement the QB signal rather than duplicate it.
 
 ---
 
 ## Sources
 
-- **Existing Bronze schema:** Verified against `docs/NFL_DATA_DICTIONARY.md` and `src/config.py` PBP_COLUMNS (103 columns) — HIGH confidence
-- **Weather impact:** Web search findings on wind >15 mph reducing passing EPA 8-12%, temp <32F favoring rush — [Sharp Football Analysis](https://www.sharpfootballanalysis.com), [Parlay Savant 2026 Guide](https://www.parlaysavant.com/insights/sports-prediction-models-2026) — MEDIUM confidence
-- **Rest differential research:** Lopez & Bliss (2024) study showing post-2011 CBA diminished bye advantage; rolling 3-week net rest has more signal — [Frontiers paper](https://www.frontiersin.org/journals/behavioral-economics/articles/10.3389/frbhe.2024.1479832/full), [SumerSports analysis](https://sumersports.com/the-zone/nfl-schedule-rest-differential-analysis/), [arXiv](https://arxiv.org/abs/2408.10867) — HIGH confidence (peer-reviewed)
-- **Turnover luck:** Fumble recovery ~50% random, R-squared 0.01 year-over-year — [PMC research](https://pmc.ncbi.nlm.nih.gov/articles/PMC5969004/), [Harvard Sports Analysis Collective](https://harvardsportsanalysis.org/2014/10/how-random-are-turnovers/), [StatsbyLopez](https://statsbylopez.com/2013/12/18/fumble-luck-part-i/) — HIGH confidence (multiple academic sources)
-- **Referee tendencies:** Consistent crew-specific patterns, home team penalty bias — [Harvard Sports Analysis Collective](https://harvardsportsanalysis.org/2025/09/inside-the-flags-a-data-driven-investigation-of-nfl-penalties/), [nflpenalties.com](https://www.nflpenalties.com/all-referees.php?year=2023&view=total), [ESPN](https://www.espn.com/nfl/story/_/id/46087159/debunking-nfl-officiating-conspiracy-theories-data) — MEDIUM confidence (effect size debated)
-- **nfl-data-py officials function:** `import_officials()` exists in nfl-data-py but we already have `referee` in schedules — [nfl-data-py GitHub](https://github.com/nflverse/nfl_data_py) — HIGH confidence
-- **Travel/fatigue:** [Sports Book Review fatigue index](https://www.sportsbookreview.com/picks/nfl/fatigue-index/) — MEDIUM confidence
+- [Advancing NFL Win Prediction: Pythagorean to ML (Frontiers 2025)](https://www.frontiersin.org/journals/sports-and-active-living/articles/10.3389/fspor.2025.1638446/full) — SHAP feature importance, RF vs NN vs traditional; HIGH confidence
+- [nfelo Model Performance](https://www.nfeloapp.com/games/nfl-model-performance/) — 53.7% ATS, QB adjustment methodology; HIGH confidence
+- [nfeloqb GitHub](https://github.com/greerreNFL/nfeloqb) — QB Elo adjustment implementation reference; HIGH confidence
+- [nfelo: Best NFL Game Grade](https://www.nfeloapp.com/analysis/whats-the-best-nfl-game-grade/) — 60% point differential + 20% WEPA + 20% PFF; 1.6x offensive EPA weight; HIGH confidence
+- [BorutaSHAP Feature Selection](https://github.com/Ekeany/Boruta-Shap) — Boruta + SHAP combined feature selection for tree models; HIGH confidence
+- [SHAP vs Permutation Importance Comparison (Springer 2024)](https://link.springer.com/article/10.1186/s40537-024-00905-w) — Permutation importance yields less consistent improvements than SHAP; MEDIUM confidence
+- [Stacking Ensembles XGBoost+LightGBM+CatBoost (2025)](https://johal.in/ensemble-learning-methods-xgboost-and-lightgbm-stacking-for-improved-predictive-accuracy-2025/) — 6.3% accuracy lift over best single model on general tabular data; MEDIUM confidence (not sports-specific)
+- [Stacking Ensemble Research Square 2025](https://www.researchsquare.com/article/rs-7944070/v1) — XGBoost + LightGBM + CatBoost + AdaBoost stacking methodology; MEDIUM confidence
+- [Hidden Markov Model Regime Detection (Medium)](https://pyquantlab.medium.com/hidden-markov-model-regime-adaptive-momentum-strategy-with-dynamic-lookbacks-and-trailing-stops-be1aae8b73f1) — HMM for regime detection in time series; LOW confidence (financial, not sports-specific)
+- [Impact of Injuries on NFL Power Rankings (WalterFootball)](https://walterfootball.com/impactinjuriespowerrankings.php) — QB injury causes 8-12 position drop; MEDIUM confidence
+- [Sports Injury Central 2024 Team Health Analysis](https://sicscore.com/news/most-and-least-injured-nfl-teams-in-2024-key-insights-and-2025-projections/) — team health vs win correlation 2024 season; MEDIUM confidence
+- Existing codebase: `src/feature_engineering.py`, `src/model_training.py`, `src/player_advanced_analytics.py` — current feature assembly and model architecture; HIGH confidence
 
 ---
-*Feature research for: NFL Prediction Data Foundation (v1.3)*
-*Researched: 2026-03-15*
+*Feature research for: NFL game prediction model improvement (v2.0 milestone)*
+*Researched: 2026-03-24*
