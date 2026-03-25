@@ -99,11 +99,11 @@ Full details: `.planning/milestones/v1.4-ROADMAP.md`
   3. Running feature assembly produces a feature vector with QB quality differential, backup QB flag, positional injury impact, and RB/WR/OL quality columns at [team, season, week] grain
   4. A test asserts that every player-derived feature uses shift(1) lag -- no game's player features reference that same game's stats
   5. Feature count grows from 283 to approximately 310-330 with the new player columns present in the assembled matrix
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 28-01: TBD
-- [ ] 28-02: TBD
+- [ ] 28-01-PLAN.md — Infrastructure: verify leakage fix, install LightGBM/CatBoost/SHAP
+- [ ] 28-02-PLAN.md — Player quality Silver source: QB EPA, starter detection, injury impact, positional quality with lag guards
 
 ### Phase 29: Feature Selection
 **Goal**: The feature set is reduced from ~310 to 80-120 high-signal features through walk-forward-safe selection that never touches the 2024 holdout
@@ -191,4 +191,4 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-24 after v2.0 roadmap created*
+*Last updated: 2026-03-24 after Phase 28 planning*
