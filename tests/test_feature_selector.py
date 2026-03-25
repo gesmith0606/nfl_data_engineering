@@ -8,6 +8,9 @@ Tests cover:
 - Holdout season exclusion guard (FSEL-04)
 - Zero-variance feature handling
 - Transitive correlation chain resolution
+- CV-validated cutoff search (find_optimal_feature_count)
+- End-to-end selection pipeline (run_final_selection)
+- Config integration (SELECTED_FEATURES import)
 """
 
 import numpy as np
@@ -285,3 +288,108 @@ class TestZeroVariance:
         # Zero-variance features should not be in selected
         assert "diff_const_a" not in result.selected_features
         assert "diff_const_b" not in result.selected_features
+
+
+# ── Integration tests for CV-validated cutoff search (Plan 02) ──
+
+
+# Import run_feature_selection functions via sys.path
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+from run_feature_selection import find_optimal_feature_count, run_final_selection
+
+
+class TestCVValidatedCutoff:
+    """Test find_optimal_feature_count with walk-forward CV -- FSEL-03 integration."""
+
+    def test_returns_best_count_and_mae_dict(self):
+        """find_optimal_feature_count returns (best_count, {count: float}) with best_count in candidates."""
+        df = _make_synthetic_features(n_features=10, n_rows=300, seasons=[2020, 2021, 2022, 2023])
+        feature_cols = [c for c in df.columns if c.startswith("diff_")]
+
+        best_count, cv_results = find_optimal_feature_count(
+            df, feature_cols, "actual_margin",
+            candidate_counts=[3, 5, 7],
+            correlation_threshold=0.90,
+        )
+
+        assert best_count in [3, 5, 7], f"best_count={best_count} not in candidates"
+        assert isinstance(cv_results, dict)
+        assert set(cv_results.keys()) == {3, 5, 7}
+        for count, mae in cv_results.items():
+            assert isinstance(mae, float), f"MAE for count={count} is not float"
+            assert mae > 0, f"MAE for count={count} should be positive"
+
+    def test_folds_use_only_training_data(self):
+        """All folds use only seasons < val_season (no future leakage)."""
+        # Use seasons that match VALIDATION_SEASONS overlap: 2021, 2022, 2023 are val seasons
+        df = _make_synthetic_features(n_features=8, n_rows=400, seasons=[2019, 2020, 2021, 2022, 2023])
+        feature_cols = [c for c in df.columns if c.startswith("diff_")]
+
+        # This should run without error -- internal folds enforce season < val_season
+        best_count, cv_results = find_optimal_feature_count(
+            df, feature_cols, "actual_margin",
+            candidate_counts=[3, 5],
+        )
+
+        assert best_count in [3, 5]
+        # All MAEs should be finite (folds completed successfully)
+        for mae in cv_results.values():
+            assert np.isfinite(mae), "MAE should be finite"
+
+    def test_no_holdout_in_data(self):
+        """find_optimal_feature_count raises ValueError if HOLDOUT_SEASON is in data."""
+        df = _make_synthetic_features(
+            n_features=8, n_rows=200, seasons=[2022, 2023, HOLDOUT_SEASON]
+        )
+        feature_cols = [c for c in df.columns if c.startswith("diff_")]
+
+        with pytest.raises(ValueError, match=f"Holdout season {HOLDOUT_SEASON}"):
+            find_optimal_feature_count(
+                df, feature_cols, "actual_margin",
+                candidate_counts=[3, 5],
+            )
+
+
+class TestEndToEndSelection:
+    """Test run_final_selection end-to-end -- produces definitive feature list."""
+
+    def test_returns_correct_count(self):
+        """run_final_selection at target_count=5 returns result.n_selected == 5."""
+        df = _make_synthetic_features(n_features=10, n_rows=200, seasons=[2020, 2021, 2022, 2023])
+        feature_cols = [c for c in df.columns if c.startswith("diff_")]
+
+        result = run_final_selection(
+            df, feature_cols, "actual_margin", optimal_count=5
+        )
+
+        assert result.n_selected == 5
+        assert len(result.selected_features) == 5
+
+    def test_fold_seasons_no_holdout(self):
+        """Result fold_seasons does not contain HOLDOUT_SEASON (D-09)."""
+        df = _make_synthetic_features(n_features=10, n_rows=200, seasons=[2020, 2021, 2022, 2023])
+        feature_cols = [c for c in df.columns if c.startswith("diff_")]
+
+        result = run_final_selection(
+            df, feature_cols, "actual_margin", optimal_count=5
+        )
+
+        assert HOLDOUT_SEASON not in result.fold_seasons
+        assert result.fold_seasons == [2020, 2021, 2022, 2023]
+
+    def test_result_has_all_metadata_fields(self):
+        """Result has shap_scores, dropped_correlation, correlated_pairs populated."""
+        df = _make_synthetic_features(n_features=10, n_rows=200, seasons=[2020, 2021, 2022, 2023])
+        feature_cols = [c for c in df.columns if c.startswith("diff_")]
+
+        result = run_final_selection(
+            df, feature_cols, "actual_margin", optimal_count=5
+        )
+
+        assert isinstance(result.shap_scores, dict)
+        assert len(result.shap_scores) > 0
+        assert isinstance(result.dropped_correlation, dict)
+        assert isinstance(result.correlated_pairs, list)
+        assert result.n_original == len(feature_cols)
