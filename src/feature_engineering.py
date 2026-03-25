@@ -247,8 +247,14 @@ def assemble_game_features(season: int) -> pd.DataFrame:
 def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
     """Return list of valid feature column names from an assembled game DataFrame.
 
-    Includes all diff_* columns plus non-differential context columns.
-    Excludes all LABEL_COLUMNS and identifier columns.
+    Only includes features that are knowable BEFORE the game starts:
+    - Rolling/lagged stats (_roll3, _roll6, _std) — use prior-week data only
+    - Pre-game context (weather, rest, dome, travel, coaching tenure)
+    - Cumulative record (wins, losses, win_pct, division_rank)
+    - Referee tendencies (season-level)
+
+    Excludes same-week raw stats (e.g. off_epa_per_play for that game)
+    which would constitute data leakage.
 
     Args:
         game_df: DataFrame from assemble_game_features().
@@ -266,31 +272,57 @@ def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
         exclude.add(f"coaching_change{suffix}")
         exclude.add(f"game_type{suffix}")
 
+    # Pre-game knowable context columns (not derived from game outcome)
+    _PRE_GAME_CONTEXT = {
+        "is_dome", "rest_advantage", "is_short_rest", "is_post_bye",
+        "travel_miles", "tz_diff", "coaching_tenure", "div_game",
+        "temperature", "wind_speed", "is_cold", "is_high_wind",
+        "rest_days", "opponent_rest",
+    }
+
+    # Pre-game knowable cumulative columns (computed before the game)
+    _PRE_GAME_CUMULATIVE = {
+        "wins", "losses", "ties", "win_pct", "division_rank",
+        "games_behind_division_leader", "ref_penalties_per_game",
+    }
+
+    def _is_rolling(col: str) -> bool:
+        """Check if column is a properly lagged rolling feature."""
+        return "roll3" in col or "roll6" in col or "std" in col
+
+    def _is_pre_game_context(col: str) -> bool:
+        """Check if column is a pre-game knowable context feature."""
+        base = col
+        for suffix in ("_home", "_away"):
+            if col.endswith(suffix):
+                base = col[: -len(suffix)]
+                break
+        if base.startswith("diff_"):
+            base = base[5:]
+        return base in _PRE_GAME_CONTEXT or base in _PRE_GAME_CUMULATIVE
+
     feature_cols = []
     for col in game_df.columns:
         if col in exclude:
             continue
-        # Include diff_ columns
-        if col.startswith("diff_"):
-            feature_cols.append(col)
+        if not game_df[col].dtype in ("float64", "int64", "float32", "int32", "bool"):
             continue
-        # Include numeric non-label, non-identifier columns
-        if game_df[col].dtype in ("float64", "int64", "float32", "int32", "bool"):
-            # Exclude raw _home/_away metric columns (keep only diff_)
-            # But allow context columns like is_dome_home, rest_advantage_home
-            if col.endswith("_home") or col.endswith("_away"):
-                # Allow specific context columns through
-                base = col.rsplit("_", 1)[0]
-                context_bases = {
-                    "is_dome", "rest_advantage", "is_short_rest",
-                    "is_post_bye", "travel_miles", "tz_diff",
-                    "coaching_tenure", "div_game",
-                }
-                if base in context_bases:
-                    feature_cols.append(col)
-            else:
-                # Non-suffixed numeric column (e.g., div_game)
+
+        if col.startswith("diff_"):
+            # Only allow diffs of rolling features or pre-game data
+            if _is_rolling(col) or _is_pre_game_context(col):
                 feature_cols.append(col)
+            continue
+
+        if col.endswith("_home") or col.endswith("_away"):
+            # Only allow pre-game context columns with suffixes
+            if _is_pre_game_context(col):
+                feature_cols.append(col)
+            continue
+
+        # Non-suffixed columns: only if pre-game or rolling
+        if _is_rolling(col) or _is_pre_game_context(col):
+            feature_cols.append(col)
 
     return sorted(feature_cols)
 
