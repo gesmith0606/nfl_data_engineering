@@ -83,7 +83,7 @@ Full details: `.planning/milestones/v1.4-ROADMAP.md`
 **Milestone Goal:** Improve ATS accuracy from 53% baseline to 55%+ through player-level features, model diversity, feature selection, and advanced signal extraction.
 
 - [x] **Phase 28: Infrastructure & Player Features** - Commit leakage fix, install new dependencies, build QB quality and injury impact features at team-game grain with verified lag guards (completed 2026-03-25)
-- [ ] **Phase 29: Feature Selection** - Reduce ~310 features to 80-120 via walk-forward-safe correlation filtering and SHAP importance pruning
+- [x] **Phase 29: Feature Selection** - Reduce ~310 features to 80-120 via walk-forward-safe correlation filtering and SHAP importance pruning (completed 2026-03-25)
 - [ ] **Phase 30: Model Ensemble** - Train LightGBM and CatBoost base learners with Ridge meta-learner stacking on temporal OOF predictions, backtest against v1.4 baseline
 - [ ] **Phase 31: Advanced Features & Final Validation** - Add momentum signals and adaptive EWM windows, validate marginal improvement, run final holdout comparison
 
@@ -118,7 +118,7 @@ Plans:
 
 Plans:
 - [x] 29-01-PLAN.md — Core feature selection module: SHAP ranking, correlation filter, holdout guard, per-fold selection with TDD
-- [ ] 29-02-PLAN.md — CV-validated cutoff search CLI, persist SELECTED_FEATURES in config.py, save metadata
+- [x] 29-02-PLAN.md — CV-validated cutoff search CLI, persist SELECTED_FEATURES in config.py, save metadata
 
 ### Phase 30: Model Ensemble
 **Goal**: A three-model stacking ensemble (XGBoost + LightGBM + CatBoost with Ridge meta-learner) is trained on the reduced feature set and backtested against the v1.4 single-XGBoost baseline
@@ -185,7 +185,7 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 | 26. Backtesting and Validation | v1.4 | 2/2 | Complete | 2026-03-21 |
 | 27. Prediction Pipeline | v1.4 | 1/1 | Complete | 2026-03-22 |
 | 28. Infrastructure & Player Features | v2.0 | 2/2 | Complete    | 2026-03-25 |
-| 29. Feature Selection | v2.0 | 1/2 | In Progress|  |
+| 29. Feature Selection | v2.0 | 2/2 | Complete   | 2026-03-25 |
 | 30. Model Ensemble | v2.0 | 0/2 | Not started | - |
 | 31. Advanced Features & Final Validation | v2.0 | 0/1 | Not started | - |
 

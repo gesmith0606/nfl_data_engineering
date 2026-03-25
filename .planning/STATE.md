@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Prediction Model Improvement
 status: unknown
-stopped_at: Completed 29-01-PLAN.md
-last_updated: "2026-03-25T22:57:45.589Z"
+stopped_at: Completed 29-02-PLAN.md
+last_updated: "2026-03-25T23:02:35.585Z"
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
-  completed_plans: 3
+  completed_plans: 4
 ---
 
 # Project State
@@ -66,6 +66,8 @@ New for v2.0:
 - [Phase 28]: backup_qb_start excluded from features until added to _PRE_GAME_CONTEXT
 - [Phase 28]: Defensive injury impact uses equal weighting (no usage shares for defense)
 - [Phase 29-01]: TreeExplainer over KernelExplainer for exact SHAP on XGBoost
+- [Phase 29]: SELECTED_FEATURES initialized as None in config.py -- Phase 30 branches on None vs list
+- [Phase 29]: Config rewriting via regex for SELECTED_FEATURES persistence
 
 ### Pending Todos
 
@@ -80,8 +82,8 @@ New for v2.0:
 
 ## Session Continuity
 
-Last session: 2026-03-25T22:57:45.586Z
-Stopped at: Completed 29-01-PLAN.md
+Last session: 2026-03-25T23:02:35.582Z
+Stopped at: Completed 29-02-PLAN.md
 Resume file: None
 
 ---
