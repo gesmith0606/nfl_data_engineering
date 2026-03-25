@@ -125,19 +125,24 @@ def compute_qb_quality(
     # Find the QB with most attempts per team per week (actual starter)
     qb_weekly = qb_weekly.rename(columns={"recent_team": "team"})
     idx = qb_weekly.groupby(["team", "season", "week"])["attempts"].idxmax()
-    starters = qb_weekly.loc[idx, ["team", "season", "week", "passing_epa", "gsis_id"]].copy()
+    starters = qb_weekly.loc[idx, ["team", "season", "week", "passing_epa", "player_id"]].copy()
     starters = starters.rename(columns={
         "passing_epa": "qb_passing_epa",
-        "gsis_id": "actual_starter_gsis",
+        "player_id": "actual_starter_id",
     })
 
     # Get depth chart starters (QB, depth_team='1')
-    if not depth_df.empty and "pos_abb" in depth_df.columns:
+    # depth_charts use 'position' column (not 'pos_abb') and 'club_code' for team
+    pos_col = "pos_abb" if "pos_abb" in depth_df.columns else "position"
+    if not depth_df.empty and pos_col in depth_df.columns:
         dc_qb = depth_df[
-            (depth_df["pos_abb"] == "QB") & (depth_df["depth_team"] == "1")
+            (depth_df[pos_col] == "QB") & (depth_df["depth_team"].astype(str) == "1")
         ].copy()
-        dc_qb = dc_qb.rename(columns={"club_code": "team", "gsis_id": "dc_starter_gsis"})
-        dc_qb = dc_qb[["team", "season", "week", "dc_starter_gsis"]].drop_duplicates(
+        # Convert week to int if float (depth charts use float64, may have NaN)
+        dc_qb = dc_qb.dropna(subset=["week"])
+        dc_qb["week"] = dc_qb["week"].astype(int)
+        dc_qb = dc_qb.rename(columns={"club_code": "team", "gsis_id": "dc_starter_id"})
+        dc_qb = dc_qb[["team", "season", "week", "dc_starter_id"]].drop_duplicates(
             subset=["team", "season", "week"], keep="first"
         )
 
@@ -146,9 +151,10 @@ def compute_qb_quality(
             dc_qb, on=["team", "season", "week"], how="left"
         )
         # Backup QB start = depth chart starter differs from actual starter
+        # Note: depth chart uses gsis_id, weekly uses player_id — same format (00-XXXXXXX)
         starters["backup_qb_start"] = (
-            starters["dc_starter_gsis"].notna()
-            & (starters["actual_starter_gsis"] != starters["dc_starter_gsis"])
+            starters["dc_starter_id"].notna()
+            & (starters["actual_starter_id"] != starters["dc_starter_id"])
         )
     else:
         starters["backup_qb_start"] = False
@@ -262,16 +268,20 @@ def compute_injury_impact(
     qb_wk = wk[wk["position"] == "QB"].copy()
     team_qb_attempts = qb_wk.groupby(["team", "season", "week"])["attempts"].transform("sum")
     qb_wk["usage_share"] = np.where(team_qb_attempts > 0, qb_wk["attempts"] / team_qb_attempts, 0.0)
+    # Rename player_id to gsis_id for join with injuries (same format: 00-XXXXXXX)
+    qb_wk = qb_wk.rename(columns={"player_id": "gsis_id"})
     qb_usage = qb_wk[["gsis_id", "team", "season", "week", "usage_share"]].copy()
 
     # Skill: target_share for WR/TE, carry_share for RB
     rb_wk = wk[wk["position"] == "RB"].copy()
     team_carries = rb_wk.groupby(["team", "season", "week"])["carries"].transform("sum")
     rb_wk["usage_share"] = np.where(team_carries > 0, rb_wk["carries"] / team_carries, 0.0)
+    rb_wk = rb_wk.rename(columns={"player_id": "gsis_id"})
     rb_usage = rb_wk[["gsis_id", "team", "season", "week", "usage_share"]].copy()
 
     wrte_wk = wk[wk["position"].isin(["WR", "TE"])].copy()
     wrte_wk["usage_share"] = wrte_wk["target_share"].fillna(0.0)
+    wrte_wk = wrte_wk.rename(columns={"player_id": "gsis_id"})
     wrte_usage = wrte_wk[["gsis_id", "team", "season", "week", "usage_share"]].copy()
 
     skill_usage = pd.concat([rb_usage, wrte_usage], ignore_index=True)
@@ -379,7 +389,7 @@ def transform_season(season: int) -> Optional[pd.DataFrame]:
     """
     print(f"  Loading Bronze data for season {season}...")
 
-    weekly_df = _read_local_bronze("player_weekly", season)
+    weekly_df = _read_local_bronze("players/weekly", season)
     if weekly_df.empty:
         print(f"    WARNING: No weekly data for season {season}, skipping.")
         return None
@@ -388,7 +398,7 @@ def transform_season(season: int) -> Optional[pd.DataFrame]:
     if depth_df.empty:
         print(f"    WARNING: No depth chart data for {season}, QB backup detection limited.")
 
-    injury_df = _read_local_bronze("injuries", season)
+    injury_df = _read_local_bronze("players/injuries", season)
     if injury_df.empty:
         print(f"    WARNING: No injury data for {season}, injury impact will be zero.")
 

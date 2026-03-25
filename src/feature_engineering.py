@@ -284,6 +284,7 @@ def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
     _PRE_GAME_CUMULATIVE = {
         "wins", "losses", "ties", "win_pct", "division_rank",
         "games_behind_division_leader", "ref_penalties_per_game",
+        "backup_qb_start",
     }
 
     def _is_rolling(col: str) -> bool:

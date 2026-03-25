@@ -41,7 +41,6 @@ def _make_weekly_data() -> pd.DataFrame:
                 "carries": 3,
                 "attempts": 35,
                 "full_name": f"{team} QB1",
-                "gsis_id": f"{team}_QB1_gsis",
             })
             # QB2 (backup) - fewer attempts
             rows.append({
@@ -57,7 +56,6 @@ def _make_weekly_data() -> pd.DataFrame:
                 "carries": 0,
                 "attempts": 5,
                 "full_name": f"{team} QB2",
-                "gsis_id": f"{team}_QB2_gsis",
             })
             # RBs (4 per team)
             for rb_i in range(1, 5):
@@ -74,7 +72,6 @@ def _make_weekly_data() -> pd.DataFrame:
                     "carries": 20 - rb_i * 4,
                     "attempts": 0,
                     "full_name": f"{team} RB{rb_i}",
-                    "gsis_id": f"{team}_RB{rb_i}_gsis",
                 })
             # WR/TE (5 per team)
             for wr_i in range(1, 6):
@@ -92,7 +89,6 @@ def _make_weekly_data() -> pd.DataFrame:
                     "carries": 0,
                     "attempts": 0,
                     "full_name": f"{team} {pos}{wr_i}",
-                    "gsis_id": f"{team}_{pos}{wr_i}_gsis",
                 })
     return pd.DataFrame(rows)
 
@@ -104,11 +100,12 @@ def _make_depth_chart_data() -> pd.DataFrame:
     for team in teams:
         for week in range(1, 5):
             # QB1 is starter on depth chart
+            # gsis_id must match player_id from weekly data (same format in real data)
             rows.append({
                 "club_code": team,
-                "pos_abb": "QB",
+                "position": "QB",
                 "depth_team": "1",  # String, not integer
-                "gsis_id": f"{team}_QB1_gsis",
+                "gsis_id": f"{team}_QB1",
                 "week": week,
                 "season": 2023,
                 "full_name": f"{team} QB1",
@@ -116,9 +113,9 @@ def _make_depth_chart_data() -> pd.DataFrame:
             # QB2 is backup
             rows.append({
                 "club_code": team,
-                "pos_abb": "QB",
+                "position": "QB",
                 "depth_team": "2",
-                "gsis_id": f"{team}_QB2_gsis",
+                "gsis_id": f"{team}_QB2",
                 "week": week,
                 "season": 2023,
                 "full_name": f"{team} QB2",
