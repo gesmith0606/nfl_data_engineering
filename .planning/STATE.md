@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Prediction Model Improvement
-status: ready_to_plan
-stopped_at: null
-last_updated: "2026-03-24"
+status: unknown
+stopped_at: Completed 28-01-PLAN.md
+last_updated: "2026-03-25T05:02:02.533Z"
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 7
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 1
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 28 - Infrastructure & Player Features
+**Current focus:** Phase 28 — infrastructure-player-features
 
 ## Current Milestone
 
@@ -27,12 +27,8 @@ v2.0 Prediction Model Improvement -- 4 phases (28-31), 19 requirements
 
 ## Current Position
 
-Phase: 28 of 31 (Infrastructure & Player Features)
-Plan: 0 of 2 in current phase
-Status: Ready to plan
-Last activity: 2026-03-24 -- Roadmap created for v2.0
-
-Progress: [░░░░░░░░░░] 0%
+Phase: 28 (infrastructure-player-features) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -53,16 +49,19 @@ Progress: [░░░░░░░░░░] 0%
 See PROJECT.md Key Decisions table for full history.
 
 Carried from v1.4:
+
 - Differential features (home-away) halves feature space from ~680 to ~180
 - Conservative hyperparameters mandatory (shallow trees, strong regularization, early stopping)
 - 2024 season sealed as untouched holdout
 - Vegas lines excluded as input features (zero edge by definition)
 
 New for v2.0:
+
 - Data leakage fix: 110 same-week raw stats excluded from features (337->283 features)
 - Real baseline: 53.2% ATS overall, 50.0% holdout (not the 90.7% from leaked model)
 - Build order: infra -> player features -> feature selection -> ensemble -> advanced features
 - Feature budget ceiling: 150 features max in final model
+- [Phase 28]: CatBoost 1.2.10 pinned (above 1.2.7 floor); SHAP 0.49.1 Python 3.9 compatible via numba 0.60.0
 
 ### Pending Todos
 
@@ -77,8 +76,8 @@ New for v2.0:
 
 ## Session Continuity
 
-Last session: 2026-03-24
-Stopped at: Roadmap created for v2.0, ready to plan Phase 28
+Last session: 2026-03-25T05:02:02.530Z
+Stopped at: Completed 28-01-PLAN.md
 Resume file: None
 
 ---

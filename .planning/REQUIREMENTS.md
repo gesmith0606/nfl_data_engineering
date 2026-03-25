@@ -38,8 +38,8 @@ Requirements for Prediction Model Improvement milestone. Each maps to roadmap ph
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Commit the leakage fix (same-week raw stat exclusion) from feature_engineering.py
-- [ ] **INFRA-02**: Install LightGBM, CatBoost, and SHAP with Python 3.9 compatible versions
+- [x] **INFRA-01**: Commit the leakage fix (same-week raw stat exclusion) from feature_engineering.py
+- [x] **INFRA-02**: Install LightGBM, CatBoost, and SHAP with Python 3.9 compatible versions
 
 ## Future Requirements
 
@@ -71,8 +71,8 @@ Deferred to future milestones. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 28 | Pending |
-| INFRA-02 | Phase 28 | Pending |
+| INFRA-01 | Phase 28 | Complete |
+| INFRA-02 | Phase 28 | Complete |
 | PLAYER-01 | Phase 28 | Pending |
 | PLAYER-02 | Phase 28 | Pending |
 | PLAYER-03 | Phase 28 | Pending |
