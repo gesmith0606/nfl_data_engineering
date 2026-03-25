@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Prediction Model Improvement
 status: unknown
-stopped_at: Completed 28-01-PLAN.md
-last_updated: "2026-03-25T05:02:02.533Z"
+stopped_at: Completed 28-02-PLAN.md (Silver player quality transformation)
+last_updated: "2026-03-25T13:48:20.101Z"
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -62,6 +62,9 @@ New for v2.0:
 - Build order: infra -> player features -> feature selection -> ensemble -> advanced features
 - Feature budget ceiling: 150 features max in final model
 - [Phase 28]: CatBoost 1.2.10 pinned (above 1.2.7 floor); SHAP 0.49.1 Python 3.9 compatible via numba 0.60.0
+- [Phase 28]: carry_share computed from carries/team_total_carries (Bronze lacks this column)
+- [Phase 28]: backup_qb_start excluded from features until added to _PRE_GAME_CONTEXT
+- [Phase 28]: Defensive injury impact uses equal weighting (no usage shares for defense)
 
 ### Pending Todos
 
@@ -76,8 +79,8 @@ New for v2.0:
 
 ## Session Continuity
 
-Last session: 2026-03-25T05:02:02.530Z
-Stopped at: Completed 28-01-PLAN.md
+Last session: 2026-03-25T13:48:20.098Z
+Stopped at: Completed 28-02-PLAN.md (Silver player quality transformation)
 Resume file: None
 
 ---

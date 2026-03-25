@@ -9,11 +9,11 @@ Requirements for Prediction Model Improvement milestone. Each maps to roadmap ph
 
 ### Player Features
 
-- [ ] **PLAYER-01**: Compute rolling QB EPA differential (home starter vs away starter) per game
-- [ ] **PLAYER-02**: Detect starting QB from depth charts with backup flag when starter changes
-- [ ] **PLAYER-03**: Score team-level injury impact beyond QB (weighted by positional importance)
-- [ ] **PLAYER-04**: Compute positional quality metrics for RB, WR, and OL aggregated to game level
-- [ ] **PLAYER-05**: Apply shift(1) lag to all player features to prevent same-week leakage
+- [x] **PLAYER-01**: Compute rolling QB EPA differential (home starter vs away starter) per game
+- [x] **PLAYER-02**: Detect starting QB from depth charts with backup flag when starter changes
+- [x] **PLAYER-03**: Score team-level injury impact beyond QB (weighted by positional importance)
+- [x] **PLAYER-04**: Compute positional quality metrics for RB, WR, and OL aggregated to game level
+- [x] **PLAYER-05**: Apply shift(1) lag to all player features to prevent same-week leakage
 
 ### Feature Selection
 
@@ -73,11 +73,11 @@ Deferred to future milestones. Tracked but not in current roadmap.
 |-------------|-------|--------|
 | INFRA-01 | Phase 28 | Complete |
 | INFRA-02 | Phase 28 | Complete |
-| PLAYER-01 | Phase 28 | Pending |
-| PLAYER-02 | Phase 28 | Pending |
-| PLAYER-03 | Phase 28 | Pending |
-| PLAYER-04 | Phase 28 | Pending |
-| PLAYER-05 | Phase 28 | Pending |
+| PLAYER-01 | Phase 28 | Complete |
+| PLAYER-02 | Phase 28 | Complete |
+| PLAYER-03 | Phase 28 | Complete |
+| PLAYER-04 | Phase 28 | Complete |
+| PLAYER-05 | Phase 28 | Complete |
 | FSEL-01 | Phase 29 | Pending |
 | FSEL-02 | Phase 29 | Pending |
 | FSEL-03 | Phase 29 | Pending |

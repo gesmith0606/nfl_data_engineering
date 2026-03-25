@@ -82,7 +82,7 @@ Full details: `.planning/milestones/v1.4-ROADMAP.md`
 
 **Milestone Goal:** Improve ATS accuracy from 53% baseline to 55%+ through player-level features, model diversity, feature selection, and advanced signal extraction.
 
-- [ ] **Phase 28: Infrastructure & Player Features** - Commit leakage fix, install new dependencies, build QB quality and injury impact features at team-game grain with verified lag guards
+- [x] **Phase 28: Infrastructure & Player Features** - Commit leakage fix, install new dependencies, build QB quality and injury impact features at team-game grain with verified lag guards (completed 2026-03-25)
 - [ ] **Phase 29: Feature Selection** - Reduce ~310 features to 80-120 via walk-forward-safe correlation filtering and SHAP importance pruning
 - [ ] **Phase 30: Model Ensemble** - Train LightGBM and CatBoost base learners with Ridge meta-learner stacking on temporal OOF predictions, backtest against v1.4 baseline
 - [ ] **Phase 31: Advanced Features & Final Validation** - Add momentum signals and adaptive EWM windows, validate marginal improvement, run final holdout comparison
@@ -103,7 +103,7 @@ Full details: `.planning/milestones/v1.4-ROADMAP.md`
 
 Plans:
 - [x] 28-01-PLAN.md — Infrastructure: verify leakage fix, install LightGBM/CatBoost/SHAP
-- [ ] 28-02-PLAN.md — Player quality Silver source: QB EPA, starter detection, injury impact, positional quality with lag guards
+- [x] 28-02-PLAN.md — Player quality Silver source: QB EPA, starter detection, injury impact, positional quality with lag guards
 
 ### Phase 29: Feature Selection
 **Goal**: The feature set is reduced from ~310 to 80-120 high-signal features through walk-forward-safe selection that never touches the 2024 holdout
@@ -184,7 +184,7 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 | 25. Feature Assembly and Model Training | v1.4 | 3/3 | Complete | 2026-03-21 |
 | 26. Backtesting and Validation | v1.4 | 2/2 | Complete | 2026-03-21 |
 | 27. Prediction Pipeline | v1.4 | 1/1 | Complete | 2026-03-22 |
-| 28. Infrastructure & Player Features | v2.0 | 1/2 | In Progress|  |
+| 28. Infrastructure & Player Features | v2.0 | 2/2 | Complete   | 2026-03-25 |
 | 29. Feature Selection | v2.0 | 0/2 | Not started | - |
 | 30. Model Ensemble | v2.0 | 0/2 | Not started | - |
 | 31. Advanced Features & Final Validation | v2.0 | 0/1 | Not started | - |
