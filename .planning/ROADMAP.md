@@ -114,11 +114,11 @@ Plans:
   2. No pair of features in the selected set has Pearson correlation exceeding 0.90
   3. Feature selection runs inside each walk-forward CV fold using only that fold's training data -- a test verifies no full-dataset selection occurs
   4. A test asserts that 2024 season data is excluded from all feature selection operations
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 29-01: TBD
-- [ ] 29-02: TBD
+- [ ] 29-01-PLAN.md — Core feature selection module: SHAP ranking, correlation filter, holdout guard, per-fold selection with TDD
+- [ ] 29-02-PLAN.md — CV-validated cutoff search CLI, persist SELECTED_FEATURES in config.py, save metadata
 
 ### Phase 30: Model Ensemble
 **Goal**: A three-model stacking ensemble (XGBoost + LightGBM + CatBoost with Ridge meta-learner) is trained on the reduced feature set and backtested against the v1.4 single-XGBoost baseline
@@ -191,4 +191,4 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-24 after Phase 28 planning*
+*Last updated: 2026-03-25 after Phase 29 planning*
