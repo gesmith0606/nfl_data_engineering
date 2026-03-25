@@ -61,6 +61,10 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Backtest ML models against historical closing lines with ATS accuracy and profit analysis — v1.4
 - ✓ Weekly prediction pipeline generating own lines with edge detection vs Vegas — v1.4
 - ✓ 439 total tests passing — v1.4
+- ✓ Player quality Silver features (QB EPA, positional quality, injury impact) — Phase 28, v2.0
+- ✓ Feature selection pipeline: SHAP importance + correlation filtering (r > 0.90) with CV-validated cutoff — Phase 29, v2.0
+- ✓ Walk-forward-safe feature selection (per-fold, 2024 holdout excluded) — Phase 29, v2.0
+- ✓ 470 total tests passing — v2.0
 
 ### Active
 
@@ -71,7 +75,7 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 **Target features:**
 - Player-level features: QB quality metrics (EPA/QBR rolling), starter vs backup detection, key injury impact on team performance
 - Model ensemble: XGBoost + LightGBM + CatBoost stacking with Ridge meta-learner
-- Feature selection: Reduce 283 features to optimal subset via importance/correlation filtering
+- ~~Feature selection: Reduce 283 features to optimal subset via importance/correlation filtering~~ (Phase 29 complete)
 - Advanced features: Adaptive rolling windows, momentum/trend detection, regime detection
 - Leakage fix: Commit the same-week raw stat exclusion from feature engineering (already implemented)
 
@@ -105,7 +109,7 @@ Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 me
 Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with spread/total models, edge detection, confidence tiers.
 Prediction feature vector: 337 columns assembled from 8 Silver sources via left joins on [team, season, week].
 ML models: XGBoost spread + over/under with walk-forward CV, Optuna tuning, sealed 2024 holdout.
-Tests: 439 passing across 13 test files.
+Tests: 470 passing across 14 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -188,4 +192,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after v2.0 milestone started*
+*Last updated: 2026-03-25 after Phase 29 (Feature Selection) completed*
