@@ -39,7 +39,7 @@ Commit the leakage fix, install new dependencies (LightGBM, CatBoost, SHAP), and
 
 ### Infrastructure
 - **D-17:** Commit leakage fix (get_feature_columns excluding same-week raw stats) — already implemented, just needs commit
-- **D-18:** Install LightGBM 4.6.0, CatBoost 1.2.7, SHAP 0.48.0 — all verified Python 3.9 compatible
+- **D-18:** Install LightGBM 4.6.0, CatBoost 1.2.10, SHAP 0.49.1 — all verified Python 3.9 compatible (updated from initial 1.2.7/0.48.0 per RESEARCH.md compatibility testing)
 - **D-19:** Pin versions in requirements.txt
 
 ### Claude's Discretion
