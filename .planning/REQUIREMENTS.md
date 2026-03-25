@@ -17,10 +17,10 @@ Requirements for Prediction Model Improvement milestone. Each maps to roadmap ph
 
 ### Feature Selection
 
-- [ ] **FSEL-01**: Remove highly correlated features (r > 0.90) to reduce redundancy
-- [ ] **FSEL-02**: Compute SHAP importance scores and prune low-signal features
-- [ ] **FSEL-03**: Run feature selection inside walk-forward CV folds (not on full dataset)
-- [ ] **FSEL-04**: Enforce holdout season exclusion from all feature selection operations
+- [x] **FSEL-01**: Remove highly correlated features (r > 0.90) to reduce redundancy
+- [x] **FSEL-02**: Compute SHAP importance scores and prune low-signal features
+- [x] **FSEL-03**: Run feature selection inside walk-forward CV folds (not on full dataset)
+- [x] **FSEL-04**: Enforce holdout season exclusion from all feature selection operations
 
 ### Model Ensemble
 
@@ -78,10 +78,10 @@ Deferred to future milestones. Tracked but not in current roadmap.
 | PLAYER-03 | Phase 28 | Complete |
 | PLAYER-04 | Phase 28 | Complete |
 | PLAYER-05 | Phase 28 | Complete |
-| FSEL-01 | Phase 29 | Pending |
-| FSEL-02 | Phase 29 | Pending |
-| FSEL-03 | Phase 29 | Pending |
-| FSEL-04 | Phase 29 | Pending |
+| FSEL-01 | Phase 29 | Complete |
+| FSEL-02 | Phase 29 | Complete |
+| FSEL-03 | Phase 29 | Complete |
+| FSEL-04 | Phase 29 | Complete |
 | ENS-01 | Phase 30 | Pending |
 | ENS-02 | Phase 30 | Pending |
 | ENS-03 | Phase 30 | Pending |

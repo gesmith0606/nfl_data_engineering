@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Prediction Model Improvement
 status: unknown
-stopped_at: Completed 28-02-PLAN.md (Silver player quality transformation)
-last_updated: "2026-03-25T21:23:31.176Z"
+stopped_at: Completed 29-01-PLAN.md
+last_updated: "2026-03-25T22:57:45.589Z"
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 4
+  completed_plans: 3
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 28 — infrastructure-player-features
+**Current focus:** Phase 29 — feature-selection
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v2.0 Prediction Model Improvement -- 4 phases (28-31), 19 requirements
 
 ## Current Position
 
-Phase: 29
-Plan: Not started
+Phase: 29 (feature-selection) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -65,6 +65,7 @@ New for v2.0:
 - [Phase 28]: carry_share computed from carries/team_total_carries (Bronze lacks this column)
 - [Phase 28]: backup_qb_start excluded from features until added to _PRE_GAME_CONTEXT
 - [Phase 28]: Defensive injury impact uses equal weighting (no usage shares for defense)
+- [Phase 29-01]: TreeExplainer over KernelExplainer for exact SHAP on XGBoost
 
 ### Pending Todos
 
@@ -79,8 +80,8 @@ New for v2.0:
 
 ## Session Continuity
 
-Last session: 2026-03-25T13:48:20.098Z
-Stopped at: Completed 28-02-PLAN.md (Silver player quality transformation)
+Last session: 2026-03-25T22:57:45.586Z
+Stopped at: Completed 29-01-PLAN.md
 Resume file: None
 
 ---
