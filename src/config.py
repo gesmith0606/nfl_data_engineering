@@ -445,6 +445,7 @@ SILVER_TEAM_LOCAL_DIRS = {
     "game_context": "teams/game_context",
     "referee_tendencies": "teams/referee_tendencies",
     "playoff_context": "teams/playoff_context",
+    "player_quality": "teams/player_quality",  # Phase 28: player quality features
 }
 
 
