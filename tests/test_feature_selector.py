@@ -393,3 +393,30 @@ class TestEndToEndSelection:
         assert isinstance(result.dropped_correlation, dict)
         assert isinstance(result.correlated_pairs, list)
         assert result.n_original == len(feature_cols)
+
+
+class TestConfigIntegration:
+    """Test SELECTED_FEATURES is importable from config and correctly typed."""
+
+    def test_import_succeeds(self):
+        """from src.config import SELECTED_FEATURES works without error."""
+        from src.config import SELECTED_FEATURES
+        # Should not raise
+        assert SELECTED_FEATURES is None or isinstance(SELECTED_FEATURES, list)
+
+    def test_type_is_none_or_list_of_strings(self):
+        """SELECTED_FEATURES is either None or a list of strings."""
+        from src.config import SELECTED_FEATURES
+        if SELECTED_FEATURES is not None:
+            assert isinstance(SELECTED_FEATURES, list)
+            for feat in SELECTED_FEATURES:
+                assert isinstance(feat, str), f"Feature {feat!r} is not a string"
+
+    def test_list_length_within_bounds(self):
+        """If SELECTED_FEATURES is a list, length is between 60 and 150 (D-06 ceiling)."""
+        from src.config import SELECTED_FEATURES
+        if SELECTED_FEATURES is not None:
+            assert 60 <= len(SELECTED_FEATURES) <= 150, (
+                f"SELECTED_FEATURES has {len(SELECTED_FEATURES)} entries, "
+                "expected between 60 and 150"
+            )

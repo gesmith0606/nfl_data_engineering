@@ -429,6 +429,11 @@ CONSERVATIVE_PARAMS = {
     "verbosity": 0,
 }
 
+# Feature selection result -- populated by scripts/run_feature_selection.py
+# When None, model training uses all features from get_feature_columns().
+# When populated, model training uses only these features.
+SELECTED_FEATURES = None
+
 # Label columns that must NEVER appear in feature set
 LABEL_COLUMNS = [
     "home_score", "away_score", "actual_margin", "actual_total",
