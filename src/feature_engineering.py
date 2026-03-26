@@ -90,6 +90,81 @@ def _read_bronze_schedules(season: int) -> pd.DataFrame:
     return df[available].copy()
 
 
+def _compute_momentum_features(season: int) -> pd.DataFrame:
+    """Compute game momentum/streak features from Bronze schedule results.
+
+    Produces per-team-per-week momentum signals:
+    - win_streak: signed consecutive win/loss counter (positive=winning, negative=losing)
+    - ats_cover_sum3: rolling sum of ATS covers over last 3 games
+    - ats_margin_avg3: rolling mean of ATS margin over last 3 games
+
+    All features use shift(1) to prevent same-game leakage.
+
+    Args:
+        season: NFL season year.
+
+    Returns:
+        DataFrame with [game_id, season, week, team, win_streak, ats_cover_sum3, ats_margin_avg3].
+    """
+    sched = _read_bronze_schedules(season)
+    if sched.empty:
+        return pd.DataFrame()
+
+    # Reshape to per-team rows: home and away perspectives
+    home = sched[["game_id", "season", "week", "home_team", "result", "spread_line"]].copy()
+    home = home.rename(columns={"home_team": "team"})
+    home["won"] = (home["result"] > 0).astype(int)
+    home["ats_cover"] = ((home["result"] - home["spread_line"]) > 0).astype(int)
+    home["ats_margin"] = home["result"] - home["spread_line"]
+
+    away = sched[["game_id", "season", "week", "away_team", "result", "spread_line"]].copy()
+    away = away.rename(columns={"away_team": "team"})
+    away["won"] = (away["result"] < 0).astype(int)  # away wins when result < 0
+    away["ats_cover"] = ((-away["result"] + away["spread_line"]) > 0).astype(int)
+    away["ats_margin"] = -away["result"] + away["spread_line"]
+
+    combined = pd.concat([home, away], ignore_index=True)
+    combined = combined.sort_values(["team", "season", "week"])
+
+    # Compute win_streak: signed consecutive counter
+    def _streak(won_series: pd.Series) -> pd.Series:
+        """Compute signed streak: +N for consecutive wins, -N for consecutive losses."""
+        streak = pd.Series(0, index=won_series.index, dtype=float)
+        prev = 0.0
+        for i, val in enumerate(won_series.values):
+            if val == 1:
+                prev = max(prev, 0) + 1
+            else:
+                prev = min(prev, 0) - 1
+            streak.iloc[i] = prev
+        return streak
+
+    combined["win_streak_raw"] = (
+        combined.groupby(["team", "season"])["won"]
+        .transform(_streak)
+    )
+    # shift(1) AFTER computing streak (Pitfall 6)
+    combined["win_streak"] = (
+        combined.groupby(["team", "season"])["win_streak_raw"]
+        .transform(lambda s: s.shift(1))
+    )
+
+    # ATS cover rolling sum (shift(1) inside transform)
+    combined["ats_cover_sum3"] = (
+        combined.groupby(["team", "season"])["ats_cover"]
+        .transform(lambda s: s.shift(1).rolling(3, min_periods=1).sum())
+    )
+
+    # ATS margin rolling mean (shift(1) inside transform)
+    combined["ats_margin_avg3"] = (
+        combined.groupby(["team", "season"])["ats_margin"]
+        .transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())
+    )
+
+    return combined[["game_id", "season", "week", "team",
+                      "win_streak", "ats_cover_sum3", "ats_margin_avg3"]].copy()
+
+
 def _assemble_team_features(season: int) -> pd.DataFrame:
     """Load and merge all Silver team sources for a season.
 
@@ -151,6 +226,17 @@ def assemble_game_features(season: int) -> pd.DataFrame:
     for col in ["wins", "losses", "ties"]:
         if col in team_df.columns:
             team_df[col] = team_df[col].fillna(0)
+
+    # Step 1b: Merge momentum features (win_streak, ATS cover/margin)
+    momentum = _compute_momentum_features(season)
+    if not momentum.empty:
+        team_df = team_df.merge(
+            momentum, on=["team", "season", "week"], how="left",
+            suffixes=("", "__momentum"),
+        )
+        # Drop any duplicate columns from merge
+        dup_cols = [c for c in team_df.columns if c.endswith("__momentum")]
+        team_df = team_df.drop(columns=dup_cols)
 
     # Step 2: Split into home and away
     home = team_df[team_df["is_home"] == True].copy()  # noqa: E712
@@ -285,11 +371,12 @@ def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
         "wins", "losses", "ties", "win_pct", "division_rank",
         "games_behind_division_leader", "ref_penalties_per_game",
         "backup_qb_start",
+        "win_streak", "ats_cover_sum3", "ats_margin_avg3",
     }
 
     def _is_rolling(col: str) -> bool:
         """Check if column is a properly lagged rolling feature."""
-        return "roll3" in col or "roll6" in col or "std" in col
+        return "roll3" in col or "roll6" in col or "std" in col or "ewm3" in col
 
     def _is_pre_game_context(col: str) -> bool:
         """Check if column is a pre-game knowable context feature."""
