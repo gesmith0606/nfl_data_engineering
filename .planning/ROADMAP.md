@@ -145,10 +145,11 @@ Plans:
   2. Adaptive EWM windows (halflife-based) are computed alongside fixed rolling windows and available as candidate features
   3. A holdout evaluation documents whether advanced features improve, match, or degrade ATS accuracy versus the Phase 30 ensemble
   4. A final comparison table shows v1.4 baseline vs v2.0 best configuration on sealed 2024 holdout: ATS accuracy, O/U accuracy, MAE, and vig-adjusted profit at -110
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 31-01: TBD
+- [ ] 31-01-PLAN.md — Momentum features (win streak, ATS trend) and EWM windows in feature engineering with leakage guard updates
+- [ ] 31-02-PLAN.md — Feature selection re-run, ensemble retrain, sealed holdout comparison and ablation with ship decision
 
 ## Progress
 
@@ -187,8 +188,8 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 | 28. Infrastructure & Player Features | v2.0 | 2/2 | Complete    | 2026-03-25 |
 | 29. Feature Selection | v2.0 | 2/2 | Complete    | 2026-03-25 |
 | 30. Model Ensemble | v2.0 | 2/2 | Complete    | 2026-03-26 |
-| 31. Advanced Features & Final Validation | v2.0 | 0/1 | Not started | - |
+| 31. Advanced Features & Final Validation | v2.0 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-25 after Phase 30 planning*
+*Last updated: 2026-03-26 after Phase 31 planning*
