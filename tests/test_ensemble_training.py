@@ -128,7 +128,6 @@ class TestWalkForwardCVWithOOF:
     def test_returns_walk_forward_result_and_oof_df(self, synthetic_data, feature_cols):
         """walk_forward_cv_with_oof returns (WalkForwardResult, oof_df)."""
         from src.ensemble_training import make_xgb_model, walk_forward_cv_with_oof
-        from src.model_training import WalkForwardResult
         from src.config import CONSERVATIVE_PARAMS
 
         factory = lambda: make_xgb_model(CONSERVATIVE_PARAMS)
@@ -141,7 +140,11 @@ class TestWalkForwardCVWithOOF:
             fit_kwargs_fn=fit_kwargs,
             val_seasons=[2021, 2022, 2023],
         )
-        assert isinstance(result, WalkForwardResult)
+        # Check duck-type: WalkForwardResult fields
+        assert hasattr(result, "mean_mae")
+        assert hasattr(result, "fold_maes")
+        assert hasattr(result, "fold_details")
+        assert isinstance(result.mean_mae, float)
         assert isinstance(oof_df, pd.DataFrame)
         assert "game_id" in oof_df.columns
         assert "season" in oof_df.columns
