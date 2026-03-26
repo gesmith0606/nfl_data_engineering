@@ -130,11 +130,11 @@ Plans:
   3. The Ridge meta-learner trains on temporal OOF predictions and produces ensemble spread and total predictions
   4. Running the backtest CLI with --ensemble produces a side-by-side ATS/ROI comparison vs the v1.4 single-XGBoost baseline
   5. Model artifacts save to models/ensemble/ with metadata.json that the prediction CLI dispatches on automatically
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 30-01: TBD
-- [ ] 30-02: TBD
+- [ ] 30-01-PLAN.md — Core ensemble module: generalized walk-forward CV, model factories, Ridge meta-learner, ensemble save/load
+- [ ] 30-02-PLAN.md — Ensemble training CLI, wire --ensemble into backtest/prediction CLIs for side-by-side comparison
 
 ### Phase 31: Advanced Features & Final Validation
 **Goal**: Momentum and adaptive window signals are integrated, their marginal value is measured, and the final model is evaluated on the sealed 2024 holdout with honest comparison to v1.4
@@ -191,4 +191,4 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-25 after Phase 29 planning*
+*Last updated: 2026-03-25 after Phase 30 planning*
