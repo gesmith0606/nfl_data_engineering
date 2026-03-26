@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Prediction Model Improvement
 status: unknown
-stopped_at: Completed 29-02-PLAN.md
-last_updated: "2026-03-25T23:06:54.745Z"
+stopped_at: Completed 30-01-PLAN.md
+last_updated: "2026-03-26T00:53:44.640Z"
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 29 — feature-selection
+**Current focus:** Phase 30 — model-ensemble
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v2.0 Prediction Model Improvement -- 4 phases (28-31), 19 requirements
 
 ## Current Position
 
-Phase: 30
-Plan: Not started
+Phase: 30 (model-ensemble) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -68,6 +68,8 @@ New for v2.0:
 - [Phase 29-01]: TreeExplainer over KernelExplainer for exact SHAP on XGBoost
 - [Phase 29]: SELECTED_FEATURES initialized as None in config.py -- Phase 30 branches on None vs list
 - [Phase 29]: Config rewriting via regex for SELECTED_FEATURES persistence
+- [Phase 30]: Generalized CV via model_factory + fit_kwargs_fn callback pattern
+- [Phase 30]: RidgeCV auto-selects alpha from [0.01, 0.1, 1.0, 10.0, 100.0] for meta-learner
 
 ### Pending Todos
 
@@ -82,8 +84,8 @@ New for v2.0:
 
 ## Session Continuity
 
-Last session: 2026-03-25T23:02:35.582Z
-Stopped at: Completed 29-02-PLAN.md
+Last session: 2026-03-26T00:53:44.637Z
+Stopped at: Completed 30-01-PLAN.md
 Resume file: None
 
 ---

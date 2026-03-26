@@ -24,10 +24,10 @@ Requirements for Prediction Model Improvement milestone. Each maps to roadmap ph
 
 ### Model Ensemble
 
-- [ ] **ENS-01**: Train LightGBM base learner with model-specific Optuna search space
-- [ ] **ENS-02**: Train CatBoost base learner with model-specific tuning constraints
-- [ ] **ENS-03**: Generate temporal OOF predictions from walk-forward CV for stacking
-- [ ] **ENS-04**: Train Ridge meta-learner on OOF predictions from all base models
+- [x] **ENS-01**: Train LightGBM base learner with model-specific Optuna search space
+- [x] **ENS-02**: Train CatBoost base learner with model-specific tuning constraints
+- [x] **ENS-03**: Generate temporal OOF predictions from walk-forward CV for stacking
+- [x] **ENS-04**: Train Ridge meta-learner on OOF predictions from all base models
 - [ ] **ENS-05**: Backtest ensemble model and compare ATS/ROI vs single XGBoost baseline
 
 ### Advanced Features
@@ -82,10 +82,10 @@ Deferred to future milestones. Tracked but not in current roadmap.
 | FSEL-02 | Phase 29 | Complete |
 | FSEL-03 | Phase 29 | Complete |
 | FSEL-04 | Phase 29 | Complete |
-| ENS-01 | Phase 30 | Pending |
-| ENS-02 | Phase 30 | Pending |
-| ENS-03 | Phase 30 | Pending |
-| ENS-04 | Phase 30 | Pending |
+| ENS-01 | Phase 30 | Complete |
+| ENS-02 | Phase 30 | Complete |
+| ENS-03 | Phase 30 | Complete |
+| ENS-04 | Phase 30 | Complete |
 | ENS-05 | Phase 30 | Pending |
 | ADV-01 | Phase 31 | Pending |
 | ADV-02 | Phase 31 | Pending |
