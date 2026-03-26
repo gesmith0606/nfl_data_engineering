@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Prediction Model Improvement
 status: unknown
-stopped_at: Completed 30-02-PLAN.md
-last_updated: "2026-03-26T01:02:20.311Z"
+stopped_at: Completed 31-01-PLAN.md
+last_updated: "2026-03-26T20:51:17.498Z"
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 8
+  completed_plans: 7
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 30 — model-ensemble
+**Current focus:** Phase 31 — advanced-features-final-validation
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v2.0 Prediction Model Improvement -- 4 phases (28-31), 19 requirements
 
 ## Current Position
 
-Phase: 31
-Plan: Not started
+Phase: 31 (advanced-features-final-validation) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -71,6 +71,7 @@ New for v2.0:
 - [Phase 30]: Generalized CV via model_factory + fit_kwargs_fn callback pattern
 - [Phase 30]: RidgeCV auto-selects alpha from [0.01, 0.1, 1.0, 10.0, 100.0] for meta-learner
 - [Phase 30]: Ensemble features loaded from metadata.json not config.py (prevents feature mismatch)
+- [Phase 31]: Momentum features merged before home/away split; EWM restricted to PBP metrics only
 
 ### Pending Todos
 
@@ -85,8 +86,8 @@ New for v2.0:
 
 ## Session Continuity
 
-Last session: 2026-03-26T00:58:48.414Z
-Stopped at: Completed 30-02-PLAN.md
+Last session: 2026-03-26T20:51:17.495Z
+Stopped at: Completed 31-01-PLAN.md
 Resume file: None
 
 ---

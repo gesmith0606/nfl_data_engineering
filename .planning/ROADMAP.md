@@ -148,7 +148,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 31-01-PLAN.md — Momentum features (win streak, ATS trend) and EWM windows in feature engineering with leakage guard updates
+- [x] 31-01-PLAN.md — Momentum features (win streak, ATS trend) and EWM windows in feature engineering with leakage guard updates
 - [ ] 31-02-PLAN.md — Feature selection re-run, ensemble retrain, sealed holdout comparison and ablation with ship decision
 
 ## Progress
@@ -188,7 +188,7 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 | 28. Infrastructure & Player Features | v2.0 | 2/2 | Complete    | 2026-03-25 |
 | 29. Feature Selection | v2.0 | 2/2 | Complete    | 2026-03-25 |
 | 30. Model Ensemble | v2.0 | 2/2 | Complete    | 2026-03-26 |
-| 31. Advanced Features & Final Validation | v2.0 | 0/2 | Not started | - |
+| 31. Advanced Features & Final Validation | v2.0 | 1/2 | In Progress|  |
 
 ---
 *Roadmap created: 2026-03-08*
