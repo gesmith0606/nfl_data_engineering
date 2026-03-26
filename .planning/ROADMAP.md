@@ -84,7 +84,7 @@ Full details: `.planning/milestones/v1.4-ROADMAP.md`
 
 - [x] **Phase 28: Infrastructure & Player Features** - Commit leakage fix, install new dependencies, build QB quality and injury impact features at team-game grain with verified lag guards (completed 2026-03-25)
 - [x] **Phase 29: Feature Selection** - Reduce ~310 features to 80-120 via walk-forward-safe correlation filtering and SHAP importance pruning (completed 2026-03-25)
-- [ ] **Phase 30: Model Ensemble** - Train LightGBM and CatBoost base learners with Ridge meta-learner stacking on temporal OOF predictions, backtest against v1.4 baseline
+- [x] **Phase 30: Model Ensemble** - Train LightGBM and CatBoost base learners with Ridge meta-learner stacking on temporal OOF predictions, backtest against v1.4 baseline (completed 2026-03-26)
 - [ ] **Phase 31: Advanced Features & Final Validation** - Add momentum signals and adaptive EWM windows, validate marginal improvement, run final holdout comparison
 
 ## Phase Details
@@ -134,7 +134,7 @@ Plans:
 
 Plans:
 - [x] 30-01-PLAN.md — Core ensemble module: generalized walk-forward CV, model factories, Ridge meta-learner, ensemble save/load
-- [ ] 30-02-PLAN.md — Ensemble training CLI, wire --ensemble into backtest/prediction CLIs for side-by-side comparison
+- [x] 30-02-PLAN.md — Ensemble training CLI, wire --ensemble into backtest/prediction CLIs for side-by-side comparison
 
 ### Phase 31: Advanced Features & Final Validation
 **Goal**: Momentum and adaptive window signals are integrated, their marginal value is measured, and the final model is evaluated on the sealed 2024 holdout with honest comparison to v1.4
@@ -186,7 +186,7 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 | 27. Prediction Pipeline | v1.4 | 1/1 | Complete | 2026-03-22 |
 | 28. Infrastructure & Player Features | v2.0 | 2/2 | Complete    | 2026-03-25 |
 | 29. Feature Selection | v2.0 | 2/2 | Complete    | 2026-03-25 |
-| 30. Model Ensemble | v2.0 | 1/2 | In Progress|  |
+| 30. Model Ensemble | v2.0 | 2/2 | Complete   | 2026-03-26 |
 | 31. Advanced Features & Final Validation | v2.0 | 0/1 | Not started | - |
 
 ---

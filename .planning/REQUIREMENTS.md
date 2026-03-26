@@ -28,7 +28,7 @@ Requirements for Prediction Model Improvement milestone. Each maps to roadmap ph
 - [x] **ENS-02**: Train CatBoost base learner with model-specific tuning constraints
 - [x] **ENS-03**: Generate temporal OOF predictions from walk-forward CV for stacking
 - [x] **ENS-04**: Train Ridge meta-learner on OOF predictions from all base models
-- [ ] **ENS-05**: Backtest ensemble model and compare ATS/ROI vs single XGBoost baseline
+- [x] **ENS-05**: Backtest ensemble model and compare ATS/ROI vs single XGBoost baseline
 
 ### Advanced Features
 
@@ -86,7 +86,7 @@ Deferred to future milestones. Tracked but not in current roadmap.
 | ENS-02 | Phase 30 | Complete |
 | ENS-03 | Phase 30 | Complete |
 | ENS-04 | Phase 30 | Complete |
-| ENS-05 | Phase 30 | Pending |
+| ENS-05 | Phase 30 | Complete |
 | ADV-01 | Phase 31 | Pending |
 | ADV-02 | Phase 31 | Pending |
 | ADV-03 | Phase 31 | Pending |

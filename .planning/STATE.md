@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Prediction Model Improvement
 status: unknown
-stopped_at: Completed 30-01-PLAN.md
-last_updated: "2026-03-26T00:53:44.640Z"
+stopped_at: Completed 30-02-PLAN.md
+last_updated: "2026-03-26T00:58:48.417Z"
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -70,6 +70,7 @@ New for v2.0:
 - [Phase 29]: Config rewriting via regex for SELECTED_FEATURES persistence
 - [Phase 30]: Generalized CV via model_factory + fit_kwargs_fn callback pattern
 - [Phase 30]: RidgeCV auto-selects alpha from [0.01, 0.1, 1.0, 10.0, 100.0] for meta-learner
+- [Phase 30]: Ensemble features loaded from metadata.json not config.py (prevents feature mismatch)
 
 ### Pending Todos
 
@@ -84,8 +85,8 @@ New for v2.0:
 
 ## Session Continuity
 
-Last session: 2026-03-26T00:53:44.637Z
-Stopped at: Completed 30-01-PLAN.md
+Last session: 2026-03-26T00:58:48.414Z
+Stopped at: Completed 30-02-PLAN.md
 Resume file: None
 
 ---
