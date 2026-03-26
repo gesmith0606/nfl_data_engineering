@@ -35,6 +35,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from feature_engineering import assemble_game_features, get_feature_columns  # noqa: E402
 from model_training import load_model  # noqa: E402
+from ensemble_training import load_ensemble, predict_ensemble  # noqa: E402
 from config import MODEL_DIR  # noqa: E402
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
@@ -220,25 +221,27 @@ def main(argv: Optional[List[str]] = None) -> int:
         default=None,
         help="Directory containing trained models (default: models/)",
     )
+    parser.add_argument(
+        "--ensemble",
+        action="store_true",
+        help="Use stacking ensemble instead of single XGBoost",
+    )
+    parser.add_argument(
+        "--ensemble-dir",
+        type=str,
+        default=None,
+        help="Directory containing ensemble artifacts (default: models/ensemble/)",
+    )
     args = parser.parse_args(argv)
 
-    print(f"\nNFL Game Prediction Pipeline v1.4")
+    model_version = "v2.0-ensemble" if args.ensemble else "v1.4.0"
+    print(f"\nNFL Game Prediction Pipeline {model_version}")
     print(f"Season: {args.season}, Week: {args.week}")
+    if args.ensemble:
+        print("Mode: Stacking Ensemble (XGB+LGB+CB+Ridge)")
     print("=" * 60)
 
-    # Load models
-    model_dir = args.model_dir
-    try:
-        print("Loading spread model...")
-        spread_model, spread_meta = load_model("spread", model_dir=model_dir)
-        print("Loading total model...")
-        total_model, total_meta = load_model("total", model_dir=model_dir)
-    except FileNotFoundError as e:
-        print(f"\nERROR: {e}")
-        print("Train models first: python scripts/train_models.py --target both")
-        return 1
-
-    # Assemble features
+    # Assemble features first (needed for both paths)
     print("Assembling game features...")
     try:
         game_df = assemble_game_features(args.season)
@@ -253,10 +256,66 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     print(f"  {len(game_df)} games in season {args.season}")
 
-    # Generate predictions
-    predictions = generate_week_predictions(
-        game_df, args.week, spread_model, spread_meta, total_model, total_meta
-    )
+    if args.ensemble:
+        # Ensemble path: load ensemble models and generate predictions inline
+        print("Loading ensemble models...")
+        try:
+            spread_models, total_models, ens_metadata = load_ensemble(args.ensemble_dir)
+        except FileNotFoundError as e:
+            print(f"\nERROR: {e}")
+            print("Train the ensemble first: python scripts/train_ensemble.py")
+            return 1
+
+        # Get features from ensemble metadata
+        ens_feature_cols = ens_metadata.get("selected_features", [])
+        ens_available = [c for c in ens_feature_cols if c in game_df.columns]
+        if len(ens_available) < len(ens_feature_cols):
+            missing = set(ens_feature_cols) - set(ens_available)
+            logger.warning(
+                "Ensemble: %d/%d features missing: %s",
+                len(missing), len(ens_feature_cols), sorted(missing)[:5],
+            )
+
+        week_df = game_df[game_df["week"] == args.week].copy()
+        if week_df.empty:
+            print(f"\nNo games found for week {args.week}.")
+            return 0
+
+        features_input = week_df[ens_available].fillna(0.0)
+        week_df["model_spread"] = predict_ensemble(features_input, spread_models)
+        week_df["model_total"] = predict_ensemble(features_input, total_models)
+
+        # Map Vegas lines and compute edges
+        week_df["vegas_spread"] = week_df["spread_line"]
+        week_df["vegas_total"] = week_df["total_line"]
+        week_df["spread_edge"] = week_df["model_spread"] - week_df["vegas_spread"]
+        week_df["total_edge"] = week_df["model_total"] - week_df["vegas_total"]
+        week_df["spread_confidence_tier"] = week_df["spread_edge"].apply(classify_tier)
+        week_df["total_confidence_tier"] = week_df["total_edge"].apply(classify_tier)
+        week_df["model_version"] = model_version
+        week_df["prediction_timestamp"] = datetime.utcnow()
+
+        # Sort by max edge magnitude
+        week_df["_sort_key"] = week_df[["spread_edge", "total_edge"]].abs().max(axis=1)
+        week_df = week_df.sort_values("_sort_key", ascending=False, na_position="last")
+        predictions = week_df[OUTPUT_COLUMNS].reset_index(drop=True)
+    else:
+        # Single XGBoost path (unchanged)
+        model_dir = args.model_dir
+        try:
+            print("Loading spread model...")
+            spread_model, spread_meta = load_model("spread", model_dir=model_dir)
+            print("Loading total model...")
+            total_model, total_meta = load_model("total", model_dir=model_dir)
+        except FileNotFoundError as e:
+            print(f"\nERROR: {e}")
+            print("Train models first: python scripts/train_models.py --target both")
+            return 1
+
+        # Generate predictions
+        predictions = generate_week_predictions(
+            game_df, args.week, spread_model, spread_meta, total_model, total_meta
+        )
 
     if predictions.empty:
         print(f"\nNo games found for week {args.week}.")
