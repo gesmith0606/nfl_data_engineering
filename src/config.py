@@ -465,6 +465,15 @@ CB_CONSERVATIVE_PARAMS = {
 # Ensemble model directory (flat structure under models/)
 ENSEMBLE_DIR = os.path.join(MODEL_DIR, "ensemble")
 
+# EWM target columns -- subset of PBP metrics for exponentially weighted windows.
+# Restricted to core efficiency metrics to avoid feature explosion (D-09).
+EWM_TARGET_COLS = [
+    "off_epa_per_play", "def_epa_per_play",
+    "off_success_rate", "def_success_rate",
+    "cpoe",
+    "rz_td_rate", "def_rz_td_rate",
+]
+
 # Feature selection result -- populated by scripts/run_feature_selection.py
 # When None, model training uses all features from get_feature_columns().
 # When populated, model training uses only these features.

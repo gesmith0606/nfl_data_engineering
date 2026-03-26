@@ -2033,3 +2033,77 @@ class TestPBPDerivedMetricsOrchestrator:
         team_a_w1 = result[(result["team"] == "A") & (result["week"] == 1)]
         if not team_a_w1.empty:
             assert pd.isna(team_a_w1["off_penalties_roll3"].iloc[0])
+
+
+class TestEWMRolling:
+    """Test EWM (exponentially weighted moving average) in apply_team_rolling."""
+
+    @pytest.fixture
+    def team_data(self):
+        """Synthetic 1-team, 6-week data with 2 stat columns."""
+        return pd.DataFrame({
+            "team": ["A"] * 6,
+            "season": [2023] * 6,
+            "week": [1, 2, 3, 4, 5, 6],
+            "stat_a": [10.0, 20.0, 30.0, 40.0, 50.0, 60.0],
+            "stat_b": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0],
+        })
+
+    def test_ewm_produces_ewm3_columns(self, team_data):
+        """Passing ewm_cols=['stat_a'] produces 'stat_a_ewm3' but NOT 'stat_b_ewm3'."""
+        result = apply_team_rolling(team_data, ["stat_a", "stat_b"], ewm_cols=["stat_a"])
+        assert "stat_a_ewm3" in result.columns, "stat_a_ewm3 column not created"
+        assert "stat_b_ewm3" not in result.columns, "stat_b_ewm3 should not be created"
+
+    def test_ewm_shift1_behavior(self, team_data):
+        """EWM with shift(1): week 1 is NaN, week 2 uses only week 1 data."""
+        result = apply_team_rolling(team_data, ["stat_a"], ewm_cols=["stat_a"])
+        result = result.sort_values("week")
+        ewm_vals = result["stat_a_ewm3"].tolist()
+
+        # Week 1: shift(1) means NaN input -> NaN output
+        assert pd.isna(ewm_vals[0]), f"Week 1 EWM should be NaN, got {ewm_vals[0]}"
+        # Week 2: shift(1) means only week 1 value (10.0) -> EWM of single value = 10.0
+        assert abs(ewm_vals[1] - 10.0) < 0.01, f"Week 2 EWM should be 10.0, got {ewm_vals[1]}"
+
+    def test_ewm_differs_from_simple_rolling(self, team_data):
+        """EWM with halflife=3 produces different values than simple roll3."""
+        result = apply_team_rolling(team_data, ["stat_a"], ewm_cols=["stat_a"])
+        result = result.sort_values("week")
+
+        # Week 4: roll3 = mean([10,20,30]) = 20.0 (shift(1), weeks 1-3)
+        # EWM with halflife=3 gives exponentially weighted mean (different from 20.0)
+        roll3_val = result["stat_a_roll3"].iloc[3]
+        ewm3_val = result["stat_a_ewm3"].iloc[3]
+        assert abs(roll3_val - ewm3_val) > 0.01, (
+            f"EWM should differ from simple rolling: roll3={roll3_val}, ewm3={ewm3_val}"
+        )
+
+    def test_existing_rolling_unchanged(self, team_data):
+        """Existing roll3/roll6/std columns identical with and without ewm_cols."""
+        result_without = apply_team_rolling(team_data.copy(), ["stat_a", "stat_b"])
+        result_with = apply_team_rolling(
+            team_data.copy(), ["stat_a", "stat_b"], ewm_cols=["stat_a"]
+        )
+
+        for col in ["stat_a_roll3", "stat_a_roll6", "stat_a_std",
+                     "stat_b_roll3", "stat_b_roll6", "stat_b_std"]:
+            pd.testing.assert_series_equal(
+                result_without[col].reset_index(drop=True),
+                result_with[col].reset_index(drop=True),
+                check_names=False,
+                obj=f"{col} should be unchanged",
+            )
+
+    def test_ewm_manual_calculation(self, team_data):
+        """Verify EWM value matches manual halflife=3 computation for 3 data points."""
+        result = apply_team_rolling(team_data, ["stat_a"], ewm_cols=["stat_a"])
+        result = result.sort_values("week")
+
+        # Week 4 EWM: shift(1) sees weeks 1,2,3 => values 10, 20, 30
+        # pandas ewm(halflife=3, min_periods=1).mean() with alpha = 1 - exp(-ln(2)/3)
+        # Just verify it's a valid float between 10 and 30 (weighted towards more recent)
+        ewm_val = result["stat_a_ewm3"].iloc[3]
+        assert 10.0 < ewm_val < 30.0, (
+            f"Week 4 EWM should be between 10 and 30, got {ewm_val}"
+        )

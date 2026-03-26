@@ -14,7 +14,7 @@ import numpy as np
 from typing import List, Optional
 import logging
 
-from config import TEAM_DIVISIONS
+from config import EWM_TARGET_COLS, TEAM_DIVISIONS
 
 logger = logging.getLogger(__name__)
 
@@ -68,6 +68,8 @@ def apply_team_rolling(
     df: pd.DataFrame,
     stat_cols: List[str],
     windows: Optional[List[int]] = None,
+    ewm_cols: Optional[List[str]] = None,
+    ewm_halflife: int = 3,
 ) -> pd.DataFrame:
     """Apply shifted rolling averages and season-to-date expanding average by team.
 
@@ -78,6 +80,9 @@ def apply_team_rolling(
     Also creates ``{col}_std`` (season-to-date expanding average) using
     ``shift(1).expanding().mean()`` grouped by ``['team', 'season']``.
 
+    Optionally creates ``{col}_ewm{ewm_halflife}`` columns for specified
+    ewm_cols using exponentially weighted moving average with shift(1) lag.
+
     The shift(1) ensures only *prior* weeks are used (no look-ahead bias).
 
     Args:
@@ -85,9 +90,12 @@ def apply_team_rolling(
             and 'week' columns plus the columns listed in stat_cols.
         stat_cols: List of numeric column names to compute rolling averages for.
         windows: Rolling window sizes in weeks. Defaults to [3, 6].
+        ewm_cols: Optional list of column names to compute EWM for. Only columns
+            present in df are processed. Defaults to None (no EWM).
+        ewm_halflife: Half-life for EWM in number of periods. Defaults to 3.
 
     Returns:
-        DataFrame with rolling average and STD columns appended.
+        DataFrame with rolling average, STD, and optional EWM columns appended.
     """
     if windows is None:
         windows = [3, 6]
@@ -118,6 +126,22 @@ def apply_team_rolling(
             df.groupby(["team", "season"])[col]
             .transform(lambda s: s.shift(1).expanding().mean())
         )
+
+    # Exponentially weighted moving average (optional)
+    if ewm_cols:
+        available_ewm = [c for c in ewm_cols if c in df.columns]
+        ewm_data = {}
+        for col in available_ewm:
+            ewm_data[f"{col}_ewm{ewm_halflife}"] = (
+                df.groupby(["team", "season"])[col]
+                .transform(
+                    lambda s: s.shift(1).ewm(
+                        halflife=ewm_halflife, min_periods=1
+                    ).mean()
+                )
+            )
+        if ewm_data:
+            df = df.assign(**ewm_data)
 
     logger.info(
         "Team rolling averages computed (%s) for %d rows, %d stat columns",
@@ -731,8 +755,8 @@ def compute_pbp_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
     key_cols = {"team", "season", "week"}
     stat_cols = [c for c in merged.columns if c not in key_cols]
 
-    # Apply rolling windows
-    result = apply_team_rolling(merged, stat_cols)
+    # Apply rolling windows (with EWM for core EPA/success/CPOE metrics)
+    result = apply_team_rolling(merged, stat_cols, ewm_cols=EWM_TARGET_COLS)
 
     logger.info(
         "PBP metrics complete: %d rows, %d teams, seasons %s-%s",
