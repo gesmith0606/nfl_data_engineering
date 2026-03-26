@@ -12,6 +12,8 @@ Exports:
     BREAK_EVEN_PCT: Win percentage needed to break even at -110 (52.38%).
 """
 
+from typing import Dict
+
 import numpy as np
 import pandas as pd
 
@@ -180,3 +182,147 @@ def compute_season_stability(
         "leakage_warning": bool(np.any(accuracies > LEAKAGE_THRESHOLD)),
     }
     return per_season_df, stability_summary
+
+
+def _compute_config_metrics(
+    results_df: pd.DataFrame,
+    holdout_season: int,
+) -> Dict:
+    """Compute ATS/O-U/MAE/profit metrics for one config on the holdout season.
+
+    Args:
+        results_df: DataFrame with ATS+O/U evaluation columns and season.
+        holdout_season: Season to filter to.
+
+    Returns:
+        Dict with ats_accuracy, ou_accuracy, mae, profit, roi, n_games.
+    """
+    holdout = results_df[results_df["season"] == holdout_season].copy()
+    n_games = len(holdout)
+    if n_games == 0:
+        return {
+            "ats_accuracy": 0.0,
+            "ou_accuracy": 0.0,
+            "mae": 0.0,
+            "profit": 0.0,
+            "roi": 0.0,
+            "n_games": 0,
+        }
+
+    # ATS accuracy
+    non_push_ats = holdout[~holdout["push"]]
+    ats_acc = float(non_push_ats["ats_correct"].mean()) if len(non_push_ats) > 0 else 0.0
+
+    # O/U accuracy (if columns present)
+    ou_acc = 0.0
+    if "ou_correct" in holdout.columns and "push_ou" in holdout.columns:
+        non_push_ou = holdout[~holdout["push_ou"]]
+        ou_acc = float(non_push_ou["ou_correct"].mean()) if len(non_push_ou) > 0 else 0.0
+
+    # MAE on spread
+    mae = float(np.mean(np.abs(
+        holdout["predicted_margin"].values - holdout["actual_margin"].values
+    )))
+
+    # Profit
+    profit_stats = compute_profit(holdout, correct_col="ats_correct", push_col="push")
+
+    return {
+        "ats_accuracy": ats_acc,
+        "ou_accuracy": ou_acc,
+        "mae": mae,
+        "profit": profit_stats["profit"],
+        "roi": profit_stats["roi"],
+        "n_games": n_games,
+    }
+
+
+def print_holdout_comparison(
+    xgb_results: pd.DataFrame,
+    ens_results: pd.DataFrame,
+    full_results: pd.DataFrame,
+    holdout_season: int = HOLDOUT_SEASON,
+) -> Dict[str, Dict]:
+    """Print three-way comparison table for sealed holdout season.
+
+    Compares v1.4 XGBoost, Phase-30 Ensemble, and Phase-31 Full ensemble
+    on the sealed holdout season. Prints a formatted table and returns
+    metrics for programmatic access.
+
+    Args:
+        xgb_results: v1.4 single XGBoost results (with ATS+O/U eval columns).
+        ens_results: Phase-30 ensemble results (with ATS+O/U eval columns).
+        full_results: Phase-31 full ensemble results (with ATS+O/U eval columns).
+        holdout_season: Season to evaluate (default: HOLDOUT_SEASON).
+
+    Returns:
+        Dict keyed by config name with metric dicts for each configuration.
+    """
+    configs = {
+        "v1.4 XGB": xgb_results,
+        "P30 Ensemble": ens_results,
+        "P31 Full": full_results,
+    }
+
+    all_metrics: Dict[str, Dict] = {}
+    for name, df in configs.items():
+        all_metrics[name] = _compute_config_metrics(df, holdout_season)
+
+    # Print header
+    print(f"\n{'=' * 72}")
+    print(f"SEALED HOLDOUT -- {holdout_season} Season")
+    print(f"{'=' * 72}")
+
+    # Column headers
+    col_names = list(configs.keys())
+    header = f"  {'Metric':<16}"
+    for name in col_names:
+        header += f" {name:>14}"
+    print(header)
+    print(f"  {'-' * 60}")
+
+    # ATS Accuracy row
+    row = f"  {'ATS Accuracy':<16}"
+    for name in col_names:
+        row += f" {all_metrics[name]['ats_accuracy']:>13.1%}"
+    print(row)
+
+    # O/U Accuracy row
+    row = f"  {'O/U Accuracy':<16}"
+    for name in col_names:
+        row += f" {all_metrics[name]['ou_accuracy']:>13.1%}"
+    print(row)
+
+    # MAE row
+    row = f"  {'MAE (spread)':<16}"
+    for name in col_names:
+        row += f" {all_metrics[name]['mae']:>13.2f}"
+    print(row)
+
+    # Profit row
+    row = f"  {'Profit (units)':<16}"
+    for name in col_names:
+        row += f" {all_metrics[name]['profit']:>+13.2f}"
+    print(row)
+
+    # ROI row
+    row = f"  {'ROI':<16}"
+    for name in col_names:
+        row += f" {all_metrics[name]['roi']:>+12.1f}%"
+    print(row)
+
+    # Games row
+    row = f"  {'Games':<16}"
+    for name in col_names:
+        row += f" {all_metrics[name]['n_games']:>13d}"
+    print(row)
+
+    print(f"  {'-' * 60}")
+
+    # Best indicator (by ATS accuracy)
+    best_name = max(col_names, key=lambda n: all_metrics[n]["ats_accuracy"])
+    print(f"  Best ATS: {best_name} ({all_metrics[best_name]['ats_accuracy']:.1%})")
+
+    print(f"{'=' * 72}")
+
+    return all_metrics

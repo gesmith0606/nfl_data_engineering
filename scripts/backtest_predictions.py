@@ -32,6 +32,7 @@ from prediction_backtester import (
     evaluate_holdout,
     evaluate_ou,
     compute_season_stability,
+    print_holdout_comparison,
 )
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
@@ -424,6 +425,119 @@ def run_comparison_backtest(
         print(f"  {'=' * 52}")
 
 
+def run_holdout_comparison(
+    model_dir: Optional[str],
+    ensemble_dir: Optional[str],
+) -> None:
+    """Run sealed holdout three-way comparison: v1.4 XGB vs P30 Ensemble vs P31 Full.
+
+    Args:
+        model_dir: Directory containing v1.4 single XGBoost models.
+        ensemble_dir: Directory containing Phase-31 ensemble artifacts.
+    """
+    from config import PREDICTION_SEASONS
+
+    # Phase-30 ensemble backup directory (parallel to ensemble_dir)
+    if ensemble_dir is None:
+        ensemble_dir = ENSEMBLE_DIR
+    p30_dir = os.path.join(os.path.dirname(ensemble_dir), "ensemble_p30")
+
+    # Assemble features for holdout evaluation
+    print("Assembling game features for holdout comparison...")
+    all_data = assemble_multiyear_features(PREDICTION_SEASONS)
+    if all_data.empty:
+        print("ERROR: No game data assembled. Check Silver/Bronze data.")
+        return
+
+    feature_cols = get_feature_columns(all_data)
+    print(f"  {len(all_data)} games, {len(feature_cols)} features")
+
+    # Check required columns
+    for col in ["actual_margin", "actual_total", "spread_line", "total_line"]:
+        if col not in all_data.columns:
+            print(f"ERROR: Missing required column '{col}' in assembled data.")
+            return
+
+    # --- v1.4 Single XGBoost ---
+    print("\nLoading v1.4 single XGBoost spread model...")
+    try:
+        model, metadata = load_model("spread", model_dir=model_dir)
+        model_features = metadata.get("feature_names", feature_cols)
+        avail = [c for c in model_features if c in all_data.columns]
+        xgb_data = all_data.copy()
+        xgb_data["predicted_margin"] = model.predict(xgb_data[avail])
+        # O/U model
+        try:
+            ou_model, ou_meta = load_model("total", model_dir=model_dir)
+            ou_features = ou_meta.get("feature_names", feature_cols)
+            ou_avail = [c for c in ou_features if c in xgb_data.columns]
+            xgb_data["predicted_total"] = ou_model.predict(xgb_data[ou_avail])
+        except FileNotFoundError:
+            xgb_data["predicted_total"] = xgb_data["total_line"]  # fallback
+        xgb_results = evaluate_ats(xgb_data)
+        from prediction_backtester import evaluate_ou as _eval_ou
+        xgb_results = _eval_ou(xgb_results)
+        print(f"  v1.4 XGBoost: {len(xgb_results)} games evaluated")
+    except FileNotFoundError as e:
+        print(f"WARNING: v1.4 XGBoost model not found: {e}")
+        xgb_results = pd.DataFrame()
+
+    # --- Phase-30 Ensemble ---
+    print("Loading Phase-30 ensemble...")
+    try:
+        p30_spread, p30_total, p30_meta = load_ensemble(p30_dir)
+        p30_features = p30_meta.get("selected_features", [])
+        p30_avail = [c for c in p30_features if c in all_data.columns]
+        p30_data = all_data.copy()
+        p30_input = p30_data[p30_avail].fillna(0.0)
+        p30_data["predicted_margin"] = predict_ensemble(p30_input, p30_spread)
+        p30_data["predicted_total"] = predict_ensemble(p30_input, p30_total)
+        p30_results = evaluate_ats(p30_data)
+        p30_results = _eval_ou(p30_results)
+        print(f"  P30 Ensemble: {len(p30_results)} games evaluated")
+    except FileNotFoundError as e:
+        print(f"WARNING: Phase-30 ensemble not found at {p30_dir}: {e}")
+        p30_results = pd.DataFrame()
+
+    # --- Phase-31 Full Ensemble ---
+    print("Loading Phase-31 full ensemble...")
+    try:
+        p31_spread, p31_total, p31_meta = load_ensemble(ensemble_dir)
+        p31_features = p31_meta.get("selected_features", [])
+        p31_avail = [c for c in p31_features if c in all_data.columns]
+        p31_data = all_data.copy()
+        p31_input = p31_data[p31_avail].fillna(0.0)
+        p31_data["predicted_margin"] = predict_ensemble(p31_input, p31_spread)
+        p31_data["predicted_total"] = predict_ensemble(p31_input, p31_total)
+        p31_results = evaluate_ats(p31_data)
+        p31_results = _eval_ou(p31_results)
+        print(f"  P31 Full: {len(p31_results)} games evaluated")
+    except FileNotFoundError as e:
+        print(f"WARNING: Phase-31 ensemble not found at {ensemble_dir}: {e}")
+        p31_results = pd.DataFrame()
+
+    # --- Three-way comparison ---
+    if xgb_results.empty and p30_results.empty and p31_results.empty:
+        print("ERROR: No models could be loaded for holdout comparison.")
+        return
+
+    # Use non-empty fallback DataFrames for comparison
+    if xgb_results.empty:
+        xgb_results = p31_results.copy()
+        xgb_results["predicted_margin"] = xgb_results["spread_line"]  # baseline
+    if p30_results.empty:
+        p30_results = p31_results.copy()
+    if p31_results.empty:
+        p31_results = p30_results.copy() if not p30_results.empty else xgb_results.copy()
+
+    comparison = print_holdout_comparison(
+        xgb_results, p30_results, p31_results,
+        holdout_season=HOLDOUT_SEASON,
+    )
+
+    return comparison
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     """CLI entry point for prediction backtesting.
 
@@ -466,6 +580,11 @@ def main(argv: Optional[List[str]] = None) -> int:
         default=None,
         help="Directory containing ensemble artifacts (default: models/ensemble/)",
     )
+    parser.add_argument(
+        "--holdout",
+        action="store_true",
+        help="Run sealed holdout comparison (v1.4 vs Phase-30 vs Phase-31)",
+    )
     args = parser.parse_args(argv)
 
     print(f"\nNFL Game Prediction Backtester")
@@ -475,7 +594,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     print("=" * 60)
 
     try:
-        if args.ensemble:
+        if args.holdout:
+            run_holdout_comparison(args.model_dir, args.ensemble_dir)
+        elif args.ensemble:
             run_comparison_backtest(
                 args.target, args.seasons, args.model_dir, args.ensemble_dir
             )
