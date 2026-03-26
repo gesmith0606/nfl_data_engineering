@@ -429,6 +429,42 @@ CONSERVATIVE_PARAMS = {
     "verbosity": 0,
 }
 
+# LightGBM conservative defaults — analogous to XGBoost CONSERVATIVE_PARAMS
+LGB_CONSERVATIVE_PARAMS = {
+    "objective": "regression",
+    "max_depth": 4,
+    "learning_rate": 0.05,
+    "n_estimators": 500,
+    "min_child_samples": 20,
+    "subsample": 0.8,
+    "colsample_bytree": 0.7,
+    "reg_alpha": 1.0,
+    "reg_lambda": 5.0,
+    "random_state": 42,
+    "verbose": -1,
+    "force_col_wise": True,
+}
+
+# CatBoost conservative defaults — analogous to XGBoost CONSERVATIVE_PARAMS
+CB_CONSERVATIVE_PARAMS = {
+    "loss_function": "RMSE",
+    "depth": 4,
+    "learning_rate": 0.05,
+    "iterations": 500,
+    "l2_leaf_reg": 5.0,
+    "min_data_in_leaf": 20,
+    "subsample": 0.8,
+    "bootstrap_type": "Bernoulli",
+    "rsm": 0.7,
+    "random_seed": 42,
+    "verbose": 0,
+    "early_stopping_rounds": 50,
+    "allow_writing_files": False,
+}
+
+# Ensemble model directory (flat structure under models/)
+ENSEMBLE_DIR = os.path.join(MODEL_DIR, "ensemble")
+
 # Feature selection result -- populated by scripts/run_feature_selection.py
 # When None, model training uses all features from get_feature_columns().
 # When populated, model training uses only these features.
