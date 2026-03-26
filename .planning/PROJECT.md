@@ -65,6 +65,9 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Feature selection pipeline: SHAP importance + correlation filtering (r > 0.90) with CV-validated cutoff — Phase 29, v2.0
 - ✓ Walk-forward-safe feature selection (per-fold, 2024 holdout excluded) — Phase 29, v2.0
 - ✓ 470 total tests passing — v2.0
+- ✓ Model ensemble: XGBoost + LightGBM + CatBoost stacking with Ridge meta-learner and generalized walk-forward CV — Phase 30, v2.0
+- ✓ Ensemble training CLI with optional Optuna tuning, --ensemble flag in backtest and prediction CLIs — Phase 30, v2.0
+- ✓ 482 total tests passing — v2.0
 
 ### Active
 
@@ -74,7 +77,7 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 **Target features:**
 - Player-level features: QB quality metrics (EPA/QBR rolling), starter vs backup detection, key injury impact on team performance
-- Model ensemble: XGBoost + LightGBM + CatBoost stacking with Ridge meta-learner
+- ~~Model ensemble: XGBoost + LightGBM + CatBoost stacking with Ridge meta-learner~~ (Phase 30 complete)
 - ~~Feature selection: Reduce 283 features to optimal subset via importance/correlation filtering~~ (Phase 29 complete)
 - Advanced features: Adaptive rolling windows, momentum/trend detection, regime detection
 - Leakage fix: Commit the same-week raw stat exclusion from feature engineering (already implemented)
@@ -109,7 +112,7 @@ Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 me
 Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with spread/total models, edge detection, confidence tiers.
 Prediction feature vector: 337 columns assembled from 8 Silver sources via left joins on [team, season, week].
 ML models: XGBoost spread + over/under with walk-forward CV, Optuna tuning, sealed 2024 holdout.
-Tests: 470 passing across 14 test files.
+Tests: 482 passing across 15 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
