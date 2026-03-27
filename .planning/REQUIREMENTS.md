@@ -9,8 +9,8 @@ Requirements for v2.1 Market Data milestone. Each maps to roadmap phases.
 
 ### Odds Ingestion
 
-- [ ] **ODDS-01**: Download and parse SBRO XLSX archives into Parquet with opening/closing spreads and totals (2016-2021)
-- [ ] **ODDS-02**: Map SBRO team names to nflverse game_id with validated team name mapping dictionary
+- [x] **ODDS-01**: Download and parse SBRO XLSX archives into Parquet with opening/closing spreads and totals (2016-2021)
+- [x] **ODDS-02**: Map SBRO team names to nflverse game_id with validated team name mapping dictionary
 - [ ] **ODDS-03**: Register 'odds' as a Bronze data type with schema validation in the ingestion registry
 
 ### Line Movement
@@ -58,8 +58,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ODDS-01 | Phase 32 | Pending |
-| ODDS-02 | Phase 32 | Pending |
+| ODDS-01 | Phase 32 | Complete |
+| ODDS-02 | Phase 32 | Complete |
 | ODDS-03 | Phase 32 | Pending |
 | LINE-01 | Phase 33 | Pending |
 | LINE-02 | Phase 33 | Pending |

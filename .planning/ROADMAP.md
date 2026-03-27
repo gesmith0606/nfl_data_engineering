@@ -113,7 +113,7 @@ Full details: `.planning/milestones/v2.0-ROADMAP.md`
 **Plans**: 2 plans
 
 Plans:
-- [ ] 32-01-PLAN.md -- Tests + ingestion script (download, parse, map teams, join nflverse, validate, write Parquet)
+- [x] 32-01-PLAN.md -- Tests + ingestion script (download, parse, map teams, join nflverse, validate, write Parquet)
 - [ ] 32-02-PLAN.md -- Config registration + end-to-end pipeline run
 
 ### Phase 33: Silver Line Movement Features
@@ -152,7 +152,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 32. Bronze Odds Ingestion | v2.1 | 0/2 | Planning complete | - |
+| 32. Bronze Odds Ingestion | v2.1 | 1/2 | In Progress|  |
 | 33. Silver Line Movement Features | v2.1 | 0/? | Not started | - |
 | 34. CLV Tracking + Ablation | v2.1 | 0/? | Not started | - |
 
