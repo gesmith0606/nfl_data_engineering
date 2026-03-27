@@ -34,7 +34,7 @@ Requirements for Prediction Model Improvement milestone. Each maps to roadmap ph
 
 - [x] **ADV-01**: Add momentum/streak signals (win streak, ATS trend) from schedule data
 - [x] **ADV-02**: Implement adaptive EWM windows (halflife-based) alongside fixed rolling windows
-- [ ] **ADV-03**: Validate marginal improvement of advanced features on holdout
+- [x] **ADV-03**: Validate marginal improvement of advanced features on holdout
 
 ### Infrastructure
 
@@ -89,7 +89,7 @@ Deferred to future milestones. Tracked but not in current roadmap.
 | ENS-05 | Phase 30 | Complete |
 | ADV-01 | Phase 31 | Complete |
 | ADV-02 | Phase 31 | Complete |
-| ADV-03 | Phase 31 | Pending |
+| ADV-03 | Phase 31 | Complete |
 
 **Coverage:**
 - v2.0 requirements: 19 total

@@ -85,7 +85,7 @@ Full details: `.planning/milestones/v1.4-ROADMAP.md`
 - [x] **Phase 28: Infrastructure & Player Features** - Commit leakage fix, install new dependencies, build QB quality and injury impact features at team-game grain with verified lag guards (completed 2026-03-25)
 - [x] **Phase 29: Feature Selection** - Reduce ~310 features to 80-120 via walk-forward-safe correlation filtering and SHAP importance pruning (completed 2026-03-25)
 - [x] **Phase 30: Model Ensemble** - Train LightGBM and CatBoost base learners with Ridge meta-learner stacking on temporal OOF predictions, backtest against v1.4 baseline (completed 2026-03-26)
-- [ ] **Phase 31: Advanced Features & Final Validation** - Add momentum signals and adaptive EWM windows, validate marginal improvement, run final holdout comparison
+- [x] **Phase 31: Advanced Features & Final Validation** - Add momentum signals and adaptive EWM windows, validate marginal improvement, run final holdout comparison (completed 2026-03-27)
 
 ## Phase Details
 
@@ -149,7 +149,7 @@ Plans:
 
 Plans:
 - [x] 31-01-PLAN.md — Momentum features (win streak, ATS trend) and EWM windows in feature engineering with leakage guard updates
-- [ ] 31-02-PLAN.md — Feature selection re-run, ensemble retrain, sealed holdout comparison and ablation with ship decision
+- [x] 31-02-PLAN.md — Feature selection re-run, ensemble retrain, sealed holdout comparison and ablation with ship decision
 
 ## Progress
 
@@ -188,7 +188,7 @@ Phases execute in numeric order: 28 -> 29 -> 30 -> 31
 | 28. Infrastructure & Player Features | v2.0 | 2/2 | Complete    | 2026-03-25 |
 | 29. Feature Selection | v2.0 | 2/2 | Complete    | 2026-03-25 |
 | 30. Model Ensemble | v2.0 | 2/2 | Complete    | 2026-03-26 |
-| 31. Advanced Features & Final Validation | v2.0 | 1/2 | In Progress|  |
+| 31. Advanced Features & Final Validation | v2.0 | 2/2 | Complete   | 2026-03-27 |
 
 ---
 *Roadmap created: 2026-03-08*
