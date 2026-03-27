@@ -68,19 +68,16 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Model ensemble: XGBoost + LightGBM + CatBoost stacking with Ridge meta-learner and generalized walk-forward CV — Phase 30, v2.0
 - ✓ Ensemble training CLI with optional Optuna tuning, --ensemble flag in backtest and prediction CLIs — Phase 30, v2.0
 - ✓ 482 total tests passing — v2.0
+- ✓ Momentum features (win streak, ATS trend/margin) and EWM windows (halflife=3) for team metrics — Phase 31, v2.0
+- ✓ Ablation: Phase 31 features improved training but did not improve holdout; P30 ensemble confirmed as v2.0 — Phase 31, v2.0
+- ✓ Final holdout: v1.4 (50.0% ATS, -$12.18) → v2.0 ensemble (53.0% ATS, +$3.09) on sealed 2024 — Phase 31, v2.0
+- ✓ 503 total tests passing — v2.0
 
 ### Active
 
-**Current Milestone: v2.0 Prediction Model Improvement**
+**v2.0 Milestone Complete** — all 4 phases (28-31) shipped.
 
-**Goal:** Transform the baseline prediction model (53% ATS, 50% holdout) into a competitive edge-finding system through player-level features, model ensembles, feature selection, and advanced signal extraction.
-
-**Target features:**
-- Player-level features: QB quality metrics (EPA/QBR rolling), starter vs backup detection, key injury impact on team performance
-- ~~Model ensemble: XGBoost + LightGBM + CatBoost stacking with Ridge meta-learner~~ (Phase 30 complete)
-- ~~Feature selection: Reduce 283 features to optimal subset via importance/correlation filtering~~ (Phase 29 complete)
-- Advanced features: Adaptive rolling windows, momentum/trend detection, regime detection
-- Leakage fix: Commit the same-week raw stat exclusion from feature engineering (already implemented)
+**Result:** P30 Ensemble (XGB+LGB+CB+Ridge) is the v2.0 production model. On sealed 2024 holdout: 53.0% ATS accuracy, +$3.09 profit (+1.2% ROI) at -110 vig. Up from v1.4's 50.0% ATS and -$12.18 loss. Phase 31 momentum/EWM features documented as non-improving on holdout via honest ablation.
 
 ### Planned (Future Milestones)
 
@@ -111,8 +108,8 @@ Bronze layer: 15 data types covering schedules, player stats, PBP (140 cols), NG
 Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 11 output paths.
 Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with spread/total models, edge detection, confidence tiers.
 Prediction feature vector: 337 columns assembled from 8 Silver sources via left joins on [team, season, week].
-ML models: XGBoost spread + over/under with walk-forward CV, Optuna tuning, sealed 2024 holdout.
-Tests: 482 passing across 15 test files.
+ML models: v2.0 ensemble (XGB+LGB+CB+Ridge stacking) for spread + over/under; walk-forward CV, Optuna tuning, sealed 2024 holdout (53.0% ATS, +$3.09 profit).
+Tests: 503 passing across 15 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
