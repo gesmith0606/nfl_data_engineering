@@ -1,5 +1,22 @@
 # Milestones
 
+## v2.0 Prediction Model Improvement (Shipped: 2026-03-27)
+
+**Phases completed:** 4 phases, 8 plans, 15 tasks
+
+**Key accomplishments:**
+
+- Leakage-safe feature selection committed (337 to 283 features) and LightGBM/CatBoost/SHAP installed for ensemble modeling
+- Team-level player quality features (QB EPA, positional quality, injury impact) with shift(1) lag guards and 18 new rolling differential columns for prediction
+- SHAP TreeExplainer feature ranking with greedy correlation filter (r > 0.90) and holdout guard, isolated per walk-forward CV fold
+- Walk-forward CV cutoff search CLI with SELECTED_FEATURES persistence in config.py and metadata JSON output
+- XGBoost+LightGBM+CatBoost stacking with Ridge meta-learner, generalized walk-forward CV producing OOF predictions, and ensemble save/load for spread and total models
+- Ensemble training CLI with Optuna tuning, side-by-side ATS/ROI backtest comparison, and --ensemble prediction dispatch for XGB+LGB+CB+Ridge stacking
+- Momentum streak/ATS signals from Bronze schedules plus EWM adaptive windows on team EPA/success/CPOE metrics, all with shift(1) leakage prevention
+- Three-way sealed holdout comparison (v1.4 vs P30 Ensemble vs P31 Full) confirming P30 Ensemble as v2.0 production model with 53.0% ATS accuracy and +3.09 profit on 2024 holdout
+
+---
+
 ## v1.4 ML Game Prediction (Shipped: 2026-03-22)
 
 **Phases completed:** 4 phases, 8 plans, 11 tasks

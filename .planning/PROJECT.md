@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and ML game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), a rich Silver layer with 11 output paths, a 337-column prediction feature vector, XGBoost models for point spread and over/under prediction with walk-forward cross-validation, backtesting against historical Vegas closing lines, and a weekly prediction pipeline with edge detection and confidence tiers — plus registry-driven ingestion, batch orchestration, and local-first storage.
+A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and ML game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), a rich Silver layer with 11 output paths, a 310+ column prediction feature vector, an XGB+LGB+CB+Ridge stacking ensemble for point spread and over/under prediction with walk-forward cross-validation, backtesting against historical Vegas closing lines, and a weekly prediction pipeline with edge detection and confidence tiers — plus registry-driven ingestion, batch orchestration, and local-first storage.
 
 ## Core Value
 
@@ -75,19 +75,12 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-**v2.0 Milestone Complete** — all 4 phases (28-31) shipped.
-
-**Result:** P30 Ensemble (XGB+LGB+CB+Ridge) is the v2.0 production model. On sealed 2024 holdout: 53.0% ATS accuracy, +$3.09 profit (+1.2% ROI) at -110 vig. Up from v1.4's 50.0% ATS and -$12.18 loss. Phase 31 momentum/EWM features documented as non-improving on holdout via honest ablation.
+No active requirements — v2.0 complete. Next milestone TBD via `/gsd:new-milestone`.
 
 ### Planned (Future Milestones)
 
-Full details: `.planning/VISION.md` | Requirements: `.planning/REQUIREMENTS.md`
-
-- v2.0 Player-Level Features — QB quality, injury replacement quality, WR-CB matchups (Neo4j), depth chart deltas, personnel groupings
-- v2.1 Model Ensemble — XGBoost + LightGBM + CatBoost + Ridge stacking, probabilistic output, quantile regression
-- v2.2 Advanced Features — adaptive rolling windows, momentum/trend, motivation, pace-adjustment, regime detection
-- v2.3 Market Data — historical odds database, line movement features, CLV tracking
-- v2.4 Betting Framework — Kelly criterion, EV calculation, line shopping, shadow betting tracker, calibration
+- v2.1 Market Data — historical odds database, line movement features, CLV tracking
+- v2.2 Betting Framework — Kelly criterion, EV calculation, line shopping, shadow betting tracker, calibration
 - v3.0 Production Infra — automated weekly pipeline, in-season retraining, drift detection, A/B testing
 - v3.1 Alternative Data — practice reports, coaching decisions, tracking data, news NLP
 - Fantasy ML Upgrade — replace weighted-average projections with ML models
@@ -102,13 +95,13 @@ Full details: `.planning/VISION.md` | Requirements: `.planning/REQUIREMENTS.md`
 
 ## Context
 
-Shipped v1.4 with 23,571 LOC Python across 27 phases and 50 plans (five milestones).
-Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, optuna, nfl-data-py, local Parquet storage (S3 optional).
+Shipped v2.0 with 27,354 LOC Python across 31 phases and 58 plans (six milestones).
+Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, lightgbm, catboost, scikit-learn, optuna, shap, nfl-data-py, local Parquet storage (S3 optional).
 Bronze layer: 15 data types covering schedules, player stats, PBP (140 cols), NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts, officials — 517 files, 93 MB.
-Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context), player metrics (usage, rolling avgs, opp rankings, advanced profiles), historical dimension table — 11 output paths.
-Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with spread/total models, edge detection, confidence tiers.
-Prediction feature vector: 337 columns assembled from 8 Silver sources via left joins on [team, season, week].
-ML models: v2.0 ensemble (XGB+LGB+CB+Ridge stacking) for spread + over/under; walk-forward CV, Optuna tuning, sealed 2024 holdout (53.0% ATS, +$3.09 profit).
+Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context, EWM windows), player metrics (usage, rolling avgs, opp rankings, advanced profiles, player quality), historical dimension table — 11+ output paths.
+Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with ensemble spread/total models, edge detection, confidence tiers.
+Prediction feature vector: 310+ columns assembled from 9 Silver sources via left joins on [team, season, week], reduced to ~100 via SHAP-based feature selection.
+ML models: v2.0 stacking ensemble (XGB+LGB+CB base learners + Ridge meta-learner) for spread + over/under; walk-forward CV with OOF predictions, Optuna tuning, sealed 2024 holdout (53.0% ATS, +$3.09 profit, +1.2% ROI).
 Tests: 503 passing across 15 test files.
 
 Existing documentation:
@@ -153,26 +146,22 @@ Existing documentation:
 | Referee tendencies from schedules referee col | Simpler than joining Officials Bronze; crew chief name sufficient | ✓ Good |
 | Playoff context with simple proxy | Cumulative W-L-T + division rank captures 95% of elimination signal | ✓ Good |
 | Game context per-game facts (no rolling) | Weather/rest/travel are single-game properties, not trends | ✓ Good |
-| XGBoost over LightGBM/CatBoost | Simplest gradient boosting, proven on tabular NFL data | ✓ Good |
+| XGBoost as initial model | Simplest gradient boosting, proven on tabular NFL data | ✓ Good — later expanded to ensemble |
 | Walk-forward CV (train 1..N, validate N+1) | Respects temporal ordering; no future leakage | ✓ Good |
 | Sealed 2024 holdout | Never touched during tuning; honest final evaluation | ✓ Good |
 | Conservative default hyperparameters | Shallow trees (max_depth=4), strong L1/L2 regularization, early stopping | ✓ Good |
 | Confidence tiers at 3.0/1.5 thresholds | Simple, interpretable edge buckets for user filtering | ✓ Good |
 | Vig-adjusted profit at -110 odds | Standard sportsbook vig; realistic profit accounting | ✓ Good |
+| XGB+LGB+CB stacking with Ridge | Model diversity improves generalization over single XGBoost | ✓ Good — +3% ATS on holdout |
+| SHAP-based feature selection | Walk-forward-safe, per-fold isolation, holdout excluded | ✓ Good — 310→100 features |
+| Honest ablation for Phase 31 features | Momentum/EWM improved training but not holdout | ✓ Good — shipped P30 ensemble |
+| Conservative hyperparameters for LGB/CB | Analogous to XGBoost: shallow trees, strong regularization | ✓ Good |
 
-## Current Milestone: v2.0 Prediction Model Improvement
+## Completed Milestone: v2.0 Prediction Model Improvement
 
-**Goal:** Improve ATS accuracy from 53% baseline to 55%+ through better features, model diversity, and signal extraction.
+**Shipped:** 2026-03-27 | **Phases:** 28-31 | **Plans:** 8 | **Result:** 53.0% ATS, +$3.09 profit on sealed 2024 holdout
 
-**Baseline (post-leakage fix):**
-- ATS: 53.2% overall, 50.0% sealed 2024 holdout
-- O/U: 51.9% overall (below 52.38% break-even)
-- 283 features, ~2,100 training games, XGBoost only
-
-**Target:**
-- ATS: 55%+ overall, 53%+ on holdout
-- Profitable at -110 vig on holdout season
-- Reduced feature set with better signal-to-noise
+See `.planning/milestones/v2.0-ROADMAP.md` for full archive.
 
 ## Evolution
 
@@ -192,4 +181,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-25 after Phase 29 (Feature Selection) completed*
+*Last updated: 2026-03-27 after v2.0 milestone*

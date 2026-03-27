@@ -2,6 +2,54 @@
 
 *A living document updated after each milestone. Lessons feed forward into future planning.*
 
+## Milestone: v2.0 — Prediction Model Improvement
+
+**Shipped:** 2026-03-27
+**Phases:** 4 | **Plans:** 8 | **Sessions:** ~3
+
+### What Was Built
+- Leakage-safe feature pipeline (337→283 features) and LightGBM/CatBoost/SHAP installed for ensemble modeling
+- Player quality Silver features (QB EPA, positional quality, injury impact) with shift(1) lag guards
+- SHAP-based feature selection with walk-forward-safe per-fold isolation (310→100 features)
+- XGB+LGB+CB stacking ensemble with Ridge meta-learner and generalized walk-forward CV with OOF predictions
+- Ensemble training CLI with Optuna tuning, --ensemble flag in backtest and prediction CLIs
+- Momentum/EWM features with honest ablation (improved training but not holdout)
+- Three-way sealed holdout comparison: v1.4 (50.0% ATS, -$12.18) → v2.0 (53.0% ATS, +$3.09)
+- 503 tests passing (64 new across 3 new test files)
+
+### What Worked
+- Phase 30 ensemble was the clear value driver — +3% ATS and profit flip from negative to positive on sealed holdout
+- Honest ablation in Phase 31 saved from shipping a worse model — momentum features overfit to training data
+- Feature selection pipeline (Phase 29) was reusable for Phase 31's expanded feature set — re-ran cleanly
+- Walk-forward CV generalization (from XGBoost-specific to model-agnostic) enabled all three base learners with one function
+- Zero gap-closure phases — all 19 requirements complete on first pass across 4 phases
+
+### What Was Inefficient
+- Phase 31 features (momentum/EWM) didn't improve holdout despite improving training — could have been predicted from the small training set (~2K games)
+- EWM features were fully pruned by feature selection (0 selected) — the halflife=3 EWM is too correlated with existing roll3 columns
+- Feature selection re-run in Phase 31 took significant execution time for a result that reverted to Phase 30's model
+
+### Patterns Established
+- Model factory pattern: `make_xgb_model()`, `make_lgb_model()`, `make_cb_model()` — any sklearn-compatible model
+- OOF prediction matrix: temporal out-of-fold predictions for Ridge meta-learner training
+- Ablation protocol: backup P30 artifacts → retrain P31 → compare → ship winner
+- `--ensemble` / `--holdout` CLI flags for side-by-side comparison without breaking existing workflows
+- Leakage guard update: `_PRE_GAME_CUMULATIVE` set + `_is_rolling()` regex for new feature suffixes
+
+### Key Lessons
+1. Ensemble stacking is the highest-ROI improvement for tabular sports prediction — model diversity > feature engineering at this data scale
+2. Honest ablation is essential — ship what works on holdout, not what looks good on training
+3. EWM with similar halflife to existing rolling windows adds redundant signal — use only if halflife differs significantly
+4. Feature selection pipeline should be designed for re-runability from day one (Phase 29's was)
+5. Small-sample domains (~270 holdout games) amplify overfitting risk — simpler models generalize better
+
+### Cost Observations
+- Model mix: ~60% opus (execution), ~40% sonnet (verification)
+- Sessions: ~3
+- Notable: Phase 31's checkpoint pattern worked well for the ship decision — human-in-the-loop at the right moment
+
+---
+
 ## Milestone: v1.4 — ML Game Prediction
 
 **Shipped:** 2026-03-22
@@ -245,6 +293,7 @@
 | v1.2 | ~4 | 5 | Single gap-closure phase (19); fastest milestone (3 days) |
 | v1.3 | ~4 | 4 | Clean audit on first cycle (0 requirement gaps); parallel phase execution |
 | v1.4 | ~3 | 4 | Zero gap-closure phases; fastest milestone (2 days); ML pipeline complete |
+| v2.0 | ~3 | 4 | Ensemble stacking +3% ATS; honest ablation; zero gap-closure; 3 days |
 
 ### Cumulative Quality
 
@@ -255,6 +304,7 @@
 | v1.2 | 289 | — | 25/25 requirements satisfied, 22/25 integrations wired, 3/4 E2E flows |
 | v1.3 | 360 | — | 23/23 requirements satisfied, 22/23 integrations wired, 4/4 E2E flows |
 | v1.4 | 439 | — | 20/20 requirements satisfied, 0 gap-closure phases needed |
+| v2.0 | 503 | — | 19/19 requirements satisfied, 0 gap-closure phases, 53.0% ATS on sealed holdout |
 
 ### Top Lessons (Verified Across Milestones)
 
