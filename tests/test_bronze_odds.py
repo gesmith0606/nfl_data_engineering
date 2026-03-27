@@ -192,9 +192,8 @@ class TestParsing:
         json_path.write_text(json.dumps(mock_finnedai_json))
 
         result = parse_finnedai(str(json_path), seasons=[2020])
-        # 4 valid 2020 entries, minus 1 corrupt = 3 rows
-        # (out-of-range 2015 is also filtered out)
-        assert len(result) == 3, f"Expected 3 rows, got {len(result)}"
+        # 4 valid 2020 entries (corrupt team=0 dropped, out-of-range 2015 filtered)
+        assert len(result) == 4, f"Expected 4 rows, got {len(result)}"
 
     def test_parse_finnedai(self, mock_finnedai_json, tmp_path):
         """parse_finnedai converts date float to datetime.date and maps teams."""
