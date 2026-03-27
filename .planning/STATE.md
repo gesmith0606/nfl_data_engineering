@@ -1,34 +1,36 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: Prediction Model Improvement
-status: unknown
-stopped_at: Completed 31-02-PLAN.md
-last_updated: "2026-03-27T02:22:59.738Z"
+milestone: v2.1
+milestone_name: Market Data
+status: defining_requirements
+stopped_at: null
+last_updated: "2026-03-27"
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 8
-  completed_plans: 8
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-23)
+See: .planning/PROJECT.md (updated 2026-03-27)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 31 — advanced-features-final-validation
+**Current focus:** Defining requirements for v2.1 Market Data
 
 ## Current Milestone
 
-v2.0 Prediction Model Improvement -- 4 phases (28-31), 19 requirements
+v2.1 Market Data -- historical odds, line movement features, CLV tracking
 
 ## Current Position
 
-Phase: 31
-Plan: Not started
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-27 — Milestone v2.1 started
 
 ## Key Artifacts
 
@@ -38,7 +40,6 @@ Plan: Not started
 | Config | .planning/config.json |
 | Milestones | .planning/MILESTONES.md |
 | Roadmap | .planning/ROADMAP.md |
-| Requirements | .planning/REQUIREMENTS.md |
 | Research | .planning/research/SUMMARY.md |
 | Codebase Map | .planning/codebase/ |
 
@@ -48,48 +49,29 @@ Plan: Not started
 
 See PROJECT.md Key Decisions table for full history.
 
-Carried from v1.4:
-
-- Differential features (home-away) halves feature space from ~680 to ~180
-- Conservative hyperparameters mandatory (shallow trees, strong regularization, early stopping)
+Carried from v2.0:
 - 2024 season sealed as untouched holdout
-- Vegas lines excluded as input features (zero edge by definition)
-
-New for v2.0:
-
-- Data leakage fix: 110 same-week raw stats excluded from features (337->283 features)
-- Real baseline: 53.2% ATS overall, 50.0% holdout (not the 90.7% from leaked model)
-- Build order: infra -> player features -> feature selection -> ensemble -> advanced features
-- Feature budget ceiling: 150 features max in final model
-- [Phase 28]: CatBoost 1.2.10 pinned (above 1.2.7 floor); SHAP 0.49.1 Python 3.9 compatible via numba 0.60.0
-- [Phase 28]: carry_share computed from carries/team_total_carries (Bronze lacks this column)
-- [Phase 28]: backup_qb_start excluded from features until added to _PRE_GAME_CONTEXT
-- [Phase 28]: Defensive injury impact uses equal weighting (no usage shares for defense)
-- [Phase 29-01]: TreeExplainer over KernelExplainer for exact SHAP on XGBoost
-- [Phase 29]: SELECTED_FEATURES initialized as None in config.py -- Phase 30 branches on None vs list
-- [Phase 29]: Config rewriting via regex for SELECTED_FEATURES persistence
-- [Phase 30]: Generalized CV via model_factory + fit_kwargs_fn callback pattern
-- [Phase 30]: RidgeCV auto-selects alpha from [0.01, 0.1, 1.0, 10.0, 100.0] for meta-learner
-- [Phase 30]: Ensemble features loaded from metadata.json not config.py (prevents feature mismatch)
-- [Phase 31]: Momentum features merged before home/away split; EWM restricted to PBP metrics only
-- [Phase 31]: P30 Ensemble is v2.0 production model -- Phase 31 momentum features did not improve sealed holdout ATS
+- Vegas closing lines excluded as input features (zero edge by definition)
+- Conservative hyperparameters mandatory (shallow trees, strong regularization, early stopping)
+- P30 Ensemble is v2.0 production model (53.0% ATS, +$3.09 on 2024 holdout)
+- Ablation protocol: add candidate features → re-run selection → ship only if holdout improves
+- Ensemble features loaded from metadata.json not config.py
 
 ### Pending Todos
 
-- Commit leakage fix to feature_engineering.py (Phase 28)
-- Verify player Silver shift(1) lag status before building player features (Phase 28)
+None — fresh milestone.
 
 ### Blockers/Concerns
 
-- ~2,100 training games with 283 features -- overfitting risk remains
-- Player-level features need careful aggregation to game level (avoid leakage again)
-- SHAP 0.48.0 is the last Python 3.9 compatible version -- must pin exactly
+- ~2,100 training games with ~100 features — overfitting risk with additional market features
+- Need free/low-cost historical odds source with good coverage (2016-2024)
+- Opening lines may not be available for all games in older seasons
 
 ## Session Continuity
 
-Last session: 2026-03-27T00:25:39.307Z
-Stopped at: Completed 31-02-PLAN.md
+Last session: 2026-03-27
+Stopped at: null
 Resume file: None
 
 ---
-*Last updated: 2026-03-24 after v2.0 roadmap created*
+*Last updated: 2026-03-27 after v2.1 milestone start*

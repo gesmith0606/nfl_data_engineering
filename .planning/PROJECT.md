@@ -75,7 +75,15 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-No active requirements — v2.0 complete. Next milestone TBD via `/gsd:new-milestone`.
+**Current Milestone: v2.1 Market Data**
+
+**Goal:** Integrate historical odds data into the prediction pipeline — opening/closing lines, line movement features, and closing line value (CLV) tracking for model evaluation.
+
+**Target features:**
+- Historical odds database: ingest opening/closing spreads and totals into Bronze/Silver
+- Line movement features: steam moves, reverse line movement, opening-to-closing shifts as candidate prediction features
+- CLV tracking: measure whether model lines beat closing lines (gold standard for model evaluation)
+- Ablation: add line movement as candidate features, re-run selection, ship only if holdout improves
 
 ### Planned (Future Milestones)
 
@@ -163,6 +171,13 @@ Existing documentation:
 
 See `.planning/milestones/v2.0-ROADMAP.md` for full archive.
 
+## Current Milestone: v2.1 Market Data
+
+**Goal:** Integrate historical odds data and line movement features to improve prediction model and establish CLV-based model evaluation.
+
+**Baseline:** v2.0 ensemble (53.0% ATS, +$3.09 profit on 2024 holdout)
+**Target:** Improved ATS accuracy if line movement features add signal; CLV tracking regardless of feature improvement.
+
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
@@ -181,4 +196,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after v2.0 milestone*
+*Last updated: 2026-03-27 after v2.1 milestone start*
