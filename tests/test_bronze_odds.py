@@ -349,7 +349,6 @@ class TestDownload:
 class TestConfigRegistration:
     """ODDS-03: Config registration."""
 
-    @pytest.mark.skip(reason="Added in plan 32-02")
     def test_config_registration(self):
         """DATA_TYPE_SEASON_RANGES contains 'odds' with range 2016-2021."""
         from src.config import DATA_TYPE_SEASON_RANGES
@@ -358,6 +357,18 @@ class TestConfigRegistration:
         min_season, max_fn = DATA_TYPE_SEASON_RANGES["odds"]
         assert min_season == 2016
         assert max_fn() == 2021
+
+
+class TestValidateSeasonForTypeOdds:
+    """ODDS-03: Season boundary validation via config."""
+
+    def test_validate_season_for_type_odds(self):
+        """validate_season_for_type returns True for 2016-2021, False outside."""
+        from src.config import validate_season_for_type
+        assert validate_season_for_type("odds", 2016) is True
+        assert validate_season_for_type("odds", 2021) is True
+        assert validate_season_for_type("odds", 2015) is False
+        assert validate_season_for_type("odds", 2022) is False
 
 
 class TestZeroOrphans:

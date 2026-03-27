@@ -43,12 +43,12 @@ class TestDynamicSeasonValidation:
             actual = get_max_season()
             assert actual >= 2027  # Will be true for 2026+
 
-    def test_season_ranges_has_all_16_types(self):
+    def test_season_ranges_has_all_17_types(self):
         expected_types = {
             "schedules", "pbp", "player_weekly", "player_seasonal",
             "snap_counts", "injuries", "rosters", "teams", "ngs",
             "pfr_weekly", "pfr_seasonal", "qbr", "depth_charts",
-            "draft_picks", "combine", "officials",
+            "draft_picks", "combine", "officials", "odds",
         }
         assert expected_types == set(DATA_TYPE_SEASON_RANGES.keys())
 
@@ -79,7 +79,7 @@ class TestDynamicSeasonValidation:
 
     def test_validate_edge_max_year(self):
         """Max year (get_max_season()) should be valid for types with dynamic bounds."""
-        static_cap_types = {"injuries"}
+        static_cap_types = {"injuries", "odds"}
         max_s = get_max_season()
         for dtype in DATA_TYPE_SEASON_RANGES:
             if dtype in static_cap_types:
