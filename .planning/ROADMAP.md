@@ -152,7 +152,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete   | 2026-03-27 |
+| 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete    | 2026-03-27 |
 | 33. Silver Line Movement Features | v2.1 | 0/? | Not started | - |
 | 34. CLV Tracking + Ablation | v2.1 | 0/? | Not started | - |
 
