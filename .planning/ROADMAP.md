@@ -110,11 +110,11 @@ Full details: `.planning/milestones/v2.0-ROADMAP.md`
   2. Every SBRO game row joins to exactly one nflverse game_id via the team name mapping dictionary -- zero orphan rows after merge
   3. Cross-validation between SBRO closing lines and nflverse spread_line/total_line shows >95% agreement within 1.0 point
   4. The `odds` data type is registered in the Bronze ingestion registry and passes schema validation
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 32-01: TBD
-- [ ] 32-02: TBD
+- [ ] 32-01-PLAN.md -- Tests + ingestion script (download, parse, map teams, join nflverse, validate, write Parquet)
+- [ ] 32-02-PLAN.md -- Config registration + end-to-end pipeline run
 
 ### Phase 33: Silver Line Movement Features
 **Goal**: Line movement features exist as Silver per-team-per-week rows ready for feature assembly
@@ -152,10 +152,10 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 32. Bronze Odds Ingestion | v2.1 | 0/? | Not started | - |
+| 32. Bronze Odds Ingestion | v2.1 | 0/2 | Planning complete | - |
 | 33. Silver Line Movement Features | v2.1 | 0/? | Not started | - |
 | 34. CLV Tracking + Ablation | v2.1 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-27 after v2.1 roadmap creation*
+*Last updated: 2026-03-27 after Phase 32 planning*
