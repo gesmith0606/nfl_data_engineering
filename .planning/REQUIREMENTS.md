@@ -50,7 +50,7 @@ Deferred to future milestones. Tracked but not in current roadmap.
 | No-vig line calculation | Adds complexity; defer to v2.2 betting framework |
 | Live line movement tracking | Requires streaming API; batch historical is sufficient for prediction |
 | Neural networks / deep learning | Gradient boosting dominates tabular sports prediction at this data scale |
-| Closing line as prediction feature | Leakage — closing line is NOT pre-game knowable |
+| Closing line as prediction feature | Leakage -- closing line is NOT pre-game knowable |
 
 ## Traceability
 
@@ -58,22 +58,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ODDS-01 | TBD | Pending |
-| ODDS-02 | TBD | Pending |
-| ODDS-03 | TBD | Pending |
-| LINE-01 | TBD | Pending |
-| LINE-02 | TBD | Pending |
-| LINE-03 | TBD | Pending |
-| LINE-04 | TBD | Pending |
-| CLV-01 | TBD | Pending |
-| CLV-02 | TBD | Pending |
-| CLV-03 | TBD | Pending |
+| ODDS-01 | Phase 32 | Pending |
+| ODDS-02 | Phase 32 | Pending |
+| ODDS-03 | Phase 32 | Pending |
+| LINE-01 | Phase 33 | Pending |
+| LINE-02 | Phase 33 | Pending |
+| LINE-03 | Phase 33 | Pending |
+| LINE-04 | Phase 34 | Pending |
+| CLV-01 | Phase 34 | Pending |
+| CLV-02 | Phase 34 | Pending |
+| CLV-03 | Phase 34 | Pending |
 
 **Coverage:**
 - v2.1 requirements: 10 total
-- Mapped to phases: 0
-- Unmapped: 10
+- Mapped to phases: 10
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-27*
-*Last updated: 2026-03-27 after initial definition*
+*Last updated: 2026-03-27 after roadmap creation (traceability updated)*

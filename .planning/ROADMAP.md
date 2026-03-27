@@ -8,6 +8,7 @@
 - v1.3 Prediction Data Foundation -- Phases 20-23 (shipped 2026-03-19)
 - v1.4 ML Game Prediction -- Phases 24-27 (shipped 2026-03-22)
 - v2.0 Prediction Model Improvement -- Phases 28-31 (shipped 2026-03-27)
+- v2.1 Market Data -- Phases 32-34 (in progress)
 
 ## Phases
 
@@ -90,6 +91,71 @@ Full details: `.planning/milestones/v2.0-ROADMAP.md`
 
 </details>
 
+### v2.1 Market Data (In Progress)
+
+**Milestone Goal:** Integrate historical odds data and line movement features to improve prediction model and establish CLV-based model evaluation. Baseline: v2.0 ensemble (53.0% ATS, +$3.09 on sealed 2024 holdout).
+
+- [ ] **Phase 32: Bronze Odds Ingestion** - Download SBRO archives, map team names to nflverse game_id, register odds as Bronze data type
+- [ ] **Phase 33: Silver Line Movement Features** - Compute spread/total movement, categorize magnitude, detect steam moves, write per-team-per-week Silver output
+- [ ] **Phase 34: CLV Tracking + Ablation** - Add CLV metrics to backtester, integrate market features into feature selection, run ablation on sealed holdout
+
+## Phase Details
+
+### Phase 32: Bronze Odds Ingestion
+**Goal**: Historical opening and closing lines exist as validated Bronze Parquet, joinable to every nflverse game
+**Depends on**: Nothing (first phase of v2.1)
+**Requirements**: ODDS-01, ODDS-02, ODDS-03
+**Success Criteria** (what must be TRUE):
+  1. Running the odds ingestion script produces Parquet files under `data/bronze/odds/season=YYYY/` with opening_spread, closing_spread, opening_total, closing_total columns for 2016-2021
+  2. Every SBRO game row joins to exactly one nflverse game_id via the team name mapping dictionary -- zero orphan rows after merge
+  3. Cross-validation between SBRO closing lines and nflverse spread_line/total_line shows >95% agreement within 1.0 point
+  4. The `odds` data type is registered in the Bronze ingestion registry and passes schema validation
+**Plans**: TBD
+
+Plans:
+- [ ] 32-01: TBD
+- [ ] 32-02: TBD
+
+### Phase 33: Silver Line Movement Features
+**Goal**: Line movement features exist as Silver per-team-per-week rows ready for feature assembly
+**Depends on**: Phase 32
+**Requirements**: LINE-01, LINE-02, LINE-03
+**Success Criteria** (what must be TRUE):
+  1. Silver market_data Parquet contains spread_shift (closing - opening), total_shift, and absolute movement columns per game, reshaped to two rows per game (home/away) with correct sign flips for directional features
+  2. Movement magnitude buckets (large >2pts, medium 1-2, small <1, none) are populated for every game with opening line data; games without opening lines have NaN (not zeros)
+  3. Steam move flag is computed where timestamp data supports it, and explicitly set to NaN where timestamps are unavailable
+  4. `feature_engineering.py` includes opening_spread and opening_total in the pre-game feature set, and closing-line-derived features are documented as retrospective-only (not usable in live predictions)
+**Plans**: TBD
+
+Plans:
+- [ ] 33-01: TBD
+- [ ] 33-02: TBD
+
+### Phase 34: CLV Tracking + Ablation
+**Goal**: Model quality is measured by CLV, and market features are shipped only if they improve the sealed 2024 holdout
+**Depends on**: Phase 33
+**Requirements**: CLV-01, CLV-02, CLV-03, LINE-04
+**Success Criteria** (what must be TRUE):
+  1. Backtest output includes point-based CLV (model_spread - closing_spread) per game, with mean CLV and pct_beating_close in the summary report
+  2. CLV is reported broken out by confidence tier (high/medium/low) and by season, showing model quality trends over time
+  3. Ablation on the sealed 2024 holdout compares v2.0 baseline vs v2.0+market features, with SHAP importance report for market features
+  4. If market features do not improve holdout ATS accuracy, they are excluded from the production model; CLV tracking ships regardless
+**Plans**: TBD
+
+Plans:
+- [ ] 34-01: TBD
+- [ ] 34-02: TBD
+
+## Progress
+
+**Execution Order:** 32 -> 33 -> 34
+
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 32. Bronze Odds Ingestion | v2.1 | 0/? | Not started | - |
+| 33. Silver Line Movement Features | v2.1 | 0/? | Not started | - |
+| 34. CLV Tracking + Ablation | v2.1 | 0/? | Not started | - |
+
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-27 after v2.0 milestone completion*
+*Last updated: 2026-03-27 after v2.1 roadmap creation*

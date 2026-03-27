@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Market Data
-status: defining_requirements
+status: ready_to_plan
 stopped_at: null
 last_updated: "2026-03-27"
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-27)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Defining requirements for v2.1 Market Data
+**Current focus:** v2.1 Market Data -- Phase 32: Bronze Odds Ingestion
 
 ## Current Milestone
 
@@ -27,10 +27,12 @@ v2.1 Market Data -- historical odds, line movement features, CLV tracking
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-03-27 — Milestone v2.1 started
+Phase: 32 (1 of 3 in v2.1) (Bronze Odds Ingestion)
+Plan: 0 of ? in current phase
+Status: Ready to plan
+Last activity: 2026-03-27 -- Roadmap created for v2.1 Market Data (3 phases, 10 requirements)
+
+Progress: [░░░░░░░░░░] 0%
 
 ## Key Artifacts
 
@@ -54,24 +56,30 @@ Carried from v2.0:
 - Vegas closing lines excluded as input features (zero edge by definition)
 - Conservative hyperparameters mandatory (shallow trees, strong regularization, early stopping)
 - P30 Ensemble is v2.0 production model (53.0% ATS, +$3.09 on 2024 holdout)
-- Ablation protocol: add candidate features → re-run selection → ship only if holdout improves
+- Ablation protocol: add candidate features, re-run selection, ship only if holdout improves
 - Ensemble features loaded from metadata.json not config.py
+
+v2.1 research findings:
+- nflverse schedules already has closing lines (spread_line, total_line) with zero nulls
+- SBRO XLSX archives (2016-2021) recommended for opening lines; only new dep is openpyxl
+- Closing-line-derived features are retrospective-only (leakage if used in live predictions)
+- Opening_spread and opening_total are the only market features safe for live prediction
 
 ### Pending Todos
 
-None — fresh milestone.
+None -- fresh milestone.
 
 ### Blockers/Concerns
 
-- ~2,100 training games with ~100 features — overfitting risk with additional market features
-- Need free/low-cost historical odds source with good coverage (2016-2024)
-- Opening lines may not be available for all games in older seasons
+- SBRO XLSX actual column names unverified -- must inspect real file before writing parser
+- 2022-2024 has no free opening lines (CLV works all seasons; line movement trains on 2016-2021)
+- SBRO site could go offline -- FinnedAI/sportsbookreview-scraper is backup
 
 ## Session Continuity
 
 Last session: 2026-03-27
-Stopped at: null
+Stopped at: Roadmap created for v2.1 Market Data
 Resume file: None
 
 ---
-*Last updated: 2026-03-27 after v2.1 milestone start*
+*Last updated: 2026-03-27 after v2.1 roadmap creation*
