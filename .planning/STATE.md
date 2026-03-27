@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Market Data
 status: unknown
-stopped_at: Completed 32-01-PLAN.md
-last_updated: "2026-03-27T21:38:33.746Z"
+stopped_at: Completed 32-02-PLAN.md
+last_updated: "2026-03-27T21:44:31.905Z"
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -65,6 +65,8 @@ v2.1 research findings:
 - [Phase 32]: 45-entry hardcoded mapping dict for FinnedAI team names (not fuzzy matching)
 - [Phase 32]: Sign convention: negate FinnedAI spreads to match nflverse positive=home favored
 - [Phase 32]: Join by (season, home_team, gameday) since FinnedAI has no week column
+- [Phase 32]: Implausible spread filter at |spread| > 25 drops corrupt FinnedAI entries
+- [Phase 32]: Sign convention check uses < 0 (not <= 0) to allow pick'em opening lines
 
 ### Pending Todos
 
@@ -78,8 +80,8 @@ None -- fresh milestone.
 
 ## Session Continuity
 
-Last session: 2026-03-27T21:38:33.743Z
-Stopped at: Completed 32-01-PLAN.md
+Last session: 2026-03-27T21:44:31.902Z
+Stopped at: Completed 32-02-PLAN.md
 Resume file: None
 
 ---

@@ -95,7 +95,7 @@ Full details: `.planning/milestones/v2.0-ROADMAP.md`
 
 **Milestone Goal:** Integrate historical odds data and line movement features to improve prediction model and establish CLV-based model evaluation. Baseline: v2.0 ensemble (53.0% ATS, +$3.09 on sealed 2024 holdout).
 
-- [ ] **Phase 32: Bronze Odds Ingestion** - Download SBRO archives, map team names to nflverse game_id, register odds as Bronze data type
+- [x] **Phase 32: Bronze Odds Ingestion** - Download SBRO archives, map team names to nflverse game_id, register odds as Bronze data type (completed 2026-03-27)
 - [ ] **Phase 33: Silver Line Movement Features** - Compute spread/total movement, categorize magnitude, detect steam moves, write per-team-per-week Silver output
 - [ ] **Phase 34: CLV Tracking + Ablation** - Add CLV metrics to backtester, integrate market features into feature selection, run ablation on sealed holdout
 
@@ -114,7 +114,7 @@ Full details: `.planning/milestones/v2.0-ROADMAP.md`
 
 Plans:
 - [x] 32-01-PLAN.md -- Tests + ingestion script (download, parse, map teams, join nflverse, validate, write Parquet)
-- [ ] 32-02-PLAN.md -- Config registration + end-to-end pipeline run
+- [x] 32-02-PLAN.md -- Config registration + end-to-end pipeline run
 
 ### Phase 33: Silver Line Movement Features
 **Goal**: Line movement features exist as Silver per-team-per-week rows ready for feature assembly
@@ -152,7 +152,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 32. Bronze Odds Ingestion | v2.1 | 1/2 | In Progress|  |
+| 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete   | 2026-03-27 |
 | 33. Silver Line Movement Features | v2.1 | 0/? | Not started | - |
 | 34. CLV Tracking + Ablation | v2.1 | 0/? | Not started | - |
 
