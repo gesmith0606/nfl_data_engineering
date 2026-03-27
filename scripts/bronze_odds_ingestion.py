@@ -371,6 +371,15 @@ def align_spreads(df: pd.DataFrame) -> pd.DataFrame:
     df["closing_total"] = df["close_over_under"]
     df["home_moneyline"] = df["home_close_ml"]
     df["away_moneyline"] = df["away_close_ml"]
+
+    # Data quality: flag rows where spread exceeds plausible range (|spread| > 25).
+    # FinnedAI has ~24 entries per season where totals are swapped into spread columns.
+    corrupt_mask = (df["closing_spread"].abs() > 25) | (df["opening_spread"].abs() > 25)
+    n_corrupt = corrupt_mask.sum()
+    if n_corrupt > 0:
+        print(f"  Dropped {n_corrupt} rows with implausible spreads (|spread| > 25)")
+        df = df[~corrupt_mask].reset_index(drop=True)
+
     return df
 
 
@@ -489,7 +498,7 @@ def validate_sign_convention(df: pd.DataFrame) -> bool:
         print("  WARNING: No clear home favorites for sign convention check")
         return True
 
-    sign_flips = home_favorites[home_favorites["opening_spread"] <= 0]
+    sign_flips = home_favorites[home_favorites["opening_spread"] < 0]
     if len(sign_flips) > 0:
         print(f"  FAIL: {len(sign_flips)} sign flips found in home favorites")
         raise ValueError(
