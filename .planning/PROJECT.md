@@ -72,6 +72,8 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Ablation: Phase 31 features improved training but did not improve holdout; P30 ensemble confirmed as v2.0 — Phase 31, v2.0
 - ✓ Final holdout: v1.4 (50.0% ATS, -$12.18) → v2.0 ensemble (53.0% ATS, +$3.09) on sealed 2024 — Phase 31, v2.0
 - ✓ 503 total tests passing — v2.0
+- ✓ Bronze odds ingestion: FinnedAI JSON → Parquet with 45-entry team mapping, sign convention alignment, nflverse join (r=0.997 cross-validation), zero orphans — Phase 32, v2.1
+- ✓ 516 total tests passing — v2.1
 
 ### Active
 
@@ -196,4 +198,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after v2.1 milestone start*
+*Last updated: 2026-03-27 after Phase 32 completion*
