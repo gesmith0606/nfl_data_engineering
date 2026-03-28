@@ -238,6 +238,7 @@ SILVER_TEAM_S3_KEYS = {
     "game_context": "teams/game_context/season={season}/game_context_{ts}.parquet",
     "referee_tendencies": "teams/referee_tendencies/season={season}/referee_tendencies_{ts}.parquet",
     "playoff_context": "teams/playoff_context/season={season}/playoff_context_{ts}.parquet",
+    "market_data": "teams/market_data/season={season}/market_data_{ts}.parquet",
 }
 
 # Files are written with a timestamp suffix to preserve full history.
@@ -497,6 +498,7 @@ SILVER_TEAM_LOCAL_DIRS = {
     "referee_tendencies": "teams/referee_tendencies",
     "playoff_context": "teams/playoff_context",
     "player_quality": "teams/player_quality",  # Phase 28: player quality features
+    "market_data": "teams/market_data",  # Phase 33: line movement features
 }
 
 
