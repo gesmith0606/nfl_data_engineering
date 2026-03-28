@@ -82,22 +82,28 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-(No active milestone — v2.1 just shipped. Use `/gsd:new-milestone` to define next.)
+## Current Milestone: v2.2 Full Odds + Holdout Reset
+
+**Goal:** Complete odds ingestion across all available seasons, source 2022+ odds data, and reset the holdout evaluation framework for continued model improvement.
+
+**Target features:**
+- Full 2016-2021 odds ingestion (all seasons, not just 2020)
+- Source and ingest 2022+ odds data
+- Unseal 2024 holdout, seal 2025 as new holdout
+- Establish new ensemble baselines on updated holdout
 
 ### Planned (Future Milestones)
 
-**Model advantage path (priority):**
-- v2.2 Full Odds + Holdout Reset — ingest all 2016-2021 odds, source 2022+ data, unseal 2024/seal 2025, new baselines
-- v3.0 Neo4j Foundation — graph schema, player-player/player-team edges, initial graph features
-- v3.1 Graph Feature Pipeline — WR-CB matchups, target share networks, injury cascades → Silver features
-- v3.2 Graph-Enhanced Models — graph features into ensemble, ablation on new holdout, prove advantage
-- v3.3 Production Pipeline — automated weekly runs with graph refresh, monitoring, drift detection
+**Player prediction path (priority):**
+- v3.0 Player Fantasy Prediction System — opportunity models, efficiency models, matchup context, game-level constraints, regime detection, evaluation framework
+- v3.1 Graph-Enhanced Predictions — Neo4j foundation, WR-CB matchups, target networks, graph features into both game and player models
 
-**Delivery path (after model advantage proven):**
-- v4.0 Web MVP — FastAPI backend + frontend, projections + lines display
-- v4.1 User Accounts + Sleeper — OAuth, team linking, roster import, lineup advice
-- v4.2 Fantasy Agent — LLM-powered start/sit, waiver recommendations
-- v4.3 Draft Agent — real-time draft tracking + pick recommendations (Sleeper-first)
+**Production & delivery path:**
+- v4.0 Production Pipeline — automated weekly runs, drift detection, monitoring
+- v4.1 Web MVP — FastAPI backend + frontend, projections + lines display
+- v4.2 User Accounts + Sleeper — OAuth, team linking, roster import, lineup advice
+- v4.3 Fantasy Agent — LLM-powered start/sit, waiver recommendations
+- v4.4 Draft Agent — real-time draft tracking + pick recommendations (Sleeper-first)
 - v5.0 Multi-Platform — ESPN/Yahoo draft support
 
 ### Out of Scope
@@ -210,4 +216,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after v2.1 milestone*
+*Last updated: 2026-03-28 after v2.2 milestone start*

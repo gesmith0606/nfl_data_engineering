@@ -1,15 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.1
-milestone_name: Market Data
-status: completed
-stopped_at: Milestone v2.1 completed
-last_updated: "2026-03-28T16:00:00.000Z"
+milestone: v2.2
+milestone_name: Full Odds + Holdout Reset
+status: defining_requirements
+stopped_at: Defining requirements for v2.2
+last_updated: "2026-03-28T17:00:00.000Z"
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
@@ -19,15 +19,18 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Planning next milestone
+**Current focus:** v2.2 Full Odds + Holdout Reset
 
 ## Current Milestone
 
-v2.1 Market Data -- COMPLETED 2026-03-28
+v2.2 Full Odds + Holdout Reset — Defining requirements
 
 ## Current Position
 
-Milestone complete. Next: `/gsd:new-milestone`
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-28 — Milestone v2.2 started
 
 ## Key Artifacts
 
@@ -48,17 +51,18 @@ See PROJECT.md Key Decisions table for full history.
 
 ### Pending Todos
 
-None -- milestone complete.
+None.
 
 ### Blockers/Concerns
 
-None.
+- FinnedAI only covers 2016-2021; need to identify source for 2022+ odds data
+- 2024 holdout is currently sealed; unsealing requires careful process
 
 ## Session Continuity
 
-Last session: 2026-03-28T16:00:00.000Z
-Stopped at: Milestone v2.1 completed
+Last session: 2026-03-28T17:00:00.000Z
+Stopped at: Defining requirements for v2.2
 Resume file: None
 
 ---
-*Last updated: 2026-03-28 after v2.1 milestone completion*
+*Last updated: 2026-03-28 after v2.2 milestone start*
