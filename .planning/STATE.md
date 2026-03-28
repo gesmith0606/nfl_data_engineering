@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Market Data
 status: unknown
-stopped_at: Completed 32-02-PLAN.md
-last_updated: "2026-03-27T21:49:09.498Z"
+stopped_at: Completed 33-01-PLAN.md
+last_updated: "2026-03-28T04:53:35.140Z"
 progress:
   total_phases: 3
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 4
+  completed_plans: 3
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-27)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 32 — bronze-odds-ingestion
+**Current focus:** Phase 33 — silver-line-movement-features
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v2.1 Market Data -- historical odds, line movement features, CLV tracking
 
 ## Current Position
 
-Phase: 33
-Plan: Not started
+Phase: 33 (silver-line-movement-features) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -67,6 +67,8 @@ v2.1 research findings:
 - [Phase 32]: Join by (season, home_team, gameday) since FinnedAI has no week column
 - [Phase 32]: Implausible spread filter at |spread| > 25 drops corrupt FinnedAI entries
 - [Phase 32]: Sign convention check uses < 0 (not <= 0) to allow pick'em opening lines
+- [Phase 33]: Magnitude buckets encoded as ordinal float64 (0-3) for numeric dtype filter compatibility
+- [Phase 33]: Directional features (spread) negated for away; symmetric features (totals, magnitude) identical for both teams
 
 ### Pending Todos
 
@@ -80,8 +82,8 @@ None -- fresh milestone.
 
 ## Session Continuity
 
-Last session: 2026-03-27T21:44:31.902Z
-Stopped at: Completed 32-02-PLAN.md
+Last session: 2026-03-28T04:53:35.138Z
+Stopped at: Completed 33-01-PLAN.md
 Resume file: None
 
 ---

@@ -128,7 +128,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 33-01-PLAN.md -- Market analytics module + tests + Silver CLI (compute features, reshape, output Parquet)
+- [x] 33-01-PLAN.md -- Market analytics module + tests + Silver CLI (compute features, reshape, output Parquet)
 - [ ] 33-02-PLAN.md -- Config registration + feature_engineering.py integration (wire market_data into feature assembly)
 
 ### Phase 34: CLV Tracking + Ablation
@@ -153,7 +153,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete    | 2026-03-27 |
-| 33. Silver Line Movement Features | v2.1 | 0/2 | Not started | - |
+| 33. Silver Line Movement Features | v2.1 | 1/2 | In Progress|  |
 | 34. CLV Tracking + Ablation | v2.1 | 0/? | Not started | - |
 
 ---
