@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Market Data
 status: unknown
-stopped_at: Completed 33-01-PLAN.md
-last_updated: "2026-03-28T04:53:35.140Z"
+stopped_at: Completed 33-02-PLAN.md
+last_updated: "2026-03-28T05:29:33.371Z"
 progress:
   total_phases: 3
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
-  completed_plans: 3
+  completed_plans: 4
 ---
 
 # Project State
@@ -69,6 +69,7 @@ v2.1 research findings:
 - [Phase 32]: Sign convention check uses < 0 (not <= 0) to allow pick'em opening lines
 - [Phase 33]: Magnitude buckets encoded as ordinal float64 (0-3) for numeric dtype filter compatibility
 - [Phase 33]: Directional features (spread) negated for away; symmetric features (totals, magnitude) identical for both teams
+- [Phase 33]: Only opening_spread and opening_total added to _PRE_GAME_CONTEXT -- all closing/shift/magnitude features excluded as retrospective
 
 ### Pending Todos
 
@@ -82,8 +83,8 @@ None -- fresh milestone.
 
 ## Session Continuity
 
-Last session: 2026-03-28T04:53:35.138Z
-Stopped at: Completed 33-01-PLAN.md
+Last session: 2026-03-28T05:29:33.368Z
+Stopped at: Completed 33-02-PLAN.md
 Resume file: None
 
 ---
