@@ -97,7 +97,7 @@ Full details: `.planning/milestones/v2.0-ROADMAP.md`
 
 - [x] **Phase 32: Bronze Odds Ingestion** - Download SBRO archives, map team names to nflverse game_id, register odds as Bronze data type (completed 2026-03-27)
 - [x] **Phase 33: Silver Line Movement Features** - Compute spread/total movement, categorize magnitude, detect steam moves, write per-team-per-week Silver output (completed 2026-03-28)
-- [ ] **Phase 34: CLV Tracking + Ablation** - Add CLV metrics to backtester, integrate market features into feature selection, run ablation on sealed holdout
+- [x] **Phase 34: CLV Tracking + Ablation** - Add CLV metrics to backtester, integrate market features into feature selection, run ablation on sealed holdout (completed 2026-03-28)
 
 ## Phase Details
 
@@ -144,7 +144,7 @@ Plans:
 
 Plans:
 - [x] 34-01-PLAN.md -- CLV functions in prediction_backtester.py + tests + backtest CLI integration
-- [ ] 34-02-PLAN.md -- Ablation script comparing P30 baseline vs market-augmented ensemble on sealed holdout
+- [x] 34-02-PLAN.md -- Ablation script comparing P30 baseline vs market-augmented ensemble on sealed holdout
 
 ## Progress
 
@@ -154,7 +154,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete    | 2026-03-27 |
 | 33. Silver Line Movement Features | v2.1 | 2/2 | Complete    | 2026-03-28 |
-| 34. CLV Tracking + Ablation | v2.1 | 1/2 | In Progress|  |
+| 34. CLV Tracking + Ablation | v2.1 | 2/2 | Complete   | 2026-03-28 |
 
 ---
 *Roadmap created: 2026-03-08*

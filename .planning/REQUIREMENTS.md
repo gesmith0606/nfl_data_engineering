@@ -18,7 +18,7 @@ Requirements for v2.1 Market Data milestone. Each maps to roadmap phases.
 - [x] **LINE-01**: Compute spread movement (closing - opening) and total movement per game with nflverse sign convention
 - [x] **LINE-02**: Categorize movement into direction buckets (large >2pts, medium 1-2, small <1, none)
 - [x] **LINE-03**: Detect steam moves (sharp money indicators) where data supports it; NaN where timestamps unavailable
-- [ ] **LINE-04**: Add line movement features as candidates to feature selection with ablation on sealed holdout
+- [x] **LINE-04**: Add line movement features as candidates to feature selection with ablation on sealed holdout
 
 ### CLV Tracking
 
@@ -64,7 +64,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LINE-01 | Phase 33 | Complete |
 | LINE-02 | Phase 33 | Complete |
 | LINE-03 | Phase 33 | Complete |
-| LINE-04 | Phase 34 | Pending |
+| LINE-04 | Phase 34 | Complete |
 | CLV-01 | Phase 34 | Complete |
 | CLV-02 | Phase 34 | Complete |
 | CLV-03 | Phase 34 | Complete |

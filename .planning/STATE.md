@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Market Data
 status: unknown
-stopped_at: Completed 34-01-PLAN.md
-last_updated: "2026-03-28T14:29:15.124Z"
+stopped_at: Completed 34-02-PLAN.md
+last_updated: "2026-03-28T14:35:33.932Z"
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -71,6 +71,8 @@ v2.1 research findings:
 - [Phase 33]: Directional features (spread) negated for away; symmetric features (totals, magnitude) identical for both teams
 - [Phase 33]: Only opening_spread and opening_total added to _PRE_GAME_CONTEXT -- all closing/shift/magnitude features excluded as retrospective
 - [Phase 34]: CLV = predicted_margin - spread_line; reuse existing 3.0/1.5 confidence thresholds for tier bucketing
+- [Phase 34]: Feature selection reimplemented in ablation script using src/feature_selector.py directly (no script imports anti-pattern)
+- [Phase 34]: Ablation trains to models/ensemble_ablation/ to protect production P30 ensemble
 
 ### Pending Todos
 
@@ -84,8 +86,8 @@ None -- fresh milestone.
 
 ## Session Continuity
 
-Last session: 2026-03-28T14:29:15.122Z
-Stopped at: Completed 34-01-PLAN.md
+Last session: 2026-03-28T14:35:33.927Z
+Stopped at: Completed 34-02-PLAN.md
 Resume file: None
 
 ---
