@@ -582,7 +582,7 @@ The ML pipeline will produce 200+ features per game (requirement ML-01), includi
 
 ### Market Data Integration -- Implemented (v2.1)
 
-**Bronze:** FinnedAI historical odds (2016-2021) with opening/closing spreads and totals. 14 columns per game, joined to nflverse game_id (r=0.997 cross-validation).
+**Bronze:** FinnedAI historical odds (archive covers 2016-2021; currently ingested: 2020) with opening/closing spreads and totals. 14 columns per game, joined to nflverse game_id (r=0.997 cross-validation).
 
 **Silver:** Line movement features (spread_shift, total_shift, magnitude buckets, key number crossings) reshaped to per-team rows. 20 columns.
 

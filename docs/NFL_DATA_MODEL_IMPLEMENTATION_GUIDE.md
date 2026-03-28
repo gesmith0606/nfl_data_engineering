@@ -31,7 +31,7 @@ Bronze (s3://nfl-raw/)     -- 16 data types: PBP (140 cols), player stats, sched
                               draft picks, combine, officials, teams, odds (2016-2021)
         |
 Silver (s3://nfl-refined/) -- 14 paths: player usage/advanced/historical/quality, team PBP
-                              metrics/tendencies/SOS/situational/PBP-derived/EWM, game
+                              metrics/tendencies/SOS/situational/PBP-derived, game
                               context, referee, playoff context, market data (line movement)
         |
 Gold   (s3://nfl-trusted/) -- fantasy projections (PPR/Half-PPR/Standard) + game predictions

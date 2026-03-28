@@ -917,7 +917,7 @@ Representative columns (from test mocks and validate_data):
 ### Odds (Historical Opening/Closing Lines)
 
 **Source:** FinnedAI/sportsbookreview-scraper JSON archives via `scripts/bronze_odds_ingestion.py`
-**Seasons:** 2016-2021 (static — FinnedAI archive coverage)
+**Seasons:** 2016-2021 (FinnedAI archive coverage). Currently ingested: 2020 only — run `bronze_odds_ingestion.py` for other seasons.
 **Local Path:** `data/bronze/odds/season=YYYY/`
 **Known Quirks:** FinnedAI spreads are negated during ingestion to match nflverse convention (positive=home favored). ~24 corrupt rows per season with |spread|>25 are dropped. NewYork disambiguation resolves to NYG/NYJ by matching opponent against nflverse schedule.
 
@@ -1713,7 +1713,7 @@ Each of the 5 base metrics has `_roll3`, `_roll6`, and `_std` rolling window var
 | *_roll6 | float64 | Yes | 6-week rolling average (for each base metric) | shift(1) applied to prevent leakage |
 | *_std | float64 | Yes | 3-week rolling std dev (for each base metric) | shift(1) applied to prevent leakage |
 
-**Rolling columns:** Each of the 8 base metrics (qb_passing_epa, rb_weighted_epa, wr_te_weighted_epa, qb_injury_impact, skill_injury_impact, def_injury_impact) has 3 rolling variants (_roll3, _roll6, _std), yielding 18 additional columns (26 total with identifiers and base metrics).
+**Rolling columns:** Each of the 6 numeric base metrics (qb_passing_epa, rb_weighted_epa, wr_te_weighted_epa, qb_injury_impact, skill_injury_impact, def_injury_impact) has 3 rolling variants (_roll3, _roll6, _std), yielding 18 additional columns (28 total: 3 identifiers + 7 base metrics + 18 rolling). `backup_qb_start` (bool) is excluded from rolling.
 
 **Injury Status Multipliers:** Active=1.0, Questionable=0.85, Doubtful=0.50, Out/IR/PUP=0.0
 
