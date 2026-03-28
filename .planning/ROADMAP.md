@@ -123,7 +123,7 @@ Full details: `.planning/milestones/v2.1-ROADMAP.md`
   2. Bronze Parquet files exist for 2022-2025 containing closing spread_line and total_line sourced from nflverse schedules, with a `line_source` column distinguishing them from FinnedAI data
   3. All 8 core Bronze data types (schedules, PBP, player_weekly, player_seasonal, snap_counts, injuries, rosters, teams) are ingested for the 2025 season with validate_data() passing
   4. A smoke test confirms 2025 schedules contain at least 285 regular-season games via nfl-data-py
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 35-01: FinnedAI batch ingestion and nflverse odds bridge
@@ -138,7 +138,7 @@ Plans:
   2. All Silver transformations (player usage, team metrics, game context, advanced profiles, player quality) complete for 2025 with no missing-column errors
   3. Feature vector assembly for 2025 produces game rows with opening_spread and opening_total populated (NaN rate below 5% for games with odds coverage)
   4. Feature vector row count for 2025 matches the number of regular-season games (at least 285 game-team rows)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 36-01: Silver market expansion and 2025 Silver transformations
@@ -153,7 +153,7 @@ Plans:
   2. Running `train_ensemble.py` trains on 2016-2024 data with the holdout guard rejecting any 2025 data in training folds
   3. Running `backtest_predictions.py --holdout` produces ATS accuracy, profit, and CLV metrics against the sealed 2025 holdout with results documented
   4. All tests that previously hardcoded `2024` as the holdout season now import HOLDOUT_SEASON from config and pass
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 37-01: Holdout config rotation and test updates
@@ -167,7 +167,7 @@ Plans:
   1. Ablation script runs P30 baseline (no market features) vs market-augmented ensemble on the 2025 holdout, with both models trained on 2016-2024
   2. SHAP importance report shows relative contribution of opening_spread and opening_total in the market-augmented model
   3. Ship-or-skip verdict is rendered using the existing gate (strict > on holdout ATS accuracy) and documented with exact metrics
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 38-01: Market ablation execution and verdict
