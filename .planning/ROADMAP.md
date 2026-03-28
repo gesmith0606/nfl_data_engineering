@@ -183,7 +183,7 @@ Plans:
 | 24-27 | v1.4 | 8/8 | Complete | 2026-03-22 |
 | 28-31 | v2.0 | 8/8 | Complete | 2026-03-27 |
 | 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
-| 35. Bronze Data Completion | v2.2 | 2/2 | Complete   | 2026-03-28 |
+| 35. Bronze Data Completion | v2.2 | 2/2 | Complete    | 2026-03-28 |
 | 36. Silver + Feature Vector | v2.2 | 0/2 | Not started | - |
 | 37. Holdout Reset + Baseline | v2.2 | 0/2 | Not started | - |
 | 38. Market Ablation | v2.2 | 0/1 | Not started | - |
