@@ -11,7 +11,7 @@ Requirements for v2.2 Full Odds + Holdout Reset. Each maps to roadmap phases.
 
 - [ ] **BRNZ-01**: Full FinnedAI odds ingested for all 6 seasons (2016-2021) with cross-validation passing r > 0.95 per season
 - [ ] **BRNZ-02**: nflverse schedule odds extracted for 2022-2025 with closing spread_line and total_line stored as Bronze Parquet
-- [ ] **BRNZ-03**: 2025 season fully ingested across all Bronze data types (schedules, PBP, player_weekly, player_seasonal, snap_counts, injuries, rosters, teams)
+- [x] **BRNZ-03**: 2025 season fully ingested across all Bronze data types (schedules, PBP, player_weekly, player_seasonal, snap_counts, injuries, rosters, teams)
 
 ### Silver + Feature Vector
 
@@ -64,7 +64,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | BRNZ-01 | Phase 35 | Pending |
 | BRNZ-02 | Phase 35 | Pending |
-| BRNZ-03 | Phase 35 | Pending |
+| BRNZ-03 | Phase 35 | Complete |
 | SLVR-01 | Phase 36 | Pending |
 | SLVR-02 | Phase 36 | Pending |
 | SLVR-03 | Phase 36 | Pending |

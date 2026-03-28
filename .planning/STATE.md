@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v2.2
 milestone_name: Full Odds + Holdout Reset
-status: ready_to_plan
-stopped_at: Roadmap created, ready to plan Phase 35
-last_updated: "2026-03-28T18:00:00.000Z"
+status: unknown
+stopped_at: Completed 35-02-PLAN.md
+last_updated: "2026-03-28T23:26:41.562Z"
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 7
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 1
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** v2.2 Phase 35 — Bronze Data Completion
+**Current focus:** Phase 35 — bronze-data-completion
 
 ## Current Milestone
 
@@ -27,12 +27,8 @@ v2.2 Full Odds + Holdout Reset — 4 phases (35-38), 7 plans
 
 ## Current Position
 
-Phase: 35 (1 of 4 in v2.2) — Bronze Data Completion
-Plan: 0 of 2 in current phase
-Status: Ready to plan
-Last activity: 2026-03-28 — Roadmap created
-
-Progress: [░░░░░░░░░░] 0% (0/7 plans)
+Phase: 35 (bronze-data-completion) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -51,9 +47,11 @@ Progress: [░░░░░░░░░░] 0% (0/7 plans)
 
 See PROJECT.md Key Decisions table for full history.
 Recent decisions affecting v2.2:
+
 - [v2.1]: Opening lines only in _PRE_GAME_CONTEXT; closing-line features excluded
 - [v2.1]: Ship market features only if holdout ATS improves (strict >)
 - [v2.1]: FinnedAI covers 2016-2021 only; market features NaN for 2022-2024
+- [Phase 35]: Smoke tests use glob patterns for file existence -- no S3 or API dependency
 
 ### Research Flags
 
@@ -67,8 +65,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-28
-Stopped at: Roadmap created, ready to plan Phase 35
+Last session: 2026-03-28T23:26:41.559Z
+Stopped at: Completed 35-02-PLAN.md
 Resume file: None
 
 ---
