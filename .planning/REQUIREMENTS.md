@@ -62,22 +62,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BRNZ-01 | — | Pending |
-| BRNZ-02 | — | Pending |
-| BRNZ-03 | — | Pending |
-| SLVR-01 | — | Pending |
-| SLVR-02 | — | Pending |
-| SLVR-03 | — | Pending |
-| HOLD-01 | — | Pending |
-| HOLD-02 | — | Pending |
-| HOLD-03 | — | Pending |
-| HOLD-04 | — | Pending |
+| BRNZ-01 | Phase 35 | Pending |
+| BRNZ-02 | Phase 35 | Pending |
+| BRNZ-03 | Phase 35 | Pending |
+| SLVR-01 | Phase 36 | Pending |
+| SLVR-02 | Phase 36 | Pending |
+| SLVR-03 | Phase 36 | Pending |
+| HOLD-01 | Phase 37 | Pending |
+| HOLD-02 | Phase 37 | Pending |
+| HOLD-03 | Phase 37 | Pending |
+| HOLD-04 | Phase 38 | Pending |
 
 **Coverage:**
 - v2.2 requirements: 10 total
-- Mapped to phases: 0
-- Unmapped: 10 ⚠️
+- Mapped to phases: 10
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-28 after initial definition*
+*Last updated: 2026-03-28 after roadmap creation*
