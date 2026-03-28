@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and ML game outcome predictions. Features 15 Bronze data types with 10 years of history (2016-2025), a rich Silver layer with 11 output paths, a 310+ column prediction feature vector, an XGB+LGB+CB+Ridge stacking ensemble for point spread and over/under prediction with walk-forward cross-validation, backtesting against historical Vegas closing lines, and a weekly prediction pipeline with edge detection and confidence tiers — plus registry-driven ingestion, batch orchestration, and local-first storage.
+A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and ML game outcome predictions. Features 16 Bronze data types (including historical odds) with 10 years of history (2016-2025), a rich Silver layer with 12 output paths (including market/line movement data), a 310+ column prediction feature vector, an XGB+LGB+CB+Ridge stacking ensemble for point spread and over/under prediction with walk-forward cross-validation, closing line value (CLV) tracking for model evaluation, backtesting against historical Vegas closing lines, and a weekly prediction pipeline with edge detection and confidence tiers — plus registry-driven ingestion, batch orchestration, and local-first storage.
 
 ## Core Value
 
@@ -82,19 +82,10 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-**Current Milestone: v2.1 Market Data**
-
-**Goal:** Integrate historical odds data into the prediction pipeline — opening/closing lines, line movement features, and closing line value (CLV) tracking for model evaluation.
-
-**Target features:**
-- Historical odds database: ingest opening/closing spreads and totals into Bronze/Silver
-- Line movement features: steam moves, reverse line movement, opening-to-closing shifts as candidate prediction features
-- CLV tracking: measure whether model lines beat closing lines (gold standard for model evaluation)
-- Ablation: add line movement as candidate features, re-run selection, ship only if holdout improves
+(No active milestone — v2.1 just shipped. Use `/gsd:new-milestone` to define next.)
 
 ### Planned (Future Milestones)
 
-- v2.1 Market Data — historical odds database, line movement features, CLV tracking
 - v2.2 Betting Framework — Kelly criterion, EV calculation, line shopping, shadow betting tracker, calibration
 - v3.0 Production Infra — automated weekly pipeline, in-season retraining, drift detection, A/B testing
 - v3.1 Alternative Data — practice reports, coaching decisions, tracking data, news NLP
@@ -110,13 +101,13 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ## Context
 
-Shipped v2.0 with 27,354 LOC Python across 31 phases and 58 plans (six milestones).
+Shipped v2.1 with 30,896 LOC Python across 34 phases and 64 plans (seven milestones).
 Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, lightgbm, catboost, scikit-learn, optuna, shap, nfl-data-py, local Parquet storage (S3 optional).
-Bronze layer: 15 data types covering schedules, player stats, PBP (140 cols), NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts, officials — 517 files, 93 MB.
-Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context, EWM windows), player metrics (usage, rolling avgs, opp rankings, advanced profiles, player quality), historical dimension table — 11+ output paths.
+Bronze layer: 16 data types covering schedules, player stats, PBP (140 cols), NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts, officials, odds — 517+ files.
+Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context, EWM windows, market/line movement data), player metrics (usage, rolling avgs, opp rankings, advanced profiles, player quality), historical dimension table — 12 output paths.
 Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with ensemble spread/total models, edge detection, confidence tiers.
-Prediction feature vector: 310+ columns assembled from 9 Silver sources via left joins on [team, season, week], reduced to ~100 via SHAP-based feature selection.
-ML models: v2.0 stacking ensemble (XGB+LGB+CB base learners + Ridge meta-learner) for spread + over/under; walk-forward CV with OOF predictions, Optuna tuning, sealed 2024 holdout (53.0% ATS, +$3.09 profit, +1.2% ROI).
+Prediction feature vector: 310+ columns assembled from 10 Silver sources via left joins on [team, season, week], reduced to ~100 via SHAP-based feature selection. Opening spread/total are pre-game features; closing-line-derived features excluded as retrospective.
+ML models: v2.0 stacking ensemble (XGB+LGB+CB base learners + Ridge meta-learner) for spread + over/under; walk-forward CV with OOF predictions, Optuna tuning, sealed 2024 holdout (53.0% ATS, +$3.09 profit, +1.2% ROI). CLV tracking measures model quality against closing lines.
 Tests: 571 passing across 17 test files.
 
 Existing documentation:
@@ -174,19 +165,24 @@ Existing documentation:
 | CLV = predicted_margin - spread_line | Point-based CLV is the gold standard for betting model evaluation | ✓ Good |
 | Ablation saves to models/ensemble_ablation/ | Protects production model during comparison | ✓ Good |
 | Ship market features only if holdout ATS improves | Accuracy is the decision criterion, not model purity | ✓ Good |
+| FinnedAI JSON (not SBRO XLSX) for odds | JSON simpler to parse, same data, no openpyxl dep needed | ✓ Good |
+| 45-entry hardcoded team mapping | Explicit and auditable vs fuzzy matching; covers all FinnedAI names | ✓ Good |
+| Negate FinnedAI spreads for nflverse convention | Positive = home favored; one-line transform avoids confusion | ✓ Good |
+| Ordinal float64 for magnitude buckets | Survives numeric dtype filter in feature_engineering.py | ✓ Good |
+| Opening lines only in _PRE_GAME_CONTEXT | Closing-line-derived features are retrospective (leakage) | ✓ Good |
+| CLV uses nflverse spread_line (not FinnedAI) | nflverse has full season coverage; FinnedAI only 2016-2021 | ✓ Good |
 
-## Completed Milestone: v2.0 Prediction Model Improvement
+## Completed Milestone: v2.1 Market Data
+
+**Shipped:** 2026-03-28 | **Phases:** 32-34 | **Plans:** 6 | **Delivered:** Bronze odds ingestion (FinnedAI 2016-2021), Silver line movement features, CLV tracking in backtester, market feature ablation framework
+
+See `.planning/milestones/v2.1-ROADMAP.md` for full archive.
+
+## Previous Milestone: v2.0 Prediction Model Improvement
 
 **Shipped:** 2026-03-27 | **Phases:** 28-31 | **Plans:** 8 | **Result:** 53.0% ATS, +$3.09 profit on sealed 2024 holdout
 
 See `.planning/milestones/v2.0-ROADMAP.md` for full archive.
-
-## Current Milestone: v2.1 Market Data
-
-**Goal:** Integrate historical odds data and line movement features to improve prediction model and establish CLV-based model evaluation.
-
-**Baseline:** v2.0 ensemble (53.0% ATS, +$3.09 profit on 2024 holdout)
-**Target:** Improved ATS accuracy if line movement features add signal; CLV tracking regardless of feature improvement.
 
 ## Evolution
 
@@ -206,4 +202,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 33 completion*
+*Last updated: 2026-03-28 after v2.1 milestone*

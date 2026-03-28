@@ -1,5 +1,20 @@
 # Milestones
 
+## v2.1 Market Data (Shipped: 2026-03-28)
+
+**Phases completed:** 3 phases, 6 plans, 11 tasks
+
+**Key accomplishments:**
+
+- FinnedAI JSON ingestion with 45-entry team mapping, nflverse game_id join, sign convention negation, and cross-validation gate (r > 0.95)
+- Odds registered in DATA_TYPE_SEASON_RANGES with (2016, lambda: 2021), end-to-end 2020 ingestion producing 244-row validated Parquet with r=0.997 cross-validation
+- Line movement module with spread/total shift, ordinal magnitude buckets (0-3), key number crossings, and per-team reshape producing 488-row Silver Parquet for season 2020
+- Opening spread/total wired into pre-game feature filter with 9 integration tests verifying retrospective feature exclusion
+- Three CLV functions (evaluate_clv, compute_clv_by_tier, compute_clv_by_season) with 9 TDD tests and CLI reporting in backtest_predictions.py
+- Ablation script comparing P30 baseline vs market-feature-augmented ensemble with SHAP importance, opening_spread dominance detection, and ship-or-skip decision logic
+
+---
+
 ## v2.0 Prediction Model Improvement (Shipped: 2026-03-27)
 
 **Phases completed:** 4 phases, 8 plans, 15 tasks

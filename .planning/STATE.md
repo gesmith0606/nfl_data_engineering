@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Market Data
-status: unknown
-stopped_at: Completed 34-02-PLAN.md
-last_updated: "2026-03-28T14:39:29.611Z"
+status: completed
+stopped_at: Milestone v2.1 completed
+last_updated: "2026-03-28T16:00:00.000Z"
 progress:
   total_phases: 3
   completed_phases: 3
@@ -16,19 +16,18 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-27)
+See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 34 — clv-tracking-ablation
+**Current focus:** Planning next milestone
 
 ## Current Milestone
 
-v2.1 Market Data -- historical odds, line movement features, CLV tracking
+v2.1 Market Data -- COMPLETED 2026-03-28
 
 ## Current Position
 
-Phase: 34
-Plan: Not started
+Milestone complete. Next: `/gsd:new-milestone`
 
 ## Key Artifacts
 
@@ -47,48 +46,19 @@ Plan: Not started
 
 See PROJECT.md Key Decisions table for full history.
 
-Carried from v2.0:
-
-- 2024 season sealed as untouched holdout
-- Vegas closing lines excluded as input features (zero edge by definition)
-- Conservative hyperparameters mandatory (shallow trees, strong regularization, early stopping)
-- P30 Ensemble is v2.0 production model (53.0% ATS, +$3.09 on 2024 holdout)
-- Ablation protocol: add candidate features, re-run selection, ship only if holdout improves
-- Ensemble features loaded from metadata.json not config.py
-
-v2.1 research findings:
-
-- nflverse schedules already has closing lines (spread_line, total_line) with zero nulls
-- SBRO XLSX archives (2016-2021) recommended for opening lines; only new dep is openpyxl
-- Closing-line-derived features are retrospective-only (leakage if used in live predictions)
-- Opening_spread and opening_total are the only market features safe for live prediction
-- [Phase 32]: 45-entry hardcoded mapping dict for FinnedAI team names (not fuzzy matching)
-- [Phase 32]: Sign convention: negate FinnedAI spreads to match nflverse positive=home favored
-- [Phase 32]: Join by (season, home_team, gameday) since FinnedAI has no week column
-- [Phase 32]: Implausible spread filter at |spread| > 25 drops corrupt FinnedAI entries
-- [Phase 32]: Sign convention check uses < 0 (not <= 0) to allow pick'em opening lines
-- [Phase 33]: Magnitude buckets encoded as ordinal float64 (0-3) for numeric dtype filter compatibility
-- [Phase 33]: Directional features (spread) negated for away; symmetric features (totals, magnitude) identical for both teams
-- [Phase 33]: Only opening_spread and opening_total added to _PRE_GAME_CONTEXT -- all closing/shift/magnitude features excluded as retrospective
-- [Phase 34]: CLV = predicted_margin - spread_line; reuse existing 3.0/1.5 confidence thresholds for tier bucketing
-- [Phase 34]: Feature selection reimplemented in ablation script using src/feature_selector.py directly (no script imports anti-pattern)
-- [Phase 34]: Ablation trains to models/ensemble_ablation/ to protect production P30 ensemble
-
 ### Pending Todos
 
-None -- fresh milestone.
+None -- milestone complete.
 
 ### Blockers/Concerns
 
-- SBRO XLSX actual column names unverified -- must inspect real file before writing parser
-- 2022-2024 has no free opening lines (CLV works all seasons; line movement trains on 2016-2021)
-- SBRO site could go offline -- FinnedAI/sportsbookreview-scraper is backup
+None.
 
 ## Session Continuity
 
-Last session: 2026-03-28T14:35:33.927Z
-Stopped at: Completed 34-02-PLAN.md
+Last session: 2026-03-28T16:00:00.000Z
+Stopped at: Milestone v2.1 completed
 Resume file: None
 
 ---
-*Last updated: 2026-03-27 after v2.1 roadmap creation*
+*Last updated: 2026-03-28 after v2.1 milestone completion*

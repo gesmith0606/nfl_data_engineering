@@ -8,12 +8,12 @@
 - v1.3 Prediction Data Foundation -- Phases 20-23 (shipped 2026-03-19)
 - v1.4 ML Game Prediction -- Phases 24-27 (shipped 2026-03-22)
 - v2.0 Prediction Model Improvement -- Phases 28-31 (shipped 2026-03-27)
-- v2.1 Market Data -- Phases 32-34 (in progress)
+- ✅ **v2.1 Market Data** -- Phases 32-34 (shipped 2026-03-28)
 
 ## Phases
 
 <details>
-<summary>v1.0 Bronze Expansion (Phases 1-7) -- SHIPPED 2026-03-08</summary>
+<summary>✅ v1.0 Bronze Expansion (Phases 1-7) -- SHIPPED 2026-03-08</summary>
 
 - [x] Phase 1: Infrastructure Prerequisites (2/2 plans) -- completed 2026-03-08
 - [x] Phase 2: Core PBP Ingestion (1/1 plan) -- completed 2026-03-08
@@ -28,7 +28,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 </details>
 
 <details>
-<summary>v1.1 Bronze Backfill (Phases 8-14) -- SHIPPED 2026-03-13</summary>
+<summary>✅ v1.1 Bronze Backfill (Phases 8-14) -- SHIPPED 2026-03-13</summary>
 
 - [x] Phase 8: Pre-Backfill Guards (1/1 plan) -- completed 2026-03-09
 - [x] Phase 9: New Data Type Ingestion (3/3 plans) -- completed 2026-03-09
@@ -43,7 +43,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 </details>
 
 <details>
-<summary>v1.2 Silver Expansion (Phases 15-19) -- SHIPPED 2026-03-15</summary>
+<summary>✅ v1.2 Silver Expansion (Phases 15-19) -- SHIPPED 2026-03-15</summary>
 
 - [x] Phase 15: PBP Team Metrics and Tendencies (3/3 plans) -- completed 2026-03-14
 - [x] Phase 16: Strength of Schedule and Situational Splits (2/2 plans) -- completed 2026-03-14
@@ -56,7 +56,7 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
 </details>
 
 <details>
-<summary>v1.3 Prediction Data Foundation (Phases 20-23) -- SHIPPED 2026-03-19</summary>
+<summary>✅ v1.3 Prediction Data Foundation (Phases 20-23) -- SHIPPED 2026-03-19</summary>
 
 - [x] Phase 20: Infrastructure and Data Expansion (2/2 plans) -- completed 2026-03-16
 - [x] Phase 21: PBP-Derived Team Metrics (3/3 plans) -- completed 2026-03-16
@@ -68,7 +68,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 </details>
 
 <details>
-<summary>v1.4 ML Game Prediction (Phases 24-27) -- SHIPPED 2026-03-22</summary>
+<summary>✅ v1.4 ML Game Prediction (Phases 24-27) -- SHIPPED 2026-03-22</summary>
 
 - [x] Phase 24: Documentation Refresh (2/2 plans) -- completed 2026-03-21
 - [x] Phase 25: Feature Assembly and Model Training (3/3 plans) -- completed 2026-03-21
@@ -80,7 +80,7 @@ Full details: `.planning/milestones/v1.4-ROADMAP.md`
 </details>
 
 <details>
-<summary>v2.0 Prediction Model Improvement (Phases 28-31) -- SHIPPED 2026-03-27</summary>
+<summary>✅ v2.0 Prediction Model Improvement (Phases 28-31) -- SHIPPED 2026-03-27</summary>
 
 - [x] Phase 28: Infrastructure & Player Features (2/2 plans) -- completed 2026-03-25
 - [x] Phase 29: Feature Selection (2/2 plans) -- completed 2026-03-25
@@ -91,71 +91,29 @@ Full details: `.planning/milestones/v2.0-ROADMAP.md`
 
 </details>
 
-### v2.1 Market Data (In Progress)
+<details>
+<summary>✅ v2.1 Market Data (Phases 32-34) -- SHIPPED 2026-03-28</summary>
 
-**Milestone Goal:** Integrate historical odds data and line movement features to improve prediction model and establish CLV-based model evaluation. Baseline: v2.0 ensemble (53.0% ATS, +$3.09 on sealed 2024 holdout).
+- [x] Phase 32: Bronze Odds Ingestion (2/2 plans) -- completed 2026-03-27
+- [x] Phase 33: Silver Line Movement Features (2/2 plans) -- completed 2026-03-28
+- [x] Phase 34: CLV Tracking + Ablation (2/2 plans) -- completed 2026-03-28
 
-- [x] **Phase 32: Bronze Odds Ingestion** - Download SBRO archives, map team names to nflverse game_id, register odds as Bronze data type (completed 2026-03-27)
-- [x] **Phase 33: Silver Line Movement Features** - Compute spread/total movement, categorize magnitude, detect steam moves, write per-team-per-week Silver output (completed 2026-03-28)
-- [x] **Phase 34: CLV Tracking + Ablation** - Add CLV metrics to backtester, integrate market features into feature selection, run ablation on sealed holdout (completed 2026-03-28)
+Full details: `.planning/milestones/v2.1-ROADMAP.md`
 
-## Phase Details
-
-### Phase 32: Bronze Odds Ingestion
-**Goal**: Historical opening and closing lines exist as validated Bronze Parquet, joinable to every nflverse game
-**Depends on**: Nothing (first phase of v2.1)
-**Requirements**: ODDS-01, ODDS-02, ODDS-03
-**Success Criteria** (what must be TRUE):
-  1. Running the odds ingestion script produces Parquet files under `data/bronze/odds/season=YYYY/` with opening_spread, closing_spread, opening_total, closing_total columns for 2016-2021
-  2. Every SBRO game row joins to exactly one nflverse game_id via the team name mapping dictionary -- zero orphan rows after merge
-  3. Cross-validation between SBRO closing lines and nflverse spread_line/total_line shows >95% agreement within 1.0 point
-  4. The `odds` data type is registered in the Bronze ingestion registry and passes schema validation
-**Plans**: 2 plans
-
-Plans:
-- [x] 32-01-PLAN.md -- Tests + ingestion script (download, parse, map teams, join nflverse, validate, write Parquet)
-- [x] 32-02-PLAN.md -- Config registration + end-to-end pipeline run
-
-### Phase 33: Silver Line Movement Features
-**Goal**: Line movement features exist as Silver per-team-per-week rows ready for feature assembly
-**Depends on**: Phase 32
-**Requirements**: LINE-01, LINE-02, LINE-03
-**Success Criteria** (what must be TRUE):
-  1. Silver market_data Parquet contains spread_shift (closing - opening), total_shift, and absolute movement columns per game, reshaped to two rows per game (home/away) with correct sign flips for directional features
-  2. Movement magnitude buckets (large >2pts, medium 1-2, small <1, none) are populated for every game with opening line data; games without opening lines have NaN (not zeros)
-  3. Steam move flag is computed where timestamp data supports it, and explicitly set to NaN where timestamps are unavailable
-  4. `feature_engineering.py` includes opening_spread and opening_total in the pre-game feature set, and closing-line-derived features are documented as retrospective-only (not usable in live predictions)
-**Plans**: 2 plans
-
-Plans:
-- [x] 33-01-PLAN.md -- Market analytics module + tests + Silver CLI (compute features, reshape, output Parquet)
-- [x] 33-02-PLAN.md -- Config registration + feature_engineering.py integration (wire market_data into feature assembly)
-
-### Phase 34: CLV Tracking + Ablation
-**Goal**: Model quality is measured by CLV, and market features are shipped only if they improve the sealed 2024 holdout
-**Depends on**: Phase 33
-**Requirements**: CLV-01, CLV-02, CLV-03, LINE-04
-**Success Criteria** (what must be TRUE):
-  1. Backtest output includes point-based CLV (model_spread - closing_spread) per game, with mean CLV and pct_beating_close in the summary report
-  2. CLV is reported broken out by confidence tier (high/medium/low) and by season, showing model quality trends over time
-  3. Ablation on the sealed 2024 holdout compares v2.0 baseline vs v2.0+market features, with SHAP importance report for market features
-  4. If market features do not improve holdout ATS accuracy, they are excluded from the production model; CLV tracking ships regardless
-**Plans**: 2 plans
-
-Plans:
-- [x] 34-01-PLAN.md -- CLV functions in prediction_backtester.py + tests + backtest CLI integration
-- [x] 34-02-PLAN.md -- Ablation script comparing P30 baseline vs market-augmented ensemble on sealed holdout
+</details>
 
 ## Progress
 
-**Execution Order:** 32 -> 33 -> 34
-
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete    | 2026-03-27 |
-| 33. Silver Line Movement Features | v2.1 | 2/2 | Complete    | 2026-03-28 |
-| 34. CLV Tracking + Ablation | v2.1 | 2/2 | Complete    | 2026-03-28 |
+| 1-7 | v1.0 | 11/11 | Complete | 2026-03-08 |
+| 8-14 | v1.1 | 12/12 | Complete | 2026-03-13 |
+| 15-19 | v1.2 | 10/10 | Complete | 2026-03-15 |
+| 20-23 | v1.3 | 9/9 | Complete | 2026-03-19 |
+| 24-27 | v1.4 | 8/8 | Complete | 2026-03-22 |
+| 28-31 | v2.0 | 8/8 | Complete | 2026-03-27 |
+| 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-28 after Phase 34 planning*
+*Last updated: 2026-03-28 after v2.1 milestone completion*

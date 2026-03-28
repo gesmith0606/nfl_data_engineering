@@ -2,6 +2,53 @@
 
 *A living document updated after each milestone. Lessons feed forward into future planning.*
 
+## Milestone: v2.1 — Market Data
+
+**Shipped:** 2026-03-28
+**Phases:** 3 | **Plans:** 6 | **Sessions:** ~2
+
+### What Was Built
+- Bronze odds ingestion: FinnedAI JSON → Parquet with 45-entry team mapping, nflverse join (r=0.997), zero orphans
+- Silver line movement features: spread/total shift, ordinal magnitude buckets, key number crossings, per-team reshape with sign flips
+- Feature engineering integration: opening_spread/opening_total in pre-game context filter with retrospective feature exclusion
+- CLV tracking: evaluate_clv(), by-tier, by-season metrics in prediction backtester and CLI
+- Market feature ablation script: P30 baseline vs market-augmented ensemble on sealed holdout with SHAP and ship-or-skip verdict
+- 571 tests passing (68 new across 3 new test files)
+
+### What Worked
+- Cleanest milestone yet: zero gap-closure phases, audit passed on first cycle with 10/10 requirements satisfied
+- 2-day execution (fastest per-phase rate) — well-scoped 3-phase milestone with clear dependencies (32→33→34)
+- Ablation framework from v2.0 was directly reusable — ablation_market_features.py followed the same pattern
+- Pre-game/retrospective feature classification caught potential leakage early (closing-line features excluded)
+- CLV tracking ships independently of ablation outcome — good separation of concerns
+- FinnedAI JSON was simpler than expected SBRO XLSX — pivot during research saved complexity
+
+### What Was Inefficient
+- Phase 32 SUMMARY frontmatter missing `requirements_completed` for ODDS-01/02/03 — documentation gap carried through to audit
+- FinnedAI odds only cover 2016-2021 — market features are NaN for 2022-2024 training window, limiting ablation effectiveness
+- Steam move flag is NaN for all rows (no timestamp data) — designed as forward-compatible but currently provides zero signal
+
+### Patterns Established
+- Market data pattern: Bronze odds → Silver per-team features → feature_engineering.py auto-discovery via SILVER_TEAM_LOCAL_DIRS
+- Pre-game vs retrospective classification: _PRE_GAME_CONTEXT whitelist controls which market features enter the model
+- CLV evaluation: `evaluate_clv()`, `compute_clv_by_tier()`, `compute_clv_by_season()` — reusable for any model evaluation
+- Ablation isolation: `models/ensemble_ablation/` directory protects production model during comparison
+- Ship-or-skip gate: strict `>` comparison on holdout ATS accuracy
+
+### Key Lessons
+1. Data coverage gaps matter for ablation — FinnedAI's 2016-2021 window limits market feature testing when training on 2022+
+2. CLV is the gold standard for model evaluation — should have been added earlier (v1.4 or v2.0)
+3. Forward-compatible schema columns (is_steam_move) are low-cost insurance but add NaN noise in the interim
+4. Research phase pivot (SBRO XLSX → FinnedAI JSON) was the right call — simpler is better when data quality is equivalent
+5. Small milestones (3 phases) execute faster per-phase than large ones — less context overhead
+
+### Cost Observations
+- Model mix: ~60% opus (execution), ~40% sonnet (verification/integration check)
+- Sessions: ~2
+- Notable: Fastest milestone by wall-clock (2 days for 3 phases); milestone audit was clean on first pass
+
+---
+
 ## Milestone: v2.0 — Prediction Model Improvement
 
 **Shipped:** 2026-03-27
@@ -294,6 +341,7 @@
 | v1.3 | ~4 | 4 | Clean audit on first cycle (0 requirement gaps); parallel phase execution |
 | v1.4 | ~3 | 4 | Zero gap-closure phases; fastest milestone (2 days); ML pipeline complete |
 | v2.0 | ~3 | 4 | Ensemble stacking +3% ATS; honest ablation; zero gap-closure; 3 days |
+| v2.1 | ~2 | 3 | Smallest milestone; cleanest audit (10/10 first pass); CLV tracking shipped; 2 days |
 
 ### Cumulative Quality
 
@@ -305,6 +353,7 @@
 | v1.3 | 360 | — | 23/23 requirements satisfied, 22/23 integrations wired, 4/4 E2E flows |
 | v1.4 | 439 | — | 20/20 requirements satisfied, 0 gap-closure phases needed |
 | v2.0 | 503 | — | 19/19 requirements satisfied, 0 gap-closure phases, 53.0% ATS on sealed holdout |
+| v2.1 | 571 | — | 10/10 requirements satisfied, 8/8 integrations wired, 1/1 E2E flow, CLV tracking |
 
 ### Top Lessons (Verified Across Milestones)
 
