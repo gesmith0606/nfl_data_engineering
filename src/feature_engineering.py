@@ -364,6 +364,13 @@ def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
         "travel_miles", "tz_diff", "coaching_tenure", "div_game",
         "temperature", "wind_speed", "is_cold", "is_high_wind",
         "rest_days", "opponent_rest",
+        # Market data -- pre-game knowable only (D-05)
+        # RETROSPECTIVE features (spread_shift, total_shift, spread_move_abs,
+        # total_move_abs, spread_magnitude, total_magnitude, crosses_key_spread,
+        # crosses_key_total, closing_spread, closing_total, is_steam_move) are
+        # NOT listed here and are automatically excluded by get_feature_columns().
+        # See D-06/D-08.
+        "opening_spread", "opening_total",
     }
 
     # Pre-game knowable cumulative columns (computed before the game)

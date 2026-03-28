@@ -309,3 +309,110 @@ class TestEWMFeatures:
         assert "diff_off_epa_per_play_ewm3" in feature_cols, (
             "EWM column not recognized by _is_rolling / get_feature_columns"
         )
+
+
+class TestMarketFeatureFiltering:
+    """Test that market features are correctly included/excluded by get_feature_columns().
+
+    Pre-game knowable features (opening_spread, opening_total) should pass
+    the filter (D-05). Retrospective features (spread_shift, total_shift,
+    spread_magnitude, total_magnitude, etc.) must be excluded (D-06/D-08).
+    """
+
+    def test_opening_spread_included(self):
+        """opening_spread passes get_feature_columns() as pre-game context (D-05)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "opening_spread_home": [3.0], "opening_spread_away": [-3.0],
+            "diff_opening_spread": [6.0],
+        })
+        cols = get_feature_columns(game_df)
+        assert "opening_spread_home" in cols, "opening_spread_home not in features"
+        assert "opening_spread_away" in cols, "opening_spread_away not in features"
+        assert "diff_opening_spread" in cols, "diff_opening_spread not in features"
+
+    def test_opening_total_included(self):
+        """opening_total passes get_feature_columns() as pre-game context (D-05)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "opening_total_home": [45.0], "opening_total_away": [45.0],
+            "diff_opening_total": [0.0],
+        })
+        cols = get_feature_columns(game_df)
+        assert "opening_total_home" in cols, "opening_total_home not in features"
+        assert "opening_total_away" in cols, "opening_total_away not in features"
+        assert "diff_opening_total" in cols, "diff_opening_total not in features"
+
+    def test_retrospective_spread_shift_excluded(self):
+        """spread_shift does NOT pass get_feature_columns() -- retrospective (D-06)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "spread_shift_home": [-0.5], "spread_shift_away": [0.5],
+            "diff_spread_shift": [-1.0],
+        })
+        cols = get_feature_columns(game_df)
+        assert "spread_shift_home" not in cols, "spread_shift_home should be excluded"
+        assert "spread_shift_away" not in cols, "spread_shift_away should be excluded"
+        assert "diff_spread_shift" not in cols, "diff_spread_shift should be excluded"
+
+    def test_retrospective_total_shift_excluded(self):
+        """total_shift does NOT pass get_feature_columns() -- retrospective (D-06)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "total_shift_home": [-1.0], "total_shift_away": [-1.0],
+            "diff_total_shift": [0.0],
+        })
+        cols = get_feature_columns(game_df)
+        assert "total_shift_home" not in cols, "total_shift_home should be excluded"
+        assert "total_shift_away" not in cols, "total_shift_away should be excluded"
+        assert "diff_total_shift" not in cols, "diff_total_shift should be excluded"
+
+    def test_retrospective_magnitude_excluded(self):
+        """spread_magnitude and total_magnitude do NOT pass -- retrospective (D-06)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "spread_magnitude_home": [2.0], "spread_magnitude_away": [2.0],
+            "total_magnitude_home": [1.0], "total_magnitude_away": [1.0],
+        })
+        cols = get_feature_columns(game_df)
+        assert "spread_magnitude_home" not in cols, "spread_magnitude_home should be excluded"
+        assert "total_magnitude_home" not in cols, "total_magnitude_home should be excluded"
+
+    def test_retrospective_move_abs_excluded(self):
+        """spread_move_abs and total_move_abs do NOT pass -- retrospective (D-06)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "spread_move_abs_home": [1.5], "total_move_abs_home": [2.0],
+        })
+        cols = get_feature_columns(game_df)
+        assert "spread_move_abs_home" not in cols, "spread_move_abs_home should be excluded"
+        assert "total_move_abs_home" not in cols, "total_move_abs_home should be excluded"
+
+    def test_retrospective_crosses_key_excluded(self):
+        """crosses_key_spread and crosses_key_total do NOT pass -- retrospective (D-06)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "crosses_key_spread_home": [1.0], "crosses_key_total_home": [0.0],
+        })
+        cols = get_feature_columns(game_df)
+        assert "crosses_key_spread_home" not in cols, "crosses_key_spread should be excluded"
+        assert "crosses_key_total_home" not in cols, "crosses_key_total should be excluded"
+
+    def test_closing_spread_excluded(self):
+        """closing_spread does NOT pass -- retrospective (D-06)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "closing_spread_home": [-3.5], "closing_spread_away": [3.5],
+        })
+        cols = get_feature_columns(game_df)
+        assert "closing_spread_home" not in cols, "closing_spread_home should be excluded"
+        assert "closing_spread_away" not in cols, "closing_spread_away should be excluded"
+
+    def test_is_steam_move_excluded(self):
+        """is_steam_move does NOT pass -- retrospective (D-06)."""
+        game_df = pd.DataFrame({
+            "game_id": ["g1"], "season": [2023], "week": [3], "game_type": ["REG"],
+            "is_steam_move_home": [1.0], "is_steam_move_away": [1.0],
+        })
+        cols = get_feature_columns(game_df)
+        assert "is_steam_move_home" not in cols, "is_steam_move should be excluded"
