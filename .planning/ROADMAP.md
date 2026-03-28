@@ -125,11 +125,11 @@ Plans:
   2. Movement magnitude buckets (large >2pts, medium 1-2, small <1, none) are populated for every game with opening line data; games without opening lines have NaN (not zeros)
   3. Steam move flag is computed where timestamp data supports it, and explicitly set to NaN where timestamps are unavailable
   4. `feature_engineering.py` includes opening_spread and opening_total in the pre-game feature set, and closing-line-derived features are documented as retrospective-only (not usable in live predictions)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 33-01: TBD
-- [ ] 33-02: TBD
+- [ ] 33-01-PLAN.md -- Market analytics module + tests + Silver CLI (compute features, reshape, output Parquet)
+- [ ] 33-02-PLAN.md -- Config registration + feature_engineering.py integration (wire market_data into feature assembly)
 
 ### Phase 34: CLV Tracking + Ablation
 **Goal**: Model quality is measured by CLV, and market features are shipped only if they improve the sealed 2024 holdout
@@ -153,9 +153,9 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete    | 2026-03-27 |
-| 33. Silver Line Movement Features | v2.1 | 0/? | Not started | - |
+| 33. Silver Line Movement Features | v2.1 | 0/2 | Not started | - |
 | 34. CLV Tracking + Ablation | v2.1 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-27 after Phase 32 planning*
+*Last updated: 2026-03-28 after Phase 33 planning*
