@@ -13,6 +13,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from prediction_backtester import (
     evaluate_ats,
     evaluate_ou,
+    evaluate_clv,
+    compute_clv_by_tier,
+    compute_clv_by_season,
     compute_profit,
     evaluate_holdout,
     compute_season_stability,
@@ -514,6 +517,132 @@ class TestHoldoutComparison:
         print_holdout_comparison(xgb, ens, full, holdout_season=2024)
         captured = capsys.readouterr()
         assert "2024" in captured.out
+
+
+class TestCLVEvaluation:
+    """Tests for evaluate_clv() — CLV (Closing Line Value) computation."""
+
+    def test_clv_computation(self):
+        """CLV = predicted_margin - spread_line."""
+        df = pd.DataFrame({
+            "predicted_margin": [7, -2, 3],
+            "spread_line": [-3, 1, 5],
+        })
+        result = evaluate_clv(df)
+        assert list(result["clv"]) == [10, -3, -2]
+
+    def test_clv_preserves_columns(self):
+        """All original columns are preserved in the output."""
+        df = pd.DataFrame({
+            "predicted_margin": [7, -2],
+            "spread_line": [-3, 1],
+            "extra_col": ["a", "b"],
+        })
+        result = evaluate_clv(df)
+        assert "predicted_margin" in result.columns
+        assert "spread_line" in result.columns
+        assert "extra_col" in result.columns
+        assert "clv" in result.columns
+
+    def test_clv_returns_copy(self):
+        """evaluate_clv returns a copy, not mutating the input."""
+        df = pd.DataFrame({
+            "predicted_margin": [7],
+            "spread_line": [-3],
+        })
+        original_cols = set(df.columns)
+        evaluate_clv(df)
+        assert set(df.columns) == original_cols
+        assert "clv" not in df.columns
+
+
+class TestCLVByTier:
+    """Tests for compute_clv_by_tier() — CLV breakdown by confidence tier."""
+
+    def _make_clv_df(self):
+        """3 games: high edge (4.0), medium edge (2.0), low edge (0.5)."""
+        return pd.DataFrame({
+            "predicted_margin": [7, 3, 2],
+            "spread_line": [3, 1, 1.5],
+            "clv": [2.0, -1.0, 0.5],
+        })
+
+    def test_tier_assignment(self):
+        """Games are assigned to correct tiers based on edge magnitude."""
+        df = self._make_clv_df()
+        result = compute_clv_by_tier(df)
+        tiers = set(result["tier"].tolist())
+        assert "high" in tiers
+        assert "medium" in tiers
+        assert "low" in tiers
+
+    def test_tier_metrics(self):
+        """Verify mean_clv, median_clv, pct_beating_close per tier."""
+        df = self._make_clv_df()
+        result = compute_clv_by_tier(df)
+        result_dict = {row["tier"]: row for _, row in result.iterrows()}
+
+        # High tier: edge=4.0, clv=2.0 -> mean=2.0, pct=1.0
+        assert abs(result_dict["high"]["mean_clv"] - 2.0) < 0.01
+        assert abs(result_dict["high"]["pct_beating_close"] - 1.0) < 0.01
+
+        # Medium tier: edge=2.0, clv=-1.0 -> mean=-1.0, pct=0.0
+        assert abs(result_dict["medium"]["mean_clv"] - (-1.0)) < 0.01
+        assert abs(result_dict["medium"]["pct_beating_close"] - 0.0) < 0.01
+
+        # Low tier: edge=0.5, clv=0.5 -> mean=0.5, pct=1.0
+        assert abs(result_dict["low"]["mean_clv"] - 0.5) < 0.01
+        assert abs(result_dict["low"]["pct_beating_close"] - 1.0) < 0.01
+
+    def test_all_columns_present(self):
+        """Result has columns: tier, games, mean_clv, median_clv, pct_beating_close."""
+        df = self._make_clv_df()
+        result = compute_clv_by_tier(df)
+        expected_cols = {"tier", "games", "mean_clv", "median_clv", "pct_beating_close"}
+        assert set(result.columns) == expected_cols
+
+
+class TestCLVBySeason:
+    """Tests for compute_clv_by_season() — CLV breakdown by season."""
+
+    def _make_season_clv_df(self):
+        """4 games in 2022 (clv=[1, -2, 3, -1]) + 2 games in 2023 (clv=[2, 4])."""
+        return pd.DataFrame({
+            "season": [2022, 2022, 2022, 2022, 2023, 2023],
+            "clv": [1, -2, 3, -1, 2, 4],
+        })
+
+    def test_season_groupby(self):
+        """Games are correctly grouped by season."""
+        df = self._make_season_clv_df()
+        result = compute_clv_by_season(df)
+        assert len(result) == 2
+        seasons = set(result["season"].tolist())
+        assert 2022 in seasons
+        assert 2023 in seasons
+
+    def test_season_metrics(self):
+        """Verify mean_clv, pct_beating_close per season."""
+        df = self._make_season_clv_df()
+        result = compute_clv_by_season(df)
+        result_dict = {int(row["season"]): row for _, row in result.iterrows()}
+
+        # 2022: clv=[1, -2, 3, -1] -> mean=0.25, pct=0.5 (2 of 4 positive)
+        assert abs(result_dict[2022]["mean_clv"] - 0.25) < 0.01
+        assert result_dict[2022]["games"] == 4
+        assert abs(result_dict[2022]["pct_beating_close"] - 0.5) < 0.01
+
+        # 2023: clv=[2, 4] -> mean=3.0, pct=1.0
+        assert abs(result_dict[2023]["mean_clv"] - 3.0) < 0.01
+        assert result_dict[2023]["games"] == 2
+        assert abs(result_dict[2023]["pct_beating_close"] - 1.0) < 0.01
+
+    def test_all_columns_present(self):
+        """Result has columns: season, games, mean_clv, median_clv, pct_beating_close."""
+        df = self._make_season_clv_df()
+        result = compute_clv_by_season(df)
+        expected_cols = {"season", "games", "mean_clv", "median_clv", "pct_beating_close"}
+        assert set(result.columns) == expected_cols
 
 
 class TestCLI:

@@ -69,6 +69,76 @@ def evaluate_ou(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def evaluate_clv(df: pd.DataFrame) -> pd.DataFrame:
+    """Add CLV (Closing Line Value) column.
+
+    CLV measures whether the model's predicted margin was closer to the actual
+    outcome than the Vegas closing line. Positive CLV = model beat the close.
+
+    Args:
+        df: DataFrame with columns predicted_margin, spread_line.
+
+    Returns:
+        Copy of df with added column: clv (predicted_margin - spread_line).
+    """
+    df = df.copy()
+    df["clv"] = df["predicted_margin"] - df["spread_line"]
+    return df
+
+
+def compute_clv_by_tier(df: pd.DataFrame) -> pd.DataFrame:
+    """Compute CLV metrics grouped by confidence tier.
+
+    Tiers based on absolute edge (|predicted_margin - spread_line|):
+        high: >= 3.0
+        medium: >= 1.5
+        low: < 1.5
+
+    Args:
+        df: DataFrame with columns predicted_margin, spread_line, clv.
+
+    Returns:
+        DataFrame with columns: tier, games, mean_clv, median_clv, pct_beating_close.
+    """
+    edge = (df["predicted_margin"] - df["spread_line"]).abs()
+    tier = pd.cut(
+        edge,
+        bins=[-float("inf"), 1.5, 3.0, float("inf")],
+        labels=["low", "medium", "high"],
+    )
+    rows = []
+    for tier_label, group in df.groupby(tier, observed=True):
+        rows.append({
+            "tier": tier_label,
+            "games": len(group),
+            "mean_clv": float(group["clv"].mean()),
+            "median_clv": float(group["clv"].median()),
+            "pct_beating_close": float((group["clv"] > 0).mean()),
+        })
+    return pd.DataFrame(rows)
+
+
+def compute_clv_by_season(df: pd.DataFrame) -> pd.DataFrame:
+    """Compute CLV metrics grouped by season.
+
+    Args:
+        df: DataFrame with columns season, clv.
+
+    Returns:
+        DataFrame with columns: season, games, mean_clv, median_clv, pct_beating_close.
+    """
+    rows = []
+    for season, group in df.groupby("season"):
+        rows.append({
+            "season": int(season),
+            "games": len(group),
+            "mean_clv": float(group["clv"].mean()),
+            "median_clv": float(group["clv"].median()),
+            "pct_beating_close": float((group["clv"] > 0).mean()),
+        })
+    return pd.DataFrame(rows)
+
+
 def compute_profit(
     results_df: pd.DataFrame,
     correct_col: str = "ats_correct",
