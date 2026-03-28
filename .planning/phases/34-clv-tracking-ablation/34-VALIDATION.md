@@ -19,7 +19,7 @@ created: 2026-03-28
 |----------|-------|
 | **Framework** | pytest 7.x |
 | **Config file** | `tests/` directory (existing) |
-| **Quick run command** | `python -m pytest tests/test_prediction_backtester.py tests/test_clv.py -v --tb=short` |
+| **Quick run command** | `python -m pytest tests/test_prediction_backtester.py tests/test_ablation.py -v --tb=short` |
 | **Full suite command** | `python -m pytest tests/ -v` |
 | **Estimated runtime** | ~45 seconds |
 
@@ -27,7 +27,7 @@ created: 2026-03-28
 
 ## Sampling Rate
 
-- **After every task commit:** Run `python -m pytest tests/test_prediction_backtester.py tests/test_clv.py -v --tb=short`
+- **After every task commit:** Run `python -m pytest tests/test_prediction_backtester.py tests/test_ablation.py -v --tb=short`
 - **After every plan wave:** Run `python -m pytest tests/ -v`
 - **Before `/gsd:verify-work`:** Full suite must be green
 - **Max feedback latency:** 45 seconds
@@ -41,8 +41,8 @@ created: 2026-03-28
 | 34-01-01 | 01 | 1 | CLV-01 | unit | `python -m pytest tests/test_prediction_backtester.py -k "clv" -v` | ❌ W0 | ⬜ pending |
 | 34-01-02 | 01 | 1 | CLV-02 | unit | `python -m pytest tests/test_prediction_backtester.py -k "clv_tier" -v` | ❌ W0 | ⬜ pending |
 | 34-01-03 | 01 | 1 | CLV-01 | integration | `python scripts/backtest_predictions.py --ensemble --seasons 2022 --weeks 1-4` | ✅ | ⬜ pending |
-| 34-02-01 | 02 | 2 | CLV-03 | integration | `python scripts/ablation_market_features.py --dry-run` | ❌ W0 | ⬜ pending |
-| 34-02-02 | 02 | 2 | LINE-04 | integration | `python scripts/ablation_market_features.py` | ❌ W0 | ⬜ pending |
+| 34-02-01 | 02 | 2 | LINE-04 | unit | `python -m pytest tests/test_ablation.py -v` | ❌ W0 | ⬜ pending |
+| 34-02-02 | 02 | 2 | LINE-04 | integration | `python scripts/ablation_market_features.py --dry-run` | ❌ W0 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -50,8 +50,8 @@ created: 2026-03-28
 
 ## Wave 0 Requirements
 
-- [ ] `tests/test_clv.py` — unit tests for `evaluate_clv()`, CLV by tier, CLV by season
-- [ ] Extend `tests/test_prediction_backtester.py` — CLV integration with existing backtest flow
+- [ ] Extend `tests/test_prediction_backtester.py` — CLV unit tests for `evaluate_clv()`, CLV by tier, CLV by season (Plan 34-01 Task 1 creates these)
+- [ ] Create `tests/test_ablation.py` — unit tests for ablation orchestration logic, ship/skip decision, report format, copy semantics (Plan 34-02 Task 1 creates these)
 
 *Existing test infrastructure covers framework install and fixtures.*
 
