@@ -86,11 +86,19 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Planned (Future Milestones)
 
-- v2.2 Betting Framework — Kelly criterion, EV calculation, line shopping, shadow betting tracker, calibration
-- v3.0 Production Infra — automated weekly pipeline, in-season retraining, drift detection, A/B testing
-- v3.1 Alternative Data — practice reports, coaching decisions, tracking data, news NLP
-- Fantasy ML Upgrade — replace weighted-average projections with ML models
-- Live Sleeper Integration — real-time league sync and waiver recommendations
+**Model advantage path (priority):**
+- v2.2 Full Odds + Holdout Reset — ingest all 2016-2021 odds, source 2022+ data, unseal 2024/seal 2025, new baselines
+- v3.0 Neo4j Foundation — graph schema, player-player/player-team edges, initial graph features
+- v3.1 Graph Feature Pipeline — WR-CB matchups, target share networks, injury cascades → Silver features
+- v3.2 Graph-Enhanced Models — graph features into ensemble, ablation on new holdout, prove advantage
+- v3.3 Production Pipeline — automated weekly runs with graph refresh, monitoring, drift detection
+
+**Delivery path (after model advantage proven):**
+- v4.0 Web MVP — FastAPI backend + frontend, projections + lines display
+- v4.1 User Accounts + Sleeper — OAuth, team linking, roster import, lineup advice
+- v4.2 Fantasy Agent — LLM-powered start/sit, waiver recommendations
+- v4.3 Draft Agent — real-time draft tracking + pick recommendations (Sleeper-first)
+- v5.0 Multi-Platform — ESPN/Yahoo draft support
 
 ### Out of Scope
 
