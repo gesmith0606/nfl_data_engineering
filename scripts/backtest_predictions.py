@@ -29,8 +29,11 @@ from prediction_backtester import (
     BREAK_EVEN_PCT,
     compute_profit,
     evaluate_ats,
+    evaluate_clv,
     evaluate_holdout,
     evaluate_ou,
+    compute_clv_by_season,
+    compute_clv_by_tier,
     compute_season_stability,
     print_holdout_comparison,
 )
@@ -111,6 +114,52 @@ def print_per_season_breakdown(results: pd.DataFrame, target: str) -> None:
             f"{stats['wins']:>4} {stats['losses']:>4} {stats['pushes']:>4} "
             f"{acc:>7.1%} {stats['profit']:>+10.2f} {stats['roi']:>+7.2f}%"
         )
+
+
+def print_clv_report(results: pd.DataFrame, label: str = "Overall") -> None:
+    """Print formatted CLV (Closing Line Value) report.
+
+    Args:
+        results: DataFrame with predicted_margin, spread_line columns.
+        label: Report section label.
+    """
+    clv_df = evaluate_clv(results)
+    n_games = len(clv_df)
+    mean_clv = float(clv_df["clv"].mean())
+    median_clv = float(clv_df["clv"].median())
+    pct_beating = float((clv_df["clv"] > 0).mean())
+
+    print(f"\n{'=' * 60}")
+    print(f"CLV RESULTS -- {label}")
+    print(f"{'=' * 60}")
+    print(f"  Mean CLV:           {mean_clv:+.2f} points")
+    print(f"  Median CLV:         {median_clv:+.2f} points")
+    print(f"  Pct Beating Close:  {pct_beating:.1%}")
+
+    # By Confidence Tier
+    tier_df = compute_clv_by_tier(clv_df)
+    print(f"\n  By Confidence Tier:")
+    print(f"  {'Tier':<10} {'Games':>6}   {'Mean CLV':>9}  {'Median CLV':>10}  {'Pct Beat Close':>14}")
+    print(f"  {'-' * 55}")
+    for _, row in tier_df.iterrows():
+        print(
+            f"  {row['tier']:<10} {int(row['games']):>6}   "
+            f"{row['mean_clv']:>+9.2f}  {row['median_clv']:>+10.2f}  "
+            f"{row['pct_beating_close']:>13.1%}"
+        )
+
+    # By Season
+    season_df = compute_clv_by_season(clv_df)
+    print(f"\n  By Season:")
+    print(f"  {'Season':<8} {'Games':>6}   {'Mean CLV':>9}  {'Median CLV':>10}  {'Pct Beat Close':>14}")
+    print(f"  {'-' * 55}")
+    for _, row in season_df.iterrows():
+        print(
+            f"  {int(row['season']):<8} {int(row['games']):>6}   "
+            f"{row['mean_clv']:>+9.2f}  {row['median_clv']:>+10.2f}  "
+            f"{row['pct_beating_close']:>13.1%}"
+        )
+    print(f"{'=' * 60}")
 
 
 def run_backtest(
@@ -295,6 +344,8 @@ def run_ensemble_backtest(
             print_ou_report(results, f"Ensemble ({len(results)} games)")
 
         print_per_season_breakdown(results, tgt)
+        if tgt == "spread":
+            print_clv_report(results, f"Ensemble CLV ({len(results)} games)")
         ensemble_results[tgt] = results
 
     return ensemble_results
@@ -424,6 +475,10 @@ def run_comparison_backtest(
 
         print(f"  {'=' * 52}")
 
+        # CLV report for ensemble spread results
+        if tgt == "spread":
+            print_clv_report(ens_results, f"Ensemble CLV ({len(ens_results)} games)")
+
 
 def run_holdout_comparison(
     model_dir: Optional[str],
@@ -534,6 +589,12 @@ def run_holdout_comparison(
         xgb_results, p30_results, p31_results,
         holdout_season=HOLDOUT_SEASON,
     )
+
+    # CLV report for P31 ensemble on holdout season
+    if not p31_results.empty:
+        holdout_data = p31_results[p31_results["season"] == HOLDOUT_SEASON]
+        if not holdout_data.empty:
+            print_clv_report(holdout_data, f"P31 Ensemble CLV -- {HOLDOUT_SEASON} Holdout")
 
     return comparison
 
