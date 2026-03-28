@@ -569,6 +569,100 @@ def validate_row_counts(df: pd.DataFrame, season: int) -> None:
         print(f"  Row count: {actual} games for season {season} (within expected range)")
 
 
+# ── nflverse Bridge Functions ──────────────────────────────────────────
+
+
+def validate_nflverse_coverage(df: pd.DataFrame, season: int) -> None:
+    """Validate nflverse-derived odds coverage (D-10, D-11).
+
+    Checks NaN rate for spread_line and total_line (< 5%),
+    and warns if playoff game count is low.
+
+    Args:
+        df: DataFrame with opening_spread, opening_total, week columns.
+        season: NFL season year.
+
+    Raises:
+        ValueError: If no games found or NaN rate exceeds 5%.
+    """
+    total_games = len(df)
+    if total_games == 0:
+        raise ValueError(f"No games found for season {season}")
+    spread_nan_rate = 1 - (df["opening_spread"].notna().sum() / total_games)
+    total_nan_rate = 1 - (df["opening_total"].notna().sum() / total_games)
+    if spread_nan_rate > 0.05:
+        raise ValueError(
+            f"Season {season}: spread NaN rate {spread_nan_rate:.1%} exceeds 5%"
+        )
+    if total_nan_rate > 0.05:
+        raise ValueError(
+            f"Season {season}: total NaN rate {total_nan_rate:.1%} exceeds 5%"
+        )
+    playoff_games = df[df["week"] >= 19]
+    if len(playoff_games) < 10:
+        print(
+            f"  WARNING: Season {season} has only {len(playoff_games)} "
+            f"playoff games (expected >= 10)"
+        )
+    print(
+        f"  Coverage: {df['opening_spread'].notna().sum()}/{total_games} "
+        f"games with spread, NaN rate={spread_nan_rate:.1%}, "
+        f"playoffs={len(playoff_games)}"
+    )
+
+
+def derive_odds_from_nflverse(season: int, dry_run: bool = False) -> str:
+    """Extract closing-line odds from nflverse schedules for seasons without FinnedAI.
+
+    For 2022+, nflverse closing lines serve as opening-line proxies (D-05).
+    Opening == Closing, so spread_shift/total_shift will be zero downstream.
+
+    Args:
+        season: NFL season year (2022+).
+        dry_run: If True, skip writing Parquet.
+
+    Returns:
+        Output file path.
+
+    Raises:
+        ValueError: If season < 2022.
+    """
+    if season < 2022:
+        raise ValueError(
+            f"nflverse bridge only valid for seasons 2022+, got {season}"
+        )
+    print(f"Deriving odds from nflverse schedules for season {season}...")
+    sched = nfl.import_schedules([season])
+    df = pd.DataFrame(
+        {
+            "game_id": sched["game_id"],
+            "season": sched["season"],
+            "week": sched["week"],
+            "game_type": sched["game_type"],
+            "home_team": sched["home_team"],
+            "away_team": sched["away_team"],
+            "opening_spread": sched["spread_line"],  # D-05: closing as opening proxy
+            "closing_spread": sched["spread_line"],
+            "opening_total": sched["total_line"],
+            "closing_total": sched["total_line"],
+            "home_moneyline": sched["home_moneyline"],
+            "away_moneyline": sched["away_moneyline"],
+            "nflverse_spread_line": sched["spread_line"],
+            "nflverse_total_line": sched["total_line"],
+            "line_source": "nflverse",
+        }
+    )
+    # D-04: preserve NaN rows (never drop, never zero-fill)
+    # Cast moneylines to match FinnedAI dtype where non-null
+    ml_cols = ["home_moneyline", "away_moneyline"]
+    for col in ml_cols:
+        non_null = df[col].notna()
+        if non_null.any():
+            df.loc[non_null, col] = df.loc[non_null, col].astype(int)
+    validate_nflverse_coverage(df, season)
+    return write_parquet(df, season, dry_run=dry_run)
+
+
 # ── Parquet Output ──────────────────────────────────────────────────────
 
 
@@ -587,6 +681,7 @@ FINAL_COLUMNS = [
     "away_moneyline",
     "nflverse_spread_line",
     "nflverse_total_line",
+    "line_source",
 ]
 
 
@@ -645,9 +740,9 @@ def main():
     )
     parser.add_argument(
         "--source",
-        choices=["finnedai", "sbro"],
+        choices=["finnedai", "sbro", "nflverse"],
         default="finnedai",
-        help="Data source: 'finnedai' (default) or 'sbro' XLSX fallback",
+        help="Data source: 'finnedai' (2016-2021), 'nflverse' (2022+), or 'sbro' XLSX fallback",
     )
     args = parser.parse_args()
 
@@ -675,6 +770,16 @@ def main():
 
     print(f"Bronze Odds Ingestion -- seasons: {seasons}")
     print(f"  Source: {args.source}")
+
+    # Handle nflverse source separately (no download, no FinnedAI pipeline)
+    if args.source == "nflverse":
+        if args.season is not None:
+            derive_odds_from_nflverse(args.season, dry_run=args.dry_run)
+        else:
+            # Default: all nflverse seasons (2022+)
+            for s in range(2022, datetime.now().year + 1):
+                derive_odds_from_nflverse(s, dry_run=args.dry_run)
+        return
 
     # Step 1: Download
     if args.source == "finnedai":
@@ -743,6 +848,9 @@ def main():
             continue
 
         total_games += len(merged)
+
+        # Add provenance column (D-03)
+        merged["line_source"] = "finnedai"
 
         # Write Parquet
         path = write_parquet(merged, season, dry_run=args.dry_run)

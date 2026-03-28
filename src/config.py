@@ -362,7 +362,7 @@ DATA_TYPE_SEASON_RANGES: Dict[str, Tuple[int, Callable[[], int]]] = {
     "draft_picks": (2000, get_max_season),
     "combine": (2000, get_max_season),
     "officials": (2015, get_max_season),
-    "odds": (2016, lambda: 2021),
+    "odds": (2016, get_max_season),
 }
 
 # Season threshold for nflverse stats_player tag (replaces archived player_stats tag).
