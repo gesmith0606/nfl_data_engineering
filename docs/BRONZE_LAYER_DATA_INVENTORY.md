@@ -1,8 +1,8 @@
 # Bronze Layer Data Inventory
 
-**Generated:** 2026-03-20 20:45
-**Total Files:** 508
-**Total Size:** 145.59 MB
+**Generated:** 2026-03-28 16:30 (updated)
+**Total Files:** 509+
+**Total Size:** ~146 MB
 
 | Data Type | Files | Size (MB) | Seasons | Columns | Last Updated |
 |-----------|-------|-----------|---------|---------|--------------|
@@ -10,6 +10,7 @@
 | depth_charts | 25 | 11.89 | 2001-2025 | 15 | 2026-03-09 |
 | draft_picks | 26 | 0.99 | 2000-2025 | 36 | 2026-03-09 |
 | games | 6 | 0.31 | 2020-2025 | 50 | 2026-03-06 |
+| odds | 1 | ~0.02 | 2020 | 14 | 2026-03-27 |
 | ngs/passing | 10 | 0.89 | 2016-2025 | 29 | 2026-03-09 |
 | ngs/receiving | 10 | 1.28 | 2016-2025 | 23 | 2026-03-09 |
 | ngs/rushing | 10 | 0.53 | 2016-2025 | 22 | 2026-03-09 |

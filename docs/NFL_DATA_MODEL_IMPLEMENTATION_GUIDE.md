@@ -1,7 +1,7 @@
 # NFL Data Platform Implementation Guide
 
-**Version:** 4.0
-**Last Updated:** March 20, 2026
+**Version:** 5.0
+**Last Updated:** March 28, 2026
 **Purpose:** Living roadmap for the NFL data platform -- grounded in actual accomplishments, forward-looking for planned work
 **Related Documents:**
 - [NFL_GAME_PREDICTION_DATA_MODEL.md](./NFL_GAME_PREDICTION_DATA_MODEL.md) -- Data model with implementation status badges
@@ -18,21 +18,24 @@
 | Data source | nfl-data-py (via NFLDataAdapter) | Active |
 | Infrastructure | AWS S3 (us-east-2), GitHub Actions | Active |
 | Python libraries | boto3, nfl-data-py, numpy | Active |
-| ML (planned) | XGBoost, scikit-learn | Planned |
+| ML | XGBoost, LightGBM, CatBoost, scikit-learn, SHAP, Optuna | Active |
 | Graph DB (planned) | Neo4j | Planned |
 
 ### Architecture
 
 ```
-nfl-data-py + Sleeper API
+nfl-data-py + Sleeper API + FinnedAI odds
         |
-Bronze (s3://nfl-raw/)     -- raw game, player, snap, injury, roster data (25+ types)
+Bronze (s3://nfl-raw/)     -- 16 data types: PBP (140 cols), player stats, schedules,
+                              snap counts, injuries, rosters, NGS, PFR, QBR, depth charts,
+                              draft picks, combine, officials, teams, odds (2016-2021)
         |
-Silver (s3://nfl-refined/) -- usage metrics, rolling averages, opp rankings,
-                              team PBP metrics, tendencies, SOS, situational splits,
-                              advanced player profiles
+Silver (s3://nfl-refined/) -- 14 paths: player usage/advanced/historical/quality, team PBP
+                              metrics/tendencies/SOS/situational/PBP-derived/EWM, game
+                              context, referee, playoff context, market data (line movement)
         |
-Gold   (s3://nfl-trusted/) -- weekly + preseason projections (PPR/Half-PPR/Standard)
+Gold   (s3://nfl-trusted/) -- fantasy projections (PPR/Half-PPR/Standard) + game predictions
+                              (v2.0 XGB+LGB+CB+Ridge ensemble, CLV tracking)
         |
 Draft Tool                 -- ADP comparison, VORP, mock draft, auction, waiver wire
 ```
@@ -704,8 +707,10 @@ GROUP BY season, team ORDER BY season, team;
 | v1.1 Bronze Backfill | 8-14 | 2026-03-13 | Guards, new type ingestion, backfill, orchestration, 2025 gap closure, path alignment, cleanup |
 | v1.2 Silver Expansion | 15-19 | Shipped 2026-03-15 | Team PBP metrics, SOS/situational splits, advanced player profiles, historical context, tech debt |
 | v1.3 Prediction Data Foundation | 20-23 | Shipped 2026-03-19 | PBP expansion (140 cols), officials, PBP-derived metrics, game context, referee tendencies, playoff context, 337-col feature vector |
-| v1.4 ML Game Prediction | 24-27 | In Progress | Documentation refresh, XGBoost models, backtesting, prediction pipeline |
+| v1.4 ML Game Prediction | 24-27 | 2026-03-22 | Docs refresh, XGBoost spread/total models, walk-forward CV, backtest, prediction pipeline |
+| v2.0 Model Improvement | 28-31 | 2026-03-27 | Player quality features, SHAP feature selection, XGB+LGB+CB+Ridge ensemble, ablation (53.0% ATS) |
+| v2.1 Market Data | 32-34 | 2026-03-28 | Bronze odds (FinnedAI 2016-2021), Silver line movement features, CLV tracking, market ablation |
 
 ---
 
-*Version 4.0 -- Updated March 20, 2026 to reflect Phases 18-23 (v1.2 Silver Expansion complete, v1.3 Prediction Data Foundation complete, v1.4 ML Game Prediction in progress)*
+*Version 5.0 -- Updated March 28, 2026 to reflect v2.0 (ensemble model, 53.0% ATS) and v2.1 (market data, CLV tracking). 7 milestones, 34 phases, 64 plans shipped. 571 tests passing.*

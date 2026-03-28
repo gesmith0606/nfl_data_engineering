@@ -36,10 +36,13 @@ This document is the single source of truth for Bronze layer schemas. Column spe
   - [Depth Charts](#depth-charts)
   - [Draft Picks](#draft-picks)
   - [Combine](#combine)
+  - [Odds (Historical Opening/Closing Lines)](#odds-historical-openingclosing-lines)
   - [Teams](#teams)
 - [Silver Layer Tables](#silver-layer-tables)
   - [Silver Team PBP Metrics](#silver-team-pbp-metrics)
   - [Silver Team Tendencies](#silver-team-tendencies)
+  - [Silver Market Data (Line Movement Features)](#silver-market-data-line-movement-features)
+  - [Silver Player Quality](#silver-player-quality)
 - [Gold Layer Tables](#gold-layer-tables)
 - [Data Types and Constraints](#data-types-and-constraints)
 - [Business Rules](#business-rules)
@@ -67,6 +70,7 @@ The following table summarizes the valid season ranges for each data type, as de
 | depth_charts | 2001 | dynamic | `import_depth_charts()` | `fetch_depth_charts()` |
 | draft_picks | 2000 | dynamic | `import_draft_picks()` | `fetch_draft_picks()` |
 | combine | 2000 | dynamic | `import_combine_data()` | `fetch_combine()` |
+| odds | 2016 | 2021 (static) | N/A (FinnedAI JSON) | N/A (standalone script) |
 
 **Note:** "dynamic" max season = `datetime.date.today().year + 1` (currently 2027). This allows referencing next year's draft/combine data without hardcoding.
 
@@ -910,6 +914,34 @@ Representative columns (from test mocks and validate_data):
 
 ---
 
+### Odds (Historical Opening/Closing Lines)
+
+**Source:** FinnedAI/sportsbookreview-scraper JSON archives via `scripts/bronze_odds_ingestion.py`
+**Seasons:** 2016-2021 (static — FinnedAI archive coverage)
+**Local Path:** `data/bronze/odds/season=YYYY/`
+**Known Quirks:** FinnedAI spreads are negated during ingestion to match nflverse convention (positive=home favored). ~24 corrupt rows per season with |spread|>25 are dropped. NewYork disambiguation resolves to NYG/NYJ by matching opponent against nflverse schedule.
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | No | Unique game identifier from nflverse join | "2020_01_HOU_KC" |
+| season | int64 | No | NFL season year | 2020 |
+| week | int64 | No | NFL week number | 1 |
+| game_type | string | No | Game type (REG, POST) | "REG" |
+| home_team | string | No | Home team abbreviation (nflverse convention) | "KC" |
+| away_team | string | No | Away team abbreviation (nflverse convention) | "HOU" |
+| opening_spread | float64 | Yes | Opening spread (positive=home favored) | 9.5 |
+| closing_spread | float64 | Yes | Closing spread (positive=home favored) | 10.0 |
+| opening_total | float64 | Yes | Opening over/under total | 54.0 |
+| closing_total | float64 | Yes | Closing over/under total | 53.5 |
+| home_moneyline | float64 | Yes | Home team closing moneyline | -450 |
+| away_moneyline | float64 | Yes | Away team closing moneyline | +360 |
+| nflverse_spread_line | float64 | Yes | nflverse spread_line for cross-validation | 10.0 |
+| nflverse_total_line | float64 | Yes | nflverse total_line for cross-validation | 53.5 |
+
+**Data Quality:** Cross-validation against nflverse shows Pearson r=0.997 and >97% agreement within 1.0 point. Zero orphan rows after nflverse join.
+
+---
+
 ### Teams
 
 **Source:** `nfl-data-py` function `import_team_desc()` via `NFLDataAdapter.fetch_team_descriptions()`
@@ -1626,6 +1658,65 @@ Each of the 5 base metrics has `_roll3`, `_roll6`, and `_std` rolling window var
 - PROE: NaN xpass values excluded from mean but included in actual pass rate denominator
 - Rolling window convention: lagged via `shift(1)`, `min_periods=1`, grouped by `(team, season)`
 
+### 13. Silver Market Data (Line Movement Features)
+
+**Source:** Bronze odds via `scripts/silver_market_transformation.py` using `src/market_analytics.py`
+**Output Path:** `data/silver/teams/market_data/season=YYYY/`
+**Granularity:** Per team per game (2 rows per game — home and away)
+**Config:** `SILVER_TEAM_LOCAL_DIRS["market_data"]` / `SILVER_TEAM_S3_KEYS["market_data"]`
+
+| Column | Type | Nullable | Description | Source/Transformation |
+|--------|------|----------|-------------|----------------------|
+| game_id | string | No | Unique game identifier | From Bronze odds |
+| season | int64 | No | NFL season year | From Bronze odds |
+| week | int64 | No | NFL week number | From Bronze odds |
+| game_type | string | No | Game type | From Bronze odds |
+| team | string | No | Team abbreviation (home or away) | Reshaped from home_team/away_team |
+| opponent | string | No | Opposing team abbreviation | Reshaped from away_team/home_team |
+| is_home | bool | No | True if team is home | Computed during reshape |
+| opening_spread | float64 | Yes | Opening line (positive=team favored) | From Bronze; negated for away teams |
+| closing_spread | float64 | Yes | Closing line (positive=team favored) | From Bronze; negated for away teams |
+| spread_shift | float64 | Yes | Line movement: closing - opening | Computed; negated for away teams |
+| opening_total | float64 | Yes | Opening over/under total | From Bronze (symmetric) |
+| closing_total | float64 | Yes | Closing over/under total | From Bronze (symmetric) |
+| total_shift | float64 | Yes | Total movement: closing - opening | Computed (symmetric) |
+| spread_move_abs | float64 | Yes | Absolute spread movement | abs(closing_spread - opening_spread) |
+| total_move_abs | float64 | Yes | Absolute total movement | abs(closing_total - opening_total) |
+| spread_magnitude | float64 | Yes | Ordinal bucket: 0=none, 1=small(<1), 2=medium(1-2), 3=large(>2) | pd.cut on spread_move_abs |
+| total_magnitude | float64 | Yes | Ordinal bucket (same scale) | pd.cut on total_move_abs |
+| crosses_key_spread | bool | Yes | Spread crossed key number (3, 7, or 10) | Opening-to-closing range check |
+| crosses_key_total | bool | Yes | Total crossed key number (41, 44, or 47) | Opening-to-closing range check |
+| is_steam_move | float64 | Yes | Reserved for steam detection (currently NaN) | NaN — no timestamp data available |
+
+**Feature Engineering Note:** Only `opening_spread` and `opening_total` enter the prediction model (via `_PRE_GAME_CONTEXT` in `feature_engineering.py`). All closing-line-derived features (spread_shift, magnitudes, etc.) are excluded as retrospective — they contain post-opening information not available at prediction time.
+
+### 14. Silver Player Quality
+
+**Source:** Bronze player_weekly + injuries via `scripts/silver_player_quality_transformation.py`
+**Output Path:** `data/silver/teams/player_quality/season=YYYY/`
+**Granularity:** Per team per week
+**Config:** `SILVER_TEAM_LOCAL_DIRS["player_quality"]` / `SILVER_TEAM_S3_KEYS["player_quality"]`
+
+| Column | Type | Nullable | Description | Source/Transformation |
+|--------|------|----------|-------------|----------------------|
+| team | string | No | Team abbreviation | From Bronze player_weekly |
+| season | int64 | No | NFL season year | From Bronze player_weekly |
+| week | int64 | No | NFL week number | From Bronze player_weekly |
+| qb_passing_epa | float64 | Yes | Starting QB passing EPA per game | QB with most pass attempts in game |
+| backup_qb_start | bool | Yes | Non-depth-chart starter played | Actual starter vs depth chart comparison |
+| rb_weighted_epa | float64 | Yes | Top-2 RBs rushing EPA weighted by carry share | sum(epa*share)/sum(share) |
+| wr_te_weighted_epa | float64 | Yes | Top-3 WR/TEs receiving EPA weighted by target share | sum(epa*share)/sum(share) |
+| qb_injury_impact | float64 | Yes | QB injury impact score | sum(usage_share * (1 - status_multiplier)) |
+| skill_injury_impact | float64 | Yes | RB/WR/TE injury impact score | Same formula as QB |
+| def_injury_impact | float64 | Yes | Defensive injury impact | Equal weight per injured defender |
+| *_roll3 | float64 | Yes | 3-week rolling average (for each base metric) | shift(1) applied to prevent leakage |
+| *_roll6 | float64 | Yes | 6-week rolling average (for each base metric) | shift(1) applied to prevent leakage |
+| *_std | float64 | Yes | 3-week rolling std dev (for each base metric) | shift(1) applied to prevent leakage |
+
+**Rolling columns:** Each of the 8 base metrics (qb_passing_epa, rb_weighted_epa, wr_te_weighted_epa, qb_injury_impact, skill_injury_impact, def_injury_impact) has 3 rolling variants (_roll3, _roll6, _std), yielding 18 additional columns (26 total with identifiers and base metrics).
+
+**Injury Status Multipliers:** Active=1.0, Questionable=0.85, Doubtful=0.50, Out/IR/PUP=0.0
+
 ---
 
 ## Gold Layer Tables
@@ -1778,11 +1869,12 @@ Validation is performed by `NFLDataFetcher.validate_data()` in `src/nfl_data_int
 ---
 
 **Document Control:**
-- **Version**: 3.0
-- **Last Modified**: March 21, 2026
+- **Version**: 4.0
+- **Last Modified**: March 28, 2026
 - **Owner**: Data Engineering Team
 
 **Change Log:**
+- v4.0 (2026-03-28): Added Bronze odds schema (FinnedAI 2016-2021), Silver market_data (line movement features, 20 columns), Silver player_quality (QB EPA, injury impact, 26 columns). Updated DATA_TYPE_SEASON_RANGES table with odds entry. Now documents 16 Bronze types, 14 Silver paths, 2 Gold types.
 - v3.0 (2026-03-21): Complete Silver and Gold layer documentation. Replaced 2 aspirational Silver tables with 12 real schemas extracted from Parquet files (719 columns total). Updated Gold section with actual fantasy projection schema (25 columns from parquet) and planned game prediction schema (15 columns from PRED-01/02/03 requirements).
 - v2.0 (2026-03-08): Comprehensive rewrite covering all 15 Bronze data types (24+ with sub-types). Auto-generated column specs from local Parquet files. Added representative columns for API-only types from test mocks and config.
 - v1.0 (2026-03-04): Initial data dictionary with Games, Plays, and stub entries.
