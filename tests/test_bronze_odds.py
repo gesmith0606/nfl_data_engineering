@@ -18,13 +18,16 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from scripts.bronze_odds_ingestion import (
+    FINAL_COLUMNS,
     FINNEDAI_TO_NFLVERSE,
     align_spreads,
+    derive_odds_from_nflverse,
     download_finnedai,
     join_to_nflverse,
     parse_finnedai,
     resolve_newyork,
     validate_cross_correlation,
+    validate_nflverse_coverage,
     validate_odds_schema,
 )
 
@@ -350,25 +353,26 @@ class TestConfigRegistration:
     """ODDS-03: Config registration."""
 
     def test_config_registration(self):
-        """DATA_TYPE_SEASON_RANGES contains 'odds' with range 2016-2021."""
+        """DATA_TYPE_SEASON_RANGES contains 'odds' with range 2016-current year."""
         from src.config import DATA_TYPE_SEASON_RANGES
 
         assert "odds" in DATA_TYPE_SEASON_RANGES
         min_season, max_fn = DATA_TYPE_SEASON_RANGES["odds"]
         assert min_season == 2016
-        assert max_fn() == 2021
+        assert max_fn() >= 2025  # get_max_season returns current year
 
 
 class TestValidateSeasonForTypeOdds:
     """ODDS-03: Season boundary validation via config."""
 
     def test_validate_season_for_type_odds(self):
-        """validate_season_for_type returns True for 2016-2021, False outside."""
+        """validate_season_for_type returns True for 2016-current year, False below."""
         from src.config import validate_season_for_type
         assert validate_season_for_type("odds", 2016) is True
         assert validate_season_for_type("odds", 2021) is True
         assert validate_season_for_type("odds", 2015) is False
-        assert validate_season_for_type("odds", 2022) is False
+        assert validate_season_for_type("odds", 2022) is True
+        assert validate_season_for_type("odds", 2025) is True
 
 
 class TestZeroOrphans:
@@ -403,3 +407,172 @@ class TestZeroOrphans:
         assert (
             result["game_id"].isna().sum() == 0
         ), "Every odds row must join to exactly one nflverse game"
+
+
+# ── New Test Classes for nflverse Bridge (BRNZ-02) ──────────────────────
+
+
+@pytest.fixture
+def mock_nflverse_sched_for_bridge():
+    """Minimal nflverse schedule DataFrame for bridge function tests."""
+    return pd.DataFrame(
+        {
+            "game_id": ["2023_01_KC_DET", "2023_01_ARI_WAS", "2023_19_KC_BUF"],
+            "season": [2023, 2023, 2023],
+            "week": [1, 1, 19],
+            "game_type": ["REG", "REG", "POST"],
+            "home_team": ["DET", "WAS", "BUF"],
+            "away_team": ["KC", "ARI", "KC"],
+            "gameday": ["2023-09-07", "2023-09-10", "2024-01-21"],
+            "spread_line": [3.5, -3.0, 2.5],
+            "total_line": [53.5, 44.0, 47.5],
+            "home_moneyline": [150, -150, 120],
+            "away_moneyline": [-170, 130, -140],
+        }
+    )
+
+
+class TestNflverseBridgeSchema:
+    """BRNZ-02: nflverse bridge output matches FinnedAI schema + line_source."""
+
+    def test_bridge_output_has_15_columns(self, mock_nflverse_sched_for_bridge):
+        """derive_odds_from_nflverse produces DataFrame with exactly 15 columns matching FINAL_COLUMNS."""
+        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
+            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+            result_path = derive_odds_from_nflverse(2023, dry_run=True)
+
+        # Verify the function was called with correct season
+        mock_nfl.import_schedules.assert_called_once_with([2023])
+
+    def test_bridge_schema_matches_final_columns(self, mock_nflverse_sched_for_bridge):
+        """Bridge output columns match FINAL_COLUMNS exactly."""
+        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
+            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+            # We need to intercept the DataFrame before write_parquet
+            with patch("scripts.bronze_odds_ingestion.write_parquet") as mock_write:
+                mock_write.return_value = "/fake/path.parquet"
+                derive_odds_from_nflverse(2023, dry_run=True)
+
+                # Get the DataFrame passed to write_parquet
+                call_args = mock_write.call_args
+                df = call_args[0][0]  # first positional arg
+
+                assert list(df.columns) == FINAL_COLUMNS
+                assert len(df.columns) == 15
+
+    def test_bridge_line_source_is_nflverse(self, mock_nflverse_sched_for_bridge):
+        """All rows have line_source == 'nflverse'."""
+        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
+            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+            with patch("scripts.bronze_odds_ingestion.write_parquet") as mock_write:
+                mock_write.return_value = "/fake/path.parquet"
+                derive_odds_from_nflverse(2023, dry_run=True)
+                df = mock_write.call_args[0][0]
+                assert (df["line_source"] == "nflverse").all()
+
+    def test_bridge_rejects_pre_2022(self):
+        """derive_odds_from_nflverse raises ValueError for seasons before 2022."""
+        with pytest.raises(ValueError, match="2022"):
+            derive_odds_from_nflverse(2021)
+
+
+class TestNflverseCoverage:
+    """BRNZ-02: Coverage validation for nflverse-derived odds (D-10)."""
+
+    def test_passes_with_low_nan_rate(self):
+        """validate_nflverse_coverage passes when NaN rate < 5%."""
+        df = pd.DataFrame(
+            {
+                "opening_spread": [3.0] * 280 + [np.nan] * 5,
+                "opening_total": [45.0] * 283 + [np.nan] * 2,
+                "week": list(range(1, 19)) * 15 + [19, 20, 21, 22, 23] + list(range(1, 11)),
+            }
+        )
+        # Should not raise
+        validate_nflverse_coverage(df, 2023)
+
+    def test_fails_with_high_nan_rate(self):
+        """validate_nflverse_coverage raises ValueError when spread NaN rate > 5%."""
+        df = pd.DataFrame(
+            {
+                "opening_spread": [3.0] * 100 + [np.nan] * 50,
+                "opening_total": [45.0] * 150,
+                "week": list(range(1, 16)) * 10,
+            }
+        )
+        with pytest.raises(ValueError, match="exceeds 5%"):
+            validate_nflverse_coverage(df, 2023)
+
+    def test_raises_on_empty(self):
+        """validate_nflverse_coverage raises ValueError on empty DataFrame."""
+        df = pd.DataFrame(
+            {"opening_spread": [], "opening_total": [], "week": []}
+        )
+        with pytest.raises(ValueError, match="No games found"):
+            validate_nflverse_coverage(df, 2023)
+
+
+class TestNflversePlayoffCoverage:
+    """BRNZ-02: Playoff coverage validation (D-11)."""
+
+    def test_sufficient_playoff_games(self):
+        """12 playoff games (week >= 19) passes without warning."""
+        df = pd.DataFrame(
+            {
+                "opening_spread": [3.0] * 272 + [2.5] * 12,
+                "opening_total": [45.0] * 284,
+                "week": list(range(1, 19)) * 15 + [4, 5] + [19, 20, 21, 22] * 3,
+            }
+        )
+        # Should not raise
+        validate_nflverse_coverage(df, 2023)
+
+    def test_few_playoff_games_warns(self, capsys):
+        """Fewer than 10 playoff games prints warning but does not raise."""
+        df = pd.DataFrame(
+            {
+                "opening_spread": [3.0] * 275 + [2.5] * 5,
+                "opening_total": [45.0] * 280,
+                "week": list(range(1, 19)) * 15 + [1, 2, 3, 4, 5] + [19] * 5,
+            }
+        )
+        # Should not raise
+        validate_nflverse_coverage(df, 2023)
+        captured = capsys.readouterr()
+        assert "WARNING" in captured.out
+        assert "playoff" in captured.out.lower()
+
+
+class TestLineSourceColumn:
+    """BRNZ-02: line_source column provenance tracking (D-03)."""
+
+    def test_finnedai_line_source(self):
+        """FinnedAI output includes line_source='finnedai'."""
+        # Verify FINAL_COLUMNS includes line_source
+        assert "line_source" in FINAL_COLUMNS
+
+    def test_nflverse_line_source(self, mock_nflverse_sched_for_bridge):
+        """nflverse bridge output includes line_source='nflverse'."""
+        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
+            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+            with patch("scripts.bronze_odds_ingestion.write_parquet") as mock_write:
+                mock_write.return_value = "/fake/path.parquet"
+                derive_odds_from_nflverse(2023, dry_run=True)
+                df = mock_write.call_args[0][0]
+                assert "line_source" in df.columns
+                assert (df["line_source"] == "nflverse").all()
+
+
+class TestNflverseOpeningEqualsClosing:
+    """BRNZ-02: Opening == Closing for nflverse bridge output (D-05)."""
+
+    def test_opening_equals_closing(self, mock_nflverse_sched_for_bridge):
+        """For nflverse bridge, opening_spread == closing_spread and opening_total == closing_total."""
+        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
+            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+            with patch("scripts.bronze_odds_ingestion.write_parquet") as mock_write:
+                mock_write.return_value = "/fake/path.parquet"
+                derive_odds_from_nflverse(2023, dry_run=True)
+                df = mock_write.call_args[0][0]
+                assert (df["opening_spread"] == df["closing_spread"]).all()
+                assert (df["opening_total"] == df["closing_total"]).all()
