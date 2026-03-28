@@ -76,6 +76,9 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ 516 total tests passing — v2.1
 - ✓ Silver line movement features: spread/total shift, ordinal magnitude buckets, key number crossings, per-team reshape with sign flips, feature_engineering.py integration (opening_spread/opening_total in _PRE_GAME_CONTEXT) — Phase 33, v2.1
 - ✓ 545 total tests passing — v2.1
+- ✓ CLV tracking: evaluate_clv(), by-tier, by-season metrics in prediction backtester and CLI — Phase 34, v2.1
+- ✓ Market feature ablation script: P30 baseline vs market-augmented ensemble on sealed 2024 holdout with SHAP report and ship-or-skip verdict — Phase 34, v2.1
+- ✓ 571 total tests passing — v2.1
 
 ### Active
 
@@ -114,7 +117,7 @@ Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 me
 Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with ensemble spread/total models, edge detection, confidence tiers.
 Prediction feature vector: 310+ columns assembled from 9 Silver sources via left joins on [team, season, week], reduced to ~100 via SHAP-based feature selection.
 ML models: v2.0 stacking ensemble (XGB+LGB+CB base learners + Ridge meta-learner) for spread + over/under; walk-forward CV with OOF predictions, Optuna tuning, sealed 2024 holdout (53.0% ATS, +$3.09 profit, +1.2% ROI).
-Tests: 503 passing across 15 test files.
+Tests: 571 passing across 17 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -168,6 +171,9 @@ Existing documentation:
 | SHAP-based feature selection | Walk-forward-safe, per-fold isolation, holdout excluded | ✓ Good — 310→100 features |
 | Honest ablation for Phase 31 features | Momentum/EWM improved training but not holdout | ✓ Good — shipped P30 ensemble |
 | Conservative hyperparameters for LGB/CB | Analogous to XGBoost: shallow trees, strong regularization | ✓ Good |
+| CLV = predicted_margin - spread_line | Point-based CLV is the gold standard for betting model evaluation | ✓ Good |
+| Ablation saves to models/ensemble_ablation/ | Protects production model during comparison | ✓ Good |
+| Ship market features only if holdout ATS improves | Accuracy is the decision criterion, not model purity | ✓ Good |
 
 ## Completed Milestone: v2.0 Prediction Model Improvement
 
