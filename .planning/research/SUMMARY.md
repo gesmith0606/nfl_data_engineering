@@ -1,166 +1,169 @@
 # Project Research Summary
 
-**Project:** NFL v2.1 Market Data
-**Domain:** Historical odds ingestion, line movement features, CLV tracking for NFL game prediction
-**Researched:** 2026-03-27
+**Project:** v2.2 Full Odds + Holdout Reset
+**Domain:** NFL prediction platform — odds data expansion and holdout evaluation framework rotation
+**Researched:** 2026-03-28
 **Confidence:** HIGH
 
 ## Executive Summary
 
-The v2.1 Market Data milestone adds historical betting line data to an existing, well-validated NFL prediction pipeline. The core discovery is that the heaviest lift is already done: nflverse schedules (already in Bronze for 2016-2025) contains complete closing lines with zero nulls — spread_line, total_line, and moneylines verified by live Python execution in the project venv. The only missing data is opening lines, required to compute line movement features. SBRO (SportsbookReviewsOnline) XLSX archives are the recommended free source for 2016-2021, with FinnedAI/sportsbookreview-scraper as a backup. The single new dependency is `openpyxl` for XLSX parsing. CLV and all line movement computations are arithmetic operations on existing DataFrames, not library-sized problems.
+v2.2 is a data expansion and evaluation framework milestone, not a technology milestone. No new libraries are required. The core work is: (1) completing the FinnedAI odds ingestion for the 5 remaining seasons (2016-2019, 2021) using an already-proven script, (2) bridging 2022+ odds coverage using nflverse schedules which already provide closing lines for free, (3) running the full Bronze/Silver pipeline for the 2025 season to create ground truth for the new holdout, and (4) rotating the holdout from 2024 to 2025 by changing four constants in `config.py`, then retraining the P30 ensemble. The entire milestone is a "run it more times and update the config" problem, not a "build new things" problem.
 
-The recommended build order is: (1) Bronze odds ingestion with careful team name mapping and game_id joining from nflverse schedules, (2) Silver line movement feature computation with explicit temporal categorization to prevent leakage, (3) CLV tracking added to the backtester using nflverse closing lines already in Gold. A clean data quality gate after Bronze ingestion — asserting 95%+ closing line agreement between SBRO and nflverse — is the most important single step before building anything downstream.
+The key strategic value of v2.2 is that the v2.1 market feature ablation was structurally flawed: only 1 of the 8 training seasons had market data, and the holdout (2024) had zero market data. The conclusion that market features don't help was therefore inconclusive. After v2.2, market features will be populated for the full 2016-2021 training window (6 seasons) and closing-line data will be available for 2022-2025 via nflverse. This means the re-run ablation on the 2025 holdout will be the first genuine test of whether market features improve game prediction accuracy. That test is the milestone's real deliverable.
 
-The primary risk is not technical complexity but data quality: SBRO team abbreviations differ from nflverse, sign convention for spreads must be validated empirically, and closing line leakage into prediction features must be strictly prevented. Line movement features (spread_shift, etc.) are valid for historical backtesting and ablation but cannot be used in live predictions since the closing line is only known at kickoff. If the ablation shows opening_spread dominates SHAP importance (>30%), the model may become a thin market wrapper rather than a genuine performance-based predictor — this is a design choice to document and decide, not a bug.
+The primary risks are not technical — they are procedural. Holdout contamination (changing `HOLDOUT_SEASON` before retraining), closing-line leakage (accidentally adding retrospective features to the pre-game context), and stale model evaluation (running the old model against the new holdout) are all well-understood and preventable with strict sequencing discipline. The architecture is already hardened against these: a centralized `HOLDOUT_SEASON` constant propagates the holdout guard to all ML modules, a `LEAKAGE_THRESHOLD` flag triggers investigation if ATS accuracy exceeds 58%, and a latest-file convention ensures idempotent re-ingestion.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The existing stack requires exactly one new dependency: `openpyxl >= 3.1.0` for reading SBRO XLSX files via `pd.read_excel(engine='openpyxl')`. All other libraries (pandas, pyarrow, requests, nfl-data-py, xgboost, scikit-learn, shap) are already installed and cover every required operation. The `requests` library handles SBRO file downloads. CLV computation is a pandas subtraction expression, not a library concern.
+No new dependencies. Every library needed for v2.2 is already installed: pandas 1.5.3, pyarrow 21.0.0, requests 2.32.4, scipy 1.13.1, nfl-data-py 0.3.3, openpyxl, xgboost, lightgbm, catboost, scikit-learn, shap, and optuna. The stack is frozen at current versions, all validated for Python 3.9 compatibility.
 
 **Core technologies:**
-- `openpyxl >= 3.1.0`: XLSX parsing — only new dependency; xlrd is not an option (dropped .xlsx support in v2.0; openpyxl is the pandas-recommended engine)
-- `pandas 1.5.3` (existing): `pd.read_excel()`, line movement arithmetic, CLV computation — no version change needed
-- `nfl-data-py` (existing): closing lines already in Bronze schedules via `import_schedules()` — no new API calls required
-- `pyarrow` (existing): write Bronze/Silver Parquet outputs following existing timestamped filename pattern
-- `requests 2.32.4` (existing): one-time SBRO XLSX file downloads
+- `bronze_odds_ingestion.py`: FinnedAI JSON parser — already proven on 2020; batch-run remaining seasons with no code changes
+- `nfl.import_schedules()`: nflverse closing lines — free, already ingested; use as opening-line proxy for 2022+ via a new `derive_odds_from_nflverse()` function
+- `src/config.py`: holdout constants — single-file change propagates to all 5+ ML modules via import
+- XGB+LGB+CB+Ridge ensemble: retrain on expanded 2016-2024 training window after config update
 
-**What NOT to add:** sports-betting PyPI library (CLV is literal subtraction), The Odds API ($99+/mo, only covers 2020+), Selenium/BeautifulSoup (no scraping needed), SQLite/DuckDB (pipeline is Parquet-native), statsmodels (movement is point-in-time arithmetic).
+**What not to add:** paid odds APIs (The Odds API at $99+/mo, SportsDataIO), AusSportsBetting.com XLSX (same closing-line data as nflverse with extra complexity and a personal-use license restriction), FinnedAI scraper re-run for 2022+ (unmaintained since Dec 2023, CLI date range capped at 2021), MLflow/W&B (four config constants outperform experiment tracking infrastructure for this use case).
 
 ### Expected Features
 
-**Must have (table stakes):**
-- CLV tracking — gold standard for model evaluation; compares model line at prediction time vs closing line; required for any serious betting model validation
-- Opening/closing line pairs in Bronze — foundation for all downstream line movement analysis
-- Opening-to-closing spread and total shifts — most basic line movement signals once Bronze data exists
+**Must have (P1 — required for new holdout baseline):**
+- Full 2016-2021 FinnedAI batch ingestion — fills market data gap across training window
+- Silver market data regeneration for all 6 FinnedAI seasons — makes market features available to feature vector
+- 2025 Bronze + Silver pipeline (all data types) — creates ground truth and features for the new holdout
+- Holdout config rotation (unseal 2024, seal 2025) — reestablishes evaluation integrity
+- Ensemble retraining on 2016-2024 + new 2025 baseline — the actual deliverable
 
-**Should have (competitive differentiators):**
-- Line movement magnitude — absolute movement >1.5 pts correlates with sharp action; binary steam move flag
-- Opening spread as candidate prediction feature — market's initial assessment; pre-game knowable; subject to ablation
-- Signed spread movement direction — directional shift captures where sharp money went
-- Key number crossing flag — movement across NFL key numbers 3, 7, 10 carries disproportionate significance
+**Should have (P2 — improves coverage and evaluation rigor):**
+- nflverse 2022-2025 closing-line odds ingestion — extends market coverage beyond FinnedAI's 2021 cutoff
+- Holdout config automation (computed constants) — future rotations become a one-line change
+- Market feature ablation re-run on 2025 holdout — the genuine test now that training data has full market coverage
+- Walk-forward CV expansion with 2024 as a new validation fold
 
-**Defer to v2.2+:**
-- No-vig implied probability — requires devigging logic; save for v2.2 Betting Framework
-- Real-time line tracking — requires live API polling infrastructure; out of scope for batch pipeline
-- Public betting percentages — no free reliable source
-- Multi-book line comparison — marginal signal for game-level models
-- Player prop odds, in-game live odds, futures — different scope entirely
+**Defer (v3+):**
+- Paid odds API for 2022+ opening lines — only warranted if re-run ablation proves opening-line movement materially improves accuracy
+- Multi-book line comparison — v4.0+ concern
+- Live line snapshot pipeline — production infrastructure concern
 
-**CRITICAL leakage note:** Line movement features using the closing line (spread_shift, etc.) are NOT pre-game knowable. They are valid for historical backtesting and ablation but constitute leakage if used as live prediction features. Only `opening_spread` and `opening_total` can safely be live prediction features. This distinction must be enforced in `get_feature_columns()`.
+The critical sequencing constraint: ablation must not run until a clean baseline is documented. The sequence is strictly data complete → config update → retrain → baseline → ablation.
 
 ### Architecture Approach
 
-The integration follows the existing medallion architecture pattern without structural changes. Bronze adds a new `odds` data type via the existing registry dispatch pattern in `bronze_ingestion_simple.py`. Silver adds a new `market_data` path under `data/silver/teams/` computed by a new `src/market_analytics.py` following the exact same structure as `team_analytics.py`. The critical architectural constraint: Silver market_data MUST be reshaped to per-team-per-week rows (two rows per game — home and away) to join cleanly in `_assemble_team_features()`. CLV tracking is purely additive to `src/prediction_backtester.py` and uses nflverse closing lines already in the assembled Gold DataFrame — no additional data join required.
+v2.2 requires zero new components. Every data flow follows existing patterns: season-partitioned Parquet at Bronze, Silver market transformation per season, left-join on [team, season, week] in feature engineering, holdout guard via config constant. The one minor addition is a `derive_odds_from_nflverse()` function in `bronze_odds_ingestion.py` for 2022+ seasons that uses closing lines as opening-line proxies — same Bronze schema as FinnedAI output, with a `line_source` column for provenance. Downstream code sees no schema differences; `spread_shift` and `total_shift` will be zero for 2022+ (no movement when open == close), but `opening_spread` and `opening_total` — the only market features in `_PRE_GAME_CONTEXT` — will be populated.
 
-**Major components:**
-1. `scripts/bronze_odds_ingestion.py` — Download SBRO XLSX, normalize schema, map team names to nflverse IDs, cross-validate closing lines, write `data/bronze/odds/season=YYYY/`
-2. `src/market_analytics.py` — Read Bronze odds + schedules, compute movement features, reshape to per-team-per-week with sign flips for directional features, write `data/silver/teams/market_data/season=YYYY/`
-3. `scripts/silver_market_transformation.py` — CLI wrapper for market_analytics.py following existing CLI pattern
-4. `src/feature_engineering.py` (modified) — Add market_data to Silver source loop; extend `_PRE_GAME_CONTEXT` with `opening_spread`, `opening_total`; document closing-line movement features as retrospective-only
-5. `src/prediction_backtester.py` (modified) — Add `evaluate_clv()` function; CLV uses nflverse spread_line/total_line already in Gold DataFrame
+**Major components and their v2.2 role:**
+1. `scripts/bronze_odds_ingestion.py` — minor modification: add nflverse fallback function for 2022+; no changes needed for FinnedAI batch
+2. `src/config.py` — the only required modification: 4 holdout constants + odds season range upper bound
+3. `scripts/silver_market_transformation.py` — no changes; run for all new seasons
+4. `src/ensemble_training.py` / `src/prediction_backtester.py` — no changes; consume updated config constants automatically
+5. `tests/` — update hardcoded `2024` holdout assertions to import `HOLDOUT_SEASON` from config
 
-**Unchanged:** ensemble training, XGBoost/LGB/CB models, feature selection pipeline, prediction generation, all existing Silver transforms, all existing Gold outputs.
+Scaling is trivial: Bronze odds grows from ~50 KB to ~500 KB; Silver market data from ~100 KB to ~1 MB; ensemble training time from ~5 to ~6 minutes.
 
 ### Critical Pitfalls
 
-1. **Closing line leakage as prediction feature** — spread_shift and all closing-line-derived features are only known at kickoff. For live predictions use only `opening_spread`/`opening_total`. Red flag: adding line movement features improves ATS accuracy >5% — check for leakage.
+1. **Closing-line leakage** — if retrospective features (`spread_shift`, `total_shift`, magnitude buckets) are added to `_PRE_GAME_CONTEXT`, ATS accuracy inflates past 58% artificially. Prevention: keep `_PRE_GAME_CONTEXT` read-only during 2022+ ingestion work; existing `LEAKAGE_THRESHOLD = 0.58` in `prediction_backtester.py` provides detection.
 
-2. **Team name mapping errors** — SBRO abbreviations differ from nflverse (e.g., "JAC" vs "JAX", "LAR" vs "LA", Washington name changes across seasons). Silent join failures mean missing market data. Prevention: explicit mapping dict; assert every nflverse game_id gets a matching odds row after join.
+2. **Holdout contamination** — changing `HOLDOUT_SEASON` before data and retraining are complete corrupts all evaluation runs. Prevention: treat holdout rotation as the final step in the milestone, atomic with retraining. Never evaluate the old model against the new holdout.
 
-3. **game_id construction mismatch** — Do not construct game_id independently from SBRO data. Join external odds to nflverse schedules by `(season, week, home_team, away_team)` or `(gameday, home_team)` to inherit the correct nflverse game_id. Assert zero orphan rows after merge.
+3. **Stale production model** — after config update, `models/ensemble/` still holds the v2.1 model trained on 2016-2023. Running `backtest_predictions.py --holdout` against the new holdout with the stale model produces misleading baseline numbers. Prevention: run `train_ensemble.py` immediately after config update, before any prediction or evaluation scripts.
 
-4. **Duplicate closing line sources** — nflverse spread_line/total_line is canonical truth. Do not store SBRO closing lines as a second truth source. Cross-validate SBRO close vs nflverse close as a data quality check only; assert >95% of games are within 1.0 point of each other.
+4. **NaN propagation with partial 2022+ market coverage** — LightGBM may raise on NaN in categoricals if the new 2022+ source does not cover all games. Prevention: coverage audit (NaN rate < 5% per market feature per season) before Silver write; verify `make_lgb_model` handles NaN explicitly.
 
-5. **Sign convention confusion** — SBRO may express spread from the favorite's perspective; nflverse uses home-team perspective. Empirically validate: for clearly home-favored games, check sign alignment. Compute Pearson r between SBRO open and nflverse close — expect >0.95 before proceeding.
+5. **Incomplete team mapping or season boundary mismatch for new 2022+ source** — any new source uses different team name conventions; playoff games (January dates) may record as season+1 in calendar-year sources. Prevention: dry-run before writing Parquet, zero unmapped team warnings, zero orphans, minimum 10 games with week >= 19 per ingested season.
+
+6. **Unsealing holdout without establishing new baseline first** — changing config then immediately running ablation produces results with no reference point. Prevention: document 2024 baseline metrics (53.0% ATS, +$3.09 profit) before touching config; record new 2025 baseline before running any ablation.
 
 ## Implications for Roadmap
 
-The natural phase structure follows Bronze → Silver → Gold data flow with an explicit ablation/evaluation gate at the end. Three phases with clear dependencies.
+The dependency graph implies a strict 3+1 phase sequence. Phases 1-2 can overlap in execution but Phase 3 cannot begin until both are complete, and Phase 4 (holdout reset) is strictly last.
 
-### Phase 1: Bronze Odds Ingestion
+### Phase 1: Full FinnedAI Batch Ingestion (2016-2021)
+**Rationale:** The FinnedAI JSON is already downloaded locally. The ingestion script is proven on 2020. Zero code changes needed. This is the lowest-risk, highest-value action: it fills market features for 5 seasons of the training window where they are currently NaN. All downstream Silver and ablation work depends on this Bronze foundation.
+**Delivers:** Bronze odds Parquet for 2016, 2017, 2018, 2019, 2021 (joining existing 2020)
+**Addresses:** P1 feature "Full 2016-2021 FinnedAI batch ingestion"
+**Avoids:** Running Silver transformation before Bronze exists (integration gotcha from PITFALLS.md)
 
-**Rationale:** Everything downstream depends on clean Bronze data. Team name mapping and game_id joining are the highest-risk steps in the entire milestone. Completing and validating Bronze before any Silver work prevents cascading data quality errors.
-**Delivers:** `data/bronze/odds/season=YYYY/` Parquet for 2016-2021 (opening + cross-validated closing lines per game), new `odds` entry in bronze_ingestion_simple.py registry, team name mapping dict, data quality assertions (row counts vs expected games per season, sign convention check, closing line cross-validation at 95%+ agreement).
-**Addresses:** Opening/closing line pairs (table stakes), data foundation for all downstream features.
-**Avoids:** Team name mapping errors (Pitfall 3), game_id mismatch (Pitfall 4), duplicate closing line sources (Pitfall 2), sign convention confusion (Pitfall 5), Excel parsing edge cases (Pitfall 10).
-**Research flag:** Standard pattern (follows existing registry-driven Bronze ingestion). Inspect actual SBRO XLSX file before writing the parser — do not assume column names from web descriptions. FinnedAI/sportsbookreview-scraper provides a secondary format reference.
+### Phase 2: Silver Market Expansion + 2022+ Odds Sourcing
+**Rationale:** Once FinnedAI Bronze is complete, Silver market data can be regenerated for all 6 seasons. This phase also adds the nflverse-derived odds function for 2022+ seasons (closing lines as opening-line proxies), extending market coverage through 2025. The schema-compatible fallback approach avoids any downstream code changes.
+**Delivers:** Silver market_data for 2016-2025; opening_spread/opening_total populated for full training + holdout window
+**Uses:** `silver_market_transformation.py` (no changes), minor addition to `bronze_odds_ingestion.py`
+**Avoids:** Pitfall 1 (closing-line leakage) — `_PRE_GAME_CONTEXT` stays read-only during this phase; Pitfall 5 (season boundary mismatch) — playoff coverage check at Bronze ingestion time
 
-### Phase 2: Silver Line Movement Features + Feature Integration
+### Phase 3: 2025 Bronze + Silver Data Pipeline
+**Rationale:** The holdout reset requires 2025 game results and feature vectors. This phase runs all 16 Bronze data types and all Silver transformation scripts for season 2025. It is largely independent of the odds work and can overlap Phase 2 in execution, but must complete before the config rotation in Phase 4. The 2025 NFL season completed January 2026, so data should be available via nfl-data-py — but availability must be verified before committing to 2025 as the new holdout.
+**Delivers:** Complete Bronze and Silver data for 2025; feature vector assembly possible; ground truth (final scores) confirmed
+**Avoids:** Pitfall 2 (holdout contamination) — cannot rotate holdout to 2025 without its feature vector existing first
 
-**Rationale:** Depends on validated Bronze odds data from Phase 1. Silver transform follows the established team_analytics.py pattern. Feature integration in feature_engineering.py requires careful temporal categorization — this is where leakage is introduced if not handled deliberately.
-**Delivers:** `src/market_analytics.py`, `scripts/silver_market_transformation.py`, `data/silver/teams/market_data/season=YYYY/` for 2016-2021, updated `feature_engineering.py` with `opening_spread`/`opening_total` in `_PRE_GAME_CONTEXT`, documented retrospective-only status for closing-line-derived features.
-**Uses:** pandas arithmetic (spread_shift, spread_move_abs, spread_move_dir, total_shift, crosses_key_spread), existing Silver transform pattern, per-team-per-week reshape with explicit symmetric/directional feature categorization.
-**Implements:** Market analytics module, Silver market_data path, feature assembly integration.
-**Avoids:** Closing line leakage (Pitfall 1), per-team reshape sign errors for symmetric vs directional features (Pitfall 7), opening line domination awareness built in from the start (Pitfall 8).
-**Research flag:** Standard pattern for Silver transform. The temporal feature categorization (which features are pre-game knowable vs retrospective) is the one design decision requiring explicit review — get this wrong and every ablation result is invalid.
+### Phase 4: Holdout Reset + Baseline Establishment
+**Rationale:** This is the final, atomic phase. Only when Phases 1-3 are complete does it become safe to rotate the holdout. The sequence is strictly: (1) document current 2024 baseline metrics, (2) update `config.py` constants, (3) run `train_ensemble.py` immediately, (4) run `backtest_predictions.py --holdout` to establish 2025 baseline, (5) update tests to import `HOLDOUT_SEASON` from config. No ablation until the baseline is documented.
+**Delivers:** P30 ensemble retrained on 2016-2024, sealed baseline on 2025 holdout, updated test suite
+**Avoids:** Pitfall 3 (stale production model) — config change and retraining are atomic; Pitfall 6 (no baseline before ablation)
 
-### Phase 3: CLV Tracking + Ablation Evaluation
-
-**Rationale:** Comes last because it consumes both Gold predictions (existing) and the closing lines from nflverse already in Bronze/Gold. CLV tracking does not require Phase 2 market data at all — it uses nflverse spread_line. The ablation testing requires Phase 2 features to exist. This is the value gate: the phase produces the ship-or-skip decision for market features.
-**Delivers:** `evaluate_clv()` in prediction_backtester.py, CLV metrics in backtest report (mean_clv, pct_beating_close, clv_by_season), ablation results for opening_spread and line movement features on 2024 sealed holdout, SHAP importance report, go/no-go recommendation for including market features in the production model.
-**Addresses:** CLV tracking (table stakes), movement magnitude ablation, opening spread as feature (ablation-gated, not shipped by default).
-**Avoids:** CLV without no-vig adjustment (Pitfall 9 — acceptable for v2.1, documented as known limitation), opening line domination (Pitfall 8 — detected via SHAP importance threshold check at 30%).
-**Research flag:** CLV computation is standard arithmetic, no research needed. The ablation outcome is empirically unknown — if opening_spread dominates SHAP importance, team must decide between a market-informed model vs a pure performance model. This is a product decision, not a technical one.
+### Phase 5: Market Feature Ablation + Validation (v2.2.x)
+**Rationale:** Only after the new baseline exists does the ablation become meaningful. With 6 seasons of FinnedAI market data in training (vs 1 in v2.1) and nflverse closing lines for 2025 holdout, this is the first structurally valid test of whether market features improve game prediction. Use the existing `scripts/ablation_market_features.py` with the existing ship-or-skip gate (strict > on holdout ATS accuracy).
+**Delivers:** Definitive answer on market feature value; decision on whether to pursue 2022+ opening lines via paid API in v3.0
 
 ### Phase Ordering Rationale
 
-- Bronze before Silver: market_analytics.py reads Bronze odds Parquet; no Bronze data means no Silver compute possible
-- Silver before ablation: feature_engineering.py must include market_data in the assembly loop before ablation can test market features
-- CLV independent of Phases 1-2: CLV uses nflverse closing lines from existing Bronze/Gold — could ship as a standalone improvement without any SBRO data; ordered last to bundle with the ablation evaluation decision
-- Coverage gap (2022-2024 has no free opening lines) is explicitly acceptable: CLV works on all 10 seasons; line movement features train on 2016-2021 (~1,600 games) which is sufficient for SHAP feature selection; if ablation shows material signal, BigDataBall at ~$30/season fills the 2022-2024 gap post-v2.1
+- Phases 1 and 3 are independent and can run in parallel; Phase 2 requires Phase 1 complete (Silver needs Bronze odds)
+- Phase 4 is strictly last — holdout rotation is irreversible within a milestone; doing it early corrupts all interim evaluations
+- Phase 5 is post-baseline by design — running ablation without a documented baseline was the structural flaw of v2.1
+- The config change in Phase 4 is a one-line propagation across the entire codebase via `HOLDOUT_SEASON`; every guard, training boundary, and evaluation target updates automatically
 
 ### Research Flags
 
-Phases likely needing deeper research during planning:
-- **Phase 1 (Bronze ingestion):** Inspect actual SBRO XLSX file format before finalizing the ingestion script. Web descriptions of column names may not match the actual file. Validate one season's data end-to-end (row counts, team names, sign convention) as a mandatory spike before writing production ingestion code.
-- **Phase 3 (Ablation outcome):** SHAP importance distribution for opening_spread is unknown in advance. If it dominates (>30%), the team must decide whether a market-informed model is the desired direction. No research resolves this — it is an empirical outcome and a product decision.
+Phases with standard patterns (skip additional research):
+- **Phase 1:** Proven pipeline (run on 2020), no code changes, FinnedAI JSON already downloaded locally
+- **Phase 2 (FinnedAI Silver):** Same transformation script tested on season 2020; seasonal loop is idiomatic
+- **Phase 4:** Config-driven holdout is documented and tested; retraining is standard `train_ensemble.py`
+- **Phase 5:** Ablation script already exists; ship-or-skip gate already implemented
 
-Phases with standard patterns (can skip research-phase):
-- **Phase 2 (Silver transform):** Follows exact pattern of team_analytics.py → silver_team_transformation.py. Well-documented internal pattern; the only non-standard element is the per-team reshape with sign flips, which is addressed in ARCHITECTURE.md.
-- **Phase 3 (CLV implementation):** CLV = model_spread - closing_spread. Trivial arithmetic. No research needed for implementation, only for the interpretation of results.
+Phases that need verification before execution:
+- **Phase 2 (nflverse 2022+ fallback):** Verify `import_schedules()` column names for 2022-2025 match expectations (`spread_line`, `total_line`, moneylines present, no breaking schema changes) — nfl-data-py 0.3.3 is archived and schema changes are possible
+- **Phase 3:** Verify 2025 data availability in nfl-data-py before committing to 2025 holdout; smoke test: `nfl.import_schedules([2025])` and check game count; if 2025 data is incomplete, fall back to `HOLDOUT_SEASON = 2024` with expanded FinnedAI training coverage as the v2.2 deliverable
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | nflverse closing lines verified by running live Python in project venv; openpyxl confirmed as only missing dependency via pip list |
-| Features | MEDIUM-HIGH | Feature definitions are unambiguous arithmetic; leakage temporal categorization is definitive; SBRO column names confirmed by multiple independent sources but actual file not yet opened |
-| Architecture | HIGH | Based on direct inspection of feature_engineering.py, config.py, and prediction_backtester.py; join pattern, leakage guard, and assembly loop are confirmed code paths |
-| Pitfalls | HIGH | Team name mapping, game_id matching, sign convention, and leakage pitfalls are well-known external data integration problems with established mitigations; validated against actual codebase structure |
+| Stack | HIGH | All libraries installed and validated; no new dependencies; confirmed by requirements.txt inspection |
+| Features | HIGH | Dependency graph based on direct codebase inspection; all affected files and line numbers identified in ARCHITECTURE.md |
+| Architecture | HIGH | Config-driven holdout and Parquet-native pipeline are well-understood; nflverse schema for 2022-2025 is the one unverified element |
+| Pitfalls | HIGH | All 6 pitfalls grounded in specific code locations with line numbers; recovery paths are straightforward and low-cost |
 
 **Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **SBRO XLSX actual column names:** Research confirms the data exists and describes the format, but the actual file has not been opened and parsed. The ingestion script must inspect a real file before any parser code is written. Mitigation: download one SBRO XLSX as the first task in Phase 1 and validate column names, row structure, and game counts before writing ingestion logic.
-- **2022-2024 opening line coverage:** No free structured source found. Line movement features will have NaN for 3 of 9 training seasons. Ablation on 2016-2021 (6 seasons, ~1,600 games) is sufficient for SHAP feature selection. If line movement features prove material, BigDataBall (~$30/season) fills the gap post-v2.1.
-- **Opening line dominance in model:** Whether `opening_spread` as a prediction feature provides genuine value vs re-encoding market consensus is empirically unknown. This is resolved by the Phase 3 ablation, not by research.
-- **SBRO site availability:** The SBRO archive stopped updating circa 2021 and could go offline. The FinnedAI/sportsbookreview-scraper repo provides pre-scraped 2011-2021 data as a backup; link should be verified at project start.
+- **2025 nfl-data-py coverage:** nfl-data-py 0.3.3 is archived (Sept 2025). The 2025 NFL season completed January 2026. Whether the archived version has full 2025 PBP and player stats needs verification before Phase 3 begins. Mitigation: run `nfl.import_schedules([2025])` as a smoke test; if row count is below ~285 games, fall back to 2024 holdout.
+- **nflverse schedules schema for 2022+:** `import_schedules()` may have added or renamed columns between 2021 and 2025. The `derive_odds_from_nflverse()` function uses explicit column selection; a KeyError would surface immediately. Low risk, but worth a schema spot-check before writing Bronze Parquet.
+- **2025 holdout fallback scope:** If 2025 data is incomplete, the reduced v2.2 scope is: FinnedAI batch ingestion only (Phases 1-2) with `HOLDOUT_SEASON` remaining at 2024 and `TRAINING_SEASONS` still 2016-2023. Market features would be populated for 6/8 training seasons (up from 1/8), making a re-run ablation more meaningful without requiring a holdout rotation. This is a valid deliverable.
 
 ## Sources
 
-### Primary (HIGH confidence)
-- Project venv `nfl.import_schedules([2023])` live execution — verified 8 betting columns, zero nulls, 285 games (2023 season)
-- Project venv `pip list` — verified openpyxl not installed; requests, pandas, pyarrow confirmed present
-- Direct inspection of `src/feature_engineering.py` (lines 168-415) — join pattern, `get_feature_columns()`, `_PRE_GAME_CONTEXT` definition, leakage guard
-- Direct inspection of `src/config.py` — SILVER_TEAM_LOCAL_DIRS, LABEL_COLUMNS structure
-- Direct inspection of `src/prediction_backtester.py` — existing evaluation functions and output format
-- [nflverse schedules data dictionary](https://nflreadr.nflverse.com/articles/dictionary_schedules.html) — all 46 column definitions including spread_line, total_line, moneylines
-- [openpyxl on PyPI](https://pypi.org/project/openpyxl/) — XLSX engine, Python 3.9 compatible, >=3.1.0
+### Primary (HIGH confidence — direct codebase inspection)
+- `scripts/bronze_odds_ingestion.py` — FinnedAI team mapping (44 entries), season range, `validate_cross_correlation`, `validate_row_counts`, `LEAKAGE_THRESHOLD`
+- `src/config.py` — `HOLDOUT_SEASON=2024`, `TRAINING_SEASONS`, `VALIDATION_SEASONS`, `PREDICTION_SEASONS`
+- `src/ensemble_training.py` — holdout guard at line 349, walk-forward CV structure, holdout raise at line 136
+- `src/prediction_backtester.py` — `LEAKAGE_THRESHOLD=0.58`, `evaluate_clv`, holdout season default
+- `src/feature_engineering.py` — `_PRE_GAME_CONTEXT` columns (only `opening_spread`/`opening_total` from market sources)
+- `src/market_analytics.py` — PRE_GAME vs RETROSPECTIVE feature classification docstring
+- `src/feature_selector.py` — holdout guard at line 65
+- `src/model_training.py` — holdout guard at line 90
 
-### Secondary (MEDIUM confidence)
-- [SBRO NFL Odds Archives](https://www.sportsbookreviewsonline.com/scoresoddsarchives/nfl/nfloddsarchives.htm) — XLSX format, Open/Close column descriptions; not yet verified against actual downloaded file
-- [FinnedAI/sportsbookreview-scraper](https://github.com/FinnedAI/sportsbookreview-scraper) — pre-scraped SBRO data 2011-2021; confirms data format structure and column names
-- [Pinnacle CLV methodology](https://www.pinnacle.com/betting-resources/en/educational/what-is-closing-line-value-clv-in-sports-betting) — CLV as evaluation gold standard
-- [Action Network: Reverse Line Movement](https://www.actionnetwork.com/education/reverse-line-movement) — line movement concepts and steam move thresholds
-- [Dimers: How to Read Line Movement](https://www.dimers.com/sports-betting-101/sports-betting-explained/how-to-read-line-movement-in-sports-betting) — NFL key numbers (3, 7, 10)
+### Secondary (HIGH confidence — official documentation)
+- [nflverse/nfl_data_py GitHub](https://github.com/nflverse/nfl_data_py) — `import_schedules()` returns `spread_line`, `total_line`, moneylines for all seasons
+- [nflreadr load_schedules docs](https://nflreadr.nflverse.com/reference/load_schedules.html) — 46 column definitions confirmed
+- [FinnedAI/sportsbookreview-scraper](https://github.com/FinnedAI/sportsbookreview-scraper) — covers 2016-2021; unmaintained since Dec 2023; CLI date range capped at 2021
 
-### Tertiary (LOW confidence)
-- [Kaggle NFL scores and betting data (Crabtree)](https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data) — alternative source; update status uncertain; opening line column presence unconfirmed; rejected as primary
-- [AusSportsBetting NFL data](https://www.aussportsbetting.com/data/historical-nfl-results-and-odds-data/) — alternative source; verified single-line-per-game format only (not opening/closing pair); rejected
+### Tertiary (MEDIUM confidence — alternatives for future reference)
+- [AusSportsBetting.com NFL Historical Data](https://www.aussportsbetting.com/data/historical-nfl-results-and-odds-data/) — free XLSX, 2006+; NOT recommended (closing-line only, personal-use license, complexity outweighs benefit vs nflverse)
+- [The Odds API Historical](https://the-odds-api.com/historical-odds-data/) — paid $99+/mo, mid-2020+ coverage; revisit only if ablation proves opening-line movement matters
+- [Kaggle NFL Scores and Betting Data](https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data) — potential free 2022+ bridge; coverage and recency unverified
 
 ---
-*Research completed: 2026-03-27*
+*Research completed: 2026-03-28*
 *Ready for roadmap: yes*
