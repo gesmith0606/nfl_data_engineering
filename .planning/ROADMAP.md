@@ -154,7 +154,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete    | 2026-03-27 |
 | 33. Silver Line Movement Features | v2.1 | 2/2 | Complete    | 2026-03-28 |
-| 34. CLV Tracking + Ablation | v2.1 | 2/2 | Complete   | 2026-03-28 |
+| 34. CLV Tracking + Ablation | v2.1 | 2/2 | Complete    | 2026-03-28 |
 
 ---
 *Roadmap created: 2026-03-08*

@@ -4,7 +4,7 @@ milestone: v2.1
 milestone_name: Market Data
 status: unknown
 stopped_at: Completed 34-02-PLAN.md
-last_updated: "2026-03-28T14:35:33.932Z"
+last_updated: "2026-03-28T14:39:29.611Z"
 progress:
   total_phases: 3
   completed_phases: 3
@@ -27,8 +27,8 @@ v2.1 Market Data -- historical odds, line movement features, CLV tracking
 
 ## Current Position
 
-Phase: 34 (clv-tracking-ablation) — EXECUTING
-Plan: 2 of 2
+Phase: 34
+Plan: Not started
 
 ## Key Artifacts
 
