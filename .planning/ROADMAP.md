@@ -140,11 +140,11 @@ Plans:
   2. CLV is reported broken out by confidence tier (high/medium/low) and by season, showing model quality trends over time
   3. Ablation on the sealed 2024 holdout compares v2.0 baseline vs v2.0+market features, with SHAP importance report for market features
   4. If market features do not improve holdout ATS accuracy, they are excluded from the production model; CLV tracking ships regardless
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 34-01: TBD
-- [ ] 34-02: TBD
+- [ ] 34-01-PLAN.md -- CLV functions in prediction_backtester.py + tests + backtest CLI integration
+- [ ] 34-02-PLAN.md -- Ablation script comparing P30 baseline vs market-augmented ensemble on sealed holdout
 
 ## Progress
 
@@ -154,8 +154,8 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete    | 2026-03-27 |
 | 33. Silver Line Movement Features | v2.1 | 2/2 | Complete    | 2026-03-28 |
-| 34. CLV Tracking + Ablation | v2.1 | 0/? | Not started | - |
+| 34. CLV Tracking + Ablation | v2.1 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-28 after Phase 33 planning*
+*Last updated: 2026-03-28 after Phase 34 planning*
