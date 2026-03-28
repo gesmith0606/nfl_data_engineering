@@ -79,6 +79,9 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ CLV tracking: evaluate_clv(), by-tier, by-season metrics in prediction backtester and CLI — Phase 34, v2.1
 - ✓ Market feature ablation script: P30 baseline vs market-augmented ensemble on sealed 2024 holdout with SHAP report and ship-or-skip verdict — Phase 34, v2.1
 - ✓ 571 total tests passing — v2.1
+- ✓ Full FinnedAI odds ingestion for all 6 seasons (2016-2021) with cross-validation r > 0.95, nflverse odds bridge for 2022-2025 with line_source provenance — Phase 35, v2.2
+- ✓ 2025 Bronze data complete (7/8 types; injuries capped at 2024 by nflverse) with 285 games confirmed — Phase 35, v2.2
+- ✓ 594 total tests passing — v2.2
 
 ### Active
 
@@ -216,4 +219,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after v2.2 milestone start*
+*Last updated: 2026-03-28 after Phase 35 completion*
