@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Market Data
 status: unknown
-stopped_at: Completed 33-02-PLAN.md
-last_updated: "2026-03-28T05:34:00.704Z"
+stopped_at: Completed 34-01-PLAN.md
+last_updated: "2026-03-28T14:29:15.124Z"
 progress:
   total_phases: 3
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-27)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 33 — silver-line-movement-features
+**Current focus:** Phase 34 — clv-tracking-ablation
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v2.1 Market Data -- historical odds, line movement features, CLV tracking
 
 ## Current Position
 
-Phase: 34
-Plan: Not started
+Phase: 34 (clv-tracking-ablation) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -70,6 +70,7 @@ v2.1 research findings:
 - [Phase 33]: Magnitude buckets encoded as ordinal float64 (0-3) for numeric dtype filter compatibility
 - [Phase 33]: Directional features (spread) negated for away; symmetric features (totals, magnitude) identical for both teams
 - [Phase 33]: Only opening_spread and opening_total added to _PRE_GAME_CONTEXT -- all closing/shift/magnitude features excluded as retrospective
+- [Phase 34]: CLV = predicted_margin - spread_line; reuse existing 3.0/1.5 confidence thresholds for tier bucketing
 
 ### Pending Todos
 
@@ -83,8 +84,8 @@ None -- fresh milestone.
 
 ## Session Continuity
 
-Last session: 2026-03-28T05:29:33.368Z
-Stopped at: Completed 33-02-PLAN.md
+Last session: 2026-03-28T14:29:15.122Z
+Stopped at: Completed 34-01-PLAN.md
 Resume file: None
 
 ---

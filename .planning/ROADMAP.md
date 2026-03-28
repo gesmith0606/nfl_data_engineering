@@ -143,7 +143,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 34-01-PLAN.md -- CLV functions in prediction_backtester.py + tests + backtest CLI integration
+- [x] 34-01-PLAN.md -- CLV functions in prediction_backtester.py + tests + backtest CLI integration
 - [ ] 34-02-PLAN.md -- Ablation script comparing P30 baseline vs market-augmented ensemble on sealed holdout
 
 ## Progress
@@ -154,7 +154,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 32. Bronze Odds Ingestion | v2.1 | 2/2 | Complete    | 2026-03-27 |
 | 33. Silver Line Movement Features | v2.1 | 2/2 | Complete    | 2026-03-28 |
-| 34. CLV Tracking + Ablation | v2.1 | 0/2 | Not started | - |
+| 34. CLV Tracking + Ablation | v2.1 | 1/2 | In Progress|  |
 
 ---
 *Roadmap created: 2026-03-08*

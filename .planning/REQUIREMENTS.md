@@ -22,9 +22,9 @@ Requirements for v2.1 Market Data milestone. Each maps to roadmap phases.
 
 ### CLV Tracking
 
-- [ ] **CLV-01**: Compute point-based CLV (model_spread - closing_spread) per game in backtest output
-- [ ] **CLV-02**: Report average CLV broken out by confidence tier (high/medium/low) in backtest summary
-- [ ] **CLV-03**: Track per-season CLV averages to measure model quality trends over time
+- [x] **CLV-01**: Compute point-based CLV (model_spread - closing_spread) per game in backtest output
+- [x] **CLV-02**: Report average CLV broken out by confidence tier (high/medium/low) in backtest summary
+- [x] **CLV-03**: Track per-season CLV averages to measure model quality trends over time
 
 ## Future Requirements
 
@@ -65,9 +65,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LINE-02 | Phase 33 | Complete |
 | LINE-03 | Phase 33 | Complete |
 | LINE-04 | Phase 34 | Pending |
-| CLV-01 | Phase 34 | Pending |
-| CLV-02 | Phase 34 | Pending |
-| CLV-03 | Phase 34 | Pending |
+| CLV-01 | Phase 34 | Complete |
+| CLV-02 | Phase 34 | Complete |
+| CLV-03 | Phase 34 | Complete |
 
 **Coverage:**
 - v2.1 requirements: 10 total
