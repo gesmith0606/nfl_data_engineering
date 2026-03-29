@@ -137,11 +137,11 @@ Full details: `.planning/milestones/v2.2-ROADMAP.md`
   3. Matchup features include opponent defense-vs-position rank and EPA allowed, lagged to week N-1, for all four positions
   4. Vegas implied team totals (derived from spread and total lines) appear as features in the player-week rows
   5. A leakage detection validator flags any feature with r > 0.90 correlation to the target variable
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 39-01: TBD
-- [ ] 39-02: TBD
+- [ ] 39-01-PLAN.md — Core player feature assembly module, config, and unit tests
+- [ ] 39-02-PLAN.md — CLI script and integration tests on real data
 
 ### Phase 40: Baseline Models and Ship Gate
 **Goal**: Per-position ML models produce stat-level predictions that are objectively measured against the heuristic baseline, with a clear ship-or-skip verdict
@@ -205,11 +205,11 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 28-31 | v2.0 | 8/8 | Complete | 2026-03-27 |
 | 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
 | 35-38 | v2.2 | 7/7 | Complete | 2026-03-29 |
-| 39 | v3.0 | 0/TBD | Not started | - |
+| 39 | v3.0 | 0/2 | Not started | - |
 | 40 | v3.0 | 0/TBD | Not started | - |
 | 41 | v3.0 | 0/TBD | Not started | - |
 | 42 | v3.0 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-29 after v3.0 roadmap created*
+*Last updated: 2026-03-29 after phase 39 planning*
