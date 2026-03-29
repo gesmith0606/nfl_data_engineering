@@ -134,7 +134,8 @@ def compute_qb_quality(
     # Get depth chart starters (QB, depth_team='1')
     # depth_charts use 'position' column (not 'pos_abb') and 'club_code' for team
     pos_col = "pos_abb" if "pos_abb" in depth_df.columns else "position"
-    if not depth_df.empty and pos_col in depth_df.columns:
+    has_depth_team = "depth_team" in depth_df.columns
+    if not depth_df.empty and pos_col in depth_df.columns and has_depth_team:
         dc_qb = depth_df[
             (depth_df[pos_col] == "QB") & (depth_df["depth_team"].astype(str) == "1")
         ].copy()
