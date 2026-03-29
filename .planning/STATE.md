@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.2
 milestone_name: Full Odds + Holdout Reset
 status: unknown
-stopped_at: Completed 36-02-PLAN.md
-last_updated: "2026-03-29T05:00:00.731Z"
+stopped_at: Completed 37-01-PLAN.md
+last_updated: "2026-03-29T15:20:59.411Z"
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 36 — silver-and-feature-vector-assembly
+**Current focus:** Phase 37 — holdout-reset-and-baseline
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v2.2 Full Odds + Holdout Reset — 4 phases (35-38), 7 plans
 
 ## Current Position
 
-Phase: 37
-Plan: Not started
+Phase: 37 (holdout-reset-and-baseline) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -56,6 +56,8 @@ Recent decisions affecting v2.2:
 - [Phase 35]: Changed sign convention check to warn below 5% flip rate (accommodates FinnedAI 2021 data)
 - [Phase 36]: 2025 depth charts use ESPN schema -- added column guard for graceful fallback
 - [Phase 36]: 272 REG games correct for 2025 (plan threshold of 285 included playoffs); FinnedAI 8-13% NaN on market features is expected
+- [Phase 37]: HOLDOUT_SEASON placed first in config block; all season ranges derived from it
+- [Phase 37]: VALIDATION_SEASONS expanded to 6 folds (2019-2024); test assertions use len(VALIDATION_SEASONS)
 
 ### Research Flags
 
@@ -69,8 +71,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T04:55:11.316Z
-Stopped at: Completed 36-02-PLAN.md
+Last session: 2026-03-29T15:20:59.408Z
+Stopped at: Completed 37-01-PLAN.md
 Resume file: None
 
 ---

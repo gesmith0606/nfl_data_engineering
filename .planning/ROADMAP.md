@@ -156,7 +156,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 37-01: Holdout config rotation and test updates
+- [x] 37-01: Holdout config rotation and test updates
 - [ ] 37-02: Ensemble retraining and baseline documentation
 
 ### Phase 38: Market Feature Ablation
@@ -185,7 +185,7 @@ Plans:
 | 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
 | 35. Bronze Data Completion | v2.2 | 2/2 | Complete    | 2026-03-28 |
 | 36. Silver + Feature Vector | v2.2 | 2/2 | Complete    | 2026-03-29 |
-| 37. Holdout Reset + Baseline | v2.2 | 0/2 | Not started | - |
+| 37. Holdout Reset + Baseline | v2.2 | 1/2 | In Progress|  |
 | 38. Market Ablation | v2.2 | 0/1 | Not started | - |
 
 ---
