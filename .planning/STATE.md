@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.2
 milestone_name: Full Odds + Holdout Reset
 status: unknown
-stopped_at: Completed 37-01-PLAN.md
-last_updated: "2026-03-29T15:20:59.411Z"
+stopped_at: Completed 37-02-PLAN.md
+last_updated: "2026-03-29T15:25:19.506Z"
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -58,6 +58,7 @@ Recent decisions affecting v2.2:
 - [Phase 36]: 272 REG games correct for 2025 (plan threshold of 285 included playoffs); FinnedAI 8-13% NaN on market features is expected
 - [Phase 37]: HOLDOUT_SEASON placed first in config block; all season ranges derived from it
 - [Phase 37]: VALIDATION_SEASONS expanded to 6 folds (2019-2024); test assertions use len(VALIDATION_SEASONS)
+- [Phase 37]: Used all 321 features (SELECTED_FEATURES=None) for baseline; feature selector not re-run for new holdout
 
 ### Research Flags
 
@@ -71,8 +72,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T15:20:59.408Z
-Stopped at: Completed 37-01-PLAN.md
+Last session: 2026-03-29T15:25:19.503Z
+Stopped at: Completed 37-02-PLAN.md
 Resume file: None
 
 ---

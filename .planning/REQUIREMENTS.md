@@ -23,7 +23,7 @@ Requirements for v2.2 Full Odds + Holdout Reset. Each maps to roadmap phases.
 
 - [x] **HOLD-01**: Holdout season rotated from 2024 to 2025 in config.py with all holdout guards updated
 - [x] **HOLD-02**: TRAINING/VALIDATION/PREDICTION_SEASONS computed automatically from HOLDOUT_SEASON
-- [ ] **HOLD-03**: Ensemble retrained on 2016-2024 with sealed 2025 baseline (ATS accuracy, profit, CLV documented)
+- [x] **HOLD-03**: Ensemble retrained on 2016-2024 with sealed 2025 baseline (ATS accuracy, profit, CLV documented)
 - [ ] **HOLD-04**: Market feature ablation re-run on 2025 holdout with 6 seasons of training market data and ship-or-skip verdict
 
 ## Future Requirements
@@ -70,7 +70,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SLVR-03 | Phase 36 | Complete |
 | HOLD-01 | Phase 37 | Complete |
 | HOLD-02 | Phase 37 | Complete |
-| HOLD-03 | Phase 37 | Pending |
+| HOLD-03 | Phase 37 | Complete |
 | HOLD-04 | Phase 38 | Pending |
 
 **Coverage:**

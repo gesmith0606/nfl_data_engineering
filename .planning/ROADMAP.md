@@ -109,7 +109,7 @@ Full details: `.planning/milestones/v2.1-ROADMAP.md`
 
 - [x] **Phase 35: Bronze Data Completion** - Ingest remaining FinnedAI seasons, nflverse 2022+ closing lines, and full 2025 Bronze (completed 2026-03-28)
 - [x] **Phase 36: Silver and Feature Vector Assembly** - Generate Silver market data for all odds seasons and all Silver transformations for 2025 (completed 2026-03-29)
-- [ ] **Phase 37: Holdout Reset and Baseline** - Rotate holdout to 2025, retrain ensemble on 2016-2024, establish sealed baseline
+- [x] **Phase 37: Holdout Reset and Baseline** - Rotate holdout to 2025, retrain ensemble on 2016-2024, establish sealed baseline (completed 2026-03-29)
 - [ ] **Phase 38: Market Feature Ablation** - Re-run ablation with full market coverage and deliver ship-or-skip verdict
 
 ## Phase Details
@@ -157,7 +157,7 @@ Plans:
 
 Plans:
 - [x] 37-01: Holdout config rotation and test updates
-- [ ] 37-02: Ensemble retraining and baseline documentation
+- [x] 37-02: Ensemble retraining and baseline documentation
 
 ### Phase 38: Market Feature Ablation
 **Goal**: A definitive, structurally valid answer on whether market features improve game prediction accuracy, based on 6 seasons of market training data and a fresh 2025 holdout
@@ -185,7 +185,7 @@ Plans:
 | 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
 | 35. Bronze Data Completion | v2.2 | 2/2 | Complete    | 2026-03-28 |
 | 36. Silver + Feature Vector | v2.2 | 2/2 | Complete    | 2026-03-29 |
-| 37. Holdout Reset + Baseline | v2.2 | 1/2 | In Progress|  |
+| 37. Holdout Reset + Baseline | v2.2 | 2/2 | Complete   | 2026-03-29 |
 | 38. Market Ablation | v2.2 | 0/1 | Not started | - |
 
 ---
