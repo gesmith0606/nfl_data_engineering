@@ -9,10 +9,10 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 
 ### Feature Assembly
 
-- [ ] **FEAT-01**: Player-level feature vector assembled from 9 Silver sources into per-player-per-week rows with proper temporal lags
-- [ ] **FEAT-02**: All player features use shift(1) to prevent same-game stat leakage
-- [ ] **FEAT-03**: Matchup features include opponent defense vs position rank and EPA allowed, lagged to week N-1
-- [ ] **FEAT-04**: Vegas implied team totals derived from spread/total lines included as features
+- [x] **FEAT-01**: Player-level feature vector assembled from 9 Silver sources into per-player-per-week rows with proper temporal lags
+- [x] **FEAT-02**: All player features use shift(1) to prevent same-game stat leakage
+- [x] **FEAT-03**: Matchup features include opponent defense vs position rank and EPA allowed, lagged to week N-1
+- [x] **FEAT-04**: Vegas implied team totals derived from spread/total lines included as features
 
 ### Model Training
 
@@ -71,10 +71,10 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FEAT-01 | Phase 39 | Pending |
-| FEAT-02 | Phase 39 | Pending |
-| FEAT-03 | Phase 39 | Pending |
-| FEAT-04 | Phase 39 | Pending |
+| FEAT-01 | Phase 39 | Complete |
+| FEAT-02 | Phase 39 | Complete |
+| FEAT-03 | Phase 39 | Complete |
+| FEAT-04 | Phase 39 | Complete |
 | MODL-01 | Phase 40 | Pending |
 | MODL-02 | Phase 40 | Pending |
 | MODL-03 | Phase 40 | Pending |
