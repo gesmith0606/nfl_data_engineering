@@ -89,7 +89,24 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-(None — v2.2 complete, next milestone not started)
+- [ ] ML-based player fantasy projections that beat the current heuristic baseline (MAE 4.91) per position
+- [ ] Position-specific prediction models (QB, RB, WR, TE)
+- [ ] Opportunity and efficiency decomposition for player predictions
+- [ ] Matchup-aware adjustments using existing Silver data
+- [ ] Game-level constraints (team total allocation)
+- [ ] Walk-forward evaluation framework for player projections
+
+## Current Milestone: v3.0 Player Fantasy Prediction System
+
+**Goal:** Replace heuristic player projections with ML-based models that produce the most accurate fantasy point predictions per position.
+
+**Target features:**
+- Position-specific ML models trained on historical player performance
+- Opportunity/efficiency decomposition (snap share, target share, rush attempts, efficiency metrics)
+- Matchup context integration from existing Silver layer
+- Game-level constraints (implied team totals, game script)
+- Evaluation framework with per-position MAE/RMSE/correlation benchmarks
+- Walk-forward CV respecting temporal ordering (same patterns as game prediction)
 
 ### Planned (Future Milestones)
 
@@ -191,7 +208,7 @@ Existing documentation:
 | SHAP-based feature selection (321→120 features) | Removes noise, preserves signal; diff_opening_spread confirmed as #1 | ✓ Good |
 | Market features SHIP verdict | 50.6% > 50.2% ATS on structurally valid ablation (6 seasons training data) | ✓ Good — definitive answer |
 
-## Completed Milestone: v2.2 Full Odds + Holdout Reset
+## Previous Milestone: v2.2 Full Odds + Holdout Reset
 
 **Shipped:** 2026-03-29 | **Phases:** 35-38 | **Plans:** 7 | **Delivered:** Full odds coverage (2016-2025), holdout rotated to 2025, market feature ablation SHIP verdict, 120-feature SHAP-selected ensemble
 
@@ -227,4 +244,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 after v2.2 milestone*
+*Last updated: 2026-03-29 after v3.0 milestone started*
