@@ -84,6 +84,7 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ 594 total tests passing — v2.2
 - ✓ Silver market data for all 10 seasons (2016-2025) with line movement features; player quality gap-filled (2020-2025) — Phase 36, v2.2
 - ✓ 2025 feature vector: 272 REG games, 1139 columns, 0% NaN on market features; training seasons 2016-2024 all assemble correctly — Phase 36, v2.2
+- ✓ Holdout rotated to 2025 with derived season ranges; ensemble retrained on 2016-2024; 2025 baseline: 51.7% ATS, -$3.73 profit — Phase 37, v2.2
 
 ### Active
 
@@ -221,4 +222,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 after Phase 36 completion*
+*Last updated: 2026-03-29 after Phase 37 completion*
