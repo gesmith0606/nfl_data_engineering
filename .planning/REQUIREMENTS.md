@@ -71,30 +71,30 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FEAT-01 | — | Pending |
-| FEAT-02 | — | Pending |
-| FEAT-03 | — | Pending |
-| FEAT-04 | — | Pending |
-| MODL-01 | — | Pending |
-| MODL-02 | — | Pending |
-| MODL-03 | — | Pending |
-| MODL-04 | — | Pending |
-| ACCY-01 | — | Pending |
-| ACCY-02 | — | Pending |
-| ACCY-03 | — | Pending |
-| ACCY-04 | — | Pending |
-| PIPE-01 | — | Pending |
-| PIPE-02 | — | Pending |
-| PIPE-03 | — | Pending |
-| PIPE-04 | — | Pending |
-| EXTD-01 | — | Pending |
-| EXTD-02 | — | Pending |
+| FEAT-01 | Phase 39 | Pending |
+| FEAT-02 | Phase 39 | Pending |
+| FEAT-03 | Phase 39 | Pending |
+| FEAT-04 | Phase 39 | Pending |
+| MODL-01 | Phase 40 | Pending |
+| MODL-02 | Phase 40 | Pending |
+| MODL-03 | Phase 40 | Pending |
+| MODL-04 | Phase 40 | Pending |
+| ACCY-01 | Phase 41 | Pending |
+| ACCY-02 | Phase 41 | Pending |
+| ACCY-03 | Phase 41 | Pending |
+| ACCY-04 | Phase 41 | Pending |
+| PIPE-01 | Phase 40 | Pending |
+| PIPE-02 | Phase 42 | Pending |
+| PIPE-03 | Phase 42 | Pending |
+| PIPE-04 | Phase 42 | Pending |
+| EXTD-01 | Phase 42 | Pending |
+| EXTD-02 | Phase 42 | Pending |
 
 **Coverage:**
 - v3.0 requirements: 18 total
-- Mapped to phases: 0
-- Unmapped: 18 ⚠️
+- Mapped to phases: 18
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-29*
-*Last updated: 2026-03-29 after initial definition*
+*Last updated: 2026-03-29 after roadmap phase mapping*
