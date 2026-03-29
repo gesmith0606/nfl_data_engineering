@@ -82,6 +82,8 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Full FinnedAI odds ingestion for all 6 seasons (2016-2021) with cross-validation r > 0.95, nflverse odds bridge for 2022-2025 with line_source provenance — Phase 35, v2.2
 - ✓ 2025 Bronze data complete (7/8 types; injuries capped at 2024 by nflverse) with 285 games confirmed — Phase 35, v2.2
 - ✓ 594 total tests passing — v2.2
+- ✓ Silver market data for all 10 seasons (2016-2025) with line movement features; player quality gap-filled (2020-2025) — Phase 36, v2.2
+- ✓ 2025 feature vector: 272 REG games, 1139 columns, 0% NaN on market features; training seasons 2016-2024 all assemble correctly — Phase 36, v2.2
 
 ### Active
 
@@ -219,4 +221,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 35 completion*
+*Last updated: 2026-03-29 after Phase 36 completion*
