@@ -167,7 +167,7 @@ Plans:
   1. Ablation script runs P30 baseline (no market features) vs market-augmented ensemble on the 2025 holdout, with both models trained on 2016-2024
   2. SHAP importance report shows relative contribution of opening_spread and opening_total in the market-augmented model
   3. Ship-or-skip verdict is rendered using the existing gate (strict > on holdout ATS accuracy) and documented with exact metrics
-**Plans**: 2 plans
+**Plans**: 1 plan
 
 Plans:
 - [ ] 38-01: Market ablation execution and verdict
@@ -190,4 +190,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-28 after v2.2 roadmap creation*
+*Last updated: 2026-03-29 after Phase 38 planning*
