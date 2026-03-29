@@ -1,5 +1,21 @@
 # Milestones
 
+## v2.2 Full Odds + Holdout Reset (Shipped: 2026-03-29)
+
+**Phases completed:** 4 phases, 7 plans, 12 tasks
+
+**Key accomplishments:**
+
+- FinnedAI batch (2016-2021) + nflverse bridge (2022-2025) producing 10 seasons of 15-column Bronze odds Parquet with line_source provenance
+- 11 smoke tests confirming all 7 available Bronze data types exist for 2025, with schedule row count (285+ games) validating holdout candidacy
+- Silver market data generated for all 10 seasons (2016-2025) and all Silver transformations completed for 2025 including player quality gap-fill for 2020-2025
+- Validated 310+ column prediction feature vectors for all 10 seasons (2016-2025) with 0% NaN on 2025 market features and 323 usable model features
+- Rotated holdout from 2024 to 2025 with all season ranges derived from HOLDOUT_SEASON; updated 4 test files to eliminate hardcoded holdout references
+- Retrained XGB+LGB+CB+Ridge ensemble on 2016-2024 with sealed 2025 holdout: 51.7% ATS, -$3.73 profit, +0.14 CLV
+- Definitive market feature ablation on 2025 holdout: SHIP verdict -- diff_opening_spread is #1 SHAP feature (23.6%), ATS improves 50.2% to 50.6%, 120-feature model replaces 321-feature baseline
+
+---
+
 ## v2.1 Market Data (Shipped: 2026-03-28)
 
 **Phases completed:** 3 phases, 6 plans, 11 tasks

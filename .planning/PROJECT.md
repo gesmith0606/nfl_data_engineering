@@ -89,15 +89,7 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-## Current Milestone: v2.2 Full Odds + Holdout Reset
-
-**Goal:** Complete odds ingestion across all available seasons, source 2022+ odds data, and reset the holdout evaluation framework for continued model improvement.
-
-**Target features:**
-- Full 2016-2021 odds ingestion (all seasons, not just 2020)
-- Source and ingest 2022+ odds data
-- Unseal 2024 holdout, seal 2025 as new holdout
-- Establish new ensemble baselines on updated holdout
+(None — v2.2 complete, next milestone not started)
 
 ### Planned (Future Milestones)
 
@@ -122,14 +114,14 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ## Context
 
-Shipped v2.1 with 30,896 LOC Python across 34 phases and 64 plans (seven milestones).
+Shipped v2.2 with ~33,000 LOC Python across 38 phases and 71 plans (eight milestones).
 Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, lightgbm, catboost, scikit-learn, optuna, shap, nfl-data-py, local Parquet storage (S3 optional).
-Bronze layer: 16 data types covering schedules, player stats, PBP (140 cols), NGS, PFR, QBR, depth charts, combine, draft picks, teams, injuries, rosters, snap counts, officials, odds — 517+ files.
-Silver layer: team metrics (EPA, tendencies, SOS, situational, PBP-derived 11 metrics, game context, referee tendencies, playoff context, EWM windows, market/line movement data), player metrics (usage, rolling avgs, opp rankings, advanced profiles, player quality), historical dimension table — 12 output paths.
-Gold layer: weekly + preseason fantasy projections with injury adjustments, regression shrinkage, floor/ceiling; ML game predictions with ensemble spread/total models, edge detection, confidence tiers.
-Prediction feature vector: 310+ columns assembled from 10 Silver sources via left joins on [team, season, week], reduced to ~100 via SHAP-based feature selection. Opening spread/total are pre-game features; closing-line-derived features excluded as retrospective.
-ML models: v2.0 stacking ensemble (XGB+LGB+CB base learners + Ridge meta-learner) for spread + over/under; walk-forward CV with OOF predictions, Optuna tuning, sealed 2024 holdout (53.0% ATS, +$3.09 profit, +1.2% ROI). CLV tracking measures model quality against closing lines.
-Tests: 571 passing across 17 test files.
+Bronze layer: 16 data types + odds (FinnedAI 2016-2021, nflverse bridge 2022-2025) covering 10 seasons of complete data.
+Silver layer: 13 team output paths (including market/line movement data for all 10 seasons), 3 player output paths, historical dimension table.
+Gold layer: weekly + preseason fantasy projections; ML game predictions with 120-feature SHAP-selected ensemble (market features included).
+Prediction feature vector: 1139 raw columns → 120 SHAP-selected features. `diff_opening_spread` is #1 feature (23.6% SHAP importance).
+ML models: v2.2 stacking ensemble (XGB+LGB+CB + Ridge meta-learner) with market features; walk-forward CV, sealed 2025 holdout (51.7% ATS, 50.6% with market features). CLV tracking measures model quality against closing lines.
+Tests: 594 passing across 19 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -192,10 +184,22 @@ Existing documentation:
 | Ordinal float64 for magnitude buckets | Survives numeric dtype filter in feature_engineering.py | ✓ Good |
 | Opening lines only in _PRE_GAME_CONTEXT | Closing-line-derived features are retrospective (leakage) | ✓ Good |
 | CLV uses nflverse spread_line (not FinnedAI) | nflverse has full season coverage; FinnedAI only 2016-2021 | ✓ Good |
+| nflverse closing lines as opening proxies for 2022+ | Free, 100% coverage, gradient boosting handles approximate values | ✓ Good — 0% NaN on market features |
+| line_source provenance column | Distinguishes FinnedAI from nflverse data for downstream filtering | ✓ Good |
+| Derived season ranges from HOLDOUT_SEASON | Future holdout rotations are a one-line change | ✓ Good |
+| No hyperparameter re-tuning during holdout rotation | Fair baseline comparison; avoids confounding tuning with holdout change | ✓ Good |
+| SHAP-based feature selection (321→120 features) | Removes noise, preserves signal; diff_opening_spread confirmed as #1 | ✓ Good |
+| Market features SHIP verdict | 50.6% > 50.2% ATS on structurally valid ablation (6 seasons training data) | ✓ Good — definitive answer |
 
-## Completed Milestone: v2.1 Market Data
+## Completed Milestone: v2.2 Full Odds + Holdout Reset
 
-**Shipped:** 2026-03-28 | **Phases:** 32-34 | **Plans:** 6 | **Delivered:** Bronze odds ingestion (FinnedAI 2016-2021), Silver line movement features, CLV tracking in backtester, market feature ablation framework
+**Shipped:** 2026-03-29 | **Phases:** 35-38 | **Plans:** 7 | **Delivered:** Full odds coverage (2016-2025), holdout rotated to 2025, market feature ablation SHIP verdict, 120-feature SHAP-selected ensemble
+
+See `.planning/milestones/v2.2-ROADMAP.md` for full archive.
+
+## Previous Milestone: v2.1 Market Data
+
+**Shipped:** 2026-03-28 | **Phases:** 32-34 | **Plans:** 6
 
 See `.planning/milestones/v2.1-ROADMAP.md` for full archive.
 
@@ -223,4 +227,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 after Phase 38 completion (v2.2 milestone complete)*
+*Last updated: 2026-03-29 after v2.2 milestone*
