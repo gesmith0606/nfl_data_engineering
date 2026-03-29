@@ -15,8 +15,8 @@ Requirements for v2.2 Full Odds + Holdout Reset. Each maps to roadmap phases.
 
 ### Silver + Feature Vector
 
-- [ ] **SLVR-01**: Silver market data generated for all FinnedAI seasons (2016-2021) with line movement features
-- [ ] **SLVR-02**: All Silver transformations run for 2025 (player usage, team metrics, game context, advanced profiles, player quality)
+- [x] **SLVR-01**: Silver market data generated for all FinnedAI seasons (2016-2021) with line movement features
+- [x] **SLVR-02**: All Silver transformations run for 2025 (player usage, team metrics, game context, advanced profiles, player quality)
 - [ ] **SLVR-03**: Full prediction feature vector assembled for 2025 games with market features populated where available
 
 ### Holdout + Model
@@ -65,8 +65,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BRNZ-01 | Phase 35 | Complete |
 | BRNZ-02 | Phase 35 | Complete |
 | BRNZ-03 | Phase 35 | Complete |
-| SLVR-01 | Phase 36 | Pending |
-| SLVR-02 | Phase 36 | Pending |
+| SLVR-01 | Phase 36 | Complete |
+| SLVR-02 | Phase 36 | Complete |
 | SLVR-03 | Phase 36 | Pending |
 | HOLD-01 | Phase 37 | Pending |
 | HOLD-02 | Phase 37 | Pending |

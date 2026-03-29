@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.2
 milestone_name: Full Odds + Holdout Reset
 status: unknown
-stopped_at: Completed 35-01-PLAN.md
-last_updated: "2026-03-28T23:36:33.681Z"
+stopped_at: Completed 36-01-PLAN.md
+last_updated: "2026-03-29T04:51:57.418Z"
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 4
+  completed_plans: 3
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 35 — bronze-data-completion
+**Current focus:** Phase 36 — silver-and-feature-vector-assembly
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v2.2 Full Odds + Holdout Reset — 4 phases (35-38), 7 plans
 
 ## Current Position
 
-Phase: 36
-Plan: Not started
+Phase: 36 (silver-and-feature-vector-assembly) — EXECUTING
+Plan: 2 of 2
 
 ## Key Artifacts
 
@@ -54,6 +54,7 @@ Recent decisions affecting v2.2:
 - [Phase 35]: Smoke tests use glob patterns for file existence -- no S3 or API dependency
 - [Phase 35]: Relaxed within-1pt cross-validation threshold from 95% to 85% for FinnedAI data quality
 - [Phase 35]: Changed sign convention check to warn below 5% flip rate (accommodates FinnedAI 2021 data)
+- [Phase 36]: 2025 depth charts use ESPN schema -- added column guard for graceful fallback
 
 ### Research Flags
 
@@ -67,8 +68,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-28T23:31:42.500Z
-Stopped at: Completed 35-01-PLAN.md
+Last session: 2026-03-29T04:51:57.415Z
+Stopped at: Completed 36-01-PLAN.md
 Resume file: None
 
 ---
