@@ -10,6 +10,8 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
+from src.config import HOLDOUT_SEASON, TRAINING_SEASONS
+
 from prediction_backtester import (
     evaluate_ats,
     evaluate_ou,
@@ -259,24 +261,24 @@ class TestHoldoutValidation:
 
     def test_leakage_guard_raises(self):
         """evaluate_holdout raises ValueError if holdout_season in training_seasons."""
-        df = self._make_results_df([2023, 2024])
-        metadata = {"training_seasons": [2020, 2021, 2022, 2023, 2024]}
+        df = self._make_results_df([HOLDOUT_SEASON - 1, HOLDOUT_SEASON])
+        metadata = {"training_seasons": TRAINING_SEASONS + [HOLDOUT_SEASON]}
         with pytest.raises(ValueError, match="data leakage"):
-            evaluate_holdout(df, metadata, holdout_season=2024)
+            evaluate_holdout(df, metadata, holdout_season=HOLDOUT_SEASON)
 
     def test_filters_to_holdout_season(self):
         """evaluate_holdout only evaluates the holdout season rows."""
-        df = self._make_results_df([2023, 2024], n_per_season=10)
-        metadata = {"training_seasons": [2020, 2021, 2022, 2023]}
-        result = evaluate_holdout(df, metadata, holdout_season=2024)
+        df = self._make_results_df([HOLDOUT_SEASON - 1, HOLDOUT_SEASON], n_per_season=10)
+        metadata = {"training_seasons": TRAINING_SEASONS}
+        result = evaluate_holdout(df, metadata, holdout_season=HOLDOUT_SEASON)
         assert result["n_games"] == 10
-        assert result["season"] == 2024
+        assert result["season"] == HOLDOUT_SEASON
 
     def test_returns_required_keys(self):
         """evaluate_holdout returns dict with ats_accuracy, profit_stats, n_games, season."""
-        df = self._make_results_df([2023, 2024], n_per_season=8)
-        metadata = {"training_seasons": [2020, 2021, 2022, 2023]}
-        result = evaluate_holdout(df, metadata, holdout_season=2024)
+        df = self._make_results_df([HOLDOUT_SEASON - 1, HOLDOUT_SEASON], n_per_season=8)
+        metadata = {"training_seasons": TRAINING_SEASONS}
+        result = evaluate_holdout(df, metadata, holdout_season=HOLDOUT_SEASON)
         assert "ats_accuracy" in result
         assert "profit_stats" in result
         assert "n_games" in result
@@ -285,17 +287,17 @@ class TestHoldoutValidation:
 
     def test_accuracy_calculation(self):
         """evaluate_holdout computes correct accuracy from non-push games."""
-        df = self._make_results_df([2024], n_per_season=10)
-        metadata = {"training_seasons": [2020, 2021, 2022, 2023]}
-        result = evaluate_holdout(df, metadata, holdout_season=2024)
+        df = self._make_results_df([HOLDOUT_SEASON], n_per_season=10)
+        metadata = {"training_seasons": TRAINING_SEASONS}
+        result = evaluate_holdout(df, metadata, holdout_season=HOLDOUT_SEASON)
         # 50% correct (every other game)
         assert abs(result["ats_accuracy"] - 0.5) < 0.01
 
     def test_empty_holdout_season(self):
         """evaluate_holdout handles missing holdout season data gracefully."""
-        df = self._make_results_df([2023], n_per_season=5)
-        metadata = {"training_seasons": [2020, 2021, 2022, 2023]}
-        result = evaluate_holdout(df, metadata, holdout_season=2024)
+        df = self._make_results_df([HOLDOUT_SEASON - 1], n_per_season=5)
+        metadata = {"training_seasons": TRAINING_SEASONS}
+        result = evaluate_holdout(df, metadata, holdout_season=HOLDOUT_SEASON)
         assert result["n_games"] == 0
         assert result["ats_accuracy"] == 0.0
 
@@ -433,10 +435,10 @@ class TestHoldoutComparison:
 
     def test_returns_dict_with_three_configs(self):
         """print_holdout_comparison returns dict keyed by three config names."""
-        xgb = self._make_config_results(2024, 10, 50)
-        ens = self._make_config_results(2024, 10, 55)
-        full = self._make_config_results(2024, 10, 60)
-        result = print_holdout_comparison(xgb, ens, full, holdout_season=2024)
+        xgb = self._make_config_results(HOLDOUT_SEASON, 10, 50)
+        ens = self._make_config_results(HOLDOUT_SEASON, 10, 55)
+        full = self._make_config_results(HOLDOUT_SEASON, 10, 60)
+        result = print_holdout_comparison(xgb, ens, full, holdout_season=HOLDOUT_SEASON)
         assert isinstance(result, dict)
         assert "v1.4 XGB" in result
         assert "P30 Ensemble" in result
@@ -444,10 +446,10 @@ class TestHoldoutComparison:
 
     def test_output_contains_config_labels(self, capsys):
         """Printed output contains all three config labels."""
-        xgb = self._make_config_results(2024, 10, 50)
-        ens = self._make_config_results(2024, 10, 55)
-        full = self._make_config_results(2024, 10, 60)
-        print_holdout_comparison(xgb, ens, full, holdout_season=2024)
+        xgb = self._make_config_results(HOLDOUT_SEASON, 10, 50)
+        ens = self._make_config_results(HOLDOUT_SEASON, 10, 55)
+        full = self._make_config_results(HOLDOUT_SEASON, 10, 60)
+        print_holdout_comparison(xgb, ens, full, holdout_season=HOLDOUT_SEASON)
         captured = capsys.readouterr()
         assert "v1.4 XGB" in captured.out
         assert "P30 Ensemble" in captured.out
@@ -455,10 +457,10 @@ class TestHoldoutComparison:
 
     def test_output_contains_metric_rows(self, capsys):
         """Printed output includes ATS Accuracy, MAE, Profit, ROI rows."""
-        xgb = self._make_config_results(2024, 10, 50)
-        ens = self._make_config_results(2024, 10, 55)
-        full = self._make_config_results(2024, 10, 60)
-        print_holdout_comparison(xgb, ens, full, holdout_season=2024)
+        xgb = self._make_config_results(HOLDOUT_SEASON, 10, 50)
+        ens = self._make_config_results(HOLDOUT_SEASON, 10, 55)
+        full = self._make_config_results(HOLDOUT_SEASON, 10, 60)
+        print_holdout_comparison(xgb, ens, full, holdout_season=HOLDOUT_SEASON)
         captured = capsys.readouterr()
         assert "ATS Accuracy" in captured.out
         assert "Profit" in captured.out
@@ -466,42 +468,42 @@ class TestHoldoutComparison:
 
     def test_best_indicator_present(self, capsys):
         """Output includes a Best indicator showing which config wins."""
-        xgb = self._make_config_results(2024, 10, 50)
-        ens = self._make_config_results(2024, 10, 55)
-        full = self._make_config_results(2024, 10, 60)
-        print_holdout_comparison(xgb, ens, full, holdout_season=2024)
+        xgb = self._make_config_results(HOLDOUT_SEASON, 10, 50)
+        ens = self._make_config_results(HOLDOUT_SEASON, 10, 55)
+        full = self._make_config_results(HOLDOUT_SEASON, 10, 60)
+        print_holdout_comparison(xgb, ens, full, holdout_season=HOLDOUT_SEASON)
         captured = capsys.readouterr()
         assert "Best" in captured.out or "BEST" in captured.out or "best" in captured.out
 
     def test_filters_to_holdout_season(self):
         """Only holdout_season rows are used for comparison metrics."""
-        # Mix 2023 and 2024 data -- only 2024 should count
-        xgb_2023 = self._make_config_results(2023, 10, 80)
-        xgb_2024 = self._make_config_results(2024, 10, 50)
-        xgb = pd.concat([xgb_2023, xgb_2024], ignore_index=True)
-        ens = self._make_config_results(2024, 10, 55)
-        full = self._make_config_results(2024, 10, 60)
-        result = print_holdout_comparison(xgb, ens, full, holdout_season=2024)
-        # v1.4 XGB should show ~50% accuracy (from 2024), not 80% (from 2023)
+        # Mix non-holdout and holdout data -- only holdout should count
+        xgb_prev = self._make_config_results(HOLDOUT_SEASON - 1, 10, 80)
+        xgb_holdout = self._make_config_results(HOLDOUT_SEASON, 10, 50)
+        xgb = pd.concat([xgb_prev, xgb_holdout], ignore_index=True)
+        ens = self._make_config_results(HOLDOUT_SEASON, 10, 55)
+        full = self._make_config_results(HOLDOUT_SEASON, 10, 60)
+        result = print_holdout_comparison(xgb, ens, full, holdout_season=HOLDOUT_SEASON)
+        # v1.4 XGB should show ~50% accuracy (from holdout), not 80% (from prior season)
         xgb_ats = result["v1.4 XGB"]["ats_accuracy"]
         assert xgb_ats < 0.6  # should be around 0.5, not 0.8
 
     def test_handles_missing_predictions(self):
         """Gracefully handles one config with fewer games."""
-        xgb = self._make_config_results(2024, 10, 50)
-        ens = self._make_config_results(2024, 5, 60)  # fewer games
-        full = self._make_config_results(2024, 10, 55)
-        result = print_holdout_comparison(xgb, ens, full, holdout_season=2024)
+        xgb = self._make_config_results(HOLDOUT_SEASON, 10, 50)
+        ens = self._make_config_results(HOLDOUT_SEASON, 5, 60)  # fewer games
+        full = self._make_config_results(HOLDOUT_SEASON, 10, 55)
+        result = print_holdout_comparison(xgb, ens, full, holdout_season=HOLDOUT_SEASON)
         assert result["v1.4 XGB"]["n_games"] == 10
         assert result["P30 Ensemble"]["n_games"] == 5
         assert result["P31 Full"]["n_games"] == 10
 
     def test_metrics_values_reasonable(self):
         """Returned metric values are within expected ranges."""
-        xgb = self._make_config_results(2024, 20, 55)
-        ens = self._make_config_results(2024, 20, 60)
-        full = self._make_config_results(2024, 20, 65)
-        result = print_holdout_comparison(xgb, ens, full, holdout_season=2024)
+        xgb = self._make_config_results(HOLDOUT_SEASON, 20, 55)
+        ens = self._make_config_results(HOLDOUT_SEASON, 20, 60)
+        full = self._make_config_results(HOLDOUT_SEASON, 20, 65)
+        result = print_holdout_comparison(xgb, ens, full, holdout_season=HOLDOUT_SEASON)
         for config_name, metrics in result.items():
             assert 0.0 <= metrics["ats_accuracy"] <= 1.0
             assert isinstance(metrics["profit"], float)
@@ -511,12 +513,12 @@ class TestHoldoutComparison:
 
     def test_header_contains_season(self, capsys):
         """Output header includes the holdout season year."""
-        xgb = self._make_config_results(2024, 10, 50)
-        ens = self._make_config_results(2024, 10, 55)
-        full = self._make_config_results(2024, 10, 60)
-        print_holdout_comparison(xgb, ens, full, holdout_season=2024)
+        xgb = self._make_config_results(HOLDOUT_SEASON, 10, 50)
+        ens = self._make_config_results(HOLDOUT_SEASON, 10, 55)
+        full = self._make_config_results(HOLDOUT_SEASON, 10, 60)
+        print_holdout_comparison(xgb, ens, full, holdout_season=HOLDOUT_SEASON)
         captured = capsys.readouterr()
-        assert "2024" in captured.out
+        assert str(HOLDOUT_SEASON) in captured.out
 
 
 class TestCLVEvaluation:

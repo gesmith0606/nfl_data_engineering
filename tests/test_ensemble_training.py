@@ -24,6 +24,7 @@ from src.config import (
     CB_CONSERVATIVE_PARAMS,
     HOLDOUT_SEASON,
     LGB_CONSERVATIVE_PARAMS,
+    TRAINING_SEASONS,
     VALIDATION_SEASONS,
 )
 
@@ -34,7 +35,7 @@ def _make_synthetic_ensemble_data(seasons=None, n_games_per_week=8):
     Smaller than model_training fixture for speed -- fewer games per week.
     """
     if seasons is None:
-        seasons = list(range(2018, 2024))
+        seasons = [s for s in TRAINING_SEASONS if s >= 2018]
 
     rows = []
     np.random.seed(42)
@@ -76,7 +77,7 @@ def _make_synthetic_ensemble_data(seasons=None, n_games_per_week=8):
 @pytest.fixture(scope="module")
 def synthetic_data():
     """Synthetic game data spanning 2018-2023 for ensemble tests."""
-    return _make_synthetic_ensemble_data(list(range(2018, 2024)))
+    return _make_synthetic_ensemble_data([s for s in TRAINING_SEASONS if s >= 2018])
 
 
 @pytest.fixture(scope="module")

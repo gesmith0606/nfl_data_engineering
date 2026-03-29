@@ -2,7 +2,7 @@
 
 Tests cover:
 - Walk-forward CV with 5 season-boundary folds
-- 2024 holdout never touched during CV
+- Holdout season never touched during CV
 - Spread and total model training with JSON serialization
 - Model loading and prediction
 - Conservative default hyperparameters
@@ -18,6 +18,7 @@ import pytest
 from src.config import (
     CONSERVATIVE_PARAMS,
     HOLDOUT_SEASON,
+    TRAINING_SEASONS,
     VALIDATION_SEASONS,
 )
 
@@ -29,7 +30,7 @@ def _make_synthetic_game_data(seasons=None):
     and season/week identifiers matching assemble_game_features() output.
     """
     if seasons is None:
-        seasons = list(range(2016, 2024))  # Training seasons
+        seasons = TRAINING_SEASONS
 
     rows = []
     np.random.seed(42)
@@ -73,7 +74,7 @@ def _make_synthetic_game_data(seasons=None):
 @pytest.fixture(scope="module")
 def synthetic_data():
     """Synthetic game data spanning 2016-2023 for testing."""
-    return _make_synthetic_game_data(list(range(2016, 2024)))
+    return _make_synthetic_game_data(TRAINING_SEASONS)
 
 
 @pytest.fixture(scope="module")
@@ -89,14 +90,14 @@ def feature_cols(synthetic_data):
 class TestWalkForwardCV:
     """Tests for walk_forward_cv function."""
 
-    def test_returns_walk_forward_result_with_5_folds(self, synthetic_data, feature_cols):
-        """walk_forward_cv with target='actual_margin' returns WalkForwardResult with 5 fold scores."""
+    def test_returns_walk_forward_result_with_correct_folds(self, synthetic_data, feature_cols):
+        """walk_forward_cv with target='actual_margin' returns WalkForwardResult with len(VALIDATION_SEASONS) fold scores."""
         from src.model_training import walk_forward_cv, WalkForwardResult
 
         result = walk_forward_cv(synthetic_data, feature_cols, "actual_margin")
         assert isinstance(result, WalkForwardResult)
-        assert len(result.fold_maes) == 5
-        assert len(result.fold_details) == 5
+        assert len(result.fold_maes) == len(VALIDATION_SEASONS)
+        assert len(result.fold_details) == len(VALIDATION_SEASONS)
 
     def test_fold_1_trains_before_2019_validates_on_2019(self, synthetic_data, feature_cols):
         """walk_forward_cv fold 1 trains on seasons < 2019 and validates on season == 2019."""
@@ -109,22 +110,22 @@ class TestWalkForwardCV:
         for s in fold_1["train_seasons"]:
             assert s < 2019
 
-    def test_fold_5_trains_before_2023_validates_on_2023(self, synthetic_data, feature_cols):
-        """walk_forward_cv fold 5 trains on seasons < 2023 and validates on season == 2023."""
+    def test_last_fold_validates_on_last_validation_season(self, synthetic_data, feature_cols):
+        """walk_forward_cv last fold validates on the last VALIDATION_SEASON."""
         from src.model_training import walk_forward_cv
 
         result = walk_forward_cv(synthetic_data, feature_cols, "actual_margin")
-        fold_5 = result.fold_details[4]
-        assert fold_5["val_season"] == 2023
-        for s in fold_5["train_seasons"]:
-            assert s < 2023
+        last_fold = result.fold_details[-1]
+        assert last_fold["val_season"] == VALIDATION_SEASONS[-1]
+        for s in last_fold["train_seasons"]:
+            assert s < VALIDATION_SEASONS[-1]
 
-    def test_never_includes_2024_holdout(self, synthetic_data, feature_cols):
-        """walk_forward_cv never includes season 2024 in any fold."""
+    def test_never_includes_holdout_season(self, synthetic_data, feature_cols):
+        """walk_forward_cv never includes holdout season in any fold."""
         from src.model_training import walk_forward_cv
 
-        # Add 2024 data to test that it's excluded
-        data_with_holdout = _make_synthetic_game_data(list(range(2016, 2025)))
+        # Add holdout data to test that it's excluded
+        data_with_holdout = _make_synthetic_game_data(list(range(2016, HOLDOUT_SEASON + 1)))
         result = walk_forward_cv(data_with_holdout, feature_cols, "actual_margin")
         for fold in result.fold_details:
             assert HOLDOUT_SEASON not in fold["train_seasons"]

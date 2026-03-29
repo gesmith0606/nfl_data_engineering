@@ -242,7 +242,7 @@ class TestHoldoutExclusion:
     """Test holdout guard — FSEL-04."""
 
     def test_raises_on_holdout_season(self):
-        """select_features_for_fold raises ValueError when input contains HOLDOUT_SEASON (2024)."""
+        """select_features_for_fold raises ValueError when input contains HOLDOUT_SEASON."""
         df = _make_synthetic_features(
             n_features=10, n_rows=200, seasons=[2022, 2023, HOLDOUT_SEASON]
         )
