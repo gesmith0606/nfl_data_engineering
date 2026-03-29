@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.2
 milestone_name: Full Odds + Holdout Reset
 status: unknown
-stopped_at: Completed 37-02-PLAN.md
-last_updated: "2026-03-29T15:30:08.598Z"
+stopped_at: Completed 38-01-PLAN.md
+last_updated: "2026-03-29T16:15:19.475Z"
 progress:
   total_phases: 4
-  completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
+  completed_phases: 4
+  total_plans: 7
+  completed_plans: 7
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 37 — holdout-reset-and-baseline
+**Current focus:** Phase 38 — market-feature-ablation
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v2.2 Full Odds + Holdout Reset — 4 phases (35-38), 7 plans
 
 ## Current Position
 
-Phase: 38
-Plan: Not started
+Phase: 38 (market-feature-ablation) — EXECUTING
+Plan: 1 of 1
 
 ## Key Artifacts
 
@@ -59,6 +59,8 @@ Recent decisions affecting v2.2:
 - [Phase 37]: HOLDOUT_SEASON placed first in config block; all season ranges derived from it
 - [Phase 37]: VALIDATION_SEASONS expanded to 6 folds (2019-2024); test assertions use len(VALIDATION_SEASONS)
 - [Phase 37]: Used all 321 features (SELECTED_FEATURES=None) for baseline; feature selector not re-run for new holdout
+- [Phase 38]: SHIP market features: diff_opening_spread is #1 SHAP feature (23.6%), ATS improves 50.2% to 50.6%
+- [Phase 38]: 120 SHAP-selected features replace 321 unfiltered features in production ensemble
 
 ### Research Flags
 
@@ -72,8 +74,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T15:25:19.503Z
-Stopped at: Completed 37-02-PLAN.md
+Last session: 2026-03-29T16:15:19.473Z
+Stopped at: Completed 38-01-PLAN.md
 Resume file: None
 
 ---
