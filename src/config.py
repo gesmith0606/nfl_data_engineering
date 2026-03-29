@@ -405,12 +405,10 @@ def validate_season_for_type(data_type: str, season: int) -> bool:
 
 # ── Prediction Model Configuration ──────────────────────────────────────
 
-# All seasons with prediction data (includes holdout). For training, use TRAINING_SEASONS.
-# Use PREDICTION_SEASONS only for post-holdout evaluation or full data assembly.
-PREDICTION_SEASONS = list(range(2016, 2025))  # 2016-2024
-HOLDOUT_SEASON = 2024  # Sealed — never used during tuning
-TRAINING_SEASONS = list(range(2016, 2024))  # 2016-2023
-VALIDATION_SEASONS = [2019, 2020, 2021, 2022, 2023]  # Walk-forward folds
+HOLDOUT_SEASON = 2025  # Sealed — never used during tuning
+PREDICTION_SEASONS = list(range(2016, HOLDOUT_SEASON + 1))  # 2016 through holdout (inclusive)
+TRAINING_SEASONS = list(range(2016, HOLDOUT_SEASON))  # 2016 through holdout-1
+VALIDATION_SEASONS = [s for s in range(2019, HOLDOUT_SEASON)]  # Walk-forward folds
 
 # Model output directory
 MODEL_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "models")
