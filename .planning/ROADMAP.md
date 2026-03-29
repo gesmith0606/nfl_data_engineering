@@ -186,7 +186,7 @@ Plans:
 | 35. Bronze Data Completion | v2.2 | 2/2 | Complete    | 2026-03-28 |
 | 36. Silver + Feature Vector | v2.2 | 2/2 | Complete    | 2026-03-29 |
 | 37. Holdout Reset + Baseline | v2.2 | 2/2 | Complete    | 2026-03-29 |
-| 38. Market Ablation | v2.2 | 1/1 | Complete   | 2026-03-29 |
+| 38. Market Ablation | v2.2 | 1/1 | Complete    | 2026-03-29 |
 
 ---
 *Roadmap created: 2026-03-08*
