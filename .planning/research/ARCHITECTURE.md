@@ -1,345 +1,484 @@
-# Architecture: Full Odds Ingestion + Holdout Reset
+# Architecture: ML-Based Player Fantasy Prediction System
 
-**Domain:** Extending odds data coverage (2016-2021 full, 2022+ sources) and resetting holdout evaluation framework
-**Researched:** 2026-03-28
-**Confidence:** HIGH (based on direct inspection of existing codebase: bronze_odds_ingestion.py, market_analytics.py, feature_engineering.py, ensemble_training.py, prediction_backtester.py, config.py)
+**Domain:** Player-level fantasy football prediction integrated into existing Medallion Architecture
+**Researched:** 2026-03-29
+**Confidence:** HIGH (based on direct inspection of existing codebase: feature_engineering.py, projection_engine.py, ensemble_training.py, player_analytics.py, player_advanced_analytics.py, config.py, and all Silver/Bronze schemas)
 
-## Current Architecture (What Exists)
-
-```
-Bronze (data/bronze/)
-  odds/season=2020/             <-- ONLY season 2020 ingested from FinnedAI
-  schedules/season=YYYY/        <-- spread_line, total_line (CLOSING lines, all seasons)
-  [14 other data types]
-       |
-       v
-Silver (data/silver/)
-  teams/market_data/season=YYYY/<-- line movement features (only 2020)
-  teams/game_context/           <-- BASE for all Silver joins
-  [8 other Silver paths]
-       |
-       v  (joined on [team, season, week] via _assemble_team_features())
-       v  (split home/away, differenced into game-level features)
-       |
-Gold (feature vector)
-  310+ columns, ~100 after SHAP selection
-  opening_spread, opening_total in _PRE_GAME_CONTEXT (safe)
-  closing-line features EXCLUDED (retrospective leakage)
-       |
-       v
-Ensemble (models/ensemble/)
-  HOLDOUT_SEASON = 2024 (sealed)
-  TRAINING_SEASONS = 2016-2023
-  VALIDATION_SEASONS = [2019, 2020, 2021, 2022, 2023]
-  Walk-forward CV: train on seasons < val_season
-  Result: 53.0% ATS, +$3.09 on 2024 holdout
-```
-
-### Critical Observation: Market Data Gap
-
-FinnedAI covers 2016-2021, but only season 2020 was ingested during v2.1. The existing `bronze_odds_ingestion.py` already supports `--season` for individual seasons AND `SEASONS = list(range(2016, 2022))` for all-at-once processing. The code, team mapping, NewYork disambiguation, and validation pipeline are fully built -- this is a "run it more times" problem, not a "build new things" problem.
-
-For the training window (2016-2023), market features are currently NaN for 2016-2019 and 2022-2023. The model handles this via tree-based NaN routing, but filling these gaps would give the ensemble actual signal instead of fallback paths.
-
-## Target Architecture (v2.2)
+## System Overview
 
 ```
-Bronze (data/bronze/)
-  odds/season=2016/   NEW - FinnedAI batch
-  odds/season=2017/   NEW - FinnedAI batch
-  odds/season=2018/   NEW - FinnedAI batch
-  odds/season=2019/   NEW - FinnedAI batch
-  odds/season=2020/   EXISTS
-  odds/season=2021/   NEW - FinnedAI batch
-  odds/season=2022/   NEW - nflverse-derived or paid API
-  odds/season=2023/   NEW - nflverse-derived or paid API
-  odds/season=2024/   NEW - nflverse-derived or paid API (holdout)
-  odds/season=2025/   NEW - nflverse-derived or paid API (new holdout)
-       |
-       v
-Silver (data/silver/)
-  teams/market_data/season=2016-2025/  <-- full coverage
-       |
-       v
-Gold (feature vector)
-  opening_spread, opening_total: NON-NULL for all training + holdout seasons
-       |
-       v
-Ensemble (models/ensemble/)
-  HOLDOUT_SEASON = 2025 (NEW sealed holdout)
-  TRAINING_SEASONS = 2016-2024 (2024 unsealed, added to training)
-  VALIDATION_SEASONS = [2020, 2021, 2022, 2023, 2024] (shifted forward)
-  Baseline: retrain P30 ensemble on expanded data, evaluate on 2025
-```
-
-## Component Changes: New vs Modified
-
-### New Components (0)
-
-No entirely new modules are needed. The existing architecture handles all required data flows.
-
-### Modified Components
-
-| Component | File | Change Type | What Changes |
-|-----------|------|-------------|--------------|
-| Config constants | `src/config.py` | **Modify** | `HOLDOUT_SEASON = 2025`, `TRAINING_SEASONS = 2016-2024`, `VALIDATION_SEASONS = [2020..2024]`, `PREDICTION_SEASONS = 2016-2025`, odds season range `2016-2025` |
-| Config: data source registry | `src/config.py` | **Modify** | `DATA_TYPE_SEASON_RANGES["odds"]` upper bound from `2021` to `2025` (if 2022+ data available) |
-| Bronze odds ingestion | `scripts/bronze_odds_ingestion.py` | **Minor modify** | Add nflverse-derived odds fallback for 2022+ seasons (new function) |
-| Silver market transformation | `scripts/silver_market_transformation.py` | **No change** | Already processes any season with Bronze odds data |
-| Market analytics | `src/market_analytics.py` | **No change** | Pure computation, season-agnostic |
-| Feature engineering | `src/feature_engineering.py` | **No change** | Already joins market_data via `SILVER_TEAM_LOCAL_DIRS`, NaN-tolerant |
-| Ensemble training | `src/ensemble_training.py` | **No change** | Reads `HOLDOUT_SEASON` and `VALIDATION_SEASONS` from config |
-| Prediction backtester | `src/prediction_backtester.py` | **No change** | Reads `HOLDOUT_SEASON` from config |
-| Feature selector | `src/feature_selector.py` | **No change** | Reads `HOLDOUT_SEASON` from config |
-| Model training | `src/model_training.py` | **No change** | Reads `HOLDOUT_SEASON` from config |
-| Ablation script | `scripts/ablation_market_features.py` | **No change** | Reads from config |
-| Tests | `tests/` | **Modify** | Update hardcoded `2024` holdout references in test assertions |
-
-### Key Insight: Config-Driven Holdout Reset
-
-The holdout guard is centralized in `src/config.py` via `HOLDOUT_SEASON = 2024`. Every module imports this constant. Changing it to `2025` propagates the holdout boundary everywhere automatically:
-
-- `ensemble_training.py` line 349: `train_data = all_data[all_data["season"] < HOLDOUT_SEASON]`
-- `ensemble_training.py` line 136: `if val_season == HOLDOUT_SEASON: raise ValueError(...)`
-- `prediction_backtester.py` line 179: `holdout_season: int = HOLDOUT_SEASON`
-- `feature_selector.py` line 65: `if HOLDOUT_SEASON in data["season"].values: raise ValueError(...)`
-- `model_training.py` line 90: `if val_season == HOLDOUT_SEASON: raise ValueError(...)`
-
-This is a one-line change with system-wide effect. The risk is in tests that assert specific season numbers.
-
-## Data Flow: Full Odds Ingestion (2016-2021)
-
-```
-FinnedAI JSON (already downloaded: data/raw/sbro/nfl_archive_10Y.json)
+Bronze (16 data types)
     |
-    v  parse_finnedai(json_path, seasons=[2016,2017,2018,2019,2021])
-    |  (2020 already exists, skip)
-    v  resolve_newyork() -> align_spreads() -> join_to_nflverse()
-    |  validate_cross_correlation() + validate_sign_convention()
     v
-data/bronze/odds/season={2016..2021}/odds_TIMESTAMP.parquet
+Silver Layer
     |
-    v  silver_market_transformation.py --seasons 2016 2017 2018 2019 2020 2021
-    |  compute_movement_features() -> reshape_to_per_team()
+    +-- Player Sources (EXISTING)                Team Sources (EXISTING)
+    |   - players/usage (113 cols)               - teams/pbp_metrics (63 cols)
+    |   - players/advanced (119 cols)            - teams/tendencies
+    |   - players/historical (63 cols)           - teams/sos
+    |   - defense/positional (opp ranks)         - teams/situational
+    |                                            - teams/player_quality (28 cols)
+    |                                            - teams/game_context
+    |                                            - teams/market_data
+    |                                            + 3 more team sources
+    |
+    +-- NEW: Player Feature Vector Assembly  <--- player_feature_engineering.py
+    |   (player-week rows, ~150-200 cols)
+    |   Merges: usage + advanced + historical + opp_rankings + team context
+    |
     v
-data/silver/teams/market_data/season={2016..2021}/market_data_TIMESTAMP.parquet
+Gold Layer
+    |
+    +-- Game Predictions (EXISTING)              Player Predictions (NEW)
+    |   - game-level rows                        - player-week rows
+    |   - XGB+LGB+CB+Ridge ensemble              - position-specific ensembles
+    |   - spread + total targets                  - stat-level targets (yards, TDs, etc.)
+    |   - 120 SHAP-selected features             - game-level constraints (implied totals)
+    |
+    +-- Fantasy Projections (EXISTING, later REPLACED)
+        - projection_engine.py (heuristic)
+        - roll3/roll6/std blending
+        - usage mult, matchup factor, Vegas mult
 ```
 
-This is entirely mechanical -- the code exists, the data source is already downloaded, the pipeline is proven on season 2020. The JSON contains 2011-2021, but the `validate_season_for_type("odds", season)` guard limits to 2016-2021 (matching nflverse schedule coverage for cross-validation).
+## Recommended Architecture: Two-Stage Hierarchical Prediction
 
-## Data Flow: 2022+ Odds Sourcing
+### Why Two-Stage Over Direct Fantasy Points Prediction
 
-This is the harder problem. Three options, in order of preference:
+Predicting fantasy points directly is tempting but architecturally wrong for this system. The existing game prediction ensemble already produces implied team totals and game script signals. A two-stage approach -- (1) predict opportunity volume, then (2) predict efficiency given opportunity -- leverages the existing game model as a top-down constraint and decomposes the problem into more learnable sub-problems.
 
-### Option A: nflverse-Derived Opening Lines (Recommended)
+**Stage 1: Opportunity Models** predict volume metrics per player-week:
+- QB: pass attempts, rush attempts
+- RB: carries, targets
+- WR: targets
+- TE: targets
 
-nflverse `import_schedules()` provides `spread_line` and `total_line` for all seasons (these are **closing** lines). For 2022+, we can synthesize a minimal odds record:
+**Stage 2: Efficiency Models** predict per-unit production:
+- QB: yards/attempt, TD rate, INT rate, rush yards/attempt, rush TD rate
+- RB: yards/carry, TD rate, yards/reception, rec TD rate
+- WR: catch rate, yards/reception, TD rate
+- TE: catch rate, yards/reception, TD rate
+
+**Fantasy points** = opportunity x efficiency, converted through `scoring_calculator.py`.
+
+### Why Not a Single Fantasy Points Model
+
+1. **Interpretability**: "He'll get 18 targets but only a 60% catch rate" is actionable for start/sit. A single number is not.
+2. **Stability**: Opportunity (snap share, target share) is 2-3x more stable week-to-week than raw production. Separate models can weight stability differently.
+3. **Game-level coherence**: Team target shares must sum to ~1.0. Opportunity models can be constrained; a single points model cannot.
+4. **Existing infrastructure**: The game prediction ensemble already produces implied totals. Opportunity models naturally accept this as a constraint.
+
+### Component Responsibilities
+
+| Component | Responsibility | Status |
+|-----------|----------------|--------|
+| `src/player_feature_engineering.py` | Assemble player-week feature vectors from Silver sources | NEW |
+| `src/player_model_training.py` | Position-specific model training with walk-forward CV | NEW |
+| `src/player_prediction.py` | Inference: opportunity x efficiency -> stats -> fantasy points | NEW |
+| `src/player_constraints.py` | Game-level allocation: implied totals -> team share budgets | NEW |
+| `scripts/train_player_models.py` | CLI for training all position/target models | NEW |
+| `scripts/generate_player_predictions.py` | CLI for weekly player predictions | NEW |
+| `scripts/backtest_player_predictions.py` | CLI for per-position MAE/RMSE/correlation evaluation | NEW |
+| `src/projection_engine.py` | Heuristic fallback (kept for rookies/thin data) | EXISTING, AUGMENTED |
+| `src/feature_engineering.py` | Game-level feature assembly (unchanged) | EXISTING |
+| `src/ensemble_training.py` | Game prediction ensemble (unchanged) | EXISTING |
+| `src/scoring_calculator.py` | Fantasy point calculation (unchanged) | EXISTING |
+
+## Player Feature Vector Assembly
+
+### Data Flow: player_feature_engineering.py
+
+```
+Bronze player_weekly (per player-week, raw stats)
+    |
+    v
+Silver players/usage (113 cols: rolling avgs, shares, snap_pct)
+    +
+Silver players/advanced (119 cols: NGS separation/RYOE/TTT, PFR pressure, QBR)
+    +
+Silver players/historical (63 cols: combine measurables, draft capital)
+    +
+Silver defense/positional (opp_rankings: per-position rank 1-32)
+    +
+Silver teams/game_context (weather, rest, dome, travel -- per team-week)
+    +
+Silver teams/player_quality (QB EPA, injury impact -- per team-week)
+    +
+Gold game predictions (implied team totals, game script -- per game)
+    |
+    v
+Player Feature Vector (~150-200 cols per player-week)
+    Grouped by: [player_id, season, week]
+    Join keys: [recent_team, season, week] for team sources
+               [player_id, season, week] for player sources
+               [opponent, season, week] for defense/opp sources
+```
+
+### Key Join Strategy
+
+The existing system joins team sources on `[team, season, week]` and computes home-away differentials for game-level rows. The player system is fundamentally different:
+
+1. **Base table**: Silver `players/usage` -- one row per player per week (5,597 rows/season for all positions)
+2. **Player advanced**: Left join on `[player_gsis_id, season, week]` (NGS/PFR/QBR rolling metrics)
+3. **Historical profiles**: Left join on `gsis_id` (static: combine, draft capital, height/weight)
+4. **Opponent rankings**: Left join on `[opponent_team, season, week, position]` (defensive rank)
+5. **Team context**: Left join on `[recent_team, season, week]` (weather, rest, dome, travel)
+6. **Team quality**: Left join on `[recent_team, season, week]` (QB EPA, injury impact)
+7. **Game predictions**: Left join on `[recent_team, season, week]` (predicted team total, game script probability)
+
+### Feature Categories
+
+| Category | Source | Example Features | Count (est.) |
+|----------|--------|------------------|--------------|
+| Player volume rolling | usage | targets_roll3, carries_roll3, snap_pct_roll6 | ~45 |
+| Player share rolling | usage | target_share_roll3, carry_share_roll6, air_yards_share_std | ~18 |
+| Player efficiency rolling | usage | receiving_yards per target (derived), rushing_yards per carry (derived) | ~20 |
+| Advanced metrics | advanced | ngs_avg_separation_roll3, pfr_times_pressured_pct_roll3, ngs_rush_yards_over_expected_roll3 | ~40 |
+| Physical profile | historical | speed_score, bmi, burst_score, draft_round, draft_value | ~12 |
+| Opponent defense | opp_rankings | opp_rank (1-32 by position) | ~1-3 |
+| Team offense context | team quality + pbp | qb_passing_epa_roll3, off_epa_per_play_roll3 | ~10 |
+| Game environment | game_context | is_dome, temperature, wind_speed, rest_days | ~8 |
+| Game prediction | Gold game preds | predicted_team_total, predicted_game_total, predicted_spread | ~3 |
+| Position indicator | derived | is_QB, is_RB, is_WR, is_TE (for shared models) or implicit per model | ~0-4 |
+
+**Estimated total: ~160-165 columns** before SHAP selection.
+
+### Derived Efficiency Features (Not in Current Silver)
+
+These must be computed during feature assembly (not stored in Silver):
 
 ```python
-def derive_odds_from_nflverse(season: int) -> pd.DataFrame:
-    """Create Bronze-compatible odds from nflverse schedules.
+# Per-target efficiency
+receiving_yards_per_target_roll3 = receiving_yards_roll3 / targets_roll3
+receiving_td_rate_roll3 = receiving_tds_roll3 / targets_roll3
 
-    Uses closing lines as both opening and closing (no movement data).
-    This gives opening_spread/opening_total for the feature vector
-    even though spread_shift/total_shift will be 0.
+# Per-carry efficiency
+rushing_yards_per_carry_roll3 = rushing_yards_roll3 / carries_roll3
+rushing_td_rate_roll3 = rushing_tds_roll3 / carries_roll3
+
+# Per-attempt efficiency (QB)
+passing_yards_per_attempt_roll3 = passing_yards_roll3 / attempts_roll3  # needs attempts in usage
+passing_td_rate_roll3 = passing_tds_roll3 / attempts_roll3
+int_rate_roll3 = interceptions_roll3 / attempts_roll3
+```
+
+Guard against division by zero with `np.where(denominator > 0, numerator/denominator, np.nan)`.
+
+## Training Data Structure
+
+### Unit of Observation: Player-Week
+
+Unlike the game prediction system (one row per game, ~272 rows per season), the player prediction system operates at player-week granularity:
+
+| Filter | Approximate Rows/Season | Total (2020-2024) |
+|--------|------------------------|--------------------|
+| All players, all weeks | ~5,600 | ~28,000 |
+| QB only | ~300 | ~1,500 |
+| RB only | ~1,200 | ~6,000 |
+| WR only | ~1,800 | ~9,000 |
+| TE only | ~800 | ~4,000 |
+
+### Training Seasons
+
+Use `PLAYER_DATA_SEASONS` (2020-2025) from config.py, not `PREDICTION_SEASONS` (2016-2025). Player weekly data quality before 2020 is inconsistent, and NGS/PFR advanced stats start at 2016-2018 with sparse early coverage. Using 2020+ gives 5 clean seasons of player data.
+
+Holdout: 2025 (consistent with current game prediction holdout `HOLDOUT_SEASON`).
+
+### Walk-Forward CV
+
+Identical pattern to `ensemble_training.py`, adapted for player-weeks:
+
+```
+Fold 1: Train 2020, Validate 2021
+Fold 2: Train 2020-2021, Validate 2022
+Fold 3: Train 2020-2022, Validate 2023
+Fold 4: Train 2020-2023, Validate 2024
+Holdout: Train 2020-2024, Test 2025 (sealed)
+```
+
+### Target Variables
+
+For each position, the models predict raw stat counts (not fantasy points):
+
+| Position | Opportunity Targets | Efficiency Targets |
+|----------|--------------------|--------------------|
+| QB | attempts (pass), carries (rush) | passing_yards, passing_tds, interceptions, rushing_yards, rushing_tds |
+| RB | carries, targets | rushing_yards, rushing_tds, receptions, receiving_yards, receiving_tds |
+| WR | targets | receptions, receiving_yards, receiving_tds |
+| TE | targets | receptions, receiving_yards, receiving_tds |
+
+**Why predict stats, not fantasy points**: Stats are scoring-system-agnostic. One model serves PPR, Half-PPR, and Standard. `scoring_calculator.py` handles the conversion.
+
+## Game-Level Constraints: Implied Totals
+
+### How Game Predictions Feed Player Predictions
+
+The existing game prediction ensemble produces `predicted_team_total` (implied points for each team). This is the most valuable top-down signal for player predictions:
+
+```
+Game Ensemble: KC predicted total = 27.5
+    |
+    v
+Implied passing yards budget: ~270 (roughly 10 yards per team point for pass-heavy teams)
+Implied rushing yards budget: ~110
+    |
+    v
+Player share allocation: Mahomes gets ~95% of pass attempts,
+    Isiah Pacheco gets ~55% of carries, etc.
+```
+
+### Implementation: player_constraints.py
+
+```python
+def allocate_team_budget(
+    predicted_team_total: float,
+    team: str,
+    season: int,
+    week: int,
+    team_tendencies: pd.DataFrame,  # pass_rate, rush_rate from Silver
+) -> dict:
+    """Convert predicted team points into stat budgets.
+
+    Returns:
+        {
+            'implied_pass_attempts': 35.2,
+            'implied_rush_attempts': 25.1,
+            'implied_targets': 35.2,  # ~= pass_attempts
+            'implied_passing_yards': 268.0,
+            'implied_rushing_yards': 112.0,
+        }
     """
-    sched = nfl.import_schedules([season])
-    return pd.DataFrame({
-        "game_id": sched["game_id"],
-        "season": season,
-        "week": sched["week"],
-        "game_type": sched["game_type"],
-        "home_team": sched["home_team"],
-        "away_team": sched["away_team"],
-        "opening_spread": sched["spread_line"],   # closing as proxy
-        "closing_spread": sched["spread_line"],
-        "opening_total": sched["total_line"],
-        "closing_total": sched["total_line"],
-        "home_moneyline": sched.get("home_moneyline", np.nan),
-        "away_moneyline": sched.get("away_moneyline", np.nan),
-        "nflverse_spread_line": sched["spread_line"],
-        "nflverse_total_line": sched["total_line"],
-    })
 ```
 
-**Trade-off:** Line movement features (spread_shift, total_shift, magnitude buckets, key crossings) will all be zero/null for 2022+. But `opening_spread` and `opening_total` -- the only two features that actually enter the prediction model via `_PRE_GAME_CONTEXT` -- will be populated.
+### Constraint Application Strategy
 
-**Why this is acceptable:** The model already treats closing-line-derived features as retrospective (excluded from `_PRE_GAME_CONTEXT`). Only `opening_spread` and `opening_total` feed the ensemble. Using closing lines as a proxy for opening lines introduces ~1-2 point noise (typical line movement), but this is far better than NaN for 3 seasons of training data.
+Use game-level constraints as **features**, not hard constraints. Let the model learn the relationship between implied team total and player volume. Hard post-hoc normalization (forcing shares to sum to 1.0) introduces bias. Instead:
 
-### Option B: The Odds API (Paid, Historical)
+1. Include `predicted_team_total` and `predicted_game_total` as features in opportunity models.
+2. Include `team_pass_rate_roll3` and `team_rush_rate_roll3` as features.
+3. **Optional post-hoc adjustment**: After prediction, if team targets sum to >110% of implied attempts, proportionally scale down. This is a light touch, not the primary mechanism.
 
-The Odds API offers historical odds data including opening and closing lines from multiple bookmakers. Covers 2022+ with proper opening/closing separation. Requires paid subscription ($79/month for historical access).
+## Model Architecture Per Position
 
-**When to use:** Only if ablation proves that line movement features (not just opening_spread/opening_total) materially improve holdout accuracy. The v2.1 ablation already showed market features did NOT improve the sealed holdout, so this is unlikely to be worth the cost.
+### Recommended: Separate Models Per Position, Single Model Per Stat
 
-### Option C: Kaggle NFL Betting Dataset
-
-The Kaggle "NFL Scores and Betting Data" dataset (by Toby Crabtree) provides historical NFL betting data. Coverage and recency need verification, but it may bridge the 2022-2024 gap as a free alternative.
-
-**Recommendation:** Start with Option A (nflverse-derived). It requires zero new dependencies, zero cost, and fills the gap in the feature vector. If future ablation shows line movement features matter, revisit Option B.
-
-## Data Flow: Holdout Reset
+Train one gradient boosting model per (position, target_stat) pair. This avoids the complexity of multi-output models while letting each stat have its own feature importance pattern.
 
 ```
-BEFORE (v2.1):
-  HOLDOUT_SEASON = 2024  (sealed)
-  TRAINING_SEASONS = [2016, 2017, ..., 2023]
-  VALIDATION_SEASONS = [2019, 2020, 2021, 2022, 2023]
-
-AFTER (v2.2):
-  HOLDOUT_SEASON = 2025  (newly sealed)
-  TRAINING_SEASONS = [2016, 2017, ..., 2024]  (+1 year of data)
-  VALIDATION_SEASONS = [2020, 2021, 2022, 2023, 2024]  (shifted +1)
-  PREDICTION_SEASONS = [2016, 2017, ..., 2025]  (+1 year)
+Models to train (minimum viable):
+    QB:  targets=5 (attempts, carries, pass_yds, pass_tds, rush_yds)  -- INTs and rush_tds secondary
+    RB:  targets=5 (carries, targets, rush_yds, rush_tds, rec_yds)   -- receptions ~= f(targets, catch_rate)
+    WR:  targets=4 (targets, receptions, rec_yds, rec_tds)
+    TE:  targets=4 (targets, receptions, rec_yds, rec_tds)
+    -------
+    Total: ~18 models (2 targets x 18 = 36 with spread/total, but player is single-target)
 ```
 
-### Holdout Reset Procedure
+### Why Not Multi-Output or Chained Models
 
-1. **Verify 2025 data availability:** Check that Bronze schedules for season 2025 exist with final scores (`home_score`, `away_score` not null), `spread_line` and `total_line` populated. Without completed 2025 games, there is no holdout to evaluate against.
+1. **Multi-output regression**: XGBoost/LightGBM don't natively support correlated multi-output. Workarounds (MultiOutputRegressor) train independent models anyway.
+2. **Chained models** (predict targets -> use predicted targets to predict yards): Cascading errors. If target prediction is off by 2, yards prediction inherits that error.
+3. **Single-stat models with shared features**: Simple, independent training, each model gets SHAP selection independently, no error propagation.
 
-2. **Update config.py:** Single-line changes to `HOLDOUT_SEASON`, `TRAINING_SEASONS`, `VALIDATION_SEASONS`, `PREDICTION_SEASONS`.
+### Model Framework
 
-3. **Ingest 2025 Bronze data:** Ensure all 16 Bronze types have 2025 data (schedules, PBP, player_weekly, etc.). Most should already exist from v1.1 backfill infrastructure.
+Use the same XGB+LGB+CB+Ridge stacking ensemble from `ensemble_training.py`. The infrastructure already exists. Adapt the training loop to:
+- Accept player-week DataFrames instead of game-level
+- Use position-filtered data (e.g., only WR rows for WR models)
+- Save to `models/player_ensemble/{position}/{target}/` directory structure
 
-4. **Run Silver transformations:** All 10 Silver paths for season 2025. This is the most work but it is all existing code: `silver_team_transformation.py`, `silver_player_transformation.py`, `silver_game_context_transformation.py`, etc.
+```
+models/
+    ensemble/           # Existing game prediction models
+    player_ensemble/    # NEW
+        QB/
+            pass_attempts/   xgb.json, lgb.txt, cb.cbm, ridge.pkl, metadata.json
+            pass_yards/      ...
+            ...
+        RB/
+            carries/         ...
+            rush_yards/      ...
+            targets/         ...
+            ...
+        WR/
+            targets/         ...
+            receptions/      ...
+            rec_yards/       ...
+            rec_tds/         ...
+        TE/
+            targets/         ...
+            receptions/      ...
+            rec_yards/       ...
+            rec_tds/         ...
+```
 
-5. **Ingest 2025 odds:** Use Option A (nflverse-derived) for 2025, then run `silver_market_transformation.py --seasons 2025`.
+## Integration with Existing Code
 
-6. **Assemble features:** `feature_engineering.py` already handles any season with Silver data.
+### What Changes
 
-7. **Retrain ensemble:** `scripts/train_ensemble.py` with updated config. The ensemble automatically trains on `season < HOLDOUT_SEASON` (now 2025 instead of 2024).
+| File | Change Type | Description |
+|------|-------------|-------------|
+| `src/config.py` | MODIFY | Add PLAYER_MODEL_DIR, PLAYER_HOLDOUT_SEASON, position stat target configs |
+| `src/player_feature_engineering.py` | NEW | Player-week feature vector assembly from Silver sources |
+| `src/player_model_training.py` | NEW | Adapts ensemble_training pattern for player-week data |
+| `src/player_prediction.py` | NEW | Inference pipeline: features -> models -> stats -> fantasy points |
+| `src/player_constraints.py` | NEW | Game prediction -> team budget -> player share constraints |
+| `scripts/train_player_models.py` | NEW | CLI: train all position/stat models |
+| `scripts/generate_player_predictions.py` | NEW | CLI: weekly player predictions with game-level constraints |
+| `scripts/backtest_player_predictions.py` | NEW | CLI: per-position MAE/RMSE/correlation evaluation |
+| `scripts/generate_projections.py` | MODIFY | Add `--ml` flag to use ML predictions instead of heuristic |
 
-8. **Baseline evaluation:** `scripts/backtest_predictions.py --holdout` evaluates on the new 2025 holdout.
+### What Does NOT Change
 
-### Timing Constraint
+| File | Reason |
+|------|--------|
+| `src/feature_engineering.py` | Game-level only; player system uses its own assembly |
+| `src/ensemble_training.py` | Game prediction training unchanged; player system adapts the pattern |
+| `src/scoring_calculator.py` | Fantasy point conversion is scoring-system math, unchanged |
+| `src/player_analytics.py` | Silver transformation logic unchanged; still produces usage metrics |
+| `src/player_advanced_analytics.py` | Silver transformation logic unchanged; still produces advanced profiles |
+| All Silver transformation scripts | Silver layer produces the same outputs; player feature engineering reads them |
 
-The 2025 NFL regular season runs September 2025 through January 2026. The season is complete (March 2026), so 2025 holdout data should be available. However, nfl-data-py may not yet have full 2025 PBP/stats data. This needs verification before committing to 2025 as holdout.
+### Transition Strategy: Heuristic -> ML
 
-## Integration Points
+Do NOT delete `projection_engine.py`. Instead:
 
-### Internal Boundaries
+1. **Phase 1**: Build player feature engineering and train models. Compare ML vs heuristic on holdout.
+2. **Phase 2**: If ML beats heuristic (MAE < 4.91), `generate_projections.py` gets `--ml` flag.
+3. **Phase 3**: ML becomes default. Heuristic becomes fallback for:
+   - Rookies with no history (< 3 games played)
+   - Players returning from long absence (> 6 weeks missed)
+   - New team acquisitions with < 2 games on new team
 
-| Boundary | Communication | Direction | Notes |
-|----------|---------------|-----------|-------|
-| Bronze odds -> Silver market | Parquet file read | silver_market_transformation reads bronze odds | Season-partitioned, latest-file convention |
-| Silver market -> Feature engineering | Parquet file read via `_read_latest_local()` | feature_engineering reads `teams/market_data/` | Left join on [team, season, week], NaN-safe |
-| Config -> All ML modules | Python import | `HOLDOUT_SEASON` flows to ensemble, backtester, selector | One constant, many consumers |
-| Config -> Bronze ingestion | Python import | `DATA_TYPE_SEASON_RANGES["odds"]` validates seasons | Must update upper bound if adding 2022+ |
+The `player_prediction.py` module handles this routing:
 
-### External Services
+```python
+def predict_player_week(player_row, models, heuristic_fallback=True):
+    """Generate prediction for a single player-week.
 
-| Service | Integration Pattern | Notes |
-|---------|---------------------|-------|
-| FinnedAI GitHub JSON | HTTPS download, cached locally | Already downloaded at `data/raw/sbro/nfl_archive_10Y.json` |
-| nflverse schedules | `nfl.import_schedules([season])` | Required for cross-validation join AND Option A fallback |
-| nflverse PBP/stats | `nfl.import_pbp_data()` etc. | Required for 2025 Bronze/Silver pipeline |
+    Uses ML model if sufficient history exists (>= 3 prior games with valid rolling avgs).
+    Falls back to projection_engine heuristic otherwise.
+    """
+    if _has_sufficient_history(player_row):
+        return _ml_predict(player_row, models)
+    elif heuristic_fallback:
+        return _heuristic_predict(player_row)  # delegates to projection_engine
+    else:
+        return _rookie_baseline(player_row)
+```
 
-## Architectural Patterns
+## Evaluation Framework
 
-### Pattern 1: Config-Driven Holdout Guard
+### Metrics (Per Position)
 
-**What:** All holdout enforcement flows from `HOLDOUT_SEASON` in `config.py`. No module hardcodes the season number.
+| Metric | What It Measures | Current Heuristic Baseline |
+|--------|------------------|---------------------------|
+| MAE | Average absolute error in fantasy points | 4.91 (all positions) |
+| RMSE | Penalizes large misses | 6.72 |
+| Correlation | Rank ordering accuracy | 0.510 |
+| Bias | Systematic over/under prediction | -0.60 |
+| Per-position MAE | Position-specific accuracy | QB: 6.58, RB: 5.06, WR: 4.85, TE: 3.77 |
 
-**When to use:** Anytime the holdout boundary changes.
+### Ship-or-Skip Gate
 
-**Trade-offs:** Clean separation, but tests may hardcode season numbers in assertions. Grep for `2024` in test files before changing.
+Identical to game prediction ablation pattern:
 
-### Pattern 2: Schema-Compatible Fallback Data
+```
+IF ml_holdout_mae < heuristic_holdout_mae for >= 3 of 4 positions:
+    SHIP (ML becomes default)
+ELSE:
+    SKIP (keep heuristic, investigate)
+```
 
-**What:** For 2022+ odds, generate Bronze Parquet files with the exact same schema as FinnedAI-derived files, but with closing lines as opening line proxies.
+### Per-Stat Evaluation
 
-**When to use:** When a data source covers a subset of seasons and you need to fill gaps with a degraded-but-schema-compatible alternative.
+In addition to fantasy point MAE, evaluate individual stat predictions:
 
-**Trade-offs:** Downstream code sees no schema differences. Line movement features become trivially zero (no movement when open == close), but the features that actually enter the model (`opening_spread`, `opening_total`) are populated. The model does not know the difference.
+```
+QB passing_yards MAE, passing_tds MAE, rushing_yards MAE
+RB carries MAE, rushing_yards MAE, targets MAE
+WR targets MAE, receptions MAE, receiving_yards MAE
+TE targets MAE, receptions MAE, receiving_yards MAE
+```
 
-### Pattern 3: Idempotent Season-Partitioned Ingestion
+This identifies which sub-models are working and which need improvement.
 
-**What:** The existing `bronze_odds_ingestion.py` writes to `data/bronze/odds/season=YYYY/odds_TIMESTAMP.parquet`. Running it again for the same season produces a new timestamped file. The latest-file convention (`sorted(glob)[-1]`) always picks the newest.
+## Anti-Patterns to Avoid
 
-**When to use:** Re-running ingestion for corrections or additions.
+### Anti-Pattern 1: Predicting Fantasy Points Directly
 
-**Trade-offs:** Accumulates files. No destructive overwrites. Disk usage is minimal (odds data is small).
+**What people do:** Train a single model to predict PPR fantasy points.
+**Why it's wrong:** Couples model to scoring system. Can't serve Standard/Half-PPR without retraining. Loses interpretability of what went wrong (was it volume or efficiency?).
+**Do this instead:** Predict raw stats (yards, TDs, receptions), then convert via scoring_calculator.py.
 
-## Anti-Patterns
+### Anti-Pattern 2: Including Same-Game Stats as Features
 
-### Anti-Pattern 1: Hardcoding Holdout Season in Tests
+**What people do:** Use a player's actual game stats as features (targets in current game to predict yards in current game).
+**Why it's wrong:** Data leakage. These stats are unknowable before the game.
+**Do this instead:** Only use `_roll3`, `_roll6`, `_std` (shifted) columns and pre-game context. The existing Silver layer already computes these with proper `shift(1)` lag.
 
-**What people do:** Write `assert holdout_season == 2024` or `assert 2024 not in training_seasons` in test files.
+### Anti-Pattern 3: Training One Giant Model Across All Positions
 
-**Why it's wrong:** Breaks when holdout rotates. The whole point of centralized config is to avoid this.
+**What people do:** Pool all players into one model with position as a categorical feature.
+**Why it's wrong:** QB and WR have fundamentally different stat distributions and feature importances. A pooled model compromises on all positions.
+**Do this instead:** Separate models per position. The sample sizes (1,500+ per position over 5 seasons) are sufficient for gradient boosting.
 
-**Do this instead:** Import `HOLDOUT_SEASON` from config in tests: `assert holdout_season == HOLDOUT_SEASON`.
+### Anti-Pattern 4: Hard-Normalizing Player Shares to Sum to 1.0
 
-### Anti-Pattern 2: Mixing Opening and Closing Lines Without Flagging
+**What people do:** After predicting individual player targets, force all players on a team to sum to the team's implied pass attempts.
+**Why it's wrong:** Introduces systematic bias. If the model correctly predicts a low-target game for a WR, normalization inflates it back up.
+**Do this instead:** Use team implied totals as features. Apply light proportional scaling only if team total exceeds 120% of implied budget (safety valve, not core mechanism).
 
-**What people do:** Use nflverse closing lines as "opening" lines without documenting the approximation.
+### Anti-Pattern 5: Using Future Silver Data for Training Labels
 
-**Why it's wrong:** Creates silent data quality degradation. Someone later runs an ablation on "opening line movement" and gets zero signal for 2022+.
-
-**Do this instead:** Add a `line_source` column to Bronze odds: `"finnedai"` for 2016-2021, `"nflverse_proxy"` for 2022+. Downstream can filter or flag.
-
-### Anti-Pattern 3: Unsealing Holdout Without Establishing New Baseline
-
-**What people do:** Change `HOLDOUT_SEASON` to 2025 and immediately start tuning, without first recording the baseline ensemble performance on the new holdout.
-
-**Why it's wrong:** No reference point. You cannot tell if changes improve or regress.
-
-**Do this instead:** Step 1: change config. Step 2: retrain P30 ensemble on expanded training data. Step 3: evaluate on 2025 holdout. Step 4: record baseline. Step 5: then tune.
+**What people do:** Use the actual fantasy_points_ppr column from the same player_weekly row as both label and feature source.
+**Why it's wrong:** Rolling averages from the same row already incorporate the target week's data.
+**Do this instead:** Labels come from the raw stat columns (rushing_yards, receiving_tds, etc.) of the target week. Features come from `_roll3`, `_roll6`, `_std` columns which are pre-computed with `shift(1)` in Silver.
 
 ## Suggested Build Order
 
-Based on dependency analysis:
+Based on dependencies in the existing codebase:
 
 ```
-Phase 1: Full FinnedAI Ingestion (2016-2021)
-  No code changes needed -- run existing scripts
-  Depends on: nothing (JSON already downloaded)
-  Output: Bronze odds for 6 seasons instead of 1
-  Risk: LOW (proven pipeline)
-     |
-     v
-Phase 2: Silver Market Expansion + 2022+ Odds
-  Add nflverse-derived odds function to bronze_odds_ingestion.py
-  Run silver_market_transformation.py for all seasons
-  Update DATA_TYPE_SEASON_RANGES if needed
-  Depends on: Phase 1 (for 2016-2021 Bronze odds)
-  Output: Silver market data for all training seasons
-  Risk: LOW (nflverse fallback) to MEDIUM (schema alignment)
-     |
-     v
-Phase 3: Holdout Reset + Baseline
-  Update config.py constants (HOLDOUT_SEASON, TRAINING_SEASONS, etc.)
-  Verify 2025 data availability
-  Ensure full Bronze/Silver pipeline for 2024-2025
-  Retrain ensemble, establish baseline on 2025 holdout
-  Update tests with config-based assertions
-  Depends on: Phase 2 (full market data coverage)
-  Output: New baseline metrics on 2025 holdout
-  Risk: MEDIUM (2025 data availability, test updates)
+Phase 1: Player Feature Vector Assembly
+    - Build player_feature_engineering.py
+    - Merge Silver player + team + opponent + game prediction sources
+    - Derive efficiency features (yards/target, TD rate, etc.)
+    - Validate: correct join keys, no leakage, proper lagging
+    - Depends on: existing Silver layer (no changes needed)
+
+Phase 2: Model Training Infrastructure
+    - Build player_model_training.py (adapt ensemble_training.py pattern)
+    - Position-specific walk-forward CV
+    - SHAP feature selection per position
+    - Save/load model artifacts
+    - Depends on: Phase 1 (feature vectors)
+
+Phase 3: Prediction & Evaluation
+    - Build player_prediction.py (inference pipeline)
+    - Build player_constraints.py (game prediction integration)
+    - Build backtest_player_predictions.py
+    - Compare ML vs heuristic baseline (MAE 4.91)
+    - Ship-or-skip gate
+    - Depends on: Phase 2 (trained models)
+
+Phase 4: Integration & Cutover
+    - Add --ml flag to generate_projections.py
+    - Implement ML/heuristic routing (sufficient history check)
+    - Update draft_assistant.py to use ML predictions
+    - Depends on: Phase 3 (validated predictions)
 ```
-
-## Scaling Considerations
-
-| Concern | Current (1 season odds) | After v2.2 (10 seasons) |
-|---------|------------------------|------------------------|
-| Bronze odds disk usage | ~50 KB | ~500 KB (trivial) |
-| Silver market disk usage | ~100 KB | ~1 MB (trivial) |
-| Feature vector width | 310+ cols (unchanged) | 310+ cols (unchanged) |
-| Training data rows | ~2,000 games (2016-2023) | ~2,300 games (2016-2024) |
-| Ensemble training time | ~5 minutes | ~6 minutes (linear in rows) |
-| Feature selection time | ~10 minutes | ~12 minutes |
-
-No scaling concerns. The data is small and the pipeline is fast.
 
 ## Sources
 
-- Direct codebase inspection: `scripts/bronze_odds_ingestion.py`, `src/market_analytics.py`, `src/feature_engineering.py`, `src/ensemble_training.py`, `src/prediction_backtester.py`, `src/config.py`
-- [FinnedAI sportsbookreview-scraper](https://github.com/FinnedAI/sportsbookreview-scraper) -- source JSON covers 2011-2021
-- [nflverse nfl_data_py](https://github.com/nflverse/nfl_data_py) -- schedules with spread_line/total_line
-- [nflverse schedules documentation](https://nflreadr.nflverse.com/reference/load_schedules.html) -- field definitions
-- [The Odds API Historical Data](https://the-odds-api.com/historical-odds-data/) -- paid 2022+ option
-- [Kaggle NFL Scores and Betting Data](https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data) -- potential free 2022+ bridge
+- Direct codebase inspection: `src/feature_engineering.py`, `src/projection_engine.py`, `src/ensemble_training.py`, `src/player_analytics.py`, `src/player_advanced_analytics.py`, `src/config.py`
+- Silver layer schema inspection: `data/silver/players/usage/` (113 cols), `data/silver/players/advanced/` (119 cols), `data/silver/players/historical/` (63 cols), `data/silver/defense/positional/` (6 cols), `data/silver/teams/player_quality/` (28 cols)
+- [Building a Better Fantasy Football Prediction Model](https://medium.com/@ashimshock/building-a-better-fantasy-football-prediction-model-a-data-driven-approach-8730694ac40a)
+- [Predicting Fantasy Football Points Using Machine Learning](https://github.com/zzhangusf/Predicting-Fantasy-Football-Points-Using-Machine-Learning)
+- [Bayes-xG: Player and Position Correction using Bayesian Hierarchical Approach](https://pmc.ncbi.nlm.nih.gov/articles/PMC11214280/)
+- [A Holistic Approach to Performance Prediction in Collegiate Athletics](https://www.nature.com/articles/s41598-024-51658-8)
+- [Fantasy Football AI - Production ML System](https://github.com/cbratkovics/fantasy-football-ai)
 
 ---
-*Architecture research for: v2.2 Full Odds + Holdout Reset*
-*Researched: 2026-03-28*
+*Architecture research for: ML-Based Player Fantasy Prediction System*
+*Researched: 2026-03-29*

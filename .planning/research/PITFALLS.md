@@ -1,228 +1,284 @@
-# Pitfalls Research
+# Domain Pitfalls: ML-Based Player Fantasy Prediction System (v3.0)
 
-**Domain:** NFL prediction platform — full odds ingestion and holdout reset (v2.2)
-**Researched:** 2026-03-28
-**Confidence:** HIGH — grounded in existing codebase, established patterns, and known system state
-
----
+**Domain:** ML player-level fantasy football projections added to existing game prediction platform
+**Researched:** 2026-03-29
+**Confidence:** HIGH (based on existing codebase analysis + domain research)
 
 ## Critical Pitfalls
 
-### Pitfall 1: Closing-Line Leakage When Expanding Odds Coverage
+Mistakes that cause rewrites, invalidate model evaluations, or produce unusable predictions.
 
-**What goes wrong:**
-When 2022+ market features become available, developers add both opening and closing-line-derived features to `_PRE_GAME_CONTEXT` in `feature_engineering.py`. Closing spread, closing total, `spread_shift`, `total_shift`, `crosses_key_spread`, and `total_magnitude` are computed from the closing line — which is not known until kickoff. Including them as model inputs creates retrospective leakage. The model appears to improve dramatically (could exceed 58% ATS), but the improvement is entirely from knowing the closing line before the game is played.
+### Pitfall 1: Same-Game Stat Leakage in Player Features
 
-**Why it happens:**
-`market_analytics.py` correctly documents which features are PRE_GAME vs RETROSPECTIVE in its docstring, and only `opening_spread` and `opening_total` are in `_PRE_GAME_CONTEXT`. When ingesting a new 2022+ source, developers may find the source provides opening and closing lines together and add all available columns to the feature context without re-reading the temporal classification comments.
+**What goes wrong:** The model trains on features derived from the same game it is predicting. For example, using a player's snap count, target share, or rushing attempts from week 10 to predict their week 10 fantasy points. The model learns "players who got 25 carries scored a lot" which is trivially true but useless for prediction.
 
-**How to avoid:**
-Keep the `_PRE_GAME_CONTEXT` list in `feature_engineering.py` read-only during 2022+ ingestion work. Only add new pre-game features if they match the existing field names and are not closing-line-derived. Run the existing leakage check — `LEAKAGE_THRESHOLD = 0.58` in `prediction_backtester.py` triggers an investigation flag if ATS accuracy exceeds 58%. Never add `spread_shift`, `total_shift`, or any magnitude bucket column to `_PRE_GAME_CONTEXT`.
+**Why it happens:** The existing Silver layer computes usage metrics (target_share, carry_share, snap_pct) as same-week values in `player_analytics.py`. These are descriptive, not predictive. Reusing them directly as ML features leaks outcome information. The game prediction system avoided this by using lagged team-level rolling averages (shift(1)), but player features need the same treatment and it is easy to forget when porting patterns.
 
-**Warning signs:**
-- ATS accuracy suddenly exceeds 56% during any training run
-- Feature importance shows `spread_shift` or `total_shift` among top 5 features
-- The ablation report shows market features contributing more than 3% ATS lift
+**Consequences:** Model appears to have MAE of 2-3 points during development (far better than the 4.91 baseline), creating false confidence. Deployed predictions revert to baseline or worse because same-game stats are unavailable at prediction time. Entire training pipeline must be rebuilt.
 
-**Phase to address:**
-Bronze ingestion phase for the 2022+ source. Add a test asserting that `_PRE_GAME_CONTEXT` contains no closing-line-derived columns.
+**Prevention:**
+- Enforce a strict rule: every player feature must be computed from data available BEFORE the prediction week. Use `.shift(1)` on all rolling averages grouped by player.
+- Create a `PlayerFeatureValidator` that checks no feature column has correlation > 0.90 with the target (fantasy_points). Same-game leakage features typically show r > 0.95.
+- Test with a "feature availability audit": for each feature, ask "could I compute this on Tuesday before the Sunday game?"
+- The existing `_PRE_GAME_CONTEXT` pattern in `feature_engineering.py` (which correctly uses opening lines, not closing lines) is the model to follow.
 
----
+**Detection:** If any single-model MAE drops below 3.0 on walk-forward CV, investigate for leakage immediately. The heuristic baseline (4.91) is already quite good; ML should improve by 5-15%, not 40%.
 
-### Pitfall 2: Holdout Contamination When Unsealing 2024
-
-**What goes wrong:**
-Unsealing 2024 means changing `HOLDOUT_SEASON = 2024` to `HOLDOUT_SEASON = 2025` in `config.py`. If this change is made before re-training, the production ensemble in `models/ensemble/` was trained with the old guard, but evaluation scripts now target 2025 as holdout. Worse: if the change happens partway through a session, the ablation framework mixes old (2024-sealed) and new (2025-sealed) evaluations in the same report, producing a nonsensical comparison baseline.
-
-**Why it happens:**
-`HOLDOUT_SEASON` is a single constant imported by `ensemble_training.py`, `prediction_backtester.py`, and `ablation_market_features.py`. Changing it immediately affects all downstream evaluations. Developers often change it first ("set up the new holdout") then run the existing model against the new holdout before retraining — the model has never seen 2024 data, but also the holdout metrics are now incomparable to the documented v2.0 baseline.
-
-**How to avoid:**
-Treat holdout reset as an atomic, last-in-milestone operation with a strict sequence:
-1. Document the final 2024 holdout metrics (53.0% ATS, +$3.09 profit) as a baseline before touching anything.
-2. Ingest all expanded odds data and run Silver transformations for new seasons first.
-3. Only then update `HOLDOUT_SEASON = 2025` and `VALIDATION_SEASONS` (add 2024) in `config.py`.
-4. Retrain ensemble from scratch immediately after the config change — never evaluate the old model against the new holdout.
-5. Document new baseline explicitly before running any ablation.
-
-**Warning signs:**
-- Evaluation reports show 2024 holdout results alongside a `HOLDOUT_SEASON=2025` config
-- `VALIDATION_SEASONS` still excludes 2024 after config update
-- Training data game count unchanged after adding new seasons to training window
-
-**Phase to address:**
-Holdout reset phase — must be last in the milestone sequence, after all data ingestion and Silver transformation phases are complete.
+**Phase to address:** Phase 1 (feature engineering). Must be right from the start; cannot be patched later.
 
 ---
 
-### Pitfall 3: Feature NaN Propagation When Market Coverage Is Partial for 2022+
+### Pitfall 2: Treating Player Prediction Like Game Prediction (Wrong Unit of Analysis)
 
-**What goes wrong:**
-Market features (`opening_spread`, `opening_total`, etc.) are currently uniformly NaN for 2022-2024 training windows because FinnedAI only covers 2016-2021. When 2022+ odds data is ingested, the feature vector will have mixed coverage — some games have market features, some don't. XGBoost handles NaN internally, but LightGBM and CatBoost behave differently. LGB may throw on NaN in categoricals; CatBoost requires explicit `nan_mode` configuration. Walk-forward CV folds that include seasons where market features are present for 80% of games but absent for 20% create fold-level instability in SHAP-based feature selection.
+**What goes wrong:** Directly copying the game prediction architecture (differential features, game-level rows) for player prediction. Game prediction has ~270 games/season with stable team-level features. Player prediction has ~8,500 player-weeks/season but each individual player has only 10-17 games, with massive heterogeneity across positions and roles.
 
-**Why it happens:**
-The existing ensemble training was designed assuming market features are uniformly NaN for 2022-2024. Partial coverage (some games have odds, some don't) is a new scenario. New sources rarely have 100% game coverage — pre-season games, some international games, and early 2022 weeks may not be available.
+**Why it happens:** The existing ensemble training pipeline (`ensemble_training.py`) works well for games. It is tempting to reuse the same walk-forward CV, same model factories, same stacking approach. But the data characteristics are fundamentally different: player data is panel data (many individuals, few observations each) not cross-sectional time series.
 
-**How to avoid:**
-After ingesting 2022+ odds, run a coverage audit before retraining: compute NaN rate per market feature per season. If any market feature has >5% NaN in a new season, investigate source coverage before proceeding. Verify that `make_lgb_model` in `ensemble_training.py` handles NaN explicitly. Add a test asserting that ensemble training completes without error when market features are 20% NaN.
+**Consequences:** Models overfit to individual player histories. Walk-forward folds have too few examples per player to learn meaningful patterns. The model memorizes "Tyreek Hill averages 18 points" rather than learning transferable relationships between opportunity and production.
 
-**Warning signs:**
-- LightGBM raises `ValueError: Input data must not contain missing values`
-- CatBoost warns about NaN in numeric features
-- Feature selection produces inconsistent feature sets across folds for the same season
+**Prevention:**
+- Train position-specific models (QB, RB, WR, TE) that learn CROSS-PLAYER patterns (e.g., "WRs with >25% target share and opponent allowing top-10 WR points score X"), not per-player models.
+- Pool all players of a position together. The unit of prediction is a player-week, but the model learns from the full population.
+- Use player identity as context (via role features like draft capital, career games) rather than player identity itself. Never one-hot encode player_id.
+- Walk-forward CV should split by week (all players in week N are in the same fold), not by player.
 
-**Phase to address:**
-Silver market transformation phase for 2022+ seasons — verify coverage before writing Parquet. Ensemble retraining phase — add NaN coverage assertion before training.
+**Detection:** Check if removing player-identifying features (name, ID) changes model performance by more than 1%. If it does, the model is memorizing players, not learning patterns.
 
----
-
-### Pitfall 4: Incomplete Team Mapping for a New 2022+ Odds Source
-
-**What goes wrong:**
-The existing `FINNEDAI_TO_NFLVERSE` dict in `bronze_odds_ingestion.py` handles 44 team name variants for FinnedAI, including franchise relocations and data quality issues (Washingtom typo, KCChiefs concatenation). A new 2022+ source will use different team name conventions — sportsbook scrapes may use city names ("Las Vegas"), mascot only ("Raiders"), full names ("Las Vegas Raiders"), or abbreviations. An incomplete mapping silently produces unmapped (None) entries that either become orphans at the nflverse join step or — worse — silently match the wrong team if a partial string match is attempted.
-
-**Why it happens:**
-Developers test the new source mapping with a handful of games, see it working, and deploy without checking all 32 teams across all seasons. Edge cases include Washington's sequence of name changes (Redskins → Football Team → Commanders), the Raiders relocation (Oakland 2019 → Las Vegas 2020), and both LA teams (Rams and Chargers both moved to Los Angeles).
-
-**How to avoid:**
-For any new source, run ingestion in dry-run mode first and inspect the unmapped team warnings printed by the parser. Require zero unmapped teams and zero orphans before proceeding to validation. The existing `validate_cross_correlation` will catch most issues, but only after all teams are mapped. Add a test fixture for the new source that asserts all 32 nflverse team abbreviations appear in at least one game across the covered seasons.
-
-**Warning signs:**
-- `WARNING: Unmapped home teams` or `WARNING: Unmapped away teams` printed during ingestion
-- Orphan count exceeds 5 games per season
-- `validate_cross_correlation` r < 0.95 (team mismatch causes wrong game joins)
-
-**Phase to address:**
-Bronze ingestion phase for the 2022+ source. Dry-run validation must pass before any Parquet is written.
+**Phase to address:** Phase 1 (architecture design). Determines the entire model structure.
 
 ---
 
-### Pitfall 5: Season Boundary Mismatch Between Odds Source and nflverse Schedules
+### Pitfall 3: Aggregate Metrics Hiding Positional Failure
 
-**What goes wrong:**
-NFL game dates straddle calendar years. A game played in January 2023 belongs to the 2022 season in nflverse convention, but a new odds source may record it as season=2023. The `join_to_nflverse` function merges on `(season, home_team, gameday)` — if the season field from the new source is off by one for playoff games, all playoff rows become orphans. The existing code handles this correctly for FinnedAI (which uses nflverse-compatible season values), but cannot be assumed for a new source.
+**What goes wrong:** Reporting overall MAE of 4.5 (beating the 4.91 baseline) while QB MAE is 7.0 (worse than baseline 6.58) and TE MAE is 3.2 (pulling the average down because TEs score fewer points). The model looks good in aggregate but is worse for the positions users care most about.
 
-**Why it happens:**
-NFL season convention is non-obvious: the 2022 season's Super Bowl is played in February 2023. Sportsbooks and scraped sources commonly use the calendar year of the game date rather than the NFL season year. The mismatch only appears in weeks 19-22 (playoffs and Super Bowl), which are often not inspected closely during initial testing.
+**Why it happens:** TE and low-volume players have low absolute scores (5-8 points), making their MAE naturally small. QB and high-volume RB scores are much higher (15-25 points), making their errors larger. Averaging across positions hides this. The current heuristic baseline already provides per-position benchmarks (QB: 6.58, RB: 5.06, WR: 4.85, TE: 3.77) which are the real targets.
 
-**How to avoid:**
-After ingestion, check that playoff games (week >= 19) are not uniformly orphaned. The existing `validate_row_counts` warns when game count deviates more than 5% from expected — a season with 256 regular season games but 0 playoff games will trigger this. Apply a one-year correction for playoff games if the source uses calendar year: `if month <= 3: season -= 1`.
+**Consequences:** You ship a model that is worse for QBs and high-value WRs (the positions with the most fantasy value) while claiming improvement. Users lose faith in projections for their most important roster decisions.
 
-**Warning signs:**
-- Orphan count spikes to 10+ for a specific season
-- `validate_row_counts` warns about game count significantly below expected
-- No games with week >= 19 appear after the nflverse join
+**Prevention:**
+- Primary evaluation metric: per-position MAE, not aggregate MAE. The v3.0 evaluation framework MUST report QB, RB, WR, TE separately.
+- Secondary: per-position correlation (r) and bias.
+- Ship criterion: ML model must beat the heuristic baseline on EACH position independently, or at minimum not regress on any position by more than 5% while improving others.
+- Weight evaluation by fantasy relevance: QB/RB/WR errors matter more than K/DST.
 
-**Phase to address:**
-Bronze ingestion phase for the 2022+ source — add a playoff coverage check (minimum 10 games with week >= 19 per season).
+**Detection:** Always run `backtest_projections.py`-style per-position breakdowns. Never look at aggregate MAE alone.
 
----
-
-### Pitfall 6: Stale Production Model After Holdout Reset Without Retraining
-
-**What goes wrong:**
-After unsealing 2024 and sealing 2025, the production ensemble in `models/ensemble/` still represents the model trained on 2016-2023. If `generate_predictions.py --ensemble` is run before retraining, predictions are generated from a stale model. More critically: `backtest_predictions.py --holdout` will evaluate the stale model against 2025 holdout, producing results that are meaningless for baseline comparison — the model has never seen the 2022-2024 data added to the training window.
-
-**Why it happens:**
-`load_ensemble` reads artifacts from `models/ensemble/` without checking whether the model was trained on the current `TRAINING_SEASONS` range. There is no version stamp on model artifacts that would cause a failure. Model files from v2.0 are still valid pickle files and load without error.
-
-**How to avoid:**
-After updating `HOLDOUT_SEASON` and `VALIDATION_SEASONS` in `config.py`, run `train_ensemble.py` before any prediction or backtest script. Consider writing a `models/ensemble/manifest.json` during training that records the training season range — if the manifest's training seasons do not match `TRAINING_SEASONS` from config, `load_ensemble` should warn loudly.
-
-**Warning signs:**
-- Model file timestamps are older than the `config.py` modification time
-- `backtest_predictions.py --holdout` returns results for season 2024 when `HOLDOUT_SEASON=2025`
-- Training game count in the manifest does not include 2024 season games
-
-**Phase to address:**
-Ensemble retraining phase — must be gated on config update and must write a training manifest.
+**Phase to address:** Phase 1 (evaluation framework design). Must define success criteria before training.
 
 ---
 
-## Technical Debt Patterns
+### Pitfall 4: Touchdown Variance Destroying Model Signal
 
-| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
-|----------|-------------------|----------------|-----------------|
-| Hard-coding `SEASONS = list(range(2016, 2022))` in `bronze_odds_ingestion.py` | Simple, no config lookup | Adding 2022+ requires editing the script directly, not just config.py | Never — register the valid season range in config.py alongside other data types |
-| Reusing the FinnedAI parser for a new 2022+ source | No new file to maintain | Schema assumptions will break; sign conventions differ by source | Never — write a dedicated parser for each odds source |
-| Changing `HOLDOUT_SEASON` as a first step before data work | Forces discipline on holdout thinking | Silently corrupts all evaluation runs until retraining completes | Never — config change must be atomic with retraining |
-| Skipping playoff week coverage check in `validate_row_counts` | Faster validation | Playoff orphans inflate null rates and reduce training data silently | Never — add minimum playoff game count assertion |
-| Reusing existing Silver market transformation for 2022+ without schema validation | Faster path | 2022+ source columns may differ; silent NaN propagation into feature vector | Never — validate schema before writing Silver Parquet |
+**What goes wrong:** The model learns to predict touchdowns based on historical TD rates, but touchdowns are the most volatile component of fantasy scoring. A player averaging 0.8 TDs/game might score 0, 0, 3, 0, 1, 0 in consecutive weeks. The model predicts 0.8 every week and is systematically wrong in both directions.
 
----
+**Why it happens:** Touchdowns are high-value, low-probability, high-variance events. In PPR scoring, a TD is worth 6 points but a reception is worth 1 point. A player who catches 6 balls for 50 yards with no TD scores 11 PPR points. The same player with 1 TD scores 17 points. This 6-point swing from a single binary event dominates prediction error. Research shows TDs explain the majority of fantasy point variance while being the least predictable component.
 
-## Integration Gotchas
+**Consequences:** Model MAE is dominated by TD variance that no model can predict. Effort spent on sophisticated features is wasted because the irreducible TD noise floor is ~3 points/week for skill positions. The model may also overfit to TD-lucky seasons (e.g., a WR who scored 14 TDs one year and 6 the next).
 
-| Integration | Common Mistake | Correct Approach |
-|-------------|----------------|------------------|
-| New 2022+ odds source (e.g., The Odds API, covers.com) | Treating it as drop-in replacement for FinnedAI | Write a dedicated Bronze parser with its own team mapping, sign convention validation, and schema test — do not modify `bronze_odds_ingestion.py` in-place |
-| nflverse `import_schedules` for 2022+ | Assuming same schema as 2016-2021 | Check nfl-data-py changelog for schema changes; the explicit `sched[[...]]` column selection will raise a KeyError on new required columns |
-| FinnedAI JSON re-download for full 6-season backfill | Skipping `--force-download` when cached file already exists | The FinnedAI GitHub JSON may have been updated; use `--force-download` to ensure data consistency across all 6 seasons |
-| CLV evaluation after holdout reset | Running `evaluate_clv` against 2025 holdout with a 2023-trained model | Always retrain before evaluating CLV; stale models produce misleading CLV distributions that cannot be compared to v2.0 baseline |
-| Silver market transformation for new seasons | Running `silver_market_transformation.py` without confirming Bronze odds exist | Script will silently produce empty Silver Parquet if Bronze odds are missing — check Bronze coverage first |
+**Prevention:**
+- Decompose predictions into opportunity (targets, carries, snap share) and efficiency (yards per target, yards per carry, TD rate) components. Predict opportunity first (more stable, r > 0.7 week-to-week), then apply regressed efficiency rates.
+- Regress TD rates toward positional means. A WR's predicted TD rate should be pulled toward the WR average (roughly 1 TD per 11 targets), not their personal 6-game sample.
+- Consider predicting yards + receptions (the stable components) with ML and applying expected TD rates as a post-processing step, similar to how the current heuristic applies shrinkage via `PROJECTION_CEILING_SHRINKAGE`.
+- Report MAE both with and without TDs to understand the noise floor.
+
+**Detection:** If week-to-week correlation of your TD predictions is below 0.15, the model is not meaningfully predicting TDs (the baseline of "predict the mean" is better). Check this explicitly.
+
+**Phase to address:** Phase 2 (model design). The opportunity/efficiency decomposition is an architectural choice.
 
 ---
 
-## Performance Traps
+### Pitfall 5: Overfitting to Historical Usage Patterns That Do Not Persist
 
-| Trap | Symptoms | Prevention | When It Breaks |
-|------|----------|------------|----------------|
-| Loading all 6+ seasons of Bronze odds simultaneously for Silver transformation | Memory spike when processing 2016-2024 together | Process one season at a time in the Silver transformation loop (existing pattern) | Unlikely at current scale, but partition-per-season is the established pattern |
-| Running full ablation sweep (`--counts 60 80 100 120 150`) after every data change | Ablation takes 30-60 minutes per run with 5 feature count variants | Run at default count first; only sweep if the default result is ambiguous | Not a breaking issue, but wastes iteration time during rapid data expansion phases |
-| Assembling the full multi-year feature matrix with new seasons before verifying Silver is complete | `assemble_multiyear_features` returns silently empty rows for missing seasons | Verify Silver Parquet exists and has expected row count per season before calling `assemble_multiyear_features` | At current scale this silently drops seasons, not a memory issue |
+**What goes wrong:** The model learns "Player X had 28% target share last 3 weeks, predict high production." But Player X was the WR1 while the WR2 was injured. The WR2 returns, and Player X's target share drops to 18%. The model is 2 weeks behind reality because rolling averages smooth over regime changes.
 
----
+**Why it happens:** NFL player roles change mid-season due to injuries, trades, depth chart changes, coaching staff turnover, and game script. A backup RB who inherits the starter role looks like a low-volume player in historical features but is about to get 20 carries. Rolling averages by design lag behind these changes. The existing heuristic already has this problem (RECENCY_WEIGHTS in `projection_engine.py` use 45% on last 3 weeks), and ML can make it worse by overfitting to the lagged signal.
 
-## "Looks Done But Isn't" Checklist
+**Consequences:** Model is systematically wrong during role transitions (the exact moments when accurate projections are most valuable for fantasy managers making start/sit decisions). Predictions lag reality by 1-3 weeks.
 
-- [ ] **Full 2016-2021 FinnedAI ingestion:** `--season 2020` already done — verify the remaining 5 seasons (2016, 2017, 2018, 2019, 2021) each have a Parquet under `data/bronze/odds/season=YYYY/`
-- [ ] **2022+ source identified:** Source confirmed to cover 2022-2024 regular season AND playoffs — verify cross-correlation r >= 0.95 and zero orphans before declaring Bronze complete
-- [ ] **Silver market transformation for new seasons:** Transformation runs without error AND output Parquet row count matches expected game count (not just non-empty file)
-- [ ] **Holdout config update is complete:** Both `HOLDOUT_SEASON = 2025` AND `VALIDATION_SEASONS` updated to include 2024 AND `TRAINING_SEASONS` is consistent — verify all three in the same commit
-- [ ] **Ensemble retrained on expanded data:** `train_ensemble.py` completed after config update — verify manifest records training seasons including 2024
-- [ ] **New baseline documented before ablation:** ATS%, profit, CLV metrics written down before running market feature ablation — never run ablation without a documented baseline to compare against
-- [ ] **CLV tracking still functional with new holdout:** `evaluate_clv()` uses nflverse `spread_line` (not FinnedAI closing line) — confirm correct source is used for 2025 holdout
-- [ ] **Test suite still passing:** After all config changes and retraining, `python -m pytest tests/ -v` passes all 571 tests (v2.1 baseline)
+**Prevention:**
+- Include snap_pct and depth_chart_position as features (these change immediately when roles change).
+- Use short rolling windows (3-game) with higher weight, but also include the raw previous-week values as features (allowing the model to detect sudden changes).
+- Add a "role change detector" feature: delta in snap_pct or target_share from week N-1 to week N-2. Large deltas signal regime changes.
+- Do NOT try to predict role changes (that requires injury prediction). Instead, build the model to be responsive to new information: if last week's snap share was 90% (up from 40%), weight that heavily.
+
+**Detection:** Evaluate MAE separately for "stable role" weeks (snap_pct change < 10%) vs "role change" weeks (snap_pct change > 20%). If the model is much worse on role-change weeks, it is too reliant on historical averages.
+
+**Phase to address:** Phase 1 (feature engineering) and Phase 2 (model design).
 
 ---
 
-## Recovery Strategies
+### Pitfall 6: Player Projections That Do Not Sum to Reasonable Team Totals
 
-| Pitfall | Recovery Cost | Recovery Steps |
-|---------|---------------|----------------|
-| Closing-line leakage discovered post-training | MEDIUM | Remove retrospective features from `_PRE_GAME_CONTEXT`, retrain ensemble, re-evaluate holdout; no data loss, just compute time |
-| Holdout contamination (wrong season evaluated) | LOW | Revert `HOLDOUT_SEASON` in config.py, retrain with correct config, document metrics from correct holdout |
-| Incomplete team mapping causing orphans in 2022+ source | LOW | Add missing entries to team mapping dict, re-run ingestion (no re-download needed), re-run Silver transformation |
-| Season boundary mismatch (playoff orphans) | LOW | Apply season correction in the new source parser (`if month <= 3: season -= 1`), re-ingest affected seasons |
-| Stale production model evaluated against new holdout | LOW | Run `train_ensemble.py` with updated config, overwrite `models/ensemble/`; no data changes needed |
-| NaN propagation breaks LightGBM training on partial 2022+ coverage | MEDIUM | Audit new source coverage per season; add explicit NaN handling to `make_lgb_model`; fix before retraining |
+**What goes wrong:** Individual player projections are generated independently, and when summed across a team's roster, they produce impossible totals. For example, all WRs on a team are projected for 80+ receiving yards, implying 350+ team passing yards when the team averages 220. Or total projected fantasy points for a team exceed the implied team total from Vegas.
 
----
+**Why it happens:** Player-level models optimize for individual accuracy and have no awareness of the team-level budget constraint. Each prediction is made in isolation. This is the classic "coherence problem" in hierarchical forecasting. The existing projection engine does not enforce this constraint either (it applies a Vegas multiplier but does not reconcile player sums to team totals).
 
-## Pitfall-to-Phase Mapping
+**Consequences:** Sophisticated users (DFS players, serious fantasy managers) lose trust when projections are internally inconsistent. Projections for backup players on a low-scoring team can be inflated because the model learned from league-wide averages.
 
-| Pitfall | Prevention Phase | Verification |
-|---------|------------------|--------------|
-| Closing-line leakage | Bronze ingestion of 2022+ source — validate temporal feature classification | Assert `_PRE_GAME_CONTEXT` contains only `opening_spread`/`opening_total` from market sources; ATS < 58% after training |
-| Holdout contamination | Holdout reset phase (last in milestone) — atomic sequence enforced | `HOLDOUT_SEASON`, `VALIDATION_SEASONS`, and `TRAINING_SEASONS` updated in the same commit; ensemble retrained immediately after |
-| NaN propagation in ensemble | Silver market transformation phase — coverage audit before Parquet write | Market feature NaN rate < 5% per season; ensemble training completes without error on partial-coverage data |
-| Incomplete team mapping for new source | Bronze ingestion phase for 2022+ source — dry-run required | Zero unmapped team warnings; zero orphans; r >= 0.95 in cross-correlation |
-| Season boundary mismatch | Bronze ingestion phase for 2022+ source — playoff coverage check | Each ingested season has >= 10 games with week >= 19 |
-| Stale production model | Ensemble retraining phase — gated on config update | Model manifest records training seasons including 2024; `backtest_predictions.py --holdout` shows 2025 as holdout season |
+**Prevention:**
+- Use Vegas implied team totals (available via the existing market data pipeline) as a constraint.
+- Post-processing approach: generate raw player projections, sum per team, then scale proportionally to match the implied team total. This is simpler and more robust than trying to bake the constraint into the model.
+- Alternative: include team implied total as a feature, which lets the model learn the constraint implicitly. Both approaches can be combined.
+- At minimum, add a validation check: flag any team where projected player points sum to more than 1.5x or less than 0.5x the implied team total.
 
----
+**Detection:** For each week, sum projected fantasy points per team and compare to implied team totals. The correlation should be > 0.7 and no team should be more than 50% off.
+
+**Phase to address:** Phase 3 (post-processing and integration). Requires individual models to be working first.
+
+## Moderate Pitfalls
+
+### Pitfall 7: Scoring Format Sensitivity (PPR vs Standard Changes Optimal Model)
+
+**What goes wrong:** Training a single model to predict "fantasy points" across all scoring formats. The optimal features differ: PPR rewards volume (receptions), Standard rewards efficiency (yards per carry, TDs). A model optimized for Half-PPR will underperform on both PPR and Standard compared to format-specific models.
+
+**Prevention:**
+- Train separate models per scoring format, OR predict component stats (rushing yards, receiving yards, receptions, TDs) and compute fantasy points post-prediction using the existing `scoring_calculator.py`. The component approach is better because it naturally handles all formats from one model.
+- If predicting components, the model does not need to know the scoring format at all. This eliminates the sensitivity entirely.
+- The existing `SCORING_CONFIGS` in `config.py` already define the three formats; the component approach plugs directly into this.
+
+**Phase to address:** Phase 2 (model design). The "predict components" decision is architectural.
+
+### Pitfall 8: Small Sample Size Per Individual Player
+
+**What goes wrong:** Attempting per-player models or heavy player-specific regularization with only 10-17 games per season per player. With 6 seasons of data (2020-2025), a veteran has ~100 data points. A second-year player has ~30. Rookies have 0.
+
+**Prevention:**
+- Never build per-player models. Always pool across all players of a position.
+- Use player "type" features (draft round, career games played, position depth, body mass) rather than player identity.
+- For rookies: use the existing rookie fallback pattern from `projection_engine.py` (conservative baselines by position) as a prior, or use combine/draft features to find similar historical players.
+- Bayesian approaches (hierarchical models) handle this naturally by sharing information across players, but gradient boosting models can approximate this by learning from the population with player-type features.
+
+**Phase to address:** Phase 1 (feature engineering) and Phase 2 (model architecture).
+
+### Pitfall 9: Injury/Lineup Uncertainty at Prediction Time
+
+**What goes wrong:** The model assumes the player will play, but at prediction time (typically Tuesday-Thursday for lineup decisions), injury status is uncertain. A "Questionable" player might get 0 points (DNP) or full points. The model has no mechanism to handle this uncertainty.
+
+**Prevention:**
+- The existing injury adjustment system in `projection_engine.py` (Questionable=0.85, Doubtful=0.50, Out=0.0) is a reasonable post-processing step. Keep this as a separate layer on top of ML predictions.
+- Do NOT train the model with injury status as a feature (it changes between training time and game time). Instead, apply injury multipliers as a post-processing step, same as the heuristic does.
+- Provide prediction intervals (not just point estimates) so users can see the uncertainty. A "Questionable" player's interval should be much wider than a healthy player's.
+- For players expected to miss the game entirely, zero out the projection (this is already handled in the heuristic).
+
+**Phase to address:** Phase 3 (post-processing and integration).
+
+### Pitfall 10: Walk-Forward CV With Insufficient History for Early Folds
+
+**What goes wrong:** The first walk-forward fold trains on season 2020 only and predicts 2021. With ~8,500 player-weeks per season, this seems like enough data, but many players in 2021 did not play in 2020 (rookies, free agents). The model has no history for them and performs poorly on the first fold, dragging down aggregate CV metrics.
+
+**Prevention:**
+- Start walk-forward CV from season 2021 (train on 2020-2021, predict 2022) to ensure at least 2 seasons of training data.
+- Use an expanding window (not sliding) to maximize training data for each fold.
+- Report per-fold metrics separately so you can see if early folds are dragging down the average.
+- For new players in each fold, fall back to population-level predictions (the model should already do this if player identity is not a feature).
+
+**Phase to address:** Phase 2 (evaluation framework).
+
+### Pitfall 11: Complex Model That Does Not Beat the Heuristic Baseline
+
+**What goes wrong:** After weeks of feature engineering, model tuning, and ensemble building, the ML model achieves MAE 4.85 versus the heuristic baseline of 4.91. A 1.2% improvement that may not be statistically significant. The complexity cost (maintenance, interpretability, compute) outweighs the marginal gain.
+
+**Why it happens:** The heuristic baseline in `projection_engine.py` already captures the most important signals: recent performance (rolling averages), usage stability (snap/target share), opponent matchup, Vegas implied totals, and ceiling shrinkage. These are exactly the features an ML model would learn. The marginal gain from ML comes from learning non-linear interactions and position-specific patterns that the heuristic misses, but this gain is often small because the heuristic was manually tuned on backtests (MAE went from ~5.5 to 4.91).
+
+**Prevention:**
+- Set a minimum improvement threshold BEFORE building the model. Recommendation: ML must beat heuristic by at least 0.2 MAE points (4% improvement) on EACH position to justify the complexity.
+- Run an honest ablation at the end: ML model vs heuristic on the same holdout weeks, same evaluation code. Use the existing `backtest_projections.py` framework.
+- If the ML model does not clear the bar, consider a hybrid: use ML for positions where it helps (likely RB/WR with more data and clearer opportunity signals) and keep the heuristic for positions where ML does not help (likely TE/QB).
+- The v2.0 game prediction lesson applies here: the ensemble improved from 50.0% to 53.0% ATS over the single XGBoost. A 3% improvement justified the complexity. Set a similar bar for player predictions.
+
+**Phase to address:** Final phase (evaluation and ship/skip decision). But the bar must be defined in Phase 1.
+
+## Minor Pitfalls
+
+### Pitfall 12: Forgetting to Lag Opponent Features
+
+**What goes wrong:** Using the opponent's defensive ranking from the current week (which includes the current game's result) instead of the prior week's ranking. The existing `player_analytics.py` computes `compute_opponent_rankings` but it must be shifted by one week for use as a predictive feature.
+
+**Prevention:** Apply `.shift(1)` to all opponent ranking features, grouped by team and season. Verify that week 1 predictions have NaN opponent features (there is no week 0 data) and handle with imputation (league-average defense).
+
+**Phase to address:** Phase 1 (feature engineering).
+
+### Pitfall 13: Target Variable Inconsistency Across Scoring Formats
+
+**What goes wrong:** Training on PPR fantasy points but evaluating on Half-PPR, or mixing scoring formats in the training data. This seems obvious but is easy to introduce when the same training pipeline serves multiple scoring formats.
+
+**Prevention:** If predicting component stats (recommended), the target variables are scoring-format-agnostic (rushing_yards, receptions, TDs). Fantasy points are computed only at evaluation time using `scoring_calculator.py`. This sidesteps the issue entirely.
+
+**Phase to address:** Phase 2 (model training pipeline).
+
+### Pitfall 14: Ignoring the Bye Week Edge Case
+
+**What goes wrong:** The model predicts non-zero points for players on bye weeks, or bye week rows corrupt rolling average calculations.
+
+**Prevention:** The existing heuristic handles this (`is_bye_week=True` zeroes all stats). The ML pipeline must either exclude bye weeks from training entirely or include them with zero targets. Recommendation: exclude from training (bye weeks carry no signal), apply zero projection as a post-processing rule.
+
+**Phase to address:** Phase 1 (data preparation).
+
+### Pitfall 15: Breaking the 594 Existing Tests
+
+**What goes wrong:** New ML player prediction code introduces imports, dependencies, or config changes that break existing game prediction tests, fantasy projection tests, or Bronze/Silver pipeline tests.
+
+**Prevention:**
+- New code goes in new modules (e.g., `src/player_prediction.py`, `src/player_feature_engineering.py`). Do not modify existing files except `config.py` (for new constants) and `scripts/` (for new CLIs).
+- Run `python -m pytest tests/ -v` after every significant change.
+- Add new tests in new files (e.g., `tests/test_player_prediction.py`). Do not modify existing test files.
+- The game prediction ensemble, fantasy heuristic projections, and draft tools must continue to work exactly as before.
+
+**Phase to address:** Every phase. Continuous integration discipline.
+
+## Integration-Specific Pitfalls (Adding to Existing Platform)
+
+### Pitfall 16: Conflicting Projection Outputs
+
+**What goes wrong:** The ML model produces projections stored in the same Gold path (`data/gold/projections/`) as the heuristic, causing confusion about which projection is being used downstream by the draft tool and backtest scripts.
+
+**Prevention:**
+- Store ML projections in a separate path: `data/gold/ml_projections/` or `data/gold/projections_v3/`.
+- Add a `model_version` column to projection DataFrames (e.g., "heuristic_v1" vs "ml_v3").
+- Keep the heuristic running as a fallback. The draft tool should default to ML projections but fall back to heuristic if ML is unavailable (e.g., for positions where ML was not shipped).
+- The generate_projections.py script should accept a `--model ml` flag, defaulting to the existing heuristic for backward compatibility.
+
+**Phase to address:** Phase 3 (integration). Design the storage pattern early.
+
+### Pitfall 17: Retraining Frequency and Staleness
+
+**What goes wrong:** The ML model is trained once before the season and never updated, so by week 10 its player features are based on stale weights that do not reflect mid-season role changes, injuries, or team personnel moves.
+
+**Prevention:**
+- Design for weekly retraining (or at minimum, weekly feature recomputation with a pre-trained model).
+- The existing `weekly-pipeline.yml` GitHub Action runs on Tuesdays. The ML prediction step should slot into this pipeline after Silver transformation.
+- At minimum, features must be recomputed weekly (rolling averages update). Full model retraining can be monthly or when new data significantly changes the feature distribution.
+
+**Phase to address:** Phase 3 (integration with pipeline).
+
+## Phase-Specific Warnings
+
+| Phase Topic | Likely Pitfall | Mitigation |
+|-------------|---------------|------------|
+| Feature engineering | Same-game stat leakage (#1) | Feature availability audit; shift(1) on everything |
+| Feature engineering | Forgetting to lag opponent features (#12) | Automated leakage detection tests |
+| Feature engineering | Historical usage overfitting (#5) | Include role-change detection features |
+| Model architecture | Wrong unit of analysis (#2) | Position-pooled models, not per-player |
+| Model architecture | Scoring format sensitivity (#7) | Predict components, not fantasy points |
+| Model architecture | TD variance domination (#4) | Opportunity/efficiency decomposition |
+| Model training | Small sample per player (#8) | Cross-player pooling, player-type features |
+| Model training | Insufficient early CV folds (#10) | Expanding window, min 2 seasons training |
+| Evaluation | Aggregate metrics hiding failure (#3) | Per-position benchmarks as primary metric |
+| Evaluation | Not beating baseline (#11) | Set 4% improvement bar per position |
+| Integration | Conflicting outputs (#16) | Separate Gold paths, model_version column |
+| Integration | Team total incoherence (#6) | Post-processing scaling to implied totals |
+| Integration | Breaking existing tests (#15) | New modules only, CI after every change |
+| Integration | Injury uncertainty (#9) | Post-processing multipliers, not model features |
 
 ## Sources
 
-- Existing codebase: `scripts/bronze_odds_ingestion.py` — team mapping (44 entries), sign convention negation, `validate_cross_correlation`, `validate_row_counts`, `LEAKAGE_THRESHOLD`
-- Existing codebase: `src/market_analytics.py` — PRE_GAME vs RETROSPECTIVE feature classification docstring
-- Existing codebase: `src/prediction_backtester.py` — `LEAKAGE_THRESHOLD = 0.58`, `HOLDOUT_SEASON` import, `evaluate_clv` nflverse dependency
-- Existing codebase: `src/config.py` — `HOLDOUT_SEASON = 2024`, `VALIDATION_SEASONS`, `TRAINING_SEASONS`
-- Existing codebase: `src/ensemble_training.py` — walk-forward CV, OOF patterns, model factories
-- Existing codebase: `.planning/PROJECT.md` — Key Decisions log, v2.1 completion notes, v2.2 target features
-- Project MEMORY.md: "Market features NaN for 2022-2024 training window" and "CLV uses nflverse spread_line (not FinnedAI)"
-- Project MEMORY.md: "FinnedAI covers 2016-2021 only; market features NaN for 2022-2024 training window"
-
----
-*Pitfalls research for: NFL prediction platform — v2.2 Full Odds + Holdout Reset*
-*Researched: 2026-03-28*
+- Existing codebase analysis: `src/projection_engine.py`, `src/player_analytics.py`, `src/player_advanced_analytics.py`, `src/feature_engineering.py`, `src/ensemble_training.py`
+- [FanDuel: Touchdown Regression](https://www.fanduel.com/research/touchdown-regression-what-it-is-and-how-to-use-it-for-player-prop-bets-fantasy-football) — TD variance in fantasy scoring
+- [Harvard Science Review: Model Validation in Sports Predictions](https://harvardsciencereview.org/2025/09/18/model-validation-how-to-ensure-your-sports-predictions-arent-just-lucky/) — overfitting and validation pitfalls
+- [SMU Data Science Review: Predicting Fantasy Football](https://scholar.smu.edu/cgi/viewcontent.cgi?article=1279&context=datasciencereview) — ML approaches to fantasy prediction
+- [MachineLearningMastery: Data Leakage](https://machinelearningmastery.com/data-leakage-machine-learning/) — leakage patterns and prevention
+- [Towards Data Science: Seven Causes of Data Leakage](https://towardsdatascience.com/seven-common-causes-of-data-leakage-in-machine-learning-75f8a6243ea5/) — temporal leakage in time-series
+- [RotoWire: PPR vs Standard](https://www.rotowire.com/football/article/ppr-vs-standard-scoring-explained-94844) — scoring format impact on player valuation
+- [Footballguys: Expectation and Variance](https://www.footballguys.com/article/DFS_expectationvariance) — variance in fantasy point distributions
+- [Frontiers in Sports: NFL Win Prediction with ML](https://www.frontiersin.org/journals/sports-and-active-living/articles/10.3389/fspor.2025.1638446/full) — overfitting in NFL ML models
