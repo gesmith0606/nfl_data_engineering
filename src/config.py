@@ -499,6 +499,30 @@ SILVER_TEAM_LOCAL_DIRS = {
     "market_data": "teams/market_data",  # Phase 33: line movement features
 }
 
+# Silver player source subdirectories (local path pattern)
+SILVER_PLAYER_LOCAL_DIRS = {
+    "usage": "players/usage",
+    "advanced": "players/advanced",
+    "historical": "players/historical",
+}
+
+# Silver team sources used for player feature assembly (subset of SILVER_TEAM_LOCAL_DIRS)
+SILVER_PLAYER_TEAM_SOURCES = {
+    "player_quality": "teams/player_quality",
+    "game_context": "teams/game_context",
+    "market_data": "teams/market_data",
+    "pbp_metrics": "teams/pbp_metrics",
+    "tendencies": "teams/tendencies",
+}
+
+# Target label columns for player prediction (same-week actuals, NOT features)
+PLAYER_LABEL_COLUMNS = [
+    "passing_yards", "passing_tds", "interceptions",
+    "rushing_yards", "rushing_tds", "carries",
+    "targets", "receptions", "receiving_yards", "receiving_tds",
+    "fantasy_points_ppr",
+]
+
 
 def get_s3_path(layer: str, dataset: str = "", season: int = None, week: int = None) -> str:
     """
