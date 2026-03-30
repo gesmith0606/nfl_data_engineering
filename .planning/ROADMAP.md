@@ -120,7 +120,7 @@ Full details: `.planning/milestones/v2.2-ROADMAP.md`
 
 **Milestone Goal:** Replace heuristic player projections with ML-based per-position models that predict raw stats and derive fantasy points via the existing scoring calculator. The build progresses from feature assembly (highest leakage risk) through baseline models with a ship-or-skip gate, optional accuracy improvements, and pipeline integration.
 
-- [ ] **Phase 39: Player Feature Vector Assembly** - Build player-week feature vectors from Silver sources with temporal lag enforcement and leakage prevention
+- [x] **Phase 39: Player Feature Vector Assembly** - Build player-week feature vectors from Silver sources with temporal lag enforcement and leakage prevention (completed 2026-03-30)
 - [ ] **Phase 40: Baseline Models and Ship Gate** - Train per-position gradient boosting models with walk-forward CV; evaluate against heuristic baselines; ship-or-skip decision
 - [ ] **Phase 41: Accuracy Improvements** - Opportunity-efficiency decomposition, TD regression, role momentum, and ensemble stacking to push per-position MAE further
 - [ ] **Phase 42: Pipeline Integration and Extensions** - Wire ML predictions into weekly pipeline, draft tool, and projection CLI; add team constraints, preseason mode, and confidence intervals
@@ -141,7 +141,7 @@ Full details: `.planning/milestones/v2.2-ROADMAP.md`
 
 Plans:
 - [x] 39-01-PLAN.md — Core player feature assembly module, config, and unit tests
-- [ ] 39-02-PLAN.md — CLI script and integration tests on real data
+- [x] 39-02-PLAN.md — CLI script and integration tests on real data
 
 ### Phase 40: Baseline Models and Ship Gate
 **Goal**: Per-position ML models produce stat-level predictions that are objectively measured against the heuristic baseline, with a clear ship-or-skip verdict
@@ -205,7 +205,7 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 28-31 | v2.0 | 8/8 | Complete | 2026-03-27 |
 | 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
 | 35-38 | v2.2 | 7/7 | Complete | 2026-03-29 |
-| 39 | v3.0 | 1/2 | In Progress|  |
+| 39 | v3.0 | 2/2 | Complete   | 2026-03-30 |
 | 40 | v3.0 | 0/TBD | Not started | - |
 | 41 | v3.0 | 0/TBD | Not started | - |
 | 42 | v3.0 | 0/TBD | Not started | - |
