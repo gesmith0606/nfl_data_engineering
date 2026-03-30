@@ -372,20 +372,16 @@ class TestTemporalIntegrity:
         n = 100
         raw = np.random.randn(n) * 50 + 200
         df = pd.DataFrame({
-            "passing_yards": raw,
-            "passing_yards_roll3": raw,  # Same values = r=1.0 = leakage
-            "rushing_yards": np.random.randn(n) * 20,
-            "rushing_yards_roll3": np.random.randn(n) * 15,
-            "receiving_yards": np.random.randn(n) * 20,
-            "receiving_yards_roll3": np.random.randn(n) * 15,
-            "targets": np.random.randn(n) * 3,
-            "targets_roll3": np.random.randn(n) * 2,
-            "carries": np.random.randn(n) * 5,
-            "carries_roll3": np.random.randn(n) * 4,
+            "snap_pct": raw,
+            "snap_pct_roll3": raw,  # Same values = r=1.0 = leakage
+            "target_share": np.random.randn(n) * 20,
+            "target_share_roll3": np.random.randn(n) * 15,
+            "carry_share": np.random.randn(n) * 20,
+            "carry_share_roll3": np.random.randn(n) * 15,
         })
         violations = validate_temporal_integrity(df)
         assert len(violations) > 0, "Should detect violation when roll3 == raw"
-        assert any("passing_yards" in v[0] for v in violations)
+        assert any("snap_pct" in v[0] for v in violations)
 
 
 class TestLeakageDetection:
@@ -484,3 +480,80 @@ class TestGetPlayerFeatureColumns:
         assert "position" not in features
         assert "passing_yards" not in features
         assert "targets" not in features
+
+
+# ---------------------------------------------------------------------------
+# Integration tests using real local Silver data
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.skipif(
+    not os.path.exists(
+        os.path.join(
+            os.path.dirname(__file__), "..", "data", "silver", "players", "usage", "season=2024"
+        )
+    ),
+    reason="Real Silver data not available locally",
+)
+class TestRealDataAssembly:
+    """Integration tests using actual local Silver data."""
+
+    def test_real_data_assembly(self):
+        """Assemble features for 2024 and validate structure."""
+        from player_feature_engineering import assemble_player_features, get_player_feature_columns
+
+        df = assemble_player_features(2024)
+        assert len(df) > 0, "No rows assembled"
+        assert "player_id" in df.columns
+        assert "position" in df.columns
+        assert "season" in df.columns
+        assert "week" in df.columns
+        # All positions are skill positions
+        assert set(df["position"].unique()).issubset({"QB", "RB", "WR", "TE"})
+        # Feature count in expected range
+        feat_cols = get_player_feature_columns(df)
+        assert len(feat_cols) >= 50, f"Only {len(feat_cols)} features -- expected 50+"
+
+    def test_real_data_no_leakage(self):
+        """Leakage detection finds zero violations on real data."""
+        from player_feature_engineering import (
+            assemble_player_features,
+            detect_leakage,
+            get_player_feature_columns,
+        )
+
+        df = assemble_player_features(2024)
+        feat_cols = get_player_feature_columns(df)
+        warnings = detect_leakage(df, feat_cols, PLAYER_LABEL_COLUMNS)
+        assert len(warnings) == 0, f"Leakage detected: {warnings}"
+
+    def test_real_data_temporal_integrity(self):
+        """Temporal integrity validation finds zero violations on real data."""
+        from player_feature_engineering import (
+            assemble_player_features,
+            validate_temporal_integrity,
+        )
+
+        df = assemble_player_features(2024)
+        violations = validate_temporal_integrity(df)
+        assert len(violations) == 0, f"Temporal violations: {violations}"
+
+    def test_real_data_has_matchup_features(self):
+        """Real data includes opponent defense rank and EPA proxy."""
+        from player_feature_engineering import assemble_player_features
+
+        df = assemble_player_features(2024)
+        assert "opp_avg_pts_allowed" in df.columns or "opp_rank" in df.columns, \
+            "Missing matchup features"
+
+    def test_real_data_has_implied_totals(self):
+        """Real data includes Vegas implied team totals."""
+        from player_feature_engineering import assemble_player_features
+
+        df = assemble_player_features(2024)
+        assert "implied_team_total" in df.columns, "Missing implied_team_total"
+        # Values should be clipped
+        valid = df["implied_team_total"].dropna()
+        if len(valid) > 0:
+            assert valid.min() >= 5.0, f"implied_team_total below 5.0: {valid.min()}"
+            assert valid.max() <= 45.0, f"implied_team_total above 45.0: {valid.max()}"
