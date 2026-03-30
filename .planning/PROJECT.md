@@ -86,6 +86,8 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ 2025 feature vector: 272 REG games, 1139 columns, 0% NaN on market features; training seasons 2016-2024 all assemble correctly — Phase 36, v2.2
 - ✓ Holdout rotated to 2025 with derived season ranges; ensemble retrained on 2016-2024; 2025 baseline: 51.7% ATS, -$3.73 profit — Phase 37, v2.2
 - ✓ Market feature ablation: SHIP — 50.6% ATS beats 50.2% baseline (+0.4%); diff_opening_spread is #1 SHAP feature (23.6%); 120-feature SHAP-selected ensemble promoted to production — Phase 38, v2.2
+- ✓ Player-week feature vector assembly: 9 Silver sources joined into per-player-per-week rows (5,480 rows, 337 features for 2024), shift(1) temporal lag enforcement, matchup features, Vegas implied totals, leakage detection — Phase 39, v3.0
+- ✓ 608 total tests passing — v3.0
 
 ### Active
 
@@ -244,4 +246,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 after v3.0 milestone started*
+*Last updated: 2026-03-30 after Phase 39 complete*
