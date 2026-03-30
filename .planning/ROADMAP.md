@@ -205,7 +205,7 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 28-31 | v2.0 | 8/8 | Complete | 2026-03-27 |
 | 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
 | 35-38 | v2.2 | 7/7 | Complete | 2026-03-29 |
-| 39 | v3.0 | 2/2 | Complete   | 2026-03-30 |
+| 39 | v3.0 | 2/2 | Complete    | 2026-03-30 |
 | 40 | v3.0 | 0/TBD | Not started | - |
 | 41 | v3.0 | 0/TBD | Not started | - |
 | 42 | v3.0 | 0/TBD | Not started | - |
