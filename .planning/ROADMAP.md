@@ -152,11 +152,11 @@ Plans:
   2. All models are trained using walk-forward temporal CV respecting season/week ordering with 2025 holdout sealed and never touched during training
   3. Per-position MAE, RMSE, and correlation are reported independently and compared side-by-side against heuristic baselines (QB: 6.58, RB: 5.06, WR: 4.85, TE: 3.77)
   4. A ship-or-skip gate produces a clear verdict: positions where ML achieves 4%+ MAE improvement over heuristic are shipped; others fall back to heuristic
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 40-01: TBD
-- [ ] 40-02: TBD
+- [ ] 40-01-PLAN.md — Core player model training module with walk-forward CV, feature selection, and model serialization
+- [ ] 40-02-PLAN.md — Ship gate evaluation CLI with heuristic comparison and SHIP/SKIP verdict
 
 ### Phase 41: Accuracy Improvements
 **Goal**: Per-position prediction accuracy improves beyond the baseline models through decomposition, regression features, and ensemble stacking
@@ -206,10 +206,10 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
 | 35-38 | v2.2 | 7/7 | Complete | 2026-03-29 |
 | 39 | v3.0 | 2/2 | Complete    | 2026-03-30 |
-| 40 | v3.0 | 0/TBD | Not started | - |
+| 40 | v3.0 | 0/2 | Not started | - |
 | 41 | v3.0 | 0/TBD | Not started | - |
 | 42 | v3.0 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-29 after phase 39 planning*
+*Last updated: 2026-03-30 after phase 40 planning*
