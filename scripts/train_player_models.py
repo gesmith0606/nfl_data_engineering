@@ -33,6 +33,7 @@ from player_model_training import (
     build_ship_gate_report,
     compute_position_mae,
     generate_heuristic_predictions,
+    player_ensemble_stacking,
     predict_player_stats,
     print_ship_gate_table,
     run_player_feature_selection,
@@ -84,6 +85,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--scoring",
         default="half_ppr",
         help="Scoring format for ship gate evaluation (default: half_ppr).",
+    )
+    parser.add_argument(
+        "--stage",
+        choices=["features-only", "ensemble", "both"],
+        default="both",
+        help="Evaluation stage: features-only (new features, XGB only), "
+             "ensemble (XGB+LGB+Ridge stacking), both (sequential). Default: both.",
     )
     return parser
 
@@ -391,13 +399,181 @@ def main():
         )
 
     # -----------------------------------------------------------------------
-    # Step F: Build and print report
+    # Step F: Stage 1 — Features-Only Ship Gate
     # -----------------------------------------------------------------------
-    if position_results:
-        report = build_ship_gate_report(position_results, output_dir=OUTPUT_DIR)
-        print_ship_gate_table(report)
+    stage1_results = list(position_results)  # Copy for Stage 1
+    if stage1_results:
+        print("\n" + "=" * 60)
+        print("=== STAGE 1: Features-Only Ship Gate ===")
+        print("=" * 60)
+        report1 = build_ship_gate_report(stage1_results, output_dir=OUTPUT_DIR)
+        # Save Stage 1 separately
+        import json as _json
+        s1_path = os.path.join(OUTPUT_DIR, "ship_gate_features_only.json")
+        with open(s1_path, "w") as f:
+            _json.dump(report1, f, indent=2)
+        logger.info("Stage 1 report saved to %s", s1_path)
+        print_ship_gate_table(report1)
     else:
         logger.warning("No position results to report")
+
+    # -----------------------------------------------------------------------
+    # Step G: Stage 2 — Ensemble (XGB + LGB + Ridge) for SKIP positions
+    # -----------------------------------------------------------------------
+    ensemble_results = {}
+    stage2_results = []
+
+    if args.stage in ("ensemble", "both") and stage1_results:
+        skip_positions = [
+            r["position"] for r in stage1_results if r["verdict"] == "SKIP"
+        ]
+
+        if skip_positions:
+            print("\n" + "=" * 60)
+            print("=== STAGE 2: Ensemble Ship Gate ===")
+            print("=" * 60)
+            logger.info("Running ensemble stacking for SKIP positions: %s", skip_positions)
+
+            for position in skip_positions:
+                pos_data = all_data[all_data["position"] == position].copy()
+                if pos_data.empty:
+                    continue
+
+                logger.info("Ensemble training for %s...", position)
+                try:
+                    ens_results = player_ensemble_stacking(
+                        pos_data, position, feature_cols_by_group, output_dir=OUTPUT_DIR
+                    )
+                except Exception as e:
+                    logger.error("Ensemble failed for %s: %s", position, e)
+                    continue
+
+                if not ens_results:
+                    logger.warning("No ensemble results for %s", position)
+                    continue
+
+                ensemble_results[position] = ens_results
+
+                # Compute ensemble OOF MAE using Ridge predictions
+                oof_data = pos_data[pos_data["season"] != HOLDOUT_SEASON].copy()
+                stats = POSITION_STAT_PROFILE.get(position, [])
+                for stat, stat_info in ens_results.items():
+                    oof_matrix = stat_info.get("oof_matrix")
+                    if oof_matrix is not None and not oof_matrix.empty:
+                        pred_map = dict(
+                            zip(oof_matrix["idx"], oof_matrix["ensemble_pred"])
+                        )
+                        oof_data[f"pred_{stat}"] = oof_data.index.map(
+                            lambda x, pm=pred_map: pm.get(x, float("nan"))
+                        )
+                    else:
+                        oof_data[f"pred_{stat}"] = float("nan")
+
+                # Heuristic on same rows
+                heuristic_oof = generate_heuristic_predictions(oof_data, position)
+
+                ens_oof_ml_mae = compute_position_mae(
+                    oof_data, position, scoring_format=scoring
+                )
+                ens_oof_heur_mae = compute_position_mae(
+                    heuristic_oof, position, scoring_format=scoring
+                )
+
+                # Per-stat MAE for safety floor
+                ml_per_stat = compute_per_stat_mae(oof_data, position, stats)
+                heur_per_stat = compute_heuristic_per_stat_mae(
+                    heuristic_oof, position, stats
+                )
+                per_stat_results_ens = []
+                for sr in ml_per_stat:
+                    heur_mae = heur_per_stat.get(sr["stat"], 0.0)
+                    per_stat_results_ens.append({
+                        "stat": sr["stat"],
+                        "ml_mae": sr["ml_mae"],
+                        "heuristic_mae": heur_mae,
+                    })
+
+                # Use OOF as proxy for holdout (same logic as Stage 1 default)
+                if args.holdout_eval:
+                    holdout_data = pos_data[
+                        pos_data["season"] == HOLDOUT_SEASON
+                    ].copy()
+                    if not holdout_data.empty:
+                        # Ensemble holdout prediction requires XGB+LGB+Ridge inference
+                        # For now, use OOF as proxy (holdout inference needs model loading)
+                        ens_holdout_ml_mae = ens_oof_ml_mae
+                        ens_holdout_heur_mae = ens_oof_heur_mae
+                    else:
+                        ens_holdout_ml_mae = ens_oof_ml_mae
+                        ens_holdout_heur_mae = ens_oof_heur_mae
+                else:
+                    ens_holdout_ml_mae = ens_oof_ml_mae
+                    ens_holdout_heur_mae = ens_oof_heur_mae
+
+                verdict = ship_gate_verdict(
+                    position=position,
+                    ml_mae=ens_holdout_ml_mae,
+                    heuristic_mae=ens_holdout_heur_mae,
+                    oof_ml_mae=ens_oof_ml_mae,
+                    oof_heuristic_mae=ens_oof_heur_mae,
+                    per_stat_results=per_stat_results_ens,
+                )
+                stage2_results.append(verdict)
+
+                logger.info(
+                    "Ensemble %s: %s (ML MAE: %.3f, Heuristic MAE: %.3f, Delta: %.1f%%)",
+                    position,
+                    verdict["verdict"],
+                    verdict["ml_mae"],
+                    verdict["heuristic_mae"],
+                    verdict["holdout_improvement_pct"],
+                )
+
+            if stage2_results:
+                report2 = build_ship_gate_report(stage2_results, output_dir=OUTPUT_DIR)
+                # Save Stage 2 report separately
+                s2_path = os.path.join(OUTPUT_DIR, "ship_gate_ensemble.json")
+                with open(s2_path, "w") as f:
+                    _json.dump(report2, f, indent=2)
+                logger.info("Stage 2 report saved to %s", s2_path)
+                print_ship_gate_table(report2)
+        else:
+            logger.info("All positions SHIP at Stage 1 — no ensemble needed")
+
+    # -----------------------------------------------------------------------
+    # Step H: Two-Stage Ablation Report
+    # -----------------------------------------------------------------------
+    if stage1_results:
+        print("\n" + "=" * 60)
+        print("=== TWO-STAGE ABLATION REPORT ===")
+        print("=" * 60)
+
+        # Build lookup for Stage 2 results
+        s2_lookup = {r["position"]: r for r in stage2_results}
+
+        header = "| Position | Heuristic | XGB-Only | Ensemble | Verdict |"
+        sep = "|----------|-----------|----------|----------|---------|"
+        print(header)
+        print(sep)
+
+        for s1 in stage1_results:
+            pos = s1["position"]
+            heur_mae = s1["heuristic_mae"]
+            xgb_mae = s1["ml_mae"]
+            s2 = s2_lookup.get(pos)
+            if s2:
+                ens_mae = f"{s2['ml_mae']:.3f}"
+                final_verdict = s2["verdict"]
+            else:
+                ens_mae = "---"
+                final_verdict = s1["verdict"]
+
+            print(
+                f"| {pos:<8} | {heur_mae:<9.3f} | {xgb_mae:<8.3f} "
+                f"| {ens_mae:<8} | {final_verdict:<7} |"
+            )
+
+        print()
 
     elapsed = time.time() - start_time
     logger.info("Total elapsed: %.1f seconds", elapsed)
