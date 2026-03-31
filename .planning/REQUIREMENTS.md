@@ -16,8 +16,8 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 
 ### Model Training
 
-- [ ] **MODL-01**: Separate gradient boosting models trained per position (QB, RB, WR, TE)
-- [ ] **MODL-02**: Walk-forward temporal CV respecting season/week ordering with 2025 holdout sealed
+- [x] **MODL-01**: Separate gradient boosting models trained per position (QB, RB, WR, TE)
+- [x] **MODL-02**: Walk-forward temporal CV respecting season/week ordering with 2025 holdout sealed
 - [ ] **MODL-03**: Per-position MAE/RMSE/correlation evaluation against heuristic baseline (QB:6.58, RB:5.06, WR:4.85, TE:3.77)
 - [ ] **MODL-04**: Ship-or-skip gate requiring 4%+ per-position MAE improvement over heuristic to replace it
 
@@ -30,7 +30,7 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 
 ### Pipeline & Integration
 
-- [ ] **PIPE-01**: Stat-level predictions (yards, TDs, receptions) with scoring formula applied downstream
+- [x] **PIPE-01**: Stat-level predictions (yards, TDs, receptions) with scoring formula applied downstream
 - [ ] **PIPE-02**: Team-total constraint ensuring player share projections sum to ~100% per team
 - [ ] **PIPE-03**: Weekly pipeline wiring into generate_projections.py and draft_assistant.py
 - [ ] **PIPE-04**: Heuristic fallback preserved for rookies, thin-data players, and positions where ML doesn't beat baseline
@@ -75,15 +75,15 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 | FEAT-02 | Phase 39 | Complete |
 | FEAT-03 | Phase 39 | Complete |
 | FEAT-04 | Phase 39 | Complete |
-| MODL-01 | Phase 40 | Pending |
-| MODL-02 | Phase 40 | Pending |
+| MODL-01 | Phase 40 | Complete |
+| MODL-02 | Phase 40 | Complete |
 | MODL-03 | Phase 40 | Pending |
 | MODL-04 | Phase 40 | Pending |
 | ACCY-01 | Phase 41 | Pending |
 | ACCY-02 | Phase 41 | Pending |
 | ACCY-03 | Phase 41 | Pending |
 | ACCY-04 | Phase 41 | Pending |
-| PIPE-01 | Phase 40 | Pending |
+| PIPE-01 | Phase 40 | Complete |
 | PIPE-02 | Phase 42 | Pending |
 | PIPE-03 | Phase 42 | Pending |
 | PIPE-04 | Phase 42 | Pending |
