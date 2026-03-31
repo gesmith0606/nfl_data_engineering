@@ -23,9 +23,9 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 
 ### Accuracy
 
-- [ ] **ACCY-01**: Opportunity-efficiency decomposition predicting shares/volume then per-touch efficiency
-- [ ] **ACCY-02**: TD regression features using red zone opportunity share x historical conversion rates
-- [ ] **ACCY-03**: Role momentum features (snap share trajectory as breakout/demotion signal)
+- [x] **ACCY-01**: Opportunity-efficiency decomposition predicting shares/volume then per-touch efficiency
+- [x] **ACCY-02**: TD regression features using red zone opportunity share x historical conversion rates
+- [x] **ACCY-03**: Role momentum features (snap share trajectory as breakout/demotion signal)
 - [ ] **ACCY-04**: Ensemble stacking (XGB+LGB+CB+Ridge) per position if single model leaves accuracy on the table
 
 ### Pipeline & Integration
@@ -79,9 +79,9 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 | MODL-02 | Phase 40 | Complete |
 | MODL-03 | Phase 40 | Complete |
 | MODL-04 | Phase 40 | Complete |
-| ACCY-01 | Phase 41 | Pending |
-| ACCY-02 | Phase 41 | Pending |
-| ACCY-03 | Phase 41 | Pending |
+| ACCY-01 | Phase 41 | Complete |
+| ACCY-02 | Phase 41 | Complete |
+| ACCY-03 | Phase 41 | Complete |
 | ACCY-04 | Phase 41 | Pending |
 | PIPE-01 | Phase 40 | Complete |
 | PIPE-02 | Phase 42 | Pending |

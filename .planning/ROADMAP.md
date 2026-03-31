@@ -170,7 +170,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 41-01-PLAN.md — Derived efficiency, TD regression, and momentum features with unit tests
+- [x] 41-01-PLAN.md — Derived efficiency, TD regression, and momentum features with unit tests
 - [ ] 41-02-PLAN.md — XGB+LGB+Ridge ensemble stacking with two-stage CLI evaluation
 
 ### Phase 42: Pipeline Integration and Extensions
@@ -207,7 +207,7 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 35-38 | v2.2 | 7/7 | Complete | 2026-03-29 |
 | 39 | v3.0 | 2/2 | Complete    | 2026-03-30 |
 | 40 | v3.0 | 2/2 | Complete    | 2026-03-31 |
-| 41 | v3.0 | 0/2 | Not started | - |
+| 41 | v3.0 | 1/2 | In Progress|  |
 | 42 | v3.0 | 0/TBD | Not started | - |
 
 ---

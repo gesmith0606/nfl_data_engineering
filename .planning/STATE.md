@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Player Fantasy Prediction System
 status: unknown
-stopped_at: Completed 40-02-PLAN.md
-last_updated: "2026-03-31T00:41:40.698Z"
+stopped_at: Completed 41-01-PLAN.md
+last_updated: "2026-03-31T08:24:52.193Z"
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 40 — baseline-models-ship-gate
+**Current focus:** Phase 41 — accuracy-improvements
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v3.0 Player Fantasy Prediction System -- Phases 39-42
 
 ## Current Position
 
-Phase: 41
-Plan: Not started
+Phase: 41 (accuracy-improvements) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Plan: Not started
 | Phase 39 P01 | 4min | 2 tasks | 3 files |
 | Phase 40 P01 | 33min | 2 tasks | 2 files |
 | Phase 40 P02 | 5min | 2 tasks | 3 files |
+| Phase 41 P01 | 3min | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,7 @@ See PROJECT.md Key Decisions table for full history.
 - [Phase 40]: TD/turnover stats use shallower trees (max_depth=3, min_child_weight=10) vs yardage/volume for sparse count data
 - [Phase 40]: Player OOF predictions keyed by row index (not game_id) since player-week data lacks game_id equivalent
 - [Phase 40]: Heuristic baseline re-runs usage_multiplier inline to avoid coupling with projection_engine internals
+- [Phase 41]: Safe division with np.where for ratio features (NaN for zero denominator)
 
 ### Research Flags
 
@@ -82,8 +84,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-31T00:37:13.018Z
-Stopped at: Completed 40-02-PLAN.md
+Last session: 2026-03-31T08:24:52.190Z
+Stopped at: Completed 41-01-PLAN.md
 Resume file: None
 
 ---
