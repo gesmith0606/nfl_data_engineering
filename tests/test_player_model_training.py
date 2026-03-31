@@ -371,6 +371,7 @@ class TestPlayerModelTraining:
             "receiving_yards": np.random.uniform(0, 80, n),
             "receiving_tds": np.random.randint(0, 2, n).astype(float),
             "targets": np.random.randint(0, 10, n).astype(float),
+            "carries": np.random.randint(5, 25, n).astype(float),
         })
         pos_data.index = range(n)
 

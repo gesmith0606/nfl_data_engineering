@@ -10,9 +10,15 @@ Exports:
     STAT_TYPE_PARAMS: Hyperparameter profiles per stat type.
     get_stat_type: Map a stat name to its group key.
     get_player_model_params: Return hyperparams for a stat's type group.
+    get_lgb_params_for_stat: Return LGB hyperparams for a stat's type group.
+    _player_xgb_fit_kwargs: XGBoost fit kwargs for walk-forward CV.
+    _player_lgb_fit_kwargs: LightGBM fit kwargs for walk-forward CV.
     player_walk_forward_cv: Walk-forward CV keyed on row index.
     run_player_feature_selection: SHAP selection per stat-type group.
     train_position_models: Train all stat models for one position.
+    assemble_player_oof_matrix: Merge XGB/LGB OOF predictions on idx.
+    train_player_ridge_meta: Train RidgeCV on 2-column OOF matrix.
+    player_ensemble_stacking: XGB + LGB + Ridge ensemble per stat.
     save_player_model: Save model JSON + metadata sidecar.
     load_player_model: Load saved model.
     predict_player_stats: Predict all stats for a position.
@@ -31,8 +37,8 @@ import xgboost as xgb
 from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 
-from config import CONSERVATIVE_PARAMS, HOLDOUT_SEASON
-from ensemble_training import make_xgb_model
+from config import CONSERVATIVE_PARAMS, HOLDOUT_SEASON, LGB_CONSERVATIVE_PARAMS
+from ensemble_training import make_lgb_model, make_xgb_model
 from feature_selector import _assert_no_holdout, filter_correlated_features
 from model_training import WalkForwardResult
 from projection_engine import POSITION_STAT_PROFILE
@@ -116,6 +122,26 @@ def get_player_model_params(stat: str) -> dict:
     return STAT_TYPE_PARAMS[stat_type].copy()
 
 
+def get_lgb_params_for_stat(stat: str) -> dict:
+    """Return LGB hyperparameters adapted for a stat's type group.
+
+    TD/turnover stats get shallower trees; yardage/volume use base params.
+
+    Args:
+        stat: Stat name (e.g., 'rushing_yards', 'passing_tds').
+
+    Returns:
+        Copy of LGB_CONSERVATIVE_PARAMS with stat-type adjustments.
+    """
+    stat_type = get_stat_type(stat)
+    base = LGB_CONSERVATIVE_PARAMS.copy()
+    if stat_type in ("td", "turnover"):
+        base["max_depth"] = 3
+        base["min_child_samples"] = 30
+        base["n_estimators"] = 300
+    return base
+
+
 # ---------------------------------------------------------------------------
 # XGBoost fit kwargs (adapted from ensemble_training._xgb_fit_kwargs)
 # ---------------------------------------------------------------------------
@@ -124,6 +150,16 @@ def get_player_model_params(stat: str) -> dict:
 def _player_xgb_fit_kwargs(X_train, y_train, X_val, y_val) -> dict:
     """XGBoost fit kwargs with eval_set for early stopping."""
     return {"eval_set": [(X_val, y_val)], "verbose": False}
+
+
+def _player_lgb_fit_kwargs(X_train, y_train, X_val, y_val) -> dict:
+    """LightGBM fit kwargs for player walk-forward CV."""
+    import lightgbm as lgb_lib
+
+    return {
+        "eval_set": [(X_val, y_val)],
+        "callbacks": [lgb_lib.early_stopping(50, verbose=False)],
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -480,6 +516,171 @@ def train_position_models(
         logger.info(
             f"Trained {position}/{stat}: MAE={wf_result.mean_mae:.3f} "
             f"({len(available)} features, {len(stat_data)} rows)"
+        )
+
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Ensemble stacking: XGB + LGB + Ridge meta-learner
+# ---------------------------------------------------------------------------
+
+
+def assemble_player_oof_matrix(
+    xgb_oof: pd.DataFrame,
+    lgb_oof: pd.DataFrame,
+    pos_data: pd.DataFrame,
+    target_col: str,
+) -> pd.DataFrame:
+    """Assemble 2-column OOF prediction matrix for Ridge meta-learner.
+
+    Joins XGB and LGB OOF predictions on idx (row index), adds actual target.
+
+    Args:
+        xgb_oof: XGB OOF DataFrame with idx, oof_prediction columns.
+        lgb_oof: LGB OOF DataFrame with idx, oof_prediction columns.
+        pos_data: Source position data with target column.
+        target_col: Name of the target column in pos_data.
+
+    Returns:
+        DataFrame with xgb_pred, lgb_pred, actual columns.
+    """
+    merged = xgb_oof.rename(columns={"oof_prediction": "xgb_pred"})
+    merged = merged.merge(
+        lgb_oof.rename(columns={"oof_prediction": "lgb_pred"})[["idx", "lgb_pred"]],
+        on="idx",
+        how="inner",
+    )
+    # Add actual target from source data, keyed by idx
+    actuals = pos_data[[target_col]].copy()
+    actuals["idx"] = actuals.index
+    merged = merged.merge(
+        actuals.rename(columns={target_col: "actual"}),
+        on="idx",
+        how="inner",
+    )
+    return merged
+
+
+def train_player_ridge_meta(
+    oof_matrix: pd.DataFrame,
+    target_col: str = "actual",
+):
+    """Train RidgeCV on 2-column OOF matrix (xgb_pred, lgb_pred).
+
+    Args:
+        oof_matrix: DataFrame with xgb_pred, lgb_pred, and target columns.
+        target_col: Name of the actual target column.
+
+    Returns:
+        Fitted RidgeCV instance.
+    """
+    from sklearn.linear_model import RidgeCV
+
+    X = oof_matrix[["xgb_pred", "lgb_pred"]].values
+    y = oof_matrix[target_col].values
+    ridge = RidgeCV(alphas=[0.01, 0.1, 1.0, 10.0, 100.0])
+    ridge.fit(X, y)
+    return ridge
+
+
+def player_ensemble_stacking(
+    pos_data: pd.DataFrame,
+    position: str,
+    feature_cols_by_group: Dict[str, List[str]],
+    output_dir: str = "models/player",
+) -> Dict[str, Any]:
+    """Train XGB + LGB per stat, stack with Ridge meta-learner.
+
+    Per D-10: XGB + LGB + Ridge (no CatBoost). Returns dict mapping
+    stat -> {xgb_wf, lgb_wf, xgb_oof, lgb_oof, ridge, oof_matrix}.
+
+    Args:
+        pos_data: Position-filtered DataFrame.
+        position: Position code (e.g., 'QB', 'RB').
+        feature_cols_by_group: Dict from run_player_feature_selection.
+        output_dir: Directory to save models. Default 'models/player'.
+
+    Returns:
+        Dict mapping stat -> {xgb_wf, lgb_wf, xgb_oof, lgb_oof, ridge, oof_matrix}.
+    """
+    import joblib
+
+    stats = POSITION_STAT_PROFILE.get(position, [])
+    results: Dict[str, Any] = {}
+
+    for stat in stats:
+        stat_type = get_stat_type(stat)
+        feat_cols = feature_cols_by_group.get(stat_type, [])
+        available = [f for f in feat_cols if f in pos_data.columns]
+        if not available:
+            continue
+
+        stat_data = pos_data.dropna(subset=[stat]).copy()
+        stat_data = stat_data[stat_data["season"] != HOLDOUT_SEASON]
+        if stat_data.empty:
+            continue
+
+        # XGB walk-forward CV
+        xgb_params = get_player_model_params(stat)
+        xgb_wf, xgb_oof = player_walk_forward_cv(
+            stat_data,
+            available,
+            stat,
+            lambda p=xgb_params: make_xgb_model(p),
+            fit_kwargs_fn=_player_xgb_fit_kwargs,
+        )
+
+        # LGB walk-forward CV
+        lgb_params = get_lgb_params_for_stat(stat)
+        lgb_wf, lgb_oof = player_walk_forward_cv(
+            stat_data,
+            available,
+            stat,
+            lambda p=lgb_params: make_lgb_model(p),
+            fit_kwargs_fn=_player_lgb_fit_kwargs,
+        )
+
+        # Assemble OOF matrix and train Ridge
+        oof_matrix = assemble_player_oof_matrix(xgb_oof, lgb_oof, stat_data, stat)
+        if oof_matrix.empty or len(oof_matrix) < 10:
+            logger.warning(
+                f"Insufficient OOF data for {position}/{stat} ensemble"
+            )
+            continue
+
+        ridge = train_player_ridge_meta(oof_matrix)
+
+        # Generate ensemble OOF predictions
+        X_oof = oof_matrix[["xgb_pred", "lgb_pred"]].values
+        oof_matrix["ensemble_pred"] = ridge.predict(X_oof)
+
+        # Save models
+        pos_dir = os.path.join(output_dir, position.lower())
+        os.makedirs(pos_dir, exist_ok=True)
+
+        # Save LGB model (final, trained on all non-holdout data)
+        lgb_final = make_lgb_model(lgb_params)
+        X_all = stat_data[available]
+        y_all = stat_data[stat]
+        lgb_final.fit(X_all, y_all)
+        joblib.dump(lgb_final, os.path.join(pos_dir, f"{stat}_lgb.joblib"))
+
+        # Save Ridge meta
+        joblib.dump(ridge, os.path.join(pos_dir, f"{stat}_ridge.joblib"))
+
+        results[stat] = {
+            "xgb_wf": xgb_wf,
+            "lgb_wf": lgb_wf,
+            "xgb_oof": xgb_oof,
+            "lgb_oof": lgb_oof,
+            "ridge": ridge,
+            "oof_matrix": oof_matrix,
+        }
+        logger.info(
+            f"Ensemble {position}/{stat}: XGB OOF MAE={xgb_wf.mean_mae:.3f}, "
+            f"LGB OOF MAE={lgb_wf.mean_mae:.3f}, "
+            f"Ridge weights={ridge.coef_.tolist()}"
         )
 
     return results
