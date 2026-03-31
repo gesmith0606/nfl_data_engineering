@@ -88,15 +88,14 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ Market feature ablation: SHIP — 50.6% ATS beats 50.2% baseline (+0.4%); diff_opening_spread is #1 SHAP feature (23.6%); 120-feature SHAP-selected ensemble promoted to production — Phase 38, v2.2
 - ✓ Player-week feature vector assembly: 9 Silver sources joined into per-player-per-week rows (5,480 rows, 337 features for 2024), shift(1) temporal lag enforcement, matchup features, Vegas implied totals, leakage detection — Phase 39, v3.0
 - ✓ 608 total tests passing — v3.0
+- ✓ Per-position per-stat XGBoost models (19 total: QB 5, RB 6, WR 4, TE 4) with walk-forward CV (3 expanding folds), SHAP feature selection per stat-type group, ship gate with dual agreement (OOF + holdout) — Phase 40, v3.0
+- ✓ 622 total tests passing — v3.0
 
 ### Active
 
-- [ ] ML-based player fantasy projections that beat the current heuristic baseline (MAE 4.91) per position
-- [ ] Position-specific prediction models (QB, RB, WR, TE)
 - [ ] Opportunity and efficiency decomposition for player predictions
 - [ ] Matchup-aware adjustments using existing Silver data
 - [ ] Game-level constraints (team total allocation)
-- [ ] Walk-forward evaluation framework for player projections
 
 ## Current Milestone: v3.0 Player Fantasy Prediction System
 
@@ -140,7 +139,8 @@ Silver layer: 13 team output paths (including market/line movement data for all 
 Gold layer: weekly + preseason fantasy projections; ML game predictions with 120-feature SHAP-selected ensemble (market features included).
 Prediction feature vector: 1139 raw columns → 120 SHAP-selected features. `diff_opening_spread` is #1 feature (23.6% SHAP importance).
 ML models: v2.2 stacking ensemble (XGB+LGB+CB + Ridge meta-learner) with market features; walk-forward CV, sealed 2025 holdout (51.7% ATS, 50.6% with market features). CLV tracking measures model quality against closing lines.
-Tests: 594 passing across 19 test files.
+Player models: 19 per-position per-stat XGBoost models (walk-forward CV, SHAP feature selection per stat-type group, ship gate evaluation).
+Tests: 622 passing across 21 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -246,4 +246,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after Phase 39 complete*
+*Last updated: 2026-03-31 after Phase 40 complete*
