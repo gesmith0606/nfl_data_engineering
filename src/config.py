@@ -462,6 +462,13 @@ CB_CONSERVATIVE_PARAMS = {
     "allow_writing_files": False,
 }
 
+# Position-average red zone TD conversion rates — used for TD regression features
+POSITION_AVG_RZ_TD_RATE = {
+    "RB": 0.08,
+    "WR": 0.12,
+    "TE": 0.14,
+}
+
 # Ensemble model directory (flat structure under models/)
 ENSEMBLE_DIR = os.path.join(MODEL_DIR, "ensemble")
 

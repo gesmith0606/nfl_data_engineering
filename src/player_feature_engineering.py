@@ -23,6 +23,7 @@ import pandas as pd
 from config import (
     PLAYER_DATA_SEASONS,
     PLAYER_LABEL_COLUMNS,
+    POSITION_AVG_RZ_TD_RATE,
     SILVER_PLAYER_LOCAL_DIRS,
     SILVER_PLAYER_TEAM_SOURCES,
 )
@@ -193,6 +194,120 @@ def _add_implied_totals(df: pd.DataFrame, schedules: pd.DataFrame) -> pd.DataFra
 
 
 # ---------------------------------------------------------------------------
+# Derived feature computations
+# ---------------------------------------------------------------------------
+
+
+def compute_efficiency_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Compute efficiency ratio features from rolling volume columns.
+
+    Creates 12 ratio columns (6 ratios x 2 windows: roll3, roll6):
+    yards_per_carry, yards_per_target, yards_per_reception,
+    catch_rate, rush_td_rate, rec_td_rate.
+
+    Uses safe division (np.where) to produce NaN for zero denominators.
+
+    Args:
+        df: Player-week DataFrame with rolling volume columns.
+
+    Returns:
+        DataFrame with 12 new efficiency columns added.
+    """
+    df = df.copy()
+
+    ratios = [
+        ("yards_per_carry", "rushing_yards", "carries"),
+        ("yards_per_target", "receiving_yards", "targets"),
+        ("yards_per_reception", "receiving_yards", "receptions"),
+        ("catch_rate", "receptions", "targets"),
+        ("rush_td_rate", "rushing_tds", "carries"),
+        ("rec_td_rate", "receiving_tds", "targets"),
+    ]
+
+    for suffix in ["roll3", "roll6"]:
+        for name, numerator_base, denominator_base in ratios:
+            num_col = f"{numerator_base}_{suffix}"
+            den_col = f"{denominator_base}_{suffix}"
+            out_col = f"{name}_{suffix}"
+
+            if num_col in df.columns and den_col in df.columns:
+                df[out_col] = np.where(
+                    df[den_col] > 0,
+                    df[num_col] / df[den_col],
+                    np.nan,
+                )
+
+    return df
+
+
+def compute_td_regression_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Compute expected TD features from red zone target share.
+
+    Creates expected_td_pos_avg (position-average conversion rate) and
+    expected_td_player (player-specific rate via rec_td_rate_roll6).
+
+    If rz_target_share_roll3 is missing but rz_target_share is present,
+    computes the rolling column with shift(1) lag to prevent leakage.
+
+    Args:
+        df: Player-week DataFrame with rz_target_share and position columns.
+
+    Returns:
+        DataFrame with expected TD columns added.
+    """
+    df = df.copy()
+
+    # Compute rz_target_share_roll3 if missing but raw is available
+    if "rz_target_share_roll3" not in df.columns and "rz_target_share" in df.columns:
+        if "player_id" in df.columns and "season" in df.columns:
+            df["rz_target_share_roll3"] = (
+                df.groupby(["player_id", "season"])["rz_target_share"]
+                .transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())
+            )
+
+    if "rz_target_share_roll3" in df.columns:
+        # Position-average expected TD
+        if "position" in df.columns:
+            rate = df["position"].map(POSITION_AVG_RZ_TD_RATE).fillna(0.10)
+            df["expected_td_pos_avg"] = df["rz_target_share_roll3"] * rate
+
+        # Player-specific expected TD (uses efficiency feature rec_td_rate_roll6)
+        if "rec_td_rate_roll6" in df.columns:
+            df["expected_td_player"] = (
+                df["rz_target_share_roll3"] * df["rec_td_rate_roll6"]
+            )
+
+    return df
+
+
+def compute_momentum_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Compute momentum delta features (roll3 minus roll6).
+
+    Creates snap_pct_delta, target_share_delta, carry_share_delta
+    when source columns exist. Skips each pair silently if missing.
+
+    Args:
+        df: Player-week DataFrame with rolling share columns.
+
+    Returns:
+        DataFrame with momentum delta columns added.
+    """
+    df = df.copy()
+
+    deltas = [
+        ("snap_pct_delta", "snap_pct_roll3", "snap_pct_roll6"),
+        ("target_share_delta", "target_share_roll3", "target_share_roll6"),
+        ("carry_share_delta", "carry_share_roll3", "carry_share_roll6"),
+    ]
+
+    for out_col, roll3_col, roll6_col in deltas:
+        if roll3_col in df.columns and roll6_col in df.columns:
+            df[out_col] = df[roll3_col] - df[roll6_col]
+
+    return df
+
+
+# ---------------------------------------------------------------------------
 # Core assembly
 # ---------------------------------------------------------------------------
 
@@ -338,6 +453,11 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 9. Exclude bye weeks (guard — usage should not have bye rows)
     base = base[base["week"].notna()].copy()
+
+    # 10. Compute derived features
+    base = compute_efficiency_features(base)
+    base = compute_td_regression_features(base)
+    base = compute_momentum_features(base)
 
     logger.info(
         "Assembled player features for season %d: %d rows, %d columns",
