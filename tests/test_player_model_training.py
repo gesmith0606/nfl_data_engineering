@@ -271,3 +271,126 @@ class TestPlayerModelTraining:
             # Load model back
             loaded = load_player_model("RB", "rushing_yards", model_dir=tmpdir)
             assert loaded is not None
+
+    # -------------------------------------------------------------------
+    # LGB / Ensemble stacking tests (Plan 41-02)
+    # -------------------------------------------------------------------
+
+    def test_player_lgb_fit_kwargs(self):
+        """_player_lgb_fit_kwargs returns dict with eval_set and callbacks keys."""
+        from player_model_training import _player_lgb_fit_kwargs
+
+        X_train = np.random.rand(20, 3)
+        y_train = np.random.rand(20)
+        X_val = np.random.rand(5, 3)
+        y_val = np.random.rand(5)
+
+        result = _player_lgb_fit_kwargs(X_train, y_train, X_val, y_val)
+        assert "eval_set" in result
+        assert "callbacks" in result
+        assert len(result["eval_set"]) == 1
+        assert result["eval_set"][0] == (X_val, y_val)
+
+    def test_get_lgb_params_for_stat_td(self):
+        """get_lgb_params_for_stat returns shallower trees for TD stats."""
+        from player_model_training import get_lgb_params_for_stat
+
+        params = get_lgb_params_for_stat("rushing_tds")
+        assert params["max_depth"] == 3
+        assert params["min_child_samples"] == 30
+        assert params["n_estimators"] == 300
+
+    def test_get_lgb_params_for_stat_yardage(self):
+        """get_lgb_params_for_stat returns base LGB params for yardage stats."""
+        from player_model_training import get_lgb_params_for_stat
+        from config import LGB_CONSERVATIVE_PARAMS
+
+        params = get_lgb_params_for_stat("rushing_yards")
+        assert params["max_depth"] == LGB_CONSERVATIVE_PARAMS["max_depth"]
+
+    def test_assemble_player_oof_matrix(self):
+        """assemble_player_oof_matrix merges XGB and LGB OOF on idx with actual target."""
+        from player_model_training import assemble_player_oof_matrix
+
+        xgb_oof = pd.DataFrame({
+            "idx": [0, 1, 2, 3],
+            "season": [2022, 2022, 2023, 2023],
+            "week": [1, 2, 1, 2],
+            "oof_prediction": [50.0, 60.0, 70.0, 80.0],
+        })
+        lgb_oof = pd.DataFrame({
+            "idx": [0, 1, 2, 3],
+            "season": [2022, 2022, 2023, 2023],
+            "week": [1, 2, 1, 2],
+            "oof_prediction": [52.0, 58.0, 72.0, 78.0],
+        })
+        pos_data = pd.DataFrame({
+            "rushing_yards": [55.0, 62.0, 68.0, 82.0],
+        }, index=[0, 1, 2, 3])
+
+        result = assemble_player_oof_matrix(xgb_oof, lgb_oof, pos_data, "rushing_yards")
+
+        assert "xgb_pred" in result.columns
+        assert "lgb_pred" in result.columns
+        assert "actual" in result.columns
+        assert len(result) == 4
+        assert list(result["xgb_pred"]) == [50.0, 60.0, 70.0, 80.0]
+        assert list(result["lgb_pred"]) == [52.0, 58.0, 72.0, 78.0]
+        assert list(result["actual"]) == [55.0, 62.0, 68.0, 82.0]
+
+    def test_assemble_player_oof_matrix_empty(self):
+        """assemble_player_oof_matrix with empty input returns empty DataFrame."""
+        from player_model_training import assemble_player_oof_matrix
+
+        xgb_oof = pd.DataFrame(columns=["idx", "season", "week", "oof_prediction"])
+        lgb_oof = pd.DataFrame(columns=["idx", "season", "week", "oof_prediction"])
+        pos_data = pd.DataFrame({"rushing_yards": pd.Series(dtype=float)})
+
+        result = assemble_player_oof_matrix(xgb_oof, lgb_oof, pos_data, "rushing_yards")
+        assert len(result) == 0
+        assert "xgb_pred" in result.columns
+        assert "lgb_pred" in result.columns
+
+    def test_player_ensemble_stacking_returns_results(self):
+        """player_ensemble_stacking returns dict with stat keys containing ridge and OOF data."""
+        from unittest.mock import patch, MagicMock
+        from player_model_training import player_ensemble_stacking
+
+        # Create minimal synthetic data
+        np.random.seed(42)
+        n = 100
+        pos_data = pd.DataFrame({
+            "season": [2020] * 25 + [2021] * 25 + [2022] * 25 + [2023] * 25,
+            "week": list(range(1, 26)) * 4,
+            "position": ["RB"] * n,
+            "feat1": np.random.rand(n),
+            "feat2": np.random.rand(n),
+            "rushing_yards": np.random.uniform(20, 120, n),
+            "rushing_tds": np.random.randint(0, 3, n).astype(float),
+            "receptions": np.random.randint(0, 8, n).astype(float),
+            "receiving_yards": np.random.uniform(0, 80, n),
+            "receiving_tds": np.random.randint(0, 2, n).astype(float),
+            "targets": np.random.randint(0, 10, n).astype(float),
+        })
+        pos_data.index = range(n)
+
+        feature_cols_by_group = {
+            "yardage": ["feat1", "feat2"],
+            "td": ["feat1", "feat2"],
+            "volume": ["feat1", "feat2"],
+            "turnover": ["feat1", "feat2"],
+        }
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            results = player_ensemble_stacking(
+                pos_data, "RB", feature_cols_by_group, output_dir=tmpdir
+            )
+
+        assert isinstance(results, dict)
+        # Should have at least some stats trained
+        if results:
+            first_stat = next(iter(results))
+            assert "ridge" in results[first_stat]
+            assert "oof_matrix" in results[first_stat]
+            assert "xgb_wf" in results[first_stat]
+            assert "lgb_wf" in results[first_stat]
