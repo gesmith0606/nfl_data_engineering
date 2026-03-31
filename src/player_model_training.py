@@ -590,3 +590,263 @@ def predict_player_stats(
         result_df[f"pred_{stat}"] = preds
 
     return result_df
+
+
+# ---------------------------------------------------------------------------
+# Ship gate: heuristic baseline comparison
+# ---------------------------------------------------------------------------
+
+
+def generate_heuristic_predictions(
+    player_data: pd.DataFrame,
+    position: str,
+) -> pd.DataFrame:
+    """Re-run heuristic baseline on the same player-week rows as ML.
+
+    For each stat in POSITION_STAT_PROFILE[position], computes
+    _weighted_baseline (blending roll3/roll6/std columns) and applies
+    _usage_multiplier, matching the existing projection engine logic.
+
+    Args:
+        player_data: Player-week DataFrame with rolling feature columns.
+        position: Position code (e.g., 'QB', 'RB').
+
+    Returns:
+        DataFrame with pred_{stat} columns for all position stats.
+    """
+    from projection_engine import (
+        RECENCY_WEIGHTS,
+        USAGE_STABILITY_STAT,
+        _weighted_baseline,
+    )
+
+    result_df = player_data.copy()
+    stats = POSITION_STAT_PROFILE.get(position, [])
+
+    # Compute usage multiplier once
+    # _usage_multiplier expects a specific column name per position.
+    # The assembled feature DataFrame may have rolling variants.
+    # We provide the raw column if available; otherwise neutral (1.0).
+    usage_col = USAGE_STABILITY_STAT.get(position, "snap_pct")
+    if usage_col in result_df.columns:
+        usage = result_df[usage_col].fillna(result_df[usage_col].median())
+        percentile = usage.rank(pct=True)
+        usage_mult = (0.80 + 0.35 * percentile).clip(0.80, 1.15)
+    else:
+        usage_mult = 1.0
+
+    for stat in stats:
+        baseline = _weighted_baseline(result_df, stat)
+        result_df[f"pred_{stat}"] = baseline * usage_mult
+
+    return result_df
+
+
+def compute_position_mae(
+    predictions_df: pd.DataFrame,
+    position: str,
+    scoring_format: str = "half_ppr",
+    output_col: str = "pred_fantasy_points",
+    actual_col: str = "actual_fantasy_points",
+) -> float:
+    """Compute MAE between predicted and actual fantasy points for a position.
+
+    Renames pred_{stat} columns to stat names, scores via
+    calculate_fantasy_points_df, then compares to actual fantasy points
+    computed from label columns. Filters to weeks 3-18 only (D-14).
+
+    Args:
+        predictions_df: DataFrame with pred_{stat} columns and actual stat columns.
+        position: Position code.
+        scoring_format: Scoring format for fantasy point calculation.
+        output_col: Column name for predicted fantasy points.
+        actual_col: Column name for actual fantasy points.
+
+    Returns:
+        MAE float.
+    """
+    from scoring_calculator import calculate_fantasy_points_df
+
+    stats = POSITION_STAT_PROFILE.get(position, [])
+    df = predictions_df.copy()
+
+    # Filter to weeks 3-18 only (per D-14: skip early-season noise)
+    if "week" in df.columns:
+        df = df[(df["week"] >= 3) & (df["week"] <= 18)]
+
+    if df.empty:
+        return 0.0
+
+    # Build predicted-points DataFrame: rename pred_{stat} -> stat for scoring
+    pred_cols = {}
+    for stat in stats:
+        pred_col = f"pred_{stat}"
+        if pred_col in df.columns:
+            pred_cols[pred_col] = stat
+
+    pred_df = df.rename(columns=pred_cols)
+    pred_df = calculate_fantasy_points_df(
+        pred_df, scoring_format=scoring_format, output_col=output_col
+    )
+
+    # Build actual-points DataFrame from label columns
+    actual_df = calculate_fantasy_points_df(
+        df, scoring_format=scoring_format, output_col=actual_col
+    )
+
+    # Compute MAE
+    valid = pred_df[output_col].notna() & actual_df[actual_col].notna()
+    if valid.sum() == 0:
+        return 0.0
+
+    mae = float(
+        np.mean(np.abs(pred_df.loc[valid, output_col] - actual_df.loc[valid, actual_col]))
+    )
+    return mae
+
+
+# ---------------------------------------------------------------------------
+# Ship gate: verdict logic
+# ---------------------------------------------------------------------------
+
+
+def ship_gate_verdict(
+    position: str,
+    ml_mae: float,
+    heuristic_mae: float,
+    oof_ml_mae: float,
+    oof_heuristic_mae: float,
+    per_stat_results: list,
+) -> dict:
+    """Per-position ship-or-skip with dual agreement and safety floor.
+
+    Per D-07, D-08, D-09, D-10, D-11:
+    - D-08: 4%+ improvement required on both OOF and holdout
+    - D-09: Safety floor -- no individual stat >10% worse
+    - D-10: Dual agreement -- both OOF and holdout must pass
+
+    Args:
+        position: Position code (e.g., 'QB').
+        ml_mae: ML model MAE on holdout (fantasy points).
+        heuristic_mae: Heuristic MAE on holdout (fantasy points).
+        oof_ml_mae: ML model MAE on OOF data.
+        oof_heuristic_mae: Heuristic MAE on OOF data.
+        per_stat_results: List of dicts with keys: stat, ml_mae, heuristic_mae.
+
+    Returns:
+        Dict with position, ml_mae, heuristic_mae, improvement percentages,
+        safety_violation flag, and verdict ("SHIP" or "SKIP").
+    """
+    holdout_improvement = (
+        (heuristic_mae - ml_mae) / heuristic_mae if heuristic_mae > 0 else 0.0
+    )
+    oof_improvement = (
+        (oof_heuristic_mae - oof_ml_mae) / oof_heuristic_mae
+        if oof_heuristic_mae > 0
+        else 0.0
+    )
+
+    # D-09: Safety floor -- no individual stat >10% worse
+    safety_violation = False
+    for stat_result in per_stat_results:
+        if stat_result["heuristic_mae"] > 0:
+            if stat_result["ml_mae"] > stat_result["heuristic_mae"] * 1.10:
+                safety_violation = True
+                break
+
+    # D-08 + D-10: Dual agreement at 4% threshold
+    ship = (
+        holdout_improvement >= 0.04
+        and oof_improvement >= 0.04
+        and not safety_violation
+    )
+
+    return {
+        "position": position,
+        "ml_mae": round(ml_mae, 4),
+        "heuristic_mae": round(heuristic_mae, 4),
+        "holdout_improvement_pct": round(holdout_improvement * 100, 2),
+        "oof_improvement_pct": round(oof_improvement * 100, 2),
+        "safety_violation": safety_violation,
+        "verdict": "SHIP" if ship else "SKIP",
+    }
+
+
+def build_ship_gate_report(
+    position_results: list,
+    output_dir: str = "models/player",
+) -> dict:
+    """Build and save ship gate report from per-position verdict dicts.
+
+    Args:
+        position_results: List of dicts from ship_gate_verdict.
+        output_dir: Directory to save ship_gate_report.json.
+
+    Returns:
+        Dict with keys: positions, summary, timestamp, scoring_format.
+    """
+    from datetime import datetime as _dt
+
+    ship_count = sum(1 for r in position_results if r["verdict"] == "SHIP")
+    total = len(position_results)
+
+    if ship_count == 0:
+        summary = "All positions SKIP"
+    else:
+        summary = f"{ship_count}/{total} positions SHIP"
+
+    report = {
+        "positions": position_results,
+        "summary": summary,
+        "timestamp": _dt.utcnow().isoformat(),
+        "scoring_format": "half_ppr",
+    }
+
+    # Save to JSON
+    os.makedirs(output_dir, exist_ok=True)
+    report_path = os.path.join(output_dir, "ship_gate_report.json")
+    with open(report_path, "w") as f:
+        json.dump(report, f, indent=2)
+    logger.info(f"Ship gate report saved to {report_path}")
+
+    return report
+
+
+def print_ship_gate_table(report: dict) -> None:
+    """Print formatted ship gate table to stdout.
+
+    Args:
+        report: Dict from build_ship_gate_report.
+    """
+    positions = report.get("positions", [])
+    if not positions:
+        print("No position results to display.")
+        return
+
+    # Header
+    header = (
+        "| Position | Heuristic MAE | ML MAE | Delta % | OOF Delta % "
+        "| Safety | Verdict |"
+    )
+    sep = (
+        "|----------|--------------|--------|---------|-------------|"
+        "--------|---------|"
+    )
+    print("\n" + header)
+    print(sep)
+
+    for p in positions:
+        safety = "FAIL" if p.get("safety_violation", False) else "OK"
+        print(
+            f"| {p['position']:<8} "
+            f"| {p['heuristic_mae']:<12.2f} "
+            f"| {p['ml_mae']:<6.2f} "
+            f"| {p['holdout_improvement_pct']:>+6.1f}% "
+            f"| {p['oof_improvement_pct']:>+10.1f}% "
+            f"| {safety:<6} "
+            f"| {p['verdict']:<7} |"
+        )
+
+    print(f"\nSummary: {report.get('summary', 'N/A')}")
+    print(f"Scoring: {report.get('scoring_format', 'N/A')}")
+    print()
