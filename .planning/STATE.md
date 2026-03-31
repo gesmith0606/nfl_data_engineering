@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Player Fantasy Prediction System
 status: unknown
-stopped_at: Completed 41-01-PLAN.md
-last_updated: "2026-03-31T08:24:52.193Z"
+stopped_at: Completed 41-02-PLAN.md
+last_updated: "2026-03-31T12:32:17.272Z"
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -58,6 +58,7 @@ Plan: 2 of 2
 | Phase 40 P01 | 33min | 2 tasks | 2 files |
 | Phase 40 P02 | 5min | 2 tasks | 3 files |
 | Phase 41 P01 | 3min | 1 tasks | 3 files |
+| Phase 41 P02 | 5min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,8 @@ See PROJECT.md Key Decisions table for full history.
 - [Phase 40]: Player OOF predictions keyed by row index (not game_id) since player-week data lacks game_id equivalent
 - [Phase 40]: Heuristic baseline re-runs usage_multiplier inline to avoid coupling with projection_engine internals
 - [Phase 41]: Safe division with np.where for ratio features (NaN for zero denominator)
+- [Phase 41]: XGB+LGB+Ridge (no CatBoost) for player ensemble per D-10 design
+- [Phase 41]: Two-stage ship gate: features-only first, ensemble only for SKIP positions
 
 ### Research Flags
 
@@ -84,8 +87,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-31T08:24:52.190Z
-Stopped at: Completed 41-01-PLAN.md
+Last session: 2026-03-31T12:32:17.269Z
+Stopped at: Completed 41-02-PLAN.md
 Resume file: None
 
 ---
