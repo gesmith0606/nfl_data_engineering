@@ -217,6 +217,12 @@ def assemble_player_features(season: int) -> pd.DataFrame:
         logger.warning("No usage data for season %d", season)
         return pd.DataFrame()
 
+    # 1b. Early filter: skill positions + regular season only (before joins)
+    if "position" in base.columns:
+        base = base[base["position"].isin(["QB", "RB", "WR", "TE"])].copy()
+    if "season_type" in base.columns:
+        base = base[base["season_type"] == "REG"].copy()
+
     # 2. Join advanced on player_id (rename player_gsis_id -> player_id)
     advanced = _read_latest_local(SILVER_PLAYER_LOCAL_DIRS["advanced"], season)
     if not advanced.empty:
@@ -427,16 +433,18 @@ def detect_leakage(
     """
     warnings: List[Tuple[str, str, float]] = []
 
-    for target in target_cols:
-        if target not in df.columns:
-            continue
-        for feat in feature_cols:
-            if feat not in df.columns:
-                continue
-            pair = df[[feat, target]].dropna()
-            if len(pair) < 3:
-                continue
-            r = pair.corr().iloc[0, 1]
+    valid_feats = [f for f in feature_cols if f in df.columns]
+    valid_targets = [t for t in target_cols if t in df.columns]
+    if not valid_feats or not valid_targets:
+        return warnings
+
+    # Vectorized: compute full correlation matrix once
+    all_cols = valid_feats + valid_targets
+    corr_matrix = df[all_cols].corr()
+
+    for target in valid_targets:
+        for feat in valid_feats:
+            r = corr_matrix.loc[feat, target]
             if abs(r) > threshold:
                 warnings.append((feat, target, float(r)))
 

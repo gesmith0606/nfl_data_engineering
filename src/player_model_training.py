@@ -678,13 +678,18 @@ def compute_position_mae(
         return 0.0
 
     # Build predicted-points DataFrame: rename pred_{stat} -> stat for scoring
-    pred_cols = {}
+    # Drop original stat columns first to avoid duplicates after rename
+    pred_cols_to_rename = {}
+    original_stat_cols_to_drop = []
     for stat in stats:
         pred_col = f"pred_{stat}"
         if pred_col in df.columns:
-            pred_cols[pred_col] = stat
+            pred_cols_to_rename[pred_col] = stat
+            if stat in df.columns:
+                original_stat_cols_to_drop.append(stat)
 
-    pred_df = df.rename(columns=pred_cols)
+    pred_df = df.drop(columns=original_stat_cols_to_drop, errors="ignore")
+    pred_df = pred_df.rename(columns=pred_cols_to_rename)
     pred_df = calculate_fantasy_points_df(
         pred_df, scoring_format=scoring_format, output_col=output_col
     )
