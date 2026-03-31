@@ -18,8 +18,8 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 
 - [x] **MODL-01**: Separate gradient boosting models trained per position (QB, RB, WR, TE)
 - [x] **MODL-02**: Walk-forward temporal CV respecting season/week ordering with 2025 holdout sealed
-- [ ] **MODL-03**: Per-position MAE/RMSE/correlation evaluation against heuristic baseline (QB:6.58, RB:5.06, WR:4.85, TE:3.77)
-- [ ] **MODL-04**: Ship-or-skip gate requiring 4%+ per-position MAE improvement over heuristic to replace it
+- [x] **MODL-03**: Per-position MAE/RMSE/correlation evaluation against heuristic baseline (QB:6.58, RB:5.06, WR:4.85, TE:3.77)
+- [x] **MODL-04**: Ship-or-skip gate requiring 4%+ per-position MAE improvement over heuristic to replace it
 
 ### Accuracy
 
@@ -77,8 +77,8 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 | FEAT-04 | Phase 39 | Complete |
 | MODL-01 | Phase 40 | Complete |
 | MODL-02 | Phase 40 | Complete |
-| MODL-03 | Phase 40 | Pending |
-| MODL-04 | Phase 40 | Pending |
+| MODL-03 | Phase 40 | Complete |
+| MODL-04 | Phase 40 | Complete |
 | ACCY-01 | Phase 41 | Pending |
 | ACCY-02 | Phase 41 | Pending |
 | ACCY-03 | Phase 41 | Pending |
