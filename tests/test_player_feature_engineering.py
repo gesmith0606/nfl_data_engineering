@@ -487,6 +487,219 @@ class TestGetPlayerFeatureColumns:
 # ---------------------------------------------------------------------------
 
 
+class TestEfficiencyFeatures:
+    """Test compute_efficiency_features()."""
+
+    def test_efficiency_features_yards_per_carry(self):
+        """yards_per_carry_roll3 = rushing_yards_roll3 / carries_roll3."""
+        from player_feature_engineering import compute_efficiency_features
+
+        df = pd.DataFrame({
+            "carries_roll3": [10.0, 20.0],
+            "rushing_yards_roll3": [50.0, 100.0],
+            "targets_roll3": [5.0, 8.0],
+            "receiving_yards_roll3": [40.0, 60.0],
+            "receptions_roll3": [3.0, 6.0],
+            "rushing_tds_roll3": [1.0, 2.0],
+            "receiving_tds_roll3": [0.0, 1.0],
+            "carries_roll6": [12.0, 18.0],
+            "rushing_yards_roll6": [60.0, 90.0],
+            "targets_roll6": [6.0, 7.0],
+            "receiving_yards_roll6": [45.0, 55.0],
+            "receptions_roll6": [4.0, 5.0],
+            "rushing_tds_roll6": [1.0, 1.0],
+            "receiving_tds_roll6": [1.0, 0.0],
+        })
+        result = compute_efficiency_features(df)
+        assert abs(result["yards_per_carry_roll3"].iloc[0] - 5.0) < 1e-6
+        assert abs(result["yards_per_carry_roll3"].iloc[1] - 5.0) < 1e-6
+
+    def test_efficiency_features_zero_denominator(self):
+        """Zero carries => yards_per_carry_roll3 is NaN (not inf)."""
+        from player_feature_engineering import compute_efficiency_features
+
+        df = pd.DataFrame({
+            "carries_roll3": [0.0],
+            "rushing_yards_roll3": [50.0],
+            "targets_roll3": [0.0],
+            "receiving_yards_roll3": [0.0],
+            "receptions_roll3": [0.0],
+            "rushing_tds_roll3": [0.0],
+            "receiving_tds_roll3": [0.0],
+            "carries_roll6": [0.0],
+            "rushing_yards_roll6": [0.0],
+            "targets_roll6": [0.0],
+            "receiving_yards_roll6": [0.0],
+            "receptions_roll6": [0.0],
+            "rushing_tds_roll6": [0.0],
+            "receiving_tds_roll6": [0.0],
+        })
+        result = compute_efficiency_features(df)
+        assert pd.isna(result["yards_per_carry_roll3"].iloc[0])
+        assert not np.isinf(result["yards_per_carry_roll3"].iloc[0]) if not pd.isna(result["yards_per_carry_roll3"].iloc[0]) else True
+
+    def test_efficiency_features_all_ratios(self):
+        """All 12 ratio columns are created (6 ratios x 2 windows)."""
+        from player_feature_engineering import compute_efficiency_features
+
+        df = pd.DataFrame({
+            "carries_roll3": [10.0], "rushing_yards_roll3": [50.0],
+            "targets_roll3": [5.0], "receiving_yards_roll3": [40.0],
+            "receptions_roll3": [3.0], "rushing_tds_roll3": [1.0],
+            "receiving_tds_roll3": [1.0],
+            "carries_roll6": [12.0], "rushing_yards_roll6": [60.0],
+            "targets_roll6": [6.0], "receiving_yards_roll6": [45.0],
+            "receptions_roll6": [4.0], "rushing_tds_roll6": [1.0],
+            "receiving_tds_roll6": [1.0],
+        })
+        result = compute_efficiency_features(df)
+        expected_cols = [
+            "yards_per_carry_roll3", "yards_per_carry_roll6",
+            "yards_per_target_roll3", "yards_per_target_roll6",
+            "yards_per_reception_roll3", "yards_per_reception_roll6",
+            "catch_rate_roll3", "catch_rate_roll6",
+            "rush_td_rate_roll3", "rush_td_rate_roll6",
+            "rec_td_rate_roll3", "rec_td_rate_roll6",
+        ]
+        for col in expected_cols:
+            assert col in result.columns, f"Missing column: {col}"
+        assert len(expected_cols) == 12
+
+
+class TestTdRegressionFeatures:
+    """Test compute_td_regression_features()."""
+
+    def test_td_regression_position_avg(self):
+        """rz_target_share_roll3=0.20, position=RB => expected_td_pos_avg = 0.20 * 0.08 = 0.016."""
+        from player_feature_engineering import compute_td_regression_features
+
+        df = pd.DataFrame({
+            "rz_target_share_roll3": [0.20],
+            "position": ["RB"],
+        })
+        result = compute_td_regression_features(df)
+        assert "expected_td_pos_avg" in result.columns
+        assert abs(result["expected_td_pos_avg"].iloc[0] - 0.016) < 1e-6
+
+    def test_td_regression_player_specific(self):
+        """rz_target_share_roll3=0.20, rec_td_rate_roll6=0.10 => expected_td_player = 0.02."""
+        from player_feature_engineering import compute_td_regression_features
+
+        df = pd.DataFrame({
+            "rz_target_share_roll3": [0.20],
+            "rec_td_rate_roll6": [0.10],
+            "position": ["WR"],
+        })
+        result = compute_td_regression_features(df)
+        assert "expected_td_player" in result.columns
+        assert abs(result["expected_td_player"].iloc[0] - 0.02) < 1e-6
+
+    def test_td_regression_computes_rolling_when_missing(self):
+        """If rz_target_share present but rz_target_share_roll3 absent, function computes rolling."""
+        from player_feature_engineering import compute_td_regression_features
+
+        df = pd.DataFrame({
+            "player_id": ["P1"] * 6,
+            "season": [2024] * 6,
+            "week": [1, 2, 3, 4, 5, 6],
+            "rz_target_share": [0.10, 0.20, 0.30, 0.15, 0.25, 0.20],
+            "position": ["WR"] * 6,
+        })
+        result = compute_td_regression_features(df)
+        assert "rz_target_share_roll3" in result.columns
+        # Week 1: shift(1) means NaN (no prior data)
+        assert pd.isna(result["rz_target_share_roll3"].iloc[0])
+        # Week 4: shift(1) then rolling(3, min_periods=1) over weeks 1,2,3
+        # shift(1) at week 4 gives [0.10, 0.20, 0.30] -> mean = 0.20
+        assert abs(result["rz_target_share_roll3"].iloc[3] - 0.20) < 1e-6
+
+
+class TestMomentumFeatures:
+    """Test compute_momentum_features()."""
+
+    def test_momentum_snap_pct_delta(self):
+        """snap_pct_roll3=0.80, snap_pct_roll6=0.60 => snap_pct_delta=0.20."""
+        from player_feature_engineering import compute_momentum_features
+
+        df = pd.DataFrame({
+            "snap_pct_roll3": [0.80],
+            "snap_pct_roll6": [0.60],
+            "target_share_roll3": [0.25],
+            "target_share_roll6": [0.20],
+            "carry_share_roll3": [0.40],
+            "carry_share_roll6": [0.50],
+        })
+        result = compute_momentum_features(df)
+        assert abs(result["snap_pct_delta"].iloc[0] - 0.20) < 1e-6
+
+    def test_momentum_carry_share_delta(self):
+        """carry_share_roll3=0.40, carry_share_roll6=0.50 => carry_share_delta=-0.10."""
+        from player_feature_engineering import compute_momentum_features
+
+        df = pd.DataFrame({
+            "snap_pct_roll3": [0.70],
+            "snap_pct_roll6": [0.70],
+            "target_share_roll3": [0.15],
+            "target_share_roll6": [0.15],
+            "carry_share_roll3": [0.40],
+            "carry_share_roll6": [0.50],
+        })
+        result = compute_momentum_features(df)
+        assert abs(result["carry_share_delta"].iloc[0] - (-0.10)) < 1e-6
+
+    def test_momentum_missing_columns_skipped(self):
+        """If carry_share_roll3 not in columns, carry_share_delta is not created."""
+        from player_feature_engineering import compute_momentum_features
+
+        df = pd.DataFrame({
+            "snap_pct_roll3": [0.80],
+            "snap_pct_roll6": [0.60],
+        })
+        result = compute_momentum_features(df)
+        assert "snap_pct_delta" in result.columns
+        assert "carry_share_delta" not in result.columns
+        assert "target_share_delta" not in result.columns
+
+
+class TestNewFeaturesAutoDiscovered:
+    """Test that new features are auto-discovered by get_player_feature_columns."""
+
+    def test_new_features_auto_discovered(self):
+        """After compute_* functions, get_player_feature_columns returns new feature columns."""
+        from player_feature_engineering import (
+            compute_efficiency_features,
+            compute_momentum_features,
+            compute_td_regression_features,
+            get_player_feature_columns,
+        )
+
+        df = pd.DataFrame({
+            "player_id": ["P1"],
+            "season": [2024],
+            "week": [1],
+            "position": ["RB"],
+            "carries_roll3": [10.0], "rushing_yards_roll3": [50.0],
+            "targets_roll3": [5.0], "receiving_yards_roll3": [40.0],
+            "receptions_roll3": [3.0], "rushing_tds_roll3": [1.0],
+            "receiving_tds_roll3": [1.0],
+            "carries_roll6": [12.0], "rushing_yards_roll6": [60.0],
+            "targets_roll6": [6.0], "receiving_yards_roll6": [45.0],
+            "receptions_roll6": [4.0], "rushing_tds_roll6": [1.0],
+            "receiving_tds_roll6": [1.0],
+            "rz_target_share_roll3": [0.20],
+            "snap_pct_roll3": [0.80], "snap_pct_roll6": [0.60],
+            "target_share_roll3": [0.25], "target_share_roll6": [0.20],
+            "carry_share_roll3": [0.40], "carry_share_roll6": [0.50],
+        })
+        df = compute_efficiency_features(df)
+        df = compute_td_regression_features(df)
+        df = compute_momentum_features(df)
+        feat_cols = get_player_feature_columns(df)
+        assert "yards_per_carry_roll3" in feat_cols
+        assert "expected_td_pos_avg" in feat_cols
+        assert "snap_pct_delta" in feat_cols
+
+
 @pytest.mark.skipif(
     not os.path.exists(
         os.path.join(
