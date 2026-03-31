@@ -184,11 +184,11 @@ Plans:
   4. Preseason projection mode uses prior-season aggregates plus draft capital when no current-season data exists
   5. ML-derived confidence intervals (MAPIE) provide player-specific floor/ceiling bands replacing the heuristic shrinkage approach
 
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 42-01: TBD
-- [ ] 42-02: TBD
+- [ ] 42-01-PLAN.md — ML projection router module with ship-gate routing, MAPIE intervals, and team constraints
+- [ ] 42-02-PLAN.md — CLI wiring (--ml flag) and preseason draft capital boost
 
 ## Progress
 
@@ -208,8 +208,8 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 39 | v3.0 | 2/2 | Complete    | 2026-03-30 |
 | 40 | v3.0 | 2/2 | Complete    | 2026-03-31 |
 | 41 | v3.0 | 2/2 | Complete    | 2026-03-31 |
-| 42 | v3.0 | 0/TBD | Not started | - |
+| 42 | v3.0 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-31 after phase 41 planning*
+*Last updated: 2026-03-31 after phase 42 planning*
