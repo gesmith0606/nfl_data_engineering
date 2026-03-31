@@ -167,11 +167,11 @@ Plans:
   2. TD regression features use red zone opportunity share multiplied by historical conversion rates instead of raw TD rolling averages
   3. Role momentum features (snap share trajectory as breakout/demotion signal) are available as model inputs
   4. Ensemble stacking (XGB+LGB+CB+Ridge) is applied per position where a single model leaves measurable accuracy on the table
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 41-01: TBD
-- [ ] 41-02: TBD
+- [ ] 41-01-PLAN.md — Derived efficiency, TD regression, and momentum features with unit tests
+- [ ] 41-02-PLAN.md — XGB+LGB+Ridge ensemble stacking with two-stage CLI evaluation
 
 ### Phase 42: Pipeline Integration and Extensions
 **Goal**: ML predictions are wired into the weekly pipeline, draft tool, and projection CLI with team coherence, preseason mode, and confidence intervals
@@ -207,9 +207,9 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 35-38 | v2.2 | 7/7 | Complete | 2026-03-29 |
 | 39 | v3.0 | 2/2 | Complete    | 2026-03-30 |
 | 40 | v3.0 | 2/2 | Complete    | 2026-03-31 |
-| 41 | v3.0 | 0/TBD | Not started | - |
+| 41 | v3.0 | 0/2 | Not started | - |
 | 42 | v3.0 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-03-08*
-*Last updated: 2026-03-30 after phase 40 planning*
+*Last updated: 2026-03-31 after phase 41 planning*
