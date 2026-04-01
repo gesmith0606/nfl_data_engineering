@@ -31,14 +31,14 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 ### Pipeline & Integration
 
 - [x] **PIPE-01**: Stat-level predictions (yards, TDs, receptions) with scoring formula applied downstream
-- [ ] **PIPE-02**: Team-total constraint ensuring player share projections sum to ~100% per team
-- [ ] **PIPE-03**: Weekly pipeline wiring into generate_projections.py and draft_assistant.py
-- [ ] **PIPE-04**: Heuristic fallback preserved for rookies, thin-data players, and positions where ML doesn't beat baseline
+- [x] **PIPE-02**: Team-total constraint ensuring player share projections sum to ~100% per team
+- [x] **PIPE-03**: Weekly pipeline wiring into generate_projections.py and draft_assistant.py
+- [x] **PIPE-04**: Heuristic fallback preserved for rookies, thin-data players, and positions where ML doesn't beat baseline
 
 ### Extensions
 
 - [ ] **EXTD-01**: Preseason projection mode using prior-season aggregates + draft capital when no current-season data exists
-- [ ] **EXTD-02**: ML-derived confidence intervals (MAPIE) for player-specific floor/ceiling bands
+- [x] **EXTD-02**: ML-derived confidence intervals (MAPIE) for player-specific floor/ceiling bands
 
 ## Future Requirements
 
@@ -84,11 +84,11 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 | ACCY-03 | Phase 41 | Complete |
 | ACCY-04 | Phase 41 | Complete |
 | PIPE-01 | Phase 40 | Complete |
-| PIPE-02 | Phase 42 | Pending |
-| PIPE-03 | Phase 42 | Pending |
-| PIPE-04 | Phase 42 | Pending |
+| PIPE-02 | Phase 42 | Complete |
+| PIPE-03 | Phase 42 | Complete |
+| PIPE-04 | Phase 42 | Complete |
 | EXTD-01 | Phase 42 | Pending |
-| EXTD-02 | Phase 42 | Pending |
+| EXTD-02 | Phase 42 | Complete |
 
 **Coverage:**
 - v3.0 requirements: 18 total

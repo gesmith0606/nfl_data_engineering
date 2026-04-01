@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Player Fantasy Prediction System
 status: unknown
-stopped_at: Completed 41-02-PLAN.md
-last_updated: "2026-03-31T12:36:32.307Z"
+stopped_at: Completed 42-01-PLAN.md
+last_updated: "2026-04-01T00:03:44.197Z"
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 8
+  completed_plans: 7
 ---
 
 # Project State
@@ -19,7 +19,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 41 — accuracy-improvements
+**Current focus:** Phase 42 — pipeline-integration-and-extensions
 
 ## Current Milestone
 
@@ -27,8 +27,8 @@ v3.0 Player Fantasy Prediction System -- Phases 39-42
 
 ## Current Position
 
-Phase: 42
-Plan: Not started
+Phase: 42 (pipeline-integration-and-extensions) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -59,6 +59,7 @@ Plan: Not started
 | Phase 40 P02 | 5min | 2 tasks | 3 files |
 | Phase 41 P01 | 3min | 1 tasks | 3 files |
 | Phase 41 P02 | 5min | 2 tasks | 3 files |
+| Phase 42 P01 | 7min | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -74,6 +75,9 @@ See PROJECT.md Key Decisions table for full history.
 - [Phase 41]: Safe division with np.where for ratio features (NaN for zero denominator)
 - [Phase 41]: XGB+LGB+Ridge (no CatBoost) for player ensemble per D-10 design
 - [Phase 41]: Two-stage ship gate: features-only first, ensemble only for SKIP positions
+- [Phase 42]: QB inferred as SHIP when model files exist on disk but absent from ship_gate_report.json
+- [Phase 42]: MAPIE optional with graceful degradation to heuristic floor/ceiling
+- [Phase 42]: Team-total coherence is warn-only, never adjusts projections
 
 ### Research Flags
 
@@ -87,8 +91,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-31T12:32:17.269Z
-Stopped at: Completed 41-02-PLAN.md
+Last session: 2026-04-01T00:03:44.194Z
+Stopped at: Completed 42-01-PLAN.md
 Resume file: None
 
 ---
