@@ -208,7 +208,7 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 39 | v3.0 | 2/2 | Complete    | 2026-03-30 |
 | 40 | v3.0 | 2/2 | Complete    | 2026-03-31 |
 | 41 | v3.0 | 2/2 | Complete    | 2026-03-31 |
-| 42 | v3.0 | 2/2 | Complete   | 2026-04-01 |
+| 42 | v3.0 | 2/2 | Complete    | 2026-04-01 |
 
 ---
 *Roadmap created: 2026-03-08*
