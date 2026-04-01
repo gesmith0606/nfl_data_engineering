@@ -129,11 +129,18 @@ def main():
             return 1
 
         print(f"Loaded {len(seasonal_df):,} seasonal player rows")
+
+        # Load historical dimension table for draft capital boost
+        historical_df = _read_local_parquet(SILVER_DIR, "players/historical/*.parquet")
+        if not historical_df.empty:
+            print(f"Loaded {len(historical_df):,} historical player profiles for draft capital boost")
+
         print("Running pre-season projection model...")
         projections = generate_preseason_projections(
             seasonal_df,
             scoring_format=args.scoring,
             target_season=args.season,
+            historical_df=historical_df if not historical_df.empty else None,
         )
         s3_key = f"projections/preseason/season={args.season}/season_proj_{ts}.parquet"
         local_name = f"preseason_{args.season}_{args.scoring}_{ts}.csv"

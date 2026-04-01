@@ -387,3 +387,43 @@ class TestComputeMapieIntervals:
 
         result = compute_mapie_intervals(None, None, None, None)
         assert result is None
+
+
+# ---------------------------------------------------------------------------
+# draft_capital_boost tests
+# ---------------------------------------------------------------------------
+
+
+class TestDraftCapitalBoost:
+    """Tests for draft_capital_boost function in projection_engine."""
+
+    def test_pick_1_gets_20_percent_boost(self):
+        """Pick 1 overall returns 1.20 (maximum 20% boost)."""
+        from projection_engine import draft_capital_boost
+
+        assert draft_capital_boost(1, "QB") == 1.2
+
+    def test_mid_first_round_gets_approx_10_percent(self):
+        """Pick 32 returns approximately 1.10 (mid-range boost)."""
+        from projection_engine import draft_capital_boost
+
+        result = draft_capital_boost(32, "RB")
+        assert 1.09 <= result <= 1.11
+
+    def test_undrafted_gets_no_boost(self):
+        """Undrafted player (NaN) returns 1.0."""
+        from projection_engine import draft_capital_boost
+
+        assert draft_capital_boost(float('nan'), "WR") == 1.0
+
+    def test_late_pick_gets_no_boost(self):
+        """Pick 100 (beyond pick 64) returns 1.0."""
+        from projection_engine import draft_capital_boost
+
+        assert draft_capital_boost(100, "TE") == 1.0
+
+    def test_pick_64_boundary_gets_no_boost(self):
+        """Pick 64 exactly returns 1.0 (boundary case)."""
+        from projection_engine import draft_capital_boost
+
+        assert draft_capital_boost(64, "RB") == 1.0

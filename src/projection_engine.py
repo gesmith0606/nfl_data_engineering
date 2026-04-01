@@ -821,10 +821,30 @@ def _build_spread_by_team(
     return spread_by_team
 
 
+def draft_capital_boost(draft_ovr: float, position: str) -> float:
+    """Additive multiplier for rookie preseason projections.
+
+    Linear decay from 1.20 at pick 1 to 1.00 at pick 64.
+    Undrafted or picks 64+ get no boost.
+
+    Args:
+        draft_ovr: Overall draft pick number (1-based). NaN for undrafted.
+        position: Position code (currently unused but available for future tuning).
+
+    Returns:
+        Multiplier >= 1.0.
+    """
+    if pd.isna(draft_ovr) or draft_ovr >= 64:
+        return 1.0
+    boost = 1.20 - (draft_ovr - 1) * (0.20 / 63)
+    return round(max(1.0, boost), 3)
+
+
 def generate_preseason_projections(
     seasonal_df: pd.DataFrame,
     scoring_format: str = "half_ppr",
     target_season: int = 2026,
+    historical_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """
     Generate pre-season projections based on historical seasonal averages.
@@ -836,6 +856,9 @@ def generate_preseason_projections(
         seasonal_df:    Player seasonal stats DataFrame (Bronze/Silver).
         scoring_format: Fantasy scoring format.
         target_season:  The upcoming season to project for.
+        historical_df:  Optional Silver historical dimension table with draft_ovr
+                        and gsis_id columns. When provided, rookies receive a
+                        draft capital boost (up to +20% for pick 1).
 
     Returns:
         DataFrame ranked by projected_season_points descending.
@@ -890,6 +913,32 @@ def generate_preseason_projections(
 
     proj['projected_season_points'] = proj['projected_season_points'].round(1)
     proj['proj_season'] = target_season
+
+    # Draft capital boost for rookies
+    if historical_df is not None and not historical_df.empty:
+        # Join on player_id = gsis_id to get draft_ovr
+        hist = historical_df[['gsis_id', 'draft_ovr', 'draft_year']].dropna(subset=['gsis_id']).copy()
+        hist = hist.rename(columns={'gsis_id': 'player_id'})
+        # De-duplicate: keep latest draft entry per player
+        hist = hist.sort_values('draft_year', ascending=False).drop_duplicates(subset='player_id')
+
+        proj = proj.merge(hist[['player_id', 'draft_ovr']], on='player_id', how='left')
+
+        # Identify rookies: players only present in the most recent season of data
+        all_player_seasons = seasonal_df.groupby('player_id')['season'].nunique()
+        rookies = set(all_player_seasons[all_player_seasons == 1].index)
+
+        # Apply boost only to rookies with draft capital info
+        mask = proj['player_id'].isin(rookies) & proj['draft_ovr'].notna()
+        if mask.any():
+            proj.loc[mask, 'projected_season_points'] = proj.loc[mask].apply(
+                lambda r: round(r['projected_season_points'] * draft_capital_boost(r['draft_ovr'], r['position']), 1),
+                axis=1,
+            )
+            boosted_count = mask.sum()
+            logger.info(f"Draft capital boost applied to {boosted_count} rookies")
+
+        proj.drop(columns=['draft_ovr'], inplace=True, errors='ignore')
 
     # Rank overall and by position
     pos_filter = proj['position'].isin(['QB', 'RB', 'WR', 'TE'])
