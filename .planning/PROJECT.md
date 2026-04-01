@@ -92,12 +92,13 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ 622 total tests passing — v3.0
 - ✓ Derived efficiency features (12), TD regression features (2), role momentum deltas (3) added to player feature vector — Phase 41, v3.0
 - ✓ XGB+LGB+Ridge ensemble stacking per position with two-stage CLI evaluation (features-only → ensemble) — Phase 41, v3.0
-- ✓ 638 total tests passing — v3.0
+- ✓ ML projection router: position-based dispatch (QB→ML, RB/WR/TE→heuristic), MAPIE confidence intervals, team-total coherence — Phase 42, v3.0
+- ✓ CLI --ml flag wired into generate_projections.py; preseason draft capital boost for rookies — Phase 42, v3.0
+- ✓ 655 total tests passing — v3.0
 
 ### Active
 
 - [ ] Game-level constraints (team total allocation)
-- [ ] Wire ML predictions into weekly pipeline, draft tool, and projection CLI
 
 ## Current Milestone: v3.0 Player Fantasy Prediction System
 
@@ -141,8 +142,8 @@ Silver layer: 13 team output paths (including market/line movement data for all 
 Gold layer: weekly + preseason fantasy projections; ML game predictions with 120-feature SHAP-selected ensemble (market features included).
 Prediction feature vector: 1139 raw columns → 120 SHAP-selected features. `diff_opening_spread` is #1 feature (23.6% SHAP importance).
 ML models: v2.2 stacking ensemble (XGB+LGB+CB + Ridge meta-learner) with market features; walk-forward CV, sealed 2025 holdout (51.7% ATS, 50.6% with market features). CLV tracking measures model quality against closing lines.
-Player models: 19 per-position per-stat XGBoost models (walk-forward CV, SHAP feature selection per stat-type group, ship gate evaluation).
-Tests: 638 passing across 21 test files.
+Player models: 19 per-position per-stat XGBoost models (walk-forward CV, SHAP feature selection per stat-type group, ship gate evaluation). ML projection router dispatches QB to ML, RB/WR/TE to heuristic based on ship gate results.
+Tests: 655 passing across 21 test files.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
