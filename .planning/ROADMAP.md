@@ -123,7 +123,7 @@ Full details: `.planning/milestones/v2.2-ROADMAP.md`
 - [x] **Phase 39: Player Feature Vector Assembly** - Build player-week feature vectors from Silver sources with temporal lag enforcement and leakage prevention (completed 2026-03-30)
 - [x] **Phase 40: Baseline Models and Ship Gate** - Train per-position gradient boosting models with walk-forward CV; evaluate against heuristic baselines; ship-or-skip decision (completed 2026-03-31)
 - [x] **Phase 41: Accuracy Improvements** - Opportunity-efficiency decomposition, TD regression, role momentum, and ensemble stacking to push per-position MAE further (completed 2026-03-31)
-- [ ] **Phase 42: Pipeline Integration and Extensions** - Wire ML predictions into weekly pipeline, draft tool, and projection CLI; add team constraints, preseason mode, and confidence intervals
+- [x] **Phase 42: Pipeline Integration and Extensions** - Wire ML predictions into weekly pipeline, draft tool, and projection CLI; add team constraints, preseason mode, and confidence intervals (completed 2026-04-01)
 
 ## Phase Details
 
@@ -188,7 +188,7 @@ Plans:
 
 Plans:
 - [x] 42-01-PLAN.md — ML projection router module with ship-gate routing, MAPIE intervals, and team constraints
-- [ ] 42-02-PLAN.md — CLI wiring (--ml flag) and preseason draft capital boost
+- [x] 42-02-PLAN.md — CLI wiring (--ml flag) and preseason draft capital boost
 
 ## Progress
 
@@ -208,7 +208,7 @@ Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
 | 39 | v3.0 | 2/2 | Complete    | 2026-03-30 |
 | 40 | v3.0 | 2/2 | Complete    | 2026-03-31 |
 | 41 | v3.0 | 2/2 | Complete    | 2026-03-31 |
-| 42 | v3.0 | 1/2 | In Progress|  |
+| 42 | v3.0 | 2/2 | Complete   | 2026-04-01 |
 
 ---
 *Roadmap created: 2026-03-08*

@@ -37,7 +37,7 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 
 ### Extensions
 
-- [ ] **EXTD-01**: Preseason projection mode using prior-season aggregates + draft capital when no current-season data exists
+- [x] **EXTD-01**: Preseason projection mode using prior-season aggregates + draft capital when no current-season data exists
 - [x] **EXTD-02**: ML-derived confidence intervals (MAPIE) for player-specific floor/ceiling bands
 
 ## Future Requirements
@@ -87,7 +87,7 @@ Requirements for ML-based player fantasy prediction system. Each maps to roadmap
 | PIPE-02 | Phase 42 | Complete |
 | PIPE-03 | Phase 42 | Complete |
 | PIPE-04 | Phase 42 | Complete |
-| EXTD-01 | Phase 42 | Pending |
+| EXTD-01 | Phase 42 | Complete |
 | EXTD-02 | Phase 42 | Complete |
 
 **Coverage:**

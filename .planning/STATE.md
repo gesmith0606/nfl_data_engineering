@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Player Fantasy Prediction System
 status: unknown
-stopped_at: Completed 42-01-PLAN.md
-last_updated: "2026-04-01T00:03:44.197Z"
+stopped_at: Completed 42-02-PLAN.md
+last_updated: "2026-04-01T00:46:20.623Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -60,6 +60,7 @@ Plan: 2 of 2
 | Phase 41 P01 | 3min | 1 tasks | 3 files |
 | Phase 41 P02 | 5min | 2 tasks | 3 files |
 | Phase 42 P01 | 7min | 1 tasks | 2 files |
+| Phase 42 P02 | 27min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,8 @@ See PROJECT.md Key Decisions table for full history.
 - [Phase 42]: QB inferred as SHIP when model files exist on disk but absent from ship_gate_report.json
 - [Phase 42]: MAPIE optional with graceful degradation to heuristic floor/ceiling
 - [Phase 42]: Team-total coherence is warn-only, never adjusts projections
+- [Phase 42]: --ml CLI flag is opt-in; default behavior unchanged (backward compatible)
+- [Phase 42]: Draft capital boost: linear decay from 1.20 (pick 1) to 1.00 (pick 64+) for rookie preseason projections
 
 ### Research Flags
 
@@ -91,8 +94,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01T00:03:44.194Z
-Stopped at: Completed 42-01-PLAN.md
+Last session: 2026-04-01T00:46:20.621Z
+Stopped at: Completed 42-02-PLAN.md
 Resume file: None
 
 ---
