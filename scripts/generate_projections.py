@@ -86,6 +86,8 @@ def main():
                         help='Output destination')
     parser.add_argument('--output-dir', default='output/projections',
                         help='Local CSV output directory (default: output/projections)')
+    parser.add_argument('--ml', action='store_true',
+                        help='Use ML models for shipped positions (currently QB)')
     args = parser.parse_args()
 
     if not args.preseason and not args.week:
@@ -107,6 +109,8 @@ def main():
     print(f"Season: {args.season} | Scoring: {args.scoring.upper()}")
     if args.preseason:
         print("Mode: Pre-Season Draft Projections")
+        if args.ml:
+            print("Note: --ml is a no-op in preseason mode (all positions use heuristic)")
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
     print('=' * 60)
@@ -179,13 +183,23 @@ def main():
                 print(f"WARN: Could not load opponent rankings: {e}")
 
         print(f"Running weekly projection model (Week {args.week})...")
-        projections = generate_weekly_projections(
-            silver_df,
-            opp_rankings,
-            season=args.season,
-            week=args.week,
-            scoring_format=args.scoring,
-        )
+        if args.ml:
+            from ml_projection_router import generate_ml_projections
+            projections = generate_ml_projections(
+                silver_df, opp_rankings,
+                season=args.season, week=args.week,
+                scoring_format=args.scoring,
+                schedules_df=None,
+                implied_totals=None,
+            )
+        else:
+            projections = generate_weekly_projections(
+                silver_df,
+                opp_rankings,
+                season=args.season,
+                week=args.week,
+                scoring_format=args.scoring,
+            )
 
         # Load injury data and apply adjustments
         injuries_df = _read_local_parquet(BRONZE_DIR, f"players/injuries/season={args.season}/*.parquet")
@@ -217,8 +231,9 @@ def main():
         print("ERROR: No projections generated. Check that data is available.")
         return 1
 
-    # Add floor/ceiling after all adjustments
-    projections = add_floor_ceiling(projections)
+    # Add floor/ceiling after all adjustments (ML router handles this internally)
+    if not args.ml:
+        projections = add_floor_ceiling(projections)
 
     print(f"\nProjections generated: {len(projections):,} players")
 
