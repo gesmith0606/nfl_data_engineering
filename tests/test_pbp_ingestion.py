@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 # PBP-01: PBP_COLUMNS constant
 # ------------------------------------------------------------------
 
+
 class TestPBPColumns:
     """Tests for the PBP_COLUMNS config constant (PBP-01)."""
 
@@ -30,8 +31,15 @@ class TestPBPColumns:
         from src.config import PBP_COLUMNS
 
         required = [
-            "epa", "wpa", "cpoe", "air_yards", "success",
-            "game_id", "play_id", "season", "week",
+            "epa",
+            "wpa",
+            "cpoe",
+            "air_yards",
+            "success",
+            "game_id",
+            "play_id",
+            "season",
+            "week",
         ]
         for col in required:
             assert col in PBP_COLUMNS, f"Missing required column: {col}"
@@ -40,9 +48,9 @@ class TestPBPColumns:
         """PBP_COLUMNS should have between 128 and 160 entries."""
         from src.config import PBP_COLUMNS
 
-        assert 128 <= len(PBP_COLUMNS) <= 160, (
-            f"Expected 128-160 columns, got {len(PBP_COLUMNS)}"
-        )
+        assert (
+            128 <= len(PBP_COLUMNS) <= 160
+        ), f"Expected 128-160 columns, got {len(PBP_COLUMNS)}"
 
     def test_pbp_columns_no_participation(self):
         """PBP_COLUMNS must NOT contain participation merge columns."""
@@ -50,14 +58,15 @@ class TestPBPColumns:
 
         forbidden = ["offense_players", "defense_players"]
         for col in forbidden:
-            assert col not in PBP_COLUMNS, (
-                f"Participation column '{col}' should not be in PBP_COLUMNS"
-            )
+            assert (
+                col not in PBP_COLUMNS
+            ), f"Participation column '{col}' should not be in PBP_COLUMNS"
 
 
 # ------------------------------------------------------------------
 # PBP-02: Single-season processing
 # ------------------------------------------------------------------
+
 
 class TestSingleSeasonProcessing:
     """Verify PBP is fetched one season at a time (PBP-02)."""
@@ -84,6 +93,7 @@ class TestSingleSeasonProcessing:
 # ------------------------------------------------------------------
 # PBP-03: Column subsetting via _build_method_kwargs
 # ------------------------------------------------------------------
+
 
 class TestColumnSubsetting:
     """Verify CLI wires columns/downcast/include_participation (PBP-03)."""
@@ -116,15 +126,16 @@ class TestColumnSubsetting:
         args = argparse.Namespace(season=2024, week=1, sub_type=None)
         kwargs = _build_method_kwargs(entry, args)
 
-        assert "include_participation" in kwargs, (
-            "kwargs must contain 'include_participation'"
-        )
+        assert (
+            "include_participation" in kwargs
+        ), "kwargs must contain 'include_participation'"
         assert kwargs["include_participation"] is False
 
 
 # ------------------------------------------------------------------
 # PBP-04: Output path and batch range
 # ------------------------------------------------------------------
+
 
 class TestPBPOutputPath:
     """Verify PBP output path structure (PBP-04)."""
@@ -169,6 +180,7 @@ class TestSeasonsRangeParsing:
 # INGEST-09: PBP season range coverage and regression guards
 # ------------------------------------------------------------------
 
+
 class TestPBPRangeCoverage:
     """Verify PBP config supports full 2016-2025 backfill range (INGEST-09)."""
 
@@ -177,23 +189,21 @@ class TestPBPRangeCoverage:
         from src.config import validate_season_for_type
 
         for season in range(2016, 2026):
-            assert validate_season_for_type("pbp", season), (
-                f"Season {season} should be valid for pbp"
-            )
+            assert validate_season_for_type(
+                "pbp", season
+            ), f"Season {season} should be valid for pbp"
 
-    def test_pbp_columns_exact_count_140(self):
-        """PBP_COLUMNS must have exactly 140 entries (regression guard)."""
+    def test_pbp_columns_exact_count_141(self):
+        """PBP_COLUMNS must have exactly 141 entries (regression guard)."""
         from src.config import PBP_COLUMNS
 
-        assert len(PBP_COLUMNS) == 140, (
-            f"PBP_COLUMNS regression: expected exactly 140, got {len(PBP_COLUMNS)}"
-        )
+        assert (
+            len(PBP_COLUMNS) == 141
+        ), f"PBP_COLUMNS regression: expected exactly 141, got {len(PBP_COLUMNS)}"
 
     def test_pbp_season_range_lower_bound(self):
         """PBP data type must support seasons back to at least 1999."""
         from src.config import DATA_TYPE_SEASON_RANGES
 
         min_season, _ = DATA_TYPE_SEASON_RANGES["pbp"]
-        assert min_season <= 1999, (
-            f"PBP min season should be <= 1999, got {min_season}"
-        )
+        assert min_season <= 1999, f"PBP min season should be <= 1999, got {min_season}"

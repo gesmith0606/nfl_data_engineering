@@ -1,0 +1,180 @@
+title: NFL Data Engineering -- System Architecture {
+  near: top-center
+  shape: text
+  style.font-size: 28
+  style.bold: true
+}
+
+legend: {
+  style.stroke: "#333"
+  style.fill: "#f5f5f5"
+  Bronze: {style.fill: "#CD7F32"; style.font-color: white}
+  Silver: {style.fill: "#C0C0C0"}
+  Gold: {style.fill: "#FFD700"}
+  External: {style.fill: "#4A90D9"; style.font-color: white}
+  Delivery: {style.fill: "#6B8E23"; style.font-color: white}
+}
+
+# External Sources
+sources: {
+  label: External Data Sources
+  style.fill: "#e8f0fe"
+  style.stroke: "#4A90D9"
+
+  nfl_data_py: nfl-data-py {
+    style.fill: "#4A90D9"
+    style.font-color: white
+    tooltip: "Python package wrapping nflverse GitHub releases"
+  }
+  sleeper: Sleeper API {
+    style.fill: "#4A90D9"
+    style.font-color: white
+    tooltip: "ADP, rosters, leagues"
+  }
+  finnedai: FinnedAI Odds {
+    style.fill: "#4A90D9"
+    style.font-color: white
+    tooltip: "Historical odds 2016-2021"
+  }
+}
+
+# Bronze Layer
+bronze: {
+  label: "Bronze Layer (s3://nfl-raw/)"
+  style.fill: "#FFF3E0"
+  style.stroke: "#CD7F32"
+
+  core: {
+    label: Core Data (6 types)
+    style.fill: "#CD7F32"
+    style.font-color: white
+    pbp: PBP (140 cols)
+    schedules: Schedules
+    teams: Teams
+    player_weekly: Player Weekly
+    player_seasonal: Player Seasonal
+    rosters: Rosters
+  }
+  extended: {
+    label: Extended Data (7 types)
+    style.fill: "#CD7F32"
+    style.font-color: white
+    snap_counts: Snap Counts
+    injuries: Injuries
+    ngs: Next Gen Stats
+    pfr: PFR Stats
+    qbr: QBR
+    depth_charts: Depth Charts
+    officials: Officials
+  }
+  historical: {
+    label: Historical Data (3 types)
+    style.fill: "#CD7F32"
+    style.font-color: white
+    draft_picks: Draft Picks
+    combine: Combine
+    odds: Odds (2016-2021)
+  }
+}
+
+# Silver Layer
+silver: {
+  label: "Silver Layer (s3://nfl-refined/)"
+  style.fill: "#F5F5F5"
+  style.stroke: "#808080"
+
+  player: {
+    label: Player Domain (4 paths)
+    style.fill: "#C0C0C0"
+    usage: Usage Metrics
+    rolling: Rolling Averages
+    advanced: Advanced Profiles\n(NGS/PFR/QBR)
+    historical: Historical Profiles\n(Combine/Draft)
+  }
+  team: {
+    label: Team Domain (8 paths)
+    style.fill: "#C0C0C0"
+    pbp_metrics: PBP Metrics\n(EPA/Success/CPOE/RZ)
+    tendencies: Tendencies\n(Pace/PROE/4th Down)
+    sos: Strength of Schedule
+    situational: Situational Splits
+    pbp_derived: PBP-Derived\n(Penalties/Turnovers/ST)
+    game_context: Game Context\n(Weather/Rest/Travel)
+    referee: Referee Tendencies
+    playoff: Playoff Context
+  }
+  market: {
+    label: Market Domain (1 path)
+    style.fill: "#C0C0C0"
+    market_data: Market Data\n(Line Movement)
+  }
+  quality: {
+    label: Player Quality (1 path)
+    style.fill: "#C0C0C0"
+    player_quality: Player Quality\n(QB EPA/Injury Impact)
+  }
+}
+
+# Gold Layer
+gold: {
+  label: "Gold Layer (s3://nfl-trusted/)"
+  style.fill: "#FFFDE7"
+  style.stroke: "#DAA520"
+
+  fantasy: {
+    label: Fantasy Track
+    style.fill: "#FFD700"
+    projections: Weekly/Preseason\nProjections
+    draft: Draft Board\n(VORP/ADP)
+    backtest: Backtest\n(MAE 4.91)
+  }
+  game_pred: {
+    label: Game Prediction Track
+    style.fill: "#FFD700"
+    features: Feature Vector\n(1139 cols)
+    ensemble: XGB+LGB+CB+Ridge\nEnsemble
+    predictions: Predictions\n(53% ATS)
+  }
+  player_ml: {
+    label: Player ML Track
+    style.fill: "#FFD700"
+    pfeatures: Player Features\n(337 cols)
+    pmodels: Per-Position XGB\n(QB SHIP)
+    router: ML Router\n(ML/Heuristic)
+  }
+}
+
+# Storage
+storage: {
+  label: Storage
+  style.fill: "#E8F5E9"
+  local: "Local Parquet\n(data/bronze|silver|gold/)"
+  s3: "AWS S3 (Optional)\nus-east-2"
+}
+
+# Delivery
+delivery: {
+  label: Delivery
+  style.fill: "#E8F5E9"
+  cli: CLI Tools\n(generate_projections.py\ngenerate_predictions.py)
+  draft_tool: Draft Assistant\n(Snake/Auction/Mock)
+  future_web: "[Planned] Web App\n+ AI Agent"
+  neo4j: "[Planned] Neo4j\nGraph Layer"
+}
+
+# Connections
+sources.nfl_data_py -> bronze.core
+sources.nfl_data_py -> bronze.extended
+sources.nfl_data_py -> bronze.historical.draft_picks
+sources.nfl_data_py -> bronze.historical.combine
+sources.sleeper -> delivery.draft_tool: ADP/Rosters
+sources.finnedai -> bronze.historical.odds
+
+bronze -> silver: Silver Transformations
+silver -> gold.fantasy: Projection Engine
+silver -> gold.game_pred.features: Feature Engineering
+silver -> gold.player_ml.pfeatures: Player Feature Eng.
+
+gold -> storage
+gold -> delivery.cli
+gold.fantasy.projections -> delivery.draft_tool

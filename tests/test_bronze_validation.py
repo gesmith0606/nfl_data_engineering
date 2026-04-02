@@ -27,7 +27,7 @@ class TestAdapterValidation:
         cols = cols or ["game_id", "season", "week", "home_team", "away_team"]
         return pd.DataFrame({c: ["val"] for c in cols})
 
-    @patch("src.nfl_data_integration.NFLDataFetcher")
+    @patch("nfl_data_integration.NFLDataFetcher")
     def test_delegates_to_fetcher(self, MockFetcher):
         """validate_data(df, 'schedules') calls NFLDataFetcher.validate_data."""
         mock_instance = MockFetcher.return_value
@@ -41,7 +41,7 @@ class TestAdapterValidation:
         mock_instance.validate_data.assert_called_once_with(df, "schedules")
         assert result == expected
 
-    @patch("src.nfl_data_integration.NFLDataFetcher")
+    @patch("nfl_data_integration.NFLDataFetcher")
     def test_lazy_import(self, MockFetcher):
         """NFLDataFetcher is imported inside the method, not at module level."""
         mock_instance = MockFetcher.return_value
@@ -53,7 +53,7 @@ class TestAdapterValidation:
         adapter.validate_data(self._make_df(), "schedules")
         MockFetcher.assert_called_once()
 
-    @patch("src.nfl_data_integration.NFLDataFetcher")
+    @patch("nfl_data_integration.NFLDataFetcher")
     def test_returns_dict(self, MockFetcher):
         """Return value has keys is_valid, row_count, column_count, issues."""
         mock_instance = MockFetcher.return_value

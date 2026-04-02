@@ -1,0 +1,143 @@
+title: Fantasy Projection Pipeline {
+  near: top-center
+  shape: text
+  style.font-size: 28
+  style.bold: true
+}
+
+legend: {
+  style.stroke: "#333"
+  style.fill: "#f5f5f5"
+  Input: {style.fill: "#4A90D9"; style.font-color: white}
+  Heuristic: {style.fill: "#C0C0C0"}
+  ML: {style.fill: "#CD7F32"; style.font-color: white}
+  Output: {style.fill: "#FFD700"}
+}
+
+direction: down
+
+# Data Inputs
+inputs: {
+  label: Data Inputs
+  style.fill: "#e8f0fe"
+  style.stroke: "#4A90D9"
+  direction: right
+
+  player_weekly: Bronze:\nPlayer Weekly {style.fill: "#4A90D9"; style.font-color: white}
+  snap_counts: Bronze:\nSnap Counts {style.fill: "#4A90D9"; style.font-color: white}
+  injuries: Bronze:\nInjuries {style.fill: "#4A90D9"; style.font-color: white}
+  schedules: Bronze:\nSchedules {style.fill: "#4A90D9"; style.font-color: white}
+  ngs_pfr_qbr: Bronze:\nNGS/PFR/QBR {style.fill: "#4A90D9"; style.font-color: white}
+}
+
+# Silver Processing
+silver: {
+  label: Silver Layer Processing
+  style.fill: "#F5F5F5"
+  direction: right
+
+  usage: Usage Metrics\n(target_share, carry_share,\nsnap_pct, air_yards_share) {style.fill: "#C0C0C0"}
+  rolling: Rolling Averages\n(roll3: 45%, roll6: 30%,\nSTD: 25% weights) {style.fill: "#C0C0C0"}
+  opp_rank: Opponent Rankings\n(1-32 per position\neasiest to hardest) {style.fill: "#C0C0C0"}
+  advanced: Advanced Profiles\n(NGS separation, PFR pressure,\nQBR) {style.fill: "#C0C0C0"}
+}
+
+# Projection Paths
+paths: {
+  label: Projection Paths
+  style.fill: "#FFF3E0"
+
+  heuristic: {
+    label: Heuristic Path (RB/WR/TE)
+    style.fill: "#F5F5F5"
+    style.stroke: "#808080"
+
+    baseline: "Weighted Baseline\nroll3(45%) + roll6(30%)\n+ STD(25%)" {style.fill: "#C0C0C0"}
+    usage_mult: "Usage Multiplier\n[0.80 - 1.15]\n(snap%/target share)" {style.fill: "#C0C0C0"}
+    matchup: "Matchup Factor\n[0.75 - 1.25]\n(opp rank 1=1.15, 32=0.85)" {style.fill: "#C0C0C0"}
+    vegas: "Vegas Multiplier\n[0.80 - 1.20]\n(implied_total / 23.0)" {style.fill: "#C0C0C0"}
+    injury: "Injury Adjustment\nQ=0.85, D=0.50,\nOut/IR=0.0" {style.fill: "#C0C0C0"}
+    bye: "Bye Week Check\n(all stats -> 0)" {style.fill: "#C0C0C0"}
+    rookie: "Rookie Fallback\n(starter/backup/unknown\n100%/40%/25% baseline)" {style.fill: "#C0C0C0"}
+
+    baseline -> usage_mult -> matchup -> vegas -> injury -> bye
+    rookie -> baseline: No rolling history
+  }
+
+  ml: {
+    label: ML Path (QB only in v3.0)
+    style.fill: "#FFF3E0"
+    style.stroke: "#CD7F32"
+
+    features: Player Feature Vector\n(337 columns) {style.fill: "#CD7F32"; style.font-color: white}
+    xgb: Per-Stat XGBoost\n(passing_yards, passing_tds,\ninterceptions, etc.) {style.fill: "#CD7F32"; style.font-color: white}
+    lgb: Per-Stat LightGBM {style.fill: "#CD7F32"; style.font-color: white}
+    ridge: Ridge Meta-Learner\n(stack XGB + LGB) {style.fill: "#CD7F32"; style.font-color: white}
+
+    features -> xgb
+    features -> lgb
+    xgb -> ridge
+    lgb -> ridge
+  }
+}
+
+# Ship Gate
+ship_gate: {
+  label: Ship Gate Decision
+  style.fill: "#E8F5E9"
+  style.stroke: "#388E3C"
+  router: ML Projection Router\n\nQB -> ML (SHIP)\nRB -> Heuristic (SKIP)\nWR -> Heuristic (SKIP)\nTE -> Heuristic (SKIP)
+}
+
+# Post-Processing
+post: {
+  label: Post-Processing
+  style.fill: "#FFFDE7"
+  direction: right
+
+  scoring: Scoring Calculator\n(PPR / Half-PPR / Standard) {style.fill: "#FFD700"}
+  shrinkage: Ceiling Shrinkage\n(15pt: 0.90, 20pt: 0.85,\n25pt: 0.80) {style.fill: "#FFD700"}
+  constraints: Team Constraints\n(position totals <=\nimplied fantasy budget) {style.fill: "#FFD700"}
+  floor_ceil: Floor/Ceiling\n(QB:45%, RB:40%,\nWR:38%, TE:35% variance) {style.fill: "#FFD700"}
+
+  scoring -> shrinkage -> constraints -> floor_ceil
+}
+
+# Outputs
+outputs: {
+  label: Outputs
+  style.fill: "#FFFDE7"
+  style.stroke: "#DAA520"
+  direction: right
+
+  projections: Weekly Projections\n(Parquet + CSV) {style.fill: "#FFD700"}
+  preseason: Preseason Projections\n(Full season) {style.fill: "#FFD700"}
+  draft_board: Draft Board\n(VORP rankings) {style.fill: "#FFD700"}
+  backtest: Backtest Results\n(MAE 4.91, RMSE 6.72) {style.fill: "#FFD700"}
+}
+
+# Connections
+inputs.player_weekly -> silver.usage
+inputs.player_weekly -> silver.rolling
+inputs.snap_counts -> silver.usage: snap_pct
+inputs.schedules -> silver.opp_rank
+inputs.ngs_pfr_qbr -> silver.advanced
+
+silver.rolling -> paths.heuristic.baseline
+silver.usage -> paths.heuristic.usage_mult
+silver.opp_rank -> paths.heuristic.matchup
+inputs.schedules -> paths.heuristic.vegas: Vegas lines
+inputs.injuries -> paths.heuristic.injury
+inputs.schedules -> paths.heuristic.bye: Bye teams
+
+silver -> paths.ml.features: All Silver sources
+
+paths.heuristic -> ship_gate.router: RB/WR/TE projections
+paths.ml.ridge -> ship_gate.router: QB predictions
+
+ship_gate.router -> post.scoring
+
+post.floor_ceil -> outputs.projections
+post.floor_ceil -> outputs.preseason
+outputs.projections -> outputs.draft_board: VORP + ADP
+outputs.projections -> outputs.backtest: vs actuals

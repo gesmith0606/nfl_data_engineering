@@ -94,3 +94,4 @@ xmltodict==0.14.2
 xgboost>=2.1.4,<3.0
 optuna>=4.0
 scikit-learn>=1.5
+neo4j>=5.0,<6.0

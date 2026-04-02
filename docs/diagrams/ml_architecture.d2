@@ -1,0 +1,254 @@
+title: NFL Data Engineering -- ML Model Architecture {
+  near: top-center
+  shape: text
+  style.font-size: 28
+  style.bold: true
+}
+
+legend: {
+  style.stroke: "#333"
+  style.fill: "#f5f5f5"
+  Silver: {style.fill: "#C0C0C0"}
+  Gold: {style.fill: "#FFD700"}
+  ML Model: {style.fill: "#CD7F32"; style.font-color: white}
+  Process: {style.fill: "#4A90D9"; style.font-color: white}
+}
+
+# ============================================================
+# GAME PREDICTION PIPELINE (left side)
+# ============================================================
+
+game_pipeline: {
+  label: "Game Prediction Pipeline (v2.1)"
+  style.fill: "#FFFDE7"
+  style.stroke: "#DAA520"
+
+  # Silver Sources
+  silver_sources: {
+    label: "10 Silver Sources"
+    style.fill: "#F5F5F5"
+    style.stroke: "#808080"
+    direction: right
+
+    pbp_metrics: PBP Metrics\n(63 cols) {style.fill: "#C0C0C0"}
+    tendencies: Tendencies\n(23 cols) {style.fill: "#C0C0C0"}
+    sos: SOS\n(21 cols) {style.fill: "#C0C0C0"}
+    situational: Situational\n(51 cols) {style.fill: "#C0C0C0"}
+    pbp_derived: PBP-Derived\n(164 cols) {style.fill: "#C0C0C0"}
+    game_context: Game Context\n(30 cols) {style.fill: "#C0C0C0"}
+    referee: Referee\n(4 cols) {style.fill: "#C0C0C0"}
+    playoff: Playoff\n(10 cols) {style.fill: "#C0C0C0"}
+    quality: Player Quality\n(28 cols) {style.fill: "#C0C0C0"}
+    market: Market Data\n(20 cols) {style.fill: "#C0C0C0"}
+  }
+
+  # Feature Engineering
+  feat_eng: {
+    label: "feature_engineering.py"
+    style.fill: "#4A90D9"
+    style.font-color: white
+
+    reshape: "Home/Away Reshape\n+ Differentials" {style.fill: "#4A90D9"; style.font-color: white}
+    raw_cols: "1139 Raw Columns" {style.fill: "#4A90D9"; style.font-color: white}
+
+    reshape -> raw_cols
+  }
+
+  # SHAP Selection
+  shap: {
+    label: "SHAP Feature Selection"
+    style.fill: "#4A90D9"
+    style.font-color: white
+
+    importance: "SHAP |mean(|SHAP|)|" {style.fill: "#4A90D9"; style.font-color: white}
+    corr_filter: "Correlation Filter\n(drop pairs > 0.95)" {style.fill: "#4A90D9"; style.font-color: white}
+    selected: "120 Selected Features" {style.fill: "#4A90D9"; style.font-color: white}
+
+    importance -> corr_filter -> selected
+  }
+
+  # Base Learners
+  base_learners: {
+    label: "Base Learners (Walk-Forward CV)"
+    style.fill: "#FFF3E0"
+    style.stroke: "#CD7F32"
+    direction: right
+
+    xgb: "XGBoost\nmax_depth: 4\nlr: 0.05, n: 500" {style.fill: "#CD7F32"; style.font-color: white}
+    lgb: "LightGBM\nmax_depth: 4\nlr: 0.05, n: 500" {style.fill: "#CD7F32"; style.font-color: white}
+    cb: "CatBoost\ndepth: 4\nlr: 0.05, iter: 500" {style.fill: "#CD7F32"; style.font-color: white}
+  }
+
+  # Meta-Learner
+  meta: {
+    label: "Meta-Learner"
+    style.fill: "#FFF3E0"
+    style.stroke: "#CD7F32"
+
+    ridge: "Ridge Regression\n(RidgeCV alphas: 0.01-1000)\nInput: 3 OOF predictions" {style.fill: "#CD7F32"; style.font-color: white}
+  }
+
+  # Dual Output
+  outputs: {
+    label: "Dual Ensemble Output"
+    style.fill: "#FFFDE7"
+    style.stroke: "#DAA520"
+    direction: right
+
+    margin: "Margin Ensemble\n(home - away score)\n-> Spread Predictions" {style.fill: "#FFD700"}
+    total: "Total Ensemble\n(home + away score)\n-> O/U Predictions" {style.fill: "#FFD700"}
+  }
+
+  # Edge Detection
+  edge: {
+    label: "Edge Detection"
+    style.fill: "#E8F5E9"
+    style.stroke: "#388E3C"
+
+    tiers: "High: |edge| >= 3.0\nMedium: |edge| >= 1.5\nLow: |edge| < 1.5" {style.fill: "#E8F5E9"; style.stroke: "#388E3C"}
+  }
+
+  # Game Pipeline Connections
+  silver_sources -> feat_eng.reshape
+  feat_eng.raw_cols -> shap.importance
+  shap.selected -> base_learners.xgb
+  shap.selected -> base_learners.lgb
+  shap.selected -> base_learners.cb
+  base_learners.xgb -> meta.ridge: OOF
+  base_learners.lgb -> meta.ridge: OOF
+  base_learners.cb -> meta.ridge: OOF
+  meta.ridge -> outputs.margin
+  meta.ridge -> outputs.total
+  outputs -> edge.tiers: "predicted vs Vegas line"
+}
+
+# ============================================================
+# PLAYER PREDICTION PIPELINE (right side)
+# ============================================================
+
+player_pipeline: {
+  label: "Player Prediction Pipeline (v3.0)"
+  style.fill: "#FFFDE7"
+  style.stroke: "#DAA520"
+
+  # Silver Sources
+  silver_sources: {
+    label: "9 Silver Sources"
+    style.fill: "#F5F5F5"
+    style.stroke: "#808080"
+    direction: right
+
+    usage: Usage Metrics {style.fill: "#C0C0C0"}
+    rolling: Rolling Averages {style.fill: "#C0C0C0"}
+    advanced: Advanced Profiles\n(NGS/PFR) {style.fill: "#C0C0C0"}
+    historical: Historical Profiles\n(Combine/Draft) {style.fill: "#C0C0C0"}
+    opp_rank: Opponent Rankings {style.fill: "#C0C0C0"}
+    pbp_metrics: Team PBP Metrics {style.fill: "#C0C0C0"}
+    tendencies: Team Tendencies {style.fill: "#C0C0C0"}
+    quality: Player Quality {style.fill: "#C0C0C0"}
+    game_ctx: Game Context {style.fill: "#C0C0C0"}
+  }
+
+  # Player Feature Engineering
+  pfeat_eng: {
+    label: "player_feature_engineering.py"
+    style.fill: "#4A90D9"
+    style.font-color: white
+
+    temporal: "Temporal Safeguards\nshift(1) + leakage detection" {style.fill: "#4A90D9"; style.font-color: white}
+    vector: "337-Column Feature Vector\n(rolling, efficiency, momentum,\nmatchup, Vegas context)" {style.fill: "#4A90D9"; style.font-color: white}
+
+    temporal -> vector
+  }
+
+  # Per-Position Models
+  pos_models: {
+    label: "Per-Position Per-Stat XGBoost"
+    style.fill: "#FFF3E0"
+    style.stroke: "#CD7F32"
+
+    qb: "QB Models\npassing_yards\npassing_tds\ninterceptions" {style.fill: "#CD7F32"; style.font-color: white}
+    rb: "RB Models\nrushing_yards\nrushing_tds\ncarries\nreceiving_yards" {style.fill: "#CD7F32"; style.font-color: white}
+    wr: "WR Models\ntargets, receptions\nreceiving_yards\nreceiving_tds" {style.fill: "#CD7F32"; style.font-color: white}
+    te: "TE Models\ntargets, receptions\nreceiving_yards\nreceiving_tds" {style.fill: "#CD7F32"; style.font-color: white}
+  }
+
+  # Ship/Skip Gate
+  ship_gate: {
+    label: "Ship/Skip Gate"
+    style.fill: "#E8F5E9"
+    style.stroke: "#388E3C"
+
+    gate: "Compare ML RMSE\nvs Heuristic Baseline\non Sealed Holdout" {style.fill: "#E8F5E9"; style.stroke: "#388E3C"}
+  }
+
+  # ML Router
+  router: {
+    label: "ML Projection Router"
+    style.fill: "#FFFDE7"
+    style.stroke: "#DAA520"
+
+    qb_ml: "QB -> ML Model\n(SHIP)" {style.fill: "#FFD700"}
+    rb_heur: "RB -> Heuristic\n(SKIP)" {style.fill: "#C0C0C0"}
+    wr_heur: "WR -> Heuristic\n(SKIP)" {style.fill: "#C0C0C0"}
+    te_heur: "TE -> Heuristic\n(SKIP)" {style.fill: "#C0C0C0"}
+  }
+
+  # Player Pipeline Connections
+  silver_sources -> pfeat_eng.temporal
+  pfeat_eng.vector -> pos_models.qb
+  pfeat_eng.vector -> pos_models.rb
+  pfeat_eng.vector -> pos_models.wr
+  pfeat_eng.vector -> pos_models.te
+  pos_models -> ship_gate.gate
+  ship_gate.gate -> router.qb_ml: SHIP
+  ship_gate.gate -> router.rb_heur: SKIP
+  ship_gate.gate -> router.wr_heur: SKIP
+  ship_gate.gate -> router.te_heur: SKIP
+}
+
+# ============================================================
+# WALK-FORWARD CV VISUALIZATION
+# ============================================================
+
+walk_forward: {
+  label: "Walk-Forward Cross-Validation"
+  style.fill: "#e8f0fe"
+  style.stroke: "#4A90D9"
+
+  fold1: "Fold 1: Train [2016-2018] -> Val [2019]" {style.fill: "#4A90D9"; style.font-color: white}
+  fold2: "Fold 2: Train [2016-2019] -> Val [2020]" {style.fill: "#4A90D9"; style.font-color: white}
+  fold3: "Fold 3: Train [2016-2020] -> Val [2021]" {style.fill: "#4A90D9"; style.font-color: white}
+  fold4: "Fold 4: Train [2016-2021] -> Val [2022]" {style.fill: "#4A90D9"; style.font-color: white}
+  fold5: "Fold 5: Train [2016-2022] -> Val [2023]" {style.fill: "#4A90D9"; style.font-color: white}
+  holdout: "Sealed Holdout: Train [2016-2023] -> Test [2024]" {style.fill: "#388E3C"; style.font-color: white}
+
+  fold1 -> fold2 -> fold3 -> fold4 -> fold5 -> holdout
+
+  note: "OOF predictions from folds 1-5\ntrain the Ridge meta-learner.\nHoldout is NEVER seen during training." {
+    style.fill: "#FFF9C4"
+    style.stroke: "#F9A825"
+    style.font-size: 12
+  }
+
+  fold5 -> note: {style.stroke-dash: 3}
+}
+
+# ============================================================
+# Cross-Pipeline Connections
+# ============================================================
+
+game_pipeline.edge.tiers -> gold_output: "Game Predictions\n(ATS + O/U)" {style.stroke: "#DAA520"}
+player_pipeline.router -> gold_output: "Fantasy Projections\n(PPR/Half/Std)" {style.stroke: "#DAA520"}
+
+gold_output: {
+  label: "Gold Output (data/gold/)"
+  style.fill: "#FFD700"
+  style.stroke: "#DAA520"
+
+  predictions: "predictions/\nseason=YYYY/week=WW/" {style.fill: "#FFD700"}
+  projections: "projections/\nseason=YYYY/week=WW/" {style.fill: "#FFD700"}
+}
+
+walk_forward -> game_pipeline.base_learners: "CV folds train\nbase learners" {style.stroke-dash: 3; style.stroke: "#4A90D9"}
+walk_forward -> player_pipeline.pos_models: "CV folds train\nposition models" {style.stroke-dash: 3; style.stroke: "#4A90D9"}

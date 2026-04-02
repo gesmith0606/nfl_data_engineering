@@ -9,7 +9,7 @@ import pandas as pd
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 import logging
-from src.config import get_max_season
+from config import get_max_season
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

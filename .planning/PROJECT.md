@@ -138,15 +138,15 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ## Context
 
-Shipped v2.2 with ~33,000 LOC Python across 38 phases and 71 plans (eight milestones).
-Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, lightgbm, catboost, scikit-learn, optuna, shap, nfl-data-py, local Parquet storage (S3 optional).
-Bronze layer: 16 data types + odds (FinnedAI 2016-2021, nflverse bridge 2022-2025) covering 10 seasons of complete data.
-Silver layer: 13 team output paths (including market/line movement data for all 10 seasons), 3 player output paths, historical dimension table.
-Gold layer: weekly + preseason fantasy projections; ML game predictions with 120-feature SHAP-selected ensemble (market features included).
+Shipped v3.0 with ~35,000 LOC Python across 48+ phases and 100+ plans (nine milestones).
+Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, lightgbm, catboost, scikit-learn, optuna, shap, nfl-data-py, neo4j (Docker dual-path fallback), local Parquet storage (S3 optional).
+Bronze layer: 16 data types + odds (FinnedAI 2016-2021, nflverse bridge 2022-2025) covering 10 seasons of complete data; PBP participation ingestion ready.
+Silver layer: 14 team output paths (including market/line movement, graph features for all 10 seasons), 3 player output paths, 22 graph features (WR-CB matchup, RB OL continuity, TE coverage, injury cascade), historical dimension table.
+Gold layer: weekly + preseason fantasy projections (QB via ML, RB/WR/TE via heuristic with hybrid residual testing); ML game predictions with 120-feature SHAP-selected ensemble (market features included); kicker projections.
 Prediction feature vector: 1139 raw columns → 120 SHAP-selected features. `diff_opening_spread` is #1 feature (23.6% SHAP importance).
-ML models: v2.2 stacking ensemble (XGB+LGB+CB + Ridge meta-learner) with market features; walk-forward CV, sealed 2025 holdout (51.7% ATS, 50.6% with market features). CLV tracking measures model quality against closing lines.
-Player models: 19 per-position per-stat XGBoost models (walk-forward CV, SHAP feature selection per stat-type group, ship gate evaluation). ML projection router dispatches QB to ML, RB/WR/TE to heuristic based on ship gate results.
-Tests: 655 passing across 21 test files.
+ML models (game prediction): v2.1 stacking ensemble (XGB+LGB+CB + Ridge meta-learner) with market features; walk-forward CV, sealed 2025 holdout (51.7% ATS, 50.6% with market features). CLV tracking measures model quality against closing lines.
+Player models (fantasy): 19 per-position per-stat XGBoost models (2016-2025 training data +66% from v2.0, walk-forward CV, SHAP feature selection). QB SHIP (6.72 MAE, 14% better than heuristic). RB/WR/TE under evaluation with hybrid residual approach (train ML on heuristic errors, not raw projections). Graph features (22) integrated; 17/22 survived SHAP but don't flip positions alone.
+Tests: 655+ passing across 21 test files. Web API (FastAPI, 7 endpoints) with 17 passing tests.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
@@ -162,7 +162,17 @@ Existing documentation:
 - **Seasons**: Player data 2020-2025; schedules back to 1999; PBP back to 2016; most types 2016-2025
 - **Python**: 3.9 compatible; pandas/pyarrow for all processing
 
-## Key Decisions
+## Key Decisions (Phases 51-53 Research)
+
+| Decision | Rationale | Outcome |
+|----------|-----------|---------|
+| Graph features (22 features from PBP participation) | Relational signal for matchups, injury cascades, scheme | ✓ 17/22 survived SHAP selection, carry signal but don't flip positions alone |
+| Ridge/ElasticNet models (Phase 53) | Reduce overfitting vs XGBoost on small datasets | ✓ Ridge better than XGB for WR/TE, but still trails heuristic |
+| Training data expansion (2016-2025) | More history improves generalization | ✓ QB improved 14% (7.84→6.72 MAE); RB within 1%, WR/TE closing gap |
+| Hybrid residual approach (industry standard) | Don't replace heuristic, improve it; train ML on errors | ✓ Good — mirrors FantasyPros/PFF/ESPN production models |
+| Heuristic as baseline linear model | Weighted roll3/roll6/std × domain multipliers is optimal | ✓ Good — confirmed via ablation: simpler is better |
+
+## Previous Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|

@@ -21,10 +21,15 @@ python scripts/silver_player_transformation.py --seasons 2020 2021 2022 2023 202
 python scripts/silver_team_transformation.py --seasons 2020 2021 2022 2023 2024
 python scripts/silver_market_transformation.py --season 2020
 python scripts/silver_player_quality_transformation.py --seasons 2020 2021 2022 2023 2024
+python scripts/compute_graph_features.py --seasons 2020 2021 2022 2023 2024 2025  # Graph features
 
 # Gold: Fantasy projections
 python scripts/generate_projections.py --preseason --season 2026 --scoring half_ppr
 python scripts/generate_projections.py --week 1 --season 2026 --scoring ppr
+python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr --include-kickers
+python scripts/generate_projections.py --week 1 --season 2026 --projection-type hybrid  # Hybrid heuristic+ML (Phase 53)
+python scripts/train_player_models.py --model-type xgb                                   # XGBoost models (default)
+python scripts/train_player_models.py --model-type ridge                                 # Ridge regression (Phase 53 research)
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
 
 # Gold: Game predictions
@@ -39,6 +44,10 @@ python scripts/ablation_market_features.py          # Market feature ablation on
 # Fantasy backtesting & ADP
 python scripts/backtest_projections.py --seasons 2022,2023,2024 --scoring half_ppr
 python scripts/refresh_adp.py --season 2026
+
+# Web API
+./web/run_dev.sh                                   # Run FastAPI dev server
+uvicorn web.api.main:app --reload --port 8000     # Alternative: direct uvicorn
 
 # Code quality
 python -m black src/ tests/ scripts/
@@ -92,6 +101,15 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/game_context.py` | Game context features, referee tendencies, playoff context, defense |
 | `src/historical_profiles.py` | Career trajectories, combine measurables, draft capital |
 | `src/market_analytics.py` | Line movement features, magnitude buckets, per-team reshape |
+| `src/graph_db.py` | Neo4j connection, dual-path (Neo4j/pandas fallback), query execution |
+| `src/graph_participation.py` | PBP player participation parsing, offense/defense edge creation |
+| `src/graph_wr_matchup.py` | WR-CB separation metrics, conversion rates from tracking |
+| `src/graph_rb_matchup.py` | RB-LB tackle distance, lead blocker lineage |
+| `src/graph_te_matchup.py` | TE-Safety depth, split detection, coverage rates |
+| `src/graph_ol_lineup.py` | OL combo continuity, PFF grades, run blocking assessments |
+| `src/graph_scheme.py` | Formation classification, motion frequency, receiver spacing |
+| `src/graph_injury_cascade.py` | Target/opportunity redistribution via injury events |
+| `src/graph_feature_extraction.py` | Aggregate graph metrics (22 features) per player-week |
 | `src/feature_engineering.py` | 310+ col feature vector assembly from 10 Silver sources |
 | `src/feature_selector.py` | SHAP importance + correlation filtering, CV-validated cutoff |
 | `src/ensemble_training.py` | XGB+LGB+CB+Ridge stacking, walk-forward CV, OOF predictions |
@@ -99,6 +117,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/prediction_backtester.py` | ATS/O-U/CLV evaluation, holdout validation, profit analysis |
 | `src/scoring_calculator.py` | Fantasy points — single dict + vectorized DataFrame |
 | `src/projection_engine.py` | Weekly/preseason projections; bye week, rookie fallback, Vegas multiplier |
+| `src/hybrid_projection.py` | Hybrid heuristic+ML approach; trains ML on residuals (Phase 53) |
 | `src/draft_optimizer.py` | DraftBoard, AuctionDraftBoard, MockDraftSimulator, DraftAdvisor |
 | `src/utils.py` | Shared utils incl. `get_latest_s3_key`, `download_latest_parquet` |
 | `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 16 data types via registry |
@@ -109,6 +128,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/silver_advanced_transformation.py` | Silver advanced profiles CLI — NGS/PFR/QBR merge |
 | `scripts/silver_market_transformation.py` | Silver market CLI — line movement features from Bronze odds |
 | `scripts/silver_player_quality_transformation.py` | Silver player quality CLI — QB EPA, injury impact |
+| `scripts/compute_graph_features.py` | Graph feature CLI — compute 22 metrics from PBP participation |
+| `scripts/graph_ingestion.py` | Neo4j ingestion script — bulk load graph from parquet files |
 | `scripts/train_ensemble.py` | Ensemble training CLI — XGB+LGB+CB+Ridge with optional Optuna |
 | `scripts/run_feature_selection.py` | Feature selection CLI — SHAP + correlation, CV-validated |
 | `scripts/generate_predictions.py` | Prediction CLI — weekly lines with edge detection vs Vegas |
@@ -119,6 +140,14 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/backtest_projections.py` | Fantasy backtest — MAE/RMSE/bias per position |
 | `scripts/refresh_adp.py` | Fetch ADP from Sleeper API → data/adp_latest.csv |
 | `scripts/check_pipeline_health.py` | S3 freshness + size checks across all layers |
+| `web/api/main.py` | FastAPI app, 7 endpoints, CORS, exception handlers |
+| `web/api/routers/projections.py` | Projection endpoints (weekly, preseason, kickers) |
+| `web/api/routers/predictions.py` | Prediction endpoints (edges, odds, CLV) |
+| `web/api/routers/players.py` | Player query endpoints (history, matchups) |
+| `web/api/services/projection_service.py` | Projection business logic, S3 reads |
+| `web/api/services/prediction_service.py` | Prediction business logic, ensemble dispatch |
+| `web/api/config.py` | API configuration, S3 client setup |
+| `docker-compose.yml` | Neo4j 5.x service definition |
 | `.github/workflows/weekly-pipeline.yml` | Tuesday cron; auto-opens GitHub issue on failure |
 
 ## Configuration
@@ -134,7 +163,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 - Valid seasons: 1999–2026 | Weeks: 1–18 regular season
 - 32 teams | Down: 1–4 | Distance: 1–99 | Yard line: 0–100
 - Projected points always ≥ 0 for skill positions (QB/RB/WR/TE)
-- Player training data: 2020–2025 (`PLAYER_DATA_SEASONS` in config.py)
+- Player training data: 2016–2025 (`PLAYER_DATA_SEASONS` in config.py)
 
 ## Development Patterns
 
@@ -147,11 +176,11 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 ## Status
 
-**Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → Fantasy: projections (PPR/Half/Standard), draft tool (snake/auction/mock/waiver), backtesting (MAE 4.91) → 571 tests passing
+**Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → v2.2 Full Odds + Market Ablation (SHIP market features, 120-feature SHAP ensemble, sealed 2025 holdout) → v3.0 Graph Features & Web API (Neo4j dual-path, 22 graph features from PBP participation, kickers, FastAPI backend, 7 endpoints) → v3.1 Hybrid Residual Models (Phase 51-53: graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion, hybrid heuristic+ML approach adopted)
 
-**In progress**: Planning next milestone
+**In progress**: Website frontend development (Next.js + Tailwind) | Hybrid residual testing (Phase 54+)
 
-**Planned**: v2.2 Betting Framework (Kelly criterion, EV, line shopping) | v3.0 Production Infra (automated pipeline, drift detection) | Neo4j (WR-CB matchups) | Live Sleeper integration
+**Planned**: Hybrid residual production wiring | v4.0 Website launch | v4.1 Live data sync | Neo4j graph inference
 
 ## ECC Plugin (Everything Claude Code)
 

@@ -1,9 +1,9 @@
 # NFL Data Dictionary
 
-**Version:** 3.0
-**Last Updated:** March 21, 2026
+**Version:** 4.1
+**Last Updated:** April 1, 2026
 **Purpose:** Complete schema reference for all Bronze, Silver, and Gold data types in the NFL Data Engineering pipeline
-**Related:** [src/config.py](../src/config.py) | [src/nfl_data_adapter.py](../src/nfl_data_adapter.py) | [scripts/bronze_ingestion_simple.py](../scripts/bronze_ingestion_simple.py)
+**Related:** [ARCHITECTURE.md](./ARCHITECTURE.md) | [src/config.py](../src/config.py) | [src/nfl_data_adapter.py](../src/nfl_data_adapter.py) | [scripts/bronze_ingestion_simple.py](../scripts/bronze_ingestion_simple.py)
 
 This document is the single source of truth for Bronze layer schemas. Column specs for locally available data types are auto-generated from Parquet files. For data types requiring API ingestion, representative columns are documented from test mocks, config constants, and adapter method signatures.
 
@@ -1790,6 +1790,99 @@ Each of the 5 base metrics has `_roll3`, `_roll6`, and `_std` rolling window var
 | model_version | STRING | NO | Version identifier for the model that generated this prediction | "v1.4.0" |
 | prediction_timestamp | TIMESTAMP | NO | UTC datetime when prediction was generated | "2025-11-05T14:30:00Z" |
 
+### 3. Graph Features (Silver Layer — v3.0)
+
+**Status:** Shipped (Phase 43)
+**Source Modules:** `src/graph_*.py` (6 modules)
+**Local Path:** `data/silver/graph_features/season=YYYY/`
+**S3 Path:** `s3://nfl-refined/graph_features/season=YYYY/` (optional)
+**Columns:** 22 graph metrics
+**Produced by:** `scripts/compute_graph_features.py --seasons 2020 2021 2022 2023 2024 2025`
+**Input:** PBP participation data from Bronze (2020-2025)
+
+**Graph Feature Categories:**
+
+| Category | Count | Modules | Description |
+|----------|-------|---------|-------------|
+| Injury Cascade | 4 | `graph_injury_cascade.py` | Target redistribution, EPA swing, attrition, backup role |
+| WR-CB Matchup | 4 | `graph_wr_matchup.py` | Matchup count, separation, conversion rate, shadow depth |
+| OL Lineup | 5 | `graph_ol_lineup.py` | Continuity, PFF grades, run blocking, lead blocker |
+| TE Coverage | 4 | `graph_te_matchup.py` | Safety depth, Cover 2 rate, slot CB presence, YPT efficiency |
+| Scheme | 4 | `graph_scheme.py` | Formation spread, motion frequency, max receivers, personnel |
+| Defenders | 1 | `graph_scheme.py` | Defenders in box (pre-snap alignment) |
+
+**Coverage by Position (2020-2025):**
+
+| Position | Coverage | Data Source |
+|----------|----------|-------------|
+| WR | 73-75% | WR-CB separated edges where targets ≥3 |
+| RB | 90% | Tackle distance + lead blocker tracking |
+| TE | 94-95% | Safety depth + coverage rate mapping |
+| QB | 60% | Defense alignment + pressure metrics |
+
+**Key Columns:**
+
+| Column Name | Data Type | Nullable | Description | Example | Range |
+|-------------|-----------|----------|-------------|---------|-------|
+| player_id | string | NO | Player GSIS ID | "00-0033873" | - |
+| season | int64 | NO | Season year | 2024 | 2020-2025 |
+| week | int64 | NO | Week number | 5 | 1-18 |
+| position | string | NO | Player position | "WR" | QB/RB/WR/TE |
+| recent_team | string | NO | Team abbreviation | "KC" | 32 teams |
+| injury_cascade_transfer_target_pct | double | YES | % targets to replacements | 0.12 | [0.0, 1.0] |
+| injury_cascade_opp_injury_epa | double | YES | EPA swing vs injured opponent | 0.08 | [-1.0, 1.0] |
+| injury_cascade_position_attrition | double | YES | Attrition rate by position | 0.15 | [0.0, 1.0] |
+| injury_cascade_backup_role_size | double | YES | Replacement expected snap share | 0.35 | [0.0, 1.0] |
+| wr_matchup_count | int64 | NO | Games tracked vs CB | 3 | [3, 17] |
+| wr_separation_avg | double | YES | Avg separation in inches | 1.8 | [0.5, 4.0] |
+| wr_conversion_avg | double | YES | Target conversion rate | 0.68 | [0.0, 1.0] |
+| wr_shadow_depth | double | YES | CB alignment depth (yards) | 7.2 | [0.0, 15.0] |
+| rb_matchup_count | int64 | NO | Handoff carries vs LB | 5 | [3, 17] |
+| rb_tackle_distance_avg | double | YES | Tackle depth vs LB (yards) | 1.5 | [-2.0, 5.0] |
+| rb_yards_per_carry_vs_lb | double | YES | Efficiency vs LB | 4.2 | [0.0, 8.0] |
+| ol_continuity | double | YES | Same OL combo consistency | 0.82 | [0.0, 1.0] |
+| ol_avg_pff_grade | double | YES | OL pass-block grade | 72.3 | [40.0, 90.0] |
+| run_blocking_grades | double | YES | Run-block grade | 68.5 | [40.0, 90.0] |
+| lead_blocker_grade | double | YES | Lead blocker trend | 71.0 | [40.0, 90.0] |
+| te_coverage_deep_safety_depth | double | YES | Safety depth (yards) | 8.5 | [0.0, 15.0] |
+| te_coverage_cover2_rate | double | YES | Cover 2 frequency | 0.25 | [0.0, 1.0] |
+| te_coverage_slot_cb_presence | double | YES | Slot CB depth (yards) | 2.0 | [0.0, 10.0] |
+| te_yards_per_target_vs_coverage | double | YES | YPT by coverage | 7.8 | [0.0, 20.0] |
+| scheme_formation_spread | double | YES | Spread formation rate | 0.42 | [0.0, 1.0] |
+| scheme_motion_frequency | double | YES | Pre-snap motion rate | 0.28 | [0.0, 1.0] |
+| scheme_max_receivers_per_play | int64 | NO | Max route runners | 5 | [3, 6] |
+| scheme_personnel_groups | string | YES | Personnel encoding | "21" | 10/11/12/20/21 |
+| defenders_in_box | double | YES | Pre-snap alignment | 6.2 | [4.0, 9.0] |
+
+### 4. Kicker Projections (Gold Layer — v3.0)
+
+**Status:** Shipped (Phase 43)
+**Source Module:** `src/projection_engine.py` (with kicker logic)
+**Local Path:** `data/gold/kicker_projections/season=YYYY/week=WW/`
+**S3 Path:** `s3://nfl-trusted/kicker_projections/season=YYYY/week=WW/` (optional)
+**Columns:** 11
+**Produced by:** `scripts/generate_projections.py --week W --season YYYY --include-kickers`
+**Backtest Results:** MAE 4.14 (expected noise floor; kickers inherently stochastic)
+
+**Projection Model:** Team scoring tendency (implied total × kicker consistency) + bye week zeroing
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| player_id | string | NO | Kicker GSIS ID | "00-0025894" |
+| player_name | string | NO | Kicker name | "Harrison Butker" |
+| position | string | NO | Position (always "K") | "K" |
+| recent_team | string | NO | Team abbreviation | "KC" |
+| proj_season | int64 | NO | Projection season | 2024 |
+| proj_week | int64 | NO | Projection week | 5 |
+| proj_fg_makes | double | YES | Projected FG makes | 2.1 |
+| proj_fg_attempts | double | YES | Estimated FG attempts | 2.8 |
+| proj_xp_makes | double | YES | Projected XP makes | 3.2 |
+| proj_xp_attempts | double | YES | Estimated XP attempts | 3.5 |
+| projected_points | double | YES | Total fantasy points (1pt FG + 1pt XP) | 10.5 |
+| position_rank | int64 | YES | Rank among kickers week | 2 |
+| is_bye_week | bool | NO | True if team on bye | false |
+| is_rookie_projection | bool | NO | True if using defaults | false |
+
 ---
 
 ## Data Types and Constraints
@@ -1869,11 +1962,12 @@ Validation is performed by `NFLDataFetcher.validate_data()` in `src/nfl_data_int
 ---
 
 **Document Control:**
-- **Version**: 4.0
-- **Last Modified**: March 28, 2026
+- **Version**: 4.1
+- **Last Modified**: April 1, 2026
 - **Owner**: Data Engineering Team
 
 **Change Log:**
+- v4.1 (2026-04-01): Created ARCHITECTURE.md with system overview, medallion architecture, all three tracks (fantasy projections, game predictions, player ML), feature engineering detail, design patterns, constraints, and planned Neo4j integration. Updated data dictionary version and cross-references. Both documents now complete for comprehensive system understanding.
 - v4.0 (2026-03-28): Added Bronze odds schema (FinnedAI 2016-2021), Silver market_data (line movement features, 20 columns), Silver player_quality (QB EPA, injury impact, 26 columns). Updated DATA_TYPE_SEASON_RANGES table with odds entry. Now documents 16 Bronze types, 14 Silver paths, 2 Gold types.
 - v3.0 (2026-03-21): Complete Silver and Gold layer documentation. Replaced 2 aspirational Silver tables with 12 real schemas extracted from Parquet files (719 columns total). Updated Gold section with actual fantasy projection schema (25 columns from parquet) and planned game prediction schema (15 columns from PRED-01/02/03 requirements).
 - v2.0 (2026-03-08): Comprehensive rewrite covering all 15 Bronze data types (24+ with sub-types). Auto-generated column specs from local Parquet files. Added representative columns for API-only types from test mocks and config.

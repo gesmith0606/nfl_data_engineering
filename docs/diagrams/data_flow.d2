@@ -1,0 +1,163 @@
+title: NFL Data Engineering -- Data Flow Pipeline {
+  near: top-center
+  shape: text
+  style.font-size: 28
+  style.bold: true
+}
+
+legend: {
+  style.stroke: "#333"
+  style.fill: "#f5f5f5"
+  Bronze: {style.fill: "#CD7F32"; style.font-color: white}
+  Silver: {style.fill: "#C0C0C0"}
+  Gold: {style.fill: "#FFD700"}
+  Script: {style.fill: "#4A90D9"; style.font-color: white}
+}
+
+direction: right
+
+# Ingestion Scripts
+ingest: {
+  label: Ingestion Scripts
+  style.fill: "#e8f0fe"
+  bronze_simple: bronze_ingestion_simple.py\n(16 data types)
+  bronze_odds: bronze_odds_ingestion.py\n(FinnedAI JSON -> Parquet)
+}
+
+# Bronze Storage
+bronze: {
+  label: Bronze Storage
+  style.fill: "#FFF3E0"
+  style.stroke: "#CD7F32"
+  pbp: PBP\n(140 cols) {style.fill: "#CD7F32"; style.font-color: white}
+  player: Player Weekly\n+ Seasonal {style.fill: "#CD7F32"; style.font-color: white}
+  sched: Schedules {style.fill: "#CD7F32"; style.font-color: white}
+  snaps: Snap Counts {style.fill: "#CD7F32"; style.font-color: white}
+  injuries: Injuries {style.fill: "#CD7F32"; style.font-color: white}
+  ngs_pfr: NGS + PFR + QBR {style.fill: "#CD7F32"; style.font-color: white}
+  draft_combine: Draft + Combine {style.fill: "#CD7F32"; style.font-color: white}
+  odds: Odds\n(2016-2021) {style.fill: "#CD7F32"; style.font-color: white}
+}
+
+# Silver Transform Scripts
+silver_scripts: {
+  label: Silver Transformation Scripts
+  style.fill: "#e8f0fe"
+  player_tx: silver_player_transformation.py {style.fill: "#4A90D9"; style.font-color: white}
+  team_tx: silver_team_transformation.py {style.fill: "#4A90D9"; style.font-color: white}
+  gc_tx: silver_game_context_transformation.py {style.fill: "#4A90D9"; style.font-color: white}
+  adv_tx: silver_advanced_transformation.py {style.fill: "#4A90D9"; style.font-color: white}
+  mkt_tx: silver_market_transformation.py {style.fill: "#4A90D9"; style.font-color: white}
+  qual_tx: silver_player_quality_transformation.py {style.fill: "#4A90D9"; style.font-color: white}
+}
+
+# Silver Storage
+silver: {
+  label: Silver Storage
+  style.fill: "#F5F5F5"
+  style.stroke: "#808080"
+  usage: Player Usage {style.fill: "#C0C0C0"}
+  rolling: Player Rolling {style.fill: "#C0C0C0"}
+  opp_rank: Opp Rankings {style.fill: "#C0C0C0"}
+  advanced: Advanced Profiles {style.fill: "#C0C0C0"}
+  historical: Historical Profiles {style.fill: "#C0C0C0"}
+  pbp_met: Team PBP Metrics {style.fill: "#C0C0C0"}
+  tend: Tendencies {style.fill: "#C0C0C0"}
+  sos: SOS {style.fill: "#C0C0C0"}
+  sit: Situational {style.fill: "#C0C0C0"}
+  pbp_der: PBP-Derived {style.fill: "#C0C0C0"}
+  gc: Game Context {style.fill: "#C0C0C0"}
+  ref: Referee {style.fill: "#C0C0C0"}
+  playoff: Playoff Context {style.fill: "#C0C0C0"}
+  market: Market Data {style.fill: "#C0C0C0"}
+  quality: Player Quality {style.fill: "#C0C0C0"}
+}
+
+# Gold Processing
+gold_proc: {
+  label: Gold Processing
+  style.fill: "#FFFDE7"
+
+  feat_eng: feature_engineering.py\n(1139-col game vector) {style.fill: "#FFD700"}
+  feat_sel: SHAP Feature Selection\n(120 cols selected) {style.fill: "#FFD700"}
+  pfeat_eng: player_feature_engineering.py\n(337-col player vector) {style.fill: "#FFD700"}
+
+  train_ens: Walk-Forward CV\n+ Ensemble Training {style.fill: "#FFD700"}
+  train_player: Per-Position\nXGBoost Training {style.fill: "#FFD700"}
+
+  proj_eng: Projection Engine\n(Heuristic) {style.fill: "#FFD700"}
+  ml_router: ML Router\n(QB ML + RB/WR/TE Heuristic) {style.fill: "#FFD700"}
+}
+
+# Gold Output
+gold_out: {
+  label: Gold Output
+  style.fill: "#FFFDE7"
+  style.stroke: "#DAA520"
+  predictions: Game Predictions\n(ATS + O/U) {style.fill: "#FFD700"}
+  projections: Fantasy Projections\n(PPR/Half/Std) {style.fill: "#FFD700"}
+  backtest: Backtest Results\n(ATS 53%, MAE 4.91) {style.fill: "#FFD700"}
+}
+
+# Connections: Ingestion -> Bronze
+ingest.bronze_simple -> bronze
+ingest.bronze_odds -> bronze.odds
+
+# Connections: Bronze -> Silver Scripts
+bronze.player -> silver_scripts.player_tx
+bronze.snaps -> silver_scripts.player_tx
+bronze.sched -> silver_scripts.player_tx
+bronze.pbp -> silver_scripts.team_tx
+bronze.sched -> silver_scripts.gc_tx
+bronze.pbp -> silver_scripts.gc_tx
+bronze.ngs_pfr -> silver_scripts.adv_tx
+bronze.odds -> silver_scripts.mkt_tx
+bronze.player -> silver_scripts.qual_tx
+bronze.draft_combine -> silver.historical: Direct load
+
+# Connections: Silver Scripts -> Silver Storage
+silver_scripts.player_tx -> silver.usage
+silver_scripts.player_tx -> silver.rolling
+silver_scripts.player_tx -> silver.opp_rank
+silver_scripts.team_tx -> silver.pbp_met
+silver_scripts.team_tx -> silver.tend
+silver_scripts.team_tx -> silver.sos
+silver_scripts.team_tx -> silver.sit
+silver_scripts.team_tx -> silver.pbp_der
+silver_scripts.gc_tx -> silver.gc
+silver_scripts.gc_tx -> silver.ref
+silver_scripts.gc_tx -> silver.playoff
+silver_scripts.adv_tx -> silver.advanced
+silver_scripts.mkt_tx -> silver.market
+silver_scripts.qual_tx -> silver.quality
+
+# Connections: Silver -> Gold Processing
+silver.pbp_met -> gold_proc.feat_eng
+silver.tend -> gold_proc.feat_eng
+silver.sos -> gold_proc.feat_eng
+silver.sit -> gold_proc.feat_eng
+silver.pbp_der -> gold_proc.feat_eng
+silver.gc -> gold_proc.feat_eng
+silver.ref -> gold_proc.feat_eng
+silver.playoff -> gold_proc.feat_eng
+silver.market -> gold_proc.feat_eng
+silver.quality -> gold_proc.feat_eng
+
+silver.usage -> gold_proc.pfeat_eng
+silver.rolling -> gold_proc.pfeat_eng
+silver.advanced -> gold_proc.pfeat_eng
+
+silver.rolling -> gold_proc.proj_eng
+silver.opp_rank -> gold_proc.proj_eng
+
+gold_proc.feat_eng -> gold_proc.feat_sel
+gold_proc.feat_sel -> gold_proc.train_ens
+gold_proc.train_ens -> gold_out.predictions
+
+gold_proc.pfeat_eng -> gold_proc.train_player
+gold_proc.train_player -> gold_proc.ml_router
+gold_proc.proj_eng -> gold_proc.ml_router
+gold_proc.ml_router -> gold_out.projections
+
+gold_proc.train_ens -> gold_out.backtest: backtest_predictions.py
+gold_proc.proj_eng -> gold_out.backtest: backtest_projections.py

@@ -243,10 +243,11 @@ nfl_data_engineering/
 │   └── gold/                          # Projection outputs
 │
 ├── docs/
-│   ├── NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md  # Phase history and upcoming work
-│   ├── NFL_DATA_DICTIONARY.md                  # Column specs for all data types
-│   ├── NFL_GAME_PREDICTION_DATA_MODEL.md       # Data model with implementation status
-│   └── AWS_IAM_SETUP_INSTRUCTIONS.md           # AWS IAM and S3 setup
+│   ├── ARCHITECTURE.md                          # System design (medallion, 3 tracks, design patterns)
+│   ├── NFL_DATA_DICTIONARY.md                   # Column specs for all data types
+│   ├── NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md   # Phase history and upcoming work
+│   ├── NFL_GAME_PREDICTION_DATA_MODEL.md        # Data model with implementation status
+│   └── AWS_IAM_SETUP_INSTRUCTIONS.md            # AWS IAM and S3 setup
 │
 ├── .github/workflows/weekly-pipeline.yml       # Tuesday cron; auto-opens issue on failure
 ├── .planning/                                  # Phase planning docs and roadmap

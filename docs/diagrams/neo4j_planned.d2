@@ -1,0 +1,253 @@
+title: NFL Data Engineering -- Planned Neo4j Graph Layer {
+  near: top-center
+  shape: text
+  style.font-size: 28
+  style.bold: true
+}
+
+legend: {
+  style.stroke: "#333"
+  style.fill: "#f5f5f5"
+  Neo4j: {style.fill: "#4581C3"; style.font-color: white}
+  Bronze Source: {style.fill: "#CD7F32"; style.font-color: white}
+  Gold Output: {style.fill: "#FFD700"}
+  Phase 1: {style.fill: "#E8F5E9"; style.font-color: "#2E7D32"}
+  Phase 2: {style.fill: "#E3F2FD"; style.font-color: "#1565C0"}
+  Phase 3: {style.fill: "#FFF3E0"; style.font-color: "#E65100"}
+}
+
+# ============================================================
+# NODE TYPES
+# ============================================================
+
+nodes: {
+  label: "Graph Node Types"
+  style.fill: "#E3F2FD"
+  style.stroke: "#4581C3"
+
+  player: {
+    label: "Player"
+    style.fill: "#4581C3"
+    style.font-color: white
+
+    attrs: "gsis_id, name, position\ndraft_year, combine_scores\ncareer_stats" {style.fill: "#4581C3"; style.font-color: white}
+
+    subtypes: {
+      label: "Position Subtypes"
+      style.fill: "#5C9BD5"
+      style.font-color: white
+      direction: right
+
+      qb: QB {style.fill: "#5C9BD5"; style.font-color: white}
+      rb: RB {style.fill: "#5C9BD5"; style.font-color: white}
+      wr: WR {style.fill: "#5C9BD5"; style.font-color: white}
+      te: TE {style.fill: "#5C9BD5"; style.font-color: white}
+      ol: OL {style.fill: "#5C9BD5"; style.font-color: white}
+      dl: DL {style.fill: "#5C9BD5"; style.font-color: white}
+      lb: LB {style.fill: "#5C9BD5"; style.font-color: white}
+      cb: CB {style.fill: "#5C9BD5"; style.font-color: white}
+    }
+  }
+
+  team: {
+    label: "Team"
+    style.fill: "#4581C3"
+    style.font-color: white
+    attrs: "abbr, division, conference\nseason, week, pbp_metrics" {style.fill: "#4581C3"; style.font-color: white}
+  }
+
+  game: {
+    label: "Game"
+    style.fill: "#4581C3"
+    style.font-color: white
+    attrs: "game_id, season, week\nhome_team, away_team\nspread, total, result" {style.fill: "#4581C3"; style.font-color: white}
+  }
+
+  scheme: {
+    label: "Scheme"
+    style.fill: "#4581C3"
+    style.font-color: white
+    attrs: "scheme_type (offensive/defensive)\nformation tendencies\nblitz_rate, man_zone_ratio" {style.fill: "#4581C3"; style.font-color: white}
+  }
+}
+
+# ============================================================
+# EDGE TYPES
+# ============================================================
+
+edges: {
+  label: "Graph Edge Types"
+  style.fill: "#E3F2FD"
+  style.stroke: "#4581C3"
+
+  targeted: {
+    label: "TARGETED_AGAINST"
+    style.fill: "#E8F5E9"
+    style.stroke: "#2E7D32"
+    desc: "WR -> Team Defense\ntargets, catches, yards,\nseparation, coverage_type" {style.fill: "#E8F5E9"}
+    phase: "Phase 2" {style.fill: "#E3F2FD"; style.font-color: "#1565C0"; style.font-size: 11}
+  }
+
+  on_field: {
+    label: "ON_FIELD_WITH"
+    style.fill: "#E8F5E9"
+    style.stroke: "#2E7D32"
+    desc: "WR <-> CB Co-Occurrence\ngame_id, snap_count,\nroute_overlap, shadow_rate" {style.fill: "#E8F5E9"}
+    phase: "Phase 2" {style.fill: "#E3F2FD"; style.font-color: "#1565C0"; style.font-size: 11}
+  }
+
+  blocks_for: {
+    label: "BLOCKS_FOR"
+    style.fill: "#E3F2FD"
+    style.stroke: "#1565C0"
+    desc: "OL -> Team\npressure_allowed, sacks_allowed,\nrun_block_grade" {style.fill: "#E3F2FD"}
+    phase: "Phase 2" {style.fill: "#E3F2FD"; style.font-color: "#1565C0"; style.font-size: 11}
+  }
+
+  absorbs: {
+    label: "ABSORBS_ROLE"
+    style.fill: "#E8F5E9"
+    style.stroke: "#2E7D32"
+    desc: "Player -> Team (on injury)\ntarget_share_delta,\ncarry_share_delta, snap_delta" {style.fill: "#E8F5E9"}
+    phase: "Phase 1" {style.fill: "#E8F5E9"; style.font-color: "#2E7D32"; style.font-size: 11}
+  }
+
+  injured: {
+    label: "INJURED"
+    style.fill: "#E8F5E9"
+    style.stroke: "#2E7D32"
+    desc: "Player -> Game\ninjury_type, games_missed,\nteammate_impact_score" {style.fill: "#E8F5E9"}
+    phase: "Phase 1" {style.fill: "#E8F5E9"; style.font-color: "#2E7D32"; style.font-size: 11}
+  }
+
+  rushes_behind: {
+    label: "RUSHES_BEHIND"
+    style.fill: "#E3F2FD"
+    style.stroke: "#1565C0"
+    desc: "RB -> Team\ncarries, yards_before_contact,\nstuff_rate, explosive_rate" {style.fill: "#E3F2FD"}
+    phase: "Phase 2" {style.fill: "#E3F2FD"; style.font-color: "#1565C0"; style.font-size: 11}
+  }
+
+  defends_run: {
+    label: "DEFENDS_RUN"
+    style.fill: "#FFF3E0"
+    style.stroke: "#E65100"
+    desc: "DL/LB -> Team\nrun_stop_rate, tackles_for_loss,\ngap_assignment" {style.fill: "#FFF3E0"}
+    phase: "Phase 3" {style.fill: "#FFF3E0"; style.font-color: "#E65100"; style.font-size: 11}
+  }
+}
+
+# ============================================================
+# DATA SOURCES FEEDING THE GRAPH
+# ============================================================
+
+sources: {
+  label: "Bronze Data Sources"
+  style.fill: "#FFF3E0"
+  style.stroke: "#CD7F32"
+  direction: right
+
+  pbp_part: "PBP Participation\n(player-play mapping)" {style.fill: "#CD7F32"; style.font-color: white}
+  injuries: "Injuries\n(game-day reports)" {style.fill: "#CD7F32"; style.font-color: white}
+  rosters: "Rosters\n(team assignments)" {style.fill: "#CD7F32"; style.font-color: white}
+  depth: "Depth Charts\n(position depth)" {style.fill: "#CD7F32"; style.font-color: white}
+  pfr_def: "PFR Defensive\n(coverage stats)" {style.fill: "#CD7F32"; style.font-color: white}
+}
+
+# ============================================================
+# GRAPH FEATURES -> ML MODELS
+# ============================================================
+
+graph_features: {
+  label: "Graph-Derived Features"
+  style.fill: "#E3F2FD"
+  style.stroke: "#4581C3"
+
+  matchup: "WR-CB Matchup Score\n(historical efficiency\nvs specific defender)" {style.fill: "#4581C3"; style.font-color: white}
+  cascade: "Injury Cascade Impact\n(target redistribution\nwhen teammate injured)" {style.fill: "#4581C3"; style.font-color: white}
+  ol_pressure: "OL Pressure Index\n(QB sack risk from\nOL injury/rotation)" {style.fill: "#4581C3"; style.font-color: white}
+  scheme_fit: "Scheme Matchup Score\n(offensive scheme vs\ndefensive front tendency)" {style.fill: "#4581C3"; style.font-color: white}
+}
+
+ml_models: {
+  label: "ML Model Integration"
+  style.fill: "#FFFDE7"
+  style.stroke: "#DAA520"
+  direction: right
+
+  game_pred: "Game Prediction Ensemble\n(graph features added\nto 120-col feature set)" {style.fill: "#FFD700"}
+  player_pred: "Player Projection Models\n(graph features added\nto 337-col feature set)" {style.fill: "#FFD700"}
+}
+
+# ============================================================
+# PHASED ROLLOUT
+# ============================================================
+
+phases: {
+  label: "Phased Implementation"
+  style.fill: "#f5f5f5"
+  style.stroke: "#333"
+
+  p1: {
+    label: "Phase 1: Injury Cascade"
+    style.fill: "#E8F5E9"
+    style.stroke: "#2E7D32"
+    desc: "INJURED + ABSORBS_ROLE edges\nTarget redistribution on injury\nPlayer quality impact scores" {style.fill: "#E8F5E9"}
+  }
+
+  p2: {
+    label: "Phase 2: WR Matchup + OL"
+    style.fill: "#E3F2FD"
+    style.stroke: "#1565C0"
+    desc: "TARGETED_AGAINST + ON_FIELD_WITH\nBLOCKS_FOR + RUSHES_BEHIND\nWR-CB shadow detection" {style.fill: "#E3F2FD"}
+  }
+
+  p3: {
+    label: "Phase 3: Scheme + Def Front"
+    style.fill: "#FFF3E0"
+    style.stroke: "#E65100"
+    desc: "DEFENDS_RUN edges\nScheme node + tendencies\nFormation-level matchups" {style.fill: "#FFF3E0"}
+  }
+
+  p1 -> p2 -> p3
+}
+
+# ============================================================
+# CONNECTIONS
+# ============================================================
+
+# Sources -> Graph Nodes/Edges
+sources.pbp_part -> nodes.player: "Player participation"
+sources.pbp_part -> edges.on_field: "Co-occurrence"
+sources.pbp_part -> edges.targeted: "Coverage matchups"
+sources.injuries -> edges.injured: "Injury events"
+sources.injuries -> edges.absorbs: "Role absorption"
+sources.rosters -> nodes.team: "Team membership"
+sources.depth -> nodes.player.subtypes: "Position depth"
+sources.pfr_def -> edges.defends_run: "Defensive stats"
+sources.pfr_def -> edges.blocks_for: "Pressure stats"
+
+# Graph -> Features
+nodes -> graph_features.matchup: "Traversal queries" {style.stroke-dash: 3; style.stroke: "#4581C3"}
+edges.injured -> graph_features.cascade {style.stroke-dash: 3; style.stroke: "#4581C3"}
+edges.absorbs -> graph_features.cascade {style.stroke-dash: 3; style.stroke: "#4581C3"}
+edges.blocks_for -> graph_features.ol_pressure {style.stroke-dash: 3; style.stroke: "#4581C3"}
+nodes.scheme -> graph_features.scheme_fit {style.stroke-dash: 3; style.stroke: "#4581C3"}
+
+# Features -> ML
+graph_features.matchup -> ml_models.player_pred
+graph_features.cascade -> ml_models.player_pred
+graph_features.ol_pressure -> ml_models.game_pred
+graph_features.scheme_fit -> ml_models.game_pred
+graph_features.matchup -> ml_models.game_pred
+graph_features.cascade -> ml_models.game_pred
+
+# Phases -> Edges (alignment)
+phases.p1 -> edges.injured: "Ships first" {style.stroke-dash: 3; style.stroke: "#2E7D32"}
+phases.p1 -> edges.absorbs: {style.stroke-dash: 3; style.stroke: "#2E7D32"}
+phases.p2 -> edges.targeted: {style.stroke-dash: 3; style.stroke: "#1565C0"}
+phases.p2 -> edges.on_field: {style.stroke-dash: 3; style.stroke: "#1565C0"}
+phases.p2 -> edges.blocks_for: {style.stroke-dash: 3; style.stroke: "#1565C0"}
+phases.p2 -> edges.rushes_behind: {style.stroke-dash: 3; style.stroke: "#1565C0"}
+phases.p3 -> edges.defends_run: {style.stroke-dash: 3; style.stroke: "#E65100"}
+phases.p3 -> nodes.scheme: {style.stroke-dash: 3; style.stroke: "#E65100"}
