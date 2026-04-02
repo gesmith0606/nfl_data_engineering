@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  neo4j:
+    image: neo4j:5-community
+    container_name: nfl-neo4j
+    ports:
+      - "7474:7474"   # Browser
+      - "7687:7687"   # Bolt
+    environment:
+      NEO4J_AUTH: neo4j/nfl_graph_2026
+      NEO4J_PLUGINS: '["apoc"]'
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: nfl-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: nfl_data
+      POSTGRES_USER: nfl
+      POSTGRES_PASSWORD: nfl_local_2026
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./web/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nfl -d nfl_data"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    container_name: nfl-api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://nfl:nfl_local_2026@postgres:5432/nfl_data
+      CORS_ORIGINS: "http://localhost:3000,http://localhost:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+  postgres_data:
