@@ -10,206 +10,92 @@
 - v2.0 Prediction Model Improvement -- Phases 28-31 (shipped 2026-03-27)
 - v2.1 Market Data -- Phases 32-34 (shipped 2026-03-28)
 - v2.2 Full Odds + Holdout Reset -- Phases 35-38 (shipped 2026-03-29)
-- v3.0 Player Fantasy Prediction System -- Phases 39-42 (in progress)
-
-## Phases
-
-<details>
-<summary>v1.0 Bronze Expansion (Phases 1-7) -- SHIPPED 2026-03-08</summary>
-
-- [x] Phase 1: Infrastructure Prerequisites (2/2 plans) -- completed 2026-03-08
-- [x] Phase 2: Core PBP Ingestion (1/1 plan) -- completed 2026-03-08
-- [x] Phase 3: Advanced Stats & Context Data (2/2 plans) -- completed 2026-03-08
-- [x] Phase 4: Documentation Update (3/3 plans) -- completed 2026-03-08
-- [x] Phase 5: Phase 1 Verification Backfill (1/1 plan) -- completed 2026-03-08
-- [x] Phase 6: Wire Bronze Validation (1/1 plan) -- completed 2026-03-08
-- [x] Phase 7: Tech Debt Cleanup (1/1 plan) -- completed 2026-03-08
-
-Full details: `.planning/milestones/v1.0-ROADMAP.md`
-
-</details>
-
-<details>
-<summary>v1.1 Bronze Backfill (Phases 8-14) -- SHIPPED 2026-03-13</summary>
-
-- [x] Phase 8: Pre-Backfill Guards (1/1 plan) -- completed 2026-03-09
-- [x] Phase 9: New Data Type Ingestion (3/3 plans) -- completed 2026-03-09
-- [x] Phase 10: Existing Type Backfill (2/2 plans) -- completed 2026-03-12
-- [x] Phase 11: Orchestration and Validation (2/2 plans) -- completed 2026-03-12
-- [x] Phase 12: 2025 Player Stats Gap Closure (2/2 plans) -- completed 2026-03-13
-- [x] Phase 13: Bronze-Silver Path Alignment (1/1 plan) -- completed 2026-03-13
-- [x] Phase 14: Bronze Cosmetic Cleanup (1/1 plan) -- completed 2026-03-13
-
-Full details: `.planning/milestones/v1.1-ROADMAP.md`
-
-</details>
-
-<details>
-<summary>v1.2 Silver Expansion (Phases 15-19) -- SHIPPED 2026-03-15</summary>
-
-- [x] Phase 15: PBP Team Metrics and Tendencies (3/3 plans) -- completed 2026-03-14
-- [x] Phase 16: Strength of Schedule and Situational Splits (2/2 plans) -- completed 2026-03-14
-- [x] Phase 17: Advanced Player Profiles (2/2 plans) -- completed 2026-03-14
-- [x] Phase 18: Historical Context (2/2 plans) -- completed 2026-03-15
-- [x] Phase 19: v1.2 Tech Debt Cleanup (1/1 plan) -- completed 2026-03-15
-
-Full details: `.planning/milestones/v1.2-ROADMAP.md`
-
-</details>
-
-<details>
-<summary>v1.3 Prediction Data Foundation (Phases 20-23) -- SHIPPED 2026-03-19</summary>
-
-- [x] Phase 20: Infrastructure and Data Expansion (2/2 plans) -- completed 2026-03-16
-- [x] Phase 21: PBP-Derived Team Metrics (3/3 plans) -- completed 2026-03-16
-- [x] Phase 22: Schedule-Derived Context (2/2 plans) -- completed 2026-03-17
-- [x] Phase 23: Cross-Source Features and Integration (2/2 plans) -- completed 2026-03-19
-
-Full details: `.planning/milestones/v1.3-ROADMAP.md`
-
-</details>
-
-<details>
-<summary>v1.4 ML Game Prediction (Phases 24-27) -- SHIPPED 2026-03-22</summary>
-
-- [x] Phase 24: Documentation Refresh (2/2 plans) -- completed 2026-03-21
-- [x] Phase 25: Feature Assembly and Model Training (3/3 plans) -- completed 2026-03-21
-- [x] Phase 26: Backtesting and Validation (2/2 plans) -- completed 2026-03-21
-- [x] Phase 27: Prediction Pipeline (1/1 plan) -- completed 2026-03-22
-
-Full details: `.planning/milestones/v1.4-ROADMAP.md`
-
-</details>
-
-<details>
-<summary>v2.0 Prediction Model Improvement (Phases 28-31) -- SHIPPED 2026-03-27</summary>
-
-- [x] Phase 28: Infrastructure & Player Features (2/2 plans) -- completed 2026-03-25
-- [x] Phase 29: Feature Selection (2/2 plans) -- completed 2026-03-25
-- [x] Phase 30: Model Ensemble (2/2 plans) -- completed 2026-03-26
-- [x] Phase 31: Advanced Features & Final Validation (2/2 plans) -- completed 2026-03-27
-
-Full details: `.planning/milestones/v2.0-ROADMAP.md`
-
-</details>
-
-<details>
-<summary>v2.1 Market Data (Phases 32-34) -- SHIPPED 2026-03-28</summary>
-
-- [x] Phase 32: Bronze Odds Ingestion (2/2 plans) -- completed 2026-03-27
-- [x] Phase 33: Silver Line Movement Features (2/2 plans) -- completed 2026-03-28
-- [x] Phase 34: CLV Tracking + Ablation (2/2 plans) -- completed 2026-03-28
-
-Full details: `.planning/milestones/v2.1-ROADMAP.md`
-
-</details>
-
-<details>
-<summary>v2.2 Full Odds + Holdout Reset (Phases 35-38) -- SHIPPED 2026-03-29</summary>
-
-- [x] Phase 35: Bronze Data Completion (2/2 plans) -- completed 2026-03-28
-- [x] Phase 36: Silver and Feature Vector Assembly (2/2 plans) -- completed 2026-03-29
-- [x] Phase 37: Holdout Reset and Baseline (2/2 plans) -- completed 2026-03-29
-- [x] Phase 38: Market Feature Ablation (1/1 plan) -- completed 2026-03-29
-
-Full details: `.planning/milestones/v2.2-ROADMAP.md`
-
-</details>
-
-### v3.0 Player Fantasy Prediction System (In Progress)
-
-**Milestone Goal:** Replace heuristic player projections with ML-based per-position models that predict raw stats and derive fantasy points via the existing scoring calculator. The build progresses from feature assembly (highest leakage risk) through baseline models with a ship-or-skip gate, optional accuracy improvements, and pipeline integration.
-
-- [x] **Phase 39: Player Feature Vector Assembly** - Build player-week feature vectors from Silver sources with temporal lag enforcement and leakage prevention (completed 2026-03-30)
-- [x] **Phase 40: Baseline Models and Ship Gate** - Train per-position gradient boosting models with walk-forward CV; evaluate against heuristic baselines; ship-or-skip decision (completed 2026-03-31)
-- [x] **Phase 41: Accuracy Improvements** - Opportunity-efficiency decomposition, TD regression, role momentum, and ensemble stacking to push per-position MAE further (completed 2026-03-31)
-- [x] **Phase 42: Pipeline Integration and Extensions** - Wire ML predictions into weekly pipeline, draft tool, and projection CLI; add team constraints, preseason mode, and confidence intervals (completed 2026-04-01)
-
-## Phase Details
-
-### Phase 39: Player Feature Vector Assembly
-**Goal**: Users can generate a validated player-week feature matrix from existing Silver data with guaranteed temporal integrity
-**Depends on**: Nothing (first phase of v3.0; builds on existing Silver layer from v2.2)
-**Requirements**: FEAT-01, FEAT-02, FEAT-03, FEAT-04
-**Success Criteria** (what must be TRUE):
-  1. Running the player feature assembler produces a per-player-per-week DataFrame joining usage, advanced, historical, opponent, team context, player quality, and market data from Silver
-  2. Every feature column passes a temporal integrity check confirming shift(1) lag -- no same-game stats leak into features
-  3. Matchup features include opponent defense-vs-position rank and EPA allowed, lagged to week N-1, for all four positions
-  4. Vegas implied team totals (derived from spread and total lines) appear as features in the player-week rows
-  5. A leakage detection validator flags any feature with r > 0.90 correlation to the target variable
-**Plans**: 2 plans
-
-Plans:
-- [x] 39-01-PLAN.md — Core player feature assembly module, config, and unit tests
-- [x] 39-02-PLAN.md — CLI script and integration tests on real data
-
-### Phase 40: Baseline Models and Ship Gate
-**Goal**: Per-position ML models produce stat-level predictions that are objectively measured against the heuristic baseline, with a clear ship-or-skip verdict
-**Depends on**: Phase 39
-**Requirements**: MODL-01, MODL-02, MODL-03, MODL-04, PIPE-01
-**Success Criteria** (what must be TRUE):
-  1. Separate gradient boosting models exist for QB, RB, WR, and TE, each predicting raw stat components (yards, TDs, receptions) rather than fantasy points directly
-  2. All models are trained using walk-forward temporal CV respecting season/week ordering with 2025 holdout sealed and never touched during training
-  3. Per-position MAE, RMSE, and correlation are reported independently and compared side-by-side against heuristic baselines (QB: 6.58, RB: 5.06, WR: 4.85, TE: 3.77)
-  4. A ship-or-skip gate produces a clear verdict: positions where ML achieves 4%+ MAE improvement over heuristic are shipped; others fall back to heuristic
-**Plans**: 2 plans
-
-Plans:
-- [x] 40-01-PLAN.md — Core player model training module with walk-forward CV, feature selection, and model serialization
-- [x] 40-02-PLAN.md — Ship gate evaluation CLI with heuristic comparison and SHIP/SKIP verdict
-
-### Phase 41: Accuracy Improvements
-**Goal**: Per-position prediction accuracy improves beyond the baseline models through decomposition, regression features, and ensemble stacking
-**Depends on**: Phase 40 (only executed if ship gate identifies room for improvement)
-**Requirements**: ACCY-01, ACCY-02, ACCY-03, ACCY-04
-**Success Criteria** (what must be TRUE):
-  1. Opportunity-efficiency decomposition predicts volume (targets, carries, snap share) separately from per-touch efficiency (yards/target, TD rate, catch rate), then combines them into stat predictions
-  2. TD regression features use red zone opportunity share multiplied by historical conversion rates instead of raw TD rolling averages
-  3. Role momentum features (snap share trajectory as breakout/demotion signal) are available as model inputs
-  4. Ensemble stacking (XGB+LGB+CB+Ridge) is applied per position where a single model leaves measurable accuracy on the table
-**Plans**: 2 plans
-
-Plans:
-- [x] 41-01-PLAN.md — Derived efficiency, TD regression, and momentum features with unit tests
-- [x] 41-02-PLAN.md — XGB+LGB+Ridge ensemble stacking with two-stage CLI evaluation
-
-### Phase 42: Pipeline Integration and Extensions
-**Goal**: ML predictions are wired into the weekly pipeline, draft tool, and projection CLI with team coherence, preseason mode, and confidence intervals
-**Depends on**: Phase 40 (minimum); Phase 41 (if executed)
-**Requirements**: PIPE-02, PIPE-03, PIPE-04, EXTD-01, EXTD-02
-**Success Criteria** (what must be TRUE):
-  1. Player share projections within a team sum to approximately 100% per stat category, enforced by team-total constraints derived from game prediction implied totals
-  2. Running `generate_projections.py` with `--ml` flag produces ML-based projections; the draft assistant and weekly pipeline consume them seamlessly
-  3. Rookies, thin-data players, and positions where ML did not beat the heuristic automatically fall back to the heuristic projection engine
-  4. Preseason projection mode uses prior-season aggregates plus draft capital when no current-season data exists
-  5. ML-derived confidence intervals (MAPIE) provide player-specific floor/ceiling bands replacing the heuristic shrinkage approach
-
-**Plans**: 2 plans
-
-Plans:
-- [x] 42-01-PLAN.md — ML projection router module with ship-gate routing, MAPIE intervals, and team constraints
-- [x] 42-02-PLAN.md — CLI wiring (--ml flag) and preseason draft capital boost
-
-## Progress
-
-**Execution Order:**
-Phases execute in numeric order: 39 -> 40 -> 41 (conditional on ship gate) -> 42
-
-| Phase | Milestone | Plans Complete | Status | Completed |
-|-------|-----------|----------------|--------|-----------|
-| 1-7 | v1.0 | 11/11 | Complete | 2026-03-08 |
-| 8-14 | v1.1 | 12/12 | Complete | 2026-03-13 |
-| 15-19 | v1.2 | 10/10 | Complete | 2026-03-15 |
-| 20-23 | v1.3 | 9/9 | Complete | 2026-03-19 |
-| 24-27 | v1.4 | 8/8 | Complete | 2026-03-22 |
-| 28-31 | v2.0 | 8/8 | Complete | 2026-03-27 |
-| 32-34 | v2.1 | 6/6 | Complete | 2026-03-28 |
-| 35-38 | v2.2 | 7/7 | Complete | 2026-03-29 |
-| 39 | v3.0 | 2/2 | Complete    | 2026-03-30 |
-| 40 | v3.0 | 2/2 | Complete    | 2026-03-31 |
-| 41 | v3.0 | 2/2 | Complete    | 2026-03-31 |
-| 42 | v3.0 | 2/2 | Complete    | 2026-04-01 |
+- v3.0 Player Fantasy Prediction System -- Phases 39-48 (shipped 2026-04-01)
+- **v3.1 Graph-Enhanced Fantasy Projections -- Phases 49-52 (current)**
 
 ---
-*Roadmap created: 2026-03-08*
-*Last updated: 2026-03-31 after phase 42 planning*
+
+## v3.1 Graph-Enhanced Fantasy Projections
+
+**Goal:** Use Neo4j graph features to beat the heuristic baseline for WR/RB/TE fantasy projections, plus add kicker support.
+
+**Note:** Much of the infrastructure was built in v3.0 phases 43-48. This milestone focuses on populating the features with real data, running the ship/skip gate, and finalizing kicker projections.
+
+### Phase 49: PBP Participation Data Ingestion
+**Goal:** Ingest PBP participation data (22 player IDs per snap) for all training seasons, unlocking 18/22 graph features.
+**Requirements:** INGEST-01, INGEST-02, INGEST-03
+**Dependencies:** None (ingestion already running)
+**Success criteria:**
+1. `data/bronze/pbp_participation/` contains parquet files for 2016-2025
+2. Each season file has game_id, play_id, offense_players, defense_players columns
+3. Re-running ingestion does not create duplicates
+4. Ingestion script handles nfl-data-py API failures gracefully
+
+### Phase 50: Populate Graph Features from Participation Data
+**Goal:** Compute all WR/RB/TE graph features using the participation data and cache as Silver parquet.
+**Requirements:** WR-01, WR-02, WR-03, WR-04, RB-01, RB-02, RB-03, RB-04, RB-05, TE-01, TE-02, TE-03, TE-04, INFRA-02, INFRA-03
+**Dependencies:** Phase 49 (participation data must exist)
+**Success criteria:**
+1. WR features (4) populated with non-null values for 60%+ of WR player-weeks
+2. RB features (5+4 scheme) populated with non-null values for 60%+ of RB player-weeks
+3. TE features (4) populated with non-null values for 60%+ of TE player-weeks
+4. All features respect temporal lag (shift(1), no future data)
+5. Features cached in `data/silver/graph_features/` per season
+
+### Phase 51: Ship/Skip Gate — Graph-Enhanced Models
+**Goal:** Retrain per-position player models with all 22 graph features and determine which positions beat the heuristic baseline.
+**Requirements:** MODEL-01, MODEL-02, MODEL-03, MODEL-04, INFRA-01
+**Dependencies:** Phase 50 (features must be populated)
+**Success criteria:**
+1. Walk-forward CV retraining completed for all 4 positions (QB/RB/WR/TE)
+2. SHAP feature selection identifies which graph features survive
+3. Per-position holdout MAE compared to baseline (QB: 6.58, RB: 5.06, WR: 4.85, TE: 3.77)
+4. ML projection router updated for any position that ships
+5. At least one position (target: WR) shows statistically significant improvement
+6. 841+ tests passing after any routing changes
+
+### Phase 52: Kicker Backtesting + Final Validation
+**Goal:** Validate kicker projections against historical data and run full-system backtest.
+**Requirements:** KICK-01, KICK-02, KICK-03, INFRA-01
+**Dependencies:** Phase 51 (final model state must be known)
+**Success criteria:**
+1. Kicker projections backtested against 2022-2024 actuals
+2. Kicker MAE reported (baseline to be established)
+3. Full-system backtest run with final v3.1 model configuration
+4. Overall fantasy MAE reported (target: < 4.91)
+5. All tests passing, docs updated
+
+---
+
+## Requirement Coverage
+
+| REQ-ID | Phase | Description |
+|--------|-------|-------------|
+| INGEST-01 | 49 | PBP participation 2020-2025 |
+| INGEST-02 | 49 | Extended to 2016-2019 |
+| INGEST-03 | 49 | Idempotent ingestion |
+| WR-01 | 50 | WR-defense EPA features |
+| WR-02 | 50 | WR-CB co-occurrence |
+| WR-03 | 50 | Similar-WR traversal |
+| WR-04 | 50 | WR Silver cache |
+| RB-01 | 50 | OL starter count |
+| RB-02 | 50 | OL continuity score |
+| RB-03 | 50 | Scheme matchup |
+| RB-04 | 50 | Gap-specific YPC |
+| RB-05 | 50 | RB Silver cache |
+| TE-01 | 50 | TE-LB/Safety coverage |
+| TE-02 | 50 | Def TE pts allowed |
+| TE-03 | 50 | RZ target share |
+| TE-04 | 50 | TE Silver cache |
+| MODEL-01 | 51 | Ship/skip gate rerun |
+| MODEL-02 | 51 | Per-position MAE |
+| MODEL-03 | 51 | Router update |
+| MODEL-04 | 51 | Beat heuristic |
+| KICK-01 | 52 | Kicker in weekly output |
+| KICK-02 | 52 | Kicker in draft optimizer |
+| KICK-03 | 52 | Kicker backtest |
+| INFRA-01 | all | Tests passing |
+| INFRA-02 | 50 | Neo4j optional |
+| INFRA-03 | 50 | Silver caching |
+
+**Coverage: 26/26 requirements mapped (100%)**
