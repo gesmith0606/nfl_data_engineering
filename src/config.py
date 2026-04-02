@@ -1,6 +1,7 @@
 """
 Configuration settings for the NFL Data Engineering Pipeline
 """
+
 import datetime
 import os
 from typing import Callable, Dict, Any, Tuple
@@ -15,26 +16,28 @@ S3_REGION = os.getenv("AWS_REGION", "us-east-2")
 S3_PATHS = {
     "bronze": f"s3://{S3_BUCKET_BRONZE}/",
     "silver": f"s3://{S3_BUCKET_SILVER}/",
-    "gold": f"s3://{S3_BUCKET_GOLD}/"
+    "gold": f"s3://{S3_BUCKET_GOLD}/",
 }
 
 # NFL Data Configuration
 DEFAULT_SEASON = 2024
 DEFAULT_WEEK = 1
 
-# Seasons available for player projection training data (5 seasons).
+# Seasons available for player projection training data (10 seasons).
 # Note: 2025 uses nflverse stats_player tag (not legacy player_stats tag).
-PLAYER_DATA_SEASONS = list(range(2020, 2026))
+PLAYER_DATA_SEASONS = list(range(2016, 2026))
 
 # Databricks Configuration - Updated with your workspace
 DATABRICKS_CLUSTER_ID = os.getenv("DATABRICKS_CLUSTER_ID")
-DATABRICKS_WORKSPACE_URL = os.getenv("DATABRICKS_WORKSPACE_URL", "https://dbc-c9b1be11-c0c8.cloud.databricks.com")
+DATABRICKS_WORKSPACE_URL = os.getenv(
+    "DATABRICKS_WORKSPACE_URL", "https://dbc-c9b1be11-c0c8.cloud.databricks.com"
+)
 
 # Data Quality Thresholds
 DATA_QUALITY_THRESHOLDS = {
     "min_games_per_week": 16,  # NFL has 16-17 games per week typically
     "max_null_percentage": 0.1,  # Max 10% null values allowed
-    "min_teams_per_game": 2  # Each game must have exactly 2 teams
+    "min_teams_per_game": 2,  # Each game must have exactly 2 teams
 }
 
 # Fantasy Football Scoring Configurations
@@ -79,14 +82,38 @@ SCORING_CONFIGS: Dict[str, Dict[str, float]] = {
 
 # NFL Team Divisions (32 teams, 8 divisions, 4 teams each)
 TEAM_DIVISIONS = {
-    "ARI": "NFC West", "ATL": "NFC South", "BAL": "AFC North", "BUF": "AFC East",
-    "CAR": "NFC South", "CHI": "NFC North", "CIN": "AFC North", "CLE": "AFC North",
-    "DAL": "NFC East", "DEN": "AFC West", "DET": "NFC North", "GB": "NFC North",
-    "HOU": "AFC South", "IND": "AFC South", "JAX": "AFC South", "KC": "AFC West",
-    "LA": "NFC West", "LAC": "AFC West", "LV": "AFC West", "MIA": "AFC East",
-    "MIN": "NFC North", "NE": "AFC East", "NO": "NFC South", "NYG": "NFC East",
-    "NYJ": "AFC East", "PHI": "NFC East", "PIT": "AFC North", "SEA": "NFC West",
-    "SF": "NFC West", "TB": "NFC South", "TEN": "AFC South", "WAS": "NFC East",
+    "ARI": "NFC West",
+    "ATL": "NFC South",
+    "BAL": "AFC North",
+    "BUF": "AFC East",
+    "CAR": "NFC South",
+    "CHI": "NFC North",
+    "CIN": "AFC North",
+    "CLE": "AFC North",
+    "DAL": "NFC East",
+    "DEN": "AFC West",
+    "DET": "NFC North",
+    "GB": "NFC North",
+    "HOU": "AFC South",
+    "IND": "AFC South",
+    "JAX": "AFC South",
+    "KC": "AFC West",
+    "LA": "NFC West",
+    "LAC": "AFC West",
+    "LV": "AFC West",
+    "MIA": "AFC East",
+    "MIN": "NFC North",
+    "NE": "AFC East",
+    "NO": "NFC South",
+    "NYG": "NFC East",
+    "NYJ": "AFC East",
+    "PHI": "NFC East",
+    "PIT": "AFC North",
+    "SEA": "NFC West",
+    "SF": "NFC West",
+    "TB": "NFC South",
+    "TEN": "AFC South",
+    "WAS": "NFC East",
 }
 
 # Stadium coordinates for travel distance computation (Phase 22).
@@ -139,70 +166,115 @@ STADIUM_COORDINATES = {
 # Covers all 42 unique stadium_ids found in Bronze schedules data (2016-2025).
 STADIUM_ID_COORDS: Dict[str, Tuple[float, float, str]] = {
     # Current NFL stadiums
-    "PHO00": (33.5277, -112.2626, "America/Phoenix"),       # ARI - State Farm Stadium
-    "ATL97": (33.7554, -84.4010, "America/New_York"),        # ATL - Mercedes-Benz Stadium
-    "BAL00": (39.2780, -76.6228, "America/New_York"),        # BAL - M&T Bank Stadium
-    "BOS00": (42.0909, -71.2643, "America/New_York"),        # NE - Gillette Stadium
-    "BUF00": (42.7738, -78.7870, "America/New_York"),        # BUF - Highmark Stadium
-    "CAR00": (35.2258, -80.8528, "America/New_York"),        # CAR - Bank of America Stadium
-    "CHI98": (41.8623, -87.6167, "America/Chicago"),         # CHI - Soldier Field
-    "CIN00": (39.0955, -84.5161, "America/New_York"),        # CIN - Paycor Stadium
-    "CLE00": (41.5061, -81.6995, "America/New_York"),        # CLE - Huntington Bank Field
-    "DAL00": (32.7473, -97.0945, "America/Chicago"),         # DAL - AT&T Stadium
-    "DEN00": (39.7439, -105.0201, "America/Denver"),         # DEN - Empower Field
-    "DET00": (42.3400, -83.0456, "America/New_York"),        # DET - Ford Field
-    "GNB00": (44.5013, -88.0622, "America/Chicago"),         # GB - Lambeau Field
-    "HOU00": (29.6847, -95.4107, "America/Chicago"),         # HOU - NRG Stadium
-    "IND00": (39.7601, -86.1639, "America/New_York"),        # IND - Lucas Oil Stadium
-    "JAX00": (30.3239, -81.6373, "America/New_York"),        # JAX - EverBank Stadium
-    "KAN00": (39.0489, -94.4839, "America/Chicago"),         # KC - Arrowhead Stadium
-    "LAX01": (33.9534, -118.3390, "America/Los_Angeles"),    # LA/LAC - SoFi Stadium
-    "VEG00": (36.0909, -115.1833, "America/Los_Angeles"),    # LV - Allegiant Stadium
-    "MIA00": (25.9580, -80.2389, "America/New_York"),        # MIA - Hard Rock Stadium
-    "MIN01": (44.9736, -93.2575, "America/Chicago"),         # MIN - U.S. Bank Stadium
-    "NAS00": (36.1665, -86.7713, "America/Chicago"),         # TEN - Nissan Stadium
-    "NOR00": (29.9511, -90.0812, "America/Chicago"),         # NO - Caesars Superdome
-    "NYC01": (40.8128, -74.0742, "America/New_York"),        # NYG/NYJ - MetLife Stadium
-    "PHI00": (39.9008, -75.1675, "America/New_York"),        # PHI - Lincoln Financial Field
-    "PIT00": (40.4468, -80.0158, "America/New_York"),        # PIT - Acrisure Stadium
-    "SEA00": (47.5952, -122.3316, "America/Los_Angeles"),    # SEA - Lumen Field
-    "SFO01": (37.4033, -121.9694, "America/Los_Angeles"),    # SF - Levi's Stadium
-    "TAM00": (27.9759, -82.5033, "America/New_York"),        # TB - Raymond James Stadium
-    "WAS00": (38.9076, -76.8645, "America/New_York"),        # WAS - Northwest Stadium
+    "PHO00": (33.5277, -112.2626, "America/Phoenix"),  # ARI - State Farm Stadium
+    "ATL97": (33.7554, -84.4010, "America/New_York"),  # ATL - Mercedes-Benz Stadium
+    "BAL00": (39.2780, -76.6228, "America/New_York"),  # BAL - M&T Bank Stadium
+    "BOS00": (42.0909, -71.2643, "America/New_York"),  # NE - Gillette Stadium
+    "BUF00": (42.7738, -78.7870, "America/New_York"),  # BUF - Highmark Stadium
+    "CAR00": (35.2258, -80.8528, "America/New_York"),  # CAR - Bank of America Stadium
+    "CHI98": (41.8623, -87.6167, "America/Chicago"),  # CHI - Soldier Field
+    "CIN00": (39.0955, -84.5161, "America/New_York"),  # CIN - Paycor Stadium
+    "CLE00": (41.5061, -81.6995, "America/New_York"),  # CLE - Huntington Bank Field
+    "DAL00": (32.7473, -97.0945, "America/Chicago"),  # DAL - AT&T Stadium
+    "DEN00": (39.7439, -105.0201, "America/Denver"),  # DEN - Empower Field
+    "DET00": (42.3400, -83.0456, "America/New_York"),  # DET - Ford Field
+    "GNB00": (44.5013, -88.0622, "America/Chicago"),  # GB - Lambeau Field
+    "HOU00": (29.6847, -95.4107, "America/Chicago"),  # HOU - NRG Stadium
+    "IND00": (39.7601, -86.1639, "America/New_York"),  # IND - Lucas Oil Stadium
+    "JAX00": (30.3239, -81.6373, "America/New_York"),  # JAX - EverBank Stadium
+    "KAN00": (39.0489, -94.4839, "America/Chicago"),  # KC - Arrowhead Stadium
+    "LAX01": (33.9534, -118.3390, "America/Los_Angeles"),  # LA/LAC - SoFi Stadium
+    "VEG00": (36.0909, -115.1833, "America/Los_Angeles"),  # LV - Allegiant Stadium
+    "MIA00": (25.9580, -80.2389, "America/New_York"),  # MIA - Hard Rock Stadium
+    "MIN01": (44.9736, -93.2575, "America/Chicago"),  # MIN - U.S. Bank Stadium
+    "NAS00": (36.1665, -86.7713, "America/Chicago"),  # TEN - Nissan Stadium
+    "NOR00": (29.9511, -90.0812, "America/Chicago"),  # NO - Caesars Superdome
+    "NYC01": (40.8128, -74.0742, "America/New_York"),  # NYG/NYJ - MetLife Stadium
+    "PHI00": (39.9008, -75.1675, "America/New_York"),  # PHI - Lincoln Financial Field
+    "PIT00": (40.4468, -80.0158, "America/New_York"),  # PIT - Acrisure Stadium
+    "SEA00": (47.5952, -122.3316, "America/Los_Angeles"),  # SEA - Lumen Field
+    "SFO01": (37.4033, -121.9694, "America/Los_Angeles"),  # SF - Levi's Stadium
+    "TAM00": (27.9759, -82.5033, "America/New_York"),  # TB - Raymond James Stadium
+    "WAS00": (38.9076, -76.8645, "America/New_York"),  # WAS - Northwest Stadium
     # Legacy stadiums (relocated/demolished)
-    "ATL00": (33.7573, -84.4009, "America/New_York"),        # Georgia Dome (ATL, pre-2017)
-    "OAK00": (37.7516, -122.2006, "America/Los_Angeles"),    # Oakland Coliseum (OAK -> LV 2020)
-    "SDG00": (32.7831, -117.1196, "America/Los_Angeles"),    # Qualcomm Stadium (SD -> LAC 2017)
-    "LAX97": (33.8644, -118.2611, "America/Los_Angeles"),    # StubHub Center (LAC temp 2017-2019)
-    "LAX99": (33.8644, -118.2611, "America/Los_Angeles"),    # LA Memorial Coliseum (LA 2016-2019)
+    "ATL00": (33.7573, -84.4009, "America/New_York"),  # Georgia Dome (ATL, pre-2017)
+    "OAK00": (
+        37.7516,
+        -122.2006,
+        "America/Los_Angeles",
+    ),  # Oakland Coliseum (OAK -> LV 2020)
+    "SDG00": (
+        32.7831,
+        -117.1196,
+        "America/Los_Angeles",
+    ),  # Qualcomm Stadium (SD -> LAC 2017)
+    "LAX97": (
+        33.8644,
+        -118.2611,
+        "America/Los_Angeles",
+    ),  # StubHub Center (LAC temp 2017-2019)
+    "LAX99": (
+        33.8644,
+        -118.2611,
+        "America/Los_Angeles",
+    ),  # LA Memorial Coliseum (LA 2016-2019)
     # International venues
-    "LON00": (51.5560, -0.2795, "Europe/London"),            # Wembley Stadium
-    "LON01": (51.4560, -0.3416, "Europe/London"),            # Twickenham Stadium
-    "LON02": (51.6043, -0.0662, "Europe/London"),            # Tottenham Hotspur Stadium
-    "GER00": (48.2188, 11.6247, "Europe/Berlin"),            # Allianz Arena (Munich)
-    "MEX00": (19.3029, -99.1505, "America/Mexico_City"),     # Estadio Azteca
-    "SAO00": (-23.5275, -46.6780, "America/Sao_Paulo"),      # Neo Quimica Arena (Sao Paulo)
-    "FRA00": (50.0688, 8.6453, "Europe/Berlin"),             # Deutsche Bank Park (Frankfurt)
+    "LON00": (51.5560, -0.2795, "Europe/London"),  # Wembley Stadium
+    "LON01": (51.4560, -0.3416, "Europe/London"),  # Twickenham Stadium
+    "LON02": (51.6043, -0.0662, "Europe/London"),  # Tottenham Hotspur Stadium
+    "GER00": (48.2188, 11.6247, "Europe/Berlin"),  # Allianz Arena (Munich)
+    "MEX00": (19.3029, -99.1505, "America/Mexico_City"),  # Estadio Azteca
+    "SAO00": (-23.5275, -46.6780, "America/Sao_Paulo"),  # Neo Quimica Arena (Sao Paulo)
+    "FRA00": (50.0688, 8.6453, "Europe/Berlin"),  # Deutsche Bank Park (Frankfurt)
 }
 
 # Fantasy roster configurations by league format
 ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
     "standard": {
-        "QB": 1, "RB": 2, "WR": 2, "TE": 1, "FLEX": 1, "K": 1, "DST": 1,
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 1,
+        "K": 1,
+        "DST": 1,
         "BN": 6,
     },
     "superflex": {
-        "QB": 1, "RB": 2, "WR": 2, "TE": 1, "FLEX": 1, "SFLEX": 1, "K": 1, "DST": 1,
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 1,
+        "SFLEX": 1,
+        "K": 1,
+        "DST": 1,
         "BN": 6,
     },
     "2qb": {
-        "QB": 2, "RB": 2, "WR": 2, "TE": 1, "FLEX": 1, "K": 1, "DST": 1,
+        "QB": 2,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 1,
+        "K": 1,
+        "DST": 1,
         "BN": 6,
     },
 }
 
 # Player positions tracked for fantasy
 FANTASY_POSITIONS = ["QB", "RB", "WR", "TE"]
+FANTASY_POSITIONS_WITH_K = ["QB", "RB", "WR", "TE", "K"]
+
+# Kicker scoring settings (used by kicker_analytics and kicker_projection)
+KICKER_SCORING_SETTINGS: Dict[str, float] = {
+    "fg_made": 3.0,
+    "fg_made_50plus": 5.0,
+    "xp_made": 1.0,
+    "fg_missed": -1.0,
+    "xp_missed": -1.0,
+}
 
 # S3 key templates for player data (Bronze layer)
 PLAYER_S3_KEYS = {
@@ -256,77 +328,177 @@ GOLD_PROJECTION_S3_KEYS = {
 # play situation, and weather. Excludes participation merge columns.
 PBP_COLUMNS = [
     # Game/play identifiers (10)
-    "game_id", "play_id", "season", "week", "season_type", "game_date",
-    "posteam", "defteam", "home_team", "away_team",
+    "game_id",
+    "play_id",
+    "season",
+    "week",
+    "season_type",
+    "game_date",
+    "posteam",
+    "defteam",
+    "home_team",
+    "away_team",
     # Score context (8)
-    "home_score", "away_score", "posteam_score", "defteam_score",
-    "posteam_score_post", "defteam_score_post",
-    "score_differential", "score_differential_post",
+    "home_score",
+    "away_score",
+    "posteam_score",
+    "defteam_score",
+    "posteam_score_post",
+    "defteam_score_post",
+    "score_differential",
+    "score_differential_post",
     # Play situation (11)
-    "down", "ydstogo", "yardline_100", "goal_to_go",
-    "qtr", "quarter_seconds_remaining", "half_seconds_remaining",
-    "game_seconds_remaining", "drive",
-    "posteam_timeouts_remaining", "defteam_timeouts_remaining",
+    "down",
+    "ydstogo",
+    "yardline_100",
+    "goal_to_go",
+    "qtr",
+    "quarter_seconds_remaining",
+    "half_seconds_remaining",
+    "game_seconds_remaining",
+    "drive",
+    "posteam_timeouts_remaining",
+    "defteam_timeouts_remaining",
     # Play type and result (22)
-    "play_type", "yards_gained", "shotgun", "no_huddle",
-    "qb_dropback", "qb_scramble", "qb_kneel", "qb_spike",
-    "pass_attempt", "rush_attempt", "pass_length", "pass_location",
-    "run_location", "run_gap",
-    "complete_pass", "incomplete_pass", "interception", "sack",
-    "fumble", "fumble_lost", "penalty",
-    "first_down", "third_down_converted", "third_down_failed",
-    "fourth_down_converted", "fourth_down_failed",
-    "touchdown", "pass_touchdown", "rush_touchdown", "safety",
+    "play_type",
+    "yards_gained",
+    "shotgun",
+    "no_huddle",
+    "qb_dropback",
+    "qb_scramble",
+    "qb_kneel",
+    "qb_spike",
+    "pass_attempt",
+    "rush_attempt",
+    "pass_length",
+    "pass_location",
+    "run_location",
+    "run_gap",
+    "complete_pass",
+    "incomplete_pass",
+    "interception",
+    "sack",
+    "fumble",
+    "fumble_lost",
+    "penalty",
+    "first_down",
+    "third_down_converted",
+    "third_down_failed",
+    "fourth_down_converted",
+    "fourth_down_failed",
+    "touchdown",
+    "pass_touchdown",
+    "rush_touchdown",
+    "safety",
     # EPA metrics (7)
-    "epa", "ep", "air_epa", "yac_epa", "comp_air_epa", "comp_yac_epa",
+    "epa",
+    "ep",
+    "air_epa",
+    "yac_epa",
+    "comp_air_epa",
+    "comp_yac_epa",
     "qb_epa",
     # WPA metrics (11)
-    "wpa", "vegas_wpa", "air_wpa", "yac_wpa", "comp_air_wpa", "comp_yac_wpa",
-    "wp", "def_wp", "home_wp", "away_wp",
-    "home_wp_post", "away_wp_post",
+    "wpa",
+    "vegas_wpa",
+    "air_wpa",
+    "yac_wpa",
+    "comp_air_wpa",
+    "comp_yac_wpa",
+    "wp",
+    "def_wp",
+    "home_wp",
+    "away_wp",
+    "home_wp_post",
+    "away_wp_post",
     # Completion metrics (4)
-    "cpoe", "cp", "xpass", "pass_oe",
+    "cpoe",
+    "cp",
+    "xpass",
+    "pass_oe",
     # Yardage (5)
-    "air_yards", "yards_after_catch", "passing_yards", "receiving_yards",
+    "air_yards",
+    "yards_after_catch",
+    "passing_yards",
+    "receiving_yards",
     "rushing_yards",
     # Success (1)
     "success",
     # Player IDs (6)
-    "passer_player_id", "passer_player_name",
-    "receiver_player_id", "receiver_player_name",
-    "rusher_player_id", "rusher_player_name",
+    "passer_player_id",
+    "passer_player_name",
+    "receiver_player_id",
+    "receiver_player_name",
+    "rusher_player_id",
+    "rusher_player_name",
     # Vegas lines (2)
-    "spread_line", "total_line",
+    "spread_line",
+    "total_line",
     # Series (3)
-    "series", "series_success", "series_result",
+    "series",
+    "series_success",
+    "series_result",
     # Weather/venue (4)
-    "temp", "wind", "roof", "surface",
+    "temp",
+    "wind",
+    "roof",
+    "surface",
     # Penalty detail (5)
-    "penalty_type", "penalty_yards", "penalty_team",
-    "penalty_player_id", "penalty_player_name",
+    "penalty_type",
+    "penalty_yards",
+    "penalty_team",
+    "penalty_player_id",
+    "penalty_player_name",
     # Special teams flags (4)
-    "special_teams_play", "st_play_type",
-    "kickoff_attempt", "punt_attempt",
+    "special_teams_play",
+    "st_play_type",
+    "kickoff_attempt",
+    "punt_attempt",
     # Special teams results (6)
-    "kick_distance", "return_yards",
-    "field_goal_result", "field_goal_attempt",
-    "extra_point_result", "extra_point_attempt",
+    "kick_distance",
+    "return_yards",
+    "field_goal_result",
+    "field_goal_attempt",
+    "extra_point_result",
+    "extra_point_attempt",
     # Special teams detail (5)
     "punt_blocked",
-    "kickoff_returner_player_id", "punt_returner_player_id",
-    "kicker_player_id", "kicker_player_name",
+    "kickoff_returner_player_id",
+    "punt_returner_player_id",
+    "kicker_player_id",
+    "kicker_player_name",
     # Punt detail (5)
-    "punt_inside_twenty", "punt_in_endzone",
-    "punt_out_of_bounds", "punt_downed", "punt_fair_catch",
+    "punt_inside_twenty",
+    "punt_in_endzone",
+    "punt_out_of_bounds",
+    "punt_downed",
+    "punt_fair_catch",
     # Kickoff detail (5)
-    "kickoff_inside_twenty", "kickoff_in_endzone",
-    "kickoff_out_of_bounds", "kickoff_downed", "kickoff_fair_catch",
+    "kickoff_inside_twenty",
+    "kickoff_in_endzone",
+    "kickoff_out_of_bounds",
+    "kickoff_downed",
+    "kickoff_fair_catch",
     # Fumble recovery (5)
-    "fumble_forced", "fumble_not_forced",
-    "fumble_recovery_1_team", "fumble_recovery_1_yards",
+    "fumble_forced",
+    "fumble_not_forced",
+    "fumble_recovery_1_team",
+    "fumble_recovery_1_yards",
     "fumble_recovery_1_player_id",
     # Drive detail (2)
-    "drive_play_count", "drive_time_of_possession",
+    "drive_play_count",
+    "drive_time_of_possession",
+    # Run defense (1)
+    "defenders_in_box",
+]
+
+# Minimal columns stored for PBP participation data.
+# Kept separate from PBP_COLUMNS to avoid breaking existing PBP consumers.
+PBP_PARTICIPATION_COLUMNS = [
+    "game_id",
+    "play_id",
+    "offense_players",
+    "defense_players",
 ]
 
 
@@ -406,7 +578,9 @@ def validate_season_for_type(data_type: str, season: int) -> bool:
 # ── Prediction Model Configuration ──────────────────────────────────────
 
 HOLDOUT_SEASON = 2025  # Sealed — never used during tuning
-PREDICTION_SEASONS = list(range(2016, HOLDOUT_SEASON + 1))  # 2016 through holdout (inclusive)
+PREDICTION_SEASONS = list(
+    range(2016, HOLDOUT_SEASON + 1)
+)  # 2016 through holdout (inclusive)
 TRAINING_SEASONS = list(range(2016, HOLDOUT_SEASON))  # 2016 through holdout-1
 VALIDATION_SEASONS = [s for s in range(2019, HOLDOUT_SEASON)]  # Walk-forward folds
 
@@ -475,10 +649,13 @@ ENSEMBLE_DIR = os.path.join(MODEL_DIR, "ensemble")
 # EWM target columns -- subset of PBP metrics for exponentially weighted windows.
 # Restricted to core efficiency metrics to avoid feature explosion (D-09).
 EWM_TARGET_COLS = [
-    "off_epa_per_play", "def_epa_per_play",
-    "off_success_rate", "def_success_rate",
+    "off_epa_per_play",
+    "def_epa_per_play",
+    "off_success_rate",
+    "def_success_rate",
     "cpoe",
-    "rz_td_rate", "def_rz_td_rate",
+    "rz_td_rate",
+    "def_rz_td_rate",
 ]
 
 # Feature selection result -- populated by scripts/run_feature_selection.py
@@ -488,8 +665,15 @@ SELECTED_FEATURES = None
 
 # Label columns that must NEVER appear in feature set
 LABEL_COLUMNS = [
-    "home_score", "away_score", "actual_margin", "actual_total",
-    "result", "spread_line", "total_line", "team_score", "opp_score",
+    "home_score",
+    "away_score",
+    "actual_margin",
+    "actual_total",
+    "result",
+    "spread_line",
+    "total_line",
+    "team_score",
+    "opp_score",
 ]
 
 # Silver team source subdirectories (local path pattern)
@@ -524,14 +708,23 @@ SILVER_PLAYER_TEAM_SOURCES = {
 
 # Target label columns for player prediction (same-week actuals, NOT features)
 PLAYER_LABEL_COLUMNS = [
-    "passing_yards", "passing_tds", "interceptions",
-    "rushing_yards", "rushing_tds", "carries",
-    "targets", "receptions", "receiving_yards", "receiving_tds",
+    "passing_yards",
+    "passing_tds",
+    "interceptions",
+    "rushing_yards",
+    "rushing_tds",
+    "carries",
+    "targets",
+    "receptions",
+    "receiving_yards",
+    "receiving_tds",
     "fantasy_points_ppr",
 ]
 
 
-def get_s3_path(layer: str, dataset: str = "", season: int = None, week: int = None) -> str:
+def get_s3_path(
+    layer: str, dataset: str = "", season: int = None, week: int = None
+) -> str:
     """
     Generate S3 path for a specific layer and dataset
 

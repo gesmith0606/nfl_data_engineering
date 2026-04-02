@@ -44,39 +44,49 @@ def calculate_fantasy_points(
         fumbles_lost    -> fumble_lost
         two_pt_conversions -> 2pt_conversion
     """
-    if scoring_format == 'custom':
+    if scoring_format == "custom":
         if custom_scoring is None:
-            raise ValueError("custom_scoring dict required when scoring_format='custom'")
+            raise ValueError(
+                "custom_scoring dict required when scoring_format='custom'"
+            )
         scoring = custom_scoring
     elif scoring_format in SCORING_CONFIGS:
         scoring = SCORING_CONFIGS[scoring_format]
     else:
-        raise ValueError(f"Unknown scoring format: {scoring_format}. "
-                         f"Choose from {list(SCORING_CONFIGS.keys())} or 'custom'.")
+        raise ValueError(
+            f"Unknown scoring format: {scoring_format}. "
+            f"Choose from {list(SCORING_CONFIGS.keys())} or 'custom'."
+        )
 
     # Canonical stat-name to scoring-key mapping
     _MAP = {
-        'rushing_yards': 'rush_yd',
-        'rushing_tds': 'rush_td',
-        'receiving_yards': 'rec_yd',
-        'receiving_tds': 'rec_td',
-        'receptions': 'reception',
-        'passing_yards': 'pass_yd',
-        'passing_tds': 'pass_td',
-        'interceptions': 'interception',
-        'fumbles_lost': 'fumble_lost',
-        'two_pt_conversions': '2pt_conversion',
+        "rushing_yards": "rush_yd",
+        "rushing_tds": "rush_td",
+        "receiving_yards": "rec_yd",
+        "receiving_tds": "rec_td",
+        "receptions": "reception",
+        "passing_yards": "pass_yd",
+        "passing_tds": "pass_td",
+        "interceptions": "interception",
+        "fumbles_lost": "fumble_lost",
+        "two_pt_conversions": "2pt_conversion",
+        # Kicker stat keys
+        "fg_made": "fg_made",
+        "fg_made_50plus": "fg_made_50plus",
+        "xp_made": "xp_made",
+        "fg_missed": "fg_missed",
+        "xp_missed": "xp_missed",
         # Also accept scoring keys directly
-        'rush_yd': 'rush_yd',
-        'rush_td': 'rush_td',
-        'rec_yd': 'rec_yd',
-        'rec_td': 'rec_td',
-        'reception': 'reception',
-        'pass_yd': 'pass_yd',
-        'pass_td': 'pass_td',
-        'interception': 'interception',
-        'fumble_lost': 'fumble_lost',
-        '2pt_conversion': '2pt_conversion',
+        "rush_yd": "rush_yd",
+        "rush_td": "rush_td",
+        "rec_yd": "rec_yd",
+        "rec_td": "rec_td",
+        "reception": "reception",
+        "pass_yd": "pass_yd",
+        "pass_td": "pass_td",
+        "interception": "interception",
+        "fumble_lost": "fumble_lost",
+        "2pt_conversion": "2pt_conversion",
     }
 
     total = 0.0
@@ -112,9 +122,11 @@ def calculate_fantasy_points_df(
     Returns:
         DataFrame with output_col added.
     """
-    if scoring_format == 'custom':
+    if scoring_format == "custom":
         if custom_scoring is None:
-            raise ValueError("custom_scoring dict required when scoring_format='custom'")
+            raise ValueError(
+                "custom_scoring dict required when scoring_format='custom'"
+            )
         scoring = custom_scoring
     else:
         scoring = SCORING_CONFIGS[scoring_format]
@@ -127,16 +139,16 @@ def calculate_fantasy_points_df(
         return pd.Series(0.0, index=df.index)
 
     pts = (
-        _get('rushing_yards') * scoring.get('rush_yd', 0)
-        + _get('rushing_tds') * scoring.get('rush_td', 0)
-        + _get('receiving_yards') * scoring.get('rec_yd', 0)
-        + _get('receiving_tds') * scoring.get('rec_td', 0)
-        + _get('receptions') * scoring.get('reception', 0)
-        + _get('passing_yards') * scoring.get('pass_yd', 0)
-        + _get('passing_tds') * scoring.get('pass_td', 0)
-        + _get('interceptions') * scoring.get('interception', 0)
-        + _get('fumbles_lost') * scoring.get('fumble_lost', 0)
-        + _get('two_pt_conversions') * scoring.get('2pt_conversion', 0)
+        _get("rushing_yards") * scoring.get("rush_yd", 0)
+        + _get("rushing_tds") * scoring.get("rush_td", 0)
+        + _get("receiving_yards") * scoring.get("rec_yd", 0)
+        + _get("receiving_tds") * scoring.get("rec_td", 0)
+        + _get("receptions") * scoring.get("reception", 0)
+        + _get("passing_yards") * scoring.get("pass_yd", 0)
+        + _get("passing_tds") * scoring.get("pass_td", 0)
+        + _get("interceptions") * scoring.get("interception", 0)
+        + _get("fumbles_lost") * scoring.get("fumble_lost", 0)
+        + _get("two_pt_conversions") * scoring.get("2pt_conversion", 0)
     )
 
     df[output_col] = pts.round(2)

@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-FLEX_ELIGIBLE = {'RB', 'WR', 'TE'}
-SFLEX_ELIGIBLE = {'QB', 'RB', 'WR', 'TE'}
+FLEX_ELIGIBLE = {"RB", "WR", "TE"}
+SFLEX_ELIGIBLE = {"QB", "RB", "WR", "TE"}
 
 # ADP value threshold: flag as "undervalued" when model rank beats ADP by >= N spots
 UNDERVALUED_THRESHOLD = 15
@@ -35,6 +35,7 @@ OVERVALUED_THRESHOLD = 15
 # ---------------------------------------------------------------------------
 # ADP comparison utilities
 # ---------------------------------------------------------------------------
+
 
 def compute_value_scores(
     projections: pd.DataFrame,
@@ -61,44 +62,49 @@ def compute_value_scores(
     df = projections.copy()
 
     # Model rank (overall)
-    pts_col = 'projected_season_points' if 'projected_season_points' in df.columns else 'projected_points'
-    df['model_rank'] = df[pts_col].rank(ascending=False, method='first').astype(int)
+    pts_col = (
+        "projected_season_points"
+        if "projected_season_points" in df.columns
+        else "projected_points"
+    )
+    df["model_rank"] = df[pts_col].rank(ascending=False, method="first").astype(int)
 
     # VORP: projected points minus replacement-level player at that position
     # Replacement level = 13th QB, 25th RB, 30th WR, 13th TE (typical starter counts × 12 teams)
-    REPLACEMENT_RANKS = {'QB': 13, 'RB': 25, 'WR': 30, 'TE': 13}
+    REPLACEMENT_RANKS = {"QB": 13, "RB": 25, "WR": 30, "TE": 13, "K": 13}
     for pos, rep_rank in REPLACEMENT_RANKS.items():
-        pos_mask = df['position'] == pos
+        pos_mask = df["position"] == pos
         pos_sorted = df[pos_mask][pts_col].sort_values(ascending=False)
         if len(pos_sorted) >= rep_rank:
             replacement_pts = pos_sorted.iloc[rep_rank - 1]
         else:
             replacement_pts = pos_sorted.iloc[-1] if len(pos_sorted) > 0 else 0
-        df.loc[pos_mask, 'replacement_level'] = replacement_pts
+        df.loc[pos_mask, "replacement_level"] = replacement_pts
 
-    df['vorp'] = (df[pts_col] - df['replacement_level']).round(1)
-    df.drop(columns=['replacement_level'], inplace=True)
+    df["vorp"] = (df[pts_col] - df["replacement_level"]).round(1)
+    df.drop(columns=["replacement_level"], inplace=True)
 
     # Merge ADP if provided
     if adp_df is not None and not adp_df.empty:
-        join_col = 'player_id' if 'player_id' in adp_df.columns else 'player_name'
-        adp_subset = adp_df[[join_col, 'adp_rank']].copy()
-        df = df.merge(adp_subset, on=join_col, how='left')
-        df['adp_diff'] = df['adp_rank'] - df['model_rank']
-        df['value_tier'] = 'fair_value'
-        df.loc[df['adp_diff'] >= UNDERVALUED_THRESHOLD, 'value_tier'] = 'undervalued'
-        df.loc[df['adp_diff'] <= -OVERVALUED_THRESHOLD, 'value_tier'] = 'overvalued'
+        join_col = "player_id" if "player_id" in adp_df.columns else "player_name"
+        adp_subset = adp_df[[join_col, "adp_rank"]].copy()
+        df = df.merge(adp_subset, on=join_col, how="left")
+        df["adp_diff"] = df["adp_rank"] - df["model_rank"]
+        df["value_tier"] = "fair_value"
+        df.loc[df["adp_diff"] >= UNDERVALUED_THRESHOLD, "value_tier"] = "undervalued"
+        df.loc[df["adp_diff"] <= -OVERVALUED_THRESHOLD, "value_tier"] = "overvalued"
     else:
-        df['adp_rank'] = np.nan
-        df['adp_diff'] = np.nan
-        df['value_tier'] = 'fair_value'
+        df["adp_rank"] = np.nan
+        df["adp_diff"] = np.nan
+        df["value_tier"] = "fair_value"
 
-    return df.sort_values('model_rank').reset_index(drop=True)
+    return df.sort_values("model_rank").reset_index(drop=True)
 
 
 # ---------------------------------------------------------------------------
 # Draft Board
 # ---------------------------------------------------------------------------
+
 
 class DraftBoard:
     """
@@ -120,10 +126,14 @@ class DraftBoard:
             n_teams:       Number of teams in the league.
         """
         self.n_teams = n_teams
-        self.roster_config = ROSTER_CONFIGS.get(roster_format, ROSTER_CONFIGS['standard'])
-        self.scoring_format = 'half_ppr'  # informational only on the board
+        self.roster_config = ROSTER_CONFIGS.get(
+            roster_format, ROSTER_CONFIGS["standard"]
+        )
+        self.scoring_format = "half_ppr"  # informational only on the board
 
-        required_ids = players['player_id'] if 'player_id' in players.columns else players.index
+        required_ids = (
+            players["player_id"] if "player_id" in players.columns else players.index
+        )
         self.all_players = players.copy()
         self.available = players.copy()
         self.my_roster: List[Dict] = []
@@ -144,7 +154,7 @@ class DraftBoard:
         Returns:
             Player row as dict, or {} if not found.
         """
-        id_col = 'player_id' if 'player_id' in self.available.columns else None
+        id_col = "player_id" if "player_id" in self.available.columns else None
         if id_col is None:
             logger.warning("No player_id column on draft board")
             return {}
@@ -152,8 +162,8 @@ class DraftBoard:
         mask = self.available[id_col] == player_id
         if not mask.any():
             # Try by name
-            if 'player_name' in self.available.columns:
-                mask = self.available['player_name'].str.lower() == player_id.lower()
+            if "player_name" in self.available.columns:
+                mask = self.available["player_name"].str.lower() == player_id.lower()
             if not mask.any():
                 logger.warning(f"Player '{player_id}' not found in available pool")
                 return {}
@@ -171,13 +181,17 @@ class DraftBoard:
 
     def draft_by_name(self, name: str, by_me: bool = False) -> Dict:
         """Draft a player by (partial) name match."""
-        if 'player_name' not in self.available.columns:
+        if "player_name" not in self.available.columns:
             return {}
-        mask = self.available['player_name'].str.lower().str.contains(name.lower(), na=False)
+        mask = (
+            self.available["player_name"]
+            .str.lower()
+            .str.contains(name.lower(), na=False)
+        )
         if not mask.any():
             logger.warning(f"Player '{name}' not found")
             return {}
-        player_id = self.available[mask].iloc[0].get('player_id', name)
+        player_id = self.available[mask].iloc[0].get("player_id", name)
         return self.draft_player(player_id, by_me=by_me)
 
     # -----------------------------------------------------------------------
@@ -188,15 +202,15 @@ class DraftBoard:
         """Return current roster grouped by slot."""
         summary: Dict[str, List[str]] = {slot: [] for slot in self.roster_config}
         for player in self.my_roster:
-            pos = player.get('position', 'UNK')
-            summary.setdefault(pos, []).append(player.get('player_name', 'Unknown'))
+            pos = player.get("position", "UNK")
+            summary.setdefault(pos, []).append(player.get("player_name", "Unknown"))
         return summary
 
     def filled_slots(self) -> Dict[str, int]:
         """Count how many of each starter slot have been filled."""
         counts: Dict[str, int] = {slot: 0 for slot in self.roster_config}
         for player in self.my_roster:
-            pos = player.get('position', 'UNK')
+            pos = player.get("position", "UNK")
             if pos in counts:
                 counts[pos] += 1
         return counts
@@ -206,24 +220,28 @@ class DraftBoard:
         filled = self.filled_slots()
         needs = {}
         for slot, required in self.roster_config.items():
-            if slot == 'BN':
+            if slot == "BN":
                 continue
             filled_count = filled.get(slot, 0)
-            if slot == 'FLEX':
+            if slot == "FLEX":
                 # Count eligible players not already in a starter slot
-                flex_players = sum(1 for p in self.my_roster if p.get('position') in FLEX_ELIGIBLE
-                                   and p.get('position') not in ['RB', 'WR', 'TE']
-                                   or self._used_as_flex(p))
-                needs['FLEX'] = max(0, required - flex_players)
+                flex_players = sum(
+                    1
+                    for p in self.my_roster
+                    if p.get("position") in FLEX_ELIGIBLE
+                    and p.get("position") not in ["RB", "WR", "TE"]
+                    or self._used_as_flex(p)
+                )
+                needs["FLEX"] = max(0, required - flex_players)
             else:
                 needs[slot] = max(0, required - filled_count)
         return needs
 
     def _used_as_flex(self, player: Dict) -> bool:
-        pos = player.get('position')
+        pos = player.get("position")
         if pos not in FLEX_ELIGIBLE:
             return False
-        pos_in_roster = [p for p in self.my_roster if p.get('position') == pos]
+        pos_in_roster = [p for p in self.my_roster if p.get("position") == pos]
         pos_required = self.roster_config.get(pos, 0)
         idx = pos_in_roster.index(player) if player in pos_in_roster else -1
         return idx >= pos_required
@@ -238,6 +256,7 @@ class DraftBoard:
 # ---------------------------------------------------------------------------
 # Draft Advisor
 # ---------------------------------------------------------------------------
+
 
 class DraftAdvisor:
     """
@@ -265,8 +284,8 @@ class DraftAdvisor:
         """
         avail = self.board.available.copy()
         if positions:
-            avail = avail[avail['position'].isin(positions)]
-        return avail.sort_values('model_rank').head(top_n).reset_index(drop=True)
+            avail = avail[avail["position"].isin(positions)]
+        return avail.sort_values("model_rank").head(top_n).reset_index(drop=True)
 
     def recommend(
         self,
@@ -298,27 +317,35 @@ class DraftAdvisor:
         reasoning_parts.extend(scarcity)
 
         # Score each available player
-        pts_col = 'projected_season_points' if 'projected_season_points' in avail.columns else 'projected_points'
-        avail['recommendation_score'] = avail[pts_col].fillna(0)
+        pts_col = (
+            "projected_season_points"
+            if "projected_season_points" in avail.columns
+            else "projected_points"
+        )
+        avail["recommendation_score"] = avail[pts_col].fillna(0)
 
         # Boost score for positions still needed
         for pos, count_needed in needs.items():
-            if count_needed > 0 and pos in ['QB', 'RB', 'WR', 'TE']:
+            if count_needed > 0 and pos in ["QB", "RB", "WR", "TE"]:
                 boost = min(count_needed * 15, 40)
-                avail.loc[avail['position'] == pos, 'recommendation_score'] += boost
+                avail.loc[avail["position"] == pos, "recommendation_score"] += boost
 
         # Boost undervalued players slightly
-        if 'value_tier' in avail.columns:
-            avail.loc[avail['value_tier'] == 'undervalued', 'recommendation_score'] += 10
+        if "value_tier" in avail.columns:
+            avail.loc[
+                avail["value_tier"] == "undervalued", "recommendation_score"
+            ] += 10
 
         # Penalize overvalued
-        if 'value_tier' in avail.columns:
-            avail.loc[avail['value_tier'] == 'overvalued', 'recommendation_score'] -= 8
+        if "value_tier" in avail.columns:
+            avail.loc[avail["value_tier"] == "overvalued", "recommendation_score"] -= 8
 
-        recs = avail.sort_values('recommendation_score', ascending=False).head(top_n)
+        recs = avail.sort_values("recommendation_score", ascending=False).head(top_n)
 
         # Build reasoning string
-        needs_str = ", ".join(f"{p}×{n}" for p, n in needs.items() if n > 0) or "roster full"
+        needs_str = (
+            ", ".join(f"{p}×{n}" for p, n in needs.items() if n > 0) or "roster full"
+        )
         reasoning_parts.insert(0, f"Remaining needs: {needs_str}")
         reasoning = " | ".join(reasoning_parts)
 
@@ -327,9 +354,9 @@ class DraftAdvisor:
     def _scarcity_alerts(self, avail: pd.DataFrame) -> List[str]:
         """Detect positions with low remaining top-tier talent."""
         alerts = []
-        SCARCITY_THRESHOLDS = {'QB': 5, 'RB': 10, 'WR': 12, 'TE': 5}
+        SCARCITY_THRESHOLDS = {"QB": 5, "RB": 10, "WR": 12, "TE": 5}
         for pos, threshold in SCARCITY_THRESHOLDS.items():
-            pos_avail = avail[avail['position'] == pos]
+            pos_avail = avail[avail["position"] == pos]
             if len(pos_avail) <= threshold:
                 alerts.append(f"SCARCITY: Only {len(pos_avail)} {pos}s left!")
         return alerts
@@ -337,36 +364,46 @@ class DraftAdvisor:
     def undervalued_players(self, top_n: int = 10) -> pd.DataFrame:
         """Return available players where model rank significantly beats ADP."""
         avail = self.board.available.copy()
-        if 'value_tier' not in avail.columns:
+        if "value_tier" not in avail.columns:
             return pd.DataFrame()
-        return (avail[avail['value_tier'] == 'undervalued']
-                .sort_values('adp_diff', ascending=False)
-                .head(top_n)
-                .reset_index(drop=True))
+        return (
+            avail[avail["value_tier"] == "undervalued"]
+            .sort_values("adp_diff", ascending=False)
+            .head(top_n)
+            .reset_index(drop=True)
+        )
 
     def overvalued_players(self, top_n: int = 10) -> pd.DataFrame:
         """Return available players where ADP is well above model rank."""
         avail = self.board.available.copy()
-        if 'value_tier' not in avail.columns:
+        if "value_tier" not in avail.columns:
             return pd.DataFrame()
-        return (avail[avail['value_tier'] == 'overvalued']
-                .sort_values('adp_diff')
-                .head(top_n)
-                .reset_index(drop=True))
+        return (
+            avail[avail["value_tier"] == "overvalued"]
+            .sort_values("adp_diff")
+            .head(top_n)
+            .reset_index(drop=True)
+        )
 
     def position_breakdown(self) -> pd.DataFrame:
         """Summary of remaining available players by position."""
         avail = self.board.available
-        pts_col = 'projected_season_points' if 'projected_season_points' in avail.columns else 'projected_points'
-        return (avail.groupby('position')
-                .agg(
-                    count=('position', 'count'),
-                    avg_pts=(pts_col, 'mean'),
-                    top_pts=(pts_col, 'max'),
-                )
-                .round(1)
-                .reset_index()
-                .sort_values('avg_pts', ascending=False))
+        pts_col = (
+            "projected_season_points"
+            if "projected_season_points" in avail.columns
+            else "projected_points"
+        )
+        return (
+            avail.groupby("position")
+            .agg(
+                count=("position", "count"),
+                avg_pts=(pts_col, "mean"),
+                top_pts=(pts_col, "max"),
+            )
+            .round(1)
+            .reset_index()
+            .sort_values("avg_pts", ascending=False)
+        )
 
     def waiver_recommendations(
         self,
@@ -400,26 +437,32 @@ class DraftAdvisor:
             name_mask = pd.Series(False, index=avail.index)
             id_mask = pd.Series(False, index=avail.index)
 
-            if 'player_name' in avail.columns:
-                name_mask = avail['player_name'].str.lower().isin(rostered_lower)
-            if 'player_id' in avail.columns:
-                id_mask = avail['player_id'].str.lower().isin(rostered_lower)
+            if "player_name" in avail.columns:
+                name_mask = avail["player_name"].str.lower().isin(rostered_lower)
+            if "player_id" in avail.columns:
+                id_mask = avail["player_id"].str.lower().isin(rostered_lower)
 
             avail = avail[~(name_mask | id_mask)]
 
         if position:
-            avail = avail[avail['position'] == position.upper()]
+            avail = avail[avail["position"] == position.upper()]
 
-        pts_col = 'projected_season_points' if 'projected_season_points' in avail.columns else 'projected_points'
-        return (avail
-                .sort_values(pts_col, ascending=False)
-                .head(top_n)
-                .reset_index(drop=True))
+        pts_col = (
+            "projected_season_points"
+            if "projected_season_points" in avail.columns
+            else "projected_points"
+        )
+        return (
+            avail.sort_values(pts_col, ascending=False)
+            .head(top_n)
+            .reset_index(drop=True)
+        )
 
 
 # ---------------------------------------------------------------------------
 # Auction Draft Board
 # ---------------------------------------------------------------------------
+
 
 class AuctionDraftBoard(DraftBoard):
     """
@@ -451,9 +494,9 @@ class AuctionDraftBoard(DraftBoard):
 
         # Pre-compute league-average projected pts/dollar for value threshold
         pts_col = (
-            'projected_season_points'
-            if 'projected_season_points' in players.columns
-            else 'projected_points'
+            "projected_season_points"
+            if "projected_season_points" in players.columns
+            else "projected_points"
         )
         total_pts = players[pts_col].fillna(0).sum()
         total_budget = budget_per_team * n_teams
@@ -475,11 +518,15 @@ class AuctionDraftBoard(DraftBoard):
         Returns:
             Player row as a pd.Series, or None if not found.
         """
-        if 'player_name' not in self.available.columns:
+        if "player_name" not in self.available.columns:
             logger.warning("No player_name column on auction board")
             return None
 
-        mask = self.available['player_name'].str.lower().str.contains(name.lower(), na=False)
+        mask = (
+            self.available["player_name"]
+            .str.lower()
+            .str.contains(name.lower(), na=False)
+        )
         if not mask.any():
             logger.warning(f"Player '{name}' not found for nomination")
             return None
@@ -506,7 +553,7 @@ class AuctionDraftBoard(DraftBoard):
         if not player:
             return {}
 
-        player_name = player.get('player_name', name)
+        player_name = player.get("player_name", name)
 
         if by_me:
             if cost > self.my_budget_remaining:
@@ -515,7 +562,9 @@ class AuctionDraftBoard(DraftBoard):
                 )
             self.my_budget_remaining = max(0, self.my_budget_remaining - cost)
             self.player_costs[player_name] = cost
-            logger.info(f"You won {player_name} for ${cost}. Budget remaining: ${self.my_budget_remaining}")
+            logger.info(
+                f"You won {player_name} for ${cost}. Budget remaining: ${self.my_budget_remaining}"
+            )
         else:
             logger.info(f"Opponent won {player_name} for ${cost}")
 
@@ -544,24 +593,32 @@ class AuctionDraftBoard(DraftBoard):
             return {}
 
         pts_col = (
-            'projected_season_points'
-            if 'projected_season_points' in player_row.index
-            else 'projected_points'
+            "projected_season_points"
+            if "projected_season_points" in player_row.index
+            else "projected_points"
         )
         projected_pts = float(player_row.get(pts_col, 0) or 0)
         pts_per_dollar = projected_pts / max(cost, 1)
-        fair_value_cost = projected_pts / self._league_avg_pts_per_dollar if self._league_avg_pts_per_dollar > 0 else 0
-        overpay_pct = ((cost - fair_value_cost) / fair_value_cost * 100) if fair_value_cost > 0 else 0.0
+        fair_value_cost = (
+            projected_pts / self._league_avg_pts_per_dollar
+            if self._league_avg_pts_per_dollar > 0
+            else 0
+        )
+        overpay_pct = (
+            ((cost - fair_value_cost) / fair_value_cost * 100)
+            if fair_value_cost > 0
+            else 0.0
+        )
         is_overpay = overpay_pct > 20.0
 
         return {
-            'player_name': player_row.get('player_name', name),
-            'projected_pts': round(projected_pts, 1),
-            'cost': cost,
-            'pts_per_dollar': round(pts_per_dollar, 2),
-            'fair_value_cost': round(fair_value_cost, 1),
-            'is_overpay': is_overpay,
-            'overpay_pct': round(overpay_pct, 1),
+            "player_name": player_row.get("player_name", name),
+            "projected_pts": round(projected_pts, 1),
+            "cost": cost,
+            "pts_per_dollar": round(pts_per_dollar, 2),
+            "fair_value_cost": round(fair_value_cost, 1),
+            "is_overpay": is_overpay,
+            "overpay_pct": round(overpay_pct, 1),
         }
 
     def budget_summary(self) -> Dict:
@@ -585,13 +642,13 @@ class AuctionDraftBoard(DraftBoard):
             self.my_budget_remaining / spots_remaining if spots_remaining > 0 else 0
         )
         return {
-            'budget_total': self.budget_per_team,
-            'budget_remaining': self.my_budget_remaining,
-            'budget_spent': self.budget_per_team - self.my_budget_remaining,
-            'roster_spots_filled': roster_spots_filled,
-            'roster_spots_total': roster_spots_total,
-            'spots_remaining': spots_remaining,
-            'implied_per_spot': round(implied_per_spot, 2),
+            "budget_total": self.budget_per_team,
+            "budget_remaining": self.my_budget_remaining,
+            "budget_spent": self.budget_per_team - self.my_budget_remaining,
+            "roster_spots_filled": roster_spots_filled,
+            "roster_spots_total": roster_spots_total,
+            "spots_remaining": spots_remaining,
+            "implied_per_spot": round(implied_per_spot, 2),
         }
 
 
@@ -601,9 +658,9 @@ class AuctionDraftBoard(DraftBoard):
 
 # Draft grade breakpoints: VORP vs. expected VORP for pick position
 _GRADE_THRESHOLDS = [
-    (0.15, 'A'),   # >15% above expected
-    (-0.05, 'B'),  # within 5% below expected
-    (-0.20, 'C'),  # 6-20% below expected
+    (0.15, "A"),  # >15% above expected
+    (-0.05, "B"),  # within 5% below expected
+    (-0.20, "C"),  # 6-20% below expected
 ]
 
 
@@ -619,12 +676,12 @@ def _pick_grade(actual_vorp: float, expected_vorp: float) -> str:
         Grade string: 'A', 'B', 'C', or 'D'.
     """
     if expected_vorp <= 0:
-        return 'B'
+        return "B"
     ratio = (actual_vorp - expected_vorp) / abs(expected_vorp)
     for threshold, grade in _GRADE_THRESHOLDS:
         if ratio >= threshold:
             return grade
-    return 'D'
+    return "D"
 
 
 class MockDraftSimulator:
@@ -653,7 +710,9 @@ class MockDraftSimulator:
                         ideal ADP pick index, simulating reach/value picks.
         """
         if user_pick < 1 or user_pick > n_teams:
-            raise ValueError(f"user_pick must be between 1 and {n_teams}, got {user_pick}")
+            raise ValueError(
+                f"user_pick must be between 1 and {n_teams}, got {user_pick}"
+            )
 
         self.board = board
         self.user_pick = user_pick
@@ -661,9 +720,9 @@ class MockDraftSimulator:
         self.randomness = max(0, randomness)
 
         pts_col = (
-            'projected_season_points'
-            if 'projected_season_points' in board.available.columns
-            else 'projected_points'
+            "projected_season_points"
+            if "projected_season_points" in board.available.columns
+            else "projected_points"
         )
         self._pts_col = pts_col
 
@@ -703,18 +762,24 @@ class MockDraftSimulator:
             return None
 
         # Sort by adp_rank if present, else fall back to model_rank
-        sort_col = 'adp_rank' if ('adp_rank' in avail.columns and avail['adp_rank'].notna().any()) else 'model_rank'
-        sorted_avail = avail.sort_values(sort_col, na_position='last').reset_index(drop=True)
+        sort_col = (
+            "adp_rank"
+            if ("adp_rank" in avail.columns and avail["adp_rank"].notna().any())
+            else "model_rank"
+        )
+        sorted_avail = avail.sort_values(sort_col, na_position="last").reset_index(
+            drop=True
+        )
 
         # Apply randomness offset clamped within pool bounds
         offset = random.randint(-self.randomness, self.randomness)
         target_idx = max(0, min(offset, len(sorted_avail) - 1))
         player_row = sorted_avail.iloc[target_idx]
 
-        player_id = player_row.get('player_id', player_row.get('player_name', ''))
+        player_id = player_row.get("player_id", player_row.get("player_name", ""))
         self.board.draft_player(str(player_id), by_me=False)
 
-        return str(player_row.get('player_name', player_id))
+        return str(player_row.get("player_name", player_id))
 
     def run_full_simulation(self, advisor: DraftAdvisor) -> Dict:
         """
@@ -753,67 +818,69 @@ class MockDraftSimulator:
             if self._is_user_turn(pick_number):
                 recs, _reasoning = advisor.recommend(top_n=1)
                 if recs.empty:
-                    logger.warning(f"Advisor returned no recommendations at pick {pick_number}")
+                    logger.warning(
+                        f"Advisor returned no recommendations at pick {pick_number}"
+                    )
                     continue
 
                 top_pick = recs.iloc[0]
-                player_id = top_pick.get('player_id', top_pick.get('player_name', ''))
+                player_id = top_pick.get("player_id", top_pick.get("player_name", ""))
                 player_result = self.board.draft_player(str(player_id), by_me=True)
                 if not player_result:
                     continue
 
-                player_name = player_result.get('player_name', str(player_id))
-                picks_log.append({
-                    'round': round_number,
-                    'pick': pick_number,
-                    'team': 'YOU',
-                    'player_name': player_name,
-                    'position': player_result.get('position', '?'),
-                    'adp': player_result.get('adp_rank', 'N/A'),
-                    'pts': round(float(player_result.get(pts_col, 0) or 0), 1),
-                })
+                player_name = player_result.get("player_name", str(player_id))
+                picks_log.append(
+                    {
+                        "round": round_number,
+                        "pick": pick_number,
+                        "team": "YOU",
+                        "player_name": player_name,
+                        "position": player_result.get("position", "?"),
+                        "adp": player_result.get("adp_rank", "N/A"),
+                        "pts": round(float(player_result.get(pts_col, 0) or 0), 1),
+                    }
+                )
             else:
                 player_name = self.simulate_opponent_pick(pick_number)
                 if player_name is None:
                     continue
 
                 # Retrieve position from all_players for the log
-                pos = '?'
-                adp_val: object = 'N/A'
-                if 'player_name' in self.board.all_players.columns:
+                pos = "?"
+                adp_val: object = "N/A"
+                if "player_name" in self.board.all_players.columns:
                     match = self.board.all_players[
-                        self.board.all_players['player_name'] == player_name
+                        self.board.all_players["player_name"] == player_name
                     ]
                     if not match.empty:
-                        pos = match.iloc[0].get('position', '?')
-                        adp_val = match.iloc[0].get('adp_rank', 'N/A')
+                        pos = match.iloc[0].get("position", "?")
+                        adp_val = match.iloc[0].get("adp_rank", "N/A")
 
-                picks_log.append({
-                    'round': round_number,
-                    'pick': pick_number,
-                    'team': 'OPP',
-                    'player_name': player_name,
-                    'position': pos,
-                    'adp': adp_val,
-                    'pts': None,
-                })
+                picks_log.append(
+                    {
+                        "round": round_number,
+                        "pick": pick_number,
+                        "team": "OPP",
+                        "player_name": player_name,
+                        "position": pos,
+                        "adp": adp_val,
+                        "pts": None,
+                    }
+                )
 
         my_roster = self.board.my_roster
-        total_pts = sum(
-            float(p.get(pts_col, 0) or 0) for p in my_roster
-        )
-        total_vorp = sum(
-            float(p.get('vorp', 0) or 0) for p in my_roster
-        )
+        total_pts = sum(float(p.get(pts_col, 0) or 0) for p in my_roster)
+        total_vorp = sum(float(p.get("vorp", 0) or 0) for p in my_roster)
         draft_grade = _pick_grade(total_vorp, expected_vorp)
 
         return {
-            'picks': picks_log,
-            'my_roster': my_roster,
-            'total_pts': round(total_pts, 1),
-            'total_vorp': round(total_vorp, 1),
-            'expected_vorp': round(expected_vorp, 1),
-            'draft_grade': draft_grade,
+            "picks": picks_log,
+            "my_roster": my_roster,
+            "total_pts": round(total_pts, 1),
+            "total_vorp": round(total_vorp, 1),
+            "expected_vorp": round(expected_vorp, 1),
+            "draft_grade": draft_grade,
         }
 
     def _estimate_expected_vorp(self, total_picks: int) -> float:
@@ -830,16 +897,20 @@ class MockDraftSimulator:
         Returns:
             Sum of VORP for ADP-best players at user's pick slots.
         """
-        if 'vorp' not in self.board.available.columns:
+        if "vorp" not in self.board.available.columns:
             return 0.0
 
         sort_col = (
-            'adp_rank'
-            if ('adp_rank' in self.board.available.columns
-                and self.board.available['adp_rank'].notna().any())
-            else 'model_rank'
+            "adp_rank"
+            if (
+                "adp_rank" in self.board.available.columns
+                and self.board.available["adp_rank"].notna().any()
+            )
+            else "model_rank"
         )
-        sorted_pool = self.board.available.sort_values(sort_col, na_position='last').reset_index(drop=True)
+        sorted_pool = self.board.available.sort_values(
+            sort_col, na_position="last"
+        ).reset_index(drop=True)
 
         # Simulate which overall pick numbers belong to the user
         user_pick_numbers = []
@@ -852,6 +923,6 @@ class MockDraftSimulator:
         for pick_num in user_pick_numbers:
             idx = pick_num - 1
             if idx < len(sorted_pool):
-                expected += float(sorted_pool.iloc[idx].get('vorp', 0) or 0)
+                expected += float(sorted_pool.iloc[idx].get("vorp", 0) or 0)
 
         return expected
