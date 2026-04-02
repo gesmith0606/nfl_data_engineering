@@ -36,10 +36,23 @@ BRONZE_DIR = os.path.join(_BASE_DIR, "data", "bronze")
 
 # Columns that identify a row but are not features
 _PLAYER_IDENTIFIER_COLS = {
-    "player_id", "player_gsis_id", "gsis_id", "player_name", "player_display_name",
-    "headshot_url", "season", "week", "season_type", "game_id",
-    "recent_team", "opponent_team", "position", "position_group",
-    "team", "opponent", "game_type",
+    "player_id",
+    "player_gsis_id",
+    "gsis_id",
+    "player_name",
+    "player_display_name",
+    "headshot_url",
+    "season",
+    "week",
+    "season_type",
+    "game_id",
+    "recent_team",
+    "opponent_team",
+    "position",
+    "position_group",
+    "team",
+    "opponent",
+    "game_type",
 }
 
 # Target labels (same-week actuals, NOT features)
@@ -48,20 +61,47 @@ _PLAYER_LABEL_COLS = set(PLAYER_LABEL_COLUMNS)
 # Same-week raw stats that are NOT lagged — using these as features is leakage.
 # Only _roll3, _roll6, _std columns (which have shift(1) applied) are valid features.
 _SAME_WEEK_RAW_STATS = {
-    "attempts", "completions", "air_yards", "air_yards_share",
-    "carry_share", "snap_pct", "target_share", "rz_target_share",
-    "dakota", "pacr", "racr", "wopr",
-    "passing_air_yards", "passing_epa", "passing_first_downs",
-    "passing_yards_after_catch", "passing_2pt_conversions",
-    "receiving_air_yards", "receiving_epa", "receiving_first_downs",
-    "receiving_fumbles", "receiving_fumbles_lost",
-    "receiving_yards_after_catch", "receiving_2pt_conversions",
-    "rushing_epa", "rushing_first_downs",
-    "rushing_fumbles", "rushing_fumbles_lost", "rushing_2pt_conversions",
-    "sacks", "sack_yards", "sack_fumbles", "sack_fumbles_lost",
-    "special_teams_tds", "fantasy_points",
-    "team_targets", "team_carries", "team_air_yards",
-    "team_score", "opp_score", "score_diff",
+    "attempts",
+    "completions",
+    "air_yards",
+    "air_yards_share",
+    "carry_share",
+    "snap_pct",
+    "target_share",
+    "rz_target_share",
+    "dakota",
+    "pacr",
+    "racr",
+    "wopr",
+    "passing_air_yards",
+    "passing_epa",
+    "passing_first_downs",
+    "passing_yards_after_catch",
+    "passing_2pt_conversions",
+    "receiving_air_yards",
+    "receiving_epa",
+    "receiving_first_downs",
+    "receiving_fumbles",
+    "receiving_fumbles_lost",
+    "receiving_yards_after_catch",
+    "receiving_2pt_conversions",
+    "rushing_epa",
+    "rushing_first_downs",
+    "rushing_fumbles",
+    "rushing_fumbles_lost",
+    "rushing_2pt_conversions",
+    "sacks",
+    "sack_yards",
+    "sack_fumbles",
+    "sack_fumbles_lost",
+    "special_teams_tds",
+    "fantasy_points",
+    "team_targets",
+    "team_carries",
+    "team_air_yards",
+    "team_score",
+    "opp_score",
+    "score_diff",
 }
 
 
@@ -108,8 +148,13 @@ def _read_bronze_schedules(season: int) -> pd.DataFrame:
         df = df[df["game_type"] == "REG"].copy()
 
     keep_cols = [
-        "season", "week", "home_team", "away_team",
-        "spread_line", "total_line", "game_type",
+        "season",
+        "week",
+        "home_team",
+        "away_team",
+        "spread_line",
+        "total_line",
+        "game_type",
     ]
     available = [c for c in keep_cols if c in df.columns]
     return df[available].copy()
@@ -158,8 +203,9 @@ def _add_implied_totals(df: pd.DataFrame, schedules: pd.DataFrame) -> pd.DataFra
         df["implied_team_total"] = np.nan
         return df
 
-    sched = schedules[["season", "week", "home_team", "away_team",
-                        "spread_line", "total_line"]].copy()
+    sched = schedules[
+        ["season", "week", "home_team", "away_team", "spread_line", "total_line"]
+    ].copy()
 
     # Home implied = (total/2) - (spread/2); negative spread = home favored
     sched["implied_home"] = (
@@ -260,10 +306,9 @@ def compute_td_regression_features(df: pd.DataFrame) -> pd.DataFrame:
     # Compute rz_target_share_roll3 if missing but raw is available
     if "rz_target_share_roll3" not in df.columns and "rz_target_share" in df.columns:
         if "player_id" in df.columns and "season" in df.columns:
-            df["rz_target_share_roll3"] = (
-                df.groupby(["player_id", "season"])["rz_target_share"]
-                .transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())
-            )
+            df["rz_target_share_roll3"] = df.groupby(["player_id", "season"])[
+                "rz_target_share"
+            ].transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())
 
     if "rz_target_share_roll3" in df.columns:
         # Position-average expected TD
@@ -276,6 +321,56 @@ def compute_td_regression_features(df: pd.DataFrame) -> pd.DataFrame:
             df["expected_td_player"] = (
                 df["rz_target_share_roll3"] * df["rec_td_rate_roll6"]
             )
+
+    return df
+
+
+def compute_interaction_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Compute multiplicative interaction features for Ridge/ElasticNet models.
+
+    For key rolling stats per position, creates interactions with:
+    - implied_team_total (Vegas adjustment)
+    - opp_avg_pts_allowed (matchup quality, inverted so higher = weaker defense)
+    - snap_pct_roll3 (usage/opportunity)
+
+    Only creates an interaction column if both source columns exist and have
+    non-null values. Safe for all positions -- missing columns are skipped.
+
+    Args:
+        df: Player-week DataFrame with rolling stats and context features.
+
+    Returns:
+        DataFrame with interaction feature columns added.
+    """
+    df = df.copy()
+
+    # Key rolling stats per position (position-agnostic -- just create all,
+    # Ridge will learn which matter per position via L2 regularization)
+    key_stats = [
+        "passing_yards_roll3",
+        "rushing_yards_roll3",
+        "rushing_tds_roll3",
+        "receptions_roll3",
+        "receiving_yards_roll3",
+        "receiving_tds_roll3",
+        "targets_roll3",
+    ]
+
+    context_cols = {
+        "implied_total": "implied_team_total",
+        "opp_rank": "opp_avg_pts_allowed",
+        "snap_pct": "snap_pct_roll3",
+    }
+
+    for stat in key_stats:
+        if stat not in df.columns:
+            continue
+        stat_base = stat.replace("_roll3", "")
+        for suffix, ctx_col in context_cols.items():
+            if ctx_col not in df.columns:
+                continue
+            out_col = f"{stat_base}_x_{suffix}"
+            df[out_col] = df[stat] * df[ctx_col]
 
     return df
 
@@ -303,6 +398,324 @@ def compute_momentum_features(df: pd.DataFrame) -> pd.DataFrame:
     for out_col, roll3_col, roll6_col in deltas:
         if roll3_col in df.columns and roll6_col in df.columns:
             df[out_col] = df[roll3_col] - df[roll6_col]
+
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Graph feature integration
+# ---------------------------------------------------------------------------
+
+
+def _join_graph_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join graph-derived injury cascade features if available.
+
+    Tries two sources in order:
+    1. Cached Silver parquet at data/silver/graph_features/season=YYYY/
+    2. Live Neo4j query (if connected)
+
+    If neither is available, returns the input DataFrame unchanged with
+    NaN-filled graph feature columns added for schema consistency.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with graph feature columns joined.
+    """
+    from graph_feature_extraction import GRAPH_FEATURE_COLUMNS
+
+    # Try cached Silver parquet first
+    graph_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    graph_files = sorted(
+        glob.glob(os.path.join(graph_dir, "graph_injury_cascade_*.parquet"))
+    )
+
+    graph_df = pd.DataFrame()
+    if graph_files:
+        try:
+            graph_df = pd.read_parquet(graph_files[-1])
+            logger.info("Loaded cached graph features from %s", graph_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached graph features: %s", exc)
+
+    # If no cached data, try Neo4j
+    if graph_df.empty:
+        try:
+            from graph_db import GraphDB
+
+            gdb = GraphDB()
+            gdb.connect()
+            if gdb.is_connected:
+                from graph_feature_extraction import extract_all_graph_features
+
+                graph_df = extract_all_graph_features(gdb, [season])
+                gdb.close()
+            else:
+                logger.info("Neo4j unavailable — skipping graph features")
+        except Exception as exc:
+            logger.info("Graph features unavailable (%s) — skipping", exc)
+
+    if graph_df.empty:
+        # Add NaN columns for schema consistency
+        for col in GRAPH_FEATURE_COLUMNS:
+            if col not in df.columns:
+                df[col] = np.nan
+        return df
+
+    # Left join on player_id, season, week
+    join_cols = ["player_id", "season", "week"]
+    available_join = [c for c in join_cols if c in graph_df.columns and c in df.columns]
+    if len(available_join) < 3:
+        for col in GRAPH_FEATURE_COLUMNS:
+            if col not in df.columns:
+                df[col] = np.nan
+        return df
+
+    df = df.merge(
+        graph_df[available_join + GRAPH_FEATURE_COLUMNS],
+        on=available_join,
+        how="left",
+        suffixes=("", "__graph"),
+    )
+    # Drop any suffixed duplicates
+    dup_cols = [c for c in df.columns if c.endswith("__graph")]
+    df = df.drop(columns=dup_cols, errors="ignore")
+
+    return df
+
+
+def _join_wr_matchup_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join WR matchup and OL/RB graph features if available.
+
+    Tries cached Silver parquet first, then falls back to live computation
+    from Bronze data. If neither is available, returns NaN-filled columns.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with WR/OL feature columns joined.
+    """
+    from graph_feature_extraction import (
+        WR_MATCHUP_FEATURE_COLUMNS,
+        OL_RB_FEATURE_COLUMNS,
+    )
+
+    all_new_cols = WR_MATCHUP_FEATURE_COLUMNS + OL_RB_FEATURE_COLUMNS
+
+    # Try cached Silver parquet first
+    wr_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    wr_files = sorted(glob.glob(os.path.join(wr_dir, "graph_wr_matchup_*.parquet")))
+    ol_files = sorted(glob.glob(os.path.join(wr_dir, "graph_ol_rb_*.parquet")))
+
+    wr_df = pd.DataFrame()
+    ol_df = pd.DataFrame()
+
+    if wr_files:
+        try:
+            wr_df = pd.read_parquet(wr_files[-1])
+            logger.info("Loaded cached WR matchup features from %s", wr_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached WR features: %s", exc)
+
+    if ol_files:
+        try:
+            ol_df = pd.read_parquet(ol_files[-1])
+            logger.info("Loaded cached OL/RB features from %s", ol_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached OL/RB features: %s", exc)
+
+    # Join WR features
+    join_cols = ["player_id", "season", "week"]
+    if not wr_df.empty:
+        avail = [c for c in join_cols if c in wr_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in WR_MATCHUP_FEATURE_COLUMNS if c in wr_df.columns]
+            df = df.merge(
+                wr_df[avail + feat_cols],
+                on=avail,
+                how="left",
+                suffixes=("", "__wr"),
+            )
+            dup = [c for c in df.columns if c.endswith("__wr")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    # Join OL/RB features
+    if not ol_df.empty:
+        avail = [c for c in join_cols if c in ol_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in OL_RB_FEATURE_COLUMNS if c in ol_df.columns]
+            df = df.merge(
+                ol_df[avail + feat_cols],
+                on=avail,
+                how="left",
+                suffixes=("", "__ol"),
+            )
+            dup = [c for c in df.columns if c.endswith("__ol")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    # Fill missing columns with NaN for schema consistency
+    for col in all_new_cols:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df
+
+
+def _join_te_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join TE matchup and red zone graph features if available.
+
+    Tries cached Silver parquet first, then falls back to live computation
+    from Bronze data. If neither is available, returns NaN-filled columns.
+    Only TE-position players receive actual values; all other positions
+    get NaN for TE-specific features.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week, position.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with TE feature columns joined.
+    """
+    from graph_feature_extraction import TE_FEATURE_COLUMNS
+
+    # Try cached Silver parquet first
+    te_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    te_files = sorted(glob.glob(os.path.join(te_dir, "graph_te_matchup_*.parquet")))
+
+    te_df = pd.DataFrame()
+    if te_files:
+        try:
+            te_df = pd.read_parquet(te_files[-1])
+            logger.info("Loaded cached TE features from %s", te_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached TE features: %s", exc)
+
+    # Join TE features
+    join_cols = ["player_id", "season", "week"]
+    if not te_df.empty:
+        avail = [c for c in join_cols if c in te_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in TE_FEATURE_COLUMNS if c in te_df.columns]
+            df = df.merge(
+                te_df[avail + feat_cols],
+                on=avail,
+                how="left",
+                suffixes=("", "__te"),
+            )
+            dup = [c for c in df.columns if c.endswith("__te")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    # Fill missing columns with NaN for schema consistency
+    for col in TE_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    # Zero out TE features for non-TE positions
+    if "position" in df.columns:
+        non_te_mask = df["position"] != "TE"
+        for col in TE_FEATURE_COLUMNS:
+            df.loc[non_te_mask, col] = np.nan
+
+    return df
+
+
+def _join_scheme_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join scheme/defensive front features for RB players.
+
+    Tries cached Silver parquet first, then falls back to live computation
+    from Bronze PBP and PFR data. If neither is available, returns NaN-filled
+    columns. Only RB-position players receive actual values; all other
+    positions get NaN for scheme features.
+
+    Args:
+        df: Player-week DataFrame with recent_team, season, week, position.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with scheme feature columns joined.
+    """
+    from graph_feature_extraction import SCHEME_FEATURE_COLUMNS
+
+    # Try cached Silver parquet first
+    scheme_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    scheme_files = sorted(glob.glob(os.path.join(scheme_dir, "graph_scheme_*.parquet")))
+
+    scheme_df = pd.DataFrame()
+    if scheme_files:
+        try:
+            scheme_df = pd.read_parquet(scheme_files[-1])
+            logger.info("Loaded cached scheme features from %s", scheme_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached scheme features: %s", exc)
+
+    # Fallback: compute from Bronze data
+    if scheme_df.empty:
+        try:
+            from graph_feature_extraction import compute_scheme_features
+
+            pbp_pattern = os.path.join(
+                BRONZE_DIR, "pbp", f"season={season}", "*.parquet"
+            )
+            pbp_files = sorted(glob.glob(pbp_pattern))
+            pfr_pattern = os.path.join(
+                BRONZE_DIR, "pfr", "weekly", "def", f"season={season}", "*.parquet"
+            )
+            pfr_files = sorted(glob.glob(pfr_pattern))
+            sched_pattern = os.path.join(
+                BRONZE_DIR, "schedules", f"season={season}", "*.parquet"
+            )
+            sched_files = sorted(glob.glob(sched_pattern))
+
+            pbp_df = pd.read_parquet(pbp_files[-1]) if pbp_files else pd.DataFrame()
+            pfr_df = pd.read_parquet(pfr_files[-1]) if pfr_files else pd.DataFrame()
+            sched_df = (
+                pd.read_parquet(sched_files[-1]) if sched_files else pd.DataFrame()
+            )
+
+            if not pbp_df.empty:
+                scheme_df = compute_scheme_features(
+                    pbp_df, pfr_df, pd.DataFrame(), sched_df
+                )
+                logger.info("Computed scheme features from Bronze data")
+        except Exception as exc:
+            logger.info("Scheme features unavailable (%s) -- skipping", exc)
+
+    # Join on team + season + week (team-level features)
+    join_on_left = ["recent_team", "season", "week"]
+    join_on_right = ["team", "season", "week"]
+
+    if not scheme_df.empty:
+        avail_left = [c for c in join_on_left if c in df.columns]
+        avail_right = [c for c in join_on_right if c in scheme_df.columns]
+        if len(avail_left) >= 3 and len(avail_right) >= 3:
+            feat_cols = [c for c in SCHEME_FEATURE_COLUMNS if c in scheme_df.columns]
+            df = df.merge(
+                scheme_df[avail_right + feat_cols],
+                left_on=avail_left,
+                right_on=avail_right,
+                how="left",
+                suffixes=("", "__scheme"),
+            )
+            dup = [c for c in df.columns if c.endswith("__scheme")]
+            df = df.drop(columns=dup, errors="ignore")
+            # Drop extra team column from merge
+            if "team" in df.columns and "recent_team" in df.columns:
+                df = df.drop(columns=["team"], errors="ignore")
+
+    # Fill missing columns with NaN for schema consistency
+    for col in SCHEME_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    # Zero out scheme features for non-RB positions
+    if "position" in df.columns:
+        non_rb_mask = df["position"] != "RB"
+        for col in SCHEME_FEATURE_COLUMNS:
+            df.loc[non_rb_mask, col] = np.nan
 
     return df
 
@@ -380,14 +793,15 @@ def assemble_player_features(season: int) -> pd.DataFrame:
     defense = _read_latest_local("defense/positional", season)
     if not defense.empty:
         defense = defense.sort_values(["team", "position", "season", "week"])
-        defense[["avg_pts_allowed", "rank"]] = (
-            defense.groupby(["team", "position", "season"])[["avg_pts_allowed", "rank"]]
-            .shift(1)
+        defense[["avg_pts_allowed", "rank"]] = defense.groupby(
+            ["team", "position", "season"]
+        )[["avg_pts_allowed", "rank"]].shift(1)
+        defense = defense.rename(
+            columns={
+                "avg_pts_allowed": "opp_avg_pts_allowed",
+                "rank": "opp_rank",
+            }
         )
-        defense = defense.rename(columns={
-            "avg_pts_allowed": "opp_avg_pts_allowed",
-            "rank": "opp_rank",
-        })
         base = base.merge(
             defense,
             left_on=["opponent_team", "season", "week", "position"],
@@ -396,8 +810,9 @@ def assemble_player_features(season: int) -> pd.DataFrame:
             suffixes=("", "__def"),
         )
         # Drop extra team column and any suffixed dups
-        base = base.drop(columns=[c for c in base.columns if c.endswith("__def")],
-                         errors="ignore")
+        base = base.drop(
+            columns=[c for c in base.columns if c.endswith("__def")], errors="ignore"
+        )
         if "team" in base.columns and "recent_team" in base.columns:
             # Only drop the team col that came from defense merge
             team_cols = [c for c in base.columns if c == "team"]
@@ -409,9 +824,9 @@ def assemble_player_features(season: int) -> pd.DataFrame:
     if not pbp_for_opp.empty and "def_epa_per_play" in pbp_for_opp.columns:
         opp_epa = pbp_for_opp[["team", "season", "week", "def_epa_per_play"]].copy()
         opp_epa = opp_epa.sort_values(["team", "season", "week"])
-        opp_epa["def_epa_per_play"] = (
-            opp_epa.groupby(["team", "season"])["def_epa_per_play"].shift(1)
-        )
+        opp_epa["def_epa_per_play"] = opp_epa.groupby(["team", "season"])[
+            "def_epa_per_play"
+        ].shift(1)
         opp_epa = opp_epa.rename(columns={"def_epa_per_play": "opp_def_epa_per_play"})
         base = base.merge(
             opp_epa,
@@ -420,8 +835,10 @@ def assemble_player_features(season: int) -> pd.DataFrame:
             how="left",
             suffixes=("", "__opp_epa"),
         )
-        base = base.drop(columns=[c for c in base.columns if c.endswith("__opp_epa")],
-                         errors="ignore")
+        base = base.drop(
+            columns=[c for c in base.columns if c.endswith("__opp_epa")],
+            errors="ignore",
+        )
         if "team" in base.columns and "recent_team" in base.columns:
             base = base.drop(columns=["team"], errors="ignore")
 
@@ -458,10 +875,25 @@ def assemble_player_features(season: int) -> pd.DataFrame:
     base = compute_efficiency_features(base)
     base = compute_td_regression_features(base)
     base = compute_momentum_features(base)
+    base = compute_interaction_features(base)
+
+    # 11. Optional: join graph-derived injury cascade features
+    base = _join_graph_features(base, season)
+
+    # 12. Optional: join WR matchup + OL/RB features (Phase 2 graph)
+    base = _join_wr_matchup_features(base, season)
+
+    # 13. Optional: join TE matchup + red zone features (Phase 2 graph)
+    base = _join_te_features(base, season)
+
+    # 14. Optional: join scheme/defensive front features (RB only)
+    base = _join_scheme_features(base, season)
 
     logger.info(
         "Assembled player features for season %d: %d rows, %d columns",
-        season, len(base), len(base.columns),
+        season,
+        len(base),
+        len(base.columns),
     )
     return base
 
@@ -484,11 +916,13 @@ def get_player_feature_columns(df: pd.DataFrame) -> List[str]:
     """
     exclude = _PLAYER_IDENTIFIER_COLS | _PLAYER_LABEL_COLS | _SAME_WEEK_RAW_STATS
     numeric_dtypes = {"float64", "int64", "float32", "int32", "bool"}
-    return sorted([
-        c for c in df.columns
-        if c not in exclude
-        and str(df[c].dtype) in numeric_dtypes
-    ])
+    return sorted(
+        [
+            c
+            for c in df.columns
+            if c not in exclude and str(df[c].dtype) in numeric_dtypes
+        ]
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -603,6 +1037,8 @@ def assemble_multiyear_player_features(
     result = pd.concat(dfs, ignore_index=True)
     logger.info(
         "Multi-year assembly: %d seasons, %d total rows, %d columns",
-        len(dfs), len(result), len(result.columns),
+        len(dfs),
+        len(result),
+        len(result.columns),
     )
     return result

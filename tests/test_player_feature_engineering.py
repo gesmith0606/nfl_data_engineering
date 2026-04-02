@@ -34,7 +34,7 @@ def usage_df():
         ("P002", "RB1", "KC", "BUF", "RB", 0.55),
         ("P003", "WR1", "BUF", "KC", "WR", 0.65),
         ("P004", "TE1", "BUF", "KC", "TE", 0.40),
-        ("P005", "K1", "KC", "BUF", "K", 0.10),   # Excluded: not skill pos
+        ("P005", "K1", "KC", "BUF", "K", 0.10),  # Excluded: not skill pos
         ("P006", "RB2", "KC", "BUF", "RB", 0.15),  # Excluded: snap < 0.20
         ("P007", "WR2", "BUF", "KC", "WR", 0.30),
         ("P008", "QB2", "BUF", "KC", "QB", 0.70),
@@ -44,33 +44,41 @@ def usage_df():
     rows = []
     for week in [1, 2]:
         for pid, name, team, opp, pos, snap in players:
-            rows.append({
-                "player_id": pid,
-                "player_name": name,
-                "recent_team": team,
-                "opponent_team": opp,
-                "position": pos,
-                "season": 2024,
-                "week": week,
-                "snap_pct_roll3": snap,
-                "targets_roll3": np.random.uniform(2, 10),
-                "carries_roll3": np.random.uniform(0, 15),
-                "passing_yards_roll3": np.random.uniform(0, 300) if pos == "QB" else 0.0,
-                "rushing_yards_roll3": np.random.uniform(10, 80),
-                "receiving_yards_roll3": np.random.uniform(10, 80) if pos in ("WR", "TE", "RB") else 0.0,
-                # Raw stats (labels, not features)
-                "targets": np.random.randint(0, 12),
-                "carries": np.random.randint(0, 20),
-                "passing_yards": np.random.randint(0, 400) if pos == "QB" else 0,
-                "rushing_yards": np.random.randint(0, 120),
-                "receiving_yards": np.random.randint(0, 120) if pos in ("WR", "TE", "RB") else 0,
-                "receptions": np.random.randint(0, 10),
-                "passing_tds": np.random.randint(0, 4) if pos == "QB" else 0,
-                "rushing_tds": np.random.randint(0, 2),
-                "receiving_tds": np.random.randint(0, 2),
-                "interceptions": np.random.randint(0, 3) if pos == "QB" else 0,
-                "fantasy_points_ppr": np.random.uniform(0, 35),
-            })
+            rows.append(
+                {
+                    "player_id": pid,
+                    "player_name": name,
+                    "recent_team": team,
+                    "opponent_team": opp,
+                    "position": pos,
+                    "season": 2024,
+                    "week": week,
+                    "snap_pct_roll3": snap,
+                    "targets_roll3": np.random.uniform(2, 10),
+                    "carries_roll3": np.random.uniform(0, 15),
+                    "passing_yards_roll3": (
+                        np.random.uniform(0, 300) if pos == "QB" else 0.0
+                    ),
+                    "rushing_yards_roll3": np.random.uniform(10, 80),
+                    "receiving_yards_roll3": (
+                        np.random.uniform(10, 80) if pos in ("WR", "TE", "RB") else 0.0
+                    ),
+                    # Raw stats (labels, not features)
+                    "targets": np.random.randint(0, 12),
+                    "carries": np.random.randint(0, 20),
+                    "passing_yards": np.random.randint(0, 400) if pos == "QB" else 0,
+                    "rushing_yards": np.random.randint(0, 120),
+                    "receiving_yards": (
+                        np.random.randint(0, 120) if pos in ("WR", "TE", "RB") else 0
+                    ),
+                    "receptions": np.random.randint(0, 10),
+                    "passing_tds": np.random.randint(0, 4) if pos == "QB" else 0,
+                    "rushing_tds": np.random.randint(0, 2),
+                    "receiving_tds": np.random.randint(0, 2),
+                    "interceptions": np.random.randint(0, 3) if pos == "QB" else 0,
+                    "fantasy_points_ppr": np.random.uniform(0, 35),
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -79,16 +87,28 @@ def advanced_df():
     """Silver players/advanced with matching player rows."""
     rows = []
     for week in [1, 2]:
-        for pid in ["P001", "P002", "P003", "P004", "P005", "P006",
-                     "P007", "P008", "P009", "P010"]:
-            rows.append({
-                "player_gsis_id": pid,
-                "season": 2024,
-                "week": week,
-                "ngs_avg_separation": np.random.uniform(1.0, 4.0),
-                "pfr_receiving_yards_per_route": np.random.uniform(0.5, 3.0),
-                "qbr_total_epa": np.random.uniform(-5.0, 10.0),
-            })
+        for pid in [
+            "P001",
+            "P002",
+            "P003",
+            "P004",
+            "P005",
+            "P006",
+            "P007",
+            "P008",
+            "P009",
+            "P010",
+        ]:
+            rows.append(
+                {
+                    "player_gsis_id": pid,
+                    "season": 2024,
+                    "week": week,
+                    "ngs_avg_separation": np.random.uniform(1.0, 4.0),
+                    "pfr_receiving_yards_per_route": np.random.uniform(0.5, 3.0),
+                    "qbr_total_epa": np.random.uniform(-5.0, 10.0),
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -96,16 +116,28 @@ def advanced_df():
 def historical_df():
     """Silver players/historical — one row per player (static dimension)."""
     rows = []
-    for pid in ["P001", "P002", "P003", "P004", "P005", "P006",
-                 "P007", "P008", "P009", "P010"]:
-        rows.append({
-            "gsis_id": pid,
-            "draft_round": np.random.randint(1, 8),
-            "draft_pick": np.random.randint(1, 260),
-            "draft_value": np.random.uniform(0.1, 10.0),
-            "speed_score": np.random.uniform(70, 110),
-            "burst_score": np.random.uniform(90, 130),
-        })
+    for pid in [
+        "P001",
+        "P002",
+        "P003",
+        "P004",
+        "P005",
+        "P006",
+        "P007",
+        "P008",
+        "P009",
+        "P010",
+    ]:
+        rows.append(
+            {
+                "gsis_id": pid,
+                "draft_round": np.random.randint(1, 8),
+                "draft_pick": np.random.randint(1, 260),
+                "draft_value": np.random.uniform(0.1, 10.0),
+                "speed_score": np.random.uniform(70, 110),
+                "burst_score": np.random.uniform(90, 130),
+            }
+        )
     return pd.DataFrame(rows)
 
 
@@ -118,14 +150,16 @@ def defense_df():
     for team in teams:
         for pos in positions:
             for week in [1, 2]:
-                rows.append({
-                    "team": team,
-                    "position": pos,
-                    "season": 2024,
-                    "week": week,
-                    "avg_pts_allowed": np.random.uniform(10, 25),
-                    "rank": np.random.randint(1, 33),
-                })
+                rows.append(
+                    {
+                        "team": team,
+                        "position": pos,
+                        "season": 2024,
+                        "week": week,
+                        "avg_pts_allowed": np.random.uniform(10, 25),
+                        "rank": np.random.randint(1, 33),
+                    }
+                )
     return pd.DataFrame(rows)
 
 
@@ -135,10 +169,14 @@ def team_quality_df():
     rows = []
     for team in ["KC", "BUF"]:
         for week in [1, 2]:
-            rows.append({
-                "team": team, "season": 2024, "week": week,
-                "qb_passing_epa": np.random.uniform(-0.2, 0.3),
-            })
+            rows.append(
+                {
+                    "team": team,
+                    "season": 2024,
+                    "week": week,
+                    "qb_passing_epa": np.random.uniform(-0.2, 0.3),
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -148,11 +186,15 @@ def game_context_df():
     rows = []
     for team in ["KC", "BUF"]:
         for week in [1, 2]:
-            rows.append({
-                "team": team, "season": 2024, "week": week,
-                "is_home": 1 if team == "KC" else 0,
-                "rest_days": 7,
-            })
+            rows.append(
+                {
+                    "team": team,
+                    "season": 2024,
+                    "week": week,
+                    "is_home": 1 if team == "KC" else 0,
+                    "rest_days": 7,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -162,11 +204,15 @@ def market_data_df():
     rows = []
     for team in ["KC", "BUF"]:
         for week in [1, 2]:
-            rows.append({
-                "team": team, "season": 2024, "week": week,
-                "opening_spread": -3.0 if team == "KC" else 3.0,
-                "opening_total": 48.5,
-            })
+            rows.append(
+                {
+                    "team": team,
+                    "season": 2024,
+                    "week": week,
+                    "opening_spread": -3.0 if team == "KC" else 3.0,
+                    "opening_total": 48.5,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -176,11 +222,15 @@ def pbp_metrics_df():
     rows = []
     for team in ["KC", "BUF"]:
         for week in [1, 2]:
-            rows.append({
-                "team": team, "season": 2024, "week": week,
-                "off_epa_per_play": np.random.uniform(-0.1, 0.2),
-                "def_epa_per_play": np.random.uniform(-0.2, 0.1),
-            })
+            rows.append(
+                {
+                    "team": team,
+                    "season": 2024,
+                    "week": week,
+                    "off_epa_per_play": np.random.uniform(-0.1, 0.2),
+                    "def_epa_per_play": np.random.uniform(-0.2, 0.1),
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -190,29 +240,56 @@ def tendencies_df():
     rows = []
     for team in ["KC", "BUF"]:
         for week in [1, 2]:
-            rows.append({
-                "team": team, "season": 2024, "week": week,
-                "pace": np.random.uniform(25, 35),
-                "pass_rate_over_expected": np.random.uniform(-0.1, 0.1),
-            })
+            rows.append(
+                {
+                    "team": team,
+                    "season": 2024,
+                    "week": week,
+                    "pace": np.random.uniform(25, 35),
+                    "pass_rate_over_expected": np.random.uniform(-0.1, 0.1),
+                }
+            )
     return pd.DataFrame(rows)
 
 
 @pytest.fixture
 def schedules_df():
     """Bronze schedules for implied total computation."""
-    return pd.DataFrame([
-        {"season": 2024, "week": 1, "home_team": "KC", "away_team": "BUF",
-         "spread_line": -3.0, "total_line": 48.0, "game_type": "REG"},
-        {"season": 2024, "week": 2, "home_team": "BUF", "away_team": "KC",
-         "spread_line": 1.5, "total_line": 50.0, "game_type": "REG"},
-    ])
+    return pd.DataFrame(
+        [
+            {
+                "season": 2024,
+                "week": 1,
+                "home_team": "KC",
+                "away_team": "BUF",
+                "spread_line": -3.0,
+                "total_line": 48.0,
+                "game_type": "REG",
+            },
+            {
+                "season": 2024,
+                "week": 2,
+                "home_team": "BUF",
+                "away_team": "KC",
+                "spread_line": 1.5,
+                "total_line": 50.0,
+                "game_type": "REG",
+            },
+        ]
+    )
 
 
 def _build_mock_readers(
-    usage_df, advanced_df, historical_df, defense_df,
-    team_quality_df, game_context_df, market_data_df,
-    pbp_metrics_df, tendencies_df, schedules_df,
+    usage_df,
+    advanced_df,
+    historical_df,
+    defense_df,
+    team_quality_df,
+    game_context_df,
+    market_data_df,
+    pbp_metrics_df,
+    tendencies_df,
+    schedules_df,
 ):
     """Return mock functions for _read_latest_local and _read_bronze_schedules."""
     source_map = {
@@ -245,21 +322,39 @@ class TestAssemblePlayerFeatures:
     """Test core feature assembly from 9 Silver sources."""
 
     def test_assemble_player_features(
-        self, usage_df, advanced_df, historical_df, defense_df,
-        team_quality_df, game_context_df, market_data_df,
-        pbp_metrics_df, tendencies_df, schedules_df,
+        self,
+        usage_df,
+        advanced_df,
+        historical_df,
+        defense_df,
+        team_quality_df,
+        game_context_df,
+        market_data_df,
+        pbp_metrics_df,
+        tendencies_df,
+        schedules_df,
     ):
         """assemble_player_features returns DataFrame with columns from all sources."""
         from player_feature_engineering import assemble_player_features
 
         mock_read, mock_sched = _build_mock_readers(
-            usage_df, advanced_df, historical_df, defense_df,
-            team_quality_df, game_context_df, market_data_df,
-            pbp_metrics_df, tendencies_df, schedules_df,
+            usage_df,
+            advanced_df,
+            historical_df,
+            defense_df,
+            team_quality_df,
+            game_context_df,
+            market_data_df,
+            pbp_metrics_df,
+            tendencies_df,
+            schedules_df,
         )
 
-        with patch("player_feature_engineering._read_latest_local", side_effect=mock_read), \
-             patch("player_feature_engineering._read_bronze_schedules", side_effect=mock_sched):
+        with patch(
+            "player_feature_engineering._read_latest_local", side_effect=mock_read
+        ), patch(
+            "player_feature_engineering._read_bronze_schedules", side_effect=mock_sched
+        ):
             result = assemble_player_features(2024)
 
         assert not result.empty, "Result should not be empty"
@@ -273,21 +368,39 @@ class TestAssemblePlayerFeatures:
         assert "player_id" in result.columns
 
     def test_matchup_features_lagged(
-        self, usage_df, advanced_df, historical_df, defense_df,
-        team_quality_df, game_context_df, market_data_df,
-        pbp_metrics_df, tendencies_df, schedules_df,
+        self,
+        usage_df,
+        advanced_df,
+        historical_df,
+        defense_df,
+        team_quality_df,
+        game_context_df,
+        market_data_df,
+        pbp_metrics_df,
+        tendencies_df,
+        schedules_df,
     ):
         """Matchup features opp_avg_pts_allowed and opp_rank use week N-1 values."""
         from player_feature_engineering import assemble_player_features
 
         mock_read, mock_sched = _build_mock_readers(
-            usage_df, advanced_df, historical_df, defense_df,
-            team_quality_df, game_context_df, market_data_df,
-            pbp_metrics_df, tendencies_df, schedules_df,
+            usage_df,
+            advanced_df,
+            historical_df,
+            defense_df,
+            team_quality_df,
+            game_context_df,
+            market_data_df,
+            pbp_metrics_df,
+            tendencies_df,
+            schedules_df,
         )
 
-        with patch("player_feature_engineering._read_latest_local", side_effect=mock_read), \
-             patch("player_feature_engineering._read_bronze_schedules", side_effect=mock_sched):
+        with patch(
+            "player_feature_engineering._read_latest_local", side_effect=mock_read
+        ), patch(
+            "player_feature_engineering._read_bronze_schedules", side_effect=mock_sched
+        ):
             result = assemble_player_features(2024)
 
         assert "opp_avg_pts_allowed" in result.columns
@@ -296,31 +409,51 @@ class TestAssemblePlayerFeatures:
         # Week 1 should have NaN matchup features (no prior week)
         week1 = result[result["week"] == 1]
         if not week1.empty:
-            assert week1["opp_avg_pts_allowed"].isna().all(), \
-                "Week 1 should have NaN matchup features (no prior week data)"
+            assert (
+                week1["opp_avg_pts_allowed"].isna().all()
+            ), "Week 1 should have NaN matchup features (no prior week data)"
 
         # Week 2 should have values from week 1
         week2 = result[result["week"] == 2]
         if not week2.empty:
-            assert week2["opp_avg_pts_allowed"].notna().any(), \
-                "Week 2 should have non-NaN matchup features from week 1"
+            assert (
+                week2["opp_avg_pts_allowed"].notna().any()
+            ), "Week 2 should have non-NaN matchup features from week 1"
 
     def test_implied_team_totals(
-        self, usage_df, advanced_df, historical_df, defense_df,
-        team_quality_df, game_context_df, market_data_df,
-        pbp_metrics_df, tendencies_df, schedules_df,
+        self,
+        usage_df,
+        advanced_df,
+        historical_df,
+        defense_df,
+        team_quality_df,
+        game_context_df,
+        market_data_df,
+        pbp_metrics_df,
+        tendencies_df,
+        schedules_df,
     ):
         """implied_team_total column exists and is clipped to [5.0, 45.0]."""
         from player_feature_engineering import assemble_player_features
 
         mock_read, mock_sched = _build_mock_readers(
-            usage_df, advanced_df, historical_df, defense_df,
-            team_quality_df, game_context_df, market_data_df,
-            pbp_metrics_df, tendencies_df, schedules_df,
+            usage_df,
+            advanced_df,
+            historical_df,
+            defense_df,
+            team_quality_df,
+            game_context_df,
+            market_data_df,
+            pbp_metrics_df,
+            tendencies_df,
+            schedules_df,
         )
 
-        with patch("player_feature_engineering._read_latest_local", side_effect=mock_read), \
-             patch("player_feature_engineering._read_bronze_schedules", side_effect=mock_sched):
+        with patch(
+            "player_feature_engineering._read_latest_local", side_effect=mock_read
+        ), patch(
+            "player_feature_engineering._read_bronze_schedules", side_effect=mock_sched
+        ):
             result = assemble_player_features(2024)
 
         assert "implied_team_total" in result.columns
@@ -350,18 +483,20 @@ class TestTemporalIntegrity:
         raw = np.random.randn(n) * 50 + 200
         # Rolling is shifted (different distribution, moderate correlation)
         roll = np.random.randn(n) * 30 + 180
-        df = pd.DataFrame({
-            "passing_yards": raw,
-            "passing_yards_roll3": roll,
-            "rushing_yards": np.random.randn(n) * 20,
-            "rushing_yards_roll3": np.random.randn(n) * 15,
-            "receiving_yards": np.random.randn(n) * 20,
-            "receiving_yards_roll3": np.random.randn(n) * 15,
-            "targets": np.random.randn(n) * 3,
-            "targets_roll3": np.random.randn(n) * 2,
-            "carries": np.random.randn(n) * 5,
-            "carries_roll3": np.random.randn(n) * 4,
-        })
+        df = pd.DataFrame(
+            {
+                "passing_yards": raw,
+                "passing_yards_roll3": roll,
+                "rushing_yards": np.random.randn(n) * 20,
+                "rushing_yards_roll3": np.random.randn(n) * 15,
+                "receiving_yards": np.random.randn(n) * 20,
+                "receiving_yards_roll3": np.random.randn(n) * 15,
+                "targets": np.random.randn(n) * 3,
+                "targets_roll3": np.random.randn(n) * 2,
+                "carries": np.random.randn(n) * 5,
+                "carries_roll3": np.random.randn(n) * 4,
+            }
+        )
         violations = validate_temporal_integrity(df)
         assert len(violations) == 0, f"Expected no violations, got {violations}"
 
@@ -371,14 +506,16 @@ class TestTemporalIntegrity:
 
         n = 100
         raw = np.random.randn(n) * 50 + 200
-        df = pd.DataFrame({
-            "snap_pct": raw,
-            "snap_pct_roll3": raw,  # Same values = r=1.0 = leakage
-            "target_share": np.random.randn(n) * 20,
-            "target_share_roll3": np.random.randn(n) * 15,
-            "carry_share": np.random.randn(n) * 20,
-            "carry_share_roll3": np.random.randn(n) * 15,
-        })
+        df = pd.DataFrame(
+            {
+                "snap_pct": raw,
+                "snap_pct_roll3": raw,  # Same values = r=1.0 = leakage
+                "target_share": np.random.randn(n) * 20,
+                "target_share_roll3": np.random.randn(n) * 15,
+                "carry_share": np.random.randn(n) * 20,
+                "carry_share_roll3": np.random.randn(n) * 15,
+            }
+        )
         violations = validate_temporal_integrity(df)
         assert len(violations) > 0, "Should detect violation when roll3 == raw"
         assert any("snap_pct" in v[0] for v in violations)
@@ -394,11 +531,13 @@ class TestLeakageDetection:
         np.random.seed(42)
         n = 100
         target = np.random.randn(n) * 50 + 200
-        df = pd.DataFrame({
-            "leaky_feature": target * 1.0,  # r = 1.0
-            "safe_feature": np.random.randn(n),
-            "passing_yards": target,
-        })
+        df = pd.DataFrame(
+            {
+                "leaky_feature": target * 1.0,  # r = 1.0
+                "safe_feature": np.random.randn(n),
+                "passing_yards": target,
+            }
+        )
         warnings = detect_leakage(
             df,
             feature_cols=["leaky_feature", "safe_feature"],
@@ -416,17 +555,21 @@ class TestLeakageDetection:
         n = 200
         target = np.random.randn(n) * 50 + 200
         noise = np.random.randn(n) * 50
-        df = pd.DataFrame({
-            "moderate_feature": target * 0.5 + noise,
-            "passing_yards": target,
-        })
+        df = pd.DataFrame(
+            {
+                "moderate_feature": target * 0.5 + noise,
+                "passing_yards": target,
+            }
+        )
         warnings = detect_leakage(
             df,
             feature_cols=["moderate_feature"],
             target_cols=["passing_yards"],
             threshold=0.90,
         )
-        assert len(warnings) == 0, f"Should not flag moderate correlation, got {warnings}"
+        assert (
+            len(warnings) == 0
+        ), f"Should not flag moderate correlation, got {warnings}"
 
 
 class TestEligibilityFilter:
@@ -456,17 +599,19 @@ class TestGetPlayerFeatureColumns:
         """Returns only numeric non-identifier non-label columns."""
         from player_feature_engineering import get_player_feature_columns
 
-        df = pd.DataFrame({
-            "player_id": ["P001", "P002"],
-            "season": [2024, 2024],
-            "week": [1, 1],
-            "position": ["QB", "RB"],
-            "passing_yards": [300, 0],      # label
-            "targets": [0, 5],              # label
-            "snap_pct_roll3": [0.8, 0.5],   # feature
-            "draft_round": [1, 3],          # feature
-            "qb_passing_epa": [0.15, -0.1], # feature
-        })
+        df = pd.DataFrame(
+            {
+                "player_id": ["P001", "P002"],
+                "season": [2024, 2024],
+                "week": [1, 1],
+                "position": ["QB", "RB"],
+                "passing_yards": [300, 0],  # label
+                "targets": [0, 5],  # label
+                "snap_pct_roll3": [0.8, 0.5],  # feature
+                "draft_round": [1, 3],  # feature
+                "qb_passing_epa": [0.15, -0.1],  # feature
+            }
+        )
         features = get_player_feature_columns(df)
 
         # Should include numeric features
@@ -494,22 +639,24 @@ class TestEfficiencyFeatures:
         """yards_per_carry_roll3 = rushing_yards_roll3 / carries_roll3."""
         from player_feature_engineering import compute_efficiency_features
 
-        df = pd.DataFrame({
-            "carries_roll3": [10.0, 20.0],
-            "rushing_yards_roll3": [50.0, 100.0],
-            "targets_roll3": [5.0, 8.0],
-            "receiving_yards_roll3": [40.0, 60.0],
-            "receptions_roll3": [3.0, 6.0],
-            "rushing_tds_roll3": [1.0, 2.0],
-            "receiving_tds_roll3": [0.0, 1.0],
-            "carries_roll6": [12.0, 18.0],
-            "rushing_yards_roll6": [60.0, 90.0],
-            "targets_roll6": [6.0, 7.0],
-            "receiving_yards_roll6": [45.0, 55.0],
-            "receptions_roll6": [4.0, 5.0],
-            "rushing_tds_roll6": [1.0, 1.0],
-            "receiving_tds_roll6": [1.0, 0.0],
-        })
+        df = pd.DataFrame(
+            {
+                "carries_roll3": [10.0, 20.0],
+                "rushing_yards_roll3": [50.0, 100.0],
+                "targets_roll3": [5.0, 8.0],
+                "receiving_yards_roll3": [40.0, 60.0],
+                "receptions_roll3": [3.0, 6.0],
+                "rushing_tds_roll3": [1.0, 2.0],
+                "receiving_tds_roll3": [0.0, 1.0],
+                "carries_roll6": [12.0, 18.0],
+                "rushing_yards_roll6": [60.0, 90.0],
+                "targets_roll6": [6.0, 7.0],
+                "receiving_yards_roll6": [45.0, 55.0],
+                "receptions_roll6": [4.0, 5.0],
+                "rushing_tds_roll6": [1.0, 1.0],
+                "receiving_tds_roll6": [1.0, 0.0],
+            }
+        )
         result = compute_efficiency_features(df)
         assert abs(result["yards_per_carry_roll3"].iloc[0] - 5.0) < 1e-6
         assert abs(result["yards_per_carry_roll3"].iloc[1] - 5.0) < 1e-6
@@ -518,48 +665,68 @@ class TestEfficiencyFeatures:
         """Zero carries => yards_per_carry_roll3 is NaN (not inf)."""
         from player_feature_engineering import compute_efficiency_features
 
-        df = pd.DataFrame({
-            "carries_roll3": [0.0],
-            "rushing_yards_roll3": [50.0],
-            "targets_roll3": [0.0],
-            "receiving_yards_roll3": [0.0],
-            "receptions_roll3": [0.0],
-            "rushing_tds_roll3": [0.0],
-            "receiving_tds_roll3": [0.0],
-            "carries_roll6": [0.0],
-            "rushing_yards_roll6": [0.0],
-            "targets_roll6": [0.0],
-            "receiving_yards_roll6": [0.0],
-            "receptions_roll6": [0.0],
-            "rushing_tds_roll6": [0.0],
-            "receiving_tds_roll6": [0.0],
-        })
+        df = pd.DataFrame(
+            {
+                "carries_roll3": [0.0],
+                "rushing_yards_roll3": [50.0],
+                "targets_roll3": [0.0],
+                "receiving_yards_roll3": [0.0],
+                "receptions_roll3": [0.0],
+                "rushing_tds_roll3": [0.0],
+                "receiving_tds_roll3": [0.0],
+                "carries_roll6": [0.0],
+                "rushing_yards_roll6": [0.0],
+                "targets_roll6": [0.0],
+                "receiving_yards_roll6": [0.0],
+                "receptions_roll6": [0.0],
+                "rushing_tds_roll6": [0.0],
+                "receiving_tds_roll6": [0.0],
+            }
+        )
         result = compute_efficiency_features(df)
         assert pd.isna(result["yards_per_carry_roll3"].iloc[0])
-        assert not np.isinf(result["yards_per_carry_roll3"].iloc[0]) if not pd.isna(result["yards_per_carry_roll3"].iloc[0]) else True
+        assert (
+            not np.isinf(result["yards_per_carry_roll3"].iloc[0])
+            if not pd.isna(result["yards_per_carry_roll3"].iloc[0])
+            else True
+        )
 
     def test_efficiency_features_all_ratios(self):
         """All 12 ratio columns are created (6 ratios x 2 windows)."""
         from player_feature_engineering import compute_efficiency_features
 
-        df = pd.DataFrame({
-            "carries_roll3": [10.0], "rushing_yards_roll3": [50.0],
-            "targets_roll3": [5.0], "receiving_yards_roll3": [40.0],
-            "receptions_roll3": [3.0], "rushing_tds_roll3": [1.0],
-            "receiving_tds_roll3": [1.0],
-            "carries_roll6": [12.0], "rushing_yards_roll6": [60.0],
-            "targets_roll6": [6.0], "receiving_yards_roll6": [45.0],
-            "receptions_roll6": [4.0], "rushing_tds_roll6": [1.0],
-            "receiving_tds_roll6": [1.0],
-        })
+        df = pd.DataFrame(
+            {
+                "carries_roll3": [10.0],
+                "rushing_yards_roll3": [50.0],
+                "targets_roll3": [5.0],
+                "receiving_yards_roll3": [40.0],
+                "receptions_roll3": [3.0],
+                "rushing_tds_roll3": [1.0],
+                "receiving_tds_roll3": [1.0],
+                "carries_roll6": [12.0],
+                "rushing_yards_roll6": [60.0],
+                "targets_roll6": [6.0],
+                "receiving_yards_roll6": [45.0],
+                "receptions_roll6": [4.0],
+                "rushing_tds_roll6": [1.0],
+                "receiving_tds_roll6": [1.0],
+            }
+        )
         result = compute_efficiency_features(df)
         expected_cols = [
-            "yards_per_carry_roll3", "yards_per_carry_roll6",
-            "yards_per_target_roll3", "yards_per_target_roll6",
-            "yards_per_reception_roll3", "yards_per_reception_roll6",
-            "catch_rate_roll3", "catch_rate_roll6",
-            "rush_td_rate_roll3", "rush_td_rate_roll6",
-            "rec_td_rate_roll3", "rec_td_rate_roll6",
+            "yards_per_carry_roll3",
+            "yards_per_carry_roll6",
+            "yards_per_target_roll3",
+            "yards_per_target_roll6",
+            "yards_per_reception_roll3",
+            "yards_per_reception_roll6",
+            "catch_rate_roll3",
+            "catch_rate_roll6",
+            "rush_td_rate_roll3",
+            "rush_td_rate_roll6",
+            "rec_td_rate_roll3",
+            "rec_td_rate_roll6",
         ]
         for col in expected_cols:
             assert col in result.columns, f"Missing column: {col}"
@@ -573,10 +740,12 @@ class TestTdRegressionFeatures:
         """rz_target_share_roll3=0.20, position=RB => expected_td_pos_avg = 0.20 * 0.08 = 0.016."""
         from player_feature_engineering import compute_td_regression_features
 
-        df = pd.DataFrame({
-            "rz_target_share_roll3": [0.20],
-            "position": ["RB"],
-        })
+        df = pd.DataFrame(
+            {
+                "rz_target_share_roll3": [0.20],
+                "position": ["RB"],
+            }
+        )
         result = compute_td_regression_features(df)
         assert "expected_td_pos_avg" in result.columns
         assert abs(result["expected_td_pos_avg"].iloc[0] - 0.016) < 1e-6
@@ -585,11 +754,13 @@ class TestTdRegressionFeatures:
         """rz_target_share_roll3=0.20, rec_td_rate_roll6=0.10 => expected_td_player = 0.02."""
         from player_feature_engineering import compute_td_regression_features
 
-        df = pd.DataFrame({
-            "rz_target_share_roll3": [0.20],
-            "rec_td_rate_roll6": [0.10],
-            "position": ["WR"],
-        })
+        df = pd.DataFrame(
+            {
+                "rz_target_share_roll3": [0.20],
+                "rec_td_rate_roll6": [0.10],
+                "position": ["WR"],
+            }
+        )
         result = compute_td_regression_features(df)
         assert "expected_td_player" in result.columns
         assert abs(result["expected_td_player"].iloc[0] - 0.02) < 1e-6
@@ -598,13 +769,15 @@ class TestTdRegressionFeatures:
         """If rz_target_share present but rz_target_share_roll3 absent, function computes rolling."""
         from player_feature_engineering import compute_td_regression_features
 
-        df = pd.DataFrame({
-            "player_id": ["P1"] * 6,
-            "season": [2024] * 6,
-            "week": [1, 2, 3, 4, 5, 6],
-            "rz_target_share": [0.10, 0.20, 0.30, 0.15, 0.25, 0.20],
-            "position": ["WR"] * 6,
-        })
+        df = pd.DataFrame(
+            {
+                "player_id": ["P1"] * 6,
+                "season": [2024] * 6,
+                "week": [1, 2, 3, 4, 5, 6],
+                "rz_target_share": [0.10, 0.20, 0.30, 0.15, 0.25, 0.20],
+                "position": ["WR"] * 6,
+            }
+        )
         result = compute_td_regression_features(df)
         assert "rz_target_share_roll3" in result.columns
         # Week 1: shift(1) means NaN (no prior data)
@@ -621,14 +794,16 @@ class TestMomentumFeatures:
         """snap_pct_roll3=0.80, snap_pct_roll6=0.60 => snap_pct_delta=0.20."""
         from player_feature_engineering import compute_momentum_features
 
-        df = pd.DataFrame({
-            "snap_pct_roll3": [0.80],
-            "snap_pct_roll6": [0.60],
-            "target_share_roll3": [0.25],
-            "target_share_roll6": [0.20],
-            "carry_share_roll3": [0.40],
-            "carry_share_roll6": [0.50],
-        })
+        df = pd.DataFrame(
+            {
+                "snap_pct_roll3": [0.80],
+                "snap_pct_roll6": [0.60],
+                "target_share_roll3": [0.25],
+                "target_share_roll6": [0.20],
+                "carry_share_roll3": [0.40],
+                "carry_share_roll6": [0.50],
+            }
+        )
         result = compute_momentum_features(df)
         assert abs(result["snap_pct_delta"].iloc[0] - 0.20) < 1e-6
 
@@ -636,14 +811,16 @@ class TestMomentumFeatures:
         """carry_share_roll3=0.40, carry_share_roll6=0.50 => carry_share_delta=-0.10."""
         from player_feature_engineering import compute_momentum_features
 
-        df = pd.DataFrame({
-            "snap_pct_roll3": [0.70],
-            "snap_pct_roll6": [0.70],
-            "target_share_roll3": [0.15],
-            "target_share_roll6": [0.15],
-            "carry_share_roll3": [0.40],
-            "carry_share_roll6": [0.50],
-        })
+        df = pd.DataFrame(
+            {
+                "snap_pct_roll3": [0.70],
+                "snap_pct_roll6": [0.70],
+                "target_share_roll3": [0.15],
+                "target_share_roll6": [0.15],
+                "carry_share_roll3": [0.40],
+                "carry_share_roll6": [0.50],
+            }
+        )
         result = compute_momentum_features(df)
         assert abs(result["carry_share_delta"].iloc[0] - (-0.10)) < 1e-6
 
@@ -651,10 +828,12 @@ class TestMomentumFeatures:
         """If carry_share_roll3 not in columns, carry_share_delta is not created."""
         from player_feature_engineering import compute_momentum_features
 
-        df = pd.DataFrame({
-            "snap_pct_roll3": [0.80],
-            "snap_pct_roll6": [0.60],
-        })
+        df = pd.DataFrame(
+            {
+                "snap_pct_roll3": [0.80],
+                "snap_pct_roll6": [0.60],
+            }
+        )
         result = compute_momentum_features(df)
         assert "snap_pct_delta" in result.columns
         assert "carry_share_delta" not in result.columns
@@ -673,24 +852,35 @@ class TestNewFeaturesAutoDiscovered:
             get_player_feature_columns,
         )
 
-        df = pd.DataFrame({
-            "player_id": ["P1"],
-            "season": [2024],
-            "week": [1],
-            "position": ["RB"],
-            "carries_roll3": [10.0], "rushing_yards_roll3": [50.0],
-            "targets_roll3": [5.0], "receiving_yards_roll3": [40.0],
-            "receptions_roll3": [3.0], "rushing_tds_roll3": [1.0],
-            "receiving_tds_roll3": [1.0],
-            "carries_roll6": [12.0], "rushing_yards_roll6": [60.0],
-            "targets_roll6": [6.0], "receiving_yards_roll6": [45.0],
-            "receptions_roll6": [4.0], "rushing_tds_roll6": [1.0],
-            "receiving_tds_roll6": [1.0],
-            "rz_target_share_roll3": [0.20],
-            "snap_pct_roll3": [0.80], "snap_pct_roll6": [0.60],
-            "target_share_roll3": [0.25], "target_share_roll6": [0.20],
-            "carry_share_roll3": [0.40], "carry_share_roll6": [0.50],
-        })
+        df = pd.DataFrame(
+            {
+                "player_id": ["P1"],
+                "season": [2024],
+                "week": [1],
+                "position": ["RB"],
+                "carries_roll3": [10.0],
+                "rushing_yards_roll3": [50.0],
+                "targets_roll3": [5.0],
+                "receiving_yards_roll3": [40.0],
+                "receptions_roll3": [3.0],
+                "rushing_tds_roll3": [1.0],
+                "receiving_tds_roll3": [1.0],
+                "carries_roll6": [12.0],
+                "rushing_yards_roll6": [60.0],
+                "targets_roll6": [6.0],
+                "receiving_yards_roll6": [45.0],
+                "receptions_roll6": [4.0],
+                "rushing_tds_roll6": [1.0],
+                "receiving_tds_roll6": [1.0],
+                "rz_target_share_roll3": [0.20],
+                "snap_pct_roll3": [0.80],
+                "snap_pct_roll6": [0.60],
+                "target_share_roll3": [0.25],
+                "target_share_roll6": [0.20],
+                "carry_share_roll3": [0.40],
+                "carry_share_roll6": [0.50],
+            }
+        )
         df = compute_efficiency_features(df)
         df = compute_td_regression_features(df)
         df = compute_momentum_features(df)
@@ -703,7 +893,13 @@ class TestNewFeaturesAutoDiscovered:
 @pytest.mark.skipif(
     not os.path.exists(
         os.path.join(
-            os.path.dirname(__file__), "..", "data", "silver", "players", "usage", "season=2024"
+            os.path.dirname(__file__),
+            "..",
+            "data",
+            "silver",
+            "players",
+            "usage",
+            "season=2024",
         )
     ),
     reason="Real Silver data not available locally",
@@ -713,7 +909,10 @@ class TestRealDataAssembly:
 
     def test_real_data_assembly(self):
         """Assemble features for 2024 and validate structure."""
-        from player_feature_engineering import assemble_player_features, get_player_feature_columns
+        from player_feature_engineering import (
+            assemble_player_features,
+            get_player_feature_columns,
+        )
 
         df = assemble_player_features(2024)
         assert len(df) > 0, "No rows assembled"
@@ -756,8 +955,9 @@ class TestRealDataAssembly:
         from player_feature_engineering import assemble_player_features
 
         df = assemble_player_features(2024)
-        assert "opp_avg_pts_allowed" in df.columns or "opp_rank" in df.columns, \
-            "Missing matchup features"
+        assert (
+            "opp_avg_pts_allowed" in df.columns or "opp_rank" in df.columns
+        ), "Missing matchup features"
 
     def test_real_data_has_implied_totals(self):
         """Real data includes Vegas implied team totals."""
@@ -770,3 +970,125 @@ class TestRealDataAssembly:
         if len(valid) > 0:
             assert valid.min() >= 5.0, f"implied_team_total below 5.0: {valid.min()}"
             assert valid.max() <= 45.0, f"implied_team_total above 45.0: {valid.max()}"
+
+
+class TestInteractionFeatures:
+    """Tests for compute_interaction_features()."""
+
+    def test_creates_expected_interaction_columns(self):
+        """Interaction features are created for available stat-context pairs."""
+        from player_feature_engineering import compute_interaction_features
+
+        df = pd.DataFrame(
+            {
+                "rushing_yards_roll3": [50.0, 60.0, 70.0],
+                "receiving_yards_roll3": [30.0, 40.0, 50.0],
+                "implied_team_total": [24.0, 26.0, 22.0],
+                "opp_avg_pts_allowed": [15.0, 20.0, 18.0],
+                "snap_pct_roll3": [0.6, 0.8, 0.7],
+            }
+        )
+
+        result = compute_interaction_features(df)
+
+        # rushing_yards interactions
+        assert "rushing_yards_x_implied_total" in result.columns
+        assert "rushing_yards_x_opp_rank" in result.columns
+        assert "rushing_yards_x_snap_pct" in result.columns
+        # receiving_yards interactions
+        assert "receiving_yards_x_implied_total" in result.columns
+
+    def test_interaction_values_are_products(self):
+        """Interaction values equal stat * context column."""
+        from player_feature_engineering import compute_interaction_features
+
+        df = pd.DataFrame(
+            {
+                "rushing_yards_roll3": [50.0, 100.0],
+                "implied_team_total": [24.0, 30.0],
+                "opp_avg_pts_allowed": [15.0, 20.0],
+                "snap_pct_roll3": [0.6, 0.8],
+            }
+        )
+
+        result = compute_interaction_features(df)
+
+        np.testing.assert_array_almost_equal(
+            result["rushing_yards_x_implied_total"].values,
+            [50.0 * 24.0, 100.0 * 30.0],
+        )
+        np.testing.assert_array_almost_equal(
+            result["rushing_yards_x_snap_pct"].values,
+            [50.0 * 0.6, 100.0 * 0.8],
+        )
+
+    def test_missing_context_column_skipped(self):
+        """Missing context columns are skipped without error."""
+        from player_feature_engineering import compute_interaction_features
+
+        df = pd.DataFrame(
+            {
+                "rushing_yards_roll3": [50.0, 60.0],
+                # No implied_team_total, opp_avg_pts_allowed, or snap_pct_roll3
+            }
+        )
+
+        result = compute_interaction_features(df)
+        # No interaction columns should be created
+        interaction_cols = [c for c in result.columns if "_x_" in c]
+        assert len(interaction_cols) == 0
+
+    def test_missing_stat_column_skipped(self):
+        """Missing stat columns are skipped without error."""
+        from player_feature_engineering import compute_interaction_features
+
+        df = pd.DataFrame(
+            {
+                "implied_team_total": [24.0, 26.0],
+                "snap_pct_roll3": [0.6, 0.8],
+                # No rolling stat columns
+            }
+        )
+
+        result = compute_interaction_features(df)
+        interaction_cols = [c for c in result.columns if "_x_" in c]
+        assert len(interaction_cols) == 0
+
+    def test_nan_propagation(self):
+        """NaN in either column produces NaN in the interaction."""
+        from player_feature_engineering import compute_interaction_features
+
+        df = pd.DataFrame(
+            {
+                "rushing_yards_roll3": [50.0, np.nan, 70.0],
+                "implied_team_total": [24.0, 26.0, np.nan],
+                "opp_avg_pts_allowed": [15.0, 20.0, 18.0],
+                "snap_pct_roll3": [0.6, 0.8, 0.7],
+            }
+        )
+
+        result = compute_interaction_features(df)
+
+        # Row 1: NaN stat -> NaN interaction
+        assert np.isnan(result["rushing_yards_x_implied_total"].iloc[1])
+        # Row 2: NaN context -> NaN interaction
+        assert np.isnan(result["rushing_yards_x_implied_total"].iloc[2])
+        # Row 0: both present -> valid
+        assert result["rushing_yards_x_implied_total"].iloc[0] == 50.0 * 24.0
+
+    def test_does_not_modify_original(self):
+        """compute_interaction_features returns a copy, not modifying the input."""
+        from player_feature_engineering import compute_interaction_features
+
+        df = pd.DataFrame(
+            {
+                "rushing_yards_roll3": [50.0],
+                "implied_team_total": [24.0],
+                "opp_avg_pts_allowed": [15.0],
+                "snap_pct_roll3": [0.6],
+            }
+        )
+        original_cols = list(df.columns)
+
+        compute_interaction_features(df)
+        assert list(df.columns) == original_cols

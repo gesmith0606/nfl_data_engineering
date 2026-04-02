@@ -34,8 +34,11 @@ import numpy as np
 import pandas as pd
 import shap
 import xgboost as xgb
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import ElasticNetCV, RidgeCV
 from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
 
 from config import CONSERVATIVE_PARAMS, HOLDOUT_SEASON, LGB_CONSERVATIVE_PARAMS
 from ensemble_training import make_lgb_model, make_xgb_model
@@ -51,7 +54,8 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 # Per D-17: Walk-forward validation seasons for player models
-PLAYER_VALIDATION_SEASONS = [2022, 2023, 2024]
+# With 2016-2025 training data, validate on 2019-2024 (need >=2 train seasons per fold)
+PLAYER_VALIDATION_SEASONS = [2019, 2020, 2021, 2022, 2023, 2024]
 
 # Per D-04: Feature selection groups (stat types that share features)
 STAT_TYPE_GROUPS = {
@@ -62,10 +66,30 @@ STAT_TYPE_GROUPS = {
 }
 
 # Per D-03: Hyperparameter profiles by stat type
-YARDAGE_PARAMS = {**CONSERVATIVE_PARAMS, "max_depth": 4, "min_child_weight": 5, "n_estimators": 500}
-TD_PARAMS = {**CONSERVATIVE_PARAMS, "max_depth": 3, "min_child_weight": 10, "n_estimators": 300}
-VOLUME_PARAMS = {**CONSERVATIVE_PARAMS, "max_depth": 4, "min_child_weight": 5, "n_estimators": 500}
-TURNOVER_PARAMS = {**CONSERVATIVE_PARAMS, "max_depth": 3, "min_child_weight": 10, "n_estimators": 300}
+YARDAGE_PARAMS = {
+    **CONSERVATIVE_PARAMS,
+    "max_depth": 4,
+    "min_child_weight": 5,
+    "n_estimators": 500,
+}
+TD_PARAMS = {
+    **CONSERVATIVE_PARAMS,
+    "max_depth": 3,
+    "min_child_weight": 10,
+    "n_estimators": 300,
+}
+VOLUME_PARAMS = {
+    **CONSERVATIVE_PARAMS,
+    "max_depth": 4,
+    "min_child_weight": 5,
+    "n_estimators": 500,
+}
+TURNOVER_PARAMS = {
+    **CONSERVATIVE_PARAMS,
+    "max_depth": 3,
+    "min_child_weight": 10,
+    "n_estimators": 300,
+}
 
 STAT_TYPE_PARAMS = {
     "yardage": YARDAGE_PARAMS,
@@ -140,6 +164,64 @@ def get_lgb_params_for_stat(stat: str) -> dict:
         base["min_child_samples"] = 30
         base["n_estimators"] = 300
     return base
+
+
+# ---------------------------------------------------------------------------
+# Ridge / ElasticNet model factories
+# ---------------------------------------------------------------------------
+
+
+def create_ridge_pipeline() -> Pipeline:
+    """Create a Ridge regression pipeline with median imputation.
+
+    Uses RidgeCV with a broad alpha search over np.logspace(-3, 3, 50).
+    Imputes NaN values with column medians before fitting.
+
+    Returns:
+        sklearn Pipeline with SimpleImputer + RidgeCV.
+    """
+    return Pipeline(
+        [
+            ("imputer", SimpleImputer(strategy="median")),
+            ("model", RidgeCV(alphas=np.logspace(-3, 3, 50))),
+        ]
+    )
+
+
+def create_elasticnet_pipeline() -> Pipeline:
+    """Create an ElasticNet regression pipeline with median imputation.
+
+    Uses ElasticNetCV with multiple l1_ratio values and broad alpha search.
+    Imputes NaN values with column medians before fitting.
+
+    Returns:
+        sklearn Pipeline with SimpleImputer + ElasticNetCV.
+    """
+    return Pipeline(
+        [
+            ("imputer", SimpleImputer(strategy="median")),
+            (
+                "model",
+                ElasticNetCV(
+                    l1_ratio=[0.1, 0.3, 0.5, 0.7, 0.9],
+                    alphas=np.logspace(-3, 3, 20),
+                    max_iter=5000,
+                ),
+            ),
+        ]
+    )
+
+
+def _linear_fit_kwargs(X_train, y_train, X_val, y_val) -> dict:
+    """Fit kwargs for Ridge/ElasticNet — no eval_set needed.
+
+    Linear models use built-in CV for alpha selection, so no
+    early stopping or eval_set is needed during walk-forward CV.
+
+    Returns:
+        Empty dict.
+    """
+    return {}
 
 
 # ---------------------------------------------------------------------------
@@ -247,21 +329,25 @@ def player_walk_forward_cv(
         mae = float(mean_absolute_error(y_val, preds))
         fold_maes.append(mae)
 
-        fold_details.append({
-            "train_seasons": train_seasons,
-            "val_season": val_season,
-            "train_size": len(train),
-            "val_size": len(val),
-            "mae": mae,
-        })
+        fold_details.append(
+            {
+                "train_seasons": train_seasons,
+                "val_season": val_season,
+                "train_size": len(train),
+                "val_size": len(val),
+                "mae": mae,
+            }
+        )
 
         # Collect OOF predictions keyed by row index (NOT game_id)
-        oof_fold = pd.DataFrame({
-            "idx": val.index.values,
-            "season": val["season"].values,
-            "week": val["week"].values,
-            "oof_prediction": preds,
-        })
+        oof_fold = pd.DataFrame(
+            {
+                "idx": val.index.values,
+                "season": val["season"].values,
+                "week": val["week"].values,
+                "oof_prediction": preds,
+            }
+        )
         oof_records.append(oof_fold)
 
     mean_mae = float(np.mean(fold_maes)) if fold_maes else 0.0
@@ -327,7 +413,8 @@ def run_player_feature_selection(
 
         # Filter to positions that have this stat
         relevant_positions = [
-            pos for pos in positions
+            pos
+            for pos in positions
             if representative in POSITION_STAT_PROFILE.get(pos, [])
         ]
         if not relevant_positions:
@@ -370,9 +457,7 @@ def run_player_feature_selection(
             X, y, test_size=0.2, random_state=params_copy.get("random_state", 42)
         )
 
-        model = xgb.XGBRegressor(
-            early_stopping_rounds=early_stopping, **params_copy
-        )
+        model = xgb.XGBRegressor(early_stopping_rounds=early_stopping, **params_copy)
         model.fit(X_train, y_train, eval_set=[(X_eval, y_eval)], verbose=False)
 
         # Compute SHAP importances
@@ -384,9 +469,7 @@ def run_player_feature_selection(
         shap_values = explainer.shap_values(X_sample)
         mean_abs_shap = np.mean(np.abs(shap_values), axis=0)
 
-        shap_scores = {
-            col: float(score) for col, score in zip(active, mean_abs_shap)
-        }
+        shap_scores = {col: float(score) for col, score in zip(active, mean_abs_shap)}
 
         # Correlation filtering
         surviving, _, _ = filter_correlated_features(
@@ -521,6 +604,123 @@ def train_position_models(
     return results
 
 
+def train_position_models_linear(
+    pos_data: pd.DataFrame,
+    position: str,
+    feature_cols: List[str],
+    model_type: str = "ridge",
+    output_dir: str = "models/player",
+) -> Dict[str, Any]:
+    """Train Ridge or ElasticNet models for all stats of one position.
+
+    Unlike XGBoost, linear models:
+    - Use ALL features (L2/L1 regularization handles multicollinearity)
+    - Skip SHAP-based feature selection
+    - Need NaN imputation (handled inside the Pipeline)
+    - Use _linear_fit_kwargs (no eval_set or early stopping)
+
+    Args:
+        pos_data: Position-filtered DataFrame.
+        position: Position code (e.g., 'QB', 'RB').
+        feature_cols: All candidate feature columns (no per-group splitting).
+        model_type: One of 'ridge' or 'elasticnet'.
+        output_dir: Directory to save models. Default 'models/player'.
+
+    Returns:
+        Dict mapping stat -> {model, walk_forward_result, oof_df, features}.
+    """
+    import joblib
+
+    stats = POSITION_STAT_PROFILE.get(position, [])
+    results: Dict[str, Any] = {}
+
+    if model_type == "ridge":
+        factory = create_ridge_pipeline
+    elif model_type == "elasticnet":
+        factory = create_elasticnet_pipeline
+    else:
+        raise ValueError(
+            f"Unknown model_type '{model_type}'. Use 'ridge' or 'elasticnet'."
+        )
+
+    # Use all available feature columns
+    available = [f for f in feature_cols if f in pos_data.columns]
+    if not available:
+        logger.warning(f"No available features for {position}")
+        return results
+
+    # Drop zero-variance features (Ridge can handle them, but they add noise)
+    non_holdout = pos_data[pos_data["season"] != HOLDOUT_SEASON]
+    nonzero_var = [
+        f for f in available if f in non_holdout.columns and non_holdout[f].var() > 0.0
+    ]
+    logger.info(
+        f"{position}: {len(nonzero_var)} non-zero-variance features "
+        f"(from {len(available)} available)"
+    )
+
+    for stat in stats:
+        # Drop rows with NaN target
+        stat_data = pos_data.dropna(subset=[stat]).copy()
+        if stat_data.empty:
+            logger.warning(f"No non-NaN rows for {position}/{stat}")
+            continue
+
+        # Exclude holdout from training
+        stat_data = stat_data[stat_data["season"] != HOLDOUT_SEASON]
+
+        # Walk-forward CV with linear model
+        wf_result, oof_df = player_walk_forward_cv(
+            stat_data,
+            nonzero_var,
+            stat,
+            model_factory=factory,
+            fit_kwargs_fn=_linear_fit_kwargs,
+        )
+
+        # Train final model on all non-holdout data
+        final_model = factory()
+        X_all = stat_data[nonzero_var]
+        y_all = stat_data[stat]
+        final_model.fit(X_all, y_all)
+
+        # Save model via joblib (sklearn Pipeline, not XGBoost JSON)
+        pos_dir = os.path.join(output_dir, position.lower())
+        os.makedirs(pos_dir, exist_ok=True)
+        model_path = os.path.join(pos_dir, f"{stat}_{model_type}.joblib")
+        joblib.dump(final_model, model_path)
+
+        metadata = {
+            "position": position,
+            "stat": stat,
+            "model_type": model_type,
+            "mean_mae": wf_result.mean_mae,
+            "fold_maes": wf_result.fold_maes,
+            "n_features": len(nonzero_var),
+            "features": nonzero_var,
+            "training_seasons": sorted(stat_data["season"].unique().tolist()),
+            "n_training_rows": len(stat_data),
+            "timestamp": datetime.utcnow().isoformat(),
+        }
+        meta_path = os.path.join(pos_dir, f"{stat}_{model_type}_meta.json")
+        with open(meta_path, "w") as f:
+            json.dump(metadata, f, indent=2)
+
+        results[stat] = {
+            "model": final_model,
+            "walk_forward_result": wf_result,
+            "oof_df": oof_df,
+            "features": nonzero_var,
+        }
+
+        logger.info(
+            f"Trained {model_type} {position}/{stat}: MAE={wf_result.mean_mae:.3f} "
+            f"({len(nonzero_var)} features, {len(stat_data)} rows)"
+        )
+
+    return results
+
+
 # ---------------------------------------------------------------------------
 # Ensemble stacking: XGB + LGB + Ridge meta-learner
 # ---------------------------------------------------------------------------
@@ -644,9 +844,7 @@ def player_ensemble_stacking(
         # Assemble OOF matrix and train Ridge
         oof_matrix = assemble_player_oof_matrix(xgb_oof, lgb_oof, stat_data, stat)
         if oof_matrix.empty or len(oof_matrix) < 10:
-            logger.warning(
-                f"Insufficient OOF data for {position}/{stat} ensemble"
-            )
+            logger.warning(f"Insufficient OOF data for {position}/{stat} ensemble")
             continue
 
         ridge = train_player_ridge_meta(oof_matrix)
@@ -793,6 +991,47 @@ def predict_player_stats(
     return result_df
 
 
+def predict_player_stats_linear(
+    model_dict: Dict[str, Any],
+    player_data: pd.DataFrame,
+    position: str,
+) -> pd.DataFrame:
+    """Predict all stats for a position using linear models.
+
+    Linear model results store their feature list under the 'features' key,
+    so this function does not need feature_cols_by_group.
+
+    Args:
+        model_dict: Dict mapping stat -> {model, features, ...}
+            (from train_position_models_linear).
+        player_data: Player-week DataFrame to predict on.
+        position: Position code.
+
+    Returns:
+        DataFrame with pred_{stat} columns for each predicted stat.
+    """
+    result_df = player_data.copy()
+    stats = POSITION_STAT_PROFILE.get(position, [])
+
+    for stat in stats:
+        if stat not in model_dict:
+            result_df[f"pred_{stat}"] = np.nan
+            continue
+
+        model = model_dict[stat]["model"]
+        features = model_dict[stat].get("features", [])
+        available = [f for f in features if f in player_data.columns]
+
+        if not available:
+            result_df[f"pred_{stat}"] = np.nan
+            continue
+
+        preds = model.predict(player_data[available])
+        result_df[f"pred_{stat}"] = preds
+
+    return result_df
+
+
 # ---------------------------------------------------------------------------
 # Ship gate: heuristic baseline comparison
 # ---------------------------------------------------------------------------
@@ -906,7 +1145,9 @@ def compute_position_mae(
         return 0.0
 
     mae = float(
-        np.mean(np.abs(pred_df.loc[valid, output_col] - actual_df.loc[valid, actual_col]))
+        np.mean(
+            np.abs(pred_df.loc[valid, output_col] - actual_df.loc[valid, actual_col])
+        )
     )
     return mae
 
@@ -962,9 +1203,7 @@ def ship_gate_verdict(
 
     # D-08 + D-10: Dual agreement at 4% threshold
     ship = (
-        holdout_improvement >= 0.04
-        and oof_improvement >= 0.04
-        and not safety_violation
+        holdout_improvement >= 0.04 and oof_improvement >= 0.04 and not safety_violation
     )
 
     return {

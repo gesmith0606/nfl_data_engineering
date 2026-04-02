@@ -22,6 +22,7 @@ import pandas as pd
 from projection_engine import (
     POSITION_STAT_PROFILE,
     add_floor_ceiling,
+    apply_team_constraints,
     generate_weekly_projections,
 )
 from player_model_training import (
@@ -221,9 +222,15 @@ def compute_fantasy_intervals(
     floor_df = pd.DataFrame([floor_stats])
     ceiling_df = pd.DataFrame([ceiling_stats])
 
-    pts = calculate_fantasy_points_df(point_df, scoring_format, output_col="pts")["pts"].iloc[0]
-    floor_pts = calculate_fantasy_points_df(floor_df, scoring_format, output_col="pts")["pts"].iloc[0]
-    ceiling_pts = calculate_fantasy_points_df(ceiling_df, scoring_format, output_col="pts")["pts"].iloc[0]
+    pts = calculate_fantasy_points_df(point_df, scoring_format, output_col="pts")[
+        "pts"
+    ].iloc[0]
+    floor_pts = calculate_fantasy_points_df(floor_df, scoring_format, output_col="pts")[
+        "pts"
+    ].iloc[0]
+    ceiling_pts = calculate_fantasy_points_df(
+        ceiling_df, scoring_format, output_col="pts"
+    )["pts"].iloc[0]
 
     return float(pts), float(floor_pts), float(ceiling_pts)
 
@@ -285,7 +292,10 @@ def check_team_total_coherence(
     if implied_totals is None or projections.empty:
         return []
 
-    if "recent_team" not in projections.columns or "projected_points" not in projections.columns:
+    if (
+        "recent_team" not in projections.columns
+        or "projected_points" not in projections.columns
+    ):
         return []
 
     warnings: List[str] = []
@@ -319,6 +329,7 @@ def generate_ml_projections(
     schedules_df: Optional[pd.DataFrame] = None,
     implied_totals: Optional[Dict[str, float]] = None,
     model_dir: str = "models/player",
+    apply_constraints: bool = False,
 ) -> pd.DataFrame:
     """Generate projections routing each position to ML or heuristic.
 
@@ -339,6 +350,9 @@ def generate_ml_projections(
         schedules_df: Optional game schedule DataFrame for bye detection.
         implied_totals: Optional dict of {team: implied_points}.
         model_dir: Base directory for models and ship gate report.
+        apply_constraints: If True and implied_totals is provided, apply
+            team-level constraints via ``apply_team_constraints()``
+            after all projections are merged. Default False.
 
     Returns:
         Combined projections DataFrame sorted by projected_points desc,
@@ -350,8 +364,13 @@ def generate_ml_projections(
     if not verdicts:
         logger.warning("No ship gate verdicts; using full heuristic projections")
         result = generate_weekly_projections(
-            silver_df, opp_rankings, season, week, scoring_format,
-            schedules_df, implied_totals,
+            silver_df,
+            opp_rankings,
+            season,
+            week,
+            scoring_format,
+            schedules_df,
+            implied_totals,
         )
         result = add_floor_ceiling(result)
         result["projection_source"] = "heuristic"
@@ -372,8 +391,13 @@ def generate_ml_projections(
     # ---- Heuristic positions (SKIP) ----
     if skip_positions:
         heuristic_result = generate_weekly_projections(
-            silver_df, opp_rankings, season, week, scoring_format,
-            schedules_df, implied_totals,
+            silver_df,
+            opp_rankings,
+            season,
+            week,
+            scoring_format,
+            schedules_df,
+            implied_totals,
         )
         heuristic_result = add_floor_ceiling(heuristic_result)
         # Filter to skip positions only
@@ -412,7 +436,9 @@ def generate_ml_projections(
             combined[col] = np.nan
 
     # Sort and rank
-    combined = combined.sort_values("projected_points", ascending=False).reset_index(drop=True)
+    combined = combined.sort_values("projected_points", ascending=False).reset_index(
+        drop=True
+    )
     if "position_rank" not in combined.columns:
         combined["position_rank"] = (
             combined.groupby("position")["projected_points"]
@@ -420,6 +446,15 @@ def generate_ml_projections(
             .astype(int)
         )
     combined["overall_rank"] = range(1, len(combined) + 1)
+
+    # Team constraints (opt-in)
+    if apply_constraints and implied_totals is not None:
+        combined = apply_team_constraints(
+            combined,
+            implied_totals,
+            scoring_format=scoring_format,
+        )
+        logger.info("Team constraints applied to ML projections")
 
     # Team-total coherence check
     warnings = check_team_total_coherence(combined, implied_totals)
@@ -515,7 +550,9 @@ def _generate_ml_for_position(
                 fallback_players = target_df.copy()
             else:
                 # Predict
-                pred_df = predict_player_stats(model_dict, ml_players, position, feature_cols)
+                pred_df = predict_player_stats(
+                    model_dict, ml_players, position, feature_cols
+                )
 
                 # Rename pred_{stat} to proj_{stat} for output consistency
                 rename_map = {}
@@ -532,7 +569,9 @@ def _generate_ml_for_position(
                 }
                 scoring_input = pred_df.rename(columns=scoring_rename)
                 scoring_input = calculate_fantasy_points_df(
-                    scoring_input, scoring_format=scoring_format, output_col="projected_points"
+                    scoring_input,
+                    scoring_format=scoring_format,
+                    output_col="projected_points",
                 )
 
                 # Build output
@@ -551,7 +590,14 @@ def _generate_ml_for_position(
                 # MAPIE intervals or heuristic floor/ceiling
                 if HAS_MAPIE:
                     # Attempt MAPIE intervals per stat
-                    _apply_mapie_intervals(ml_out, model_dict, ml_players, feature_cols, position, scoring_format)
+                    _apply_mapie_intervals(
+                        ml_out,
+                        model_dict,
+                        ml_players,
+                        feature_cols,
+                        position,
+                        scoring_format,
+                    )
                 else:
                     ml_out = add_floor_ceiling(ml_out)
 
@@ -561,8 +607,13 @@ def _generate_ml_for_position(
         # ---- Heuristic fallback for rookies/thin-data ----
         if not fallback_players.empty:
             heuristic_all = generate_weekly_projections(
-                silver_df, opp_rankings, season, week, scoring_format,
-                schedules_df, implied_totals,
+                silver_df,
+                opp_rankings,
+                season,
+                week,
+                scoring_format,
+                schedules_df,
+                implied_totals,
             )
             heuristic_all = add_floor_ceiling(heuristic_all)
             fallback_ids = set(fallback_players["player_id"].values)
@@ -580,11 +631,18 @@ def _generate_ml_for_position(
         return pd.concat(results, ignore_index=True)
 
     except Exception as e:
-        logger.error("ML projection failed for %s: %s; falling back to heuristic", position, e)
+        logger.error(
+            "ML projection failed for %s: %s; falling back to heuristic", position, e
+        )
         # Full heuristic fallback on error
         heuristic = generate_weekly_projections(
-            silver_df, opp_rankings, season, week, scoring_format,
-            schedules_df, implied_totals,
+            silver_df,
+            opp_rankings,
+            season,
+            week,
+            scoring_format,
+            schedules_df,
+            implied_totals,
         )
         heuristic = add_floor_ceiling(heuristic)
         heuristic = heuristic[heuristic["position"] == position].copy()

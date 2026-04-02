@@ -15,7 +15,7 @@ import os
 import argparse
 import logging
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 import pandas as pd
 import numpy as np
@@ -28,8 +28,15 @@ from player_analytics import (
     compute_usage_metrics,
     compute_rolling_averages,
     compute_opponent_rankings,
+    compute_implied_team_totals,
 )
 from projection_engine import generate_weekly_projections
+
+try:
+    from ml_projection_router import generate_ml_projections
+    HAS_ML_ROUTER = True
+except ImportError:
+    HAS_ML_ROUTER = False
 
 logging.basicConfig(level=logging.WARNING, format='%(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -103,8 +110,33 @@ def _prepare_weekly(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def _compute_week_implied_totals(
+    schedules_df: pd.DataFrame, week: int
+) -> Optional[Dict]:
+    """Compute per-team implied scoring totals from schedule lines for a week."""
+    required = {"week", "home_team", "away_team", "total_line", "spread_line"}
+    if schedules_df.empty or not required.issubset(schedules_df.columns):
+        return None
+
+    games = schedules_df[schedules_df["week"] == week].dropna(
+        subset=["total_line", "spread_line"]
+    )
+    if games.empty:
+        return None
+
+    implied: Dict[str, float] = {}
+    for _, row in games.iterrows():
+        total = float(row["total_line"])
+        spread = float(row["spread_line"])
+        implied[row["home_team"]] = round((total - spread) / 2, 2)
+        implied[row["away_team"]] = round((total + spread) / 2, 2)
+
+    return implied
+
+
 def run_backtest(seasons: List[int], weeks: Optional[List[int]],
-                 scoring_format: str) -> pd.DataFrame:
+                 scoring_format: str, use_ml: bool = False,
+                 apply_constraints: bool = False) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks."""
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), '..')
@@ -128,15 +160,22 @@ def run_backtest(seasons: List[int], weeks: Optional[List[int]],
 
     weekly_df = _prepare_weekly(weekly_df)
 
-    # Load schedules for opponent rankings
+    # Load schedules for opponent rankings (and implied totals if --constrain)
     sched_dfs = []
     for s in sorted(all_seasons):
         local = _load_local_parquet(bronze_dir, f"games/season={s}/*.parquet")
+        if local.empty:
+            local = _load_local_parquet(bronze_dir, f"schedules/season={s}/*.parquet")
         if not local.empty:
+            if 'season' not in local.columns:
+                local['season'] = s
             sched_dfs.append(local)
     schedules_df = pd.concat(sched_dfs, ignore_index=True) if sched_dfs else pd.DataFrame()
     if not schedules_df.empty:
         print(f"Loaded {len(schedules_df):,} schedule rows")
+        if apply_constraints:
+            has_lines = {'total_line', 'spread_line'}.issubset(schedules_df.columns)
+            print(f"  Constraints enabled — Vegas lines available: {has_lines}")
 
     results = []
     total_weeks = 0
@@ -159,13 +198,41 @@ def run_backtest(seasons: List[int], weeks: Optional[List[int]],
             except Exception:
                 opp_rankings = pd.DataFrame()
 
+            # Compute implied totals for constraints (if enabled)
+            implied_totals = None
+            sched_for_week = None
+            if apply_constraints and not schedules_df.empty:
+                week_sched = schedules_df[
+                    schedules_df.get('season', pd.Series(dtype=int)).eq(season)
+                ] if 'season' in schedules_df.columns else schedules_df
+                implied_totals = _compute_week_implied_totals(week_sched, week)
+                if implied_totals:
+                    sched_for_week = week_sched
+
             # Generate projections
             try:
-                projections = generate_weekly_projections(
-                    silver_df, opp_rankings,
-                    season=season, week=week,
-                    scoring_format=scoring_format,
-                )
+                if use_ml and HAS_ML_ROUTER:
+                    projections = generate_ml_projections(
+                        silver_df, opp_rankings,
+                        season=season, week=week,
+                        scoring_format=scoring_format,
+                        schedules_df=sched_for_week if sched_for_week is not None else (
+                            schedules_df if not schedules_df.empty else None
+                        ),
+                        implied_totals=implied_totals,
+                        apply_constraints=apply_constraints,
+                    )
+                else:
+                    projections = generate_weekly_projections(
+                        silver_df, opp_rankings,
+                        season=season, week=week,
+                        scoring_format=scoring_format,
+                        schedules_df=sched_for_week if sched_for_week is not None else (
+                            schedules_df if not schedules_df.empty else None
+                        ),
+                        implied_totals=implied_totals,
+                        apply_constraints=apply_constraints,
+                    )
             except Exception as e:
                 print(f"FAIL ({e})")
                 continue
@@ -244,6 +311,18 @@ def print_summary(results_df: pd.DataFrame, scoring_format: str):
         p_bias = pos_data['error'].mean()
         print(f"  {pos:<10} {p_mae:>8.2f} {p_rmse:>8.2f} {p_corr:>8.3f} {p_bias:>+8.2f} {len(pos_data):>8,}")
 
+    # ML vs heuristic breakdown (if projection_source column exists)
+    if 'projection_source' in results_df.columns:
+        print(f"\nBy Projection Source:")
+        print(f"  {'Source':<12} {'MAE':>8} {'RMSE':>8} {'Bias':>8} {'Count':>8}")
+        print(f"  {'-' * 44}")
+        for src in sorted(results_df['projection_source'].unique()):
+            src_data = results_df[results_df['projection_source'] == src]
+            s_mae = src_data['abs_error'].mean()
+            s_rmse = np.sqrt((src_data['error'] ** 2).mean())
+            s_bias = src_data['error'].mean()
+            print(f"  {src:<12} {s_mae:>8.2f} {s_rmse:>8.2f} {s_bias:>+8.2f} {len(src_data):>8,}")
+
     # Biggest misses
     print(f"\nTop 10 Biggest Misses:")
     top_misses = results_df.nlargest(10, 'abs_error')
@@ -263,6 +342,10 @@ def main():
                         help='Week range: "3-18" or "1,5,10" (default: 3-18)')
     parser.add_argument('--scoring', choices=formats, default='half_ppr',
                         help='Scoring format (default: half_ppr)')
+    parser.add_argument('--ml', action='store_true',
+                        help='Use ML projection router (QB via ML, RB/WR/TE heuristic)')
+    parser.add_argument('--constrain', action='store_true',
+                        help='Apply team-level constraints so player totals align with implied team totals')
     parser.add_argument('--output-dir', default='output/backtest',
                         help='Output directory for results CSV')
     args = parser.parse_args()
@@ -271,12 +354,17 @@ def main():
     weeks = parse_weeks(args.weeks) if args.weeks else None
 
     print(f"\nNFL Fantasy Projection Backtester")
-    print(f"Seasons: {seasons} | Scoring: {args.scoring.upper()}")
+    mode = "ML (QB→ML, RB/WR/TE→heuristic)" if args.ml else "Heuristic"
+    constrain_label = " | Constraints: ON" if args.constrain else ""
+    print(f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}{constrain_label}")
+    if args.ml and not HAS_ML_ROUTER:
+        print("WARNING: --ml flag set but ml_projection_router not available; using heuristic")
     if weeks:
         print(f"Weeks: {weeks}")
     print('=' * 60)
 
-    results = run_backtest(seasons, weeks, args.scoring)
+    results = run_backtest(seasons, weeks, args.scoring, use_ml=args.ml,
+                           apply_constraints=args.constrain)
 
     if results.empty:
         print("\nERROR: No backtest results generated.")
@@ -287,7 +375,9 @@ def main():
     # Save results
     os.makedirs(args.output_dir, exist_ok=True)
     ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-    csv_path = os.path.join(args.output_dir, f"backtest_{args.scoring}_{ts}.csv")
+    ml_tag = "_ml" if args.ml else ""
+    constrain_tag = "_constrained" if args.constrain else ""
+    csv_path = os.path.join(args.output_dir, f"backtest_{args.scoring}{ml_tag}{constrain_tag}_{ts}.csv")
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")
 

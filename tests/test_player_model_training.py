@@ -66,7 +66,9 @@ def _make_synthetic_player_data(seasons, weeks_per_season=4, players_per_pos=3):
                         "implied_team_total": np.random.uniform(18, 30),
                         "spread_line": np.random.uniform(-10, 10),
                         # Label columns (same-week actuals)
-                        "passing_yards": np.random.randint(0, 400) if pos == "QB" else 0,
+                        "passing_yards": (
+                            np.random.randint(0, 400) if pos == "QB" else 0
+                        ),
                         "passing_tds": np.random.randint(0, 4) if pos == "QB" else 0,
                         "interceptions": np.random.randint(0, 3) if pos == "QB" else 0,
                         "rushing_yards": np.random.randint(0, 120),
@@ -126,10 +128,19 @@ class TestPlayerModelTraining:
 
         df = _make_synthetic_player_data(seasons=[2020, 2021, 2022, 2023, 2024])
         feature_cols = [
-            "rushing_yards_roll3", "rushing_yards_roll6", "rushing_yards_std",
-            "passing_yards_roll3", "receiving_yards_roll3", "target_share_roll3",
-            "snap_pct_roll3", "carry_share_roll3", "targets_roll3", "carries_roll3",
-            "def_epa_per_play_lag1", "implied_team_total", "spread_line",
+            "rushing_yards_roll3",
+            "rushing_yards_roll6",
+            "rushing_yards_std",
+            "passing_yards_roll3",
+            "receiving_yards_roll3",
+            "target_share_roll3",
+            "snap_pct_roll3",
+            "carry_share_roll3",
+            "targets_roll3",
+            "carries_roll3",
+            "def_epa_per_play_lag1",
+            "implied_team_total",
+            "spread_line",
         ]
         # Use only RB data to keep it simple
         rb_data = df[df["position"] == "RB"].copy()
@@ -155,14 +166,19 @@ class TestPlayerModelTraining:
 
     def test_holdout_guard(self):
         """player_walk_forward_cv raises ValueError if holdout season in val seasons."""
-        from player_model_training import player_walk_forward_cv, PLAYER_VALIDATION_SEASONS
+        from player_model_training import (
+            player_walk_forward_cv,
+            PLAYER_VALIDATION_SEASONS,
+        )
 
         # Create data that includes the holdout season
         df = _make_synthetic_player_data(
             seasons=[2020, 2021, 2022, 2023, 2024, HOLDOUT_SEASON]
         )
         feature_cols = [
-            "rushing_yards_roll3", "rushing_yards_roll6", "rushing_yards_std",
+            "rushing_yards_roll3",
+            "rushing_yards_roll6",
+            "rushing_yards_std",
         ]
         rb_data = df[df["position"] == "RB"].copy()
 
@@ -175,7 +191,10 @@ class TestPlayerModelTraining:
         # but if someone passes val_seasons with holdout, it should reject
         with pytest.raises(ValueError, match="HOLDOUT_SEASON"):
             player_walk_forward_cv(
-                rb_data, feature_cols, "rushing_yards", model_factory,
+                rb_data,
+                feature_cols,
+                "rushing_yards",
+                model_factory,
                 val_seasons=[2022, 2023, HOLDOUT_SEASON],
             )
 
@@ -196,16 +215,20 @@ class TestPlayerModelTraining:
     def test_stat_to_fantasy_conversion(self):
         """Predict raw stats then convert to fantasy points via calculate_fantasy_points_df."""
         # Simulate predicted stats for a single player-week
-        pred_df = pd.DataFrame([{
-            "passing_yards": 280.0,
-            "passing_tds": 2.0,
-            "interceptions": 1.0,
-            "rushing_yards": 25.0,
-            "rushing_tds": 0.0,
-            "receptions": 0.0,
-            "receiving_yards": 0.0,
-            "receiving_tds": 0.0,
-        }])
+        pred_df = pd.DataFrame(
+            [
+                {
+                    "passing_yards": 280.0,
+                    "passing_tds": 2.0,
+                    "interceptions": 1.0,
+                    "rushing_yards": 25.0,
+                    "rushing_tds": 0.0,
+                    "receptions": 0.0,
+                    "receiving_yards": 0.0,
+                    "receiving_tds": 0.0,
+                }
+            ]
+        )
 
         result = calculate_fantasy_points_df(pred_df, scoring_format="half_ppr")
         # Manual: 280*0.04 + 2*4 + 1*(-2) + 25*0.1 + 0 = 11.2 + 8 - 2 + 2.5 = 19.7
@@ -218,10 +241,19 @@ class TestPlayerModelTraining:
 
         df = _make_synthetic_player_data(seasons=[2020, 2021, 2022, 2023, 2024])
         feature_cols = [
-            "rushing_yards_roll3", "rushing_yards_roll6", "rushing_yards_std",
-            "passing_yards_roll3", "receiving_yards_roll3", "target_share_roll3",
-            "snap_pct_roll3", "carry_share_roll3", "targets_roll3", "carries_roll3",
-            "def_epa_per_play_lag1", "implied_team_total", "spread_line",
+            "rushing_yards_roll3",
+            "rushing_yards_roll6",
+            "rushing_yards_std",
+            "passing_yards_roll3",
+            "receiving_yards_roll3",
+            "target_share_roll3",
+            "snap_pct_roll3",
+            "carry_share_roll3",
+            "targets_roll3",
+            "carries_roll3",
+            "def_epa_per_play_lag1",
+            "implied_team_total",
+            "spread_line",
         ]
 
         result = run_player_feature_selection(
@@ -242,9 +274,8 @@ class TestPlayerModelTraining:
         with tempfile.TemporaryDirectory() as tmpdir:
             # Train a tiny model directly (no early stopping for simplicity)
             import xgboost as xgb_lib
-            model = xgb_lib.XGBRegressor(
-                n_estimators=10, max_depth=2, verbosity=0
-            )
+
+            model = xgb_lib.XGBRegressor(n_estimators=10, max_depth=2, verbosity=0)
             X = np.random.rand(20, 3)
             y = np.random.rand(20)
             model.fit(X, y)
@@ -312,21 +343,28 @@ class TestPlayerModelTraining:
         """assemble_player_oof_matrix merges XGB and LGB OOF on idx with actual target."""
         from player_model_training import assemble_player_oof_matrix
 
-        xgb_oof = pd.DataFrame({
-            "idx": [0, 1, 2, 3],
-            "season": [2022, 2022, 2023, 2023],
-            "week": [1, 2, 1, 2],
-            "oof_prediction": [50.0, 60.0, 70.0, 80.0],
-        })
-        lgb_oof = pd.DataFrame({
-            "idx": [0, 1, 2, 3],
-            "season": [2022, 2022, 2023, 2023],
-            "week": [1, 2, 1, 2],
-            "oof_prediction": [52.0, 58.0, 72.0, 78.0],
-        })
-        pos_data = pd.DataFrame({
-            "rushing_yards": [55.0, 62.0, 68.0, 82.0],
-        }, index=[0, 1, 2, 3])
+        xgb_oof = pd.DataFrame(
+            {
+                "idx": [0, 1, 2, 3],
+                "season": [2022, 2022, 2023, 2023],
+                "week": [1, 2, 1, 2],
+                "oof_prediction": [50.0, 60.0, 70.0, 80.0],
+            }
+        )
+        lgb_oof = pd.DataFrame(
+            {
+                "idx": [0, 1, 2, 3],
+                "season": [2022, 2022, 2023, 2023],
+                "week": [1, 2, 1, 2],
+                "oof_prediction": [52.0, 58.0, 72.0, 78.0],
+            }
+        )
+        pos_data = pd.DataFrame(
+            {
+                "rushing_yards": [55.0, 62.0, 68.0, 82.0],
+            },
+            index=[0, 1, 2, 3],
+        )
 
         result = assemble_player_oof_matrix(xgb_oof, lgb_oof, pos_data, "rushing_yards")
 
@@ -359,20 +397,22 @@ class TestPlayerModelTraining:
         # Create minimal synthetic data
         np.random.seed(42)
         n = 100
-        pos_data = pd.DataFrame({
-            "season": [2020] * 25 + [2021] * 25 + [2022] * 25 + [2023] * 25,
-            "week": list(range(1, 26)) * 4,
-            "position": ["RB"] * n,
-            "feat1": np.random.rand(n),
-            "feat2": np.random.rand(n),
-            "rushing_yards": np.random.uniform(20, 120, n),
-            "rushing_tds": np.random.randint(0, 3, n).astype(float),
-            "receptions": np.random.randint(0, 8, n).astype(float),
-            "receiving_yards": np.random.uniform(0, 80, n),
-            "receiving_tds": np.random.randint(0, 2, n).astype(float),
-            "targets": np.random.randint(0, 10, n).astype(float),
-            "carries": np.random.randint(5, 25, n).astype(float),
-        })
+        pos_data = pd.DataFrame(
+            {
+                "season": [2020] * 25 + [2021] * 25 + [2022] * 25 + [2023] * 25,
+                "week": list(range(1, 26)) * 4,
+                "position": ["RB"] * n,
+                "feat1": np.random.rand(n),
+                "feat2": np.random.rand(n),
+                "rushing_yards": np.random.uniform(20, 120, n),
+                "rushing_tds": np.random.randint(0, 3, n).astype(float),
+                "receptions": np.random.randint(0, 8, n).astype(float),
+                "receiving_yards": np.random.uniform(0, 80, n),
+                "receiving_tds": np.random.randint(0, 2, n).astype(float),
+                "targets": np.random.randint(0, 10, n).astype(float),
+                "carries": np.random.randint(5, 25, n).astype(float),
+            }
+        )
         pos_data.index = range(n)
 
         feature_cols_by_group = {
@@ -395,3 +435,177 @@ class TestPlayerModelTraining:
             assert "oof_matrix" in results[first_stat]
             assert "xgb_wf" in results[first_stat]
             assert "lgb_wf" in results[first_stat]
+
+    # -------------------------------------------------------------------
+    # Ridge / ElasticNet model factory tests (Track 1)
+    # -------------------------------------------------------------------
+
+    def test_create_ridge_pipeline(self):
+        """create_ridge_pipeline returns a Pipeline that handles NaN and fits."""
+        from player_model_training import create_ridge_pipeline
+
+        pipeline = create_ridge_pipeline()
+        assert hasattr(pipeline, "fit")
+        assert hasattr(pipeline, "predict")
+
+        # Fit with NaN values -- should not raise
+        X = np.array([[1.0, 2.0], [np.nan, 4.0], [5.0, np.nan], [7.0, 8.0]])
+        y = np.array([1.0, 2.0, 3.0, 4.0])
+        pipeline.fit(X, y)
+
+        preds = pipeline.predict(X)
+        assert len(preds) == 4
+        assert not np.any(np.isnan(preds))
+
+    def test_create_elasticnet_pipeline(self):
+        """create_elasticnet_pipeline returns a Pipeline that handles NaN and fits."""
+        from player_model_training import create_elasticnet_pipeline
+
+        pipeline = create_elasticnet_pipeline()
+        assert hasattr(pipeline, "fit")
+        assert hasattr(pipeline, "predict")
+
+        # Fit with NaN values
+        np.random.seed(42)
+        X = np.random.rand(50, 5)
+        X[0, 0] = np.nan
+        X[10, 2] = np.nan
+        y = X[:, 0] * 3 + X[:, 1] * 2 + np.random.rand(50) * 0.1
+        y[0] = 5.0  # Replace NaN-dependent row
+        pipeline.fit(X, y)
+
+        preds = pipeline.predict(X)
+        assert len(preds) == 50
+        assert not np.any(np.isnan(preds))
+
+    def test_linear_fit_kwargs_returns_empty(self):
+        """_linear_fit_kwargs returns empty dict (no eval_set for linear models)."""
+        from player_model_training import _linear_fit_kwargs
+
+        result = _linear_fit_kwargs(None, None, None, None)
+        assert result == {}
+
+    def test_ridge_walk_forward_cv(self):
+        """Ridge pipeline works inside player_walk_forward_cv."""
+        from player_model_training import (
+            player_walk_forward_cv,
+            create_ridge_pipeline,
+            _linear_fit_kwargs,
+        )
+
+        df = _make_synthetic_player_data(seasons=[2020, 2021, 2022, 2023, 2024])
+        feature_cols = [
+            "rushing_yards_roll3",
+            "rushing_yards_roll6",
+            "rushing_yards_std",
+            "passing_yards_roll3",
+            "receiving_yards_roll3",
+            "target_share_roll3",
+            "snap_pct_roll3",
+            "carry_share_roll3",
+            "targets_roll3",
+            "carries_roll3",
+            "def_epa_per_play_lag1",
+            "implied_team_total",
+            "spread_line",
+        ]
+        rb_data = df[df["position"] == "RB"].copy()
+
+        result, oof_df = player_walk_forward_cv(
+            rb_data,
+            feature_cols,
+            "rushing_yards",
+            model_factory=create_ridge_pipeline,
+            fit_kwargs_fn=_linear_fit_kwargs,
+        )
+
+        # Should produce 3 folds (2022, 2023, 2024)
+        assert len(result.fold_maes) == 3
+        assert result.mean_mae > 0
+        assert len(oof_df) > 0
+        assert "oof_prediction" in oof_df.columns
+
+    def test_train_position_models_linear_ridge(self):
+        """train_position_models_linear trains Ridge for all RB stats."""
+        from player_model_training import train_position_models_linear
+
+        df = _make_synthetic_player_data(seasons=[2020, 2021, 2022, 2023, 2024])
+        rb_data = df[df["position"] == "RB"].copy()
+        feature_cols = [
+            "rushing_yards_roll3",
+            "rushing_yards_roll6",
+            "rushing_yards_std",
+            "passing_yards_roll3",
+            "receiving_yards_roll3",
+            "target_share_roll3",
+            "snap_pct_roll3",
+            "carry_share_roll3",
+            "targets_roll3",
+            "carries_roll3",
+            "def_epa_per_play_lag1",
+            "implied_team_total",
+            "spread_line",
+        ]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            results = train_position_models_linear(
+                rb_data,
+                "RB",
+                feature_cols,
+                model_type="ridge",
+                output_dir=tmpdir,
+            )
+
+        assert isinstance(results, dict)
+        # RB has 6 stats: rushing_yards, rushing_tds, receptions, receiving_yards,
+        # receiving_tds, targets (but not carries since it may not be in labels)
+        assert len(results) > 0
+        for stat, info in results.items():
+            assert "model" in info
+            assert "walk_forward_result" in info
+            assert "oof_df" in info
+            assert "features" in info
+            assert info["walk_forward_result"].mean_mae > 0
+
+    def test_predict_player_stats_linear(self):
+        """predict_player_stats_linear generates pred_{stat} columns."""
+        from player_model_training import (
+            create_ridge_pipeline,
+            predict_player_stats_linear,
+        )
+
+        np.random.seed(42)
+        n = 20
+        features = ["feat1", "feat2", "feat3"]
+        data = pd.DataFrame(
+            {
+                "position": ["RB"] * n,
+                "season": [2024] * n,
+                "week": list(range(1, n + 1)),
+                "feat1": np.random.rand(n),
+                "feat2": np.random.rand(n),
+                "feat3": np.random.rand(n),
+                "rushing_yards": np.random.uniform(20, 100, n),
+                "rushing_tds": np.random.randint(0, 3, n).astype(float),
+                "receptions": np.random.randint(0, 8, n).astype(float),
+                "receiving_yards": np.random.uniform(0, 80, n),
+                "receiving_tds": np.random.randint(0, 2, n).astype(float),
+                "targets": np.random.randint(0, 10, n).astype(float),
+                "carries": np.random.randint(5, 25, n).astype(float),
+            }
+        )
+
+        # Train a simple Ridge for rushing_yards
+        pipeline = create_ridge_pipeline()
+        pipeline.fit(data[features], data["rushing_yards"])
+
+        model_dict = {
+            "rushing_yards": {"model": pipeline, "features": features},
+        }
+
+        result = predict_player_stats_linear(model_dict, data, "RB")
+        assert "pred_rushing_yards" in result.columns
+        assert result["pred_rushing_yards"].notna().all()
+        # Stats not in model_dict should be NaN
+        assert "pred_rushing_tds" in result.columns
+        assert result["pred_rushing_tds"].isna().all()

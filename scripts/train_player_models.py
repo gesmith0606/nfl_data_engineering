@@ -35,10 +35,12 @@ from player_model_training import (
     generate_heuristic_predictions,
     player_ensemble_stacking,
     predict_player_stats,
+    predict_player_stats_linear,
     print_ship_gate_table,
     run_player_feature_selection,
     ship_gate_verdict,
     train_position_models,
+    train_position_models_linear,
 )
 from projection_engine import POSITION_STAT_PROFILE
 
@@ -91,7 +93,14 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["features-only", "ensemble", "both"],
         default="both",
         help="Evaluation stage: features-only (new features, XGB only), "
-             "ensemble (XGB+LGB+Ridge stacking), both (sequential). Default: both.",
+        "ensemble (XGB+LGB+Ridge stacking), both (sequential). Default: both.",
+    )
+    parser.add_argument(
+        "--model-type",
+        choices=["xgb", "ridge", "elasticnet"],
+        default="xgb",
+        help="Model type: xgb (XGBoost, default), ridge (RidgeCV pipeline), "
+        "elasticnet (ElasticNetCV pipeline).",
     )
     return parser
 
@@ -227,20 +236,33 @@ def main():
     # -----------------------------------------------------------------------
     leakage_warnings = detect_leakage(all_data, feature_cols, PLAYER_LABEL_COLUMNS)
     if leakage_warnings:
-        logger.warning("Leakage detected in %d feature-target pairs:", len(leakage_warnings))
+        logger.warning(
+            "Leakage detected in %d feature-target pairs:", len(leakage_warnings)
+        )
         for feat, target, r in leakage_warnings[:10]:
             logger.warning("  %s <-> %s: r=%.3f", feat, target, r)
     else:
         logger.info("No leakage detected")
 
     # -----------------------------------------------------------------------
-    # Step D: Feature selection
+    # Step D: Feature selection (skip for linear models)
     # -----------------------------------------------------------------------
-    if args.skip_feature_selection:
+    model_type = args.model_type
+    use_linear = model_type in ("ridge", "elasticnet")
+
+    if use_linear:
+        logger.info(
+            "Using %s model — skipping SHAP feature selection (L2/L1 handles it)",
+            model_type,
+        )
+        feature_cols_by_group = {}  # Not used for linear models
+    elif args.skip_feature_selection:
         logger.info("Skipping feature selection, loading saved features...")
         feature_cols_by_group = load_saved_features(OUTPUT_DIR)
         if not feature_cols_by_group:
-            logger.error("No saved features found. Run without --skip-feature-selection first.")
+            logger.error(
+                "No saved features found. Run without --skip-feature-selection first."
+            )
             sys.exit(1)
     else:
         logger.info("Running SHAP-based feature selection per stat-type group...")
@@ -263,7 +285,7 @@ def main():
 
     for position in positions:
         logger.info("=" * 60)
-        logger.info("Training position: %s", position)
+        logger.info("Training position: %s (model=%s)", position, model_type)
         logger.info("=" * 60)
 
         stats = POSITION_STAT_PROFILE.get(position, [])
@@ -281,21 +303,26 @@ def main():
 
         # Train all stat models
         try:
-            model_results = train_position_models(
-                pos_data, position, feature_cols_by_group, output_dir=OUTPUT_DIR
-            )
+            if use_linear:
+                model_results = train_position_models_linear(
+                    pos_data,
+                    position,
+                    feature_cols,
+                    model_type=model_type,
+                    output_dir=OUTPUT_DIR,
+                )
+            else:
+                model_results = train_position_models(
+                    pos_data, position, feature_cols_by_group, output_dir=OUTPUT_DIR
+                )
         except Exception as e:
             logger.error("Training failed for %s: %s", position, e)
-            position_results.append(
-                ship_gate_verdict(position, 0.0, 0.0, 0.0, 0.0, [])
-            )
+            position_results.append(ship_gate_verdict(position, 0.0, 0.0, 0.0, 0.0, []))
             continue
 
         if not model_results:
             logger.warning("No models trained for %s", position)
-            position_results.append(
-                ship_gate_verdict(position, 0.0, 0.0, 0.0, 0.0, [])
-            )
+            position_results.append(ship_gate_verdict(position, 0.0, 0.0, 0.0, 0.0, []))
             continue
 
         # Generate OOF ML predictions
@@ -326,7 +353,9 @@ def main():
 
         logger.info(
             "OOF MAE -- %s: ML=%.3f, Heuristic=%.3f",
-            position, oof_ml_mae, oof_heuristic_mae,
+            position,
+            oof_ml_mae,
+            oof_heuristic_mae,
         )
 
         # Per-stat MAE for safety floor (OOF)
@@ -339,11 +368,13 @@ def main():
         per_stat_results = []
         for sr in ml_per_stat:
             heur_mae = heuristic_per_stat_maes.get(sr["stat"], 0.0)
-            per_stat_results.append({
-                "stat": sr["stat"],
-                "ml_mae": sr["ml_mae"],
-                "heuristic_mae": heur_mae,
-            })
+            per_stat_results.append(
+                {
+                    "stat": sr["stat"],
+                    "ml_mae": sr["ml_mae"],
+                    "heuristic_mae": heur_mae,
+                }
+            )
 
         # Holdout evaluation
         if args.holdout_eval:
@@ -351,15 +382,23 @@ def main():
             if holdout_data.empty:
                 logger.warning(
                     "No holdout data (season=%d) for %s. Using OOF-only verdict.",
-                    HOLDOUT_SEASON, position,
+                    HOLDOUT_SEASON,
+                    position,
                 )
                 holdout_ml_mae = oof_ml_mae
                 holdout_heuristic_mae = oof_heuristic_mae
             else:
                 # ML predictions on holdout
-                holdout_ml = predict_player_stats(
-                    model_results, holdout_data, position, feature_cols_by_group
-                )
+                if use_linear:
+                    holdout_ml = predict_player_stats_linear(
+                        model_results,
+                        holdout_data,
+                        position,
+                    )
+                else:
+                    holdout_ml = predict_player_stats(
+                        model_results, holdout_data, position, feature_cols_by_group
+                    )
                 holdout_heuristic = generate_heuristic_predictions(
                     holdout_data, position
                 )
@@ -371,7 +410,9 @@ def main():
                 )
                 logger.info(
                     "Holdout MAE -- %s: ML=%.3f, Heuristic=%.3f",
-                    position, holdout_ml_mae, holdout_heuristic_mae,
+                    position,
+                    holdout_ml_mae,
+                    holdout_heuristic_mae,
                 )
         else:
             # Use OOF as proxy for holdout
@@ -399,16 +440,18 @@ def main():
         )
 
     # -----------------------------------------------------------------------
-    # Step F: Stage 1 — Features-Only Ship Gate
+    # Step F: Stage 1 — Ship Gate
     # -----------------------------------------------------------------------
     stage1_results = list(position_results)  # Copy for Stage 1
     if stage1_results:
+        model_label = model_type.upper()
         print("\n" + "=" * 60)
-        print("=== STAGE 1: Features-Only Ship Gate ===")
+        print(f"=== STAGE 1: {model_label} Ship Gate ===")
         print("=" * 60)
         report1 = build_ship_gate_report(stage1_results, output_dir=OUTPUT_DIR)
         # Save Stage 1 separately
         import json as _json
+
         s1_path = os.path.join(OUTPUT_DIR, "ship_gate_features_only.json")
         with open(s1_path, "w") as f:
             _json.dump(report1, f, indent=2)
@@ -432,7 +475,9 @@ def main():
             print("\n" + "=" * 60)
             print("=== STAGE 2: Ensemble Ship Gate ===")
             print("=" * 60)
-            logger.info("Running ensemble stacking for SKIP positions: %s", skip_positions)
+            logger.info(
+                "Running ensemble stacking for SKIP positions: %s", skip_positions
+            )
 
             for position in skip_positions:
                 pos_data = all_data[all_data["position"] == position].copy()
@@ -487,17 +532,17 @@ def main():
                 per_stat_results_ens = []
                 for sr in ml_per_stat:
                     heur_mae = heur_per_stat.get(sr["stat"], 0.0)
-                    per_stat_results_ens.append({
-                        "stat": sr["stat"],
-                        "ml_mae": sr["ml_mae"],
-                        "heuristic_mae": heur_mae,
-                    })
+                    per_stat_results_ens.append(
+                        {
+                            "stat": sr["stat"],
+                            "ml_mae": sr["ml_mae"],
+                            "heuristic_mae": heur_mae,
+                        }
+                    )
 
                 # Use OOF as proxy for holdout (same logic as Stage 1 default)
                 if args.holdout_eval:
-                    holdout_data = pos_data[
-                        pos_data["season"] == HOLDOUT_SEASON
-                    ].copy()
+                    holdout_data = pos_data[pos_data["season"] == HOLDOUT_SEASON].copy()
                     if not holdout_data.empty:
                         # Ensemble holdout prediction requires XGB+LGB+Ridge inference
                         # For now, use OOF as proxy (holdout inference needs model loading)
