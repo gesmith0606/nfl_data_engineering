@@ -98,19 +98,22 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-- [ ] Game-level constraints (team total allocation)
+- [ ] PBP participation data ingestion (blocker for graph features)
+- [ ] Re-run ship/skip gate with all 22 graph features populated
+- [ ] Kicker projection backtesting
 
-## Current Milestone: v3.0 Player Fantasy Prediction System
+## Current Milestone: v3.1 Graph-Enhanced Fantasy Projections
 
-**Goal:** Replace heuristic player projections with ML-based models that produce the most accurate fantasy point predictions per position.
+**Goal:** Use Neo4j graph features to beat the heuristic baseline for WR/RB/TE fantasy projections, plus add kicker support.
 
 **Target features:**
-- Position-specific ML models trained on historical player performance
-- Opportunity/efficiency decomposition (snap share, target share, rush attempts, efficiency metrics)
-- Matchup context integration from existing Silver layer
-- Game-level constraints (implied team totals, game script)
-- Evaluation framework with per-position MAE/RMSE/correlation benchmarks
-- Walk-forward CV respecting temporal ordering (same patterns as game prediction)
+- PBP participation data ingestion (unlocks 18/22 graph features)
+- WR-CB matchup proxy from co-occurrence data
+- RB OL injury cascade + defensive front scheme matchup features
+- TE coverage mismatch (LB vs Safety) + red zone target share features
+- Ship/skip gate with all graph features populated
+- Kicker fantasy projections with game script + venue multipliers
+- Game-level team total constraints (opt-in)
 
 ### Planned (Future Milestones)
 
@@ -212,6 +215,12 @@ Existing documentation:
 | No hyperparameter re-tuning during holdout rotation | Fair baseline comparison; avoids confounding tuning with holdout change | ✓ Good |
 | SHAP-based feature selection (321→120 features) | Removes noise, preserves signal; diff_opening_spread confirmed as #1 | ✓ Good |
 | Market features SHIP verdict | 50.6% > 50.2% ATS on structurally valid ablation (6 seasons training data) | ✓ Good — definitive answer |
+
+## Previous Milestone: v3.0 Player Fantasy Prediction System
+
+**Shipped:** 2026-04-01 | **Phases:** 39-48 | **Plans:** 15 | **Delivered:** Per-position ML models (QB SHIP), ML projection router, Neo4j infrastructure, 22 graph features (injury cascade, WR/TE/OL matchup, scheme), kicker projections, game-level constraints (opt-in), 841 tests
+
+See `.planning/milestones/v3.0-ROADMAP.md` for full archive.
 
 ## Previous Milestone: v2.2 Full Odds + Holdout Reset
 

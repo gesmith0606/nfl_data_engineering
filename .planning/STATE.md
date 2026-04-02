@@ -1,48 +1,36 @@
 ---
 gsd_state_version: 1.0
-milestone: v3.0
-milestone_name: Player Fantasy Prediction System
-status: unknown
-stopped_at: Completed 42-02-PLAN.md
-last_updated: "2026-04-01T00:50:57.048Z"
+milestone: v3.1
+milestone_name: Graph-Enhanced Fantasy Projections
+status: defining_requirements
+stopped_at: null
+last_updated: "2026-04-02T00:00:00.000Z"
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 8
-  completed_plans: 8
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-29)
+See: .planning/PROJECT.md (updated 2026-04-02)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 42 — pipeline-integration-and-extensions
+**Current focus:** v3.1 — Graph-Enhanced Fantasy Projections
 
 ## Current Milestone
 
-v3.0 Player Fantasy Prediction System -- Phases 39-42
+v3.1 Graph-Enhanced Fantasy Projections
 
 ## Current Position
 
-Phase: 42
-Plan: Not started
-
-## Performance Metrics
-
-**Velocity:**
-
-- Total plans completed: 0 (v3.0)
-- Average duration: --
-- Total execution time: --
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| - | - | - | - |
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-04-02 — Milestone v3.1 started
 
 ## Key Artifacts
 
@@ -53,14 +41,6 @@ Plan: Not started
 | Milestones | .planning/MILESTONES.md |
 | Roadmap | .planning/ROADMAP.md |
 | Requirements | .planning/REQUIREMENTS.md |
-| Research | .planning/research/SUMMARY.md |
-| Phase 39 P01 | 4min | 2 tasks | 3 files |
-| Phase 40 P01 | 33min | 2 tasks | 2 files |
-| Phase 40 P02 | 5min | 2 tasks | 3 files |
-| Phase 41 P01 | 3min | 1 tasks | 3 files |
-| Phase 41 P02 | 5min | 2 tasks | 3 files |
-| Phase 42 P01 | 7min | 1 tasks | 2 files |
-| Phase 42 P02 | 27min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -68,35 +48,29 @@ Plan: Not started
 
 See PROJECT.md Key Decisions table for full history.
 
-- [Phase 39]: Separate player_feature_engineering.py module to keep game-level and player-level assembly independent
-- [Phase 39]: Team-level def_epa_per_play as proxy for position-specific defensive EPA (lagged with shift(1))
-- [Phase 40]: TD/turnover stats use shallower trees (max_depth=3, min_child_weight=10) vs yardage/volume for sparse count data
-- [Phase 40]: Player OOF predictions keyed by row index (not game_id) since player-week data lacks game_id equivalent
-- [Phase 40]: Heuristic baseline re-runs usage_multiplier inline to avoid coupling with projection_engine internals
-- [Phase 41]: Safe division with np.where for ratio features (NaN for zero denominator)
-- [Phase 41]: XGB+LGB+Ridge (no CatBoost) for player ensemble per D-10 design
-- [Phase 41]: Two-stage ship gate: features-only first, ensemble only for SKIP positions
-- [Phase 42]: QB inferred as SHIP when model files exist on disk but absent from ship_gate_report.json
-- [Phase 42]: MAPIE optional with graceful degradation to heuristic floor/ceiling
-- [Phase 42]: Team-total coherence is warn-only, never adjusts projections
-- [Phase 42]: --ml CLI flag is opt-in; default behavior unchanged (backward compatible)
-- [Phase 42]: Draft capital boost: linear decay from 1.20 (pick 1) to 1.00 (pick 64+) for rookie preseason projections
+- [Phase 43]: Game-level constraints SKIP for default — MAE 4.91→5.12 worse, bias improved. Stays opt-in.
+- [Phase 44]: Dual-path architecture — Neo4j for graph queries, pure-pandas fallback when unavailable
+- [Phase 45]: PBP participation stored separately to avoid breaking existing PBP consumers
+- [Phase 46]: Only 4/22 graph features had data — PBP participation ingestion is the blocker
+- [Phase 47]: Scheme features are RB-only (NaN for other positions)
+- [Phase 48]: Kicker projections opt-in via --include-kickers flag
 
 ### Research Flags
 
-- Phase 41 (MAPIE integration): Confirm MapieRegressor wraps stacked model correctly
-- Phase 39: Validate red zone carry share availability in Silver before committing to TD regression approach
-- QB sample size (~300 player-weeks/season): May keep heuristic for QBs if CV does not improve
+- PBP participation data ~10GB for 2016-2025 — storage consideration
+- PFF paid data ($300-500/season) could dramatically improve WR-CB and OL quality features
+- Football Outsiders adjusted line yards as cheaper OL quality proxy
 
 ### Blockers/Concerns
 
-None yet.
+- PBP participation ingestion in progress (running now)
+- 2025 holdout has no injury Bronze data — graph features NaN there
 
 ## Session Continuity
 
-Last session: 2026-04-01T00:46:20.621Z
-Stopped at: Completed 42-02-PLAN.md
+Last session: 2026-04-02
+Stopped at: Milestone v3.1 initialization
 Resume file: None
 
 ---
-*Last updated: 2026-03-29 after v3.0 roadmap created*
+*Last updated: 2026-04-02 — v3.1 milestone started*
