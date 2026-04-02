@@ -1,100 +1,96 @@
-# Requirements: NFL Data Engineering Platform
+# Requirements — v3.1 Graph-Enhanced Fantasy Projections
 
-**Defined:** 2026-03-29
+**Defined:** 2026-04-02
 **Core Value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models
 
-## v3.0 Requirements
+## Data Ingestion
 
-Requirements for ML-based player fantasy prediction system. Each maps to roadmap phases.
+- [ ] **INGEST-01**: PBP participation data ingested for seasons 2020-2025 with offense_players and defense_players columns stored in `data/bronze/pbp_participation/`
+- [ ] **INGEST-02**: PBP participation data extended to 2016-2019 for full training history coverage
+- [ ] **INGEST-03**: Participation ingestion is idempotent (re-runnable without duplicates)
 
-### Feature Assembly
+## Graph Features — WR
 
-- [x] **FEAT-01**: Player-level feature vector assembled from 9 Silver sources into per-player-per-week rows with proper temporal lags
-- [x] **FEAT-02**: All player features use shift(1) to prevent same-game stat leakage
-- [x] **FEAT-03**: Matchup features include opponent defense vs position rank and EPA allowed, lagged to week N-1
-- [x] **FEAT-04**: Vegas implied team totals derived from spread/total lines included as features
+- [ ] **WR-01**: WR-vs-defense EPA features populated from participation data for all training seasons
+- [ ] **WR-02**: WR-CB co-occurrence edges computed from participation data (snap counts where WR targeted while CB on field)
+- [ ] **WR-03**: Similar-WR-vs-defense graph traversal feature (WRs with similar profile vs this defense)
+- [ ] **WR-04**: All WR graph features cached as Silver parquet with temporal lag enforcement
 
-### Model Training
+## Graph Features — RB
 
-- [x] **MODL-01**: Separate gradient boosting models trained per position (QB, RB, WR, TE)
-- [x] **MODL-02**: Walk-forward temporal CV respecting season/week ordering with 2025 holdout sealed
-- [x] **MODL-03**: Per-position MAE/RMSE/correlation evaluation against heuristic baseline (QB:6.58, RB:5.06, WR:4.85, TE:3.77)
-- [x] **MODL-04**: Ship-or-skip gate requiring 4%+ per-position MAE improvement over heuristic to replace it
+- [ ] **RB-01**: OL starter count and backup insertion features populated from participation data
+- [ ] **RB-02**: OL continuity score (rolling % of snaps with same 5 starters) computed per team per week
+- [ ] **RB-03**: Scheme matchup scoring (team run scheme type vs opposing defense front quality)
+- [ ] **RB-04**: Gap-specific YPC vs defense (RB efficiency by run_gap against specific opponent)
+- [ ] **RB-05**: All RB graph features cached as Silver parquet with temporal lag enforcement
 
-### Accuracy
+## Graph Features — TE
 
-- [x] **ACCY-01**: Opportunity-efficiency decomposition predicting shares/volume then per-touch efficiency
-- [x] **ACCY-02**: TD regression features using red zone opportunity share x historical conversion rates
-- [x] **ACCY-03**: Role momentum features (snap share trajectory as breakout/demotion signal)
-- [x] **ACCY-04**: Ensemble stacking (XGB+LGB+CB+Ridge) per position if single model leaves accuracy on the table
+- [ ] **TE-01**: TE-LB/Safety coverage rate computed from participation data (% of TE targets with LB on field)
+- [ ] **TE-02**: Opposing defense fantasy points allowed to TEs (rolling 3 games)
+- [ ] **TE-03**: TE red zone target share redistribution features
+- [ ] **TE-04**: All TE graph features cached as Silver parquet with temporal lag enforcement
 
-### Pipeline & Integration
+## Model Improvement
 
-- [x] **PIPE-01**: Stat-level predictions (yards, TDs, receptions) with scoring formula applied downstream
-- [x] **PIPE-02**: Team-total constraint ensuring player share projections sum to ~100% per team
-- [x] **PIPE-03**: Weekly pipeline wiring into generate_projections.py and draft_assistant.py
-- [x] **PIPE-04**: Heuristic fallback preserved for rookies, thin-data players, and positions where ML doesn't beat baseline
+- [ ] **MODEL-01**: Ship/skip gate re-run with all 22 graph features populated for training data
+- [ ] **MODEL-02**: Per-position MAE comparison: graph-enhanced ML vs heuristic baseline
+- [ ] **MODEL-03**: ML projection router updated for any position that passes ship gate
+- [ ] **MODEL-04**: At least one of RB/WR/TE beats heuristic MAE with graph features
 
-### Extensions
+## Kicker
 
-- [x] **EXTD-01**: Preseason projection mode using prior-season aggregates + draft capital when no current-season data exists
-- [x] **EXTD-02**: ML-derived confidence intervals (MAPIE) for player-specific floor/ceiling bands
+- [ ] **KICK-01**: Kicker projections included in weekly output via `--include-kickers` flag
+- [ ] **KICK-02**: Kicker position added to draft optimizer with VORP replacement rank
+- [ ] **KICK-03**: Kicker backtesting against 2022-2024 actuals with MAE reporting
 
-## Future Requirements
+## Infrastructure
 
-### Graph-Enhanced Predictions (v3.1)
-
-- **GRPH-01**: Neo4j graph database with player relationship edges
-- **GRPH-02**: WR-CB matchup features from snap-level alignment data
-- **GRPH-03**: Target network features (QB-WR connection strength)
-- **GRPH-04**: Graph features integrated into both game and player prediction models
-
-### Production Pipeline (v4.0)
-
-- **PROD-01**: Automated weekly pipeline with drift detection
-- **PROD-02**: Model monitoring and retraining triggers
-- **PROD-03**: FastAPI backend for serving predictions
-
-## Out of Scope
-
-| Feature | Reason |
-|---------|--------|
-| Deep learning / LSTM models | Gradient boosting dominates tabular NFL data at this scale (~50K player-weeks); adds PyTorch/GPU complexity |
-| WR-CB snap-level matchups | Requires Neo4j + snap-level data pipeline; deferred to v3.1 |
-| Real-time in-game projections | Requires streaming infrastructure; weekly batch serves 99% of fantasy use cases |
-| Injury prediction model | Injury occurrence is essentially random; focus on injury *impact* not prediction |
-| Weather as direct feature | Small effect (~2-5%) already captured by Vegas lines; adds noise at player level |
-| Multi-book line comparison | Single consensus line sufficient; v4.0+ concern |
-| Dynasty / multi-year projections | Different problem than weekly projections; separate future milestone |
+- [ ] **INFRA-01**: All existing 841 tests continue passing
+- [ ] **INFRA-02**: Neo4j remains optional — all features have pure-pandas fallback
+- [ ] **INFRA-03**: Graph feature computation cached as Silver parquet for pipeline efficiency
 
 ## Traceability
 
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| FEAT-01 | Phase 39 | Complete |
-| FEAT-02 | Phase 39 | Complete |
-| FEAT-03 | Phase 39 | Complete |
-| FEAT-04 | Phase 39 | Complete |
-| MODL-01 | Phase 40 | Complete |
-| MODL-02 | Phase 40 | Complete |
-| MODL-03 | Phase 40 | Complete |
-| MODL-04 | Phase 40 | Complete |
-| ACCY-01 | Phase 41 | Complete |
-| ACCY-02 | Phase 41 | Complete |
-| ACCY-03 | Phase 41 | Complete |
-| ACCY-04 | Phase 41 | Complete |
-| PIPE-01 | Phase 40 | Complete |
-| PIPE-02 | Phase 42 | Complete |
-| PIPE-03 | Phase 42 | Complete |
-| PIPE-04 | Phase 42 | Complete |
-| EXTD-01 | Phase 42 | Complete |
-| EXTD-02 | Phase 42 | Complete |
+| REQ-ID | Phase | Plan | Status |
+|--------|-------|------|--------|
+| INGEST-01 | 49 | — | — |
+| INGEST-02 | 49 | — | — |
+| INGEST-03 | 49 | — | — |
+| WR-01 | 50 | — | — |
+| WR-02 | 50 | — | — |
+| WR-03 | 50 | — | — |
+| WR-04 | 50 | — | — |
+| RB-01 | 50 | — | — |
+| RB-02 | 50 | — | — |
+| RB-03 | 50 | — | — |
+| RB-04 | 50 | — | — |
+| RB-05 | 50 | — | — |
+| TE-01 | 50 | — | — |
+| TE-02 | 50 | — | — |
+| TE-03 | 50 | — | — |
+| TE-04 | 50 | — | — |
+| MODEL-01 | 51 | — | — |
+| MODEL-02 | 51 | — | — |
+| MODEL-03 | 51 | — | — |
+| MODEL-04 | 51 | — | — |
+| KICK-01 | 52 | — | — |
+| KICK-02 | 52 | — | — |
+| KICK-03 | 52 | — | — |
+| INFRA-01 | all | — | — |
+| INFRA-02 | all | — | — |
+| INFRA-03 | 50 | — | — |
 
-**Coverage:**
-- v3.0 requirements: 18 total
-- Mapped to phases: 18
-- Unmapped: 0
+## Future Requirements (deferred)
 
----
-*Requirements defined: 2026-03-29*
-*Last updated: 2026-03-29 after roadmap phase mapping*
+- PFF paid data integration for true WR-CB coverage assignments
+- Football Outsiders adjusted line yards for OL quality
+- DST fantasy projections
+- Neural embeddings for player similarity
+
+## Out of Scope
+
+- S3 sync (AWS credentials expired)
+- Real-time serving (batch weekly is sufficient)
+- Web UI (v4.0+)
+- Neo4j for game-level predictions (focus is fantasy projections)
