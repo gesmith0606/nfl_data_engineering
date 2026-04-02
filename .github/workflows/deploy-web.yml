@@ -1,0 +1,94 @@
+name: Deploy Web Platform
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - "src/**"
+      - ".github/workflows/deploy-web.yml"
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-2
+
+jobs:
+  # ------------------------------------------------------------------
+  # Frontend: deploy to Vercel
+  # ------------------------------------------------------------------
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'web/frontend') || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web/frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: web/frontend
+        run: npm ci
+
+      - name: Build
+        working-directory: web/frontend
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.API_URL }}
+        run: npm run build
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: web/frontend
+          vercel-args: --prod
+
+  # ------------------------------------------------------------------
+  # Backend: build Docker image and push to ECR
+  # ------------------------------------------------------------------
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push Docker image
+        env:
+          ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          ECR_REPOSITORY: nfl-data-api
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -f web/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Deploy via SAM (Lambda)
+        working-directory: web/api/serverless
+        run: |
+          pip install aws-sam-cli
+          sam build
+          sam deploy \
+            --stack-name nfl-data-api \
+            --resolve-s3 \
+            --capabilities CAPABILITY_IAM \
+            --parameter-overrides \
+              DatabaseUrl=${{ secrets.DATABASE_URL }} \
+              CorsOrigins=${{ secrets.CORS_ORIGINS }} \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset
