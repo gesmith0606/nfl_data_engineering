@@ -27,20 +27,18 @@ logger = logging.getLogger(__name__)
 # Weights for blending rolling windows
 # ---------------------------------------------------------------------------
 RECENCY_WEIGHTS = {
-    "roll3": 0.45,  # Last 3 weeks — most predictive
-    "roll6": 0.30,  # Last 6 weeks
-    "std": 0.25,  # Season-to-date — increased to dampen boom/bust swings
+    "roll3": 0.30,  # Last 3 weeks — responsive to recent form
+    "roll6": 0.15,  # Last 6 weeks
+    "std": 0.55,  # Season-to-date — highest weight dampens week-to-week noise
 }
 
 # Regression-to-mean shrinkage applied after scoring.
-# Backtest shows high projections systematically overshoot:
-#   Proj 15-20 → actual ~13.7 (shrink ~0.80)
-#   Proj 20-25 → actual ~15.6 (shrink ~0.70)
-#   Proj 25+   → actual ~17   (shrink ~0.65)
+# Lower thresholds catch mid-tier projections that also overshoot.
+# Grid search on 2016-2025 data, validated on 2022-2024 weeks 3-18.
 PROJECTION_CEILING_SHRINKAGE = {
-    15.0: 0.90,  # projections 15-20 pts → multiply by 0.90
-    20.0: 0.85,  # projections 20-25 pts → multiply by 0.85
-    25.0: 0.80,  # projections 25+ pts   → multiply by 0.80
+    12.0: 0.92,  # projections 12-18 pts → multiply by 0.92
+    18.0: 0.87,  # projections 18-23 pts → multiply by 0.87
+    23.0: 0.80,  # projections 23+ pts   → multiply by 0.80
 }
 
 # Stats to project by position

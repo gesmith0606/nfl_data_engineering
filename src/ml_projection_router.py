@@ -360,6 +360,7 @@ def generate_ml_projections(
     implied_totals: Optional[Dict[str, float]] = None,
     model_dir: str = "models/player",
     apply_constraints: bool = False,
+    feature_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """Generate projections routing each position to ML or heuristic.
 
@@ -383,6 +384,10 @@ def generate_ml_projections(
         apply_constraints: If True and implied_totals is provided, apply
             team-level constraints via ``apply_team_constraints()``
             after all projections are merged. Default False.
+        feature_df: Optional full-feature DataFrame from
+            ``assemble_multiyear_player_features()``. When provided,
+            HYBRID positions use this richer feature set for residual
+            correction instead of the basic silver_df features.
 
     Returns:
         Combined projections DataFrame sorted by projected_points desc,
@@ -452,22 +457,23 @@ def generate_ml_projections(
             if hybrid_result.empty:
                 continue
 
-            # Get feature data for these players from Silver
-            target_df = silver_df[
-                (silver_df["season"] == season)
-                & (silver_df["week"] == week - 1)
-                & (silver_df["position"] == position)
+            # Get feature data for these players — prefer full feature_df
+            feat_source = feature_df if feature_df is not None else silver_df
+            target_df = feat_source[
+                (feat_source["season"] == season)
+                & (feat_source["week"] == week - 1)
+                & (feat_source["position"] == position)
             ]
             if target_df.empty:
-                latest = silver_df[
-                    (silver_df["season"] == season)
-                    & (silver_df["position"] == position)
+                latest = feat_source[
+                    (feat_source["season"] == season)
+                    & (feat_source["position"] == position)
                 ]["week"].max()
                 if pd.notna(latest):
-                    target_df = silver_df[
-                        (silver_df["season"] == season)
-                        & (silver_df["week"] == latest)
-                        & (silver_df["position"] == position)
+                    target_df = feat_source[
+                        (feat_source["season"] == season)
+                        & (feat_source["week"] == latest)
+                        & (feat_source["position"] == position)
                     ]
 
             if not target_df.empty:
