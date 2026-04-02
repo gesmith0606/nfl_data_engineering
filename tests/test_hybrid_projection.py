@@ -1,8 +1,10 @@
 """Tests for hybrid projection module (blend + residual approaches)."""
 
+import json
 import numpy as np
 import pandas as pd
 import pytest
+import tempfile
 
 import sys
 import os
@@ -10,9 +12,11 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from hybrid_projection import (
+    apply_residual_correction,
     compute_actual_fantasy_points,
     compute_fantasy_points_from_preds,
     evaluate_blend,
+    load_residual_model,
     train_residual_model,
 )
 
@@ -333,3 +337,159 @@ class TestTrainResidualModel:
         for fold in result["fold_details"]:
             assert "ridge_alpha" in fold
             assert fold["ridge_alpha"] > 0
+
+
+# ---------------------------------------------------------------------------
+# Tests: load_residual_model
+# ---------------------------------------------------------------------------
+
+
+class TestLoadResidualModel:
+    def test_load_saved_model(self):
+        """Load pre-trained WR residual model from models/residual/."""
+        model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "residual")
+        if not os.path.exists(os.path.join(model_dir, "wr_residual.joblib")):
+            pytest.skip("WR residual model not trained yet")
+
+        model, meta = load_residual_model("WR", model_dir)
+        assert model is not None
+        assert "features" in meta
+        assert len(meta["features"]) > 0
+        assert meta["position"] == "WR"
+
+    def test_load_te_model(self):
+        """Load pre-trained TE residual model."""
+        model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "residual")
+        if not os.path.exists(os.path.join(model_dir, "te_residual.joblib")):
+            pytest.skip("TE residual model not trained yet")
+
+        model, meta = load_residual_model("TE", model_dir)
+        assert meta["position"] == "TE"
+
+    def test_file_not_found(self):
+        """Raises FileNotFoundError for missing model."""
+        with pytest.raises(FileNotFoundError):
+            load_residual_model("QB", "/tmp/nonexistent_dir")
+
+
+# ---------------------------------------------------------------------------
+# Tests: apply_residual_correction
+# ---------------------------------------------------------------------------
+
+
+class TestApplyResidualCorrection:
+    @pytest.fixture
+    def sample_heuristic_projections(self):
+        """Heuristic projections for WR players."""
+        return pd.DataFrame(
+            {
+                "player_id": ["wr1", "wr2", "wr3"],
+                "player_name": ["Hill", "Chase", "Jefferson"],
+                "position": ["WR", "WR", "WR"],
+                "projected_points": [14.0, 12.0, 11.0],
+                "projected_floor": [8.0, 7.0, 6.5],
+                "projected_ceiling": [20.0, 17.0, 15.5],
+            }
+        )
+
+    @pytest.fixture
+    def sample_features(self):
+        """Feature data for WR players."""
+        np.random.seed(42)
+        return pd.DataFrame(
+            {
+                "player_id": ["wr1", "wr2", "wr3"],
+                "receiving_yards_roll3": [80.0, 70.0, 65.0],
+                "receiving_yards_roll6": [75.0, 68.0, 62.0],
+                "targets_roll3": [8.0, 7.0, 6.5],
+                "receptions_roll3": [5.0, 4.5, 4.0],
+            }
+        )
+
+    def test_returns_dataframe(self, sample_heuristic_projections, sample_features):
+        """apply_residual_correction returns a DataFrame."""
+        model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "residual")
+        if not os.path.exists(os.path.join(model_dir, "wr_residual.joblib")):
+            pytest.skip("WR residual model not trained yet")
+
+        result = apply_residual_correction(
+            sample_heuristic_projections, sample_features, "WR", model_dir
+        )
+        assert isinstance(result, pd.DataFrame)
+        assert "projected_points" in result.columns
+        assert len(result) == 3
+
+    def test_projections_non_negative(
+        self, sample_heuristic_projections, sample_features
+    ):
+        """Corrected projections are always >= 0."""
+        model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "residual")
+        if not os.path.exists(os.path.join(model_dir, "wr_residual.joblib")):
+            pytest.skip("WR residual model not trained yet")
+
+        result = apply_residual_correction(
+            sample_heuristic_projections, sample_features, "WR", model_dir
+        )
+        assert (result["projected_points"] >= 0).all()
+
+    def test_no_model_returns_unchanged(
+        self, sample_heuristic_projections, sample_features
+    ):
+        """When model file is missing, returns heuristic unchanged."""
+        result = apply_residual_correction(
+            sample_heuristic_projections,
+            sample_features,
+            "WR",
+            model_dir="/tmp/nonexistent_dir",
+        )
+        pd.testing.assert_frame_equal(result, sample_heuristic_projections)
+
+    def test_handles_missing_features_gracefully(self, sample_heuristic_projections):
+        """Model handles features DataFrame with none of the expected columns."""
+        model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "residual")
+        if not os.path.exists(os.path.join(model_dir, "wr_residual.joblib")):
+            pytest.skip("WR residual model not trained yet")
+
+        # Features with no matching columns
+        no_match_features = pd.DataFrame(
+            {
+                "player_id": ["wr1", "wr2", "wr3"],
+                "totally_fake_col": [1.0, 2.0, 3.0],
+            }
+        )
+        result = apply_residual_correction(
+            sample_heuristic_projections, no_match_features, "WR", model_dir
+        )
+        # Should return heuristic unchanged (no features matched)
+        pd.testing.assert_frame_equal(result, sample_heuristic_projections)
+
+
+# ---------------------------------------------------------------------------
+# Tests: ML router hybrid integration
+# ---------------------------------------------------------------------------
+
+
+class TestRouterHybridIntegration:
+    def test_hybrid_positions_constant(self):
+        """HYBRID_POSITIONS contains WR and TE."""
+        from ml_projection_router import HYBRID_POSITIONS
+
+        assert "WR" in HYBRID_POSITIONS
+        assert "TE" in HYBRID_POSITIONS
+
+    def test_ship_gate_returns_hybrid_when_models_exist(self):
+        """Ship gate returns HYBRID verdict for WR/TE when residual models exist."""
+        model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "player")
+        residual_dir = os.path.join(
+            os.path.dirname(__file__), "..", "models", "residual"
+        )
+        if not os.path.exists(os.path.join(model_dir, "ship_gate_report.json")):
+            pytest.skip("Ship gate report not found")
+        if not os.path.exists(os.path.join(residual_dir, "wr_residual.joblib")):
+            pytest.skip("Residual models not trained yet")
+
+        from ml_projection_router import _load_ship_gate
+
+        verdicts = _load_ship_gate(model_dir)
+        assert verdicts.get("WR") == "HYBRID"
+        assert verdicts.get("TE") == "HYBRID"

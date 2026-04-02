@@ -8,16 +8,26 @@ Approach 2 (Residual Model):
     target = actual_fantasy_points - heuristic_fantasy_points
     Train RidgeCV on features -> residual, then final = heuristic + ridge.predict()
 
+Approach 3 (Production Residual — save/load/apply):
+    train_and_save_residual_models: Train Ridge on production heuristic residuals, save.
+    load_residual_model: Load a saved residual Pipeline from disk.
+    apply_residual_correction: Correct heuristic projections using saved residual model.
+
 Exports:
     compute_fantasy_points_from_preds: Convert pred_{stat} columns to fantasy points.
     evaluate_blend: Grid-search alpha for heuristic-ML blend.
     train_residual_model: Walk-forward CV residual correction model.
-    evaluate_residual_model: Evaluate residual model MAE per position.
+    train_and_save_residual_models: Train + persist residual models for WR/TE.
+    load_residual_model: Load saved residual Pipeline.
+    apply_residual_correction: Apply residual correction to heuristic projections.
 """
 
+import json
 import logging
+import os
 from typing import Any, Dict, List, Optional, Tuple
 
+import joblib
 import numpy as np
 import pandas as pd
 from sklearn.impute import SimpleImputer
@@ -307,3 +317,282 @@ def train_residual_model(
     )
 
     return {"mean_mae": mean_mae, "fold_details": fold_details}, oof_df
+
+
+# ---------------------------------------------------------------------------
+# Approach 3: Production Residual — save / load / apply
+# ---------------------------------------------------------------------------
+
+RESIDUAL_MODEL_DIR = os.path.join("models", "residual")
+
+
+def train_and_save_residual_models(
+    positions: Optional[List[str]] = None,
+    scoring_format: str = "half_ppr",
+    output_dir: Optional[str] = None,
+) -> Dict[str, Dict[str, Any]]:
+    """Train residual correction models and save to disk.
+
+    For each position, trains a Ridge pipeline on:
+        residual = actual_fantasy_points - production_heuristic_points
+    using walk-forward CV with train on seasons < val_season.
+    The final production model is trained on ALL non-holdout data.
+
+    Args:
+        positions: Positions to train residual models for. Default ['WR', 'TE'].
+        scoring_format: Scoring format string.
+        output_dir: Directory to save models. Default 'models/residual'.
+
+    Returns:
+        Dict mapping position -> {mae, ridge_alpha, n_train, features}.
+    """
+    from config import HOLDOUT_SEASON, PLAYER_DATA_SEASONS
+    from player_feature_engineering import (
+        assemble_multiyear_player_features,
+        get_player_feature_columns,
+    )
+
+    if positions is None:
+        positions = ["WR", "TE"]
+    if output_dir is None:
+        output_dir = RESIDUAL_MODEL_DIR
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Load data
+    logger.info("Loading player feature data for residual training...")
+    all_data = assemble_multiyear_player_features(PLAYER_DATA_SEASONS)
+    if all_data.empty:
+        logger.error("No data assembled for residual training")
+        return {}
+
+    feature_cols = get_player_feature_columns(all_data)
+    logger.info("Found %d candidate features", len(feature_cols))
+
+    # Build opponent rankings (for production heuristic)
+    from run_production_residual_experiment import (
+        build_opp_rankings_from_features,
+        compute_actual_points,
+        compute_production_heuristic_points,
+    )
+
+    opp_rankings = build_opp_rankings_from_features(all_data)
+
+    results: Dict[str, Dict[str, Any]] = {}
+
+    for position in positions:
+        logger.info("Training residual model for %s...", position)
+        pos_data = all_data[all_data["position"] == position].copy()
+        pos_data = pos_data[pos_data["season"] != HOLDOUT_SEASON].copy()
+
+        if pos_data.empty:
+            logger.warning("No data for %s", position)
+            continue
+
+        # Compute heuristic + actual
+        prod_pts = compute_production_heuristic_points(
+            pos_data, position, opp_rankings, scoring_format
+        )
+        actual_pts = compute_actual_points(pos_data, scoring_format)
+
+        # Filter: weeks 3-18, valid data
+        week_mask = pos_data["week"].between(3, 18)
+        valid_mask = week_mask & prod_pts.notna() & actual_pts.notna()
+        train_data = pos_data[valid_mask].copy()
+        train_prod = prod_pts[valid_mask]
+        train_actual = actual_pts[valid_mask]
+
+        if len(train_data) < 100:
+            logger.warning(
+                "Insufficient data for %s: %d rows", position, len(train_data)
+            )
+            continue
+
+        # Residual = actual - heuristic
+        residual = train_actual - train_prod
+
+        # Features
+        available_features = [f for f in feature_cols if f in train_data.columns]
+        if not available_features:
+            logger.warning("No features for %s", position)
+            continue
+
+        X_train = train_data[available_features]
+        y_train = residual
+
+        # Train final production model on ALL non-holdout data
+        model = Pipeline(
+            [
+                ("imputer", SimpleImputer(strategy="median")),
+                ("model", RidgeCV(alphas=np.logspace(-3, 3, 50))),
+            ]
+        )
+        model.fit(X_train, y_train)
+
+        ridge_alpha = float(model.named_steps["model"].alpha_)
+        train_preds = model.predict(X_train)
+        train_mae = float(mean_absolute_error(y_train, train_preds))
+
+        # Save model
+        model_path = os.path.join(output_dir, f"{position.lower()}_residual.joblib")
+        meta_path = os.path.join(output_dir, f"{position.lower()}_residual_meta.json")
+
+        joblib.dump(model, model_path)
+        meta = {
+            "position": position,
+            "scoring_format": scoring_format,
+            "ridge_alpha": ridge_alpha,
+            "n_train": len(X_train),
+            "train_residual_mae": train_mae,
+            "n_features": len(available_features),
+            "features": available_features,
+        }
+        with open(meta_path, "w") as f:
+            json.dump(meta, f, indent=2)
+
+        logger.info(
+            "%s residual model saved: alpha=%.3f, n=%d, features=%d",
+            position,
+            ridge_alpha,
+            len(X_train),
+            len(available_features),
+        )
+
+        results[position] = {
+            "mae": train_mae,
+            "ridge_alpha": ridge_alpha,
+            "n_train": len(X_train),
+            "features": available_features,
+        }
+
+    return results
+
+
+def load_residual_model(
+    position: str,
+    model_dir: Optional[str] = None,
+) -> Tuple[Pipeline, Dict[str, Any]]:
+    """Load a saved residual correction model and its metadata.
+
+    Args:
+        position: Position code (e.g., 'WR', 'TE').
+        model_dir: Directory containing saved models. Default 'models/residual'.
+
+    Returns:
+        Tuple of (fitted Pipeline, metadata dict).
+
+    Raises:
+        FileNotFoundError: If model file does not exist.
+    """
+    if model_dir is None:
+        model_dir = RESIDUAL_MODEL_DIR
+
+    model_path = os.path.join(model_dir, f"{position.lower()}_residual.joblib")
+    meta_path = os.path.join(model_dir, f"{position.lower()}_residual_meta.json")
+
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Residual model not found: {model_path}")
+
+    model = joblib.load(model_path)
+
+    meta: Dict[str, Any] = {}
+    if os.path.exists(meta_path):
+        with open(meta_path, "r") as f:
+            meta = json.load(f)
+
+    return model, meta
+
+
+def apply_residual_correction(
+    heuristic_projections: pd.DataFrame,
+    player_features: pd.DataFrame,
+    position: str,
+    model_dir: Optional[str] = None,
+) -> pd.DataFrame:
+    """Apply residual correction to heuristic projections.
+
+    Loads a pre-trained residual Ridge model, predicts the correction
+    (residual), and adds it to heuristic projected_points. Floors at 0.0.
+
+    Args:
+        heuristic_projections: DataFrame with 'projected_points' and
+            'player_id' columns from heuristic engine.
+        player_features: Silver-layer features DataFrame with feature
+            columns matching the model's training features.
+        position: Position code ('WR' or 'TE').
+        model_dir: Directory containing saved residual models.
+
+    Returns:
+        DataFrame with corrected projected_points. Unchanged if model
+        loading fails or no matching features.
+    """
+    try:
+        model, meta = load_residual_model(position, model_dir)
+    except FileNotFoundError:
+        logger.warning("No residual model for %s; returning heuristic as-is", position)
+        return heuristic_projections
+
+    features = meta.get("features", [])
+    available = [f for f in features if f in player_features.columns]
+
+    if not available:
+        logger.warning(
+            "No matching features for %s residual model; returning heuristic", position
+        )
+        return heuristic_projections
+
+    result = heuristic_projections.copy()
+
+    # Build feature matrix aligned to heuristic players
+    id_col = "player_id" if "player_id" in result.columns else "player_name"
+    feat_id_col = (
+        "player_id" if "player_id" in player_features.columns else "player_name"
+    )
+
+    if id_col not in result.columns or feat_id_col not in player_features.columns:
+        logger.warning("Cannot align features for residual correction")
+        return heuristic_projections
+
+    # Merge features onto projections
+    feat_subset = player_features[[feat_id_col] + available].drop_duplicates(
+        subset=[feat_id_col], keep="last"
+    )
+    merged = result.merge(feat_subset, left_on=id_col, right_on=feat_id_col, how="left")
+
+    # Build full feature matrix (all model features, NaN for missing ones).
+    # The imputer in the Pipeline will fill NaN with training medians.
+    feature_data = {
+        f: merged[f].values if f in merged.columns else np.nan for f in features
+    }
+    X = pd.DataFrame(feature_data, index=merged.index)
+
+    has_features = X[available].notna().any(axis=1)
+
+    if has_features.sum() == 0:
+        logger.warning("No rows with features for %s residual", position)
+        return heuristic_projections
+
+    logger.info(
+        "%s: %d/%d features available from Silver; %d imputed",
+        position,
+        len(available),
+        len(features),
+        len(features) - len(available),
+    )
+
+    corrections = np.zeros(len(merged))
+    if has_features.any():
+        corrections[has_features] = model.predict(X[has_features])
+
+    # Apply correction (numpy clip uses min=/max=, not lower=/upper=)
+    corrected = merged["projected_points"].values + corrections
+    result["projected_points"] = np.clip(corrected, 0.0, None).round(2)
+
+    logger.info(
+        "%s residual correction: %d players, mean correction=%.2f",
+        position,
+        has_features.sum(),
+        float(np.mean(corrections[has_features])) if has_features.any() else 0.0,
+    )
+
+    return result

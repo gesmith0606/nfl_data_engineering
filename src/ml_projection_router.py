@@ -2,8 +2,15 @@
 
 Reads the ship gate report to determine which positions use ML models
 (verdict=SHIP) and which fall back to the heuristic projection engine
-(verdict=SKIP). Provides MAPIE confidence intervals for ML positions
+(verdict=SKIP). For WR/TE, applies hybrid residual correction on top of
+heuristic projections. Provides MAPIE confidence intervals for ML positions
 and team-total coherence checks.
+
+Routing (v2):
+    QB -> XGB ML (SHIP)
+    RB -> XGB ML (SHIP)
+    WR -> Heuristic + Residual correction (HYBRID)
+    TE -> Heuristic + Residual correction (HYBRID)
 
 Exports:
     generate_ml_projections: Main entry point for mixed ML/heuristic projections.
@@ -33,6 +40,9 @@ from player_model_training import (
 from scoring_calculator import calculate_fantasy_points_df
 
 logger = logging.getLogger(__name__)
+
+# Positions using hybrid residual correction (heuristic + Ridge residual)
+HYBRID_POSITIONS = {"WR", "TE"}
 
 # ---------------------------------------------------------------------------
 # MAPIE optional import
@@ -89,6 +99,26 @@ def _load_ship_gate(model_dir: str = "models/player") -> Dict[str, str]:
             logger.info("QB models found on disk; inferring SHIP verdict")
         else:
             logger.info("No QB models found; QB will use heuristic")
+
+    # Override RB to SHIP when models exist (experiment showed 3.27 vs 5.06 MAE)
+    if verdicts.get("RB") == "SKIP":
+        rb_model_path = os.path.join(model_dir, "rb", "rushing_yards.json")
+        if os.path.exists(rb_model_path):
+            verdicts["RB"] = "SHIP"
+            logger.info("RB promoted to SHIP (XGB MAE < heuristic MAE)")
+
+    # Override WR/TE to HYBRID when residual models exist
+    for pos in HYBRID_POSITIONS:
+        residual_dir = os.path.join(
+            os.path.dirname(model_dir) if "player" in model_dir else model_dir,
+            "residual",
+        )
+        residual_path = os.path.join(residual_dir, f"{pos.lower()}_residual.joblib")
+        if os.path.exists(residual_path):
+            verdicts[pos] = "HYBRID"
+            logger.info(
+                "%s set to HYBRID (residual model found at %s)", pos, residual_path
+            )
 
     return verdicts
 
@@ -356,7 +386,7 @@ def generate_ml_projections(
 
     Returns:
         Combined projections DataFrame sorted by projected_points desc,
-        with projection_source column indicating 'ml' or 'heuristic'.
+        with projection_source column indicating 'ml', 'hybrid', or 'heuristic'.
     """
     verdicts = _load_ship_gate(model_dir)
 
@@ -379,6 +409,7 @@ def generate_ml_projections(
     # Separate positions by verdict
     ship_positions = [p for p, v in verdicts.items() if v == "SHIP"]
     skip_positions = [p for p, v in verdicts.items() if v == "SKIP"]
+    hybrid_positions = [p for p, v in verdicts.items() if v == "HYBRID"]
 
     # Also include any position not in verdicts as skip (defensive)
     all_positions = list(POSITION_STAT_PROFILE.keys())
@@ -388,9 +419,11 @@ def generate_ml_projections(
 
     all_projections: List[pd.DataFrame] = []
 
-    # ---- Heuristic positions (SKIP) ----
-    if skip_positions:
-        heuristic_result = generate_weekly_projections(
+    # ---- Generate heuristic projections once (needed for SKIP + HYBRID) ----
+    need_heuristic = bool(skip_positions or hybrid_positions)
+    heuristic_all = pd.DataFrame()
+    if need_heuristic:
+        heuristic_all = generate_weekly_projections(
             silver_df,
             opp_rankings,
             season,
@@ -399,14 +432,58 @@ def generate_ml_projections(
             schedules_df,
             implied_totals,
         )
-        heuristic_result = add_floor_ceiling(heuristic_result)
-        # Filter to skip positions only
-        heuristic_result = heuristic_result[
-            heuristic_result["position"].isin(skip_positions)
+        heuristic_all = add_floor_ceiling(heuristic_all)
+
+    # ---- Heuristic positions (SKIP) ----
+    if skip_positions and not heuristic_all.empty:
+        heuristic_result = heuristic_all[
+            heuristic_all["position"].isin(skip_positions)
         ].copy()
         heuristic_result["projection_source"] = "heuristic"
         if not heuristic_result.empty:
             all_projections.append(heuristic_result)
+
+    # ---- Hybrid positions (heuristic + residual correction) ----
+    if hybrid_positions and not heuristic_all.empty:
+        from hybrid_projection import apply_residual_correction
+
+        for position in hybrid_positions:
+            hybrid_result = heuristic_all[heuristic_all["position"] == position].copy()
+            if hybrid_result.empty:
+                continue
+
+            # Get feature data for these players from Silver
+            target_df = silver_df[
+                (silver_df["season"] == season)
+                & (silver_df["week"] == week - 1)
+                & (silver_df["position"] == position)
+            ]
+            if target_df.empty:
+                latest = silver_df[
+                    (silver_df["season"] == season)
+                    & (silver_df["position"] == position)
+                ]["week"].max()
+                if pd.notna(latest):
+                    target_df = silver_df[
+                        (silver_df["season"] == season)
+                        & (silver_df["week"] == latest)
+                        & (silver_df["position"] == position)
+                    ]
+
+            if not target_df.empty:
+                # Determine residual model directory
+                residual_dir = os.path.join(
+                    os.path.dirname(model_dir) if "player" in model_dir else model_dir,
+                    "residual",
+                )
+                hybrid_result = apply_residual_correction(
+                    hybrid_result, target_df, position, model_dir=residual_dir
+                )
+
+            # Recalculate floor/ceiling after correction
+            hybrid_result = add_floor_ceiling(hybrid_result)
+            hybrid_result["projection_source"] = "hybrid"
+            all_projections.append(hybrid_result)
 
     # ---- ML positions (SHIP) ----
     for position in ship_positions:

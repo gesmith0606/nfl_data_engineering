@@ -158,7 +158,7 @@ def main():
     parser.add_argument(
         "--ml",
         action="store_true",
-        help="Use ML models for shipped positions (currently QB)",
+        help="Use ML router: QB/RB via XGB, WR/TE via hybrid residual correction",
     )
     parser.add_argument(
         "--constrain",
