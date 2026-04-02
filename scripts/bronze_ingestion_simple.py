@@ -198,12 +198,19 @@ def _build_method_kwargs(entry: dict, args) -> dict:
         key = "stat_type" if method_name == "fetch_ngs" else "s_type"
         kwargs[key] = args.sub_type
 
-    # PBP: curated columns, downcast, no participation merge
+    # PBP: curated columns, downcast, participation opt-in
     if method_name == "fetch_pbp":
         from src.config import PBP_COLUMNS
-        kwargs["columns"] = PBP_COLUMNS
-        kwargs["downcast"] = True
-        kwargs["include_participation"] = False
+
+        if getattr(args, "include_participation", False):
+            # Fetch with participation columns; store minimal subset separately
+            kwargs["columns"] = None  # must be None to include participation cols
+            kwargs["downcast"] = True
+            kwargs["include_participation"] = True
+        else:
+            kwargs["columns"] = PBP_COLUMNS
+            kwargs["downcast"] = True
+            kwargs["include_participation"] = False
 
     # QBR frequency
     if method_name == "fetch_qbr":
@@ -230,9 +237,7 @@ def parse_seasons_range(seasons_str: str) -> list:
         parts = seasons_str.split("-")
         start, end = int(parts[0]), int(parts[1])
         if start > end:
-            raise ValueError(
-                f"Invalid season range: start ({start}) > end ({end})"
-            )
+            raise ValueError(f"Invalid season range: start ({start}) > end ({end})")
         return list(range(start, end + 1))
     return [int(seasons_str)]
 
@@ -264,9 +269,7 @@ def main():
     parser.add_argument(
         "--season", type=int, default=2024, help="NFL season (default: 2024)"
     )
-    parser.add_argument(
-        "--week", type=int, default=1, help="NFL week (default: 1)"
-    )
+    parser.add_argument("--week", type=int, default=1, help="NFL week (default: 1)")
     parser.add_argument(
         "--data-type",
         choices=sorted(DATA_TYPE_REGISTRY.keys()),
@@ -291,6 +294,16 @@ def main():
         type=str,
         default=None,
         help="Season range for batch ingestion, e.g., 2010-2025 (overrides --season)",
+    )
+    parser.add_argument(
+        "--include-participation",
+        action="store_true",
+        default=False,
+        help=(
+            "For PBP data: also store participation columns (offense_players, "
+            "defense_players) to data/bronze/pbp_participation/. Ignored for "
+            "non-PBP data types."
+        ),
     )
     parser.add_argument(
         "--s3",
@@ -373,11 +386,52 @@ def main():
             df = method(**kwargs)
 
             if df.empty:
-                print(f"  No data returned for {args.data_type} season {season}, skipping")
+                print(
+                    f"  No data returned for {args.data_type} season {season}, skipping"
+                )
                 skipped += 1
                 continue
 
             print(f"  Records: {len(df):,}  Columns: {len(df.columns)}")
+
+            # --- PBP participation: store minimal participation subset separately ---
+            if args.data_type == "pbp" and getattr(
+                args, "include_participation", False
+            ):
+                from src.config import PBP_COLUMNS, PBP_PARTICIPATION_COLUMNS
+
+                part_cols = [c for c in PBP_PARTICIPATION_COLUMNS if c in df.columns]
+                if (
+                    len(part_cols) >= 3
+                ):  # need at least game_id, play_id, and one player col
+                    part_df = df[part_cols].dropna(
+                        subset=[
+                            c
+                            for c in part_cols
+                            if c in ("offense_players", "defense_players")
+                        ],
+                        how="all",
+                    )
+                    part_ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    part_dir = os.path.join(
+                        "data", "bronze", "pbp_participation", f"season={season}"
+                    )
+                    part_path = os.path.join(
+                        part_dir, f"pbp_participation_{part_ts}.parquet"
+                    )
+                    save_local(part_df, part_path)
+                    print(
+                        f"  Participation subset: {len(part_df):,} plays -> {part_path}"
+                    )
+                else:
+                    print(
+                        f"  Warning: participation columns not found in PBP data "
+                        f"(available: {part_cols})"
+                    )
+
+                # Now trim main PBP df to standard columns for normal storage
+                available_std = [c for c in PBP_COLUMNS if c in df.columns]
+                df = df[available_std]
 
             # --- Schema diff logging ---
             current_cols = set(df.columns)

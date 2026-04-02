@@ -13,7 +13,7 @@ from typing import Dict, List, Optional
 
 import pandas as pd
 
-from src.config import (
+from config import (
     STATS_PLAYER_COLUMN_MAP,
     STATS_PLAYER_MIN_SEASON,
     validate_season_for_type,
@@ -361,7 +361,7 @@ class NFLDataAdapter:
             Dict with ``is_valid``, ``row_count``, ``column_count``, and
             ``issues`` (list of warning strings).
         """
-        from src.nfl_data_integration import NFLDataFetcher
+        from nfl_data_integration import NFLDataFetcher
 
         fetcher = NFLDataFetcher()
         return fetcher.validate_data(df, data_type)
