@@ -223,3 +223,8 @@ models/
 
 # Automated code review history
 .claude/review_history/
+catboost_info/
+
+# Node.js / Next.js (web/frontend)
+node_modules/
+.next/

@@ -1,6 +1,6 @@
 <purpose>
 
-Drive all remaining milestone phases autonomously. For each incomplete phase: discuss → plan → execute using Skill() flat invocations. Pauses only for explicit user decisions (grey area acceptance, blockers, validation requests). Re-reads ROADMAP.md after each phase to catch dynamically inserted phases.
+Drive milestone phases autonomously — all remaining phases, or a single phase via `--only N`. For each incomplete phase: discuss → plan → execute using Skill() flat invocations. Pauses only for explicit user decisions (grey area acceptance, blockers, validation requests). Re-reads ROADMAP.md after each phase to catch dynamically inserted phases.
 
 </purpose>
 
@@ -16,19 +16,28 @@ Read all files referenced by the invoking prompt's execution_context before star
 
 ## 1. Initialize
 
-Parse `$ARGUMENTS` for `--from N` flag:
+Parse `$ARGUMENTS` for `--from N` and `--only N` flags:
 
 ```bash
 FROM_PHASE=""
 if echo "$ARGUMENTS" | grep -qE '\-\-from\s+[0-9]'; then
   FROM_PHASE=$(echo "$ARGUMENTS" | grep -oE '\-\-from\s+[0-9]+\.?[0-9]*' | awk '{print $2}')
 fi
+
+ONLY_PHASE=""
+if echo "$ARGUMENTS" | grep -qE '\-\-only\s+[0-9]'; then
+  ONLY_PHASE=$(echo "$ARGUMENTS" | grep -oE '\-\-only\s+[0-9]+\.?[0-9]*' | awk '{print $2}')
+  FROM_PHASE="$ONLY_PHASE"
+fi
 ```
+
+When `--only` is set, also set `FROM_PHASE` to the same value so existing filter logic applies.
 
 Bootstrap via milestone-level init:
 
 ```bash
 INIT=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" init milestone-op)
+if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
 Parse JSON for: `milestone_version`, `milestone_name`, `phase_count`, `completed_phases`, `roadmap_exists`, `state_exists`, `commit_docs`.
@@ -47,7 +56,8 @@ Display startup banner:
  Phases: {phase_count} total, {completed_phases} complete
 ```
 
-If `FROM_PHASE` is set, display: `Starting from phase ${FROM_PHASE}`
+If `ONLY_PHASE` is set, display: `Single phase mode: Phase ${ONLY_PHASE}`
+Else if `FROM_PHASE` is set, display: `Starting from phase ${FROM_PHASE}`
 
 </step>
 
@@ -66,6 +76,16 @@ Parse the JSON `phases` array.
 **Filter to incomplete phases:** Keep only phases where `disk_status !== "complete"` OR `roadmap_complete === false`.
 
 **Apply `--from N` filter:** If `FROM_PHASE` was provided, additionally filter out phases where `number < FROM_PHASE` (use numeric comparison — handles decimal phases like "5.1").
+
+**Apply `--only N` filter:** If `ONLY_PHASE` was provided, additionally filter OUT phases where `number != ONLY_PHASE`. This means the phase list will contain exactly one phase (or zero if already complete).
+
+**If `ONLY_PHASE` is set and no phases remain** (phase already complete):
+
+```
+Phase ${ONLY_PHASE} is already complete. Nothing to do.
+```
+
+Exit cleanly.
 
 **Sort by `number`** in numeric ascending order.
 
@@ -116,7 +136,9 @@ For the current phase, display the progress banner:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-Where N = current phase number (from the ROADMAP, e.g., 6), T = total milestone phases (from `phase_count` parsed in initialize step, e.g., 8), P = percentage of all milestone phases completed so far. Calculate P as: (number of phases with `disk_status` "complete" from the latest `roadmap analyze` / T × 100). Use █ for filled and ░ for empty segments in the progress bar (8 characters wide).
+Where N = current phase number (from the ROADMAP, e.g., 63), T = total milestone phases (from `phase_count` parsed in initialize step, e.g., 67). **Important:** T must be `phase_count` (the total number of phases in this milestone), NOT the count of remaining/incomplete phases. When phases are numbered 61-67, T=7 and the banner should read `Phase 63/7` (phase 63, 7 total in milestone), not `Phase 63/3` (which would confuse 3 remaining with 3 total). P = percentage of all milestone phases completed so far. Calculate P as: (number of phases with `disk_status` "complete" from the latest `roadmap analyze` / T × 100). Use █ for filled and ░ for empty segments in the progress bar (8 characters wide).
+
+**Alternative display when phase numbers exceed total** (e.g., multi-milestone projects where phases are numbered globally): If N > T (phase number exceeds milestone phase count), use the format `Phase {N} ({position}/{T})` where `position` is the 1-based index of this phase among incomplete phases being processed. This prevents confusing displays like "Phase 63/5".
 
 **3a. Smart Discuss**
 
@@ -136,7 +158,82 @@ Phase ${PHASE_NUM}: Context exists — skipping discuss.
 
 Proceed to 3b.
 
-**If has_context is false:** Execute the smart_discuss step for this phase.
+**If has_context is false:** Check if discuss is disabled via settings:
+
+```bash
+SKIP_DISCUSS=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" config-get workflow.skip_discuss 2>/dev/null || echo "false")
+```
+
+**If SKIP_DISCUSS is `true`:** Skip discuss entirely — the ROADMAP phase description is the spec. Display:
+
+```
+Phase ${PHASE_NUM}: Discuss skipped (workflow.skip_discuss=true) — using ROADMAP phase goal as spec.
+```
+
+Write a minimal CONTEXT.md so downstream plan-phase has valid input. Get phase details:
+
+```bash
+DETAIL=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" roadmap get-phase ${PHASE_NUM})
+```
+
+Extract `goal` and `requirements` from JSON. Write `${phase_dir}/${padded_phase}-CONTEXT.md` with:
+
+```markdown
+# Phase {PHASE_NUM}: {Phase Name} - Context
+
+**Gathered:** {date}
+**Status:** Ready for planning
+**Mode:** Auto-generated (discuss skipped via workflow.skip_discuss)
+
+<domain>
+## Phase Boundary
+
+{goal from ROADMAP phase description}
+
+</domain>
+
+<decisions>
+## Implementation Decisions
+
+### Claude's Discretion
+All implementation choices are at Claude's discretion — discuss phase was skipped per user setting. Use ROADMAP phase goal, success criteria, and codebase conventions to guide decisions.
+
+</decisions>
+
+<code_context>
+## Existing Code Insights
+
+Codebase context will be gathered during plan-phase research.
+
+</code_context>
+
+<specifics>
+## Specific Ideas
+
+No specific requirements — discuss phase skipped. Refer to ROADMAP phase description and success criteria.
+
+</specifics>
+
+<deferred>
+## Deferred Ideas
+
+None — discuss phase skipped.
+
+</deferred>
+```
+
+Commit the minimal context:
+
+```bash
+node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" commit "docs(${PADDED_PHASE}): auto-generated context (discuss skipped)" --files "${phase_dir}/${padded_phase}-CONTEXT.md"
+```
+
+Proceed to 3b.
+
+**If SKIP_DISCUSS is `false` (or unset):** Execute the smart_discuss step for this phase.
+
+**IMPORTANT — Discuss must be single-pass in autonomous mode.**
+The discuss step in `--auto` mode MUST NOT loop. If CONTEXT.md already exists after discuss completes, do NOT re-invoke discuss for the same phase. The `has_context` check below is authoritative — once true, discuss is done for this phase regardless of perceived "gaps" in the context file.
 
 After smart_discuss completes, verify context was written:
 
@@ -145,6 +242,45 @@ PHASE_STATE=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-sh
 ```
 
 Check `has_context`. If false → go to handle_blocker: "Smart discuss for phase ${PHASE_NUM} did not produce CONTEXT.md."
+
+**3a.5. UI Design Contract (Frontend Phases)**
+
+Check if this phase has frontend indicators and whether a UI-SPEC already exists:
+
+```bash
+PHASE_SECTION=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" roadmap get-phase ${PHASE_NUM} 2>/dev/null)
+echo "$PHASE_SECTION" | grep -iE "UI|interface|frontend|component|layout|page|screen|view|form|dashboard|widget" > /dev/null 2>&1
+HAS_UI=$?
+UI_SPEC_FILE=$(ls "${PHASE_DIR}"/*-UI-SPEC.md 2>/dev/null | head -1)
+```
+
+Check if UI phase workflow is enabled:
+
+```bash
+UI_PHASE_CFG=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" config-get workflow.ui_phase 2>/dev/null || echo "true")
+```
+
+**If `HAS_UI` is 0 (frontend indicators found) AND `UI_SPEC_FILE` is empty (no UI-SPEC exists) AND `UI_PHASE_CFG` is not `false`:**
+
+Display:
+
+```
+Phase ${PHASE_NUM}: Frontend phase detected — generating UI design contract...
+```
+
+```
+Skill(skill="gsd:ui-phase", args="${PHASE_NUM}")
+```
+
+Verify UI-SPEC was created:
+
+```bash
+UI_SPEC_FILE=$(ls "${PHASE_DIR}"/*-UI-SPEC.md 2>/dev/null | head -1)
+```
+
+**If `UI_SPEC_FILE` is still empty after ui-phase:** Display warning `Phase ${PHASE_NUM}: UI-SPEC generation did not produce output — continuing without design contract.` and proceed to 3b.
+
+**If `HAS_UI` is 1 (no frontend indicators) OR `UI_SPEC_FILE` is not empty (UI-SPEC already exists) OR `UI_PHASE_CFG` is `false`:** Skip silently to 3b.
 
 **3b. Plan**
 
@@ -252,6 +388,38 @@ On **"Continue without fixing"**: Display `Phase ${PHASE_NUM} ⏭ Gaps deferred`
 
 On **"Stop autonomous mode"**: Go to handle_blocker with "User stopped — gaps remain in phase ${PHASE_NUM}".
 
+**3d.5. UI Review (Frontend Phases)**
+
+> Run after any successful execution routing (passed, human_needed accepted, or gaps deferred/accepted) — before proceeding to the iterate step.
+
+Check if this phase had a UI-SPEC (created in step 3a.5 or pre-existing):
+
+```bash
+UI_SPEC_FILE=$(ls "${PHASE_DIR}"/*-UI-SPEC.md 2>/dev/null | head -1)
+```
+
+Check if UI review is enabled:
+
+```bash
+UI_REVIEW_CFG=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" config-get workflow.ui_review 2>/dev/null || echo "true")
+```
+
+**If `UI_SPEC_FILE` is not empty AND `UI_REVIEW_CFG` is not `false`:**
+
+Display:
+
+```
+Phase ${PHASE_NUM}: Frontend phase with UI-SPEC — running UI review audit...
+```
+
+```
+Skill(skill="gsd:ui-review", args="${PHASE_NUM}")
+```
+
+Display the review result summary (score from UI-REVIEW.md if produced). Continue to iterate step regardless of score — UI review is advisory, not blocking.
+
+**If `UI_SPEC_FILE` is empty OR `UI_REVIEW_CFG` is `false`:** Skip silently to iterate step.
+
 </step>
 
 <step name="smart_discuss">
@@ -279,9 +447,9 @@ Read project-level and prior phase context to avoid re-asking decided questions.
 **Read project files:**
 
 ```bash
-cat .planning/PROJECT.md 2>/dev/null
-cat .planning/REQUIREMENTS.md 2>/dev/null
-cat .planning/STATE.md 2>/dev/null
+cat .planning/PROJECT.md 2>/dev/null || true
+cat .planning/REQUIREMENTS.md 2>/dev/null || true
+cat .planning/STATE.md 2>/dev/null || true
 ```
 
 Extract from these:
@@ -292,7 +460,7 @@ Extract from these:
 **Read all prior CONTEXT.md files:**
 
 ```bash
-find .planning/phases -name "*-CONTEXT.md" 2>/dev/null | sort
+(find .planning/phases -name "*-CONTEXT.md" 2>/dev/null || true) | sort
 ```
 
 For each CONTEXT.md where phase number < current phase:
@@ -326,7 +494,7 @@ Lightweight codebase scan to inform grey area identification and proposals. Keep
 **Check for existing codebase maps:**
 
 ```bash
-ls .planning/codebase/*.md 2>/dev/null
+ls .planning/codebase/*.md 2>/dev/null || true
 ```
 
 **If codebase maps exist:** Read the most relevant ones (CONVENTIONS.md, STRUCTURE.md, STACK.md based on phase type). Extract reusable components, established patterns, integration points. Skip to building context below.
@@ -336,8 +504,8 @@ ls .planning/codebase/*.md 2>/dev/null
 Extract key terms from the phase goal. Search for related files:
 
 ```bash
-grep -rl "{term1}\|{term2}" src/ app/ --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" 2>/dev/null | head -10
-ls src/components/ src/hooks/ src/lib/ src/utils/ 2>/dev/null
+grep -rl "{term1}\|{term2}" src/ app/ --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" 2>/dev/null | head -10 || true
+ls src/components/ src/hooks/ src/lib/ src/utils/ 2>/dev/null || true
 ```
 
 Read the 3-5 most relevant files to understand existing patterns.
@@ -542,7 +710,9 @@ Decisions captured: {count} across {area_count} areas
 
 ## 4. Iterate
 
-After each phase completes, re-read ROADMAP.md to catch phases inserted mid-execution (decimal phases like 5.1):
+**If `ONLY_PHASE` is set:** Do not iterate. Proceed directly to lifecycle step (which exits cleanly per single-phase mode).
+
+**Otherwise:** After each phase completes, re-read ROADMAP.md to catch phases inserted mid-execution (decimal phases like 5.1):
 
 ```bash
 ROADMAP=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" roadmap analyze)
@@ -571,7 +741,23 @@ If all phases complete, proceed to lifecycle step.
 
 ## 5. Lifecycle
 
-After all phases complete, run the milestone lifecycle sequence: audit → complete → cleanup.
+**If `ONLY_PHASE` is set:** Skip lifecycle. A single phase does not trigger audit/complete/cleanup. Display:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GSD ► AUTONOMOUS ▸ PHASE ${ONLY_PHASE} COMPLETE ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ Phase ${ONLY_PHASE}: ${PHASE_NAME} — Done
+ Mode: Single phase (--only)
+
+ Lifecycle skipped — run /gsd:autonomous without --only
+ after all phases complete to trigger audit/complete/cleanup.
+```
+
+Exit cleanly.
+
+**Otherwise:** After all phases complete, run the milestone lifecycle sequence: audit → complete → cleanup.
 
 Display lifecycle transition banner:
 
@@ -649,7 +835,7 @@ Skill(skill="gsd:complete-milestone", args="${milestone_version}")
 After complete-milestone returns, verify it produced output:
 
 ```bash
-ls .planning/milestones/v${milestone_version}-ROADMAP.md 2>/dev/null
+ls .planning/milestones/v${milestone_version}-ROADMAP.md 2>/dev/null || true
 ```
 
 If the archive file does not exist, go to handle_blocker: "Complete milestone did not produce expected archive files."
@@ -708,7 +894,7 @@ When any phase operation fails or a blocker is detected, present 3 options via A
  Skipped: {list of skipped phases}
  Remaining: {list of remaining phases}
 
- Resume with: /gsd:autonomous --from {next_phase}
+ Resume with: /gsd:autonomous ${ONLY_PHASE ? "--only " + ONLY_PHASE : "--from " + next_phase}
 ```
 
 </step>
@@ -716,7 +902,7 @@ When any phase operation fails or a blocker is detected, present 3 options via A
 </process>
 
 <success_criteria>
-- [ ] All incomplete phases executed in order (smart discuss → plan → execute each)
+- [ ] All incomplete phases executed in order (smart discuss → ui-phase → plan → execute → ui-review each)
 - [ ] Smart discuss proposes grey area answers in tables, user accepts or overrides per area
 - [ ] Progress banners displayed between phases
 - [ ] Execute-phase invoked with --no-transition (autonomous manages transitions)
@@ -738,6 +924,15 @@ When any phase operation fails or a blocker is detected, present 3 options via A
 - [ ] Complete-milestone invoked via Skill() with ${milestone_version} arg
 - [ ] Cleanup invoked via Skill() — internal confirmation is acceptable (CTRL-01)
 - [ ] Final completion banner displayed after lifecycle
-- [ ] Progress bar uses phase number / total milestone phases (not position among incomplete)
+- [ ] Progress bar uses phase number / total milestone phases (not position among incomplete), with fallback display when phase numbers exceed total
 - [ ] Smart discuss documents relationship to discuss-phase with CTRL-03 note
+- [ ] Frontend phases get UI-SPEC generated before planning (step 3a.5) if not already present
+- [ ] Frontend phases get UI review audit after successful execution (step 3d.5) if UI-SPEC exists
+- [ ] UI phase and UI review respect workflow.ui_phase and workflow.ui_review config toggles
+- [ ] UI review is advisory (non-blocking) — phase proceeds to iterate regardless of score
+- [ ] `--only N` restricts execution to exactly one phase
+- [ ] `--only N` skips lifecycle step (audit/complete/cleanup)
+- [ ] `--only N` exits cleanly after single phase completes
+- [ ] `--only N` on already-complete phase exits with message
+- [ ] `--only N` handle_blocker resume message uses --only flag
 </success_criteria>

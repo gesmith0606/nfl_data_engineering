@@ -277,9 +277,11 @@ issue:
 
 **Process:**
 1. Parse CONTEXT.md sections: Decisions, Claude's Discretion, Deferred Ideas
-2. For each locked Decision, find implementing task(s)
-3. Verify no tasks implement Deferred Ideas (scope creep)
-4. Verify Discretion areas are handled (planner's choice is valid)
+2. Extract all numbered decisions (D-01, D-02, etc.) from the `<decisions>` section
+3. For each locked Decision, find implementing task(s) — check task actions for D-XX references
+4. Verify 100% decision coverage: every D-XX must appear in at least one task's action or rationale
+5. Verify no tasks implement Deferred Ideas (scope creep)
+6. Verify Discretion areas are handled (planner's choice is valid)
 
 **Red flags:**
 - Locked decision has no implementing task
@@ -310,6 +312,49 @@ issue:
   task: 1
   deferred_idea: "Search/filtering (Deferred Ideas section)"
   fix_hint: "Remove search task - belongs in future phase per user decision"
+```
+
+## Dimension 7b: Scope Reduction Detection
+
+**Question:** Did the planner silently simplify user decisions instead of delivering them fully?
+
+**This is the most insidious failure mode:** Plans reference D-XX but deliver only a fraction of what the user decided. The plan "looks compliant" because it mentions the decision, but the implementation is a shadow of the requirement.
+
+**Process:**
+1. For each task action in all plans, scan for scope reduction language:
+   - `"v1"`, `"v2"`, `"simplified"`, `"static for now"`, `"hardcoded"`
+   - `"future enhancement"`, `"placeholder"`, `"basic version"`, `"minimal"`
+   - `"will be wired later"`, `"dynamic in future"`, `"skip for now"`
+   - `"not wired to"`, `"not connected to"`, `"stub"`
+2. For each match, cross-reference with the CONTEXT.md decision it claims to implement
+3. Compare: does the task deliver what D-XX actually says, or a reduced version?
+4. If reduced: BLOCKER — the planner must either deliver fully or propose phase split
+
+**Red flags (from real incident):**
+- CONTEXT.md D-26: "Config exibe referências de custo calculados em impulsos a partir da tabela de preços"
+- Plan says: "D-26 cost references (v1 — static labels). NOT wired to billingPrecosOriginaisModel — dynamic pricing display is a future enhancement"
+- This is a BLOCKER: the planner invented "v1/v2" versioning that doesn't exist in the user's decision
+
+**Severity:** ALWAYS BLOCKER. Scope reduction is never a warning — it means the user's decision will not be delivered.
+
+**Example:**
+```yaml
+issue:
+  dimension: scope_reduction
+  severity: blocker
+  description: "Plan reduces D-26 from 'calculated costs in impulses' to 'static hardcoded labels'"
+  plan: "03"
+  task: 1
+  decision: "D-26: Config exibe referências de custo calculados em impulsos"
+  plan_action: "static labels v1 — NOT wired to billing"
+  fix_hint: "Either implement D-26 fully (fetch from billingPrecosOriginaisModel) or return PHASE SPLIT RECOMMENDED"
+```
+
+**Fix path:** When scope reduction is detected, the checker returns ISSUES FOUND with recommendation:
+```
+Plans reduce {N} user decisions. Options:
+1. Revise plans to deliver decisions fully (may increase plan count)
+2. Split phase: [suggested grouping of D-XX into sub-phases]
 ```
 
 ## Dimension 8: Nyquist Compliance
@@ -388,6 +433,50 @@ If FAIL: return to planner with specific fixes. Same revision loop as other dime
 - Two plans transform same entity without shared raw source
 
 **Severity:** WARNING for potential conflicts. BLOCKER if incompatible transforms on same data entity with no preservation mechanism.
+
+## Dimension 10: CLAUDE.md Compliance
+
+**Question:** Do plans respect project-specific conventions, constraints, and requirements from CLAUDE.md?
+
+**Process:**
+1. Read `./CLAUDE.md` in the working directory (already loaded in `<project_context>`)
+2. Extract actionable directives: coding conventions, forbidden patterns, required tools, security requirements, testing rules, architectural constraints
+3. For each directive, check if any plan task contradicts or ignores it
+4. Flag plans that introduce patterns CLAUDE.md explicitly forbids
+5. Flag plans that skip steps CLAUDE.md explicitly requires (e.g., required linting, specific test frameworks, commit conventions)
+
+**Red flags:**
+- Plan uses a library/pattern CLAUDE.md explicitly forbids
+- Plan skips a required step (e.g., CLAUDE.md says "always run X before Y" but plan omits X)
+- Plan introduces code style that contradicts CLAUDE.md conventions
+- Plan creates files in locations that violate CLAUDE.md's architectural constraints
+- Plan ignores security requirements documented in CLAUDE.md
+
+**Skip condition:** If no `./CLAUDE.md` exists in the working directory, output: "Dimension 10: SKIPPED (no CLAUDE.md found)" and move on.
+
+**Example — forbidden pattern:**
+```yaml
+issue:
+  dimension: claude_md_compliance
+  severity: blocker
+  description: "Plan uses Jest for testing but CLAUDE.md requires Vitest"
+  plan: "01"
+  task: 1
+  claude_md_rule: "Testing: Always use Vitest, never Jest"
+  plan_action: "Install Jest and create test suite..."
+  fix_hint: "Replace Jest with Vitest per project CLAUDE.md"
+```
+
+**Example — skipped required step:**
+```yaml
+issue:
+  dimension: claude_md_compliance
+  severity: warning
+  description: "Plan does not include lint step required by CLAUDE.md"
+  plan: "02"
+  claude_md_rule: "All tasks must run eslint before committing"
+  fix_hint: "Add eslint verification step to each task's <verify> block"
+```
 
 </verification_dimensions>
 
@@ -720,6 +809,7 @@ Plan verification complete when:
   - [ ] Deferred ideas not included in plans
 - [ ] Overall status determined (passed | issues_found)
 - [ ] Cross-plan data contracts checked (no conflicting transforms on shared data)
+- [ ] CLAUDE.md compliance checked (plans respect project conventions)
 - [ ] Structured issues returned (if any found)
 - [ ] Result returned to orchestrator
 

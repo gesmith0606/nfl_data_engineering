@@ -37,8 +37,8 @@ Extract from init JSON: `phase_dir`, `phase_number`, `phase_name`, `has_plans`, 
 Then load phase details and list plans/summaries:
 ```bash
 node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" roadmap get-phase "${phase_number}"
-grep -E "^| ${phase_number}" .planning/REQUIREMENTS.md 2>/dev/null
-ls "$phase_dir"/*-SUMMARY.md "$phase_dir"/*-PLAN.md 2>/dev/null
+grep -E "^| ${phase_number}" .planning/REQUIREMENTS.md 2>/dev/null || true
+ls "$phase_dir"/*-SUMMARY.md "$phase_dir"/*-PLAN.md 2>/dev/null || true
 ```
 
 Extract **phase goal** from ROADMAP.md (the outcome to verify, not tasks) and **requirements** from REQUIREMENTS.md if it exists.
@@ -171,7 +171,7 @@ Record status and evidence for each key link.
 <step name="verify_requirements">
 If REQUIREMENTS.md exists:
 ```bash
-grep -E "Phase ${PHASE_NUM}" .planning/REQUIREMENTS.md 2>/dev/null
+grep -E "Phase ${PHASE_NUM}" .planning/REQUIREMENTS.md 2>/dev/null || true
 ```
 
 For each requirement: parse description → identify supporting truths/artifacts → status: ✓ SATISFIED / ✗ BLOCKED / ? NEEDS HUMAN.
@@ -199,11 +199,18 @@ Format each as: Test Name → What to do → Expected result → Why can't verif
 </step>
 
 <step name="determine_status">
-**passed:** All truths VERIFIED, all artifacts pass levels 1-3, all key links WIRED, no blocker anti-patterns.
+Classify status using this decision tree IN ORDER (most restrictive first):
 
-**gaps_found:** Any truth FAILED, artifact MISSING/STUB, key link NOT_WIRED, or blocker found.
+1. IF any truth FAILED, artifact MISSING/STUB, key link NOT_WIRED, or blocker found:
+   → **gaps_found**
 
-**human_needed:** All automated checks pass but human verification items remain.
+2. IF the previous step produced ANY human verification items:
+   → **human_needed** (even if all truths VERIFIED and score is N/N)
+
+3. IF all checks pass AND no human verification items:
+   → **passed**
+
+**passed is ONLY valid when no human verification items exist.**
 
 **Score:** `verified_truths / total_truths`
 </step>
