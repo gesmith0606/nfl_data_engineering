@@ -1,5 +1,23 @@
 # Milestones
 
+## v3.1 Graph-Enhanced Fantasy Projections (Shipped: 2026-04-03)
+
+**Phases completed:** 5 phases, 11 plans | **354 files changed, +40,821 / -8,547 lines** | **2 days**
+
+**Key accomplishments:**
+
+- PBP participation data ingested (295K plays, 2020-2025) unlocking 18/22 graph features with 73-95% position coverage
+- 22 graph features computed (injury cascade, WR-CB matchup, OL lineup, TE coverage, scheme) with dual Neo4j/pandas architecture
+- Training data expanded to 2016-2025 (51,758 player-weeks, +66%) improving QB ML by 14%
+- Hybrid residual approach shipped: WR -4.5% MAE, TE -5.0% MAE — heuristic + Ridge correction beats standalone ML
+- Fantasy MAE improved 4.91 → 4.77 (-2.9%) with new routing: QB=XGB, RB=XGB, WR=Hybrid, TE=Hybrid
+- Kicker projection system added as 5th fantasy position (MAE 4.14, near-random — expected)
+- Ridge/ElasticNet model factories + interaction features for future model experimentation
+
+**Known gaps:** cb_cooccurrence_quality NaN (needs PFF), te_red_zone_target_share NaN (needs RZ computation), 2016-2019 participation sparse
+
+---
+
 ## v2.2 Full Odds + Holdout Reset (Shipped: 2026-03-29)
 
 **Phases completed:** 4 phases, 7 plans, 12 tasks

@@ -98,28 +98,20 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-- [ ] PBP participation data ingestion (blocker for graph features)
-- [ ] Re-run ship/skip gate with all 22 graph features populated
-- [ ] Kicker projection backtesting
+- [ ] Unified evaluation pipeline (full 466-feature residual for 14-68% improvement)
+- [ ] Website deployment (Vercel + AWS + Supabase)
+- [ ] Sleeper OAuth integration
+- [ ] PFF paid data integration (true WR-CB coverage, OL grades)
 
-## Current Milestone: v3.1 Graph-Enhanced Fantasy Projections
+## Current Milestone: Planning next milestone
 
-**Goal:** Use Neo4j graph features to beat the heuristic baseline for WR/RB/TE fantasy projections, plus add kicker support.
-
-**Target features:**
-- PBP participation data ingestion (unlocks 18/22 graph features)
-- WR-CB matchup proxy from co-occurrence data
-- RB OL injury cascade + defensive front scheme matchup features
-- TE coverage mismatch (LB vs Safety) + red zone target share features
-- Ship/skip gate with all graph features populated
-- Kicker fantasy projections with game script + venue multipliers
-- Game-level team total constraints (opt-in)
+v3.1 shipped. See `.planning/milestones/v3.1-ROADMAP.md` for archive.
 
 ### Planned (Future Milestones)
 
-**Player prediction path (priority):**
-- v3.0 Player Fantasy Prediction System — opportunity models, efficiency models, matchup context, game-level constraints, regime detection, evaluation framework
-- v3.1 Graph-Enhanced Predictions — Neo4j foundation, WR-CB matchups, target networks, graph features into both game and player models
+**Model improvement path:**
+- v3.2 Unified Evaluation Pipeline — full 466-feature residual, production heuristic alignment, QB/RB residual deployment
+- v3.3 PFF Data Integration — true WR-CB coverage, OL blocking grades, route data ($300-500/season)
 
 **Production & delivery path:**
 - v4.0 Production Pipeline — automated weekly runs, drift detection, monitoring
