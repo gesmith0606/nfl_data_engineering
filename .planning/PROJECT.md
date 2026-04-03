@@ -103,23 +103,31 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - [ ] Sleeper OAuth integration
 - [ ] PFF paid data integration (true WR-CB coverage, OL grades)
 
-## Current Milestone: Planning next milestone
+## Current Milestones (Parallel)
 
-v3.1 shipped. See `.planning/milestones/v3.1-ROADMAP.md` for archive.
+### v3.2 Model Perfection
+**Goal:** Push fantasy MAE below 4.5 through unified evaluation pipeline and advanced modeling.
+**Target features:**
+- Unified evaluation pipeline (training + backtest use same heuristic + full 466 features)
+- Full-feature residual deployment for all positions
+- Bayesian hierarchical models for principled regularization
+- Quantile regression for calibrated floor/ceiling
+
+### v4.0 Production Launch
+**Goal:** Deploy the website and go live for the 2026 NFL season.
+**Target features:**
+- Deploy frontend to Vercel, backend to AWS
+- Supabase PostgreSQL with weekly data loads
+- Sleeper OAuth integration (link your league)
+- Weekly pipeline automation (projections → DB → website)
+- CI/CD from GitHub
 
 ### Planned (Future Milestones)
-
-**Model improvement path:**
-- v3.2 Unified Evaluation Pipeline — full 466-feature residual, production heuristic alignment, QB/RB residual deployment
-- v3.3 PFF Data Integration — true WR-CB coverage, OL blocking grades, route data ($300-500/season)
-
-**Production & delivery path:**
-- v4.0 Production Pipeline — automated weekly runs, drift detection, monitoring
-- v4.1 Web MVP — FastAPI backend + frontend, projections + lines display
-- v4.2 User Accounts + Sleeper — OAuth, team linking, roster import, lineup advice
-- v4.3 Fantasy Agent — LLM-powered start/sit, waiver recommendations
-- v4.4 Draft Agent — real-time draft tracking + pick recommendations (Sleeper-first)
-- v5.0 Multi-Platform — ESPN/Yahoo draft support
+- v3.3 PFF Data Integration — true WR-CB coverage, OL blocking grades ($300-500/season)
+- v4.1 User Accounts + Sleeper — roster import, lineup optimization
+- v4.2 Fantasy Agent — LLM-powered start/sit, waiver recommendations
+- v4.3 Draft Agent — real-time draft tracking (Sleeper-first)
+- v5.0 Multi-Platform — ESPN/Yahoo support
 
 ### Out of Scope
 
