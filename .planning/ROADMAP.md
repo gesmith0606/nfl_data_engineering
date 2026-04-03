@@ -11,7 +11,7 @@
 - v2.1 Market Data -- Phases 32-34 (shipped 2026-03-28)
 - v2.2 Full Odds + Holdout Reset -- Phases 35-38 (shipped 2026-03-29)
 - v3.0 Player Fantasy Prediction System -- Phases 39-48 (shipped 2026-04-01)
-- **v3.1 Graph-Enhanced Fantasy Projections -- Phases 49-52 (current)**
+- **v3.1 Graph-Enhanced Fantasy Projections -- Phases 49-53 (shipped 2026-04-02)**
 
 ---
 
@@ -21,7 +21,7 @@
 
 **Note:** Much of the infrastructure was built in v3.0 phases 43-48. This milestone focuses on populating the features with real data, running the ship/skip gate, and finalizing kicker projections.
 
-### Phase 49: PBP Participation Data Ingestion
+### Phase 49: PBP Participation Data Ingestion ✓
 **Goal:** Ingest PBP participation data (22 player IDs per snap) for all training seasons, unlocking 18/22 graph features.
 **Requirements:** INGEST-01, INGEST-02, INGEST-03
 **Dependencies:** None (ingestion already running)
@@ -31,7 +31,7 @@
 3. Re-running ingestion does not create duplicates
 4. Ingestion script handles nfl-data-py API failures gracefully
 
-### Phase 50: Populate Graph Features from Participation Data
+### Phase 50: Populate Graph Features from Participation Data ✓
 **Goal:** Compute all WR/RB/TE graph features using the participation data and cache as Silver parquet.
 **Requirements:** WR-01, WR-02, WR-03, WR-04, RB-01, RB-02, RB-03, RB-04, RB-05, TE-01, TE-02, TE-03, TE-04, INFRA-02, INFRA-03
 **Dependencies:** Phase 49 (participation data must exist)
@@ -42,7 +42,7 @@
 4. All features respect temporal lag (shift(1), no future data)
 5. Features cached in `data/silver/graph_features/` per season
 
-### Phase 51: Ship/Skip Gate — Graph-Enhanced Models
+### Phase 51: Ship/Skip Gate — Graph-Enhanced Models ✓
 **Goal:** Retrain per-position player models with all 22 graph features and determine which positions beat the heuristic baseline.
 **Requirements:** MODEL-01, MODEL-02, MODEL-03, MODEL-04, INFRA-01
 **Dependencies:** Phase 50 (features must be populated)
@@ -54,7 +54,7 @@
 5. At least one position (target: WR) shows statistically significant improvement
 6. 841+ tests passing after any routing changes
 
-### Phase 52: Kicker Backtesting + Final Validation
+### Phase 52: Kicker Backtesting + Final Validation ✓
 **Goal:** Validate kicker projections against historical data and run full-system backtest.
 **Requirements:** KICK-01, KICK-02, KICK-03, INFRA-01
 **Dependencies:** Phase 51 (final model state must be known)
@@ -64,6 +64,25 @@
 3. Full-system backtest run with final v3.1 model configuration
 4. Overall fantasy MAE reported (target: < 4.91)
 5. All tests passing, docs updated
+
+### Phase 53: Model Architecture Improvements ✓ (Unplanned — emerged from Phase 51 results)
+**Goal:** Improve fantasy MAE through alternative architectures and hybrid approaches.
+**Requirements:** MODEL-01 through MODEL-04 (carried from Phase 51)
+**Dependencies:** Phase 51 (ship gate results inform which approaches to try)
+**Success criteria:**
+1. Ridge/ElasticNet evaluated as alternative to XGBoost for RB/WR/TE
+2. Expanded training data (2016-2025) tested for overfitting reduction
+3. Hybrid residual correction tested (heuristic + ML correction)
+4. Production pipeline updated with best-performing approach per position
+5. Overall fantasy MAE improved below 4.91 baseline
+
+**Results:**
+- Ridge cannot beat heuristic for RB/WR/TE (53-01)
+- Data expansion (51K player-weeks) marginally helps but doesn't flip SKIP to SHIP (53-02)
+- Hybrid residual SHIPS for WR (-12.1%) and TE (-9.9%) vs standalone ML (53-03, 53-04)
+- Production pipeline wired: QB=XGB, RB=XGB, WR=Heuristic+Residual, TE=Heuristic+Residual (53-05)
+- Heuristic weight tuning: roll3=0.30, roll6=0.15, std=0.55; overall MAE 4.91 -> 4.77 (53-06)
+- 899 tests passing
 
 ---
 
