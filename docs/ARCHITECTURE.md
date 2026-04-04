@@ -1,8 +1,8 @@
 # NFL Data Engineering Architecture
 
-**Version:** 2.1  
-**Last Updated:** April 1, 2026  
-**Status:** Active (v3.0 Graph Features + Web API + Hybrid Residual Models; v4.0 Website in progress)  
+**Version:** 3.2  
+**Last Updated:** April 3, 2026  
+**Status:** Active (v3.2 Website MVP + v4.0 Unified Evaluation in progress; Phase 54 residual training)  
 **Related:** [NFL_DATA_DICTIONARY.md](./NFL_DATA_DICTIONARY.md) | [CLAUDE.md](../CLAUDE.md)
 
 ---
@@ -88,10 +88,12 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ s3://nfl-trusted/ | data/gold/                              │
 │                                                              │
 │ ┌─ Fantasy Projections ────────────────────────────────┐   │
-│ │ • Weekly projections (rolling heuristics)            │   │
+│ │ • Weekly projections (optimized heuristics)          │   │
 │ │ • Preseason projections (rookie fallback)            │   │
-│ │ • QB: ML routing via player_model_training.py        │   │
-│ │ • RB/WR/TE: heuristic + usage multiplier            │   │
+│ │ • QB: XGBoost direct (6.72 MAE)                     │   │
+│ │ • RB/WR/TE: Hybrid Residual (heuristic + ML correction) │   │
+│ │ • Weights: roll3=0.30, roll6=0.15, std=0.55         │   │
+│ │ • Ceiling: 12/18/23 pt shrinkage, MAE 4.77          │   │
 │ │ • Output: 25 columns per player-week                │   │
 │ │                                                       │   │
 │ ├─ Game Predictions ──────────────────────────────────┤   │
@@ -527,8 +529,8 @@ vs v1.4 Single Model:
 
 ### Track 3: Player ML Predictions — Hybrid Residual Strategy
 
-**Status:** v3.0 research complete (Phase 51-53); hybrid residual approach adopted  
-**Modules:** `src/player_model_training.py`, `src/hybrid_projection.py`
+**Status:** v3.1-v3.2 research complete (Phase 51-54); hybrid residual approach shipped with optimized weights
+**Modules:** `src/player_model_training.py`, `src/hybrid_projection.py`, `src/train_residual_models.py`
 
 #### Research Summary (Phases 51-53)
 
@@ -561,11 +563,14 @@ Traditional approach (failed):
     raw_projection ← ML model (overfits, beats heuristic in backtest, fails in production)
 
 Hybrid residual approach (industry standard):
-    heuristic_projection ← weighted roll3/roll6/std × usage × matchup × vegas
+    heuristic_projection ← weighted(roll3=0.30, roll6=0.15, std=0.55) × usage × matchup × vegas
     heuristic_residual = actual_stat - heuristic_projection
     
     residual_correction ← ML model trained on heuristic_residuals
     final_projection = heuristic_projection + residual_correction
+    
+    ceiling_shrinkage ← {12: 0.95, 18: 0.90, 23: 0.85}  # Regression-to-mean
+    final_projection ← apply_shrinkage(final_projection, ceiling_shrinkage)
 ```
 
 This mirrors production models at FantasyPros, PFF, and ESPN: let the heuristic do what it does well, use ML to correct its systematic errors.
@@ -605,8 +610,9 @@ Model Variants Available (--model-type CLI flag):
 
 Ship/Skip Gates (per position):
     ├─ QB: Ship (XGBoost 6.72 MAE, 14% better than heuristic baseline)
-    ├─ RB/WR/TE: Testing hybrid residual; skip if raw model worse than heuristic
-    └─ Fallback: Always revert to projection_engine heuristic if ship fails
+    ├─ RB: Hybrid Residual (heuristic fallback for backup RBs)
+    ├─ WR/TE: Hybrid Residual with weight tuning (Phase 54)
+    └─ Fallback: Always revert to projection_engine heuristic if model degrades
 ```
 
 #### Hybrid Projection (in testing)
@@ -801,13 +807,13 @@ df['rolling_avg'] = df.groupby(['player', 'season'])['stat'].transform(
 
 ```python
 PROJECTION_CEILING_SHRINKAGE = {
-    15.0: 0.90,   # 15-20 pts → ×0.90
-    20.0: 0.85,   # 20-25 pts → ×0.85
-    25.0: 0.80,   # 25+ pts   → ×0.80
+    12.0: 0.95,   # 12-18 pts → ×0.95
+    18.0: 0.90,   # 18-23 pts → ×0.90
+    23.0: 0.85,   # 23+ pts   → ×0.85
 }
 ```
 
-**Benefit:** Backtest MAE 4.91; better calibration without widening bands.
+**Benefit:** Final MAE 4.77 (improved from 4.91); better calibration without widening bands.
 
 ### 6. Ship/Skip Gates
 

@@ -39,6 +39,16 @@ try:
 except ImportError:
     HAS_ML_ROUTER = False
 
+try:
+    from player_feature_engineering import (
+        assemble_player_features,
+        get_player_feature_columns,
+    )
+
+    HAS_FEATURE_ENGINEERING = True
+except ImportError:
+    HAS_FEATURE_ENGINEERING = False
+
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -147,8 +157,21 @@ def run_backtest(
     scoring_format: str,
     use_ml: bool = False,
     apply_constraints: bool = False,
+    full_features: bool = False,
 ) -> pd.DataFrame:
-    """Run backtesting across specified seasons and weeks."""
+    """Run backtesting across specified seasons and weeks.
+
+    Args:
+        seasons: Seasons to backtest.
+        weeks: Specific weeks (None = 3-18).
+        scoring_format: Scoring format string.
+        use_ml: Use ML projection router.
+        apply_constraints: Apply team-level constraints.
+        full_features: When True and use_ml is True, assemble the full
+            466-column feature vector from player_feature_engineering and
+            pass it to the ML projection router for richer residual
+            correction. Requires local Silver data.
+    """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
     bronze_dir = os.path.join(project_root, "data", "bronze")
@@ -189,6 +212,20 @@ def run_backtest(
         if apply_constraints:
             has_lines = {"total_line", "spread_line"}.issubset(schedules_df.columns)
             print(f"  Constraints enabled — Vegas lines available: {has_lines}")
+
+    # Pre-assemble full feature vectors per season (if requested)
+    season_features: Dict[int, pd.DataFrame] = {}
+    if full_features and use_ml and HAS_FEATURE_ENGINEERING:
+        print("\nAssembling full feature vectors...")
+        for s in seasons:
+            feat_df = assemble_player_features(s)
+            if not feat_df.empty:
+                season_features[s] = feat_df
+                n_cols = len(get_player_feature_columns(feat_df))
+                print(f"  Season {s}: {len(feat_df):,} rows, {n_cols} features")
+            else:
+                print(f"  Season {s}: no features assembled")
+        print()
 
     results = []
     total_weeks = 0
@@ -231,6 +268,8 @@ def run_backtest(
             # Generate projections
             try:
                 if use_ml and HAS_ML_ROUTER:
+                    # Pass full features if available
+                    feat_df = season_features.get(season) if full_features else None
                     projections = generate_ml_projections(
                         silver_df,
                         opp_rankings,
@@ -244,6 +283,7 @@ def run_backtest(
                         ),
                         implied_totals=implied_totals,
                         apply_constraints=apply_constraints,
+                        feature_df=feat_df,
                     )
                 else:
                     projections = generate_weekly_projections(
@@ -403,6 +443,11 @@ def main():
         help="Apply team-level constraints so player totals align with implied team totals",
     )
     parser.add_argument(
+        "--full-features",
+        action="store_true",
+        help="Assemble full 466-col feature vector for ML residual correction (requires Silver data)",
+    )
+    parser.add_argument(
         "--output-dir",
         default="output/backtest",
         help="Output directory for results CSV",
@@ -412,22 +457,34 @@ def main():
     seasons = [int(s) for s in args.seasons.split(",")]
     weeks = parse_weeks(args.weeks) if args.weeks else None
 
+    full_features = getattr(args, "full_features", False)
+
     print(f"\nNFL Fantasy Projection Backtester")
     mode = "ML (QB/RB→XGB, WR/TE→Hybrid Residual)" if args.ml else "Heuristic"
     constrain_label = " | Constraints: ON" if args.constrain else ""
+    features_label = " | Full Features: ON" if full_features else ""
     print(
-        f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}{constrain_label}"
+        f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}{constrain_label}{features_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
             "WARNING: --ml flag set but ml_projection_router not available; using heuristic"
+        )
+    if full_features and not HAS_FEATURE_ENGINEERING:
+        print(
+            "WARNING: --full-features flag set but player_feature_engineering not available"
         )
     if weeks:
         print(f"Weeks: {weeks}")
     print("=" * 60)
 
     results = run_backtest(
-        seasons, weeks, args.scoring, use_ml=args.ml, apply_constraints=args.constrain
+        seasons,
+        weeks,
+        args.scoring,
+        use_ml=args.ml,
+        apply_constraints=args.constrain,
+        full_features=full_features,
     )
 
     if results.empty:
@@ -441,8 +498,10 @@ def main():
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     ml_tag = "_ml" if args.ml else ""
     constrain_tag = "_constrained" if args.constrain else ""
+    features_tag = "_fullfeatures" if full_features else ""
     csv_path = os.path.join(
-        args.output_dir, f"backtest_{args.scoring}{ml_tag}{constrain_tag}_{ts}.csv"
+        args.output_dir,
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")

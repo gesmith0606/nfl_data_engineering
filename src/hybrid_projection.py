@@ -335,11 +335,14 @@ def train_and_save_residual_models(
 
     For each position, trains a Ridge pipeline on:
         residual = actual_fantasy_points - production_heuristic_points
-    using walk-forward CV with train on seasons < val_season.
+    using the full feature vector from assemble_multiyear_player_features
+    and the unified production heuristic from unified_evaluation.py.
+
     The final production model is trained on ALL non-holdout data.
 
     Args:
-        positions: Positions to train residual models for. Default ['WR', 'TE'].
+        positions: Positions to train residual models for.
+            Default ['QB', 'RB', 'WR', 'TE'].
         scoring_format: Scoring format string.
         output_dir: Directory to save models. Default 'models/residual'.
 
@@ -351,15 +354,20 @@ def train_and_save_residual_models(
         assemble_multiyear_player_features,
         get_player_feature_columns,
     )
+    from unified_evaluation import (
+        build_opp_rankings,
+        compute_actual_fantasy_points,
+        compute_production_heuristic,
+    )
 
     if positions is None:
-        positions = ["WR", "TE"]
+        positions = ["QB", "RB", "WR", "TE"]
     if output_dir is None:
         output_dir = RESIDUAL_MODEL_DIR
 
     os.makedirs(output_dir, exist_ok=True)
 
-    # Load data
+    # Load full feature data
     logger.info("Loading player feature data for residual training...")
     all_data = assemble_multiyear_player_features(PLAYER_DATA_SEASONS)
     if all_data.empty:
@@ -370,13 +378,7 @@ def train_and_save_residual_models(
     logger.info("Found %d candidate features", len(feature_cols))
 
     # Build opponent rankings (for production heuristic)
-    from run_production_residual_experiment import (
-        build_opp_rankings_from_features,
-        compute_actual_points,
-        compute_production_heuristic_points,
-    )
-
-    opp_rankings = build_opp_rankings_from_features(all_data)
+    opp_rankings = build_opp_rankings(PLAYER_DATA_SEASONS)
 
     results: Dict[str, Dict[str, Any]] = {}
 
@@ -389,11 +391,11 @@ def train_and_save_residual_models(
             logger.warning("No data for %s", position)
             continue
 
-        # Compute heuristic + actual
-        prod_pts = compute_production_heuristic_points(
+        # Compute heuristic + actual using unified evaluation
+        prod_pts = compute_production_heuristic(
             pos_data, position, opp_rankings, scoring_format
         )
-        actual_pts = compute_actual_points(pos_data, scoring_format)
+        actual_pts = compute_actual_fantasy_points(pos_data, scoring_format)
 
         # Filter: weeks 3-18, valid data
         week_mask = pos_data["week"].between(3, 18)

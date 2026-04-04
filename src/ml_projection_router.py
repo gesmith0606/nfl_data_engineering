@@ -41,7 +41,8 @@ from scoring_calculator import calculate_fantasy_points_df
 
 logger = logging.getLogger(__name__)
 
-# Positions using hybrid residual correction (heuristic + Ridge residual)
+# Positions using hybrid residual correction (heuristic + Ridge residual).
+# Phase 54 tested all 4 positions — QB/RB residual overcorrects; only WR/TE benefit.
 HYBRID_POSITIONS = {"WR", "TE"}
 
 # ---------------------------------------------------------------------------

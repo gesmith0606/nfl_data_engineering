@@ -31,8 +31,8 @@ def main():
     parser.add_argument(
         "--positions",
         nargs="+",
-        default=["WR", "TE"],
-        help="Positions to train (default: WR TE)",
+        default=["QB", "RB", "WR", "TE"],
+        help="Positions to train (default: QB RB WR TE)",
     )
     parser.add_argument(
         "--scoring",

@@ -29,7 +29,7 @@ python scripts/generate_projections.py --week 1 --season 2026 --scoring ppr
 python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr --include-kickers
 python scripts/generate_projections.py --week 1 --season 2026 --projection-type hybrid  # Hybrid heuristic+ML (Phase 53)
 python scripts/train_player_models.py --model-type xgb                                   # XGBoost models (default)
-python scripts/train_player_models.py --model-type ridge                                 # Ridge regression (Phase 53 research)
+python scripts/train_residual_models.py --positions qb rb wr te                          # Residual training (Phase 54)
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
 
 # Gold: Game predictions
@@ -176,11 +176,11 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 ## Status
 
-**Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → v2.2 Full Odds + Market Ablation (SHIP market features, 120-feature SHAP ensemble, sealed 2025 holdout) → v3.0 Graph Features & Web API (Neo4j dual-path, 22 graph features from PBP participation, kickers, FastAPI backend, 7 endpoints) → v3.1 Hybrid Residual Models (Phase 51-53: graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion, hybrid heuristic+ML approach adopted)
+**Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → v2.2 Full Odds + Market Ablation (SHIP market features, 120-feature SHAP ensemble, sealed 2025 holdout) → v3.0 Graph Features & Web API (Neo4j dual-path, 22 graph features from PBP participation, kickers, FastAPI backend, 7 endpoints) → v3.1 Hybrid Residual Models (Phase 51-53: graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion, hybrid heuristic+ML approach adopted, 4.91 MAE) → v3.2 Website MVP (Vercel deployment, Next.js frontend, 7 API endpoints)
 
-**In progress**: Website frontend development (Next.js + Tailwind) | Hybrid residual testing (Phase 54+)
+**In progress**: v4.0 Unified Evaluation Pipeline (Phase 54: heuristic weights tuned roll3=0.30/roll6=0.15/std=0.55, ceiling shrinkage 12/18/23, final MAE 4.77; residual model training) | Website features expansion
 
-**Planned**: Hybrid residual production wiring | v4.0 Website launch | v4.1 Live data sync | Neo4j graph inference
+**Planned**: Production residual wiring | v4.1 Live data sync | Neo4j graph inference
 
 ## ECC Plugin (Everything Claude Code)
 
