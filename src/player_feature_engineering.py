@@ -720,6 +720,322 @@ def _join_scheme_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     return df
 
 
+def _join_chemistry_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join QB-WR chemistry features if available.
+
+    Tries cached Silver parquet first, then falls back to computing from
+    Bronze PBP + player_weekly data. If neither is available, returns
+    NaN-filled columns for schema consistency. Only WR/TE positions
+    receive actual values.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week, position.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with QB_WR_CHEMISTRY_FEATURE_COLUMNS joined.
+    """
+    from graph_qb_wr_chemistry import QB_WR_CHEMISTRY_FEATURE_COLUMNS
+
+    # Try cached Silver parquet first
+    chem_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    chem_files = sorted(
+        glob.glob(os.path.join(chem_dir, "graph_qb_wr_chemistry_*.parquet"))
+    )
+
+    chem_df = pd.DataFrame()
+    if chem_files:
+        try:
+            chem_df = pd.read_parquet(chem_files[-1])
+            logger.info(
+                "Loaded cached QB-WR chemistry features from %s", chem_files[-1]
+            )
+        except Exception as exc:
+            logger.warning("Failed to read cached chemistry features: %s", exc)
+
+    # Fallback: compute from Bronze data
+    if chem_df.empty:
+        try:
+            from graph_qb_wr_chemistry import (
+                build_qb_wr_chemistry,
+                compute_chemistry_features,
+            )
+
+            # Load PBP across recent seasons for history
+            pbp_dfs = []
+            pw_dfs = []
+            for s in range(max(season - 3, 2016), season + 1):
+                pbp_pattern = os.path.join(
+                    BRONZE_DIR, "pbp", f"season={s}", "*.parquet"
+                )
+                pbp_files = sorted(glob.glob(pbp_pattern))
+                # Also try week-partitioned layout
+                if not pbp_files:
+                    pbp_pattern_w = os.path.join(
+                        BRONZE_DIR, "pbp", f"season={s}", "week=*", "*.parquet"
+                    )
+                    pbp_files = sorted(glob.glob(pbp_pattern_w))
+                for f in pbp_files:
+                    pbp_dfs.append(pd.read_parquet(f))
+
+                pw_pattern = os.path.join(
+                    BRONZE_DIR, "players", "weekly", f"season={s}", "*.parquet"
+                )
+                pw_files = sorted(glob.glob(pw_pattern))
+                if not pw_files:
+                    pw_pattern_w = os.path.join(
+                        BRONZE_DIR,
+                        "players",
+                        "weekly",
+                        f"season={s}",
+                        "week=*",
+                        "*.parquet",
+                    )
+                    pw_files = sorted(glob.glob(pw_pattern_w))
+                for f in pw_files:
+                    pw_dfs.append(pd.read_parquet(f))
+
+            if pbp_dfs and pw_dfs:
+                pbp_all = pd.concat(pbp_dfs, ignore_index=True)
+                pw_all = pd.concat(pw_dfs, ignore_index=True)
+
+                pair_stats = build_qb_wr_chemistry(pbp_all)
+                if not pair_stats.empty:
+                    chem_df = compute_chemistry_features(pair_stats, pw_all)
+                    # Filter to target season
+                    if not chem_df.empty and "season" in chem_df.columns:
+                        chem_df = chem_df[chem_df["season"] == season].copy()
+                    logger.info("Computed QB-WR chemistry features from Bronze data")
+        except Exception as exc:
+            logger.info("Chemistry features unavailable (%s) -- skipping", exc)
+
+    # Join on player_id, season, week
+    join_cols = ["player_id", "season", "week"]
+    if not chem_df.empty:
+        avail = [c for c in join_cols if c in chem_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [
+                c for c in QB_WR_CHEMISTRY_FEATURE_COLUMNS if c in chem_df.columns
+            ]
+            df = df.merge(
+                chem_df[avail + feat_cols],
+                on=avail,
+                how="left",
+                suffixes=("", "__chem"),
+            )
+            dup = [c for c in df.columns if c.endswith("__chem")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    # Fill missing columns with NaN for schema consistency
+    for col in QB_WR_CHEMISTRY_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    # Zero out chemistry features for non-WR/TE positions
+    if "position" in df.columns:
+        non_recv_mask = ~df["position"].isin(["WR", "TE"])
+        for col in QB_WR_CHEMISTRY_FEATURE_COLUMNS:
+            df.loc[non_recv_mask, col] = np.nan
+
+    return df
+
+
+def _join_red_zone_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join red zone target network features if available.
+
+    Tries cached Silver parquet first, then falls back to computing from
+    Bronze PBP + player_weekly data. If neither is available, returns
+    NaN-filled columns for schema consistency.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with RED_ZONE_FEATURE_COLUMNS joined.
+    """
+    from graph_red_zone import RED_ZONE_FEATURE_COLUMNS
+
+    # Try cached Silver parquet first
+    rz_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    rz_files = sorted(glob.glob(os.path.join(rz_dir, "graph_red_zone_*.parquet")))
+
+    rz_df = pd.DataFrame()
+    if rz_files:
+        try:
+            rz_df = pd.read_parquet(rz_files[-1])
+            logger.info("Loaded cached red zone features from %s", rz_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached red zone features: %s", exc)
+
+    # Fallback: compute from Bronze data
+    if rz_df.empty:
+        try:
+            from graph_red_zone import (
+                compute_red_zone_features,
+                compute_red_zone_usage,
+            )
+
+            # Load PBP and player_weekly across recent seasons
+            pbp_dfs = []
+            pw_dfs = []
+            rosters_dfs = []
+            for s in range(max(season - 3, 2016), season + 1):
+                pbp_pattern = os.path.join(
+                    BRONZE_DIR, "pbp", f"season={s}", "*.parquet"
+                )
+                pbp_files = sorted(glob.glob(pbp_pattern))
+                if not pbp_files:
+                    pbp_pattern_w = os.path.join(
+                        BRONZE_DIR, "pbp", f"season={s}", "week=*", "*.parquet"
+                    )
+                    pbp_files = sorted(glob.glob(pbp_pattern_w))
+                for f in pbp_files:
+                    pbp_dfs.append(pd.read_parquet(f))
+
+                pw_pattern = os.path.join(
+                    BRONZE_DIR, "players", "weekly", f"season={s}", "*.parquet"
+                )
+                pw_files = sorted(glob.glob(pw_pattern))
+                if not pw_files:
+                    pw_pattern_w = os.path.join(
+                        BRONZE_DIR,
+                        "players",
+                        "weekly",
+                        f"season={s}",
+                        "week=*",
+                        "*.parquet",
+                    )
+                    pw_files = sorted(glob.glob(pw_pattern_w))
+                for f in pw_files:
+                    pw_dfs.append(pd.read_parquet(f))
+
+                roster_pattern = os.path.join(
+                    BRONZE_DIR, "players", "rosters", f"season={s}", "*.parquet"
+                )
+                roster_files = sorted(glob.glob(roster_pattern))
+                for f in roster_files:
+                    rosters_dfs.append(pd.read_parquet(f))
+
+            if pbp_dfs:
+                pbp_all = pd.concat(pbp_dfs, ignore_index=True)
+                pw_all = (
+                    pd.concat(pw_dfs, ignore_index=True) if pw_dfs else pd.DataFrame()
+                )
+                rosters_all = (
+                    pd.concat(rosters_dfs, ignore_index=True)
+                    if rosters_dfs
+                    else pd.DataFrame()
+                )
+
+                rz_usage = compute_red_zone_usage(pbp_all, rosters_all)
+                if not rz_usage.empty:
+                    rz_df = compute_red_zone_features(rz_usage, pw_all)
+                    # Filter to target season
+                    if not rz_df.empty and "season" in rz_df.columns:
+                        rz_df = rz_df[rz_df["season"] == season].copy()
+                    logger.info("Computed red zone features from Bronze data")
+        except Exception as exc:
+            logger.info("Red zone features unavailable (%s) -- skipping", exc)
+
+    # Join on player_id, season, week
+    join_cols = ["player_id", "season", "week"]
+    if not rz_df.empty:
+        avail = [c for c in join_cols if c in rz_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in RED_ZONE_FEATURE_COLUMNS if c in rz_df.columns]
+            df = df.merge(
+                rz_df[avail + feat_cols],
+                on=avail,
+                how="left",
+                suffixes=("", "__rz"),
+            )
+            dup = [c for c in df.columns if c.endswith("__rz")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    # Fill missing columns with NaN for schema consistency
+    for col in RED_ZONE_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df
+
+
+def _join_game_script_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join game script role shift features if available.
+
+    Tries cached Silver parquet first, then falls back to computing from
+    Bronze PBP data. If neither is available, returns NaN-filled columns
+    for schema consistency.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week, recent_team.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with GAME_SCRIPT_FEATURE_COLUMNS joined.
+    """
+    from graph_game_script import GAME_SCRIPT_FEATURE_COLUMNS
+
+    # Try cached Silver parquet first
+    gs_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    gs_files = sorted(glob.glob(os.path.join(gs_dir, "graph_game_script_*.parquet")))
+
+    gs_df = pd.DataFrame()
+    if gs_files:
+        try:
+            gs_df = pd.read_parquet(gs_files[-1])
+            logger.info("Loaded cached game script features from %s", gs_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached game script features: %s", exc)
+
+    # Fallback: compute from Bronze PBP data
+    if gs_df.empty:
+        try:
+            from graph_game_script import (
+                compute_game_script_features,
+                compute_game_script_usage,
+            )
+
+            pbp_pattern = os.path.join(
+                BRONZE_DIR, "pbp", f"season={season}", "*.parquet"
+            )
+            pbp_files = sorted(glob.glob(pbp_pattern))
+
+            if pbp_files:
+                pbp_df = pd.read_parquet(pbp_files[-1])
+                usage_df = compute_game_script_usage(pbp_df)
+
+                if not usage_df.empty:
+                    schedules = _read_bronze_schedules(season)
+                    gs_df = compute_game_script_features(usage_df, schedules)
+                    logger.info("Computed game script features from Bronze PBP")
+        except Exception as exc:
+            logger.info("Game script features unavailable (%s) — skipping", exc)
+
+    # Join on player_id, season, week
+    if not gs_df.empty:
+        join_cols = ["player_id", "season", "week"]
+        avail = [c for c in join_cols if c in gs_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in GAME_SCRIPT_FEATURE_COLUMNS if c in gs_df.columns]
+            df = df.merge(
+                gs_df[avail + feat_cols],
+                on=avail,
+                how="left",
+                suffixes=("", "__gs"),
+            )
+            dup = [c for c in df.columns if c.endswith("__gs")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    # Fill missing columns with NaN for schema consistency
+    for col in GAME_SCRIPT_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df
+
+
 # ---------------------------------------------------------------------------
 # Core assembly
 # ---------------------------------------------------------------------------
@@ -888,6 +1204,15 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 14. Optional: join scheme/defensive front features (RB only)
     base = _join_scheme_features(base, season)
+
+    # 15. Optional: join QB-WR chemistry features (WR/TE only)
+    base = _join_chemistry_features(base, season)
+
+    # 16. Optional: join red zone target network features
+    base = _join_red_zone_features(base, season)
+
+    # 17. Optional: join game script role shift features
+    base = _join_game_script_features(base, season)
 
     logger.info(
         "Assembled player features for season %d: %d rows, %d columns",

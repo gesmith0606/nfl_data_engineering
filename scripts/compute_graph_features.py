@@ -38,10 +38,20 @@ from graph_feature_extraction import (
     compute_te_features,
     compute_wr_matchup_features,
 )
+from graph_qb_wr_chemistry import (
+    QB_WR_CHEMISTRY_FEATURE_COLUMNS,
+    build_qb_wr_chemistry,
+    compute_chemistry_features,
+)
 from graph_participation import (
     identify_cbs_on_field,
     identify_ol_on_field,
     parse_participation_players,
+)
+from graph_red_zone import (
+    RED_ZONE_FEATURE_COLUMNS,
+    compute_red_zone_features,
+    compute_red_zone_usage,
 )
 
 logging.basicConfig(
@@ -280,6 +290,33 @@ def compute_season_features(
     )
     logger.info("Injury cascade: %d rows", len(results["injury_cascade"]))
 
+    # --- 6. QB-WR chemistry features ---
+    logger.info("Computing QB-WR chemistry features...")
+    chem_df = pd.DataFrame()
+    if not pbp_multi.empty and not pw_multi.empty:
+        pair_stats = build_qb_wr_chemistry(pbp_multi)
+        if not pair_stats.empty:
+            chem_df = compute_chemistry_features(pair_stats, pw_multi)
+            # Filter to target season
+            if not chem_df.empty and "season" in chem_df.columns:
+                chem_df = chem_df[chem_df["season"] == season].copy()
+    results["qb_wr_chemistry"] = chem_df
+    logger.info("QB-WR chemistry: %d rows", len(results["qb_wr_chemistry"]))
+
+    # --- 7. Red zone target network features ---
+    logger.info("Computing red zone target network features...")
+    rz_df = pd.DataFrame()
+    if not pbp_multi.empty:
+        rosters_for_rz = rosters_df if not rosters_df.empty else pd.DataFrame()
+        rz_usage = compute_red_zone_usage(pbp_multi, rosters_for_rz)
+        if not rz_usage.empty:
+            rz_df = compute_red_zone_features(rz_usage, pw_multi)
+            # Filter to target season
+            if not rz_df.empty and "season" in rz_df.columns:
+                rz_df = rz_df[rz_df["season"] == season].copy()
+    results["red_zone"] = rz_df
+    logger.info("Red zone: %d rows", len(results["red_zone"]))
+
     return results
 
 
@@ -321,6 +358,8 @@ def save_features(
         "te": f"graph_te_matchup_{ts}.parquet",
         "scheme": f"graph_scheme_{ts}.parquet",
         "injury_cascade": f"graph_injury_cascade_{ts}.parquet",
+        "qb_wr_chemistry": f"graph_qb_wr_chemistry_{ts}.parquet",
+        "red_zone": f"graph_red_zone_{ts}.parquet",
     }
 
     for key, filename in file_map.items():
@@ -338,7 +377,14 @@ def save_features(
     combined_dfs = []
     join_cols = ["player_id", "season", "week"]
 
-    for key in ["injury_cascade", "wr_matchup", "ol_rb", "te"]:
+    for key in [
+        "injury_cascade",
+        "wr_matchup",
+        "ol_rb",
+        "te",
+        "qb_wr_chemistry",
+        "red_zone",
+    ]:
         df = results.get(key, pd.DataFrame())
         if not df.empty and all(c in df.columns for c in join_cols):
             combined_dfs.append(df)
