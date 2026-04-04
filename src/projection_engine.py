@@ -870,19 +870,81 @@ def generate_weekly_projections(
 _FLOOR_CEILING_MULT = {"QB": 0.45, "RB": 0.40, "WR": 0.38, "TE": 0.35, "K": 0.40}
 
 
-def add_floor_ceiling(df: pd.DataFrame) -> pd.DataFrame:
-    """Add projected_floor and projected_ceiling columns based on position variance.
+def add_floor_ceiling(
+    df: pd.DataFrame,
+    quantile_model_path: Optional[str] = None,
+) -> pd.DataFrame:
+    """Add projected_floor and projected_ceiling columns.
+
+    Tries to load quantile regression models for calibrated floor/ceiling.
+    Falls back to position-based variance multipliers when models are
+    unavailable or features cannot be assembled.
 
     Should be called AFTER all adjustments (injury, Vegas, bye) are applied
     so that floor/ceiling are always consistent with projected_points.
 
     Args:
         df: Projections DataFrame with 'projected_points' and 'position' columns.
+        quantile_model_path: Optional path to quantile model directory.
+            Defaults to models/quantile/.
 
     Returns:
         DataFrame with projected_floor and projected_ceiling columns added.
     """
     df = df.copy()
+
+    # Try quantile models first
+    try:
+        from quantile_models import load_quantile_models, predict_quantiles
+
+        qdata = load_quantile_models(path=quantile_model_path)
+        if qdata is not None:
+            has_features = any(c in df.columns for c in qdata["feature_cols"][:5])
+            if has_features:
+                df["projected_floor"] = np.nan
+                df["projected_ceiling"] = np.nan
+
+                for pos in df["position"].unique():
+                    if pos not in qdata["models"]:
+                        # Heuristic fallback for positions without models
+                        mask = df["position"] == pos
+                        mult = _FLOOR_CEILING_MULT.get(pos, 0.40)
+                        pts = df.loc[mask, "projected_points"]
+                        df.loc[mask, "projected_floor"] = (
+                            (pts * (1.0 - mult)).clip(lower=0).round(2)
+                        )
+                        df.loc[mask, "projected_ceiling"] = (pts * (1.0 + mult)).round(
+                            2
+                        )
+                        continue
+
+                    mask = df["position"] == pos
+                    pos_df = df[mask]
+                    preds = predict_quantiles(qdata, pos_df, pos)
+                    df.loc[mask, "projected_floor"] = (
+                        preds["quantile_floor"].clip(lower=0).round(2).values
+                    )
+                    df.loc[mask, "projected_ceiling"] = (
+                        preds["quantile_ceiling"].round(2).values
+                    )
+
+                # Enforce floor <= projected_points <= ceiling
+                df["projected_floor"] = (
+                    df[["projected_floor", "projected_points"]]
+                    .min(axis=1)
+                    .clip(lower=0)
+                    .round(2)
+                )
+                df["projected_ceiling"] = (
+                    df[["projected_ceiling", "projected_points"]].max(axis=1).round(2)
+                )
+
+                logger.info("Floor/ceiling set via quantile models")
+                return df
+    except Exception as e:
+        logger.debug("Quantile model fallback: %s", e)
+
+    # Heuristic fallback: position-based variance multipliers
     pts = df["projected_points"]
     pos_mult = df["position"].map(_FLOOR_CEILING_MULT).fillna(0.40)
     df["projected_floor"] = (pts * (1.0 - pos_mult)).clip(lower=0).round(2)
