@@ -7,6 +7,7 @@ import { useTheme } from "./ThemeProvider";
 const NAV_ITEMS = [
   { href: "/projections", label: "Projections" },
   { href: "/predictions", label: "Predictions" },
+  { href: "/lineups", label: "Lineups" },
 ];
 
 function SunIcon({ className }: { className?: string }) {

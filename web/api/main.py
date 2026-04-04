@@ -14,7 +14,7 @@ from fastapi.responses import JSONResponse
 from .config import API_TITLE, API_VERSION, CORS_ORIGINS
 from .db import check_health as db_health, is_db_enabled
 from .models.schemas import HealthResponse
-from .routers import players, predictions, projections
+from .routers import lineups, players, predictions, projections
 
 app = FastAPI(
     title=API_TITLE,
@@ -67,6 +67,7 @@ async def api_key_auth(request: Request, call_next):  # type: ignore[no-untyped-
 app.include_router(projections.router, prefix="/api")
 app.include_router(predictions.router, prefix="/api")
 app.include_router(players.router, prefix="/api")
+app.include_router(lineups.router, prefix="/api")
 
 
 # ---------------------------------------------------------------------------
