@@ -109,7 +109,11 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/graph_ol_lineup.py` | OL combo continuity, PFF grades, run blocking assessments |
 | `src/graph_scheme.py` | Formation classification, motion frequency, receiver spacing |
 | `src/graph_injury_cascade.py` | Target/opportunity redistribution via injury events |
-| `src/graph_feature_extraction.py` | Aggregate graph metrics (22 features) per player-week |
+| `src/graph_qb_wr_chemistry.py` | QB-WR pair EPA, completion rate, target share, games together, TD rate (5 features) |
+| `src/graph_game_script.py` | Game flow usage (trailing/leading), garbage time, clock killer, volatility, script boost (6 features) |
+| `src/graph_red_zone.py` | Red zone target/carry share, TD rate, vs general usage, team RZ trips, TD regression, opp TD rate (7 features) |
+| `src/graph_feature_extraction.py` | Aggregate graph metrics (39 features) per player-week |
+| `src/lineup_builder.py` | Field lineup builder with starter identification and optimal allocation |
 | `src/feature_engineering.py` | 310+ col feature vector assembly from 10 Silver sources |
 | `src/feature_selector.py` | SHAP importance + correlation filtering, CV-validated cutoff |
 | `src/ensemble_training.py` | XGB+LGB+CB+Ridge stacking, walk-forward CV, OOF predictions |
@@ -144,6 +148,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `web/api/routers/projections.py` | Projection endpoints (weekly, preseason, kickers) |
 | `web/api/routers/predictions.py` | Prediction endpoints (edges, odds, CLV) |
 | `web/api/routers/players.py` | Player query endpoints (history, matchups) |
+| `web/api/routers/lineups.py` | Lineup builder endpoint (GET /api/lineups) |
 | `web/api/services/projection_service.py` | Projection business logic, S3 reads |
 | `web/api/services/prediction_service.py` | Prediction business logic, ensemble dispatch |
 | `web/api/config.py` | API configuration, S3 client setup |

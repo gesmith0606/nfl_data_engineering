@@ -48,6 +48,11 @@ from graph_participation import (
     identify_ol_on_field,
     parse_participation_players,
 )
+from graph_game_script import (
+    GAME_SCRIPT_FEATURE_COLUMNS,
+    compute_game_script_features,
+    compute_game_script_usage,
+)
 from graph_red_zone import (
     RED_ZONE_FEATURE_COLUMNS,
     compute_red_zone_features,
@@ -317,6 +322,16 @@ def compute_season_features(
     results["red_zone"] = rz_df
     logger.info("Red zone: %d rows", len(results["red_zone"]))
 
+    # --- 8. Game script role shift features ---
+    logger.info("Computing game script features...")
+    gs_df = pd.DataFrame()
+    if not pbp_df.empty:
+        usage_df = compute_game_script_usage(pbp_df)
+        if not usage_df.empty:
+            gs_df = compute_game_script_features(usage_df, schedules_df)
+    results["game_script"] = gs_df
+    logger.info("Game script: %d rows", len(results["game_script"]))
+
     return results
 
 
@@ -360,6 +375,7 @@ def save_features(
         "injury_cascade": f"graph_injury_cascade_{ts}.parquet",
         "qb_wr_chemistry": f"graph_qb_wr_chemistry_{ts}.parquet",
         "red_zone": f"graph_red_zone_{ts}.parquet",
+        "game_script": f"graph_game_script_{ts}.parquet",
     }
 
     for key, filename in file_map.items():
@@ -384,6 +400,7 @@ def save_features(
         "te",
         "qb_wr_chemistry",
         "red_zone",
+        "game_script",
     ]:
         df = results.get(key, pd.DataFrame())
         if not df.empty and all(c in df.columns for c in join_cols):

@@ -905,19 +905,25 @@ PBP Participation Data (Bronze)
     ├─→ graph_rb_matchup.py: RB-LB tackle distance
     ├─→ graph_te_matchup.py: TE-Safety depth & yards
     ├─→ graph_ol_lineup.py: OL player combinations
-    └─→ graph_scheme.py: Formation classification
+    ├─→ graph_scheme.py: Formation classification
+    ├─→ graph_qb_wr_chemistry.py: QB-WR pair EPA & completion rate
+    ├─→ graph_game_script.py: Game flow usage patterns
+    └─→ graph_red_zone.py: Red zone efficiency
         ↓
     Compute Graph Features (compute_graph_features.py)
         ├─ Neo4j Connection (preferred, if available)
         └─ Pandas Fallback (always works, no external DB)
         ↓
-    22 Graph Features per player-week (Silver Layer)
+    39 Graph Features per player-week (Silver Layer)
         ├─ 4 Injury cascade: transfer_target_pct, opp_injury_epa, position_attrition, etc.
         ├─ 4 WR-CB matchup: matchup_count, separation_avg, conversion_avg, shadow_depth
         ├─ 5 OL/RB: ol_continuity, ol_avg_pff_grade, run_blocking_grades, lead_blocker, etc.
         ├─ 4 TE coverage: deep_safety_depth, cover2_rate, slot_cb_presence, etc.
         ├─ 4 Scheme: formation_spread, motion_frequency, max_receivers_per_play, etc.
-        └─ 1 Defender alignment: defenders_in_box
+        ├─ 1 Defender alignment: defenders_in_box
+        ├─ 5 QB-WR Chemistry: epa_roll3, pair_comp_rate_roll3, pair_target_share, games_together, td_rate
+        ├─ 6 Game Script: usage_when_trailing_roll3, usage_when_leading_roll3, garbage_time_share_roll3, clock_killer_share_roll3, script_volatility, predicted_script_boost
+        └─ 7 Red Zone: rz_target_share_roll3, rz_carry_share_roll3, rz_td_rate_roll3, rz_usage_vs_general, team_rz_trips_roll3, rz_td_regression, opp_rz_td_rate_allowed_roll3
         ↓
     Store in data/silver/graph_features/ (35 parquet files, 2020-2025)
 ```
@@ -963,7 +969,7 @@ Graph features are read in `src/projection_engine.py` during weekly projection g
 
 **Location:** `web/api/`
 
-**Endpoints (7 total):**
+**Endpoints (8 total):**
 
 ```
 POST   /api/projections/week      — Weekly projections for players
@@ -971,6 +977,7 @@ POST   /api/projections/preseason  — Preseason projections
 GET    /api/predictions/{week}     — Game predictions with edges
 GET    /api/players/{player_id}    — Player stats & history
 POST   /api/draft/optimize         — Draft board optimization
+GET    /api/lineups                — Optimal lineups with field visualization
 GET    /api/health                 — Service health check
 GET    /api/schema                 — OpenAPI schema
 ```
@@ -983,6 +990,7 @@ GET    /api/schema                 — OpenAPI schema
 | `web/api/routers/projections.py` | Fantasy projection endpoints |
 | `web/api/routers/predictions.py` | Game prediction endpoints |
 | `web/api/routers/players.py` | Player query endpoints |
+| `web/api/routers/lineups.py` | Lineup builder endpoint with field view |
 | `web/api/services/projection_service.py` | Projection business logic |
 | `web/api/services/prediction_service.py` | Prediction business logic |
 | `web/api/models/schemas.py` | Pydantic schemas |
@@ -1012,6 +1020,7 @@ python -m pytest tests/test_web_*.py -v
 - `/` — Dashboard (weekly projections, player search)
 - `/draft` — Draft simulator (snake, auction, mock)
 - `/predictions` — Game predictions with edge detection
+- `/lineups` — Lineup builder with field visualization
 - `/player/[id]` — Player profile + historical stats
 
 **Dev Server:**
