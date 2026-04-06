@@ -1036,6 +1036,101 @@ def _join_game_script_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     return df
 
 
+def _join_college_network_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join college network features if available.
+
+    Tries cached Silver parquet first, then falls back to computing from
+    Bronze draft picks, combine, and roster data. If neither is available,
+    returns NaN-filled columns for schema consistency.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week, recent_team.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with COLLEGE_NETWORK_FEATURE_COLUMNS joined.
+    """
+    from graph_college_networks import COLLEGE_NETWORK_FEATURE_COLUMNS
+
+    # Try cached Silver parquet first
+    cn_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    cn_files = sorted(
+        glob.glob(os.path.join(cn_dir, "graph_college_networks_*.parquet"))
+    )
+
+    cn_df = pd.DataFrame()
+    if cn_files:
+        try:
+            cn_df = pd.read_parquet(cn_files[-1])
+            logger.info("Loaded cached college network features from %s", cn_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached college network features: %s", exc)
+
+    # Fallback: compute from Bronze data
+    if cn_df.empty:
+        try:
+            from graph_college_networks import (
+                _read_bronze_combine,
+                _read_bronze_draft_picks,
+                _read_bronze_rosters,
+                compute_all_college_features,
+            )
+
+            draft_picks_df = _read_bronze_draft_picks()
+            combine_df = _read_bronze_combine()
+            rosters_df = _read_bronze_rosters()
+
+            if not draft_picks_df.empty:
+                weeks = sorted(df["week"].dropna().unique())
+                week_dfs = []
+                for wk in weeks:
+                    wk_feats = compute_all_college_features(
+                        draft_picks_df, combine_df, df, rosters_df, season, int(wk)
+                    )
+                    if not wk_feats.empty:
+                        week_dfs.append(wk_feats)
+                if week_dfs:
+                    cn_df = pd.concat(week_dfs, ignore_index=True)
+                    logger.info("Computed college network features from Bronze data")
+
+                    # Cache to Silver
+                    os.makedirs(cn_dir, exist_ok=True)
+                    import datetime
+
+                    ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                    cache_path = os.path.join(
+                        cn_dir, f"graph_college_networks_{ts}.parquet"
+                    )
+                    cn_df.to_parquet(cache_path, index=False)
+                    logger.info("Cached college network features to %s", cache_path)
+        except Exception as exc:
+            logger.info("College network features unavailable (%s) — skipping", exc)
+
+    # Join on player_id, season, week
+    if not cn_df.empty:
+        join_cols = ["player_id", "season", "week"]
+        avail = [c for c in join_cols if c in cn_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [
+                c for c in COLLEGE_NETWORK_FEATURE_COLUMNS if c in cn_df.columns
+            ]
+            df = df.merge(
+                cn_df[avail + feat_cols],
+                on=avail,
+                how="left",
+                suffixes=("", "__cn"),
+            )
+            dup = [c for c in df.columns if c.endswith("__cn")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    # Fill missing columns with NaN for schema consistency
+    for col in COLLEGE_NETWORK_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df
+
+
 # ---------------------------------------------------------------------------
 # Core assembly
 # ---------------------------------------------------------------------------
@@ -1213,6 +1308,9 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 17. Optional: join game script role shift features
     base = _join_game_script_features(base, season)
+
+    # 18. Optional: join college network features (teammate, scheme, prospect comps)
+    base = _join_college_network_features(base, season)
 
     logger.info(
         "Assembled player features for season %d: %d rows, %d columns",

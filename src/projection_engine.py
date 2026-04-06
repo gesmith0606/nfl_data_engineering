@@ -1117,6 +1117,7 @@ def generate_preseason_projections(
     scoring_format: str = "half_ppr",
     target_season: int = 2026,
     historical_df: Optional[pd.DataFrame] = None,
+    college_features_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """
     Generate pre-season projections based on historical seasonal averages.
@@ -1131,6 +1132,13 @@ def generate_preseason_projections(
         historical_df:  Optional Silver historical dimension table with draft_ovr
                         and gsis_id columns. When provided, rookies receive a
                         draft capital boost (up to +20% for pick 1).
+        college_features_df: Optional college prospect features DataFrame
+                        from ``build_prospect_profile()``.  When provided,
+                        rookies use prospect comp median/floor/ceiling for
+                        projections instead of the basic draft capital boost.
+                        Expected columns: player_id or player_name, position,
+                        prospect_comp_median, prospect_comp_floor,
+                        prospect_comp_ceiling, scheme_familiarity_score.
 
     Returns:
         DataFrame ranked by projected_season_points descending.
@@ -1193,7 +1201,72 @@ def generate_preseason_projections(
     proj["projected_season_points"] = proj["projected_season_points"].round(1)
     proj["proj_season"] = target_season
 
-    # Draft capital boost for rookies
+    # ------------------------------------------------------------------
+    # Rookie projection enhancement: college features → draft capital fallback
+    # ------------------------------------------------------------------
+    # Identify rookies: players only present in the most recent season of data
+    all_player_seasons = seasonal_df.groupby("player_id")["season"].nunique()
+    rookies = set(all_player_seasons[all_player_seasons == 1].index)
+
+    college_applied = set()  # Track which rookies got college-enhanced projections
+
+    # Priority 1: College prospect features (comp-based projections)
+    if college_features_df is not None and not college_features_df.empty:
+        cf = college_features_df.copy()
+
+        # Determine merge key
+        if "player_id" in cf.columns:
+            merge_key = "player_id"
+        elif "player_name" in cf.columns and "player_name" in proj.columns:
+            merge_key = "player_name"
+        else:
+            merge_key = None
+
+        if merge_key is not None:
+            comp_cols = ["prospect_comp_median", "prospect_comp_ceiling",
+                         "prospect_comp_floor", "scheme_familiarity_score"]
+            available_comp = [c for c in comp_cols if c in cf.columns]
+            if available_comp:
+                proj = proj.merge(
+                    cf[[merge_key] + available_comp].drop_duplicates(subset=[merge_key]),
+                    on=merge_key,
+                    how="left",
+                )
+
+                # Apply college-enhanced projection for rookies with valid comps
+                has_comp = (
+                    proj["player_id"].isin(rookies)
+                    & proj.get("prospect_comp_median", pd.Series(dtype=float)).notna()
+                )
+                if has_comp.any():
+                    # Use comp median as base, apply scheme familiarity multiplier
+                    scheme_mult = proj.loc[has_comp, "scheme_familiarity_score"].fillna(0.5)
+                    # Scheme familiarity: scale from 0.90 (unfamiliar) to 1.05 (perfect fit)
+                    scheme_factor = 0.90 + scheme_mult * 0.15
+
+                    proj.loc[has_comp, "projected_season_points"] = (
+                        proj.loc[has_comp, "prospect_comp_median"] * scheme_factor
+                    ).round(1)
+
+                    # Store floor/ceiling
+                    proj.loc[has_comp, "prospect_floor"] = proj.loc[
+                        has_comp, "prospect_comp_floor"
+                    ]
+                    proj.loc[has_comp, "prospect_ceiling"] = proj.loc[
+                        has_comp, "prospect_comp_ceiling"
+                    ]
+
+                    college_applied = set(proj.loc[has_comp, "player_id"])
+                    logger.info(
+                        "College prospect features applied to %d rookies",
+                        len(college_applied),
+                    )
+
+                # Clean up merge columns
+                for col in available_comp:
+                    proj.drop(columns=[col], inplace=True, errors="ignore")
+
+    # Priority 2: Draft capital boost (fallback for rookies without college features)
     if historical_df is not None and not historical_df.empty:
         # Join on player_id = gsis_id to get draft_ovr
         hist = (
@@ -1209,12 +1282,12 @@ def generate_preseason_projections(
 
         proj = proj.merge(hist[["player_id", "draft_ovr"]], on="player_id", how="left")
 
-        # Identify rookies: players only present in the most recent season of data
-        all_player_seasons = seasonal_df.groupby("player_id")["season"].nunique()
-        rookies = set(all_player_seasons[all_player_seasons == 1].index)
-
-        # Apply boost only to rookies with draft capital info
-        mask = proj["player_id"].isin(rookies) & proj["draft_ovr"].notna()
+        # Apply boost only to rookies with draft capital info AND no college features
+        mask = (
+            proj["player_id"].isin(rookies)
+            & ~proj["player_id"].isin(college_applied)
+            & proj["draft_ovr"].notna()
+        )
         if mask.any():
             proj.loc[mask, "projected_season_points"] = proj.loc[mask].apply(
                 lambda r: round(
@@ -1225,7 +1298,10 @@ def generate_preseason_projections(
                 axis=1,
             )
             boosted_count = mask.sum()
-            logger.info(f"Draft capital boost applied to {boosted_count} rookies")
+            logger.info(
+                "Draft capital boost applied to %d rookies (fallback)",
+                boosted_count,
+            )
 
         proj.drop(columns=["draft_ovr"], inplace=True, errors="ignore")
 

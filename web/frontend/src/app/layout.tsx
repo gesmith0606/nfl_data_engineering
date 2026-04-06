@@ -1,66 +1,72 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import ThemeProvider from "@/components/ThemeProvider";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import "./globals.css";
+import Providers from '@/components/layout/providers';
+import { Toaster } from '@/components/ui/sonner';
+import { fontVariables } from '@/components/themes/font.config';
+import { DEFAULT_THEME, THEMES } from '@/components/themes/theme.config';
+import ThemeProvider from '@/components/themes/theme-provider';
+import { cn } from '@/lib/utils';
+import type { Metadata, Viewport } from 'next';
+import { cookies } from 'next/headers';
+import NextTopLoader from 'nextjs-toploader';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import '../styles/globals.css';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: {
-    default: "NFL Data Engineering | Fantasy Projections & Game Predictions",
-    template: "%s | NFL Data Engineering",
-  },
-  description:
-    "Weekly fantasy football projections for QB, RB, WR, TE with floor/ceiling ranges. NFL game predictions with edge detection vs Vegas lines.",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "NFL Data Engineering",
-    title: "NFL Data Engineering | Fantasy Projections & Game Predictions",
-    description:
-      "Weekly fantasy football projections and game predictions powered by historical analytics and ML models.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "NFL Data Engineering",
-    description:
-      "Fantasy football projections and NFL game predictions powered by data analytics.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+const META_THEME_COLORS = {
+  light: '#ffffff',
+  dark: '#09090b'
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const metadata: Metadata = {
+  title: 'NFL Analytics',
+  description: 'Fantasy projections, game predictions, and player analytics'
+};
+
+export const viewport: Viewport = {
+  themeColor: META_THEME_COLORS.light
+};
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const activeThemeValue = cookieStore.get('active_theme')?.value;
+  const isValidTheme = THEMES.some((t) => t.value === activeThemeValue);
+  const themeToApply = isValidTheme ? activeThemeValue! : DEFAULT_THEME;
+
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="flex min-h-full flex-col bg-background text-foreground">
-        <ThemeProvider>
-          <Header />
-          <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
-            {children}
-          </main>
-          <Footer />
-        </ThemeProvider>
+    <html lang='en' suppressHydrationWarning data-theme={themeToApply}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                // Set meta theme color
+                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '${META_THEME_COLORS.dark}')
+                }
+              } catch (_) {}
+            `
+          }}
+        />
+      </head>
+      <body
+        className={cn(
+          'bg-background overflow-x-hidden overscroll-none font-sans antialiased',
+          fontVariables
+        )}
+      >
+        <NextTopLoader color='var(--primary)' showSpinner={false} />
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+            enableColorScheme
+          >
+            <Providers activeThemeValue={themeToApply}>
+              <Toaster />
+              {children}
+            </Providers>
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

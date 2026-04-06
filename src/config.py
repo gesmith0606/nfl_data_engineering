@@ -697,6 +697,14 @@ SILVER_PLAYER_LOCAL_DIRS = {
     "historical": "players/historical",
 }
 
+# Bronze college data subdirectories (local path pattern)
+BRONZE_COLLEGE_LOCAL_DIRS = {
+    "player_stats": "college_player_stats",
+    "usage": "college_usage",
+    "teams": "college_teams",
+    "draft_picks": "college_draft_picks",
+}
+
 # Silver team sources used for player feature assembly (subset of SILVER_TEAM_LOCAL_DIRS)
 SILVER_PLAYER_TEAM_SOURCES = {
     "player_quality": "teams/player_quality",
