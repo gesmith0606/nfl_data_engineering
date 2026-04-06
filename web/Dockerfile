@@ -20,6 +20,7 @@ COPY web/__init__.py ./web/__init__.py
 # Create empty data directory (production uses DATABASE_URL, not Parquet files)
 RUN mkdir -p data
 
+ENV PORT=8000
 EXPOSE 8000
 
-CMD ["uvicorn", "web.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD uvicorn web.api.main:app --host 0.0.0.0 --port $PORT
