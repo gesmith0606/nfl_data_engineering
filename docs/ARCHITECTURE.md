@@ -120,23 +120,28 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 └─────────────────────────────────────────────────────────────┘
         ↓
 ┌─────────────────────────────────────────────────────────────┐
-│ GRAPH LAYER (Neo4j) — v3.0                                  │
+│ GRAPH LAYER (Neo4j + College Networks) — v4.1              │
 │ • Docker: docker-compose.yml (Neo4j 5.x)                   │
 │ • Connection: Neo4j + pandas dual-path fallback             │
-│ • 6 Graph Modules: participation, WR/RB/TE matchup,        │
-│   OL lineup, scheme classification, injury cascade         │
-│ • 22 Graph Features: computed in data/silver/graph_        │
-│   features/, integrated into projections/predictions       │
+│ • 9 Graph Modules: participation, WR/RB/TE matchup,        │
+│   OL lineup, scheme classification, injury cascade,        │
+│   college teammate networks, coaching trees, prospect comps │
+│ • 49 Graph Features: 22 NFL metrics + 27 college/prospect  │
+│   features in data/silver/graph_features/                  │
 │ • Coverage: WR (73-75%), RB (90%), TE (94-95%), QB (60%)  │
+│ • Prospect Similarity: 10 college teammate + comp features │
 └─────────────────────────────────────────────────────────────┘
         ↓
 ┌─────────────────────────────────────────────────────────────┐
-│ WEB SERVICES — v4.0                                         │
-│ • FastAPI Backend (web/api/): 7 endpoints, Parquet reads   │
+│ WEB SERVICES — v4.1                                         │
+│ • FastAPI Backend (web/api/): 14 endpoints, Parquet reads  │
+│   ├─ Projections (3), Predictions (2), Players (2)          │
+│   ├─ Lineups (1), Games (3), College (3)                    │
 │ • Next.js Frontend (web/frontend/): Tailwind, TypeScript    │
 │ • Vercel Deploy: Serverless backend + CDN frontend         │
 │ • AWS S3: Projection/prediction Parquet storage            │
-│ • 17 Backend Tests (all passing)                           │
+│ • PostgreSQL: Game archive, college stats, prospect data   │
+│ • 25 Backend Tests (all passing)                           │
 └─────────────────────────────────────────────────────────────┘
         ↓
 ┌─────────────────────────────────────────────────────────────┐
@@ -175,8 +180,11 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 | **combine** | nfl-data-py | NFL Combine measurements | 2000-2026 | `fetch_combine()` |
 | **officials** | nfl-data-py | Referee crew assignments | 2015-2026 | `fetch_officials()` |
 | **odds** | FinnedAI JSON | Opening/closing Vegas lines | 2016-2021 | `bronze_odds_ingestion.py` |
+| **college_stats** | CFBD API | College player stats (passing/rushing/receiving) | 2016-2025 | `bronze_college_ingestion.py` |
+| **game_results** | nfl-data-py | Historical game results archive | 1999-2026 | `fetch_schedules()` (game_archive.py) |
 
 \* Seasons ≥ 2025 use nflverse `stats_player` tag (replaces archived `player_stats` tag); column renames in config.py.
+** College data: CFBD API integration for prospect analysis and NFL readiness assessment.
 
 ### Ingestion Pattern
 
@@ -208,6 +216,29 @@ download_latest_parquet(s3_client, bucket, prefix)
 - adapter_method → S3 path template
 
 New data types added via single registry entry — no if/elif chains.
+
+### College Data Integration (v4.1)
+
+**Module:** `src/college_data_adapter.py` (CFBD API)
+
+**Bronze Outputs:**
+- `college_player_stats`: Seasonal passing/rushing/receiving stats, conference-adjusted performance
+- `prospect_profiles`: Prospect comps (ceiling/floor/median), scheme familiarity, breakout timeline
+
+**Storage:**
+- Local: `data/bronze/college_stats/season=YYYY/`
+- Database: PostgreSQL tables (college_player_stats, prospect_profiles)
+
+**Pipeline:**
+```bash
+python scripts/bronze_college_ingestion.py --season 2025
+```
+
+**Key Features:**
+- Conference adjustment factors (SEC/Big Ten premium)
+- Prospect comparables with bust rates
+- Coaching tree lineage for offensive/defensive scheme familiarity
+- College teammate network detection (future projection enhancement)
 
 ---
 
@@ -1094,6 +1125,42 @@ Edge Types:
 
 PBP participation data (requires nflverse `participation` table or manual mapping of plays to defensive players).
 
+### Track 4: Game Archive & Historical Analytics
+
+**Status:** v4.1 implementation
+**Modules:** `src/game_archive.py`, `web/db/schema.sql`
+
+#### Game Results Archive
+
+Persistent historical record of NFL game results with complete box score data.
+
+**Database Tables:**
+- `game_results`: game_id, season, week, home_team, away_team, home_score, away_score, winner, total_points
+- `game_player_stats`: game_id, player_id, player_name, team, position, fantasy_points_{half_ppr/ppr/standard}, passing/rushing/receiving stats, targets, carries
+
+**Data Source:**
+- Bronze schedules (game results)
+- Bronze player_weekly stats (fantasy points calculation per scoring format)
+- Backcalculation from projections + actual scores
+
+**Use Cases:**
+1. Historical fantasy performance lookup by player/game
+2. Backtest validation (compare projections vs actual points)
+3. Strength of schedule analysis (opponent's past performance)
+4. Draft preparation (historical usage patterns, trends)
+5. API endpoint: `/api/games/{season}/{week}` query and `/api/players/{player_id}/games` historical lookup
+
+**Queries:**
+```sql
+SELECT * FROM game_player_stats 
+WHERE player_id = '00-0033873' 
+ORDER BY game_id DESC;
+
+SELECT AVG(fantasy_points_half_ppr) as avg_ppg 
+FROM game_player_stats 
+WHERE position = 'WR' AND season = 2024;
+```
+
 ---
 
 ## Development & Testing
@@ -1160,5 +1227,6 @@ python -m flake8 src/ tests/ scripts/
 **Version History:**
 - **v1.0 (2026-04-01):** Initial architecture document. Covers medallion pattern, all three tracks (fantasy, game prediction, player ML), infrastructure, design patterns, constraints, and Neo4j planned work.
 - **v2.0 (2026-04-02):** Updated with v3.0 Graph Layer (Neo4j + pandas dual-path, 22 features, 6 modules, participation data) and v4.0 Web Services (FastAPI 7 endpoints + Next.js frontend + Vercel deployment). Added kicker projections. Updated medallion diagram. Added 858 tests status.
+- **v3.0 (2026-04-03):** Added v4.1 College Integration (CFBD API, prospect features, college teammate networks, coaching trees, 27 new college features, 49 total graph features). Added Game Archive (game_results, game_player_stats tables, historical lookup endpoints). Updated Web Services to 14 endpoints + PostgreSQL. Updated test count to 1154.
 
-**Last Reviewed:** 2026-04-02
+**Last Reviewed:** 2026-04-03

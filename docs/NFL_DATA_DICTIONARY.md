@@ -38,12 +38,17 @@ This document is the single source of truth for Bronze layer schemas. Column spe
   - [Combine](#combine)
   - [Odds (Historical Opening/Closing Lines)](#odds-historical-openingclosing-lines)
   - [Teams](#teams)
+  - [College Player Stats](#college-player-stats)
+  - [Prospect Profiles](#prospect-profiles)
 - [Silver Layer Tables](#silver-layer-tables)
   - [Silver Team PBP Metrics](#silver-team-pbp-metrics)
   - [Silver Team Tendencies](#silver-team-tendencies)
   - [Silver Market Data (Line Movement Features)](#silver-market-data-line-movement-features)
   - [Silver Player Quality](#silver-player-quality)
+  - [Silver Prospect Features](#silver-prospect-features)
 - [Gold Layer Tables](#gold-layer-tables)
+  - [Game Results Archive](#game-results-archive)
+  - [Game Player Stats](#game-player-stats)
 - [Data Types and Constraints](#data-types-and-constraints)
 - [Business Rules](#business-rules)
 
@@ -957,6 +962,75 @@ Representative columns (from validate_data required columns):
 | team_abbr | string | Yes | Team abbreviation (2-3 chars) | "KC" |
 | team_name | string | Yes | Full team name | "Kansas City Chiefs" |
 
+### College Player Stats
+
+**Source:** CFBD API via `src/college_data_adapter.py`
+**Seasons:** 2016-2025
+**Local Path:** `data/bronze/college_stats/season=YYYY/`
+**S3 Path:** `s3://nfl-raw/college_stats/season=YYYY/`
+**Columns:** 17
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| player_name | string | No | College player name | "Shedeur Sanders" |
+| college_team | string | No | College team (e.g., CU, LSU, Ohio St) | "CU" |
+| conference | string | No | NCAA conference | "Big 12" |
+| position | string | No | Position | "QB" |
+| season | int64 | No | College football season | 2024 |
+| passing_yards | float64 | Yes | Total passing yards | 3500.0 |
+| passing_tds | float64 | Yes | Passing touchdowns | 28.0 |
+| rushing_yards | float64 | Yes | Rushing yards | 1200.0 |
+| rushing_tds | float64 | Yes | Rushing touchdowns | 12.0 |
+| receptions | float64 | Yes | Receptions (WR/TE/RB) | 85.0 |
+| receiving_yards | float64 | Yes | Receiving yards | 1100.0 |
+| receiving_tds | float64 | Yes | Receiving touchdowns | 9.0 |
+| games | int64 | Yes | Games played | 13 |
+| conference_adjusted_yards | float64 | Yes | SOS-adjusted production metric | 1250.0 |
+| college_market_share | float64 | Yes | % of team volume (0-1) | 0.42 |
+| per_game_yards | float64 | Yes | Avg yards per game | 92.3 |
+| per_game_tds | float64 | Yes | Avg TDs per game | 0.7 |
+
+**Business Rules:**
+- Valid conferences: Power 5 (SEC, Big Ten, Big 12, Pac-12, ACC) + Group of 5
+- Conference adjustment: SEC/Big Ten multiplier ≥ 1.0, Group of 5 < 1.0
+- Market share: sum of player target/carry shares; 0.0-1.0
+
+---
+
+### Prospect Profiles
+
+**Source:** CFBD API + Draft picks + Graph networks via `src/college_prospect_features.py`
+**Seasons:** Draft years 2020-2026+
+**Local Path:** `data/silver/prospect_profiles/`
+**S3 Path:** `s3://nfl-refined/prospect_profiles/`
+**Columns:** 17
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| player_id | string | No | NFL GSIS player ID | "00-0033873" |
+| player_name | string | No | Player display name | "Shedeur Sanders" |
+| college | string | No | College name | "Colorado" |
+| conference | string | No | College conference | "Big 12" |
+| position | string | No | NFL position | "QB" |
+| draft_season | int64 | No | Draft year | 2025 |
+| draft_round | int64 | Yes | Round (1-7) | 1 |
+| draft_pick | int64 | Yes | Overall pick | 1 |
+| scheme_familiarity_score | float64 | Yes | Offensive scheme compatibility (0-1) | 0.88 |
+| conference_adjustment | float64 | Yes | SOS multiplier | 1.12 |
+| prospect_comp_ceiling | float64 | Yes | Career ceiling FPPA | 24.5 |
+| prospect_comp_floor | float64 | Yes | Career floor FPPA | 8.2 |
+| prospect_comp_median | float64 | Yes | Median comp career FPPA | 16.3 |
+| prospect_comp_bust_rate | float64 | Yes | % comps below replacement (0-1) | 0.22 |
+| years_to_breakout_comp | float64 | Yes | Seasons to median comp | 2.3 |
+| college_teammates_on_roster | int64 | Yes | # teammates on NFL roster | 3 |
+
+**Business Rules:**
+- Scheme familiarity: derived from coaching tree alignment (offensive coordinator moves, system continuity)
+- Conference adjustment: applied to college stats before mapping to NFL expectations
+- Prospect comps: similar draft capital + college production matched to historical NFL career arcs
+- Bust rate: empirical from historical comps with similar profile (draft round, ht/wt, college stats)
+- Breakout timeline: median years for comp group to reach median career production level
+
 ---
 
 ## Silver Layer Tables
@@ -1719,6 +1793,63 @@ Each of the 5 base metrics has `_roll3`, `_roll6`, and `_std` rolling window var
 
 ---
 
+### 15. Silver Prospect Features
+
+**Status:** Active (v4.1)
+**Source:** `src/graph_college_networks.py` + `src/college_prospect_features.py`
+**Output Path:** `data/silver/prospect_features/`
+**Granularity:** Per prospect
+**Columns:** 27
+
+College teammate networks and prospect comparison features for draft preparation and NFL transition modeling.
+
+| Column | Type | Nullable | Description | Computation |
+|--------|------|----------|-------------|-------------|
+| player_id | string | No | NFL GSIS player ID | From draft_picks mapping |
+| draft_season | int64 | No | Year drafted | From draft_picks |
+| position | string | No | NFL position | From college_stats or draft_picks |
+| conference_adjusted_ceiling | float64 | Yes | SOS-adjusted comp ceiling | college_stats * conference_adjustment |
+| conference_adjusted_floor | float64 | Yes | SOS-adjusted comp floor | college_stats * conference_adjustment |
+| scheme_familiarity_score | float64 | Yes | Offensive scheme familiarity (0-1) | Coaching tree lineage alignment |
+| years_to_breakout | float64 | Yes | Years for comp to reach median career | From historical comp archetypes |
+| bust_rate_from_comps | float64 | Yes | % comps below replacement (0-1) | Historical bust rate from similar profile |
+| college_teammates_on_roster_Y0 | int64 | Yes | Teammates on NFL roster year drafted | Graph teammate detection |
+| college_teammates_on_roster_Y1 | int64 | Yes | Teammates on NFL roster year+1 | Tracked annually |
+| college_teammates_on_roster_Y2 | int64 | Yes | Teammates on NFL roster year+2 | Tracked annually |
+| teammate_avg_career_ppg | float64 | Yes | Mean FPPA of college teammates | Cohort performance metric |
+| teammate_success_rate | float64 | Yes | % teammates reaching starter production | Cohort success indicator |
+| coaching_tree_match_pct | float64 | Yes | % of coaching tree overlap with team OC | Similar offensive scheme |
+| conference_peer_rank | int64 | Yes | Rank within conference cohort (1-30 best) | Per-position per-year |
+| draft_class_peer_rank | int64 | Yes | Rank within draft class cohort (1-20 best) | Per-position peer comparison |
+| size_adjusted_production | float64 | Yes | Production per height-weight (indexed 100=median) | Measurable-normalized metric |
+| combine_score | float64 | Yes | Aggregate combine metric (0-100) | Standardized athletic profile |
+| college_production_trend | float64 | Yes | Slope of production over college years | Linear trend (positive=improving) |
+| injury_history_score | float64 | Yes | College injury prevalence (0-1, 1=high) | Games missed / eligibility |
+| comp_ceiling_consensus | float64 | Yes | Median comp ceiling across all comps | Consensus projection |
+| comp_floor_consensus | float64 | Yes | Median comp floor across all comps | Downside risk consensus |
+| role_assumption_risk | float64 | Yes | Risk of role assumption delay (0-1) | High for late-round/pos transitions |
+| market_share_concentration | float64 | Yes | Herfindahl index of targets/carries (0-1) | 1.0 = all to one player |
+| target_vs_carry_balance | float64 | Yes | Normalized differential in receiving vs rushing role | -1 to 1 scale |
+| snap_availability_by_year | int64 | Yes | Total snaps played in college (thousands) | Volume indicator |
+| college_era_inflation_adjustment | float64 | Yes | Era adjustment factor for comp mapping | 1.0 = current era |
+
+**Business Rules:**
+- Conference adjusted: applied before mapping to NFL expectations (e.g., SEC = 1.12x multiplier)
+- Scheme familiarity: computed from coaching tree alignment (OC moves to NFL team, similar system)
+- Comps: selected by draft capital + height/weight + college production profile (nearest neighbors from historical archetypes)
+- Bust rate: % of historical comps that fell below replacement level by career year 3
+- Teammate tracking: updated annually post-draft
+- Breakdown by year: Y0=draft year, Y1=year+1, etc.; allows tracking of cohort maturation
+
+**Use Cases:**
+1. Draft preparation: prospect ceiling/floor vs comps
+2. Rookie projection adjustment: scheme familiarity penalty/bonus
+3. Career trajectory modeling: years to breakout, bust risk
+4. Coaching tree analysis: OC system familiarity for projection adjustments
+5. Teammate network: target/snap share redistribution when prospects transition to NFL
+
+---
+
 ## Gold Layer Tables
 
 ### 1. Fantasy Projections
@@ -1882,6 +2013,78 @@ Each of the 5 base metrics has `_roll3`, `_roll6`, and `_std` rolling window var
 | position_rank | int64 | YES | Rank among kickers week | 2 |
 | is_bye_week | bool | NO | True if team on bye | false |
 | is_rookie_projection | bool | NO | True if using defaults | false |
+
+---
+
+### 2. Game Results Archive
+
+**Status:** Active (v4.1)
+**Source:** Bronze schedules + game archives
+**Local/Database Path:** PostgreSQL table `game_results`
+**Columns:** 9
+
+Historical record of all NFL game results with final scores.
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | No | Unique game identifier (YYYY_WW_AWAY_HOME) | "2024_01_KC_DET" |
+| season | int64 | No | NFL season year | 2024 |
+| week | int64 | No | NFL week (1-18 regular, 19-22 playoffs) | 1 |
+| home_team | string | No | Home team abbreviation | "DET" |
+| away_team | string | No | Away team abbreviation | "KC" |
+| home_score | int64 | Yes | Home team final score | 24 |
+| away_score | int64 | Yes | Away team final score | 21 |
+| winner | string | Yes | Winning team abbreviation | "DET" |
+| total_points | int64 | Yes | Combined final score | 45 |
+
+**Business Rules:**
+- Valid seasons: 1999-2026
+- Week: 1-18 regular season, 19-22 playoffs (wild card through Super Bowl)
+- Scores: ≥0; NULL for future/cancelled games
+- Winner: NULL if tie or game not played
+
+---
+
+### 3. Game Player Stats
+
+**Status:** Active (v4.1)
+**Source:** Bronze player_weekly + schedules, computed fantasy points via `scoring_calculator.py`
+**Local/Database Path:** PostgreSQL table `game_player_stats`
+**Columns:** 21
+
+Per-player per-game fantasy stats across all three scoring formats with underlying box score stats.
+
+| Column | Type | Nullable | Description | Example |
+|--------|------|----------|-------------|---------|
+| game_id | string | No | Unique game identifier | "2024_01_KC_DET" |
+| player_id | string | No | GSIS player ID | "00-0033873" |
+| player_name | string | No | Player display name | "Patrick Mahomes" |
+| team | string | No | Team abbreviation | "KC" |
+| position | string | No | Player position | "QB" |
+| fantasy_points_half_ppr | float64 | Yes | Points (0.5 pt/rec) | 26.5 |
+| fantasy_points_ppr | float64 | Yes | Points (1.0 pt/rec) | 28.5 |
+| fantasy_points_standard | float64 | Yes | Points (0.0 pt/rec) | 25.0 |
+| passing_yards | float64 | Yes | Passing yards | 320.0 |
+| passing_tds | float64 | Yes | Passing touchdowns | 2.0 |
+| rushing_yards | float64 | Yes | Rushing yards | 45.0 |
+| rushing_tds | float64 | Yes | Rushing touchdowns | 0.0 |
+| receptions | float64 | Yes | Receptions | 5.0 |
+| receiving_yards | float64 | Yes | Receiving yards | 52.0 |
+| receiving_tds | float64 | Yes | Receiving touchdowns | 1.0 |
+| targets | int64 | Yes | Targets thrown to | 6 |
+| carries | int64 | Yes | Rush attempts | 8 |
+
+**Business Rules:**
+- Fantasy points always ≥0 for skill positions (QB/RB/WR/TE)
+- Scoring: PPR (1.0/rec), Half-PPR (0.5/rec), Standard (0.0/rec); all +0.1/pass yard, +6/TD, +0.04/pass yard
+- NULL stats indicate player did not participate in that game
+- Aggregated from Bronze player_weekly per week, matched to game_id via schedules
+
+**Use Cases:**
+1. Historical fantasy performance lookup by player-game
+2. Backtest validation (actual points vs projected)
+3. Draft preparation (opponent's past performance trends)
+4. API endpoints: `GET /api/games/{season}/{week}`, `GET /api/players/{player_id}/games`
 
 ---
 

@@ -22,6 +22,7 @@ python scripts/silver_team_transformation.py --seasons 2020 2021 2022 2023 2024
 python scripts/silver_market_transformation.py --season 2020
 python scripts/silver_player_quality_transformation.py --seasons 2020 2021 2022 2023 2024
 python scripts/compute_graph_features.py --seasons 2020 2021 2022 2023 2024 2025  # Graph features
+python scripts/bronze_college_ingestion.py --season 2025                        # College data from CFBD
 
 # Gold: Fantasy projections
 python scripts/generate_projections.py --preseason --season 2026 --scoring half_ppr
@@ -113,6 +114,10 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/graph_game_script.py` | Game flow usage (trailing/leading), garbage time, clock killer, volatility, script boost (6 features) |
 | `src/graph_red_zone.py` | Red zone target/carry share, TD rate, vs general usage, team RZ trips, TD regression, opp TD rate (7 features) |
 | `src/graph_feature_extraction.py` | Aggregate graph metrics (39 features) per player-week |
+| `src/college_data_adapter.py` | CFBD API integration for college player stats, prospect profiles, coaching trees |
+| `src/college_prospect_features.py` | Prospect feature engineering (scheme familiarity, conference adjustment, comps) |
+| `src/graph_college_networks.py` | College teammate detection, coaching tree lineage, prospect comparison networks |
+| `src/game_archive.py` | Historical game results + player fantasy stats aggregation and querying |
 | `src/lineup_builder.py` | Field lineup builder with starter identification and optimal allocation |
 | `src/feature_engineering.py` | 310+ col feature vector assembly from 10 Silver sources |
 | `src/feature_selector.py` | SHAP importance + correlation filtering, CV-validated cutoff |
@@ -126,6 +131,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/utils.py` | Shared utils incl. `get_latest_s3_key`, `download_latest_parquet` |
 | `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 16 data types via registry |
 | `scripts/bronze_odds_ingestion.py` | Bronze odds CLI — FinnedAI JSON → Parquet (2016-2021) |
+| `scripts/bronze_college_ingestion.py` | Bronze college CLI — CFBD API → Parquet (2016-2025) |
 | `scripts/silver_player_transformation.py` | Silver player CLI — usage metrics, rolling averages |
 | `scripts/silver_team_transformation.py` | Silver team CLI — PBP metrics, tendencies, SOS, situational |
 | `scripts/silver_game_context_transformation.py` | Silver game context CLI — weather, referee, playoff, defense |
@@ -149,6 +155,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `web/api/routers/predictions.py` | Prediction endpoints (edges, odds, CLV) |
 | `web/api/routers/players.py` | Player query endpoints (history, matchups) |
 | `web/api/routers/lineups.py` | Lineup builder endpoint (GET /api/lineups) |
+| `web/api/routers/games.py` | Game archive endpoints (results, player stats, historical lookup) |
+| `web/api/routers/college.py` | College data endpoints (prospect profiles, college stats, coaching trees) |
 | `web/api/services/projection_service.py` | Projection business logic, S3 reads |
 | `web/api/services/prediction_service.py` | Prediction business logic, ensemble dispatch |
 | `web/api/config.py` | API configuration, S3 client setup |
@@ -183,9 +191,9 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 **Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → v2.2 Full Odds + Market Ablation (SHIP market features, 120-feature SHAP ensemble, sealed 2025 holdout) → v3.0 Graph Features & Web API (Neo4j dual-path, 22 graph features from PBP participation, kickers, FastAPI backend, 7 endpoints) → v3.1 Hybrid Residual Models (Phase 51-53: graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion, hybrid heuristic+ML approach adopted, 4.91 MAE) → v3.2 Website MVP (Vercel deployment, Next.js frontend, 7 API endpoints)
 
-**In progress**: v4.0 Unified Evaluation Pipeline (Phase 54: heuristic weights tuned roll3=0.30/roll6=0.15/std=0.55, ceiling shrinkage 12/18/23, final MAE 4.77; residual model training) | Website features expansion
+**In progress**: v4.1 College & Game Archive (CFBD API, prospect features, game results, player stats, 14 API endpoints, 49 graph features) | Website features expansion
 
-**Planned**: Production residual wiring | v4.1 Live data sync | Neo4j graph inference
+**Planned**: v5.0 Production residual wiring | v5.1 Live data sync | Neo4j graph inference
 
 ## ECC Plugin (Everything Claude Code)
 

@@ -138,15 +138,18 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ## Context
 
-Shipped v3.0 with ~35,000 LOC Python across 48+ phases and 100+ plans (nine milestones).
-Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, lightgbm, catboost, scikit-learn, optuna, shap, nfl-data-py, neo4j (Docker dual-path fallback), local Parquet storage (S3 optional).
-Bronze layer: 16 data types + odds (FinnedAI 2016-2021, nflverse bridge 2022-2025) covering 10 seasons of complete data; PBP participation ingestion ready.
-Silver layer: 14 team output paths (including market/line movement, graph features for all 10 seasons), 3 player output paths, 22 graph features (WR-CB matchup, RB OL continuity, TE coverage, injury cascade), historical dimension table.
-Gold layer: weekly + preseason fantasy projections (QB via ML, RB/WR/TE via heuristic with hybrid residual testing); ML game predictions with 120-feature SHAP-selected ensemble (market features included); kicker projections.
+Shipped v4.1 with ~40,000 LOC Python across 50+ phases and 100+ plans (nine milestones).
+Tech stack: Python 3.9, pandas, pyarrow, pytz, xgboost, lightgbm, catboost, scikit-learn, optuna, shap, nfl-data-py, neo4j (Docker dual-path fallback), local Parquet storage (S3 optional), PostgreSQL (game/college archive).
+Bronze layer: 18 data types (16 NFL + 2 college) + odds (FinnedAI 2016-2021, nflverse bridge 2022-2025) covering 10 seasons of complete data; PBP participation ingestion ready.
+Silver layer: 14 team output paths (including market/line movement, graph features for all 10 seasons), 3 player output paths, 15 prospect features (college teammate networks, coaching trees, prospect comps), 49 total graph features (22 NFL + 27 college/prospect).
+Gold layer: weekly + preseason fantasy projections (QB via ML, RB/WR/TE via heuristic with hybrid residual testing); ML game predictions with 120-feature SHAP-selected ensemble (market features included); kicker projections; game results archive (1999-2026) + player stats per game (all scoring formats).
 Prediction feature vector: 1139 raw columns → 120 SHAP-selected features. `diff_opening_spread` is #1 feature (23.6% SHAP importance).
 ML models (game prediction): v2.1 stacking ensemble (XGB+LGB+CB + Ridge meta-learner) with market features; walk-forward CV, sealed 2025 holdout (51.7% ATS, 50.6% with market features). CLV tracking measures model quality against closing lines.
-Player models (fantasy): 19 per-position per-stat XGBoost models (2016-2025 training data +66% from v2.0, walk-forward CV, SHAP feature selection). QB SHIP (6.72 MAE, 14% better than heuristic). RB/WR/TE under evaluation with hybrid residual approach (train ML on heuristic errors, not raw projections). Graph features (22) integrated; 17/22 survived SHAP but don't flip positions alone.
-Tests: 655+ passing across 21 test files. Web API (FastAPI, 7 endpoints) with 17 passing tests.
+Player models (fantasy): 19 per-position per-stat XGBoost models (2016-2025 training data +66% from v2.0, walk-forward CV, SHAP feature selection). QB SHIP (6.72 MAE, 14% better than heuristic). RB/WR/TE under evaluation with hybrid residual approach (train ML on heuristic errors, not raw projections). Graph features (49) integrated; 22 NFL + 27 college/prospect for draft preparation.
+College integration (CFBD API): prospect profiles with scheme familiarity, conference adjustment, comparable arcs, bust rates, coaching tree lineage, college teammate networks (tracked annually).
+Game archive: PostgreSQL tables (game_results, game_player_stats) for historical lookup and backtest validation; all 3 scoring formats (PPR/Half-PPR/Standard) computed per game.
+API endpoints: 14 total (3 projections, 2 predictions, 2 players, 1 lineups, 3 games, 3 college).
+Tests: 1154 passing across 25 test files. Web API (FastAPI, 14 endpoints) with 25 passing tests. PostgreSQL schema with 4 tables + 13 indexes.
 
 Existing documentation:
 - `CLAUDE.md` — project reference, commands, architecture
