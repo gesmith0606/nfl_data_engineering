@@ -4,7 +4,7 @@
     "dockerfilePath": "web/Dockerfile"
   },
   "deploy": {
-    "startCommand": "uvicorn web.api.main:app --host 0.0.0.0 --port ${PORT:-8000}",
+    "startCommand": "python -c \"import os,uvicorn;uvicorn.run('web.api.main:app',host='0.0.0.0',port=int(os.environ.get('PORT','8000')))\"",
     "healthcheckPath": "/api/health",
     "restartPolicyType": "ON_FAILURE"
   }
