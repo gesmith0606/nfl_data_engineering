@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["python39", "gcc", "libpq"]
+
+[phases.install]
+cmds = ["pip install -r web/requirements.txt"]
+
+[start]
+cmd = "uvicorn web.api.main:app --host 0.0.0.0 --port ${PORT:-8000}"
