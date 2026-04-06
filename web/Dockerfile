@@ -17,8 +17,8 @@ COPY src/ ./src/
 COPY web/api/ ./web/api/
 COPY web/__init__.py ./web/__init__.py
 
-# Copy data directory (for Parquet fallback in environments without DATABASE_URL)
-COPY data/ ./data/
+# Create empty data directory (production uses DATABASE_URL, not Parquet files)
+RUN mkdir -p data
 
 EXPOSE 8000
 
