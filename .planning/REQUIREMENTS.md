@@ -5,10 +5,10 @@
 
 ## Unified Evaluation Pipeline
 
-- [ ] **EVAL-01**: Training and backtest use identical production heuristic (same multipliers, ceiling shrinkage, injury adjustments)
-- [ ] **EVAL-02**: Full 466-feature set available during both training and backtest evaluation
-- [ ] **EVAL-03**: Residual models trained against production heuristic (not simplified version)
-- [ ] **EVAL-04**: Per-position MAE comparison with full features vs current 42-feature degraded mode
+- [x] **EVAL-01**: Training and backtest use identical production heuristic (same multipliers, ceiling shrinkage, injury adjustments)
+- [x] **EVAL-02**: Full 466-feature set available during both training and backtest evaluation
+- [x] **EVAL-03**: Residual models trained against production heuristic (not simplified version)
+- [x] **EVAL-04**: Per-position MAE comparison with full features vs current 42-feature degraded mode
 
 ## Full-Feature Residual Deployment
 
@@ -41,10 +41,10 @@
 
 | REQ-ID | Phase | Plan | Status |
 |--------|-------|------|--------|
-| EVAL-01 | 54 | — | — |
-| EVAL-02 | 54 | — | — |
-| EVAL-03 | 54 | — | — |
-| EVAL-04 | 54 | — | — |
+| EVAL-01 | 54 | 54-01 | Complete |
+| EVAL-02 | 54 | 54-01 | Complete |
+| EVAL-03 | 54 | 54-01 | Complete |
+| EVAL-04 | 54 | 54-01 | Complete |
 | RES-01 | 55 | — | — |
 | RES-02 | 55 | — | — |
 | RES-03 | 55 | — | — |
