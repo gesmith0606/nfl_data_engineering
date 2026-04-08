@@ -127,6 +127,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/scoring_calculator.py` | Fantasy points — single dict + vectorized DataFrame |
 | `src/projection_engine.py` | Weekly/preseason projections; bye week, rookie fallback, Vegas multiplier |
 | `src/hybrid_projection.py` | Hybrid heuristic+ML approach; trains ML on residuals (Phase 53) |
+| `src/unified_evaluation.py` | Production heuristic for backtest evaluation (Phase 54) |
 | `src/draft_optimizer.py` | DraftBoard, AuctionDraftBoard, MockDraftSimulator, DraftAdvisor |
 | `src/utils.py` | Shared utils incl. `get_latest_s3_key`, `download_latest_parquet` |
 | `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 16 data types via registry |
@@ -189,7 +190,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 ## Status
 
-**Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → v2.2 Full Odds + Market Ablation (SHIP market features, 120-feature SHAP ensemble, sealed 2025 holdout) → v3.0 Graph Features & Web API (Neo4j dual-path, 22 graph features from PBP participation, kickers, FastAPI backend, 7 endpoints) → v3.1 Hybrid Residual Models (Phase 51-53: graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion, hybrid heuristic+ML approach adopted, 4.91 MAE) → v3.2 Website MVP (Vercel deployment, Next.js frontend, 7 API endpoints)
+**Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → v2.2 Full Odds + Market Ablation (SHIP market features, 120-feature SHAP ensemble, sealed 2025 holdout) → v3.0 Graph Features & Web API (Neo4j dual-path, 22 graph features from PBP participation, kickers, FastAPI backend, 7 endpoints) → v3.1 Hybrid Residual Models (Phase 51-53: graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion, hybrid heuristic+ML approach adopted, 4.91 MAE) → v3.2 Website MVP (Vercel deployment, Next.js frontend, 7 API endpoints) → v4.0 Residual Model Research Complete (Phase 54: unified evaluation pipeline, 466-feature residual degrades all positions, 42-feature WR/TE hybrid best, QB/RB heuristic-only optimal, 1155 tests)
 
 **In progress**: v4.1 College & Game Archive (CFBD API, prospect features, game results, player stats, 14 API endpoints, 49 graph features) | Website features expansion
 
@@ -203,7 +204,7 @@ Rules (common + Python) installed in `.claude/rules/`. Full repo at `~/repos/eve
 **Key ECC commands**: `/plan`, `/tdd`, `/code-review`, `/build-fix`, `/e2e`, `/security-scan`, `/verify`, `/learn`, `/compact`
 **ECC rules active in `.claude/rules/`**: coding-style, git-workflow, testing, performance, patterns, hooks, agents, security, development-workflow (Python)
 
-## GSD (Get Shit Done) v1.22.4
+## GSD (Get Shit Done) v1.34.2
 
 Installed locally via `npx get-shit-done-cc@latest --claude --local`. Full repo at `~/repos/get-shit-done/` — `git pull` to update.
 
