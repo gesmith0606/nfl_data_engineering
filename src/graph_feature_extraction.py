@@ -1343,3 +1343,67 @@ def compute_scheme_features(
 
     logger.info("Computed %d scheme feature rows", len(result))
     return result[out_cols]
+
+
+# ---------------------------------------------------------------------------
+# Phase 4: RB matchup features (pure-pandas, no Neo4j required)
+# ---------------------------------------------------------------------------
+
+# Re-export the column list for downstream callers
+from graph_rb_matchup import (  # noqa: E402 — import after module-level constants
+    RB_MATCHUP_FEATURE_COLUMNS,
+    compute_rb_matchup_features as _compute_rb_matchup_features_impl,
+)
+
+
+def compute_rb_matchup_features_from_data(
+    pbp_df: pd.DataFrame,
+    rosters_df: Optional[pd.DataFrame] = None,
+    season: Optional[int] = None,
+    participation_parsed_df: Optional[pd.DataFrame] = None,
+) -> pd.DataFrame:
+    """Compute RB vs defensive line/LB matchup features (pure-pandas).
+
+    Wraps ``graph_rb_matchup.compute_rb_matchup_features`` so callers can
+    import a single entry point from ``graph_feature_extraction``.
+
+    All features use strictly lagged data (only weeks prior to target week).
+    Gracefully returns an empty DataFrame when PBP is unavailable.
+
+    Feature columns returned (prefixed ``rb_matchup_``):
+        avg_dl_count         — Mean DL defenders faced per carry.
+        run_gap_success_rate — Success rate (yards >= distance) by gap vs defense.
+        stacked_box_rate     — % of carries against 8+ defenders in box.
+        ybc_proxy            — Positive-EPA rush rate (yards-before-contact proxy).
+        lb_tackle_rate       — LB presence rate on negative-EPA rushes.
+        def_rush_epa_allowed — Rolling EPA allowed by opposing defense on run plays.
+        goal_line_carry_rate — % of carries at yardline_100 <= 5.
+        short_yardage_conv   — Conversion rate on 3rd/4th and <= 2 yards to go.
+
+    Args:
+        pbp_df: Bronze PBP data with run play columns.
+        rosters_df: Roster DataFrame to identify RBs. Optional.
+        season: If provided, restrict output to this season. Optional.
+        participation_parsed_df: Output of parse_participation_players.
+            Enables DL count and LB tackle-rate features. Optional.
+
+    Returns:
+        DataFrame with player_id, season, week, and RB_MATCHUP_FEATURE_COLUMNS.
+        Empty DataFrame if inputs are insufficient.
+    """
+    if pbp_df is None or pbp_df.empty:
+        return pd.DataFrame()
+
+    result = _compute_rb_matchup_features_impl(
+        pbp_df=pbp_df,
+        rosters_df=rosters_df,
+        season=season,
+        participation_parsed_df=participation_parsed_df,
+    )
+
+    logger.info(
+        "compute_rb_matchup_features_from_data: %d rows for season=%s",
+        len(result),
+        season,
+    )
+    return result
