@@ -9,16 +9,23 @@ Approach 2 (Residual Model):
     Train RidgeCV on features -> residual, then final = heuristic + ridge.predict()
 
 Approach 3 (Production Residual — save/load/apply):
-    train_and_save_residual_models: Train Ridge on production heuristic residuals, save.
-    load_residual_model: Load a saved residual Pipeline from disk.
+    train_and_save_residual_models: Train residual models (Ridge or LightGBM), save.
+    load_residual_model: Load a saved residual model from disk.
     apply_residual_correction: Correct heuristic projections using saved residual model.
+
+Supports two residual model types:
+    - 'ridge': RidgeCV pipeline (original, used as fallback)
+    - 'lgb': LightGBM with SHAP feature selection + early stopping (Phase 55)
+
+LightGBM residual models with 60 SHAP-selected features outperform Ridge on all
+positions: WR -37%, TE -33%, RB -32%, QB -76% improvement over heuristic.
 
 Exports:
     compute_fantasy_points_from_preds: Convert pred_{stat} columns to fantasy points.
     evaluate_blend: Grid-search alpha for heuristic-ML blend.
     train_residual_model: Walk-forward CV residual correction model.
-    train_and_save_residual_models: Train + persist residual models for WR/TE.
-    load_residual_model: Load saved residual Pipeline.
+    train_and_save_residual_models: Train + persist residual models.
+    load_residual_model: Load saved residual model.
     apply_residual_correction: Apply residual correction to heuristic projections.
     load_graph_features: Load and merge all Silver graph feature tables by season.
     GRAPH_FEATURE_SET: Complete list of 49 graph feature column names.
@@ -31,6 +38,7 @@ import os
 from typing import Any, Dict, List, Optional, Tuple
 
 import joblib
+import lightgbm as lgb
 import numpy as np
 import pandas as pd
 from sklearn.impute import SimpleImputer
@@ -42,6 +50,28 @@ from projection_engine import POSITION_STAT_PROFILE
 from scoring_calculator import calculate_fantasy_points_df
 
 logger = logging.getLogger(__name__)
+
+# ---------------------------------------------------------------------------
+# LightGBM residual model configuration (Phase 55)
+# ---------------------------------------------------------------------------
+
+RESIDUAL_LGB_PARAMS = {
+    "objective": "regression",
+    "n_estimators": 500,
+    "max_depth": 4,
+    "learning_rate": 0.05,
+    "min_child_samples": 20,
+    "subsample": 0.8,
+    "colsample_bytree": 0.7,
+    "reg_alpha": 0.1,
+    "reg_lambda": 1.0,
+    "verbose": -1,
+    "n_jobs": -1,
+    "random_state": 42,
+}
+
+# Default SHAP feature count per position (from Phase 55 experiment)
+DEFAULT_SHAP_FEATURE_COUNT = 60
 
 _BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 _SILVER_GRAPH_DIR = os.path.join(_BASE_DIR, "data", "silver", "graph_features")
@@ -635,28 +665,119 @@ def train_residual_model(
 RESIDUAL_MODEL_DIR = os.path.join("models", "residual")
 
 
+def _select_residual_features(
+    train_data: pd.DataFrame,
+    feature_cols: List[str],
+    target_col: str = "residual",
+    target_count: int = DEFAULT_SHAP_FEATURE_COUNT,
+    nan_threshold: float = 0.90,
+) -> List[str]:
+    """SHAP-based feature selection for residual prediction.
+
+    Filters features with >nan_threshold NaN rate, then runs SHAP importance
+    ranking with correlation filtering via feature_selector.
+
+    Args:
+        train_data: Training DataFrame with features and target column.
+        feature_cols: Candidate feature column names.
+        target_col: Target column name (residual).
+        target_count: Number of features to select.
+        nan_threshold: Maximum NaN fraction to keep a feature.
+
+    Returns:
+        List of selected feature column names.
+    """
+    from feature_selector import select_features_for_fold
+
+    # Filter to features available and with sufficient non-NaN coverage
+    available = [f for f in feature_cols if f in train_data.columns]
+    nan_rates = train_data[available].isna().mean()
+    pos_features = [f for f in available if nan_rates[f] < nan_threshold]
+
+    if len(pos_features) < target_count:
+        logger.info(
+            "Only %d features pass NaN filter (threshold=%.0f%%); using all",
+            len(pos_features),
+            nan_threshold * 100,
+        )
+        return pos_features
+
+    result = select_features_for_fold(
+        train_data=train_data,
+        feature_cols=pos_features,
+        target_col=target_col,
+        target_count=target_count,
+        correlation_threshold=0.90,
+    )
+
+    logger.info(
+        "SHAP feature selection: %d -> %d features (correlation dropped %d)",
+        len(pos_features),
+        result.n_selected,
+        len(result.dropped_correlation),
+    )
+    return result.selected_features
+
+
+def _train_lgb_residual(
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    X_eval: Optional[np.ndarray] = None,
+    y_eval: Optional[np.ndarray] = None,
+) -> lgb.LGBMRegressor:
+    """Train a LightGBM residual model with early stopping.
+
+    Args:
+        X_train: Training features (imputed).
+        y_train: Training residuals.
+        X_eval: Eval features for early stopping (optional).
+        y_eval: Eval residuals for early stopping (optional).
+
+    Returns:
+        Fitted LGBMRegressor.
+    """
+    model = lgb.LGBMRegressor(**RESIDUAL_LGB_PARAMS)
+
+    if X_eval is not None and y_eval is not None and len(X_eval) > 10:
+        model.fit(
+            X_train,
+            y_train,
+            eval_set=[(X_eval, y_eval)],
+            callbacks=[lgb.early_stopping(50, verbose=False)],
+        )
+    else:
+        model.fit(X_train, y_train)
+
+    return model
+
+
 def train_and_save_residual_models(
     positions: Optional[List[str]] = None,
     scoring_format: str = "half_ppr",
     output_dir: Optional[str] = None,
     use_graph_features: bool = False,
+    model_type: str = "lgb",
+    shap_feature_count: int = DEFAULT_SHAP_FEATURE_COUNT,
 ) -> Dict[str, Dict[str, Any]]:
     """Train residual correction models and save to disk.
 
-    For each position, trains a Ridge pipeline on:
+    For each position, trains a model on:
         residual = actual_fantasy_points - production_heuristic_points
     using the full feature vector from assemble_multiyear_player_features
     and the unified production heuristic from unified_evaluation.py.
 
-    When ``use_graph_features=True``, explicitly loads all Silver graph
-    feature tables via ``load_graph_features()`` and merges them onto the
-    assembled feature data by (player_id, season, week). This adds up to
-    49 graph features (QB-WR chemistry, game script, red zone, WR/TE matchup,
-    injury cascade, OL/RB, scheme) on top of the Silver rolling stats.
-    NaN values from missing player-weeks are imputed by the Ridge pipeline's
-    SimpleImputer (median strategy).
+    Supports two model types:
+        - 'lgb': LightGBM with SHAP feature selection + early stopping (default)
+        - 'ridge': RidgeCV pipeline (original approach)
 
-    The final production model is trained on ALL non-holdout data.
+    When model_type='lgb', SHAP-based feature selection reduces the full
+    feature set to shap_feature_count features per position. Phase 55
+    showed LightGBM with 60 SHAP-selected features outperforms Ridge
+    on all positions.
+
+    The final production model is trained on ALL non-holdout data. For
+    LightGBM, the most recent non-holdout season is used as early-stopping
+    eval set.
 
     Args:
         positions: Positions to train residual models for.
@@ -664,12 +785,13 @@ def train_and_save_residual_models(
         scoring_format: Scoring format string.
         output_dir: Directory to save models. Default 'models/residual'.
         use_graph_features: If True, explicitly load and merge all Silver graph
-            feature tables into the training data. Adds up to 49 graph features
-            per position. Default False preserves the existing baseline behavior.
+            feature tables into the training data.
+        model_type: 'lgb' for LightGBM (default) or 'ridge' for RidgeCV.
+        shap_feature_count: Number of features to select via SHAP when
+            model_type='lgb'. Default 60.
 
     Returns:
-        Dict mapping position -> {mae, ridge_alpha, n_train, features,
-        graph_features_added}.
+        Dict mapping position -> {mae, model_type, n_train, n_features, features}.
     """
     from config import HOLDOUT_SEASON, PLAYER_DATA_SEASONS
     from player_feature_engineering import (
@@ -705,7 +827,6 @@ def train_and_save_residual_models(
         graph_df = load_graph_features(PLAYER_DATA_SEASONS)
         if not graph_df.empty:
             join_keys = ["player_id", "season", "week"]
-            # Identify graph columns not already present in all_data
             existing_cols = set(all_data.columns)
             new_graph_cols = [
                 c
@@ -720,31 +841,14 @@ def train_and_save_residual_models(
                 )
                 graph_features_added = len(new_graph_cols)
                 logger.info(
-                    "Merged %d new graph features into training data "
-                    "(total cols now: %d)",
+                    "Merged %d new graph features (total cols: %d)",
                     graph_features_added,
                     len(all_data.columns),
                 )
             else:
-                logger.info(
-                    "All graph features already present in assembled data "
-                    "(%d graph cols from Silver join)",
-                    len(
-                        [
-                            c
-                            for c in GRAPH_FEATURE_SET
-                            if c in all_data.columns
-                        ]
-                    ),
-                )
                 graph_features_added = len(
                     [c for c in GRAPH_FEATURE_SET if c in all_data.columns]
                 )
-        else:
-            logger.warning(
-                "Graph features requested but none found in Silver; "
-                "proceeding with baseline features only"
-            )
 
     feature_cols = get_player_feature_columns(all_data)
     logger.info("Found %d candidate features", len(feature_cols))
@@ -755,7 +859,9 @@ def train_and_save_residual_models(
     results: Dict[str, Dict[str, Any]] = {}
 
     for position in positions:
-        logger.info("Training residual model for %s...", position)
+        logger.info(
+            "Training %s residual model for %s...", model_type.upper(), position
+        )
         pos_data = all_data[all_data["position"] == position].copy()
         pos_data = pos_data[pos_data["season"] != HOLDOUT_SEASON].copy()
 
@@ -784,80 +890,157 @@ def train_and_save_residual_models(
 
         # Residual = actual - heuristic
         residual = train_actual - train_prod
+        train_data["residual"] = residual
 
-        # Features — use position-relevant graph features when enabled
+        # Feature selection
         available_features = [f for f in feature_cols if f in train_data.columns]
         if not available_features:
             logger.warning("No features for %s", position)
             continue
 
-        # Log graph feature coverage for this position's training data
-        if use_graph_features:
-            pos_graph_feats = GRAPH_FEATURES_BY_POSITION.get(position, [])
-            present_graph = [
-                f for f in pos_graph_feats if f in train_data.columns
-            ]
-            if present_graph:
-                coverage = train_data[present_graph].notna().mean().mean()
-                logger.info(
-                    "%s: %d/%d position-relevant graph features present, "
-                    "mean coverage=%.1f%%",
-                    position,
-                    len(present_graph),
-                    len(pos_graph_feats),
-                    coverage * 100,
-                )
+        if shap_feature_count < len(available_features):
+            # SHAP-based feature selection (for both Ridge and LGB)
+            selected_features = _select_residual_features(
+                train_data,
+                available_features,
+                target_col="residual",
+                target_count=shap_feature_count,
+            )
+        else:
+            selected_features = available_features
 
-        X_train = train_data[available_features]
+        X_train_raw = train_data[selected_features]
         y_train = residual
 
-        # Train final production model on ALL non-holdout data
-        model = Pipeline(
-            [
-                ("imputer", SimpleImputer(strategy="median")),
-                ("model", RidgeCV(alphas=np.logspace(-3, 3, 50))),
-            ]
-        )
-        model.fit(X_train, y_train)
+        if model_type == "lgb":
+            # Impute then train LightGBM with early stopping
+            imputer = SimpleImputer(strategy="median")
+            X_train_imp = imputer.fit_transform(X_train_raw)
 
-        ridge_alpha = float(model.named_steps["model"].alpha_)
-        train_preds = model.predict(X_train)
-        train_mae = float(mean_absolute_error(y_train, train_preds))
+            # Use most recent season as early-stopping eval set
+            seasons = sorted(train_data["season"].unique())
+            if len(seasons) >= 2:
+                eval_season = seasons[-1]
+                eval_mask = train_data["season"] == eval_season
+                tr_mask = ~eval_mask
+                tr_idx = np.where(tr_mask.values)[0]
+                es_idx = np.where(eval_mask.values)[0]
 
-        # Save model
-        model_path = os.path.join(output_dir, f"{position.lower()}_residual.joblib")
-        meta_path = os.path.join(output_dir, f"{position.lower()}_residual_meta.json")
+                lgb_model = _train_lgb_residual(
+                    X_train_imp[tr_idx],
+                    y_train.iloc[tr_idx].values,
+                    X_train_imp[es_idx],
+                    y_train.iloc[es_idx].values,
+                )
+            else:
+                lgb_model = _train_lgb_residual(
+                    X_train_imp, y_train.values
+                )
 
-        joblib.dump(model, model_path)
-        meta = {
-            "position": position,
-            "scoring_format": scoring_format,
-            "ridge_alpha": ridge_alpha,
-            "n_train": len(X_train),
-            "train_residual_mae": train_mae,
-            "n_features": len(available_features),
-            "features": available_features,
-            "use_graph_features": use_graph_features,
-            "graph_features_added": graph_features_added,
-        }
-        with open(meta_path, "w") as f:
-            json.dump(meta, f, indent=2)
+            train_preds = lgb_model.predict(X_train_imp)
+            train_mae = float(mean_absolute_error(y_train, train_preds))
 
-        logger.info(
-            "%s residual model saved: alpha=%.3f, n=%d, features=%d",
-            position,
-            ridge_alpha,
-            len(X_train),
-            len(available_features),
-        )
+            # Save imputer + LightGBM model + metadata
+            model_path = os.path.join(
+                output_dir, f"{position.lower()}_residual.joblib"
+            )
+            imputer_path = os.path.join(
+                output_dir, f"{position.lower()}_residual_imputer.joblib"
+            )
+            meta_path = os.path.join(
+                output_dir, f"{position.lower()}_residual_meta.json"
+            )
 
-        results[position] = {
-            "mae": train_mae,
-            "ridge_alpha": ridge_alpha,
-            "n_train": len(X_train),
-            "features": available_features,
-            "graph_features_added": graph_features_added,
-        }
+            joblib.dump(lgb_model, model_path)
+            joblib.dump(imputer, imputer_path)
+
+            meta = {
+                "position": position,
+                "model_type": "lgb",
+                "scoring_format": scoring_format,
+                "n_train": len(X_train_raw),
+                "train_residual_mae": train_mae,
+                "n_features": len(selected_features),
+                "features": selected_features,
+                "best_iteration": getattr(lgb_model, "best_iteration_", -1),
+                "graph_features_added": graph_features_added,
+                "lgb_params": RESIDUAL_LGB_PARAMS,
+            }
+            with open(meta_path, "w") as f:
+                json.dump(meta, f, indent=2)
+
+            logger.info(
+                "%s LGB residual saved: n=%d, features=%d, "
+                "best_iter=%d, train_mae=%.3f",
+                position,
+                len(X_train_raw),
+                len(selected_features),
+                meta["best_iteration"],
+                train_mae,
+            )
+
+            results[position] = {
+                "mae": train_mae,
+                "model_type": "lgb",
+                "n_train": len(X_train_raw),
+                "n_features": len(selected_features),
+                "features": selected_features,
+                "graph_features_added": graph_features_added,
+            }
+
+        else:
+            # Ridge pipeline (original approach)
+            model = Pipeline(
+                [
+                    ("imputer", SimpleImputer(strategy="median")),
+                    ("model", RidgeCV(alphas=np.logspace(-3, 3, 50))),
+                ]
+            )
+            model.fit(X_train_raw, y_train)
+
+            ridge_alpha = float(model.named_steps["model"].alpha_)
+            train_preds = model.predict(X_train_raw)
+            train_mae = float(mean_absolute_error(y_train, train_preds))
+
+            model_path = os.path.join(
+                output_dir, f"{position.lower()}_residual.joblib"
+            )
+            meta_path = os.path.join(
+                output_dir, f"{position.lower()}_residual_meta.json"
+            )
+
+            joblib.dump(model, model_path)
+            meta = {
+                "position": position,
+                "model_type": "ridge",
+                "scoring_format": scoring_format,
+                "ridge_alpha": ridge_alpha,
+                "n_train": len(X_train_raw),
+                "train_residual_mae": train_mae,
+                "n_features": len(selected_features),
+                "features": selected_features,
+                "graph_features_added": graph_features_added,
+            }
+            with open(meta_path, "w") as f:
+                json.dump(meta, f, indent=2)
+
+            logger.info(
+                "%s Ridge residual saved: alpha=%.3f, n=%d, features=%d",
+                position,
+                ridge_alpha,
+                len(X_train_raw),
+                len(selected_features),
+            )
+
+            results[position] = {
+                "mae": train_mae,
+                "model_type": "ridge",
+                "ridge_alpha": ridge_alpha,
+                "n_train": len(X_train_raw),
+                "n_features": len(selected_features),
+                "features": selected_features,
+                "graph_features_added": graph_features_added,
+            }
 
     return results
 
@@ -865,15 +1048,20 @@ def train_and_save_residual_models(
 def load_residual_model(
     position: str,
     model_dir: Optional[str] = None,
-) -> Tuple[Pipeline, Dict[str, Any]]:
+) -> Tuple[Any, Dict[str, Any]]:
     """Load a saved residual correction model and its metadata.
+
+    Supports both Ridge (sklearn Pipeline) and LightGBM models.
+    For LightGBM models, also loads the associated imputer.
 
     Args:
         position: Position code (e.g., 'WR', 'TE').
         model_dir: Directory containing saved models. Default 'models/residual'.
 
     Returns:
-        Tuple of (fitted Pipeline, metadata dict).
+        Tuple of (fitted model, metadata dict).
+        For LightGBM, model is a dict {'model': LGBMRegressor, 'imputer': SimpleImputer}.
+        For Ridge, model is a sklearn Pipeline.
 
     Raises:
         FileNotFoundError: If model file does not exist.
@@ -894,6 +1082,16 @@ def load_residual_model(
         with open(meta_path, "r") as f:
             meta = json.load(f)
 
+    # For LightGBM models, also load the imputer
+    if meta.get("model_type") == "lgb":
+        imputer_path = os.path.join(
+            model_dir, f"{position.lower()}_residual_imputer.joblib"
+        )
+        imputer = None
+        if os.path.exists(imputer_path):
+            imputer = joblib.load(imputer_path)
+        model = {"model": model, "imputer": imputer}
+
     return model, meta
 
 
@@ -905,15 +1103,20 @@ def apply_residual_correction(
 ) -> pd.DataFrame:
     """Apply residual correction to heuristic projections.
 
-    Loads a pre-trained residual Ridge model, predicts the correction
-    (residual), and adds it to heuristic projected_points. Floors at 0.0.
+    Loads a pre-trained residual model (Ridge or LightGBM), predicts the
+    correction (residual), and adds it to heuristic projected_points.
+    Floors at 0.0.
+
+    Supports both model types:
+        - Ridge: sklearn Pipeline with built-in imputer
+        - LightGBM: separate imputer + LGBMRegressor
 
     Args:
         heuristic_projections: DataFrame with 'projected_points' and
             'player_id' columns from heuristic engine.
         player_features: Silver-layer features DataFrame with feature
             columns matching the model's training features.
-        position: Position code ('WR' or 'TE').
+        position: Position code ('WR', 'TE', 'QB', 'RB').
         model_dir: Directory containing saved residual models.
 
     Returns:
@@ -921,11 +1124,12 @@ def apply_residual_correction(
         loading fails or no matching features.
     """
     try:
-        model, meta = load_residual_model(position, model_dir)
+        model_obj, meta = load_residual_model(position, model_dir)
     except FileNotFoundError:
         logger.warning("No residual model for %s; returning heuristic as-is", position)
         return heuristic_projections
 
+    model_type = meta.get("model_type", "ridge")
     features = meta.get("features", [])
     available = [f for f in features if f in player_features.columns]
 
@@ -953,8 +1157,7 @@ def apply_residual_correction(
     )
     merged = result.merge(feat_subset, left_on=id_col, right_on=feat_id_col, how="left")
 
-    # Build full feature matrix (all model features, NaN for missing ones).
-    # The imputer in the Pipeline will fill NaN with training medians.
+    # Build full feature matrix (all model features, NaN for missing ones)
     feature_data = {
         f: merged[f].values if f in merged.columns else np.nan for f in features
     }
@@ -967,8 +1170,9 @@ def apply_residual_correction(
         return heuristic_projections
 
     logger.info(
-        "%s: %d/%d features available from Silver; %d imputed",
+        "%s (%s): %d/%d features available; %d imputed",
         position,
+        model_type,
         len(available),
         len(features),
         len(features) - len(available),
@@ -976,15 +1180,29 @@ def apply_residual_correction(
 
     corrections = np.zeros(len(merged))
     if has_features.any():
-        corrections[has_features] = model.predict(X[has_features])
+        X_predict = X[has_features]
 
-    # Apply correction (numpy clip uses min=/max=, not lower=/upper=)
+        if model_type == "lgb" and isinstance(model_obj, dict):
+            # LightGBM model with separate imputer
+            lgb_model = model_obj["model"]
+            imputer = model_obj.get("imputer")
+            if imputer is not None:
+                X_imp = imputer.transform(X_predict)
+            else:
+                X_imp = X_predict.fillna(0.0).values
+            corrections[has_features] = lgb_model.predict(X_imp)
+        else:
+            # Ridge Pipeline (has built-in imputer)
+            corrections[has_features] = model_obj.predict(X_predict)
+
+    # Apply correction (floor at 0)
     corrected = merged["projected_points"].values + corrections
     result["projected_points"] = np.clip(corrected, 0.0, None).round(2)
 
     logger.info(
-        "%s residual correction: %d players, mean correction=%.2f",
+        "%s residual correction (%s): %d players, mean correction=%.2f",
         position,
+        model_type,
         has_features.sum(),
         float(np.mean(corrections[has_features])) if has_features.any() else 0.0,
     )

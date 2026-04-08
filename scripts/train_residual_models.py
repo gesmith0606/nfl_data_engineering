@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Train and save residual correction models for WR and TE.
+"""Train and save residual correction models for all positions.
 
-Trains Ridge residual models on the production heuristic residuals
-and saves them to models/residual/ for use by the ML projection router.
+Supports two model types:
+    - lgb (default): LightGBM with SHAP feature selection + early stopping
+    - ridge: RidgeCV pipeline (original approach)
 
 Usage:
     python scripts/train_residual_models.py
     python scripts/train_residual_models.py --positions WR TE
-    python scripts/train_residual_models.py --scoring half_ppr
-    python scripts/train_residual_models.py --positions wr te --use-graph-features
+    python scripts/train_residual_models.py --model-type ridge
+    python scripts/train_residual_models.py --shap-features 80
+    python scripts/train_residual_models.py --use-graph-features
 """
 
 import argparse
@@ -38,13 +40,16 @@ def main() -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Baseline training (Silver rolling stats only)
-  python scripts/train_residual_models.py --positions WR TE
+  # Default: LightGBM with 60 SHAP-selected features
+  python scripts/train_residual_models.py
 
-  # Graph-enhanced training (adds up to 49 graph features per position)
-  python scripts/train_residual_models.py --positions WR TE --use-graph-features
+  # Ridge baseline (original approach)
+  python scripts/train_residual_models.py --model-type ridge
 
-  # All positions with graph features
+  # LightGBM with more features
+  python scripts/train_residual_models.py --shap-features 80
+
+  # With explicit graph feature merging
   python scripts/train_residual_models.py --use-graph-features
         """,
     )
@@ -60,38 +65,47 @@ Examples:
         help="Scoring format (default: half_ppr)",
     )
     parser.add_argument(
+        "--model-type",
+        default="lgb",
+        choices=["lgb", "ridge"],
+        help="Model type: lgb (LightGBM + SHAP, default) or ridge (RidgeCV)",
+    )
+    parser.add_argument(
+        "--shap-features",
+        type=int,
+        default=60,
+        help="Number of SHAP-selected features for LGB models (default: 60)",
+    )
+    parser.add_argument(
         "--use-graph-features",
         action="store_true",
         default=False,
         help=(
             "Explicitly load and merge all Silver graph feature tables "
-            f"(up to {len(GRAPH_FEATURE_SET)} features: QB-WR chemistry, "
-            "game script, red zone, WR/TE matchup, injury cascade, OL/RB, scheme). "
-            "NaN values from missing player-weeks are median-imputed by the pipeline. "
+            f"(up to {len(GRAPH_FEATURE_SET)} features). "
             "When omitted, baseline behavior is preserved."
         ),
     )
     args = parser.parse_args()
 
     positions = [p.upper() for p in args.positions]
+    model_label = "LightGBM + SHAP" if args.model_type == "lgb" else "RidgeCV"
     graph_label = " + graph features" if args.use_graph_features else ""
 
-    print(f"\nTraining Residual Correction Models")
+    print(f"\nTraining Residual Correction Models ({model_label})")
     print(
         f"Positions: {positions} | Scoring: {args.scoring.upper()}{graph_label}"
     )
-    if args.use_graph_features:
-        print(
-            f"Graph features: up to {len(GRAPH_FEATURE_SET)} features from Silver "
-            "(QB-WR chemistry, game script, red zone, WR/TE matchup, "
-            "injury cascade, OL/RB, scheme)"
-        )
+    if args.model_type == "lgb":
+        print(f"SHAP feature count: {args.shap_features}")
     print("=" * 60)
 
     results = train_and_save_residual_models(
         positions=positions,
         scoring_format=args.scoring,
         use_graph_features=args.use_graph_features,
+        model_type=args.model_type,
+        shap_feature_count=args.shap_features,
     )
 
     if not results:
@@ -102,14 +116,26 @@ Examples:
     print("TRAINING RESULTS")
     print(f"{'=' * 60}")
     for pos, info in results.items():
+        mtype = info.get("model_type", "ridge")
+        n_feats = info.get("n_features", len(info.get("features", [])))
         graph_info = ""
         if args.use_graph_features:
-            graph_info = f", graph_features_added={info.get('graph_features_added', 0)}"
-        print(
-            f"  {pos}: ridge_alpha={info['ridge_alpha']:.3f}, "
-            f"n_train={info['n_train']}, features={len(info['features'])}"
-            f"{graph_info}"
-        )
+            graph_info = (
+                f", graph_added={info.get('graph_features_added', 0)}"
+            )
+        if mtype == "lgb":
+            print(
+                f"  {pos}: type={mtype}, n_train={info['n_train']}, "
+                f"features={n_feats}, train_mae={info['mae']:.3f}"
+                f"{graph_info}"
+            )
+        else:
+            print(
+                f"  {pos}: type={mtype}, "
+                f"ridge_alpha={info.get('ridge_alpha', 0):.3f}, "
+                f"n_train={info['n_train']}, features={n_feats}"
+                f"{graph_info}"
+            )
 
     print(f"\nModels saved to models/residual/")
     return 0

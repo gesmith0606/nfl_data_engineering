@@ -41,8 +41,10 @@ from scoring_calculator import calculate_fantasy_points_df
 
 logger = logging.getLogger(__name__)
 
-# Positions using hybrid residual correction (heuristic + Ridge residual).
-# Phase 54 tested all 4 positions — QB/RB residual overcorrects; only WR/TE benefit.
+# Positions using hybrid residual correction (heuristic + LightGBM residual).
+# Phase 55: LGB residual with SHAP-60 features improves WR/TE over heuristic.
+# QB/RB remain on XGBoost SHIP (direct stat prediction) which outperforms
+# the heuristic baseline that residual correction builds on.
 HYBRID_POSITIONS = {"WR", "TE"}
 
 # ---------------------------------------------------------------------------
