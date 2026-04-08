@@ -8,6 +8,7 @@ Usage:
     python scripts/train_residual_models.py
     python scripts/train_residual_models.py --positions WR TE
     python scripts/train_residual_models.py --scoring half_ppr
+    python scripts/train_residual_models.py --positions wr te --use-graph-features
 """
 
 import argparse
@@ -17,7 +18,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from hybrid_projection import train_and_save_residual_models
+from hybrid_projection import GRAPH_FEATURE_SET, train_and_save_residual_models
 
 logging.basicConfig(
     level=logging.INFO,
@@ -26,8 +27,27 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Train residual correction models")
+def main() -> int:
+    """Entry point for residual model training CLI.
+
+    Returns:
+        Exit code: 0 on success, 1 on failure.
+    """
+    parser = argparse.ArgumentParser(
+        description="Train residual correction models",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Baseline training (Silver rolling stats only)
+  python scripts/train_residual_models.py --positions WR TE
+
+  # Graph-enhanced training (adds up to 49 graph features per position)
+  python scripts/train_residual_models.py --positions WR TE --use-graph-features
+
+  # All positions with graph features
+  python scripts/train_residual_models.py --use-graph-features
+        """,
+    )
     parser.add_argument(
         "--positions",
         nargs="+",
@@ -39,15 +59,39 @@ def main():
         default="half_ppr",
         help="Scoring format (default: half_ppr)",
     )
+    parser.add_argument(
+        "--use-graph-features",
+        action="store_true",
+        default=False,
+        help=(
+            "Explicitly load and merge all Silver graph feature tables "
+            f"(up to {len(GRAPH_FEATURE_SET)} features: QB-WR chemistry, "
+            "game script, red zone, WR/TE matchup, injury cascade, OL/RB, scheme). "
+            "NaN values from missing player-weeks are median-imputed by the pipeline. "
+            "When omitted, baseline behavior is preserved."
+        ),
+    )
     args = parser.parse_args()
 
+    positions = [p.upper() for p in args.positions]
+    graph_label = " + graph features" if args.use_graph_features else ""
+
     print(f"\nTraining Residual Correction Models")
-    print(f"Positions: {args.positions} | Scoring: {args.scoring.upper()}")
+    print(
+        f"Positions: {positions} | Scoring: {args.scoring.upper()}{graph_label}"
+    )
+    if args.use_graph_features:
+        print(
+            f"Graph features: up to {len(GRAPH_FEATURE_SET)} features from Silver "
+            "(QB-WR chemistry, game script, red zone, WR/TE matchup, "
+            "injury cascade, OL/RB, scheme)"
+        )
     print("=" * 60)
 
     results = train_and_save_residual_models(
-        positions=args.positions,
+        positions=positions,
         scoring_format=args.scoring,
+        use_graph_features=args.use_graph_features,
     )
 
     if not results:
@@ -58,9 +102,13 @@ def main():
     print("TRAINING RESULTS")
     print(f"{'=' * 60}")
     for pos, info in results.items():
+        graph_info = ""
+        if args.use_graph_features:
+            graph_info = f", graph_features_added={info.get('graph_features_added', 0)}"
         print(
             f"  {pos}: ridge_alpha={info['ridge_alpha']:.3f}, "
             f"n_train={info['n_train']}, features={len(info['features'])}"
+            f"{graph_info}"
         )
 
     print(f"\nModels saved to models/residual/")

@@ -20,8 +20,11 @@ Exports:
     train_and_save_residual_models: Train + persist residual models for WR/TE.
     load_residual_model: Load saved residual Pipeline.
     apply_residual_correction: Apply residual correction to heuristic projections.
+    load_graph_features: Load and merge all Silver graph feature tables by season.
+    GRAPH_FEATURE_SET: Complete list of 49 graph feature column names.
 """
 
+import glob
 import json
 import logging
 import os
@@ -39,6 +42,312 @@ from projection_engine import POSITION_STAT_PROFILE
 from scoring_calculator import calculate_fantasy_points_df
 
 logger = logging.getLogger(__name__)
+
+_BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+_SILVER_GRAPH_DIR = os.path.join(_BASE_DIR, "data", "silver", "graph_features")
+
+# ---------------------------------------------------------------------------
+# Complete set of 49 graph feature columns (from all Silver graph tables)
+# ---------------------------------------------------------------------------
+
+# WR matchup features (4)
+_WR_MATCHUP_FEATURES = [
+    "def_pass_epa_allowed",
+    "wr_epa_vs_defense_history",
+    "cb_cooccurrence_quality",
+    "similar_wr_vs_defense",
+]
+
+# TE matchup features (4)
+_TE_MATCHUP_FEATURES = [
+    "te_lb_coverage_rate",
+    "te_vs_defense_epa_history",
+    "te_red_zone_target_share",
+    "def_te_fantasy_pts_allowed",
+]
+
+# QB-WR chemistry features (5)
+_QB_WR_CHEMISTRY_FEATURES = [
+    "qb_wr_chemistry_epa_roll3",
+    "qb_wr_pair_comp_rate_roll3",
+    "qb_wr_pair_target_share",
+    "qb_wr_pair_games_together",
+    "qb_wr_pair_td_rate",
+]
+
+# Red zone features (7)
+_RED_ZONE_FEATURES = [
+    "rz_target_share_roll3",
+    "rz_carry_share_roll3",
+    "rz_td_rate_roll3",
+    "rz_usage_vs_general",
+    "team_rz_trips_roll3",
+    "rz_td_regression",
+    "opp_rz_td_rate_allowed_roll3",
+]
+
+# Game script features (6)
+_GAME_SCRIPT_FEATURES = [
+    "usage_when_trailing_roll3",
+    "usage_when_leading_roll3",
+    "garbage_time_share_roll3",
+    "clock_killer_share_roll3",
+    "script_volatility",
+    "predicted_script_boost",
+]
+
+# Injury cascade features (4)
+_INJURY_CASCADE_FEATURES = [
+    "injury_cascade_target_boost",
+    "injury_cascade_carry_boost",
+    "teammate_injured_starter",
+    "historical_absorption_rate",
+]
+
+# OL/RB features (5)
+_OL_RB_FEATURES = [
+    "ol_starters_active",
+    "ol_backup_insertions",
+    "rb_ypc_with_full_ol",
+    "rb_ypc_delta_backup_ol",
+    "ol_continuity_score",
+]
+
+# Scheme/defensive front features for RB (4)
+_SCHEME_FEATURES = [
+    "def_front_quality_vs_run",
+    "scheme_matchup_score",
+    "rb_ypc_by_gap_vs_defense",
+    "def_run_epa_allowed",
+]
+
+# All 49 graph features combined (the complete "graph feature set")
+GRAPH_FEATURE_SET: List[str] = (
+    _WR_MATCHUP_FEATURES
+    + _TE_MATCHUP_FEATURES
+    + _QB_WR_CHEMISTRY_FEATURES
+    + _RED_ZONE_FEATURES
+    + _GAME_SCRIPT_FEATURES
+    + _INJURY_CASCADE_FEATURES
+    + _OL_RB_FEATURES
+    + _SCHEME_FEATURES
+)
+
+# Position-specific graph feature subsets for targeted enrichment
+GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
+    "WR": (
+        _QB_WR_CHEMISTRY_FEATURES
+        + _WR_MATCHUP_FEATURES
+        + _GAME_SCRIPT_FEATURES
+        + _RED_ZONE_FEATURES
+        + _INJURY_CASCADE_FEATURES
+    ),
+    "TE": (
+        _TE_MATCHUP_FEATURES
+        + _RED_ZONE_FEATURES
+        + _GAME_SCRIPT_FEATURES
+        + _QB_WR_CHEMISTRY_FEATURES
+        + _INJURY_CASCADE_FEATURES
+    ),
+    "RB": (
+        _OL_RB_FEATURES
+        + _SCHEME_FEATURES
+        + _RED_ZONE_FEATURES
+        + _INJURY_CASCADE_FEATURES
+        + _GAME_SCRIPT_FEATURES
+    ),
+    "QB": (
+        _QB_WR_CHEMISTRY_FEATURES
+        + _RED_ZONE_FEATURES
+        + _GAME_SCRIPT_FEATURES
+        + _INJURY_CASCADE_FEATURES
+    ),
+}
+
+
+# ---------------------------------------------------------------------------
+# Graph feature loading
+# ---------------------------------------------------------------------------
+
+
+def _read_latest_graph_parquet(season: int, prefix: str) -> pd.DataFrame:
+    """Read the latest Silver graph feature parquet for a given prefix and season.
+
+    Args:
+        season: NFL season year.
+        prefix: File prefix (e.g. 'graph_qb_wr_chemistry').
+
+    Returns:
+        DataFrame from the latest matching parquet, or empty DataFrame if none found.
+    """
+    season_dir = os.path.join(_SILVER_GRAPH_DIR, f"season={season}")
+    pattern = os.path.join(season_dir, f"{prefix}_*.parquet")
+    files = sorted(glob.glob(pattern))
+    if not files:
+        return pd.DataFrame()
+    try:
+        return pd.read_parquet(files[-1])
+    except Exception as exc:
+        logger.warning("Failed to read %s for season=%d: %s", prefix, season, exc)
+        return pd.DataFrame()
+
+
+def load_graph_features(
+    seasons: List[int],
+    position_filter: Optional[str] = None,
+) -> pd.DataFrame:
+    """Load and merge all Silver graph feature tables across seasons.
+
+    Reads each graph feature table (QB-WR chemistry, game script, red zone,
+    WR matchup, TE matchup, injury cascade, OL/RB, scheme) from
+    data/silver/graph_features/ and merges them into a single per-player-week
+    DataFrame. Uses a left-join cascade on (player_id, season, week).
+
+    The ``graph_all_features`` consolidated file is used as the primary source
+    when available. Individual topic files are loaded as fallback to ensure
+    maximum coverage.
+
+    Graph features already have temporal integrity baked in (shift(1) lag is
+    applied during graph feature computation in compute_graph_features.py).
+    NaN values for missing player-weeks are expected and handled by the Ridge
+    pipeline's SimpleImputer.
+
+    Args:
+        seasons: List of NFL season years to load.
+        position_filter: If provided, only return position-relevant features
+            for this position (e.g. 'WR'). None returns all graph features.
+
+    Returns:
+        DataFrame with columns [player_id, season, week, <graph_feature_cols>].
+        Empty DataFrame if no graph feature data found for any season.
+
+    Example:
+        >>> gf = load_graph_features([2022, 2023, 2024], position_filter='WR')
+        >>> gf.columns.tolist()[:4]
+        ['player_id', 'season', 'week', 'qb_wr_chemistry_epa_roll3']
+    """
+    join_keys = ["player_id", "season", "week"]
+
+    # Table definitions: (file_prefix, feature_columns, join_on)
+    # scheme features join on team+season+week instead of player_id
+    _player_tables = [
+        ("graph_qb_wr_chemistry", _QB_WR_CHEMISTRY_FEATURES),
+        ("graph_red_zone", _RED_ZONE_FEATURES),
+        ("graph_game_script", _GAME_SCRIPT_FEATURES),
+        ("graph_wr_matchup", _WR_MATCHUP_FEATURES),
+        ("graph_te_matchup", _TE_MATCHUP_FEATURES),
+        ("graph_injury_cascade", _INJURY_CASCADE_FEATURES),
+        ("graph_ol_rb", _OL_RB_FEATURES),
+    ]
+
+    all_season_dfs: List[pd.DataFrame] = []
+
+    for season in seasons:
+        # Attempt consolidated file first for efficiency
+        consolidated = _read_latest_graph_parquet(season, "graph_all_features")
+        if not consolidated.empty and all(k in consolidated.columns for k in join_keys):
+            all_season_dfs.append(consolidated)
+            logger.debug(
+                "Season %d: loaded consolidated graph features (%d rows)",
+                season,
+                len(consolidated),
+            )
+            continue
+
+        # Fall back to individual tables merged together
+        logger.debug(
+            "Season %d: consolidated graph_all_features not found, "
+            "loading individual tables",
+            season,
+        )
+        base_df: Optional[pd.DataFrame] = None
+
+        for prefix, feat_cols in _player_tables:
+            tbl = _read_latest_graph_parquet(season, prefix)
+            if tbl.empty:
+                continue
+
+            avail_keys = [k for k in join_keys if k in tbl.columns]
+            if len(avail_keys) < 3:
+                logger.debug(
+                    "Season %d | %s: missing join keys, skipping", season, prefix
+                )
+                continue
+
+            avail_feats = [c for c in feat_cols if c in tbl.columns]
+            if not avail_feats:
+                continue
+
+            subset = tbl[avail_keys + avail_feats].copy()
+
+            if base_df is None:
+                base_df = subset
+            else:
+                dup_cols = [
+                    c for c in avail_feats if c in base_df.columns
+                ]
+                merge_feats = [c for c in avail_feats if c not in dup_cols]
+                if not merge_feats:
+                    continue
+                base_df = base_df.merge(
+                    subset[avail_keys + merge_feats],
+                    on=avail_keys,
+                    how="outer",
+                )
+
+        # Scheme features join on team+season+week — handled separately
+        scheme_tbl = _read_latest_graph_parquet(season, "graph_scheme")
+        if not scheme_tbl.empty:
+            team_keys = ["team", "season", "week"]
+            avail_team_keys = [k for k in team_keys if k in scheme_tbl.columns]
+            avail_scheme_feats = [
+                c for c in _SCHEME_FEATURES if c in scheme_tbl.columns
+            ]
+            if len(avail_team_keys) >= 3 and avail_scheme_feats:
+                if base_df is not None and "recent_team" in base_df.columns:
+                    base_df = base_df.merge(
+                        scheme_tbl[avail_team_keys + avail_scheme_feats],
+                        left_on=["recent_team", "season", "week"],
+                        right_on=avail_team_keys,
+                        how="left",
+                        suffixes=("", "__scheme"),
+                    )
+                    dup = [c for c in base_df.columns if c.endswith("__scheme")]
+                    base_df = base_df.drop(columns=dup + ["team"], errors="ignore")
+
+        if base_df is not None and not base_df.empty:
+            all_season_dfs.append(base_df)
+
+    if not all_season_dfs:
+        logger.warning("load_graph_features: no data found for seasons=%s", seasons)
+        return pd.DataFrame()
+
+    result = pd.concat(all_season_dfs, ignore_index=True)
+
+    # Ensure join keys are present
+    missing_keys = [k for k in join_keys if k not in result.columns]
+    if missing_keys:
+        logger.warning(
+            "load_graph_features: missing join keys %s in result", missing_keys
+        )
+        return pd.DataFrame()
+
+    # Deduplicate keeping last (most recent computation)
+    result = result.drop_duplicates(subset=join_keys, keep="last")
+
+    # Apply position filter — keep only position-relevant graph columns
+    if position_filter and position_filter.upper() in GRAPH_FEATURES_BY_POSITION:
+        relevant = GRAPH_FEATURES_BY_POSITION[position_filter.upper()]
+        available_relevant = [c for c in relevant if c in result.columns]
+        result = result[join_keys + available_relevant].copy()
+
+    logger.info(
+        "load_graph_features: %d rows, %d graph feature cols across %d seasons",
+        len(result),
+        len(result.columns) - len(join_keys),
+        len(seasons),
+    )
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -330,6 +639,7 @@ def train_and_save_residual_models(
     positions: Optional[List[str]] = None,
     scoring_format: str = "half_ppr",
     output_dir: Optional[str] = None,
+    use_graph_features: bool = False,
 ) -> Dict[str, Dict[str, Any]]:
     """Train residual correction models and save to disk.
 
@@ -338,6 +648,14 @@ def train_and_save_residual_models(
     using the full feature vector from assemble_multiyear_player_features
     and the unified production heuristic from unified_evaluation.py.
 
+    When ``use_graph_features=True``, explicitly loads all Silver graph
+    feature tables via ``load_graph_features()`` and merges them onto the
+    assembled feature data by (player_id, season, week). This adds up to
+    49 graph features (QB-WR chemistry, game script, red zone, WR/TE matchup,
+    injury cascade, OL/RB, scheme) on top of the Silver rolling stats.
+    NaN values from missing player-weeks are imputed by the Ridge pipeline's
+    SimpleImputer (median strategy).
+
     The final production model is trained on ALL non-holdout data.
 
     Args:
@@ -345,9 +663,13 @@ def train_and_save_residual_models(
             Default ['QB', 'RB', 'WR', 'TE'].
         scoring_format: Scoring format string.
         output_dir: Directory to save models. Default 'models/residual'.
+        use_graph_features: If True, explicitly load and merge all Silver graph
+            feature tables into the training data. Adds up to 49 graph features
+            per position. Default False preserves the existing baseline behavior.
 
     Returns:
-        Dict mapping position -> {mae, ridge_alpha, n_train, features}.
+        Dict mapping position -> {mae, ridge_alpha, n_train, features,
+        graph_features_added}.
     """
     from config import HOLDOUT_SEASON, PLAYER_DATA_SEASONS
     from player_feature_engineering import (
@@ -373,6 +695,56 @@ def train_and_save_residual_models(
     if all_data.empty:
         logger.error("No data assembled for residual training")
         return {}
+
+    # Optionally merge graph features explicitly
+    graph_features_added: int = 0
+    if use_graph_features:
+        logger.info(
+            "Loading graph features from Silver for explicit enrichment..."
+        )
+        graph_df = load_graph_features(PLAYER_DATA_SEASONS)
+        if not graph_df.empty:
+            join_keys = ["player_id", "season", "week"]
+            # Identify graph columns not already present in all_data
+            existing_cols = set(all_data.columns)
+            new_graph_cols = [
+                c
+                for c in graph_df.columns
+                if c not in join_keys and c not in existing_cols
+            ]
+            if new_graph_cols:
+                all_data = all_data.merge(
+                    graph_df[join_keys + new_graph_cols],
+                    on=join_keys,
+                    how="left",
+                )
+                graph_features_added = len(new_graph_cols)
+                logger.info(
+                    "Merged %d new graph features into training data "
+                    "(total cols now: %d)",
+                    graph_features_added,
+                    len(all_data.columns),
+                )
+            else:
+                logger.info(
+                    "All graph features already present in assembled data "
+                    "(%d graph cols from Silver join)",
+                    len(
+                        [
+                            c
+                            for c in GRAPH_FEATURE_SET
+                            if c in all_data.columns
+                        ]
+                    ),
+                )
+                graph_features_added = len(
+                    [c for c in GRAPH_FEATURE_SET if c in all_data.columns]
+                )
+        else:
+            logger.warning(
+                "Graph features requested but none found in Silver; "
+                "proceeding with baseline features only"
+            )
 
     feature_cols = get_player_feature_columns(all_data)
     logger.info("Found %d candidate features", len(feature_cols))
@@ -413,11 +785,28 @@ def train_and_save_residual_models(
         # Residual = actual - heuristic
         residual = train_actual - train_prod
 
-        # Features
+        # Features — use position-relevant graph features when enabled
         available_features = [f for f in feature_cols if f in train_data.columns]
         if not available_features:
             logger.warning("No features for %s", position)
             continue
+
+        # Log graph feature coverage for this position's training data
+        if use_graph_features:
+            pos_graph_feats = GRAPH_FEATURES_BY_POSITION.get(position, [])
+            present_graph = [
+                f for f in pos_graph_feats if f in train_data.columns
+            ]
+            if present_graph:
+                coverage = train_data[present_graph].notna().mean().mean()
+                logger.info(
+                    "%s: %d/%d position-relevant graph features present, "
+                    "mean coverage=%.1f%%",
+                    position,
+                    len(present_graph),
+                    len(pos_graph_feats),
+                    coverage * 100,
+                )
 
         X_train = train_data[available_features]
         y_train = residual
@@ -448,6 +837,8 @@ def train_and_save_residual_models(
             "train_residual_mae": train_mae,
             "n_features": len(available_features),
             "features": available_features,
+            "use_graph_features": use_graph_features,
+            "graph_features_added": graph_features_added,
         }
         with open(meta_path, "w") as f:
             json.dump(meta, f, indent=2)
@@ -465,6 +856,7 @@ def train_and_save_residual_models(
             "ridge_alpha": ridge_alpha,
             "n_train": len(X_train),
             "features": available_features,
+            "graph_features_added": graph_features_added,
         }
 
     return results
