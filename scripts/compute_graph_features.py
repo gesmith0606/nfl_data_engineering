@@ -29,11 +29,13 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from graph_feature_extraction import (
     GRAPH_FEATURE_COLUMNS,
     OL_RB_FEATURE_COLUMNS,
+    RB_MATCHUP_FEATURE_COLUMNS,
     SCHEME_FEATURE_COLUMNS,
     TE_FEATURE_COLUMNS,
     WR_MATCHUP_FEATURE_COLUMNS,
     compute_graph_features_from_data,
     compute_ol_rb_features,
+    compute_rb_matchup_features_from_data,
     compute_scheme_features,
     compute_te_features,
     compute_wr_matchup_features,
@@ -58,6 +60,8 @@ from graph_red_zone import (
     compute_red_zone_features,
     compute_red_zone_usage,
 )
+from graph_wr_matchup import build_wr_advanced_matchup_features
+from graph_te_matchup import build_te_advanced_matchup_features
 
 logging.basicConfig(
     level=logging.INFO,
@@ -332,6 +336,70 @@ def compute_season_features(
     results["game_script"] = gs_df
     logger.info("Game script: %d rows", len(results["game_script"]))
 
+    # --- 9. RB matchup features (new module) ---
+    logger.info("Computing RB matchup features...")
+    rb_matchup_df = pd.DataFrame()
+    if not pbp_multi.empty:
+        rb_matchup_df = compute_rb_matchup_features_from_data(
+            pbp_df=pbp_multi,
+            rosters_df=rosters_df if not rosters_df.empty else None,
+            season=season,
+            participation_parsed_df=(
+                parsed_participation if not parsed_participation.empty else None
+            ),
+        )
+    results["rb_matchup"] = rb_matchup_df
+    logger.info("RB matchup: %d rows", len(results["rb_matchup"]))
+
+    # --- 10. Advanced WR matchup features (enhanced module) ---
+    logger.info("Computing advanced WR matchup features...")
+    wr_advanced_df = pd.DataFrame()
+    if not pbp_multi.empty:
+        participation_for_wr = (
+            parsed_participation if not parsed_participation.empty else pd.DataFrame()
+        )
+        wr_advanced_df = build_wr_advanced_matchup_features(
+            pbp_df=pbp_multi,
+            participation_parsed_df=participation_for_wr,
+        )
+        # Filter to target season only
+        if not wr_advanced_df.empty and "season" in wr_advanced_df.columns:
+            wr_advanced_df = wr_advanced_df[
+                wr_advanced_df["season"] == season
+            ].copy()
+        # Rename receiver_player_id -> player_id for consistent join keys
+        if not wr_advanced_df.empty and "receiver_player_id" in wr_advanced_df.columns:
+            wr_advanced_df = wr_advanced_df.rename(
+                columns={"receiver_player_id": "player_id"}
+            )
+    results["wr_advanced"] = wr_advanced_df
+    logger.info("WR advanced matchup: %d rows", len(results["wr_advanced"]))
+
+    # --- 11. Advanced TE matchup features (enhanced module) ---
+    logger.info("Computing advanced TE matchup features...")
+    te_advanced_df = pd.DataFrame()
+    if not pbp_multi.empty and not rosters_df.empty:
+        participation_for_te = (
+            parsed_participation if not parsed_participation.empty else pd.DataFrame()
+        )
+        te_advanced_df = build_te_advanced_matchup_features(
+            pbp_df=pbp_multi,
+            participation_parsed_df=participation_for_te,
+            rosters_df=rosters_df,
+        )
+        # Filter to target season only
+        if not te_advanced_df.empty and "season" in te_advanced_df.columns:
+            te_advanced_df = te_advanced_df[
+                te_advanced_df["season"] == season
+            ].copy()
+        # Rename receiver_player_id -> player_id for consistent join keys
+        if not te_advanced_df.empty and "receiver_player_id" in te_advanced_df.columns:
+            te_advanced_df = te_advanced_df.rename(
+                columns={"receiver_player_id": "player_id"}
+            )
+    results["te_advanced"] = te_advanced_df
+    logger.info("TE advanced matchup: %d rows", len(results["te_advanced"]))
+
     return results
 
 
@@ -376,6 +444,9 @@ def save_features(
         "qb_wr_chemistry": f"graph_qb_wr_chemistry_{ts}.parquet",
         "red_zone": f"graph_red_zone_{ts}.parquet",
         "game_script": f"graph_game_script_{ts}.parquet",
+        "rb_matchup": f"graph_rb_matchup_{ts}.parquet",
+        "wr_advanced": f"graph_wr_advanced_{ts}.parquet",
+        "te_advanced": f"graph_te_advanced_{ts}.parquet",
     }
 
     for key, filename in file_map.items():
@@ -401,6 +472,9 @@ def save_features(
         "qb_wr_chemistry",
         "red_zone",
         "game_script",
+        "rb_matchup",
+        "wr_advanced",
+        "te_advanced",
     ]:
         df = results.get(key, pd.DataFrame())
         if not df.empty and all(c in df.columns for c in join_cols):

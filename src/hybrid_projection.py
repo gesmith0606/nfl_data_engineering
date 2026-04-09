@@ -77,10 +77,10 @@ _BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 _SILVER_GRAPH_DIR = os.path.join(_BASE_DIR, "data", "silver", "graph_features")
 
 # ---------------------------------------------------------------------------
-# Complete set of 49 graph feature columns (from all Silver graph tables)
+# Complete set of 71 graph feature columns (from all Silver graph tables)
 # ---------------------------------------------------------------------------
 
-# WR matchup features (4)
+# WR matchup features (4) — base set from compute_wr_matchup_features
 _WR_MATCHUP_FEATURES = [
     "def_pass_epa_allowed",
     "wr_epa_vs_defense_history",
@@ -88,12 +88,34 @@ _WR_MATCHUP_FEATURES = [
     "similar_wr_vs_defense",
 ]
 
-# TE matchup features (4)
+# WR advanced matchup features (9) — from build_wr_advanced_matchup_features
+_WR_ADVANCED_FEATURES = [
+    "wr_matchup_target_concentration",
+    "wr_matchup_air_yards_per_target",
+    "wr_matchup_completed_air_yards_per_target",
+    "wr_matchup_yac_per_catch",
+    "wr_matchup_light_box_epa",
+    "wr_matchup_heavy_box_epa",
+    "wr_matchup_short_pass_completion_rate",
+    "wr_matchup_middle_target_rate",
+    "wr_matchup_middle_epa",
+]
+
+# TE matchup features (4) — base set from compute_te_features
 _TE_MATCHUP_FEATURES = [
     "te_lb_coverage_rate",
     "te_vs_defense_epa_history",
     "te_red_zone_target_share",
     "def_te_fantasy_pts_allowed",
+]
+
+# TE advanced matchup features (5) — from build_te_advanced_matchup_features
+_TE_ADVANCED_FEATURES = [
+    "te_matchup_cb_coverage_rate",
+    "te_matchup_seam_route_rate",
+    "te_matchup_seam_completion_rate",
+    "te_matchup_rz_personnel_lb_rate",
+    "te_matchup_blocking_proxy_rate",
 ]
 
 # QB-WR chemistry features (5)
@@ -151,16 +173,31 @@ _SCHEME_FEATURES = [
     "def_run_epa_allowed",
 ]
 
-# All 49 graph features combined (the complete "graph feature set")
+# RB matchup features (8) — from compute_rb_matchup_features (new module)
+_RB_MATCHUP_FEATURES = [
+    "rb_matchup_avg_dl_count",
+    "rb_matchup_run_gap_success_rate",
+    "rb_matchup_stacked_box_rate",
+    "rb_matchup_ybc_proxy",
+    "rb_matchup_lb_tackle_rate",
+    "rb_matchup_def_rush_epa_allowed",
+    "rb_matchup_goal_line_carry_rate",
+    "rb_matchup_short_yardage_conv",
+]
+
+# All 71 graph features combined (the complete "graph feature set")
 GRAPH_FEATURE_SET: List[str] = (
     _WR_MATCHUP_FEATURES
+    + _WR_ADVANCED_FEATURES
     + _TE_MATCHUP_FEATURES
+    + _TE_ADVANCED_FEATURES
     + _QB_WR_CHEMISTRY_FEATURES
     + _RED_ZONE_FEATURES
     + _GAME_SCRIPT_FEATURES
     + _INJURY_CASCADE_FEATURES
     + _OL_RB_FEATURES
     + _SCHEME_FEATURES
+    + _RB_MATCHUP_FEATURES
 )
 
 # Position-specific graph feature subsets for targeted enrichment
@@ -168,12 +205,14 @@ GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
     "WR": (
         _QB_WR_CHEMISTRY_FEATURES
         + _WR_MATCHUP_FEATURES
+        + _WR_ADVANCED_FEATURES
         + _GAME_SCRIPT_FEATURES
         + _RED_ZONE_FEATURES
         + _INJURY_CASCADE_FEATURES
     ),
     "TE": (
         _TE_MATCHUP_FEATURES
+        + _TE_ADVANCED_FEATURES
         + _RED_ZONE_FEATURES
         + _GAME_SCRIPT_FEATURES
         + _QB_WR_CHEMISTRY_FEATURES
@@ -182,6 +221,7 @@ GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
     "RB": (
         _OL_RB_FEATURES
         + _SCHEME_FEATURES
+        + _RB_MATCHUP_FEATURES
         + _RED_ZONE_FEATURES
         + _INJURY_CASCADE_FEATURES
         + _GAME_SCRIPT_FEATURES
