@@ -1,0 +1,56 @@
+# Railway deployment ignore file
+# Excludes files not needed in the Docker build context to speed up uploads
+
+# Python virtual environment
+venv/
+.venv/
+
+# Claude Code tooling (not needed in container)
+.claude/
+
+# Frontend (deployed separately to Vercel)
+web/frontend/
+
+# Test suite
+tests/
+
+# Documentation
+docs/
+*.MD
+*.md
+
+# Jupyter notebooks
+*.ipynb
+
+# Git internals
+.git/
+
+# CI/CD
+.github/
+
+# Local data except gold (gold is copied into image for Parquet fallback)
+data/bronze/
+data/silver/
+data/player_features/
+
+# Model artifacts (large, not needed for API)
+models/
+catboost_info/
+
+# Planning docs
+.planning/
+
+# Output directories
+output/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Editor / OS
+.DS_Store
+*.swp
+*.swo
