@@ -43,6 +43,14 @@ export const navGroups: NavGroup[] = [
         isActive: false,
         shortcut: ['s', 's'],
         items: []
+      },
+      {
+        title: 'Model Accuracy',
+        url: '/dashboard/accuracy',
+        icon: 'target',
+        isActive: false,
+        shortcut: ['a', 'a'],
+        items: []
       }
     ]
   }

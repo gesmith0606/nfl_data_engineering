@@ -64,7 +64,7 @@ def get_lineups(
     scoring: str = Query(
         "half_ppr",
         description="Scoring format for projections",
-        regex="^(ppr|half_ppr|standard)$",
+        pattern="^(ppr|half_ppr|standard)$",
     ),
 ) -> LineupResponse:
     """Get starting lineups for all teams or a specific team.

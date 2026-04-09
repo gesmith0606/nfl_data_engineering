@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -25,6 +26,7 @@ import {
 import { Icons } from '@/components/icons';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface PlayerDetailProps {
   playerId: string;
@@ -72,6 +74,16 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
 
   return (
     <div className='space-y-6'>
+      {/* Back navigation */}
+      <div>
+        <Button variant='ghost' size='sm' asChild className='-ml-2'>
+          <Link href='/dashboard/projections'>
+            <Icons.chevronLeft className='mr-1 h-4 w-4' />
+            Back to Projections
+          </Link>
+        </Button>
+      </div>
+
       {/* Filters */}
       <div className='flex flex-wrap items-center gap-4'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
@@ -166,96 +178,109 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
         </CardContent>
       </Card>
 
-      {/* Stat Breakdown */}
+      {/* Stat Breakdown — grouped by category */}
+      <StatBreakdown player={player} />
+    </div>
+  );
+}
+
+/** Grouped stat breakdown for a single player projection. */
+interface StatBreakdownProps {
+  player: import('../api/types').PlayerProjection;
+}
+
+interface StatRow {
+  label: string;
+  value: string;
+}
+
+interface StatGroup {
+  heading: string;
+  rows: StatRow[];
+}
+
+function buildStatGroups(player: import('../api/types').PlayerProjection): StatGroup[] {
+  const groups: StatGroup[] = [];
+
+  const passingRows: StatRow[] = [];
+  if (player.proj_pass_yards !== null)
+    passingRows.push({ label: 'Passing Yards', value: Math.round(player.proj_pass_yards).toString() });
+  if (player.proj_pass_tds !== null)
+    passingRows.push({ label: 'Passing TDs', value: player.proj_pass_tds.toFixed(1) });
+  if (passingRows.length > 0) groups.push({ heading: 'Passing', rows: passingRows });
+
+  const rushingRows: StatRow[] = [];
+  if (player.proj_rush_yards !== null)
+    rushingRows.push({ label: 'Rushing Yards', value: Math.round(player.proj_rush_yards).toString() });
+  if (player.proj_rush_tds !== null)
+    rushingRows.push({ label: 'Rushing TDs', value: player.proj_rush_tds.toFixed(1) });
+  if (rushingRows.length > 0) groups.push({ heading: 'Rushing', rows: rushingRows });
+
+  const receivingRows: StatRow[] = [];
+  if (player.proj_rec !== null)
+    receivingRows.push({ label: 'Receptions', value: player.proj_rec.toFixed(1) });
+  if (player.proj_rec_yards !== null)
+    receivingRows.push({ label: 'Receiving Yards', value: Math.round(player.proj_rec_yards).toString() });
+  if (player.proj_rec_tds !== null)
+    receivingRows.push({ label: 'Receiving TDs', value: player.proj_rec_tds.toFixed(1) });
+  if (receivingRows.length > 0) groups.push({ heading: 'Receiving', rows: receivingRows });
+
+  const kickingRows: StatRow[] = [];
+  if (player.proj_fg_makes !== null)
+    kickingRows.push({ label: 'Field Goals Made', value: player.proj_fg_makes.toFixed(1) });
+  if (player.proj_xp_makes !== null)
+    kickingRows.push({ label: 'Extra Points Made', value: player.proj_xp_makes.toFixed(1) });
+  if (kickingRows.length > 0) groups.push({ heading: 'Kicking', rows: kickingRows });
+
+  return groups;
+}
+
+function StatBreakdown({ player }: StatBreakdownProps) {
+  const groups = buildStatGroups(player);
+
+  if (groups.length === 0) {
+    return (
       <Card>
-        <CardHeader>
-          <CardTitle>Projected Stats</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Stat</TableHead>
-                <TableHead className='text-right'>Projected</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {player.proj_pass_yards !== null && (
-                <TableRow>
-                  <TableCell>Passing Yards</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {Math.round(player.proj_pass_yards)}
-                  </TableCell>
-                </TableRow>
-              )}
-              {player.proj_pass_tds !== null && (
-                <TableRow>
-                  <TableCell>Passing TDs</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {player.proj_pass_tds.toFixed(1)}
-                  </TableCell>
-                </TableRow>
-              )}
-              {player.proj_rush_yards !== null && (
-                <TableRow>
-                  <TableCell>Rushing Yards</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {Math.round(player.proj_rush_yards)}
-                  </TableCell>
-                </TableRow>
-              )}
-              {player.proj_rush_tds !== null && (
-                <TableRow>
-                  <TableCell>Rushing TDs</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {player.proj_rush_tds.toFixed(1)}
-                  </TableCell>
-                </TableRow>
-              )}
-              {player.proj_rec !== null && (
-                <TableRow>
-                  <TableCell>Receptions</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {player.proj_rec.toFixed(1)}
-                  </TableCell>
-                </TableRow>
-              )}
-              {player.proj_rec_yards !== null && (
-                <TableRow>
-                  <TableCell>Receiving Yards</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {Math.round(player.proj_rec_yards)}
-                  </TableCell>
-                </TableRow>
-              )}
-              {player.proj_rec_tds !== null && (
-                <TableRow>
-                  <TableCell>Receiving TDs</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {player.proj_rec_tds.toFixed(1)}
-                  </TableCell>
-                </TableRow>
-              )}
-              {player.proj_fg_makes !== null && (
-                <TableRow>
-                  <TableCell>Field Goals</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {player.proj_fg_makes.toFixed(1)}
-                  </TableCell>
-                </TableRow>
-              )}
-              {player.proj_xp_makes !== null && (
-                <TableRow>
-                  <TableCell>Extra Points</TableCell>
-                  <TableCell className='text-right tabular-nums'>
-                    {player.proj_xp_makes.toFixed(1)}
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+        <CardContent className='py-8 text-center text-sm text-muted-foreground'>
+          No stat projections available for this player.
         </CardContent>
       </Card>
-    </div>
+    );
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Projected Stats</CardTitle>
+        <CardDescription>Broken down by category for {player.scoring_format.replace('_', ' ').toUpperCase()} scoring</CardDescription>
+      </CardHeader>
+      <CardContent className='space-y-6'>
+        {groups.map((group) => (
+          <div key={group.heading}>
+            <h4 className='mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
+              {group.heading}
+            </h4>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Stat</TableHead>
+                  <TableHead className='text-right'>Projected</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {group.rows.map((row) => (
+                  <TableRow key={row.label}>
+                    <TableCell>{row.label}</TableCell>
+                    <TableCell className='text-right tabular-nums font-medium'>
+                      {row.value}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
   );
 }
