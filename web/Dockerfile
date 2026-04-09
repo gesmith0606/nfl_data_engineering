@@ -17,8 +17,10 @@ COPY src/ ./src/
 COPY web/api/ ./web/api/
 COPY web/__init__.py ./web/__init__.py
 
-# Create empty data directory (production uses DATABASE_URL, not Parquet files)
-RUN mkdir -p data
+# Copy Gold Parquet data for Parquet-mode fallback.
+# When DATABASE_URL is set and reachable, these files are ignored.
+# When DATABASE_URL is absent or unreachable, the API reads from here.
+COPY data/gold/ ./data/gold/
 
 ENV PORT=8000
 EXPOSE 8000
