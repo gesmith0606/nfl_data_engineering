@@ -234,14 +234,14 @@ Examples:
 
                 print(
                     f"{pos:<5} {bayes_mae:>10.3f} {heur_mae:>10.3f} "
-                    f"{improvement:>9.1f}% {calibration:>9.1f}% {mean_width:>8.2f}"
+                    f"{improvement:>9.1f}% {calibration * 100:>9.1f}% {mean_width:>8.2f}"
                 )
 
                 # Per-fold details
                 for fd in ev.get("fold_details", []):
                     print(
                         f"  fold {fd['val_season']}: MAE={fd['mae']:.3f}, "
-                        f"calib={fd['calibration_80']:.1f}%, "
+                        f"calib={fd['calibration_80'] * 100:.1f}%, "
                         f"width={fd['mean_interval_width']:.2f}, "
                         f"sigma={fd['noise_sigma']:.3f}"
                     )
