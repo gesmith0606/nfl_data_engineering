@@ -730,6 +730,56 @@ PLAYER_LABEL_COLUMNS = [
 ]
 
 
+# =============================================================================
+# Sentiment Pipeline Configuration (Phase S1)
+# =============================================================================
+# Controls the unstructured data ingestion pipeline described in
+# .planning/unstructured-data/ARCHITECTURE.md.
+#
+# rss_feeds: Free RSS sources polled every 15 minutes during in-season weeks
+#            and every 6 hours in the off-season.
+# staleness_hours: Signals older than this are excluded from weekly aggregation.
+# sentiment_multiplier_range: Hard clamps applied after score → multiplier
+#   conversion to prevent extreme adjustments.  Neutral = 1.000.
+# local_bronze_path: Local mirror of the S3 nfl-raw/sentiment/ prefix.
+# =============================================================================
+SENTIMENT_CONFIG: Dict[str, Any] = {
+    "rss_feeds": {
+        "espn_news": "https://www.espn.com/espn/rss/nfl/news",
+        "nfl_news": "https://www.nfl.com/rss/rsslanding",
+        "rotoworld": "https://www.nbcsports.com/rotoworld/rss/nfl-player-news",
+        "pro_football_talk": "https://profootballtalk.nbcsports.com/feed/",
+        "fantasypros": "https://www.fantasypros.com/nfl/rss/player-news.php",
+    },
+    # Hours after publication before a signal is considered too stale to use
+    "staleness_hours": 72,
+    # Multiplier hard clamps: (min, max)
+    "sentiment_multiplier_range": (0.70, 1.15),
+    # Neutral multiplier — used when no signal data is available
+    "sentiment_multiplier_neutral": 1.000,
+    # Local storage paths (mirrors S3 nfl-raw/sentiment/ prefix)
+    "local_bronze_path": "data/bronze/sentiment",
+    # Maximum number of RSS feed entries to process per run (per source)
+    "max_entries_per_feed": 50,
+    # Sleeper trending endpoint
+    "sleeper_trending_url": "https://api.sleeper.app/v1/players/nfl/trending/add",
+    "sleeper_players_url": "https://api.sleeper.app/v1/players/nfl",
+    # Number of trending players to fetch from Sleeper
+    "sleeper_trending_count": 25,
+    # Positions considered skill positions for sentiment signal filtering
+    "skill_positions": {"QB", "RB", "WR", "TE", "K"},
+}
+
+# Local directory paths for sentiment bronze data by source type
+SENTIMENT_LOCAL_DIRS: Dict[str, str] = {
+    "rss": "data/bronze/sentiment/rss",
+    "sleeper": "data/bronze/sentiment/sleeper",
+    "twitter": "data/bronze/sentiment/twitter",
+    "reddit": "data/bronze/sentiment/reddit",
+    "official": "data/bronze/sentiment/official",
+}
+
+
 def get_s3_path(
     layer: str, dataset: str = "", season: int = None, week: int = None
 ) -> str:
