@@ -22,13 +22,22 @@ logger = logging.getLogger(__name__)
 DATABASE_URL: Optional[str] = os.getenv("DATABASE_URL")
 
 _pool = None
+_pool_failed: bool = False  # Set True when pool creation fails; prevents retry storms
 
 
 def _get_pool():
-    """Lazily initialise the connection pool on first use."""
-    global _pool
+    """Lazily initialise the connection pool on first use.
+
+    Raises RuntimeError if the pool cannot be created, so callers can
+    fall back to Parquet reads rather than surfacing a 500 to the client.
+    """
+    global _pool, _pool_failed
+
     if _pool is not None:
         return _pool
+
+    if _pool_failed:
+        raise RuntimeError("PostgreSQL pool previously failed — using Parquet fallback")
 
     if DATABASE_URL is None:
         raise RuntimeError("DATABASE_URL is not set -- cannot create pool")
@@ -44,13 +53,32 @@ def _get_pool():
         logger.info("PostgreSQL connection pool created")
         return _pool
     except Exception:
-        logger.exception("Failed to create PostgreSQL connection pool")
+        _pool_failed = True
+        logger.exception(
+            "Failed to create PostgreSQL connection pool — endpoints will use Parquet fallback"
+        )
         raise
 
 
 def is_db_enabled() -> bool:
-    """Return True when a DATABASE_URL is configured."""
-    return DATABASE_URL is not None
+    """Return True when DATABASE_URL is configured AND the pool is reachable.
+
+    Returns False if DATABASE_URL is absent or if a previous pool-creation
+    attempt failed, so services automatically fall back to Parquet reads.
+    """
+    if DATABASE_URL is None:
+        return False
+    if _pool_failed:
+        return False
+    # If pool already exists, DB is available
+    if _pool is not None:
+        return True
+    # Attempt to create the pool now so we know whether it actually works
+    try:
+        _get_pool()
+        return True
+    except Exception:
+        return False
 
 
 @contextmanager
