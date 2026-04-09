@@ -20,10 +20,10 @@
 
 ## Bayesian Hierarchical Models
 
-- [ ] **BAYES-01**: PyMC or NumPyro dependency added (optional, not required for pipeline)
-- [ ] **BAYES-02**: BayesianPlayerModel with position-level priors and player random effects
-- [ ] **BAYES-03**: Walk-forward CV evaluation against heuristic and Ridge baselines
-- [ ] **BAYES-04**: Posterior predictive intervals for natural floor/ceiling estimation
+- [x] **BAYES-01**: PyMC or NumPyro dependency added (optional, not required for pipeline)
+- [x] **BAYES-02**: BayesianPlayerModel with position-level priors and player random effects
+- [x] **BAYES-03**: Walk-forward CV evaluation against heuristic and Ridge baselines
+- [x] **BAYES-04**: Posterior predictive intervals for natural floor/ceiling estimation
 
 ## Quantile Regression
 
