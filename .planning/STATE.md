@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v3.2
 milestone_name: Model Perfection
-status: Ready for Phase 56 (Bayesian) + parallel workstreams
-last_updated: "2026-04-09T01:46:49.856Z"
-last_activity: 2026-04-07
+status: complete
+last_updated: "2026-04-09T02:30:00.000Z"
+last_activity: 2026-04-09
 progress:
   total_phases: 4
-  completed_phases: 2
-  total_plans: 2
-  completed_plans: 3
+  completed_phases: 4
+  total_plans: 4
+  completed_plans: 4
   percent: 100
 ---
 
@@ -30,16 +30,16 @@ Phases 54-57 | 19 requirements | Target: MAE < 4.5
 
 - Phase 54: COMPLETE — unified evaluation pipeline
 - Phase 55: COMPLETE — LightGBM + SHAP-60 residuals (massive improvement)
-- Phase 56: NEXT — Bayesian hierarchical models
-- Phase 57: PENDING — Quantile regression + final validation
+- Phase 56: COMPLETE — Bayesian posterior intervals (78-87% calibration), LGB keeps point estimates
+- Phase 57: COMPLETE — Quantile regression (74.8-81.8% calibration), final validation (MAE 4.80, target 4.5 not met)
 
 ### 2. Website — v4.0 Production Launch
 
 - Phase W1-W2: COMPLETE — FastAPI + Next.js frontend
 - Phase W3: COMPLETE — Game predictions page (was already built)
 - Frontend deployed: https://frontend-jet-seven-33.vercel.app
-- Phase W4: NEXT — Player detail + accuracy page
-- Phase W5: PENDING — Database (Supabase) + backend deployment
+- Phase W4: COMPLETE — Player detail page, accuracy dashboard, backend fix (Pydantic v2)
+- Phase W5: NEXT — Database (Supabase) + backend deployment
 
 ### 3. Graph Features — Enhancement Track
 
@@ -47,20 +47,22 @@ Phases 54-57 | 19 requirements | Target: MAE < 4.5
 - WR matchup enhanced: COMPLETE — 9 new advanced features (air yards, YAC, coverage shell)
 - TE matchup enhanced: COMPLETE — 5 new advanced features (seam routes, CB coverage rate)
 - Graph→Residual wiring: COMPLETE — --use-graph-features flag, 39 features available
-- NEXT: Recompute graph features with new modules, retrain LGB residuals with enhanced features
+- Recompute: COMPLETE — 66 features (was 49), 6 seasons, new features in SHAP top-60
+- LGB retrained: COMPLETE — WR/TE/RB with 23 new graph features each
+- NEXT: Production backtest with enhanced graph features to validate MAE improvement
 
 ### 4. Sentiment Pipeline — v5.0 (Planning)
 
 - Architecture: COMPLETE — .planning/unstructured-data/ARCHITECTURE.md
-- Phase S1: NEXT — Supabase pgvector schema + RSS/Sleeper ingestion
-- Phase S2: PENDING — Claude extraction pipeline
+- Phase S1: COMPLETE — pgvector schema, RSS ingestion (5 feeds), Sleeper ingestion, player name resolver
+- Phase S2: NEXT — Claude extraction pipeline
 - Phase S3: PENDING — Projection engine integration
 
 ## Current Position
 
-Phase: 55 (LGB+SHAP Residuals) — COMPLETE
-Status: Ready for Phase 56 (Bayesian) + parallel workstreams
-Last activity: 2026-04-07
+Phase: 57 (Quantile Regression) — COMPLETE, v3.2 milestone complete
+Status: v3.2 Model Perfection shipped (MAE 4.80, target 4.5 not met but architecturally significant)
+Last activity: 2026-04-09
 
 ## Key Artifacts
 
@@ -88,8 +90,11 @@ Last activity: 2026-04-07
 - [v3.2/P55]: New graph features built: RB matchup (8), WR advanced (9), TE advanced (5)
 - [v4.0]: Website deployed to Vercel (frontend-jet-seven-33.vercel.app), backend not yet live
 - [v5.0]: Sentiment pipeline designed — pgvector in Supabase, sentiment_multiplier pattern
-- [Phase 56]: Use sklearn BayesianRidge for posterior intervals (JAX/NumPyro incompatible with Rosetta)
-- [Phase 56]: Ship Bayesian for calibrated floor/ceiling intervals; keep LGB for point estimates
+- [Phase 56]: BayesianRidge ships for calibrated 80% CI floor/ceiling (78-87% coverage); LGB keeps point estimates
+- [WS3]: Graph features expanded 49→66; new WR/TE/RB features in SHAP top-60 (target_concentration, air_yards strongest)
+- [WS4/S1]: Sentiment foundation built — pgvector schema, RSS+Sleeper ingestion, player name resolver
+- [v3.2/P57]: Quantile regression SHIPS for calibrated floor/ceiling (74.8-81.8% coverage); MAE 4.80 (target 4.5 not met)
+- [v3.2/P57]: Graph features do NOT improve point-estimate MAE — train/inference feature mismatch; SKIP retrained models
 
 ### Research Flags
 
@@ -104,4 +109,4 @@ Last activity: 2026-04-07
 - Graph features need recomputation with new RB/WR/TE modules before integration testing
 
 ---
-*Last updated: 2026-04-07 — Phase 55 complete, 4 workstreams active*
+*Last updated: 2026-04-09 — v3.2 Model Perfection complete: P57 quantile regression done, MAE 4.80, 18/19 requirements met*
