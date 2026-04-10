@@ -217,6 +217,10 @@ data/gold/*
 !data/gold/projections/**
 # Allow parquet files specifically inside data/gold/projections
 !data/gold/projections/**/*.parquet
+!data/gold/predictions/
+!data/gold/predictions/**
+# Allow parquet files specifically inside data/gold/predictions
+!data/gold/predictions/**/*.parquet
 
 # Logs
 *.log

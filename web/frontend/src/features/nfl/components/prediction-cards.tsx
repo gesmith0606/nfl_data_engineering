@@ -125,8 +125,8 @@ function PredictionCard({ prediction }: { prediction: GamePrediction }) {
 }
 
 export function PredictionCardGrid() {
-  const [season, setSeason] = useState(2026);
-  const [week, setWeek] = useState(1);
+  const [season, setSeason] = useState(2024);
+  const [week, setWeek] = useState(17);
   const [sortBy, setSortBy] = useState<SortKey>('confidence');
 
   const { data, isLoading, isError } = useQuery(predictionsQueryOptions(season, week));

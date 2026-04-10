@@ -16,8 +16,8 @@ import { Icons } from '@/components/icons';
 import { useState } from 'react';
 
 export function LineupView() {
-  const [season, setSeason] = useState(2026);
-  const [week, setWeek] = useState(1);
+  const [season, setSeason] = useState(2024);
+  const [week, setWeek] = useState(17);
   const [team, setTeam] = useState<string | null>(null);
 
   const { data: lineup, isLoading, isError } = useQuery(
