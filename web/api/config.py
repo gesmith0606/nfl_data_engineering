@@ -23,6 +23,9 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = Path(os.getenv("NFL_DATA_DIR", str(_PROJECT_ROOT / "data")))
 GOLD_PROJECTIONS_DIR = DATA_DIR / "gold" / "projections"
 GOLD_PREDICTIONS_DIR = DATA_DIR / "gold" / "predictions"
+GOLD_SENTIMENT_DIR = DATA_DIR / "gold" / "sentiment"
+SILVER_SENTIMENT_DIR = DATA_DIR / "silver" / "sentiment"
+BRONZE_SENTIMENT_DIR = DATA_DIR / "bronze" / "sentiment"
 
 # ---------------------------------------------------------------------------
 # CORS

@@ -271,3 +271,68 @@ class SeasonsResponse(BaseModel):
     """Envelope for list of available seasons."""
 
     seasons: List[AvailableSeason]
+
+
+# ---------------------------------------------------------------------------
+# News / Sentiment models
+# ---------------------------------------------------------------------------
+
+
+class NewsItem(BaseModel):
+    """A single news article or report associated with a player."""
+
+    doc_id: Optional[str] = None
+    title: Optional[str] = None
+    source: str = Field(..., description="rss_espn / sleeper / rss_nfl / etc.")
+    url: Optional[str] = None
+    published_at: Optional[str] = None
+    sentiment: Optional[float] = Field(None, description="Sentiment score in [-1, 1]")
+    category: Optional[str] = Field(None, description="injury / usage / trade / etc.")
+    player_id: Optional[str] = None
+    player_name: Optional[str] = None
+
+    # Event flags extracted from the document
+    is_ruled_out: bool = False
+    is_inactive: bool = False
+    is_questionable: bool = False
+    is_suspended: bool = False
+    is_returning: bool = False
+
+    body_snippet: Optional[str] = Field(
+        None, description="First 200 chars of body text"
+    )
+
+
+class Alert(BaseModel):
+    """Active alert for a player — ruled out, inactive, or major sentiment shift."""
+
+    player_id: str
+    player_name: str
+    team: Optional[str] = None
+    position: Optional[str] = None
+    alert_type: str = Field(
+        ...,
+        description="ruled_out / inactive / questionable / suspended / major_negative / major_positive",
+    )
+    sentiment_multiplier: Optional[float] = None
+    latest_signal_at: Optional[str] = None
+    doc_count: Optional[int] = None
+
+
+class PlayerSentiment(BaseModel):
+    """Aggregated weekly sentiment features for a single player."""
+
+    player_id: str
+    player_name: str
+    season: int
+    week: int
+    sentiment_multiplier: float
+    sentiment_score_avg: Optional[float] = None
+    doc_count: int = 0
+    is_ruled_out: bool = False
+    is_inactive: bool = False
+    is_questionable: bool = False
+    is_suspended: bool = False
+    is_returning: bool = False
+    latest_signal_at: Optional[str] = None
+    signal_staleness_hours: Optional[float] = None
