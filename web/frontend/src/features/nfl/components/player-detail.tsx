@@ -27,6 +27,7 @@ import { Icons } from '@/components/icons';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { useState } from 'react';
 import Link from 'next/link';
+import { PlayerNewsPanel } from './player-news-panel';
 
 interface PlayerDetailProps {
   playerId: string;
@@ -180,6 +181,9 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
 
       {/* Stat Breakdown — grouped by category */}
       <StatBreakdown player={player} />
+
+      {/* News Panel — recent news and sentiment signals */}
+      <PlayerNewsPanel playerId={playerId} season={season} week={week} />
     </div>
   );
 }

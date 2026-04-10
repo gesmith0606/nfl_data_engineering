@@ -1,11 +1,14 @@
 import { queryOptions } from '@tanstack/react-query';
 import {
-  fetchProjections,
-  fetchPredictions,
-  searchPlayers,
-  fetchPlayer,
+  fetchAlerts,
   fetchHealth,
-  fetchLineup
+  fetchLineup,
+  fetchPlayer,
+  fetchPlayerNews,
+  fetchPlayerSentiment,
+  fetchPredictions,
+  fetchProjections,
+  searchPlayers,
 } from './service';
 import type { ScoringFormat } from './types';
 
@@ -69,4 +72,34 @@ export const healthQueryOptions = () =>
   queryOptions({
     queryKey: nflKeys.health(),
     queryFn: () => fetchHealth()
+  });
+
+export const playerNewsQueryOptions = (
+  playerId: string,
+  season: number,
+  week: number,
+  limit = 10
+) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'player-news', { playerId, season, week, limit }] as const,
+    queryFn: () => fetchPlayerNews(playerId, season, week, limit),
+    enabled: !!playerId
+  });
+
+export const alertsQueryOptions = (season: number, week: number) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'alerts', { season, week }] as const,
+    queryFn: () => fetchAlerts(season, week)
+  });
+
+export const playerSentimentQueryOptions = (
+  playerId: string,
+  season: number,
+  week: number
+) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'player-sentiment', { playerId, season, week }] as const,
+    queryFn: () => fetchPlayerSentiment(playerId, season, week),
+    enabled: !!playerId,
+    retry: false
   });

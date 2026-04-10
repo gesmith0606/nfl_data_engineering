@@ -1,10 +1,13 @@
 export {
-  fetchProjections,
-  fetchTopProjections,
-  fetchPredictions,
-  searchPlayers,
-  fetchPlayer,
+  fetchAlerts,
+  fetchAllLineups,
   fetchHealth,
   fetchLineup,
-  fetchAllLineups
+  fetchPlayer,
+  fetchPlayerNews,
+  fetchPlayerSentiment,
+  fetchPredictions,
+  fetchProjections,
+  fetchTopProjections,
+  searchPlayers,
 } from '@/lib/nfl/api';
