@@ -522,13 +522,12 @@ def generate_ml_projections(
             all_projections.append(hybrid_result)
 
     # ---- ML positions (SHIP) ----
-    # NOTE: XGBoost SHIP models are trained on the full 80+ column feature
-    # vector (including QBR fields not present in either silver_df or the
-    # --full-features feature_df). The SHIP path reliably errors with
-    # feature_names mismatch and falls back to heuristic. Kept here for
-    # structural completeness; QB/RB are effectively on heuristic in
-    # production until the SHIP path is rewired against a matching feature
-    # pipeline. See v4.1-phase1/EXPANDED_COVERAGE.md for analysis.
+    # XGBoost SHIP models expect the full assembled feature vector (80+ columns
+    # including QBR fields). feature_df, when provided by the caller via
+    # assemble_player_features(), contains all required columns. Without it,
+    # models would receive only silver_df columns and throw a feature_names
+    # mismatch error. The feature_df is filtered inside _generate_ml_for_position
+    # to week-1 (prior week) to maintain temporal integrity.
     for position in ship_positions:
         ml_result = _generate_ml_for_position(
             silver_df=silver_df,
@@ -540,6 +539,7 @@ def generate_ml_projections(
             schedules_df=schedules_df,
             implied_totals=implied_totals,
             model_dir=model_dir,
+            feature_df=feature_df,
         )
         if ml_result is not None and not ml_result.empty:
             all_projections.append(ml_result)
@@ -599,6 +599,7 @@ def _generate_ml_for_position(
     schedules_df: Optional[pd.DataFrame] = None,
     implied_totals: Optional[Dict[str, float]] = None,
     model_dir: str = "models/player",
+    feature_df: Optional[pd.DataFrame] = None,
 ) -> Optional[pd.DataFrame]:
     """Generate ML projections for a single SHIP position.
 
@@ -606,7 +607,8 @@ def _generate_ml_for_position(
     to the heuristic engine instead.
 
     Args:
-        silver_df: Silver-layer DataFrame.
+        silver_df: Silver-layer DataFrame (used for heuristic fallback and
+            player identification when feature_df is not provided).
         opp_rankings: Opponent rankings.
         season: Season year.
         week: Projection week.
@@ -615,28 +617,39 @@ def _generate_ml_for_position(
         schedules_df: Schedule for bye detection.
         implied_totals: Team implied totals.
         model_dir: Model directory.
+        feature_df: Optional full assembled feature DataFrame from
+            ``assemble_player_features()``. When provided, used as the ML
+            feature source instead of silver_df. This is required for
+            positions (e.g., QB) whose models expect QBR columns that are
+            absent from silver_df but present in the assembled feature vector.
+            silver_df is still used for heuristic fallback routing.
 
     Returns:
         DataFrame with projections, or None on failure.
     """
     try:
+        # Select the feature source: prefer assembled feature_df when available,
+        # fall back to silver_df. Both are filtered to week-1 (prior week) to
+        # prevent same-week leakage.
+        feat_source = feature_df if feature_df is not None else silver_df
+
         # Filter to position, use week-1 as feature source
-        target_df = silver_df[
-            (silver_df["season"] == season)
-            & (silver_df["week"] == week - 1)
-            & (silver_df["position"] == position)
+        target_df = feat_source[
+            (feat_source["season"] == season)
+            & (feat_source["week"] == week - 1)
+            & (feat_source["position"] == position)
         ].copy()
 
         if target_df.empty:
             # Fallback: most recent week
-            latest = silver_df[
-                (silver_df["season"] == season) & (silver_df["position"] == position)
+            latest = feat_source[
+                (feat_source["season"] == season) & (feat_source["position"] == position)
             ]["week"].max()
             if pd.notna(latest):
-                target_df = silver_df[
-                    (silver_df["season"] == season)
-                    & (silver_df["week"] == latest)
-                    & (silver_df["position"] == position)
+                target_df = feat_source[
+                    (feat_source["season"] == season)
+                    & (feat_source["week"] == latest)
+                    & (feat_source["position"] == position)
                 ].copy()
 
         if target_df.empty:

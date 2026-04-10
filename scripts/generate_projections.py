@@ -324,6 +324,31 @@ def main():
         if args.ml:
             from ml_projection_router import generate_ml_projections
 
+            # Build full assembled feature vector for SHIP positions (QB/RB).
+            # SHIP models expect 80+ columns including QBR features that are
+            # absent from silver_df but present in the assembled feature vector.
+            # assemble_player_features() joins Silver advanced data (which
+            # contains qbr_* columns from Bronze QBR) on player_id/season/week.
+            feature_df = None
+            try:
+                import sys
+                import os as _os
+                _src = _os.path.join(_os.path.dirname(_os.path.dirname(__file__)), "src")
+                if _src not in sys.path:
+                    sys.path.insert(0, _src)
+                from player_feature_engineering import assemble_player_features
+                feature_df = assemble_player_features(season=args.season)
+                if feature_df.empty:
+                    print("WARN: assemble_player_features returned empty; SHIP path will use silver_df")
+                else:
+                    qbr_cols = [c for c in feature_df.columns if c.startswith("qbr_")]
+                    print(
+                        f"Assembled feature vector: {len(feature_df):,} rows, "
+                        f"{len(feature_df.columns)} cols ({len(qbr_cols)} qbr_* cols)"
+                    )
+            except Exception as e:
+                print(f"WARN: Could not assemble feature vector: {e}; SHIP path will use silver_df")
+
             projections = generate_ml_projections(
                 silver_df,
                 opp_rankings,
@@ -333,6 +358,7 @@ def main():
                 schedules_df=schedules_df if not schedules_df.empty else None,
                 implied_totals=implied_totals,
                 apply_constraints=args.constrain,
+                feature_df=feature_df,
             )
         else:
             projections = generate_weekly_projections(
