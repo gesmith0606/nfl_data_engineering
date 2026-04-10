@@ -30,6 +30,8 @@ from projection_engine import (  # noqa: E402
     generate_weekly_projections,
     generate_preseason_projections,
     apply_injury_adjustments,
+    apply_sentiment_adjustments,
+    load_latest_sentiment,
     add_floor_ceiling,
 )
 from kicker_analytics import (  # noqa: E402
@@ -169,6 +171,16 @@ def main():
         "--include-kickers",
         action="store_true",
         help="Include kicker (K) projections from PBP data",
+    )
+    parser.add_argument(
+        "--use-sentiment",
+        action="store_true",
+        default=False,
+        help=(
+            "Apply Gold-layer sentiment multipliers after injury adjustments. "
+            "Requires data/gold/sentiment/ output from the sentiment pipeline. "
+            "Default: False (opt-in to preserve backward compatibility)."
+        ),
     )
     args = parser.parse_args()
 
@@ -359,6 +371,25 @@ def main():
             projections = apply_injury_adjustments(projections, injuries_df)
             injured = (projections["injury_multiplier"] < 1.0).sum()
             print(f"Injury adjustments applied: {injured} players affected")
+
+        # --- Sentiment adjustments (opt-in via --use-sentiment) ---
+        if args.use_sentiment and not projections.empty:
+            print(f"\nLoading sentiment data for Season {args.season} Week {args.week}...")
+            sentiment_df = load_latest_sentiment(args.season, args.week)
+            if sentiment_df.empty:
+                print("WARN: No sentiment data available; skipping sentiment adjustments")
+            else:
+                print(
+                    f"Loaded sentiment data: {len(sentiment_df)} players"
+                    + (
+                        f", computed at {sentiment_df['computed_at'].iloc[0]}"
+                        if "computed_at" in sentiment_df.columns
+                        else ""
+                    )
+                )
+                projections = apply_sentiment_adjustments(projections, sentiment_df)
+                sent_applied = (projections["sentiment_multiplier"] != 1.0).sum()
+                print(f"Sentiment adjustments applied: {sent_applied} players affected")
 
         # --- Kicker projections (opt-in) ---
         if args.include_kickers and not projections.empty:
