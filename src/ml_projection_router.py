@@ -299,7 +299,17 @@ def _load_feature_cols(model_dir: str) -> Dict[str, List[str]]:
         path = os.path.join(fs_dir, f"{group}_features.json")
         if os.path.exists(path):
             with open(path, "r") as f:
-                result[group] = json.load(f)
+                data = json.load(f)
+            # Feature files may be either a bare list or {"group": ..., "features": [...]}.
+            if isinstance(data, dict) and "features" in data:
+                result[group] = list(data["features"])
+            elif isinstance(data, list):
+                result[group] = list(data)
+            else:
+                logger.warning(
+                    "Unexpected feature file format at %s; treating as empty", path
+                )
+                result[group] = []
         else:
             logger.warning("Feature file not found: %s", path)
             result[group] = []
@@ -505,6 +515,13 @@ def generate_ml_projections(
             all_projections.append(hybrid_result)
 
     # ---- ML positions (SHIP) ----
+    # NOTE: XGBoost SHIP models are trained on the full 80+ column feature
+    # vector (including QBR fields not present in either silver_df or the
+    # --full-features feature_df). The SHIP path reliably errors with
+    # feature_names mismatch and falls back to heuristic. Kept here for
+    # structural completeness; QB/RB are effectively on heuristic in
+    # production until the SHIP path is rewired against a matching feature
+    # pipeline. See v4.1-phase1/EXPANDED_COVERAGE.md for analysis.
     for position in ship_positions:
         ml_result = _generate_ml_for_position(
             silver_df=silver_df,
@@ -659,11 +676,18 @@ def _generate_ml_for_position(
                         rename_map[pred_col] = proj_col
                 pred_df = pred_df.rename(columns=rename_map)
 
-                # Calculate fantasy points from predicted stats
-                scoring_rename = {
-                    f"proj_{s}": s for s in stats if f"proj_{s}" in pred_df.columns
-                }
-                scoring_input = pred_df.rename(columns=scoring_rename)
+                # Calculate fantasy points from predicted stats.
+                # Build a clean scoring frame from ONLY the proj_{stat} columns —
+                # renaming in-place would collide with raw {stat} columns already
+                # present in pred_df (merged from silver_df), yielding duplicate
+                # column names that break calculate_fantasy_points_df with
+                # "'<' not supported between str and int" via pandas index join.
+                scoring_data = {}
+                for s in stats:
+                    proj_col = f"proj_{s}"
+                    if proj_col in pred_df.columns:
+                        scoring_data[s] = pred_df[proj_col].values
+                scoring_input = pd.DataFrame(scoring_data, index=pred_df.index)
                 scoring_input = calculate_fantasy_points_df(
                     scoring_input,
                     scoring_format=scoring_format,
