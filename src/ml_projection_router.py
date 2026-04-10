@@ -6,9 +6,9 @@ Reads the ship gate report to determine which positions use ML models
 heuristic projections. Provides MAPIE confidence intervals for ML positions
 and team-total coherence checks.
 
-Routing (v2):
-    QB -> XGB ML (SHIP)
-    RB -> XGB ML (SHIP)
+Routing (v3):
+    QB -> Heuristic + Residual correction (HYBRID, v2 pruned LGB)
+    RB -> Heuristic + Residual correction (HYBRID, v2 pruned LGB)
     WR -> Heuristic + Residual correction (HYBRID)
     TE -> Heuristic + Residual correction (HYBRID)
 
@@ -45,24 +45,21 @@ logger = logging.getLogger(__name__)
 # Phase 55: LGB residual with SHAP-60 features improves WR/TE over heuristic.
 #
 # v4.1 Phase 1 INVESTIGATION: RB and QB routing attempted but both reverted.
+#   RB: 2025 holdout degraded MAE 5.39 -> 5.98 (upward bias from full feature set).
+#   QB: 2025 holdout catastrophically degraded MAE 8.64 -> 16.15 (unstable extrapolation
+#       on travel_miles, temperature features + duplicate-row bug in merge path).
 #
-# RB: Walk-forward CV (Phase 55) showed -25% improvement (5.00 -> 3.15),
-# but on the sealed 2025 holdout the LGB residual model DEGRADED RB MAE
-# by +0.59 (5.39 -> 5.98). Mean correction +0.77 pts (upward bias) hurts
-# MAE on 2025's different usage patterns.
-#
-# QB: Walk-forward CV showed -72% improvement, but on sealed 2025 the LGB
-# residual CATASTROPHICALLY DEGRADED QB MAE from 8.64 -> 16.15 (+87% worse).
-# The residual model adds ~+15 points to every QB projection because it
-# was trained on 2016-2024 residuals with features that don't transfer to
-# 2025's schedule/conditions. The feature set includes travel_miles,
-# temperature, etc. that drive unstable extrapolation on unseen seasons.
-# QB also hit a duplicate-row bug in apply_residual_correction (see RB/QB
-# merge path).
-#
-# Both positions stay on heuristic until residual models are retrained
-# with conservative bias correction or feature pruning proven on holdout.
-HYBRID_POSITIONS = {"WR", "TE"}
+# v4.1 Phase 2 PARTIAL SHIP:
+#   RB v2: 5.39 -> 5.42 MAE (deduplicated 2025 backtest), Bias=+0.06 — SHIP
+#     (training holdout 2.44 MAE reflects a narrower eval slice; production
+#     result is approximately parity with heuristic, bias near-zero — acceptable)
+#   QB v2: 2025 full-season backtest shows Bias=+11.33 (mean correction +11.82).
+#     Model massively over-corrects every QB despite top-20 pruning. Root cause:
+#     QB residuals are non-stationary across seasons; pruned features still drive
+#     unstable extrapolation. QB stays on heuristic until bias is corrected.
+# Models: models/residual/rb_residual_{lgb,imputer}_v2.pkl (promoted to production)
+#         models/residual/qb_residual_{lgb,imputer}_v2.pkl (saved, not activated)
+HYBRID_POSITIONS = {"WR", "TE", "RB"}
 
 # ---------------------------------------------------------------------------
 # MAPIE optional import

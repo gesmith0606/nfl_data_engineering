@@ -1122,8 +1122,10 @@ def load_residual_model(
         with open(meta_path, "r") as f:
             meta = json.load(f)
 
-    # For LightGBM models, also load the imputer
-    if meta.get("model_type") == "lgb":
+    # For LightGBM models, also load the imputer.
+    # model_type may be "lgb" (v1) or "lgb_v2" (v2 pruned) — both require
+    # the separate imputer and dict-wrapping used by apply_residual_correction.
+    if str(meta.get("model_type", "")).startswith("lgb"):
         imputer_path = os.path.join(
             model_dir, f"{position.lower()}_residual_imputer.joblib"
         )
@@ -1301,8 +1303,8 @@ def apply_residual_correction(
     if has_features.any():
         X_predict = X[has_features]
 
-        if model_type == "lgb" and isinstance(model_obj, dict):
-            # LightGBM model with separate imputer
+        if str(model_type).startswith("lgb") and isinstance(model_obj, dict):
+            # LightGBM model with separate imputer (model_type may be "lgb" or "lgb_v2")
             lgb_model = model_obj["model"]
             imputer = model_obj.get("imputer")
             if imputer is not None:
