@@ -37,8 +37,8 @@ def _df_to_projection_list(df, scoring_format: str) -> list:
                 proj_fg_makes=_safe_float(row.get("proj_fg_makes")),
                 proj_xp_makes=_safe_float(row.get("proj_xp_makes")),
                 scoring_format=scoring_format,
-                season=int(row.get("season", 0)),
-                week=int(row.get("week", 0)),
+                season=_safe_int(row.get("season", 0)) or 0,
+                week=_safe_int(row.get("week", 0)) or 0,
                 position_rank=_safe_int(row.get("position_rank")),
                 injury_status=_safe_str(row.get("injury_status")),
             )
