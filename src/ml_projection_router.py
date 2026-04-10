@@ -44,17 +44,24 @@ logger = logging.getLogger(__name__)
 # Positions using hybrid residual correction (heuristic + LightGBM residual).
 # Phase 55: LGB residual with SHAP-60 features improves WR/TE over heuristic.
 #
-# v4.1 Phase 1 INVESTIGATION: RB routing attempted but reverted.
-# Walk-forward CV (Phase 55) showed RB -25% improvement (5.00 -> 3.15 MAE),
-# but on the sealed 2025 holdout the current LGB residual model DEGRADED
-# RB MAE by +0.59 (5.39 -> 5.98). The model's mean correction is +0.77 pts
-# (upward bias) which hurts MAE on 2025's different usage patterns. Phase 55
-# damping experiments did not resolve the issue. RB stays on heuristic
-# until a reformulated model is proven on holdout.
+# v4.1 Phase 1 INVESTIGATION: RB and QB routing attempted but both reverted.
 #
-# QB remains on XGBoost SHIP (direct stat prediction) — the XGB SHIP path
-# currently fails silently due to a dtype bug (see Task 2 fix), causing QB
-# to fall back to heuristic. Root cause tracked separately.
+# RB: Walk-forward CV (Phase 55) showed -25% improvement (5.00 -> 3.15),
+# but on the sealed 2025 holdout the LGB residual model DEGRADED RB MAE
+# by +0.59 (5.39 -> 5.98). Mean correction +0.77 pts (upward bias) hurts
+# MAE on 2025's different usage patterns.
+#
+# QB: Walk-forward CV showed -72% improvement, but on sealed 2025 the LGB
+# residual CATASTROPHICALLY DEGRADED QB MAE from 8.64 -> 16.15 (+87% worse).
+# The residual model adds ~+15 points to every QB projection because it
+# was trained on 2016-2024 residuals with features that don't transfer to
+# 2025's schedule/conditions. The feature set includes travel_miles,
+# temperature, etc. that drive unstable extrapolation on unseen seasons.
+# QB also hit a duplicate-row bug in apply_residual_correction (see RB/QB
+# merge path).
+#
+# Both positions stay on heuristic until residual models are retrained
+# with conservative bias correction or feature pruning proven on holdout.
 HYBRID_POSITIONS = {"WR", "TE"}
 
 # ---------------------------------------------------------------------------
