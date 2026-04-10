@@ -27,8 +27,8 @@ const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
 ];
 
 export function ProjectionsTable() {
-  const [season, setSeason] = useState(2024);
-  const [week, setWeek] = useState(17);
+  const [season, setSeason] = useState(2026);
+  const [week, setWeek] = useState(1);
   const [scoring, setScoring] = useState<ScoringFormat>('half_ppr');
   const [position, setPosition] = useState<Position>('ALL');
 
