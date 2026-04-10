@@ -1,3 +1,4 @@
+
 # NFL Data Engineering Project .gitignore
 
 # Environment and Secrets
@@ -11,7 +12,8 @@ aws-credentials.json
 *.key
 
 # Data files (large datasets)
-data/
+data/*
+!data/gold/
 *.parquet
 *.csv
 *.json
@@ -206,8 +208,15 @@ cython_debug/
 *.parquet
 *.csv
 *.json
-!.planning/*.json
-data/
+!.mcp.json.example
+!.vscode/mcp.json
+data/*
+!data/gold/
+data/gold/*
+!data/gold/projections/
+!data/gold/projections/**
+# Allow parquet files specifically inside data/gold/projections
+!data/gold/projections/**/*.parquet
 
 # Logs
 *.log
@@ -217,14 +226,3 @@ logs/
 .vscode/settings.json
 .vscode/launch.json
 .vscode/extensions.json
-
-# Model artifacts
-models/
-
-# Automated code review history
-.claude/review_history/
-catboost_info/
-
-# Node.js / Next.js (web/frontend)
-node_modules/
-.next/
