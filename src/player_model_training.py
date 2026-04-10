@@ -978,14 +978,25 @@ def predict_player_stats(
 
         stat_type = get_stat_type(stat)
         feat_cols = feature_cols_by_group.get(stat_type, [])
-        available = [f for f in feat_cols if f in player_data.columns]
 
-        if not available:
+        if not feat_cols:
             result_df[f"pred_{stat}"] = np.nan
             continue
 
+        # XGBoost requires all trained features to be present. Fill any
+        # missing columns with NaN — XGBoost handles NaN natively via its
+        # internal sparsity-aware split logic. This allows inference to
+        # succeed even when upstream data sources (e.g., QBR for 2024+)
+        # are not yet available from nflverse.
+        missing = [f for f in feat_cols if f not in player_data.columns]
+        predict_df = player_data
+        if missing:
+            predict_df = player_data.copy()
+            for col in missing:
+                predict_df[col] = np.nan
+
         model = model_dict[stat]["model"]
-        preds = model.predict(player_data[available])
+        preds = model.predict(predict_df[feat_cols])
         result_df[f"pred_{stat}"] = preds
 
     return result_df
