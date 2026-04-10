@@ -487,31 +487,35 @@ def _join_graph_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
 
 
 def _join_wr_matchup_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
-    """Left-join WR matchup and OL/RB graph features if available.
+    """Left-join WR matchup, WR advanced matchup, and OL/RB graph features.
 
-    Tries cached Silver parquet first, then falls back to live computation
-    from Bronze data. If neither is available, returns NaN-filled columns.
+    Loads graph_wr_matchup, graph_wr_advanced, and graph_ol_rb parquets from
+    Silver and merges on (player_id, season, week). Falls back to NaN-filled
+    columns when files are not available.
 
     Args:
         df: Player-week DataFrame with player_id, season, week.
         season: NFL season year.
 
     Returns:
-        DataFrame with WR/OL feature columns joined.
+        DataFrame with WR matchup, WR advanced, and OL/RB feature columns joined.
     """
     from graph_feature_extraction import (
         WR_MATCHUP_FEATURE_COLUMNS,
         OL_RB_FEATURE_COLUMNS,
     )
+    from hybrid_projection import _WR_ADVANCED_FEATURES
 
-    all_new_cols = WR_MATCHUP_FEATURE_COLUMNS + OL_RB_FEATURE_COLUMNS
+    all_new_cols = WR_MATCHUP_FEATURE_COLUMNS + _WR_ADVANCED_FEATURES + OL_RB_FEATURE_COLUMNS
 
-    # Try cached Silver parquet first
+    # Try cached Silver parquets first
     wr_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
     wr_files = sorted(glob.glob(os.path.join(wr_dir, "graph_wr_matchup_*.parquet")))
+    wr_adv_files = sorted(glob.glob(os.path.join(wr_dir, "graph_wr_advanced_*.parquet")))
     ol_files = sorted(glob.glob(os.path.join(wr_dir, "graph_ol_rb_*.parquet")))
 
     wr_df = pd.DataFrame()
+    wr_adv_df = pd.DataFrame()
     ol_df = pd.DataFrame()
 
     if wr_files:
@@ -521,6 +525,13 @@ def _join_wr_matchup_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
         except Exception as exc:
             logger.warning("Failed to read cached WR features: %s", exc)
 
+    if wr_adv_files:
+        try:
+            wr_adv_df = pd.read_parquet(wr_adv_files[-1])
+            logger.info("Loaded cached WR advanced features from %s", wr_adv_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached WR advanced features: %s", exc)
+
     if ol_files:
         try:
             ol_df = pd.read_parquet(ol_files[-1])
@@ -528,8 +539,9 @@ def _join_wr_matchup_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
         except Exception as exc:
             logger.warning("Failed to read cached OL/RB features: %s", exc)
 
-    # Join WR features
     join_cols = ["player_id", "season", "week"]
+
+    # Join WR base matchup features
     if not wr_df.empty:
         avail = [c for c in join_cols if c in wr_df.columns and c in df.columns]
         if len(avail) >= 3:
@@ -541,6 +553,24 @@ def _join_wr_matchup_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
                 suffixes=("", "__wr"),
             )
             dup = [c for c in df.columns if c.endswith("__wr")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    # Join WR advanced matchup features (graph_wr_advanced — player_id+season+week key)
+    if not wr_adv_df.empty:
+        avail = [c for c in join_cols if c in wr_adv_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in _WR_ADVANCED_FEATURES if c in wr_adv_df.columns]
+            # Drop duplicates keeping last (multiple defteam rows per player-week)
+            wr_adv_subset = wr_adv_df[avail + feat_cols].drop_duplicates(
+                subset=avail, keep="last"
+            )
+            df = df.merge(
+                wr_adv_subset,
+                on=avail,
+                how="left",
+                suffixes=("", "__wradv"),
+            )
+            dup = [c for c in df.columns if c.endswith("__wradv")]
             df = df.drop(columns=dup, errors="ignore")
 
     # Join OL/RB features
@@ -566,27 +596,33 @@ def _join_wr_matchup_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
 
 
 def _join_te_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
-    """Left-join TE matchup and red zone graph features if available.
+    """Left-join TE matchup, TE advanced matchup, and red zone graph features.
 
-    Tries cached Silver parquet first, then falls back to live computation
-    from Bronze data. If neither is available, returns NaN-filled columns.
-    Only TE-position players receive actual values; all other positions
-    get NaN for TE-specific features.
+    Loads graph_te_matchup and graph_te_advanced parquets from Silver and
+    merges on (player_id, season, week). Falls back to NaN-filled columns
+    when files are not available. Only TE-position players receive actual
+    values; all other positions get NaN for TE-specific features.
 
     Args:
         df: Player-week DataFrame with player_id, season, week, position.
         season: NFL season year.
 
     Returns:
-        DataFrame with TE feature columns joined.
+        DataFrame with TE matchup and TE advanced feature columns joined.
     """
     from graph_feature_extraction import TE_FEATURE_COLUMNS
+    from hybrid_projection import _TE_ADVANCED_FEATURES
 
-    # Try cached Silver parquet first
+    all_te_cols = TE_FEATURE_COLUMNS + _TE_ADVANCED_FEATURES
+
+    # Try cached Silver parquets first
     te_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
     te_files = sorted(glob.glob(os.path.join(te_dir, "graph_te_matchup_*.parquet")))
+    te_adv_files = sorted(glob.glob(os.path.join(te_dir, "graph_te_advanced_*.parquet")))
 
     te_df = pd.DataFrame()
+    te_adv_df = pd.DataFrame()
+
     if te_files:
         try:
             te_df = pd.read_parquet(te_files[-1])
@@ -594,8 +630,16 @@ def _join_te_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
         except Exception as exc:
             logger.warning("Failed to read cached TE features: %s", exc)
 
-    # Join TE features
+    if te_adv_files:
+        try:
+            te_adv_df = pd.read_parquet(te_adv_files[-1])
+            logger.info("Loaded cached TE advanced features from %s", te_adv_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached TE advanced features: %s", exc)
+
     join_cols = ["player_id", "season", "week"]
+
+    # Join TE base matchup features
     if not te_df.empty:
         avail = [c for c in join_cols if c in te_df.columns and c in df.columns]
         if len(avail) >= 3:
@@ -609,15 +653,33 @@ def _join_te_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
             dup = [c for c in df.columns if c.endswith("__te")]
             df = df.drop(columns=dup, errors="ignore")
 
+    # Join TE advanced matchup features (graph_te_advanced — player_id+season+week key)
+    if not te_adv_df.empty:
+        avail = [c for c in join_cols if c in te_adv_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in _TE_ADVANCED_FEATURES if c in te_adv_df.columns]
+            # Drop duplicates keeping last (multiple defteam rows per player-week)
+            te_adv_subset = te_adv_df[avail + feat_cols].drop_duplicates(
+                subset=avail, keep="last"
+            )
+            df = df.merge(
+                te_adv_subset,
+                on=avail,
+                how="left",
+                suffixes=("", "__teadv"),
+            )
+            dup = [c for c in df.columns if c.endswith("__teadv")]
+            df = df.drop(columns=dup, errors="ignore")
+
     # Fill missing columns with NaN for schema consistency
-    for col in TE_FEATURE_COLUMNS:
+    for col in all_te_cols:
         if col not in df.columns:
             df[col] = np.nan
 
     # Zero out TE features for non-TE positions
     if "position" in df.columns:
         non_te_mask = df["position"] != "TE"
-        for col in TE_FEATURE_COLUMNS:
+        for col in all_te_cols:
             df.loc[non_te_mask, col] = np.nan
 
     return df

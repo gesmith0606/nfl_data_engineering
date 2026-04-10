@@ -1151,6 +1151,14 @@ def apply_residual_correction(
         - Ridge: sklearn Pipeline with built-in imputer
         - LightGBM: separate imputer + LGBMRegressor
 
+    Graph feature auto-loading: when the model's expected features include
+    graph feature columns that are absent from ``player_features``, the
+    function automatically loads Silver graph features via
+    ``load_graph_features()`` and merges them on (player_id, season, week).
+    This ensures graph features reach the model at inference time regardless
+    of what the upstream pipeline assembled — eliminating the train/inference
+    feature mismatch.
+
     Args:
         heuristic_projections: DataFrame with 'projected_points' and
             'player_id' columns from heuristic engine.
@@ -1171,7 +1179,64 @@ def apply_residual_correction(
 
     model_type = meta.get("model_type", "ridge")
     features = meta.get("features", [])
-    available = [f for f in features if f in player_features.columns]
+
+    # -------------------------------------------------------------------------
+    # Graph feature auto-enrichment
+    # When the model was trained with graph features (graph_features_added > 0)
+    # but those columns are absent from player_features, load them from Silver
+    # and merge. This fixes the train/inference mismatch where basic silver_df
+    # only has ~4/60 model features while training used the full 66-col set.
+    # -------------------------------------------------------------------------
+    graph_features_added = meta.get("graph_features_added", 0)
+    enrich_df = player_features.copy()
+
+    if graph_features_added > 0:
+        missing_graph = [f for f in features if f in GRAPH_FEATURE_SET and f not in enrich_df.columns]
+        if missing_graph:
+            logger.info(
+                "%s: %d/%d graph features missing at inference; loading from Silver",
+                position,
+                len(missing_graph),
+                graph_features_added,
+            )
+            # Determine seasons from player_features, with fallback to current year
+            seasons_present: List[int] = []
+            if "season" in enrich_df.columns:
+                seasons_present = sorted(enrich_df["season"].dropna().unique().astype(int).tolist())
+            if not seasons_present:
+                import datetime
+                seasons_present = [datetime.datetime.now().year]
+
+            gf_df = load_graph_features(seasons_present)
+            if not gf_df.empty:
+                join_keys = ["player_id", "season", "week"]
+                avail_keys = [k for k in join_keys if k in enrich_df.columns and k in gf_df.columns]
+                if len(avail_keys) >= 1:
+                    # Only bring in columns the model needs that are missing
+                    new_cols = [
+                        c for c in gf_df.columns
+                        if c not in avail_keys and c not in enrich_df.columns
+                    ]
+                    if new_cols:
+                        enrich_df = enrich_df.merge(
+                            gf_df[avail_keys + new_cols],
+                            on=avail_keys,
+                            how="left",
+                        )
+                        logger.info(
+                            "%s: merged %d new graph feature columns from Silver",
+                            position,
+                            len(new_cols),
+                        )
+            else:
+                logger.warning(
+                    "%s: Silver graph features not found for seasons=%s; "
+                    "graph features will be imputed",
+                    position,
+                    seasons_present,
+                )
+
+    available = [f for f in features if f in enrich_df.columns]
 
     if not available:
         logger.warning(
@@ -1179,23 +1244,46 @@ def apply_residual_correction(
         )
         return heuristic_projections
 
+    logger.info(
+        "%s (%s): %d/%d features available after graph enrichment; %d will be imputed",
+        position,
+        model_type,
+        len(available),
+        len(features),
+        len(features) - len(available),
+    )
+
     result = heuristic_projections.copy()
 
     # Build feature matrix aligned to heuristic players
     id_col = "player_id" if "player_id" in result.columns else "player_name"
     feat_id_col = (
-        "player_id" if "player_id" in player_features.columns else "player_name"
+        "player_id" if "player_id" in enrich_df.columns else "player_name"
     )
 
-    if id_col not in result.columns or feat_id_col not in player_features.columns:
+    if id_col not in result.columns or feat_id_col not in enrich_df.columns:
         logger.warning("Cannot align features for residual correction")
         return heuristic_projections
 
-    # Merge features onto projections
-    feat_subset = player_features[[feat_id_col] + available].drop_duplicates(
-        subset=[feat_id_col], keep="last"
+    # Merge features onto projections — prefer season+week keyed merge when available
+    # to avoid picking stale values when player_features spans multiple weeks.
+    extra_keys = [k for k in ("season", "week") if k in result.columns and k in enrich_df.columns]
+    merge_on = [id_col] + extra_keys
+    feat_merge_on = [feat_id_col] + extra_keys if feat_id_col != id_col else merge_on
+
+    dedup_keys = [feat_id_col] + extra_keys
+    feat_subset = enrich_df[list(dict.fromkeys([feat_id_col] + extra_keys + available))].drop_duplicates(
+        subset=dedup_keys, keep="last"
     )
-    merged = result.merge(feat_subset, left_on=id_col, right_on=feat_id_col, how="left")
+
+    if feat_id_col != id_col:
+        merged = result.merge(
+            feat_subset.rename(columns={feat_id_col: id_col}),
+            on=merge_on,
+            how="left",
+        )
+    else:
+        merged = result.merge(feat_subset, on=merge_on, how="left")
 
     # Build full feature matrix (all model features, NaN for missing ones)
     feature_data = {
@@ -1209,15 +1297,6 @@ def apply_residual_correction(
         logger.warning("No rows with features for %s residual", position)
         return heuristic_projections
 
-    logger.info(
-        "%s (%s): %d/%d features available; %d imputed",
-        position,
-        model_type,
-        len(available),
-        len(features),
-        len(features) - len(available),
-    )
-
     corrections = np.zeros(len(merged))
     if has_features.any():
         X_predict = X[has_features]
@@ -1227,9 +1306,11 @@ def apply_residual_correction(
             lgb_model = model_obj["model"]
             imputer = model_obj.get("imputer")
             if imputer is not None:
-                X_imp = imputer.transform(X_predict)
+                X_imp_arr = imputer.transform(X_predict)
+                # Preserve column names so LightGBM doesn't warn about feature name mismatch
+                X_imp = pd.DataFrame(X_imp_arr, columns=X_predict.columns, index=X_predict.index)
             else:
-                X_imp = X_predict.fillna(0.0).values
+                X_imp = X_predict.fillna(0.0)
             corrections[has_features] = lgb_model.predict(X_imp)
         else:
             # Ridge Pipeline (has built-in imputer)
