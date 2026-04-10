@@ -1048,6 +1048,232 @@ def apply_injury_adjustments(
     return df
 
 
+# ---------------------------------------------------------------------------
+# Sentiment adjustments
+# ---------------------------------------------------------------------------
+
+# Multiplier bounds enforced at ingestion time by the aggregator, but we
+# re-clamp here as a defensive guard.
+_SENTIMENT_MULT_MIN: float = 0.70
+_SENTIMENT_MULT_MAX: float = 1.15
+
+
+def load_latest_sentiment(season: int, week: int) -> pd.DataFrame:
+    """Load the most recent Gold sentiment Parquet for a given season/week.
+
+    Tries the local ``data/gold/sentiment/`` directory first, then falls back
+    to S3 (if credentials are available) using ``download_latest_parquet``.
+    Returns an empty DataFrame if no data is found, allowing callers to
+    proceed without sentiment data.
+
+    Args:
+        season: NFL season year (e.g. 2026).
+        week: NFL week number (1–18).
+
+    Returns:
+        DataFrame with Gold sentiment columns (player_id, sentiment_multiplier,
+        event flags, etc.) or empty DataFrame if unavailable.
+
+    Example:
+        >>> sentiment_df = load_latest_sentiment(2026, 1)
+        >>> sentiment_df.shape
+        (0,)  # empty when no data exists yet
+    """
+    import glob as _glob
+    import os as _os
+
+    project_root = _os.path.join(_os.path.dirname(__file__), "..")
+    local_dir = _os.path.join(
+        project_root, "data", "gold", "sentiment",
+        f"season={season}", f"week={week:02d}",
+    )
+    pattern = _os.path.join(local_dir, "*.parquet")
+    local_files = sorted(_glob.glob(pattern))
+
+    if local_files:
+        try:
+            df = pd.read_parquet(local_files[-1])
+            logger.info(
+                "Loaded sentiment data (%d players) from local Gold: %s",
+                len(df),
+                local_files[-1],
+            )
+            return df
+        except Exception as exc:
+            logger.warning("Could not read local sentiment Parquet: %s", exc)
+
+    # S3 fallback
+    try:
+        import boto3
+        from dotenv import load_dotenv
+        load_dotenv()
+
+        access_key = _os.getenv("AWS_ACCESS_KEY_ID")
+        secret_key = _os.getenv("AWS_SECRET_ACCESS_KEY")
+        region = _os.getenv("AWS_REGION", "us-east-2")
+
+        if not (access_key and secret_key):
+            logger.debug("No AWS credentials; skipping S3 sentiment fallback")
+            return pd.DataFrame()
+
+        import config as _cfg
+        from utils import download_latest_parquet as _dlp
+
+        s3 = boto3.client(
+            "s3",
+            aws_access_key_id=access_key,
+            aws_secret_access_key=secret_key,
+            region_name=region,
+        )
+        prefix = f"sentiment/season={season}/week={week:02d}/"
+        df = _dlp(s3, _cfg.S3_BUCKET_GOLD, prefix)
+        if not df.empty:
+            logger.info(
+                "Loaded sentiment data (%d players) from S3 Gold prefix %s",
+                len(df),
+                prefix,
+            )
+        return df
+    except Exception as exc:
+        logger.warning("S3 sentiment fallback failed: %s", exc)
+        return pd.DataFrame()
+
+
+def apply_sentiment_adjustments(
+    projections_df: pd.DataFrame,
+    sentiment_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """Apply sentiment multipliers to player projections.
+
+    Follows the same pattern as ``apply_injury_adjustments()``: it joins the
+    Gold sentiment layer onto the projections by ``player_id``, then scales
+    ``projected_points``, ``projected_floor``, and ``projected_ceiling`` by
+    ``sentiment_multiplier``.
+
+    Players already zeroed by injury (``projected_points == 0.0``) are
+    skipped so that a positive sentiment does not accidentally resurrect an
+    Out/IR player.  Players whose sentiment flags ``is_ruled_out`` or
+    ``is_inactive`` are zeroed out regardless of prior injury status.
+
+    Args:
+        projections_df: DataFrame produced by ``generate_weekly_projections()``
+            or a compatible generator.  Must contain ``player_id`` and
+            ``projected_points`` columns.
+        sentiment_df: DataFrame from the Gold sentiment layer with at minimum
+            ``player_id`` and ``sentiment_multiplier`` columns, plus optional
+            event-flag boolean columns (``is_ruled_out``, ``is_inactive``,
+            ``is_questionable``, ``is_suspended``, ``is_returning``).
+
+    Returns:
+        Projections DataFrame with two additional transparency columns:
+        ``sentiment_multiplier`` (float, 1.0 when no sentiment available) and
+        ``sentiment_events`` (comma-separated active flag names, empty string
+        when none).  ``projected_points``, ``projected_floor``, and
+        ``projected_ceiling`` are scaled in-place.
+
+    Example:
+        >>> proj = pd.DataFrame({
+        ...     "player_id": ["P1"], "projected_points": [20.0],
+        ...     "projected_floor": [12.0], "projected_ceiling": [28.0],
+        ...     "injury_multiplier": [1.0],
+        ... })
+        >>> sent = pd.DataFrame({
+        ...     "player_id": ["P1"], "sentiment_multiplier": [1.10],
+        ...     "is_ruled_out": [False], "is_inactive": [False],
+        ... })
+        >>> result = apply_sentiment_adjustments(proj, sent)
+        >>> result["projected_points"].iloc[0]
+        22.0
+    """
+    df = projections_df.copy()
+    df["sentiment_multiplier"] = 1.0
+    df["sentiment_events"] = ""
+
+    if sentiment_df is None or sentiment_df.empty:
+        logger.info("No sentiment data provided; all players get neutral multiplier")
+        return df
+
+    if "player_id" not in sentiment_df.columns or "sentiment_multiplier" not in sentiment_df.columns:
+        logger.warning(
+            "Sentiment DataFrame missing required columns (player_id, sentiment_multiplier); skipping"
+        )
+        return df
+
+    event_flag_cols = [
+        "is_ruled_out",
+        "is_inactive",
+        "is_questionable",
+        "is_suspended",
+        "is_returning",
+    ]
+
+    # Build a lookup keyed by player_id
+    sent_cols = ["player_id", "sentiment_multiplier"] + [
+        c for c in event_flag_cols if c in sentiment_df.columns
+    ]
+    sent_lookup = (
+        sentiment_df[sent_cols]
+        .drop_duplicates(subset=["player_id"], keep="last")
+        .set_index("player_id")
+    )
+
+    for idx, row in df.iterrows():
+        pid = row.get("player_id")
+        if pid not in sent_lookup.index:
+            continue
+
+        sent_row = sent_lookup.loc[pid]
+
+        # Skip players already zeroed by injury — do not restore via sentiment
+        if row.get("projected_points", 0.0) == 0.0 and row.get("injury_multiplier", 1.0) == 0.0:
+            continue
+
+        # Determine active event flags for transparency column
+        active_flags = [
+            flag for flag in event_flag_cols
+            if flag in sent_row.index and bool(sent_row[flag])
+        ]
+        df.at[idx, "sentiment_events"] = ",".join(active_flags)
+
+        # Ruled-out / inactive → zero projection regardless of multiplier
+        if (
+            ("is_ruled_out" in sent_row.index and bool(sent_row["is_ruled_out"]))
+            or ("is_inactive" in sent_row.index and bool(sent_row["is_inactive"]))
+        ):
+            df.at[idx, "sentiment_multiplier"] = 0.0
+            df.at[idx, "projected_points"] = 0.0
+            if "projected_floor" in df.columns:
+                df.at[idx, "projected_floor"] = 0.0
+            if "projected_ceiling" in df.columns:
+                df.at[idx, "projected_ceiling"] = 0.0
+            continue
+
+        # Clamp multiplier to valid range as a defensive guard
+        raw_mult = float(sent_row["sentiment_multiplier"])
+        mult = max(_SENTIMENT_MULT_MIN, min(_SENTIMENT_MULT_MAX, raw_mult))
+        df.at[idx, "sentiment_multiplier"] = round(mult, 4)
+
+        # Scale projection columns
+        df.at[idx, "projected_points"] = round(
+            max(0.0, row["projected_points"] * mult), 2
+        )
+        if "projected_floor" in df.columns and pd.notna(row.get("projected_floor")):
+            df.at[idx, "projected_floor"] = round(
+                max(0.0, row["projected_floor"] * mult), 2
+            )
+        if "projected_ceiling" in df.columns and pd.notna(row.get("projected_ceiling")):
+            df.at[idx, "projected_ceiling"] = round(
+                max(0.0, row["projected_ceiling"] * mult), 2
+            )
+
+    applied_count = (df["sentiment_multiplier"] != 1.0).sum()
+    total_count = len(df)
+    logger.info(
+        "Applied sentiment adjustments to %d/%d players", applied_count, total_count
+    )
+    return df
+
+
 def _build_spread_by_team(
     schedules_df: pd.DataFrame,
     week: int,
