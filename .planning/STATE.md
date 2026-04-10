@@ -39,7 +39,7 @@ Phases 54-57 | 19 requirements | Target: MAE < 4.5
 - Phase W3: COMPLETE — Game predictions page (was already built)
 - Frontend deployed: https://frontend-jet-seven-33.vercel.app
 - Phase W4: COMPLETE — Player detail page, accuracy dashboard, backend fix (Pydantic v2)
-- Phase W5: NEXT — Database (Supabase) + backend deployment
+- Phase W5: COMPLETE — sync_gold_to_db.py, PostgreSQL fallback, Docker/Railway ready
 
 ### 3. Graph Features — Enhancement Track
 
@@ -49,20 +49,26 @@ Phases 54-57 | 19 requirements | Target: MAE < 4.5
 - Graph→Residual wiring: COMPLETE — --use-graph-features flag, 39 features available
 - Recompute: COMPLETE — 66 features (was 49), 6 seasons, new features in SHAP top-60
 - LGB retrained: COMPLETE — WR/TE/RB with 23 new graph features each
-- NEXT: Production backtest with enhanced graph features to validate MAE improvement
+- Backtest validation: COMPLETE — hybrid path 4.72 MAE vs heuristic 5.66 (17% gap); 40% of players fall through to heuristic
+- v4.1 Phase 1: COMPLETE — RB/QB routing attempted and reverted (both degrade on 2025 holdout)
+  - RB hybrid: +0.59 MAE worse (5.39 -> 5.98) — LGB residual overfits
+  - QB hybrid: +7.51 MAE catastrophic failure (8.64 -> 16.15) — residual model extrapolates wildly
+  - Fixed 2 bugs: feature file format + duplicate column names in XGB SHIP path
+  - 2025 sealed holdout baseline: 5.26 overall, 4.56 hybrid (WR/TE)
+  - NEXT: Feature pruning + regularization tuning to retrain models that generalize to holdout
 
 ### 4. Sentiment Pipeline — v5.0 (Planning)
 
 - Architecture: COMPLETE — .planning/unstructured-data/ARCHITECTURE.md
 - Phase S1: COMPLETE — pgvector schema, RSS ingestion (5 feeds), Sleeper ingestion, player name resolver
-- Phase S2: NEXT — Claude extraction pipeline
-- Phase S3: PENDING — Projection engine integration
+- Phase S2: COMPLETE — Claude extraction, processing pipeline, weekly aggregation, 44 tests
+- Phase S3: NEXT — Projection engine integration (apply sentiment_multiplier)
 
 ## Current Position
 
-Phase: 57 (Quantile Regression) — COMPLETE, v3.2 milestone complete
-Status: v3.2 Model Perfection shipped (MAE 4.80, target 4.5 not met but architecturally significant)
-Last activity: 2026-04-09
+Phase: v4.1-p1 (Expand Hybrid Coverage) — COMPLETE
+Status: v3.2 shipped; v4.1-p1 investigated routing RB/QB through hybrid; both degraded on 2025 holdout; fixed 2 SHIP path bugs; HYBRID_POSITIONS unchanged {WR, TE}
+Last activity: 2026-04-10
 
 ## Key Artifacts
 
@@ -95,13 +101,19 @@ Last activity: 2026-04-09
 - [WS4/S1]: Sentiment foundation built — pgvector schema, RSS+Sleeper ingestion, player name resolver
 - [v3.2/P57]: Quantile regression SHIPS for calibrated floor/ceiling (74.8-81.8% coverage); MAE 4.80 (target 4.5 not met)
 - [v3.2/P57]: Graph features do NOT improve point-estimate MAE — train/inference feature mismatch; SKIP retrained models
+- [v4.1/P1]: RB hybrid routing SKIP — degrades 2025 holdout MAE +0.59 (5.39 -> 5.98); LGB residual has +0.77 upward bias
+- [v4.1/P1]: QB hybrid routing SKIP — catastrophic +7.51 MAE on 2025 holdout (8.64 -> 16.15); residual adds ~15 pts per QB
+- [v4.1/P1]: XGB SHIP path architecturally broken — feature_names mismatch (qbr_* cols missing); QB/RB on heuristic since deployment
+- [v4.1/P1]: Walk-forward CV does NOT predict production for residual models — WFCV and production diverge on unseen years
 
 ### Research Flags
 
 - Bayesian models may provide better uncertainty than XGBoost (Phase 56)
 - PFF data ($300-500) would upgrade proxy matchup features to real coverage data
 - Enhanced graph features (22 new) need recomputation + integration into LGB residuals
-- Production backtest shows degradation with residuals (train-on-all limitation) — walk-forward is trustworthy
+- Walk-forward CV is trustworthy for *relative* model comparison but NOT for absolute production MAE prediction
+- RB/QB residual models need stricter regularization + feature pruning before re-attempting hybrid routing
+- XGB SHIP path needs QBR feature integration into player_feature_engineering.py
 
 ### Blockers/Concerns
 
