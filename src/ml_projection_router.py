@@ -43,14 +43,19 @@ logger = logging.getLogger(__name__)
 
 # Positions using hybrid residual correction (heuristic + LightGBM residual).
 # Phase 55: LGB residual with SHAP-60 features improves WR/TE over heuristic.
-# v4.1 Phase 1: RB added — walk-forward CV showed -25.1% MAE improvement
-# (5.00 -> 3.15) with LGB SHAP-60 + graph features (23 RB-relevant graph
-# features added during Phase 55 residual training). RB residual model
-# is trained with production heuristic as baseline; see phase-55/EXPERIMENTS.md.
-# QB remains on XGBoost SHIP (direct stat prediction) — residual approach
-# is designed for positions with strong heuristics, and QB heuristic MAE
-# ~14 is too weak for residual correction to generalize in production backtest.
-HYBRID_POSITIONS = {"WR", "TE", "RB"}
+#
+# v4.1 Phase 1 INVESTIGATION: RB routing attempted but reverted.
+# Walk-forward CV (Phase 55) showed RB -25% improvement (5.00 -> 3.15 MAE),
+# but on the sealed 2025 holdout the current LGB residual model DEGRADED
+# RB MAE by +0.59 (5.39 -> 5.98). The model's mean correction is +0.77 pts
+# (upward bias) which hurts MAE on 2025's different usage patterns. Phase 55
+# damping experiments did not resolve the issue. RB stays on heuristic
+# until a reformulated model is proven on holdout.
+#
+# QB remains on XGBoost SHIP (direct stat prediction) — the XGB SHIP path
+# currently fails silently due to a dtype bug (see Task 2 fix), causing QB
+# to fall back to heuristic. Root cause tracked separately.
+HYBRID_POSITIONS = {"WR", "TE"}
 
 # ---------------------------------------------------------------------------
 # MAPIE optional import
