@@ -218,13 +218,65 @@ def main():
     # -----------------------------------------------------------------------
     if args.preseason:
         print("\nFetching historical seasonal data...")
-        # Use past 2 seasons as training data
-        past_seasons = [args.season - 2, args.season - 1]
-        try:
-            seasonal_df = fetcher.fetch_player_seasonal(past_seasons)
-        except Exception as e:
-            print(f"ERROR fetching seasonal data: {e}")
+        # Use past 2 seasons as training data; filter to seasons that nfl-data-py has
+        candidate_seasons = [args.season - 2, args.season - 1]
+        past_seasons = [s for s in candidate_seasons if s in fetcher.available_seasons]
+        if not past_seasons:
+            print(f"ERROR: no available seasons in {candidate_seasons}")
             return 1
+
+        seasonal_df = pd.DataFrame()
+        for s in past_seasons:
+            try:
+                chunk = fetcher.fetch_player_seasonal([s])
+                seasonal_df = pd.concat([seasonal_df, chunk], ignore_index=True)
+            except Exception as e:
+                print(f"  WARNING: could not fetch season {s}: {e} — skipping")
+
+        if seasonal_df.empty:
+            print("ERROR: no seasonal data could be fetched")
+            return 1
+
+        # Enrich with position, player_name, and recent_team from seasonal rosters
+        # (import_seasonal_data only returns player_id + stats, no name/position/team)
+        needs_enrich = (
+            "position" not in seasonal_df.columns
+            or "player_name" not in seasonal_df.columns
+            or "recent_team" not in seasonal_df.columns
+        )
+        if needs_enrich:
+            import nfl_data_py as nfl
+
+            roster_seasons = [s for s in past_seasons if s in fetcher.available_seasons]
+            try:
+                rosters = nfl.import_seasonal_rosters(roster_seasons)
+                # Take the most-recent roster entry per player_id for stable values
+                roster_latest = (
+                    rosters.sort_values("season")
+                    .drop_duplicates(subset=["player_id"], keep="last")
+                )
+                roster_lookup = roster_latest.set_index("player_id")[
+                    ["position", "player_name", "team"]
+                ]
+                if "position" not in seasonal_df.columns:
+                    seasonal_df["position"] = seasonal_df["player_id"].map(
+                        roster_lookup["position"]
+                    )
+                if "player_name" not in seasonal_df.columns:
+                    seasonal_df["player_name"] = seasonal_df["player_id"].map(
+                        roster_lookup["player_name"]
+                    )
+                if "recent_team" not in seasonal_df.columns:
+                    seasonal_df["recent_team"] = seasonal_df["player_id"].map(
+                        roster_lookup["team"]
+                    )
+                matched = seasonal_df["position"].notna().sum()
+                print(
+                    f"  Joined position/name/team from rosters — "
+                    f"{matched} of {len(seasonal_df)} rows matched"
+                )
+            except Exception as e:
+                print(f"  WARNING: could not fetch roster data: {e}")
 
         print(f"Loaded {len(seasonal_df):,} seasonal player rows")
 
@@ -475,8 +527,10 @@ def main():
         print("ERROR: No projections generated. Check that data is available.")
         return 1
 
-    # Add floor/ceiling after all adjustments (ML router handles this internally)
-    if not args.ml:
+    # Add floor/ceiling after all adjustments (ML router handles this internally).
+    # Preseason mode uses projected_season_points (full-season totals), not
+    # projected_points (weekly), so floor/ceiling is not applicable there.
+    if not args.ml and not args.preseason:
         projections = add_floor_ceiling(projections)
 
     print(f"\nProjections generated: {len(projections):,} players")
