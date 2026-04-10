@@ -43,9 +43,14 @@ logger = logging.getLogger(__name__)
 
 # Positions using hybrid residual correction (heuristic + LightGBM residual).
 # Phase 55: LGB residual with SHAP-60 features improves WR/TE over heuristic.
-# QB/RB remain on XGBoost SHIP (direct stat prediction) which outperforms
-# the heuristic baseline that residual correction builds on.
-HYBRID_POSITIONS = {"WR", "TE"}
+# v4.1 Phase 1: RB added — walk-forward CV showed -25.1% MAE improvement
+# (5.00 -> 3.15) with LGB SHAP-60 + graph features (23 RB-relevant graph
+# features added during Phase 55 residual training). RB residual model
+# is trained with production heuristic as baseline; see phase-55/EXPERIMENTS.md.
+# QB remains on XGBoost SHIP (direct stat prediction) — residual approach
+# is designed for positions with strong heuristics, and QB heuristic MAE
+# ~14 is too weak for residual correction to generalize in production backtest.
+HYBRID_POSITIONS = {"WR", "TE", "RB"}
 
 # ---------------------------------------------------------------------------
 # MAPIE optional import
