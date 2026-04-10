@@ -160,7 +160,16 @@ def _usage_multiplier(df: pd.DataFrame, position: str) -> pd.Series:
     if usage_col not in df.columns:
         return pd.Series(1.0, index=df.index)
 
-    usage = df[usage_col].fillna(df[usage_col].median())
+    usage = df[usage_col]
+    # Guard against all-NaN columns. This happens in the training path when
+    # assemble_multiyear_player_features blanks snap_pct for same-week leakage
+    # prevention. Without this guard, median() of all-NaN is NaN, fillna is a
+    # no-op, NaN propagates through the heuristic, and the entire projection
+    # collapses to 0 — which silently broke QB residual training (Phase v4.1-p3).
+    if usage.isna().all():
+        return pd.Series(1.0, index=df.index)
+
+    usage = usage.fillna(usage.median())
     # Normalize to [0.80, 1.15] range based on percentile
     percentile = usage.rank(pct=True)
     multiplier = 0.80 + 0.35 * percentile

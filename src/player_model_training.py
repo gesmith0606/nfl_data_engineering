@@ -1078,8 +1078,13 @@ def generate_heuristic_predictions(
     # _usage_multiplier expects a specific column name per position.
     # The assembled feature DataFrame may have rolling variants.
     # We provide the raw column if available; otherwise neutral (1.0).
+    # Guard against all-NaN columns: assemble_multiyear_player_features blanks
+    # snap_pct for same-week leakage prevention, and median() of all-NaN is NaN
+    # which silently propagates through the heuristic. This was the root cause
+    # of QB residual bias (+14 pts) — residual models learned residual=actual
+    # instead of residual=actual-heuristic (Phase v4.1-p3).
     usage_col = USAGE_STABILITY_STAT.get(position, "snap_pct")
-    if usage_col in result_df.columns:
+    if usage_col in result_df.columns and not result_df[usage_col].isna().all():
         usage = result_df[usage_col].fillna(result_df[usage_col].median())
         percentile = usage.rank(pct=True)
         usage_mult = (0.80 + 0.35 * percentile).clip(0.80, 1.15)
