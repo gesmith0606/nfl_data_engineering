@@ -96,7 +96,9 @@ def _get_prediction_by_game_db(
 def get_predictions(season: int, week: int) -> pd.DataFrame:
     """Load cached game predictions for a given season/week.
 
-    Uses PostgreSQL when DATABASE_URL is set, otherwise falls back to Parquet.
+    Tries PostgreSQL when DATABASE_URL is set; falls back to Parquet on any
+    DB error (covers bad credentials, network failures, or stale pool state
+    across worker processes).
 
     Args:
         season: NFL season year.
@@ -109,8 +111,13 @@ def get_predictions(season: int, week: int) -> pd.DataFrame:
         FileNotFoundError: If no prediction data exists.
     """
     if is_db_enabled():
-        logger.debug("Using PostgreSQL backend for predictions")
-        return _get_predictions_db(season, week)
+        try:
+            logger.debug("Using PostgreSQL backend for predictions")
+            return _get_predictions_db(season, week)
+        except Exception as exc:
+            logger.warning(
+                "PostgreSQL read failed (%s); falling back to Parquet", exc
+            )
     logger.debug("Using Parquet backend for predictions")
     return _get_predictions_parquet(season, week)
 
@@ -122,6 +129,8 @@ def get_prediction_by_game(
 ) -> Optional[pd.Series]:
     """Return a single game prediction row, or None if not found.
 
+    Tries PostgreSQL first; falls back to Parquet on any DB error.
+
     Args:
         season: NFL season year.
         week: Week number.
@@ -131,5 +140,10 @@ def get_prediction_by_game(
         Series for the matching game, or None.
     """
     if is_db_enabled():
-        return _get_prediction_by_game_db(season, week, game_id)
+        try:
+            return _get_prediction_by_game_db(season, week, game_id)
+        except Exception as exc:
+            logger.warning(
+                "PostgreSQL game lookup failed (%s); falling back to Parquet", exc
+            )
     return _get_prediction_by_game_parquet(season, week, game_id)

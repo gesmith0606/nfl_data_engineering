@@ -169,7 +169,9 @@ def get_projections(
 ) -> pd.DataFrame:
     """Load cached projections and return a filtered DataFrame.
 
-    Uses PostgreSQL when DATABASE_URL is set, otherwise falls back to Parquet.
+    Tries PostgreSQL when DATABASE_URL is set; falls back to Parquet on any
+    DB error (covers bad credentials, network failures, or stale pool state
+    across worker processes).
 
     Args:
         season: NFL season year.
@@ -186,8 +188,13 @@ def get_projections(
         FileNotFoundError: If no data exists for the given season/week.
     """
     if is_db_enabled():
-        logger.debug("Using PostgreSQL backend for projections")
-        return _get_projections_db(season, week, scoring_format, position, team, limit)
+        try:
+            logger.debug("Using PostgreSQL backend for projections")
+            return _get_projections_db(season, week, scoring_format, position, team, limit)
+        except Exception as exc:
+            logger.warning(
+                "PostgreSQL read failed (%s); falling back to Parquet", exc
+            )
     logger.debug("Using Parquet backend for projections")
     return _get_projections_parquet(season, week, scoring_format, position, team, limit)
 
@@ -198,6 +205,8 @@ def search_players(
     week: int,
 ) -> pd.DataFrame:
     """Search for players whose name matches *query* (case-insensitive).
+
+    Tries PostgreSQL first; falls back to Parquet on any DB error.
 
     Args:
         query: Partial player name to search for.
@@ -211,5 +220,10 @@ def search_players(
         FileNotFoundError: If no data exists.
     """
     if is_db_enabled():
-        return _search_players_db(query, season, week)
+        try:
+            return _search_players_db(query, season, week)
+        except Exception as exc:
+            logger.warning(
+                "PostgreSQL search failed (%s); falling back to Parquet", exc
+            )
     return _search_players_parquet(query, season, week)

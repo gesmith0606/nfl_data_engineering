@@ -64,7 +64,9 @@ def is_db_enabled() -> bool:
     """Return True when DATABASE_URL is configured AND the pool is reachable.
 
     Returns False if DATABASE_URL is absent or if a previous pool-creation
-    attempt failed, so services automatically fall back to Parquet reads.
+    attempt failed.  Services should ALSO wrap DB calls in try/except and fall
+    back to Parquet, because pool state is per-process and multiple uvicorn
+    workers each maintain their own copy of this flag.
     """
     if DATABASE_URL is None:
         return False
