@@ -59,7 +59,7 @@ logger = logging.getLogger(__name__)
 #     unstable extrapolation. QB stays on heuristic until bias is corrected.
 # Models: models/residual/rb_residual_{lgb,imputer}_v2.pkl (promoted to production)
 #         models/residual/qb_residual_{lgb,imputer}_v2.pkl (saved, not activated)
-HYBRID_POSITIONS = {"WR", "TE", "RB"}
+HYBRID_POSITIONS = {"WR", "TE"}  # v4.1-p3: RB reverted from v2 pending bisect on MAE regression
 
 # ---------------------------------------------------------------------------
 # MAPIE optional import
