@@ -132,7 +132,7 @@ Last activity: 2026-04-10
 - Frontend LIVE at https://frontend-jet-seven-33.vercel.app with real 2026 preseason data
 - Backend LIVE at https://nfldataengineering-production.up.railway.app (Parquet fallback mode)
 
-### Session 2026-04-10 Summary
+### Session 2026-04-10 — Part 1 Summary
 
 **Wins:**
 - Diagnosed upstream nflverse QBR 2024+ gap (not our bug)
@@ -141,19 +141,65 @@ Last activity: 2026-04-10
 - 2026 projections LIVE on website (569 players, 3 scoring formats)
 - Sentiment pipeline infrastructure verified (blocked on ANTHROPIC_API_KEY)
 - RB v2 hybrid routing reverted again (0f69027) — 5.47→5.40 MAE improvement
-- Phase 57 ships v3.2 Model Perfection milestone
+- Discovered 14% MAE regression from v3.2 4.80 baseline
 
-**Losses:**
-- Every "fix" this session made MAE worse, not better
-- v3.2 shipped 4.80 baseline → now at 5.40 (14% regression)
-- The 4.80 baseline was a "happy accident" — broken code masked worse ML predictions
-- Walk-forward CV proven unreliable for residual model evaluation (again)
+### Session 2026-04-11 — Part 2: Regression Recovery
 
-**Next Session Priority:**
-1. Train Ridge residuals with 60 SHAP features → A/B vs LGB in production
-2. If Ridge wins: revert to Ridge as the residual model family
-3. Establish a new eval protocol that predicts production (not WFCV)
-4. Consider rolling back deab6a6 (graph inference fix) if Ridge A/B doesn't recover MAE
+**Root cause of the v3.2 4.80 baseline illusion:** The project has THREE different heuristic functions and THREE feature assemblies that diverge between WFCV, training, and production. Residual models are trained against baseline A, validated against B, shipped against C. Phase 55's "LGB beats Ridge by 7-17%" was a WFCV measurement artifact.
+
+**Ridge vs LGB A/B test (WS1):**
+| Config | Overall MAE | WR | TE |
+|--------|------------|-----|-----|
+| v3.2 Ridge 42f (baseline) | 4.80 | 4.63 | 3.58 |
+| LGB 60f + graph (last session prod) | 5.40 | 5.48 | 4.40 |
+| **Ridge 60f + graph (SHIPPED)** | **5.05** | **4.89** | **3.83** |
+
+**Ruled out:**
+- LGB beats Ridge — FALSE in production (Ridge wins by 0.35)
+- Graph features are noise — FALSE (they help by 0.08)
+- Graph inference fix `deab6a6` — no Ridge impact
+- Feature count 30/40/42/50 vs 60 — flat curve, no difference
+
+**Still unexplained (0.25 MAE gap vs v3.2 baseline):**
+1. RidgeCV alpha search range (WR=4.72, TE=0.49 disparity)
+2. Heuristic weight tuning (v3.2 may have had different weights)
+3. Feature interaction engineering (target_share × snap_pct, etc.)
+4. Training window 2016-2025 vs 2016-2024
+5. Tier-specific WR models (WR1 vs WR2/3 pooling)
+
+**Final recovery:** +0.35 MAE (58% of regression). Production now at 5.05 MAE.
+
+**Key deliverables:**
+- PFE (Production-Faithful Eval) protocol designed at `.planning/phases/v4.1-phase4/NEW_EVAL_PROTOCOL.md`
+- Ridge 60f+graph models shipped to production
+- Contract test recommendation: `tests/test_eval_contract.py` to catch future heuristic divergences
+
+### Blockers/Concerns
+
+- Production MAE at 5.05 (target <4.5) — 0.25 gap remains unexplained
+- THREE duplicate heuristic functions violate single-source-of-truth principle
+- ANTHROPIC_API_KEY missing — blocks sentiment pipeline activation
+- QBR Bronze data missing for 2024+ (upstream nflverse gap)
+
+**Next Session Priorities:**
+
+**Priority 1 — Heuristic tuning (closes remaining 0.25 gap):**
+- Test Ridge with wider alpha grid
+- Audit heuristic weights in projection_engine.py vs v3.2 era
+- Consider tier-specific WR/TE models
+
+**Priority 2 — Architectural fix:**
+- Consolidate three heuristic functions into one (`generate_weekly_projections` should be the sole source)
+- Add `tests/test_eval_contract.py` to catch future divergences
+- Delete `generate_heuristic_predictions` and `compute_production_heuristic` duplicates
+
+**Priority 3 — Tooling:**
+- Build `scripts/production_eval.py` and `scripts/swap_and_eval.py` per PFE protocol
+- Never validate on WFCV again for residual models
+
+**Priority 4 — Features:**
+- Add ANTHROPIC_API_KEY → activate sentiment pipeline end-to-end
+- Sentiment Phase S5 — deploy live sentiment to production projections
 
 ---
-*Last updated: 2026-04-10 — v4.1 Phase 3 discovered MAE regression vs v3.2 baseline; needs Ridge A/B next session*
+*Last updated: 2026-04-11 — v4.1-p4 recovered 58% of regression. Ridge 60f+graph shipped, 5.05 MAE. 0.25 gap to v3.2 baseline remains.*

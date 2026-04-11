@@ -1,9 +1,10 @@
 {
   "position": "WR",
-  "model_type": "lgb",
+  "model_type": "ridge",
   "scoring_format": "half_ppr",
+  "ridge_alpha": 3.5564803062231287,
   "n_train": 16440,
-  "train_residual_mae": 1.9303826095640932,
+  "train_residual_mae": 2.920471802820402,
   "n_features": 60,
   "features": [
     "ngs_catch_percentage",
@@ -67,20 +68,5 @@
     "receiving_tds_x_opp_rank",
     "ngs_avg_separation"
   ],
-  "best_iteration": 499,
-  "graph_features_added": 23,
-  "lgb_params": {
-    "objective": "regression",
-    "n_estimators": 500,
-    "max_depth": 4,
-    "learning_rate": 0.05,
-    "min_child_samples": 20,
-    "subsample": 0.8,
-    "colsample_bytree": 0.7,
-    "reg_alpha": 0.1,
-    "reg_lambda": 1.0,
-    "verbose": -1,
-    "n_jobs": -1,
-    "random_state": 42
-  }
+  "graph_features_added": 9
 }
