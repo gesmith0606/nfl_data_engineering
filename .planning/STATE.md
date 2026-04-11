@@ -105,6 +105,14 @@ Last activity: 2026-04-10
 - [v4.1/P1]: QB hybrid routing SKIP — catastrophic +7.51 MAE on 2025 holdout (8.64 -> 16.15); residual adds ~15 pts per QB
 - [v4.1/P1]: XGB SHIP path architecturally broken — feature_names mismatch (qbr_* cols missing); QB/RB on heuristic since deployment
 - [v4.1/P1]: Walk-forward CV does NOT predict production for residual models — WFCV and production diverge on unseen years
+- [v4.1/P3]: QB bias root cause FOUND — _usage_multiplier NaN propagation when snap_pct all-NaN (training only). Fix committed 37d3cdb but didn't help production because QB isn't in HYBRID_POSITIONS and RB/WR/TE don't use snap_pct.
+- [v4.1/P3]: Critical regression discovered — 2022-2024 MAE is 5.40 (was 4.80 at v3.2 ship). Every position regressed:
+  - QB: 6.58 (heuristic) → 7.03 (XGB SHIP post-fix) = +0.45
+  - RB: 5.00 (heuristic) → 5.25 (XGB SHIP post-revert) = +0.25
+  - WR: 4.63 (Ridge 42f) → 5.48 (LGB 60f + graph) = +0.85
+  - TE: 3.58 (Ridge 42f) → 4.40 (LGB 60f + graph) = +0.82
+- [v4.1/P3]: RB v2 hybrid routing REVERTED again — bisect showed +0.22 MAE regression (5.25→5.47). Committed 0f69027.
+- [v4.1/P3]: HYPOTHESIS — LGB residual models are systematically worse than old Ridge 42f in production. Phase 55 "LGB wins" was WFCV only. Next session: train Ridge residuals and compare A/B.
 
 ### Research Flags
 
@@ -117,8 +125,35 @@ Last activity: 2026-04-10
 
 ### Blockers/Concerns
 
-- Backend not deployed — frontend shows empty states
-- Graph features need recomputation with new RB/WR/TE modules before integration testing
+- Production MAE REGRESSED from 4.80 (v3.2 shipped) to 5.40 (current) on 2022-2024
+- LGB residuals appear systematically worse than old Ridge 42f in production (hypothesis untested)
+- WFCV evaluation has systematically misled v4.1 experiments — need new evaluation methodology
+- QBR Bronze data missing for 2024+ (upstream nflverse gap — not fixable by ingestion)
+- Frontend LIVE at https://frontend-jet-seven-33.vercel.app with real 2026 preseason data
+- Backend LIVE at https://nfldataengineering-production.up.railway.app (Parquet fallback mode)
+
+### Session 2026-04-10 Summary
+
+**Wins:**
+- Diagnosed upstream nflverse QBR 2024+ gap (not our bug)
+- Fixed XGB SHIP path (e27f84b) — QB/RB can use ML instead of crashing to heuristic
+- Found QB bias root cause (37d3cdb) — _usage_multiplier NaN propagation in training
+- 2026 projections LIVE on website (569 players, 3 scoring formats)
+- Sentiment pipeline infrastructure verified (blocked on ANTHROPIC_API_KEY)
+- RB v2 hybrid routing reverted again (0f69027) — 5.47→5.40 MAE improvement
+- Phase 57 ships v3.2 Model Perfection milestone
+
+**Losses:**
+- Every "fix" this session made MAE worse, not better
+- v3.2 shipped 4.80 baseline → now at 5.40 (14% regression)
+- The 4.80 baseline was a "happy accident" — broken code masked worse ML predictions
+- Walk-forward CV proven unreliable for residual model evaluation (again)
+
+**Next Session Priority:**
+1. Train Ridge residuals with 60 SHAP features → A/B vs LGB in production
+2. If Ridge wins: revert to Ridge as the residual model family
+3. Establish a new eval protocol that predicts production (not WFCV)
+4. Consider rolling back deab6a6 (graph inference fix) if Ridge A/B doesn't recover MAE
 
 ---
-*Last updated: 2026-04-09 — v3.2 Model Perfection complete: P57 quantile regression done, MAE 4.80, 18/19 requirements met*
+*Last updated: 2026-04-10 — v4.1 Phase 3 discovered MAE regression vs v3.2 baseline; needs Ridge A/B next session*
