@@ -31,7 +31,14 @@ python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr
 python scripts/generate_projections.py --week 1 --season 2026 --projection-type hybrid  # Hybrid heuristic+ML (Phase 53)
 python scripts/train_player_models.py --model-type xgb                                   # XGBoost models (default)
 python scripts/train_residual_models.py --positions qb rb wr te                          # Residual training (Phase 54)
+python scripts/train_bayesian_models.py --positions qb rb wr te                          # Bayesian posterior intervals (Phase 56)
+python scripts/train_quantile_models.py --positions qb rb wr te                          # Quantile regression (Phase 57)
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
+
+# Sentiment pipeline
+python scripts/ingest_sentiment_rss.py --weeks 1-18                                      # Ingest 5 RSS feeds
+python scripts/ingest_sentiment_sleeper.py --weeks 1-18                                  # Ingest Sleeper trending players
+python scripts/process_sentiment.py --seasons 2024 2025 --weeks 1-18                     # Process Bronze→Silver→Gold
 
 # Gold: Game predictions
 python scripts/train_ensemble.py                    # Train XGB+LGB+CB+Ridge ensemble
@@ -128,6 +135,13 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/projection_engine.py` | Weekly/preseason projections; bye week, rookie fallback, Vegas multiplier |
 | `src/hybrid_projection.py` | Hybrid heuristic+ML approach; trains ML on residuals (Phase 53) |
 | `src/unified_evaluation.py` | Production heuristic for backtest evaluation (Phase 54) |
+| `src/bayesian_projection.py` | Bayesian hierarchical model for posterior intervals (Phase 56) |
+| `src/quantile_models.py` | LightGBM quantile regression for floor/ceiling (Phase 57) |
+| `src/player_name_resolver.py` | Fuzzy name→ID matching for sentiment extraction |
+| `src/ml_projection_router.py` | Position-specific ML/heuristic routing; hybrid residuals (v4.1-p4) |
+| `src/sentiment/processing/extractor.py` | Claude Haiku text extraction for sentiment signals |
+| `src/sentiment/processing/pipeline.py` | Bronze→Silver sentiment processing pipeline |
+| `src/sentiment/aggregation/weekly.py` | Silver→Gold weekly sentiment aggregation |
 | `src/draft_optimizer.py` | DraftBoard, AuctionDraftBoard, MockDraftSimulator, DraftAdvisor |
 | `src/utils.py` | Shared utils incl. `get_latest_s3_key`, `download_latest_parquet` |
 | `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 16 data types via registry |
@@ -151,15 +165,22 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/backtest_projections.py` | Fantasy backtest — MAE/RMSE/bias per position |
 | `scripts/refresh_adp.py` | Fetch ADP from Sleeper API → data/adp_latest.csv |
 | `scripts/check_pipeline_health.py` | S3 freshness + size checks across all layers |
-| `web/api/main.py` | FastAPI app, 7 endpoints, CORS, exception handlers |
+| `scripts/ingest_sentiment_rss.py` | RSS feed ingestion (5 feeds) for sentiment signals |
+| `scripts/ingest_sentiment_sleeper.py` | Sleeper trending players ingestion for sentiment |
+| `scripts/process_sentiment.py` | Sentiment pipeline CLI (ingest+extract+aggregate) |
+| `scripts/train_bayesian_models.py` | Bayesian model training CLI — posterior intervals |
+| `scripts/train_quantile_models.py` | Quantile regression training CLI — floor/ceiling |
+| `web/api/main.py` | FastAPI app, 7 endpoints (+news), CORS, exception handlers |
 | `web/api/routers/projections.py` | Projection endpoints (weekly, preseason, kickers) |
 | `web/api/routers/predictions.py` | Prediction endpoints (edges, odds, CLV) |
 | `web/api/routers/players.py` | Player query endpoints (history, matchups) |
 | `web/api/routers/lineups.py` | Lineup builder endpoint (GET /api/lineups) |
 | `web/api/routers/games.py` | Game archive endpoints (results, player stats, historical lookup) |
 | `web/api/routers/college.py` | College data endpoints (prospect profiles, college stats, coaching trees) |
+| `web/api/routers/news.py` | News/sentiment endpoints (player alerts, sentiment signals) |
 | `web/api/services/projection_service.py` | Projection business logic, S3 reads |
 | `web/api/services/prediction_service.py` | Prediction business logic, ensemble dispatch |
+| `web/api/services/news_service.py` | News data service (Gold/Silver/Bronze reads) |
 | `web/api/config.py` | API configuration, S3 client setup |
 | `docker-compose.yml` | Neo4j 5.x service definition |
 | `.github/workflows/weekly-pipeline.yml` | Tuesday cron; auto-opens GitHub issue on failure |
@@ -171,6 +192,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 - **Roster formats**: `standard`, `superflex`, `2qb` (see `ROSTER_CONFIGS` in config.py)
 - **MCPs**: aws-core, aws-s3, aws-docs, github, duckduckgo, duckdb, fetch, sleeper (neo4j configured/disabled)
 - **Credentials**: `.env` file (never commit — already in .gitignore; pre-commit hook blocks key patterns)
+- **Deployment**: Frontend https://frontend-jet-seven-33.vercel.app | Backend https://nfldataengineering-production.up.railway.app (Parquet fallback mode)
 
 ## NFL Business Rules
 
@@ -190,11 +212,11 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 ## Status
 
-**Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → v2.2 Full Odds + Market Ablation (SHIP market features, 120-feature SHAP ensemble, sealed 2025 holdout) → v3.0 Graph Features & Web API (Neo4j dual-path, 22 graph features from PBP participation, kickers, FastAPI backend, 7 endpoints) → v3.1 Hybrid Residual Models (Phase 51-53: graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion, hybrid heuristic+ML approach adopted, 4.91 MAE) → v3.2 Website MVP (Vercel deployment, Next.js frontend, 7 API endpoints) → v4.0 Residual Model Research Complete (Phase 54: unified evaluation pipeline, 466-feature residual degrades all positions, 42-feature WR/TE hybrid best, QB/RB heuristic-only optimal, 1155 tests)
+**Done**: v1.0 Bronze Expansion (16 data types, PBP 140 cols) → v1.1 Bronze Backfill (2016-2025 historical, 517 files, 93 MB) → v1.2 Silver Expansion (team/player/game analytics) → v1.3 Prediction Data Foundation (337-col feature vector) → v1.4 ML Game Prediction (XGBoost, walk-forward CV, edge detection) → v2.0 Prediction Model Improvement (XGB+LGB+CB+Ridge ensemble, 53.0% ATS, +$3.09 on sealed 2024 holdout) → v2.1 Market Data (Bronze odds, Silver line movement, CLV tracking, ablation framework) → v2.2 Full Odds + Market Ablation (SHIP market features, 120-feature SHAP ensemble, sealed 2025 holdout) → v3.0 Graph Features & Web API (Neo4j dual-path, 22 graph features from PBP participation, kickers, FastAPI backend, 7 endpoints) → v3.1 Hybrid Residual Models (Phase 51-53: graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion, hybrid heuristic+ML approach adopted, 4.91 MAE) → v3.2 Website MVP (Vercel deployment, Next.js frontend, 7 API endpoints) → v4.0 Residual Model Research Complete (Phase 54: unified evaluation pipeline, 466-feature residual degrades all positions, 42-feature WR/TE hybrid best, QB/RB heuristic-only optimal, 1155 tests) → v4.1 Production Refinement (Phase 55-57: LGB/Bayesian/Quantile residuals researched, Ridge 60f+graph SHIPPED QB/RB XGB SHIP WR/TE Ridge Hybrid, 5.05 MAE, 66 graph features, Vercel frontend LIVE, Railway backend LIVE, 1379 tests)
 
-**In progress**: v4.1 College & Game Archive (CFBD API, prospect features, game results, player stats, 14 API endpoints, 49 graph features) | Website features expansion
+**In progress**: Website sentiment integration (news router wired, blocked on ANTHROPIC_API_KEY) | Graph feature expansion (RB/WR/TE advanced features)
 
-**Planned**: v5.0 Production residual wiring | v5.1 Live data sync | Neo4j graph inference
+**Planned**: v5.0 Sentiment multiplier wiring | v5.1 Perfect implementation (Neo4j Aura, PFF subscription) | v5.2 Live data sync
 
 ## ECC Plugin (Everything Claude Code)
 
