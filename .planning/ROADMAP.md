@@ -12,8 +12,64 @@
 - v2.2 Full Odds + Holdout Reset -- Phases 35-38 (shipped 2026-03-29)
 - v3.0 Player Fantasy Prediction System -- Phases 39-48 (shipped 2026-04-01)
 - v3.1 Graph-Enhanced Fantasy Projections -- Phases 49-53 (shipped 2026-04-03)
-- **v3.2 Model Perfection -- Phases 54-57 (current)**
+- v3.2 Model Perfection -- Phases 54-57 (shipped 2026-04-09)
 - *v4.0 Production Launch -- Phases W7-W12 (parallel, see .planning/v4.0-web/)*
+- **v5.0 Sentiment v2 -- Phases SV2-01 through SV2-04 (current)**
+
+---
+
+## v5.0 Sentiment v2: Live News Feed + Sentiment-Adjusted Models
+
+**Goal:** Daily news feed with rule-based sentiment extraction, team-level sentiment for game line adjustment, and a dedicated news page on the website — all without requiring an Anthropic API key.
+
+**Plans:** 4 plans
+
+Plans:
+- [ ] SV2-01-PLAN.md — Reddit scraper + rule-based extraction (no API key needed)
+- [ ] SV2-02-PLAN.md — Team-level sentiment aggregation + game line adjustment
+- [ ] SV2-03-PLAN.md — Website news feed page + team sentiment badges
+- [ ] SV2-04-PLAN.md — Daily automation (pipeline script + GitHub Actions cron)
+
+### Phase SV2-01: Reddit Scraper + Rule-Based Extraction
+**Goal:** Build Reddit ingestion and rule-based signal extraction so the sentiment pipeline works without an Anthropic API key.
+**Requirements:** SV2-01, SV2-02, SV2-03, SV2-04
+**Dependencies:** None (builds on existing S1-S2 infrastructure)
+**Success criteria:**
+1. Reddit posts from r/fantasyfootball and r/nfl fetched and saved as Bronze JSON
+2. Rule-based extractor produces PlayerSignal objects for injury, trade, role, positive/negative patterns
+3. Pipeline auto-selects rule extractor when no ANTHROPIC_API_KEY is set
+4. All tests pass
+
+### Phase SV2-02: Team Sentiment + Game Line Adjustment
+**Goal:** Aggregate player signals into team-level sentiment and apply as post-prediction edge modifier to game lines.
+**Requirements:** SV2-05, SV2-06, SV2-07, SV2-08
+**Dependencies:** SV2-01 (needs extraction pipeline working)
+**Success criteria:**
+1. Team sentiment aggregated for all 32 NFL teams per week
+2. Team sentiment multiplier bounded to [0.95, 1.05]
+3. Game predictions show sentiment-adjusted edges with --use-sentiment flag
+4. Edge adjustment is conservative (max +/- 0.15 pts)
+
+### Phase SV2-03: Website News Feed
+**Goal:** Build a dedicated news page with filters and team sentiment badges on the predictions page.
+**Requirements:** SV2-09, SV2-10, SV2-11, SV2-12, SV2-13
+**Dependencies:** SV2-01 (needs data flowing through pipeline)
+**Success criteria:**
+1. /dashboard/news page shows all recent news, most recent first
+2. Filter by All / Player / Team works
+3. Team sentiment badges visible on predictions page
+4. Player news panel shows last-updated time
+5. TypeScript compiles without errors
+
+### Phase SV2-04: Daily Automation
+**Goal:** Automated daily pipeline via GitHub Actions that ingests, extracts, and aggregates sentiment data.
+**Requirements:** SV2-14, SV2-15, SV2-16
+**Dependencies:** SV2-01, SV2-02 (needs full pipeline working)
+**Success criteria:**
+1. Single script runs full daily pipeline end-to-end
+2. GitHub Actions cron fires daily at noon UTC
+3. Pipeline is idempotent (safe to re-run)
+4. Failure auto-opens GitHub issue
 
 ---
 
@@ -92,5 +148,21 @@
 | INFRA-01 | all | Tests passing |
 | INFRA-02 | all | MAE < 4.5 |
 | INFRA-03 | all | No position regression |
+| SV2-01 | SV2-01 | Reddit scraper (r/fantasyfootball, r/nfl) |
+| SV2-02 | SV2-01 | Rule-based signal extraction (no API key) |
+| SV2-03 | SV2-01 | Pipeline auto-selects extractor |
+| SV2-04 | SV2-01 | Reddit + rule extractor tests |
+| SV2-05 | SV2-02 | Team-level sentiment aggregation |
+| SV2-06 | SV2-02 | Team sentiment multiplier [0.95, 1.05] |
+| SV2-07 | SV2-02 | Game prediction edge adjustment |
+| SV2-08 | SV2-02 | Pipeline CLI runs player + team aggregation |
+| SV2-09 | SV2-03 | /dashboard/news page with feed |
+| SV2-10 | SV2-03 | News feed filters (All/Player/Team) |
+| SV2-11 | SV2-03 | Team sentiment badges on predictions page |
+| SV2-12 | SV2-03 | Enhanced player news panel (last updated) |
+| SV2-13 | SV2-03 | New API endpoints (feed, team-sentiment) |
+| SV2-14 | SV2-04 | Daily pipeline orchestrator script |
+| SV2-15 | SV2-04 | GitHub Actions daily cron |
+| SV2-16 | SV2-04 | Idempotent pipeline (no duplicate data) |
 
-**Coverage: 19/19 requirements mapped (100%)**
+**Coverage: 35/35 requirements mapped (100%)**
