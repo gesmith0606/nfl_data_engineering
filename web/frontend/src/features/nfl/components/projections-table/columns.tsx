@@ -4,6 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
 import type { PlayerProjection } from '../../api/types';
 import { Column, ColumnDef } from '@tanstack/react-table';
+import { getTeamColor } from '@/lib/nfl/team-colors';
+import Link from 'next/link';
 
 export const columns: ColumnDef<PlayerProjection>[] = [
   {
@@ -28,7 +30,12 @@ export const columns: ColumnDef<PlayerProjection>[] = [
       const injury = row.original.injury_status;
       return (
         <div className='flex items-center gap-2'>
-          <span className='font-medium'>{row.original.player_name}</span>
+          <Link
+            href={`/dashboard/players/${row.original.player_id}`}
+            className='font-medium hover:underline'
+          >
+            {row.original.player_name}
+          </Link>
           {injury && injury !== 'Active' && (
             <Badge variant='destructive' className='text-[10px] px-1 py-0'>
               {injury}
@@ -48,9 +55,19 @@ export const columns: ColumnDef<PlayerProjection>[] = [
     id: 'team',
     accessorKey: 'team',
     header: 'Team',
-    cell: ({ cell }) => (
-      <span className='font-mono text-xs'>{cell.getValue<string>()}</span>
-    )
+    cell: ({ cell }) => {
+      const team = cell.getValue<string>();
+      const color = getTeamColor(team);
+      return (
+        <div className='flex items-center gap-1.5'>
+          <span
+            className='inline-block h-2 w-2 shrink-0 rounded-full'
+            style={{ backgroundColor: color }}
+          />
+          <span className='font-mono text-xs'>{team}</span>
+        </div>
+      );
+    }
   },
   {
     id: 'position',

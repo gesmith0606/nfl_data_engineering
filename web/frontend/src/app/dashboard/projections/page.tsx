@@ -3,7 +3,9 @@ import { ProjectionsTable } from '@/features/nfl/components/projections-table';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Projections - NFL Analytics'
+  title: '2026 NFL Fantasy Projections',
+  description:
+    'Weekly fantasy football projections with PPR, Half-PPR, and Standard scoring. Floor/ceiling ranges for all skill positions.'
 };
 
 export default function ProjectionsPage() {

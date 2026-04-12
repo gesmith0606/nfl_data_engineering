@@ -16,8 +16,20 @@ const META_THEME_COLORS = {
 };
 
 export const metadata: Metadata = {
-  title: 'NFL Analytics',
-  description: 'Fantasy projections, game predictions, and player analytics'
+  title: {
+    default: 'NFL Analytics',
+    template: '%s | NFL Analytics'
+  },
+  description:
+    'NFL fantasy football projections, game predictions, and player analytics powered by machine learning.',
+  keywords: ['NFL', 'fantasy football', 'projections', 'game predictions', 'player analytics'],
+  openGraph: {
+    type: 'website',
+    siteName: 'NFL Analytics',
+    title: 'NFL Analytics',
+    description:
+      'NFL fantasy football projections, game predictions, and player analytics powered by machine learning.'
+  }
 };
 
 export const viewport: Viewport = {

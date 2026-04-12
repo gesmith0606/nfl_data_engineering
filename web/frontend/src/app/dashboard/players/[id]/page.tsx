@@ -3,7 +3,9 @@ import { PlayerDetail } from '@/features/nfl/components/player-detail';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Player Detail - NFL Analytics'
+  title: 'Player Detail',
+  description:
+    'NFL player fantasy projection detail: projected points, floor/ceiling range, stat breakdown, and injury status.'
 };
 
 type Props = {
