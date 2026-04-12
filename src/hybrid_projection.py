@@ -581,7 +581,7 @@ def train_residual_model(
         - oof_df with columns [idx, season, week, heuristic_pts,
           residual_pred, hybrid_pts, actual_pts]
     """
-    from player_model_training import generate_heuristic_predictions
+    from unified_evaluation import build_opp_rankings, compute_production_heuristic
 
     if val_seasons is None:
         val_seasons = [2022, 2023, 2024]
@@ -591,11 +591,15 @@ def train_residual_model(
         logger.warning("No features available for residual model")
         return {"mean_mae": 0.0, "fold_details": []}, pd.DataFrame()
 
-    # Pre-compute heuristic predictions for all rows
-    heur_df = generate_heuristic_predictions(pos_data, position)
-    heur_pts = compute_fantasy_points_from_preds(
-        heur_df, position, scoring_format, output_col="heuristic_pts"
-    )
+    # Build opponent rankings so the heuristic uses the same full pipeline
+    # (weighted baseline × usage × matchup × ceiling shrinkage) as production.
+    # This matches the approach used by train_and_save_residual_models(), which
+    # already called compute_production_heuristic() correctly.
+    seasons_present = sorted(pos_data["season"].unique().tolist()) if "season" in pos_data.columns else []
+    opp_rankings = build_opp_rankings(seasons_present) if seasons_present else pd.DataFrame()
+
+    # Pre-compute heuristic predictions for all rows using the canonical function
+    heur_pts = compute_production_heuristic(pos_data, position, opp_rankings, scoring_format)
     actual_pts = compute_actual_fantasy_points(
         pos_data, scoring_format, output_col="actual_pts"
     )

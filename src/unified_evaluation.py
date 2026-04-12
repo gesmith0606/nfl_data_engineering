@@ -34,10 +34,7 @@ import pandas as pd
 
 from projection_engine import (
     POSITION_STAT_PROFILE,
-    PROJECTION_CEILING_SHRINKAGE,
-    _matchup_factor,
-    _usage_multiplier,
-    _weighted_baseline,
+    compute_heuristic_baseline,
 )
 from scoring_calculator import calculate_fantasy_points_df
 
@@ -60,7 +57,12 @@ def compute_production_heuristic(
 ) -> pd.Series:
     """Reproduce the production heuristic on a player-week DataFrame.
 
-    Applies the full production pipeline from projection_engine.py:
+    Thin wrapper around ``projection_engine.compute_heuristic_baseline``,
+    the single source of truth for heuristic computation.  Signature is
+    preserved for backward compatibility with all existing call sites in
+    ``hybrid_projection.py`` and ``bayesian_projection.py``.
+
+    Applies the full production pipeline:
     1. _weighted_baseline (roll3/roll6/std blending with RECENCY_WEIGHTS)
     2. _usage_multiplier [0.80, 1.15]
     3. _matchup_factor [0.75, 1.25]
@@ -80,51 +82,7 @@ def compute_production_heuristic(
     Returns:
         Series of production heuristic fantasy points aligned to pos_data.index.
     """
-    stat_cols = POSITION_STAT_PROFILE.get(position, [])
-    if not stat_cols:
-        return pd.Series(np.nan, index=pos_data.index)
-
-    work = pos_data.copy()
-
-    # Drop opp_rank if present in feature data to avoid merge conflict
-    # (_matchup_factor does its own merge and creates opp_rank)
-    work = work.drop(columns=["opp_rank"], errors="ignore")
-
-    # Step 1-3: baseline * usage * matchup
-    usage_mult = _usage_multiplier(work, position)
-    matchup = _matchup_factor(work, opp_rankings, position)
-
-    rename_map = {}
-    proj_cols = {}
-    for stat in stat_cols:
-        baseline = _weighted_baseline(work, stat)
-        proj_val = (baseline * usage_mult * matchup).round(2)
-        proj_col = f"proj_{stat}"
-        proj_cols[proj_col] = proj_val
-        rename_map[proj_col] = stat
-
-    work = work.assign(**proj_cols)
-
-    # Step 4: Calculate fantasy points
-    orig_cols = [v for v in rename_map.values() if v in work.columns]
-    scoring_input = work.drop(columns=orig_cols, errors="ignore")
-    scoring_input = scoring_input.rename(columns=rename_map).reset_index(drop=True)
-    scoring_input = calculate_fantasy_points_df(
-        scoring_input, scoring_format=scoring_format, output_col="projected_points"
-    )
-
-    # Step 5: Ceiling shrinkage
-    pts = scoring_input["projected_points"]
-    shrink = pd.Series(1.0, index=scoring_input.index)
-    for threshold in sorted(PROJECTION_CEILING_SHRINKAGE.keys()):
-        factor = PROJECTION_CEILING_SHRINKAGE[threshold]
-        shrink = shrink.where(pts < threshold, factor)
-    scoring_input["projected_points"] = (pts * shrink).round(2)
-
-    # Align index back to pos_data
-    result = scoring_input["projected_points"]
-    result.index = pos_data.index
-    return result
+    return compute_heuristic_baseline(pos_data, position, opp_rankings, scoring_format)
 
 
 # ---------------------------------------------------------------------------

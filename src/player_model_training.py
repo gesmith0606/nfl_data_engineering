@@ -1051,50 +1051,61 @@ def predict_player_stats_linear(
 def generate_heuristic_predictions(
     player_data: pd.DataFrame,
     position: str,
+    scoring_format: str = "half_ppr",
 ) -> pd.DataFrame:
     """Re-run heuristic baseline on the same player-week rows as ML.
 
-    For each stat in POSITION_STAT_PROFILE[position], computes
-    _weighted_baseline (blending roll3/roll6/std columns) and applies
-    _usage_multiplier, matching the existing projection engine logic.
+    Delegates to ``projection_engine.compute_heuristic_baseline`` — the single
+    source of truth for heuristic computation — with an empty opponent-rankings
+    DataFrame so the matchup factor defaults to 1.0.  Callers that hold real
+    opponent rankings (e.g. ``train_residual_model``, ``train_and_save_residual_models``)
+    should call ``compute_production_heuristic`` or ``compute_heuristic_baseline``
+    directly for a fully-faithful baseline.
+
+    Backward-compatible return format: the input DataFrame is returned with
+    ``pred_{stat}`` columns populated (via usage × matchup × weighted-baseline
+    per stat, same as ``compute_heuristic_baseline`` internally) plus a
+    ``heuristic_pts`` column holding the fully-scored, ceiling-shrunken total.
+    Existing callers that pass the result to ``compute_position_mae`` or
+    ``compute_fantasy_points_from_preds`` continue to work unchanged.
 
     Args:
         player_data: Player-week DataFrame with rolling feature columns.
         position: Position code (e.g., 'QB', 'RB').
+        scoring_format: Fantasy scoring format.  Default ``'half_ppr'``.
 
     Returns:
-        DataFrame with pred_{stat} columns for all position stats.
+        DataFrame with ``pred_{stat}`` columns and a ``heuristic_pts`` column
+        added, all aligned to the input index.
     """
     from projection_engine import (
-        RECENCY_WEIGHTS,
-        USAGE_STABILITY_STAT,
+        POSITION_STAT_PROFILE,
+        _matchup_factor,
+        _usage_multiplier,
         _weighted_baseline,
+        compute_heuristic_baseline,
     )
 
     result_df = player_data.copy()
-    stats = POSITION_STAT_PROFILE.get(position, [])
+    # Drop opp_rank to avoid merge conflict inside _matchup_factor
+    result_df = result_df.drop(columns=["opp_rank"], errors="ignore")
 
-    # Compute usage multiplier once
-    # _usage_multiplier expects a specific column name per position.
-    # The assembled feature DataFrame may have rolling variants.
-    # We provide the raw column if available; otherwise neutral (1.0).
-    # Guard against all-NaN columns: assemble_multiyear_player_features blanks
-    # snap_pct for same-week leakage prevention, and median() of all-NaN is NaN
-    # which silently propagates through the heuristic. This was the root cause
-    # of QB residual bias (+14 pts) — residual models learned residual=actual
-    # instead of residual=actual-heuristic (Phase v4.1-p3).
-    usage_col = USAGE_STABILITY_STAT.get(position, "snap_pct")
-    if usage_col in result_df.columns and not result_df[usage_col].isna().all():
-        usage = result_df[usage_col].fillna(result_df[usage_col].median())
-        percentile = usage.rank(pct=True)
-        usage_mult = (0.80 + 0.35 * percentile).clip(0.80, 1.15)
-    else:
-        usage_mult = 1.0
+    stats = POSITION_STAT_PROFILE.get(position, [])
+    usage_mult = _usage_multiplier(result_df, position)
+    # No opponent rankings available here — neutral matchup factor (1.0)
+    matchup = _matchup_factor(result_df, pd.DataFrame(), position)
 
     for stat in stats:
         baseline = _weighted_baseline(result_df, stat)
-        result_df[f"pred_{stat}"] = baseline * usage_mult
+        result_df[f"pred_{stat}"] = (baseline * usage_mult * matchup).round(2)
 
+    # Heuristic total (includes ceiling shrinkage) via canonical function
+    result_df["heuristic_pts"] = compute_heuristic_baseline(
+        player_data,
+        position,
+        opp_rankings=pd.DataFrame(),
+        scoring_format=scoring_format,
+    )
     return result_df
 
 

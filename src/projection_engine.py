@@ -493,6 +493,109 @@ def project_position(
     return scoring_input
 
 
+# ---------------------------------------------------------------------------
+# Canonical heuristic baseline (single source of truth)
+# ---------------------------------------------------------------------------
+
+
+def compute_heuristic_baseline(
+    pos_data: pd.DataFrame,
+    position: str,
+    opp_rankings: pd.DataFrame,
+    scoring_format: str = "half_ppr",
+) -> pd.Series:
+    """Compute the production heuristic fantasy points for a position DataFrame.
+
+    This is the **single source of truth** for heuristic baseline computation.
+    All training, WFCV, and production paths must call this function to ensure
+    numerically identical results for the same player-week input.
+
+    Pipeline (mirrors ``project_position`` exactly, without rookie fallback,
+    bye-week zeroing, Vegas multiplier, or injury adjustments — those are
+    production-only concerns):
+
+    1. ``_weighted_baseline`` — blend roll3/roll6/std columns
+    2. ``_usage_multiplier`` — [0.80, 1.15] based on snap%/target-share
+    3. ``_matchup_factor`` — [0.75, 1.25] based on opponent defensive rank
+    4. ``calculate_fantasy_points_df`` — convert projected stats to fantasy pts
+    5. ``PROJECTION_CEILING_SHRINKAGE`` — regression-to-mean shrinkage at
+       12/18/23 pt thresholds
+
+    Does NOT include:
+    - Vegas multiplier (requires live odds; not available in training data)
+    - Bye week zeroing (not applicable to historical training/backtest rows)
+    - Injury adjustments (separate post-projection layer)
+    - Rookie baseline filling (training data already has rolling averages)
+
+    Args:
+        pos_data: Position-filtered player-week DataFrame with rolling columns
+            (e.g. ``rushing_yards_roll3``, ``rushing_yards_roll6``,
+            ``rushing_yards_std``).  Must contain ``season``, ``week``,
+            and ``opponent`` columns for matchup factor; gracefully falls
+            back to neutral 1.0 if missing.
+        position: Position code — one of ``'QB'``, ``'RB'``, ``'WR'``, ``'TE'``.
+        opp_rankings: Opponent rankings DataFrame compatible with
+            ``_matchup_factor``.  Pass an empty DataFrame to skip matchup
+            adjustment (defaults to neutral factor 1.0).
+        scoring_format: Fantasy scoring format — ``'half_ppr'``, ``'ppr'``,
+            or ``'standard'``.
+
+    Returns:
+        ``pd.Series`` of heuristic fantasy points aligned to ``pos_data.index``.
+        Returns an all-NaN Series for unrecognised positions.
+
+    Example:
+        >>> from projection_engine import compute_heuristic_baseline
+        >>> pts = compute_heuristic_baseline(pos_df, 'WR', opp_rankings)
+        >>> residual = actual_pts - pts
+    """
+    stat_cols = POSITION_STAT_PROFILE.get(position, [])
+    if not stat_cols:
+        return pd.Series(np.nan, index=pos_data.index)
+
+    work = pos_data.copy()
+
+    # Drop opp_rank if already present to avoid merge conflict inside
+    # _matchup_factor, which creates its own opp_rank column.
+    work = work.drop(columns=["opp_rank"], errors="ignore")
+
+    # Steps 1–3: baseline * usage * matchup per stat
+    usage_mult = _usage_multiplier(work, position)
+    matchup = _matchup_factor(work, opp_rankings, position)
+
+    rename_map: Dict[str, str] = {}
+    proj_cols: Dict[str, pd.Series] = {}
+    for stat in stat_cols:
+        baseline = _weighted_baseline(work, stat)
+        proj_col = f"proj_{stat}"
+        proj_cols[proj_col] = (baseline * usage_mult * matchup).round(2)
+        rename_map[proj_col] = stat
+
+    work = work.assign(**proj_cols)
+
+    # Step 4: calculate fantasy points
+    # Drop original stat columns that would conflict with projected renames.
+    orig_cols = [v for v in rename_map.values() if v in work.columns]
+    scoring_input = work.drop(columns=orig_cols, errors="ignore")
+    scoring_input = scoring_input.rename(columns=rename_map).reset_index(drop=True)
+    scoring_input = calculate_fantasy_points_df(
+        scoring_input, scoring_format=scoring_format, output_col="projected_points"
+    )
+
+    # Step 5: ceiling shrinkage
+    pts = scoring_input["projected_points"]
+    shrink = pd.Series(1.0, index=scoring_input.index)
+    for threshold in sorted(PROJECTION_CEILING_SHRINKAGE.keys()):
+        factor = PROJECTION_CEILING_SHRINKAGE[threshold]
+        shrink = shrink.where(pts < threshold, factor)
+    scoring_input["projected_points"] = (pts * shrink).round(2)
+
+    # Re-align index to pos_data so callers can join back directly.
+    result = scoring_input["projected_points"]
+    result.index = pos_data.index
+    return result
+
+
 def _compute_team_fantasy_budget(
     implied_total: float,
     scoring_format: str = "half_ppr",
