@@ -44,6 +44,7 @@ from draft_optimizer import (  # noqa: E402
     MockDraftSimulator,
     compute_value_scores,
 )
+from nfl_data_integration import NFLDataFetcher  # noqa: E402
 from projection_engine import generate_preseason_projections  # noqa: E402
 
 logger = logging.getLogger(__name__)
@@ -117,7 +118,12 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
     Returns:
         Enriched projection DataFrame ready for ``DraftBoard``.
     """
-    projections = generate_preseason_projections(season=season, scoring_format=scoring)
+    fetcher = NFLDataFetcher()
+    past_seasons = [season - 2, season - 1]
+    seasonal_df = fetcher.fetch_player_seasonal(past_seasons)
+    projections = generate_preseason_projections(
+        seasonal_df, scoring_format=scoring, target_season=season
+    )
 
     # Try loading ADP data
     adp_path = _PROJECT_ROOT / "data" / "adp_latest.csv"
