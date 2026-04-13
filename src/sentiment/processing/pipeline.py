@@ -30,6 +30,7 @@ from typing import Any, Dict, List, Optional, Set
 from src.config import SENTIMENT_CONFIG, SENTIMENT_LOCAL_DIRS
 from src.player_name_resolver import PlayerNameResolver
 from src.sentiment.processing.extractor import ClaudeExtractor, PlayerSignal
+from src.sentiment.processing.rule_extractor import RuleExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -76,12 +77,17 @@ class SentimentPipeline:
     """End-to-end Bronze → Silver sentiment extraction pipeline.
 
     Reads all Bronze JSON files from the local sentiment directories,
-    calls ``ClaudeExtractor`` for each unprocessed document, resolves
-    player names via ``PlayerNameResolver``, and writes structured Silver
-    signal files.
+    runs extraction on each unprocessed document, resolves player names
+    via ``PlayerNameResolver``, and writes Silver signal files.
+
+    Supports three extractor modes:
+    - ``"auto"`` (default): Uses Claude if ``ANTHROPIC_API_KEY`` is set,
+      otherwise falls back to the rule-based extractor.
+    - ``"rule"``: Always uses the rule-based extractor.
+    - ``"claude"``: Always uses the Claude extractor (fails if no API key).
 
     Attributes:
-        extractor: ``ClaudeExtractor`` instance for calling Claude API.
+        _extractor: The active extractor instance (Claude or rule-based).
         resolver: ``PlayerNameResolver`` instance for name → player_id mapping.
         _processed_ids: Set of document IDs already processed in prior runs.
 
@@ -94,20 +100,54 @@ class SentimentPipeline:
 
     def __init__(
         self,
-        extractor: Optional[ClaudeExtractor] = None,
+        extractor: Optional[Any] = None,
         resolver: Optional[PlayerNameResolver] = None,
+        extractor_mode: str = "auto",
     ) -> None:
         """Initialise the pipeline with optional dependency injection.
 
         Args:
-            extractor: ClaudeExtractor instance.  A new one is created if
-                not provided.
+            extractor: Pre-built extractor instance.  If provided,
+                ``extractor_mode`` is ignored.
             resolver: PlayerNameResolver instance.  A new one is created if
                 not provided.
+            extractor_mode: One of ``"auto"``, ``"rule"``, ``"claude"``.
+                Controls which extractor is used when ``extractor`` is None.
         """
-        self.extractor = extractor or ClaudeExtractor()
+        if extractor is not None:
+            self._extractor = extractor
+        else:
+            self._extractor = self._build_extractor(extractor_mode)
+        # Keep backward-compatible attribute name
+        self.extractor = self._extractor
         self.resolver = resolver or PlayerNameResolver()
         self._processed_ids: Set[str] = self._load_processed_ids()
+
+    @staticmethod
+    def _build_extractor(mode: str) -> Any:
+        """Instantiate the appropriate extractor based on mode.
+
+        Args:
+            mode: ``"auto"``, ``"rule"``, or ``"claude"``.
+
+        Returns:
+            An extractor instance with ``.extract()`` and ``.is_available``.
+        """
+        if mode == "rule":
+            logger.info("Using rule-based extractor (forced by mode='rule')")
+            return RuleExtractor()
+        elif mode == "claude":
+            logger.info("Using Claude extractor (forced by mode='claude')")
+            return ClaudeExtractor()
+        else:
+            # Auto mode: prefer Claude if available, fall back to rules
+            claude = ClaudeExtractor()
+            if claude.is_available:
+                logger.info("Using Claude extractor (API key available)")
+                return claude
+            else:
+                logger.info("Using rule-based extractor (no API key)")
+                return RuleExtractor()
 
     # ------------------------------------------------------------------
     # ID tracking
@@ -261,7 +301,7 @@ class SentimentPipeline:
             },
             "published_at": doc.get("published_at"),
             "extracted_at": datetime.now(timezone.utc).isoformat(),
-            "model_version": "claude-haiku-4-5",
+            "model_version": type(self._extractor).__name__,
             "raw_excerpt": signal.raw_excerpt,
         }
 
