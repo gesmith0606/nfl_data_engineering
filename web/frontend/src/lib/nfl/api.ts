@@ -1,6 +1,15 @@
 import type {
+  AdpResponse,
   Alert,
+  DraftBoardResponse,
+  DraftPickRequest,
+  DraftPickResponse,
+  DraftRecommendationsResponse,
   HealthResponse,
+  MockDraftPickRequest,
+  MockDraftPickResponse,
+  MockDraftStartRequest,
+  MockDraftStartResponse,
   NewsItem,
   PlayerProjection,
   PlayerSearchResult,
@@ -235,3 +244,65 @@ export async function fetchTeamSentiment(
 }
 
 export { ApiError };
+
+// ---------------------------------------------------------------------------
+// Draft tool API functions
+// ---------------------------------------------------------------------------
+
+/** Fetch or create a draft board session. */
+export async function fetchDraftBoard(
+  scoring: ScoringFormat = 'half_ppr',
+  rosterFormat: string = 'standard',
+  nTeams: number = 12,
+  season: number = 2026,
+  sessionId?: string
+): Promise<DraftBoardResponse> {
+  const params = new URLSearchParams({
+    scoring,
+    roster_format: rosterFormat,
+    n_teams: String(nTeams),
+    season: String(season)
+  })
+  if (sessionId) params.set('session_id', sessionId)
+  return request<DraftBoardResponse>(`/api/draft/board?${params}`)
+}
+
+/** Record a draft pick. */
+export async function draftPick(body: DraftPickRequest): Promise<DraftPickResponse> {
+  return request<DraftPickResponse>('/api/draft/pick', {
+    method: 'POST',
+    body: JSON.stringify(body)
+  })
+}
+
+/** Get draft recommendations for the current board state. */
+export async function fetchDraftRecommendations(
+  sessionId: string,
+  topN: number = 5,
+  position?: string
+): Promise<DraftRecommendationsResponse> {
+  const params = new URLSearchParams({ session_id: sessionId, top_n: String(topN) })
+  if (position && position !== 'ALL') params.set('position', position)
+  return request<DraftRecommendationsResponse>(`/api/draft/recommendations?${params}`)
+}
+
+/** Start a mock draft simulation session. */
+export async function startMockDraft(body: MockDraftStartRequest): Promise<MockDraftStartResponse> {
+  return request<MockDraftStartResponse>('/api/draft/mock/start', {
+    method: 'POST',
+    body: JSON.stringify(body)
+  })
+}
+
+/** Advance one pick in a mock draft simulation. */
+export async function advanceMockDraft(body: MockDraftPickRequest): Promise<MockDraftPickResponse> {
+  return request<MockDraftPickResponse>('/api/draft/mock/pick', {
+    method: 'POST',
+    body: JSON.stringify(body)
+  })
+}
+
+/** Fetch latest ADP data. */
+export async function fetchAdp(): Promise<AdpResponse> {
+  return request<AdpResponse>('/api/draft/adp')
+}

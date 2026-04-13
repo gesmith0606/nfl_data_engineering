@@ -178,3 +178,125 @@ export interface SortConfig {
   key: string;
   direction: SortDirection;
 }
+
+// ---------------------------------------------------------------------------
+// Draft tool types
+// ---------------------------------------------------------------------------
+
+/** A player on the draft board. */
+export interface DraftPlayer {
+  player_id: string
+  player_name: string
+  position: string
+  team: string | null
+  projected_points: number
+  model_rank: number
+  adp_rank: number | null
+  adp_diff: number | null
+  value_tier: 'undervalued' | 'fair_value' | 'overvalued'
+  vorp: number
+}
+
+/** Full draft board state from the API. */
+export interface DraftBoardResponse {
+  session_id: string
+  players: DraftPlayer[]
+  my_roster: DraftPlayer[]
+  picks_taken: number
+  my_pick_count: number
+  remaining_needs: Record<string, number>
+  scoring_format: string
+  roster_format: string
+  n_teams: number
+}
+
+/** Request body for recording a draft pick. */
+export interface DraftPickRequest {
+  session_id: string
+  player_id: string
+  by_me: boolean
+}
+
+/** Response after recording a draft pick. */
+export interface DraftPickResponse {
+  success: boolean
+  player: DraftPlayer | null
+  message: string
+}
+
+/** A single draft recommendation. */
+export interface DraftRecommendation {
+  player_id: string
+  player_name: string
+  position: string
+  team: string | null
+  projected_points: number
+  model_rank: number
+  vorp: number
+  recommendation_score: number
+}
+
+/** Recommendations response. */
+export interface DraftRecommendationsResponse {
+  recommendations: DraftRecommendation[]
+  reasoning: string
+  remaining_needs: Record<string, number>
+}
+
+/** Request to start a mock draft. */
+export interface MockDraftStartRequest {
+  scoring: string
+  roster_format: string
+  n_teams: number
+  user_pick: number
+  season: number
+}
+
+/** Response after starting a mock draft. */
+export interface MockDraftStartResponse {
+  session_id: string
+  message: string
+}
+
+/** Request to advance one pick in mock draft. */
+export interface MockDraftPickRequest {
+  session_id: string
+}
+
+/** Response after advancing a mock draft pick. */
+export interface MockDraftPickResponse {
+  pick_number: number
+  round_number: number
+  is_user_turn: boolean
+  player_name: string | null
+  position: string | null
+  team: string | null
+  is_complete: boolean
+  draft_grade: string | null
+  total_pts: number | null
+  total_vorp: number | null
+}
+
+/** ADP entry for a player. */
+export interface AdpPlayer {
+  player_name: string
+  position: string
+  team: string | null
+  adp_rank: number
+}
+
+/** ADP response envelope. */
+export interface AdpResponse {
+  players: AdpPlayer[]
+  source: string
+  updated_at: string | null
+}
+
+/** Draft configuration for starting a new draft. */
+export interface DraftConfig {
+  scoring: ScoringFormat
+  roster_format: 'standard' | 'superflex' | '2qb'
+  n_teams: number
+  user_pick: number
+  season: number
+}

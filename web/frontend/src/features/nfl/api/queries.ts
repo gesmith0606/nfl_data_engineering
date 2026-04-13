@@ -1,6 +1,9 @@
 import { queryOptions } from '@tanstack/react-query';
 import {
+  fetchAdp,
   fetchAlerts,
+  fetchDraftBoard,
+  fetchDraftRecommendations,
   fetchHealth,
   fetchLineup,
   fetchNewsFeed,
@@ -25,7 +28,11 @@ export const nflKeys = {
     [...nflKeys.all, 'player', { id, season, week, scoring }] as const,
   lineup: (season: number, week: number, team: string) =>
     [...nflKeys.all, 'lineup', { season, week, team }] as const,
-  health: () => [...nflKeys.all, 'health'] as const
+  health: () => [...nflKeys.all, 'health'] as const,
+  draftBoard: (sessionId?: string) => [...nflKeys.all, 'draft-board', sessionId] as const,
+  draftRecommendations: (sessionId: string, position?: string) =>
+    [...nflKeys.all, 'draft-recs', { sessionId, position }] as const,
+  adp: () => [...nflKeys.all, 'adp'] as const
 };
 
 export const projectionsQueryOptions = (
@@ -125,4 +132,35 @@ export const teamSentimentQueryOptions = (season: number, week: number) =>
     queryKey: [...nflKeys.all, 'team-sentiment', { season, week }] as const,
     queryFn: () => fetchTeamSentiment(season, week),
     refetchInterval: 5 * 60 * 1000
+  });
+
+export const draftBoardQueryOptions = (
+  scoring: ScoringFormat = 'half_ppr',
+  rosterFormat: string = 'standard',
+  nTeams: number = 12,
+  season: number = 2026,
+  sessionId?: string
+) =>
+  queryOptions({
+    queryKey: nflKeys.draftBoard(sessionId),
+    queryFn: () => fetchDraftBoard(scoring, rosterFormat, nTeams, season, sessionId),
+    staleTime: Infinity
+  });
+
+export const draftRecommendationsQueryOptions = (
+  sessionId: string,
+  topN: number = 5,
+  position?: string
+) =>
+  queryOptions({
+    queryKey: nflKeys.draftRecommendations(sessionId, position),
+    queryFn: () => fetchDraftRecommendations(sessionId, topN, position),
+    enabled: !!sessionId
+  });
+
+export const adpQueryOptions = () =>
+  queryOptions({
+    queryKey: nflKeys.adp(),
+    queryFn: () => fetchAdp(),
+    staleTime: 60 * 60 * 1000
   });

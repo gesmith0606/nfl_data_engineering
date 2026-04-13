@@ -53,6 +53,14 @@ export const navGroups: NavGroup[] = [
         items: []
       },
       {
+        title: 'Draft Tool',
+        url: '/dashboard/draft',
+        icon: 'clipboardText',
+        isActive: false,
+        shortcut: ['r', 'r'],
+        items: []
+      },
+      {
         title: 'Model Accuracy',
         url: '/dashboard/accuracy',
         icon: 'target',
