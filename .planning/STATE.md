@@ -57,11 +57,13 @@ Phases 54-57 | 19 requirements | Target: MAE < 4.5
   - 2025 sealed holdout baseline: 5.26 overall, 4.56 hybrid (WR/TE)
   - NEXT: Feature pruning + regularization tuning to retrain models that generalize to holdout
 
-### 4. Sentiment Pipeline — v5.0 (Planning)
+### 4. Sentiment Pipeline — v5.0
 
 - Architecture: COMPLETE — .planning/unstructured-data/ARCHITECTURE.md
 - Phase S1: COMPLETE — pgvector schema, RSS ingestion (5 feeds), Sleeper ingestion, player name resolver
 - Phase S2: COMPLETE — Claude extraction, processing pipeline, weekly aggregation, 44 tests
+- Phase SV2-01: COMPLETE — Reddit scraper + rule-based extractor (pipeline works without API key)
+- Phase SV2-02: NEXT — Enhanced processing
 - Phase S3: NEXT — Projection engine integration (apply sentiment_multiplier)
 
 ## Current Position
@@ -113,6 +115,7 @@ Last activity: 2026-04-10
   - TE: 3.58 (Ridge 42f) → 4.40 (LGB 60f + graph) = +0.82
 - [v4.1/P3]: RB v2 hybrid routing REVERTED again — bisect showed +0.22 MAE regression (5.25→5.47). Committed 0f69027.
 - [v4.1/P3]: HYPOTHESIS — LGB residual models are systematically worse than old Ridge 42f in production. Phase 55 "LGB wins" was WFCV only. Next session: train Ridge residuals and compare A/B.
+- [SV2-01]: Rule-based extractor ships with 0.7 confidence cap; pipeline auto-selects Claude when API key available, rule-based otherwise
 
 ### Research Flags
 
