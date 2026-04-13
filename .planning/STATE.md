@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: "Sentiment v2: Live News Feed + Sentiment-Adjusted Models"
 status: v3.2 shipped; v4.1-p1 investigated routing RB/QB through hybrid; both degraded on 2025 holdout; fixed 2 SHIP path bugs; HYBRID_POSITIONS unchanged {WR, TE}
-last_updated: "2026-04-13T04:06:56.854Z"
+last_updated: "2026-04-13T14:31:01.888Z"
 last_activity: 2026-04-10
 progress:
   total_phases: 4
@@ -117,6 +117,7 @@ Last activity: 2026-04-10
 - [SV2-01]: Rule-based extractor ships with 0.7 confidence cap; pipeline auto-selects Claude when API key available, rule-based otherwise
 - [Phase SV2]: Team sentiment multiplier [0.95, 1.05] with max edge adjustment +/- 0.15 pts
 - [Phase SV2]: Direct import over subprocess for pipeline orchestration -- better error handling, no process overhead
+- [Phase W9]: Draft API uses in-memory UUID sessions with 100-session eviction cap
 
 ### Research Flags
 
