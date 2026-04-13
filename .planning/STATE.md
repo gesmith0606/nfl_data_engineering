@@ -1,16 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v3.2
-milestone_name: Model Perfection
-status: complete
-last_updated: "2026-04-09T02:30:00.000Z"
-last_activity: 2026-04-09
+milestone: v5.0
+milestone_name: "Sentiment v2: Live News Feed + Sentiment-Adjusted Models"
+status: v3.2 shipped; v4.1-p1 investigated routing RB/QB through hybrid; both degraded on 2025 holdout; fixed 2 SHIP path bugs; HYBRID_POSITIONS unchanged {WR, TE}
+last_updated: "2026-04-13T03:44:10.562Z"
+last_activity: 2026-04-10
 progress:
   total_phases: 4
-  completed_phases: 4
-  total_plans: 4
-  completed_plans: 4
-  percent: 100
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
@@ -116,6 +115,7 @@ Last activity: 2026-04-10
 - [v4.1/P3]: RB v2 hybrid routing REVERTED again — bisect showed +0.22 MAE regression (5.25→5.47). Committed 0f69027.
 - [v4.1/P3]: HYPOTHESIS — LGB residual models are systematically worse than old Ridge 42f in production. Phase 55 "LGB wins" was WFCV only. Next session: train Ridge residuals and compare A/B.
 - [SV2-01]: Rule-based extractor ships with 0.7 confidence cap; pipeline auto-selects Claude when API key available, rule-based otherwise
+- [Phase SV2]: Team sentiment multiplier [0.95, 1.05] with max edge adjustment +/- 0.15 pts
 
 ### Research Flags
 
@@ -138,6 +138,7 @@ Last activity: 2026-04-10
 ### Session 2026-04-10 — Part 1 Summary
 
 **Wins:**
+
 - Diagnosed upstream nflverse QBR 2024+ gap (not our bug)
 - Fixed XGB SHIP path (e27f84b) — QB/RB can use ML instead of crashing to heuristic
 - Found QB bias root cause (37d3cdb) — _usage_multiplier NaN propagation in training
@@ -158,12 +159,14 @@ Last activity: 2026-04-10
 | **Ridge 60f + graph (SHIPPED)** | **5.05** | **4.89** | **3.83** |
 
 **Ruled out:**
+
 - LGB beats Ridge — FALSE in production (Ridge wins by 0.35)
 - Graph features are noise — FALSE (they help by 0.08)
 - Graph inference fix `deab6a6` — no Ridge impact
 - Feature count 30/40/42/50 vs 60 — flat curve, no difference
 
 **Still unexplained (0.25 MAE gap vs v3.2 baseline):**
+
 1. RidgeCV alpha search range (WR=4.72, TE=0.49 disparity)
 2. Heuristic weight tuning (v3.2 may have had different weights)
 3. Feature interaction engineering (target_share × snap_pct, etc.)
@@ -173,6 +176,7 @@ Last activity: 2026-04-10
 **Final recovery:** +0.35 MAE (58% of regression). Production now at 5.05 MAE.
 
 **Key deliverables:**
+
 - PFE (Production-Faithful Eval) protocol designed at `.planning/phases/v4.1-phase4/NEW_EVAL_PROTOCOL.md`
 - Ridge 60f+graph models shipped to production
 - Contract test recommendation: `tests/test_eval_contract.py` to catch future heuristic divergences
@@ -187,20 +191,24 @@ Last activity: 2026-04-10
 **Next Session Priorities:**
 
 **Priority 1 — Heuristic tuning (closes remaining 0.25 gap):**
+
 - Test Ridge with wider alpha grid
 - Audit heuristic weights in projection_engine.py vs v3.2 era
 - Consider tier-specific WR/TE models
 
 **Priority 2 — Architectural fix:**
+
 - Consolidate three heuristic functions into one (`generate_weekly_projections` should be the sole source)
 - Add `tests/test_eval_contract.py` to catch future divergences
 - Delete `generate_heuristic_predictions` and `compute_production_heuristic` duplicates
 
 **Priority 3 — Tooling:**
+
 - Build `scripts/production_eval.py` and `scripts/swap_and_eval.py` per PFE protocol
 - Never validate on WFCV again for residual models
 
 **Priority 4 — Features:**
+
 - Add ANTHROPIC_API_KEY → activate sentiment pipeline end-to-end
 - Sentiment Phase S5 — deploy live sentiment to production projections
 
