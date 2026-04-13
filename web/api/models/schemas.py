@@ -351,3 +351,129 @@ class TeamSentiment(BaseModel):
     )
     signal_count: int = 0
     sentiment_multiplier: float = 1.0
+
+
+# ---------------------------------------------------------------------------
+# Draft models
+# ---------------------------------------------------------------------------
+
+
+class DraftPlayer(BaseModel):
+    """A player on the draft board."""
+
+    player_id: str
+    player_name: str
+    position: str
+    team: Optional[str] = None
+    projected_points: float
+    model_rank: int
+    adp_rank: Optional[float] = None
+    adp_diff: Optional[float] = None
+    value_tier: str = "fair_value"
+    vorp: float = 0.0
+
+
+class DraftBoardResponse(BaseModel):
+    """Full draft board state."""
+
+    session_id: str
+    players: List[DraftPlayer]
+    my_roster: List[DraftPlayer]
+    picks_taken: int
+    my_pick_count: int
+    remaining_needs: dict
+    scoring_format: str
+    roster_format: str
+    n_teams: int
+
+
+class DraftPickRequest(BaseModel):
+    """Request to record a draft pick."""
+
+    session_id: str
+    player_id: str
+    by_me: bool = True
+
+
+class DraftPickResponse(BaseModel):
+    """Response after a pick is recorded."""
+
+    success: bool
+    player: Optional[DraftPlayer] = None
+    message: str = ""
+
+
+class DraftRecommendation(BaseModel):
+    """A recommended draft pick."""
+
+    player_id: str
+    player_name: str
+    position: str
+    team: Optional[str] = None
+    projected_points: float
+    model_rank: int
+    vorp: float
+    recommendation_score: float
+
+
+class DraftRecommendationsResponse(BaseModel):
+    """Recommendations for current draft position."""
+
+    recommendations: List[DraftRecommendation]
+    reasoning: str
+    remaining_needs: dict
+
+
+class MockDraftStartRequest(BaseModel):
+    """Request to start a mock draft."""
+
+    scoring: str = "half_ppr"
+    roster_format: str = "standard"
+    n_teams: int = 12
+    user_pick: int = 1
+    season: int = 2026
+
+
+class MockDraftStartResponse(BaseModel):
+    """Response after starting a mock draft."""
+
+    session_id: str
+    message: str
+
+
+class MockDraftPickRequest(BaseModel):
+    """Request to advance one pick in mock draft."""
+
+    session_id: str
+
+
+class MockDraftPickResponse(BaseModel):
+    """Response after advancing a mock draft pick."""
+
+    pick_number: int
+    round_number: int
+    is_user_turn: bool
+    player_name: Optional[str] = None
+    position: Optional[str] = None
+    team: Optional[str] = None
+    is_complete: bool = False
+    draft_grade: Optional[str] = None
+    total_pts: Optional[float] = None
+    total_vorp: Optional[float] = None
+
+
+class AdpPlayer(BaseModel):
+    """A player's ADP entry."""
+
+    player_name: str
+    position: str
+    team: Optional[str] = None
+    adp_rank: float
+
+
+class AdpResponse(BaseModel):
+    """Latest ADP data."""
+
+    players: List[AdpPlayer]
+    source: str
+    updated_at: Optional[str] = None
