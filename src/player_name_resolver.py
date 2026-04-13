@@ -44,11 +44,13 @@ logger = logging.getLogger(__name__)
 _BRONZE_ROOT = Path("data/bronze")
 
 # Parquet glob patterns used to build the lookup index (most-recent first).
-# depth_charts is preferred because it covers active rosters week-by-week.
+# Ordered by preference: depth_charts (active rosters week-by-week), then
+# rosters (full name + player_id coverage across 2016-2025), then weekly
+# player stats (abbreviated names, lower priority).
 _PARQUET_PATTERNS: List[str] = [
     "depth_charts/season=*/depth_charts_*.parquet",
-    "players/weekly/season=*/weekly_*.parquet",
-    "players/seasonal/season=*/seasonal_*.parquet",
+    "players/rosters/season=*/rosters_*.parquet",
+    "players/weekly/season=*/player_weekly_*.parquet",
 ]
 
 # Column aliases across parquet schemas → normalised names used internally.
@@ -199,12 +201,20 @@ class PlayerNameResolver:
     # Index construction
     # ------------------------------------------------------------------
 
+    # Canonical columns retained after per-file normalisation before concat.
+    _KEEP_COLS: List[str] = [
+        "player_id", "full_name", "football_name", "team", "position", "season"
+    ]
+
     def _build_index(self) -> None:
         """Scan Bronze parquet files and populate self.index.
 
         Reads the most-recent parquet file for each season/pattern found
-        under ``self._root``.  Entries from more recent seasons are added
-        first so that current rosters take precedence.
+        under ``self._root``.  Each file is normalised independently before
+        concatenation so that column aliases are resolved against each file's
+        own schema, avoiding conflicts when different source types share column
+        names (e.g. both depth_charts and rosters have ``player_name`` and
+        ``player_id`` but in incompatible positions after a naïve concat).
 
         Logs a warning if no parquet files are found (e.g. cold start before
         any Bronze ingestion has run).
@@ -225,7 +235,14 @@ class PlayerNameResolver:
             for path in by_season.values():
                 try:
                     df = pd.read_parquet(path)
-                    frames.append(df)
+                    # Normalise columns per-file before accumulating.  This
+                    # ensures each file's own schema is resolved independently,
+                    # preventing conflicts when concatenating frames that have
+                    # the same raw column names but different semantics.
+                    df = self._normalise_columns(df)
+                    # Retain only the columns we care about so concat is cheap.
+                    keep = [c for c in self._KEEP_COLS if c in df.columns]
+                    frames.append(df[keep])
                 except Exception as exc:
                     logger.warning("Could not read %s: %s", path, exc)
 
@@ -238,7 +255,6 @@ class PlayerNameResolver:
             return
 
         combined = pd.concat(frames, ignore_index=True)
-        combined = self._normalise_columns(combined)
 
         if "player_id" not in combined.columns or "full_name" not in combined.columns:
             logger.warning(
@@ -260,9 +276,21 @@ class PlayerNameResolver:
             seen_player_ids.add(pid)
 
             full = str(row.get("full_name", "")).strip()
-            # Prefer football_name (e.g. "DK" instead of "Dontavius") if present
+            # Use football_name as the canonical display name only when it is
+            # a genuine nickname or full display name — not when it is just the
+            # player's first name.  Some sources (e.g. nfl-data-py rosters)
+            # populate football_name with only the first name ("Josh" for
+            # Josh Allen), which would produce a useless single-token norm key.
+            # We detect this by checking whether football_name equals the first
+            # token of full_name; if so, fall back to full_name.
             display = str(row.get("football_name", "")).strip()
-            norm = _normalise(display if display and display != "nan" else full)
+            first_token = full.split()[0] if full else ""
+            use_display = (
+                display
+                and display != "nan"
+                and display.lower() != first_token.lower()
+            )
+            norm = _normalise(display if use_display else full)
 
             team = str(row.get("team", "")).strip().upper()
             position = str(row.get("position", "")).strip().upper()

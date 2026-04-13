@@ -6,11 +6,11 @@ Reads the ship gate report to determine which positions use ML models
 heuristic projections. Provides MAPIE confidence intervals for ML positions
 and team-total coherence checks.
 
-Routing (v3):
-    QB -> Heuristic + Residual correction (HYBRID, v2 pruned LGB)
-    RB -> Heuristic + Residual correction (HYBRID, v2 pruned LGB)
-    WR -> Heuristic + Residual correction (HYBRID)
-    TE -> Heuristic + Residual correction (HYBRID)
+Routing (v4):
+    QB -> Heuristic only (SKIP; bias corrected via POSITION_BIAS_CORRECTION +2.5 pts)
+    RB -> Heuristic only (SKIP; XGB degrades MAE vs heuristic — Exp 4b, 2026-04-13)
+    WR -> Heuristic only (SKIP; Ridge over-corrects — Exp 4, 2026-04-13)
+    TE -> Heuristic only (SKIP; Ridge over-corrects — Exp 4, 2026-04-13)
 
 Exports:
     generate_ml_projections: Main entry point for mixed ML/heuristic projections.
@@ -108,14 +108,14 @@ def _load_ship_gate(model_dir: str = "models/player") -> Dict[str, str]:
     for entry in report.get("positions", []):
         verdicts[entry["position"]] = entry["verdict"]
 
-    # Infer QB SHIP if models exist on disk but QB not in report
-    if "QB" not in verdicts:
-        qb_model_path = os.path.join(model_dir, "qb", "passing_yards.json")
-        if os.path.exists(qb_model_path):
-            verdicts["QB"] = "SHIP"
-            logger.info("QB models found on disk; inferring SHIP verdict")
-        else:
-            logger.info("No QB models found; QB will use heuristic")
+    # v4.1-p5: QB XGB SHIP path disabled — bias now corrected at the heuristic
+    # level via POSITION_BIAS_CORRECTION in projection_engine.py (+2.5 pts).
+    # The heuristic-only QB MAE (6.58) is better than XGB SHIP (7.03) once
+    # the -2.47 bias is removed. Forcing SKIP regardless of model files on disk.
+    verdicts["QB"] = "SKIP"
+    logger.info(
+        "QB forced to SKIP: bias corrected in heuristic via POSITION_BIAS_CORRECTION"
+    )
 
     # NOTE: RB SHIP override disabled (Exp 4b — 2026-04-13).
     # Production 2022-2024 backtest shows RB XGBoost (5.25 MAE) is worse than

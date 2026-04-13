@@ -41,6 +41,17 @@ PROJECTION_CEILING_SHRINKAGE = {
     23.0: 0.80,  # projections 23+ pts   → multiply by 0.80
 }
 
+# Additive bias corrections applied after ceiling shrinkage.
+# v4.1-p5 finding: QB heuristic systematically under-projects by -2.47 pts
+# across 2022-2024 (weeks 3-18, half-PPR). Root cause: conservative
+# RECENCY_WEIGHTS (std=0.55) + ceiling shrinkage at 12/18/23 pt thresholds
+# disproportionately dampen high-scoring QB games. Correction eliminates
+# the need for the XGBoost SHIP path (which added 0.45 MAE of noise while
+# correcting the same bias). Applied uniformly to all non-bye QB rows.
+POSITION_BIAS_CORRECTION: Dict[str, float] = {
+    "QB": 2.5,  # Correct -2.47 systematic under-projection
+}
+
 # Stats to project by position
 POSITION_STAT_PROFILE: Dict[str, List[str]] = {
     "QB": [
@@ -490,6 +501,27 @@ def project_position(
         shrink = shrink.where(pts < threshold, factor)
     scoring_input["projected_points"] = (pts * shrink).round(2)
 
+    # Apply position-level bias correction (additive, after shrinkage).
+    # Corrects systematic under/over-projection identified in backtesting.
+    if position in POSITION_BIAS_CORRECTION:
+        correction = POSITION_BIAS_CORRECTION[position]
+        # Only correct non-bye weeks — bye rows are already zeroed correctly.
+        if "is_bye_week" in scoring_input.columns:
+            bye_mask = scoring_input["is_bye_week"].fillna(False).astype(bool)
+            scoring_input.loc[~bye_mask, "projected_points"] = (
+                scoring_input.loc[~bye_mask, "projected_points"] + correction
+            ).round(2)
+        else:
+            scoring_input["projected_points"] = (
+                scoring_input["projected_points"] + correction
+            ).round(2)
+        logger.debug(
+            "Applied %s bias correction of +%.2f pts (%d rows)",
+            position,
+            correction,
+            len(scoring_input),
+        )
+
     return scoring_input
 
 
@@ -589,6 +621,21 @@ def compute_heuristic_baseline(
         factor = PROJECTION_CEILING_SHRINKAGE[threshold]
         shrink = shrink.where(pts < threshold, factor)
     scoring_input["projected_points"] = (pts * shrink).round(2)
+
+    # Step 6: position-level bias correction (additive, after shrinkage).
+    # Matches the correction applied in project_position() so that residual
+    # training and production projections stay numerically identical.
+    if position in POSITION_BIAS_CORRECTION:
+        correction = POSITION_BIAS_CORRECTION[position]
+        scoring_input["projected_points"] = (
+            scoring_input["projected_points"] + correction
+        ).round(2)
+        logger.debug(
+            "Applied %s bias correction of +%.2f pts in heuristic baseline (%d rows)",
+            position,
+            correction,
+            len(scoring_input),
+        )
 
     # Re-align index to pos_data so callers can join back directly.
     result = scoring_input["projected_points"]
