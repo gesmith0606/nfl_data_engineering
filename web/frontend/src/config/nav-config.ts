@@ -59,6 +59,14 @@ export const navGroups: NavGroup[] = [
         isActive: false,
         shortcut: ['a', 'a'],
         items: []
+      },
+      {
+        title: 'AI Advisor',
+        url: '/dashboard/advisor',
+        icon: 'sparkles',
+        isActive: false,
+        shortcut: ['i', 'i'],
+        items: []
       }
     ]
   }
