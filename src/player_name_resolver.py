@@ -266,7 +266,11 @@ class PlayerNameResolver:
 
             team = str(row.get("team", "")).strip().upper()
             position = str(row.get("position", "")).strip().upper()
-            season = int(row["season"]) if "season" in row.index else 0
+            season_val = row["season"] if "season" in row.index else None
+            try:
+                season = int(season_val) if season_val is not None and season_val == season_val else 0
+            except (TypeError, ValueError):
+                season = 0
 
             entry = _PlayerEntry(
                 player_id=pid,
@@ -286,17 +290,48 @@ class PlayerNameResolver:
     def _normalise_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         """Rename raw parquet columns to the internal schema.
 
+        Builds a rename map that avoids duplicate target column names.  Two
+        scenarios cause duplicates and are both handled:
+
+        1. Multiple source columns map to the same target (e.g. both ``team``
+           and ``club_code`` → ``team``): only the first source column is
+           renamed; subsequent ones are skipped.
+        2. A source column would be renamed to a target that already exists
+           verbatim in the dataframe (e.g. ``player_name`` → ``full_name``
+           when ``full_name`` is already a column): the existing column is
+           dropped first so the renamed column becomes the sole ``full_name``.
+           This preserves the alias-priority order defined in
+           ``_COLUMN_ALIASES``.
+
         Args:
             df: DataFrame with arbitrary column names from parquet files.
 
         Returns:
-            DataFrame with normalised column names where mappings exist.
+            DataFrame with normalised column names where mappings exist,
+            with no duplicate column names introduced.
         """
-        rename_map = {
-            col: _COLUMN_ALIASES[col]
-            for col in df.columns
-            if col in _COLUMN_ALIASES
-        }
+        existing_cols: set = set(df.columns)
+        rename_map: Dict[str, str] = {}
+        used_targets: set = set()
+        cols_to_drop: List[str] = []
+
+        for col in list(df.columns):
+            if col not in _COLUMN_ALIASES:
+                continue
+            target = _COLUMN_ALIASES[col]
+            if target in used_targets:
+                # A prior source column already claimed this target; skip.
+                continue
+            if target in existing_cols and target != col:
+                # The target column already exists under its canonical name.
+                # Drop it so the aliased source column can take the name.
+                cols_to_drop.append(target)
+                existing_cols.discard(target)
+            rename_map[col] = target
+            used_targets.add(target)
+
+        if cols_to_drop:
+            df = df.drop(columns=cols_to_drop, errors="ignore")
         return df.rename(columns=rename_map)
 
     # ------------------------------------------------------------------
