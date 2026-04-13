@@ -86,15 +86,33 @@ Examples:
             "When omitted, baseline behavior is preserved."
         ),
     )
+    parser.add_argument(
+        "--training-seasons",
+        type=int,
+        nargs="+",
+        default=None,
+        metavar="YEAR",
+        help=(
+            "Explicit list of seasons to use for training (e.g., 2018 2019 "
+            "... 2024). Defaults to PLAYER_DATA_SEASONS (2016-2024). Use to "
+            "test restricted windows that drop older, potentially noisy data."
+        ),
+    )
     args = parser.parse_args()
 
     positions = [p.upper() for p in args.positions]
     model_label = "LightGBM + SHAP" if args.model_type == "lgb" else "RidgeCV"
     graph_label = " + graph features" if args.use_graph_features else ""
+    seasons_label = (
+        f" | Seasons: {args.training_seasons[0]}-{args.training_seasons[-1]}"
+        if args.training_seasons
+        else ""
+    )
 
     print(f"\nTraining Residual Correction Models ({model_label})")
     print(
-        f"Positions: {positions} | Scoring: {args.scoring.upper()}{graph_label}"
+        f"Positions: {positions} | Scoring: {args.scoring.upper()}"
+        f"{graph_label}{seasons_label}"
     )
     if args.model_type == "lgb":
         print(f"SHAP feature count: {args.shap_features}")
@@ -106,6 +124,7 @@ Examples:
         use_graph_features=args.use_graph_features,
         model_type=args.model_type,
         shap_feature_count=args.shap_features,
+        training_seasons=args.training_seasons,
     )
 
     if not results:

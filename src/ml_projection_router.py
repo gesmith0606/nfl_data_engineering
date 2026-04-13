@@ -117,25 +117,24 @@ def _load_ship_gate(model_dir: str = "models/player") -> Dict[str, str]:
         else:
             logger.info("No QB models found; QB will use heuristic")
 
-    # Override RB to SHIP when models exist (experiment showed 3.27 vs 5.06 MAE)
-    if verdicts.get("RB") == "SKIP":
-        rb_model_path = os.path.join(model_dir, "rb", "rushing_yards.json")
-        if os.path.exists(rb_model_path):
-            verdicts["RB"] = "SHIP"
-            logger.info("RB promoted to SHIP (XGB MAE < heuristic MAE)")
+    # NOTE: RB SHIP override disabled (Exp 4b — 2026-04-13).
+    # Production 2022-2024 backtest shows RB XGBoost (5.25 MAE) is worse than
+    # heuristic-only (5.00 MAE). The "3.27 vs 5.06" experiment result was from
+    # an earlier, stale ship gate and does not reflect current production.
+    # RB now respects the ship gate SKIP verdict (pure heuristic).
+    # if verdicts.get("RB") == "SKIP":
+    #     rb_model_path = os.path.join(model_dir, "rb", "rushing_yards.json")
+    #     if os.path.exists(rb_model_path):
+    #         verdicts["RB"] = "SHIP"
+    #         logger.info("RB promoted to SHIP (XGB MAE < heuristic MAE)")
 
-    # Override WR/TE to HYBRID when residual models exist
-    for pos in HYBRID_POSITIONS:
-        residual_dir = os.path.join(
-            os.path.dirname(model_dir) if "player" in model_dir else model_dir,
-            "residual",
-        )
-        residual_path = os.path.join(residual_dir, f"{pos.lower()}_residual.joblib")
-        if os.path.exists(residual_path):
-            verdicts[pos] = "HYBRID"
-            logger.info(
-                "%s set to HYBRID (residual model found at %s)", pos, residual_path
-            )
+    # NOTE: WR/TE HYBRID override disabled (Exp 4 — 2026-04-13).
+    # Production evaluation showed the Ridge residual correction degrades MAE
+    # by +0.44 pts overall vs heuristic-only (WR: +0.58, TE: +0.43) because
+    # the models systematically over-correct: mean correction +0.80 vs actual
+    # heuristic bias of only -0.38. The ship gate's SKIP verdict is correct.
+    # WR/TE now follow the ship gate (SKIP → pure heuristic).
+    # Preserved in HYBRID_POSITIONS constant for future experimentation.
 
     return verdicts
 

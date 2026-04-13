@@ -536,18 +536,25 @@ def evaluate_blend(
 # ---------------------------------------------------------------------------
 
 
-def _create_residual_pipeline() -> Pipeline:
+def _create_residual_pipeline(
+    alphas: Optional[List[float]] = None,
+) -> Pipeline:
     """Create a RidgeCV pipeline for residual prediction.
 
     Uses median imputation and broad alpha search.
 
+    Args:
+        alphas: Alpha values to search. Defaults to np.logspace(-3, 3, 50).
+
     Returns:
         sklearn Pipeline with SimpleImputer + RidgeCV.
     """
+    if alphas is None:
+        alphas = np.logspace(-3, 3, 50)
     return Pipeline(
         [
             ("imputer", SimpleImputer(strategy="median")),
-            ("model", RidgeCV(alphas=np.logspace(-3, 3, 50))),
+            ("model", RidgeCV(alphas=alphas)),
         ]
     )
 
@@ -802,6 +809,7 @@ def train_and_save_residual_models(
     use_graph_features: bool = False,
     model_type: str = "lgb",
     shap_feature_count: int = DEFAULT_SHAP_FEATURE_COUNT,
+    training_seasons: Optional[List[int]] = None,
 ) -> Dict[str, Dict[str, Any]]:
     """Train residual correction models and save to disk.
 
@@ -833,6 +841,9 @@ def train_and_save_residual_models(
         model_type: 'lgb' for LightGBM (default) or 'ridge' for RidgeCV.
         shap_feature_count: Number of features to select via SHAP when
             model_type='lgb'. Default 60.
+        training_seasons: Explicit list of seasons to use for training.
+            Defaults to PLAYER_DATA_SEASONS (2016-2024). Use this to test
+            restricted windows (e.g., 2018-2024) to reduce older-season noise.
 
     Returns:
         Dict mapping position -> {mae, model_type, n_train, n_features, features}.
@@ -852,12 +863,18 @@ def train_and_save_residual_models(
         positions = ["QB", "RB", "WR", "TE"]
     if output_dir is None:
         output_dir = RESIDUAL_MODEL_DIR
+    if training_seasons is None:
+        training_seasons = PLAYER_DATA_SEASONS
 
     os.makedirs(output_dir, exist_ok=True)
 
-    # Load full feature data
-    logger.info("Loading player feature data for residual training...")
-    all_data = assemble_multiyear_player_features(PLAYER_DATA_SEASONS)
+    # Load full feature data for the requested training window
+    logger.info(
+        "Loading player feature data for residual training (seasons %s-%s)...",
+        training_seasons[0],
+        training_seasons[-1],
+    )
+    all_data = assemble_multiyear_player_features(training_seasons)
     if all_data.empty:
         logger.error("No data assembled for residual training")
         return {}
@@ -868,7 +885,7 @@ def train_and_save_residual_models(
         logger.info(
             "Loading graph features from Silver for explicit enrichment..."
         )
-        graph_df = load_graph_features(PLAYER_DATA_SEASONS)
+        graph_df = load_graph_features(training_seasons)
         if not graph_df.empty:
             join_keys = ["player_id", "season", "week"]
             existing_cols = set(all_data.columns)
@@ -898,7 +915,7 @@ def train_and_save_residual_models(
     logger.info("Found %d candidate features", len(feature_cols))
 
     # Build opponent rankings (for production heuristic)
-    opp_rankings = build_opp_rankings(PLAYER_DATA_SEASONS)
+    opp_rankings = build_opp_rankings(training_seasons)
 
     results: Dict[str, Dict[str, Any]] = {}
 
@@ -1033,13 +1050,8 @@ def train_and_save_residual_models(
             }
 
         else:
-            # Ridge pipeline (original approach)
-            model = Pipeline(
-                [
-                    ("imputer", SimpleImputer(strategy="median")),
-                    ("model", RidgeCV(alphas=np.logspace(-3, 3, 50))),
-                ]
-            )
+            # Ridge pipeline — use the shared factory so alpha grid is consistent
+            model = _create_residual_pipeline()
             model.fit(X_train_raw, y_train)
 
             ridge_alpha = float(model.named_steps["model"].alpha_)
