@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select';
 import { Icons } from '@/components/icons';
 import { getTeamColor } from '@/lib/nfl/team-colors';
+import { TeamSentimentBadge } from './team-sentiment-badge';
 import { useState } from 'react';
 
 type SortKey = 'confidence' | 'spread_edge' | 'total_edge';
@@ -30,7 +31,7 @@ function confidenceBadgeVariant(tier: string): 'default' | 'secondary' | 'outlin
   }
 }
 
-function PredictionCard({ prediction }: { prediction: GamePrediction }) {
+function PredictionCard({ prediction, season, week }: { prediction: GamePrediction; season: number; week: number }) {
   const homeColor = getTeamColor(prediction.home_team);
   const awayColor = getTeamColor(prediction.away_team);
   const spreadEdge = Math.abs(prediction.spread_edge ?? 0);
@@ -48,12 +49,18 @@ function PredictionCard({ prediction }: { prediction: GamePrediction }) {
       <CardHeader className='pb-2'>
         <div className='flex items-center justify-between'>
           <CardTitle className='text-base'>
-            <span style={{ color: awayColor }} className='font-bold'>
-              {prediction.away_team}
+            <span className='inline-flex items-center gap-1'>
+              <span style={{ color: awayColor }} className='font-bold'>
+                {prediction.away_team}
+              </span>
+              <TeamSentimentBadge team={prediction.away_team} season={season} week={week} />
             </span>
             <span className='text-muted-foreground mx-2'>@</span>
-            <span style={{ color: homeColor }} className='font-bold'>
-              {prediction.home_team}
+            <span className='inline-flex items-center gap-1'>
+              <span style={{ color: homeColor }} className='font-bold'>
+                {prediction.home_team}
+              </span>
+              <TeamSentimentBadge team={prediction.home_team} season={season} week={week} />
             </span>
           </CardTitle>
           <Badge variant={confidenceBadgeVariant(prediction.confidence_tier)}>
@@ -211,7 +218,7 @@ export function PredictionCardGrid() {
       ) : (
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
           {predictions.map((pred) => (
-            <PredictionCard key={pred.game_id} prediction={pred} />
+            <PredictionCard key={pred.game_id} prediction={pred} season={season} week={week} />
           ))}
         </div>
       )}

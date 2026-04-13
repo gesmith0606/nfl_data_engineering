@@ -92,7 +92,8 @@ import {
   IconChartBar,
   IconShield,
   IconPlayFootball,
-  IconTable
+  IconTable,
+  IconNews
 } from '@tabler/icons-react';
 
 export type Icon = React.ComponentType<IconProps>;
@@ -224,5 +225,6 @@ export const Icons = {
   chartBar: IconChartBar,
   shield: IconShield,
   football: IconPlayFootball,
-  table: IconTable
+  table: IconTable,
+  news: IconNews
 };

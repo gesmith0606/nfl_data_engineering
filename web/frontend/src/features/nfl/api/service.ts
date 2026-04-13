@@ -3,11 +3,13 @@ export {
   fetchAllLineups,
   fetchHealth,
   fetchLineup,
+  fetchNewsFeed,
   fetchPlayer,
   fetchPlayerNews,
   fetchPlayerSentiment,
   fetchPredictions,
   fetchProjections,
+  fetchTeamSentiment,
   fetchTopProjections,
   searchPlayers,
 } from '@/lib/nfl/api';

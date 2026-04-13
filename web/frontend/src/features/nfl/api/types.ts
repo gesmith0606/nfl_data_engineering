@@ -14,4 +14,5 @@ export type {
   SortConfig,
   SortDirection,
   TeamLineup,
+  TeamSentiment,
 } from '@/lib/nfl/types';

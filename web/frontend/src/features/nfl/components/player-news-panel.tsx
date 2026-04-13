@@ -184,17 +184,28 @@ function NewsSkeleton() {
 // ---------------------------------------------------------------------------
 
 export function PlayerNewsPanel({ playerId, season, week }: PlayerNewsPanelProps) {
-  const { data: items, isLoading, isError } = useQuery(
+  const { data: items, isLoading, isError, dataUpdatedAt } = useQuery(
     playerNewsQueryOptions(playerId, season, week, 10)
   );
+
+  const lastUpdated = dataUpdatedAt
+    ? relativeTime(new Date(dataUpdatedAt).toISOString())
+    : null;
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='flex items-center gap-2'>
-          <Icons.info className='h-4 w-4' />
-          Recent News
-        </CardTitle>
+        <div className='flex items-start justify-between gap-2'>
+          <CardTitle className='flex items-center gap-2'>
+            <Icons.info className='h-4 w-4' />
+            Recent News
+          </CardTitle>
+          {lastUpdated && (
+            <span className='text-xs text-muted-foreground pt-0.5'>
+              Updated {lastUpdated}
+            </span>
+          )}
+        </div>
       </CardHeader>
       <CardContent>
         {isLoading && <NewsSkeleton />}

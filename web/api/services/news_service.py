@@ -99,6 +99,29 @@ def _find_silver_files(season: int, week: int) -> List[Path]:
     return sorted(set(files), key=lambda p: p.stat().st_mtime, reverse=True)
 
 
+def _find_silver_files_all_weeks(season: int) -> List[Path]:
+    """Find all Silver signal JSON files for every week in a season.
+
+    Args:
+        season: NFL season year.
+
+    Returns:
+        List of Path objects sorted by modification time, newest first.
+    """
+    season_dir = _SILVER_SIGNALS_DIR / f"season={season}"
+    if not season_dir.exists():
+        return []
+
+    files: List[Path] = []
+    for week_dir in season_dir.iterdir():
+        if week_dir.is_dir() and week_dir.name.startswith("week="):
+            files.extend(week_dir.glob("*.json"))
+    # Also pick up any JSON files directly in the season dir
+    files.extend(f for f in season_dir.glob("*.json") if f.is_file())
+
+    return sorted(set(files), key=lambda p: p.stat().st_mtime, reverse=True)
+
+
 def _load_silver_records(files: List[Path]) -> List[Dict[str, Any]]:
     """Load all signal records from a list of Silver JSON files.
 
@@ -358,6 +381,154 @@ def get_active_alerts(season: int, week: int) -> List[Dict[str, Any]]:
     alerts.sort(key=lambda a: _severity.get(a["alert_type"], 99))
 
     return alerts
+
+
+def get_news_feed(
+    season: int,
+    week: Optional[int],
+    source: Optional[str],
+    team: Optional[str],
+    player_id: Optional[str],
+    limit: int = 50,
+    offset: int = 0,
+) -> List[Dict[str, Any]]:
+    """Return paginated news items from all sources for a season/week.
+
+    Reads Silver signal records across all available week directories for the
+    given season when *week* is None, or from a specific week directory.
+    Applies optional filters for source, team, and player_id.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number (1-18). When None, returns news across all weeks.
+        source: Optional source filter (e.g. ``"reddit"``, ``"rss_espn"``).
+        team: Optional 3-letter team code filter.
+        player_id: Optional player ID filter.
+        limit: Maximum number of items to return (default 50).
+        offset: Number of items to skip for pagination (default 0).
+
+    Returns:
+        List of news item dicts ordered newest first.
+    """
+    if week is not None:
+        silver_files = _find_silver_files(season, week)
+        body_index = _bronze_body_index(season, week)
+    else:
+        # Collect files across all weeks in the season directory
+        silver_files = _find_silver_files_all_weeks(season)
+        body_index = {}
+
+    if not silver_files:
+        logger.debug("No Silver signal files for season=%d week=%s", season, week)
+        return []
+
+    records = _load_silver_records(silver_files)
+
+    # Apply filters
+    if source:
+        records = [r for r in records if r.get("source", "") == source]
+    if team:
+        records = [r for r in records if r.get("team", "") == team]
+    if player_id:
+        records = [r for r in records if r.get("player_id") == player_id]
+
+    # Sort newest first
+    records.sort(key=lambda r: r.get("published_at") or "", reverse=True)
+
+    # Paginate
+    page_records = records[offset : offset + limit]
+
+    items: List[Dict[str, Any]] = []
+    for rec in page_records:
+        events: Dict[str, Any] = rec.get("events") or {}
+        ext_id = rec.get("external_id") or rec.get("doc_id") or rec.get("id")
+        body_snippet = body_index.get(str(ext_id)) if ext_id else None
+
+        items.append(
+            {
+                "doc_id": ext_id,
+                "title": rec.get("title"),
+                "source": rec.get("source", "unknown"),
+                "url": rec.get("url"),
+                "published_at": rec.get("published_at"),
+                "sentiment": rec.get("sentiment_score"),
+                "category": rec.get("category"),
+                "player_id": rec.get("player_id"),
+                "player_name": rec.get("player_name"),
+                "team": rec.get("team"),
+                "is_ruled_out": bool(events.get("is_ruled_out", False)),
+                "is_inactive": bool(events.get("is_inactive", False)),
+                "is_questionable": bool(events.get("is_questionable", False)),
+                "is_suspended": bool(events.get("is_suspended", False)),
+                "is_returning": bool(events.get("is_returning", False)),
+                "body_snippet": body_snippet,
+            }
+        )
+
+    return items
+
+
+def get_team_sentiment(season: int, week: int) -> List[Dict[str, Any]]:
+    """Return aggregated sentiment summary for all teams in a season/week.
+
+    Reads the Gold sentiment Parquet and groups by team to derive per-team
+    sentiment scores. Falls back gracefully to an empty list when no Gold
+    data exists.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number (1-18).
+
+    Returns:
+        List of team sentiment dicts, one per team, ordered by team abbreviation.
+    """
+    df = _load_gold_sentiment(season, week)
+    if df.empty:
+        return []
+
+    team_col = "team" if "team" in df.columns else None
+    sentiment_col = "sentiment_score_avg" if "sentiment_score_avg" in df.columns else None
+    mult_col = "sentiment_multiplier" if "sentiment_multiplier" in df.columns else None
+
+    if team_col is None:
+        logger.debug("Gold sentiment has no 'team' column; cannot build team sentiment")
+        return []
+
+    results: List[Dict[str, Any]] = []
+    for team_name, group in df.groupby(team_col):
+        avg_score = (
+            float(group[sentiment_col].dropna().mean())
+            if sentiment_col and not group[sentiment_col].dropna().empty
+            else 0.0
+        )
+        avg_mult = (
+            float(group[mult_col].dropna().mean())
+            if mult_col and not group[mult_col].dropna().empty
+            else 1.0
+        )
+        signal_count = int(group.get("doc_count", pd.Series([0])).sum()) if "doc_count" in group.columns else len(group)
+
+        if avg_score > 0.1:
+            label = "positive"
+        elif avg_score < -0.1:
+            label = "negative"
+        else:
+            label = "neutral"
+
+        results.append(
+            {
+                "team": str(team_name),
+                "season": season,
+                "week": week,
+                "sentiment_score": round(avg_score, 4),
+                "sentiment_label": label,
+                "signal_count": signal_count,
+                "sentiment_multiplier": round(avg_mult, 4),
+            }
+        )
+
+    results.sort(key=lambda r: r["team"])
+    return results
 
 
 def get_player_sentiment(

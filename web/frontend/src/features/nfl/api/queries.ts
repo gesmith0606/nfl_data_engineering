@@ -3,11 +3,13 @@ import {
   fetchAlerts,
   fetchHealth,
   fetchLineup,
+  fetchNewsFeed,
   fetchPlayer,
   fetchPlayerNews,
   fetchPlayerSentiment,
   fetchPredictions,
   fetchProjections,
+  fetchTeamSentiment,
   searchPlayers,
 } from './service';
 import type { ScoringFormat } from './types';
@@ -102,4 +104,25 @@ export const playerSentimentQueryOptions = (
     queryFn: () => fetchPlayerSentiment(playerId, season, week),
     enabled: !!playerId,
     retry: false
+  });
+
+export const newsFeedQueryOptions = (
+  season: number,
+  week?: number,
+  source?: string,
+  team?: string,
+  limit = 50,
+  offset = 0
+) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'news-feed', { season, week, source, team, limit, offset }] as const,
+    queryFn: () => fetchNewsFeed(season, week, source, team, undefined, limit, offset),
+    refetchInterval: 5 * 60 * 1000
+  });
+
+export const teamSentimentQueryOptions = (season: number, week: number) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'team-sentiment', { season, week }] as const,
+    queryFn: () => fetchTeamSentiment(season, week),
+    refetchInterval: 5 * 60 * 1000
   });

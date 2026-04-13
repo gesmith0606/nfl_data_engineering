@@ -114,6 +114,7 @@ export interface NewsItem {
   category: string | null;
   player_id: string | null;
   player_name: string | null;
+  team: string | null;
   is_ruled_out: boolean;
   is_inactive: boolean;
   is_questionable: boolean;
@@ -150,6 +151,17 @@ export interface PlayerSentiment {
   is_returning: boolean;
   latest_signal_at: string | null;
   signal_staleness_hours: number | null;
+}
+
+/** Aggregated weekly sentiment summary for a single team. */
+export interface TeamSentiment {
+  team: string;
+  season: number;
+  week: number;
+  sentiment_score: number;
+  sentiment_label: 'positive' | 'neutral' | 'negative';
+  signal_count: number;
+  sentiment_multiplier: number;
 }
 
 /** Scoring format options. */

@@ -9,6 +9,7 @@ import type {
   ProjectionResponse,
   ScoringFormat,
   TeamLineup,
+  TeamSentiment,
 } from "./types";
 
 /**
@@ -199,6 +200,38 @@ export async function fetchPlayerSentiment(
   return request<PlayerSentiment>(
     `/api/news/sentiment/${encodeURIComponent(playerId)}?${params}`,
   );
+}
+
+/** Fetch the full news feed with optional filters. */
+export async function fetchNewsFeed(
+  season: number,
+  week?: number,
+  source?: string,
+  team?: string,
+  playerId?: string,
+  limit = 50,
+  offset = 0,
+): Promise<NewsItem[]> {
+  const params = new URLSearchParams({ season: String(season) });
+  if (week !== undefined) params.set('week', String(week));
+  if (source) params.set('source', source);
+  if (team) params.set('team', team);
+  if (playerId) params.set('player_id', playerId);
+  params.set('limit', String(limit));
+  params.set('offset', String(offset));
+  return request<NewsItem[]>(`/api/news/feed?${params}`);
+}
+
+/** Fetch aggregated team sentiment for a season/week. */
+export async function fetchTeamSentiment(
+  season: number,
+  week: number,
+): Promise<TeamSentiment[]> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week),
+  });
+  return request<TeamSentiment[]>(`/api/news/team-sentiment?${params}`);
 }
 
 export { ApiError };

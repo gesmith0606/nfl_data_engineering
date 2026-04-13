@@ -290,6 +290,7 @@ class NewsItem(BaseModel):
     category: Optional[str] = Field(None, description="injury / usage / trade / etc.")
     player_id: Optional[str] = None
     player_name: Optional[str] = None
+    team: Optional[str] = None
 
     # Event flags extracted from the document
     is_ruled_out: bool = False
@@ -336,3 +337,17 @@ class PlayerSentiment(BaseModel):
     is_returning: bool = False
     latest_signal_at: Optional[str] = None
     signal_staleness_hours: Optional[float] = None
+
+
+class TeamSentiment(BaseModel):
+    """Aggregated weekly sentiment summary for a single team."""
+
+    team: str
+    season: int
+    week: int
+    sentiment_score: float = 0.0
+    sentiment_label: str = Field(
+        "neutral", description="positive / neutral / negative"
+    )
+    signal_count: int = 0
+    sentiment_multiplier: float = 1.0
