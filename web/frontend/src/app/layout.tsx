@@ -26,9 +26,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'NFL Analytics',
+    title: 'NFL Analytics — Fantasy Projections & AI Advisor',
+    description:
+      'Data-driven fantasy football projections with PPR, Half-PPR, and Standard scoring. AI-powered start/sit advice and game predictions.',
+    url: 'https://frontend-jet-seven-33.vercel.app'
+  },
+  twitter: {
+    card: 'summary_large_image',
     title: 'NFL Analytics',
     description:
-      'NFL fantasy football projections, game predictions, and player analytics powered by machine learning.'
+      'Fantasy football projections and AI-powered start/sit advice. Game predictions vs. Vegas lines.'
   }
 };
 

@@ -16,6 +16,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
 import { useState } from 'react';
 
@@ -102,9 +103,24 @@ export function ProjectionsTable() {
 
       {/* Table */}
       {isLoading ? (
-        <div className='flex items-center justify-center py-12'>
-          <Icons.spinner className='text-muted-foreground h-8 w-8 animate-spin' />
-        </div>
+        <Card>
+          <CardContent className='pt-4 space-y-2'>
+            {/* Header row */}
+            <div className='flex gap-4 pb-2 border-b'>
+              {[120, 80, 60, 80, 80, 80, 80].map((w, i) => (
+                <Skeleton key={i} className='h-4' style={{ width: w }} />
+              ))}
+            </div>
+            {/* Data rows */}
+            {Array.from({ length: 10 }).map((_, row) => (
+              <div key={row} className='flex gap-4 py-1'>
+                {[120, 80, 60, 80, 80, 80, 80].map((w, col) => (
+                  <Skeleton key={col} className='h-4' style={{ width: w }} />
+                ))}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       ) : isError ? (
         <Card>
           <CardContent className='flex flex-col items-center justify-center py-12'>

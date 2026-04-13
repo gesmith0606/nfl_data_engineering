@@ -5,7 +5,18 @@ import { Suspense } from 'react';
 export const metadata = {
   title: '2026 NFL Fantasy Projections',
   description:
-    'Weekly fantasy football projections with PPR, Half-PPR, and Standard scoring. Floor/ceiling ranges for all skill positions.'
+    'Weekly fantasy football projections with PPR, Half-PPR, and Standard scoring. Floor/ceiling ranges for all skill positions.',
+  openGraph: {
+    title: '2026 NFL Fantasy Projections | NFL Analytics',
+    description:
+      'Weekly fantasy football projections with PPR, Half-PPR, and Standard scoring. Floor/ceiling ranges for all skill positions.',
+    url: 'https://frontend-jet-seven-33.vercel.app/dashboard/projections'
+  },
+  twitter: {
+    card: 'summary_large_image' as const,
+    title: '2026 NFL Fantasy Projections',
+    description: 'Weekly fantasy football projections with PPR, Half-PPR, and Standard scoring.'
+  }
 };
 
 export default function ProjectionsPage() {
