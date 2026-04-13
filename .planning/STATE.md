@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: "Sentiment v2: Live News Feed + Sentiment-Adjusted Models"
 status: v3.2 shipped; v4.1-p1 investigated routing RB/QB through hybrid; both degraded on 2025 holdout; fixed 2 SHIP path bugs; HYBRID_POSITIONS unchanged {WR, TE}
-last_updated: "2026-04-13T03:44:10.562Z"
+last_updated: "2026-04-13T04:06:56.854Z"
 last_activity: 2026-04-10
 progress:
   total_phases: 4
@@ -116,6 +116,7 @@ Last activity: 2026-04-10
 - [v4.1/P3]: HYPOTHESIS — LGB residual models are systematically worse than old Ridge 42f in production. Phase 55 "LGB wins" was WFCV only. Next session: train Ridge residuals and compare A/B.
 - [SV2-01]: Rule-based extractor ships with 0.7 confidence cap; pipeline auto-selects Claude when API key available, rule-based otherwise
 - [Phase SV2]: Team sentiment multiplier [0.95, 1.05] with max edge adjustment +/- 0.15 pts
+- [Phase SV2]: Direct import over subprocess for pipeline orchestration -- better error handling, no process overhead
 
 ### Research Flags
 
