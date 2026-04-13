@@ -232,6 +232,11 @@ def main(argv: Optional[List[str]] = None) -> int:
         default=None,
         help="Directory containing ensemble artifacts (default: models/ensemble/)",
     )
+    parser.add_argument(
+        "--use-sentiment",
+        action="store_true",
+        help="Apply team sentiment as a post-prediction edge adjustment",
+    )
     args = parser.parse_args(argv)
 
     model_version = "v2.0-ensemble" if args.ensemble else "v1.4.0"
@@ -320,6 +325,40 @@ def main(argv: Optional[List[str]] = None) -> int:
     if predictions.empty:
         print(f"\nNo games found for week {args.week}.")
         return 0
+
+    # Apply team sentiment adjustment if requested
+    if args.use_sentiment:
+        try:
+            from sentiment.aggregation.team_weekly import (
+                TeamWeeklyAggregator,
+                apply_team_sentiment_adjustment,
+            )
+
+            print("\nLoading team sentiment data...")
+            team_agg = TeamWeeklyAggregator()
+            team_sentiment = team_agg._load_player_sentiment(args.season, args.week)
+
+            if not team_sentiment.empty:
+                # Run team aggregation on the fly if needed
+                team_df = team_agg.aggregate(
+                    season=args.season, week=args.week, dry_run=True
+                )
+                if not team_df.empty:
+                    predictions = apply_team_sentiment_adjustment(
+                        predictions, team_df
+                    )
+                    adj_count = (predictions["sentiment_adjustment"].abs() > 0.001).sum()
+                    print(
+                        f"  Sentiment adjustment applied to {adj_count}/{len(predictions)} games "
+                        f"(max adjustment: {predictions['sentiment_adjustment'].abs().max():.3f} pts)"
+                    )
+                else:
+                    print("  No team sentiment data available -- edges unchanged")
+            else:
+                print("  No player sentiment data found -- edges unchanged")
+        except Exception as exc:
+            logger.warning("Sentiment adjustment failed: %s", exc)
+            print(f"  WARNING: Sentiment adjustment failed ({exc}) -- edges unchanged")
 
     # Display results
     _print_predictions_table(predictions)

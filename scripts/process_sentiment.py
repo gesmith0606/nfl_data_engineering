@@ -39,6 +39,7 @@ sys.path.insert(0, str(_PROJECT_ROOT))
 
 from src.sentiment.processing.pipeline import SentimentPipeline
 from src.sentiment.aggregation.weekly import WeeklyAggregator
+from src.sentiment.aggregation.team_weekly import TeamWeeklyAggregator
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -90,6 +91,12 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         default=False,
         help="Skip Claude extraction; aggregate existing Silver signals only",
+    )
+    parser.add_argument(
+        "--skip-team",
+        action="store_true",
+        default=False,
+        help="Skip team-level sentiment aggregation",
     )
     parser.add_argument(
         "--verbose",
@@ -222,6 +229,46 @@ def main() -> int:
     except Exception as exc:
         logger.error("Aggregation step failed: %s", exc, exc_info=True)
         return 1
+
+    # ------------------------------------------------------------------
+    # Step 3: Team Aggregation (Gold player → Gold team)
+    # ------------------------------------------------------------------
+    if not args.skip_team:
+        logger.info("--- Step 3: Team Aggregation (Gold player → Gold team) ---")
+        try:
+            team_agg = TeamWeeklyAggregator()
+            team_df = team_agg.aggregate(season=season, week=week, dry_run=dry_run)
+
+            if team_df.empty:
+                logger.warning(
+                    "No team sentiment produced for season=%d week=%d",
+                    season,
+                    week,
+                )
+            else:
+                logger.info(
+                    "Team aggregation complete: %d teams with sentiment signals",
+                    len(team_df),
+                )
+                logger.info(
+                    "  Multiplier range: [%.4f, %.4f]",
+                    team_df["team_sentiment_multiplier"].min(),
+                    team_df["team_sentiment_multiplier"].max(),
+                )
+                if not dry_run:
+                    logger.info(
+                        "Gold team Parquet written to data/gold/sentiment/team_sentiment/season=%d/week=%02d/",
+                        season,
+                        week,
+                    )
+                else:
+                    logger.info("Dry run: Gold team Parquet not written")
+
+        except Exception as exc:
+            logger.error("Team aggregation step failed: %s", exc, exc_info=True)
+            return 1
+    else:
+        logger.info("--- Step 3: Skipped (--skip-team) ---")
 
     logger.info("process_sentiment: done")
     return 0
