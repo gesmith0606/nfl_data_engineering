@@ -66,19 +66,26 @@ interface SearchResult {
   }>;
 }
 
+interface NewsItem {
+  title: string | null;
+  source: string;
+  published_at: string | null;
+  player_name: string | null;
+  team: string | null;
+  body_snippet: string | null;
+  sentiment: number | null;
+  category: string | null;
+  is_ruled_out: boolean;
+  is_inactive: boolean;
+  is_questionable: boolean;
+  is_suspended: boolean;
+  is_returning: boolean;
+}
+
 interface NewsFeedResult {
   found: boolean;
   message?: string;
-  items?: Array<{
-    title: string | null;
-    source: string;
-    published_at: string | null;
-    player_name: string | null;
-    team: string | null;
-    body_snippet: string | null;
-    is_ruled_out: boolean;
-    is_questionable: boolean;
-  }>;
+  items?: NewsItem[];
 }
 
 // ---------------------------------------------------------------------------
@@ -246,6 +253,23 @@ function SearchCard({ data }: { data: SearchResult }) {
   );
 }
 
+function SentimentDot({ score }: { score: number | null }) {
+  if (score === null) return null;
+  const color =
+    score > 0.1
+      ? 'bg-green-500'
+      : score < -0.1
+        ? 'bg-red-500'
+        : 'bg-yellow-500';
+  const label = score > 0.1 ? 'Positive' : score < -0.1 ? 'Negative' : 'Neutral';
+  return (
+    <span
+      title={`Sentiment: ${label} (${score.toFixed(2)})`}
+      className={`inline-block h-2 w-2 rounded-full ${color} shrink-0 mt-1.5`}
+    />
+  );
+}
+
 function NewsCard({ data }: { data: NewsFeedResult }) {
   if (!data.found || !data.items?.length) {
     return (
@@ -262,28 +286,53 @@ function NewsCard({ data }: { data: NewsFeedResult }) {
         {data.items.slice(0, 5).map((item, i) => (
           <div key={i} className='px-3 py-2'>
             <div className='flex items-start justify-between gap-2'>
-              <p className='text-sm font-medium leading-snug'>
-                {item.title ?? item.body_snippet ?? 'Untitled'}
-              </p>
+              <div className='flex items-start gap-1.5 min-w-0'>
+                <SentimentDot score={item.sentiment} />
+                <p className='text-sm font-medium leading-snug'>
+                  {item.title ?? item.body_snippet ?? 'Untitled'}
+                </p>
+              </div>
               <div className='flex shrink-0 gap-1'>
                 {item.is_ruled_out && (
                   <Badge variant='destructive' className='text-[10px]'>
                     OUT
                   </Badge>
                 )}
-                {item.is_questionable && !item.is_ruled_out && (
+                {item.is_inactive && !item.is_ruled_out && (
+                  <Badge variant='destructive' className='text-[10px]'>
+                    INACTIVE
+                  </Badge>
+                )}
+                {item.is_suspended && (
+                  <Badge variant='destructive' className='text-[10px]'>
+                    SUSP
+                  </Badge>
+                )}
+                {item.is_questionable && !item.is_ruled_out && !item.is_inactive && (
                   <Badge variant='secondary' className='text-[10px]'>
                     Q
                   </Badge>
                 )}
+                {item.is_returning && (
+                  <Badge variant='outline' className='text-[10px] text-green-600 border-green-600'>
+                    RTN
+                  </Badge>
+                )}
               </div>
             </div>
-            {item.player_name && (
-              <p className='text-muted-foreground mt-0.5 text-xs'>
-                {item.player_name}
-                {item.team ? ` · ${item.team}` : ''}
-              </p>
-            )}
+            <div className='mt-0.5 flex items-center gap-2'>
+              {item.player_name && (
+                <p className='text-muted-foreground text-xs'>
+                  {item.player_name}
+                  {item.team ? ` · ${item.team}` : ''}
+                </p>
+              )}
+              {item.category && (
+                <Badge variant='outline' className='text-[9px] px-1 py-0 h-4'>
+                  {item.category}
+                </Badge>
+              )}
+            </div>
           </div>
         ))}
       </CardContent>
@@ -297,14 +346,16 @@ function NewsCard({ data }: { data: NewsFeedResult }) {
 
 export default function AdvisorPage() {
   const [input, setInput] = useState('');
+  const [lastUserMessage, setLastUserMessage] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({ api: '/api/chat' }),
     sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls
   });
 
   const isLoading = status === 'streaming' || status === 'submitted';
+  const hasError = status === 'error' || !!error;
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -315,13 +366,20 @@ export default function AdvisorPage() {
     e.preventDefault();
     const text = input.trim();
     if (!text || isLoading) return;
+    setLastUserMessage(text);
     sendMessage({ text });
     setInput('');
   }
 
   function handleSuggestion(text: string) {
     if (isLoading) return;
+    setLastUserMessage(text);
     sendMessage({ text });
+  }
+
+  function handleRetry() {
+    if (!lastUserMessage || isLoading) return;
+    sendMessage({ text: lastUserMessage });
   }
 
   return (
@@ -512,6 +570,35 @@ export default function AdvisorPage() {
                   <span className='bg-muted-foreground h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:0ms]' />
                   <span className='bg-muted-foreground h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:150ms]' />
                   <span className='bg-muted-foreground h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:300ms]' />
+                </div>
+              </div>
+            )}
+
+            {/* Error state with retry */}
+            {hasError && (
+              <div className='flex gap-3'>
+                <Avatar className='h-8 w-8 shrink-0'>
+                  <AvatarFallback className='text-xs'>AI</AvatarFallback>
+                </Avatar>
+                <div className='bg-destructive/10 border-destructive/30 flex flex-col gap-2 rounded-2xl rounded-tl-sm border px-4 py-3'>
+                  <p className='text-destructive text-sm font-medium'>
+                    Something went wrong. This may be a temporary issue with the AI
+                    provider or the data backend.
+                  </p>
+                  {lastUserMessage && (
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      className='self-start text-xs'
+                      onClick={handleRetry}
+                      disabled={isLoading}
+                    >
+                      <Icons.spinner
+                        className={`mr-1.5 h-3 w-3 ${isLoading ? 'animate-spin' : 'hidden'}`}
+                      />
+                      Retry
+                    </Button>
+                  )}
                 </div>
               </div>
             )}
