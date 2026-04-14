@@ -477,19 +477,17 @@ class TestRouterHybridIntegration:
         assert "WR" in HYBRID_POSITIONS
         assert "TE" in HYBRID_POSITIONS
 
-    def test_ship_gate_returns_hybrid_when_models_exist(self):
-        """Ship gate returns HYBRID verdict for WR/TE when residual models exist."""
+    def test_ship_gate_returns_skip_for_all_positions(self):
+        """Ship gate returns SKIP for all positions — heuristic-only with bias corrections."""
         model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "player")
-        residual_dir = os.path.join(
-            os.path.dirname(__file__), "..", "models", "residual"
-        )
         if not os.path.exists(os.path.join(model_dir, "ship_gate_report.json")):
             pytest.skip("Ship gate report not found")
-        if not os.path.exists(os.path.join(residual_dir, "wr_residual.joblib")):
-            pytest.skip("Residual models not trained yet")
 
         from ml_projection_router import _load_ship_gate
 
         verdicts = _load_ship_gate(model_dir)
-        assert verdicts.get("WR") == "HYBRID"
-        assert verdicts.get("TE") == "HYBRID"
+        # v4.1-p5: All positions use heuristic-only with bias corrections
+        # QB: POSITION_BIAS_CORRECTION +2.5, WR/TE: POSITION_CEILING_SHRINKAGE
+        assert verdicts.get("QB") == "SKIP"
+        assert verdicts.get("WR") == "SKIP"
+        assert verdicts.get("TE") == "SKIP"

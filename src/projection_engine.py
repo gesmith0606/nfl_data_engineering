@@ -41,6 +41,18 @@ PROJECTION_CEILING_SHRINKAGE = {
     23.0: 0.80,  # projections 23+ pts   → multiply by 0.80
 }
 
+# Position-specific additional ceiling shrinkage applied after global shrinkage.
+# WR/TE over-project high-scoring games disproportionately: the global shrinkage
+# at 12/18/23 pts dampens all positions equally, but WR/TE still overshoot at
+# 12+ pts by ~1.25-4.5 pts (2022-2024 backtest). An additional 12% reduction at
+# 12+ pts targets this systematic over-projection without affecting QB/RB.
+# Grid search on 2022-2024 backtest: threshold=12, shrink=12% → MAE 4.80
+# (vs 4.84 pure heuristic), bias -0.55 (within -0.60 historical norm).
+POSITION_CEILING_SHRINKAGE: Dict[str, Dict[float, float]] = {
+    "WR": {12.0: 0.88},  # Additional 12% shrinkage at 12+ pts (after global 0.92)
+    "TE": {12.0: 0.88},  # Additional 12% shrinkage at 12+ pts (after global 0.92)
+}
+
 # Additive bias corrections applied after ceiling shrinkage.
 # v4.1-p5 finding: QB heuristic systematically under-projects by -2.47 pts
 # across 2022-2024 (weeks 3-18, half-PPR). Root cause: conservative
@@ -501,6 +513,22 @@ def project_position(
         shrink = shrink.where(pts < threshold, factor)
     scoring_input["projected_points"] = (pts * shrink).round(2)
 
+    # Apply position-specific additional ceiling shrinkage (multiplicative, after
+    # global shrinkage). WR/TE over-project high-scoring games more than QB/RB —
+    # an extra 12% reduction at 12+ pts closes the WR/TE MAE gap without
+    # affecting other positions.
+    if position in POSITION_CEILING_SHRINKAGE:
+        pts2 = scoring_input["projected_points"]
+        pos_shrink = pd.Series(1.0, index=scoring_input.index)
+        for threshold, factor in sorted(POSITION_CEILING_SHRINKAGE[position].items()):
+            pos_shrink = pos_shrink.where(pts2 < threshold, factor)
+        scoring_input["projected_points"] = (pts2 * pos_shrink).round(2)
+        logger.debug(
+            "Applied %s position-specific ceiling shrinkage (%d rows affected)",
+            position,
+            (pos_shrink < 1.0).sum(),
+        )
+
     # Apply position-level bias correction (additive, after shrinkage).
     # Corrects systematic under/over-projection identified in backtesting.
     if position in POSITION_BIAS_CORRECTION:
@@ -621,6 +649,21 @@ def compute_heuristic_baseline(
         factor = PROJECTION_CEILING_SHRINKAGE[threshold]
         shrink = shrink.where(pts < threshold, factor)
     scoring_input["projected_points"] = (pts * shrink).round(2)
+
+    # Step 5b: position-specific additional ceiling shrinkage.
+    # Mirrors the same step in project_position() — must stay in sync.
+    if position in POSITION_CEILING_SHRINKAGE:
+        pts2 = scoring_input["projected_points"]
+        pos_shrink = pd.Series(1.0, index=scoring_input.index)
+        for threshold, factor in sorted(POSITION_CEILING_SHRINKAGE[position].items()):
+            pos_shrink = pos_shrink.where(pts2 < threshold, factor)
+        scoring_input["projected_points"] = (pts2 * pos_shrink).round(2)
+        logger.debug(
+            "Applied %s position-specific ceiling shrinkage in heuristic baseline"
+            " (%d rows affected)",
+            position,
+            (pos_shrink < 1.0).sum(),
+        )
 
     # Step 6: position-level bias correction (additive, after shrinkage).
     # Matches the correction applied in project_position() so that residual

@@ -111,12 +111,12 @@ def sample_implied_totals():
 class TestLoadShipGate:
     """Tests for _load_ship_gate function."""
 
-    def test_returns_ship_for_qb_when_models_exist(self, model_dir_with_qb):
-        """QB set to SHIP when report omits QB but model files exist on disk."""
+    def test_returns_skip_for_qb_bias_corrected(self, model_dir_with_qb):
+        """QB forced to SKIP — bias corrected in heuristic via POSITION_BIAS_CORRECTION."""
         from ml_projection_router import _load_ship_gate
 
         result = _load_ship_gate(model_dir_with_qb)
-        assert result["QB"] == "SHIP"
+        assert result["QB"] == "SKIP"
         assert result["RB"] == "SKIP"
         assert result["WR"] == "SKIP"
         assert result["TE"] == "SKIP"
