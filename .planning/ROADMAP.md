@@ -18,17 +18,39 @@
 
 ---
 
+## Phase W7: Sleeper League Integration
+
+**Goal:** Connect users' Sleeper fantasy football leagues to the platform for personalized roster management, start/sit advice, and waiver wire recommendations -- all via Sleeper's free public API (no OAuth needed).
+
+**Plans:** 3 plans
+
+Plans:
+- [ ] W7-01-PLAN.md -- Backend Sleeper service + player ID mapping + FastAPI endpoints
+- [ ] W7-02-PLAN.md -- Frontend connect flow, My Team page, roster display, waiver wire
+- [ ] W7-03-PLAN.md -- AI advisor tools for roster and waiver wire context
+
+**Requirements:** SLP-01 through SLP-13
+**Dependencies:** Existing FastAPI backend (W1-W5), AI advisor (built), projection data (Gold layer)
+**Success criteria:**
+1. User enters Sleeper username and sees their leagues
+2. Selecting a league shows roster with projected points and start/sit badges
+3. Waiver wire suggestions show top available players in the league
+4. AI advisor can access user's roster and give personalized advice
+5. League context persists in localStorage across sessions
+
+---
+
 ## v5.0 Sentiment v2: Live News Feed + Sentiment-Adjusted Models
 
-**Goal:** Daily news feed with rule-based sentiment extraction, team-level sentiment for game line adjustment, and a dedicated news page on the website — all without requiring an Anthropic API key.
+**Goal:** Daily news feed with rule-based sentiment extraction, team-level sentiment for game line adjustment, and a dedicated news page on the website -- all without requiring an Anthropic API key.
 
 **Plans:** 4 plans
 
 Plans:
-- [ ] SV2-01-PLAN.md — Reddit scraper + rule-based extraction (no API key needed)
-- [ ] SV2-02-PLAN.md — Team-level sentiment aggregation + game line adjustment
-- [ ] SV2-03-PLAN.md — Website news feed page + team sentiment badges
-- [ ] SV2-04-PLAN.md — Daily automation (pipeline script + GitHub Actions cron)
+- [ ] SV2-01-PLAN.md -- Reddit scraper + rule-based extraction (no API key needed)
+- [ ] SV2-02-PLAN.md -- Team-level sentiment aggregation + game line adjustment
+- [ ] SV2-03-PLAN.md -- Website news feed page + team sentiment badges
+- [ ] SV2-04-PLAN.md -- Daily automation (pipeline script + GitHub Actions cron)
 
 ### Phase SV2-01: Reddit Scraper + Rule-Based Extraction
 **Goal:** Build Reddit ingestion and rule-based signal extraction so the sentiment pipeline works without an Anthropic API key.
@@ -97,7 +119,7 @@ Plans:
 **Success criteria:**
 1. WR residual improvement increases from -4.5% to -10%+ with full features
 2. TE residual improvement increases from -5.0% to -8%+ with full features
-3. QB and RB residual evaluated — ship if beats standalone
+3. QB and RB residual evaluated -- ship if beats standalone
 4. ML projection router updated with best approach per position
 5. Overall MAE improved (target: < 4.5)
 
@@ -164,5 +186,18 @@ Plans:
 | SV2-14 | SV2-04 | Daily pipeline orchestrator script |
 | SV2-15 | SV2-04 | GitHub Actions daily cron |
 | SV2-16 | SV2-04 | Idempotent pipeline (no duplicate data) |
+| SLP-01 | W7 | Sleeper user lookup by username |
+| SLP-02 | W7 | League listing for user |
+| SLP-03 | W7 | Roster retrieval with player ID mapping |
+| SLP-04 | W7 | Matchup data for current week |
+| SLP-05 | W7 | Waiver wire (free agent) discovery |
+| SLP-06 | W7 | Frontend connect flow (username + league select) |
+| SLP-07 | W7 | My Team page with roster display |
+| SLP-08 | W7 | Start/sit recommendation badges |
+| SLP-09 | W7 | Waiver wire suggestions UI |
+| SLP-10 | W7 | localStorage persistence for league context |
+| SLP-11 | W7 | AI advisor getMyRoster tool |
+| SLP-12 | W7 | AI advisor getWaiverWire tool |
+| SLP-13 | W7 | Sleeper context passed to AI advisor |
 
-**Coverage: 35/35 requirements mapped (100%)**
+**Coverage: 48/48 requirements mapped (100%)**
