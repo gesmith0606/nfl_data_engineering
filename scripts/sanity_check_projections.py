@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
-Sanity Check: Compare Our Projections Against Consensus Rankings
+Sanity Check: Compare Our Projections & Predictions Against Consensus
 
 Loads our generated preseason projections and compares them against
 external consensus rankings (hardcoded fallback + optional live fetch)
-to flag critical discrepancies.
+to flag critical discrepancies.  Optionally validates game predictions
+(spreads, totals, team validity, duplicates, Vegas divergence).
 
 Usage:
     python scripts/sanity_check_projections.py --scoring half_ppr
     python scripts/sanity_check_projections.py --scoring ppr --season 2026
+    python scripts/sanity_check_projections.py --check-predictions --season 2024 --week 10
+    python scripts/sanity_check_projections.py --all --season 2024 --week 10
 """
 
 import sys
@@ -127,6 +130,21 @@ SEASON_POINT_CAPS: Dict[str, float] = {
     "TE": 250.0,
 }
 
+# ---------------------------------------------------------------------------
+# Valid NFL team abbreviations (32 teams)
+# ---------------------------------------------------------------------------
+VALID_NFL_TEAMS = {
+    "ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE",
+    "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC",
+    "LA", "LAC", "LAR", "LV", "MIA", "MIN", "NE", "NO",
+    "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS",
+}
+
+# Spread and total reasonableness bounds
+SPREAD_MIN, SPREAD_MAX = -20.0, 20.0
+TOTAL_MIN, TOTAL_MAX = 30.0, 65.0
+VEGAS_SPREAD_DIVERGENCE_THRESHOLD = 7.0
+
 
 def _load_our_projections(scoring: str, season: int) -> pd.DataFrame:
     """Load latest preseason projections from Gold layer."""
@@ -176,6 +194,220 @@ def _match_players(
         suffixes=("_consensus", "_ours"),
     )
     return matched
+
+
+def _load_predictions(season: int, week: int) -> pd.DataFrame:
+    """Load latest game predictions from Gold layer."""
+    pattern = os.path.join(
+        GOLD_DIR,
+        f"predictions/season={season}/week={week}/predictions_*.parquet",
+    )
+    files = sorted(globmod.glob(pattern))
+    if not files:
+        return pd.DataFrame()
+
+    df = pd.read_parquet(files[-1])
+    print(f"Loaded predictions from: {os.path.basename(files[-1])}")
+    print(f"  {len(df)} games, columns: {list(df.columns)}")
+    return df
+
+
+def run_prediction_check(season: int, week: int) -> Tuple[List[str], List[str]]:
+    """Validate game predictions. Returns (criticals, warnings) lists."""
+    print("\n" + "=" * 70)
+    print(f"  NFL Game Prediction Sanity Check — Season {season}, Week {week}")
+    print("=" * 70)
+
+    df = _load_predictions(season, week)
+    if df.empty:
+        print("\nERROR: No predictions found.")
+        print(f"  Expected: data/gold/predictions/season={season}/week={week}/")
+        return (["No prediction data found"], [])
+
+    criticals: List[str] = []
+    warnings: List[str] = []
+
+    # ------------------------------------------------------------------
+    # 1. CRITICAL: Spread reasonableness (-20 to +20)
+    # ------------------------------------------------------------------
+    if "predicted_spread" in df.columns:
+        bad_spread = df[
+            (df["predicted_spread"] < SPREAD_MIN)
+            | (df["predicted_spread"] > SPREAD_MAX)
+        ]
+        for _, row in bad_spread.iterrows():
+            criticals.append(
+                f"SPREAD OUT OF RANGE: {row.get('away_team', '?')} @ "
+                f"{row.get('home_team', '?')} — predicted_spread="
+                f"{row['predicted_spread']:.1f} (valid: {SPREAD_MIN} to {SPREAD_MAX})"
+            )
+
+    # ------------------------------------------------------------------
+    # 2. CRITICAL: Total reasonableness (30 to 65)
+    # ------------------------------------------------------------------
+    if "predicted_total" in df.columns:
+        bad_total = df[
+            (df["predicted_total"] < TOTAL_MIN)
+            | (df["predicted_total"] > TOTAL_MAX)
+        ]
+        for _, row in bad_total.iterrows():
+            criticals.append(
+                f"TOTAL OUT OF RANGE: {row.get('away_team', '?')} @ "
+                f"{row.get('home_team', '?')} — predicted_total="
+                f"{row['predicted_total']:.1f} (valid: {TOTAL_MIN} to {TOTAL_MAX})"
+            )
+
+    # ------------------------------------------------------------------
+    # 3. CRITICAL: No duplicate games in a week
+    # ------------------------------------------------------------------
+    if "game_id" in df.columns:
+        dupes = df[df.duplicated(subset=["game_id"], keep=False)]
+        if not dupes.empty:
+            dupe_ids = dupes["game_id"].unique().tolist()
+            criticals.append(
+                f"DUPLICATE GAMES: {len(dupe_ids)} duplicated game_id(s): "
+                f"{dupe_ids[:5]}"
+            )
+
+    # Also check for duplicate home/away matchups
+    if "home_team" in df.columns and "away_team" in df.columns:
+        matchup_dupes = df[
+            df.duplicated(subset=["home_team", "away_team"], keep=False)
+        ]
+        if not matchup_dupes.empty:
+            criticals.append(
+                f"DUPLICATE MATCHUPS: {len(matchup_dupes)} rows with repeated "
+                f"home/away team pairs"
+            )
+
+    # ------------------------------------------------------------------
+    # 4. WARNING: Game count (expect 14-16 games per regular season week)
+    # ------------------------------------------------------------------
+    n_games = len(df)
+    if n_games < 13:
+        warnings.append(
+            f"LOW GAME COUNT: Only {n_games} games found (expected 14-16 "
+            f"for a regular season week)"
+        )
+    elif n_games > 16:
+        warnings.append(
+            f"HIGH GAME COUNT: {n_games} games found (expected 14-16 "
+            f"for a regular season week)"
+        )
+    else:
+        print(f"\n  Game count: {n_games} (OK)")
+
+    # ------------------------------------------------------------------
+    # 5. CRITICAL: Valid NFL teams
+    # ------------------------------------------------------------------
+    for col in ["home_team", "away_team"]:
+        if col not in df.columns:
+            continue
+        invalid = df[~df[col].isin(VALID_NFL_TEAMS)]
+        for _, row in invalid.iterrows():
+            criticals.append(
+                f"INVALID TEAM: {col}='{row[col]}' in game "
+                f"{row.get('game_id', '?')}"
+            )
+
+    # Check that no team appears as both home and away in the same game
+    if "home_team" in df.columns and "away_team" in df.columns:
+        self_play = df[df["home_team"] == df["away_team"]]
+        for _, row in self_play.iterrows():
+            criticals.append(
+                f"SELF-MATCHUP: {row['home_team']} listed as both home and "
+                f"away in {row.get('game_id', '?')}"
+            )
+
+    # ------------------------------------------------------------------
+    # 6. WARNING: Large divergence from Vegas spread (>7 points)
+    # ------------------------------------------------------------------
+    if "predicted_spread" in df.columns and "vegas_spread" in df.columns:
+        has_vegas = df[df["vegas_spread"].notna()].copy()
+        if not has_vegas.empty:
+            has_vegas["spread_diff"] = (
+                has_vegas["predicted_spread"] - has_vegas["vegas_spread"]
+            ).abs()
+            big_div = has_vegas[
+                has_vegas["spread_diff"] > VEGAS_SPREAD_DIVERGENCE_THRESHOLD
+            ]
+            for _, row in big_div.iterrows():
+                warnings.append(
+                    f"VEGAS SPREAD DIVERGENCE: {row.get('away_team', '?')} @ "
+                    f"{row.get('home_team', '?')} — ours={row['predicted_spread']:.1f}, "
+                    f"Vegas={row['vegas_spread']:.1f}, "
+                    f"diff={row['spread_diff']:.1f} "
+                    f"(threshold: {VEGAS_SPREAD_DIVERGENCE_THRESHOLD})"
+                )
+
+    # ------------------------------------------------------------------
+    # Print CRITICAL issues
+    # ------------------------------------------------------------------
+    print("\n" + "-" * 70)
+    print("  PREDICTION CRITICAL ISSUES")
+    print("-" * 70)
+    if criticals:
+        for c in criticals:
+            print(f"  [CRITICAL] {c}")
+    else:
+        print("  None — all predictions within valid ranges, no duplicates.")
+
+    # ------------------------------------------------------------------
+    # Print WARNINGS
+    # ------------------------------------------------------------------
+    print("\n" + "-" * 70)
+    print("  PREDICTION WARNINGS")
+    print("-" * 70)
+    if warnings:
+        for w in warnings:
+            print(f"  [WARNING]  {w}")
+    else:
+        print("  None — game count and Vegas alignment look good.")
+
+    # ------------------------------------------------------------------
+    # Prediction summary table
+    # ------------------------------------------------------------------
+    print("\n" + "-" * 70)
+    print("  GAME PREDICTIONS SUMMARY")
+    print("-" * 70)
+    header = (
+        f"{'Game ID':<22} {'Away':>5} {'Home':>5} {'Spread':>7} "
+        f"{'Total':>6} {'Vegas Sp':>9} {'Vegas Tot':>10} {'Tier':<8}"
+    )
+    print(f"  {header}")
+    print(f"  {'-' * len(header)}")
+    for _, row in df.iterrows():
+        game_id = str(row.get("game_id", ""))[:21]
+        away = str(row.get("away_team", ""))
+        home = str(row.get("home_team", ""))
+        spread = row.get("predicted_spread", 0)
+        total = row.get("predicted_total", 0)
+        v_spread = row.get("vegas_spread")
+        v_total = row.get("vegas_total")
+        tier = str(row.get("confidence_tier", ""))
+        v_sp_str = f"{v_spread:.1f}" if pd.notna(v_spread) else "N/A"
+        v_tot_str = f"{v_total:.1f}" if pd.notna(v_total) else "N/A"
+        print(
+            f"  {game_id:<22} {away:>5} {home:>5} {spread:>7.1f} "
+            f"{total:>6.1f} {v_sp_str:>9} {v_tot_str:>10} {tier:<8}"
+        )
+
+    # ------------------------------------------------------------------
+    # Prediction distribution stats
+    # ------------------------------------------------------------------
+    if "predicted_spread" in df.columns and "predicted_total" in df.columns:
+        print(f"\n  Spread range: [{df['predicted_spread'].min():.1f}, "
+              f"{df['predicted_spread'].max():.1f}]  "
+              f"mean={df['predicted_spread'].mean():.1f}")
+        print(f"  Total range:  [{df['predicted_total'].min():.1f}, "
+              f"{df['predicted_total'].max():.1f}]  "
+              f"mean={df['predicted_total'].mean():.1f}")
+
+    if "confidence_tier" in df.columns:
+        tier_counts = df["confidence_tier"].value_counts().to_dict()
+        print(f"  Confidence tiers: {tier_counts}")
+
+    return criticals, warnings
 
 
 def run_sanity_check(scoring: str, season: int) -> int:
@@ -265,6 +497,72 @@ def run_sanity_check(scoring: str, season: int) -> int:
         warnings.append(
             f"NEGATIVE PTS: {row['player_name']} ({row['position']}) — "
             f"{row['projected_season_points']:.1f} pts"
+        )
+
+    # ------------------------------------------------------------------
+    # 5. CRITICAL: Position validity audit — every player must have a
+    #    valid NFL position, and known star players must not be misclassified
+    # ------------------------------------------------------------------
+    valid_positions = {"QB", "RB", "WR", "TE", "K", "DEF"}
+    invalid_pos = our_df[~our_df["position"].isin(valid_positions)]
+    for _, row in invalid_pos.iterrows():
+        criticals.append(
+            f"INVALID POSITION: {row['player_name']} — "
+            f"position='{row['position']}' (expected one of {valid_positions})"
+        )
+
+    null_pos = our_df[our_df["position"].isna()]
+    for _, row in null_pos.iterrows():
+        criticals.append(
+            f"NULL POSITION: {row['player_name']} — position is null/NaN"
+        )
+
+    # Known star players with expected positions — catches data pipeline bugs
+    # like Saquon Barkley showing up as QB
+    KNOWN_STAR_POSITIONS = {
+        "Patrick Mahomes": "QB", "Josh Allen": "QB", "Lamar Jackson": "QB",
+        "Joe Burrow": "QB", "Jalen Hurts": "QB", "C.J. Stroud": "QB",
+        "Saquon Barkley": "RB", "Derrick Henry": "RB", "Jahmyr Gibbs": "RB",
+        "Bijan Robinson": "RB", "Christian McCaffrey": "RB", "Breece Hall": "RB",
+        "Jonathan Taylor": "RB", "Josh Jacobs": "RB", "De'Von Achane": "RB",
+        "Ja'Marr Chase": "WR", "Justin Jefferson": "WR", "Tyreek Hill": "WR",
+        "CeeDee Lamb": "WR", "Amon-Ra St. Brown": "WR", "Puka Nacua": "WR",
+        "A.J. Brown": "WR", "Davante Adams": "WR", "Malik Nabers": "WR",
+        "Travis Kelce": "TE", "Brock Bowers": "TE", "Sam LaPorta": "TE",
+        "Mark Andrews": "TE", "George Kittle": "TE", "Trey McBride": "TE",
+    }
+    for star_name, expected_pos in KNOWN_STAR_POSITIONS.items():
+        # Use normalized full-name matching to avoid false positives
+        # (e.g., "Jermar Jefferson" matching "Justin Jefferson")
+        norm_star = _normalize_name(star_name)
+        star_rows = our_df[
+            our_df["player_name"].apply(_normalize_name) == norm_star
+        ]
+        for _, row in star_rows.iterrows():
+            if row["position"] != expected_pos:
+                criticals.append(
+                    f"STAR MISCLASSIFIED: {row['player_name']} — "
+                    f"expected {expected_pos}, got {row['position']}"
+                )
+
+    # ------------------------------------------------------------------
+    # 6. WARNING: Missing kickers (position should exist in projections)
+    # ------------------------------------------------------------------
+    k_count = len(our_df[our_df["position"] == "K"])
+    if k_count == 0:
+        warnings.append(
+            "NO KICKERS: 0 kicker projections found — "
+            "run with --include-kickers or check projection pipeline"
+        )
+
+    # ------------------------------------------------------------------
+    # 7. WARNING: Position distribution sanity
+    # ------------------------------------------------------------------
+    pos_counts = our_df["position"].value_counts().to_dict()
+    if pos_counts.get("QB", 0) > pos_counts.get("WR", 0):
+        warnings.append(
+            f"QB > WR COUNT: {pos_counts.get('QB', 0)} QBs vs "
+            f"{pos_counts.get('WR', 0)} WRs — likely data issue"
         )
 
     # ------------------------------------------------------------------
@@ -438,7 +736,7 @@ def run_sanity_check(scoring: str, season: int) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Sanity check NFL projections against consensus rankings"
+        description="Sanity check NFL projections and/or game predictions"
     )
     parser.add_argument(
         "--scoring",
@@ -452,9 +750,93 @@ def main() -> int:
         default=2026,
         help="Target season (default: 2026)",
     )
+    parser.add_argument(
+        "--week",
+        type=int,
+        default=None,
+        help="Week number for prediction checks (default: None)",
+    )
+    parser.add_argument(
+        "--check-predictions",
+        action="store_true",
+        help="Validate game predictions/lines instead of projections",
+    )
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        dest="check_all",
+        help="Run both projection and prediction checks",
+    )
     args = parser.parse_args()
 
-    return run_sanity_check(args.scoring, args.season)
+    run_projections = not args.check_predictions or args.check_all
+    run_predictions = args.check_predictions or args.check_all
+
+    if run_predictions and args.week is None:
+        # Try to find any available week for the season
+        pred_dir = os.path.join(GOLD_DIR, f"predictions/season={args.season}")
+        week_dirs = sorted(globmod.glob(os.path.join(pred_dir, "week=*")))
+        if week_dirs:
+            # Use the latest week available
+            latest_week = int(os.path.basename(week_dirs[-1]).split("=")[1])
+            print(f"No --week specified; auto-detected week {latest_week}")
+            args.week = latest_week
+        else:
+            print(
+                "ERROR: --check-predictions or --all requires --week, "
+                "and no prediction weeks found for "
+                f"season={args.season}"
+            )
+            return 1
+
+    # Track overall results
+    all_criticals: List[str] = []
+    all_warnings: List[str] = []
+    projection_exit = 0
+    prediction_exit = 0
+
+    # --- Projection checks ---
+    if run_projections:
+        projection_exit = run_sanity_check(args.scoring, args.season)
+
+    # --- Prediction checks ---
+    if run_predictions:
+        pred_criticals, pred_warnings = run_prediction_check(
+            args.season, args.week
+        )
+        all_criticals.extend(pred_criticals)
+        all_warnings.extend(pred_warnings)
+        if pred_criticals:
+            prediction_exit = 1
+
+    # --- Combined PASS/FAIL summary ---
+    print("\n" + "=" * 70)
+    print("  FINAL SUMMARY")
+    print("=" * 70)
+
+    sections_run = []
+    if run_projections:
+        status = "FAIL" if projection_exit != 0 else "PASS"
+        sections_run.append(("Projections", status))
+    if run_predictions:
+        status = "FAIL" if prediction_exit != 0 else "PASS"
+        sections_run.append(("Predictions", status))
+
+    overall_pass = all(s == "PASS" for _, s in sections_run)
+    # If only projections were run, use projection_exit as the indicator
+    if not run_predictions:
+        overall_pass = projection_exit == 0
+
+    for section, status in sections_run:
+        icon = "PASS" if status == "PASS" else "FAIL"
+        print(f"  [{icon}] {section}")
+
+    if overall_pass:
+        print(f"\n  OVERALL RESULT: PASS")
+    else:
+        print(f"\n  OVERALL RESULT: FAIL")
+
+    return 0 if overall_pass else 1
 
 
 if __name__ == "__main__":
