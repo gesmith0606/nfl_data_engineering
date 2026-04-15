@@ -1587,8 +1587,44 @@ def generate_preseason_projections(
     # position, and recent_team.  Without this step the groupby below
     # treats rows with NaN metadata as separate groups, causing
     # projections to use only one season of data instead of two.
+    #
+    # When a metadata column is missing entirely (not just NaN), we
+    # fetch roster data from nfl-data-py to create the column.  This
+    # ensures the function works even when callers don't pre-enrich.
     # ------------------------------------------------------------------
     metadata_cols = ["player_name", "position", "recent_team"]
+    missing_cols = [c for c in metadata_cols if c not in df.columns]
+    if missing_cols and "player_id" in df.columns:
+        try:
+            import nfl_data_py as nfl
+
+            roster_seasons = [int(s) for s in recent_seasons]
+            rosters = nfl.import_seasonal_rosters(roster_seasons)
+            roster_latest = (
+                rosters.sort_values("season")
+                .drop_duplicates(subset=["player_id"], keep="last")
+            )
+            roster_lookup = roster_latest.set_index("player_id")
+            for col in missing_cols:
+                # roster data uses "team" instead of "recent_team"
+                src_col = "team" if col == "recent_team" else col
+                if src_col in roster_lookup.columns:
+                    mapped = df["player_id"].map(roster_lookup[src_col])
+                    matched = mapped.notna().sum()
+                    if matched > 0:
+                        df[col] = mapped
+                        logger.info(
+                            "Enriched %s from roster data — %d of %d rows matched",
+                            col, matched, len(df),
+                        )
+                    else:
+                        logger.info(
+                            "Skipped %s enrichment — no player_id matches in roster data",
+                            col,
+                        )
+        except Exception as exc:
+            logger.warning("Could not fetch roster data for metadata enrichment: %s", exc)
+
     for col in metadata_cols:
         if col not in df.columns:
             continue
