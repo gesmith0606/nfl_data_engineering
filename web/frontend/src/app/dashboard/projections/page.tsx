@@ -22,7 +22,7 @@ export const metadata = {
 export default function ProjectionsPage() {
   return (
     <PageContainer
-      scrollable={false}
+      scrollable={true}
       pageTitle='Fantasy Projections'
       pageDescription='Weekly fantasy point projections with floor/ceiling ranges'
     >
