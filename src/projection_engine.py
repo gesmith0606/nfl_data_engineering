@@ -1581,9 +1581,65 @@ def generate_preseason_projections(
         logger.warning("No seasonal data for preseason projections")
         return pd.DataFrame()
 
+    # ------------------------------------------------------------------
+    # Backfill player metadata from the most recent season.
+    # nfl-data-py seasonal data before 2025 is missing player_name,
+    # position, and recent_team.  Without this step the groupby below
+    # treats rows with NaN metadata as separate groups, causing
+    # projections to use only one season of data instead of two.
+    # ------------------------------------------------------------------
+    metadata_cols = ["player_name", "position", "recent_team"]
+    for col in metadata_cols:
+        if col not in df.columns:
+            continue
+        # Build a lookup from the most recent non-null value per player_id
+        lookup = (
+            df[df[col].notna()]
+            .sort_values("season", ascending=False)
+            .drop_duplicates(subset=["player_id"])
+            .set_index("player_id")[col]
+        )
+        if lookup.empty:
+            continue
+        # Fill NaN values using the lookup
+        mask = df[col].isna()
+        df.loc[mask, col] = df.loc[mask, "player_id"].map(lookup)
+
+    # Drop rows that still have no position (cannot project without it)
+    if "position" in df.columns:
+        no_pos = df["position"].isna()
+        if no_pos.any():
+            logger.info(
+                "Dropping %d rows with unknown position", no_pos.sum()
+            )
+            df = df[~no_pos].copy()
+
+    # ------------------------------------------------------------------
+    # Normalize to per-game rates before averaging.
+    # Seasonal totals are misleading for players who missed games (injury,
+    # suspension, trade).  A player with 4 games at 66 yd/game looks far
+    # worse than a 17-game player at 60 yd/game when compared by totals.
+    # Converting to per-game rates and re-scaling to 17 games fixes this.
+    # ------------------------------------------------------------------
+    _FULL_SEASON_GAMES = 17
+
     # Weight: more recent season counts double
     max_season = max(recent_seasons)
     df["season_weight"] = df["season"].apply(lambda s: 2.0 if s == max_season else 1.0)
+
+    # Discount seasons with very few games — small samples are noisy.
+    # Players with <4 games get reduced weight (linear ramp from 0 at
+    # 0 games to full weight at 4 games).
+    _MIN_GAMES_FULL_WEIGHT = 4
+    if "games" in df.columns:
+        games_played = df["games"].fillna(0).clip(lower=0)
+        game_discount = (games_played / _MIN_GAMES_FULL_WEIGHT).clip(upper=1.0)
+        df["season_weight"] = df["season_weight"] * game_discount
+
+        # Convert totals to per-game rates
+        games_safe = games_played.replace(0, np.nan)  # avoid div-by-zero
+    else:
+        games_safe = pd.Series(_FULL_SEASON_GAMES, index=df.index)
 
     # Weighted average of seasonal stats
     stat_cols = [
@@ -1602,7 +1658,9 @@ def generate_preseason_projections(
 
     weighted = df.copy()
     for col in available_stats:
-        weighted[col] = weighted[col].fillna(0) * weighted["season_weight"]
+        # Per-game rate * season_weight
+        per_game = weighted[col].fillna(0) / games_safe
+        weighted[col] = per_game.fillna(0) * weighted["season_weight"]
 
     group_cols = ["player_id", "position"]
     if "player_name" in weighted.columns:
@@ -1614,9 +1672,9 @@ def generate_preseason_projections(
     agg_dict["season_weight"] = "sum"
     proj = weighted.groupby(group_cols, as_index=False).agg(agg_dict)
 
-    # Normalize by total weight
+    # Normalize by total weight → weighted per-game average, then scale to 17 games
     for col in available_stats:
-        proj[col] = (proj[col] / proj["season_weight"]).round(2)
+        proj[col] = (proj[col] / proj["season_weight"] * _FULL_SEASON_GAMES).round(2)
     proj.drop(columns=["season_weight"], inplace=True)
 
     # Scale to 17-game season (seasonal data = 17 games)

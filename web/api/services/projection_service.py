@@ -51,13 +51,19 @@ def _get_projections_parquet(
 
     rename_map = {
         "recent_team": "team",
-        "proj_passing_yards": "proj_pass_yards",
-        "proj_passing_tds": "proj_pass_tds",
-        "proj_rushing_yards": "proj_rush_yards",
-        "proj_rushing_tds": "proj_rush_tds",
-        "proj_receptions": "proj_rec",
-        "proj_receiving_yards": "proj_rec_yards",
-        "proj_receiving_tds": "proj_rec_tds",
+        # Parquet stat columns are unprefixed; map to the proj_ names the router expects
+        "passing_yards": "proj_pass_yards",
+        "passing_tds": "proj_pass_tds",
+        "rushing_yards": "proj_rush_yards",
+        "rushing_tds": "proj_rush_tds",
+        "receptions": "proj_rec",
+        "receiving_yards": "proj_rec_yards",
+        "receiving_tds": "proj_rec_tds",
+        "interceptions": "proj_interceptions",
+        "targets": "proj_targets",
+        "carries": "proj_carries",
+        # Preseason uses projected_season_points; normalize to projected_points
+        "projected_season_points": "projected_points",
         "proj_season": "season",
         "proj_week": "week",
     }

@@ -6,6 +6,7 @@ MockDraftSimulator, compute_value_scores) in stateful HTTP endpoints using
 in-memory session storage keyed by UUID.
 """
 
+import glob
 import logging
 import sys
 import uuid
@@ -108,8 +109,39 @@ def _safe_int(val: object, default: int = 0) -> int:
         return default
 
 
+def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame]:
+    """Attempt to load cached Gold preseason projections from local Parquet files.
+
+    Args:
+        scoring: Scoring format key (used for logging only; cached files are
+                 format-agnostic since points are already computed).
+        season:  NFL season year.
+
+    Returns:
+        DataFrame of cached projections, or ``None`` if no cache is available.
+    """
+    cache_dir = _PROJECT_ROOT / "data" / "gold" / "projections" / "preseason" / f"season={season}"
+    pattern = str(cache_dir / "*.parquet")
+    files = sorted(glob.glob(pattern))
+    if not files:
+        return None
+    try:
+        df = pd.read_parquet(files[-1])  # latest by filename timestamp
+        logger.info(
+            "Loaded %d cached preseason projections from %s", len(df), files[-1]
+        )
+        return df
+    except Exception:
+        logger.warning("Failed to read cached projection file %s", files[-1])
+        return None
+
+
 def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
     """Generate projections, load ADP (if available), and compute value scores.
+
+    Attempts live data fetch first.  When the upstream NFL data API is
+    unavailable (common during the offseason), falls back to cached Gold
+    preseason projections stored as local Parquet files.
 
     Args:
         scoring: Scoring format key (e.g. ``"half_ppr"``).
@@ -118,12 +150,32 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
     Returns:
         Enriched projection DataFrame ready for ``DraftBoard``.
     """
-    fetcher = NFLDataFetcher()
-    past_seasons = [season - 2, season - 1]
-    seasonal_df = fetcher.fetch_player_seasonal(past_seasons)
-    projections = generate_preseason_projections(
-        seasonal_df, scoring_format=scoring, target_season=season
-    )
+    projections: Optional[pd.DataFrame] = None
+
+    # --- Strategy 1: live fetch + projection generation ---
+    try:
+        fetcher = NFLDataFetcher()
+        past_seasons = [season - 2, season - 1]
+        seasonal_df = fetcher.fetch_player_seasonal(past_seasons)
+        projections = generate_preseason_projections(
+            seasonal_df, scoring_format=scoring, target_season=season
+        )
+        if projections.empty:
+            projections = None
+    except Exception as exc:
+        logger.warning("Live data fetch failed, will try cached projections: %s", exc)
+
+    # --- Strategy 2: cached Gold preseason projections ---
+    if projections is None:
+        projections = _load_cached_projections(scoring, season)
+
+    if projections is None or projections.empty:
+        raise ValueError(
+            f"No projection data available for {season}. "
+            "NFL data API may be offline and no cached projections exist. "
+            "Run 'python scripts/generate_projections.py --preseason "
+            f"--season {season}' when the API is reachable to populate the cache."
+        )
 
     # Try loading ADP data
     adp_path = _PROJECT_ROOT / "data" / "adp_latest.csv"

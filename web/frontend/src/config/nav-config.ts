@@ -13,6 +13,14 @@ export const navGroups: NavGroup[] = [
         items: []
       },
       {
+        title: 'Rankings',
+        url: '/dashboard/rankings',
+        icon: 'trendingUp',
+        isActive: false,
+        shortcut: ['k', 'k'],
+        items: []
+      },
+      {
         title: 'Projections',
         url: '/dashboard/projections',
         icon: 'target',

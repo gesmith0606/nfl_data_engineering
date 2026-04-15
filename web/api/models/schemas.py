@@ -23,11 +23,14 @@ class PlayerProjection(BaseModel):
     # Stat projections (None when not applicable for position)
     proj_pass_yards: Optional[float] = None
     proj_pass_tds: Optional[float] = None
+    proj_interceptions: Optional[float] = None
     proj_rush_yards: Optional[float] = None
     proj_rush_tds: Optional[float] = None
+    proj_carries: Optional[float] = None
     proj_rec: Optional[float] = None
     proj_rec_yards: Optional[float] = None
     proj_rec_tds: Optional[float] = None
+    proj_targets: Optional[float] = None
 
     # Kicker stats
     proj_fg_makes: Optional[float] = None
