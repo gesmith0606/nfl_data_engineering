@@ -133,7 +133,7 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
 }
 
 export function PredictionCardGrid() {
-  const [season, setSeason] = useState(2026);
+  const [season, setSeason] = useState(2024);
   const [week, setWeek] = useState(1);
   const [sortBy, setSortBy] = useState<SortKey>('confidence');
 

@@ -1540,6 +1540,82 @@ def draft_capital_boost(draft_ovr: float, position: str) -> float:
     return round(max(1.0, boost), 3)
 
 
+def _generate_preseason_kicker_projections(target_season: int) -> pd.DataFrame:
+    """Generate preseason kicker projections using league-average baselines.
+
+    Uses nfl-data-py roster data to identify active kickers, then projects
+    season totals based on league-average FG/XP rates.  This provides a
+    reasonable baseline for draft rankings (kickers are notoriously hard to
+    differentiate pre-season).
+
+    Args:
+        target_season: The upcoming season to project for.
+
+    Returns:
+        DataFrame with columns matching generate_preseason_projections output:
+        player_id, player_name, position, recent_team, projected_season_points,
+        proj_season, plus stat columns zeroed out.
+    """
+    try:
+        import nfl_data_py as nfl
+
+        # Get most recent roster to find active kickers
+        roster_season = target_season - 1
+        rosters = nfl.import_seasonal_rosters([roster_season])
+        kickers = rosters[rosters["position"] == "K"].copy()
+        if kickers.empty:
+            logger.warning("No kickers found in roster data for season %d", roster_season)
+            return pd.DataFrame()
+
+        # Keep one row per kicker (most recent)
+        kickers = kickers.sort_values("season").drop_duplicates(
+            subset=["player_id"], keep="last"
+        )
+
+        # League-average kicker season totals (17-game season):
+        # ~30.6 FG attempts, ~25.7 FG made, ~42.5 XP made per season
+        # Average kicker: ~127 fantasy points/season (3 pts/FG + 1 pt/XP)
+        _FG_ATT_SEASON = 30.6
+        _FG_PCT = 0.84
+        _XP_MADE_SEASON = 42.5
+        _FG_MADE = _FG_ATT_SEASON * _FG_PCT  # ~25.7
+        _FG_MISSED = _FG_ATT_SEASON - _FG_MADE
+        _BASELINE_PTS = (_FG_MADE * 3.0) + _XP_MADE_SEASON - _FG_MISSED
+
+        rows = []
+        for _, k in kickers.iterrows():
+            rows.append({
+                "player_id": k.get("player_id", ""),
+                "player_name": k.get("player_name", "Unknown"),
+                "position": "K",
+                "recent_team": k.get("team", ""),
+                "projected_season_points": round(_BASELINE_PTS, 1),
+                "proj_season": target_season,
+                # Zero out non-kicker stat columns for schema compatibility
+                "passing_yards": 0.0,
+                "passing_tds": 0.0,
+                "interceptions": 0.0,
+                "rushing_yards": 0.0,
+                "rushing_tds": 0.0,
+                "carries": 0.0,
+                "receiving_yards": 0.0,
+                "receiving_tds": 0.0,
+                "receptions": 0.0,
+                "targets": 0.0,
+            })
+
+        kicker_df = pd.DataFrame(rows)
+        logger.info(
+            "Generated preseason kicker projections: %d kickers at %.1f baseline pts",
+            len(kicker_df), _BASELINE_PTS,
+        )
+        return kicker_df
+
+    except Exception as exc:
+        logger.warning("Could not generate preseason kicker projections: %s", exc)
+        return pd.DataFrame()
+
+
 def generate_preseason_projections(
     seasonal_df: pd.DataFrame,
     scoring_format: str = "half_ppr",
@@ -1827,16 +1903,45 @@ def generate_preseason_projections(
 
         proj.drop(columns=["draft_ovr"], inplace=True, errors="ignore")
 
-    # Rank overall and by position
-    pos_filter = proj["position"].isin(["QB", "RB", "WR", "TE"])
+    # ------------------------------------------------------------------
+    # Append preseason kicker projections (league-average baselines)
+    # ------------------------------------------------------------------
+    kicker_proj = _generate_preseason_kicker_projections(target_season)
+    if not kicker_proj.empty:
+        proj = pd.concat([proj, kicker_proj], ignore_index=True)
+        logger.info("Appended %d kicker projections", len(kicker_proj))
+
+    # Rank overall and by position using VORP (Value Over Replacement Player).
+    # Raw points ranking puts QBs in 8 of the top 10 because they naturally
+    # score more fantasy points.  VORP subtracts the replacement-level player
+    # at each position so that the overall rank reflects draft value.
+    # Replacement levels: QB13, RB25, WR30, TE13, K13 (standard 12-team league).
+    pos_filter = proj["position"].isin(["QB", "RB", "WR", "TE", "K"])
     proj = proj[pos_filter].copy()
+
+    REPLACEMENT_RANKS = {"QB": 13, "RB": 25, "WR": 30, "TE": 13, "K": 13}
+    pts_col = "projected_season_points"
+    for pos, rep_rank in REPLACEMENT_RANKS.items():
+        pos_mask = proj["position"] == pos
+        pos_sorted = proj.loc[pos_mask, pts_col].sort_values(ascending=False)
+        if len(pos_sorted) >= rep_rank:
+            replacement_pts = pos_sorted.iloc[rep_rank - 1]
+        elif len(pos_sorted) > 0:
+            replacement_pts = pos_sorted.iloc[-1]
+        else:
+            replacement_pts = 0.0
+        proj.loc[pos_mask, "vorp"] = (
+            proj.loc[pos_mask, pts_col] - replacement_pts
+        ).round(1)
+
+    # Overall rank by VORP (higher VORP = better draft value)
     proj["overall_rank"] = (
-        proj["projected_season_points"]
+        proj["vorp"]
         .rank(ascending=False, method="first")
         .astype(int)
     )
     proj["position_rank"] = (
-        proj.groupby("position")["projected_season_points"]
+        proj.groupby("position")[pts_col]
         .rank(ascending=False, method="first")
         .astype(int)
     )

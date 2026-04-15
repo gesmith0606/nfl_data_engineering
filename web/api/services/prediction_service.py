@@ -31,7 +31,10 @@ def _latest_parquet(directory: Path) -> Optional[Path]:
 
 def _get_predictions_parquet(season: int, week: int) -> pd.DataFrame:
     """Read predictions from local Parquet files."""
+    # Try both unpadded (week=1) and zero-padded (week=01) directory names
     week_dir = GOLD_PREDICTIONS_DIR / f"season={season}" / f"week={week}"
+    if not week_dir.exists():
+        week_dir = GOLD_PREDICTIONS_DIR / f"season={season}" / f"week={week:02d}"
     if not week_dir.exists():
         raise FileNotFoundError(f"No prediction data for season={season} week={week}")
 

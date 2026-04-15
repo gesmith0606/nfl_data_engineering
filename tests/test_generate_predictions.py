@@ -164,8 +164,8 @@ class TestGenerateWeekPredictions:
         den_lv = result[result["game_id"] == "2025_10_DEN_LV"].iloc[0]
         assert pd.isna(den_lv["spread_edge"])
         assert pd.isna(den_lv["total_edge"])
-        assert den_lv["spread_confidence_tier"] is None
-        assert den_lv["total_confidence_tier"] is None
+        # confidence_tier should be "low" when edges are NaN (collapsed tier)
+        assert den_lv["confidence_tier"] == "low"
 
     def test_independent_tiers(
         self,
@@ -174,19 +174,17 @@ class TestGenerateWeekPredictions:
         mock_total_model,
         mock_metadata,
     ):
-        """A game can have spread_tier='high' and total_tier='low' simultaneously."""
+        """Confidence tier takes the best (highest) of spread and total tiers."""
         result = generate_week_predictions(
             mock_game_features, 10, mock_spread_model, mock_metadata, mock_total_model, mock_metadata
         )
-        # SF@DAL: spread_edge=-8.5 (high), total_edge=4.0 (high)
+        # SF@DAL: spread_edge=-8.5 (high), total_edge=4.0 (high) => confidence_tier=high
         sf_dal = result[result["game_id"] == "2025_10_SF_DAL"].iloc[0]
-        assert sf_dal["spread_confidence_tier"] == "high"
-        assert sf_dal["total_confidence_tier"] == "high"
+        assert sf_dal["confidence_tier"] == "high"
 
-        # PHI@NYG: spread_edge = 2.5 - 7.0 = -4.5 (high), total_edge = 41.0 - 40.5 = 0.5 (low)
+        # PHI@NYG: spread_edge=-4.5 (high), total_edge=0.5 (low) => confidence_tier=high
         phi_nyg = result[result["game_id"] == "2025_10_PHI_NYG"].iloc[0]
-        assert phi_nyg["spread_confidence_tier"] == "high"
-        assert phi_nyg["total_confidence_tier"] == "low"
+        assert phi_nyg["confidence_tier"] == "high"
 
     def test_output_schema(
         self,
@@ -204,15 +202,15 @@ class TestGenerateWeekPredictions:
             "week",
             "home_team",
             "away_team",
-            "model_spread",
-            "model_total",
+            "predicted_spread",
+            "predicted_total",
             "vegas_spread",
             "vegas_total",
             "spread_edge",
             "total_edge",
-            "spread_confidence_tier",
-            "total_confidence_tier",
-            "prediction_timestamp",
+            "confidence_tier",
+            "ats_pick",
+            "ou_pick",
         }
         assert expected_cols.issubset(set(result.columns))
 
@@ -281,21 +279,22 @@ class TestIntegration:
         # Check key columns present
         for col in [
             "game_id",
-            "model_spread",
+            "predicted_spread",
             "vegas_spread",
             "spread_edge",
-            "spread_confidence_tier",
-            "model_total",
+            "confidence_tier",
+            "predicted_total",
             "vegas_total",
             "total_edge",
-            "total_confidence_tier",
+            "ats_pick",
+            "ou_pick",
         ]:
             assert col in loaded.columns, f"Missing column: {col}"
 
         # Check data types
-        assert loaded["model_spread"].dtype == np.float64
-        assert loaded["model_total"].dtype == np.float64
-        assert loaded["spread_confidence_tier"].dtype == object
+        assert loaded["predicted_spread"].dtype == np.float64
+        assert loaded["predicted_total"].dtype == np.float64
+        assert loaded["confidence_tier"].dtype == object
 
     def test_empty_week(
         self,

@@ -270,7 +270,20 @@ jobs:
             --output  s3
 
       # ------------------------------------------------------------------
-      # 8. Health check — validates freshness and completeness across layers
+      # 8. Sanity check — validate projections/predictions before deploy
+      # Exits 1 on CRITICAL failures (blocks pipeline), 0 on PASS/WARN.
+      # ------------------------------------------------------------------
+      - name: Sanity check — projections & predictions
+        id: sanity_check
+        run: |
+          python scripts/sanity_check_projections.py \
+            --all \
+            --scoring half_ppr \
+            --season "$SEASON" \
+            --week   "$WEEK"
+
+      # ------------------------------------------------------------------
+      # 9. Health check — validates freshness and completeness across layers
       # ------------------------------------------------------------------
       - name: Health check — validate all S3 layers
         id: health_check
@@ -280,7 +293,7 @@ jobs:
             --week   "$WEEK"
 
       # ------------------------------------------------------------------
-      # 9. Job summary — written to GitHub Actions summary tab
+      # 10. Job summary — written to GitHub Actions summary tab
       # ------------------------------------------------------------------
       - name: Write pipeline summary
         if: success()
@@ -313,6 +326,7 @@ jobs:
           | Bronze ingestion | complete |
           | Silver transformation | complete |
           | Gold projections (half_ppr) | complete |
+          | Sanity check | passed |
           | Health check | passed |
 
           > Scoring format: **half_ppr**

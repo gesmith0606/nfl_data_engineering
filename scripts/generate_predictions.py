@@ -51,16 +51,15 @@ OUTPUT_COLUMNS = [
     "week",
     "home_team",
     "away_team",
-    "model_spread",
-    "model_total",
+    "predicted_spread",
+    "predicted_total",
     "vegas_spread",
     "vegas_total",
     "spread_edge",
     "total_edge",
-    "spread_confidence_tier",
-    "total_confidence_tier",
-    "model_version",
-    "prediction_timestamp",
+    "confidence_tier",
+    "ats_pick",
+    "ou_pick",
 ]
 
 
@@ -81,6 +80,48 @@ def classify_tier(edge_value: float) -> Optional[str]:
     if abs_edge >= 1.5:
         return "medium"
     return "low"
+
+
+def _normalize_prediction_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """Normalize column names and derive fields for the output schema.
+
+    Maps feature-engineering names (team_home/team_away, model_spread/model_total)
+    to the output schema expected by the web API (home_team/away_team,
+    predicted_spread/predicted_total, confidence_tier, ats_pick, ou_pick).
+    """
+    out = df.copy()
+
+    # Rename team columns from feature engineering format
+    if "team_home" in out.columns and "home_team" not in out.columns:
+        out.rename(columns={"team_home": "home_team", "team_away": "away_team"}, inplace=True)
+
+    # Rename model predictions to predicted_*
+    if "model_spread" in out.columns and "predicted_spread" not in out.columns:
+        out.rename(columns={"model_spread": "predicted_spread", "model_total": "predicted_total"}, inplace=True)
+
+    # Collapse two confidence tiers into a single tier (take the higher one)
+    if "spread_confidence_tier" in out.columns and "confidence_tier" not in out.columns:
+        tier_rank = {"high": 0, "medium": 1, "low": 2, None: 3}
+        spread_rank = out["spread_confidence_tier"].map(tier_rank).fillna(3).astype(int)
+        total_rank = out["total_confidence_tier"].map(tier_rank).fillna(3).astype(int)
+        best_rank = pd.DataFrame({"s": spread_rank, "t": total_rank}).min(axis=1)
+        rank_tier = {0: "high", 1: "medium", 2: "low", 3: "low"}
+        out["confidence_tier"] = best_rank.map(rank_tier)
+
+    # Derive ATS pick: if predicted spread < vegas spread, take away team
+    if "ats_pick" not in out.columns:
+        out["ats_pick"] = out.apply(
+            lambda r: r.get("away_team", "") if r.get("spread_edge", 0) < 0 else r.get("home_team", ""),
+            axis=1,
+        )
+
+    # Derive O/U pick
+    if "ou_pick" not in out.columns:
+        out["ou_pick"] = out["total_edge"].apply(
+            lambda e: "over" if (e is not None and not pd.isna(e) and e > 0) else "under"
+        )
+
+    return out
 
 
 def generate_week_predictions(
@@ -156,6 +197,9 @@ def generate_week_predictions(
     week_df["model_version"] = "v1.4.0"
     week_df["prediction_timestamp"] = datetime.utcnow()
 
+    # Normalize column names for output schema
+    week_df = _normalize_prediction_columns(week_df)
+
     # Sort by max edge magnitude (strongest plays first, NaN last)
     week_df["_sort_key"] = week_df[["spread_edge", "total_edge"]].abs().max(axis=1)
     week_df = week_df.sort_values("_sort_key", ascending=False, na_position="last")
@@ -180,9 +224,7 @@ def _print_predictions_table(predictions: pd.DataFrame) -> None:
 
     for _, row in predictions.iterrows():
         game = f"{row['away_team']}@{row['home_team']}"
-        sprd_tier = row["spread_confidence_tier"] or "-"
-        tot_tier = row["total_confidence_tier"] or "-"
-        tier_display = f"{sprd_tier[0].upper()}/{tot_tier[0].upper()}" if sprd_tier != "-" and tot_tier != "-" else "-"
+        tier = row.get("confidence_tier", "-") or "-"
 
         vegas_sprd = f"{row['vegas_spread']:+.1f}" if pd.notna(row["vegas_spread"]) else "N/A"
         vegas_tot = f"{row['vegas_total']:.1f}" if pd.notna(row["vegas_total"]) else "N/A"
@@ -190,8 +232,8 @@ def _print_predictions_table(predictions: pd.DataFrame) -> None:
         tot_edge = f"{row['total_edge']:+.1f}" if pd.notna(row["total_edge"]) else "N/A"
 
         print(
-            f"{game:<20} {row['model_spread']:>+10.1f} {vegas_sprd:>10} {sprd_edge:>10} "
-            f"{row['model_total']:>9.1f} {vegas_tot:>9} {tot_edge:>9} {tier_display:>6}"
+            f"{game:<20} {row['predicted_spread']:>+10.1f} {vegas_sprd:>10} {sprd_edge:>10} "
+            f"{row['predicted_total']:>9.1f} {vegas_tot:>9} {tot_edge:>9} {tier:>6}"
         )
 
     print(f"{'=' * 90}")
@@ -300,6 +342,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         week_df["model_version"] = model_version
         week_df["prediction_timestamp"] = datetime.utcnow()
 
+        # Normalize column names for output schema
+        week_df = _normalize_prediction_columns(week_df)
+
         # Sort by max edge magnitude
         week_df["_sort_key"] = week_df[["spread_edge", "total_edge"]].abs().max(axis=1)
         week_df = week_df.sort_values("_sort_key", ascending=False, na_position="last")
@@ -365,11 +410,9 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Summary
     n_games = len(predictions)
-    high_spread = (predictions["spread_confidence_tier"] == "high").sum()
-    high_total = (predictions["total_confidence_tier"] == "high").sum()
+    high_conf = (predictions["confidence_tier"] == "high").sum()
     print(
-        f"\n{n_games} games | {high_spread} high-confidence spread edges | "
-        f"{high_total} high-confidence total edges"
+        f"\n{n_games} games | {high_conf} high-confidence edges"
     )
 
     # Save Gold Parquet
