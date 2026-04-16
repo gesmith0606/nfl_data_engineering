@@ -17,6 +17,7 @@ import {
 import { Icons } from '@/components/icons';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { TeamSentimentBadge } from './team-sentiment-badge';
+import { ApiError } from '@/lib/nfl/api';
 import { useState } from 'react';
 
 type SortKey = 'confidence' | 'spread_edge' | 'total_edge';
@@ -137,7 +138,9 @@ export function PredictionCardGrid() {
   const [week, setWeek] = useState(1);
   const [sortBy, setSortBy] = useState<SortKey>('confidence');
 
-  const { data, isLoading, isError } = useQuery(predictionsQueryOptions(season, week));
+  const { data, isLoading, isError, error } = useQuery(predictionsQueryOptions(season, week));
+
+  const isNotFound = isError && error instanceof ApiError && error.status === 404;
 
   const predictions = [...(data?.predictions ?? [])].sort((a, b) => {
     if (sortBy === 'confidence') {
@@ -219,12 +222,24 @@ export function PredictionCardGrid() {
             </Card>
           ))}
         </div>
+      ) : isNotFound ? (
+        <Card>
+          <CardContent className='flex flex-col items-center justify-center py-12'>
+            <Icons.info className='text-muted-foreground mb-2 h-8 w-8' />
+            <p className='text-muted-foreground text-sm'>
+              No prediction data available for {season} Week {week}.
+            </p>
+            <p className='text-muted-foreground mt-1 text-xs'>
+              Predictions are generated during the NFL season for weeks with scheduled games.
+            </p>
+          </CardContent>
+        </Card>
       ) : isError ? (
         <Card>
           <CardContent className='flex flex-col items-center justify-center py-12'>
             <Icons.alertCircle className='text-muted-foreground mb-2 h-8 w-8' />
             <p className='text-muted-foreground text-sm'>
-              Failed to load predictions. Ensure the API is running on localhost:8000.
+              Failed to load predictions. Please try again later.
             </p>
           </CardContent>
         </Card>

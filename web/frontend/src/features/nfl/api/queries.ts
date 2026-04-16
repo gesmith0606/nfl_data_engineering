@@ -49,7 +49,12 @@ export const projectionsQueryOptions = (
 export const predictionsQueryOptions = (season: number, week: number) =>
   queryOptions({
     queryKey: nflKeys.predictions(season, week),
-    queryFn: () => fetchPredictions(season, week)
+    queryFn: () => fetchPredictions(season, week),
+    retry: (failureCount, error) => {
+      // Don't retry 404s — no data for this season/week
+      if (error && 'status' in error && (error as { status: number }).status === 404) return false;
+      return failureCount < 2;
+    }
   });
 
 export const playerSearchQueryOptions = (query: string) =>

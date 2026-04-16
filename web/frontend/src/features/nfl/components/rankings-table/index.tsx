@@ -124,18 +124,22 @@ export function RankingsTable() {
     return result;
   }, [rankedPlayers, position, search]);
 
-  // Group by tier for dividers
+  // Group by tier for dividers — consolidate into one group per tier
   const tieredGroups = useMemo(() => {
-    const groups: { tier: string; players: RankedPlayer[] }[] = [];
-    let currentTier = '';
+    const tierOrder = ['Elite', 'Strong', 'Starter', 'Bench'];
+    const buckets: Record<string, RankedPlayer[]> = {};
     for (const player of filteredPlayers) {
-      if (player.tier !== currentTier) {
-        currentTier = player.tier;
-        groups.push({ tier: currentTier, players: [] });
-      }
-      groups[groups.length - 1].players.push(player);
+      const t = player.tier;
+      if (!buckets[t]) buckets[t] = [];
+      buckets[t].push(player);
     }
-    return groups;
+    // Return in tier order, each group sorted by projected points desc
+    return tierOrder
+      .filter((t) => buckets[t]?.length)
+      .map((t) => ({
+        tier: t,
+        players: buckets[t].sort((a, b) => b.projected_points - a.projected_points)
+      }));
   }, [filteredPlayers]);
 
   return (
