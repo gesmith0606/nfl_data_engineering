@@ -12,23 +12,32 @@ import {
 } from '@/components/ui/select';
 
 /**
- * News feed page — displays all recent NFL news and sentiment signals.
- * Season/week selectors allow browsing historical data.
+ * News and Sentiment dashboard page.
+ *
+ * Displays NFL news from multiple sources (ESPN, Reddit, Sleeper, PFF) with
+ * sentiment analysis. Includes:
+ * - Overview: summary stats, top movers, alerts, team outlook
+ * - News Feed: scrollable articles with source and search filters
+ * - Team Sentiment: per-team sentiment grid and detail table
+ * - Player Signals: bullish/bearish/neutral breakdown per player
  */
 export default function NewsPage() {
-  const [season, setSeason] = useState(2026);
-  const [week, setWeek] = useState<number | undefined>(undefined);
+  const [season, setSeason] = useState(2025);
+  const [week, setWeek] = useState<number | undefined>(1);
 
   return (
     <PageContainer
       scrollable
-      pageTitle='News Feed'
-      pageDescription='Latest NFL news and sentiment signals from all sources'
+      pageTitle='News & Sentiment'
+      pageDescription='NFL news, sentiment signals, and player/team outlook from all sources'
     >
       <div className='space-y-4'>
         {/* Season / week selectors */}
         <div className='flex flex-wrap items-center gap-3'>
-          <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
+          <Select
+            value={String(season)}
+            onValueChange={(v) => setSeason(Number(v))}
+          >
             <SelectTrigger className='w-28'>
               <SelectValue placeholder='Season' />
             </SelectTrigger>
@@ -43,7 +52,9 @@ export default function NewsPage() {
 
           <Select
             value={week !== undefined ? String(week) : 'all'}
-            onValueChange={(v) => setWeek(v === 'all' ? undefined : Number(v))}
+            onValueChange={(v) =>
+              setWeek(v === 'all' ? undefined : Number(v))
+            }
           >
             <SelectTrigger className='w-28'>
               <SelectValue placeholder='Week' />

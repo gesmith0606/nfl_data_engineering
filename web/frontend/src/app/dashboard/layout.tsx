@@ -1,4 +1,5 @@
 import KBar from '@/components/kbar';
+import { ChatWidget } from '@/components/chat-widget';
 import AppSidebar from '@/components/layout/app-sidebar';
 import Header from '@/components/layout/header';
 import { InfoSidebar } from '@/components/layout/info-sidebar';
@@ -32,6 +33,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             {/* page main content ends */}
           </SidebarInset>
           <InfoSidebar side='right' />
+          <ChatWidget />
         </InfobarProvider>
       </SidebarProvider>
     </KBar>

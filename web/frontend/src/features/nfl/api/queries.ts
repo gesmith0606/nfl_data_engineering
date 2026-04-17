@@ -12,6 +12,7 @@ import {
   fetchPlayerSentiment,
   fetchPredictions,
   fetchProjections,
+  fetchSentimentSummary,
   fetchTeamSentiment,
   searchPlayers,
 } from './service';
@@ -136,6 +137,13 @@ export const teamSentimentQueryOptions = (season: number, week: number) =>
   queryOptions({
     queryKey: [...nflKeys.all, 'team-sentiment', { season, week }] as const,
     queryFn: () => fetchTeamSentiment(season, week),
+    refetchInterval: 5 * 60 * 1000
+  });
+
+export const sentimentSummaryQueryOptions = (season: number, week: number) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'sentiment-summary', { season, week }] as const,
+    queryFn: () => fetchSentimentSummary(season, week),
     refetchInterval: 5 * 60 * 1000
   });
 

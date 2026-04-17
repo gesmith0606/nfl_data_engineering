@@ -2,13 +2,26 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { newsFeedQueryOptions } from '../api/queries';
-import type { NewsItem } from '../api/types';
-import { Card, CardContent } from '@/components/ui/card';
+import {
+  alertsQueryOptions,
+  newsFeedQueryOptions,
+  sentimentSummaryQueryOptions,
+  teamSentimentQueryOptions
+} from '../api/queries';
+import type { Alert, NewsItem, TeamSentiment } from '../api/types';
+import type { SentimentSummary } from '@/lib/nfl/types';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription
+} from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Icons } from '@/components/icons';
 
 // ---------------------------------------------------------------------------
@@ -17,26 +30,37 @@ import { Icons } from '@/components/icons';
 
 const PAGE_SIZE = 25;
 
-type FeedFilter = 'all' | 'player' | 'team';
-
 const SOURCE_LABELS: Record<string, string> = {
+  rss_espn_news: 'ESPN',
   rss_espn: 'ESPN',
   rss_nfl: 'NFL.com',
   rss_rotoworld: 'Rotoworld',
+  rss_fantasypros: 'FantasyPros',
+  rss_pro_football_talk: 'Pro Football Talk',
   sleeper: 'Sleeper',
   twitter: 'Twitter/X',
   nfl_injury_report: 'Injury Report',
   nfl_inactives: 'Inactives',
   official: 'Official',
-  reddit: 'Reddit'
+  reddit: 'Reddit',
+  reddit_nfl: 'r/NFL',
+  reddit_fantasyfootball: 'r/FantasyFootball',
+  rss: 'RSS'
 };
+
+const SOURCE_FILTER_OPTIONS = [
+  { value: 'all', label: 'All Sources' },
+  { value: 'rss', label: 'RSS / News' },
+  { value: 'reddit', label: 'Reddit' },
+  { value: 'sleeper', label: 'Sleeper' }
+];
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
 function formatSource(source: string): string {
-  return SOURCE_LABELS[source] ?? source;
+  return SOURCE_LABELS[source] ?? source.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function relativeTime(isoString: string | null): string {
@@ -51,7 +75,9 @@ function relativeTime(isoString: string | null): string {
     if (diffHours < 24) return `${diffHours}h ago`;
     const diffDays = Math.floor(diffHours / 24);
     if (diffDays === 1) return 'yesterday';
-    return `${diffDays}d ago`;
+    if (diffDays < 7) return `${diffDays}d ago`;
+    const diffWeeks = Math.floor(diffDays / 7);
+    return `${diffWeeks}w ago`;
   } catch {
     return '';
   }
@@ -59,20 +85,467 @@ function relativeTime(isoString: string | null): string {
 
 function getSentimentBadgeClass(sentiment: number | null): string {
   if (sentiment === null) return 'bg-muted text-muted-foreground';
-  if (sentiment >= 0.2) return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
-  if (sentiment <= -0.2) return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
+  if (sentiment >= 0.2)
+    return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
+  if (sentiment <= -0.2)
+    return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
   return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
 }
 
 function getSentimentLabel(sentiment: number | null): string {
   if (sentiment === null) return 'Neutral';
-  if (sentiment >= 0.2) return 'Positive';
-  if (sentiment <= -0.2) return 'Negative';
+  if (sentiment >= 0.2) return 'Bullish';
+  if (sentiment <= -0.2) return 'Bearish';
   return 'Neutral';
 }
 
+function getMultiplierLabel(mult: number): string {
+  if (mult >= 1.10) return 'Bullish';
+  if (mult <= 0.90) return 'Bearish';
+  return 'Neutral';
+}
+
+function getMultiplierClass(mult: number): string {
+  if (mult >= 1.10) return 'text-green-600 dark:text-green-400';
+  if (mult <= 0.90) return 'text-red-600 dark:text-red-400';
+  return 'text-yellow-600 dark:text-yellow-400';
+}
+
+function getTeamSentimentBg(label: string): string {
+  switch (label) {
+    case 'positive':
+      return 'border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/20';
+    case 'negative':
+      return 'border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/20';
+    default:
+      return 'border-border bg-muted/30';
+  }
+}
+
+function getAlertTypeLabel(alertType: string): string {
+  const labels: Record<string, string> = {
+    ruled_out: 'RULED OUT',
+    inactive: 'INACTIVE',
+    suspended: 'SUSPENDED',
+    questionable: 'QUESTIONABLE',
+    major_negative: 'BEARISH',
+    major_positive: 'BULLISH'
+  };
+  return labels[alertType] ?? alertType.toUpperCase();
+}
+
+function getAlertVariant(
+  alertType: string
+): 'destructive' | 'secondary' | 'outline' {
+  if (['ruled_out', 'inactive', 'suspended'].includes(alertType))
+    return 'destructive';
+  if (alertType === 'major_negative') return 'destructive';
+  if (alertType === 'questionable') return 'secondary';
+  return 'outline';
+}
+
 // ---------------------------------------------------------------------------
-// Sub-components
+// Skeleton components
+// ---------------------------------------------------------------------------
+
+function NewsCardSkeleton() {
+  return (
+    <Card>
+      <CardContent className='p-4 space-y-2'>
+        <div className='flex items-center gap-2'>
+          <Skeleton className='h-5 w-16 rounded-full' />
+          <Skeleton className='h-5 w-20 rounded-full' />
+          <Skeleton className='h-5 w-14 rounded-full ml-auto' />
+        </div>
+        <Skeleton className='h-4 w-full' />
+        <Skeleton className='h-4 w-3/4' />
+        <Skeleton className='h-3 w-full' />
+      </CardContent>
+    </Card>
+  );
+}
+
+function SummaryCardSkeleton() {
+  return (
+    <Card>
+      <CardContent className='p-4 space-y-2'>
+        <Skeleton className='h-4 w-20' />
+        <Skeleton className='h-8 w-16' />
+        <Skeleton className='h-3 w-24' />
+      </CardContent>
+    </Card>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Summary stats bar
+// ---------------------------------------------------------------------------
+
+function SentimentSummaryBar({
+  summary,
+  isLoading
+}: {
+  summary: SentimentSummary | undefined;
+  isLoading: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <div className='grid grid-cols-2 gap-3 md:grid-cols-4'>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <SummaryCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
+
+  if (!summary) return null;
+
+  const dist = summary.sentiment_distribution;
+  const total = dist.positive + dist.neutral + dist.negative;
+
+  return (
+    <div className='grid grid-cols-2 gap-3 md:grid-cols-4'>
+      <Card>
+        <CardContent className='p-4'>
+          <p className='text-xs text-muted-foreground'>Players Tracked</p>
+          <p className='text-2xl font-semibold tabular-nums'>
+            {summary.total_players}
+          </p>
+          <p className='text-xs text-muted-foreground'>
+            {summary.total_docs} document{summary.total_docs !== 1 ? 's' : ''}{' '}
+            analyzed
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className='p-4'>
+          <p className='text-xs text-muted-foreground'>Bullish Signals</p>
+          <p className='text-2xl font-semibold tabular-nums text-green-600 dark:text-green-400'>
+            {dist.positive}
+          </p>
+          <p className='text-xs text-muted-foreground'>
+            {total > 0 ? Math.round((dist.positive / total) * 100) : 0}% of
+            players
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className='p-4'>
+          <p className='text-xs text-muted-foreground'>Bearish Signals</p>
+          <p className='text-2xl font-semibold tabular-nums text-red-600 dark:text-red-400'>
+            {dist.negative}
+          </p>
+          <p className='text-xs text-muted-foreground'>
+            {total > 0 ? Math.round((dist.negative / total) * 100) : 0}% of
+            players
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className='p-4'>
+          <p className='text-xs text-muted-foreground'>Neutral</p>
+          <p className='text-2xl font-semibold tabular-nums text-yellow-600 dark:text-yellow-400'>
+            {dist.neutral}
+          </p>
+          <p className='text-xs text-muted-foreground'>
+            {total > 0 ? Math.round((dist.neutral / total) * 100) : 0}% of
+            players
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Alerts panel
+// ---------------------------------------------------------------------------
+
+function AlertsPanel({
+  alerts,
+  isLoading
+}: {
+  alerts: Alert[] | undefined;
+  isLoading: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className='flex items-center gap-2 text-base'>
+            <Icons.warning className='h-4 w-4' />
+            Active Alerts
+          </CardTitle>
+        </CardHeader>
+        <CardContent className='space-y-2'>
+          <Skeleton className='h-6 w-full' />
+          <Skeleton className='h-6 w-full' />
+          <Skeleton className='h-6 w-3/4' />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!alerts || alerts.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className='flex items-center gap-2 text-base'>
+            <Icons.circleCheck className='h-4 w-4 text-green-600 dark:text-green-400' />
+            No Active Alerts
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className='text-sm text-muted-foreground'>
+            No players with significant status changes or sentiment shifts this
+            week.
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className='flex items-center gap-2 text-base'>
+          <Icons.warning className='h-4 w-4 text-amber-500' />
+          Active Alerts ({alerts.length})
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className='space-y-2'>
+          {alerts.map((alert, idx) => (
+            <div
+              key={`${alert.player_id}-${idx}`}
+              className='flex items-center justify-between gap-2 py-1.5 border-b last:border-b-0'
+            >
+              <div className='flex items-center gap-2 min-w-0'>
+                <Badge
+                  variant={getAlertVariant(alert.alert_type)}
+                  className='text-xs shrink-0'
+                >
+                  {getAlertTypeLabel(alert.alert_type)}
+                </Badge>
+                <span className='text-sm font-medium truncate'>
+                  {alert.player_name}
+                </span>
+                {alert.team && (
+                  <span className='text-xs text-muted-foreground shrink-0'>
+                    {alert.team}
+                  </span>
+                )}
+              </div>
+              {alert.sentiment_multiplier != null && (
+                <span
+                  className={`text-xs font-medium tabular-nums shrink-0 ${getMultiplierClass(alert.sentiment_multiplier)}`}
+                >
+                  {alert.sentiment_multiplier.toFixed(2)}x
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Top movers panel (bullish / bearish players)
+// ---------------------------------------------------------------------------
+
+function TopMoversPanel({
+  summary,
+  isLoading
+}: {
+  summary: SentimentSummary | undefined;
+  isLoading: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
+        <Card>
+          <CardContent className='p-4 space-y-2'>
+            <Skeleton className='h-4 w-24' />
+            <Skeleton className='h-5 w-full' />
+            <Skeleton className='h-5 w-full' />
+            <Skeleton className='h-5 w-3/4' />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className='p-4 space-y-2'>
+            <Skeleton className='h-4 w-24' />
+            <Skeleton className='h-5 w-full' />
+            <Skeleton className='h-5 w-full' />
+            <Skeleton className='h-5 w-3/4' />
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!summary) return null;
+
+  return (
+    <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
+      {/* Bullish players */}
+      <Card className='border-green-200 dark:border-green-900'>
+        <CardHeader className='pb-2'>
+          <CardTitle className='flex items-center gap-2 text-base'>
+            <Icons.trendingUp className='h-4 w-4 text-green-600 dark:text-green-400' />
+            Bullish Players
+          </CardTitle>
+          <CardDescription>
+            Highest sentiment multipliers this week
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {summary.top_positive.length === 0 ? (
+            <p className='text-sm text-muted-foreground py-2'>
+              No strong bullish signals detected.
+            </p>
+          ) : (
+            <div className='space-y-1'>
+              {summary.top_positive.map((p, idx) => (
+                <div
+                  key={`${p.player_id}-${idx}`}
+                  className='flex items-center justify-between py-1.5 border-b last:border-b-0'
+                >
+                  <span className='text-sm font-medium'>{p.player_name}</span>
+                  <div className='flex items-center gap-2'>
+                    <span className='text-xs text-muted-foreground'>
+                      {p.doc_count} doc{p.doc_count !== 1 ? 's' : ''}
+                    </span>
+                    <span className='text-sm font-semibold tabular-nums text-green-600 dark:text-green-400'>
+                      {p.sentiment_multiplier.toFixed(2)}x
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Bearish players */}
+      <Card className='border-red-200 dark:border-red-900'>
+        <CardHeader className='pb-2'>
+          <CardTitle className='flex items-center gap-2 text-base'>
+            <Icons.trendingDown className='h-4 w-4 text-red-600 dark:text-red-400' />
+            Bearish Players
+          </CardTitle>
+          <CardDescription>
+            Lowest sentiment multipliers this week
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {summary.top_negative.length === 0 ? (
+            <p className='text-sm text-muted-foreground py-2'>
+              No strong bearish signals detected.
+            </p>
+          ) : (
+            <div className='space-y-1'>
+              {summary.top_negative.map((p, idx) => (
+                <div
+                  key={`${p.player_id}-${idx}`}
+                  className='flex items-center justify-between py-1.5 border-b last:border-b-0'
+                >
+                  <span className='text-sm font-medium'>{p.player_name}</span>
+                  <div className='flex items-center gap-2'>
+                    <span className='text-xs text-muted-foreground'>
+                      {p.doc_count} doc{p.doc_count !== 1 ? 's' : ''}
+                    </span>
+                    <span className='text-sm font-semibold tabular-nums text-red-600 dark:text-red-400'>
+                      {p.sentiment_multiplier.toFixed(2)}x
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Team sentiment grid
+// ---------------------------------------------------------------------------
+
+function TeamSentimentGrid({
+  teams,
+  isLoading
+}: {
+  teams: TeamSentiment[] | undefined;
+  isLoading: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <div className='grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8'>
+        {Array.from({ length: 8 }).map((_, i) => (
+          <Skeleton key={i} className='h-20 rounded-lg' />
+        ))}
+      </div>
+    );
+  }
+
+  if (!teams || teams.length === 0) {
+    return (
+      <Card>
+        <CardContent className='flex flex-col items-center justify-center py-8'>
+          <Icons.shield className='h-6 w-6 text-muted-foreground mb-2' />
+          <p className='text-sm text-muted-foreground'>
+            No team sentiment data available for this period.
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className='grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8'>
+      {teams.map((team) => {
+        const bgClass = getTeamSentimentBg(team.sentiment_label);
+        const scoreColor =
+          team.sentiment_label === 'positive'
+            ? 'text-green-600 dark:text-green-400'
+            : team.sentiment_label === 'negative'
+              ? 'text-red-600 dark:text-red-400'
+              : 'text-yellow-600 dark:text-yellow-400';
+        const TrendIcon =
+          team.sentiment_label === 'positive'
+            ? Icons.trendingUp
+            : team.sentiment_label === 'negative'
+              ? Icons.trendingDown
+              : Icons.minus;
+
+        return (
+          <div
+            key={team.team}
+            className={`flex flex-col items-center justify-center rounded-lg border p-3 text-center ${bgClass}`}
+          >
+            <span className='text-sm font-bold'>{team.team}</span>
+            <TrendIcon className={`h-4 w-4 mt-1 ${scoreColor}`} />
+            <span className={`text-xs font-medium mt-0.5 capitalize ${scoreColor}`}>
+              {team.sentiment_label}
+            </span>
+            <span className='text-xs text-muted-foreground mt-0.5'>
+              {team.signal_count} signal{team.signal_count !== 1 ? 's' : ''}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// News card
 // ---------------------------------------------------------------------------
 
 function NewsCard({ item }: { item: NewsItem }) {
@@ -89,13 +562,18 @@ function NewsCard({ item }: { item: NewsItem }) {
               {formatSource(item.source)}
             </Badge>
             {item.category && (
-              <Badge variant='secondary' className='text-xs capitalize shrink-0'>
+              <Badge
+                variant='secondary'
+                className='text-xs capitalize shrink-0'
+              >
                 {item.category}
               </Badge>
             )}
           </div>
           <div className='flex items-center gap-2 ml-auto'>
-            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${sentimentClass}`}>
+            <span
+              className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${sentimentClass}`}
+            >
               {sentimentLabel}
             </span>
             {item.published_at && (
@@ -121,12 +599,12 @@ function NewsCard({ item }: { item: NewsItem }) {
           </a>
         ) : (
           <p className='text-sm font-medium leading-snug line-clamp-3'>
-            {item.title ?? 'Untitled'}
+            {item.title ?? item.body_snippet ?? 'Untitled'}
           </p>
         )}
 
         {/* Body snippet */}
-        {item.body_snippet && (
+        {item.body_snippet && item.title && (
           <p className='text-xs text-muted-foreground line-clamp-2'>
             {item.body_snippet}
           </p>
@@ -137,8 +615,15 @@ function NewsCard({ item }: { item: NewsItem }) {
           <div className='flex items-center gap-2 pt-1'>
             {item.player_name && (
               <span className='text-xs text-muted-foreground'>
-                <span className='font-medium text-foreground'>{item.player_name}</span>
+                <span className='font-medium text-foreground'>
+                  {item.player_name}
+                </span>
                 {item.team ? ` · ${item.team}` : ''}
+              </span>
+            )}
+            {!item.player_name && item.team && (
+              <span className='text-xs font-medium text-foreground'>
+                {item.team}
               </span>
             )}
           </div>
@@ -146,29 +631,32 @@ function NewsCard({ item }: { item: NewsItem }) {
 
         {/* Event flags */}
         <div className='flex flex-wrap gap-1'>
-          {item.is_ruled_out && <Badge variant='destructive' className='text-xs'>RULED OUT</Badge>}
-          {item.is_inactive && <Badge variant='destructive' className='text-xs'>INACTIVE</Badge>}
-          {item.is_suspended && <Badge variant='destructive' className='text-xs'>SUSPENDED</Badge>}
-          {item.is_questionable && <Badge variant='secondary' className='text-xs'>QUESTIONABLE</Badge>}
-          {item.is_returning && <Badge variant='outline' className='text-xs'>RETURNING</Badge>}
+          {item.is_ruled_out && (
+            <Badge variant='destructive' className='text-xs'>
+              RULED OUT
+            </Badge>
+          )}
+          {item.is_inactive && (
+            <Badge variant='destructive' className='text-xs'>
+              INACTIVE
+            </Badge>
+          )}
+          {item.is_suspended && (
+            <Badge variant='destructive' className='text-xs'>
+              SUSPENDED
+            </Badge>
+          )}
+          {item.is_questionable && (
+            <Badge variant='secondary' className='text-xs'>
+              QUESTIONABLE
+            </Badge>
+          )}
+          {item.is_returning && (
+            <Badge variant='outline' className='text-xs'>
+              RETURNING
+            </Badge>
+          )}
         </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function NewsCardSkeleton() {
-  return (
-    <Card>
-      <CardContent className='p-4 space-y-2'>
-        <div className='flex items-center gap-2'>
-          <Skeleton className='h-5 w-16 rounded-full' />
-          <Skeleton className='h-5 w-20 rounded-full' />
-          <Skeleton className='h-5 w-14 rounded-full ml-auto' />
-        </div>
-        <Skeleton className='h-4 w-full' />
-        <Skeleton className='h-4 w-3/4' />
-        <Skeleton className='h-3 w-full' />
       </CardContent>
     </Card>
   );
@@ -180,15 +668,15 @@ function NewsCardSkeleton() {
 
 function applyClientFilters(
   items: NewsItem[],
-  filter: FeedFilter,
-  search: string
+  search: string,
+  sourceFilter: string
 ): NewsItem[] {
   let result = items;
 
-  if (filter === 'player') {
-    result = result.filter((item) => !!item.player_id);
-  } else if (filter === 'team') {
-    result = result.filter((item) => !item.player_id && !!item.team);
+  if (sourceFilter !== 'all') {
+    result = result.filter((item) =>
+      (item.source || '').includes(sourceFilter)
+    );
   }
 
   if (search.trim()) {
@@ -197,7 +685,8 @@ function applyClientFilters(
       (item) =>
         item.player_name?.toLowerCase().includes(q) ||
         item.team?.toLowerCase().includes(q) ||
-        item.title?.toLowerCase().includes(q)
+        item.title?.toLowerCase().includes(q) ||
+        item.body_snippet?.toLowerCase().includes(q)
     );
   }
 
@@ -214,32 +703,59 @@ interface NewsFeedProps {
 }
 
 /**
- * Full news feed with filter tabs (All / Player / Team), search, and
- * pagination. Auto-refreshes every 5 minutes via TanStack Query.
+ * Comprehensive news and sentiment dashboard.
+ *
+ * Shows:
+ * - Summary statistics (players tracked, bullish/bearish/neutral counts)
+ * - Active alerts (ruled out, injury, major sentiment shifts)
+ * - Top movers (bullish and bearish players)
+ * - Team sentiment grid (all teams at a glance)
+ * - Full news feed with source and search filters
+ *
+ * Auto-refreshes every 5 minutes via TanStack Query.
  */
 export function NewsFeed({ season, week }: NewsFeedProps) {
-  const [filter, setFilter] = useState<FeedFilter>('all');
   const [search, setSearch] = useState('');
+  const [sourceFilter, setSourceFilter] = useState('all');
   const [page, setPage] = useState(0);
 
+  const effectiveWeek = week ?? 1;
   const offset = page * PAGE_SIZE;
 
-  const { data: allItems, isLoading, isError } = useQuery(
-    newsFeedQueryOptions(season, week, undefined, undefined, PAGE_SIZE * (page + 2), 0)
+  // Queries
+  const {
+    data: allItems,
+    isLoading: feedLoading,
+    isError: feedError
+  } = useQuery(
+    newsFeedQueryOptions(
+      season,
+      week,
+      undefined,
+      undefined,
+      PAGE_SIZE * (page + 2),
+      0
+    )
   );
 
-  const filtered = applyClientFilters(allItems ?? [], filter, search);
+  const { data: summary, isLoading: summaryLoading } = useQuery(
+    sentimentSummaryQueryOptions(season, effectiveWeek)
+  );
+
+  const { data: alerts, isLoading: alertsLoading } = useQuery(
+    alertsQueryOptions(season, effectiveWeek)
+  );
+
+  const { data: teamSentiments, isLoading: teamsLoading } = useQuery(
+    teamSentimentQueryOptions(season, effectiveWeek)
+  );
+
+  const filtered = applyClientFilters(allItems ?? [], search, sourceFilter);
   const visibleItems = filtered.slice(0, offset + PAGE_SIZE);
   const hasMore = filtered.length > visibleItems.length;
 
-  const filterButtons: { key: FeedFilter; label: string }[] = [
-    { key: 'all', label: 'All' },
-    { key: 'player', label: 'Player News' },
-    { key: 'team', label: 'Team News' }
-  ];
-
-  function handleFilterChange(next: FeedFilter) {
-    setFilter(next);
+  function handleSourceChange(value: string) {
+    setSourceFilter(value);
     setPage(0);
   }
 
@@ -249,84 +765,285 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
   }
 
   return (
-    <div className='space-y-4'>
-      {/* Filter row */}
-      <div className='flex flex-wrap items-center gap-3'>
-        <div className='flex items-center gap-1 rounded-lg border p-1'>
-          {filterButtons.map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => handleFilterChange(key)}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                filter === key
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+    <Tabs defaultValue='overview' className='space-y-4'>
+      <TabsList>
+        <TabsTrigger value='overview'>Overview</TabsTrigger>
+        <TabsTrigger value='feed'>News Feed</TabsTrigger>
+        <TabsTrigger value='teams'>Team Sentiment</TabsTrigger>
+        <TabsTrigger value='players'>Player Signals</TabsTrigger>
+      </TabsList>
+
+      {/* ================================================================= */}
+      {/* Overview tab — dashboard summary                                  */}
+      {/* ================================================================= */}
+      <TabsContent value='overview' className='space-y-4'>
+        <SentimentSummaryBar summary={summary} isLoading={summaryLoading} />
+
+        <div className='grid grid-cols-1 gap-4 lg:grid-cols-3'>
+          <div className='lg:col-span-2'>
+            <TopMoversPanel summary={summary} isLoading={summaryLoading} />
+          </div>
+          <div>
+            <AlertsPanel alerts={alerts} isLoading={alertsLoading} />
+          </div>
         </div>
 
-        <div className='relative flex-1 min-w-48'>
-          <Icons.search className='absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none' />
-          <Input
-            placeholder='Search player or team...'
-            value={search}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            className='pl-8 h-9'
-          />
-        </div>
-      </div>
+        {/* Quick team sentiment preview */}
+        <Card>
+          <CardHeader>
+            <CardTitle className='flex items-center gap-2 text-base'>
+              <Icons.shield className='h-4 w-4' />
+              Team Outlook
+            </CardTitle>
+            <CardDescription>
+              Aggregated sentiment by team for Week {effectiveWeek}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TeamSentimentGrid
+              teams={teamSentiments}
+              isLoading={teamsLoading}
+            />
+          </CardContent>
+        </Card>
+      </TabsContent>
 
-      {/* Content */}
-      {isLoading ? (
-        <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
-          {Array.from({ length: 6 }).map((_, i) => (
-            <NewsCardSkeleton key={i} />
-          ))}
-        </div>
-      ) : isError ? (
-        <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.alertCircle className='h-8 w-8 text-muted-foreground mb-2' />
-            <p className='text-sm text-muted-foreground'>
-              Could not load news. Ensure the API is running.
-            </p>
-          </CardContent>
-        </Card>
-      ) : visibleItems.length === 0 ? (
-        <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.news className='h-8 w-8 text-muted-foreground mb-2' />
-            <p className='text-sm font-medium'>No recent news</p>
-            <p className='text-xs text-muted-foreground mt-1'>
-              {search
-                ? 'Try a different search term.'
-                : 'Check back during the NFL season after the sentiment pipeline runs.'}
-            </p>
-          </CardContent>
-        </Card>
-      ) : (
-        <>
-          <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
-            {visibleItems.map((item, idx) => (
-              <NewsCard key={item.doc_id ?? idx} item={item} />
+      {/* ================================================================= */}
+      {/* News Feed tab — scrolling list of articles                        */}
+      {/* ================================================================= */}
+      <TabsContent value='feed' className='space-y-4'>
+        {/* Filter row */}
+        <div className='flex flex-wrap items-center gap-3'>
+          {/* Source filter */}
+          <div className='flex items-center gap-1 rounded-lg border p-1'>
+            {SOURCE_FILTER_OPTIONS.map(({ value, label }) => (
+              <button
+                key={value}
+                onClick={() => handleSourceChange(value)}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                  sourceFilter === value
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                {label}
+              </button>
             ))}
           </div>
 
-          {hasMore && (
-            <div className='flex justify-center pt-2'>
-              <Button
-                variant='outline'
-                onClick={() => setPage((p) => p + 1)}
-              >
-                Load more
-              </Button>
+          {/* Search */}
+          <div className='relative flex-1 min-w-48'>
+            <Icons.search className='absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none' />
+            <Input
+              placeholder='Search player, team, or headline...'
+              value={search}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              className='pl-8 h-9'
+            />
+          </div>
+        </div>
+
+        {/* Feed content */}
+        {feedLoading ? (
+          <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <NewsCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : feedError ? (
+          <Card>
+            <CardContent className='flex flex-col items-center justify-center py-12'>
+              <Icons.alertCircle className='h-8 w-8 text-muted-foreground mb-2' />
+              <p className='text-sm text-muted-foreground'>
+                Could not load news. Ensure the API is running.
+              </p>
+            </CardContent>
+          </Card>
+        ) : visibleItems.length === 0 ? (
+          <Card>
+            <CardContent className='flex flex-col items-center justify-center py-12'>
+              <Icons.news className='h-8 w-8 text-muted-foreground mb-2' />
+              <p className='text-sm font-medium'>No recent news</p>
+              <p className='text-xs text-muted-foreground mt-1'>
+                {search
+                  ? 'Try a different search term or source filter.'
+                  : 'Check back during the NFL season after the sentiment pipeline runs.'}
+              </p>
+            </CardContent>
+          </Card>
+        ) : (
+          <>
+            <p className='text-xs text-muted-foreground'>
+              Showing {visibleItems.length} of {filtered.length} articles
+            </p>
+            <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
+              {visibleItems.map((item, idx) => (
+                <NewsCard key={item.doc_id ?? idx} item={item} />
+              ))}
             </div>
-          )}
-        </>
-      )}
-    </div>
+
+            {hasMore && (
+              <div className='flex justify-center pt-2'>
+                <Button
+                  variant='outline'
+                  onClick={() => setPage((p) => p + 1)}
+                >
+                  Load more
+                </Button>
+              </div>
+            )}
+          </>
+        )}
+      </TabsContent>
+
+      {/* ================================================================= */}
+      {/* Team Sentiment tab                                                */}
+      {/* ================================================================= */}
+      <TabsContent value='teams' className='space-y-4'>
+        <Card>
+          <CardHeader>
+            <CardTitle className='flex items-center gap-2'>
+              <Icons.shield className='h-5 w-5' />
+              Team Sentiment Overview
+            </CardTitle>
+            <CardDescription>
+              Aggregated sentiment by team for{' '}
+              {week ? `Week ${week}` : `${season} Season`}. Derived from player
+              news signals and community discussion.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TeamSentimentGrid
+              teams={teamSentiments}
+              isLoading={teamsLoading}
+            />
+          </CardContent>
+        </Card>
+
+        {/* Team detail list */}
+        {teamSentiments && teamSentiments.length > 0 && (
+          <Card>
+            <CardHeader>
+              <CardTitle className='text-base'>Team Details</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className='space-y-1'>
+                {teamSentiments.map((team) => {
+                  const scoreColor =
+                    team.sentiment_label === 'positive'
+                      ? 'text-green-600 dark:text-green-400'
+                      : team.sentiment_label === 'negative'
+                        ? 'text-red-600 dark:text-red-400'
+                        : 'text-muted-foreground';
+                  return (
+                    <div
+                      key={team.team}
+                      className='flex items-center justify-between py-2 border-b last:border-b-0'
+                    >
+                      <div className='flex items-center gap-3'>
+                        <span className='text-sm font-bold w-10'>
+                          {team.team}
+                        </span>
+                        <Badge
+                          variant={
+                            team.sentiment_label === 'positive'
+                              ? 'outline'
+                              : team.sentiment_label === 'negative'
+                                ? 'destructive'
+                                : 'secondary'
+                          }
+                          className='text-xs capitalize'
+                        >
+                          {team.sentiment_label}
+                        </Badge>
+                      </div>
+                      <div className='flex items-center gap-4'>
+                        <span className='text-xs text-muted-foreground'>
+                          {team.signal_count} signal
+                          {team.signal_count !== 1 ? 's' : ''}
+                        </span>
+                        <span
+                          className={`text-sm font-semibold tabular-nums ${scoreColor}`}
+                        >
+                          {team.sentiment_score > 0 ? '+' : ''}
+                          {team.sentiment_score.toFixed(2)}
+                        </span>
+                        <span className='text-xs tabular-nums text-muted-foreground'>
+                          {team.sentiment_multiplier.toFixed(2)}x
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </TabsContent>
+
+      {/* ================================================================= */}
+      {/* Player Signals tab — bullish/bearish/neutral per player            */}
+      {/* ================================================================= */}
+      <TabsContent value='players' className='space-y-4'>
+        <TopMoversPanel summary={summary} isLoading={summaryLoading} />
+
+        <AlertsPanel alerts={alerts} isLoading={alertsLoading} />
+
+        {/* Full player sentiment list from gold data */}
+        {summary && (
+          <Card>
+            <CardHeader>
+              <CardTitle className='text-base'>
+                Sentiment Distribution
+              </CardTitle>
+              <CardDescription>
+                {summary.total_players} players tracked across{' '}
+                {summary.total_docs} documents
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {/* Visual bar */}
+              <div className='flex h-4 rounded-full overflow-hidden mb-4'>
+                {summary.sentiment_distribution.positive > 0 && (
+                  <div
+                    className='bg-green-500 dark:bg-green-600'
+                    style={{
+                      width: `${(summary.sentiment_distribution.positive / summary.total_players) * 100}%`
+                    }}
+                  />
+                )}
+                {summary.sentiment_distribution.neutral > 0 && (
+                  <div
+                    className='bg-yellow-400 dark:bg-yellow-600'
+                    style={{
+                      width: `${(summary.sentiment_distribution.neutral / summary.total_players) * 100}%`
+                    }}
+                  />
+                )}
+                {summary.sentiment_distribution.negative > 0 && (
+                  <div
+                    className='bg-red-500 dark:bg-red-600'
+                    style={{
+                      width: `${(summary.sentiment_distribution.negative / summary.total_players) * 100}%`
+                    }}
+                  />
+                )}
+              </div>
+              <div className='flex justify-between text-xs'>
+                <span className='text-green-600 dark:text-green-400'>
+                  {summary.sentiment_distribution.positive} Bullish
+                </span>
+                <span className='text-yellow-600 dark:text-yellow-400'>
+                  {summary.sentiment_distribution.neutral} Neutral
+                </span>
+                <span className='text-red-600 dark:text-red-400'>
+                  {summary.sentiment_distribution.negative} Bearish
+                </span>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </TabsContent>
+    </Tabs>
   );
 }

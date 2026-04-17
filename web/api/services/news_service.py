@@ -1,10 +1,15 @@
 """
 Service layer for reading player news and sentiment data.
 
-Supports two data tiers:
+Supports three data tiers:
   1. Gold sentiment Parquet  -- aggregated per-player-week multipliers
   2. Silver signals JSON     -- individual news items with extracted fields
-  3. Bronze documents JSON   -- raw documents for body text snippets
+  3. Bronze documents JSON   -- raw documents (title, body, URL) from RSS/Reddit/Sleeper
+
+The news feed is built primarily from Bronze documents (which carry titles, URLs,
+and body text) enriched with Silver signal data (sentiment scores, event flags).
+This approach gives the frontend rich, readable news items rather than the sparse
+signal records in Silver.
 
 All reads fall back gracefully to empty results when files do not exist.
 This is intentional: the pipeline may not have ingested sentiment data yet.
@@ -151,40 +156,72 @@ def _load_silver_records(files: List[Path]) -> List[Dict[str, Any]]:
     return records
 
 
+def _build_silver_index(
+    records: List[Dict[str, Any]],
+) -> Dict[str, Dict[str, Any]]:
+    """Build a doc_id -> silver record lookup for enrichment.
+
+    Args:
+        records: List of Silver signal record dicts.
+
+    Returns:
+        Dict mapping doc_id to the silver record with highest sentiment confidence.
+    """
+    index: Dict[str, Dict[str, Any]] = {}
+    for rec in records:
+        doc_id = rec.get("doc_id") or rec.get("external_id")
+        if doc_id is None:
+            continue
+        key = str(doc_id)
+        existing = index.get(key)
+        if existing is None or (
+            rec.get("sentiment_confidence", 0) > existing.get("sentiment_confidence", 0)
+        ):
+            index[key] = rec
+    return index
+
+
 # ---------------------------------------------------------------------------
 # Bronze document helpers
 # ---------------------------------------------------------------------------
 
 
-def _find_bronze_files(season: int, week: int) -> List[Path]:
-    """Find Bronze document JSON files for a season/week.
+def _find_bronze_files_for_season(season: int) -> List[Path]:
+    """Find all Bronze document JSON files for a season across all sources.
 
-    Searches both the week-scoped directory and common source-level dirs
-    (rss/, sleeper/) in the bronze sentiment tree.
+    The bronze directory structure is:
+        data/bronze/sentiment/{source}/season=YYYY/{files}.json
+
+    where source is rss, reddit, sleeper, etc.
 
     Args:
         season: NFL season year.
-        week: NFL week number.
 
     Returns:
         List of Path objects, newest first.
     """
     files: List[Path] = []
-    week_dir = _BRONZE_SENTIMENT_DIR / f"season={season}" / f"week={week:02d}"
-    if week_dir.exists():
-        files.extend(week_dir.glob("*.json"))
 
-    # Source-level directories (rss, sleeper) may not be week-partitioned
-    for source_dir in _BRONZE_SENTIMENT_DIR.glob("*/"):
-        if source_dir.is_dir() and source_dir.name not in ("season=*",):
-            files.extend(source_dir.glob(f"*season={season}*week={week}*.json"))
-            files.extend(source_dir.glob(f"*{season}*{week:02d}*.json"))
+    if not _BRONZE_SENTIMENT_DIR.exists():
+        return files
+
+    # Walk source-level directories: rss/, reddit/, sleeper/
+    for source_dir in _BRONZE_SENTIMENT_DIR.iterdir():
+        if not source_dir.is_dir():
+            continue
+        # Check for season subdirectory within each source
+        season_dir = source_dir / f"season={season}"
+        if season_dir.exists():
+            files.extend(season_dir.glob("*.json"))
 
     return sorted(set(files), key=lambda p: p.stat().st_mtime, reverse=True)
 
 
 def _load_bronze_records(files: List[Path]) -> List[Dict[str, Any]]:
     """Load Bronze document records from a list of JSON files.
+
+    Handles both the ``items`` key (current pipeline format) and the legacy
+    ``documents`` key.
 
     Args:
         files: List of paths to Bronze JSON files.
@@ -203,38 +240,159 @@ def _load_bronze_records(files: List[Path]) -> List[Dict[str, Any]]:
         if isinstance(data, list):
             records.extend(r for r in data if isinstance(r, dict))
         elif isinstance(data, dict):
-            if "documents" in data:
-                records.extend(
-                    r for r in data["documents"] if isinstance(r, dict)
-                )
-            else:
+            # Current pipeline uses "items"; legacy uses "documents"
+            items = data.get("items") or data.get("documents") or []
+            if items:
+                records.extend(r for r in items if isinstance(r, dict))
+            elif "external_id" in data or "title" in data:
                 records.append(data)
 
     return records
 
 
-def _bronze_body_index(season: int, week: int) -> Dict[str, str]:
-    """Build a mapping of external_id → body_snippet from Bronze documents.
+def _build_bronze_index(
+    records: List[Dict[str, Any]],
+) -> Dict[str, Dict[str, Any]]:
+    """Build a lookup of external_id -> bronze record for enrichment.
 
     Args:
-        season: NFL season year.
-        week: NFL week number.
+        records: List of bronze document dicts.
 
     Returns:
-        Dict mapping external_id to first 200 chars of body_text.
+        Dict mapping external_id to the full bronze record.
     """
-    files = _find_bronze_files(season, week)
-    if not files:
-        return {}
-
-    index: Dict[str, str] = {}
-    for rec in _load_bronze_records(files):
+    index: Dict[str, Dict[str, Any]] = {}
+    for rec in records:
         ext_id = rec.get("external_id") or rec.get("id")
-        body = rec.get("body_text") or rec.get("body") or ""
-        if ext_id and body:
-            index[str(ext_id)] = body[:200]
-
+        if ext_id:
+            index[str(ext_id)] = rec
     return index
+
+
+# ---------------------------------------------------------------------------
+# Unified news item builder
+# ---------------------------------------------------------------------------
+
+
+def _build_news_item_from_bronze(
+    bronze_rec: Dict[str, Any],
+    silver_rec: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    """Build a unified NewsItem dict from a bronze record, optionally
+    enriched with silver signal data (sentiment, events).
+
+    Args:
+        bronze_rec: Raw bronze document record.
+        silver_rec: Optional matching silver signal record.
+
+    Returns:
+        Dict matching the NewsItem schema.
+    """
+    ext_id = bronze_rec.get("external_id") or bronze_rec.get("id")
+    source_raw = bronze_rec.get("source", "unknown")
+
+    # Normalize source names for display
+    source = source_raw
+
+    # Extract body snippet
+    body = (
+        bronze_rec.get("body_text")
+        or bronze_rec.get("body")
+        or bronze_rec.get("news_body")
+        or ""
+    )
+    body_snippet = body[:200] if body else None
+
+    # Get player info from silver first, then bronze
+    player_id = None
+    player_name = None
+    team = None
+
+    if silver_rec:
+        player_id = silver_rec.get("player_id")
+        player_name = silver_rec.get("player_name")
+
+    if not player_name:
+        player_name = bronze_rec.get("player_name")
+    if not player_id:
+        # Bronze RSS has resolved_player_ids list
+        resolved_ids = bronze_rec.get("resolved_player_ids") or []
+        if resolved_ids:
+            player_id = resolved_ids[0]
+        player_id = player_id or bronze_rec.get("resolved_player_id")
+
+    team = bronze_rec.get("team") or bronze_rec.get("team_hint")
+
+    # Sentiment from silver
+    sentiment = None
+    category = None
+    events: Dict[str, Any] = {}
+    if silver_rec:
+        sentiment = silver_rec.get("sentiment_score")
+        category = silver_rec.get("category")
+        events = silver_rec.get("events") or {}
+
+    # Published date
+    published_at = (
+        bronze_rec.get("published_at")
+        or bronze_rec.get("news_date")
+    )
+
+    return {
+        "doc_id": str(ext_id) if ext_id else None,
+        "title": bronze_rec.get("title"),
+        "source": source,
+        "url": bronze_rec.get("url") or bronze_rec.get("permalink"),
+        "published_at": published_at,
+        "sentiment": sentiment,
+        "category": category,
+        "player_id": player_id,
+        "player_name": player_name,
+        "team": team,
+        "is_ruled_out": bool(events.get("is_ruled_out", False)),
+        "is_inactive": bool(events.get("is_inactive", False)),
+        "is_questionable": bool(events.get("is_questionable", False)),
+        "is_suspended": bool(events.get("is_suspended", False)),
+        "is_returning": bool(events.get("is_returning", False)),
+        "body_snippet": body_snippet,
+    }
+
+
+def _build_news_item_from_silver(
+    silver_rec: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Build a NewsItem from a silver record when no matching bronze exists.
+
+    Uses the raw_excerpt field as the body snippet.
+
+    Args:
+        silver_rec: Silver signal record dict.
+
+    Returns:
+        Dict matching the NewsItem schema.
+    """
+    events: Dict[str, Any] = silver_rec.get("events") or {}
+    doc_id = silver_rec.get("doc_id") or silver_rec.get("signal_id")
+    raw_excerpt = silver_rec.get("raw_excerpt") or ""
+
+    return {
+        "doc_id": str(doc_id) if doc_id else None,
+        "title": None,
+        "source": silver_rec.get("source", "unknown"),
+        "url": None,
+        "published_at": silver_rec.get("published_at"),
+        "sentiment": silver_rec.get("sentiment_score"),
+        "category": silver_rec.get("category"),
+        "player_id": silver_rec.get("player_id"),
+        "player_name": silver_rec.get("player_name"),
+        "team": None,
+        "is_ruled_out": bool(events.get("is_ruled_out", False)),
+        "is_inactive": bool(events.get("is_inactive", False)),
+        "is_questionable": bool(events.get("is_questionable", False)),
+        "is_suspended": bool(events.get("is_suspended", False)),
+        "is_returning": bool(events.get("is_returning", False)),
+        "body_snippet": raw_excerpt[:200] if raw_excerpt else None,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -248,10 +406,10 @@ def get_player_news(
     week: int,
     limit: int = 10,
 ) -> List[Dict[str, Any]]:
-    """Return recent Silver news items for a specific player.
+    """Return recent news items for a specific player.
 
-    Reads Silver signal records and filters to those referencing *player_id*.
-    Falls back to an empty list when no data is available.
+    Merges Bronze documents (titles, URLs) with Silver signals (sentiment)
+    and filters to those referencing *player_id*.
 
     Args:
         player_id: Canonical player ID.
@@ -262,51 +420,39 @@ def get_player_news(
     Returns:
         List of news item dicts ordered newest first.
     """
+    # Load silver signals for enrichment
     silver_files = _find_silver_files(season, week)
-    if not silver_files:
-        logger.debug("No Silver signal files for season=%d week=%d", season, week)
-        return []
+    silver_records = _load_silver_records(silver_files) if silver_files else []
+    silver_index = _build_silver_index(silver_records)
 
-    records = _load_silver_records(silver_files)
-    body_index = _bronze_body_index(season, week)
-
-    player_records = [
-        r for r in records if r.get("player_id") == player_id
-    ]
-
-    # Sort newest first
-    player_records.sort(
-        key=lambda r: r.get("published_at") or "", reverse=True
-    )
-    player_records = player_records[:limit]
+    # Load bronze documents
+    bronze_files = _find_bronze_files_for_season(season)
+    bronze_records = _load_bronze_records(bronze_files)
 
     items: List[Dict[str, Any]] = []
-    for rec in player_records:
-        events: Dict[str, Any] = rec.get("events") or {}
-        ext_id = rec.get("external_id") or rec.get("doc_id") or rec.get("id")
-        body_snippet = body_index.get(str(ext_id)) if ext_id else None
 
-        items.append(
-            {
-                "doc_id": ext_id,
-                "title": rec.get("title"),
-                "source": rec.get("source", "unknown"),
-                "url": rec.get("url"),
-                "published_at": rec.get("published_at"),
-                "sentiment": rec.get("sentiment_score"),
-                "category": rec.get("category"),
-                "player_id": rec.get("player_id"),
-                "player_name": rec.get("player_name"),
-                "is_ruled_out": bool(events.get("is_ruled_out", False)),
-                "is_inactive": bool(events.get("is_inactive", False)),
-                "is_questionable": bool(events.get("is_questionable", False)),
-                "is_suspended": bool(events.get("is_suspended", False)),
-                "is_returning": bool(events.get("is_returning", False)),
-                "body_snippet": body_snippet,
-            }
-        )
+    # Build items from bronze, enriched with silver
+    for bronze_rec in bronze_records:
+        ext_id = str(bronze_rec.get("external_id") or bronze_rec.get("id") or "")
+        silver_rec = silver_index.get(ext_id)
+        item = _build_news_item_from_bronze(bronze_rec, silver_rec)
 
-    return items
+        if item.get("player_id") == player_id:
+            items.append(item)
+
+    # Also add silver-only records that have no bronze match
+    bronze_ids = {
+        str(r.get("external_id") or r.get("id") or "")
+        for r in bronze_records
+    }
+    for rec in silver_records:
+        doc_id = str(rec.get("doc_id") or "")
+        if doc_id not in bronze_ids and rec.get("player_id") == player_id:
+            items.append(_build_news_item_from_silver(rec))
+
+    # Sort newest first and paginate
+    items.sort(key=lambda r: r.get("published_at") or "", reverse=True)
+    return items[:limit]
 
 
 def get_active_alerts(season: int, week: int) -> List[Dict[str, Any]]:
@@ -360,8 +506,8 @@ def get_active_alerts(season: int, week: int) -> List[Dict[str, Any]]:
             {
                 "player_id": player_id,
                 "player_name": player_name,
-                "team": None,
-                "position": None,
+                "team": str(row.get("team", "")) if "team" in row.index else None,
+                "position": str(row.get("position", "")) if "position" in row.index else None,
                 "alert_type": alert_type,
                 "sentiment_multiplier": sentiment_mult,
                 "latest_signal_at": str(latest_signal) if latest_signal else None,
@@ -392,16 +538,19 @@ def get_news_feed(
     limit: int = 50,
     offset: int = 0,
 ) -> List[Dict[str, Any]]:
-    """Return paginated news items from all sources for a season/week.
+    """Return paginated news items from all sources for a season.
 
-    Reads Silver signal records across all available week directories for the
-    given season when *week* is None, or from a specific week directory.
-    Applies optional filters for source, team, and player_id.
+    Builds the feed primarily from Bronze documents (which carry titles and
+    URLs) and enriches them with Silver signal data (sentiment scores, event
+    flags). This gives the frontend rich, readable news items.
+
+    When no Silver data is available, Bronze items are still returned with
+    null sentiment values.
 
     Args:
         season: NFL season year.
         week: NFL week number (1-18). When None, returns news across all weeks.
-        source: Optional source filter (e.g. ``"reddit"``, ``"rss_espn"``).
+        source: Optional source filter (e.g. ``"reddit"``, ``"rss_espn_news"``).
         team: Optional 3-letter team code filter.
         player_id: Optional player ID filter.
         limit: Maximum number of items to return (default 50).
@@ -410,70 +559,65 @@ def get_news_feed(
     Returns:
         List of news item dicts ordered newest first.
     """
+    # Load silver signals for enrichment
     if week is not None:
         silver_files = _find_silver_files(season, week)
-        body_index = _bronze_body_index(season, week)
     else:
-        # Collect files across all weeks in the season directory
         silver_files = _find_silver_files_all_weeks(season)
-        body_index = {}
 
-    if not silver_files:
-        logger.debug("No Silver signal files for season=%d week=%s", season, week)
-        return []
+    silver_records = _load_silver_records(silver_files) if silver_files else []
+    silver_index = _build_silver_index(silver_records)
 
-    records = _load_silver_records(silver_files)
+    # Load bronze documents (always load full season for richest feed)
+    bronze_files = _find_bronze_files_for_season(season)
+    bronze_records = _load_bronze_records(bronze_files)
+
+    items: List[Dict[str, Any]] = []
+
+    # Deduplicate bronze by external_id (multiple ingestion runs)
+    seen_ids: set = set()
+
+    for bronze_rec in bronze_records:
+        ext_id = str(bronze_rec.get("external_id") or bronze_rec.get("id") or "")
+        if ext_id in seen_ids:
+            continue
+        seen_ids.add(ext_id)
+
+        silver_rec = silver_index.get(ext_id)
+        item = _build_news_item_from_bronze(bronze_rec, silver_rec)
+        items.append(item)
+
+    # Also add silver-only records that have no bronze match
+    for rec in silver_records:
+        doc_id = str(rec.get("doc_id") or "")
+        if doc_id and doc_id not in seen_ids:
+            seen_ids.add(doc_id)
+            items.append(_build_news_item_from_silver(rec))
 
     # Apply filters
     if source:
-        records = [r for r in records if r.get("source", "") == source]
+        items = [r for r in items if source in (r.get("source") or "")]
     if team:
-        records = [r for r in records if r.get("team", "") == team]
+        items = [r for r in items if r.get("team", "") == team]
     if player_id:
-        records = [r for r in records if r.get("player_id") == player_id]
+        items = [
+            r for r in items
+            if r.get("player_id") == player_id or player_id in (r.get("player_name") or "")
+        ]
 
     # Sort newest first
-    records.sort(key=lambda r: r.get("published_at") or "", reverse=True)
+    items.sort(key=lambda r: r.get("published_at") or "", reverse=True)
 
     # Paginate
-    page_records = records[offset : offset + limit]
-
-    items: List[Dict[str, Any]] = []
-    for rec in page_records:
-        events: Dict[str, Any] = rec.get("events") or {}
-        ext_id = rec.get("external_id") or rec.get("doc_id") or rec.get("id")
-        body_snippet = body_index.get(str(ext_id)) if ext_id else None
-
-        items.append(
-            {
-                "doc_id": ext_id,
-                "title": rec.get("title"),
-                "source": rec.get("source", "unknown"),
-                "url": rec.get("url"),
-                "published_at": rec.get("published_at"),
-                "sentiment": rec.get("sentiment_score"),
-                "category": rec.get("category"),
-                "player_id": rec.get("player_id"),
-                "player_name": rec.get("player_name"),
-                "team": rec.get("team"),
-                "is_ruled_out": bool(events.get("is_ruled_out", False)),
-                "is_inactive": bool(events.get("is_inactive", False)),
-                "is_questionable": bool(events.get("is_questionable", False)),
-                "is_suspended": bool(events.get("is_suspended", False)),
-                "is_returning": bool(events.get("is_returning", False)),
-                "body_snippet": body_snippet,
-            }
-        )
-
-    return items
+    return items[offset: offset + limit]
 
 
 def get_team_sentiment(season: int, week: int) -> List[Dict[str, Any]]:
     """Return aggregated sentiment summary for all teams in a season/week.
 
-    Reads the Gold sentiment Parquet and groups by team to derive per-team
-    sentiment scores. Falls back gracefully to an empty list when no Gold
-    data exists.
+    When the Gold data lacks a ``team`` column, this function falls back to
+    building team sentiment from Silver signal records, grouping by player
+    team hints derived from bronze data.
 
     Args:
         season: NFL season year.
@@ -483,19 +627,24 @@ def get_team_sentiment(season: int, week: int) -> List[Dict[str, Any]]:
         List of team sentiment dicts, one per team, ordered by team abbreviation.
     """
     df = _load_gold_sentiment(season, week)
-    if df.empty:
-        return []
 
-    team_col = "team" if "team" in df.columns else None
+    # Try Gold data first if it has a team column
+    if not df.empty and "team" in df.columns:
+        return _team_sentiment_from_gold(df, season, week)
+
+    # Fall back: build team sentiment from Silver signals + Bronze team hints
+    return _team_sentiment_from_signals(season, week)
+
+
+def _team_sentiment_from_gold(
+    df: pd.DataFrame, season: int, week: int
+) -> List[Dict[str, Any]]:
+    """Build team sentiment from Gold data with team column."""
     sentiment_col = "sentiment_score_avg" if "sentiment_score_avg" in df.columns else None
     mult_col = "sentiment_multiplier" if "sentiment_multiplier" in df.columns else None
 
-    if team_col is None:
-        logger.debug("Gold sentiment has no 'team' column; cannot build team sentiment")
-        return []
-
     results: List[Dict[str, Any]] = []
-    for team_name, group in df.groupby(team_col):
+    for team_name, group in df.groupby("team"):
         avg_score = (
             float(group[sentiment_col].dropna().mean())
             if sentiment_col and not group[sentiment_col].dropna().empty
@@ -506,7 +655,11 @@ def get_team_sentiment(season: int, week: int) -> List[Dict[str, Any]]:
             if mult_col and not group[mult_col].dropna().empty
             else 1.0
         )
-        signal_count = int(group.get("doc_count", pd.Series([0])).sum()) if "doc_count" in group.columns else len(group)
+        signal_count = (
+            int(group["doc_count"].sum())
+            if "doc_count" in group.columns
+            else len(group)
+        )
 
         if avg_score > 0.1:
             label = "positive"
@@ -528,6 +681,87 @@ def get_team_sentiment(season: int, week: int) -> List[Dict[str, Any]]:
         )
 
     results.sort(key=lambda r: r["team"])
+    return results
+
+
+def _team_sentiment_from_signals(
+    season: int, week: int
+) -> List[Dict[str, Any]]:
+    """Build team sentiment from Silver signals + Bronze team hints.
+
+    Falls back to this when Gold data lacks a team column. Collects team
+    info from bronze Sleeper items (which have team fields) and groups
+    sentiment scores from silver signals by team.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number.
+
+    Returns:
+        List of team sentiment dicts.
+    """
+    # Load bronze to get team mapping (Sleeper items have team field)
+    bronze_files = _find_bronze_files_for_season(season)
+    bronze_records = _load_bronze_records(bronze_files)
+
+    # Build player_name -> team mapping from bronze
+    name_to_team: Dict[str, str] = {}
+    for rec in bronze_records:
+        name = rec.get("player_name")
+        team = rec.get("team") or rec.get("team_hint")
+        if name and team:
+            name_to_team[name] = team
+
+    # Load silver signals
+    silver_files = _find_silver_files(season, week)
+    if not silver_files:
+        silver_files = _find_silver_files_all_weeks(season)
+    silver_records = _load_silver_records(silver_files)
+
+    # Group signals by team
+    team_scores: Dict[str, List[float]] = {}
+    team_counts: Dict[str, int] = {}
+
+    for rec in silver_records:
+        player_name = rec.get("player_name", "")
+        team = name_to_team.get(player_name)
+        if not team:
+            continue
+
+        score = rec.get("sentiment_score")
+        if score is not None:
+            team_scores.setdefault(team, []).append(float(score))
+        team_counts[team] = team_counts.get(team, 0) + 1
+
+    results: List[Dict[str, Any]] = []
+    for team in sorted(set(list(team_scores.keys()) + list(team_counts.keys()))):
+        scores = team_scores.get(team, [])
+        avg_score = sum(scores) / len(scores) if scores else 0.0
+        signal_count = team_counts.get(team, 0)
+
+        # Derive multiplier from average score
+        if avg_score > 0.1:
+            label = "positive"
+            mult = 1.0 + min(avg_score * 0.15, 0.15)
+        elif avg_score < -0.1:
+            label = "negative"
+            mult = 1.0 + max(avg_score * 0.15, -0.30)
+        else:
+            label = "neutral"
+            mult = 1.0
+
+        results.append(
+            {
+                "team": team,
+                "season": season,
+                "week": week,
+                "sentiment_score": round(avg_score, 4),
+                "sentiment_label": label,
+                "signal_count": signal_count,
+                "sentiment_multiplier": round(mult, 4),
+            }
+        )
+
     return results
 
 
@@ -593,3 +827,85 @@ def get_player_sentiment(
         else None,
         "signal_staleness_hours": _safe_float(staleness),
     }
+
+
+def get_sentiment_summary(
+    season: int, week: int
+) -> Dict[str, Any]:
+    """Return a summary of sentiment data for dashboard display.
+
+    Includes total document count, breakdown by source, top positive and
+    negative players, and overall sentiment distribution.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number.
+
+    Returns:
+        Dict with summary fields: total_docs, sources, top_positive,
+        top_negative, sentiment_distribution.
+    """
+    df = _load_gold_sentiment(season, week)
+
+    summary: Dict[str, Any] = {
+        "season": season,
+        "week": week,
+        "total_players": 0,
+        "total_docs": 0,
+        "sources": {},
+        "top_positive": [],
+        "top_negative": [],
+        "sentiment_distribution": {"positive": 0, "neutral": 0, "negative": 0},
+    }
+
+    if df.empty:
+        return summary
+
+    summary["total_players"] = len(df)
+    summary["total_docs"] = int(df["doc_count"].sum()) if "doc_count" in df.columns else 0
+
+    # Source breakdown
+    for col in ["rss_doc_count", "sleeper_doc_count", "official_report_count", "twitter_doc_count"]:
+        if col in df.columns:
+            summary["sources"][col.replace("_doc_count", "").replace("_count", "")] = int(
+                df[col].sum()
+            )
+
+    # Sentiment distribution
+    if "sentiment_score_avg" in df.columns:
+        scores = df["sentiment_score_avg"].dropna()
+        summary["sentiment_distribution"]["positive"] = int((scores > 0.1).sum())
+        summary["sentiment_distribution"]["neutral"] = int(
+            ((scores >= -0.1) & (scores <= 0.1)).sum()
+        )
+        summary["sentiment_distribution"]["negative"] = int((scores < -0.1).sum())
+
+    # Top positive and negative players
+    if "sentiment_multiplier" in df.columns and "player_name" in df.columns:
+        sorted_df = df.sort_values("sentiment_multiplier", ascending=False)
+        for _, row in sorted_df.head(5).iterrows():
+            mult = float(row.get("sentiment_multiplier", 1.0))
+            if mult > 1.0:
+                summary["top_positive"].append(
+                    {
+                        "player_id": str(row.get("player_id", "")),
+                        "player_name": str(row.get("player_name", "")),
+                        "sentiment_multiplier": mult,
+                        "doc_count": int(row.get("doc_count", 0)),
+                    }
+                )
+
+        sorted_df_neg = df.sort_values("sentiment_multiplier", ascending=True)
+        for _, row in sorted_df_neg.head(5).iterrows():
+            mult = float(row.get("sentiment_multiplier", 1.0))
+            if mult < 1.0:
+                summary["top_negative"].append(
+                    {
+                        "player_id": str(row.get("player_id", "")),
+                        "player_name": str(row.get("player_name", "")),
+                        "sentiment_multiplier": mult,
+                        "doc_count": int(row.get("doc_count", 0)),
+                    }
+                )
+
+    return summary

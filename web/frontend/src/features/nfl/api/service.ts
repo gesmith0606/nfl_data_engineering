@@ -9,6 +9,7 @@ export {
   fetchPlayerSentiment,
   fetchPredictions,
   fetchProjections,
+  fetchSentimentSummary,
   fetchTeamSentiment,
   fetchTopProjections,
   searchPlayers,

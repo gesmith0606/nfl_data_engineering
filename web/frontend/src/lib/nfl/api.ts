@@ -17,6 +17,7 @@ import type {
   PredictionResponse,
   ProjectionResponse,
   ScoringFormat,
+  SentimentSummary,
   TeamLineup,
   TeamSentiment,
 } from "./types";
@@ -229,6 +230,18 @@ export async function fetchNewsFeed(
   params.set('limit', String(limit));
   params.set('offset', String(offset));
   return request<NewsItem[]>(`/api/news/feed?${params}`);
+}
+
+/** Fetch sentiment summary for dashboard display. */
+export async function fetchSentimentSummary(
+  season: number,
+  week: number,
+): Promise<SentimentSummary> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week),
+  });
+  return request<SentimentSummary>(`/api/news/summary?${params}`);
 }
 
 /** Fetch aggregated team sentiment for a season/week. */

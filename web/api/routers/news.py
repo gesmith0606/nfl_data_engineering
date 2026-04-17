@@ -186,6 +186,35 @@ def get_news_feed(
     return [NewsItem(**item) for item in items]
 
 
+@router.get("/summary")
+def get_sentiment_summary(
+    season: int = Query(..., ge=1999, le=2030, description="NFL season"),
+    week: int = Query(..., ge=1, le=18, description="Week number"),
+) -> dict:
+    """Return a summary of sentiment data for dashboard display.
+
+    Includes total document count, breakdown by source, top positive and
+    negative players, and overall sentiment distribution.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number (1-18).
+
+    Returns:
+        Dict with summary fields.
+    """
+    try:
+        return news_service.get_sentiment_summary(season=season, week=week)
+    except Exception as exc:
+        logger.error(
+            "Error fetching sentiment summary for season=%d week=%d: %s",
+            season,
+            week,
+            exc,
+        )
+        raise HTTPException(status_code=500, detail="Failed to load sentiment summary")
+
+
 @router.get("/team-sentiment", response_model=List[TeamSentiment])
 def get_team_sentiment(
     season: int = Query(..., ge=1999, le=2030, description="NFL season"),

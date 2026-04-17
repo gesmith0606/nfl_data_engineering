@@ -11,6 +11,8 @@ export type {
   PredictionResponse,
   ProjectionResponse,
   ScoringFormat,
+  SentimentPlayer,
+  SentimentSummary,
   SortConfig,
   SortDirection,
   TeamLineup,

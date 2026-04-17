@@ -164,6 +164,30 @@ export interface TeamSentiment {
   sentiment_multiplier: number;
 }
 
+/** Dashboard-level sentiment summary. */
+export interface SentimentSummary {
+  season: number;
+  week: number;
+  total_players: number;
+  total_docs: number;
+  sources: Record<string, number>;
+  top_positive: SentimentPlayer[];
+  top_negative: SentimentPlayer[];
+  sentiment_distribution: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+}
+
+/** A player entry in the sentiment summary top lists. */
+export interface SentimentPlayer {
+  player_id: string;
+  player_name: string;
+  sentiment_multiplier: number;
+  doc_count: number;
+}
+
 /** Scoring format options. */
 export type ScoringFormat = "ppr" | "half_ppr" | "standard";
 
