@@ -9,6 +9,7 @@ import {
   IconBrandGithub,
   IconBrandTwitter,
   IconBrightness,
+  IconRobot,
   IconCalendar,
   IconCheck,
   IconChecks,
@@ -196,6 +197,7 @@ export const Icons = {
   pro: IconCrown,
   exclusive: IconStar,
   sparkles: IconSparkles,
+  robot: IconRobot,
   badgeCheck: IconRosetteDiscountCheck,
   lock: IconLock,
 

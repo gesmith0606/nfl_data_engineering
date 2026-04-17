@@ -478,15 +478,16 @@ export function ChatWidget() {
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
-          'fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center',
-          'rounded-full bg-primary text-primary-foreground shadow-lg',
-          'transition-all duration-200 hover:scale-105 hover:shadow-xl',
+          'fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center',
+          'rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25',
+          'transition-all duration-200 hover:scale-110 hover:shadow-xl hover:shadow-primary/40',
+          'animate-pulse [animation-duration:3s]',
           'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
           isOpen && 'scale-0 opacity-0 pointer-events-none'
         )}
         aria-label='Open AI Advisor chat'
       >
-        <Icons.sparkles className='h-5 w-5' />
+        <Icons.robot className='h-6 w-6' />
         {/* Unread dot when there are messages and widget is closed */}
         {messages.length > 0 && !isOpen && (
           <span className='absolute -top-0.5 -right-0.5 h-3 w-3 rounded-full bg-destructive border-2 border-background' />
@@ -509,7 +510,7 @@ export function ChatWidget() {
         <div className='flex items-center justify-between border-b px-4 py-3 shrink-0'>
           <div className='flex items-center gap-2'>
             <div className='flex h-7 w-7 items-center justify-center rounded-full bg-primary/10'>
-              <Icons.sparkles className='h-4 w-4 text-primary' />
+              <Icons.robot className='h-4 w-4 text-primary' />
             </div>
             <div>
               <h3 className='text-sm font-semibold leading-none'>AI Advisor</h3>
@@ -535,7 +536,7 @@ export function ChatWidget() {
             {messages.length === 0 && (
               <div className='flex flex-col items-center justify-center py-8 text-center'>
                 <div className='bg-primary/10 mb-3 rounded-full p-3'>
-                  <Icons.sparkles className='text-primary h-6 w-6' />
+                  <Icons.robot className='text-primary h-6 w-6' />
                 </div>
                 <h4 className='mb-0.5 text-sm font-semibold'>
                   AI Fantasy Advisor
