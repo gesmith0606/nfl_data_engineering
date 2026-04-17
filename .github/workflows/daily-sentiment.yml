@@ -75,7 +75,36 @@ jobs:
             --verbose
 
       # ----------------------------------------------------------------
-      # 5. Upload artifacts (always, even on failure — aids debugging)
+      # 5. Refresh rosters from Sleeper (catches trades, FA signings)
+      # ----------------------------------------------------------------
+      - name: Refresh rosters from Sleeper
+        run: |
+          python scripts/refresh_rosters.py \
+            --season ${{ inputs.season || '2026' }} \
+            || echo "Roster refresh failed (non-fatal)"
+
+      # ----------------------------------------------------------------
+      # 6. Commit and push new data back to repo
+      # Railway auto-deploys from main, so this keeps the website fresh.
+      # ----------------------------------------------------------------
+      - name: Commit sentiment and roster data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/bronze/sentiment/ data/silver/sentiment/ data/gold/sentiment/ data/gold/projections/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No new data to commit"
+          else
+            COUNT=$(git diff --cached --name-only | wc -l | tr -d ' ')
+            git commit -m "data(daily): sentiment + roster refresh — ${COUNT} files
+
+          Automated daily pipeline: RSS feeds, Sleeper trending, roster updates."
+            git push
+            echo "Pushed $COUNT new data files"
+          fi
+
+      # ----------------------------------------------------------------
+      # 7. Upload artifacts (always, even on failure — aids debugging)
       # ----------------------------------------------------------------
       - name: Upload sentiment artifacts
         if: always()
