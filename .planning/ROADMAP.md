@@ -14,190 +14,138 @@
 - v3.1 Graph-Enhanced Fantasy Projections -- Phases 49-53 (shipped 2026-04-03)
 - v3.2 Model Perfection -- Phases 54-57 (shipped 2026-04-09)
 - *v4.0 Production Launch -- Phases W7-W12 (parallel, see .planning/v4.0-web/)*
-- **v5.0 Sentiment v2 -- Phases SV2-01 through SV2-04 (current)**
+- *v5.0 Sentiment v2 -- Phases SV2-01 through SV2-04 (complete)*
+- **v6.0 Website Production Ready + Agent Ecosystem -- Phases 60-65 (current)**
 
 ---
 
-## Phase W7: Sleeper League Integration
+## v6.0 Website Production Ready + Agent Ecosystem
 
-**Goal:** Connect users' Sleeper fantasy football leagues to the platform for personalized roster management, start/sit advice, and waiver wire recommendations -- all via Sleeper's free public API (no OAuth needed).
+**Goal:** Get the website to production quality with accurate data, polished design, working news feeds, and a capable AI advisor -- while optimizing the agent/skill ecosystem.
 
-**Plans:** 3 plans
+All 6 phases are independent and can be worked in any order.
 
-Plans:
-- [ ] W7-01-PLAN.md -- Backend Sleeper service + player ID mapping + FastAPI endpoints
-- [ ] W7-02-PLAN.md -- Frontend connect flow, My Team page, roster display, waiver wire
-- [ ] W7-03-PLAN.md -- AI advisor tools for roster and waiver wire context
+## Phases
 
-**Requirements:** SLP-01 through SLP-13
-**Dependencies:** Existing FastAPI backend (W1-W5), AI advisor (built), projection data (Gold layer)
-**Success criteria:**
-1. User enters Sleeper username and sees their leagues
-2. Selecting a league shows roster with projected points and start/sit badges
-3. Waiver wire suggestions show top available players in the league
-4. AI advisor can access user's roster and give personalized advice
-5. League context persists in localStorage across sessions
+- [ ] **Phase 60: Data Quality** - Fix stale rosters, position misclassifications, and projection sanity issues
+- [ ] **Phase 61: News & Sentiment Live** - Daily automated news ingestion with real articles on the website
+- [ ] **Phase 62: Design & UX Polish** - Premium visual design, consistent styling, animations, mobile responsiveness
+- [ ] **Phase 63: AI Advisor Hardening** - Verify all 12 advisor tools work end-to-end on the live site
+- [ ] **Phase 64: Matchup View Completion** - Real defensive data, proper ratings, schedule-aware opponents
+- [ ] **Phase 65: Agent Ecosystem Optimization** - Consolidate skills, activate or archive dormant agents, add NFL rules
 
----
+## Phase Details
 
-## v5.0 Sentiment v2: Live News Feed + Sentiment-Adjusted Models
+### Phase 60: Data Quality
+**Goal**: Users see accurate, current player data across the entire site
+**Depends on**: Nothing (independent)
+**Requirements**: DQAL-01, DQAL-02, DQAL-03, DQAL-04
+**Success Criteria** (what must be TRUE):
+  1. Every player on the projections page shows the correct position (QB/RB/WR/TE/K) matching Sleeper API
+  2. Rosters reflect 2026 offseason trades and free agency moves (no player on the wrong team)
+  3. Running the sanity check script produces fewer than 10 warnings and zero critical issues
+  4. The top 10 projected players at each position align structurally with consensus rankings (no obvious absurdities like a backup QB in top 5)
+**Plans**: TBD
 
-**Goal:** Daily news feed with rule-based sentiment extraction, team-level sentiment for game line adjustment, and a dedicated news page on the website -- all without requiring an Anthropic API key.
+### Phase 61: News & Sentiment Live
+**Goal**: Users can browse real news articles and see sentiment signals on the website
+**Depends on**: Nothing (independent)
+**Requirements**: NEWS-01, NEWS-02, NEWS-03, NEWS-04
+**Success Criteria** (what must be TRUE):
+  1. The daily sentiment pipeline runs automatically via cron and processes RSS, Sleeper, and Reddit sources
+  2. The news page displays real articles with source attribution, publication date, and tagged player names
+  3. The team sentiment dashboard shows all 32 teams in a color-coded grid (green=bullish, red=bearish)
+  4. Visiting a player detail page shows bullish/bearish sentiment badges derived from recent news
+**Plans**: TBD
+**UI hint**: yes
 
-**Plans:** 4 plans
+### Phase 62: Design & UX Polish
+**Goal**: The website looks and feels like a premium product on any device
+**Depends on**: Nothing (independent)
+**Requirements**: DSGN-01, DSGN-02, DSGN-03, DSGN-04
+**Success Criteria** (what must be TRUE):
+  1. A design audit of every page scores above 7/10 using the design-engineer agent evaluation criteria
+  2. Typography, color palette, and spacing are consistent across all 11 pages (no visual jarring when navigating)
+  3. Key user actions (page transitions, button clicks, data loads) have smooth animations or micro-interactions
+  4. Every page renders correctly and is usable on mobile viewport (375px width)
+**Plans**: TBD
+**UI hint**: yes
 
-Plans:
-- [ ] SV2-01-PLAN.md -- Reddit scraper + rule-based extraction (no API key needed)
-- [ ] SV2-02-PLAN.md -- Team-level sentiment aggregation + game line adjustment
-- [ ] SV2-03-PLAN.md -- Website news feed page + team sentiment badges
-- [ ] SV2-04-PLAN.md -- Daily automation (pipeline script + GitHub Actions cron)
+### Phase 63: AI Advisor Hardening
+**Goal**: Users can ask the AI advisor any fantasy question and get accurate, data-backed answers
+**Depends on**: Nothing (independent)
+**Requirements**: ADVR-01, ADVR-02, ADVR-03, ADVR-04
+**Success Criteria** (what must be TRUE):
+  1. All 12 advisor tools return valid, non-error data when invoked on the live production site
+  2. Asking "who are the top 10 RBs" returns a ranked list with real projected points from the Gold layer
+  3. The advisor can compare player rankings against external sources (Sleeper ADP, FantasyPros, ESPN)
+  4. The floating chat widget renders on every dashboard page and conversation persists across page navigation
+**Plans**: TBD
+**UI hint**: yes
 
-### Phase SV2-01: Reddit Scraper + Rule-Based Extraction
-**Goal:** Build Reddit ingestion and rule-based signal extraction so the sentiment pipeline works without an Anthropic API key.
-**Requirements:** SV2-01, SV2-02, SV2-03, SV2-04
-**Dependencies:** None (builds on existing S1-S2 infrastructure)
-**Success criteria:**
-1. Reddit posts from r/fantasyfootball and r/nfl fetched and saved as Bronze JSON
-2. Rule-based extractor produces PlayerSignal objects for injury, trade, role, positive/negative patterns
-3. Pipeline auto-selects rule extractor when no ANTHROPIC_API_KEY is set
-4. All tests pass
+### Phase 64: Matchup View Completion
+**Goal**: Users can evaluate weekly matchups using real NFL data instead of placeholders
+**Depends on**: Nothing (independent)
+**Requirements**: MTCH-01, MTCH-02, MTCH-03, MTCH-04
+**Success Criteria** (what must be TRUE):
+  1. The offensive roster in matchup view shows real player names with their projected fantasy points and positional ratings
+  2. The defensive roster displays actual NFL player names and stats (no placeholder hashes or dummy data)
+  3. Matchup advantage indicators are calculated from real team defensive metrics (not hardcoded)
+  4. The matchup view shows the correct weekly opponent based on the current NFL schedule
+**Plans**: TBD
+**UI hint**: yes
 
-### Phase SV2-02: Team Sentiment + Game Line Adjustment
-**Goal:** Aggregate player signals into team-level sentiment and apply as post-prediction edge modifier to game lines.
-**Requirements:** SV2-05, SV2-06, SV2-07, SV2-08
-**Dependencies:** SV2-01 (needs extraction pipeline working)
-**Success criteria:**
-1. Team sentiment aggregated for all 32 NFL teams per week
-2. Team sentiment multiplier bounded to [0.95, 1.05]
-3. Game predictions show sentiment-adjusted edges with --use-sentiment flag
-4. Edge adjustment is conservative (max +/- 0.15 pts)
-
-### Phase SV2-03: Website News Feed
-**Goal:** Build a dedicated news page with filters and team sentiment badges on the predictions page.
-**Requirements:** SV2-09, SV2-10, SV2-11, SV2-12, SV2-13
-**Dependencies:** SV2-01 (needs data flowing through pipeline)
-**Success criteria:**
-1. /dashboard/news page shows all recent news, most recent first
-2. Filter by All / Player / Team works
-3. Team sentiment badges visible on predictions page
-4. Player news panel shows last-updated time
-5. TypeScript compiles without errors
-
-### Phase SV2-04: Daily Automation
-**Goal:** Automated daily pipeline via GitHub Actions that ingests, extracts, and aggregates sentiment data.
-**Requirements:** SV2-14, SV2-15, SV2-16
-**Dependencies:** SV2-01, SV2-02 (needs full pipeline working)
-**Success criteria:**
-1. Single script runs full daily pipeline end-to-end
-2. GitHub Actions cron fires daily at noon UTC
-3. Pipeline is idempotent (safe to re-run)
-4. Failure auto-opens GitHub issue
-
----
-
-## v3.2 Model Perfection
-
-**Goal:** Push fantasy MAE below 4.5 through unified evaluation pipeline and advanced modeling.
-
-**Current baseline:** MAE 4.77 (QB 6.58, RB 5.00, WR 4.63, TE 3.58)
-
-### Phase 54: Unified Evaluation Pipeline
-**Goal:** Align training and backtest to use the same production heuristic and full 466-feature set.
-**Requirements:** EVAL-01, EVAL-02, EVAL-03, EVAL-04
-**Dependencies:** None
-**Success criteria:**
-1. Backtest generates production heuristic projections with ALL multipliers (usage, matchup, Vegas, ceiling shrinkage)
-2. Full 466-feature set assembled and available during backtest evaluation
-3. Residual models retrained against production heuristic (not simplified)
-4. Per-position MAE comparison: degraded (42 features) vs full (466 features)
-5. Tests passing
-
-### Phase 55: Full-Feature Residual Deployment
-**Goal:** Deploy residual models with full features for all positions, update router.
-**Requirements:** RES-01, RES-02, RES-03, RES-04, RES-05
-**Dependencies:** Phase 54 (unified pipeline must exist)
-**Success criteria:**
-1. WR residual improvement increases from -4.5% to -10%+ with full features
-2. TE residual improvement increases from -5.0% to -8%+ with full features
-3. QB and RB residual evaluated -- ship if beats standalone
-4. ML projection router updated with best approach per position
-5. Overall MAE improved (target: < 4.5)
-
-### Phase 56: Bayesian Hierarchical Models
-**Goal:** Implement Bayesian player models with partial pooling and posterior uncertainty.
-**Requirements:** BAYES-01, BAYES-02, BAYES-03, BAYES-04
-**Dependencies:** Phase 54 (needs unified evaluation for fair comparison)
-**Success criteria:**
-1. PyMC or NumPyro model implemented with position-level priors
-2. Walk-forward CV completed with same folds as Ridge/XGB
-3. MAE compared to heuristic, Ridge, and XGB per position
-4. Posterior predictive intervals provide calibrated floor/ceiling
-5. Ship if any position improves; valuable even if MAE is similar (uncertainty)
-
-### Phase 57: Quantile Regression + Final Validation
-**Goal:** Replace hardcoded floor/ceiling with data-driven percentiles, run final validation.
-**Requirements:** QUANT-01, QUANT-02, QUANT-03, INFRA-01, INFRA-02, INFRA-03
-**Dependencies:** Phases 55-56 (final model state must be known)
-**Success criteria:**
-1. LightGBM quantile models trained for 10th/50th/90th percentiles
-2. Calibration: 80% of actuals fall within 10th-90th range
-3. Floor/ceiling in projection_engine.py uses quantile bounds
-4. Final backtest: overall MAE < 4.5
-5. All tests passing, docs updated
-
----
+### Phase 65: Agent Ecosystem Optimization
+**Goal**: The .claude folder is clean, efficient, and tuned for NFL data engineering work
+**Depends on**: Nothing (independent)
+**Requirements**: AGNT-01, AGNT-02, AGNT-03, AGNT-04
+**Success Criteria** (what must be TRUE):
+  1. The 5 overlapping design-related skills are consolidated into targeted, non-redundant invocations
+  2. Every agent in .claude/agents/ is either actively used (with a clear purpose) or archived with documented reasoning
+  3. NFL-specific rules exist in .claude/rules/ covering data conventions, scoring formats, and validation patterns
+  4. The skill optimizer audit completes with fewer than 3 items scoring below 6/10
+**Plans**: TBD
 
 ## Requirement Coverage
 
 | REQ-ID | Phase | Description |
 |--------|-------|-------------|
-| EVAL-01 | 54 | Identical production heuristic |
-| EVAL-02 | 54 | Full 466-feature set |
-| EVAL-03 | 54 | Residual trained vs production |
-| EVAL-04 | 54 | Per-position MAE comparison |
-| RES-01 | 55 | WR full-feature residual |
-| RES-02 | 55 | TE full-feature residual |
-| RES-03 | 55 | QB residual evaluation |
-| RES-04 | 55 | RB residual evaluation |
-| RES-05 | 55 | Router update |
-| BAYES-01 | 56 | PyMC/NumPyro dependency |
-| BAYES-02 | 56 | Bayesian model implementation |
-| BAYES-03 | 56 | Walk-forward CV evaluation |
-| BAYES-04 | 56 | Posterior predictive intervals |
-| QUANT-01 | 57 | Quantile regression models |
-| QUANT-02 | 57 | Calibration evaluation |
-| QUANT-03 | 57 | Replace hardcoded floor/ceiling |
-| INFRA-01 | all | Tests passing |
-| INFRA-02 | all | MAE < 4.5 |
-| INFRA-03 | all | No position regression |
-| SV2-01 | SV2-01 | Reddit scraper (r/fantasyfootball, r/nfl) |
-| SV2-02 | SV2-01 | Rule-based signal extraction (no API key) |
-| SV2-03 | SV2-01 | Pipeline auto-selects extractor |
-| SV2-04 | SV2-01 | Reddit + rule extractor tests |
-| SV2-05 | SV2-02 | Team-level sentiment aggregation |
-| SV2-06 | SV2-02 | Team sentiment multiplier [0.95, 1.05] |
-| SV2-07 | SV2-02 | Game prediction edge adjustment |
-| SV2-08 | SV2-02 | Pipeline CLI runs player + team aggregation |
-| SV2-09 | SV2-03 | /dashboard/news page with feed |
-| SV2-10 | SV2-03 | News feed filters (All/Player/Team) |
-| SV2-11 | SV2-03 | Team sentiment badges on predictions page |
-| SV2-12 | SV2-03 | Enhanced player news panel (last updated) |
-| SV2-13 | SV2-03 | New API endpoints (feed, team-sentiment) |
-| SV2-14 | SV2-04 | Daily pipeline orchestrator script |
-| SV2-15 | SV2-04 | GitHub Actions daily cron |
-| SV2-16 | SV2-04 | Idempotent pipeline (no duplicate data) |
-| SLP-01 | W7 | Sleeper user lookup by username |
-| SLP-02 | W7 | League listing for user |
-| SLP-03 | W7 | Roster retrieval with player ID mapping |
-| SLP-04 | W7 | Matchup data for current week |
-| SLP-05 | W7 | Waiver wire (free agent) discovery |
-| SLP-06 | W7 | Frontend connect flow (username + league select) |
-| SLP-07 | W7 | My Team page with roster display |
-| SLP-08 | W7 | Start/sit recommendation badges |
-| SLP-09 | W7 | Waiver wire suggestions UI |
-| SLP-10 | W7 | localStorage persistence for league context |
-| SLP-11 | W7 | AI advisor getMyRoster tool |
-| SLP-12 | W7 | AI advisor getWaiverWire tool |
-| SLP-13 | W7 | Sleeper context passed to AI advisor |
+| DQAL-01 | 60 | Player positions match Sleeper API |
+| DQAL-02 | 60 | Rosters reflect 2026 trades/FA |
+| DQAL-03 | 60 | Sanity check <10 warnings, 0 critical |
+| DQAL-04 | 60 | Top 10 projections match consensus structure |
+| NEWS-01 | 61 | Daily sentiment pipeline automated |
+| NEWS-02 | 61 | News page with real articles |
+| NEWS-03 | 61 | Team sentiment 32-team grid |
+| NEWS-04 | 61 | Player sentiment badges |
+| DSGN-01 | 62 | Design audit >7/10 all pages |
+| DSGN-02 | 62 | Consistent typography/color/spacing |
+| DSGN-03 | 62 | Animations and micro-interactions |
+| DSGN-04 | 62 | Mobile-responsive all pages |
+| ADVR-01 | 63 | All 12 advisor tools return valid data |
+| ADVR-02 | 63 | Top 10 query with real data |
+| ADVR-03 | 63 | External rankings comparison |
+| ADVR-04 | 63 | Floating chat widget on all pages |
+| MTCH-01 | 64 | Offensive roster with real projections |
+| MTCH-02 | 64 | Defensive roster with actual NFL data |
+| MTCH-03 | 64 | Matchup advantages from real data |
+| MTCH-04 | 64 | Schedule-aware weekly opponent |
+| AGNT-01 | 65 | Consolidate 5 overlapping design skills |
+| AGNT-02 | 65 | Activate or archive dormant agents |
+| AGNT-03 | 65 | NFL-specific rules in .claude/rules/ |
+| AGNT-04 | 65 | Skill optimizer audit <3 items below 6 |
 
-**Coverage: 48/48 requirements mapped (100%)**
+**Coverage: 24/24 v6.0 requirements mapped (100%)**
+
+## Progress
+
+**Execution Order:** Phases 60-65 are independent and can be worked in any order.
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 60. Data Quality | 0/TBD | Not started | - |
+| 61. News & Sentiment Live | 0/TBD | Not started | - |
+| 62. Design & UX Polish | 0/TBD | Not started | - |
+| 63. AI Advisor Hardening | 0/TBD | Not started | - |
+| 64. Matchup View Completion | 0/TBD | Not started | - |
+| 65. Agent Ecosystem Optimization | 0/TBD | Not started | - |
