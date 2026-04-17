@@ -1,72 +1,108 @@
-# Requirements — v3.2 Model Perfection
+# Requirements: NFL Data Engineering Platform
 
-**Defined:** 2026-04-03
-**Core Value:** Push fantasy projection MAE below 4.5 through unified evaluation and advanced modeling
+**Defined:** 2026-04-17
+**Core Value:** A rich NFL data lake powering both fantasy football projections and game prediction models
 
-## Unified Evaluation Pipeline
+## v6.0 Requirements
 
-- [x] **EVAL-01**: Training and backtest use identical production heuristic (same multipliers, ceiling shrinkage, injury adjustments)
-- [x] **EVAL-02**: Full 466-feature set available during both training and backtest evaluation
-- [x] **EVAL-03**: Residual models trained against production heuristic (not simplified version)
-- [x] **EVAL-04**: Per-position MAE comparison with full features vs current 42-feature degraded mode
+### Data Quality
 
-## Full-Feature Residual Deployment
+- [ ] **DQAL-01**: All player positions match Sleeper API with zero misclassifications
+- [ ] **DQAL-02**: Rosters reflect 2026 trades/FA via daily Sleeper refresh
+- [ ] **DQAL-03**: Sanity check passes with <10 warnings and 0 critical issues
+- [ ] **DQAL-04**: Preseason projections pass eye test (top 10 matches consensus structure)
 
-- [x] **RES-01**: WR residual with LGB + SHAP-60 features (-31.4% MAE improvement in walk-forward CV)
-- [x] **RES-02**: TE residual with LGB + SHAP-60 features (-27.2% MAE improvement in walk-forward CV)
-- [x] **RES-03**: QB residual evaluated (-72.2% improvement); LGB deployed for all positions
-- [x] **RES-04**: RB residual evaluated (-25.1% improvement); LGB deployed for all positions
-- [x] **RES-05**: Updated ML projection router: QB/RB XGBoost SHIP, WR/TE HYBRID (heuristic + LGB residual)
+### News & Sentiment
 
-## Bayesian Hierarchical Models
+- [ ] **NEWS-01**: Daily sentiment pipeline runs automatically (RSS + Sleeper + Reddit)
+- [ ] **NEWS-02**: News page shows real articles with source, date, and player tags
+- [ ] **NEWS-03**: Team sentiment dashboard shows 32-team color-coded grid
+- [ ] **NEWS-04**: Player sentiment signals (bullish/bearish) visible on player pages
 
-- [x] **BAYES-01**: PyMC or NumPyro dependency added (optional, not required for pipeline)
-- [x] **BAYES-02**: BayesianPlayerModel with position-level priors and player random effects
-- [x] **BAYES-03**: Walk-forward CV evaluation against heuristic and Ridge baselines
-- [x] **BAYES-04**: Posterior predictive intervals for natural floor/ceiling estimation
+### Design & UX
 
-## Quantile Regression
+- [ ] **DSGN-01**: Design audit scores >7/10 on all pages (using design-engineer agent)
+- [ ] **DSGN-02**: Consistent typography, color, and spacing across all 11 pages
+- [ ] **DSGN-03**: Animations and micro-interactions on key user actions
+- [ ] **DSGN-04**: Mobile-responsive layout on all pages
 
-- [x] **QUANT-01**: LightGBM quantile mode (10th/50th/90th percentiles) — 12 models trained
-- [x] **QUANT-02**: Calibration evaluation: 74.8-81.8% coverage (QB slightly under, WR/TE meet 80%)
-- [x] **QUANT-03**: Replace hardcoded floor/ceiling with quantile-based bounds in projection_engine.py
+### AI Advisor
 
-## Infrastructure
+- [ ] **ADVR-01**: All 12 advisor tools return valid data on the live site
+- [ ] **ADVR-02**: Advisor can answer "who are the top 10 RBs" with real data
+- [ ] **ADVR-03**: External rankings comparison works (Sleeper/FantasyPros/ESPN)
+- [ ] **ADVR-04**: Floating chat widget renders and persists on all dashboard pages
 
-- [x] **INFRA-01**: 1,319 tests passing (up from 899 baseline)
-- [ ] **INFRA-02**: Overall fantasy MAE 4.80 — target 4.5 NOT MET (see EXPERIMENTS.md)
-- [x] **INFRA-03**: No position regression from quantile addition; QB improved 6.72->6.58; TE minor +0.12
+### Matchup View
+
+- [ ] **MTCH-01**: Offensive roster shows real player projections and ratings
+- [ ] **MTCH-02**: Defensive roster uses actual NFL data (not placeholder hashes)
+- [ ] **MTCH-03**: Matchup advantages calculated from real data
+- [ ] **MTCH-04**: Schedule-aware — shows correct weekly opponent
+
+### Agent Ecosystem
+
+- [ ] **AGNT-01**: Consolidate 5 overlapping design skills into targeted invocations
+- [ ] **AGNT-02**: Activate dormant agents or archive them with reasoning
+- [ ] **AGNT-03**: Add NFL-specific rules to .claude/rules/
+- [ ] **AGNT-04**: Skill optimizer runs and produces passing audit (<3 items scoring below 6)
+
+## v7.0 Requirements (Deferred)
+
+### Marketing & Content
+- **MKTG-01**: Remotion video generation from projection data
+- **MKTG-02**: YouTube/Instagram/TikTok automated distribution
+- **MKTG-03**: NotebookLM podcast generation pipeline
+
+### Sleeper League Integration
+- **SLP-01**: User enters Sleeper username and sees their leagues
+- **SLP-02**: Roster display with projected points and start/sit badges
+- **SLP-03**: AI advisor accesses user roster for personalized advice
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Remotion video generation | Deferred to v7.0 — website must be production-ready first |
+| Sleeper OAuth integration | Deferred to v7.1 — public API sufficient for now |
+| PFF paid data | Deferred to v8.0 — $300-500/season, evaluate ROI after launch |
+| Multi-platform (ESPN/Yahoo) | Deferred to v9.0 — Sleeper-first strategy |
+| Neural networks | Gradient boosting dominates tabular sports prediction at this scale |
 
 ## Traceability
 
-| REQ-ID | Phase | Plan | Status |
-|--------|-------|------|--------|
-| EVAL-01 | 54 | 54-01 | Complete |
-| EVAL-02 | 54 | 54-01 | Complete |
-| EVAL-03 | 54 | 54-01 | Complete |
-| EVAL-04 | 54 | 54-01 | Complete |
-| RES-01 | 55 | 55-01 | Complete |
-| RES-02 | 55 | 55-01 | Complete |
-| RES-03 | 55 | 55-01 | Complete |
-| RES-04 | 55 | 55-01 | Complete |
-| RES-05 | 55 | 55-01 | Complete |
-| BAYES-01 | 56 | 56-01 | Complete |
-| BAYES-02 | 56 | 56-01 | Complete |
-| BAYES-03 | 56 | 56-01 | Complete |
-| BAYES-04 | 56 | 56-01 | Complete |
-| QUANT-01 | 57 | 57-01 | Complete |
-| QUANT-02 | 57 | 57-01 | Complete |
-| QUANT-03 | 57 | 57-01 | Complete |
-| INFRA-01 | all | 57-01 | Complete |
-| INFRA-02 | all | 57-01 | NOT MET (4.80 > 4.5) |
-| INFRA-03 | all | 57-01 | Complete |
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| DQAL-01 | Phase 60 | Pending |
+| DQAL-02 | Phase 60 | Pending |
+| DQAL-03 | Phase 60 | Pending |
+| DQAL-04 | Phase 60 | Pending |
+| NEWS-01 | Phase 61 | Pending |
+| NEWS-02 | Phase 61 | Pending |
+| NEWS-03 | Phase 61 | Pending |
+| NEWS-04 | Phase 61 | Pending |
+| DSGN-01 | Phase 62 | Pending |
+| DSGN-02 | Phase 62 | Pending |
+| DSGN-03 | Phase 62 | Pending |
+| DSGN-04 | Phase 62 | Pending |
+| ADVR-01 | Phase 63 | Pending |
+| ADVR-02 | Phase 63 | Pending |
+| ADVR-03 | Phase 63 | Pending |
+| ADVR-04 | Phase 63 | Pending |
+| MTCH-01 | Phase 64 | Pending |
+| MTCH-02 | Phase 64 | Pending |
+| MTCH-03 | Phase 64 | Pending |
+| MTCH-04 | Phase 64 | Pending |
+| AGNT-01 | Phase 65 | Pending |
+| AGNT-02 | Phase 65 | Pending |
+| AGNT-03 | Phase 65 | Pending |
+| AGNT-04 | Phase 65 | Pending |
 
-## Future Requirements (deferred)
-- PFF data integration (v3.3)
-- Neural embeddings (rejected — insufficient data)
-- DST fantasy projections
+**Coverage:**
+- v6.0 requirements: 24 total
+- Mapped to phases: 24
+- Unmapped: 0
 
-## Out of Scope
-- Website deployment (tracked in v4.0 parallel milestone)
-- Sleeper integration (v4.0)
-- Game prediction model improvements (separate track)
+---
+*Requirements defined: 2026-04-17*
+*Last updated: 2026-04-17 after milestone v6.0 initialization*
