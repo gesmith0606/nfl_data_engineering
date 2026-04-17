@@ -736,6 +736,66 @@ export async function POST(req: Request) {
         }
       }),
 
+      compareExternalRankings: tool({
+        description:
+          'Compare our fantasy rankings against external sources (Sleeper ADP, FantasyPros ECR, ESPN). Shows where we agree and disagree with the industry consensus. Great for finding contrarian picks or validating our projections.',
+        inputSchema: z.object({
+          source: z
+            .enum(['sleeper', 'fantasypros', 'espn'])
+            .default('sleeper')
+            .describe('External ranking source to compare against'),
+          position: z
+            .enum(['ALL', 'QB', 'RB', 'WR', 'TE'])
+            .default('ALL')
+            .describe('Filter by position'),
+          scoring: z
+            .enum(['ppr', 'half_ppr', 'standard'])
+            .default('half_ppr'),
+          limit: z.number().default(20).describe('Number of players to compare')
+        }),
+        execute: async ({ source, position, scoring, limit }) => {
+          const params = new URLSearchParams({
+            source,
+            scoring,
+            limit: String(limit)
+          });
+          if (position !== 'ALL') params.set('position', position);
+
+          type ComparePayload = {
+            source: string;
+            scoring: string;
+            position_filter: string;
+            players: Array<{
+              player_name: string;
+              position: string;
+              team: string;
+              external_rank: number;
+              our_rank: number | null;
+              rank_diff: number | null;
+              our_projected_points: number | null;
+            }>;
+          };
+          const result = await fastapiGet<ComparePayload>(
+            `/api/rankings/compare?${params}`
+          );
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          return {
+            found: true,
+            source: result.data.source,
+            scoring: result.data.scoring,
+            position: result.data.position_filter,
+            players: result.data.players,
+            biggest_disagreements: result.data.players
+              .filter((p) => p.rank_diff !== null)
+              .sort((a, b) => Math.abs(b.rank_diff!) - Math.abs(a.rank_diff!))
+              .slice(0, 5)
+          };
+        }
+      }),
+
       getSentimentSummary: tool({
         description:
           'Get overall sentiment summary including most bullish and bearish players, source stats, and trend data. Use for questions like "What is the overall sentiment?" or "Who are the most hyped players?".',
