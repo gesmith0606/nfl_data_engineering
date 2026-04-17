@@ -87,13 +87,12 @@ python3 ./scripts/generate-from-template.py architecture ./output/arch.svg '{"ti
 1. **Classify** the diagram type (see Diagram Types below)
 2. **Extract structure** — identify layers, nodes, edges, flows, and semantic groups from user description
 3. **Plan layout** — apply the layout rules for the diagram type
-4. **Load style reference** — always load `references/style-1-flat-icon.md` unless user specifies another; load the matching `references/style-N.md` for exact color tokens and SVG patterns
+4. **Select style** — use Style 1 (Flat Icon) as default; see Styles table below for alternatives
 5. **Map nodes to shapes** — use Shape Vocabulary below
-6. **Check icon needs** — load `references/icons.md` for known products
-7. **Write SVG** with adaptive strategy (see SVG Generation Strategy below)
-8. **Validate**: Run `rsvg-convert file.svg -o /dev/null 2>&1` to check syntax
-9. **Export PNG**: `rsvg-convert -w 1920 file.svg -o file.png`
-10. **Report** the generated file paths
+6. **Write SVG** using the Python list method (see SVG Generation Strategy below)
+7. **Validate**: Run `rsvg-convert file.svg -o /dev/null 2>&1` to check syntax
+8. **Export PNG**: `rsvg-convert -w 1920 file.svg -o file.png`
+9. **Report** the generated file paths
 
 ## Diagram Types & Layout Rules
 
@@ -431,3 +430,33 @@ These patterns appear frequently — internalize them:
 **Agent Memory Types**: Sensory (raw input) → Working (context window) → Episodic (past interactions) → Semantic (facts) → Procedural (skills)
 **Multi-Agent**: Orchestrator → [SubAgent A / SubAgent B / SubAgent C] → Aggregator → Output
 **Tool Call Flow**: LLM → Tool Selector → Tool Execution → Result Parser → LLM (loop)
+
+## NFL Project Diagram Templates
+
+When generating diagrams for this project, use these domain-specific patterns:
+
+**Medallion Pipeline** (Architecture Diagram):
+- Layer 1 (top): nfl-data-py, Sleeper API, FinnedAI Odds, CFBD API — label "Data Sources"
+- Layer 2: Bronze (nfl-raw) — 16 data types, Parquet files — label "Bronze (Raw)"
+- Layer 3: Silver (nfl-refined) — 14 paths: player/team/market analytics — label "Silver (Refined)"
+- Layer 4: Gold (nfl-trusted) — fantasy projections + game predictions — label "Gold (Trusted)"
+- Layer 5 (bottom): Website (Vercel), Draft Tool, AI Advisor — label "Consumers"
+- Arrows: data flow top-to-bottom, blue for primary, dashed for optional (Neo4j)
+
+**Projection Pipeline** (Data Flow):
+- Historical Data → Rolling Averages (roll3/roll6/std) → Usage Multiplier → Matchup Adjustment → Vegas Multiplier → Heuristic Projection
+- Branch: Heuristic → Residual Model (Ridge/XGB) → Hybrid Projection (WR/TE only)
+- Output: projected_points, floor, ceiling, injury_adjusted
+
+**ML Ensemble** (Architecture):
+- Feature Engineering (310+ cols) → SHAP Selection (120 features) → [XGBoost | LightGBM | CatBoost | Ridge] → Stacking Meta-Learner → Prediction
+- Side input: Walk-Forward CV for validation
+
+**Website Architecture** (Architecture):
+- Frontend (Vercel/Next.js) → API Routes → FastAPI Backend (Railway) → [S3 Parquet | Local Data]
+- Frontend components: Projections, Predictions, Draft Board, Player Detail, News, Lineups, AI Advisor
+- AI Advisor: Gemini 2.5 Flash → 12 tools → FastAPI endpoints
+
+## Integration
+
+Output diagrams to `docs/diagrams/` for project documentation. Reference existing architecture docs at `docs/ARCHITECTURE.md` for accuracy.

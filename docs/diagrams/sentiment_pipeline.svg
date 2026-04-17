@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrowBronze" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CD7F32"/>
+    </marker>
+    <marker id="arrowSilver" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#888"/>
+    </marker>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#B8860B"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#FAFBFC" rx="8"/>
+
+  <!-- Title -->
+  <text x="600" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a2e">Sentiment Pipeline</text>
+  <text x="600" y="50" text-anchor="middle" font-size="11" fill="#888">Sources -> Bronze -> Silver (extraction) -> Gold (aggregation) -> API -> Dashboard</text>
+
+  <!-- Status banner -->
+  <rect x="350" y="60" width="500" height="22" rx="4" fill="#FFF3CD" stroke="#E6A817" stroke-width="1"/>
+  <text x="600" y="75" text-anchor="middle" font-size="9" font-weight="600" fill="#856404">Pipeline complete (S1-S4) | Blocked on ANTHROPIC_API_KEY in Railway</text>
+
+  <!-- ================================================================ -->
+  <!-- SOURCES -->
+  <!-- ================================================================ -->
+  <text x="60" y="110" font-size="12" font-weight="700" fill="#4A90D9" letter-spacing="0.5">SOURCES</text>
+
+  <!-- RSS Feeds -->
+  <rect x="30" y="124" width="240" height="170" rx="8" fill="#E8F0FE" stroke="#4A90D9" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="150" y="146" text-anchor="middle" font-size="11" font-weight="700" fill="#4A90D9">RSS Feeds (5)</text>
+
+  <rect x="45" y="158" width="210" height="26" rx="4" fill="#fff" stroke="#4A90D9" stroke-width="1"/>
+  <text x="150" y="175" text-anchor="middle" font-size="8.5" fill="#333">Rotoworld / NBC Sports</text>
+
+  <rect x="45" y="190" width="210" height="26" rx="4" fill="#fff" stroke="#4A90D9" stroke-width="1"/>
+  <text x="150" y="207" text-anchor="middle" font-size="8.5" fill="#333">ESPN Fantasy</text>
+
+  <rect x="45" y="222" width="210" height="26" rx="4" fill="#fff" stroke="#4A90D9" stroke-width="1"/>
+  <text x="150" y="239" text-anchor="middle" font-size="8.5" fill="#333">FantasyPros News</text>
+
+  <rect x="45" y="254" width="210" height="26" rx="4" fill="#fff" stroke="#4A90D9" stroke-width="1"/>
+  <text x="150" y="271" text-anchor="middle" font-size="8.5" fill="#333">Yahoo Fantasy + NFL.com</text>
+
+  <text x="150" y="290" text-anchor="middle" font-size="7.5" fill="#888">ingest_sentiment_rss.py</text>
+
+  <!-- Reddit -->
+  <rect x="30" y="306" width="240" height="80" rx="8" fill="#E8F0FE" stroke="#4A90D9" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="150" y="328" text-anchor="middle" font-size="11" font-weight="700" fill="#4A90D9">Reddit</text>
+  <text x="150" y="346" text-anchor="middle" font-size="8.5" fill="#666">r/fantasyfootball</text>
+  <text x="150" y="360" text-anchor="middle" font-size="8.5" fill="#666">Player discussion threads</text>
+  <text x="150" y="378" text-anchor="middle" font-size="7.5" fill="#888">Upvote-weighted sentiment</text>
+
+  <!-- Sleeper -->
+  <rect x="30" y="398" width="240" height="80" rx="8" fill="#E8F0FE" stroke="#4A90D9" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="150" y="420" text-anchor="middle" font-size="11" font-weight="700" fill="#4A90D9">Sleeper Trending</text>
+  <text x="150" y="438" text-anchor="middle" font-size="8.5" fill="#666">Adds/drops volume</text>
+  <text x="150" y="452" text-anchor="middle" font-size="8.5" fill="#666">Trending player signals</text>
+  <text x="150" y="470" text-anchor="middle" font-size="7.5" fill="#888">ingest_sentiment_sleeper.py</text>
+
+  <!-- Arrows from sources to Bronze -->
+  <line x1="270" y1="209" x2="320" y2="209" stroke="#CD7F32" stroke-width="2" marker-end="url(#arrowBronze)"/>
+  <line x1="270" y1="346" x2="320" y2="280" stroke="#CD7F32" stroke-width="1.5" marker-end="url(#arrowBronze)"/>
+  <line x1="270" y1="438" x2="320" y2="310" stroke="#CD7F32" stroke-width="1.5" marker-end="url(#arrowBronze)"/>
+
+  <!-- ================================================================ -->
+  <!-- BRONZE -->
+  <!-- ================================================================ -->
+  <rect x="322" y="124" width="200" height="220" rx="8" fill="#FFF5E6" stroke="#CD7F32" stroke-width="2"/>
+  <rect x="322" y="124" width="200" height="28" rx="8" fill="#CD7F32"/>
+  <rect x="322" y="140" width="200" height="12" fill="#CD7F32"/>
+  <text x="422" y="144" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">BRONZE</text>
+
+  <text x="342" y="174" font-size="9" font-weight="600" fill="#8B5E20">Raw Articles</text>
+  <rect x="338" y="180" width="168" height="34" rx="4" fill="#fff" stroke="#CD7F32" stroke-width="1"/>
+  <text x="422" y="196" text-anchor="middle" font-size="7.5" fill="#666">title, body, source, url</text>
+  <text x="422" y="208" text-anchor="middle" font-size="7.5" fill="#666">published_at, doc_id</text>
+
+  <text x="342" y="228" font-size="9" font-weight="600" fill="#8B5E20">Player Tagging</text>
+  <rect x="338" y="234" width="168" height="34" rx="4" fill="#fff" stroke="#CD7F32" stroke-width="1"/>
+  <text x="422" y="250" text-anchor="middle" font-size="7.5" fill="#666">player_id, player_name</text>
+  <text x="422" y="262" text-anchor="middle" font-size="7.5" fill="#666">team (via name resolver)</text>
+
+  <text x="342" y="282" font-size="9" font-weight="600" fill="#8B5E20">Event Flags</text>
+  <rect x="338" y="288" width="168" height="34" rx="4" fill="#fff" stroke="#CD7F32" stroke-width="1"/>
+  <text x="422" y="304" text-anchor="middle" font-size="7.5" fill="#666">is_ruled_out, is_questionable</text>
+  <text x="422" y="316" text-anchor="middle" font-size="7.5" fill="#666">is_suspended, is_returning</text>
+
+  <text x="422" y="340" text-anchor="middle" font-size="7.5" fill="#888">player_name_resolver.py</text>
+
+  <!-- Arrow Bronze -> Silver -->
+  <line x1="522" y1="240" x2="562" y2="240" stroke="#888" stroke-width="2" marker-end="url(#arrowSilver)"/>
+  <text x="542" y="230" text-anchor="middle" font-size="7" fill="#888">extract</text>
+
+  <!-- ================================================================ -->
+  <!-- SILVER -->
+  <!-- ================================================================ -->
+  <rect x="564" y="124" width="220" height="220" rx="8" fill="#F5F5F5" stroke="#A0A0A0" stroke-width="2"/>
+  <rect x="564" y="124" width="220" height="28" rx="8" fill="#A0A0A0"/>
+  <rect x="564" y="140" width="220" height="12" fill="#A0A0A0"/>
+  <text x="674" y="144" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">SILVER</text>
+
+  <text x="584" y="174" font-size="9" font-weight="600" fill="#555">Rule-Based Extraction</text>
+  <rect x="580" y="180" width="188" height="50" rx="4" fill="#fff" stroke="#A0A0A0" stroke-width="1"/>
+  <text x="674" y="196" text-anchor="middle" font-size="7.5" fill="#666">Sentiment score [-1.0 to 1.0]</text>
+  <text x="674" y="208" text-anchor="middle" font-size="7.5" fill="#666">Category: injury / trade / hype</text>
+  <text x="674" y="220" text-anchor="middle" font-size="7.5" fill="#666">Event flags (boolean)</text>
+
+  <text x="584" y="248" font-size="9" font-weight="600" fill="#555">Claude Haiku Extraction</text>
+  <rect x="580" y="254" width="188" height="40" rx="4" fill="#fff" stroke="#A0A0A0" stroke-width="1"/>
+  <text x="674" y="270" text-anchor="middle" font-size="7.5" fill="#666">NLP sentiment analysis</text>
+  <text x="674" y="282" text-anchor="middle" font-size="7.5" fill="#666">Entity recognition + context</text>
+
+  <text x="584" y="310" font-size="9" font-weight="600" fill="#555">Output</text>
+  <text x="584" y="324" font-size="7.5" fill="#666">Per-article sentiment scores</text>
+  <text x="584" y="336" font-size="7.5" fill="#666">Player-tagged signals</text>
+
+  <text x="674" y="340" text-anchor="middle" font-size="7.5" fill="#888">sentiment/processing/extractor.py</text>
+
+  <!-- Arrow Silver -> Gold -->
+  <line x1="784" y1="240" x2="824" y2="240" stroke="#B8860B" stroke-width="2" marker-end="url(#arrowGold)"/>
+  <text x="804" y="230" text-anchor="middle" font-size="7" fill="#B8860B">aggregate</text>
+
+  <!-- ================================================================ -->
+  <!-- GOLD -->
+  <!-- ================================================================ -->
+  <rect x="826" y="124" width="220" height="220" rx="8" fill="#FFFBE6" stroke="#DAA520" stroke-width="2"/>
+  <rect x="826" y="124" width="220" height="28" rx="8" fill="#DAA520"/>
+  <rect x="826" y="140" width="220" height="12" fill="#DAA520"/>
+  <text x="936" y="144" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">GOLD</text>
+
+  <text x="846" y="174" font-size="9" font-weight="600" fill="#8B6914">Weekly Aggregation</text>
+  <rect x="842" y="180" width="188" height="50" rx="4" fill="#fff" stroke="#DAA520" stroke-width="1"/>
+  <text x="936" y="196" text-anchor="middle" font-size="7.5" fill="#666">Player multipliers: 0.70 - 1.15</text>
+  <text x="936" y="208" text-anchor="middle" font-size="7.5" fill="#666">Article count per player</text>
+  <text x="936" y="220" text-anchor="middle" font-size="7.5" fill="#666">Bullish / Bearish classification</text>
+
+  <text x="846" y="248" font-size="9" font-weight="600" fill="#8B6914">Team Sentiment</text>
+  <rect x="842" y="254" width="188" height="40" rx="4" fill="#fff" stroke="#DAA520" stroke-width="1"/>
+  <text x="936" y="270" text-anchor="middle" font-size="7.5" fill="#666">Team-level aggregate scores</text>
+  <text x="936" y="282" text-anchor="middle" font-size="7.5" fill="#666">Bullish/bearish count per team</text>
+
+  <text x="846" y="310" font-size="9" font-weight="600" fill="#8B6914">Projection Integration</text>
+  <text x="846" y="324" font-size="7.5" fill="#666">apply_sentiment_adjustments()</text>
+  <text x="846" y="336" font-size="7.5" fill="#666">--use-sentiment flag</text>
+
+  <text x="936" y="340" text-anchor="middle" font-size="7.5" fill="#888">sentiment/aggregation/weekly.py</text>
+
+  <!-- ================================================================ -->
+  <!-- API + FRONTEND -->
+  <!-- ================================================================ -->
+  <text x="60" y="510" font-size="12" font-weight="700" fill="#4A90D9" letter-spacing="0.5">API ENDPOINTS (6 news routes)</text>
+
+  <rect x="30" y="524" width="1140" height="90" rx="8" fill="#E8F0FE" stroke="#4A90D9" stroke-width="1.5"/>
+
+  <rect x="50" y="538" width="170" height="60" rx="5" fill="#fff" stroke="#4A90D9" stroke-width="1" filter="url(#shadow)"/>
+  <text x="135" y="556" text-anchor="middle" font-size="8.5" font-weight="600" fill="#4A90D9">GET /news/feed</text>
+  <text x="135" y="570" text-anchor="middle" font-size="7.5" fill="#666">Latest articles + injuries</text>
+  <text x="135" y="582" text-anchor="middle" font-size="7.5" fill="#666">Filterable by season/week</text>
+
+  <rect x="235" y="538" width="170" height="60" rx="5" fill="#fff" stroke="#4A90D9" stroke-width="1" filter="url(#shadow)"/>
+  <text x="320" y="556" text-anchor="middle" font-size="8.5" font-weight="600" fill="#4A90D9">GET /news/alerts</text>
+  <text x="320" y="570" text-anchor="middle" font-size="7.5" fill="#666">Breaking player alerts</text>
+  <text x="320" y="582" text-anchor="middle" font-size="7.5" fill="#666">Injuries, suspensions</text>
+
+  <rect x="420" y="538" width="170" height="60" rx="5" fill="#fff" stroke="#4A90D9" stroke-width="1" filter="url(#shadow)"/>
+  <text x="505" y="556" text-anchor="middle" font-size="8.5" font-weight="600" fill="#4A90D9">GET /news/summary</text>
+  <text x="505" y="570" text-anchor="middle" font-size="7.5" fill="#666">Overall sentiment overview</text>
+  <text x="505" y="582" text-anchor="middle" font-size="7.5" fill="#666">Top bullish/bearish</text>
+
+  <rect x="605" y="538" width="170" height="60" rx="5" fill="#fff" stroke="#4A90D9" stroke-width="1" filter="url(#shadow)"/>
+  <text x="690" y="556" text-anchor="middle" font-size="8.5" font-weight="600" fill="#4A90D9">GET /sentiment/{id}</text>
+  <text x="690" y="570" text-anchor="middle" font-size="7.5" fill="#666">Player sentiment score</text>
+  <text x="690" y="582" text-anchor="middle" font-size="7.5" fill="#666">Article history</text>
+
+  <rect x="790" y="538" width="170" height="60" rx="5" fill="#fff" stroke="#4A90D9" stroke-width="1" filter="url(#shadow)"/>
+  <text x="875" y="556" text-anchor="middle" font-size="8.5" font-weight="600" fill="#4A90D9">GET /team-sentiment</text>
+  <text x="875" y="570" text-anchor="middle" font-size="7.5" fill="#666">Team-level outlook</text>
+  <text x="875" y="582" text-anchor="middle" font-size="7.5" fill="#666">Ranked by score</text>
+
+  <rect x="975" y="538" width="170" height="60" rx="5" fill="#fff" stroke="#4A90D9" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1060" y="556" text-anchor="middle" font-size="8.5" font-weight="600" fill="#4A90D9">GET /news/player/{id}</text>
+  <text x="1060" y="570" text-anchor="middle" font-size="7.5" fill="#666">Player-specific news</text>
+  <text x="1060" y="582" text-anchor="middle" font-size="7.5" fill="#666">Filtered by player_id</text>
+
+  <!-- Arrow: Gold -> API -->
+  <line x1="936" y1="344" x2="936" y2="400" stroke="#555" stroke-width="1"/>
+  <line x1="936" y1="400" x2="600" y2="400" stroke="#555" stroke-width="1"/>
+  <line x1="600" y1="400" x2="600" y2="524" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ================================================================ -->
+  <!-- FRONTEND: NEWS DASHBOARD -->
+  <!-- ================================================================ -->
+  <text x="60" y="640" font-size="12" font-weight="700" fill="#50C878" letter-spacing="0.5">NEWS DASHBOARD (4 tabs)</text>
+
+  <rect x="30" y="654" width="1140" height="110" rx="8" fill="#E8F8EE" stroke="#50C878" stroke-width="1.5"/>
+
+  <!-- Tab 1: Feed -->
+  <rect x="50" y="668" width="260" height="84" rx="6" fill="#fff" stroke="#50C878" stroke-width="1" filter="url(#shadow)"/>
+  <rect x="50" y="668" width="260" height="22" rx="6" fill="#50C878"/>
+  <rect x="50" y="682" width="260" height="8" fill="#50C878"/>
+  <text x="180" y="683" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">News Feed</text>
+  <text x="70" y="704" font-size="8" fill="#666">Scrollable article list</text>
+  <text x="70" y="718" font-size="8" fill="#666">Source badges (ESPN, FP, etc.)</text>
+  <text x="70" y="732" font-size="8" fill="#666">Injury status indicators</text>
+  <text x="70" y="746" font-size="8" fill="#888">Season + week filters</text>
+
+  <!-- Tab 2: Alerts -->
+  <rect x="325" y="668" width="260" height="84" rx="6" fill="#fff" stroke="#50C878" stroke-width="1" filter="url(#shadow)"/>
+  <rect x="325" y="668" width="260" height="22" rx="6" fill="#50C878"/>
+  <rect x="325" y="682" width="260" height="8" fill="#50C878"/>
+  <text x="455" y="683" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">Player Alerts</text>
+  <text x="345" y="704" font-size="8" fill="#666">Breaking news priority queue</text>
+  <text x="345" y="718" font-size="8" fill="#666">Ruled out / Questionable badges</text>
+  <text x="345" y="732" font-size="8" fill="#666">Returning from injury flags</text>
+  <text x="345" y="746" font-size="8" fill="#888">Real-time refresh</text>
+
+  <!-- Tab 3: Sentiment -->
+  <rect x="600" y="668" width="260" height="84" rx="6" fill="#fff" stroke="#50C878" stroke-width="1" filter="url(#shadow)"/>
+  <rect x="600" y="668" width="260" height="22" rx="6" fill="#50C878"/>
+  <rect x="600" y="682" width="260" height="8" fill="#50C878"/>
+  <text x="730" y="683" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">Player Sentiment</text>
+  <text x="620" y="704" font-size="8" fill="#666">Bullish / Bearish scores</text>
+  <text x="620" y="718" font-size="8" fill="#666">Article count and trends</text>
+  <text x="620" y="732" font-size="8" fill="#666">Sentiment score bar chart</text>
+  <text x="620" y="746" font-size="8" fill="#888">Per-player detail view</text>
+
+  <!-- Tab 4: Team Sentiment -->
+  <rect x="875" y="668" width="260" height="84" rx="6" fill="#fff" stroke="#50C878" stroke-width="1" filter="url(#shadow)"/>
+  <rect x="875" y="668" width="260" height="22" rx="6" fill="#50C878"/>
+  <rect x="875" y="682" width="260" height="8" fill="#50C878"/>
+  <text x="1005" y="683" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">Team Outlook</text>
+  <text x="895" y="704" font-size="8" fill="#666">32-team sentiment rankings</text>
+  <text x="895" y="718" font-size="8" fill="#666">Bullish / Bearish per team</text>
+  <text x="895" y="732" font-size="8" fill="#666">Article volume indicator</text>
+  <text x="895" y="746" font-size="8" fill="#888">Sortable columns</text>
+
+  <!-- Arrow: API -> Dashboard -->
+  <line x1="600" y1="614" x2="600" y2="654" stroke="#50C878" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Legend -->
+  <rect x="30" y="774" width="1140" height="22" rx="4" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <rect x="50" y="780" width="10" height="10" rx="2" fill="#4A90D9"/>
+  <text x="66" y="789" font-size="8.5" fill="#555">Sources</text>
+  <rect x="120" y="780" width="10" height="10" rx="2" fill="#CD7F32"/>
+  <text x="136" y="789" font-size="8.5" fill="#555">Bronze</text>
+  <rect x="185" y="780" width="10" height="10" rx="2" fill="#A0A0A0"/>
+  <text x="201" y="789" font-size="8.5" fill="#555">Silver</text>
+  <rect x="250" y="780" width="10" height="10" rx="2" fill="#DAA520"/>
+  <text x="266" y="789" font-size="8.5" fill="#555">Gold</text>
+  <rect x="305" y="780" width="10" height="10" rx="2" fill="#4A90D9"/>
+  <text x="321" y="789" font-size="8.5" fill="#555">API</text>
+  <rect x="350" y="780" width="10" height="10" rx="2" fill="#50C878"/>
+  <text x="366" y="789" font-size="8.5" fill="#555">Frontend</text>
+  <text x="850" y="789" text-anchor="middle" font-size="8" fill="#888">44 tests | S1-S4 complete | Blocked on ANTHROPIC_API_KEY</text>
+</svg>

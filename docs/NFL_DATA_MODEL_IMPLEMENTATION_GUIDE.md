@@ -1,7 +1,7 @@
 # NFL Data Platform Implementation Guide
 
-**Version:** 5.0
-**Last Updated:** March 28, 2026
+**Version:** 5.2
+**Last Updated:** April 14, 2026
 **Purpose:** Living roadmap for the NFL data platform -- grounded in actual accomplishments, forward-looking for planned work
 **Related Documents:**
 - [NFL_GAME_PREDICTION_DATA_MODEL.md](./NFL_GAME_PREDICTION_DATA_MODEL.md) -- Data model with implementation status badges
@@ -20,6 +20,12 @@
 | Python libraries | boto3, nfl-data-py, numpy | Active |
 | ML | XGBoost, LightGBM, CatBoost, scikit-learn, SHAP, Optuna | Active |
 | Graph DB (planned) | Neo4j | Planned |
+| Frontend | Next.js 16, shadcn/ui, Tailwind CSS, TypeScript | Active |
+| Backend API | FastAPI, Parquet fallback mode | Active |
+| AI Advisor | Gemini 2.5 Flash (primary), Groq Llama 3.1 (fallback) | Active |
+| Deployment | Vercel (frontend), Railway (backend) | Active |
+| Sentiment | RSS feeds, Sleeper API, rule-based + Claude Haiku extraction | Active |
+| External Rankings | Sleeper ADP, FantasyPros ECR, ESPN rankings | Active |
 
 ### Architecture
 
@@ -35,9 +41,14 @@ Silver (s3://nfl-refined/) -- 14 paths: player usage/advanced/historical/quality
                               context, referee, playoff context, market data (line movement)
         |
 Gold   (s3://nfl-trusted/) -- fantasy projections (PPR/Half-PPR/Standard) + game predictions
-                              (v2.0 XGB+LGB+CB+Ridge ensemble, CLV tracking)
+                              (v2.0 XGB+LGB+CB+Ridge ensemble, CLV tracking) + sentiment
         |
 Draft Tool                 -- ADP comparison, VORP, mock draft, auction, waiver wire
+        |
+Web Platform               -- Next.js frontend (Vercel) + FastAPI backend (Railway)
+                              AI Advisor (Gemini 2.5 Flash), 11 dashboard pages
+                              External rankings (Sleeper/FantasyPros/ESPN)
+                              Sanity check pre-deploy gate, daily sentiment pipeline
 ```
 
 S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
@@ -407,46 +418,71 @@ Assembled the full prediction feature vector from 8 Silver sources and validated
 
 ---
 
-## Upcoming Phases (v1.4 ML Game Prediction)
+## Completed Phases (v1.4 -- v4.2)
 
-### Phase 24: Documentation Refresh (In Progress)
+> Phases 24-57 and W1-W9 completed between March-April 2026. Key milestones only listed here; full phase details in `.planning/phases/`.
 
-**Goal:** Update all project documentation to reflect v1.3 completion and v1.4 architecture.
+### v1.4 ML Game Prediction (Phases 24-27, completed 2026-03-22)
+- Phase 24: Documentation refresh
+- Phase 25: 337-column feature vector, XGBoost walk-forward CV
+- Phase 26: Backtesting framework, 2024 sealed holdout validation
+- Phase 27: Weekly prediction pipeline with edge detection
 
-**Planned deliverables:**
-- Data dictionary updated with all Silver and Gold layer schemas
-- CLAUDE.md refreshed with current architecture, key files, and status
-- Implementation guide updated with phases 18-23 and v1.4 roadmap
-- Bronze inventory regenerated
+### v2.0-2.1 Ensemble + Market Data (Phases 28-31, completed 2026-03-28)
+- XGB+LGB+CB+Ridge stacking ensemble: 53.0% ATS, +$3.09 profit on sealed 2024 holdout
+- Bronze odds ingestion (FinnedAI 2016-2021), Silver market features
+- 120-feature SHAP selection, CLV tracking, ablation framework
 
-### Phase 25: Feature Assembly and Model Training (Planned)
+### v3.0 Graph Features + Web API (Phases 43-48, completed 2026-04-01)
+- Neo4j dual-path (Neo4j + pandas fallback), 22 graph features from PBP participation
+- Kicker projections (MAE 4.14), FastAPI backend (7 endpoints)
+- College data integration (CFBD API), prospect features
 
-**Goal:** Build XGBoost spread and over/under prediction models trained on game-level differential features with walk-forward cross-validation.
+### v3.1-3.2 Hybrid Residual + Website MVP (Phases 50-53, W1-W2, completed 2026-04-03)
+- Graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion
+- Hybrid heuristic+ML approach adopted (4.91 MAE)
+- Next.js frontend on Vercel, Railway backend deployment
 
-**Planned deliverables:**
-- Game-level differential feature assembly (home-away) reducing ~680 features to ~180
-- Walk-forward CV framework with expanding training windows
-- XGBoost models for spread and total prediction
-- Feature importance reporting
+### v4.0-4.1 Residual Research + Production (Phases 54-57, completed 2026-04-08)
+- Unified evaluation pipeline: 466-feature residual degrades all positions
+- QB/RB heuristic-only optimal; WR/TE Ridge 60f+graph hybrid best
+- Bayesian/quantile research (not activated in production)
+- Production MAE 5.05 with Ridge 60f+graph on WR/TE, heuristic on QB/RB
+- QB bias correction (+2.5 pts) eliminates XGB SHIP path
 
-### Phase 26: Backtesting and Validation (Planned)
+### v4.2 Website Feature Expansion (Phases W3-W9, completed 2026-04-14)
+- **AI Advisor** (W7): Gemini 2.5 Flash + Groq fallback, 12 tools, floating chat widget
+- **External Rankings** (W7): Sleeper ADP, FantasyPros ECR, ESPN integration
+- **Rankings page**: VORP-based ranking with tier groupings
+- **Matchups page**: Madden-style offense vs defense, 1-99 player ratings
+- **News dashboard**: 4-tab view (overview, feed, team sentiment, player signals)
+- **Draft Tool** (W9): Interactive draft board, mock draft, recommendations via API
+- **Sanity Check**: Pre-deploy gate in weekly pipeline (consensus comparison)
+- **Daily Sentiment Pipeline**: RSS + Sleeper + roster refresh (GHA cron)
+- **NotebookLM Content**: Weekly/rankings/matchup content generation
+- **Roster Refresh**: Sleeper API team assignment updates
+- **Preseason Projections**: Per-game normalization, metadata backfill, 569 players
 
-**Goal:** Validate models against historical closing lines with ATS accuracy and profit analysis.
+---
 
-**Planned deliverables:**
-- Backtesting framework with ATS accuracy and vig-adjusted profit/loss
-- 2024 season sealed holdout validation
-- Per-season stability analysis
+## Upcoming Work
 
-### Phase 27: Prediction Pipeline (Planned)
+### Phase 58: Sentiment Multiplier Wiring
+- Integrate ANTHROPIC_API_KEY in Railway
+- Activate Claude Haiku extraction (currently rule-based fallback)
+- Wire sentiment_multiplier into production projection pipeline
 
-**Goal:** Weekly prediction generation with edge detection and confidence scoring vs Vegas lines.
+### Phase 59: Heuristic Consolidation
+- Unify 3 duplicate heuristic functions into single source of truth:
+  1. `generate_weekly_projections()` in projection_engine.py (production)
+  2. `generate_heuristic_predictions()` in player_model_training.py (WFCV)
+  3. `compute_production_heuristic()` in unified_evaluation.py (evaluation)
 
-**Planned deliverables:**
-- Weekly prediction pipeline producing model spread and total lines
-- Edge detection (model line minus Vegas line) with direction and magnitude
-- Confidence tier classification (high/medium/low edge)
-- Gold-layer Parquet output with season/week partitioning
+### Future
+- Neo4j Aura cloud setup for persistent graph database
+- PFF subscription ($300-500) for true WR-CB coverage and OL grades
+- Live Sleeper league integration for draft assistance
+- AWS credential refresh and S3 sync
 
 ---
 
@@ -485,12 +521,65 @@ Built by `scripts/silver_advanced_transformation.py` (Phase 17):
 Built by `scripts/generate_projections.py`:
 
 - **Weekly projections**: Per-player fantasy point projections with floor/ceiling ranges
-- **Preseason projections**: Full-season projections for draft preparation
-- **Projection model**: `roll3(50%) + roll6(30%) + STD(20%) * usage_mult * matchup * vegas`
+- **Preseason projections**: Full-season projections for draft preparation (569 players across QB/RB/WR/TE/K)
+- **Projection model**: `roll3(30%) + roll6(15%) + STD(55%) * usage_mult [0.80-1.15] * matchup [0.85-1.15] * vegas [0.80-1.20]`
+- **Ceiling shrinkage**: Global (12/18/23 pt thresholds at 0.92/0.87/0.80) + WR/TE extra 12% at 12+ pts
+- **QB bias correction**: +2.5 pts additive (corrects -2.47 systematic under-projection)
+- **Low-projection floor boost**: Position-specific additive boost for sub-5pt projections
 - **Injury adjustments**: Multipliers by status (Questionable: 0.85, Doubtful: 0.50, Out/IR/PUP: 0.0)
-- **Vegas integration**: Implied team total / 23.0, RB run-heavy bonus
+- **Vegas integration**: Implied team total / 23.0, RB run-heavy bonus when total < 20 and spread < -7
 - **Bye week handling**: Zeroes all stats, sets `is_bye_week=True`
 - **Rookie fallback**: Conservative positional baselines (starter/backup/unknown at 100%/40%/25%)
+- **ML routing**: QB heuristic-only (bias correction replaces XGB), WR/TE Ridge 60f+graph hybrid residual
+- **Production MAE**: 5.05 (production-faithful eval, 2022-2024 weeks 3-18)
+
+### Preseason Projection Pipeline
+
+Built by `scripts/generate_projections.py --preseason`:
+
+1. **Data load**: Last 2 complete seasons of player seasonal stats from Bronze
+2. **Metadata backfill**: Enriches missing player_name/position/recent_team from nfl-data-py rosters
+3. **Per-game normalization**: Season totals divided by games played for fair cross-season comparison
+4. **Weighted average**: Recent season weighted higher for trend detection
+5. **Full-season scaling**: Per-game averages multiplied by 17 (regular season games)
+6. **Ceiling shrinkage**: Global + position-specific shrinkage applied to full-season totals
+7. **QB bias correction**: +2.5 pts per game additive correction
+8. **Rookie injection**: Draft capital boost (up to +20% for pick 1) or college prospect comp projections
+9. **Kicker projections**: League-average baselines appended via `--include-kickers`
+10. **VORP ranking**: Value Over Replacement Player calculation (see below)
+11. **Output**: 569+ players ranked by VORP with position_rank and overall_rank
+
+### VORP Ranking
+
+Applied in `generate_preseason_projections()` after all projections are computed:
+
+- **Replacement levels** (12-team league standard): QB=13, RB=25, WR=30, TE=13, K=13
+- **Calculation**: `vorp = projected_season_points - replacement_level_points_at_position`
+- **Overall rank**: Sorted by VORP descending (not raw points, which puts QBs in 8 of top 10)
+- **Position rank**: Sorted by projected_season_points within each position group
+- **Use**: Draft board ordering, trade value analysis, waiver wire prioritization
+
+### Sanity Check Pre-Deploy Gate
+
+Built by `scripts/sanity_check_projections.py` + `scripts/pre_deploy_check.sh`:
+
+1. **Consensus comparison**: Compare top-50 projections against hardcoded expert consensus rankings (FantasyPros ECR, ESPN, Yahoo, CBS aggregated)
+2. **Range validation**: No negative points, reasonable per-position season caps (QB: 500, RB: 400, WR: 350, TE: 250)
+3. **Team validation**: All teams are valid 32-team NFL abbreviations
+4. **Prediction checks** (`--check-predictions`): Valid spreads (-20 to +20), totals (30-65), no duplicate games, Vegas divergence threshold (7.0 pts)
+5. **Exit codes**: 0 = PASS/WARN (safe to deploy), 1 = CRITICAL (blocks pipeline)
+6. **Integration**: Step in `.github/workflows/weekly-pipeline.yml` -- blocks deployment on CRITICAL failures
+
+### Roster Refresh Workflow
+
+Built by `scripts/refresh_rosters.py`:
+
+1. **Fetch**: Full Sleeper NFL player database (`api.sleeper.app/v1/players/nfl`)
+2. **Map**: Build name-to-team mapping for fantasy-relevant positions (QB/RB/WR/TE/K)
+3. **Normalize**: Sleeper team abbreviations to nflverse conventions (LAR->LA, JAC->JAX)
+4. **Update**: Overwrite `recent_team` column in latest Gold preseason projections parquet
+5. **Trigger**: Runs daily as part of GHA daily sentiment pipeline (auto-commits + pushes)
+6. **Use case**: Reflect trades, free agent signings, and roster moves between projection refreshes
 
 ### Draft Tool
 
@@ -505,31 +594,28 @@ Built by `scripts/draft_assistant.py`:
 
 Built by `scripts/backtest_projections.py`:
 
-- **Results (2022-2024, Half-PPR)**: MAE 4.91, RMSE 6.72, Correlation 0.51, Bias -0.60
-- **Per-position**: QB (6.58 MAE), RB (5.06), WR (4.85), TE (3.77)
+- **Results (2022-2024, Half-PPR)**: MAE 5.05 (production v4.1-p4)
+- **Per-position routing**: QB heuristic-only, RB heuristic-only, WR/TE Ridge 60f+graph hybrid
 - **Coverage**: 11,183 player-weeks across 48 weeks, 3 seasons
 
 ### Pipeline Monitoring
 
-- **GitHub Actions**: Weekly pipeline runs Tuesdays 9am UTC; auto-detects NFL week from calendar
+- **GitHub Actions (weekly)**: Tuesdays 9am UTC; Bronze ingestion, Silver transforms, Gold projections, sanity check gate, health check
+- **GitHub Actions (daily)**: 12:00 UTC; sentiment pipeline (RSS + Sleeper), roster refresh, auto-commit + push
 - **Health check**: `scripts/check_pipeline_health.py` -- S3 freshness + file size checks across all layers
 - **Failure handling**: Auto-opens GitHub issue with error details on pipeline failure
 
 ### Test Suite
 
-360 tests passing across:
-- `tests/test_scoring_calculator.py` (14 tests)
-- `tests/test_projection_engine.py` (19 tests)
-- `tests/test_player_analytics.py` (7 tests, including 3 rolling window regression tests added in Phase 15)
-- `tests/test_draft_optimizer.py` (13 tests)
-- `tests/test_utils.py` (5 tests)
-- `tests/test_advanced_ingestion.py` (22 tests)
-- `tests/test_bronze_validation.py` (8 tests added Phase 6)
-- `tests/test_infrastructure.py` (extended through Phases 7-12)
-- `tests/test_team_analytics.py` (36 tests added Phases 15-16)
-- `tests/test_pbp_ingestion.py` (13 tests added Phase 9)
+1,379 tests passing across 20+ test files covering:
+- Fantasy projections, scoring, draft optimization
+- Prediction ensemble, backtesting, market features
+- Player/team analytics, advanced profiles, graph features
+- Sentiment pipeline (extraction, aggregation, signals)
+- Web API (routers, services, endpoints)
+- Infrastructure, bronze validation, unified evaluation
 
-Full suite at 360 passing tests as of Phase 23 (v1.3) completion.
+Full suite at 1,379 passing tests as of v4.1 (April 2026).
 
 ---
 
@@ -539,16 +625,25 @@ Full suite at 360 passing tests as of Phase 23 (v1.3) completion.
 
 Migrate from nfl-data-py to nflreadpy when feature parity is confirmed. Impact is limited to `src/nfl_data_adapter.py` by design (INFRA-03 adapter isolation).
 
-### Deferred: Neo4j Graph Layer
+### Phase 58: Sentiment Multiplier Wiring
 
-Graph-based analytics for relationship-driven insights:
+- Integrate ANTHROPIC_API_KEY in Railway environment
+- Activate Claude Haiku extraction (currently rule-based fallback)
+- Wire sentiment_multiplier into production projection pipeline
 
-- **WR-CB matchup graphs:** Model receiver-cornerback matchup history with edge weights for yards allowed, targets, and catch rate. Enable "who covers whom" queries for game planning.
-- **QB-WR target share networks:** Model passing networks showing target distribution, air yards allocation, and chemistry ratings. Identify scheme-dependent vs QB-dependent receivers.
-- **Injury cascade analysis:** Model how injuries to one player affect usage and performance of related players (e.g., WR1 injury increases WR2 target share).
-- **Team scheme graphs:** Connect personnel groupings to play types and outcomes for scheme identification.
+### Phase 59: Heuristic Consolidation
 
-Deferred until the tabular prediction model is validated. Graph features will be added as supplementary inputs to improve prediction accuracy.
+- Unify 3 duplicate heuristic functions into single source of truth:
+  1. `generate_weekly_projections()` in projection_engine.py (production)
+  2. `generate_heuristic_predictions()` in player_model_training.py (WFCV)
+  3. `compute_production_heuristic()` in unified_evaluation.py (evaluation)
+
+### Deferred: Neo4j Aura + PFF
+
+- Neo4j Aura cloud setup for persistent graph database (replacing local Docker)
+- PFF subscription ($300-500) for true WR-CB coverage and OL grades
+- Live Sleeper league integration for draft assistance
+- AWS credential refresh and S3 sync
 
 ---
 
@@ -582,6 +677,23 @@ python scripts/silver_advanced_transformation.py --seasons 2020 2021 2022 2023 2
 
 # Gold projections
 python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr
+python scripts/generate_projections.py --preseason --season 2026 --scoring half_ppr
+
+# Sanity check (pre-deploy gate)
+python scripts/sanity_check_projections.py --all --scoring half_ppr
+./scripts/pre_deploy_check.sh
+
+# Roster refresh (Sleeper API)
+python scripts/refresh_rosters.py --season 2026
+
+# External rankings refresh
+python scripts/refresh_external_rankings.py --source all
+
+# Daily sentiment pipeline
+python scripts/daily_sentiment_pipeline.py --season 2026 --week 1
+
+# NotebookLM content generation
+python scripts/generate_notebooklm_content.py --type weekly --week 1 --season 2026
 
 # Draft assistant
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
@@ -653,6 +765,12 @@ GROUP BY season, team ORDER BY season, team;
 | `scripts/generate_projections.py` | Gold CLI (--week or --preseason) |
 | `scripts/draft_assistant.py` | Interactive draft CLI (snake, auction, mock, waiver) |
 | `scripts/backtest_projections.py` | Compare projected vs actual; MAE/RMSE/bias |
+| `scripts/sanity_check_projections.py` | Pre-deploy sanity check (consensus comparison, range validation) |
+| `scripts/pre_deploy_check.sh` | Shell wrapper for sanity check (exit 0 = safe, exit 1 = block) |
+| `scripts/refresh_rosters.py` | Sleeper API roster refresh for Gold projections |
+| `scripts/refresh_external_rankings.py` | Fetch Sleeper/FantasyPros/ESPN rankings to data/external/ |
+| `scripts/daily_sentiment_pipeline.py` | Daily RSS + Sleeper + roster refresh orchestrator |
+| `scripts/generate_notebooklm_content.py` | NotebookLM content packages (weekly/rankings/matchup) |
 | `scripts/generate_inventory.py` | Bronze data inventory generator |
 | `scripts/check_pipeline_health.py` | S3 freshness + file size checks across all layers |
 

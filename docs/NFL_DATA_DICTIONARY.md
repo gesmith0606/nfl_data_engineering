@@ -1,7 +1,7 @@
 # NFL Data Dictionary
 
-**Version:** 4.1
-**Last Updated:** April 1, 2026
+**Version:** 4.2
+**Last Updated:** April 14, 2026
 **Purpose:** Complete schema reference for all Bronze, Silver, and Gold data types in the NFL Data Engineering pipeline
 **Related:** [ARCHITECTURE.md](./ARCHITECTURE.md) | [src/config.py](../src/config.py) | [src/nfl_data_adapter.py](../src/nfl_data_adapter.py) | [scripts/bronze_ingestion_simple.py](../scripts/bronze_ingestion_simple.py)
 
@@ -47,8 +47,14 @@ This document is the single source of truth for Bronze layer schemas. Column spe
   - [Silver Player Quality](#silver-player-quality)
   - [Silver Prospect Features](#silver-prospect-features)
 - [Gold Layer Tables](#gold-layer-tables)
-  - [Game Results Archive](#game-results-archive)
-  - [Game Player Stats](#game-player-stats)
+  - [Fantasy Projections](#1-fantasy-projections)
+  - [Game Predictions](#2-game-predictions)
+  - [Graph Features](#3-graph-features-silver-layer--v30)
+  - [Kicker Projections](#4-kicker-projections-gold-layer--v30)
+  - [External Rankings Columns](#external-rankings-columns-api-response)
+  - [Sentiment Aggregation](#5-sentiment-aggregation-gold-layer----v42)
+  - [Game Results Archive](#2-game-results-archive)
+  - [Game Player Stats](#3-game-player-stats)
 - [Data Types and Constraints](#data-types-and-constraints)
 - [Business Rules](#business-rules)
 
@@ -1858,10 +1864,10 @@ College teammate networks and prospect comparison features for draft preparation
 **Source Module:** `src/projection_engine.py`
 **Local Path:** `data/gold/projections/`
 **S3 Path:** `s3://nfl-trusted/projections/season=YYYY/week=WW/`
-**Columns:** 25
+**Columns:** 27 (weekly) / 29 (preseason includes overall_rank, projected_season_points)
 **Produced by:** `scripts/generate_projections.py --week W --season YYYY --scoring [ppr|half_ppr|standard]`
 
-**Projection Model:** `roll3(50%) + roll6(30%) + STD(20%) x usage_mult [0.7-1.3] x matchup [0.85-1.15] x vegas [0.80-1.20]`
+**Projection Model:** `roll3(30%) + roll6(15%) + STD(55%) x usage_mult [0.80-1.15] x matchup [0.85-1.15] x vegas [0.80-1.20]` + ceiling shrinkage (12/18/23 pts) + WR/TE extra shrinkage (12 pts) + QB bias correction (+2.5 pts)
 
 > Schema extracted from actual Gold parquet files using `pyarrow.parquet.read_schema()`.
 
@@ -1892,16 +1898,52 @@ College teammate networks and prospect comparison features for draft preparation
 | injury_multiplier | double | YES | Projection adjustment for injury status (0.0-1.0) | 1.0 |
 | projected_floor | double | YES | Low-end projection based on position-specific variance | 15.2 |
 | projected_ceiling | double | YES | High-end projection based on position-specific variance | 32.1 |
+| vorp | double | YES | Value Over Replacement Player (projected_points minus replacement baseline at position) | 8.3 |
+| overall_rank | int64 | YES | Overall rank across all positions, sorted by VORP descending (preseason only) | 12 |
+| projected_season_points | double | YES | Full-season projected fantasy points (preseason only; per-game avg x 17) | 245.8 |
+| sentiment_multiplier | double | YES | Sentiment adjustment factor from news/social signals (0.70-1.15; 1.0 = neutral) | 1.05 |
+| sentiment_score | double | YES | Raw weighted sentiment score before multiplier conversion (-1.0 to 1.0) | 0.35 |
+| is_ruled_out | bool | YES | True if sentiment pipeline detects player ruled out/inactive | false |
+
+**New Projection Engine Constants (v4.2):**
+
+| Constant | Value | Description |
+|----------|-------|-------------|
+| `POSITION_CEILING_SHRINKAGE["WR"]` | `{12.0: 0.88}` | Additional 12% shrinkage for WR at 12+ projected pts (after global ceiling) |
+| `POSITION_CEILING_SHRINKAGE["TE"]` | `{12.0: 0.88}` | Additional 12% shrinkage for TE at 12+ projected pts (after global ceiling) |
+| `POSITION_BIAS_CORRECTION["QB"]` | `+2.5` | Additive bias correction for QB systematic under-projection (-2.47 observed) |
+| `LOW_PROJECTION_FLOOR_BOOST` | QB: (5.0, 1.0), RB: (3.0, 0.5), WR: (3.0, 0.5), TE: (2.5, 0.3) | (threshold, boost) for low-projection players |
+
+### Kicker Projection Columns (Gold Layer)
+
+Produced by `--include-kickers` flag. See section 4 below for full kicker schema.
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| proj_fg_makes | double | YES | Projected field goal makes | 2.1 |
+| proj_fg_attempts | double | YES | Estimated field goal attempts | 2.8 |
+| proj_xp_makes | double | YES | Projected extra point makes | 3.2 |
+| proj_xp_attempts | double | YES | Estimated extra point attempts | 3.5 |
+
+### External Rankings Columns (API Response)
+
+Returned by `GET /api/rankings/compare` endpoint. Not stored in Parquet; computed on demand.
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| external_rank | int64 | YES | Player rank from external source (Sleeper/FantasyPros/ESPN) | 12 |
+| rank_diff | int64 | YES | Our position_rank minus external_rank (positive = we rank higher) | -3 |
+| source | string | NO | External ranking source identifier | "sleeper" |
 
 ### 2. Game Predictions
 
-**Status:** Planned (v1.4)
-**Source Module:** `scripts/generate_predictions.py` (Phase 27)
+**Status:** Active (v2.1 Ensemble shipped)
+**Source Module:** `scripts/generate_predictions.py --ensemble`
 **Local Path:** `data/gold/predictions/season=YYYY/week=WW/`
 **S3 Path:** `s3://nfl-trusted/predictions/season=YYYY/week=WW/`
-**Columns:** 15 (planned)
-
-> This schema is planned for v1.4 Phase 27. Columns are derived from requirements PRED-01, PRED-02, PRED-03.
+**Columns:** 15
+**Model:** XGB+LGB+CB+Ridge stacking ensemble (120 SHAP-selected features)
+**Backtest:** 53.0% ATS on sealed 2024 holdout, +$3.09 profit, +1.2% ROI
 
 | Column Name | Data Type | Nullable | Description | Example |
 |-------------|-----------|----------|-------------|---------|
@@ -2013,6 +2055,45 @@ College teammate networks and prospect comparison features for draft preparation
 | position_rank | int64 | YES | Rank among kickers week | 2 |
 | is_bye_week | bool | NO | True if team on bye | false |
 | is_rookie_projection | bool | NO | True if using defaults | false |
+
+---
+
+### 5. Sentiment Aggregation (Gold Layer -- v4.2)
+
+**Status:** Active (daily pipeline)
+**Source Module:** `src/sentiment/aggregation/weekly.py`
+**Local Path:** `data/gold/sentiment/season=YYYY/week=WW/`
+**Columns:** 16
+**Produced by:** `scripts/process_sentiment.py` or `scripts/daily_sentiment_pipeline.py`
+**Consumed by:** `src/projection_engine.py: apply_sentiment_adjustments()`
+
+Per-player weekly sentiment aggregation used as final adjustment layer on fantasy projections.
+
+| Column Name | Data Type | Nullable | Description | Example |
+|-------------|-----------|----------|-------------|---------|
+| player_id | string | NO | GSIS player identifier | "00-0033873" |
+| player_name | string | YES | Player display name | "Patrick Mahomes" |
+| season | int64 | NO | NFL season year | 2026 |
+| week | int64 | NO | NFL week number | 1 |
+| sentiment_multiplier | double | NO | Fantasy projection multiplier (0.70-1.15; 1.0 = neutral) | 1.05 |
+| sentiment_score_avg | double | YES | Weighted average sentiment (-1.0 to 1.0) with staleness decay | 0.35 |
+| sentiment_score_max | double | YES | Highest individual signal score for the player-week | 0.72 |
+| sentiment_score_min | double | YES | Lowest individual signal score for the player-week | -0.10 |
+| doc_count | int64 | YES | Total number of documents aggregated for this player-week | 4 |
+| is_ruled_out | bool | YES | True if any signal detects player ruled out (overrides multiplier to 0.0) | false |
+| is_inactive | bool | YES | True if any signal detects player inactive (overrides multiplier to 0.0) | false |
+| is_questionable | bool | YES | True if any signal detects player questionable | false |
+| is_suspended | bool | YES | True if any signal detects player suspended | false |
+| is_returning | bool | YES | True if any signal detects player returning from injury | false |
+| rss_doc_count | int64 | YES | Number of RSS feed documents in aggregation | 2 |
+| sleeper_doc_count | int64 | YES | Number of Sleeper trending signals in aggregation | 1 |
+
+**Multiplier Logic:**
+- Score -1.0 to 0.0 maps linearly to multiplier 0.70-1.00
+- Score 0.0 to 1.0 maps linearly to multiplier 1.00-1.15
+- Signals older than 72 hours excluded (staleness threshold)
+- `is_ruled_out=True` or `is_inactive=True` overrides multiplier to 0.0
+- Event flags (is_ruled_out, is_inactive, etc.) are OR-aggregated across all signals
 
 ---
 

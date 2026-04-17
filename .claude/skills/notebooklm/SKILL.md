@@ -1,100 +1,102 @@
 ---
 name: notebooklm
-description: Generate NFL content packages for NotebookLM — weekly podcasts, matchup breakdowns, and rankings summaries. Prepares sources, creates notebooks, and generates audio overviews.
+description: Generate NFL content packages for NotebookLM — weekly rankings summaries from projection data. Produces markdown files suitable for upload to Google NotebookLM for audio overview generation. Use when the user wants to create podcast content, rankings summaries, or content packages from projection data.
+argument-hint: "[type] [season] [week] [scoring]"
+allowed-tools: Bash, Read, Grep
 ---
 
 # NotebookLM Content Generator
 
-Generate NFL fantasy football content using Google NotebookLM for audio overviews (podcasts), summaries, and visual content.
+Generate NFL fantasy football content from projection data, formatted as markdown for upload to Google NotebookLM audio overviews.
 
-## Setup
+## Arguments
+`$ARGUMENTS` — parsed as: `[type] [season] [week] [scoring]`
+- type: `rankings` (working), `weekly` (requires in-season data), `matchup` (requires in-season data)
+- Defaults: type=rankings, season=2026, week=1, scoring=half_ppr
 
-```bash
-# Install (requires Python 3.10+, use system python if venv is 3.9)
-pip install "notebooklm-py[browser]"
-playwright install chromium
-
-# Authenticate (opens browser for Google login)
-notebooklm login
-
-# If notebooklm-py fails on Python 3.9, use the manual workflow below
-```
+## Current state
+!`cd /Users/georgesmith/repos/nfl_data_engineering && ls output/notebooklm/ 2>/dev/null && echo "---" && ls scripts/generate_notebooklm_content.py 2>/dev/null`
 
 ## Workflows
 
-### 1. Weekly Podcast Content
+### 1. Rankings Summary (WORKING — preseason + in-season)
 
-Generate a weekly NFL fantasy podcast script from our projection data:
+Generate a full rankings overview by position from existing projections:
 
 ```bash
 source venv/bin/activate
-python scripts/generate_notebooklm_content.py --type weekly --week 1 --season 2026 --scoring half_ppr
+python scripts/generate_notebooklm_content.py --type rankings --scoring half_ppr
 ```
 
-This produces `output/notebooklm/weekly_w1_2026.md` containing:
+Output: `output/notebooklm/rankings_SEASON_SCORING.md`
+
+This uses data from `output/projections/` — ensure projections exist first:
+```bash
+python scripts/generate_projections.py --preseason --season 2026 --scoring half_ppr
+```
+
+### 2. Weekly Podcast Content (REQUIRES IN-SEASON DATA)
+
+Generate a weekly NFL fantasy podcast script. Requires weekly projections for the given week:
+
+```bash
+source venv/bin/activate
+python scripts/generate_notebooklm_content.py --type weekly --week WEEK --season SEASON --scoring SCORING
+```
+
+Output: `output/notebooklm/weekly_wWEEK_SEASON.md` containing:
 - Top risers and fallers from projection changes
 - Key matchup breakdowns (offense vs defense advantages)
 - Start/sit recommendations with reasoning
 - Injury impact analysis
 - Waiver wire targets
 
-Upload to NotebookLM and generate an Audio Overview.
-
-### 2. Matchup Deep Dive
+### 3. Matchup Deep Dive (REQUIRES IN-SEASON DATA)
 
 Generate a single-game matchup analysis:
 
 ```bash
-python scripts/generate_notebooklm_content.py --type matchup --teams "KC vs BUF" --week 1
+python scripts/generate_notebooklm_content.py --type matchup --teams "KC vs BUF" --week WEEK
 ```
 
-### 3. Rankings Summary
+### 4. Upload to NotebookLM (Manual)
 
-Generate a full rankings overview by position:
+After generating markdown:
 
-```bash
-python scripts/generate_notebooklm_content.py --type rankings --scoring half_ppr
-```
+1. Go to https://notebooklm.google.com
+2. Create a new notebook (name it e.g. "NFL Week 1 - 2026 Rankings")
+3. Upload the generated markdown file as a source
+4. Click "Generate" on Audio Overview
+5. Download the MP3
+6. Optionally upload to `web/frontend/public/podcasts/` for the website
 
-### 4. Manual NotebookLM Workflow
+## NFL Content Guidelines
 
-If the CLI tools aren't available:
+When generating content, follow these patterns:
+- **Player names**: Always use full name (e.g., "Patrick Mahomes", not "Mahomes")
+- **Stats format**: "12.4 projected pts (floor: 6.2, ceiling: 22.1) in Half-PPR"
+- **Position tiers**: Group into Tier 1 (elite), Tier 2 (solid starters), Tier 3 (flex plays), Tier 4 (streamers)
+- **Injury notes**: Always mention injury status when not Active
+- **Matchup context**: Reference team defensive rankings where available
 
-1. Run the content generator script to produce markdown files
-2. Go to https://notebooklm.google.com
-3. Create a new notebook
-4. Upload the generated markdown as a source
-5. Click "Generate" on Audio Overview
-6. Download the MP3
-7. Upload to `web/frontend/public/podcasts/` for the website
+## Anti-Patterns
 
-### 5. Automated Pipeline (when notebooklm-py works)
+- Do NOT reference `notebooklm-py` Python package — it requires Python 3.10+ and is not installed in this project's venv (Python 3.9)
+- Do NOT attempt automated NotebookLM API calls — use the manual upload workflow
+- Do NOT generate content without first verifying projection data exists in `output/projections/`
+- Do NOT hardcode player names or stats — always read from projection data files
 
-```python
-from notebooklm import NotebookLM
+## Testability
 
-client = NotebookLM()
+Verify the skill works by checking:
+1. `output/notebooklm/` directory contains the expected markdown file
+2. The markdown file has > 100 lines of content
+3. Player names in the output match those in the source projection CSV
+4. All position groups (QB, RB, WR, TE) are covered in rankings output
 
-# Create notebook with NFL content
-nb = client.create_notebook("NFL Week 1 - 2026")
-nb.add_source(text=open("output/notebooklm/weekly_w1_2026.md").read())
+## Integration
 
-# Generate audio overview
-audio = nb.generate_audio_overview(style="SHORT")
-audio.save("web/frontend/public/podcasts/week1_2026.mp3")
-```
-
-## Content Templates
-
-The generator uses these templates:
-- **Weekly**: Projection changes, matchups, start/sit, injuries, waivers
-- **Matchup**: Team comparison, positional advantages, key players, game script prediction
-- **Rankings**: Position-by-position tiers, risers/fallers, sleepers, busts
-- **News**: Aggregated sentiment, trending players, team outlook changes
-
-## Integration with Website
-
-Generated content goes to:
-- Audio: `web/frontend/public/podcasts/` (served as static files)
-- Graphics: `web/frontend/public/graphics/`
-- The news page can embed podcast players and graphic cards
+- **Input**: Reads from `output/projections/` (generated by `scripts/generate_projections.py`)
+- **Output**: Writes to `output/notebooklm/` as markdown
+- **Website**: Generated audio can be placed in `web/frontend/public/podcasts/`
+- **Related skills**: Use `/weekly-pipeline` first to ensure fresh projection data exists

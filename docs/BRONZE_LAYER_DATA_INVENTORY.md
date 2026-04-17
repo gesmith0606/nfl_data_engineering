@@ -1,6 +1,6 @@
 # Bronze Layer Data Inventory
 
-**Generated:** 2026-03-28 16:30 (updated)
+**Generated:** 2026-04-14 (updated)
 **Total Files:** 509+
 **Total Size:** ~146 MB
 
@@ -32,3 +32,18 @@
 | qbr | 36 | 1.04 | 2006-2023 | 23 | 2026-03-09 |
 | schedules | 10 | 0.49 | 2016-2025 | 46 | 2026-03-11 |
 | teams | 1 | 0.01 | N/A | 16 | 2026-03-09 |
+
+### Sentiment & External Data (v4.2)
+
+| Data Type | Path | Source | Format | Updated |
+|-----------|------|--------|--------|---------|
+| RSS articles | `data/bronze/sentiment/rss/` | 5 RSS feeds (Rotoworld, FantasyPros, PFF, ESPN, NFL.com) | JSON | Daily (GHA cron) |
+| Sleeper trending | `data/bronze/sentiment/sleeper/` | Sleeper trending players API | JSON | Daily (GHA cron) |
+| External rankings | `data/external/` | Sleeper ADP, FantasyPros ECR, ESPN rankings | JSON (24h TTL) | On demand / daily |
+
+**Notes:**
+- Sentiment Bronze data is ingested by `scripts/daily_sentiment_pipeline.py` (orchestrates RSS + Sleeper + roster refresh) or individual scripts: `ingest_sentiment_rss.py`, `ingest_sentiment_sleeper.py`
+- External rankings cached as `data/external/sleeper_rankings.json`, `data/external/fantasypros_rankings.json`, `data/external/espn_rankings.json` with 24-hour TTL
+- Rankings refreshed by `scripts/refresh_external_rankings.py --source all`
+- Reddit ingestion (`data/bronze/sentiment/reddit/`) is scaffolded but not yet active
+- Daily GHA cron (`.github/workflows/daily-sentiment.yml`) runs at 12:00 UTC: sentiment pipeline + roster refresh + auto-commit

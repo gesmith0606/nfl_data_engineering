@@ -314,9 +314,9 @@ export async function POST(req: Request) {
 
       getNewsFeed: tool({
         description:
-          'Fetch the latest NFL news, injury updates, and player reports.',
+          'Fetch the latest NFL news, injury updates, and player reports. Returns items from all sources (RSS, Sleeper, Reddit). Use getPlayerProjection instead if you need fantasy point projections.',
         inputSchema: z.object({
-          season: z.number().default(2025).describe('Season to pull news from'),
+          season: z.number().default(2026).describe('NFL season year'),
           week: z
             .number()
             .optional()
@@ -442,7 +442,7 @@ export async function POST(req: Request) {
         description:
           'Get game predictions with spreads, totals, and confidence tiers. Use for questions like "What games have the biggest edges?" or "Who wins Chiefs vs Bills?".',
         inputSchema: z.object({
-          season: z.number().default(2024).describe('NFL season year'),
+          season: z.number().default(2026).describe('NFL season year'),
           week: z
             .number()
             .min(1)
@@ -568,11 +568,17 @@ export async function POST(req: Request) {
         description:
           'Get team-level sentiment and outlook scores. Use for questions like "What is the outlook for the Jets?" or "Which teams are trending up?".',
         inputSchema: z.object({
-          season: z.number().default(2025).describe('Season to pull sentiment from')
+          season: z.number().default(2026).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .describe('NFL week number (1-18)')
         }),
-        execute: async ({ season }) => {
+        execute: async ({ season, week }) => {
           const params = new URLSearchParams({
-            season: String(season)
+            season: String(season),
+            week: String(week)
           });
           type TeamSentimentPayload = Array<{
             team: string;
@@ -581,7 +587,7 @@ export async function POST(req: Request) {
             bullish_count: number;
             bearish_count: number;
           }>;
-          const result = await fastapiGet<TeamSentimentPayload>(`/api/news/team?${params}`);
+          const result = await fastapiGet<TeamSentimentPayload>(`/api/news/team-sentiment?${params}`);
 
           if (!result.ok) {
             return { found: false, message: result.message };
@@ -606,12 +612,12 @@ export async function POST(req: Request) {
 
       getPlayerNews: tool({
         description:
-          'Get recent news and injury updates for a specific player. Use for questions like "Any news on Tyreek Hill?" or "Is Pacheco healthy?".',
+          'Get recent news and injury updates for a specific player. Use for questions like "Any news on Tyreek Hill?" or "Is Pacheco healthy?". Filters the news feed by player name.',
         inputSchema: z.object({
           playerName: z
             .string()
             .describe('Player name to search for news about'),
-          season: z.number().default(2025).describe('Season to pull news from'),
+          season: z.number().default(2026).describe('NFL season year'),
           limit: z
             .number()
             .default(5)
@@ -800,11 +806,17 @@ export async function POST(req: Request) {
         description:
           'Get overall sentiment summary including most bullish and bearish players, source stats, and trend data. Use for questions like "What is the overall sentiment?" or "Who are the most hyped players?".',
         inputSchema: z.object({
-          season: z.number().default(2025).describe('Season to pull summary from')
+          season: z.number().default(2026).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .describe('NFL week number (1-18)')
         }),
-        execute: async ({ season }) => {
+        execute: async ({ season, week }) => {
           const params = new URLSearchParams({
-            season: String(season)
+            season: String(season),
+            week: String(week)
           });
           type SummaryPayload = {
             total_articles: number;

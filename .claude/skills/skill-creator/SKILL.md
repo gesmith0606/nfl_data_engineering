@@ -14,7 +14,7 @@ At a high level, the process of creating a skill goes like this:
 - Create a few test prompts and run claude-with-access-to-the-skill on them
 - Help the user evaluate the results both qualitatively and quantitatively
   - While the runs happen in the background, draft some quantitative evals if there aren't any (if there are some, you can either use as is or modify if you feel something needs to change about them). Then explain them to the user (or if they already existed, explain the ones that already exist)
-  - Use the `eval-viewer/generate_review.py` script to show the user the results for them to look at, and also let them look at the quantitative metrics
+  - Review results qualitatively and run quantitative evals if appropriate
 - Rewrite the skill based on feedback from the user's evaluation of the results (and also if there are any glaring flaws that become apparent from the quantitative benchmarks)
 - Repeat until you're satisfied
 - Expand the test set and try again at larger scale
@@ -27,7 +27,27 @@ Of course, you should always be flexible and if the user is like "I don't need t
 
 Then after the skill is done (but again, the order is flexible), you can also run the skill description improver, which we have a whole separate script for, to optimize the triggering of the skill.
 
-Cool? Cool.
+## NFL Project Context
+
+When creating skills for this project, keep these specifics in mind:
+
+- **Stack**: Python 3.9 backend (pandas, parquet, FastAPI), Next.js 16 frontend (shadcn/ui, React Query)
+- **Pipeline**: Bronze (nfl-raw) -> Silver (nfl-refined) -> Gold (nfl-trusted) medallion architecture on S3
+- **Skills location**: `.claude/skills/<skill-name>/SKILL.md`
+- **Agents location**: `.claude/agents/<agent-name>.md`
+- **Existing skills**: ingest, weekly-pipeline, validate-data, draft-prep, test, notebooklm
+- **Key anti-patterns for NFL skills**:
+  - Do NOT reference scripts that do not exist -- verify with `ls` before including
+  - Do NOT assume packages are installed -- check `requirements.txt` or `package.json`
+  - Do NOT hardcode seasons or weeks -- use arguments with sensible defaults (current season = 2026)
+  - Do NOT skip `source venv/bin/activate` before Python commands
+  - Do NOT reference S3 paths without noting that AWS credentials may be expired (local-first workflow)
+
+**Example eval criteria for an NFL data skill:**
+- Correct season/week filtering (no data leakage from future weeks)
+- Output parquet/CSV has expected columns and non-null key fields
+- Player names match nfl-data-py canonical format
+- Projected points are non-negative for skill positions
 
 ## Communicating with the user
 

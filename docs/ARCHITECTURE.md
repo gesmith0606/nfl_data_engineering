@@ -1,8 +1,8 @@
 # NFL Data Engineering Architecture
 
-**Version:** 3.2  
-**Last Updated:** April 3, 2026  
-**Status:** Active (v3.2 Website MVP + v4.0 Unified Evaluation in progress; Phase 54 residual training)  
+**Version:** 4.2  
+**Last Updated:** April 14, 2026  
+**Status:** Active (v4.2 Website Feature Expansion — AI Advisor, Rankings, Matchups, News, Draft, Sanity Check, Daily Sentiment)  
 **Related:** [NFL_DATA_DICTIONARY.md](./NFL_DATA_DICTIONARY.md) | [CLAUDE.md](../CLAUDE.md)
 
 ---
@@ -21,6 +21,10 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │  ┌────────────────┐  ┌──────────────┐  ┌────────────────┐  │
 │  │ nfl-data-py    │  │  Sleeper API │  │  FinnedAI Odds │  │
 │  │ (2002-2026)    │  │ (ADP/Rosters)│  │  (2016-2021)   │  │
+│  └────────────────┘  └──────────────┘  └────────────────┘  │
+│  ┌────────────────┐  ┌──────────────┐  ┌────────────────┐  │
+│  │ RSS Feeds (5)  │  │ FantasyPros  │  │  ESPN Rankings │  │
+│  │ (Sentiment)    │  │    ECR       │  │  (external)    │  │
 │  └────────────────┘  └──────────────┘  └────────────────┘  │
 └─────────────────────────────────────────────────────────────┘
                              ↓
@@ -75,7 +79,7 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ │  • playoff_context: standings/contention flags      │  │
 │ │  • player_quality: QB EPA / injury impact (28)      │  │
 │ │  • market_data: line movement features (20 cols)    │  │
-│ │  • graph_features: 22 graph metrics (WR/RB/TE/scheme) │  │
+│ │  • graph_features: 66 graph metrics (WR/RB/TE/QB/scheme) │
 │ └──────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────┘
          ↓ (Feature Engineering)
@@ -90,11 +94,14 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ ┌─ Fantasy Projections ────────────────────────────────┐   │
 │ │ • Weekly projections (optimized heuristics)          │   │
 │ │ • Preseason projections (rookie fallback)            │   │
-│ │ • QB: XGBoost direct (6.72 MAE)                     │   │
-│ │ • RB/WR/TE: Hybrid Residual (heuristic + ML correction) │   │
+│ │ • QB: Heuristic + bias correction (+2.5 pts)         │   │
+│ │ • RB: Heuristic (XGB SHIP path removed v4.2)        │   │
+│ │ • WR/TE: Ridge 60f+graph hybrid residual             │   │
 │ │ • Weights: roll3=0.30, roll6=0.15, std=0.55         │   │
-│ │ • Ceiling: 12/18/23 pt shrinkage, MAE 4.77          │   │
-│ │ • Output: 25 columns per player-week                │   │
+│ │ • Ceiling: 12/18/23 pt shrinkage + WR/TE 12% extra  │   │
+│ │ • VORP ranking + position_rank per scoring format    │   │
+│ │ • MAE 5.05 (production-faithful eval)                │   │
+│ │ • Output: 25+ columns per player-week                │   │
 │ │                                                       │   │
 │ ├─ Game Predictions ──────────────────────────────────┤   │
 │ │ • v2.1 Model: XGB+LGB+CB+Ridge ensemble             │   │
@@ -103,10 +110,10 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ │ • Backtest: 53.0% ATS on sealed 2024 holdout        │   │
 │ │                                                       │   │
 │ ├─ Player ML Predictions ─────────────────────────────┤   │
-│ │ • QB-only models (RB/WR/TE use heuristic)           │   │
-│ │ • Per-stat models (passing_yards, passing_tds, etc) │   │
+│ │ • QB: heuristic-only (bias correction replaces XGB)   │   │
+│ │ • WR/TE: Ridge 60f+graph hybrid residual correction  │   │
 │ │ • Feature input: player_feature_engineering.py       │   │
-│ │ • Router: ml_projection_router.py selects QB→ML      │   │
+│ │ • Router: ml_projection_router.py selects per-pos    │   │
 │ │                                                       │   │
 │ ├─ Kicker Projections ──────────────────────────────┤   │
 │ │ • Weekly FG/XP projections (opt-in via flag)        │   │
@@ -120,28 +127,37 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 └─────────────────────────────────────────────────────────────┘
         ↓
 ┌─────────────────────────────────────────────────────────────┐
-│ GRAPH LAYER (Neo4j + College Networks) — v4.1              │
+│ GRAPH LAYER (Neo4j + College Networks) — v4.2              │
 │ • Docker: docker-compose.yml (Neo4j 5.x)                   │
 │ • Connection: Neo4j + pandas dual-path fallback             │
-│ • 9 Graph Modules: participation, WR/RB/TE matchup,        │
-│   OL lineup, scheme classification, injury cascade,        │
-│   college teammate networks, coaching trees, prospect comps │
-│ • 49 Graph Features: 22 NFL metrics + 27 college/prospect  │
+│ • 12 Graph Modules: participation, WR/RB/TE matchup,       │
+│   OL lineup, scheme, injury cascade, QB-WR chemistry,      │
+│   game script, red zone, college networks, coaching trees,  │
+│   prospect comps                                            │
+│ • 66 Graph Features: 39 NFL metrics + 27 college/prospect  │
 │   features in data/silver/graph_features/                  │
 │ • Coverage: WR (73-75%), RB (90%), TE (94-95%), QB (60%)  │
 │ • Prospect Similarity: 10 college teammate + comp features │
 └─────────────────────────────────────────────────────────────┘
         ↓
 ┌─────────────────────────────────────────────────────────────┐
-│ WEB SERVICES — v4.1                                         │
-│ • FastAPI Backend (web/api/): 14 endpoints, Parquet reads  │
+│ WEB SERVICES — v4.2                                         │
+│ • FastAPI Backend (web/api/): 8 routers, Parquet reads     │
 │   ├─ Projections (3), Predictions (2), Players (2)          │
-│   ├─ Lineups (1), Games (3), College (3)                    │
-│ • Next.js Frontend (web/frontend/): Tailwind, TypeScript    │
-│ • Vercel Deploy: Serverless backend + CDN frontend         │
-│ • AWS S3: Projection/prediction Parquet storage            │
-│ • PostgreSQL: Game archive, college stats, prospect data   │
-│ • 25 Backend Tests (all passing)                           │
+│   ├─ Lineups (1), Games (3), News (3)                       │
+│   ├─ Draft (5), Rankings (2)                                │
+│ • Next.js Frontend (web/frontend/): 11 pages               │
+│   ├─ Dashboard, Rankings, Projections, Predictions          │
+│   ├─ Lineups, Matchups, Players, News, Draft Tool          │
+│   ├─ Model Accuracy, AI Advisor                             │
+│ • AI Advisor: Gemini 2.5 Flash + Groq fallback, 12 tools  │
+│   └─ Floating chat widget on all pages                      │
+│ • Matchups: Madden-style offense vs defense (1-99 ratings) │
+│ • Rankings: VORP-based ranking with tier groupings          │
+│ • News: 4-tab dashboard (overview/feed/team/player)         │
+│ • External Rankings: Sleeper ADP, FantasyPros ECR, ESPN    │
+│ • Deploy: Vercel frontend + Railway backend (Parquet mode) │
+│ • API Key auth middleware (optional, dev mode bypasses)     │
 └─────────────────────────────────────────────────────────────┘
         ↓
 ┌─────────────────────────────────────────────────────────────┐
@@ -149,7 +165,11 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ • Draft Optimizer (snake/auction/mock/waiver)              │
 │ • Fantasy Backtester (MAE/RMSE/bias analysis)              │
 │ • Prediction Backtester (ATS/O-U/CLV evaluation)           │
-│ • GitHub Actions Pipeline (weekly automation)              │
+│ • Sanity Check (consensus comparison, pre-deploy gate)     │
+│ • NotebookLM Content Generator (weekly/rankings/matchup)   │
+│ • External Rankings Fetcher (Sleeper/FantasyPros/ESPN)     │
+│ • Roster Refresh (Sleeper API → Gold projections update)   │
+│ • GitHub Actions: weekly pipeline + daily sentiment        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -328,9 +348,9 @@ odds → market_data (line movement features)
 # src/projection_engine.py
 
 _weighted_baseline(df, stat)
-    ├─ roll3 (45% weight) — most recent, most predictive
-    ├─ roll6 (30% weight) — medium horizon
-    └─ std  (25% weight) — season-to-date damping
+    ├─ roll3 (30% weight) — most recent, most predictive
+    ├─ roll6 (15% weight) — medium horizon
+    └─ std  (55% weight) — season-to-date damping (highest weight)
 
 _usage_multiplier(df, position)
     ├─ QB: snap_pct [0.80, 1.15]
@@ -353,18 +373,27 @@ projection = baseline × usage × matchup × vegas × shrinkage
 
 ```
 projected_stat = (
-    roll3_stat × 0.45 +
-    roll6_stat × 0.30 +
-    std_stat × 0.25
+    roll3_stat × 0.30 +
+    roll6_stat × 0.15 +
+    std_stat × 0.55
 ) × usage_mult × matchup_factor × vegas_mult
 
 projected_points = calculate_fantasy_points_df(projected_stats)
                  × (1.0 + shrinkage_ceiling)
 
 shrinkage_ceiling = {
-    15.0: 0.90,   # projections 15-20 pts → ×0.90
-    20.0: 0.85,   # projections 20-25 pts → ×0.85
-    25.0: 0.80,   # projections 25+ pts   → ×0.80
+    12.0: 0.92,   # projections 12-18 pts → ×0.92
+    18.0: 0.87,   # projections 18-23 pts → ×0.87
+    23.0: 0.80,   # projections 23+ pts   → ×0.80
+}
+
+position_ceiling_shrinkage = {
+    "WR": {12.0: 0.88},  # Additional 12% at 12+ pts (after global)
+    "TE": {12.0: 0.88},  # Additional 12% at 12+ pts (after global)
+}
+
+position_bias_correction = {
+    "QB": +2.5,  # Correct -2.47 systematic under-projection
 }
 ```
 
@@ -756,15 +785,26 @@ data/
 **File:** `.github/workflows/weekly-pipeline.yml`
 
 ```yaml
-Trigger: Every Tuesday 9:00 AM UTC
-  ├─ Detect current NFL week (via calendar)
-  ├─ Run: bronze_ingestion_simple --season {current} --week {current}
-  ├─ Run: silver_player_transformation --seasons {current-5...current}
-  ├─ Run: silver_team_transformation --seasons {current-5...current}
-  ├─ Run: generate_projections --week {current} --season {current}
-  └─ On failure: Open GitHub issue with error details
+Weekly Pipeline (.github/workflows/weekly-pipeline.yml):
+  Trigger: Every Tuesday 9:00 AM UTC
+    ├─ Detect current NFL week (via calendar)
+    ├─ Run: bronze_ingestion_simple --season {current} --week {current}
+    ├─ Run: silver_player_transformation --seasons {current-5...current}
+    ├─ Run: silver_team_transformation --seasons {current-5...current}
+    ├─ Run: generate_projections --week {current} --season {current}
+    ├─ Sanity check: sanity_check_projections.py --all (pre-deploy gate)
+    │  └─ Exits 1 on CRITICAL failures (blocks pipeline), 0 on PASS/WARN
+    ├─ Health check: check_pipeline_health.py (freshness + completeness)
+    └─ On failure: Open GitHub issue with error details
 
-Artifacts: Uploaded to data/gold/ for manual inspection
+Daily Sentiment Pipeline (.github/workflows/daily-sentiment.yml):
+  Trigger: Every day 12:00 UTC (7am ET)
+    ├─ Run: daily_sentiment_pipeline.py (RSS feeds + Sleeper trending)
+    │  └─ Falls back to rule-based extraction without ANTHROPIC_API_KEY
+    ├─ Refresh rosters: refresh_rosters.py (Sleeper API → Gold updates)
+    ├─ Commit + push new data (auto-deploys via Railway)
+    ├─ Upload artifacts for debugging (7-day retention)
+    └─ On failure: Open GitHub issue with error details
 ```
 
 ---
@@ -838,13 +878,15 @@ df['rolling_avg'] = df.groupby(['player', 'season'])['stat'].transform(
 
 ```python
 PROJECTION_CEILING_SHRINKAGE = {
-    12.0: 0.95,   # 12-18 pts → ×0.95
-    18.0: 0.90,   # 18-23 pts → ×0.90
-    23.0: 0.85,   # 23+ pts   → ×0.85
+    12.0: 0.92,   # 12-18 pts → ×0.92
+    18.0: 0.87,   # 18-23 pts → ×0.87
+    23.0: 0.80,   # 23+ pts   → ×0.80
 }
+POSITION_CEILING_SHRINKAGE = {"WR": {12.0: 0.88}, "TE": {12.0: 0.88}}
+POSITION_BIAS_CORRECTION = {"QB": 2.5}  # +2.5 pts additive
 ```
 
-**Benefit:** Final MAE 4.77 (improved from 4.91); better calibration without widening bands.
+**Benefit:** Final MAE 5.05 (production-faithful eval); better calibration without widening bands.
 
 ### 6. Ship/Skip Gates
 
@@ -908,6 +950,133 @@ Keep top N features (CV-validated cutoff)
 
 ---
 
+## AI Advisor — v4.2
+
+**Module:** `web/frontend/src/app/api/chat/route.ts`
+**UI Component:** `web/frontend/src/components/chat-widget.tsx`
+
+### Architecture
+
+```
+User Message (floating chat widget on all pages)
+    ↓
+Next.js API Route (/api/chat)
+    ├─ Model Selection:
+    │  ├─ Primary: Gemini 2.5 Flash (GOOGLE_GENERATIVE_AI_API_KEY)
+    │  └─ Fallback: Groq Llama 3.1 8B Instant (GROQ_API_KEY)
+    │
+    ├─ 12 Tools (function calling via Vercel AI SDK):
+    │  ├─ getPlayerProjection    — single player lookup
+    │  ├─ compareStartSit        — head-to-head comparison
+    │  ├─ searchPlayers           — fuzzy name search
+    │  ├─ getPositionRankings     — top N by position
+    │  ├─ getGamePredictions      — spreads, totals, confidence
+    │  ├─ getTeamRoster           — full roster with projections
+    │  ├─ getTeamSentiment        — team outlook
+    │  ├─ getPlayerNews           — injury + sentiment alerts
+    │  ├─ getDraftBoard           — ADP, VORP, value tiers
+    │  ├─ compareExternalRankings — vs Sleeper/FP/ESPN
+    │  ├─ getSentimentSummary     — bullish/bearish players
+    │  └─ getNewsFeed             — recent articles
+    │
+    └─ All tools call FastAPI backend (server-side only, no CORS)
+        └─ fastapiGet() helper with backend-down detection
+```
+
+**Key Design Decisions:**
+- Streaming responses via Vercel AI SDK `streamText()`
+- 5-step maximum per conversation turn (`stopWhen: stepCountIs(5)`)
+- Position-specific guidance embedded in system prompt (QB/RB/WR/TE/K)
+- Trade analysis uses VORP replacement ranks (QB=13, RB=25, WR=30, TE=13)
+
+---
+
+## External Rankings Integration — v4.2
+
+**Backend:** `web/api/routers/rankings.py`, `web/api/services/external_rankings_service.py`
+**CLI:** `scripts/refresh_external_rankings.py`
+**Cache:** `data/external/*.json` (24-hour TTL)
+
+### Sources
+
+| Source | API | Reliability | Notes |
+|--------|-----|-------------|-------|
+| Sleeper | `api.sleeper.app/v1/players/nfl` | High (free, stable) | search_rank ordering |
+| FantasyPros | `api.fantasypros.com/public/v2/json/nfl/` | Medium (rate-limited) | ECR consensus |
+| ESPN | `lm-api-reads.fantasy.espn.com/apis/v3/` | Medium (rate-limited) | Fantasy rankings |
+| Consensus | Hardcoded top-50 | Always available | Fallback for sanity check |
+
+### Endpoints
+
+- `GET /api/rankings/external` — rankings from a single source
+- `GET /api/rankings/compare` — our projections vs external source
+
+---
+
+## Sanity Check Pre-Deploy Gate — v4.2
+
+**Script:** `scripts/sanity_check_projections.py`
+**Integration:** Step 8 in `.github/workflows/weekly-pipeline.yml`
+
+Compares generated projections against consensus rankings before deployment. Exits 1 on CRITICAL failures (blocks the pipeline), exits 0 on PASS or WARN.
+
+**Checks:**
+- Top-50 consensus ranking comparison (hardcoded + optional live fetch)
+- Projection range validation (no negative points, reasonable ceilings)
+- Game prediction validation (valid teams, reasonable spreads/totals, no duplicates)
+- Vegas divergence detection (model vs closing line)
+
+---
+
+## Sentiment Pipeline — v4.2 (Daily Automation)
+
+### Pipeline Flow
+
+```
+Daily Cron (12:00 UTC)
+    ├─ Bronze: RSS feeds (5 sources) → data/bronze/sentiment/rss/
+    ├─ Bronze: Sleeper trending players → data/bronze/sentiment/sleeper/
+    ├─ Silver: Rule-based extraction (Claude Haiku when API key available)
+    │  └─ data/silver/sentiment/signals/
+    ├─ Gold: Weekly aggregation → data/gold/sentiment/
+    │  └─ sentiment_multiplier per player (0.70 - 1.15)
+    ├─ Roster refresh: Sleeper API → Gold projections update
+    └─ Commit + push (auto-deploys Railway backend)
+```
+
+**Key Modules:**
+- `src/sentiment/processing/rule_extractor.py` — rule-based extraction (no API key needed)
+- `src/sentiment/processing/extractor.py` — Claude Haiku extraction (optional)
+- `src/sentiment/processing/pipeline.py` — Bronze-to-Silver processing
+- `src/sentiment/aggregation/weekly.py` — Silver-to-Gold weekly aggregation
+- `src/sentiment/aggregation/team_weekly.py` — team-level sentiment
+- `src/projection_engine.py: apply_sentiment_adjustments()` — final projection layer
+
+---
+
+## Roster Refresh — v4.2
+
+**Script:** `scripts/refresh_rosters.py`
+**Source:** Sleeper NFL player database (`api.sleeper.app/v1/players/nfl`)
+
+Updates `recent_team` column in Gold preseason projections to reflect trades, free agent signings, and roster moves. Runs daily as part of the sentiment pipeline workflow. Maps Sleeper team abbreviations to nflverse conventions (LAR->LA, JAC->JAX).
+
+---
+
+## NotebookLM Content Generation — v4.2
+
+**Script:** `scripts/generate_notebooklm_content.py`
+**Output:** `output/notebooklm/`
+
+Generates rich markdown content packages from projection and prediction data for upload to Google NotebookLM for audio overview (podcast) generation.
+
+**Content Types:**
+- `--type weekly` — weekly podcast content (projections + game predictions)
+- `--type rankings` — season-long rankings summary
+- `--type matchup` — individual matchup breakdown
+
+---
+
 ## Known Constraints & Limitations
 
 1. **Injuries Data Discontinued:** nflverse stopped collecting injury reports after 2024. 2025-2026 ingestion uses fallback estimation or external source (pending).
@@ -924,7 +1093,7 @@ Keep top N features (CV-validated cutoff)
 
 ---
 
-## Graph Layer — v3.0 Shipped (Neo4j + Pandas Dual-Path)
+## Graph Layer — v4.2 (Neo4j + Pandas Dual-Path, 66 Features)
 
 ### Architecture
 
@@ -945,7 +1114,7 @@ PBP Participation Data (Bronze)
         ├─ Neo4j Connection (preferred, if available)
         └─ Pandas Fallback (always works, no external DB)
         ↓
-    39 Graph Features per player-week (Silver Layer)
+    66 Graph Features per player-week (Silver Layer)
         ├─ 4 Injury cascade: transfer_target_pct, opp_injury_epa, position_attrition, etc.
         ├─ 4 WR-CB matchup: matchup_count, separation_avg, conversion_avg, shadow_depth
         ├─ 5 OL/RB: ol_continuity, ol_avg_pff_grade, run_blocking_grades, lead_blocker, etc.
@@ -954,7 +1123,8 @@ PBP Participation Data (Bronze)
         ├─ 1 Defender alignment: defenders_in_box
         ├─ 5 QB-WR Chemistry: epa_roll3, pair_comp_rate_roll3, pair_target_share, games_together, td_rate
         ├─ 6 Game Script: usage_when_trailing_roll3, usage_when_leading_roll3, garbage_time_share_roll3, clock_killer_share_roll3, script_volatility, predicted_script_boost
-        └─ 7 Red Zone: rz_target_share_roll3, rz_carry_share_roll3, rz_td_rate_roll3, rz_usage_vs_general, team_rz_trips_roll3, rz_td_regression, opp_rz_td_rate_allowed_roll3
+        ├─ 7 Red Zone: rz_target_share_roll3, rz_carry_share_roll3, rz_td_rate_roll3, rz_usage_vs_general, team_rz_trips_roll3, rz_td_regression, opp_rz_td_rate_allowed_roll3
+        └─ 26 Advanced position-specific: +8 RB (contact/stacked box/goal line), +9 WR (contested/deep/slot), +5 TE (inline/seam/matchup), +4 college prospect features
         ↓
     Store in data/silver/graph_features/ (35 parquet files, 2020-2025)
 ```
