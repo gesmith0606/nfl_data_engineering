@@ -64,6 +64,19 @@ POSITION_BIAS_CORRECTION: Dict[str, float] = {
     "QB": 2.5,  # Correct -2.47 systematic under-projection
 }
 
+# Low-projection floor boost: players projected 0-5 pts systematically
+# under-project by 1.5-5 pts (bench players with occasional spot starts).
+# A mild additive floor reduces MAE for this large group without inflating
+# high-end projections. Applied after bias correction.
+# Tuned conservatively: half the observed bias to avoid overcorrection.
+LOW_PROJECTION_FLOOR_BOOST: Dict[str, Tuple[float, float]] = {
+    # (threshold, additive_boost) — only applied when projected_points < threshold
+    "QB": (5.0, 1.0),   # QB low-tier under-projects by ~5 pts
+    "RB": (3.0, 0.5),   # RB low-tier under-projects by ~2 pts
+    "WR": (3.0, 0.5),   # WR low-tier under-projects by ~2 pts
+    "TE": (2.5, 0.3),   # TE low-tier under-projects by ~1.6 pts
+}
+
 # Stats to project by position
 POSITION_STAT_PROFILE: Dict[str, List[str]] = {
     "QB": [
@@ -550,6 +563,26 @@ def project_position(
             len(scoring_input),
         )
 
+    # Apply low-projection floor boost (additive, after bias correction).
+    # Players projected 0-5 pts systematically under-project — bench players
+    # occasionally get spot starts and outperform their depressed rolling averages.
+    if position in LOW_PROJECTION_FLOOR_BOOST:
+        threshold, boost = LOW_PROJECTION_FLOOR_BOOST[position]
+        low_mask = scoring_input["projected_points"] < threshold
+        if "is_bye_week" in scoring_input.columns:
+            bye_mask = scoring_input["is_bye_week"].fillna(False).astype(bool)
+            low_mask = low_mask & ~bye_mask
+        if low_mask.any():
+            scoring_input.loc[low_mask, "projected_points"] = (
+                scoring_input.loc[low_mask, "projected_points"] + boost
+            ).round(2)
+            logger.debug(
+                "Applied %s low-projection floor boost of +%.2f pts (%d rows)",
+                position,
+                boost,
+                int(low_mask.sum()),
+            )
+
     return scoring_input
 
 
@@ -679,6 +712,23 @@ def compute_heuristic_baseline(
             correction,
             len(scoring_input),
         )
+
+    # Step 7: low-projection floor boost (additive, after bias correction).
+    # Mirrors the same step in project_position() — must stay in sync.
+    if position in LOW_PROJECTION_FLOOR_BOOST:
+        threshold, boost = LOW_PROJECTION_FLOOR_BOOST[position]
+        low_mask = scoring_input["projected_points"] < threshold
+        if low_mask.any():
+            scoring_input.loc[low_mask, "projected_points"] = (
+                scoring_input.loc[low_mask, "projected_points"] + boost
+            ).round(2)
+            logger.debug(
+                "Applied %s low-projection floor boost of +%.2f pts in heuristic"
+                " baseline (%d rows)",
+                position,
+                boost,
+                int(low_mask.sum()),
+            )
 
     # Re-align index to pos_data so callers can join back directly.
     result = scoring_input["projected_points"]
