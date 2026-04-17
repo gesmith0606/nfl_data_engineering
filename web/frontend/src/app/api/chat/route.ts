@@ -22,6 +22,18 @@ RULES:
 - If you don't have data, say so honestly.
 - Format responses with **bold player names**, bullet points for key factors, and clear headers.
 
+AVAILABLE CAPABILITIES:
+- Look up any player's projection, floor, ceiling, and injury status.
+- Compare two players head-to-head for start/sit decisions.
+- Search for players by name fragment.
+- Get position rankings (top N QBs, RBs, WRs, TEs, Ks).
+- Get game predictions with spreads, totals, and confidence tiers.
+- Get a team's full roster/lineup with projections.
+- Get team sentiment and outlook.
+- Get player-specific news and injury updates.
+- Get draft board with ADP, VORP, and value tiers.
+- Get overall sentiment summary with bullish/bearish players.
+
 POSITION-SPECIFIC GUIDANCE:
 - QB: Prioritize passing volume, rushing upside, and favorable matchup vs weak pass defenses.
   Look for QBs with 2+ TD upside and floor above 18 pts in Half-PPR.
@@ -348,6 +360,414 @@ export async function POST(req: Request) {
             return { found: false, message: 'No news items available.' };
           }
           return { found: true, items: result.data };
+        }
+      }),
+
+      getPositionRankings: tool({
+        description:
+          'Get the top players at a specific position, ranked by projected fantasy points. Use for questions like "Who are the top 10 RBs?" or "Best QBs this week?".',
+        inputSchema: z.object({
+          position: z
+            .enum(['QB', 'RB', 'WR', 'TE', 'K'])
+            .describe('Position to rank'),
+          limit: z
+            .number()
+            .min(1)
+            .max(50)
+            .default(10)
+            .describe('Number of players to return'),
+          season: z.number().default(2026).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .describe('NFL week number (1-18)'),
+          scoring: z
+            .enum(['ppr', 'half_ppr', 'standard'])
+            .default('half_ppr')
+            .describe('Fantasy scoring format')
+        }),
+        execute: async ({ position, limit, season, week, scoring }) => {
+          const params = new URLSearchParams({
+            season: String(season),
+            week: String(week),
+            scoring,
+            position,
+            limit: String(limit)
+          });
+          type RankingsPayload = { projections: Array<{
+            player_name: string;
+            player_id: string;
+            team: string;
+            position: string;
+            projected_points: number;
+            projected_floor: number;
+            projected_ceiling: number;
+            injury_status: string | null;
+          }> };
+          const result = await fastapiGet<RankingsPayload>(`/api/projections?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          if (!result.data.projections?.length) {
+            return { found: false, message: `No ${position} projections for week ${week} of ${season}.` };
+          }
+
+          const ranked = result.data.projections
+            .sort((a, b) => b.projected_points - a.projected_points)
+            .slice(0, limit)
+            .map((p, i) => ({
+              rank: i + 1,
+              player_name: p.player_name,
+              team: p.team,
+              projected_points: p.projected_points,
+              projected_floor: p.projected_floor,
+              projected_ceiling: p.projected_ceiling,
+              injury_status: p.injury_status ?? 'Active'
+            }));
+
+          return {
+            found: true,
+            position,
+            scoring_format: scoring,
+            season,
+            week,
+            rankings: ranked
+          };
+        }
+      }),
+
+      getGamePredictions: tool({
+        description:
+          'Get game predictions with spreads, totals, and confidence tiers. Use for questions like "What games have the biggest edges?" or "Who wins Chiefs vs Bills?".',
+        inputSchema: z.object({
+          season: z.number().default(2024).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .describe('NFL week number (1-18)')
+        }),
+        execute: async ({ season, week }) => {
+          const params = new URLSearchParams({
+            season: String(season),
+            week: String(week)
+          });
+          type PredictionPayload = { predictions: Array<{
+            game_id: string;
+            home_team: string;
+            away_team: string;
+            predicted_spread: number;
+            predicted_total: number;
+            vegas_spread: number;
+            vegas_total: number;
+            edge_spread: number;
+            edge_total: number;
+            confidence_tier: string;
+            ats_pick: string;
+            ou_pick: string;
+          }> };
+          const result = await fastapiGet<PredictionPayload>(`/api/predictions?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          if (!result.data.predictions?.length) {
+            return { found: false, message: `No predictions for week ${week} of ${season}.` };
+          }
+
+          return {
+            found: true,
+            season,
+            week,
+            predictions: result.data.predictions.map((g) => ({
+              matchup: `${g.away_team} @ ${g.home_team}`,
+              predicted_spread: g.predicted_spread,
+              predicted_total: g.predicted_total,
+              vegas_spread: g.vegas_spread,
+              vegas_total: g.vegas_total,
+              edge_spread: g.edge_spread,
+              edge_total: g.edge_total,
+              confidence_tier: g.confidence_tier,
+              ats_pick: g.ats_pick,
+              ou_pick: g.ou_pick
+            }))
+          };
+        }
+      }),
+
+      getTeamRoster: tool({
+        description:
+          'Get a team roster/lineup with projected fantasy points. Use for questions like "Show me the Chiefs roster" or "Who is starting for the Packers?".',
+        inputSchema: z.object({
+          team: z
+            .string()
+            .describe('NFL team abbreviation, e.g. "KC", "GB", "SF"'),
+          season: z.number().default(2026).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .default(1)
+            .describe('NFL week number (1-18)'),
+          scoring: z
+            .enum(['ppr', 'half_ppr', 'standard'])
+            .default('half_ppr')
+            .describe('Fantasy scoring format')
+        }),
+        execute: async ({ team, season, week, scoring }) => {
+          const params = new URLSearchParams({
+            season: String(season),
+            week: String(week),
+            scoring,
+            team: team.toUpperCase()
+          });
+          type LineupPayload = { lineup: Array<{
+            player_name: string;
+            player_id: string;
+            team: string;
+            position: string;
+            projected_points: number;
+            projected_floor: number;
+            projected_ceiling: number;
+            injury_status: string | null;
+            is_starter: boolean;
+          }> };
+          const result = await fastapiGet<LineupPayload>(`/api/lineups?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          if (!result.data.lineup?.length) {
+            return { found: false, message: `No lineup data for ${team.toUpperCase()} in week ${week} of ${season}.` };
+          }
+
+          const roster = result.data.lineup.map((p) => ({
+            player_name: p.player_name,
+            position: p.position,
+            projected_points: p.projected_points,
+            projected_floor: p.projected_floor,
+            projected_ceiling: p.projected_ceiling,
+            injury_status: p.injury_status ?? 'Active',
+            is_starter: p.is_starter
+          }));
+
+          return {
+            found: true,
+            team: team.toUpperCase(),
+            season,
+            week,
+            scoring_format: scoring,
+            roster
+          };
+        }
+      }),
+
+      getTeamSentiment: tool({
+        description:
+          'Get team-level sentiment and outlook scores. Use for questions like "What is the outlook for the Jets?" or "Which teams are trending up?".',
+        inputSchema: z.object({
+          season: z.number().default(2025).describe('Season to pull sentiment from')
+        }),
+        execute: async ({ season }) => {
+          const params = new URLSearchParams({
+            season: String(season)
+          });
+          type TeamSentimentPayload = Array<{
+            team: string;
+            sentiment_score: number;
+            article_count: number;
+            bullish_count: number;
+            bearish_count: number;
+          }>;
+          const result = await fastapiGet<TeamSentimentPayload>(`/api/news/team?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          if (!result.data.length) {
+            return { found: false, message: 'No team sentiment data available.' };
+          }
+
+          const teams = result.data
+            .sort((a, b) => b.sentiment_score - a.sentiment_score)
+            .map((t) => ({
+              team: t.team,
+              sentiment_score: t.sentiment_score,
+              article_count: t.article_count,
+              bullish_count: t.bullish_count,
+              bearish_count: t.bearish_count
+            }));
+
+          return { found: true, season, teams };
+        }
+      }),
+
+      getPlayerNews: tool({
+        description:
+          'Get recent news and injury updates for a specific player. Use for questions like "Any news on Tyreek Hill?" or "Is Pacheco healthy?".',
+        inputSchema: z.object({
+          playerName: z
+            .string()
+            .describe('Player name to search for news about'),
+          season: z.number().default(2025).describe('Season to pull news from'),
+          limit: z
+            .number()
+            .default(5)
+            .describe('Maximum number of news items')
+        }),
+        execute: async ({ playerName, season, limit }) => {
+          const params = new URLSearchParams({
+            season: String(season),
+            limit: String(Math.max(limit * 5, 25))
+          });
+          type NewsPayload = Array<{
+            title: string | null;
+            source: string;
+            url: string | null;
+            published_at: string | null;
+            sentiment: number | null;
+            category: string | null;
+            player_name: string | null;
+            team: string | null;
+            body_snippet: string | null;
+            is_ruled_out: boolean;
+            is_inactive: boolean;
+            is_questionable: boolean;
+          }>;
+          const result = await fastapiGet<NewsPayload>(`/api/news/feed?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+
+          const name = playerName.toLowerCase();
+          const playerItems = result.data.filter((item) => {
+            const itemName = (item.player_name ?? '').toLowerCase();
+            const itemTitle = (item.title ?? '').toLowerCase();
+            const itemBody = (item.body_snippet ?? '').toLowerCase();
+            return (
+              itemName.includes(name) ||
+              itemTitle.includes(name) ||
+              itemBody.includes(name)
+            );
+          }).slice(0, limit);
+
+          if (!playerItems.length) {
+            return {
+              found: false,
+              message: `No recent news found for "${playerName}".`
+            };
+          }
+
+          return {
+            found: true,
+            player_name: playerName,
+            items: playerItems.map((item) => ({
+              title: item.title,
+              source: item.source,
+              published_at: item.published_at,
+              sentiment: item.sentiment,
+              category: item.category,
+              team: item.team,
+              snippet: item.body_snippet,
+              is_ruled_out: item.is_ruled_out,
+              is_questionable: item.is_questionable
+            }))
+          };
+        }
+      }),
+
+      getDraftBoard: tool({
+        description:
+          'Get the draft board with ADP, VORP, and value tiers. Use for questions like "What is the best value pick?" or "Who should I draft at pick 5?".',
+        inputSchema: z.object({
+          scoring: z
+            .enum(['ppr', 'half_ppr', 'standard'])
+            .default('half_ppr')
+            .describe('Fantasy scoring format'),
+          limit: z
+            .number()
+            .min(1)
+            .max(200)
+            .default(50)
+            .describe('Number of players to return')
+        }),
+        execute: async ({ scoring, limit }) => {
+          const params = new URLSearchParams({ scoring });
+          type DraftPayload = { board: Array<{
+            player_name: string;
+            player_id: string;
+            team: string;
+            position: string;
+            adp: number;
+            projected_points: number;
+            vorp: number;
+            value_tier: string;
+            bye_week: number | null;
+          }> };
+          const result = await fastapiGet<DraftPayload>(`/api/draft/board?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          if (!result.data.board?.length) {
+            return { found: false, message: 'No draft board data available.' };
+          }
+
+          const board = result.data.board.slice(0, limit).map((p, i) => ({
+            overall_rank: i + 1,
+            player_name: p.player_name,
+            team: p.team,
+            position: p.position,
+            adp: p.adp,
+            projected_points: p.projected_points,
+            vorp: p.vorp,
+            value_tier: p.value_tier,
+            bye_week: p.bye_week
+          }));
+
+          return {
+            found: true,
+            scoring_format: scoring,
+            board
+          };
+        }
+      }),
+
+      getSentimentSummary: tool({
+        description:
+          'Get overall sentiment summary including most bullish and bearish players, source stats, and trend data. Use for questions like "What is the overall sentiment?" or "Who are the most hyped players?".',
+        inputSchema: z.object({
+          season: z.number().default(2025).describe('Season to pull summary from')
+        }),
+        execute: async ({ season }) => {
+          const params = new URLSearchParams({
+            season: String(season)
+          });
+          type SummaryPayload = {
+            total_articles: number;
+            sources: Array<{ source: string; count: number }>;
+            bullish_players: Array<{ player_name: string; team: string; sentiment_score: number }>;
+            bearish_players: Array<{ player_name: string; team: string; sentiment_score: number }>;
+            average_sentiment: number;
+          };
+          const result = await fastapiGet<SummaryPayload>(`/api/news/summary?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+
+          return {
+            found: true,
+            season,
+            total_articles: result.data.total_articles,
+            sources: result.data.sources,
+            average_sentiment: result.data.average_sentiment,
+            bullish_players: result.data.bullish_players,
+            bearish_players: result.data.bearish_players
+          };
         }
       })
     }
