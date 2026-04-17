@@ -45,7 +45,11 @@ All 6 phases are independent and can be worked in any order.
   2. Rosters reflect 2026 offseason trades and free agency moves (no player on the wrong team)
   3. Running the sanity check script produces fewer than 10 warnings and zero critical issues
   4. The top 10 projected players at each position align structurally with consensus rankings (no obvious absurdities like a backup QB in top 5)
-**Plans**: TBD
+**Plans:** 1/3 plans executed
+Plans:
+- [x] 60-01-PLAN.md -- Extend roster refresh with position update and change logging
+- [ ] 60-02-PLAN.md -- Enhance sanity check with freshness, live consensus, updated top-50
+- [ ] 60-03-PLAN.md -- Wire sanity check as CI gate in deploy-web.yml
 
 ### Phase 61: News & Sentiment Live
 **Goal**: Users can browse real news articles and see sentiment signals on the website
@@ -143,7 +147,7 @@ All 6 phases are independent and can be worked in any order.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 60. Data Quality | 0/TBD | Not started | - |
+| 60. Data Quality | 1/3 | In Progress|  |
 | 61. News & Sentiment Live | 0/TBD | Not started | - |
 | 62. Design & UX Polish | 0/TBD | Not started | - |
 | 63. AI Advisor Hardening | 0/TBD | Not started | - |

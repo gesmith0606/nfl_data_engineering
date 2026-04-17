@@ -7,8 +7,8 @@
 
 ### Data Quality
 
-- [ ] **DQAL-01**: All player positions match Sleeper API with zero misclassifications
-- [ ] **DQAL-02**: Rosters reflect 2026 trades/FA via daily Sleeper refresh
+- [x] **DQAL-01**: All player positions match Sleeper API with zero misclassifications
+- [x] **DQAL-02**: Rosters reflect 2026 trades/FA via daily Sleeper refresh
 - [ ] **DQAL-03**: Sanity check passes with <10 warnings and 0 critical issues
 - [ ] **DQAL-04**: Preseason projections pass eye test (top 10 matches consensus structure)
 
@@ -73,8 +73,8 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DQAL-01 | Phase 60 | Pending |
-| DQAL-02 | Phase 60 | Pending |
+| DQAL-01 | Phase 60 | Complete |
+| DQAL-02 | Phase 60 | Complete |
 | DQAL-03 | Phase 60 | Pending |
 | DQAL-04 | Phase 60 | Pending |
 | NEWS-01 | Phase 61 | Pending |
