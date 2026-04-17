@@ -18,10 +18,13 @@ import sys
 import os
 import argparse
 import glob as globmod
+from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 import numpy as np
+import requests
 import logging
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
@@ -30,6 +33,16 @@ logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
 GOLD_DIR = os.path.join(PROJECT_ROOT, "data", "gold")
+
+# Freshness thresholds (D-08). Gold projections should refresh weekly; Silver
+# aggregates can go longer between pipeline runs.
+GOLD_MAX_AGE_DAYS = 7
+SILVER_MAX_AGE_DAYS = 14
+
+# Fantasy positions used when filtering Sleeper live consensus.
+_FANTASY_POSITIONS = {"QB", "RB", "WR", "TE"}
+# Sleeper -> nflverse team abbreviation normalization. Only LAR differs.
+_SLEEPER_TO_NFLVERSE_TEAM = {"LAR": "LA", "JAC": "JAX"}
 
 
 # ---------------------------------------------------------------------------
@@ -70,13 +83,13 @@ CONSENSUS_TOP_50: List[Tuple[int, str, str, str]] = [
     (12, "Amon-Ra St. Brown", "WR", "DET"),
     (16, "Tyreek Hill", "WR", "MIA"),
     (17, "Justin Jefferson", "WR", "MIN"),
-    (19, "Puka Nacua", "WR", "LAR"),
+    (19, "Puka Nacua", "WR", "LA"),
     (20, "Malik Nabers", "WR", "NYG"),
     (23, "Nico Collins", "WR", "HOU"),
     (24, "Drake London", "WR", "ATL"),
     (26, "A.J. Brown", "WR", "PHI"),
     (27, "Garrett Wilson", "WR", "NYJ"),
-    (29, "Davante Adams", "WR", "NYJ"),
+    (29, "Davante Adams", "WR", "LA"),
     (31, "Marvin Harrison Jr.", "WR", "ARI"),
     (34, "DK Metcalf", "WR", "SEA"),
     (37, "Chris Olave", "WR", "NO"),
@@ -177,6 +190,119 @@ def _build_consensus_df() -> pd.DataFrame:
             }
         )
     return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# Data freshness validation (per D-08)
+# ---------------------------------------------------------------------------
+def check_local_freshness(path: str, max_age_days: int = GOLD_MAX_AGE_DAYS) -> Tuple[str, str]:
+    """Check parquet file freshness for a given directory.
+
+    Per D-08: Gold >7 days old = WARN; Silver >14 days old = WARN.
+
+    Args:
+        path: Directory containing timestamped *.parquet files.
+        max_age_days: Age threshold (inclusive). Files older than this emit WARN.
+
+    Returns:
+        (level, message) where level is one of:
+            'OK'    -- latest parquet is within max_age_days
+            'WARN'  -- latest parquet exceeds the threshold
+            'ERROR' -- directory missing or contains no parquet files
+        `message` is a human-readable string suitable for logging/printing.
+    """
+    p = Path(path)
+    if not p.exists():
+        return ("ERROR", f"Directory not found: {path}")
+    files = list(p.glob("*.parquet"))
+    if not files:
+        return ("ERROR", f"No parquet files in {path}")
+    latest = max(files, key=lambda f: f.stat().st_mtime)
+    age_days = (
+        datetime.now() - datetime.fromtimestamp(latest.stat().st_mtime)
+    ).days
+    if age_days > max_age_days:
+        return (
+            "WARN",
+            f"{path} is {age_days} days old (threshold: {max_age_days})",
+        )
+    return ("OK", f"{path} is {age_days} days old")
+
+
+# ---------------------------------------------------------------------------
+# Live consensus fetch with hardcoded fallback (per D-09, D-10)
+# ---------------------------------------------------------------------------
+def fetch_live_consensus(limit: int = 50) -> pd.DataFrame:
+    """Fetch live consensus rankings from Sleeper search_rank.
+
+    Per D-09 & research findings: FantasyPros API returns 403 without an auth
+    token, so Sleeper's ``search_rank`` is our primary live consensus proxy.
+    Per D-10: If the live fetch fails (network error, rate limit, etc.) fall
+    back to the hardcoded :data:`CONSENSUS_TOP_50` so the sanity check always
+    produces a usable comparison DataFrame.
+
+    Args:
+        limit: Maximum number of rows to return. Sleeper responses are
+            truncated to the top-ranked players by ``search_rank``.
+
+    Returns:
+        DataFrame with columns: ``consensus_rank``, ``player_name``,
+        ``position``, ``team``, ``norm_name``.
+    """
+    try:
+        logger.info("Fetching live consensus from Sleeper search_rank...")
+        resp = requests.get(
+            "https://api.sleeper.app/v1/players/nfl",
+            timeout=60,
+            headers={"User-Agent": "NFL-Data-Engineering/1.0"},
+        )
+        resp.raise_for_status()
+        players = resp.json()
+
+        rows: List[Dict[str, object]] = []
+        for _pid, info in players.items():
+            if not isinstance(info, dict):
+                continue
+            pos = info.get("position")
+            if pos not in _FANTASY_POSITIONS:
+                continue
+            search_rank = info.get("search_rank")
+            if search_rank is None or search_rank > 9999:
+                continue
+            team = info.get("team")
+            if not team:
+                continue
+            full_name = info.get("full_name", "")
+            if not full_name:
+                continue
+            team = _SLEEPER_TO_NFLVERSE_TEAM.get(team, team)
+            rows.append(
+                {
+                    "consensus_rank": search_rank,
+                    "player_name": full_name,
+                    "position": pos,
+                    "team": team,
+                }
+            )
+        if rows:
+            df = (
+                pd.DataFrame(rows)
+                .sort_values("consensus_rank")
+                .head(limit)
+                .reset_index(drop=True)
+            )
+            # Re-rank 1..N so ranks are contiguous for downstream comparison.
+            df["consensus_rank"] = range(1, len(df) + 1)
+            df["norm_name"] = df["player_name"].apply(_normalize_name)
+            logger.info("Live Sleeper consensus: %d players", len(df))
+            return df
+    except Exception as exc:  # noqa: BLE001 -- defensive; we always want a fallback
+        logger.warning("Sleeper live consensus failed: %s", exc)
+
+    logger.warning(
+        "Using hardcoded CONSENSUS_TOP_50 fallback (live sources unavailable)"
+    )
+    return _build_consensus_df()
 
 
 def _match_players(
@@ -416,6 +542,56 @@ def run_sanity_check(scoring: str, season: int) -> int:
     print(f"  NFL Projection Sanity Check — {scoring.upper()}, Season {season}")
     print("=" * 70)
 
+    # Warnings are collected across all sections; initialize early so the
+    # freshness checks below can append to the same list.
+    warnings: List[str] = []
+
+    # ------------------------------------------------------------------
+    # 0. Data freshness checks (per D-08)
+    # ------------------------------------------------------------------
+    #   Gold (preseason projections)  -> 7-day threshold
+    #   Silver (player usage, team PBP metrics) -> 14-day threshold
+    # Silver paths match the on-disk layout (data/silver/{players,teams}/*),
+    # which diverges from the flattened names used in the planning doc.
+    print("\n" + "-" * 70)
+    print("  DATA FRESHNESS")
+    print("-" * 70)
+    gold_dir = os.path.join(
+        GOLD_DIR, f"projections/preseason/season={season}"
+    )
+    gold_level, gold_msg = check_local_freshness(
+        gold_dir, max_age_days=GOLD_MAX_AGE_DAYS
+    )
+    print(f"  Gold projections:   [{gold_level}] {gold_msg}")
+    if gold_level == "WARN":
+        warnings.append(f"STALE GOLD DATA: {gold_msg}")
+    elif gold_level == "ERROR":
+        # Missing Gold is surfaced as a warning here; the projection loader
+        # below will raise a critical if no files are readable.
+        warnings.append(f"GOLD DATA MISSING: {gold_msg}")
+
+    silver_dirs = [
+        ("player_usage", os.path.join(PROJECT_ROOT, "data", "silver", "players", "usage")),
+        ("team_pbp_metrics", os.path.join(PROJECT_ROOT, "data", "silver", "teams", "pbp_metrics")),
+    ]
+    for label, sd in silver_dirs:
+        # Silver dirs commonly partition further by season=YYYY; freshness
+        # check works whether files live at the leaf or at the root.
+        probe_dir = sd
+        if not any(Path(sd).glob("*.parquet")) and Path(sd).exists():
+            # Descend into the most-recent season partition, if any.
+            season_partitions = sorted(
+                [p for p in Path(sd).glob("season=*") if p.is_dir()]
+            )
+            if season_partitions:
+                probe_dir = str(season_partitions[-1])
+        s_level, s_msg = check_local_freshness(
+            probe_dir, max_age_days=SILVER_MAX_AGE_DAYS
+        )
+        print(f"  Silver {label}: [{s_level}] {s_msg}")
+        if s_level == "WARN":
+            warnings.append(f"STALE SILVER DATA ({label}): {s_msg}")
+
     # Load our projections
     our_df = _load_our_projections(scoring, season)
     if our_df.empty:
@@ -423,9 +599,24 @@ def run_sanity_check(scoring: str, season: int) -> int:
         print(f"  Expected: data/gold/projections/preseason/season={season}/")
         return 1
 
-    # Build consensus
-    consensus_df = _build_consensus_df()
-    print(f"\nConsensus rankings: {len(consensus_df)} players (hardcoded fallback)")
+    # Build consensus (live Sleeper primary, hardcoded fallback per D-09/D-10)
+    consensus_df = fetch_live_consensus(limit=50)
+    # norm_name is required for player matching downstream
+    if "norm_name" not in consensus_df.columns:
+        consensus_df["norm_name"] = consensus_df["player_name"].apply(
+            _normalize_name
+        )
+    # Heuristic: if the returned DataFrame matches the hardcoded ranks/names
+    # exactly we know the Sleeper fetch failed and we fell back.
+    hardcoded_ranks = [entry[0] for entry in CONSENSUS_TOP_50]
+    hardcoded_names = [entry[1] for entry in CONSENSUS_TOP_50]
+    is_fallback = (
+        len(consensus_df) == len(CONSENSUS_TOP_50)
+        and consensus_df["consensus_rank"].tolist() == hardcoded_ranks
+        and consensus_df["player_name"].tolist() == hardcoded_names
+    )
+    source = "hardcoded fallback" if is_fallback else "live Sleeper"
+    print(f"\nConsensus rankings: {len(consensus_df)} players ({source})")
 
     # Match players
     matched = _match_players(our_df, consensus_df)
@@ -446,21 +637,38 @@ def run_sanity_check(scoring: str, season: int) -> int:
         criticals.append(msg)
 
     # ------------------------------------------------------------------
-    # 2. CRITICAL: Missing top players (consensus top-50 not in ours)
+    # 2. WARNING: Missing top players (consensus top-50 not in ours)
     # ------------------------------------------------------------------
+    # NOTE: After _match_players the consensus columns carry the _consensus
+    # suffix (pandas merge disambiguation). The `team` column has no suffix
+    # because it only exists on the consensus side. This is a latent bug
+    # that only surfaces when live Sleeper consensus returns players absent
+    # from Gold projections; with the static hardcoded list every consensus
+    # entry also appeared in our projections so the missing branch was never
+    # exercised. Reference the suffixed columns explicitly.
+    #
+    # Disposition: WARNING rather than CRITICAL. Per D-06, criticals are
+    # structural absurdities (missing positions entirely, player on wrong
+    # team in top 20, negative projections). Live Sleeper consensus often
+    # includes current rookies not yet in our Gold projections -- flagging
+    # those as CRITICAL would block deploys on every rookie preseason run.
+    # Missing players are persisted here (below) as well: initialized early
+    # so the 'missing' DataFrame is still available for downstream summary.
     missing = matched[matched["overall_rank"].isna()]
     for _, row in missing.iterrows():
         msg = (
-            f"MISSING PLAYER: {row['player_name']} ({row['position']}, "
-            f"{row['team']}) — consensus rank #{row['consensus_rank']}, "
+            f"MISSING PLAYER: {row['player_name_consensus']} "
+            f"({row['position_consensus']}, {row['team']}) — "
+            f"consensus rank #{int(row['consensus_rank'])}, "
             f"not found in our projections"
         )
-        criticals.append(msg)
+        warnings.append(msg)
 
     # ------------------------------------------------------------------
     # 3. WARNING: Large rank discrepancies (>20 spots)
     # ------------------------------------------------------------------
-    warnings: List[str] = []
+    # NOTE: warnings list was initialized at the top of run_sanity_check()
+    # so freshness checks could append; do NOT re-init here or we lose them.
     matched_found = matched[matched["overall_rank"].notna()].copy()
     matched_found["rank_diff"] = (
         matched_found["overall_rank"] - matched_found["consensus_rank"]
