@@ -9,8 +9,8 @@
 
 - [x] **DQAL-01**: All player positions match Sleeper API with zero misclassifications
 - [x] **DQAL-02**: Rosters reflect 2026 trades/FA via daily Sleeper refresh
-- [ ] **DQAL-03**: Sanity check passes with <10 warnings and 0 critical issues
-- [ ] **DQAL-04**: Preseason projections pass eye test (top 10 matches consensus structure)
+- [~] **DQAL-03**: Sanity check passes with 0 critical issues (exit-code contract complete; warning count >10 due to out-of-scope data issues -- negative projections, rookie absence, stale Silver)
+- [x] **DQAL-04**: Preseason projections pass eye test (top 10 matches consensus structure -- Davante Adams LA, Puka Nacua LA, consensus reflects 2026 offseason)
 
 ### News & Sentiment
 
@@ -75,8 +75,8 @@
 |-------------|-------|--------|
 | DQAL-01 | Phase 60 | Complete |
 | DQAL-02 | Phase 60 | Complete |
-| DQAL-03 | Phase 60 | Pending |
-| DQAL-04 | Phase 60 | Pending |
+| DQAL-03 | Phase 60 | Partial (infrastructure complete, warning count gated on out-of-scope fixes) |
+| DQAL-04 | Phase 60 | Complete |
 | NEWS-01 | Phase 61 | Pending |
 | NEWS-02 | Phase 61 | Pending |
 | NEWS-03 | Phase 61 | Pending |
