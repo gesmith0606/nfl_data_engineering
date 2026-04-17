@@ -103,31 +103,24 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - [ ] Sleeper OAuth integration
 - [ ] PFF paid data integration (true WR-CB coverage, OL grades)
 
-## Current Milestones (Parallel)
+## Current Milestone: v6.0 Website Production Ready + Agent Ecosystem
 
-### v3.2 Model Perfection
-**Goal:** Push fantasy MAE below 4.5 through unified evaluation pipeline and advanced modeling.
-**Target features:**
-- Unified evaluation pipeline (training + backtest use same heuristic + full 466 features)
-- Full-feature residual deployment for all positions
-- Bayesian hierarchical models for principled regularization
-- Quantile regression for calibrated floor/ceiling
+**Goal:** Get the website to production quality with accurate data, polished design, working news feeds, and a capable AI advisor — while optimizing the agent/skill ecosystem.
 
-### v4.0 Production Launch
-**Goal:** Deploy the website and go live for the 2026 NFL season.
 **Target features:**
-- Deploy frontend to Vercel, backend to AWS
-- Supabase PostgreSQL with weekly data loads
-- Sleeper OAuth integration (link your league)
-- Weekly pipeline automation (projections → DB → website)
-- CI/CD from GitHub
+- Website data quality: fix stale rosters, validate positions, sanity check <10 warnings
+- News/sentiment pipeline live: daily ingestion running, 4-tab dashboard with real data
+- Design polish: premium UI using design agent (Emil + Impeccable + Taste skills)
+- AI advisor hardening: verify all 12 tools work end-to-end on live site
+- Matchup view completion: real defensive data, proper OL/DL ratings
+- Agent ecosystem optimization: consolidate overlapping skills, activate dormant agents
+- .claude folder cleanup: remove unused skills, verify hooks, add NFL-specific rules
 
 ### Planned (Future Milestones)
-- v3.3 PFF Data Integration — true WR-CB coverage, OL blocking grades ($300-500/season)
-- v4.1 User Accounts + Sleeper — roster import, lineup optimization
-- v4.2 Fantasy Agent — LLM-powered start/sit, waiver recommendations
-- v4.3 Draft Agent — real-time draft tracking (Sleeper-first)
-- v5.0 Multi-Platform — ESPN/Yahoo support
+- v7.0 Marketing & Content — Remotion video generation, YouTube/Instagram/TikTok distribution, NotebookLM podcast pipeline
+- v7.1 Sleeper League Integration — roster import, personalized start/sit, waiver wire
+- v8.0 PFF Data Integration — true WR-CB coverage, OL blocking grades ($300-500/season)
+- v9.0 Multi-Platform — ESPN/Yahoo league support
 
 ### Out of Scope
 

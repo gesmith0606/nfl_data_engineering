@@ -1,25 +1,25 @@
 ---
 gsd_state_version: 1.0
-milestone: v5.0
-milestone_name: "Sentiment v2 + AI Advisor + Draft Tool"
+milestone: v6.0
+milestone_name: "Website Production Ready + Agent Ecosystem"
 status: in_progress
-last_updated: "2026-04-12T22:00:00.000Z"
-last_activity: 2026-04-12
+last_updated: "2026-04-17T12:00:00.000Z"
+last_activity: 2026-04-17
 progress:
-  total_phases: 8
-  completed_phases: 6
-  total_plans: 8
-  completed_plans: 6
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-03)
+See: .planning/PROJECT.md (updated 2026-04-17)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** AI Advisor + Draft Tool frontend + production deployment
+**Current focus:** Website production quality + agent ecosystem optimization
 
 ## Production Status
 
@@ -77,9 +77,10 @@ See: .planning/PROJECT.md (updated 2026-04-03)
 
 ## Current Position
 
-Phase: v5.0 (Sentiment + AI Advisor + Draft) — mostly COMPLETE
-Status: AI Advisor built, Draft backend built, Sentiment LIVE. Need draft frontend + production deploy.
-Last activity: 2026-04-12
+Phase: v6.0 — Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-04-17 — Milestone v6.0 started
 
 ## Key Artifacts
 
