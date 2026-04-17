@@ -1,22 +1,34 @@
-"""Unit tests for data quality utilities in scripts/refresh_rosters.py.
+"""Unit tests for data quality utilities in scripts/refresh_rosters.py
+and scripts/sanity_check_projections.py.
 
-Covers DQAL-01 (positions match Sleeper API) and DQAL-02 (rosters reflect
-2026 trades/FA via daily Sleeper refresh) per Phase 60 requirements.
+Covers:
+    - DQAL-01 (positions match Sleeper API) and DQAL-02 (rosters reflect
+      2026 trades/FA via daily Sleeper refresh) -- Plan 60-01
+    - DQAL-03 (sanity check produces <10 warnings and 0 criticals) and
+      DQAL-04 (top-10 consensus alignment) -- Plan 60-02
 
-Tests exercise three new functions:
+Plan 60-01 tests exercise three functions in scripts/refresh_rosters.py:
     - build_roster_mapping: name -> {team, position} from Sleeper response
     - update_rosters: applies mapping to Gold DataFrame (team AND position)
     - log_changes: appends timestamped change records to roster_changes.log
+
+Plan 60-02 tests exercise two new helpers in scripts/sanity_check_projections.py:
+    - check_local_freshness: parquet age validation (OK/WARN/ERROR)
+    - fetch_live_consensus: Sleeper search_rank primary with hardcoded fallback
+    Plus a content assertion on the CONSENSUS_TOP_50 constant.
 """
 
 from __future__ import annotations
 
 import os
 import sys
+import time
 from typing import Dict
+from unittest.mock import patch
 
 import pandas as pd
 import pytest
+import requests
 
 # Ensure repo root is importable so `scripts.refresh_rosters` resolves.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -25,6 +37,11 @@ from scripts.refresh_rosters import (  # noqa: E402 -- path setup must precede i
     build_roster_mapping,
     log_changes,
     update_rosters,
+)
+from scripts.sanity_check_projections import (  # noqa: E402
+    CONSENSUS_TOP_50,
+    check_local_freshness,
+    fetch_live_consensus,
 )
 
 
@@ -340,3 +357,84 @@ def test_roster_changes_log(tmp_path):
     assert "Davante Adams" in contents
     assert "NYJ" in contents
     assert "LA" in contents
+
+
+# ===========================================================================
+# Plan 60-02: Sanity check enhancements
+# ===========================================================================
+# check_local_freshness, fetch_live_consensus, and CONSENSUS_TOP_50 content
+# assertions. Exercises DQAL-03 (freshness warns on stale data) and DQAL-04
+# (top-50 consensus reflects 2026 offseason moves).
+# ---------------------------------------------------------------------------
+
+
+def _write_parquet_with_age(directory, age_days: int, name: str = "snapshot.parquet") -> None:
+    """Create a fake parquet file in `directory` and backdate its mtime."""
+    directory.mkdir(parents=True, exist_ok=True)
+    fake = directory / name
+    # Content is irrelevant for freshness checks -- only stat().st_mtime is used.
+    fake.write_bytes(b"PAR1")  # arbitrary parquet-like magic bytes
+    target_mtime = time.time() - (age_days * 86400)
+    os.utime(fake, (target_mtime, target_mtime))
+
+
+def test_freshness_check_ok(tmp_path):
+    """DQAL-03: Fresh parquet (< threshold) returns ('OK', message with age)."""
+    gold_dir = tmp_path / "gold_fresh"
+    _write_parquet_with_age(gold_dir, age_days=3)
+
+    level, message = check_local_freshness(str(gold_dir), max_age_days=7)
+
+    assert level == "OK"
+    assert "3 days old" in message
+
+
+def test_freshness_check_warn(tmp_path):
+    """DQAL-03: Stale parquet (> threshold) returns ('WARN', message with age)."""
+    gold_dir = tmp_path / "gold_stale"
+    _write_parquet_with_age(gold_dir, age_days=10)
+
+    level, message = check_local_freshness(str(gold_dir), max_age_days=7)
+
+    assert level == "WARN"
+    assert "10 days old" in message
+
+
+def test_freshness_check_missing(tmp_path):
+    """DQAL-03: Missing/empty directory returns ('ERROR', explanatory message)."""
+    missing_dir = tmp_path / "does_not_exist"
+
+    level, message = check_local_freshness(str(missing_dir), max_age_days=7)
+
+    assert level == "ERROR"
+    assert "not found" in message.lower() or "no parquet" in message.lower()
+
+
+def test_fetch_live_consensus_fallback():
+    """DQAL-03: When Sleeper API is unreachable, fall back to CONSENSUS_TOP_50.
+
+    The fallback DataFrame must have at least 40 rows (hardcoded list is 50)
+    and carry the canonical columns: consensus_rank, player_name, position, team.
+    """
+    with patch(
+        "scripts.sanity_check_projections.requests.get",
+        side_effect=requests.exceptions.ConnectionError("simulated"),
+    ):
+        df = fetch_live_consensus(limit=50)
+
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 40
+    for col in ("consensus_rank", "player_name", "position", "team"):
+        assert col in df.columns, f"missing column: {col}"
+
+
+def test_consensus_top50_davante_adams():
+    """DQAL-04: CONSENSUS_TOP_50 reflects 2026 offseason (Adams -> LA, not NYJ)."""
+    adams = [entry for entry in CONSENSUS_TOP_50 if entry[1] == "Davante Adams"]
+    assert adams, "Davante Adams missing from CONSENSUS_TOP_50"
+    # Tuple format: (rank, name, position, team)
+    assert adams[0][2] == "WR"
+    assert adams[0][3] == "LA", (
+        f"Davante Adams team should be 'LA' (2026 offseason move); "
+        f"got {adams[0][3]!r}"
+    )
