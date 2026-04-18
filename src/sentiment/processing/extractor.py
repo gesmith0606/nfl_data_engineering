@@ -39,13 +39,27 @@ _VALID_CATEGORIES = frozenset(
 )
 
 # Event flag keys expected in Claude's JSON response.
+# Kept in sync with PlayerSignal boolean fields and the rule-extractor
+# event dict. See src/sentiment/processing/rule_extractor.py module
+# docstring for the canonical event vocabulary.
 _EVENT_FLAG_KEYS = frozenset(
     {
+        # Injury (existing)
         "is_ruled_out",
         "is_inactive",
         "is_questionable",
         "is_suspended",
         "is_returning",
+        # Transaction (Plan 61-02)
+        "is_traded",
+        "is_released",
+        "is_signed",
+        "is_activated",
+        # Usage (Plan 61-02)
+        "is_usage_boost",
+        "is_usage_drop",
+        # Weather (Plan 61-02)
+        "is_weather_risk",
     }
 )
 
@@ -56,7 +70,12 @@ For each player mentioned, provide:
 - sentiment: float from -1.0 (very negative) to +1.0 (very positive) for fantasy football value
 - confidence: float from 0.0 to 1.0
 - category: one of [injury, usage, trade, weather, motivation, legal, general]
-- events: dict of boolean flags {{is_ruled_out, is_inactive, is_questionable, is_suspended, is_returning}}
+- events: dict of boolean flags {{
+    is_ruled_out, is_inactive, is_questionable, is_suspended, is_returning,
+    is_traded, is_released, is_signed, is_activated,
+    is_usage_boost, is_usage_drop,
+    is_weather_risk
+  }}
 
 Return JSON array. If no players mentioned, return empty array.
 
@@ -73,36 +92,75 @@ Article: {text}
 class PlayerSignal:
     """Extracted sentiment signal for a single player mention in a document.
 
+    The event boolean fields form the structured, model-facing surface
+    of the sentiment pipeline. They are deliberately typed as plain
+    booleans (never continuous) so downstream adjustments in
+    ``src/projection_engine.py`` can map each flag to a tightly-bounded
+    multiplier (see Phase 61 CONTEXT D-03).
+
     Attributes:
-        player_name: Raw player name as extracted by Claude.
+        player_name: Raw player name as extracted by Claude/rules.
         sentiment: Fantasy-value sentiment from -1.0 (very negative) to
             +1.0 (very positive).
-        confidence: Claude's confidence in this extraction, 0.0 to 1.0.
-        category: Coarse topic label for the signal.
+        confidence: Extractor confidence, 0.0 to 1.0. Rule-based
+            extraction caps at 0.7; Claude may go higher.
+        category: Coarse topic label. One of
+            {injury, usage, trade, weather, motivation, legal, general}.
+        raw_excerpt: The article text that was analysed (truncated).
+
+    Injury events (existing):
         is_ruled_out: Player has been officially ruled out.
         is_inactive: Player is on the inactive list.
         is_questionable: Player carries questionable designation.
         is_suspended: Player is suspended.
         is_returning: Player is returning from injury or suspension.
-        raw_excerpt: The article text that was analysed (truncated if long).
+
+    Transaction events (Plan 61-02):
+        is_traded: Player changed teams via trade.
+        is_released: Player was released / waived / cut.
+        is_signed: Player signed a new contract / extension.
+        is_activated: Player activated from IR / PUP / suspension.
+            Always co-set with is_returning for backward compatibility.
+
+    Usage events (Plan 61-02):
+        is_usage_boost: Player is the workhorse / named starter /
+            primary target / lead back. Signals increased touches.
+        is_usage_drop: Player is splitting carries / limited snaps /
+            demoted / benched. Signals decreased touches.
+
+    Weather events (Plan 61-02):
+        is_weather_risk: Game is at risk due to blizzard, high winds,
+            freezing rain, or game-in-doubt conditions.
     """
 
     player_name: str
     sentiment: float
     confidence: float
     category: str
+    # Injury events (existing)
     is_ruled_out: bool = False
     is_inactive: bool = False
     is_questionable: bool = False
     is_suspended: bool = False
     is_returning: bool = False
+    # Transaction events (Plan 61-02)
+    is_traded: bool = False
+    is_released: bool = False
+    is_signed: bool = False
+    is_activated: bool = False
+    # Usage events (Plan 61-02)
+    is_usage_boost: bool = False
+    is_usage_drop: bool = False
+    # Weather events (Plan 61-02)
+    is_weather_risk: bool = False
     raw_excerpt: str = ""
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialise this signal to a plain dict for JSON storage.
 
         Returns:
-            Dict representation of all fields.
+            Dict representation with a nested ``events`` sub-dict
+            containing all 12 structured event flags.
         """
         return {
             "player_name": self.player_name,
@@ -110,11 +168,22 @@ class PlayerSignal:
             "confidence": self.confidence,
             "category": self.category,
             "events": {
+                # Injury events
                 "is_ruled_out": self.is_ruled_out,
                 "is_inactive": self.is_inactive,
                 "is_questionable": self.is_questionable,
                 "is_suspended": self.is_suspended,
                 "is_returning": self.is_returning,
+                # Transaction events
+                "is_traded": self.is_traded,
+                "is_released": self.is_released,
+                "is_signed": self.is_signed,
+                "is_activated": self.is_activated,
+                # Usage events
+                "is_usage_boost": self.is_usage_boost,
+                "is_usage_drop": self.is_usage_drop,
+                # Weather events
+                "is_weather_risk": self.is_weather_risk,
             },
             "raw_excerpt": self.raw_excerpt,
         }
@@ -230,7 +299,9 @@ class ClaudeExtractor:
         try:
             data = json.loads(text)
         except json.JSONDecodeError as exc:
-            logger.warning("ClaudeExtractor: JSON parse error — %s. Raw: %.200s", exc, raw)
+            logger.warning(
+                "ClaudeExtractor: JSON parse error — %s. Raw: %.200s", exc, raw
+            )
             return []
 
         if not isinstance(data, list):
@@ -247,9 +318,7 @@ class ClaudeExtractor:
 
         return signals
 
-    def _item_to_signal(
-        self, item: Any, excerpt: str
-    ) -> Optional[PlayerSignal]:
+    def _item_to_signal(self, item: Any, excerpt: str) -> Optional[PlayerSignal]:
         """Convert a single JSON object from Claude's response to a PlayerSignal.
 
         Args:
@@ -293,11 +362,22 @@ class ClaudeExtractor:
             sentiment=sentiment,
             confidence=confidence,
             category=category,
+            # Injury events
             is_ruled_out=bool(events.get("is_ruled_out", False)),
             is_inactive=bool(events.get("is_inactive", False)),
             is_questionable=bool(events.get("is_questionable", False)),
             is_suspended=bool(events.get("is_suspended", False)),
             is_returning=bool(events.get("is_returning", False)),
+            # Transaction events (Plan 61-02)
+            is_traded=bool(events.get("is_traded", False)),
+            is_released=bool(events.get("is_released", False)),
+            is_signed=bool(events.get("is_signed", False)),
+            is_activated=bool(events.get("is_activated", False)),
+            # Usage events (Plan 61-02)
+            is_usage_boost=bool(events.get("is_usage_boost", False)),
+            is_usage_drop=bool(events.get("is_usage_drop", False)),
+            # Weather events (Plan 61-02)
+            is_weather_risk=bool(events.get("is_weather_risk", False)),
             raw_excerpt=excerpt[:500],  # truncate to 500 chars for storage
         )
 

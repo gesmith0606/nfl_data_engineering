@@ -41,7 +41,9 @@ logger = logging.getLogger(__name__)
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 
 _SILVER_SIGNALS_DIR = _PROJECT_ROOT / "data" / "silver" / "sentiment" / "signals"
-_PROCESSED_IDS_FILE = _PROJECT_ROOT / "data" / "silver" / "sentiment" / "processed_ids.json"
+_PROCESSED_IDS_FILE = (
+    _PROJECT_ROOT / "data" / "silver" / "sentiment" / "processed_ids.json"
+)
 
 
 # ---------------------------------------------------------------------------
@@ -293,11 +295,22 @@ class SentimentPipeline:
             "sentiment_confidence": round(signal.confidence, 4),
             "category": signal.category,
             "events": {
+                # Injury events
                 "is_ruled_out": signal.is_ruled_out,
                 "is_inactive": signal.is_inactive,
                 "is_questionable": signal.is_questionable,
                 "is_suspended": signal.is_suspended,
                 "is_returning": signal.is_returning,
+                # Transaction events (Plan 61-02)
+                "is_traded": signal.is_traded,
+                "is_released": signal.is_released,
+                "is_signed": signal.is_signed,
+                "is_activated": signal.is_activated,
+                # Usage events (Plan 61-02)
+                "is_usage_boost": signal.is_usage_boost,
+                "is_usage_drop": signal.is_usage_drop,
+                # Weather events (Plan 61-02)
+                "is_weather_risk": signal.is_weather_risk,
             },
             "published_at": doc.get("published_at"),
             "extracted_at": datetime.now(timezone.utc).isoformat(),
