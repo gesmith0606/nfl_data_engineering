@@ -9,7 +9,12 @@ from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
-from ..models.schemas import LineupPlayer, LineupResponse, TeamLineup
+from ..models.schemas import (
+    FlatLineupPlayer,
+    LineupPlayer,
+    LineupResponse,
+    TeamLineup,
+)
 
 # Ensure src/ is importable for lineup_builder
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
@@ -89,7 +94,7 @@ def get_lineups(
 
     if df.empty:
         # Return an empty envelope (HTTP 200) instead of 404 so the advisor
-        # tool ``getTeamRoster`` receives ``{"lineups": []}`` during offseason
+        # tool ``getTeamRoster`` receives ``{"lineup": []}`` during offseason
         # or when the requested team has no depth chart yet.
         logger.warning(
             "No lineup data for season=%d week=%d team=%s — returning empty",
@@ -101,10 +106,12 @@ def get_lineups(
             season=season,
             week=week,
             lineups=[],
+            lineup=[],
             generated_at=datetime.now(timezone.utc).isoformat(),
         )
 
     lineups: List[TeamLineup] = []
+    flat_lineup: List[FlatLineupPlayer] = []
     for team_code in sorted(df["team"].unique()):
         team_df = df[df["team"] == team_code]
         offense_df = team_df[team_df["side"] == "offense"]
@@ -129,9 +136,31 @@ def get_lineups(
             )
         )
 
+        # Flat lineup entries for the advisor contract.
+        for _, row in team_df.iterrows():
+            flat_lineup.append(
+                FlatLineupPlayer(
+                    player_id=str(row.get("player_id", "")),
+                    player_name=str(row.get("player_name", "")),
+                    team=str(team_code),
+                    position=str(row.get("position", "")),
+                    projected_points=_safe_float(row.get("projected_points")),
+                    projected_floor=_safe_float(row.get("projected_floor")),
+                    projected_ceiling=_safe_float(row.get("projected_ceiling")),
+                    injury_status=(
+                        str(row.get("injury_status"))
+                        if row.get("injury_status") is not None
+                        and str(row.get("injury_status")) != "nan"
+                        else None
+                    ),
+                    is_starter=bool(row.get("is_starter", False)),
+                )
+            )
+
     return LineupResponse(
         season=season,
         week=week,
         lineups=lineups,
+        lineup=flat_lineup,
         generated_at=datetime.now(timezone.utc).isoformat(),
     )

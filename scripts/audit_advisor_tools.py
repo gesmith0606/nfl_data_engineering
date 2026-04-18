@@ -264,6 +264,10 @@ TOOL_REGISTRY = [
         endpoint="/api/lineups",
         params={"team": "KC", "season": "2026", "week": "1", "scoring": "half_ppr"},
         validator=_validate_team_roster,
+        # Preseason / offseason has no depth chart yet — empty lineup is
+        # expected and should be treated as WARN (same as news feed,
+        # predictions, sentiment).
+        warn_on_empty=True,
     ),
     ToolProbe(
         tool_name="getTeamSentiment",

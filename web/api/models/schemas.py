@@ -128,12 +128,42 @@ class TeamLineup(BaseModel):
     team_projected_total: Optional[float] = None
 
 
+class FlatLineupPlayer(BaseModel):
+    """Flat lineup entry used by the AI advisor ``getTeamRoster`` tool.
+
+    Mirrors the legacy ``LineupPlayer`` shape but carries the ``team`` code
+    and an ``injury_status`` field at the top level so the advisor can render
+    a single flat roster list without walking the per-team offense/defense
+    nesting.
+    """
+
+    player_id: str
+    player_name: str
+    team: str
+    position: str
+    projected_points: Optional[float] = None
+    projected_floor: Optional[float] = None
+    projected_ceiling: Optional[float] = None
+    injury_status: Optional[str] = None
+    is_starter: bool = False
+
+
 class LineupResponse(BaseModel):
-    """Envelope for lineup endpoint responses."""
+    """Envelope for lineup endpoint responses.
+
+    Carries two parallel representations so both the website's team-lineup
+    widget and the AI advisor ``getTeamRoster`` tool see their expected
+    schema:
+
+    * ``lineups`` — legacy nested ``TeamLineup[]`` (offense/defense split).
+    * ``lineup`` — advisor-friendly flat ``FlatLineupPlayer[]`` across all
+      teams in the response (empty list when no data).
+    """
 
     season: int
     week: int
     lineups: List[TeamLineup]
+    lineup: List[FlatLineupPlayer] = Field(default_factory=list)
     generated_at: str
 
 
