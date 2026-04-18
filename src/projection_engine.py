@@ -1301,6 +1301,207 @@ def apply_injury_adjustments(
 
 
 # ---------------------------------------------------------------------------
+# Structured event adjustments (Phase 61-03 / D-03)
+# ---------------------------------------------------------------------------
+#
+# These multipliers implement the rule-first stance from
+# `.planning/phases/61-news-sentiment-live/61-CONTEXT.md` (D-03): structured
+# event flags emitted by the rule_extractor get bounded, deterministic
+# multipliers — NOT a continuous sentiment_multiplier.
+#
+# When multiple flags fire on the same player, the multipliers compound by
+# multiplication and the final product is clamped to
+# ``[EVENT_MULT_MIN, EVENT_MULT_MAX]`` to prevent runaway compounding
+# (threat T-61-03-01 in the plan's threat register).
+
+EVENT_MULTIPLIERS: Dict[str, float] = {
+    # Injury / non-play events
+    "is_ruled_out": 0.0,       # player doesn't play
+    "is_inactive": 0.0,        # player doesn't play
+    "is_questionable": 0.85,   # matches INJURY_MULTIPLIERS["Questionable"]
+    "is_suspended": 0.0,       # player doesn't play
+    # Return-to-play events (conservative first game back)
+    "is_returning": 0.90,
+    "is_activated": 0.90,
+    # Transaction events
+    "is_traded": 0.85,         # new team uncertainty
+    "is_released": 0.0,        # no team, no projection
+    "is_signed": 1.00,         # neutral — team exists, no usage signal yet
+    # Usage events
+    "is_usage_boost": 1.08,    # bounded upside
+    "is_usage_drop": 0.85,     # bounded downside
+    # Game-level
+    "is_weather_risk": 0.92,
+}
+
+EVENT_MULT_MIN: float = 0.0
+EVENT_MULT_MAX: float = 1.10
+
+
+def apply_event_adjustments(
+    projections_df: pd.DataFrame,
+    events_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """Apply structured event multipliers to player projections.
+
+    Companion to :func:`apply_injury_adjustments`.  Each boolean event
+    flag in ``events_df`` (e.g. ``is_questionable``, ``is_usage_boost``)
+    maps to a deterministic multiplier from :data:`EVENT_MULTIPLIERS`.
+    When multiple flags are true for the same player the multipliers
+    compound by multiplication, and the final product is clamped to
+    ``[EVENT_MULT_MIN, EVENT_MULT_MAX]`` (0.0 – 1.10).
+
+    This is **not** a continuous sentiment multiplier.  Per Phase 61
+    decision D-03 we deliberately avoid the 0.70–1.15 range used by
+    :func:`apply_sentiment_adjustments` because Phase 54 showed wide
+    continuous ranges degrade production even when WFCV looks favourable.
+
+    Args:
+        projections_df: DataFrame produced by
+            :func:`generate_weekly_projections` (or any compatible
+            generator).  Must contain ``projected_points`` and at least
+            one of ``player_id`` / ``gsis_id``.
+        events_df: DataFrame from the Gold sentiment layer with a
+            ``player_id`` column and any subset of the boolean event
+            flags in :data:`EVENT_MULTIPLIERS`.  Missing flag columns are
+            silently treated as ``False`` (T-61-03-04 — unknown columns
+            are ignored).
+
+    Returns:
+        A new DataFrame with two added columns:
+
+        * ``event_multiplier`` (float) — product of all active flag
+          multipliers, clamped to ``[EVENT_MULT_MIN, EVENT_MULT_MAX]``.
+          ``1.0`` for players with no active flags or players absent
+          from ``events_df``.
+        * ``event_flags`` (list[str]) — human-readable tags (the
+          ``is_`` prefix stripped) for every active flag on that
+          player.  Empty list when no flags fired.
+
+        ``projected_points`` and every ``proj_*`` stat column (except
+        ``proj_season`` / ``proj_week``) are scaled by
+        ``event_multiplier`` and rounded to 2 decimals.
+        ``projected_floor`` and ``projected_ceiling`` are scaled too
+        when present.
+
+    Example:
+        >>> proj = pd.DataFrame({
+        ...     "player_id": ["P1"], "projected_points": [20.0],
+        ... })
+        >>> events = pd.DataFrame({
+        ...     "player_id": ["P1"], "is_questionable": [True],
+        ... })
+        >>> result = apply_event_adjustments(proj, events)
+        >>> float(result["projected_points"].iloc[0])
+        17.0
+    """
+    df = projections_df.copy()
+    df["event_multiplier"] = 1.0
+    df["event_flags"] = [[] for _ in range(len(df))]
+
+    if events_df is None or events_df.empty:
+        logger.info(
+            "No event data provided; all players get neutral event multiplier"
+        )
+        return df
+
+    # Determine join column — prefer player_id, fall back to gsis_id
+    if "player_id" in df.columns and "player_id" in events_df.columns:
+        join_col = "player_id"
+    elif "gsis_id" in df.columns and "gsis_id" in events_df.columns:
+        join_col = "gsis_id"
+    elif "player_id" in df.columns and "gsis_id" in events_df.columns:
+        events_df = events_df.rename(columns={"gsis_id": "player_id"})
+        join_col = "player_id"
+    else:
+        logger.warning(
+            "Cannot join events data — no common identifier column found"
+        )
+        return df
+
+    # Only consider known event flags actually present in events_df.
+    # Unknown columns are ignored (mitigates T-61-03-04 — elevation of
+    # privilege via injected flags).
+    present_flags = [f for f in EVENT_MULTIPLIERS if f in events_df.columns]
+    if not present_flags:
+        logger.info(
+            "events_df contained no known event flag columns; "
+            "returning projections with neutral multipliers"
+        )
+        return df
+
+    # Build a lookup: player_id → {flag_name: bool, ...}
+    events_lookup: Dict[str, Dict[str, bool]] = {}
+    for _, row in (
+        events_df[[join_col, *present_flags]]
+        .dropna(subset=[join_col])
+        .drop_duplicates(subset=[join_col], keep="last")
+        .iterrows()
+    ):
+        pid = row[join_col]
+        events_lookup[pid] = {
+            flag: bool(row.get(flag, False)) for flag in present_flags
+        }
+
+    proj_cols = [
+        c
+        for c in df.columns
+        if c.startswith("proj_") and c not in ("proj_season", "proj_week")
+    ]
+
+    # Iterate row-wise and compute per-player multiplier + tag list.
+    event_mults: List[float] = []
+    event_tags: List[List[str]] = []
+    for _, row in df.iterrows():
+        pid = row.get(join_col)
+        flags = events_lookup.get(pid)
+        if not flags:
+            event_mults.append(1.0)
+            event_tags.append([])
+            continue
+
+        mult = 1.0
+        tags: List[str] = []
+        for flag, active in flags.items():
+            if not active:
+                continue
+            mult *= EVENT_MULTIPLIERS[flag]
+            # Drop the "is_" prefix for a compact display tag.
+            tags.append(flag[3:] if flag.startswith("is_") else flag)
+
+        # Clamp compounding per D-03 (T-61-03-01)
+        mult = max(EVENT_MULT_MIN, min(EVENT_MULT_MAX, mult))
+        event_mults.append(round(mult, 4))
+        event_tags.append(tags)
+
+    df["event_multiplier"] = event_mults
+    df["event_flags"] = event_tags
+
+    # Scale projection columns by the event multiplier.
+    for col in proj_cols:
+        df[col] = (df[col] * df["event_multiplier"]).round(2)
+    df["projected_points"] = (
+        df["projected_points"] * df["event_multiplier"]
+    ).round(2)
+    if "projected_floor" in df.columns:
+        df["projected_floor"] = (
+            df["projected_floor"] * df["event_multiplier"]
+        ).round(2)
+    if "projected_ceiling" in df.columns:
+        df["projected_ceiling"] = (
+            df["projected_ceiling"] * df["event_multiplier"]
+        ).round(2)
+
+    affected = (df["event_multiplier"] != 1.0).sum()
+    logger.info(
+        "Event adjustments applied: %d players affected (of %d)",
+        int(affected),
+        len(df),
+    )
+    return df
+
+
+# ---------------------------------------------------------------------------
 # Sentiment adjustments
 # ---------------------------------------------------------------------------
 
