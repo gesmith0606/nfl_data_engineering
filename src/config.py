@@ -781,6 +781,11 @@ SENTIMENT_LOCAL_DIRS: Dict[str, str] = {
     "twitter": "data/bronze/sentiment/twitter",
     "reddit": "data/bronze/sentiment/reddit",
     "official": "data/bronze/sentiment/official",
+    # Phase 61-01 (NEWS-01/02): additional free news sources for the
+    # rule-first sentiment pipeline.  Each source writes Bronze JSON
+    # envelopes with the same shape as the Reddit/RSS ingestion output.
+    "rotowire": "data/bronze/sentiment/rotowire",
+    "pft": "data/bronze/sentiment/pft",
 }
 
 

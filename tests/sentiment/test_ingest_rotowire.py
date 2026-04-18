@@ -76,8 +76,8 @@ class TestRotoWireParsing(unittest.TestCase):
         from scripts.ingest_sentiment_rotowire import _parse_rotowire_feed
 
         empty = (
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-            "<rss version=\"2.0\"><channel></channel></rss>"
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            '<rss version="2.0"><channel></channel></rss>'
         )
         items = _parse_rotowire_feed(empty)
         self.assertEqual(items, [])
@@ -151,9 +151,7 @@ class TestRotoWireCLI(unittest.TestCase):
         # Patch the live fetch so the test never touches the network.
         from scripts import ingest_sentiment_rotowire as mod
 
-        with patch.object(
-            mod, "_fetch_rotowire_xml", return_value=SAMPLE_ROTOWIRE_XML
-        ):
+        with patch.object(mod, "_fetch_rotowire_xml", return_value=SAMPLE_ROTOWIRE_XML):
             with tempfile.TemporaryDirectory() as tmpdir:
                 # Redirect SENTIMENT_LOCAL_DIRS indirectly by pointing _PROJECT_ROOT
                 # read path; actual dry-run should not hit the filesystem regardless.
