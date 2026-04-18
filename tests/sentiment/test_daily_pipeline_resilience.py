@@ -113,16 +113,40 @@ def test_extraction_runs_without_anthropic_api_key(
 
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
 
-    with patch.object(pipeline_mod, "_run_rss_ingestion", side_effect=lambda *a, **k: pipeline_mod.StepResult(name="RSS Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_reddit_ingestion", side_effect=lambda *a, **k: pipeline_mod.StepResult(name="Reddit Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_sleeper_ingestion", side_effect=lambda *a, **k: pipeline_mod.StepResult(name="Sleeper Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_rotowire_ingestion", side_effect=lambda *a, **k: pipeline_mod.StepResult(name="RotoWire Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_pft_ingestion", side_effect=lambda *a, **k: pipeline_mod.StepResult(name="PFT Ingestion", success=True)):
+    with patch.object(
+        pipeline_mod,
+        "_run_rss_ingestion",
+        side_effect=lambda *a, **k: pipeline_mod.StepResult(
+            name="RSS Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_reddit_ingestion",
+        side_effect=lambda *a, **k: pipeline_mod.StepResult(
+            name="Reddit Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_sleeper_ingestion",
+        side_effect=lambda *a, **k: pipeline_mod.StepResult(
+            name="Sleeper Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_rotowire_ingestion",
+        side_effect=lambda *a, **k: pipeline_mod.StepResult(
+            name="RotoWire Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_pft_ingestion",
+        side_effect=lambda *a, **k: pipeline_mod.StepResult(
+            name="PFT Ingestion", success=True
+        ),
+    ):
         result = pipeline_mod.run_pipeline(season=2026, week=1, dry_run=True)
 
-    extraction = next(
-        (s for s in result.steps if s.name == "Signal Extraction"), None
-    )
+    extraction = next((s for s in result.steps if s.name == "Signal Extraction"), None)
     assert extraction is not None, "Extraction step missing from result"
     assert extraction.success is True, "Extraction must succeed without API key"
 
@@ -139,11 +163,37 @@ def test_single_ingestion_failure_does_not_abort_pipeline() -> None:
     failing step is recorded with ``success=False`` in ``result.steps``.
     """
 
-    with patch.object(pipeline_mod, "_run_rss_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RSS Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_reddit_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Reddit Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_sleeper_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Sleeper Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_rotowire_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RotoWire Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_pft_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="PFT Ingestion", success=False, error="boom")):
+    with patch.object(
+        pipeline_mod,
+        "_run_rss_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RSS Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_reddit_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Reddit Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_sleeper_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Sleeper Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_rotowire_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RotoWire Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_pft_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="PFT Ingestion", success=False, error="boom"
+        ),
+    ):
         result = pipeline_mod.run_pipeline(season=2026, week=1, dry_run=True)
 
     names = [s.name for s in result.steps]
@@ -166,11 +216,37 @@ def test_single_ingestion_failure_does_not_abort_pipeline() -> None:
 def test_skip_rotowire_omits_rotowire_step() -> None:
     """``skip_rotowire=True`` removes RotoWire while running every other step."""
 
-    with patch.object(pipeline_mod, "_run_rss_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RSS Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_reddit_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Reddit Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_sleeper_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Sleeper Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_rotowire_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RotoWire Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_pft_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="PFT Ingestion", success=True)):
+    with patch.object(
+        pipeline_mod,
+        "_run_rss_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RSS Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_reddit_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Reddit Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_sleeper_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Sleeper Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_rotowire_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RotoWire Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_pft_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="PFT Ingestion", success=True
+        ),
+    ):
         result = pipeline_mod.run_pipeline(
             season=2026, week=1, dry_run=True, skip_rotowire=True
         )
@@ -189,11 +265,37 @@ def test_skip_rotowire_omits_rotowire_step() -> None:
 def test_skip_pft_omits_pft_step() -> None:
     """``skip_pft=True`` removes PFT while running every other step."""
 
-    with patch.object(pipeline_mod, "_run_rss_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RSS Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_reddit_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Reddit Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_sleeper_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Sleeper Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_rotowire_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RotoWire Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_pft_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="PFT Ingestion", success=True)):
+    with patch.object(
+        pipeline_mod,
+        "_run_rss_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RSS Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_reddit_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Reddit Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_sleeper_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Sleeper Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_rotowire_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RotoWire Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_pft_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="PFT Ingestion", success=True
+        ),
+    ):
         result = pipeline_mod.run_pipeline(
             season=2026, week=1, dry_run=True, skip_pft=True
         )
@@ -212,11 +314,37 @@ def test_skip_pft_omits_pft_step() -> None:
 def test_any_success_true_when_one_step_succeeds() -> None:
     """``PipelineResult.any_success`` reflects the contract: any win == exit 0."""
 
-    with patch.object(pipeline_mod, "_run_rss_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RSS Ingestion", success=False, error="x")), \
-        patch.object(pipeline_mod, "_run_reddit_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Reddit Ingestion", success=False, error="x")), \
-        patch.object(pipeline_mod, "_run_sleeper_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Sleeper Ingestion", success=False, error="x")), \
-        patch.object(pipeline_mod, "_run_rotowire_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RotoWire Ingestion", success=False, error="x")), \
-        patch.object(pipeline_mod, "_run_pft_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="PFT Ingestion", success=True)):
+    with patch.object(
+        pipeline_mod,
+        "_run_rss_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RSS Ingestion", success=False, error="x"
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_reddit_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Reddit Ingestion", success=False, error="x"
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_sleeper_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Sleeper Ingestion", success=False, error="x"
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_rotowire_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RotoWire Ingestion", success=False, error="x"
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_pft_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="PFT Ingestion", success=True
+        ),
+    ):
         result = pipeline_mod.run_pipeline(season=2026, week=1, dry_run=True)
 
     assert result.any_success is True
@@ -255,11 +383,37 @@ def test_skip_ingest_runs_downstream_steps_only() -> None:
 def test_rotowire_and_pft_steps_present_by_default() -> None:
     """Default behaviour: the step list contains RotoWire + PFT entries."""
 
-    with patch.object(pipeline_mod, "_run_rss_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RSS Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_reddit_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Reddit Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_sleeper_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="Sleeper Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_rotowire_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="RotoWire Ingestion", success=True)), \
-        patch.object(pipeline_mod, "_run_pft_ingestion", side_effect=lambda s, d, v: pipeline_mod.StepResult(name="PFT Ingestion", success=True)):
+    with patch.object(
+        pipeline_mod,
+        "_run_rss_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RSS Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_reddit_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Reddit Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_sleeper_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="Sleeper Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_rotowire_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="RotoWire Ingestion", success=True
+        ),
+    ), patch.object(
+        pipeline_mod,
+        "_run_pft_ingestion",
+        side_effect=lambda s, d, v: pipeline_mod.StepResult(
+            name="PFT Ingestion", success=True
+        ),
+    ):
         result = pipeline_mod.run_pipeline(season=2026, week=1, dry_run=True)
 
     names = [s.name for s in result.steps]

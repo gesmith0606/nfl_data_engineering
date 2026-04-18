@@ -2,22 +2,30 @@
 """
 Daily Sentiment Pipeline -- ingest, extract, aggregate.
 
-Orchestrates the full sentiment pipeline:
+Orchestrates the full sentiment pipeline (5 sources + 3 processing steps):
 1. Ingest from RSS feeds (5 feeds)
-2. Ingest from Reddit (r/fantasyfootball, r/nfl)
+2. Ingest from Reddit (r/fantasyfootball, r/nfl, r/DynastyFF)
 3. Ingest from Sleeper (trending players)
-4. Extract signals (rule-based, or Claude if API key available)
-5. Aggregate player-level sentiment
-6. Aggregate team-level sentiment
+4. Ingest from RotoWire RSS (NEW in 61-04)
+5. Ingest from Pro Football Talk RSS (NEW in 61-04)
+6. Extract signals (rule-based ALWAYS runs per D-06; Claude is optional)
+7. Aggregate player-level sentiment
+8. Aggregate team-level sentiment
 
 The pipeline is idempotent: re-running on the same day skips
 already-processed documents (via processed_ids.json tracking).
+
+Per Phase 61 D-06: individual source failures log a warning but do not
+abort the pipeline.  The pipeline returns exit code 0 as long as at
+least one step succeeded.  The rule-based extractor runs regardless of
+``ANTHROPIC_API_KEY`` presence.
 
 Usage
 -----
   python scripts/daily_sentiment_pipeline.py --season 2026 --week 1
   python scripts/daily_sentiment_pipeline.py --season 2026 --week 1 --dry-run
   python scripts/daily_sentiment_pipeline.py --season 2026 --week 1 --skip-reddit
+  python scripts/daily_sentiment_pipeline.py --skip-rotowire --skip-pft
   python scripts/daily_sentiment_pipeline.py --dry-run --verbose
 """
 
@@ -137,9 +145,7 @@ def detect_nfl_week() -> tuple:
 # ---------------------------------------------------------------------------
 
 
-def _run_rss_ingestion(
-    season: int, dry_run: bool, verbose: bool
-) -> StepResult:
+def _run_rss_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
     """Ingest articles from RSS feeds.
 
     Args:
@@ -171,9 +177,7 @@ def _run_rss_ingestion(
     return step
 
 
-def _run_reddit_ingestion(
-    season: int, dry_run: bool, verbose: bool
-) -> StepResult:
+def _run_reddit_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
     """Ingest posts from Reddit.
 
     Args:
@@ -205,9 +209,7 @@ def _run_reddit_ingestion(
     return step
 
 
-def _run_sleeper_ingestion(
-    season: int, dry_run: bool, verbose: bool
-) -> StepResult:
+def _run_sleeper_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
     """Ingest trending players from Sleeper API.
 
     Args:
@@ -239,14 +241,86 @@ def _run_sleeper_ingestion(
     return step
 
 
-def _run_extraction(
-    season: int, week: int, dry_run: bool, verbose: bool
-) -> StepResult:
+def _run_rotowire_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
+    """Ingest articles from the RotoWire RSS feed.
+
+    Wraps ``scripts.ingest_sentiment_rotowire.main`` with the same argv
+    contract used by the other source wrappers (D-06 graceful exit is
+    enforced inside the sub-script; we only surface its return code).
+
+    Args:
+        season: NFL season year.
+        dry_run: If True, fetches but does not write files.
+        verbose: If True, enables debug logging in the sub-script.
+
+    Returns:
+        StepResult with outcome details.
+    """
+    step = StepResult(name="RotoWire Ingestion")
+    t0 = time.monotonic()
+    try:
+        from scripts.ingest_sentiment_rotowire import main as rotowire_main
+
+        argv = ["--season", str(season)]
+        if dry_run:
+            argv.append("--dry-run")
+        if verbose:
+            argv.append("--verbose")
+        rc = rotowire_main(argv)
+        step.success = rc == 0
+        step.detail = "completed" if rc == 0 else f"exit code {rc}"
+    except Exception as exc:
+        step.success = False
+        step.error = str(exc)
+        logger.warning("RotoWire ingestion failed (non-fatal, D-06): %s", exc)
+    step.elapsed_sec = time.monotonic() - t0
+    return step
+
+
+def _run_pft_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
+    """Ingest articles from the Pro Football Talk RSS feed.
+
+    Wraps ``scripts.ingest_sentiment_pft.main`` with the same argv
+    contract used by the other source wrappers (D-06 graceful exit is
+    enforced inside the sub-script; we only surface its return code).
+
+    Args:
+        season: NFL season year.
+        dry_run: If True, fetches but does not write files.
+        verbose: If True, enables debug logging in the sub-script.
+
+    Returns:
+        StepResult with outcome details.
+    """
+    step = StepResult(name="PFT Ingestion")
+    t0 = time.monotonic()
+    try:
+        from scripts.ingest_sentiment_pft import main as pft_main
+
+        argv = ["--season", str(season)]
+        if dry_run:
+            argv.append("--dry-run")
+        if verbose:
+            argv.append("--verbose")
+        rc = pft_main(argv)
+        step.success = rc == 0
+        step.detail = "completed" if rc == 0 else f"exit code {rc}"
+    except Exception as exc:
+        step.success = False
+        step.error = str(exc)
+        logger.warning("PFT ingestion failed (non-fatal, D-06): %s", exc)
+    step.elapsed_sec = time.monotonic() - t0
+    return step
+
+
+def _run_extraction(season: int, week: int, dry_run: bool, verbose: bool) -> StepResult:
     """Extract sentiment signals from Bronze documents.
 
     Uses the SentimentPipeline which tracks processed document IDs
     to avoid reprocessing.  Falls back to rule-based extraction when
-    ANTHROPIC_API_KEY is not set.
+    ANTHROPIC_API_KEY is not set.  Per D-06 (phase 61 CONTEXT), the
+    rule-based path is the primary model-facing signal source and
+    MUST run regardless of API-key availability.
 
     Args:
         season: NFL season year.
@@ -261,17 +335,22 @@ def _run_extraction(
     t0 = time.monotonic()
     try:
         from src.sentiment.processing.pipeline import SentimentPipeline
+        from src.sentiment.processing.rule_extractor import RuleExtractor
 
         pipeline = SentimentPipeline()
-        if not pipeline.extractor.is_available:
+        extractor_type = type(pipeline.extractor).__name__
+        if isinstance(pipeline.extractor, RuleExtractor):
             logger.info(
-                "ANTHROPIC_API_KEY not set -- using rule-based extraction"
+                "Event-only path: ANTHROPIC_API_KEY unset, using "
+                "RuleExtractor (rule-first per D-06)"
             )
+        else:
+            logger.info("Extractor=%s (Claude enrichment available)", extractor_type)
         result = pipeline.run(season=season, week=week, dry_run=dry_run)
         step.detail = (
             f"{result.processed_count} processed, "
             f"{result.skipped_count} skipped, "
-            f"{result.signal_count} signals"
+            f"{result.signal_count} signals [extractor={extractor_type}]"
         )
         step.success = True
     except Exception as exc:
@@ -282,9 +361,7 @@ def _run_extraction(
     return step
 
 
-def _run_player_aggregation(
-    season: int, week: int, dry_run: bool
-) -> StepResult:
+def _run_player_aggregation(season: int, week: int, dry_run: bool) -> StepResult:
     """Aggregate player-level weekly sentiment.
 
     Args:
@@ -312,9 +389,7 @@ def _run_player_aggregation(
     return step
 
 
-def _run_team_aggregation(
-    season: int, week: int, dry_run: bool
-) -> StepResult:
+def _run_team_aggregation(season: int, week: int, dry_run: bool) -> StepResult:
     """Aggregate team-level weekly sentiment.
 
     Args:
@@ -394,9 +469,28 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Skip Sleeper API ingestion.",
     )
     parser.add_argument(
+        "--skip-rotowire",
+        action="store_true",
+        help="Skip RotoWire RSS ingestion.",
+    )
+    parser.add_argument(
+        "--skip-pft",
+        action="store_true",
+        help="Skip Pro Football Talk RSS ingestion.",
+    )
+    parser.add_argument(
         "--skip-ingest",
         action="store_true",
         help="Skip all ingestion; only run extraction + aggregation.",
+    )
+    parser.add_argument(
+        "--enable-llm-enrichment",
+        action="store_true",
+        help=(
+            "Reserved flag for plan 61-06 (D-04): toggles optional Claude "
+            "Haiku website enrichment.  Currently a no-op; rule-based "
+            "extraction is authoritative for the model path."
+        ),
     )
     parser.add_argument(
         "--verbose",
@@ -414,14 +508,18 @@ def run_pipeline(
     skip_rss: bool = False,
     skip_reddit: bool = False,
     skip_sleeper: bool = False,
+    skip_rotowire: bool = False,
+    skip_pft: bool = False,
     skip_ingest: bool = False,
+    enable_llm_enrichment: bool = False,
     verbose: bool = False,
 ) -> PipelineResult:
     """Execute the full daily sentiment pipeline.
 
     Each step is independent; failures in one source do not abort
-    subsequent steps.  The pipeline returns exit code 0 as long as
-    at least one step succeeds.
+    subsequent steps (D-06 guarantee).  The pipeline returns exit code
+    0 as long as at least one step succeeds.  The rule-based extractor
+    runs regardless of ``ANTHROPIC_API_KEY`` availability.
 
     Args:
         season: NFL season year.
@@ -430,7 +528,11 @@ def run_pipeline(
         skip_rss: If True, skip RSS ingestion.
         skip_reddit: If True, skip Reddit ingestion.
         skip_sleeper: If True, skip Sleeper ingestion.
+        skip_rotowire: If True, skip RotoWire RSS ingestion.
+        skip_pft: If True, skip Pro Football Talk RSS ingestion.
         skip_ingest: If True, skip all ingestion steps.
+        enable_llm_enrichment: Reserved for plan 61-06 (D-04); currently
+            a no-op — Claude Haiku enrichment is not yet wired here.
         verbose: If True, enable debug logging.
 
     Returns:
@@ -445,52 +547,54 @@ def run_pipeline(
         week,
         dry_run,
     )
+    if enable_llm_enrichment:
+        logger.info("enable_llm_enrichment=True (reserved for 61-06; no-op today)")
     logger.info("=" * 60)
 
-    # --- Phase 1: Ingestion ---
+    # --- Phase 1: Ingestion (5 sources) ---
     if not skip_ingest:
         if not skip_rss:
-            logger.info("--- Step 1/6: RSS Ingestion ---")
-            result.steps.append(
-                _run_rss_ingestion(season, dry_run, verbose)
-            )
+            logger.info("--- Step 1/8: RSS Ingestion ---")
+            result.steps.append(_run_rss_ingestion(season, dry_run, verbose))
         else:
-            logger.info("--- Step 1/6: RSS Ingestion [SKIPPED] ---")
+            logger.info("--- Step 1/8: RSS Ingestion [SKIPPED] ---")
 
         if not skip_reddit:
-            logger.info("--- Step 2/6: Reddit Ingestion ---")
-            result.steps.append(
-                _run_reddit_ingestion(season, dry_run, verbose)
-            )
+            logger.info("--- Step 2/8: Reddit Ingestion ---")
+            result.steps.append(_run_reddit_ingestion(season, dry_run, verbose))
         else:
-            logger.info("--- Step 2/6: Reddit Ingestion [SKIPPED] ---")
+            logger.info("--- Step 2/8: Reddit Ingestion [SKIPPED] ---")
 
         if not skip_sleeper:
-            logger.info("--- Step 3/6: Sleeper Ingestion ---")
-            result.steps.append(
-                _run_sleeper_ingestion(season, dry_run, verbose)
-            )
+            logger.info("--- Step 3/8: Sleeper Ingestion ---")
+            result.steps.append(_run_sleeper_ingestion(season, dry_run, verbose))
         else:
-            logger.info("--- Step 3/6: Sleeper Ingestion [SKIPPED] ---")
-    else:
-        logger.info("--- Steps 1-3: All Ingestion [SKIPPED] ---")
+            logger.info("--- Step 3/8: Sleeper Ingestion [SKIPPED] ---")
 
-    # --- Phase 2: Extraction ---
-    logger.info("--- Step 4/6: Signal Extraction ---")
-    result.steps.append(
-        _run_extraction(season, week, dry_run, verbose)
-    )
+        if not skip_rotowire:
+            logger.info("--- Step 4/8: RotoWire Ingestion ---")
+            result.steps.append(_run_rotowire_ingestion(season, dry_run, verbose))
+        else:
+            logger.info("--- Step 4/8: RotoWire Ingestion [SKIPPED] ---")
+
+        if not skip_pft:
+            logger.info("--- Step 5/8: PFT Ingestion ---")
+            result.steps.append(_run_pft_ingestion(season, dry_run, verbose))
+        else:
+            logger.info("--- Step 5/8: PFT Ingestion [SKIPPED] ---")
+    else:
+        logger.info("--- Steps 1-5: All Ingestion [SKIPPED] ---")
+
+    # --- Phase 2: Extraction (rule-first per D-06; ALWAYS runs) ---
+    logger.info("--- Step 6/8: Signal Extraction ---")
+    result.steps.append(_run_extraction(season, week, dry_run, verbose))
 
     # --- Phase 3: Aggregation ---
-    logger.info("--- Step 5/6: Player Aggregation ---")
-    result.steps.append(
-        _run_player_aggregation(season, week, dry_run)
-    )
+    logger.info("--- Step 7/8: Player Aggregation ---")
+    result.steps.append(_run_player_aggregation(season, week, dry_run))
 
-    logger.info("--- Step 6/6: Team Aggregation ---")
-    result.steps.append(
-        _run_team_aggregation(season, week, dry_run)
-    )
+    logger.info("--- Step 8/8: Team Aggregation ---")
+    result.steps.append(_run_team_aggregation(season, week, dry_run))
 
     return result
 
@@ -558,7 +662,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         skip_rss=args.skip_rss,
         skip_reddit=args.skip_reddit,
         skip_sleeper=args.skip_sleeper,
+        skip_rotowire=args.skip_rotowire,
+        skip_pft=args.skip_pft,
         skip_ingest=args.skip_ingest,
+        enable_llm_enrichment=args.enable_llm_enrichment,
         verbose=args.verbose,
     )
 
