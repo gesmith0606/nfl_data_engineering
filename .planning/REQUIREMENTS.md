@@ -22,7 +22,7 @@
 ### Design & UX
 
 - [ ] **DSGN-01**: Design audit scores >7/10 on all pages (using design-engineer agent)
-- [ ] **DSGN-02**: Consistent typography, color, and spacing across all 11 pages
+- [~] **DSGN-02**: Consistent typography, color, and spacing across all 11 pages — foundation shipped in 62-02 (tokens.css + design-tokens.ts + docs, DSGN-02 contract locked); consumption on pages 1-5 pending in 62-03, pages 6-11 in 62-04
 - [ ] **DSGN-03**: Animations and micro-interactions on key user actions
 - [ ] **DSGN-04**: Mobile-responsive layout on all pages
 
@@ -35,10 +35,10 @@
 
 ### Matchup View
 
-- [ ] **MTCH-01**: Offensive roster shows real player projections and ratings
-- [ ] **MTCH-02**: Defensive roster uses actual NFL data (not placeholder hashes)
+- [ ] **MTCH-01**: Offensive roster shows real player projections and ratings _(64-02 shipped OL backend; full requirement waits on 64-04 frontend wiring)_
+- [x] **MTCH-02**: Defensive roster uses actual NFL data (not placeholder hashes) — 64-02 ships `/api/teams/{team}/roster?side=defense` with real NFL names + slot_hint
 - [ ] **MTCH-03**: Matchup advantages calculated from real data
-- [ ] **MTCH-04**: Schedule-aware — shows correct weekly opponent
+- [x] **MTCH-04**: Schedule-aware — shows correct weekly opponent — 64-02 ships `/api/teams/current-week` with schedule + offseason fallback
 
 ### Agent Ecosystem
 
@@ -89,10 +89,10 @@
 | ADVR-02 | Phase 63 | Pending |
 | ADVR-03 | Phase 63 | Pending |
 | ADVR-04 | Phase 63 | Pending |
-| MTCH-01 | Phase 64 | Pending |
-| MTCH-02 | Phase 64 | Pending |
+| MTCH-01 | Phase 64 | Partial (64-02 ships OL side of roster endpoint; full requirement lands with 64-04 frontend wiring) |
+| MTCH-02 | Phase 64 | Complete (64-02: `/api/teams/{team}/roster?side=defense` returns real NFL players with slot_hint + snap_pct) |
 | MTCH-03 | Phase 64 | Pending |
-| MTCH-04 | Phase 64 | Pending |
+| MTCH-04 | Phase 64 | Complete (64-02: `/api/teams/current-week` schedule-aware with offseason fallback) |
 | AGNT-01 | Phase 65 | Pending |
 | AGNT-02 | Phase 65 | Complete (65-01: 42-agent inventory, 0 dormant — see AGENT-INVENTORY.md) |
 | AGNT-03 | Phase 65 | Pending |

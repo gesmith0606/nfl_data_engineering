@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: Phase 61-01 complete (news source expansion); 61-02..06 + 65-02..04 + 62-02..06 + 64-02..04 + 63-02..06 pending
-last_updated: "2026-04-18T00:58:00Z"
+stopped_at: Phase 64-02 complete (teams API: current-week + roster with real NFL data, 2026->2025 fallback) + Phase 62-02 complete (design token foundation); 61-02..06 + 65-02..04 + 62-03..06 + 64-03..04 + 63-03..06 pending
+last_updated: "2026-04-18T10:35:00Z"
 last_activity: 2026-04-17
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 21
-  completed_plans: 8
-  percent: 38
+  completed_plans: 10
+  percent: 48
 ---
 
 # Project State
@@ -34,12 +34,12 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 61 (news-sentiment-live) — IN PROGRESS (1/6 plans) + phase 62 (1/6) + phase 63 (1/6) + phase 64 (1/4) + phase 65 (1/4)
-Plan: 61-01 complete — RotoWire + PFT ingestion scripts shipped + DynastyFF added to Reddit defaults; 17 sentiment tests green; all three sources exit 0 on dry-run
-Status: Free-source expansion done (NEWS-01 partial, NEWS-02 partial). 61-02 (rule-extractor expansion), 61-03 (event adjustments), 61-04 (cron), 61-05 (news UI), 61-06 (badges) pending.
+Phase: 62 (design-ux-polish) — IN PROGRESS (2/6 plans); also phase 61 (1/6), phase 63 (1/6), phase 64 (1/4), phase 65 (1/4)
+Plan: 62-02 complete — design-token layer shipped (tokens.css + design-tokens.ts + docs); globals.css imports tokens; zero visual change; downstream plans 62-03/04/05 can consume by name.
+Status: DSGN-02 foundation established. 62-03 (token consumption pages 1-5) and 62-04 (motion primitives + pages 6-11) are now unblocked in wave 2.
 Last activity: 2026-04-17
 
-Progress: [████░░░░░░] 38% (8 plans complete across v6.0)
+Progress: [████░░░░░░] 43% (9 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -65,6 +65,7 @@ Progress: [████░░░░░░] 38% (8 plans complete across v6.0)
 | Phase 62 P01 | 5min | 2 tasks | 1 file  |
 | Phase 65 P01 | 12min | 2 tasks | 2 files |
 | Phase 61 P01 | 20min | 3 tasks | 8 files |
+| Phase 62 P02 | 10min | 2 tasks | 4 files |
 
 ### Decisions
 
@@ -94,6 +95,12 @@ Recent decisions affecting current work:
 - [Phase 61-01]: Each ingestor owns module-local copies of _NAME_PATTERN + _TEAM_MENTIONS (web-scraper convention) rather than extracting a shared util — keeps coupling low, per D-01
 - [Phase 61-01]: D-06 graceful-failure contract uniformly enforced — HTTPError/URLError/parse errors all log warning and exit 0, so daily cron is never blocked by upstream flakes
 - [Phase 61-01]: Stdlib-only implementation (urllib + xml.etree.ElementTree) for the two new scripts, no new requirements.txt deps; feedparser kept isolated to the older RSS script
+- [Phase 62-02]: Design-token layer is additive-only — tokens.css holds :root custom properties (no DOM selectors); theme.css keeps sole ownership of colors; zero visual change on shipment
+- [Phase 62-02]: Added beyond the interface contract where AUDIT-BASELINE demanded it — --fs-micro (11px) absorbs 50+ text-[9/10/11px] uses; --pos-qb..fs consolidates 6 duplicated POSITION_COLORS maps for 62-03
+- [Phase 62-02]: CSS durations in ms / TypeScript mirror in seconds (motion library convention); MOTION.base = 220ms keeps weighted feel on hover lifts vs a flat 200ms
+- [Phase 62-02]: Stagger step locked at 40ms — keeps 10-item list entrance under 800ms (10 × 40 + 480 slower)
+- [Phase 62-02]: Semantic spacing aliases (--gap-field/row/stack/section, --pad-card, --pad-card-sm) layered over raw --space-N so component code reads intent rather than magnitude
+- [Phase 62-02]: Root .gitignore narrow un-ignore for web/frontend/src/lib/ — the Python-template lib/ rule was swallowing frontend source; pre-existing untracked frontend lib/ files logged to deferred-items.md for follow-up chore
 
 ### Pending Todos
 
@@ -119,6 +126,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T00:58:00Z
-Stopped at: Phase 61-01 complete — RotoWire + PFT + Reddit-DynastyFF ingestion shipped; 17 new tests in tests/sentiment/ all green. Ready for 61-02 (rule-extractor expansion).
+Last session: 2026-04-18T03:10:00Z
+Stopped at: Phase 62-02 complete — design-token layer shipped (tokens.css + design-tokens.ts + docs); globals.css imports tokens after theme.css; TypeScript compile clean; zero visual change on site. Ready for 62-03 (token consumption pages 1-5) or 62-04 (motion primitives + pages 6-11) in wave 2.
 Resume file: None

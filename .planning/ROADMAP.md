@@ -72,7 +72,7 @@ Plans:
   2. Typography, color palette, and spacing are consistent across all 11 pages (no visual jarring when navigating)
   3. Key user actions (page transitions, button clicks, data loads) have smooth animations or micro-interactions
   4. Every page renders correctly and is usable on mobile viewport (375px width)
-**Plans**: 1/6 executed — 62-01 baseline done (mean 7.06/10, 3 pages <7); 62-02..06 pending
+**Plans**: 2/6 executed — 62-01 baseline done (mean 7.06/10, 3 pages <7); 62-02 design-token foundation shipped (tokens.css + design-tokens.ts + docs, DSGN-02 foundation); 62-03..06 pending
 **UI hint**: yes
 
 ### Phase 63: AI Advisor Hardening
@@ -148,8 +148,8 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 60. Data Quality | 3/3 | Complete | 2026-04-17 |
-| 61. News & Sentiment Live | 0/TBD | Not started | - |
-| 62. Design & UX Polish | 0/TBD | Not started | - |
+| 61. News & Sentiment Live | 1/6 | In progress | - |
+| 62. Design & UX Polish | 2/6 | In progress | - |
 | 63. AI Advisor Hardening | 1/6 | In progress | - |
-| 64. Matchup View Completion | 0/TBD | Not started | - |
+| 64. Matchup View Completion | 2/4 | In progress | - |
 | 65. Agent Ecosystem Optimization | 1/4 | In progress | - |
