@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: Phase 65-01 complete (agent+skill inventory); 65-02..04 + 62-02..06 + 64-02..04 + 63-02..06 pending
-last_updated: "2026-04-18T00:48:00Z"
+stopped_at: Phase 61-01 complete (news source expansion); 61-02..06 + 65-02..04 + 62-02..06 + 64-02..04 + 63-02..06 pending
+last_updated: "2026-04-18T00:58:00Z"
 last_activity: 2026-04-17
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 15
-  completed_plans: 7
-  percent: 47
+  total_plans: 21
+  completed_plans: 8
+  percent: 38
 ---
 
 # Project State
@@ -34,12 +34,12 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 62 (design-ux-polish) — IN PROGRESS (1/6 plans) + phase 64 IN PROGRESS (1/4 plans)
-Plan: 62-01 complete — AUDIT-BASELINE.md written; 11 pages scored (mean 7.06/10), 3 pages below 7 flagged for 62-02/04/05/06 priority targets
-Status: Wave-1 audit done. 62-02 (tokens), 62-03 (shell), 62-04 (motion), 62-05 (mobile) can now target the gap list. 62-06 has a concrete before-score to measure against.
+Phase: 61 (news-sentiment-live) — IN PROGRESS (1/6 plans) + phase 62 (1/6) + phase 63 (1/6) + phase 64 (1/4) + phase 65 (1/4)
+Plan: 61-01 complete — RotoWire + PFT ingestion scripts shipped + DynastyFF added to Reddit defaults; 17 sentiment tests green; all three sources exit 0 on dry-run
+Status: Free-source expansion done (NEWS-01 partial, NEWS-02 partial). 61-02 (rule-extractor expansion), 61-03 (event adjustments), 61-04 (cron), 61-05 (news UI), 61-06 (badges) pending.
 Last activity: 2026-04-17
 
-Progress: [██████░░░░] 55% (6 plans complete across v6.0)
+Progress: [████░░░░░░] 38% (8 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -64,6 +64,7 @@ Progress: [██████░░░░] 55% (6 plans complete across v6.0)
 | Phase 64 P01 | 38min | 2 tasks | 2 files |
 | Phase 62 P01 | 5min | 2 tasks | 1 file  |
 | Phase 65 P01 | 12min | 2 tasks | 2 files |
+| Phase 61 P01 | 20min | 3 tasks | 8 files |
 
 ### Decisions
 
@@ -89,6 +90,10 @@ Recent decisions affecting current work:
 - [Phase 65-01]: 5-skill design-holistic overlap cluster confirmed: impeccable, taste-skill, soft-skill, emil-design-eng, redesign-skill — all share banned-font lists, anti-AI-purple rules, GPU-safe motion, viewport stability directives
 - [Phase 65-01]: Two consolidation options framed for 65-02 checkpoint — Option A (umbrella-with-modes) preferred, Option B (shared-rules include) as fallback
 - [Phase 65-01]: code-reviewer (opus) vs git-code-reviewer (sonnet) near-redundancy flagged for 65-04 audit but kept ACTIVE (intentional pre-commit vs post-push division)
+- [Phase 61-01]: Rule-first sentiment stance locked — new news sources are orthogonal to ANTHROPIC_API_KEY (D-01, D-04); Haiku enrichment demoted to optional website-only path
+- [Phase 61-01]: Each ingestor owns module-local copies of _NAME_PATTERN + _TEAM_MENTIONS (web-scraper convention) rather than extracting a shared util — keeps coupling low, per D-01
+- [Phase 61-01]: D-06 graceful-failure contract uniformly enforced — HTTPError/URLError/parse errors all log warning and exit 0, so daily cron is never blocked by upstream flakes
+- [Phase 61-01]: Stdlib-only implementation (urllib + xml.etree.ElementTree) for the two new scripts, no new requirements.txt deps; feedparser kept isolated to the older RSS script
 
 ### Pending Todos
 
@@ -114,6 +119,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T00:40:14Z
-Stopped at: Phase 63-01 baseline audit complete — TOOL-AUDIT.md written (4P/3W/5F). Ready for 63-02/03/04 fix waves.
+Last session: 2026-04-18T00:58:00Z
+Stopped at: Phase 61-01 complete — RotoWire + PFT + Reddit-DynastyFF ingestion shipped; 17 new tests in tests/sentiment/ all green. Ready for 61-02 (rule-extractor expansion).
 Resume file: None

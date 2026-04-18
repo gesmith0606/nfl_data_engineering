@@ -60,7 +60,7 @@ Plans:
   2. The news page displays real articles with source attribution, publication date, and tagged player names
   3. The team sentiment dashboard shows all 32 teams in a color-coded grid (green=bullish, red=bearish)
   4. Visiting a player detail page shows bullish/bearish sentiment badges derived from recent news
-**Plans**: TBD
+**Plans**: 1/6 executed — 61-01 source expansion shipped (RotoWire + PFT ingestion + Reddit DynastyFF); 61-02..06 pending
 **UI hint**: yes
 
 ### Phase 62: Design & UX Polish

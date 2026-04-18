@@ -14,8 +14,8 @@
 
 ### News & Sentiment
 
-- [ ] **NEWS-01**: Daily sentiment pipeline runs automatically (RSS + Sleeper + Reddit)
-- [ ] **NEWS-02**: News page shows real articles with source, date, and player tags
+- [~] **NEWS-01**: Daily sentiment pipeline runs automatically (RSS + Sleeper + Reddit) — sources expanded in 61-01 (added RotoWire, PFT, DynastyFF); daily cron wiring pending in 61-04
+- [~] **NEWS-02**: News page shows real articles with source, date, and player tags — Bronze ingestion for 3 new sources shipped in 61-01; UI wiring pending in 61-05
 - [ ] **NEWS-03**: Team sentiment dashboard shows 32-team color-coded grid
 - [ ] **NEWS-04**: Player sentiment signals (bullish/bearish) visible on player pages
 
@@ -77,8 +77,8 @@
 | DQAL-02 | Phase 60 | Complete |
 | DQAL-03 | Phase 60 | Partial (CI gate wired in deploy-web.yml via exit-code contract; warning count gated on out-of-scope data fixes: negative projections, rookie absence, stale Silver) |
 | DQAL-04 | Phase 60 | Complete |
-| NEWS-01 | Phase 61 | Pending |
-| NEWS-02 | Phase 61 | Pending |
+| NEWS-01 | Phase 61 | Partial (61-01 added RotoWire + PFT + DynastyFF ingestion; cron wiring pending in 61-04) |
+| NEWS-02 | Phase 61 | Partial (61-01 Bronze layer shipped for 3 new sources; UI wiring pending in 61-05) |
 | NEWS-03 | Phase 61 | Pending |
 | NEWS-04 | Phase 61 | Pending |
 | DSGN-01 | Phase 62 | Pending |
