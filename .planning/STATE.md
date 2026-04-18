@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: Phase 63-02 complete (advisor tool hardening: 5 FAIL → 0 FAIL in local audit; dual-schema pattern for draft/board, lineup, sentiment-summary; empty-envelope for predictions/lineups) + 64-02 + 62-02; 61-02..06 + 65-02..04 + 62-03..06 + 64-03..04 + 63-03..06 pending
-last_updated: "2026-04-18T14:40:00Z"
-last_activity: 2026-04-18
+stopped_at: "Phase 63-02 complete — advisor tool hardening shipped. Local audit: 5 FAIL → 0 FAIL (7 PASS / 5 WARN / 0 FAIL). getSentimentSummary now carries total_articles/bullish_players/bearish_players alongside legacy total_docs/top_positive/top_negative; /api/lineups carries flat `lineup` field alongside nested `lineups`; /api/predictions and /api/lineups return empty envelopes (HTTP 200) instead of 404 on offseason-empty data; compareExternalRankings passes (router already registered in main.py). All 25 web + 8 schema tests passing. 6 commits. TOOL-AUDIT-LOCAL.md documents delta. Ready for 63-03 (rankings+external hardening), 63-04 (conversation persistence), 63-05 (widget reach), or 63-06 (live-site re-audit SHIP gate)."
+last_updated: "2026-04-18T15:25:00.000Z"
+last_activity: 2026-04-18 -- Phase 61-04 daily cron resilience shipped
 progress:
   total_phases: 6
-  completed_phases: 1
-  total_plans: 21
-  completed_plans: 11
-  percent: 52
+  completed_phases: 0
+  total_plans: 26
+  completed_plans: 13
+  percent: 50
 ---
 
 # Project State
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-17)
 
 **Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 60 — data-quality
+**Current focus:** Phase 61 — news-sentiment-live
 
 ## Production Status
 
@@ -34,12 +34,12 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 64 (matchup-view-completion) — IN PROGRESS (2/4 plans) + phase 62 (2/6), phase 61 (1/6), phase 63 (2/6), phase 65 (1/4)
-Plan: 63-02 complete — advisor tool hardening shipped. Local audit: 5 FAIL → 0 FAIL (7 PASS / 5 WARN / 0 FAIL). Dual-schema pattern added (board alongside players, lineup alongside lineups, advisor sentiment fields alongside legacy). Empty-envelope replaces 404 in /api/predictions and /api/lineups. FlatLineupPlayer model added. 6 commits (RED + 5 GREEN/fix/feat/docs).
-Status: Advisor hardening wave 2 progressing. 63-03 (rankings + external sources hardening), 63-04 (conversation persistence), 63-05 (widget reach), 63-06 (live-site re-audit SHIP gate) pending. 64-03/64-04 matchup backend and 62-03..06 design token follow-up also pending.
-Last activity: 2026-04-18
+Phase: 61 (news-sentiment-live) — EXECUTING
+Plan: 4 of 6 (shipped; 61-05 news UI + 61-06 optional Haiku enrichment remain)
+Status: Executing Phase 61
+Last activity: 2026-04-18 -- Phase 61-04 daily cron resilience shipped
 
-Progress: [████░░░░░░] 48% (10 plans complete across v6.0)
+Progress: [█████░░░░░] 50% (13 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -68,6 +68,7 @@ Progress: [████░░░░░░] 48% (10 plans complete across v6.0)
 | Phase 62 P02 | 10min | 2 tasks | 4 files |
 | Phase 64 P02 | 30min | 2 tasks | 5 files |
 | Phase 63 P02 | 55min | 2 tasks | 7 files |
+| Phase 61 P04 | 27min | 2 tasks | 4 files |
 
 ### Decisions
 
@@ -114,6 +115,12 @@ Recent decisions affecting current work:
 - [Phase 63-02]: FlatLineupPlayer model added alongside nested TeamLineup list — router populates both shapes from the same DataFrame iteration; no duplicate parquet reads
 - [Phase 63-02]: Audit script getTeamRoster probe marked warn_on_empty=True — preseason emptiness is a legitimate WARN (consistent with other offseason-empty tools: news feed, predictions, team sentiment)
 - [Phase 63-02]: Result: 5 FAIL → 0 FAIL in local audit (7 PASS / 5 WARN / 0 FAIL). EXTERNAL_SOURCE_DOWN category remains for 63-03 to verify when Sleeper cache is stale
+- [Phase 61-04]: Daily cron hardened — 5 sources (RSS/Reddit/Sleeper/RotoWire/PFT) + rule-first extraction always runs regardless of ANTHROPIC_API_KEY; per-source failures isolated via try/except wrappers; pipeline exits 0 as long as one step succeeds
+- [Phase 61-04]: ENABLE_LLM_ENRICHMENT repo variable (default 'false') wired into daily-sentiment.yml env block — implements D-04 feature flag at cron boundary; plan 61-06 can flip it without workflow edit
+- [Phase 61-04]: Rule-first log discriminator uses isinstance(extractor, RuleExtractor) rather than is_available check — RuleExtractor.is_available is always True, so type-check is the only reliable way to identify D-06 path in stdout
+- [Phase 61-04]: Step labels rebranded 1/6..6/6 → 1/8..8/8 in orchestrator stdout to reflect expanded source list; extractor type name embedded in StepResult.detail for post-hoc log diffing
+- [Phase 61-04]: Health summary step (if: always()) emits ::notice:: annotations only for non-secret ENABLE_LLM_ENRICHMENT toggle — never echoes ANTHROPIC_API_KEY (T-61-04-01 mitigation)
+- [Phase 61-04]: Resilience suite (7 tests) pins D-06 contract — test_single_ingestion_failure_does_not_abort_pipeline + test_extraction_runs_without_anthropic_api_key would regress if someone later tried to make LLM path mandatory
 
 ### Pending Todos
 
@@ -139,6 +146,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T14:40:00Z
-Stopped at: Phase 63-02 complete — advisor tool hardening shipped. Local audit: 5 FAIL → 0 FAIL (7 PASS / 5 WARN / 0 FAIL). getSentimentSummary now carries total_articles/bullish_players/bearish_players alongside legacy total_docs/top_positive/top_negative; /api/lineups carries flat `lineup` field alongside nested `lineups`; /api/predictions and /api/lineups return empty envelopes (HTTP 200) instead of 404 on offseason-empty data; compareExternalRankings passes (router already registered in main.py). All 25 web + 8 schema tests passing. 6 commits. TOOL-AUDIT-LOCAL.md documents delta. Ready for 63-03 (rankings+external hardening), 63-04 (conversation persistence), 63-05 (widget reach), or 63-06 (live-site re-audit SHIP gate).
+Last session: 2026-04-18T15:25:00Z
+Stopped at: Phase 61-04 complete — daily cron resilience + D-06 guarantee shipped. RotoWire + PFT steps wired into scripts/daily_sentiment_pipeline.py (now 8 steps total). `.github/workflows/daily-sentiment.yml` hardened with ENABLE_LLM_ENRICHMENT env var (default 'false', D-04 feature flag) and health-summary ::notice:: step. 7 resilience tests in tests/sentiment/test_daily_pipeline_resilience.py pin the D-06 contract. Dry-run verified exit 0 with extractor=RuleExtractor when ANTHROPIC_API_KEY is absent. 3 commits on main (ff8ec21, c1b5bd6, e096860). Ready for 61-05 (news page UI), 61-06 (optional Haiku enrichment via ENABLE_LLM_ENRICHMENT flag), or 61-03 backtest wrap-up.
 Resume file: None
