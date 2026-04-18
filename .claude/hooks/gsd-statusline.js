@@ -152,23 +152,16 @@ function parseStateMd(content) {
 function formatGsdState(s) {
   const parts = [];
 
-  // Milestone: version + name (skip placeholder "milestone")
-  if (s.milestone || s.milestoneName) {
-    const ver = s.milestone || '';
-    const name = (s.milestoneName && s.milestoneName !== 'milestone') ? s.milestoneName : '';
-    const ms = [ver, name].filter(Boolean).join(' ');
-    if (ms) parts.push(ms);
-  }
+  // Milestone version only — drop the long name (e.g. "v6.0" not
+  // "v6.0 Website Production Ready + Agent Ecosystem").
+  if (s.milestone) parts.push(s.milestone);
 
   // Status
   if (s.status) parts.push(s.status);
 
-  // Phase
+  // Phase number only — drop the long phase name for compactness.
   if (s.phaseNum && s.phaseTotal) {
-    const phase = s.phaseName
-      ? `${s.phaseName} (${s.phaseNum}/${s.phaseTotal})`
-      : `ph ${s.phaseNum}/${s.phaseTotal}`;
-    parts.push(phase);
+    parts.push(`ph ${s.phaseNum}/${s.phaseTotal}`);
   }
 
   return parts.join(' · ');
@@ -304,11 +297,13 @@ function runStatusline() {
       } catch (e) {}
     }
 
-    // Session block (Claude Max 5h rolling quota)
+    // Session block (Claude Max 5h rolling quota) — placed near the left
+    // so it stays visible even when the terminal truncates the statusline.
     const sessionStr = formatSessionBlock(readSessionBlock());
 
-    // Output
-    const dirname = path.basename(dir);
+    // Output: model │ session block │ [task/GSD state] │ context bar
+    // Dropped: dirname (redundant with terminal title); long milestone/phase
+    // names (handled in formatGsdState by keeping only version + status + ph N/M).
     const middle = task
       ? `\x1b[1m${task}\x1b[0m`
       : gsdStateStr
@@ -316,9 +311,9 @@ function runStatusline() {
         : null;
 
     if (middle) {
-      process.stdout.write(`${gsdUpdate}\x1b[2m${model}\x1b[0m │ ${middle} │ \x1b[2m${dirname}\x1b[0m${ctx}${sessionStr}`);
+      process.stdout.write(`${gsdUpdate}\x1b[2m${model}\x1b[0m${sessionStr} │ ${middle}${ctx}`);
     } else {
-      process.stdout.write(`${gsdUpdate}\x1b[2m${model}\x1b[0m │ \x1b[2m${dirname}\x1b[0m${ctx}${sessionStr}`);
+      process.stdout.write(`${gsdUpdate}\x1b[2m${model}\x1b[0m${sessionStr}${ctx}`);
     }
   } catch (e) {
     // Silent fail - don't break statusline on parse errors
