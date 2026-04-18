@@ -62,17 +62,48 @@ jobs:
 
       # ----------------------------------------------------------------
       # 4. Run pipeline
-      # ANTHROPIC_API_KEY is optional — pipeline falls back to
-      # rule-based extraction when it is not set.
+      # ANTHROPIC_API_KEY is OPTIONAL per D-06 (phase 61 CONTEXT):
+      # - Missing key = rule-based extraction only (model path uses rule signals).
+      # - Present key = optional website enrichment (Plan 06), gated by
+      #   ENABLE_LLM_ENRICHMENT env var (default false).
+      # - The pipeline NEVER fails because this key is missing.
+      #
+      # D-04 feature flag: ENABLE_LLM_ENRICHMENT is read from a repo variable
+      # (Settings → Secrets and variables → Actions → Variables tab) and
+      # defaults to 'false'.  Flip to 'true' to opt in to Haiku enrichment
+      # once plan 61-06 ships the wiring.
+      #
+      # Sources ingested by the orchestrator (scripts/daily_sentiment_pipeline.py):
+      #   1. RSS feeds (5 feeds)                    --skip-rss
+      #   2. Reddit (fantasyfootball, nfl, DynastyFF) --skip-reddit
+      #   3. Sleeper trending players                --skip-sleeper
+      #   4. RotoWire RSS                            --skip-rotowire
+      #   5. Pro Football Talk (PFT) RSS             --skip-pft
+      # All five sources are free and API-key-free.
       # ----------------------------------------------------------------
       - name: Run daily sentiment pipeline
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ENABLE_LLM_ENRICHMENT: ${{ vars.ENABLE_LLM_ENRICHMENT || 'false' }}
         run: |
           python scripts/daily_sentiment_pipeline.py \
             ${{ inputs.season && format('--season {0}', inputs.season) || '' }} \
             ${{ inputs.week && format('--week {0}', inputs.week) || '' }} \
             --verbose
+
+      # ----------------------------------------------------------------
+      # 4b. Health summary — always runs, even on failure (if: always()).
+      # Emits GitHub Actions notice annotations so reviewers can see at a
+      # glance which extraction path was authoritative.  Never echoes the
+      # secret itself (only the non-secret ENABLE_LLM_ENRICHMENT toggle).
+      # ----------------------------------------------------------------
+      - name: Log pipeline health summary
+        if: always()
+        env:
+          ENABLE_LLM_ENRICHMENT: ${{ vars.ENABLE_LLM_ENRICHMENT || 'false' }}
+        run: |
+          echo "::notice::Daily sentiment pipeline completed. Rule-first path is authoritative (D-06)."
+          echo "::notice::LLM enrichment: ${ENABLE_LLM_ENRICHMENT:-false}"
 
       # ----------------------------------------------------------------
       # 5. Refresh rosters from Sleeper (catches trades, FA signings)
