@@ -4,7 +4,7 @@ Pydantic response models for the NFL Data Engineering API.
 All models use ``Optional`` syntax compatible with Python 3.9.
 """
 
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -349,9 +349,7 @@ class TeamSentiment(BaseModel):
     season: int
     week: int
     sentiment_score: float = 0.0
-    sentiment_label: str = Field(
-        "neutral", description="positive / neutral / negative"
-    )
+    sentiment_label: str = Field("neutral", description="positive / neutral / negative")
     signal_count: int = 0
     sentiment_multiplier: float = 1.0
 
@@ -376,11 +374,43 @@ class DraftPlayer(BaseModel):
     vorp: float = 0.0
 
 
+class DraftBoardEntry(BaseModel):
+    """Advisor-facing board entry.
+
+    Simplified view used by the AI chat tool ``getDraftBoard`` (see
+    ``web/frontend/src/app/api/chat/route.ts``). Mirrors :class:`DraftPlayer`
+    but exposes the advisor-friendly ``adp`` / ``bye_week`` field names.
+    """
+
+    player_id: str
+    player_name: str
+    position: str
+    team: Optional[str] = None
+    projected_points: float
+    adp: Optional[float] = None
+    vorp: float = 0.0
+    value_tier: str = "fair_value"
+    bye_week: Optional[int] = None
+
+
 class DraftBoardResponse(BaseModel):
-    """Full draft board state."""
+    """Full draft board state.
+
+    Carries two player views for backward compatibility:
+
+    * ``players`` — legacy full-schema list consumed by the draft page
+      (``web/frontend/src/features/draft/components/draft-tool-view.tsx``).
+    * ``board`` — simplified list consumed by the AI advisor tool
+      (``getDraftBoard`` in ``web/frontend/src/app/api/chat/route.ts``).
+
+    Both lists reference the same available-player set; they only differ in
+    field-name aliases (``adp_rank`` vs ``adp``) and the presence of
+    ``bye_week``.
+    """
 
     session_id: str
     players: List[DraftPlayer]
+    board: List[DraftBoardEntry] = []
     my_roster: List[DraftPlayer]
     picks_taken: int
     my_pick_count: int
@@ -480,3 +510,54 @@ class AdpResponse(BaseModel):
     players: List[AdpPlayer]
     source: str
     updated_at: Optional[str] = None
+
+
+# ---------------------------------------------------------------------------
+# Teams / Roster / Current-Week models (Phase 64)
+# ---------------------------------------------------------------------------
+
+
+class CurrentWeekResponse(BaseModel):
+    """Current NFL (season, week) pair derived from today's date and the latest
+    local schedule parquet. ``source == 'schedule'`` means today's date falls inside
+    a ``gameday .. gameday + 6 days`` window on a real schedule row; ``source ==
+    'fallback'`` means the offseason/no-match path — the endpoint returned the
+    max (season, week) found in the data lake.
+    """
+
+    season: int = Field(..., ge=2016, le=2030)
+    week: int = Field(..., ge=1, le=22)
+    source: Literal["schedule", "fallback"]
+
+
+class RosterPlayer(BaseModel):
+    """One row in a team's roster/starter response.
+
+    ``slot_hint`` is a display-layer assignment (QB1/RB1/WR1/LT/RT/DE1/CB1/...) computed
+    from snap_pct_* descending within the same depth_chart_position group. Entries
+    outside the top-N per group carry ``slot_hint=None``.
+    """
+
+    player_id: str
+    player_name: str
+    team: str
+    position: str
+    depth_chart_position: Optional[str] = None
+    jersey_number: Optional[int] = None
+    status: str
+    snap_pct_offense: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    snap_pct_defense: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    injury_status: Optional[str] = None
+    slot_hint: Optional[str] = None
+
+
+class TeamRosterResponse(BaseModel):
+    """Response envelope for GET /api/teams/{team}/roster."""
+
+    team: str
+    season: int
+    week: int
+    side: Literal["offense", "defense", "all"]
+    fallback: bool = False
+    fallback_season: Optional[int] = None
+    roster: List[RosterPlayer]

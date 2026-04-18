@@ -45,26 +45,35 @@ class TestLoadTeamRoster:
         resp = team_roster_service.load_team_roster("BUF", 2024, 1, "defense")
         assert resp.team == "BUF"
         assert resp.side == "defense"
-        assert len(resp.roster) >= 11, f"expected >=11 defensive players, got {len(resp.roster)}"
+        assert (
+            len(resp.roster) >= 11
+        ), f"expected >=11 defensive players, got {len(resp.roster)}"
         for p in resp.roster:
-            assert not PLACEHOLDER_PATTERN.match(p.player_name), (
-                f"placeholder-style name leaked: {p.player_name}"
-            )
+            assert not PLACEHOLDER_PATTERN.match(
+                p.player_name
+            ), f"placeholder-style name leaked: {p.player_name}"
             assert p.depth_chart_position is not None and p.depth_chart_position != ""
 
     def test_offense_ol_slots_present(self):
         """BUF 2024 offense should include >=5 OL rows in T/G/C group with real names."""
         resp = team_roster_service.load_team_roster("BUF", 2024, 1, "offense")
         ol_rows = [
-            p for p in resp.roster
+            p
+            for p in resp.roster
             if p.depth_chart_position in {"LT", "LG", "C", "RG", "RT", "T", "G"}
         ]
         assert len(ol_rows) >= 5, f"expected >=5 OL rows, got {len(ol_rows)}"
         for r in ol_rows:
             # player_name must not equal the slot label
-            assert r.player_name not in {"LT", "LG", "C", "RG", "RT", "T", "G"}, (
-                f"placeholder OL name leaked: {r.player_name}"
-            )
+            assert r.player_name not in {
+                "LT",
+                "LG",
+                "C",
+                "RG",
+                "RT",
+                "T",
+                "G",
+            }, f"placeholder OL name leaked: {r.player_name}"
             assert r.player_name != f"BUF-{r.depth_chart_position}"
 
     def test_fallback_when_season_missing(self):
@@ -145,9 +154,7 @@ class TestTeamsEndpoints:
         Note: if 2026 parquet is added to the data lake after this test was written,
         this assertion must flip — inspect `data/bronze/players/rosters/season=2026/`.
         """
-        resp = client.get(
-            "/api/teams/BUF/roster?season=2026&week=1&side=defense"
-        )
+        resp = client.get("/api/teams/BUF/roster?season=2026&week=1&side=defense")
         assert resp.status_code == 200, resp.text
         body = resp.json()
         assert body["fallback"] is True
