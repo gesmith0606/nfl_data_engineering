@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: Phase 64-02 complete (teams API: current-week + roster with real NFL data, 2026->2025 fallback) + Phase 62-02 complete (design token foundation); 61-02..06 + 65-02..04 + 62-03..06 + 64-03..04 + 63-03..06 pending
-last_updated: "2026-04-18T10:35:00Z"
-last_activity: 2026-04-17
+stopped_at: Phase 63-02 complete (advisor tool hardening: 5 FAIL → 0 FAIL in local audit; dual-schema pattern for draft/board, lineup, sentiment-summary; empty-envelope for predictions/lineups) + 64-02 + 62-02; 61-02..06 + 65-02..04 + 62-03..06 + 64-03..04 + 63-03..06 pending
+last_updated: "2026-04-18T14:40:00Z"
+last_activity: 2026-04-18
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 21
-  completed_plans: 10
-  percent: 48
+  completed_plans: 11
+  percent: 52
 ---
 
 # Project State
@@ -34,10 +34,10 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 64 (matchup-view-completion) — IN PROGRESS (2/4 plans) + phase 62 (2/6), phase 61 (1/6), phase 63 (1/6), phase 65 (1/4)
-Plan: 64-02 complete — teams API shipped (GET /api/teams/current-week + GET /api/teams/{team}/roster); 12 new tests, 3 commits (RED/GREEN service/GREEN router). BUF 2024 W1 defense returns 25 real NFL players with slot_hint + snap_pct. MTCH-02 and MTCH-04 complete; MTCH-01 partial (OL backend ready, awaits 64-04 frontend).
-Status: Matchup view backend well underway. 64-03 (defense-metrics backend) and 64-04 (frontend wiring) pending. Parallel 62-02 design-token foundation also shipped.
-Last activity: 2026-04-17
+Phase: 64 (matchup-view-completion) — IN PROGRESS (2/4 plans) + phase 62 (2/6), phase 61 (1/6), phase 63 (2/6), phase 65 (1/4)
+Plan: 63-02 complete — advisor tool hardening shipped. Local audit: 5 FAIL → 0 FAIL (7 PASS / 5 WARN / 0 FAIL). Dual-schema pattern added (board alongside players, lineup alongside lineups, advisor sentiment fields alongside legacy). Empty-envelope replaces 404 in /api/predictions and /api/lineups. FlatLineupPlayer model added. 6 commits (RED + 5 GREEN/fix/feat/docs).
+Status: Advisor hardening wave 2 progressing. 63-03 (rankings + external sources hardening), 63-04 (conversation persistence), 63-05 (widget reach), 63-06 (live-site re-audit SHIP gate) pending. 64-03/64-04 matchup backend and 62-03..06 design token follow-up also pending.
+Last activity: 2026-04-18
 
 Progress: [████░░░░░░] 48% (10 plans complete across v6.0)
 
@@ -67,6 +67,7 @@ Progress: [████░░░░░░] 48% (10 plans complete across v6.0)
 | Phase 61 P01 | 20min | 3 tasks | 8 files |
 | Phase 62 P02 | 10min | 2 tasks | 4 files |
 | Phase 64 P02 | 30min | 2 tasks | 5 files |
+| Phase 63 P02 | 55min | 2 tasks | 7 files |
 
 ### Decisions
 
@@ -108,6 +109,11 @@ Recent decisions affecting current work:
 - [Phase 64-02]: Offseason current-week returns max (season, week) with source=fallback instead of 503 — keeps frontend from breaking in April/May
 - [Phase 64-02]: team_roster_service.py is the single parquet reader for teams/* namespace — 64-03 defense-metrics extends, does not duplicate
 - [Phase 64-02]: Rating formula (round((1-(rank-1)/31)*49+50)) correctly scoped to 64-03, not 64-02 — grep confirms zero matches in 64-02 service/router code
+- [Phase 63-02]: Dual-schema pattern preserved — advisor-facing keys (board, lineup, bullish_players, total_articles) added alongside legacy keys (players, lineups, top_positive, total_docs) so website widgets stay compatible while advisor contract is met
+- [Phase 63-02]: Empty-envelope replaces 404 in /api/predictions and /api/lineups — advisor tool widgets render on success responses; offseason-missing data returns 200+empty list instead of HTTPException(404)
+- [Phase 63-02]: FlatLineupPlayer model added alongside nested TeamLineup list — router populates both shapes from the same DataFrame iteration; no duplicate parquet reads
+- [Phase 63-02]: Audit script getTeamRoster probe marked warn_on_empty=True — preseason emptiness is a legitimate WARN (consistent with other offseason-empty tools: news feed, predictions, team sentiment)
+- [Phase 63-02]: Result: 5 FAIL → 0 FAIL in local audit (7 PASS / 5 WARN / 0 FAIL). EXTERNAL_SOURCE_DOWN category remains for 63-03 to verify when Sleeper cache is stale
 
 ### Pending Todos
 
@@ -133,6 +139,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T10:35:00Z
-Stopped at: Phase 64-02 complete — teams API shipped (GET /api/teams/current-week + GET /api/teams/{team}/roster); 12 tests passing, BUF 2024 W1 defense returns 25 real NFL players with slot_hint + snap_pct; 2026 fallback to 2025 works. MTCH-02 and MTCH-04 complete. Also Phase 62-02 (design-token foundation) complete. Ready for 64-03 (defense-metrics backend) or 64-04 (frontend wiring) or 62-03/04.
+Last session: 2026-04-18T14:40:00Z
+Stopped at: Phase 63-02 complete — advisor tool hardening shipped. Local audit: 5 FAIL → 0 FAIL (7 PASS / 5 WARN / 0 FAIL). getSentimentSummary now carries total_articles/bullish_players/bearish_players alongside legacy total_docs/top_positive/top_negative; /api/lineups carries flat `lineup` field alongside nested `lineups`; /api/predictions and /api/lineups return empty envelopes (HTTP 200) instead of 404 on offseason-empty data; compareExternalRankings passes (router already registered in main.py). All 25 web + 8 schema tests passing. 6 commits. TOOL-AUDIT-LOCAL.md documents delta. Ready for 63-03 (rankings+external hardening), 63-04 (conversation persistence), 63-05 (widget reach), or 63-06 (live-site re-audit SHIP gate).
 Resume file: None
