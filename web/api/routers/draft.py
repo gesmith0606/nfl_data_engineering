@@ -21,6 +21,7 @@ from fastapi import APIRouter, HTTPException, Query
 from ..models.schemas import (
     AdpPlayer,
     AdpResponse,
+    DraftBoardEntry,
     DraftBoardResponse,
     DraftPickRequest,
     DraftPickResponse,
@@ -120,7 +121,14 @@ def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame
     Returns:
         DataFrame of cached projections, or ``None`` if no cache is available.
     """
-    cache_dir = _PROJECT_ROOT / "data" / "gold" / "projections" / "preseason" / f"season={season}"
+    cache_dir = (
+        _PROJECT_ROOT
+        / "data"
+        / "gold"
+        / "projections"
+        / "preseason"
+        / f"season={season}"
+    )
     pattern = str(cache_dir / "*.parquet")
     files = sorted(glob.glob(pattern))
     if not files:
@@ -210,6 +218,36 @@ def _df_row_to_draft_player(row: pd.Series) -> DraftPlayer:
     )
 
 
+def _df_row_to_board_entry(row: pd.Series) -> DraftBoardEntry:
+    """Convert a DataFrame row to an advisor-facing ``DraftBoardEntry``.
+
+    The advisor schema (``getDraftBoard`` in ``chat/route.ts``) expects the
+    friendlier ``adp`` / ``bye_week`` field names instead of ``adp_rank``.
+    ``bye_week`` is passed through when the projection DataFrame carries it
+    (it comes from ``generate_preseason_projections``); otherwise ``None``.
+    """
+    pts_col = (
+        "projected_season_points"
+        if "projected_season_points" in row.index
+        else "projected_points"
+    )
+    bye_week_raw = row.get("bye_week") if "bye_week" in row.index else None
+    bye_week = _safe_int(bye_week_raw, default=0) if bye_week_raw is not None else None
+    if bye_week == 0 and bye_week_raw in (None, ""):
+        bye_week = None
+    return DraftBoardEntry(
+        player_id=str(row.get("player_id", "")),
+        player_name=str(row.get("player_name", "")),
+        position=str(row.get("position", "")),
+        team=str(row.get("recent_team", row.get("team", ""))) or None,
+        projected_points=round(float(row.get(pts_col, 0) or 0), 1),
+        adp=_safe_float(row.get("adp_rank")),
+        vorp=round(float(row.get("vorp", 0) or 0), 1),
+        value_tier=str(row.get("value_tier", "fair_value")),
+        bye_week=bye_week,
+    )
+
+
 def _dict_to_draft_player(d: Dict) -> DraftPlayer:
     """Convert a player dict (from ``board.my_roster``) to ``DraftPlayer``."""
     pts_col = (
@@ -232,18 +270,29 @@ def _dict_to_draft_player(d: Dict) -> DraftPlayer:
 
 
 def _board_to_response(session_id: str, session: Dict) -> DraftBoardResponse:
-    """Build a ``DraftBoardResponse`` from a session dict."""
+    """Build a ``DraftBoardResponse`` from a session dict.
+
+    Populates two parallel views of the available player set:
+
+    * ``players`` — full :class:`DraftPlayer` schema (model_rank, adp_rank,
+      adp_diff) consumed by the draft page.
+    * ``board`` — advisor-facing :class:`DraftBoardEntry` (adp, bye_week)
+      consumed by the AI chat tool.
+    """
     board: DraftBoard = session["board"]
 
     available_players: List[DraftPlayer] = []
+    board_entries: List[DraftBoardEntry] = []
     for _, row in board.available.iterrows():
         available_players.append(_df_row_to_draft_player(row))
+        board_entries.append(_df_row_to_board_entry(row))
 
     my_roster: List[DraftPlayer] = [_dict_to_draft_player(p) for p in board.my_roster]
 
     return DraftBoardResponse(
         session_id=session_id,
         players=available_players,
+        board=board_entries,
         my_roster=my_roster,
         picks_taken=board.picks_taken(),
         my_pick_count=board.my_pick_count(),
@@ -289,7 +338,9 @@ def get_draft_board(
         players_df = _load_draft_data(scoring, season)
     except Exception as exc:
         logger.exception("Failed to generate draft data")
-        raise HTTPException(status_code=500, detail=f"Draft data generation failed: {exc}") from exc
+        raise HTTPException(
+            status_code=500, detail=f"Draft data generation failed: {exc}"
+        ) from exc
 
     board = DraftBoard(players_df, roster_format=roster_format, n_teams=n_teams)
     board.scoring_format = scoring
@@ -400,7 +451,9 @@ def start_mock_draft(req: MockDraftStartRequest) -> MockDraftStartResponse:
         players_df = _load_draft_data(req.scoring, req.season)
     except Exception as exc:
         logger.exception("Failed to generate mock draft data")
-        raise HTTPException(status_code=500, detail=f"Draft data generation failed: {exc}") from exc
+        raise HTTPException(
+            status_code=500, detail=f"Draft data generation failed: {exc}"
+        ) from exc
 
     board = DraftBoard(players_df, roster_format=req.roster_format, n_teams=req.n_teams)
     board.scoring_format = req.scoring
@@ -491,7 +544,9 @@ def advance_mock_pick(req: MockDraftPickRequest) -> MockDraftPickResponse:
             match = board.all_players[board.all_players["player_name"] == player_name]
             if not match.empty:
                 position = str(match.iloc[0].get("position", ""))
-                team = str(match.iloc[0].get("recent_team", match.iloc[0].get("team", "")))
+                team = str(
+                    match.iloc[0].get("recent_team", match.iloc[0].get("team", ""))
+                )
 
     # Check if draft is now complete
     next_pick = pick_number + 1
@@ -544,7 +599,9 @@ def get_adp() -> AdpResponse:
     try:
         df = pd.read_csv(str(adp_path))
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Failed to read ADP file: {exc}") from exc
+        raise HTTPException(
+            status_code=500, detail=f"Failed to read ADP file: {exc}"
+        ) from exc
 
     # Normalise column names
     name_col = next(
@@ -570,8 +627,14 @@ def get_adp() -> AdpResponse:
             AdpPlayer(
                 player_name=str(row[name_col]),
                 position=str(row[pos_col]) if pos_col else "UNK",
-                team=str(row[team_col]) if team_col and pd.notna(row[team_col]) else None,
-                adp_rank=float(row[rank_col]) if rank_col and pd.notna(row[rank_col]) else 0.0,
+                team=(
+                    str(row[team_col]) if team_col and pd.notna(row[team_col]) else None
+                ),
+                adp_rank=(
+                    float(row[rank_col])
+                    if rank_col and pd.notna(row[rank_col])
+                    else 0.0
+                ),
             )
         )
 
