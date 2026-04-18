@@ -34,12 +34,12 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 62 (design-ux-polish) — IN PROGRESS (2/6 plans); also phase 61 (1/6), phase 63 (1/6), phase 64 (1/4), phase 65 (1/4)
-Plan: 62-02 complete — design-token layer shipped (tokens.css + design-tokens.ts + docs); globals.css imports tokens; zero visual change; downstream plans 62-03/04/05 can consume by name.
-Status: DSGN-02 foundation established. 62-03 (token consumption pages 1-5) and 62-04 (motion primitives + pages 6-11) are now unblocked in wave 2.
+Phase: 64 (matchup-view-completion) — IN PROGRESS (2/4 plans) + phase 62 (2/6), phase 61 (1/6), phase 63 (1/6), phase 65 (1/4)
+Plan: 64-02 complete — teams API shipped (GET /api/teams/current-week + GET /api/teams/{team}/roster); 12 new tests, 3 commits (RED/GREEN service/GREEN router). BUF 2024 W1 defense returns 25 real NFL players with slot_hint + snap_pct. MTCH-02 and MTCH-04 complete; MTCH-01 partial (OL backend ready, awaits 64-04 frontend).
+Status: Matchup view backend well underway. 64-03 (defense-metrics backend) and 64-04 (frontend wiring) pending. Parallel 62-02 design-token foundation also shipped.
 Last activity: 2026-04-17
 
-Progress: [████░░░░░░] 43% (9 plans complete across v6.0)
+Progress: [████░░░░░░] 48% (10 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -66,6 +66,7 @@ Progress: [████░░░░░░] 43% (9 plans complete across v6.0)
 | Phase 65 P01 | 12min | 2 tasks | 2 files |
 | Phase 61 P01 | 20min | 3 tasks | 8 files |
 | Phase 62 P02 | 10min | 2 tasks | 4 files |
+| Phase 64 P02 | 30min | 2 tasks | 5 files |
 
 ### Decisions
 
@@ -101,6 +102,12 @@ Recent decisions affecting current work:
 - [Phase 62-02]: Stagger step locked at 40ms — keeps 10-item list entrance under 800ms (10 × 40 + 480 slower)
 - [Phase 62-02]: Semantic spacing aliases (--gap-field/row/stack/section, --pad-card, --pad-card-sm) layered over raw --space-N so component code reads intent rather than magnitude
 - [Phase 62-02]: Root .gitignore narrow un-ignore for web/frontend/src/lib/ — the Python-template lib/ rule was swallowing frontend source; pre-existing untracked frontend lib/ files logged to deferred-items.md for follow-up chore
+- [Phase 64-02]: slot_hint assignment uses snap_pct ordering (not depth_chart_order — that column doesn't exist in bronze rosters)
+- [Phase 64-02]: Status filter keeps ACT+RES so IR-returning starters stay visible (practice squad / cut excluded)
+- [Phase 64-02]: OL LT/RT split via snap_pct ordering within T and G groups — cosmetic, bronze doesn't expose LT/RT granularity
+- [Phase 64-02]: Offseason current-week returns max (season, week) with source=fallback instead of 503 — keeps frontend from breaking in April/May
+- [Phase 64-02]: team_roster_service.py is the single parquet reader for teams/* namespace — 64-03 defense-metrics extends, does not duplicate
+- [Phase 64-02]: Rating formula (round((1-(rank-1)/31)*49+50)) correctly scoped to 64-03, not 64-02 — grep confirms zero matches in 64-02 service/router code
 
 ### Pending Todos
 
@@ -126,6 +133,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T03:10:00Z
-Stopped at: Phase 62-02 complete — design-token layer shipped (tokens.css + design-tokens.ts + docs); globals.css imports tokens after theme.css; TypeScript compile clean; zero visual change on site. Ready for 62-03 (token consumption pages 1-5) or 62-04 (motion primitives + pages 6-11) in wave 2.
+Last session: 2026-04-18T10:35:00Z
+Stopped at: Phase 64-02 complete — teams API shipped (GET /api/teams/current-week + GET /api/teams/{team}/roster); 12 tests passing, BUF 2024 W1 defense returns 25 real NFL players with slot_hint + snap_pct; 2026 fallback to 2025 works. MTCH-02 and MTCH-04 complete. Also Phase 62-02 (design-token foundation) complete. Ready for 64-03 (defense-metrics backend) or 64-04 (frontend wiring) or 62-03/04.
 Resume file: None

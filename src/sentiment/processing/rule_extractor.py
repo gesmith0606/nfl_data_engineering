@@ -206,27 +206,101 @@ def _compile_patterns() -> List[_PatternEntry]:
     for pat, sent, evts in _injury:
         entries.append((re.compile(pat, re.IGNORECASE), sent, "injury", evts))
 
-    # -- Role change patterns --
+    # -- Role change / usage patterns --
+    # Priority order: strong-signal usage phrases first (workhorse,
+    # primary target, lead back), then the original role pattern set.
+    # All entries set is_usage_boost or is_usage_drop so Plan 61-03's
+    # apply_event_adjustments can key on structured flags rather than
+    # continuous sentiment (D-03).
     _role = [
+        # Strong usage-boost phrases (new in 61-02)
         (
-            r"benched|demoted|losing\s+(?:starting\s+)?(?:job|snaps)|losing\s+starting",
-            -0.6,
-            {"is_usage_drop": True},
-        ),
-        (r"decreased\s+role|reduced\s+workload", -0.3, {"is_usage_drop": True}),
-        (
-            r"named\s+starter|earned\s+starting|promoted|will\s+start",
+            r"named\s+starter"
+            r"|earned\s+starting"
+            r"|expected\s+to\s+start"
+            r"|will\s+start"
+            r"|workhorse(?:\s+back)?"
+            r"|lead\s+back"
+            r"|primary\s+target"
+            r"|bell[\s-]cow",
             0.5,
             {"is_usage_boost": True},
         ),
+        # Promotion / increased workload (existing, augmented)
         (
-            r"increased\s+role|expanded\s+role|more\s+touches",
+            r"increased\s+role"
+            r"|expanded\s+role"
+            r"|more\s+touches"
+            r"|promoted\s+to\s+starter"
+            r"|promoted",
             0.3,
             {"is_usage_boost": True},
+        ),
+        # Strong usage-drop phrases (new in 61-02)
+        # Bounded quantifier on \d{1,2} prevents catastrophic
+        # backtracking (T-61-02-02).
+        (
+            r"splitting\s+carries"
+            r"|timeshare"
+            r"|committee\s+back"
+            r"|limited\s+snaps"
+            r"|limited\s+to\s+\d{1,2}\s+snaps"
+            r"|saw\s+only"
+            r"|rotational",
+            -0.3,
+            {"is_usage_drop": True},
+        ),
+        # Bench / demotion (existing, augmented with 'demoted to backup')
+        (
+            r"benched"
+            r"|demoted(?:\s+to\s+backup)?"
+            r"|losing\s+(?:starting\s+)?(?:job|snaps)"
+            r"|losing\s+starting"
+            r"|decreased\s+role"
+            r"|reduced\s+workload",
+            -0.6,
+            {"is_usage_drop": True},
         ),
     ]
     for pat, sent, evts in _role:
         entries.append((re.compile(pat, re.IGNORECASE), sent, "usage", evts))
+
+    # -- Weather patterns (Plan 61-02) --
+    # Only fire is_weather_risk for extreme conditions that realistically
+    # affect pass/rush volume or accuracy. Benign mentions ("light rain
+    # on Wednesday practice") deliberately do NOT match.
+    # Bounded \d{2,} quantifier prevents catastrophic regex backtracking
+    # (T-61-02-02); the threshold of two-digit wind speeds starts at 10
+    # mph, which with the "sustained/gusts" anchor filters out casual
+    # wind mentions.
+    _weather = [
+        (
+            r"blizzard|ice\s+storm|snowstorm|white[\s-]out\s+conditions",
+            -0.4,
+            {"is_weather_risk": True},
+        ),
+        (
+            r"high\s+winds"
+            r"|wind\s+gusts"
+            r"|(?:sustained|gusts?)\s+(?:of\s+|up\s+to\s+)?\d{2,}\s*mph"
+            r"|winds?\s+(?:over|above|of)\s+\d{2,}",
+            -0.3,
+            {"is_weather_risk": True},
+        ),
+        (
+            r"game\s+(?:in\s+doubt|could\s+be\s+postponed|may\s+be\s+moved)"
+            r"|weather\s+delay",
+            -0.3,
+            {"is_weather_risk": True},
+        ),
+        (
+            r"heavy\s+rain|monsoon|torrential|freezing\s+rain",
+            -0.2,
+            {"is_weather_risk": True},
+        ),
+    ]
+    for pat, sent, evts in _weather:
+        entries.append((re.compile(pat, re.IGNORECASE), sent, "weather", evts))
 
     # -- General sentiment patterns --
     _positive = [

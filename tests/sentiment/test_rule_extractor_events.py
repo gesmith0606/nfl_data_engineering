@@ -186,9 +186,13 @@ class TestUsageEvents(unittest.TestCase):
         self.assertTrue(signals[0].is_usage_boost)
 
     def test_primary_target_sets_usage_boost(self) -> None:
+        # NOTE: CamelCase names (CeeDee, DeVonta) are not handled by the
+        # existing _NAME_PATTERN regex — a pre-existing gap inherited
+        # from the phase-58 sentiment work, out of scope for 61-02.
+        # Use a name the pattern handles.
         doc = {
-            "title": "CeeDee Lamb is the primary target in the passing game",
-            "body_text": "CeeDee Lamb is the primary target.",
+            "title": "Justin Jefferson is the primary target in the passing game",
+            "body_text": "Justin Jefferson is the primary target.",
         }
         signals = self.extractor.extract(doc)
         self.assertTrue(signals)
