@@ -43,7 +43,7 @@
 ### Agent Ecosystem
 
 - [ ] **AGNT-01**: Consolidate 5 overlapping design skills into targeted invocations
-- [ ] **AGNT-02**: Activate dormant agents or archive them with reasoning
+- [x] **AGNT-02**: Activate dormant agents or archive them with reasoning — AGENT-INVENTORY.md produced (42 agents triaged; 0 dormant)
 - [ ] **AGNT-03**: Add NFL-specific rules to .claude/rules/
 - [ ] **AGNT-04**: Skill optimizer runs and produces passing audit (<3 items scoring below 6)
 
@@ -94,7 +94,7 @@
 | MTCH-03 | Phase 64 | Pending |
 | MTCH-04 | Phase 64 | Pending |
 | AGNT-01 | Phase 65 | Pending |
-| AGNT-02 | Phase 65 | Pending |
+| AGNT-02 | Phase 65 | Complete (65-01: 42-agent inventory, 0 dormant — see AGENT-INVENTORY.md) |
 | AGNT-03 | Phase 65 | Pending |
 | AGNT-04 | Phase 65 | Pending |
 

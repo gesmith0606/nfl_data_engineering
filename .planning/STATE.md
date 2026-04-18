@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: Phase 63-01 complete (baseline audit); 63-02..06 pending
-last_updated: "2026-04-18T00:40:14Z"
-last_activity: 2026-04-18
+stopped_at: Phase 65-01 complete (agent+skill inventory); 65-02..04 + 62-02..06 + 64-02..04 + 63-02..06 pending
+last_updated: "2026-04-18T00:48:00Z"
+last_activity: 2026-04-17
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 9
-  completed_plans: 4
-  percent: 44
+  total_plans: 15
+  completed_plans: 7
+  percent: 47
 ---
 
 # Project State
@@ -34,12 +34,12 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 63 (ai-advisor-hardening) — IN PROGRESS (1/6 plans)
-Plan: 63-01 complete — baseline TOOL-AUDIT.md produced (4 PASS / 3 WARN / 5 FAIL)
-Status: Wave-2 plans (63-02 schema, 63-03 missing routes, 63-04 data gaps) now have precise scope.
-Last activity: 2026-04-18
+Phase: 62 (design-ux-polish) — IN PROGRESS (1/6 plans) + phase 64 IN PROGRESS (1/4 plans)
+Plan: 62-01 complete — AUDIT-BASELINE.md written; 11 pages scored (mean 7.06/10), 3 pages below 7 flagged for 62-02/04/05/06 priority targets
+Status: Wave-1 audit done. 62-02 (tokens), 62-03 (shell), 62-04 (motion), 62-05 (mobile) can now target the gap list. 62-06 has a concrete before-score to measure against.
+Last activity: 2026-04-17
 
-Progress: [████░░░░░░] 44% (4 plans complete across v6.0)
+Progress: [██████░░░░] 55% (6 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -61,6 +61,9 @@ Progress: [████░░░░░░] 44% (4 plans complete across v6.0)
 | Phase 60 P02 | 6min | 2 tasks | 2 files |
 | Phase 60 P03 | 4min | 1 task  | 1 file  |
 | Phase 63 P01 | 4min | 2 tasks | 2 files |
+| Phase 64 P01 | 38min | 2 tasks | 2 files |
+| Phase 62 P01 | 5min | 2 tasks | 1 file  |
+| Phase 65 P01 | 12min | 2 tasks | 2 files |
 
 ### Decisions
 
@@ -82,6 +85,10 @@ Recent decisions affecting current work:
 - [Phase 63-01]: TOOL_REGISTRY declared as plain `ast.Assign` (no annotation) so the plan's AST verification can detect it
 - [Phase 63-01]: warn_on_empty flag separates off-season empty payloads from genuine bugs — keeps ship gate meaningful without false negatives in preseason
 - [Phase 63-01]: Baseline result: 4 PASS / 3 WARN / 5 FAIL. FAILs bucket into 3 categories: schema_mismatch (2: getDraftBoard, getSentimentSummary), http_error_404 (3: getGamePredictions, getTeamRoster, compareExternalRankings)
+- [Phase 65-01]: Inventory result: 42 agents (11 ACTIVE / 31 FRAMEWORK-OWNED / 0 DORMANT / 0 REDUNDANT), 29 skills (12 DATA-OWNED / 5 DESIGN-HOLISTIC cluster / 9 DESIGN-TARGETED / 2 DOC-SPECIALIST / 1 FRAMEWORK)
+- [Phase 65-01]: 5-skill design-holistic overlap cluster confirmed: impeccable, taste-skill, soft-skill, emil-design-eng, redesign-skill — all share banned-font lists, anti-AI-purple rules, GPU-safe motion, viewport stability directives
+- [Phase 65-01]: Two consolidation options framed for 65-02 checkpoint — Option A (umbrella-with-modes) preferred, Option B (shared-rules include) as fallback
+- [Phase 65-01]: code-reviewer (opus) vs git-code-reviewer (sonnet) near-redundancy flagged for 65-04 audit but kept ACTIVE (intentional pre-commit vs post-push division)
 
 ### Pending Todos
 

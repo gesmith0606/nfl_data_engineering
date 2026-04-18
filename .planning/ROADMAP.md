@@ -108,7 +108,7 @@ Plans:
   2. Every agent in .claude/agents/ is either actively used (with a clear purpose) or archived with documented reasoning
   3. NFL-specific rules exist in .claude/rules/ covering data conventions, scoring formats, and validation patterns
   4. The skill optimizer audit completes with fewer than 3 items scoring below 6/10
-**Plans**: TBD
+**Plans**: 4 (65-01 inventory [DONE — 42 agents, 29 skills triaged], 65-02 design consolidation, 65-03 NFL rules, 65-04 skill-optimizer audit)
 
 ## Requirement Coverage
 
@@ -152,4 +152,4 @@ Plans:
 | 62. Design & UX Polish | 0/TBD | Not started | - |
 | 63. AI Advisor Hardening | 1/6 | In progress | - |
 | 64. Matchup View Completion | 0/TBD | Not started | - |
-| 65. Agent Ecosystem Optimization | 0/TBD | Not started | - |
+| 65. Agent Ecosystem Optimization | 1/4 | In progress | - |
