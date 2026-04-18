@@ -68,12 +68,12 @@ def _load_gold_sentiment(season: int, week: int) -> pd.DataFrame:
 
     try:
         df = pd.read_parquet(parquet_path)
-        logger.debug(
-            "Loaded %d Gold sentiment rows from %s", len(df), parquet_path
-        )
+        logger.debug("Loaded %d Gold sentiment rows from %s", len(df), parquet_path)
         return df
     except Exception as exc:
-        logger.warning("Could not read Gold sentiment parquet %s: %s", parquet_path, exc)
+        logger.warning(
+            "Could not read Gold sentiment parquet %s: %s", parquet_path, exc
+        )
         return pd.DataFrame()
 
 
@@ -333,10 +333,7 @@ def _build_news_item_from_bronze(
         events = silver_rec.get("events") or {}
 
     # Published date
-    published_at = (
-        bronze_rec.get("published_at")
-        or bronze_rec.get("news_date")
-    )
+    published_at = bronze_rec.get("published_at") or bronze_rec.get("news_date")
 
     return {
         "doc_id": str(ext_id) if ext_id else None,
@@ -442,8 +439,7 @@ def get_player_news(
 
     # Also add silver-only records that have no bronze match
     bronze_ids = {
-        str(r.get("external_id") or r.get("id") or "")
-        for r in bronze_records
+        str(r.get("external_id") or r.get("id") or "") for r in bronze_records
     }
     for rec in silver_records:
         doc_id = str(rec.get("doc_id") or "")
@@ -507,7 +503,9 @@ def get_active_alerts(season: int, week: int) -> List[Dict[str, Any]]:
                 "player_id": player_id,
                 "player_name": player_name,
                 "team": str(row.get("team", "")) if "team" in row.index else None,
-                "position": str(row.get("position", "")) if "position" in row.index else None,
+                "position": (
+                    str(row.get("position", "")) if "position" in row.index else None
+                ),
                 "alert_type": alert_type,
                 "sentiment_multiplier": sentiment_mult,
                 "latest_signal_at": str(latest_signal) if latest_signal else None,
@@ -601,15 +599,17 @@ def get_news_feed(
         items = [r for r in items if r.get("team", "") == team]
     if player_id:
         items = [
-            r for r in items
-            if r.get("player_id") == player_id or player_id in (r.get("player_name") or "")
+            r
+            for r in items
+            if r.get("player_id") == player_id
+            or player_id in (r.get("player_name") or "")
         ]
 
     # Sort newest first
     items.sort(key=lambda r: r.get("published_at") or "", reverse=True)
 
     # Paginate
-    return items[offset: offset + limit]
+    return items[offset : offset + limit]
 
 
 def get_team_sentiment(season: int, week: int) -> List[Dict[str, Any]]:
@@ -640,7 +640,9 @@ def _team_sentiment_from_gold(
     df: pd.DataFrame, season: int, week: int
 ) -> List[Dict[str, Any]]:
     """Build team sentiment from Gold data with team column."""
-    sentiment_col = "sentiment_score_avg" if "sentiment_score_avg" in df.columns else None
+    sentiment_col = (
+        "sentiment_score_avg" if "sentiment_score_avg" in df.columns else None
+    )
     mult_col = "sentiment_multiplier" if "sentiment_multiplier" in df.columns else None
 
     results: List[Dict[str, Any]] = []
@@ -684,9 +686,7 @@ def _team_sentiment_from_gold(
     return results
 
 
-def _team_sentiment_from_signals(
-    season: int, week: int
-) -> List[Dict[str, Any]]:
+def _team_sentiment_from_signals(season: int, week: int) -> List[Dict[str, Any]]:
     """Build team sentiment from Silver signals + Bronze team hints.
 
     Falls back to this when Gold data lacks a team column. Collects team
@@ -822,56 +822,80 @@ def get_player_sentiment(
         "is_questionable": bool(row.get("is_questionable", False)),
         "is_suspended": bool(row.get("is_suspended", False)),
         "is_returning": bool(row.get("is_returning", False)),
-        "latest_signal_at": str(row.get("latest_signal_at"))
-        if row.get("latest_signal_at")
-        else None,
+        "latest_signal_at": (
+            str(row.get("latest_signal_at")) if row.get("latest_signal_at") else None
+        ),
         "signal_staleness_hours": _safe_float(staleness),
     }
 
 
-def get_sentiment_summary(
-    season: int, week: int
-) -> Dict[str, Any]:
+def get_sentiment_summary(season: int, week: int) -> Dict[str, Any]:
     """Return a summary of sentiment data for dashboard display.
 
-    Includes total document count, breakdown by source, top positive and
-    negative players, and overall sentiment distribution.
+    Carries two sets of keys so both the existing news-feed page and the
+    AI advisor ``getSentimentSummary`` tool stay happy:
+
+    * Legacy (news-feed.tsx): ``total_docs``, ``total_players``,
+      ``top_positive``, ``top_negative``, ``sentiment_distribution``.
+    * Advisor (chat/route.ts): ``total_articles``, ``bullish_players``,
+      ``bearish_players``, ``average_sentiment``, and ``sources`` as an
+      array of ``{source, count}`` objects.
+
+    Both views reflect the same underlying Gold Parquet slice.
 
     Args:
         season: NFL season year.
         week: NFL week number.
 
     Returns:
-        Dict with summary fields: total_docs, sources, top_positive,
-        top_negative, sentiment_distribution.
+        Dict with the union of legacy + advisor summary fields.
     """
     df = _load_gold_sentiment(season, week)
 
     summary: Dict[str, Any] = {
         "season": season,
         "week": week,
+        # Legacy (kept for news-feed.tsx)
         "total_players": 0,
         "total_docs": 0,
-        "sources": {},
         "top_positive": [],
         "top_negative": [],
         "sentiment_distribution": {"positive": 0, "neutral": 0, "negative": 0},
+        # Advisor contract (chat/route.ts)
+        "total_articles": 0,
+        "sources": [],
+        "bullish_players": [],
+        "bearish_players": [],
+        "average_sentiment": 0.0,
     }
 
     if df.empty:
         return summary
 
+    total_docs = int(df["doc_count"].sum()) if "doc_count" in df.columns else 0
     summary["total_players"] = len(df)
-    summary["total_docs"] = int(df["doc_count"].sum()) if "doc_count" in df.columns else 0
+    summary["total_docs"] = total_docs
+    # Advisor alias — articles == documents for the purposes of the chat tool
+    summary["total_articles"] = total_docs
 
-    # Source breakdown
-    for col in ["rss_doc_count", "sleeper_doc_count", "official_report_count", "twitter_doc_count"]:
+    # Source breakdown -- emitted as an array of {source, count} objects so
+    # the advisor contract sees a list. news-feed.tsx does not read .sources,
+    # so reshaping here is safe.
+    sources: List[Dict[str, Any]] = []
+    for col in [
+        "rss_doc_count",
+        "sleeper_doc_count",
+        "official_report_count",
+        "twitter_doc_count",
+    ]:
         if col in df.columns:
-            summary["sources"][col.replace("_doc_count", "").replace("_count", "")] = int(
-                df[col].sum()
-            )
+            name = col.replace("_doc_count", "").replace("_count", "")
+            count = int(df[col].sum())
+            if count > 0 or col == "rss_doc_count":
+                sources.append({"source": name, "count": count})
+    summary["sources"] = sources
 
-    # Sentiment distribution
+    # Sentiment distribution + average
     if "sentiment_score_avg" in df.columns:
         scores = df["sentiment_score_avg"].dropna()
         summary["sentiment_distribution"]["positive"] = int((scores > 0.1).sum())
@@ -879,6 +903,8 @@ def get_sentiment_summary(
             ((scores >= -0.1) & (scores <= 0.1)).sum()
         )
         summary["sentiment_distribution"]["negative"] = int((scores < -0.1).sum())
+        if not scores.empty:
+            summary["average_sentiment"] = round(float(scores.mean()), 4)
 
     # Top positive and negative players
     if "sentiment_multiplier" in df.columns and "player_name" in df.columns:
@@ -905,6 +931,52 @@ def get_sentiment_summary(
                         "player_name": str(row.get("player_name", "")),
                         "sentiment_multiplier": mult,
                         "doc_count": int(row.get("doc_count", 0)),
+                    }
+                )
+
+    # Advisor bullish/bearish lists — sorted by sentiment_score (not multiplier)
+    # and use the simpler {player_name, team, sentiment_score} shape the
+    # chat tool expects.
+    if "sentiment_score_avg" in df.columns and "player_name" in df.columns:
+        score_df = df.dropna(subset=["sentiment_score_avg"]).copy()
+        if not score_df.empty:
+            team_col = "team" if "team" in score_df.columns else None
+
+            bullish_sorted = score_df.sort_values(
+                "sentiment_score_avg", ascending=False
+            ).head(5)
+            for _, row in bullish_sorted.iterrows():
+                score = float(row["sentiment_score_avg"])
+                if score <= 0:
+                    continue
+                summary["bullish_players"].append(
+                    {
+                        "player_name": str(row.get("player_name", "")),
+                        "team": (
+                            str(row.get(team_col, ""))
+                            if team_col and pd.notna(row.get(team_col))
+                            else ""
+                        ),
+                        "sentiment_score": round(score, 4),
+                    }
+                )
+
+            bearish_sorted = score_df.sort_values(
+                "sentiment_score_avg", ascending=True
+            ).head(5)
+            for _, row in bearish_sorted.iterrows():
+                score = float(row["sentiment_score_avg"])
+                if score >= 0:
+                    continue
+                summary["bearish_players"].append(
+                    {
+                        "player_name": str(row.get("player_name", "")),
+                        "team": (
+                            str(row.get(team_col, ""))
+                            if team_col and pd.notna(row.get(team_col))
+                            else ""
+                        ),
+                        "sentiment_score": round(score, 4),
                     }
                 )
 
