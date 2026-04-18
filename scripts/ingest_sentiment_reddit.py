@@ -64,7 +64,7 @@ logger = logging.getLogger("ingest_sentiment_reddit")
 # ---------------------------------------------------------------------------
 
 _DEFAULT_SUBREDDITS = SENTIMENT_CONFIG.get(
-    "reddit_subreddits", ["fantasyfootball", "nfl"]
+    "reddit_subreddits", ["fantasyfootball", "nfl", "DynastyFF"]
 )
 _DEFAULT_LIMIT = SENTIMENT_CONFIG.get("reddit_post_limit", 25)
 _USER_AGENT = SENTIMENT_CONFIG.get(

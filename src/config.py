@@ -769,7 +769,8 @@ SENTIMENT_CONFIG: Dict[str, Any] = {
     # Positions considered skill positions for sentiment signal filtering
     "skill_positions": {"QB", "RB", "WR", "TE", "K"},
     # Reddit scraper configuration
-    "reddit_subreddits": ["fantasyfootball", "nfl"],
+    # Phase 61-01 D-01: expanded to include r/DynastyFF.
+    "reddit_subreddits": ["fantasyfootball", "nfl", "DynastyFF"],
     "reddit_post_limit": 25,
     "reddit_user_agent": "NFLDataEngineering/1.0",
 }
