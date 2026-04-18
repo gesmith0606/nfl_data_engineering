@@ -28,7 +28,7 @@
 
 ### AI Advisor
 
-- [ ] **ADVR-01**: All 12 advisor tools return valid data on the live site
+- [ ] **ADVR-01**: All 12 advisor tools return valid data on the live site _(baseline measured in 63-01: 4 PASS / 3 WARN / 5 FAIL — pending wave-2 fixes)_
 - [ ] **ADVR-02**: Advisor can answer "who are the top 10 RBs" with real data
 - [ ] **ADVR-03**: External rankings comparison works (Sleeper/FantasyPros/ESPN)
 - [ ] **ADVR-04**: Floating chat widget renders and persists on all dashboard pages
@@ -85,7 +85,7 @@
 | DSGN-02 | Phase 62 | Pending |
 | DSGN-03 | Phase 62 | Pending |
 | DSGN-04 | Phase 62 | Pending |
-| ADVR-01 | Phase 63 | Pending |
+| ADVR-01 | Phase 63 | In progress (baseline 63-01: 4P/3W/5F) |
 | ADVR-02 | Phase 63 | Pending |
 | ADVR-03 | Phase 63 | Pending |
 | ADVR-04 | Phase 63 | Pending |

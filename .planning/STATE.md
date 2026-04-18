@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: Phase 60 complete (3/3 plans)
-last_updated: "2026-04-17T18:19:00Z"
-last_activity: 2026-04-17
+stopped_at: Phase 63-01 complete (baseline audit); 63-02..06 pending
+last_updated: "2026-04-18T00:40:14Z"
+last_activity: 2026-04-18
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
-  percent: 100
+  total_plans: 9
+  completed_plans: 4
+  percent: 44
 ---
 
 # Project State
@@ -34,12 +34,12 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 60 (data-quality) — COMPLETE (3/3 plans)
-Plan: — (phase complete, ready for verify-work)
-Status: All plans executed. DQAL-01..04 satisfied. Quality gate wired into deploy-web.yml.
-Last activity: 2026-04-17
+Phase: 63 (ai-advisor-hardening) — IN PROGRESS (1/6 plans)
+Plan: 63-01 complete — baseline TOOL-AUDIT.md produced (4 PASS / 3 WARN / 5 FAIL)
+Status: Wave-2 plans (63-02 schema, 63-03 missing routes, 63-04 data gaps) now have precise scope.
+Last activity: 2026-04-18
 
-Progress: [██████████] 100% (phase 60 of 6 phases complete)
+Progress: [████░░░░░░] 44% (4 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -60,6 +60,7 @@ Progress: [██████████] 100% (phase 60 of 6 phases complete)
 | Phase 60 P01 | 5min | 2 tasks | 2 files |
 | Phase 60 P02 | 6min | 2 tasks | 2 files |
 | Phase 60 P03 | 4min | 1 task  | 1 file  |
+| Phase 63 P01 | 4min | 2 tasks | 2 files |
 
 ### Decisions
 
@@ -77,6 +78,10 @@ Recent decisions affecting current work:
 - [Phase 60-02]: Freshness thresholds: Gold 7 days, Silver 14 days (per D-08)
 - [Phase 60-03]: CI gate keys exclusively on sanity check exit code (0=deploy, 1=block); no stdout grep — preserves warnings-allowed contract from 60-02
 - [Phase 60-03]: Added data/** to deploy-web.yml paths trigger so data-only commits (daily roster refresh) also validate before deploy
+- [Phase 63-01]: httpx chosen for probe (already available via anthropic==0.92.0 transitive; no new requirement)
+- [Phase 63-01]: TOOL_REGISTRY declared as plain `ast.Assign` (no annotation) so the plan's AST verification can detect it
+- [Phase 63-01]: warn_on_empty flag separates off-season empty payloads from genuine bugs — keeps ship gate meaningful without false negatives in preseason
+- [Phase 63-01]: Baseline result: 4 PASS / 3 WARN / 5 FAIL. FAILs bucket into 3 categories: schema_mismatch (2: getDraftBoard, getSentimentSummary), http_error_404 (3: getGamePredictions, getTeamRoster, compareExternalRankings)
 
 ### Pending Todos
 
@@ -102,6 +107,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-17T18:19:00Z
-Stopped at: Phase 60 complete (3/3 plans) — ready for /gsd:verify-work 60
+Last session: 2026-04-18T00:40:14Z
+Stopped at: Phase 63-01 baseline audit complete — TOOL-AUDIT.md written (4P/3W/5F). Ready for 63-02/03/04 fix waves.
 Resume file: None

@@ -84,7 +84,7 @@ Plans:
   2. Asking "who are the top 10 RBs" returns a ranked list with real projected points from the Gold layer
   3. The advisor can compare player rankings against external sources (Sleeper ADP, FantasyPros, ESPN)
   4. The floating chat widget renders on every dashboard page and conversation persists across page navigation
-**Plans**: TBD
+**Plans**: 6 (63-01 baseline audit [DONE 4P/3W/5F], 63-02 schema fixes, 63-03 missing routes, 63-04 data gaps, 63-05 ship gate, 63-06 chat widget)
 **UI hint**: yes
 
 ### Phase 64: Matchup View Completion
@@ -150,6 +150,6 @@ Plans:
 | 60. Data Quality | 3/3 | Complete | 2026-04-17 |
 | 61. News & Sentiment Live | 0/TBD | Not started | - |
 | 62. Design & UX Polish | 0/TBD | Not started | - |
-| 63. AI Advisor Hardening | 0/TBD | Not started | - |
+| 63. AI Advisor Hardening | 1/6 | In progress | - |
 | 64. Matchup View Completion | 0/TBD | Not started | - |
 | 65. Agent Ecosystem Optimization | 0/TBD | Not started | - |
