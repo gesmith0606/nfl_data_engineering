@@ -48,11 +48,27 @@ def list_predictions(
     season: int = Query(..., ge=1999, le=2030, description="NFL season"),
     week: int = Query(..., ge=1, le=18, description="Week number"),
 ) -> PredictionResponse:
-    """Return game predictions for the given season and week."""
+    """Return game predictions for the given season and week.
+
+    Returns an empty envelope (HTTP 200) when no predictions exist for the
+    requested slice (preseason / offseason). This preserves the advisor
+    tool contract which expects ``{"predictions": []}`` rather than a 404.
+    """
+    import logging
+
+    logger = logging.getLogger(__name__)
     try:
         df = prediction_service.get_predictions(season=season, week=week)
     except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc))
+        logger.warning(
+            "No prediction data for season=%d week=%d: %s", season, week, exc
+        )
+        return PredictionResponse(
+            season=season,
+            week=week,
+            predictions=[],
+            generated_at=datetime.now(timezone.utc).isoformat(),
+        )
 
     predictions = [_row_to_prediction(row) for _, row in df.iterrows()]
     return PredictionResponse(

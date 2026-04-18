@@ -76,6 +76,10 @@ def get_lineups(
         get_team_starters,
     )
 
+    import logging
+
+    logger = logging.getLogger(__name__)
+
     if team:
         df = get_team_lineup_with_projections(
             season=season, week=week, team=team.upper(), scoring_format=scoring
@@ -84,10 +88,20 @@ def get_lineups(
         df = get_team_starters(season=season, week=week)
 
     if df.empty:
-        raise HTTPException(
-            status_code=404,
-            detail=f"No lineup data for season={season} week={week}"
-            + (f" team={team}" if team else ""),
+        # Return an empty envelope (HTTP 200) instead of 404 so the advisor
+        # tool ``getTeamRoster`` receives ``{"lineups": []}`` during offseason
+        # or when the requested team has no depth chart yet.
+        logger.warning(
+            "No lineup data for season=%d week=%d team=%s — returning empty",
+            season,
+            week,
+            team or "ALL",
+        )
+        return LineupResponse(
+            season=season,
+            week=week,
+            lineups=[],
+            generated_at=datetime.now(timezone.utc).isoformat(),
         )
 
     lineups: List[TeamLineup] = []

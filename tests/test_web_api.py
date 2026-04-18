@@ -191,9 +191,15 @@ class TestPredictions:
         "web.api.services.prediction_service.get_predictions",
         side_effect=FileNotFoundError("No prediction data"),
     )
-    def test_missing_predictions_404(self, mock_get):
+    def test_missing_predictions_returns_empty_envelope(self, mock_get):
+        """Advisor contract: offseason/missing data returns 200 with empty list,
+        not 404. See plan 63-02 Task 1 behavior spec."""
         resp = client.get("/api/predictions?season=2025&week=1")
-        assert resp.status_code == 404
+        assert resp.status_code == 200
+        body = resp.json()
+        assert body["predictions"] == []
+        assert body["season"] == 2025
+        assert body["week"] == 1
 
     @patch("web.api.services.prediction_service.get_prediction_by_game")
     def test_single_game(self, mock_get):
