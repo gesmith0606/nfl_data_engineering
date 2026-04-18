@@ -31,6 +31,7 @@ from projection_engine import (  # noqa: E402
     generate_preseason_projections,
     apply_injury_adjustments,
     apply_sentiment_adjustments,
+    apply_event_adjustments,
     load_latest_sentiment,
     add_floor_ceiling,
 )
@@ -180,6 +181,19 @@ def main():
             "Apply Gold-layer sentiment multipliers after injury adjustments. "
             "Requires data/gold/sentiment/ output from the sentiment pipeline. "
             "Default: False (opt-in to preserve backward compatibility)."
+        ),
+    )
+    parser.add_argument(
+        "--use-events",
+        action="store_true",
+        default=False,
+        help=(
+            "Apply structured event adjustments (questionable/returning/"
+            "traded/usage_boost/weather_risk/etc.) after injury adjustments. "
+            "Per Phase 61 D-03: each flag maps to a deterministic bounded "
+            "multiplier (NOT a continuous sentiment_multiplier). Requires "
+            "data/gold/sentiment/ output. Default: False — opt-in behind the "
+            "Phase 61-03 backtest SHIP gate."
         ),
     )
     args = parser.parse_args()
@@ -449,6 +463,34 @@ def main():
             projections = apply_injury_adjustments(projections, injuries_df)
             injured = (projections["injury_multiplier"] < 1.0).sum()
             print(f"Injury adjustments applied: {injured} players affected")
+
+        # --- Structured event adjustments (opt-in via --use-events) ---
+        # Per Phase 61 D-03: deterministic, tightly-bounded multipliers keyed
+        # on boolean flags from the rule extractor. Separate from the legacy
+        # continuous --use-sentiment path.
+        if args.use_events and not projections.empty:
+            print(
+                f"\nLoading event data for Season {args.season} "
+                f"Week {args.week}..."
+            )
+            events_df = load_latest_sentiment(args.season, args.week)
+            if events_df.empty:
+                print(
+                    "WARN: No event data available; skipping event adjustments"
+                )
+            else:
+                before_total = float(projections["projected_points"].sum())
+                projections = apply_event_adjustments(projections, events_df)
+                after_total = float(projections["projected_points"].sum())
+                affected = int(
+                    (projections["event_multiplier"] != 1.0).sum()
+                )
+                delta = after_total - before_total
+                print(
+                    f"Event adjustments applied: {affected} players affected; "
+                    f"total projected points {before_total:.1f} → "
+                    f"{after_total:.1f} ({delta:+.1f})"
+                )
 
         # --- Sentiment adjustments (opt-in via --use-sentiment) ---
         if args.use_sentiment and not projections.empty:
