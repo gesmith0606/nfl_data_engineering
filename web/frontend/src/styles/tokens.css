@@ -1,0 +1,165 @@
+/* =============================================================================
+ * Design Tokens (Phase 62-02, DSGN-02)
+ * -----------------------------------------------------------------------------
+ * Single source of truth for typography scale, spacing, motion, and elevation.
+ * Layered ON TOP of the per-theme color tokens in `./themes/*.css` — color
+ * semantics (background, foreground, primary, ...) still live in theme files;
+ * this file exposes scale tokens that apply to every theme.
+ *
+ * Consumers (written in plans 62-03/04/05): reference `var(--fs-body)`,
+ * `var(--motion-fast)`, `var(--gap-section)` etc. — never hardcode px/ms.
+ *
+ * NAMES are a contract: downstream plans 62-03/04/05 reference these exact
+ * identifiers. Values may be tuned; names must not change.
+ * =========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------------
+   * Typography scale
+   * ---------------------------------------------------------------------------
+   * Mobile-first, accessible. Body min 16px per WCAG; line-heights follow
+   * Emil Kowalski / Impeccable ratios: ~1.5 for body copy, 1.1-1.2 for
+   * headings. `--fs-micro` added to absorb the 50+ `text-[9/10/11px]` ad-hoc
+   * uses inventoried in AUDIT-BASELINE.md (rankings, news, advisor, matchup).
+   * ------------------------------------------------------------------------- */
+
+  /* 11px — micro labels, table sub-captions, badge meta. Replaces
+   * text-[9px]/text-[10px]/text-[11px] (50 ad-hoc uses in audit). */
+  --fs-micro: 0.6875rem;
+  --lh-micro: 1rem;
+
+  /* 12px — secondary meta: timestamps, source attribution, muted helpers. */
+  --fs-xs: 0.75rem;
+  --lh-xs: 1rem;
+
+  /* 14px — caption / dense-table cell. Base for most data tables. */
+  --fs-sm: 0.875rem;
+  --lh-sm: 1.25rem;
+
+  /* 16px — body copy baseline. Never go below this for reading flows. */
+  --fs-body: 1rem;
+  --lh-body: 1.5rem;
+
+  /* 18px — sub-heading / card title in dense layouts. */
+  --fs-lg: 1.125rem;
+  --lh-lg: 1.625rem;
+
+  /* 20px — h3 / section heading inside a page. */
+  --fs-h3: 1.25rem;
+  --lh-h3: 1.75rem;
+
+  /* 24px — h2 / page heading in PageContainer. */
+  --fs-h2: 1.5rem;
+  --lh-h2: 2rem;
+
+  /* 32px — h1 / hero heading. Line-height tightened to 1.125 for impact. */
+  --fs-h1: 2rem;
+  --lh-h1: 2.25rem;
+
+  /* ---------------------------------------------------------------------------
+   * Spacing — 4px grid
+   * ---------------------------------------------------------------------------
+   * Aligns with Tailwind's spacing primitive so the token can be used either
+   * as `var(--space-4)` in raw CSS or as `p-4` / `gap-4` in utility classes.
+   * ------------------------------------------------------------------------- */
+
+  --space-1: 0.25rem;   /* 4px  — icon-to-text gap, tight inline rhythm */
+  --space-2: 0.5rem;    /* 8px  — badge padding, input affix gap */
+  --space-3: 0.75rem;   /* 12px — row padding in dense tables */
+  --space-4: 1rem;      /* 16px — default card content padding */
+  --space-5: 1.25rem;   /* 20px — card gap in grids */
+  --space-6: 1.5rem;    /* 24px — major section gap (was `space-y-6` ad-hoc) */
+  --space-8: 2rem;      /* 32px — page gutter on desktop */
+  --space-10: 2.5rem;   /* 40px — between page header and body on desktop */
+  --space-12: 3rem;     /* 48px — meets 44px iOS / 48dp Material touch min */
+
+  /* Semantic spacing aliases — pick ONE of these in components instead of
+   * choosing raw --space-N, so intent is documented. */
+  --gap-field: var(--space-2);     /* between label and control */
+  --gap-row: var(--space-3);       /* between rows in dense list/table */
+  --gap-stack: var(--space-4);     /* default page `space-y` */
+  --gap-section: var(--space-6);   /* between major page sections */
+  --pad-card: var(--space-4);      /* default CardContent padding */
+  --pad-card-sm: var(--space-3);   /* compact card (advisor suggestion chip) */
+
+  /* ---------------------------------------------------------------------------
+   * Motion durations — Emil Kowalski bands
+   * ---------------------------------------------------------------------------
+   * Units: ms for CSS transitions. TypeScript mirror uses seconds for
+   * motion/framer-motion. Never write a magic-number duration in a
+   * component; resolve via MOTION.* or var(--motion-*).
+   * ------------------------------------------------------------------------- */
+
+  --motion-instant: 100ms;  /* color/opacity micro-interactions (text hover) */
+  --motion-fast: 150ms;     /* button press/release, focus ring */
+  --motion-base: 220ms;     /* hover lift, badge pulse, progress tick */
+  --motion-slow: 320ms;     /* row reorder (layout), sheet entrance */
+  --motion-slower: 480ms;   /* page-mount stagger finale, tab content swap */
+
+  /* Motion easings — ease-out for exits, ease-in-out for symmetric motion.
+   * Both chosen to match the motion library defaults so there is a single
+   * feel across CSS transitions and motion.div calls. */
+  --ease-out-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in-out-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-standard: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Stagger step — use as the delay between sibling entrances (stat cards,
+   * table rows). Keep below 80ms so a 10-item list completes under 800ms. */
+  --motion-stagger-step: 40ms;
+
+  /* ---------------------------------------------------------------------------
+   * Elevation — semantic aliases for existing `--shadow-*` theme tokens
+   * ---------------------------------------------------------------------------
+   * Each theme file defines --shadow-2xs..--shadow-2xl. These aliases name
+   * the USE rather than the size, so components can shift from Claude-theme
+   * soft shadows to Neobrutalism hard borders without code change.
+   * ------------------------------------------------------------------------- */
+
+  --elevation-flat: var(--shadow-2xs);     /* table rows, inputs at rest */
+  --elevation-raised: var(--shadow-sm);    /* cards, chips */
+  --elevation-overlay: var(--shadow-md);   /* popovers, hover-lifted cards */
+  --elevation-modal: var(--shadow-xl);     /* dialogs, full-screen sheets */
+
+  /* ---------------------------------------------------------------------------
+   * Position color tokens (NFL-specific accent family)
+   * ---------------------------------------------------------------------------
+   * Consolidation target for the 6 duplicated POSITION_COLORS maps called out
+   * in AUDIT-BASELINE.md. Values are tuned to reading well against both
+   * light and dark surfaces — the OKLCH lightness stays in the 55-65% band
+   * (mid-contrast), chroma tempered so WCAG AA holds against --card across
+   * all 10 themes in `src/styles/themes/`.
+   *
+   * DO NOT touch consumers in this plan. 62-03 will migrate the 6 duplicate
+   * sites to consume these tokens (plus their TS mirror in design-tokens.ts).
+   *
+   * Roles — offense:
+   *   QB  red-orange  (traditional fantasy-football QB coding)
+   *   RB  teal        (offensive skill counter-coding)
+   *   WR  indigo      (matches prior POSITION_COLORS contract)
+   *   TE  amber       (reads well against both themes)
+   *   K   gray        (utility position, deliberately low-sat)
+   *
+   * Roles — defense (used in matchup-view only today):
+   *   DE  red           LB  violet
+   *   DT  deep-red      CB  blue
+   *   OL  gray          SS  cyan
+   *                     FS  teal-deep
+   * ------------------------------------------------------------------------- */
+
+  --pos-qb: oklch(0.62 0.18 28);     /* red-orange */
+  --pos-rb: oklch(0.62 0.11 185);    /* teal */
+  --pos-wr: oklch(0.55 0.18 275);    /* indigo */
+  --pos-te: oklch(0.68 0.14 70);     /* amber */
+  --pos-k:  oklch(0.60 0.01 250);    /* gray (utility) */
+  --pos-ol: oklch(0.60 0.01 250);    /* gray (utility, same as K) */
+
+  --pos-de: oklch(0.58 0.20 27);     /* red (hot pass rush) */
+  --pos-dt: oklch(0.50 0.18 27);     /* deeper red */
+  --pos-lb: oklch(0.55 0.19 295);    /* violet */
+  --pos-cb: oklch(0.58 0.17 255);    /* blue */
+  --pos-ss: oklch(0.63 0.13 220);    /* cyan */
+  --pos-fs: oklch(0.60 0.11 195);    /* teal-deep */
+
+  /* Fallback for unknown positions. */
+  --pos-unknown: var(--muted-foreground);
+}
