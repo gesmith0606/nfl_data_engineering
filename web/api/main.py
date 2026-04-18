@@ -14,7 +14,18 @@ from fastapi.responses import JSONResponse
 from .config import API_TITLE, API_VERSION, CORS_ORIGINS
 from .db import check_health as db_health, is_db_enabled
 from .models.schemas import HealthResponse
-from .routers import draft, games, lineups, news, players, predictions, projections, rankings
+from .routers import (
+    draft,
+    games,
+    lineups,
+    news,
+    players,
+    predictions,
+    projections,
+    rankings,
+    streaming,
+    teams,
+)
 
 app = FastAPI(
     title=API_TITLE,
@@ -72,6 +83,8 @@ app.include_router(games.router, prefix="/api")
 app.include_router(news.router, prefix="/api")
 app.include_router(draft.router, prefix="/api")
 app.include_router(rankings.router, prefix="/api")
+app.include_router(streaming.router, prefix="/api")
+app.include_router(teams.router, prefix="/api")
 
 
 # ---------------------------------------------------------------------------
