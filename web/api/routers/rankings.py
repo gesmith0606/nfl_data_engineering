@@ -18,7 +18,9 @@ VALID_SOURCES = {"sleeper", "fantasypros", "espn", "consensus"}
 
 @router.get("/external")
 def get_external_rankings(
-    source: str = Query("sleeper", description="sleeper / fantasypros / espn / consensus"),
+    source: str = Query(
+        "sleeper", description="sleeper / fantasypros / espn / consensus"
+    ),
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
     limit: int = Query(50, ge=1, le=500, description="Max results"),
@@ -48,19 +50,15 @@ def get_external_rankings(
             detail=f"Invalid position. Choose from: {sorted(VALID_POSITIONS)}",
         )
 
-    try:
-        data = external_rankings_service.get_external_rankings(
-            source=source,
-            scoring=scoring,
-            position=position.upper() if position else None,
-            limit=limit,
-            season=season,
-        )
-    except Exception as exc:
-        raise HTTPException(
-            status_code=502,
-            detail=f"Failed to fetch rankings from {source}: {str(exc)}",
-        )
+    # External-source failure is NOT a caller error — the service returns an
+    # empty list rather than raising. Never surface 502 here.
+    data = external_rankings_service.get_external_rankings(
+        source=source,
+        scoring=scoring,
+        position=position.upper() if position else None,
+        limit=limit,
+        season=season,
+    )
 
     return {
         "source": source,
@@ -73,7 +71,9 @@ def get_external_rankings(
 
 @router.get("/compare")
 def compare_rankings(
-    source: str = Query("sleeper", description="sleeper / fantasypros / espn / consensus"),
+    source: str = Query(
+        "sleeper", description="sleeper / fantasypros / espn / consensus"
+    ),
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
     limit: int = Query(20, ge=1, le=200, description="Max results"),
@@ -100,20 +100,15 @@ def compare_rankings(
             detail=f"Invalid position. Choose from: {sorted(VALID_POSITIONS)}",
         )
 
-    try:
-        result = external_rankings_service.compare_rankings(
-            source=source,
-            scoring=scoring,
-            position=position.upper() if position else None,
-            limit=limit,
-            season=season,
-        )
-    except Exception as exc:
-        raise HTTPException(
-            status_code=502,
-            detail=f"Failed to compare rankings: {str(exc)}",
-        )
-
+    # External-source failure is NOT a caller error — the service always returns
+    # a well-formed envelope with `stale` metadata. Never surface 502 here.
+    result = external_rankings_service.compare_rankings(
+        source=source,
+        scoring=scoring,
+        position=position.upper() if position else None,
+        limit=limit,
+        season=season,
+    )
     return result
 
 

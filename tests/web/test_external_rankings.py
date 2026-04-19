@@ -192,8 +192,20 @@ def test_rank_diff_math(
     # Player 3 is unmatched in our projections, so our_rank=None, rank_diff=None.
     our_df = pd.DataFrame(
         [
-            {"player_name": "Alice", "position": "RB", "team": "KC", "our_rank": 2, "projected_points": 18.0},
-            {"player_name": "Bob", "position": "RB", "team": "KC", "our_rank": 2, "projected_points": 17.5},
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "our_rank": 2,
+                "projected_points": 18.0,
+            },
+            {
+                "player_name": "Bob",
+                "position": "RB",
+                "team": "KC",
+                "our_rank": 2,
+                "projected_points": 17.5,
+            },
         ]
     )
 
@@ -208,9 +220,27 @@ def test_rank_diff_math(
         "source": "sleeper",
         "fetched_at": datetime.now(timezone.utc).isoformat(),
         "players": [
-            {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
-            {"player_name": "Bob", "position": "RB", "team": "KC", "external_rank": 2, "rank": 2},
-            {"player_name": "Carol", "position": "RB", "team": "KC", "external_rank": 3, "rank": 3},
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 1,
+                "rank": 1,
+            },
+            {
+                "player_name": "Bob",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 2,
+                "rank": 2,
+            },
+            {
+                "player_name": "Carol",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 3,
+                "rank": 3,
+            },
         ],
     }
     cache_path.write_text(json.dumps(cached_envelope))
@@ -262,31 +292,78 @@ def test_consensus_averages_three_sources(
     empty_projections: None,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """consensus source merges Sleeper/FantasyPros/ESPN into averaged ranks."""
-    # Fake three identical player sets with different ranks:
-    # Sleeper ranks Alice=1, Bob=2
-    # FantasyPros ranks Alice=3, Bob=2
-    # ESPN ranks Alice=5, Bob=2
-    # Expected consensus: Alice = mean(1,3,5) = 3.0 ; Bob = 2.0
+    """consensus source merges Sleeper/FantasyPros/ESPN into averaged ranks.
+
+    Each source exposes a per-row ``external_rank``. The consensus merge
+    averages those external_rank values across every source that returned a
+    row for the player.
+    """
+
+    # Per-source external_ranks the parsers will emit:
+    #   Sleeper uses search_rank directly as external_rank
+    #   FantasyPros uses rank_ecr as external_rank
+    #   ESPN uses list position (1-indexed) as external_rank
+    # Fixture below yields:
+    #   Alice  Sleeper=1, FantasyPros=3, ESPN=5 -> mean = 3.0
+    #   Bob    Sleeper=2, FantasyPros=2, ESPN=2 -> mean = 2.0
     def make_sleeper_payload() -> Dict[str, Dict[str, Any]]:
         return {
-            "p1": {"full_name": "Alice", "position": "RB", "team": "KC", "search_rank": 1, "status": "Active"},
-            "p2": {"full_name": "Bob", "position": "RB", "team": "KC", "search_rank": 2, "status": "Active"},
+            "p1": {
+                "full_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "search_rank": 1,
+                "status": "Active",
+            },
+            "p2": {
+                "full_name": "Bob",
+                "position": "RB",
+                "team": "KC",
+                "search_rank": 2,
+                "status": "Active",
+            },
         }
 
     def make_fantasypros_payload() -> Dict[str, Any]:
         return {
             "players": [
-                {"player_name": "Alice", "position": "RB", "player_team_id": "KC", "rank_ecr": 3},
-                {"player_name": "Bob", "position": "RB", "player_team_id": "KC", "rank_ecr": 2},
+                {
+                    "player_name": "Alice",
+                    "position": "RB",
+                    "player_team_id": "KC",
+                    "rank_ecr": 3,
+                },
+                {
+                    "player_name": "Bob",
+                    "position": "RB",
+                    "player_team_id": "KC",
+                    "rank_ecr": 2,
+                },
             ]
         }
 
     def make_espn_payload() -> Dict[str, Any]:
+        # ESPN parser sets external_rank = list position. To get Alice=5 and
+        # Bob=2 we fill slots 1..4 with dummies above Alice and keep Bob at 2.
         return {
             "players": [
-                {"player": {"fullName": "Alice", "defaultPositionId": 2, "proTeamId": 12}},
-                {"player": {"fullName": "Bob", "defaultPositionId": 2, "proTeamId": 12}},
+                {"player": {"fullName": "Z1", "defaultPositionId": 2, "proTeamId": 12}},
+                {
+                    "player": {
+                        "fullName": "Bob",
+                        "defaultPositionId": 2,
+                        "proTeamId": 12,
+                    }
+                },
+                {"player": {"fullName": "Z3", "defaultPositionId": 2, "proTeamId": 12}},
+                {"player": {"fullName": "Z4", "defaultPositionId": 2, "proTeamId": 12}},
+                {
+                    "player": {
+                        "fullName": "Alice",
+                        "defaultPositionId": 2,
+                        "proTeamId": 12,
+                    }
+                },
             ]
         }
 
@@ -301,7 +378,7 @@ def test_consensus_averages_three_sources(
 
     monkeypatch.setattr(svc.requests, "get", fake_get)
 
-    result = svc.compare_rankings(source="consensus", limit=5)
+    result = svc.compare_rankings(source="consensus", limit=10)
 
     by_name = {p["player_name"]: p for p in result["players"]}
     assert "Alice" in by_name
@@ -335,6 +412,6 @@ def test_response_envelope_keys_present_even_on_empty(
         "cache_age_hours",
         "last_updated",
     }
-    assert required_keys.issubset(result.keys()), (
-        f"Envelope missing keys: {required_keys - result.keys()}"
-    )
+    assert required_keys.issubset(
+        result.keys()
+    ), f"Envelope missing keys: {required_keys - result.keys()}"
