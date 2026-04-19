@@ -1,0 +1,460 @@
+{
+  "fetch_run_id": "f76cacb6-2844-4080-b8a1-daf628036981",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-04-19T15:36:15.071962+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-disruptions-begin-for-the-13-teams-in-stadiums-hosting-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-disruptions-begin-for-the-13-teams-in-stadiums-hosting-games",
+      "title": "World Cup disruptions begin for the 13 teams in stadiums hosting matches",
+      "body_text": "The World Cup is coming soon.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-19T14:34:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-lose-cornerstone-player-in-dexter-lawrence-for-a-2026-lottery-ticket",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-lose-cornerstone-player-in-dexter-lawrence-for-a-2026-lottery-ticket",
+      "title": "Giants lose \"cornerstone\" player in Dexter Lawrence for a 2026 lottery ticket",
+      "body_text": "If the handling of the Dexter Lawrence situation was the first real test of the John Harbaugh-Joe Schoen regime in New York, many will conclude they failed it.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-19T14:03:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dexter Lawrence",
+        "John Harbaugh",
+        "Joe Schoen",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-have-had-a-first-round-pick-every-year-since-1989-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-have-had-a-first-round-pick-every-year-since-1989-draft",
+      "title": "Bengals have had a first-round pick every year since 1989 draft",
+      "body_text": "The Bengals have agreed to trade their first-round pick in the 2026 draft to the Giants for defensive tackle Dexter Lawrence.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-19T13:38:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Bengals",
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dewayne-carter-says-achilles-recovery-is-on-track-will-be-cleared-by-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dewayne-carter-says-achilles-recovery-is-on-track-will-be-cleared-by-training-camp",
+      "title": "Bills' DeWayne Carter says Achilles recovery is on track, will be cleared by training camp",
+      "body_text": "Bills defensive lineman DeWayne Carter says there's no doubt he'll be good to go for training camp.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-19T08:59:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-join-dolphins-jets-cowboys-chiefs-browns-as-teams-with-two-first-round-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-join-dolphins-jets-cowboys-chiefs-browns-as-teams-with-two-first-round-picks",
+      "title": "Giants join Dolphins, Jets, Cowboys, Chiefs, Browns as teams with two first-round picks",
+      "body_text": "Six teams have two first-round picks and six teams have no first-round pick in the 2026 NFL draft.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-19T08:04:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/75-824-pack-mile-high-stadium-for-mls-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/75-824-pack-mile-high-stadium-for-mls-game",
+      "title": "75,824 pack Mile High Stadium for MLS game",
+      "body_text": "Three weeks ago, more than 63,000 fans showed up at Mile High Stadium for the debut of the Denver Summit of the NWSL.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-19T04:00:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mile High",
+        "Denver Summit"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-trade-dexter-lawrence-to-the-bengals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-trade-dexter-lawrence-to-the-bengals",
+      "title": "Giants agree to trade Dexter Lawrence to the Bengals",
+      "body_text": "A new deal is expected to happen, sooner than later.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-19T00:41:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-now-have-two-picks-in-the-top-ten-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-now-have-two-picks-in-the-top-ten-again",
+      "title": "Giants now have two picks in the top ten, again",
+      "body_text": "Once the Dexter Lawrence trade is finalized, the Giants will have two picks in the top 10 of the NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-19T01:11:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kordell-stewart-would-like-to-join-the-colorado-coaching-staff",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kordell-stewart-would-like-to-join-the-colorado-coaching-staff",
+      "title": "Kordell Stewart would like to join the Colorado coaching staff",
+      "body_text": "Former Colorado quarterback Kordell Stewart, who spent 11 years in the NFL after a 1994 Hail Mary to beat Michigan became one of the great plays in college football history, would like to return to Boulder as a member of Deion Sanders's coaching staff.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-19T00:33:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kordell Stewart",
+        "Former Colorado",
+        "Hail Mary",
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0015700",
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-to-exercise-fifth-year-option-on-og-peter-skoronskis-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-to-exercise-fifth-year-option-on-og-peter-skoronskis-contract",
+      "title": "Titans to exercise fifth-year option on OG Peter Skoronski's contract",
+      "body_text": "The Titans will exercise the fifth-year option on the contract of left guard Peter Skoronski, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-18T23:54:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Peter Skoronski",
+        "The Titans",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-ditches-rule-that-decided-ot-game-on-a-penalty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-ditches-rule-that-decided-ot-game-on-a-penalty",
+      "title": "UFL ditches rule that decided OT game on a penalty",
+      "body_text": "Last weekend, a UFL game between the Orlando Storm and the Louisville Kings ended during an overtime shootout on a penalty, thanks to a quirk in the rules that awards a conversion after a second overtime foul is committed by the defense.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-18T17:24:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Orlando Storm",
+        "Louisville Kings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/an-odd-ufl-rule-results-in-a-louisville-penalty-awarding-the-game-to-orlando",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/an-odd-ufl-rule-results-in-a-louisville-penalty-awarding-the-game-to-orlando",
+      "title": "An odd UFL rule results in a Louisville penalty awarding the game to Orlando",
+      "body_text": "In the UFL, if the defense commits two penalties in overtime, the second penalty results in a score for the offense.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-11T08:22:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-havent-given-up-on-keeping-dexter-lawrence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-havent-given-up-on-keeping-dexter-lawrence",
+      "title": "Giants haven't given up on keeping Dexter Lawrence",
+      "body_text": "Giants defensive tackle Dexter Lawrence wants out.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-18T16:22:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-cardinals-currently-have-no-obvious-plan-at-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-cardinals-currently-have-no-obvious-plan-at-quarterback",
+      "title": "The Cardinals currently have no obvious plan at quarterback",
+      "body_text": "Most teams have a clear starting quarterback, obvious contenders for the job, or (at a minimum) concepts of a plan for the position.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-18T15:49:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-wants-to-expand-its-relationship-with-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-wants-to-expand-its-relationship-with-the-nfl",
+      "title": "Netflix wants to expand its relationship with the NFL",
+      "body_text": "Netflix has dipped its toe into the NFL ocean with a pair of Christmas games over the past two seasons.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-18T14:52:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-foles-a-j-brown-wants-to-be-traded",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-foles-a-j-brown-wants-to-be-traded",
+      "title": "Nick Foles: A.J. Brown wants to be traded",
+      "body_text": "Nick Foles is a beloved figure in Philly.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-17T16:54:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Foles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alshon-jeffery-denies-allegations-of-insurance-fraud",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alshon-jeffery-denies-allegations-of-insurance-fraud",
+      "title": "Alshon Jeffery denies allegations of insurance fraud",
+      "body_text": "Former Bears and Eagles receiver Alshon Jeffery has denied allegations in California of insurance fraud.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-18T14:07:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alshon Jeffery",
+        "Former Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-its-not-reviewing-the-mike-vrabel-dianna-russini-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-its-not-reviewing-the-mike-vrabel-dianna-russini-situation",
+      "title": "NFL says it's not reviewing the Mike Vrabel-Dianna Russini situation",
+      "body_text": "In the aftermath of Russini's resignation, Vrabel continues to avoid scrutiny.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-18T13:40:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/doj-expands-antitrust-probe-to-include-mlb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/doj-expands-antitrust-probe-to-include-mlb",
+      "title": "DOJ expands antitrust probe to include MLB",
+      "body_text": "The NFL isn't the only league that enjoys an antitrust exemption for its broadcasting rights.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-18T12:52:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arvell-reese-is-the-betting-favorite-to-be-drafted-no-2-overall",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arvell-reese-is-the-betting-favorite-to-be-drafted-no-2-overall",
+      "title": "Arvell Reese is the betting favorite to be drafted No. 2 overall",
+      "body_text": "There's no suspense about who the No. 1 overall pick in the 2026 NFL draft will be, as the Raiders haven't hidden their plans to take Indiana quarterback Fernando Mendoza.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-18T11:00:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arvell Reese",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-nil-leads-to-older-players-in-the-draft-i-dont-think-thats-a-good-thing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-nil-leads-to-older-players-in-the-draft-i-dont-think-thats-a-good-thing",
+      "title": "Eric DeCosta: NIL leads to older players in the draft, I don't think that's a good thing",
+      "body_text": "\"That's problematic for us because guys are coming in older they've probably got less upside,\" DeCosta said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-18T08:24:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-has-spent-offseason-working-with-george-pickens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-has-spent-offseason-working-with-george-pickens",
+      "title": "Dak Prescott has spent offseason working with George Pickens",
+      "body_text": "Last month, Dak Prescott gave teammate George Pickens some advice about the Cowboys placing the franchise tag on him.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-18T02:23:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dak Prescott",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/foot-scanning-cleared-up-jaxon-smith-njigbas-hamstring-issues",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/foot-scanning-cleared-up-jaxon-smith-njigbas-hamstring-issues",
+      "title": "Foot scanning cleared up Jaxon Smith-Njigba's hamstring issues",
+      "body_text": "Seahawks wide receiver Jaxon Smith-Njigba played only three games in his final season at Ohio State due to hamstring issues.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-17T23:37:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxon Smith",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dianna-russini-mike-vrabel-coordinated-on-how-to-respond-to-new-york-post-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dianna-russini-mike-vrabel-coordinated-on-how-to-respond-to-new-york-post-report",
+      "title": "Report: Dianna Russini, Mike Vrabel \"coordinated\" on how to respond to New York Post report",
+      "body_text": "Despite being the biggest story in the NFL for 10 days and counting, the photos of Patriots coach Mike Vrabel with former Athletic reporter Dianna Russini have been ignored by most mainstream media outlets.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-17T23:15:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dianna Russini",
+        "Mike Vrabel",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/asu-wr-jordyn-tyson-solidifies-first-round-draft-status-in-front-of-20-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/asu-wr-jordyn-tyson-solidifies-first-round-draft-status-in-front-of-20-teams",
+      "title": "ASU WR Jordyn Tyson solidifies first-round draft status in front of 20 teams",
+      "body_text": "Arizona State wide receiver Jordyn Tyson finally had his private workout for NFL teams on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-17T21:12:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordyn Tyson",
+        "Arizona State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-ots-rashawn-slater-joe-alt-ahead-of-schedule-in-their-rehab",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-ots-rashawn-slater-joe-alt-ahead-of-schedule-in-their-rehab",
+      "title": "Chargers OTs Rashawn Slater, Joe Alt ahead of schedule in their rehab",
+      "body_text": "Chargers offensive tackles Rashawn Slater and Joe Alt are working their way back from injuries that prematurely ended their season in 2025.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-17T22:01:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashawn Slater",
+        "Joe Alt"
+      ],
+      "resolved_player_ids": [
+        "00-0037009"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-waive-te-mccallan-castles-cb-tyron-herring-lb-jamon-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-waive-te-mccallan-castles-cb-tyron-herring-lb-jamon-johnson",
+      "title": "Packers waive TE McCallan Castles, CB Tyron Herring, LB Jamon Johnson",
+      "body_text": "The Packers cleared some space on their 90-man roster ahead of next week's draft.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-17T20:09:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyron Herring",
+        "Jamon Johnson",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0040038"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-announce-trade-for-ruke-orhorhoro-waive-ol-cooper-hodges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-announce-trade-for-ruke-orhorhoro-waive-ol-cooper-hodges",
+      "title": "Jaguars announce trade for Ruke Orhorhoro, waive OL Cooper Hodges",
+      "body_text": "The Jaguars have officially traded for defensive tackle Ruke Orhorhoro.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-17T19:50:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ruke Orhorhoro",
+        "Cooper Hodges",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0038630"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-gm-john-spytek-on-scouting-the-ufl-when-theres-football-on-were-watching",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-gm-john-spytek-on-scouting-the-ufl-when-theres-football-on-were-watching",
+      "title": "Raiders GM John Spytek on scouting the UFL: When there's football on, we're watching",
+      "body_text": "The United Football League hasn't generated much interest from football fans, but NFL scouts are watching.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-17T19:11:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Spytek",
+        "The United",
+        "Football League"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-agree-to-trade-dt-ruke-orhorhoro-to-jaguars-for-dt-maason-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-agree-to-trade-dt-ruke-orhorhoro-to-jaguars-for-dt-maason-smith",
+      "title": "Falcons agree to trade DT Ruke Orhorhoro to Jaguars for DT Maason Smith",
+      "body_text": "The Falcons and Jaguars have agreed to a swap of defensive linemen.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-17T19:01:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ruke Orhorhoro",
+        "Maason Smith",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    }
+  ]
+}

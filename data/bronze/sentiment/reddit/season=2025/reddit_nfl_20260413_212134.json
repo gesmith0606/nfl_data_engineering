@@ -1,0 +1,449 @@
+{
+  "fetch_run_id": "c63546f2-a193-4f79-aa12-a7b3beef077a",
+  "source": "reddit_nfl",
+  "fetched_at": "2026-04-13T21:21:34.516901+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 25,
+  "items": [
+    {
+      "external_id": "1sknv17",
+      "url": "https://www.reddit.com/r/nfl/comments/1sknv17/draft_quality_for_texans/",
+      "permalink": "/r/nfl/comments/1sknv17/draft_quality_for_texans/",
+      "title": "Draft quality for Texans",
+      "body_text": "Reviewing draft ratings on Draftek, I found the following.  -1-The Texans have four picks from 28-69.  -2- Out of the first 69 player ratings, if you eliminate CB, S, QB, Edge, and WR, there are 30 top 69 players and the Texans pick 4 of these.  That is one out of every 7. They gave up Tunsil and last years 1st round pick to get there.  That seems pretty good to me.  ",
+      "author": "Turbulent_End_6887",
+      "published_at": "2026-04-13T20:59:03+00:00",
+      "source": "reddit_nfl",
+      "score": 0,
+      "num_comments": 15,
+      "candidate_names": [
+        "Texans Reviewing",
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "1skn9h6",
+      "url": "https://www.si.com/nfl/49ers/onsi/news/round-has-been-goldmine-49ers-under-kyle-shanahan",
+      "permalink": "/r/nfl/comments/1skn9h6/cheal_the_fifth_round_has_been_a_goldmine_for_the/",
+      "title": "[Cheal] The Fifth Round Has Been a Goldmine for the 49ers Under Kyle Shanahan",
+      "body_text": "",
+      "author": "Brix001",
+      "published_at": "2026-04-13T20:38:05+00:00",
+      "source": "reddit_nfl",
+      "score": 0,
+      "num_comments": 13,
+      "candidate_names": [
+        "The Fifth",
+        "Round Has",
+        "Under Kyle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "1skn0v2",
+      "url": "https://v.redd.it/q99crxiln0vg1",
+      "permalink": "/r/nfl/comments/1skn0v2/highlights_gronk_has_a_career_day_vs_the_steelers/",
+      "title": "[highlights] Gronk has a career day vs the Steelers (week 15, 2017)",
+      "body_text": "People often forget that Gronk was Brady's chunk play guy for most of his career, and not a possession type receiver.",
+      "author": "Cold-Teaching8924",
+      "published_at": "2026-04-13T20:30:01+00:00",
+      "source": "reddit_nfl",
+      "score": 90,
+      "num_comments": 90,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "1skn0pt",
+      "url": "https://v.redd.it/g4077j3ep0vg1",
+      "permalink": "/r/nfl/comments/1skn0pt/highlight_texans_gm_nick_caserio_on_exercising_cj/",
+      "title": "[Highlight] Texans GM Nick Caserio on Exercising C.J. Stroud's 5th-Year Option: “I don’t want to say it was a no-brainer, but it was kind of a no-brainer. Glad he’s here. Again, it’s more part of the process.\"",
+      "body_text": "“I don’t really think it affects his future,” Nick Caserio said, via video from Aaron Wilson of KPRC. “I mean, he’s our Quarterback. We’ve said that from the beginning. \\[Head Coach\\] DeMeco \\[Ryans\\] and I have both said it. I think it was more of a procedural thing. I don’t want to say it was a no-brainer, but it was kind of a no-brainer. Glad he’s here. Again, it’s more part of the process.",
+      "author": "JCameron181",
+      "published_at": "2026-04-13T20:29:53+00:00",
+      "source": "reddit_nfl",
+      "score": 23,
+      "num_comments": 50,
+      "candidate_names": [
+        "Nick Caserio",
+        "Year Option",
+        "Aaron Wilson",
+        "Head Coach"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "1skl4tl",
+      "url": "https://bsky.app/profile/nflnewsposter.bsky.social/post/3mjfkyuzcu52v",
+      "permalink": "/r/nfl/comments/1skl4tl/schultz_sources_the_giants_hosted_veteran_dt_dj/",
+      "title": "[Schultz] Sources: The Giants hosted veteran DT D.J. Reader for a visit today. Reader, who also recently visited the Ravens, has started 128 career games and has been a consistent presence on the interior.",
+      "body_text": "",
+      "author": "JCameron181",
+      "published_at": "2026-04-13T19:25:06+00:00",
+      "source": "reddit_nfl",
+      "score": 48,
+      "num_comments": 21,
+      "candidate_names": [
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "1skkbfg",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-ertz-i-dont-want-torn-acl-to-be-my-last-play",
+      "permalink": "/r/nfl/comments/1skkbfg/zach_ertz_i_dont_want_torn_acl_to_be_my_last_play/",
+      "title": "Zach Ertz: I don’t want torn ACL to be my last play",
+      "body_text": "",
+      "author": "AdSpecialist6598",
+      "published_at": "2026-04-13T18:57:17+00:00",
+      "source": "reddit_nfl",
+      "score": 221,
+      "num_comments": 53,
+      "candidate_names": [
+        "Zach Ertz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1skjrb4",
+      "url": "https://youtu.be/KFdI93i571c?si=eINmUFk4RIfBmY3N",
+      "permalink": "/r/nfl/comments/1skjrb4/highlight_the_longest_touchdown_in_green_bay/",
+      "title": "[Highlight] The longest touchdown in Green Bay Packers history",
+      "body_text": "",
+      "author": "AlbertJBundy",
+      "published_at": "2026-04-13T18:37:42+00:00",
+      "source": "reddit_nfl",
+      "score": 6,
+      "num_comments": 5,
+      "candidate_names": [
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "1skjhxj",
+      "url": "https://v.redd.it/72k1xlpr30vg1",
+      "permalink": "/r/nfl/comments/1skjhxj/highlight_patriots_evp_eliot_wolf_answers_the/",
+      "title": "[Highlight] Patriots EVP Eliot Wolf Answers the Only Vrabel-Related Question Asked On How Vrabel Is Involved With Pre-Draft Meetings",
+      "body_text": "",
+      "author": "JCameron181",
+      "published_at": "2026-04-13T18:28:33+00:00",
+      "source": "reddit_nfl",
+      "score": 137,
+      "num_comments": 101,
+      "candidate_names": [
+        "Eliot Wolf",
+        "Only Vrabel",
+        "Related Question",
+        "On How",
+        "Is Involved",
+        "With Pre",
+        "Draft Meetings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "1skjhxd",
+      "url": "https://www.theguardian.com/sport/2026/apr/13/former-nfl-cornerback-chris-payton-jones-dies-at-30-everyone-loved-him",
+      "permalink": "/r/nfl/comments/1skjhxd/former_nfl_cornerback_chris_paytonjones_dies_at_30/",
+      "title": "Former NFL cornerback Chris Payton-Jones dies at 30",
+      "body_text": "",
+      "author": "CrispyCracklin",
+      "published_at": "2026-04-13T18:28:33+00:00",
+      "source": "reddit_nfl",
+      "score": 611,
+      "num_comments": 50,
+      "candidate_names": [
+        "Chris Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1skixwk",
+      "url": "https://www.reddit.com/r/nfl/comments/1skixwk/since_the_year_2000_only_1_qb_drafted_1_overall/",
+      "permalink": "/r/nfl/comments/1skixwk/since_the_year_2000_only_1_qb_drafted_1_overall/",
+      "title": "Since the year 2000 only 1 QB drafted #1 overall has won the superbowl with their original team",
+      "body_text": "The only qb to be drafted 1 and win a Super bowl with their original team is Eli Manning which is funny because “technically” his original team is the chargers but I decided that doesn’t count.  The only other #1 over all pick that’s a qb to win a Super Bowl is stafford but he did it with the rams not the team that drafted him.\n\nThe point here is getting the #1 overall pick even for a generational qb talent rarely if ever will result in a Super Bowl win.  It is much more important you have a competent organization than it is to pick at the top of the draft.",
+      "author": "officelinebakr",
+      "published_at": "2026-04-13T18:09:30+00:00",
+      "source": "reddit_nfl",
+      "score": 169,
+      "num_comments": 177,
+      "candidate_names": [
+        "Eli Manning",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1skidw8",
+      "url": "https://www.youtube.com/watch?v=qE3YlEIjq-I&amp;t=27s",
+      "permalink": "/r/nfl/comments/1skidw8/highlight_arian_foster_torches_the_colts_for_231/",
+      "title": "[Highlight] Arian Foster torches the Colts for 231 yards and 3 TDs",
+      "body_text": "",
+      "author": "The_New_New",
+      "published_at": "2026-04-13T17:50:48+00:00",
+      "source": "reddit_nfl",
+      "score": 22,
+      "num_comments": 17,
+      "candidate_names": [
+        "Arian Foster"
+      ],
+      "resolved_player_ids": [
+        "00-0026796"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "1ski73d",
+      "url": "https://v.redd.it/ce6kiwmkvzug1",
+      "permalink": "/r/nfl/comments/1ski73d/highlight_desean_jackson_somehow_takes_this_punt/",
+      "title": "[Highlight] DeSean Jackson somehow takes this punt for a 72 yard touchdown against the Giants.",
+      "body_text": "",
+      "author": "No_Medium22",
+      "published_at": "2026-04-13T17:44:19+00:00",
+      "source": "reddit_nfl",
+      "score": 409,
+      "num_comments": 69,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "1skhqj9",
+      "url": "https://www.youtube.com/watch?v=IFGGCwR7U6s",
+      "permalink": "/r/nfl/comments/1skhqj9/highlight_curtis_martins_2_td_134yd_day_vs/",
+      "title": "[Highlight] Curtis Martin's 2 TD, 134-YD Day vs. Seahawks in 2004",
+      "body_text": "",
+      "author": "No-Penalty1722",
+      "published_at": "2026-04-13T17:28:42+00:00",
+      "source": "reddit_nfl",
+      "score": 25,
+      "num_comments": 7,
+      "candidate_names": [
+        "Curtis Martin"
+      ],
+      "resolved_player_ids": [
+        "00-0010442"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "1skgk0a",
+      "url": "https://v.redd.it/fs31wk39lzug1",
+      "permalink": "/r/nfl/comments/1skgk0a/highlight_davis_mills_with_the_goahead_td_run_vs/",
+      "title": "[Highlight] Davis Mills with the go-ahead TD run vs the Jaguars. Texans scored 26 unanswered in the 4th quarter",
+      "body_text": "",
+      "author": "The_New_New",
+      "published_at": "2026-04-13T16:48:39+00:00",
+      "source": "reddit_nfl",
+      "score": 176,
+      "num_comments": 70,
+      "candidate_names": [
+        "Davis Mills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "1skfzvz",
+      "url": "https://v.redd.it/y1xl9psdizug1",
+      "permalink": "/r/nfl/comments/1skfzvz/highlight_10year_nfl_veteran_wr_mohamed_sanu/",
+      "title": "[Highlight] 10-year NFL veteran WR Mohamed Sanu explains how to read zone coverage",
+      "body_text": "",
+      "author": "nfl",
+      "published_at": "2026-04-13T16:29:35+00:00",
+      "source": "reddit_nfl",
+      "score": 3307,
+      "num_comments": 232,
+      "candidate_names": [
+        "Mohamed Sanu"
+      ],
+      "resolved_player_ids": [
+        "00-0029632"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1skfg3u",
+      "url": "https://youtu.be/2NCtZYe6yY4?si=sHTFbXfComJXiwEu",
+      "permalink": "/r/nfl/comments/1skfg3u/highlight_1991_the_raiders_block_an_xp_and_fg_to/",
+      "title": "[Highlight] 1991- The Raiders block an XP and FG to win by 1 point at Denver",
+      "body_text": "",
+      "author": "AlbertJBundy",
+      "published_at": "2026-04-13T16:10:38+00:00",
+      "source": "reddit_nfl",
+      "score": 28,
+      "num_comments": 5,
+      "candidate_names": [
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "1skfcf4",
+      "url": "https://bsky.app/profile/davebirkett.bsky.social/post/3mjf6xxldwk2z",
+      "permalink": "/r/nfl/comments/1skfcf4/birkett_lions_gm_brad_holmes_in_his_predraft_news/",
+      "title": "[Birkett] Lions GM Brad Holmes in his pre-draft news conference on Rueben Bain after the reports Bain was involved in a fatal accident a couple years ago: \"We’ve known that for a while so that doesn’t really change anything from our standpoint.\"",
+      "body_text": "",
+      "author": "Goosedukee",
+      "published_at": "2026-04-13T16:07:01+00:00",
+      "source": "reddit_nfl",
+      "score": 711,
+      "num_comments": 157,
+      "candidate_names": [
+        "Brad Holmes",
+        "Rueben Bain"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "1skeucs",
+      "url": "https://www.reddit.com/r/nfl/comments/1skeucs/what_team_would_be_the_least_expected_to_perform/",
+      "permalink": "/r/nfl/comments/1skeucs/what_team_would_be_the_least_expected_to_perform/",
+      "title": "What team would be the LEAST expected to perform well in the next season?",
+      "body_text": "I feel like either the raiders or the jets will still be the worst teams in the NFL. Both teams struggle with a lot of dead cap space. And even though they will be drafting high, I still don't think they will be able to rebuild enough to perform even slightly better. What are your toughts?",
+      "author": "AKA_Bokoeyonce",
+      "published_at": "2026-04-13T15:49:45+00:00",
+      "source": "reddit_nfl",
+      "score": 0,
+      "num_comments": 67,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1skcpnc",
+      "url": "https://v.redd.it/2rmz7qnyxyug1",
+      "permalink": "/r/nfl/comments/1skcpnc/highlight_aj_brown_drops_a_3rd_down_conversion/",
+      "title": "[Highlight] AJ Brown drops a 3rd down conversion",
+      "body_text": "",
+      "author": "Brix001",
+      "published_at": "2026-04-13T14:36:53+00:00",
+      "source": "reddit_nfl",
+      "score": 709,
+      "num_comments": 283,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1skcg4f",
+      "url": "https://www.reddit.com/r/nfl/comments/1skcg4f/the_day_before_the_1946_nfl_championship_game_a/",
+      "permalink": "/r/nfl/comments/1skcg4f/the_day_before_the_1946_nfl_championship_game_a/",
+      "title": "The day before the 1946 NFL Championship game a story broke that 2 Giants players including QB Frank Filchock were offered bribes to lose to the Bears by at least 10 points. Filchock was allowed to play but threw 6 INTs as the Giants lost by exactly 10 points.",
+      "body_text": "https://en.wikipedia.org/wiki/Frank_Filchock\n\nThere was no evidence that Filchock had accepted or even been offered the bribe. It later came out that a bet had been placed in his name for the Giants to win their final game of the '46 season and he had reluctantly accepted the winnings. He was suspended for the next 3 years ('47-49)\n\nFilchock was a rising star who had split time with Sammy Baugh in Washington before being traded to the Giants and had twice led the league in TD passes (11 in '39 and 14 in '44) but had led the league with 25 INTs in his only year with the Giants. He would go on to play and coach in the CFL but only played one more NFL game (in 1950 with the original Colts franchise after his suspension was lifted). He would later be the first head coach in Broncos history.",
+      "author": "TallEnoughJones",
+      "published_at": "2026-04-13T14:27:32+00:00",
+      "source": "reddit_nfl",
+      "score": 159,
+      "num_comments": 14,
+      "candidate_names": [
+        "Frank Filchock",
+        "Sammy Baugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "1skc09n",
+      "url": "https://v.redd.it/hti0czcutyug1",
+      "permalink": "/r/nfl/comments/1skc09n/highlight_the_cowboys_score_33_unanswered_on_the/",
+      "title": "[Highlight] The Cowboys score 33 unanswered on the Colts in the 4th quarter. Dallas wins 54-19",
+      "body_text": "",
+      "author": "DragonstormSTL",
+      "published_at": "2026-04-13T14:11:31+00:00",
+      "source": "reddit_nfl",
+      "score": 227,
+      "num_comments": 50,
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "1skbq3c",
+      "url": "https://www.reddit.com/r/nfl/comments/1skbq3c/weekend_wrapup/",
+      "permalink": "/r/nfl/comments/1skbq3c/weekend_wrapup/",
+      "title": "Weekend Wrapup",
+      "body_text": "Welcome to today's open thread, where r/nfl users can discuss anything they wish not related directly to the Taylor Swift.\n\nWant to talk about personal life? Cool things about your fandom? Whatever happens to be dominating today's news cycle? Do you have something to talk about that didn't warrant its own thread? This is the place for it!\n\nRemember, that there are other subreddits that may be a good fit for what you want to post - every day all day!\n\n* r/NFLFandom for showing off your fandom\n* r/NFL_Draft for talking in depth about the draft\n* r/NFLNoobs for noob questions, no judgment\n* r/nflblogs for posting blog posts - including your own\n* r/nflofftopic for talking about anything with NFL fans\n* r/nfffffffluuuuuuuuuuuu for all kinds of humor posts\n* r/nflcirclejerk for when r/nfl just becomes too much\n* ... and more - see the sidebar!",
+      "author": "AutoModerator",
+      "published_at": "2026-04-13T14:01:26+00:00",
+      "source": "reddit_nfl",
+      "score": 28,
+      "num_comments": 684,
+      "candidate_names": [
+        "Weekend Wrapup",
+        "Taylor Swift"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1skb5vl",
+      "url": "https://www.youtube.com/watch?v=LzNOYmqPhtg",
+      "permalink": "/r/nfl/comments/1skb5vl/youtube_craziest_nfl_fights/",
+      "title": "[Youtube] Craziest NFL Fights",
+      "body_text": "",
+      "author": "mrizvi",
+      "published_at": "2026-04-13T13:40:38+00:00",
+      "source": "reddit_nfl",
+      "score": 8,
+      "num_comments": 26,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sk9hvy",
+      "url": "https://jaguarswire.usatoday.com/story/sports/nfl/jaguars/2026/04/12/jaguars-travis-hunter-responds-reports-playing-time/89580157007/",
+      "permalink": "/r/nfl/comments/1sk9hvy/jaguars_travis_hunter_responds_to_reports_about/",
+      "title": "Jaguars' Travis Hunter responds to reports about his playing time",
+      "body_text": "\"But when he comes back, and this is something that our Cam Wolfe has told us over the last several weeks,\" Rapoport said, via Jaguars on SI. \"they expect him to be a full-time corner, part-time receiver, which, when you talk to teams last year, that probably was where they thought the value was and really where they thought the production would lie.\"\n\nHunter replied to Rapoport's post on X, saying, \"Now who told you this?\"",
+      "author": "Roselucky777",
+      "published_at": "2026-04-13T12:34:28+00:00",
+      "source": "reddit_nfl",
+      "score": 444,
+      "num_comments": 123,
+      "candidate_names": [
+        "Travis Hunter",
+        "Cam Wolfe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "1sk9gxe",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-everyone-says-youll-get-back-to-super-bowl-its-not-that-easy",
+      "permalink": "/r/nfl/comments/1sk9gxe/drake_maye_everyone_says_youll_get_back_to_super/",
+      "title": "Drake Maye: Everyone says you’ll get back to Super Bowl, it’s not that easy",
+      "body_text": "",
+      "author": "AdSpecialist6598",
+      "published_at": "2026-04-13T12:33:20+00:00",
+      "source": "reddit_nfl",
+      "score": 2181,
+      "num_comments": 711,
+      "candidate_names": [
+        "Drake Maye",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+{
+  "fetch_run_id": "f76cacb6-2844-4080-b8a1-daf628036981",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-04-19T15:36:12.979928+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 26,
+  "items": [
+    {
+      "external_id": "US-EN-48479903",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48479903/2026-nfl-draft-jeff-legwold-ranking-top-100-prospects",
+      "title": "The Leggy 100: An annual ranking of the best players in the NFL draft class",
+      "body_text": "Jeff Legwold reveals his list of top NFL draft prospects for 2026, which is based purely on talent. Who is No. 1 on this year's Leggy 100?",
+      "author": "Jeff Legwold",
+      "published_at": "2026-04-19T16:27:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Leggy",
+        "Jeff Legwold"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48521984",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48521984/2026-nfl-draft-mel-kiper-favorite-prospects-every-position-class-sleepers",
+      "title": "Kiper's favorites: 15 players who will outperform their draft slot",
+      "body_text": "Mel Kiper Jr.'s annual list of NFL draft favorites includes two speedy receivers, three undersized cornerbacks.",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-19T16:27:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48526634",
+      "url": "https://www.espn.com/nfl/story/_/id/48526634/sources-giants-trade-dt-lawrence-bengals-no-10-pick",
+      "title": "Sources: Giants trade Lawrence for Bengals pick",
+      "body_text": "The Giants are trading defensive tackle Dexter Lawrence to the Bengals in a deal for the No. 10 pick in next week's NFL draft, sources told ESPN.",
+      "author": "Ben Baby",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Giants",
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-48525392",
+      "url": "https://www.espn.com/nfl/story/_/id/48525392/titans-exercise-fifth-year-option-peter-skoronski-rookie-deal",
+      "title": "Source: Titans using 5th-year option on Skoronski",
+      "body_text": "The Tennessee Titans are exercising the fifth-year option for right guard Peter Skoronski, a source told ESPN's Jeremy Fowler on Saturday.",
+      "author": "Turron Davenport",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Skoronski The",
+        "Tennessee Titans",
+        "Peter Skoronski",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "US-EN-48514053",
+      "url": "https://www.espn.com/nfl/story/_/id/48514053/texans-anderson-agree-3-year-150-million-extension",
+      "title": "Source: Texans, Anderson agree to $150M deal",
+      "body_text": "Texans and All-Pro defensive end Will Anderson Jr. have agreed to a historic three-year, $150 million extension to make him the highest-paid non-quarterback, a source told ESPN's Adam Schefter.",
+      "author": "DJ Bien-Aime",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Anderson Jr",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "US-EN-48514446",
+      "url": "https://www.espn.com/nfl/story/_/id/48514446/cardinals-jacoby-brissett-not-offseason-program",
+      "title": "Sources: Brissett not at Cards' offseason program",
+      "body_text": "Cardinals incumbent starting quarterback Jacoby Brissett has not been in attendance for the start of the team's offseason program as he waits for a new deal, sources told NFL Network.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "US-EN-48512386",
+      "url": "https://www.espn.com/nfl/story/_/id/48512386/harbaugh-practices-why-ravens-had-lot-injuries",
+      "title": "WR Flowers: Harbaugh's practices led to injuries",
+      "body_text": "Ravens wideout Zay Flowers says \"heavy\" practices under former coach John Harbaugh were the reason Baltimore \"had a lot of injuries\" last season.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Zay Flowers",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-48514836",
+      "url": "https://www.espn.com/nfl/story/_/id/48514836/sources-falcons-trading-dt-orhorhoro-jaguars-dt-smith",
+      "title": "Falcons trade DT Orhorhoro for Jags DT Smith",
+      "body_text": "The Falcons have traded DT Ruke Orhorhoro to the Jaguars for DT Maason Smith. Both players were selected in the second round of the 2024 draft.",
+      "author": "Michael Dirocco",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Smith The",
+        "Ruke Orhorhoro",
+        "Maason Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48504890",
+      "url": "https://www.espn.com/nfl/story/_/id/48504890/report-penix-njoku-mckinney-targets-ex-bama-de-fraud",
+      "title": "Report: Penix, Njoku among targets used in fraud",
+      "body_text": "A former Alabama defensive end is accused of using wigs and fake IDs to impersonate NFL players to secure nearly $20 million in fraudulent loans, with a report identifying Michael Penix Jr., David Njoku and Xavier McKinney as the targeted players.",
+      "author": "Michael Rothstein",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Michael Penix Jr",
+        "David Njoku"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48505918",
+      "url": "https://www.espn.com/nfl/story/_/id/48505918/chargers-gm-joe-hortiz-shuts-quentin-johnston-trade-rumors",
+      "title": "Chargers GM shuts down Johnston trade rumors",
+      "body_text": "Chargers general manager Joe Hortiz shut down trade rumors surrounding wide receiver Quentin Johnston on Thursday.",
+      "author": "Kris Rhim",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Joe Hortiz",
+        "Quentin Johnston"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "US-EN-48443025",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48443025/2026-nfl-draft-risers-prospects-freeling-thieneman-iheanachor",
+      "title": "⬆ Players who have boosted their draft stock",
+      "body_text": "Dillon Thieneman and Monroe Freeling have drastically boosted their stock since the start of last season. Who else has climbed the board?",
+      "author": "Jeff Legwold",
+      "published_at": "2026-04-19T14:02:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Dillon Thieneman",
+        "Monroe Freeling"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48494162",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48494162/2026-nfl-draft-32-teams-positions-picks-grades-predictions-needs-solak",
+      "title": "How all 32 teams can crush the NFL draft",
+      "body_text": "Ben Solak hits the top priorities for every single team -- and the prospects who can meet those needs.",
+      "author": "Ben Solak",
+      "published_at": "2026-04-19T14:17:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ben Solak"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48527148",
+      "url": "https://www.espn.com/nfl/story/_/id/48527148/2026-nfl-trade-dexter-lawrence-bengals-giants-first-round-draft-pick-takeaways",
+      "title": "The fallout of a stunning Dexter Lawrence trade: Four takeaways on the NFL draft, the Bengals, more",
+      "body_text": "The Giants traded Lawrence to the Bengals for the No. 10 pick in the draft. What does that say about the NFL's trade market, this draft class and the state of the Bengals?",
+      "author": "Bill Barnwell",
+      "published_at": "2026-04-19T07:04:53+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Dexter Lawrence",
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-47911726",
+      "url": "https://www.espn.com/nfl/story/_/id/47911726/2026-nfl-free-agency-grades-signings-trades-latest-best-worst-deals-draft-outlook",
+      "title": "How did the Bengals, Giants do in the Dexter Lawrence II trade?",
+      "body_text": "We're handing out report cards on big moves, including the Giants trading Dexter Lawrence II to the Bengals.",
+      "author": "Seth Walder and Ben Solak",
+      "published_at": "2026-04-19T07:04:53+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Dexter Lawrence II"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-48514923",
+      "url": "https://www.espn.com/nfl/story/_/id/48514923/new-york-jets-first-round-picks-jimmy-johnson-advice",
+      "title": "Why Jimmy Johnson cautions Jets that making right picks more valuable than stockpiling them",
+      "body_text": "With eight picks in the first and second rounds, New York sits where the former Cowboys coach was 35 years ago.",
+      "author": "Rich Cimini",
+      "published_at": "2026-04-19T12:31:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Jimmy",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48483888",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48483888/2026-nfl-draft-wide-receiver-carnell-tate-ohio-state-first-round-pick",
+      "title": "Forget the 40: The true measure of Carnell Tate",
+      "body_text": "Wide receiver Carnell Tate is confident, intelligent and ready to star in the NFL. His mother made sure of it.",
+      "author": "Elizabeth Merrill",
+      "published_at": "2026-04-17T15:20:11+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48512053",
+      "url": "https://www.espn.com/nfl/story/_/id/48512053/dianna-russini-mike-vrabel-photos-athletic-patriots",
+      "title": "Inside the fallout of the Dianna Russini and Mike Vrabel photos",
+      "body_text": "How Dianna Russini and New England Patriots coach Mike Vrabel scrambled to respond to photos published in the New York Post.",
+      "author": "Ben Strauss",
+      "published_at": "2026-04-19T02:32:41+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Dianna Russini",
+        "Mike Vrabel",
+        "How Dianna",
+        "New England",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-48504635",
+      "url": "https://www.espn.com/nfl/story/_/id/48504635/nfl-draft-trade-jacksonville-jaguars-travis-hunter-cleveland-browns-mason-graham",
+      "title": "Who won the Jaguars-Browns draft-day trade for Travis Hunter?",
+      "body_text": "The Browns and Jags swapped picks in 2025 so Jacksonville could draft Hunter. Now, Cleveland has an extra first-rounder in 2026.",
+      "author": "Daniel Oyefusi and Michael DiRocco",
+      "published_at": "2026-04-19T12:18:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Travis Hunter",
+        "The Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-48496049",
+      "url": "https://www.espn.com/nfl/story/_/id/48496049/nfl-2026-draft-chris-jones-kansas-city-chiefs",
+      "title": "How a 'big argument' and lucky draft moves led to the Chiefs selecting Chris Jones",
+      "body_text": "A look back 10 years later at the selection of Jones, one of the most important picks in franchise history.",
+      "author": "Nate Taylor",
+      "published_at": "2026-04-16T18:34:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Chris Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0034641"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48507849",
+      "url": "https://www.espn.com/nfl/story/_/id/48507849/baltimore-ravens-unveil-new-uniforms-look-2026",
+      "title": "Out with the old, in with the new: Ravens unveil new uniforms",
+      "body_text": "The Ravens revamped their on-field look since 1999 with new uniforms after a process that took three years.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-04-17T12:29:10+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-48489288",
+      "url": "https://www.espn.com/nfl/story/_/id/48489288/washington-commanders-new-uniforms-2026",
+      "title": "Hail Raiser: Commanders roll out fresh uniforms with new alternate logo",
+      "body_text": "Washington's updated three-uniform set is headlined by the black \"Hail Raiser\" look with a new alternate logo.",
+      "author": "John Keim",
+      "published_at": "2026-04-17T12:29:10+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Hail Raiser"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-48476312",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48476312/2026-nfl-draft-prospects-fantasy-football-rookies",
+      "title": "10 NFL draft prospects to put on your fantasy radar -- and three others to monitor",
+      "body_text": "With the NFL draft nearly upon us, it's time to think about how the top prospects will fare in fantasy.",
+      "author": "Liz Loza",
+      "published_at": "2026-04-17T12:30:59+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48422631",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48422631/2026-fantasy-football-rankings-tight-end-te-profiles",
+      "title": "2026 fantasy football rankings: Profiles for more than 30 tight ends",
+      "body_text": "Mike Clay provides breakdowns of the top tight ends in fantasy football for the 2026 season.",
+      "author": "Mike Clay",
+      "published_at": "2026-04-17T12:30:59+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Clay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48507639",
+      "url": "https://www.espn.com/nfl/story/_/id/48507639/cards-name-starting-qb-ty-simpson-draft",
+      "title": "Cards won't name starting QB; will it be Ty Simpson?",
+      "body_text": "Jacoby Brissett and Gardner Minshew are on the roster, but draft speculation keeps linking Arizona with Simpson.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-04-17T04:15:11+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ty Simpson",
+        "Jacoby Brissett",
+        "Gardner Minshew"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48465658",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48465658/nfl-draft-2026-akheem-mesidor-miami-hurricanes",
+      "title": "Akheem Mesidor's long, long road to the NFL",
+      "body_text": "The Miami DE once struggled to make an impact in youth football. Now, he's a potential first-round pick.",
+      "author": "Andrea Adelson",
+      "published_at": "2026-04-17T04:15:11+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Akheem Mesidor",
+        "The Miami"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+{
+  "fetch_run_id": "dd3f3422-1026-4c70-a74b-d9c3bb1e002e",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-04-10T21:31:36.853409+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 20,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-malik-muhammad-lb-harold-perkins-visit-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-malik-muhammad-lb-harold-perkins-visit-steelers",
+      "title": "CB Malik Muhammad, LB Harold Perkins visit Steelers",
+      "body_text": "A couple of defensive players from the SEC had a pre-draft visit with the Steelers on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T20:45:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Muhammad",
+        "Harold Perkins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-exercise-bijan-robinsons-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-exercise-bijan-robinsons-fifth-year-option",
+      "title": "Falcons exercise Bijan Robinson's fifth-year option",
+      "body_text": "The Falcons have put one of their best players under contract for 2027.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-10T20:43:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-will-trade-wr-dontayvion-wicks-to-the-eagles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-will-trade-wr-dontayvion-wicks-to-the-eagles",
+      "title": "Packers will trade WR Dontayvion Wicks to the Eagles",
+      "body_text": "The Eagles have made a trade involving a wide receiver, but it does not involve A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T20:42:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dontayvion Wicks",
+        "Eagles The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klavon-chaisson-wants-to-be-the-missing-piece-for-the-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klavon-chaisson-wants-to-be-the-missing-piece-for-the-commanders",
+      "title": "K'Lavon Chaisson wants to be \"the missing piece\" for the Commanders",
+      "body_text": "The Commanders signed outside linebacker K'Lavon Chaisson to a one-year, $11 million deal this offseason.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-10T20:35:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lavon Chaisson",
+        "Commanders The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-could-be-headed-for-the-same-kind-of-chaos-as-college-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-could-be-headed-for-the-same-kind-of-chaos-as-college-football",
+      "title": "The NFL could be headed for the same kind of chaos as college football",
+      "body_text": "The current attack against the NFL's antitrust division can go in several different directions.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T20:19:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-quarterback-browning-nagle-dies-of-colon-cancer-at-age-57",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-quarterback-browning-nagle-dies-of-colon-cancer-at-age-57",
+      "title": "Former NFL quarterback Browning Nagle dies of colon cancer at age 57",
+      "body_text": "Browning Nagle, a Jets second-round draft pick who played quarterback in the NFL for six seasons, has died of colon cancer at the age of 57.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-10T19:20:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Browning Nagle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ol-chase-bisontis-visits-giants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ol-chase-bisontis-visits-giants",
+      "title": "OL Chase Bisontis visits Giants",
+      "body_text": "One of the top guards in this year's draft class is visiting with the Giants on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T18:56:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chase Bisontis",
+        "Giants One"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-bowen-joining-patriots-as-defensive-analyst",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-bowen-joining-patriots-as-defensive-analyst",
+      "title": "Shane Bowen joining Patriots as defensive analyst",
+      "body_text": "Shane Bowen is reuniting with Mike Vrabel.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-10T18:25:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shane Bowen",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-visiting-with-bills-on-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-visiting-with-bills-on-friday",
+      "title": "KC Concepcion visiting with Bills on Friday",
+      "body_text": "A busy week for receiver KC Concepcion is continuing on Friday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-10T18:05:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-returned-to-twitter-on-thursday-and-it-didnt-go-well",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-returned-to-twitter-on-thursday-and-it-didnt-go-well",
+      "title": "Dianna Russini returned to Twitter on Thursday, and it didn't go well",
+      "body_text": "The biggest story in the NFL continues to be the recent photos of, and the denials issued by, Patriots coach Mike Vrabel and New York Times reporter Dianna Russini.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-09T17:51:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dianna Russini",
+        "Mike Vrabel",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-vrabel-dianna-russini-photos-were-shopped-for-four-figures",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-vrabel-dianna-russini-photos-were-shopped-for-four-figures",
+      "title": "Report: Mike Vrabel-Dianna Russini photos were shopped for \"four figures\"",
+      "body_text": "There's a story behind the publication of compromising photos involving Patriots coach Mike Vrabel and New York Times reporter Dianna Russini.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T01:33:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Dianna Russini",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-joins-the-nfls-talks-with-the-nfl-referees-association",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-joins-the-nfls-talks-with-the-nfl-referees-association",
+      "title": "Jerry Jones joins the NFL's talks with the NFL Referees Association",
+      "body_text": "Thursday session was reportedly \"productive.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T17:51:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones",
+        "Referees Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-sign-dl-haggai-ndubuisi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-sign-dl-haggai-ndubuisi",
+      "title": "Buccaneers sign DL Haggai Ndubuisi",
+      "body_text": "The Buccaneers announced three signings on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T17:41:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Haggai Ndubuisi",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-visit-with-qb-jalon-daniels",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-visit-with-qb-jalon-daniels",
+      "title": "Patriots visit with QB Jalon Daniels",
+      "body_text": "The Patriots are set with starting quarterback Drake Maye, but they could use the draft to add a developmental prospect behind the 2024 first-round pick.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T17:36:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalon Daniels",
+        "The Patriots",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-jacob-rodriguez-visits-with-bengals-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-jacob-rodriguez-visits-with-bengals-friday",
+      "title": "LB Jacob Rodriguez visits with Bengals Friday",
+      "body_text": "The Bengals are doubling down on meetings with draft prospects on the defensive side of the ball on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T17:26:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacob Rodriguez",
+        "Bengals Friday",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/penner-sports-group-becomes-largest-minority-owner-of-mlbs-colorado-rockies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/penner-sports-group-becomes-largest-minority-owner-of-mlbs-colorado-rockies",
+      "title": "Penner Sports Group becomes largest minority owner of MLB's Colorado Rockies",
+      "body_text": "Broncos owners Carrie Walton Penner and Greg Penner are expanding their footprint in Denver sports.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-10T16:40:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Penner Sports",
+        "Colorado Rockies",
+        "Carrie Walton",
+        "Greg Penner"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/denzel-boston-adds-ravens-to-list-of-pre-draft-visits",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/denzel-boston-adds-ravens-to-list-of-pre-draft-visits",
+      "title": "Denzel Boston adds Ravens to list of pre-draft visits",
+      "body_text": "Wide receiver Denzel Boston has made a lot of visits around the league ahead of the draft and he is adding Baltimore to the list on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T15:46:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Denzel Boston"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-mccaskey-calls-bears-run-to-the-playoffs-great-miraculous-surreal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-mccaskey-calls-bears-run-to-the-playoffs-great-miraculous-surreal",
+      "title": "George McCaskey calls Bears' run to the playoffs \"great, miraculous, surreal\"",
+      "body_text": "Bears owner George McCaskey was pleased with the team's run to the playoffs last season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-10T15:30:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-to-host-wrs-ted-hurst-omar-cooper-on-pre-draft-visits",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-to-host-wrs-ted-hurst-omar-cooper-on-pre-draft-visits",
+      "title": "Saints to host WRs Ted Hurst, Omar Cooper on pre-draft visits",
+      "body_text": "The Saints have meetings with a couple of wide receivers on the docket for Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T15:26:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ted Hurst",
+        "Omar Cooper",
+        "The Saints"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-taylors-brother-gabe-makes-his-d-c-debut-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-taylors-brother-gabe-makes-his-d-c-debut-on-saturday",
+      "title": "Sean Taylor's brother, Gabe, makes his D.C. debut on Saturday",
+      "body_text": "Gabe Taylor was six when his brother, Sean, died at 24.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T15:19:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Taylor",
+        "Saturday Gabe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

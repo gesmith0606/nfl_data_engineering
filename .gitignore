@@ -224,6 +224,19 @@ data/gold/*
 !data/gold/predictions/**
 # Allow parquet files specifically inside data/gold/predictions
 !data/gold/predictions/**/*.parquet
+# Sentiment pipeline: allow Gold parquet + Silver/Bronze JSON so Railway
+# can serve news/team-events without a live cron run
+!data/gold/sentiment/
+!data/gold/sentiment/**
+!data/gold/sentiment/**/*.parquet
+!data/silver/
+!data/silver/sentiment/
+!data/silver/sentiment/**
+!data/silver/sentiment/**/*.json
+!data/bronze/
+!data/bronze/sentiment/
+!data/bronze/sentiment/**
+!data/bronze/sentiment/**/*.json
 
 # Logs
 *.log

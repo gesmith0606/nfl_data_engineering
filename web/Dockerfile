@@ -26,6 +26,12 @@ COPY web/__init__.py ./web/__init__.py
 # When DATABASE_URL is absent or unreachable, the API reads from here.
 COPY data/gold/ ./data/gold/
 
+# Sentiment pipeline: news/team-events and /news/player-badges read from
+# Silver (signals) and Bronze (documents) — bake them in until the daily
+# cron writes to a persistent volume or S3.
+COPY data/silver/sentiment/ ./data/silver/sentiment/
+COPY data/bronze/sentiment/ ./data/bronze/sentiment/
+
 ENV PORT=8000
 EXPOSE 8000
 

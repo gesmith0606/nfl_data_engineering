@@ -1,0 +1,161 @@
+{
+  "fetch_run_id": "27c7751d-9041-4d56-aafe-e9576faab946",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-04-10T22:30:53.769677+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 10,
+  "items": [
+    {
+      "external_id": "US-EN-48379274",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48379274/ufl-dc-defenders-gabe-taylor-sean-taylor",
+      "title": "'This is everything to me': Gabe Taylor set for debut in D.C., where brother Sean starred",
+      "body_text": "Gabe Taylor, who will don No. 21, understands the legacy brother Sean built in Washington in a short time.",
+      "author": "Todd Archer",
+      "published_at": "2026-04-10T22:53:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Gabe Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48432829",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48432829/ufl-announces-2028-expansion",
+      "title": "Why the UFL plans to expand in 2028 and believes Oklahoma City is a great fit",
+      "body_text": "UFL co-owner Mike Repole promised expansion; the other city to join with OKC is still to be determined.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-04-10T22:53:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Oklahoma City",
+        "Mike Repole"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48451181",
+      "url": "https://www.espn.com/nfl/story/_/id/48451181/eagles-get-wr-dontayvion-wick-packers-sources-say",
+      "title": "Sources: Eagles land WR Wicks from GB for picks",
+      "body_text": "The Eagles have acquired wide receiver Dontayvion Wicks from the Packers for two draft picks, sources told ESPN's Adam Schefter.",
+      "author": "Rob Demovsky",
+      "published_at": "2026-04-10T22:52:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Eagles",
+        "Dontayvion Wicks",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48450986",
+      "url": "https://www.espn.com/nfl/story/_/id/48450986/falcons-pick-fifth-year-option-rb-bijan-robinson",
+      "title": "Falcons pick up fifth-year option for RB Robinson",
+      "body_text": "The Atlanta Falcons picked up running back Bijan Robinson's fifth-year contract option Friday.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-04-10T22:52:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Robinson The",
+        "Atlanta Falcons",
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48447175",
+      "url": "https://www.espn.com/nfl/story/_/id/48447175/sources-colts-agree-seek-new-team-cb-kenny-moore-ii",
+      "title": "Sources: Colts seeking to trade away CB Moore",
+      "body_text": "The Colts and Kenny Moore II have agreed to seek a trade to find the veteran cornerback a new team, sources told ESPN.",
+      "author": null,
+      "published_at": "2026-04-10T22:52:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Moore The",
+        "Kenny Moore II"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-48450123",
+      "url": "https://www.espn.com/nfl/story/_/id/48450123/former-jets-quarterback-browning-nagle-dies-age-57",
+      "title": "Former Jets, Louisvile QB Nagle dies at age 57",
+      "body_text": "Former Jets and Louisville quarterback Browning Nagle has died at age 57.",
+      "author": "Rich Cimini",
+      "published_at": "2026-04-10T22:52:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Jets",
+        "Browning Nagle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48440303",
+      "url": "https://www.espn.com/nfl/story/_/id/48440303/sources-doj-opens-antitrust-investigation-nfl-tv-deals",
+      "title": "Sources: DOJ opens NFL inquiry over TV deals",
+      "body_text": "The Justice Department has begun an investigation into whether the NFL has violated anticompetitive practices with their television contracts that require consumers to pay subscription costs to watch some games, sources confirmed to ABC News.",
+      "author": null,
+      "published_at": "2026-04-10T22:52:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Justice"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48449332",
+      "url": "https://www.espn.com/mlb/story/_/id/48449332/broncos-owners-purchase-40-rockies-per-reports",
+      "title": "Broncos owners acquire minority share of Rockies",
+      "body_text": "The Rockies are bringing in Broncos owners Greg Penner and Carrie Walton Penner through a minority investment, with multiple reports saying they are purchasing about 40% of the team.",
+      "author": null,
+      "published_at": "2026-04-10T22:52:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rockies The",
+        "Greg Penner",
+        "Carrie Walton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-48443052",
+      "url": "https://www.espn.com/nfl/story/_/id/48443052/5-ohio-st-players-ty-simpson-16-attend-nfl-draft",
+      "title": "5 Buckeyes, Simpson among 16 draft attendees",
+      "body_text": "Five Ohio State players are among the 16 planning to attend the first round of the NFL draft on April 23 in Pittsburgh, a group that doesn't include Fernando Mendoza but does include fellow QB Ty Simpson.",
+      "author": null,
+      "published_at": "2026-04-10T22:52:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Five Ohio",
+        "Fernando Mendoza",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48442188",
+      "url": "https://www.espn.com/nfl/story/_/id/48442188/source-49ers-ex-bengals-de-cam-sample-reach-one-year-deal",
+      "title": "Source: 49ers, ex-Bengals DE Sample reach deal",
+      "body_text": "The 49ers agreed to a one-year contract with free agent defensive end Cam Sample, a source told NFL Network on Thursday.",
+      "author": null,
+      "published_at": "2026-04-10T22:52:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Cam Sample"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    }
+  ]
+}

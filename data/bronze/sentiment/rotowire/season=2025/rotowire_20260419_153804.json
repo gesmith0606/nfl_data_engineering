@@ -1,0 +1,83 @@
+{
+  "fetch_run_id": "8838a836-e050-421c-a1c3-466abe6c9468",
+  "source": "rotowire",
+  "fetched_at": "2026-04-19T15:38:04.435544+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 4,
+  "items": [
+    {
+      "external_id": "nfl630177",
+      "url": "https://www.rotowire.com//football/player/dexter-lawrence-13568",
+      "permalink": "",
+      "title": "Dexter Lawrence: Gets $28 million extension",
+      "body_text": "Lawrence and the Bengals agreed to terms on a one-year, $28 million contract extension Sunday, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-19T08:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dexter Lawrence",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "nfl630176",
+      "url": "https://www.rotowire.com//football/player/dexter-lawrence-13568",
+      "permalink": "",
+      "title": "Dexter Lawrence: Dealt to Cincinnati in blockbuster",
+      "body_text": "The Bengals agreed to terms Saturday on a trade with the Giants to acquire Lawrence in exchange for the No. 10 overall pick in the 2026 NFL Draft, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-18T05:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dexter Lawrence",
+        "The Bengals",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "nfl630172",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Seeking raise to starter-level pay",
+      "body_text": "Brissett isn't attending Phase 1 of Arizona's offseason program and is seeking an extension that will pay him commensurate with being a starting quarterback, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-17T10:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630171",
+      "url": "https://www.rotowire.com//football/player/will-anderson-16809",
+      "permalink": "",
+      "title": "Will Anderson: Signs three-year, $150M extension",
+      "body_text": "Anderson agreed to a three-year, $150 million extension with the Texans on Friday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-17T10:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Anderson",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    }
+  ]
+}

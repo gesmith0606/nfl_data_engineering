@@ -1,0 +1,290 @@
+{
+  "fetch_run_id": "01b7505f-2924-4816-9704-c58e52cb2f24",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-04-17T00:04:35.387665+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 19,
+  "items": [
+    {
+      "external_id": "US-EN-47590505",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/47590505/2026-nfl-draft-rankings-board-top-prospects-best-positional-field-yates",
+      "title": "Yates' final rankings for the NFL draft: Sizing up the top 150 prospects",
+      "body_text": "Field Yates stacks his top 150 prospects, including scouting reports on the first 50.",
+      "author": "Field Yates",
+      "published_at": "2026-04-16T23:48:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Field Yates"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48494162",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48494162/2026-nfl-draft-32-teams-positions-picks-grades-predictions-needs-solak",
+      "title": "How all 32 teams can crush the NFL draft: We have prospects and positions to target",
+      "body_text": "A week before the NFL draft, Ben Solak hits the top priorities for every single team.",
+      "author": "Ben Solak",
+      "published_at": "2026-04-16T23:48:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ben Solak"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48504890",
+      "url": "https://www.espn.com/nfl/story/_/id/48504890/report-penix-njoku-mckinney-targets-ex-bama-de-fraud",
+      "title": "Report: Penix, Njoku among targets used in fraud",
+      "body_text": "A former Alabama defensive end is accused of using wigs and fake IDs to impersonate NFL players to secure nearly $20 million in fraudulent loans, with a report identifying Michael Penix Jr., David Njoku and Xavier McKinney as the targeted players.",
+      "author": "Michael Rothstein",
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Michael Penix Jr",
+        "David Njoku"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48505918",
+      "url": "https://www.espn.com/nfl/story/_/id/48505918/chargers-gm-joe-hortiz-shuts-quentin-johnston-trade-rumors",
+      "title": "Chargers GM shuts down Johnston trade rumors",
+      "body_text": "Chargers general manager Joe Hortiz shut down trade rumors surrounding wide receiver Quentin Johnston on Thursday.",
+      "author": "Kris Rhim",
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Joe Hortiz",
+        "Quentin Johnston"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "US-EN-48504831",
+      "url": "https://www.espn.com/nfl/story/_/id/48504831/chiefs-gm-brett-veach-expecting-lot-trades-first-round",
+      "title": "Chiefs GM expecting a lot of trades in first round",
+      "body_text": "Chiefs general manager Brett Veach said Thursday that there will \"probably be a lot of trades\" in the first round of this year's NFL draft.",
+      "author": "Nate Taylor",
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brett Veach"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48504522",
+      "url": "https://www.espn.com/nfl/story/_/id/48504522/cam-ward-track-recovery-week-18-shoulder-injury",
+      "title": "Titans QB Ward on track to throw at minicamp",
+      "body_text": "Quarterback Cam Ward, who injured his throwing shoulder in the Titans' season finale, is trending toward throwing at minicamp in June, general manager Mike Borgonzi says.",
+      "author": "Turron Davenport",
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Quarterback Cam",
+        "Mike Borgonzi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "US-EN-48497778",
+      "url": "https://www.espn.com/nfl/story/_/id/48497778/memo-nfl-begins-onboarding-potential-replacement-officials",
+      "title": "Memo: NFL onboarding replacement officials",
+      "body_text": "The NFL has started onboarding potential replacement officials as the expiration of its CBA with the NFL Referees Association approaches.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Referees Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48496148",
+      "url": "https://www.espn.com/nfl/story/_/id/48496148/devon-achane-not-available-trade-dolphins-gm-says",
+      "title": "Dolphins GM: RB Achane 'not available' for trade",
+      "body_text": "Dolphins running back De'Von Achane is \"not available\" for a trade, general manager Jon-Eric Sullivan said Wednesday, as the team looks to extend its homegrown star.",
+      "author": "Marcel Louis-Jacques",
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Von Achane",
+        "Eric Sullivan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "US-EN-48506401",
+      "url": "https://www.espn.com/nfl/story/_/id/48506401/court-rules-smu-theodore-knox-28m-judgement",
+      "title": "WR Knox found negligent in crash, to pay $2.8M",
+      "body_text": "A Texas court on Wednesday issued a default judgment of more than $2.8 million against Theodore Knox, the co-defendant in one of the civil lawsuits against Chiefs receiver Rashee Rice stemming from a 2024 street racing crash in Dallas.",
+      "author": "Michael Rothstein and Nate Taylor",
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Theodore Knox",
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48486392",
+      "url": "https://www.espn.com/nfl/story/_/id/48486392/dianna-russini-resigns-athletic-following-mike-vrabel-photos",
+      "title": "Russini resigns from Athletic following Vrabel pics",
+      "body_text": "NFL reporter Dianna Russini has resigned from The Athletic less than a week after published photos of her and Patriots coach Mike Vrabel at an Arizona resort prompted an internal investigation at the New York Times-owned sports outlet.",
+      "author": null,
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Dianna Russini",
+        "The Athletic",
+        "Mike Vrabel",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-48443025",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48443025/2026-nfl-draft-risers-prospects-freeling-thieneman-iheanachor",
+      "title": "⬆ Players who have boosted their draft stock",
+      "body_text": "Dillon Thieneman and Monroe Freeling have drastically boosted their stock since the start of last season. Who else has climbed the board?",
+      "author": "Jeff Legwold",
+      "published_at": "2026-04-16T23:48:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Dillon Thieneman",
+        "Monroe Freeling"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48496049",
+      "url": "https://www.espn.com/nfl/story/_/id/48496049/nfl-2026-draft-chris-jones-kansas-city-chiefs",
+      "title": "How a 'big argument' and lucky draft moves led to the Chiefs selecting Chris Jones",
+      "body_text": "A look back 10 years later at the selection of Jones, one of the most important picks in franchise history.",
+      "author": "Nate Taylor",
+      "published_at": "2026-04-16T18:34:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Chris Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0034641"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48475698",
+      "url": "https://www.espn.com/nfl/story/_/id/48475698/nfl-carolina-panthers-jaelan-phillips-music-production",
+      "title": "How music kept NFL dream alive for Panthers' Jaelan Phillips",
+      "body_text": "Music was a bridge for Phillips, who medically retired from football in college before working his way to the NFL.",
+      "author": "David Newton",
+      "published_at": "2026-04-16T13:16:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jaelan Phillips"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "US-EN-48489288",
+      "url": "https://www.espn.com/nfl/story/_/id/48489288/washington-commanders-new-uniforms-2026",
+      "title": "Hail Raiser: Commanders roll out fresh uniforms with new alternate logo",
+      "body_text": "Washington's updated three-uniform set is headlined by the black \"Hail Raiser\" look with a new alternate logo.",
+      "author": "John Keim",
+      "published_at": "2026-04-15T17:05:01+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Hail Raiser"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-48465658",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48465658/nfl-draft-2026-akheem-mesidor-miami-hurricanes",
+      "title": "Akheem Mesidor's long, long road to the NFL",
+      "body_text": "The Miami defensive end once struggled to make an impact in youth football. Now, he's a potential first-round pick.",
+      "author": "Andrea Adelson",
+      "published_at": "2026-04-15T19:41:13+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Akheem Mesidor",
+        "The Miami"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48455868",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48455868/nfl-draft-2026-gennings-dunker-iowa-hawkeyes-viral-star",
+      "title": "More than a mullet and mustache, Gennings Dunker has taken over the NFL draft",
+      "body_text": "He was \"one of five\" on Iowa's OL. That was before the mullet and personality took over the NFL combine.",
+      "author": "Adam Rittenberg",
+      "published_at": "2026-04-15T19:41:13+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Gennings Dunker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48485523",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48485523/2026-ufl-power-rankings-week-3",
+      "title": "Which 3-0 team tops the list, plus an exciting stat for each team",
+      "body_text": "The Dallas Renegades are scoring at a high rate; the DC Defenders have bounced back after losing the opener.",
+      "author": "Matt Willis",
+      "published_at": "2026-04-15T12:51:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Dallas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48422631",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48422631/2026-fantasy-football-rankings-tight-end-te-profiles",
+      "title": "2026 fantasy football rankings: Profiles for more than 30 tight ends",
+      "body_text": "Mike Clay provides breakdowns of the top tight ends in fantasy football for the 2026 season.",
+      "author": "Mike Clay",
+      "published_at": "2026-04-10T18:10:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Clay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

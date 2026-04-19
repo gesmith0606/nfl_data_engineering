@@ -1,0 +1,453 @@
+{
+  "fetch_run_id": "01b7505f-2924-4816-9704-c58e52cb2f24",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-04-17T00:04:37.973163+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-hortiz-addresses-trade-rumors-involving-quentin-johnston",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-hortiz-addresses-trade-rumors-involving-quentin-johnston",
+      "title": "Joe Hortiz addresses trade rumors involving Quentin Johnston",
+      "body_text": "The Chargers still are deciding on the fifth-year option for Quentin Johnston, but General Manager Joe Hortiz insists the wide receiver will be part of the team in 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-16T23:41:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Hortiz",
+        "Quentin Johnston",
+        "The Chargers",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-dont-expect-to-have-a-rookie-starter-in-2026-which-prompted-trade-for-jaylen-waddle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-dont-expect-to-have-a-rookie-starter-in-2026-which-prompted-trade-for-jaylen-waddle",
+      "title": "Broncos don't expect to have a rookie starter in 2026, which prompted trade for Jaylen Waddle",
+      "body_text": "The Broncos are without a first-round draft pick.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-16T22:04:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaylen Waddle",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-host-de-a-j-epenesa-on-a-free-agent-visit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-host-de-a-j-epenesa-on-a-free-agent-visit",
+      "title": "Dolphins host DE A.J. Epenesa on a free agent visit",
+      "body_text": "The Dolphins hosted defensive end A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-16T21:30:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dante-fowler-visited-with-seahawks-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dante-fowler-visited-with-seahawks-on-thursday",
+      "title": "Dante Fowler visited with Seahawks on Thursday",
+      "body_text": "The Seahawks are taking a look at a former first-round pick for their defense.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-16T21:05:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dante Fowler",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-looking-for-big-increase-in-next-round-of-tv-deals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-looking-for-big-increase-in-next-round-of-tv-deals",
+      "title": "Report: NFL looking for big increase in next round of TV deals",
+      "body_text": "For the NFL, the ultimate four-letter word is \"more.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-04-16T21:03:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-wont-name-a-starting-quarterback-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-wont-name-a-starting-quarterback-right-now",
+      "title": "Cardinals won't name a starting quarterback right now",
+      "body_text": "Word in March was that Jacoby Brissett has not been told that he is in line to start at quarterback for the Cardinals and nothing has changed over the last few weeks.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-16T20:46:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ucf-de-malachi-lawrence-met-with-16-nfl-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ucf-de-malachi-lawrence-met-with-16-nfl-teams",
+      "title": "UCF DE Malachi Lawrence met with 16 NFL teams",
+      "body_text": "Central Florida edge rusher Malachi Lawrence was busy during the pre-draft process.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-16T20:48:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malachi Lawrence",
+        "Central Florida"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-plan-to-work-on-extensions-for-derwin-james-tuli-tuipulotu-after-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-plan-to-work-on-extensions-for-derwin-james-tuli-tuipulotu-after-draft",
+      "title": "Chargers plan to work on extensions for Derwin James, Tuli Tuipulotu after draft",
+      "body_text": "Safety Derwin James is heading into his ninth NFL season and the Chargers hope it isn't his final one in their uniform.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-16T20:22:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derwin James",
+        "Tuli Tuipulotu",
+        "Safety Derwin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dexter-lawrence-wants-out-of-new-york-with-dispute-about-more-than-money",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dexter-lawrence-wants-out-of-new-york-with-dispute-about-more-than-money",
+      "title": "Report: Dexter Lawrence wants out of New York with dispute about more than money",
+      "body_text": "Lawrence had previously requested a trade as the sides have come to an impasse in contract talks.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-16T20:22:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dexter Lawrence",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-still-deciding-whether-to-exercise-quentin-johnstons-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-still-deciding-whether-to-exercise-quentin-johnstons-fifth-year-option",
+      "title": "Chargers still deciding whether to exercise Quentin Johnston's fifth-year option",
+      "body_text": "The Chargers haven't made a call on what to do about their option on wide receiver Quentin Johnston's contract for 2027, but it doesn't look like they'll be trading him before the deadline to make that decision.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-16T19:31:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quentin Johnston",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-exercise-paris-johnson-jr-s-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-exercise-paris-johnson-jr-s-fifth-year-option",
+      "title": "Report: Cardinals exercise Paris Johnson Jr.'s fifth-year option",
+      "body_text": "Though they have a new head coach, the Cardinals are not planning to have a new left tackle anytime soon.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-16T19:06:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Paris Johnson Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-gm-andrew-berry-well-work-through-scenarios-at-no-6-to-maximize-the-asset",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-gm-andrew-berry-well-work-through-scenarios-at-no-6-to-maximize-the-asset",
+      "title": "Browns GM Andrew Berry: We'll work through scenarios at No. 6 to maximize the asset",
+      "body_text": "Browns General Manager Andrew Berry has heard the same speculation about his plans for the No. 6 pick as everyone else.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-16T18:49:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andrew Berry",
+        "Browns General",
+        "Manager Andrew"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/damon-jones-plans-to-plead-guilty-in-nba-betting-scandal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/damon-jones-plans-to-plead-guilty-in-nba-betting-scandal",
+      "title": "Damon Jones plans to plead guilty in NBA betting scandal",
+      "body_text": "Former NBA player and assistant coach Damon Jones, named in a sprawling gambling indictment filed last year, plans to plead guilty.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-16T18:22:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Damon Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0008723"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-k-c-concepcion-finished-pre-draft-visits-with-chargers-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-k-c-concepcion-finished-pre-draft-visits-with-chargers-49ers",
+      "title": "WR K.C. Concepcion finished pre-draft visits with Chargers, 49ers",
+      "body_text": "The window for pre-draft visits closed on Wednesday and former Texas A&amp;M wide receiver K.C.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-16T17:54:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devon-achane-shows-up-for-dolphins-voluntary-workouts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devon-achane-shows-up-for-dolphins-voluntary-workouts",
+      "title": "De'Von Achane shows up for Dolphins' voluntary workouts",
+      "body_text": "Achane's gesture \"is believed\" to be a sign of good faith.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-16T17:50:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Von Achane"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-current-former-players-who-will-announce-second-round-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-current-former-players-who-will-announce-second-round-picks",
+      "title": "NFL announces current, former players who will announce second-round picks",
+      "body_text": "The NFL has announced the names of the current and former players that will take part in next week's draft by announcing second-round picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-16T17:32:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-there-will-probably-be-a-lot-of-trades-in-first-round-of-the-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-there-will-probably-be-a-lot-of-trades-in-first-round-of-the-draft",
+      "title": "Brett Veach: There will probably be a lot of trades in first round of the draft",
+      "body_text": "At least one General Manager is expecting some significant movement during the first round of the draft next week.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-16T17:26:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brett Veach",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-have-met-with-tampa-sports-authority-about-a-renovation-of-raymond-james-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-have-met-with-tampa-sports-authority-about-a-renovation-of-raymond-james-stadium",
+      "title": "Buccaneers have met with Tampa Sports Authority about a renovation of Raymond James Stadium",
+      "body_text": "Raymond James Stadium opened in 1998.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-16T17:22:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tampa Sports",
+        "Raymond James",
+        "Stadium Raymond",
+        "James Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-say-cam-wards-shoulder-looks-good-optimistic-about-return-at-june-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-say-cam-wards-shoulder-looks-good-optimistic-about-return-at-june-minicamp",
+      "title": "Titans say Cam Ward's shoulder looks good, optimistic about return at June minicamp",
+      "body_text": "Titans quarterback Cam Ward is making progress in recovering from the shoulder injury he suffered in the last game of last season, and he should be able to participate in the team's June minicamp.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-16T17:11:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-unveil-new-uniforms-with-subtle-changes-for-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-unveil-new-uniforms-with-subtle-changes-for-2026",
+      "title": "Rams unveil new uniforms, with subtle changes for 2026",
+      "body_text": "The Rams have made some changes to their uniforms, but the changes are more a minor tweak than a full redesign.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-16T15:50:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rfa-brandon-aubrey-has-no-offer-from-another-team-forthcoming-before-deadline",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rfa-brandon-aubrey-has-no-offer-from-another-team-forthcoming-before-deadline",
+      "title": "Report: RFA Brandon Aubrey has no offer from another team forthcoming before deadline",
+      "body_text": "It looks like the Cowboys will be retaining their kicker.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-16T15:28:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aubrey"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-alabama-player-allegedly-impersonated-michael-penix-xavier-mckinney-david-njoku-in-loan-scam",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-alabama-player-allegedly-impersonated-michael-penix-xavier-mckinney-david-njoku-in-loan-scam",
+      "title": "Former Alabama player allegedly impersonated Michael Penix, Xavier McKinney, David Njoku in loan scam",
+      "body_text": "If you think a story about a cabinet secretary cutting the penis off of a dead raccoon is the craziest thing you'll hear all day, think again.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-16T15:16:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Alabama",
+        "Michael Penix",
+        "David Njoku"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-like-a-cluster-of-players-at-top-of-draft-flexible-and-fluid-about-trading-down",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-like-a-cluster-of-players-at-top-of-draft-flexible-and-fluid-about-trading-down",
+      "title": "Titans like a \"cluster\" of players at top of draft, \"flexible and fluid\" about trading down",
+      "body_text": "Titans General Manager Mike Borgonzi didn't entertain any trade offers before selecting quarterback Cam Ward first overall in 2025, but he's taking a different approach to this year's draft.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-16T14:49:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Titans General",
+        "Manager Mike",
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/youtube-nfl-move-toward-deal-for-five-2026-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/youtube-nfl-move-toward-deal-for-five-2026-games",
+      "title": "YouTube, NFL move toward deal for five 2026 games",
+      "body_text": "League plans to take a package of standalone games to streaming, despite ongoing antitrust scrutiny.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-16T14:18:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-begins-onboarding-replacement-officials",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-begins-onboarding-replacement-officials",
+      "title": "NFL begins \"onboarding\" replacement officials",
+      "body_text": "Fail Mary 2 inches closer.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-15T23:32:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fail Mary"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-letting-teams-calling-about-the-first-pick-know-where-they-stand",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-letting-teams-calling-about-the-first-pick-know-where-they-stand",
+      "title": "Raiders letting teams calling about the first pick know where they stand",
+      "body_text": "The Raiders have the No. 1 overall pick, and it seems a certainty they will draft Heisman Trophy winner Fernando Mendoza.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-15T00:20:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Raiders",
+        "Heisman Trophy",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jets-canceled-pre-draft-visit-with-david-bailey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jets-canceled-pre-draft-visit-with-david-bailey",
+      "title": "Report: Jets canceled pre-draft visit with David Bailey",
+      "body_text": "The Jets canceled their top-30 visit with Texas Tech edge rusher David Bailey, Connor Hughes of SNY reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-16T01:15:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Bailey",
+        "The Jets",
+        "Texas Tech",
+        "Connor Hughes"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-gm-dan-morgan-theres-no-rule-against-taking-a-wr-in-first-round-three-straight-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-gm-dan-morgan-theres-no-rule-against-taking-a-wr-in-first-round-three-straight-years",
+      "title": "Panthers GM Dan Morgan: There's no rule against taking a WR in first round three straight years",
+      "body_text": "The Panthers visited with some of the top wide receiver prospects in this year's draft class and those meetings have led to questions about whether they will actually use a first-round pick on a wideout for the third straight season.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-15T12:12:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Morgan",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0020443"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-kirk-cousins-deal-with-the-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-kirk-cousins-deal-with-the-raiders",
+      "title": "Inside the Kirk Cousins deal with the Raiders",
+      "body_text": "The initial reporting regarding the new Kirk Cousins contract with the Raiders was confusing, to say the least.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-15T20:51:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Raiders The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-reveal-new-primary-alternate-uniforms",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-reveal-new-primary-alternate-uniforms",
+      "title": "Commanders reveal new primary, alternate uniforms",
+      "body_text": "The Commanders unveiled new uniforms that evoke the franchise's history on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-15T14:46:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    }
+  ]
+}

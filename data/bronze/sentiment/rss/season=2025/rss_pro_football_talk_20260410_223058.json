@@ -1,0 +1,153 @@
+{
+  "fetch_run_id": "27c7751d-9041-4d56-aafe-e9576faab946",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-04-10T22:30:58.493539+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 10,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dianna-russini-will-not-be-reporting-during-internal-investigation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dianna-russini-will-not-be-reporting-during-internal-investigation",
+      "title": "Report: Dianna Russini \"will not be reporting\" during internal investigation",
+      "body_text": "The New York Times has reversed course regarding NFL insider Dianna Russini.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T22:20:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dianna Russini",
+        "The New",
+        "York Times"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-wins-appeal-of-collusion-grievance-with-an-asterisk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-wins-appeal-of-collusion-grievance-with-an-asterisk",
+      "title": "NFL wins appeal of collusion grievance (with an asterisk)",
+      "body_text": "Appeals panel confirms that NFL invited teams to collude.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T21:59:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-jones-agrees-to-terms-with-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-jones-agrees-to-terms-with-49ers",
+      "title": "Jack Jones agrees to terms with 49ers",
+      "body_text": "Free agent cornerback Jack Jones' visit to the 49ers apparently went well.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-10T21:53:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jack Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-cb-jack-jones-visits-the-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-cb-jack-jones-visits-the-49ers",
+      "title": "Free agent CB Jack Jones visits the 49ers",
+      "body_text": "The 49ers spent some time with a possible veteran addition to their secondary on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T21:40:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jack Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ole-miss-wr-dezhaun-stribling-has-four-top-30-visits-scheduled",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ole-miss-wr-dezhaun-stribling-has-four-top-30-visits-scheduled",
+      "title": "Ole Miss WR De'Zhaun Stribling has four top-30 visits scheduled",
+      "body_text": "Ole Miss wide receiver De'Zhaun Stribling has had a busy itinerary.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-10T21:40:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ole Miss",
+        "Zhaun Stribling"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-malik-muhammad-lb-harold-perkins-visit-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-malik-muhammad-lb-harold-perkins-visit-steelers",
+      "title": "CB Malik Muhammad, LB Harold Perkins visit Steelers",
+      "body_text": "A couple of defensive players from the SEC had a pre-draft visit with the Steelers on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T20:45:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Muhammad",
+        "Harold Perkins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-exercise-bijan-robinsons-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-exercise-bijan-robinsons-fifth-year-option",
+      "title": "Falcons exercise Bijan Robinson's fifth-year option",
+      "body_text": "The Falcons have put one of their best players under contract for 2027.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-10T20:43:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-will-trade-wr-dontayvion-wicks-to-the-eagles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-will-trade-wr-dontayvion-wicks-to-the-eagles",
+      "title": "Packers will trade WR Dontayvion Wicks to the Eagles",
+      "body_text": "The Eagles have made a trade involving a wide receiver, but it does not involve A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-10T20:42:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dontayvion Wicks",
+        "Eagles The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klavon-chaisson-wants-to-be-the-missing-piece-for-the-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klavon-chaisson-wants-to-be-the-missing-piece-for-the-commanders",
+      "title": "K'Lavon Chaisson wants to be \"the missing piece\" for the Commanders",
+      "body_text": "The Commanders signed outside linebacker K'Lavon Chaisson to a one-year, $11 million deal this offseason.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-10T20:35:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lavon Chaisson",
+        "Commanders The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-could-be-headed-for-the-same-kind-of-chaos-as-college-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-could-be-headed-for-the-same-kind-of-chaos-as-college-football",
+      "title": "The NFL could be headed for the same kind of chaos as college football",
+      "body_text": "The current attack against the NFL's antitrust division can go in several different directions.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T20:19:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

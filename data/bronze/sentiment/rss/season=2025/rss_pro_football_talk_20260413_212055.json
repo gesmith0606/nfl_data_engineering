@@ -1,0 +1,472 @@
+{
+  "fetch_run_id": "bee8e5c8-b0ed-47a1-8c95-ab25f9c5f010",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-04-13T21:20:55.838151+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-expect-to-have-better-idea-of-tank-dells-availability-later-this-spring",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-expect-to-have-better-idea-of-tank-dells-availability-later-this-spring",
+      "title": "Texans expect to have better idea of Tank Dell's availability later this spring",
+      "body_text": "Wide receiver Tank Dell's status was among the topics that Texans General Manager Nick Caserio addressed at a Monday press conference.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-13T21:14:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tank Dell",
+        "Texans General",
+        "Manager Nick"
+      ],
+      "resolved_player_ids": [
+        "00-0038977"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/masters-action-shows-ongoing-sports-betting-growth-of-prediction-markets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/masters-action-shows-ongoing-sports-betting-growth-of-prediction-markets",
+      "title": "Masters action shows ongoing sports-betting growth of prediction markets",
+      "body_text": "Sports books are in danger of taking a backseat to prediction markets.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-13T21:00:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-mansoor-delane-lines-up-visits-with-bengals-ravens-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-mansoor-delane-lines-up-visits-with-bengals-ravens-commanders",
+      "title": "CB Mansoor Delane lines up visits with Bengals, Ravens, Commanders",
+      "body_text": "Cornerback Mansoor Delane has a handful of pre-draft visits planned for the coming days.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-13T20:50:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mansoor Delane",
+        "Commanders Cornerback"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caserio-on-c-j-stroud-fifth-year-option-was-a-no-brainer-hes-our-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caserio-on-c-j-stroud-fifth-year-option-was-a-no-brainer-hes-our-qb",
+      "title": "Nick Caserio on C.J. Stroud: Fifth-year option was a no-brainer; he's our QB",
+      "body_text": "The real question for the Texans is Stroud's long-term future.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-13T20:25:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Caserio"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-will-have-seven-sensory-rooms-at-new-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-will-have-seven-sensory-rooms-at-new-stadium",
+      "title": "Bills will have seven sensory rooms at new stadium",
+      "body_text": "As part of Autism Acceptance Month, the Buffalo Bills have made an announcement regarding the accommodations at their new stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-13T20:08:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Autism Acceptance",
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-fourth-year-with-deion-sanders-colorados-spring-game-attendance-keeps-falling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-fourth-year-with-deion-sanders-colorados-spring-game-attendance-keeps-falling",
+      "title": "In fourth year with Deion Sanders, Colorado's spring game attendance keeps falling",
+      "body_text": "The honeymoon has long since ended for Deion Sanders in Boulder.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-13T20:32:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-gm-brad-holmes-we-dont-have-to-draft-an-offensive-tackle-or-edge-rusher",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-gm-brad-holmes-we-dont-have-to-draft-an-offensive-tackle-or-edge-rusher",
+      "title": "Lions GM Brad Holmes: We don't have to draft an offensive tackle or edge rusher",
+      "body_text": "The Lions parted ways with longtime left tackle Taylor Decker this offseason and that's led many to suggest that the position will be one they address in the draft, but General Manager Brad Holmes did his best on Monday to downplay any urgency.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-13T20:02:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brad Holmes",
+        "The Lions",
+        "Taylor Decker",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-j-reader-had-a-free-agent-visit-with-giants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-j-reader-had-a-free-agent-visit-with-giants",
+      "title": "D.J. Reader had a free agent visit with Giants",
+      "body_text": "The Giants hosted veteran defensive tackle D.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-13T19:57:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Giants The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-have-discussed-fifth-year-options-for-jahmyr-gibbs-jack-campbell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-have-discussed-fifth-year-options-for-jahmyr-gibbs-jack-campbell",
+      "title": "Lions have discussed fifth-year options for Jahmyr Gibbs, Jack Campbell",
+      "body_text": "That means Detroit has to decide on the fifth-year options for both players in the coming weeks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-13T19:54:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "Jack Campbell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-on-keeping-the-door-open-for-a-j-brown-ill-keep-the-door-open-to-anything",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-on-keeping-the-door-open-for-a-j-brown-ill-keep-the-door-open-to-anything",
+      "title": "Eliot Wolf on keeping the door open for A.J. Brown: I'll keep the door open to anything",
+      "body_text": "Patriots Executive Vice President of Player Personnel Eliot Wolf knows the questions about trading for Eagles receiver A.J.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-13T19:02:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eliot Wolf",
+        "Patriots Executive",
+        "Vice President",
+        "Player Personnel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-business-as-usual-for-mike-vrabel-in-patriots-draft-preparations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-business-as-usual-for-mike-vrabel-in-patriots-draft-preparations",
+      "title": "Eliot Wolf: \"Business as usual\" for Mike Vrabel in Patriots draft preparations",
+      "body_text": "Patriots head coach Mike Vrabel was not present for the team's pre-draft press conference on Monday, which means that he didn't have to field any questions about the release of photos that have created questions about his relationship with The Athletic's NFL reporter Dianna Russini.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-13T18:44:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eliot Wolf",
+        "Mike Vrabel",
+        "The Athletic",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-visit-with-qb-taylen-green",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-visit-with-qb-taylen-green",
+      "title": "Steelers visit with QB Taylen Green on Monday",
+      "body_text": "The Steelers expect to get word from Aaron Rodgers about his plans for the 2026 season before the draft, but they'll still need to think about the future of the quarterback position if Rodgers does return for a second year in Pittsburgh.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-13T17:48:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylen Green",
+        "Monday The",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-cole-payton-has-a-pre-draft-visit-with-the-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-cole-payton-has-a-pre-draft-visit-with-the-colts",
+      "title": "QB Cole Payton has a pre-draft visit with the Colts",
+      "body_text": "The one certainty in the 2026 NFL Draft is that Fernando Mendoza will be selected first overall by the Raiders and most people think Ty Simpson will be the second quarterback off the board, but a lot is up in the air at the position from there.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-13T17:37:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cole Payton",
+        "Colts The",
+        "Fernando Mendoza",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chad-kelly-still-hopes-to-get-back-to-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chad-kelly-still-hopes-to-get-back-to-the-nfl",
+      "title": "Chad Kelly still hopes to get back to the NFL",
+      "body_text": "Eight years after his only regular-season NFL game, quarterback Chad Kelly is still hoping for another shot.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-13T17:22:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chad Kelly"
+      ],
+      "resolved_player_ids": [
+        "00-0033597"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brad-holmes-on-rueben-bain-report-weve-known-that-for-a-while",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brad-holmes-on-rueben-bain-report-weve-known-that-for-a-while",
+      "title": "Brad Holmes on Rueben Bain report: \"We've known that for a while\"",
+      "body_text": "On Sunday, news emerged regarding draft prospect Rueben Bain's involvement in a fatal car crash in 2024.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-13T16:18:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brad Holmes",
+        "Rueben Bain",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-sign-qb-brandon-allen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-sign-qb-brandon-allen",
+      "title": "Giants to sign QB Brandon Allen",
+      "body_text": "The Giants are adding another quarterback to their roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-13T15:38:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Allen",
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dianna-russini-will-not-be-reporting-during-internal-investigation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dianna-russini-will-not-be-reporting-during-internal-investigation",
+      "title": "Report: Dianna Russini \"will not be reporting\" during internal investigation",
+      "body_text": "The New York Times has reversed course regarding NFL insider Dianna Russini.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T22:20:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dianna Russini",
+        "The New",
+        "York Times"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-staffers-have-concerns-about-the-athletics-response-to-the-dianna-russini-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-staffers-have-concerns-about-the-athletics-response-to-the-dianna-russini-situation",
+      "title": "Report: Staffers have concerns about The Athletic's response to the Dianna Russini situation",
+      "body_text": "As The Athletic investigates the Dianna Russini/Mike Vrabel situation (with Russini being essentially suspended without it being called a suspension), some facts are emerging regarding the internal reaction to the situation.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-13T15:24:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Athletic",
+        "Dianna Russini",
+        "As The",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-athletic-confirms-that-dianna-russini-is-under-investigation-will-not-be-reporting",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-athletic-confirms-that-dianna-russini-is-under-investigation-will-not-be-reporting",
+      "title": "The Athletic confirms that Dianna Russini is under investigation, \"will not be reporting\"",
+      "body_text": "Everybody wants to cover sports media.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-11T23:53:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Athletic",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-owner-joel-glazer-will-gladly-write-a-big-check-for-baker-mayfields-next-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-owner-joel-glazer-will-gladly-write-a-big-check-for-baker-mayfields-next-contract",
+      "title": "Bucs owner Joel Glazer will gladly write a big check for Baker Mayfield's next contract",
+      "body_text": "Buccaneers owner Joel Glazer will gladly pay what it takes to keep quarterback Baker Mayfield in Tampa Bay beyond the 2026 season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-13T15:04:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joel Glazer",
+        "Baker Mayfield",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-outcome-of-collusion-case-continues-to-be-confusing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-outcome-of-collusion-case-continues-to-be-confusing",
+      "title": "Final outcome of collusion case continues to be confusing",
+      "body_text": "The appeal panel led itself to water, but refused to drink.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-13T14:32:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-bailey-met-with-titans-last-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-bailey-met-with-titans-last-week",
+      "title": "David Bailey met with Titans last week",
+      "body_text": "With quarterback Fernando Mendoza the heavy favorite to be selected at No. 1 overall for some time, the intrigue in this year's draft really starts at No. 2.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-13T14:23:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Bailey",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-shrugs-at-kyle-shanahans-australia-gripe",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-shrugs-at-kyle-shanahans-australia-gripe",
+      "title": "Roger Goodell shrugs at Kyle Shanahan's Australia gripe",
+      "body_text": "NFL has no qualms about imposing major time, travel demands on 49ers, Rams.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-11T12:16:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-joins-the-nfls-talks-with-the-nfl-referees-association",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-joins-the-nfls-talks-with-the-nfl-referees-association",
+      "title": "Jerry Jones joins the NFL's talks with the NFL Referees Association",
+      "body_text": "Thursday session was reportedly \"productive.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T17:51:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones",
+        "Referees Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-exercise-bijan-robinsons-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-exercise-bijan-robinsons-fifth-year-option",
+      "title": "Falcons exercise Bijan Robinson's fifth-year option",
+      "body_text": "The Falcons have put one of their best players under contract for 2027.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-10T20:43:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rueben-bain-was-involved-in-fatal-collision-in-2024",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rueben-bain-was-involved-in-fatal-collision-in-2024",
+      "title": "Report: Rueben Bain was involved in fatal collision in 2024",
+      "body_text": "Former Miami defensive end Rueben Bain was reportedly involved in a fatal vehicular collision in March 2024.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-12T23:46:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rueben Bain",
+        "Former Miami"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/collusion-appeal-ruling-says-ravens-offered-lamar-jackson-two-fully-guaranteed-contracts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/collusion-appeal-ruling-says-ravens-offered-lamar-jackson-two-fully-guaranteed-contracts",
+      "title": "Collusion appeal ruling says Ravens offered Lamar Jackson two fully-guaranteed contracts",
+      "body_text": "New document doesn't specify the compensation offered, or whether the deals had no-tag clauses.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-11T21:11:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0036152"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-wins-appeal-of-collusion-grievance-with-an-asterisk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-wins-appeal-of-collusion-grievance-with-an-asterisk",
+      "title": "NFL wins appeal of collusion grievance (with an asterisk)",
+      "body_text": "Appeals panel confirms that NFL invited teams to collude.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-10T21:59:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-ufl-player-chris-payton-jones-dies-at-30",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-ufl-player-chris-payton-jones-dies-at-30",
+      "title": "Former NFL, UFL player Chris Payton-Jones dies at 30",
+      "body_text": "Chris Payton-Jones, a former cornerback in the NFL and UFL, has died.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-13T13:39:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-meet-with-wr-omar-cooper-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-meet-with-wr-omar-cooper-on-monday",
+      "title": "Jets meet with WR Omar Cooper on Monday",
+      "body_text": "The Jets have a pair of first-round picks in next week's draft and they're spending some time on Monday with a player who could be in the mix for one of them.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-13T13:37:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Omar Cooper",
+        "Monday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    }
+  ]
+}

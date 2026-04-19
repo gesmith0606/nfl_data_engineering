@@ -1,0 +1,497 @@
+{
+  "fetch_run_id": "5f0588ac-5db2-4e50-92c1-d959b6b1b5e7",
+  "source": "reddit_DynastyFF",
+  "fetched_at": "2026-04-19T15:36:55.125565+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 25,
+  "items": [
+    {
+      "external_id": "1spvxt3",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spvxt3/how_many_skill_position_players_do_you_guys_see/",
+      "permalink": "/r/DynastyFF/comments/1spvxt3/how_many_skill_position_players_do_you_guys_see/",
+      "title": "How many \"skill position\" players do you guys see taken in the first round?",
+      "body_text": "I am posting this to try and understand how the first round of dynasty mocks will look. Common first-round picks in mocks have been: \n\nQB - Fernando Mendoza\n\nQB - Ty Simpson\n\nRB - Jeremiyah Love\n\nRB - Jadarian Price\n\nWR - Carnell Tate \n\nWR - Jordyn Tyson\n\nWR - Makai Lemon\n\nWR - Omar Cooper Jr\n\nWR - KC Concepcion\n\nWR - Denzel Boston\n\nTE - Kenyon Sadiq\n\nI have seen some mocks with all 11 of these players taken in the first-round, and I just do not see that happening. With that being said, who are the odd men out? Do you guys actually see the draft shaping out with this many skill position players drafted in the first-round?\n\nRegardless, this will probably make up 11/12 picks in the first-round of SF dynasty mocks. I could see the 12th pick being the RB3 (Mike Washington, Jonah Coleman), Eli Stowers, or whichever WR gets drafted early in the second-round (Chris Bell, Germie Bernard, Chris Brazzell, Zachariah Branch, Antonio Williams). Curious to see what you guys think.",
+      "author": "JayBaby90210",
+      "published_at": "2026-04-19T15:23:58+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 2,
+      "num_comments": 4,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Ty Simpson",
+        "Jeremiyah Love",
+        "Jadarian Price",
+        "Carnell Tate",
+        "Jordyn Tyson",
+        "Makai Lemon",
+        "Omar Cooper Jr",
+        "Denzel Boston",
+        "Kenyon Sadiq",
+        "Mike Washington",
+        "Jonah Coleman",
+        "Eli Stowers",
+        "Chris Bell",
+        "Germie Bernard",
+        "Chris Brazzell",
+        "Zachariah Branch",
+        "Antonio Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0036188"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spvjw3",
+      "url": "https://brainyballers.com/defensive-ends-can-the-star-predictor-score-sps-help-predict-nfl-success/",
+      "permalink": "/r/DynastyFF/comments/1spvjw3/the_de_starpredictor_score_sps_is_here/",
+      "title": "The DE Star-Predictor Score (SPS) Is Here!",
+      "body_text": "[SPS All-Time Database - Now With DE](https://brainyballers.com/star-predictor-score-sps/)\n\nThe “Does It Matter?” Series is back! In the last article we looked at [Tight End Breakout Ages for part 100](https://www.reddit.com/r/DynastyFF/s/nKL760VhZA) to find whether that affects performance. For the 101st part of “Does It Matter?” we looked at our Defensive End Star-Predictor Score (SPS) model. In this article, we found an optimal range you should look for in athletes, and walk you through exactly where and how this is applicable in scouting prospects for your IDP drafts.\n\nCurrently, 46 Pro Bowl appearances, 6 DPOYs, 12 First Team All-Pros, 800+ career sacks, and at least 1 future first ballot Hall-of-Famer reside in the top 10 all-time DE SPS grades. \n\nAs mentioned in the article, some of the most recent “call your shot” moments for the SPS have Aidan Hutchinson at 90.6 SPS and Travon Walker at 81.4. Aidan has an SPS grade in the top 10 all-time DE SPS grades. Going back to the 2018 NFL Draft specifically, the top 3 DE SPS grades were in order of: Nick Bosa, Maxx Crosby, Brian Burns. As far as the 2018 DE class draft order, Bosa was taken 1st, followed by Brian Burns 3rd, then Crosby taken as the 10th DE. Their SPS grades show their underrated value – especially Crosby being taken as the 10th DE but being the 3rd overall DE SPS in that class.\n\nIt’s those deep contrasts from the overall consensus and those big contrasts between players that the SPS has been great at “planting its flag” with. Just like any other analytical model or method, there will always be misses, but the true test is the test against draft capital. This is why the whole SPS database includes draft capital to compare against and all of our research compares the SPS grades against draft capital positionally. Which brings me to another point: we are not the type to think or assume film does not matter. When a highly accurate film analyst is shouting from the rooftop about a player, we still stop and listen (although Steve Smith still owes me a 2.02 for the Matthew Golden advice). By no means are we saying the SPS is a bible, but as always, film and analytics should be used alongside each other to gauge the full picture on prospects. Film 🤝 Analytics.\n\nFor those curious about the Pearson value of draft capital and the SPS, we tested both draft capital and the SPS comparing each against career fantasy points scored within the first 4 rounds (which is where the DE SPS specializes in):\n* Draft Capital to career fantasy points for all 1st through 4th round DE’s since 2003: -0.325\n* Star-Predictor Score (SPS) to career fantasy points for all 1st through 4th round DE’s since 2003: 0.448\n\nAfter the 4th round, the SPS’s predictiveness over draft capital slopes down to being only marginal. Therefore, DE’s after round 4 won’t be seen in the SPS database.\n\nYou can find the all-time SPS, which has QB’s, RB’s, WR’s, TE’s, and now DE’s [here](https://brainyballers.com/star-predictor-score-sps/). \n\nSneak peek: We are also currently developing our own fantasy football platform with a unique and extremely fun twist on how fantasy football is played. Along with that, we are soon announcing our official fantasy football [mock draft simulator](https://brainyballers.com/mock-draft-simulator/) (free to use) once all feedback comes in, but while we are here we thought we’d include it in this post for everyone to check out in the meanwhile (feedback appreciated).\n",
+      "author": "Zachr08",
+      "published_at": "2026-04-19T15:09:39+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 2,
+      "num_comments": 1,
+      "candidate_names": [
+        "Predictor Score",
+        "Is Here",
+        "Time Database",
+        "Now With",
+        "It Matter",
+        "Tight End",
+        "Breakout Ages",
+        "Defensive End",
+        "Pro Bowl",
+        "First Team",
+        "Aidan Hutchinson",
+        "Travon Walker",
+        "Nick Bosa",
+        "Maxx Crosby",
+        "Brian Burns",
+        "Steve Smith",
+        "Matthew Golden",
+        "Draft Capital"
+      ],
+      "resolved_player_ids": [
+        "00-0020337"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spr271",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spr271/weekly_sunday_gameday_megathread/",
+      "permalink": "/r/DynastyFF/comments/1spr271/weekly_sunday_gameday_megathread/",
+      "title": "[Weekly] Sunday Gameday Megathread",
+      "body_text": "Football is back! Fire up RedZone and enjoy some (mostly) commercial free football.\n\nPlease keep all gameday discussions within this thread.",
+      "author": "AutoModerator",
+      "published_at": "2026-04-19T12:00:53+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 2,
+      "num_comments": 1,
+      "candidate_names": [
+        "Sunday Gameday",
+        "Megathread Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spozgv",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spozgv/daily_trade_and_individual_team_help_megathread/",
+      "permalink": "/r/DynastyFF/comments/1spozgv/daily_trade_and_individual_team_help_megathread/",
+      "title": "[DAILY] Trade and Individual Team Help Megathread",
+      "body_text": "Welcome to the **Daily Trade and Team Help Megathread**!\n\n* All individual team help questions belong in this post or in [r/fantasyfootballadvice](/r/fantasyfootballadvice/)\n* Please include as many details in your post as possible to get the most accurate answers.\n\nExpand your fantasy football network! Our partnered communities:\n\n* [r/fantasyfootballadvice](/r/fantasyfootballadvice/) \\- Individual team help questions\n* [r/FFIDP](/r/FFIDP/) \\- IDP only subreddit",
+      "author": "AutoModerator",
+      "published_at": "2026-04-19T10:10:05+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 3,
+      "num_comments": 48,
+      "candidate_names": [
+        "Individual Team",
+        "Help Megathread",
+        "Daily Trade",
+        "Team Help"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spnp54",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spnp54/when_is_the_best_time_of_year_to_take_part_in_a/",
+      "permalink": "/r/DynastyFF/comments/1spnp54/when_is_the_best_time_of_year_to_take_part_in_a/",
+      "title": "When is the best time of year to take part in a dynasty startup?",
+      "body_text": "I'm just wondering when people think the best time of year to take part in a new dynasty startup is and why. I've joined some leagues at different time and players have been active and then the league becomes dead other than during the season \n\nAlso have you found there is a good buy-in that will keep people engaged - Is 25 dollars too low? \n\nAlso if you want to find a new league where do you go - Reddit forums? Sleeper pages? Word of mouth?\n\nI'm in 4 dynasty leagues and I'd like to add another but I can't be arsed doing one where people done engage\n\nAlso to note UK based so look for Teamstake leagues which makes it a bit harder",
+      "author": "bben140982",
+      "published_at": "2026-04-19T08:53:59+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 5,
+      "num_comments": 8,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spg9b9",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spg9b9/pre_nfl_draft_uncertainty_buys_and_sells/",
+      "permalink": "/r/DynastyFF/comments/1spg9b9/pre_nfl_draft_uncertainty_buys_and_sells/",
+      "title": "Pre NFL Draft Uncertainty Buys and Sells",
+      "body_text": "With the NFL draft less than a week away who are you trying to acquire or move based on the uncertainty of their role? The week of the draft always creates such a unique window because there’s so many guys who’s value can either skyrocket if their role survives or get vaporized if the team takes a high profile asset to replace them. \n\nThe obvious ones are any running backs involved in the Jeremiyah Love sweepstakes. I like Rachaad white in Washington if he can avoid love. Seems like most people have love going to Tennessee but if they pass on him you could’ve gotten pollard or spears for nothing relative to what they could give you for a year. The Giants just made it very interesting with that second top 10 pick. Not as many QBs or RBs at risk this year theoretically but curious to hear who else could have a big value swing within the next week. ",
+      "author": "SpaceCowboy34",
+      "published_at": "2026-04-19T02:13:19+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 15,
+      "num_comments": 79,
+      "candidate_names": [
+        "Draft Uncertainty",
+        "Sells With",
+        "Jeremiyah Love",
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "1spe3zq",
+      "url": "https://x.com/rapsheet/status/2045659837015474404?s=46",
+      "permalink": "/r/DynastyFF/comments/1spe3zq/giants_star_dexter_lawrence_is_being_traded_to/",
+      "title": "#Giants star Dexter Lawrence is being traded to the #Bengals in a pre-Draft blockbuster that includes the No. 10 pick heading to the Giants, per me and @MikeGarafolo.",
+      "body_text": "",
+      "author": "Ma1ikNabers",
+      "published_at": "2026-04-19T00:28:51+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 302,
+      "num_comments": 156,
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1spdiax",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spdiax/who_are_the_best_pass_catching_tight_endsrunning/",
+      "permalink": "/r/DynastyFF/comments/1spdiax/who_are_the_best_pass_catching_tight_endsrunning/",
+      "title": "Who are the best pass catching tight ends/running backs",
+      "body_text": "Pretty straight forward question but who do you guys view as the best pass catching tight ends/running backs in the 2026 draft class. Are there any guys like Orande Gadson that you can find likely in the later rounds that will or maybe a woody Marks that has solid pass catching upside. I think those type of players usually have a higher chance of hitting (also helps that teams traded up for them, but the archetype is what I’m looking for). ",
+      "author": "LudaChris999",
+      "published_at": "2026-04-19T00:00:49+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 10,
+      "num_comments": 19,
+      "candidate_names": [
+        "Orande Gadson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spciie",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spciie/question_about_rosters_in_a_12_team_sf/",
+      "permalink": "/r/DynastyFF/comments/1spciie/question_about_rosters_in_a_12_team_sf/",
+      "title": "Question About Rosters in a 12 Team SF",
+      "body_text": "I’m currently in a 12 team SF league. We have 2 IR spots on a 32 man roster. I’m relatively new to dynasty so would appreciate some insight. \n\nDo most leagues have EITHER 2 taxi squad spots OR 2 IR spots ? Do some offer both options ? If so are there advantages and disadvantages to either format ?\n\nWith what seems like an increasing amount of injuries, it would obviously be beneficial to have both options. I asked our Commissioner about this issue and he is welcome to any and all suggestions as our league meets to vote on a variety of proposals  after the NFL draft. \n\nSome guidance would be very helpful. TYIA. ",
+      "author": "creelman1",
+      "published_at": "2026-04-18T23:16:19+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 1,
+      "num_comments": 5,
+      "candidate_names": [
+        "Question About"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spc4v1",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spc4v1/when_you_show_up_to_a_new_dynasty_league/",
+      "permalink": "/r/DynastyFF/comments/1spc4v1/when_you_show_up_to_a_new_dynasty_league/",
+      "title": "When you show up to a new dynasty league...",
+      "body_text": "I know it is sub-optimal to trash talk in dynasty leagues as you want to maximize your number of potential trade partners. That said, I enjoy it with new league mates send cheeky introductions when joining leagues.  \n\nI personally like \"A fox has entered the henhouse.\" \n\nWhat is the most fun and hilarious chat message you have seen from a new league member?",
+      "author": "FantasyMansion",
+      "published_at": "2026-04-18T22:59:52+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 0,
+      "num_comments": 10,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spajh3",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spajh3/built_a_dynasty_valuation_ai_chat_tool_as_a_side/",
+      "permalink": "/r/DynastyFF/comments/1spajh3/built_a_dynasty_valuation_ai_chat_tool_as_a_side/",
+      "title": "Built a dynasty valuation + AI chat tool as a side project - roast it",
+      "body_text": "Hey r/DynastyFF 👋\n\nI've been quietly building a dynasty fantasy football data platform for the past several months and I'm at the point where I'd love real feedback from people who are deep in the hobby.\n\n**What it is:** At its core, it's a consensus dynasty valuation tool that aggregates player values across major sources to give you a cleaner, more reliable picture of what players are actually worth - smoothing out the noise from any single ranker.\n\nOn top of that, there's an AI chat assistant purpose-built for dynasty use cases - trade analysis, roster evaluation, startup draft help, that kind of thing. It's not a generic ChatGPT wrapper, it's connected to live dynasty data and ingests your league so the context is actually relevant.\n\n**Current state:**\n\n* Consensus valuations for your specific scoring format (superflex/one qb, with ppr and tep including half point scoring)\n* AI chat for trade/roster questions - **currently requires BYOK** (Bring Your Own Key via Anthropic/OpenAI/Gemini)\n* Still early - there's plenty I want to build and I'm actively looking for feedback on what matters most to dynasty players\n\n**Why I built it:** I'm a dynasty player myself (superflex, half PPR) and got tired of tab-hopping between a bunch of different data sources. I wanted something that did the aggregation for me so I could view everything in one place and could actually reason about my roster instead of tracking down data.\n\n[https://snapcontext.app](https://snapcontext.app)\n\nWould love to hear what you think - what's useful, what's missing, what you'd pay for, what's broken. Happy to answer questions in the comments.\n\nThanks 🙏",
+      "author": "BaldBeardTheBrave",
+      "published_at": "2026-04-18T21:50:53+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 0,
+      "num_comments": 16,
+      "candidate_names": [
+        "Bring Your",
+        "Own Key"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spaa8c",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1spaa8c/new_dynasty_commissioner_question/",
+      "permalink": "/r/DynastyFF/comments/1spaa8c/new_dynasty_commissioner_question/",
+      "title": "New Dynasty Commissioner Question",
+      "body_text": "I’m running a dynasty for the first time ever and it’s a 12 man league with about 8 of my friends and then 4 people I met on fantasy instagram groupchats. It’s me and all my friends first time doing dynasty but the other 4 guys are dynasty vets. I was just wondering if anyone had any advice for a league dynamic like this. I was wanting to turn  startup trades off because I’ve heard that’s a good idea in a fresh league with newbies but got kickback from the vets about doing that. \n\nI want this to be a long lasting healthy league, everyone in it says they’re committed for the next 5+ years. I just don’t want the vets taking advantage of the rookies and am trying to get this thing started on the right foot.",
+      "author": "Innerstander",
+      "published_at": "2026-04-18T21:40:15+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 3,
+      "num_comments": 14,
+      "candidate_names": [
+        "New Dynasty",
+        "Commissioner Question"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sp8udh",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1sp8udh/is_kubiak_and_the_shanahan_scheme_good_for_jeanty/",
+      "permalink": "/r/DynastyFF/comments/1sp8udh/is_kubiak_and_the_shanahan_scheme_good_for_jeanty/",
+      "title": "Is Kubiak and the Shanahan scheme good for Jeanty?",
+      "body_text": "The Raiders last year were a mess. A lot of that was obviously due to personnel with the terrible offensive line, a very bad Geno Smith, no WR corps, and an injured Brock Bowers. However, I don't think the coaching staff was doing them any favors. \n\nWith Kubiak coming in an running his version of the Shanahan scheme, I am curious how that will affect Jeanty. We can look at Seattle last year and see that they ran a highly efficient offense, however, it was particularly great for Ken Walker when Charbonnet was healthy. Is that going to be the same frustration we have with Jeanty going forward? I am certain they will add a back in the draft as they have no legitimate RB2, so I am curious what you all think.",
+      "author": "TDn6I",
+      "published_at": "2026-04-18T20:42:05+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 3,
+      "num_comments": 11,
+      "candidate_names": [
+        "Is Kubiak",
+        "The Raiders",
+        "Geno Smith",
+        "Brock Bowers",
+        "With Kubiak",
+        "Ken Walker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "1sp8qns",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1sp8qns/if_you_were_the_gm_of_the_dolphins_would_you/",
+      "permalink": "/r/DynastyFF/comments/1sp8qns/if_you_were_the_gm_of_the_dolphins_would_you/",
+      "title": "If you were the GM of the Dolphins, would you extend Achane or trade him?",
+      "body_text": "The Dolphins have publicly and adamantly ruled out trading De'Von Achane, with General Manager Jon-Eric Sullivan labeling him a foundational pillar of the team's ongoing roster rebuild ([7 sources from Dynasty Pulse](https://dynastypulse.com/player/14507b23-2a72-446e-9691-9f17af992fa3)).\n\nI'm trying to wrap my head around it.\n\nReasons why they **would** trade Achane:\n\n* Team likely won't be competitive while he is there given the full rebuild\n* Rebuilding around a RB is generally a poor idea\n* They would likely get a good return for him\n* Don't have to extend him\n\nReasons why they **would not** trade Achane:\n\n* They think they can be competitive in the next few years\n* They want to sell tickets next season?\n\nOnly other thing I could come up with is that the GM is trying to drive the price up by saying how sure they are they want to keep him. Essentially saying they need to receive an offer they can't say no to. But that doesn't feel like what's happening here.\n\nWhich brings me back to the post title, if you were the GM of the Dolphins, would you extend Achane or trade him?",
+      "author": "mochajoesdynsaty",
+      "published_at": "2026-04-18T20:37:59+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 10,
+      "num_comments": 66,
+      "candidate_names": [
+        "The Dolphins",
+        "Von Achane",
+        "General Manager",
+        "Eric Sullivan",
+        "Dynasty Pulse"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "1sp5mj6",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1sp5mj6/sleeper_dynasty_adp_question/",
+      "permalink": "/r/DynastyFF/comments/1sp5mj6/sleeper_dynasty_adp_question/",
+      "title": "Sleeper Dynasty ADP Question",
+      "body_text": "I’m doing a 12 team dynasty startup, our draft is gonna be 29 rounds. Only problem is that once I get to round 25, it’s all retired players and random practice squad guys. Is there any way I can make it so it’s easier to find the remaining active players without having to search them up? We have a few more casual players in my league and they’ll be lost once we get to those rounds ",
+      "author": "Innerstander",
+      "published_at": "2026-04-18T18:37:09+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 2,
+      "num_comments": 8,
+      "candidate_names": [
+        "Sleeper Dynasty"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sp3anj",
+      "url": "https://youtu.be/qeZZKhfPUEk?si=NkiL2VScJpVyN2D_",
+      "permalink": "/r/DynastyFF/comments/1sp3anj/what_the_data_says_about_harold_fannins_dynasty/",
+      "title": "What the data says about Harold Fannin’s dynasty upside in 2026 and beyond",
+      "body_text": "I did my master’s in data science thesis on machine learning modeling for fantasy football - here’s what the data says about Harold Fannin's 2026 outlook and beyond, given his year 2 statistical comps:\n\n**16/20 hit 1+ Top 12 FPPG finish (80%)**\n\n**10/20 hit 1+ Top 5 FPPG finish (50%)**\n\n**6/20 hit 1+ Top 3 FPPG finish (30%)**\n\n\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\n\n**Year 2 FPPG distribution specifically (PPR):**\n\n**Floor → 1.44**\n\n**Q1 (25th % outcome) → 8.28**\n\n**Median → 10.96**\n\n**Q3 (75th % outcome)→ 12.1**\n\n**Ceiling → 16.04**\n\nHowever high you are on Harold Fannin, I truly don't think it's high enough. This guy has earned the right to be in the conversation for **TE3 in dynasty** with Loveland and Warren in my opinion. The fact that he is a distance 5th (and sometimes 6th, depending how you feel about Kraft) feels like a value opportunity.\n\nAbsolutely bonkers production profile coming out of Bowling Green, and he just kept doing more of the same shit in the NFL. To have this good of statistical comps going into year 2 after being drafted 67 overall is NOT a common occurrence, especially at the TE position. Truly a special, special talent and quite possibly my next favorite player in the league!!\n\nWhat do you guys think about Fannin? Make sure to check out the video for all my thoughts along with the full list of comps, and check out [the full Year 2 comps series on my channel](https://youtube.com/playlist?list=PLonqwVXo4OmWEY6U6793Rr40LaadVc0Y2&amp;si=z8uanAGnpugWctry) for all the guys I’ve covered!🤙",
+      "author": "boofstar",
+      "published_at": "2026-04-18T17:09:23+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 42,
+      "num_comments": 47,
+      "candidate_names": [
+        "Harold Fannin",
+        "Bowling Green"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sozx83",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1sozx83/introducing_2026_nfl_draft_odds_see_interesting/",
+      "permalink": "/r/DynastyFF/comments/1sozx83/introducing_2026_nfl_draft_odds_see_interesting/",
+      "title": "Introducing 2026 NFL Draft Odds: see interesting Vegas draft odds for fantasy-relevant rookies (!!)",
+      "body_text": "Hi guys! I got a cool one today -- view interesting Vegas draft odds and markets for fantasy-relevant rookies. It's live on [**firstdown.studio/nfl-draft-odds**](https://www.firstdown.studio/nfl-draft-odds)**.**\n\nHere's a rundown of the featured markets:\n\n1. **Drafted By Odds** (ex: which teams are favored to draft Jeremiyah Love?)\n2. **Draft Position O/U** (ex: will omar cooper jr be drafted over or under 23.5)\n3. **Odds for players drafted top 5, top 10, or in round 1**\n4. **Odds for Picks 1-15**\n5. **What position will a NFL team draft first?** (ex: will the rams draft a WR first?)\n\nI kept checking these props all the time, so I made a clean, easy-to-use UI for the details we'd be interested in as dynasty players.\n\nEnjoy!\n\n\\---\n\n[**firstdown.studio/nfl-draft-odds**](https://www.firstdown.studio/nfl-draft-odds)\n\n",
+      "author": "bbl27",
+      "published_at": "2026-04-18T15:00:29+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 13,
+      "num_comments": 21,
+      "candidate_names": [
+        "Draft Odds",
+        "By Odds",
+        "Jeremiyah Love",
+        "Draft Position"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1soynpe",
+      "url": "https://www.rotoballer.com/5-cheap-dynasty-fantasy-football-trade-targets-and-stashes-2026/1844076",
+      "permalink": "/r/DynastyFF/comments/1soynpe/5_cheap_dynasty_buys_players_to_trade_for/",
+      "title": "5 Cheap Dynasty Buys: Players to Trade For",
+      "body_text": "",
+      "author": "ASmithFS",
+      "published_at": "2026-04-18T14:10:17+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 55,
+      "num_comments": 67,
+      "candidate_names": [
+        "Cheap Dynasty",
+        "Trade For"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sowvch",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1sowvch/who_are_some_sleepers_you_guys_are_drafting_in/",
+      "permalink": "/r/DynastyFF/comments/1sowvch/who_are_some_sleepers_you_guys_are_drafting_in/",
+      "title": "Who are some sleepers you guys are drafting in the 3rd and 4th round of rookie drafts?",
+      "body_text": "With the consensus being that the 2026 rookie class being terrible past the 1st Round, who are some guys you have in your back pocket to draft in later rounds? This will be my first rookie draft and I’m not too into college football. Any information or insights to some good prospects would be awesome!",
+      "author": "JuanMataFanClub",
+      "published_at": "2026-04-18T12:53:27+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 53,
+      "num_comments": 75,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sotopx",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1sotopx/daily_trade_and_individual_team_help_megathread/",
+      "permalink": "/r/DynastyFF/comments/1sotopx/daily_trade_and_individual_team_help_megathread/",
+      "title": "[DAILY] Trade and Individual Team Help Megathread",
+      "body_text": "Welcome to the **Daily Trade and Team Help Megathread**!\n\n* All individual team help questions belong in this post or in [r/fantasyfootballadvice](/r/fantasyfootballadvice/)\n* Please include as many details in your post as possible to get the most accurate answers.\n\nExpand your fantasy football network! Our partnered communities:\n\n* [r/fantasyfootballadvice](/r/fantasyfootballadvice/) \\- Individual team help questions\n* [r/FFIDP](/r/FFIDP/) \\- IDP only subreddit",
+      "author": "AutoModerator",
+      "published_at": "2026-04-18T10:10:05+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 3,
+      "num_comments": 86,
+      "candidate_names": [
+        "Individual Team",
+        "Help Megathread",
+        "Daily Trade",
+        "Team Help"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1soal2h",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1soal2h/dynasty_idp_rankings_by_position/",
+      "permalink": "/r/DynastyFF/comments/1soal2h/dynasty_idp_rankings_by_position/",
+      "title": "Dynasty IDP Rankings By Position",
+      "body_text": "Can someone recommend a good resource for DYNASTY Individual Defensive Player Rankings by position? \n\nOur league has added 3 DL / 3 LB / 3 CB / 3 IDP spots on the roster. Haven't been able to find a decent one I like yet and most cut off after the top 30 or so at each position and are ranked for the year and not Dynasty. Consensus rankings would be a bonus. \n\nThx!",
+      "author": "Hatemail375",
+      "published_at": "2026-04-17T19:14:09+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 7,
+      "num_comments": 22,
+      "candidate_names": [
+        "By Position",
+        "Individual Defensive",
+        "Player Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1so9ynv",
+      "url": "https://x.com/underdognfl/status/2045206600231596261?s=46&amp;t=OFXSu6C1LzN5vcCuPwLeFA",
+      "permalink": "/r/DynastyFF/comments/1so9ynv/jordan_tyson_stock_on_the_rise/",
+      "title": "Jordan Tyson stock on the rise?",
+      "body_text": "Teams not being worried about the injury history is a great sign. As someone with the 1.03, deciding between him Lemon and Tate, I’m very excited to see where this guy goes.\n\nWhat’s your idea landing spot for Tyson within the 5 and 16 spots the post mentioned? Whats a spot that would remove him from your board?",
+      "author": "TooDrunkForAName",
+      "published_at": "2026-04-17T18:52:08+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 101,
+      "num_comments": 111,
+      "candidate_names": [
+        "Jordan Tyson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1so8kxm",
+      "url": "https://www.reddit.com/r/DynastyFF/comments/1so8kxm/is_marvin_harrison_jr_really_the_bust_people_are/",
+      "permalink": "/r/DynastyFF/comments/1so8kxm/is_marvin_harrison_jr_really_the_bust_people_are/",
+      "title": "Is Marvin Harrison Jr really the bust people are making him out to be?",
+      "body_text": "Coming out of Ohio State he was given the \"generational\" tag, which is ridiculous and I think only happened because of his name. However, he was generally considered one of the cleanest WR prospects to enter the NFL in quite some time. \n\nPeople will point to him not living up to his expectations, which if you consider him a generational prospect, is probably true. \n\nHis rookie year was still pretty good - 62/885/8 - and is only one of 8 rookie WRs to post at leas 800 yards and 8 TDs in the last decade.  \n\nHe was a common pick for a sophomore year breakout but it was disappointing on a couple levels. He dealt with drops and injuries. He played 80% of snaps his rookie year and less than 50% in Year 2, however, he still put up 41/608/4 is what essentially was 10 games. That is a 17 game pace of 70/1000/7 which is a solid line.\n\nNow he is hoping for the year 3 breakout similar to what Nico experienced a couple years ago. He has a new coach, new coordinator, and a new scheme. Brissett should be throwing it around the yard but MHJ also has to deal with McBride and the emergence of Wilson last year eating into his targets. \n\nSo, is he the bust people are making him out to be? Or have our expectations been warped based on hype and draft capital? ",
+      "author": "TDn6I",
+      "published_at": "2026-04-17T18:01:58+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 77,
+      "num_comments": 203,
+      "candidate_names": [
+        "Is Marvin",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1so7zqo",
+      "url": "https://www.firstdown.studio/feed/jacoby-brissett-ekst",
+      "permalink": "/r/DynastyFF/comments/1so7zqo/rapoport_sources_cardinals_qb_jacoby_brissett_is/",
+      "title": "[Rapoport] Sources: Cardinals QB Jacoby Brissett is not attending Phase 1 of the offseason program and is asking for an extension that pays him as the starter. Brissett, set to make $9.06M in ‘26, has only $1.5M in guaranteed money and wants security. AZ appears willing to address it.",
+      "body_text": "",
+      "author": "bbl27",
+      "published_at": "2026-04-17T17:41:05+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 157,
+      "num_comments": 66,
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "1so7lfw",
+      "url": "https://fptrack.com/football/3-overvalued-players-dynasty-fantasy-football-260417",
+      "permalink": "/r/DynastyFF/comments/1so7lfw/3_overvalued_players_in_dynasty_fantasy_football/",
+      "title": "3 Overvalued Players in Dynasty Fantasy Football",
+      "body_text": "",
+      "author": "The_Lineup_Podcast",
+      "published_at": "2026-04-17T17:26:45+00:00",
+      "source": "reddit_DynastyFF",
+      "score": 25,
+      "num_comments": 63,
+      "candidate_names": [
+        "Overvalued Players",
+        "Dynasty Fantasy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

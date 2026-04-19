@@ -1,0 +1,305 @@
+{
+  "fetch_run_id": "dd3f3422-1026-4c70-a74b-d9c3bb1e002e",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-04-10T21:31:32.639902+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 20,
+  "items": [
+    {
+      "external_id": "US-EN-47190881",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/47190881/2026-nfl-draft-rankings-matt-miller-top-prospects-players-positions",
+      "title": "Miller's final 2026 NFL draft rankings: Let's stack the 482 best prospects",
+      "body_text": "Matt Miller has finalized his rankings for the 2026 draft, listing his top 482 players and providing grades for each prospect.",
+      "author": "Matt Miller",
+      "published_at": "2026-04-10T14:49:10+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48428742",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48428742/2026-nfl-draft-latest-buzz-rumors-news-mocks-predictions-jets-lions-chargers-panthers",
+      "title": "Everything we're hearing on the NFL draft: Jets' No. 2 pick plans, bold predictions",
+      "body_text": "Could Jacob Rodriguez sneak into Round 1? Our NFL draft experts weigh in with their newest intel.",
+      "author": "Matt Miller, Jordan Reid and Field Yates",
+      "published_at": "2026-04-10T14:49:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Could Jacob"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48450986",
+      "url": "https://www.espn.com/nfl/story/_/id/48450986/falcons-pick-fifth-year-option-rb-bijan-robinson",
+      "title": "Falcons pick up fifth-year option for RB Robinson",
+      "body_text": "The Atlanta Falcons picked up running back Bijan Robinson's fifth-year contract option Friday.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Robinson The",
+        "Atlanta Falcons",
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48447175",
+      "url": "https://www.espn.com/nfl/story/_/id/48447175/sources-colts-agree-seek-new-team-cb-kenny-moore-ii",
+      "title": "Sources: Colts seeking to trade away CB Moore",
+      "body_text": "The Colts and Kenny Moore II have agreed to seek a trade to find the veteran cornerback a new team, sources told ESPN.",
+      "author": null,
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Moore The",
+        "Kenny Moore II"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-48450123",
+      "url": "https://www.espn.com/nfl/story/_/id/48450123/former-jets-quarterback-browning-nagle-dies-age-57",
+      "title": "Former Jets, Louisvile QB Nagle dies at age 57",
+      "body_text": "Former Jets and Louisville quarterback Browning Nagle has died at age 57.",
+      "author": "Rich Cimini",
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Jets",
+        "Browning Nagle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48440303",
+      "url": "https://www.espn.com/nfl/story/_/id/48440303/sources-doj-opens-antitrust-investigation-nfl-tv-deals",
+      "title": "Sources: DOJ opens NFL inquiry over TV deals",
+      "body_text": "The Justice Department has begun an investigation into whether the NFL has violated anticompetitive practices with their television contracts that require consumers to pay subscription costs to watch some games, sources confirmed to ABC News.",
+      "author": null,
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Justice"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48449332",
+      "url": "https://www.espn.com/mlb/story/_/id/48449332/broncos-owners-purchase-40-rockies-per-reports",
+      "title": "Broncos owners acquire minority share of Rockies",
+      "body_text": "The Rockies are bringing in Broncos owners Greg Penner and Carrie Walton Penner through a minority investment, with multiple reports saying they are purchasing about 40% of the team.",
+      "author": null,
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rockies The",
+        "Greg Penner",
+        "Carrie Walton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-48443052",
+      "url": "https://www.espn.com/nfl/story/_/id/48443052/5-ohio-st-players-ty-simpson-16-attend-nfl-draft",
+      "title": "5 Buckeyes, Simpson among 16 draft attendees",
+      "body_text": "Five Ohio State players are among the 16 planning to attend the first round of the NFL draft on April 23 in Pittsburgh, a group that doesn't include Fernando Mendoza but does include fellow QB Ty Simpson.",
+      "author": null,
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Five Ohio",
+        "Fernando Mendoza",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48442188",
+      "url": "https://www.espn.com/nfl/story/_/id/48442188/source-49ers-ex-bengals-de-cam-sample-reach-one-year-deal",
+      "title": "Source: 49ers, ex-Bengals DE Sample reach deal",
+      "body_text": "The 49ers agreed to a one-year contract with free agent defensive end Cam Sample, a source told NFL Network on Thursday.",
+      "author": null,
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Cam Sample"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-48431526",
+      "url": "https://www.espn.com/nfl/story/_/id/48431526/falcons-starting-rt-kaleb-mcgary-retiring-age-31-agent-says",
+      "title": "Falcons pivot after RT McGary retires, add Taylor",
+      "body_text": "Falcons right tackle Kaleb McGary is retiring, agent Collin Roberts announced.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Taylor Falcons",
+        "Collin Roberts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48423360",
+      "url": "https://www.espn.com/nfl/story/_/id/48423360/seattle-seahawks-sam-darnold-wedding-married-katie-hoofnagle",
+      "title": "💍 Seahawks QB Sam Darnold adds another ring",
+      "body_text": "The Seahawks quarterback married his fiancée only months after winning Super Bowl LX.",
+      "author": "Kalan Hooks",
+      "published_at": "2026-04-10T22:06:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Sam Darnold",
+        "The Seahawks",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-48421239",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48421239/2026-nfl-mock-draft-quarterback-team-fits-mendoza-simpson-nussmeier-allar-beck2026-nfl-mock-draft-quarterback-team-fits-mendoza-simpson-nussmeier-allar-beck",
+      "title": "Projecting NFL draft quarterback landing spots, from No. 1 to No. 215",
+      "body_text": "Projecting landing spots for the nine QBs he considers draftable in the 2026 class (and one trade).",
+      "author": "Ben Solak",
+      "published_at": "2026-04-10T14:28:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48420486",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48420486/2026-nfl-draft-experts-pick-superteams-top-prospects-positions-kiper-miller-reid-yates",
+      "title": "Our draft experts picked 10-man rosters from 2026 class: Who has the best superteam?",
+      "body_text": "Mel Kiper Jr., Matt Miller, Jordan Reid and Field Yates drafted their own rosters of 2026 draft prospects.",
+      "author": "Mel Kiper Jr., Matt Miller, Jordan Reid and Field Yates",
+      "published_at": "2026-04-10T14:28:45+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr",
+        "Matt Miller",
+        "Jordan Reid",
+        "Field Yates"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48446280",
+      "url": "https://www.espn.com/nfl/story/_/id/48446280/doj-nfl-investigation-tv-television-broadcast-rights-fans",
+      "title": "What the DOJ's NFL investigation could mean for networks, fans",
+      "body_text": "What could the federal government's investigation of the NFL mean for fans and television networks?",
+      "author": "Ben Strauss",
+      "published_at": "2026-04-10T17:48:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48439859",
+      "url": "https://www.espn.com/nfl/story/_/id/48439859/nfl-draft-minnesota-vikings-justin-jefferson-aaron-jones-sr",
+      "title": "For the first time in a long time, Vikings need WR, RB depth",
+      "body_text": "Will Minnesota dip its toes into the wide receiver and running back pool during the 2026 draft?",
+      "author": "Kevin Seifert",
+      "published_at": "2026-04-10T13:13:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Minnesota"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "US-EN-48379274",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48379274/ufl-dc-defenders-gabe-taylor-sean-taylor",
+      "title": "'This is everything to me': Gabe Taylor set for debut in D.C., where brother Sean starred",
+      "body_text": "Gabe Taylor, who will don No. 21, understands the legacy brother Sean built in Washington in a short time.",
+      "author": "Todd Archer",
+      "published_at": "2026-04-10T13:09:07+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Gabe Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48432829",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48432829/ufl-announces-2028-expansion",
+      "title": "Why the UFL plans to expand in 2028 and believes Oklahoma City is a great fit",
+      "body_text": "UFL co-owner Mike Repole promised expansion; the other city to join with OKC is still to be determined.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-04-10T13:09:07+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Oklahoma City",
+        "Mike Repole"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48412918",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48412918/las-vegas-raiders-coach-klint-kubiak-quarterback-fernando-mendoza",
+      "title": "What the Raiders can learn from last time they paired a first-time head coach with a No. 1 overall pick QB",
+      "body_text": "The Raiders last paired a new coach with a rookie QB in 2007. Will it be different with Klint Kubiak and Fernando Mendoza?",
+      "author": "Ryan McFadden",
+      "published_at": "2026-04-10T02:30:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Raiders",
+        "Klint Kubiak",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-48419390",
+      "url": "https://www.espn.com/nfl/story/_/id/48419390/nfl-dallas-cowboys-dak-prescott-draft-jerry-jones",
+      "title": "Divine intervention? How Dallas landed Dak Prescott at No. 135 in the 2016 NFL draft",
+      "body_text": "As the moment neared, OC Scott Linehan was holding his breath, thinking, \"Someone else is going to take him.\"",
+      "author": "Todd Archer",
+      "published_at": "2026-04-08T14:16:13+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "How Dallas",
+        "Dak Prescott",
+        "Scott Linehan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48422631",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48422631/2026-fantasy-football-rankings-tight-end-te-profiles",
+      "title": "2026 fantasy football rankings: Profiles for more than 30 tight ends",
+      "body_text": "Mike Clay provides breakdowns of the top tight ends in fantasy football for the 2026 season.",
+      "author": "Mike Clay",
+      "published_at": "2026-04-10T18:10:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Clay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

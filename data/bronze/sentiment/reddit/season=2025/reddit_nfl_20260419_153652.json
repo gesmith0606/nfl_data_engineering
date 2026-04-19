@@ -1,0 +1,480 @@
+{
+  "fetch_run_id": "5f0588ac-5db2-4e50-92c1-d959b6b1b5e7",
+  "source": "reddit_nfl",
+  "fetched_at": "2026-04-19T15:36:52.683052+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 25,
+  "items": [
+    {
+      "external_id": "1spvx7b",
+      "url": "https://bsky.app/profile/nflnewsreposterbot.bsky.social/post/3mjub3ec43c2h",
+      "permalink": "/r/nfl/comments/1spvx7b/schefter_compensation_update_now_that_he_has/",
+      "title": "[Schefter] Compensation update: Now that he has passed his physical and the trade is official, newly-acquired DT Dexter Lawerence is signing a one-year, $28 million contract extension with the Bengals, per @WinSportsGroup",
+      "body_text": "",
+      "author": "MembershipSingle7137",
+      "published_at": "2026-04-19T15:23:19+00:00",
+      "source": "reddit_nfl",
+      "score": 217,
+      "num_comments": 124,
+      "candidate_names": [
+        "Dexter Lawerence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1spsy49",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dewayne-carter-says-achilles-recovery-is-on-track-will-be-cleared-by-training-camp",
+      "permalink": "/r/nfl/comments/1spsy49/bills_dewayne_carter_says_achilles_recovery_is_on/",
+      "title": "Bills' DeWayne Carter says Achilles recovery is on track, will be cleared by training camp",
+      "body_text": "",
+      "author": "AdSpecialist6598",
+      "published_at": "2026-04-19T13:25:57+00:00",
+      "source": "reddit_nfl",
+      "score": 62,
+      "num_comments": 9,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "1spptuy",
+      "url": "https://www.reddit.com/r/nfl/comments/1spptuy/sunday_brunch/",
+      "permalink": "/r/nfl/comments/1spptuy/sunday_brunch/",
+      "title": "Sunday Brunch",
+      "body_text": "https://preview.redd.it/qdbz731q598g1.jpg?width=980&amp;format=pjpg&amp;auto=webp&amp;s=da16a4565dc083957c8e6b1aff1ceca880789c99\n\nWelcome to today's open thread, where r/nfl users can discuss anything they wish not related directly to the NFL.\n\nWant to talk about personal life? Cool things about your fandom? Whatever happens to be dominating today's news cycle? Do you have something to talk about that didn't warrant its own thread? This is the place for it!\n\nRemember, that there are other subreddits that may be a good fit for what you want to post - every day all day!\n\n* r/NFLFandom for showing off your fandom\n* r/NFL_Draft for talking in depth about the draft\n* r/NFLNoobs for noob questions, no judgment\n* r/nflblogs for posting blog posts - including your own\n* r/nflofftopic for talking about anything with NFL fans\n* r/nfffffffluuuuuuuuuuuu for all kinds of humor posts\n* r/nflcirclejerk for when r/NFL just becomes too much\n* ... and more - see the sidebar!",
+      "author": "AutoModerator",
+      "published_at": "2026-04-19T10:58:08+00:00",
+      "source": "reddit_nfl",
+      "score": 10,
+      "num_comments": 111,
+      "candidate_names": [
+        "Sunday Brunch"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spolff",
+      "url": "https://overthecap.com/2026-positional-draft-success-vs-free-agent-availability",
+      "permalink": "/r/nfl/comments/1spolff/jason_fitzgerald_2026_positional_draft_success_vs/",
+      "title": "[Jason Fitzgerald] 2026 Positional Draft Success vs Free Agent Availability",
+      "body_text": "",
+      "author": "guest_from_Europe",
+      "published_at": "2026-04-19T09:47:22+00:00",
+      "source": "reddit_nfl",
+      "score": 67,
+      "num_comments": 14,
+      "candidate_names": [
+        "Jason Fitzgerald",
+        "Positional Draft",
+        "Free Agent"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spoawm",
+      "url": "https://www.espn.com/nfl/story/_/id/48527148/2026-nfl-trade-dexter-lawrence-bengals-giants-first-round-draft-pick-takeaways",
+      "permalink": "/r/nfl/comments/1spoawm/barnwell_the_fallout_of_a_stunning_dexter/",
+      "title": "[Barnwell] The fallout of a stunning Dexter Lawrence trade: Four takeaways on the NFL draft, Bengals, trade value of veteran players",
+      "body_text": "",
+      "author": "guest_from_Europe",
+      "published_at": "2026-04-19T09:29:47+00:00",
+      "source": "reddit_nfl",
+      "score": 361,
+      "num_comments": 259,
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1spg0co",
+      "url": "https://bsky.app/profile/nflnewsreposterbot.bsky.social/post/3mjsuaeri6s2n",
+      "permalink": "/r/nfl/comments/1spg0co/schultz_the_bengals_are_expected_to_hammer_out_a/",
+      "title": "[Schultz] The #Bengals are expected to hammer out a significant long-term deal with DT Dexter Lawrence as part of the trade, once he passes his physical, per sources.",
+      "body_text": "A very un-Bengals move … but this is a changing organization. And their actions confirm it.",
+      "author": "MembershipSingle7137",
+      "published_at": "2026-04-19T02:00:55+00:00",
+      "source": "reddit_nfl",
+      "score": 1305,
+      "num_comments": 239,
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1spfs6v",
+      "url": "https://bsky.app/profile/nflnewsreposterbot.bsky.social/post/3mjstlsuwkc2n",
+      "permalink": "/r/nfl/comments/1spfs6v/schefter_a_bengals_trade_for_dexter_lawrence_is/",
+      "title": "[Schefter] A Bengals trade for Dexter Lawrence is unprecedented: This is the first time in the common draft era that dates back to 1966 in which the Bengals ever have traded a Top-10 pick for a player, per ESPN research.",
+      "body_text": "",
+      "author": "MembershipSingle7137",
+      "published_at": "2026-04-19T01:49:51+00:00",
+      "source": "reddit_nfl",
+      "score": 2648,
+      "num_comments": 293,
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1spepv5",
+      "url": "https://www.reddit.com/r/nfl/comments/1spepv5/are_we_about_to_be_in_an_nfc_east_draft_arms_race/",
+      "permalink": "/r/nfl/comments/1spepv5/are_we_about_to_be_in_an_nfc_east_draft_arms_race/",
+      "title": "Are we about to be in an NFC East draft arms race?",
+      "body_text": "First we got the report the Cowboys may move up for someone the Giants covet. Then we have this trade so now NYG has the capital to move as well. If DAL makes the move to package their two 1sts to get to 3 prior to the draft, could NYG then send their 1sts in exchange for NYJ's?",
+      "author": "smilinganimalface",
+      "published_at": "2026-04-19T00:58:55+00:00",
+      "source": "reddit_nfl",
+      "score": 0,
+      "num_comments": 58,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "1spemku",
+      "url": "https://www.threads.com/@dougrush/post/DXSy5utjK_a?xmt=AQF0ugEFPbRch1kFbzW7bOs1y3YgXjZuL7VoBFk5I5jx_h1F54riUTxaGjC-uCbsrmACsy8",
+      "permalink": "/r/nfl/comments/1spemku/its_the_bengals_no_10_pick_for_dexter_lawrence/",
+      "title": "It’s the Bengals No. 10 pick for Dexter Lawrence straight up. No other picks were involved.",
+      "body_text": "",
+      "author": "dropjar5",
+      "published_at": "2026-04-19T00:54:28+00:00",
+      "source": "reddit_nfl",
+      "score": 2721,
+      "num_comments": 714,
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1spe1er",
+      "url": "https://bsky.app/profile/nflnewsreposterbot.bsky.social/post/3mjsovsbkac2n",
+      "permalink": "/r/nfl/comments/1spe1er/rapoport_giants_star_dexter_lawrence_is_being/",
+      "title": "[Rapoport] #Giants star Dexter Lawrence is being traded to the #Bengals in a pre-Draft blockbuster that includes the No. 10 pick heading to the Giants, per me and \n@MikeGarafolo. \n\nNYG gets premium draft compensation, Cincy gets a lynchpin, while Sexy Dexy gets a new, big-money extension.",
+      "body_text": "",
+      "author": "JCameron181",
+      "published_at": "2026-04-19T00:25:25+00:00",
+      "source": "reddit_nfl",
+      "score": 4993,
+      "num_comments": 1436,
+      "candidate_names": [
+        "Dexter Lawrence",
+        "Sexy Dexy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1spdhpl",
+      "url": "https://v.redd.it/4d4df29ff1wg1",
+      "permalink": "/r/nfl/comments/1spdhpl/highlight_dexter_lawrence_ii_bats_intercepts/",
+      "title": "[Highlight] Dexter Lawrence II Bats &amp; Intercepts Justin Herbert's Pass, Nearly Scoring | 2025 Week 4",
+      "body_text": "",
+      "author": "JCameron181",
+      "published_at": "2026-04-19T00:00:18+00:00",
+      "source": "reddit_nfl",
+      "score": 528,
+      "num_comments": 52,
+      "candidate_names": [
+        "Dexter Lawrence II",
+        "Intercepts Justin",
+        "Nearly Scoring"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spc8di",
+      "url": "https://v.redd.it/e8q3hs8g51wg1",
+      "permalink": "/r/nfl/comments/1spc8di/highlight_jake_moody_doinks_a_27yard_field_goal/",
+      "title": "[Highlight] Jake Moody doinks a 27-yard field goal",
+      "body_text": "",
+      "author": "Brix001",
+      "published_at": "2026-04-18T23:04:03+00:00",
+      "source": "reddit_nfl",
+      "score": 253,
+      "num_comments": 37,
+      "candidate_names": [
+        "Jake Moody"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1spbsa1",
+      "url": "https://v.redd.it/jjdxgu5121wg1",
+      "permalink": "/r/nfl/comments/1spbsa1/highlight_george_kittle_chugs_half_a_beer_before/",
+      "title": "[Highlight] George Kittle chugs half a beer before stealing one from Tyrese Haliburton and chugging it too.",
+      "body_text": "",
+      "author": "joe2352",
+      "published_at": "2026-04-18T22:44:38+00:00",
+      "source": "reddit_nfl",
+      "score": 8659,
+      "num_comments": 460,
+      "candidate_names": [
+        "George Kittle",
+        "Tyrese Haliburton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sp974k",
+      "url": "https://bsky.app/profile/nflnewsreposterbot.bsky.social/post/3mjsda2rprk2m",
+      "permalink": "/r/nfl/comments/1sp974k/fowler_the_titans_plan_to_pick_up_og_peter/",
+      "title": "[Fowler] The Titans plan to pick up OG Peter Skoronski’s fifth-year option, per source.",
+      "body_text": "This sets up Skoronski, the team’s No. 11 overall pick in 2023, to make $19.07M in 2027.",
+      "author": "MembershipSingle7137",
+      "published_at": "2026-04-18T20:56:31+00:00",
+      "source": "reddit_nfl",
+      "score": 252,
+      "num_comments": 33,
+      "candidate_names": [
+        "The Titans",
+        "Peter Skoronski"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "1sp8t31",
+      "url": "https://www.reddit.com/r/nfl/comments/1sp8t31/is_don_hutsons_1211_yards_and_17_tds_in_1942_the/",
+      "permalink": "/r/nfl/comments/1sp8t31/is_don_hutsons_1211_yards_and_17_tds_in_1942_the/",
+      "title": "Is Don Hutsons 1211 yards and 17 TDs in 1942 the most impressive stat line in NFL history?",
+      "body_text": "Technically he only did this in 11 games but that's not the craziest part. Hutson accounted for 89% of his teams pass offense that year and had 112% more yards than the runner up (571). If we continued his stat line for 17 games it would be 1871 yards and 26 Td's (a record) but we considered pace and modern efficiency (teams used to throw for about 120 a game back then and he would have about 110 alone) his stats would look closer to a 3200 yard season with over 40 Td's and over 140 receptions",
+      "author": "Weirdsodk",
+      "published_at": "2026-04-18T20:40:38+00:00",
+      "source": "reddit_nfl",
+      "score": 530,
+      "num_comments": 157,
+      "candidate_names": [
+        "Is Don"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sp7jwg",
+      "url": "https://v.redd.it/1spl08n870wg1",
+      "permalink": "/r/nfl/comments/1sp7jwg/highlight_the_texans_botch_their_tank_and_give/",
+      "title": "[Highlight] The Texans botch their tank and give the Bears the number 1 pick in the 2023 NFL Draft",
+      "body_text": "",
+      "author": "Tocoolforyall720",
+      "published_at": "2026-04-18T19:52:13+00:00",
+      "source": "reddit_nfl",
+      "score": 3048,
+      "num_comments": 403,
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "1sp47v5",
+      "url": "https://v.redd.it/8mff3mkdkzvg1",
+      "permalink": "/r/nfl/comments/1sp47v5/highlight_on_this_day_in_sports_history_april_18/",
+      "title": "[highlight] On this day in sports history April 18, 1998 Peyton Manning drafted 1st overall by Colts",
+      "body_text": "On this day in sports history April 18, 1998\n\nTennessee quarterback Peyton Manning was selected 1st overall by the Indianapolis Colts\n\nWhile at Tennessee\n\n863 completions (1st in school history)\n\n11,201 passing yards (1st in school history)\n\n89 passing TD (1st in school history)\n\n1997 SEC Player of the Year\n\nThe best quarterback in program history",
+      "author": "ShamusTalksSports",
+      "published_at": "2026-04-18T17:44:03+00:00",
+      "source": "reddit_nfl",
+      "score": 320,
+      "num_comments": 117,
+      "candidate_names": [
+        "Peyton Manning",
+        "Indianapolis Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0010346"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "1sp2vxm",
+      "url": "https://v.redd.it/rf0tkpigbzvg1",
+      "permalink": "/r/nfl/comments/1sp2vxm/highlight_the_steelers_body_slam_vince_young/",
+      "title": "[Highlight] The Steelers body slam Vince Young after the titans stepped on the terrible towel",
+      "body_text": "",
+      "author": "Ok-Reindeer5879",
+      "published_at": "2026-04-18T16:54:02+00:00",
+      "source": "reddit_nfl",
+      "score": 1622,
+      "num_comments": 466,
+      "candidate_names": [
+        "The Steelers",
+        "Vince Young"
+      ],
+      "resolved_player_ids": [
+        "00-0024218"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "1sp2rhw",
+      "url": "https://v.redd.it/udynhhamazvg1",
+      "permalink": "/r/nfl/comments/1sp2rhw/highlight_juju_and_leveon_bell_play_hide_and_seek/",
+      "title": "[Highlight] Juju and Le’Veon Bell play hide and seek in the endzone",
+      "body_text": "",
+      "author": "Ok-Reindeer5879",
+      "published_at": "2026-04-18T16:49:15+00:00",
+      "source": "reddit_nfl",
+      "score": 825,
+      "num_comments": 48,
+      "candidate_names": [
+        "Veon Bell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sp2f1z",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-havent-given-up-on-keeping-dexter-lawrence",
+      "permalink": "/r/nfl/comments/1sp2f1z/the_giants_havent_given_up_on_keeping_dexter/",
+      "title": "The Giants haven't given up on keeping Dexter Lawrence, but they'd be willing to trade him for a package that starts with a 1st-Round Pick in 2026",
+      "body_text": "TL;DR:  \nThe Giants are attempting to retain Dexter by offering a substantial salary increase, but Lawrence remains firm in his desire to leave the team. While the Giants hope to reach an agreement, they are open to a trade if a suitor provides a 2026 first-round draft pick and meets Lawrence's contract demands. To maximize the value of a potential deal, the team prefers a quiet, coordinated trade that occurs while the acquiring team is on the clock during the first round of the draft.",
+      "author": "JCameron181",
+      "published_at": "2026-04-18T16:36:07+00:00",
+      "source": "reddit_nfl",
+      "score": 513,
+      "num_comments": 327,
+      "candidate_names": [
+        "The Giants",
+        "Dexter Lawrence",
+        "Round Pick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "1sp26xo",
+      "url": "https://v.redd.it/4f8f0yvi6zvg1",
+      "permalink": "/r/nfl/comments/1sp26xo/highlights_saints_vikings_minneapolis_miracle/",
+      "title": "[Highlights] Saints @ Vikings (Minneapolis Miracle) | 2017 NFC Divisional Round",
+      "body_text": "",
+      "author": "JCameron181",
+      "published_at": "2026-04-18T16:27:19+00:00",
+      "source": "reddit_nfl",
+      "score": 138,
+      "num_comments": 65,
+      "candidate_names": [
+        "Minneapolis Miracle",
+        "Divisional Round"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "1sp1ccl",
+      "url": "https://v.redd.it/3itobl4t0zvg1",
+      "permalink": "/r/nfl/comments/1sp1ccl/highlights_vikings_bills_2022_week_10/",
+      "title": "[Highlights] Vikings @ Bills | 2022 Week 10",
+      "body_text": "",
+      "author": "JCameron181",
+      "published_at": "2026-04-18T15:54:34+00:00",
+      "source": "reddit_nfl",
+      "score": 47,
+      "num_comments": 19,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "1sp0pxn",
+      "url": "https://www.reddit.com/r/nfl/comments/1sp0pxn/the_2011_nfl_draft_was_stacked_and_it_was_also/",
+      "permalink": "/r/nfl/comments/1sp0pxn/the_2011_nfl_draft_was_stacked_and_it_was_also/",
+      "title": "The 2011 NFL Draft was stacked, and it was also different from any other in the modern era due to the lockout over the CBA.",
+      "body_text": "Almost 15 years ago now, we saw the incredibly stacked 2011 NFL Draft. The first round featured so many players that went on to become staples of the league, including:\n\n\\* Cam Newton\n\n\\* Von Miller\n\n\\* AJ Green\n\n\\* Patrick Peterson\n\n\\* Julio Jones\n\n\\* Aldon Smith (until the off the field issues)\n\n\\* Tyron Smith\n\n\\* JJ Watt\n\n\\* Ryan Kerrigan\n\n\\* Anthony Castonzo\n\n\\* Cam Jordan\n\n\\* Cam Heyward\n\nLater picks included:\n\n\\* Jason Kelce (Round 6)\n\n\\* Richard Sherman (5)\n\n\\* Justin Houston (3)\n\n\\* Andy Dalton (2)\n\nWhile the draft had loads of talent, the interesting part was how the lockout that offseason over the expired CBA impacted everything. The two big ramifications here were timing and trades. \n\nFor the first and only time during this era, the NFL Draft occurred before Free Agency began in 2011. This was because the league year hadn’t officially started yet, and the draft happened due to an exception. Free Agency ended up in July that year. That obviously affected roster construction as teams made their selections before knowing who they would secure in Free Agency.\n\nThe other aspect was with no CBA in place, players could not legally be traded. This meant that trades could only involve draft picks. That restriction even extended to players that were taken during the draft.  So for example, the Eli Manning trade could not have happened. Even still, the Falcons and Browns did manage to pull off a massive deal to trade for the pick that became Bucs legend Julio Jones.\n\nAnother ramification that lingers to this day was the booing of Roger Goodell. Due to the failure to come to an agreement up to that point, Goodell was met with a wave of boos for the first time. The boos were louder than anything we hear today, occurred throughout, and also included chants of “We Want Football!”\n\nIf that wasn’t enough drama, this was also the draft where the Ravens failed to select their first round pick before the clock ran out, as they were working on a deal until the last minute. The Chiefs, who were next on the board at 27, ended up immediately taking Jonathon Baldwin 26th overall before Baltimore could make their selection. I’d say it worked out for them though as they ended up with Jimmy Smith at 27.",
+      "author": "stoic_bison",
+      "published_at": "2026-04-18T15:30:31+00:00",
+      "source": "reddit_nfl",
+      "score": 106,
+      "num_comments": 42,
+      "candidate_names": [
+        "Cam Newton",
+        "Von Miller",
+        "Patrick Peterson",
+        "Julio Jones",
+        "Aldon Smith",
+        "Tyron Smith",
+        "Ryan Kerrigan",
+        "Anthony Castonzo",
+        "Cam Jordan",
+        "Cam Heyward",
+        "Jason Kelce",
+        "Richard Sherman",
+        "Justin Houston",
+        "Andy Dalton",
+        "Free Agency",
+        "Eli Manning",
+        "Roger Goodell",
+        "We Want",
+        "The Chiefs",
+        "Jonathon Baldwin",
+        "Jimmy Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0023382",
+        "00-0027943",
+        "00-0027945",
+        "00-0027947",
+        "00-0027954",
+        "00-0027960",
+        "00-0028129",
+        "00-0028092",
+        "00-0028008",
+        "00-0027965"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "1soz6ax",
+      "url": "https://sports.yahoo.com/nfl/article/mike-vrabel-will-not-be-subject-to-nfls-personal-conduct-policy-after-photos-with-dianna-russini-league-says-003642067.html",
+      "permalink": "/r/nfl/comments/1soz6ax/yahoo_sports_mike_vrabel_will_not_be_subject_to/",
+      "title": "[Yahoo Sports] Mike Vrabel will not be subject to NFL's personal conduct policy after photos with Dianna Russini, league says",
+      "body_text": "",
+      "author": "DenialisaRiver04",
+      "published_at": "2026-04-18T14:31:03+00:00",
+      "source": "reddit_nfl",
+      "score": 2942,
+      "num_comments": 1352,
+      "candidate_names": [
+        "Yahoo Sports",
+        "Mike Vrabel",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1soyeoc",
+      "url": "https://www.reddit.com/r/nfl/comments/1soyeoc/shitpost_saturday/",
+      "permalink": "/r/nfl/comments/1soyeoc/shitpost_saturday/",
+      "title": "Shitpost Saturday",
+      "body_text": "https://preview.redd.it/d147v3bmdh5g1.jpg?width=828&amp;format=pjpg&amp;auto=webp&amp;s=d26c195c77ce3f1ea4e40f78c4e6ec0dc7b50636\n\nWelcome to today's open thread, where r/nfl users can discuss anything they wish not related directly to the NFL.\n\nWant to talk about personal life? Cool things about your fandom? Whatever happens to be dominating today's news cycle? Do you have something to talk about that didn't warrant its own thread? This is the place for it!\n\nRemember, that there are other subreddits that may be a good fit for what you want to post - every day all day!\n\n* r/NFLFandom for showing off your fandom\n* r/NFL_Draft for talking in depth about the draft\n* r/NFLNoobs for noob questions, no judgment\n* r/nflblogs for posting blog posts - including your own\n* r/nflofftopic for talking about anything with NFL fans\n* r/nfffffffluuuuuuuuuuuu for all kinds of humor posts\n* r/nflcirclejerk for when r/NFL just becomes too much\n* ... and more - see the sidebar!",
+      "author": "AutoModerator",
+      "published_at": "2026-04-18T14:00:16+00:00",
+      "source": "reddit_nfl",
+      "score": 19,
+      "num_comments": 311,
+      "candidate_names": [
+        "Shitpost Saturday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

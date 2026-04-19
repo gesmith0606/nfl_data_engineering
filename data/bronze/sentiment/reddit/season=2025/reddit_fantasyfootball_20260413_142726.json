@@ -1,0 +1,512 @@
+{
+  "fetch_run_id": "bcf5e74e-04d9-464c-93fd-5b1e285efadf",
+  "source": "reddit_fantasyfootball",
+  "fetched_at": "2026-04-13T14:27:26.465328+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 25,
+  "items": [
+    {
+      "external_id": "1skadq9",
+      "url": "https://www.rotoballer.com/fantasy-football-nfl-rookie-mock-draft-first-round-dynasty-draft-analysis-2026/1842133",
+      "permalink": "/r/fantasyfootball/comments/1skadq9/fantasy_football_rookie_mock_draft_full_first/",
+      "title": "Fantasy Football Rookie Mock Draft - Full First Round Analysis",
+      "body_text": "",
+      "author": "ASmithFS",
+      "published_at": "2026-04-13T13:09:55+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 14,
+      "num_comments": 1,
+      "candidate_names": [
+        "Fantasy Football",
+        "Rookie Mock",
+        "Full First",
+        "Round Analysis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sjsmjd",
+      "url": "https://www.reddit.com/r/fantasyfootball/comments/1sjsmjd/i_ran_100000_simulations_of_a_12team_draft/",
+      "permalink": "/r/fantasyfootball/comments/1sjsmjd/i_ran_100000_simulations_of_a_12team_draft/",
+      "title": "I ran 100,000 simulations of a 12-team draft lottery — here are the actual odds for NBA-style vs Linear vs Equal",
+      "body_text": "100K simulations of a 12-team fantasy football draft order generator under three weighting modes. Team 1 = worst record, Team 12 = best. Every sim randomizes the full draft order using weighted sampling without replacement (same algorithm as the actual NBA lottery). Sharing the results since draft season is coming up.\n\n## Chance of getting the #1 pick\n\n| Team | NBA-Style | Linear | Equal |\n|:-----|:---------:|:------:|:-----:|\n| **Team 1 (Worst)** | 16.4% | 15.5% | 8.3% |\n| **Team 2** | 16.4% | 14.1% | 8.3% |\n| **Team 3** | 15.7% | 12.8% | 8.3% |\n| **Team 4** | 13.3% | 11.5% | 8.3% |\n| **Team 5** | 10.8% | 10.2% | 8.3% |\n| **Team 6** | 8.8% | 9.0% | 8.3% |\n| **Team 7** | 6.9% | 7.6% | 8.3% |\n| **Team 8** | 4.9% | 6.4% | 8.3% |\n| **Team 9** | 2.9% | 5.2% | 8.3% |\n| **Team 10** | 2.0% | 3.9% | 8.3% |\n| **Team 11** | 1.2% | 2.6% | 8.3% |\n| **Team 12 (Best)** | 0.6% | 1.3% | 8.3% |\n\n## Average draft position\n\n| Team | NBA-Style | Linear | Equal |\n|:-----|:---------:|:------:|:-----:|\n| **Team 1 (Worst)** | 4.08 | 4.43 | 6.50 |\n| **Team 2** | 4.08 | 4.65 | 6.50 |\n| **Team 3** | 4.16 | 4.88 | 6.50 |\n| **Team 4** | 4.54 | 5.15 | 6.50 |\n| **Team 5** | 5.00 | 5.48 | 6.50 |\n| **Team 6** | 5.50 | 5.83 | 6.50 |\n| **Team 7** | 6.10 | 6.22 | 6.50 |\n| **Team 8** | 6.97 | 6.71 | 6.50 |\n| **Team 9** | 8.11 | 7.32 | 6.50 |\n| **Team 10** | 8.90 | 8.02 | 6.50 |\n| **Team 11** | 9.72 | 9.00 | 6.50 |\n| **Team 12 (Best)** | 10.85 | 10.32 | 6.50 |\n\n## Interesting stuff from the data\n\n16.4% at #1 for the worst team with NBA-Style. That means 5 out of 6 times they're NOT picking first. More than half the time they drop to 4th or later. So anyone who says weighted = handing the worst team the first pick doesn't know what they're talking about.\n\nThe middle teams (5-8) tell the real story. In Linear their average picks compress to 5.48-6.71 — barely any separation. NBA-Style spreads them from 5.00-6.97. If you want records to actually matter beyond just the top and bottom, NBA-Style does that. Linear treats the middle like a blender.\n\nEqual odds — every team averages 6.5. The guy who went 2-11 has the same shot as the guy who went 11-2. Some leagues are fine with that. Most competitive ones aren't.\n\nBest team in the league still got #1 about 1 in 170 times with NBA-Style. Almost never, but it can happen. Those are the lotteries that make the group chat explode.\n\n## Which mode makes sense\n\nNBA-Style works best for competitive redraft and dynasty rookie drafts. The worst team averages pick 4.08 vs 6.50 with equal odds — meaningful edge without a freebie. The best team averages 10.85, so there's actual consequences for winning. Weighted avoids tanking because a bad record improves odds but never guarantees the #1 pick. The steeper curve also creates better reveals.\n\nLinear fits keeper leagues or leagues that want some weighting but don't love the dramatic NBA drop-off. Equal is fine for startups with no standings history.\n\n## Method\n\nWeighted lottery algorithm — cumulative distribution with sampling without replacement. Same math the real NBA draft lottery uses. The fantasy football draft order generator used for this runs all four modes and shows a live odds table before locking anything in. It also has a slider that constraints any team in specific draft positions. Happy to share the link if anyone wants it.\n\nWhat mode does your league run?\n",
+      "author": "fantasyleaguelottery",
+      "published_at": "2026-04-12T22:24:38+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 21,
+      "num_comments": 10,
+      "candidate_names": [
+        "In Linear"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sjjzrb",
+      "url": "https://www.reddit.com/r/fantasyfootball/comments/1sjjzrb/created_a_free_tool_for_analyzing_your_best_ball/",
+      "permalink": "/r/fantasyfootball/comments/1sjjzrb/created_a_free_tool_for_analyzing_your_best_ball/",
+      "title": "Created a free tool for analyzing your Best Ball drafts. Discovered this interesting draft, feel free to roast it!",
+      "body_text": "I draft way too many best ball teams every year and got tired of scrolling endlessly through Underdog trying to remember what I drafted where, so I built a free tool ( [bestballexposures.com](http://bestballexposures.com/) ) to fix it. It syncs your Underdog or DraftKings rosters and shows your whole portfolio on one screen. Features like exposures with CLV vs ADP, strategy archetype breakdowns (Hero RB, Zero RB, etc.), stacking and combo analysis, ADP trends, and a live draft overlay via Chrome extension.\n\nThere's a \"Load Sample Data\" button if you want to poke around without importing anything, or sync via a chrome extension your own team!\n\nI pulled up one of my more interesting teams I made back in February **pre free agency**. I ended up getting a round 3 Kenneth Walker (who is now round 2) and accidentally stacked him with Mahomes! Additionally got some nice ADP value with Malik Willis and Isaiah Pacheco before they signed with their respective teams.\n\nhttps://preview.redd.it/7azbtpp2jsug1.png?width=960&amp;format=png&amp;auto=webp&amp;s=c27eb035f5adda1956e47fa4eccfd88a3ba49f05\n\nLet me know your thoughts on the team! And happy to receive any feedback on the tool itself!",
+      "author": "Double01_",
+      "published_at": "2026-04-12T17:00:14+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Best Ball",
+        "Load Sample",
+        "Kenneth Walker",
+        "Malik Willis",
+        "Isaiah Pacheco"
+      ],
+      "resolved_player_ids": [
+        "00-0038134",
+        "00-0038128"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sjg09m",
+      "url": "https://www.rotoballer.com/2026-fantasy-football-rankings-top-300-pre-nfl-draft/1842583",
+      "permalink": "/r/fantasyfootball/comments/1sjg09m/2026_fantasy_football_rankings_prenfl_draft_top/",
+      "title": "2026 Fantasy Football Rankings (Pre-NFL Draft): Top 300 Players",
+      "body_text": "",
+      "author": "jsparks50",
+      "published_at": "2026-04-12T14:27:59+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 37,
+      "num_comments": 15,
+      "candidate_names": [
+        "Fantasy Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sjfyi4",
+      "url": "https://youtu.be/BppqCjJFcO4?si=F1o6-M4FiUQJQGGi",
+      "permalink": "/r/fantasyfootball/comments/1sjfyi4/why_chris_brazzell_is_being_undervalued_in_the/",
+      "title": "Why Chris Brazzell Is Being Undervalued In The 2026 NFL Draft",
+      "body_text": "Could be a solid dynasty pickup in the third round 🤷‍♂️🤷‍♂️",
+      "author": "joeshea2517",
+      "published_at": "2026-04-12T14:25:59+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 6,
+      "num_comments": 28,
+      "candidate_names": [
+        "Why Chris",
+        "Is Being",
+        "In The",
+        "Draft Could"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1siy2na",
+      "url": "https://www.reddit.com/r/fantasyfootball/comments/1siy2na/top_pick_in_rookie_drafts_for_dynasty_leagues/",
+      "permalink": "/r/fantasyfootball/comments/1siy2na/top_pick_in_rookie_drafts_for_dynasty_leagues/",
+      "title": "Top pick in rookie drafts for dynasty leagues",
+      "body_text": "Assuming QB and RB are both fairly important stats earners in your dynasty league points systems, who is the consensus #1 fantasy pick? Is it Fernando because a QB will have a 15 - 20 year career? Is it Love because the man will be in the top 5 RBs for 5 - 6 years? I think the decision is down to longevity, no?",
+      "author": "TheHumanGnomeProject",
+      "published_at": "2026-04-11T23:17:56+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 0,
+      "num_comments": 40,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1siwpy2",
+      "url": "https://fsan.com/2026-fantasy-football-busts-5-overvalued-players-to-avoid-in-best-ball-drafts/",
+      "permalink": "/r/fantasyfootball/comments/1siwpy2/5_overvalued_best_ball_busts_for_2026/",
+      "title": "5 Overvalued Best Ball Busts for 2026",
+      "body_text": "5 Overvalued Best Ball Busts for 2026 Fantasy Football (Contrarian Takes)\n\n•  Tyler Shough (QB, Saints, ADP \\~118): Low TD rate and QBR kill his spike-week upside in best ball. \n\n•  Jaylen Waddle (WR, Broncos, ADP \\~47): Sutton owns red zone; Waddle fights for scraps in crowded attack. \n\n•  Luther Burden III (WR, Bears, ADP \\~37): Low target/snap share; Odunze squeezes volume further. \n\n•  Malik Willis (QB, Dolphins, ADP \\~124): Tiny career passing totals; cheaper streamers offer better upside. \n\n•  Travis Etienne (RB, Saints, ADP \\~26): Ugly efficiency in dead-last Saints run game screams risk. \n\nFull spicy breakdown challenges consensus love for these guys in best ball. Link attached 👇\n\nThoughts? Any worth drafting anyway?",
+      "author": "GOYAADi",
+      "published_at": "2026-04-11T22:19:54+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 45,
+      "num_comments": 83,
+      "candidate_names": [
+        "Overvalued Best",
+        "Ball Busts",
+        "Fantasy Football",
+        "Contrarian Takes",
+        "Tyler Shough",
+        "Jaylen Waddle",
+        "Luther Burden III",
+        "Malik Willis",
+        "Travis Etienne"
+      ],
+      "resolved_player_ids": [
+        "00-0040743",
+        "00-0036613",
+        "00-0040735",
+        "00-0038128",
+        "00-0036973"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "1simmm5",
+      "url": "https://www.reddit.com/r/fantasyfootball/comments/1simmm5/which_day_2_rookie_are_you_most_excited_about/",
+      "permalink": "/r/fantasyfootball/comments/1simmm5/which_day_2_rookie_are_you_most_excited_about/",
+      "title": "Which Day 2 rookie are you most excited about?",
+      "body_text": "Draft is two weeks out and I keep going back to the Day 2 guys when I think about fantasy value. Round 1 gets all the hype but some of the best fantasy producers come from the second and third round when they land in the right spot.\n\nHere are four guys I can't stop thinking about:\n\n**Chris Bell, WR, Louisville**. This guy was a fringe first rounder before the late season ACL tear and now he's probably falling to late Round 2 or early Round 3. He's 6'2 220 and runs a 4.4 so the physical tools are all there. Wins against press and man coverage with size and strength and he's a nightmare after the catch. Has legit alpha WR1 profile falling to Day 2 because of injury timing. \n\n**Jadarian Price, RB, Notre Dame**. Lived in Jeremiyah Love's shadow but might be the better pure runner honestly. His balance through contact is ridiculous and he has this ability to shift from power to speed mid run that you don't really see from other backs in this class. The concern is he didn't show a ton in the passing game at ND which caps his floor a bit. But if the Seattle Seahawks draft him end of round 2 he has legit RB1 tools.\n\n**Eli Stowers, TE, Vanderbilt.** This is the one I keep coming back to. Former top QB recruit who switched to tight end and just had a monster combine, 4.51 forty and a 45.5 inch vertical which broke the all time TE combine record by 2 full inches. Led Vandy with 62 catches for 769 yards last year. Some teams are apparently evaluating him as a receiver not a tight end which makes him even more interesting for fantasy. If he goes to a team that moves him around the formation he could have a sneaky great rookie year.\n\n**Germie Bernard, WR, Alabama**. 64 catches, 862 yards, 7 TDs at Bama last year. He's 6'1 206 so he's got the size and he almost never drops a pass. Not going to blow you away with any one trait but he's just a really solid all around receiver with good route running and positional flexibility (lined up everywhere including the backfield). Feels like the safest floor of the Day 2 receivers to me.\n\nLanding spot is everything with these guys obviously. I keep going back and forth between Bell's ceiling (assuming healthy) and Bernard's floor. Who are you targeting in Dynasty?",
+      "author": "Double01_",
+      "published_at": "2026-04-11T15:49:58+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 24,
+      "num_comments": 23,
+      "candidate_names": [
+        "Which Day",
+        "Chris Bell",
+        "Jadarian Price",
+        "Notre Dame",
+        "Jeremiyah Love",
+        "Seattle Seahawks",
+        "Eli Stowers",
+        "Led Vandy",
+        "Germie Bernard"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "1si3wgc",
+      "url": "https://www.youtube.com/watch?v=eYX1X7cMxJQ",
+      "permalink": "/r/fantasyfootball/comments/1si3wgc/is_alec_pierce_being_overlooked_in_fantasy/",
+      "title": "Is Alec Pierce Being Overlooked in Fantasy? Fantasy Dictionary Series",
+      "body_text": "",
+      "author": "Avacadojellyslaps",
+      "published_at": "2026-04-11T00:19:26+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 0,
+      "num_comments": 23,
+      "candidate_names": [
+        "Is Alec",
+        "Pierce Being",
+        "Fantasy Dictionary"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1shz46k",
+      "url": "https://www.reddit.com/r/fantasyfootball/comments/1shz46k/whats_watson_worth_now/",
+      "permalink": "/r/fantasyfootball/comments/1shz46k/whats_watson_worth_now/",
+      "title": "What’s Watson worth now?",
+      "body_text": "Packers seem to be cleaning up the wr room right now (letting Doubs walk and now trading wicks).\n\nIs it safe to interpret this as they are sold on Watson’s ability to stay healthy,",
+      "author": "12skyking",
+      "published_at": "2026-04-10T21:01:50+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 73,
+      "num_comments": 66,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "1shyg0h",
+      "url": "https://bsky.app/profile/nflnewsreposterbot.bsky.social/post/3mj66b35axk2t",
+      "permalink": "/r/fantasyfootball/comments/1shyg0h/ian_rapoport_sources_the_packers_are_trading_wr/",
+      "title": "Ian Rapoport: Sources: The #Packers are trading WR Dontayvion Wicks to the #Eagles and he is getting a 1-year, $12.5M extension in a deal done by @DavidMulugheta of @AthletesFirst. \n\nAn important acquisition at a patios of need before the Draft.",
+      "body_text": "",
+      "author": "FlowersByTheStreet",
+      "published_at": "2026-04-10T20:36:55+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 692,
+      "num_comments": 147,
+      "candidate_names": [
+        "Ian Rapoport",
+        "Dontayvion Wicks"
+      ],
+      "resolved_player_ids": [
+        "00-0038393"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1shpvq8",
+      "url": "https://www.reddit.com/r/fantasyfootball/comments/1shpvq8/how_much_are_you_factoring_in_landing_spot_with/",
+      "permalink": "/r/fantasyfootball/comments/1shpvq8/how_much_are_you_factoring_in_landing_spot_with/",
+      "title": "How much are you factoring in landing spot with your 1sts this year?",
+      "body_text": "Are you pedigree over situation - Carnell Tate as WR1, even if in Cleveland or NYJ? \n\nAre you “I want one of the big three, and team will have some impact on the order?”\n\nOr are you all about landing spot? “I will take Denzel Boston in NE over Carnell Tate in CLE?”",
+      "author": "daddadnc",
+      "published_at": "2026-04-10T15:30:58+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 33,
+      "num_comments": 52,
+      "candidate_names": [
+        "Carnell Tate",
+        "Denzel Boston"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1shm98t",
+      "url": "https://www.rotoballer.com/5-fantasy-football-running-backs-to-sell-in-dynasty-leagues-2026-2/1837947",
+      "permalink": "/r/fantasyfootball/comments/1shm98t/5_running_backs_to_trade_in_dynasty_leagues/",
+      "title": "5 Running Backs to Trade in Dynasty Leagues",
+      "body_text": "",
+      "author": "jsparks50",
+      "published_at": "2026-04-10T13:15:53+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 51,
+      "num_comments": 23,
+      "candidate_names": [
+        "Running Backs",
+        "Dynasty Leagues"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1shkvzr",
+      "url": "https://www.rotostreetjournal.com/2026/04/09/chris-rodriguez-2026-fantasy-outlook-massive-sleeper-upside-in-wide-open-jaguars-backfield/",
+      "permalink": "/r/fantasyfootball/comments/1shkvzr/chris_rodriguez_2026_fantasy_outlook_massive/",
+      "title": "Chris Rodriguez 2026 Fantasy Outlook: Massive Sleeper Upside in Wide-Open Jaguars' Backfield",
+      "body_text": "",
+      "author": "rotostreetjournal",
+      "published_at": "2026-04-10T12:18:25+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 112,
+      "num_comments": 93,
+      "candidate_names": [
+        "Chris Rodriguez",
+        "Fantasy Outlook",
+        "Massive Sleeper",
+        "Open Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0038611"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "1sh782z",
+      "url": "https://nitter.tiekoetter.com/esidery/status/2042389586043621405#m",
+      "permalink": "/r/fantasyfootball/comments/1sh782z/the_jaguars_are_officially_making_travis_hunter_a/",
+      "title": "The Jaguars are officially making Travis Hunter a full-time cornerback, per @RapSheet.\n\nHunter will have some gadget plays on offense, but no longer the 50/50 split as he did winning the Heisman at Colorado.",
+      "body_text": "",
+      "author": "FlowersByTheStreet",
+      "published_at": "2026-04-10T00:26:31+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 3060,
+      "num_comments": 495,
+      "candidate_names": [
+        "The Jaguars",
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "1sgwf1h",
+      "url": "https://www.fantasyalarm.com/articles/nfl/running-backs/best-running-back-landing-spots-for-2026-nfl-draft/188552",
+      "permalink": "/r/fantasyfootball/comments/1sgwf1h/what_are_the_best_running_back_landing_spots_in/",
+      "title": "What are the best running back landing spots in the 2026 NFL Draft?",
+      "body_text": "",
+      "author": "CoopThereItIs",
+      "published_at": "2026-04-09T17:33:58+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 28,
+      "num_comments": 14,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sgozur",
+      "url": "https://youtube.com/watch?v=Kgx565nBA1Q&amp;si=X1Ko2Ma_VoYYFcoU",
+      "permalink": "/r/fantasyfootball/comments/1sgozur/5_boring_players_that_could_help_win_your_league/",
+      "title": "5 \"Boring\" Players That Could Help Win Your League in 2026",
+      "body_text": "Analysis and breakdown for each player at these times below!  \n  \n[0:39](https://www.youtube.com/watch?v=Kgx565nBA1Q&amp;t=39s) \\- Josh Downs  \n  \n[5:55](https://www.youtube.com/watch?v=Kgx565nBA1Q&amp;t=355s) \\- Javonte Williams  \n  \n[10:05](https://www.youtube.com/watch?v=Kgx565nBA1Q&amp;t=605s) \\- David Montgomery  \n  \n[15:41](https://www.youtube.com/watch?v=Kgx565nBA1Q&amp;t=941s) \\- Derrick Henry  \n  \n[19:56](https://www.youtube.com/watch?v=Kgx565nBA1Q&amp;t=1196s) \\- Zay Flowers",
+      "author": "The_Lineup_Podcast",
+      "published_at": "2026-04-09T13:02:17+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 0,
+      "num_comments": 21,
+      "candidate_names": [
+        "Players That",
+        "Could Help",
+        "Win Your",
+        "Josh Downs",
+        "Javonte Williams",
+        "David Montgomery",
+        "Derrick Henry",
+        "Zay Flowers"
+      ],
+      "resolved_player_ids": [
+        "00-0038997",
+        "00-0036997",
+        "00-0035685",
+        "00-0032764",
+        "00-0039064"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sgo4o5",
+      "url": "https://www.rotoballer.com/te-fantasy-football-breakouts-sleeper-te1-candidates-for-2026/1841020",
+      "permalink": "/r/fantasyfootball/comments/1sgo4o5/sleeper_te1_candidates_for_2026_fantasy_football/",
+      "title": "Sleeper TE1 Candidates for 2026 - Fantasy Football Sneaky Breakouts",
+      "body_text": "",
+      "author": "ASmithFS",
+      "published_at": "2026-04-09T12:24:22+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 146,
+      "num_comments": 86,
+      "candidate_names": [
+        "Fantasy Football",
+        "Sneaky Breakouts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sgcd7d",
+      "url": "https://www.reddit.com/r/fantasyfootball/comments/1sgcd7d/i_think_people_might_be_misreading_early_rb_vs_wr/",
+      "permalink": "/r/fantasyfootball/comments/1sgcd7d/i_think_people_might_be_misreading_early_rb_vs_wr/",
+      "title": "I think people might be misreading early RB vs WR in drafts",
+      "body_text": "Something I’ve been thinking about lately is how we treat draft picks like they’re independent decisions when they really aren’t.\n\nA lot of advice basically comes down to best player available or drafting by tiers, but your early picks are kind of setting the boundaries for what your team can even look like later.\n\nFor example, the way people talk about WR vs RB right now feels a bit off. There’s been a run on WRs in the mid first, but when you look at how the points actually shake out, WR scoring ends up pretty flat.\n\nAt the same time, if you pass on RB early, you can end up in a dead spot later, while WR still has guys available who aren’t that far off in production.\n\nSo it’s not just WR vs RB at that pick. You’re choosing a path where you’re locked out of the top RB tier later, while WR production is still pretty replaceable deeper in the draft. meaning tiers don’t really capture that tradeoff.\n\nEssentially your early picks are limiting what’s even possible later on.\n\nCurious if anyone else has thought about it this way or if I’m overthinking it.",
+      "author": "xxPhoenix",
+      "published_at": "2026-04-09T01:55:48+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 135,
+      "num_comments": 92,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sg65yt",
+      "url": "https://www.youtube.com/watch?v=M7pVbCNZ3G8",
+      "permalink": "/r/fantasyfootball/comments/1sg65yt/jeremiyah_love_might_be_underrated/",
+      "title": "Jeremiyah Love Might Be Underrated...",
+      "body_text": "Jeremiyah Love is going to be underrated coming into the upcoming fantasy season. The future Titan (or Commander) is currently projected an ADP around RB13, whereas other recent top 10 picks like Jeanty and Bijan had an ADP of RB4 and RB6 respectively.\n\nI think Love is just as talented as the recent crop of elite rookie RBs, with plenty of upside to finish as top 5. Jeanty and Bijan both finished as low end RB1s (RB11 and RB9), which is currently where Love is projected to land. While RB13 isn't necessarily Love's \"floor\", I think he's walking into a much better situation, with just as much upside as those two.\n\nObviously, this is a bit early, and drafts are still months away, but I'd be shocked if his ADP doesn't climb a bit by then. Even still, I don't think we'll see him reach an ADP of RB6 though.\n\nIn the video above, I go through some median projections, and how even that gets him at least top 10 RB range. Would be curious what y'all think about him in redraft this year. How high could you see his ADP getting right before the start of the season?\n\n  \nWould you rather draft Love or the other guys in RB10 range? (Omarion Hampton, Chase Brown, and Saquon Barkley)",
+      "author": "ChopFantasyFootball",
+      "published_at": "2026-04-08T21:29:13+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 0,
+      "num_comments": 28,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Be Underrated",
+        "Omarion Hampton",
+        "Chase Brown",
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0040666",
+        "00-0038597",
+        "00-0034844"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sg46o6",
+      "url": "https://youtu.be/uE3QD6Jq1p4",
+      "permalink": "/r/fantasyfootball/comments/1sg46o6/are_these_2025_wide_receivers_hidden_gems/",
+      "title": "Are These 2025 Wide Receivers Hidden Gems?",
+      "body_text": "I did my master’s in data science thesis on machine learning modeling for fantasy football and in this video I'm taking a look at some of the lesser-discussed guys from the 2025 WR class - looking at their rookie production + prospect profiles, and seeing if any of them stick out as potential year 2 breakouts.\n\n**Players discussed in this video include:**\n\n**- Tre Harris**\n\n**- Jaylin Noel**\n\n**- Chimere Dike**\n\n**- Elic Ayomanor**\n\n**- Tory Horton**\n\nThere are only a couple I'm interested in from this list, and their names might surprise you!\n\nThis will be my final video on the 2025 WR class - next Monday we're kicking off TEs with none other than Colston Loveland. You won't want to miss it. And make sure to [check out the full Year 2 comps series on my channel](https://youtube.com/playlist?list=PLonqwVXo4OmWEY6U6793Rr40LaadVc0Y2&amp;si=pvFwewcyPjnDt2yG) for all the guys I’ve covered - both RBs and WRs are now complete!🤙",
+      "author": "boofstar",
+      "published_at": "2026-04-08T20:16:02+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 18,
+      "num_comments": 17,
+      "candidate_names": [
+        "Are These",
+        "Wide Receivers",
+        "Hidden Gems",
+        "Tre Harris",
+        "Jaylin Noel",
+        "Chimere Dike",
+        "Elic Ayomanor",
+        "Tory Horton",
+        "Colston Loveland"
+      ],
+      "resolved_player_ids": [
+        "00-0040138",
+        "00-0040705",
+        "00-0040170",
+        "00-0040648",
+        "00-0040126"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sg2ldb",
+      "url": "https://leaguedonation.com/field-notes#the-late-signal",
+      "permalink": "/r/fantasyfootball/comments/1sg2ldb/the_late_signal_six_2025_role_changes_from_the/",
+      "title": "The Late Signal: Six 2025 Role Changes from the Last Four Games",
+      "body_text": "",
+      "author": "iDrinan",
+      "published_at": "2026-04-08T19:17:48+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 24,
+      "num_comments": 4,
+      "candidate_names": [
+        "The Late",
+        "Role Changes",
+        "Last Four"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sfzlsy",
+      "url": "https://i.redd.it/ab7nmakh40ug1.png",
+      "permalink": "/r/fantasyfootball/comments/1sfzlsy/new_player_comparison_tool_for_fantasy_users/",
+      "title": "new player comparison tool for fantasy users",
+      "body_text": "I've been working on a fantasy site for the last few months, building tools to help fantasy users to make better decisions to help win their league. This is the latest tool I've built and wanted some feedback from the community I'm building it for.\n\nIt's still under construction, and I have some tweaks that still need to be made, but was looking for feedback as I ramp this up to be ready for the 2026 season.\n\nPlease be kind - like I said, this is still under construction. I'm a solo-builder, and I've invested a lot of time into this.\n\n[https://customvenom.com/nfl/player-tools](https://customvenom.com/nfl/player-tools)",
+      "author": "Incarcer",
+      "published_at": "2026-04-08T17:30:58+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 3,
+      "num_comments": 8,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sfylu4",
+      "url": "https://fptrack.com/football/2026-rb-smashes-man-vs-machine-part-4",
+      "permalink": "/r/fantasyfootball/comments/1sfylu4/2026_rb_smashes_man_vs_machine_part_4/",
+      "title": "2026 RB Smashes: Man vs Machine (Part 4)",
+      "body_text": "",
+      "author": "drkelemnt",
+      "published_at": "2026-04-08T16:55:57+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 76,
+      "num_comments": 7,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1sftyd3",
+      "url": "https://www.rotoballer.com/6-dynasty-fantasy-football-trade-targets-and-sells-pre-nfl-draft-2026/1838988",
+      "permalink": "/r/fantasyfootball/comments/1sftyd3/dynasty_fantasy_football_trade_candidates_pre2026/",
+      "title": "Dynasty Fantasy Football Trade Candidates: Pre-2026 NFL Draft",
+      "body_text": "",
+      "author": "jsparks50",
+      "published_at": "2026-04-08T14:10:00+00:00",
+      "source": "reddit_fantasyfootball",
+      "score": 16,
+      "num_comments": 5,
+      "candidate_names": [
+        "Dynasty Fantasy",
+        "Football Trade"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
