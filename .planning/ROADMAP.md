@@ -148,7 +148,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 60. Data Quality | 3/3 | Complete | 2026-04-17 |
-| 61. News & Sentiment Live | 1/6 | In progress | - |
+| 61. News & Sentiment Live | 4/6 | In Progress|  |
 | 62. Design & UX Polish | 2/6 | In progress | - |
 | 63. AI Advisor Hardening | 1/6 | In progress | - |
 | 64. Matchup View Completion | 2/4 | In progress | - |
