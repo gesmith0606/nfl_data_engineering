@@ -8,7 +8,12 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, Query
 
 from ..config import VALID_POSITIONS, VALID_SCORING_FORMATS
-from ..models.schemas import PlayerProjection, ProjectionResponse
+from ..models.schemas import (
+    LatestWeekResponse,
+    PlayerProjection,
+    ProjectionMeta,
+    ProjectionResponse,
+)
 from ..services import projection_service
 
 router = APIRouter(prefix="/projections", tags=["projections"])
@@ -117,12 +122,39 @@ def list_projections(
         raise HTTPException(status_code=404, detail=str(exc))
 
     projections = _df_to_projection_list(df, scoring)
+    meta_info = projection_service.get_projection_meta(season=season, week=week)
     return ProjectionResponse(
         season=season,
         week=week,
         scoring_format=scoring,
         projections=projections,
         generated_at=datetime.now(timezone.utc).isoformat(),
+        meta=ProjectionMeta(
+            season=meta_info.season,
+            week=meta_info.week,
+            data_as_of=meta_info.data_as_of,
+            source_path=meta_info.source_path,
+        ),
+    )
+
+
+@router.get("/latest-week", response_model=LatestWeekResponse)
+def latest_week(
+    season: int = Query(..., ge=1999, le=2030, description="NFL season"),
+) -> LatestWeekResponse:
+    """Return the highest week number in the Gold layer that has a parquet file.
+
+    Used by the AI advisor's ``getPositionRankings`` tool to auto-resolve a
+    sensible default week when the user asks "who are the top 10 RBs" without
+    specifying one. Returns HTTP 200 with ``week=null`` during the offseason
+    instead of a 404 so the advisor can distinguish "no data yet" from
+    "backend unreachable".
+    """
+    info = projection_service.get_latest_week(season=season)
+    return LatestWeekResponse(
+        season=info.season,
+        week=info.week,
+        data_as_of=info.data_as_of,
     )
 
 

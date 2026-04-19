@@ -64,6 +64,25 @@ class GamePrediction(BaseModel):
     ou_pick: str = Field(..., description="over / under")
 
 
+class ProjectionMeta(BaseModel):
+    """Upstream traceability metadata for a projection response.
+
+    Populated by the Parquet backend so the AI advisor (and humans) can cite
+    when the Gold layer was last refreshed. When the PostgreSQL backend is
+    active we do not have a filesystem mtime, so ``data_as_of`` and
+    ``source_path`` may be ``None``.
+    """
+
+    season: int
+    week: int
+    data_as_of: Optional[str] = Field(
+        None, description="ISO 8601 UTC timestamp of the source parquet's mtime"
+    )
+    source_path: Optional[str] = Field(
+        None, description="Relative path to the source parquet (or null for DB)"
+    )
+
+
 class ProjectionResponse(BaseModel):
     """Envelope for a list of player projections."""
 
@@ -72,6 +91,26 @@ class ProjectionResponse(BaseModel):
     scoring_format: str
     projections: List[PlayerProjection]
     generated_at: str
+    meta: Optional[ProjectionMeta] = Field(
+        None,
+        description=(
+            "Upstream traceability — source parquet mtime. Populated for the "
+            "Parquet backend; may be null for PostgreSQL."
+        ),
+    )
+
+
+class LatestWeekResponse(BaseModel):
+    """Latest-available (season, week) pair for the projections Gold layer.
+
+    Returned by ``GET /api/projections/latest-week``. When no Gold data exists
+    for the requested season, ``week`` and ``data_as_of`` are both ``None``
+    but the response still carries HTTP 200.
+    """
+
+    season: int
+    week: Optional[int] = None
+    data_as_of: Optional[str] = None
 
 
 class PredictionResponse(BaseModel):

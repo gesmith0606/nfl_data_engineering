@@ -7,6 +7,8 @@ Supports two data backends:
 """
 
 import logging
+from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -18,6 +20,22 @@ from ..db import get_connection, is_db_enabled
 logger = logging.getLogger(__name__)
 
 
+@dataclass(frozen=True)
+class ProjectionMetaInfo:
+    """Upstream metadata for a projection read.
+
+    ``data_as_of`` is the ISO 8601 UTC mtime of the most recent parquet for
+    the requested ``(season, week)``. ``source_path`` is the project-relative
+    path to that parquet. Both are ``None`` when the PostgreSQL backend
+    served the query (no filesystem origin).
+    """
+
+    season: int
+    week: int
+    data_as_of: Optional[str]
+    source_path: Optional[str]
+
+
 # ---------------------------------------------------------------------------
 # Parquet helpers (development fallback)
 # ---------------------------------------------------------------------------
@@ -27,6 +45,97 @@ def _latest_parquet(directory: Path) -> Optional[Path]:
     """Return the most-recently modified Parquet file in *directory*."""
     parquets = sorted(directory.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
     return parquets[-1] if parquets else None
+
+
+def _project_relative(path: Path) -> str:
+    """Return *path* relative to the project root when possible, else absolute."""
+    try:
+        root = GOLD_PROJECTIONS_DIR.resolve().parents[1].parent  # .../<project>/
+        return str(path.resolve().relative_to(root))
+    except (ValueError, IndexError):
+        return str(path)
+
+
+def _iso_utc(mtime: float) -> str:
+    """Convert a POSIX mtime to an ISO 8601 UTC timestamp."""
+    return datetime.fromtimestamp(mtime, tz=timezone.utc).isoformat()
+
+
+def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
+    """Return source-parquet metadata for a given season/week.
+
+    Never raises: when no data exists, returns a ``ProjectionMetaInfo`` with
+    ``data_as_of=None`` and ``source_path=None`` so the caller can still echo
+    the requested slice in the response envelope.
+    """
+    if is_db_enabled():
+        # Postgres backend — no filesystem origin.
+        return ProjectionMetaInfo(
+            season=season, week=week, data_as_of=None, source_path=None
+        )
+
+    week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
+    if not week_dir.exists():
+        return ProjectionMetaInfo(
+            season=season, week=week, data_as_of=None, source_path=None
+        )
+
+    parquet_path = _latest_parquet(week_dir)
+    if parquet_path is None:
+        return ProjectionMetaInfo(
+            season=season, week=week, data_as_of=None, source_path=None
+        )
+
+    mtime = parquet_path.stat().st_mtime
+    return ProjectionMetaInfo(
+        season=season,
+        week=week,
+        data_as_of=_iso_utc(mtime),
+        source_path=_project_relative(parquet_path),
+    )
+
+
+def get_latest_week(season: int) -> ProjectionMetaInfo:
+    """Scan ``data/gold/projections/season=<season>/week=*/`` and return the
+    highest week number that has at least one parquet file.
+
+    Returns ``ProjectionMetaInfo(week=None, data_as_of=None, source_path=None)``
+    when no data exists for the requested season. Never raises — callers
+    always receive a typed response even during the offseason.
+    """
+    season_dir = GOLD_PROJECTIONS_DIR / f"season={season}"
+    if not season_dir.exists():
+        return ProjectionMetaInfo(
+            season=season, week=None, data_as_of=None, source_path=None  # type: ignore[arg-type]
+        )
+
+    best_week: Optional[int] = None
+    best_path: Optional[Path] = None
+    best_mtime: float = -1.0
+    for week_dir in season_dir.glob("week=*"):
+        try:
+            week_num = int(week_dir.name.split("=", 1)[1])
+        except (IndexError, ValueError):
+            continue
+        parquet_path = _latest_parquet(week_dir)
+        if parquet_path is None:
+            continue
+        if best_week is None or week_num > best_week:
+            best_week = week_num
+            best_path = parquet_path
+            best_mtime = parquet_path.stat().st_mtime
+
+    if best_week is None or best_path is None:
+        return ProjectionMetaInfo(
+            season=season, week=None, data_as_of=None, source_path=None  # type: ignore[arg-type]
+        )
+
+    return ProjectionMetaInfo(
+        season=season,
+        week=best_week,
+        data_as_of=_iso_utc(best_mtime),
+        source_path=_project_relative(best_path),
+    )
 
 
 def _get_projections_parquet(
@@ -196,11 +305,11 @@ def get_projections(
     if is_db_enabled():
         try:
             logger.debug("Using PostgreSQL backend for projections")
-            return _get_projections_db(season, week, scoring_format, position, team, limit)
-        except Exception as exc:
-            logger.warning(
-                "PostgreSQL read failed (%s); falling back to Parquet", exc
+            return _get_projections_db(
+                season, week, scoring_format, position, team, limit
             )
+        except Exception as exc:
+            logger.warning("PostgreSQL read failed (%s); falling back to Parquet", exc)
     logger.debug("Using Parquet backend for projections")
     return _get_projections_parquet(season, week, scoring_format, position, team, limit)
 
