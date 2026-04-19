@@ -2,13 +2,15 @@
 """
 Daily Sentiment Pipeline -- ingest, extract, aggregate.
 
-Orchestrates the full sentiment pipeline (5 sources + 3 processing steps):
+Orchestrates the full sentiment pipeline (5 sources + 4 processing steps):
 1. Ingest from RSS feeds (5 feeds)
 2. Ingest from Reddit (r/fantasyfootball, r/nfl, r/DynastyFF)
 3. Ingest from Sleeper (trending players)
 4. Ingest from RotoWire RSS (NEW in 61-04)
 5. Ingest from Pro Football Talk RSS (NEW in 61-04)
 6. Extract signals (rule-based ALWAYS runs per D-06; Claude is optional)
+6.5. LLM Enrichment (OPTIONAL per D-04; only when ENABLE_LLM_ENRICHMENT=true
+     AND ANTHROPIC_API_KEY is set; writes signals_enriched sidecar files)
 7. Aggregate player-level sentiment
 8. Aggregate team-level sentiment
 
@@ -27,6 +29,7 @@ Usage
   python scripts/daily_sentiment_pipeline.py --season 2026 --week 1 --skip-reddit
   python scripts/daily_sentiment_pipeline.py --skip-rotowire --skip-pft
   python scripts/daily_sentiment_pipeline.py --dry-run --verbose
+  ENABLE_LLM_ENRICHMENT=true python scripts/daily_sentiment_pipeline.py  # opt-in enrichment
 """
 
 from __future__ import annotations
@@ -34,6 +37,7 @@ from __future__ import annotations
 import argparse
 import datetime
 import logging
+import os
 import sys
 import time
 from dataclasses import dataclass, field
@@ -361,6 +365,72 @@ def _run_extraction(season: int, week: int, dry_run: bool, verbose: bool) -> Ste
     return step
 
 
+def _run_llm_enrichment(
+    season: int,
+    week: int,
+    enabled: bool,
+    dry_run: bool,
+    verbose: bool,
+) -> StepResult:
+    """Optionally enrich Silver signal records with Claude Haiku summaries.
+
+    Implements Phase 61 D-04: LLM enrichment is strictly opt-in, gated
+    behind BOTH ``ENABLE_LLM_ENRICHMENT=true`` AND ``ANTHROPIC_API_KEY``.
+    When disabled, returns a success StepResult with detail
+    ``"disabled (ENABLE_LLM_ENRICHMENT=false)"``. When enabled but the
+    API key is missing, the inner enrichment call logs a warning and
+    returns 0 records — this step still succeeds (D-06 fail-open).
+
+    Any exception raised by the enrichment module is captured into a
+    ``success=False`` result but the pipeline continues to aggregation.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number.
+        enabled: Whether enrichment is toggled on via env var / CLI flag.
+        dry_run: If True, enrichment runs but no sidecar file is written.
+        verbose: Reserved for future debug logging in the module.
+
+    Returns:
+        StepResult with outcome details.
+    """
+    step = StepResult(name="LLM Enrichment")
+    t0 = time.monotonic()
+
+    # Never log the key value — only its presence (T-61-06-01).
+    key_present = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    logger.info(
+        "LLM Enrichment: enabled=%s, API key present=%s",
+        enabled,
+        key_present,
+    )
+
+    if not enabled:
+        step.success = True
+        step.detail = "disabled (ENABLE_LLM_ENRICHMENT=false)"
+        step.elapsed_sec = time.monotonic() - t0
+        return step
+
+    try:
+        # Defer the import so pipelines that never enable enrichment
+        # never touch the anthropic SDK machinery at all.
+        from src.sentiment.enrichment import enrich_silver_records
+
+        count = enrich_silver_records(season=season, week=week, dry_run=dry_run)
+        step.success = True
+        step.detail = f"{count} records enriched"
+    except Exception as exc:
+        # D-06 fail-open: enrichment failure never aborts the pipeline.
+        step.success = False
+        step.error = str(exc)
+        logger.warning(
+            "LLM Enrichment failed (non-fatal, D-06): %s",
+            exc,
+        )
+    step.elapsed_sec = time.monotonic() - t0
+    return step
+
+
 def _run_player_aggregation(season: int, week: int, dry_run: bool) -> StepResult:
     """Aggregate player-level weekly sentiment.
 
@@ -486,10 +556,11 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--enable-llm-enrichment",
         action="store_true",
+        default=None,
         help=(
-            "Reserved flag for plan 61-06 (D-04): toggles optional Claude "
-            "Haiku website enrichment.  Currently a no-op; rule-based "
-            "extraction is authoritative for the model path."
+            "Opt in to Claude Haiku website-only enrichment (D-04). Also "
+            "requires ANTHROPIC_API_KEY. When unset, the env var "
+            "ENABLE_LLM_ENRICHMENT='true' enables it; default is off."
         ),
     )
     parser.add_argument(
@@ -531,8 +602,9 @@ def run_pipeline(
         skip_rotowire: If True, skip RotoWire RSS ingestion.
         skip_pft: If True, skip Pro Football Talk RSS ingestion.
         skip_ingest: If True, skip all ingestion steps.
-        enable_llm_enrichment: Reserved for plan 61-06 (D-04); currently
-            a no-op — Claude Haiku enrichment is not yet wired here.
+        enable_llm_enrichment: Opt in to optional Claude Haiku enrichment
+            (D-04). Also requires ANTHROPIC_API_KEY. When False (default)
+            the enrichment step runs as a no-op that logs "disabled".
         verbose: If True, enable debug logging.
 
     Returns:
@@ -547,8 +619,6 @@ def run_pipeline(
         week,
         dry_run,
     )
-    if enable_llm_enrichment:
-        logger.info("enable_llm_enrichment=True (reserved for 61-06; no-op today)")
     logger.info("=" * 60)
 
     # --- Phase 1: Ingestion (5 sources) ---
@@ -588,6 +658,15 @@ def run_pipeline(
     # --- Phase 2: Extraction (rule-first per D-06; ALWAYS runs) ---
     logger.info("--- Step 6/8: Signal Extraction ---")
     result.steps.append(_run_extraction(season, week, dry_run, verbose))
+
+    # --- Phase 2.5: Optional LLM Enrichment (D-04 opt-in, website-only) ---
+    # Runs AFTER rule-based extraction and BEFORE aggregation so the
+    # sidecar files are available to the news-service on the next API
+    # request.  Rule-extracted event flags are never modified.
+    logger.info("--- Step 6.5/8: LLM Enrichment ---")
+    result.steps.append(
+        _run_llm_enrichment(season, week, enable_llm_enrichment, dry_run, verbose)
+    )
 
     # --- Phase 3: Aggregation ---
     logger.info("--- Step 7/8: Player Aggregation ---")
@@ -655,6 +734,15 @@ def main(argv: Optional[List[str]] = None) -> int:
         season = args.season
         week = args.week
 
+    # D-04: resolve --enable-llm-enrichment -> env var -> default False.
+    # CLI flag (when supplied as a store_true) wins; otherwise fall back
+    # to ENABLE_LLM_ENRICHMENT='true' / '1' / 'yes'.
+    if args.enable_llm_enrichment is True:
+        enable_llm_enrichment = True
+    else:
+        env_val = os.environ.get("ENABLE_LLM_ENRICHMENT", "false").strip().lower()
+        enable_llm_enrichment = env_val in ("true", "1", "yes")
+
     result = run_pipeline(
         season=season,
         week=week,
@@ -665,7 +753,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         skip_rotowire=args.skip_rotowire,
         skip_pft=args.skip_pft,
         skip_ingest=args.skip_ingest,
-        enable_llm_enrichment=args.enable_llm_enrichment,
+        enable_llm_enrichment=enable_llm_enrichment,
         verbose=args.verbose,
     )
 

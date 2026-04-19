@@ -33,6 +33,7 @@ logger = logging.getLogger(__name__)
 
 _GOLD_SENTIMENT_DIR = GOLD_SENTIMENT_DIR
 _SILVER_SIGNALS_DIR = SILVER_SENTIMENT_DIR / "signals"
+_SILVER_ENRICHED_DIR = SILVER_SENTIMENT_DIR / "signals_enriched"
 _BRONZE_SENTIMENT_DIR = BRONZE_SENTIMENT_DIR
 
 
@@ -308,6 +309,125 @@ def _build_silver_index(
 
 
 # ---------------------------------------------------------------------------
+# LLM enrichment sidecar (Plan 61-06)
+# ---------------------------------------------------------------------------
+
+
+def _find_enriched_files(season: int, week: int) -> List[Path]:
+    """Return sidecar enrichment files for a season/week, newest first.
+
+    Sidecar path shape (from ``src.sentiment.enrichment.llm_enrichment``):
+        ``data/silver/sentiment/signals_enriched/season=YYYY/week=WW/enriched_*.json``
+
+    Returns an empty list when the sidecar tree does not exist — the
+    news feed silently degrades to un-enriched records.
+    """
+    week_dir = _SILVER_ENRICHED_DIR / f"season={season}" / f"week={week:02d}"
+    if not week_dir.exists():
+        return []
+    return sorted(
+        week_dir.glob("enriched_*.json"), key=lambda p: p.stat().st_mtime, reverse=True
+    )
+
+
+def _load_enriched_summary_index(season: int, week: int) -> Dict[str, Dict[str, Any]]:
+    """Build a ``doc_id -> {"summary", "refined_category"}`` lookup.
+
+    Safe to call on any season/week — returns an empty dict when no
+    sidecar files exist or every sidecar fails to parse. The most recent
+    sidecar for a given doc_id wins.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number.
+
+    Returns:
+        Dict keyed by Silver ``doc_id`` with enrichment fields attached.
+    """
+    files = _find_enriched_files(season, week)
+    if not files:
+        return {}
+
+    index: Dict[str, Dict[str, Any]] = {}
+    for path in files:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            logger.warning("Could not read enriched sidecar %s: %s", path, exc)
+            continue
+
+        if not isinstance(data, dict):
+            continue
+        records = data.get("records") or []
+        if not isinstance(records, list):
+            continue
+
+        for rec in records:
+            if not isinstance(rec, dict):
+                continue
+            doc_id = rec.get("doc_id") or rec.get("signal_id")
+            if doc_id is None:
+                continue
+            summary = rec.get("summary")
+            refined_category = rec.get("refined_category")
+            if summary is None and refined_category is None:
+                continue
+            key = str(doc_id)
+            # Sidecars iterated newest-first above; keep the first match
+            if key not in index:
+                index[key] = {
+                    "summary": summary,
+                    "refined_category": refined_category,
+                }
+    return index
+
+
+def _apply_enrichment(
+    items: List[Dict[str, Any]],
+    enriched_index: Dict[str, Dict[str, Any]],
+) -> int:
+    """Merge enrichment fields into a list of NewsItem dicts in place.
+
+    The ``NewsItem.summary`` field is populated from the enriched sidecar
+    when available; absent entries stay ``None`` (the default). Also
+    overrides ``category`` with ``refined_category`` when the latter is
+    present — the news card displays the sharper LLM category.
+
+    Args:
+        items: NewsItem dicts to update in place.
+        enriched_index: Lookup keyed by doc_id.
+
+    Returns:
+        The number of items that received at least one enrichment field.
+    """
+    if not enriched_index:
+        return 0
+
+    applied = 0
+    for item in items:
+        doc_id = str(item.get("doc_id") or "")
+        if not doc_id:
+            continue
+        entry = enriched_index.get(doc_id)
+        if not entry:
+            continue
+        summary = entry.get("summary")
+        refined = entry.get("refined_category")
+        touched = False
+        if summary and not item.get("summary"):
+            item["summary"] = summary
+            touched = True
+        if refined:
+            # Prefer the LLM-refined category for display; leave the raw
+            # rule-extracted category available on downstream processors.
+            item["category"] = refined
+            touched = True
+        if touched:
+            applied += 1
+    return applied
+
+
+# ---------------------------------------------------------------------------
 # Bronze document helpers
 # ---------------------------------------------------------------------------
 
@@ -576,6 +696,16 @@ def get_player_news(
         if doc_id not in bronze_ids and rec.get("player_id") == player_id:
             items.append(_build_news_item_from_silver(rec))
 
+    # Optional LLM-enrichment merge (Plan 61-06) — silently no-ops when
+    # no sidecar files exist for this season/week.
+    enriched_index = _load_enriched_summary_index(season, week)
+    applied = _apply_enrichment(items, enriched_index)
+    logger.info(
+        "get_player_news: enrichment used=%s (%d items updated)",
+        bool(enriched_index),
+        applied,
+    )
+
     # Sort newest first and paginate
     items.sort(key=lambda r: r.get("published_at") or "", reverse=True)
     return items[:limit]
@@ -721,6 +851,31 @@ def get_news_feed(
         if doc_id and doc_id not in seen_ids:
             seen_ids.add(doc_id)
             items.append(_build_news_item_from_silver(rec))
+
+    # Optional LLM-enrichment merge (Plan 61-06). We look in every
+    # week subdirectory if week was not specified so sidecars can
+    # surface across the season-wide feed.
+    enriched_index: Dict[str, Dict[str, Any]] = {}
+    if week is not None:
+        enriched_index = _load_enriched_summary_index(season, week)
+    else:
+        # Merge across every week folder that happens to exist.
+        season_root = _SILVER_ENRICHED_DIR / f"season={season}"
+        if season_root.exists():
+            for week_dir in season_root.iterdir():
+                if week_dir.is_dir() and week_dir.name.startswith("week="):
+                    try:
+                        wk = int(week_dir.name.split("=", 1)[1])
+                    except ValueError:
+                        continue
+                    for k, v in _load_enriched_summary_index(season, wk).items():
+                        enriched_index.setdefault(k, v)
+    applied = _apply_enrichment(items, enriched_index)
+    logger.info(
+        "get_news_feed: enrichment used=%s (%d items updated)",
+        bool(enriched_index),
+        applied,
+    )
 
     # Apply filters
     if source:
