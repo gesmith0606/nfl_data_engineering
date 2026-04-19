@@ -29,7 +29,7 @@
 ### AI Advisor
 
 - [ ] **ADVR-01**: All 12 advisor tools return valid data on the live site _(baseline measured in 63-01: 4 PASS / 3 WARN / 5 FAIL — pending wave-2 fixes)_
-- [ ] **ADVR-02**: Advisor can answer "who are the top 10 RBs" with real data
+- [x] **ADVR-02**: Advisor can answer "who are the top 10 RBs" with real data — 63-04 ships `meta.data_as_of` on `/api/projections`, new `/api/projections/latest-week` endpoint, and advisor `getPositionRankings` auto-resolves default week; 10 contract tests pin the Gold-layer grounding
 - [ ] **ADVR-03**: External rankings comparison works (Sleeper/FantasyPros/ESPN)
 - [ ] **ADVR-04**: Floating chat widget renders and persists on all dashboard pages
 
@@ -86,7 +86,7 @@
 | DSGN-03 | Phase 62 | Pending |
 | DSGN-04 | Phase 62 | Pending |
 | ADVR-01 | Phase 63 | In progress (baseline 63-01: 4P/3W/5F) |
-| ADVR-02 | Phase 63 | Pending |
+| ADVR-02 | Phase 63 | Complete (63-04: `meta.data_as_of` + `/api/projections/latest-week` + advisor auto-resolve; 10 contract tests) |
 | ADVR-03 | Phase 63 | Pending |
 | ADVR-04 | Phase 63 | Pending |
 | MTCH-01 | Phase 64 | Partial (64-02 ships OL side of roster endpoint; full requirement lands with 64-04 frontend wiring) |

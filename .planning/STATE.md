@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: "Phase 61-04 complete — daily cron resilience + D-06 guarantee shipped. RotoWire + PFT steps wired into scripts/daily_sentiment_pipeline.py (now 8 steps total). `.github/workflows/daily-sentiment.yml` hardened with ENABLE_LLM_ENRICHMENT env var (default 'false', D-04 feature flag) and health-summary ::notice:: step. 7 resilience tests in tests/sentiment/test_daily_pipeline_resilience.py pin the D-06 contract. Dry-run verified exit 0 with extractor=RuleExtractor when ANTHROPIC_API_KEY is absent. 3 commits on main (ff8ec21, c1b5bd6, e096860). Ready for 61-05 (news page UI), 61-06 (optional Haiku enrichment via ENABLE_LLM_ENRICHMENT flag), or 61-03 backtest wrap-up."
-last_updated: "2026-04-19T15:34:12.242Z"
+stopped_at: "Phase 63-04 complete — ADVR-02 satisfied. /api/projections/latest-week + meta.data_as_of shipped on backend; getPositionRankings advisor tool now auto-resolves the default week via resolveDefaultWeek helper and surfaces data_as_of. 10 contract tests pin Gold-layer grounding (6 from plan + 4 covering the new endpoint and meta round-trip). 4 commits on main (0d6fb3c, 925c8d7, dedc9e2, c4c93eb). Local audit: 7 PASS / 5 WARN / 0 FAIL — no regression. Railway deployment picks up ADVR-02 on next image build."
+last_updated: "2026-04-19T19:58:00.000Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 26
-  completed_plans: 16
-  percent: 62
+  completed_plans: 17
+  percent: 65
 ---
 
 # Project State
@@ -34,12 +34,12 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 62
-Plan: Not started
-Status: Executing Phase 61
+Phase: 63
+Plan: 04 (complete)
+Status: Phase 63-04 complete; 63-05 ship gate up next
 Last activity: 2026-04-19
 
-Progress: [█████▍░░░░] 54% (14 plans complete across v6.0)
+Progress: [██████▌░░░] 65% (17 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -70,6 +70,7 @@ Progress: [█████▍░░░░] 54% (14 plans complete across v6.0)
 | Phase 63 P02 | 55min | 2 tasks | 7 files |
 | Phase 61 P04 | 27min | 2 tasks | 4 files |
 | Phase 61 P06 | 17min | 2 tasks | 8 files |
+| Phase 63 P04 | 15min | 2 tasks | 7 files |
 
 ### Decisions
 
@@ -128,6 +129,12 @@ Recent decisions affecting current work:
 - [Phase 61-06]: Deferred anthropic SDK import inside _run_llm_enrichment — disabled pipelines never trigger the import path, keeping startup clean; when enabled but key is missing, _build_client returns None and logs a single warning
 - [Phase 61-06]: CLI flag --enable-llm-enrichment uses action='store_true' with default=None so main() can distinguish explicit CLI override from env var fallback (ENABLE_LLM_ENRICHMENT accepts true/1/yes, case-insensitive)
 - [Phase 61-06]: T-61-06-01 mitigation — log line always emits bool(os.environ.get('ANTHROPIC_API_KEY')); key value is never format-argumented anywhere in the enrichment or pipeline code
+- [Phase 63-04]: `week` in getPositionRankings is Zod `.optional()` (not `.default(1)`) so the LLM cannot silently fabricate — presence/absence of week is the grounding signal
+- [Phase 63-04]: Dedicated /api/projections/latest-week endpoint (not piggybacked on /api/projections) so the advisor can resolve scaffolding before committing to a full projection read; cheaper when preseason data is missing
+- [Phase 63-04]: ProjectionResponse.meta is Optional — backward compatible with the already-deployed Railway Parquet fallback that predates this plan
+- [Phase 63-04]: resolveDefaultWeek returns null on fetch failure (distinct from {week: null}) so the advisor can distinguish 'season has no data' from 'backend unreachable'
+- [Phase 63-04]: Prefer backend meta.data_as_of over the latest-week helper's value — meta is closer to the actual projection read and guaranteed to agree with the rows returned
+- [Phase 63-04]: Upstream traceability pattern (data_as_of on Gold responses) ready to extend to getPlayerProjection, compareStartSit, getTeamRoster with minimal code
 
 ### Pending Todos
 
@@ -153,6 +160,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T15:25:00Z
-Stopped at: Phase 61-04 complete — daily cron resilience + D-06 guarantee shipped. RotoWire + PFT steps wired into scripts/daily_sentiment_pipeline.py (now 8 steps total). `.github/workflows/daily-sentiment.yml` hardened with ENABLE_LLM_ENRICHMENT env var (default 'false', D-04 feature flag) and health-summary ::notice:: step. 7 resilience tests in tests/sentiment/test_daily_pipeline_resilience.py pin the D-06 contract. Dry-run verified exit 0 with extractor=RuleExtractor when ANTHROPIC_API_KEY is absent. 3 commits on main (ff8ec21, c1b5bd6, e096860). Ready for 61-05 (news page UI), 61-06 (optional Haiku enrichment via ENABLE_LLM_ENRICHMENT flag), or 61-03 backtest wrap-up.
+Last session: 2026-04-19T19:58:00Z
+Stopped at: Phase 63-04 complete — ADVR-02 satisfied. /api/projections/latest-week endpoint shipped; ProjectionResponse.meta carries {season, week, data_as_of, source_path} from parquet mtime; getPositionRankings advisor tool auto-resolves default week via resolveDefaultWeek helper and surfaces data_as_of. 10 contract tests pin Gold-layer grounding. 4 commits on main (0d6fb3c, 925c8d7, dedc9e2, c4c93eb). Local audit still 7 PASS / 5 WARN / 0 FAIL — no regression. Next up: 63-05 ship gate re-audit against Railway once this deploy lands, or 61-03 backtest wrap-up.
 Resume file: None

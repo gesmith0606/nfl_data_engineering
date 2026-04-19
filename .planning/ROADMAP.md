@@ -84,7 +84,7 @@ Plans:
   2. Asking "who are the top 10 RBs" returns a ranked list with real projected points from the Gold layer
   3. The advisor can compare player rankings against external sources (Sleeper ADP, FantasyPros, ESPN)
   4. The floating chat widget renders on every dashboard page and conversation persists across page navigation
-**Plans**: 6 (63-01 baseline audit [DONE 4P/3W/5F], 63-02 schema fixes, 63-03 missing routes, 63-04 data gaps, 63-05 ship gate, 63-06 chat widget)
+**Plans**: 6 — 63-01 baseline audit [DONE 4P/3W/5F], 63-02 schema contracts [DONE 7P/5W/0F local], 63-04 top-N Gold grounding [DONE — ADVR-02 satisfied, meta.data_as_of + /api/projections/latest-week + advisor auto-resolve shipped]; 63-03 missing routes (compareExternalRankings envelope), 63-05 ship gate, 63-06 chat widget pending
 **UI hint**: yes
 
 ### Phase 64: Matchup View Completion
