@@ -23,7 +23,6 @@ from .routers import (
     predictions,
     projections,
     rankings,
-    streaming,
     teams,
 )
 
@@ -83,7 +82,6 @@ app.include_router(games.router, prefix="/api")
 app.include_router(news.router, prefix="/api")
 app.include_router(draft.router, prefix="/api")
 app.include_router(rankings.router, prefix="/api")
-app.include_router(streaming.router, prefix="/api")
 app.include_router(teams.router, prefix="/api")
 
 
