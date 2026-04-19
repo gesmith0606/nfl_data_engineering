@@ -197,6 +197,28 @@ class PlayerSignal:
 class ClaudeExtractor:
     """Extracts player sentiment signals from text using the Claude API.
 
+    DEPRECATED for model-facing extraction per Phase 61 D-02.
+    ------------------------------------------------------------------
+    The primary production path is now
+    ``src.sentiment.processing.rule_extractor.RuleExtractor`` — rules
+    are deterministic, reproducible across backtests, and have no
+    external dependency. ``SentimentPipeline`` in ``pipeline.py``
+    therefore uses ``RuleExtractor`` in auto mode even when
+    ``ANTHROPIC_API_KEY`` is set.
+
+    This class is retained only for:
+      1. Backward-compatible ``extractor_mode="claude"`` calls that
+         explicitly opt into Claude-based extraction (e.g. comparison
+         tests or ad-hoc re-runs).
+      2. Historical tests that instantiate it directly.
+
+    For website-facing summaries / news-card enrichment, use
+    ``src.sentiment.enrichment.LLMEnrichment`` instead — that module
+    is gated behind ``ENABLE_LLM_ENRICHMENT`` + ``ANTHROPIC_API_KEY``
+    and adds ``summary`` + ``refined_category`` to Silver records
+    without touching the model path (Phase 61 D-04).
+    ------------------------------------------------------------------
+
     Uses claude-haiku (cheapest Anthropic model) via the ``anthropic``
     Python SDK.  Falls back gracefully when ``ANTHROPIC_API_KEY`` is not
     set — extraction is skipped and an empty list is returned.

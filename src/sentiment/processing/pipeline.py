@@ -139,17 +139,21 @@ class SentimentPipeline:
             logger.info("Using rule-based extractor (forced by mode='rule')")
             return RuleExtractor()
         elif mode == "claude":
+            # Opt-in override for legacy callers / comparison tests.
+            # Production code paths should use the default (auto) mode.
             logger.info("Using Claude extractor (forced by mode='claude')")
             return ClaudeExtractor()
         else:
-            # Auto mode: prefer Claude if available, fall back to rules
-            claude = ClaudeExtractor()
-            if claude.is_available:
-                logger.info("Using Claude extractor (API key available)")
-                return claude
-            else:
-                logger.info("Using rule-based extractor (no API key)")
-                return RuleExtractor()
+            # Auto mode: always use rules per Phase 61 D-02.
+            # The rule-based path is the authoritative model-facing
+            # extractor; Claude stays in the repo only as the optional
+            # website enrichment path (see src.sentiment.enrichment).
+            logger.info(
+                "Using rule-based extractor in auto mode "
+                "(Phase 61 D-02: rules are primary, LLM is optional enrichment "
+                "via src.sentiment.enrichment)."
+            )
+            return RuleExtractor()
 
     # ------------------------------------------------------------------
     # ID tracking

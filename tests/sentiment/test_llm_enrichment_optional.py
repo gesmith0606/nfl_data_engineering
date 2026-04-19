@@ -99,9 +99,9 @@ def test_enrich_passthrough_when_unavailable(
     out = enrichment.enrich(sample_silver_record)
 
     assert "summary" not in out, "summary must NOT be added when unavailable"
-    assert "refined_category" not in out, (
-        "refined_category must NOT be added when unavailable"
-    )
+    assert (
+        "refined_category" not in out
+    ), "refined_category must NOT be added when unavailable"
     # Event flags untouched
     assert out["events"] == sample_silver_record["events"]
     # Same identity semantics — either the same dict or an equal copy
