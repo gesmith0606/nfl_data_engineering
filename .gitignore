@@ -238,6 +238,11 @@ data/gold/*
 !data/bronze/sentiment/**
 !data/bronze/sentiment/**/*.json
 
+# External rankings cache (ADVR-03): commit the Sleeper/FantasyPros/ESPN JSON
+# so compareExternalRankings never returns empty on first deploy.
+!data/external/
+!data/external/*.json
+
 # Logs
 *.log
 logs/
