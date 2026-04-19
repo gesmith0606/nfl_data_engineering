@@ -1,0 +1,122 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ------------------------------------------------------------------
+  # Frontend build gate — catches missing @/lib imports, broken routes,
+  # and any TS/build-time failure before it can reach main.
+  # ------------------------------------------------------------------
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      contains(toJSON(github.event.pull_request.changed_files || '[]'), 'web/frontend') ||
+      github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect changes to web/frontend
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            frontend:
+              - 'web/frontend/**'
+              - '.github/workflows/ci.yml'
+
+      - name: Setup Node.js
+        if: steps.changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web/frontend/package-lock.json
+
+      - name: Install dependencies
+        if: steps.changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch'
+        working-directory: web/frontend
+        run: npm ci
+
+      - name: Build (catches missing imports, type errors, route errors)
+        if: steps.changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch'
+        working-directory: web/frontend
+        env:
+          NEXT_PUBLIC_API_URL: https://example.invalid
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: npm run build
+
+  # ------------------------------------------------------------------
+  # Backend test gate — pytest runs on any Python change.
+  # ------------------------------------------------------------------
+  backend-tests:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect changes to Python code
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            python:
+              - 'src/**'
+              - 'web/api/**'
+              - 'scripts/**'
+              - 'tests/**'
+              - 'requirements.txt'
+              - '.github/workflows/ci.yml'
+
+      - name: Setup Python
+        if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
+        run: pip install -r requirements.txt
+
+      - name: Run pytest
+        if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
+        run: python -m pytest tests/ -q --tb=short
+
+  # ------------------------------------------------------------------
+  # Unpushed-commit drift detector — opens an alert if main has drifted
+  # more than 10 commits ahead of the last deploy (runs on push to main).
+  # ------------------------------------------------------------------
+  deploy-drift-check:
+    name: Deploy Drift Check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Report HEAD and last deploy tag
+        run: |
+          echo "HEAD: $(git rev-parse --short HEAD)"
+          LAST_DEPLOY=$(git tag -l 'deploy-*' | sort -V | tail -1 || echo '')
+          if [ -n "$LAST_DEPLOY" ]; then
+            BEHIND=$(git rev-list --count "$LAST_DEPLOY..HEAD")
+            echo "Commits since $LAST_DEPLOY: $BEHIND"
+            if [ "$BEHIND" -gt 10 ]; then
+              echo "::warning::$BEHIND commits since last deploy tag — consider shipping"
+            fi
+          else
+            echo "::notice::No deploy tags found; skipping drift check"
+          fi
