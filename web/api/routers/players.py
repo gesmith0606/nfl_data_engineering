@@ -67,7 +67,14 @@ def get_player_detail(
 
     row = match.iloc[0]
 
+    def _scalar(val):
+        """Coerce pandas Series (from duplicate column names) to its first element."""
+        if hasattr(val, "iloc") and not hasattr(val, "lower"):
+            return val.iloc[0] if len(val) > 0 else None
+        return val
+
     def _sf(val) -> Optional[float]:
+        val = _scalar(val)
         if val is None:
             return None
         try:
@@ -77,19 +84,33 @@ def get_player_detail(
             return None
 
     def _ss(val) -> Optional[str]:
+        val = _scalar(val)
         if val is None:
             return None
         s = str(val)
         return None if s.lower() in ("nan", "none", "") else s
 
+    def _si(val, default: int = 0) -> int:
+        v = _scalar(val)
+        if v is None:
+            return default
+        try:
+            return int(v)
+        except (ValueError, TypeError):
+            return default
+
+    def _sstr(val, default: str = "") -> str:
+        v = _scalar(val)
+        return default if v is None else str(v)
+
     return PlayerProjection(
-        player_id=str(row.get("player_id", "")),
-        player_name=str(row.get("player_name", "")),
-        team=str(row.get("team", "")),
-        position=str(row.get("position", "")),
-        projected_points=float(row.get("projected_points", 0)),
-        projected_floor=float(row.get("projected_floor", 0)),
-        projected_ceiling=float(row.get("projected_ceiling", 0)),
+        player_id=_sstr(row.get("player_id")),
+        player_name=_sstr(row.get("player_name")),
+        team=_sstr(row.get("team")),
+        position=_sstr(row.get("position")),
+        projected_points=_sf(row.get("projected_points")) or 0.0,
+        projected_floor=_sf(row.get("projected_floor")) or 0.0,
+        projected_ceiling=_sf(row.get("projected_ceiling")) or 0.0,
         proj_pass_yards=_sf(row.get("proj_pass_yards")),
         proj_pass_tds=_sf(row.get("proj_pass_tds")),
         proj_rush_yards=_sf(row.get("proj_rush_yards")),
@@ -100,11 +121,11 @@ def get_player_detail(
         proj_fg_makes=_sf(row.get("proj_fg_makes")),
         proj_xp_makes=_sf(row.get("proj_xp_makes")),
         scoring_format=scoring,
-        season=int(row.get("season", 0)),
-        week=int(row.get("week", 0)),
+        season=season,
+        week=week,
         position_rank=(
-            int(row.get("position_rank", 0))
-            if row.get("position_rank") is not None
+            _si(row.get("position_rank"))
+            if _scalar(row.get("position_rank")) is not None
             else None
         ),
         injury_status=_ss(row.get("injury_status")),
