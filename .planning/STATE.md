@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: "Phase 61-06 complete — optional Haiku enrichment shipped (D-02/D-04/D-06 lock-in). New src/sentiment/enrichment/ package + LLMEnrichment class + enrich_silver_records() batch driver with non-destructive sidecar writes to signals_enriched/. SentimentPipeline auto-mode now locks to RuleExtractor per D-02 even when ANTHROPIC_API_KEY is set. Step 6.5/8 inserted into scripts/daily_sentiment_pipeline.py between extraction and aggregation, gated on BOTH ENABLE_LLM_ENRICHMENT=true AND ANTHROPIC_API_KEY presence. news_service.py merges sidecar summary + refined_category into NewsItem when available; silent no-op when absent. 6 new tests pin fail-open + non-destructive contracts; 59/59 sentiment tests + 15/15 web tests green. 3 commits (88688f4 RED, ec8ee43 GREEN, 85ef6a2 pipeline wiring). Phase 61 is now 5/6 plans complete — only 61-03 (event-based projection adjustment) remains."
-last_updated: "2026-04-19T04:35:00.000Z"
-last_activity: 2026-04-19 -- Phase 61-06 optional Haiku enrichment shipped
+stopped_at: "Phase 61-04 complete — daily cron resilience + D-06 guarantee shipped. RotoWire + PFT steps wired into scripts/daily_sentiment_pipeline.py (now 8 steps total). `.github/workflows/daily-sentiment.yml` hardened with ENABLE_LLM_ENRICHMENT env var (default 'false', D-04 feature flag) and health-summary ::notice:: step. 7 resilience tests in tests/sentiment/test_daily_pipeline_resilience.py pin the D-06 contract. Dry-run verified exit 0 with extractor=RuleExtractor when ANTHROPIC_API_KEY is absent. 3 commits on main (ff8ec21, c1b5bd6, e096860). Ready for 61-05 (news page UI), 61-06 (optional Haiku enrichment via ENABLE_LLM_ENRICHMENT flag), or 61-03 backtest wrap-up."
+last_updated: "2026-04-19T15:34:12.242Z"
+last_activity: 2026-04-19
 progress:
   total_phases: 6
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 26
-  completed_plans: 14
-  percent: 54
+  completed_plans: 16
+  percent: 62
 ---
 
 # Project State
@@ -34,10 +34,10 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 61 (news-sentiment-live) — EXECUTING
-Plan: 5 of 6 (shipped; 61-03 event-based projection adjustment is the final remaining plan)
+Phase: 62
+Plan: Not started
 Status: Executing Phase 61
-Last activity: 2026-04-19 -- Phase 61-06 optional Haiku enrichment shipped
+Last activity: 2026-04-19
 
 Progress: [█████▍░░░░] 54% (14 plans complete across v6.0)
 
@@ -45,7 +45,7 @@ Progress: [█████▍░░░░] 54% (14 plans complete across v6.0)
 
 **Velocity:**
 
-- Total plans completed: 0
+- Total plans completed: 6
 - Average duration: —
 - Total execution time: 0 hours
 
@@ -53,7 +53,7 @@ Progress: [█████▍░░░░] 54% (14 plans complete across v6.0)
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 61 | 6 | - | - |
 
 ## Accumulated Context
 
