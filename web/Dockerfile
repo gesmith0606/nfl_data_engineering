@@ -1,5 +1,9 @@
 FROM python:3.9-slim
 
+# Cache-buster: bumped 2026-04-19 to force Railway to re-run all COPY layers
+# instead of importing a stale cached image. Change this ARG to invalidate cache.
+ARG CACHE_BUST=2026-04-19-01
+
 WORKDIR /app
 
 # Install system dependencies for psycopg2
