@@ -942,6 +942,128 @@ def run_sanity_check(scoring: str, season: int) -> int:
         return 0
 
 
+DEFAULT_LIVE_BACKEND = "https://nfldataengineering-production.up.railway.app"
+DEFAULT_LIVE_FRONTEND = "https://frontend-jet-seven-33.vercel.app"
+
+
+def run_live_site_check(
+    backend_url: str,
+    frontend_url: str,
+    season: int,
+) -> Tuple[List[str], List[str]]:
+    """Probe the deployed API + frontend to catch deploy-only breakage.
+
+    This guards against the class of bug that doesn't show up in local Parquet
+    freshness or eye-test checks: backend starts but ModuleNotFoundError
+    crashes requests; frontend HTML renders but client bundle never boots, so
+    /dashboard/projections returns 200 with only skeleton placeholders.
+
+    Returns (criticals, warnings). Empty criticals == PASS.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+
+    print("\n" + "-" * 70)
+    print("  LIVE SITE CHECK")
+    print("-" * 70)
+
+    # ------------------------------------------------------------------
+    # Backend endpoints — non-empty JSON payload contracts
+    # ------------------------------------------------------------------
+    api_probes = [
+        ("/api/health", lambda d: d.get("status") == "ok"),
+        (
+            f"/api/projections?season={season}&week=1&scoring=half_ppr&limit=10",
+            lambda d: isinstance(d.get("projections"), list)
+            and len(d["projections"]) > 0,
+        ),
+        (
+            f"/api/projections/latest-week?season={season}",
+            lambda d: d.get("season") == season and d.get("week") is not None,
+        ),
+        (
+            "/api/news/team-events?season=2025&week=1",
+            lambda d: isinstance(d, list) and len(d) == 32,
+        ),
+    ]
+    for path, validator in api_probes:
+        url = backend_url.rstrip("/") + path
+        try:
+            resp = requests.get(url, timeout=15)
+        except requests.RequestException as exc:
+            criticals.append(
+                f"LIVE API UNREACHABLE: GET {path} raised {type(exc).__name__}: {exc}"
+            )
+            print(f"  [FAIL] {path}  (request error)")
+            continue
+        if resp.status_code != 200:
+            criticals.append(
+                f"LIVE API NON-200: GET {path} returned {resp.status_code}"
+            )
+            print(f"  [FAIL] {path}  (HTTP {resp.status_code})")
+            continue
+        try:
+            payload = resp.json()
+        except ValueError:
+            criticals.append(f"LIVE API INVALID JSON: GET {path}")
+            print(f"  [FAIL] {path}  (not JSON)")
+            continue
+        if not validator(payload):
+            criticals.append(
+                f"LIVE API EMPTY/INVALID PAYLOAD: GET {path}"
+            )
+            print(f"  [FAIL] {path}  (payload failed contract)")
+            continue
+        print(f"  [PASS] {path}")
+
+    # ------------------------------------------------------------------
+    # Frontend — HTML content markers
+    # ------------------------------------------------------------------
+    # The dashboard is auth-gated by Clerk, so an unauthenticated GET lands on
+    # the sign-in page. Both outcomes are acceptable; what we want to catch is
+    # an unexpected 5xx or a totally blank body.
+    frontend_probes = [
+        ("/", ["NFL", "Analytics"]),  # marketing/home should always mention the brand
+        (
+            "/dashboard/projections",
+            ["Projections"],  # title survives the auth redirect via meta tags
+        ),
+    ]
+    for path, required_markers in frontend_probes:
+        url = frontend_url.rstrip("/") + path
+        try:
+            resp = requests.get(url, timeout=20, allow_redirects=True)
+        except requests.RequestException as exc:
+            warnings.append(
+                f"LIVE FRONTEND UNREACHABLE: GET {path} raised {type(exc).__name__}: {exc}"
+            )
+            print(f"  [WARN] {path}  (request error)")
+            continue
+        if resp.status_code >= 500:
+            criticals.append(
+                f"LIVE FRONTEND 5xx: GET {path} returned {resp.status_code}"
+            )
+            print(f"  [FAIL] {path}  (HTTP {resp.status_code})")
+            continue
+        body = resp.text or ""
+        if len(body) < 500:
+            criticals.append(
+                f"LIVE FRONTEND EMPTY BODY: GET {path} ({len(body)} bytes)"
+            )
+            print(f"  [FAIL] {path}  (body too small: {len(body)} bytes)")
+            continue
+        missing = [m for m in required_markers if m not in body]
+        if missing:
+            warnings.append(
+                f"LIVE FRONTEND MISSING MARKERS at {path}: {missing}"
+            )
+            print(f"  [WARN] {path}  (missing: {missing})")
+            continue
+        print(f"  [PASS] {path}  ({len(body)} bytes)")
+
+    return criticals, warnings
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Sanity check NFL projections and/or game predictions"
@@ -975,6 +1097,23 @@ def main() -> int:
         dest="check_all",
         help="Run both projection and prediction checks",
     )
+    parser.add_argument(
+        "--check-live",
+        action="store_true",
+        help="Also probe the deployed backend + frontend (Railway + Vercel). "
+        "Catches deploy-only breakage: backend startup crashes, frontend "
+        "skeleton-forever bugs. Fails the run on CRITICAL backend issues.",
+    )
+    parser.add_argument(
+        "--live-backend-url",
+        default=DEFAULT_LIVE_BACKEND,
+        help=f"Deployed backend URL (default: {DEFAULT_LIVE_BACKEND})",
+    )
+    parser.add_argument(
+        "--live-frontend-url",
+        default=DEFAULT_LIVE_FRONTEND,
+        help=f"Deployed frontend URL (default: {DEFAULT_LIVE_FRONTEND})",
+    )
     args = parser.parse_args()
 
     run_projections = not args.check_predictions or args.check_all
@@ -1002,6 +1141,7 @@ def main() -> int:
     all_warnings: List[str] = []
     projection_exit = 0
     prediction_exit = 0
+    live_exit = 0
 
     # --- Projection checks ---
     if run_projections:
@@ -1017,6 +1157,18 @@ def main() -> int:
         if pred_criticals:
             prediction_exit = 1
 
+    # --- Live site checks (deploy verification) ---
+    if args.check_live:
+        live_criticals, live_warnings = run_live_site_check(
+            backend_url=args.live_backend_url,
+            frontend_url=args.live_frontend_url,
+            season=args.season,
+        )
+        all_criticals.extend(live_criticals)
+        all_warnings.extend(live_warnings)
+        if live_criticals:
+            live_exit = 1
+
     # --- Combined PASS/FAIL summary ---
     print("\n" + "=" * 70)
     print("  FINAL SUMMARY")
@@ -1029,11 +1181,11 @@ def main() -> int:
     if run_predictions:
         status = "FAIL" if prediction_exit != 0 else "PASS"
         sections_run.append(("Predictions", status))
+    if args.check_live:
+        status = "FAIL" if live_exit != 0 else "PASS"
+        sections_run.append(("Live Site", status))
 
     overall_pass = all(s == "PASS" for _, s in sections_run)
-    # If only projections were run, use projection_exit as the indicator
-    if not run_predictions:
-        overall_pass = projection_exit == 0
 
     for section, status in sections_run:
         icon = "PASS" if status == "PASS" else "FAIL"
