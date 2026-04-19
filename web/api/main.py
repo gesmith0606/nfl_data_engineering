@@ -93,3 +93,22 @@ def health_check() -> HealthResponse:
     """Liveness probe.  Reports database status when DATABASE_URL is set."""
     db_status = "connected" if is_db_enabled() and db_health() else "parquet_fallback"
     return HealthResponse(status="ok", version=API_VERSION, db_status=db_status)
+
+
+@app.get("/api/version", tags=["health"])
+def version_info() -> dict:
+    """Build and git metadata — proves which code is actually deployed."""
+    return {
+        "version": API_VERSION,
+        "git_sha": os.environ.get("RAILWAY_GIT_COMMIT_SHA", "unknown")[:8],
+        "build_id": os.environ.get("RAILWAY_DEPLOYMENT_ID", "unknown")[:8],
+        "deployed_at": os.environ.get("RAILWAY_GIT_COMMIT_TIMESTAMP", "unknown"),
+        "has_team_events_route": any(
+            getattr(r, "path", "") == "/team-events"
+            for r in news.router.routes
+        ),
+        "has_player_badges_route": any(
+            "player-badges" in getattr(r, "path", "")
+            for r in news.router.routes
+        ),
+    }
