@@ -2,6 +2,7 @@ import { convertToModelMessages, streamText, stepCountIs, tool, UIMessage } from
 import { google } from '@ai-sdk/google';
 import { createGroq } from '@ai-sdk/groq';
 import { z } from 'zod';
+import { resolveDefaultWeek } from '@/lib/week-context';
 
 export const maxDuration = 30;
 
@@ -365,7 +366,12 @@ export async function POST(req: Request) {
 
       getPositionRankings: tool({
         description:
-          'Get the top players at a specific position, ranked by projected fantasy points. Use for questions like "Who are the top 10 RBs?" or "Best QBs this week?".',
+          'Get the top players at a specific position, ranked by projected fantasy points. ' +
+          'Use for questions like "Who are the top 10 RBs?" or "Best QBs this week?". ' +
+          'The `week` parameter is optional — if you omit it, the backend will ' +
+          'auto-resolve the latest available week from the Gold layer, so you do ' +
+          'NOT need to guess. Only supply `week` when the user explicitly names one ' +
+          '(e.g. "top RBs in week 5"). Response includes `data_as_of` you can cite.',
         inputSchema: z.object({
           position: z
             .enum(['QB', 'RB', 'WR', 'TE', 'K'])
@@ -381,37 +387,99 @@ export async function POST(req: Request) {
             .number()
             .min(1)
             .max(18)
-            .describe('NFL week number (1-18)'),
+            .optional()
+            .describe(
+              'Optional NFL week (1-18). Omit to let the backend pick the ' +
+                'latest available week from the Gold layer.'
+            ),
           scoring: z
             .enum(['ppr', 'half_ppr', 'standard'])
             .default('half_ppr')
             .describe('Fantasy scoring format')
         }),
         execute: async ({ position, limit, season, week, scoring }) => {
+          // Auto-resolve default week from Gold layer when the model didn't
+          // supply one. Falls back to week=1 only if the helper itself fails.
+          let resolvedWeek: number;
+          let resolvedWeekAuto: boolean;
+          let resolvedDataAsOf: string | null = null;
+          if (week === undefined || week === null) {
+            const latest = await resolveDefaultWeek(season);
+            if (latest && latest.week !== null) {
+              resolvedWeek = latest.week;
+              resolvedDataAsOf = latest.data_as_of;
+              resolvedWeekAuto = true;
+            } else {
+              // No data available yet for this season — return structured
+              // "not yet" so the advisor never hallucinates rankings.
+              return {
+                found: false,
+                message:
+                  `No projection data available yet for season ${season}. ` +
+                  'Check back after the weekly pipeline runs on Tuesday.',
+                resolved_week: null,
+                resolved_week_auto: false,
+                data_as_of: null
+              };
+            }
+          } else {
+            resolvedWeek = week;
+            resolvedWeekAuto = false;
+          }
+
           const params = new URLSearchParams({
             season: String(season),
-            week: String(week),
+            week: String(resolvedWeek),
             scoring,
             position,
             limit: String(limit)
           });
-          type RankingsPayload = { projections: Array<{
-            player_name: string;
-            player_id: string;
-            team: string;
-            position: string;
-            projected_points: number;
-            projected_floor: number;
-            projected_ceiling: number;
-            injury_status: string | null;
-          }> };
+          type RankingsPayload = {
+            projections: Array<{
+              player_name: string;
+              player_id: string;
+              team: string;
+              position: string;
+              projected_points: number;
+              projected_floor: number;
+              projected_ceiling: number;
+              injury_status: string | null;
+            }>;
+            meta?: {
+              season: number;
+              week: number;
+              data_as_of: string | null;
+              source_path: string | null;
+            };
+          };
           const result = await fastapiGet<RankingsPayload>(`/api/projections?${params}`);
 
           if (!result.ok) {
-            return { found: false, message: result.message };
+            return {
+              found: false,
+              message: result.message,
+              resolved_week: resolvedWeek,
+              resolved_week_auto: resolvedWeekAuto,
+              data_as_of: resolvedDataAsOf
+            };
           }
+
+          // Prefer the backend's authoritative meta.data_as_of over the value
+          // we got from latest-week (they should agree but meta is closer to
+          // the actual read).
+          const dataAsOf = result.data.meta?.data_as_of ?? resolvedDataAsOf;
+
           if (!result.data.projections?.length) {
-            return { found: false, message: `No ${position} projections for week ${week} of ${season}.` };
+            return {
+              found: false,
+              message:
+                `No projection data available yet for season ${season}, ` +
+                `week ${resolvedWeek}. Check back after the weekly pipeline ` +
+                'runs on Tuesday.',
+              resolved_week: resolvedWeek,
+              resolved_week_auto: resolvedWeekAuto,
+              data_as_of: dataAsOf
+            };
           }
 
           const ranked = result.data.projections
@@ -432,7 +500,10 @@ export async function POST(req: Request) {
             position,
             scoring_format: scoring,
             season,
-            week,
+            week: resolvedWeek,
+            resolved_week: resolvedWeek,
+            resolved_week_auto: resolvedWeekAuto,
+            data_as_of: dataAsOf,
             rankings: ranked
           };
         }
