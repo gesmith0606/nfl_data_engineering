@@ -69,7 +69,8 @@ def get_player_detail(
 
     def _scalar(val):
         """Coerce pandas Series (from duplicate column names) to its first element."""
-        if hasattr(val, "iloc") and not hasattr(val, "lower"):
+        import pandas as _pd
+        if isinstance(val, _pd.Series):
             return val.iloc[0] if len(val) > 0 else None
         return val
 

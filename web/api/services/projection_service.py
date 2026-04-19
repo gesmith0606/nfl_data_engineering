@@ -42,17 +42,32 @@ class ProjectionMetaInfo:
 
 
 def _latest_parquet(directory: Path) -> Optional[Path]:
-    """Return the most-recently modified Parquet file in *directory*."""
-    parquets = sorted(directory.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
-    return parquets[-1] if parquets else None
+    """Return the most-recently modified Parquet file in *directory*.
+
+    Tolerates files deleted mid-scan (race between glob and stat).
+    """
+    def _mtime(p: Path) -> float:
+        try:
+            return p.stat().st_mtime
+        except OSError:
+            return -1.0
+
+    parquets = [p for p in directory.glob("*.parquet") if _mtime(p) >= 0]
+    if not parquets:
+        return None
+    return max(parquets, key=_mtime)
+
+
+# Project root anchored off this file: web/api/services/projection_service.py
+# -> parents[0]=services, [1]=api, [2]=web, [3]=<project>
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 
 def _project_relative(path: Path) -> str:
     """Return *path* relative to the project root when possible, else absolute."""
     try:
-        root = GOLD_PROJECTIONS_DIR.resolve().parents[1].parent  # .../<project>/
-        return str(path.resolve().relative_to(root))
-    except (ValueError, IndexError):
+        return str(path.resolve().relative_to(_PROJECT_ROOT))
+    except ValueError:
         return str(path)
 
 
@@ -121,9 +136,14 @@ def get_latest_week(season: int) -> ProjectionMetaInfo:
         if parquet_path is None:
             continue
         if best_week is None or week_num > best_week:
+            try:
+                mtime = parquet_path.stat().st_mtime
+            except OSError:
+                # Race: file deleted between glob and stat. Skip silently.
+                continue
             best_week = week_num
             best_path = parquet_path
-            best_mtime = parquet_path.stat().st_mtime
+            best_mtime = mtime
 
     if best_week is None or best_path is None:
         return ProjectionMetaInfo(

@@ -567,7 +567,9 @@ def get_external_rankings(
     information is surfaced only via :func:`compare_rankings`.
     """
     if source not in VALID_SOURCES:
-        source = "sleeper"
+        raise ValueError(
+            f"Invalid source {source!r}; expected one of {sorted(VALID_SOURCES)}"
+        )
 
     internal_limit = max(limit * 3, 200)
     if source == "consensus":
@@ -652,7 +654,9 @@ def compare_rankings(
         ``cache_age_hours``, ``last_updated``, ``compared_at``.
     """
     if source not in VALID_SOURCES:
-        source = "sleeper"
+        raise ValueError(
+            f"Invalid source {source!r}; expected one of {sorted(VALID_SOURCES)}"
+        )
 
     internal_limit = max(limit * 3, 200)
     if source == "consensus":

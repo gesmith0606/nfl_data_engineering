@@ -7,8 +7,10 @@
  * the Gold layer for the highest week that has projection data and returns
  * it alongside the parquet's mtime.
  *
- * Caching: responses are memoized per-season for 60 seconds so a single chat
- * turn making multiple tool calls doesn't hammer the backend.
+ * Caching: responses are memoized per-season for 5 minutes — long enough to
+ * absorb tool-call fan-out from a single chat turn (advisor may fire
+ * getPositionRankings multiple times in one response), short enough that a
+ * newly-written Gold week surfaces within reasonable drift.
  */
 const FASTAPI_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -23,7 +25,7 @@ interface CacheEntry {
   expiresAt: number;
 }
 
-const CACHE_TTL_MS = 60_000;
+const CACHE_TTL_MS = 5 * 60_000;
 const cache = new Map<number, CacheEntry>();
 
 /**
