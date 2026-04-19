@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: executing
-stopped_at: "Phase 63-02 complete — advisor tool hardening shipped. Local audit: 5 FAIL → 0 FAIL (7 PASS / 5 WARN / 0 FAIL). getSentimentSummary now carries total_articles/bullish_players/bearish_players alongside legacy total_docs/top_positive/top_negative; /api/lineups carries flat `lineup` field alongside nested `lineups`; /api/predictions and /api/lineups return empty envelopes (HTTP 200) instead of 404 on offseason-empty data; compareExternalRankings passes (router already registered in main.py). All 25 web + 8 schema tests passing. 6 commits. TOOL-AUDIT-LOCAL.md documents delta. Ready for 63-03 (rankings+external hardening), 63-04 (conversation persistence), 63-05 (widget reach), or 63-06 (live-site re-audit SHIP gate)."
-last_updated: "2026-04-18T15:25:00.000Z"
-last_activity: 2026-04-18 -- Phase 61-04 daily cron resilience shipped
+stopped_at: "Phase 61-06 complete — optional Haiku enrichment shipped (D-02/D-04/D-06 lock-in). New src/sentiment/enrichment/ package + LLMEnrichment class + enrich_silver_records() batch driver with non-destructive sidecar writes to signals_enriched/. SentimentPipeline auto-mode now locks to RuleExtractor per D-02 even when ANTHROPIC_API_KEY is set. Step 6.5/8 inserted into scripts/daily_sentiment_pipeline.py between extraction and aggregation, gated on BOTH ENABLE_LLM_ENRICHMENT=true AND ANTHROPIC_API_KEY presence. news_service.py merges sidecar summary + refined_category into NewsItem when available; silent no-op when absent. 6 new tests pin fail-open + non-destructive contracts; 59/59 sentiment tests + 15/15 web tests green. 3 commits (88688f4 RED, ec8ee43 GREEN, 85ef6a2 pipeline wiring). Phase 61 is now 5/6 plans complete — only 61-03 (event-based projection adjustment) remains."
+last_updated: "2026-04-19T04:35:00.000Z"
+last_activity: 2026-04-19 -- Phase 61-06 optional Haiku enrichment shipped
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 26
-  completed_plans: 13
-  percent: 50
+  completed_plans: 14
+  percent: 54
 ---
 
 # Project State
@@ -35,11 +35,11 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 ## Current Position
 
 Phase: 61 (news-sentiment-live) — EXECUTING
-Plan: 4 of 6 (shipped; 61-05 news UI + 61-06 optional Haiku enrichment remain)
+Plan: 5 of 6 (shipped; 61-03 event-based projection adjustment is the final remaining plan)
 Status: Executing Phase 61
-Last activity: 2026-04-18 -- Phase 61-04 daily cron resilience shipped
+Last activity: 2026-04-19 -- Phase 61-06 optional Haiku enrichment shipped
 
-Progress: [█████░░░░░] 50% (13 plans complete across v6.0)
+Progress: [█████▍░░░░] 54% (14 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -69,6 +69,7 @@ Progress: [█████░░░░░] 50% (13 plans complete across v6.0)
 | Phase 64 P02 | 30min | 2 tasks | 5 files |
 | Phase 63 P02 | 55min | 2 tasks | 7 files |
 | Phase 61 P04 | 27min | 2 tasks | 4 files |
+| Phase 61 P06 | 17min | 2 tasks | 8 files |
 
 ### Decisions
 
@@ -121,6 +122,12 @@ Recent decisions affecting current work:
 - [Phase 61-04]: Step labels rebranded 1/6..6/6 → 1/8..8/8 in orchestrator stdout to reflect expanded source list; extractor type name embedded in StepResult.detail for post-hoc log diffing
 - [Phase 61-04]: Health summary step (if: always()) emits ::notice:: annotations only for non-secret ENABLE_LLM_ENRICHMENT toggle — never echoes ANTHROPIC_API_KEY (T-61-04-01 mitigation)
 - [Phase 61-04]: Resilience suite (7 tests) pins D-06 contract — test_single_ingestion_failure_does_not_abort_pipeline + test_extraction_runs_without_anthropic_api_key would regress if someone later tried to make LLM path mandatory
+- [Phase 61-06]: Optional LLM enrichment shipped per D-04: new src/sentiment/enrichment/ package with LLMEnrichment class + enrich_silver_records batch driver; double-gated on ENABLE_LLM_ENRICHMENT=true AND ANTHROPIC_API_KEY set; fail-open at three layers (client build, enrich(), batch driver) so disabled pipelines exit 0 and enabled-without-key exits 0 with 0 records
+- [Phase 61-06]: D-02 auto-mode lock cemented — SentimentPipeline._build_extractor("auto") now returns RuleExtractor() unconditionally regardless of ANTHROPIC_API_KEY; "claude" mode still works for explicit callers; prior "use Claude if available" behaviour is gone from the default path
+- [Phase 61-06]: Non-destructive sidecar pattern — enrich_silver_records writes to data/silver/sentiment/signals_enriched/season=YYYY/week=WW/ while original signals/ tree remains untouched; news_service silently merges sidecar {summary, refined_category} into NewsItem when present
+- [Phase 61-06]: Deferred anthropic SDK import inside _run_llm_enrichment — disabled pipelines never trigger the import path, keeping startup clean; when enabled but key is missing, _build_client returns None and logs a single warning
+- [Phase 61-06]: CLI flag --enable-llm-enrichment uses action='store_true' with default=None so main() can distinguish explicit CLI override from env var fallback (ENABLE_LLM_ENRICHMENT accepts true/1/yes, case-insensitive)
+- [Phase 61-06]: T-61-06-01 mitigation — log line always emits bool(os.environ.get('ANTHROPIC_API_KEY')); key value is never format-argumented anywhere in the enrichment or pipeline code
 
 ### Pending Todos
 
