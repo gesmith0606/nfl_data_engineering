@@ -1008,7 +1008,15 @@ def run_live_site_check(
             criticals.append(f"LIVE API INVALID JSON: GET {path}")
             print(f"  [FAIL] {path}  (not JSON)")
             continue
-        if not validator(payload):
+        try:
+            passed = bool(validator(payload))
+        except (AttributeError, TypeError, KeyError, IndexError) as exc:
+            criticals.append(
+                f"LIVE API UNEXPECTED SHAPE: GET {path} ({type(exc).__name__}: {exc})"
+            )
+            print(f"  [FAIL] {path}  (unexpected payload shape)")
+            continue
+        if not passed:
             criticals.append(
                 f"LIVE API EMPTY/INVALID PAYLOAD: GET {path}"
             )
