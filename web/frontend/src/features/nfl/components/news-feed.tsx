@@ -23,6 +23,7 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Icons } from '@/components/icons';
+import { EventBadges } from './EventBadges';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -629,37 +630,29 @@ function NewsCard({ item }: { item: NewsItem }) {
           </div>
         )}
 
-        {/* Event flags */}
-        <div className='flex flex-wrap gap-1'>
-          {item.is_ruled_out && (
-            <Badge variant='destructive' className='text-xs'>
-              RULED OUT
-            </Badge>
-          )}
-          {item.is_inactive && (
-            <Badge variant='destructive' className='text-xs'>
-              INACTIVE
-            </Badge>
-          )}
-          {item.is_suspended && (
-            <Badge variant='destructive' className='text-xs'>
-              SUSPENDED
-            </Badge>
-          )}
-          {item.is_questionable && (
-            <Badge variant='secondary' className='text-xs'>
-              QUESTIONABLE
-            </Badge>
-          )}
-          {item.is_returning && (
-            <Badge variant='outline' className='text-xs'>
-              RETURNING
-            </Badge>
-          )}
-        </div>
+        {/* Event flags (Plan 61-05): render the rule-extractor labels as
+            color-coded pills. Falls back to the legacy 5-flag booleans when
+            ``event_flags`` is empty (old cached silver records). */}
+        <EventBadges
+          badges={
+            item.event_flags && item.event_flags.length > 0
+              ? item.event_flags
+              : legacyFlagsToLabels(item)
+          }
+        />
       </CardContent>
     </Card>
   );
+}
+
+function legacyFlagsToLabels(item: NewsItem): string[] {
+  const labels: string[] = [];
+  if (item.is_ruled_out) labels.push('Ruled Out');
+  if (item.is_inactive) labels.push('Inactive');
+  if (item.is_suspended) labels.push('Suspended');
+  if (item.is_questionable) labels.push('Questionable');
+  if (item.is_returning) labels.push('Returning');
+  return labels;
 }
 
 // ---------------------------------------------------------------------------

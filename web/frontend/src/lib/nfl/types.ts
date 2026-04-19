@@ -121,6 +121,38 @@ export interface NewsItem {
   is_suspended: boolean;
   is_returning: boolean;
   body_snippet: string | null;
+  /** Plan 61-05: human-readable event labels from the rule-extractor. */
+  event_flags: string[];
+  /** Plan 61-06: optional LLM-generated 1-sentence summary (feature-flagged). */
+  summary: string | null;
+}
+
+/** Discrete overall sentiment bucket (D-03) — never a continuous score. */
+export type OverallSentimentLabel = 'bullish' | 'bearish' | 'neutral';
+
+/**
+ * Per-team event density row (NEWS-03).
+ *
+ * Exactly 32 rows are returned by ``GET /api/news/team-events`` — missing
+ * teams are zero-filled so the grid layout is stable.
+ */
+export interface TeamEvents {
+  team: string;
+  negative_event_count: number;
+  positive_event_count: number;
+  neutral_event_count: number;
+  total_articles: number;
+  sentiment_label: OverallSentimentLabel;
+  top_events: string[];
+}
+
+/** Event badges for a single player (NEWS-04). */
+export interface PlayerEventBadges {
+  player_id: string;
+  badges: string[];
+  overall_label: OverallSentimentLabel;
+  article_count: number;
+  most_recent_article: NewsItem | null;
 }
 
 /** Active alert for a player with a significant status or sentiment event. */

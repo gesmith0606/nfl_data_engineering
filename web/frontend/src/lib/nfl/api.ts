@@ -11,6 +11,7 @@ import type {
   MockDraftStartRequest,
   MockDraftStartResponse,
   NewsItem,
+  PlayerEventBadges,
   PlayerProjection,
   PlayerSearchResult,
   PlayerSentiment,
@@ -18,6 +19,7 @@ import type {
   ProjectionResponse,
   ScoringFormat,
   SentimentSummary,
+  TeamEvents,
   TeamLineup,
   TeamSentiment,
 } from "./types";
@@ -254,6 +256,45 @@ export async function fetchTeamSentiment(
     week: String(week),
   });
   return request<TeamSentiment[]>(`/api/news/team-sentiment?${params}`);
+}
+
+/**
+ * Fetch per-team event density (NEWS-03).
+ *
+ * Returns exactly 32 rows — one per NFL team — with counts derived from the
+ * rule-extracted event flags. Zero-filled teams carry ``sentiment_label ===
+ * 'neutral'`` so the grid always renders a stable 32-tile layout.
+ */
+export async function fetchTeamEvents(
+  season: number,
+  week: number,
+): Promise<TeamEvents[]> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week),
+  });
+  return request<TeamEvents[]>(`/api/news/team-events?${params}`);
+}
+
+/**
+ * Fetch deduplicated event badges for a single player (NEWS-04).
+ *
+ * Badges are sorted by occurrence count descending. ``overall_label`` is a
+ * discrete bucket per D-03 — never a numerical sentiment score. Returns
+ * zero-filled payload (empty ``badges``) when no data exists for the player.
+ */
+export async function fetchPlayerBadges(
+  playerId: string,
+  season: number,
+  week: number,
+): Promise<PlayerEventBadges> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week),
+  });
+  return request<PlayerEventBadges>(
+    `/api/news/player-badges/${encodeURIComponent(playerId)}?${params}`,
+  );
 }
 
 export { ApiError };

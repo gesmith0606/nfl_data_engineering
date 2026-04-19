@@ -4,6 +4,8 @@ export type {
   HealthResponse,
   LineupPlayer,
   NewsItem,
+  OverallSentimentLabel,
+  PlayerEventBadges,
   PlayerProjection,
   PlayerSearchResult,
   PlayerSentiment,
@@ -15,6 +17,7 @@ export type {
   SentimentSummary,
   SortConfig,
   SortDirection,
+  TeamEvents,
   TeamLineup,
   TeamSentiment,
 } from '@/lib/nfl/types';

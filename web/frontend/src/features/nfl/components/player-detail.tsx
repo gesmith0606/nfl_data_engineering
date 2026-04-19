@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { playerDetailQueryOptions } from '../api/queries';
+import { playerBadgesQueryOptions, playerDetailQueryOptions } from '../api/queries';
 import type { ScoringFormat } from '../api/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -27,6 +27,7 @@ import { Icons } from '@/components/icons';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { useState } from 'react';
 import Link from 'next/link';
+import { EventBadges } from './EventBadges';
 import { PlayerNewsPanel } from './player-news-panel';
 
 interface PlayerDetailProps {
@@ -46,6 +47,11 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
 
   const { data: player, isLoading, isError } = useQuery(
     playerDetailQueryOptions(playerId, season, week, scoring)
+  );
+
+  // NEWS-04: rule-extracted event badges for the player header card.
+  const { data: badges } = useQuery(
+    playerBadgesQueryOptions(playerId, season, week)
   );
 
   if (isLoading) {
@@ -154,6 +160,14 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
             <Badge variant='destructive' className='mt-2 w-fit'>
               {player.injury_status}
             </Badge>
+          )}
+          {badges && badges.badges.length > 0 && (
+            <div className='mt-3'>
+              <EventBadges
+                badges={badges.badges}
+                overallLabel={badges.overall_label}
+              />
+            </div>
           )}
         </CardHeader>
       </Card>

@@ -8,11 +8,13 @@ import {
   fetchLineup,
   fetchNewsFeed,
   fetchPlayer,
+  fetchPlayerBadges,
   fetchPlayerNews,
   fetchPlayerSentiment,
   fetchPredictions,
   fetchProjections,
   fetchSentimentSummary,
+  fetchTeamEvents,
   fetchTeamSentiment,
   searchPlayers,
 } from './service';
@@ -137,6 +139,25 @@ export const teamSentimentQueryOptions = (season: number, week: number) =>
   queryOptions({
     queryKey: [...nflKeys.all, 'team-sentiment', { season, week }] as const,
     queryFn: () => fetchTeamSentiment(season, week),
+    refetchInterval: 5 * 60 * 1000
+  });
+
+export const teamEventsQueryOptions = (season: number, week: number) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'team-events', { season, week }] as const,
+    queryFn: () => fetchTeamEvents(season, week),
+    refetchInterval: 5 * 60 * 1000
+  });
+
+export const playerBadgesQueryOptions = (
+  playerId: string,
+  season: number,
+  week: number
+) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'player-badges', { playerId, season, week }] as const,
+    queryFn: () => fetchPlayerBadges(playerId, season, week),
+    enabled: !!playerId,
     refetchInterval: 5 * 60 * 1000
   });
 
