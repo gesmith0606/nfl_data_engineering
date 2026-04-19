@@ -16,8 +16,8 @@
 
 - [x] **NEWS-01**: Daily sentiment pipeline runs automatically (RSS + Sleeper + Reddit + RotoWire + PFT) — sources expanded in 61-01; daily cron wiring + D-06 resilience shipped in 61-04 (5 sources, 7 regression tests, ENABLE_LLM_ENRICHMENT feature flag at `0 12 * * *` UTC)
 - [x] **NEWS-02**: News page shows real articles with source, date, and player tags — 61-01 Bronze ingestion (3 new sources), 61-05 UI wiring + EventBadges component shipped, 61-06 optional LLM enrichment populates NewsItem.summary when ENABLE_LLM_ENRICHMENT=true
-- [ ] **NEWS-03**: Team sentiment dashboard shows 32-team color-coded grid
-- [ ] **NEWS-04**: Player sentiment signals (bullish/bearish) visible on player pages
+- [x] **NEWS-03**: Team sentiment dashboard shows 32-team color-coded grid — 61-05 shipped GET /api/news/team-events (always 32 rows, zero-filled) + TeamEventDensityGrid.tsx with React Query 5-min refetch, bearish/bullish/neutral color coding, keyboard-navigable tiles
+- [x] **NEWS-04**: Player sentiment signals (bullish/bearish) visible on player pages — 61-05 shipped GET /api/news/player-badges/{player_id} + EventBadges.tsx (accessible role=list, colored ring from overallLabel) wired into player-detail.tsx header
 
 ### Design & UX
 
@@ -79,8 +79,8 @@
 | DQAL-04 | Phase 60 | Complete |
 | NEWS-01 | Phase 61 | Complete (61-01 added RotoWire + PFT + DynastyFF ingestion; 61-04 wired cron + D-06 resilience + ENABLE_LLM_ENRICHMENT feature flag) |
 | NEWS-02 | Phase 61 | Complete (61-01 Bronze ingestion, 61-05 UI + event badges, 61-06 optional LLM summary enrichment) |
-| NEWS-03 | Phase 61 | Pending |
-| NEWS-04 | Phase 61 | Pending |
+| NEWS-03 | Phase 61 | Complete (61-05 team-events endpoint + TeamEventDensityGrid.tsx shipped) |
+| NEWS-04 | Phase 61 | Complete (61-05 player-badges endpoint + EventBadges.tsx shipped) |
 | DSGN-01 | Phase 62 | Pending |
 | DSGN-02 | Phase 62 | Pending |
 | DSGN-03 | Phase 62 | Pending |
