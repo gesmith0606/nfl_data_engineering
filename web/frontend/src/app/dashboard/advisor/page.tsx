@@ -1,10 +1,5 @@
 'use client';
 
-import { useChat } from '@ai-sdk/react';
-import {
-  DefaultChatTransport,
-  lastAssistantMessageIsCompleteWithToolCalls
-} from 'ai';
 import { useRef, useEffect, useState } from 'react';
 import PageContainer from '@/components/layout/page-container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Icons } from '@/components/icons';
+import { usePersistentChat } from '@/hooks/use-persistent-chat';
 
 // ---------------------------------------------------------------------------
 // Types inferred from tool return shapes
@@ -349,10 +345,7 @@ export default function AdvisorPage() {
   const [lastUserMessage, setLastUserMessage] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const { messages, sendMessage, status, error } = useChat({
-    transport: new DefaultChatTransport({ api: '/api/chat' }),
-    sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls
-  });
+  const { messages, sendMessage, status, error, clear } = usePersistentChat();
 
   const isLoading = status === 'streaming' || status === 'submitted';
   const hasError = status === 'error' || !!error;
@@ -388,6 +381,21 @@ export default function AdvisorPage() {
       pageDescription='Ask about start/sit decisions, trade analysis, waiver wire pickups, and more'
     >
       <div className='flex h-[calc(100dvh-160px)] flex-col gap-3'>
+        {/* Top action bar — visible only when a conversation exists */}
+        {messages.length > 0 && (
+          <div className='flex justify-end'>
+            <Button
+              variant='outline'
+              size='sm'
+              className='text-xs'
+              onClick={clear}
+            >
+              <Icons.trash className='mr-1.5 h-3.5 w-3.5' />
+              Clear conversation
+            </Button>
+          </div>
+        )}
+
         {/* Message area */}
         <ScrollArea className='flex-1 rounded-lg border'>
           <div className='flex flex-col gap-4 p-4'>

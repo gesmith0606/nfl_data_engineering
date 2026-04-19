@@ -1,10 +1,5 @@
 'use client';
 
-import { useChat } from '@ai-sdk/react';
-import {
-  DefaultChatTransport,
-  lastAssistantMessageIsCompleteWithToolCalls
-} from 'ai';
 import { useRef, useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -14,6 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
+import { usePersistentChat } from '@/hooks/use-persistent-chat';
 
 // ---------------------------------------------------------------------------
 // Types inferred from tool return shapes
@@ -437,10 +433,7 @@ export function ChatWidget() {
   const [lastUserMessage, setLastUserMessage] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const { messages, sendMessage, status, error } = useChat({
-    transport: new DefaultChatTransport({ api: '/api/chat' }),
-    sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls
-  });
+  const { messages, sendMessage, status, error, clear } = usePersistentChat();
 
   const isLoading = status === 'streaming' || status === 'submitted';
   const hasError = status === 'error' || !!error;
@@ -519,15 +512,28 @@ export function ChatWidget() {
               </p>
             </div>
           </div>
-          <Button
-            variant='ghost'
-            size='sm'
-            className='h-7 w-7 p-0'
-            onClick={() => setIsOpen(false)}
-            aria-label='Minimize chat'
-          >
-            <Icons.minus className='h-4 w-4' />
-          </Button>
+          <div className='flex items-center gap-1'>
+            <Button
+              variant='ghost'
+              size='sm'
+              className='h-7 w-7 p-0'
+              onClick={clear}
+              disabled={messages.length === 0}
+              aria-label='Clear conversation'
+              title='Clear conversation'
+            >
+              <Icons.trash className='h-4 w-4' />
+            </Button>
+            <Button
+              variant='ghost'
+              size='sm'
+              className='h-7 w-7 p-0'
+              onClick={() => setIsOpen(false)}
+              aria-label='Minimize chat'
+            >
+              <Icons.minus className='h-4 w-4' />
+            </Button>
+          </div>
         </div>
 
         {/* Messages */}
