@@ -11,7 +11,14 @@ from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
-from ..models.schemas import Alert, NewsItem, PlayerSentiment, TeamSentiment
+from ..models.schemas import (
+    Alert,
+    NewsItem,
+    PlayerEventBadges,
+    PlayerSentiment,
+    TeamEvents,
+    TeamSentiment,
+)
 from ..services import news_service
 
 logger = logging.getLogger(__name__)
@@ -142,8 +149,12 @@ def get_player_sentiment(
 @router.get("/feed", response_model=List[NewsItem])
 def get_news_feed(
     season: int = Query(..., ge=1999, le=2030, description="NFL season"),
-    week: Optional[int] = Query(None, ge=1, le=18, description="Week number (omit for all weeks)"),
-    source: Optional[str] = Query(None, description="Source filter: reddit, rss_espn, sleeper, etc."),
+    week: Optional[int] = Query(
+        None, ge=1, le=18, description="Week number (omit for all weeks)"
+    ),
+    source: Optional[str] = Query(
+        None, description="Source filter: reddit, rss_espn, sleeper, etc."
+    ),
     team: Optional[str] = Query(None, description="3-letter team code filter"),
     player_id: Optional[str] = Query(None, description="Player ID filter"),
     limit: int = Query(50, ge=1, le=200, description="Max results"),
@@ -244,3 +255,103 @@ def get_team_sentiment(
         raise HTTPException(status_code=500, detail="Failed to load team sentiment")
 
     return [TeamSentiment(**r) for r in results]
+
+
+# ---------------------------------------------------------------------------
+# Plan 61-05: event-based endpoints (NEWS-03, NEWS-04)
+# ---------------------------------------------------------------------------
+
+
+@router.get("/team-events", response_model=List[TeamEvents])
+def get_team_events(
+    season: int = Query(..., ge=1999, le=2030, description="NFL season"),
+    week: int = Query(..., ge=1, le=18, description="Week number"),
+) -> List[TeamEvents]:
+    """Return per-team event density for all 32 NFL teams (NEWS-03).
+
+    Aggregates the discrete event flags emitted by the rule-extractor
+    (Plan 61-02) and buckets each team into ``bearish``, ``bullish``, or
+    ``neutral`` — NEVER a continuous sentiment score per D-03.
+
+    Missing teams are zero-filled so the response is always exactly 32 rows,
+    enabling the frontend grid to render a stable layout regardless of
+    ingestion state.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number (1-18).
+
+    Returns:
+        List of :class:`TeamEvents` (always 32 entries) ordered by team
+        abbreviation. Returns all-neutral zero-filled rows on empty data
+        rather than 404.
+    """
+    try:
+        rows = news_service.get_team_event_density(season=season, week=week)
+    except Exception as exc:
+        logger.error(
+            "Error fetching team events for season=%d week=%d: %s",
+            season,
+            week,
+            exc,
+        )
+        # Degrade gracefully: 32 neutral rows keep the UI stable.
+        rows = [
+            {
+                "team": team,
+                "negative_event_count": 0,
+                "positive_event_count": 0,
+                "neutral_event_count": 0,
+                "total_articles": 0,
+                "sentiment_label": "neutral",
+                "top_events": [],
+            }
+            for team in news_service.NFL_TEAM_ABBRS
+        ]
+
+    return [TeamEvents(**row) for row in rows]
+
+
+@router.get("/player-badges/{player_id}", response_model=PlayerEventBadges)
+def get_player_badges(
+    player_id: str,
+    season: int = Query(..., ge=1999, le=2030, description="NFL season"),
+    week: int = Query(..., ge=1, le=18, description="Week number"),
+) -> PlayerEventBadges:
+    """Return deduplicated event badges for a single player-week (NEWS-04).
+
+    Badges are derived from rule-extracted event flags (Plan 61-02), unique
+    per kind, sorted by occurrence count descending. ``overall_label`` is
+    discrete (``bullish``/``bearish``/``neutral``) per D-03 — never a score.
+
+    Args:
+        player_id: Canonical player ID.
+        season: NFL season year.
+        week: NFL week number (1-18).
+
+    Returns:
+        :class:`PlayerEventBadges` — returns a zero-filled payload on empty
+        data (HTTP 200, empty ``badges`` list) rather than 404, so the
+        player page renders a clean zero state.
+    """
+    try:
+        data = news_service.get_player_event_badges(
+            player_id=player_id, season=season, week=week
+        )
+    except Exception as exc:
+        logger.error(
+            "Error fetching player badges for player=%s season=%d week=%d: %s",
+            player_id,
+            season,
+            week,
+            exc,
+        )
+        data = {
+            "player_id": player_id,
+            "badges": [],
+            "overall_label": "neutral",
+            "article_count": 0,
+            "most_recent_article": None,
+        }
+
+    return PlayerEventBadges(**data)

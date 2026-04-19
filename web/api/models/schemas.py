@@ -336,6 +336,72 @@ class NewsItem(BaseModel):
         None, description="First 200 chars of body text"
     )
 
+    # Plan 61-05: human-readable event labels derived from the Silver events
+    # dict. Empty list when the document has no rule-extracted events.
+    event_flags: List[str] = Field(
+        default_factory=list,
+        description="Human-readable event labels (e.g. Questionable, Returning)",
+    )
+
+    # Plan 61-06 placeholder: LLM-enriched summary, populated only when the
+    # optional Haiku enrichment step is enabled (D-04). Null otherwise.
+    summary: Optional[str] = Field(
+        None, description="Optional LLM-generated 1-sentence summary"
+    )
+
+
+class TeamEvents(BaseModel):
+    """Aggregated per-team event counts used by the NEWS-03 density grid.
+
+    Counts are derived from the structured event flags emitted by the
+    rule-extractor (Plan 61-02). ``sentiment_label`` is a discrete bucket
+    (``bullish``/``bearish``/``neutral``) — NOT a continuous score per D-03.
+    """
+
+    team: str = Field(..., description="3-letter team abbreviation")
+    negative_event_count: int = Field(
+        0,
+        description=(
+            "Bearish events: ruled_out, inactive, suspended, usage_drop, "
+            "weather_risk, released"
+        ),
+    )
+    positive_event_count: int = Field(
+        0,
+        description="Bullish events: returning, activated, usage_boost, signed",
+    )
+    neutral_event_count: int = Field(
+        0, description="Neutral events: traded, questionable"
+    )
+    total_articles: int = Field(
+        0, description="Total article/signal count contributing to this team"
+    )
+    sentiment_label: str = Field("neutral", description="bullish / bearish / neutral")
+    top_events: List[str] = Field(
+        default_factory=list,
+        description="Human-readable summary of the 3 loudest events",
+    )
+
+
+class PlayerEventBadges(BaseModel):
+    """Rule-extracted event badges for a single player (NEWS-04).
+
+    Badges are deduplicated and sorted by occurrence count descending so
+    the UI can render the most-mentioned event first. ``overall_label`` is
+    a discrete bucket (D-03) — never a numerical sentiment score.
+    """
+
+    player_id: str
+    badges: List[str] = Field(
+        default_factory=list,
+        description="Unique human-readable event labels, most frequent first",
+    )
+    overall_label: str = Field("neutral", description="bullish / bearish / neutral")
+    article_count: int = Field(
+        0, description="Number of Silver signal records for this player"
+    )
+    most_recent_article: Optional[NewsItem] = None
+
 
 class Alert(BaseModel):
     """Active alert for a player — ruled out, inactive, or major sentiment shift."""

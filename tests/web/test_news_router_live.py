@@ -46,9 +46,7 @@ def tmp_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     data_root.mkdir(parents=True, exist_ok=True)
 
     (data_root / "bronze" / "sentiment").mkdir(parents=True, exist_ok=True)
-    (data_root / "silver" / "sentiment" / "signals").mkdir(
-        parents=True, exist_ok=True
-    )
+    (data_root / "silver" / "sentiment" / "signals").mkdir(parents=True, exist_ok=True)
     (data_root / "gold" / "sentiment").mkdir(parents=True, exist_ok=True)
 
     import web.api.config as api_config
@@ -66,15 +64,11 @@ def tmp_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
     # Rebind the already-loaded module constants so the live service reads
     # from the temp directory.
-    monkeypatch.setattr(
-        ns, "_BRONZE_SENTIMENT_DIR", data_root / "bronze" / "sentiment"
-    )
+    monkeypatch.setattr(ns, "_BRONZE_SENTIMENT_DIR", data_root / "bronze" / "sentiment")
     monkeypatch.setattr(
         ns, "_SILVER_SIGNALS_DIR", data_root / "silver" / "sentiment" / "signals"
     )
-    monkeypatch.setattr(
-        ns, "_GOLD_SENTIMENT_DIR", data_root / "gold" / "sentiment"
-    )
+    monkeypatch.setattr(ns, "_GOLD_SENTIMENT_DIR", data_root / "gold" / "sentiment")
 
     return data_root
 
@@ -123,9 +117,7 @@ def _write_bronze_items(
     items: List[Dict[str, Any]],
 ) -> Path:
     """Write a Bronze source-items file matching the ingestor envelope."""
-    season_dir = (
-        data_root / "bronze" / "sentiment" / source / f"season={season}"
-    )
+    season_dir = data_root / "bronze" / "sentiment" / source / f"season={season}"
     season_dir.mkdir(parents=True, exist_ok=True)
     path = season_dir / f"{source}_test_{season}.json"
     payload = {
@@ -299,9 +291,7 @@ def test_team_events_returns_exactly_32_teams(
         ],
     )
 
-    resp = client.get(
-        "/api/news/team-events", params={"season": 2025, "week": 1}
-    )
+    resp = client.get("/api/news/team-events", params={"season": 2025, "week": 1})
     assert resp.status_code == 200, resp.text
     rows = resp.json()
     assert isinstance(rows, list)
@@ -342,9 +332,7 @@ def test_team_events_bearish_when_negative_events_dominate(
         ],
     )
 
-    resp = client.get(
-        "/api/news/team-events", params={"season": 2025, "week": 1}
-    )
+    resp = client.get("/api/news/team-events", params={"season": 2025, "week": 1})
     assert resp.status_code == 200
     rows = resp.json()
     kc = next((r for r in rows if r["team"] == "KC"), None)
@@ -387,9 +375,7 @@ def test_team_events_bullish_when_positive_events_dominate(
         ],
     )
 
-    resp = client.get(
-        "/api/news/team-events", params={"season": 2025, "week": 1}
-    )
+    resp = client.get("/api/news/team-events", params={"season": 2025, "week": 1})
     assert resp.status_code == 200
     rows = resp.json()
     minn = next((r for r in rows if r["team"] == "MIN"), None)
@@ -404,9 +390,7 @@ def test_team_events_neutral_with_no_events(client: TestClient) -> None:
     The fixture tmp_data_dir writes no data, so every one of the 32 teams
     should land in the neutral bucket with zero counts.
     """
-    resp = client.get(
-        "/api/news/team-events", params={"season": 2025, "week": 1}
-    )
+    resp = client.get("/api/news/team-events", params={"season": 2025, "week": 1})
     assert resp.status_code == 200
     rows = resp.json()
     assert len(rows) == 32
@@ -491,9 +475,7 @@ def test_endpoints_degrade_gracefully_on_empty_data(client: TestClient) -> None:
     assert r_feed.status_code == 200
     assert r_feed.json() == []
 
-    r_team = client.get(
-        "/api/news/team-events", params={"season": 2025, "week": 1}
-    )
+    r_team = client.get("/api/news/team-events", params={"season": 2025, "week": 1})
     assert r_team.status_code == 200
     rows = r_team.json()
     assert len(rows) == 32

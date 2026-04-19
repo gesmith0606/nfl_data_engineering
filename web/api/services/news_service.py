@@ -17,8 +17,9 @@ This is intentional: the pipeline may not have ingested sentiment data yet.
 
 import json
 import logging
+from collections import Counter
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import pandas as pd
 
@@ -33,6 +34,131 @@ logger = logging.getLogger(__name__)
 _GOLD_SENTIMENT_DIR = GOLD_SENTIMENT_DIR
 _SILVER_SIGNALS_DIR = SILVER_SENTIMENT_DIR / "signals"
 _BRONZE_SENTIMENT_DIR = BRONZE_SENTIMENT_DIR
+
+
+# ---------------------------------------------------------------------------
+# Event vocabulary (Plan 61-05)
+# ---------------------------------------------------------------------------
+# Mirror of the 12-flag vocabulary locked by Plan 61-02 in
+# ``src/sentiment/processing/rule_extractor.py``. This is the single source of
+# truth for event-flag -> human-readable label mapping on the API side.
+
+EVENT_LABELS: Dict[str, str] = {
+    "is_ruled_out": "Ruled Out",
+    "is_inactive": "Inactive",
+    "is_questionable": "Questionable",
+    "is_suspended": "Suspended",
+    "is_returning": "Returning",
+    "is_traded": "Traded",
+    "is_released": "Released",
+    "is_signed": "Signed",
+    "is_activated": "Activated",
+    "is_usage_boost": "Usage Boost",
+    "is_usage_drop": "Usage Drop",
+    "is_weather_risk": "Weather Risk",
+}
+
+# Discrete sentiment buckets per D-03. NOT a continuous score.
+NEGATIVE_FLAGS = frozenset(
+    {
+        "is_ruled_out",
+        "is_inactive",
+        "is_suspended",
+        "is_usage_drop",
+        "is_weather_risk",
+        "is_released",
+    }
+)
+POSITIVE_FLAGS = frozenset(
+    {"is_returning", "is_activated", "is_usage_boost", "is_signed"}
+)
+NEUTRAL_FLAGS = frozenset({"is_traded", "is_questionable"})
+
+# 32 NFL teams — used to zero-fill /news/team-events.
+NFL_TEAM_ABBRS: Tuple[str, ...] = (
+    "ARI",
+    "ATL",
+    "BAL",
+    "BUF",
+    "CAR",
+    "CHI",
+    "CIN",
+    "CLE",
+    "DAL",
+    "DEN",
+    "DET",
+    "GB",
+    "HOU",
+    "IND",
+    "JAX",
+    "KC",
+    "LA",
+    "LAC",
+    "LV",
+    "MIA",
+    "MIN",
+    "NE",
+    "NO",
+    "NYG",
+    "NYJ",
+    "PHI",
+    "PIT",
+    "SEA",
+    "SF",
+    "TB",
+    "TEN",
+    "WAS",
+)
+
+
+def _extract_event_flags(events: Dict[str, Any]) -> List[str]:
+    """Map a Silver ``events`` dict to a list of human-readable labels.
+
+    Args:
+        events: The ``events`` sub-dict from a Silver signal record.
+
+    Returns:
+        Labels for every True flag, ordered by the canonical ``EVENT_LABELS``
+        iteration (stable across runs). Unknown or missing keys are ignored.
+    """
+    if not isinstance(events, dict):
+        return []
+
+    labels: List[str] = []
+    for flag, label in EVENT_LABELS.items():
+        if bool(events.get(flag, False)):
+            labels.append(label)
+    return labels
+
+
+def _bucket_for_flag(flag: str) -> Optional[str]:
+    """Return the sentiment bucket for an event flag, or None if unknown."""
+    if flag in NEGATIVE_FLAGS:
+        return "negative"
+    if flag in POSITIVE_FLAGS:
+        return "positive"
+    if flag in NEUTRAL_FLAGS:
+        return "neutral"
+    return None
+
+
+def _classify_sentiment(negative: int, positive: int, neutral: int) -> str:
+    """Bucket-classify a team/player given discrete event counts.
+
+    Args:
+        negative: Count of bearish events.
+        positive: Count of bullish events.
+        neutral: Count of neutral events (not used in the comparison).
+
+    Returns:
+        One of ``"bearish"``, ``"bullish"``, ``"neutral"``.
+    """
+    # 1.5x dominance threshold — avoids flipping labels on a single event.
+    if negative > positive * 1.5 and negative > 0:
+        return "bearish"
+    if positive > negative * 1.5 and positive > 0:
+        return "bullish"
+    return "neutral"
 
 
 # ---------------------------------------------------------------------------
@@ -352,6 +478,8 @@ def _build_news_item_from_bronze(
         "is_suspended": bool(events.get("is_suspended", False)),
         "is_returning": bool(events.get("is_returning", False)),
         "body_snippet": body_snippet,
+        "event_flags": _extract_event_flags(events),
+        "summary": None,
     }
 
 
@@ -389,6 +517,8 @@ def _build_news_item_from_silver(
         "is_suspended": bool(events.get("is_suspended", False)),
         "is_returning": bool(events.get("is_returning", False)),
         "body_snippet": raw_excerpt[:200] if raw_excerpt else None,
+        "event_flags": _extract_event_flags(events),
+        "summary": None,
     }
 
 
@@ -981,3 +1111,231 @@ def get_sentiment_summary(season: int, week: int) -> Dict[str, Any]:
                 )
 
     return summary
+
+
+# ---------------------------------------------------------------------------
+# Plan 61-05: Team event density + player event badges
+# ---------------------------------------------------------------------------
+
+
+def _build_ext_id_to_team(
+    bronze_records: List[Dict[str, Any]],
+) -> Dict[str, str]:
+    """Map each Bronze ``external_id`` to its team hint (if any).
+
+    Used to assign Silver signal records (which don't carry a team column)
+    to a team via their originating Bronze document.
+    """
+    mapping: Dict[str, str] = {}
+    for rec in bronze_records:
+        ext_id = rec.get("external_id") or rec.get("id")
+        if not ext_id:
+            continue
+        team = rec.get("team") or rec.get("team_hint")
+        if team:
+            mapping[str(ext_id)] = str(team).upper()
+    return mapping
+
+
+def _build_player_id_to_team(
+    bronze_records: List[Dict[str, Any]],
+) -> Dict[str, str]:
+    """Map each resolved ``player_id`` to the last-seen team hint.
+
+    Falls back to this when a Silver record has no corresponding Bronze
+    doc (rare; most ingestors emit both).
+    """
+    mapping: Dict[str, str] = {}
+    for rec in bronze_records:
+        team = rec.get("team") or rec.get("team_hint")
+        if not team:
+            continue
+        for pid in rec.get("resolved_player_ids") or []:
+            if pid:
+                mapping[str(pid)] = str(team).upper()
+        other_pid = rec.get("resolved_player_id")
+        if other_pid:
+            mapping[str(other_pid)] = str(team).upper()
+    return mapping
+
+
+def _format_top_events(flag_counter: Counter) -> List[str]:
+    """Format the 3 most frequent event flags as ``"3x Questionable"`` strings."""
+    out: List[str] = []
+    for flag, count in flag_counter.most_common(3):
+        label = EVENT_LABELS.get(flag, flag)
+        out.append(f"{count}x {label}")
+    return out
+
+
+def get_team_event_density(season: int, week: int) -> List[Dict[str, Any]]:
+    """Return one ``TeamEvents`` row per NFL team for *season*/*week*.
+
+    Aggregates structured event flags from Silver signal records, joining
+    on Bronze documents for the team hint. Missing teams are zero-filled so
+    the response is always exactly 32 rows.
+
+    Args:
+        season: NFL season year.
+        week: NFL week number (1-18).
+
+    Returns:
+        List of 32 dicts matching the :class:`TeamEvents` schema, ordered by
+        team abbreviation. Safe to return when no data exists — every row
+        will be zero-filled with ``sentiment_label == "neutral"``.
+    """
+    # Bronze for team hints
+    bronze_records = _load_bronze_records(_find_bronze_files_for_season(season))
+    ext_to_team = _build_ext_id_to_team(bronze_records)
+    pid_to_team = _build_player_id_to_team(bronze_records)
+
+    # Silver for event flags
+    silver_records = _load_silver_records(_find_silver_files(season, week))
+
+    # team -> {"neg": int, "pos": int, "neu": int, "total": int, "flags": Counter}
+    by_team: Dict[str, Dict[str, Any]] = {}
+
+    for rec in silver_records:
+        events = rec.get("events") or {}
+        if not isinstance(events, dict):
+            continue
+
+        doc_id = str(rec.get("doc_id") or "")
+        player_id = str(rec.get("player_id") or "")
+        team = ext_to_team.get(doc_id) or pid_to_team.get(player_id)
+        if not team or team not in NFL_TEAM_ABBRS:
+            continue
+
+        entry = by_team.setdefault(
+            team,
+            {
+                "neg": 0,
+                "pos": 0,
+                "neu": 0,
+                "total": 0,
+                "flags": Counter(),
+            },
+        )
+        entry["total"] += 1
+        for flag, val in events.items():
+            if not bool(val):
+                continue
+            bucket = _bucket_for_flag(flag)
+            if bucket == "negative":
+                entry["neg"] += 1
+            elif bucket == "positive":
+                entry["pos"] += 1
+            elif bucket == "neutral":
+                entry["neu"] += 1
+            entry["flags"][flag] += 1
+
+    results: List[Dict[str, Any]] = []
+    for team in NFL_TEAM_ABBRS:
+        entry = by_team.get(team)
+        if entry is None:
+            results.append(
+                {
+                    "team": team,
+                    "negative_event_count": 0,
+                    "positive_event_count": 0,
+                    "neutral_event_count": 0,
+                    "total_articles": 0,
+                    "sentiment_label": "neutral",
+                    "top_events": [],
+                }
+            )
+            continue
+
+        label = _classify_sentiment(entry["neg"], entry["pos"], entry["neu"])
+        results.append(
+            {
+                "team": team,
+                "negative_event_count": entry["neg"],
+                "positive_event_count": entry["pos"],
+                "neutral_event_count": entry["neu"],
+                "total_articles": entry["total"],
+                "sentiment_label": label,
+                "top_events": _format_top_events(entry["flags"]),
+            }
+        )
+
+    return results
+
+
+def get_player_event_badges(player_id: str, season: int, week: int) -> Dict[str, Any]:
+    """Return deduplicated event badges for a single player-week.
+
+    Aggregates every True event flag across the player's Silver signal
+    records, sorts by occurrence count descending, and assigns a discrete
+    ``overall_label`` using the same bucket rules as
+    :func:`get_team_event_density`.
+
+    Args:
+        player_id: Canonical player ID.
+        season: NFL season year.
+        week: NFL week number (1-18).
+
+    Returns:
+        Dict matching the :class:`PlayerEventBadges` schema. Zero-filled and
+        safe to return when no data exists for the player.
+    """
+    silver_files = _find_silver_files(season, week)
+    silver_records = _load_silver_records(silver_files)
+
+    player_records = [
+        r for r in silver_records if str(r.get("player_id") or "") == player_id
+    ]
+
+    flag_counter: Counter = Counter()
+    negative = positive = neutral = 0
+
+    for rec in player_records:
+        events = rec.get("events") or {}
+        if not isinstance(events, dict):
+            continue
+        for flag, val in events.items():
+            if not bool(val):
+                continue
+            flag_counter[flag] += 1
+            bucket = _bucket_for_flag(flag)
+            if bucket == "negative":
+                negative += 1
+            elif bucket == "positive":
+                positive += 1
+            elif bucket == "neutral":
+                neutral += 1
+
+    # Build badge list: dedup (Counter does this) and sort by count desc.
+    badges = [
+        EVENT_LABELS[flag]
+        for flag, _ in flag_counter.most_common()
+        if flag in EVENT_LABELS
+    ]
+
+    # Most recent article (if we can find a matching bronze doc)
+    most_recent: Optional[Dict[str, Any]] = None
+    if player_records:
+        # Sort by published_at desc
+        by_date = sorted(
+            player_records,
+            key=lambda r: r.get("published_at") or "",
+            reverse=True,
+        )
+        silver_rec = by_date[0]
+
+        bronze_records = _load_bronze_records(_find_bronze_files_for_season(season))
+        bronze_index = _build_bronze_index(bronze_records)
+        doc_id = str(silver_rec.get("doc_id") or "")
+        bronze_rec = bronze_index.get(doc_id)
+        if bronze_rec is not None:
+            most_recent = _build_news_item_from_bronze(bronze_rec, silver_rec)
+        else:
+            most_recent = _build_news_item_from_silver(silver_rec)
+
+    return {
+        "player_id": player_id,
+        "badges": badges,
+        "overall_label": _classify_sentiment(negative, positive, neutral),
+        "article_count": len(player_records),
+        "most_recent_article": most_recent,
+    }
