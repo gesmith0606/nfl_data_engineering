@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: completed
-stopped_at: "Phase 64-03 complete — MTCH-03 backend shipped. GET /api/teams/{team}/defense-metrics returns real positional ranks + team SOS from silver/defense/positional + silver/teams/sos, with multi-tier fallback (season/week/position). Three atomic commits: 613c972 RED tests, d8bb7b8 service+schemas, e80d1ee router+main. 11 new tests pass; full suite 1648 passed / 1 skipped / 2 pre-existing failures (test_daily_pipeline, test_news_service — unchanged by this plan). Sample: BUF 2024 wk 5 → rating=75, rank=16, 4 positional entries (QB 80/RB 96/WR 82/TE 67). 32-team sanity at 2024 wk 18 shows [50,99] rating range, mean 74.5, monotone decreasing. Semantic caveat flagged for 64-04: silver rank=1 = 'weakest defense' (most pts allowed) not 'best defense' as API-CONTRACT assumed; frontend should confirm rating direction. Next: 64-04 frontend wiring to replace slotHash(team, slot) with API calls."
-last_updated: "2026-04-18T20:00:00.000Z"
-last_activity: 2026-04-18
+stopped_at: "Phase 64-04 complete — MTCH-01..04 all shipped end-to-end. matchup-view.tsx now consumes three real /api/teams/* endpoints (current-week + roster [offense|defense] + defense-metrics) via currentWeekQueryOptions / teamRosterQueryOptions / teamDefenseMetricsQueryOptions. slotHash + buildDefensiveRoster placeholders removed; OL slots populated from slot_hint (real linemen — Dion Dawkins, Connor McGovern, O'Cyrus Torrence, Spencer Brown for BUF 2024/W1); defensive roster shows real names + injury badges (Zaven Collins, Justin Jones, Budda Baker, etc. for ARI); MatchupAdvantages tooltip cites raw silver positional rank (#N/32 vs POS); season/week seeded from current-week endpoint with subtle fallback banner. 64-03 rank-direction caveat resolved via displayDefenseRating() inversion for the defensive-roster panel only (raw rank used for tooltips + getAdvantage thresholds). Two commits: 081e556 (API layer — types, fetch, queryOptions), 4c6385d (frontend wiring + .players→.roster typecheck fix). Typecheck clean. Playwright smoke captured desktop 1440x900 + mobile 375x667 screenshots at /dashboard/matchups with BUF vs ARI 2024/W1 rendered. Phase 64 closed."
+last_updated: "2026-04-20T21:00:00.000Z"
+last_activity: 2026-04-20
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 26
-  completed_plans: 24
-  percent: 92
+  completed_plans: 25
+  percent: 96
 ---
 
 # Project State
@@ -35,11 +35,11 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 ## Current Position
 
 Phase: 64
-Plan: 04 (frontend wiring next)
-Status: Phase 64-03 complete; MTCH-03 backend shipped — GET /api/teams/{team}/defense-metrics live with real silver data
-Last activity: 2026-04-18
+Plan: 04 (SHIPPED — phase 64 closed)
+Status: Phase 64-04 complete; MTCH-01..04 all shipped end-to-end. matchup-view.tsx consumes /api/teams/current-week, /api/teams/{team}/roster (offense + defense), and /api/teams/{team}/defense-metrics. slotHash + placeholder defensive roster removed; real NFL names render on both offensive OL and defensive panels with injury badges, positional-rank advantage tooltips, and schedule-aware default week with fallback banner.
+Last activity: 2026-04-20
 
-Progress: [███████░░░] 70% (18 plans complete across v6.0)
+Progress: [████████░░] 80% (19 plans complete across v6.0; phase 64 closed, 65 partial)
 
 ## Performance Metrics
 
@@ -76,6 +76,7 @@ Progress: [███████░░░] 70% (18 plans complete across v6.0)
 | Phase 62 P03 | 18min | 2 tasks | 13 files |
 | Phase 62 P05 | 25min | 3 tasks | 18 files |
 | Phase 64 P03 | 25min | 2 tasks | 5 files  |
+| Phase 64 P04 | 35min | 3 tasks | 1 file   |
 
 ### Decisions
 
@@ -187,5 +188,5 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-04-18T20:00:00Z
-Stopped at: Phase 64-03 complete — MTCH-03 backend shipped. GET /api/teams/{team}/defense-metrics returns real positional ranks + team SOS from silver/defense/positional + silver/teams/sos, with multi-tier fallback (season/week/position). Three atomic commits: 613c972 RED tests, d8bb7b8 service+schemas, e80d1ee router+main. 11 new tests pass (7 service + 4 endpoint); full suite 1648 passed / 1 skipped / 2 pre-existing failures. Sample: BUF 2024 wk 5 → rating=75, rank=16, 4 positional entries. 32-team sanity at 2024 wk 18: [50,99] rating range, mean 74.5. Next: 64-04 frontend wiring to replace slotHash(team, slot) placeholder with API calls.
+Stopped at: Phase 64-04 complete — MTCH-01..04 all shipped end-to-end. matchup-view.tsx consumes /api/teams/current-week + /api/teams/{team}/roster (offense + defense) + /api/teams/{team}/defense-metrics via React Query queryOptions. slotHash + buildDefensiveRoster placeholders removed; real NFL names render on offensive OL (Dion Dawkins, Connor McGovern, O'Cyrus Torrence, Spencer Brown for BUF 2024/W1) and defensive panels (Zaven Collins, Justin Jones, Budda Baker for ARI) with injury badges. MatchupAdvantages tooltips cite raw silver positional rank (#N/32 vs POS); season/week seeded from current-week endpoint on mount with subtle fallback banner when any response carries fallback=true. 64-03 rank-semantic caveat resolved via displayDefenseRating() inversion for the defensive-roster panel only (raw rank used in tooltips + getAdvantage thresholds). Two commits: 081e556 API layer, 4c6385d frontend wiring + typecheck fix. Typecheck clean; Playwright smoke captured desktop 1440x900 + mobile 375x667 screenshots. Phase 64 closed; next candidate work: Phase 65 design-skill consolidation (AGNT-01, AGNT-03, AGNT-04 remain pending).
 Resume file: None

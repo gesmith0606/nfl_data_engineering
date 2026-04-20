@@ -35,10 +35,10 @@
 
 ### Matchup View
 
-- [ ] **MTCH-01**: Offensive roster shows real player projections and ratings _(64-02 shipped OL backend; full requirement waits on 64-04 frontend wiring)_
-- [x] **MTCH-02**: Defensive roster uses actual NFL data (not placeholder hashes) — 64-02 ships `/api/teams/{team}/roster?side=defense` with real NFL names + slot_hint
-- [ ] **MTCH-03**: Matchup advantages calculated from real data
-- [x] **MTCH-04**: Schedule-aware — shows correct weekly opponent — 64-02 ships `/api/teams/current-week` with schedule + offseason fallback
+- [x] **MTCH-01**: Offensive roster shows real player projections and ratings — 64-02 backend + 64-04 frontend wiring: OL slots (LT/LG/C/RG/RT) populated from `slot_hint` on `/api/teams/{team}/roster?side=offense`; skill positions carry projection-derived ratings
+- [x] **MTCH-02**: Defensive roster uses actual NFL data (not placeholder hashes) — 64-02 ships `/api/teams/{team}/roster?side=defense` with real NFL names + slot_hint; 64-04 wires real defensive names (DE/DT/LB/CB/SS/FS) with injury badges into the defensive panel
+- [x] **MTCH-03**: Matchup advantages calculated from real data — 64-03 ships `/api/teams/{team}/defense-metrics`; 64-04 rewrites `getAdvantage()` + MatchupAdvantages tooltips to cite raw silver positional rank (`#N/32 vs POS`); slotHash removed
+- [x] **MTCH-04**: Schedule-aware — shows correct weekly opponent — 64-02 ships `/api/teams/current-week` with schedule + offseason fallback; 64-04 seeds MatchupView season/week state from the endpoint on mount with subtle fallback banner
 
 ### Agent Ecosystem
 
@@ -89,10 +89,10 @@
 | ADVR-02 | Phase 63 | Complete (63-04: `meta.data_as_of` + `/api/projections/latest-week` + advisor auto-resolve; 10 contract tests) |
 | ADVR-03 | Phase 63 | Complete (63-03 cache-first fallback; live Sleeper PASS, FantasyPros graceful stale) |
 | ADVR-04 | Phase 63 | Complete (63-05 usePersistentChat + localStorage; Playwright UAT 10/10 routes) |
-| MTCH-01 | Phase 64 | Partial (64-02 ships OL side of roster endpoint; full requirement lands with 64-04 frontend wiring) |
-| MTCH-02 | Phase 64 | Complete (64-02: `/api/teams/{team}/roster?side=defense` returns real NFL players with slot_hint + snap_pct) |
-| MTCH-03 | Phase 64 | Pending |
-| MTCH-04 | Phase 64 | Complete (64-02: `/api/teams/current-week` schedule-aware with offseason fallback) |
+| MTCH-01 | Phase 64 | Complete (64-02 roster backend + 64-04 frontend wiring: OL slots from slot_hint; skill positions from projections) |
+| MTCH-02 | Phase 64 | Complete (64-02: `/api/teams/{team}/roster?side=defense` returns real NFL players with slot_hint + snap_pct; 64-04 renders defensive panel with real names + injury badges) |
+| MTCH-03 | Phase 64 | Complete (64-03 defense-metrics endpoint + 64-04 frontend wiring: getAdvantage + MatchupAdvantages use raw silver positional rank; slotHash removed) |
+| MTCH-04 | Phase 64 | Complete (64-02: `/api/teams/current-week` schedule-aware with offseason fallback; 64-04 seeds state from endpoint + fallback banner) |
 | AGNT-01 | Phase 65 | Pending |
 | AGNT-02 | Phase 65 | Complete (65-01: 42-agent inventory, 0 dormant — see AGENT-INVENTORY.md) |
 | AGNT-03 | Phase 65 | Pending |
@@ -105,4 +105,4 @@
 
 ---
 *Requirements defined: 2026-04-17*
-*Last updated: 2026-04-19 after Phase 61-06 optional LLM enrichment shipped*
+*Last updated: 2026-04-20 after Phase 64-04 frontend wiring shipped (MTCH-01..04 all complete)*
