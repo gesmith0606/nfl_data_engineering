@@ -42,7 +42,7 @@
 
 ### Agent Ecosystem
 
-- [ ] **AGNT-01**: Consolidate 5 overlapping design skills into targeted invocations
+- [x] **AGNT-01**: Consolidate 5 overlapping design skills into targeted invocations — 65-02: option-a approved; impeccable primary, redesign-skill + emil-design-eng specialized, taste-skill + soft-skill aliased; routing blocks in all 5 SKILL.md + design-engineer.md; decision doc DESIGN-CONSOLIDATION.md
 - [x] **AGNT-02**: Activate dormant agents or archive them with reasoning — AGENT-INVENTORY.md produced (42 agents triaged; 0 dormant)
 - [ ] **AGNT-03**: Add NFL-specific rules to .claude/rules/
 - [ ] **AGNT-04**: Skill optimizer runs and produces passing audit (<3 items scoring below 6)
@@ -93,7 +93,7 @@
 | MTCH-02 | Phase 64 | Complete (64-02: `/api/teams/{team}/roster?side=defense` returns real NFL players with slot_hint + snap_pct; 64-04 renders defensive panel with real names + injury badges) |
 | MTCH-03 | Phase 64 | Complete (64-03 defense-metrics endpoint + 64-04 frontend wiring: getAdvantage + MatchupAdvantages use raw silver positional rank; slotHash removed) |
 | MTCH-04 | Phase 64 | Complete (64-02: `/api/teams/current-week` schedule-aware with offseason fallback; 64-04 seeds state from endpoint + fallback banner) |
-| AGNT-01 | Phase 65 | Pending |
+| AGNT-01 | Phase 65 | Complete (65-02: option-a approved; impeccable primary, redesign-skill + emil-design-eng specialized, taste-skill + soft-skill aliased; routing blocks in all 5 SKILL.md + design-engineer.md; see DESIGN-CONSOLIDATION.md) |
 | AGNT-02 | Phase 65 | Complete (65-01: 42-agent inventory, 0 dormant — see AGENT-INVENTORY.md) |
 | AGNT-03 | Phase 65 | Pending |
 | AGNT-04 | Phase 65 | Pending |
