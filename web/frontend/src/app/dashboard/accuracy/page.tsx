@@ -1,5 +1,6 @@
 import PageContainer from '@/components/layout/page-container';
 import { AccuracyDashboard } from '@/features/nfl/components/accuracy-dashboard';
+import { FadeIn } from '@/lib/motion-primitives';
 
 export const metadata = {
   title: 'Model Accuracy',
@@ -25,7 +26,9 @@ export default function AccuracyPage() {
       pageTitle='Model Accuracy'
       pageDescription='Backtest results for fantasy projection models (2022-2024, Weeks 3-18, Half-PPR)'
     >
-      <AccuracyDashboard />
+      <FadeIn>
+        <AccuracyDashboard />
+      </FadeIn>
     </PageContainer>
   );
 }

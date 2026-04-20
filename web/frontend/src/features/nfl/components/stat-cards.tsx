@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
+import { Stagger, HoverLift } from '@/lib/motion-primitives';
 
 interface StatCardProps {
   title: string;
@@ -23,31 +24,36 @@ function StatCard({ title, value, description, trend, trendDirection = 'up' }: S
   const TrendIcon = trendDirection === 'up' ? Icons.trendingUp : Icons.trendingDown;
 
   return (
-    <Card className='@container/card'>
-      <CardHeader>
-        <CardDescription>{title}</CardDescription>
-        <CardTitle className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums @[250px]/card:text-[length:var(--fs-h1)] @[250px]/card:leading-[var(--lh-h1)]'>
-          {value}
-        </CardTitle>
-        {trend && (
-          <CardAction>
-            <Badge variant='outline'>
-              <TrendIcon />
-              {trend}
-            </Badge>
-          </CardAction>
-        )}
-      </CardHeader>
-      <CardFooter className='flex-col items-start gap-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-        <div className='text-muted-foreground'>{description}</div>
-      </CardFooter>
-    </Card>
+    <HoverLift lift={3} className='h-full'>
+      <Card className='@container/card h-full'>
+        <CardHeader>
+          <CardDescription>{title}</CardDescription>
+          <CardTitle className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums @[250px]/card:text-[length:var(--fs-h1)] @[250px]/card:leading-[var(--lh-h1)]'>
+            {value}
+          </CardTitle>
+          {trend && (
+            <CardAction>
+              <Badge variant='outline'>
+                <TrendIcon />
+                {trend}
+              </Badge>
+            </CardAction>
+          )}
+        </CardHeader>
+        <CardFooter className='flex-col items-start gap-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+          <div className='text-muted-foreground'>{description}</div>
+        </CardFooter>
+      </Card>
+    </HoverLift>
   );
 }
 
 export function OverviewStatCards() {
   return (
-    <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-[var(--gap-stack)] *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-[var(--elevation-flat)] md:grid-cols-2 lg:grid-cols-4'>
+    <Stagger
+      step={0.05}
+      className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-[var(--gap-stack)] *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-[var(--elevation-flat)] md:grid-cols-2 lg:grid-cols-4'
+    >
       <StatCard
         title='Projection MAE'
         value='4.77'
@@ -74,6 +80,6 @@ export function OverviewStatCards() {
         value='500+'
         description='Across all NFL positions'
       />
-    </div>
+    </Stagger>
   );
 }

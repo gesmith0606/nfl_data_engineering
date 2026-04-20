@@ -76,3 +76,40 @@
   /* Apply the reveal animation */
   animation: reveal 0.4s ease-in-out forwards;
 }
+
+/* =============================================================================
+ * Edge Shimmer (Phase 62-06, DSGN-03)
+ * -----------------------------------------------------------------------------
+ * A single slow glint across the edge-reveal badge when a prediction clears
+ * the high-edge threshold (>=3pt). Token-backed duration + easing. Honors
+ * prefers-reduced-motion.
+ * =========================================================================== */
+
+@keyframes edge-shimmer {
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 250% 0;
+  }
+}
+
+.edge-shimmer {
+  position: relative;
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in oklch, var(--primary) 25%, transparent) 50%,
+    transparent 80%
+  );
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  background-position: -150% 0;
+  animation: edge-shimmer 1.6s var(--ease-in-out-standard) 0.18s 1 forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edge-shimmer {
+    animation: none;
+  }
+}

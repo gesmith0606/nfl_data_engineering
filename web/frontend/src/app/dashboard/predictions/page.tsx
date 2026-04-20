@@ -1,5 +1,6 @@
 import PageContainer from '@/components/layout/page-container';
 import { PredictionCardGrid } from '@/features/nfl/components/prediction-cards';
+import { FadeIn } from '@/lib/motion-primitives';
 import { Suspense } from 'react';
 
 export const metadata = {
@@ -27,7 +28,9 @@ export default function PredictionsPage() {
       pageDescription='Model predictions with spread/total edges and confidence tiers'
     >
       <Suspense>
-        <PredictionCardGrid />
+        <FadeIn>
+          <PredictionCardGrid />
+        </FadeIn>
       </Suspense>
     </PageContainer>
   );

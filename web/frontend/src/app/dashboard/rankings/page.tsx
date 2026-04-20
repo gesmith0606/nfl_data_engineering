@@ -1,5 +1,6 @@
 import PageContainer from '@/components/layout/page-container';
 import { RankingsTable } from '@/features/nfl/components/rankings-table';
+import { FadeIn } from '@/lib/motion-primitives';
 import { Suspense } from 'react';
 
 export const metadata = {
@@ -27,7 +28,9 @@ export default function RankingsPage() {
       pageDescription='Full roster rankings by season-long projected fantasy points'
     >
       <Suspense>
-        <RankingsTable />
+        <FadeIn>
+          <RankingsTable />
+        </FadeIn>
       </Suspense>
     </PageContainer>
   );

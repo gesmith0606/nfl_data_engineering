@@ -1,5 +1,6 @@
 import PageContainer from '@/components/layout/page-container';
 import { ProjectionsTable } from '@/features/nfl/components/projections-table';
+import { FadeIn } from '@/lib/motion-primitives';
 import { Suspense } from 'react';
 
 export const metadata = {
@@ -27,7 +28,9 @@ export default function ProjectionsPage() {
       pageDescription='Weekly fantasy point projections with floor/ceiling ranges'
     >
       <Suspense>
-        <ProjectionsTable />
+        <FadeIn>
+          <ProjectionsTable />
+        </FadeIn>
       </Suspense>
     </PageContainer>
   );

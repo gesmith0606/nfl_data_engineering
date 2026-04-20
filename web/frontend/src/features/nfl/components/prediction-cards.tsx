@@ -19,6 +19,13 @@ import { getTeamColor } from '@/lib/nfl/team-colors';
 import { TeamSentimentBadge } from './team-sentiment-badge';
 import { ApiError } from '@/lib/nfl/api';
 import { useState } from 'react';
+import { Stagger, HoverLift, FadeIn } from '@/lib/motion-primitives';
+import { cn } from '@/lib/utils';
+
+/** Edge threshold for the edge-reveal badge. Matches the prediction pipeline's
+ *  medium-tier threshold (>=1.5pt) documented in CLAUDE.md. */
+const EDGE_REVEAL_THRESHOLD = 1.5;
+const EDGE_HIGH_THRESHOLD = 3.0;
 
 type SortKey = 'confidence' | 'spread_edge' | 'total_edge';
 
@@ -39,101 +46,123 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
   const spreadEdge = Math.abs(prediction.spread_edge ?? 0);
   const totalEdge = Math.abs(prediction.total_edge ?? 0);
   const maxEdge = 10;
+  const topEdge = Math.max(spreadEdge, totalEdge);
+  const hasRevealEdge = topEdge >= EDGE_REVEAL_THRESHOLD;
+  const hasHighEdge = topEdge >= EDGE_HIGH_THRESHOLD;
 
   return (
-    <Card className='overflow-hidden'>
-      <div
-        className='flex h-1.5'
-        style={{
-          background: `linear-gradient(to right, ${awayColor} 50%, ${homeColor} 50%)`
-        }}
-      />
-      <CardHeader className='pb-[var(--space-2)]'>
-        <div className='flex items-center justify-between'>
-          <CardTitle className='text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
-            <span className='inline-flex items-center gap-[var(--space-1)]'>
-              <span style={{ color: awayColor }} className='font-bold'>
-                {prediction.away_team}
-              </span>
-              <TeamSentimentBadge team={prediction.away_team} season={season} week={week} />
-            </span>
-            <span className='text-muted-foreground mx-[var(--space-2)]'>@</span>
-            <span className='inline-flex items-center gap-[var(--space-1)]'>
-              <span style={{ color: homeColor }} className='font-bold'>
-                {prediction.home_team}
-              </span>
-              <TeamSentimentBadge team={prediction.home_team} season={season} week={week} />
-            </span>
-          </CardTitle>
-          <Badge variant={confidenceBadgeVariant(prediction.confidence_tier)}>
-            {prediction.confidence_tier}
-          </Badge>
-        </div>
-      </CardHeader>
-      <CardContent className='space-y-[var(--space-3)]'>
-        {/* Spread */}
-        <div className='space-y-[var(--space-1)]'>
-          <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-            <span className='text-muted-foreground'>Spread</span>
-            <div className='flex items-center gap-[var(--space-2)]'>
-              <span className='font-mono tabular-nums'>
-                {prediction.predicted_spread > 0 ? '+' : ''}
-                {prediction.predicted_spread.toFixed(1)}
-              </span>
-              {prediction.vegas_spread !== null && (
-                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  (Vegas: {prediction.vegas_spread > 0 ? '+' : ''}
-                  {prediction.vegas_spread.toFixed(1)})
+    <HoverLift lift={3} className='h-full'>
+      <Card className='h-full overflow-hidden transition-shadow duration-[var(--motion-base)] hover:shadow-[var(--elevation-overlay)]'>
+        <div
+          className='flex h-1.5'
+          style={{
+            background: `linear-gradient(to right, ${awayColor} 50%, ${homeColor} 50%)`
+          }}
+        />
+        <CardHeader className='pb-[var(--space-2)]'>
+          <div className='flex items-center justify-between gap-[var(--space-2)]'>
+            <CardTitle className='text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
+              <span className='inline-flex items-center gap-[var(--space-1)]'>
+                <span style={{ color: awayColor }} className='font-bold'>
+                  {prediction.away_team}
                 </span>
+                <TeamSentimentBadge team={prediction.away_team} season={season} week={week} />
+              </span>
+              <span className='text-muted-foreground mx-[var(--space-2)]'>@</span>
+              <span className='inline-flex items-center gap-[var(--space-1)]'>
+                <span style={{ color: homeColor }} className='font-bold'>
+                  {prediction.home_team}
+                </span>
+                <TeamSentimentBadge team={prediction.home_team} season={season} week={week} />
+              </span>
+            </CardTitle>
+            <div className='flex items-center gap-[var(--space-1)]'>
+              {hasRevealEdge && (
+                <FadeIn delay={0.22} rise={4}>
+                  <Badge
+                    variant={hasHighEdge ? 'default' : 'secondary'}
+                    className={cn(
+                      'gap-[var(--space-1)] whitespace-nowrap',
+                      hasHighEdge && 'edge-shimmer'
+                    )}
+                    aria-label={`${topEdge.toFixed(1)} point edge`}
+                  >
+                    <Icons.trendingUp className='h-[var(--space-3)] w-[var(--space-3)]' />
+                    {topEdge.toFixed(1)}pt edge
+                  </Badge>
+                </FadeIn>
               )}
+              <Badge variant={confidenceBadgeVariant(prediction.confidence_tier)}>
+                {prediction.confidence_tier}
+              </Badge>
             </div>
           </div>
-          {prediction.spread_edge !== null && (
-            <div className='space-y-[var(--space-1)]'>
-              <Progress value={Math.min((spreadEdge / maxEdge) * 100, 100)} className='h-1.5' />
-              <div className='flex items-center justify-between'>
-                <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
-                  {prediction.ats_pick}
+        </CardHeader>
+        <CardContent className='space-y-[var(--space-3)]'>
+          {/* Spread */}
+          <div className='space-y-[var(--space-1)]'>
+            <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+              <span className='text-muted-foreground'>Spread</span>
+              <div className='flex items-center gap-[var(--space-2)]'>
+                <span className='font-mono tabular-nums'>
+                  {prediction.predicted_spread > 0 ? '+' : ''}
+                  {prediction.predicted_spread.toFixed(1)}
                 </span>
-                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  {spreadEdge.toFixed(1)}pt edge
-                </span>
+                {prediction.vegas_spread !== null && (
+                  <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    (Vegas: {prediction.vegas_spread > 0 ? '+' : ''}
+                    {prediction.vegas_spread.toFixed(1)})
+                  </span>
+                )}
               </div>
             </div>
-          )}
-        </div>
+            {prediction.spread_edge !== null && (
+              <div className='space-y-[var(--space-1)]'>
+                <Progress value={Math.min((spreadEdge / maxEdge) * 100, 100)} className='h-1.5' />
+                <div className='flex items-center justify-between'>
+                  <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
+                    {prediction.ats_pick}
+                  </span>
+                  <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    {spreadEdge.toFixed(1)}pt edge
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
 
-        {/* Total */}
-        <div className='space-y-[var(--space-1)]'>
-          <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-            <span className='text-muted-foreground'>Total</span>
-            <div className='flex items-center gap-[var(--space-2)]'>
-              <span className='font-mono tabular-nums'>
-                {prediction.predicted_total.toFixed(1)}
-              </span>
-              {prediction.vegas_total !== null && (
-                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  (Vegas: {prediction.vegas_total.toFixed(1)})
+          {/* Total */}
+          <div className='space-y-[var(--space-1)]'>
+            <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+              <span className='text-muted-foreground'>Total</span>
+              <div className='flex items-center gap-[var(--space-2)]'>
+                <span className='font-mono tabular-nums'>
+                  {prediction.predicted_total.toFixed(1)}
                 </span>
-              )}
-            </div>
-          </div>
-          {prediction.total_edge !== null && (
-            <div className='space-y-[var(--space-1)]'>
-              <Progress value={Math.min((totalEdge / maxEdge) * 100, 100)} className='h-1.5' />
-              <div className='flex items-center justify-between'>
-                <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
-                  {prediction.ou_pick}
-                </span>
-                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  {totalEdge.toFixed(1)}pt edge
-                </span>
+                {prediction.vegas_total !== null && (
+                  <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    (Vegas: {prediction.vegas_total.toFixed(1)})
+                  </span>
+                )}
               </div>
             </div>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+            {prediction.total_edge !== null && (
+              <div className='space-y-[var(--space-1)]'>
+                <Progress value={Math.min((totalEdge / maxEdge) * 100, 100)} className='h-1.5' />
+                <div className='flex items-center justify-between'>
+                  <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
+                    {prediction.ou_pick}
+                  </span>
+                  <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    {totalEdge.toFixed(1)}pt edge
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </HoverLift>
   );
 }
 
@@ -258,11 +287,14 @@ export function PredictionCardGrid() {
           </CardContent>
         </Card>
       ) : (
-        <div className='grid grid-cols-1 gap-[var(--gap-stack)] md:grid-cols-2 lg:grid-cols-3'>
+        <Stagger
+          step={0.04}
+          className='grid grid-cols-1 gap-[var(--gap-stack)] md:grid-cols-2 lg:grid-cols-3'
+        >
           {predictions.map((pred) => (
             <PredictionCard key={pred.game_id} prediction={pred} season={season} week={week} />
           ))}
-        </div>
+        </Stagger>
       )}
     </div>
   );
