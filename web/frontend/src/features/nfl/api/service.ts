@@ -1,6 +1,7 @@
 export {
   fetchAlerts,
   fetchAllLineups,
+  fetchCurrentWeek,
   fetchHealth,
   fetchLineup,
   fetchNewsFeed,
@@ -11,7 +12,9 @@ export {
   fetchPredictions,
   fetchProjections,
   fetchSentimentSummary,
+  fetchTeamDefenseMetrics,
   fetchTeamEvents,
+  fetchTeamRoster,
   fetchTeamSentiment,
   fetchTopProjections,
   searchPlayers,

@@ -356,3 +356,89 @@ export interface DraftConfig {
   user_pick: number
   season: number
 }
+
+// ---------------------------------------------------------------------------
+// Teams / Roster / Defense-metrics types (Phase 64)
+// ---------------------------------------------------------------------------
+
+/**
+ * Current NFL (season, week) resolved from the local schedule parquet.
+ *
+ * ``source === 'schedule'`` means today's date falls inside a real gameday
+ * window. ``source === 'fallback'`` means we're in the offseason (April/May)
+ * or the requested season has no schedule rows — the endpoint returned the
+ * max (season, week) in the data lake so the UI can still render.
+ */
+export interface CurrentWeekResponse {
+  season: number;
+  week: number;
+  source: 'schedule' | 'fallback';
+}
+
+/**
+ * One row of a team's roster with depth-chart, snap-count, and slot metadata.
+ *
+ * ``slot_hint`` is the display-layer assignment (QB1/RB1/WR1/LT/RT/DE1/CB1/…)
+ * computed by the backend from snap_pct ordering. Entries outside the top-N
+ * per depth-chart group carry ``slot_hint === null``.
+ */
+export interface RosterPlayer {
+  player_id: string;
+  player_name: string;
+  team: string;
+  position: string;
+  depth_chart_position: string | null;
+  jersey_number: number | null;
+  status: string;
+  snap_pct_offense: number | null;
+  snap_pct_defense: number | null;
+  injury_status: string | null;
+  slot_hint: string | null;
+}
+
+/** Team roster response. The array field is named ``roster`` (not ``players``). */
+export interface TeamRosterResponse {
+  team: string;
+  season: number;
+  week: number;
+  side: 'offense' | 'defense' | 'all';
+  fallback: boolean;
+  fallback_season: number | null;
+  roster: RosterPlayer[];
+}
+
+/**
+ * Defensive rank against a single offensive position (QB/RB/WR/TE).
+ *
+ * Semantic note: silver ``rank=1`` means **weakest defense** (most points
+ * allowed to this position). The backend's ``rating`` follows the same
+ * direction — high rating means offense will have an easy time. The frontend
+ * inverts this for display so a "tough defender" reads as rating=99.
+ */
+export interface PositionalDefenseRank {
+  position: 'QB' | 'RB' | 'WR' | 'TE';
+  avg_pts_allowed: number | null;
+  rank: number | null;
+  rating: number;
+}
+
+/**
+ * Team defensive metrics aggregated from silver layer.
+ *
+ * ``requested_week`` is the week the UI asked for; ``source_week`` is the
+ * week whose silver row actually backed the response (can differ when the
+ * service walks back to find data).
+ */
+export interface TeamDefenseMetricsResponse {
+  team: string;
+  season: number;
+  requested_week: number;
+  source_week: number;
+  fallback: boolean;
+  fallback_season: number | null;
+  overall_def_rating: number;
+  def_sos_score: number | null;
+  def_sos_rank: number | null;
+  adj_def_epa: number | null;
+  positional: PositionalDefenseRank[];
+}

@@ -2,6 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 import {
   fetchAdp,
   fetchAlerts,
+  fetchCurrentWeek,
   fetchDraftBoard,
   fetchDraftRecommendations,
   fetchHealth,
@@ -14,7 +15,9 @@ import {
   fetchPredictions,
   fetchProjections,
   fetchSentimentSummary,
+  fetchTeamDefenseMetrics,
   fetchTeamEvents,
+  fetchTeamRoster,
   fetchTeamSentiment,
   searchPlayers,
 } from './service';
@@ -35,7 +38,12 @@ export const nflKeys = {
   draftBoard: (sessionId?: string) => [...nflKeys.all, 'draft-board', sessionId] as const,
   draftRecommendations: (sessionId: string, position?: string) =>
     [...nflKeys.all, 'draft-recs', { sessionId, position }] as const,
-  adp: () => [...nflKeys.all, 'adp'] as const
+  adp: () => [...nflKeys.all, 'adp'] as const,
+  currentWeek: () => [...nflKeys.all, 'current-week'] as const,
+  teamRoster: (team: string, season: number, week: number, side: string) =>
+    [...nflKeys.all, 'team-roster', { team, season, week, side }] as const,
+  teamDefenseMetrics: (team: string, season: number, week: number) =>
+    [...nflKeys.all, 'team-defense-metrics', { team, season, week }] as const
 };
 
 export const projectionsQueryOptions = (
@@ -197,4 +205,48 @@ export const adpQueryOptions = () =>
     queryKey: nflKeys.adp(),
     queryFn: () => fetchAdp(),
     staleTime: 60 * 60 * 1000
+  });
+
+// ---------------------------------------------------------------------------
+// Teams / Roster / Defense-metrics (Phase 64)
+// ---------------------------------------------------------------------------
+
+/** Current NFL (season, week). Cached for 1 hour — mid-week shifts are rare. */
+export const currentWeekQueryOptions = () =>
+  queryOptions({
+    queryKey: nflKeys.currentWeek(),
+    queryFn: () => fetchCurrentWeek(),
+    staleTime: 60 * 60 * 1000
+  });
+
+/**
+ * Team roster for a season / week, optionally filtered to offense or defense.
+ * Disabled until ``team`` is non-null so we don't hit the endpoint with "null".
+ */
+export const teamRosterQueryOptions = (
+  team: string | null,
+  season: number,
+  week: number,
+  side: 'offense' | 'defense' | 'all' = 'all'
+) =>
+  queryOptions({
+    queryKey: nflKeys.teamRoster(team ?? '', season, week, side),
+    queryFn: () => fetchTeamRoster(team as string, season, week, side),
+    enabled: !!team
+  });
+
+/**
+ * Team defensive metrics for a season / week.
+ * Disabled until ``team`` is non-null so MatchupView doesn't query the opponent
+ * slot before a team is selected.
+ */
+export const teamDefenseMetricsQueryOptions = (
+  team: string | null,
+  season: number,
+  week: number
+) =>
+  queryOptions({
+    queryKey: nflKeys.teamDefenseMetrics(team ?? '', season, week),
+    queryFn: () => fetchTeamDefenseMetrics(team as string, season, week),
+    enabled: !!team
   });

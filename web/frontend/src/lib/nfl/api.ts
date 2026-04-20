@@ -1,6 +1,7 @@
 import type {
   AdpResponse,
   Alert,
+  CurrentWeekResponse,
   DraftBoardResponse,
   DraftPickRequest,
   DraftPickResponse,
@@ -19,8 +20,10 @@ import type {
   ProjectionResponse,
   ScoringFormat,
   SentimentSummary,
+  TeamDefenseMetricsResponse,
   TeamEvents,
   TeamLineup,
+  TeamRosterResponse,
   TeamSentiment,
 } from "./types";
 
@@ -359,4 +362,58 @@ export async function advanceMockDraft(body: MockDraftPickRequest): Promise<Mock
 /** Fetch latest ADP data. */
 export async function fetchAdp(): Promise<AdpResponse> {
   return request<AdpResponse>('/api/draft/adp')
+}
+
+// ---------------------------------------------------------------------------
+// Teams / Roster / Defense-metrics (Phase 64)
+// ---------------------------------------------------------------------------
+
+/**
+ * Resolve the current NFL (season, week) from today's date against the local
+ * schedule parquet. Returns ``source: 'fallback'`` during the offseason.
+ */
+export async function fetchCurrentWeek(): Promise<CurrentWeekResponse> {
+  return request<CurrentWeekResponse>('/api/teams/current-week');
+}
+
+/**
+ * Fetch a team's roster for a given season / week, optionally restricted to
+ * offense or defense. Response carries ``fallback`` flags when the backend
+ * had to walk back to a prior season (e.g. 2026 → 2025).
+ */
+export async function fetchTeamRoster(
+  team: string,
+  season: number,
+  week: number,
+  side: 'offense' | 'defense' | 'all' = 'all'
+): Promise<TeamRosterResponse> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week),
+    side
+  });
+  return request<TeamRosterResponse>(
+    `/api/teams/${encodeURIComponent(team)}/roster?${params}`
+  );
+}
+
+/**
+ * Fetch per-position defensive metrics for a team-week.
+ *
+ * Response ``positional[]`` always contains 4 entries (QB/RB/WR/TE) with
+ * ``rank`` (1-32) and ``rating`` (50-99). Semantic: silver rank=1 = most
+ * points allowed (weakest defense) — the frontend inverts for display.
+ */
+export async function fetchTeamDefenseMetrics(
+  team: string,
+  season: number,
+  week: number
+): Promise<TeamDefenseMetricsResponse> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week)
+  });
+  return request<TeamDefenseMetricsResponse>(
+    `/api/teams/${encodeURIComponent(team)}/defense-metrics?${params}`
+  );
 }
