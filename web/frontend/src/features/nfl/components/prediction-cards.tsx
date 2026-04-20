@@ -48,17 +48,17 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
           background: `linear-gradient(to right, ${awayColor} 50%, ${homeColor} 50%)`
         }}
       />
-      <CardHeader className='pb-2'>
+      <CardHeader className='pb-[var(--space-2)]'>
         <div className='flex items-center justify-between'>
-          <CardTitle className='text-base'>
-            <span className='inline-flex items-center gap-1'>
+          <CardTitle className='text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
+            <span className='inline-flex items-center gap-[var(--space-1)]'>
               <span style={{ color: awayColor }} className='font-bold'>
                 {prediction.away_team}
               </span>
               <TeamSentimentBadge team={prediction.away_team} season={season} week={week} />
             </span>
-            <span className='text-muted-foreground mx-2'>@</span>
-            <span className='inline-flex items-center gap-1'>
+            <span className='text-muted-foreground mx-[var(--space-2)]'>@</span>
+            <span className='inline-flex items-center gap-[var(--space-1)]'>
               <span style={{ color: homeColor }} className='font-bold'>
                 {prediction.home_team}
               </span>
@@ -70,18 +70,18 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className='space-y-3'>
+      <CardContent className='space-y-[var(--space-3)]'>
         {/* Spread */}
-        <div className='space-y-1'>
-          <div className='flex items-center justify-between text-sm'>
+        <div className='space-y-[var(--space-1)]'>
+          <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
             <span className='text-muted-foreground'>Spread</span>
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-[var(--space-2)]'>
               <span className='font-mono tabular-nums'>
                 {prediction.predicted_spread > 0 ? '+' : ''}
                 {prediction.predicted_spread.toFixed(1)}
               </span>
               {prediction.vegas_spread !== null && (
-                <span className='text-muted-foreground text-xs'>
+                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   (Vegas: {prediction.vegas_spread > 0 ? '+' : ''}
                   {prediction.vegas_spread.toFixed(1)})
                 </span>
@@ -89,11 +89,13 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
             </div>
           </div>
           {prediction.spread_edge !== null && (
-            <div className='space-y-0.5'>
+            <div className='space-y-[var(--space-1)]'>
               <Progress value={Math.min((spreadEdge / maxEdge) * 100, 100)} className='h-1.5' />
               <div className='flex items-center justify-between'>
-                <span className='text-xs font-medium'>{prediction.ats_pick}</span>
-                <span className='text-muted-foreground text-xs'>
+                <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
+                  {prediction.ats_pick}
+                </span>
+                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   {spreadEdge.toFixed(1)}pt edge
                 </span>
               </div>
@@ -102,26 +104,28 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
         </div>
 
         {/* Total */}
-        <div className='space-y-1'>
-          <div className='flex items-center justify-between text-sm'>
+        <div className='space-y-[var(--space-1)]'>
+          <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
             <span className='text-muted-foreground'>Total</span>
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-[var(--space-2)]'>
               <span className='font-mono tabular-nums'>
                 {prediction.predicted_total.toFixed(1)}
               </span>
               {prediction.vegas_total !== null && (
-                <span className='text-muted-foreground text-xs'>
+                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   (Vegas: {prediction.vegas_total.toFixed(1)})
                 </span>
               )}
             </div>
           </div>
           {prediction.total_edge !== null && (
-            <div className='space-y-0.5'>
+            <div className='space-y-[var(--space-1)]'>
               <Progress value={Math.min((totalEdge / maxEdge) * 100, 100)} className='h-1.5' />
               <div className='flex items-center justify-between'>
-                <span className='text-xs font-medium'>{prediction.ou_pick}</span>
-                <span className='text-muted-foreground text-xs'>
+                <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
+                  {prediction.ou_pick}
+                </span>
+                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   {totalEdge.toFixed(1)}pt edge
                 </span>
               </div>
@@ -157,9 +161,9 @@ export function PredictionCardGrid() {
   });
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-[var(--gap-stack)]'>
       {/* Filters */}
-      <div className='flex flex-wrap items-center gap-4'>
+      <div className='flex flex-wrap items-center gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
           <SelectTrigger className='w-28'>
             <SelectValue placeholder='Season' />
@@ -200,23 +204,23 @@ export function PredictionCardGrid() {
 
       {/* Cards */}
       {isLoading ? (
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-[var(--gap-stack)] md:grid-cols-2 lg:grid-cols-3'>
           {Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className='overflow-hidden'>
               <div className='h-1.5 bg-muted' />
-              <CardHeader className='pb-2'>
-                <Skeleton className='h-5 w-3/4' />
+              <CardHeader className='pb-[var(--space-2)]'>
+                <Skeleton className='h-[var(--space-5)] w-3/4' />
               </CardHeader>
-              <CardContent className='space-y-3'>
-                <div className='space-y-1'>
-                  <Skeleton className='h-4 w-full' />
+              <CardContent className='space-y-[var(--space-3)]'>
+                <div className='space-y-[var(--space-1)]'>
+                  <Skeleton className='h-[var(--space-4)] w-full' />
                   <Skeleton className='h-1.5 w-full' />
-                  <Skeleton className='h-3 w-1/2' />
+                  <Skeleton className='h-[var(--space-3)] w-1/2' />
                 </div>
-                <div className='space-y-1'>
-                  <Skeleton className='h-4 w-full' />
+                <div className='space-y-[var(--space-1)]'>
+                  <Skeleton className='h-[var(--space-4)] w-full' />
                   <Skeleton className='h-1.5 w-full' />
-                  <Skeleton className='h-3 w-1/2' />
+                  <Skeleton className='h-[var(--space-3)] w-1/2' />
                 </div>
               </CardContent>
             </Card>
@@ -224,34 +228,36 @@ export function PredictionCardGrid() {
         </div>
       ) : isNotFound ? (
         <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.info className='text-muted-foreground mb-2 h-8 w-8' />
-            <p className='text-muted-foreground text-sm'>
+          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+            <Icons.info className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               No prediction data available for {season} Week {week}.
             </p>
-            <p className='text-muted-foreground mt-1 text-xs'>
+            <p className='text-muted-foreground mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
               Predictions are generated during the NFL season for weeks with scheduled games.
             </p>
           </CardContent>
         </Card>
       ) : isError ? (
         <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.alertCircle className='text-muted-foreground mb-2 h-8 w-8' />
-            <p className='text-muted-foreground text-sm'>
+          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+            <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               Failed to load predictions. Please try again later.
             </p>
           </CardContent>
         </Card>
       ) : predictions.length === 0 ? (
         <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.info className='text-muted-foreground mb-2 h-8 w-8' />
-            <p className='text-muted-foreground text-sm'>No predictions available for this week.</p>
+          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+            <Icons.info className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+              No predictions available for this week.
+            </p>
           </CardContent>
         </Card>
       ) : (
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-[var(--gap-stack)] md:grid-cols-2 lg:grid-cols-3'>
           {predictions.map((pred) => (
             <PredictionCard key={pred.game_id} prediction={pred} season={season} week={week} />
           ))}
