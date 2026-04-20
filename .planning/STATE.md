@@ -2,9 +2,11 @@
 gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
-status: completed
-stopped_at: "Phase 65-02 complete — AGNT-01 closed. 5 DESIGN-HOLISTIC skills consolidated under option-a: impeccable primary (greenfield), redesign-skill + emil-design-eng specialized (existing code / advisory), taste-skill + soft-skill aliased (no standalone firing — configs inside impeccable). Decision doc DESIGN-CONSOLIDATION.md (131 lines) with overlap matrix, routing table, 3 before/after scenarios. Per-role Invocation Routing blocks added after frontmatter in all 5 SKILL.md files (differentiated per role, not identical — each declares primary/specialized/alias + when-NOT-to-fire). design-engineer.md gained Owned Skills — Invocation Routing section with forbidden multi-invocations list. 5 atomic commits: bbbe5b2 decision doc, 8e0a65c 5 SKILL.md routing blocks, 89b5f43 agent routing, f3054f8 summary, metadata sync this commit. Phase 65 remaining: 65-04 skill-optimizer audit (AGNT-04)."
-last_updated: "2026-04-20T21:13:45.007Z"
+status: shipped
+shipped_at: "2026-04-20"
+archived_at: "2026-04-20T21:45:00Z"
+stopped_at: "v6.0 shipped — 29/29 plans complete, 23/24 requirements Complete + 1 Partial (DQAL-03). Archived to .planning/milestones/v6.0-ROADMAP.md and v6.0-REQUIREMENTS.md. RETROSPECTIVE.md updated. Tag v6.0 created. Next: /gsd:new-milestone to scope v7.0 (marketing + sleeper league integration candidates)."
+last_updated: "2026-04-20T21:45:00Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
@@ -12,16 +14,17 @@ progress:
   total_plans: 29
   completed_plans: 29
   percent: 100
+next_milestone: v7.0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-17)
+See: .planning/PROJECT.md (updated 2026-04-20 after v6.0 shipped)
 
-**Core value:** A rich NFL data lake powering both fantasy football projections and game prediction models
-**Current focus:** Phase 61 — news-sentiment-live
+**Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now delivered to end users via a production website.
+**Current focus:** Planning next milestone (v7.0 candidates: marketing/content + Sleeper league integration)
 
 ## Production Status
 
@@ -34,12 +37,11 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 65
-Plan: Not started
-Status: Phase 64-04 complete; MTCH-01..04 all shipped end-to-end. matchup-view.tsx consumes /api/teams/current-week, /api/teams/{team}/roster (offense + defense), and /api/teams/{team}/defense-metrics. slotHash + placeholder defensive roster removed; real NFL names render on both offensive OL and defensive panels with injury badges, positional-rank advantage tooltips, and schedule-aware default week with fallback banner.
+Milestone: v6.0 SHIPPED 2026-04-20
+Status: All 6 phases complete (60-65). Milestone archived to `.planning/milestones/v6.0-{ROADMAP,REQUIREMENTS}.md`. RETROSPECTIVE.md appended. Git tag v6.0 created. Ready for `/gsd:new-milestone` to scope v7.0.
 Last activity: 2026-04-20
 
-Progress: [████████░░] 80% (19 plans complete across v6.0; phase 64 closed, 65 partial)
+Progress: [██████████] 100% (29/29 plans complete; 23/24 requirements Complete + 1 Partial DQAL-03)
 
 ## Performance Metrics
 

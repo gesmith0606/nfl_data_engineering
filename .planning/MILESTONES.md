@@ -1,5 +1,28 @@
 # Milestones
 
+## v6.0 Website Production Ready + Agent Ecosystem (Shipped: 2026-04-20)
+
+**Phases completed:** 6 phases, 29 plans | **266 files changed, +64,453 / -2,520 lines** | **4 days** (2026-04-17 → 2026-04-20)
+
+**Git range:** cd03168 → 4a1df41 (137 commits)
+
+**Key accomplishments:**
+
+- Daily Sleeper roster refresh corrects both `recent_team` AND `position` in a single pass, with timestamped audit trail; CI quality-gate job blocks Vercel + Railway/ECR deploys on CRITICAL sanity-check failures (phase 60)
+- Live news pipeline on `0 12 * * *` UTC cron ingests 5 sources (RSS + Sleeper + Reddit + RotoWire + PFT) with D-06 isolation; 12 rule-extracted event flags power `/api/news/team-events` (32-team grid), `/player-badges/{id}`, and `event_flags` on every NewsItem (phase 61)
+- Design audit mean lifted 7.06 → 7.80 across 11 pages (11/11 > 7/10); design-token foundation (tokens.css + design-tokens.ts) consumed by shell + all 11 pages; 5 motion primitives (FadeIn, Stagger, HoverLift, PressScale, DataLoadReveal) + mobile-responsive at 375px with 44px tap targets (phase 62)
+- AI advisor live-audit on Railway: 7 PASS / 5 WARN / **0 FAIL** (baseline 4P/3W/5F); `meta.data_as_of` + `/api/projections/latest-week` enable auto-week-resolution; cache-first external rankings fallback (Sleeper PASS, FantasyPros graceful stale); `usePersistentChat` + localStorage persists chat across all 10 dashboard routes (phase 63)
+- Matchup view rewired to real NFL data: `/api/teams/current-week` (schedule-aware with offseason fallback), `/api/teams/{team}/roster?side={offense|defense}` (OL slot_hint LT/LG/C/RG/RT, real DE/DT/LB/CB/SS/FS names), `/api/teams/{team}/defense-metrics` (positional rank); matchup advantages cite raw silver `#N/32 vs POS` rank; slotHash + placeholder defensive roster removed (phase 64)
+- Agent ecosystem consolidated: 42 agents triaged (0 dormant); 5 DESIGN-HOLISTIC skills consolidated under option-a routing (impeccable primary, redesign-skill + emil-design-eng specialized, taste-skill + soft-skill aliased); 3 new NFL-specific rule files (data-conventions, scoring-formats, validation-patterns); skill audit 40 items, 1 below 6 (PASS verdict) (phase 65)
+
+**Known gaps (deferred to v7.0+):**
+
+- DQAL-03 PARTIAL: sanity check produces 34 warnings vs <10 target. Categorized: 7 negative projections (clamp bug), 5 missing 2025 rookies (draft-class ingestion needed), 18 rank-gap calibration, 2 stale Silver (self-resolves weekly). CI gate delivers full security value regardless.
+- 61-03 event-based projection adjustment ships opt-in (`--use-events`, default False) behind SKIP gate — backtest was structurally null (0/48 weeks had Gold events data).
+- Three duplicate heuristic functions still exist (v3.2 carry-over): `generate_weekly_projections`, `generate_heuristic_predictions`, `compute_production_heuristic` — consolidation queued.
+
+---
+
 ## v3.1 Graph-Enhanced Fantasy Projections (Shipped: 2026-04-03)
 
 **Phases completed:** 5 phases, 11 plans | **354 files changed, +40,821 / -8,547 lines** | **2 days**

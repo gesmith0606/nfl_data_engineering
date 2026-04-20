@@ -2,6 +2,63 @@
 
 *A living document updated after each milestone. Lessons feed forward into future planning.*
 
+## Milestone: v6.0 — Website Production Ready + Agent Ecosystem
+
+**Shipped:** 2026-04-20
+**Phases:** 6 | **Plans:** 29 | **Sessions:** ~4 days (2026-04-17 → 2026-04-20)
+
+### What Was Built
+
+- Phase 60 Data Quality: daily Sleeper roster refresh updates team + position in a single pass with audit log; sanity check enhanced with freshness + live Sleeper consensus; CI quality-gate job blocks deploys on CRITICAL issues
+- Phase 61 News & Sentiment Live: 5-source daily cron (RSS + Sleeper + Reddit + RotoWire + PFT) at `0 12 * * *` UTC with D-06 isolation; 12 rule-extracted event flags via regex patterns; `/api/news/team-events` (always 32 rows), `/player-badges/{id}`, and `event_flags` on NewsItem; optional Claude Haiku summary enrichment via non-destructive sidecar
+- Phase 62 Design & UX Polish: design-token foundation (tokens.css + design-tokens.ts) across shell + 11 pages; 5 motion primitives; mobile-responsive at 375px; audit mean lifted 7.06 → 7.80
+- Phase 63 AI Advisor Hardening: 12 tools re-audited live on Railway from 4P/3W/5F to 7P/5W/0F; `meta.data_as_of` + `/api/projections/latest-week` + auto-resolve; cache-first external rankings fallback; `usePersistentChat` across 10 dashboard routes
+- Phase 64 Matchup View Completion: `/api/teams/current-week`, `/roster?side={offense|defense}`, `/defense-metrics`; OL slot_hint + real defensive names + injury badges; matchup advantages cite raw silver `#N/32 vs POS`
+- Phase 65 Agent Ecosystem Optimization: 42 agents triaged (0 dormant); 5 design skills consolidated under option-a routing; 3 NFL-specific rule files; skill audit PASS verdict
+
+### What Worked
+
+- **Parallel-independent phases:** All 6 v6.0 phases declared "Depends on: Nothing" upfront. This enabled wave-based execution across multiple sessions without merge conflicts. Fastest per-phase throughput of any milestone (6 phases in 4 days).
+- **D-06 contract across ingestors:** Every news source wrapped in try/except → warning + exit 0. 7 resilience tests verify the daily cron is never blocked by a single upstream flake. This pattern should propagate to any future multi-source ingestion work.
+- **Design-token additive strategy:** tokens.css as `:root` custom properties only (theme.css retained sole color ownership) meant zero visual change on shipment of 62-02. Made the 62-03/04 consumption phases safely reversible.
+- **Live-first advisor verification:** 63-01 ran the tool-probe against Railway (not localhost) and produced a concrete 4P/3W/5F baseline. This grounded every subsequent fix in observable production behavior instead of unit-test confidence.
+- **Auditable matchup advantages:** Replacing synthesized `getAdvantage()` scores with raw silver `#N/32 vs POS` was a design decision that improved both credibility AND maintainability — users see the primary source, developers debug a single data flow.
+- **Design skill consolidation option-a:** Per-role routing blocks (primary/specialized/alias) rather than identical templates gave the model a stronger signal. Treating emil-design-eng as the only safe co-invocation (advisory, not generative) made the rule enforceable.
+
+### What Was Inefficient
+
+- **DQAL-03 scope confusion:** "Fewer than 10 warnings" was written as a success criterion but 34 of the ~40 warnings were pre-existing data debt (negative projection clamp, missing 2025 rookies, rank-gap threshold calibration). Phase 60 shipped the CI gate mechanism correctly but the criterion was never achievable without out-of-scope fixes. Future milestones should sanity-check success criteria against current state during `/gsd:discuss-phase`, not discover the gap during verification.
+- **Verification human_needed backlog:** Both 60-VERIFICATION and 61-VERIFICATION shipped with `status: human_needed` because CI + live deploys couldn't be triggered from local verification. At milestone close (3-4 days later) both were trivially resolvable via `curl`. A post-phase sweep that re-runs human-verification after deploys settle would close these earlier.
+- **Three duplicate heuristic functions** (v3.2 carry-over, not v6.0): surfaced again during 63-04 advisor work but consolidation was deferred. The longer this lives, the more places it leaks into.
+- **REQUIREMENTS.md documentation drift:** NEWS-03/NEWS-04 were fully implemented in 61-05 but traceability table showed "Pending" until milestone close. Phase summaries should update REQUIREMENTS.md traceability inline.
+
+### Patterns Established
+
+- **Parallel-independent phase pattern:** explicitly declare `Depends on: Nothing (independent)` in ROADMAP.md. Enables wave execution without coordination overhead.
+- **D-06 graceful-failure contract:** every ingestor try/except → warning + exit 0. Cron-blockers are unacceptable.
+- **Double-gate feature-flag pattern:** ENABLE_LLM_ENRICHMENT (GHA var) + ANTHROPIC_API_KEY (secret). Either missing → no-op. Makes rollout reversible and secret-less default safe.
+- **`warn_on_empty` audit flag:** separates off-season empty payloads from genuine bugs (phase 63). Keeps ship gates meaningful without false negatives in preseason.
+- **Non-destructive sidecar enrichment:** optional LLM output writes to `signals_enriched/` parallel tree; original Silver never touched. API merges via `_apply_enrichment`. Supports clean rollback.
+- **Raw-source display over synthesized scores:** matchup advantages show `#N/32 vs POS` instead of computed `advantage` values. Auditable, debuggable, credible.
+- **Per-role skill routing blocks:** primary/specialized/alias declarations embedded in each SKILL.md frontmatter. Prevents multi-skill conflicts at invocation time.
+
+### Key Lessons
+
+- **Verify success criteria against current state during discuss-phase, not verify-work.** DQAL-03's "<10 warnings" criterion was unachievable without pre-existing data-debt fixes outside the phase scope.
+- **Live endpoints age well: human-needed verifications usually resolve passively.** Most status:human_needed items at milestone close turned out to be trivially confirmable via `curl` once deploys settled.
+- **Parallel-independent phases are the high-throughput mode.** When all phases declare no dependencies, a team can fan out across sessions with zero coordination cost.
+- **Optional features should default off with a visible flag.** ENABLE_LLM_ENRICHMENT + --use-events both ship dormant; activation is a documented, reversible config change. Prevents "wait, when did this start running?" surprises.
+- **Auditable beats clever.** Replacing `getAdvantage()` with raw positional rank made matchup advantages both more trustworthy AND easier to debug.
+- **Skill consolidation needs per-role differentiation.** Identical routing blocks across 5 skills gave weak signal; explicit primary/specialized/alias roles prevented the model from firing the wrong tool.
+
+### Cost Observations
+
+- Model mix estimate: ~60% opus, ~30% sonnet, ~10% haiku (opus for orchestration + review, sonnet for data pipeline + build fixes, haiku for reads/searches)
+- Notable: phase 65 skill-audit (40-item evaluation) was the single most expensive sub-task; parallel-independent phase execution amortized cost well across the milestone
+- 137 commits / 4 days = ~34 commits/day sustained pace
+
+---
+
 ## Milestone: v2.1 — Market Data
 
 **Shipped:** 2026-03-28

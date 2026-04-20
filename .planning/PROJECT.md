@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A comprehensive NFL data engineering platform built on Medallion Architecture (Bronze/Silver/Gold) that powers both fantasy football projections and ML game outcome predictions. Features 16 Bronze data types (including historical odds) with 10 years of history (2016-2025), a rich Silver layer with 12 output paths (including market/line movement data), a 310+ column prediction feature vector, an XGB+LGB+CB+Ridge stacking ensemble for point spread and over/under prediction with walk-forward cross-validation, closing line value (CLV) tracking for model evaluation, backtesting against historical Vegas closing lines, and a weekly prediction pipeline with edge detection and confidence tiers — plus registry-driven ingestion, batch orchestration, and local-first storage.
+A production NFL analytics platform that combines a Medallion-architecture data lake (Bronze/Silver/Gold on local Parquet + S3) with a live public website at https://frontend-jet-seven-33.vercel.app. The data side ingests 16 Bronze types (10 years, 2016-2025) into a 14-path Silver layer (team PBP metrics, player usage, line movement, game context, graph features) and trains both per-position fantasy projection models (Ridge 60f+graph residuals on WR/TE, XGB on QB/RB, 5.05 MAE) and an XGB+LGB+CB+Ridge game prediction ensemble (120 SHAP-selected features, 51.7% ATS on sealed 2025 holdout with `diff_opening_spread` as #1 feature). The website surface delivers: fantasy projections (3 scoring formats), game predictions with edge detection, matchup view backed by real NFL rosters + positional-rank advantage tooltips, an AI advisor with 12 Gold-grounded tools and persistent chat, a news/sentiment pipeline running daily on a 5-source cron, and a 32-team event density grid. Backend is FastAPI on Railway; frontend is Next.js on Vercel with a design-token-driven UI, 5 motion primitives, and mobile responsiveness at 375px.
 
 ## Core Value
 
@@ -95,26 +95,50 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ ML projection router: position-based dispatch (QB→ML, RB/WR/TE→heuristic), MAPIE confidence intervals, team-total coherence — Phase 42, v3.0
 - ✓ CLI --ml flag wired into generate_projections.py; preseason draft capital boost for rookies — Phase 42, v3.0
 - ✓ 655 total tests passing — v3.0
+- ✓ Daily Sleeper roster refresh corrects team + position in a single pass, with audit log — Phase 60, v6.0
+- ✓ CI quality-gate job blocks Vercel + Railway/ECR deploys on CRITICAL sanity-check issues — Phase 60, v6.0
+- ✓ 5-source daily news pipeline (RSS + Sleeper + Reddit + RotoWire + PFT) with D-06 isolation — Phase 61, v6.0
+- ✓ 12 rule-extracted event flags power `/api/news/team-events` (32 rows), `/player-badges/{id}`, and `event_flags` on NewsItem — Phase 61, v6.0
+- ✓ Optional Claude Haiku summary enrichment via non-destructive sidecar (double-gated: ENABLE_LLM_ENRICHMENT + ANTHROPIC_API_KEY) — Phase 61, v6.0
+- ✓ Design-token foundation (tokens.css + design-tokens.ts) consumed by shell + all 11 pages; audit mean lifted 7.06 → 7.80 — Phase 62, v6.0
+- ✓ 5 motion primitives (FadeIn, Stagger, HoverLift, PressScale, DataLoadReveal); mobile-responsive at 375px with 44px tap targets — Phase 62, v6.0
+- ✓ AI advisor live-audit on Railway: 7 PASS / 5 WARN / 0 FAIL (baseline 4P/3W/5F) — Phase 63, v6.0
+- ✓ `meta.data_as_of` + `/api/projections/latest-week` + advisor auto-week-resolution — Phase 63, v6.0
+- ✓ Cache-first external rankings fallback (Sleeper PASS, FantasyPros graceful stale) — Phase 63, v6.0
+- ✓ `usePersistentChat` + localStorage persists chat across all 10 dashboard routes — Phase 63, v6.0
+- ✓ Matchup view rewired to real NFL data: `/api/teams/current-week`, `/roster?side={offense|defense}`, `/defense-metrics` — Phase 64, v6.0
+- ✓ Matchup advantages cite raw silver positional rank (`#N/32 vs POS`); slotHash + placeholder defensive roster removed — Phase 64, v6.0
+- ✓ Design skill consolidation (option-a): impeccable primary, redesign-skill + emil-design-eng specialized, taste-skill + soft-skill aliased — Phase 65, v6.0
+- ✓ 3 NFL-specific rule files (nfl-data-conventions, nfl-scoring-formats, nfl-validation-patterns) — Phase 65, v6.0
+- ✓ Skill optimizer audit: 40 items, 1 below 6, PASS verdict — Phase 65, v6.0
 
 ### Active
 
+- [ ] DQAL-03 warning-count cleanup: fix negative projection clamp (7 warnings), ingest 2025 rookies (5), recalibrate rank-gap threshold (18)
+- [ ] Heuristic consolidation: unify `generate_weekly_projections` + `generate_heuristic_predictions` + `compute_production_heuristic` into single source of truth
+- [ ] 61-03 event-adjustment activation once Bronze event data accumulates (backtest currently structurally null: 0/48 weeks)
 - [ ] Unified evaluation pipeline (full 466-feature residual for 14-68% improvement)
-- [ ] Website deployment (Vercel + AWS + Supabase)
 - [ ] Sleeper OAuth integration
 - [ ] PFF paid data integration (true WR-CB coverage, OL grades)
 
-## Current Milestone: v6.0 Website Production Ready + Agent Ecosystem
+## Current State: v6.0 Shipped (2026-04-20)
 
-**Goal:** Get the website to production quality with accurate data, polished design, working news feeds, and a capable AI advisor — while optimizing the agent/skill ecosystem.
+**Production:**
+- Frontend: https://frontend-jet-seven-33.vercel.app (Next.js, Vercel, 2026 preseason data live)
+- Backend: https://nfldataengineering-production.up.railway.app (FastAPI, Railway, Parquet fallback mode)
+- All phase 61 news endpoints serving: `/api/news/team-events` (32 rows), `/player-badges/{id}`, `/feed` with `event_flags`
+- All phase 64 matchup endpoints serving: `/api/teams/current-week`, `/roster`, `/defense-metrics`
+- Daily sentiment cron running at `0 12 * * *` UTC across 5 sources
+- CI quality-gate blocks deploys on CRITICAL projection issues
 
-**Target features:**
-- Website data quality: fix stale rosters, validate positions, sanity check <10 warnings
-- News/sentiment pipeline live: daily ingestion running, 4-tab dashboard with real data
-- Design polish: premium UI using design agent (Emil + Impeccable + Taste skills)
-- AI advisor hardening: verify all 12 tools work end-to-end on live site
-- Matchup view completion: real defensive data, proper OL/DL ratings
-- Agent ecosystem optimization: consolidate overlapping skills, activate dormant agents
-- .claude folder cleanup: remove unused skills, verify hooks, add NFL-specific rules
+## Next Milestone: v7.0 (Planning)
+
+Candidate scope — awaiting `/gsd:new-milestone` to formalize requirements and phase breakdown:
+
+- **Marketing & Content:** Remotion video generation, YouTube/Instagram/TikTok distribution, NotebookLM podcast pipeline
+- **Sleeper League Integration:** username → leagues, roster display with projected points + start/sit badges, advisor access to user rosters for personalized advice
+- **Data-quality cleanup:** finish DQAL-03 warnings (negative projections, rookie ingestion, rank calibration)
+- **Heuristic consolidation:** unify three duplicate projection functions
 
 ### Planned (Future Milestones)
 - v7.0 Marketing & Content — Remotion video generation, YouTube/Instagram/TikTok distribution, NotebookLM podcast pipeline
@@ -209,6 +233,15 @@ Existing documentation:
 | CLV = predicted_margin - spread_line | Point-based CLV is the gold standard for betting model evaluation | ✓ Good |
 | Ablation saves to models/ensemble_ablation/ | Protects production model during comparison | ✓ Good |
 | Ship market features only if holdout ATS improves | Accuracy is the decision criterion, not model purity | ✓ Good |
+| CI quality-gate keys on exit code only (no stdout grep) | Preserves warnings-allowed contract; 0 = deploy, 1 = block | ✓ Good — phase 60 |
+| D-06 graceful-failure contract on every news ingestor | Daily cron must never be blocked by a single upstream flake | ✓ Good — phase 61, 7 resilience tests |
+| Rule-first sentiment, Haiku demoted to optional sidecar | Pipeline ships with no API key dependency; enrichment is website-only | ✓ Good — phase 61, D-01/D-02/D-04/D-06 |
+| Design-token layer is additive (:root custom properties only) | theme.css retains sole color ownership; zero visual change on shipment | ✓ Good — phase 62 |
+| ADVR-02 via `meta.data_as_of` + auto-resolve | Advisor discovers latest week from response metadata, not client-side guesses | ✓ Good — phase 63 |
+| Matchup advantages cite raw silver positional rank | Opaque synthesized scores replaced with auditable `#N/32 vs POS` | ✓ Good — phase 64 |
+| Design skill consolidation option-a (umbrella-with-modes) | Single primary (impeccable) prevents multi-skill incoherence; specialized/aliased roles explicit | ✓ Good — phase 65 |
+| Skill audit: 1 item below 6 is PASS (target <3) | Small gap (security-reviewer Testability 5) doesn't block shipment | ✓ Good — phase 65 |
+| Accept DQAL-03 as [~] partial | 34 warnings = pre-existing data debt out of phase 60 scope; CI gate delivers full security value regardless | ⚠️ Revisit in v7.0 — clamp/rookie fixes |
 | FinnedAI JSON (not SBRO XLSX) for odds | JSON simpler to parse, same data, no openpyxl dep needed | ✓ Good |
 | 45-entry hardcoded team mapping | Explicit and auditable vs fuzzy matching; covers all FinnedAI names | ✓ Good |
 | Negate FinnedAI spreads for nflverse convention | Positive = home favored; one-line transform avoids confusion | ✓ Good |
@@ -264,4 +297,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-31 after Phase 41 complete*
+*Last updated: 2026-04-20 after v6.0 milestone shipped*
