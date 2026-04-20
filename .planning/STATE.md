@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
-status: executing
-stopped_at: "Phase 63-04 complete — ADVR-02 satisfied. /api/projections/latest-week + meta.data_as_of shipped on backend; getPositionRankings advisor tool now auto-resolves the default week via resolveDefaultWeek helper and surfaces data_as_of. 10 contract tests pin Gold-layer grounding (6 from plan + 4 covering the new endpoint and meta round-trip). 4 commits on main (0d6fb3c, 925c8d7, dedc9e2, c4c93eb). Local audit: 7 PASS / 5 WARN / 0 FAIL — no regression. Railway deployment picks up ADVR-02 on next image build."
-last_updated: "2026-04-19T19:58:00.000Z"
-last_activity: 2026-04-19
+status: completed
+stopped_at: "Phase 63-04 complete — ADVR-02 satisfied. /api/projections/latest-week endpoint shipped; ProjectionResponse.meta carries {season, week, data_as_of, source_path} from parquet mtime; getPositionRankings advisor tool auto-resolves default week via resolveDefaultWeek helper and surfaces data_as_of. 10 contract tests pin Gold-layer grounding. 4 commits on main (0d6fb3c, 925c8d7, dedc9e2, c4c93eb). Local audit still 7 PASS / 5 WARN / 0 FAIL — no regression. Next up: 63-05 ship gate re-audit against Railway once this deploy lands, or 61-03 backtest wrap-up."
+last_updated: "2026-04-20T00:44:54.644Z"
+last_activity: 2026-04-20
 progress:
   total_phases: 6
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 26
-  completed_plans: 17
-  percent: 65
+  completed_plans: 20
+  percent: 77
 ---
 
 # Project State
@@ -34,10 +34,10 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 63
-Plan: 04 (complete)
+Phase: 64
+Plan: Not started
 Status: Phase 63-04 complete; 63-05 ship gate up next
-Last activity: 2026-04-19
+Last activity: 2026-04-20
 
 Progress: [██████▌░░░] 65% (17 plans complete across v6.0)
 
@@ -45,7 +45,7 @@ Progress: [██████▌░░░] 65% (17 plans complete across v6.0)
 
 **Velocity:**
 
-- Total plans completed: 6
+- Total plans completed: 12
 - Average duration: —
 - Total execution time: 0 hours
 
@@ -54,6 +54,7 @@ Progress: [██████▌░░░] 65% (17 plans complete across v6.0)
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 61 | 6 | - | - |
+| 63 | 6 | - | - |
 
 ## Accumulated Context
 
