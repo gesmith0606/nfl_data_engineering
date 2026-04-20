@@ -29,6 +29,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { EventBadges } from './EventBadges';
 import { PlayerNewsPanel } from './player-news-panel';
+import { FadeIn, PressScale } from '@/lib/motion-primitives';
 
 interface PlayerDetailProps {
   playerId: string;
@@ -56,8 +57,8 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center py-12'>
-        <Icons.spinner className='text-muted-foreground h-8 w-8 animate-spin' />
+      <div className='flex items-center justify-center py-[var(--space-12)]'>
+        <Icons.spinner className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)] animate-spin' />
       </div>
     );
   }
@@ -65,9 +66,9 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
   if (isError || !player) {
     return (
       <Card>
-        <CardContent className='flex flex-col items-center justify-center py-12'>
-          <Icons.alertCircle className='text-muted-foreground mb-2 h-8 w-8' />
-          <p className='text-muted-foreground text-sm'>
+        <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+          <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+          <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
             Failed to load player details. Ensure the API is running.
           </p>
         </CardContent>
@@ -80,19 +81,21 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
   const pointInRange = range > 0 ? ((player.projected_points - player.projected_floor) / range) * 100 : 50;
 
   return (
-    <div className='space-y-6'>
+    <FadeIn className='space-y-[var(--gap-section)]'>
       {/* Back navigation */}
       <div>
-        <Button variant='ghost' size='sm' asChild className='-ml-2'>
-          <Link href='/dashboard/projections'>
-            <Icons.chevronLeft className='mr-1 h-4 w-4' />
-            Back to Projections
-          </Link>
-        </Button>
+        <PressScale>
+          <Button variant='ghost' size='sm' asChild className='-ml-[var(--space-2)]'>
+            <Link href='/dashboard/projections'>
+              <Icons.chevronLeft className='mr-[var(--space-1)] h-[var(--space-4)] w-[var(--space-4)]' />
+              Back to Projections
+            </Link>
+          </Button>
+        </PressScale>
       </div>
 
       {/* Filters */}
-      <div className='flex flex-wrap items-center gap-4'>
+      <div className='flex flex-wrap items-center gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
           <SelectTrigger className='w-28'>
             <SelectValue />
@@ -107,7 +110,7 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='w-24'>
+          <SelectTrigger className='w-28'>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -132,14 +135,19 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
 
       {/* Player Header Card */}
       <Card className='overflow-hidden'>
-        <div className='h-2 w-full' style={{ backgroundColor: teamColor }} />
+        <div className='h-[var(--space-2)] w-full' style={{ backgroundColor: teamColor }} />
         <CardHeader>
           <div className='flex items-center justify-between'>
             <div>
-              <CardTitle className='text-2xl'>{player.player_name}</CardTitle>
-              <CardDescription className='flex items-center gap-2 mt-1'>
+              <CardTitle className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)]'>
+                {player.player_name}
+              </CardTitle>
+              <CardDescription className='flex items-center gap-[var(--space-2)] mt-[var(--space-1)]'>
                 <Badge variant='outline'>{player.position}</Badge>
-                <span className='font-mono text-sm' style={{ color: teamColor }}>
+                <span
+                  className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'
+                  style={{ color: teamColor }}
+                >
                   {player.team}
                 </span>
                 {player.position_rank && (
@@ -150,19 +158,21 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
               </CardDescription>
             </div>
             <div className='text-right'>
-              <div className='text-4xl font-bold tabular-nums'>
+              <div className='text-[length:var(--fs-h1)] leading-[var(--lh-h1)] font-bold tabular-nums'>
                 {player.projected_points.toFixed(1)}
               </div>
-              <div className='text-muted-foreground text-sm'>projected pts</div>
+              <div className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                projected pts
+              </div>
             </div>
           </div>
           {player.injury_status && player.injury_status !== 'Active' && (
-            <Badge variant='destructive' className='mt-2 w-fit'>
+            <Badge variant='destructive' className='mt-[var(--space-2)] w-fit'>
               {player.injury_status}
             </Badge>
           )}
           {badges && badges.badges.length > 0 && (
-            <div className='mt-3'>
+            <div className='mt-[var(--space-3)]'>
               <EventBadges
                 badges={badges.badges}
                 overallLabel={badges.overall_label}
@@ -178,8 +188,8 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
           <CardTitle>Floor / Ceiling Range</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='space-y-2'>
-            <div className='flex items-center justify-between text-sm'>
+          <div className='space-y-[var(--space-2)]'>
+            <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               <span className='text-muted-foreground'>
                 Floor: {player.projected_floor.toFixed(1)}
               </span>
@@ -188,7 +198,7 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
                 Ceiling: {player.projected_ceiling.toFixed(1)}
               </span>
             </div>
-            <Progress value={pointInRange} className='h-3' />
+            <Progress value={pointInRange} className='h-[var(--space-3)]' />
           </div>
         </CardContent>
       </Card>
@@ -198,7 +208,7 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
 
       {/* News Panel — recent news and sentiment signals */}
       <PlayerNewsPanel playerId={playerId} season={season} week={week} />
-    </div>
+    </FadeIn>
   );
 }
 
@@ -259,7 +269,7 @@ function StatBreakdown({ player }: StatBreakdownProps) {
   if (groups.length === 0) {
     return (
       <Card>
-        <CardContent className='py-8 text-center text-sm text-muted-foreground'>
+        <CardContent className='py-[var(--space-8)] text-center text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
           No stat projections available for this player.
         </CardContent>
       </Card>
@@ -270,12 +280,15 @@ function StatBreakdown({ player }: StatBreakdownProps) {
     <Card>
       <CardHeader>
         <CardTitle>Projected Stats</CardTitle>
-        <CardDescription>Broken down by category for {player.scoring_format.replace('_', ' ').toUpperCase()} scoring</CardDescription>
+        <CardDescription>
+          Broken down by category for{' '}
+          {player.scoring_format.replace('_', ' ').toUpperCase()} scoring
+        </CardDescription>
       </CardHeader>
-      <CardContent className='space-y-6'>
+      <CardContent className='space-y-[var(--gap-section)]'>
         {groups.map((group) => (
           <div key={group.heading}>
-            <h4 className='mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
+            <h4 className='mb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-wider text-muted-foreground'>
               {group.heading}
             </h4>
             <Table>
