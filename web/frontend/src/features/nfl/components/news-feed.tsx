@@ -800,12 +800,16 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
   return (
     <FadeIn>
       <Tabs defaultValue='overview' className='space-y-[var(--gap-stack)]'>
-        <TabsList>
-          <TabsTrigger value='overview'>Overview</TabsTrigger>
-          <TabsTrigger value='feed'>News Feed</TabsTrigger>
-          <TabsTrigger value='teams'>Team Sentiment</TabsTrigger>
-          <TabsTrigger value='players'>Player Signals</TabsTrigger>
-        </TabsList>
+        {/* Horizontal scroll on narrow screens so all 4 tabs stay reachable
+         *  without squeezing to illegible widths. */}
+        <div className='-mx-[var(--space-1)] overflow-x-auto sm:mx-0 sm:overflow-visible'>
+          <TabsList className='inline-flex w-max sm:w-auto'>
+            <TabsTrigger value='overview'>Overview</TabsTrigger>
+            <TabsTrigger value='feed'>News Feed</TabsTrigger>
+            <TabsTrigger value='teams'>Team Sentiment</TabsTrigger>
+            <TabsTrigger value='players'>Player Signals</TabsTrigger>
+          </TabsList>
+        </div>
 
         {/* ================================================================= */}
         {/* Overview tab — dashboard summary                                  */}
@@ -846,34 +850,39 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
         {/* News Feed tab — scrolling list of articles                        */}
         {/* ================================================================= */}
         <TabsContent value='feed' className='space-y-[var(--gap-stack)]'>
-          {/* Filter row */}
-          <div className='flex flex-wrap items-center gap-[var(--space-3)]'>
-            {/* Source filter */}
-            <div className='flex items-center gap-[var(--space-1)] rounded-lg border p-[var(--space-1)]'>
-              {SOURCE_FILTER_OPTIONS.map(({ value, label }) => (
-                <PressScale key={value}>
-                  <button
-                    onClick={() => handleSourceChange(value)}
-                    className={`px-[var(--space-3)] py-[var(--space-1)] rounded-md text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium transition-colors ${
-                      sourceFilter === value
-                        ? 'bg-primary text-primary-foreground'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                </PressScale>
-              ))}
+          {/* Filter row — mobile: stack (source filter on its own line so all
+           *  4 chips stay visible as a horizontally-scrollable pill group;
+           *  search on its own line). sm+: flex-wrap. */}
+          <div className='flex flex-col gap-[var(--space-3)] sm:flex-row sm:flex-wrap sm:items-center'>
+            {/* Source filter — horizontal scroll on narrow screens so all
+             *  4 chips stay reachable without forcing vertical stacks. */}
+            <div className='-mx-[var(--space-1)] overflow-x-auto sm:mx-0 sm:overflow-visible'>
+              <div className='inline-flex items-center gap-[var(--space-1)] rounded-lg border p-[var(--space-1)]'>
+                {SOURCE_FILTER_OPTIONS.map(({ value, label }) => (
+                  <PressScale key={value}>
+                    <button
+                      onClick={() => handleSourceChange(value)}
+                      className={`min-h-[var(--tap-min)] whitespace-nowrap px-[var(--space-3)] py-[var(--space-2)] rounded-md text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium transition-colors sm:min-h-0 sm:py-[var(--space-1)] ${
+                        sourceFilter === value
+                          ? 'bg-primary text-primary-foreground'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  </PressScale>
+                ))}
+              </div>
             </div>
 
             {/* Search */}
-            <div className='relative flex-1 min-w-48'>
+            <div className='relative w-full sm:flex-1 sm:min-w-48'>
               <Icons.search className='absolute left-[var(--space-3)] top-1/2 -translate-y-1/2 h-[var(--space-4)] w-[var(--space-4)] text-muted-foreground pointer-events-none' />
               <Input
                 placeholder='Search player, team, or headline...'
                 value={search}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className='pl-[var(--space-10)] h-9'
+                className='pl-[var(--space-10)] h-[var(--tap-min)] sm:h-9'
               />
             </div>
           </div>

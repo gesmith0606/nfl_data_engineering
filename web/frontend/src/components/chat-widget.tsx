@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -434,9 +435,14 @@ export function ChatWidget() {
   const [input, setInput] = useState('');
   const [lastUserMessage, setLastUserMessage] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   const { messages, sendMessage, status, error, clear } = usePersistentChat();
   const reduceMotion = useReducedMotion();
+
+  // Hide the floating widget on the dedicated advisor page so we never show
+  // two chat UIs at once (the page itself is already a full chat surface).
+  const isAdvisorPage = pathname === '/dashboard/advisor';
 
   const isLoading = status === 'streaming' || status === 'submitted';
   const hasError = status === 'error' || !!error;
@@ -468,13 +474,17 @@ export function ChatWidget() {
     sendMessage({ text: lastUserMessage });
   }
 
+  if (isAdvisorPage) {
+    return null;
+  }
+
   return (
     <>
-      {/* Floating action button */}
+      {/* Floating action button — already 56×56px, clears the 44px tap rule. */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
-          'fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center',
+          'fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-[max(1.25rem,env(safe-area-inset-right))] z-50 flex h-14 w-14 items-center justify-center',
           'rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25',
           'transition-all duration-200 hover:scale-110 hover:shadow-xl hover:shadow-primary/40',
           'animate-pulse [animation-duration:3s]',
@@ -490,19 +500,23 @@ export function ChatWidget() {
         )}
       </button>
 
-      {/* Chat panel */}
+      {/* Chat panel — full-screen sheet on mobile (<sm), floating card at sm+. */}
       <div
         className={cn(
-          'fixed bottom-5 right-5 z-50 flex flex-col',
-          'w-[400px] h-[520px] max-h-[calc(100dvh-40px)]',
-          'rounded-2xl border bg-background shadow-2xl',
+          'fixed z-50 flex flex-col bg-background shadow-2xl',
+          // Mobile: pin to all 4 edges, respect safe-area insets, no rounding
+          'inset-[max(0px,env(safe-area-inset-top))_max(0px,env(safe-area-inset-right))_max(0px,env(safe-area-inset-bottom))_max(0px,env(safe-area-inset-left))]',
+          'rounded-none border-0',
+          // Desktop: bottom-right floating card
+          'sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[400px] sm:h-[520px] sm:max-h-[calc(100dvh-40px)]',
+          'sm:rounded-2xl sm:border',
           'transition-all duration-300 ease-out origin-bottom-right',
           isOpen
             ? 'scale-100 opacity-100'
             : 'scale-0 opacity-0 pointer-events-none'
         )}
       >
-        {/* Header */}
+        {/* Header — action buttons bump to 44px on mobile, stay 28px on sm+. */}
         <div className='flex items-center justify-between border-b px-4 py-3 shrink-0'>
           <div className='flex items-center gap-2'>
             <div className='flex h-7 w-7 items-center justify-center rounded-full bg-primary/10'>
@@ -519,7 +533,7 @@ export function ChatWidget() {
             <Button
               variant='ghost'
               size='sm'
-              className='h-7 w-7 p-0'
+              className='h-[var(--tap-min)] w-[var(--tap-min)] p-0 sm:h-7 sm:w-7'
               onClick={clear}
               disabled={messages.length === 0}
               aria-label='Clear conversation'
@@ -530,11 +544,12 @@ export function ChatWidget() {
             <Button
               variant='ghost'
               size='sm'
-              className='h-7 w-7 p-0'
+              className='h-[var(--tap-min)] w-[var(--tap-min)] p-0 sm:h-7 sm:w-7'
               onClick={() => setIsOpen(false)}
-              aria-label='Minimize chat'
+              aria-label='Close chat'
             >
-              <Icons.minus className='h-4 w-4' />
+              <Icons.close className='h-4 w-4 sm:hidden' />
+              <Icons.minus className='hidden h-4 w-4 sm:block' />
             </Button>
           </div>
         </div>
@@ -560,7 +575,7 @@ export function ChatWidget() {
                       key={s}
                       variant='outline'
                       size='sm'
-                      className='text-[10px] h-7 px-2'
+                      className='min-h-[var(--tap-min)] px-3 text-xs sm:min-h-0 sm:h-7 sm:px-2 sm:text-[10px]'
                       onClick={() => handleSuggestion(s)}
                     >
                       {s}
@@ -671,23 +686,23 @@ export function ChatWidget() {
           </div>
         </ScrollArea>
 
-        {/* Input form */}
+        {/* Input form — 44px tap targets on mobile, compact on sm+. */}
         <form
           onSubmit={handleSubmit}
-          className='flex gap-2 border-t px-3 py-2.5 shrink-0'
+          className='flex gap-2 border-t bg-background px-3 py-2.5 shrink-0 pb-[max(0.625rem,env(safe-area-inset-bottom))]'
         >
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='Ask about players, matchups...'
             disabled={isLoading}
-            className='flex-1 h-8 text-xs'
+            className='h-[var(--tap-min)] flex-1 text-sm sm:h-8 sm:text-xs'
           />
           <Button
             type='submit'
             disabled={isLoading || !input.trim()}
             size='sm'
-            className='h-8 w-8 p-0 shrink-0'
+            className='h-[var(--tap-min)] w-[var(--tap-min)] p-0 shrink-0 sm:h-8 sm:w-8'
           >
             {isLoading ? (
               <Icons.spinner className='h-3.5 w-3.5 animate-spin' />

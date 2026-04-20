@@ -27,10 +27,10 @@ export function LineupView() {
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
-      {/* Season/Week selectors */}
-      <div className='flex flex-wrap items-center gap-[var(--gap-stack)]'>
+      {/* Season/Week selectors — 2-col grid on mobile, flex at sm+. */}
+      <div className='grid grid-cols-2 gap-[var(--space-2)] sm:flex sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
-          <SelectTrigger className='w-28'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue placeholder='Season' />
           </SelectTrigger>
           <SelectContent>
@@ -43,7 +43,7 @@ export function LineupView() {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='w-28'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue placeholder='Week' />
           </SelectTrigger>
           <SelectContent>

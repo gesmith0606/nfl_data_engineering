@@ -162,10 +162,11 @@ export function PredictionCardGrid() {
 
   return (
     <div className='space-y-[var(--gap-stack)]'>
-      {/* Filters */}
-      <div className='flex flex-wrap items-center gap-[var(--gap-stack)]'>
+      {/* Filters — 2-col grid on mobile (<sm) so the three Selects fit
+       *  without horizontal overflow; flex-wrap at sm+. */}
+      <div className='grid grid-cols-2 gap-[var(--space-2)] sm:flex sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
-          <SelectTrigger className='w-28'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue placeholder='Season' />
           </SelectTrigger>
           <SelectContent>
@@ -178,7 +179,7 @@ export function PredictionCardGrid() {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='w-24'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-24'>
             <SelectValue placeholder='Week' />
           </SelectTrigger>
           <SelectContent>
@@ -191,7 +192,7 @@ export function PredictionCardGrid() {
         </Select>
 
         <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortKey)}>
-          <SelectTrigger className='w-36'>
+          <SelectTrigger className='h-[var(--tap-min)] col-span-2 w-full sm:h-9 sm:col-span-1 sm:w-36'>
             <SelectValue placeholder='Sort by' />
           </SelectTrigger>
           <SelectContent>

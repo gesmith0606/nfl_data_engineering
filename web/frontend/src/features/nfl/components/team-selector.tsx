@@ -66,7 +66,7 @@ function DivisionGroup({ division, teams, selectedTeam, onSelectTeam }: Division
             <PressScale key={team}>
               <button
                 onClick={() => onSelectTeam(team)}
-                className={`relative flex w-full items-center justify-center rounded-md px-[var(--space-3)] py-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 ${
+                className={`relative flex h-[var(--tap-min)] w-full items-center justify-center rounded-md px-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 ${
                   isSelected
                     ? 'text-white shadow-md scale-105'
                     : 'bg-muted hover:shadow-sm'

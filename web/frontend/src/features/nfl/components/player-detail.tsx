@@ -94,10 +94,10 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
         </PressScale>
       </div>
 
-      {/* Filters */}
-      <div className='flex flex-wrap items-center gap-[var(--gap-stack)]'>
+      {/* Filters — 2-col grid on mobile, then Tabs span full width. */}
+      <div className='grid grid-cols-2 gap-[var(--space-2)] sm:flex sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
-          <SelectTrigger className='w-28'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -110,7 +110,7 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='w-28'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -122,10 +122,18 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
           </SelectContent>
         </Select>
 
-        <Tabs value={scoring} onValueChange={(v) => setScoring(v as ScoringFormat)}>
-          <TabsList>
+        <Tabs
+          value={scoring}
+          onValueChange={(v) => setScoring(v as ScoringFormat)}
+          className='col-span-2 sm:col-span-1'
+        >
+          <TabsList className='w-full sm:w-auto'>
             {SCORING_OPTIONS.map((opt) => (
-              <TabsTrigger key={opt.value} value={opt.value}>
+              <TabsTrigger
+                key={opt.value}
+                value={opt.value}
+                className='flex-1 sm:flex-initial'
+              >
                 {opt.label}
               </TabsTrigger>
             ))}
@@ -137,12 +145,12 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
       <Card className='overflow-hidden'>
         <div className='h-[var(--space-2)] w-full' style={{ backgroundColor: teamColor }} />
         <CardHeader>
-          <div className='flex items-center justify-between'>
-            <div>
-              <CardTitle className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)]'>
+          <div className='flex flex-wrap items-start justify-between gap-[var(--space-3)]'>
+            <div className='min-w-0 flex-1'>
+              <CardTitle className='text-[length:var(--fs-h3)] sm:text-[length:var(--fs-h2)] leading-tight sm:leading-[var(--lh-h2)] truncate'>
                 {player.player_name}
               </CardTitle>
-              <CardDescription className='flex items-center gap-[var(--space-2)] mt-[var(--space-1)]'>
+              <CardDescription className='flex flex-wrap items-center gap-[var(--space-2)] mt-[var(--space-1)]'>
                 <Badge variant='outline'>{player.position}</Badge>
                 <span
                   className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'
@@ -157,11 +165,11 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
                 )}
               </CardDescription>
             </div>
-            <div className='text-right'>
-              <div className='text-[length:var(--fs-h1)] leading-[var(--lh-h1)] font-bold tabular-nums'>
+            <div className='shrink-0 text-right'>
+              <div className='text-[length:var(--fs-h2)] sm:text-[length:var(--fs-h1)] leading-tight sm:leading-[var(--lh-h1)] font-bold tabular-nums'>
                 {player.projected_points.toFixed(1)}
               </div>
-              <div className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+              <div className='text-muted-foreground text-[length:var(--fs-xs)] sm:text-[length:var(--fs-sm)] leading-[var(--lh-xs)] sm:leading-[var(--lh-sm)]'>
                 projected pts
               </div>
             </div>

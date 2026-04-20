@@ -416,7 +416,9 @@ export default function AdvisorPage() {
       pageTitle='AI Fantasy Advisor'
       pageDescription='Ask about start/sit decisions, trade analysis, waiver wire pickups, and more'
     >
-      <FadeIn className='flex h-[calc(100dvh-160px)] flex-col gap-[var(--space-3)]'>
+      {/* Mobile: use the full-ish viewport (more vertical room than 100dvh-160).
+       *  Desktop: preserve the original 160px reserve for header + padding. */}
+      <FadeIn className='flex h-[calc(100dvh-var(--size-header)-var(--space-8))] flex-col gap-[var(--space-3)] md:h-[calc(100dvh-160px)]'>
         {/* Top action bar — visible only when a conversation exists */}
         {messages.length > 0 && (
           <div className='flex justify-end'>
@@ -480,7 +482,7 @@ export default function AdvisorPage() {
                   </Avatar>
 
                   <div
-                    className={`flex max-w-[80%] flex-col gap-[var(--space-1)] ${isUser ? 'items-end' : 'items-start'}`}
+                    className={`flex max-w-[85%] flex-col gap-[var(--space-1)] sm:max-w-[80%] ${isUser ? 'items-end' : 'items-start'}`}
                   >
                     {message.parts.map((part, partIndex) => {
                       switch (part.type) {
@@ -660,23 +662,27 @@ export default function AdvisorPage() {
           </div>
         </ScrollArea>
 
-        {/* Input form */}
+        {/* Input form — tap targets ≥ 44px on mobile. */}
         <form onSubmit={handleSubmit} className='flex gap-[var(--space-2)]'>
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='Ask about start/sit, trades, waiver wire...'
             disabled={isLoading}
-            className='flex-1'
+            className='h-[var(--tap-min)] flex-1 sm:h-9'
           />
           <PressScale>
-            <Button type='submit' disabled={isLoading || !input.trim()}>
+            <Button
+              type='submit'
+              disabled={isLoading || !input.trim()}
+              className='h-[var(--tap-min)] sm:h-9'
+            >
               {isLoading ? (
                 <Icons.spinner className='h-[var(--space-4)] w-[var(--space-4)] animate-spin' />
               ) : (
                 <Icons.send className='h-[var(--space-4)] w-[var(--space-4)]' />
               )}
-              <span className='ml-[var(--space-2)]'>Send</span>
+              <span className='ml-[var(--space-2)] hidden sm:inline'>Send</span>
             </Button>
           </PressScale>
         </form>

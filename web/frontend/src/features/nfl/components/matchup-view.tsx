@@ -506,7 +506,7 @@ function MatchupHeaderBar({
   const awayColor = getTeamColor(awayTeam);
 
   return (
-    <div className='relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-[var(--pad-card)] mb-[var(--space-6)]'>
+    <div className='relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-[var(--space-3)] sm:p-[var(--pad-card)] mb-[var(--space-6)]'>
       {/* Decorative team color streaks */}
       <div
         className='absolute left-0 top-0 bottom-0 w-1.5'
@@ -517,26 +517,31 @@ function MatchupHeaderBar({
         style={{ backgroundColor: homeColor }}
       />
 
-      <div className='flex items-center justify-between px-[var(--space-4)]'>
+      {/* On mobile, squeeze team badges and drop the full-name line; use only
+       *  the 3-letter code + Away/Home label. sm:+ restores the full layout. */}
+      <div className='flex items-center justify-between gap-[var(--space-2)] px-[var(--space-2)] sm:px-[var(--space-4)]'>
         {/* Away team */}
-        <div className='flex items-center gap-[var(--space-3)]'>
+        <div className='flex min-w-0 items-center gap-[var(--space-2)] sm:gap-[var(--space-3)]'>
           <div
-            className='flex h-12 w-12 items-center justify-center rounded-xl text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-black text-white'
+            className='flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl text-[length:var(--fs-sm)] sm:text-[length:var(--fs-lg)] leading-none font-black text-white'
             style={{ backgroundColor: awayColor }}
           >
             {awayTeam.slice(0, 3)}
           </div>
-          <div>
-            <div className='text-[length:var(--fs-body)] leading-[var(--lh-body)] font-bold text-white'>
-              {getTeamFullName(awayTeam)}
+          <div className='min-w-0'>
+            <div className='text-[length:var(--fs-sm)] sm:text-[length:var(--fs-body)] leading-tight font-bold text-white truncate'>
+              <span className='hidden sm:inline'>{getTeamFullName(awayTeam)}</span>
+              <span className='sm:hidden'>{awayTeam}</span>
             </div>
-            <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>Away</div>
+            <div className='text-[length:var(--fs-micro)] sm:text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>
+              Away
+            </div>
           </div>
         </div>
 
         {/* Center: VS + prediction info */}
-        <div className='text-center'>
-          <div className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-black text-white/20 tracking-widest'>
+        <div className='shrink-0 text-center'>
+          <div className='text-[length:var(--fs-sm)] sm:text-[length:var(--fs-lg)] leading-none font-black text-white/20 tracking-widest'>
             VS
           </div>
           {prediction && (
@@ -561,7 +566,7 @@ function MatchupHeaderBar({
                   variant={prediction.confidence_tier === 'high' ? 'default' : 'secondary'}
                   className='mt-[var(--space-1)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
                 >
-                  {prediction.confidence_tier} confidence
+                  {prediction.confidence_tier}
                 </Badge>
               )}
             </div>
@@ -569,17 +574,18 @@ function MatchupHeaderBar({
         </div>
 
         {/* Home team */}
-        <div className='flex items-center gap-[var(--space-3)]'>
-          <div>
-            <div className='text-right text-[length:var(--fs-body)] leading-[var(--lh-body)] font-bold text-white'>
-              {getTeamFullName(homeTeam)}
+        <div className='flex min-w-0 items-center gap-[var(--space-2)] sm:gap-[var(--space-3)]'>
+          <div className='min-w-0 text-right'>
+            <div className='text-[length:var(--fs-sm)] sm:text-[length:var(--fs-body)] leading-tight font-bold text-white truncate'>
+              <span className='hidden sm:inline'>{getTeamFullName(homeTeam)}</span>
+              <span className='sm:hidden'>{homeTeam}</span>
             </div>
-            <div className='text-right text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>
+            <div className='text-[length:var(--fs-micro)] sm:text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>
               Home
             </div>
           </div>
           <div
-            className='flex h-12 w-12 items-center justify-center rounded-xl text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-black text-white'
+            className='flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl text-[length:var(--fs-sm)] sm:text-[length:var(--fs-lg)] leading-none font-black text-white'
             style={{ backgroundColor: homeColor }}
           >
             {homeTeam.slice(0, 3)}
@@ -702,7 +708,7 @@ function CompactTeamPicker({
                     <PressScale key={team}>
                       <button
                         onClick={() => onSelectTeam(team)}
-                        className={`w-full rounded-md px-[var(--space-2)] py-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold transition-[background-color,box-shadow] duration-[var(--motion-fast)] ${
+                        className={`flex h-[var(--tap-min)] w-full items-center justify-center rounded-md px-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold transition-[background-color,box-shadow] duration-[var(--motion-fast)] ${
                           isSelected
                             ? 'text-white shadow-md scale-105'
                             : 'bg-muted hover:opacity-80'
@@ -862,10 +868,11 @@ export function MatchupView() {
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
-      {/* Controls */}
-      <div className='flex flex-wrap items-center gap-[var(--gap-stack)]'>
+      {/* Controls — mobile: 3-column grid of equal selects so all fit at 375px;
+       *  sm+: flex-wrap natural widths. */}
+      <div className='grid grid-cols-3 gap-[var(--space-2)] sm:flex sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
-          <SelectTrigger className='w-28'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue placeholder='Season' />
           </SelectTrigger>
           <SelectContent>
@@ -878,7 +885,7 @@ export function MatchupView() {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='w-28'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue placeholder='Week' />
           </SelectTrigger>
           <SelectContent>
@@ -891,7 +898,7 @@ export function MatchupView() {
         </Select>
 
         <Select value={scoring} onValueChange={(v) => setScoring(v as ScoringFormat)}>
-          <SelectTrigger className='w-32'>
+          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-32'>
             <SelectValue placeholder='Scoring' />
           </SelectTrigger>
           <SelectContent>
