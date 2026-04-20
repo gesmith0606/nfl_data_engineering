@@ -29,7 +29,7 @@ export const columns: ColumnDef<PlayerProjection>[] = [
     cell: ({ row }) => {
       const injury = row.original.injury_status;
       return (
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-[var(--space-2)]'>
           <Link
             href={`/dashboard/players/${row.original.player_id}`}
             className='font-medium hover:underline'
@@ -37,7 +37,10 @@ export const columns: ColumnDef<PlayerProjection>[] = [
             {row.original.player_name}
           </Link>
           {injury && injury !== 'Active' && (
-            <Badge variant='destructive' className='text-[10px] px-1 py-0'>
+            <Badge
+              variant='destructive'
+              className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-1)] py-0'
+            >
               {injury}
             </Badge>
           )}
@@ -59,12 +62,14 @@ export const columns: ColumnDef<PlayerProjection>[] = [
       const team = cell.getValue<string>();
       const color = getTeamColor(team);
       return (
-        <div className='flex items-center gap-1.5'>
+        <div className='flex items-center gap-[var(--space-2)]'>
           <span
-            className='inline-block h-2 w-2 shrink-0 rounded-full'
+            className='inline-block h-[var(--space-2)] w-[var(--space-2)] shrink-0 rounded-full'
             style={{ backgroundColor: color }}
           />
-          <span className='font-mono text-xs'>{team}</span>
+          <span className='font-mono text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+            {team}
+          </span>
         </div>
       );
     }
@@ -96,7 +101,7 @@ export const columns: ColumnDef<PlayerProjection>[] = [
       <DataTableColumnHeader column={column} title='Projected' />
     ),
     cell: ({ cell }) => (
-      <span className='font-bold tabular-nums text-lg'>
+      <span className='font-bold tabular-nums text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
         {cell.getValue<number>().toFixed(1)}
       </span>
     )
@@ -132,7 +137,7 @@ export const columns: ColumnDef<PlayerProjection>[] = [
       if (p.proj_rec_yards) stats.push(`${Math.round(p.proj_rec_yards)} rec yds`);
       if (p.proj_rec) stats.push(`${p.proj_rec.toFixed(1)} rec`);
       return (
-        <span className='text-muted-foreground text-xs'>
+        <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {stats.slice(0, 2).join(' | ') || '-'}
         </span>
       );

@@ -48,10 +48,10 @@ export function ProjectionsTable() {
   });
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-[var(--gap-stack)]'>
       {/* Filters */}
       <Card>
-        <CardContent className='flex flex-wrap items-center gap-4 pt-6'>
+        <CardContent className='flex flex-wrap items-center gap-[var(--gap-stack)] pt-[var(--space-6)]'>
           <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
             <SelectTrigger className='w-28'>
               <SelectValue placeholder='Season' />
@@ -104,18 +104,18 @@ export function ProjectionsTable() {
       {/* Table */}
       {isLoading ? (
         <Card>
-          <CardContent className='pt-4 space-y-2'>
+          <CardContent className='pt-[var(--space-4)] space-y-[var(--space-2)]'>
             {/* Header row */}
-            <div className='flex gap-4 pb-2 border-b'>
+            <div className='flex gap-[var(--gap-stack)] pb-[var(--space-2)] border-b'>
               {[120, 80, 60, 80, 80, 80, 80].map((w, i) => (
-                <Skeleton key={i} className='h-4' style={{ width: w }} />
+                <Skeleton key={i} className='h-[var(--space-4)]' style={{ width: w }} />
               ))}
             </div>
             {/* Data rows */}
             {Array.from({ length: 10 }).map((_, row) => (
-              <div key={row} className='flex gap-4 py-1'>
+              <div key={row} className='flex gap-[var(--gap-stack)] py-[var(--space-1)]'>
                 {[120, 80, 60, 80, 80, 80, 80].map((w, col) => (
-                  <Skeleton key={col} className='h-4' style={{ width: w }} />
+                  <Skeleton key={col} className='h-[var(--space-4)]' style={{ width: w }} />
                 ))}
               </div>
             ))}
@@ -123,9 +123,9 @@ export function ProjectionsTable() {
         </Card>
       ) : isError ? (
         <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.alertCircle className='text-muted-foreground mb-2 h-8 w-8' />
-            <p className='text-muted-foreground text-sm'>
+          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+            <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               Failed to load projections. Ensure the API is running on localhost:8000.
             </p>
           </CardContent>
