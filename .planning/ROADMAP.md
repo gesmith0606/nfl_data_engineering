@@ -150,6 +150,6 @@ Plans:
 | 60. Data Quality | 3/3 | Complete | 2026-04-17 |
 | 61. News & Sentiment Live | 6/6 | Complete    | 2026-04-19 |
 | 62. Design & UX Polish | 2/6 | In progress | - |
-| 63. AI Advisor Hardening | 4/6 | In Progress|  |
+| 63. AI Advisor Hardening | 5/6 | In Progress|  |
 | 64. Matchup View Completion | 2/4 | In progress | - |
 | 65. Agent Ecosystem Optimization | 1/4 | In progress | - |
