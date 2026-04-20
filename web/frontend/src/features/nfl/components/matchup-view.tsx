@@ -18,6 +18,14 @@ import { Icons } from '@/components/icons';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { getTeamFullName, TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { getPositionColor } from '@/lib/design-tokens';
+import {
+  DataLoadReveal,
+  FadeIn,
+  HoverLift,
+  PressScale,
+  Stagger
+} from '@/lib/motion-primitives';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -65,21 +73,12 @@ const DEFENSE_SLOTS = [
   { slot: 'FS', pos: 'FS', label: 'FS', row: 'secondary' }
 ] as const;
 
-/** Position group colors. */
-const POS_COLORS: Record<string, string> = {
-  QB: '#E31837',
-  RB: '#00A6A0',
-  WR: '#4F46E5',
-  TE: '#D97706',
-  OL: '#6B7280',
-  DE: '#DC2626',
-  DT: '#B91C1C',
-  LB: '#7C3AED',
-  CB: '#2563EB',
-  SS: '#0891B2',
-  FS: '#0D9488',
-  K: '#6B7280'
-};
+/** Position group colors. Migrated to --pos-* tokens (Phase 62-04):
+ *  consumes `getPositionColor` from @/lib/design-tokens which resolves
+ *  --pos-qb / --pos-rb / --pos-wr / --pos-te / --pos-ol / --pos-de /
+ *  --pos-dt / --pos-lb / --pos-cb / --pos-ss / --pos-fs / --pos-k.
+ *  Closes POSITION_COLORS duplication item #2 of 6 (inventoried in
+ *  AUDIT-BASELINE.md). */
 
 // ---------------------------------------------------------------------------
 // Rating calculation
@@ -200,9 +199,9 @@ function RatingBadge({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'm
   else bg = 'bg-red-500';
 
   const sizeClasses = {
-    sm: 'h-7 w-7 text-xs',
-    md: 'h-9 w-9 text-sm',
-    lg: 'h-11 w-11 text-base'
+    sm: 'h-7 w-7 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]',
+    md: 'h-9 w-9 text-[length:var(--fs-sm)] leading-[var(--lh-sm)]',
+    lg: 'h-11 w-11 text-[length:var(--fs-body)] leading-[var(--lh-body)]'
   };
 
   return (
@@ -225,7 +224,9 @@ function InjuryBadge({ status }: { status: string | null }) {
   };
   const cls = colors[status] ?? 'bg-gray-500/20 text-gray-400 border-gray-500/30';
   return (
-    <span className={`${cls} inline-flex items-center rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase leading-none`}>
+    <span
+      className={`${cls} inline-flex items-center rounded border px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold uppercase`}
+    >
       {status}
     </span>
   );
@@ -253,10 +254,14 @@ function PlayerRow({ player, slotLabel, posColor, side, matchupAdvantage }: Play
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <span className={`${c.color} text-xs font-bold`}>{c.icon}</span>
+            <span
+              className={`${c.color} text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold`}
+            >
+              {c.icon}
+            </span>
           </TooltipTrigger>
           <TooltipContent side={side === 'offense' ? 'right' : 'left'}>
-            <p className='text-xs'>{c.label}</p>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>{c.label}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -265,14 +270,16 @@ function PlayerRow({ player, slotLabel, posColor, side, matchupAdvantage }: Play
 
   if (!player) {
     return (
-      <div className='flex items-center gap-3 rounded-lg bg-black/20 px-3 py-2.5'>
+      <div className='flex items-center gap-[var(--space-3)] rounded-lg bg-black/20 px-[var(--space-3)] py-[var(--space-2)]'>
         <div
-          className='flex h-9 w-9 items-center justify-center rounded-lg text-xs font-bold text-white/60'
+          className='flex h-9 w-9 items-center justify-center rounded-lg text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold text-white/60'
           style={{ backgroundColor: `${posColor}44` }}
         >
           {slotLabel}
         </div>
-        <span className='text-sm text-white/30 italic'>Empty</span>
+        <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/30 italic'>
+          Empty
+        </span>
       </div>
     );
   }
@@ -280,61 +287,65 @@ function PlayerRow({ player, slotLabel, posColor, side, matchupAdvantage }: Play
   const isLowRated = player.rating < 65;
 
   return (
-    <div
-      className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors ${
-        isLowRated
-          ? 'bg-red-900/20 border border-red-500/20 hover:bg-red-900/30'
-          : 'bg-white/5 hover:bg-white/10'
-      }`}
-    >
-      {/* Position badge */}
+    <HoverLift lift={1}>
       <div
-        className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[10px] font-bold uppercase text-white'
-        style={{ backgroundColor: posColor }}
+        className={`group flex items-center gap-[var(--space-3)] rounded-lg px-[var(--space-3)] py-[var(--space-2)] transition-colors duration-[var(--motion-fast)] ${
+          isLowRated
+            ? 'bg-red-900/20 border border-red-500/20 hover:bg-red-900/30'
+            : 'bg-white/5 hover:bg-white/10'
+        }`}
       >
-        {slotLabel}
-      </div>
+        {/* Position badge */}
+        <div
+          className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold uppercase text-white'
+          style={{ backgroundColor: posColor }}
+        >
+          {slotLabel}
+        </div>
 
-      {/* Rating */}
-      <RatingBadge rating={player.rating} />
+        {/* Rating */}
+        <RatingBadge rating={player.rating} />
 
-      {/* Name + info */}
-      <div className='min-w-0 flex-1'>
-        <div className='flex items-center gap-1.5'>
-          <span className='truncate text-sm font-semibold text-white'>
-            {player.player_name}
-          </span>
-          <InjuryBadge status={player.injury_status} />
-          {isLowRated && (
-            <Icons.alertCircle className='h-3.5 w-3.5 shrink-0 text-red-400' />
+        {/* Name + info */}
+        <div className='min-w-0 flex-1'>
+          <div className='flex items-center gap-[var(--space-2)]'>
+            <span className='truncate text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold text-white'>
+              {player.player_name}
+            </span>
+            <InjuryBadge status={player.injury_status} />
+            {isLowRated && (
+              <Icons.alertCircle className='h-[var(--space-4)] w-[var(--space-4)] shrink-0 text-red-400' />
+            )}
+          </div>
+          {player.position_rank !== null && (
+            <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/40'>
+              {player.position}#{player.position_rank}
+            </span>
           )}
         </div>
-        {player.position_rank !== null && (
-          <span className='text-[11px] text-white/40'>
-            {player.position}#{player.position_rank}
-          </span>
-        )}
-      </div>
 
-      {/* Projection / matchup indicator */}
-      <div className='flex items-center gap-2 shrink-0'>
-        {advantageIndicator}
-        {player.projected_points !== null ? (
-          <span className='min-w-[3rem] text-right font-mono text-sm font-bold tabular-nums text-white'>
-            {player.projected_points.toFixed(1)}
-          </span>
-        ) : (
-          <span className='min-w-[3rem] text-right text-sm text-white/30'>--</span>
-        )}
+        {/* Projection / matchup indicator */}
+        <div className='flex items-center gap-[var(--space-2)] shrink-0'>
+          {advantageIndicator}
+          {player.projected_points !== null ? (
+            <span className='min-w-[3rem] text-right font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold tabular-nums text-white'>
+              {player.projected_points.toFixed(1)}
+            </span>
+          ) : (
+            <span className='min-w-[3rem] text-right text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/30'>
+              --
+            </span>
+          )}
+        </div>
       </div>
-    </div>
+    </HoverLift>
   );
 }
 
 function RowGroupLabel({ label }: { label: string }) {
   return (
-    <div className='px-3 pt-4 pb-1'>
-      <span className='text-[10px] font-semibold uppercase tracking-widest text-white/30'>
+    <div className='px-[var(--space-3)] pt-[var(--space-4)] pb-[var(--space-1)]'>
+      <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold uppercase tracking-widest text-white/30'>
         {label}
       </span>
     </div>
@@ -414,7 +425,7 @@ function TeamPanel({ team, side, roster, opponentRatings }: TeamPanelProps) {
     <div className='flex-1 min-w-0'>
       {/* Team header */}
       <div
-        className='relative overflow-hidden rounded-t-xl px-5 py-4'
+        className='relative overflow-hidden rounded-t-xl px-[var(--space-5)] py-[var(--space-4)]'
         style={{
           background: `linear-gradient(135deg, ${color} 0%, ${color}dd 60%, ${secColor}88 100%)`
         }}
@@ -422,19 +433,23 @@ function TeamPanel({ team, side, roster, opponentRatings }: TeamPanelProps) {
         <div className='relative z-10'>
           <div className='flex items-center justify-between'>
             <div>
-              <h3 className='text-xl font-black uppercase tracking-wide text-white'>
+              <h3 className='text-[length:var(--fs-h3)] leading-[var(--lh-h3)] font-black uppercase tracking-wide text-white'>
                 {team}
               </h3>
-              <p className='text-xs font-medium text-white/70'>{fullName}</p>
+              <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium text-white/70'>
+                {fullName}
+              </p>
             </div>
             <div className='text-right'>
-              <div className='text-xs font-medium uppercase text-white/50'>
+              <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium uppercase text-white/50'>
                 {side === 'offense' ? 'Offense' : 'Defense'}
               </div>
               {side === 'offense' && totalPts > 0 && (
-                <div className='text-lg font-black tabular-nums text-white'>
+                <div className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-black tabular-nums text-white'>
                   {totalPts.toFixed(1)}
-                  <span className='text-xs font-normal text-white/50 ml-1'>pts</span>
+                  <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-normal text-white/50 ml-[var(--space-1)]'>
+                    pts
+                  </span>
                 </div>
               )}
             </div>
@@ -449,24 +464,24 @@ function TeamPanel({ team, side, roster, opponentRatings }: TeamPanelProps) {
 
       {/* Player rows */}
       <div
-        className='space-y-0.5 rounded-b-xl p-2'
+        className='space-y-0.5 rounded-b-xl p-[var(--space-2)]'
         style={{ backgroundColor: '#0f1318' }}
       >
         {Array.from(rows.entries()).map(([rowKey, rowSlots]) => (
           <div key={rowKey}>
             <RowGroupLabel label={rowLabels[rowKey] ?? rowKey} />
-            <div className='space-y-1'>
+            <Stagger step={0.03} className='space-y-[var(--space-1)]'>
               {rowSlots.map((slot) => (
                 <PlayerRow
                   key={slot.slot}
                   player={roster.get(slot.slot) ?? null}
                   slotLabel={slot.label}
-                  posColor={POS_COLORS[slot.pos] ?? '#6B7280'}
+                  posColor={getPositionColor(slot.pos)}
                   side={side}
                   matchupAdvantage={getAdvantage(slot.slot)}
                 />
               ))}
-            </div>
+            </Stagger>
           </div>
         ))}
       </div>
@@ -491,7 +506,7 @@ function MatchupHeaderBar({
   const awayColor = getTeamColor(awayTeam);
 
   return (
-    <div className='relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 mb-6'>
+    <div className='relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-[var(--pad-card)] mb-[var(--space-6)]'>
       {/* Decorative team color streaks */}
       <div
         className='absolute left-0 top-0 bottom-0 w-1.5'
@@ -502,28 +517,32 @@ function MatchupHeaderBar({
         style={{ backgroundColor: homeColor }}
       />
 
-      <div className='flex items-center justify-between px-4'>
+      <div className='flex items-center justify-between px-[var(--space-4)]'>
         {/* Away team */}
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-[var(--space-3)]'>
           <div
-            className='flex h-12 w-12 items-center justify-center rounded-xl text-lg font-black text-white'
+            className='flex h-12 w-12 items-center justify-center rounded-xl text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-black text-white'
             style={{ backgroundColor: awayColor }}
           >
             {awayTeam.slice(0, 3)}
           </div>
           <div>
-            <div className='text-base font-bold text-white'>{getTeamFullName(awayTeam)}</div>
-            <div className='text-xs text-white/50'>Away</div>
+            <div className='text-[length:var(--fs-body)] leading-[var(--lh-body)] font-bold text-white'>
+              {getTeamFullName(awayTeam)}
+            </div>
+            <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>Away</div>
           </div>
         </div>
 
         {/* Center: VS + prediction info */}
         <div className='text-center'>
-          <div className='text-lg font-black text-white/20 tracking-widest'>VS</div>
+          <div className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-black text-white/20 tracking-widest'>
+            VS
+          </div>
           {prediction && (
-            <div className='mt-1 space-y-0.5'>
+            <div className='mt-[var(--space-1)] space-y-0.5'>
               {prediction.vegas_spread !== null && (
-                <div className='text-[11px] text-white/50'>
+                <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/50'>
                   Line: <span className='font-mono text-white/70'>
                     {prediction.vegas_spread > 0 ? '+' : ''}
                     {prediction.vegas_spread.toFixed(1)}
@@ -531,7 +550,7 @@ function MatchupHeaderBar({
                 </div>
               )}
               {prediction.vegas_total !== null && (
-                <div className='text-[11px] text-white/50'>
+                <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/50'>
                   O/U: <span className='font-mono text-white/70'>
                     {prediction.vegas_total.toFixed(1)}
                   </span>
@@ -540,7 +559,7 @@ function MatchupHeaderBar({
               {prediction.confidence_tier && (
                 <Badge
                   variant={prediction.confidence_tier === 'high' ? 'default' : 'secondary'}
-                  className='mt-1 text-[10px]'
+                  className='mt-[var(--space-1)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
                 >
                   {prediction.confidence_tier} confidence
                 </Badge>
@@ -550,13 +569,17 @@ function MatchupHeaderBar({
         </div>
 
         {/* Home team */}
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-[var(--space-3)]'>
           <div>
-            <div className='text-right text-base font-bold text-white'>{getTeamFullName(homeTeam)}</div>
-            <div className='text-right text-xs text-white/50'>Home</div>
+            <div className='text-right text-[length:var(--fs-body)] leading-[var(--lh-body)] font-bold text-white'>
+              {getTeamFullName(homeTeam)}
+            </div>
+            <div className='text-right text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>
+              Home
+            </div>
           </div>
           <div
-            className='flex h-12 w-12 items-center justify-center rounded-xl text-lg font-black text-white'
+            className='flex h-12 w-12 items-center justify-center rounded-xl text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-black text-white'
             style={{ backgroundColor: homeColor }}
           >
             {homeTeam.slice(0, 3)}
@@ -599,47 +622,48 @@ function MatchupAdvantages({
   if (edges.length === 0) return null;
 
   return (
-    <div className='rounded-xl border border-white/10 bg-gray-900/50 p-4 mt-4'>
-      <h4 className='text-xs font-semibold uppercase tracking-widest text-white/40 mb-3'>
+    <div className='rounded-xl border border-white/10 bg-gray-900/50 p-[var(--pad-card)] mt-[var(--space-4)]'>
+      <h4 className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-widest text-white/40 mb-[var(--space-3)]'>
         Key Matchups
       </h4>
-      <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
+      <Stagger className='grid grid-cols-1 gap-[var(--space-2)] sm:grid-cols-2'>
         {edges.map((edge) => {
           if (!edge) return null;
           const isAdvantage = edge.diff > 5;
           const isDisadvantage = edge.diff < -5;
           return (
-            <div
-              key={edge.label}
-              className={`flex items-center justify-between rounded-lg px-3 py-2 ${
-                isAdvantage
-                  ? 'bg-emerald-900/20 border border-emerald-500/20'
-                  : isDisadvantage
-                    ? 'bg-red-900/20 border border-red-500/20'
-                    : 'bg-white/5'
-              }`}
-            >
-              <div className='flex items-center gap-2'>
-                <RatingBadge rating={edge.offPlayer.rating} size='sm' />
-                <div className='text-xs'>
-                  <div className='font-semibold text-white'>{edge.offPlayer.player_name}</div>
-                  <div className='text-white/40'>{edge.label}</div>
+            <HoverLift key={edge.label} lift={1}>
+              <div
+                className={`flex items-center justify-between rounded-lg px-[var(--space-3)] py-[var(--space-2)] ${
+                  isAdvantage
+                    ? 'bg-emerald-900/20 border border-emerald-500/20'
+                    : isDisadvantage
+                      ? 'bg-red-900/20 border border-red-500/20'
+                      : 'bg-white/5'
+                }`}
+              >
+                <div className='flex items-center gap-[var(--space-2)]'>
+                  <RatingBadge rating={edge.offPlayer.rating} size='sm' />
+                  <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    <div className='font-semibold text-white'>{edge.offPlayer.player_name}</div>
+                    <div className='text-white/40'>{edge.label}</div>
+                  </div>
+                </div>
+                <div className='flex items-center gap-[var(--space-2)]'>
+                  <span
+                    className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold ${
+                      isAdvantage ? 'text-emerald-400' : isDisadvantage ? 'text-red-400' : 'text-white/50'
+                    }`}
+                  >
+                    {edge.diff > 0 ? '+' : ''}{edge.diff}
+                  </span>
+                  <RatingBadge rating={edge.defPlayer.rating} size='sm' />
                 </div>
               </div>
-              <div className='flex items-center gap-2'>
-                <span
-                  className={`text-xs font-bold ${
-                    isAdvantage ? 'text-emerald-400' : isDisadvantage ? 'text-red-400' : 'text-white/50'
-                  }`}
-                >
-                  {edge.diff > 0 ? '+' : ''}{edge.diff}
-                </span>
-                <RatingBadge rating={edge.defPlayer.rating} size='sm' />
-              </div>
-            </div>
+            </HoverLift>
           );
         })}
-      </div>
+      </Stagger>
     </div>
   );
 }
@@ -659,38 +683,39 @@ function CompactTeamPicker({
 }) {
   return (
     <div>
-      <div className='text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2'>
+      <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-wider text-muted-foreground mb-[var(--space-2)]'>
         {label}
       </div>
-      <div className='space-y-3'>
+      <div className='space-y-[var(--space-3)]'>
         {['AFC', 'NFC'].map((conf) => (
           <div key={conf}>
-            <div className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 mb-1.5'>
+            <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold uppercase tracking-widest text-muted-foreground/60 mb-[var(--space-2)]'>
               {conf}
             </div>
-            <div className='grid grid-cols-4 gap-1.5'>
+            <div className='grid grid-cols-4 gap-[var(--space-2)]'>
               {DIVISIONS.filter((d) => d.conference === conf)
                 .flatMap((d) => d.teams)
                 .map((team) => {
                   const color = getTeamColor(team);
                   const isSelected = selectedTeam === team;
                   return (
-                    <button
-                      key={team}
-                      onClick={() => onSelectTeam(team)}
-                      className={`rounded-md px-2 py-1.5 text-xs font-bold transition-all ${
-                        isSelected
-                          ? 'text-white shadow-md scale-105'
-                          : 'bg-muted hover:opacity-80'
-                      }`}
-                      style={
-                        isSelected
-                          ? { backgroundColor: color, boxShadow: `0 2px 8px ${color}44` }
-                          : { borderLeft: `2px solid ${color}` }
-                      }
-                    >
-                      {team}
-                    </button>
+                    <PressScale key={team}>
+                      <button
+                        onClick={() => onSelectTeam(team)}
+                        className={`w-full rounded-md px-[var(--space-2)] py-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold transition-[background-color,box-shadow] duration-[var(--motion-fast)] ${
+                          isSelected
+                            ? 'text-white shadow-md scale-105'
+                            : 'bg-muted hover:opacity-80'
+                        }`}
+                        style={
+                          isSelected
+                            ? { backgroundColor: color, boxShadow: `0 2px 8px ${color}44` }
+                            : { borderLeft: `2px solid ${color}` }
+                        }
+                      >
+                        {team}
+                      </button>
+                    </PressScale>
                   );
                 })}
             </div>
@@ -755,19 +780,19 @@ function buildDefensiveRoster(team: string): Map<string, RatedPlayer | null> {
 
 function MatchupSkeleton() {
   return (
-    <div className='space-y-6'>
+    <div className='space-y-[var(--gap-section)]'>
       <Skeleton className='h-24 w-full rounded-xl' />
-      <div className='grid grid-cols-1 gap-4 lg:grid-cols-2'>
-        <div className='space-y-1'>
+      <div className='grid grid-cols-1 gap-[var(--gap-stack)] lg:grid-cols-2'>
+        <div className='space-y-[var(--space-1)]'>
           <Skeleton className='h-20 w-full rounded-t-xl' />
           {Array.from({ length: 8 }).map((_, i) => (
-            <Skeleton key={i} className='h-12 w-full' />
+            <Skeleton key={i} className='h-[var(--space-12)] w-full' />
           ))}
         </div>
-        <div className='space-y-1'>
+        <div className='space-y-[var(--space-1)]'>
           <Skeleton className='h-20 w-full rounded-t-xl' />
           {Array.from({ length: 8 }).map((_, i) => (
-            <Skeleton key={i} className='h-12 w-full' />
+            <Skeleton key={i} className='h-[var(--space-12)] w-full' />
           ))}
         </div>
       </div>
@@ -836,9 +861,9 @@ export function MatchupView() {
   }, [opponent]);
 
   return (
-    <div className='space-y-6'>
+    <FadeIn className='space-y-[var(--gap-section)]'>
       {/* Controls */}
-      <div className='flex flex-wrap items-center gap-4'>
+      <div className='flex flex-wrap items-center gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
           <SelectTrigger className='w-28'>
             <SelectValue placeholder='Season' />
@@ -853,7 +878,7 @@ export function MatchupView() {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='w-24'>
+          <SelectTrigger className='w-28'>
             <SelectValue placeholder='Week' />
           </SelectTrigger>
           <SelectContent>
@@ -879,7 +904,7 @@ export function MatchupView() {
 
       {/* Team picker */}
       <Card>
-        <CardContent className='pt-6'>
+        <CardContent className='pt-[var(--space-6)]'>
           <CompactTeamPicker
             selectedTeam={selectedTeam}
             onSelectTeam={setSelectedTeam}
@@ -888,102 +913,105 @@ export function MatchupView() {
         </CardContent>
       </Card>
 
-      {/* Matchup display */}
-      {selectedTeam && isLoading && <MatchupSkeleton />}
-
-      {selectedTeam && !isLoading && !matchup && (
-        <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.info className='text-muted-foreground mb-2 h-8 w-8' />
-            <p className='text-muted-foreground text-sm'>
-              No matchup found for {getTeamFullName(selectedTeam)} in Week {week}.
-            </p>
-            <p className='text-muted-foreground mt-1 text-xs'>
-              This team may be on bye or prediction data is not available for this week.
-            </p>
-          </CardContent>
-        </Card>
-      )}
-
-      {selectedTeam && !isLoading && matchup && opponent && (
-        <>
-          {/* Game header bar */}
-          <MatchupHeaderBar
-            homeTeam={matchup.home_team}
-            awayTeam={matchup.away_team}
-            prediction={matchup}
-          />
-
-          {/* Split-screen panels */}
-          <div className='grid grid-cols-1 gap-4 lg:grid-cols-2'>
-            <TeamPanel
-              team={selectedTeam}
-              side='offense'
-              roster={offenseRoster}
-              opponentRatings={defenseRoster}
-            />
-            <TeamPanel
-              team={opponent}
-              side='defense'
-              roster={defenseRoster}
-            />
-          </div>
-
-          {/* Matchup advantages */}
-          <MatchupAdvantages
-            offenseRoster={offenseRoster}
-            defenseRoster={defenseRoster}
-          />
-
-          {/* Matchup notes */}
-          <div className='rounded-xl border border-white/10 bg-gray-900/50 p-4'>
-            <h4 className='text-xs font-semibold uppercase tracking-widest text-white/40 mb-3'>
-              Matchup Notes
-            </h4>
-            <div className='space-y-2 text-sm text-white/60'>
-              <p>
-                {getTeamFullName(selectedTeam)} ({isHome ? 'Home' : 'Away'}) vs{' '}
-                {getTeamFullName(opponent)} ({isHome ? 'Away' : 'Home'})
-              </p>
-              {matchup.spread_edge !== null && Math.abs(matchup.spread_edge) >= 1.5 && (
-                <p className='flex items-center gap-2'>
-                  <Icons.trendingUp className='h-4 w-4 text-emerald-400' />
-                  <span>
-                    Model sees {Math.abs(matchup.spread_edge).toFixed(1)}-point spread edge.{' '}
-                    <span className='text-white/80 font-medium'>
-                      {matchup.ats_pick}
-                    </span>
-                  </span>
+      {/* Matchup display — skeleton → content crossfade */}
+      {selectedTeam && (
+        <DataLoadReveal loading={isLoading} skeleton={<MatchupSkeleton />}>
+          {!matchup ? (
+            <Card>
+              <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+                <Icons.info className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+                <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                  No matchup found for {getTeamFullName(selectedTeam)} in Week {week}.
                 </p>
-              )}
-              {matchup.total_edge !== null && Math.abs(matchup.total_edge) >= 1.5 && (
-                <p className='flex items-center gap-2'>
-                  <Icons.target className='h-4 w-4 text-blue-400' />
-                  <span>
-                    {Math.abs(matchup.total_edge).toFixed(1)}-point total edge.{' '}
-                    <span className='text-white/80 font-medium'>
-                      {matchup.ou_pick}
-                    </span>
-                  </span>
+                <p className='text-muted-foreground mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                  This team may be on bye or prediction data is not available for this week.
                 </p>
-              )}
-              {/* Low-rated player callouts */}
-              {Array.from(offenseRoster.values())
-                .filter((p) => p && p.rating < 60 && p.position !== 'OL')
-                .map((p) => (
-                  <p key={p!.player_id} className='flex items-center gap-2'>
-                    <Icons.alertCircle className='h-4 w-4 text-orange-400' />
-                    <span>
-                      <span className='text-white/80 font-medium'>{p!.player_name}</span>{' '}
-                      ({p!.position}) rated just {p!.rating} -- possible injury replacement or
-                      depth starter. Check news for context.
-                    </span>
+              </CardContent>
+            </Card>
+          ) : !opponent ? null : (
+            <div className='space-y-[var(--gap-section)]'>
+              {/* Game header bar */}
+              <MatchupHeaderBar
+                homeTeam={matchup.home_team}
+                awayTeam={matchup.away_team}
+                prediction={matchup}
+              />
+
+              {/* Split-screen panels */}
+              <div className='grid grid-cols-1 gap-[var(--gap-stack)] lg:grid-cols-2'>
+                <TeamPanel
+                  team={selectedTeam}
+                  side='offense'
+                  roster={offenseRoster}
+                  opponentRatings={defenseRoster}
+                />
+                <TeamPanel
+                  team={opponent}
+                  side='defense'
+                  roster={defenseRoster}
+                />
+              </div>
+
+              {/* Matchup advantages */}
+              <MatchupAdvantages
+                offenseRoster={offenseRoster}
+                defenseRoster={defenseRoster}
+              />
+
+              {/* Matchup notes */}
+              <div className='rounded-xl border border-white/10 bg-gray-900/50 p-[var(--pad-card)]'>
+                <h4 className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-widest text-white/40 mb-[var(--space-3)]'>
+                  Matchup Notes
+                </h4>
+                <div className='space-y-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/60'>
+                  <p>
+                    {getTeamFullName(selectedTeam)} ({isHome ? 'Home' : 'Away'}) vs{' '}
+                    {getTeamFullName(opponent)} ({isHome ? 'Away' : 'Home'})
                   </p>
-                ))}
+                  {matchup.spread_edge !== null && Math.abs(matchup.spread_edge) >= 1.5 && (
+                    <p className='flex items-center gap-[var(--space-2)]'>
+                      <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-emerald-400' />
+                      <span>
+                        Model sees {Math.abs(matchup.spread_edge).toFixed(1)}-point spread edge.{' '}
+                        <span className='text-white/80 font-medium'>
+                          {matchup.ats_pick}
+                        </span>
+                      </span>
+                    </p>
+                  )}
+                  {matchup.total_edge !== null && Math.abs(matchup.total_edge) >= 1.5 && (
+                    <p className='flex items-center gap-[var(--space-2)]'>
+                      <Icons.target className='h-[var(--space-4)] w-[var(--space-4)] text-blue-400' />
+                      <span>
+                        {Math.abs(matchup.total_edge).toFixed(1)}-point total edge.{' '}
+                        <span className='text-white/80 font-medium'>
+                          {matchup.ou_pick}
+                        </span>
+                      </span>
+                    </p>
+                  )}
+                  {/* Low-rated player callouts */}
+                  {Array.from(offenseRoster.values())
+                    .filter((p) => p && p.rating < 60 && p.position !== 'OL')
+                    .map((p) => (
+                      <p
+                        key={p!.player_id}
+                        className='flex items-center gap-[var(--space-2)]'
+                      >
+                        <Icons.alertCircle className='h-[var(--space-4)] w-[var(--space-4)] text-orange-400' />
+                        <span>
+                          <span className='text-white/80 font-medium'>{p!.player_name}</span>{' '}
+                          ({p!.position}) rated just {p!.rating} -- possible injury replacement or
+                          depth starter. Check news for context.
+                        </span>
+                      </p>
+                    ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </>
+          )}
+        </DataLoadReveal>
       )}
-    </div>
+    </FadeIn>
   );
 }
