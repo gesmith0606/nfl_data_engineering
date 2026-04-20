@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Icons } from '@/components/icons';
 import { useState } from 'react';
+import { FadeIn, DataLoadReveal } from '@/lib/motion-primitives';
 
 export function LineupView() {
   const [season, setSeason] = useState(2026);
@@ -25,9 +26,9 @@ export function LineupView() {
   );
 
   return (
-    <div className='space-y-6'>
+    <FadeIn className='space-y-[var(--gap-section)]'>
       {/* Season/Week selectors */}
-      <div className='flex flex-wrap items-center gap-4'>
+      <div className='flex flex-wrap items-center gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
           <SelectTrigger className='w-28'>
             <SelectValue placeholder='Season' />
@@ -42,7 +43,7 @@ export function LineupView() {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='w-24'>
+          <SelectTrigger className='w-28'>
             <SelectValue placeholder='Week' />
           </SelectTrigger>
           <SelectContent>
@@ -65,27 +66,32 @@ export function LineupView() {
         </CardContent>
       </Card>
 
-      {/* Field View */}
+      {/* Field View with skeleton → content crossfade */}
       {team && (
         <Card>
-          <CardContent className='pt-6'>
-            {isLoading ? (
-              <div className='flex items-center justify-center py-12'>
-                <Icons.spinner className='text-muted-foreground h-8 w-8 animate-spin' />
-              </div>
-            ) : isError ? (
-              <div className='flex flex-col items-center justify-center py-12'>
-                <Icons.alertCircle className='text-muted-foreground mb-2 h-8 w-8' />
-                <p className='text-muted-foreground text-sm'>
-                  Failed to load lineup. Ensure the API is running.
-                </p>
-              </div>
-            ) : lineup ? (
-              <FieldView lineup={lineup} />
-            ) : null}
+          <CardContent className='pt-[var(--space-6)]'>
+            <DataLoadReveal
+              loading={isLoading}
+              skeleton={
+                <div className='flex items-center justify-center py-[var(--space-12)]'>
+                  <Icons.spinner className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)] animate-spin' />
+                </div>
+              }
+            >
+              {isError ? (
+                <div className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+                  <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+                  <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                    Failed to load lineup. Ensure the API is running.
+                  </p>
+                </div>
+              ) : lineup ? (
+                <FieldView lineup={lineup} />
+              ) : null}
+            </DataLoadReveal>
           </CardContent>
         </Card>
       )}
-    </div>
+    </FadeIn>
   );
 }

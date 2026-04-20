@@ -1,6 +1,7 @@
 'use client';
 
 import { getTeamColor } from '@/lib/nfl/team-colors';
+import { PressScale } from '@/lib/motion-primitives';
 
 /** NFL division groupings. */
 const DIVISIONS: { conference: string; division: string; teams: string[] }[] = [
@@ -21,13 +22,13 @@ interface TeamSelectorProps {
 
 export default function TeamSelector({ selectedTeam, onSelectTeam }: TeamSelectorProps) {
   return (
-    <div className='space-y-6'>
+    <div className='space-y-[var(--gap-section)]'>
       {['AFC', 'NFC'].map((conf) => (
         <div key={conf}>
-          <h3 className='text-muted-foreground mb-3 text-sm font-semibold uppercase tracking-wider'>
+          <h3 className='text-muted-foreground mb-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold uppercase tracking-wider'>
             {conf}
           </h3>
-          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+          <div className='grid grid-cols-1 gap-[var(--gap-stack)] sm:grid-cols-2 lg:grid-cols-4'>
             {DIVISIONS.filter((d) => d.conference === conf).map((div) => (
               <DivisionGroup
                 key={`${div.conference}-${div.division}`}
@@ -53,31 +54,32 @@ interface DivisionGroupProps {
 
 function DivisionGroup({ division, teams, selectedTeam, onSelectTeam }: DivisionGroupProps) {
   return (
-    <div className='bg-card rounded-lg border p-3'>
-      <div className='text-muted-foreground mb-2 text-xs font-medium uppercase tracking-wider'>
+    <div className='bg-card rounded-lg border p-[var(--pad-card-sm)]'>
+      <div className='text-muted-foreground mb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium uppercase tracking-wider'>
         {division}
       </div>
-      <div className='grid grid-cols-2 gap-2'>
+      <div className='grid grid-cols-2 gap-[var(--space-2)]'>
         {teams.map((team) => {
           const color = getTeamColor(team);
           const isSelected = selectedTeam === team;
           return (
-            <button
-              key={team}
-              onClick={() => onSelectTeam(team)}
-              className={`relative flex items-center justify-center rounded-md px-3 py-2.5 text-sm font-bold transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 ${
-                isSelected
-                  ? 'text-white shadow-md scale-105'
-                  : 'bg-muted hover:shadow-sm'
-              }`}
-              style={
-                isSelected
-                  ? { backgroundColor: color, boxShadow: `0 4px 12px ${color}44` }
-                  : { borderLeft: `3px solid ${color}` }
-              }
-            >
-              {team}
-            </button>
+            <PressScale key={team}>
+              <button
+                onClick={() => onSelectTeam(team)}
+                className={`relative flex w-full items-center justify-center rounded-md px-[var(--space-3)] py-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 ${
+                  isSelected
+                    ? 'text-white shadow-md scale-105'
+                    : 'bg-muted hover:shadow-sm'
+                }`}
+                style={
+                  isSelected
+                    ? { backgroundColor: color, boxShadow: `0 4px 12px ${color}44` }
+                    : { borderLeft: `3px solid ${color}` }
+                }
+              >
+                {team}
+              </button>
+            </PressScale>
           );
         })}
       </div>

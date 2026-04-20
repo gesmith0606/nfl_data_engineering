@@ -3,19 +3,8 @@
 import { useRouter } from 'next/navigation';
 import type { TeamLineup, LineupPlayer } from '@/lib/nfl/types';
 import { getTeamColor } from '@/lib/nfl/team-colors';
-
-/** Position badge colors matching existing design language. */
-const POSITION_COLORS: Record<string, string> = {
-  QB: '#E31837',
-  RB: '#00A6A0',
-  WR: '#4F46E5',
-  TE: '#D97706',
-  K: '#6B7280'
-};
-
-function getPositionColor(position: string): string {
-  return POSITION_COLORS[position] ?? '#6B7280';
-}
+import { getPositionColor } from '@/lib/design-tokens';
+import { HoverLift, Stagger } from '@/lib/motion-primitives';
 
 interface PlayerCardProps {
   player: LineupPlayer;
@@ -32,53 +21,76 @@ function PlayerCard({ player, compact }: PlayerCardProps) {
       : player.player_name;
 
   return (
-    <button
-      onClick={() => router.push(`/dashboard/players/${player.player_id}`)}
-      className={`group cursor-pointer rounded-lg bg-black/60 backdrop-blur-sm text-white text-center transition-all hover:bg-black/80 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50 ${
-        compact ? 'px-2 py-1.5' : 'px-3 py-2'
-      }`}
-      style={{ borderTop: `3px solid ${posColor}` }}
-      title={`${player.player_name} (${player.position}) - Click for details`}
-    >
-      <div className='flex items-center justify-center gap-1.5 mb-0.5'>
-        <span
-          className='inline-flex items-center rounded px-1 py-0.5 text-[10px] font-bold uppercase leading-none'
-          style={{ backgroundColor: posColor }}
-        >
-          {player.position}
-        </span>
-        <span className={`font-medium leading-tight ${compact ? 'text-xs' : 'text-sm'}`}>
-          {truncatedName}
-        </span>
-      </div>
-
-      {player.projected_points !== null ? (
-        <>
-          <div className={`font-bold tabular-nums ${compact ? 'text-lg' : 'text-xl'}`}>
-            {player.projected_points.toFixed(1)}
-          </div>
-          {player.projected_floor !== null && player.projected_ceiling !== null && (
-            <div className='text-[10px] text-white/60 tabular-nums'>
-              {player.projected_floor.toFixed(1)} - {player.projected_ceiling.toFixed(1)}
-            </div>
-          )}
-        </>
-      ) : (
-        <div className={`font-bold text-white/40 ${compact ? 'text-lg' : 'text-xl'}`}>--</div>
-      )}
-
-      {player.snap_pct !== null && (
-        <div className='text-[10px] text-white/50 mt-0.5'>
-          {Math.round(player.snap_pct * 100)}% snaps
+    <HoverLift lift={3} scale={1.03}>
+      <button
+        onClick={() => router.push(`/dashboard/players/${player.player_id}`)}
+        className={`group w-full cursor-pointer rounded-lg bg-black/60 backdrop-blur-sm text-white text-center transition-colors hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/50 ${
+          compact ? 'px-[var(--space-2)] py-[var(--space-1)]' : 'px-[var(--space-3)] py-[var(--space-2)]'
+        }`}
+        style={{ borderTop: `3px solid ${posColor}` }}
+        title={`${player.player_name} (${player.position}) - Click for details`}
+      >
+        <div className='flex items-center justify-center gap-[var(--space-1)] mb-[var(--space-1)]'>
+          <span
+            className='inline-flex items-center rounded px-[var(--space-1)] py-0 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold uppercase'
+            style={{ backgroundColor: posColor }}
+          >
+            {player.position}
+          </span>
+          <span
+            className={`font-medium leading-tight ${
+              compact
+                ? 'text-[length:var(--fs-xs)]'
+                : 'text-[length:var(--fs-sm)]'
+            }`}
+          >
+            {truncatedName}
+          </span>
         </div>
-      )}
-    </button>
+
+        {player.projected_points !== null ? (
+          <>
+            <div
+              className={`font-bold tabular-nums ${
+                compact ? 'text-[length:var(--fs-lg)]' : 'text-[length:var(--fs-h3)]'
+              }`}
+            >
+              {player.projected_points.toFixed(1)}
+            </div>
+            {player.projected_floor !== null && player.projected_ceiling !== null && (
+              <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/60 tabular-nums'>
+                {player.projected_floor.toFixed(1)} - {player.projected_ceiling.toFixed(1)}
+              </div>
+            )}
+          </>
+        ) : (
+          <div
+            className={`font-bold text-white/40 ${
+              compact ? 'text-[length:var(--fs-lg)]' : 'text-[length:var(--fs-h3)]'
+            }`}
+          >
+            --
+          </div>
+        )}
+
+        {player.snap_pct !== null && (
+          <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/50 mt-[var(--space-1)]'>
+            {Math.round(player.snap_pct * 100)}% snaps
+          </div>
+        )}
+      </button>
+    </HoverLift>
   );
 }
 
 /** Horizontal yard line stripe. */
 function YardLine({ top }: { top: string }) {
-  return <div className='absolute left-4 right-4 h-px bg-white/15' style={{ top }} />;
+  return (
+    <div
+      className='absolute left-[var(--space-4)] right-[var(--space-4)] h-px bg-white/15'
+      style={{ top }}
+    />
+  );
 }
 
 interface FieldViewProps {
@@ -121,20 +133,22 @@ export default function FieldView({ lineup }: FieldViewProps) {
           <YardLine top='90%' />
 
           {/* Team header */}
-          <div className='relative z-10 flex items-center justify-between px-6 py-3'>
+          <div className='relative z-10 flex items-center justify-between px-[var(--space-6)] py-[var(--space-3)]'>
             <div
-              className='flex items-center gap-3 rounded-lg px-4 py-2'
+              className='flex items-center gap-[var(--space-3)] rounded-lg px-[var(--space-4)] py-[var(--space-2)]'
               style={{ backgroundColor: `${teamColor}cc` }}
             >
-              <span className='text-xl font-bold text-white'>{lineup.team}</span>
+              <span className='text-[length:var(--fs-h3)] leading-[var(--lh-h3)] font-bold text-white'>
+                {lineup.team}
+              </span>
               {lineup.implied_total !== null && (
-                <span className='text-sm text-white/80'>
+                <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/80'>
                   Implied: {lineup.implied_total.toFixed(1)}
                 </span>
               )}
             </div>
             {lineup.team_projected_total !== null && (
-              <div className='rounded-lg bg-black/40 px-3 py-1.5 text-sm text-white/80'>
+              <div className='rounded-lg bg-black/40 px-[var(--space-3)] py-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/80'>
                 Projected Total:{' '}
                 <span className='font-bold text-white'>
                   {lineup.team_projected_total.toFixed(1)}
@@ -143,14 +157,14 @@ export default function FieldView({ lineup }: FieldViewProps) {
             )}
           </div>
 
-          {/* Field grid */}
-          <div className='relative z-10 px-6 pb-6'>
-            <div className='mb-2 text-center text-[10px] font-medium uppercase tracking-widest text-white/30'>
+          {/* Field grid (player entrances cascade in) */}
+          <Stagger className='relative z-10 px-[var(--space-6)] pb-[var(--space-6)]'>
+            <div className='mb-[var(--space-2)] text-center text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium uppercase tracking-widest text-white/30'>
               Line of Scrimmage
             </div>
 
             {/* Row 1: WR1, WR3/Slot, TE */}
-            <div className='grid grid-cols-3 gap-4 mb-6'>
+            <div className='grid grid-cols-3 gap-[var(--gap-stack)] mb-[var(--gap-section)]'>
               <div className='flex justify-center'>
                 {playersByPos.get('wr_left') && (
                   <PlayerCard player={playersByPos.get('wr_left')!} />
@@ -167,7 +181,7 @@ export default function FieldView({ lineup }: FieldViewProps) {
             </div>
 
             {/* Row 2: WR2 (offset) */}
-            <div className='grid grid-cols-3 gap-4 mb-6'>
+            <div className='grid grid-cols-3 gap-[var(--gap-stack)] mb-[var(--gap-section)]'>
               <div />
               <div className='flex justify-center'>
                 {playersByPos.get('wr_right') && (
@@ -178,12 +192,12 @@ export default function FieldView({ lineup }: FieldViewProps) {
             </div>
 
             {/* Row 3: RB */}
-            <div className='flex justify-center mb-6'>
+            <div className='flex justify-center mb-[var(--gap-section)]'>
               {playersByPos.get('rb') && <PlayerCard player={playersByPos.get('rb')!} />}
             </div>
 
             {/* Row 4: QB */}
-            <div className='flex justify-center mb-6'>
+            <div className='flex justify-center mb-[var(--gap-section)]'>
               {playersByPos.get('qb') && <PlayerCard player={playersByPos.get('qb')!} />}
             </div>
 
@@ -191,22 +205,27 @@ export default function FieldView({ lineup }: FieldViewProps) {
             <div className='flex justify-center'>
               {playersByPos.get('k') && <PlayerCard player={playersByPos.get('k')!} compact />}
             </div>
-          </div>
+          </Stagger>
 
           {/* End zone accent */}
-          <div className='h-2 w-full' style={{ backgroundColor: teamColor }} />
+          <div className='h-[var(--space-2)] w-full' style={{ backgroundColor: teamColor }} />
         </div>
       </div>
 
       {/* Mobile list view */}
       <div className='block md:hidden'>
-        <div className='rounded-xl overflow-hidden' style={{ borderTop: `4px solid ${teamColor}` }}>
+        <div
+          className='rounded-xl overflow-hidden'
+          style={{ borderTop: `4px solid ${teamColor}` }}
+        >
           <div
-            className='flex items-center justify-between px-4 py-3'
+            className='flex items-center justify-between px-[var(--space-4)] py-[var(--space-3)]'
             style={{ backgroundColor: `${teamColor}22` }}
           >
-            <span className='text-lg font-bold text-gray-900 dark:text-white'>{lineup.team}</span>
-            <div className='flex gap-3 text-xs text-gray-600 dark:text-gray-400'>
+            <span className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-bold text-gray-900 dark:text-white'>
+              {lineup.team}
+            </span>
+            <div className='flex gap-[var(--space-3)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-gray-600 dark:text-gray-400'>
               {lineup.implied_total !== null && (
                 <span>Implied: {lineup.implied_total.toFixed(1)}</span>
               )}
@@ -218,11 +237,11 @@ export default function FieldView({ lineup }: FieldViewProps) {
             </div>
           </div>
 
-          <div className='divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900'>
+          <Stagger className='divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900'>
             {sortedPlayers.map((player) => (
               <MobilePlayerRow key={player.player_id} player={player} />
             ))}
-          </div>
+          </Stagger>
         </div>
       </div>
     </div>
@@ -236,21 +255,21 @@ function MobilePlayerRow({ player }: { player: LineupPlayer }) {
   return (
     <button
       onClick={() => router.push(`/dashboard/players/${player.player_id}`)}
-      className='flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50'
+      className='flex w-full items-center justify-between px-[var(--space-4)] py-[var(--space-3)] text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50'
     >
-      <div className='flex items-center gap-3'>
+      <div className='flex items-center gap-[var(--space-3)]'>
         <span
-          className='inline-flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold text-white'
+          className='inline-flex h-[var(--space-8)] w-[var(--space-8)] items-center justify-center rounded-lg text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold text-white'
           style={{ backgroundColor: posColor }}
         >
           {player.position}
         </span>
         <div>
-          <div className='text-sm font-medium text-gray-900 dark:text-white'>
+          <div className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium text-gray-900 dark:text-white'>
             {player.player_name}
           </div>
           {player.snap_pct !== null && (
-            <div className='text-xs text-gray-500 dark:text-gray-400'>
+            <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-gray-500 dark:text-gray-400'>
               {Math.round(player.snap_pct * 100)}% snaps
             </div>
           )}
@@ -260,17 +279,19 @@ function MobilePlayerRow({ player }: { player: LineupPlayer }) {
       <div className='text-right'>
         {player.projected_points !== null ? (
           <>
-            <div className='text-lg font-bold tabular-nums text-gray-900 dark:text-white'>
+            <div className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-bold tabular-nums text-gray-900 dark:text-white'>
               {player.projected_points.toFixed(1)}
             </div>
             {player.projected_floor !== null && player.projected_ceiling !== null && (
-              <div className='text-[10px] tabular-nums text-gray-500 dark:text-gray-400'>
+              <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] tabular-nums text-gray-500 dark:text-gray-400'>
                 {player.projected_floor.toFixed(1)} - {player.projected_ceiling.toFixed(1)}
               </div>
             )}
           </>
         ) : (
-          <div className='text-lg font-bold text-gray-400'>--</div>
+          <div className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-bold text-gray-400'>
+            --
+          </div>
         )}
       </div>
     </button>
