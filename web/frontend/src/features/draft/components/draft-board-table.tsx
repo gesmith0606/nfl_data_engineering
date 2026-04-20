@@ -134,7 +134,10 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
         Showing {displayed.length} of {filtered.length} available players
       </p>
 
-      <div className='rounded-md border'>
+      {/* Mobile (Phase 62-05 DSGN-04): wrap the 9-column table in a horizontal
+       *  scroll container so the draft board remains usable at 375px without
+       *  overflowing the page gutter. */}
+      <div className='rounded-md border overflow-x-auto'>
         <Table>
           <TableHeader>
             <TableRow>
