@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table';
 import { getCommonPinningStyles } from '@/lib/data-table';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
 
 interface DataTableProps<TData> extends React.ComponentProps<'div'> {
   table: TanstackTable<TData>;
@@ -33,6 +34,7 @@ export function DataTable<TData>({ table, actionBar, children }: DataTableProps<
                       <TableHead
                         key={header.id}
                         colSpan={header.colSpan}
+                        className={cn(header.column.columnDef.meta?.headerClassName)}
                         style={{
                           ...getCommonPinningStyles({ column: header.column })
                         }}
@@ -52,6 +54,7 @@ export function DataTable<TData>({ table, actionBar, children }: DataTableProps<
                       {row.getVisibleCells().map((cell) => (
                         <TableCell
                           key={cell.id}
+                          className={cn(cell.column.columnDef.meta?.cellClassName)}
                           style={{
                             ...getCommonPinningStyles({ column: cell.column })
                           }}

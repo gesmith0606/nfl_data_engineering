@@ -49,11 +49,12 @@ export function ProjectionsTable() {
 
   return (
     <div className='space-y-[var(--gap-stack)]'>
-      {/* Filters */}
+      {/* Filters — on mobile (<sm) these stack into a 2-column grid so the
+       *  Select triggers all fit in 343px without horizontal scroll. */}
       <Card>
-        <CardContent className='flex flex-wrap items-center gap-[var(--gap-stack)] pt-[var(--space-6)]'>
+        <CardContent className='grid grid-cols-2 items-center gap-[var(--space-2)] pt-[var(--space-6)] sm:flex sm:flex-wrap sm:gap-[var(--gap-stack)]'>
           <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
-            <SelectTrigger className='w-28'>
+            <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
               <SelectValue placeholder='Season' />
             </SelectTrigger>
             <SelectContent>
@@ -66,7 +67,7 @@ export function ProjectionsTable() {
           </Select>
 
           <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-            <SelectTrigger className='w-24'>
+            <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-24'>
               <SelectValue placeholder='Week' />
             </SelectTrigger>
             <SelectContent>
@@ -78,10 +79,18 @@ export function ProjectionsTable() {
             </SelectContent>
           </Select>
 
-          <Tabs value={scoring} onValueChange={(v) => setScoring(v as ScoringFormat)}>
-            <TabsList>
+          <Tabs
+            value={scoring}
+            onValueChange={(v) => setScoring(v as ScoringFormat)}
+            className='col-span-2 sm:col-span-1'
+          >
+            <TabsList className='w-full sm:w-auto'>
               {SCORING_OPTIONS.map((opt) => (
-                <TabsTrigger key={opt.value} value={opt.value}>
+                <TabsTrigger
+                  key={opt.value}
+                  value={opt.value}
+                  className='flex-1 sm:flex-initial'
+                >
                   {opt.label}
                 </TabsTrigger>
               ))}
@@ -90,11 +99,12 @@ export function ProjectionsTable() {
         </CardContent>
       </Card>
 
-      {/* Position tabs */}
+      {/* Position tabs — full-width on mobile so the tabs span the whole row
+       *  and each tab still clears the 44px tap minimum. */}
       <Tabs value={position} onValueChange={(v) => setPosition(v as Position)}>
-        <TabsList>
+        <TabsList className='w-full sm:w-auto'>
           {POSITIONS.map((pos) => (
-            <TabsTrigger key={pos} value={pos}>
+            <TabsTrigger key={pos} value={pos} className='flex-1 sm:flex-initial'>
               {pos === 'ALL' ? 'All' : pos}
             </TabsTrigger>
           ))}

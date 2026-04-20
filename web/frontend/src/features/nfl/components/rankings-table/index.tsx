@@ -144,14 +144,20 @@ export function RankingsTable() {
 
   return (
     <div className='space-y-[var(--gap-stack)]'>
-      {/* Controls bar */}
+      {/* Controls bar — mobile: each control takes its own row and spans the
+       *  full card width so tap targets meet 44px. sm+: flex-wrap reverts to
+       *  desktop rhythm. */}
       <Card>
-        <CardContent className='flex flex-wrap items-center gap-[var(--gap-stack)] pt-[var(--space-6)]'>
+        <CardContent className='flex flex-col gap-[var(--space-2)] pt-[var(--space-6)] sm:flex-row sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>
           {/* Scoring format */}
           <Tabs value={scoring} onValueChange={(v) => setScoring(v as ScoringFormat)}>
-            <TabsList>
+            <TabsList className='w-full sm:w-auto'>
               {SCORING_OPTIONS.map((opt) => (
-                <TabsTrigger key={opt.value} value={opt.value}>
+                <TabsTrigger
+                  key={opt.value}
+                  value={opt.value}
+                  className='flex-1 sm:flex-initial'
+                >
                   {opt.label}
                 </TabsTrigger>
               ))}
@@ -160,9 +166,13 @@ export function RankingsTable() {
 
           {/* Position tabs */}
           <Tabs value={position} onValueChange={(v) => setPosition(v as Position)}>
-            <TabsList>
+            <TabsList className='w-full sm:w-auto'>
               {POSITIONS.map((pos) => (
-                <TabsTrigger key={pos} value={pos}>
+                <TabsTrigger
+                  key={pos}
+                  value={pos}
+                  className='flex-1 sm:flex-initial'
+                >
                   {pos === 'ALL' ? 'All' : pos}
                 </TabsTrigger>
               ))}
@@ -170,13 +180,13 @@ export function RankingsTable() {
           </Tabs>
 
           {/* Search */}
-          <div className='relative ml-auto min-w-[200px]'>
-            <Icons.search className='text-muted-foreground absolute left-[var(--space-2)] top-[var(--space-2)] h-[var(--space-4)] w-[var(--space-4)]' />
+          <div className='relative w-full sm:ml-auto sm:w-auto sm:min-w-[200px]'>
+            <Icons.search className='text-muted-foreground absolute left-[var(--space-3)] top-1/2 -translate-y-1/2 h-[var(--space-4)] w-[var(--space-4)] pointer-events-none' />
             <Input
               placeholder='Search players...'
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className='pl-[var(--space-8)] h-9'
+              className='pl-[var(--space-8)] h-[var(--tap-min)] sm:h-9'
             />
           </div>
         </CardContent>
@@ -242,32 +252,36 @@ export function RankingsTable() {
         </Card>
       ) : (
         <Card className='overflow-hidden'>
+          {/* Mobile-first strategy: keep scroll wrapper but hide the 3 least-
+           *  critical columns (#, Team, Pos Rk) under sm: and the Range bar +
+           *  Tier under md:. Player name stays sticky-left so horizontal
+           *  scrolling doesn't orphan rows. */}
           <div className='overflow-x-auto'>
             <table className='w-full text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               <thead className='bg-muted/50 sticky top-0 z-10'>
                 <tr className='border-b'>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-14'>
+                  <th className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-14'>
                     #
                   </th>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground min-w-[180px]'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground min-w-[140px] md:min-w-[180px] sticky left-0 bg-muted/50 z-10'>
                     Player
                   </th>
                   <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-14'>
                     Pos
                   </th>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-16'>
+                  <th className='hidden sm:table-cell px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-16'>
                     Team
                   </th>
                   <th className='px-[var(--space-3)] py-[var(--space-3)] text-right font-semibold text-muted-foreground w-20'>
                     Pts
                   </th>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-center font-semibold text-muted-foreground w-[140px]'>
+                  <th className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)] text-center font-semibold text-muted-foreground w-[140px]'>
                     Range
                   </th>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-20'>
+                  <th className='hidden sm:table-cell px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-20'>
                     Tier
                   </th>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-right font-semibold text-muted-foreground w-16'>
+                  <th className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)] text-right font-semibold text-muted-foreground w-16'>
                     Pos Rk
                   </th>
                 </tr>
@@ -348,19 +362,22 @@ function PlayerRow({
     <tr
       className={`border-b border-border/50 hover:bg-muted/30 transition-colors duration-[var(--motion-base)] ease-[var(--ease-out-standard)] ${tierBg}`}
     >
-      {/* Overall rank */}
-      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+      {/* Overall rank — desktop only */}
+      <td className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)]'>
         <span className='text-muted-foreground tabular-nums font-medium text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {position === 'ALL' ? player.overall_rank : (player.position_rank ?? '-')}
         </span>
       </td>
 
-      {/* Player name */}
-      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
-        <div className='flex items-center gap-[var(--space-2)]'>
+      {/* Player name — sticky-left on mobile so horizontal scroll doesn't
+       *  orphan rows when the narrower layout still overflows. */}
+      <td
+        className={`px-[var(--space-3)] min-h-[var(--tap-min)] py-[var(--space-3)] sticky left-0 z-[1] ${tierBg || 'bg-background'}`}
+      >
+        <div className='flex min-h-[var(--tap-min)] items-center gap-[var(--space-2)]'>
           <Link
             href={`/dashboard/players/${player.player_id}`}
-            className='font-medium hover:underline truncate'
+            className='font-medium hover:underline truncate block max-w-[14ch] sm:max-w-none'
           >
             {player.player_name}
           </Link>
@@ -385,8 +402,8 @@ function PlayerRow({
         </Badge>
       </td>
 
-      {/* Team */}
-      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+      {/* Team — hidden below sm: */}
+      <td className='hidden sm:table-cell px-[var(--space-3)] py-[var(--space-3)]'>
         <div className='flex items-center gap-[var(--space-2)]'>
           <span
             className='inline-block h-[var(--space-2)] w-[var(--space-2)] shrink-0 rounded-full'
@@ -398,31 +415,28 @@ function PlayerRow({
         </div>
       </td>
 
-      {/* Projected points */}
+      {/* Projected points — always visible */}
       <td className='px-[var(--space-3)] py-[var(--space-3)] text-right'>
         <span className='font-bold tabular-nums text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
           {pts.toFixed(1)}
         </span>
       </td>
 
-      {/* Floor/ceiling range bar */}
-      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+      {/* Floor/ceiling range bar — desktop only */}
+      <td className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)]'>
         <div className='flex items-center gap-[var(--space-2)]'>
           <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground tabular-nums w-[var(--space-8)] text-right shrink-0'>
             {floor.toFixed(0)}
           </span>
           <div className='flex-1 h-2.5 bg-muted rounded-full overflow-hidden relative min-w-[60px]'>
-            {/* Empty space for floor */}
             <div
               className='absolute inset-y-0 left-0 bg-transparent'
               style={{ width: `${floorPct}%` }}
             />
-            {/* Projected points bar */}
             <div
               className='absolute inset-y-0 bg-primary/60 rounded-l-full'
               style={{ left: `${floorPct}%`, width: `${ptsPct}%` }}
             />
-            {/* Ceiling extension */}
             <div
               className='absolute inset-y-0 bg-primary/25 rounded-r-full'
               style={{ left: `${floorPct + ptsPct}%`, width: `${ceilingPct}%` }}
@@ -434,8 +448,8 @@ function PlayerRow({
         </div>
       </td>
 
-      {/* Tier badge */}
-      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+      {/* Tier badge — hidden below sm: */}
+      <td className='hidden sm:table-cell px-[var(--space-3)] py-[var(--space-3)]'>
         <Badge
           variant='outline'
           className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-2)] py-0 ${TIER_CONFIG[player.tier]?.badge ?? ''}`}
@@ -444,8 +458,8 @@ function PlayerRow({
         </Badge>
       </td>
 
-      {/* Position rank */}
-      <td className='px-[var(--space-3)] py-[var(--space-3)] text-right'>
+      {/* Position rank — desktop only */}
+      <td className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)] text-right'>
         <span className='text-muted-foreground tabular-nums text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {player.position}{player.position_rank ?? '-'}
         </span>

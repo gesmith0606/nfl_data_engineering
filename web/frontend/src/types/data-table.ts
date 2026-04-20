@@ -12,6 +12,12 @@ declare module '@tanstack/react-table' {
     range?: [number, number];
     unit?: string;
     icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+    /** Extra className appended to the `<TableHead>` for this column.
+     *  Enables responsive `hidden sm:table-cell` patterns without wrapping
+     *  every cell in a conditional. Added in Phase 62-05 (DSGN-04). */
+    headerClassName?: string;
+    /** Extra className appended to every `<TableCell>` for this column. */
+    cellClassName?: string;
   }
 }
 

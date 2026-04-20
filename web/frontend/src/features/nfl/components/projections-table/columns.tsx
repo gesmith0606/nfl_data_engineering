@@ -7,6 +7,22 @@ import { Column, ColumnDef } from '@tanstack/react-table';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import Link from 'next/link';
 
+/**
+ * Mobile adaptation strategy (Phase 62-05, DSGN-04):
+ *
+ * At 375px viewport this 8-column table would force horizontal scroll. Instead
+ * of card-view rewrite, we hide the less-critical columns below the `sm:`
+ * breakpoint (640px) and keep the essentials visible: Player, Position,
+ * Projected. Everything else (Rank, Team, Floor, Ceiling, Key Stats) is
+ * reached by the player-detail page. This avoids horizontal scroll without
+ * sacrificing the primary task (skim projections, tap a player).
+ *
+ * Under the hood we set `meta.headerClassName` / `meta.cellClassName` and the
+ * DataTable component reads them onto `<TableHead>` / `<TableCell>`.
+ */
+const HIDE_BELOW_SM = 'hidden sm:table-cell';
+const HIDE_BELOW_MD = 'hidden md:table-cell';
+
 export const columns: ColumnDef<PlayerProjection>[] = [
   {
     id: 'position_rank',
@@ -18,7 +34,11 @@ export const columns: ColumnDef<PlayerProjection>[] = [
       <span className='text-muted-foreground tabular-nums font-medium'>
         {cell.getValue<number | null>() ?? '-'}
       </span>
-    )
+    ),
+    meta: {
+      headerClassName: HIDE_BELOW_SM,
+      cellClassName: HIDE_BELOW_SM
+    }
   },
   {
     id: 'player_name',
@@ -29,10 +49,10 @@ export const columns: ColumnDef<PlayerProjection>[] = [
     cell: ({ row }) => {
       const injury = row.original.injury_status;
       return (
-        <div className='flex items-center gap-[var(--space-2)]'>
+        <div className='flex min-h-[var(--tap-min)] items-center gap-[var(--space-2)]'>
           <Link
             href={`/dashboard/players/${row.original.player_id}`}
-            className='font-medium hover:underline'
+            className='font-medium hover:underline truncate max-w-[12ch] sm:max-w-none'
           >
             {row.original.player_name}
           </Link>
@@ -72,6 +92,10 @@ export const columns: ColumnDef<PlayerProjection>[] = [
           </span>
         </div>
       );
+    },
+    meta: {
+      headerClassName: HIDE_BELOW_SM,
+      cellClassName: HIDE_BELOW_SM
     }
   },
   {
@@ -114,7 +138,11 @@ export const columns: ColumnDef<PlayerProjection>[] = [
       <span className='text-muted-foreground tabular-nums'>
         {cell.getValue<number>().toFixed(1)}
       </span>
-    )
+    ),
+    meta: {
+      headerClassName: HIDE_BELOW_MD,
+      cellClassName: HIDE_BELOW_MD
+    }
   },
   {
     id: 'projected_ceiling',
@@ -124,7 +152,11 @@ export const columns: ColumnDef<PlayerProjection>[] = [
       <span className='text-muted-foreground tabular-nums'>
         {cell.getValue<number>().toFixed(1)}
       </span>
-    )
+    ),
+    meta: {
+      headerClassName: HIDE_BELOW_MD,
+      cellClassName: HIDE_BELOW_MD
+    }
   },
   {
     id: 'key_stats',
@@ -141,6 +173,10 @@ export const columns: ColumnDef<PlayerProjection>[] = [
           {stats.slice(0, 2).join(' | ') || '-'}
         </span>
       );
+    },
+    meta: {
+      headerClassName: HIDE_BELOW_MD,
+      cellClassName: HIDE_BELOW_MD
     }
   }
 ];

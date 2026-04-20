@@ -71,6 +71,7 @@
   --space-6: 1.5rem;    /* 24px — major section gap (was `space-y-6` ad-hoc) */
   --space-8: 2rem;      /* 32px — page gutter on desktop */
   --space-10: 2.5rem;   /* 40px — between page header and body on desktop */
+  --space-11: 2.75rem;  /* 44px — iOS minimum tap target (Phase 62-05, DSGN-04) */
   --space-12: 3rem;     /* 48px — meets 44px iOS / 48dp Material touch min */
   --space-16: 4rem;     /* 64px — header bar height / full-row band */
 
@@ -86,6 +87,11 @@
   /* Fixed chrome sizes — named so layout code documents intent rather than
    * carrying magic heights. Consumed by layout/header.tsx. */
   --size-header: var(--space-16); /* 64px header bar */
+
+  /* Mobile tap target — 44×44 iOS minimum (WCAG 2.5.5, iOS HIG). Added in
+   * Phase 62-05 (DSGN-04) so interactive elements on a 375px viewport
+   * satisfy accessibility without duplicating a raw 2.75rem across files. */
+  --tap-min: var(--space-11); /* 44px */
 
   /* ---------------------------------------------------------------------------
    * Motion durations — Emil Kowalski bands
