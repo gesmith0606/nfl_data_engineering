@@ -3,6 +3,22 @@ name: design-taste-frontend
 description: Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.
 ---
 
+## Invocation Routing (Phase 65 consolidation)
+
+**Role:** ALIAS. This skill is a config layer inside `impeccable` — do NOT fire standalone.
+
+The DESIGN_VARIANCE / MOTION_INTENSITY / VISUAL_DENSITY dials and bias-correction rules below are applied AS CONFIG INSIDE `impeccable` when the user specifies those dimensions. Before acting, confirm the right entry point:
+
+- **Greenfield UI (new page/component):** → use `/impeccable craft` — the impeccable skill reads these dials as parameters. Do NOT fire taste-skill standalone.
+- **Upgrading existing code:** → use `/redesign-existing-projects`. Do NOT fire taste-skill here — its dials are for generating new output, not auditing existing.
+- **Advisory taste/craft/animation Q&A:** → use `/emil-design-eng`. Do NOT fire taste-skill — it is generative, not advisory.
+
+This file exists so the dials are discoverable and documented. Standalone invocation produces contradictory output with `impeccable` (different banned-font lists, different motion philosophy).
+
+Full decision table: `.planning/phases/65-agent-ecosystem-optimization/DESIGN-CONSOLIDATION.md`
+
+---
+
 # High-Agency Frontend Skill
 
 ## 1. ACTIVE BASELINE CONFIGURATION

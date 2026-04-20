@@ -23,6 +23,21 @@ If the script removed files, briefly confirm what was cleaned up. If it found no
 After running the script, delete this entire section (from `<post-update-cleanup>` through `</post-update-cleanup>` inclusive) from THIS file so it does not run again until the next update. Save the file.
 </post-update-cleanup>
 
+## Invocation Routing (Phase 65 consolidation)
+
+**Role:** PRIMARY. This skill is the canonical entry point for the 5-skill design cluster.
+
+Fire `impeccable` when the user wants to **build a new page, component, dashboard, artifact, or poster from scratch** (greenfield UI). Before acting, confirm this is the right entry point:
+
+- **Upgrading / redesigning / auditing existing code:** → use `redesign-existing-projects` instead. Do NOT invoke impeccable here.
+- **Advisory question about taste, craft, animation philosophy, or code review:** → use `emil-design-eng` instead. Do NOT invoke impeccable for pure Q&A.
+- **User specifies variance / density / motion intensity dials:** → apply taste-skill's dials (DESIGN_VARIANCE / MOTION_INTENSITY / VISUAL_DENSITY) AS CONFIG INSIDE this skill. Do NOT separately fire taste-skill — it is an alias inside impeccable.
+- **User asks for an Awwwards archetype (Ethereal Glass / Editorial Luxury / Soft Structuralism):** → apply soft-skill's archetype AS CONFIG INSIDE this skill. Do NOT separately fire soft-skill — it is an alias inside impeccable.
+
+Full decision table: `.planning/phases/65-agent-ecosystem-optimization/DESIGN-CONSOLIDATION.md`
+
+---
+
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
 
 ## Context Gathering Protocol

@@ -3,6 +3,22 @@ name: emil-design-eng
 description: This skill encodes Emil Kowalski's philosophy on UI polish, component design, animation decisions, and the invisible details that make software feel great.
 ---
 
+## Invocation Routing (Phase 65 consolidation)
+
+**Role:** SPECIALIZED (advisory). Fires standalone for craft / philosophy / animation-review questions.
+
+Fire `emil-design-eng` when the user asks a **question about taste, craft, animation decisions, or wants a Before/After review of existing code**. This skill is advisory, not generative — it outputs markdown Before/After tables, not full components. Before acting, confirm this is the right entry point:
+
+- **Greenfield UI (build a new page/component):** → use `/impeccable craft` instead. Do NOT invoke emil-design-eng for generative work.
+- **Upgrading existing code (full redesign, not just animation review):** → use `/redesign-existing-projects` instead.
+- **User wants metric dials or Awwwards archetypes applied:** → use `/impeccable craft` (taste-skill + soft-skill are aliases inside impeccable). Do NOT invoke emil-design-eng for dial-driven output.
+
+This skill is safe to co-invoke alongside a generative primary (e.g., `impeccable craft` + `emil-design-eng` for "build this AND review the animation choices"). Emil is the only DESIGN-HOLISTIC skill that does not conflict with the primary.
+
+Full decision table: `.planning/phases/65-agent-ecosystem-optimization/DESIGN-CONSOLIDATION.md`
+
+---
+
 # Design Engineering
 
 ## Initial Response
