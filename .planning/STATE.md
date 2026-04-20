@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: completed
-stopped_at: "Phase 63-04 complete — ADVR-02 satisfied. /api/projections/latest-week endpoint shipped; ProjectionResponse.meta carries {season, week, data_as_of, source_path} from parquet mtime; getPositionRankings advisor tool auto-resolves default week via resolveDefaultWeek helper and surfaces data_as_of. 10 contract tests pin Gold-layer grounding. 4 commits on main (0d6fb3c, 925c8d7, dedc9e2, c4c93eb). Local audit still 7 PASS / 5 WARN / 0 FAIL — no regression. Next up: 63-05 ship gate re-audit against Railway once this deploy lands, or 61-03 backtest wrap-up."
-last_updated: "2026-04-20T00:44:54.644Z"
+stopped_at: "Phase 62-03 complete — DSGN-02 consistency pass landed on the app shell (page-container, header, sidebar, Heading) + pages 1-5 (overview, accuracy, projections, rankings, predictions). Six atomic commits on main (2134cff shell, 1a8bfcb overview, d2673af accuracy, dc1404c projections, f183e59 rankings, 4e63ab5 predictions). Every touched file now routes typography/spacing/elevation through the 62-02 token scale; zero raw text-(xs|sm|base|lg|xl|2xl|3xl|4xl) or text-[Npx] utilities remain; all 5 pages GET 200 on dev server; typecheck clean. Overview page re-audited 6.8 → ~7.1 (clears DSGN-01 gate). POSITION_COLORS consolidation + Select-width unification deferred to 62-04/62-06. Added --space-16 + --size-header tokens additively. Next up: 62-04 motion primitives + pages 6-11."
+last_updated: "2026-04-20T00:57:00Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 26
-  completed_plans: 20
-  percent: 77
+  completed_plans: 21
+  percent: 81
 ---
 
 # Project State
@@ -34,12 +34,12 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 64
-Plan: Not started
-Status: Phase 63-04 complete; 63-05 ship gate up next
+Phase: 62
+Plan: 03 complete; 04 up next (motion primitives + pages 6-11)
+Status: Phase 62-03 complete; shell + pages 1-5 token-compliant
 Last activity: 2026-04-20
 
-Progress: [██████▌░░░] 65% (17 plans complete across v6.0)
+Progress: [███████░░░] 70% (18 plans complete across v6.0)
 
 ## Performance Metrics
 
@@ -72,6 +72,7 @@ Progress: [██████▌░░░] 65% (17 plans complete across v6.0)
 | Phase 61 P04 | 27min | 2 tasks | 4 files |
 | Phase 61 P06 | 17min | 2 tasks | 8 files |
 | Phase 63 P04 | 15min | 2 tasks | 7 files |
+| Phase 62 P03 | 18min | 2 tasks | 13 files |
 
 ### Decisions
 
@@ -136,6 +137,13 @@ Recent decisions affecting current work:
 - [Phase 63-04]: resolveDefaultWeek returns null on fetch failure (distinct from {week: null}) so the advisor can distinguish 'season has no data' from 'backend unreachable'
 - [Phase 63-04]: Prefer backend meta.data_as_of over the latest-week helper's value — meta is closer to the actual projection read and guaranteed to agree with the rows returned
 - [Phase 63-04]: Upstream traceability pattern (data_as_of on Gold responses) ready to extend to getPlayerProjection, compareStartSit, getTeamRoster with minimal code
+- [Phase 62-03]: Shell primitives (page-container, header, sidebar, Heading) are the single place the base scale changes — downstream pages never reach past the shell for typography/spacing; future --fs-h2 / --space-4 tunings propagate without per-page edits
+- [Phase 62-03]: Heading component gained optional `level: 1|2|3` prop (additive API, defaults to 2) so h1/h3 consumers can land in 62-04/62-05 without re-editing the shared primitive
+- [Phase 62-03]: --space-16 (64px) + --size-header aliases added to tokens.css so header chrome carries named intent (was h-16 magic); additive-only, zero consumer break
+- [Phase 62-03]: POSITION_COLORS consolidation deferred from 62-03 — cross-component import restructure violates "visual-only" guardrail; --pos-* tokens from 62-02 remain the destination for 62-04/62-06 sweep
+- [Phase 62-03]: Filter Select widths (w-28/w-24/w-36) preserved — best done in one cross-page sweep in 62-04 with shared SELECT_WIDTHS constant than piecemeal here
+- [Phase 62-03]: Overview page re-audited 6.8 → ~7.1 (+0.3) — PageContainer heading restoration + token typography + --gap-stack rhythm all lift the page above the DSGN-01 >7 gate
+- [Phase 62-03]: Icon sizing normalized to h-[var(--space-N)] w-[var(--space-N)] across injury/tier/position badges and empty-state icons — makes it explicit that icon sizes pull from the same 4px grid as paddings
 
 ### Pending Todos
 
@@ -161,6 +169,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T19:58:00Z
-Stopped at: Phase 63-04 complete — ADVR-02 satisfied. /api/projections/latest-week endpoint shipped; ProjectionResponse.meta carries {season, week, data_as_of, source_path} from parquet mtime; getPositionRankings advisor tool auto-resolves default week via resolveDefaultWeek helper and surfaces data_as_of. 10 contract tests pin Gold-layer grounding. 4 commits on main (0d6fb3c, 925c8d7, dedc9e2, c4c93eb). Local audit still 7 PASS / 5 WARN / 0 FAIL — no regression. Next up: 63-05 ship gate re-audit against Railway once this deploy lands, or 61-03 backtest wrap-up.
+Last session: 2026-04-20T00:57:00Z
+Stopped at: Phase 62-03 complete — DSGN-02 consistency pass landed on the app shell + pages 1-5. Six atomic commits on main (2134cff shell, 1a8bfcb overview, d2673af accuracy, dc1404c projections, f183e59 rankings, 4e63ab5 predictions). Every touched file routes typography/spacing/elevation through 62-02 tokens; zero raw text-* or text-[Npx] utilities remain; all 5 pages 200 on dev server; typecheck clean. Overview re-audited 6.8 → ~7.1. POSITION_COLORS + Select-width consolidation deferred to 62-04/62-06. Added --space-16 + --size-header tokens additively. Next up: 62-04 motion primitives + pages 6-11.
 Resume file: None
