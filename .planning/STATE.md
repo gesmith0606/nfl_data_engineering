@@ -10,8 +10,8 @@ progress:
   total_phases: 6
   completed_phases: 5
   total_plans: 29
-  completed_plans: 26
-  percent: 90
+  completed_plans: 27
+  percent: 93
 ---
 
 # Project State
@@ -67,6 +67,7 @@ Progress: [████████░░] 80% (19 plans complete across v6.0; p
 | Phase 64 P01 | 38min | 2 tasks | 2 files |
 | Phase 62 P01 | 5min | 2 tasks | 1 file  |
 | Phase 65 P01 | 12min | 2 tasks | 2 files |
+| Phase 65 P03 | 15min | 4 tasks | 4 files |
 | Phase 61 P01 | 20min | 3 tasks | 8 files |
 | Phase 62 P02 | 10min | 2 tasks | 4 files |
 | Phase 64 P02 | 30min | 2 tasks | 5 files |
@@ -103,6 +104,9 @@ Recent decisions affecting current work:
 - [Phase 65-01]: 5-skill design-holistic overlap cluster confirmed: impeccable, taste-skill, soft-skill, emil-design-eng, redesign-skill — all share banned-font lists, anti-AI-purple rules, GPU-safe motion, viewport stability directives
 - [Phase 65-01]: Two consolidation options framed for 65-02 checkpoint — Option A (umbrella-with-modes) preferred, Option B (shared-rules include) as fallback
 - [Phase 65-01]: code-reviewer (opus) vs git-code-reviewer (sonnet) near-redundancy flagged for 65-04 audit but kept ACTIVE (intentional pre-commit vs post-push division)
+- [Phase 65-03]: SCORING_CONFIGS keys are lowercase in code (ppr, half_ppr, standard) — rule file uses actual code keys not display-name mixed case
+- [Phase 65-03]: VORP replacement ranks sourced from src/draft_optimizer.py line 74 (dict literal) rather than CLAUDE.md — more authoritative
+- [Phase 65-03]: nfl-validation-patterns.md includes common edge cases section (bye weeks, rookies, empty DataFrames, missing columns) — adds practical value beyond plan template minimum
 - [Phase 61-01]: Rule-first sentiment stance locked — new news sources are orthogonal to ANTHROPIC_API_KEY (D-01, D-04); Haiku enrichment demoted to optional website-only path
 - [Phase 61-01]: Each ingestor owns module-local copies of _NAME_PATTERN + _TEAM_MENTIONS (web-scraper convention) rather than extracting a shared util — keeps coupling low, per D-01
 - [Phase 61-01]: D-06 graceful-failure contract uniformly enforced — HTTPError/URLError/parse errors all log warning and exit 0, so daily cron is never blocked by upstream flakes
