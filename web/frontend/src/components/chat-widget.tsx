@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
 import { usePersistentChat } from '@/hooks/use-persistent-chat';
+import { MOTION, EASE } from '@/lib/design-tokens';
 
 // ---------------------------------------------------------------------------
 // Types inferred from tool return shapes
@@ -434,6 +436,7 @@ export function ChatWidget() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const { messages, sendMessage, status, error, clear } = usePersistentChat();
+  const reduceMotion = useReducedMotion();
 
   const isLoading = status === 'streaming' || status === 'submitted';
   const hasError = status === 'error' || !!error;
@@ -567,48 +570,77 @@ export function ChatWidget() {
               </div>
             )}
 
-            {messages.map((message) => {
-              const isUser = message.role === 'user';
-              return (
-                <div
-                  key={message.id}
-                  className={`flex gap-2 ${isUser ? 'flex-row-reverse' : ''}`}
+            <AnimatePresence initial={false}>
+              {messages.map((message) => {
+                const isUser = message.role === 'user';
+                const enterX = reduceMotion ? 0 : isUser ? 12 : -12;
+                return (
+                  <motion.div
+                    key={message.id}
+                    layout={!reduceMotion}
+                    initial={reduceMotion ? false : { opacity: 0, y: 6, x: enterX }}
+                    animate={{ opacity: 1, y: 0, x: 0 }}
+                    exit={reduceMotion ? undefined : { opacity: 0 }}
+                    transition={{ duration: MOTION.fast, ease: EASE.outStandard }}
+                    className={`flex gap-2 ${isUser ? 'flex-row-reverse' : ''}`}
+                  >
+                    <Avatar className='h-6 w-6 shrink-0'>
+                      <AvatarFallback className='text-[10px]'>
+                        {isUser ? 'You' : 'AI'}
+                      </AvatarFallback>
+                    </Avatar>
+
+                    <div
+                      className={`flex max-w-[85%] flex-col gap-1 ${isUser ? 'items-end' : 'items-start'}`}
+                    >
+                      {message.parts.map((part, partIndex) => (
+                        <MessagePart
+                          key={partIndex}
+                          part={part as { type: string; text?: string; state?: string; output?: unknown }}
+                          partIndex={partIndex}
+                          isUser={isUser}
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
+                );
+              })}
+
+              {/* Typing indicator — animated 3-dot bounce while streaming */}
+              {isLoading && (
+                <motion.div
+                  key='typing-indicator'
+                  initial={reduceMotion ? false : { opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduceMotion ? undefined : { opacity: 0 }}
+                  transition={{ duration: MOTION.fast, ease: EASE.outStandard }}
+                  className='flex gap-2'
                 >
                   <Avatar className='h-6 w-6 shrink-0'>
-                    <AvatarFallback className='text-[10px]'>
-                      {isUser ? 'You' : 'AI'}
-                    </AvatarFallback>
+                    <AvatarFallback className='text-[10px]'>AI</AvatarFallback>
                   </Avatar>
-
-                  <div
-                    className={`flex max-w-[85%] flex-col gap-1 ${isUser ? 'items-end' : 'items-start'}`}
-                  >
-                    {message.parts.map((part, partIndex) => (
-                      <MessagePart
-                        key={partIndex}
-                        part={part as { type: string; text?: string; state?: string; output?: unknown }}
-                        partIndex={partIndex}
-                        isUser={isUser}
+                  <div className='bg-muted flex items-center gap-1 rounded-2xl rounded-tl-sm px-3 py-2'>
+                    {[0, 1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        className='bg-muted-foreground h-1 w-1 rounded-full'
+                        animate={
+                          reduceMotion
+                            ? undefined
+                            : { y: [0, -3, 0], opacity: [0.4, 1, 0.4] }
+                        }
+                        transition={{
+                          duration: MOTION.slow + MOTION.base,
+                          ease: EASE.inOutStandard,
+                          repeat: Infinity,
+                          delay: i * MOTION.fast
+                        }}
                       />
                     ))}
                   </div>
-                </div>
-              );
-            })}
-
-            {/* Typing indicator */}
-            {isLoading && (
-              <div className='flex gap-2'>
-                <Avatar className='h-6 w-6 shrink-0'>
-                  <AvatarFallback className='text-[10px]'>AI</AvatarFallback>
-                </Avatar>
-                <div className='bg-muted flex items-center gap-1 rounded-2xl rounded-tl-sm px-3 py-2'>
-                  <span className='bg-muted-foreground h-1 w-1 animate-bounce rounded-full [animation-delay:0ms]' />
-                  <span className='bg-muted-foreground h-1 w-1 animate-bounce rounded-full [animation-delay:150ms]' />
-                  <span className='bg-muted-foreground h-1 w-1 animate-bounce rounded-full [animation-delay:300ms]' />
-                </div>
-              </div>
-            )}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Error state */}
             {hasError && (

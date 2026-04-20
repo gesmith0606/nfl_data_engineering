@@ -10,6 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Icons } from '@/components/icons';
 import { usePersistentChat } from '@/hooks/use-persistent-chat';
+import { FadeIn } from '@/lib/motion-primitives';
 
 // ---------------------------------------------------------------------------
 // Types inferred from tool return shapes
@@ -380,7 +381,7 @@ export default function AdvisorPage() {
       pageTitle='AI Fantasy Advisor'
       pageDescription='Ask about start/sit decisions, trade analysis, waiver wire pickups, and more'
     >
-      <div className='flex h-[calc(100dvh-160px)] flex-col gap-3'>
+      <FadeIn className='flex h-[calc(100dvh-160px)] flex-col gap-3'>
         {/* Top action bar — visible only when a conversation exists */}
         {messages.length > 0 && (
           <div className='flex justify-end'>
@@ -633,7 +634,7 @@ export default function AdvisorPage() {
             <span className='ml-2'>Send</span>
           </Button>
         </form>
-      </div>
+      </FadeIn>
     </PageContainer>
   );
 }
