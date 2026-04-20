@@ -5,14 +5,14 @@ import type { InfobarContent } from '@/components/ui/infobar';
 
 function PageSkeleton() {
   return (
-    <div className='flex flex-1 animate-pulse flex-col gap-4 p-4 md:px-6'>
+    <div className='flex flex-1 animate-pulse flex-col gap-[var(--gap-stack)] p-[var(--space-4)] md:px-[var(--space-6)]'>
       <div className='flex items-center justify-between'>
         <div>
-          <div className='bg-muted mb-2 h-8 w-48 rounded' />
-          <div className='bg-muted h-4 w-96 rounded' />
+          <div className='bg-muted mb-[var(--space-2)] h-[var(--space-8)] w-48 rounded' />
+          <div className='bg-muted h-[var(--space-4)] w-96 rounded' />
         </div>
       </div>
-      <div className='bg-muted mt-6 h-40 w-full rounded-lg' />
+      <div className='bg-muted mt-[var(--space-6)] h-40 w-full rounded-lg' />
       <div className='bg-muted h-40 w-full rounded-lg' />
     </div>
   );
@@ -41,9 +41,9 @@ export default function PageContainer({
 }) {
   if (!access) {
     return (
-      <div className='flex flex-1 items-center justify-center p-4 md:px-6'>
+      <div className='flex flex-1 items-center justify-center p-[var(--space-4)] md:px-[var(--space-6)]'>
         {accessFallback ?? (
-          <div className='text-muted-foreground text-center text-lg'>
+          <div className='text-muted-foreground text-center text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
             You do not have access to this page.
           </div>
         )}
@@ -56,9 +56,9 @@ export default function PageContainer({
   const hasHeader = pageTitle || pageHeaderAction;
 
   const inner = (
-    <div className='flex flex-1 flex-col p-4 md:px-6'>
+    <div className='flex flex-1 flex-col p-[var(--space-4)] md:px-[var(--space-6)]'>
       {hasHeader && (
-        <div className='bg-background sticky top-0 z-10 mb-4 flex items-start justify-between gap-4 pb-4'>
+        <div className='bg-background sticky top-0 z-10 mb-[var(--gap-stack)] flex items-start justify-between gap-[var(--space-4)] pb-[var(--space-4)]'>
           <Heading
             title={pageTitle ?? ''}
             description={pageDescription ?? ''}

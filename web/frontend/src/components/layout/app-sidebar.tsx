@@ -34,17 +34,19 @@ export default function AppSidebar() {
 
   return (
     <Sidebar collapsible='icon'>
-      <SidebarHeader className='group-data-[collapsible=icon]:pt-4'>
+      <SidebarHeader className='group-data-[collapsible=icon]:pt-[var(--space-4)]'>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size='lg' asChild>
               <Link href='/dashboard'>
-                <div className='bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
-                  <Icons.trendingUp className='size-4' />
+                <div className='bg-primary text-primary-foreground flex aspect-square size-[var(--space-8)] items-center justify-center rounded-lg'>
+                  <Icons.trendingUp className='size-[var(--space-4)]' />
                 </div>
-                <div className='grid flex-1 text-left text-sm leading-tight'>
+                <div className='grid flex-1 text-left text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
                   <span className='truncate font-semibold'>NFL Analytics</span>
-                  <span className='text-muted-foreground truncate text-xs'>Dashboard</span>
+                  <span className='text-muted-foreground truncate text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    Dashboard
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -70,7 +72,7 @@ export default function AppSidebar() {
                         <SidebarMenuButton tooltip={item.title} isActive={pathname === item.url}>
                           {item.icon && <Icon />}
                           <span>{item.title}</span>
-                          <Icons.chevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
+                          <Icons.chevronRight className='ml-auto transition-transform duration-[var(--motion-base)] ease-[var(--ease-out-standard)] group-data-[state=open]/collapsible:rotate-90' />
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
                       <CollapsibleContent>
@@ -111,12 +113,14 @@ export default function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size='lg'>
-              <div className='bg-muted flex aspect-square size-8 items-center justify-center rounded-lg'>
-                <Icons.settings className='size-4' />
+              <div className='bg-muted flex aspect-square size-[var(--space-8)] items-center justify-center rounded-lg'>
+                <Icons.settings className='size-[var(--space-4)]' />
               </div>
-              <div className='grid flex-1 text-left text-sm leading-tight'>
+              <div className='grid flex-1 text-left text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
                 <span className='truncate font-semibold'>Settings</span>
-                <span className='text-muted-foreground truncate text-xs'>v3.0</span>
+                <span className='text-muted-foreground truncate text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                  v3.0
+                </span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
