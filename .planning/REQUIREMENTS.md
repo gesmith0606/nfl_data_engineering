@@ -21,10 +21,10 @@
 
 ### Design & UX
 
-- [ ] **DSGN-01**: Design audit scores >7/10 on all pages (using design-engineer agent)
-- [~] **DSGN-02**: Consistent typography, color, and spacing across all 11 pages — foundation shipped in 62-02 (tokens.css + design-tokens.ts + docs, DSGN-02 contract locked); consumption on pages 1-5 pending in 62-03, pages 6-11 in 62-04
-- [ ] **DSGN-03**: Animations and micro-interactions on key user actions
-- [ ] **DSGN-04**: Mobile-responsive layout on all pages
+- [x] **DSGN-01**: Design audit scores >7/10 on all pages — 62-06 AUDIT-FINAL: 11/11 pages > 7, mean 7.06 → 7.80 (+0.74)
+- [x] **DSGN-02**: Consistent typography, color, and spacing across all 11 pages — token foundation in 62-02, consumption in 62-03 (pages 1-5 + shell) and 62-04 (pages 6-11)
+- [x] **DSGN-03**: Animations and micro-interactions on key user actions — motion-primitives.tsx (FadeIn, Stagger, HoverLift, PressScale, DataLoadReveal) applied across 11 pages; prediction edge shimmer on |edge| ≥ 3.0
+- [x] **DSGN-04**: Mobile-responsive layout on all pages — 62-05 MOBILE-AUDIT: 11/11 pages zero horizontal overflow at 375px, responsive-column-hide on tables, chat widget full-screen on mobile
 
 ### AI Advisor
 
@@ -81,10 +81,10 @@
 | NEWS-02 | Phase 61 | Complete (61-01 Bronze ingestion, 61-05 UI + event badges, 61-06 optional LLM summary enrichment) |
 | NEWS-03 | Phase 61 | Complete (61-05 team-events endpoint + TeamEventDensityGrid.tsx shipped) |
 | NEWS-04 | Phase 61 | Complete (61-05 player-badges endpoint + EventBadges.tsx shipped) |
-| DSGN-01 | Phase 62 | Pending |
-| DSGN-02 | Phase 62 | Pending |
-| DSGN-03 | Phase 62 | Pending |
-| DSGN-04 | Phase 62 | Pending |
+| DSGN-01 | Phase 62 | Complete (62-06 AUDIT-FINAL: 11/11 > 7, mean 7.06 → 7.80) |
+| DSGN-02 | Phase 62 | Complete (62-02 tokens, 62-03 pages 1-5, 62-04 pages 6-11) |
+| DSGN-03 | Phase 62 | Complete (62-04 motion primitives + 62-06 pages 1-5 retrofit + edge shimmer) |
+| DSGN-04 | Phase 62 | Complete (62-05 375px mobile audit: 11/11 PASS, zero overflow) |
 | ADVR-01 | Phase 63 | Complete (63-06 live Railway audit: 7P/5W/0F — FAIL count 5→0) |
 | ADVR-02 | Phase 63 | Complete (63-04: `meta.data_as_of` + `/api/projections/latest-week` + advisor auto-resolve; 10 contract tests) |
 | ADVR-03 | Phase 63 | Complete (63-03 cache-first fallback; live Sleeper PASS, FantasyPros graceful stale) |
