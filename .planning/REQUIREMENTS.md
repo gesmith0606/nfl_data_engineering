@@ -44,8 +44,8 @@
 
 - [x] **AGNT-01**: Consolidate 5 overlapping design skills into targeted invocations — 65-02: option-a approved; impeccable primary, redesign-skill + emil-design-eng specialized, taste-skill + soft-skill aliased; routing blocks in all 5 SKILL.md + design-engineer.md; decision doc DESIGN-CONSOLIDATION.md
 - [x] **AGNT-02**: Activate dormant agents or archive them with reasoning — AGENT-INVENTORY.md produced (42 agents triaged; 0 dormant)
-- [ ] **AGNT-03**: Add NFL-specific rules to .claude/rules/
-- [ ] **AGNT-04**: Skill optimizer runs and produces passing audit (<3 items scoring below 6)
+- [x] **AGNT-03**: Add NFL-specific rules to .claude/rules/ — 65-03: nfl-data-conventions.md, nfl-scoring-formats.md, nfl-validation-patterns.md shipped; DATA-OWNED skill context loading improved
+- [x] **AGNT-04**: Skill optimizer runs and produces passing audit (<3 items scoring below 6) — 65-04: 40 items audited, 1 below 6 (security-reviewer Testability 5), PASS verdict; agent-evals convention follow-up queued as non-blocking
 
 ## v7.0 Requirements (Deferred)
 
