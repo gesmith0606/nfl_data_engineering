@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: completed
-stopped_at: "Phase 62-03 complete — DSGN-02 consistency pass landed on the app shell (page-container, header, sidebar, Heading) + pages 1-5 (overview, accuracy, projections, rankings, predictions). Six atomic commits on main (2134cff shell, 1a8bfcb overview, d2673af accuracy, dc1404c projections, f183e59 rankings, 4e63ab5 predictions). Every touched file now routes typography/spacing/elevation through the 62-02 token scale; zero raw text-(xs|sm|base|lg|xl|2xl|3xl|4xl) or text-[Npx] utilities remain; all 5 pages GET 200 on dev server; typecheck clean. Overview page re-audited 6.8 → ~7.1 (clears DSGN-01 gate). POSITION_COLORS consolidation + Select-width unification deferred to 62-04/62-06. Added --space-16 + --size-header tokens additively. Next up: 62-04 motion primitives + pages 6-11."
-last_updated: "2026-04-20T00:57:00Z"
-last_activity: 2026-04-20
+stopped_at: "Phase 62-05 complete — DSGN-04 closed. All 11 dashboard pages now render without horizontal overflow at 375px, tap targets ≥ 44px on interactive elements (two documented primitive-level deviations), data-dense views use responsive-column-hide or horizontal-scroll wrappers, chat widget becomes full-screen overlay on mobile with /dashboard/advisor duplicate eliminated. Four atomic commits on main (f3c4a55 shell+tables, 417dd9b pages 6-11 + chat widget, f7121b7 draft board, de51f69 MOBILE-AUDIT.md). Added --space-11 (44px) + --tap-min alias. Extended TanStack ColumnMeta with headerClassName/cellClassName for per-column responsive hiding. Typecheck clean; curl smoke 200 on all 11 pages. Next up: 62-06 final audit + motion retrofit on pages 1-5."
+last_updated: "2026-04-18T00:25:00Z"
+last_activity: 2026-04-18
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 26
-  completed_plans: 21
-  percent: 81
+  completed_plans: 22
+  percent: 85
 ---
 
 # Project State
@@ -35,9 +35,9 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 ## Current Position
 
 Phase: 62
-Plan: 03 complete; 04 up next (motion primitives + pages 6-11)
-Status: Phase 62-03 complete; shell + pages 1-5 token-compliant
-Last activity: 2026-04-20
+Plan: 05 complete; 06 up next (final audit + motion retrofit on pages 1-5)
+Status: Phase 62-05 complete; DSGN-04 closed — all 11 pages mobile-usable at 375px
+Last activity: 2026-04-18
 
 Progress: [███████░░░] 70% (18 plans complete across v6.0)
 
@@ -73,6 +73,7 @@ Progress: [███████░░░] 70% (18 plans complete across v6.0)
 | Phase 61 P06 | 17min | 2 tasks | 8 files |
 | Phase 63 P04 | 15min | 2 tasks | 7 files |
 | Phase 62 P03 | 18min | 2 tasks | 13 files |
+| Phase 62 P05 | 25min | 3 tasks | 18 files |
 
 ### Decisions
 
@@ -144,6 +145,14 @@ Recent decisions affecting current work:
 - [Phase 62-03]: Filter Select widths (w-28/w-24/w-36) preserved — best done in one cross-page sweep in 62-04 with shared SELECT_WIDTHS constant than piecemeal here
 - [Phase 62-03]: Overview page re-audited 6.8 → ~7.1 (+0.3) — PageContainer heading restoration + token typography + --gap-stack rhythm all lift the page above the DSGN-01 >7 gate
 - [Phase 62-03]: Icon sizing normalized to h-[var(--space-N)] w-[var(--space-N)] across injury/tier/position badges and empty-state icons — makes it explicit that icon sizes pull from the same 4px grid as paddings
+- [Phase 62-05]: Data-table adaptation = responsive-column-hide (not card-view). Keeps a single JSX tree, composes with the shared DataTable primitive, lets new columns ship with 2 lines of meta. Mobile view on projections/rankings shows Player · Pos · Projected; rest revealed at sm:/md:
+- [Phase 62-05]: --space-11 (44px) + --tap-min alias shipped additively to tokens.css — iOS HIG tap minimum now a named token, not a magic 2.75rem sprinkled across files
+- [Phase 62-05]: Extended @tanstack/react-table ColumnMeta with headerClassName + cellClassName; DataTable applies them via cn() on TableHead/TableCell. Cleanest per-column responsive hide without touching flexRender
+- [Phase 62-05]: Chat widget mobile-fullscreen mode (not side-sheet) — at 375×667 a full-screen overlay is the Material/iOS pattern; side-sheet would waste narrow viewport on decorative margin. Uses env(safe-area-inset-*) padding for notched iPhones
+- [Phase 62-05]: Chat widget pathname-hide on /dashboard/advisor via usePathname() — eliminates the duplicate-chat-UI flagged in AUDIT-BASELINE without threading a prop through layout.tsx
+- [Phase 62-05]: Two accepted tap-target deviations documented in MOBILE-AUDIT.md — shadcn Tabs primitive (36px) and Button size='sm' (32px) in tertiary positions. Both are cross-cutting primitive fixes outside 62-05 files_modified, owed to 62-06 or a separate chore
+- [Phase 62-05]: Rankings-table sticky-left Player column + per-column hide — mobile-first table pattern that preserves primary identity column if horizontal scroll still occurs; template for any future data-dense table
+- [Phase 62-05]: Filter-row responsive pattern — grid-cols-N with full-width 44px Select triggers at base, flex-wrap at sm+. Used consistently across projections, rankings, predictions, matchups, lineups, player-detail, chat-widget
 
 ### Pending Todos
 
@@ -169,6 +178,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T00:57:00Z
-Stopped at: Phase 62-03 complete — DSGN-02 consistency pass landed on the app shell + pages 1-5. Six atomic commits on main (2134cff shell, 1a8bfcb overview, d2673af accuracy, dc1404c projections, f183e59 rankings, 4e63ab5 predictions). Every touched file routes typography/spacing/elevation through 62-02 tokens; zero raw text-* or text-[Npx] utilities remain; all 5 pages 200 on dev server; typecheck clean. Overview re-audited 6.8 → ~7.1. POSITION_COLORS + Select-width consolidation deferred to 62-04/62-06. Added --space-16 + --size-header tokens additively. Next up: 62-04 motion primitives + pages 6-11.
+Last session: 2026-04-18T00:25:00Z
+Stopped at: Phase 62-05 complete — DSGN-04 closed. All 11 dashboard pages render without horizontal overflow at 375px viewport; tap targets ≥ 44px on interactive elements (two documented deviations at primitive level); data-dense views use responsive-column-hide (projections, rankings) or horizontal-scroll wrappers (draft-board); chat widget becomes full-screen overlay on mobile with /dashboard/advisor duplicate eliminated. Four atomic commits on main: f3c4a55 shell+tables+tokens, 417dd9b pages 6-11 + chat widget, f7121b7 draft-board overflow wrapper, de51f69 MOBILE-AUDIT.md. Added --space-11 + --tap-min to tokens.css; extended TanStack ColumnMeta with headerClassName/cellClassName for clean per-column breakpoint hiding. Typecheck clean; curl smoke 200 on all 11 pages. Next up: 62-06 final re-audit + motion retrofit on pages 1-5.
 Resume file: None

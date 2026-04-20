@@ -72,7 +72,7 @@ Plans:
   2. Typography, color palette, and spacing are consistent across all 11 pages (no visual jarring when navigating)
   3. Key user actions (page transitions, button clicks, data loads) have smooth animations or micro-interactions
   4. Every page renders correctly and is usable on mobile viewport (375px width)
-**Plans**: 3/6 executed — 62-01 baseline done (mean 7.06/10, 3 pages <7); 62-02 design-token foundation shipped (tokens.css + design-tokens.ts + docs, DSGN-02 foundation); 62-03 token-consistency pass shipped on shell + pages 1-5 (overview/accuracy/projections/rankings/predictions; 6 atomic commits; zero raw text-*/[Npx] on touched files; overview re-audited 6.8 → ~7.1); 62-04..06 pending
+**Plans**: 5/6 executed — 62-01 baseline done (mean 7.06/10, 3 pages <7); 62-02 design-token foundation shipped (tokens.css + design-tokens.ts + docs, DSGN-02 foundation); 62-03 token-consistency pass shipped on shell + pages 1-5 (overview/accuracy/projections/rankings/predictions; 6 atomic commits; zero raw text-*/[Npx] on touched files; overview re-audited 6.8 → ~7.1); 62-04 motion primitives + pages 6-11 tokens shipped (FadeIn/Stagger/HoverLift/PressScale/DataLoadReveal primitives, 6 families tokenized + motion-layered); 62-05 mobile responsive shipped — DSGN-04 CLOSED (all 11 pages no horizontal overflow at 375px, tap targets ≥ 44px with 2 documented primitive deviations, responsive-column-hide on projections/rankings, full-screen chat widget on mobile with /dashboard/advisor duplicate eliminated; --space-11/--tap-min tokens + ColumnMeta.headerClassName/cellClassName plumbing added); 62-06 final audit + pages 1-5 motion retrofit pending
 **UI hint**: yes
 
 ### Phase 63: AI Advisor Hardening
@@ -149,7 +149,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 60. Data Quality | 3/3 | Complete | 2026-04-17 |
 | 61. News & Sentiment Live | 6/6 | Complete    | 2026-04-19 |
-| 62. Design & UX Polish | 4/6 | In Progress|  |
+| 62. Design & UX Polish | 5/6 | In Progress|  |
 | 63. AI Advisor Hardening | 6/6 | Complete    | 2026-04-20 |
 | 64. Matchup View Completion | 2/4 | In progress | - |
 | 65. Agent Ecosystem Optimization | 1/4 | In progress | - |
