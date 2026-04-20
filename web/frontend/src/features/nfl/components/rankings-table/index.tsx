@@ -143,10 +143,10 @@ export function RankingsTable() {
   }, [filteredPlayers]);
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-[var(--gap-stack)]'>
       {/* Controls bar */}
       <Card>
-        <CardContent className='flex flex-wrap items-center gap-4 pt-6'>
+        <CardContent className='flex flex-wrap items-center gap-[var(--gap-stack)] pt-[var(--space-6)]'>
           {/* Scoring format */}
           <Tabs value={scoring} onValueChange={(v) => setScoring(v as ScoringFormat)}>
             <TabsList>
@@ -171,12 +171,12 @@ export function RankingsTable() {
 
           {/* Search */}
           <div className='relative ml-auto min-w-[200px]'>
-            <Icons.search className='text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4' />
+            <Icons.search className='text-muted-foreground absolute left-[var(--space-2)] top-[var(--space-2)] h-[var(--space-4)] w-[var(--space-4)]' />
             <Input
               placeholder='Search players...'
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className='pl-8 h-9'
+              className='pl-[var(--space-8)] h-9'
             />
           </div>
         </CardContent>
@@ -184,9 +184,9 @@ export function RankingsTable() {
 
       {/* Summary stats */}
       {!isLoading && !isError && (
-        <div className='flex items-center gap-6 px-1 text-sm text-muted-foreground'>
+        <div className='flex items-center gap-[var(--gap-section)] px-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
           <span>{filteredPlayers.length} players</span>
-          <span className='flex items-center gap-1.5'>
+          <span className='flex items-center gap-[var(--space-2)]'>
             {Object.entries(TIER_CONFIG).map(([key, cfg]) => {
               const count = filteredPlayers.filter((p) => p.tier === key).length;
               if (count === 0) return null;
@@ -194,7 +194,7 @@ export function RankingsTable() {
                 <Badge
                   key={key}
                   variant='outline'
-                  className={`text-[10px] px-1.5 py-0 ${cfg.badge}`}
+                  className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-2)] py-0 ${cfg.badge}`}
                 >
                   {cfg.label}: {count}
                 </Badge>
@@ -207,16 +207,16 @@ export function RankingsTable() {
       {/* Table */}
       {isLoading ? (
         <Card>
-          <CardContent className='pt-4 space-y-2'>
-            <div className='flex gap-4 pb-2 border-b'>
+          <CardContent className='pt-[var(--space-4)] space-y-[var(--space-2)]'>
+            <div className='flex gap-[var(--gap-stack)] pb-[var(--space-2)] border-b'>
               {[40, 160, 50, 60, 80, 80, 80, 70, 60].map((w, i) => (
-                <Skeleton key={i} className='h-4' style={{ width: w }} />
+                <Skeleton key={i} className='h-[var(--space-4)]' style={{ width: w }} />
               ))}
             </div>
             {Array.from({ length: 15 }).map((_, row) => (
-              <div key={row} className='flex gap-4 py-1'>
+              <div key={row} className='flex gap-[var(--gap-stack)] py-[var(--space-1)]'>
                 {[40, 160, 50, 60, 80, 80, 80, 70, 60].map((w, col) => (
-                  <Skeleton key={col} className='h-4' style={{ width: w }} />
+                  <Skeleton key={col} className='h-[var(--space-4)]' style={{ width: w }} />
                 ))}
               </div>
             ))}
@@ -224,18 +224,18 @@ export function RankingsTable() {
         </Card>
       ) : isError ? (
         <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.alertCircle className='text-muted-foreground mb-2 h-8 w-8' />
-            <p className='text-muted-foreground text-sm'>
+          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+            <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               Failed to load rankings. Ensure the API is running.
             </p>
           </CardContent>
         </Card>
       ) : filteredPlayers.length === 0 ? (
         <Card>
-          <CardContent className='flex flex-col items-center justify-center py-12'>
-            <Icons.search className='text-muted-foreground mb-2 h-8 w-8' />
-            <p className='text-muted-foreground text-sm'>
+          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+            <Icons.search className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
+            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               No players found matching your criteria.
             </p>
           </CardContent>
@@ -243,31 +243,31 @@ export function RankingsTable() {
       ) : (
         <Card className='overflow-hidden'>
           <div className='overflow-x-auto'>
-            <table className='w-full text-sm'>
+            <table className='w-full text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               <thead className='bg-muted/50 sticky top-0 z-10'>
                 <tr className='border-b'>
-                  <th className='px-3 py-3 text-left font-semibold text-muted-foreground w-14'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-14'>
                     #
                   </th>
-                  <th className='px-3 py-3 text-left font-semibold text-muted-foreground min-w-[180px]'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground min-w-[180px]'>
                     Player
                   </th>
-                  <th className='px-3 py-3 text-left font-semibold text-muted-foreground w-14'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-14'>
                     Pos
                   </th>
-                  <th className='px-3 py-3 text-left font-semibold text-muted-foreground w-16'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-16'>
                     Team
                   </th>
-                  <th className='px-3 py-3 text-right font-semibold text-muted-foreground w-20'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-right font-semibold text-muted-foreground w-20'>
                     Pts
                   </th>
-                  <th className='px-3 py-3 text-center font-semibold text-muted-foreground w-[140px]'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-center font-semibold text-muted-foreground w-[140px]'>
                     Range
                   </th>
-                  <th className='px-3 py-3 text-left font-semibold text-muted-foreground w-20'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-20'>
                     Tier
                   </th>
-                  <th className='px-3 py-3 text-right font-semibold text-muted-foreground w-16'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-right font-semibold text-muted-foreground w-16'>
                     Pos Rk
                   </th>
                 </tr>
@@ -303,12 +303,15 @@ function TierGroup({
     <>
       {/* Tier divider row */}
       <tr className='border-t-2 border-border'>
-        <td colSpan={8} className={`px-3 py-2 ${config.bg}`}>
-          <div className='flex items-center gap-2'>
-            <Badge variant='outline' className={`text-xs font-semibold ${config.badge}`}>
+        <td colSpan={8} className={`px-[var(--space-3)] py-[var(--space-2)] ${config.bg}`}>
+          <div className='flex items-center gap-[var(--space-2)]'>
+            <Badge
+              variant='outline'
+              className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold ${config.badge}`}
+            >
               {config.label}
             </Badge>
-            <span className='text-xs text-muted-foreground'>
+            <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
               {players.length} player{players.length !== 1 ? 's' : ''}
             </span>
           </div>
@@ -342,17 +345,19 @@ function PlayerRow({
   const ceilingPct = ((ceiling - pts) / maxRange) * 100;
 
   return (
-    <tr className={`border-b border-border/50 hover:bg-muted/30 transition-colors ${tierBg}`}>
+    <tr
+      className={`border-b border-border/50 hover:bg-muted/30 transition-colors duration-[var(--motion-base)] ease-[var(--ease-out-standard)] ${tierBg}`}
+    >
       {/* Overall rank */}
-      <td className='px-3 py-2.5'>
-        <span className='text-muted-foreground tabular-nums font-medium text-xs'>
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+        <span className='text-muted-foreground tabular-nums font-medium text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {position === 'ALL' ? player.overall_rank : (player.position_rank ?? '-')}
         </span>
       </td>
 
       {/* Player name */}
-      <td className='px-3 py-2.5'>
-        <div className='flex items-center gap-2'>
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+        <div className='flex items-center gap-[var(--space-2)]'>
           <Link
             href={`/dashboard/players/${player.player_id}`}
             className='font-medium hover:underline truncate'
@@ -360,7 +365,10 @@ function PlayerRow({
             {player.player_name}
           </Link>
           {player.injury_status && player.injury_status !== 'Active' && (
-            <Badge variant='destructive' className='text-[10px] px-1 py-0 shrink-0'>
+            <Badge
+              variant='destructive'
+              className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-1)] py-0 shrink-0'
+            >
               {player.injury_status}
             </Badge>
           )}
@@ -368,34 +376,39 @@ function PlayerRow({
       </td>
 
       {/* Position badge */}
-      <td className='px-3 py-2.5'>
-        <Badge variant='outline' className={`text-[10px] px-1.5 py-0 ${POS_COLORS[player.position] || ''}`}>
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+        <Badge
+          variant='outline'
+          className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-2)] py-0 ${POS_COLORS[player.position] || ''}`}
+        >
           {player.position}
         </Badge>
       </td>
 
       {/* Team */}
-      <td className='px-3 py-2.5'>
-        <div className='flex items-center gap-1.5'>
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+        <div className='flex items-center gap-[var(--space-2)]'>
           <span
-            className='inline-block h-2 w-2 shrink-0 rounded-full'
+            className='inline-block h-[var(--space-2)] w-[var(--space-2)] shrink-0 rounded-full'
             style={{ backgroundColor: teamColor }}
           />
-          <span className='font-mono text-xs'>{player.team}</span>
+          <span className='font-mono text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+            {player.team}
+          </span>
         </div>
       </td>
 
       {/* Projected points */}
-      <td className='px-3 py-2.5 text-right'>
-        <span className='font-bold tabular-nums text-base'>
+      <td className='px-[var(--space-3)] py-[var(--space-3)] text-right'>
+        <span className='font-bold tabular-nums text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
           {pts.toFixed(1)}
         </span>
       </td>
 
       {/* Floor/ceiling range bar */}
-      <td className='px-3 py-2.5'>
-        <div className='flex items-center gap-2'>
-          <span className='text-[10px] text-muted-foreground tabular-nums w-8 text-right shrink-0'>
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
+        <div className='flex items-center gap-[var(--space-2)]'>
+          <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground tabular-nums w-[var(--space-8)] text-right shrink-0'>
             {floor.toFixed(0)}
           </span>
           <div className='flex-1 h-2.5 bg-muted rounded-full overflow-hidden relative min-w-[60px]'>
@@ -415,25 +428,25 @@ function PlayerRow({
               style={{ left: `${floorPct + ptsPct}%`, width: `${ceilingPct}%` }}
             />
           </div>
-          <span className='text-[10px] text-muted-foreground tabular-nums w-8 shrink-0'>
+          <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground tabular-nums w-[var(--space-8)] shrink-0'>
             {ceiling.toFixed(0)}
           </span>
         </div>
       </td>
 
       {/* Tier badge */}
-      <td className='px-3 py-2.5'>
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
         <Badge
           variant='outline'
-          className={`text-[10px] px-1.5 py-0 ${TIER_CONFIG[player.tier]?.badge ?? ''}`}
+          className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-2)] py-0 ${TIER_CONFIG[player.tier]?.badge ?? ''}`}
         >
           {TIER_CONFIG[player.tier]?.label ?? player.tier}
         </Badge>
       </td>
 
       {/* Position rank */}
-      <td className='px-3 py-2.5 text-right'>
-        <span className='text-muted-foreground tabular-nums text-xs'>
+      <td className='px-[var(--space-3)] py-[var(--space-3)] text-right'>
+        <span className='text-muted-foreground tabular-nums text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {player.position}{player.position_rank ?? '-'}
         </span>
       </td>
