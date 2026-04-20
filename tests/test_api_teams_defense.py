@@ -40,22 +40,25 @@ class TestLoadDefenseMetrics:
     def test_rating_bounds(self):
         """overall_def_rating and every positional rating must be within [50, 99]."""
         result = team_defense_service.load_defense_metrics("BUF", 2024, 5)
-        assert 50 <= result["overall_def_rating"] <= 99, (
-            f"overall rating out of [50,99]: {result['overall_def_rating']}"
-        )
+        assert (
+            50 <= result["overall_def_rating"] <= 99
+        ), f"overall rating out of [50,99]: {result['overall_def_rating']}"
         assert result["positional"], "positional must be non-empty"
         for entry in result["positional"]:
-            assert 50 <= entry["rating"] <= 99, (
-                f"{entry['position']} rating out of [50,99]: {entry['rating']}"
-            )
+            assert (
+                50 <= entry["rating"] <= 99
+            ), f"{entry['position']} rating out of [50,99]: {entry['rating']}"
 
     def test_positional_coverage(self):
         """load_defense_metrics must always return all 4 positions (QB/RB/WR/TE)."""
         result = team_defense_service.load_defense_metrics("BUF", 2024, 5)
         positions = {p["position"] for p in result["positional"]}
-        assert positions == {"QB", "RB", "WR", "TE"}, (
-            f"expected {{QB,RB,WR,TE}}, got {positions}"
-        )
+        assert positions == {
+            "QB",
+            "RB",
+            "WR",
+            "TE",
+        }, f"expected {{QB,RB,WR,TE}}, got {positions}"
 
     def test_real_sos_not_none(self):
         """For a team-week with clear silver data, SOS fields are populated."""
@@ -108,9 +111,9 @@ class TestLoadDefenseMetrics:
         # Sort by rank ascending, check ratings are descending (monotone decreasing)
         with_rank.sort(key=lambda tup: tup[1])
         ratings = [rating for _, _, rating in with_rank]
-        assert ratings == sorted(ratings, reverse=True), (
-            f"ratings must decrease as rank increases: {with_rank}"
-        )
+        assert ratings == sorted(
+            ratings, reverse=True
+        ), f"ratings must decrease as rank increases: {with_rank}"
 
 
 # ---------------------------------------------------------------------------

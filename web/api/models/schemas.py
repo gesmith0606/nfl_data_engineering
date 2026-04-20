@@ -696,3 +696,45 @@ class TeamRosterResponse(BaseModel):
     fallback: bool = False
     fallback_season: Optional[int] = None
     roster: List[RosterPlayer]
+
+
+# ---------------------------------------------------------------------------
+# Defense metrics (phase 64-03)
+# ---------------------------------------------------------------------------
+
+
+class PositionalDefenseRank(BaseModel):
+    """Defensive rank against a single offensive position.
+
+    All four positions (QB/RB/WR/TE) are always returned for a team-week. If a
+    position is missing from the week's silver data, ``avg_pts_allowed`` and
+    ``rank`` are ``None`` and ``rating`` defaults to the league-median 72.
+    """
+
+    position: Literal["QB", "RB", "WR", "TE"]
+    avg_pts_allowed: Optional[float] = None
+    rank: Optional[int] = Field(default=None, ge=1, le=32)
+    rating: int = Field(..., ge=50, le=99)
+
+
+class TeamDefenseMetricsResponse(BaseModel):
+    """Response envelope for GET /api/teams/{team}/defense-metrics.
+
+    Every numeric field traces to a silver parquet column — no hardcoded
+    placeholders. ``overall_def_rating`` is derived from ``def_sos_rank`` via
+    ``round((1 - (rank - 1) / 31) * 49 + 50)`` (rank 1 → 99, rank 32 → 50).
+    When ``def_sos_rank`` is NaN (e.g., week 1 before any prior aggregate) the
+    rating defaults to the league-median 72 and the rank field is ``None``.
+    """
+
+    team: str
+    season: int
+    requested_week: int
+    source_week: int
+    fallback: bool = False
+    fallback_season: Optional[int] = None
+    overall_def_rating: int = Field(..., ge=50, le=99)
+    def_sos_score: Optional[float] = None
+    def_sos_rank: Optional[int] = Field(default=None, ge=1, le=32)
+    adj_def_epa: Optional[float] = None
+    positional: List[PositionalDefenseRank]
