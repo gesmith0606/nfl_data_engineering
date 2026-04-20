@@ -8,6 +8,18 @@
  *
  * Do NOT write raw `<motion.div>` or inline `transition={{ duration: ... }}`
  * in app/feature code — route through these primitives.
+ *
+ * Sanctioned exceptions (must still import `MOTION` + `EASE` from design-tokens
+ * so durations/easings stay uniform):
+ *   - Looping animations (e.g. typing-indicator dots) — not an entrance/exit
+ *   - `AnimatePresence` exit animations — FadeIn is entrance-only by design
+ *   - Shared-layout animations via `layoutId`
+ *
+ * Known constraints:
+ *   - `Stagger` is a Client Component and wraps each child in a motion.div.
+ *     Passing a Server Component as a child will fail at the React server/client
+ *     boundary. Hoist the RSC up (render it yourself, stagger only its siblings)
+ *     or materialize the RSC in a parent Client Component first.
  */
 
 'use client';
@@ -33,17 +45,22 @@ function PassThrough({ children, className, style }: { children: React.ReactNode
 export interface FadeInProps extends DivMotionProps {
   children: React.ReactNode;
   delay?: number;
+  /** Vertical rise offset in px. Ignored when `slide` is set. */
   rise?: number;
+  /** Horizontal slide offset in px. Positive = slide in from the right. */
+  slide?: number;
   duration?: keyof typeof MOTION;
 }
 
-export function FadeIn({ children, delay = 0, rise = 8, duration = 'base', className, style, ...rest }: FadeInProps) {
+export function FadeIn({ children, delay = 0, rise = 8, slide, duration = 'base', className, style, ...rest }: FadeInProps) {
   const reduceMotion = useReducedMotion();
   if (reduceMotion) return <PassThrough className={className} style={style}>{children}</PassThrough>;
+  const from = slide !== undefined ? { opacity: 0, x: slide } : { opacity: 0, y: rise };
+  const to = slide !== undefined ? { opacity: 1, x: 0 } : { opacity: 1, y: 0 };
   return (
     <motion.div
-      initial={{ opacity: 0, y: rise }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={from}
+      animate={to}
       transition={{ duration: MOTION[duration], delay, ease: EASE.outStandard }}
       className={className}
       style={style}
@@ -64,8 +81,14 @@ export interface StaggerProps extends DivMotionProps {
 
 export function Stagger({ children, step = STAGGER_STEP, delay = 0, className, style, ...rest }: StaggerProps) {
   const reduceMotion = useReducedMotion();
-  const items = React.Children.toArray(children);
   if (reduceMotion) return <PassThrough className={className} style={style}>{children}</PassThrough>;
+  // Preserve original child keys so list reorders animate correctly. React.Children.map
+  // prefixes keys with `.$` but keeps the original segment intact after the prefix;
+  // we still fall back to the map index for childless / keyless fragments.
+  const itemVariants = {
+    hidden: { opacity: 0, y: 6 },
+    visible: { opacity: 1, y: 0, transition: { duration: MOTION.base, ease: EASE.outStandard } }
+  };
   return (
     <motion.div
       initial='hidden'
@@ -75,17 +98,14 @@ export function Stagger({ children, step = STAGGER_STEP, delay = 0, className, s
       style={style}
       {...rest}
     >
-      {items.map((child, idx) => (
-        <motion.div
-          key={(child as React.ReactElement)?.key ?? idx}
-          variants={{
-            hidden: { opacity: 0, y: 6 },
-            visible: { opacity: 1, y: 0, transition: { duration: MOTION.base, ease: EASE.outStandard } }
-          }}
-        >
-          {child}
-        </motion.div>
-      ))}
+      {React.Children.map(children, (child, idx) => {
+        const key = React.isValidElement(child) && child.key !== null ? child.key : idx;
+        return (
+          <motion.div key={key} variants={itemVariants}>
+            {child}
+          </motion.div>
+        );
+      })}
     </motion.div>
   );
 }
