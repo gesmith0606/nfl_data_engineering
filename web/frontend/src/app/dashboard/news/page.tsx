@@ -19,6 +19,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Icons } from '@/components/icons';
+import { FadeIn } from '@/lib/motion-primitives';
 
 /**
  * News and Sentiment dashboard page.
@@ -44,9 +45,9 @@ export default function NewsPage() {
       pageTitle='News & Sentiment'
       pageDescription='NFL news, rule-extracted event signals, and player/team outlook from all sources'
     >
-      <div className='space-y-4'>
+      <FadeIn className='space-y-[var(--gap-stack)]'>
         {/* Season / week selectors */}
-        <div className='flex flex-wrap items-center gap-3'>
+        <div className='flex flex-wrap items-center gap-[var(--space-3)]'>
           <Select
             value={String(season)}
             onValueChange={(v) => setSeason(Number(v))}
@@ -86,8 +87,8 @@ export default function NewsPage() {
         {/* Team event density grid (NEWS-03) */}
         <Card>
           <CardHeader>
-            <CardTitle className='flex items-center gap-2 text-base'>
-              <Icons.shield className='h-4 w-4' />
+            <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+              <Icons.shield className='h-[var(--space-4)] w-[var(--space-4)]' />
               Team Event Density
             </CardTitle>
             <CardDescription>
@@ -101,7 +102,7 @@ export default function NewsPage() {
         </Card>
 
         <NewsFeed season={season} week={week} />
-      </div>
+      </FadeIn>
     </PageContainer>
   );
 }

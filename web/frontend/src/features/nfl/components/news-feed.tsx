@@ -24,6 +24,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Icons } from '@/components/icons';
 import { EventBadges } from './EventBadges';
+import {
+  DataLoadReveal,
+  FadeIn,
+  HoverLift,
+  PressScale,
+  Stagger
+} from '@/lib/motion-primitives';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -152,15 +159,15 @@ function getAlertVariant(
 function NewsCardSkeleton() {
   return (
     <Card>
-      <CardContent className='p-4 space-y-2'>
-        <div className='flex items-center gap-2'>
-          <Skeleton className='h-5 w-16 rounded-full' />
-          <Skeleton className='h-5 w-20 rounded-full' />
-          <Skeleton className='h-5 w-14 rounded-full ml-auto' />
+      <CardContent className='p-[var(--pad-card)] space-y-[var(--space-2)]'>
+        <div className='flex items-center gap-[var(--space-2)]'>
+          <Skeleton className='h-[var(--space-5)] w-16 rounded-full' />
+          <Skeleton className='h-[var(--space-5)] w-20 rounded-full' />
+          <Skeleton className='h-[var(--space-5)] w-14 rounded-full ml-auto' />
         </div>
-        <Skeleton className='h-4 w-full' />
-        <Skeleton className='h-4 w-3/4' />
-        <Skeleton className='h-3 w-full' />
+        <Skeleton className='h-[var(--space-4)] w-full' />
+        <Skeleton className='h-[var(--space-4)] w-3/4' />
+        <Skeleton className='h-[var(--space-3)] w-full' />
       </CardContent>
     </Card>
   );
@@ -169,10 +176,10 @@ function NewsCardSkeleton() {
 function SummaryCardSkeleton() {
   return (
     <Card>
-      <CardContent className='p-4 space-y-2'>
-        <Skeleton className='h-4 w-20' />
-        <Skeleton className='h-8 w-16' />
-        <Skeleton className='h-3 w-24' />
+      <CardContent className='p-[var(--pad-card)] space-y-[var(--space-2)]'>
+        <Skeleton className='h-[var(--space-4)] w-20' />
+        <Skeleton className='h-[var(--space-8)] w-16' />
+        <Skeleton className='h-[var(--space-3)] w-24' />
       </CardContent>
     </Card>
   );
@@ -191,7 +198,7 @@ function SentimentSummaryBar({
 }) {
   if (isLoading) {
     return (
-      <div className='grid grid-cols-2 gap-3 md:grid-cols-4'>
+      <div className='grid grid-cols-2 gap-[var(--space-3)] md:grid-cols-4'>
         {Array.from({ length: 4 }).map((_, i) => (
           <SummaryCardSkeleton key={i} />
         ))}
@@ -205,59 +212,75 @@ function SentimentSummaryBar({
   const total = dist.positive + dist.neutral + dist.negative;
 
   return (
-    <div className='grid grid-cols-2 gap-3 md:grid-cols-4'>
-      <Card>
-        <CardContent className='p-4'>
-          <p className='text-xs text-muted-foreground'>Players Tracked</p>
-          <p className='text-2xl font-semibold tabular-nums'>
-            {summary.total_players}
-          </p>
-          <p className='text-xs text-muted-foreground'>
-            {summary.total_docs} document{summary.total_docs !== 1 ? 's' : ''}{' '}
-            analyzed
-          </p>
-        </CardContent>
-      </Card>
+    <Stagger className='grid grid-cols-2 gap-[var(--space-3)] md:grid-cols-4'>
+      <HoverLift>
+        <Card>
+          <CardContent className='p-[var(--pad-card)]'>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+              Players Tracked
+            </p>
+            <p className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums'>
+              {summary.total_players}
+            </p>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+              {summary.total_docs} document{summary.total_docs !== 1 ? 's' : ''}{' '}
+              analyzed
+            </p>
+          </CardContent>
+        </Card>
+      </HoverLift>
 
-      <Card>
-        <CardContent className='p-4'>
-          <p className='text-xs text-muted-foreground'>Bullish Signals</p>
-          <p className='text-2xl font-semibold tabular-nums text-green-600 dark:text-green-400'>
-            {dist.positive}
-          </p>
-          <p className='text-xs text-muted-foreground'>
-            {total > 0 ? Math.round((dist.positive / total) * 100) : 0}% of
-            players
-          </p>
-        </CardContent>
-      </Card>
+      <HoverLift>
+        <Card>
+          <CardContent className='p-[var(--pad-card)]'>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+              Bullish Signals
+            </p>
+            <p className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums text-green-600 dark:text-green-400'>
+              {dist.positive}
+            </p>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+              {total > 0 ? Math.round((dist.positive / total) * 100) : 0}% of
+              players
+            </p>
+          </CardContent>
+        </Card>
+      </HoverLift>
 
-      <Card>
-        <CardContent className='p-4'>
-          <p className='text-xs text-muted-foreground'>Bearish Signals</p>
-          <p className='text-2xl font-semibold tabular-nums text-red-600 dark:text-red-400'>
-            {dist.negative}
-          </p>
-          <p className='text-xs text-muted-foreground'>
-            {total > 0 ? Math.round((dist.negative / total) * 100) : 0}% of
-            players
-          </p>
-        </CardContent>
-      </Card>
+      <HoverLift>
+        <Card>
+          <CardContent className='p-[var(--pad-card)]'>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+              Bearish Signals
+            </p>
+            <p className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums text-red-600 dark:text-red-400'>
+              {dist.negative}
+            </p>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+              {total > 0 ? Math.round((dist.negative / total) * 100) : 0}% of
+              players
+            </p>
+          </CardContent>
+        </Card>
+      </HoverLift>
 
-      <Card>
-        <CardContent className='p-4'>
-          <p className='text-xs text-muted-foreground'>Neutral</p>
-          <p className='text-2xl font-semibold tabular-nums text-yellow-600 dark:text-yellow-400'>
-            {dist.neutral}
-          </p>
-          <p className='text-xs text-muted-foreground'>
-            {total > 0 ? Math.round((dist.neutral / total) * 100) : 0}% of
-            players
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+      <HoverLift>
+        <Card>
+          <CardContent className='p-[var(--pad-card)]'>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+              Neutral
+            </p>
+            <p className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums text-yellow-600 dark:text-yellow-400'>
+              {dist.neutral}
+            </p>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+              {total > 0 ? Math.round((dist.neutral / total) * 100) : 0}% of
+              players
+            </p>
+          </CardContent>
+        </Card>
+      </HoverLift>
+    </Stagger>
   );
 }
 
@@ -276,15 +299,15 @@ function AlertsPanel({
     return (
       <Card>
         <CardHeader>
-          <CardTitle className='flex items-center gap-2 text-base'>
-            <Icons.warning className='h-4 w-4' />
+          <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+            <Icons.warning className='h-[var(--space-4)] w-[var(--space-4)]' />
             Active Alerts
           </CardTitle>
         </CardHeader>
-        <CardContent className='space-y-2'>
-          <Skeleton className='h-6 w-full' />
-          <Skeleton className='h-6 w-full' />
-          <Skeleton className='h-6 w-3/4' />
+        <CardContent className='space-y-[var(--space-2)]'>
+          <Skeleton className='h-[var(--space-6)] w-full' />
+          <Skeleton className='h-[var(--space-6)] w-full' />
+          <Skeleton className='h-[var(--space-6)] w-3/4' />
         </CardContent>
       </Card>
     );
@@ -294,13 +317,13 @@ function AlertsPanel({
     return (
       <Card>
         <CardHeader>
-          <CardTitle className='flex items-center gap-2 text-base'>
-            <Icons.circleCheck className='h-4 w-4 text-green-600 dark:text-green-400' />
+          <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+            <Icons.circleCheck className='h-[var(--space-4)] w-[var(--space-4)] text-green-600 dark:text-green-400' />
             No Active Alerts
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className='text-sm text-muted-foreground'>
+          <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
             No players with significant status changes or sentiment shifts this
             week.
           </p>
@@ -312,44 +335,44 @@ function AlertsPanel({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='flex items-center gap-2 text-base'>
-          <Icons.warning className='h-4 w-4 text-amber-500' />
+        <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+          <Icons.warning className='h-[var(--space-4)] w-[var(--space-4)] text-amber-500' />
           Active Alerts ({alerts.length})
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className='space-y-2'>
+        <Stagger className='space-y-[var(--space-2)]'>
           {alerts.map((alert, idx) => (
             <div
               key={`${alert.player_id}-${idx}`}
-              className='flex items-center justify-between gap-2 py-1.5 border-b last:border-b-0'
+              className='flex items-center justify-between gap-[var(--space-2)] py-[var(--space-2)] border-b last:border-b-0'
             >
-              <div className='flex items-center gap-2 min-w-0'>
+              <div className='flex items-center gap-[var(--space-2)] min-w-0'>
                 <Badge
                   variant={getAlertVariant(alert.alert_type)}
-                  className='text-xs shrink-0'
+                  className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] shrink-0'
                 >
                   {getAlertTypeLabel(alert.alert_type)}
                 </Badge>
-                <span className='text-sm font-medium truncate'>
+                <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium truncate'>
                   {alert.player_name}
                 </span>
                 {alert.team && (
-                  <span className='text-xs text-muted-foreground shrink-0'>
+                  <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground shrink-0'>
                     {alert.team}
                   </span>
                 )}
               </div>
               {alert.sentiment_multiplier != null && (
                 <span
-                  className={`text-xs font-medium tabular-nums shrink-0 ${getMultiplierClass(alert.sentiment_multiplier)}`}
+                  className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium tabular-nums shrink-0 ${getMultiplierClass(alert.sentiment_multiplier)}`}
                 >
                   {alert.sentiment_multiplier.toFixed(2)}x
                 </span>
               )}
             </div>
           ))}
-        </div>
+        </Stagger>
       </CardContent>
     </Card>
   );
@@ -368,21 +391,21 @@ function TopMoversPanel({
 }) {
   if (isLoading) {
     return (
-      <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
+      <div className='grid grid-cols-1 gap-[var(--space-3)] md:grid-cols-2'>
         <Card>
-          <CardContent className='p-4 space-y-2'>
-            <Skeleton className='h-4 w-24' />
-            <Skeleton className='h-5 w-full' />
-            <Skeleton className='h-5 w-full' />
-            <Skeleton className='h-5 w-3/4' />
+          <CardContent className='p-[var(--pad-card)] space-y-[var(--space-2)]'>
+            <Skeleton className='h-[var(--space-4)] w-24' />
+            <Skeleton className='h-[var(--space-5)] w-full' />
+            <Skeleton className='h-[var(--space-5)] w-full' />
+            <Skeleton className='h-[var(--space-5)] w-3/4' />
           </CardContent>
         </Card>
         <Card>
-          <CardContent className='p-4 space-y-2'>
-            <Skeleton className='h-4 w-24' />
-            <Skeleton className='h-5 w-full' />
-            <Skeleton className='h-5 w-full' />
-            <Skeleton className='h-5 w-3/4' />
+          <CardContent className='p-[var(--pad-card)] space-y-[var(--space-2)]'>
+            <Skeleton className='h-[var(--space-4)] w-24' />
+            <Skeleton className='h-[var(--space-5)] w-full' />
+            <Skeleton className='h-[var(--space-5)] w-full' />
+            <Skeleton className='h-[var(--space-5)] w-3/4' />
           </CardContent>
         </Card>
       </div>
@@ -392,12 +415,12 @@ function TopMoversPanel({
   if (!summary) return null;
 
   return (
-    <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
+    <div className='grid grid-cols-1 gap-[var(--space-3)] md:grid-cols-2'>
       {/* Bullish players */}
       <Card className='border-green-200 dark:border-green-900'>
-        <CardHeader className='pb-2'>
-          <CardTitle className='flex items-center gap-2 text-base'>
-            <Icons.trendingUp className='h-4 w-4 text-green-600 dark:text-green-400' />
+        <CardHeader className='pb-[var(--space-2)]'>
+          <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+            <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-green-600 dark:text-green-400' />
             Bullish Players
           </CardTitle>
           <CardDescription>
@@ -406,37 +429,39 @@ function TopMoversPanel({
         </CardHeader>
         <CardContent>
           {summary.top_positive.length === 0 ? (
-            <p className='text-sm text-muted-foreground py-2'>
+            <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground py-[var(--space-2)]'>
               No strong bullish signals detected.
             </p>
           ) : (
-            <div className='space-y-1'>
+            <Stagger className='space-y-[var(--space-1)]'>
               {summary.top_positive.map((p, idx) => (
                 <div
                   key={`${p.player_id}-${idx}`}
-                  className='flex items-center justify-between py-1.5 border-b last:border-b-0'
+                  className='flex items-center justify-between py-[var(--space-2)] border-b last:border-b-0'
                 >
-                  <span className='text-sm font-medium'>{p.player_name}</span>
-                  <div className='flex items-center gap-2'>
-                    <span className='text-xs text-muted-foreground'>
+                  <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                    {p.player_name}
+                  </span>
+                  <div className='flex items-center gap-[var(--space-2)]'>
+                    <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
                       {p.doc_count} doc{p.doc_count !== 1 ? 's' : ''}
                     </span>
-                    <span className='text-sm font-semibold tabular-nums text-green-600 dark:text-green-400'>
+                    <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold tabular-nums text-green-600 dark:text-green-400'>
                       {p.sentiment_multiplier.toFixed(2)}x
                     </span>
                   </div>
                 </div>
               ))}
-            </div>
+            </Stagger>
           )}
         </CardContent>
       </Card>
 
       {/* Bearish players */}
       <Card className='border-red-200 dark:border-red-900'>
-        <CardHeader className='pb-2'>
-          <CardTitle className='flex items-center gap-2 text-base'>
-            <Icons.trendingDown className='h-4 w-4 text-red-600 dark:text-red-400' />
+        <CardHeader className='pb-[var(--space-2)]'>
+          <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+            <Icons.trendingDown className='h-[var(--space-4)] w-[var(--space-4)] text-red-600 dark:text-red-400' />
             Bearish Players
           </CardTitle>
           <CardDescription>
@@ -445,28 +470,30 @@ function TopMoversPanel({
         </CardHeader>
         <CardContent>
           {summary.top_negative.length === 0 ? (
-            <p className='text-sm text-muted-foreground py-2'>
+            <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground py-[var(--space-2)]'>
               No strong bearish signals detected.
             </p>
           ) : (
-            <div className='space-y-1'>
+            <Stagger className='space-y-[var(--space-1)]'>
               {summary.top_negative.map((p, idx) => (
                 <div
                   key={`${p.player_id}-${idx}`}
-                  className='flex items-center justify-between py-1.5 border-b last:border-b-0'
+                  className='flex items-center justify-between py-[var(--space-2)] border-b last:border-b-0'
                 >
-                  <span className='text-sm font-medium'>{p.player_name}</span>
-                  <div className='flex items-center gap-2'>
-                    <span className='text-xs text-muted-foreground'>
+                  <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                    {p.player_name}
+                  </span>
+                  <div className='flex items-center gap-[var(--space-2)]'>
+                    <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
                       {p.doc_count} doc{p.doc_count !== 1 ? 's' : ''}
                     </span>
-                    <span className='text-sm font-semibold tabular-nums text-red-600 dark:text-red-400'>
+                    <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold tabular-nums text-red-600 dark:text-red-400'>
                       {p.sentiment_multiplier.toFixed(2)}x
                     </span>
                   </div>
                 </div>
               ))}
-            </div>
+            </Stagger>
           )}
         </CardContent>
       </Card>
@@ -487,7 +514,7 @@ function TeamSentimentGrid({
 }) {
   if (isLoading) {
     return (
-      <div className='grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8'>
+      <div className='grid grid-cols-2 gap-[var(--space-2)] sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8'>
         {Array.from({ length: 8 }).map((_, i) => (
           <Skeleton key={i} className='h-20 rounded-lg' />
         ))}
@@ -498,9 +525,9 @@ function TeamSentimentGrid({
   if (!teams || teams.length === 0) {
     return (
       <Card>
-        <CardContent className='flex flex-col items-center justify-center py-8'>
-          <Icons.shield className='h-6 w-6 text-muted-foreground mb-2' />
-          <p className='text-sm text-muted-foreground'>
+        <CardContent className='flex flex-col items-center justify-center py-[var(--space-8)]'>
+          <Icons.shield className='h-[var(--space-6)] w-[var(--space-6)] text-muted-foreground mb-[var(--space-2)]' />
+          <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
             No team sentiment data available for this period.
           </p>
         </CardContent>
@@ -509,7 +536,10 @@ function TeamSentimentGrid({
   }
 
   return (
-    <div className='grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8'>
+    <Stagger
+      step={0.02}
+      className='grid grid-cols-2 gap-[var(--space-2)] sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8'
+    >
       {teams.map((team) => {
         const bgClass = getTeamSentimentBg(team.sentiment_label);
         const scoreColor =
@@ -526,22 +556,27 @@ function TeamSentimentGrid({
               : Icons.minus;
 
         return (
-          <div
-            key={team.team}
-            className={`flex flex-col items-center justify-center rounded-lg border p-3 text-center ${bgClass}`}
-          >
-            <span className='text-sm font-bold'>{team.team}</span>
-            <TrendIcon className={`h-4 w-4 mt-1 ${scoreColor}`} />
-            <span className={`text-xs font-medium mt-0.5 capitalize ${scoreColor}`}>
-              {team.sentiment_label}
-            </span>
-            <span className='text-xs text-muted-foreground mt-0.5'>
-              {team.signal_count} signal{team.signal_count !== 1 ? 's' : ''}
-            </span>
-          </div>
+          <HoverLift key={team.team}>
+            <div
+              className={`flex flex-col items-center justify-center rounded-lg border p-[var(--space-3)] text-center ${bgClass}`}
+            >
+              <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold'>
+                {team.team}
+              </span>
+              <TrendIcon className={`h-[var(--space-4)] w-[var(--space-4)] mt-[var(--space-1)] ${scoreColor}`} />
+              <span
+                className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium mt-0.5 capitalize ${scoreColor}`}
+              >
+                {team.sentiment_label}
+              </span>
+              <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground mt-0.5'>
+                {team.signal_count} signal{team.signal_count !== 1 ? 's' : ''}
+              </span>
+            </div>
+          </HoverLift>
         );
       })}
-    </div>
+    </Stagger>
   );
 }
 
@@ -554,94 +589,99 @@ function NewsCard({ item }: { item: NewsItem }) {
   const sentimentLabel = getSentimentLabel(item.sentiment);
 
   return (
-    <Card className='overflow-hidden'>
-      <CardContent className='p-4 space-y-2'>
-        {/* Header row: source + timestamp + sentiment */}
-        <div className='flex items-center justify-between gap-2 flex-wrap'>
-          <div className='flex items-center gap-2'>
-            <Badge variant='outline' className='text-xs shrink-0'>
-              {formatSource(item.source)}
-            </Badge>
-            {item.category && (
+    <HoverLift>
+      <Card className='overflow-hidden'>
+        <CardContent className='p-[var(--pad-card)] space-y-[var(--space-2)]'>
+          {/* Header row: source + timestamp + sentiment */}
+          <div className='flex items-center justify-between gap-[var(--space-2)] flex-wrap'>
+            <div className='flex items-center gap-[var(--space-2)]'>
               <Badge
-                variant='secondary'
-                className='text-xs capitalize shrink-0'
+                variant='outline'
+                className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] shrink-0'
               >
-                {item.category}
+                {formatSource(item.source)}
               </Badge>
-            )}
-          </div>
-          <div className='flex items-center gap-2 ml-auto'>
-            <span
-              className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${sentimentClass}`}
-            >
-              {sentimentLabel}
-            </span>
-            {item.published_at && (
-              <span className='text-xs text-muted-foreground shrink-0'>
-                {relativeTime(item.published_at)}
+              {item.category && (
+                <Badge
+                  variant='secondary'
+                  className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] capitalize shrink-0'
+                >
+                  {item.category}
+                </Badge>
+              )}
+            </div>
+            <div className='flex items-center gap-[var(--space-2)] ml-auto'>
+              <span
+                className={`inline-flex items-center px-[var(--space-2)] py-0.5 rounded-full text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium ${sentimentClass}`}
+              >
+                {sentimentLabel}
               </span>
-            )}
-          </div>
-        </div>
-
-        {/* Title */}
-        {item.url ? (
-          <a
-            href={item.url}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='flex items-start gap-1 group'
-          >
-            <span className='text-sm font-medium leading-snug group-hover:underline line-clamp-3'>
-              {item.title ?? 'Untitled'}
-            </span>
-            <Icons.externalLink className='h-3 w-3 mt-0.5 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity' />
-          </a>
-        ) : (
-          <p className='text-sm font-medium leading-snug line-clamp-3'>
-            {item.title ?? item.body_snippet ?? 'Untitled'}
-          </p>
-        )}
-
-        {/* Body snippet */}
-        {item.body_snippet && item.title && (
-          <p className='text-xs text-muted-foreground line-clamp-2'>
-            {item.body_snippet}
-          </p>
-        )}
-
-        {/* Player / team info */}
-        {(item.player_name || item.team) && (
-          <div className='flex items-center gap-2 pt-1'>
-            {item.player_name && (
-              <span className='text-xs text-muted-foreground'>
-                <span className='font-medium text-foreground'>
-                  {item.player_name}
+              {item.published_at && (
+                <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground shrink-0'>
+                  {relativeTime(item.published_at)}
                 </span>
-                {item.team ? ` · ${item.team}` : ''}
-              </span>
-            )}
-            {!item.player_name && item.team && (
-              <span className='text-xs font-medium text-foreground'>
-                {item.team}
-              </span>
-            )}
+              )}
+            </div>
           </div>
-        )}
 
-        {/* Event flags (Plan 61-05): render the rule-extractor labels as
-            color-coded pills. Falls back to the legacy 5-flag booleans when
-            ``event_flags`` is empty (old cached silver records). */}
-        <EventBadges
-          badges={
-            item.event_flags && item.event_flags.length > 0
-              ? item.event_flags
-              : legacyFlagsToLabels(item)
-          }
-        />
-      </CardContent>
-    </Card>
+          {/* Title */}
+          {item.url ? (
+            <a
+              href={item.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-start gap-[var(--space-1)] group'
+            >
+              <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium group-hover:underline line-clamp-3'>
+                {item.title ?? 'Untitled'}
+              </span>
+              <Icons.externalLink className='h-[var(--space-3)] w-[var(--space-3)] mt-0.5 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity' />
+            </a>
+          ) : (
+            <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium line-clamp-3'>
+              {item.title ?? item.body_snippet ?? 'Untitled'}
+            </p>
+          )}
+
+          {/* Body snippet */}
+          {item.body_snippet && item.title && (
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground line-clamp-2'>
+              {item.body_snippet}
+            </p>
+          )}
+
+          {/* Player / team info */}
+          {(item.player_name || item.team) && (
+            <div className='flex items-center gap-[var(--space-2)] pt-[var(--space-1)]'>
+              {item.player_name && (
+                <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+                  <span className='font-medium text-foreground'>
+                    {item.player_name}
+                  </span>
+                  {item.team ? ` · ${item.team}` : ''}
+                </span>
+              )}
+              {!item.player_name && item.team && (
+                <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium text-foreground'>
+                  {item.team}
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Event flags (Plan 61-05): render the rule-extractor labels as
+              color-coded pills. Falls back to the legacy 5-flag booleans when
+              ``event_flags`` is empty (old cached silver records). */}
+          <EventBadges
+            badges={
+              item.event_flags && item.event_flags.length > 0
+                ? item.event_flags
+                : legacyFlagsToLabels(item)
+            }
+          />
+        </CardContent>
+      </Card>
+    </HoverLift>
   );
 }
 
@@ -758,285 +798,299 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
   }
 
   return (
-    <Tabs defaultValue='overview' className='space-y-4'>
-      <TabsList>
-        <TabsTrigger value='overview'>Overview</TabsTrigger>
-        <TabsTrigger value='feed'>News Feed</TabsTrigger>
-        <TabsTrigger value='teams'>Team Sentiment</TabsTrigger>
-        <TabsTrigger value='players'>Player Signals</TabsTrigger>
-      </TabsList>
+    <FadeIn>
+      <Tabs defaultValue='overview' className='space-y-[var(--gap-stack)]'>
+        <TabsList>
+          <TabsTrigger value='overview'>Overview</TabsTrigger>
+          <TabsTrigger value='feed'>News Feed</TabsTrigger>
+          <TabsTrigger value='teams'>Team Sentiment</TabsTrigger>
+          <TabsTrigger value='players'>Player Signals</TabsTrigger>
+        </TabsList>
 
-      {/* ================================================================= */}
-      {/* Overview tab — dashboard summary                                  */}
-      {/* ================================================================= */}
-      <TabsContent value='overview' className='space-y-4'>
-        <SentimentSummaryBar summary={summary} isLoading={summaryLoading} />
+        {/* ================================================================= */}
+        {/* Overview tab — dashboard summary                                  */}
+        {/* ================================================================= */}
+        <TabsContent value='overview' className='space-y-[var(--gap-stack)]'>
+          <SentimentSummaryBar summary={summary} isLoading={summaryLoading} />
 
-        <div className='grid grid-cols-1 gap-4 lg:grid-cols-3'>
-          <div className='lg:col-span-2'>
-            <TopMoversPanel summary={summary} isLoading={summaryLoading} />
-          </div>
-          <div>
-            <AlertsPanel alerts={alerts} isLoading={alertsLoading} />
-          </div>
-        </div>
-
-        {/* Quick team sentiment preview */}
-        <Card>
-          <CardHeader>
-            <CardTitle className='flex items-center gap-2 text-base'>
-              <Icons.shield className='h-4 w-4' />
-              Team Outlook
-            </CardTitle>
-            <CardDescription>
-              Aggregated sentiment by team for Week {effectiveWeek}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <TeamSentimentGrid
-              teams={teamSentiments}
-              isLoading={teamsLoading}
-            />
-          </CardContent>
-        </Card>
-      </TabsContent>
-
-      {/* ================================================================= */}
-      {/* News Feed tab — scrolling list of articles                        */}
-      {/* ================================================================= */}
-      <TabsContent value='feed' className='space-y-4'>
-        {/* Filter row */}
-        <div className='flex flex-wrap items-center gap-3'>
-          {/* Source filter */}
-          <div className='flex items-center gap-1 rounded-lg border p-1'>
-            {SOURCE_FILTER_OPTIONS.map(({ value, label }) => (
-              <button
-                key={value}
-                onClick={() => handleSourceChange(value)}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                  sourceFilter === value
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-
-          {/* Search */}
-          <div className='relative flex-1 min-w-48'>
-            <Icons.search className='absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none' />
-            <Input
-              placeholder='Search player, team, or headline...'
-              value={search}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              className='pl-8 h-9'
-            />
-          </div>
-        </div>
-
-        {/* Feed content */}
-        {feedLoading ? (
-          <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
-            {Array.from({ length: 6 }).map((_, i) => (
-              <NewsCardSkeleton key={i} />
-            ))}
-          </div>
-        ) : feedError ? (
-          <Card>
-            <CardContent className='flex flex-col items-center justify-center py-12'>
-              <Icons.alertCircle className='h-8 w-8 text-muted-foreground mb-2' />
-              <p className='text-sm text-muted-foreground'>
-                Could not load news. Ensure the API is running.
-              </p>
-            </CardContent>
-          </Card>
-        ) : visibleItems.length === 0 ? (
-          <Card>
-            <CardContent className='flex flex-col items-center justify-center py-12'>
-              <Icons.news className='h-8 w-8 text-muted-foreground mb-2' />
-              <p className='text-sm font-medium'>No recent news</p>
-              <p className='text-xs text-muted-foreground mt-1'>
-                {search
-                  ? 'Try a different search term or source filter.'
-                  : 'Check back during the NFL season after the sentiment pipeline runs.'}
-              </p>
-            </CardContent>
-          </Card>
-        ) : (
-          <>
-            <p className='text-xs text-muted-foreground'>
-              Showing {visibleItems.length} of {filtered.length} articles
-            </p>
-            <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
-              {visibleItems.map((item, idx) => (
-                <NewsCard key={item.doc_id ?? idx} item={item} />
-              ))}
+          <div className='grid grid-cols-1 gap-[var(--gap-stack)] lg:grid-cols-3'>
+            <div className='lg:col-span-2'>
+              <TopMoversPanel summary={summary} isLoading={summaryLoading} />
             </div>
+            <div>
+              <AlertsPanel alerts={alerts} isLoading={alertsLoading} />
+            </div>
+          </div>
 
-            {hasMore && (
-              <div className='flex justify-center pt-2'>
-                <Button
-                  variant='outline'
-                  onClick={() => setPage((p) => p + 1)}
-                >
-                  Load more
-                </Button>
-              </div>
-            )}
-          </>
-        )}
-      </TabsContent>
-
-      {/* ================================================================= */}
-      {/* Team Sentiment tab                                                */}
-      {/* ================================================================= */}
-      <TabsContent value='teams' className='space-y-4'>
-        <Card>
-          <CardHeader>
-            <CardTitle className='flex items-center gap-2'>
-              <Icons.shield className='h-5 w-5' />
-              Team Sentiment Overview
-            </CardTitle>
-            <CardDescription>
-              Aggregated sentiment by team for{' '}
-              {week ? `Week ${week}` : `${season} Season`}. Derived from player
-              news signals and community discussion.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <TeamSentimentGrid
-              teams={teamSentiments}
-              isLoading={teamsLoading}
-            />
-          </CardContent>
-        </Card>
-
-        {/* Team detail list */}
-        {teamSentiments && teamSentiments.length > 0 && (
+          {/* Quick team sentiment preview */}
           <Card>
             <CardHeader>
-              <CardTitle className='text-base'>Team Details</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className='space-y-1'>
-                {teamSentiments.map((team) => {
-                  const scoreColor =
-                    team.sentiment_label === 'positive'
-                      ? 'text-green-600 dark:text-green-400'
-                      : team.sentiment_label === 'negative'
-                        ? 'text-red-600 dark:text-red-400'
-                        : 'text-muted-foreground';
-                  return (
-                    <div
-                      key={team.team}
-                      className='flex items-center justify-between py-2 border-b last:border-b-0'
-                    >
-                      <div className='flex items-center gap-3'>
-                        <span className='text-sm font-bold w-10'>
-                          {team.team}
-                        </span>
-                        <Badge
-                          variant={
-                            team.sentiment_label === 'positive'
-                              ? 'outline'
-                              : team.sentiment_label === 'negative'
-                                ? 'destructive'
-                                : 'secondary'
-                          }
-                          className='text-xs capitalize'
-                        >
-                          {team.sentiment_label}
-                        </Badge>
-                      </div>
-                      <div className='flex items-center gap-4'>
-                        <span className='text-xs text-muted-foreground'>
-                          {team.signal_count} signal
-                          {team.signal_count !== 1 ? 's' : ''}
-                        </span>
-                        <span
-                          className={`text-sm font-semibold tabular-nums ${scoreColor}`}
-                        >
-                          {team.sentiment_score > 0 ? '+' : ''}
-                          {team.sentiment_score.toFixed(2)}
-                        </span>
-                        <span className='text-xs tabular-nums text-muted-foreground'>
-                          {team.sentiment_multiplier.toFixed(2)}x
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </TabsContent>
-
-      {/* ================================================================= */}
-      {/* Player Signals tab — bullish/bearish/neutral per player            */}
-      {/* ================================================================= */}
-      <TabsContent value='players' className='space-y-4'>
-        <TopMoversPanel summary={summary} isLoading={summaryLoading} />
-
-        <AlertsPanel alerts={alerts} isLoading={alertsLoading} />
-
-        {/* Full player sentiment list from gold data */}
-        {summary && (
-          <Card>
-            <CardHeader>
-              <CardTitle className='text-base'>
-                Sentiment Distribution
+              <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+                <Icons.shield className='h-[var(--space-4)] w-[var(--space-4)]' />
+                Team Outlook
               </CardTitle>
               <CardDescription>
-                {summary.total_players} players tracked across{' '}
-                {summary.total_docs} documents
+                Aggregated sentiment by team for Week {effectiveWeek}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {/* Visual bar */}
-              <div className='flex h-4 rounded-full overflow-hidden mb-4'>
-                {summary.sentiment_distribution.positive > 0 && (
-                  <div
-                    className='bg-green-500 dark:bg-green-600'
-                    style={{
-                      width: `${(summary.sentiment_distribution.positive / summary.total_players) * 100}%`
-                    }}
-                  />
-                )}
-                {summary.sentiment_distribution.neutral > 0 && (
-                  <div
-                    className='bg-yellow-400 dark:bg-yellow-600'
-                    style={{
-                      width: `${(summary.sentiment_distribution.neutral / summary.total_players) * 100}%`
-                    }}
-                  />
-                )}
-                {summary.sentiment_distribution.negative > 0 && (
-                  <div
-                    className='bg-red-500 dark:bg-red-600'
-                    style={{
-                      width: `${(summary.sentiment_distribution.negative / summary.total_players) * 100}%`
-                    }}
-                  />
-                )}
-              </div>
-              <div className='flex justify-between text-xs'>
-                <span className='text-green-600 dark:text-green-400'>
-                  {summary.sentiment_distribution.positive} Bullish
-                </span>
-                <span className='text-yellow-600 dark:text-yellow-400'>
-                  {summary.sentiment_distribution.neutral} Neutral
-                </span>
-                <span className='text-red-600 dark:text-red-400'>
-                  {summary.sentiment_distribution.negative} Bearish
-                </span>
-              </div>
+              <TeamSentimentGrid
+                teams={teamSentiments}
+                isLoading={teamsLoading}
+              />
             </CardContent>
           </Card>
-        )}
-      </TabsContent>
-    </Tabs>
+        </TabsContent>
+
+        {/* ================================================================= */}
+        {/* News Feed tab — scrolling list of articles                        */}
+        {/* ================================================================= */}
+        <TabsContent value='feed' className='space-y-[var(--gap-stack)]'>
+          {/* Filter row */}
+          <div className='flex flex-wrap items-center gap-[var(--space-3)]'>
+            {/* Source filter */}
+            <div className='flex items-center gap-[var(--space-1)] rounded-lg border p-[var(--space-1)]'>
+              {SOURCE_FILTER_OPTIONS.map(({ value, label }) => (
+                <PressScale key={value}>
+                  <button
+                    onClick={() => handleSourceChange(value)}
+                    className={`px-[var(--space-3)] py-[var(--space-1)] rounded-md text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium transition-colors ${
+                      sourceFilter === value
+                        ? 'bg-primary text-primary-foreground'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                </PressScale>
+              ))}
+            </div>
+
+            {/* Search */}
+            <div className='relative flex-1 min-w-48'>
+              <Icons.search className='absolute left-[var(--space-3)] top-1/2 -translate-y-1/2 h-[var(--space-4)] w-[var(--space-4)] text-muted-foreground pointer-events-none' />
+              <Input
+                placeholder='Search player, team, or headline...'
+                value={search}
+                onChange={(e) => handleSearchChange(e.target.value)}
+                className='pl-[var(--space-10)] h-9'
+              />
+            </div>
+          </div>
+
+          {/* Feed content */}
+          <DataLoadReveal
+            loading={feedLoading}
+            skeleton={
+              <div className='grid grid-cols-1 gap-[var(--space-3)] md:grid-cols-2 lg:grid-cols-3'>
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <NewsCardSkeleton key={i} />
+                ))}
+              </div>
+            }
+          >
+            {feedError ? (
+              <Card>
+                <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+                  <Icons.alertCircle className='h-[var(--space-8)] w-[var(--space-8)] text-muted-foreground mb-[var(--space-2)]' />
+                  <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
+                    Could not load news. Ensure the API is running.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : visibleItems.length === 0 ? (
+              <Card>
+                <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
+                  <Icons.news className='h-[var(--space-8)] w-[var(--space-8)] text-muted-foreground mb-[var(--space-2)]' />
+                  <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                    No recent news
+                  </p>
+                  <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground mt-[var(--space-1)]'>
+                    {search
+                      ? 'Try a different search term or source filter.'
+                      : 'Check back during the NFL season after the sentiment pipeline runs.'}
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className='space-y-[var(--gap-stack)]'>
+                <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+                  Showing {visibleItems.length} of {filtered.length} articles
+                </p>
+                <Stagger className='grid grid-cols-1 gap-[var(--space-3)] md:grid-cols-2 lg:grid-cols-3'>
+                  {visibleItems.map((item, idx) => (
+                    <NewsCard key={item.doc_id ?? idx} item={item} />
+                  ))}
+                </Stagger>
+
+                {hasMore && (
+                  <div className='flex justify-center pt-[var(--space-2)]'>
+                    <PressScale>
+                      <Button
+                        variant='outline'
+                        onClick={() => setPage((p) => p + 1)}
+                      >
+                        Load more
+                      </Button>
+                    </PressScale>
+                  </div>
+                )}
+              </div>
+            )}
+          </DataLoadReveal>
+        </TabsContent>
+
+        {/* ================================================================= */}
+        {/* Team Sentiment tab                                                */}
+        {/* ================================================================= */}
+        <TabsContent value='teams' className='space-y-[var(--gap-stack)]'>
+          <Card>
+            <CardHeader>
+              <CardTitle className='flex items-center gap-[var(--space-2)]'>
+                <Icons.shield className='h-[var(--space-5)] w-[var(--space-5)]' />
+                Team Sentiment Overview
+              </CardTitle>
+              <CardDescription>
+                Aggregated sentiment by team for{' '}
+                {week ? `Week ${week}` : `${season} Season`}. Derived from player
+                news signals and community discussion.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <TeamSentimentGrid
+                teams={teamSentiments}
+                isLoading={teamsLoading}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Team detail list */}
+          {teamSentiments && teamSentiments.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+                  Team Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Stagger step={0.02} className='space-y-[var(--space-1)]'>
+                  {teamSentiments.map((team) => {
+                    const scoreColor =
+                      team.sentiment_label === 'positive'
+                        ? 'text-green-600 dark:text-green-400'
+                        : team.sentiment_label === 'negative'
+                          ? 'text-red-600 dark:text-red-400'
+                          : 'text-muted-foreground';
+                    return (
+                      <div
+                        key={team.team}
+                        className='flex items-center justify-between py-[var(--space-2)] border-b last:border-b-0'
+                      >
+                        <div className='flex items-center gap-[var(--space-3)]'>
+                          <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold w-10'>
+                            {team.team}
+                          </span>
+                          <Badge
+                            variant={
+                              team.sentiment_label === 'positive'
+                                ? 'outline'
+                                : team.sentiment_label === 'negative'
+                                  ? 'destructive'
+                                  : 'secondary'
+                            }
+                            className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] capitalize'
+                          >
+                            {team.sentiment_label}
+                          </Badge>
+                        </div>
+                        <div className='flex items-center gap-[var(--space-4)]'>
+                          <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+                            {team.signal_count} signal
+                            {team.signal_count !== 1 ? 's' : ''}
+                          </span>
+                          <span
+                            className={`text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold tabular-nums ${scoreColor}`}
+                          >
+                            {team.sentiment_score > 0 ? '+' : ''}
+                            {team.sentiment_score.toFixed(2)}
+                          </span>
+                          <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tabular-nums text-muted-foreground'>
+                            {team.sentiment_multiplier.toFixed(2)}x
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </Stagger>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        {/* ================================================================= */}
+        {/* Player Signals tab — bullish/bearish/neutral per player            */}
+        {/* ================================================================= */}
+        <TabsContent value='players' className='space-y-[var(--gap-stack)]'>
+          <TopMoversPanel summary={summary} isLoading={summaryLoading} />
+
+          <AlertsPanel alerts={alerts} isLoading={alertsLoading} />
+
+          {/* Full player sentiment list from gold data */}
+          {summary && (
+            <Card>
+              <CardHeader>
+                <CardTitle className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+                  Sentiment Distribution
+                </CardTitle>
+                <CardDescription>
+                  {summary.total_players} players tracked across{' '}
+                  {summary.total_docs} documents
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* Visual bar */}
+                <div className='flex h-[var(--space-4)] rounded-full overflow-hidden mb-[var(--space-4)]'>
+                  {summary.sentiment_distribution.positive > 0 && (
+                    <div
+                      className='bg-green-500 dark:bg-green-600'
+                      style={{
+                        width: `${(summary.sentiment_distribution.positive / summary.total_players) * 100}%`
+                      }}
+                    />
+                  )}
+                  {summary.sentiment_distribution.neutral > 0 && (
+                    <div
+                      className='bg-yellow-400 dark:bg-yellow-600'
+                      style={{
+                        width: `${(summary.sentiment_distribution.neutral / summary.total_players) * 100}%`
+                      }}
+                    />
+                  )}
+                  {summary.sentiment_distribution.negative > 0 && (
+                    <div
+                      className='bg-red-500 dark:bg-red-600'
+                      style={{
+                        width: `${(summary.sentiment_distribution.negative / summary.total_players) * 100}%`
+                      }}
+                    />
+                  )}
+                </div>
+                <div className='flex justify-between text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                  <span className='text-green-600 dark:text-green-400'>
+                    {summary.sentiment_distribution.positive} Bullish
+                  </span>
+                  <span className='text-yellow-600 dark:text-yellow-400'>
+                    {summary.sentiment_distribution.neutral} Neutral
+                  </span>
+                  <span className='text-red-600 dark:text-red-400'>
+                    {summary.sentiment_distribution.negative} Bearish
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+      </Tabs>
+    </FadeIn>
   );
 }

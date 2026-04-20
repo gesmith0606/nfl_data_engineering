@@ -57,10 +57,12 @@ export function TeamSentimentInline({ sentiment }: TeamSentimentInlineProps) {
 
   return (
     <span
-      className={`inline-flex items-center gap-0.5 text-xs font-medium ${textClass}`}
+      className={`inline-flex items-center gap-0.5 text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium transition-colors duration-[var(--motion-base)] ${textClass}`}
       title={tooltip}
     >
-      <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${dotClass}`} />
+      <span
+        className={`h-1.5 w-1.5 rounded-full shrink-0 transition-colors duration-[var(--motion-base)] ${dotClass}`}
+      />
       {symbol}
     </span>
   );
