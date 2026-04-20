@@ -24,6 +24,7 @@ from .routers import (
     projections,
     rankings,
     teams,
+    teams_defense,
 )
 
 app = FastAPI(
@@ -83,6 +84,7 @@ app.include_router(news.router, prefix="/api")
 app.include_router(draft.router, prefix="/api")
 app.include_router(rankings.router, prefix="/api")
 app.include_router(teams.router, prefix="/api")
+app.include_router(teams_defense.router, prefix="/api")
 
 
 # ---------------------------------------------------------------------------
@@ -104,11 +106,9 @@ def version_info() -> dict:
         "build_id": os.environ.get("RAILWAY_DEPLOYMENT_ID", "unknown")[:8],
         "deployed_at": os.environ.get("RAILWAY_GIT_COMMIT_TIMESTAMP", "unknown"),
         "has_team_events_route": any(
-            getattr(r, "path", "") == "/team-events"
-            for r in news.router.routes
+            getattr(r, "path", "") == "/team-events" for r in news.router.routes
         ),
         "has_player_badges_route": any(
-            "player-badges" in getattr(r, "path", "")
-            for r in news.router.routes
+            "player-badges" in getattr(r, "path", "") for r in news.router.routes
         ),
     }
