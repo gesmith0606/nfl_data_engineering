@@ -1,9 +1,23 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { projectionsQueryOptions, predictionsQueryOptions } from '../api/queries';
-import type { PlayerProjection, GamePrediction, ScoringFormat } from '../api/types';
+import {
+  currentWeekQueryOptions,
+  predictionsQueryOptions,
+  projectionsQueryOptions,
+  teamDefenseMetricsQueryOptions,
+  teamRosterQueryOptions
+} from '../api/queries';
+import type {
+  GamePrediction,
+  PlayerProjection,
+  PositionalDefenseRank,
+  RosterPlayer,
+  ScoringFormat,
+  TeamDefenseMetricsResponse,
+  TeamRosterResponse
+} from '../api/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -73,12 +87,52 @@ const DEFENSE_SLOTS = [
   { slot: 'FS', pos: 'FS', label: 'FS', row: 'secondary' }
 ] as const;
 
-/** Position group colors. Migrated to --pos-* tokens (Phase 62-04):
- *  consumes `getPositionColor` from @/lib/design-tokens which resolves
- *  --pos-qb / --pos-rb / --pos-wr / --pos-te / --pos-ol / --pos-de /
- *  --pos-dt / --pos-lb / --pos-cb / --pos-ss / --pos-fs / --pos-k.
- *  Closes POSITION_COLORS duplication item #2 of 6 (inventoried in
- *  AUDIT-BASELINE.md). */
+/**
+ * Offense slot → defense position that covers it. Used by getAdvantage() to
+ * look up the opposing team's positional defense rank for each key matchup.
+ */
+const OFFENSE_TO_DEF_POSITION: Record<string, 'QB' | 'RB' | 'WR' | 'TE'> = {
+  QB1: 'QB',
+  RB1: 'RB',
+  RB2: 'RB',
+  WR1: 'WR',
+  WR2: 'WR',
+  WR3: 'WR',
+  TE1: 'TE'
+};
+
+/**
+ * Normalize raw roster injury_status codes into the user-facing labels the
+ * InjuryBadge expects. Bronze rosters carry short codes (A01, R48, I01, P01);
+ * turn them into 'Active' / 'Questionable' / 'Out' / 'IR' / 'PUP' so the
+ * existing badge styling still applies.
+ */
+function normalizeInjuryStatus(status: string | null | undefined): string | null {
+  if (!status) return null;
+  const code = status.toUpperCase();
+  // nfl-data-py status codes — see docs/NFL_DATA_DICTIONARY.md
+  if (code.startsWith('A')) return 'Active';
+  if (code.startsWith('R')) return 'IR';
+  if (code.startsWith('I')) return 'Out';
+  if (code.startsWith('P')) return 'PUP';
+  if (code.startsWith('Q')) return 'Questionable';
+  if (code.startsWith('D')) return 'Doubtful';
+  // Fall through for already-normalized labels (e.g., 'Questionable').
+  return status;
+}
+
+/**
+ * Invert the backend's positional rating for display.
+ *
+ * Silver rank=1 = WEAKEST defense (most pts allowed). The backend maps
+ * rank=1 → rating=99 under that semantic. For the defensive roster panel
+ * we want the opposite: rating=99 should read as "tough defender, hard for
+ * offense." This inverts so rating=50 (easy matchup) → 99 becomes 50, and
+ * vice versa. See 64-03-SUMMARY.md for the full semantic discussion.
+ */
+function displayDefenseRating(backendRating: number): number {
+  return Math.max(50, Math.min(99, 149 - backendRating));
+}
 
 // ---------------------------------------------------------------------------
 // Rating calculation
@@ -136,12 +190,16 @@ function computeRatings(players: PlayerProjection[]): Map<string, RatedPlayer> {
 }
 
 /**
- * Build a roster from projections, filling offensive slots by positional rank.
+ * Build an offensive roster. Skill positions (QB/RB/WR/TE) are populated from
+ * the projections feed (carries per-player ratings). OL slots (LT/LG/C/RG/RT)
+ * are populated from the rosterResponse's slot_hint assignments — the backend
+ * already resolved LT vs RT by snap-count ordering.
  */
 function buildOffensiveRoster(
   projections: PlayerProjection[],
   team: string,
-  ratingsMap: Map<string, RatedPlayer>
+  ratingsMap: Map<string, RatedPlayer>,
+  rosterResponse: TeamRosterResponse | undefined
 ): Map<string, RatedPlayer | null> {
   const teamPlayers = projections.filter((p) => p.team === team);
   const byPos = new Map<string, PlayerProjection[]>();
@@ -149,9 +207,18 @@ function buildOffensiveRoster(
     if (!byPos.has(p.position)) byPos.set(p.position, []);
     byPos.get(p.position)!.push(p);
   }
-  // Sort each group by projected points descending
   for (const [, group] of byPos) {
     group.sort((a, b) => b.projected_points - a.projected_points);
+  }
+
+  // Index OL players by slot_hint from the roster response (LT/LG/C/RG/RT).
+  const olBySlot = new Map<string, RosterPlayer>();
+  if (rosterResponse) {
+    for (const p of rosterResponse.roster ?? []) {
+      if (p.slot_hint && ['LT', 'LG', 'C', 'RG', 'RT'].includes(p.slot_hint)) {
+        olBySlot.set(p.slot_hint, p);
+      }
+    }
   }
 
   const used = new Set<string>();
@@ -159,17 +226,24 @@ function buildOffensiveRoster(
 
   for (const slot of OFFENSE_SLOTS) {
     if (slot.pos === 'OL') {
-      // OL have no projections -- placeholder
-      roster.set(slot.slot, {
-        player_id: `${team}-${slot.slot}`,
-        player_name: `${slot.label}`,
-        team,
-        position: 'OL',
-        projected_points: null,
-        injury_status: null,
-        rating: 65, // default OL rating
-        position_rank: null
-      });
+      // OL: map from roster response's slot_hint assignment.
+      const olPlayer = olBySlot.get(slot.slot);
+      if (olPlayer) {
+        roster.set(slot.slot, {
+          player_id: olPlayer.player_id,
+          player_name: olPlayer.player_name,
+          team,
+          position: 'OL',
+          projected_points: null,
+          injury_status: normalizeInjuryStatus(olPlayer.injury_status ?? olPlayer.status),
+          // Team-level proxy — per-player OL grades are out-of-scope until PFF
+          // integration. Use snap-share as a rough starter confidence boost.
+          rating: (olPlayer.snap_pct_offense ?? 0) >= 0.8 ? 70 : 65,
+          position_rank: null
+        });
+      } else {
+        roster.set(slot.slot, null);
+      }
       continue;
     }
 
@@ -184,6 +258,123 @@ function buildOffensiveRoster(
   }
 
   return roster;
+}
+
+/**
+ * Build a defensive roster from the real backend roster + defense-metrics
+ * responses. Replaces the old slotHash-driven placeholder.
+ *
+ * Strategy:
+ *   1. Index roster players by their slot_hint (the backend already resolved
+ *      CB1/CB2/DE1/DT1/LB1/LB2/LB3/SS/FS etc.).
+ *   2. For each DEFENSE_SLOTS entry, look up the matching roster player.
+ *   3. Derive a DISPLAY rating using the opposing-offense positional rank
+ *      from defenseMetrics (inverted — high rating = tough defender) plus
+ *      a snap-share starter bonus.
+ */
+function buildDefensiveRosterFromApi(
+  rosterResponse: TeamRosterResponse | undefined,
+  defenseMetrics: TeamDefenseMetricsResponse | undefined
+): Map<string, RatedPlayer | null> {
+  const result = new Map<string, RatedPlayer | null>();
+
+  if (!rosterResponse) {
+    for (const slot of DEFENSE_SLOTS) result.set(slot.slot, null);
+    return result;
+  }
+
+  // Index by slot_hint (primary) with a fallback to depth_chart_position
+  // buckets for roster responses that happen to omit a hint.
+  const bySlot = new Map<string, RosterPlayer>();
+  const bucket = new Map<string, RosterPlayer[]>();
+  const rows = rosterResponse.roster ?? [];
+  for (const p of rows) {
+    if (p.slot_hint) bySlot.set(p.slot_hint, p);
+    const dp = p.depth_chart_position ?? p.position;
+    if (!bucket.has(dp)) bucket.set(dp, []);
+    bucket.get(dp)!.push(p);
+  }
+  // Sort each bucket by defensive snap-pct desc for fallback selection.
+  for (const [, arr] of bucket) {
+    arr.sort((a, b) => (b.snap_pct_defense ?? 0) - (a.snap_pct_defense ?? 0));
+  }
+
+  // Invert backend ratings for a display-friendly "higher = tougher" scale.
+  const overallDisplayRating = displayDefenseRating(
+    defenseMetrics?.overall_def_rating ?? 72
+  );
+  const bestPositional = (pos: 'QB' | 'RB' | 'WR' | 'TE'): number | null => {
+    const entry = defenseMetrics?.positional.find((p) => p.position === pos);
+    if (!entry) return null;
+    return displayDefenseRating(entry.rating);
+  };
+  const wrDisplay = bestPositional('WR') ?? overallDisplayRating;
+  const rbDisplay = bestPositional('RB') ?? overallDisplayRating;
+  const teDisplay = bestPositional('TE') ?? overallDisplayRating;
+  const qbDisplay = bestPositional('QB') ?? overallDisplayRating;
+
+  // Slot → candidate depth_chart_positions + anchor display-rating.
+  // Anchor maps the slot to the offensive position it primarily defends:
+  //  CB, S → WR; LB → RB/TE; DL → QB pressure.
+  const slotConfig: Record<
+    string,
+    { candidates: string[]; anchor: number }
+  > = {
+    DE1: { candidates: ['DE', 'OLB'], anchor: qbDisplay },
+    DE2: { candidates: ['DE', 'OLB'], anchor: qbDisplay },
+    DT1: { candidates: ['DT', 'NT'], anchor: rbDisplay },
+    DT2: { candidates: ['DT', 'NT'], anchor: rbDisplay },
+    LB1: { candidates: ['MLB', 'ILB', 'LB', 'OLB'], anchor: rbDisplay },
+    LB2: { candidates: ['ILB', 'MLB', 'LB'], anchor: teDisplay },
+    LB3: { candidates: ['OLB', 'ILB', 'LB'], anchor: rbDisplay },
+    CB1: { candidates: ['CB', 'DB'], anchor: wrDisplay },
+    CB2: { candidates: ['CB', 'DB'], anchor: wrDisplay },
+    SS: { candidates: ['SS', 'S', 'DB'], anchor: teDisplay },
+    FS: { candidates: ['FS', 'S', 'DB'], anchor: wrDisplay }
+  };
+
+  const used = new Set<string>();
+  for (const defSlot of DEFENSE_SLOTS) {
+    const cfg = slotConfig[defSlot.slot];
+    // Prefer the backend's slot_hint; fall back to depth-bucket pick.
+    let picked = bySlot.get(defSlot.slot) ?? null;
+    if (!picked && cfg) {
+      for (const dp of cfg.candidates) {
+        const arr = bucket.get(dp) ?? [];
+        picked = arr.find((p) => !used.has(p.player_id)) ?? null;
+        if (picked) break;
+      }
+    }
+
+    if (!picked) {
+      result.set(defSlot.slot, null);
+      continue;
+    }
+    used.add(picked.player_id);
+
+    // Rating: anchor to the opposing positional rating, add a starter boost
+    // when the player carries a real defensive snap-share.
+    const baseRating = cfg?.anchor ?? overallDisplayRating;
+    const starterBonus = (picked.snap_pct_defense ?? 0) >= 0.6 ? 3 : 0;
+    const depthPenalty = defSlot.slot.endsWith('3') ? -4 : 0;
+    const rating = Math.min(
+      99,
+      Math.max(50, Math.round(baseRating + starterBonus + depthPenalty))
+    );
+
+    result.set(defSlot.slot, {
+      player_id: picked.player_id,
+      player_name: picked.player_name,
+      team: picked.team,
+      position: picked.depth_chart_position ?? picked.position,
+      projected_points: null,
+      injury_status: normalizeInjuryStatus(picked.injury_status ?? picked.status),
+      rating,
+      position_rank: null
+    });
+  }
+
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -238,9 +429,17 @@ interface PlayerRowProps {
   posColor: string;
   side: 'offense' | 'defense';
   matchupAdvantage?: 'strong' | 'slight' | 'neutral' | 'disadvantage';
+  advantageTooltip?: string;
 }
 
-function PlayerRow({ player, slotLabel, posColor, side, matchupAdvantage }: PlayerRowProps) {
+function PlayerRow({
+  player,
+  slotLabel,
+  posColor,
+  side,
+  matchupAdvantage,
+  advantageTooltip
+}: PlayerRowProps) {
   const advantageIndicator = useMemo(() => {
     if (!matchupAdvantage || matchupAdvantage === 'neutral') return null;
     const config = {
@@ -250,6 +449,7 @@ function PlayerRow({ player, slotLabel, posColor, side, matchupAdvantage }: Play
     };
     const c = config[matchupAdvantage];
     if (!c) return null;
+    const tooltipLabel = advantageTooltip ?? c.label;
     return (
       <TooltipProvider>
         <Tooltip>
@@ -261,12 +461,12 @@ function PlayerRow({ player, slotLabel, posColor, side, matchupAdvantage }: Play
             </span>
           </TooltipTrigger>
           <TooltipContent side={side === 'offense' ? 'right' : 'left'}>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>{c.label}</p>
+            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>{tooltipLabel}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
     );
-  }, [matchupAdvantage, side]);
+  }, [matchupAdvantage, side, advantageTooltip]);
 
   if (!player) {
     return (
@@ -360,45 +560,55 @@ interface TeamPanelProps {
   team: string;
   side: 'offense' | 'defense';
   roster: Map<string, RatedPlayer | null>;
-  opponentRatings?: Map<string, RatedPlayer | null>;
+  /** Opposing team's defensive metrics — drives offense advantage tooltips. */
+  opponentDefense?: TeamDefenseMetricsResponse;
 }
 
-function TeamPanel({ team, side, roster, opponentRatings }: TeamPanelProps) {
+function TeamPanel({ team, side, roster, opponentDefense }: TeamPanelProps) {
   const color = getTeamColor(team);
   const secColor = TEAM_SECONDARY_COLORS[team] ?? '#333';
   const fullName = getTeamFullName(team);
   const slots = side === 'offense' ? OFFENSE_SLOTS : DEFENSE_SLOTS;
 
-  // Compute matchup advantages for offense vs defense
-  const getAdvantage = (slot: string): PlayerRowProps['matchupAdvantage'] => {
-    if (side !== 'offense' || !opponentRatings) return 'neutral';
+  /**
+   * Compute per-slot matchup advantage from real positional defense ranks.
+   *
+   * Rank semantics (from silver/defense/positional): rank=1 = MOST pts
+   * allowed = easiest matchup for offense; rank=32 = fewest pts allowed =
+   * hardest. So high rank for the opposing defense → strong advantage.
+   */
+  const advantageFor = (
+    slot: string
+  ): {
+    level: PlayerRowProps['matchupAdvantage'];
+    tooltip: string;
+  } => {
+    if (side !== 'offense' || !opponentDefense) {
+      return { level: 'neutral', tooltip: '' };
+    }
     const offPlayer = roster.get(slot);
-    if (!offPlayer || offPlayer.position === 'OL') return 'neutral';
+    if (!offPlayer || offPlayer.position === 'OL') {
+      return { level: 'neutral', tooltip: '' };
+    }
 
-    // Map offense positions to defending positions
-    const matchupMap: Record<string, string[]> = {
-      WR1: ['CB1'],
-      WR2: ['CB2'],
-      WR3: ['CB2', 'SS'],
-      TE1: ['LB1', 'SS'],
-      RB1: ['LB2'],
-      RB2: ['LB3'],
-      QB1: ['DE1', 'DE2']
-    };
+    const defPos = OFFENSE_TO_DEF_POSITION[slot];
+    if (!defPos) return { level: 'neutral', tooltip: '' };
 
-    const defSlots = matchupMap[slot];
-    if (!defSlots) return 'neutral';
+    const pRank: PositionalDefenseRank | undefined = opponentDefense.positional.find(
+      (p) => p.position === defPos
+    );
+    if (!pRank || pRank.rank == null) return { level: 'neutral', tooltip: '' };
 
-    const defPlayers = defSlots.map((ds) => opponentRatings.get(ds)).filter(Boolean);
-    if (defPlayers.length === 0) return 'neutral';
+    const rank = pRank.rank;
+    const avg = pRank.avg_pts_allowed ?? null;
+    const avgCopy = avg !== null ? ` (${avg.toFixed(1)} pts/game)` : '';
+    const tooltip = `${opponentDefense.team} ranks #${rank}/32 vs ${defPos}${avgCopy}`;
 
-    const avgDefRating = defPlayers.reduce((sum, p) => sum + (p?.rating ?? 70), 0) / defPlayers.length;
-    const diff = offPlayer.rating - avgDefRating;
-
-    if (diff >= 15) return 'strong';
-    if (diff >= 5) return 'slight';
-    if (diff <= -10) return 'disadvantage';
-    return 'neutral';
+    let level: PlayerRowProps['matchupAdvantage'] = 'neutral';
+    if (rank <= 5) level = 'strong'; // offense faces weakest 5 → strongest advantage
+    else if (rank <= 12) level = 'slight';
+    else if (rank >= 25) level = 'disadvantage'; // offense faces top-8 defense
+    return { level, tooltip };
   };
 
   // Group by row
@@ -471,16 +681,20 @@ function TeamPanel({ team, side, roster, opponentRatings }: TeamPanelProps) {
           <div key={rowKey}>
             <RowGroupLabel label={rowLabels[rowKey] ?? rowKey} />
             <Stagger step={0.03} className='space-y-[var(--space-1)]'>
-              {rowSlots.map((slot) => (
-                <PlayerRow
-                  key={slot.slot}
-                  player={roster.get(slot.slot) ?? null}
-                  slotLabel={slot.label}
-                  posColor={getPositionColor(slot.pos)}
-                  side={side}
-                  matchupAdvantage={getAdvantage(slot.slot)}
-                />
-              ))}
+              {rowSlots.map((slot) => {
+                const adv = advantageFor(slot.slot);
+                return (
+                  <PlayerRow
+                    key={slot.slot}
+                    player={roster.get(slot.slot) ?? null}
+                    slotLabel={slot.label}
+                    posColor={getPositionColor(slot.pos)}
+                    side={side}
+                    matchupAdvantage={adv.level}
+                    advantageTooltip={adv.tooltip || undefined}
+                  />
+                );
+              })}
             </Stagger>
           </div>
         ))}
@@ -597,33 +811,50 @@ function MatchupHeaderBar({
 }
 
 // ---------------------------------------------------------------------------
-// Matchup advantage summary
+// Matchup advantage summary — now grounded in real positional defense ranks
 // ---------------------------------------------------------------------------
 
-function MatchupAdvantages({
-  offenseRoster,
-  defenseRoster
-}: {
+interface MatchupAdvantagesProps {
   offenseRoster: Map<string, RatedPlayer | null>;
-  defenseRoster: Map<string, RatedPlayer | null>;
-}) {
-  const matchups = [
-    { off: 'WR1', def: 'CB1', label: 'WR1 vs CB1' },
-    { off: 'WR2', def: 'CB2', label: 'WR2 vs CB2' },
-    { off: 'TE1', def: 'LB1', label: 'TE vs LB' },
-    { off: 'RB1', def: 'LB2', label: 'RB vs LB' }
+  opponentDefense?: TeamDefenseMetricsResponse;
+}
+
+function MatchupAdvantages({ offenseRoster, opponentDefense }: MatchupAdvantagesProps) {
+  if (!opponentDefense) return null;
+
+  const pairings: { slot: string; label: string; defPos: 'QB' | 'RB' | 'WR' | 'TE' }[] = [
+    { slot: 'WR1', label: 'WR1 vs defense', defPos: 'WR' },
+    { slot: 'WR2', label: 'WR2 vs defense', defPos: 'WR' },
+    { slot: 'TE1', label: 'TE vs defense', defPos: 'TE' },
+    { slot: 'RB1', label: 'RB vs defense', defPos: 'RB' }
   ];
 
-  const edges = matchups
-    .map(({ off, def, label }) => {
-      const o = offenseRoster.get(off);
-      const d = defenseRoster.get(def);
-      if (!o || !d) return null;
-      const diff = o.rating - d.rating;
-      return { label, offPlayer: o, defPlayer: d, diff };
+  const edges = pairings
+    .map(({ slot, label, defPos }) => {
+      const offPlayer = offenseRoster.get(slot);
+      const pRank = opponentDefense.positional.find((p) => p.position === defPos);
+      if (!offPlayer || !pRank || pRank.rank == null) return null;
+      return {
+        label,
+        offPlayer,
+        rank: pRank.rank,
+        avg: pRank.avg_pts_allowed,
+        defPos,
+        defDisplayRating: displayDefenseRating(pRank.rating)
+      };
     })
-    .filter(Boolean)
-    .sort((a, b) => (b?.diff ?? 0) - (a?.diff ?? 0));
+    .filter(Boolean) as {
+    label: string;
+    offPlayer: RatedPlayer;
+    rank: number;
+    avg: number | null;
+    defPos: 'QB' | 'RB' | 'WR' | 'TE';
+    defDisplayRating: number;
+  }[];
+
+  // Sort so the strongest offense advantages (lowest opposing rank = weakest
+  // defense) surface first.
+  edges.sort((a, b) => b.rank - a.rank);
 
   if (edges.length === 0) return null;
 
@@ -634,38 +865,56 @@ function MatchupAdvantages({
       </h4>
       <Stagger className='grid grid-cols-1 gap-[var(--space-2)] sm:grid-cols-2'>
         {edges.map((edge) => {
-          if (!edge) return null;
-          const isAdvantage = edge.diff > 5;
-          const isDisadvantage = edge.diff < -5;
+          const isAdvantage = edge.rank <= 8; // weakest 8 defenses
+          const isDisadvantage = edge.rank >= 25; // top-8 defenses
+          const avgCopy = edge.avg !== null ? ` (${edge.avg.toFixed(1)} pts/g)` : '';
+          const rankCopy = `#${edge.rank}/32 vs ${edge.defPos}${avgCopy}`;
           return (
             <HoverLift key={edge.label} lift={1}>
-              <div
-                className={`flex items-center justify-between rounded-lg px-[var(--space-3)] py-[var(--space-2)] ${
-                  isAdvantage
-                    ? 'bg-emerald-900/20 border border-emerald-500/20'
-                    : isDisadvantage
-                      ? 'bg-red-900/20 border border-red-500/20'
-                      : 'bg-white/5'
-                }`}
-              >
-                <div className='flex items-center gap-[var(--space-2)]'>
-                  <RatingBadge rating={edge.offPlayer.rating} size='sm' />
-                  <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                    <div className='font-semibold text-white'>{edge.offPlayer.player_name}</div>
-                    <div className='text-white/40'>{edge.label}</div>
-                  </div>
-                </div>
-                <div className='flex items-center gap-[var(--space-2)]'>
-                  <span
-                    className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold ${
-                      isAdvantage ? 'text-emerald-400' : isDisadvantage ? 'text-red-400' : 'text-white/50'
-                    }`}
-                  >
-                    {edge.diff > 0 ? '+' : ''}{edge.diff}
-                  </span>
-                  <RatingBadge rating={edge.defPlayer.rating} size='sm' />
-                </div>
-              </div>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div
+                      className={`flex items-center justify-between rounded-lg px-[var(--space-3)] py-[var(--space-2)] ${
+                        isAdvantage
+                          ? 'bg-emerald-900/20 border border-emerald-500/20'
+                          : isDisadvantage
+                            ? 'bg-red-900/20 border border-red-500/20'
+                            : 'bg-white/5'
+                      }`}
+                    >
+                      <div className='flex items-center gap-[var(--space-2)]'>
+                        <RatingBadge rating={edge.offPlayer.rating} size='sm' />
+                        <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                          <div className='font-semibold text-white'>
+                            {edge.offPlayer.player_name}
+                          </div>
+                          <div className='text-white/40'>{edge.label}</div>
+                        </div>
+                      </div>
+                      <div className='flex items-center gap-[var(--space-2)]'>
+                        <span
+                          className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold ${
+                            isAdvantage
+                              ? 'text-emerald-400'
+                              : isDisadvantage
+                                ? 'text-red-400'
+                                : 'text-white/50'
+                          }`}
+                        >
+                          {rankCopy}
+                        </span>
+                        <RatingBadge rating={edge.defDisplayRating} size='sm' />
+                      </div>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent side='top'>
+                    <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                      {opponentDefense.team} allows {rankCopy.toLowerCase()} — fantasy pts/game
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </HoverLift>
           );
         })}
@@ -733,54 +982,6 @@ function CompactTeamPicker({
 }
 
 // ---------------------------------------------------------------------------
-// Defense placeholder builder (from projection data we can infer opponent)
-// ---------------------------------------------------------------------------
-
-/** Simple deterministic hash for consistent slot-level variance. */
-function slotHash(team: string, slot: string): number {
-  let h = 0;
-  const s = `${team}:${slot}`;
-  for (let i = 0; i < s.length; i++) {
-    h = ((h << 5) - h + s.charCodeAt(i)) | 0;
-  }
-  return ((h % 10) + 10) % 10 - 5; // range: -5..4
-}
-
-function buildDefensiveRoster(team: string): Map<string, RatedPlayer | null> {
-  const roster = new Map<string, RatedPlayer | null>();
-  // Build placeholder defensive roster with position-typical ratings.
-  // Real ratings would come from a defensive stats API.
-  const defaults: Record<string, { name: string; rating: number }> = {
-    DE1: { name: 'DE', rating: 72 },
-    DT1: { name: 'DT', rating: 70 },
-    DT2: { name: 'DT', rating: 68 },
-    DE2: { name: 'DE', rating: 70 },
-    LB1: { name: 'LB', rating: 71 },
-    LB2: { name: 'LB', rating: 69 },
-    LB3: { name: 'LB', rating: 67 },
-    CB1: { name: 'CB', rating: 73 },
-    CB2: { name: 'CB', rating: 68 },
-    SS: { name: 'SS', rating: 70 },
-    FS: { name: 'FS', rating: 71 }
-  };
-
-  for (const [slot, def] of Object.entries(defaults)) {
-    roster.set(slot, {
-      player_id: `${team}-${slot}`,
-      player_name: `${team} ${def.name}`,
-      team,
-      position: slot.replace(/[0-9]/g, ''),
-      projected_points: null,
-      injury_status: null,
-      rating: def.rating + slotHash(team, slot),
-      position_rank: null
-    });
-  }
-
-  return roster;
-}
-
-// ---------------------------------------------------------------------------
 // Loading skeleton
 // ---------------------------------------------------------------------------
 
@@ -811,31 +1012,42 @@ function MatchupSkeleton() {
 // ---------------------------------------------------------------------------
 
 export function MatchupView() {
-  const [season, setSeason] = useState(2026);
-  const [week, setWeek] = useState(1);
+  // --- Step 1: resolve the current NFL week from the API on mount ---
+  const { data: currentWeek } = useQuery(currentWeekQueryOptions());
+
+  const [season, setSeason] = useState<number | null>(null);
+  const [week, setWeek] = useState<number | null>(null);
   const [scoring, setScoring] = useState<ScoringFormat>('half_ppr');
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
 
-  // Fetch projections for ratings
-  const {
-    data: projData,
-    isLoading: projLoading
-  } = useQuery(projectionsQueryOptions(season, week, scoring));
+  // Seed season/week from current-week once, then let the user override.
+  useEffect(() => {
+    if (currentWeek && season === null && week === null) {
+      setSeason(currentWeek.season);
+      setWeek(currentWeek.week);
+    }
+  }, [currentWeek, season, week]);
 
-  // Fetch predictions for schedule/matchup info
-  const {
-    data: predData,
-    isLoading: predLoading
-  } = useQuery(predictionsQueryOptions(season, week));
+  // Effective values — prefer user state, fall back to currentWeek, then 2025/1.
+  const resolvedSeason = season ?? currentWeek?.season ?? 2025;
+  const resolvedWeek = week ?? currentWeek?.week ?? 1;
+
+  // --- Step 2: fetch projections + predictions for the resolved week ---
+  const { data: projData, isLoading: projLoading } = useQuery(
+    projectionsQueryOptions(resolvedSeason, resolvedWeek, scoring)
+  );
+  const { data: predData, isLoading: predLoading } = useQuery(
+    predictionsQueryOptions(resolvedSeason, resolvedWeek)
+  );
 
   const isLoading = projLoading || predLoading;
   const projections = projData?.projections ?? [];
   const predictions = predData?.predictions ?? [];
 
-  // Ratings map
+  // Ratings map (projection-derived — unchanged from prior build)
   const ratingsMap = useMemo(() => computeRatings(projections), [projections]);
 
-  // Find the matchup for the selected team
+  // Find the selected team's matchup
   const matchup = useMemo<GamePrediction | null>(() => {
     if (!selectedTeam) return null;
     return (
@@ -845,33 +1057,57 @@ export function MatchupView() {
     );
   }, [selectedTeam, predictions]);
 
-  // Determine opponent
-  const opponent = useMemo(() => {
+  // Opponent team code (null when team or matchup is missing)
+  const opponent = useMemo<string | null>(() => {
     if (!matchup || !selectedTeam) return null;
-    return matchup.home_team === selectedTeam
-      ? matchup.away_team
-      : matchup.home_team;
+    return matchup.home_team === selectedTeam ? matchup.away_team : matchup.home_team;
   }, [matchup, selectedTeam]);
 
   const isHome = matchup?.home_team === selectedTeam;
 
+  // --- Step 3: fetch rosters + defense metrics from the new /teams endpoints ---
+  const { data: offenseRosterData } = useQuery(
+    teamRosterQueryOptions(selectedTeam, resolvedSeason, resolvedWeek, 'offense')
+  );
+  const { data: defenseRosterData } = useQuery(
+    teamRosterQueryOptions(opponent, resolvedSeason, resolvedWeek, 'defense')
+  );
+  const { data: defenseMetricsData } = useQuery(
+    teamDefenseMetricsQueryOptions(opponent, resolvedSeason, resolvedWeek)
+  );
+
   // Build rosters
   const offenseRoster = useMemo(() => {
     if (!selectedTeam) return new Map<string, RatedPlayer | null>();
-    return buildOffensiveRoster(projections, selectedTeam, ratingsMap);
-  }, [selectedTeam, projections, ratingsMap]);
+    return buildOffensiveRoster(projections, selectedTeam, ratingsMap, offenseRosterData);
+  }, [selectedTeam, projections, ratingsMap, offenseRosterData]);
 
   const defenseRoster = useMemo(() => {
-    if (!opponent) return new Map<string, RatedPlayer | null>();
-    return buildDefensiveRoster(opponent);
-  }, [opponent]);
+    return buildDefensiveRosterFromApi(defenseRosterData, defenseMetricsData);
+  }, [defenseRosterData, defenseMetricsData]);
+
+  // Fallback banner: any API response had to walk back to a prior season.
+  const anyFallback = Boolean(
+    offenseRosterData?.fallback ||
+      defenseRosterData?.fallback ||
+      defenseMetricsData?.fallback ||
+      currentWeek?.source === 'fallback'
+  );
+  const fallbackSeason =
+    offenseRosterData?.fallback_season ??
+    defenseRosterData?.fallback_season ??
+    defenseMetricsData?.fallback_season ??
+    null;
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
       {/* Controls — mobile: 3-column grid of equal selects so all fit at 375px;
        *  sm+: flex-wrap natural widths. */}
       <div className='grid grid-cols-3 gap-[var(--space-2)] sm:flex sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>
-        <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
+        <Select
+          value={String(resolvedSeason)}
+          onValueChange={(v) => setSeason(Number(v))}
+        >
           <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue placeholder='Season' />
           </SelectTrigger>
@@ -884,7 +1120,7 @@ export function MatchupView() {
           </SelectContent>
         </Select>
 
-        <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
+        <Select value={String(resolvedWeek)} onValueChange={(v) => setWeek(Number(v))}>
           <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
             <SelectValue placeholder='Week' />
           </SelectTrigger>
@@ -909,6 +1145,15 @@ export function MatchupView() {
         </Select>
       </div>
 
+      {/* Fallback banner */}
+      {anyFallback && (
+        <div className='rounded-lg border border-yellow-500/20 bg-yellow-500/5 px-[var(--space-3)] py-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-yellow-300/80'>
+          Showing data from the most recent available season
+          {fallbackSeason ? ` (${fallbackSeason})` : ''} — current-season data is not yet
+          published.
+        </div>
+      )}
+
       {/* Team picker */}
       <Card>
         <CardContent className='pt-[var(--space-6)]'>
@@ -920,7 +1165,7 @@ export function MatchupView() {
         </CardContent>
       </Card>
 
-      {/* Matchup display — skeleton → content crossfade */}
+      {/* Matchup display */}
       {selectedTeam && (
         <DataLoadReveal loading={isLoading} skeleton={<MatchupSkeleton />}>
           {!matchup ? (
@@ -928,7 +1173,7 @@ export function MatchupView() {
               <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
                 <Icons.info className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
                 <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                  No matchup found for {getTeamFullName(selectedTeam)} in Week {week}.
+                  No matchup found for {getTeamFullName(selectedTeam)} in Week {resolvedWeek}.
                 </p>
                 <p className='text-muted-foreground mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   This team may be on bye or prediction data is not available for this week.
@@ -950,7 +1195,7 @@ export function MatchupView() {
                   team={selectedTeam}
                   side='offense'
                   roster={offenseRoster}
-                  opponentRatings={defenseRoster}
+                  opponentDefense={defenseMetricsData}
                 />
                 <TeamPanel
                   team={opponent}
@@ -962,7 +1207,7 @@ export function MatchupView() {
               {/* Matchup advantages */}
               <MatchupAdvantages
                 offenseRoster={offenseRoster}
-                defenseRoster={defenseRoster}
+                opponentDefense={defenseMetricsData}
               />
 
               {/* Matchup notes */}
@@ -980,9 +1225,7 @@ export function MatchupView() {
                       <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-emerald-400' />
                       <span>
                         Model sees {Math.abs(matchup.spread_edge).toFixed(1)}-point spread edge.{' '}
-                        <span className='text-white/80 font-medium'>
-                          {matchup.ats_pick}
-                        </span>
+                        <span className='text-white/80 font-medium'>{matchup.ats_pick}</span>
                       </span>
                     </p>
                   )}
@@ -991,9 +1234,21 @@ export function MatchupView() {
                       <Icons.target className='h-[var(--space-4)] w-[var(--space-4)] text-blue-400' />
                       <span>
                         {Math.abs(matchup.total_edge).toFixed(1)}-point total edge.{' '}
+                        <span className='text-white/80 font-medium'>{matchup.ou_pick}</span>
+                      </span>
+                    </p>
+                  )}
+                  {defenseMetricsData && (
+                    <p className='flex items-center gap-[var(--space-2)]'>
+                      <Icons.shield className='h-[var(--space-4)] w-[var(--space-4)] text-indigo-300' />
+                      <span>
+                        {opponent} defense: SoS rank{' '}
                         <span className='text-white/80 font-medium'>
-                          {matchup.ou_pick}
+                          {defenseMetricsData.def_sos_rank ?? 'N/A'}
                         </span>
+                        , allows WR #{defenseMetricsData.positional.find((p) => p.position === 'WR')?.rank ?? '—'},
+                        {' '}RB #{defenseMetricsData.positional.find((p) => p.position === 'RB')?.rank ?? '—'},
+                        {' '}TE #{defenseMetricsData.positional.find((p) => p.position === 'TE')?.rank ?? '—'}
                       </span>
                     </p>
                   )}
