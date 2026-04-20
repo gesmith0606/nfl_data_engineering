@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: Website Production Ready + Agent Ecosystem
 status: completed
-stopped_at: "Phase 62-05 complete — DSGN-04 closed. All 11 dashboard pages render without horizontal overflow at 375px viewport; tap targets ≥ 44px on interactive elements (two documented deviations at primitive level); data-dense views use responsive-column-hide (projections, rankings) or horizontal-scroll wrappers (draft-board); chat widget becomes full-screen overlay on mobile with /dashboard/advisor duplicate eliminated. Four atomic commits on main: f3c4a55 shell+tables+tokens, 417dd9b pages 6-11 + chat widget, f7121b7 draft-board overflow wrapper, de51f69 MOBILE-AUDIT.md. Added --space-11 + --tap-min to tokens.css; extended TanStack ColumnMeta with headerClassName/cellClassName for clean per-column breakpoint hiding. Typecheck clean; curl smoke 200 on all 11 pages. Next up: 62-06 final re-audit + motion retrofit on pages 1-5."
-last_updated: "2026-04-20T15:12:43.805Z"
-last_activity: 2026-04-20
+stopped_at: "Phase 64-03 complete — MTCH-03 backend shipped. GET /api/teams/{team}/defense-metrics returns real positional ranks + team SOS from silver/defense/positional + silver/teams/sos, with multi-tier fallback (season/week/position). Three atomic commits: 613c972 RED tests, d8bb7b8 service+schemas, e80d1ee router+main. 11 new tests pass; full suite 1648 passed / 1 skipped / 2 pre-existing failures (test_daily_pipeline, test_news_service — unchanged by this plan). Sample: BUF 2024 wk 5 → rating=75, rank=16, 4 positional entries (QB 80/RB 96/WR 82/TE 67). 32-team sanity at 2024 wk 18 shows [50,99] rating range, mean 74.5, monotone decreasing. Semantic caveat flagged for 64-04: silver rank=1 = 'weakest defense' (most pts allowed) not 'best defense' as API-CONTRACT assumed; frontend should confirm rating direction. Next: 64-04 frontend wiring to replace slotHash(team, slot) with API calls."
+last_updated: "2026-04-18T20:00:00.000Z"
+last_activity: 2026-04-18
 progress:
   total_phases: 6
   completed_phases: 3
@@ -34,10 +34,10 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Current Position
 
-Phase: 63
-Plan: Not started
-Status: Phase 62-05 complete; DSGN-04 closed — all 11 pages mobile-usable at 375px
-Last activity: 2026-04-20
+Phase: 64
+Plan: 04 (frontend wiring next)
+Status: Phase 64-03 complete; MTCH-03 backend shipped — GET /api/teams/{team}/defense-metrics live with real silver data
+Last activity: 2026-04-18
 
 Progress: [███████░░░] 70% (18 plans complete across v6.0)
 
@@ -75,6 +75,7 @@ Progress: [███████░░░] 70% (18 plans complete across v6.0)
 | Phase 63 P04 | 15min | 2 tasks | 7 files |
 | Phase 62 P03 | 18min | 2 tasks | 13 files |
 | Phase 62 P05 | 25min | 3 tasks | 18 files |
+| Phase 64 P03 | 25min | 2 tasks | 5 files  |
 
 ### Decisions
 
@@ -116,6 +117,12 @@ Recent decisions affecting current work:
 - [Phase 64-02]: Offseason current-week returns max (season, week) with source=fallback instead of 503 — keeps frontend from breaking in April/May
 - [Phase 64-02]: team_roster_service.py is the single parquet reader for teams/* namespace — 64-03 defense-metrics extends, does not duplicate
 - [Phase 64-02]: Rating formula (round((1-(rank-1)/31)*49+50)) correctly scoped to 64-03, not 64-02 — grep confirms zero matches in 64-02 service/router code
+- [Phase 64-03]: Separate router file (teams_defense.py) with shared /teams prefix — decouples from 64-02, FastAPI resolves paths without collision since /defense-metrics ≠ /current-week ≠ /{team}/roster
+- [Phase 64-03]: Rating formula uses API-CONTRACT form `round((1 - (rank-1)/31) * 49 + 50)` clipped [50,99]; rank 1 → 99, rank 32 → 50, NaN → neutral 72
+- [Phase 64-03]: Multi-tier fallback: season-walk-back (2026 → 2025), week-walk-back (synthetic week 99 → max available), position-fill (missing position → neutral 72 rating with null rank/avg) — 4-entry positional[] contract is always preserved
+- [Phase 64-03]: Positional frame required (ValueError → 404), SOS frame optional (absence leaves fields None) — separates hard data contract from soft enhancement
+- [Phase 64-03]: Semantic caveat — silver rank=1 means "most pts allowed = easiest matchup = weakest defense" (per src/player_analytics.py `.rank(ascending=False)`), API-CONTRACT assumes opposite; rating math passes tests but 64-04 frontend should confirm intended direction when rendering tooltip
+- [Phase 64-03]: Every numeric field traces to a silver parquet column (avg_pts_allowed, rank, def_sos_score, def_sos_rank, adj_def_epa) — zero hardcoded placeholders; 32-team sanity at 2024 wk 18 shows full [50,99] rating range with mean 74.5
 - [Phase 63-02]: Dual-schema pattern preserved — advisor-facing keys (board, lineup, bullish_players, total_articles) added alongside legacy keys (players, lineups, top_positive, total_docs) so website widgets stay compatible while advisor contract is met
 - [Phase 63-02]: Empty-envelope replaces 404 in /api/predictions and /api/lineups — advisor tool widgets render on success responses; offseason-missing data returns 200+empty list instead of HTTPException(404)
 - [Phase 63-02]: FlatLineupPlayer model added alongside nested TeamLineup list — router populates both shapes from the same DataFrame iteration; no duplicate parquet reads
@@ -179,6 +186,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T00:25:00Z
-Stopped at: Phase 62-05 complete — DSGN-04 closed. All 11 dashboard pages render without horizontal overflow at 375px viewport; tap targets ≥ 44px on interactive elements (two documented deviations at primitive level); data-dense views use responsive-column-hide (projections, rankings) or horizontal-scroll wrappers (draft-board); chat widget becomes full-screen overlay on mobile with /dashboard/advisor duplicate eliminated. Four atomic commits on main: f3c4a55 shell+tables+tokens, 417dd9b pages 6-11 + chat widget, f7121b7 draft-board overflow wrapper, de51f69 MOBILE-AUDIT.md. Added --space-11 + --tap-min to tokens.css; extended TanStack ColumnMeta with headerClassName/cellClassName for clean per-column breakpoint hiding. Typecheck clean; curl smoke 200 on all 11 pages. Next up: 62-06 final re-audit + motion retrofit on pages 1-5.
+Last session: 2026-04-18T20:00:00Z
+Stopped at: Phase 64-03 complete — MTCH-03 backend shipped. GET /api/teams/{team}/defense-metrics returns real positional ranks + team SOS from silver/defense/positional + silver/teams/sos, with multi-tier fallback (season/week/position). Three atomic commits: 613c972 RED tests, d8bb7b8 service+schemas, e80d1ee router+main. 11 new tests pass (7 service + 4 endpoint); full suite 1648 passed / 1 skipped / 2 pre-existing failures. Sample: BUF 2024 wk 5 → rating=75, rank=16, 4 positional entries. 32-team sanity at 2024 wk 18: [50,99] rating range, mean 74.5. Next: 64-04 frontend wiring to replace slotHash(team, slot) placeholder with API calls.
 Resume file: None

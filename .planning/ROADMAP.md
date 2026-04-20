@@ -96,7 +96,7 @@ Plans:
   2. The defensive roster displays actual NFL player names and stats (no placeholder hashes or dummy data)
   3. Matchup advantage indicators are calculated from real team defensive metrics (not hardcoded)
   4. The matchup view shows the correct weekly opponent based on the current NFL schedule
-**Plans**: TBD
+**Plans**: 4 — 64-01 placeholder inventory + API contract [DONE], 64-02 teams router (current-week + roster) [DONE — MTCH-02, MTCH-04], 64-03 defense-metrics endpoint [DONE — MTCH-03 backend], 64-04 frontend wiring (replace slotHash + buildDefensiveRoster, add matchup advantage tooltips)
 **UI hint**: yes
 
 ### Phase 65: Agent Ecosystem Optimization
@@ -151,5 +151,5 @@ Plans:
 | 61. News & Sentiment Live | 6/6 | Complete    | 2026-04-19 |
 | 62. Design & UX Polish | 6/6 | Complete    | 2026-04-20 |
 | 63. AI Advisor Hardening | 6/6 | Complete    | 2026-04-20 |
-| 64. Matchup View Completion | 2/4 | In progress | - |
+| 64. Matchup View Completion | 3/4 | In progress | - |
 | 65. Agent Ecosystem Optimization | 1/4 | In progress | - |
