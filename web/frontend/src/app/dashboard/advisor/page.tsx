@@ -10,7 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Icons } from '@/components/icons';
 import { usePersistentChat } from '@/hooks/use-persistent-chat';
-import { FadeIn } from '@/lib/motion-primitives';
+import { FadeIn, PressScale } from '@/lib/motion-primitives';
 
 // ---------------------------------------------------------------------------
 // Types inferred from tool return shapes
@@ -110,30 +110,33 @@ function InjuryBadge({ status }: { status: string | undefined }) {
 function ProjectionCard({ data }: { data: ProjectionResult }) {
   if (!data.found) {
     return (
-      <Card className='border-muted bg-muted/30 mt-2'>
-        <CardContent className='p-3 text-sm text-muted-foreground'>
+      <Card className='border-muted bg-muted/30 mt-[var(--space-2)]'>
+        <CardContent className='p-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
           {data.message ?? 'Player not found.'}
         </CardContent>
       </Card>
     );
   }
   return (
-    <Card className='border-primary/20 bg-primary/5 mt-2'>
-      <CardHeader className='pb-1 pt-3'>
-        <CardTitle className='flex items-center gap-2 text-sm font-semibold'>
+    <Card className='border-primary/20 bg-primary/5 mt-[var(--space-2)]'>
+      <CardHeader className='pb-[var(--space-1)] pt-[var(--space-3)]'>
+        <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
           {data.player_name}
-          <Badge variant='outline' className='text-xs'>
+          <Badge
+            variant='outline'
+            className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+          >
             {data.position}
           </Badge>
           <span className='text-muted-foreground font-normal'>{data.team}</span>
           <InjuryBadge status={data.injury_status} />
         </CardTitle>
       </CardHeader>
-      <CardContent className='pb-3'>
-        <div className='flex gap-4 text-sm'>
+      <CardContent className='pb-[var(--space-3)]'>
+        <div className='flex gap-[var(--space-4)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
           <div>
             <span className='text-muted-foreground'>Projected</span>
-            <p className='font-bold text-lg leading-tight'>
+            <p className='font-bold text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
               {data.projected_points?.toFixed(1)} pts
             </p>
           </div>
@@ -146,7 +149,7 @@ function ProjectionCard({ data }: { data: ProjectionResult }) {
             <p className='font-medium'>{data.projected_ceiling?.toFixed(1)}</p>
           </div>
         </div>
-        <p className='text-muted-foreground mt-1 text-xs'>
+        <p className='text-muted-foreground mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {data.scoring_format?.replace('_', '-').toUpperCase()} · Week{' '}
           {data.week}, {data.season}
         </p>
@@ -170,28 +173,39 @@ function CompareCard({ data }: { data: CompareResult }) {
     if (!player) return null;
     if (player.error) {
       return (
-        <div className='flex-1 rounded-lg border p-3'>
+        <div className='flex-1 rounded-lg border p-[var(--space-3)]'>
           <p className='font-medium'>{player.name}</p>
-          <p className='text-muted-foreground text-xs'>{player.error}</p>
+          <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+            {player.error}
+          </p>
         </div>
       );
     }
     return (
-      <div className='flex-1 rounded-lg border p-3'>
-        <div className='mb-1 flex items-center gap-1'>
-          <span className='text-xs text-muted-foreground'>{label}</span>
-          <Badge variant='outline' className='text-xs'>
+      <div className='flex-1 rounded-lg border p-[var(--space-3)]'>
+        <div className='mb-[var(--space-1)] flex items-center gap-[var(--space-1)]'>
+          <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+            {label}
+          </span>
+          <Badge
+            variant='outline'
+            className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+          >
             {player.position}
           </Badge>
           <InjuryBadge status={player.injury_status} />
         </div>
         <p className='font-semibold'>{player.name}</p>
-        <p className='text-muted-foreground text-xs'>{player.team}</p>
-        <p className='mt-2 text-2xl font-bold'>
-          {player.projected_points?.toFixed(1)}{' '}
-          <span className='text-sm font-normal text-muted-foreground'>pts</span>
+        <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+          {player.team}
         </p>
-        <div className='mt-1 flex gap-3 text-xs text-muted-foreground'>
+        <p className='mt-[var(--space-2)] text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-bold'>
+          {player.projected_points?.toFixed(1)}{' '}
+          <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-normal text-muted-foreground'>
+            pts
+          </span>
+        </p>
+        <div className='mt-[var(--space-1)] flex gap-[var(--space-3)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
           <span>Floor: {player.floor?.toFixed(1)}</span>
           <span>Ceil: {player.ceiling?.toFixed(1)}</span>
         </div>
@@ -200,16 +214,16 @@ function CompareCard({ data }: { data: CompareResult }) {
   };
 
   return (
-    <Card className='border-primary/20 bg-primary/5 mt-2'>
-      <CardHeader className='pb-1 pt-3'>
-        <CardTitle className='text-sm font-semibold'>
+    <Card className='border-primary/20 bg-primary/5 mt-[var(--space-2)]'>
+      <CardHeader className='pb-[var(--space-1)] pt-[var(--space-3)]'>
+        <CardTitle className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
           Start/Sit Comparison ·{' '}
           {data.scoring_format?.replace('_', '-').toUpperCase()} · Week{' '}
           {data.week}
         </CardTitle>
       </CardHeader>
-      <CardContent className='pb-3'>
-        <div className='flex gap-3'>
+      <CardContent className='pb-[var(--space-3)]'>
+        <div className='flex gap-[var(--space-3)]'>
           {renderSide(data.player1, 'Player 1')}
           {renderSide(data.player2, 'Player 2')}
         </div>
@@ -221,23 +235,26 @@ function CompareCard({ data }: { data: CompareResult }) {
 function SearchCard({ data }: { data: SearchResult }) {
   if (!data.found || !data.players?.length) {
     return (
-      <Card className='border-muted bg-muted/30 mt-2'>
-        <CardContent className='p-3 text-sm text-muted-foreground'>
+      <Card className='border-muted bg-muted/30 mt-[var(--space-2)]'>
+        <CardContent className='p-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
           {data.message ?? 'No players found.'}
         </CardContent>
       </Card>
     );
   }
   return (
-    <Card className='border-muted bg-muted/20 mt-2'>
-      <CardContent className='p-3'>
-        <div className='flex flex-wrap gap-2'>
+    <Card className='border-muted bg-muted/20 mt-[var(--space-2)]'>
+      <CardContent className='p-[var(--space-3)]'>
+        <div className='flex flex-wrap gap-[var(--space-2)]'>
           {data.players.map((p) => (
             <div
               key={p.player_id}
-              className='flex items-center gap-1 rounded-md border px-2 py-1 text-xs'
+              className='flex items-center gap-[var(--space-1)] rounded-md border px-[var(--space-2)] py-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
             >
-              <Badge variant='outline' className='text-[10px]'>
+              <Badge
+                variant='outline'
+                className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+              >
                 {p.position}
               </Badge>
               <span className='font-medium'>{p.player_name}</span>
@@ -270,62 +287,80 @@ function SentimentDot({ score }: { score: number | null }) {
 function NewsCard({ data }: { data: NewsFeedResult }) {
   if (!data.found || !data.items?.length) {
     return (
-      <Card className='border-muted bg-muted/30 mt-2'>
-        <CardContent className='p-3 text-sm text-muted-foreground'>
+      <Card className='border-muted bg-muted/30 mt-[var(--space-2)]'>
+        <CardContent className='p-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
           {data.message ?? 'No news available.'}
         </CardContent>
       </Card>
     );
   }
   return (
-    <Card className='border-muted bg-muted/20 mt-2'>
+    <Card className='border-muted bg-muted/20 mt-[var(--space-2)]'>
       <CardContent className='divide-y p-0'>
         {data.items.slice(0, 5).map((item, i) => (
-          <div key={i} className='px-3 py-2'>
-            <div className='flex items-start justify-between gap-2'>
-              <div className='flex items-start gap-1.5 min-w-0'>
+          <div key={i} className='px-[var(--space-3)] py-[var(--space-2)]'>
+            <div className='flex items-start justify-between gap-[var(--space-2)]'>
+              <div className='flex items-start gap-[var(--space-2)] min-w-0'>
                 <SentimentDot score={item.sentiment} />
-                <p className='text-sm font-medium leading-snug'>
+                <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
                   {item.title ?? item.body_snippet ?? 'Untitled'}
                 </p>
               </div>
-              <div className='flex shrink-0 gap-1'>
+              <div className='flex shrink-0 gap-[var(--space-1)]'>
                 {item.is_ruled_out && (
-                  <Badge variant='destructive' className='text-[10px]'>
+                  <Badge
+                    variant='destructive'
+                    className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+                  >
                     OUT
                   </Badge>
                 )}
                 {item.is_inactive && !item.is_ruled_out && (
-                  <Badge variant='destructive' className='text-[10px]'>
+                  <Badge
+                    variant='destructive'
+                    className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+                  >
                     INACTIVE
                   </Badge>
                 )}
                 {item.is_suspended && (
-                  <Badge variant='destructive' className='text-[10px]'>
+                  <Badge
+                    variant='destructive'
+                    className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+                  >
                     SUSP
                   </Badge>
                 )}
                 {item.is_questionable && !item.is_ruled_out && !item.is_inactive && (
-                  <Badge variant='secondary' className='text-[10px]'>
+                  <Badge
+                    variant='secondary'
+                    className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+                  >
                     Q
                   </Badge>
                 )}
                 {item.is_returning && (
-                  <Badge variant='outline' className='text-[10px] text-green-600 border-green-600'>
+                  <Badge
+                    variant='outline'
+                    className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-green-600 border-green-600'
+                  >
                     RTN
                   </Badge>
                 )}
               </div>
             </div>
-            <div className='mt-0.5 flex items-center gap-2'>
+            <div className='mt-0.5 flex items-center gap-[var(--space-2)]'>
               {item.player_name && (
-                <p className='text-muted-foreground text-xs'>
+                <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   {item.player_name}
                   {item.team ? ` · ${item.team}` : ''}
                 </p>
               )}
               {item.category && (
-                <Badge variant='outline' className='text-[9px] px-1 py-0 h-4'>
+                <Badge
+                  variant='outline'
+                  className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-1)] py-0 h-[var(--space-4)]'
+                >
                   {item.category}
                 </Badge>
               )}
@@ -381,48 +416,51 @@ export default function AdvisorPage() {
       pageTitle='AI Fantasy Advisor'
       pageDescription='Ask about start/sit decisions, trade analysis, waiver wire pickups, and more'
     >
-      <FadeIn className='flex h-[calc(100dvh-160px)] flex-col gap-3'>
+      <FadeIn className='flex h-[calc(100dvh-160px)] flex-col gap-[var(--space-3)]'>
         {/* Top action bar — visible only when a conversation exists */}
         {messages.length > 0 && (
           <div className='flex justify-end'>
-            <Button
-              variant='outline'
-              size='sm'
-              className='text-xs'
-              onClick={clear}
-            >
-              <Icons.trash className='mr-1.5 h-3.5 w-3.5' />
-              Clear conversation
-            </Button>
+            <PressScale>
+              <Button
+                variant='outline'
+                size='sm'
+                className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                onClick={clear}
+              >
+                <Icons.trash className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
+                Clear conversation
+              </Button>
+            </PressScale>
           </div>
         )}
 
         {/* Message area */}
         <ScrollArea className='flex-1 rounded-lg border'>
-          <div className='flex flex-col gap-4 p-4'>
+          <div className='flex flex-col gap-[var(--gap-stack)] p-[var(--pad-card)]'>
             {messages.length === 0 && (
               <div className='flex flex-col items-center justify-center py-16 text-center'>
-                <div className='bg-primary/10 mb-4 rounded-full p-4'>
-                  <Icons.sparkles className='text-primary h-8 w-8' />
+                <div className='bg-primary/10 mb-[var(--space-4)] rounded-full p-[var(--space-4)]'>
+                  <Icons.sparkles className='text-primary h-[var(--space-8)] w-[var(--space-8)]' />
                 </div>
-                <h2 className='mb-1 text-lg font-semibold'>
+                <h2 className='mb-[var(--space-1)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-semibold'>
                   Your AI Fantasy Advisor
                 </h2>
-                <p className='text-muted-foreground mb-6 max-w-sm text-sm'>
+                <p className='text-muted-foreground mb-[var(--space-6)] max-w-sm text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
                   Ask me about start/sit decisions, trade analysis, waiver wire
                   pickups, or player projections.
                 </p>
-                <div className='flex flex-wrap justify-center gap-2'>
+                <div className='flex flex-wrap justify-center gap-[var(--space-2)]'>
                   {SUGGESTIONS.map((s) => (
-                    <Button
-                      key={s}
-                      variant='outline'
-                      size='sm'
-                      className='text-xs'
-                      onClick={() => handleSuggestion(s)}
-                    >
-                      {s}
-                    </Button>
+                    <PressScale key={s}>
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                        onClick={() => handleSuggestion(s)}
+                      >
+                        {s}
+                      </Button>
+                    </PressScale>
                   ))}
                 </div>
               </div>
@@ -433,16 +471,16 @@ export default function AdvisorPage() {
               return (
                 <div
                   key={message.id}
-                  className={`flex gap-3 ${isUser ? 'flex-row-reverse' : ''}`}
+                  className={`flex gap-[var(--space-3)] ${isUser ? 'flex-row-reverse' : ''}`}
                 >
-                  <Avatar className='h-8 w-8 shrink-0'>
-                    <AvatarFallback className='text-xs'>
+                  <Avatar className='h-[var(--space-8)] w-[var(--space-8)] shrink-0'>
+                    <AvatarFallback className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                       {isUser ? 'You' : 'AI'}
                     </AvatarFallback>
                   </Avatar>
 
                   <div
-                    className={`flex max-w-[80%] flex-col gap-1 ${isUser ? 'items-end' : 'items-start'}`}
+                    className={`flex max-w-[80%] flex-col gap-[var(--space-1)] ${isUser ? 'items-end' : 'items-start'}`}
                   >
                     {message.parts.map((part, partIndex) => {
                       switch (part.type) {
@@ -450,7 +488,7 @@ export default function AdvisorPage() {
                           return (
                             <div
                               key={partIndex}
-                              className={`rounded-2xl px-4 py-2 text-sm leading-relaxed whitespace-pre-wrap ${
+                              className={`rounded-2xl px-[var(--space-4)] py-[var(--space-2)] text-[length:var(--fs-sm)] leading-relaxed whitespace-pre-wrap ${
                                 isUser
                                   ? 'bg-primary text-primary-foreground rounded-tr-sm'
                                   : 'bg-muted rounded-tl-sm'
@@ -476,9 +514,9 @@ export default function AdvisorPage() {
                             return (
                               <div
                                 key={partIndex}
-                                className='text-muted-foreground flex items-center gap-2 text-xs'
+                                className='text-muted-foreground flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
                               >
-                                <Icons.spinner className='h-3 w-3 animate-spin' />
+                                <Icons.spinner className='h-[var(--space-3)] w-[var(--space-3)] animate-spin' />
                                 Looking up projection...
                               </div>
                             );
@@ -501,9 +539,9 @@ export default function AdvisorPage() {
                             return (
                               <div
                                 key={partIndex}
-                                className='text-muted-foreground flex items-center gap-2 text-xs'
+                                className='text-muted-foreground flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
                               >
-                                <Icons.spinner className='h-3 w-3 animate-spin' />
+                                <Icons.spinner className='h-[var(--space-3)] w-[var(--space-3)] animate-spin' />
                                 Comparing players...
                               </div>
                             );
@@ -526,9 +564,9 @@ export default function AdvisorPage() {
                             return (
                               <div
                                 key={partIndex}
-                                className='text-muted-foreground flex items-center gap-2 text-xs'
+                                className='text-muted-foreground flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
                               >
-                                <Icons.spinner className='h-3 w-3 animate-spin' />
+                                <Icons.spinner className='h-[var(--space-3)] w-[var(--space-3)] animate-spin' />
                                 Searching players...
                               </div>
                             );
@@ -551,9 +589,9 @@ export default function AdvisorPage() {
                             return (
                               <div
                                 key={partIndex}
-                                className='text-muted-foreground flex items-center gap-2 text-xs'
+                                className='text-muted-foreground flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
                               >
-                                <Icons.spinner className='h-3 w-3 animate-spin' />
+                                <Icons.spinner className='h-[var(--space-3)] w-[var(--space-3)] animate-spin' />
                                 Fetching news...
                               </div>
                             );
@@ -571,11 +609,13 @@ export default function AdvisorPage() {
 
             {/* Typing indicator when AI is generating */}
             {isLoading && (
-              <div className='flex gap-3'>
-                <Avatar className='h-8 w-8 shrink-0'>
-                  <AvatarFallback className='text-xs'>AI</AvatarFallback>
+              <div className='flex gap-[var(--space-3)]'>
+                <Avatar className='h-[var(--space-8)] w-[var(--space-8)] shrink-0'>
+                  <AvatarFallback className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    AI
+                  </AvatarFallback>
                 </Avatar>
-                <div className='bg-muted flex items-center gap-1 rounded-2xl rounded-tl-sm px-4 py-3'>
+                <div className='bg-muted flex items-center gap-[var(--space-1)] rounded-2xl rounded-tl-sm px-[var(--space-4)] py-[var(--space-3)]'>
                   <span className='bg-muted-foreground h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:0ms]' />
                   <span className='bg-muted-foreground h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:150ms]' />
                   <span className='bg-muted-foreground h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:300ms]' />
@@ -585,28 +625,32 @@ export default function AdvisorPage() {
 
             {/* Error state with retry */}
             {hasError && (
-              <div className='flex gap-3'>
-                <Avatar className='h-8 w-8 shrink-0'>
-                  <AvatarFallback className='text-xs'>AI</AvatarFallback>
+              <div className='flex gap-[var(--space-3)]'>
+                <Avatar className='h-[var(--space-8)] w-[var(--space-8)] shrink-0'>
+                  <AvatarFallback className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    AI
+                  </AvatarFallback>
                 </Avatar>
-                <div className='bg-destructive/10 border-destructive/30 flex flex-col gap-2 rounded-2xl rounded-tl-sm border px-4 py-3'>
-                  <p className='text-destructive text-sm font-medium'>
+                <div className='bg-destructive/10 border-destructive/30 flex flex-col gap-[var(--space-2)] rounded-2xl rounded-tl-sm border px-[var(--space-4)] py-[var(--space-3)]'>
+                  <p className='text-destructive text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
                     Something went wrong. This may be a temporary issue with the AI
                     provider or the data backend.
                   </p>
                   {lastUserMessage && (
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      className='self-start text-xs'
-                      onClick={handleRetry}
-                      disabled={isLoading}
-                    >
-                      <Icons.spinner
-                        className={`mr-1.5 h-3 w-3 ${isLoading ? 'animate-spin' : 'hidden'}`}
-                      />
-                      Retry
-                    </Button>
+                    <PressScale className='self-start'>
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                        onClick={handleRetry}
+                        disabled={isLoading}
+                      >
+                        <Icons.spinner
+                          className={`mr-1.5 h-[var(--space-3)] w-[var(--space-3)] ${isLoading ? 'animate-spin' : 'hidden'}`}
+                        />
+                        Retry
+                      </Button>
+                    </PressScale>
                   )}
                 </div>
               </div>
@@ -617,7 +661,7 @@ export default function AdvisorPage() {
         </ScrollArea>
 
         {/* Input form */}
-        <form onSubmit={handleSubmit} className='flex gap-2'>
+        <form onSubmit={handleSubmit} className='flex gap-[var(--space-2)]'>
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -625,14 +669,16 @@ export default function AdvisorPage() {
             disabled={isLoading}
             className='flex-1'
           />
-          <Button type='submit' disabled={isLoading || !input.trim()}>
-            {isLoading ? (
-              <Icons.spinner className='h-4 w-4 animate-spin' />
-            ) : (
-              <Icons.send className='h-4 w-4' />
-            )}
-            <span className='ml-2'>Send</span>
-          </Button>
+          <PressScale>
+            <Button type='submit' disabled={isLoading || !input.trim()}>
+              {isLoading ? (
+                <Icons.spinner className='h-[var(--space-4)] w-[var(--space-4)] animate-spin' />
+              ) : (
+                <Icons.send className='h-[var(--space-4)] w-[var(--space-4)]' />
+              )}
+              <span className='ml-[var(--space-2)]'>Send</span>
+            </Button>
+          </PressScale>
         </form>
       </FadeIn>
     </PageContainer>
