@@ -68,19 +68,19 @@ function MetricCard({ title, value, description, trend, trendDirection = 'neutra
     <Card className='@container/card'>
       <CardHeader>
         <CardDescription>{title}</CardDescription>
-        <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
+        <CardTitle className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums @[250px]/card:text-[length:var(--fs-h1)] @[250px]/card:leading-[var(--lh-h1)]'>
           {value}
         </CardTitle>
         {trend && TrendIcon && (
           <CardAction>
             <Badge variant='outline'>
-              <TrendIcon className='mr-1 h-3 w-3' />
+              <TrendIcon className='mr-[var(--space-1)] h-[var(--space-3)] w-[var(--space-3)]' />
               {trend}
             </Badge>
           </CardAction>
         )}
       </CardHeader>
-      <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+      <CardFooter className='flex-col items-start gap-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
         <div className='text-muted-foreground'>{description}</div>
       </CardFooter>
     </Card>
@@ -97,9 +97,9 @@ function getMaeRating(mae: number): { label: string; className: string } {
 
 export function AccuracyDashboard() {
   return (
-    <div className='space-y-6'>
+    <div className='space-y-[var(--gap-section)]'>
       {/* Overall metrics cards */}
-      <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4'>
+      <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-[var(--gap-stack)] *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-[var(--elevation-flat)] sm:grid-cols-2 lg:grid-cols-4'>
         <MetricCard
           title='Mean Absolute Error'
           value={OVERALL_METRICS.mae.toFixed(2)}
@@ -135,21 +135,29 @@ export function AccuracyDashboard() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='grid grid-cols-2 gap-4 text-sm sm:grid-cols-4'>
-            <div className='space-y-1'>
-              <p className='text-muted-foreground text-xs font-medium uppercase tracking-wider'>Seasons</p>
+          <div className='grid grid-cols-2 gap-[var(--gap-stack)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] sm:grid-cols-4'>
+            <div className='space-y-[var(--space-1)]'>
+              <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium uppercase tracking-wider'>
+                Seasons
+              </p>
               <p className='font-semibold'>{OVERALL_METRICS.seasons}</p>
             </div>
-            <div className='space-y-1'>
-              <p className='text-muted-foreground text-xs font-medium uppercase tracking-wider'>Weeks</p>
+            <div className='space-y-[var(--space-1)]'>
+              <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium uppercase tracking-wider'>
+                Weeks
+              </p>
               <p className='font-semibold'>{OVERALL_METRICS.weeks}</p>
             </div>
-            <div className='space-y-1'>
-              <p className='text-muted-foreground text-xs font-medium uppercase tracking-wider'>Scoring</p>
+            <div className='space-y-[var(--space-1)]'>
+              <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium uppercase tracking-wider'>
+                Scoring
+              </p>
               <p className='font-semibold'>{OVERALL_METRICS.scoringFormat}</p>
             </div>
-            <div className='space-y-1'>
-              <p className='text-muted-foreground text-xs font-medium uppercase tracking-wider'>Player-Weeks</p>
+            <div className='space-y-[var(--space-1)]'>
+              <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium uppercase tracking-wider'>
+                Player-Weeks
+              </p>
               <p className='font-semibold'>{OVERALL_METRICS.playerWeeks.toLocaleString()}</p>
             </div>
           </div>
@@ -187,7 +195,9 @@ export function AccuracyDashboard() {
                         {row.position}
                       </Badge>
                     </TableCell>
-                    <TableCell className='text-sm'>{row.model}</TableCell>
+                    <TableCell className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                      {row.model}
+                    </TableCell>
                     <TableCell className='text-right tabular-nums font-bold'>
                       {row.mae.toFixed(2)}
                     </TableCell>
@@ -197,10 +207,12 @@ export function AccuracyDashboard() {
                     <TableCell className='text-right tabular-nums text-muted-foreground'>
                       {row.bias.toFixed(2)}
                     </TableCell>
-                    <TableCell className={`hidden sm:table-cell text-sm font-medium ${rating.className}`}>
+                    <TableCell
+                      className={`hidden sm:table-cell text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium ${rating.className}`}
+                    >
                       {rating.label}
                     </TableCell>
-                    <TableCell className='hidden md:table-cell text-sm text-muted-foreground'>
+                    <TableCell className='hidden md:table-cell text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
                       {row.notes}
                     </TableCell>
                   </TableRow>
@@ -219,7 +231,7 @@ export function AccuracyDashboard() {
         <CardHeader>
           <CardTitle>Methodology</CardTitle>
         </CardHeader>
-        <CardContent className='space-y-3 text-sm text-muted-foreground'>
+        <CardContent className='space-y-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
           <p>
             Projections are generated using a hybrid approach: a heuristic base model (weighted
             rolling averages, usage multipliers, Vegas implied totals) corrected by an ML residual
