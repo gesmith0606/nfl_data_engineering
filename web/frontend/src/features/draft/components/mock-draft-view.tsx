@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
+import { PressScale } from '@/lib/motion-primitives'
 import type { DraftConfig, MockDraftPickResponse } from '@/lib/nfl/types'
 
 interface MockDraftViewProps {
@@ -96,46 +97,52 @@ export function MockDraftView({ sessionId, config, onReset }: MockDraftViewProps
   const userPicks = picks.filter(p => p.is_user_turn)
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-[var(--gap-stack)]'>
       {/* Controls */}
-      <div className='flex flex-wrap items-center gap-2'>
-        <Button
-          variant='outline'
-          size='sm'
-          onClick={() => advanceMutation.mutate()}
-          disabled={isComplete || advanceMutation.isPending || isRunning}
-        >
-          {advanceMutation.isPending ? (
-            <Icons.spinner className='mr-1.5 h-4 w-4 animate-spin' />
-          ) : null}
-          Advance Pick
-        </Button>
+      <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
+        <PressScale>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => advanceMutation.mutate()}
+            disabled={isComplete || advanceMutation.isPending || isRunning}
+          >
+            {advanceMutation.isPending ? (
+              <Icons.spinner className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)] animate-spin' />
+            ) : null}
+            Advance Pick
+          </Button>
+        </PressScale>
 
-        <Button
-          variant='outline'
-          size='sm'
-          onClick={() => setIsRunning(prev => !prev)}
-          disabled={isComplete}
-        >
-          {isRunning ? (
-            <>
-              <Icons.minus className='mr-1.5 h-4 w-4' />
-              Pause
-            </>
-          ) : (
-            <>
-              <Icons.arrowRight className='mr-1.5 h-4 w-4' />
-              Auto-Run
-            </>
-          )}
-        </Button>
+        <PressScale>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => setIsRunning(prev => !prev)}
+            disabled={isComplete}
+          >
+            {isRunning ? (
+              <>
+                <Icons.minus className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
+                Pause
+              </>
+            ) : (
+              <>
+                <Icons.arrowRight className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
+                Auto-Run
+              </>
+            )}
+          </Button>
+        </PressScale>
 
-        <Button variant='outline' size='sm' onClick={onReset}>
-          <Icons.close className='mr-1.5 h-4 w-4' />
-          Reset
-        </Button>
+        <PressScale>
+          <Button variant='outline' size='sm' onClick={onReset}>
+            <Icons.close className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
+            Reset
+          </Button>
+        </PressScale>
 
-        <span className='text-muted-foreground ml-auto text-sm'>
+        <span className='text-muted-foreground ml-auto text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
           Pick {currentPick} of ~{totalPicks}
         </span>
       </div>
@@ -143,20 +150,27 @@ export function MockDraftView({ sessionId, config, onReset }: MockDraftViewProps
       {/* Results card when complete */}
       {isComplete && (
         <Card className='border-green-200 dark:border-green-800'>
-          <CardHeader className='pb-2'>
-            <CardTitle className='text-base'>Draft Complete</CardTitle>
+          <CardHeader className='pb-[var(--space-2)]'>
+            <CardTitle className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+              Draft Complete
+            </CardTitle>
           </CardHeader>
-          <CardContent className='space-y-3'>
+          <CardContent className='space-y-[var(--space-3)]'>
             {draftGrade && (
-              <div className='flex items-center gap-3'>
-                <span className={`text-5xl font-bold ${GRADE_COLORS[draftGrade] ?? 'text-foreground'}`}>
+              <div className='flex items-center gap-[var(--space-3)]'>
+                <span
+                  className={`text-[length:var(--fs-h1)] leading-[var(--lh-h1)] font-bold ${GRADE_COLORS[draftGrade] ?? 'text-foreground'}`}
+                >
                   {draftGrade}
                 </span>
                 <div>
-                  <p className='font-medium'>Draft Grade</p>
+                  <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                    Draft Grade
+                  </p>
                   {totalPts !== null && (
-                    <p className='text-muted-foreground text-sm'>
-                      {totalPts.toFixed(0)} projected pts · VORP {totalVorp?.toFixed(1) ?? '—'}
+                    <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                      {totalPts.toFixed(0)} projected pts · VORP{' '}
+                      {totalVorp?.toFixed(1) ?? '—'}
                     </p>
                   )}
                 </div>
@@ -164,19 +178,26 @@ export function MockDraftView({ sessionId, config, onReset }: MockDraftViewProps
             )}
 
             <div>
-              <p className='mb-1 text-sm font-medium'>Your Roster ({userPicks.length} picks)</p>
+              <p className='mb-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                Your Roster ({userPicks.length} picks)
+              </p>
               <div className='space-y-0.5'>
                 {userPicks.map((p, i) => (
-                  <p key={i} className='text-muted-foreground text-sm'>
+                  <p
+                    key={i}
+                    className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'
+                  >
                     Rd {p.round_number}: {p.player_name ?? '—'} ({p.position ?? '?'})
                   </p>
                 ))}
               </div>
             </div>
 
-            <Button onClick={onReset} size='sm'>
-              Run Again
-            </Button>
+            <PressScale>
+              <Button onClick={onReset} size='sm'>
+                Run Again
+              </Button>
+            </PressScale>
           </CardContent>
         </Card>
       )}
@@ -196,7 +217,10 @@ export function MockDraftView({ sessionId, config, onReset }: MockDraftViewProps
           <TableBody>
             {picks.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className='text-muted-foreground py-8 text-center text-sm'>
+                <TableCell
+                  colSpan={5}
+                  className='text-muted-foreground py-[var(--space-8)] text-center text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'
+                >
                   Click &quot;Advance Pick&quot; or &quot;Auto-Run&quot; to start the simulation.
                 </TableCell>
               </TableRow>
@@ -206,17 +230,25 @@ export function MockDraftView({ sessionId, config, onReset }: MockDraftViewProps
                   key={i}
                   className={pick.is_user_turn ? 'bg-primary/10 font-medium' : undefined}
                 >
-                  <TableCell className='font-mono text-sm tabular-nums'>{pick.pick_number}</TableCell>
-                  <TableCell className='font-mono text-sm tabular-nums'>{pick.round_number}</TableCell>
-                  <TableCell className='text-sm'>
+                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
+                    {pick.pick_number}
+                  </TableCell>
+                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
+                    {pick.round_number}
+                  </TableCell>
+                  <TableCell className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
                     {pick.is_user_turn ? (
                       <span className='text-primary font-semibold'>YOU</span>
                     ) : (
                       <span className='text-muted-foreground'>OPP</span>
                     )}
                   </TableCell>
-                  <TableCell className='text-sm'>{pick.player_name ?? '—'}</TableCell>
-                  <TableCell className='text-muted-foreground text-sm'>{pick.position ?? '—'}</TableCell>
+                  <TableCell className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                    {pick.player_name ?? '—'}
+                  </TableCell>
+                  <TableCell className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                    {pick.position ?? '—'}
+                  </TableCell>
                 </TableRow>
               ))
             )}

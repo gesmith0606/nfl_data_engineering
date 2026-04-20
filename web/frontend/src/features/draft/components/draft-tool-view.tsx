@@ -12,6 +12,7 @@ import { DraftConfigDialog } from './draft-config-dialog'
 import { MyRosterPanel } from './my-roster-panel'
 import { RecommendationsPanel } from './recommendations-panel'
 import { MockDraftView } from './mock-draft-view'
+import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
 import type { Position } from '@/lib/nfl/types'
 
 const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K']
@@ -81,16 +82,18 @@ export function DraftToolView() {
   // -------------------------------------------------------------------------
   if (mode === 'mock' && sessionId) {
     return (
-      <div className='space-y-4'>
-        <div className='flex items-center gap-2'>
-          <Icons.clipboardText className='h-4 w-4' />
-          <h2 className='text-sm font-semibold'>Mock Draft Simulation</h2>
-          <span className='text-muted-foreground text-xs'>
+      <FadeIn className='space-y-[var(--gap-stack)]'>
+        <div className='flex items-center gap-[var(--space-2)]'>
+          <Icons.clipboardText className='h-[var(--space-4)] w-[var(--space-4)]' />
+          <h2 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
+            Mock Draft Simulation
+          </h2>
+          <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             {config.n_teams} teams · Pick #{config.user_pick} · {config.scoring}
           </span>
         </div>
         <MockDraftView sessionId={sessionId} config={config} onReset={handleReset} />
-      </div>
+      </FadeIn>
     )
   }
 
@@ -98,9 +101,9 @@ export function DraftToolView() {
   // Normal draft board view
   // -------------------------------------------------------------------------
   return (
-    <div className='space-y-4'>
+    <FadeIn className='space-y-[var(--gap-stack)]'>
       {/* Top toolbar */}
-      <div className='flex flex-wrap items-center gap-2'>
+      <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
         {/* Position filter */}
         <Tabs
           value={positionFilter}
@@ -108,100 +111,119 @@ export function DraftToolView() {
         >
           <TabsList>
             {POSITIONS.map(pos => (
-              <TabsTrigger key={pos} value={pos} className='text-xs'>
+              <TabsTrigger
+                key={pos}
+                value={pos}
+                className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+              >
                 {pos}
               </TabsTrigger>
             ))}
           </TabsList>
         </Tabs>
 
-        <div className='ml-auto flex items-center gap-2'>
-          <Button
-            variant='outline'
-            size='sm'
-            onClick={() => setConfigOpen(true)}
-          >
-            <Icons.settings className='mr-1.5 h-4 w-4' />
-            Settings
-          </Button>
-          <Button
-            variant='outline'
-            size='sm'
-            onClick={() => {
-              handleStartMock()
-            }}
-          >
-            <Icons.arrowRight className='mr-1.5 h-4 w-4' />
-            Mock Draft
-          </Button>
-          <Button
-            variant='outline'
-            size='sm'
-            onClick={handleNewDraft}
-          >
-            <Icons.close className='mr-1.5 h-4 w-4' />
-            Reset
-          </Button>
+        <div className='ml-auto flex items-center gap-[var(--space-2)]'>
+          <PressScale>
+            <Button
+              variant='outline'
+              size='sm'
+              onClick={() => setConfigOpen(true)}
+            >
+              <Icons.settings className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
+              Settings
+            </Button>
+          </PressScale>
+          <PressScale>
+            <Button
+              variant='outline'
+              size='sm'
+              onClick={() => {
+                handleStartMock()
+              }}
+            >
+              <Icons.arrowRight className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
+              Mock Draft
+            </Button>
+          </PressScale>
+          <PressScale>
+            <Button
+              variant='outline'
+              size='sm'
+              onClick={handleNewDraft}
+            >
+              <Icons.close className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
+              Reset
+            </Button>
+          </PressScale>
         </div>
       </div>
 
       {/* Session info badge */}
       {data && (
-        <p className='text-muted-foreground text-xs'>
+        <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {data.scoring_format} · {data.roster_format} · {data.n_teams} teams ·{' '}
           {data.picks_taken} picks made
         </p>
       )}
 
       {/* Main content: board + sidebar */}
-      {isLoading ? (
-        <div className='flex items-center justify-center py-24'>
-          <div className='flex flex-col items-center gap-3'>
-            <Icons.spinner className='text-muted-foreground h-8 w-8 animate-spin' />
-            <p className='text-muted-foreground text-sm'>
-              Generating projections and building draft board...
-            </p>
-            <p className='text-muted-foreground text-xs'>This may take 15–30 seconds on first load</p>
+      <DataLoadReveal
+        loading={isLoading}
+        skeleton={
+          <div className='flex items-center justify-center py-[var(--space-12)]'>
+            <div className='flex flex-col items-center gap-[var(--space-3)]'>
+              <Icons.spinner className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)] animate-spin' />
+              <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                Generating projections and building draft board...
+              </p>
+              <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                This may take 15-30 seconds on first load
+              </p>
+            </div>
           </div>
-        </div>
-      ) : isError ? (
-        <div className='flex items-center justify-center py-24'>
-          <div className='flex flex-col items-center gap-2'>
-            <Icons.alertCircle className='text-muted-foreground h-8 w-8' />
-            <p className='text-muted-foreground text-sm'>
-              Failed to load draft board. Ensure the API is running on localhost:8000.
-            </p>
-            <Button variant='outline' size='sm' onClick={() => void refetch()}>
-              Retry
-            </Button>
+        }
+      >
+        {isError ? (
+          <div className='flex items-center justify-center py-[var(--space-12)]'>
+            <div className='flex flex-col items-center gap-[var(--space-2)]'>
+              <Icons.alertCircle className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)]' />
+              <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                Failed to load draft board. Ensure the API is running on localhost:8000.
+              </p>
+              <PressScale>
+                <Button variant='outline' size='sm' onClick={() => void refetch()}>
+                  Retry
+                </Button>
+              </PressScale>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className='flex flex-col gap-4 lg:flex-row'>
-          {/* Draft board (70%) */}
-          <div className='min-w-0 flex-1'>
-            <DraftBoardTable
-              players={players}
-              positionFilter={positionFilter}
-              onDraft={handleDraftPlayer}
-              isPicking={pickMutation.isPending}
-            />
-          </div>
+        ) : (
+          <div className='flex flex-col gap-[var(--gap-stack)] lg:flex-row'>
+            {/* Draft board (70%) */}
+            <div className='min-w-0 flex-1'>
+              <DraftBoardTable
+                players={players}
+                positionFilter={positionFilter}
+                onDraft={handleDraftPlayer}
+                isPicking={pickMutation.isPending}
+              />
+            </div>
 
-          {/* Sidebar panels (30%) */}
-          <div className='w-full space-y-4 lg:w-72 lg:shrink-0'>
-            <MyRosterPanel
-              roster={roster}
-              remainingNeeds={remainingNeeds}
-              picksCount={picksCount}
-            />
-            <RecommendationsPanel
-              sessionId={sessionId}
-              positionFilter={positionFilter}
-            />
+            {/* Sidebar panels (30%) */}
+            <div className='w-full space-y-[var(--gap-stack)] lg:w-72 lg:shrink-0'>
+              <MyRosterPanel
+                roster={roster}
+                remainingNeeds={remainingNeeds}
+                picksCount={picksCount}
+              />
+              <RecommendationsPanel
+                sessionId={sessionId}
+                positionFilter={positionFilter}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </DataLoadReveal>
 
       {/* Config dialog */}
       <DraftConfigDialog
@@ -212,6 +234,6 @@ export function DraftToolView() {
         onOpenChange={setConfigOpen}
         onNewDraft={handleNewDraft}
       />
-    </div>
+    </FadeIn>
   )
 }

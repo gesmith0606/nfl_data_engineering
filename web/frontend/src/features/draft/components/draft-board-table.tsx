@@ -12,6 +12,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
+import { PressScale } from '@/lib/motion-primitives'
 import type { DraftPlayer, Position, SortDirection } from '@/lib/nfl/types'
 
 interface DraftBoardTableProps {
@@ -56,16 +57,16 @@ function SortableHeader({
       className='cursor-pointer select-none whitespace-nowrap'
       onClick={() => onSort(sortKey)}
     >
-      <span className='flex items-center gap-1'>
+      <span className='flex items-center gap-[var(--space-1)]'>
         {label}
         {isActive ? (
           direction === 'asc' ? (
-            <Icons.chevronUp className='h-3 w-3' />
+            <Icons.chevronUp className='h-[var(--space-3)] w-[var(--space-3)]' />
           ) : (
-            <Icons.chevronDown className='h-3 w-3' />
+            <Icons.chevronDown className='h-[var(--space-3)] w-[var(--space-3)]' />
           )
         ) : (
-          <Icons.chevronsUpDown className='text-muted-foreground h-3 w-3' />
+          <Icons.chevronsUpDown className='text-muted-foreground h-[var(--space-3)] w-[var(--space-3)]' />
         )}
       </span>
     </TableHead>
@@ -115,21 +116,21 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
   }
 
   return (
-    <div className='space-y-3'>
+    <div className='space-y-[var(--space-3)]'>
       {/* Search bar */}
       <div className='relative'>
-        <Icons.search className='text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2' />
+        <Icons.search className='text-muted-foreground absolute left-[var(--space-3)] top-1/2 h-[var(--space-4)] w-[var(--space-4)] -translate-y-1/2' />
         <input
           type='text'
           placeholder='Search players...'
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className='border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-3 py-1 pl-9 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50'
+          className='border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-[var(--space-3)] py-[var(--space-1)] pl-[var(--space-10)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-[length:var(--fs-sm)] file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50'
         />
       </div>
 
       {/* Count */}
-      <p className='text-muted-foreground text-xs'>
+      <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
         Showing {displayed.length} of {filtered.length} available players
       </p>
 
@@ -181,46 +182,56 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
           <TableBody>
             {displayed.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={9} className='text-muted-foreground py-12 text-center text-sm'>
+                <TableCell
+                  colSpan={9}
+                  className='text-muted-foreground py-[var(--space-12)] text-center text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'
+                >
                   No players match your filter.
                 </TableCell>
               </TableRow>
             ) : (
               displayed.map(player => (
-                <TableRow key={player.player_id} className='hover:bg-muted/40'>
-                  <TableCell className='font-mono text-sm tabular-nums'>
+                <TableRow
+                  key={player.player_id}
+                  className='hover:bg-muted/40 transition-colors duration-[var(--motion-fast)]'
+                >
+                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
                     {player.model_rank}
                   </TableCell>
                   <TableCell>
-                    <div className='flex items-center gap-2'>
-                      <span className='font-medium'>{player.player_name}</span>
+                    <div className='flex items-center gap-[var(--space-2)]'>
+                      <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                        {player.player_name}
+                      </span>
                       <span
-                        className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${POSITION_COLORS[player.position] ?? 'bg-gray-100 text-gray-700'}`}
+                        className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${POSITION_COLORS[player.position] ?? 'bg-gray-100 text-gray-700'}`}
                       >
                         {player.position}
                       </span>
                     </div>
                   </TableCell>
-                  <TableCell className='text-muted-foreground text-sm'>
+                  <TableCell className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
                     {player.team ?? '—'}
                   </TableCell>
-                  <TableCell className='font-mono text-sm tabular-nums'>
+                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
                     {player.projected_points.toFixed(1)}
                   </TableCell>
-                  <TableCell className='font-mono text-sm tabular-nums'>
+                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
                     {player.adp_rank !== null ? player.adp_rank.toFixed(0) : '—'}
                   </TableCell>
-                  <TableCell className={`font-mono text-sm tabular-nums ${adpDiffColor(player.adp_diff)}`}>
+                  <TableCell
+                    className={`font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums ${adpDiffColor(player.adp_diff)}`}
+                  >
                     {player.adp_diff !== null
                       ? (player.adp_diff > 0 ? '+' : '') + player.adp_diff.toFixed(1)
                       : '—'}
                   </TableCell>
-                  <TableCell className='font-mono text-sm tabular-nums'>
+                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
                     {player.vorp.toFixed(1)}
                   </TableCell>
                   <TableCell>
                     <span
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${VALUE_TIER_COLORS[player.value_tier] ?? VALUE_TIER_COLORS['fair_value']}`}
+                      className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${VALUE_TIER_COLORS[player.value_tier] ?? VALUE_TIER_COLORS['fair_value']}`}
                     >
                       {player.value_tier === 'undervalued'
                         ? 'Value'
@@ -230,14 +241,16 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
                     </span>
                   </TableCell>
                   <TableCell>
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      onClick={() => onDraft(player.player_id)}
-                      disabled={isPicking}
-                    >
-                      Draft
-                    </Button>
+                    <PressScale>
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        onClick={() => onDraft(player.player_id)}
+                        disabled={isPicking}
+                      >
+                        Draft
+                      </Button>
+                    </PressScale>
                   </TableCell>
                 </TableRow>
               ))

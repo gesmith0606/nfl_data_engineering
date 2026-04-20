@@ -15,6 +15,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { PressScale } from '@/lib/motion-primitives'
 import type { DraftConfig } from '@/lib/nfl/types'
 
 interface DraftConfigDialogProps {
@@ -48,10 +49,12 @@ export function DraftConfigDialog({
           <DialogTitle>Draft Settings</DialogTitle>
         </DialogHeader>
 
-        <div className='space-y-4 py-2'>
+        <div className='space-y-[var(--gap-stack)] py-[var(--space-2)]'>
           {/* Teams */}
-          <div className='flex items-center justify-between gap-4'>
-            <label className='text-sm font-medium'>Teams</label>
+          <div className='flex items-center justify-between gap-[var(--space-4)]'>
+            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+              Teams
+            </label>
             <Select
               value={String(config.n_teams)}
               onValueChange={v => {
@@ -74,8 +77,10 @@ export function DraftConfigDialog({
           </div>
 
           {/* My Pick */}
-          <div className='flex items-center justify-between gap-4'>
-            <label className='text-sm font-medium'>My Pick</label>
+          <div className='flex items-center justify-between gap-[var(--space-4)]'>
+            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+              My Pick
+            </label>
             <Select
               value={String(config.user_pick)}
               onValueChange={v => update('user_pick', Number(v))}
@@ -94,8 +99,10 @@ export function DraftConfigDialog({
           </div>
 
           {/* Scoring */}
-          <div className='flex items-center justify-between gap-4'>
-            <label className='text-sm font-medium'>Scoring</label>
+          <div className='flex items-center justify-between gap-[var(--space-4)]'>
+            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+              Scoring
+            </label>
             <Select
               value={config.scoring}
               onValueChange={v => update('scoring', v as DraftConfig['scoring'])}
@@ -112,8 +119,10 @@ export function DraftConfigDialog({
           </div>
 
           {/* Roster Format */}
-          <div className='flex items-center justify-between gap-4'>
-            <label className='text-sm font-medium'>Roster Format</label>
+          <div className='flex items-center justify-between gap-[var(--space-4)]'>
+            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+              Roster Format
+            </label>
             <Select
               value={config.roster_format}
               onValueChange={v => update('roster_format', v as DraftConfig['roster_format'])}
@@ -130,8 +139,10 @@ export function DraftConfigDialog({
           </div>
 
           {/* Season */}
-          <div className='flex items-center justify-between gap-4'>
-            <label className='text-sm font-medium'>Season</label>
+          <div className='flex items-center justify-between gap-[var(--space-4)]'>
+            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+              Season
+            </label>
             <Select
               value={String(config.season)}
               onValueChange={v => update('season', Number(v))}
@@ -147,26 +158,30 @@ export function DraftConfigDialog({
           </div>
         </div>
 
-        <DialogFooter className='flex gap-2 sm:flex-col'>
-          <Button
-            className='w-full'
-            onClick={() => {
-              onNewDraft()
-              onOpenChange(false)
-            }}
-          >
-            Apply &amp; New Draft
-          </Button>
-          <Button
-            variant='outline'
-            className='w-full'
-            onClick={() => {
-              onStartMock()
-              onOpenChange(false)
-            }}
-          >
-            Start Mock Draft
-          </Button>
+        <DialogFooter className='flex gap-[var(--space-2)] sm:flex-col'>
+          <PressScale className='w-full'>
+            <Button
+              className='w-full'
+              onClick={() => {
+                onNewDraft()
+                onOpenChange(false)
+              }}
+            >
+              Apply &amp; New Draft
+            </Button>
+          </PressScale>
+          <PressScale className='w-full'>
+            <Button
+              variant='outline'
+              className='w-full'
+              onClick={() => {
+                onStartMock()
+                onOpenChange(false)
+              }}
+            >
+              Start Mock Draft
+            </Button>
+          </PressScale>
         </DialogFooter>
       </DialogContent>
     </Dialog>
