@@ -28,10 +28,10 @@
 
 ### AI Advisor
 
-- [ ] **ADVR-01**: All 12 advisor tools return valid data on the live site _(baseline measured in 63-01: 4 PASS / 3 WARN / 5 FAIL — pending wave-2 fixes)_
-- [x] **ADVR-02**: Advisor can answer "who are the top 10 RBs" with real data — 63-04 ships `meta.data_as_of` on `/api/projections`, new `/api/projections/latest-week` endpoint, and advisor `getPositionRankings` auto-resolves default week; 10 contract tests pin the Gold-layer grounding
-- [ ] **ADVR-03**: External rankings comparison works (Sleeper/FantasyPros/ESPN)
-- [ ] **ADVR-04**: Floating chat widget renders and persists on all dashboard pages
+- [x] **ADVR-01**: All 12 advisor tools return valid data on the live site — 63-06 live Railway re-audit: 7 PASS / 5 WARN / **0 FAIL** (baseline 4/3/5). 5 WARNs are documented `warn_on_empty` offseason payloads.
+- [x] **ADVR-02**: Advisor can answer "who are the top 10 RBs" with real data — 63-04 ships `meta.data_as_of` on `/api/projections`, new `/api/projections/latest-week` endpoint, and advisor `getPositionRankings` auto-resolves default week; live transcript in 63-06 ADVISOR-E2E.md confirms end-to-end
+- [x] **ADVR-03**: External rankings comparison works (Sleeper/FantasyPros/ESPN) — 63-03 cache-first fallback, live Sleeper returns 10 players with rank_diff math; FantasyPros degrades gracefully on upstream block (stale:true, empty list)
+- [x] **ADVR-04**: Floating chat widget renders and persists on all dashboard pages — 63-05 usePersistentChat hook + localStorage (key advisor:conversation:v1), verified on all 10 /dashboard/* routes via Playwright UAT
 
 ### Matchup View
 
@@ -85,10 +85,10 @@
 | DSGN-02 | Phase 62 | Pending |
 | DSGN-03 | Phase 62 | Pending |
 | DSGN-04 | Phase 62 | Pending |
-| ADVR-01 | Phase 63 | In progress (baseline 63-01: 4P/3W/5F) |
+| ADVR-01 | Phase 63 | Complete (63-06 live Railway audit: 7P/5W/0F — FAIL count 5→0) |
 | ADVR-02 | Phase 63 | Complete (63-04: `meta.data_as_of` + `/api/projections/latest-week` + advisor auto-resolve; 10 contract tests) |
-| ADVR-03 | Phase 63 | Pending |
-| ADVR-04 | Phase 63 | Pending |
+| ADVR-03 | Phase 63 | Complete (63-03 cache-first fallback; live Sleeper PASS, FantasyPros graceful stale) |
+| ADVR-04 | Phase 63 | Complete (63-05 usePersistentChat + localStorage; Playwright UAT 10/10 routes) |
 | MTCH-01 | Phase 64 | Partial (64-02 ships OL side of roster endpoint; full requirement lands with 64-04 frontend wiring) |
 | MTCH-02 | Phase 64 | Complete (64-02: `/api/teams/{team}/roster?side=defense` returns real NFL players with slot_hint + snap_pct) |
 | MTCH-03 | Phase 64 | Pending |

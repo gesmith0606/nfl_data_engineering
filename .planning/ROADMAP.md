@@ -30,7 +30,7 @@ All 6 phases are independent and can be worked in any order.
 - [x] **Phase 60: Data Quality** - Fix stale rosters, position misclassifications, and projection sanity issues
 - [x] **Phase 61: News & Sentiment Live** - Daily automated news ingestion with real articles on the website (completed 2026-04-19)
 - [ ] **Phase 62: Design & UX Polish** - Premium visual design, consistent styling, animations, mobile responsiveness
-- [ ] **Phase 63: AI Advisor Hardening** - Verify all 12 advisor tools work end-to-end on the live site
+- [x] **Phase 63: AI Advisor Hardening** - Verify all 12 advisor tools work end-to-end on the live site (completed 2026-04-20)
 - [ ] **Phase 64: Matchup View Completion** - Real defensive data, proper ratings, schedule-aware opponents
 - [ ] **Phase 65: Agent Ecosystem Optimization** - Consolidate skills, activate or archive dormant agents, add NFL rules
 
@@ -150,6 +150,6 @@ Plans:
 | 60. Data Quality | 3/3 | Complete | 2026-04-17 |
 | 61. News & Sentiment Live | 6/6 | Complete    | 2026-04-19 |
 | 62. Design & UX Polish | 2/6 | In progress | - |
-| 63. AI Advisor Hardening | 5/6 | In Progress|  |
+| 63. AI Advisor Hardening | 6/6 | Complete   | 2026-04-20 |
 | 64. Matchup View Completion | 2/4 | In progress | - |
 | 65. Agent Ecosystem Optimization | 1/4 | In progress | - |
