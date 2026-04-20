@@ -26,7 +26,7 @@ function StatCard({ title, value, description, trend, trendDirection = 'up' }: S
     <Card className='@container/card'>
       <CardHeader>
         <CardDescription>{title}</CardDescription>
-        <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
+        <CardTitle className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums @[250px]/card:text-[length:var(--fs-h1)] @[250px]/card:leading-[var(--lh-h1)]'>
           {value}
         </CardTitle>
         {trend && (
@@ -38,7 +38,7 @@ function StatCard({ title, value, description, trend, trendDirection = 'up' }: S
           </CardAction>
         )}
       </CardHeader>
-      <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+      <CardFooter className='flex-col items-start gap-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
         <div className='text-muted-foreground'>{description}</div>
       </CardFooter>
     </Card>
@@ -47,7 +47,7 @@ function StatCard({ title, value, description, trend, trendDirection = 'up' }: S
 
 export function OverviewStatCards() {
   return (
-    <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
+    <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-[var(--gap-stack)] *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-[var(--elevation-flat)] md:grid-cols-2 lg:grid-cols-4'>
       <StatCard
         title='Projection MAE'
         value='4.77'

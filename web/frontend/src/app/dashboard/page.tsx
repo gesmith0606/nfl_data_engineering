@@ -9,15 +9,15 @@ export const metadata = {
 
 export default function Dashboard() {
   return (
-    <PageContainer>
-      <div className='flex flex-1 flex-col space-y-4'>
-        <div className='flex items-center justify-between'>
-          <h2 className='text-2xl font-bold tracking-tight'>NFL Analytics Dashboard</h2>
-        </div>
-
+    <PageContainer
+      scrollable={false}
+      pageTitle='NFL Analytics Dashboard'
+      pageDescription='Model accuracy, tests passing, ATS performance, and player coverage at a glance'
+    >
+      <div className='flex flex-1 flex-col gap-[var(--gap-stack)]'>
         <OverviewStatCards />
 
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+        <div className='grid grid-cols-1 gap-[var(--gap-stack)] md:grid-cols-2'>
           <MAEByPositionChart />
           <WeeklyAccuracyChart />
         </div>
