@@ -120,6 +120,22 @@ class PredictionResponse(BaseModel):
     week: int
     predictions: List[GamePrediction]
     generated_at: str
+    data_as_of: Optional[str] = Field(
+        default=None,
+        description=(
+            "ISO timestamp of the underlying Gold parquet used for this response. "
+            "Populated when the request defaulted to latest-played-week so the "
+            "frontend can surface data freshness without a second roundtrip."
+        ),
+    )
+    defaulted: bool = Field(
+        default=False,
+        description=(
+            "True when season/week were not supplied and the service resolved them "
+            "from Gold storage. Frontend uses this to avoid overwriting user-selected "
+            "filters."
+        ),
+    )
 
 
 class PlayerSearchResult(BaseModel):
@@ -204,6 +220,20 @@ class LineupResponse(BaseModel):
     lineups: List[TeamLineup]
     lineup: List[FlatLineupPlayer] = Field(default_factory=list)
     generated_at: str
+    data_as_of: Optional[str] = Field(
+        default=None,
+        description=(
+            "ISO timestamp of the underlying Gold parquet used for this response. "
+            "Populated when the request defaulted to latest-played-week."
+        ),
+    )
+    defaulted: bool = Field(
+        default=False,
+        description=(
+            "True when season/week were not supplied and the service resolved them "
+            "from Gold storage."
+        ),
+    )
 
 
 class HealthResponse(BaseModel):
@@ -212,6 +242,13 @@ class HealthResponse(BaseModel):
     status: str
     version: str
     db_status: Optional[str] = None
+    llm_enrichment_ready: bool = Field(
+        default=False,
+        description=(
+            "True when ANTHROPIC_API_KEY is set in the runtime environment, "
+            "indicating the news extractor can run. Never leaks the key itself."
+        ),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -696,6 +733,14 @@ class TeamRosterResponse(BaseModel):
     fallback: bool = False
     fallback_season: Optional[int] = None
     roster: List[RosterPlayer]
+    defaulted: bool = Field(
+        default=False,
+        description=(
+            "True when season/week were not supplied and the service resolved them "
+            "from the latest schedule/roster parquet. Distinct from ``fallback`` which "
+            "indicates the requested season had no roster data so an older one was used."
+        ),
+    )
 
 
 # ---------------------------------------------------------------------------

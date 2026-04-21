@@ -92,9 +92,20 @@ app.include_router(teams_defense.router, prefix="/api")
 # ---------------------------------------------------------------------------
 @app.get("/api/health", response_model=HealthResponse, tags=["health"])
 def health_check() -> HealthResponse:
-    """Liveness probe.  Reports database status when DATABASE_URL is set."""
+    """Liveness probe.  Reports database status when DATABASE_URL is set.
+
+    ``llm_enrichment_ready`` reflects whether ``ANTHROPIC_API_KEY`` is set in
+    the runtime environment so the news extractor can run. The value is a
+    bool; the key itself is never returned or logged (phase 66 / HOTFIX-01).
+    """
     db_status = "connected" if is_db_enabled() and db_health() else "parquet_fallback"
-    return HealthResponse(status="ok", version=API_VERSION, db_status=db_status)
+    llm_ready = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    return HealthResponse(
+        status="ok",
+        version=API_VERSION,
+        db_status=db_status,
+        llm_enrichment_ready=llm_ready,
+    )
 
 
 @app.get("/api/version", tags=["health"])

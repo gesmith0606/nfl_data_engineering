@@ -110,6 +110,43 @@ def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
     )
 
 
+def get_latest_slice() -> ProjectionMetaInfo:
+    """Return the latest (season, week) across **all** projection seasons.
+
+    Phase 66 / v7.0 graceful defaulting helper used by ``/api/lineups`` and
+    any downstream that needs "latest played anywhere" without knowing the
+    current season ahead of time.
+
+    Returns ``ProjectionMetaInfo(season=0, week=None, ...)`` when no data
+    exists. Never raises.
+    """
+    if not GOLD_PROJECTIONS_DIR.exists():
+        return ProjectionMetaInfo(
+            season=0, week=None, data_as_of=None, source_path=None  # type: ignore[arg-type]
+        )
+
+    best: Optional[ProjectionMetaInfo] = None
+    for season_dir in GOLD_PROJECTIONS_DIR.glob("season=*"):
+        try:
+            season_num = int(season_dir.name.split("=", 1)[1])
+        except (IndexError, ValueError):
+            continue
+        candidate = get_latest_week(season_num)
+        if candidate.week is None:
+            continue
+        if best is None or (candidate.season, candidate.week) > (
+            best.season,
+            best.week or 0,
+        ):
+            best = candidate
+
+    if best is None:
+        return ProjectionMetaInfo(
+            season=0, week=None, data_as_of=None, source_path=None  # type: ignore[arg-type]
+        )
+    return best
+
+
 def get_latest_week(season: int) -> ProjectionMetaInfo:
     """Scan ``data/gold/projections/season=<season>/week=*/`` and return the
     highest week number that has at least one parquet file.

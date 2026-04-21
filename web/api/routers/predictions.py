@@ -45,10 +45,20 @@ def _row_to_prediction(row) -> GamePrediction:
 
 @router.get("", response_model=PredictionResponse)
 def list_predictions(
-    season: int = Query(..., ge=1999, le=2030, description="NFL season"),
-    week: int = Query(..., ge=1, le=18, description="Week number"),
+    season: Optional[int] = Query(
+        None, ge=1999, le=2030, description="NFL season (defaults to latest-played)"
+    ),
+    week: Optional[int] = Query(
+        None, ge=1, le=18, description="Week number (defaults to latest-played)"
+    ),
 ) -> PredictionResponse:
     """Return game predictions for the given season and week.
+
+    When ``season`` and/or ``week`` are omitted the service resolves them to
+    the latest-played slice in Gold storage (phase 66 / v7.0 graceful
+    defaulting). ``defaulted=True`` signals the defaulting occurred and
+    ``data_as_of`` carries the underlying parquet mtime so the frontend
+    surfaces freshness without a second request.
 
     Returns an empty envelope (HTTP 200) when no predictions exist for the
     requested slice (preseason / offseason). This preserves the advisor
@@ -57,6 +67,30 @@ def list_predictions(
     import logging
 
     logger = logging.getLogger(__name__)
+
+    defaulted = season is None or week is None
+    data_as_of: Optional[str] = None
+    if defaulted:
+        meta = prediction_service.get_latest_week(season=season)
+        # Preserve any caller-supplied value; only fill in the missing ones.
+        resolved_season = season if season is not None else meta.season
+        resolved_week = week if week is not None else meta.week
+        data_as_of = meta.data_as_of
+        if resolved_week is None:
+            # No data anywhere — return empty, typed envelope.
+            return PredictionResponse(
+                season=resolved_season or 0,
+                week=0,
+                predictions=[],
+                generated_at=datetime.now(timezone.utc).isoformat(),
+                data_as_of=None,
+                defaulted=True,
+            )
+        season = resolved_season
+        week = resolved_week
+
+    assert season is not None and week is not None  # narrowed by logic above
+
     try:
         df = prediction_service.get_predictions(season=season, week=week)
     except FileNotFoundError as exc:
@@ -68,6 +102,8 @@ def list_predictions(
             week=week,
             predictions=[],
             generated_at=datetime.now(timezone.utc).isoformat(),
+            data_as_of=data_as_of,
+            defaulted=defaulted,
         )
 
     predictions = [_row_to_prediction(row) for _, row in df.iterrows()]
@@ -76,6 +112,8 @@ def list_predictions(
         week=week,
         predictions=predictions,
         generated_at=datetime.now(timezone.utc).isoformat(),
+        data_as_of=data_as_of,
+        defaulted=defaulted,
     )
 
 

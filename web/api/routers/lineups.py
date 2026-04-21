@@ -15,6 +15,7 @@ from ..models.schemas import (
     LineupResponse,
     TeamLineup,
 )
+from ..services import projection_service
 
 # Ensure src/ is importable for lineup_builder
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
@@ -61,8 +62,12 @@ def _df_to_lineup_players(df) -> List[LineupPlayer]:
 
 @router.get("", response_model=LineupResponse)
 def get_lineups(
-    season: int = Query(..., ge=1999, le=2030, description="NFL season"),
-    week: int = Query(..., ge=1, le=22, description="Week number"),
+    season: Optional[int] = Query(
+        None, ge=1999, le=2030, description="NFL season (defaults to latest)"
+    ),
+    week: Optional[int] = Query(
+        None, ge=1, le=22, description="Week number (defaults to latest)"
+    ),
     team: Optional[str] = Query(
         None, min_length=2, max_length=3, description="Team abbreviation (e.g. KC)"
     ),
@@ -74,7 +79,11 @@ def get_lineups(
 ) -> LineupResponse:
     """Get starting lineups for all teams or a specific team.
 
-    When ``team`` is provided, projections are included if available.
+    When ``team`` is provided, projections are included if available. When
+    ``season`` and/or ``week`` are omitted, the service resolves them to the
+    latest-available Gold projection slice (phase 66 / v7.0 graceful
+    defaulting). ``defaulted=True`` flags the resolution and ``data_as_of``
+    carries the underlying parquet mtime.
     """
     from lineup_builder import (
         get_team_lineup_with_projections,
@@ -84,6 +93,29 @@ def get_lineups(
     import logging
 
     logger = logging.getLogger(__name__)
+
+    defaulted = season is None or week is None
+    data_as_of: Optional[str] = None
+    if defaulted:
+        meta = projection_service.get_latest_slice()
+        resolved_season = season if season is not None else meta.season
+        resolved_week = week if week is not None else meta.week
+        data_as_of = meta.data_as_of
+        if resolved_week is None:
+            # No Gold projections anywhere — return empty, typed envelope.
+            return LineupResponse(
+                season=resolved_season or 0,
+                week=0,
+                lineups=[],
+                lineup=[],
+                generated_at=datetime.now(timezone.utc).isoformat(),
+                data_as_of=None,
+                defaulted=True,
+            )
+        season = resolved_season
+        week = resolved_week
+
+    assert season is not None and week is not None  # narrowed by logic above
 
     if team:
         df = get_team_lineup_with_projections(
@@ -108,6 +140,8 @@ def get_lineups(
             lineups=[],
             lineup=[],
             generated_at=datetime.now(timezone.utc).isoformat(),
+            data_as_of=data_as_of,
+            defaulted=defaulted,
         )
 
     lineups: List[TeamLineup] = []
@@ -163,4 +197,6 @@ def get_lineups(
         lineups=lineups,
         lineup=flat_lineup,
         generated_at=datetime.now(timezone.utc).isoformat(),
+        data_as_of=data_as_of,
+        defaulted=defaulted,
     )

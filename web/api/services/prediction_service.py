@@ -7,6 +7,8 @@ Supports two data backends:
 """
 
 import logging
+from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -16,6 +18,31 @@ from ..config import GOLD_PREDICTIONS_DIR
 from ..db import get_connection, is_db_enabled
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class PredictionMetaInfo:
+    """Metadata for the latest-available predictions slice.
+
+    Analogous to ``projection_service.ProjectionMetaInfo``. Used by graceful
+    defaulting in ``/api/predictions`` when the caller omits ``season``/``week``.
+    """
+
+    season: int
+    week: Optional[int]
+    data_as_of: Optional[str]
+    source_path: Optional[str]
+
+
+def _iso_utc(mtime: float) -> str:
+    return datetime.fromtimestamp(mtime, tz=timezone.utc).isoformat()
+
+
+def _project_relative(path: Path) -> str:
+    try:
+        return str(path.relative_to(Path.cwd()))
+    except ValueError:
+        return str(path)
 
 
 # ---------------------------------------------------------------------------
@@ -150,3 +177,78 @@ def get_prediction_by_game(
                 "PostgreSQL game lookup failed (%s); falling back to Parquet", exc
             )
     return _get_prediction_by_game_parquet(season, week, game_id)
+
+
+# ---------------------------------------------------------------------------
+# Latest-week resolution (graceful defaulting — phase 66 / v7.0)
+# ---------------------------------------------------------------------------
+
+
+def get_latest_week(season: Optional[int] = None) -> PredictionMetaInfo:
+    """Return the latest (season, week) in the Gold predictions layer.
+
+    When ``season`` is None, scans all season directories and returns the
+    highest (season, week) pair with at least one parquet file. When
+    ``season`` is supplied, scans only that season.
+
+    Returns ``week=None`` (and other fields None) when no prediction data
+    exists. Never raises — callers receive a typed response even in the
+    offseason or on a fresh install.
+    """
+    if not GOLD_PREDICTIONS_DIR.exists():
+        return PredictionMetaInfo(
+            season=season or 0, week=None, data_as_of=None, source_path=None
+        )
+
+    if season is not None:
+        season_dirs = [GOLD_PREDICTIONS_DIR / f"season={season}"]
+    else:
+        season_dirs = sorted(
+            GOLD_PREDICTIONS_DIR.glob("season=*"),
+            key=lambda p: int(p.name.split("=", 1)[1]) if "=" in p.name else 0,
+            reverse=True,
+        )
+
+    best: Optional[PredictionMetaInfo] = None
+    for season_dir in season_dirs:
+        if not season_dir.exists():
+            continue
+        try:
+            season_num = int(season_dir.name.split("=", 1)[1])
+        except (IndexError, ValueError):
+            continue
+
+        for week_dir in season_dir.glob("week=*"):
+            try:
+                week_num = int(week_dir.name.split("=", 1)[1])
+            except (IndexError, ValueError):
+                continue
+            parquet_path = _latest_parquet(week_dir)
+            if parquet_path is None:
+                continue
+            try:
+                mtime = parquet_path.stat().st_mtime
+            except OSError:
+                continue
+
+            candidate = PredictionMetaInfo(
+                season=season_num,
+                week=week_num,
+                data_as_of=_iso_utc(mtime),
+                source_path=_project_relative(parquet_path),
+            )
+            if best is None or (candidate.season, candidate.week or 0) > (
+                best.season,
+                best.week or 0,
+            ):
+                best = candidate
+
+        if best is not None and season is not None:
+            # When a season was explicitly requested, stop after scanning it.
+            break
+
+    if best is None:
+        return PredictionMetaInfo(
+            season=season or 0, week=None, data_as_of=None, source_path=None
+        )
+    return best
