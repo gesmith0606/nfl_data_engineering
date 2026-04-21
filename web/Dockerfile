@@ -1,8 +1,8 @@
 FROM python:3.9-slim
 
-# Cache-buster: bumped 2026-04-19 to force Railway to re-run all COPY layers
+# Cache-buster: bumped 2026-04-21 to force Railway to re-run all COPY layers
 # instead of importing a stale cached image. Change this ARG to invalidate cache.
-ARG CACHE_BUST=2026-04-19-01
+ARG CACHE_BUST=2026-04-21-01
 
 WORKDIR /app
 
@@ -31,6 +31,12 @@ COPY data/gold/ ./data/gold/
 # cron writes to a persistent volume or S3.
 COPY data/silver/sentiment/ ./data/silver/sentiment/
 COPY data/bronze/sentiment/ ./data/bronze/sentiment/
+
+# Bronze schedules + rosters: required by /api/teams/current-week,
+# /api/teams/{team}/roster, and default week resolution for predictions
+# and lineups. Without these the endpoints return 503. Phase 66 / v7.0.
+COPY data/bronze/schedules/ ./data/bronze/schedules/
+COPY data/bronze/players/rosters/ ./data/bronze/players/rosters/
 
 ENV PORT=8000
 EXPOSE 8000
