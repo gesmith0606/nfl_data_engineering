@@ -114,12 +114,24 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 
 ### Active
 
-- [ ] DQAL-03 warning-count cleanup: fix negative projection clamp (7 warnings), ingest 2025 rookies (5), recalibrate rank-gap threshold (18)
-- [ ] Heuristic consolidation: unify `generate_weekly_projections` + `generate_heuristic_predictions` + `compute_production_heuristic` into single source of truth
-- [ ] 61-03 event-adjustment activation once Bronze event data accumulates (backtest currently structurally null: 0/48 weeks)
-- [ ] Unified evaluation pipeline (full 466-feature residual for 14-68% improvement)
-- [ ] Sleeper OAuth integration
-- [ ] PFF paid data integration (true WR-CB coverage, OL grades)
+**v7.0 Production Stabilization (in flight)**
+
+- [ ] HOTFIX — ANTHROPIC_API_KEY in Railway env, Bronze schedules+rosters in Docker image, predictions/lineups query params wired
+- [ ] ROSTER — refresh_rosters.py handles released/FA/traded, writes to Bronze, audit log surfaced
+- [ ] SANITY — live endpoint probes, payload-content validators, roster drift vs Sleeper, blocking post-deploy smoke gate
+- [ ] SENT — extractor backfills accumulated news, event_flags populate, news page shows headlines + context
+- [ ] FE — predictions/lineups/matchups/news pages handle empty/error states gracefully
+
+**Carried forward (deferred from v6.0):**
+- [ ] DQAL-03 warning-count cleanup — rolled into Phase 3 (SANITY) where roster drift + rookie ingest + rank recalibration become sanity-check coverage
+- [ ] 61-03 event-adjustment activation — deferred until Bronze event data accumulates (backtest structurally null)
+
+**Post-v7.0 (future milestones):**
+- [ ] External projections comparison (ESPN/Sleeper/Yahoo) — v7.1
+- [ ] Heuristic consolidation — v7.3
+- [ ] Unified evaluation pipeline (full 466-feature residual) — v7.3+
+- [ ] Sleeper OAuth integration — v7.1
+- [ ] PFF paid data integration — v8.0
 
 ## Current State: v6.0 Shipped (2026-04-20)
 
@@ -131,18 +143,24 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - Daily sentiment cron running at `0 12 * * *` UTC across 5 sources
 - CI quality-gate blocks deploys on CRITICAL projection issues
 
-## Next Milestone: v7.0 (Planning)
+## Current Milestone: v7.0 Production Stabilization
 
-Candidate scope — awaiting `/gsd:new-milestone` to formalize requirements and phase breakdown:
+**Goal:** Fix 6 production regressions found during 2026-04-20 user audit, close sanity-check blindspots, and restore reliable deploys before any marketing/integration work.
 
-- **Marketing & Content:** Remotion video generation, YouTube/Instagram/TikTok distribution, NotebookLM podcast pipeline
-- **Sleeper League Integration:** username → leagues, roster display with projected points + start/sit badges, advisor access to user rosters for personalized advice
-- **Data-quality cleanup:** finish DQAL-03 warnings (negative projections, rookie ingestion, rank calibration)
-- **Heuristic consolidation:** unify three duplicate projection functions
+**Target features:**
+- P0 hotfixes (ANTHROPIC_API_KEY on Railway, Bronze schedules+rosters in Docker image, predictions/lineups query params)
+- Roster refresh v2 (handle released/FA/traded, write to Bronze, audit trail surfaced)
+- Sanity-check v2 (live endpoint probes, payload-content validators, roster drift vs Sleeper, blocking post-deploy smoke)
+- Sentiment backfill (extractor runs, event_flags populate, news page shows context)
+- Frontend empty/error states (predictions, lineups, matchups, news)
+
+**Key context:** v6.0 shipped but 4/10 dashboard routes are partially/fully broken in production. Kyler Murray still shows on Cardinals (released-player handling missing). `/api/predictions` and `/api/lineups` return 422 without query params the frontend doesn't send. Railway Docker image missing `data/bronze/schedules/` causes 503 on matchup endpoints. `ANTHROPIC_API_KEY` unset means news extractor never ran — all 32 team-events rows return empty. Sanity-check gate passed exit 0 through all of this because it only validates `len(payload)==32` not content, and never probes the specific failing endpoints. Fixing the gate is the structural fix; the others are tactical.
 
 ### Planned (Future Milestones)
-- v7.0 Marketing & Content — Remotion video generation, YouTube/Instagram/TikTok distribution, NotebookLM podcast pipeline
-- v7.1 Sleeper League Integration — roster import, personalized start/sit, waiver wire
+- v7.1 External Projections Comparison — ESPN/Sleeper/Yahoo projections side-by-side on projections page for user comparison
+- v7.1 Sleeper League Integration — username → leagues, roster import, personalized start/sit, advisor access to user rosters
+- v7.2 Marketing & Content — Remotion video generation, YouTube/Instagram/TikTok distribution, NotebookLM podcast pipeline
+- v7.3 Heuristic consolidation — unify `generate_weekly_projections` + `generate_heuristic_predictions` + `compute_production_heuristic`
 - v8.0 PFF Data Integration — true WR-CB coverage, OL blocking grades ($300-500/season)
 - v9.0 Multi-Platform — ESPN/Yahoo league support
 
@@ -297,4 +315,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-20 after v6.0 milestone shipped*
+*Last updated: 2026-04-21 after v7.0 Production Stabilization milestone started*
