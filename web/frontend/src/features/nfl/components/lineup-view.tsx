@@ -14,16 +14,20 @@ import {
 } from '@/components/ui/select';
 import { Icons } from '@/components/icons';
 import { useState } from 'react';
+import { useWeekParams } from '@/hooks/use-week-params';
 import { FadeIn, DataLoadReveal } from '@/lib/motion-primitives';
 
 export function LineupView() {
-  const [season, setSeason] = useState(2026);
-  const [week, setWeek] = useState(1);
+  // HOTFIX-05 (phase 66 / v7.0): resolve default season/week from
+  // `/api/projections/latest-week` instead of hardcoded 2026/1 so
+  // users land on the latest slice that actually has data.
+  const { season, week, setSeason, setWeek, isResolving } = useWeekParams();
   const [team, setTeam] = useState<string | null>(null);
 
-  const { data: lineup, isLoading, isError } = useQuery(
-    lineupQueryOptions(season, week, team ?? '')
-  );
+  const { data: lineup, isLoading, isError } = useQuery({
+    ...lineupQueryOptions(season, week, team ?? ''),
+    enabled: !isResolving && !!team
+  });
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
@@ -71,7 +75,7 @@ export function LineupView() {
         <Card>
           <CardContent className='pt-[var(--space-6)]'>
             <DataLoadReveal
-              loading={isLoading}
+              loading={isLoading || isResolving}
               skeleton={
                 <div className='flex items-center justify-center py-[var(--space-12)]'>
                   <Icons.spinner className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)] animate-spin' />

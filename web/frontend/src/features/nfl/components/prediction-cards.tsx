@@ -19,6 +19,7 @@ import { getTeamColor } from '@/lib/nfl/team-colors';
 import { TeamSentimentBadge } from './team-sentiment-badge';
 import { ApiError } from '@/lib/nfl/api';
 import { useState } from 'react';
+import { useWeekParams } from '@/hooks/use-week-params';
 import { Stagger, HoverLift, FadeIn } from '@/lib/motion-primitives';
 import { cn } from '@/lib/utils';
 
@@ -167,11 +168,17 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
 }
 
 export function PredictionCardGrid() {
-  const [season, setSeason] = useState(2024);
-  const [week, setWeek] = useState(1);
+  // HOTFIX-04 (phase 66 / v7.0): resolve default season/week from
+  // `/api/projections/latest-week` instead of a hardcoded 2024/1 slate
+  // that nobody has data for. Falls back to the current year + week 1
+  // when the backend is unreachable so the page still renders.
+  const { season, week, setSeason, setWeek, isResolving } = useWeekParams();
   const [sortBy, setSortBy] = useState<SortKey>('confidence');
 
-  const { data, isLoading, isError, error } = useQuery(predictionsQueryOptions(season, week));
+  const { data, isLoading, isError, error } = useQuery({
+    ...predictionsQueryOptions(season, week),
+    enabled: !isResolving
+  });
 
   const isNotFound = isError && error instanceof ApiError && error.status === 404;
 
@@ -233,7 +240,7 @@ export function PredictionCardGrid() {
       </div>
 
       {/* Cards */}
-      {isLoading ? (
+      {isLoading || isResolving ? (
         <div className='grid grid-cols-1 gap-[var(--gap-stack)] md:grid-cols-2 lg:grid-cols-3'>
           {Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className='overflow-hidden'>
