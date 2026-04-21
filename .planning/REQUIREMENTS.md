@@ -11,7 +11,7 @@ Requirements for v7.0 release. Each maps to exactly one roadmap phase.
 
 ### Deployment Hotfixes (HOTFIX)
 
-Fast fixes that restore broken surfaces; prerequisite for Phase 4 sentiment backfill.
+Fast fixes that restore broken surfaces; prerequisite for Phase 69 sentiment backfill.
 
 - [ ] **HOTFIX-01**: `ANTHROPIC_API_KEY` is set in Railway environment and readable by the news extractor process
 - [ ] **HOTFIX-02**: Railway Docker image bundles `data/bronze/schedules/` so `/api/teams/current-week` returns 200, not 503
@@ -113,48 +113,55 @@ Explicitly excluded from v7.0. Documented to prevent scope creep.
 
 ## Traceability
 
-Updated during roadmap creation.
+Populated by roadmapper on 2026-04-21.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| HOTFIX-01   | TBD   | Pending |
-| HOTFIX-02   | TBD   | Pending |
-| HOTFIX-03   | TBD   | Pending |
-| HOTFIX-04   | TBD   | Pending |
-| HOTFIX-05   | TBD   | Pending |
-| HOTFIX-06   | TBD   | Pending |
-| ROSTER-01   | TBD   | Pending |
-| ROSTER-02   | TBD   | Pending |
-| ROSTER-03   | TBD   | Pending |
-| ROSTER-04   | TBD   | Pending |
-| ROSTER-05   | TBD   | Pending |
-| ROSTER-06   | TBD   | Pending |
-| SANITY-01   | TBD   | Pending |
-| SANITY-02   | TBD   | Pending |
-| SANITY-03   | TBD   | Pending |
-| SANITY-04   | TBD   | Pending |
-| SANITY-05   | TBD   | Pending |
-| SANITY-06   | TBD   | Pending |
-| SANITY-07   | TBD   | Pending |
-| SANITY-08   | TBD   | Pending |
-| SANITY-09   | TBD   | Pending |
-| SANITY-10   | TBD   | Pending |
-| SENT-01     | TBD   | Pending |
-| SENT-02     | TBD   | Pending |
-| SENT-03     | TBD   | Pending |
-| SENT-04     | TBD   | Pending |
-| SENT-05     | TBD   | Pending |
-| FE-01       | TBD   | Pending |
-| FE-02       | TBD   | Pending |
-| FE-03       | TBD   | Pending |
-| FE-04       | TBD   | Pending |
-| FE-05       | TBD   | Pending |
+| HOTFIX-01   | 66    | Pending |
+| HOTFIX-02   | 66    | Pending |
+| HOTFIX-03   | 66    | Pending |
+| HOTFIX-04   | 66    | Pending |
+| HOTFIX-05   | 66    | Pending |
+| HOTFIX-06   | 66    | Pending |
+| ROSTER-01   | 67    | Pending |
+| ROSTER-02   | 67    | Pending |
+| ROSTER-03   | 67    | Pending |
+| ROSTER-04   | 67    | Pending |
+| ROSTER-05   | 67    | Pending |
+| ROSTER-06   | 67    | Pending |
+| SANITY-01   | 68    | Pending |
+| SANITY-02   | 68    | Pending |
+| SANITY-03   | 68    | Pending |
+| SANITY-04   | 68    | Pending |
+| SANITY-05   | 68    | Pending |
+| SANITY-06   | 68    | Pending |
+| SANITY-07   | 68    | Pending |
+| SANITY-08   | 68    | Pending |
+| SANITY-09   | 68    | Pending |
+| SANITY-10   | 68    | Pending |
+| SENT-01     | 69    | Pending |
+| SENT-02     | 69    | Pending |
+| SENT-03     | 69    | Pending |
+| SENT-04     | 69    | Pending |
+| SENT-05     | 69    | Pending |
+| FE-01       | 70    | Pending |
+| FE-02       | 70    | Pending |
+| FE-03       | 70    | Pending |
+| FE-04       | 70    | Pending |
+| FE-05       | 70    | Pending |
 
 **Coverage:**
 - v7.0 requirements: 32 total
-- Mapped to phases: 0 (roadmapper will populate)
-- Unmapped: 32
+- Mapped to phases: 32 (100%)
+- Unmapped: 0
+
+**Phase requirement counts:**
+- Phase 66 (P0 Deployment Hotfixes): 6 requirements
+- Phase 67 (Roster Refresh v2): 6 requirements
+- Phase 68 (Sanity-Check v2): 10 requirements
+- Phase 69 (Sentiment Backfill): 5 requirements
+- Phase 70 (Frontend Empty/Error States): 5 requirements
 
 ---
 *Requirements defined: 2026-04-21*
-*Last updated: 2026-04-21 after initial definition*
+*Last updated: 2026-04-21 — traceability populated by roadmapper*
