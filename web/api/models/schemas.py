@@ -741,6 +741,15 @@ class TeamRosterResponse(BaseModel):
             "indicates the requested season had no roster data so an older one was used."
         ),
     )
+    live_source: bool = Field(
+        default=False,
+        description=(
+            "True when Sleeper-sourced live roster corrections (from "
+            "``data/bronze/players/rosters_live/``) overrode at least one team or "
+            "position in this response. Indicates the refresh_rosters.py daily "
+            "cron is doing its job (phase 67 / v7.0)."
+        ),
+    )
 
 
 # ---------------------------------------------------------------------------

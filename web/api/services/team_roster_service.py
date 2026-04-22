@@ -51,6 +51,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 _ROSTERS_ROOT = DATA_DIR / "bronze" / "players" / "rosters"
+_ROSTERS_LIVE_ROOT = DATA_DIR / "bronze" / "players" / "rosters_live"
 _SNAPS_ROOT = DATA_DIR / "bronze" / "players" / "snaps"
 _SCHEDULES_ROOT = DATA_DIR / "bronze" / "schedules"
 
@@ -119,6 +120,145 @@ def _available_seasons(root: Path) -> List[int]:
 # ---------------------------------------------------------------------------
 # Low-level parquet loaders
 # ---------------------------------------------------------------------------
+
+
+def _load_live_roster_corrections(season: int) -> Optional[pd.DataFrame]:
+    """Load Sleeper-sourced live roster corrections for ``season``, or None.
+
+    Phase 67 / v7.0: ``scripts/refresh_rosters.py`` writes a narrow
+    Sleeper-derived parquet to ``data/bronze/players/rosters_live/`` each
+    day. That file carries authoritative team + position for every
+    fantasy-relevant player Sleeper knows about, including free agents
+    (``team='FA'``, ``is_free_agent=True``).
+
+    This helper returns the latest such parquet for *season*, or ``None``
+    when no live file exists. The original nfl-data-py-sourced Bronze
+    rosters remain the default source for schema fields the live file
+    doesn't carry (jersey_number, depth_chart_position, status, etc.).
+
+    Returns:
+        DataFrame with columns
+        ``['name_key', 'player_name', 'team', 'position', 'status',
+        'is_free_agent', 'season', 'refreshed_at']``
+        or ``None`` when no live file exists.
+    """
+    pattern = str(_ROSTERS_LIVE_ROOT / f"season={season}" / "sleeper_rosters_*.parquet")
+    latest = _latest_parquet(pattern)
+    if latest is None:
+        return None
+    try:
+        df = pd.read_parquet(latest)
+    except (OSError, ValueError) as exc:
+        logger.warning(
+            "Failed to read live roster parquet %s: %s — falling back to immutable Bronze",
+            latest,
+            exc,
+        )
+        return None
+    logger.info(
+        "Loaded %d live roster corrections from %s (season=%s)",
+        len(df),
+        latest,
+        season,
+    )
+    return df
+
+
+def _apply_live_corrections(
+    roster_df: pd.DataFrame, live_df: pd.DataFrame
+) -> Tuple[pd.DataFrame, int]:
+    """Apply team + position corrections from Sleeper live data.
+
+    Joins ``roster_df`` against ``live_df`` on lowercase ``full_name`` and
+    overrides ``team`` + ``position`` where Sleeper disagrees. Released
+    players (``is_free_agent=True``) have their ``team`` rewritten to
+    ``'FA'`` and ``status`` to ``'FA'`` so downstream filtering (e.g. the
+    ``_ACTIVE_STATUSES`` gate) drops them from team-specific views but
+    keeps them discoverable via a dedicated FA query.
+
+    Args:
+        roster_df: nfl-data-py-sourced Bronze roster rows.
+        live_df: Output of :func:`_load_live_roster_corrections`.
+
+    Returns:
+        Tuple ``(corrected_df, correction_count)`` — the number of rows
+        whose team or position was actually changed.
+    """
+    if "full_name" not in roster_df.columns:
+        return roster_df, 0
+
+    df = roster_df.copy()
+    df["_name_key"] = df["full_name"].astype(str).str.lower().str.strip()
+
+    live = live_df.copy()
+    if "name_key" not in live.columns:
+        return roster_df, 0
+    live["_name_key"] = live["name_key"].astype(str).str.lower().str.strip()
+
+    # Prefer Active live entries on name collision (same rule as the refresh
+    # script's build_roster_mapping collision handler).
+    live = live.sort_values(
+        by=["_name_key", "status"],
+        key=lambda col: col if col.name != "status" else col.ne("Active"),
+    ).drop_duplicates("_name_key", keep="first")
+
+    merged = df.merge(
+        live[["_name_key", "team", "position", "is_free_agent", "status"]].rename(
+            columns={
+                "team": "_live_team",
+                "position": "_live_position",
+                "is_free_agent": "_live_is_fa",
+                "status": "_live_status",
+            }
+        ),
+        on="_name_key",
+        how="left",
+    )
+
+    correction_count = 0
+
+    # Team overrides
+    team_changed_mask = (
+        merged["_live_team"].notna() & (merged["team"] != merged["_live_team"])
+    )
+    correction_count += int(team_changed_mask.sum())
+    merged.loc[team_changed_mask, "team"] = merged.loc[team_changed_mask, "_live_team"]
+
+    # Position overrides
+    pos_changed_mask = (
+        merged["_live_position"].notna()
+        & (merged["position"] != merged["_live_position"])
+    )
+    correction_count += int(pos_changed_mask.sum())
+    merged.loc[pos_changed_mask, "position"] = merged.loc[
+        pos_changed_mask, "_live_position"
+    ]
+
+    # FAs: rewrite status so downstream filters don't leak released players
+    # onto their old team's roster view.
+    if "_live_is_fa" in merged.columns:
+        fa_mask = merged["_live_is_fa"].fillna(False).astype(bool)
+        if fa_mask.any():
+            # Keep status=FA explicit for consumers who want it; downstream
+            # _ACTIVE_STATUSES filter naturally drops these.
+            merged.loc[fa_mask, "status"] = "FA"
+
+    # Drop helper columns.
+    drop_cols = [
+        "_name_key",
+        "_live_team",
+        "_live_position",
+        "_live_is_fa",
+        "_live_status",
+    ]
+    merged = merged.drop(columns=[c for c in drop_cols if c in merged.columns])
+
+    if correction_count:
+        logger.info(
+            "Applied %d live roster corrections (team and/or position)",
+            correction_count,
+        )
+    return merged, correction_count
 
 
 def _load_rosters(season: int) -> Tuple[pd.DataFrame, int]:
@@ -510,6 +650,17 @@ def load_team_roster(
     fallback = effective_season != season
     fallback_season = effective_season if fallback else None
 
+    # Phase 67 / v7.0: apply Sleeper-sourced live team + position
+    # corrections on top of the immutable nfl-data-py Bronze rosters.
+    # Corrections come from scripts/refresh_rosters.py's daily output.
+    # When no live parquet exists (fresh install, upstream outage), fall
+    # back silently to the raw nfl-data-py snapshot.
+    live_df = _load_live_roster_corrections(effective_season)
+    live_source = False
+    if live_df is not None:
+        roster_df, correction_count = _apply_live_corrections(roster_df, live_df)
+        live_source = correction_count > 0
+
     team_upper = team.upper()
     known_teams = set(roster_df["team"].dropna().astype(str).str.upper().unique())
     if team_upper not in known_teams:
@@ -571,4 +722,5 @@ def load_team_roster(
         fallback=fallback,
         fallback_season=fallback_season,
         roster=players,
+        live_source=live_source,
     )
