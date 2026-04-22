@@ -104,12 +104,17 @@ def build_team_mapping(players: dict) -> Dict[str, str]:
 
 
 def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
-    """Build a mapping of normalized player name -> {team, position}.
+    """Build a mapping of normalized player name -> {team, position, status}.
+
+    Phase 67 / v7.0: released players (``team=null``) are NO LONGER skipped.
+    They land in the mapping with ``team='FA'`` so downstream update logic
+    can distinguish "unknown" from "free agent" — which is the root cause of
+    the Kyler Murray regression in v6.0.
 
     Combines the team and position extraction in a single pass so that the
     Gold projections layer can be updated coherently (per Phase 60 D-03,
-    D-04). Only fantasy-relevant positions (QB/RB/WR/TE/K) with a non-null
-    team are included. LAR is normalized to LA via SLEEPER_TO_NFLVERSE_TEAM.
+    D-04). Only fantasy-relevant positions (QB/RB/WR/TE/K) are included —
+    team=null/FA is acceptable, missing position is not.
 
     Name-collision handling: Sleeper's player database includes historical
     and inactive players, producing 36 documented full_name collisions
@@ -120,10 +125,13 @@ def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
         players: Raw Sleeper /v1/players/nfl response (player_id -> info dict).
 
     Returns:
-        Dict mapping lowercase full_name to {'team': str, 'position': str}.
+        Dict mapping lowercase full_name to
+        ``{'team': str, 'position': str, 'status': str}``.
+        ``team`` is ``'FA'`` for released / free-agent / unsigned players.
     """
     mapping: Dict[str, Dict[str, str]] = {}
-    skipped_no_team = 0
+    fa_count = 0
+    teamed_count = 0
 
     for _, info in players.items():
         if not isinstance(info, dict):
@@ -133,10 +141,19 @@ def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
         if pos not in FANTASY_POSITIONS:
             continue
 
-        team = info.get('team')
-        if not team:
-            skipped_no_team += 1
-            continue
+        team_raw = info.get('team')
+        status = str(info.get('status') or 'Unknown')
+
+        # Phase 67: team=null is no longer a skip condition. It means the
+        # player is a free agent (released, retired, or never signed). The
+        # downstream update logic needs to see this so it can correct stale
+        # team assignments in Gold + Bronze.
+        if team_raw:
+            team = SLEEPER_TO_NFLVERSE_TEAM.get(team_raw, team_raw)
+            teamed_count += 1
+        else:
+            team = 'FA'
+            fa_count += 1
 
         full_name = info.get('full_name') or ''
         if not full_name:
@@ -146,19 +163,27 @@ def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
         if not full_name:
             continue
 
-        team = SLEEPER_TO_NFLVERSE_TEAM.get(team, team)
         name_key = full_name.lower().strip()
 
         # On collision, prefer Active players (Pitfall 1 from 60-RESEARCH.md).
-        if name_key in mapping and info.get('status') != 'Active':
-            continue
+        # When both existing and new are non-Active, prefer the teamed one
+        # (avoids clobbering a rostered player with a homonym who is FA).
+        if name_key in mapping:
+            existing_active = mapping[name_key].get('status') == 'Active'
+            new_active = status == 'Active'
+            existing_teamed = mapping[name_key].get('team') != 'FA'
+            if existing_active and not new_active:
+                continue
+            if not new_active and existing_teamed and team == 'FA':
+                continue
 
-        mapping[name_key] = {'team': team, 'position': pos}
+        mapping[name_key] = {'team': team, 'position': pos, 'status': status}
 
     logger.info(
-        "Built roster mapping: %d players with teams, %d without",
+        "Built roster mapping: %d teamed, %d FA (total %d)",
+        teamed_count,
+        fa_count,
         len(mapping),
-        skipped_no_team,
     )
     return mapping
 
@@ -215,6 +240,10 @@ def update_rosters(
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Update recent_team AND position in Gold projections (per D-03, D-05).
 
+    Phase 67 / v7.0: classifies each change with a ``change_type`` column so
+    the audit log can distinguish released/FA from traded from position-only
+    reclassifications — no more silent stale-team assignments.
+
     Extends the `update_teams` behavior to also correct the `position`
     column using Sleeper as the canonical source (D-04). Position fixes
     propagate to the Gold layer only -- Silver/Bronze retain their original
@@ -224,14 +253,18 @@ def update_rosters(
         df: Gold projections DataFrame with at least player_name, recent_team,
             and position columns.
         roster_mapping: Output of build_roster_mapping -- lowercase name ->
-            {'team': str, 'position': str}.
+            {'team': str, 'position': str, 'status': str}.
 
     Returns:
         Tuple of (updated DataFrame, changes DataFrame). The changes DataFrame
         contains one row per corrected player with columns:
-            player_name, position (new), old_team, new_team
+            player_name, position (new), old_team, new_team, change_type
         and, when position changed:
             old_position, new_position
+
+        ``change_type`` is one of: ``TRADED``, ``RELEASED``, ``RECLASSIFIED``,
+        or ``TRADED+RECLASSIFIED`` when both team and position changed in
+        the same run.
     """
     df = df.copy()
     changes = []
@@ -250,13 +283,29 @@ def update_rosters(
         if old_team == new_team and old_pos == new_pos:
             continue
 
+        # Classify the change. Order matters — RELEASED dominates
+        # TRADED when team becomes FA; the audit reader wants the most
+        # specific label.
+        team_changed = old_team != new_team
+        pos_changed = old_pos != new_pos
+
+        if team_changed and new_team == 'FA':
+            change_type = 'RELEASED'
+        elif team_changed and pos_changed:
+            change_type = 'TRADED+RECLASSIFIED'
+        elif team_changed:
+            change_type = 'TRADED'
+        else:
+            change_type = 'RECLASSIFIED'
+
         change: Dict[str, object] = {
             'player_name': row['player_name'],
             'position': new_pos,
             'old_team': old_team,
             'new_team': new_team,
+            'change_type': change_type,
         }
-        if old_pos != new_pos:
+        if pos_changed:
             change['old_position'] = old_pos
             change['new_position'] = new_pos
 
@@ -273,10 +322,14 @@ def log_changes(
 ) -> None:
     """Append roster changes to a persistent, timestamped log file (per D-02).
 
-    Writes a section header with the current timestamp, then one line per
-    change showing the player, position, and team/position deltas. An empty
-    changes DataFrame still produces a header line plus "No changes detected."
-    so that absence of changes is also captured in the audit trail.
+    Phase 67 / v7.0: each change line is prefixed with the ``change_type``
+    from :func:`update_rosters` (``TRADED``, ``RELEASED``, ``RECLASSIFIED``,
+    or ``TRADED+RECLASSIFIED``) so downstream log readers / alerts can
+    filter by category.
+
+    An empty changes DataFrame still produces a header line plus
+    "No changes detected." so that absence of changes is also captured
+    in the audit trail.
 
     Args:
         changes_df: Output DataFrame from update_rosters(). May be empty.
@@ -294,8 +347,9 @@ def log_changes(
             old_team = row.get('old_team', '?')
             new_team = row.get('new_team', '?')
             pos = row.get('position', '?')
+            change_type = row.get('change_type', 'CHANGE')
             f.write(
-                f"  {row['player_name']} ({pos}): "
+                f"  {change_type}: {row['player_name']} ({pos}): "
                 f"{old_team} -> {new_team}"
             )
             old_pos = row.get('old_position') if 'old_position' in row else None
@@ -303,6 +357,67 @@ def log_changes(
             if old_pos is not None and pd.notna(old_pos) and new_pos is not None:
                 f.write(f", pos: {old_pos} -> {new_pos}")
             f.write('\n')
+
+
+# ---------------------------------------------------------------------------
+# Bronze live-roster write (Phase 67 / v7.0)
+# ---------------------------------------------------------------------------
+
+
+def write_bronze_live_rosters(
+    roster_mapping: Dict[str, Dict[str, str]],
+    season: int,
+    bronze_root: str = 'data/bronze/players/rosters_live',
+) -> Optional[str]:
+    """Write the Sleeper-derived roster mapping to a new Bronze path.
+
+    This path is **separate** from ``data/bronze/players/rosters/`` (the
+    immutable nfl-data-py-sourced training data) so that live team/position
+    corrections never contaminate the model training window. The web API
+    (phase 67-02) reads from here first and falls back to the original
+    path when this file is absent.
+
+    Args:
+        roster_mapping: Output of :func:`build_roster_mapping` — every
+            fantasy-relevant Sleeper player, including FAs (``team='FA'``).
+        season: Target NFL season for partitioning.
+        bronze_root: Root directory for the live-roster Bronze tree.
+
+    Returns:
+        Absolute path to the written parquet, or ``None`` if the mapping
+        was empty.
+    """
+    if not roster_mapping:
+        logger.warning("write_bronze_live_rosters: empty mapping — skipping")
+        return None
+
+    rows = []
+    for name_key, info in roster_mapping.items():
+        rows.append({
+            'name_key': name_key,
+            'player_name': name_key.title(),  # Best-effort reconstruction
+            'team': info.get('team'),
+            'position': info.get('position'),
+            'status': info.get('status', 'Unknown'),
+            'is_free_agent': info.get('team') == 'FA',
+            'season': int(season),
+            'source': 'sleeper',
+            'refreshed_at': datetime.now().isoformat(),
+        })
+    live_df = pd.DataFrame(rows)
+
+    out_dir = Path(bronze_root) / f'season={season}'
+    out_dir.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    out_path = out_dir / f'sleeper_rosters_{timestamp}.parquet'
+    live_df.to_parquet(out_path, index=False)
+    logger.info(
+        "write_bronze_live_rosters: wrote %d rows (%d FAs) to %s",
+        len(live_df),
+        int(live_df['is_free_agent'].sum()),
+        out_path,
+    )
+    return str(out_path)
 
 
 def main() -> int:
@@ -317,15 +432,40 @@ def main() -> int:
         action='store_true',
         help='Show changes without writing a new parquet file',
     )
+    parser.add_argument(
+        '--skip-bronze-live',
+        action='store_true',
+        help='Skip writing data/bronze/players/rosters_live/ (Gold-only refresh)',
+    )
     args = parser.parse_args()
 
     print(f"\nRoster Refresh Pipeline")
     print(f"Season: {args.season}")
     print('=' * 60)
 
+    # Phase 67 / v7.0 escape hatch: documented known Sleeper outages can
+    # set SLEEPER_API_UNREACHABLE=1 to make this script exit 0 with a
+    # warning instead of failing the daily cron. Used sparingly — the
+    # default cron posture is fail-hard (no more `|| echo`).
+    if os.environ.get('SLEEPER_API_UNREACHABLE', '').strip().lower() in {'1', 'true', 'yes'}:
+        logger.warning(
+            "SLEEPER_API_UNREACHABLE set — skipping Sleeper fetch and exiting 0. "
+            "Clear this env var once the upstream incident is resolved."
+        )
+        return 0
+
     # 1. Fetch Sleeper data -- build combined team+position mapping (D-03).
     players = fetch_sleeper_players()
     roster_mapping = build_roster_mapping(players)
+
+    # 1.5. Write live Bronze roster — separate from immutable nfl-data-py
+    #      Bronze rosters so training data stays clean (Phase 67 D-03).
+    if not args.dry_run and not args.skip_bronze_live:
+        bronze_path = write_bronze_live_rosters(roster_mapping, args.season)
+        if bronze_path:
+            print(f"Bronze live-roster written: {bronze_path}")
+    elif args.skip_bronze_live:
+        print("Bronze live-roster skipped (--skip-bronze-live).")
 
     # 2. Load latest Gold projections
     proj_dir = os.path.join(
