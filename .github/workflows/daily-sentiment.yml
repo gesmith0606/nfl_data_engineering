@@ -106,23 +106,35 @@ jobs:
           echo "::notice::LLM enrichment: ${ENABLE_LLM_ENRICHMENT:-false}"
 
       # ----------------------------------------------------------------
-      # 5. Refresh rosters from Sleeper (catches trades, FA signings)
+      # 5. Refresh rosters from Sleeper (catches trades, FA signings,
+      #    releases — phase 67 / v7.0). Fail-hard: no `|| echo` suffix.
+      #    Set the repo variable SLEEPER_API_UNREACHABLE=true to skip
+      #    when a known upstream outage is in progress.
       # ----------------------------------------------------------------
       - name: Refresh rosters from Sleeper
+        env:
+          SLEEPER_API_UNREACHABLE: ${{ vars.SLEEPER_API_UNREACHABLE || 'false' }}
         run: |
           python scripts/refresh_rosters.py \
-            --season ${{ inputs.season || '2026' }} \
-            || echo "Roster refresh failed (non-fatal)"
+            --season ${{ inputs.season || '2026' }}
 
       # ----------------------------------------------------------------
       # 6. Commit and push new data back to repo
       # Railway auto-deploys from main, so this keeps the website fresh.
+      # Adds data/bronze/players/rosters_live/ (phase 67) so the
+      # Sleeper-sourced roster corrections ship with each deploy.
       # ----------------------------------------------------------------
       - name: Commit sentiment and roster data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/bronze/sentiment/ data/silver/sentiment/ data/gold/sentiment/ data/gold/projections/ 2>/dev/null || true
+          git add \
+            data/bronze/sentiment/ \
+            data/silver/sentiment/ \
+            data/gold/sentiment/ \
+            data/gold/projections/ \
+            data/bronze/players/rosters_live/ \
+            2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new data to commit"
           else
@@ -135,9 +147,11 @@ jobs:
           fi
 
       # ----------------------------------------------------------------
-      # 7. Upload artifacts (always, even on failure — aids debugging)
+      # 7. Upload artifacts (always, even on failure — aids debugging).
+      # Phase 67: roster_changes.log included so the audit trail for
+      # TRADED / RELEASED / RECLASSIFIED entries survives the run.
       # ----------------------------------------------------------------
-      - name: Upload sentiment artifacts
+      - name: Upload sentiment + roster artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -145,7 +159,9 @@ jobs:
           path: |
             data/gold/sentiment/
             data/silver/sentiment/
-          retention-days: 7
+            data/bronze/players/rosters_live/
+            roster_changes.log
+          retention-days: 30
           if-no-files-found: ignore
 
   # --------------------------------------------------------------------------
