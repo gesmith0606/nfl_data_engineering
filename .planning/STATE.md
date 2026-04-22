@@ -2,17 +2,18 @@
 gsd_state_version: 1.0
 milestone: v7.0
 milestone_name: Production Stabilization
-status: ready_to_plan
+status: executing
 started_at: "2026-04-21"
-last_updated: "2026-04-21T00:00:00Z"
-last_activity: 2026-04-21
+last_updated: "2026-04-22T00:00:00Z"
+last_activity: 2026-04-22
 progress:
   total_phases: 5
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  completed_phases: 2
+  total_plans: 8
+  completed_plans: 8
+  percent: 40
 previous_milestone: v6.0
+next_phase: 68
 ---
 
 # Project State
@@ -26,15 +27,36 @@ See: .planning/PROJECT.md (updated 2026-04-21 after v7.0 Production Stabilizatio
 
 ## Current Position
 
-Phase: 66 — P0 Deployment Hotfixes (not started)
+Phase: 68 — Sanity-Check v2 (next)
 Plan: —
-Status: Roadmap complete; ready to plan Phase 66
-Last activity: 2026-04-21 — ROADMAP.md created, 32/32 requirements mapped across 5 phases (66-70)
+Status: Phase 66 + 67 complete (code). Both in `human_needed` pending external actions (Railway env var + daily-cron run). Checkpoint taken before Phase 68.
+Last activity: 2026-04-22 — Phase 67 commits landed locally, tests green, VERIFICATION.md written
 
-**Execution order:** 66 → (67 ∥ 68 ∥ 69) → 70
+**Execution order:** 66 ✓ → (67 ✓ ∥ 68 next ∥ 69) → 70
 
-Progress: 0/5 phases complete (0%)
-[░░░░░░░░░░░░░░░░░░░░] 0%
+Progress: 2/5 phases complete code-side (40%)
+[████████░░░░░░░░░░░░] 40%
+
+### Phase 66 Status — human_needed
+
+Commits: `9853067` (CONTEXT) → `c4c1640` (Dockerfile) → `0782870` (backend defaulting + /api/health flag) → `1cf224e` (frontend hook) → `12fc9e6` (docs).
+
+External actions pending from user:
+1. `git push origin main` (Railway auto-deploys on push)
+2. Set `ANTHROPIC_API_KEY` in Railway Variables tab
+3. Run 6 verification curls from `.planning/phases/66-p0-deployment-hotfixes/66-VERIFICATION.md`
+
+Tests: 44/44 web tests pass (32 existing + 12 new in `tests/web/test_graceful_defaulting.py`).
+
+### Phase 67 Status — human_needed
+
+Commits: `5fd1b65` (refresh_rosters v2) → `bfd30c1` (team_roster_service live-first) → `f09f57f` (daily cron harden + artifacts) → `7a4a740` (11 tests + docs).
+
+External actions pending:
+1. Daily cron run on GitHub Actions (or manual trigger via `gh workflow run daily-sentiment.yml -f season=2026`)
+2. Kyler Murray acceptance canary — confirm `/api/teams/ARI/roster` matches his Sleeper truth after cron landed
+
+Tests: 11 new in `tests/test_refresh_rosters_v2.py` covering FA handling, change-type classifier, Bronze live write. All pass.
 
 ## Production Audit Findings (2026-04-20)
 
@@ -117,6 +139,6 @@ Items acknowledged and carried forward:
 
 ## Session Continuity
 
-Last session: 2026-04-21
-Stopped at: Roadmap created (phases 66-70 defined, 32/32 requirements mapped). Ready for `/gsd:plan-phase 66`.
+Last session: 2026-04-22
+Stopped at: Phase 66 + 67 code complete (8 commits `ae38416..7a4a740`). Both in human_needed awaiting Railway env var + daily-cron run. Checkpointed before Phase 68 (sanity-check v2, largest phase at 10 reqs). Resume with `/gsd:autonomous --from 68` after Railway actions land.
 Resume file: None
