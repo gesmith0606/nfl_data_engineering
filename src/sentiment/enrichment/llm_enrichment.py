@@ -388,6 +388,20 @@ def enrich_silver_records(
         if data is None:
             continue
 
+        # Plan 71-04 short-circuit: claude_primary envelopes were already
+        # summarised by the producer (ClaudeExtractor.extract_batch_primary
+        # emits the summary + refined category inline), so re-enriching
+        # them would double the LLM cost with no information gain. The
+        # check MUST come before records extraction so the whole envelope
+        # is skipped, not individual records.
+        if bool(data.get("is_claude_primary", False)):
+            logger.info(
+                "LLMEnrichment: skipping envelope %s "
+                "(is_claude_primary=true); extraction already produced summaries.",
+                envelope_path,
+            )
+            continue
+
         source_records = data.get("records") or []
         if not isinstance(source_records, list):
             logger.warning(
