@@ -133,28 +133,49 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - [ ] Sleeper OAuth integration — v7.1
 - [ ] PFF paid data integration — v8.0
 
-## Current State: v6.0 Shipped (2026-04-20)
+## Current State: v7.0 Shipped (2026-04-24)
 
 **Production:**
-- Frontend: https://frontend-jet-seven-33.vercel.app (Next.js, Vercel, 2026 preseason data live)
-- Backend: https://nfldataengineering-production.up.railway.app (FastAPI, Railway, Parquet fallback mode)
-- All phase 61 news endpoints serving: `/api/news/team-events` (32 rows), `/player-badges/{id}`, `/feed` with `event_flags`
-- All phase 64 matchup endpoints serving: `/api/teams/current-week`, `/roster`, `/defense-metrics`
-- Daily sentiment cron running at `0 12 * * *` UTC across 5 sources
-- CI quality-gate blocks deploys on CRITICAL projection issues
+- Frontend: https://frontend-jet-seven-33.vercel.app — now with defensive empty states + data_as_of freshness chips on predictions/lineups/matchups/news pages
+- Backend: https://nfldataengineering-production.up.railway.app — graceful server-side defaulting on `/api/predictions`, `/api/lineups`, `/api/teams/{team}/roster` (200 with empty envelope instead of 422 when params omitted)
+- Docker image now bundles `data/bronze/schedules/` + `data/bronze/players/rosters/` so endpoints stop 503-ing in offseason
+- `ANTHROPIC_API_KEY` set on Railway environment (LLM enrichment ready; GHA secret still needed separately)
+- Roster refresh v2: `refresh_rosters.py` handles released/FA/traded players, writes to Bronze live, surfaces `roster_changes.log` as GHA artifact
+- Sanity-Check v2: `scripts/sanity_check_projections.py` now probes live endpoints, validates payload content (not just length), checks roster drift vs Sleeper canonical, asserts API key presence + extractor freshness, absorbs DQAL-03 carry-overs. 57 new tests. Canary test replays all 6 audit regressions and passes.
+- GHA `deploy-web.yml` promoted to blocking live gate with `auto-rollback` job (`git revert --no-edit` + `git push`, 5-min window, no force-push, audit commit format, 20 structural tests)
+- Frontend: new shared `<EmptyState />` component across 4 pages; news feed null-safety prevents dangling sentiment chips
+- Daily sentiment cron running at `0 12 * * *` UTC with hardened permissions (`contents: write`, `issues: write`) and decoupled roster refresh (hardcoded season=2026)
+- Test count: ~1469 passing (+90 from v7.0)
 
-## Current Milestone: v7.0 Production Stabilization
+**v7.0 outcome:** 23/32 requirements satisfied in code + tests; 9/32 pending external ops (GitHub Secret + Variable for sentiment extraction, daily cron observation, first live rollback proof). Zero `gaps_found` at milestone audit.
 
-**Goal:** Fix 6 production regressions found during 2026-04-20 user audit, close sanity-check blindspots, and restore reliable deploys before any marketing/integration work.
+**v7.0 artifacts:**
+- Milestone roadmap: `.planning/milestones/v7.0-ROADMAP.md`
+- Milestone requirements: `.planning/milestones/v7.0-REQUIREMENTS.md`
+- Milestone audit: `.planning/v7.0-MILESTONE-AUDIT.md`
 
-**Target features:**
-- P0 hotfixes (ANTHROPIC_API_KEY on Railway, Bronze schedules+rosters in Docker image, predictions/lineups query params)
-- Roster refresh v2 (handle released/FA/traded, write to Bronze, audit trail surfaced)
-- Sanity-check v2 (live endpoint probes, payload-content validators, roster drift vs Sleeper, blocking post-deploy smoke)
-- Sentiment backfill (extractor runs, event_flags populate, news page shows context)
-- Frontend empty/error states (predictions, lineups, matchups, news)
+## Pending v7.0 External Ops (user action required)
 
-**Key context:** v6.0 shipped but 4/10 dashboard routes are partially/fully broken in production. Kyler Murray still shows on Cardinals (released-player handling missing). `/api/predictions` and `/api/lineups` return 422 without query params the frontend doesn't send. Railway Docker image missing `data/bronze/schedules/` causes 503 on matchup endpoints. `ANTHROPIC_API_KEY` unset means news extractor never ran — all 32 team-events rows return empty. Sanity-check gate passed exit 0 through all of this because it only validates `len(payload)==32` not content, and never probes the specific failing endpoints. Fixing the gate is the structural fix; the others are tactical.
+1. Set GitHub Secret `ANTHROPIC_API_KEY` at https://github.com/gesmith0606/nfl_data_engineering/settings/secrets/actions
+2. Set GitHub Variable `ENABLE_LLM_ENRICHMENT=true` at .../settings/variables/actions
+3. Re-trigger `gh workflow run daily-sentiment.yml -f season=2025 -f week=17` (and `week=18`)
+4. Run `scripts/audit_advisor_tools.py --live https://nfldataengineering-production.up.railway.app` — expect 4 news tools to flip WARN→PASS
+5. Observe daily cron for Kyler Murray roster canary (ROSTER-05)
+6. Run 6 verification curls from `.planning/milestones/v7.0-phases/66-p0-deployment-hotfixes/66-VERIFICATION.md`
+7. Observe or deliberately trigger first live rollback (SANITY-09 end-to-end proof)
+
+Estimated total operational effort: 30-60 min.
+
+## v7.0 Tech Debt → v7.1 cleanup scope
+
+- `git commit --amend --no-verify` in auto-rollback (medium, policy violation)
+- `web/frontend/**/*.json` ignored by repo-root `*.json` pattern (medium, vitest deps on-disk only)
+- Player Bronze parquet unavailable to GHA runner (medium, PlayerNameResolver blind)
+- `refresh_rosters --season 2026` hardcoded (low, replace with `$(date +%Y)`)
+- Duplicate `relativeTime()` in news-feed + player-news-panel (low, consolidate with format-relative-time)
+- `VALID_NFL_TEAMS` redundant LA+LAR (low, pre-existing)
+- `test_auto_rollback_pushes_non_force` should assert `--no-verify` absence (low)
+- `formatRelativeTime("")` returns "unknown" — guard upstream (medium)
 
 ### Planned (Future Milestones)
 - v7.1 External Projections Comparison — ESPN/Sleeper/Yahoo projections side-by-side on projections page for user comparison
