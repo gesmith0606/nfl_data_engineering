@@ -15,6 +15,8 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Icons } from '@/components/icons';
+import { EmptyState } from '@/components/EmptyState';
+import { formatRelativeTime } from '@/lib/format-relative-time';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { TeamSentimentBadge } from './team-sentiment-badge';
 import { ApiError } from '@/lib/nfl/api';
@@ -172,7 +174,8 @@ export function PredictionCardGrid() {
   // `/api/projections/latest-week` instead of a hardcoded 2024/1 slate
   // that nobody has data for. Falls back to the current year + week 1
   // when the backend is unreachable so the page still renders.
-  const { season, week, setSeason, setWeek, isResolving } = useWeekParams();
+  const { season, week, setSeason, setWeek, isResolving, dataAsOf } =
+    useWeekParams();
   const [sortBy, setSortBy] = useState<SortKey>('confidence');
 
   const { data, isLoading, isError, error } = useQuery({
@@ -237,6 +240,18 @@ export function PredictionCardGrid() {
             <SelectItem value='total_edge'>Total Edge</SelectItem>
           </SelectContent>
         </Select>
+
+        {/* Freshness chip (phase 70-01). Only renders when the /projections
+         *  /latest-week probe surfaced a data_as_of timestamp; silent
+         *  otherwise (no "Unknown" placeholder). */}
+        {dataAsOf ? (
+          <Badge
+            variant='outline'
+            className='ml-auto h-[var(--tap-min)] items-center text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground sm:h-9'
+          >
+            Updated {formatRelativeTime(dataAsOf)}
+          </Badge>
+        ) : null}
       </div>
 
       {/* Cards */}
@@ -264,35 +279,26 @@ export function PredictionCardGrid() {
           ))}
         </div>
       ) : isNotFound ? (
-        <Card>
-          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-            <Icons.info className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
-            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-              No prediction data available for {season} Week {week}.
-            </p>
-            <p className='text-muted-foreground mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-              Predictions are generated during the NFL season for weeks with scheduled games.
-            </p>
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={Icons.calendar}
+          title='No predictions yet'
+          description={`Predictions for ${season} Week ${week} are not available. Check back when games are scheduled.`}
+          dataAsOf={dataAsOf}
+        />
       ) : isError ? (
-        <Card>
-          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-            <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
-            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-              Failed to load predictions. Please try again later.
-            </p>
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={Icons.alertCircle}
+          title='Unable to load predictions'
+          description='The prediction feed is unavailable right now. Please try again in a moment.'
+          dataAsOf={dataAsOf}
+        />
       ) : predictions.length === 0 ? (
-        <Card>
-          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-            <Icons.info className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
-            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-              No predictions available for this week.
-            </p>
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={Icons.calendar}
+          title='No predictions yet'
+          description={`Predictions for ${season} Week ${week} are not available. Check back when games are scheduled.`}
+          dataAsOf={dataAsOf}
+        />
       ) : (
         <Stagger
           step={0.04}
