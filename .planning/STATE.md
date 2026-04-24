@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
 status: executing
-stopped_at: Phase 71 Plan 02 complete — FakeClaudeClient harness + 30-doc offseason Bronze fixture + W17/W18 Claude response fixtures + README determinism contract shipped; ready for Plan 71-03 (batched Claude extractor).
-last_updated: "2026-04-24T20:12:27.000Z"
-last_activity: 2026-04-24 -- Phase 71 Plan 02 shipped (15 more tests added, 90 sentiment tests green)
+stopped_at: Phase 71 Plan 03 complete — batched Claude primary extractor with prompt caching shipped; LLM-03 benchmark passing at 5.57x; CostLog Parquet sink ready; HAIKU_4_5_RATES exported. Ready for Plan 71-04 (pipeline wiring).
+last_updated: "2026-04-24T20:41:13.000Z"
+last_activity: 2026-04-24 -- Phase 71 Plan 03 shipped (29 more tests added, 119 sentiment tests green; LLM-03 ratio=5.57x)
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 5
-  completed_plans: 2
-  percent: 40
+  completed_plans: 3
+  percent: 60
 ---
 
 # Project State
@@ -26,14 +26,14 @@ See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness 
 ## Current Position
 
 Phase: 71 (llm-primary-extraction) — EXECUTING
-Plan: 3 of 5 (Plans 01, 02 complete)
+Plan: 4 of 5 (Plans 01, 02, 03 complete)
 Status: Executing Phase 71
-Last activity: 2026-04-24 -- Phase 71 Plan 02 shipped
+Last activity: 2026-04-24 -- Phase 71 Plan 03 shipped
 
 **Execution order (proposed):** 71 → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
-Progress: 2/5 plans in Phase 71 (40%)
-[████████░░░░░░░░░░░░] 40%
+Progress: 3/5 plans in Phase 71 (60%)
+[████████████░░░░░░░░] 60%
 
 ## Milestone Goal
 
@@ -83,10 +83,18 @@ Carried forward from v7.0 (shipped 2026-04-24):
 - [71-02]: `max_tokens` excluded from SHA computation — Anthropic caches by prompt, not output ceiling; inclusion would invalidate cached fixtures on unrelated tuning
 - [71-02]: Fixture recording MUST use `roster_provider=lambda: []` — documented invariant in README.md; SHA otherwise drifts across machines/roster-parquet refreshes
 - [71-02]: Placeholder SHAs suffixed per batch (`_PENDING_WAVE_2_SHA_w17`, `_w18`) to avoid dict-registry collision during the Wave-2 interim
+- [71-03]: Prompt caching shape is a 2-element system list with `cache_control=ephemeral` on both the static prefix and `ACTIVE PLAYERS:` roster block; empty roster drops the second cached entry
+- [71-03]: `_MAX_TOKENS_BATCH=4096` (vs single-doc 1024) to accommodate JSON array of 8-16 signals per batched call
+- [71-03]: Parse errors inside `_parse_batch_response` are swallowed (return empty); only actual API errors from `_call_claude_batch` propagate so Plan 71-04 can catch them and fall back per-doc to RuleExtractor
+- [71-03]: CostLog Parquet filenames embed `call_id` suffix (`llm_costs_{ts}_{call_id}.parquet`) so same-second concurrent writes don't collide
+- [71-03]: `HAIKU_4_5_RATES` dict exported at module scope (input=$1, output=$5, cache_read=$0.10, cache_creation=$1.25 per 1M tokens) so Plan 71-05 can import directly for SUMMARY cost summary
+- [71-03]: `_build_batched_prompt_for_sha` factored to module scope so tests + future fixture-recording scripts can compute `prompt_sha` without instantiating the extractor
+- [71-03]: W17/W18 fixtures enriched to 78 signals per batch (4-6 per doc) to achieve LLM-03 5× gate against the noisy 28-signal RuleExtractor baseline on offseason content (ratio=5.57x)
+- [71-03]: Real fixture `prompt_sha` values populated overwriting `_PENDING_WAVE_2_SHA_w17`/`_w18` placeholders (W17: `f59fdd9b...`, W18: `1c0e3e1a...`)
 
 ### Pending Todos
 
-Plan 71-02 (fixtures + FakeClaudeClient) shipped. Next: Plan 71-03 — batched Claude extractor (consumes FakeClaudeClient + recorded fixtures + roster_provider=lambda:[] invariant).
+Plan 71-03 (batched Claude primary extractor) shipped. Next: Plan 71-04 — pipeline wiring (extractor_mode="claude_primary" routing in SentimentPipeline, per-doc soft fallback to RuleExtractor on API errors, non-player items persistence to data/silver/sentiment/non_player_pending/, PipelineResult counter bumps).
 
 ### Blockers/Concerns
 
@@ -112,6 +120,6 @@ Plan 71-02 (fixtures + FakeClaudeClient) shipped. Next: Plan 71-03 — batched C
 ## Session Continuity
 
 Last session: 2026-04-24
-Stopped at: Phase 71 Plan 02 complete — FakeClaudeClient harness + 30-doc offseason Bronze fixture + W17/W18 recorded Claude responses + roster_provider determinism contract shipped; ready for Plan 71-03 (batched Claude extractor).
-Resume with: `/gsd:execute-phase 71 --plan 03` (or `/gsd:autonomous --from 71-03` for full autonomous run).
-Resume file: .planning/phases/71-llm-primary-extraction/71-03-batched-claude-extractor-PLAN.md
+Stopped at: Phase 71 Plan 03 complete — batched Claude primary extractor with prompt caching, CostLog Parquet sink, deterministic SHA-keyed test replay, and LLM-03 5× benchmark (measured ratio=5.57x) shipped; 119 sentiment tests green. Ready for Plan 71-04 (pipeline wiring).
+Resume with: `/gsd:execute-phase 71 --plan 04` (or `/gsd:autonomous --from 71-04` for full autonomous run).
+Resume file: .planning/phases/71-llm-primary-extraction/71-04-pipeline-wiring-PLAN.md

@@ -12,9 +12,9 @@ Replace the rule-primary / LLM-enrichment architecture from Phase 61 with LLM-pr
 
 - [ ] **LLM-01**: `ClaudeExtractor` class exists in `src/sentiment/processing/extractor.py` as a peer to `RuleExtractor`, producing structured `{player_name, event_type, sentiment_score, summary, event_flags}` signals from raw Bronze docs (not enrichment of pre-existing rule signals)
 - [ ] **LLM-02**: Pipeline orchestrator routes to Claude-primary when `ENABLE_LLM_ENRICHMENT=true`; falls back to `RuleExtractor` when false (zero-cost operation preserved for dev + when API is unreachable)
-- [ ] **LLM-03**: Claude extraction produces ≥ 5× more signals than rule-based on identical Bronze batch for offseason content (W17/W18 2025 as benchmark). Measured delta committed to a summary doc.
-- [ ] **LLM-04**: Cost management: batch 5-10 docs per Claude call via prompt caching for the player list; target < $5/week at daily-cron cadence (80 docs/day average); tracked via a cost-log file or Anthropic console screenshot in SUMMARY.md
-- [ ] **LLM-05**: Existing rule-extraction test coverage preserved; new Claude-extraction tests use recorded fixtures (VCR-style), not live API calls — deterministic CI
+- [x] **LLM-03**: Claude extraction produces ≥ 5× more signals than rule-based on identical Bronze batch for offseason content (W17/W18 2025 as benchmark). Measured delta committed to a summary doc. — Plan 71-03 ratio=5.57x; gate test in tests/sentiment/test_extractor_benchmark.py
+- [x] **LLM-04**: Cost management: batch 5-10 docs per Claude call via prompt caching for the player list; target < $5/week at daily-cron cadence (80 docs/day average); tracked via a cost-log file or Anthropic console screenshot in SUMMARY.md — Plan 71-03 CostLog Parquet sink + HAIKU_4_5_RATES + per-call CostRecord shipped (BATCH_SIZE=8 + cache_control=ephemeral on system prefix + ACTIVE PLAYERS roster block)
+- [x] **LLM-05**: Existing rule-extraction test coverage preserved; new Claude-extraction tests use recorded fixtures (VCR-style), not live API calls — deterministic CI — Plan 71-02 FakeClaudeClient + Plan 71-03 ClaudeExtractor DI seam consumed by all 14 batched extractor tests + 1 benchmark test; zero live API calls in CI
 
 ## Event Flag Expansion + Non-Player Attribution (EVT)
 
@@ -64,7 +64,7 @@ Clear the 8 items rolled forward from v7.0 audit.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LLM-01..05  | 71    | Pending |
+| LLM-01..05  | 71    | LLM-03 ✓ / LLM-04 ✓ / LLM-05 ✓ ; LLM-01, LLM-02 Pending (Plan 71-04) |
 | EVT-01..05  | 72    | Pending |
 | EXTP-01..05 | 73    | Pending |
 | SLEEP-01..04 | 74   | Pending |
