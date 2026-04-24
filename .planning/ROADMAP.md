@@ -59,7 +59,7 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
 
 **Summary checklist:**
 
-- [ ] **Phase 71: LLM-Primary Extraction** — Replace rule-primary / LLM-enrichment with Claude-primary extraction for offseason signal coverage; cost management + deterministic tests
+- [x] **Phase 71: LLM-Primary Extraction** — Shipped 2026-04-24. 5/5 plans complete. 5.57× LLM-03 ratio on offseason content; CI-enforced LLM-04 cost gate at $1.5700/week (gate <$5); 165 sentiment tests green; CLI + GHA EXTRACTOR_MODE knob ready for production activation via single GitHub Variable flip.
 - [ ] **Phase 72: Event Flag Expansion + Non-Player Attribution** — Add is_drafted / is_rumored_destination / is_coaching_change / etc.; decide coach-and-reporter handling (team rollup vs separate channel)
 - [ ] **Phase 73: External Projections Comparison** — ESPN + Sleeper + Yahoo weekly projections side-by-side with ours on projections page + new /api/projections/comparison endpoint
 - [ ] **Phase 74: Sleeper League Integration** — Username auth → league listing → roster import → advisor `getUserRoster` tool → start/sit personalization
@@ -78,14 +78,14 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
   4. Deterministic tests via recorded Claude responses — no live API calls in CI
   5. `RuleExtractor` path preserved for dev + API-outage scenarios (`ENABLE_LLM_ENRICHMENT=false` is zero-cost)
 
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans executed (Phase 71 COMPLETE)
 
 Plans:
 - [x] 71-01-schema-and-contracts-PLAN.md — PlayerSignal/PipelineResult schema extensions + ClaudeClient Protocol
 - [x] 71-02-fixtures-and-fake-client-PLAN.md — FakeClaudeClient + recorded W17/W18 offseason Bronze + Claude fixtures
 - [x] 71-03-batched-claude-extractor-PLAN.md — Batched primary extraction + prompt caching + CostLog Parquet sink + benchmark (LLM-03 ratio=5.57x)
 - [x] 71-04-pipeline-wiring-PLAN.md — SentimentPipeline claude_primary branch + per-doc soft fallback + LLMEnrichment short-circuit (137 sentiment tests passing)
-- [ ] 71-05-cli-gha-and-benchmark-summary-PLAN.md — CLI --extractor-mode/--mode, GHA EXTRACTOR_MODE, 71-BENCHMARK.md, 71-SUMMARY.md
+- [x] 71-05-cli-gha-and-benchmark-summary-PLAN.md — CLI --extractor-mode/--mode + GHA EXTRACTOR_MODE env + CI-enforced LLM-04 cost gate ($1.5700/wk warm-cache) + 71-BENCHMARK.md + phase 71-SUMMARY.md (165 sentiment tests passing)
 
 ### Phase 72: Event Flag Expansion + Non-Player Attribution
 **Goal**: Extend `event_flags` beyond injury/trade/usage to cover the draft-season domain (rookie buzz, trade rumors, coaching changes, cap cuts). Decide how to attribute non-player subjects (coaches/reporters/teams) that Phase 69 surfaced as `player_id: null` rejects.
@@ -164,7 +164,7 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 68. Sanity-Check v2 | v7.0 | 0/TBD | Not started | - |
 | 69. Sentiment Backfill | v7.0 | 0/TBD | Not started | - |
 | 70. Frontend Empty/Error States | v7.0 | 0/TBD | Not started | - |
-| 71. LLM-Primary Extraction | v7.1 | 4/5 | In Progress | - |
+| 71. LLM-Primary Extraction | v7.1 | 5/5 | Complete | 2026-04-24 |
 | 72. Event Flag Expansion | v7.1 | 0/TBD | Not started | - |
 | 73. External Projections Comparison | v7.1 | 0/TBD | Not started | - |
 | 74. Sleeper League Integration | v7.1 | 0/TBD | Not started | - |
