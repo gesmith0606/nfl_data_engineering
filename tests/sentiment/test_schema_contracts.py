@@ -252,5 +252,55 @@ class SilverRecordExtractorFieldTests(unittest.TestCase):
         self.assertEqual(record["summary"], "Kelce limited at practice")
 
 
+class ClaudeClientProtocolTests(unittest.TestCase):
+    """Task 3: ClaudeClient Protocol is importable + runtime-checkable."""
+
+    def test_claude_client_protocol_importable(self) -> None:
+        """Protocol must be importable from the extractor module."""
+        from src.sentiment.processing.extractor import ClaudeClient
+
+        self.assertIsNotNone(ClaudeClient)
+
+    def test_claude_client_protocol_runtime_check(self) -> None:
+        """Any object with a .messages attribute satisfies the Protocol.
+
+        Matches the shape of the real anthropic.Anthropic SDK, which
+        exposes chained ``.messages.create(...)``. Plan 71-02's
+        ``FakeClaudeClient`` will satisfy this same Protocol so the
+        batched extractor (Plan 71-03) can be tested without live API.
+        """
+        from src.sentiment.processing.extractor import ClaudeClient
+
+        class _FakeMessages:
+            def create(self, **kwargs):  # type: ignore[no-untyped-def]
+                return None
+
+        class _DuckTyped:
+            messages = _FakeMessages()
+
+        duck = _DuckTyped()
+        self.assertIsInstance(duck, ClaudeClient)
+
+    def test_claude_client_protocol_rejects_missing_messages(self) -> None:
+        """Objects without a .messages attribute are NOT ClaudeClient."""
+        from src.sentiment.processing.extractor import ClaudeClient
+
+        class _NotAClient:
+            other = "irrelevant"
+
+        not_client = _NotAClient()
+        self.assertNotIsInstance(not_client, ClaudeClient)
+
+    def test_legacy_claude_extractor_still_instantiable(self) -> None:
+        """The legacy ClaudeExtractor class remains usable (no regression)."""
+        from src.sentiment.processing.extractor import ClaudeExtractor
+
+        extractor = ClaudeExtractor()
+        # is_available will be False without ANTHROPIC_API_KEY but the
+        # property must remain on the class.
+        self.assertTrue(hasattr(extractor, "is_available"))
+        self.assertIsInstance(extractor.is_available, bool)
+
+
 if __name__ == "__main__":
     unittest.main()
