@@ -61,6 +61,24 @@ class PipelineResult:
         signal_count: Total PlayerSignal objects written to Silver.
         failed_count: Documents that raised an error during extraction.
         output_files: Paths to the Silver JSON files written.
+
+    Claude-primary extensions (Plan 71-01, additive only — safe
+    defaults preserve prior PipelineResult() call sites):
+        claude_failed_count: Incremented when a claude_primary call
+            raises or returns malformed JSON and the pipeline falls
+            back to RuleExtractor for that single document.
+        unresolved_player_count: Incremented when PlayerNameResolver
+            returns None for a Claude-extracted player name.
+        non_player_count: Number of items Claude returned with
+            ``player_name = null`` (team-only or non-player signals).
+        non_player_items: Captured non-player items for the Phase 72
+            attribution logic (logged under
+            ``data/silver/sentiment/non_player_pending/``).
+        is_claude_primary: True when the active extractor mode is
+            ``claude_primary``; consumed by ``enrich_silver_records``
+            as an early-return signal.
+        cost_usd_total: Running USD cost total for the batched calls
+            in this run (written by Plan 71-03).
     """
 
     processed_count: int = 0
@@ -68,6 +86,13 @@ class PipelineResult:
     signal_count: int = 0
     failed_count: int = 0
     output_files: List[Path] = field(default_factory=list)
+    # Plan 71-01 additive fields (safe defaults — zero-like / empty).
+    claude_failed_count: int = 0
+    unresolved_player_count: int = 0
+    non_player_count: int = 0
+    non_player_items: List[Dict[str, Any]] = field(default_factory=list)
+    is_claude_primary: bool = False
+    cost_usd_total: float = 0.0
 
 
 # ---------------------------------------------------------------------------
@@ -320,6 +345,13 @@ class SentimentPipeline:
             "extracted_at": datetime.now(timezone.utc).isoformat(),
             "model_version": type(self._extractor).__name__,
             "raw_excerpt": signal.raw_excerpt,
+            # Plan 71-01 additive top-level keys. ``extractor`` defaults
+            # to "rule" via PlayerSignal, so existing rule-based runs
+            # emit the field without behavioural change. Downstream
+            # consumers (enrich_silver_records, WeeklyAggregator) may
+            # ignore these keys; they are purely additive.
+            "extractor": signal.extractor,
+            "summary": signal.summary,
         }
 
     def _write_silver_file(
