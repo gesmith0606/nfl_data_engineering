@@ -29,6 +29,16 @@ concurrency:
   cancel-in-progress: false
 
 # ---------------------------------------------------------------------------
+# Permissions
+# Workflow commits sentiment + roster data back to main each run, and creates
+# an issue on failure. contents:write + issues:write are required.
+# ---------------------------------------------------------------------------
+
+permissions:
+  contents: write
+  issues: write
+
+# ---------------------------------------------------------------------------
 # Jobs
 # ---------------------------------------------------------------------------
 
