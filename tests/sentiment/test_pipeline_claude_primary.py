@@ -191,7 +191,8 @@ def test_claude_primary_without_di_or_env_falls_back_to_rule_with_warning(
     assert pipeline._is_claude_primary is False
     # WARNING text must mention the fallback path so ops can see why.
     assert any(
-        "claude_primary" in rec.message.lower() and "fallback" in rec.message.lower()
+        "claude_primary" in rec.message.lower()
+        and "ruleextractor" in rec.message.lower()
         for rec in caplog.records
     )
 
