@@ -1518,12 +1518,25 @@ def _check_roster_drift_top50(scoring: str, season: int) -> Tuple[List[str], Lis
             f"ROSTER DRIFT SKIPPED: no Gold projections for season={season} ({exc})"
         )
         return criticals, warnings
-    if our_df is None or our_df.empty or "projected_points" not in our_df.columns:
+    if our_df is None or our_df.empty:
+        warnings.append("ROSTER DRIFT SKIPPED: Gold projections empty")
+        return criticals, warnings
+    # Schema resolution: tests inject ``projected_points`` (plan invariant),
+    # production Gold uses ``projected_season_points`` (actual schema).
+    points_col = (
+        "projected_points"
+        if "projected_points" in our_df.columns
+        else "projected_season_points"
+    )
+    if points_col not in our_df.columns:
         warnings.append(
-            "ROSTER DRIFT SKIPPED: Gold projections empty or missing projected_points"
+            "ROSTER DRIFT SKIPPED: Gold projections missing projected_points / "
+            "projected_season_points column"
         )
         return criticals, warnings
-    top50 = our_df.sort_values("projected_points", ascending=False).head(50).copy()
+    # Team column: tests use ``team``; production Gold uses ``recent_team``.
+    team_col = "team" if "team" in our_df.columns else "recent_team"
+    top50 = our_df.sort_values(points_col, ascending=False).head(50).copy()
 
     sleeper_players, fetch_warning = _fetch_sleeper_canonical_cached()
     if fetch_warning:
@@ -1549,7 +1562,7 @@ def _check_roster_drift_top50(scoring: str, season: int) -> Tuple[List[str], Lis
 
     for _, row in top50.iterrows():
         our_name = str(row.get("player_name", ""))
-        our_team = str(row.get("team", "")).upper()
+        our_team = str(row.get(team_col, "")).upper()
         if not our_name or not our_team:
             continue
         norm_key = _normalize_name(our_name)
@@ -1652,27 +1665,38 @@ def _check_dqal_negative_projection(
     except FileNotFoundError as exc:
         warnings.append(f"DQAL NEGATIVE-CLAMP SKIPPED: {exc}")
         return criticals, warnings
-    if df is None or df.empty or "projected_points" not in df.columns:
+    if df is None or df.empty:
+        warnings.append("DQAL NEGATIVE-CLAMP SKIPPED: Gold projections empty")
+        return criticals, warnings
+    # Schema resolution: tests inject ``projected_points`` (plan invariant),
+    # production Gold uses ``projected_season_points``.
+    points_col = (
+        "projected_points"
+        if "projected_points" in df.columns
+        else "projected_season_points"
+    )
+    if points_col not in df.columns:
         warnings.append(
-            "DQAL NEGATIVE-CLAMP SKIPPED: Gold projections empty or missing column"
+            "DQAL NEGATIVE-CLAMP SKIPPED: Gold projections missing "
+            "projected_points / projected_season_points column"
         )
         return criticals, warnings
-    negative = df[df["projected_points"] < 0]
+    negative = df[df[points_col] < 0]
     if len(negative) > 0:
         sample = ", ".join(
-            f"{row.get('player_name', '?')} ({row['projected_points']:.2f})"
+            f"{row.get('player_name', '?')} ({row[points_col]:.2f})"
             for _, row in negative.head(5).iterrows()
         )
         criticals.append(
             f"NEGATIVE PROJECTION: {len(negative)} player(s) have "
-            f"projected_points < 0. First {min(5, len(negative))}: {sample}. "
+            f"{points_col} < 0. First {min(5, len(negative))}: {sample}. "
             f"Clamp invariant violated."
         )
         print(f"  [FAIL] DQAL negative-clamp  ({len(negative)} violations)")
     else:
         print(
             f"  [PASS] DQAL negative-clamp  (all {len(df)} players "
-            f"projected_points >= 0)"
+            f"{points_col} >= 0)"
         )
     return criticals, warnings
 
