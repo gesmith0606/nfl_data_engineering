@@ -1,0 +1,101 @@
+{
+  "fetch_run_id": "159ce789-a850-4689-a85b-2e63ff8445d7",
+  "source": "rotowire",
+  "fetched_at": "2026-04-24T03:07:16.567972+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630267",
+      "url": "https://www.rotowire.com//football/player/omar-cooper-19314",
+      "permalink": "",
+      "title": "Omar Cooper: Selected by Jets",
+      "body_text": "The Jets selected Cooper in the first round of the 2026 NFL Draft, 30th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T08:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omar Cooper",
+        "Jets The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl630266",
+      "url": "https://www.rotowire.com//football/player/peter-woods-19415",
+      "permalink": "",
+      "title": "Peter Woods: Picked by Kansas City",
+      "body_text": "The Chiefs selected Woods in the first round of the 2026 NFL Draft, 29th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T07:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Peter Woods",
+        "Kansas City",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl630265",
+      "url": "https://www.rotowire.com//football/player/caleb-lomu-19412",
+      "permalink": "",
+      "title": "Caleb Lomu: Lands with Patriots",
+      "body_text": "The Patriots selected Lomu in the first round of the 2026 NFL Draft, 28th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T07:52:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Lomu",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl630264",
+      "url": "https://www.rotowire.com//football/player/chris-johnson-19575",
+      "permalink": "",
+      "title": "Chris Johnson: Selected by Miami",
+      "body_text": "The Dolphins selected Johnson in the first round of the 2026 NFL Draft, 27th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T07:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Johnson",
+        "Miami The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl630263",
+      "url": "https://www.rotowire.com//football/player/keylan-rutledge-19461",
+      "permalink": "",
+      "title": "Keylan Rutledge: Picked by Texans",
+      "body_text": "The Texans selected Rutledge in the first round of the 2026 NFL Draft, 26th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T07:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keylan Rutledge",
+        "Texans The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    }
+  ]
+}
