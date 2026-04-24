@@ -23,10 +23,14 @@ keyed off the URL path.
 
 from __future__ import annotations
 
+import os
 import re
 import sys
+import time
 from pathlib import Path
 from unittest.mock import MagicMock, patch
+
+import pandas as pd
 
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_PROJECT_ROOT))
@@ -222,3 +226,150 @@ def test_canary_passes_against_healthy_state():
     assert (
         endpoint_crits == []
     ), f"Healthy state produced false-positive endpoint CRITICALs: {endpoint_crits}"
+
+
+# ===========================================================================
+# Phase 68-02 Task 3 — end-to-end canary covering ALL 6 audit regressions
+# ===========================================================================
+
+
+def test_canary_detects_all_six_regressions(tmp_path, monkeypatch):
+    """THE acceptance canary: all 6 regressions from 2026-04-20 audit produce CRITICALs.
+
+    Wires together:
+      1. Plan 68-01's HTTP mocks (_pre_v7_response) — regressions #2, #3, #4, #5
+      2. A mocked Sleeper response with Kyler as FA — regression #1
+      3. A stale (72h) Silver sentiment fixture — regression #6
+      4. ENABLE_LLM_ENRICHMENT=true with ANTHROPIC_API_KEY unset — regression #5 key
+
+    This is the phase acceptance gate (success criterion #1 from ROADMAP):
+    running the v2 gate against pre-v7.0 state MUST surface at least one
+    distinct CRITICAL per regression.
+    """
+    # --- Redirect filesystem-rooted helpers to tmp fixtures -------------------
+    monkeypatch.setattr(sanity, "PROJECT_ROOT", str(tmp_path))
+    monkeypatch.setattr(sanity, "GOLD_DIR", str(tmp_path / "data" / "gold"))
+    monkeypatch.setattr(sanity, "_SLEEPER_CACHE_DIR", str(tmp_path / ".cache"))
+
+    # --- Build Gold projections with Kyler still on ARI (pre-v7.0 state) ----
+    top50_df = pd.DataFrame(
+        [
+            {
+                "player_name": "Kyler Murray",
+                "team": "ARI",
+                "position": "QB",
+                "projected_points": 280.5,
+                "projected_season_points": 280.5,
+                "scoring": "half_ppr",
+            },
+            *[
+                {
+                    "player_name": f"Player {i}",
+                    "team": "KC",
+                    "position": "WR",
+                    "projected_points": 200.0 - i,
+                    "projected_season_points": 200.0 - i,
+                    "scoring": "half_ppr",
+                }
+                for i in range(1, 50)
+            ],
+        ]
+    )
+
+    # --- Stale Silver sentiment fixture — mtime 72h old -> CRITICAL ---------
+    silver_dir = (
+        tmp_path
+        / "data"
+        / "silver"
+        / "sentiment"
+        / "signals"
+        / "season=2025"
+        / "week=01"
+    )
+    silver_dir.mkdir(parents=True, exist_ok=True)
+    stale_file = silver_dir / "stale.parquet"
+    stale_file.write_bytes(b"")
+    stale_mtime = time.time() - (72 * 3600)
+    os.utime(stale_file, (stale_mtime, stale_mtime))
+
+    # --- Mock Sleeper response: Kyler has team=None (FA) --------------------
+    fake_sleeper = {
+        "kyler_id": {
+            "full_name": "Kyler Murray",
+            "team": None,
+            "position": "QB",
+        },
+        **{
+            f"p{i}": {
+                "full_name": f"Player {i}",
+                "team": "KC",
+                "position": "WR",
+            }
+            for i in range(1, 50)
+        },
+    }
+
+    # --- Combined HTTP side_effect: route both Railway probes AND Sleeper ---
+    def combined_response(url, *args, **kwargs):
+        if "api.sleeper.app" in url:
+            resp = MagicMock()
+            resp.status_code = 200
+            resp.raise_for_status = MagicMock()
+            resp.json.return_value = fake_sleeper
+            return resp
+        return _pre_v7_response(url, *args, **kwargs)
+
+    # --- Regression #5 env trigger: ENABLE_LLM_ENRICHMENT=true, key missing -
+    monkeypatch.setenv("ENABLE_LLM_ENRICHMENT", "true")
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+
+    # --- Run all relevant checks ---------------------------------------------
+    with patch.object(
+        sanity,
+        "_top_n_teams_by_snap_count",
+        return_value=(list(sanity._TOP_10_TEAMS_FALLBACK), None),
+    ), patch.object(
+        sanity, "_load_our_projections", return_value=top50_df
+    ), patch.object(
+        sanity.requests, "get", side_effect=combined_response
+    ):
+        # Live probe criticals (regressions #2, #3, #4, #5-news-content, #6 freshness)
+        live_crit, _ = sanity.run_live_site_check(
+            backend_url="https://x.railway.app",
+            frontend_url="https://x.vercel.app",
+            season=2026,
+        )
+        # Non-live criticals (regression #1 drift, regression #5 missing key)
+        drift_crit, _ = sanity._check_roster_drift_top50("half_ppr", 2026)
+        key_crit, _ = sanity._assert_api_key_when_enrichment_enabled()
+
+    all_criticals = live_crit + drift_crit + key_crit
+    crits_str = " || ".join(all_criticals)
+
+    # --- Assert each of the 6 regressions surfaces a distinct CRITICAL ------
+    assert "Kyler Murray" in crits_str and (
+        "FA" in crits_str or "ARI" in crits_str
+    ), f"Missing Kyler Murray roster drift CRITICAL (regression #1). Got: {crits_str}"
+    assert (
+        "/api/predictions" in crits_str and "422" in crits_str
+    ), f"Missing /api/predictions 422 CRITICAL (regression #2). Got: {crits_str}"
+    assert (
+        "/api/lineups" in crits_str and "422" in crits_str
+    ), f"Missing /api/lineups 422 CRITICAL (regression #3). Got: {crits_str}"
+    assert (
+        "/api/teams" in crits_str or "ROSTER PROBE" in crits_str
+    ) and "503" in crits_str, (
+        f"Missing /api/teams/*/roster 503 CRITICAL (regression #4). Got: {crits_str}"
+    )
+    assert (
+        "NEWS CONTENT EMPTY" in crits_str or "API KEY MISSING" in crits_str
+    ), f"Missing news extractor/API key CRITICAL (regression #5). Got: {crits_str}"
+    assert (
+        "EXTRACTOR STALE" in crits_str and "72" in crits_str
+    ), f"Missing stalled-extractor freshness CRITICAL (regression #6). Got: {crits_str}"
+
+    # --- Aggregate cardinality: at least 6 distinct CRITICALs ---------------
+    assert len(all_criticals) >= 6, (
+        f"Expected >= 6 distinct CRITICAL findings for 6 audit regressions; "
+        f"got {len(all_criticals)}:\n" + "\n".join(f"  - {c}" for c in all_criticals)
+    )
