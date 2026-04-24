@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
 status: executing
-stopped_at: Phase 71 Plan 03 complete — batched Claude primary extractor with prompt caching shipped; LLM-03 benchmark passing at 5.57x; CostLog Parquet sink ready; HAIKU_4_5_RATES exported. Ready for Plan 71-04 (pipeline wiring).
-last_updated: "2026-04-24T20:41:13.000Z"
-last_activity: 2026-04-24 -- Phase 71 Plan 03 shipped (29 more tests added, 119 sentiment tests green; LLM-03 ratio=5.57x)
+stopped_at: Phase 71 Plan 04 complete — SentimentPipeline claude_primary mode wired with EXTRACTOR_MODE env precedence, per-doc soft fallback to RuleExtractor on batch failure, non_player_pending + unresolved_names Silver sinks, LLMEnrichment short-circuit on is_claude_primary envelopes; 137 sentiment tests green (up from 119); LLM-01/02 requirements complete. Ready for Plan 71-05 (CLI + GHA + benchmark summary).
+last_updated: "2026-04-24T22:30:00.000Z"
+last_activity: 2026-04-24 -- Phase 71 Plan 04 shipped (18 new tests, 137 sentiment tests green; LLM-01 + LLM-02 closed)
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 5
-  completed_plans: 3
-  percent: 60
+  completed_plans: 4
+  percent: 80
 ---
 
 # Project State
@@ -26,14 +26,14 @@ See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness 
 ## Current Position
 
 Phase: 71 (llm-primary-extraction) — EXECUTING
-Plan: 4 of 5 (Plans 01, 02, 03 complete)
+Plan: 5 of 5 (Plans 01, 02, 03, 04 complete)
 Status: Executing Phase 71
-Last activity: 2026-04-24 -- Phase 71 Plan 03 shipped
+Last activity: 2026-04-24 -- Phase 71 Plan 04 shipped
 
 **Execution order (proposed):** 71 → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
-Progress: 3/5 plans in Phase 71 (60%)
-[████████████░░░░░░░░] 60%
+Progress: 4/5 plans in Phase 71 (80%)
+[████████████████░░░░] 80%
 
 ## Milestone Goal
 
@@ -91,10 +91,17 @@ Carried forward from v7.0 (shipped 2026-04-24):
 - [71-03]: `_build_batched_prompt_for_sha` factored to module scope so tests + future fixture-recording scripts can compute `prompt_sha` without instantiating the extractor
 - [71-03]: W17/W18 fixtures enriched to 78 signals per batch (4-6 per doc) to achieve LLM-03 5× gate against the noisy 28-signal RuleExtractor baseline on offseason content (ratio=5.57x)
 - [71-03]: Real fixture `prompt_sha` values populated overwriting `_PENDING_WAVE_2_SHA_w17`/`_w18` placeholders (W17: `f59fdd9b...`, W18: `1c0e3e1a...`)
+- [71-04]: EXTRACTOR_MODE env precedence: explicit constructor arg wins; env only consulted when arg defaults to 'auto'; unknown env values fall through to 'auto' with INFO log (T-71-04-01 mitigation)
+- [71-04]: Per-doc soft fallback wraps the entire batch call in try/except; on raise, _rule_fallback (RuleExtractor) processes each doc individually, claude_failed_count += len(batch). Daily cron always completes (D-06 fail-open contract preserved)
+- [71-04]: _run_legacy_loop is byte-identical extraction of pre-71-04 per-doc loop; auto/rule/claude modes regression-locked
+- [71-04]: Silver envelope gains "is_claude_primary": true ONLY when set (key omitted otherwise); enrich_silver_records short-circuits via bool(data.get("is_claude_primary", False)) — pre-71-04 envelopes unaffected
+- [71-04]: Two new Silver sinks at data/silver/sentiment/non_player_pending/ and data/silver/sentiment/unresolved_names/ — partition layout mirrors signals/; envelope shape uses generic _write_envelope helper
+- [71-04]: _build_extractor converted from @staticmethod to instance method for access to self._claude_client + self._cost_log; back-compat sweep verified zero unbound call sites in src/ scripts/ tests/
+- [71-04]: When claude_primary requested but no client available, pipeline silently downgrades to RuleExtractor with WARNING log AND clears self._is_claude_primary so run loop takes legacy path
 
 ### Pending Todos
 
-Plan 71-03 (batched Claude primary extractor) shipped. Next: Plan 71-04 — pipeline wiring (extractor_mode="claude_primary" routing in SentimentPipeline, per-doc soft fallback to RuleExtractor on API errors, non-player items persistence to data/silver/sentiment/non_player_pending/, PipelineResult counter bumps).
+Plan 71-04 (pipeline wiring) shipped. Next: Plan 71-05 — CLI --extractor-mode/--mode arg on scripts/process_sentiment.py, GHA daily-sentiment.yml EXTRACTOR_MODE env knob (gated by ENABLE_LLM_ENRICHMENT==true), 71-BENCHMARK.md harvest, 71-SUMMARY.md cost summary using HAIKU_4_5_RATES.
 
 ### Blockers/Concerns
 
@@ -120,6 +127,6 @@ Plan 71-03 (batched Claude primary extractor) shipped. Next: Plan 71-04 — pipe
 ## Session Continuity
 
 Last session: 2026-04-24
-Stopped at: Phase 71 Plan 03 complete — batched Claude primary extractor with prompt caching, CostLog Parquet sink, deterministic SHA-keyed test replay, and LLM-03 5× benchmark (measured ratio=5.57x) shipped; 119 sentiment tests green. Ready for Plan 71-04 (pipeline wiring).
-Resume with: `/gsd:execute-phase 71 --plan 04` (or `/gsd:autonomous --from 71-04` for full autonomous run).
-Resume file: .planning/phases/71-llm-primary-extraction/71-04-pipeline-wiring-PLAN.md
+Stopped at: Phase 71 Plan 04 complete — SentimentPipeline claude_primary mode wired with EXTRACTOR_MODE env precedence, per-doc soft fallback, non_player_pending + unresolved_names Silver sinks, LLMEnrichment short-circuit; 137 sentiment tests green; LLM-01 + LLM-02 complete. Ready for Plan 71-05 (CLI + GHA + benchmark summary).
+Resume with: `/gsd:execute-phase 71 --plan 05` (or `/gsd:autonomous --from 71-05` for full autonomous run).
+Resume file: .planning/phases/71-llm-primary-extraction/71-05-cli-gha-and-benchmark-summary-PLAN.md

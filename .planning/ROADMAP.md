@@ -78,13 +78,13 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
   4. Deterministic tests via recorded Claude responses — no live API calls in CI
   5. `RuleExtractor` path preserved for dev + API-outage scenarios (`ENABLE_LLM_ENRICHMENT=false` is zero-cost)
 
-**Plans:** 3/5 plans executed
+**Plans:** 4/5 plans executed
 
 Plans:
 - [x] 71-01-schema-and-contracts-PLAN.md — PlayerSignal/PipelineResult schema extensions + ClaudeClient Protocol
 - [x] 71-02-fixtures-and-fake-client-PLAN.md — FakeClaudeClient + recorded W17/W18 offseason Bronze + Claude fixtures
 - [x] 71-03-batched-claude-extractor-PLAN.md — Batched primary extraction + prompt caching + CostLog Parquet sink + benchmark (LLM-03 ratio=5.57x)
-- [ ] 71-04-pipeline-wiring-PLAN.md — SentimentPipeline claude_primary branch + per-doc soft fallback + LLMEnrichment short-circuit
+- [x] 71-04-pipeline-wiring-PLAN.md — SentimentPipeline claude_primary branch + per-doc soft fallback + LLMEnrichment short-circuit (137 sentiment tests passing)
 - [ ] 71-05-cli-gha-and-benchmark-summary-PLAN.md — CLI --extractor-mode/--mode, GHA EXTRACTOR_MODE, 71-BENCHMARK.md, 71-SUMMARY.md
 
 ### Phase 72: Event Flag Expansion + Non-Player Attribution
@@ -164,7 +164,7 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 68. Sanity-Check v2 | v7.0 | 0/TBD | Not started | - |
 | 69. Sentiment Backfill | v7.0 | 0/TBD | Not started | - |
 | 70. Frontend Empty/Error States | v7.0 | 0/TBD | Not started | - |
-| 71. LLM-Primary Extraction | v7.1 | 3/5 | In Progress | - |
+| 71. LLM-Primary Extraction | v7.1 | 4/5 | In Progress | - |
 | 72. Event Flag Expansion | v7.1 | 0/TBD | Not started | - |
 | 73. External Projections Comparison | v7.1 | 0/TBD | Not started | - |
 | 74. Sleeper League Integration | v7.1 | 0/TBD | Not started | - |
