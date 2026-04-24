@@ -18,8 +18,19 @@ from __future__ import annotations
 import json
 import logging
 import os
+import uuid
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Protocol, runtime_checkable
+from datetime import datetime, timezone
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    List,
+    Optional,
+    Protocol,
+    Tuple,
+    runtime_checkable,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +56,42 @@ _EXTRACTOR_NAME_CLAUDE_LEGACY = "claude_legacy"
 # 5-10 docs per call; default 8). Plan 71-03 reads this constant when
 # chunking Bronze documents into Claude calls.
 BATCH_SIZE = 8
+
+# Larger completion budget for batched extraction (Plan 71-03). The
+# single-doc ``_MAX_TOKENS`` (1024) is insufficient for an 8-doc batch
+# that may emit a JSON array of up to ~16 signals.
+_MAX_TOKENS_BATCH = 4096
+
+# Cap on the per-doc body text included in a batched prompt. Longer docs
+# are truncated with an ellipsis marker so the prompt stays token-bounded.
+_BATCH_DOC_BODY_TRUNCATE = 2000
+
+# Cap on the number of active-roster names stitched into the cached
+# system block (Plan 71-03). Prevents an unbounded roster parquet from
+# blowing up the system prefix.
+_ROSTER_BLOCK_MAX_NAMES = 1000
+
+# System prefix for the claude_primary batched extractor. This block is
+# static across every call in a cache window so Anthropic prompt-caching
+# pays the creation cost once and reads the cached block thereafter.
+_SYSTEM_PREFIX = """You are an NFL news analyst for a fantasy football product.
+Extract structured signals from NFL articles about specific players.
+For each player mentioned, return JSON with: player_name (or null for non-player subjects),
+team_abbr (3-letter NFL team code, optional),
+sentiment (-1.0 to +1.0 for fantasy value),
+confidence (0.0 to 1.0),
+category (one of: injury, usage, trade, weather, motivation, legal, general),
+events (dict of boolean flags; see list below),
+summary (<= 200 chars, 1 sentence),
+source_excerpt (<= 500 chars verbatim from article).
+
+Event flag keys: is_ruled_out, is_inactive, is_questionable, is_suspended, is_returning,
+is_traded, is_released, is_signed, is_activated, is_usage_boost, is_usage_drop, is_weather_risk.
+
+Return a JSON array. For non-player subjects (coach/reporter/team news),
+set player_name to null but populate team_abbr.
+
+Respond with JSON only; no prose, no markdown fences."""
 
 # Valid sentiment categories Claude may return.
 _VALID_CATEGORIES = frozenset(
@@ -258,6 +305,93 @@ class ClaudeClient(Protocol):
 
 
 # ---------------------------------------------------------------------------
+# Batched-prompt helpers (module-level for deterministic SHA computation
+# and test accessibility without instantiating the extractor)
+# ---------------------------------------------------------------------------
+
+
+def _format_batch_user_message(batch_docs: List[Dict[str, Any]]) -> str:
+    """Build the per-batch user-message body sent to Claude.
+
+    Each doc is rendered with its ``external_id`` so Claude can echo it
+    back in the ``doc_id`` field of every response item. The pipeline
+    uses that echoed ``doc_id`` to map signals back to source docs.
+
+    Args:
+        batch_docs: List of Bronze doc dicts. Must include ``external_id``
+            (falls back to ``str(id(doc))``). ``title`` and ``body_text``
+            are optional.
+
+    Returns:
+        Multi-line user message string; caller wraps it in
+        ``{"role": "user", "content": ...}``.
+    """
+    parts: List[str] = ["Extract signals for the following articles."]
+    for i, doc in enumerate(batch_docs, start=1):
+        external_id = str(doc.get("external_id", id(doc)))
+        title = doc.get("title", "") or ""
+        body = doc.get("body_text", "") or ""
+        if len(body) > _BATCH_DOC_BODY_TRUNCATE:
+            body = body[:_BATCH_DOC_BODY_TRUNCATE] + "..."
+        parts.append(f"\n--- DOC {i} (external_id={external_id}) ---")
+        parts.append(f"TITLE: {title}")
+        parts.append(f"BODY: {body}")
+    parts.append(
+        "\nReturn a single JSON array where each item includes a "
+        "\"doc_id\" field matching the external_id from the header. "
+        "This lets us map signals back to source docs."
+    )
+    return "\n".join(parts)
+
+
+def _build_batched_prompt_for_sha(
+    static_prefix: str,
+    roster_block: str,
+    batch_docs: List[Dict[str, Any]],
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """Build the exact ``(system, messages)`` pair that will be sent to Claude.
+
+    This is factored out so tests (and the fixture-recording script) can
+    compute the ``prompt_sha`` key without going through the full
+    ``extract_batch_primary`` code path. The structure MUST stay byte-stable
+    with what ``ClaudeExtractor._call_claude_batch`` sends or fixture SHAs
+    will no longer match.
+
+    Args:
+        static_prefix: The cacheable system-prefix text (usually
+            ``_SYSTEM_PREFIX``).
+        roster_block: Joined active-player names (may be empty string).
+        batch_docs: List of Bronze doc dicts for this batch.
+
+    Returns:
+        A tuple ``(system, messages)`` in the same shape the
+        ``anthropic.Anthropic.messages.create`` API consumes. When
+        ``roster_block`` is empty, the ``system`` list is a single entry
+        (no second cached block).
+    """
+    system: List[Dict[str, Any]] = [
+        {
+            "type": "text",
+            "text": static_prefix,
+            "cache_control": {"type": "ephemeral"},
+        }
+    ]
+    if roster_block:
+        system.append(
+            {
+                "type": "text",
+                "text": f"ACTIVE PLAYERS:\n{roster_block}",
+                "cache_control": {"type": "ephemeral"},
+            }
+        )
+
+    messages = [
+        {"role": "user", "content": _format_batch_user_message(batch_docs)}
+    ]
+    return system, messages
+
+
+# ---------------------------------------------------------------------------
 # Extractor
 # ---------------------------------------------------------------------------
 
@@ -304,15 +438,52 @@ class ClaudeExtractor:
         'Patrick Mahomes'
     """
 
-    def __init__(self, model: str = _CLAUDE_MODEL) -> None:
-        """Initialise the extractor and attempt to connect to Claude API.
+    def __init__(
+        self,
+        model: str = _CLAUDE_MODEL,
+        client: Optional[ClaudeClient] = None,
+        roster_provider: Optional[Callable[[], List[str]]] = None,
+        cost_log: Optional[Any] = None,
+        batch_size: int = BATCH_SIZE,
+    ) -> None:
+        """Initialise the extractor with optional DI seams (Plan 71-03).
 
         Args:
-            model: Claude model ID to use for extraction.  Defaults to
+            model: Claude model ID to use for extraction. Defaults to
                 ``claude-haiku-4-5``.
+            client: Optional ``ClaudeClient``-Protocol-compatible object
+                (the real ``anthropic.Anthropic`` instance, or a test
+                double). When ``None``, the legacy ``_build_client`` path
+                is used so existing ``extractor_mode="claude"`` calls
+                keep working.
+            roster_provider: Zero-arg callable returning the active-roster
+                player names for the current week. Plan 71-03 caches the
+                returned list in the system prefix of every batched
+                Claude call via ``cache_control: {"type": "ephemeral"}``.
+                When ``None`` or the returned list is empty, the cached
+                roster block is dropped and a one-time warning is logged.
+                **Determinism contract (Plan 71-02):** tests/benchmarks
+                that exercise SHA-keyed fixture replay MUST pass
+                ``roster_provider=lambda: []`` so the SHA computation
+                depends only on the static prefix + per-doc body.
+            cost_log: Optional ``src.sentiment.processing.cost_log.CostLog``
+                instance (or any object exposing ``.write_record(CostRecord)``).
+                When provided, one ``CostRecord`` is written per
+                ``messages.create`` call. When ``None``, no cost
+                accounting is performed (backward-compatible default).
+            batch_size: Override for the per-call batch size. Defaults
+                to the module-level ``BATCH_SIZE`` constant.
         """
         self.model = model
-        self._client = self._build_client()
+        self.batch_size = batch_size
+        self.roster_provider = roster_provider
+        self.cost_log = cost_log
+        # Used to emit the empty-roster warning at most once per instance.
+        self._empty_roster_warned = False
+        # Constructor DI wins over env-var client building.
+        self._client: Optional[Any] = (
+            client if client is not None else self._build_client()
+        )
 
     # ------------------------------------------------------------------
     # Private helpers
@@ -472,6 +643,269 @@ class ClaudeExtractor:
         )
 
     # ------------------------------------------------------------------
+    # Batched primary-path helpers (Plan 71-03)
+    # ------------------------------------------------------------------
+
+    def _system_prefix_for_test(self) -> str:
+        """Return the cached static system prefix.
+
+        Exists as a public-ish accessor so tests can compute the same
+        ``prompt_sha`` the production ``extract_batch_primary`` path will
+        produce, without copying the literal into the test file.
+        """
+        return _SYSTEM_PREFIX
+
+    def _build_batched_prompt(self, batch_docs: List[Dict[str, Any]]) -> str:
+        """Build the per-batch user-message body for a Claude call.
+
+        Thin wrapper around the module-level ``_format_batch_user_message``
+        so subclasses can override the formatter without touching the
+        SHA-deterministic builder.
+
+        Args:
+            batch_docs: List of Bronze doc dicts for this batch.
+
+        Returns:
+            Multi-line user-message string.
+        """
+        return _format_batch_user_message(batch_docs)
+
+    def _get_roster_block(self) -> str:
+        """Resolve the active-roster block for the cached system prefix.
+
+        Calls ``self.roster_provider()`` (if set), joins the returned
+        player names with ", ", and caps at ``_ROSTER_BLOCK_MAX_NAMES``
+        entries. Any exception inside the provider is logged as a warning
+        and an empty string is returned (fail-open).
+
+        Returns:
+            Comma-joined roster string, or the empty string when no
+            provider is configured or it fails.
+        """
+        if self.roster_provider is None:
+            return ""
+        try:
+            names = list(self.roster_provider())
+        except Exception as exc:  # noqa: BLE001 — fail-open
+            logger.warning(
+                "ClaudeExtractor: roster_provider raised %s; proceeding "
+                "without cached roster block.",
+                exc,
+            )
+            return ""
+        if not names:
+            return ""
+        return ", ".join(names[:_ROSTER_BLOCK_MAX_NAMES])
+
+    def _call_claude_batch(
+        self, batch_docs: List[Dict[str, Any]]
+    ) -> Tuple[str, Any]:
+        """Send a single batched prompt to Claude and return text + usage.
+
+        Constructs the ``system`` list with ``cache_control`` markers on
+        the static prefix and (if non-empty) the active-roster block, then
+        calls ``self._client.messages.create(...)``.
+
+        Args:
+            batch_docs: List of Bronze doc dicts for this batch.
+
+        Returns:
+            Tuple of ``(response_text, usage_object)`` where
+            ``usage_object`` exposes ``.input_tokens``, ``.output_tokens``,
+            ``.cache_read_input_tokens``, ``.cache_creation_input_tokens``.
+            Older SDK versions that don't expose the cache fields are
+            handled gracefully — missing attrs default to 0 in the caller.
+
+        Raises:
+            Exception: any error from the underlying SDK call propagates
+                up so ``extract_batch_primary`` can re-raise to the
+                pipeline (Plan 71-04) for per-doc soft fallback.
+        """
+        roster_block = self._get_roster_block()
+        if not roster_block and not self._empty_roster_warned:
+            logger.warning(
+                "ClaudeExtractor.extract_batch_primary: roster_provider "
+                "produced no names; proceeding with single cached system "
+                "entry only."
+            )
+            self._empty_roster_warned = True
+
+        system, messages = _build_batched_prompt_for_sha(
+            static_prefix=_SYSTEM_PREFIX,
+            roster_block=roster_block,
+            batch_docs=batch_docs,
+        )
+        response = self._client.messages.create(
+            model=self.model,
+            max_tokens=_MAX_TOKENS_BATCH,
+            system=system,
+            messages=messages,
+        )
+        return response.content[0].text, response.usage
+
+    def _item_to_claude_signal(
+        self, item: Dict[str, Any], excerpt: str
+    ) -> Optional[PlayerSignal]:
+        """Convert a Claude JSON item to a ``claude_primary`` PlayerSignal.
+
+        Re-uses the legacy ``_item_to_signal`` pipeline for sentiment
+        clamping, confidence clamping, category validation, and event-flag
+        coercion, then overrides four Plan 71-01 fields:
+
+        * ``extractor="claude_primary"`` (overrides the ``"rule"`` default)
+        * ``summary`` truncated to 200 chars
+        * ``source_excerpt`` truncated to 500 chars
+        * ``team_abbr`` from the Claude item (may be ``None``)
+
+        Args:
+            item: One decoded JSON object from Claude's response array.
+            excerpt: The batch-level raw text for traceability.
+
+        Returns:
+            A ``PlayerSignal`` with ``extractor="claude_primary"`` when
+            the item carries a non-empty player name, else ``None``.
+        """
+        sig = self._item_to_signal(item, excerpt)
+        if sig is None:
+            return None
+        summary = (item.get("summary") or "")[:200]
+        source_excerpt = (item.get("source_excerpt") or "")[:500]
+        team_abbr = item.get("team_abbr")
+        if isinstance(team_abbr, str):
+            team_abbr = team_abbr.strip() or None
+        sig.summary = summary
+        sig.source_excerpt = source_excerpt
+        sig.team_abbr = team_abbr
+        sig.extractor = _EXTRACTOR_NAME_CLAUDE_PRIMARY
+        return sig
+
+    def _parse_batch_response(
+        self,
+        raw: str,
+        batch_docs: List[Dict[str, Any]],
+    ) -> Tuple[Dict[str, List[PlayerSignal]], List[Dict[str, Any]]]:
+        """Parse Claude's JSON array response into per-doc signals.
+
+        Signals with a non-null ``player_name`` are bucketed by
+        ``doc_id`` (matched against the batch's ``external_id`` values).
+        Items with ``player_name: null`` (or empty) are captured
+        separately so Plan 72 (EVT-02) can route them to non-player
+        storage.
+
+        Parse errors are swallowed — a ``JSONDecodeError`` or unexpected
+        array shape returns ``({}, [])`` and logs a warning. API errors
+        (from ``_call_claude_batch``) are the only failure mode that
+        propagates up; the pipeline in Plan 71-04 catches those and
+        falls back to RuleExtractor per doc.
+
+        Args:
+            raw: Raw string response text from Claude.
+            batch_docs: The same list passed to ``_call_claude_batch``;
+                used to look up ``external_id`` ↔ doc mapping.
+
+        Returns:
+            Tuple ``(by_doc_id, non_player_items)`` where
+            ``by_doc_id`` maps ``external_id`` → list of PlayerSignal
+            (only docs with at least one matched signal appear) and
+            ``non_player_items`` is a list of dicts with
+            ``{external_id, doc_id, team_abbr, summary, sentiment,
+              confidence, category, source_excerpt}``.
+        """
+        # Strip markdown code fences (same logic as _parse_response).
+        text = raw.strip()
+        if text.startswith("```"):
+            lines = text.splitlines()
+            inner = lines[1:-1] if lines[-1].strip() == "```" else lines[1:]
+            text = "\n".join(inner).strip()
+
+        try:
+            data = json.loads(text)
+        except json.JSONDecodeError as exc:
+            logger.warning(
+                "ClaudeExtractor.extract_batch_primary: JSON parse error "
+                "— %s. Raw: %.200s",
+                exc,
+                raw,
+            )
+            return {}, []
+
+        if not isinstance(data, list):
+            logger.warning(
+                "ClaudeExtractor.extract_batch_primary: expected JSON array, "
+                "got %s",
+                type(data).__name__,
+            )
+            return {}, []
+
+        by_doc_id: Dict[str, List[PlayerSignal]] = {}
+        non_player_items: List[Dict[str, Any]] = []
+
+        # Build a fast external_id ↔ doc lookup for doc_id matching.
+        docs_by_id = {
+            str(doc.get("external_id", "")): doc for doc in batch_docs
+        }
+        # Joined batch excerpt for signals when per-doc source is absent.
+        batch_excerpt = "\n\n".join(
+            f"{d.get('title','')} {d.get('body_text','')}" for d in batch_docs
+        )
+
+        for item in data:
+            if not isinstance(item, dict):
+                logger.debug(
+                    "ClaudeExtractor.extract_batch_primary: skipping "
+                    "non-dict item: %r",
+                    item,
+                )
+                continue
+
+            doc_id = str(item.get("doc_id", "")).strip()
+            # Determine the per-doc excerpt when we have a matched doc.
+            source_doc = docs_by_id.get(doc_id)
+            excerpt = (
+                f"{source_doc.get('title','')} {source_doc.get('body_text','')}"
+                if source_doc
+                else batch_excerpt
+            )
+
+            player_name = item.get("player_name")
+            if player_name is None or (
+                isinstance(player_name, str) and not player_name.strip()
+            ):
+                # Non-player item — capture separately for Plan 72 routing.
+                non_player_items.append(
+                    {
+                        "doc_id": doc_id,
+                        "external_id": doc_id,
+                        "team_abbr": item.get("team_abbr"),
+                        "summary": (item.get("summary") or "")[:200],
+                        "sentiment": item.get("sentiment"),
+                        "confidence": item.get("confidence"),
+                        "category": item.get("category"),
+                        "source_excerpt": (
+                            item.get("source_excerpt") or ""
+                        )[:500],
+                    }
+                )
+                continue
+
+            if not doc_id or doc_id not in docs_by_id:
+                # Claude echoed a doc_id we never sent — drop with a debug log.
+                logger.debug(
+                    "ClaudeExtractor.extract_batch_primary: unmatched "
+                    "doc_id=%r for player_name=%r",
+                    doc_id,
+                    player_name,
+                )
+                continue
+
+            sig = self._item_to_claude_signal(item, excerpt)
+            if sig is None:
+                continue
+            by_doc_id.setdefault(doc_id, []).append(sig)
+
+        return by_doc_id, non_player_items
+
+    # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
 
@@ -551,3 +985,123 @@ class ClaudeExtractor:
             doc_id = str(doc.get("external_id", id(doc)))
             results[doc_id] = self.extract(doc)
         return results
+
+    # ------------------------------------------------------------------
+    # Plan 71-03: batched primary extraction
+    # ------------------------------------------------------------------
+
+    def extract_batch_primary(
+        self,
+        docs: List[Dict[str, Any]],
+        season: int,
+        week: int,
+    ) -> Tuple[Dict[str, List[PlayerSignal]], List[Dict[str, Any]]]:
+        """Primary-path batched extraction producing claude_primary signals.
+
+        Slices ``docs`` into batches of ``self.batch_size`` (defaults to
+        ``BATCH_SIZE=8``) and sends each batch as a single ``messages.create``
+        call with Anthropic prompt caching on the static system prefix and
+        the active-roster block. Each call's usage counters are (optionally)
+        logged via ``self.cost_log``.
+
+        Per-batch behaviour:
+
+        * **Parse errors** (malformed JSON in the Claude response) are
+          swallowed — the batch produces zero signals and a warning is
+          logged. Extraction continues with the next batch.
+        * **API errors** (anything ``messages.create`` raises) propagate up
+          so the pipeline (Plan 71-04) can catch them and substitute
+          ``RuleExtractor`` per doc (D-06 per-doc soft fallback).
+
+        Args:
+            docs: List of Bronze document dicts. Each should carry
+                ``external_id``; ``title`` and ``body_text`` are
+                concatenated into the batched prompt.
+            season: NFL season year (used for the cost-log partition).
+            week: NFL week number 1-22 (used for the cost-log partition).
+
+        Returns:
+            Tuple ``(by_doc_id, non_player_items)``:
+
+            * ``by_doc_id``: Dict mapping ``external_id`` → list of
+              ``PlayerSignal`` objects with ``extractor="claude_primary"``.
+              Only docs with at least one matched Claude item appear.
+            * ``non_player_items``: List of dicts for items where
+              ``player_name`` was ``None`` / empty (coach moves, front
+              office news, etc.). Each dict carries
+              ``{doc_id, external_id, team_abbr, summary, sentiment,
+                confidence, category, source_excerpt}``.
+
+        Raises:
+            Exception: whatever the underlying ``messages.create`` call
+                raises. Pipeline code is responsible for catching and
+                performing per-doc fallback to ``RuleExtractor``.
+        """
+        if self._client is None:
+            logger.warning(
+                "ClaudeExtractor.extract_batch_primary: no client available "
+                "(ANTHROPIC_API_KEY unset and no DI-injected client). "
+                "Returning empty result."
+            )
+            return {}, []
+
+        # Lazy-import the cost_log helpers to avoid a circular import at
+        # module load time (cost_log is a sibling module).
+        from src.sentiment.processing.cost_log import (
+            CostRecord,
+            compute_cost_usd,
+            new_call_id,
+        )
+
+        by_doc_id: Dict[str, List[PlayerSignal]] = {}
+        non_player_items: List[Dict[str, Any]] = []
+
+        n = len(docs)
+        step = max(1, int(self.batch_size))
+        for start in range(0, n, step):
+            batch = docs[start : start + step]
+            raw, usage = self._call_claude_batch(batch)
+
+            batch_by_doc, batch_non_player = self._parse_batch_response(
+                raw, batch
+            )
+            for doc_id, sigs in batch_by_doc.items():
+                by_doc_id.setdefault(doc_id, []).extend(sigs)
+            non_player_items.extend(batch_non_player)
+
+            if self.cost_log is not None:
+                input_tokens = int(getattr(usage, "input_tokens", 0) or 0)
+                output_tokens = int(getattr(usage, "output_tokens", 0) or 0)
+                cache_read = int(
+                    getattr(usage, "cache_read_input_tokens", 0) or 0
+                )
+                cache_creation = int(
+                    getattr(usage, "cache_creation_input_tokens", 0) or 0
+                )
+                record = CostRecord(
+                    call_id=new_call_id(),
+                    doc_count=len(batch),
+                    input_tokens=input_tokens,
+                    output_tokens=output_tokens,
+                    cache_read_input_tokens=cache_read,
+                    cache_creation_input_tokens=cache_creation,
+                    cost_usd=compute_cost_usd(
+                        input_tokens,
+                        output_tokens,
+                        cache_read,
+                        cache_creation,
+                    ),
+                    ts=datetime.now(timezone.utc).isoformat(),
+                    season=int(season),
+                    week=int(week),
+                )
+                try:
+                    self.cost_log.write_record(record)
+                except Exception as exc:  # noqa: BLE001 — never crash cron
+                    logger.warning(
+                        "ClaudeExtractor.extract_batch_primary: cost_log "
+                        "write_record failed (%s); continuing.",
+                        exc,
+                    )
+
+        return by_doc_id, non_player_items
