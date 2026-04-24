@@ -33,6 +33,19 @@ _CLAUDE_MODEL = "claude-haiku-4-5"
 # Maximum tokens for the extraction response.
 _MAX_TOKENS = 1024
 
+# Extractor identity strings (single source of truth — reuse everywhere).
+# These strings flow through ``PlayerSignal.extractor`` into the Silver
+# record ``extractor`` top-level key. Plans 71-02..05 depend on these
+# exact values being stable.
+_EXTRACTOR_NAME_RULE = "rule"
+_EXTRACTOR_NAME_CLAUDE_PRIMARY = "claude_primary"
+_EXTRACTOR_NAME_CLAUDE_LEGACY = "claude_legacy"
+
+# Default batch size for claude_primary extraction (Decision D-01:
+# 5-10 docs per call; default 8). Plan 71-03 reads this constant when
+# chunking Bronze documents into Claude calls.
+BATCH_SIZE = 8
+
 # Valid sentiment categories Claude may return.
 _VALID_CATEGORIES = frozenset(
     {"injury", "usage", "trade", "weather", "motivation", "legal", "general"}
@@ -131,6 +144,18 @@ class PlayerSignal:
     Weather events (Plan 61-02):
         is_weather_risk: Game is at risk due to blizzard, high winds,
             freezing rain, or game-in-doubt conditions.
+
+    Claude-primary extensions (Plan 71-01, optional — safe defaults):
+        summary: One-sentence Claude-generated summary (<= 200 chars).
+            Empty string for rule-based signals.
+        source_excerpt: Raw snippet Claude cited as evidence
+            (<= 500 chars). Empty string when absent.
+        team_abbr: Canonical NFL team abbreviation. Non-player items
+            (``player_name=null`` from Claude) carry a team here; player
+            items may optionally populate it as enrichment.
+        extractor: Producer identity. One of
+            {``rule``, ``claude_primary``, ``claude_legacy``}.
+            Defaults to ``"rule"`` for back-compat with prior runs.
     """
 
     player_name: str
@@ -154,13 +179,22 @@ class PlayerSignal:
     # Weather events (Plan 61-02)
     is_weather_risk: bool = False
     raw_excerpt: str = ""
+    # Claude-primary extensions (Plan 71-01) — optional, additive only.
+    # Defaults preserve existing RuleExtractor behaviour so the
+    # rule-based path keeps producing identical Silver records.
+    summary: str = ""
+    source_excerpt: str = ""
+    team_abbr: Optional[str] = None
+    extractor: str = "rule"
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialise this signal to a plain dict for JSON storage.
 
         Returns:
             Dict representation with a nested ``events`` sub-dict
-            containing all 12 structured event flags.
+            containing all 12 structured event flags, plus the
+            Plan 71-01 top-level extensions (``summary``,
+            ``source_excerpt``, ``team_abbr``, ``extractor``).
         """
         return {
             "player_name": self.player_name,
@@ -186,6 +220,11 @@ class PlayerSignal:
                 "is_weather_risk": self.is_weather_risk,
             },
             "raw_excerpt": self.raw_excerpt,
+            # Plan 71-01 additive top-level keys
+            "summary": self.summary,
+            "source_excerpt": self.source_excerpt,
+            "team_abbr": self.team_abbr,
+            "extractor": self.extractor,
         }
 
 
