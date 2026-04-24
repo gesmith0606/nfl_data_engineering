@@ -95,6 +95,14 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ENABLE_LLM_ENRICHMENT: ${{ vars.ENABLE_LLM_ENRICHMENT || 'false' }}
+          # Phase 71 LLM-02: route the SentimentPipeline to the batched
+          # claude_primary extractor whenever LLM enrichment is enabled.
+          # When the gate is off (default), EXTRACTOR_MODE collapses to an
+          # empty string — the pipeline then falls through to its own
+          # 'auto' default (rule-based, zero-cost). Per-doc soft fallback
+          # to RuleExtractor still kicks in if Claude calls error mid-run,
+          # so this env var alone never hard-fails the daily cron.
+          EXTRACTOR_MODE: ${{ (vars.ENABLE_LLM_ENRICHMENT == 'true') && 'claude_primary' || '' }}
         run: |
           python scripts/daily_sentiment_pipeline.py \
             ${{ inputs.season && format('--season {0}', inputs.season) || '' }} \
@@ -111,9 +119,13 @@ jobs:
         if: always()
         env:
           ENABLE_LLM_ENRICHMENT: ${{ vars.ENABLE_LLM_ENRICHMENT || 'false' }}
+          # Mirror the run-step gate so the health annotation reports the
+          # actual mode that was active. Empty string ⇒ 'auto (rule-primary)'.
+          EXTRACTOR_MODE: ${{ (vars.ENABLE_LLM_ENRICHMENT == 'true') && 'claude_primary' || '' }}
         run: |
           echo "::notice::Daily sentiment pipeline completed. Rule-first path is authoritative (D-06)."
           echo "::notice::LLM enrichment: ${ENABLE_LLM_ENRICHMENT:-false}"
+          echo "::notice::Extractor mode: ${EXTRACTOR_MODE:-auto (rule-primary)}"
 
       # ----------------------------------------------------------------
       # 5. Refresh rosters from Sleeper (catches trades, FA signings,
