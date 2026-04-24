@@ -10,8 +10,8 @@
 
 Replace the rule-primary / LLM-enrichment architecture from Phase 61 with LLM-primary extraction that produces signals from offseason content (drafts, trades, coaching changes) — not just in-season injury/trade keyword patterns.
 
-- [ ] **LLM-01**: `ClaudeExtractor` class exists in `src/sentiment/processing/extractor.py` as a peer to `RuleExtractor`, producing structured `{player_name, event_type, sentiment_score, summary, event_flags}` signals from raw Bronze docs (not enrichment of pre-existing rule signals)
-- [ ] **LLM-02**: Pipeline orchestrator routes to Claude-primary when `ENABLE_LLM_ENRICHMENT=true`; falls back to `RuleExtractor` when false (zero-cost operation preserved for dev + when API is unreachable)
+- [x] **LLM-01**: `ClaudeExtractor` class exists in `src/sentiment/processing/extractor.py` as a peer to `RuleExtractor`, producing structured `{player_name, event_type, sentiment_score, summary, event_flags}` signals from raw Bronze docs (not enrichment of pre-existing rule signals) — Plan 71-03 ClaudeExtractor.extract_batch_primary shipped + Plan 71-04 wired into SentimentPipeline via extractor_mode='claude_primary'
+- [x] **LLM-02**: Pipeline orchestrator routes to Claude-primary when `ENABLE_LLM_ENRICHMENT=true`; falls back to `RuleExtractor` when false (zero-cost operation preserved for dev + when API is unreachable) — Plan 71-04 SentimentPipeline._build_extractor with EXTRACTOR_MODE env precedence + per-doc soft fallback to RuleExtractor on batch API failure (D-06 fail-open)
 - [x] **LLM-03**: Claude extraction produces ≥ 5× more signals than rule-based on identical Bronze batch for offseason content (W17/W18 2025 as benchmark). Measured delta committed to a summary doc. — Plan 71-03 ratio=5.57x; gate test in tests/sentiment/test_extractor_benchmark.py
 - [x] **LLM-04**: Cost management: batch 5-10 docs per Claude call via prompt caching for the player list; target < $5/week at daily-cron cadence (80 docs/day average); tracked via a cost-log file or Anthropic console screenshot in SUMMARY.md — Plan 71-03 CostLog Parquet sink + HAIKU_4_5_RATES + per-call CostRecord shipped (BATCH_SIZE=8 + cache_control=ephemeral on system prefix + ACTIVE PLAYERS roster block)
 - [x] **LLM-05**: Existing rule-extraction test coverage preserved; new Claude-extraction tests use recorded fixtures (VCR-style), not live API calls — deterministic CI — Plan 71-02 FakeClaudeClient + Plan 71-03 ClaudeExtractor DI seam consumed by all 14 batched extractor tests + 1 benchmark test; zero live API calls in CI
@@ -64,7 +64,7 @@ Clear the 8 items rolled forward from v7.0 audit.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LLM-01..05  | 71    | LLM-03 ✓ / LLM-04 ✓ / LLM-05 ✓ ; LLM-01, LLM-02 Pending (Plan 71-04) |
+| LLM-01..05  | 71    | LLM-01 ✓ / LLM-02 ✓ / LLM-03 ✓ / LLM-04 ✓ / LLM-05 ✓ — all shipped (Plans 71-01..04) |
 | EVT-01..05  | 72    | Pending |
 | EXTP-01..05 | 73    | Pending |
 | SLEEP-01..04 | 74   | Pending |
