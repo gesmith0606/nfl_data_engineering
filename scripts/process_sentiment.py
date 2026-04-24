@@ -17,10 +17,26 @@ Usage
   # Skip Claude extraction; aggregate existing Silver signals only
   python scripts/process_sentiment.py --season 2026 --week 1 --skip-extraction
 
+  # Force the Claude-primary (batched, prompt-cached) extractor.  Either
+  # ``--extractor-mode`` or its short alias ``--mode`` works; passing both
+  # is an argparse mutex error.
+  python scripts/process_sentiment.py --season 2026 --week 1 --extractor-mode claude_primary
+
+  # Force the deterministic rule-based extractor (no Claude calls, no key needed)
+  python scripts/process_sentiment.py --season 2026 --week 1 --mode rule
+
+Mode precedence
+---------------
+  CLI arg (--extractor-mode / --mode) > EXTRACTOR_MODE env var > "auto" default
+
+When neither CLI flag nor env var is set the pipeline defaults to "auto"
+which currently selects the rule-based path (Phase 61 D-02).
+
 Exit codes
 ----------
   0  Success
   1  Unexpected error
+  2  argparse error (invalid choice / mutex violation)
 """
 
 from __future__ import annotations
@@ -55,6 +71,18 @@ logger = logging.getLogger("process_sentiment")
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
+# Valid extractor-mode strings — kept in lockstep with
+# ``src.sentiment.processing.pipeline._VALID_MODES`` (Plan 71-04).
+# Listed here as a literal so the CLI can validate before importing the
+# pipeline (faster --help, no transitive heavy imports for arg-parse-only
+# error paths).
+_VALID_EXTRACTOR_MODES = ["auto", "rule", "claude", "claude_primary"]
+
+# Modes that REQUIRE an Anthropic API key for the Claude path to actually
+# run.  Used by ``main()`` to gate the missing-key WARNING so the rule
+# path stays quiet.
+_MODES_REQUIRING_API_KEY = {"claude", "claude_primary"}
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -105,6 +133,35 @@ def _build_parser() -> argparse.ArgumentParser:
         default=False,
         help="Enable DEBUG-level logging",
     )
+
+    # ------------------------------------------------------------------
+    # Extractor mode (Plan 71-05)
+    # ------------------------------------------------------------------
+    # Mutually exclusive group: ``--extractor-mode`` is the canonical name,
+    # ``--mode`` is a short alias (matches existing CLI conventions). Both
+    # write to the same ``args.extractor_mode`` attribute via ``dest=``.
+    # Default ``None`` (NOT "auto") so ``main()`` can detect "no override
+    # supplied" and skip passing the kwarg to ``SentimentPipeline`` —
+    # this preserves the EXTRACTOR_MODE env precedence Plan 71-04 built.
+    mode_group = parser.add_mutually_exclusive_group()
+    mode_group.add_argument(
+        "--extractor-mode",
+        dest="extractor_mode",
+        choices=_VALID_EXTRACTOR_MODES,
+        default=None,
+        help=(
+            "Override extractor mode. claude_primary uses batched Claude "
+            "with rule fallback; rule forces deterministic; auto (default) "
+            "honors EXTRACTOR_MODE env var. CLI arg wins over env."
+        ),
+    )
+    mode_group.add_argument(
+        "--mode",
+        dest="extractor_mode",
+        choices=_VALID_EXTRACTOR_MODES,
+        default=None,
+        help="Short alias for --extractor-mode.",
+    )
     return parser
 
 
@@ -148,13 +205,16 @@ def main() -> int:
     week: int = args.week
     dry_run: bool = args.dry_run
     skip_extraction: bool = args.skip_extraction
+    extractor_mode: str | None = args.extractor_mode
 
     logger.info(
-        "process_sentiment: season=%d week=%d dry_run=%s skip_extraction=%s",
+        "process_sentiment: season=%d week=%d dry_run=%s skip_extraction=%s "
+        "extractor_mode=%s",
         season,
         week,
         dry_run,
         skip_extraction,
+        extractor_mode if extractor_mode is not None else "<unset, env/default>",
     )
 
     # ------------------------------------------------------------------
@@ -163,8 +223,25 @@ def main() -> int:
     if not skip_extraction:
         logger.info("--- Step 1: Claude Extraction (Bronze → Silver) ---")
         try:
-            pipeline = SentimentPipeline()
-            if not pipeline.extractor.is_available:
+            # Build pipeline kwargs lazily — only pass extractor_mode when
+            # the operator actually supplied a CLI override.  Omitting the
+            # kwarg keeps ``SentimentPipeline.__init__`` on its default
+            # ("auto"), which triggers the EXTRACTOR_MODE env precedence
+            # path Plan 71-04 built.
+            pipeline_kwargs: dict = {}
+            if extractor_mode is not None:
+                pipeline_kwargs["extractor_mode"] = extractor_mode
+                logger.info(
+                    "CLI arg --extractor-mode=%s wins over EXTRACTOR_MODE env",
+                    extractor_mode,
+                )
+            pipeline = SentimentPipeline(**pipeline_kwargs)
+
+            # Only nag about a missing API key when the operator explicitly
+            # asked for a Claude path.  rule / auto / unset operate fine
+            # without it (D-06 fail-open contract).
+            needs_key = (extractor_mode in _MODES_REQUIRING_API_KEY)
+            if needs_key and not pipeline.extractor.is_available:
                 logger.warning(
                     "ANTHROPIC_API_KEY is not set. Extraction will be skipped. "
                     "Set the environment variable and re-run, or use --skip-extraction "
