@@ -1,0 +1,111 @@
+{
+  "fetch_run_id": "ea429110-b2ec-46e3-9063-bb763edf8ff0",
+  "source": "rotowire",
+  "fetched_at": "2026-04-24T21:26:09.624178+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630283",
+      "url": "https://www.rotowire.com//football/player/jayden-reed-16977",
+      "permalink": "",
+      "title": "Jayden Reed: Three-year extension with Packers",
+      "body_text": "Reed has agreed to a three-year contract extension with the Packers, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T02:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Reed",
+        "Packers Reed",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl630282",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "permalink": "",
+      "title": "A.J. Brown: Eagles add first-round WR",
+      "body_text": "The Eagles' selection of WR Makai Lemon with the No. 20 overall pick in the 2026 NFL Draft provides further indication that the team is preparing to move on from Brown, Tim McManus of ESPN and Zach Berman of The Athletic report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T10:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Eagles",
+        "Makai Lemon",
+        "Zach Berman",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl630281",
+      "url": "https://www.rotowire.com//football/player/geno-smith-8743",
+      "permalink": "",
+      "title": "Geno Smith: Jets add talent to passing game",
+      "body_text": "Smith gained two key targets Thursday, as the Jets drafted tight end Kenyon Sadiq 16th overall and wide receiver Omar Cooper 30th overall, Mitch Sherman and Zack Rosenblatt of The Athletic report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T08:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith",
+        "Kenyon Sadiq",
+        "Omar Cooper",
+        "Mitch Sherman",
+        "Zack Rosenblatt",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl630275",
+      "url": "https://www.rotowire.com//football/player/garrett-wilson-15829",
+      "permalink": "",
+      "title": "Garrett Wilson: Jets draft TE, WR in Round 1",
+      "body_text": "Wilson (knee) could see increased competition for targets but also less attention from defenses after the Jets drafted tight end Kenyon Sadiq and wide receiver Omar Cooper, respectively, with the 16th and 30th picks Thursday, Mitch Sherman and Zack Rosenblatt of The Athletic report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T08:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Garrett Wilson",
+        "Kenyon Sadiq",
+        "Omar Cooper",
+        "Mitch Sherman",
+        "Zack Rosenblatt",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl630269",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Selected by Seattle",
+      "body_text": "The Seahawks selected Price in the first round of the 2026 NFL Draft, 32nd overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T08:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Seattle The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    }
+  ]
+}

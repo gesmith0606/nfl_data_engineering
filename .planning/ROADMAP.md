@@ -78,7 +78,7 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
   4. Deterministic tests via recorded Claude responses — no live API calls in CI
   5. `RuleExtractor` path preserved for dev + API-outage scenarios (`ENABLE_LLM_ENRICHMENT=false` is zero-cost)
 
-**Plans:** 5/5 plans executed (Phase 71 COMPLETE)
+**Plans:** 6/5 plans complete
 
 Plans:
 - [x] 71-01-schema-and-contracts-PLAN.md — PlayerSignal/PipelineResult schema extensions + ClaudeClient Protocol
@@ -164,7 +164,7 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 68. Sanity-Check v2 | v7.0 | 0/TBD | Not started | - |
 | 69. Sentiment Backfill | v7.0 | 0/TBD | Not started | - |
 | 70. Frontend Empty/Error States | v7.0 | 0/TBD | Not started | - |
-| 71. LLM-Primary Extraction | v7.1 | 5/5 | Complete | 2026-04-24 |
+| 71. LLM-Primary Extraction | v7.1 | 6/5 | Complete    | 2026-04-24 |
 | 72. Event Flag Expansion | v7.1 | 0/TBD | Not started | - |
 | 73. External Projections Comparison | v7.1 | 0/TBD | Not started | - |
 | 74. Sleeper League Integration | v7.1 | 0/TBD | Not started | - |

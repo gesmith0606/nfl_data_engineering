@@ -1,0 +1,550 @@
+{
+  "fetch_run_id": "854a538a-6541-4da8-81f1-d8cbff5a455f",
+  "source": "pft",
+  "fetched_at": "2026-04-24T21:24:24.891553+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-believe-theres-a-real-chance-matthew-stafford-plays-beyond-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-believe-theres-a-real-chance-matthew-stafford-plays-beyond-2026",
+      "permalink": "",
+      "title": "Rams believe there's a \"real chance\" Matthew Stafford plays beyond 2026",
+      "body_text": "Whether it's a Kirk Cousins/Michael Penix Jr. situation or an Aaron Rodgers/Jordan Love situation, the Rams have a situation regarding their current and future quarterbacks.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T21:09:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford",
+        "Kirk Cousins",
+        "Michael Penix Jr",
+        "Aaron Rodgers",
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-licht-on-rueben-bains-fatal-collision-it-was-a-very-tragic-accident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-licht-on-rueben-bains-fatal-collision-it-was-a-very-tragic-accident",
+      "permalink": "",
+      "title": "Jason Licht on Rueben Bain's fatal car wreck: It was a very tragic accident",
+      "body_text": "Earlier this month, a report surfaced about Rueben Bain's involvement in a fatal vehicular collision in March 2024.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-24T20:20:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jason Licht",
+        "Rueben Bain"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordyn-tyson-chris-olave-and-i-will-take-pressure-off-each-other-its-gonna-get-ugly",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordyn-tyson-chris-olave-and-i-will-take-pressure-off-each-other-its-gonna-get-ugly",
+      "permalink": "",
+      "title": "Jordyn Tyson: Chris Olave and I will take pressure off each other, \"It's gonna get ugly\"",
+      "body_text": "Saints first-round wide receiver Jordyn Tyson says it's going to get ugly for opposing defenses trying to cover both he and Chris Olave.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T20:13:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordyn Tyson",
+        "Chris Olave"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/les-snead-puka-nacua-is-doing-really-really-well-its-cool-to-see",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/les-snead-puka-nacua-is-doing-really-really-well-its-cool-to-see",
+      "permalink": "",
+      "title": "Les Snead: Puka Nacua is doing really, really well, it's cool to see",
+      "body_text": "It’s been a tumultuous offseason for Rams receiver Puka Nacua.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T19:35:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Les Snead",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-bailey-initially-thought-jets-wouldnt-pick-him-when-they-canceled-pre-draft-visit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-bailey-initially-thought-jets-wouldnt-pick-him-when-they-canceled-pre-draft-visit",
+      "permalink": "",
+      "title": "David Bailey initially thought Jets wouldn't pick him when they canceled pre-draft visit",
+      "body_text": "Fernando Mendoza was locked in as the Raiders' choice as the first overall pick for quite a while and that left the Jets' choice at No. 2 as the first major question mark of the draft.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T20:11:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Bailey",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-were-given-the-wrong-phone-number-for-jeremiyah-love",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-were-given-the-wrong-phone-number-for-jeremiyah-love",
+      "permalink": "",
+      "title": "Cardinals were given the wrong phone number for Jeremiyah Love",
+      "body_text": "The Cardinals knew who they wanted to draft.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-24T19:32:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-first-rounder-spencer-fano-happy-he-wont-have-to-play-myles-garrett",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-first-rounder-spencer-fano-happy-he-wont-have-to-play-myles-garrett",
+      "permalink": "",
+      "title": "Browns first-rounder Spencer Fano happy he won't have to play against Myles Garrett",
+      "body_text": "Spencer Fano was excited to hear his name called as the ninth overall pick in the draft on Thursday night and the offensive tackle was also excited when he realized what being tabbed by the Browns would mean for him on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T19:25:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Spencer Fano",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-downs-ready-to-do-it-all-for-the-cowboys-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-downs-ready-to-do-it-all-for-the-cowboys-defense",
+      "permalink": "",
+      "title": "Caleb Downs ready to \"do it all\" for the Cowboys defense",
+      "body_text": "The Cowboys went into the draft thinking their chances of landing Ohio State safety Caleb Downs were \"a longshot.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-04-24T18:53:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Downs",
+        "The Cowboys",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pablo-torre-focuses-on-the-mike-vrabel-dianna-russini-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pablo-torre-focuses-on-the-mike-vrabel-dianna-russini-situation",
+      "permalink": "",
+      "title": "Pablo Torre focuses on the Mike Vrabel-Dianna Russini situation",
+      "body_text": "There's a new rule of thumb in sports media.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T18:44:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Pablo Torre",
+        "Mike Vrabel",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-david-bailey-are-early-rookie-of-the-year-favorites",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-david-bailey-are-early-rookie-of-the-year-favorites",
+      "permalink": "",
+      "title": "Jeremiyah Love, David Bailey are early rookie of the year favorites",
+      "body_text": "Jeremiyah Love was not the first offensive player taken in the 2026 NFL Draft, but the running back is in front of Fernando Mendoza on another front.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T18:04:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "David Bailey",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-will-hold-2026-championship-game-in-d-c",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-will-hold-2026-championship-game-in-d-c",
+      "permalink": "",
+      "title": "UFL will hold 2026 championship game in D.C.",
+      "body_text": "The UFL selects the location of its championship game during each season.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T17:15:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dt-kayden-mcdonald-will-be-back-in-attendance-at-the-draft-on-friday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dt-kayden-mcdonald-will-be-back-in-attendance-at-the-draft-on-friday-night",
+      "permalink": "",
+      "title": "DT Kayden McDonald wasn't picked on Thursday, but will be back at the draft on Friday",
+      "body_text": "One of the risks for prospects attending the first round of the draft is the chance that the night could end without any team calling your name.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T16:01:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Friday One"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/les-snead-on-sean-mcvay-were-in-lockstep-work-together-on-these-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/les-snead-on-sean-mcvay-were-in-lockstep-work-together-on-these-decision",
+      "permalink": "",
+      "title": "Les Snead on Sean McVay: We're in lockstep, work together on these decisions",
+      "body_text": "The Rams G.M. said on Friday that he and McVay are collaborative and want to do what's best for the team after selecting QB Ty Simpson on Thursday night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T16:43:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Les Snead",
+        "The Rams",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-first-pick-of-the-second-round-is-a-coveted-spot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-first-pick-of-the-second-round-is-a-coveted-spot",
+      "permalink": "",
+      "title": "49ers GM John Lynch: First pick of the second round puts us in a coveted spot",
+      "body_text": "The 49ers are set to kick off the second night of the draft if they don't trade down again.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T15:46:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Lynch"
+      ],
+      "resolved_player_ids": [
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-borgonzi-carnell-tate-is-going-to-be-great-for-cam-ward",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-borgonzi-carnell-tate-is-going-to-be-great-for-cam-ward",
+      "permalink": "",
+      "title": "Mike Borgonzi: Carnell Tate is going to be great for Cam Ward",
+      "body_text": "The Titans picked up a pair of players on Thursday night, selecting receiver Carnell Tate out of Ohio State at No. 4 overall before trading back into the first round to select defensive end Kendrick Faulk out of Auburn at No. 31.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T15:43:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Borgonzi",
+        "Carnell Tate",
+        "Cam Ward",
+        "The Titans",
+        "Ohio State",
+        "Kendrick Faulk"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pittsburgh-sets-record-with-320-000-present-for-first-night-of-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pittsburgh-sets-record-with-320-000-present-for-first-night-of-draft",
+      "permalink": "",
+      "title": "Pittsburgh sets record with 320,000 present for first night of draft",
+      "body_text": "The NFL draft as a traveling reality show keeps getting bigger and bigger.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T15:05:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-didnt-seem-to-be-enthused-about-the-selection-of-ty-simpson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-didnt-seem-to-be-enthused-about-the-selection-of-ty-simpson",
+      "permalink": "",
+      "title": "Sean McVay didn't seem to be enthused about the selection of Ty Simpson",
+      "body_text": "McVay's body language becomes a talking point after Thursday night.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T14:41:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-three-first-round-picks-this-year-jets-have-three-more-first-round-picks-next-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-three-first-round-picks-this-year-jets-have-three-more-first-round-picks-next-year",
+      "permalink": "",
+      "title": "After three first-round picks this year, Jets have three more first-round picks next year",
+      "body_text": "If the Jets ever turn things around, they may look back on the 2026 and 2027 NFL drafts as the time when they stockpiled talent to become a winner.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T14:27:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eight-teams-traded-out-of-the-first-round-jets-had-three-firsts-and-six-teams-had-two",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eight-teams-traded-out-of-the-first-round-jets-had-three-firsts-and-six-teams-had-two",
+      "permalink": "",
+      "title": "Eight teams traded out of the first round, Jets had three firsts, and six teams had two",
+      "body_text": "Half of the picks in the first round of the 2026 NFL draft changed hands before the selection was made.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T09:36:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-huge-to-bring-in-three-players-with-winning-backgrounds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-huge-to-bring-in-three-players-with-winning-backgrounds",
+      "permalink": "",
+      "title": "Aaron Glenn: Huge to bring in three players with winning backgrounds",
+      "body_text": "The Jets added players at three different positions during the first round of the draft on Thursday night and there was one common thread between their three choices.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T11:09:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colton-hood-kayden-mcdonald-were-at-the-draft-but-not-picked-in-round-one",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colton-hood-kayden-mcdonald-were-at-the-draft-but-not-picked-in-round-one",
+      "permalink": "",
+      "title": "Colton Hood, Kayden McDonald were at the draft but not picked in round one",
+      "body_text": "Seventeen players attended the first night of the 2026 NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T04:29:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Colton Hood"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-we-knew-mansoor-delane-was-our-guy-weeks-ago",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-we-knew-mansoor-delane-was-our-guy-weeks-ago",
+      "permalink": "",
+      "title": "Brett Veach: We knew Mansoor Delane was our guy weeks ago",
+      "body_text": "The Chiefs surprised some when they traded up to draft cornerback Mansoor Delane at No. 6 overall on Thursday night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T04:56:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brett Veach",
+        "Mansoor Delane",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-i-have-the-opportunity-to-set-a-new-standard-for-running-backs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-i-have-the-opportunity-to-set-a-new-standard-for-running-backs",
+      "permalink": "",
+      "title": "Jeremiyah Love: I have the opportunity to set a new standard for running backs",
+      "body_text": "Is the running back en vogue again?",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T04:02:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-eight-minute-limit-to-pick-results-in-first-round-finishing-in-less-than-three-hours",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-eight-minute-limit-to-pick-results-in-first-round-finishing-in-less-than-three-hours",
+      "permalink": "",
+      "title": "New eight-minute limit to pick results in first round finishing in less than three hours",
+      "body_text": "The first round of the 2026 NFL draft moved fast.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T14:10:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-zero-intention-of-trading-george-pickens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-zero-intention-of-trading-george-pickens",
+      "permalink": "",
+      "title": "Stephen Jones: \"Zero intention\" of trading George Pickens",
+      "body_text": "Before the draft got underway on Thursday night, there were multiple reports that Cowboys wide receiver George Pickens will sign his franchise tag and the team confirmed it when they met with the media after the first round.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T10:50:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stephen Jones",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037551"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-patriots-will-miss-mike-vrabels-leadership-and-presence-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-patriots-will-miss-mike-vrabels-leadership-and-presence-on-saturday",
+      "permalink": "",
+      "title": "Eliot Wolf: Patriots will miss Mike Vrabel's \"leadership\" and \"presence\" on Saturday",
+      "body_text": "Wolf specifically refers to the absence of Vrabel as a \"tremendous recruiter\" of UDFAs.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T04:55:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eliot Wolf",
+        "Mike Vrabel",
+        "Saturday Wolf"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-i-believe-im-still-the-underdog-im-on-the-bottom-of-the-totem-pole",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-i-believe-im-still-the-underdog-im-on-the-bottom-of-the-totem-pole",
+      "permalink": "",
+      "title": "Fernando Mendoza: I believe I'm still the underdog, I'm on the bottom of the totem pole",
+      "body_text": "After being selected at No. 1 overall, Mendoza said he's feels like the Raiders are a perfect fit.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T03:33:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-thought-they-were-getting-makai-lemon-didnt-realize-eagles-had-cut-the-line",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-thought-they-were-getting-makai-lemon-didnt-realize-eagles-had-cut-the-line",
+      "permalink": "",
+      "title": "Steelers thought they were getting Makai Lemon, didn't realize Eagles had cut the line",
+      "body_text": "As the Steelers moved quickly with the truncated window to make their first pick in the 2026 draft, they didn't know the guy they wanted was already gone.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T02:55:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/howie-roseman-continues-to-say-a-j-brown-is-a-member-of-the-eagles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/howie-roseman-continues-to-say-a-j-brown-is-a-member-of-the-eagles",
+      "permalink": "",
+      "title": "Howie Roseman continues to say \"A.J. Brown is a member of the Eagles\"",
+      "body_text": "Before last night, it was obvious that receiver A.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T13:18:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-really-surprised-no-one-made-a-trade-offer-for-mac-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-really-surprised-no-one-made-a-trade-offer-for-mac-jones",
+      "permalink": "",
+      "title": "Kyle Shanahan \"really surprised\" no one made a trade offer for Mac Jones",
+      "body_text": "The 49ers made a pair of trades to move out of the first round on Thursday night and the lack of other trade talk came up during the team's press conference at the end of the night.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T13:05:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Mac Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    }
+  ]
+}
