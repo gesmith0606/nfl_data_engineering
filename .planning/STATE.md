@@ -2,18 +2,16 @@
 gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
-status: requirements_defined
-started_at: "2026-04-24"
-last_updated: "2026-04-24T00:00:00Z"
-last_activity: 2026-04-24
+status: executing
+stopped_at: Phase 71 Plan 01 complete — schema contracts locked (PlayerSignal +4 optional fields, PipelineResult +6 optional fields, Silver record extractor/summary keys, ClaudeClient Protocol); ready for Plan 71-02 (fixtures + FakeClaudeClient).
+last_updated: "2026-04-24T19:56:00.000Z"
+last_activity: 2026-04-24 -- Phase 71 Plan 01 shipped (15 tests added, 75 sentiment tests green)
 progress:
-  total_phases: 5
+  total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
-previous_milestone: v7.0
-next_phase: 71
+  total_plans: 5
+  completed_plans: 1
+  percent: 20
 ---
 
 # Project State
@@ -23,23 +21,24 @@ next_phase: 71
 See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
 
 **Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** v7.1 Draft Season Readiness — LLM-primary extraction, external projections comparison, Sleeper league integration, v7.0 tech debt cleanup.
+**Current focus:** Phase 71 — llm-primary-extraction
 
 ## Current Position
 
-Phase: 71 — LLM-Primary Extraction (next; ready for plan-phase)
-Plan: —
-Status: v7.0 archived (`v7.0` tag on origin). v7.1 requirements + roadmap committed. Ready to `/gsd:plan-phase 71` or `/gsd:autonomous --from 71` to kick off execution.
-Last activity: 2026-04-24 — v7.1 milestone structure created
+Phase: 71 (llm-primary-extraction) — EXECUTING
+Plan: 2 of 5 (Plan 01 complete)
+Status: Executing Phase 71
+Last activity: 2026-04-24 -- Phase 71 Plan 01 shipped
 
 **Execution order (proposed):** 71 → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
-Progress: 0/5 phases (0%)
-[░░░░░░░░░░░░░░░░░░░░] 0%
+Progress: 1/5 plans in Phase 71 (20%)
+[████░░░░░░░░░░░░░░░░] 20%
 
 ## Milestone Goal
 
 Deliver draft-season-critical features before fantasy draft season opens:
+
 - LLM-primary sentiment extraction (so offseason news produces real signals)
 - External projections comparison (ESPN/Sleeper/Yahoo side-by-side)
 - Sleeper league integration (personalized rosters + advisor)
@@ -77,10 +76,13 @@ Carried forward from v7.0 (shipped 2026-04-24):
 - [v7.1]: Keep RuleExtractor as fallback path for zero-cost dev + API outages (do not delete it)
 - [v7.1]: Phase 72 event flag expansion depends on Phase 71 (Claude is the producer of new flags)
 - [v7.1]: Phases 73 (external projections) + 74 (Sleeper league) + 75 (tech debt) run in parallel after 71-72
+- [71-01]: ClaudeClient Protocol uses attribute-based shape (`messages: Any`), not a method, to match real `anthropic.Anthropic` SDK (`.messages.create(...)` chain)
+- [71-01]: All schema extensions are additive with safe defaults — zero rename/remove, preserving every existing call site
+- [71-01]: Extractor identity strings live as module-level constants (`_EXTRACTOR_NAME_*`) for single source of truth across Plans 71-02..05
 
 ### Pending Todos
 
-None yet. Ready to invoke `/gsd:plan-phase 71` to break Phase 71 into plans.
+Plan 71-01 (schema + contracts) shipped. Next: Plan 71-02 — fixtures + FakeClaudeClient (consumes `ClaudeClient` Protocol and `BATCH_SIZE` from Plan 71-01).
 
 ### Blockers/Concerns
 
@@ -106,6 +108,6 @@ None yet. Ready to invoke `/gsd:plan-phase 71` to break Phase 71 into plans.
 ## Session Continuity
 
 Last session: 2026-04-24
-Stopped at: v7.1 milestone structure committed; 27 requirements mapped across 5 phases; ready for Phase 71 plan.
-Resume with: `/gsd:plan-phase 71` (or `/gsd:autonomous --from 71` for full autonomous run).
-Resume file: None
+Stopped at: Phase 71 Plan 01 complete — schema contracts locked (PlayerSignal +4 optional fields, PipelineResult +6 optional fields, Silver record extractor/summary keys, ClaudeClient Protocol); ready for Plan 71-02 (fixtures + FakeClaudeClient).
+Resume with: `/gsd:execute-phase 71 --plan 02` (or `/gsd:autonomous --from 71-02` for full autonomous run).
+Resume file: .planning/phases/71-llm-primary-extraction/71-02-fixtures-and-fake-client-PLAN.md
