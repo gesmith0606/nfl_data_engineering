@@ -78,11 +78,11 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
   4. Deterministic tests via recorded Claude responses — no live API calls in CI
   5. `RuleExtractor` path preserved for dev + API-outage scenarios (`ENABLE_LLM_ENRICHMENT=false` is zero-cost)
 
-**Plans:** 1/5 plans executed
+**Plans:** 2/5 plans executed
 
 Plans:
 - [x] 71-01-schema-and-contracts-PLAN.md — PlayerSignal/PipelineResult schema extensions + ClaudeClient Protocol
-- [ ] 71-02-fixtures-and-fake-client-PLAN.md — FakeClaudeClient + recorded W17/W18 offseason Bronze + Claude fixtures
+- [x] 71-02-fixtures-and-fake-client-PLAN.md — FakeClaudeClient + recorded W17/W18 offseason Bronze + Claude fixtures
 - [ ] 71-03-batched-claude-extractor-PLAN.md — Batched primary extraction + prompt caching + CostLog Parquet sink + benchmark
 - [ ] 71-04-pipeline-wiring-PLAN.md — SentimentPipeline claude_primary branch + per-doc soft fallback + LLMEnrichment short-circuit
 - [ ] 71-05-cli-gha-and-benchmark-summary-PLAN.md — CLI --extractor-mode/--mode, GHA EXTRACTOR_MODE, 71-BENCHMARK.md, 71-SUMMARY.md
