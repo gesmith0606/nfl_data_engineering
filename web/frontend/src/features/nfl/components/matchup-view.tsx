@@ -29,6 +29,9 @@ import {
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
+import { EmptyState } from '@/components/EmptyState';
+import { formatRelativeTime } from '@/lib/format-relative-time';
+import { ApiError } from '@/lib/nfl/api';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { getTeamFullName, TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -1013,7 +1016,16 @@ function MatchupSkeleton() {
 
 export function MatchupView() {
   // --- Step 1: resolve the current NFL week from the API on mount ---
-  const { data: currentWeek } = useQuery(currentWeekQueryOptions());
+  // Phase 70-01: capture the error so a 503 ("no games this week" during the
+  // offseason) can render a friendly empty state instead of silently leaving
+  // the page blank. 503 is an expected offseason signal, NOT an error —
+  // the empty state is styled as informational, not destructive.
+  const { data: currentWeek, error: currentWeekError } = useQuery(
+    currentWeekQueryOptions()
+  );
+
+  const isOffseason503 =
+    currentWeekError instanceof ApiError && currentWeekError.status === 503;
 
   const [season, setSeason] = useState<number | null>(null);
   const [week, setWeek] = useState<number | null>(null);
@@ -1099,6 +1111,11 @@ export function MatchupView() {
     defenseMetricsData?.fallback_season ??
     null;
 
+  // Freshness timestamp — pull from whichever payload carries generated_at
+  // first; silent when nothing is available (plan 70-01: no "Unknown" label).
+  const dataAsOf: string | null =
+    predData?.generated_at ?? projData?.generated_at ?? null;
+
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
       {/* Controls — mobile: 3-column grid of equal selects so all fit at 375px;
@@ -1143,7 +1160,30 @@ export function MatchupView() {
             <SelectItem value='standard'>Standard</SelectItem>
           </SelectContent>
         </Select>
+
+        {/* Freshness chip (phase 70-01). Silent when no generated_at. */}
+        {dataAsOf ? (
+          <Badge
+            variant='outline'
+            className='ml-auto h-[var(--tap-min)] items-center text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground sm:h-9'
+          >
+            Updated {formatRelativeTime(dataAsOf)}
+          </Badge>
+        ) : null}
       </div>
+
+      {/* Offseason empty state (phase 70-01). When /api/teams/current-week
+       *  returns 503 it signals the offseason — surface the expected state
+       *  as a friendly card (NOT styled as an error) and keep the team
+       *  picker below so users can still explore preseason previews. */}
+      {isOffseason503 && (
+        <EmptyState
+          icon={Icons.calendar}
+          title='No games this week'
+          description="The season hasn't started yet — pick a team below to browse the preseason preview."
+          dataAsOf={dataAsOf}
+        />
+      )}
 
       {/* Fallback banner */}
       {anyFallback && (
@@ -1169,17 +1209,12 @@ export function MatchupView() {
       {selectedTeam && (
         <DataLoadReveal loading={isLoading} skeleton={<MatchupSkeleton />}>
           {!matchup ? (
-            <Card>
-              <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-                <Icons.info className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
-                <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                  No matchup found for {getTeamFullName(selectedTeam)} in Week {resolvedWeek}.
-                </p>
-                <p className='text-muted-foreground mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  This team may be on bye or prediction data is not available for this week.
-                </p>
-              </CardContent>
-            </Card>
+            <EmptyState
+              icon={Icons.calendar}
+              title='No matchup found'
+              description={`${getTeamFullName(selectedTeam)} may be on bye in Week ${resolvedWeek}, or prediction data is not yet available for this slate.`}
+              dataAsOf={dataAsOf}
+            />
           ) : !opponent ? null : (
             <div className='space-y-[var(--gap-section)]'>
               {/* Game header bar */}

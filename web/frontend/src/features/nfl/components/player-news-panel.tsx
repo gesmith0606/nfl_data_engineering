@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
+import { EmptyState } from '@/components/EmptyState';
 import { DataLoadReveal, Stagger } from '@/lib/motion-primitives';
 
 interface PlayerNewsPanelProps {
@@ -109,8 +110,20 @@ function EventBadges({ item }: { item: NewsItem }) {
 // ---------------------------------------------------------------------------
 
 function NewsItemRow({ item }: { item: NewsItem }) {
-  const sentimentColor = getSentimentColor(item.sentiment);
-  const sentimentLabel = getSentimentLabel(item.sentiment);
+  // Phase 70-01 (FE-04): only render the sentiment label when BOTH the
+  // numeric sentiment AND the LLM summary are present. Suppresses dangling
+  // "neutral" chips that show up over articles with no sentiment signal.
+  const hasValidSentiment =
+    typeof item.sentiment === 'number' &&
+    !Number.isNaN(item.sentiment) &&
+    typeof item.summary === 'string' &&
+    item.summary.trim().length > 0;
+  const sentimentColor = hasValidSentiment
+    ? getSentimentColor(item.sentiment)
+    : '';
+  const sentimentLabel = hasValidSentiment
+    ? getSentimentLabel(item.sentiment)
+    : '';
 
   return (
     <div className='flex flex-col gap-[var(--space-1)] py-[var(--space-3)] border-b last:border-b-0'>
@@ -131,11 +144,14 @@ function NewsItemRow({ item }: { item: NewsItem }) {
             </p>
           )}
         </div>
-        <span
-          className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium shrink-0 ${sentimentColor}`}
-        >
-          {sentimentLabel}
-        </span>
+        {hasValidSentiment && (
+          <span
+            className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium shrink-0 ${sentimentColor}`}
+            title={item.summary ?? undefined}
+          >
+            {sentimentLabel}
+          </span>
+        )}
       </div>
 
       {item.body_snippet && (
@@ -208,6 +224,11 @@ export function PlayerNewsPanel({ playerId, season, week }: PlayerNewsPanelProps
     ? relativeTime(new Date(dataUpdatedAt).toISOString())
     : null;
 
+  // Phase 70-01: ISO variant for the shared EmptyState card's freshness chip.
+  const dataAsOf: string | null = dataUpdatedAt
+    ? new Date(dataUpdatedAt).toISOString()
+    : null;
+
   return (
     <Card>
       <CardHeader>
@@ -226,22 +247,19 @@ export function PlayerNewsPanel({ playerId, season, week }: PlayerNewsPanelProps
       <CardContent>
         <DataLoadReveal loading={isLoading} skeleton={<NewsSkeleton />}>
           {isError ? (
-            <div className='flex flex-col items-center justify-center py-[var(--space-8)] text-center'>
-              <Icons.alertCircle className='h-[var(--space-6)] w-[var(--space-6)] text-muted-foreground mb-[var(--space-2)]' />
-              <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
-                Could not load news. Ensure the API is running.
-              </p>
-            </div>
+            <EmptyState
+              icon={Icons.alertCircle}
+              title='Unable to load news'
+              description='The news service is unavailable right now. Please try again in a moment.'
+              dataAsOf={dataAsOf}
+            />
           ) : !items || items.length === 0 ? (
-            <div className='flex flex-col items-center justify-center py-[var(--space-8)] text-center'>
-              <Icons.alertCircle className='h-[var(--space-6)] w-[var(--space-6)] text-muted-foreground mb-[var(--space-2)]' />
-              <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
-                No recent news for this player.
-              </p>
-              <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground mt-[var(--space-1)]'>
-                News appears here after the sentiment pipeline runs.
-              </p>
-            </div>
+            <EmptyState
+              icon={Icons.news}
+              title='No news yet this week'
+              description='News articles are still being aggregated. Check back in a few hours.'
+              dataAsOf={dataAsOf}
+            />
           ) : (
             <Stagger>
               {items.map((item, idx) => (

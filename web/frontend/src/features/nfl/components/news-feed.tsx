@@ -23,6 +23,8 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Icons } from '@/components/icons';
+import { EmptyState } from '@/components/EmptyState';
+import { formatRelativeTime } from '@/lib/format-relative-time';
 import { EventBadges } from './EventBadges';
 import {
   DataLoadReveal,
@@ -585,8 +587,22 @@ function TeamSentimentGrid({
 // ---------------------------------------------------------------------------
 
 function NewsCard({ item }: { item: NewsItem }) {
-  const sentimentClass = getSentimentBadgeClass(item.sentiment);
-  const sentimentLabel = getSentimentLabel(item.sentiment);
+  // Phase 70-01 (FE-04): suppress the sentiment chip when the article lacks
+  // the underlying signal that makes the chip meaningful. Requires BOTH a
+  // numeric `sentiment` AND a non-empty `summary` (the LLM-extracted 1-line
+  // rationale). Without the summary the number is a "dangling" figure over
+  // empty article bodies — the exact bug the 2026-04-20 audit flagged.
+  const hasValidSentiment =
+    typeof item.sentiment === 'number' &&
+    !Number.isNaN(item.sentiment) &&
+    typeof item.summary === 'string' &&
+    item.summary.trim().length > 0;
+  const sentimentClass = hasValidSentiment
+    ? getSentimentBadgeClass(item.sentiment)
+    : '';
+  const sentimentLabel = hasValidSentiment
+    ? getSentimentLabel(item.sentiment)
+    : '';
 
   return (
     <HoverLift>
@@ -611,11 +627,14 @@ function NewsCard({ item }: { item: NewsItem }) {
               )}
             </div>
             <div className='flex items-center gap-[var(--space-2)] ml-auto'>
-              <span
-                className={`inline-flex items-center px-[var(--space-2)] py-0.5 rounded-full text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium ${sentimentClass}`}
-              >
-                {sentimentLabel}
-              </span>
+              {hasValidSentiment && (
+                <span
+                  className={`inline-flex items-center px-[var(--space-2)] py-0.5 rounded-full text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium ${sentimentClass}`}
+                  title={item.summary ?? undefined}
+                >
+                  {sentimentLabel}
+                </span>
+              )}
               {item.published_at && (
                 <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground shrink-0'>
                   {relativeTime(item.published_at)}
@@ -759,7 +778,8 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
   const {
     data: allItems,
     isLoading: feedLoading,
-    isError: feedError
+    isError: feedError,
+    dataUpdatedAt: feedUpdatedAt
   } = useQuery(
     newsFeedQueryOptions(
       season,
@@ -770,6 +790,12 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
       0
     )
   );
+
+  // Phase 70-01: surface the TanStack cache timestamp as a freshness chip.
+  // Silent when the query hasn't resolved yet (feedUpdatedAt === 0).
+  const dataAsOf: string | null = feedUpdatedAt
+    ? new Date(feedUpdatedAt).toISOString()
+    : null;
 
   const { data: summary, isLoading: summaryLoading } = useQuery(
     sentimentSummaryQueryOptions(season, effectiveWeek)
@@ -899,28 +925,23 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
             }
           >
             {feedError ? (
-              <Card>
-                <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-                  <Icons.alertCircle className='h-[var(--space-8)] w-[var(--space-8)] text-muted-foreground mb-[var(--space-2)]' />
-                  <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
-                    Could not load news. Ensure the API is running.
-                  </p>
-                </CardContent>
-              </Card>
+              <EmptyState
+                icon={Icons.alertCircle}
+                title='Unable to load news'
+                description='The news service is unavailable right now. Please try again in a moment.'
+                dataAsOf={dataAsOf}
+              />
             ) : visibleItems.length === 0 ? (
-              <Card>
-                <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-                  <Icons.news className='h-[var(--space-8)] w-[var(--space-8)] text-muted-foreground mb-[var(--space-2)]' />
-                  <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
-                    No recent news
-                  </p>
-                  <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground mt-[var(--space-1)]'>
-                    {search
-                      ? 'Try a different search term or source filter.'
-                      : 'Check back during the NFL season after the sentiment pipeline runs.'}
-                  </p>
-                </CardContent>
-              </Card>
+              <EmptyState
+                icon={Icons.news}
+                title='No news yet this week'
+                description={
+                  search
+                    ? 'Try a different search term or source filter.'
+                    : 'News articles are still being aggregated. Check back in a few hours.'
+                }
+                dataAsOf={dataAsOf}
+              />
             ) : (
               <div className='space-y-[var(--gap-stack)]'>
                 <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
