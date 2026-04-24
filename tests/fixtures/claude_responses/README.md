@@ -110,11 +110,13 @@ Plan 71-03 will ship a helper script (working name
    into `tests/fixtures/claude_responses/<name>.json`, overwriting the
    `_PENDING_WAVE_2_SHA` placeholders the Plan 71-02 seed fixtures carry.
 
-Until that script lands, the seed fixtures use `_PENDING_WAVE_2_SHA` as a
-literal key so `FakeClaudeClient.from_fixture_dir` loads them cleanly
-while any real-prompt call still raises a strict-mode `AssertionError`
-(the tests in `test_fake_claude_client.py::PlaceholderShaWorkflowTests`
-lock this two-phase workflow in place).
+Until that script lands, the seed fixtures use `_PENDING_WAVE_2_SHA_<tag>`
+literals (e.g. `_PENDING_WAVE_2_SHA_w17`, `_PENDING_WAVE_2_SHA_w18`) as
+keys so `FakeClaudeClient.from_fixture_dir` loads them cleanly without
+collision while any real-prompt call still raises a strict-mode
+`AssertionError`. The tests in
+`test_fake_claude_client.py::PlaceholderShaWorkflowTests` lock this
+two-phase workflow in place.
 
 ## CI Prohibition on Live Calls (LLM-05)
 

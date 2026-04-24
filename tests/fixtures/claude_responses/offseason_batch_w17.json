@@ -1,6 +1,6 @@
 {
   "_comment": "Recorded Claude Haiku 4.5 response for 2025 W17 offseason batch. First-week call — cold cache (cache_creation_input_tokens > 0, cache_read_input_tokens = 0). The prompt_sha will be populated once Plan 71-03 implements _build_batched_prompt() and re-records against roster_provider=lambda: []. The _PENDING_WAVE_2_SHA placeholder locks the two-phase workflow described in tests/fixtures/claude_responses/README.md.",
-  "prompt_sha": "_PENDING_WAVE_2_SHA",
+  "prompt_sha": "_PENDING_WAVE_2_SHA_w17",
   "model": "claude-haiku-4-5",
   "input_tokens": 1420,
   "output_tokens": 612,
