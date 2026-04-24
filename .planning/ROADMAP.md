@@ -78,6 +78,15 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
   4. Deterministic tests via recorded Claude responses — no live API calls in CI
   5. `RuleExtractor` path preserved for dev + API-outage scenarios (`ENABLE_LLM_ENRICHMENT=false` is zero-cost)
 
+**Plans:** 5 plans (3 waves)
+
+Plans:
+- [ ] 71-01-schema-and-contracts-PLAN.md — PlayerSignal/PipelineResult schema extensions + ClaudeClient Protocol
+- [ ] 71-02-fixtures-and-fake-client-PLAN.md — FakeClaudeClient + recorded W17/W18 offseason Bronze + Claude fixtures
+- [ ] 71-03-batched-claude-extractor-PLAN.md — Batched primary extraction + prompt caching + CostLog Parquet sink + benchmark
+- [ ] 71-04-pipeline-wiring-PLAN.md — SentimentPipeline claude_primary branch + per-doc soft fallback + LLMEnrichment short-circuit
+- [ ] 71-05-cli-gha-and-benchmark-summary-PLAN.md — CLI --extractor-mode/--mode, GHA EXTRACTOR_MODE, 71-BENCHMARK.md, 71-SUMMARY.md
+
 ### Phase 72: Event Flag Expansion + Non-Player Attribution
 **Goal**: Extend `event_flags` beyond injury/trade/usage to cover the draft-season domain (rookie buzz, trade rumors, coaching changes, cap cuts). Decide how to attribute non-player subjects (coaches/reporters/teams) that Phase 69 surfaced as `player_id: null` rejects.
 **Depends on**: Phase 71 (Claude extractor is the producer of these new flags)
