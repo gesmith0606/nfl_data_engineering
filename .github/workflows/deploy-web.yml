@@ -212,3 +212,86 @@ jobs:
             --scoring half_ppr \
             --season 2026
         # Exit code != 0 fails the job, fails the workflow, triggers rollback.
+
+  # ------------------------------------------------------------------
+  # Auto-rollback (Plan 68-03 SANITY-09):
+  # Triggers ONLY when live-gate-blocking fails AND the failing commit
+  # is within 5 minutes of workflow start. Reverts HEAD with
+  # `git revert --no-edit` and pushes to main. Railway auto-redeploys
+  # the previous green commit on push. Revert commit message is:
+  #   `revert: auto-rollback after sanity-check failure on <sha>`
+  # so git log --oneline makes rollbacks auditable.
+  #
+  # NEVER force-push. NEVER bypass branch protection. The bot token
+  # has contents:write only (configured at workflow root).
+  # ------------------------------------------------------------------
+  auto-rollback:
+    name: Auto-Rollback on Live Gate Failure
+    runs-on: ubuntu-latest
+    needs: live-gate-blocking
+    if: always() && needs.live-gate-blocking.result == 'failure'
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+          # Use GITHUB_TOKEN (contents:write at workflow root)
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download deploy metadata
+        uses: actions/download-artifact@v4
+        with:
+          name: deploy-metadata
+
+      - name: Verify 5-minute rollback window
+        id: window_check
+        run: |
+          source deploy_metadata.env
+          NOW=$(date -u +%s)
+          ELAPSED=$(( NOW - DEPLOY_TIMESTAMP ))
+          echo "DEPLOY_SHA=$DEPLOY_SHA"
+          echo "Elapsed since deploy: ${ELAPSED}s"
+          if [ "$ELAPSED" -gt 300 ]; then
+            echo "ROLLBACK_SKIPPED=true" >> $GITHUB_OUTPUT
+            echo "::warning::Rollback skipped — ${ELAPSED}s since deploy exceeds 5-minute window. Manual review required."
+            exit 0
+          fi
+          echo "ROLLBACK_SKIPPED=false" >> $GITHUB_OUTPUT
+          echo "deploy_sha=$DEPLOY_SHA" >> $GITHUB_OUTPUT
+
+      - name: Configure git bot identity
+        if: steps.window_check.outputs.ROLLBACK_SKIPPED != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Revert failing deploy commit
+        if: steps.window_check.outputs.ROLLBACK_SKIPPED != 'true'
+        run: |
+          SHA="${{ steps.window_check.outputs.deploy_sha }}"
+          # HEAD on main should equal SHA since we just deployed it. Guard anyway.
+          CURRENT_HEAD=$(git rev-parse HEAD)
+          if [ "$CURRENT_HEAD" != "$SHA" ]; then
+            echo "::error::HEAD ($CURRENT_HEAD) no longer matches deploy SHA ($SHA). Skipping rollback — someone else pushed. Manual review required."
+            exit 1
+          fi
+          git revert --no-edit HEAD
+          # Rewrite commit message to the audit format.
+          git commit --amend -m "revert: auto-rollback after sanity-check failure on ${SHA}" --no-verify
+
+      - name: Push rollback to main
+        if: steps.window_check.outputs.ROLLBACK_SKIPPED != 'true'
+        run: |
+          # Non-force push. Branch protection rules still apply.
+          # If push is rejected (e.g., new commit raced us), surface as failure.
+          git push origin main
+
+      - name: Record rollback outcome
+        if: always() && steps.window_check.outputs.ROLLBACK_SKIPPED != 'true'
+        run: |
+          echo "## Auto-Rollback Executed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Reverted commit: ${{ steps.window_check.outputs.deploy_sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "Railway will auto-redeploy the previous green commit." >> $GITHUB_STEP_SUMMARY
+          echo "Review the live-gate-blocking failure before re-deploying." >> $GITHUB_STEP_SUMMARY
