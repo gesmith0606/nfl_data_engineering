@@ -311,20 +311,21 @@ defensive — it catches cost drift before it ships.
 
 ## Self-Check: PASSED
 
-Verified post-write at `2026-04-24T21:50Z`:
+Verified post-write at `2026-04-24T22:00Z` after the full sentiment suite run:
 
 **Files exist:**
 - `.planning/phases/71-llm-primary-extraction/71-BENCHMARK.md` — FOUND
 - `.planning/phases/71-llm-primary-extraction/71-SUMMARY.md` — FOUND (this file)
-- `.planning/phases/71-llm-primary-extraction/71-05-SUMMARY.md` — pending Task 4 commit
+- `.planning/phases/71-llm-primary-extraction/71-05-SUMMARY.md` — FOUND
 - `tests/sentiment/test_process_sentiment_cli.py` — FOUND (16 tests)
 - `tests/sentiment/test_daily_sentiment_workflow.py` — FOUND (8 tests)
 - `tests/sentiment/test_cost_projection.py` — FOUND (4 tests)
 
 **Test runs:**
-- Sentiment suite: **153 passed** (137 baseline → +16 CLI = 153 ✓)
+- Sentiment suite: **165 passed** in 407.15s (137 baseline → +16 CLI + 8 GHA + 4 cost = 165 ✓ exact)
+- Plan 71-05 isolated: 29 passed (16 CLI + 8 GHA + 4 cost + 1 benchmark)
 - LLM-03 benchmark: ratio=5.57x (≥ 5.0x gate — PASS)
-- LLM-04 cost gate: $1.5700/week warm-cache (< $5.00 — PASS)
+- LLM-04 cost gate: $1.5700/week warm-cache, $1.7251/week cold-cache (< $5.00 — PASS)
 
 **Commits in git log:**
 - `74516f1 test(71-05): add failing tests for --extractor-mode/--mode CLI args` — FOUND
@@ -332,6 +333,8 @@ Verified post-write at `2026-04-24T21:50Z`:
 - `861ab49 test(71-05): add failing tests for EXTRACTOR_MODE GHA env wiring` — FOUND
 - `530598f ci(71-05): wire EXTRACTOR_MODE env into daily-sentiment.yml` — FOUND
 - `f9fb7d5 test(71-05): CI-enforce LLM-04 weekly cost projection < $5` — FOUND
+- `f9218c5 docs(71-05): add 71-BENCHMARK.md + phase 71-SUMMARY.md + plan 71-05-SUMMARY.md` — FOUND
+- `07bf237 docs(71-05): close Phase 71 — STATE/ROADMAP/REQUIREMENTS updates` — FOUND
 
 ---
 
