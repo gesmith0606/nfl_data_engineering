@@ -1,0 +1,452 @@
+{
+  "fetch_run_id": "ab767019-2ffb-4446-99d4-2a00bcc9c72c",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-04-24T12:32:44.048128+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-comfortable-with-information-about-francis-mauigoas-back-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-comfortable-with-information-about-francis-mauigoas-back-injury",
+      "title": "Giants \"comfortable with\" information about Francis Mauigoa's back injury",
+      "body_text": "The Giants picked up the 10th pick in the draft by trading defensive tackle Dexter Lawrence to the Bengals last weekend and they used that pick to bolster the other side of the ball.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T12:25:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Francis Mauigoa",
+        "The Giants",
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-huge-to-bring-in-three-players-with-winning-backgrounds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-huge-to-bring-in-three-players-with-winning-backgrounds",
+      "title": "Aaron Glenn: Huge to bring in three players with winning backgrounds",
+      "body_text": "The Jets added players at three different positions during the first round of the draft on Thursday night and there was one common thread between their three choices.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T11:09:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Glenn",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-zero-intention-of-trading-george-pickens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-zero-intention-of-trading-george-pickens",
+      "title": "Stephen Jones: \"Zero intention\" of trading George Pickens",
+      "body_text": "Before the draft got underway on Thursday night, there were multiple reports that Cowboys wide receiver George Pickens will sign his franchise tag and the team confirmed it when they met with the media after the first round.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T10:50:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stephen Jones",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arvell-reese-im-going-to-be-used-in-a-unique-way-im-a-weapon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arvell-reese-im-going-to-be-used-in-a-unique-way-im-a-weapon",
+      "title": "Arvell Reese: I'm going to be used in a unique way, I'm a weapon",
+      "body_text": "The months leading into the draft feature countless mock drafts that set expectations about where players will wind up once the actual event gets underway, but every year provides reminders that the real thing takes twists few people see coming.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T10:37:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arvell Reese"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-picks-full-tracker-of-every-selection-rounds-1-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-picks-full-tracker-of-every-selection-rounds-1-7",
+      "title": "2026 NFL Draft Picks: Full tracker of every selection Rounds 1-7",
+      "body_text": "Fernando Mendoza is set to go to Las Vegas with the first overall pick.",
+      "author": "PFT Editorial Staff",
+      "published_at": "2026-04-24T10:13:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Draft Picks",
+        "Fernando Mendoza",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eight-teams-traded-out-of-the-first-round-jets-had-three-firsts-and-six-teams-had-two",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eight-teams-traded-out-of-the-first-round-jets-had-three-firsts-and-six-teams-had-two",
+      "title": "Eight teams traded out of the first round, Jets had three firsts, and six teams had two",
+      "body_text": "Half of the picks in the first round of the 2026 NFL draft changed hands before the selection was made.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T09:36:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-full-team-by-team-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-full-team-by-team-picks",
+      "title": "2026 NFL Draft: Full team-by-team picks",
+      "body_text": "Who did each team pick in the 2026 NFL Draft? Full team-by-team results",
+      "author": "PFT Editorial Staff",
+      "published_at": "2026-04-24T09:12:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-surprising-pick-of-ty-simpson-came-after-showing-little-interest-before-the-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-surprising-pick-of-ty-simpson-came-after-showing-little-interest-before-the-draft",
+      "title": "Rams' surprising pick of Ty Simpson came after showing little interest before the draft",
+      "body_text": "Rams GM Les Snead and coach Sean McVay never talked to Simpson in the pre-draft process.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T08:46:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ty Simpson",
+        "Les Snead"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-gm-brad-holmes-has-hoped-to-draft-blake-miller-for-years-considered-trading-up-for-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-gm-brad-holmes-has-hoped-to-draft-blake-miller-for-years-considered-trading-up-for-him",
+      "title": "Lions GM Brad Holmes has hoped to draft Blake Miller for years, considered trading up for him",
+      "body_text": "When Lions General Manager Brad Holmes made the call to draft Clemson offensive tackle Blake Miller during the first round, it was the culmination of a years-long process of scouting him.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T08:27:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brad Holmes",
+        "Blake Miller",
+        "When Lions",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-we-knew-mansoor-delane-was-our-guy-weeks-ago",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-we-knew-mansoor-delane-was-our-guy-weeks-ago",
+      "title": "Brett Veach: We knew Mansoor Delane was our guy weeks ago",
+      "body_text": "The Chiefs surprised some when they traded up to draft cornerback Mansoor Delane at No. 6 overall on Thursday night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T04:56:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brett Veach",
+        "Mansoor Delane",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-patriots-will-miss-mike-vrabels-leadership-and-presence-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-patriots-will-miss-mike-vrabels-leadership-and-presence-on-saturday",
+      "title": "Eliot Wolf: Patriots will miss Mike Vrabel's \"leadership\" and \"presence\" on Saturday",
+      "body_text": "Wolf specifically refers to the absence of Vrabel as a \"tremendous recruiter\" of UDFAs.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T04:55:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eliot Wolf",
+        "Mike Vrabel",
+        "Saturday Wolf"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-select-wr-kc-concepcion-with-no-24-overall-pick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-select-wr-kc-concepcion-with-no-24-overall-pick",
+      "title": "Browns select WR KC Concepcion with No. 24 overall pick",
+      "body_text": "The Browns have selected wide receiver KC Concepcion with the No. 24 overall pick of the 2026 NFL Draft.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T02:24:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-trade-up-two-spots-take-g-keylan-rutledge",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-trade-up-two-spots-take-g-keylan-rutledge",
+      "title": "Texans trade up two spots, take G Keylan Rutledge",
+      "body_text": "The Houston Texans are no strangers to trading up in round one.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T02:38:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keylan Rutledge",
+        "The Houston"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-take-oregon-s-dillon-thieneman-at-no-25",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-take-oregon-s-dillon-thieneman-at-no-25",
+      "title": "Bears take Oregon S Dillon Thieneman at No. 25",
+      "body_text": "The Bears needed defensive help in the worst way after ranking 29th in total defense.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-24T02:34:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dillon Thieneman",
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-trade-with-49ers-take-cb-chris-johnson-at-no-27",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-trade-with-49ers-take-cb-chris-johnson-at-no-27",
+      "title": "Dolphins trade with 49ers, take CB Chris Johnson at No. 27",
+      "body_text": "The Dolphins traded down before making their first pick on Thursday night and they traded up before making their second first-round choice.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T02:43:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Johnson",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-select-dt-peter-woods-at-no-29-overall",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-select-dt-peter-woods-at-no-29-overall",
+      "title": "Chiefs select DT Peter Woods at No. 29 overall",
+      "body_text": "The Chiefs have selected defensive tackle Peter Woods at No. 29 overall in the first round of the 2026 NFL Draft.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T02:50:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Peter Woods",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-trade-back-into-first-round-and-draft-indiana-wr-omar-cooper-at-30",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-trade-back-into-first-round-and-draft-indiana-wr-omar-cooper-at-30",
+      "title": "Jets trade back into first round and draft Indiana WR Omar Cooper at 30",
+      "body_text": "The Jets ended up with three first-round draft picks, getting help for a team that desperately needed help at every position.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-24T02:56:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Omar Cooper",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-trade-back-into-round-one-take-keldric-faulk-at-no-31",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-trade-back-into-round-one-take-keldric-faulk-at-no-31",
+      "title": "Titans trade back into round one, take Keldric Faulk at No. 31",
+      "body_text": "The Titans went offense at No. 4 in round one.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T03:04:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keldric Faulk",
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-take-rb-jadarian-price-with-final-pick-of-first-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-take-rb-jadarian-price-with-final-pick-of-first-round",
+      "title": "Seahawks take RB Jadarian Price with final pick of first round",
+      "body_text": "Seahawks General Manager John Schneider said this week that it was no secret that he wanted to trade down on Thursday night, but it takes two to tango and Schneider couldn't find a dance partner.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T03:07:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadarian Price",
+        "Seahawks General",
+        "Manager John"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colton-hood-kayden-mcdonald-were-at-the-draft-but-not-picked-in-round-one",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colton-hood-kayden-mcdonald-were-at-the-draft-but-not-picked-in-round-one",
+      "title": "Colton Hood, Kayden McDonald were at the draft but not picked in round one",
+      "body_text": "Seventeen players attended the first night of the 2026 NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T04:29:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Colton Hood"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-on-trading-out-of-first-round-thats-the-way-the-board-fell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-on-trading-out-of-first-round-thats-the-way-the-board-fell",
+      "title": "John Lynch on trading out of first round: It's the way the board fell",
+      "body_text": "The 49ers began the day with the 27th overall pick.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-24T04:21:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Lynch"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-i-have-the-opportunity-to-set-a-new-standard-for-running-backs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-i-have-the-opportunity-to-set-a-new-standard-for-running-backs",
+      "title": "Jeremiyah Love: I have the opportunity to set a new standard for running backs",
+      "body_text": "Is the running back en vogue again?",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T04:02:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-on-mike-vrabel-situation-its-a-personal-matter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-on-mike-vrabel-situation-its-a-personal-matter",
+      "title": "Roger Goodell on Mike Vrabel situation: \"It's a personal matter\"",
+      "body_text": "ESPN had largely ignored the Mike Vrabel situation, for most of the 16 days since it emerged.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T03:57:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-i-believe-im-still-the-underdog-im-on-the-bottom-of-the-totem-pole",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-i-believe-im-still-the-underdog-im-on-the-bottom-of-the-totem-pole",
+      "title": "Fernando Mendoza: I believe I'm still the underdog, I'm on the bottom of the totem pole",
+      "body_text": "After being selected at No. 1 overall, Mendoza said he's feels like the Raiders are a perfect fit.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-24T03:33:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-trade-up-to-no-28-take-caleb-lomu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-trade-up-to-no-28-take-caleb-lomu",
+      "title": "Patriots trade up to No. 28, take Caleb Lomu",
+      "body_text": "After the 28th overall pick in the 2026 NFL draft was traded twice, the Patriots ended up with it and selected Utah offensive tackle Caleb Lomu.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T02:47:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Lomu"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-take-malachi-lawrence-at-no-23",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-take-malachi-lawrence-at-no-23",
+      "title": "Cowboys take Malachi Lawrence at No. 23",
+      "body_text": "UCF defensive end Malachi Lawrence is heading to Dallas.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-24T02:18:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malachi Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-add-edge-rusher-ahkeem-mesidor-with-22nd-pick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-add-edge-rusher-ahkeem-mesidor-with-22nd-pick",
+      "title": "Chargers add edge rusher Ahkeem Mesidor with 22nd pick",
+      "body_text": "The Chargers added some juice to the edges of their defense in the first round on Thursday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-24T02:15:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ahkeem Mesidor",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-take-ot-max-iheanachor-at-no-21",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-take-ot-max-iheanachor-at-no-21",
+      "title": "Steelers take OT Max Iheanachor at No. 21",
+      "body_text": "With questions lingering regarding tackle Broderick Jones's neck injury, the Steelers needed help at the position.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T02:13:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Max Iheanachor",
+        "Broderick Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-thought-they-were-getting-makai-lemon-didnt-realize-eagles-had-cut-the-line",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-thought-they-were-getting-makai-lemon-didnt-realize-eagles-had-cut-the-line",
+      "title": "Steelers thought they were getting Makai Lemon, didn't realize Eagles had cut the line",
+      "body_text": "As the Steelers moved quickly with the truncated window to make their first pick in the 2026 draft, they didn't know the guy they wanted was already gone.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-24T02:55:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-trade-with-cowboys-to-select-usc-wr-makai-lemon-20th",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-trade-with-cowboys-to-select-usc-wr-makai-lemon-20th",
+      "title": "Eagles trade with Cowboys to select USC WR Makai Lemon 20th",
+      "body_text": "The Eagles are expected to trade veteran wide receiver A.J. Brown after June 1.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-24T02:04:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Makai Lemon",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    }
+  ]
+}

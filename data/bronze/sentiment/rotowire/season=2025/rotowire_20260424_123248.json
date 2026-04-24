@@ -1,0 +1,101 @@
+{
+  "fetch_run_id": "659bd6bb-5a2c-491b-8b6f-44afb060bdbc",
+  "source": "rotowire",
+  "fetched_at": "2026-04-24T12:32:48.387119+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630269",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Selected by Seattle",
+      "body_text": "The Seahawks selected Price in the first round of the 2026 NFL Draft, 32nd overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T08:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Seattle The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl630268",
+      "url": "https://www.rotowire.com//football/player/keldric-faulk-19411",
+      "permalink": "",
+      "title": "Keldric Faulk: Slide ends with Titans",
+      "body_text": "The Titans selected Faulk in the first round of the 2026 NFL Draft, 31st overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T08:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keldric Faulk",
+        "Titans The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "nfl630267",
+      "url": "https://www.rotowire.com//football/player/omar-cooper-19314",
+      "permalink": "",
+      "title": "Omar Cooper: Selected by Jets",
+      "body_text": "The Jets selected Cooper in the first round of the 2026 NFL Draft, 30th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T08:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omar Cooper",
+        "Jets The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl630266",
+      "url": "https://www.rotowire.com//football/player/peter-woods-19415",
+      "permalink": "",
+      "title": "Peter Woods: Picked by Kansas City",
+      "body_text": "The Chiefs selected Woods in the first round of the 2026 NFL Draft, 29th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T07:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Peter Woods",
+        "Kansas City",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl630265",
+      "url": "https://www.rotowire.com//football/player/caleb-lomu-19412",
+      "permalink": "",
+      "title": "Caleb Lomu: Lands with Patriots",
+      "body_text": "The Patriots selected Lomu in the first round of the 2026 NFL Draft, 28th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T07:52:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Lomu",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    }
+  ]
+}
