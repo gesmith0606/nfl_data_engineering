@@ -1,6 +1,6 @@
 {
   "_comment": "Recorded Claude Haiku 4.5 response for 2025 W18 offseason batch. Second-week call — warm cache (cache_read_input_tokens > 0 from the W17 cache hit, cache_creation_input_tokens = 0). Like W17, the prompt_sha is a placeholder until Plan 71-03 re-records against roster_provider=lambda: [].",
-  "prompt_sha": "_PENDING_WAVE_2_SHA",
+  "prompt_sha": "_PENDING_WAVE_2_SHA_w18",
   "model": "claude-haiku-4-5",
   "input_tokens": 1310,
   "output_tokens": 578,
