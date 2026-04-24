@@ -271,3 +271,153 @@ def test_probe_predictions_flags_timeout_as_critical():
     assert "TIMEOUT" in criticals[0]
     assert "/api/predictions" in criticals[0]
     assert warnings == []
+
+
+# ===========================================================================
+# Task 2 — news content validator + extractor freshness tests (8 tests)
+# ===========================================================================
+
+
+def _team_events_payload(
+    healthy_teams: int, total_teams: int = 32, articles_per_team: int = 5
+):
+    """Build a mock /api/news/team-events payload with ``healthy_teams`` populated."""
+    assert 0 <= healthy_teams <= total_teams
+    return [
+        {
+            "team": _ALL_32_TEAMS[i],
+            "total_articles": articles_per_team if i < healthy_teams else 0,
+            "negative_event_count": 1 if i < healthy_teams else 0,
+            "positive_event_count": 1 if i < healthy_teams else 0,
+            "neutral_event_count": 3 if i < healthy_teams else 0,
+            "sentiment_label": "neutral",
+            "top_events": [],
+        }
+        for i in range(total_teams)
+    ]
+
+
+# --- Test 10: content validator — ≥20 teams populated -> PASS --------------
+
+
+def test_validate_team_events_passes_when_enough_teams_have_articles():
+    """≥20 of 32 teams with total_articles > 0 = healthy news extraction."""
+    payload = _team_events_payload(healthy_teams=25)
+    criticals, warnings = sanity._validate_team_events_content(payload)
+    assert criticals == []
+    assert warnings == []
+
+
+# --- Test 11: content validator — all empty -> CRITICAL --------------------
+
+
+def test_validate_team_events_flags_all_empty_as_critical():
+    """All 32 rows present but zero articles = stalled extractor (2026-04-20 regression)."""
+    payload = _team_events_payload(healthy_teams=0)
+    criticals, warnings = sanity._validate_team_events_content(payload)
+    assert len(criticals) == 1
+    assert "NEWS CONTENT EMPTY" in criticals[0]
+    assert "0/32" in criticals[0]
+    assert warnings == []
+
+
+# --- Test 12: content validator — 12 populated -> CRITICAL (below 17) -----
+
+
+def test_validate_team_events_flags_thin_content_as_critical():
+    """12/32 with articles is below the WARN threshold of 17 -> CRITICAL."""
+    payload = _team_events_payload(healthy_teams=12)
+    criticals, warnings = sanity._validate_team_events_content(payload)
+    assert len(criticals) == 1
+    assert "NEWS CONTENT EMPTY" in criticals[0]
+    assert "12/32" in criticals[0]
+    assert warnings == []
+
+
+# --- Test 13: content validator — 18 populated -> WARNING (17..19 band) ---
+
+
+def test_validate_team_events_flags_marginal_as_warning():
+    """18/32 falls in the marginal band (17..19) -> WARNING, not CRITICAL."""
+    payload = _team_events_payload(healthy_teams=18)
+    criticals, warnings = sanity._validate_team_events_content(payload)
+    assert criticals == []
+    assert len(warnings) == 1
+    assert "NEWS CONTENT MARGINAL" in warnings[0]
+    assert "18/32" in warnings[0]
+
+
+# --- Test 14: extractor freshness — fresh file -> PASS --------------------
+
+
+def _write_fresh_parquet(tmp_path: Path, age_hours: float) -> Path:
+    """Create an empty file and backdate its mtime by ``age_hours``."""
+    parquet = (
+        tmp_path
+        / "data"
+        / "silver"
+        / "sentiment"
+        / "signals"
+        / "season=2025"
+        / "week=01"
+        / "signals_test.parquet"
+    )
+    parquet.parent.mkdir(parents=True, exist_ok=True)
+    parquet.write_bytes(b"")
+    target_mtime = time.time() - (age_hours * 3600.0)
+    os.utime(parquet, (target_mtime, target_mtime))
+    return parquet
+
+
+def test_extractor_freshness_passes_when_recent(tmp_path, monkeypatch):
+    """Parquet written within 24h = PASS, no criticals or warnings."""
+    _write_fresh_parquet(tmp_path, age_hours=2.0)
+    monkeypatch.setattr(sanity, "PROJECT_ROOT", str(tmp_path))
+
+    criticals, warnings = sanity._check_extractor_freshness()
+    assert criticals == []
+    assert warnings == []
+
+
+# --- Test 15: extractor freshness — 36h old -> WARNING --------------------
+
+
+def test_extractor_freshness_warns_in_24_to_48h_band(tmp_path, monkeypatch):
+    """Parquet in the 24..48h band produces WARNING only."""
+    _write_fresh_parquet(tmp_path, age_hours=36.0)
+    monkeypatch.setattr(sanity, "PROJECT_ROOT", str(tmp_path))
+
+    criticals, warnings = sanity._check_extractor_freshness()
+    assert criticals == []
+    assert len(warnings) == 1
+    assert "EXTRACTOR STALE" in warnings[0]
+    assert "36" in warnings[0]
+
+
+# --- Test 16: extractor freshness — 72h old -> CRITICAL -------------------
+
+
+def test_extractor_freshness_critical_when_older_than_48h(tmp_path, monkeypatch):
+    """Parquet older than 48h = CRITICAL (daily cron has stopped)."""
+    _write_fresh_parquet(tmp_path, age_hours=72.0)
+    monkeypatch.setattr(sanity, "PROJECT_ROOT", str(tmp_path))
+
+    criticals, warnings = sanity._check_extractor_freshness()
+    assert len(criticals) == 1
+    assert "EXTRACTOR STALE" in criticals[0]
+    assert "72" in criticals[0]
+    assert warnings == []
+
+
+# --- Test 17: extractor freshness — no files -> CRITICAL -----------------
+
+
+def test_extractor_freshness_critical_when_no_files(tmp_path, monkeypatch):
+    """Missing parquet directory entirely = CRITICAL (never ran)."""
+    # tmp_path is empty; no data/silver/sentiment/... exists.
+    monkeypatch.setattr(sanity, "PROJECT_ROOT", str(tmp_path))
+
+    criticals, warnings = sanity._check_extractor_freshness()
+    assert len(criticals) == 1
+    assert "EXTRACTOR DATA MISSING" in criticals[0]
+    assert warnings == []

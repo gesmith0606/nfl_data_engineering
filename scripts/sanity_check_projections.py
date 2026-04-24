@@ -1268,6 +1268,139 @@ def _probe_team_rosters_sampled(
     return criticals, warnings
 
 
+# ---------------------------------------------------------------------------
+# Phase 68 SANITY-04 / SANITY-06 — news content validator + extractor freshness
+# ---------------------------------------------------------------------------
+# Thresholds sourced from 68-CONTEXT.md "News Content Threshold" decision:
+# matches Phase 69 SENT-01 success criterion exactly.
+_NEWS_CONTENT_MIN_TEAMS_OK = 20  # ≥20 of 32 with total_articles > 0 = PASS
+_NEWS_CONTENT_MIN_TEAMS_WARN = 17  # 17..19 = WARNING; <17 = CRITICAL
+
+# Thresholds from 68-CONTEXT.md "Extractor Freshness Window" decision.
+_EXTRACTOR_FRESH_HOURS = 24
+_EXTRACTOR_STALE_CRITICAL_HOURS = 48
+
+
+def _validate_team_events_content(payload) -> Tuple[List[str], List[str]]:
+    """Validate ``/api/news/team-events`` content (not just length).
+
+    The v1 gate only checked the payload row count (32 teams), which passed
+    on the 2026-04-20 regression where all 32 teams had ``total_articles=0``
+    because the extractor never ran (ANTHROPIC_API_KEY unset on Railway).
+    This validator fails CRITICAL when fewer than
+    ``_NEWS_CONTENT_MIN_TEAMS_WARN`` teams have articles, WARN at the 17..19
+    band, PASS at ≥20.
+
+    Args:
+        payload: JSON body returned by GET /api/news/team-events — expected
+            to be a list of 32 TeamEvents dicts.
+
+    Returns:
+        ``(criticals, warnings)`` — both are lists of human-readable strings.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    if not isinstance(payload, list) or len(payload) != 32:
+        length = len(payload) if hasattr(payload, "__len__") else "n/a"
+        criticals.append(
+            f"LIVE NEWS PAYLOAD SHAPE: expected list of 32 teams, got "
+            f"{type(payload).__name__} len={length}"
+        )
+        return criticals, warnings
+    teams_with_articles = sum(
+        1
+        for row in payload
+        if isinstance(row, dict) and int(row.get("total_articles", 0) or 0) > 0
+    )
+    if teams_with_articles >= _NEWS_CONTENT_MIN_TEAMS_OK:
+        print(
+            f"  [PASS] /api/news/team-events content  "
+            f"({teams_with_articles}/32 teams have articles)"
+        )
+    elif teams_with_articles >= _NEWS_CONTENT_MIN_TEAMS_WARN:
+        warnings.append(
+            f"NEWS CONTENT MARGINAL: {teams_with_articles}/32 teams have "
+            f"total_articles > 0 (below target of "
+            f"{_NEWS_CONTENT_MIN_TEAMS_OK}; would have caught extractor "
+            f"degradation)"
+        )
+        print(
+            f"  [WARN] /api/news/team-events content  "
+            f"({teams_with_articles}/32 teams)"
+        )
+    else:
+        criticals.append(
+            f"NEWS CONTENT EMPTY: {teams_with_articles}/32 teams have "
+            f"total_articles > 0 (threshold {_NEWS_CONTENT_MIN_TEAMS_OK}). "
+            f"Extractor likely stalled — this matches the 2026-04-20 audit "
+            f"regression."
+        )
+        print(
+            f"  [FAIL] /api/news/team-events content  "
+            f"({teams_with_articles}/32 teams — extractor stalled)"
+        )
+    return criticals, warnings
+
+
+def _check_extractor_freshness() -> Tuple[List[str], List[str]]:
+    """Assert the latest Silver sentiment parquet was written recently.
+
+    Reads ``data/silver/sentiment/signals/season=*/week=*/*.parquet`` and takes
+    the max mtime as the "extractor last ran" timestamp. Fails CRITICAL when
+    older than ``_EXTRACTOR_STALE_CRITICAL_HOURS`` (48h); WARN in the 24..48h
+    window; PASS under 24h. CRITICAL when no parquet files exist at all.
+
+    Trust boundary note (T-68-01-03): local filesystem is trusted; an attacker
+    who can spoof parquet mtimes already owns the runner.
+
+    Returns:
+        ``(criticals, warnings)`` — both are lists of human-readable strings.
+    """
+    import time as _time  # local alias to keep top-level imports minimal
+
+    criticals: List[str] = []
+    warnings: List[str] = []
+    silver_glob = os.path.join(
+        PROJECT_ROOT,
+        "data",
+        "silver",
+        "sentiment",
+        "signals",
+        "season=*",
+        "week=*",
+        "*.parquet",
+    )
+    parquet_files = globmod.glob(silver_glob)
+    if not parquet_files:
+        criticals.append(
+            "EXTRACTOR DATA MISSING: no Silver sentiment parquet found at "
+            "data/silver/sentiment/signals/. Extractor has never run or "
+            "output path changed."
+        )
+        print("  [FAIL] Silver sentiment freshness  (no parquet files found)")
+        return criticals, warnings
+    latest_mtime = max(os.path.getmtime(f) for f in parquet_files)
+    age_hours = (_time.time() - latest_mtime) / 3600.0
+    age_str = f"{age_hours:.1f}h"
+    if age_hours <= _EXTRACTOR_FRESH_HOURS:
+        print(f"  [PASS] Silver sentiment freshness  (latest write {age_str} ago)")
+    elif age_hours <= _EXTRACTOR_STALE_CRITICAL_HOURS:
+        warnings.append(
+            f"EXTRACTOR STALE: latest Silver sentiment write was {age_str} "
+            f"ago (warning at {_EXTRACTOR_FRESH_HOURS}h, critical at "
+            f"{_EXTRACTOR_STALE_CRITICAL_HOURS}h)"
+        )
+        print(f"  [WARN] Silver sentiment freshness  (latest write {age_str} ago)")
+    else:
+        criticals.append(
+            f"EXTRACTOR STALE: latest Silver sentiment write was {age_str} "
+            f"ago (threshold {_EXTRACTOR_STALE_CRITICAL_HOURS}h). Daily cron "
+            f"has stopped or extractor is failing."
+        )
+        print(f"  [FAIL] Silver sentiment freshness  (latest write {age_str} ago)")
+    return criticals, warnings
+
+
 def run_live_site_check(
     backend_url: str,
     frontend_url: str,
@@ -1293,7 +1426,7 @@ def run_live_site_check(
     # Backend endpoints — non-empty JSON payload contracts
     # ------------------------------------------------------------------
     # Phase 68: the /api/news/team-events entry previously used a weak
-    # ``len == 32`` contract that passed on fully-empty payloads (the
+    # row-count-only contract that passed on fully-empty payloads (the
     # 2026-04-20 regression). Content validation is now handled below by
     # ``_validate_team_events_content`` after a dedicated fetch.
     api_probes = [
@@ -1360,6 +1493,52 @@ def run_live_site_check(
     rost_crit, rost_warn = _probe_team_rosters_sampled(backend_url, season)
     criticals.extend(rost_crit)
     warnings.extend(rost_warn)
+
+    # ------------------------------------------------------------------
+    # Phase 68 SANITY-04 — content-aware validation of /api/news/team-events.
+    # Replaces the pre-v7.0 row-count-only contract (which passed on fully
+    # empty payloads). CRITICAL when fewer than 17 of 32 teams have articles.
+    # ------------------------------------------------------------------
+    news_path = "/api/news/team-events?season=2025&week=1"
+    news_url = backend_url.rstrip("/") + news_path
+    try:
+        news_resp = requests.get(news_url, timeout=_PROBE_TIMEOUT_SECONDS)
+    except requests.exceptions.Timeout:
+        criticals.append(
+            f"LIVE API TIMEOUT (>{_PROBE_TIMEOUT_SECONDS}s): GET {news_path}"
+        )
+        print(f"  [FAIL] {news_path}  (TIMEOUT)")
+    except requests.RequestException as exc:
+        criticals.append(
+            f"LIVE API UNREACHABLE: GET {news_path} raised "
+            f"{type(exc).__name__}: {exc}"
+        )
+        print(f"  [FAIL] {news_path}  (request error)")
+    else:
+        if news_resp.status_code != 200:
+            criticals.append(
+                f"LIVE API NON-200: GET {news_path} returned "
+                f"{news_resp.status_code}"
+            )
+            print(f"  [FAIL] {news_path}  (HTTP {news_resp.status_code})")
+        else:
+            try:
+                news_payload = news_resp.json()
+            except ValueError:
+                criticals.append(f"LIVE API INVALID JSON: GET {news_path}")
+                print(f"  [FAIL] {news_path}  (not JSON)")
+            else:
+                news_crit, news_warn = _validate_team_events_content(news_payload)
+                criticals.extend(news_crit)
+                warnings.extend(news_warn)
+
+    # ------------------------------------------------------------------
+    # Phase 68 SANITY-06 — assert the daily-cron Silver sentiment extractor
+    # is still running. Local-filesystem check (no URL dependency).
+    # ------------------------------------------------------------------
+    fresh_crit, fresh_warn = _check_extractor_freshness()
+    criticals.extend(fresh_crit)
+    warnings.extend(fresh_warn)
 
     # ------------------------------------------------------------------
     # Frontend — HTML content markers
