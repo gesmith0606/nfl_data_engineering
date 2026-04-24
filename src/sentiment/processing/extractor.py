@@ -19,7 +19,7 @@ import json
 import logging
 import os
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Protocol, runtime_checkable
 
 logger = logging.getLogger(__name__)
 
@@ -226,6 +226,35 @@ class PlayerSignal:
             "team_abbr": self.team_abbr,
             "extractor": self.extractor,
         }
+
+
+# ---------------------------------------------------------------------------
+# DI seam — Protocol for the Anthropic client
+# ---------------------------------------------------------------------------
+
+
+@runtime_checkable
+class ClaudeClient(Protocol):
+    """Minimal duck-typed surface for the Anthropic client.
+
+    The real ``anthropic.Anthropic`` instance satisfies this Protocol
+    via its ``.messages.create(...)`` attribute chain. ``FakeClaudeClient``
+    in ``tests/sentiment/fakes.py`` (Plan 71-02) also satisfies it.
+
+    This seam lets Plan 71-03 batched extractor be injected with a
+    fake without monkeypatching ``_build_client``. See 71-CONTEXT.md
+    Decision D-02 for the rationale.
+
+    Uses attribute access because ``anthropic.Anthropic`` exposes
+    chained ``.messages.create(...)``, not a flat method. The
+    ``messages`` attribute is expected to expose
+    ``.create(model=..., max_tokens=..., system=..., messages=...)``
+    returning a response object whose ``.content[0].text`` carries
+    the Claude completion text (same shape the legacy
+    ``ClaudeExtractor._call_claude`` already consumes).
+    """
+
+    messages: Any   # object with .create(...) -> response
 
 
 # ---------------------------------------------------------------------------
