@@ -237,6 +237,19 @@ data/gold/*
 !data/bronze/sentiment/
 !data/bronze/sentiment/**
 !data/bronze/sentiment/**/*.json
+# Player rosters: commit Bronze parquet so PlayerNameResolver works on the
+# GHA runner during daily-sentiment.yml (v7.1 fix for Phase 69 blocker).
+# Railway Dockerfile already bundles these; this adds them to git too.
+!data/bronze/players/
+!data/bronze/players/rosters/
+!data/bronze/players/rosters/**
+!data/bronze/players/rosters/**/*.parquet
+!data/bronze/players/rosters_live/
+!data/bronze/players/rosters_live/**
+!data/bronze/players/rosters_live/**/*.parquet
+!data/bronze/depth_charts/
+!data/bronze/depth_charts/**
+!data/bronze/depth_charts/**/*.parquet
 
 # External rankings cache (ADVR-03): commit the Sleeper/FantasyPros/ESPN JSON
 # so compareExternalRankings never returns empty on first deploy.
