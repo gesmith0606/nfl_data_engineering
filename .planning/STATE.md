@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
 status: executing
-stopped_at: Phase 71 Plan 01 complete — schema contracts locked (PlayerSignal +4 optional fields, PipelineResult +6 optional fields, Silver record extractor/summary keys, ClaudeClient Protocol); ready for Plan 71-02 (fixtures + FakeClaudeClient).
-last_updated: "2026-04-24T19:56:00.000Z"
-last_activity: 2026-04-24 -- Phase 71 Plan 01 shipped (15 tests added, 75 sentiment tests green)
+stopped_at: Phase 71 Plan 02 complete — FakeClaudeClient harness + 30-doc offseason Bronze fixture + W17/W18 Claude response fixtures + README determinism contract shipped; ready for Plan 71-03 (batched Claude extractor).
+last_updated: "2026-04-24T20:12:27.000Z"
+last_activity: 2026-04-24 -- Phase 71 Plan 02 shipped (15 more tests added, 90 sentiment tests green)
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
-  percent: 20
+  completed_plans: 2
+  percent: 40
 ---
 
 # Project State
@@ -26,14 +26,14 @@ See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness 
 ## Current Position
 
 Phase: 71 (llm-primary-extraction) — EXECUTING
-Plan: 2 of 5 (Plan 01 complete)
+Plan: 3 of 5 (Plans 01, 02 complete)
 Status: Executing Phase 71
-Last activity: 2026-04-24 -- Phase 71 Plan 01 shipped
+Last activity: 2026-04-24 -- Phase 71 Plan 02 shipped
 
 **Execution order (proposed):** 71 → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
-Progress: 1/5 plans in Phase 71 (20%)
-[████░░░░░░░░░░░░░░░░] 20%
+Progress: 2/5 plans in Phase 71 (40%)
+[████████░░░░░░░░░░░░] 40%
 
 ## Milestone Goal
 
@@ -79,10 +79,14 @@ Carried forward from v7.0 (shipped 2026-04-24):
 - [71-01]: ClaudeClient Protocol uses attribute-based shape (`messages: Any`), not a method, to match real `anthropic.Anthropic` SDK (`.messages.create(...)` chain)
 - [71-01]: All schema extensions are additive with safe defaults — zero rename/remove, preserving every existing call site
 - [71-01]: Extractor identity strings live as module-level constants (`_EXTRACTOR_NAME_*`) for single source of truth across Plans 71-02..05
+- [71-02]: FakeClaudeClient uses typed dataclasses (not MagicMock) for response shape so tests catch SDK-surface drift at authoring time; satisfies runtime-checkable ClaudeClient Protocol via attribute-based duck typing
+- [71-02]: `max_tokens` excluded from SHA computation — Anthropic caches by prompt, not output ceiling; inclusion would invalidate cached fixtures on unrelated tuning
+- [71-02]: Fixture recording MUST use `roster_provider=lambda: []` — documented invariant in README.md; SHA otherwise drifts across machines/roster-parquet refreshes
+- [71-02]: Placeholder SHAs suffixed per batch (`_PENDING_WAVE_2_SHA_w17`, `_w18`) to avoid dict-registry collision during the Wave-2 interim
 
 ### Pending Todos
 
-Plan 71-01 (schema + contracts) shipped. Next: Plan 71-02 — fixtures + FakeClaudeClient (consumes `ClaudeClient` Protocol and `BATCH_SIZE` from Plan 71-01).
+Plan 71-02 (fixtures + FakeClaudeClient) shipped. Next: Plan 71-03 — batched Claude extractor (consumes FakeClaudeClient + recorded fixtures + roster_provider=lambda:[] invariant).
 
 ### Blockers/Concerns
 
@@ -108,6 +112,6 @@ Plan 71-01 (schema + contracts) shipped. Next: Plan 71-02 — fixtures + FakeCla
 ## Session Continuity
 
 Last session: 2026-04-24
-Stopped at: Phase 71 Plan 01 complete — schema contracts locked (PlayerSignal +4 optional fields, PipelineResult +6 optional fields, Silver record extractor/summary keys, ClaudeClient Protocol); ready for Plan 71-02 (fixtures + FakeClaudeClient).
-Resume with: `/gsd:execute-phase 71 --plan 02` (or `/gsd:autonomous --from 71-02` for full autonomous run).
-Resume file: .planning/phases/71-llm-primary-extraction/71-02-fixtures-and-fake-client-PLAN.md
+Stopped at: Phase 71 Plan 02 complete — FakeClaudeClient harness + 30-doc offseason Bronze fixture + W17/W18 recorded Claude responses + roster_provider determinism contract shipped; ready for Plan 71-03 (batched Claude extractor).
+Resume with: `/gsd:execute-phase 71 --plan 03` (or `/gsd:autonomous --from 71-03` for full autonomous run).
+Resume file: .planning/phases/71-llm-primary-extraction/71-03-batched-claude-extractor-PLAN.md
