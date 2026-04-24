@@ -147,10 +147,39 @@ SEASON_POINT_CAPS: Dict[str, float] = {
 # Valid NFL team abbreviations (32 teams)
 # ---------------------------------------------------------------------------
 VALID_NFL_TEAMS = {
-    "ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE",
-    "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC",
-    "LA", "LAC", "LAR", "LV", "MIA", "MIN", "NE", "NO",
-    "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS",
+    "ARI",
+    "ATL",
+    "BAL",
+    "BUF",
+    "CAR",
+    "CHI",
+    "CIN",
+    "CLE",
+    "DAL",
+    "DEN",
+    "DET",
+    "GB",
+    "HOU",
+    "IND",
+    "JAX",
+    "KC",
+    "LA",
+    "LAC",
+    "LAR",
+    "LV",
+    "MIA",
+    "MIN",
+    "NE",
+    "NO",
+    "NYG",
+    "NYJ",
+    "PHI",
+    "PIT",
+    "SEA",
+    "SF",
+    "TB",
+    "TEN",
+    "WAS",
 }
 
 # Spread and total reasonableness bounds
@@ -195,7 +224,9 @@ def _build_consensus_df() -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # Data freshness validation (per D-08)
 # ---------------------------------------------------------------------------
-def check_local_freshness(path: str, max_age_days: int = GOLD_MAX_AGE_DAYS) -> Tuple[str, str]:
+def check_local_freshness(
+    path: str, max_age_days: int = GOLD_MAX_AGE_DAYS
+) -> Tuple[str, str]:
     """Check parquet file freshness for a given directory.
 
     Per D-08: Gold >7 days old = WARN; Silver >14 days old = WARN.
@@ -218,9 +249,7 @@ def check_local_freshness(path: str, max_age_days: int = GOLD_MAX_AGE_DAYS) -> T
     if not files:
         return ("ERROR", f"No parquet files in {path}")
     latest = max(files, key=lambda f: f.stat().st_mtime)
-    age_days = (
-        datetime.now() - datetime.fromtimestamp(latest.stat().st_mtime)
-    ).days
+    age_days = (datetime.now() - datetime.fromtimestamp(latest.stat().st_mtime)).days
     if age_days > max_age_days:
         return (
             "WARN",
@@ -305,16 +334,23 @@ def fetch_live_consensus(limit: int = 50) -> pd.DataFrame:
     return _build_consensus_df()
 
 
-def _match_players(
-    our_df: pd.DataFrame, consensus_df: pd.DataFrame
-) -> pd.DataFrame:
+def _match_players(our_df: pd.DataFrame, consensus_df: pd.DataFrame) -> pd.DataFrame:
     """Match consensus players to our projections using fuzzy name matching."""
     our = our_df.copy()
     our["norm_name"] = our["player_name"].apply(_normalize_name)
 
     matched = consensus_df.merge(
-        our[["norm_name", "player_name", "position", "recent_team",
-             "projected_season_points", "overall_rank", "position_rank"]],
+        our[
+            [
+                "norm_name",
+                "player_name",
+                "position",
+                "recent_team",
+                "projected_season_points",
+                "overall_rank",
+                "position_rank",
+            ]
+        ],
         on="norm_name",
         how="left",
         suffixes=("_consensus", "_ours"),
@@ -373,8 +409,7 @@ def run_prediction_check(season: int, week: int) -> Tuple[List[str], List[str]]:
     # ------------------------------------------------------------------
     if "predicted_total" in df.columns:
         bad_total = df[
-            (df["predicted_total"] < TOTAL_MIN)
-            | (df["predicted_total"] > TOTAL_MAX)
+            (df["predicted_total"] < TOTAL_MIN) | (df["predicted_total"] > TOTAL_MAX)
         ]
         for _, row in bad_total.iterrows():
             criticals.append(
@@ -397,9 +432,7 @@ def run_prediction_check(season: int, week: int) -> Tuple[List[str], List[str]]:
 
     # Also check for duplicate home/away matchups
     if "home_team" in df.columns and "away_team" in df.columns:
-        matchup_dupes = df[
-            df.duplicated(subset=["home_team", "away_team"], keep=False)
-        ]
+        matchup_dupes = df[df.duplicated(subset=["home_team", "away_team"], keep=False)]
         if not matchup_dupes.empty:
             criticals.append(
                 f"DUPLICATE MATCHUPS: {len(matchup_dupes)} rows with repeated "
@@ -522,12 +555,16 @@ def run_prediction_check(season: int, week: int) -> Tuple[List[str], List[str]]:
     # Prediction distribution stats
     # ------------------------------------------------------------------
     if "predicted_spread" in df.columns and "predicted_total" in df.columns:
-        print(f"\n  Spread range: [{df['predicted_spread'].min():.1f}, "
-              f"{df['predicted_spread'].max():.1f}]  "
-              f"mean={df['predicted_spread'].mean():.1f}")
-        print(f"  Total range:  [{df['predicted_total'].min():.1f}, "
-              f"{df['predicted_total'].max():.1f}]  "
-              f"mean={df['predicted_total'].mean():.1f}")
+        print(
+            f"\n  Spread range: [{df['predicted_spread'].min():.1f}, "
+            f"{df['predicted_spread'].max():.1f}]  "
+            f"mean={df['predicted_spread'].mean():.1f}"
+        )
+        print(
+            f"  Total range:  [{df['predicted_total'].min():.1f}, "
+            f"{df['predicted_total'].max():.1f}]  "
+            f"mean={df['predicted_total'].mean():.1f}"
+        )
 
     if "confidence_tier" in df.columns:
         tier_counts = df["confidence_tier"].value_counts().to_dict()
@@ -556,9 +593,7 @@ def run_sanity_check(scoring: str, season: int) -> int:
     print("\n" + "-" * 70)
     print("  DATA FRESHNESS")
     print("-" * 70)
-    gold_dir = os.path.join(
-        GOLD_DIR, f"projections/preseason/season={season}"
-    )
+    gold_dir = os.path.join(GOLD_DIR, f"projections/preseason/season={season}")
     gold_level, gold_msg = check_local_freshness(
         gold_dir, max_age_days=GOLD_MAX_AGE_DAYS
     )
@@ -571,8 +606,14 @@ def run_sanity_check(scoring: str, season: int) -> int:
         warnings.append(f"GOLD DATA MISSING: {gold_msg}")
 
     silver_dirs = [
-        ("player_usage", os.path.join(PROJECT_ROOT, "data", "silver", "players", "usage")),
-        ("team_pbp_metrics", os.path.join(PROJECT_ROOT, "data", "silver", "teams", "pbp_metrics")),
+        (
+            "player_usage",
+            os.path.join(PROJECT_ROOT, "data", "silver", "players", "usage"),
+        ),
+        (
+            "team_pbp_metrics",
+            os.path.join(PROJECT_ROOT, "data", "silver", "teams", "pbp_metrics"),
+        ),
     ]
     for label, sd in silver_dirs:
         # Silver dirs commonly partition further by season=YYYY; freshness
@@ -603,9 +644,7 @@ def run_sanity_check(scoring: str, season: int) -> int:
     consensus_df = fetch_live_consensus(limit=50)
     # norm_name is required for player matching downstream
     if "norm_name" not in consensus_df.columns:
-        consensus_df["norm_name"] = consensus_df["player_name"].apply(
-            _normalize_name
-        )
+        consensus_df["norm_name"] = consensus_df["player_name"].apply(_normalize_name)
     # Heuristic: if the returned DataFrame matches the hardcoded ranks/names
     # exactly we know the Sleeper fetch failed and we fell back.
     hardcoded_ranks = [entry[0] for entry in CONSENSUS_TOP_50]
@@ -721,31 +760,47 @@ def run_sanity_check(scoring: str, season: int) -> int:
 
     null_pos = our_df[our_df["position"].isna()]
     for _, row in null_pos.iterrows():
-        criticals.append(
-            f"NULL POSITION: {row['player_name']} — position is null/NaN"
-        )
+        criticals.append(f"NULL POSITION: {row['player_name']} — position is null/NaN")
 
     # Known star players with expected positions — catches data pipeline bugs
     # like Saquon Barkley showing up as QB
     KNOWN_STAR_POSITIONS = {
-        "Patrick Mahomes": "QB", "Josh Allen": "QB", "Lamar Jackson": "QB",
-        "Joe Burrow": "QB", "Jalen Hurts": "QB", "C.J. Stroud": "QB",
-        "Saquon Barkley": "RB", "Derrick Henry": "RB", "Jahmyr Gibbs": "RB",
-        "Bijan Robinson": "RB", "Christian McCaffrey": "RB", "Breece Hall": "RB",
-        "Jonathan Taylor": "RB", "Josh Jacobs": "RB", "De'Von Achane": "RB",
-        "Ja'Marr Chase": "WR", "Justin Jefferson": "WR", "Tyreek Hill": "WR",
-        "CeeDee Lamb": "WR", "Amon-Ra St. Brown": "WR", "Puka Nacua": "WR",
-        "A.J. Brown": "WR", "Davante Adams": "WR", "Malik Nabers": "WR",
-        "Travis Kelce": "TE", "Brock Bowers": "TE", "Sam LaPorta": "TE",
-        "Mark Andrews": "TE", "George Kittle": "TE", "Trey McBride": "TE",
+        "Patrick Mahomes": "QB",
+        "Josh Allen": "QB",
+        "Lamar Jackson": "QB",
+        "Joe Burrow": "QB",
+        "Jalen Hurts": "QB",
+        "C.J. Stroud": "QB",
+        "Saquon Barkley": "RB",
+        "Derrick Henry": "RB",
+        "Jahmyr Gibbs": "RB",
+        "Bijan Robinson": "RB",
+        "Christian McCaffrey": "RB",
+        "Breece Hall": "RB",
+        "Jonathan Taylor": "RB",
+        "Josh Jacobs": "RB",
+        "De'Von Achane": "RB",
+        "Ja'Marr Chase": "WR",
+        "Justin Jefferson": "WR",
+        "Tyreek Hill": "WR",
+        "CeeDee Lamb": "WR",
+        "Amon-Ra St. Brown": "WR",
+        "Puka Nacua": "WR",
+        "A.J. Brown": "WR",
+        "Davante Adams": "WR",
+        "Malik Nabers": "WR",
+        "Travis Kelce": "TE",
+        "Brock Bowers": "TE",
+        "Sam LaPorta": "TE",
+        "Mark Andrews": "TE",
+        "George Kittle": "TE",
+        "Trey McBride": "TE",
     }
     for star_name, expected_pos in KNOWN_STAR_POSITIONS.items():
         # Use normalized full-name matching to avoid false positives
         # (e.g., "Jermar Jefferson" matching "Justin Jefferson")
         norm_star = _normalize_name(star_name)
-        star_rows = our_df[
-            our_df["player_name"].apply(_normalize_name) == norm_star
-        ]
+        star_rows = our_df[our_df["player_name"].apply(_normalize_name) == norm_star]
         for _, row in star_rows.iterrows():
             if row["position"] != expected_pos:
                 criticals.append(
@@ -803,10 +858,7 @@ def run_sanity_check(scoring: str, season: int) -> int:
     print("\n" + "=" * 70)
     print("  TOP-20 COMPARISON TABLE")
     print("=" * 70)
-    top20 = (
-        matched_found.sort_values("consensus_rank")
-        .head(20)
-    )
+    top20 = matched_found.sort_values("consensus_rank").head(20)
     header = f"{'Player':<25} {'Pos':<4} {'Cons#':>6} {'Ours#':>6} {'Diff':>6} {'Our Pts':>8}"
     print(f"  {header}")
     print(f"  {'-' * len(header)}")
@@ -946,6 +998,276 @@ DEFAULT_LIVE_BACKEND = "https://nfldataengineering-production.up.railway.app"
 DEFAULT_LIVE_FRONTEND = "https://frontend-jet-seven-33.vercel.app"
 
 
+# ---------------------------------------------------------------------------
+# Phase 68 SANITY-01/02/03 — live probe helpers
+# ---------------------------------------------------------------------------
+# Top-10 fallback list (used when Silver team_metrics parquet missing).
+# Selected from 2024 W18 snap_count leaders to match CONTEXT sampling intent.
+_TOP_10_TEAMS_FALLBACK: List[str] = [
+    "KC",
+    "BUF",
+    "PHI",
+    "DET",
+    "BAL",
+    "SF",
+    "MIA",
+    "CIN",
+    "GB",
+    "DAL",
+]
+# 5-second timeout per probe (Phase 68 CONTEXT "specifics"). Slow Railway
+# responses are themselves a signal we want surfaced as CRITICAL.
+_PROBE_TIMEOUT_SECONDS: int = 5
+
+
+def _top_n_teams_by_snap_count(
+    season: int, n: int = 10
+) -> Tuple[List[str], Optional[str]]:
+    """Return ``(team_abbrs, warning_msg)``.
+
+    Reads the latest Silver team_metrics parquet for the given season, sums the
+    offensive snap column per team, and returns the top-``n`` abbreviations. If
+    Silver team_metrics is absent, falls back to Bronze ``players/snaps`` and
+    finally to a hardcoded list (2024 W18 snap leaders).
+
+    Args:
+        season: Season year for partition lookup (e.g. 2025).
+        n: Number of top teams to return.
+
+    Returns:
+        Tuple of (team abbreviations, warning message). ``warning_msg`` is
+        non-None only when the fallback list was used.
+    """
+    silver_glob = os.path.join(
+        PROJECT_ROOT,
+        "data",
+        "silver",
+        "team_metrics",
+        f"season={season}",
+        "week=*",
+        "*.parquet",
+    )
+    parquet_files = sorted(globmod.glob(silver_glob))
+    if not parquet_files:
+        # Try snap_counts Bronze as fallback (also week-partitioned).
+        snaps_glob = os.path.join(
+            PROJECT_ROOT,
+            "data",
+            "bronze",
+            "players",
+            "snaps",
+            f"season={season}",
+            "week=*",
+            "*.parquet",
+        )
+        snap_files = sorted(globmod.glob(snaps_glob))
+        if not snap_files:
+            return _TOP_10_TEAMS_FALLBACK[:n], (
+                f"SAMPLING FALLBACK: no Silver team_metrics or Bronze snaps "
+                f"for season={season}; using hardcoded top-{n} list"
+            )
+        # Aggregate latest snap file: sum offense_pct per team, take top-n.
+        df = pd.read_parquet(snap_files[-1])
+        if "team" not in df.columns or "offense_pct" not in df.columns:
+            return _TOP_10_TEAMS_FALLBACK[:n], (
+                "SAMPLING FALLBACK: snaps schema unexpected"
+            )
+        ranked = (
+            df.groupby("team")["offense_pct"]
+            .sum()
+            .sort_values(ascending=False)
+            .head(n)
+            .index.tolist()
+        )
+        return [str(t) for t in ranked], None
+    df = pd.read_parquet(parquet_files[-1])
+    if "team" not in df.columns:
+        return _TOP_10_TEAMS_FALLBACK[:n], (
+            "SAMPLING FALLBACK: team_metrics missing 'team' column"
+        )
+    snap_col = next(
+        (
+            c
+            for c in ("total_offense_snaps", "offense_snaps", "snap_count")
+            if c in df.columns
+        ),
+        None,
+    )
+    if snap_col is None:
+        return _TOP_10_TEAMS_FALLBACK[:n], (
+            "SAMPLING FALLBACK: no snap-count column in team_metrics"
+        )
+    ranked = (
+        df.groupby("team")[snap_col]
+        .sum()
+        .sort_values(ascending=False)
+        .head(n)
+        .index.tolist()
+    )
+    return [str(t) for t in ranked], None
+
+
+def _probe_predictions_endpoint(
+    backend_url: str, season: int, week: int
+) -> Tuple[List[str], List[str]]:
+    """Probe ``/api/predictions``.
+
+    CRITICAL when the endpoint returns any non-200 (especially HTTP 422 — the
+    regression from the 2026-04-20 audit). Empty predictions list is accepted
+    (offseason / no Bronze schedules).
+
+    Args:
+        backend_url: Base URL of the deployed FastAPI backend.
+        season: Season query parameter.
+        week: Week query parameter.
+
+    Returns:
+        ``(criticals, warnings)`` — both are lists of human-readable strings.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    path = f"/api/predictions?season={season}&week={week}"
+    url = backend_url.rstrip("/") + path
+    try:
+        resp = requests.get(url, timeout=_PROBE_TIMEOUT_SECONDS)
+    except requests.exceptions.Timeout:
+        criticals.append(f"LIVE API TIMEOUT (>{_PROBE_TIMEOUT_SECONDS}s): GET {path}")
+        print(f"  [FAIL] {path}  (TIMEOUT)")
+        return criticals, warnings
+    except requests.RequestException as exc:
+        criticals.append(
+            f"LIVE API UNREACHABLE: GET {path} raised " f"{type(exc).__name__}: {exc}"
+        )
+        print(f"  [FAIL] {path}  (request error)")
+        return criticals, warnings
+    if resp.status_code != 200:
+        criticals.append(f"LIVE API NON-200: GET {path} returned {resp.status_code}")
+        print(f"  [FAIL] {path}  (HTTP {resp.status_code})")
+        return criticals, warnings
+    try:
+        payload = resp.json()
+    except ValueError:
+        criticals.append(f"LIVE API INVALID JSON: GET {path}")
+        print(f"  [FAIL] {path}  (not JSON)")
+        return criticals, warnings
+    if not isinstance(payload, dict) or "predictions" not in payload:
+        criticals.append(
+            f"LIVE API UNEXPECTED SHAPE: GET {path} missing 'predictions' key"
+        )
+        print(f"  [FAIL] {path}  (missing 'predictions' key)")
+        return criticals, warnings
+    rows = len(payload.get("predictions", []) or [])
+    print(f"  [PASS] {path}  ({rows} rows)")
+    return criticals, warnings
+
+
+def _probe_lineups_endpoint(
+    backend_url: str, season: int, week: int
+) -> Tuple[List[str], List[str]]:
+    """Probe ``/api/lineups``.
+
+    CRITICAL when the endpoint returns any non-200 (especially HTTP 422 — the
+    regression from the 2026-04-20 audit). Empty lineups list is accepted
+    (offseason / no Bronze schedules).
+
+    Args:
+        backend_url: Base URL of the deployed FastAPI backend.
+        season: Season query parameter.
+        week: Week query parameter.
+
+    Returns:
+        ``(criticals, warnings)`` — both are lists of human-readable strings.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    path = f"/api/lineups?season={season}&week={week}&scoring=half_ppr"
+    url = backend_url.rstrip("/") + path
+    try:
+        resp = requests.get(url, timeout=_PROBE_TIMEOUT_SECONDS)
+    except requests.exceptions.Timeout:
+        criticals.append(f"LIVE API TIMEOUT (>{_PROBE_TIMEOUT_SECONDS}s): GET {path}")
+        print(f"  [FAIL] {path}  (TIMEOUT)")
+        return criticals, warnings
+    except requests.RequestException as exc:
+        criticals.append(
+            f"LIVE API UNREACHABLE: GET {path} raised " f"{type(exc).__name__}: {exc}"
+        )
+        print(f"  [FAIL] {path}  (request error)")
+        return criticals, warnings
+    if resp.status_code != 200:
+        criticals.append(f"LIVE API NON-200: GET {path} returned {resp.status_code}")
+        print(f"  [FAIL] {path}  (HTTP {resp.status_code})")
+        return criticals, warnings
+    try:
+        payload = resp.json()
+    except ValueError:
+        criticals.append(f"LIVE API INVALID JSON: GET {path}")
+        print(f"  [FAIL] {path}  (not JSON)")
+        return criticals, warnings
+    if not isinstance(payload, dict) or "lineups" not in payload:
+        criticals.append(f"LIVE API UNEXPECTED SHAPE: GET {path} missing 'lineups' key")
+        print(f"  [FAIL] {path}  (missing 'lineups' key)")
+        return criticals, warnings
+    teams = len(payload.get("lineups", []) or [])
+    print(f"  [PASS] {path}  ({teams} teams)")
+    return criticals, warnings
+
+
+def _probe_team_rosters_sampled(
+    backend_url: str, season: int
+) -> Tuple[List[str], List[str]]:
+    """Probe ``/api/teams/{team}/roster`` for top-10 teams by snap count.
+
+    CRITICAL when any sampled team returns non-200 (503 was the 2026-04-20
+    regression when Railway's Docker image was missing ``data/bronze/schedules/``).
+    Probes sequentially with a 5s timeout each (max ~50s wall time, mitigates
+    T-68-01-02 DoS concern).
+
+    Args:
+        backend_url: Base URL of the deployed FastAPI backend.
+        season: Season used to pick top-10 teams by snap count.
+
+    Returns:
+        ``(criticals, warnings)`` — both are lists of human-readable strings.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    teams, fallback_warning = _top_n_teams_by_snap_count(season, n=10)
+    if fallback_warning:
+        warnings.append(fallback_warning)
+    failed_teams: List[str] = []
+    for team in teams:
+        path = f"/api/teams/{team}/roster"
+        url = backend_url.rstrip("/") + path
+        # Per-probe budget: timeout=_PROBE_TIMEOUT_SECONDS (5s). Sequential
+        # probes (not threaded) to avoid burst load on Railway (T-68-01-02).
+        try:
+            resp = requests.get(url, timeout=_PROBE_TIMEOUT_SECONDS)
+        except requests.exceptions.Timeout:
+            failed_teams.append(f"{team} TIMEOUT(>{_PROBE_TIMEOUT_SECONDS}s)")
+            continue
+        except requests.RequestException as exc:
+            failed_teams.append(f"{team} {type(exc).__name__}")
+            continue
+        # Only log the status code — never log response body (T-68-01-01).
+        if resp.status_code != 200:
+            failed_teams.append(f"{team} {resp.status_code}")
+            continue
+    if failed_teams:
+        criticals.append(
+            f"LIVE API ROSTER PROBE FAILED for "
+            f"{len(failed_teams)}/{len(teams)} sampled teams: "
+            + ", ".join(failed_teams)
+        )
+        print(
+            f"  [FAIL] /api/teams/*/roster  "
+            f"({len(failed_teams)}/{len(teams)} failed)"
+        )
+    else:
+        print(f"  [PASS] /api/teams/*/roster  " f"(all {len(teams)} sampled teams 200)")
+    return criticals, warnings
+
+
 def run_live_site_check(
     backend_url: str,
     frontend_url: str,
@@ -970,6 +1292,10 @@ def run_live_site_check(
     # ------------------------------------------------------------------
     # Backend endpoints — non-empty JSON payload contracts
     # ------------------------------------------------------------------
+    # Phase 68: the /api/news/team-events entry previously used a weak
+    # ``len == 32`` contract that passed on fully-empty payloads (the
+    # 2026-04-20 regression). Content validation is now handled below by
+    # ``_validate_team_events_content`` after a dedicated fetch.
     api_probes = [
         ("/api/health", lambda d: d.get("status") == "ok"),
         (
@@ -980,10 +1306,6 @@ def run_live_site_check(
         (
             f"/api/projections/latest-week?season={season}",
             lambda d: d.get("season") == season and d.get("week") is not None,
-        ),
-        (
-            "/api/news/team-events?season=2025&week=1",
-            lambda d: isinstance(d, list) and len(d) == 32,
         ),
     ]
     for path, validator in api_probes:
@@ -1017,12 +1339,27 @@ def run_live_site_check(
             print(f"  [FAIL] {path}  (unexpected payload shape)")
             continue
         if not passed:
-            criticals.append(
-                f"LIVE API EMPTY/INVALID PAYLOAD: GET {path}"
-            )
+            criticals.append(f"LIVE API EMPTY/INVALID PAYLOAD: GET {path}")
             print(f"  [FAIL] {path}  (payload failed contract)")
             continue
         print(f"  [PASS] {path}")
+
+    # ------------------------------------------------------------------
+    # Phase 68 SANITY-01/02/03 — v2 probes (predictions, lineups, sampled
+    # rosters). These cover the HTTP 422/503 regressions the pre-v7.0 gate
+    # missed entirely: the v1 loop above never probed these endpoints.
+    # ------------------------------------------------------------------
+    pred_crit, pred_warn = _probe_predictions_endpoint(backend_url, season, week=1)
+    criticals.extend(pred_crit)
+    warnings.extend(pred_warn)
+
+    line_crit, line_warn = _probe_lineups_endpoint(backend_url, season, week=1)
+    criticals.extend(line_crit)
+    warnings.extend(line_warn)
+
+    rost_crit, rost_warn = _probe_team_rosters_sampled(backend_url, season)
+    criticals.extend(rost_crit)
+    warnings.extend(rost_warn)
 
     # ------------------------------------------------------------------
     # Frontend — HTML content markers
@@ -1062,9 +1399,7 @@ def run_live_site_check(
             continue
         missing = [m for m in required_markers if m not in body]
         if missing:
-            warnings.append(
-                f"LIVE FRONTEND MISSING MARKERS at {path}: {missing}"
-            )
+            warnings.append(f"LIVE FRONTEND MISSING MARKERS at {path}: {missing}")
             print(f"  [WARN] {path}  (missing: {missing})")
             continue
         print(f"  [PASS] {path}  ({len(body)} bytes)")
@@ -1157,9 +1492,7 @@ def main() -> int:
 
     # --- Prediction checks ---
     if run_predictions:
-        pred_criticals, pred_warnings = run_prediction_check(
-            args.season, args.week
-        )
+        pred_criticals, pred_warnings = run_prediction_check(args.season, args.week)
         all_criticals.extend(pred_criticals)
         all_warnings.extend(pred_warnings)
         if pred_criticals:
