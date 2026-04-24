@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
 status: executing
-stopped_at: Phase 71 Plan 04 complete — SentimentPipeline claude_primary mode wired with EXTRACTOR_MODE env precedence, per-doc soft fallback to RuleExtractor on batch failure, non_player_pending + unresolved_names Silver sinks, LLMEnrichment short-circuit on is_claude_primary envelopes; 137 sentiment tests green (up from 119); LLM-01/02 requirements complete. Ready for Plan 71-05 (CLI + GHA + benchmark summary).
-last_updated: "2026-04-24T22:30:00.000Z"
-last_activity: 2026-04-24 -- Phase 71 Plan 04 shipped (18 new tests, 137 sentiment tests green; LLM-01 + LLM-02 closed)
+stopped_at: Phase 71 COMPLETE (5/5 plans). Plan 71-05 shipped — CLI --extractor-mode/--mode args + GHA EXTRACTOR_MODE env (gated on vars.ENABLE_LLM_ENRICHMENT) + CI-enforced LLM-04 cost gate (warm-cache projection $1.5700/week, gate <$5) + 71-BENCHMARK.md (rule=28 claude=156 ratio=5.57x, fixture commit 925d52e) + 71-SUMMARY.md (phase-level aggregate). 165 sentiment tests green (up from 137). LLM-01..05 all closed; production activation only requires `gh variable set ENABLE_LLM_ENRICHMENT --body 'true'`. Ready for Phase 72 (EVT — Event Flag Expansion + Non-Player Attribution).
+last_updated: "2026-04-24T22:00:00.000Z"
+last_activity: 2026-04-24 -- Phase 71 Plan 05 shipped (28 new tests, 165 sentiment tests green; LLM-02/03/04 closed; Phase 71 complete)
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 4
-  percent: 80
+  completed_plans: 5
+  percent: 100
 ---
 
 # Project State
@@ -25,15 +25,15 @@ See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness 
 
 ## Current Position
 
-Phase: 71 (llm-primary-extraction) — EXECUTING
-Plan: 5 of 5 (Plans 01, 02, 03, 04 complete)
-Status: Executing Phase 71
-Last activity: 2026-04-24 -- Phase 71 Plan 04 shipped
+Phase: 71 (llm-primary-extraction) — COMPLETE
+Plan: 5 of 5 (all complete)
+Status: Phase 71 shipped — ready for Phase 72
+Last activity: 2026-04-24 -- Phase 71 Plan 05 shipped (Phase 71 closed)
 
-**Execution order (proposed):** 71 → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
+**Execution order (proposed):** 71 ✓ → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
-Progress: 4/5 plans in Phase 71 (80%)
-[████████████████░░░░] 80%
+Progress: 5/5 plans in Phase 71 (100%)
+[████████████████████] 100%
 
 ## Milestone Goal
 
@@ -98,10 +98,15 @@ Carried forward from v7.0 (shipped 2026-04-24):
 - [71-04]: Two new Silver sinks at data/silver/sentiment/non_player_pending/ and data/silver/sentiment/unresolved_names/ — partition layout mirrors signals/; envelope shape uses generic _write_envelope helper
 - [71-04]: _build_extractor converted from @staticmethod to instance method for access to self._claude_client + self._cost_log; back-compat sweep verified zero unbound call sites in src/ scripts/ tests/
 - [71-04]: When claude_primary requested but no client available, pipeline silently downgrades to RuleExtractor with WARNING log AND clears self._is_claude_primary so run loop takes legacy path
+- [71-05]: CLI default for --extractor-mode is None (NOT 'auto') so main() can detect 'no override' and skip passing the kwarg to SentimentPipeline — preserves the EXTRACTOR_MODE env precedence Plan 71-04 built. Default 'auto' would clobber env-driven routing.
+- [71-05]: ANTHROPIC_API_KEY missing-key WARNING gated to _MODES_REQUIRING_API_KEY = {'claude', 'claude_primary'} — rule/auto/unset don't need the key, no nagging. Tests verify both directions.
+- [71-05]: GHA EXTRACTOR_MODE expression returns empty string when LLM enrichment is off. Pipeline _resolve_extractor_mode treats empty as 'auto', so off-state is byte-identical to no env var — clean rollback path via single GitHub Variable flip.
+- [71-05]: Cost-projection CI gate imports BATCH_SIZE from src.sentiment.processing.extractor (NEVER hard-codes 8). Any future BATCH_SIZE tune at the source ripples through the projection automatically.
+- [71-05]: Cost gate uses W18 warm-cache fixture (cache_read>0, cache_creation==0) for the projection — represents steady-state weekly operation. W17 cold-cache is informational only (one-shot ceiling).
 
 ### Pending Todos
 
-Plan 71-04 (pipeline wiring) shipped. Next: Plan 71-05 — CLI --extractor-mode/--mode arg on scripts/process_sentiment.py, GHA daily-sentiment.yml EXTRACTOR_MODE env knob (gated by ENABLE_LLM_ENRICHMENT==true), 71-BENCHMARK.md harvest, 71-SUMMARY.md cost summary using HAIKU_4_5_RATES.
+Phase 71 complete. Production activation: `gh variable set ENABLE_LLM_ENRICHMENT --body 'true'` then wait for next daily cron (`0 12 * * *` UTC). Health-summary step will log `::notice::Extractor mode: claude_primary`. Cost-log Parquet files will appear under `data/ops/llm_costs/season=2026/week=NN/`. Next milestone work: Phase 72 (EVT — Event Flag Expansion + Non-Player Attribution; depends on 71). Phases 73 (External Projections) ∥ 74 (Sleeper League) ∥ 75 (Tech Debt) can run parallel.
 
 ### Blockers/Concerns
 
@@ -127,6 +132,6 @@ Plan 71-04 (pipeline wiring) shipped. Next: Plan 71-05 — CLI --extractor-mode/
 ## Session Continuity
 
 Last session: 2026-04-24
-Stopped at: Phase 71 Plan 04 complete — SentimentPipeline claude_primary mode wired with EXTRACTOR_MODE env precedence, per-doc soft fallback, non_player_pending + unresolved_names Silver sinks, LLMEnrichment short-circuit; 137 sentiment tests green; LLM-01 + LLM-02 complete. Ready for Plan 71-05 (CLI + GHA + benchmark summary).
-Resume with: `/gsd:execute-phase 71 --plan 05` (or `/gsd:autonomous --from 71-05` for full autonomous run).
-Resume file: .planning/phases/71-llm-primary-extraction/71-05-cli-gha-and-benchmark-summary-PLAN.md
+Stopped at: Phase 71 COMPLETE (5/5 plans). Plan 71-05 shipped — CLI --extractor-mode/--mode args + GHA EXTRACTOR_MODE env (gated on vars.ENABLE_LLM_ENRICHMENT) + CI-enforced LLM-04 cost gate (warm-cache projection $1.5700/week, gate <$5) + 71-BENCHMARK.md (rule=28 claude=156 ratio=5.57x, fixture commit 925d52e) + 71-SUMMARY.md. 165 sentiment tests green. LLM-01..05 all closed. Ready for Phase 72.
+Resume with: `/gsd:discuss-phase 72` then `/gsd:plan-phase 72` then `/gsd:execute-phase 72`.
+Resume file: (no plan file yet — Phase 72 needs discussion + planning first)
