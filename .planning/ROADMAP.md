@@ -49,11 +49,83 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
 
 </details>
 
-### 📋 v7.1 External Projections + Sleeper League (Planned)
+### 🚧 v7.1 Draft Season Readiness (In Progress)
 
-Preliminary scope — not yet broken into phases. See PROJECT.md "Future Milestones":
-- External projections comparison: ESPN/Sleeper/Yahoo side-by-side on projections page (EXTPROJ-01..05)
-- Sleeper league integration: username → leagues, roster import, personalized advice, OAuth (SLEEP-01..04)
+**Milestone Goal:** Deliver draft-season-critical features before fantasy draft season opens — LLM-primary sentiment extraction (so offseason news produces real signals, not 0-signal RuleExtractor fallback), external projections comparison (ESPN/Sleeper/Yahoo side-by-side), Sleeper league integration (personalized rosters + advisor), and v7.0 tech debt cleanup.
+
+**Phase Numbering:**
+- Integer phases (71-75): Planned milestone work
+- Decimal phases (71.1, etc.): Urgent insertions (if needed)
+
+**Summary checklist:**
+
+- [ ] **Phase 71: LLM-Primary Extraction** — Replace rule-primary / LLM-enrichment with Claude-primary extraction for offseason signal coverage; cost management + deterministic tests
+- [ ] **Phase 72: Event Flag Expansion + Non-Player Attribution** — Add is_drafted / is_rumored_destination / is_coaching_change / etc.; decide coach-and-reporter handling (team rollup vs separate channel)
+- [ ] **Phase 73: External Projections Comparison** — ESPN + Sleeper + Yahoo weekly projections side-by-side with ours on projections page + new /api/projections/comparison endpoint
+- [ ] **Phase 74: Sleeper League Integration** — Username auth → league listing → roster import → advisor `getUserRoster` tool → start/sit personalization
+- [ ] **Phase 75: v7.0 Tech Debt Cleanup** — 8 items rolled forward (gitignore frontend configs, remove --no-verify, format-relative-time guard, duplicate relativeTime consolidation, etc.)
+
+## Phase Details
+
+### Phase 71: LLM-Primary Extraction
+**Goal**: Convert `src/sentiment/processing/extractor.py` from rule-primary + LLM-enrichment-only to LLM-primary with rule fallback. Offseason Bronze content (drafts/trades/coaching/rookie buzz) must produce signals instead of silent zeros. Preserve dev-mode zero-cost path.
+**Depends on**: Nothing (first v7.1 phase)
+**Requirements**: LLM-01, LLM-02, LLM-03, LLM-04, LLM-05
+**Success Criteria** (what must be TRUE):
+  1. `ClaudeExtractor` class exists as a peer to `RuleExtractor`, emitting structured `{player_name, event_type, sentiment_score, summary, event_flags}` signals from raw Bronze docs (not just enrichment)
+  2. Re-running sentiment pipeline on 2025 W17 + W18 Bronze with `ENABLE_LLM_ENRICHMENT=true` produces ≥ 5× more signals than rule-based; measured and committed to SUMMARY
+  3. Prompt-cache the player list across docs; target < $5/week at 80 docs/day
+  4. Deterministic tests via recorded Claude responses — no live API calls in CI
+  5. `RuleExtractor` path preserved for dev + API-outage scenarios (`ENABLE_LLM_ENRICHMENT=false` is zero-cost)
+
+### Phase 72: Event Flag Expansion + Non-Player Attribution
+**Goal**: Extend `event_flags` beyond injury/trade/usage to cover the draft-season domain (rookie buzz, trade rumors, coaching changes, cap cuts). Decide how to attribute non-player subjects (coaches/reporters/teams) that Phase 69 surfaced as `player_id: null` rejects.
+**Depends on**: Phase 71 (Claude extractor is the producer of these new flags)
+**Requirements**: EVT-01, EVT-02, EVT-03, EVT-04, EVT-05
+**Success Criteria**:
+  1. New flags `is_drafted`, `is_rumored_destination`, `is_coaching_change`, `is_trade_buzz`, `is_holdout`, `is_cap_cut`, `is_rookie_buzz` in schema + emitted by ClaudeExtractor
+  2. Non-player subjects either attribute to team (rollup) or route to `non_player_news` channel — decision captured in CONTEXT.md
+  3. Weekly aggregator no longer silent-drops `player_id: null`; tracks metric or attributes per (2)
+  4. `/api/news/team-events` populates expanded flags for ≥ 15 of 32 teams on 2025 W17+W18 backfill
+  5. Advisor `getPlayerNews` / `getTeamSentiment` return non-empty for ≥ 20 teams post-backfill
+
+### Phase 73: External Projections Comparison
+**Goal**: Surface ESPN + Sleeper + Yahoo weekly projections side-by-side with ours on the projections page. Users compare; we show transparency. Sleeper already has MCP; ESPN/Yahoo may require scraping.
+**Depends on**: Nothing (parallel with 71/72)
+**Requirements**: EXTP-01, EXTP-02, EXTP-03, EXTP-04, EXTP-05
+**Success Criteria**:
+  1. Bronze ingestion at `data/bronze/external_projections/{source}/season=YYYY/week=WW/` for ESPN + Sleeper + Yahoo
+  2. Silver merged schema `{player_id, source, projected_points, scoring_format}` with all 4 sources (ours + 3 external)
+  3. New `/api/projections/comparison?season=Y&week=W&scoring=F` endpoint returns 4-source shape
+  4. Frontend projections page renders comparison table with delta column + position filter
+  5. Cron refresh keeps external data current; `data_as_of` chip surfaces freshness
+**UI hint**: yes
+
+### Phase 74: Sleeper League Integration
+**Goal**: Let users connect their Sleeper account → import rosters → get personalized advice. Sleeper MCP already wired; need frontend auth + backend user-scoped context + new advisor tool.
+**Depends on**: Nothing (parallel with 71/72/73)
+**Requirements**: SLEEP-01, SLEEP-02, SLEEP-03, SLEEP-04
+**Success Criteria**:
+  1. Username auth flow: frontend form → backend resolves leagues + rosters via Sleeper API
+  2. `/leagues` route with league selector + roster view; rosters cached in session
+  3. New advisor tool `getUserRoster({league_id})` returning user's lineup + bench
+  4. Start/sit advisor uses actual roster when auth is active (vs hypothetical baseline)
+**UI hint**: yes
+
+### Phase 75: v7.0 Tech Debt Cleanup
+**Goal**: Clear the 8 debt items rolled forward from v7.0 audit so subsequent milestones start clean.
+**Depends on**: Nothing (parallel with all)
+**Requirements**: TD-01, TD-02, TD-03, TD-04, TD-05, TD-06, TD-07, TD-08
+**Success Criteria**:
+  1. Auto-rollback no longer uses `--no-verify` (single revert with `-m`); structural test guards against regression
+  2. `web/frontend/**/*.json` whitelisted in root `.gitignore`; CI + fresh clones get vitest deps
+  3. `daily-sentiment.yml` roster refresh uses `$(date +%Y)` not hardcoded year
+  4. Duplicate `relativeTime()` removed from `news-feed.tsx` + `player-news-panel.tsx` (consolidated to `formatRelativeTime`)
+  5. `formatRelativeTime("")` does not produce "Updated unknown"
+  6. `VALID_NFL_TEAMS` has single Rams entry (LA, not LAR)
+  7. CLAUDE.md documents that Bronze rosters + depth_charts are committed as of 2026-04-24
+
+### 📋 v7.2 Marketing & Content (Planned)
 
 ### 📋 v7.2 Marketing & Content (Planned)
 
