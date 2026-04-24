@@ -1,0 +1,275 @@
+{
+  "_comment": "Scrubbed 2025 W17/W18 offseason Bronze fixture for Plan 71-02. Player names and team abbreviations are real public NFL content; author names have been stripped and body_text truncated to <=800 chars. This fixture powers the LLM-03 5x benchmark (recorded in Plan 71-05) on offseason content where RuleExtractor produces near-zero signals.",
+  "items": [
+    {
+      "external_id": "pft-2025w17-001",
+      "source": "rss_pft",
+      "title": "Report: Giants could use first-round pick on a quarterback in the 2026 draft",
+      "body_text": "The New York Giants are expected to explore trading up in the 2026 NFL Draft to land a franchise quarterback. Sources indicate the front office has scheduled workouts with the top QB prospects ahead of the combine. Daniel Jones' future remains uncertain as the team evaluates its long-term options at the position.",
+      "published_at": "2025-12-29T14:23:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-002",
+      "source": "rss_pft",
+      "title": "Bears reportedly shopping receiver in trade talks ahead of deadline",
+      "body_text": "The Chicago Bears have fielded calls on veteran wide receiver Keenan Allen and are gauging the trade market as the franchise pivots toward a full rebuild. Multiple contenders have expressed interest but the asking price remains a mid-round pick according to league sources.",
+      "published_at": "2025-12-29T16:45:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-003",
+      "source": "rss_pft",
+      "title": "Panthers fire head coach after disappointing 4-12 season",
+      "body_text": "The Carolina Panthers have parted ways with their head coach following a 4-12 campaign. The franchise will begin an immediate coaching search with several high-profile coordinators expected to interview. Owner David Tepper emphasized the need for stability and a clear offensive vision to develop Bryce Young.",
+      "published_at": "2025-12-30T09:12:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-004",
+      "source": "rss_pft",
+      "title": "Draft buzz: Ohio State rookie receiver rising up boards after Rose Bowl",
+      "body_text": "Ohio State wide receiver Carnell Tate has surged up 2026 NFL Draft boards following a dominant Rose Bowl performance. Scouts are pointing to his route running and contested-catch ability as reasons he could be a top-15 pick. Multiple GMs have him in their first-round plans.",
+      "published_at": "2025-12-30T18:30:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-005",
+      "source": "rss_pft",
+      "title": "Rookie QB Jayden Daniels named Offensive Rookie of the Year favorite",
+      "body_text": "Washington Commanders rookie quarterback Jayden Daniels has vaulted to the top of the Offensive Rookie of the Year race after a sensational Week 17 outing. His dual-threat production has transformed the Commanders offense and drawn early comparisons to Patrick Mahomes' rookie trajectory.",
+      "published_at": "2025-12-31T11:00:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-006",
+      "source": "rss_espn",
+      "title": "Seahawks interested in trading for a veteran edge rusher this offseason",
+      "body_text": "The Seattle Seahawks have identified pass rush as the top offseason priority and are expected to pursue a trade for a veteran edge rusher. Internal evaluations suggest the current group needs a proven disruptor to complement Leonard Williams and elevate the defensive front.",
+      "published_at": "2025-12-31T15:22:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-007",
+      "source": "rss_espn",
+      "title": "Ravens coaching staff shakeup: OC candidates emerge",
+      "body_text": "The Baltimore Ravens are exploring offensive coordinator candidates after parting ways with their play-caller. Names circulating include a mix of college offensive minds and NFL position coaches. Lamar Jackson is reportedly consulting with ownership on the search.",
+      "published_at": "2026-01-01T08:15:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-008",
+      "source": "rss_pft",
+      "title": "2026 Mock Draft: Shedeur Sanders projected first overall to Titans",
+      "body_text": "Colorado quarterback Shedeur Sanders is widely projected as the first overall pick in the 2026 NFL Draft in early mock drafts. Multiple draft analysts view his pocket presence and arm talent as franchise-caliber. The Tennessee Titans currently hold the top pick after a difficult season.",
+      "published_at": "2026-01-01T14:40:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-009",
+      "source": "rss_espn",
+      "title": "Cowboys expected to release veteran linebacker for salary cap relief",
+      "body_text": "The Dallas Cowboys are expected to release veteran linebacker Micah Parsons' teammate Leighton Vander Esch for cap relief this offseason. The move would free up significant space for the Cowboys to pursue interior defensive linemen in free agency.",
+      "published_at": "2026-01-02T10:05:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "rss-pft-2025w17-010",
+      "source": "rss_pft",
+      "title": "Patriots trade rumor: veteran CB linked to contending teams",
+      "body_text": "The New England Patriots are reportedly willing to listen on veteran cornerback Jonathan Jones as the team pivots to a youth movement. Multiple playoff-bound clubs have inquired about his availability ahead of the trade deadline.",
+      "published_at": "2026-01-02T13:50:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-011",
+      "source": "rss_pft",
+      "title": "Eagles DC reportedly on Saints head coaching short list",
+      "body_text": "The Philadelphia Eagles defensive coordinator Vic Fangio has emerged as a top target for the New Orleans Saints head coaching vacancy. An interview has been scheduled for next week. Fangio's resume and defensive track record have made him a coveted candidate across the league.",
+      "published_at": "2026-01-02T17:30:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-012",
+      "source": "rss_espn",
+      "title": "Rookie RB Bijan Robinson named Pro Bowl starter in breakout sophomore year",
+      "body_text": "Atlanta Falcons running back Bijan Robinson has been named a Pro Bowl starter after a breakout sophomore season. His dual-threat production in the passing game has made him one of the most valuable assets in the league and a cornerstone piece for Atlanta's offense.",
+      "published_at": "2026-01-03T09:45:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-013",
+      "source": "rss_pft",
+      "title": "Jaguars coaching search: Ben Johnson reported to interview this week",
+      "body_text": "The Jacksonville Jaguars have scheduled an interview with Detroit Lions offensive coordinator Ben Johnson for their head coaching vacancy. Johnson is viewed as a top candidate after transforming the Lions offense into one of the league's most explosive units.",
+      "published_at": "2026-01-03T12:20:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-014",
+      "source": "rss_espn",
+      "title": "Chiefs questionable designation: Travis Kelce dealing with ankle sprain",
+      "body_text": "Kansas City Chiefs tight end Travis Kelce is listed as questionable with an ankle sprain ahead of Week 18. The veteran tight end was limited in practice on Wednesday and Thursday. Andy Reid said a game-time decision is likely.",
+      "published_at": "2026-01-03T15:10:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w17-015",
+      "source": "rss_pft",
+      "title": "Rookie Caleb Williams in MVP conversation as Bears trade up draft speculation grows",
+      "body_text": "Chicago Bears rookie quarterback Caleb Williams has quietly entered the MVP conversation after a strong late-season stretch. Meanwhile, draft speculation continues about whether the Bears will trade up in the 2026 draft to add a premier defensive prospect to pair with their young franchise quarterback.",
+      "published_at": "2026-01-03T19:00:00+00:00",
+      "season": 2025,
+      "week": 17
+    },
+    {
+      "external_id": "pft-2025w18-001",
+      "source": "rss_pft",
+      "title": "Rams trade target: veteran WR linked in multi-team talks",
+      "body_text": "The Los Angeles Rams have emerged as a potential trade destination for a veteran wide receiver, with multi-team talks heating up ahead of the offseason. Sean McVay is reportedly pushing for a veteran target to complement Cooper Kupp and Puka Nacua.",
+      "published_at": "2026-01-05T11:15:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-002",
+      "source": "rss_espn",
+      "title": "Buccaneers fire offensive coordinator after playoff loss",
+      "body_text": "The Tampa Bay Buccaneers have fired their offensive coordinator following a disappointing playoff loss. The move signals a shift in offensive philosophy with head coach Todd Bowles now tasked with finding a play-caller who can better support quarterback Baker Mayfield.",
+      "published_at": "2026-01-05T14:40:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-003",
+      "source": "rss_pft",
+      "title": "Draft combine sleepers: three rookies rising up boards",
+      "body_text": "Three 2026 NFL Draft prospects have quietly surged up team boards heading into the combine. Sources point to rookie linebacker Jihaad Campbell, rookie tackle Kelvin Banks Jr, and rookie safety Caleb Downs as players whose stocks have climbed most in late December scouting updates.",
+      "published_at": "2026-01-05T18:00:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-004",
+      "source": "rss_pft",
+      "title": "Titans coaching search: Lions DC named as top candidate",
+      "body_text": "The Tennessee Titans have identified Detroit Lions defensive coordinator Aaron Glenn as their top head coaching target. An in-person interview is expected as the Titans look for a leader to rebuild around quarterback Will Levis and the young core.",
+      "published_at": "2026-01-06T09:30:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-005",
+      "source": "rss_espn",
+      "title": "Jets veteran QB Aaron Rodgers undecided on 2026 return",
+      "body_text": "New York Jets quarterback Aaron Rodgers remains undecided on whether he will return for the 2026 season. Sources say Rodgers is evaluating his health, the team's direction, and the coaching staff before making a final decision. The Jets are preparing contingency plans at quarterback.",
+      "published_at": "2026-01-06T12:50:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-006",
+      "source": "rss_pft",
+      "title": "Bengals trade rumor: veteran safety available at the right price",
+      "body_text": "The Cincinnati Bengals have made veteran safety Jessie Bates III available in trade talks at the right price. Multiple contenders have shown interest according to league sources. A second-round pick is reportedly the asking price.",
+      "published_at": "2026-01-06T16:10:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-007",
+      "source": "rss_espn",
+      "title": "Panthers coaching search: Belichick tree candidate emerges",
+      "body_text": "The Carolina Panthers have identified a Bill Belichick coaching tree candidate as a top option for their head coaching vacancy. The candidate is expected to interview next week. Owner David Tepper continues to emphasize culture and discipline in the search process.",
+      "published_at": "2026-01-07T08:20:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-008",
+      "source": "rss_pft",
+      "title": "Rookie CB Travis Hunter wins Defensive Rookie of the Year",
+      "body_text": "Jacksonville Jaguars rookie cornerback Travis Hunter has been named the Defensive Rookie of the Year after a dominant debut season. Hunter's lockdown coverage on the outside transformed the Jaguars secondary and validated his top-five draft selection.",
+      "published_at": "2026-01-07T11:35:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-009",
+      "source": "rss_pft",
+      "title": "Broncos trade buzz: second-round pick on offer for veteran TE",
+      "body_text": "The Denver Broncos are reportedly offering a second-round pick for a veteran tight end this offseason. The move signals Sean Payton's intent to upgrade the position as he continues to build around quarterback Bo Nix. Multiple targets have been identified.",
+      "published_at": "2026-01-07T15:45:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-010",
+      "source": "rss_pft",
+      "title": "Saints head coaching finalists: three names emerge after round one",
+      "body_text": "The New Orleans Saints have narrowed their head coaching search to three finalists after the first round of interviews. The franchise is expected to make a decision by the end of January. Internal candidate Darren Rizzi remains in the mix as the only holdover from the previous staff.",
+      "published_at": "2026-01-08T10:05:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-011",
+      "source": "rss_espn",
+      "title": "Packers rookie Jayden Reed ruled out for Wild Card round with knee",
+      "body_text": "Green Bay Packers wide receiver Jayden Reed has been ruled out for the Wild Card round with a knee injury suffered in Week 18. The loss is a significant blow to the Packers passing attack with Jordan Love entering his first playoff start.",
+      "published_at": "2026-01-08T13:30:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-012",
+      "source": "rss_pft",
+      "title": "Draft analysts update 2026 quarterback rankings after bowl season",
+      "body_text": "Draft analysts have updated their 2026 quarterback rankings following bowl season, with Shedeur Sanders, Cam Ward, and Jaxson Dart as the top three names. A fourth rookie prospect from the Big Ten has also entered first-round conversations after a standout bowl performance.",
+      "published_at": "2026-01-08T17:00:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-013",
+      "source": "rss_espn",
+      "title": "Dolphins coaching staff: OL coach fired amid offensive struggles",
+      "body_text": "The Miami Dolphins have fired their offensive line coach amid ongoing struggles in pass protection. The move is the first of what is expected to be several staff changes as head coach Mike McDaniel evaluates the offensive unit's disappointing 2025 performance.",
+      "published_at": "2026-01-09T09:20:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-014",
+      "source": "rss_pft",
+      "title": "49ers trade interest: Brock Purdy backup situation intensifies",
+      "body_text": "The San Francisco 49ers are reportedly exploring trades for a veteran backup quarterback behind Brock Purdy. The move would provide insurance as the team looks to return to Super Bowl contention in 2026. Several veterans have been identified as potential targets.",
+      "published_at": "2026-01-09T12:40:00+00:00",
+      "season": 2025,
+      "week": 18
+    },
+    {
+      "external_id": "pft-2025w18-015",
+      "source": "rss_pft",
+      "title": "Rookie TE Brock Bowers breaks franchise TD record for Raiders",
+      "body_text": "Las Vegas Raiders rookie tight end Brock Bowers has broken the franchise record for most receiving touchdowns by a rookie tight end. His connection with quarterback Aidan O'Connell has been a rare bright spot in a rebuilding season for the Raiders.",
+      "published_at": "2026-01-09T16:15:00+00:00",
+      "season": 2025,
+      "week": 18
+    }
+  ]
+}
