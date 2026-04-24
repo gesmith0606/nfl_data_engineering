@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
-status: executing
-stopped_at: Phase 71 COMPLETE (5/5 plans). Plan 71-05 shipped — CLI --extractor-mode/--mode args + GHA EXTRACTOR_MODE env (gated on vars.ENABLE_LLM_ENRICHMENT) + CI-enforced LLM-04 cost gate (warm-cache projection $1.5700/week, gate <$5) + 71-BENCHMARK.md (rule=28 claude=156 ratio=5.57x, fixture commit 925d52e) + 71-SUMMARY.md (phase-level aggregate). 165 sentiment tests green (up from 137). LLM-01..05 all closed; production activation only requires `gh variable set ENABLE_LLM_ENRICHMENT --body 'true'`. Ready for Phase 72 (EVT — Event Flag Expansion + Non-Player Attribution).
-last_updated: "2026-04-24T22:00:00.000Z"
-last_activity: 2026-04-24 -- Phase 71 Plan 05 shipped (28 new tests, 165 sentiment tests green; LLM-02/03/04 closed; Phase 71 complete)
+status: Phase 71 shipped — ready for Phase 72
+stopped_at: Phase 71 COMPLETE (5/5 plans). Plan 71-05 shipped — CLI --extractor-mode/--mode args + GHA EXTRACTOR_MODE env (gated on vars.ENABLE_LLM_ENRICHMENT) + CI-enforced LLM-04 cost gate (warm-cache projection $1.5700/week, gate <$5) + 71-BENCHMARK.md (rule=28 claude=156 ratio=5.57x, fixture commit 925d52e) + 71-SUMMARY.md. 165 sentiment tests green. LLM-01..05 all closed. Ready for Phase 72.
+last_updated: "2026-04-24T22:12:54.602Z"
+last_activity: 2026-04-24
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 5
-  completed_plans: 5
+  completed_plans: 6
   percent: 100
 ---
 
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness 
 
 ## Current Position
 
-Phase: 71 (llm-primary-extraction) — COMPLETE
-Plan: 5 of 5 (all complete)
+Phase: 72
+Plan: Not started
 Status: Phase 71 shipped — ready for Phase 72
-Last activity: 2026-04-24 -- Phase 71 Plan 05 shipped (Phase 71 closed)
+Last activity: 2026-04-24
 
 **Execution order (proposed):** 71 ✓ → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
