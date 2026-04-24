@@ -256,6 +256,12 @@ data/gold/*
 !data/external/
 !data/external/*.json
 
+# Test fixtures (Plan 71-02): allow recorded Bronze + Claude JSON so the
+# FakeClaudeClient replay harness and LLM-03 benchmark can read them in CI.
+!tests/fixtures/
+!tests/fixtures/**
+!tests/fixtures/**/*.json
+
 # Logs
 *.log
 logs/
