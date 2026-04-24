@@ -18,7 +18,8 @@ import sys
 import os
 import argparse
 import glob as globmod
-from datetime import datetime
+import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -982,6 +983,38 @@ def run_sanity_check(scoring: str, season: int) -> int:
         d = o - c
         print(f"  {pos:<10} {c:>10} {o:>10} {d:>+10}")
 
+    # ------------------------------------------------------------------
+    # Phase 68 SANITY-05 + SANITY-07 + SANITY-10 — drift + API key + DQAL.
+    # These assertions run for every deploy (not just --check-live) so
+    # they gate-block any merge to main regardless of the --check-live flag.
+    # Each regression class produces at most one aggregated CRITICAL per
+    # offending player (drift) or per-class (negative-clamp, rookie, rank
+    # gap) so one class cannot flood the aggregate and mask another.
+    # ------------------------------------------------------------------
+    print("\n" + "-" * 70)
+    print("  DQAL-03 CARRY-OVER ASSERTIONS")
+    print("-" * 70)
+
+    drift_crit, drift_warn = _check_roster_drift_top50(scoring, season)
+    criticals.extend(drift_crit)
+    warnings.extend(drift_warn)
+
+    key_crit, key_warn = _assert_api_key_when_enrichment_enabled()
+    criticals.extend(key_crit)
+    warnings.extend(key_warn)
+
+    neg_crit, neg_warn = _check_dqal_negative_projection(scoring, season)
+    criticals.extend(neg_crit)
+    warnings.extend(neg_warn)
+
+    rookie_crit, rookie_warn = _check_dqal_rookie_ingestion(season=2025)
+    criticals.extend(rookie_crit)
+    warnings.extend(rookie_warn)
+
+    gap_crit, gap_warn = _check_dqal_rank_gap(season=season)
+    criticals.extend(gap_crit)
+    warnings.extend(gap_warn)
+
     # Return code
     if criticals:
         print(f"\n  RESULT: FAIL — {len(criticals)} critical issues found")
@@ -1398,6 +1431,371 @@ def _check_extractor_freshness() -> Tuple[List[str], List[str]]:
             f"has stopped or extractor is failing."
         )
         print(f"  [FAIL] Silver sentiment freshness  (latest write {age_str} ago)")
+    return criticals, warnings
+
+
+# ---------------------------------------------------------------------------
+# Phase 68 SANITY-05 — roster drift vs Sleeper canonical (Kyler Murray canary)
+# ---------------------------------------------------------------------------
+_SLEEPER_PLAYERS_URL = "https://api.sleeper.app/v1/players/nfl"
+_SLEEPER_CACHE_DIR = os.path.join(PROJECT_ROOT, "data", ".cache")
+
+
+def _fetch_sleeper_canonical_cached() -> Tuple[Dict[str, Dict], Optional[str]]:
+    """Fetch Sleeper's player universe with a per-day disk cache.
+
+    The Sleeper ``/v1/players/nfl`` response is ~30MB and their docs ask that
+    you hit it at most once per day per client. We key the cache on UTC date:
+    ``data/.cache/sleeper_players_YYYYMMDD.json``.
+
+    T-68-02-02 mitigation: a network failure returns ``({}, warning)`` rather
+    than raising, so an upstream Sleeper outage degrades to a WARNING rather
+    than a CRITICAL — we never block our deploy on their availability.
+
+    Returns:
+        Tuple of ``(players_dict, warning_msg)``. ``players_dict`` is the
+        raw Sleeper payload keyed by ``sleeper_player_id`` (empty dict on
+        fetch failure). ``warning_msg`` is ``None`` on success, otherwise a
+        human-readable warning string the caller should surface as WARNING.
+    """
+    today = datetime.now(timezone.utc).strftime("%Y%m%d")
+    cache_path = os.path.join(_SLEEPER_CACHE_DIR, f"sleeper_players_{today}.json")
+    if os.path.exists(cache_path):
+        try:
+            with open(cache_path) as fh:
+                return json.load(fh), None
+        except (json.JSONDecodeError, OSError) as exc:
+            logger.warning("Sleeper cache corrupt (%s); re-fetching", exc)
+    try:
+        resp = requests.get(_SLEEPER_PLAYERS_URL, timeout=30)
+        resp.raise_for_status()
+        players = resp.json()
+    except requests.RequestException as exc:
+        return {}, (
+            f"SLEEPER API UNREACHABLE ({type(exc).__name__}: {exc}); "
+            f"skipping roster drift check — this is a WARNING, not CRITICAL, "
+            f"so upstream outages do not block deploy"
+        )
+    os.makedirs(_SLEEPER_CACHE_DIR, exist_ok=True)
+    try:
+        with open(cache_path, "w") as fh:
+            json.dump(players, fh)
+    except OSError as exc:
+        logger.warning("Failed to write Sleeper cache to %s: %s", cache_path, exc)
+    return players, None
+
+
+def _check_roster_drift_top50(scoring: str, season: int) -> Tuple[List[str], List[str]]:
+    """SANITY-05: top-50 PPR players' teams must match Sleeper canonical.
+
+    For each of the top-50 players in latest Gold projections (by
+    ``projected_points`` descending), fetch Sleeper's canonical team
+    assignment via :func:`_fetch_sleeper_canonical_cached` and emit one
+    CRITICAL per mismatched player. The Kyler Murray ARI→FA case from the
+    2026-04-20 audit is the acceptance canary.
+
+    Severity policy (T-68-02-04):
+        - Each mismatched player produces exactly one CRITICAL so flooding
+          cannot mask other regression classes in the aggregate count.
+        - Sleeper-unreachable degrades to a single WARNING (not CRITICAL).
+        - Player not found in Sleeper at all → WARNING, not CRITICAL (could
+          be a rookie Sleeper has not catalogued yet).
+
+    Args:
+        scoring: Scoring format passed to ``_load_our_projections`` (e.g.
+            ``"half_ppr"``).
+        season: Target season year for Gold projection lookup.
+
+    Returns:
+        ``(criticals, warnings)`` — both lists of human-readable messages.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    try:
+        our_df = _load_our_projections(scoring, season)
+    except FileNotFoundError as exc:
+        warnings.append(
+            f"ROSTER DRIFT SKIPPED: no Gold projections for season={season} ({exc})"
+        )
+        return criticals, warnings
+    if our_df is None or our_df.empty or "projected_points" not in our_df.columns:
+        warnings.append(
+            "ROSTER DRIFT SKIPPED: Gold projections empty or missing projected_points"
+        )
+        return criticals, warnings
+    top50 = our_df.sort_values("projected_points", ascending=False).head(50).copy()
+
+    sleeper_players, fetch_warning = _fetch_sleeper_canonical_cached()
+    if fetch_warning:
+        warnings.append(fetch_warning)
+        return criticals, warnings
+
+    # Build Sleeper name->team lookup. ``None`` team signals FA / released /
+    # retired per Sleeper's contract. Apply the Sleeper→nflverse normalization
+    # defined at module scope for abbreviation differences (LAR, JAC).
+    sleeper_name_to_team: Dict[str, Optional[str]] = {}
+    for _pid, player in sleeper_players.items():
+        if not isinstance(player, dict):
+            continue
+        name = player.get("full_name") or player.get("search_full_name") or ""
+        if not name:
+            continue
+        team_raw = player.get("team")
+        if team_raw:
+            team = _SLEEPER_TO_NFLVERSE_TEAM.get(team_raw, team_raw)
+        else:
+            team = None  # Free agent / released / retired
+        sleeper_name_to_team[_normalize_name(name)] = team
+
+    for _, row in top50.iterrows():
+        our_name = str(row.get("player_name", ""))
+        our_team = str(row.get("team", "")).upper()
+        if not our_name or not our_team:
+            continue
+        norm_key = _normalize_name(our_name)
+        if norm_key not in sleeper_name_to_team:
+            # Not found at all — could be a very new rookie. WARN, don't block.
+            warnings.append(
+                f"ROSTER DRIFT NOT-FOUND: {our_name} (Gold team={our_team}) "
+                f"not present in Sleeper canonical"
+            )
+            continue
+        sleeper_team = sleeper_name_to_team[norm_key]
+        if sleeper_team is None:
+            # Present in Sleeper but team is explicitly null -> free agent.
+            criticals.append(
+                f"ROSTER DRIFT: {our_name} — Gold says {our_team}, "
+                f"Sleeper says FA (free agent / released / retired)"
+            )
+            continue
+        if sleeper_team != our_team:
+            criticals.append(
+                f"ROSTER DRIFT: {our_name} — Gold says {our_team}, "
+                f"Sleeper says {sleeper_team}"
+            )
+
+    if not criticals:
+        print(f"  [PASS] Roster drift vs Sleeper canonical  (top-50 all match)")
+    else:
+        print(
+            f"  [FAIL] Roster drift vs Sleeper canonical  "
+            f"({len(criticals)} mismatches)"
+        )
+    return criticals, warnings
+
+
+# ---------------------------------------------------------------------------
+# Phase 68 SANITY-07 + SANITY-10 — API key + DQAL-03 carry-over assertions
+# ---------------------------------------------------------------------------
+# Thresholds come verbatim from 68-CONTEXT.md "DQAL-03 Carry-Over Assertions".
+_DQAL_MIN_ROOKIES = 50
+_DQAL_MAX_RANK_GAP = 25
+
+
+def _assert_api_key_when_enrichment_enabled() -> Tuple[List[str], List[str]]:
+    """SANITY-07: when LLM enrichment is on, ANTHROPIC_API_KEY must be set.
+
+    This catches the 2026-04-20 regression where ``ENABLE_LLM_ENRICHMENT=true``
+    was configured but ``ANTHROPIC_API_KEY`` was never set on Railway, causing
+    the news extractor to silently no-op.
+
+    T-68-02-01 mitigation: the CRITICAL message names only the env var, never
+    echoes the value. We check presence via ``os.environ.get`` and assert
+    truthy — the key string itself is never touched, logged, or printed.
+
+    Returns:
+        ``(criticals, warnings)`` — criticals is a single-item list when the
+        combination is unsafe; empty otherwise.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    enrichment_flag = os.environ.get("ENABLE_LLM_ENRICHMENT", "false").lower()
+    if enrichment_flag not in ("true", "1", "yes"):
+        print("  [PASS] LLM enrichment disabled — API key check skipped")
+        return criticals, warnings
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        criticals.append(
+            "API KEY MISSING: ENABLE_LLM_ENRICHMENT=true but ANTHROPIC_API_KEY "
+            "is unset. This silently no-ops the news extractor (the 2026-04-20 "
+            "audit regression)."
+        )
+        print("  [FAIL] ANTHROPIC_API_KEY unset while ENABLE_LLM_ENRICHMENT=true")
+    else:
+        print("  [PASS] ANTHROPIC_API_KEY is set (ENABLE_LLM_ENRICHMENT=true)")
+    return criticals, warnings
+
+
+def _check_dqal_negative_projection(
+    scoring: str, season: int
+) -> Tuple[List[str], List[str]]:
+    """SANITY-10: no player may have ``projected_points < 0`` in Gold.
+
+    The negative-projection clamp is an invariant of
+    :mod:`src.scoring_calculator` for all skill positions. A negative value
+    in the latest Gold parquet is a DQAL-03 deferred assertion and indicates a
+    projection-engine regression that must block deploy.
+
+    Up to five offenders are sampled into a single aggregated CRITICAL to
+    keep output bounded (T-68-02-04: one regression class -> one CRITICAL).
+
+    Args:
+        scoring: Scoring format for Gold projection lookup.
+        season: Target season year.
+
+    Returns:
+        ``(criticals, warnings)``.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    try:
+        df = _load_our_projections(scoring, season)
+    except FileNotFoundError as exc:
+        warnings.append(f"DQAL NEGATIVE-CLAMP SKIPPED: {exc}")
+        return criticals, warnings
+    if df is None or df.empty or "projected_points" not in df.columns:
+        warnings.append(
+            "DQAL NEGATIVE-CLAMP SKIPPED: Gold projections empty or missing column"
+        )
+        return criticals, warnings
+    negative = df[df["projected_points"] < 0]
+    if len(negative) > 0:
+        sample = ", ".join(
+            f"{row.get('player_name', '?')} ({row['projected_points']:.2f})"
+            for _, row in negative.head(5).iterrows()
+        )
+        criticals.append(
+            f"NEGATIVE PROJECTION: {len(negative)} player(s) have "
+            f"projected_points < 0. First {min(5, len(negative))}: {sample}. "
+            f"Clamp invariant violated."
+        )
+        print(f"  [FAIL] DQAL negative-clamp  ({len(negative)} violations)")
+    else:
+        print(
+            f"  [PASS] DQAL negative-clamp  (all {len(df)} players "
+            f"projected_points >= 0)"
+        )
+    return criticals, warnings
+
+
+def _check_dqal_rookie_ingestion(
+    season: int = 2025,
+) -> Tuple[List[str], List[str]]:
+    """SANITY-10: at least ``_DQAL_MIN_ROOKIES`` rookies must exist in Bronze.
+
+    Reads ``data/bronze/players/rookies/season=<season>/*.parquet`` and
+    requires at least 50 rows. Missing directory or <50 rows is a CRITICAL.
+
+    Args:
+        season: Target season year (default 2025 — the 2026 draft class).
+
+    Returns:
+        ``(criticals, warnings)``.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    rookies_dir = os.path.join(
+        PROJECT_ROOT, "data", "bronze", "players", "rookies", f"season={season}"
+    )
+    if not os.path.isdir(rookies_dir):
+        criticals.append(
+            f"ROOKIE INGESTION MISSING: {rookies_dir} not found. "
+            f"2025 rookie ingestion has never run."
+        )
+        print(f"  [FAIL] DQAL rookie ingestion  (path missing: {rookies_dir})")
+        return criticals, warnings
+    parquet_files = sorted(globmod.glob(os.path.join(rookies_dir, "*.parquet")))
+    if not parquet_files:
+        criticals.append(
+            f"ROOKIE INGESTION MISSING: no parquet files in {rookies_dir}. "
+            f"Ingestion partially completed but produced no output."
+        )
+        print(f"  [FAIL] DQAL rookie ingestion  (no parquet in dir)")
+        return criticals, warnings
+    df = pd.read_parquet(parquet_files[-1])
+    row_count = len(df)
+    if row_count < _DQAL_MIN_ROOKIES:
+        criticals.append(
+            f"ROOKIE INGESTION THIN: found {row_count} rookies in "
+            f"{os.path.basename(parquet_files[-1])}, need >= "
+            f"{_DQAL_MIN_ROOKIES}. Partial ingestion detected."
+        )
+        print(f"  [FAIL] DQAL rookie ingestion  ({row_count} < {_DQAL_MIN_ROOKIES})")
+    else:
+        print(
+            f"  [PASS] DQAL rookie ingestion  ({row_count} rookies in "
+            f"season={season})"
+        )
+    return criticals, warnings
+
+
+def _check_dqal_rank_gap(
+    season: int = 2026,
+) -> Tuple[List[str], List[str]]:
+    """SANITY-10: no consecutive rank gap > ``_DQAL_MAX_RANK_GAP`` in rankings.
+
+    Reads ``data/gold/rankings/season=<season>/*.parquet`` (preferred) and
+    falls back to ``data/adp_latest.csv``. Flags the maximum consecutive gap
+    between sorted ranks as CRITICAL when it exceeds 25 — this typically
+    indicates missing players in the external rankings feed.
+
+    Args:
+        season: Target season year.
+
+    Returns:
+        ``(criticals, warnings)``.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    rank_glob = os.path.join(
+        PROJECT_ROOT, "data", "gold", "rankings", f"season={season}", "*.parquet"
+    )
+    rank_files = sorted(globmod.glob(rank_glob))
+    rank_df: Optional[pd.DataFrame] = None
+    if rank_files:
+        rank_df = pd.read_parquet(rank_files[-1])
+    else:
+        adp_csv = os.path.join(PROJECT_ROOT, "data", "adp_latest.csv")
+        if os.path.exists(adp_csv):
+            rank_df = pd.read_csv(adp_csv)
+    if rank_df is None or rank_df.empty:
+        warnings.append(
+            f"DQAL RANK-GAP SKIPPED: no external rankings file for " f"season={season}"
+        )
+        return criticals, warnings
+    rank_col = next(
+        (c for c in ("rank", "overall_rank", "adp", "ecr") if c in rank_df.columns),
+        None,
+    )
+    if rank_col is None:
+        warnings.append("DQAL RANK-GAP SKIPPED: no rank column in rankings schema")
+        return criticals, warnings
+    sorted_ranks = rank_df[rank_col].dropna().sort_values().astype(int).tolist()
+    if len(sorted_ranks) < 2:
+        warnings.append(
+            f"DQAL RANK-GAP SKIPPED: fewer than 2 ranks in schema "
+            f"({len(sorted_ranks)})"
+        )
+        return criticals, warnings
+    max_gap = 0
+    gap_boundary: Optional[Tuple[int, int]] = None
+    for prev, curr in zip(sorted_ranks, sorted_ranks[1:]):
+        gap = curr - prev
+        if gap > max_gap:
+            max_gap = gap
+            gap_boundary = (prev, curr)
+    if max_gap > _DQAL_MAX_RANK_GAP:
+        assert gap_boundary is not None
+        criticals.append(
+            f"RANK GAP: rank {gap_boundary[0]} → rank {gap_boundary[1]} "
+            f"(gap={max_gap}, threshold={_DQAL_MAX_RANK_GAP}). External "
+            f"rankings likely have missing players."
+        )
+        print(f"  [FAIL] DQAL rank-gap  (max gap {max_gap} > {_DQAL_MAX_RANK_GAP})")
+    else:
+        print(
+            f"  [PASS] DQAL rank-gap  (max consecutive gap {max_gap} <= "
+            f"{_DQAL_MAX_RANK_GAP})"
+        )
     return criticals, warnings
 
 

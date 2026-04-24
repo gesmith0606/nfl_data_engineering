@@ -113,9 +113,9 @@ def test_roster_drift_returns_empty_when_top50_all_match(tmp_path, monkeypatch):
     top50_df.loc[0, "team"] = "KC"  # match Sleeper KC
     sleeper_resp = _mock_sleeper_response(200, _build_fake_sleeper(kyler_team="KC"))
 
-    with patch.object(sanity, "_load_our_projections", return_value=top50_df), patch.object(
-        sanity.requests, "get", return_value=sleeper_resp
-    ):
+    with patch.object(
+        sanity, "_load_our_projections", return_value=top50_df
+    ), patch.object(sanity.requests, "get", return_value=sleeper_resp):
         criticals, warnings = sanity._check_roster_drift_top50("half_ppr", 2026)
 
     assert criticals == []
@@ -132,12 +132,14 @@ def test_roster_drift_flags_kyler_murray_as_critical(tmp_path, monkeypatch):
     top50_df = _build_fake_top50(include_kyler_on_ari=True)
     sleeper_resp = _mock_sleeper_response(200, _build_fake_sleeper(kyler_team=None))
 
-    with patch.object(sanity, "_load_our_projections", return_value=top50_df), patch.object(
-        sanity.requests, "get", return_value=sleeper_resp
-    ):
+    with patch.object(
+        sanity, "_load_our_projections", return_value=top50_df
+    ), patch.object(sanity.requests, "get", return_value=sleeper_resp):
         criticals, warnings = sanity._check_roster_drift_top50("half_ppr", 2026)
 
-    assert len(criticals) == 1, f"expected exactly 1 Kyler drift CRITICAL, got: {criticals}"
+    assert (
+        len(criticals) == 1
+    ), f"expected exactly 1 Kyler drift CRITICAL, got: {criticals}"
     crit = criticals[0]
     assert "Kyler Murray" in crit
     assert "ARI" in crit
@@ -151,9 +153,9 @@ def test_kyler_canary(tmp_path, monkeypatch):
     top50_df = _build_fake_top50(include_kyler_on_ari=True)
     sleeper_resp = _mock_sleeper_response(200, _build_fake_sleeper(kyler_team=None))
 
-    with patch.object(sanity, "_load_our_projections", return_value=top50_df), patch.object(
-        sanity.requests, "get", return_value=sleeper_resp
-    ):
+    with patch.object(
+        sanity, "_load_our_projections", return_value=top50_df
+    ), patch.object(sanity.requests, "get", return_value=sleeper_resp):
         criticals, _ = sanity._check_roster_drift_top50("half_ppr", 2026)
 
     assert any("Kyler Murray" in c and "ARI" in c for c in criticals)
@@ -162,9 +164,7 @@ def test_kyler_canary(tmp_path, monkeypatch):
 # --- Test 3: multiple mismatches aggregate one CRITICAL per player -------
 
 
-def test_roster_drift_emits_one_critical_per_mismatched_player(
-    tmp_path, monkeypatch
-):
+def test_roster_drift_emits_one_critical_per_mismatched_player(tmp_path, monkeypatch):
     """Multiple mismatches must produce one CRITICAL per player, not one combined."""
     monkeypatch.setattr(sanity, "_SLEEPER_CACHE_DIR", str(tmp_path / ".cache"))
     top50_df = pd.DataFrame(
@@ -199,9 +199,9 @@ def test_roster_drift_emits_one_critical_per_mismatched_player(
     }
     sleeper_resp = _mock_sleeper_response(200, sleeper_players)
 
-    with patch.object(sanity, "_load_our_projections", return_value=top50_df), patch.object(
-        sanity.requests, "get", return_value=sleeper_resp
-    ):
+    with patch.object(
+        sanity, "_load_our_projections", return_value=top50_df
+    ), patch.object(sanity.requests, "get", return_value=sleeper_resp):
         criticals, _ = sanity._check_roster_drift_top50("half_ppr", 2026)
 
     assert len(criticals) == 3, f"expected one CRITICAL per player, got: {criticals}"
@@ -230,7 +230,9 @@ def test_sleeper_cache_reused_on_same_day(tmp_path, monkeypatch):
         first, warn1 = sanity._fetch_sleeper_canonical_cached()
         second, warn2 = sanity._fetch_sleeper_canonical_cached()
 
-    assert call_count["n"] == 1, f"expected exactly 1 network call, got {call_count['n']}"
+    assert (
+        call_count["n"] == 1
+    ), f"expected exactly 1 network call, got {call_count['n']}"
     assert warn1 is None
     assert warn2 is None
     assert first == sleeper_payload
@@ -256,7 +258,9 @@ def test_sleeper_unreachable_returns_warning_not_critical(tmp_path, monkeypatch)
     assert "SLEEPER API UNREACHABLE" in warning
     # Also verify the drift check does NOT emit a CRITICAL in this case.
     top50_df = _build_fake_top50(include_kyler_on_ari=True)
-    with patch.object(sanity, "_load_our_projections", return_value=top50_df), patch.object(
+    with patch.object(
+        sanity, "_load_our_projections", return_value=top50_df
+    ), patch.object(
         sanity.requests,
         "get",
         side_effect=requests.exceptions.ConnectionError("upstream down"),
@@ -414,7 +418,10 @@ def test_dqal_rookie_ingestion_critical_when_under_threshold(tmp_path, monkeypat
     rookies_dir = tmp_path / "data" / "bronze" / "players" / "rookies" / "season=2025"
     rookies_dir.mkdir(parents=True, exist_ok=True)
     thin_df = pd.DataFrame(
-        [{"player_name": f"Rookie {i}", "team": "KC", "position": "WR"} for i in range(23)]
+        [
+            {"player_name": f"Rookie {i}", "team": "KC", "position": "WR"}
+            for i in range(23)
+        ]
     )
     thin_df.to_parquet(rookies_dir / "rookies_test.parquet", index=False)
 
