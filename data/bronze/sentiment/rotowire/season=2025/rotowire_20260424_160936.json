@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "b41e97a8-3556-48d0-b743-070fadee9af7",
+  "source": "rotowire",
+  "fetched_at": "2026-04-24T16:09:36.175937+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630281",
+      "url": "https://www.rotowire.com//football/player/geno-smith-8743",
+      "permalink": "",
+      "title": "Geno Smith: Team adds talent to passing game",
+      "body_text": "Smith gained two key targets Thursday, as the Jets drafted tight end Kenyon Sadiq 16th overall and wide receiver Omar Cooper 30th overall, Mitch Sherman and Zack Rosenblatt of The Athletic report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T08:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith",
+        "Kenyon Sadiq",
+        "Omar Cooper",
+        "Mitch Sherman",
+        "Zack Rosenblatt",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl630275",
+      "url": "https://www.rotowire.com//football/player/garrett-wilson-15829",
+      "permalink": "",
+      "title": "Garrett Wilson: Team drafts TE, WR in Round 1",
+      "body_text": "Wilson (knee) could see increased competition for targets but also less attention from defenses after the Jets drafted tight end Kenyon Sadiq and wide receiver Omar Cooper, respectively, with the 16th and 30th picks Thursday, Mitch Sherman and Zack Rosenblatt of The Athletic report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T08:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Garrett Wilson",
+        "Kenyon Sadiq",
+        "Omar Cooper",
+        "Mitch Sherman",
+        "Zack Rosenblatt",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0037740"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl630269",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Selected by Seattle",
+      "body_text": "The Seahawks selected Price in the first round of the 2026 NFL Draft, 32nd overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T08:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Seattle The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl630268",
+      "url": "https://www.rotowire.com//football/player/keldric-faulk-19411",
+      "permalink": "",
+      "title": "Keldric Faulk: Slide ends with Titans",
+      "body_text": "The Titans selected Faulk in the first round of the 2026 NFL Draft, 31st overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T08:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keldric Faulk",
+        "Titans The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "nfl630267",
+      "url": "https://www.rotowire.com//football/player/omar-cooper-19314",
+      "permalink": "",
+      "title": "Omar Cooper: Selected by Jets",
+      "body_text": "The Jets selected Cooper in the first round of the 2026 NFL Draft, 30th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-23T08:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omar Cooper",
+        "Jets The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    }
+  ]
+}

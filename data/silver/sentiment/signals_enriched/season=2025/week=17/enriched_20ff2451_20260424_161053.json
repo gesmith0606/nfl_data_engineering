@@ -1,0 +1,70 @@
+{
+  "batch_id": "20ff2451",
+  "season": 2025,
+  "week": 17,
+  "computed_at": "2026-04-24T16:10:53.855612+00:00",
+  "source": "llm_enrichment",
+  "record_count": 2,
+  "records": [
+    {
+      "signal_id": "fe42bf03-7a78-4226-9eea-5b11dac89a60",
+      "doc_id": "US-EN-48574310",
+      "source": "rss",
+      "season": 2025,
+      "week": 17,
+      "player_name": "Mike Vrabel",
+      "player_id": null,
+      "sentiment_score": 0.5,
+      "sentiment_confidence": 0.7,
+      "category": "usage",
+      "events": {
+        "is_ruled_out": false,
+        "is_inactive": false,
+        "is_questionable": false,
+        "is_suspended": false,
+        "is_returning": false,
+        "is_traded": false,
+        "is_released": false,
+        "is_signed": false,
+        "is_activated": false,
+        "is_usage_boost": true,
+        "is_usage_drop": false,
+        "is_weather_risk": false
+      },
+      "published_at": "2026-04-24T04:02:18+00:00",
+      "extracted_at": "2026-04-24T03:07:17.697223+00:00",
+      "model_version": "RuleExtractor",
+      "raw_excerpt": "Vrabel: Confident in Pats during draft absence\n\nMike Vrabel said he is confident that the Patriots will have a successful draft during his absence Saturday, when he will start seeking counseling after multiple media outlets posted photos of the coach with former Athletic reporter Dianna Russini."
+    },
+    {
+      "signal_id": "0e1908cc-8b43-4dac-9e5d-aae9509da61a",
+      "doc_id": "US-EN-48574310",
+      "source": "rss",
+      "season": 2025,
+      "week": 17,
+      "player_name": "Dianna Russini",
+      "player_id": null,
+      "sentiment_score": 0.5,
+      "sentiment_confidence": 0.7,
+      "category": "usage",
+      "events": {
+        "is_ruled_out": false,
+        "is_inactive": false,
+        "is_questionable": false,
+        "is_suspended": false,
+        "is_returning": false,
+        "is_traded": false,
+        "is_released": false,
+        "is_signed": false,
+        "is_activated": false,
+        "is_usage_boost": true,
+        "is_usage_drop": false,
+        "is_weather_risk": false
+      },
+      "published_at": "2026-04-24T04:02:18+00:00",
+      "extracted_at": "2026-04-24T03:07:17.697321+00:00",
+      "model_version": "RuleExtractor",
+      "raw_excerpt": "Vrabel: Confident in Pats during draft absence\n\nMike Vrabel said he is confident that the Patriots will have a successful draft during his absence Saturday, when he will start seeking counseling after multiple media outlets posted photos of the coach with former Athletic reporter Dianna Russini."
+    }
+  ]
+}
