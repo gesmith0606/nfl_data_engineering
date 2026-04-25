@@ -74,6 +74,12 @@ _ROSTER_BLOCK_MAX_NAMES = 1000
 # System prefix for the claude_primary batched extractor. This block is
 # static across every call in a cache window so Anthropic prompt-caching
 # pays the creation cost once and reads the cached block thereafter.
+#
+# Plan 72-01 amendment: extended event-flag enumeration to 19 keys
+# (12 prior + 7 new draft-season flags) and added a REQUIRED
+# ``subject_type`` field so EVT-02 can route non-player items.
+# Editing this prefix invalidates the Anthropic prompt cache and all
+# recorded fixture SHAs — fixtures must be re-recorded in Plan 72-02.
 _SYSTEM_PREFIX = """You are an NFL news analyst for a fantasy football product.
 Extract structured signals from NFL articles about specific players.
 For each player mentioned, return JSON with: player_name (or null for non-player subjects),
@@ -86,10 +92,13 @@ summary (<= 200 chars, 1 sentence),
 source_excerpt (<= 500 chars verbatim from article).
 
 Event flag keys: is_ruled_out, is_inactive, is_questionable, is_suspended, is_returning,
-is_traded, is_released, is_signed, is_activated, is_usage_boost, is_usage_drop, is_weather_risk.
+is_traded, is_released, is_signed, is_activated, is_usage_boost, is_usage_drop, is_weather_risk,
+is_drafted, is_rumored_destination, is_coaching_change, is_trade_buzz, is_holdout, is_cap_cut, is_rookie_buzz.
+REQUIRED subject_type field: "player" | "coach" | "team" | "reporter" (default "player").
 
 Return a JSON array. For non-player subjects (coach/reporter/team news),
-set player_name to null but populate team_abbr.
+set player_name to null but populate team_abbr and set subject_type to one of
+"coach", "team", or "reporter".
 
 Respond with JSON only; no prose, no markdown fences."""
 
@@ -120,8 +129,21 @@ _EVENT_FLAG_KEYS = frozenset(
         "is_usage_drop",
         # Weather (Plan 61-02)
         "is_weather_risk",
+        # Draft-season events (Plan 72-01)
+        "is_drafted",
+        "is_rumored_destination",
+        "is_coaching_change",
+        "is_trade_buzz",
+        "is_holdout",
+        "is_cap_cut",
+        "is_rookie_buzz",
     }
 )
+
+# Valid ``subject_type`` enum values (Plan 72-01). The Claude extractor
+# emits ``subject_type`` per item; non-listed values are normalised to
+# ``"player"`` by ``PlayerSignal.__post_init__`` (T-72-01-01 mitigation).
+_VALID_SUBJECT_TYPES = frozenset({"player", "coach", "team", "reporter"})
 
 EXTRACTION_PROMPT = """Analyze this NFL news article and extract player-specific signals.
 
@@ -130,11 +152,14 @@ For each player mentioned, provide:
 - sentiment: float from -1.0 (very negative) to +1.0 (very positive) for fantasy football value
 - confidence: float from 0.0 to 1.0
 - category: one of [injury, usage, trade, weather, motivation, legal, general]
+- subject_type: one of [player, coach, team, reporter] (default "player"; Plan 72-01)
 - events: dict of boolean flags {{
     is_ruled_out, is_inactive, is_questionable, is_suspended, is_returning,
     is_traded, is_released, is_signed, is_activated,
     is_usage_boost, is_usage_drop,
-    is_weather_risk
+    is_weather_risk,
+    is_drafted, is_rumored_destination, is_coaching_change, is_trade_buzz,
+    is_holdout, is_cap_cut, is_rookie_buzz
   }}
 
 Return JSON array. If no players mentioned, return empty array.
@@ -225,6 +250,19 @@ class PlayerSignal:
     is_usage_drop: bool = False
     # Weather events (Plan 61-02)
     is_weather_risk: bool = False
+    # Draft-season events (Plan 72-01) — additive only, all default False.
+    # See 72-CONTEXT D-01 for the locked vocabulary. RuleExtractor emits
+    # them via high-precision keyword patterns; Claude emits them via the
+    # extended ``events`` sub-dict in the structured response (Plan 72-02
+    # re-records the fixtures so the Anthropic prompt-cache picks up the
+    # 19-flag enumeration).
+    is_drafted: bool = False
+    is_rumored_destination: bool = False
+    is_coaching_change: bool = False
+    is_trade_buzz: bool = False
+    is_holdout: bool = False
+    is_cap_cut: bool = False
+    is_rookie_buzz: bool = False
     raw_excerpt: str = ""
     # Claude-primary extensions (Plan 71-01) — optional, additive only.
     # Defaults preserve existing RuleExtractor behaviour so the
@@ -233,15 +271,42 @@ class PlayerSignal:
     source_excerpt: str = ""
     team_abbr: Optional[str] = None
     extractor: str = "rule"
+    # Subject-type enum (Plan 72-01). One of {"player", "coach", "team",
+    # "reporter"}; defaults to "player" for back-compat with the rule
+    # path which only emits player items. Phase 72 EVT-02 routes
+    # coach/team to a team rollup and reporter to non_player_news.
+    # Threat T-72-01-01 mitigation: ``__post_init__`` normalises any
+    # value outside ``_VALID_SUBJECT_TYPES`` back to ``"player"``.
+    subject_type: str = "player"
+
+    def __post_init__(self) -> None:
+        """Validate ``subject_type`` against the locked enum.
+
+        Threat T-72-01-01: an upstream Claude response (or a malformed
+        rule path) could populate ``subject_type`` with an arbitrary
+        string; downstream routing logic must never branch on
+        unbounded input. We coerce any unknown value back to
+        ``"player"`` and log at DEBUG so the audit trail is preserved
+        without spamming the log.
+        """
+        if self.subject_type not in _VALID_SUBJECT_TYPES:
+            logger.debug(
+                "PlayerSignal: invalid subject_type=%r — normalising to "
+                "'player'",
+                self.subject_type,
+            )
+            self.subject_type = "player"
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialise this signal to a plain dict for JSON storage.
 
         Returns:
             Dict representation with a nested ``events`` sub-dict
-            containing all 12 structured event flags, plus the
-            Plan 71-01 top-level extensions (``summary``,
-            ``source_excerpt``, ``team_abbr``, ``extractor``).
+            containing all 19 structured event flags (12 existing + 7
+            new draft-season flags from Plan 72-01), plus the Plan
+            71-01 top-level extensions (``summary``, ``source_excerpt``,
+            ``team_abbr``, ``extractor``) and the Plan 72-01 top-level
+            ``subject_type`` enum.
         """
         return {
             "player_name": self.player_name,
@@ -265,6 +330,14 @@ class PlayerSignal:
                 "is_usage_drop": self.is_usage_drop,
                 # Weather events
                 "is_weather_risk": self.is_weather_risk,
+                # Draft-season events (Plan 72-01)
+                "is_drafted": self.is_drafted,
+                "is_rumored_destination": self.is_rumored_destination,
+                "is_coaching_change": self.is_coaching_change,
+                "is_trade_buzz": self.is_trade_buzz,
+                "is_holdout": self.is_holdout,
+                "is_cap_cut": self.is_cap_cut,
+                "is_rookie_buzz": self.is_rookie_buzz,
             },
             "raw_excerpt": self.raw_excerpt,
             # Plan 71-01 additive top-level keys
@@ -272,6 +345,8 @@ class PlayerSignal:
             "source_excerpt": self.source_excerpt,
             "team_abbr": self.team_abbr,
             "extractor": self.extractor,
+            # Plan 72-01 additive top-level enum
+            "subject_type": self.subject_type,
         }
 
 
