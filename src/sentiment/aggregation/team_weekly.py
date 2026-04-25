@@ -36,6 +36,12 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 _GOLD_PLAYER_SENTIMENT_DIR = _PROJECT_ROOT / "data" / "gold" / "sentiment"
 _GOLD_TEAM_SENTIMENT_DIR = _PROJECT_ROOT / "data" / "gold" / "sentiment" / "team_sentiment"
 
+# Phase 72 EVT-02: non-player Silver path Phase 71 non_player_pending writes,
+# routed by Plan 72-03 _route_non_player_items into per-team coach/team counts.
+_SILVER_NON_PLAYER_PENDING_DIR = (
+    _PROJECT_ROOT / "data" / "silver" / "sentiment" / "non_player_pending"
+)
+
 # Team sentiment multiplier range — tighter than player (0.70-1.15)
 # because team-level signals are noisier.
 _TEAM_MULT_MIN = 0.95
@@ -238,6 +244,10 @@ class TeamWeeklyAggregator:
             self._root = _PROJECT_ROOT
         self._gold_player_dir = self._root / "data" / "gold" / "sentiment"
         self._gold_team_dir = self._root / "data" / "gold" / "sentiment" / "team_sentiment"
+        # Phase 72 EVT-02: source for non-player rollup counts.
+        self._silver_non_player_dir = (
+            self._root / "data" / "silver" / "sentiment" / "non_player_pending"
+        )
 
     # ------------------------------------------------------------------
     # Data loading
@@ -272,6 +282,67 @@ class TeamWeeklyAggregator:
     # ------------------------------------------------------------------
     # Aggregation
     # ------------------------------------------------------------------
+
+    def _load_non_player_counts(
+        self, season: int, week: int
+    ) -> Dict[str, Dict[str, int]]:
+        """Load coach + team news counts per team from non_player_pending Silver.
+
+        Phase 72 EVT-02: reads ``data/silver/sentiment/non_player_pending/
+        season=YYYY/week=WW/`` and counts items grouped by team_abbr +
+        subject_type. Items with ``subject_type == "reporter"`` are NOT counted
+        here — those go to the separate ``non_player_news`` Silver channel.
+
+        Args:
+            season: NFL season year.
+            week: NFL week number.
+
+        Returns:
+            Dict mapping team_abbr -> {coach_news_count, team_news_count,
+            staff_news_count} (staff is placeholder = 0 for Phase 72).
+            Empty dict when no non_player_pending data exists.
+        """
+        import json
+
+        week_dir = (
+            self._silver_non_player_dir
+            / f"season={season}"
+            / f"week={week:02d}"
+        )
+        if not week_dir.exists():
+            return {}
+
+        counts: Dict[str, Dict[str, int]] = {}
+        for path in week_dir.glob("*.json"):
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except Exception as exc:
+                logger.warning("Could not read non_player file %s: %s", path, exc)
+                continue
+
+            items = data.get("items", []) if isinstance(data, dict) else data
+            if not isinstance(items, list):
+                continue
+
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+                team_abbr = item.get("team_abbr")
+                subject_type = item.get("subject_type", "player")
+                if not team_abbr or subject_type not in ("coach", "team"):
+                    continue
+                if team_abbr not in counts:
+                    counts[team_abbr] = {
+                        "coach_news_count": 0,
+                        "team_news_count": 0,
+                        "staff_news_count": 0,
+                    }
+                if subject_type == "coach":
+                    counts[team_abbr]["coach_news_count"] += 1
+                elif subject_type == "team":
+                    counts[team_abbr]["team_news_count"] += 1
+
+        return counts
 
     def _aggregate_by_team(self, player_df: pd.DataFrame) -> pd.DataFrame:
         """Group player sentiment data by team and compute team scores.
@@ -321,6 +392,11 @@ class TeamWeeklyAggregator:
                 "positive_count": positive_count,
                 "negative_count": negative_count,
                 "net_sentiment": positive_count - negative_count,
+                # Phase 72 EVT-02: non-player rollup counts (filled in
+                # aggregate() from _load_non_player_counts).
+                "coach_news_count": 0,
+                "team_news_count": 0,
+                "staff_news_count": 0,
             })
 
         return pd.DataFrame(team_rows)
@@ -397,6 +473,22 @@ class TeamWeeklyAggregator:
                 "No team aggregation results for season=%d week=%d", season, week
             )
             return pd.DataFrame()
+
+        # Phase 72 EVT-02: merge non-player rollup counts onto each team row.
+        non_player_counts = self._load_non_player_counts(season, week)
+        if non_player_counts:
+            for idx, row in df.iterrows():
+                team = row["team"]
+                if team in non_player_counts:
+                    df.at[idx, "coach_news_count"] = non_player_counts[team][
+                        "coach_news_count"
+                    ]
+                    df.at[idx, "team_news_count"] = non_player_counts[team][
+                        "team_news_count"
+                    ]
+                    df.at[idx, "staff_news_count"] = non_player_counts[team][
+                        "staff_news_count"
+                    ]
 
         # Add season/week columns
         df["season"] = season
