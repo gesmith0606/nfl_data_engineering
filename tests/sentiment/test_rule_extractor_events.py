@@ -472,5 +472,189 @@ class TestConfidenceCeilingPreserved(unittest.TestCase):
             self.assertLessEqual(sig.confidence, 0.7)
 
 
+# ---------------------------------------------------------------------------
+# Draft-season event tests (Plan 72-01)
+# ---------------------------------------------------------------------------
+
+
+class TestDraftSeasonEvents(unittest.TestCase):
+    """Draft-season detection: drafted, rumored destination, coaching
+    change, trade buzz, holdout, cap cut, rookie buzz.
+
+    All 7 patterns are intentionally narrow (high precision, low
+    recall) — Claude is the primary producer for these events and the
+    rule path is the zero-cost dev fallback. Confidence is capped at
+    ``_DRAFT_SEASON_CONFIDENCE = 0.5`` for signals where ONLY a
+    draft-season flag fires (no overlapping legacy 12-flag event).
+    """
+
+    def setUp(self) -> None:
+        self.extractor = RuleExtractor()
+
+    def test_drafted_sets_is_drafted(self) -> None:
+        doc = {
+            "title": "Carnell Tate drafted by the Bears",
+            "body_text": "Carnell Tate drafted by the Bears in round one.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals, "expected at least one signal")
+        self.assertTrue(signals[0].is_drafted)
+
+    def test_rumored_destination_sets_is_rumored_destination(self) -> None:
+        doc = {
+            "title": "Patrick Mahomes rumored to land with the Jets",
+            "body_text": "Patrick Mahomes rumored to land with the Jets next season.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_rumored_destination)
+        # Speculation should NOT fire a confirmed trade
+        self.assertFalse(signals[0].is_traded)
+
+    def test_coaching_change_sets_is_coaching_change_via_fired(self) -> None:
+        doc = {
+            "title": "Frank Reich fired after 4-12 season",
+            "body_text": "Frank Reich fired by the Panthers.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_coaching_change)
+
+    def test_coaching_change_sets_is_coaching_change_via_hired(self) -> None:
+        doc = {
+            "title": "Ben Johnson hired as head coach in Detroit",
+            "body_text": "Ben Johnson hired as the new head coach of the Lions.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_coaching_change)
+
+    def test_trade_buzz_sets_is_trade_buzz(self) -> None:
+        doc = {
+            "title": "Derrick Henry trade rumor surfaces this week",
+            "body_text": "Derrick Henry trade speculation continues.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_trade_buzz)
+
+    def test_holdout_sets_is_holdout(self) -> None:
+        doc = {
+            "title": "Aaron Donald begins holdout this offseason",
+            "body_text": "Aaron Donald begins holdout, skipping mandatory minicamp.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_holdout)
+
+    def test_holding_out_variant_sets_is_holdout(self) -> None:
+        doc = {
+            "title": "Trent Williams holding out of training camp",
+            "body_text": "Trent Williams holding out for a new contract.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_holdout)
+
+    def test_cap_cut_sets_is_cap_cut(self) -> None:
+        # Avoid "released" in the text — that fires the higher-priority
+        # is_released transaction pattern, and the rule extractor picks
+        # only the single best match per player. Pure cap-casualty
+        # phrasing is the canonical sentinel for is_cap_cut.
+        doc = {
+            "title": "Leighton Vander Esch a cap casualty this offseason",
+            "body_text": "Leighton Vander Esch is a cap casualty for the Cowboys.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_cap_cut)
+
+    def test_salary_cap_cut_variant_sets_is_cap_cut(self) -> None:
+        # Same precision concern as above — avoid "released" / "waived" /
+        # "cut by" (existing transaction patterns) so the lower-priority
+        # is_cap_cut pattern gets to fire.
+        doc = {
+            "title": "Tyrann Mathieu was a salary-cap cut this offseason",
+            "body_text": "Tyrann Mathieu salary cap cut from the Saints roster.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_cap_cut)
+
+    def test_rookie_buzz_sets_is_rookie_buzz_via_first_round_hype(self) -> None:
+        doc = {
+            "title": "Carnell Tate first round hype builds",
+            "body_text": "Carnell Tate generating first round hype for 2026 draft.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_rookie_buzz)
+
+    def test_rookie_buzz_sets_is_rookie_buzz_via_sleeper(self) -> None:
+        doc = {
+            "title": "Quinn Ewers sleeper rookie of the 2026 class",
+            "body_text": "Quinn Ewers is a sleeper rookie this draft cycle.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_rookie_buzz)
+
+    # ---- Precision tests (must NOT fire) ----
+
+    def test_benign_text_does_not_fire_any_new_flags(self) -> None:
+        """Non-draft-season text must not fire ANY of the 7 new flags.
+
+        High-precision contract per CONTEXT D-01: bare names + stat
+        lines must remain inert for the new vocabulary.
+        """
+        doc = {
+            "title": "Patrick Mahomes threw for 350 yards Sunday",
+            "body_text": "Patrick Mahomes threw for 350 yards in the win.",
+        }
+        signals = self.extractor.extract(doc)
+        # Either no signals, or none of the new flags fire.
+        for sig in signals:
+            self.assertFalse(sig.is_drafted)
+            self.assertFalse(sig.is_rumored_destination)
+            self.assertFalse(sig.is_coaching_change)
+            self.assertFalse(sig.is_trade_buzz)
+            self.assertFalse(sig.is_holdout)
+            self.assertFalse(sig.is_cap_cut)
+            self.assertFalse(sig.is_rookie_buzz)
+
+    def test_draft_season_only_signal_is_confidence_capped(self) -> None:
+        """Signals where ONLY a draft-season flag fires cap at 0.5.
+
+        Verifies the ``_DRAFT_SEASON_CONFIDENCE`` ceiling is applied
+        when no legacy 12-flag event also fires. This is the key
+        mechanism letting downstream aggregators de-prioritise
+        rule-only draft-season matches in favour of Claude output.
+        """
+        doc = {
+            "title": "Carnell Tate first round hype builds for 2026",
+            "body_text": "Carnell Tate first round hype.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_rookie_buzz)
+        self.assertLessEqual(signals[0].confidence, 0.5)
+
+    def test_legacy_signal_keeps_higher_confidence_ceiling(self) -> None:
+        """Legacy 12-flag signals still cap at 0.7, not 0.5.
+
+        Regression guard: existing transaction/injury/usage/weather
+        patterns must not be downgraded by the Plan 72-01 cap logic.
+        """
+        doc = {
+            "title": "Travis Kelce ruled out for Sunday",
+            "body_text": "Travis Kelce ruled out for the Bills game.",
+        }
+        signals = self.extractor.extract(doc)
+        self.assertTrue(signals)
+        self.assertTrue(signals[0].is_ruled_out)
+        # Existing ceiling stands at 0.7
+        self.assertEqual(signals[0].confidence, 0.7)
+
+
 if __name__ == "__main__":
     unittest.main()
