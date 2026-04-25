@@ -176,8 +176,15 @@ class WeeklyAggregator:
     """
 
     def __init__(self) -> None:
-        """Initialise the aggregator."""
-        pass
+        """Initialise the aggregator.
+
+        Attributes:
+            last_null_player_count: Count of records with player_id=None
+                from the most recent ``aggregate()`` call. Reset to 0 at
+                the start of every call (NOT cumulative). Phase 72 EVT-03
+                contract — exposes the silent-drop count for telemetry.
+        """
+        self.last_null_player_count: int = 0
 
     # ------------------------------------------------------------------
     # Silver data loading
@@ -259,6 +266,10 @@ class WeeklyAggregator:
         Returns:
             Dict mapping player_id → aggregated feature dict.
         """
+        # Phase 72 EVT-03: count null-player records BEFORE filtering
+        # so the silent-drop count is exposed via instance attr + INFO log.
+        null_count = sum(1 for rec in records if not rec.get("player_id"))
+
         # Group by player_id (skip unresolved)
         by_player: Dict[str, List[Dict[str, Any]]] = {}
         for rec in records:
@@ -266,6 +277,14 @@ class WeeklyAggregator:
             if not pid:
                 continue
             by_player.setdefault(pid, []).append(rec)
+
+        # Phase 72: assign instance attr (overwrites prior call's count;
+        # reset already happened at the top of aggregate()).
+        self.last_null_player_count = null_count
+        if null_count > 0:
+            logger.info(
+                "WeeklyAggregator: skipped %d records with player_id=null", null_count
+            )
 
         result: Dict[str, Dict[str, Any]] = {}
 
@@ -475,6 +494,10 @@ class WeeklyAggregator:
         """
         if reference_time is None:
             reference_time = datetime.now(timezone.utc)
+
+        # Phase 72 EVT-03: reset the per-call null-player counter so it
+        # reflects only THIS aggregate() call (not cumulative history).
+        self.last_null_player_count = 0
 
         logger.info(
             "WeeklyAggregator: aggregating season=%d week=%d (dry_run=%s)",
