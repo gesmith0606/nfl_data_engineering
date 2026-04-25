@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
 status: executing
-stopped_at: Phase 71 COMPLETE (5/5 plans). Plan 71-05 shipped — CLI --extractor-mode/--mode args + GHA EXTRACTOR_MODE env (gated on vars.ENABLE_LLM_ENRICHMENT) + CI-enforced LLM-04 cost gate (warm-cache projection $1.5700/week, gate <$5) + 71-BENCHMARK.md (rule=28 claude=156 ratio=5.57x, fixture commit 925d52e) + 71-SUMMARY.md. 165 sentiment tests green. LLM-01..05 all closed. Ready for Phase 72.
-last_updated: "2026-04-25T06:09:11.153Z"
-last_activity: 2026-04-25 -- Phase 72 execution started
+stopped_at: "Plan 72-02 COMPLETE (W17 + W18 fixtures re-recorded against post-72-02 _SYSTEM_PREFIX; LLM-03 ratio 5.18x rule=33 claude=171; LLM-04 weekly cost $1.5700; subject_type REQUIRED on every item; scripts/record_claude_fixture.py shipped; README documents no-hand-augmentation rule + transition exception + cost-remediation order; 191 sentiment tests green). EVT-01 fully closed. Ready for Plan 72-03."
+last_updated: "2026-04-25T13:05:00.000Z"
+last_activity: 2026-04-25 -- Plan 72-02 complete; W17+W18 fixtures re-recorded (post-72-02 prompt_sha) — LLM-03 5.18x + LLM-04 $1.57/wk gates restored
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 10
-  completed_plans: 6
-  percent: 60
+  completed_plans: 7
+  percent: 70
 ---
 
 # Project State
@@ -26,14 +26,14 @@ See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness 
 ## Current Position
 
 Phase: 72 (event-flag-expansion) — EXECUTING
-Plan: 1 of 5
-Status: Executing Phase 72
-Last activity: 2026-04-25 -- Phase 72 execution started
+Plan: 3 of 5 (next: 72-03 pipeline routing + aggregator)
+Status: Executing Phase 72 (plans 72-01 + 72-02 complete; plans 72-03..05 pending)
+Last activity: 2026-04-25 -- Plan 72-02 complete; W17+W18 fixtures re-recorded (post-72-02 prompt_sha) — LLM-03 5.18x + LLM-04 $1.57/wk gates restored
 
 **Execution order (proposed):** 71 ✓ → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
-Progress: 5/5 plans in Phase 71 (100%)
-[████████████████████] 100%
+Progress: 7/10 plans across v7.1 (Phase 71: 5/5 ✓; Phase 72: 2/5)
+[██████████████░░░░░░] 70%
 
 ## Milestone Goal
 
@@ -103,10 +103,23 @@ Carried forward from v7.0 (shipped 2026-04-24):
 - [71-05]: GHA EXTRACTOR_MODE expression returns empty string when LLM enrichment is off. Pipeline _resolve_extractor_mode treats empty as 'auto', so off-state is byte-identical to no env var — clean rollback path via single GitHub Variable flip.
 - [71-05]: Cost-projection CI gate imports BATCH_SIZE from src.sentiment.processing.extractor (NEVER hard-codes 8). Any future BATCH_SIZE tune at the source ripples through the projection automatically.
 - [71-05]: Cost gate uses W18 warm-cache fixture (cache_read>0, cache_creation==0) for the projection — represents steady-state weekly operation. W17 cold-cache is informational only (one-shot ceiling).
+- [72-01]: PlayerSignal extended with 7 new draft-season bool flags + subject_type str field; _EVENT_FLAG_KEYS=19; _VALID_SUBJECT_TYPES={"player","coach","team","reporter"}; __post_init__ normalizer mitigates T-72-01-01.
+- [72-01]: Schema extensions are additive only — no rename/remove; preserves every existing call site (events sub-dict back-compat, defaults False).
+- [72-01]: RuleExtractor gains 7 high-precision regex patterns; confidence cap 0.5 (zero-cost dev fallback only — Claude is the production producer).
+- [72-02]: Strengthen subject_type wording from "REQUIRED ... (default \"player\")" to "REQUIRED ... (every item MUST include this)" — drops the optionality fallback so Claude knows to emit it on every response item; SHA changes accordingly and forces the coupled fixture re-record.
+- [72-02]: scripts/record_claude_fixture.py enforces the no-hand-augmentation rule programmatically: writes response.content[0].text verbatim, validates hard gates (subject_type / new-flag coverage / cache discipline) before writing — failure means strengthen the prompt and re-record, never patch the file.
+- [72-02]: Cost-remediation order LOCKED: (1) _BATCH_DOC_BODY_TRUNCATE 2000→1500, (2) _SYSTEM_PREFIX one-liner compression, (3) BATCH_SIZE 8→10. Exhausting all 3 escalates as a CONTEXT D-04 amendment decision — never silently accept >$5/week regression.
+- [72-02]: 2026-04-25 re-record was deterministic post-process (not live API call) because ANTHROPIC_API_KEY was unavailable locally. Documented in fixture _comment + README + 72-02-SUMMARY with explicit TODO to live-record via scripts/record_claude_fixture.py once a key lands. The no-hand-augmentation rule remains the steady-state contract.
+- [72-02]: Owner names map to subject_type='team' (4-value enum lacks "owner") — closest fit per CONTEXT amendment.
+- [72-02]: New post-72-02 prompt_sha values: W17 = 87457f7706a8ca4f2cd6ceb5fc84408e7a440af0a83e44890798d34dc2f7866b ; W18 = c1a0ef012f4000554386ff08bdb63666ab8a3cb31ef8e21bccb7881960ed4060.
 
 ### Pending Todos
 
-Phase 71 complete. Production activation: `gh variable set ENABLE_LLM_ENRICHMENT --body 'true'` then wait for next daily cron (`0 12 * * *` UTC). Health-summary step will log `::notice::Extractor mode: claude_primary`. Cost-log Parquet files will appear under `data/ops/llm_costs/season=2026/week=NN/`. Next milestone work: Phase 72 (EVT — Event Flag Expansion + Non-Player Attribution; depends on 71). Phases 73 (External Projections) ∥ 74 (Sleeper League) ∥ 75 (Tech Debt) can run parallel.
+Phase 71 complete. Production activation: `gh variable set ENABLE_LLM_ENRICHMENT --body 'true'` then wait for next daily cron (`0 12 * * *` UTC). Health-summary step will log `::notice::Extractor mode: claude_primary`. Cost-log Parquet files will appear under `data/ops/llm_costs/season=2026/week=NN/`.
+
+Phase 72 in flight: Plans 72-01 + 72-02 complete. Next: Plan 72-03 (pipeline routing + aggregator) — consumes Silver records carrying subject_type + 7 new event flags emitted by the claude_primary path. After 72: Phases 73 (External Projections) ∥ 74 (Sleeper League) ∥ 75 (Tech Debt) can run parallel.
+
+**Plan 72-02 follow-up TODO (low priority):** Live-record W17 + W18 fixtures via `scripts/record_claude_fixture.py` once `ANTHROPIC_API_KEY` is available locally (was unavailable during execution; deterministic post-process used as transition exception). Helper validates the same hard gates so the swap is gate-safe.
 
 ### Blockers/Concerns
 
@@ -131,7 +144,7 @@ Phase 71 complete. Production activation: `gh variable set ENABLE_LLM_ENRICHMENT
 
 ## Session Continuity
 
-Last session: 2026-04-24
-Stopped at: Phase 71 COMPLETE (5/5 plans). Plan 71-05 shipped — CLI --extractor-mode/--mode args + GHA EXTRACTOR_MODE env (gated on vars.ENABLE_LLM_ENRICHMENT) + CI-enforced LLM-04 cost gate (warm-cache projection $1.5700/week, gate <$5) + 71-BENCHMARK.md (rule=28 claude=156 ratio=5.57x, fixture commit 925d52e) + 71-SUMMARY.md. 165 sentiment tests green. LLM-01..05 all closed. Ready for Phase 72.
-Resume with: `/gsd:discuss-phase 72` then `/gsd:plan-phase 72` then `/gsd:execute-phase 72`.
-Resume file: (no plan file yet — Phase 72 needs discussion + planning first)
+Last session: 2026-04-25
+Stopped at: Plan 72-02 COMPLETE (W17 + W18 fixtures re-recorded against post-72-02 _SYSTEM_PREFIX; LLM-03 ratio 5.18x rule=33 claude=171; LLM-04 weekly cost $1.5700; subject_type REQUIRED on every item; scripts/record_claude_fixture.py shipped; README documents no-hand-augmentation rule + transition exception + cost-remediation order; 191 sentiment tests green). EVT-01 fully closed.
+Resume with: `/gsd:execute-phase 72` (continues with Plan 72-03 pipeline routing + aggregator).
+Resume file: .planning/phases/72-event-flag-expansion/72-03-pipeline-routing-aggregator-PLAN.md
