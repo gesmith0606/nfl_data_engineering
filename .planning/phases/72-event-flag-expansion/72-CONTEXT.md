@@ -51,6 +51,19 @@ Extend the sentiment event-flag vocabulary beyond injury/trade/usage/weather to 
 - Advisor tools (`getPlayerNews`, `getTeamSentiment`) return expanded payload transparently. Tool descriptions in the advisor prompt updated to enumerate the new flags so the model knows what to surface to the user.
 - Daily cron (`.github/workflows/daily-sentiment.yml`) is untouched. The new flags ride the existing daily extraction; no schedule or env changes.
 
+### Phase 72 Schema Note
+
+(Amendment, 2026-04-24 — clarification of an under-specified earlier decision in "API + Frontend Integration" above.)
+
+The original "API + Frontend Integration" bullet was ambiguous: it described `NewsItem.event_flags` getting "7 new keys" (suggesting a dict) AND adding 7 new top-level bools — these two surfaces would be redundant. The locked decision:
+
+- **The 7 new flags live ONLY in the existing `event_flags: List[str]` field on `NewsItem`** (the same string-list surface that already carries the 7 in-list flags `is_traded`, `is_released`, `is_signed`, `is_activated`, `is_usage_boost`, `is_usage_drop`, `is_weather_risk`). When set, they are emitted as their human-readable label (e.g., `"Drafted"`, `"Coaching Change"`) into the list — `news_service._extract_event_flags` is the single inflection point.
+- **`NewsItem` does NOT gain 7 new top-level boolean fields.** The 5 pre-existing top-level bools (`is_ruled_out`, `is_inactive`, `is_questionable`, `is_suspended`, `is_returning`) stay as-is for back-compat with consumers that already read them; no new top-level bools are introduced.
+- **`NewsItem` adds exactly two top-level fields:** `subject_type: Optional[Literal["player","coach","team","reporter"]] = "player"` and `team_abbr: Optional[str] = None`. Nothing else.
+- **Frontend `EventBadges` component** continues to read labels out of the `event_flags: string[]` list — the existing pattern handles all 19 labels (12 prior + 7 new) with no schema change to the consumer.
+
+Rationale: maintains a single inflection point; avoids per-flag schema sprawl; keeps the API response back-compat for every existing client; and `TeamEvents` is unaffected (it still gets its 3 new int counter fields per the unchanged decision above).
+
 ### Claude's Discretion
 
 - Exact regex patterns and confidence-cap values for `RuleExtractor` keyword paths.
@@ -96,7 +109,7 @@ Extend the sentiment event-flag vocabulary beyond injury/trade/usage/weather to 
 - The `subject_type` enum stays small (4 values) to keep prompt token cost minimal. Adding a 5th value (e.g., "agent" for player-agent quotes) is a v7.2+ decision.
 - Reporter subjects often have multiple team affiliations (e.g., Schefter covers all teams). The `non_player_news` channel records `subject_team` (team they cover for THIS article) rather than a fixed affiliation, so a single reporter can route to different teams across docs.
 - Team rollup `coach_news_count` includes all `subject_type ∈ {coach, team}` items. `staff_news_count` is a separate count for any future GM/exec items not modeled yet — populated as 0 for Phase 72 (placeholder).
-- The audit scripts hit Railway by default; pass `--local` to run against `localhost:8000` for local validation.
+- The audit scripts hit Railway by default; pass `--local` to run against `localhost:8000` for local validation. **Note:** `--local` is a developer-mode smoke flag only; the ship-or-skip gate (D-04) requires Railway-live audit JSON files committed.
 
 </specifics>
 
@@ -110,3 +123,5 @@ Extend the sentiment event-flag vocabulary beyond injury/trade/usage/weather to 
 - Historical backfill beyond W17/W18 — defer until daily cron has accumulated enough offseason content to make a 4-week+ window meaningful.
 
 </deferred>
+</content>
+</invoke>

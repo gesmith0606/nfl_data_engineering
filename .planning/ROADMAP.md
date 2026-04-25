@@ -98,6 +98,15 @@ Plans:
   4. `/api/news/team-events` populates expanded flags for ≥ 15 of 32 teams on 2025 W17+W18 backfill
   5. Advisor `getPlayerNews` / `getTeamSentiment` return non-empty for ≥ 20 teams post-backfill
 
+**Plans:** 5 plans
+
+Plans:
+- [ ] 72-01-schema-rules-prompt-PLAN.md — Schema extension (PlayerSignal + 7 new flags + subject_type), EXTRACTION_PROMPT + _SYSTEM_PREFIX update, RuleExtractor regex patterns
+- [ ] 72-02-fixture-rerecord-PLAN.md — Re-record W17 + W18 Claude fixtures against post-72-01 prompt SHA; restore LLM-03 + LLM-04 gates
+- [ ] 72-03-pipeline-routing-aggregator-PLAN.md — _route_non_player_items hybrid attribution (coach/team→rollup, reporter→non_player_news Silver channel) + WeeklyAggregator null tracking + TeamWeeklyAggregator coach/team count columns
+- [ ] 72-04-api-frontend-PLAN.md — Pydantic NewsItem/TeamEvents additive fields + news_service projections + EventBadges 7 new label buckets + frontend TS types
+- [ ] 72-05-backfill-audit-summary-PLAN.md — 2025 W17 + W18 backfill + EVT-04 audit (>=15/32 teams) + EVT-05 audit (>=20 teams via advisor) against Railway live + phase SUMMARY + STATE/ROADMAP/REQUIREMENTS sync
+
 ### Phase 73: External Projections Comparison
 **Goal**: Surface ESPN + Sleeper + Yahoo weekly projections side-by-side with ours on the projections page. Users compare; we show transparency. Sleeper already has MCP; ESPN/Yahoo may require scraping.
 **Depends on**: Nothing (parallel with 71/72)
