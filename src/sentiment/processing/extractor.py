@@ -94,7 +94,7 @@ source_excerpt (<= 500 chars verbatim from article).
 Event flag keys: is_ruled_out, is_inactive, is_questionable, is_suspended, is_returning,
 is_traded, is_released, is_signed, is_activated, is_usage_boost, is_usage_drop, is_weather_risk,
 is_drafted, is_rumored_destination, is_coaching_change, is_trade_buzz, is_holdout, is_cap_cut, is_rookie_buzz.
-REQUIRED subject_type field: "player" | "coach" | "team" | "reporter" (default "player").
+REQUIRED subject_type field (every item MUST include this): "player" | "coach" | "team" | "reporter".
 
 Return a JSON array. For non-player subjects (coach/reporter/team news),
 set player_name to null but populate team_abbr and set subject_type to one of
@@ -152,7 +152,7 @@ For each player mentioned, provide:
 - sentiment: float from -1.0 (very negative) to +1.0 (very positive) for fantasy football value
 - confidence: float from 0.0 to 1.0
 - category: one of [injury, usage, trade, weather, motivation, legal, general]
-- subject_type: one of [player, coach, team, reporter] (default "player"; Plan 72-01)
+- subject_type: REQUIRED — one of [player, coach, team, reporter] (every item MUST include this; Plan 72-02)
 - events: dict of boolean flags {{
     is_ruled_out, is_inactive, is_questionable, is_suspended, is_returning,
     is_traded, is_released, is_signed, is_activated,
