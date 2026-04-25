@@ -42,6 +42,16 @@ Weather events (1)::
     is_weather_risk  — blizzard, high winds >= 25 mph, game in
                        doubt, freezing rain, heavy rain
 
+Draft-season events (7, Plan 72-01)::
+
+    is_drafted               — player was selected in the NFL Draft
+    is_rumored_destination   — speculation that names a specific team
+    is_coaching_change       — head coach / coordinator hire-or-fire
+    is_trade_buzz            — soft trade speculation (no team named)
+    is_holdout               — skipping minicamp / OTAs / training camp
+    is_cap_cut               — release driven by salary-cap moves
+    is_rookie_buzz           — pre-draft prospect hype / draft-board surge
+
 Design principles
 -----------------
 * HIGH PRECISION > recall (T-61-02-01): prefer false negatives
@@ -302,6 +312,80 @@ def _compile_patterns() -> List[_PatternEntry]:
     for pat, sent, evts in _weather:
         entries.append((re.compile(pat, re.IGNORECASE), sent, "weather", evts))
 
+    # -- Draft-season patterns (Plan 72-01) --
+    # 7 high-precision keyword patterns for the new draft-season event
+    # flags. The Claude path is the primary producer for these events
+    # (it can disambiguate context that bare keywords cannot), so the
+    # rule path is a low-confidence zero-cost fallback. Signals that
+    # ONLY fire draft-season flags are confidence-capped at
+    # ``_DRAFT_SEASON_CONFIDENCE`` (0.5) inside ``RuleExtractor.extract``.
+    #
+    # Bounded quantifiers + word-boundary anchors per T-72-01-02
+    # (no unbounded ``.*`` inside alternations — prevents catastrophic
+    # backtracking on adversarial Bronze text).
+    _draft_season = [
+        # is_drafted — confirmed selection in the NFL Draft.
+        (
+            r"\bdrafted\s+(?:by|to)\s+the\s+\w{3,20}\b",
+            0.4,
+            "general",
+            {"is_drafted": True},
+        ),
+        # is_rumored_destination — speculation that names a specific team
+        # (different from generic is_trade_buzz which does not name one).
+        (
+            r"\b(?:rumored\s+to\s+land|rumored\s+destination"
+            r"|could\s+land\s+in)\b",
+            0.0,
+            "trade",
+            {"is_rumored_destination": True},
+        ),
+        # is_coaching_change — head-coach / coordinator hire-or-fire.
+        (
+            r"\b(?:hired\s+as|fired"
+            r"|new\s+(?:head\s+coach|coordinator)"
+            r"|coaching\s+change)\b",
+            -0.1,
+            "general",
+            {"is_coaching_change": True},
+        ),
+        # is_trade_buzz — soft trade speculation (no team named).
+        (
+            r"\b(?:trade\s+rumor"
+            r"|rumored\s+to\s+be\s+(?:traded|dealt|moved)"
+            r"|trade\s+speculation)\b",
+            -0.1,
+            "trade",
+            {"is_trade_buzz": True},
+        ),
+        # is_holdout — player skipping minicamp/OTAs/training camp.
+        (
+            r"\bhold(?:ing\s+)?out\b",
+            -0.3,
+            "trade",
+            {"is_holdout": True},
+        ),
+        # is_cap_cut — release driven by salary-cap considerations.
+        (
+            r"\b(?:cap\s+(?:cut|casualty)"
+            r"|salary[\s-]?cap\s+(?:cut|release))\b",
+            -0.4,
+            "trade",
+            {"is_cap_cut": True},
+        ),
+        # is_rookie_buzz — pre-draft prospect hype / draft-board surge.
+        (
+            r"\b(?:rookie\s+buzz"
+            r"|first[\s-]round\s+(?:hype|prospect)"
+            r"|sleeper\s+rookie)\b",
+            0.4,
+            "motivation",
+            {"is_rookie_buzz": True},
+        ),
+    ]
+    for pat, sent, cat, evts in _draft_season:
+        entries.append((re.compile(pat, re.IGNORECASE), sent, cat, evts))
+
     # -- General sentiment patterns --
     _positive = [
         (r"game[\s-]changing|monster\s+game", 0.5, {}),
@@ -338,6 +422,28 @@ _NAME_PATTERN = re.compile(
 
 # Rule-based confidence ceiling
 _RULE_CONFIDENCE = 0.7
+
+# Lower confidence ceiling for the 7 draft-season patterns added in
+# Plan 72-01. The Claude path is the primary producer for these events
+# (it has full-context disambiguation that bare keywords cannot match);
+# rule-only matches are flagged as low-confidence so downstream
+# aggregators can de-prioritise them. Capped at 0.5 per CONTEXT D-01.
+_DRAFT_SEASON_CONFIDENCE = 0.5
+
+# Set of draft-season event flag keys (Plan 72-01). Used by
+# ``RuleExtractor.extract`` to decide whether a given best-match's
+# events dict should be capped at ``_DRAFT_SEASON_CONFIDENCE``.
+_DRAFT_SEASON_FLAGS = frozenset(
+    {
+        "is_drafted",
+        "is_rumored_destination",
+        "is_coaching_change",
+        "is_trade_buzz",
+        "is_holdout",
+        "is_cap_cut",
+        "is_rookie_buzz",
+    }
+)
 
 
 # ---------------------------------------------------------------------------
@@ -413,10 +519,24 @@ class RuleExtractor:
             best = matches[0]
             sentiment, category, events = best
 
+            # Confidence cap (Plan 72-01): when the best-match's events
+            # dict ONLY fires draft-season flags (and no legacy 12-flag
+            # event), apply the lower ceiling so aggregators can
+            # de-prioritise rule-only draft-season signals. If a legacy
+            # flag is also set, the higher 0.7 ceiling stands so we do
+            # not regress existing pattern confidence.
+            event_keys = {k for k, v in events.items() if v}
+            only_draft_season = (
+                bool(event_keys) and event_keys.issubset(_DRAFT_SEASON_FLAGS)
+            )
+            confidence = (
+                _DRAFT_SEASON_CONFIDENCE if only_draft_season else _RULE_CONFIDENCE
+            )
+
             signal = PlayerSignal(
                 player_name=name,
                 sentiment=sentiment,
-                confidence=_RULE_CONFIDENCE,
+                confidence=confidence,
                 category=category,
                 # Injury events
                 is_ruled_out=events.get("is_ruled_out", False),
@@ -434,6 +554,16 @@ class RuleExtractor:
                 is_usage_drop=events.get("is_usage_drop", False),
                 # Weather events (Plan 61-02)
                 is_weather_risk=events.get("is_weather_risk", False),
+                # Draft-season events (Plan 72-01)
+                is_drafted=events.get("is_drafted", False),
+                is_rumored_destination=events.get(
+                    "is_rumored_destination", False
+                ),
+                is_coaching_change=events.get("is_coaching_change", False),
+                is_trade_buzz=events.get("is_trade_buzz", False),
+                is_holdout=events.get("is_holdout", False),
+                is_cap_cut=events.get("is_cap_cut", False),
+                is_rookie_buzz=events.get("is_rookie_buzz", False),
                 raw_excerpt=combined[:500],
             )
             signals.append(signal)
