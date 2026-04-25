@@ -1,0 +1,495 @@
+{
+  "fetch_run_id": "1f1b8602-c0e7-4dac-9ca0-d5b62989805b",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-04-25T12:24:25.561417+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 33,
+  "items": [
+    {
+      "external_id": "US-EN-48547336",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48547336/2026-nfl-draft-kiper-rounds-2-3-winners-losers-value-picks-updates-best-available",
+      "title": "Which teams won -- and lost -- on Day 2 of the NFL draft? Kiper on the best values, biggest reaches",
+      "body_text": "We're through 100 picks of the NFL draft. Mel Kiper Jr. sorts through the steals and reaches of Day 2, including some big value selections.",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-25T05:51:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48,586,636",
+      "url": "https://www.espn.com/contributor/espn/4f66526ac8d44",
+      "title": "Mini NFL mock draft: Predicting the first 10 picks of Round 4",
+      "body_text": "Jordan Reid looks ahead to Day 3 of the NFL draft with predictions for the first few picks of Round 4.",
+      "author": "Jordan Reid",
+      "published_at": "2026-04-25T05:24:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jordan Reid"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48584650",
+      "url": "https://www.espn.com/nfl/story/_/id/48584650/jonathan-greenard-traded-eagles-lands-100-million-deal",
+      "title": "Greenard traded to Eagles, gets new $100M deal",
+      "body_text": "The Eagles acquired Jonathan Greenard in a trade with the Vikings and agreed to a lucrative new deal with the star linebacker.",
+      "author": "Tim McManus",
+      "published_at": "2026-04-25T06:10:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Eagles",
+        "Jonathan Greenard"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48586907",
+      "url": "https://www.espn.com/nfl/story/_/id/48586907/texans-nico-collins-position-clear-not-trading-gm-says",
+      "title": "Texans GM: Collins stance clear, not trading him",
+      "body_text": "Texans general manager Nick Caserio made it clear that wideout Nico Collins is not available for trade.",
+      "author": "DJ Bien-Aime",
+      "published_at": "2026-04-25T06:10:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Nick Caserio",
+        "Nico Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "US-EN-48582837",
+      "url": "https://www.espn.com/nfl/story/_/id/48582837/rams-gm-les-snead-says-works-lockstep-sean-mcvay",
+      "title": "McVay in 'lockstep' with GM after tense presser",
+      "body_text": "Rams coach Sean McVay said Friday night that he and general manager Les Snead \"couldn't be in more lockstep in every decision that we make.\"",
+      "author": "Sarah Barshop",
+      "published_at": "2026-04-25T06:10:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Les Snead"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48584174",
+      "url": "https://www.espn.com/nfl/story/_/id/48584174/sources-49ers-trade-dee-winters-cowboys-5th-round-pick",
+      "title": "Cowboys add LB depth, trade for Niners' Winters",
+      "body_text": "The Cowboys acquired LB Dee Winters from the 49ers for pick No. 152 in the fifth round of the NFL draft.",
+      "author": "Todd Archer and Nick Wagoner",
+      "published_at": "2026-04-25T06:10:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Winters The",
+        "Dee Winters"
+      ],
+      "resolved_player_ids": [
+        "00-0038625"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48585442",
+      "url": "https://www.espn.com/nfl/story/_/id/48585442/steelers-select-qb-drew-allar-third-round-nfl-draft",
+      "title": "Still waiting on Rodgers, Steelers draft QB Allar",
+      "body_text": "The Steelers added to the QB position Friday night, selecting former Penn State star Drew Allar in the third round of the NFL draft.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-04-25T06:10:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Allar The",
+        "Penn State",
+        "Drew Allar"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48585293",
+      "url": "https://www.espn.com/nfl/story/_/id/48585293/cardinals-select-qb-carson-beck-third-round-nfl-draft",
+      "title": "Cards draft Beck, add ex-Canes star to QB room",
+      "body_text": "The Cardinals drafted Carson Beck with the 65th pick, further clouding the team's QB situation.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-04-25T06:10:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Cardinals",
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "US-EN-48584958",
+      "url": "https://www.espn.com/nfl/story/_/id/48584958/falcons-draft-avieon-terrell-pair-cb-star-brother-aj",
+      "title": "Falcons draft Terrell, unite CB with star brother",
+      "body_text": "The Falcons selected Avieon Terrell with the No. 48 pick of the NFL draft, uniting the Clemson CB with his older brother A.J.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-04-25T06:10:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Falcons",
+        "Avieon Terrell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48585022",
+      "url": "https://www.espn.com/nfl/story/_/id/48585022/kayden-mcdonald-goes-texans-2nd-round-motivated-draft-slide",
+      "title": "Motivated by snub, McDonald drafted by Texans",
+      "body_text": "New Texans rookie defensive tackle Kayden McDonald believes he's the best player in the 2026 draft and will use falling to the second round as motivation.",
+      "author": "DJ Bien-Aime",
+      "published_at": "2026-04-25T06:10:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Texans New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "US-EN-48571507",
+      "url": "https://www.espn.com/nfl/story/_/id/48571507/2026-nfl-draft-outfits-red-carpet",
+      "title": "📸 Drafted in drip: Best outfits from the NFL draft",
+      "body_text": "The stars stepped out in their best suits ahead of hearing their names called in the 2026 NFL draft.",
+      "author": "ESPN Staff",
+      "published_at": "2026-04-25T06:10:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48547294",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48547294/2026-nfl-draft-kiper-round-1-winners-losers-value-picks-updates-best-available",
+      "title": "Big winners, losers and value picks of Round 1: Kiper on a wild start to the NFL draft",
+      "body_text": "Mel Kiper Jr. makes sense of the first round of the NFL draft, sizing up moves like the Makai Lemon, Caleb Downs and Ty Simpson picks.",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-25T06:35:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr",
+        "Makai Lemon",
+        "Caleb Downs",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-nflnation48542313",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/page/nflnation48542313/2026-nfl-draft-live-updates-pros-cons-every-first-round-pick",
+      "title": "Pick-by-pick takes on Round 1 of the NFL draft: How prospects fit with their new teams",
+      "body_text": "Here's our NFL Nation reporters' look at the biggest questions for each Round 1 pick and how every player fits.",
+      "author": "NFL Nation",
+      "published_at": "2026-04-25T04:51:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48562191",
+      "url": "https://www.espn.com/nfl/story/_/id/48562191/las-vegas-raiders-2026-nfl-draft-help-quarterback-fernando-mendoza-rookie-year",
+      "title": "What can the Raiders do to set No. 1 pick QB Fernando Mendoza up for success in Year 1?",
+      "body_text": "From the coaching staff to the roster, here's how the Raiders can develop Fernando Mendoza.",
+      "author": "Ryan McFadden",
+      "published_at": "2026-04-25T01:01:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-48580958",
+      "url": "https://www.espn.com/nfl/story/_/id/48580958/los-angeles-rams-decision-2026-nfl-draft-qb-ty-simpson-matthew-stafford",
+      "title": "How Rams quietly zeroed in on Ty Simpson in the draft -- and kept it a secret",
+      "body_text": "While the Rams always try to mute their plans, they found that process magnified when it came to the QB position.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-04-25T01:01:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "How Rams",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48542597",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48542597/2026-nfl-draft-trade-grades-biggest-deals-players-picks-contracts",
+      "title": "Grading NFL draft trades: Who won the Jonathan Greenard deal, Eagles or Vikings?",
+      "body_text": "We're grading the most impactful trades of the 2026 NFL draft, including the Vikings trading Greenard to Philly.",
+      "author": "Seth Walder",
+      "published_at": "2026-04-25T02:34:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jonathan Greenard"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48542689",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48542689/2026-nfl-draft-first-round-picks-best-worst-trades-quarterbacks-surprises",
+      "title": "Answering big questions off Round 1: What were the best (and worst) picks of the night?",
+      "body_text": "What were the best and worst picks of Round 1? Which trades really stood out? And what can we expect?",
+      "author": "Matt Miller, Jordan Reid and Field Yates",
+      "published_at": "2026-04-25T02:35:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48573834",
+      "url": "https://www.espn.com/nfl/story/_/id/48573834/2026-nfl-draft-superlatives",
+      "title": "2026 NFL draft superlatives: Standouts from the first three rounds",
+      "body_text": "The 2026 NFL draft picks can be compared by any number of statistical categories. Here are some of the more subjective superlatives from the event.",
+      "author": "Brianna Williams",
+      "published_at": "2026-04-25T04:51:21+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48573040",
+      "url": "https://www.espn.com/nfl/story/_/id/48573040/r-mason-thomas-name-explained-2026-nfl-draft-oklahoma-sooners",
+      "title": "R Mason Thomas' name explained: Why \"R\" doesn't stand for anything",
+      "body_text": "One of the draft's most intriguing names has a simple explanation: R Mason is his full first name.",
+      "author": "Brianna Williams",
+      "published_at": "2026-04-25T04:51:21+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mason Thomas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48583197",
+      "url": "https://www.espn.com/nfl/story/_/id/48583197/packers-jayden-reed-agree-three-year-50m-extension",
+      "title": "Packers, Reed agree to 3-year, $50M extension",
+      "body_text": "The Packers and receiver Jayden Reed have agreed to a three-year, $50 million contract extension that includes $20 million in guaranteed money.",
+      "author": "Rob Demovsky",
+      "published_at": "2026-04-25T06:11:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Packers",
+        "Jayden Reed"
+      ],
+      "resolved_player_ids": [
+        "00-0039146"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-48584052",
+      "url": "https://www.espn.com/nfl/story/_/id/48584052/fernando-mendoza-huge-responsibility-face-raiders",
+      "title": "Mendoza: Have 'huge responsibility' with Raiders",
+      "body_text": "Fernando Mendoza said \"it's a huge responsibility\" to be the face of a franchise with a proud history like the Raiders.",
+      "author": "Ryan McFadden",
+      "published_at": "2026-04-25T06:11:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Raiders Fernando"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-48584404",
+      "url": "https://www.espn.com/nfl/story/_/id/48584404/ravens-set-cowboys-opponent-2026-rio-de-janeiro-game",
+      "title": "Ravens set as Cowboys' opponent in '26 Rio game",
+      "body_text": "The Ravens on Friday were named the Cowboys' opponent for the first NFL game in Rio de Janeiro on Sept. 27.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-04-25T06:11:08+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48576281",
+      "url": "https://www.espn.com/nfl/story/_/id/48576281/eagles-trade-cowboys-pick-makai-lemon-no-20-nfl-draft",
+      "title": "Amid Brown buzz, Eagles trade up for WR Lemon",
+      "body_text": "The Eagles made a trade with the division rival Cowboys and selected USC wide receiver Makai Lemon with the No. 20 pick.",
+      "author": "Tim McManus",
+      "published_at": "2026-04-25T06:11:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Amid Brown",
+        "Lemon The",
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48574659",
+      "url": "https://www.espn.com/nfl/story/_/id/48574659/jets-select-pass-rusher-david-bailey-no-2-pick-nfl-draft",
+      "title": "Jets pick 3 players from CFP teams in 1st round",
+      "body_text": "The Jets selected three players in the first round: defensive end David Bailey at No. 2, tight end Kenyon Sadiq at 16 and wide receiver Omar Cooper Jr. at No. 30.",
+      "author": "Rich Cimini",
+      "published_at": "2026-04-25T06:11:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Jets",
+        "David Bailey",
+        "Kenyon Sadiq",
+        "Omar Cooper Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48574310",
+      "url": "https://www.espn.com/nfl/story/_/id/48574310/mike-vrabel-says-confident-patriots-draft-absence",
+      "title": "Vrabel: Confident in Pats during draft absence",
+      "body_text": "Mike Vrabel said he is confident that the Patriots will have a successful draft during his absence Saturday, when he will start seeking counseling after multiple media outlets posted photos of the coach with former Athletic reporter Dianna Russini.",
+      "author": "Mike Reiss",
+      "published_at": "2026-04-25T06:11:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-48575049",
+      "url": "https://www.espn.com/nfl/story/_/id/48575049/chiefs-take-mansoor-delane-nfl-draft-trade-browns",
+      "title": "Chiefs: 'Top-5 guy' in CB Delane worth trade up",
+      "body_text": "The Chiefs moved up in the NFL draft, acquiring the No. 6 pick from the Browns and using it to select LSU cornerback Mansoor Delane. Cleveland took Spencer Fano at No. 9.",
+      "author": "Nate Taylor",
+      "published_at": "2026-04-25T06:11:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Chiefs",
+        "Mansoor Delane",
+        "Spencer Fano"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48575339",
+      "url": "https://www.espn.com/nfl/story/_/id/48575339/giants-draft-arvell-reese-no-5-francis-mauigoa-10",
+      "title": "Giants thrilled with picks: 'Couldn't do any better'",
+      "body_text": "The Giants addressed both sides of the ball in the first round of the NFL draft, selecting Ohio State linebacker Arvell Reese with the fifth pick and Miami offensive lineman Francis Mauigoa at No. 10.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-04-25T06:11:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Giants",
+        "Ohio State",
+        "Arvell Reese",
+        "Francis Mauigoa"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48505513",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48505513/2026-nfl-draft-fantasy-football-projections-rookies",
+      "title": "2026 NFL draft: Fantasy football outlooks for Love, Allar and more",
+      "body_text": "Liz Loza, Matt Bowen and Mike Clay break down the fantasy potential of early-round rookies from the NFL draft and provide initial 2026 projections.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-04-24T02:05:36+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Liz Loza",
+        "Matt Bowen",
+        "Mike Clay"
+      ],
+      "resolved_player_ids": [
+        "00-0019574"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48496515",
+      "url": "https://www.espn.com/nfl/story/_/id/48496515/nfl-draft-picks",
+      "title": "NFL draft faces a new insider betting risk",
+      "body_text": "Former NFL execs say it's only a matter of time until someone parlays inside information on the draft.",
+      "author": "Robert Klemko",
+      "published_at": "2026-04-24T16:58:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47809892",
+      "url": "https://www.espn.com/espn/betting/story/_/id/47809892/2026-super-bowl-lxi-odds-nfl-sports-betting-season-win-totals-playoffs",
+      "title": "NFL futures: Every team's win total, SB odds",
+      "body_text": "NFC West teams hold on to shortest, longest title odds after first round",
+      "author": "David Purdum",
+      "published_at": "2026-04-24T16:58:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-34096853",
+      "url": "https://www.espn.com/nfl/story/_/id/34096853/highest-paid-nfl-players-tracking-most-money-guaranteed-per-year-every-position",
+      "title": "The NFL's highest-paid players at every position: Here's who makes the most money, from QB to punter",
+      "body_text": "We have seen a fair share of massive contracts in the NFL. So who tops the highest-paid list at every position as of today?",
+      "author": "ESPN staff",
+      "published_at": "2026-04-21T13:27:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48358999",
+      "url": "https://www.espn.com/nfl/story/_/id/48358999/fifth-year-option-tracker-nfl-players-2023-first-round-draft-class",
+      "title": "Tracking fifth-year options for 2023 first-rounders: Who will return in 2027?",
+      "body_text": "The deadline for teams to pick up the fifth-year option on rookie contracts is May 1.",
+      "author": "ESPN Staff",
+      "published_at": "2026-04-21T13:27:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

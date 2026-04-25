@@ -1,0 +1,99 @@
+{
+  "fetch_run_id": "10692494-57dc-4348-927a-238807810cf4",
+  "source": "rotowire",
+  "fetched_at": "2026-04-25T12:26:35.567555+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630349",
+      "url": "https://www.rotowire.com//football/player/eli-raridon-19348",
+      "permalink": "",
+      "title": "Eli Raridon: Scooped up by Patriots",
+      "body_text": "New England selected Raridon in the third round of the 2026 NFL Draft, 95th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T08:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eli Raridon",
+        "Patriots New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl630347",
+      "url": "https://www.rotowire.com//football/player/chris-bell-19309",
+      "permalink": "",
+      "title": "Chris Bell: Snagged by Dolphins",
+      "body_text": "The Dolphins selected Bell (ACL) in the third round of the 2026 NFL Draft, 94th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T08:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Bell",
+        "Dolphins The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl630343",
+      "url": "https://www.rotowire.com//football/player/kaelon-black-19607",
+      "permalink": "",
+      "title": "Kaelon Black: Picked by 49ers",
+      "body_text": "The 49ers selected Black in the third round of the 2026 NFL Draft, 90th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T07:44:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kaelon Black"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl630342",
+      "url": "https://www.rotowire.com//football/player/zavion-thomas-19259",
+      "permalink": "",
+      "title": "Zavion Thomas: Taken by Chicago",
+      "body_text": "The Bears selected Thomas in the third round of the 2026 NFL Draft, 89th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T07:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zavion Thomas",
+        "Chicago The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "nfl630340",
+      "url": "https://www.rotowire.com//football/player/will-kacmarek-19450",
+      "permalink": "",
+      "title": "Will Kacmarek: Selected by Dolphins",
+      "body_text": "The Dolphins selected Kacmarek in the third round of the 2026 NFL Draft, 87th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-24T07:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Kacmarek",
+        "Dolphins The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    }
+  ]
+}

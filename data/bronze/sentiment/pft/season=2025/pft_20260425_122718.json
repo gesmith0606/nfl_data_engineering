@@ -1,0 +1,557 @@
+{
+  "fetch_run_id": "38fc6077-a9cd-487f-8597-2a1f46e88898",
+  "source": "pft",
+  "fetched_at": "2026-04-25T12:27:18.551819+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-admits-he-was-grumpy-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-admits-he-was-grumpy-on-thursday-night",
+      "permalink": "",
+      "title": "Sean McVay admits he was \"grumpy\" on Thursday night",
+      "body_text": "McVay explains his reaction to the Ty Simpson selection.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T12:17:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-weve-changed-this-defense-were-doing-something-about-this-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-weve-changed-this-defense-were-doing-something-about-this-defense",
+      "permalink": "",
+      "title": "Jerry Jones: We’ve changed this defense, we're doing something about this defense",
+      "body_text": "Cowboys owner and General Manager Jerry Jones says his defense is a whole lot better than it was last year — and a whole lot better than it was 48 hours ago.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-25T08:58:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jermod-mccoy-projected-to-be-drafted-in-round-1-is-still-available-heading-into-round-4",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jermod-mccoy-projected-to-be-drafted-in-round-1-is-still-available-heading-into-round-4",
+      "permalink": "",
+      "title": "Jermod McCoy, projected to be drafted in Round 1, is still available heading into Round 4",
+      "body_text": "McCoy was expected to be a Day One pick. Now he's hoping to hear his name called on Day Three.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-25T08:12:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Day One",
+        "Day Three"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-picks-full-tracker-of-every-selection-rounds-1-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-picks-full-tracker-of-every-selection-rounds-1-7",
+      "permalink": "",
+      "title": "2026 NFL Draft Picks: Full tracker of every selection Rounds 1-7",
+      "body_text": "Fernando Mendoza is set to go to Las Vegas with the first overall pick.",
+      "author": "PFT Editorial Staff",
+      "published_at": "2026-04-25T04:09:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Draft Picks",
+        "Fernando Mendoza",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-full-team-by-team-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-full-team-by-team-picks",
+      "permalink": "",
+      "title": "2026 NFL Draft: Full team-by-team picks",
+      "body_text": "Who did each team pick in the 2026 NFL Draft? Full team-by-team results",
+      "author": "PFT Editorial Staff",
+      "published_at": "2026-04-25T04:09:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-cap-day-2-of-2026-draft-by-selecting-s-jalen-huskey-at-no-100",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-cap-day-2-of-2026-draft-by-selecting-s-jalen-huskey-at-no-100",
+      "permalink": "",
+      "title": "Jaguars cap Day 2 of 2026 draft by selecting S Jalen Huskey at No. 100",
+      "body_text": "Day 2 of the 2026 NFL Draft has come to an end with the Jaguars picking the last player of the night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-25T03:10:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Huskey"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-use-a-third-round-pick-on-louisville-wr-chris-bell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-use-a-third-round-pick-on-louisville-wr-chris-bell",
+      "permalink": "",
+      "title": "Dolphins use a third-round pick on Louisville WR Chris Bell",
+      "body_text": "Louisville wide receiver Chris Bell is working his way back from a torn ACL in his left knee.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T03:03:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Bell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-greenard-made-appearance-at-sixers-game-with-big-dom",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-greenard-made-appearance-at-sixers-game-with-big-dom",
+      "permalink": "",
+      "title": "Jonathan Greenard made appearance at Sixers game with Big Dom",
+      "body_text": "When will new Eagles defensive end Jonathan Greenard make his first appearance in Philadelphia?",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T02:46:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Greenard",
+        "Big Dom"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-add-rb-kaelon-black-at-no-90-overall",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-add-rb-kaelon-black-at-no-90-overall",
+      "permalink": "",
+      "title": "49ers add RB Kaelon Black at No. 90 overall",
+      "body_text": "There aren't many, if any, in the NFL who love adding a third-round running back more than Kyle Shanahan.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-25T02:45:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kaelon Black",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-select-wr-zachariah-branch-at-no-79",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-select-wr-zachariah-branch-at-no-79",
+      "permalink": "",
+      "title": "Falcons select WR Zachariah Branch at No. 79",
+      "body_text": "The Falcons are keeping an explosive player in the Peach State.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-25T02:10:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zachariah Branch",
+        "The Falcons",
+        "Peach State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-draft-penn-state-qb-drew-allar-in-the-third-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-draft-penn-state-qb-drew-allar-in-the-third-round",
+      "permalink": "",
+      "title": "Steelers draft Penn State QB Drew Allar in the third round",
+      "body_text": "The Steelers have added another quarterback to their roster.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T02:03:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Penn State",
+        "Drew Allar",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-trade-for-no-74-select-wr-malachi-fields",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-trade-for-no-74-select-wr-malachi-fields",
+      "permalink": "",
+      "title": "Giants trade for No. 74, select WR Malachi Fields",
+      "body_text": "The Giants traded back into the third round, picking up the 74th overall selection from the Browns.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-25T01:50:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malachi Fields",
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-schoen-shrugs-at-steve-tischs-presence-in-draft-room",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-schoen-shrugs-at-steve-tischs-presence-in-draft-room",
+      "permalink": "",
+      "title": "Joe Schoen shrugs at Steve Tisch's presence in draft room",
+      "body_text": "Former Giants co-owner Steve Tisch, who transferred his equity in the team to a trust for his children, was front and center in the team's draft room on the first two nights of the 2026 NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T01:35:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Schoen",
+        "Steve Tisch",
+        "Former Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-finally-make-a-pick-take-texas-a-m-dt-tyler-onyedim-at-no-66",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-finally-make-a-pick-take-texas-a-m-dt-tyler-onyedim-at-no-66",
+      "permalink": "",
+      "title": "Broncos finally make a pick, take Texas A&M DT Tyler Onyedim at No. 66",
+      "body_text": "The Broncos didn't pick in the first or second round of the 2026 NFL draft, but they're finally on the board early in the third.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-25T01:27:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Onyedim",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-take-qb-carson-beck-at-no-65",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-take-qb-carson-beck-at-no-65",
+      "permalink": "",
+      "title": "Cardinals take QB Carson Beck at No. 65",
+      "body_text": "No quarterbacks were taken in the second round of the draft on Friday night, but one has come off the board with the first pick of the third round.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-25T01:22:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-trade-up-to-take-cb-davison-igbinosun-broncos-still-havent-made-a-pick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-trade-up-to-take-cb-davison-igbinosun-broncos-still-havent-made-a-pick",
+      "permalink": "",
+      "title": "Bills trade up to take CB Davison Igbinosun, Broncos still haven't made a pick",
+      "body_text": "The Broncos were set to make their first pick of the 2026 draft at No. 62, but the wait will go on a little longer.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-25T01:09:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davison Igbinosun",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-add-another-te-select-max-klare-at-no-61",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-add-another-te-select-max-klare-at-no-61",
+      "permalink": "",
+      "title": "Rams add another TE, select Max Klare at No. 61",
+      "body_text": "The Rams famously used plenty of multi-tight end sets during the 2025 season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-25T01:07:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Max Klare",
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-will-face-cowboys-in-rio-on-september-27",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-will-face-cowboys-in-rio-on-september-27",
+      "permalink": "",
+      "title": "Ravens will face Cowboys in Rio on September 27",
+      "body_text": "The Ravens closed out the original Cowboys Stadium by beating Dallas on a Saturday night in December 2008.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T01:02:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Ravens",
+        "Cowboys Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-trade-up-to-no-58-select-s-emmanuel-mcneil-warren",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-trade-up-to-no-58-select-s-emmanuel-mcneil-warren",
+      "permalink": "",
+      "title": "Browns trade up to No. 58, select S Emmanuel McNeil-Warren",
+      "body_text": "The Browns have acquired pick No. 58 in the second round from the 49ers.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-25T00:55:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Warren The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-trade-jonathan-greenard-to-eagles-for-two-third-round-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-trade-jonathan-greenard-to-eagles-for-two-third-round-picks",
+      "permalink": "",
+      "title": "Vikings trade Jonathan Greenard to Eagles for two third-round picks",
+      "body_text": "Greenard gets new deal from new team.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T00:52:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Greenard"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-take-texas-a-m-te-nate-boerkircher-with-their-first-pick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-take-texas-a-m-te-nate-boerkircher-with-their-first-pick",
+      "permalink": "",
+      "title": "Jaguars take Texas A&M TE Nate Boerkircher with their first pick",
+      "body_text": "The Jaguars traded their 2026 first-round pick as part of a package to move up to No. 2 overall to select Travis Hunter in 2025.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T00:51:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nate Boerkircher",
+        "The Jaguars",
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-trade-up-take-de-gabe-jacas-at-no-55",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-trade-up-take-de-gabe-jacas-at-no-55",
+      "permalink": "",
+      "title": "Patriots trade up, take DE Gabe Jacas at No. 55",
+      "body_text": "The Patriots have traded up for the second time in two rounds.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-25T00:42:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gabe Jacas",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-make-first-pick-of-2026-draft-select-lb-cj-allen-at-no-53",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-make-first-pick-of-2026-draft-select-lb-cj-allen-at-no-53",
+      "permalink": "",
+      "title": "Colts make first pick of 2026 draft, select LB CJ Allen at No. 53",
+      "body_text": "The Colts are finally on the board in the 2026 draft.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-25T00:35:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-take-linebacker-jake-golday-with-51st-pick-in-the-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-take-linebacker-jake-golday-with-51st-pick-in-the-draft",
+      "permalink": "",
+      "title": "Vikings take linebacker Jake Golday with 51st pick in the draft",
+      "body_text": "The Vikings have focused on improving their defense through the first two rounds of the 2026 NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T00:34:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jake Golday",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-make-their-first-pick-at-no-52-take-south-carolina-cb-brandon-cisse",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-make-their-first-pick-at-no-52-take-south-carolina-cb-brandon-cisse",
+      "permalink": "",
+      "title": "Packers make their first pick at No. 52, take South Carolina CB Brandon Cisse",
+      "body_text": "The Packers used their first-round pick in the 2026 NFL draft last year, in the trade for Micah Parsons.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-25T00:32:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "South Carolina",
+        "Brandon Cisse",
+        "The Packers",
+        "Micah Parsons"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-dangelo-ponds-goes-to-jets-at-no-50",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-dangelo-ponds-goes-to-jets-at-no-50",
+      "permalink": "",
+      "title": "CB D'Angelo Ponds goes to Jets at No. 50",
+      "body_text": "The Jets traded up to take wide receiver Omar Cooper with the 30th pick on Thursday night and they added one of his Indiana teammates after trading down to the 50th pick of the second round.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-25T00:23:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Angelo Ponds",
+        "The Jets",
+        "Omar Cooper"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-select-clemson-cb-avieon-terrell-brother-of-a-j-terrell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-select-clemson-cb-avieon-terrell-brother-of-a-j-terrell",
+      "permalink": "",
+      "title": "Falcons select Clemson CB Avieon Terrell, brother of A.J. Terrell",
+      "body_text": "A.J. Terrell has played in Atlanta for six seasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T00:18:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Avieon Terrell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-trade-up-to-no-47-select-wr-germie-bernard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-trade-up-to-no-47-select-wr-germie-bernard",
+      "permalink": "",
+      "title": "Steelers trade up to No. 47, select WR Germie Bernard",
+      "body_text": "The Colts were set to make their first pick of the 2026 draft at No. 47 overall.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-25T00:08:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Germie Bernard",
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-call-to-makai-lemon-apparently-ran-afoul-of-the-rules",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-call-to-makai-lemon-apparently-ran-afoul-of-the-rules",
+      "permalink": "",
+      "title": "Steelers' call to Makai Lemon apparently ran afoul of the rules",
+      "body_text": "On Thursday night, the Steelers had USC receiver Makai Lemon on the phone before the Steelers were on the clock.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T00:06:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon",
+        "On Thursday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-gm-joe-schoen-kayvon-thibodeaux-trade-talk-reports-not-true",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-gm-joe-schoen-kayvon-thibodeaux-trade-talk-reports-not-true",
+      "permalink": "",
+      "title": "Giants GM Joe Schoen: Kayvon Thibodeaux trade talk reports \"not true\"",
+      "body_text": "A report on Friday indicated the Giants were discussing a move involving Thibodeaux.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-25T00:03:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Schoen",
+        "Kayvon Thibodeaux"
+      ],
+      "resolved_player_ids": [
+        "00-0037611"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
