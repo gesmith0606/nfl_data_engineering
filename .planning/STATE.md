@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
-status: Phase 71 shipped — ready for Phase 72
+status: executing
 stopped_at: Phase 71 COMPLETE (5/5 plans). Plan 71-05 shipped — CLI --extractor-mode/--mode args + GHA EXTRACTOR_MODE env (gated on vars.ENABLE_LLM_ENRICHMENT) + CI-enforced LLM-04 cost gate (warm-cache projection $1.5700/week, gate <$5) + 71-BENCHMARK.md (rule=28 claude=156 ratio=5.57x, fixture commit 925d52e) + 71-SUMMARY.md. 165 sentiment tests green. LLM-01..05 all closed. Ready for Phase 72.
-last_updated: "2026-04-24T22:12:54.602Z"
-last_activity: 2026-04-24
+last_updated: "2026-04-25T06:09:11.153Z"
+last_activity: 2026-04-25 -- Phase 72 execution started
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 5
+  total_plans: 10
   completed_plans: 6
-  percent: 100
+  percent: 60
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
 
 **Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** Phase 71 — llm-primary-extraction
+**Current focus:** Phase 72 — event-flag-expansion
 
 ## Current Position
 
-Phase: 72
-Plan: Not started
-Status: Phase 71 shipped — ready for Phase 72
-Last activity: 2026-04-24
+Phase: 72 (event-flag-expansion) — EXECUTING
+Plan: 1 of 5
+Status: Executing Phase 72
+Last activity: 2026-04-25 -- Phase 72 execution started
 
 **Execution order (proposed):** 71 ✓ → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
