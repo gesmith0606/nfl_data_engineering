@@ -70,6 +70,23 @@ _UNRESOLVED_DIR = (
 _NON_PLAYER_DIR = (
     _PROJECT_ROOT / "data" / "silver" / "sentiment" / "non_player_pending"
 )
+# Plan 72-03 Task 1 — new Silver sink for hybrid attribution per CONTEXT D-02.
+# Non-player items routed by ``_route_non_player_items`` whose ``subject_type``
+# is in ``_NEWS_CHANNEL_SUBJECT_TYPES`` land here; the team aggregator merges
+# the counts into ``coach_news_count`` / ``team_news_count`` columns.
+_NON_PLAYER_NEWS_DIR = (
+    _PROJECT_ROOT / "data" / "silver" / "sentiment" / "non_player_news"
+)
+
+# Plan 72-03 Task 1 — locked routing buckets per CONTEXT D-02:
+# * Coach + team subjects roll up to the team rollup table (coach/team
+#   news counts surfaced by ``TeamWeeklyAggregator``).
+# * Coach + team + reporter subjects all write to the new
+#   ``non_player_news`` Silver sink so the news-feed surface (Wave 4)
+#   can show them. Reporters skip the team rollup because reporters
+#   cover multiple teams and would inflate per-team news counts.
+_TEAM_ROLLUP_SUBJECT_TYPES = frozenset({"coach", "team"})
+_NEWS_CHANNEL_SUBJECT_TYPES = frozenset({"coach", "team", "reporter"})
 
 # Valid extractor mode strings accepted by ``SentimentPipeline``. EXTRACTOR_MODE
 # env values outside this set fall through to ``auto`` with an INFO log
@@ -127,6 +144,20 @@ class PipelineResult:
     non_player_items: List[Dict[str, Any]] = field(default_factory=list)
     is_claude_primary: bool = False
     cost_usd_total: float = 0.0
+    # Plan 72-03 Task 1 additive fields — hybrid routing counters.
+    # ``non_player_routed_count`` = items routed to the team rollup
+    # (subject_type in {coach, team}). ``non_player_news_count`` = items
+    # routed to the new ``non_player_news`` Silver sink (subject_type in
+    # {coach, team, reporter}). Both ACCUMULATE via += across the
+    # ``_run_claude_primary_loop`` per-batch body — see Test 7
+    # (test_routing_counters_accumulate_across_batches).
+    non_player_routed_count: int = 0
+    non_player_news_count: int = 0
+    # Plan 72-03 Task 2 additive field — null-player aggregator counter
+    # surfaced via ``WeeklyAggregator.last_null_player_count`` and
+    # plumbed here for ops dashboards. Defaults 0 — populated by the
+    # caller when running aggregation in the same flow as the pipeline.
+    null_player_count: int = 0
 
 
 # ---------------------------------------------------------------------------
@@ -972,7 +1003,13 @@ class SentimentPipeline:
 
         all_records: List[Dict[str, Any]] = []
         unresolved_records: List[Dict[str, Any]] = []
+        # Plan 72-03 Task 1: per-batch routing accumulators. We collect
+        # the routed buckets across batches so we can write a single
+        # envelope per sink at the end of the loop, but the COUNTERS on
+        # ``result`` accumulate via ``+=`` per batch (Test 7 contract).
         batch_non_player_total: List[Dict[str, Any]] = []
+        batch_news_total: List[Dict[str, Any]] = []
+        batch_leftover_total: List[Dict[str, Any]] = []
 
         # Chunk by extractor batch size — typically BATCH_SIZE=8.
         step = max(1, int(getattr(self._extractor, "batch_size", BATCH_SIZE)))
@@ -1024,14 +1061,29 @@ class SentimentPipeline:
             # Accumulate non-player items at the run level.
             batch_non_player_total.extend(non_player_items)
 
+            # Plan 72-03 Task 1 — hybrid routing per CONTEXT D-02.
+            # Split this batch's non-player items into 3 buckets and
+            # ACCUMULATE the counts on ``result`` via ``+=``. Using ``=``
+            # here would silently drop earlier batches' counts (Test 7
+            # ``test_routing_counters_accumulate_across_batches`` locks
+            # this contract — see threat T-72-03-06).
+            rollup_items, news_items, leftover_items = (
+                self._route_non_player_items(non_player_items)
+            )
+            result.non_player_routed_count += len(rollup_items)
+            result.non_player_news_count += len(news_items)
+            batch_news_total.extend(news_items)
+            batch_leftover_total.extend(leftover_items)
+
         # Update result-level non-player accounting (single source of truth).
         result.non_player_items.extend(batch_non_player_total)
         result.non_player_count = len(result.non_player_items)
 
-        # Persist non-player items into the dedicated Silver sink.
-        if not dry_run and batch_non_player_total:
+        # Persist leftover non-player items (subject_type='player' or
+        # team_abbr missing) into the existing review queue.
+        if not dry_run and batch_leftover_total:
             self._write_envelope(
-                batch_non_player_total,
+                batch_leftover_total,
                 _NON_PLAYER_DIR,
                 prefix="non_player",
                 season=season,
@@ -1039,7 +1091,88 @@ class SentimentPipeline:
                 batch_id=batch_id,
             )
 
+        # Persist routable items (coach + team + reporter) into the new
+        # ``non_player_news`` Silver sink consumed by the team aggregator
+        # and the news-feed API surface (Wave 4).
+        if not dry_run and batch_news_total:
+            self._write_envelope(
+                batch_news_total,
+                _NON_PLAYER_NEWS_DIR,
+                prefix="non_player_news",
+                season=season,
+                week=week,
+                batch_id=batch_id,
+            )
+
         return all_records, unresolved_records
+
+    # ------------------------------------------------------------------
+    # Plan 72-03 Task 1 — hybrid attribution routing helper
+    # ------------------------------------------------------------------
+
+    def _route_non_player_items(
+        self,
+        items: List[Dict[str, Any]],
+    ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """Split non-player items per CONTEXT D-02 hybrid attribution.
+
+        Routing rules:
+
+        * ``rollup_items``: ``subject_type`` in ``{coach, team}`` AND
+          ``team_abbr`` is non-empty. These contribute to the team
+          rollup ``coach_news_count`` / ``team_news_count`` columns
+          surfaced by ``TeamWeeklyAggregator`` (Plan 72-03 Task 2).
+        * ``news_items``: ``subject_type`` in ``{coach, team, reporter}``
+          AND ``team_abbr`` is non-empty. These are written to the
+          ``non_player_news`` Silver sink and surfaced by the news-feed
+          API (Wave 4). Reporters skip the team rollup because reporters
+          cover multiple teams across docs and would inflate per-team
+          news counts (CONTEXT specifics: "subject_team" preserved per
+          article, not a fixed affiliation).
+        * ``leftover_items``: ``subject_type == "player"`` OR
+          ``team_abbr`` missing. Kept in ``non_player_pending`` for
+          human review — these are the records the resolver couldn't
+          attribute and the routing rule can't fix automatically.
+
+        Threat T-72-03-01 mitigation: relies on
+        ``_coerce_subject_type`` (in ``extractor.py``) to have
+        normalised any unknown ``subject_type`` to ``"player"`` before
+        this routing logic runs. Defensively defaults to ``"player"``
+        when the key is absent (back-compat with pre-72-03 fixtures).
+
+        Args:
+            items: List of non-player item dicts from
+                ``ClaudeExtractor._parse_batch_response``.
+
+        Returns:
+            Tuple ``(rollup_items, news_items, leftover_items)``.
+        """
+        rollup_items: List[Dict[str, Any]] = []
+        news_items: List[Dict[str, Any]] = []
+        leftover_items: List[Dict[str, Any]] = []
+
+        for item in items:
+            subject_type = item.get("subject_type", "player")
+            team_abbr = item.get("team_abbr")
+            # Treat empty string as missing (matches CONTEXT D-06 fail-open).
+            has_team = bool(team_abbr) and (
+                not isinstance(team_abbr, str) or team_abbr.strip()
+            )
+
+            if not has_team or subject_type not in _NEWS_CHANNEL_SUBJECT_TYPES:
+                # Either the subject is a player (default) or we can't
+                # attribute the news to a team. Keep for review.
+                leftover_items.append(item)
+                continue
+
+            # Attributable item: always emit to news channel.
+            news_items.append(item)
+            # Coach + team also contribute to the team rollup; reporters
+            # do NOT (they cover multiple teams).
+            if subject_type in _TEAM_ROLLUP_SUBJECT_TYPES:
+                rollup_items.append(item)
+
+        return rollup_items, news_items, leftover_items
 
     def _build_records_for_signals(
         self,
