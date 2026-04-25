@@ -252,6 +252,258 @@ class SilverRecordExtractorFieldTests(unittest.TestCase):
         self.assertEqual(record["summary"], "Kelce limited at practice")
 
 
+class PlayerSignalDraftSeasonFlagsTests(unittest.TestCase):
+    """Plan 72-01 Task 1: 7 new draft-season event flags on PlayerSignal.
+
+    Each new flag must:
+
+    1. Default to ``False`` when not passed to the constructor.
+    2. Round-trip through ``to_dict()['events']`` (additive only — the
+       existing 12 keys must still be present).
+    3. Carry the canonical key name (lower-snake-case ``is_<event>``).
+
+    The 7 new flags (locked by 72-CONTEXT D-01):
+
+    * ``is_drafted`` — player was selected in the NFL Draft.
+    * ``is_rumored_destination`` — speculation that a player will land
+      with a specific team (different from confirmed ``is_traded``).
+    * ``is_coaching_change`` — head coach / coordinator hire-or-fire.
+    * ``is_trade_buzz`` — soft trade speculation
+      (different from ``is_rumored_destination`` which names a team).
+    * ``is_holdout`` — player skipping minicamp / OTAs / training camp
+      over contract dispute.
+    * ``is_cap_cut`` — release driven by salary-cap considerations
+      (more specific than ``is_released``).
+    * ``is_rookie_buzz`` — pre-draft prospect hype / draft-board surge.
+    """
+
+    NEW_FLAGS = (
+        "is_drafted",
+        "is_rumored_destination",
+        "is_coaching_change",
+        "is_trade_buzz",
+        "is_holdout",
+        "is_cap_cut",
+        "is_rookie_buzz",
+    )
+
+    def test_seven_new_flags_default_false(self) -> None:
+        """All 7 new event flags default to False when not passed."""
+        from src.sentiment.processing.extractor import PlayerSignal
+
+        signal = PlayerSignal(
+            player_name="x",
+            sentiment=0.0,
+            confidence=0.5,
+            category="general",
+        )
+        for flag in self.NEW_FLAGS:
+            self.assertFalse(
+                getattr(signal, flag),
+                f"{flag} should default to False",
+            )
+
+    def test_seven_new_flags_constructible_as_kwargs(self) -> None:
+        """PlayerSignal accepts each new flag as a keyword argument."""
+        from src.sentiment.processing.extractor import PlayerSignal
+
+        for flag in self.NEW_FLAGS:
+            kwargs = {flag: True}
+            signal = PlayerSignal(
+                player_name="x",
+                sentiment=0.0,
+                confidence=0.5,
+                category="general",
+                **kwargs,
+            )
+            self.assertTrue(
+                getattr(signal, flag),
+                f"{flag} should be True after PlayerSignal({flag}=True)",
+            )
+
+    def test_to_dict_events_contains_all_nineteen_flag_keys(self) -> None:
+        """to_dict()['events'] contains 12 existing + 7 new = 19 keys."""
+        from src.sentiment.processing.extractor import PlayerSignal
+
+        signal = PlayerSignal(
+            player_name="x",
+            sentiment=0.0,
+            confidence=0.5,
+            category="general",
+            is_drafted=True,
+            is_coaching_change=True,
+        )
+        d = signal.to_dict()
+        events = d["events"]
+
+        # All 12 existing flags must remain
+        for key in (
+            "is_ruled_out",
+            "is_inactive",
+            "is_questionable",
+            "is_suspended",
+            "is_returning",
+            "is_traded",
+            "is_released",
+            "is_signed",
+            "is_activated",
+            "is_usage_boost",
+            "is_usage_drop",
+            "is_weather_risk",
+        ):
+            self.assertIn(key, events, f"existing flag {key} missing")
+
+        # All 7 new flags must be present
+        for key in self.NEW_FLAGS:
+            self.assertIn(key, events, f"new flag {key} missing")
+
+        # Cardinality is exactly 19
+        self.assertEqual(
+            len(events),
+            19,
+            f"events sub-dict should have exactly 19 keys, got {len(events)}",
+        )
+
+        # The two flags we set explicitly are True; the others False
+        self.assertTrue(events["is_drafted"])
+        self.assertTrue(events["is_coaching_change"])
+        for flag in self.NEW_FLAGS:
+            if flag in ("is_drafted", "is_coaching_change"):
+                continue
+            self.assertFalse(events[flag], f"{flag} should be False")
+
+    def test_event_flag_keys_frozenset_cardinality_is_nineteen(self) -> None:
+        """``_EVENT_FLAG_KEYS`` extends to 19 entries (12 + 7 new)."""
+        from src.sentiment.processing.extractor import _EVENT_FLAG_KEYS
+
+        self.assertEqual(
+            len(_EVENT_FLAG_KEYS),
+            19,
+            f"_EVENT_FLAG_KEYS should have 19 entries, got {len(_EVENT_FLAG_KEYS)}",
+        )
+        for key in self.NEW_FLAGS:
+            self.assertIn(
+                key,
+                _EVENT_FLAG_KEYS,
+                f"_EVENT_FLAG_KEYS missing {key}",
+            )
+
+    def test_extraction_prompt_enumerates_new_flags(self) -> None:
+        """``EXTRACTION_PROMPT`` enumerates each of the 7 new flags."""
+        from src.sentiment.processing.extractor import EXTRACTION_PROMPT
+
+        for key in self.NEW_FLAGS:
+            self.assertIn(
+                key,
+                EXTRACTION_PROMPT,
+                f"EXTRACTION_PROMPT missing flag name {key}",
+            )
+
+    def test_system_prefix_enumerates_new_flags(self) -> None:
+        """``_SYSTEM_PREFIX`` enumerates each of the 7 new flags."""
+        from src.sentiment.processing.extractor import _SYSTEM_PREFIX
+
+        for key in self.NEW_FLAGS:
+            self.assertIn(
+                key,
+                _SYSTEM_PREFIX,
+                f"_SYSTEM_PREFIX missing flag name {key}",
+            )
+
+
+class PlayerSignalSubjectTypeTests(unittest.TestCase):
+    """Plan 72-01 Task 1: ``subject_type`` field on PlayerSignal.
+
+    ``subject_type`` is a 4-value string enum
+    ({"player", "coach", "team", "reporter"}) defaulting to ``"player"``
+    for back-compat with the rule path (which only emits player items).
+
+    Phase 72 EVT-02 routes ``coach``/``team`` to a team rollup and
+    ``reporter`` to the ``non_player_news`` Silver channel. Until that
+    plan, the field is purely a schema additive.
+
+    Threat T-72-01-01: tampering on ``subject_type`` is mitigated via
+    ``__post_init__`` validation — invalid input falls back to
+    ``"player"``.
+    """
+
+    def test_subject_type_defaults_to_player(self) -> None:
+        """subject_type defaults to "player" when not passed."""
+        from src.sentiment.processing.extractor import PlayerSignal
+
+        signal = PlayerSignal(
+            player_name="x",
+            sentiment=0.0,
+            confidence=0.5,
+            category="general",
+        )
+        self.assertEqual(signal.subject_type, "player")
+
+    def test_subject_type_accepts_four_valid_values(self) -> None:
+        """All four enum values round-trip through PlayerSignal."""
+        from src.sentiment.processing.extractor import PlayerSignal
+
+        for value in ("player", "coach", "team", "reporter"):
+            signal = PlayerSignal(
+                player_name="x",
+                sentiment=0.0,
+                confidence=0.5,
+                category="general",
+                subject_type=value,
+            )
+            self.assertEqual(
+                signal.subject_type,
+                value,
+                f"subject_type={value!r} should round-trip",
+            )
+
+    def test_subject_type_normalises_invalid_to_player(self) -> None:
+        """Invalid subject_type falls back to "player" via __post_init__."""
+        from src.sentiment.processing.extractor import PlayerSignal
+
+        signal = PlayerSignal(
+            player_name="x",
+            sentiment=0.0,
+            confidence=0.5,
+            category="general",
+            subject_type="bogus",
+        )
+        self.assertEqual(
+            signal.subject_type,
+            "player",
+            "invalid subject_type should normalise to 'player'",
+        )
+
+    def test_subject_type_appears_in_to_dict_top_level(self) -> None:
+        """to_dict() exposes subject_type at the top level (not nested)."""
+        from src.sentiment.processing.extractor import PlayerSignal
+
+        signal = PlayerSignal(
+            player_name="x",
+            sentiment=0.0,
+            confidence=0.5,
+            category="general",
+            subject_type="coach",
+        )
+        d = signal.to_dict()
+        self.assertIn("subject_type", d)
+        self.assertEqual(d["subject_type"], "coach")
+        # subject_type must NOT appear inside the events sub-dict
+        self.assertNotIn("subject_type", d["events"])
+
+    def test_extraction_prompt_documents_subject_type(self) -> None:
+        """EXTRACTION_PROMPT mentions subject_type so Claude knows to emit it."""
+        from src.sentiment.processing.extractor import EXTRACTION_PROMPT
+
+        self.assertIn("subject_type", EXTRACTION_PROMPT)
+
+    def test_system_prefix_documents_subject_type(self) -> None:
+        """_SYSTEM_PREFIX mentions subject_type so Claude knows to emit it."""
+        from src.sentiment.processing.extractor import _SYSTEM_PREFIX
+
+        self.assertIn("subject_type", _SYSTEM_PREFIX)
+
+
 class ClaudeClientProtocolTests(unittest.TestCase):
     """Task 3: ClaudeClient Protocol is importable + runtime-checkable."""
 
