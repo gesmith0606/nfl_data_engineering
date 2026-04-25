@@ -145,6 +145,34 @@ _EVENT_FLAG_KEYS = frozenset(
 # ``"player"`` by ``PlayerSignal.__post_init__`` (T-72-01-01 mitigation).
 _VALID_SUBJECT_TYPES = frozenset({"player", "coach", "team", "reporter"})
 
+
+def _coerce_subject_type(value: Any) -> str:
+    """Coerce an arbitrary value to a valid ``subject_type`` enum string.
+
+    Plan 72-03 Task 1 — single-source-of-truth helper used by both
+    ``_parse_batch_response`` (non-player item dicts) and
+    ``_item_to_claude_signal`` (PlayerSignal stamping). Mirrors the
+    threat model T-72-03-01 mitigation: any value outside
+    ``_VALID_SUBJECT_TYPES`` becomes ``"player"`` so downstream routing
+    logic in ``SentimentPipeline._route_non_player_items`` never branches
+    on unbounded input.
+
+    Args:
+        value: Any value (str, None, int, etc.) from the Claude JSON.
+
+    Returns:
+        One of ``{"player", "coach", "team", "reporter"}``.
+    """
+    if isinstance(value, str) and value in _VALID_SUBJECT_TYPES:
+        return value
+    if value is not None and value != "":
+        logger.debug(
+            "ClaudeExtractor: invalid subject_type=%r — normalising to "
+            "'player'",
+            value,
+        )
+    return "player"
+
 EXTRACTION_PROMPT = """Analyze this NFL news article and extract player-specific signals.
 
 For each player mentioned, provide:
@@ -852,6 +880,12 @@ class ClaudeExtractor:
         sig.source_excerpt = source_excerpt
         sig.team_abbr = team_abbr
         sig.extractor = _EXTRACTOR_NAME_CLAUDE_PRIMARY
+        # Plan 72-03 Task 1: stamp subject_type onto the player signal
+        # so the Silver record can carry the field even for player items
+        # (matches CONTEXT 72 Schema Note — every NewsItem has subject_type).
+        # _coerce_subject_type defaults to "player" when absent / invalid,
+        # so this is safe for back-compat with rule-based signals.
+        sig.subject_type = _coerce_subject_type(item.get("subject_type"))
         return sig
 
     def _parse_batch_response(
@@ -947,6 +981,10 @@ class ClaudeExtractor:
                 isinstance(player_name, str) and not player_name.strip()
             ):
                 # Non-player item — capture separately for Plan 72 routing.
+                # Plan 72-03 Task 1: stamp ``subject_type`` (default
+                # "player" when absent; defensive coercion for unknown
+                # values). The pipeline's ``_route_non_player_items``
+                # branches on this field per CONTEXT D-02.
                 non_player_items.append(
                     {
                         "doc_id": doc_id,
@@ -959,6 +997,9 @@ class ClaudeExtractor:
                         "source_excerpt": (
                             item.get("source_excerpt") or ""
                         )[:500],
+                        "subject_type": _coerce_subject_type(
+                            item.get("subject_type")
+                        ),
                     }
                 )
                 continue

@@ -159,7 +159,7 @@ class TestSubjectTypeCapture:
     """
 
     def _make_extractor(self) -> ClaudeExtractor:
-        ext = ClaudeExtractor(claude_client=FakeClaudeClient())
+        ext = ClaudeExtractor(client=FakeClaudeClient())
         ext.roster_provider = lambda: []
         return ext
 
