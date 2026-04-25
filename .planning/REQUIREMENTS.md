@@ -20,7 +20,7 @@ Replace the rule-primary / LLM-enrichment architecture from Phase 61 with LLM-pr
 
 Extend `event_flags` beyond injury/trade/usage to cover draft-season content, and decide how to handle non-player subjects (coaches, reporters, teams) that the Phase 69 backfill run surfaced as `player_id: null` rejects.
 
-- [ ] **EVT-01**: New event flags added — `is_drafted`, `is_rumored_destination`, `is_coaching_change`, `is_trade_buzz`, `is_holdout`, `is_cap_cut`, `is_rookie_buzz`. All have schema definitions in `src/sentiment/models/` and are emitted by ClaudeExtractor.
+- [x] **EVT-01**: New event flags added — `is_drafted`, `is_rumored_destination`, `is_coaching_change`, `is_trade_buzz`, `is_holdout`, `is_cap_cut`, `is_rookie_buzz`. All have schema definitions in `src/sentiment/models/` and are emitted by ClaudeExtractor. ✓ 2026-04-25 (Plan 72-01: schema/RuleExtractor; Plan 72-02: prompt strengthening + W17/W18 fixtures re-recorded with new flags emitted by claude_primary path)
 - [ ] **EVT-02**: Non-player subjects (coaches, reporters, teams) are either (a) attributed to their team, rolling up to `team_events` rows, OR (b) routed to a new `non_player_news` Silver signal channel — decision captured in CONTEXT.md with rationale.
 - [ ] **EVT-03**: Weekly aggregator (`src/sentiment/aggregation/weekly.py`) no longer silently drops `player_id: null` records — either attributes them per EVT-02 or increments a tracked `null_player_count` metric for each batch.
 - [ ] **EVT-04**: `/api/news/team-events` populates `event_flags` correctly from the expanded set during offseason; ≥ 15 of 32 teams have at least one non-zero event category on a freshly-backfilled W17+W18 run.
@@ -65,7 +65,7 @@ Clear the 8 items rolled forward from v7.0 audit.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | LLM-01..05  | 71    | LLM-01 ✓ / LLM-02 ✓ / LLM-03 ✓ / LLM-04 ✓ / LLM-05 ✓ — all shipped (Plans 71-01..05; Phase 71 COMPLETE 2026-04-24) |
-| EVT-01..05  | 72    | Pending |
+| EVT-01..05  | 72    | EVT-01 ✓ — Plan 72-01 + 72-02 shipped (schema + RuleExtractor patterns + claude_primary fixtures w/ 19-flag schema + REQUIRED subject_type, LLM-03 5.18x + LLM-04 $1.5700/wk gates restored, 191 sentiment tests green) / EVT-02..05 Pending (72-03..05) |
 | EXTP-01..05 | 73    | Pending |
 | SLEEP-01..04 | 74   | Pending |
 | TD-01..08   | 75    | Pending |
