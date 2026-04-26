@@ -1,0 +1,126 @@
+{
+  "4046": {
+    "pts_ppr": 22.4,
+    "pts_half_ppr": 22.4,
+    "pts_std": 22.4,
+    "pass_yd": 285.5,
+    "pass_td": 1.9,
+    "pass_int": 0.7
+  },
+  "6770": {
+    "pts_ppr": 24.1,
+    "pts_half_ppr": 24.1,
+    "pts_std": 24.1,
+    "pass_yd": 245.0,
+    "pass_td": 1.7,
+    "rush_yd": 38.0
+  },
+  "7242": {
+    "pts_ppr": 21.8,
+    "pts_half_ppr": 21.8,
+    "pts_std": 21.8,
+    "pass_yd": 228.0,
+    "pass_td": 1.5,
+    "rush_yd": 42.0
+  },
+  "4034": {
+    "pts_ppr": 21.0,
+    "pts_half_ppr": 19.6,
+    "pts_std": 18.2,
+    "rush_yd": 92.0,
+    "rush_td": 0.7,
+    "rec": 4.1,
+    "rec_yd": 31.0
+  },
+  "10229": {
+    "pts_ppr": 19.5,
+    "pts_half_ppr": 18.2,
+    "pts_std": 16.8,
+    "rush_yd": 88.0,
+    "rush_td": 0.6,
+    "rec": 3.4,
+    "rec_yd": 28.0
+  },
+  "8146": {
+    "pts_ppr": 17.5,
+    "pts_half_ppr": 16.4,
+    "pts_std": 15.3,
+    "rush_yd": 75.0,
+    "rush_td": 0.5,
+    "rec": 3.2,
+    "rec_yd": 25.0
+  },
+  "9509": {
+    "pts_ppr": 18.4,
+    "pts_half_ppr": 17.1,
+    "pts_std": 15.9,
+    "rush_yd": 78.0,
+    "rush_td": 0.6,
+    "rec": 3.5,
+    "rec_yd": 30.0
+  },
+  "4035": {
+    "pts_ppr": 18.5,
+    "pts_half_ppr": 16.9,
+    "pts_std": 15.3,
+    "rec": 7.2,
+    "rec_yd": 92.0,
+    "rec_td": 0.5
+  },
+  "7547": {
+    "pts_ppr": 18.9,
+    "pts_half_ppr": 17.3,
+    "pts_std": 15.7,
+    "rec": 7.5,
+    "rec_yd": 96.0,
+    "rec_td": 0.5
+  },
+  "7564": {
+    "pts_ppr": 20.4,
+    "pts_half_ppr": 18.7,
+    "pts_std": 17.0,
+    "rec": 7.8,
+    "rec_yd": 102.0,
+    "rec_td": 0.6
+  },
+  "5849": {
+    "pts_ppr": 16.8,
+    "pts_half_ppr": 15.2,
+    "pts_std": 13.6,
+    "rec": 6.5,
+    "rec_yd": 88.0,
+    "rec_td": 0.4
+  },
+  "8112": {
+    "pts_ppr": 16.0,
+    "pts_half_ppr": 14.5,
+    "pts_std": 13.0,
+    "rec": 6.2,
+    "rec_yd": 82.0,
+    "rec_td": 0.4
+  },
+  "1466": {
+    "pts_ppr": 13.5,
+    "pts_half_ppr": 12.3,
+    "pts_std": 11.1,
+    "rec": 5.8,
+    "rec_yd": 65.0,
+    "rec_td": 0.4
+  },
+  "9217": {
+    "pts_ppr": 12.6,
+    "pts_half_ppr": 11.4,
+    "pts_std": 10.2,
+    "rec": 5.4,
+    "rec_yd": 58.0,
+    "rec_td": 0.3
+  },
+  "9220": {
+    "pts_ppr": 12.0,
+    "pts_half_ppr": 10.9,
+    "pts_std": 9.8,
+    "rec": 5.1,
+    "rec_yd": 55.0,
+    "rec_td": 0.3
+  }
+}

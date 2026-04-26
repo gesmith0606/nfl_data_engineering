@@ -54,8 +54,6 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
 
 # ---------------------------------------------------------------------------
 # Bootstrap
@@ -65,6 +63,7 @@ sys.path.insert(0, str(_PROJECT_ROOT))
 
 from src.config import SENTIMENT_CONFIG, SENTIMENT_LOCAL_DIRS
 from src.player_name_resolver import PlayerNameResolver
+from src.sleeper_http import fetch_sleeper_json
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -80,39 +79,16 @@ logger = logging.getLogger("ingest_sentiment_sleeper")
 # Constants
 # ---------------------------------------------------------------------------
 _REQUEST_TIMEOUT_S = 15
-_USER_AGENT = "NFLDataEngineering/1.0 (sentiment-pipeline)"
 
 
 # ---------------------------------------------------------------------------
 # Sleeper API helpers
 # ---------------------------------------------------------------------------
-
-
-def _http_get_json(url: str) -> Any:
-    """Perform a GET request and return the parsed JSON response.
-
-    Args:
-        url: Full URL to request.
-
-    Returns:
-        Parsed JSON value (dict, list, etc.).
-
-    Raises:
-        RuntimeError: If the HTTP request fails or the response is not valid JSON.
-    """
-    req = Request(url, headers={"User-Agent": _USER_AGENT})
-    try:
-        with urlopen(req, timeout=_REQUEST_TIMEOUT_S) as resp:
-            raw = resp.read()
-    except HTTPError as exc:
-        raise RuntimeError(f"HTTP {exc.code} fetching {url}") from exc
-    except URLError as exc:
-        raise RuntimeError(f"Network error fetching {url}: {exc.reason}") from exc
-
-    try:
-        return json.loads(raw)
-    except json.JSONDecodeError as exc:
-        raise RuntimeError(f"Invalid JSON from {url}: {exc}") from exc
+#
+# All Sleeper HTTP flows through src.sleeper_http.fetch_sleeper_json (D-01
+# LOCKED — single source of truth for Sleeper API calls).  That helper is
+# fail-open: it returns {} on any HTTP/network/JSON error so the call sites
+# below detect the empty payload and skip the run gracefully.
 
 
 def _fetch_trending(count: int) -> List[Dict[str, Any]]:
@@ -129,14 +105,16 @@ def _fetch_trending(count: int) -> List[Dict[str, Any]]:
     """
     url = f"{SENTIMENT_CONFIG['sleeper_trending_url']}?lookback_hours=24&limit={count}"
     logger.info("Fetching %d trending players from %s", count, url)
-    try:
-        data = _http_get_json(url)
-    except RuntimeError as exc:
-        logger.error("Could not fetch trending players: %s", exc)
-        return []
+    data = fetch_sleeper_json(url, timeout=_REQUEST_TIMEOUT_S)
 
+    # fetch_sleeper_json is fail-open and returns {} on any error.  The
+    # trending endpoint normally returns a list, so detect "no data" as
+    # either an empty dict (error) or a non-list type.
     if not isinstance(data, list):
-        logger.error("Unexpected trending response type: %s", type(data))
+        if data == {}:
+            logger.warning("Sleeper trending fetch returned empty payload (D-06 fail-open)")
+        else:
+            logger.error("Unexpected trending response type: %s", type(data))
         return []
 
     logger.info("Received %d trending player records", len(data))
@@ -155,14 +133,14 @@ def _fetch_player_registry() -> Dict[str, Dict[str, Any]]:
     """
     url = SENTIMENT_CONFIG["sleeper_players_url"]
     logger.info("Fetching Sleeper player registry from %s", url)
-    try:
-        data = _http_get_json(url)
-    except RuntimeError as exc:
-        logger.error("Could not fetch player registry: %s", exc)
-        return {}
+    data = fetch_sleeper_json(url, timeout=_REQUEST_TIMEOUT_S)
 
     if not isinstance(data, dict):
         logger.error("Unexpected registry response type: %s", type(data))
+        return {}
+    if not data:
+        # fetch_sleeper_json returned {} due to a fail-open error path.
+        logger.warning("Sleeper registry fetch returned empty payload (D-06 fail-open)")
         return {}
 
     logger.info("Registry loaded: %d players", len(data))

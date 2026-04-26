@@ -766,6 +766,12 @@ SENTIMENT_CONFIG: Dict[str, Any] = {
     "sleeper_players_url": "https://api.sleeper.app/v1/players/nfl",
     # Number of trending players to fetch from Sleeper
     "sleeper_trending_count": 25,
+    # Sleeper weekly projections endpoint (Phase 73-01).
+    # NOTE: also exposed below as the module-level constant
+    # ``SLEEPER_PROJECTIONS_URL`` for callers that prefer a top-level import.
+    "sleeper_projections_url": (
+        "https://api.sleeper.app/v1/projections/nfl/regular/{season}/{week}"
+    ),
     # Positions considered skill positions for sentiment signal filtering
     "skill_positions": {"QB", "RB", "WR", "TE", "K"},
     # Reddit scraper configuration
@@ -788,6 +794,17 @@ SENTIMENT_LOCAL_DIRS: Dict[str, str] = {
     "rotowire": "data/bronze/sentiment/rotowire",
     "pft": "data/bronze/sentiment/pft",
 }
+
+
+# =============================================================================
+# Phase 73 — External Projections Comparison
+# =============================================================================
+# Module-level URL constants for the Phase 73 Bronze ingesters.  Kept at
+# module scope (not inside a dict) so callers can ``from src.config import
+# SLEEPER_PROJECTIONS_URL`` and substitute season/week with ``.format``.
+SLEEPER_PROJECTIONS_URL: str = (
+    "https://api.sleeper.app/v1/projections/nfl/regular/{season}/{week}"
+)
 
 
 def get_s3_path(
