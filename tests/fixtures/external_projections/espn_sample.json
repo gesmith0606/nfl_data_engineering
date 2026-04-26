@@ -1,0 +1,311 @@
+{
+  "id": 0,
+  "scoringPeriodId": 1,
+  "seasonId": 2025,
+  "players": [
+    {
+      "id": 3139477,
+      "player": {
+        "id": 3139477,
+        "fullName": "Patrick Mahomes",
+        "firstName": "Patrick",
+        "lastName": "Mahomes",
+        "defaultPositionId": 1,
+        "proTeamId": 12,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 22.4
+          }
+        ]
+      }
+    },
+    {
+      "id": 3918298,
+      "player": {
+        "id": 3918298,
+        "fullName": "Josh Allen",
+        "firstName": "Josh",
+        "lastName": "Allen",
+        "defaultPositionId": 1,
+        "proTeamId": 2,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 24.1
+          }
+        ]
+      }
+    },
+    {
+      "id": 4426502,
+      "player": {
+        "id": 4426502,
+        "fullName": "Jalen Hurts",
+        "firstName": "Jalen",
+        "lastName": "Hurts",
+        "defaultPositionId": 1,
+        "proTeamId": 21,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 21.8
+          }
+        ]
+      }
+    },
+    {
+      "id": 3068267,
+      "player": {
+        "id": 3068267,
+        "fullName": "Christian McCaffrey",
+        "firstName": "Christian",
+        "lastName": "McCaffrey",
+        "defaultPositionId": 2,
+        "proTeamId": 25,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 19.6
+          }
+        ]
+      }
+    },
+    {
+      "id": 4374302,
+      "player": {
+        "id": 4374302,
+        "fullName": "Bijan Robinson",
+        "firstName": "Bijan",
+        "lastName": "Robinson",
+        "defaultPositionId": 2,
+        "proTeamId": 1,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 18.2
+          }
+        ]
+      }
+    },
+    {
+      "id": 4429795,
+      "player": {
+        "id": 4429795,
+        "fullName": "Breece Hall",
+        "firstName": "Breece",
+        "lastName": "Hall",
+        "defaultPositionId": 2,
+        "proTeamId": 20,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 16.4
+          }
+        ]
+      }
+    },
+    {
+      "id": 4361259,
+      "player": {
+        "id": 4361259,
+        "fullName": "Jahmyr Gibbs",
+        "firstName": "Jahmyr",
+        "lastName": "Gibbs",
+        "defaultPositionId": 2,
+        "proTeamId": 8,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 17.1
+          }
+        ]
+      }
+    },
+    {
+      "id": 3128390,
+      "player": {
+        "id": 3128390,
+        "fullName": "Tyreek Hill",
+        "firstName": "Tyreek",
+        "lastName": "Hill",
+        "defaultPositionId": 3,
+        "proTeamId": 15,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 16.9
+          }
+        ]
+      }
+    },
+    {
+      "id": 4262921,
+      "player": {
+        "id": 4262921,
+        "fullName": "CeeDee Lamb",
+        "firstName": "CeeDee",
+        "lastName": "Lamb",
+        "defaultPositionId": 3,
+        "proTeamId": 6,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 17.3
+          }
+        ]
+      }
+    },
+    {
+      "id": 4241389,
+      "player": {
+        "id": 4241389,
+        "fullName": "Ja'Marr Chase",
+        "firstName": "Ja'Marr",
+        "lastName": "Chase",
+        "defaultPositionId": 3,
+        "proTeamId": 4,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 18.7
+          }
+        ]
+      }
+    },
+    {
+      "id": 4040715,
+      "player": {
+        "id": 4040715,
+        "fullName": "A.J. Brown",
+        "firstName": "A.J.",
+        "lastName": "Brown",
+        "defaultPositionId": 3,
+        "proTeamId": 21,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 15.2
+          }
+        ]
+      }
+    },
+    {
+      "id": 4426354,
+      "player": {
+        "id": 4426354,
+        "fullName": "Garrett Wilson",
+        "firstName": "Garrett",
+        "lastName": "Wilson",
+        "defaultPositionId": 3,
+        "proTeamId": 20,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 14.5
+          }
+        ]
+      }
+    },
+    {
+      "id": 3054850,
+      "player": {
+        "id": 3054850,
+        "fullName": "Travis Kelce",
+        "firstName": "Travis",
+        "lastName": "Kelce",
+        "defaultPositionId": 4,
+        "proTeamId": 12,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 12.3
+          }
+        ]
+      }
+    },
+    {
+      "id": 4360294,
+      "player": {
+        "id": 4360294,
+        "fullName": "Sam LaPorta",
+        "firstName": "Sam",
+        "lastName": "LaPorta",
+        "defaultPositionId": 4,
+        "proTeamId": 8,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 11.4
+          }
+        ]
+      }
+    },
+    {
+      "id": 4429795,
+      "player": {
+        "id": 4262229,
+        "fullName": "Trey McBride",
+        "firstName": "Trey",
+        "lastName": "McBride",
+        "defaultPositionId": 4,
+        "proTeamId": 22,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 10.9
+          }
+        ]
+      }
+    },
+    {
+      "id": 17959,
+      "player": {
+        "id": 17959,
+        "fullName": "Justin Tucker",
+        "firstName": "Justin",
+        "lastName": "Tucker",
+        "defaultPositionId": 5,
+        "proTeamId": 33,
+        "stats": [
+          {
+            "scoringPeriodId": 1,
+            "statSourceId": 1,
+            "statSplitTypeId": 1,
+            "appliedTotal": 8.5
+          }
+        ]
+      }
+    }
+  ]
+}
