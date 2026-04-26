@@ -62,7 +62,7 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
 - [x] **Phase 71: LLM-Primary Extraction** — Shipped 2026-04-24. 5/5 plans complete. 5.57× LLM-03 ratio on offseason content; CI-enforced LLM-04 cost gate at $1.5700/week (gate <$5); 165 sentiment tests green; CLI + GHA EXTRACTOR_MODE knob ready for production activation via single GitHub Variable flip.
 - [ ] **Phase 72: Event Flag Expansion + Non-Player Attribution** — Add is_drafted / is_rumored_destination / is_coaching_change / etc.; decide coach-and-reporter handling (team rollup vs separate channel)
 - [x] **Phase 73: External Projections Comparison** — ESPN + Sleeper + Yahoo weekly projections side-by-side with ours on projections page + new /api/projections/comparison endpoint (completed 2026-04-26)
-- [ ] **Phase 74: Sleeper League Integration** — Username auth → league listing → roster import → advisor `getUserRoster` tool → start/sit personalization
+- [x] **Phase 74: Sleeper League Integration** — Username auth → league listing → roster import → advisor `getUserRoster` tool → start/sit personalization (completed 2026-04-26)
 - [ ] **Phase 75: v7.0 Tech Debt Cleanup** — 8 items rolled forward (gitignore frontend configs, remove --no-verify, format-relative-time guard, duplicate relativeTime consolidation, etc.)
 
 ## Phase Details
@@ -185,5 +185,5 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 71. LLM-Primary Extraction | v7.1 | 6/5 | Complete    | 2026-04-24 |
 | 72. Event Flag Expansion | v7.1 | 0/TBD | Not started | - |
 | 73. External Projections Comparison | v7.1 | 2/5 | Complete    | 2026-04-26 |
-| 74. Sleeper League Integration | v7.1 | 0/TBD | Not started | - |
+| 74. Sleeper League Integration | v7.1 | 1/0 | Complete    | 2026-04-26 |
 | 75. v7.0 Tech Debt Cleanup | v7.1 | 0/TBD | Not started | - |
