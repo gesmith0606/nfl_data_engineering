@@ -772,6 +772,13 @@ SENTIMENT_CONFIG: Dict[str, Any] = {
     "sleeper_projections_url": (
         "https://api.sleeper.app/v1/projections/nfl/regular/{season}/{week}"
     ),
+    # Phase 74 SLEEP-01..04: user / league / roster URLs.
+    "sleeper_user_url": "https://api.sleeper.app/v1/user/{username}",
+    "sleeper_leagues_url": (
+        "https://api.sleeper.app/v1/user/{user_id}/leagues/nfl/{season}"
+    ),
+    "sleeper_league_rosters_url": "https://api.sleeper.app/v1/league/{league_id}/rosters",
+    "sleeper_league_users_url": "https://api.sleeper.app/v1/league/{league_id}/users",
     # Positions considered skill positions for sentiment signal filtering
     "skill_positions": {"QB", "RB", "WR", "TE", "K"},
     # Reddit scraper configuration
