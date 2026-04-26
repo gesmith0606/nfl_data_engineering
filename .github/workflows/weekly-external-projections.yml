@@ -1,0 +1,138 @@
+name: weekly-external-projections
+
+# Phase 73 EXTP-05: Refresh ESPN + Sleeper + Yahoo (FP proxy) projections
+# twice per week (Tuesdays after MNF + Sundays pre-game).
+
+on:
+  schedule:
+    - cron: '0 14 * * 2'   # Tuesday 14:00 UTC
+    - cron: '0 12 * * 0'   # Sunday  12:00 UTC
+  workflow_dispatch:
+    inputs:
+      season:
+        description: 'NFL season year'
+        required: false
+        default: ''
+      week:
+        description: 'NFL week number'
+        required: false
+        default: ''
+      scoring:
+        description: 'Scoring format'
+        required: false
+        default: 'half_ppr'
+
+permissions:
+  contents: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        source: [espn, sleeper, yahoo]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Resolve season/week
+        id: resolve
+        run: |
+          SEASON="${{ github.event.inputs.season }}"
+          WEEK="${{ github.event.inputs.week }}"
+          if [ -z "$SEASON" ]; then
+            SEASON=$(date +%Y)
+          fi
+          if [ -z "$WEEK" ]; then
+            # Approximate current NFL week from calendar (Sept = W1)
+            DAY_OF_YEAR=$(date +%j)
+            # NFL season starts ~ day 246 (Sept 3) — week = (day - 246) / 7 + 1
+            WEEK=$(( (10#$DAY_OF_YEAR - 246) / 7 + 1 ))
+            if [ $WEEK -lt 1 ]; then WEEK=1; fi
+            if [ $WEEK -gt 18 ]; then WEEK=18; fi
+          fi
+          echo "season=$SEASON" >> $GITHUB_OUTPUT
+          echo "week=$WEEK" >> $GITHUB_OUTPUT
+
+      - name: Ingest ${{ matrix.source }} projections
+        continue-on-error: true
+        run: |
+          python scripts/ingest_external_projections_${{ matrix.source }}.py \
+            --season ${{ steps.resolve.outputs.season }} \
+            --week ${{ steps.resolve.outputs.week }} \
+            --scoring ${{ github.event.inputs.scoring || 'half_ppr' }}
+
+      - name: Upload Bronze artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bronze-${{ matrix.source }}-${{ steps.resolve.outputs.season }}-w${{ steps.resolve.outputs.week }}
+          path: data/bronze/external_projections/${{ matrix.source == 'yahoo' && 'yahoo_proxy_fp' || matrix.source }}/
+          if-no-files-found: warn
+
+  consolidate:
+    needs: ingest
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Resolve season/week
+        id: resolve
+        run: |
+          SEASON="${{ github.event.inputs.season }}"
+          WEEK="${{ github.event.inputs.week }}"
+          if [ -z "$SEASON" ]; then SEASON=$(date +%Y); fi
+          if [ -z "$WEEK" ]; then
+            DAY_OF_YEAR=$(date +%j)
+            WEEK=$(( (10#$DAY_OF_YEAR - 246) / 7 + 1 ))
+            if [ $WEEK -lt 1 ]; then WEEK=1; fi
+            if [ $WEEK -gt 18 ]; then WEEK=18; fi
+          fi
+          echo "season=$SEASON" >> $GITHUB_OUTPUT
+          echo "week=$WEEK" >> $GITHUB_OUTPUT
+
+      - name: Download all Bronze artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: data/bronze/external_projections/
+          merge-multiple: true
+
+      - name: Consolidate to Silver
+        run: |
+          python scripts/silver_external_projections_transformation.py \
+            --season ${{ steps.resolve.outputs.season }} \
+            --week ${{ steps.resolve.outputs.week }} \
+            --scoring ${{ github.event.inputs.scoring || 'half_ppr' }}
+
+      - name: Commit Silver
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/silver/external_projections/ data/bronze/external_projections/ || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "data(external-projections): refresh season=${{ steps.resolve.outputs.season }} week=${{ steps.resolve.outputs.week }}"
+            git push
+          fi
