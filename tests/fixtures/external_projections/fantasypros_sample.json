@@ -1,0 +1,7 @@
+{
+  "qb": "<table><tr class=\"mpb-player\"><td><a class=\"player-name\">Patrick Mahomes</a> <small class=\"grey\">KC</small></td><td class=\"center\">22.4</td></tr><tr class=\"mpb-player\"><td><a class=\"player-name\">Josh Allen</a> <small class=\"grey\">BUF</small></td><td class=\"center\">24.1</td></tr></table>",
+  "rb": "<table><tr class=\"mpb-player\"><td><a class=\"player-name\">Christian McCaffrey</a> <small class=\"grey\">SF</small></td><td class=\"center\">19.6</td></tr></table>",
+  "wr": "<table><tr class=\"mpb-player\"><td><a class=\"player-name\">Tyreek Hill</a> <small class=\"grey\">MIA</small></td><td class=\"center\">17.2</td></tr></table>",
+  "te": "<table><tr class=\"mpb-player\"><td><a class=\"player-name\">Travis Kelce</a> <small class=\"grey\">KC</small></td><td class=\"center\">11.5</td></tr></table>",
+  "k": "<table><tr class=\"mpb-player\"><td><a class=\"player-name\">Justin Tucker</a> <small class=\"grey\">BAL</small></td><td class=\"center\">8.4</td></tr></table>"
+}
