@@ -138,6 +138,46 @@ export interface NewsItem {
 /** Discrete overall sentiment bucket (D-03) — never a continuous score. */
 export type OverallSentimentLabel = 'bullish' | 'bearish' | 'neutral';
 
+/** Phase 74 SLEEP-01..04: Sleeper user / league / roster types. */
+export interface SleeperUser {
+  user_id: string;
+  username: string;
+  display_name: string | null;
+  avatar: string | null;
+}
+
+export interface SleeperLeague {
+  league_id: string;
+  name: string;
+  season: string;
+  total_rosters: number | null;
+  sport: string | null;
+  status: string | null;
+  settings: Record<string, unknown> | null;
+}
+
+export interface SleeperUserLoginResponse {
+  user: SleeperUser;
+  leagues: SleeperLeague[];
+}
+
+export interface SleeperRosterPlayer {
+  player_id: string;
+  player_name: string | null;
+  position: string | null;
+  team: string | null;
+  slot: string | null;
+}
+
+export interface SleeperRoster {
+  roster_id: number;
+  league_id: string;
+  owner_user_id: string | null;
+  is_user_roster: boolean;
+  starters: SleeperRosterPlayer[];
+  bench: SleeperRosterPlayer[];
+}
+
 /**
  * Phase 73 EXTP-03: Multi-source projection comparison row. Each external
  * source field is nullable — a missing source renders as an em-dash in the UI

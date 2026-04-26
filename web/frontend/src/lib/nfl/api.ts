@@ -89,6 +89,52 @@ export async function fetchProjections(
   return request<ProjectionResponse>(`/api/projections?${params}`);
 }
 
+/** Phase 74 SLEEP-01: Sleeper username login → user + leagues. */
+export async function sleeperLogin(
+  username: string,
+  season?: number,
+): Promise<import('./types').SleeperUserLoginResponse> {
+  const params = new URLSearchParams();
+  if (season != null) params.set('season', String(season));
+  const qs = params.toString();
+  const path = `/api/sleeper/user/login${qs ? `?${qs}` : ''}`;
+  const url = `${BASE_URL}${path}`;
+  const resp = await fetch(url, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username }),
+  });
+  if (!resp.ok) {
+    throw new Error(`Sleeper login failed: ${resp.status}`);
+  }
+  return (await resp.json()) as import('./types').SleeperUserLoginResponse;
+}
+
+/** Phase 74 SLEEP-02: List user leagues for a season. */
+export async function fetchSleeperLeagues(
+  userId: string,
+  season?: number,
+): Promise<import('./types').SleeperLeague[]> {
+  const params = new URLSearchParams();
+  if (season != null) params.set('season', String(season));
+  return request<import('./types').SleeperLeague[]>(
+    `/api/sleeper/leagues/${userId}${params.toString() ? `?${params}` : ''}`,
+  );
+}
+
+/** Phase 74 SLEEP-03: Fetch league rosters; user_id marks the user's roster. */
+export async function fetchSleeperRosters(
+  leagueId: string,
+  userId?: string,
+): Promise<import('./types').SleeperRoster[]> {
+  const params = new URLSearchParams();
+  if (userId) params.set('user_id', userId);
+  return request<import('./types').SleeperRoster[]>(
+    `/api/sleeper/rosters/${leagueId}${params.toString() ? `?${params}` : ''}`,
+  );
+}
+
 /** Phase 73 EXTP-03: Fetch multi-source projection comparison. */
 export async function fetchProjectionsComparison(
   season: number,
