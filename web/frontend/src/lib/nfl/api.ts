@@ -89,6 +89,26 @@ export async function fetchProjections(
   return request<ProjectionResponse>(`/api/projections?${params}`);
 }
 
+/** Phase 73 EXTP-03: Fetch multi-source projection comparison. */
+export async function fetchProjectionsComparison(
+  season: number,
+  week: number,
+  scoring: ScoringFormat = 'half_ppr' as ScoringFormat,
+  position?: string,
+  limit = 50,
+): Promise<import('./types').ProjectionComparison> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week),
+    scoring,
+    limit: String(limit),
+  });
+  if (position && position !== 'ALL') params.set('position', position);
+  return request<import('./types').ProjectionComparison>(
+    `/api/projections/comparison?${params}`,
+  );
+}
+
 /** Fetch top projected players. */
 export async function fetchTopProjections(
   season: number,

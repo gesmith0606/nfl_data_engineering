@@ -1,5 +1,6 @@
 import PageContainer from '@/components/layout/page-container';
 import { ProjectionsTable } from '@/features/nfl/components/projections-table';
+import { ProjectionComparisonTable } from '@/features/nfl/components/projection-comparison-table';
 import { FadeIn } from '@/lib/motion-primitives';
 import { Suspense } from 'react';
 
@@ -32,6 +33,22 @@ export default function ProjectionsPage() {
           <ProjectionsTable />
         </FadeIn>
       </Suspense>
+
+      {/* Phase 73: Multi-source comparison view (ESPN/Sleeper/Yahoo vs ours). */}
+      <FadeIn>
+        <section className='mt-10 space-y-3'>
+          <div>
+            <h2 className='text-xl font-semibold'>Multi-Source Comparison</h2>
+            <p className='text-sm text-muted-foreground'>
+              Side-by-side projections from ours, ESPN, Sleeper, and Yahoo (via
+              FantasyPros consensus). Δ shows externals avg minus ours.
+            </p>
+          </div>
+          <Suspense>
+            <ProjectionComparisonTable season={2025} week={1} scoring='half_ppr' />
+          </Suspense>
+        </section>
+      </FadeIn>
     </PageContainer>
   );
 }

@@ -139,6 +139,32 @@ export interface NewsItem {
 export type OverallSentimentLabel = 'bullish' | 'bearish' | 'neutral';
 
 /**
+ * Phase 73 EXTP-03: Multi-source projection comparison row. Each external
+ * source field is nullable — a missing source renders as an em-dash in the UI
+ * (per CONTEXT D-06 fail-open).
+ */
+export interface ProjectionComparisonRow {
+  player_id: string;
+  player_name: string;
+  position: string | null;
+  team: string | null;
+  ours: number | null;
+  espn: number | null;
+  sleeper: number | null;
+  yahoo: number | null;
+  delta_vs_ours: number | null;
+}
+
+export interface ProjectionComparison {
+  season: number;
+  week: number;
+  scoring_format: string;
+  rows: ProjectionComparisonRow[];
+  source_labels: Record<string, string>;
+  data_as_of: Record<string, string>;
+}
+
+/**
  * Per-team event density row (NEWS-03).
  *
  * Exactly 32 rows are returned by ``GET /api/news/team-events`` — missing
