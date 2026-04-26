@@ -119,6 +119,15 @@ Plans:
   5. Cron refresh keeps external data current; `data_as_of` chip surfaces freshness
 **UI hint**: yes
 
+**Plans:** 5 plans
+
+Plans:
+- [ ] 73-01-bronze-ingesters-PLAN.md — ESPN + Sleeper + FantasyPros (yahoo_proxy_fp) Bronze ingesters with fixture-driven tests + D-06 fail-open
+- [ ] 73-02-silver-consolidation-PLAN.md — SilverConsolidator merges 4 sources (ours + 3 external) to long-format Silver Parquet via PlayerNameResolver bridge
+- [ ] 73-03-api-comparison-endpoint-PLAN.md — Pydantic ProjectionComparison + ProjectionComparisonRow + GET /api/projections/comparison route with pivot, delta_vs_ours, position_rank_ours
+- [ ] 73-04-frontend-comparison-view-PLAN.md — TS types + service + ProjectionComparisonTable + Standard/Comparison tab toggle on /dashboard/projections (HUMAN VERIFY checkpoint)
+- [ ] 73-05-cron-and-phase-summary-PLAN.md — weekly-external-projections.yml (Tue 14 UTC + Sun 12 UTC) + structural workflow tests + phase SUMMARY/STATE/REQUIREMENTS/ROADMAP sync
+
 ### Phase 74: Sleeper League Integration
 **Goal**: Let users connect their Sleeper account → import rosters → get personalized advice. Sleeper MCP already wired; need frontend auth + backend user-scoped context + new advisor tool.
 **Depends on**: Nothing (parallel with 71/72/73)
@@ -175,6 +184,6 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 70. Frontend Empty/Error States | v7.0 | 0/TBD | Not started | - |
 | 71. LLM-Primary Extraction | v7.1 | 6/5 | Complete    | 2026-04-24 |
 | 72. Event Flag Expansion | v7.1 | 0/TBD | Not started | - |
-| 73. External Projections Comparison | v7.1 | 0/TBD | Not started | - |
+| 73. External Projections Comparison | v7.1 | 0/5 | Planned | - |
 | 74. Sleeper League Integration | v7.1 | 0/TBD | Not started | - |
 | 75. v7.0 Tech Debt Cleanup | v7.1 | 0/TBD | Not started | - |
