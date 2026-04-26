@@ -73,24 +73,11 @@ function formatSource(source: string): string {
   return SOURCE_LABELS[source] ?? source.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// TD-04 (Phase 75): consolidated to formatRelativeTime in @/lib/format-relative-time.
 function relativeTime(isoString: string | null): string {
   if (!isoString) return '';
-  try {
-    const date = new Date(isoString);
-    const diffMs = Date.now() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60_000);
-    if (diffMins < 1) return 'just now';
-    if (diffMins < 60) return `${diffMins}m ago`;
-    const diffHours = Math.floor(diffMins / 60);
-    if (diffHours < 24) return `${diffHours}h ago`;
-    const diffDays = Math.floor(diffHours / 24);
-    if (diffDays === 1) return 'yesterday';
-    if (diffDays < 7) return `${diffDays}d ago`;
-    const diffWeeks = Math.floor(diffDays / 7);
-    return `${diffWeeks}w ago`;
-  } catch {
-    return '';
-  }
+  const out = formatRelativeTime(isoString);
+  return out === 'unknown' ? '' : out;
 }
 
 function getSentimentBadgeClass(sentiment: number | null): string {

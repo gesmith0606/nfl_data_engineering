@@ -276,9 +276,10 @@ jobs:
             echo "::error::HEAD ($CURRENT_HEAD) no longer matches deploy SHA ($SHA). Skipping rollback — someone else pushed. Manual review required."
             exit 1
           fi
-          git revert --no-edit HEAD
-          # Rewrite commit message to the audit format.
-          git commit --amend -m "revert: auto-rollback after sanity-check failure on ${SHA}" --no-verify
+          # TD-01 (Phase 75): single revert + commit with audit message.
+          # No amend; pre-commit hooks now run on the rollback commit too.
+          git revert --no-commit HEAD
+          git commit -m "revert: auto-rollback after sanity-check failure on ${SHA}"
 
       - name: Push rollback to main
         if: steps.window_check.outputs.ROLLBACK_SKIPPED != 'true'

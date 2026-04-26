@@ -17,6 +17,10 @@ data/*
 *.parquet
 *.csv
 *.json
+# TD-02 (Phase 75): allow web/frontend JSON config files (package.json, tsconfig.json,
+# package-lock.json, vitest.config files written as JSON, etc.) to ship via git so
+# CI + fresh clones get vitest deps.
+!web/frontend/**/*.json
 logs/
 temp/
 
