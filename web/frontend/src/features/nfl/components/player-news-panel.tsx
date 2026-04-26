@@ -9,6 +9,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
 import { DataLoadReveal, Stagger } from '@/lib/motion-primitives';
+// TD-04 (Phase 75): canonical formatter consolidated here.
+import { formatRelativeTime } from '@/lib/format-relative-time';
 
 interface PlayerNewsPanelProps {
   playerId: string;
@@ -58,21 +60,11 @@ function formatSource(source: string): string {
 // Relative time helper
 // ---------------------------------------------------------------------------
 
+// TD-04 (Phase 75): consolidated to formatRelativeTime in @/lib/format-relative-time.
 function relativeTime(isoString: string | null): string {
   if (!isoString) return '';
-  try {
-    const date = new Date(isoString);
-    const diffMs = Date.now() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60_000);
-    if (diffMins < 1) return 'just now';
-    if (diffMins < 60) return `${diffMins}m ago`;
-    const diffHours = Math.floor(diffMins / 60);
-    if (diffHours < 24) return `${diffHours}h ago`;
-    const diffDays = Math.floor(diffHours / 24);
-    return `${diffDays}d ago`;
-  } catch {
-    return '';
-  }
+  const out = formatRelativeTime(isoString);
+  return out === 'unknown' ? '' : out;
 }
 
 // ---------------------------------------------------------------------------

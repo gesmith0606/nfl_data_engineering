@@ -96,6 +96,8 @@ Draft Tool                 — ADP comparison, VORP, mock draft, auction, waiver
 S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 **Read rule**: always use `download_latest_parquet()` from `src/utils.py` — never scan full prefix.
 
+**TD-08 (committed Bronze paths, since 2026-04-24):** `data/bronze/players/rosters/` and `data/bronze/depth_charts/` are version-controlled in git. The GHA runner needs them present for `PlayerNameResolver` to resolve names → player_ids during sentiment ingestion. Do NOT add these paths back to `.gitignore`.
+
 ## Key Files
 
 | File | Purpose |

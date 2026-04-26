@@ -166,7 +166,8 @@ VALID_NFL_TEAMS = {
     "KC",
     "LA",
     "LAC",
-    "LAR",
+    # TD-06 (Phase 75): single Rams entry — keep "LA" per nflverse convention.
+    # "LAR" was a duplicate that referred to the same franchise.
     "LV",
     "MIA",
     "MIN",

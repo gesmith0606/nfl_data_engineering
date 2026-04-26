@@ -137,12 +137,13 @@ jobs:
         env:
           SLEEPER_API_UNREACHABLE: ${{ vars.SLEEPER_API_UNREACHABLE || 'false' }}
         run: |
-          # Roster refresh always targets the CURRENT preseason year (2026),
+          # Roster refresh always targets the CURRENT preseason year,
           # independent of sentiment-backfill `inputs.season`. A historical
           # sentiment backfill (e.g. season=2025) has no preseason Gold data
           # to apply corrections to, which crashed the step (Phase 69-01).
+          # TD-03 (Phase 75): replace hardcoded 2026 with auto-detected current year.
           python scripts/refresh_rosters.py \
-            --season 2026
+            --season $(date +%Y)
 
       # ----------------------------------------------------------------
       # 6. Commit and push new data back to repo

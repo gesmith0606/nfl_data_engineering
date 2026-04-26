@@ -126,8 +126,9 @@ def test_auto_rollback_has_five_minute_window(jobs: dict) -> None:
 
 def test_auto_rollback_uses_git_revert(jobs: dict) -> None:
     steps_yaml = _dump(jobs["auto-rollback"].get("steps", []))
-    assert "git revert --no-edit" in steps_yaml, (
-        "auto-rollback must use `git revert --no-edit` (not reset or checkout)"
+    # TD-01 (Phase 75): replaced --no-edit with --no-commit (revert + custom commit message).
+    assert "git revert --no-commit" in steps_yaml or "git revert --no-edit" in steps_yaml, (
+        "auto-rollback must use `git revert --no-commit` (not reset or checkout)"
     )
 
 
@@ -140,6 +141,16 @@ def test_auto_rollback_pushes_non_force(jobs: dict) -> None:
         "Rollback MUST respect branch protection."
     )
     assert "--force-with-lease" not in steps_yaml, "FORBIDDEN: --force-with-lease"
+    # TD-07 (Phase 75): structural test asserting --no-verify absence.
+    assert "--no-verify" not in steps_yaml, (
+        "TD-07: auto-rollback must NOT use --no-verify — pre-commit hooks "
+        "are part of the safety net for the rollback commit too."
+    )
+    # TD-01 (Phase 75): no --amend (was a policy violation).
+    assert "--amend" not in steps_yaml, (
+        "TD-01: auto-rollback must NOT use --amend; commit the rollback "
+        "with a single revert + commit -m, not revert then amend."
+    )
 
 
 def test_auto_rollback_audit_commit_message(jobs: dict) -> None:

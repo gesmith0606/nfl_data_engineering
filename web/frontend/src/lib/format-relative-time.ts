@@ -17,7 +17,13 @@ import { formatDistanceToNow } from 'date-fns';
  * formatting across the EmptyState card and the 4 page headers
  * (predictions, lineups, matchups, news).
  */
-export function formatRelativeTime(input: string | Date): string {
+export function formatRelativeTime(input: string | Date | null | undefined): string {
+  // TD-05 (Phase 75): empty / null / undefined input → 'unknown' (no
+  // "Updated unknown" rendering downstream — callers can null-check the
+  // bare 'unknown' return).
+  if (input == null) return 'unknown';
+  if (typeof input === 'string' && input.trim() === '') return 'unknown';
+
   const then =
     typeof input === 'string' ? Date.parse(input) : input.getTime();
   if (Number.isNaN(then)) return 'unknown';
