@@ -425,6 +425,20 @@ class NewsItem(BaseModel):
         None, description="Optional LLM-generated 1-sentence summary"
     )
 
+    # Phase 72 EVT-02: subject attribution surface. Per CONTEXT Phase 72
+    # Schema Note, NewsItem adds EXACTLY these two top-level fields. The 7
+    # new draft-season flags (is_drafted, is_rumored_destination, etc.)
+    # surface ONLY via the existing event_flags: List[str] field — no new
+    # top-level boolean fields are introduced.
+    subject_type: Optional[Literal["player", "coach", "team", "reporter"]] = Field(
+        "player",
+        description="Who/what the article is about (default 'player')",
+    )
+    team_abbr: Optional[str] = Field(
+        None,
+        description="3-letter team code when subject is a coach/team/reporter",
+    )
+
 
 class TeamEvents(BaseModel):
     """Aggregated per-team event counts used by the NEWS-03 density grid.
@@ -456,6 +470,19 @@ class TeamEvents(BaseModel):
     top_events: List[str] = Field(
         default_factory=list,
         description="Human-readable summary of the 3 loudest events",
+    )
+
+    # Phase 72 EVT-02: non-player rollup counts populated by
+    # team_weekly._load_non_player_counts. Reporter items are NEVER counted
+    # here — they go to the separate non_player_news Silver channel.
+    coach_news_count: int = Field(
+        0, description="Coach-related news items rolled up to this team"
+    )
+    team_news_count: int = Field(
+        0, description="Team-level news items (schedule, stadium, ownership)"
+    )
+    staff_news_count: int = Field(
+        0, description="Staff news (placeholder for future GM/exec items)"
     )
 
 

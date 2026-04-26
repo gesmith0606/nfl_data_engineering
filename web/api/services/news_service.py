@@ -57,6 +57,16 @@ EVENT_LABELS: Dict[str, str] = {
     "is_usage_boost": "Usage Boost",
     "is_usage_drop": "Usage Drop",
     "is_weather_risk": "Weather Risk",
+    # Phase 72 EVT-01: 7 new draft-season flags appended after the existing
+    # 12 (preserves category grouping per CONTEXT). All surface ONLY via
+    # the event_flags: List[str] field — no new top-level NewsItem bools.
+    "is_drafted": "Drafted",
+    "is_rumored_destination": "Rumored Destination",
+    "is_coaching_change": "Coaching Change",
+    "is_trade_buzz": "Trade Buzz",
+    "is_holdout": "Holdout",
+    "is_cap_cut": "Cap Cut",
+    "is_rookie_buzz": "Rookie Buzz",
 }
 
 # Discrete sentiment buckets per D-03. NOT a continuous score.
@@ -68,12 +78,33 @@ NEGATIVE_FLAGS = frozenset(
         "is_usage_drop",
         "is_weather_risk",
         "is_released",
+        # Phase 72: cap cut + holdout are bearish.
+        "is_cap_cut",
+        "is_holdout",
     }
 )
 POSITIVE_FLAGS = frozenset(
-    {"is_returning", "is_activated", "is_usage_boost", "is_signed"}
+    {
+        "is_returning",
+        "is_activated",
+        "is_usage_boost",
+        "is_signed",
+        # Phase 72: drafted + rookie buzz lean bullish.
+        "is_drafted",
+        "is_rookie_buzz",
+    }
 )
-NEUTRAL_FLAGS = frozenset({"is_traded", "is_questionable"})
+NEUTRAL_FLAGS = frozenset(
+    {
+        "is_traded",
+        "is_questionable",
+        # Phase 72: rumored destinations + trade buzz + coaching changes
+        # are informational — not directional fantasy signals.
+        "is_rumored_destination",
+        "is_trade_buzz",
+        "is_coaching_change",
+    }
+)
 
 # 32 NFL teams — used to zero-fill /news/team-events.
 NFL_TEAM_ABBRS: Tuple[str, ...] = (
@@ -600,6 +631,9 @@ def _build_news_item_from_bronze(
         "body_snippet": body_snippet,
         "event_flags": _extract_event_flags(events),
         "summary": None,
+        # Phase 72 EVT-02: subject attribution surface (defaults to "player").
+        "subject_type": (silver_rec or {}).get("subject_type", "player"),
+        "team_abbr": (silver_rec or {}).get("team_abbr"),
     }
 
 
@@ -639,6 +673,9 @@ def _build_news_item_from_silver(
         "body_snippet": raw_excerpt[:200] if raw_excerpt else None,
         "event_flags": _extract_event_flags(events),
         "summary": None,
+        # Phase 72 EVT-02: subject attribution surface (defaults to "player").
+        "subject_type": silver_rec.get("subject_type", "player"),
+        "team_abbr": silver_rec.get("team_abbr"),
     }
 
 
