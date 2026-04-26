@@ -912,6 +912,71 @@ export async function POST(req: Request) {
             bearish_players: result.data.bearish_players
           };
         }
+      }),
+      // Phase 74 SLEEP-03: User-roster context for personalized advice.
+      getUserRoster: tool({
+        description:
+          "Fetch the authenticated user's Sleeper roster (starters + bench) for a specific league. Use when the user asks 'who should I start' or 'check my lineup' style questions — call this FIRST so the answer is grounded in their actual lineup, not a hypothetical league. Requires the user to have connected their Sleeper account at /dashboard/leagues.",
+        inputSchema: z.object({
+          leagueId: z
+            .string()
+            .describe('Sleeper league_id from /dashboard/leagues'),
+          userId: z
+            .string()
+            .describe(
+              "Authenticated user's Sleeper user_id (read from sleeper_user_id cookie)"
+            )
+        }),
+        execute: async ({ leagueId, userId }) => {
+          type RosterPlayer = {
+            player_id: string;
+            player_name: string | null;
+            position: string | null;
+            team: string | null;
+          };
+          type RosterPayload = Array<{
+            roster_id: number;
+            league_id: string;
+            owner_user_id: string | null;
+            is_user_roster: boolean;
+            starters: RosterPlayer[];
+            bench: RosterPlayer[];
+          }>;
+          const params = new URLSearchParams({ user_id: userId });
+          const result = await fastapiGet<RosterPayload>(
+            `/api/sleeper/rosters/${leagueId}?${params}`
+          );
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          const userRoster = result.data.find((r) => r.is_user_roster);
+          if (!userRoster) {
+            return {
+              found: false,
+              message:
+                "Could not find your roster in this league. Make sure you've connected the right Sleeper account."
+            };
+          }
+          return {
+            found: true,
+            league_id: leagueId,
+            roster_id: userRoster.roster_id,
+            starters: userRoster.starters.map((p) => ({
+              player_id: p.player_id,
+              name: p.player_name,
+              position: p.position,
+              team: p.team
+            })),
+            bench: userRoster.bench.map((p) => ({
+              player_id: p.player_id,
+              name: p.player_name,
+              position: p.position,
+              team: p.team
+            })),
+            starter_count: userRoster.starters.length,
+            bench_count: userRoster.bench.length
+          };
+        }
       })
     }
   });
