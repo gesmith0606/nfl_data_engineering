@@ -11,6 +11,8 @@ from ..config import VALID_POSITIONS, VALID_SCORING_FORMATS
 from ..models.schemas import (
     LatestWeekResponse,
     PlayerProjection,
+    ProjectionComparison,
+    ProjectionComparisonRow,
     ProjectionMeta,
     ProjectionResponse,
 )
@@ -155,6 +157,46 @@ def latest_week(
         season=info.season,
         week=info.week,
         data_as_of=info.data_as_of,
+    )
+
+
+@router.get("/comparison", response_model=ProjectionComparison)
+def projections_comparison(
+    season: int = Query(..., ge=1999, le=2030),
+    week: int = Query(..., ge=1, le=18),
+    scoring: str = Query("half_ppr"),
+    position: Optional[str] = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+) -> ProjectionComparison:
+    """Side-by-side projection comparison: ours vs ESPN vs Sleeper vs Yahoo (FP proxy).
+
+    Returns a wide-format comparison with delta_vs_ours computed per player.
+    Falls back to an empty `rows` list if Silver hasn't been consolidated yet
+    (D-06 fail-open) — frontend renders an EmptyState placeholder.
+    """
+    if scoring not in VALID_SCORING_FORMATS:
+        raise HTTPException(
+            status_code=400, detail=f"Invalid scoring format: {scoring}"
+        )
+    if position and position.upper() not in VALID_POSITIONS:
+        raise HTTPException(
+            status_code=400, detail=f"Invalid position: {position}"
+        )
+
+    payload = projection_service.get_comparison(
+        season=season,
+        week=week,
+        scoring_format=scoring,
+        position=position,
+        limit=limit,
+    )
+    return ProjectionComparison(
+        season=payload["season"],
+        week=payload["week"],
+        scoring_format=payload["scoring_format"],
+        rows=[ProjectionComparisonRow(**r) for r in payload["rows"]],
+        source_labels=payload["source_labels"],
+        data_as_of=payload["data_as_of"],
     )
 
 

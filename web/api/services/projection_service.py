@@ -371,6 +371,157 @@ def get_projections(
     return _get_projections_parquet(season, week, scoring_format, position, team, limit)
 
 
+def get_comparison(
+    season: int,
+    week: int,
+    scoring_format: str = "half_ppr",
+    position: Optional[str] = None,
+    limit: int = 200,
+) -> dict:
+    """Read the latest external_projections Silver Parquet and pivot to wide format.
+
+    Returns a dict matching the ProjectionComparison Pydantic model. Falls back
+    to an empty rows list if the Silver Parquet doesn't exist (D-06 fail-open).
+
+    Args:
+        season: NFL season year.
+        week: NFL week number.
+        scoring_format: Scoring format (ppr / half_ppr / standard).
+        position: Optional position filter (QB/RB/WR/TE/K).
+        limit: Max rows to return.
+
+    Returns:
+        Dict with keys: season, week, scoring_format, rows, source_labels, data_as_of.
+    """
+    silver_root = Path("data/silver/external_projections")
+    week_dir = silver_root / f"season={season}" / f"week={week:02d}"
+
+    source_labels = {
+        "ours": "Our projections",
+        "espn": "ESPN",
+        "sleeper": "Sleeper",
+        "yahoo": "Yahoo via FantasyPros consensus",
+    }
+    data_as_of = {}
+
+    latest = _latest_parquet(week_dir)
+    if latest is None:
+        return {
+            "season": season,
+            "week": week,
+            "scoring_format": scoring_format,
+            "rows": [],
+            "source_labels": source_labels,
+            "data_as_of": data_as_of,
+        }
+
+    try:
+        long = pd.read_parquet(latest)
+    except Exception as exc:
+        logger.warning("Could not read external Silver %s: %s", latest, exc)
+        return {
+            "season": season,
+            "week": week,
+            "scoring_format": scoring_format,
+            "rows": [],
+            "source_labels": source_labels,
+            "data_as_of": data_as_of,
+        }
+
+    # Filter to scoring format
+    if "scoring_format" in long.columns:
+        long = long[long["scoring_format"] == scoring_format]
+
+    # Per-source freshness for the chip (max projected_at per source)
+    if "projected_at" in long.columns:
+        for src, group in long.groupby("source"):
+            try:
+                data_as_of[str(src)] = str(group["projected_at"].max())
+            except Exception:
+                pass
+
+    if long.empty:
+        return {
+            "season": season,
+            "week": week,
+            "scoring_format": scoring_format,
+            "rows": [],
+            "source_labels": source_labels,
+            "data_as_of": data_as_of,
+        }
+
+    # Pivot wide: index = (player_id, player_name, position, team), columns = source
+    # Map yahoo_proxy_fp → yahoo for the API surface (provenance preserved in source_labels).
+    long = long.copy()
+    long["source"] = long["source"].replace({"yahoo_proxy_fp": "yahoo"})
+
+    # Aggregate duplicates with mean (rare — different ingest passes for same week)
+    grouped = (
+        long.groupby(
+            ["player_id", "player_name", "position", "team", "source"],
+            dropna=False,
+            as_index=False,
+        )["projected_points"]
+        .mean()
+    )
+
+    wide = grouped.pivot_table(
+        index=["player_id", "player_name", "position", "team"],
+        columns="source",
+        values="projected_points",
+        aggfunc="first",
+    ).reset_index()
+    wide.columns.name = None
+
+    # Ensure all 4 source columns exist
+    for src in ("ours", "espn", "sleeper", "yahoo"):
+        if src not in wide.columns:
+            wide[src] = None
+
+    # delta_vs_ours = mean(externals) - ours
+    def _delta(row):
+        ours = row.get("ours")
+        externals = [row.get(s) for s in ("espn", "sleeper", "yahoo") if pd.notna(row.get(s))]
+        if pd.isna(ours) or not externals:
+            return None
+        return round(sum(externals) / len(externals) - float(ours), 2)
+
+    wide["delta_vs_ours"] = wide.apply(_delta, axis=1)
+
+    if position:
+        wide = wide[wide["position"] == position.upper()]
+
+    # Sort by ours desc (then by mean of externals)
+    wide = wide.sort_values(by="ours", ascending=False, na_position="last").head(limit)
+
+    rows = []
+    for _, row in wide.iterrows():
+        def _f(x):
+            return float(x) if pd.notna(x) else None
+        rows.append(
+            {
+                "player_id": str(row["player_id"]) if pd.notna(row["player_id"]) else "",
+                "player_name": str(row.get("player_name") or ""),
+                "position": str(row["position"]) if pd.notna(row.get("position")) else None,
+                "team": str(row["team"]) if pd.notna(row.get("team")) else None,
+                "ours": _f(row.get("ours")),
+                "espn": _f(row.get("espn")),
+                "sleeper": _f(row.get("sleeper")),
+                "yahoo": _f(row.get("yahoo")),
+                "delta_vs_ours": _f(row.get("delta_vs_ours")),
+            }
+        )
+
+    return {
+        "season": season,
+        "week": week,
+        "scoring_format": scoring_format,
+        "rows": rows,
+        "source_labels": source_labels,
+        "data_as_of": data_as_of,
+    }
+
+
 def search_players(
     query: str,
     season: int,
