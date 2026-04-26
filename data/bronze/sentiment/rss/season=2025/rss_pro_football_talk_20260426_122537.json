@@ -1,0 +1,478 @@
+{
+  "fetch_run_id": "53901f38-09f5-4e13-88c6-f9a5160dbd8c",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-04-26T12:25:37.448563+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-plan-to-roll-with-four-qbs-after-picking-taylen-green",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-plan-to-roll-with-four-qbs-after-picking-taylen-green",
+      "title": "Browns plan to \"roll with\" four QBs after picking Taylen Green",
+      "body_text": "The Browns drafted quarterback Taylen Green at the start of the sixth round on Saturday and General Manager Andrew Berry confirmed that Green will not be switching positions in the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-25T20:53:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylen Green",
+        "The Browns",
+        "General Manager",
+        "Andrew Berry"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-review-the-steelers-call-to-makai-lemon-after-the-draft-ends",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-review-the-steelers-call-to-makai-lemon-after-the-draft-ends",
+      "title": "NFL will review the Steelers' call to Makai Lemon, after the draft ends",
+      "body_text": "On Friday night, Eagles first-round receiver Makai Lemon was ringing the bell at the Celtics-76ers playoff game.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T16:59:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Makai Lemon",
+        "On Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-odell-beckham-were-undecided-hes-undecided",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-odell-beckham-were-undecided-hes-undecided",
+      "title": "John Harbaugh on Odell Beckham: We're undecided; he's undecided",
+      "body_text": "The free agent wide receiver visited team headquarters earlier this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T21:09:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Odell Beckham"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/what-does-the-drew-allar-pick-mean-for-the-steelers-and-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/what-does-the-drew-allar-pick-mean-for-the-steelers-and-aaron-rodgers",
+      "title": "What does the Drew Allar pick mean for the Steelers and Aaron Rodgers?",
+      "body_text": "As Steelers fans wait for a certain 42-year-old quarterback to decide whether he wants to be a Steeler again, the Steelers have added another quarterback.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T13:13:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drew Allar",
+        "Aaron Rodgers",
+        "As Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jermod-mccoy-will-let-team-doctors-decide-if-he-needs-another-knee-surgery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jermod-mccoy-will-let-team-doctors-decide-if-he-needs-another-knee-surgery",
+      "title": "Jermod McCoy will let team doctors decide if he needs another knee surgery",
+      "body_text": "University of Tennessee cornerback Jermod McCoy was projected as a first-round draft choice until a medical recheck revealed he could need another knee surgery.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T19:42:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-commanders-have-interest-in-signing-brandon-aiyuk-if-49ers-release-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-commanders-have-interest-in-signing-brandon-aiyuk-if-49ers-release-him",
+      "title": "Report: Commanders have interest in signing Brandon Aiyuk if 49ers release him",
+      "body_text": "49ers General Manager John Lynch said before the draft that he's had discussions with teams about a potential trade involving wide receiver Brandon Aiyuk and that he believes there's \"a chance\" that a deal comes together.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-25T21:10:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "General Manager",
+        "John Lynch"
+      ],
+      "resolved_player_ids": [
+        "00-0036261",
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-says-49ers-wont-release-brandon-aiyuk-anytime-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-says-49ers-wont-release-brandon-aiyuk-anytime-soon",
+      "title": "John Lynch says 49ers won't release Brandon Aiyuk anytime soon",
+      "body_text": "The Commanders are expected to have an interest in Aiyuk when the 49ers cut him.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T22:58:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Lynch",
+        "Brandon Aiyuk",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0010188",
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-reports-mike-vrabel-was-in-constant-contact-with-patriots-on-saturday-retracts-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-reports-mike-vrabel-was-in-constant-contact-with-patriots-on-saturday-retracts-it",
+      "title": "ESPN reports Mike Vrabel was in \"constant contact\" with Patriots on Saturday, retracts it",
+      "body_text": "The NFL's biggest story of the month — which has crossed over to national news, morning shows, and late-night TV — had a fairly big development on Saturday, when Patriots coach Mike Vrabel skipped the third day of the draft to attend counseling.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T00:24:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/undrafted-free-agent-lardarius-webb-jr-signs-in-baltimore-where-his-dad-played-9-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/undrafted-free-agent-lardarius-webb-jr-signs-in-baltimore-where-his-dad-played-9-years",
+      "title": "Undrafted free agent Lardarius Webb Jr. signs in Baltimore, where his dad played 9 years",
+      "body_text": "The Ravens are adding a familiar name to their secondary.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-26T10:00:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lardarius Webb Jr",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0027060"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-tried-to-re-establish-their-gritty-identity-in-the-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-tried-to-re-establish-their-gritty-identity-in-the-draft",
+      "title": "Lions tried to re-establish their \"gritty\" identity in the draft",
+      "body_text": "The Lions took a step backward in 2025, and as they build their roster for 2026, they're getting back to grit.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-26T09:17:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-drafting-spencer-fano-in-the-first-round-browns-sign-his-brother-logan-fano",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-drafting-spencer-fano-in-the-first-round-browns-sign-his-brother-logan-fano",
+      "title": "After drafting Spencer Fano in the first round, Browns sign his brother, Logan Fano",
+      "body_text": "The Fano family is heading to Cleveland.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-26T08:01:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Spencer Fano",
+        "Logan Fano",
+        "The Fano"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/plenty-of-undrafted-players-got-bigger-guarantees-than-some-drafted-players-will-get",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/plenty-of-undrafted-players-got-bigger-guarantees-than-some-drafted-players-will-get",
+      "title": "Plenty of undrafted players got bigger guarantees than some drafted players will get",
+      "body_text": "For some, it's better to be undrafted than drafted late.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T02:56:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-a-m-rb-e-j-smith-son-of-emmitt-to-sign-with-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-a-m-rb-e-j-smith-son-of-emmitt-to-sign-with-chiefs",
+      "title": "Texas A&M RB E.J. Smith, son of Emmitt, to sign with Chiefs",
+      "body_text": "Texas A&amp;M running back E.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-26T01:38:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chiefs Texas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-admits-he-was-grumpy-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-admits-he-was-grumpy-on-thursday-night",
+      "title": "Sean McVay admits he was \"grumpy\" on Thursday night",
+      "body_text": "McVay explains his reaction to the Ty Simpson selection.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T12:17:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-matthew-stafford-responded-exactly-how-i-wanted-to-the-ty-simpson-pick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-matthew-stafford-responded-exactly-how-i-wanted-to-the-ty-simpson-pick",
+      "title": "Sean McVay: Matthew Stafford responded exactly how I wanted to the Ty Simpson pick",
+      "body_text": "McVay says Stafford will decide for himself how long he continues to play for the Rams.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-25T18:24:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-isnt-ready-to-close-the-door-on-jimmy-garoppolo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-isnt-ready-to-close-the-door-on-jimmy-garoppolo",
+      "title": "Sean McVay isn't ready to close the door on Jimmy Garoppolo",
+      "body_text": "Before Thursday night, the Rams didn't have a clear No. 2 quarterback behind Matthew Stafford.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T20:35:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jimmy Garoppolo",
+        "Before Thursday",
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0031345",
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-could-have-used-an-agent-after-all",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-could-have-used-an-agent-after-all",
+      "title": "Diego Pavia could have used an agent, after all",
+      "body_text": "When former Vanderbilt quarterback Diego Pavia appeared on Jon Gruden's QB Camp series in the weeks preceding the draft, Pavia made it clear that he's entering the NFL without an agent.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T00:42:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Diego Pavia",
+        "Jon Gruden"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichicks-unc-program-had-no-players-drafted",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichicks-unc-program-had-no-players-drafted",
+      "title": "Bill Belichick's UNC program had no players drafted",
+      "body_text": "Last year, North Carolina G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T01:18:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-agree-to-terms-with-undrafted-qb-luke-altmyer",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-agree-to-terms-with-undrafted-qb-luke-altmyer",
+      "title": "Lions agree to terms with undrafted QB Luke Altmyer",
+      "body_text": "Quarterback Luke Altmyer didn't get drafted this weekend, but he has found a spot in the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T00:16:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Luke Altmyer",
+        "Quarterback Luke"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-to-sign-qb-haynes-king-as-an-undrafted-free-agent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-to-sign-qb-haynes-king-as-an-undrafted-free-agent",
+      "title": "Panthers to sign QB Haynes King as an undrafted free agent",
+      "body_text": "The Panthers are adding an undrafted quarterback to their roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T00:02:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Haynes King",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-is-first-heisman-finalist-to-go-undrafted-since-2014",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-is-first-heisman-finalist-to-go-undrafted-since-2014",
+      "title": "Diego Pavia is the first Heisman finalist to go undrafted since 2014",
+      "body_text": "Diego Pavia is confident that his size won't stop him from succeeding as a quarterback in the NFL, but the NFL showed a lot more doubt about his future over the last three days.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-25T23:49:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Diego Pavia"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-agree-to-terms-with-louisville-qb-miller-moss",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-agree-to-terms-with-louisville-qb-miller-moss",
+      "title": "Report: Bears agree to terms with Louisville QB Miller Moss",
+      "body_text": "The Bears did not draft a quarterback, but they are signing one as an undrafted free agent.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T23:43:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Miller Moss",
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-full-team-by-team-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-full-team-by-team-picks",
+      "title": "2026 NFL Draft: Full team-by-team picks",
+      "body_text": "Who did each team pick in the 2026 NFL Draft? Full team-by-team results",
+      "author": "PFT Editorial Staff",
+      "published_at": "2026-04-25T23:21:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-picks-full-tracker-of-every-selection-rounds-1-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/news/2026-nfl-draft-picks-full-tracker-of-every-selection-rounds-1-7",
+      "title": "2026 NFL Draft Picks: Full tracker of every selection Rounds 1-7",
+      "body_text": "Fernando Mendoza is set to go to Las Vegas with the first overall pick.",
+      "author": "PFT Editorial Staff",
+      "published_at": "2026-04-25T23:21:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Draft Picks",
+        "Fernando Mendoza",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-packers-agree-to-terms-with-virginia-tech-qb-kyron-drones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-packers-agree-to-terms-with-virginia-tech-qb-kyron-drones",
+      "title": "Report: Packers agree to terms with Virginia Tech QB Kyron Drones",
+      "body_text": "The Packers didn't draft a quarterback in their six-player class.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T23:18:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Virginia Tech",
+        "Kyron Drones",
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-pennel-jr-is-person-of-interest-in-womans-death",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-pennel-jr-is-person-of-interest-in-womans-death",
+      "title": "Report: Mike Pennel Jr. is \"person of interest\" in woman's death",
+      "body_text": "Free-agent defensive lineman Mike Pennel Jr. is a \"person of interest\" in connection with the death of a woman in the Dominican Republic, according to ESPN.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-25T23:02:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Pennel Jr",
+        "Dominican Republic"
+      ],
+      "resolved_player_ids": [
+        "00-0030757"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-select-lsu-qb-garrett-nussmeier-late-in-seventh-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-select-lsu-qb-garrett-nussmeier-late-in-seventh-round",
+      "title": "Chiefs select LSU QB Garrett Nussmeier late in seventh round",
+      "body_text": "Garrett Nussmeier had to wait a while, way longer than he expected, to hear his name.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T22:53:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Garrett Nussmeier"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-select-texas-tech-qb-behren-morton-in-seventh-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-select-texas-tech-qb-behren-morton-in-seventh-round",
+      "title": "Patriots select Texas Tech QB Behren Morton in seventh round",
+      "body_text": "The Patriots had only Tommy DeVito behind starter Drake Maye until Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T22:25:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Texas Tech",
+        "Behren Morton",
+        "The Patriots",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-take-rutgers-qb-athan-kaliakmanis-in-seventh-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-take-rutgers-qb-athan-kaliakmanis-in-seventh-round",
+      "title": "Commanders take Rutgers QB Athan Kaliakmanis in seventh round",
+      "body_text": "The Commanders have added a fourth player to their quatrerback room in the seventh round of the 2026 NFL draft.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-25T21:53:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Athan Kaliakmanis",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-draft-florida-k-trey-smack-in-sixth-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-draft-florida-k-trey-smack-in-sixth-round",
+      "title": "Packers draft Florida K Trey Smack in sixth round",
+      "body_text": "Florida's Trey Smack became the first kicker off the board in the e 2026 NFL draft.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-25T21:46:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trey Smack"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    }
+  ]
+}
