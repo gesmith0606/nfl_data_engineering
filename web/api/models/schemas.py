@@ -84,6 +84,58 @@ class ProjectionComparison(BaseModel):
     )
 
 
+class SleeperUser(BaseModel):
+    """Sleeper user identity (Phase 74 SLEEP-01)."""
+
+    user_id: str
+    username: str
+    display_name: Optional[str] = None
+    avatar: Optional[str] = None
+
+
+class SleeperLeague(BaseModel):
+    """A single Sleeper league the authenticated user is part of."""
+
+    league_id: str
+    name: str
+    season: str
+    total_rosters: Optional[int] = None
+    sport: Optional[str] = "nfl"
+    status: Optional[str] = None
+    settings: Optional[dict] = None
+
+
+class SleeperUserLoginResponse(BaseModel):
+    """Response for /api/sleeper/user/login."""
+
+    user: SleeperUser
+    leagues: List[SleeperLeague] = Field(default_factory=list)
+
+
+class SleeperRosterPlayer(BaseModel):
+    """A single player slot on a Sleeper roster."""
+
+    player_id: str
+    player_name: Optional[str] = None
+    position: Optional[str] = None
+    team: Optional[str] = None
+    slot: Optional[str] = Field(None, description="QB / RB / WR / TE / FLEX / BENCH")
+
+
+class SleeperRoster(BaseModel):
+    """A Sleeper roster — starters + bench grouped by slot."""
+
+    roster_id: int
+    league_id: str
+    owner_user_id: Optional[str] = None
+    is_user_roster: bool = Field(
+        False,
+        description="True if this roster belongs to the authenticated user",
+    )
+    starters: List[SleeperRosterPlayer] = Field(default_factory=list)
+    bench: List[SleeperRosterPlayer] = Field(default_factory=list)
+
+
 class GamePrediction(BaseModel):
     """Model prediction for a single game."""
 
