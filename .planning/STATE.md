@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
 status: executing
-stopped_at: "Plan 72-02 COMPLETE (W17 + W18 fixtures re-recorded against post-72-02 _SYSTEM_PREFIX; LLM-03 ratio 5.18x rule=33 claude=171; LLM-04 weekly cost $1.5700; subject_type REQUIRED on every item; scripts/record_claude_fixture.py shipped; README documents no-hand-augmentation rule + transition exception + cost-remediation order; 191 sentiment tests green). EVT-01 fully closed. Ready for Plan 72-03."
-last_updated: "2026-04-25T13:05:00.000Z"
-last_activity: 2026-04-25 -- Plan 72-02 complete; W17+W18 fixtures re-recorded (post-72-02 prompt_sha) — LLM-03 5.18x + LLM-04 $1.57/wk gates restored
+stopped_at: Plan 72-02 COMPLETE (W17 + W18 fixtures re-recorded against post-72-02 _SYSTEM_PREFIX; LLM-03 ratio 5.18x rule=33 claude=171; LLM-04 weekly cost $1.5700; subject_type REQUIRED on every item; scripts/record_claude_fixture.py shipped; README documents no-hand-augmentation rule + transition exception + cost-remediation order; 191 sentiment tests green). EVT-01 fully closed.
+last_updated: "2026-04-26T15:19:00.869Z"
+last_activity: 2026-04-26
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 10
-  completed_plans: 7
-  percent: 70
+  total_plans: 15
+  completed_plans: 12
+  percent: 80
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
 
 **Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** Phase 72 — event-flag-expansion
+**Current focus:** Phase 73 — external-projections-comparison
 
 ## Current Position
 
-Phase: 72 (event-flag-expansion) — EXECUTING
-Plan: 3 of 5 (next: 72-03 pipeline routing + aggregator)
-Status: Executing Phase 72 (plans 72-01 + 72-02 complete; plans 72-03..05 pending)
-Last activity: 2026-04-25 -- Plan 72-02 complete; W17+W18 fixtures re-recorded (post-72-02 prompt_sha) — LLM-03 5.18x + LLM-04 $1.57/wk gates restored
+Phase: 74
+Plan: Not started
+Status: Executing Phase 73
+Last activity: 2026-04-26
 
 **Execution order (proposed):** 71 ✓ → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
 
