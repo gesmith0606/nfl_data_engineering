@@ -133,7 +133,36 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - [ ] Sleeper OAuth integration — v7.1
 - [ ] PFF paid data integration — v8.0
 
-## Current State: v7.0 Shipped (2026-04-24)
+## Current State: v7.1 Shipped (2026-04-26)
+
+**Production:**
+- Frontend: https://frontend-jet-seven-33.vercel.app — now with `/dashboard/leagues` (Sleeper username connect) + multi-source projection comparison section on `/dashboard/projections`
+- Backend: https://nfldataengineering-production.up.railway.app — new `/api/projections/comparison` (4-source pivot with delta_vs_ours) + `/api/sleeper/{login,leagues,rosters}` endpoints
+- Daily sentiment cron now Claude-primary when `ENABLE_LLM_ENRICHMENT=true` (offseason draft/trade/coaching content produces signals; rule extractor preserved as zero-cost fallback)
+- New cron `weekly-external-projections.yml` refreshes ESPN + Sleeper + Yahoo (FantasyPros consensus proxy) projections Tuesdays 14:00 UTC + Sundays 12:00 UTC
+- AI advisor gains `getUserRoster` tool — Sleeper-connected users get personalized start/sit advice grounded in actual lineups
+- Sentiment vocab expanded from 12 → 19 event flags (added: Drafted, Rumored Destination, Coaching Change, Trade Buzz, Holdout, Cap Cut, Rookie Buzz)
+- All 8 v7.0 tech debt items closed (auto-rollback no longer uses `--no-verify` or `--amend`; `formatRelativeTime` empty-string guard; consolidated relativeTime helpers)
+- Test count: ~1469 + ~165 new = ~1634 passing
+
+**v7.1 outcome:** 27/27 requirements code-complete; 22 fully validated by tests; 5 operator-mediated checkpoints (Phase 72 Railway audit + Phase 73 first cron) deferred to natural production cycles.
+
+**v7.1 artifacts:**
+- Milestone roadmap: `.planning/milestones/v7.1-ROADMAP.md`
+- Milestone requirements: `.planning/milestones/v7.1-REQUIREMENTS.md`
+- Milestone audit: `.planning/v7.1-MILESTONE-AUDIT.md`
+
+## Pending v7.1 External Ops (user action required)
+
+1. Push origin main to trigger Railway deploy.
+2. Phase 72-05 Railway-live audit per `.planning/phases/72-event-flag-expansion/72-05-CHECKPOINT.md` (closes EVT-04/05).
+3. Phase 73 first cron run validates EXTP-05 end-to-end (Tuesday/Sunday schedule).
+4. Sleeper league live test: connect a real Sleeper username on `/dashboard/leagues`; confirm `getUserRoster` advisor tool returns lineup.
+
+<details>
+<summary>Previous: v7.0 Shipped (2026-04-24) — collapsed</summary>
+
+## Previous: v7.0 Shipped (2026-04-24)
 
 **Production:**
 - Frontend: https://frontend-jet-seven-33.vercel.app — now with defensive empty states + data_as_of freshness chips on predictions/lineups/matchups/news pages
@@ -336,4 +365,6 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-21 after v7.0 Production Stabilization milestone started*
+*Last updated: 2026-04-26 after v7.1 Draft Season Readiness shipped*
+
+</details>
