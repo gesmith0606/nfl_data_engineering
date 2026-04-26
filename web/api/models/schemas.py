@@ -45,6 +45,45 @@ class PlayerProjection(BaseModel):
     injury_status: Optional[str] = None
 
 
+class ProjectionComparisonRow(BaseModel):
+    """A single row of the multi-source projection comparison (Phase 73-03)."""
+
+    player_id: str
+    player_name: str
+    position: Optional[str] = None
+    team: Optional[str] = None
+    ours: Optional[float] = Field(None, description="Our Gold projection")
+    espn: Optional[float] = Field(None, description="ESPN projection")
+    sleeper: Optional[float] = Field(None, description="Sleeper projection")
+    yahoo: Optional[float] = Field(
+        None, description="Yahoo (via FantasyPros consensus proxy)"
+    )
+    delta_vs_ours: Optional[float] = Field(
+        None,
+        description="Average of external sources minus ours; positive = externals higher",
+    )
+
+
+class ProjectionComparison(BaseModel):
+    """Response envelope for /api/projections/comparison."""
+
+    season: int
+    week: int
+    scoring_format: str
+    rows: List[ProjectionComparisonRow]
+    source_labels: dict = Field(
+        default_factory=dict,
+        description=(
+            "Provenance map exposed to UI tooltips, e.g. "
+            "{'yahoo': 'Yahoo via FantasyPros consensus'}"
+        ),
+    )
+    data_as_of: dict = Field(
+        default_factory=dict,
+        description="Per-source ISO 8601 freshness timestamps for the data_as_of chip",
+    )
+
+
 class GamePrediction(BaseModel):
     """Model prediction for a single game."""
 
