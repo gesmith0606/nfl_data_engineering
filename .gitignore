@@ -275,3 +275,8 @@ logs/
 .vscode/launch.json
 .vscode/extensions.json
 .vercel
+
+# Phase 75 audit: artifacts from /dashboard/leagues live test
+.playwright-mcp/
+live-*.png
+
