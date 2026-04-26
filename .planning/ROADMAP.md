@@ -61,7 +61,7 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
 
 - [x] **Phase 71: LLM-Primary Extraction** — Shipped 2026-04-24. 5/5 plans complete. 5.57× LLM-03 ratio on offseason content; CI-enforced LLM-04 cost gate at $1.5700/week (gate <$5); 165 sentiment tests green; CLI + GHA EXTRACTOR_MODE knob ready for production activation via single GitHub Variable flip.
 - [ ] **Phase 72: Event Flag Expansion + Non-Player Attribution** — Add is_drafted / is_rumored_destination / is_coaching_change / etc.; decide coach-and-reporter handling (team rollup vs separate channel)
-- [ ] **Phase 73: External Projections Comparison** — ESPN + Sleeper + Yahoo weekly projections side-by-side with ours on projections page + new /api/projections/comparison endpoint
+- [x] **Phase 73: External Projections Comparison** — ESPN + Sleeper + Yahoo weekly projections side-by-side with ours on projections page + new /api/projections/comparison endpoint (completed 2026-04-26)
 - [ ] **Phase 74: Sleeper League Integration** — Username auth → league listing → roster import → advisor `getUserRoster` tool → start/sit personalization
 - [ ] **Phase 75: v7.0 Tech Debt Cleanup** — 8 items rolled forward (gitignore frontend configs, remove --no-verify, format-relative-time guard, duplicate relativeTime consolidation, etc.)
 
@@ -119,11 +119,11 @@ Plans:
   5. Cron refresh keeps external data current; `data_as_of` chip surfaces freshness
 **UI hint**: yes
 
-**Plans:** 5 plans
+**Plans:** 2/5 plans complete
 
 Plans:
-- [ ] 73-01-bronze-ingesters-PLAN.md — ESPN + Sleeper + FantasyPros (yahoo_proxy_fp) Bronze ingesters with fixture-driven tests + D-06 fail-open
-- [ ] 73-02-silver-consolidation-PLAN.md — SilverConsolidator merges 4 sources (ours + 3 external) to long-format Silver Parquet via PlayerNameResolver bridge
+- [x] 73-01-bronze-ingesters-PLAN.md — ESPN + Sleeper + FantasyPros (yahoo_proxy_fp) Bronze ingesters with fixture-driven tests + D-06 fail-open
+- [x] 73-02-silver-consolidation-PLAN.md — SilverConsolidator merges 4 sources (ours + 3 external) to long-format Silver Parquet via PlayerNameResolver bridge
 - [ ] 73-03-api-comparison-endpoint-PLAN.md — Pydantic ProjectionComparison + ProjectionComparisonRow + GET /api/projections/comparison route with pivot, delta_vs_ours, position_rank_ours
 - [ ] 73-04-frontend-comparison-view-PLAN.md — TS types + service + ProjectionComparisonTable + Standard/Comparison tab toggle on /dashboard/projections (HUMAN VERIFY checkpoint)
 - [ ] 73-05-cron-and-phase-summary-PLAN.md — weekly-external-projections.yml (Tue 14 UTC + Sun 12 UTC) + structural workflow tests + phase SUMMARY/STATE/REQUIREMENTS/ROADMAP sync
@@ -184,6 +184,6 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 70. Frontend Empty/Error States | v7.0 | 0/TBD | Not started | - |
 | 71. LLM-Primary Extraction | v7.1 | 6/5 | Complete    | 2026-04-24 |
 | 72. Event Flag Expansion | v7.1 | 0/TBD | Not started | - |
-| 73. External Projections Comparison | v7.1 | 0/5 | Planned | - |
+| 73. External Projections Comparison | v7.1 | 2/5 | Complete    | 2026-04-26 |
 | 74. Sleeper League Integration | v7.1 | 0/TBD | Not started | - |
 | 75. v7.0 Tech Debt Cleanup | v7.1 | 0/TBD | Not started | - |
