@@ -125,6 +125,14 @@ export interface NewsItem {
   event_flags: string[];
   /** Plan 61-06: optional LLM-generated 1-sentence summary (feature-flagged). */
   summary: string | null;
+  /**
+   * Phase 72 EVT-02: subject attribution surface. Defaults to "player".
+   * Per CONTEXT Phase 72 Schema Note, the 7 new draft-season flags
+   * (Drafted, Coaching Change, etc.) surface ONLY via event_flags — no
+   * new top-level boolean fields are introduced.
+   */
+  subject_type?: 'player' | 'coach' | 'team' | 'reporter' | null;
+  team_abbr?: string | null;
 }
 
 /** Discrete overall sentiment bucket (D-03) — never a continuous score. */
@@ -144,6 +152,13 @@ export interface TeamEvents {
   total_articles: number;
   sentiment_label: OverallSentimentLabel;
   top_events: string[];
+  /**
+   * Phase 72 EVT-02: non-player rollup counts populated by
+   * team_weekly._load_non_player_counts. Reporters are NEVER counted here.
+   */
+  coach_news_count?: number;
+  team_news_count?: number;
+  staff_news_count?: number;
 }
 
 /** Event badges for a single player (NEWS-04). */
