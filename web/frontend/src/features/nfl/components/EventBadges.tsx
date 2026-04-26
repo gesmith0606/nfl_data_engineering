@@ -26,17 +26,31 @@ const BEARISH_LABELS: ReadonlySet<string> = new Set([
   'Suspended',
   'Usage Drop',
   'Weather Risk',
-  'Released'
+  'Released',
+  // Phase 72: cap cuts and holdouts are bearish.
+  'Cap Cut',
+  'Holdout'
 ]);
 
 const BULLISH_LABELS: ReadonlySet<string> = new Set([
   'Returning',
   'Activated',
   'Usage Boost',
-  'Signed'
+  'Signed',
+  // Phase 72: drafted + rookie buzz lean bullish.
+  'Drafted',
+  'Rookie Buzz'
 ]);
 
-const NEUTRAL_LABELS: ReadonlySet<string> = new Set(['Traded', 'Questionable']);
+const NEUTRAL_LABELS: ReadonlySet<string> = new Set([
+  'Traded',
+  'Questionable',
+  // Phase 72: rumored destinations + trade buzz + coaching changes are
+  // informational — not directional fantasy signals.
+  'Rumored Destination',
+  'Trade Buzz',
+  'Coaching Change'
+]);
 
 function bucketForBadge(label: string): BadgeBucket {
   if (BEARISH_LABELS.has(label)) return 'bearish';
