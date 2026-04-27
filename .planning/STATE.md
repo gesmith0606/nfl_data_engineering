@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
-status: executing
-stopped_at: Plan 72-02 COMPLETE (W17 + W18 fixtures re-recorded against post-72-02 _SYSTEM_PREFIX; LLM-03 ratio 5.18x rule=33 claude=171; LLM-04 weekly cost $1.5700; subject_type REQUIRED on every item; scripts/record_claude_fixture.py shipped; README documents no-hand-augmentation rule + transition exception + cost-remediation order; 191 sentiment tests green). EVT-01 fully closed.
-last_updated: "2026-04-26T15:33:37.347Z"
-last_activity: 2026-04-26
+status: code-complete-deploy-unblocked
+stopped_at: Deploy gate fully green on commit 14a9827 (first fully-green run in 3+ weeks). Railway redeployed with current code (Phase 66-75 features all live), live gate passes, auto-rollback skipped. Phase 72-05 audit + Phase 73 first-cron-run remain as operator-mediated checkpoints.
+last_updated: "2026-04-27T15:42:00Z"
+last_activity: 2026-04-27
 progress:
-  total_phases: 4
-  completed_phases: 1
-  total_plans: 15
-  completed_plans: 13
-  percent: 87
+  total_phases: 5
+  completed_phases: 4
+  total_plans: 19
+  completed_plans: 18
+  percent: 95
 ---
 
 # Project State
@@ -21,19 +21,30 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
 
 **Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** Phase 73 — external-projections-comparison
+**Current focus:** v7.1 close-out — Phase 72-05 audit-only remaining (operator-mediated)
 
 ## Current Position
 
-Phase: 75
-Plan: Not started
-Status: Executing Phase 73
-Last activity: 2026-04-26
+Phase: 72-05 (audit close-out)
+Plan: 72-05 CHECKPOINT (Railway-live audit JSON evidence)
+Status: All 5 phases code-complete; deploy gate green; only operator checkpoints remain
+Last activity: 2026-04-27
 
-**Execution order (proposed):** 71 ✓ → 72 (depends on 71) → (73 ∥ 74 ∥ 75 parallel) → milestone close
+**Execution order (delivered):** 71 ✓ → 72 code ✓ (audit ⏳) → 73 code ✓ (cron ⏳) → 74 ✓ → 75 ✓
 
-Progress: 7/10 plans across v7.1 (Phase 71: 5/5 ✓; Phase 72: 2/5)
-[██████████████░░░░░░] 70%
+Progress: 18/19 plans complete; deploy gate end-to-end green
+[███████████████████░] 95%
+
+### Deploy gate unblock (2026-04-27)
+
+Five back-to-back fixes shipped this session to clear a 3+ week deploy freeze:
+
+- `50fb805` commit Bronze schedules so Railway Docker build succeeds (root cause: `web/Dockerfile COPY data/bronze/schedules/` against gitignored dir; ~3-week silent freeze)
+- `0125b8a` Silver sentiment freshness check globs JSON not parquet (Phase 71 sink change)
+- `68b9393` revert invalid `workflows: write` permission (rejected by GHA; 0 jobs spawned)
+- `4974c97` rebaseline news content threshold to PASS≥10 / WARN≥5 / CRITICAL<5 (post-Phase 71 data regime)
+- `56472f2` re-allow `web/frontend/**/*.json` after data-block override (TD-02 was being shadowed; commits 4 frontend build configs)
+- `14a9827` replace dead `amondnet/vercel-action@v25` step with Vercel-wait no-op (mirror of Railway pattern; VERCEL_TOKEN was never set)
 
 ## Milestone Goal
 
@@ -144,7 +155,14 @@ Phase 72 in flight: Plans 72-01 + 72-02 complete. Next: Plan 72-03 (pipeline rou
 
 ## Session Continuity
 
-Last session: 2026-04-25
-Stopped at: Plan 72-02 COMPLETE (W17 + W18 fixtures re-recorded against post-72-02 _SYSTEM_PREFIX; LLM-03 ratio 5.18x rule=33 claude=171; LLM-04 weekly cost $1.5700; subject_type REQUIRED on every item; scripts/record_claude_fixture.py shipped; README documents no-hand-augmentation rule + transition exception + cost-remediation order; 191 sentiment tests green). EVT-01 fully closed.
-Resume with: `/gsd:execute-phase 72` (continues with Plan 72-03 pipeline routing + aggregator).
-Resume file: .planning/phases/72-event-flag-expansion/72-03-pipeline-routing-aggregator-PLAN.md
+Last session: 2026-04-27
+Stopped at: Deploy gate fully green on commit 14a9827. Railway + Vercel auto-deploys via native GitHub integrations; both webhook waits + live gate now pass end-to-end. Schedules + sentiment-freshness + news-threshold + frontend-config gitignore + Vercel no-op fixes all shipped.
+Resume with: Phase 72-05 audit close-out (operator-mediated). See .planning/milestones/v7.1-phases/72-event-flag-expansion/72-05-CHECKPOINT.md for the 8-step Railway-live audit runbook.
+Resume file: .planning/milestones/v7.1-phases/72-event-flag-expansion/72-05-CHECKPOINT.md
+
+### Deferred follow-ups (post-v7.1)
+
+- Auto-rollback push fails when commit modifies `.github/workflows/**` (default GITHUB_TOKEN lacks `workflow` scope; valid permission is GitHub-App-installation, not workflow-YAML). Best path: add a skip-on-workflow-touch guard in the rollback job, or provision a `ROLLBACK_PAT` repo secret with `workflow` scope.
+- 27 pre-existing sanity warnings (>10 threshold) — pre-Phase-60 tech debt; either catalog & triage or raise threshold in v7.2.
+- Cosmetic: rename `parquet_files` → `signal_files` in `_check_extractor_freshness` (per code review nit).
+- Daily-sentiment GHA cron writes to runner-local FS only; the JSON sentiment files in `data/silver/sentiment/signals/` are committed by the cron itself (the freshness check now globs `*.json` so this works), but the path is fragile — a more robust pattern would be S3-backed when AWS creds are refreshed.
