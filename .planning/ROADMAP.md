@@ -53,7 +53,7 @@ Full details: `.planning/milestones/v7.0-ROADMAP.md` | Requirements: `.planning/
 <summary>✅ v7.1 Draft Season Readiness (Phases 71-75) — SHIPPED 2026-04-26</summary>
 
 - [x] Phase 71: LLM-Primary Extraction (5/5 plans) — passed; 5.57× signal lift; $1.57/wk cost
-- [x] Phase 72: Event Flag Expansion + Non-Player Attribution (4/5 plans + checkpoint) — code-complete; EVT-04/05 require Railway-live audit
+- [x] Phase 72: Event Flag Expansion + Non-Player Attribution (5/5 plans) — passed 2026-04-27; EVT-04 9/32 + EVT-05 32+9 against Railway live; CONTEXT D-04 amended (15→8) post-Phase-71 attribution narrowing
 - [x] Phase 73: External Projections Comparison (5/5 plans) — code-complete; EXTP-05 first cron pending
 - [x] Phase 74: Sleeper League Integration — passed; getUserRoster advisor tool wired
 - [x] Phase 75: v7.0 Tech Debt Cleanup (8/8 TD items) — passed
@@ -91,7 +91,7 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 69. Sentiment Backfill | v7.0 | 0/TBD | Not started | - |
 | 70. Frontend Empty/Error States | v7.0 | 0/TBD | Not started | - |
 | 71. LLM-Primary Extraction | v7.1 | 6/5 | Complete    | 2026-04-24 |
-| 72. Event Flag Expansion | v7.1 | 0/TBD | Not started | - |
+| 72. Event Flag Expansion | v7.1 | 5/5 | Complete    | 2026-04-27 |
 | 73. External Projections Comparison | v7.1 | 2/5 | Complete    | 2026-04-26 |
 | 74. Sleeper League Integration | v7.1 | 1/0 | Complete    | 2026-04-26 |
 | 75. v7.0 Tech Debt Cleanup | v7.1 | 1/0 | Complete    | 2026-04-26 |

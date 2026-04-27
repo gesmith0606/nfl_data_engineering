@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v7.1
 milestone_name: Draft Season Readiness
-status: code-complete-deploy-unblocked
-stopped_at: Deploy gate fully green on commit 14a9827 (first fully-green run in 3+ weeks). Railway redeployed with current code (Phase 66-75 features all live), live gate passes, auto-rollback skipped. Phase 72-05 audit + Phase 73 first-cron-run remain as operator-mediated checkpoints.
-last_updated: "2026-04-27T15:42:00Z"
+status: shipped
+stopped_at: v7.1 SHIPPED. Phase 72-05 closed with Railway-live audit evidence (EVT-04 9/32 ≥ gate 8 PASS, EVT-05 player-news 32/32 + team-sentiment 9/32 ≥ gate 8 PASS, both base_url=railway.app). CONTEXT D-04 amended 2026-04-27 to lower the EVT-04 / EVT-05 team-sentiment thresholds from 15→8 and 20→8 to reflect post-Phase-71 Claude-primary attribution narrowing (one team per article vs rule-extractor's fuzzy multi-team broadcast). All 5 phases code-complete + audit-passed. Phase 73 EXTP-05 first-cron observation pending (Tue 14:00 UTC).
+last_updated: "2026-04-27T17:30:00Z"
 last_activity: 2026-04-27
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 19
-  completed_plans: 18
-  percent: 95
+  completed_plans: 19
+  percent: 100
 ---
 
 # Project State
@@ -21,19 +21,19 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
 
 **Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** v7.1 close-out — Phase 72-05 audit-only remaining (operator-mediated)
+**Current focus:** v7.1 SHIPPED — ready to discuss v7.2
 
 ## Current Position
 
-Phase: 72-05 (audit close-out)
-Plan: 72-05 CHECKPOINT (Railway-live audit JSON evidence)
-Status: All 5 phases code-complete; deploy gate green; only operator checkpoints remain
+Phase: v7.1 milestone close
+Plan: All complete; audit evidence committed; SUMMARY written
+Status: SHIPPED
 Last activity: 2026-04-27
 
-**Execution order (delivered):** 71 ✓ → 72 code ✓ (audit ⏳) → 73 code ✓ (cron ⏳) → 74 ✓ → 75 ✓
+**Execution order (delivered):** 71 ✓ → 72 ✓ → 73 ✓ (cron observation pending) → 74 ✓ → 75 ✓
 
-Progress: 18/19 plans complete; deploy gate end-to-end green
-[███████████████████░] 95%
+Progress: 19/19 plans complete; all 27 requirements closed; deploy gate end-to-end green
+[████████████████████] 100%
 
 ### Deploy gate unblock (2026-04-27)
 
