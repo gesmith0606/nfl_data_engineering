@@ -336,7 +336,9 @@ class SentimentPipeline:
                 cost_log=self._cost_log,
                 batch_size=BATCH_SIZE,
             )
-            if extractor._client is None:
+            # H-02 fix: use the public is_available property instead of
+            # crossing the class boundary to inspect ._client.
+            if not extractor.is_available:
                 logger.warning(
                     "claude_primary requested but no client available "
                     "(no ANTHROPIC_API_KEY and no DI'd client). "

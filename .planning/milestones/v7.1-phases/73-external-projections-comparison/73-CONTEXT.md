@@ -16,6 +16,8 @@ Show ESPN + Sleeper + Yahoo (or FantasyPros consensus proxy) weekly projections 
 ### Data Sources
 
 - **Sleeper**: existing MCP — `mcp__sleeper__*` tools already wired. Use existing MCP-based fetch path; no new HTTP code.
+
+  **D-01 clarification (post-implementation, 2026-04-26):** D-01 ("no direct `requests` calls") applies ONLY to Sleeper public-API traffic. The `src/sleeper_http.py` chokepoint exists because Sleeper has rate limits + occasional 5xx + future MCP migration considerations specific to that one provider. ESPN and Yahoo (FantasyPros) ingesters use `requests` directly — they have no shared rate-limit ceiling, no centralized retry policy, and no future migration target. Only the Sleeper script is structurally tested for `import requests` absence.
 - **ESPN**: public fantasy projections API at `fantasy.espn.com/apis/v3/games/ffl/seasons/{year}/segments/0/leagues/0?view=mPlayer&view=kona_player_info` (no auth needed for league=0 public projections). Implement as new ingester `scripts/ingest_external_projections_espn.py`.
 - **Yahoo**: FantasyPros consensus rankings (free, no OAuth) used as proxy for Yahoo's projections. The FantasyPros consensus aggregates ESPN/Yahoo/CBS/RotoWire — provides a reasonable Yahoo signal until the real Yahoo OAuth is implemented (deferred to v8.0). New ingester `scripts/ingest_external_projections_yahoo.py` with module-level constant `_SOURCE_LABEL = "yahoo_proxy_fp"` so users can see provenance.
 

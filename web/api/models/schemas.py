@@ -4,7 +4,7 @@ Pydantic response models for the NFL Data Engineering API.
 All models use ``Optional`` syntax compatible with Python 3.9.
 """
 
-from typing import List, Literal, Optional
+from typing import Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -71,14 +71,14 @@ class ProjectionComparison(BaseModel):
     week: int
     scoring_format: str
     rows: List[ProjectionComparisonRow]
-    source_labels: dict = Field(
+    source_labels: Dict[str, str] = Field(
         default_factory=dict,
         description=(
             "Provenance map exposed to UI tooltips, e.g. "
             "{'yahoo': 'Yahoo via FantasyPros consensus'}"
         ),
     )
-    data_as_of: dict = Field(
+    data_as_of: Dict[str, str] = Field(
         default_factory=dict,
         description="Per-source ISO 8601 freshness timestamps for the data_as_of chip",
     )

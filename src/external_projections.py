@@ -40,6 +40,12 @@ _SILVER_COLUMNS: List[str] = [
 
 _EXTERNAL_SOURCES = ("espn", "sleeper", "yahoo_proxy_fp")
 
+# M-01 fix: anchor defaults to project root so callers don't depend on CWD.
+# CLI / tests can override via constructor params.
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+_DEFAULT_BRONZE_ROOT = _PROJECT_ROOT / "data" / "bronze" / "external_projections"
+_DEFAULT_GOLD_ROOT = _PROJECT_ROOT / "data" / "gold" / "projections"
+
 
 def _latest_parquet(directory: Path) -> Optional[Path]:
     """Return the most recently modified .parquet in directory or None."""
@@ -66,8 +72,8 @@ class SilverConsolidator:
     season: int
     week: int
     scoring_format: str = "half_ppr"
-    bronze_root: Path = Path("data/bronze/external_projections")
-    gold_root: Path = Path("data/gold/projections")
+    bronze_root: Path = _DEFAULT_BRONZE_ROOT
+    gold_root: Path = _DEFAULT_GOLD_ROOT
 
     def read_bronze_source(self, source: str) -> pd.DataFrame:
         """Read latest Bronze Parquet for one source/season/week.

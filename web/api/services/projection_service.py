@@ -14,10 +14,25 @@ from typing import Optional
 
 import pandas as pd
 
-from ..config import GOLD_PROJECTIONS_DIR
+from ..config import DATA_DIR, GOLD_PROJECTIONS_DIR
 from ..db import get_connection, is_db_enabled
 
 logger = logging.getLogger(__name__)
+
+
+def _comparison_delta(row) -> Optional[float]:
+    """delta_vs_ours = mean(external sources present) - ours.
+
+    Returns None when `ours` is missing or no external sources have data.
+    Module-level (M-04 fix): avoids redefining on every request.
+    """
+    ours = row.get("ours")
+    externals = [
+        row.get(s) for s in ("espn", "sleeper", "yahoo") if pd.notna(row.get(s))
+    ]
+    if pd.isna(ours) or not externals:
+        return None
+    return round(sum(externals) / len(externals) - float(ours), 2)
 
 
 @dataclass(frozen=True)
@@ -393,7 +408,9 @@ def get_comparison(
     Returns:
         Dict with keys: season, week, scoring_format, rows, source_labels, data_as_of.
     """
-    silver_root = Path("data/silver/external_projections")
+    # C-01 fix: anchor to NFL_DATA_DIR (env-overridable, __file__-resolved)
+    # instead of CWD. Railway uvicorn's CWD is not the repo root.
+    silver_root = DATA_DIR / "silver" / "external_projections"
     week_dir = silver_root / f"season={season}" / f"week={week:02d}"
 
     source_labels = {
@@ -478,15 +495,7 @@ def get_comparison(
         if src not in wide.columns:
             wide[src] = None
 
-    # delta_vs_ours = mean(externals) - ours
-    def _delta(row):
-        ours = row.get("ours")
-        externals = [row.get(s) for s in ("espn", "sleeper", "yahoo") if pd.notna(row.get(s))]
-        if pd.isna(ours) or not externals:
-            return None
-        return round(sum(externals) / len(externals) - float(ours), 2)
-
-    wide["delta_vs_ours"] = wide.apply(_delta, axis=1)
+    wide["delta_vs_ours"] = wide.apply(_comparison_delta, axis=1)
 
     if position:
         wide = wide[wide["position"] == position.upper()]

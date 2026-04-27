@@ -99,7 +99,19 @@ def sleeper_user_login(
     user_payload = fetch_sleeper_json(user_url)
     user = _to_user(user_payload)
     if user is None:
-        raise HTTPException(status_code=404, detail=f"Sleeper user '{username}' not found")
+        # H-03 limitation (acknowledged): Sleeper returns HTTP 200 with body
+        # `null` for missing users, so we cannot distinguish "user not found"
+        # from "fetch_sleeper_json fail-opened on network/HTTP error" without
+        # plumbing distinct return signals through the helper. The frontend
+        # surfaces 404 as "username not found, try again" which is the most
+        # common case; transient Sleeper outages will fix themselves on retry.
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                f"Could not verify Sleeper user '{username}'. The username "
+                "may not exist, or Sleeper may be temporarily unreachable."
+            ),
+        )
 
     use_season = season if season is not None else _current_year()
     leagues_url = SENTIMENT_CONFIG["sleeper_leagues_url"].format(

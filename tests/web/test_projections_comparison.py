@@ -72,13 +72,15 @@ def _make_silver_df():
 
 @pytest.fixture
 def silver_fixture(tmp_path, monkeypatch):
-    silver_root = tmp_path / "data" / "silver" / "external_projections"
+    silver_root = tmp_path / "silver" / "external_projections"
     week_dir = silver_root / "season=2025" / "week=01"
     week_dir.mkdir(parents=True)
     out = week_dir / "external_projections.parquet"
     _make_silver_df().to_parquet(out, index=False)
-    # Service uses Path("data/silver/external_projections") — relative; chdir
-    monkeypatch.chdir(tmp_path)
+    # C-01 fix: service now anchors to DATA_DIR (env-overridable). Patch
+    # the module-level DATA_DIR to point at our tmp tree.
+    from web.api.services import projection_service
+    monkeypatch.setattr(projection_service, "DATA_DIR", tmp_path)
     return tmp_path
 
 
@@ -116,7 +118,8 @@ def test_comparison_endpoint_yahoo_proxy_fp_renamed_to_yahoo(silver_fixture):
 
 def test_comparison_endpoint_returns_empty_when_no_silver(tmp_path, monkeypatch):
     """D-06 fail-open: missing Silver → empty rows, status 200."""
-    monkeypatch.chdir(tmp_path)
+    from web.api.services import projection_service
+    monkeypatch.setattr(projection_service, "DATA_DIR", tmp_path)
     resp = client.get(
         "/api/projections/comparison",
         params={"season": 2030, "week": 1, "scoring": "half_ppr"},
