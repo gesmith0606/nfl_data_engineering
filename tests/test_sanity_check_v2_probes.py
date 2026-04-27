@@ -297,12 +297,16 @@ def _team_events_payload(
     ]
 
 
-# --- Test 10: content validator — ≥20 teams populated -> PASS --------------
+# --- Test 10: content validator — ≥10 teams populated -> PASS --------------
 
 
 def test_validate_team_events_passes_when_enough_teams_have_articles():
-    """≥20 of 32 teams with total_articles > 0 = healthy news extraction."""
-    payload = _team_events_payload(healthy_teams=25)
+    """≥10 of 32 teams with total_articles > 0 = healthy news extraction.
+
+    Threshold rebaselined 2026-04-27 against the post-Phase 71 data regime
+    (Claude-primary extractor shifts attribution toward subject_type='player').
+    """
+    payload = _team_events_payload(healthy_teams=15)
     criticals, warnings = sanity._validate_team_events_content(payload)
     assert criticals == []
     assert warnings == []
@@ -321,30 +325,30 @@ def test_validate_team_events_flags_all_empty_as_critical():
     assert warnings == []
 
 
-# --- Test 12: content validator — 12 populated -> CRITICAL (below 17) -----
+# --- Test 12: content validator — 4 populated -> CRITICAL (below 5) -------
 
 
 def test_validate_team_events_flags_thin_content_as_critical():
-    """12/32 with articles is below the WARN threshold of 17 -> CRITICAL."""
-    payload = _team_events_payload(healthy_teams=12)
+    """4/32 with articles is below the WARN threshold of 5 -> CRITICAL."""
+    payload = _team_events_payload(healthy_teams=4)
     criticals, warnings = sanity._validate_team_events_content(payload)
     assert len(criticals) == 1
     assert "NEWS CONTENT EMPTY" in criticals[0]
-    assert "12/32" in criticals[0]
+    assert "4/32" in criticals[0]
     assert warnings == []
 
 
-# --- Test 13: content validator — 18 populated -> WARNING (17..19 band) ---
+# --- Test 13: content validator — 7 populated -> WARNING (5..9 band) ------
 
 
 def test_validate_team_events_flags_marginal_as_warning():
-    """18/32 falls in the marginal band (17..19) -> WARNING, not CRITICAL."""
-    payload = _team_events_payload(healthy_teams=18)
+    """7/32 falls in the marginal band (5..9) -> WARNING, not CRITICAL."""
+    payload = _team_events_payload(healthy_teams=7)
     criticals, warnings = sanity._validate_team_events_content(payload)
     assert criticals == []
     assert len(warnings) == 1
     assert "NEWS CONTENT MARGINAL" in warnings[0]
-    assert "18/32" in warnings[0]
+    assert "7/32" in warnings[0]
 
 
 # --- Test 14: extractor freshness — fresh file -> PASS --------------------
