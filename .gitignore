@@ -217,6 +217,11 @@ cython_debug/
 *.json
 !.mcp.json.example
 !.vscode/mcp.json
+# Re-allow web/frontend JSON config (TD-02). The allowlist on line ~23 is
+# overridden by the broader *.json rule above; this restores it after the
+# data-files block. Without this, package-lock.json is untracked and the
+# GHA `Setup Node.js` step fails to resolve cache-dependency-path.
+!web/frontend/**/*.json
 data/*
 !data/gold/
 data/gold/*
