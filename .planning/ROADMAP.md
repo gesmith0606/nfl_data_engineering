@@ -18,7 +18,7 @@
 - ✅ **v6.0 Website Production Ready + Agent Ecosystem** — Phases 60-65 (shipped 2026-04-20)
 - ✅ **v7.0 Production Stabilization** — Phases 66-70 (shipped 2026-04-24; 4 human_needed + 1 passed — see `.planning/milestones/v7.0-ROADMAP.md`)
 - ✅ **v7.1 Draft Season Readiness** — Phases 71-75 (shipped 2026-04-26; LLM-primary extraction, external projections comparison, Sleeper league integration, tech debt cleanup — see `.planning/milestones/v7.1-ROADMAP.md`)
-- 📋 **v7.2 Marketing & Content** — planned
+- 📋 **v7.2 Data + Site Polish** — Phases 76-84 (in flight; see `.planning/milestones/v7.2-ROADMAP.md`)
 
 ## Phases
 
@@ -62,12 +62,21 @@ Full details: `.planning/milestones/v7.1-ROADMAP.md` | Requirements: `.planning/
 
 </details>
 
-### 📋 v7.2 Marketing & Content (Planned)
+### 📋 v7.2 Data + Site Polish (In Flight)
 
-Preliminary scope — not yet broken into phases.
-- Remotion video generation from projection data (MKT-01)
-- YouTube/Instagram/TikTok automated distribution (MKT-02)
-- NotebookLM podcast generation pipeline (MKT-03)
+- [ ] Phase 76: AWS Refresh + S3 Sync (3 reqs)
+- [ ] Phase 77: Sentiment Source Expansion (3 reqs)
+- [ ] Phase 78: Heuristic Consolidation (3 reqs)
+- [ ] Phase 79: Audit Provenance + Live Version Probe (2 reqs)
+- [ ] Phase 80: Sanity Warning Triage (1 req)
+- [ ] Phase 81: Dashboard Feature Audit (2 reqs)
+- [ ] Phase 82: Sleeper OAuth + Multi-User (3 reqs)
+- [ ] Phase 83: Advisor Tool Expansion (3 reqs)
+- [ ] Phase 84: Deploy Hardening (4 reqs)
+
+Full details: `.planning/milestones/v7.2-ROADMAP.md` | Requirements: `.planning/milestones/v7.2-REQUIREMENTS.md`
+
+Marketing & Content (Remotion / NotebookLM / social distribution) deferred to a separate post-v7.2 milestone.
 
 ## Progress
 
@@ -95,3 +104,12 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 73. External Projections Comparison | v7.1 | 2/5 | Complete    | 2026-04-26 |
 | 74. Sleeper League Integration | v7.1 | 1/0 | Complete    | 2026-04-26 |
 | 75. v7.0 Tech Debt Cleanup | v7.1 | 1/0 | Complete    | 2026-04-26 |
+| 76. AWS Refresh + S3 Sync | v7.2 | 0/TBD | Not started | - |
+| 77. Sentiment Source Expansion | v7.2 | 0/TBD | Not started | - |
+| 78. Heuristic Consolidation | v7.2 | 0/TBD | Not started | - |
+| 79. Audit Provenance + Live Version Probe | v7.2 | 0/TBD | Not started | - |
+| 80. Sanity Warning Triage | v7.2 | 0/TBD | Not started | - |
+| 81. Dashboard Feature Audit | v7.2 | 0/TBD | Not started | - |
+| 82. Sleeper OAuth + Multi-User | v7.2 | 0/TBD | Not started | - |
+| 83. Advisor Tool Expansion | v7.2 | 0/TBD | Not started | - |
+| 84. Deploy Hardening | v7.2 | 0/TBD | Not started | - |
