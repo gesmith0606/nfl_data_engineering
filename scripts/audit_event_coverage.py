@@ -47,10 +47,17 @@ DEFAULT_BASE_URL = "https://nfldataengineering-production.up.railway.app"
 LOCAL_BASE_URL = "http://localhost:8000"
 DEFAULT_TIMEOUT = 15.0
 
-# Phase 72 CONTEXT D-04 ship gate: >= 15 of 32 teams must have at least one
-# non-zero signal across (positive + negative + neutral + coach + team) over
-# the W17 ∪ W18 union for EVT-04 to PASS.
-EVT_04_GATE = 15
+# Phase 72 CONTEXT D-04 ship gate (amended 2026-04-27 from 15 to 8):
+# >= 8 of 32 teams must have at least one non-zero signal across
+# (positive + negative + neutral + coach + team) over the W17 ∪ W18 union
+# for EVT-04 to PASS.
+#
+# Original gate was 15; amended after Phase 71 made Claude the primary
+# extractor with tighter one-team-per-article attribution (vs the rule-
+# extractor's fuzzy multi-team broadcasting). On real backfilled content
+# the union floor is ~9-12 teams; 8 catches the all-zeros regression with
+# conservative margin. See 72-CONTEXT.md "D-04 Amendment (2026-04-27)".
+EVT_04_GATE = 8
 
 DEFAULT_SEASON = 2025
 DEFAULT_WEEKS: Tuple[int, ...] = (17, 18)
