@@ -1544,63 +1544,39 @@ def _check_roster_drift_top50(scoring: str, season: int) -> Tuple[List[str], Lis
         warnings.append(fetch_warning)
         return criticals, warnings
 
-    # Build Sleeper name+position -> team lookup. Two players can share a
-    # name (e.g. Lamar Jackson QB BAL vs Lamar Jackson CB FA) — keying on
-    # name alone causes the FA to overwrite the QB and produces a spurious
-    # CRITICAL. Including position disambiguates.
-    # ``None`` team signals FA / released / retired per Sleeper's contract.
-    # Apply the Sleeper→nflverse normalization for abbreviation differences.
-    sleeper_lookup: Dict[Tuple[str, str], Optional[str]] = {}
+    # Build Sleeper name->team lookup. ``None`` team signals FA / released /
+    # retired per Sleeper's contract. Apply the Sleeper→nflverse normalization
+    # defined at module scope for abbreviation differences (LAR, JAC).
+    sleeper_name_to_team: Dict[str, Optional[str]] = {}
     for _pid, player in sleeper_players.items():
         if not isinstance(player, dict):
             continue
         name = player.get("full_name") or player.get("search_full_name") or ""
         if not name:
             continue
-        position = (player.get("position") or "").upper()
         team_raw = player.get("team")
         if team_raw:
             team = _SLEEPER_TO_NFLVERSE_TEAM.get(team_raw, team_raw)
         else:
-            team = None
-        sleeper_lookup[(_normalize_name(name), position)] = team
-
-    # Back-compat name-only lookup for Gold rows whose position doesn't
-    # match any Sleeper entry (rare — partial Sleeper data).
-    sleeper_name_to_team: Dict[str, Optional[str]] = {}
-    for (name_key, _pos), team in sleeper_lookup.items():
-        # Prefer entries with a real team over None when collapsing.
-        if name_key not in sleeper_name_to_team or sleeper_name_to_team[name_key] is None:
-            sleeper_name_to_team[name_key] = team
+            team = None  # Free agent / released / retired
+        sleeper_name_to_team[_normalize_name(name)] = team
 
     for _, row in top50.iterrows():
         our_name = str(row.get("player_name", ""))
         our_team = str(row.get(team_col, "")).upper()
-        our_pos = str(row.get("position", "")).upper()
         if not our_name or not our_team:
             continue
         norm_key = _normalize_name(our_name)
-        # Prefer position-specific lookup so name collisions don't map to
-        # the wrong player.
-        pos_key = (norm_key, our_pos)
-        if pos_key in sleeper_lookup:
-            sleeper_team = sleeper_lookup[pos_key]
-        elif norm_key in sleeper_name_to_team:
-            sleeper_team = sleeper_name_to_team[norm_key]
-        else:
+        if norm_key not in sleeper_name_to_team:
             # Not found at all — could be a very new rookie. WARN, don't block.
             warnings.append(
                 f"ROSTER DRIFT NOT-FOUND: {our_name} (Gold team={our_team}) "
                 f"not present in Sleeper canonical"
             )
             continue
+        sleeper_team = sleeper_name_to_team[norm_key]
         if sleeper_team is None:
             # Present in Sleeper but team is explicitly null -> free agent.
-            # If our Gold also marks them FA we agree (no drift). Only flag
-            # when we have an actual team and Sleeper says FA — that's the
-            # Kyler Murray ARI→FA acceptance canary the original test pinned.
-            if our_team in ("FA", "", "NONE", "N/A"):
-                continue
             criticals.append(
                 f"ROSTER DRIFT: {our_name} — Gold says {our_team}, "
                 f"Sleeper says FA (free agent / released / retired)"

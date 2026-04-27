@@ -2047,13 +2047,7 @@ def generate_preseason_projections(
         proj, scoring_format=scoring_format, output_col="_pts"
     )["_pts"]
 
-    # DQAL invariant: projected_season_points >= 0 for all skill positions.
-    # Negative values arise from backup QBs/WRs whose interception/fumble
-    # baseline outweighs zeroed-out positive stats. Clamp at the engine
-    # layer so the gold parquet is sanity-check-clean (TD-ROOKIE-1).
-    proj["projected_season_points"] = (
-        proj["projected_season_points"].clip(lower=0.0).round(1)
-    )
+    proj["projected_season_points"] = proj["projected_season_points"].round(1)
     proj["proj_season"] = target_season
 
     # ------------------------------------------------------------------

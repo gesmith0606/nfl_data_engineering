@@ -251,10 +251,6 @@ data/gold/*
 !data/bronze/players/rosters_live/
 !data/bronze/players/rosters_live/**
 !data/bronze/players/rosters_live/**/*.parquet
-# Phase 75.1: 2025 rookies for DQAL-03 (sanity check requires path exists).
-!data/bronze/players/rookies/
-!data/bronze/players/rookies/**
-!data/bronze/players/rookies/**/*.parquet
 !data/bronze/depth_charts/
 !data/bronze/depth_charts/**
 !data/bronze/depth_charts/**/*.parquet
