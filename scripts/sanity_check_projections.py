@@ -1394,7 +1394,10 @@ def _check_extractor_freshness() -> Tuple[List[str], List[str]]:
 
     criticals: List[str] = []
     warnings: List[str] = []
-    silver_glob = os.path.join(
+    # Phase 71+ extractor writes JSON envelopes (signals/ + signals_enriched/),
+    # not parquet. Glob both .json and .parquet to stay forward-compatible if
+    # the sink ever flips back to parquet.
+    base = os.path.join(
         PROJECT_ROOT,
         "data",
         "silver",
@@ -1402,16 +1405,17 @@ def _check_extractor_freshness() -> Tuple[List[str], List[str]]:
         "signals",
         "season=*",
         "week=*",
-        "*.parquet",
     )
-    parquet_files = globmod.glob(silver_glob)
+    parquet_files = globmod.glob(os.path.join(base, "*.json")) + globmod.glob(
+        os.path.join(base, "*.parquet")
+    )
     if not parquet_files:
         criticals.append(
-            "EXTRACTOR DATA MISSING: no Silver sentiment parquet found at "
+            "EXTRACTOR DATA MISSING: no Silver sentiment files found at "
             "data/silver/sentiment/signals/. Extractor has never run or "
             "output path changed."
         )
-        print("  [FAIL] Silver sentiment freshness  (no parquet files found)")
+        print("  [FAIL] Silver sentiment freshness  (no signal files found)")
         return criticals, warnings
     latest_mtime = max(os.path.getmtime(f) for f in parquet_files)
     age_hours = (_time.time() - latest_mtime) / 3600.0

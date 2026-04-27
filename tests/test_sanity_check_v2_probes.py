@@ -421,3 +421,29 @@ def test_extractor_freshness_critical_when_no_files(tmp_path, monkeypatch):
     assert len(criticals) == 1
     assert "EXTRACTOR DATA MISSING" in criticals[0]
     assert warnings == []
+
+
+# --- Test 18: extractor freshness — JSON sink (Phase 71+) -> PASS ---------
+
+
+def test_extractor_freshness_recognizes_json_files(tmp_path, monkeypatch):
+    """Phase 71+ writes JSON envelopes (not parquet); freshness must still PASS."""
+    json_file = (
+        tmp_path
+        / "data"
+        / "silver"
+        / "sentiment"
+        / "signals"
+        / "season=2025"
+        / "week=18"
+        / "signals_abc.json"
+    )
+    json_file.parent.mkdir(parents=True, exist_ok=True)
+    json_file.write_bytes(b"{}")
+    target_mtime = time.time() - (2.0 * 3600.0)
+    os.utime(json_file, (target_mtime, target_mtime))
+    monkeypatch.setattr(sanity, "PROJECT_ROOT", str(tmp_path))
+
+    criticals, warnings = sanity._check_extractor_freshness()
+    assert criticals == []
+    assert warnings == []
