@@ -328,7 +328,8 @@ class SentimentPipeline:
             return ClaudeExtractor(client=self._claude_client)
         elif mode == _EXTRACTOR_NAME_CLAUDE_PRIMARY:
             roster_provider = self._roster_provider_factory(
-                season=datetime.now().year
+                # L-02 fix: use UTC for consistency with cost log timestamps.
+                season=datetime.now(timezone.utc).year
             )
             extractor = ClaudeExtractor(
                 client=self._claude_client,
