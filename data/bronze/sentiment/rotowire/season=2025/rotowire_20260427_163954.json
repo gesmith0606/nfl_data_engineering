@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "f660ca4f-35d7-436f-b21d-f8e78e1e5de9",
+  "source": "rotowire",
+  "fetched_at": "2026-04-27T16:39:54.150851+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630565",
+      "url": "https://www.rotowire.com//football/player/javonte-williams-15306",
+      "permalink": "",
+      "title": "Javonte Williams: Backfield untouched by NFL Draft",
+      "body_text": "The Cowboys did not add to the running back position in the 2026 NFL Draft, leaving Williams (shoulder) positioned to reprise a bell cow role, Jon Machota of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-27T08:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Javonte Williams",
+        "Draft The",
+        "Jon Machota",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0036997"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl630508",
+      "url": "https://www.rotowire.com//football/player/deion-burks-19315",
+      "permalink": "",
+      "title": "Deion Burks: Picked by Colts",
+      "body_text": "The Colts selected Burks in the seventh round of the 2026 NFL Draft, 254th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-25T04:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Burks",
+        "Colts The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "nfl630503",
+      "url": "https://www.rotowire.com//football/player/garrett-nussmeier-19283",
+      "permalink": "",
+      "title": "Garrett Nussmeier: Slide ends in Kansas City",
+      "body_text": "The Chiefs selected Nussmeier in the seventh round of the 2026 NFL Draft, 249th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-25T03:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Garrett Nussmeier",
+        "Kansas City",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl630500",
+      "url": "https://www.rotowire.com//football/player/jam-miller-19302",
+      "permalink": "",
+      "title": "Jam Miller: Headed to New England",
+      "body_text": "The Patriots selected Miller in the seventh round of the 2026 NFL Draft, 245th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-25T03:44:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jam Miller",
+        "New England",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl630492",
+      "url": "https://www.rotowire.com//football/player/seth-mcgowan-19303",
+      "permalink": "",
+      "title": "Seth McGowan: Taken by Indianapolis",
+      "body_text": "The Colts selected McGowan in the seventh round of the 2026 NFL Draft, 237th overall. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-25T03:26:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Indianapolis The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    }
+  ]
+}
