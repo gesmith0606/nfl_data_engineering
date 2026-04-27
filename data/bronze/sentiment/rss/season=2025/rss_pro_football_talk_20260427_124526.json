@@ -1,0 +1,468 @@
+{
+  "fetch_run_id": "d3c037f3-dbce-4480-b1fa-a2b61c9e29f8",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-04-27T12:45:26.383171+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rueben-bain-my-motivation-is-myself-not-what-draft-pick-i-was",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rueben-bain-my-motivation-is-myself-not-what-draft-pick-i-was",
+      "title": "Rueben Bain: My motivation is myself, not what draft pick I was",
+      "body_text": "It wasn't hard to find mock drafts predicting edge rusher Rueben Bain would be off the board in the first 10 picks, but it wound up being a little later in the first round before his name was called.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T12:40:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rueben Bain"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-s-patrick-mcmorris",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-s-patrick-mcmorris",
+      "title": "49ers sign S Patrick McMorris",
+      "body_text": "The 49ers did not draft a safety this year, but they are adding one with some NFL experience to the roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T12:12:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-saints-havent-brought-in-anyone-who-produced-like-i-did",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-saints-havent-brought-in-anyone-who-produced-like-i-did",
+      "title": "Cam Jordan: Saints haven't brought in anyone who produced like I did",
+      "body_text": "Saints General Manager Mickey Loomis said last week that the results of the draft could factor into whether defensive end Cam Jordan returned to the team in 2026, but a couple of moves involving veterans might have more of an impact.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T11:15:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Jordan",
+        "Saints General",
+        "Manager Mickey"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-well-see-if-we-can-get-fifth-round-qb-cole-payton-on-the-field-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-well-see-if-we-can-get-fifth-round-qb-cole-payton-on-the-field-this-year",
+      "title": "Nick Sirianni: We'll see if we can get fifth-round QB Cole Payton on the field this year",
+      "body_text": "The Eagles surprised a lot of people when they took quarterback Cole Payton in the fifth round of the draft.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-27T10:07:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Cole Payton",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-is-the-betting-favorite-to-be-the-first-overall-pick-in-the-2027-nfl-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-is-the-betting-favorite-to-be-the-first-overall-pick-in-the-2027-nfl-draft",
+      "title": "Arch Manning is the betting favorite to be the first overall pick in the 2027 NFL draft",
+      "body_text": "The Texas quarterback could be the third Manning to be drafted first overall.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-27T07:58:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arch Manning",
+        "The Texas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nbc-announces-mike-tomlin-is-joining-football-night-in-america",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nbc-announces-mike-tomlin-is-joining-football-night-in-america",
+      "title": "NBC announces Mike Tomlin is joining Football Night in America",
+      "body_text": "Weekly pregame show will go on the road every Sunday.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T23:04:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Tomlin",
+        "Football Night",
+        "America Weekly"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-believes-aaron-rodgers-will-play-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-believes-aaron-rodgers-will-play-in-2026",
+      "title": "Mike Tomlin believes Aaron Rodgers will play in 2026",
+      "body_text": "Rodgers \"has an addiction\" to the process.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T23:17:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Tomlin",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-dispute-report-that-steelers-were-angered-by-trade-down-with-eagles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-dispute-report-that-steelers-were-angered-by-trade-down-with-eagles",
+      "title": "Cowboys dispute report that Steelers were angered by trade down with Eagles",
+      "body_text": "The Cowboys rained on Pittsburgh's draft parade on Thursday night, by trading out of the No. 20 spot and allowing the Eagles to draft receiver Makai Lemon at a time when the Steelers had Lemon on the phone.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T23:50:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eagles The",
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/veteran-ot-donovan-smith-calls-it-a-career",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/veteran-ot-donovan-smith-calls-it-a-career",
+      "title": "Veteran OT Donovan Smith calls it a career",
+      "body_text": "Veteran offensive tackle Donovan Smith announced his retirement on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-26T23:04:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Donovan Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0032217"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dl-dean-lowry-will-re-sign-with-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dl-dean-lowry-will-re-sign-with-steelers",
+      "title": "DL Dean Lowry will re-sign with Steelers",
+      "body_text": "The Steelers are re-signing veteran defensive end Dean Lowry, Ian Rapoport of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-26T22:50:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dean Lowry",
+        "Steelers The",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0032412"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-time-super-bowl-champ-monte-coleman-dies-at-68",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-time-super-bowl-champ-monte-coleman-dies-at-68",
+      "title": "Three-time Super Bowl champ Monte Coleman dies at 68",
+      "body_text": "The Washington Commanders announced the death of three-time Super Bowl champ Monte Coleman at 68 on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T22:30:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl",
+        "Monte Coleman",
+        "The Washington"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-agree-to-terms-with-eight-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-agree-to-terms-with-eight-undrafted-free-agents",
+      "title": "49ers agree to terms with eight undrafted free agents",
+      "body_text": "The 49ers have announced a group of eight undrafted rookie additions to their roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T22:11:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-agree-to-terms-with-10-undrafted-rookies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-agree-to-terms-with-10-undrafted-rookies",
+      "title": "Saints agree to terms with 10 undrafted rookies",
+      "body_text": "The Saints announced on Sunday that they have agreed to terms with 10 undrafted free agents.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T21:54:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Saints"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-joey-aguilar-among-18-undrafted-free-agents-to-agree-to-terms-with-jaguars",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-joey-aguilar-among-18-undrafted-free-agents-to-agree-to-terms-with-jaguars",
+      "title": "QB Joey Aguilar among 18 undrafted free agents to agree to terms with Jaguars",
+      "body_text": "Former Tennessee quarterback Joey Aguilar is headed to Jacksonville.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T21:47:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Aguilar",
+        "Jaguars Former"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-diego-pavia-accepts-invitation-to-ravens-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-diego-pavia-accepts-invitation-to-ravens-rookie-minicamp",
+      "title": "Report: Diego Pavia accepts invitation to Ravens rookie minicamp",
+      "body_text": "Diego Pavia is getting a chance to make a positive impression.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-26T21:45:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Diego Pavia"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-continues-to-claim-18-game-season-isnt-inevitable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-continues-to-claim-18-game-season-isnt-inevitable",
+      "title": "Roger Goodell continues to claim 18-game season isn't \"inevitable\"",
+      "body_text": "Goodell frames it as \"if,\" but it's clear that the real question is \"when.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T21:00:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-and-colorado-had-no-draft-picks-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-and-colorado-had-no-draft-picks-in-2026",
+      "title": "Deion Sanders and Colorado had no draft picks in 2026",
+      "body_text": "In 2025, Hall of Famer Deion Sanders finished his third season as the head coach at Colorado.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T20:40:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Famer Deion"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jermaine-burton-to-participate-in-bills-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jermaine-burton-to-participate-in-bills-rookie-minicamp",
+      "title": "Jermaine Burton to participate in Bills rookie minicamp",
+      "body_text": "Jermaine Burton is going to get another shot.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-26T19:31:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jermaine Burton"
+      ],
+      "resolved_player_ids": [
+        "00-0039810"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-owner-steve-bisciotti-made-call-to-draft-rb-adam-randall-in-the-fifth-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-owner-steve-bisciotti-made-call-to-draft-rb-adam-randall-in-the-fifth-round",
+      "title": "Ravens owner Steve Bisciotti made call to draft RB Adam Randall in the fifth round",
+      "body_text": "Ownership has its privileges.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T18:19:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Bisciotti",
+        "Adam Randall"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-to-sign-lb-anfernee-jennings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-to-sign-lb-anfernee-jennings",
+      "title": "Saints to sign LB Anfernee Jennings",
+      "body_text": "The Saints are adding another veteran to their defense.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T18:05:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anfernee Jennings",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0036193"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-gm-andrew-berry-calls-jerry-jeudy-our-bell-cow-after-drafting-two-wideouts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-gm-andrew-berry-calls-jerry-jeudy-our-bell-cow-after-drafting-two-wideouts",
+      "title": "Browns GM Andrew Berry calls Jerry Jeudy \"our bell cow\" after drafting two wideouts",
+      "body_text": "The Browns selected wide receivers with two of their first three draft picks, but General Manager Andrew Berry said that isn't going to change Jerry Jeudy's role in the offense.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T17:57:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andrew Berry",
+        "Jerry Jeudy",
+        "The Browns",
+        "General Manager"
+      ],
+      "resolved_player_ids": [
+        "00-0036407"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-avoids-hypotheticals-about-qb-depth-chart-if-aaron-rodgers-returns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-avoids-hypotheticals-about-qb-depth-chart-if-aaron-rodgers-returns",
+      "title": "Mike McCarthy avoids \"hypotheticals\" about QB depth chart if Aaron Rodgers returns",
+      "body_text": "If Rodgers comes back, the Steelers will have a crowded quarterback room.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T17:11:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "If Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-the-nfl-wont-nudge-steve-tisch-aside-giants-ownership-must-do-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-the-nfl-wont-nudge-steve-tisch-aside-giants-ownership-must-do-it",
+      "title": "If the NFL won't nudge Steve Tisch aside, Giants ownership must do it",
+      "body_text": "The NFL has no appetite to take any action as it relates to Steve Tisch.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T16:43:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Tisch"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-announce-agreements-with-18-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-announce-agreements-with-18-undrafted-free-agents",
+      "title": "Chargers announce agreements with 18 undrafted free agents",
+      "body_text": "The Chargers have added 18 undrafted rookie free agents to their roster, including one who will be reunited with defensive coordinator Chris O'Leary.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T15:48:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/taylen-green-vows-to-give-all-he-has-to-the-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/taylen-green-vows-to-give-all-he-has-to-the-browns",
+      "title": "Taylen Green vows to give all he has to the Browns",
+      "body_text": "The Browns have added another quarterback to the roster, and their new sixth-round pick immediately brings intrigue.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T15:38:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylen Green",
+        "Browns The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pittsburgh-sets-draft-record-with-805-000",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pittsburgh-sets-draft-record-with-805-000",
+      "title": "Pittsburgh sets draft record with 805,000",
+      "body_text": "Next year's event in D.C. could shatter that number.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T14:33:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-take-a-flier-on-dt-uar-bernard-who-has-never-played-organized-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-take-a-flier-on-dt-uar-bernard-who-has-never-played-organized-football",
+      "title": "Eagles take a flier on DT Uar Bernard, who has never played organized football",
+      "body_text": "The Eagles are hoping history will repeat itself.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T13:51:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Uar Bernard",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-im-not-too-worried-about-malik-nabers-commenting-on-giants-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-im-not-too-worried-about-malik-nabers-commenting-on-giants-draft",
+      "title": "John Harbaugh: I'm not \"too worried\" about Malik Nabers commenting on Giants draft",
+      "body_text": "Giants wide receiver Malik Nabers offered some real-time reactions to the team's first-round picks on Thursday night and they led to a conversation with head coach John Harbaugh.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T13:36:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-al-davis-taught-me-not-to-trade-in-division-but-i-answered-the-eagles-call",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-al-davis-taught-me-not-to-trade-in-division-but-i-answered-the-eagles-call",
+      "title": "Jerry Jones: Al Davis taught me not to trade in-division, but I answered the Eagles' call",
+      "body_text": "When the Cowboys were on the clock before the 20th pick in the 2026 NFL draft, the Eagles called with a trade proposal.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-26T13:31:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones",
+        "Al Davis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-garrett-nussmeier-going-to-chiefs-a-great-opportunity-to-learn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-garrett-nussmeier-going-to-chiefs-a-great-opportunity-to-learn",
+      "title": "QB Garrett Nussmeier: Going to Chiefs a great opportunity to learn",
+      "body_text": "Quarterback Garrett Nussmeier waited longer than he would have liked to be drafted this weekend, but he's happy about where he landed.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-26T13:17:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Garrett Nussmeier",
+        "Quarterback Garrett"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    }
+  ]
+}

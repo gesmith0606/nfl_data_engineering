@@ -1,0 +1,353 @@
+{
+  "fetch_run_id": "d3c037f3-dbce-4480-b1fa-a2b61c9e29f8",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-04-27T12:45:23.766673+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 23,
+  "items": [
+    {
+      "external_id": "US-EN-nfldraftpostdraftquestions48602828",
+      "url": "https://www.espn.com/nfl/story/_/page/nfldraftpostdraftquestions48602828/nfl-draft-2026-biggest-postdraft-questions-32-teams-offseason-signings",
+      "title": "Postdraft questions for all 32 NFL teams: What could A.J. Brown cost Pats? Did Raiders help Mendoza? Why Ty Simpson?",
+      "body_text": "The 2026 NFL draft is over, but can the rookies make an impact? We answer lingering questions for all 32 teams.",
+      "author": "NFL Nation reporters",
+      "published_at": "2026-04-27T12:10:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Did Raiders",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-48583341",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48583341/2026-nfl-draft-best-picks-trades-qb-fits-predictions",
+      "title": "The best, worst and most confusing of the 2026 draft: Our experts answer 29 questions",
+      "body_text": "What were the best selections in each round? Which teams filled their needs?",
+      "author": "Matt Miller and Jordan Reid",
+      "published_at": "2026-04-27T12:10:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48604669",
+      "url": "https://www.espn.com/nfl/story/_/id/48604669/mike-tomlin-talks-steelers-exit-new-analyst-role-nbc",
+      "title": "Tomlin: Exit partly rooted in recent playoff woes",
+      "body_text": "Mike Tomlin told NBC's Maria Taylor that he walked away, in part, because of the recent lack of playoff success and a belief that some of his veterans were \"worthy of the excitement and the optimism associated with new leadership.\"",
+      "author": "Brooke Pryor",
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Tomlin",
+        "Maria Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48603869",
+      "url": "https://www.espn.com/nfl/story/_/id/48603869/qb-pavia-accepts-invite-baltimore-ravens-minicamp",
+      "title": "Source: Pavia accepts invite to Ravens minicamp",
+      "body_text": "Undrafted Vanderbilt quarterback Diego Pavia, one of the most polarizing figures in college football, accepted an invitation to attend next weekend's rookie minicamp with the Baltimore Ravens, a source told ESPN's Adam Schefter on Sunday afternoon.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Undrafted Vanderbilt",
+        "Diego Pavia",
+        "Baltimore Ravens",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-48605083",
+      "url": "https://www.espn.com/nfl/story/_/id/48605083/monte-coleman-ex-washington-lb-uapb-coach-dies-68",
+      "title": "LB Coleman, one of Washington's 'greatest,' dies",
+      "body_text": "Monte Coleman, the hard-nosed linebacker who won three Super Bowls with Washington and later coached Arkansas-Pine Bluff to a conference championship, has died. He was 68.",
+      "author": null,
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Monte Coleman",
+        "Super Bowls",
+        "Pine Bluff"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48591134",
+      "url": "https://www.espn.com/nfl/story/_/id/48591134/jermod-mccoy-falls-raiders-round-4-nfl-draft",
+      "title": "McCoy falls to Raiders at No. 101, says knee fine",
+      "body_text": "Jermod McCoy says his knee feels good, adding it's up to the Raiders on whether he undergoes another surgery after missing all of 2025 with a torn ACL.",
+      "author": "Ryan McFadden",
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-48594456",
+      "url": "https://www.espn.com/nfl/story/_/id/48594456/chiefs-take-qb-garrett-nussmeier-seventh-round-nfl-draft",
+      "title": "After wait, Nussmeier sees Chiefs as 'great' spot",
+      "body_text": "The Kansas City Chiefs used their final pick in the NFL draft to select former LSU quarterback Garrett Nussmeier in the seventh round Saturday.",
+      "author": "Nate Taylor",
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Kansas",
+        "City Chiefs",
+        "Garrett Nussmeier"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48593107",
+      "url": "https://www.espn.com/nfl/story/_/id/48593107/browns-select-qb-taylen-green-round-6-nfl-draft",
+      "title": "Browns draft Green, will proceed with 4-QB room",
+      "body_text": "The Browns stayed busy on the quarterback front, selecting Arkansas' Taylen Green in the sixth round (No. 182) Saturday.",
+      "author": "Daniel Oyefusi",
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Browns",
+        "Taylen Green"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-48594890",
+      "url": "https://www.espn.com/nfl/story/_/id/48594890/giants-harbaugh-no-problem-nabers-nfl-draft-comments",
+      "title": "Harbaugh: Met with Nabers, cool with his honesty",
+      "body_text": "Giants coach John Harbaugh met and had a \"great conversation\" with Malik Nabers the morning after the standout wide receiver made headlines with his comments during the first round of the NFL draft.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "John Harbaugh",
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48595808",
+      "url": "https://www.espn.com/nfl/story/_/id/48595808/red-murdock-mr-irrelevant-lb-goes-last-nfl-draft",
+      "title": "Broncos make Buffalo LB Murdock 'Mr. Irrelevant'",
+      "body_text": "The Broncos made Buffalo linebacker Red Murdock \"Mr. Irrelevant\" as the last pick of this year's NFL draft.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Broncos",
+        "Red Murdock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-48604845",
+      "url": "https://www.espn.com/nfl/story/_/id/48604845/russell-wilson-savannah-bananas-yankee-stadium",
+      "title": "🍌 Russell Wilson joins Savannah Bananas outing",
+      "body_text": "The Super Bowl XLVIII-winning quarterback also took a swing for the Savannah Bananas and almost recorded a hit.",
+      "author": "Kalan Hooks",
+      "published_at": "2026-04-27T13:29:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Russell Wilson",
+        "Savannah Bananas",
+        "The Super"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48547351",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48547351/2026-nfl-draft-grades-32-teams-kiper-winners-losers-steals-sleepers-favorite-picks-classes",
+      "title": "Kiper's grades for all 32 NFL draft classes: Why the Cowboys and Jets aced their picks",
+      "body_text": "Mel Kiper Jr. evaluates the entire 2026 NFL draft, from the good (Cowboys, Jets) to the very questionable (Rams). See all 32 teams' grades.",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-27T05:50:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48542105",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48542105/2026-nfl-draft-judging-overreactions-takeaways-lessons-picks-teams",
+      "title": "The NFL draft is over ... let's overreact: Will the Cardinals and Rams regret their picks?",
+      "body_text": "It's time to weigh in on the biggest overreactions of NFL draft weekend.",
+      "author": "Dan Graziano",
+      "published_at": "2026-04-27T05:50:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48547336",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48547336/2026-nfl-draft-kiper-rounds-2-3-winners-losers-value-picks-updates-best-available",
+      "title": "Which teams won -- and lost -- on Day 2 of the NFL draft? Kiper on the best values, biggest reaches",
+      "body_text": "We're through 100 picks of the NFL draft. Mel Kiper Jr. sorts through the steals and reaches of Day 2, including some big value selections.",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-25T17:30:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48547294",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48547294/2026-nfl-draft-kiper-round-1-winners-losers-value-picks-updates-best-available",
+      "title": "Kiper's winners, losers from wild Round 1",
+      "body_text": "Mel Kiper Jr. makes sense of the first round of the NFL draft, sizing up moves like the Makai Lemon and Ty Simpson picks.",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-25T17:30:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr",
+        "Makai Lemon",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48592782",
+      "url": "https://www.espn.com/nfl/story/_/id/48592782/new-england-patriots-aj-brown-trade-compensation-eagles-2026-nfl-draft-recap",
+      "title": "What could the Patriots trade the Eagles for A.J. Brown?",
+      "body_text": "Discussing trade scenarios with Dave Caldwell and recapping the Pats' 2026 NFL draft in this week's notebook.",
+      "author": "Mike Reiss",
+      "published_at": "2026-04-27T12:11:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Dave Caldwell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48590115",
+      "url": "https://www.espn.com/nfl/story/_/id/48590115/nfl-dallas-cowboys-2026-draft-caleb-downs-darren-woodson",
+      "title": "Cowboys' great Darren Woodson on Caleb Downs: 'Yes sirrr!'",
+      "body_text": "Dallas hopes Downs, the No. 11 draft pick, will use his versatility and leadership to quarterback the defense.",
+      "author": "Todd Archer",
+      "published_at": "2026-04-27T12:16:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Darren Woodson",
+        "Caleb Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0018228"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48580958",
+      "url": "https://www.espn.com/nfl/story/_/id/48580958/los-angeles-rams-decision-2026-nfl-draft-qb-ty-simpson-matthew-stafford",
+      "title": "How Rams quietly zeroed in on Ty Simpson in the draft -- and kept it a secret",
+      "body_text": "While the Rams always try to mute their plans, they found that process magnified when it came to the QB position.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-04-27T12:13:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "How Rams",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48562191",
+      "url": "https://www.espn.com/nfl/story/_/id/48562191/las-vegas-raiders-2026-nfl-draft-help-quarterback-fernando-mendoza-rookie-year",
+      "title": "What can the Raiders do to set No. 1 pick Fernando Mendoza up for success in Year 1?",
+      "body_text": "From the coaching staff to the roster, here's how the Raiders can develop Fernando Mendoza.",
+      "author": "Ryan McFadden",
+      "published_at": "2026-04-27T12:13:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-48600197",
+      "url": "https://www.espn.com/nfl/story/_/id/48600197/nfl-draft-pittsburgh-pirates-steelers-penguins",
+      "title": "The week when Pittsburgh was the center of the sports world",
+      "body_text": "From the Pirates to the Penguins to the NFL draft, last week was a special one for the city of Pittsburgh.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-04-27T00:22:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48573834",
+      "url": "https://www.espn.com/nfl/story/_/id/48573834/2026-nfl-draft-superlatives",
+      "title": "2026 NFL draft superlatives: Oscar Delp's dog leads the vibes, Drew Allar flips sides",
+      "body_text": "Here are some of the more subjective superlatives from the 2026 NFL draft.",
+      "author": "Brianna Williams",
+      "published_at": "2026-04-27T00:22:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Oscar Delp",
+        "Drew Allar"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48505513",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48505513/2026-nfl-draft-fantasy-football-projections-rookies",
+      "title": "2026 NFL draft: Fantasy football outlooks for Love, Allar and more",
+      "body_text": "Liz Loza, Matt Bowen and Mike Clay break down the fantasy potential of early-round rookies from the NFL draft and provide initial 2026 projections.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-04-24T02:05:36+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Liz Loza",
+        "Matt Bowen",
+        "Mike Clay"
+      ],
+      "resolved_player_ids": [
+        "00-0019574"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
