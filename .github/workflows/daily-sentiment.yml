@@ -169,8 +169,26 @@ jobs:
             git commit -m "data(daily): sentiment + roster refresh — ${COUNT} files
 
           Automated daily pipeline: RSS feeds, Sleeper trending, roster updates."
-            git push
-            echo "Pushed $COUNT new data files"
+            # Push race guard: if main moved during this run (e.g. an unrelated
+            # human push raced us), rebase the data commit on top before pushing.
+            # Retries up to 3 times before giving up. Prevents the silent
+            # "rejected (fetch first)" failure that bit 2026-04-27 W17/W18 backfill.
+            for attempt in 1 2 3; do
+              if git push 2>&1; then
+                echo "Pushed $COUNT new data files (attempt $attempt)"
+                break
+              fi
+              echo "Push attempt $attempt rejected; rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main || {
+                echo "::error::Rebase conflict on data commit — manual intervention required"
+                exit 1
+              }
+              if [ "$attempt" = "3" ]; then
+                echo "::error::Push rejected 3 times after rebase — bailing"
+                exit 1
+              fi
+            done
           fi
 
       # ----------------------------------------------------------------
