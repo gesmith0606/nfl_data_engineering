@@ -103,7 +103,11 @@ def _coerce_int(value: Any) -> int:
         return 0
 
 
-def _row_from_payload(item: Dict[str, Any]) -> TeamRow:
+def _row_from_payload(item: Any) -> TeamRow:
+    # Defensive: a malformed payload could contain non-dict items (e.g.,
+    # [null, ...] from a partial backend failure). Treat as zero-signal row.
+    if not isinstance(item, dict):
+        return TeamRow(team="", positive=0, negative=0, neutral=0, coach=0, team_count=0)
     return TeamRow(
         team=str(item.get("team", "")),
         positive=_coerce_int(item.get("positive_event_count")),
@@ -116,9 +120,17 @@ def _row_from_payload(item: Dict[str, Any]) -> TeamRow:
 
 def _fetch_week(client: httpx.Client, base_url: str, season: int, week: int) -> List[TeamRow]:
     url = f"{base_url.rstrip('/')}/api/news/team-events"
-    resp = client.get(url, params={"season": season, "week": week})
-    resp.raise_for_status()
-    payload = resp.json()
+    try:
+        resp = client.get(url, params={"season": season, "week": week})
+        resp.raise_for_status()
+        payload = resp.json()
+    except ValueError as exc:
+        # ValueError covers json.JSONDecodeError when the backend returns
+        # a 200 with non-JSON body (e.g., nginx error page during cold start).
+        raise RuntimeError(
+            f"/api/news/team-events returned non-JSON body "
+            f"(season={season}, week={week}, error={exc})"
+        ) from exc
     if not isinstance(payload, list):
         raise RuntimeError(
             f"/api/news/team-events did not return a list "

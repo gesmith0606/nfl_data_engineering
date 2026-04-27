@@ -88,15 +88,30 @@ jobs:
     runs-on: ubuntu-latest
     needs: quality-gate
     steps:
-      - name: Capture pre-sleep Vercel deploy id
+      - name: Capture pre-sleep Vercel build fingerprint
         id: pre
         run: |
-          # Vercel exposes a per-deployment id via x-vercel-id (format: "iad1::iad1::abc-...").
-          # We capture the deploy fingerprint BEFORE the wait so we can confirm Vercel
-          # actually rolled to a new build during the wait window. This guards against
-          # the same silent-webhook-freeze failure mode that froze Railway for 3 weeks.
-          BEFORE=$(curl -sI https://frontend-jet-seven-33.vercel.app/ | grep -i '^x-vercel-id:' | tr -d '\r' | awk '{print $2}')
-          echo "Pre-sleep x-vercel-id: $BEFORE"
+          # Build identity signal: Next.js content-hashed chunk URLs in the
+          # homepage HTML. Each build produces fresh hashes (e.g.
+          # /_next/static/chunks/0la8jvjrth2kw.js), so an unchanged hash after
+          # 120s = same build = webhook-freeze (the failure mode that froze
+          # Railway for 3 weeks).
+          #
+          # Why not x-vercel-id? It's a per-request routing identifier
+          # (region::dc::request-id) that rotates on every fetch — not a deploy
+          # signal. Why not /_next/static/BUILD_ID? That endpoint is not exposed
+          # on this project (returns 404 — confirmed 2026-04-27).
+          #
+          # Hard gate: 200/307 status. Soft gate: chunk hash drift (warn-only
+          # because warm-cache builds with no content change can legitimately
+          # serve the same hash even on a successful redeploy).
+          HTML=$(curl -s https://frontend-jet-seven-33.vercel.app/ || true)
+          BEFORE=$(echo "$HTML" | grep -oE '_next/static/chunks/[a-zA-Z0-9_-]+\.js' | head -1)
+          if [ -z "$BEFORE" ]; then
+            echo "::warning::Could not extract Next.js chunk fingerprint from homepage HTML — fingerprint check skipped"
+            BEFORE="__skipped__"
+          fi
+          echo "Pre-sleep build fingerprint: $BEFORE"
           echo "before=$BEFORE" >> $GITHUB_OUTPUT
 
       - name: Wait for Vercel webhook to redeploy
@@ -109,25 +124,25 @@ jobs:
 
       - name: Verify Vercel served a new deploy
         run: |
-          # The x-vercel-id changes per-edge-cache-fill, so it MAY drift even without
-          # a new deploy. We treat an unchanged id as a WARNING (not a hard fail)
-          # because a healthy deploy can produce the same id if cache stays warm.
-          # The hard check is: response is 200 AND served by Vercel. The id-change
-          # is a secondary signal logged for forensic value.
+          # Hard gate: 200/307 status (catches a totally-down Vercel).
+          # Soft gate: Next.js chunk-hash drift (warns on unchanged after 120s).
           BEFORE="${{ steps.pre.outputs.before }}"
-          AFTER=$(curl -sI https://frontend-jet-seven-33.vercel.app/ | grep -i '^x-vercel-id:' | tr -d '\r' | awk '{print $2}')
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://frontend-jet-seven-33.vercel.app/)
-          echo "Pre-sleep x-vercel-id:  $BEFORE"
-          echo "Post-sleep x-vercel-id: $AFTER"
-          echo "Frontend root status:   $STATUS"
+          HTML=$(curl -s https://frontend-jet-seven-33.vercel.app/ || true)
+          AFTER=$(echo "$HTML" | grep -oE '_next/static/chunks/[a-zA-Z0-9_-]+\.js' | head -1)
+          echo "Pre-sleep build fingerprint:  $BEFORE"
+          echo "Post-sleep build fingerprint: $AFTER"
+          echo "Frontend root status:         $STATUS"
           if [ "$STATUS" != "200" ] && [ "$STATUS" != "307" ]; then
             echo "::error::Vercel root returned $STATUS — frontend is unreachable"
             exit 1
           fi
-          if [ "$BEFORE" = "$AFTER" ]; then
-            echo "::warning::x-vercel-id unchanged across the 120s wait. Possible Vercel webhook freeze (same failure mode that hit Railway). Live gate will probe; if it passes, Vercel served the new build from a warm cache. If the gate fails on stale content, escalate to Vercel dashboard."
+          if [ "$BEFORE" = "__skipped__" ] || [ -z "$AFTER" ]; then
+            echo "::warning::Build fingerprint check skipped (HTML probe unsuccessful)"
+          elif [ "$BEFORE" = "$AFTER" ]; then
+            echo "::warning::Next.js chunk fingerprint unchanged across the 120s wait. Either (a) Vercel webhook freeze, or (b) build content unchanged (legitimate warm-cache redeploy). Live gate will probe content; escalate to Vercel dashboard if gate fails on stale content."
           else
-            echo "x-vercel-id changed — Vercel served a new edge fill within the wait window."
+            echo "Build fingerprint changed — Vercel served a new build within the wait window."
           fi
 
   # ------------------------------------------------------------------
