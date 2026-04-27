@@ -133,7 +133,27 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - [ ] Sleeper OAuth integration — v7.1
 - [ ] PFF paid data integration — v8.0
 
-## Current State: v7.1 Shipped (2026-04-26)
+## Current Milestone: v7.2 Data + Site Polish
+
+**Goal:** Tighten what's already shipped — close half-done flows, kill tech debt, and lock in production reliability so v8.0 (PFF) can build on a clean foundation.
+
+**Target features (each cut to smallest defensible scope):**
+- AWS refresh + S3 sync — refresh credentials, one-shot sync of local Bronze/Silver/Gold, smoke-test cloud reads
+- Sentiment ingestion depth — add ESPN team RSS + Yahoo Sports RSS to lift Phase 72 team-coverage floor
+- Heuristic consolidation — merge 3 duplicate heuristic functions into one canonical, golden-output-tested source of truth
+- Data freshness + correctness — triage 27 sanity warnings, add audit-JSON `script_sha` capture, Railway `/api/version` returning `GITHUB_SHA`
+- Feature audit + gap closure — walk every dashboard page, fix EmptyState gaps + mobile regressions (NOT a redesign)
+- Sleeper OAuth + multi-user — replace cookie-only auth with refresh-token flow + persistent sessions (minimum viable depth)
+- Advisor tool expansion — add `getProjectionComparison`, `getMatchupAdvantages`, `getUserLeagueRoster` advisor tools
+- Deploy hardening — rollback workflow-touch guard / `ROLLBACK_PAT`, Vercel chunk-fingerprint + Railway version probes promoted warn→fail
+
+**Key context:**
+- "Tighten each theme" mode: ~10-15 phases, 2-3 weeks. Some themes are single-PR tickets, not full phases.
+- v7.1's 3-week silent deploy freeze drives the deploy-hardening theme; root cause was Bronze schedules gitignored against Dockerfile COPY.
+- Phase 73 EXTP-05 first-cron observation lands naturally during this milestone (no separate phase).
+- W1-2026 sanity-threshold restore (`_NEWS_CONTENT_MIN_TEAMS_OK 10→20`) carries forward as a pre-season-kickoff checklist item.
+
+## Previous: v7.1 Shipped (2026-04-27)
 
 **Production:**
 - Frontend: https://frontend-jet-seven-33.vercel.app — now with `/dashboard/leagues` (Sleeper username connect) + multi-source projection comparison section on `/dashboard/projections`
@@ -365,6 +385,6 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-26 after v7.1 Draft Season Readiness shipped*
+*Last updated: 2026-04-27 — v7.2 Data + Site Polish started; v7.1 Draft Season Readiness shipped*
 
 </details>

@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v7.1
-milestone_name: Draft Season Readiness
-status: shipped
-stopped_at: v7.1 SHIPPED. Phase 72-05 closed with Railway-live audit evidence (EVT-04 9/32 ≥ gate 8 PASS, EVT-05 player-news 32/32 + team-sentiment 9/32 ≥ gate 8 PASS, both base_url=railway.app). CONTEXT D-04 amended 2026-04-27 to lower the EVT-04 / EVT-05 team-sentiment thresholds from 15→8 and 20→8 to reflect post-Phase-71 Claude-primary attribution narrowing (one team per article vs rule-extractor's fuzzy multi-team broadcast). All 5 phases code-complete + audit-passed. Phase 73 EXTP-05 first-cron observation pending (Tue 14:00 UTC).
-last_updated: "2026-04-27T17:30:00Z"
+milestone: v7.2
+milestone_name: Data + Site Polish
+status: defining-requirements
+stopped_at: v7.2 milestone started 2026-04-27. Goal: tighten what's already shipped — close half-done flows, kill tech debt, lock in production reliability so v8.0 (PFF) can build on a clean foundation. 8 themes, "tighten each theme" mode (~10-15 phases, 2-3 weeks). Awaiting requirements definition + roadmap creation.
+last_updated: "2026-04-27T18:00:00Z"
 last_activity: 2026-04-27
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 19
-  completed_plans: 19
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -21,19 +21,21 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
 
 **Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** v7.1 SHIPPED — ready to discuss v7.2
+**Current focus:** v7.2 Data + Site Polish — defining requirements
 
 ## Current Position
 
-Phase: v7.1 milestone close
-Plan: All complete; audit evidence committed; SUMMARY written
-Status: SHIPPED
-Last activity: 2026-04-27
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-04-27 — Milestone v7.2 Data + Site Polish started
 
-**Execution order (delivered):** 71 ✓ → 72 ✓ → 73 ✓ (cron observation pending) → 74 ✓ → 75 ✓
+**Mode:** "Tighten each theme" — keep all 8 themes from v7.2 scope question, cut each to its smallest defensible 1-3 day phase. Some themes are single-PR tickets, not full phases.
 
-Progress: 19/19 plans complete; all 27 requirements closed; deploy gate end-to-end green
-[████████████████████] 100%
+**v7.1 close-out delivered (2026-04-27):**
+- Deploy gate end-to-end green for first time in 3+ weeks (8 root-cause fixes; see "Deploy gate unblock" below)
+- Phase 72-05 audit closed against Railway live (EVT-04 9/32 ≥ amended gate 8 PASS; EVT-05 32+9 ≥ gates PASS)
+- CONTEXT D-04 amended 15→8 with full audit trail; v7.1 MILESTONE-AUDIT.md verdict TECH_DEBT → SHIPPED
 
 ### Deploy gate unblock (2026-04-27)
 
