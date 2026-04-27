@@ -98,6 +98,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 **TD-08 (committed Bronze paths, since 2026-04-24):** `data/bronze/players/rosters/` and `data/bronze/depth_charts/` are version-controlled in git. The GHA runner needs them present for `PlayerNameResolver` to resolve names → player_ids during sentiment ingestion. Do NOT add these paths back to `.gitignore`.
 
+**TD-09 (Railway build path, since 2026-04-27):** `data/bronze/schedules/` is also committed — `web/Dockerfile` does `COPY data/bronze/schedules/`, and uncommitted directory caused every Railway build to fail silently for ~3 weeks (Phase 66 → Phase 75 deploys all stuck on stale image). Any new path the Dockerfile copies MUST have a matching `!data/.../**/*.parquet` allowlist in `.gitignore`.
+
 ## Key Files
 
 | File | Purpose |

@@ -258,6 +258,13 @@ data/gold/*
 !data/bronze/depth_charts/
 !data/bronze/depth_charts/**
 !data/bronze/depth_charts/**/*.parquet
+# Schedules: required by web/Dockerfile (COPY data/bronze/schedules/) — the
+# Railway image won't build without these. Same pattern as rosters/depth_charts
+# above. /api/teams/current-week, /api/teams/{team}/roster default-week
+# resolution, predictions, and lineups all 503 without this data.
+!data/bronze/schedules/
+!data/bronze/schedules/**
+!data/bronze/schedules/**/*.parquet
 
 # External rankings cache (ADVR-03): commit the Sleeper/FantasyPros/ESPN JSON
 # so compareExternalRankings never returns empty on first deploy.
