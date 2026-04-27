@@ -15,14 +15,11 @@ env:
 
 # ----------------------------------------------------------------
 # Permissions: contents: write enables auto-rollback (Plan 68-03 SANITY-09)
-# to git revert + push from the rollback job. workflows: write is required
-# when the failing commit touched .github/workflows/** — the revert
-# necessarily re-modifies the workflow file. NEVER use force-push to main.
+# to git revert + push from the rollback job. NEVER use force-push to main.
 # ----------------------------------------------------------------
 permissions:
   contents: write
   actions: read
-  workflows: write
 
 jobs:
   # ------------------------------------------------------------------
