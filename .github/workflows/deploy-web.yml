@@ -125,48 +125,28 @@ jobs:
   # ------------------------------------------------------------------
   # Backend: build Docker image and push to ECR
   # ------------------------------------------------------------------
+  # ------------------------------------------------------------------
+  # Backend deploy: Railway auto-deploys from main via its own GitHub
+  # webhook (independent of GHA). The previous AWS Lambda / ECR / SAM
+  # path is dead infrastructure — AWS credentials expired March 2026
+  # and the production backend has been on Railway since v3.2.
+  # We keep this job as a no-op so the live-gate-blocking job's
+  # `needs: deploy-backend` dependency still resolves, and we wait
+  # ~120s for Railway's webhook deploy to settle before the live gate
+  # probes Railway endpoints.
+  # ------------------------------------------------------------------
   deploy-backend:
+    name: Wait for Railway auto-deploy
     runs-on: ubuntu-latest
     needs: quality-gate
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Login to Amazon ECR
-        id: ecr-login
-        uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Build, tag, and push Docker image
-        env:
-          ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          ECR_REPOSITORY: nfl-data-api
-          IMAGE_TAG: ${{ github.sha }}
+      - name: Wait for Railway webhook to redeploy
         run: |
-          docker build -f web/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-
-      - name: Deploy via SAM (Lambda)
-        working-directory: web/api/serverless
-        run: |
-          pip install aws-sam-cli
-          sam build
-          sam deploy \
-            --stack-name nfl-data-api \
-            --resolve-s3 \
-            --capabilities CAPABILITY_IAM \
-            --parameter-overrides \
-              DatabaseUrl=${{ secrets.DATABASE_URL }} \
-              CorsOrigins=${{ secrets.CORS_ORIGINS }} \
-            --no-confirm-changeset \
-            --no-fail-on-empty-changeset
+          echo "Railway auto-deploys https://nfldataengineering-production.up.railway.app"
+          echo "from the main branch via its own GitHub webhook (no GHA action needed)."
+          echo "Sleeping 120s to let the new image start serving before live-gate probes."
+          sleep 120
+          echo "Railway should be serving the new commit by now."
 
   # ------------------------------------------------------------------
   # Live gate (BLOCKING per Plan 68-03 SANITY-08, SANITY-09):
