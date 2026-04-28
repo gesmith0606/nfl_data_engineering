@@ -3,6 +3,9 @@ Utility functions for the NFL Data Engineering Pipeline
 """
 import logging
 import os
+import subprocess
+from datetime import datetime, timezone
+from pathlib import Path
 import pandas as pd
 from typing import Optional, Dict, Any
 import boto3
@@ -261,3 +264,74 @@ def download_latest_parquet(
     finally:
         if os.path.exists(tmp_path):
             os.remove(tmp_path)
+
+
+def get_script_sha(script_path: str) -> Dict[str, Any]:
+    """Resolve the git provenance of an audit script.
+
+    Returns a JSON-serialisable dict capturing the file-specific
+    last-commit SHA and whether the working tree has uncommitted
+    changes against that file. Designed to be embedded under a
+    top-level ``script_provenance`` key in audit-script JSON
+    outputs (Phase 79 DQ-01 contract).
+
+    Args:
+        script_path: Path to the audit script. May be absolute or
+            relative to the repository root. Need not exist on disk.
+
+    Returns:
+        Dict with keys:
+          - ``sha``: 40-char hex SHA of the last commit that touched
+            the file, or the literal string ``"unknown"`` when the
+            path is untracked, missing, or git is unavailable.
+          - ``dirty``: True when ``git diff HEAD -- {path}`` is
+            non-empty. False otherwise (including for ``unknown``
+            cases).
+          - ``resolved_at``: ISO-8601 UTC timestamp recorded at the
+            moment the helper ran.
+
+    Phase 84 DEPLOY-04 consumes ``sha`` and ``dirty`` to gate audit
+    evidence. ``dirty=True`` is grounds for hard-rejection; an
+    unknown ``sha`` means "pre-provenance era — manual review"
+    (D-08).
+
+    Subprocess invocations use ``shell=False`` and pass ``script_path``
+    after a ``--`` separator so a hostile path (e.g. ``--upload-pack``)
+    cannot be misinterpreted as a git option.
+    """
+    resolved_at = datetime.now(timezone.utc).isoformat()
+    path = str(script_path)
+
+    # Resolve last-commit SHA for this exact file.
+    try:
+        log_proc = subprocess.run(
+            ["git", "log", "-1", "--format=%H", "--", path],
+            shell=False,
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=10,
+        )
+        sha_raw = log_proc.stdout.strip()
+        sha = sha_raw if (log_proc.returncode == 0 and len(sha_raw) == 40) else "unknown"
+    except (FileNotFoundError, subprocess.TimeoutExpired, OSError):
+        # FileNotFoundError = git binary missing; TimeoutExpired = hung subprocess.
+        sha = "unknown"
+
+    # Probe for uncommitted local edits against this file.
+    dirty = False
+    if sha != "unknown":
+        try:
+            diff_proc = subprocess.run(
+                ["git", "diff", "HEAD", "--", path],
+                shell=False,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=10,
+            )
+            dirty = bool(diff_proc.stdout.strip())
+        except (FileNotFoundError, subprocess.TimeoutExpired, OSError):
+            dirty = False
+
+    return {"sha": sha, "dirty": dirty, "resolved_at": resolved_at}
