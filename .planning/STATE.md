@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v7.2
 milestone_name: Data + Site Polish
-status: Roadmap created — 9 phases (76-84) covering 23 requirements
+status: executing
 stopped_at: Phase 79 context gathered
-last_updated: "2026-04-28T00:22:47.887Z"
-last_activity: 2026-04-27 — v7.2 roadmap committed
+last_updated: "2026-04-28T22:05:24.815Z"
+last_activity: 2026-04-28
 progress:
   total_phases: 36
   completed_phases: 24
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness 
 
 ## Current Position
 
-Phase: 79 (audit-provenance-version-probe) — EXECUTING
-Plan: 1/4 complete (79-01-script-sha-helper SHIPPED; 79-02, 79-03, 79-04 pending)
+Phase: 79
+Plan: Not started
 Status: Wave 1 in progress
-Last activity: 2026-04-28 -- Phase 79-01 (script-sha helper) complete
+Last activity: 2026-04-28
 
 **Mode:** "Tighten each theme" — every requirement cut to its smallest defensible scope. Critical path is 79→84 (deploy hardening) and 82→83 (advisor auth-aware tool); everything else parallelizes.
 

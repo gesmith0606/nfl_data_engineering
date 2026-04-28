@@ -153,6 +153,9 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - Phase 73 EXTP-05 first-cron observation lands naturally during this milestone (no separate phase).
 - W1-2026 sanity-threshold restore (`_NEWS_CONTENT_MIN_TEAMS_OK 10→20`) carries forward as a pre-season-kickoff checklist item.
 
+**Phase progress:**
+- ✓ Phase 79 — Audit Provenance + Live Version Probe (DQ-01, DQ-02): `get_script_sha()` helper + `script_provenance` embedded in 3 audit-script JSON outputs; `/api/version` upgraded to 7-key shape with full 40-char `RAILWAY_GIT_COMMIT_SHA` + `llm_enrichment_ready` bool; warn-only Railway smoke step polls `/api/version` for SHA match (Phase 84 promotes to fail). 9/9 must-haves verified. Completed 2026-04-28.
+
 ## Previous: v7.1 Shipped (2026-04-27)
 
 **Production:**
@@ -385,6 +388,6 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-27 — v7.2 Data + Site Polish started; v7.1 Draft Season Readiness shipped*
+*Last updated: 2026-04-28 — v7.2 Phase 79 (Audit Provenance + Live Version Probe) shipped*
 
 </details>

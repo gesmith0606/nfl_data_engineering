@@ -67,7 +67,7 @@ Full details: `.planning/milestones/v7.1-ROADMAP.md` | Requirements: `.planning/
 - [ ] Phase 76: AWS Refresh + S3 Sync (3 reqs)
 - [ ] Phase 77: Sentiment Source Expansion (3 reqs)
 - [ ] Phase 78: Heuristic Consolidation (3 reqs)
-- [ ] Phase 79: Audit Provenance + Live Version Probe (2 reqs)
+- [x] Phase 79: Audit Provenance + Live Version Probe (2 reqs) (completed 2026-04-28)
 - [ ] Phase 80: Sanity Warning Triage (1 req)
 - [ ] Phase 81: Dashboard Feature Audit (2 reqs)
 - [ ] Phase 82: Sleeper OAuth + Multi-User (3 reqs)
@@ -107,7 +107,7 @@ v7.0 phases execute as: 66 → (67 ∥ 68 ∥ 69) → 70
 | 76. AWS Refresh + S3 Sync | v7.2 | 0/TBD | Not started | - |
 | 77. Sentiment Source Expansion | v7.2 | 0/TBD | Not started | - |
 | 78. Heuristic Consolidation | v7.2 | 0/TBD | Not started | - |
-| 79. Audit Provenance + Live Version Probe | v7.2 | 0/TBD | Not started | - |
+| 79. Audit Provenance + Live Version Probe | v7.2 | 4/4 | Complete    | 2026-04-28 |
 | 80. Sanity Warning Triage | v7.2 | 0/TBD | Not started | - |
 | 81. Dashboard Feature Audit | v7.2 | 0/TBD | Not started | - |
 | 82. Sleeper OAuth + Multi-User | v7.2 | 0/TBD | Not started | - |
