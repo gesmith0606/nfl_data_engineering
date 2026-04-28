@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
 
 **Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** v7.2 Data + Site Polish — roadmap created; awaiting phase planning.
+**Current focus:** Phase 79 — audit-provenance-version-probe (Wave 1 in progress: 79-01 complete)
 
 ## Current Position
 
-Phase: Not started (Phase 76 next)
-Plan: —
-Status: Roadmap created — 9 phases (76-84) covering 23 requirements
-Last activity: 2026-04-27 — v7.2 roadmap committed
+Phase: 79 (audit-provenance-version-probe) — EXECUTING
+Plan: 1/4 complete (79-01-script-sha-helper SHIPPED; 79-02, 79-03, 79-04 pending)
+Status: Wave 1 in progress
+Last activity: 2026-04-28 -- Phase 79-01 (script-sha helper) complete
 
 **Mode:** "Tighten each theme" — every requirement cut to its smallest defensible scope. Critical path is 79→84 (deploy hardening) and 82→83 (advisor auth-aware tool); everything else parallelizes.
 
@@ -77,6 +77,9 @@ Carried forward from v7.1 (shipped 2026-04-26):
 - [v7.2]: UX-01 + UX-02 kept as one phase (Phase 81) — same per-route walk methodology, share screenshot setup
 - [v7.2]: Critical path 79→84 (deploy hardening consumes Phase 79 outputs) and 82→83 (advisor auth-aware tool consumes Phase 82 session)
 - [v7.2]: Marketing & Content (Remotion/NotebookLM) deferred to a separate post-v7.2 milestone — production hardening takes priority
+- [79-01]: get_script_sha helper returns plain Dict (not dataclass) so audit-script JSON dumps stay trivial; matches CONTEXT D-03
+- [79-01]: Project-wide subprocess pattern — any future git callers MUST use shell=False, list argv, and `--` separator before path tokens (T-79-01 mitigation, defence-in-depth)
+- [79-01]: Diff probe is skipped when sha='unknown' so the contract `unknown ⇒ dirty=False` stays clean for Phase 84 DEPLOY-04 to reason about
 
 ### Pending Todos
 
