@@ -40,6 +40,11 @@ from typing import Any, Dict, List, Tuple
 
 import httpx
 
+# Add project root to sys.path so ``src.*`` imports resolve regardless of
+# whether the script is invoked from the repository root or scripts/.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.utils import get_script_sha  # noqa: E402  (after sys.path bootstrap)
+
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
@@ -187,6 +192,7 @@ def _build_json_payload(
 ) -> Dict[str, Any]:
     return {
         "audited_at": datetime.now(timezone.utc).isoformat(),
+        "script_provenance": get_script_sha(__file__),
         "base_url": base_url,
         "season": season,
         "weeks": list(weeks),
