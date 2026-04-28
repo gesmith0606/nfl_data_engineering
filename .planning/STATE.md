@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v7.2
 milestone_name: Data + Site Polish
-status: roadmap-created
-stopped_at: v7.2 roadmap created 2026-04-27. 9 phases (76-84) covering 23 requirements across 8 categories. Awaiting phase planning.
-last_updated: "2026-04-27T19:00:00Z"
-last_activity: 2026-04-27
+status: Roadmap created — 9 phases (76-84) covering 23 requirements
+stopped_at: Phase 79 context gathered
+last_updated: "2026-04-28T00:22:47.887Z"
+last_activity: 2026-04-27 — v7.2 roadmap committed
 progress:
-  total_phases: 9
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_phases: 36
+  completed_phases: 24
+  total_plans: 48
+  completed_plans: 46
+  percent: 96
 ---
 
 # Project State
@@ -53,6 +53,7 @@ Tighten what's already shipped — close half-done flows, kill tech debt, and lo
 **Coverage:** 23/23 v7.2 requirements mapped, 0 orphans.
 
 **Execution order:**
+
 - Phases 76, 77, 78, 79, 80, 81, 82 can run in parallel.
 - Phase 83 starts after Phase 82 (TOOL-03 needs auth-aware session).
 - Phase 84 starts after Phase 79 (DEPLOY-02 + DEPLOY-04 consume `/api/version` + `script_sha`).
@@ -106,10 +107,10 @@ Carried forward from v7.1 (shipped 2026-04-26):
 
 ## Session Continuity
 
-Last session: 2026-04-27
-Stopped at: v7.2 roadmap created. 9 phases (76-84) covering 23 requirements across 8 categories. Critical path is 79→84 and 82→83; 7 phases parallelizable from start.
+Last session: 2026-04-28T00:22:47.882Z
+Stopped at: Phase 79 context gathered
 Resume with: `/gsd:plan-phase 76` (or any of 76, 77, 78, 79, 80, 81, 82 — all independent starts).
-Resume file: `.planning/milestones/v7.2-ROADMAP.md`
+Resume file: .planning/milestones/v7.2-phases/79-audit-provenance-version-probe/79-CONTEXT.md
 
 ### Deferred follow-ups (post-v7.2)
 
