@@ -35,6 +35,12 @@ from typing import Any, Callable
 
 import httpx
 
+# Add project root to sys.path so ``src.*`` imports resolve regardless of
+# whether the script is invoked from the repository root or scripts/.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+import json  # noqa: E402  (sibling .json output for TOOL-AUDIT.md)
+from src.utils import get_script_sha  # noqa: E402  (after sys.path bootstrap)
+
 # ---------------------------------------------------------------------------
 # Constants + failure categories
 # ---------------------------------------------------------------------------
@@ -552,6 +558,47 @@ def write_audit_markdown(
     out_path.write_text("\n".join(lines), encoding="utf-8")
 
 
+def write_audit_json(
+    results: list[dict[str, Any]],
+    out_path: Path,
+    *,
+    base_url: str,
+    auth_header_present: bool,
+) -> None:
+    """Write the TOOL-AUDIT.json sidecar with provenance + structured results.
+
+    Sibling of ``TOOL-AUDIT.md``; same parent directory, ``.json`` suffix.
+    Phase 84 DEPLOY-04 consumes ``script_provenance.sha`` from this file
+    to gate audit evidence (Phase 79 DQ-01 contract).
+
+    Args:
+        results: Output of ``probe()`` per tool — one dict per row.
+        out_path: Destination ``.json`` path (sibling of ``TOOL-AUDIT.md``).
+        base_url: The Railway base URL used for the probe.
+        auth_header_present: True when ``X-API-Key`` was attached.
+    """
+    pass_count = sum(1 for r in results if r["verdict"] == PASS)
+    warn_count = sum(1 for r in results if r["verdict"] == WARN)
+    fail_count = sum(1 for r in results if r["verdict"] == FAIL)
+
+    payload: dict[str, Any] = {
+        "audited_at": datetime.now(timezone.utc).isoformat(),
+        "script_provenance": get_script_sha(__file__),
+        "base_url": base_url,
+        "auth_header_present": auth_header_present,
+        "summary": {
+            "pass": pass_count,
+            "warn": warn_count,
+            "fail": fail_count,
+            "total": len(results),
+        },
+        "results": results,
+    }
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
@@ -630,10 +677,18 @@ def main(argv: list[str] | None = None) -> int:
         base_url=base_url,
         auth_header_present=bool(api_key),
     )
+    json_output = args.output.with_suffix(".json")
+    write_audit_json(
+        results,
+        json_output,
+        base_url=base_url,
+        auth_header_present=bool(api_key),
+    )
 
     summary = f"AUDIT: {pass_count} PASS / {warn_count} WARN / {fail_count} FAIL"
     print(summary)
     log.info("Wrote %s", args.output)
+    log.info("Wrote %s", json_output)
 
     return 0 if fail_count == 0 else 1
 
