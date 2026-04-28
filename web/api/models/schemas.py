@@ -342,6 +342,61 @@ class HealthResponse(BaseModel):
     )
 
 
+class VersionResponse(BaseModel):
+    """Build and git metadata -- proves which code is actually deployed.
+
+    Phase 84 DEPLOY-02 polls this endpoint and asserts ``git_sha`` equals
+    the just-pushed commit's GITHUB_SHA. Phase 79 ships the producer
+    contract; Phase 84 promotes the smoke check to fail-on-mismatch.
+    """
+
+    version: str = Field(description="API_VERSION constant from web.api.config")
+    git_sha: str = Field(
+        description=(
+            "Full 40-character RAILWAY_GIT_COMMIT_SHA, or the literal "
+            "string 'unknown' when the env var is unset. Phase 79 D-04 "
+            "explicitly drops the prior [:8] truncation so Phase 84's "
+            "asymmetry probe can do a clean equality check against the "
+            "40-char ${{ github.sha }} from GitHub Actions."
+        )
+    )
+    build_id: str = Field(
+        description=(
+            "RAILWAY_DEPLOYMENT_ID, or 'unknown' when unset. Useful for "
+            "distinguishing two deploys that share the same git_sha "
+            "(e.g. Railway env-var-only redeploy)."
+        )
+    )
+    deployed_at: str = Field(
+        description=(
+            "RAILWAY_GIT_COMMIT_TIMESTAMP (ISO-8601 from Railway), or "
+            "'unknown' when unset."
+        )
+    )
+    llm_enrichment_ready: bool = Field(
+        default=False,
+        description=(
+            "True when ANTHROPIC_API_KEY is set in the runtime "
+            "environment. Mirrors /api/health logic (Phase 66 / "
+            "HOTFIX-01). The key value itself is NEVER returned or "
+            "logged -- only its presence as a bool."
+        ),
+    )
+    has_team_events_route: bool = Field(
+        description=(
+            "True when the news router has the /team-events route "
+            "registered. Diagnostic flag retained from Phase 66 -- "
+            "proved its worth during v7.1 silent-freeze."
+        )
+    )
+    has_player_badges_route: bool = Field(
+        description=(
+            "True when the news router has a player-badges route "
+            "registered. Diagnostic flag retained from Phase 66."
+        )
+    )
+
+
 # ---------------------------------------------------------------------------
 # Game Archive models
 # ---------------------------------------------------------------------------
