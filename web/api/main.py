@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse
 
 from .config import API_TITLE, API_VERSION, CORS_ORIGINS
 from .db import check_health as db_health, is_db_enabled
-from .models.schemas import HealthResponse
+from .models.schemas import HealthResponse, VersionResponse
 from .routers import (
     draft,
     games,
@@ -110,18 +110,36 @@ def health_check() -> HealthResponse:
     )
 
 
-@app.get("/api/version", tags=["health"])
-def version_info() -> dict:
-    """Build and git metadata — proves which code is actually deployed."""
-    return {
-        "version": API_VERSION,
-        "git_sha": os.environ.get("RAILWAY_GIT_COMMIT_SHA", "unknown")[:8],
-        "build_id": os.environ.get("RAILWAY_DEPLOYMENT_ID", "unknown")[:8],
-        "deployed_at": os.environ.get("RAILWAY_GIT_COMMIT_TIMESTAMP", "unknown"),
-        "has_team_events_route": any(
+@app.get("/api/version", response_model=VersionResponse, tags=["health"])
+def version_info() -> VersionResponse:
+    """Build and git metadata -- proves which code is actually deployed.
+
+    ``git_sha`` is the FULL 40-character RAILWAY_GIT_COMMIT_SHA (no
+    truncation) so Phase 84's asymmetry probe can do a clean equality
+    check against the 40-char GITHUB_SHA from GitHub Actions
+    (Phase 79 D-04).
+
+    ``llm_enrichment_ready`` mirrors /api/health -- True when
+    ANTHROPIC_API_KEY is set in the runtime environment. The value is
+    a bool; the key itself is never returned or logged
+    (Phase 66 / HOTFIX-01, applied here per Phase 79 D-05).
+
+    The two diagnostic route flags
+    (``has_team_events_route``, ``has_player_badges_route``) are
+    retained from Phase 66 -- they proved their worth catching the
+    v7.1 silent-freeze.
+    """
+    llm_ready = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    return VersionResponse(
+        version=API_VERSION,
+        git_sha=os.environ.get("RAILWAY_GIT_COMMIT_SHA", "unknown"),
+        build_id=os.environ.get("RAILWAY_DEPLOYMENT_ID", "unknown"),
+        deployed_at=os.environ.get("RAILWAY_GIT_COMMIT_TIMESTAMP", "unknown"),
+        llm_enrichment_ready=llm_ready,
+        has_team_events_route=any(
             getattr(r, "path", "") == "/team-events" for r in news.router.routes
         ),
-        "has_player_badges_route": any(
+        has_player_badges_route=any(
             "player-badges" in getattr(r, "path", "") for r in news.router.routes
         ),
-    }
+    )
