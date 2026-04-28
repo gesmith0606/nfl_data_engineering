@@ -171,6 +171,70 @@ jobs:
           sleep 120
           echo "Railway should be serving the new commit by now."
 
+      - name: Probe Railway /api/version for SHA match
+        # Phase 79 D-06 / D-07: warn-only asymmetry probe.
+        # Phase 84 DEPLOY-02 promotes this to fail-on-mismatch by:
+        #   1. removing `continue-on-error: true`
+        #   2. flipping the timeout branch from ::warning:: to ::error:: + exit 1
+        # The 5-minute budget mirrors Railway's observed p95 redeploy time
+        # during v7.0 hotfixes (Phase 66). Tail-latency beyond that = real freeze.
+        continue-on-error: true
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RAILWAY_API_KEY: ${{ secrets.RAILWAY_API_KEY }}
+        run: |
+          set -uo pipefail
+          BASE_URL="https://nfldataengineering-production.up.railway.app"
+          VERSION_URL="${BASE_URL}/api/version"
+          BUDGET_SECONDS=300
+          POLL_INTERVAL=15
+
+          HEADER_ARGS=()
+          if [ -n "${RAILWAY_API_KEY:-}" ]; then
+            HEADER_ARGS=(-H "X-API-Key: ${RAILWAY_API_KEY}")
+          fi
+
+          echo "Phase 79 D-06 asymmetry probe"
+          echo "  Expected git_sha: ${EXPECTED_SHA}"
+          echo "  URL: ${VERSION_URL}"
+          echo "  Budget: ${BUDGET_SECONDS}s, poll every ${POLL_INTERVAL}s"
+          echo ""
+
+          START=$(date -u +%s)
+          LAST_SEEN_SHA="<never_seen>"
+          LAST_HTTP="<never>"
+          ATTEMPT=0
+          while :; do
+            ATTEMPT=$((ATTEMPT + 1))
+            NOW=$(date -u +%s)
+            ELAPSED=$((NOW - START))
+            if [ "${ELAPSED}" -gt "${BUDGET_SECONDS}" ]; then
+              echo "::warning title=Railway /api/version SHA asymmetry::Expected ${EXPECTED_SHA} after ${BUDGET_SECONDS}s; last seen git_sha=${LAST_SEEN_SHA} (last HTTP ${LAST_HTTP}, ${ATTEMPT} attempts). Phase 84 DEPLOY-02 promotes this to a hard gate."
+              echo "Probe outcome: TIMEOUT (warn-only per Phase 79 D-07)"
+              exit 0
+            fi
+
+            # -m gives curl a per-request timeout so a hung Railway can't eat the whole budget.
+            HTTP=$(curl -s -o response.json -m 10 -w "%{http_code}" "${HEADER_ARGS[@]}" "${VERSION_URL}" || echo "000")
+            LAST_HTTP="${HTTP}"
+
+            if [ "${HTTP}" = "200" ]; then
+              # jq -r returns "null" when the field is absent; coerce to a stable sentinel.
+              SEEN_SHA=$(jq -r '.git_sha // "missing"' response.json 2>/dev/null || echo "parse_error")
+              LAST_SEEN_SHA="${SEEN_SHA}"
+              if [ "${SEEN_SHA}" = "${EXPECTED_SHA}" ]; then
+                echo "::notice title=Railway /api/version SHA match::git_sha=${SEEN_SHA} after ${ELAPSED}s (${ATTEMPT} attempts)"
+                echo "Probe outcome: MATCH"
+                exit 0
+              fi
+              echo "  attempt ${ATTEMPT} t+${ELAPSED}s: HTTP ${HTTP}, git_sha=${SEEN_SHA} (waiting for ${EXPECTED_SHA})"
+            else
+              echo "  attempt ${ATTEMPT} t+${ELAPSED}s: HTTP ${HTTP} (expected 200; will retry)"
+            fi
+
+            sleep "${POLL_INTERVAL}"
+          done
+
   # ------------------------------------------------------------------
   # Live gate (BLOCKING per Plan 68-03 SANITY-08, SANITY-09):
   # Probes the LIVE backend + frontend AFTER deploy with the v2 gate
