@@ -1,0 +1,589 @@
+{
+  "fetch_run_id": "ad6da93d-fe5f-4646-9f23-97bdedcc83ee",
+  "source": "pft",
+  "fetched_at": "2026-04-28T12:51:26.650348+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-gm-john-lynch-only-consensus-draft-opinion-i-care-about-is-in-this-building",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-gm-john-lynch-only-consensus-draft-opinion-i-care-about-is-in-this-building",
+      "permalink": "",
+      "title": "49ers GM John Lynch: Only consensus draft opinion I care about is in this building",
+      "body_text": "49ers General Manager John Lynch has been in his job for a decade and that means he's made plenty of draft picks that have elicited a wide range of reactions from around the football world.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T11:13:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Lynch",
+        "General Manager"
+      ],
+      "resolved_player_ids": [
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-waive-rb-evan-hull-wr-elijah-cooks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-waive-rb-evan-hull-wr-elijah-cooks",
+      "permalink": "",
+      "title": "Saints waive RB Evan Hull, WR Elijah Cooks",
+      "body_text": "The Saints made space for rookie additions to the roster by parting ways with three veteran players on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T10:51:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Evan Hull",
+        "Elijah Cooks",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0038397",
+        "00-0038667"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-stoutland-says-eagles-struggles-last-year-came-down-to-not-calling-the-right-plays",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-stoutland-says-eagles-struggles-last-year-came-down-to-not-calling-the-right-plays",
+      "permalink": "",
+      "title": "Jeff Stoutland says Eagles' struggles last year came down to not \"calling the right plays\"",
+      "body_text": "The Eagles' longtime offensive line coach left the team this offseason, and offensive coordinator Kevin Patullo was fired.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-28T08:53:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeff Stoutland",
+        "The Eagles",
+        "Kevin Patullo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-says-he-had-secret-meeting-with-sean-mcvay-before-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-says-he-had-secret-meeting-with-sean-mcvay-before-draft",
+      "permalink": "",
+      "title": "Ty Simpson says he had \"secret meeting\" with Sean McVay before draft",
+      "body_text": "Simpson previously had said he had only a \"brief\" meeting with Rams scouts at the Alabama Pro Day.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-28T02:08:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson",
+        "Alabama Pro"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-two-nfc-teams-tried-to-trade-up-to-no-9-in-front-of-the-giants-at-no-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-two-nfc-teams-tried-to-trade-up-to-no-9-in-front-of-the-giants-at-no-10",
+      "permalink": "",
+      "title": "Report: Two NFC teams tried to trade up to No. 9, in front of the Giants at No. 10",
+      "body_text": "With the 10th overall pick acquired from the Bengals in the Dexter Lawrence trade, the Giants selected tackle Francis Mauioga.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-28T00:29:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dexter Lawrence",
+        "Francis Mauioga"
+      ],
+      "resolved_player_ids": [
+        "00-0035683"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawrence-taylor-hospitalized-with-non-life-threatening-stomach-issue",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawrence-taylor-hospitalized-with-non-life-threatening-stomach-issue",
+      "permalink": "",
+      "title": "Lawrence Taylor hospitalized with non-life-threatening stomach issue",
+      "body_text": "Lawrence Taylor is in the hospital with a stomach issue that appears non-life-threatening, according to a representative of the Hall of Fame linebacker.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-28T00:19:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lawrence Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-post-posts-photos-of-mike-vrabel-in-salt-lake-city-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-post-posts-photos-of-mike-vrabel-in-salt-lake-city-on-saturday",
+      "permalink": "",
+      "title": "New York Post posts photos of Mike Vrabel in Salt Lake City on Saturday",
+      "body_text": "In the aftermath of the April 7 publication by the New York Post of photos featuring Patriots coach Mike Vrabel and NFL reporter Dianna Russini at a resort in Arizona, Vrabel has become the subject of a search for any existing images.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-27T23:48:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "New York",
+        "Mike Vrabel",
+        "Salt Lake",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-rb-sincere-mccormick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-rb-sincere-mccormick",
+      "permalink": "",
+      "title": "49ers sign RB Sincere McCormick",
+      "body_text": "Free agent running back Sincere McCormick has agreed to terms with the 49ers, his representation announced on social media.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-27T23:46:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/duke-tobin-on-dexter-lawrence-trade-immediate-impact-was-important-to-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/duke-tobin-on-dexter-lawrence-trade-immediate-impact-was-important-to-us",
+      "permalink": "",
+      "title": "Duke Tobin on Dexter Lawrence trade: Immediate impact was important to us",
+      "body_text": "Bengals know they need to placate Joe Burrow.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T21:43:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Duke Tobin",
+        "Dexter Lawrence",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0035683",
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-exercise-fifth-year-options-for-jalen-carter-nolan-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-exercise-fifth-year-options-for-jalen-carter-nolan-smith",
+      "permalink": "",
+      "title": "Eagles exercise fifth-year options for Jalen Carter, Nolan Smith",
+      "body_text": "The Eagles are exercising the fifth-year options on the contracts of defensive tackle Jalen Carter and edge rusher Nolan Smith, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-27T21:47:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Carter",
+        "Nolan Smith",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0038386",
+        "00-0039013"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teair-tart-even-more-motivated-after-signing-long-term-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teair-tart-even-more-motivated-after-signing-long-term-deal",
+      "permalink": "",
+      "title": "Teair Tart even more motivated after signing long-term deal",
+      "body_text": "The Chargers paid Teair Tart a total of $6.225 million the past two seasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-27T22:29:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Teair Tart",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0036181"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-has-yet-to-accept-the-franchise-tender",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-has-yet-to-accept-the-franchise-tender",
+      "permalink": "",
+      "title": "George Pickens has yet to accept the franchise tender",
+      "body_text": "On the first day of the NFL draft, Ian Rapoport of NFL Network reported that Cowboys receiver George Pickens will sign his one-year, $27.298 million franchise tender.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-27T21:13:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-hire-former-eagles-exec-bryce-johnston-to-handle-salary-cap-contract-negotiations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-hire-former-eagles-exec-bryce-johnston-to-handle-salary-cap-contract-negotiations",
+      "permalink": "",
+      "title": "Falcons hire former Eagles exec Bryce Johnston to handle salary cap, contract negotiations",
+      "body_text": "The Falcons have made another key addition to their front office.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-27T21:09:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Johnston",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-wr-tyler-johnson-lb-curtis-robinson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-wr-tyler-johnson-lb-curtis-robinson",
+      "permalink": "",
+      "title": "Cowboys sign WR Tyler Johnson, LB Curtis Robinson",
+      "body_text": "The Cowboys signed three veteran players to one-year deals, the team announced Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-27T21:02:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Johnson",
+        "Curtis Robinson",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0036427",
+        "00-0036728"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-sign-marquez-valdes-scantling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-sign-marquez-valdes-scantling",
+      "permalink": "",
+      "title": "Cowboys agree to sign Marquez Valdes-Scantling",
+      "body_text": "The Cowboys added a receiver late in the draft over the weekend and now have added a veteran to the mix.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-27T20:14:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marquez Valdes",
+        "Scantling The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-13-2-million-viewers-for-round-1-down-from-13-6-million-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-13-2-million-viewers-for-round-1-down-from-13-6-million-last-year",
+      "permalink": "",
+      "title": "NFL announces 13.2 million viewers for Round 1, down from 13.6 million last year",
+      "body_text": "The first round of the NFL draft drew a big TV audience, but not as big as last year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-27T20:45:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-cut-wr-john-jiles-te-marshall-lang",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-cut-wr-john-jiles-te-marshall-lang",
+      "permalink": "",
+      "title": "Patriots cut WR John Jiles, TE Marshall Lang",
+      "body_text": "The Patriots released wide receiver John Jiles and tight end Marshall Lang on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-27T20:35:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Jiles",
+        "Marshall Lang",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039505",
+        "00-0040060"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-agree-to-terms-with-six-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-agree-to-terms-with-six-undrafted-free-agents",
+      "permalink": "",
+      "title": "Steelers agree to terms with six undrafted free agents",
+      "body_text": "The Steelers are adding six more rookies to their roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T19:58:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyree-wilson-glad-for-fresh-start-with-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyree-wilson-glad-for-fresh-start-with-saints",
+      "permalink": "",
+      "title": "Tyree Wilson glad for \"fresh start\" with Saints",
+      "body_text": "Wilson was acquired in a trade with the Raiders during the draft.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T19:48:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyree Wilson",
+        "Saints Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0038541"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-senior-director-of-football-administration-chris-olsen-part-ways",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-senior-director-of-football-administration-chris-olsen-part-ways",
+      "permalink": "",
+      "title": "Falcons, senior director of football administration Chris Olsen part ways",
+      "body_text": "After getting through the draft over the weekend, the Falcons are making a change in their front office.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-27T19:47:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olsen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-agree-to-terms-with-fb-michael-burton",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-agree-to-terms-with-fb-michael-burton",
+      "permalink": "",
+      "title": "Report: Browns agree to terms with FB Michael Burton",
+      "body_text": "The Browns are signing fullback Michael Burton, Tony Grossi of TheLandonDemand.com.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-27T19:47:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Burton",
+        "The Browns",
+        "Tony Grossi"
+      ],
+      "resolved_player_ids": [
+        "00-0031595"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-release-p-trenton-gill",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-release-p-trenton-gill",
+      "permalink": "",
+      "title": "Falcons release P Trenton Gill",
+      "body_text": "The Falcons are down to one punter on their 90-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T19:22:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trenton Gill",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0037097"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-release-cam-akers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-release-cam-akers",
+      "permalink": "",
+      "title": "Seahawks release Cam Akers",
+      "body_text": "The Seahawks added Jadarian Price with the 32nd overall pick in the draft last week and the addition of a rookie running back has pushed an older player out of the backfield mix in Seattle.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T18:57:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Akers",
+        "The Seahawks",
+        "Jadarian Price"
+      ],
+      "resolved_player_ids": [
+        "00-0036414"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-exercise-calijah-kanceys-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-exercise-calijah-kanceys-fifth-year-option",
+      "permalink": "",
+      "title": "Buccaneers exercise Calijah Kancey's fifth-year option",
+      "body_text": "Buccaneers defensive tackle Calijah Kancey is now under contract for the 2027 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T18:38:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Calijah Kancey"
+      ],
+      "resolved_player_ids": [
+        "00-0039063"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-the-world-cup-coming-fifa-covers-mercedes-benz-logo-on-atlanta-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-the-world-cup-coming-fifa-covers-mercedes-benz-logo-on-atlanta-stadium",
+      "permalink": "",
+      "title": "With the World Cup coming, FIFA covers Mercedes-Benz logo on \"Atlanta Stadium\"",
+      "body_text": "Naming rights have their limits.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-27T18:27:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "Atlanta Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texas-tech-qb-brendan-sorsby-will-check-into-treatment-center-for-gambling-addiction",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texas-tech-qb-brendan-sorsby-will-check-into-treatment-center-for-gambling-addiction",
+      "permalink": "",
+      "title": "Report: Texas Tech QB Brendan Sorsby will check into treatment center for gambling addiction",
+      "body_text": "As gambling becomes more legalized, normalized, and monetized, there will be issues.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-27T17:19:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-missing-third-day-of-draft-mike-vrabel-is-back-with-the-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-missing-third-day-of-draft-mike-vrabel-is-back-with-the-patriots",
+      "permalink": "",
+      "title": "After missing third day of draft, Mike Vrabel is back with the Patriots",
+      "body_text": "On Saturday, Patriots coach Mike Vrabel wasn't with the team for the third day of the draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-27T17:57:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "On Saturday"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-still-weighing-decision-on-myles-murphys-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-still-weighing-decision-on-myles-murphys-fifth-year-option",
+      "permalink": "",
+      "title": "Bengals still weighing decision on Myles Murphy's fifth-year option",
+      "body_text": "The deadline for teams to exercise the fifth-year options on the contracts of 2023 first-round picks is May 1 and it looks like the Bengals are gonna come right down to the wire on their Myles Murphy call.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-27T17:48:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Murphy"
+      ],
+      "resolved_player_ids": [
+        "00-0038546"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-the-nfl-wont-nudge-steve-tisch-aside-giants-ownership-must-do-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-the-nfl-wont-nudge-steve-tisch-aside-giants-ownership-must-do-it",
+      "permalink": "",
+      "title": "If the NFL won't nudge Steve Tisch aside, Giants ownership must do it",
+      "body_text": "The NFL has no appetite to take any action as it relates to Steve Tisch.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-26T16:43:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Steve Tisch"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-exercise-jordan-addisons-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-exercise-jordan-addisons-fifth-year-option",
+      "permalink": "",
+      "title": "Vikings exercise Jordan Addison's fifth-year option",
+      "body_text": "The Vikings have officially locked up Jordan Addison for the 2027 season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-27T17:15:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Addison",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}

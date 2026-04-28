@@ -1,0 +1,325 @@
+{
+  "fetch_run_id": "5c9bb21a-67e3-44ed-9c8a-505e4e0bff78",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-04-28T12:48:32.757176+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 21,
+  "items": [
+    {
+      "external_id": "US-EN-48608860",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48608860/2026-nfl-draft-best-picks-value-steals-every-round-yates",
+      "title": "Yates' favorite NFL draft picks: Five players from every round who fit well with their new teams",
+      "body_text": "Omar Cooper Jr. at No. 30? R Mason Thomas in Round 2? Cole Payton on Day 3? Field Yates has the best picks in every round.",
+      "author": "Field Yates",
+      "published_at": "2026-04-28T13:03:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Omar Cooper Jr",
+        "Mason Thomas",
+        "Cole Payton",
+        "Field Yates"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-nfldraftpostdraftquestions48602828",
+      "url": "https://www.espn.com/nfl/story/_/page/nfldraftpostdraftquestions48602828/nfl-draft-2026-biggest-postdraft-questions-32-teams-offseason-signings",
+      "title": "Postdraft questions for all 32 NFL teams: What could A.J. Brown cost Pats?",
+      "body_text": "The NFL draft is over, but can the rookies make an impact? We answer lingering questions for all 32 teams.",
+      "author": "NFL Nation reporters",
+      "published_at": "2026-04-28T13:03:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48613148",
+      "url": "https://www.espn.com/nfl/story/_/id/48613148/ty-simpson-had-secret-meeting-rams-mcvay-draft",
+      "title": "Simpson: Met secretly with McVay before draft",
+      "body_text": "Newly drafted QB Ty Simpson said in an ESPN Radio interview that he kept his meeting with coach Sean McVay \"private\" in accordance with the Rams' wishes.",
+      "author": "Sarah Barshop",
+      "published_at": "2026-04-28T13:01:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48612140",
+      "url": "https://www.espn.com/nfl/story/_/id/48612140/eagles-pick-5th-year-options-jalen-carter-nolan-smith",
+      "title": "Eagles pick up 5th-year options for Carter, Smith",
+      "body_text": "The Eagles picked up the fifth-year options for 2023 first-round picks Jalen Carter and Nolan Smith on Monday.",
+      "author": "Tim McManus",
+      "published_at": "2026-04-28T13:01:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Smith The",
+        "Jalen Carter",
+        "Nolan Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0038386",
+        "00-0039013"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48609368",
+      "url": "https://www.espn.com/nfl/story/_/id/48609368/bills-hit-reset-button-keon-coleman-feel-best-yet-come",
+      "title": "GM: Bills shut down trade interest in Coleman",
+      "body_text": "The Bills \"shut down\" a couple of teams that reached out with trade interest in Keon Coleman earlier this offseason, general manager Brandon Beane said Monday on local radio station WGR-550.",
+      "author": "Alaina Getzenberg",
+      "published_at": "2026-04-28T13:01:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Coleman The",
+        "Keon Coleman",
+        "Brandon Beane"
+      ],
+      "resolved_player_ids": [
+        "00-0039901"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "US-EN-48612420",
+      "url": "https://www.espn.com/nfl/story/_/id/48612420/saints-declining-tyree-wilson-fifth-year-option-trade",
+      "title": "Saints declining Wilson's option after draft trade",
+      "body_text": "The Saints are declining the fifth-year contract option on defensive end Tyree Wilson after trading for him Saturday, according to the NFL Network.",
+      "author": "Katherine Terrell",
+      "published_at": "2026-04-28T13:01:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Saints",
+        "Tyree Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0038541"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "US-EN-48611930",
+      "url": "https://www.espn.com/nhl/story/_/id/48611930/ex-alabama-dt-pleads-guilty-impersonating-nfl-players",
+      "title": "Ex-Bama DT pleads guilty after posing as NFLers",
+      "body_text": "Ex-Alabama DT Luther Davis entered guilty pleas in federal court in Atlanta to one count of conspiracy to commit wire fraud and one count of aggravated identity theft. Prosecutors say Davis pretended to be three NFL players on video calls with investors.",
+      "author": null,
+      "published_at": "2026-04-28T13:01:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Luther Davis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48612065",
+      "url": "https://www.espn.com/nfl/story/_/id/48612065/hall-fame-lb-lawrence-taylor-hospital-stomach-issue",
+      "title": "Giants great Taylor in hospital with stomach issue",
+      "body_text": "Hall of Fame linebacker Lawrence Taylor has been hospitalized for a stomach-related issue that a representative of his said does not appear to be life-threatening.",
+      "author": null,
+      "published_at": "2026-04-28T13:01:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Lawrence Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48612316",
+      "url": "https://www.espn.com/nfl/story/_/id/48612316/2026-nfl-draft-first-round-third-most-watched-record-last-year",
+      "title": "Draft 1st round 3rd-most watched, down from '25",
+      "body_text": "The first round of the NFL draft averaged 13.2 million viewers across television and digital platforms, making it the third-most watched first round on record, behind 2020's audience of 15.5 million and last year's 13.6 million.",
+      "author": null,
+      "published_at": "2026-04-28T13:01:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48611754",
+      "url": "https://www.espn.com/nfl/story/_/id/48611754/buccaneers-pick-dt-calijah-kancey-fifth-year-option",
+      "title": "Buccaneers pick up DT Kancey's 5th-year option",
+      "body_text": "The Buccaneers have picked up the fifth-year option on defensive tackle Calijah Kancey, the team announced Monday.",
+      "author": "Jenna Laine",
+      "published_at": "2026-04-28T13:01:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Buccaneers",
+        "Calijah Kancey"
+      ],
+      "resolved_player_ids": [
+        "00-0039063"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "US-EN-48604845",
+      "url": "https://www.espn.com/nfl/story/_/id/48604845/russell-wilson-savannah-bananas-yankee-stadium",
+      "title": "🍌 Russell Wilson joins Savannah Bananas outing",
+      "body_text": "The Super Bowl XLVIII-winning quarterback also took a swing for the Savannah Bananas and almost recorded a hit.",
+      "author": "Kalan Hooks",
+      "published_at": "2026-04-28T13:01:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Russell Wilson",
+        "Savannah Bananas",
+        "The Super"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48610798",
+      "url": "https://www.espn.com/nfl/story/_/id/48610798/2026-nfl-draft-ty-simpson-matthew-stafford-rams-quarterback-playoffs-first-round-pick",
+      "title": "Does the Rams' Stafford-Simpson approach make sense? Barnwell looks at 12 similar past situations",
+      "body_text": "Matthew Stafford just won MVP, but the contending Rams still drafted Ty Simpson in Round 1. Is it bad team building, or are there precedents for this working?",
+      "author": "Bill Barnwell",
+      "published_at": "2026-04-28T13:28:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48547351",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48547351/2026-nfl-draft-grades-32-teams-kiper-winners-losers-steals-sleepers-favorite-picks-classes",
+      "title": "Kiper's grades for all 32 NFL draft classes: Why the Cowboys and Jets aced their picks",
+      "body_text": "Mel Kiper Jr. evaluates the entire 2026 NFL draft, from the good (Cowboys, Jets) to the questionable (Rams).",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-28T13:28:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48610731",
+      "url": "https://www.espn.com/nfl/story/_/id/48610731/2026-nfl-draft-prospect-x-zach-durfee-washington",
+      "title": "Revealing 2026's Prospect X, his unique backstory and dramatic NFL draft journey",
+      "body_text": "This year's diamond in the NFL scouting rough ended up getting drafted. You won't believe his story.",
+      "author": "Kalyn Kahler",
+      "published_at": "2026-04-28T11:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48606629",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48606629/fantasy-football-winners-losers-nfl-draft",
+      "title": "Fantasy football winners and losers after NFL draft: Price-to-Seattle a perfect fit?",
+      "body_text": "Which players benefited most from the happenings during draft weekend, and which saw their stocks fall the most.",
+      "author": "ESPN",
+      "published_at": "2026-04-28T13:00:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48561514",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48561514/2026-fantasy-football-rankings-rookies-value-dynasty-league-redraft",
+      "title": "What to expect from Mendoza, Love and 34 other rookies in fantasy football",
+      "body_text": "Matt Bowen provides his analysis of this year's rookie class in fantasy, in terms of redraft and dynasty value.",
+      "author": "Matt Bowen",
+      "published_at": "2026-04-28T13:00:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matt Bowen"
+      ],
+      "resolved_player_ids": [
+        "00-0019574"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48611192",
+      "url": "https://www.espn.com/nfl/story/_/id/48611192/arizona-cardinals-carson-beck-2026-outlook",
+      "title": "'He won a lot of football games at a high level': Why the Cardinals believe in Carson Beck",
+      "body_text": "Beck made 43 starts in his college career and played in five CFP games, so he understands the spotlight.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-04-28T13:19:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "US-EN-48547336",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48547336/2026-nfl-draft-kiper-rounds-2-3-winners-losers-value-picks-updates-best-available",
+      "title": "Which teams won -- and lost -- on Day 2 of the NFL draft? Kiper on the best values, biggest reaches",
+      "body_text": "We're through 100 picks of the NFL draft. Mel Kiper Jr. sorts through the steals and reaches of Day 2, including some big value selections.",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-28T04:18:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48547294",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48547294/2026-nfl-draft-kiper-round-1-winners-losers-value-picks-updates-best-available",
+      "title": "Kiper's winners, losers from wild Round 1",
+      "body_text": "Mel Kiper Jr. makes sense of the first round, sizing up moves like the Makai Lemon and Ty Simpson picks.",
+      "author": "Mel Kiper Jr.",
+      "published_at": "2026-04-28T04:18:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mel Kiper Jr",
+        "Makai Lemon",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47809892",
+      "url": "https://www.espn.com/espn/betting/story/_/id/47809892/2026-super-bowl-lxi-odds-nfl-sports-betting-season-win-totals-playoffs",
+      "title": "NFL futures: Hierarchy largely unchanged after draft; Rams still favorites",
+      "body_text": "Every NFL team's win total, as well as odds to win their division, the conference and Super Bowl LXI.",
+      "author": "Doug Greenberg",
+      "published_at": "2026-04-27T17:17:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

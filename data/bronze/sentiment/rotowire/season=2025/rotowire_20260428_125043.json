@@ -1,0 +1,52 @@
+{
+  "fetch_run_id": "a701dc25-7d70-4f92-866d-bd25789798cf",
+  "source": "rotowire",
+  "fetched_at": "2026-04-28T12:50:43.707502+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 2,
+  "items": [
+    {
+      "external_id": "nfl630569",
+      "url": "https://www.rotowire.com//football/player/jordan-addison-16895",
+      "permalink": "",
+      "title": "Jordan Addison: Fifth-year option made official",
+      "body_text": "The Vikings exercised Addison's fifth-year option Monday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-27T10:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Addison",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl630565",
+      "url": "https://www.rotowire.com//football/player/javonte-williams-15306",
+      "permalink": "",
+      "title": "Javonte Williams: Backfield untouched by NFL Draft",
+      "body_text": "The Cowboys did not add to the running back position in the 2026 NFL Draft, leaving Williams (shoulder) positioned to reprise a bell-cow role, Jon Machota of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-27T08:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Javonte Williams",
+        "Draft The",
+        "Jon Machota",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0036997"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
