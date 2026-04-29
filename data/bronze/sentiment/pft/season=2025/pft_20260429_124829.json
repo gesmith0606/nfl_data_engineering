@@ -1,0 +1,599 @@
+{
+  "fetch_run_id": "71ae621f-ccdc-4b78-8609-431a936d0f91",
+  "source": "pft",
+  "fetched_at": "2026-04-29T12:48:29.437961+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rookie-qb-behren-morton-is-older-than-drake-maye-but-knows-he-can-learn-from-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rookie-qb-behren-morton-is-older-than-drake-maye-but-knows-he-can-learn-from-him",
+      "permalink": "",
+      "title": "Patriots rookie QB Behren Morton is older than Drake Maye, but knows he can learn from him",
+      "body_text": "Patriots seventh-round draft pick Behren Morton is the new guy in New England's quarterback room, but he's not the young guy.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-29T12:10:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Behren Morton",
+        "Drake Maye",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hunter-henry-its-good-that-the-super-bowl-loss-still-stings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hunter-henry-its-good-that-the-super-bowl-loss-still-stings",
+      "permalink": "",
+      "title": "Hunter Henry: It's good that the Super Bowl loss still stings",
+      "body_text": "The Mike Vrabel situation has dominated much of the attention being paid to the Patriots over the last few weeks, but tight end Hunter Henry said in a Tuesday press conference that the players have been focused on football while in the building for the last two weeks.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-29T11:19:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hunter Henry",
+        "Super Bowl",
+        "The Mike"
+      ],
+      "resolved_player_ids": [
+        "00-0033090"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-makes-its-case-to-fcc",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-makes-its-case-to-fcc",
+      "permalink": "",
+      "title": "NFL makes its case to FCC",
+      "body_text": "The unflappable league is flapping, when it comes to the assault on the antitrust exemption.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-22T13:43:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-cut-elijah-mitchell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-cut-elijah-mitchell",
+      "permalink": "",
+      "title": "Patriots cut Elijah Mitchell",
+      "body_text": "Elijah Mitchell, a running back whose promising rookie season in 2021 now feels like a distant memory, has been cut by the Patriots.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-29T09:01:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Elijah Mitchell"
+      ],
+      "resolved_player_ids": [
+        "00-0036567"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-told-garrett-nussmeier-youre-going-to-the-best-qb-room-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-told-garrett-nussmeier-youre-going-to-the-best-qb-room-in-the-nfl",
+      "permalink": "",
+      "title": "Brett Veach told Garrett Nussmeier: You're going to the best QB room in the NFL",
+      "body_text": "Nussmeier will work with Patrick Mahomes and get coached by Andy Reid in Kansas City.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-29T08:33:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brett Veach",
+        "Garrett Nussmeier",
+        "Patrick Mahomes",
+        "Andy Reid",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameson-williams-files-nil-lawsuit-against-ncaa-big-ten-sec",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameson-williams-files-nil-lawsuit-against-ncaa-big-ten-sec",
+      "permalink": "",
+      "title": "Jameson Williams files NIL lawsuit against NCAA, Big Ten, SEC",
+      "body_text": "Lions receiver Jameson Williams played most of his college career before the NIL era began.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T02:42:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jameson Williams",
+        "Big Ten"
+      ],
+      "resolved_player_ids": [
+        "00-0037240"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/photographer-hounded-mike-vrabel-in-salt-lake-city-airport-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/photographer-hounded-mike-vrabel-in-salt-lake-city-airport-on-saturday",
+      "permalink": "",
+      "title": "\"Photographer\" hounded Mike Vrabel in Salt Lake City airport on Saturday",
+      "body_text": "On Monday, the New York Post published photos taken of Patriots coach Mike Vrabel during the third day of the 2026 NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T02:16:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Salt Lake",
+        "On Monday",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-undergoes-an-expected-clean-up-procedure-on-his-ankle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-undergoes-an-expected-clean-up-procedure-on-his-ankle",
+      "permalink": "",
+      "title": "Bo Nix undergoes an \"expected clean-up\" procedure on his ankle",
+      "body_text": "The Broncos quarterback should receive clearance for all football activities by training camp.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T01:41:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-executive-chad-brinker-leaving-to-pursue-other-opportunities",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-executive-chad-brinker-leaving-to-pursue-other-opportunities",
+      "permalink": "",
+      "title": "Titans executive Chad Brinker leaving to pursue other opportunities",
+      "body_text": "Brinker joined the Titans in 2023 as assistant GM, and a year later, the team promoted him to president of football operations.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T00:52:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chad Brinker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-cut-te-jaheim-bell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-cut-te-jaheim-bell",
+      "permalink": "",
+      "title": "Eagles cut TE Jaheim Bell",
+      "body_text": "The Eagles waived tight end Jaheim Bell, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-28T23:58:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaheim Bell",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039420"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-de-josh-mauro-dies-at-35",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-de-josh-mauro-dies-at-35",
+      "permalink": "",
+      "title": "Former NFL DE Josh Mauro dies at 35",
+      "body_text": "Former NFL defensive lineman Josh Mauro died last week, the Raiders announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-28T22:48:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Mauro"
+      ],
+      "resolved_player_ids": [
+        "00-0030883"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-agree-to-terms-with-18-undrafted-rookies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-agree-to-terms-with-18-undrafted-rookies",
+      "permalink": "",
+      "title": "Rams agree to terms with 18 undrafted rookies",
+      "body_text": "The Rams grabbed headlines by drafting Ty Simpson with the 13th overall pick and they're adding another rookie quarterback to the roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T21:43:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Rams",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-exercise-the-fifth-year-option-for-jahmyr-gibbs-decline-jack-campbells",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-exercise-the-fifth-year-option-for-jahmyr-gibbs-decline-jack-campbells",
+      "permalink": "",
+      "title": "Lions exercise the fifth-year option for Jahmyr Gibbs, decline Jack Campbell's",
+      "body_text": "The Lions will exercise the fifth-year option on running back Jahmyr Gibbs' contract as expected, Dan Miller of Fox2 Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-28T21:30:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "Jack Campbell",
+        "The Lions",
+        "Dan Miller"
+      ],
+      "resolved_player_ids": [
+        "00-0039139",
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-martin-emerson-is-visiting-the-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-martin-emerson-is-visiting-the-saints",
+      "permalink": "",
+      "title": "CB Martin Emerson is visiting the Saints",
+      "body_text": "The Saints are meeting with a potential addition to their secondary on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T17:50:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Martin Emerson",
+        "Saints The"
+      ],
+      "resolved_player_ids": [
+        "00-0037250"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-announce-signings-of-martin-emerson-anfernee-jennings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-announce-signings-of-martin-emerson-anfernee-jennings",
+      "permalink": "",
+      "title": "Saints announce signings of Martin Emerson, Anfernee Jennings",
+      "body_text": "The Saints have announced the signings of cornerback Martin Emerson and linebacker Anfernee Jennings.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T21:11:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Martin Emerson",
+        "Anfernee Jennings",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0037250",
+        "00-0036193"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-pick-up-christian-gonzalezs-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-pick-up-christian-gonzalezs-fifth-year-option",
+      "permalink": "",
+      "title": "Patriots pick up Christian Gonzalez's fifth-year option",
+      "body_text": "The Patriots have taken the next step toward keeping cornerback Christian Gonzalez in New England for years to come.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-28T21:02:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Gonzalez",
+        "The Patriots",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-players-say-theyre-focused-on-football-amid-mike-vrabel-drama",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-players-say-theyre-focused-on-football-amid-mike-vrabel-drama",
+      "permalink": "",
+      "title": "Patriots players say they're focused on football amid Mike Vrabel drama",
+      "body_text": "Patriots tight end Hunter Henry and linebacker Robert Spillane both fielded questions about head coach Mike Vrabel's messaging to the team when they held press conferences from the team's facility on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T20:48:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Hunter Henry",
+        "Robert Spillane"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0033090",
+        "00-0034720"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-qb-russell-wilson-visits-jets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-qb-russell-wilson-visits-jets",
+      "permalink": "",
+      "title": "Free agent QB Russell Wilson visits Jets",
+      "body_text": "Geno Smith, the Jets' starter, served as Wilson's backup for two seasons in Seattle.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-28T20:41:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Russell Wilson",
+        "Jets Geno"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-exercise-the-fifth-year-option-on-quentin-johnstons-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-exercise-the-fifth-year-option-on-quentin-johnstons-contract",
+      "permalink": "",
+      "title": "Chargers exercise the fifth-year option on Quentin Johnston's contract",
+      "body_text": "The Chargers have made a call on the fifth-year option on Quentin Johnston's contract.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-28T20:24:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quentin Johnston",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0038544"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-release-qb-wr-john-rhys-plumlee",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-release-qb-wr-john-rhys-plumlee",
+      "permalink": "",
+      "title": "Steelers release QB/WR John Rhys Plumlee",
+      "body_text": "The Steelers released quarterback/wide receiver John Rhys Plumlee.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-28T20:13:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Rhys",
+        "Plumlee The"
+      ],
+      "resolved_player_ids": [
+        "00-0039456"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lawrence-taylor-being-treated-for-pancreatitis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lawrence-taylor-being-treated-for-pancreatitis",
+      "permalink": "",
+      "title": "Report: Lawrence Taylor being treated for pancreatitis",
+      "body_text": "Hall of Famer Lawrence Taylor is being treated for pancreatitis, TMZ Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-28T19:41:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lawrence Taylor",
+        "Famer Lawrence"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-were-looking-for-second-round-pick-for-kayvon-thibodeaux",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-were-looking-for-second-round-pick-for-kayvon-thibodeaux",
+      "permalink": "",
+      "title": "Report: Giants were looking for second-round pick for Kayvon Thibodeaux",
+      "body_text": "Trade chatter swirled around Kayvon Thibodeaux leading up to and during the draft, but no deal came together and the edge rusher remains with the Giants.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T19:38:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kayvon Thibodeaux"
+      ],
+      "resolved_player_ids": [
+        "00-0037611"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-viewed-carnell-tate-as-a-clear-guy-for-us-to-take-at-no-4",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-viewed-carnell-tate-as-a-clear-guy-for-us-to-take-at-no-4",
+      "permalink": "",
+      "title": "Titans viewed Carnell Tate as \"a clear guy for us to take\" at No. 4",
+      "body_text": "When the Titans were on the clock with the fourth overall pick in the 2026 NFL draft, the consensus in their draft room was that wide receiver Carnell Tate was the player to pick.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-28T19:25:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-agree-to-terms-with-seven-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-agree-to-terms-with-seven-undrafted-free-agents",
+      "permalink": "",
+      "title": "Cardinals agree to terms with seven undrafted free agents",
+      "body_text": "The Cardinals drafted seven players this year and they're signing seven more rookie free agents to their 90-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T19:21:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-ufa-tender-for-aaron-rodgers-is-a-chess-move-in-a-game-no-one-knew-about",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-ufa-tender-for-aaron-rodgers-is-a-chess-move-in-a-game-no-one-knew-about",
+      "permalink": "",
+      "title": "Steelers' UFA tender for Aaron Rodgers is a chess move in a game no one knew about",
+      "body_text": "Pittsburgh's move to apply an unrestricted free agent tender to quarterback Aaron Rodgers becomes, in essence, a chess move in a game no one thought was being played.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-28T19:09:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-rb-jonathon-brooks-close-to-100-percent-after-multiple-acl-tears",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-rb-jonathon-brooks-close-to-100-percent-after-multiple-acl-tears",
+      "permalink": "",
+      "title": "Panthers RB Jonathon Brooks \"close to 100 percent\" after multiple ACL tears",
+      "body_text": "Panthers running back Jonathon Brooks is continuing to make progress in his bid to return to action.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-28T18:48:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Brooks"
+      ],
+      "resolved_player_ids": [
+        "00-0039344"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/how-will-matthew-stafford-react-to-the-selection-of-ty-simpson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/how-will-matthew-stafford-react-to-the-selection-of-ty-simpson",
+      "permalink": "",
+      "title": "How will Matthew Stafford react to the selection of Ty Simpson?",
+      "body_text": "The Rams are clearly concerned about how Stafford will respond.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-28T18:44:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford",
+        "Ty Simpson",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-agree-to-sign-qb-diego-pavia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-agree-to-sign-qb-diego-pavia",
+      "permalink": "",
+      "title": "Ravens agree to sign QB Diego Pavia",
+      "body_text": "As it turns out, the Ravens will have four quarterbacks on their 90-man roster.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-28T18:11:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Diego Pavia"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-will-anderson-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-will-anderson-deal",
+      "permalink": "",
+      "title": "Inside the Will Anderson deal",
+      "body_text": "The Texans have made defensive end Will Anderson the highest-paid non-quarterback in the NFL, based on new-money average.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-28T18:05:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Anderson",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/scotty-miller-visiting-with-lions-set-to-try-out-with-bears",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/scotty-miller-visiting-with-lions-set-to-try-out-with-bears",
+      "permalink": "",
+      "title": "Scotty Miller visiting with Lions, set to try out with Bears",
+      "body_text": "Veteran receiver Scotty Miller is getting a look at a couple of NFC North teams.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-28T18:01:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Scotty Miller",
+        "Bears Veteran"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    }
+  ]
+}

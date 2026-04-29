@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "dffb6783-73a0-4963-8907-dc0d1fbba72b",
+  "source": "rotowire",
+  "fetched_at": "2026-04-29T12:47:45.889615+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630612",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Has clean-up procedure on ankle",
+      "body_text": "During his scheduled re-check last week, Nix underwent what Ian Rapoport of NFL Network describes as a successful and anticipated follow-up clean-up procedure on his ankle. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-28T06:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630603",
+      "url": "https://www.rotowire.com//football/player/jahmyr-gibbs-16808",
+      "permalink": "",
+      "title": "Jahmyr Gibbs: Detroit picks up fifth-year option",
+      "body_text": "The Lions exercised Gibbs' fifth-year option for the 2027 season Tuesday, Nolan Bianchi of The Detroit News reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-28T03:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "The Lions",
+        "Nolan Bianchi",
+        "The Detroit"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "nfl630602",
+      "url": "https://www.rotowire.com//football/player/quentin-johnston-16899",
+      "permalink": "",
+      "title": "Quentin Johnston: Fifth-year option exercised",
+      "body_text": "The Chargers exercised Johnston's fifth-year option for the 2027 season Tuesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-28T01:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quentin Johnston",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0038544"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl630600",
+      "url": "https://www.rotowire.com//football/player/diego-pavia-19290",
+      "permalink": "",
+      "title": "Diego Pavia: Inks UDFA deal with Baltimore",
+      "body_text": "The Ravens signed Pavia as an undrafted free agent Tuesday, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-28T12:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Diego Pavia",
+        "Baltimore The",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "nfl630599",
+      "url": "https://www.rotowire.com//football/player/jonathon-brooks-17747",
+      "permalink": "",
+      "title": "Jonathon Brooks: Fully cleared for offseason program",
+      "body_text": "Brooks (knee) said Tuesday that he's been fully cleared to participate in the Panthers' offseason program, Joe Person of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-28T11:36:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Brooks",
+        "Joe Person",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0039344"
+      ],
+      "team_hint": "CAR"
+    }
+  ]
+}
