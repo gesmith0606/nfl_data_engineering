@@ -21,9 +21,13 @@ import argparse
 from datetime import datetime
 
 import pandas as pd
+from dotenv import load_dotenv
 
 # Add project root to path so src imports work
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+
+# Load .env so CFBD_API_KEY is visible to the adapter (which reads via os.getenv).
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 from src.college_data_adapter import CollegeDataAdapter, pivot_player_stats
 
