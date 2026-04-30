@@ -910,6 +910,13 @@ def multi_compare_rankings(
     internal_limit = max(limit * 3, 200)
     compared_at = datetime.now(timezone.utc).isoformat()
 
+    # `rank_basis` decides which kind of rank the user-facing `<source>_rank`
+    # column carries. With no position filter the table mixes positions so
+    # overall rank is what users expect (Bijan #1, Lamar #2, etc.). With a
+    # position filter the table is one position only — positional rank is
+    # what makes the comparison apples-to-apples (QB1 vs QB1).
+    rank_basis = "positional" if position else "overall"
+
     per_source: Dict[str, List[Dict[str, Any]]] = {}
     stale_flags: Dict[str, bool] = {}
     cache_ages: Dict[str, Optional[float]] = {}
@@ -919,9 +926,10 @@ def multi_compare_rankings(
         rows, stale, age_hours, last_updated = _resolve_source(
             internal_src, season=season, scoring=scoring, limit=internal_limit
         )
-        # Convert overall external_rank → positional rank so all comparisons
-        # are apples-to-apples (QB1 vs QB1, RB3 vs RB3) regardless of how the
-        # source weights position scarcity in its raw output.
+        # Always preserve both ranks per row.
+        # _to_position_ranks() saves the source's overall rank under
+        # `external_overall_rank` and replaces `external_rank` with the
+        # positional rank derived from the same ordering.
         rows = _to_position_ranks(rows)
         per_source[ext_key] = rows
         stale_flags[ext_key] = stale
@@ -939,7 +947,6 @@ def multi_compare_rankings(
     # Build merged map keyed by normalized player_name.
     merged: Dict[str, Dict[str, Any]] = {}
     for ext_key, rows in per_source.items():
-        rank_field = f"{ext_key}_rank"
         for r in rows:
             name = str(r.get("player_name", ""))
             key = _normalize_name(name)
@@ -954,12 +961,20 @@ def multi_compare_rankings(
                     "_norm_key": key,
                 },
             )
-            ext_rank = r.get("external_rank", r.get("rank"))
-            if ext_rank is not None:
-                try:
-                    entry[rank_field] = float(ext_rank)
-                except (TypeError, ValueError):
-                    entry[rank_field] = None
+            pos_rank = r.get("external_rank", r.get("rank"))
+            overall_rank = r.get("external_overall_rank", pos_rank)
+            try:
+                entry[f"{ext_key}_pos_rank"] = (
+                    float(pos_rank) if pos_rank is not None else None
+                )
+            except (TypeError, ValueError):
+                entry[f"{ext_key}_pos_rank"] = None
+            try:
+                entry[f"{ext_key}_overall_rank"] = (
+                    float(overall_rank) if overall_rank is not None else None
+                )
+            except (TypeError, ValueError):
+                entry[f"{ext_key}_overall_rank"] = None
             if not entry.get("position") and r.get("position"):
                 entry["position"] = r.get("position")
             if not entry.get("team") and r.get("team"):
@@ -974,7 +989,8 @@ def multi_compare_rankings(
             if not name_key or name_key in our_lookup:
                 continue
             our_lookup[name_key] = {
-                "our_rank": int(row["our_rank"]),
+                "our_pos_rank": int(row["our_rank"]),
+                "our_overall_rank": int(row.get("our_overall_rank", row["our_rank"])),
                 "projected_points": float(row.get("projected_points", 0) or 0),
                 "position": str(row.get("position", "")),
                 "team": str(row.get("team", "")),
@@ -1002,21 +1018,38 @@ def multi_compare_rankings(
             if not entry.get("team") and our_row["team"]:
                 entry["team"] = our_row["team"]
 
-    # Stamp our_rank, projected_points, and rank_diff_vs_<source> on each row.
-    # Every requested source gets a <source>_rank field on every row (None if
-    # the player is missing from that source) so the API surface is dense.
+    # Stamp ours + select the user-facing ranks based on rank_basis.
+    # We always carry both _pos_rank and _overall_rank for every source so the
+    # frontend can label the column correctly and the user can re-sort without
+    # a refetch in the future. The headline `<source>_rank` field is the one
+    # that matches the active filter (overall when no position, positional
+    # when filtered to a single position).
     for key, entry in merged.items():
         our = our_lookup.get(key)
-        entry["our_rank"] = our["our_rank"] if our else None
+        entry["our_pos_rank"] = our["our_pos_rank"] if our else None
+        entry["our_overall_rank"] = our["our_overall_rank"] if our else None
         entry["our_projected_points"] = (
             round(our["projected_points"], 1) if our else None
         )
+
+        if rank_basis == "overall":
+            our_active = entry["our_overall_rank"]
+        else:
+            our_active = entry["our_pos_rank"]
+        entry["our_rank"] = our_active
+
         for ext_key in requested:
-            entry.setdefault(f"{ext_key}_rank", None)
-            ext_rank = entry.get(f"{ext_key}_rank")
+            entry.setdefault(f"{ext_key}_pos_rank", None)
+            entry.setdefault(f"{ext_key}_overall_rank", None)
+            ext_rank = (
+                entry.get(f"{ext_key}_overall_rank")
+                if rank_basis == "overall"
+                else entry.get(f"{ext_key}_pos_rank")
+            )
+            entry[f"{ext_key}_rank"] = ext_rank
             diff_field = f"rank_diff_vs_{ext_key}"
-            if our is not None and ext_rank is not None:
-                entry[diff_field] = float(ext_rank) - float(our["our_rank"])
+            if our_active is not None and ext_rank is not None:
+                entry[diff_field] = float(ext_rank) - float(our_active)
             else:
                 entry[diff_field] = None
 
@@ -1055,6 +1088,7 @@ def multi_compare_rankings(
         "season": season,
         "sources": list(requested),
         "sort_by": sort_by,
+        "rank_basis": rank_basis,  # "overall" | "positional"
         "source_labels": {
             "ours": _MULTI_SOURCE_LABELS["ours"],
             **{k: _MULTI_SOURCE_LABELS[k] for k in requested},

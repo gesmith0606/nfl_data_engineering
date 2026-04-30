@@ -23,14 +23,6 @@ const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
   { value: 'standard', label: 'Standard' }
 ];
 
-const SORT_OPTIONS: { value: RankingSortBy; label: string }[] = [
-  { value: 'consensus', label: 'Consensus' },
-  { value: 'ours', label: 'Ours' },
-  { value: 'sleeper', label: 'Sleeper' },
-  { value: 'espn', label: 'ESPN' },
-  { value: 'yahoo', label: 'Yahoo' }
-];
-
 const SOURCES: RankingSource[] = ['sleeper', 'espn', 'yahoo'];
 
 const POS_COLORS: Record<string, string> = {
@@ -70,13 +62,51 @@ interface MultiCompareTableProps {
   season?: number;
 }
 
+interface SortHeaderProps {
+  label: string;
+  sortKey: RankingSortBy;
+  activeSort: RankingSortBy;
+  onClick: (k: RankingSortBy) => void;
+  align?: 'left' | 'right';
+  title?: string;
+}
+
+function SortHeader({
+  label,
+  sortKey,
+  activeSort,
+  onClick,
+  align = 'right',
+  title
+}: SortHeaderProps) {
+  const isActive = activeSort === sortKey;
+  return (
+    <th
+      className={`select-none cursor-pointer py-2 px-2 font-medium text-${align} hover:bg-muted ${
+        isActive ? 'text-foreground' : 'text-muted-foreground'
+      }`}
+      onClick={() => onClick(sortKey)}
+      title={title}
+    >
+      <span className='inline-flex items-center gap-1'>
+        {label}
+        {isActive && <span className='text-xs'>↓</span>}
+      </span>
+    </th>
+  );
+}
+
 /**
  * Side-by-side rankings table: ours vs. Sleeper / ESPN / Yahoo.
  *
- * Each row is one player; rank columns show how each source ranks them.
- * `rank_diff_vs_<source>` columns highlight where we disagree most. Yahoo
- * data is served via FantasyPros consensus (provenance noted under the
- * column header).
+ * **Rank semantics** depend on the position filter:
+ *   - ALL filter → ranks are **overall** (Bijan #1, Lamar #16, …)
+ *   - Single position filter (QB/RB/…) → ranks are **positional** (QB1, QB2, …)
+ *
+ * The backend exposes both kinds per row and switches the headline `rank`
+ * based on the active filter. The "#" column on the left is the row's
+ * position in the currently active sort order — click any column header
+ * to sort by that source. Yahoo is served via FantasyPros consensus.
  */
 export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
   const [position, setPosition] = useState<Position>('ALL');
@@ -94,26 +124,13 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
     })
   );
 
+  const rankBasis = data?.rank_basis ?? 'overall';
+  const rankBasisLabel = rankBasis === 'overall' ? 'overall' : 'positional';
+
   return (
     <div className='space-y-4'>
-      {/* Controls */}
       <Card>
         <CardContent className='flex flex-wrap items-end gap-4 pt-6'>
-          <div className='space-y-2'>
-            <label className='text-muted-foreground text-xs font-medium'>
-              Sort by
-            </label>
-            <Tabs value={sortBy} onValueChange={(v) => setSortBy(v as RankingSortBy)}>
-              <TabsList>
-                {SORT_OPTIONS.map((opt) => (
-                  <TabsTrigger key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
-          </div>
-
           <div className='space-y-2'>
             <label className='text-muted-foreground text-xs font-medium'>
               Position
@@ -153,7 +170,11 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                     key={src}
                     variant={stale ? 'destructive' : 'secondary'}
                     className='text-xs'
-                    title={stale ? `${SOURCE_LABEL[src]}: stale or unavailable` : `${SOURCE_LABEL[src]}: live`}
+                    title={
+                      stale
+                        ? `${SOURCE_LABEL[src]}: stale or unavailable`
+                        : `${SOURCE_LABEL[src]}: live`
+                    }
                   >
                     {SOURCE_LABEL[src]} {stale ? '·stale' : '·live'}
                   </Badge>
@@ -164,7 +185,25 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
         </CardContent>
       </Card>
 
-      {/* Empty / error / loading states */}
+      {/* Caption explaining what the user is looking at */}
+      {data && data.players.length > 0 && (
+        <p className='text-xs text-muted-foreground px-1'>
+          Showing <span className='font-medium'>{rankBasisLabel}</span> ranks
+          {position === 'ALL'
+            ? ' (1..N across all positions). '
+            : ` (${position}1, ${position}2, … within position). `}
+          Sorted by{' '}
+          <span className='font-medium'>
+            {sortBy === 'consensus'
+              ? 'consensus (mean of Sleeper/ESPN/Yahoo)'
+              : sortBy === 'ours'
+                ? 'our rank'
+                : SOURCE_LABEL[sortBy as RankingSource]}
+          </span>
+          . Click any column header to re-sort.
+        </p>
+      )}
+
       {error && (
         <Card>
           <CardContent className='text-muted-foreground pt-6 text-sm'>
@@ -191,7 +230,6 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
         </Card>
       )}
 
-      {/* Table */}
       {!isLoading && data && data.players.length > 0 && (
         <Card>
           <CardContent className='p-0'>
@@ -199,26 +237,72 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
               <table className='w-full text-sm'>
                 <thead className='border-b bg-muted/40'>
                   <tr className='text-left'>
-                    <th className='py-2 pl-4 pr-2 font-medium'>#</th>
+                    <th
+                      className='py-2 pl-4 pr-2 font-medium text-muted-foreground'
+                      title={`Row position in the current sort order (${
+                        sortBy === 'consensus' ? 'consensus' : sortBy
+                      }, ${rankBasisLabel}, ${
+                        position === 'ALL' ? 'all positions' : position
+                      })`}
+                    >
+                      #
+                    </th>
                     <th className='py-2 px-2 font-medium'>Player</th>
                     <th className='py-2 px-2 font-medium'>Pos</th>
-                    <th className='py-2 px-2 text-right font-medium'>Ours</th>
-                    <th className='py-2 px-2 text-right font-medium'>Pts</th>
-                    <th className='py-2 px-2 text-right font-medium'>Sleeper</th>
-                    <th className='py-2 px-2 text-right font-medium'>ESPN</th>
-                    <th
-                      className='py-2 px-2 text-right font-medium'
-                      title='Served via FantasyPros consensus'
-                    >
-                      Yahoo*
+                    <SortHeader
+                      label='Ours'
+                      sortKey='ours'
+                      activeSort={sortBy}
+                      onClick={setSortBy}
+                      title={`Our ${rankBasisLabel} rank — click to sort`}
+                    />
+                    <th className='py-2 px-2 text-right font-medium text-muted-foreground'>
+                      Pts
                     </th>
-                    <th className='py-2 px-2 text-right font-medium' title='Sleeper rank − our rank'>
+                    <SortHeader
+                      label='Sleeper'
+                      sortKey='sleeper'
+                      activeSort={sortBy}
+                      onClick={setSortBy}
+                      title={`Sleeper ${rankBasisLabel} rank — click to sort`}
+                    />
+                    <SortHeader
+                      label='ESPN'
+                      sortKey='espn'
+                      activeSort={sortBy}
+                      onClick={setSortBy}
+                      title={`ESPN ${rankBasisLabel} rank — click to sort`}
+                    />
+                    <SortHeader
+                      label='Yahoo*'
+                      sortKey='yahoo'
+                      activeSort={sortBy}
+                      onClick={setSortBy}
+                      title={`Yahoo ${rankBasisLabel} rank (via FantasyPros consensus) — click to sort`}
+                    />
+                    <SortHeader
+                      label='Consensus'
+                      sortKey='consensus'
+                      activeSort={sortBy}
+                      onClick={setSortBy}
+                      title='Mean of Sleeper / ESPN / Yahoo — click to sort'
+                    />
+                    <th
+                      className='py-2 px-2 text-right font-medium text-muted-foreground'
+                      title='Sleeper rank − our rank (positive = we rank lower than Sleeper)'
+                    >
                       Δ Slp
                     </th>
-                    <th className='py-2 px-2 text-right font-medium' title='ESPN rank − our rank'>
+                    <th
+                      className='py-2 px-2 text-right font-medium text-muted-foreground'
+                      title='ESPN rank − our rank'
+                    >
                       Δ ESPN
                     </th>
-                    <th className='py-2 pl-2 pr-4 text-right font-medium' title='Yahoo rank − our rank'>
+                    <th
+                      className='py-2 pl-2 pr-4 text-right font-medium text-muted-foreground'
+                      title='Yahoo rank − our rank'
+                    >
                       Δ Yah
                     </th>
                   </tr>
@@ -226,9 +310,21 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                 <tbody>
                   {data.players.map((p) => {
                     const teamColor = p.team ? getTeamColor(p.team) : null;
+                    const externalRanks = [p.sleeper_rank, p.espn_rank, p.yahoo_rank].filter(
+                      (v): v is number => v !== null && v !== undefined
+                    );
+                    const consensus =
+                      externalRanks.length > 0
+                        ? externalRanks.reduce((a, b) => a + b, 0) / externalRanks.length
+                        : null;
                     return (
-                      <tr key={`${p.player_name}-${p.team}`} className='border-b last:border-0 hover:bg-muted/30'>
-                        <td className='py-2 pl-4 pr-2 font-mono text-xs'>{p.rank}</td>
+                      <tr
+                        key={`${p.player_name}-${p.team}`}
+                        className='border-b last:border-0 hover:bg-muted/30'
+                      >
+                        <td className='py-2 pl-4 pr-2 font-mono text-xs text-muted-foreground'>
+                          {p.rank}
+                        </td>
                         <td className='py-2 px-2'>
                           <Link
                             href={`/dashboard/players?q=${encodeURIComponent(p.player_name)}`}
@@ -249,7 +345,10 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                         </td>
                         <td className='py-2 px-2'>
                           {p.position && (
-                            <Badge variant='outline' className={POS_COLORS[p.position] ?? ''}>
+                            <Badge
+                              variant='outline'
+                              className={POS_COLORS[p.position] ?? ''}
+                            >
                               {p.position}
                             </Badge>
                           )}
@@ -271,13 +370,22 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                         <td className='py-2 px-2 text-right font-mono'>
                           {formatRank(p.yahoo_rank)}
                         </td>
-                        <td className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_sleeper)}`}>
+                        <td className='py-2 px-2 text-right font-mono text-muted-foreground'>
+                          {formatRank(consensus)}
+                        </td>
+                        <td
+                          className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_sleeper)}`}
+                        >
                           {formatDiff(p.rank_diff_vs_sleeper)}
                         </td>
-                        <td className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_espn)}`}>
+                        <td
+                          className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_espn)}`}
+                        >
                           {formatDiff(p.rank_diff_vs_espn)}
                         </td>
-                        <td className={`py-2 pl-2 pr-4 text-right font-mono ${diffClass(p.rank_diff_vs_yahoo)}`}>
+                        <td
+                          className={`py-2 pl-2 pr-4 text-right font-mono ${diffClass(p.rank_diff_vs_yahoo)}`}
+                        >
                           {formatDiff(p.rank_diff_vs_yahoo)}
                         </td>
                       </tr>
@@ -291,7 +399,7 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
       )}
 
       <p className='text-xs text-muted-foreground'>
-        Δ columns show <span className='font-mono'>source rank − our rank</span>.
+        Δ columns show <span className='font-mono'>source rank − our rank</span>.{' '}
         Positive = source ranks the player lower than we do (we’re higher on
         them). Yahoo* is served via FantasyPros consensus.
       </p>

@@ -530,17 +530,30 @@ export interface TeamDefenseMetricsResponse {
 
 export type RankingSource = 'sleeper' | 'espn' | 'yahoo';
 export type RankingSortBy = 'consensus' | 'ours' | RankingSource;
+export type RankBasis = 'overall' | 'positional';
 
 export interface MultiCompareRow {
-  rank: number;
+  rank: number; // 1..N display order based on the active sort
   player_name: string;
   position: string;
   team: string;
+  // Headline ranks — semantics depend on `rank_basis` in the response:
+  //   "overall"    → 1..N flat across all positions (Bijan #1, Lamar #16, …)
+  //   "positional" → 1..N within position (QB1/QB2, RB1/RB2, …)
   our_rank: number | null;
-  our_projected_points: number | null;
   sleeper_rank: number | null;
   espn_rank: number | null;
   yahoo_rank: number | null;
+  // Both kinds are always exposed so the UI can resort/relabel client-side.
+  our_pos_rank: number | null;
+  our_overall_rank: number | null;
+  sleeper_pos_rank: number | null;
+  sleeper_overall_rank: number | null;
+  espn_pos_rank: number | null;
+  espn_overall_rank: number | null;
+  yahoo_pos_rank: number | null;
+  yahoo_overall_rank: number | null;
+  our_projected_points: number | null;
   rank_diff_vs_sleeper: number | null;
   rank_diff_vs_espn: number | null;
   rank_diff_vs_yahoo: number | null;
@@ -552,6 +565,7 @@ export interface MultiCompareResponse {
   season: number;
   sources: RankingSource[];
   sort_by: RankingSortBy;
+  rank_basis: RankBasis;
   source_labels: Record<string, string>;
   our_projections_available: boolean;
   stale: Record<string, boolean>;

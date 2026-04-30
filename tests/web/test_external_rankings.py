@@ -453,6 +453,7 @@ def test_multi_compare_envelope_shape(
         "season",
         "sources",
         "sort_by",
+        "rank_basis",
         "source_labels",
         "our_projections_available",
         "stale",
@@ -514,24 +515,89 @@ def test_multi_compare_joins_on_player_name(
     )
     monkeypatch.setattr(svc, "_load_our_projections", lambda **kw: our_df)
 
+    # No position filter → rank_basis="overall". Each source's headline
+    # `<source>_rank` is its OVERALL rank (not positional). Both
+    # `<source>_pos_rank` and `<source>_overall_rank` are also exposed
+    # so the frontend can switch labels without a refetch.
     result = svc.multi_compare_rankings(limit=10)
+    assert result["rank_basis"] == "overall"
     by_name = {p["player_name"]: p for p in result["players"]}
 
     alice = by_name["Alice"]
-    assert alice["our_rank"] == 1  # Only RB → RB1
-    assert alice["sleeper_rank"] == 1.0  # Sleeper's only RB → RB1
-    assert alice["espn_rank"] == 1.0  # ESPN's only RB → RB1
-    assert alice["yahoo_rank"] is None  # FP has no Alice
+    # our_rank uses the parquet's overall_rank when no filter — fixture's
+    # our_df has Alice's our_rank=1 (only RB), so overall and positional
+    # match in this minimal setup.
+    assert alice["our_rank"] == 1
+    assert alice["our_pos_rank"] == 1
+    # Both kinds of external rank exposed; headline matches overall.
+    assert alice["sleeper_rank"] == 1.0
+    assert alice["sleeper_overall_rank"] == 1.0
+    assert alice["sleeper_pos_rank"] == 1.0
+    assert alice["espn_rank"] == 5.0  # ESPN's overall (was external_rank=5)
+    assert alice["espn_overall_rank"] == 5.0
+    assert alice["espn_pos_rank"] == 1.0  # only RB in ESPN seed → RB1
+    assert alice["yahoo_rank"] is None
     assert alice["rank_diff_vs_sleeper"] == 0.0  # 1 - 1
-    assert alice["rank_diff_vs_espn"] == 0.0  # 1 - 1
+    assert alice["rank_diff_vs_espn"] == 4.0  # 5 - 1
     assert alice["rank_diff_vs_yahoo"] is None
 
     bob = by_name["Bob"]
-    assert bob["our_rank"] == 1  # Only WR → WR1
-    assert bob["sleeper_rank"] == 1.0  # Sleeper's only WR → WR1
+    assert bob["our_rank"] == 1
+    assert bob["sleeper_rank"] == 2.0  # overall=2 (sleeper had external_rank=2)
+    assert bob["sleeper_pos_rank"] == 1.0  # only WR in sleeper seed → WR1
     assert bob["espn_rank"] is None
-    assert bob["yahoo_rank"] == 1.0  # FP's only WR → WR1
-    assert bob["rank_diff_vs_yahoo"] == 0.0  # 1 - 1
+    assert bob["yahoo_rank"] == 3.0  # FP overall=3
+    assert bob["yahoo_pos_rank"] == 1.0  # only WR in FP seed → WR1
+    assert bob["rank_diff_vs_sleeper"] == 1.0  # 2 - 1
+    assert bob["rank_diff_vs_yahoo"] == 2.0  # 3 - 1
+
+
+@pytest.mark.unit
+def test_multi_compare_rank_basis_switches_with_position_filter(
+    tmp_cache_dir: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """With a position filter, headline ranks switch to positional."""
+    import pandas as pd
+    import requests
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+
+    sleeper_rows = [
+        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
+        {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 2, "rank": 2},
+    ]
+    espn_rows = [
+        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 5, "rank": 5},
+    ]
+    _seed_cache(tmp_cache_dir, "sleeper", sleeper_rows)
+    _seed_cache(tmp_cache_dir, "espn", espn_rows)
+
+    our_df = pd.DataFrame(
+        [
+            {"player_name": "Alice", "position": "RB", "team": "KC", "our_rank": 1, "our_overall_rank": 7, "projected_points": 18.0},
+        ]
+    )
+    monkeypatch.setattr(svc, "_load_our_projections", lambda **kw: our_df)
+
+    result = svc.multi_compare_rankings(
+        limit=10, position="RB", sources=("sleeper", "espn")
+    )
+    assert result["rank_basis"] == "positional"
+    by_name = {p["player_name"]: p for p in result["players"]}
+    alice = by_name["Alice"]
+    # Headline ranks are POSITIONAL when a filter is active.
+    assert alice["our_rank"] == 1  # RB1
+    assert alice["our_pos_rank"] == 1
+    assert alice["our_overall_rank"] == 7  # still exposed
+    assert alice["sleeper_rank"] == 1.0  # RB1 in sleeper
+    assert alice["espn_rank"] == 1.0  # RB1 in espn
+    assert alice["sleeper_overall_rank"] == 1.0
+    assert alice["espn_overall_rank"] == 5.0
 
 
 @pytest.mark.unit
@@ -571,14 +637,15 @@ def test_multi_compare_sort_by_consensus_uses_external_mean(
         ],
     )
 
-    # All three players are RBs, so positional rank == overall rank within each
-    # source. After the service converts sources to positional ranks:
-    #   Sleeper (sort by overall): Bob(1), Carol(2), Alice(10) → Bob=RB1, Carol=RB2, Alice=RB3
-    #   ESPN    (sort by overall): Carol(2), Alice(10), Bob(99) → Carol=RB1, Alice=RB2, Bob=RB3
-    # Consensus mean: Carol = (2+1)/2 = 1.5; Bob = (1+3)/2 = 2.0; Alice = (3+2)/2 = 2.5
+    # No position filter → rank_basis="overall". Headline `<source>_rank` is
+    # the source's overall rank (not positional). Consensus = mean of
+    # available external overalls. With:
+    #   Alice: sleeper=10, espn=10 → mean=10
+    #   Bob:   sleeper=1,  espn=99 → mean=50
+    #   Carol: sleeper=2,  espn=2  → mean=2  ← lowest
     result = svc.multi_compare_rankings(limit=10, sort_by="consensus")
     names = [p["player_name"] for p in result["players"][:3]]
-    assert names == ["Carol", "Bob", "Alice"], f"got {names}"
+    assert names == ["Carol", "Alice", "Bob"], f"got {names}"
 
 
 @pytest.mark.unit
