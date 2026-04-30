@@ -1,8 +1,8 @@
 FROM python:3.9-slim
 
-# Cache-buster: bumped 2026-04-21 to force Railway to re-run all COPY layers
+# Cache-buster: bumped 2026-04-30 to force Railway to re-run all COPY layers
 # instead of importing a stale cached image. Change this ARG to invalidate cache.
-ARG CACHE_BUST=2026-04-21-01
+ARG CACHE_BUST=2026-04-30-01
 
 WORKDIR /app
 
@@ -37,6 +37,12 @@ COPY data/bronze/sentiment/ ./data/bronze/sentiment/
 # and lineups. Without these the endpoints return 503. Phase 66 / v7.0.
 COPY data/bronze/schedules/ ./data/bronze/schedules/
 COPY data/bronze/players/rosters/ ./data/bronze/players/rosters/
+
+# Bronze depth charts: required by /api/lineups (lineup_builder reads
+# `data/bronze/depth_charts/season=YYYY/*.parquet` to identify starters).
+# Without these COPY'd, the endpoint silently returns lineups=[] for every
+# team. Allowlist already exists in .gitignore (TD-08).
+COPY data/bronze/depth_charts/ ./data/bronze/depth_charts/
 
 ENV PORT=8000
 EXPOSE 8000
