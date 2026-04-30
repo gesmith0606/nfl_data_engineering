@@ -165,6 +165,53 @@ DEFENSE_STARTER_SLOTS: Dict[str, int] = {
 # ---------------------------------------------------------------------------
 
 
+def _normalize_depth_chart_schema(df: pd.DataFrame) -> pd.DataFrame:
+    """Translate the post-draft ESPN/Sleeper depth chart schema to nflverse.
+
+    The 2025+ Bronze ingestion (commit ac482a1) uses a different column
+    layout than the legacy nflverse `import_depth_charts` output:
+
+      legacy (≤2024) → new (2025+)
+      ─────────────────────────────────
+      club_code      → team
+      full_name      → player_name
+      depth_position → pos_abb
+      depth_team     → pos_rank
+      week           → (absent — single rolling snapshot, not per-week)
+
+    The new schema also has multiple snapshots per player (one row per
+    ingestion day, keyed by ``dt``). We collapse to the most-recent snapshot
+    per (team, gsis_id, pos_abb) and synthesize ``week=1`` so the existing
+    ``week <= target`` filter in :func:`get_team_starters` is a no-op.
+    """
+    if "club_code" in df.columns and "week" in df.columns:
+        return df  # already nflverse
+
+    if "pos_abb" not in df.columns or "team" not in df.columns:
+        logger.warning(
+            "Unrecognized depth-chart schema (cols=%s)", list(df.columns)[:10]
+        )
+        return df
+
+    df = df.copy()
+    if "dt" in df.columns:
+        df = df.sort_values("dt", ascending=False).drop_duplicates(
+            subset=["team", "gsis_id", "pos_abb"], keep="first"
+        )
+
+    df = df.rename(
+        columns={
+            "team": "club_code",
+            "player_name": "full_name",
+            "pos_abb": "depth_position",
+            "pos_rank": "depth_team",
+        }
+    )
+    df["position"] = df["depth_position"]
+    df["week"] = 1
+    return df
+
+
 def _load_depth_charts(season: int) -> pd.DataFrame:
     """Load Bronze depth chart data for the given season.
 
@@ -176,6 +223,7 @@ def _load_depth_charts(season: int) -> pd.DataFrame:
         logger.warning("No depth chart data for season=%d", season)
         return pd.DataFrame()
     df = pd.read_parquet(parquets[-1])
+    df = _normalize_depth_chart_schema(df)
     logger.info(
         "Loaded depth charts: season=%d, rows=%d from %s",
         season,

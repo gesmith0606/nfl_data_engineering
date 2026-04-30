@@ -20,6 +20,7 @@ from lineup_builder import (
     OFFENSE_STARTER_SLOTS,
     _assign_field_position,
     _compute_starter_confidence,
+    _normalize_depth_chart_schema,
     _resolve_position_group,
     get_team_lineup_with_projections,
     get_team_starters,
@@ -597,6 +598,73 @@ class TestAPISchema(unittest.TestCase):
 # ---------------------------------------------------------------------------
 # Test: Starter slot counts
 # ---------------------------------------------------------------------------
+
+
+class TestNormalizeDepthChartSchema(unittest.TestCase):
+    """Verify the post-draft ESPN/Sleeper schema is translated to nflverse."""
+
+    def test_passes_through_legacy_schema(self):
+        legacy = pd.DataFrame(
+            {
+                "club_code": ["KC"],
+                "full_name": ["Patrick Mahomes"],
+                "position": ["QB"],
+                "depth_position": ["QB"],
+                "depth_team": [1],
+                "week": [1.0],
+                "gsis_id": ["00-0001"],
+            }
+        )
+        out = _normalize_depth_chart_schema(legacy)
+        # Identity for legacy frames — no rename.
+        self.assertIn("club_code", out.columns)
+        self.assertIn("week", out.columns)
+        self.assertEqual(len(out), 1)
+
+    def test_renames_new_schema_columns(self):
+        new = pd.DataFrame(
+            {
+                "dt": ["2026-04-30T09:11:25Z"],
+                "team": ["KC"],
+                "player_name": ["Patrick Mahomes"],
+                "gsis_id": ["00-0001"],
+                "pos_grp": ["3WR 1TE"],
+                "pos_abb": ["QB"],
+                "pos_rank": [1],
+            }
+        )
+        out = _normalize_depth_chart_schema(new)
+        self.assertIn("club_code", out.columns)
+        self.assertIn("full_name", out.columns)
+        self.assertIn("depth_position", out.columns)
+        self.assertIn("depth_team", out.columns)
+        self.assertIn("position", out.columns)
+        self.assertIn("week", out.columns)
+        self.assertEqual(out.iloc[0]["club_code"], "KC")
+        self.assertEqual(out.iloc[0]["full_name"], "Patrick Mahomes")
+        self.assertEqual(out.iloc[0]["depth_position"], "QB")
+        self.assertEqual(int(out.iloc[0]["depth_team"]), 1)
+        self.assertEqual(int(out.iloc[0]["week"]), 1)
+
+    def test_collapses_repeated_snapshots(self):
+        # Same player, two snapshots — keep latest dt.
+        new = pd.DataFrame(
+            {
+                "dt": [
+                    "2026-04-29T09:11:25Z",
+                    "2026-04-30T09:11:25Z",
+                ],
+                "team": ["KC", "KC"],
+                "player_name": ["Patrick Mahomes", "Patrick Mahomes"],
+                "gsis_id": ["00-0001", "00-0001"],
+                "pos_grp": ["3WR 1TE", "3WR 1TE"],
+                "pos_abb": ["QB", "QB"],
+                "pos_rank": [1, 1],
+            }
+        )
+        out = _normalize_depth_chart_schema(new)
+        self.assertEqual(len(out), 1)
+        self.assertEqual(out.iloc[0]["dt"], "2026-04-30T09:11:25Z")
 
 
 class TestStarterSlots(unittest.TestCase):
