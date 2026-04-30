@@ -47,18 +47,128 @@ def _latest(pattern: str) -> Optional[Path]:
 
 
 def _read_latest_roster(bronze_dir: Path) -> pd.DataFrame:
-    """Latest roster snapshot, restricted to the most recent season."""
+    """Latest roster snapshot, restricted to the most recent season.
+
+    Pulls the file with the latest mtime, then filters to that file's
+    most-recent season — handles the case where multiple seasons live
+    under one file or under different files written at different times.
+    """
     files = sorted(
         glob.glob(str(bronze_dir / "players/rosters/season=*/*.parquet")),
         key=os.path.getmtime,
     )
     if not files:
         return pd.DataFrame()
-    df = pd.read_parquet(files[-1])
-    if "season" in df.columns:
-        latest_season = df["season"].max()
-        df = df[df["season"] == latest_season].copy()
-    return df
+    # Walk back through files until we find one for the latest season number.
+    latest_season = max(
+        int(f.split("season=")[1].split("/")[0]) for f in files
+    )
+    for f in reversed(files):
+        if f"season={latest_season}" in f:
+            df = pd.read_parquet(f)
+            if "season" in df.columns:
+                df = df[df["season"] == latest_season].copy()
+            return df
+    return pd.read_parquet(files[-1])
+
+
+def _augment_roster_with_draft_picks(
+    roster: pd.DataFrame,
+    draft_picks: pd.DataFrame,
+    target_season: int,
+) -> pd.DataFrame:
+    """Append draft picks not already in the roster as synthetic ACT rows.
+
+    nfl-data-py's seasonal-rosters endpoint lags the draft by weeks-to-months
+    in the offseason (mid-2026 the 2026 roster doesn't yet contain the 2026
+    rookie class even though the draft completed days earlier). Without this
+    augmentation, every freshly-drafted rookie is silently absent from the
+    projection output until rosters refresh.
+
+    Each appended row carries:
+      - player_id (gsis_id from draft_picks)
+      - player_name, position, team (from draft_picks)
+      - status="ACT", years_exp=0, rookie_year=target_season
+      - draft_number = overall pick (drives the synthesizer's draft-capital
+        override and the UDFA cap)
+
+    Players already in the roster (by player_id) are left unchanged.
+    """
+    if draft_picks is None or draft_picks.empty:
+        return roster
+
+    existing_ids = (
+        set(roster["player_id"].astype(str)) if "player_id" in roster.columns else set()
+    )
+    new_rows = []
+    for _, dp in draft_picks.iterrows():
+        # gsis_id is preferred (matches nflverse player_id) but is missing
+        # for ~10% of fresh-draft picks until rosters refresh. Fall back to
+        # pfr_player_id with a `pfr_` prefix so the synthesizer still gets a
+        # unique identifier — those players just won't join cleanly with
+        # downstream weekly stats until nflverse backfills the gsis_id.
+        gsis = dp.get("gsis_id")
+        gsis_s = str(gsis).strip() if gsis is not None else ""
+        if gsis_s and gsis_s.lower() not in ("none", "nan"):
+            pid = gsis_s
+        else:
+            pfr = dp.get("pfr_player_id")
+            pfr_s = str(pfr).strip() if pfr is not None else ""
+            if not pfr_s or pfr_s.lower() in ("none", "nan"):
+                continue
+            pid = f"pfr_{pfr_s}"
+        if pid in existing_ids:
+            continue
+        team = str(dp.get("team", ""))
+        pos = str(dp.get("position", "")).upper()
+        if not team or not pos:
+            continue
+        name = str(dp.get("pfr_player_name") or dp.get("player_name") or "")
+        if not name:
+            continue
+        try:
+            pick = int(dp.get("pick", 0) or 0) or None
+        except (TypeError, ValueError):
+            pick = None
+        new_rows.append(
+            {
+                "player_id": pid,
+                "player_name": name,
+                "team": team,
+                "position": pos,
+                "status": "ACT",
+                "years_exp": 0,
+                "rookie_year": float(target_season),
+                "draft_number": pick,
+                "depth_chart_position": pos,
+                "jersey_number": 99.0,
+                "draft_club": team,
+            }
+        )
+    if not new_rows:
+        return roster
+    addn = pd.DataFrame(new_rows)
+    # Backfill any source columns the synthetic rows don't have.
+    for col in roster.columns:
+        if col not in addn.columns:
+            addn[col] = pd.NA
+    augmented = pd.concat([roster, addn[roster.columns.tolist() + [
+        c for c in addn.columns if c not in roster.columns
+    ]]], ignore_index=True, sort=False)
+    logger.info(
+        "Augmented roster with %d draft picks not yet in nfl-data-py rosters",
+        len(addn),
+    )
+    return augmented
+
+
+def _read_latest_draft_picks(bronze_dir: Path, season: int) -> pd.DataFrame:
+    """Latest draft_picks bronze for the season."""
+    pat = str(bronze_dir / f"draft_picks/season={season}/*.parquet")
+    files = sorted(glob.glob(pat), key=os.path.getmtime)
+    if not files:
+        return pd.DataFrame()
+    return pd.read_parquet(files[-1])
 
 
 def _read_latest_prospect_features(silver_dir: Path, season: int, scoring: str) -> pd.DataFrame:
@@ -196,6 +306,18 @@ def main() -> int:
         logger.error("No roster bronze found — cannot identify silent drops")
         return 1
     logger.info("Roster rows: %d (season=%s)", len(roster), roster["season"].max())
+
+    # Augment with the freshly-drafted rookie class. nfl-data-py's seasonal
+    # roster lags the draft, so freshly-drafted players (Mendoza, Simpson,
+    # Beck in 2026) won't appear in the projection output without this
+    # synthetic merge. The draft_picks bronze carries gsis_id, team, pick,
+    # and position — everything the synthesizer needs.
+    draft_picks = _read_latest_draft_picks(bronze_dir, args.season)
+    if not draft_picks.empty:
+        logger.info(
+            "Draft picks bronze: %d rows for season %d", len(draft_picks), args.season
+        )
+        roster = _augment_roster_with_draft_picks(roster, draft_picks, args.season)
 
     weekly = _read_weekly(bronze_dir)
     logger.info("Weekly rows: %d", len(weekly))
