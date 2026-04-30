@@ -184,10 +184,20 @@ def _normalize_depth_chart_schema(df: pd.DataFrame) -> pd.DataFrame:
     per (team, gsis_id, pos_abb) and synthesize ``week=1`` so the existing
     ``week <= target`` filter in :func:`get_team_starters` is a no-op.
     """
-    if "club_code" in df.columns and "week" in df.columns:
+    # Detect new schema by its signature columns rather than the absence of
+    # legacy ones — guards against partial-migration frames that carry one
+    # legacy column but not the others (would silently no-op the rename and
+    # produce a malformed result).
+    has_new_schema = "pos_abb" in df.columns and "team" in df.columns
+    has_legacy_schema = all(
+        c in df.columns
+        for c in ("club_code", "full_name", "depth_position", "depth_team", "week")
+    )
+
+    if has_legacy_schema and not has_new_schema:
         return df  # already nflverse
 
-    if "pos_abb" not in df.columns or "team" not in df.columns:
+    if not has_new_schema:
         logger.warning(
             "Unrecognized depth-chart schema (cols=%s)", list(df.columns)[:10]
         )
@@ -355,6 +365,13 @@ def get_team_starters(
 
     Combines depth charts (official depth) with snap counts (actual usage)
     to identify the most likely starters.
+
+    Note:
+        For 2025+ seasons the Bronze depth chart is a single rolling
+        snapshot (no per-week granularity) — :func:`_normalize_depth_chart_schema`
+        synthesizes ``week=1`` so the ``week <= target`` filter is a no-op for
+        any regular-season target. Calling with ``week=0`` returns an empty
+        DataFrame (no valid weeks).
 
     Args:
         season: NFL season year.

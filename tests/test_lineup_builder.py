@@ -646,6 +646,26 @@ class TestNormalizeDepthChartSchema(unittest.TestCase):
         self.assertEqual(int(out.iloc[0]["depth_team"]), 1)
         self.assertEqual(int(out.iloc[0]["week"]), 1)
 
+    def test_partial_migration_treated_as_unrecognized(self):
+        # Frame that has `club_code` (looks legacy-ish) but is missing `week`
+        # and the other legacy fields — must NOT be treated as legacy and must
+        # NOT be silently coerced into a malformed nflverse-shaped result.
+        partial = pd.DataFrame(
+            {
+                "club_code": ["KC"],
+                "full_name": ["Patrick Mahomes"],
+                # missing: depth_position, depth_team, week
+            }
+        )
+        out = _normalize_depth_chart_schema(partial)
+        # Helper logs a warning and returns the frame untouched, leaving the
+        # caller to fail loudly when it tries to read missing columns.
+        self.assertNotIn("depth_position", out.columns)
+        self.assertNotIn("week", out.columns)
+        # Original columns preserved (no spurious renames).
+        self.assertIn("club_code", out.columns)
+        self.assertIn("full_name", out.columns)
+
     def test_collapses_repeated_snapshots(self):
         # Same player, two snapshots — keep latest dt.
         new = pd.DataFrame(
