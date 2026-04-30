@@ -238,19 +238,6 @@ export async function fetchLineup(
   return envelope.lineups[0] ?? null;
 }
 
-/** Fetch all team lineups for a given week. */
-export async function fetchAllLineups(
-  season: number,
-  week: number,
-): Promise<TeamLineup[]> {
-  const params = new URLSearchParams({
-    season: String(season),
-    week: String(week),
-  });
-  const envelope = await request<LineupResponse>(`/api/lineups/all?${params}`);
-  return envelope.lineups;
-}
-
 /** Fetch recent news items for a specific player. */
 export async function fetchPlayerNews(
   playerId: string,

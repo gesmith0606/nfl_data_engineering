@@ -1,6 +1,5 @@
 export {
   fetchAlerts,
-  fetchAllLineups,
   fetchCurrentWeek,
   fetchHealth,
   fetchLineup,
