@@ -415,3 +415,230 @@ def test_response_envelope_keys_present_even_on_empty(
     assert required_keys.issubset(
         result.keys()
     ), f"Envelope missing keys: {required_keys - result.keys()}"
+
+
+# ---------------------------------------------------------------------------
+# multi_compare_rankings — Phase 79.x: side-by-side multi-source view
+# ---------------------------------------------------------------------------
+def _seed_cache(tmp_dir: Path, source: str, players: List[Dict[str, Any]]) -> None:
+    """Write a canonical envelope cache file for ``source`` with given rows."""
+    envelope = {
+        "source": source,
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "players": players,
+    }
+    (tmp_dir / f"{source}_rankings.json").write_text(json.dumps(envelope))
+
+
+@pytest.mark.unit
+def test_multi_compare_envelope_shape(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Envelope carries per-source stale/cache_age/last_updated maps + sort_by."""
+    import requests
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+
+    result = svc.multi_compare_rankings(scoring="half_ppr", limit=5)
+
+    required_top = {
+        "scoring_format",
+        "position_filter",
+        "season",
+        "sources",
+        "sort_by",
+        "source_labels",
+        "our_projections_available",
+        "stale",
+        "cache_age_hours",
+        "last_updated",
+        "players",
+        "compared_at",
+    }
+    assert required_top.issubset(
+        result.keys()
+    ), f"missing top-level keys: {required_top - result.keys()}"
+    assert result["sources"] == ["sleeper", "espn", "yahoo"]
+    assert set(result["stale"].keys()) == {"sleeper", "espn", "yahoo"}
+    assert result["sort_by"] == "consensus"
+    assert "ours" in result["source_labels"]
+
+
+@pytest.mark.unit
+def test_multi_compare_joins_on_player_name(
+    tmp_cache_dir: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Each source's rank lands on the right column for the joined player."""
+    import pandas as pd
+    import requests
+
+    # Block live fetches — force cache-only path.
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+
+    # Source rows carry OVERALL external_rank values; the service converts to
+    # positional rank internally so ours-vs-source comparisons are
+    # apples-to-apples (RB1 vs RB1, WR3 vs WR3) regardless of how each source
+    # weights position scarcity.
+    sleeper_rows = [
+        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
+        {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 2, "rank": 2},
+    ]
+    espn_rows = [
+        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 5, "rank": 5},
+    ]
+    fp_rows = [  # Yahoo ↔ FantasyPros internal
+        {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 3, "rank": 3},
+    ]
+    _seed_cache(tmp_cache_dir, "sleeper", sleeper_rows)
+    _seed_cache(tmp_cache_dir, "espn", espn_rows)
+    _seed_cache(tmp_cache_dir, "fantasypros", fp_rows)
+
+    # _load_our_projections normally produces our_rank as positional rank;
+    # the test seeds the post-computation frame directly. Alice = RB1, Bob = WR1.
+    our_df = pd.DataFrame(
+        [
+            {"player_name": "Alice", "position": "RB", "team": "KC", "our_rank": 1, "projected_points": 18.0},
+            {"player_name": "Bob", "position": "WR", "team": "DAL", "our_rank": 1, "projected_points": 12.5},
+        ]
+    )
+    monkeypatch.setattr(svc, "_load_our_projections", lambda **kw: our_df)
+
+    result = svc.multi_compare_rankings(limit=10)
+    by_name = {p["player_name"]: p for p in result["players"]}
+
+    alice = by_name["Alice"]
+    assert alice["our_rank"] == 1  # Only RB → RB1
+    assert alice["sleeper_rank"] == 1.0  # Sleeper's only RB → RB1
+    assert alice["espn_rank"] == 1.0  # ESPN's only RB → RB1
+    assert alice["yahoo_rank"] is None  # FP has no Alice
+    assert alice["rank_diff_vs_sleeper"] == 0.0  # 1 - 1
+    assert alice["rank_diff_vs_espn"] == 0.0  # 1 - 1
+    assert alice["rank_diff_vs_yahoo"] is None
+
+    bob = by_name["Bob"]
+    assert bob["our_rank"] == 1  # Only WR → WR1
+    assert bob["sleeper_rank"] == 1.0  # Sleeper's only WR → WR1
+    assert bob["espn_rank"] is None
+    assert bob["yahoo_rank"] == 1.0  # FP's only WR → WR1
+    assert bob["rank_diff_vs_yahoo"] == 0.0  # 1 - 1
+
+
+@pytest.mark.unit
+def test_multi_compare_sort_by_consensus_uses_external_mean(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """consensus sort orders by mean of present external ranks (lowest first)."""
+    import requests
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+
+    # Alice: sleeper=10, espn=10  → mean=10
+    # Bob:   sleeper=1,  espn=99  → mean=50
+    # Carol: sleeper=2,  espn=2   → mean=2  ← should be #1
+    _seed_cache(
+        tmp_cache_dir,
+        "sleeper",
+        [
+            {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 10, "rank": 10},
+            {"player_name": "Bob", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
+            {"player_name": "Carol", "position": "RB", "team": "KC", "external_rank": 2, "rank": 2},
+        ],
+    )
+    _seed_cache(
+        tmp_cache_dir,
+        "espn",
+        [
+            {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 10, "rank": 10},
+            {"player_name": "Bob", "position": "RB", "team": "KC", "external_rank": 99, "rank": 99},
+            {"player_name": "Carol", "position": "RB", "team": "KC", "external_rank": 2, "rank": 2},
+        ],
+    )
+
+    # All three players are RBs, so positional rank == overall rank within each
+    # source. After the service converts sources to positional ranks:
+    #   Sleeper (sort by overall): Bob(1), Carol(2), Alice(10) → Bob=RB1, Carol=RB2, Alice=RB3
+    #   ESPN    (sort by overall): Carol(2), Alice(10), Bob(99) → Carol=RB1, Alice=RB2, Bob=RB3
+    # Consensus mean: Carol = (2+1)/2 = 1.5; Bob = (1+3)/2 = 2.0; Alice = (3+2)/2 = 2.5
+    result = svc.multi_compare_rankings(limit=10, sort_by="consensus")
+    names = [p["player_name"] for p in result["players"][:3]]
+    assert names == ["Carol", "Bob", "Alice"], f"got {names}"
+
+
+@pytest.mark.unit
+def test_multi_compare_position_filter_uniform(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Position filter applies to every source uniformly — RB-only stays RB-only."""
+    import requests
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+
+    rb_and_wr = [
+        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
+        {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 2, "rank": 2},
+    ]
+    _seed_cache(tmp_cache_dir, "sleeper", rb_and_wr)
+    _seed_cache(tmp_cache_dir, "espn", rb_and_wr)
+
+    result = svc.multi_compare_rankings(
+        limit=10, position="RB", sources=("sleeper", "espn")
+    )
+    positions = {p["position"] for p in result["players"]}
+    assert positions == {"RB"}
+
+
+@pytest.mark.unit
+def test_multi_compare_fail_open_when_all_sources_blocked(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """No live, no cache, no projections → empty players + stale=True per source."""
+    import requests
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+
+    result = svc.multi_compare_rankings(limit=10)
+
+    assert result["players"] == []
+    assert result["our_projections_available"] is False
+    assert all(result["stale"][k] is True for k in ("sleeper", "espn", "yahoo"))
+
+
+@pytest.mark.unit
+def test_multi_compare_rejects_invalid_sort_by(tmp_cache_dir: Path) -> None:
+    with pytest.raises(ValueError, match="Invalid sort_by"):
+        svc.multi_compare_rankings(sort_by="garbage")
+
+
+@pytest.mark.unit
+def test_multi_compare_rejects_invalid_source(tmp_cache_dir: Path) -> None:
+    with pytest.raises(ValueError, match="Invalid source"):
+        svc.multi_compare_rankings(sources=("not_a_source",))

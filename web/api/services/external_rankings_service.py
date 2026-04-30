@@ -302,7 +302,12 @@ def _parse_fantasypros_payload(
 
 
 def _parse_espn_payload(payload: Dict[str, Any], limit: int) -> List[Dict[str, Any]]:
-    slot_to_pos = {0: "QB", 2: "RB", 4: "WR", 6: "TE", 23: "K"}
+    # ESPN's defaultPositionId enum (verified against their public API):
+    #   1=QB, 2=RB, 3=WR, 4=TE, 5=K, 16=D/ST.
+    # Earlier this mapped to lineup-slot IDs by mistake — only RB matched by
+    # accident, which is why QBs/WRs/Ks were silently dropped and TEs were
+    # mislabeled "WR".
+    pos_id_to_pos = {1: "QB", 2: "RB", 3: "WR", 4: "TE", 5: "K"}
     players_raw = payload.get("players", []) or []
     rows: List[Dict[str, Any]] = []
     for i, entry in enumerate(players_raw[:limit], 1):
@@ -312,8 +317,8 @@ def _parse_espn_payload(payload: Dict[str, Any], limit: int) -> List[Dict[str, A
             first = p.get("firstName", "")
             last = p.get("lastName", "")
             full_name = f"{first} {last}".strip()
-        slot_id = p.get("defaultPositionId", -1)
-        pos = slot_to_pos.get(slot_id, "")
+        pos_id = p.get("defaultPositionId", -1)
+        pos = pos_id_to_pos.get(pos_id, "")
         if not pos or pos not in FANTASY_POSITIONS:
             continue
         rows.append(
@@ -606,6 +611,16 @@ def _load_our_projections(
     """Load our preseason projections from Gold parquet.
 
     Tries week=0 first (preseason), then week=1.
+
+    ``our_rank`` is the canonical **positional rank** (QB1/RB3/WR12/...) read
+    directly from the parquet's ``position_rank`` field — the same field the
+    existing ``RankingsTable`` displays — so this service stays consistent
+    with what the user sees on the "Our Rankings" tab. The parquet's
+    ``overall_rank`` is also exposed as ``our_overall_rank`` for callers that
+    need a flat 1..N number across all positions.
+
+    If the parquet predates Phase X (no ``position_rank`` field), we fall back
+    to deriving ranks from ``projected_points``.
     """
     for week in [0, 1]:
         week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
@@ -623,10 +638,56 @@ def _load_our_projections(
         if "projected_points" not in df.columns:
             continue
         df = df.sort_values("projected_points", ascending=False).reset_index(drop=True)
-        df["our_rank"] = range(1, len(df) + 1)
+
+        # Prefer the parquet's canonical ranks (the source of truth for the
+        # existing Rankings UI). Fall back to recomputation only if absent.
+        if "position_rank" in df.columns:
+            df["our_rank"] = df["position_rank"].astype(int)
+        elif "position" in df.columns:
+            df["our_rank"] = (
+                df.groupby("position")["projected_points"]
+                .rank(method="min", ascending=False)
+                .astype(int)
+            )
+        else:
+            df["our_rank"] = range(1, len(df) + 1)
+
+        if "overall_rank" in df.columns:
+            df["our_overall_rank"] = df["overall_rank"].astype(int)
+        else:
+            df["our_overall_rank"] = range(1, len(df) + 1)
         return df
 
     return pd.DataFrame()
+
+
+def _to_position_ranks(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Convert overall ``external_rank`` to positional rank in-place.
+
+    Within each position group, assign rank 1..N based on the row's existing
+    ``external_rank`` ordering. The original overall rank is preserved as
+    ``external_overall_rank`` for callers that need it.
+    """
+    seen_per_pos: Dict[str, int] = {}
+    sorted_rows = sorted(
+        rows,
+        key=lambda r: (
+            float(r.get("external_rank", r.get("rank", 0)))
+            if r.get("external_rank") is not None or r.get("rank") is not None
+            else float("inf")
+        ),
+    )
+    for r in sorted_rows:
+        pos = str(r.get("position", "")).upper()
+        original = r.get("external_rank", r.get("rank"))
+        if original is not None:
+            r["external_overall_rank"] = original
+        if not pos:
+            continue
+        seen_per_pos[pos] = seen_per_pos.get(pos, 0) + 1
+        r["external_rank"] = seen_per_pos[pos]
+        r["rank"] = seen_per_pos[pos]
+    return rows
 
 
 # ---------------------------------------------------------------------------
@@ -667,6 +728,10 @@ def compare_rankings(
         external, stale, cache_age_hours, last_updated = _resolve_source(
             source, season=season, scoring=scoring, limit=internal_limit
         )
+
+    # Convert overall → positional rank so external_rank is comparable to our
+    # positional our_rank. Original overall rank preserved as external_overall_rank.
+    external = _to_position_ranks(external)
 
     if position:
         pos_upper = position.upper()
@@ -778,5 +843,226 @@ def compare_rankings(
         "stale": stale,
         "cache_age_hours": cache_age_hours,
         "last_updated": last_updated,
+        "compared_at": compared_at,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Multi-source side-by-side comparison
+# ---------------------------------------------------------------------------
+# `fantasypros` is exposed to the API surface as "yahoo" because FantasyPros'
+# consensus already aggregates Yahoo's editorial rankings. Provenance is
+# preserved in `source_labels` on the response. This convention matches
+# `projection_service.py::_to_response_rows` (yahoo_proxy_fp → yahoo).
+_MULTI_SOURCE_KEYS: Tuple[str, ...] = ("sleeper", "espn", "yahoo")
+_MULTI_SOURCE_INTERNAL: Dict[str, str] = {
+    "sleeper": "sleeper",
+    "espn": "espn",
+    "yahoo": "fantasypros",
+}
+_MULTI_SOURCE_LABELS: Dict[str, str] = {
+    "ours": "Our projections",
+    "sleeper": "Sleeper ADP",
+    "espn": "ESPN fantasy rankings",
+    "yahoo": "Yahoo via FantasyPros consensus",
+}
+
+
+_VALID_SORT_KEYS = {"consensus", "ours", "sleeper", "espn", "yahoo"}
+
+
+def multi_compare_rankings(
+    scoring: str = "half_ppr",
+    position: Optional[str] = None,
+    limit: int = 50,
+    season: int = 2026,
+    sources: Optional[Tuple[str, ...]] = None,
+    sort_by: str = "consensus",
+) -> Dict[str, Any]:
+    """Return a side-by-side ranking table across our projections + N sources.
+
+    One row per player, with a column per requested source plus our_rank and
+    our_projected_points. Players are joined on a normalized player_name key.
+
+    Sort order is controlled by ``sort_by``:
+      - ``consensus`` (default): mean of available external ranks (lowest first)
+      - ``ours``: our_rank (lowest first)
+      - ``sleeper`` / ``espn`` / ``yahoo``: that single source's rank
+
+    Players missing the chosen sort key fall to the bottom (FIFO among them).
+
+    Sign convention for ``rank_diff_vs_<source>`` mirrors
+    :func:`compare_rankings`: ``external_rank - our_rank`` (positive = the
+    external source ranks the player lower than we do).
+    """
+    if sort_by not in _VALID_SORT_KEYS:
+        raise ValueError(
+            f"Invalid sort_by {sort_by!r}; expected one of {sorted(_VALID_SORT_KEYS)}"
+        )
+    requested = tuple(sources) if sources else _MULTI_SOURCE_KEYS
+    invalid = [s for s in requested if s not in _MULTI_SOURCE_INTERNAL]
+    if invalid:
+        raise ValueError(
+            f"Invalid source(s) {invalid!r}; expected subset of "
+            f"{sorted(_MULTI_SOURCE_INTERNAL)}"
+        )
+
+    internal_limit = max(limit * 3, 200)
+    compared_at = datetime.now(timezone.utc).isoformat()
+
+    per_source: Dict[str, List[Dict[str, Any]]] = {}
+    stale_flags: Dict[str, bool] = {}
+    cache_ages: Dict[str, Optional[float]] = {}
+    last_updates: Dict[str, Optional[str]] = {}
+    for ext_key in requested:
+        internal_src = _MULTI_SOURCE_INTERNAL[ext_key]
+        rows, stale, age_hours, last_updated = _resolve_source(
+            internal_src, season=season, scoring=scoring, limit=internal_limit
+        )
+        # Convert overall external_rank → positional rank so all comparisons
+        # are apples-to-apples (QB1 vs QB1, RB3 vs RB3) regardless of how the
+        # source weights position scarcity in its raw output.
+        rows = _to_position_ranks(rows)
+        per_source[ext_key] = rows
+        stale_flags[ext_key] = stale
+        cache_ages[ext_key] = age_hours
+        last_updates[ext_key] = last_updated
+
+    # Position filter applies to every source uniformly.
+    if position:
+        pos_upper = position.upper()
+        for ext_key, rows in per_source.items():
+            per_source[ext_key] = [
+                r for r in rows if str(r.get("position", "")).upper() == pos_upper
+            ]
+
+    # Build merged map keyed by normalized player_name.
+    merged: Dict[str, Dict[str, Any]] = {}
+    for ext_key, rows in per_source.items():
+        rank_field = f"{ext_key}_rank"
+        for r in rows:
+            name = str(r.get("player_name", ""))
+            key = _normalize_name(name)
+            if not key:
+                continue
+            entry = merged.setdefault(
+                key,
+                {
+                    "player_name": name,
+                    "position": r.get("position", ""),
+                    "team": r.get("team", ""),
+                    "_norm_key": key,
+                },
+            )
+            ext_rank = r.get("external_rank", r.get("rank"))
+            if ext_rank is not None:
+                try:
+                    entry[rank_field] = float(ext_rank)
+                except (TypeError, ValueError):
+                    entry[rank_field] = None
+            if not entry.get("position") and r.get("position"):
+                entry["position"] = r.get("position")
+            if not entry.get("team") and r.get("team"):
+                entry["team"] = r.get("team")
+
+    our_df = _load_our_projections(season=season, scoring=scoring)
+    our_available = not our_df.empty
+    our_lookup: Dict[str, Dict[str, Any]] = {}
+    if our_available:
+        for _, row in our_df.iterrows():
+            name_key = _normalize_name(str(row.get("player_name", "")))
+            if not name_key or name_key in our_lookup:
+                continue
+            our_lookup[name_key] = {
+                "our_rank": int(row["our_rank"]),
+                "projected_points": float(row.get("projected_points", 0) or 0),
+                "position": str(row.get("position", "")),
+                "team": str(row.get("team", "")),
+                "player_name": str(row.get("player_name", "")),
+            }
+
+        # Make sure players we project but no external source has are still
+        # represented — otherwise users can't see "we have a sleeper others miss".
+        # Honor the position filter: don't leak QBs into an RB-only view.
+        pos_upper = position.upper() if position else None
+        for name_key, our_row in our_lookup.items():
+            if pos_upper and our_row["position"].upper() != pos_upper:
+                continue
+            entry = merged.setdefault(
+                name_key,
+                {
+                    "player_name": our_row["player_name"],
+                    "position": our_row["position"],
+                    "team": our_row["team"],
+                    "_norm_key": name_key,
+                },
+            )
+            if not entry.get("position") and our_row["position"]:
+                entry["position"] = our_row["position"]
+            if not entry.get("team") and our_row["team"]:
+                entry["team"] = our_row["team"]
+
+    # Stamp our_rank, projected_points, and rank_diff_vs_<source> on each row.
+    # Every requested source gets a <source>_rank field on every row (None if
+    # the player is missing from that source) so the API surface is dense.
+    for key, entry in merged.items():
+        our = our_lookup.get(key)
+        entry["our_rank"] = our["our_rank"] if our else None
+        entry["our_projected_points"] = (
+            round(our["projected_points"], 1) if our else None
+        )
+        for ext_key in requested:
+            entry.setdefault(f"{ext_key}_rank", None)
+            ext_rank = entry.get(f"{ext_key}_rank")
+            diff_field = f"rank_diff_vs_{ext_key}"
+            if our is not None and ext_rank is not None:
+                entry[diff_field] = float(ext_rank) - float(our["our_rank"])
+            else:
+                entry[diff_field] = None
+
+    rows_out: List[Dict[str, Any]] = []
+    for entry in merged.values():
+        entry.pop("_norm_key", None)
+        rows_out.append(entry)
+
+    def _sort_key(row: Dict[str, Any]) -> Tuple[float, float]:
+        if sort_by == "ours":
+            v = row.get("our_rank")
+            return (0.0 if v is not None else 2.0, float(v) if v is not None else float("inf"))
+        if sort_by in requested:
+            v = row.get(f"{sort_by}_rank")
+            return (0.0 if v is not None else 2.0, float(v) if v is not None else float("inf"))
+        # consensus: mean of available external ranks; missing → bottom
+        external_ranks = [
+            row[f"{k}_rank"]
+            for k in requested
+            if row.get(f"{k}_rank") is not None
+        ]
+        if external_ranks:
+            return (0.0, sum(external_ranks) / len(external_ranks))
+        if row.get("our_rank") is not None:
+            return (1.0, float(row["our_rank"]))
+        return (2.0, float("inf"))
+
+    rows_out.sort(key=_sort_key)
+    rows_out = rows_out[:limit]
+    for i, row in enumerate(rows_out, 1):
+        row["rank"] = i
+
+    return {
+        "scoring_format": scoring,
+        "position_filter": position,
+        "season": season,
+        "sources": list(requested),
+        "sort_by": sort_by,
+        "source_labels": {
+            "ours": _MULTI_SOURCE_LABELS["ours"],
+            **{k: _MULTI_SOURCE_LABELS[k] for k in requested},
+        },
+        "our_projections_available": our_available,
+        "stale": {k: stale_flags.get(k, True) for k in requested},
+        "cache_age_hours": {k: cache_ages.get(k) for k in requested},
+        "last_updated": {k: last_updates.get(k) for k in requested},
+        "players": rows_out,
         "compared_at": compared_at,
     }

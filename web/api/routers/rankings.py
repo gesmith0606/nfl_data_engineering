@@ -112,6 +112,87 @@ def compare_rankings(
     return result
 
 
+_VALID_MULTI_SOURCES = {"sleeper", "espn", "yahoo"}
+_VALID_SORT_BY = {"consensus", "ours", "sleeper", "espn", "yahoo"}
+
+
+@router.get("/multi-compare")
+def multi_compare_rankings(
+    scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
+    position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
+    limit: int = Query(50, ge=1, le=300, description="Max rows returned"),
+    season: int = Query(2026, ge=2020, le=2030, description="NFL season"),
+    sources: str = Query(
+        "sleeper,espn,yahoo",
+        description="Comma-separated subset of sleeper / espn / yahoo",
+    ),
+    sort_by: str = Query(
+        "consensus",
+        description="consensus (mean external rank) / ours / sleeper / espn / yahoo",
+    ),
+) -> dict:
+    """Side-by-side ranking table across our projections + 1..N external sources.
+
+    Returns one row per player with a column per requested source plus
+    ``our_rank`` and ``our_projected_points``. Players are joined on a
+    normalized name key. ``yahoo`` is served via FantasyPros consensus
+    (provenance preserved in ``source_labels``).
+
+    Sign convention: ``rank_diff_vs_<source> = external_rank - our_rank``.
+    Positive => the source ranks the player lower than we do.
+    """
+    if scoring not in VALID_SCORING_FORMATS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid scoring format. Choose from: {sorted(VALID_SCORING_FORMATS)}",
+        )
+    if position and position.upper() not in VALID_POSITIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid position. Choose from: {sorted(VALID_POSITIONS)}",
+        )
+
+    requested = tuple(s.strip().lower() for s in sources.split(",") if s.strip())
+    if not requested:
+        raise HTTPException(
+            status_code=400,
+            detail="At least one source is required.",
+        )
+    invalid = [s for s in requested if s not in _VALID_MULTI_SOURCES]
+    if invalid:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"Invalid source(s) {invalid}. "
+                f"Choose from: {sorted(_VALID_MULTI_SOURCES)}"
+            ),
+        )
+    if sort_by not in _VALID_SORT_BY:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid sort_by. Choose from: {sorted(_VALID_SORT_BY)}",
+        )
+    if sort_by != "consensus" and sort_by != "ours" and sort_by not in requested:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"sort_by={sort_by!r} requires that source in `sources`. "
+                f"Got sources={list(requested)}."
+            ),
+        )
+
+    # External-source failure is NOT a caller error — the service returns a
+    # well-formed envelope with `stale` per source. Never surface 502 here.
+    return external_rankings_service.multi_compare_rankings(
+        scoring=scoring,
+        position=position.upper() if position else None,
+        limit=limit,
+        season=season,
+        sources=requested,
+        sort_by=sort_by,
+    )
+
+
 @router.get("/sources")
 def list_sources() -> dict:
     """List available external ranking sources and their status."""
