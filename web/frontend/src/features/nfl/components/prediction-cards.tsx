@@ -170,12 +170,14 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
 }
 
 export function PredictionCardGrid() {
-  // HOTFIX-04 (phase 66 / v7.0): resolve default season/week from
-  // `/api/projections/latest-week` instead of a hardcoded 2024/1 slate
-  // that nobody has data for. Falls back to the current year + week 1
-  // when the backend is unreachable so the page still renders.
+  // Resolve default season/week from `/api/predictions/latest-week` (NOT
+  // projections) — predictions and projections can be out of sync (e.g.
+  // preseason 2026 has projections but zero game predictions until the
+  // season starts). useWeekParams walks back up to 3 seasons if the probe
+  // season has no data, so we always land on a populated slice when one
+  // exists in any recent season.
   const { season, week, setSeason, setWeek, isResolving, dataAsOf } =
-    useWeekParams();
+    useWeekParams({ dataSource: 'predictions' });
   const [sortBy, setSortBy] = useState<SortKey>('confidence');
 
   const { data, isLoading, isError, error } = useQuery({

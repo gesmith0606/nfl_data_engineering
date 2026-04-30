@@ -28,13 +28,25 @@
 import { useEffect, useMemo, useState } from 'react';
 import { parseAsInteger, useQueryStates } from 'nuqs';
 
-import { resolveDefaultWeek } from '@/lib/week-context';
+import {
+  resolveDefaultWeek,
+  resolvePredictionsLatestWeek,
+} from '@/lib/week-context';
+
+export type WeekParamsDataSource = 'projections' | 'predictions';
 
 export interface UseWeekParamsOptions {
   /** Fallback season when latest-week resolution fails (e.g. backend down). */
   fallbackSeason?: number;
   /** Fallback week when latest-week returns null (offseason). */
   fallbackWeek?: number;
+  /**
+   * Which gold layer to query for the "latest week" default. Predictions
+   * pages should pass `'predictions'` so they don't borrow projections'
+   * latest-week (which can return a preseason wk1 with no game data).
+   * Defaults to `'projections'` for back-compat.
+   */
+  dataSource?: WeekParamsDataSource;
 }
 
 export interface UseWeekParamsResult {
@@ -74,28 +86,46 @@ export function useWeekParams(
 
     let cancelled = false;
     const probeSeason = seasonParam ?? fallbackSeason;
+    const resolver =
+      options.dataSource === 'predictions'
+        ? resolvePredictionsLatestWeek
+        : resolveDefaultWeek;
 
-    resolveDefaultWeek(probeSeason)
-      .then((info) => {
+    // If the requested probe season has no data, walk back one season at a
+    // time (max 3 hops) so the page still lands on a populated slice when
+    // the current calendar year is offseason and brand-new.
+    const tryResolve = async (): Promise<void> => {
+      let trySeason = probeSeason;
+      for (let hop = 0; hop < 3; hop++) {
+        const info = await resolver(trySeason);
         if (cancelled) return;
-        const resolvedSeason = info?.season ?? fallbackSeason;
-        const resolvedWeek = info?.week ?? fallbackWeek;
-        setParams({
-          season: seasonParam ?? resolvedSeason,
-          week: weekParam ?? resolvedWeek
-        });
-        setDataAsOf(info?.data_as_of ?? null);
-        setIsResolving(false);
-      })
-      .catch(() => {
-        if (cancelled) return;
-        // Network failure — fall through to static defaults so the page is usable.
-        setParams({
-          season: seasonParam ?? fallbackSeason,
-          week: weekParam ?? fallbackWeek
-        });
-        setIsResolving(false);
+        if (info?.week != null) {
+          setParams({
+            season: seasonParam ?? info.season,
+            week: weekParam ?? info.week
+          });
+          setDataAsOf(info.data_as_of ?? null);
+          setIsResolving(false);
+          return;
+        }
+        trySeason -= 1;
+      }
+      // No data after walk-back — apply user-provided fallbacks.
+      setParams({
+        season: seasonParam ?? fallbackSeason,
+        week: weekParam ?? fallbackWeek
       });
+      setIsResolving(false);
+    };
+
+    tryResolve().catch(() => {
+      if (cancelled) return;
+      setParams({
+        season: seasonParam ?? fallbackSeason,
+        week: weekParam ?? fallbackWeek
+      });
+      setIsResolving(false);
+    });
 
     return () => {
       cancelled = true;

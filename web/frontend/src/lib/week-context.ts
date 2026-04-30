@@ -83,3 +83,51 @@ export async function resolveDefaultWeek(
 export function clearLatestWeekCache(): void {
   cache.clear();
 }
+
+const predictionsCache = new Map<number, CacheEntry>();
+
+/**
+ * Look up the highest week of Gold predictions data for the given season.
+ *
+ * Mirror of {@link resolveDefaultWeek} but anchored to game predictions
+ * rather than fantasy projections. Predictions and projections can be out
+ * of sync (e.g. 2026 has preseason projections but zero game predictions
+ * because the season hasn't started). The predictions page should resolve
+ * its own latest-week so it doesn't land on an empty slice.
+ */
+export async function resolvePredictionsLatestWeek(
+  season: number
+): Promise<LatestWeekInfo | null> {
+  const now = Date.now();
+  const cached = predictionsCache.get(season);
+  if (cached && cached.expiresAt > now) {
+    return cached.value;
+  }
+  try {
+    const res = await fetch(
+      `${FASTAPI_URL}/api/predictions/latest-week?season=${season}`,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        cache: 'no-store'
+      }
+    );
+    if (!res.ok) {
+      console.warn(
+        `[week-context] /api/predictions/latest-week returned HTTP ${res.status} for season ${season}`
+      );
+      return null;
+    }
+    const data = (await res.json()) as LatestWeekInfo;
+    predictionsCache.set(season, {
+      value: data,
+      expiresAt: now + CACHE_TTL_MS
+    });
+    return data;
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(
+      `[week-context] failed to fetch predictions latest week for season ${season}: ${msg}`
+    );
+    return null;
+  }
+}

@@ -117,6 +117,31 @@ def list_predictions(
     )
 
 
+@router.get("/latest-week")
+def latest_predictions_week(
+    season: Optional[int] = Query(
+        None, ge=1999, le=2030,
+        description="NFL season to scan (omit to scan all seasons)",
+    ),
+) -> dict:
+    """Return the latest (season, week) that has game-prediction data.
+
+    Mirrors `/api/projections/latest-week` but anchored to predictions.
+    The frontend's predictions page uses this to resolve a sensible default
+    week instead of borrowing from projections — the two layers can be out
+    of sync (e.g. preseason projections exist for 2026 but no game
+    predictions yet because the season hasn't started).
+
+    Returns ``week=null`` when no predictions are available anywhere.
+    """
+    meta = prediction_service.get_latest_week(season=season)
+    return {
+        "season": meta.season,
+        "week": meta.week,
+        "data_as_of": meta.data_as_of,
+    }
+
+
 @router.get("/{game_id}", response_model=GamePrediction)
 def get_prediction(
     game_id: str,
