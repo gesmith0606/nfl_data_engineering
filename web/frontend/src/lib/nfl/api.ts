@@ -483,3 +483,41 @@ export async function fetchTeamDefenseMetrics(
     `/api/teams/${encodeURIComponent(team)}/defense-metrics?${params}`
   );
 }
+
+
+// ---------------------------------------------------------------------------
+// Multi-source rankings comparison
+// ---------------------------------------------------------------------------
+
+import type {
+  MultiCompareResponse,
+  RankingSource,
+  RankingSortBy,
+} from './types';
+
+/**
+ * Fetch our projections + external rankings (Sleeper/ESPN/Yahoo) joined on
+ * player name into a single side-by-side table.
+ *
+ * `yahoo` is served via FantasyPros consensus (provenance preserved in
+ * `source_labels`). Empty source columns are returned as null per row.
+ */
+export async function fetchMultiCompareRankings(opts: {
+  scoring?: ScoringFormat;
+  position?: string | null;
+  limit?: number;
+  season?: number;
+  sources?: RankingSource[];
+  sort_by?: RankingSortBy;
+}): Promise<MultiCompareResponse> {
+  const params = new URLSearchParams();
+  if (opts.scoring) params.set('scoring', opts.scoring);
+  if (opts.position && opts.position !== 'ALL') params.set('position', opts.position);
+  if (opts.limit) params.set('limit', String(opts.limit));
+  if (opts.season) params.set('season', String(opts.season));
+  if (opts.sources?.length) params.set('sources', opts.sources.join(','));
+  if (opts.sort_by) params.set('sort_by', opts.sort_by);
+  return request<MultiCompareResponse>(
+    `/api/rankings/multi-compare?${params}`
+  );
+}

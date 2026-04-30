@@ -25,4 +25,6 @@ export {
   startMockDraft,
   advanceMockDraft,
   fetchAdp,
+  // Multi-source rankings
+  fetchMultiCompareRankings,
 } from '@/lib/nfl/api';

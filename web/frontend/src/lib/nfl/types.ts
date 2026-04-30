@@ -523,3 +523,40 @@ export interface TeamDefenseMetricsResponse {
   adj_def_epa: number | null;
   positional: PositionalDefenseRank[];
 }
+
+// ---------------------------------------------------------------------------
+// Multi-source rankings comparison (/api/rankings/multi-compare)
+// ---------------------------------------------------------------------------
+
+export type RankingSource = 'sleeper' | 'espn' | 'yahoo';
+export type RankingSortBy = 'consensus' | 'ours' | RankingSource;
+
+export interface MultiCompareRow {
+  rank: number;
+  player_name: string;
+  position: string;
+  team: string;
+  our_rank: number | null;
+  our_projected_points: number | null;
+  sleeper_rank: number | null;
+  espn_rank: number | null;
+  yahoo_rank: number | null;
+  rank_diff_vs_sleeper: number | null;
+  rank_diff_vs_espn: number | null;
+  rank_diff_vs_yahoo: number | null;
+}
+
+export interface MultiCompareResponse {
+  scoring_format: ScoringFormat;
+  position_filter: string | null;
+  season: number;
+  sources: RankingSource[];
+  sort_by: RankingSortBy;
+  source_labels: Record<string, string>;
+  our_projections_available: boolean;
+  stale: Record<string, boolean>;
+  cache_age_hours: Record<string, number | null>;
+  last_updated: Record<string, string | null>;
+  players: MultiCompareRow[];
+  compared_at: string;
+}

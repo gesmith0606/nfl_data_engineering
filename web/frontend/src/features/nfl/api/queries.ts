@@ -20,8 +20,9 @@ import {
   fetchTeamRoster,
   fetchTeamSentiment,
   searchPlayers,
+  fetchMultiCompareRankings,
 } from './service';
-import type { ScoringFormat } from './types';
+import type { ScoringFormat, RankingSortBy, RankingSource } from './types';
 
 export const nflKeys = {
   all: ['nfl'] as const,
@@ -43,7 +44,20 @@ export const nflKeys = {
   teamRoster: (team: string, season: number, week: number, side: string) =>
     [...nflKeys.all, 'team-roster', { team, season, week, side }] as const,
   teamDefenseMetrics: (team: string, season: number, week: number) =>
-    [...nflKeys.all, 'team-defense-metrics', { team, season, week }] as const
+    [...nflKeys.all, 'team-defense-metrics', { team, season, week }] as const,
+  multiCompare: (
+    season: number,
+    scoring: ScoringFormat,
+    position: string | null,
+    sortBy: RankingSortBy,
+    sources: RankingSource[],
+    limit: number
+  ) =>
+    [
+      ...nflKeys.all,
+      'multi-compare',
+      { season, scoring, position, sortBy, sources, limit },
+    ] as const
 };
 
 export const projectionsQueryOptions = (
@@ -249,4 +263,40 @@ export const teamDefenseMetricsQueryOptions = (
     queryKey: nflKeys.teamDefenseMetrics(team ?? '', season, week),
     queryFn: () => fetchTeamDefenseMetrics(team as string, season, week),
     enabled: !!team
+  });
+
+/**
+ * Side-by-side rankings (ours + Sleeper + ESPN + Yahoo) joined on player name.
+ *
+ * Yahoo column is served via FantasyPros consensus; missing-source values
+ * are returned as `null` per row. Default sort is `consensus` (mean of
+ * available external ranks); the user can resort by any single source.
+ */
+export const multiCompareQueryOptions = (opts: {
+  season: number;
+  scoring: ScoringFormat;
+  position: string | null;
+  sort_by: RankingSortBy;
+  sources: RankingSource[];
+  limit: number;
+}) =>
+  queryOptions({
+    queryKey: nflKeys.multiCompare(
+      opts.season,
+      opts.scoring,
+      opts.position,
+      opts.sort_by,
+      opts.sources,
+      opts.limit
+    ),
+    queryFn: () =>
+      fetchMultiCompareRankings({
+        season: opts.season,
+        scoring: opts.scoring,
+        position: opts.position,
+        sort_by: opts.sort_by,
+        sources: opts.sources,
+        limit: opts.limit,
+      }),
+    staleTime: 30 * 60 * 1000 // 30 minutes — external sources cache 24h server-side
   });

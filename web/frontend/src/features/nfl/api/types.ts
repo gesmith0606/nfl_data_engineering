@@ -25,4 +25,9 @@ export type {
   TeamLineup,
   TeamRosterResponse,
   TeamSentiment,
+  // Multi-source rankings
+  MultiCompareResponse,
+  MultiCompareRow,
+  RankingSortBy,
+  RankingSource,
 } from '@/lib/nfl/types';
