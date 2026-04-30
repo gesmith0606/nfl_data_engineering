@@ -28,7 +28,7 @@ class PredictionMetaInfo:
     defaulting in ``/api/predictions`` when the caller omits ``season``/``week``.
     """
 
-    season: int
+    season: Optional[int]
     week: Optional[int]
     data_as_of: Optional[str]
     source_path: Optional[str]
@@ -197,7 +197,7 @@ def get_latest_week(season: Optional[int] = None) -> PredictionMetaInfo:
     """
     if not GOLD_PREDICTIONS_DIR.exists():
         return PredictionMetaInfo(
-            season=season or 0, week=None, data_as_of=None, source_path=None
+            season=season, week=None, data_as_of=None, source_path=None
         )
 
     if season is not None:
@@ -249,6 +249,6 @@ def get_latest_week(season: Optional[int] = None) -> PredictionMetaInfo:
 
     if best is None:
         return PredictionMetaInfo(
-            season=season or 0, week=None, data_as_of=None, source_path=None
+            season=season, week=None, data_as_of=None, source_path=None
         )
     return best

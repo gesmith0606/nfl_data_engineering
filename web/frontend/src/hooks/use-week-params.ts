@@ -97,11 +97,12 @@ export function useWeekParams(
     const tryResolve = async (): Promise<void> => {
       let trySeason = probeSeason;
       for (let hop = 0; hop < 3; hop++) {
+        if (cancelled) return;
         const info = await resolver(trySeason);
         if (cancelled) return;
         if (info?.week != null) {
           setParams({
-            season: seasonParam ?? info.season,
+            season: seasonParam ?? info.season ?? trySeason,
             week: weekParam ?? info.week
           });
           setDataAsOf(info.data_as_of ?? null);
