@@ -99,8 +99,25 @@ export interface TeamLineup {
   season: number;
   week: number;
   offense: LineupPlayer[];
+  defense: LineupPlayer[];
   implied_total: number | null;
   team_projected_total: number | null;
+}
+
+/**
+ * Backend envelope returned by `/api/lineups`. Carries both nested
+ * (`lineups`) and flat (`lineup`) representations so the website's lineup
+ * widget and the AI advisor's `getTeamRoster` tool both have the shape they
+ * expect. Mirrors `web/api/models/schemas.py::LineupResponse`.
+ */
+export interface LineupResponse {
+  season: number;
+  week: number;
+  lineups: TeamLineup[];
+  lineup: unknown[];
+  generated_at: string;
+  data_as_of: string | null;
+  defaulted: boolean;
 }
 
 /** A single news article or report associated with a player. */

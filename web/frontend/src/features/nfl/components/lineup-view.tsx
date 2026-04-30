@@ -33,10 +33,12 @@ export function LineupView() {
     enabled: !isResolving && !!team
   });
 
-  // Plan 70-01: treat an empty offense payload the same as "no lineup"
-  // for empty-state routing — the backend's graceful defaulting (phase 66)
-  // returns a 200 with an empty array in offseason.
-  const lineupIsEmpty = !!lineup && (lineup.offense?.length ?? 0) === 0;
+  // Plan 70-01: treat null (envelope unwrapped to no team) or an empty
+  // offense payload the same as "no lineup" for empty-state routing — the
+  // backend's graceful defaulting (phase 66) returns a 200 with an empty
+  // lineups[] in offseason.
+  const lineupIsEmpty =
+    lineup === null || (!!lineup && (lineup.offense?.length ?? 0) === 0);
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>

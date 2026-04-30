@@ -7,6 +7,7 @@ import type {
   DraftPickResponse,
   DraftRecommendationsResponse,
   HealthResponse,
+  LineupResponse,
   MockDraftPickRequest,
   MockDraftPickResponse,
   MockDraftStartRequest,
@@ -215,18 +216,26 @@ export async function fetchHealth(): Promise<HealthResponse> {
   return request<HealthResponse>("/api/health");
 }
 
-/** Fetch a single team's lineup for a given week. */
+/**
+ * Fetch a single team's lineup for a given week.
+ *
+ * The backend returns a `LineupResponse` envelope with the nested per-team
+ * lineups in `lineups[]` (and a parallel flat representation in `lineup[]`
+ * for the AI advisor). This unwraps to the single `TeamLineup` for the
+ * requested team — `null` when the slice is empty (offseason / preseason).
+ */
 export async function fetchLineup(
   season: number,
   week: number,
   team: string,
-): Promise<TeamLineup> {
+): Promise<TeamLineup | null> {
   const params = new URLSearchParams({
     season: String(season),
     week: String(week),
     team,
   });
-  return request<TeamLineup>(`/api/lineups?${params}`);
+  const envelope = await request<LineupResponse>(`/api/lineups?${params}`);
+  return envelope.lineups[0] ?? null;
 }
 
 /** Fetch all team lineups for a given week. */
@@ -238,7 +247,8 @@ export async function fetchAllLineups(
     season: String(season),
     week: String(week),
   });
-  return request<TeamLineup[]>(`/api/lineups/all?${params}`);
+  const envelope = await request<LineupResponse>(`/api/lineups/all?${params}`);
+  return envelope.lineups;
 }
 
 /** Fetch recent news items for a specific player. */
