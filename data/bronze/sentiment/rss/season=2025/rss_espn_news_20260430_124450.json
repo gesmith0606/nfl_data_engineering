@@ -1,0 +1,303 @@
+{
+  "fetch_run_id": "99b77d88-a568-4985-b0d1-8b7124a6257c",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-04-30T12:44:50.904525+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 20,
+  "items": [
+    {
+      "external_id": "US-EN-48632243",
+      "url": "https://www.espn.com/nfl/story/_/id/48632243/2026-nfl-draft-scouts-coaches-execs-fowler-32-teams-classes",
+      "title": "What NFL scouts, coaches, execs are saying about a...",
+      "body_text": "One week since the start of the 2026 NFL draft, what are league sources saying about all 32 classes?",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-04-30T12:46:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48610584",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48610584/2026-nfl-draft-ranking-top-100-picks-best-steals-team-fits-trades",
+      "title": "Miller: Ranking the 100 best NFL draft picks of 20...",
+      "body_text": "Matt Miller picked out his 100 favorite selections, factoring in value, fit and trades.",
+      "author": "Matt Miller",
+      "published_at": "2026-04-30T12:46:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48627879",
+      "url": "https://www.espn.com/nfl/story/_/id/48627879/justin-simmons-retires-bronco-nine-nfl-seasons",
+      "title": "Simmons retires as Bronco: 'My heart, my home'",
+      "body_text": "Two-time Pro Bowl safety Justin Simmons announced Wednesday that he is retiring from the NFL as a member of the Broncos.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Pro Bowl",
+        "Justin Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0032971"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-48629372",
+      "url": "https://www.espn.com/nfl/story/_/id/48629372/nfl-distributes-crew-assignments-referees-sources-say",
+      "title": "Sources: NFL assigns ref crews as CBA progresses",
+      "body_text": "The NFL distributed crew assignments to referees this week amid indications of continued progress toward a deal on a new collective bargaining agreement with the NFL Referees Association, sources told ESPN.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Referees Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48628975",
+      "url": "https://www.espn.com/nfl/story/_/id/48628975/texans-lb-azeez-al-shaair-agree-3-year-extension",
+      "title": "Texans, LB Al-Shaair agree to 3-year extension",
+      "body_text": "The Texans and linebacker Azeez Al-Shaair have reached agreement on a three-year, $54 million extension, according to NFL Network.",
+      "author": "DJ Bien-Aime",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "US-EN-48632458",
+      "url": "https://www.espn.com/nfl/story/_/id/48632458/rooney-says-steelers-remain-regular-contact-rodgers",
+      "title": "Rooney explains rationale behind Rodgers tender",
+      "body_text": "Art Rooney II remains confident Aaron Rodgers will be the team's QB in 2026, but he told NFL Network the club applied the rarely used UFA tender on him to make sure it would secure a compensatory pick \"in the unlikely event he goes somewhere else.\"",
+      "author": "Brooke Pryor",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Art Rooney II",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48627496",
+      "url": "https://www.espn.com/nfl/story/_/id/48627496/source-giants-expected-sign-veteran-dt-shelby-harris",
+      "title": "Source: Veteran DT Harris expected to join Giants",
+      "body_text": "The New York Giants are expected to sign veteran defensive tackle Shelby Harris to a one-year deal, a source told ESPN.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Giants The",
+        "New York",
+        "Shelby Harris"
+      ],
+      "resolved_player_ids": [
+        "00-0031270"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48628854",
+      "url": "https://www.espn.com/nfl/story/_/id/48628854/sources-rob-brzezinski-seeking-full-vikings-gm-position",
+      "title": "Sources: Brzezinski seeks full-time Vikes GM job",
+      "body_text": "Vikings interim general manager Rob Brzezinski has expressed interest in the permanent job as the team begins its search process this week, sources told ESPN.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rob Brzezinski"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "US-EN-48620721",
+      "url": "https://www.espn.com/nfl/story/_/id/48620721/source-jets-host-russell-wilson-visit-per-geno-smith-idea",
+      "title": "Source: Jets considering Russell Wilson for QB2",
+      "body_text": "The Jets, exploring the veteran backup quarterbacks available, had Russell Wilson in for a visit late Monday night, a source told ESPN's Rich Cimini.",
+      "author": "Rich Cimini",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Russell Wilson",
+        "The Jets",
+        "Rich Cimini"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48624111",
+      "url": "https://www.espn.com/nfl/story/_/id/48624111/sources-broncos-bo-nix-had-second-procedure-right-ankle",
+      "title": "Nix had second procedure on ankle, sources say",
+      "body_text": "Bo Nix had a second procedure on his surgically repaired right ankle last week, and his participation in the Broncos' offseason program, which is set to begin Monday, could be limited, sources said.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-48624227",
+      "url": "https://www.espn.com/nfl/story/_/id/48624227/jj-mccarthy-katya-kuropas-wedding-cabo-minnesota-vikings",
+      "title": "💍 J.J. McCarthy marries his longtime girlfriend",
+      "body_text": "The Minnesota Vikings quarterback proposed to his longtime girlfriend in January 2024.",
+      "author": "ESPN staff",
+      "published_at": "2026-04-30T04:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Minnesota"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "US-EN-48630483",
+      "url": "https://www.espn.com/nfl/story/_/id/48630483/why-los-angeles-rams-see-qb-ty-simpson-matthew-stafford-heir-apparent",
+      "title": "'You can't just plug and play any quarterback in there': Why the Rams see Simpson as Stafford's heir apparent",
+      "body_text": "The Rams eyed Simpson early in the process -- and just didn't let on.",
+      "author": "Sarah Barshop",
+      "published_at": "2026-04-30T12:52:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48611355",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/48611355/2027-nfl-mock-draft-early-first-round-predictions-32-picks-manning-smith",
+      "title": "Reid's early NFL mock draft for next year: Which 2...",
+      "body_text": "We're still a full year out, but let's make way-too-early predictions for every first-round pick of the 2027 NFL draft. Will Arch Manning go No. 1? Jeremiah Smith?",
+      "author": "Jordan Reid",
+      "published_at": "2026-04-30T12:45:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Arch",
+        "Jeremiah Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48619393",
+      "url": "https://www.espn.com/nfl/story/_/id/48619393/nfl-dallas-cowboys-2026-draft-trade-philadelphia-eagles-jerry-jones-malachi-lawrence",
+      "title": "Why Cowboys' Jerry Jones isn't afraid to trade wit...",
+      "body_text": "Dallas made yet another draft-day trade with Philly and the hope is that its string of success continues.",
+      "author": "Todd Archer",
+      "published_at": "2026-04-30T12:55:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Cowboys",
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48608897",
+      "url": "https://www.espn.com/nfl/story/_/id/48608897/revisiting-most-impactful-nfl-draft-day-trade-32-teams-2026",
+      "title": "32 draft-day trades that will always be remembered...",
+      "body_text": "NFL Nation looks back at the draft deals that produced memorable outcomes -- good or bad -- for their teams.",
+      "author": "NFL Nation",
+      "published_at": "2026-04-29T20:36:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48610798",
+      "url": "https://www.espn.com/nfl/story/_/id/48610798/2026-nfl-draft-ty-simpson-matthew-stafford-rams-quarterback-playoffs-first-round-pick",
+      "title": "Barnwell looks back at 12 quarterback situations v...",
+      "body_text": "Matthew Stafford just won MVP, but the contending Rams still drafted Ty Simpson in Round 1. Is it bad team building, or are there precedents for this working?",
+      "author": "Bill Barnwell",
+      "published_at": "2026-04-29T12:28:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48606629",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48606629/fantasy-football-winners-losers-nfl-draft",
+      "title": "Fantasy football winners and losers post-NFL draft...",
+      "body_text": "Which players benefited most from the happenings during draft weekend, and which saw their stocks fall the most.",
+      "author": "ESPN",
+      "published_at": "2026-04-28T14:32:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-FFPreseasonRank26main",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFPreseasonRank26main/fantasy-football-rankings-2026-draft-ppr",
+      "title": "Fantasy football rankings for 2026 season",
+      "body_text": "Fantasy football rankings for the upcoming season, for PPR leagues, as well as IDP and dynasty setups.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-04-28T14:32:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48620623",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48620623/2026-ufl-power-rankings-week-5",
+      "title": "UFL Power Rankings: Calling on a Magic 8-Ball to a...",
+      "body_text": "At the halfway point of the season, defending champ DC is surging, while Birmingham still hasn't found its footing.",
+      "author": "Matt Willis",
+      "published_at": "2026-04-29T12:46:08+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

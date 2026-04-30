@@ -1,0 +1,118 @@
+{
+  "fetch_run_id": "f32c8c6b-9be4-4e79-b6ba-d4816e28e33a",
+  "source": "rotowire",
+  "fetched_at": "2026-04-30T12:47:04.282250+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630618",
+      "url": "https://www.rotowire.com//football/player/george-pickens-15853",
+      "permalink": "",
+      "title": "George Pickens: Signs franchise tag",
+      "body_text": "Pickens has officially signed his franchise tag with the Cowboys, Todd Archer of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-29T02:52:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Todd Archer"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl630617",
+      "url": "https://www.rotowire.com//football/player/bryce-young-16807",
+      "permalink": "",
+      "title": "Bryce Young: Contract option picked up",
+      "body_text": "The Panthers have officially exercised the fifth-year option on Young's rookie contract, Darin Gantt of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-29T11:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Young",
+        "The Panthers",
+        "Darin Gantt"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "nfl630615",
+      "url": "https://www.rotowire.com//football/player/shedeur-sanders-18479",
+      "permalink": "",
+      "title": "Shedeur Sanders: Losing ground to Watson?",
+      "body_text": "Coach Todd Monken hopes to identify the Browns' starting QB by the end of the team's minicamp June 9-11, according to Mary Kay Cabot of the Cleveland Plain Dealer. Sanders and Deshaun Watson are considered the top two candidates to land the job. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-29T09:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Coach Todd",
+        "Mary Kay",
+        "Cleveland Plain",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "nfl630614",
+      "url": "https://www.rotowire.com//football/player/deshaun-watson-11712",
+      "permalink": "",
+      "title": "Deshaun Watson: May have inside track for QB1",
+      "body_text": "Watson reportedly emerged from last week's voluntary minicamp with an edge over Shedeur Sanders in the Browns' quarterback competition, according to Mary Kay Cabot of the Cleveland Plain Dealer. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-29T09:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "Shedeur Sanders",
+        "Mary Kay",
+        "Cleveland Plain"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "nfl630612",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Has clean-up procedure on ankle",
+      "body_text": "During his scheduled re-check last week, Nix underwent what Ian Rapoport of NFL Network describes as a successful and anticipated clean-up procedure on his ankle. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-28T06:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": null
+    }
+  ]
+}

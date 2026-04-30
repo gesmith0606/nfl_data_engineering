@@ -1,0 +1,590 @@
+{
+  "fetch_run_id": "45444948-94d4-4064-bc98-2e794b490044",
+  "source": "pft",
+  "fetched_at": "2026-04-30T12:47:47.236638+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-second-round-pick-r-mason-thomas-is-a-freak-of-nature",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-second-round-pick-r-mason-thomas-is-a-freak-of-nature",
+      "permalink": "",
+      "title": "Travis Kelce: Second-round pick R Mason Thomas is a \"freak of nature\"",
+      "body_text": "Tight end Travis Kelce didn't return to the Chiefs with the hope of the team having another season like 2025 and he thinks this year's draft class can help spark a quick turnaround in Kansas City.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T12:42:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce",
+        "Mason Thomas",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-on-mike-vrabel-just-thankful-hes-our-head-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-on-mike-vrabel-just-thankful-hes-our-head-coach",
+      "permalink": "",
+      "title": "Drake Maye on Mike Vrabel: Just thankful he's our head coach",
+      "body_text": "The attention paid to the fallout from the publication of photos showing Patriots head coach Mike Vrabel and NFL reporter Dianna Russini together makes it inevitable that Patriots players are going to be asked questions about the impact on their preparations for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T11:21:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Mike Vrabel",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0039851",
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-ballard-on-drafting-seth-mcgowan-despite-legal-history-im-a-second-chance-guy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-ballard-on-drafting-seth-mcgowan-despite-legal-history-im-a-second-chance-guy",
+      "permalink": "",
+      "title": "Chris Ballard on drafting Seth McGowan despite legal history: \"I'm a second chance guy\"",
+      "body_text": "When Seth McGowan was a freshman running back at Oklahoma in 2020, he was arrested for stealing marijuana, jewelry and cash, pleaded guilty, served three months in jail, and was kicked off the team.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-30T10:24:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Ballard",
+        "When Seth"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-on-his-leadership-im-not-always-a-nice-guy-im-an-a-hole-sometimes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-on-his-leadership-im-not-always-a-nice-guy-im-an-a-hole-sometimes",
+      "permalink": "",
+      "title": "Fernando Mendoza on his leadership: I'm not always a nice guy, I'm an a-hole sometimes",
+      "body_text": "The Raiders' new franchise quarterback says he'll demand the best of his teammates.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-30T08:32:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-agree-to-terms-with-dt-leki-fotu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-agree-to-terms-with-dt-leki-fotu",
+      "permalink": "",
+      "title": "Giants agree to terms with DT Leki Fotu",
+      "body_text": "The Giants are signing defensive tackle Leki Fotu to a one-year contract, according to Jordan Schultz of The Schultz Report.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-30T01:07:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Leki Fotu",
+        "The Giants",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0036371"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-part-ways-with-executive-champ-kelly-hire-josh-scobey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-part-ways-with-executive-champ-kelly-hire-josh-scobey",
+      "permalink": "",
+      "title": "Dolphins part ways with executive Champ Kelly, hire Josh Scobey",
+      "body_text": "The Dolphins have parted ways with senior personnel executive Champ Kelly, Jonathan Jones of CBS reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T23:23:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Champ Kelly",
+        "Josh Scobey",
+        "The Dolphins",
+        "Jonathan Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0021098",
+        "00-0032580"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-dl-eric-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-dl-eric-johnson",
+      "permalink": "",
+      "title": "Vikings sign DL Eric Johnson",
+      "body_text": "The Vikings signed defensive lineman Eric Johnson on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T23:42:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eric Johnson",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0037269"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/art-rooney-on-aaron-rodgers-i-thought-wed-know-by-now-think-well-know-in-a-few-weeks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/art-rooney-on-aaron-rodgers-i-thought-wed-know-by-now-think-well-know-in-a-few-weeks",
+      "permalink": "",
+      "title": "Art Rooney on Aaron Rodgers: I thought we'd know by now, think we'll know in a few weeks",
+      "body_text": "Steelers owner Art Rooney II said a month ago that he expected to know whether Aaron Rodgers would play in Pittsburgh this season before the draft.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-29T23:36:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Art Rooney",
+        "Aaron Rodgers",
+        "Art Rooney II"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-shift-mandatory-minicamp-possibly-altering-the-aaron-rodgers-timeline",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-shift-mandatory-minicamp-possibly-altering-the-aaron-rodgers-timeline",
+      "permalink": "",
+      "title": "Steelers shift mandatory minicamp, possibly altering the Aaron Rodgers timeline",
+      "body_text": "Last year, the Steelers' offseason program meshed perfectly with the priorities of quarterback Aaron Rodgers.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T23:14:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-te-harrison-bryant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-te-harrison-bryant",
+      "permalink": "",
+      "title": "Seahawks sign TE Harrison Bryant",
+      "body_text": "The Seahawks signed tight end Harrison Bryant on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T22:51:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Harrison Bryant",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0036232"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-george-pickens-signs-franchise-tag",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-george-pickens-signs-franchise-tag",
+      "permalink": "",
+      "title": "George Pickens signs franchise tag",
+      "body_text": "The Cowboys placed the tag on the Pro Bowl wide receiver, guaranteeing him $27.3 million in 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T21:57:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "The Cowboys",
+        "Pro Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-fb-ben-vansumeren-to-a-one-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-fb-ben-vansumeren-to-a-one-year-deal",
+      "permalink": "",
+      "title": "Bills sign FB Ben VanSumeren to a one-year deal",
+      "body_text": "The Bills signed fullback Ben VanSumeren to a one-year deal on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T21:33:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-azeez-al-shaairs-three-year-extension-is-worth-54-million",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-azeez-al-shaairs-three-year-extension-is-worth-54-million",
+      "permalink": "",
+      "title": "Report: Azeez Al-Shaair's three-year extension is worth $54 million",
+      "body_text": "Texans linebacker Azeez Al-Shaair was headed into a contract season.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T21:23:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-waive-rb-shunderrick-powell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-waive-rb-shunderrick-powell",
+      "permalink": "",
+      "title": "Chiefs waive RB ShunDerrick Powell",
+      "body_text": "The Chiefs opened up a spot on their 90-man roster on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-29T21:17:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Powell The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-releases-offseason-program-workout-dates",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-releases-offseason-program-workout-dates",
+      "permalink": "",
+      "title": "NFL releases offseason program workout dates",
+      "body_text": "The NFL has released the dates for every team's voluntary offseason workout program.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T21:06:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-possible-lockout-looms-nfl-has-distributed-2026-crew-assignments-for-regular-officials",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-possible-lockout-looms-nfl-has-distributed-2026-crew-assignments-for-regular-officials",
+      "permalink": "",
+      "title": "As possible lockout looms, NFL has distributed 2026 crew assignments for regular officials",
+      "body_text": "Clock keeps ticking toward expiation of current CBA.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T20:51:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-attends-patriots-season-ticket-holder-event",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-attends-patriots-season-ticket-holder-event",
+      "permalink": "",
+      "title": "Mike Vrabel attends Patriots season-ticket holder event",
+      "body_text": "The situation involving Patriots coach Mike Vrabel has taken on a life of its own, due in large part to a string of questionable P.R. moves from the inception of the controversy.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T20:31:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-lb-joe-bachie-dl-jay-tufele",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-lb-joe-bachie-dl-jay-tufele",
+      "permalink": "",
+      "title": "Lions sign LB Joe Bachie, DL Jay Tufele",
+      "body_text": "The Lions added a couple of veterans on the defensive side of the ball on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-29T20:25:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Bachie",
+        "Jay Tufele",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0035895",
+        "00-0036881"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texas-tech-qb-brendan-sorsby-will-check-into-treatment-center-for-gambling-addiction",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texas-tech-qb-brendan-sorsby-will-check-into-treatment-center-for-gambling-addiction",
+      "permalink": "",
+      "title": "Report: Texas Tech QB Brendan Sorsby will check into treatment center for gambling addiction",
+      "body_text": "As gambling becomes more legalized, normalized, and monetized, there will be issues.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-27T17:19:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-gm-monti-ossenfort-well-see-how-much-carson-beck-can-handle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-gm-monti-ossenfort-well-see-how-much-carson-beck-can-handle",
+      "permalink": "",
+      "title": "Cardinals GM Monti Ossenfort: We'll see how much Carson Beck can handle",
+      "body_text": "After the Cardinals drafted quarterback Carson Beck in the third round last Friday, General Manager Monti Ossenfort and head coach Mike LaFleur declined to say whether Beck will be in competition with Jacoby Brissett and Gardner Minshew to be the team's Week 1 starter.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-29T19:38:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monti Ossenfort",
+        "Carson Beck",
+        "General Manager",
+        "Jacoby Brissett",
+        "Gardner Minshew"
+      ],
+      "resolved_player_ids": [
+        "00-0033119",
+        "00-0035289"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-will-not-exercise-mazi-smiths-option-for-2027",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-will-not-exercise-mazi-smiths-option-for-2027",
+      "permalink": "",
+      "title": "Jets will not exercise Mazi Smith's option for 2027",
+      "body_text": "The Jets announced on Wednesday that they have exercised their fifth-year option on edge rusher Will McDonald's contract, but they did not share their plans for defensive tackle Mazi Smith.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-29T18:51:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mazi Smith",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0038545"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-ballard-colts-will-have-patience-while-trying-to-trade-anthony-richardson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-ballard-colts-will-have-patience-while-trying-to-trade-anthony-richardson",
+      "permalink": "",
+      "title": "Chris Ballard: Colts will have patience while trying to trade Anthony Richardson",
+      "body_text": "Colts General Manager Chris Ballard would like to trade quarterback Anthony Richardson, and he's willing to wait for an offer.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-29T18:44:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Ballard",
+        "Anthony Richardson",
+        "Colts General",
+        "Manager Chris"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-officially-exercise-bryce-youngs-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-officially-exercise-bryce-youngs-fifth-year-option",
+      "permalink": "",
+      "title": "Panthers officially exercise Bryce Young's fifth-year option",
+      "body_text": "Young is now set to make $25.904 million for the 2027 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-29T18:43:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-agree-to-three-year-extension-with-lb-azeez-al-shaair",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-agree-to-three-year-extension-with-lb-azeez-al-shaair",
+      "permalink": "",
+      "title": "Texans agree to three-year extension with LB Azeez Al-Shaair",
+      "body_text": "The Cowboys had interest in a trade for Texans linebacker Azeez Al-Shaair before the draft.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-29T18:42:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shaair The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-will-wear-no-15-with-the-blessing-of-tom-flores",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-will-wear-no-15-with-the-blessing-of-tom-flores",
+      "permalink": "",
+      "title": "Fernando Mendoza will wear No. 15 with the blessing of Tom Flores",
+      "body_text": "Before Tom Flores won two Super Bowls as the head coach of the Raiders, he played quarterback in Oakland for seven seasons.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T18:05:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Tom Flores",
+        "Before Tom",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/athletic-editor-steven-ginsberg-addresses-dianna-russini-situation-in-all-hands-meeting",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/athletic-editor-steven-ginsberg-addresses-dianna-russini-situation-in-all-hands-meeting",
+      "permalink": "",
+      "title": "Athletic editor Steven Ginsberg addresses Dianna Russini situation in all-hands meeting",
+      "body_text": "When the photos of Patriots coach Mike Vrabel and reporter Dianna Russini first emerged 22 days ago, they were accompanied by three strong denials of impropriety — one from Vrabel, one from Russini, and one from Russini's employer, The Athletic.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T17:44:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Steven Ginsberg",
+        "Dianna Russini",
+        "Mike Vrabel",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-mark-sanchez-criminal-trial-has-been-delayed-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-mark-sanchez-criminal-trial-has-been-delayed-again",
+      "permalink": "",
+      "title": "The Mark Sanchez criminal trial has been delayed again",
+      "body_text": "Former NFL quarterback and Fox analyst Mark Sanchez faces criminal charges in Indianapolis arising from a fight with a 69-year-old truck driver.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T17:05:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Mark",
+        "Mark Sanchez"
+      ],
+      "resolved_player_ids": [
+        "00-0026898"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-launch-search-for-new-general-manager",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-launch-search-for-new-general-manager",
+      "permalink": "",
+      "title": "Vikings launch search for new General Manager",
+      "body_text": "After the Vikings made the belated decision to fire G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-29T16:50:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-deshaun-watson-came-out-of-browns-minicamp-as-favorite-to-be-qb1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-deshaun-watson-came-out-of-browns-minicamp-as-favorite-to-be-qb1",
+      "permalink": "",
+      "title": "Report: Deshaun Watson emerged from Browns minicamp as favorite to be QB1",
+      "body_text": "Watson missed all of 2025 after tearing his Achilles, but is back to compete for the job in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-29T16:29:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-exercise-will-mcdonalds-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-exercise-will-mcdonalds-fifth-year-option",
+      "permalink": "",
+      "title": "Jets exercise Will McDonald's fifth-year option",
+      "body_text": "The Jets have made a decision about their option on edge rusher Will McDonald's contract for 2027.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-29T16:35:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    }
+  ]
+}
