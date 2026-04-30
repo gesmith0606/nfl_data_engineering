@@ -1873,6 +1873,9 @@ def generate_preseason_projections(
     target_season: int = 2026,
     historical_df: Optional[pd.DataFrame] = None,
     college_features_df: Optional[pd.DataFrame] = None,
+    roster_df: Optional[pd.DataFrame] = None,
+    weekly_df: Optional[pd.DataFrame] = None,
+    depth_charts_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """
     Generate pre-season projections based on historical seasonal averages.
@@ -2167,6 +2170,55 @@ def generate_preseason_projections(
     if not kicker_proj.empty:
         proj = pd.concat([proj, kicker_proj], ignore_index=True)
         logger.info("Appended %d kicker projections", len(kicker_proj))
+
+    # ------------------------------------------------------------------
+    # Low-sample / silent-drop fix: synthesize projections for any rostered
+    # fantasy player missing from the seasonal-stats path. This catches
+    # rookies (Dart, McCarthy, Cam Ward, Sanders…) and journeymen whose NFL
+    # sample is too thin for the seasonal aggregation but who are clearly
+    # rostered. Quality scales with available evidence (depth-chart role +
+    # any rookie-year per-game rates).
+    # ------------------------------------------------------------------
+    if roster_df is not None and not roster_df.empty:
+        try:
+            from src.rookie_projection import project_low_sample_players
+        except ImportError:
+            from rookie_projection import project_low_sample_players
+
+        already_projected = set(proj["player_id"].dropna().astype(str))
+
+        # Build the (team, position) starter-already-covered set so the
+        # synthesizer can avoid minting a second "starter" at a team where
+        # the upstream pipeline already projected a viable starter.
+        starter_floors = {"QB": 200.0, "RB": 100.0, "WR": 100.0, "TE": 80.0, "K": 100.0}
+        team_pos_starter_already: set = set()
+        for pos, floor in starter_floors.items():
+            pos_rows = proj[
+                (proj["position"] == pos)
+                & (proj["projected_season_points"] >= floor)
+            ]
+            for t in pos_rows["recent_team"].dropna().unique():
+                team_pos_starter_already.add((str(t), pos))
+
+        low_sample_proj = project_low_sample_players(
+            roster_df=roster_df,
+            weekly_df=weekly_df,
+            already_projected_player_ids=already_projected,
+            target_season=target_season,
+            scoring_format=scoring_format,
+            depth_charts_df=depth_charts_df,
+            team_pos_starter_already_projected=team_pos_starter_already,
+        )
+        if not low_sample_proj.empty:
+            # Backfill any columns the main pipeline has but synthesizer doesn't.
+            for col in proj.columns:
+                if col not in low_sample_proj.columns:
+                    low_sample_proj[col] = np.nan
+            proj = pd.concat([proj, low_sample_proj], ignore_index=True, sort=False)
+            logger.info(
+                "Added %d low-sample / silent-drop fix projections",
+                len(low_sample_proj),
+            )
 
     # Rank overall and by position using VORP (Value Over Replacement Player).
     # Raw points ranking puts QBs in 8 of the top 10 because they naturally

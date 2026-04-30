@@ -301,12 +301,49 @@ def main():
                 f"Loaded {len(historical_df):,} historical player profiles for draft capital boost"
             )
 
+        # Load latest roster bronze + recent weekly bronze to drive the
+        # low-sample / silent-drop fix (rookies and journeymen with thin NFL
+        # samples that the seasonal aggregation drops).
+        roster_df = _read_local_parquet(BRONZE_DIR, "players/rosters/season=*/*.parquet")
+        if not roster_df.empty:
+            # Keep only the latest snapshot (latest season).
+            latest_season = roster_df["season"].max()
+            roster_df = roster_df[roster_df["season"] == latest_season].copy()
+            print(
+                f"Loaded {len(roster_df):,} roster rows (season={latest_season}) for low-sample fix"
+            )
+
+        weekly_df = _read_local_parquet(
+            BRONZE_DIR, "player_weekly/season=*/week=*/*.parquet"
+        )
+        if weekly_df.empty:
+            # v1.x → v2.x bronze path move
+            weekly_df = _read_local_parquet(
+                BRONZE_DIR, "players/weekly/season=*/*.parquet"
+            )
+        if not weekly_df.empty:
+            print(
+                f"Loaded {len(weekly_df):,} weekly stat rows for rookie per-game rates"
+            )
+
+        depth_charts_df = _read_local_parquet(
+            BRONZE_DIR, "depth_charts/season=*/*.parquet"
+        )
+        if not depth_charts_df.empty:
+            print(
+                f"Loaded {len(depth_charts_df):,} depth chart rows "
+                f"(latest dt: {depth_charts_df['dt'].max()}) for canonical role assignment"
+            )
+
         print("Running pre-season projection model...")
         projections = generate_preseason_projections(
             seasonal_df,
             scoring_format=args.scoring,
             target_season=args.season,
             historical_df=historical_df if not historical_df.empty else None,
+            roster_df=roster_df if not roster_df.empty else None,
+            weekly_df=weekly_df if not weekly_df.empty else None,
+            depth_charts_df=depth_charts_df if not depth_charts_df.empty else None,
         )
         s3_key = f"projections/preseason/season={args.season}/season_proj_{ts}.parquet"
         local_name = f"preseason_{args.season}_{args.scoring}_{ts}.csv"
