@@ -191,14 +191,12 @@ export default function FieldView({ lineup }: FieldViewProps) {
               <div />
             </div>
 
-            {/* Row 3: RBs (RB1 always; RB2 alongside it if rostered as a starter) */}
-            <div className='grid grid-cols-3 gap-[var(--gap-stack)] mb-[var(--gap-section)]'>
-              <div />
-              <div className='flex justify-center gap-[var(--space-2)]'>
-                {playersByPos.get('rb') && <PlayerCard player={playersByPos.get('rb')!} />}
-                {playersByPos.get('rb_2') && <PlayerCard player={playersByPos.get('rb_2')!} />}
-              </div>
-              <div />
+            {/* Row 3: RBs (RB1 always; RB2 alongside it if rostered as a starter).
+                Single-RB teams render a lone centered card — `flex justify-center`
+                centers across the full row width either way. */}
+            <div className='flex justify-center gap-[var(--space-3)] mb-[var(--gap-section)]'>
+              {playersByPos.get('rb') && <PlayerCard player={playersByPos.get('rb')!} />}
+              {playersByPos.get('rb_2') && <PlayerCard player={playersByPos.get('rb_2')!} />}
             </div>
 
             {/* Row 4: QB */}

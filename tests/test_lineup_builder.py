@@ -600,6 +600,187 @@ class TestAPISchema(unittest.TestCase):
 # ---------------------------------------------------------------------------
 
 
+def _make_new_schema_depth_chart_normalized(team="KC"):
+    """Build a depth chart that mirrors what `_normalize_depth_chart_schema`
+    emits for the post-2025 ESPN/Sleeper Bronze parquets.
+
+    Key difference from the legacy fixture: depth_team is a strict 1/2/3
+    ordinal per pos_abb — only ONE player has depth_team=1 at WR; the
+    second and third "starting" WRs sit at depth_team=2 and 3.
+    """
+    rows = [
+        # 3 WRs at strict depth ranks 1, 2, 3 — all should be picked as starters.
+        ("WR", "WR", "Rashee Rice", "00-1", 1),
+        ("WR", "WR", "Xavier Worthy", "00-2", 2),
+        ("WR", "WR", "Hollywood Brown", "00-3", 3),
+        # 2 RBs at strict ranks 1, 2.
+        ("RB", "RB", "Isiah Pacheco", "00-4", 1),
+        ("RB", "RB", "Clyde Edwards", "00-5", 2),
+        # Singles fill out the rest of the offense.
+        ("QB", "QB", "Patrick Mahomes", "00-6", 1),
+        ("TE", "TE", "Travis Kelce", "00-7", 1),
+        ("K", "PK", "Harrison Butker", "00-8", 1),
+        # Backup WR at rank 4 — should NOT make the cut.
+        ("WR", "WR", "Justin Watson", "00-9", 4),
+    ]
+    return pd.DataFrame(
+        [
+            {
+                "club_code": team,
+                "full_name": name,
+                "gsis_id": gsis,
+                "position": pos,
+                "depth_position": dp,
+                "depth_team": rank,  # int, as new schema emits
+                "week": 1,
+            }
+            for pos, dp, name, gsis, rank in rows
+        ]
+    )
+
+
+class TestNewSchemaStarterSelection(unittest.TestCase):
+    """Verify starter selection under the strict-rank schema (2025+ Bronze)."""
+
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_picks_top3_wrs_across_ranks_1_2_3(self, mock_dc, mock_sc):
+        # New schema: 3 WRs at depth_team={1,2,3}, plus a depth=4 backup.
+        mock_dc.return_value = _make_new_schema_depth_chart_normalized()
+        mock_sc.return_value = pd.DataFrame()
+
+        result = get_team_starters(2026, 1, team="KC")
+        wrs = result[result["position_group"] == "WR"]
+        self.assertEqual(len(wrs), 3)
+        names = set(wrs["player_name"])
+        self.assertEqual(
+            names, {"Rashee Rice", "Xavier Worthy", "Hollywood Brown"}
+        )
+        self.assertNotIn("Justin Watson", names)  # rank-4 excluded
+
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_picks_top2_rbs_across_ranks_1_2(self, mock_dc, mock_sc):
+        mock_dc.return_value = _make_new_schema_depth_chart_normalized()
+        mock_sc.return_value = pd.DataFrame()
+
+        result = get_team_starters(2026, 1, team="KC")
+        rbs = result[result["position_group"] == "RB"]
+        self.assertEqual(len(rbs), 2)
+        # Field positions assigned in order — first picked = rb, second = rb_2.
+        self.assertEqual(set(rbs["field_position"]), {"rb", "rb_2"})
+
+
+class TestCommitteeAtDepthOne(unittest.TestCase):
+    """Legacy schema: when more players carry depth_team=1 than max_slots,
+    snap_pct breaks the tie."""
+
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_picks_top_two_by_snap_pct_when_three_at_depth_one(
+        self, mock_dc, mock_sc
+    ):
+        # 3 RBs all at depth_team=1; max_slots=2. Snap counts decide.
+        rows = []
+        for name, gsis, snap_pct in [
+            ("Workhorse Walker", "00-A", 78.0),
+            ("Committee Carter", "00-B", 55.0),
+            ("Third Wheel Tyler", "00-C", 22.0),
+        ]:
+            rows.append(
+                {
+                    "club_code": "KC",
+                    "full_name": name,
+                    "gsis_id": gsis,
+                    "position": "RB",
+                    "depth_position": "RB",
+                    "depth_team": "1",
+                    "week": 1.0,
+                }
+            )
+        # Round out the rest of the lineup so the function returns a frame.
+        rows.append(
+            {
+                "club_code": "KC",
+                "full_name": "Patrick Mahomes",
+                "gsis_id": "00-Q",
+                "position": "QB",
+                "depth_position": "QB",
+                "depth_team": "1",
+                "week": 1.0,
+            }
+        )
+        mock_dc.return_value = pd.DataFrame(rows)
+        mock_sc.return_value = pd.DataFrame(
+            [
+                {
+                    "team": "KC",
+                    "player": "Workhorse Walker",
+                    "offense_pct": 78.0,
+                    "week": 1,
+                },
+                {
+                    "team": "KC",
+                    "player": "Committee Carter",
+                    "offense_pct": 55.0,
+                    "week": 1,
+                },
+                {
+                    "team": "KC",
+                    "player": "Third Wheel Tyler",
+                    "offense_pct": 22.0,
+                    "week": 1,
+                },
+            ]
+        )
+
+        result = get_team_starters(2024, 1, team="KC")
+        rbs = result[result["position_group"] == "RB"]
+        self.assertEqual(len(rbs), 2)
+        names = list(rbs["player_name"])
+        # Highest snap_pct picked first → Workhorse, then Committee.
+        self.assertEqual(names[0], "Workhorse Walker")
+        self.assertEqual(names[1], "Committee Carter")
+        self.assertNotIn("Third Wheel Tyler", names)
+
+
+class TestSingleRbTeam(unittest.TestCase):
+    """A team with exactly one rostered RB must not emit an rb_2 field row."""
+
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_no_rb_2_field_position_when_only_one_rb(self, mock_dc, mock_sc):
+        rows = [
+            {
+                "club_code": "KC",
+                "full_name": "Lone Ranger",
+                "gsis_id": "00-RB1",
+                "position": "RB",
+                "depth_position": "RB",
+                "depth_team": "1",
+                "week": 1.0,
+            },
+            {
+                "club_code": "KC",
+                "full_name": "Patrick Mahomes",
+                "gsis_id": "00-Q",
+                "position": "QB",
+                "depth_position": "QB",
+                "depth_team": "1",
+                "week": 1.0,
+            },
+        ]
+        mock_dc.return_value = pd.DataFrame(rows)
+        mock_sc.return_value = pd.DataFrame()
+
+        result = get_team_starters(2024, 1, team="KC")
+        rbs = result[result["position_group"] == "RB"]
+        self.assertEqual(len(rbs), 1)
+        self.assertEqual(rbs.iloc[0]["field_position"], "rb")
+        # No rb_2 anywhere in the result.
+        self.assertNotIn("rb_2", set(result["field_position"]))
+
+
 class TestNormalizeDepthChartSchema(unittest.TestCase):
     """Verify the post-draft ESPN/Sleeper schema is translated to nflverse."""
 
