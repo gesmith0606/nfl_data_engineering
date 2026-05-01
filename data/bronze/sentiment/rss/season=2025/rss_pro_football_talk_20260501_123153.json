@@ -1,0 +1,501 @@
+{
+  "fetch_run_id": "63310ccc-2ffd-4a6c-8cb3-8ef473b5cc3d",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-01T12:31:53.343802+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-third-rounder-jakobi-lane-two-more-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-third-rounder-jakobi-lane-two-more-draft-picks",
+      "title": "Ravens sign third-rounder Ja'Kobi Lane, two more draft picks",
+      "body_text": "The Ravens have signed almost all of their draft picks ahead of Friday's start to their rookie minicamp.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T11:10:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kobi Lane",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-6-foot-5-wide-receiver-tyrone-broden-is-moving-to-cornerback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-6-foot-5-wide-receiver-tyrone-broden-is-moving-to-cornerback",
+      "title": "Seahawks' 6-foot-5 wide receiver Tyrone Broden is moving to cornerback",
+      "body_text": "There's a new tallest cornerback in the NFL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-01T08:05:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyrone Broden"
+      ],
+      "resolved_player_ids": [
+        "00-0040053"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-opens-the-door-to-a-possible-cleveland-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-opens-the-door-to-a-possible-cleveland-super-bowl",
+      "title": "Roger Goodell opens the door to a possible Cleveland Super Bowl",
+      "body_text": "Cleveland has never been to a Super Bowl.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T02:49:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell",
+        "Cleveland Super",
+        "Bowl Cleveland",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-will-decline-lt-broderick-jones-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-will-decline-lt-broderick-jones-fifth-year-option",
+      "title": "Steelers will decline LT Broderick Jones' fifth-year option",
+      "body_text": "The Steelers are declining the fifth-year option for left tackle Broderick Jones, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T01:32:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Broderick Jones",
+        "The Steelers",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0039109"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-minnesota-is-the-clear-favorite-to-host-2028-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-minnesota-is-the-clear-favorite-to-host-2028-draft",
+      "title": "Report: Minnesota is the \"clear favorite\" to host 2028 draft",
+      "body_text": "Event is expected to be awarded in May 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T01:25:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-five-draft-picks-including-third-rounder-julian-neal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-five-draft-picks-including-third-rounder-julian-neal",
+      "title": "Seahawks sign five draft picks, including third-rounder Julian Neal",
+      "body_text": "The Seahawks signed five of their eight draft picks ahead of their rookie minicamp this weekend.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T00:52:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Julian Neal",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "NEA218476"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-third-round-og-trey-zuhn-iii-seventh-round-dt-brandon-cleveland",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-third-round-og-trey-zuhn-iii-seventh-round-dt-brandon-cleveland",
+      "title": "Raiders sign third-round OG Trey Zuhn III, seventh-round DT Brandon Cleveland",
+      "body_text": "The Raiders announced the signing of two more draft picks, putting seven of their 10 selections under contract.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T00:17:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trey Zuhn III",
+        "Brandon Cleveland",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "ZUH415291",
+        "CLE669554"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-five-draft-picks-including-second-rounder-treydan-stukes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-five-draft-picks-including-second-rounder-treydan-stukes",
+      "title": "Raiders sign five draft picks, including second-rounder Treydan Stukes",
+      "body_text": "The Raiders have signed five of their 10 draft picks, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-30T22:53:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Treydan Stukes",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "STU595590"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-five-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-five-draft-picks",
+      "title": "Titans sign five draft picks",
+      "body_text": "The Titans signed most of their 2026 draft class today.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-30T22:07:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-decline-fifth-year-option-for-anthony-richardson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-decline-fifth-year-option-for-anthony-richardson",
+      "title": "Colts decline fifth-year option for Anthony Richardson",
+      "body_text": "The Colts will not exercise the fifth-year option on quarterback Anthony Richardson's rookie contract, Mike Chappell of Fox 59 reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-30T21:31:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Richardson",
+        "The Colts",
+        "Mike Chappell"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-zuckerberg-tim-cook-are-among-potential-suitors-for-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-zuckerberg-tim-cook-are-among-potential-suitors-for-seahawks",
+      "title": "Mark Zuckerberg, Tim Cook are among potential suitors for Seahawks",
+      "body_text": "Four total bidders are considering making a play for the Super Bowl champs.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-30T16:59:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Zuckerberg",
+        "Tim Cook",
+        "Seahawks Four",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0033683"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/warren-buffett-explains-sports-betting-in-simple-terms-its-a-tax-on-stupidity",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/warren-buffett-explains-sports-betting-in-simple-terms-its-a-tax-on-stupidity",
+      "title": "Warren Buffett explains sports betting in simple terms: \"It's a tax on stupidity\"",
+      "body_text": "Few Americans in history have had more success in the financial world than Warren Buffett.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-30T21:29:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Warren Buffett",
+        "Few Americans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-s-devon-key-signs-exclusive-rights-tender",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-s-devon-key-signs-exclusive-rights-tender",
+      "title": "Broncos S Devon Key signs exclusive rights tender",
+      "body_text": "Broncos safety Devon Key officially signed his exclusive rights free agent tender on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-30T20:49:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Devon Key"
+      ],
+      "resolved_player_ids": [
+        "00-0036683"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-george-kittle-has-a-chance-to-play-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-george-kittle-has-a-chance-to-play-week-1",
+      "title": "Kyle Shanahan: George Kittle has a chance to play Week 1",
+      "body_text": "49ers tight end George Kittle remains on track in his rehab from a torn Achilles.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-30T20:33:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-waive-db-tre-tomlinson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-waive-db-tre-tomlinson",
+      "title": "49ers waive DB Tre Tomlinson",
+      "body_text": "The 49ers dropped a player from their roster on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T20:32:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tre Tomlinson"
+      ],
+      "resolved_player_ids": [
+        "00-0039134"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-fourth-round-pick-matt-hibner-three-other-selections",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-fourth-round-pick-matt-hibner-three-other-selections",
+      "title": "Ravens sign fourth-round pick Matt Hibner, three other selections",
+      "body_text": "The Ravens have signed six of their 11 draft choices.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T20:24:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Hibner",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-first-rounder-vega-ioane",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-first-rounder-vega-ioane",
+      "title": "Ravens sign first-rounder Vega Ioane",
+      "body_text": "The Ravens have their top 2026 draft pick under contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T19:30:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vega Ioane",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-free-agent-rb-austin-ekeler-fully-cleared-plans-to-play-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-free-agent-rb-austin-ekeler-fully-cleared-plans-to-play-in-2026",
+      "title": "Report: Free agent RB Austin Ekeler fully cleared, plans to play in 2026",
+      "body_text": "Free agent running back Austin Ekeler is medically cleared for all football activities, Aaron Wilson of KPRC reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-30T20:12:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Austin Ekeler",
+        "Aaron Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0033699"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-release-lb-jamin-davis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-release-lb-jamin-davis",
+      "title": "Raiders release LB Jamin Davis",
+      "body_text": "The Raiders announced a change to their roster on Thursday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T20:07:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamin Davis",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0036614"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/makai-lemon-will-be-first-eagle-to-wear-no-9-since-nick-foles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/makai-lemon-will-be-first-eagle-to-wear-no-9-since-nick-foles",
+      "title": "Makai Lemon will be first Eagle to wear No. 9 since Nick Foles",
+      "body_text": "Super Bowl LII MVP Nick Foles is a legend in Philadelphia for helping the Eagles win their first Lombardi Trophy.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-30T20:06:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Makai Lemon",
+        "Nick Foles",
+        "Super Bowl",
+        "Lombardi Trophy"
+      ],
+      "resolved_player_ids": [
+        "LEM694125",
+        "00-0029567"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-fourth-round-wr-elijah-sarratt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-fourth-round-wr-elijah-sarratt",
+      "title": "Ravens sign fourth-round WR Elijah Sarratt",
+      "body_text": "The Ravens have signed a second draft pick on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-30T19:59:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Elijah Sarratt",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "SAR527100"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-announce-that-theyve-exercised-2027-option-on-peter-skoronskis-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-announce-that-theyve-exercised-2027-option-on-peter-skoronskis-contract",
+      "title": "Titans announce that they've exercised 2027 option on Peter Skoronski's contract",
+      "body_text": "The Titans have secured left guard Peter Skoronski's services for the 2027 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T19:56:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Peter Skoronski",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0039034"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-cut-four-from-their-90-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-cut-four-from-their-90-man-roster",
+      "title": "Colts cut four from their 90-man roster",
+      "body_text": "The Colts have dropped four players from their roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T19:01:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-fifth-rounder-cole-payton-two-seventh-round-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-fifth-rounder-cole-payton-two-seventh-round-picks",
+      "title": "Eagles sign fifth-rounder Cole Payton, two seventh-round picks",
+      "body_text": "The Eagles have signed three more of their 2026 draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T18:45:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cole Payton",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "PAY546690"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-49ers-got-what-they-wanted-trading-out-of-the-first-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-49ers-got-what-they-wanted-trading-out-of-the-first-round",
+      "title": "Kyle Shanahan: 49ers got what they wanted trading out of the first round",
+      "body_text": "The 49ers twice traded down and out of the first round last Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-04-30T18:34:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-has-one-play-for-2026-show-up-and-play-well",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-has-one-play-for-2026-show-up-and-play-well",
+      "title": "George Pickens has one play for 2026: Show up and play well",
+      "body_text": "Cowboys receiver George Pickens has accepted the franchise tender for 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-04-30T18:27:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-exercise-lukas-van-ness-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-exercise-lukas-van-ness-fifth-year-option",
+      "title": "Packers exercise Lukas Van Ness' fifth-year option",
+      "body_text": "The Packers are electing to put one of their defensive players under contract for 2027.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-30T18:20:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lukas Van",
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-plans-to-invest-his-nfl-paychecks-live-off-endorsement-income",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-plans-to-invest-his-nfl-paychecks-live-off-endorsement-income",
+      "title": "Jeremiyah Love plans to invest his NFL paychecks, live off endorsement income",
+      "body_text": "Plenty of pro athletes blow through their money quickly and go broke in retirement.",
+      "author": "Michael David Smith",
+      "published_at": "2026-04-30T18:07:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "LOV121782"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-ballard-on-daniel-jones-i-probably-underestimated-his-accuracy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-ballard-on-daniel-jones-i-probably-underestimated-his-accuracy",
+      "title": "Chris Ballard on Daniel Jones: I probably underestimated his accuracy",
+      "body_text": "Quarterback Daniel Jones performed well in his first season with the Colts before suffering a torn Achilles late in December — so well that the club rewarded him with a two-year, $88 million deal despite the injury.",
+      "author": "Myles Simmons",
+      "published_at": "2026-04-30T18:00:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Ballard",
+        "Daniel Jones",
+        "Quarterback Daniel"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/first-round-pick-makai-lemon-signs-with-the-eagles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/first-round-pick-makai-lemon-signs-with-the-eagles",
+      "title": "First-round pick Makai Lemon signs with the Eagles",
+      "body_text": "Wide receiver Makai Lemon is the first member of the 2026 draft class to sign with his NFL team.",
+      "author": "Josh Alper",
+      "published_at": "2026-04-30T17:57:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Makai Lemon",
+        "Eagles Wide"
+      ],
+      "resolved_player_ids": [
+        "LEM694125"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}

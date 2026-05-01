@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "66ea9d21-520b-4f62-ac4b-2e2da0fe7782",
+  "source": "rotowire",
+  "fetched_at": "2026-05-01T12:33:32.888493+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630635",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Aiming to play Week 1",
+      "body_text": "Coach Kyle Shanahan said Thursday that Kittle (Achilles) is aiming to be ready for the 49ers' Week 1 game against the Rams, David Lombardi of SFStandard.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-30T11:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Coach Kyle",
+        "David Lombardi"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl630634",
+      "url": "https://www.rotowire.com//football/player/chris-rodriguez-16933",
+      "permalink": "",
+      "title": "Chris Rodriguez: Projected as lead back",
+      "body_text": "Sports Illustrated's John Shipley projects Rodriguez to open the season as the Jaguars' lead running back. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-30T11:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Rodriguez",
+        "Sports Illustrated",
+        "John Shipley"
+      ],
+      "resolved_player_ids": [
+        "00-0038611"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "nfl630631",
+      "url": "https://www.rotowire.com//football/player/darius-slayton-13522",
+      "permalink": "",
+      "title": "Darius Slayton: Out until July after core surgery",
+      "body_text": "Slayton (abdomen) recently underwent surgery on a core-muscle injury and will miss spring workouts, but he's expected to be available for training camp in July, Mike Garafolo of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-30T08:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darius Slayton",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0035535"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630618",
+      "url": "https://www.rotowire.com//football/player/george-pickens-15853",
+      "permalink": "",
+      "title": "George Pickens: Signs franchise tag",
+      "body_text": "Pickens has officially signed his franchise tag with the Cowboys, Todd Archer of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-29T02:52:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Todd Archer"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl630617",
+      "url": "https://www.rotowire.com//football/player/bryce-young-16807",
+      "permalink": "",
+      "title": "Bryce Young: Contract option picked up",
+      "body_text": "The Panthers have officially exercised the fifth-year option on Young's rookie contract, Darin Gantt of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-29T11:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Young",
+        "The Panthers",
+        "Darin Gantt"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    }
+  ]
+}
