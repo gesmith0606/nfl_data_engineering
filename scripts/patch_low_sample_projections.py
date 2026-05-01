@@ -34,7 +34,10 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from projection_engine import add_floor_ceiling  # noqa: E402
-from rookie_projection import project_low_sample_players  # noqa: E402
+from rookie_projection import (  # noqa: E402
+    find_promoted_veterans,
+    project_low_sample_players,
+)
 from utils import apply_sleeper_team_overrides  # noqa: E402
 
 logger = logging.getLogger(__name__)
@@ -386,66 +389,31 @@ def main() -> int:
 
     # ------------------------------------------------------------------
     # Promoted-veteran detection: identify veterans whose depth-chart role
-    # outpaces their upstream projection tier. Without this step, players
-    # like Malik Willis (GB-backup projection 53.8 → MIA QB1 per ESPN's
-    # latest depth chart) keep their backup-tier number under their new
-    # starter slot. We:
-    #   1. Find (team, position) pairs that have NO viable starter in
-    #      the upstream projection.
-    #   2. For each, look up the depth-chart pos_rank=1 player.
-    #   3. If that player is in `already`, mark them for reprojection,
-    #      drop their stale row from `proj`, and pass their id through
-    #      to the synthesizer via `force_reproject_player_ids`.
+    # outpaces their upstream projection tier. Players like Malik Willis
+    # (GB-backup projection 53.8 → MIA QB1 per ESPN's latest depth chart)
+    # would otherwise keep their backup-tier number under their new
+    # starter slot. The detection helper lives in src/rookie_projection.py
+    # so it can be unit-tested in isolation.
     # ------------------------------------------------------------------
-    promoted_player_ids: set = set()
-    if not depth_charts.empty and {"team", "pos_abb", "pos_rank"}.issubset(
-        depth_charts.columns
-    ):
-        # pos_abb→fantasy position. Limited to skill positions; defensive
-        # players are not in the projection.
-        pos_abb_map = {"QB": "QB", "RB": "RB", "WR": "WR", "TE": "TE", "PK": "K"}
-        # All (team, fantasy_pos) pairs covered by the projection.
-        all_team_pos = set(
-            (str(t), str(p))
-            for t, p in upstream[["team", "position"]]
-            .dropna()
-            .drop_duplicates()
-            .itertuples(index=False)
-        )
-        team_pos_no_starter = all_team_pos - team_pos_starter_already
+    promoted_player_ids = find_promoted_veterans(
+        upstream,
+        depth_charts,
+        starter_floors=starter_floors,
+        already_projected_player_ids=already,
+    )
 
-        # Latest snapshot per (team, gsis_id, pos_abb).
-        if "dt" in depth_charts.columns:
-            dc_latest = depth_charts.sort_values("dt", ascending=False)
-        else:
-            dc_latest = depth_charts
-        dc_latest = dc_latest.drop_duplicates(
-            subset=["team", "gsis_id", "pos_abb"], keep="first"
-        )
-        dc_latest = dc_latest.copy()
-        dc_latest["pos_rank_int"] = pd.to_numeric(
-            dc_latest["pos_rank"], errors="coerce"
-        )
-        # Only the depth_team=1 player at each slot.
-        dc_starters = dc_latest[dc_latest["pos_rank_int"] == 1]
-
-        for _, row in dc_starters.iterrows():
-            pos_abb = str(row.get("pos_abb", ""))
-            fantasy_pos = pos_abb_map.get(pos_abb)
-            if fantasy_pos is None:
-                continue
-            team = str(row.get("team", ""))
-            if (team, fantasy_pos) not in team_pos_no_starter:
-                continue
-            pid = str(row.get("gsis_id") or "")
-            if pid and pid in already:
-                promoted_player_ids.add(pid)
+    # Cache the stale rows BEFORE dropping them — needed below so a
+    # silent failure to re-synthesize doesn't leave the player completely
+    # missing from the output.
+    stale_promoted_rows = proj[
+        proj["player_id"].astype(str).isin(promoted_player_ids)
+    ].copy()
 
     if promoted_player_ids:
         sample = (
-            proj[proj["player_id"].astype(str).isin(promoted_player_ids)]
-            .head(8)[["player_id", "player_name", team_col, pts_col]]
-            .to_dict("records")
+            stale_promoted_rows.head(8)[
+                ["player_id", "player_name", team_col, pts_col]
+            ].to_dict("records")
         )
         logger.info(
             "Promoting %d veteran(s) to starter role for re-projection "
@@ -480,6 +448,32 @@ def main() -> int:
         force_reproject_player_ids=promoted_player_ids,
     )
     logger.info("Synthesized %d low-sample projection rows", len(additions))
+
+    # Post-synthesis fallback: if a player was flagged for promotion but
+    # the synthesizer didn't emit a row for them (e.g. they're missing
+    # from the roster bronze, or filtered out by an earlier guard), we
+    # would silently drop them from the final output. Restore the stale
+    # row so the lineup page at least keeps showing something for that
+    # slot rather than a gap.
+    if promoted_player_ids and not stale_promoted_rows.empty:
+        synthesized_ids = (
+            set(additions["player_id"].astype(str))
+            if not additions.empty
+            else set()
+        )
+        missing = {p for p in promoted_player_ids if p not in synthesized_ids}
+        if missing:
+            restore = stale_promoted_rows[
+                stale_promoted_rows["player_id"].astype(str).isin(missing)
+            ]
+            logger.warning(
+                "Promotion fallback: %d veteran(s) flagged for re-projection "
+                "but absent from synthesizer output; restoring stale rows so "
+                "they don't disappear from the lineup. ids=%s",
+                len(missing),
+                sorted(missing),
+            )
+            proj = pd.concat([proj, restore], ignore_index=True, sort=False)
 
     if additions.empty:
         if not team_overrides_applied:

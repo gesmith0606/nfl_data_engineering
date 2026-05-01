@@ -294,6 +294,124 @@ def _blend_with_baseline(
     return blended
 
 
+try:
+    from src.utils import canonical_team as _canonical_team  # type: ignore
+except ImportError:  # script-level execution
+    from utils import canonical_team as _canonical_team  # type: ignore
+
+
+# Map ESPN/Sleeper depth-chart `pos_abb` values to canonical fantasy
+# positions. Limited to skill positions; defensive players never appear
+# in the projection so the synthesizer doesn't need to reason about them.
+_DEPTH_CHART_POS_ABB_TO_FANTASY: Dict[str, str] = {
+    "QB": "QB",
+    "RB": "RB",
+    "WR": "WR",
+    "TE": "TE",
+    "PK": "K",
+}
+
+
+def find_promoted_veterans(
+    upstream: pd.DataFrame,
+    depth_charts: Optional[pd.DataFrame],
+    *,
+    starter_floors: Dict[str, float],
+    already_projected_player_ids: set,
+    team_col: str = "team",
+    position_col: str = "position",
+    points_col: str = "projected_points",
+) -> set:
+    """Identify veterans whose depth-chart role outpaces their projection.
+
+    A "promoted veteran" is a player who:
+
+    1. Already has a row in the upstream projection (``already_projected_player_ids``).
+    2. Is the depth-chart pos_rank=1 player at his (team, fantasy_position).
+    3. That (team, fantasy_position) has NO upstream projection at or
+       above the position's starter floor.
+
+    Returned ids signal that the patch script should drop the stale row
+    and re-project the player at starter usage.
+
+    Team abbreviations on both sides are canonicalized via
+    ``utils.canonical_team`` so alias drift (KAN/KC, LAR/LA, …) doesn't
+    silently miss promotions. Skip-cases for safety:
+
+    * Empty ``upstream`` → empty set.
+    * ``depth_charts`` missing or lacking the required columns → empty set.
+    * Depth-chart ``pos_abb`` outside the fantasy mapping → row ignored.
+
+    Args:
+        upstream: The current projection frame. Must carry ``team_col``,
+            ``position_col``, and ``points_col``.
+        depth_charts: Latest depth-chart Bronze frame. Must carry
+            ``team``, ``pos_abb``, ``pos_rank``, and ``gsis_id``; ``dt`` is
+            used for snapshot dedup when available.
+        starter_floors: Position → minimum points to qualify as a viable
+            starter (e.g. ``{"QB": 200.0, "RB": 100.0, ...}``).
+        already_projected_player_ids: ids already present in ``upstream``
+            (passed in to avoid recomputing the set on the caller's side).
+        team_col: Name of the team column on ``upstream``.
+        position_col: Name of the fantasy-position column on ``upstream``.
+        points_col: Name of the points column on ``upstream``.
+
+    Returns:
+        Set of ``gsis_id`` strings flagged for re-projection. Empty when
+        no veterans need promotion or inputs are missing.
+    """
+    if upstream is None or upstream.empty:
+        return set()
+    required_dc = {"team", "pos_abb", "pos_rank", "gsis_id"}
+    if depth_charts is None or depth_charts.empty:
+        return set()
+    if not required_dc.issubset(depth_charts.columns):
+        return set()
+
+    # Canonical (team, fantasy_pos) pairs covered by the projection.
+    canon_team_series = upstream[team_col].apply(_canonical_team)
+    pos_series = upstream[position_col].astype(str)
+    all_team_pos = set(zip(canon_team_series, pos_series))
+
+    # Pairs that have a viable starter already.
+    team_pos_with_starter: set = set()
+    for pos, floor in starter_floors.items():
+        mask = (pos_series == pos) & (
+            pd.to_numeric(upstream[points_col], errors="coerce") >= floor
+        )
+        for team in canon_team_series[mask].dropna().unique():
+            team_pos_with_starter.add((team, pos))
+
+    team_pos_no_starter = all_team_pos - team_pos_with_starter
+
+    # Latest snapshot per (team, gsis_id, pos_abb).
+    if "dt" in depth_charts.columns:
+        dc_latest = depth_charts.sort_values("dt", ascending=False)
+    else:
+        dc_latest = depth_charts
+    dc_latest = dc_latest.drop_duplicates(
+        subset=["team", "gsis_id", "pos_abb"], keep="first"
+    ).copy()
+    dc_latest["pos_rank_int"] = pd.to_numeric(
+        dc_latest["pos_rank"], errors="coerce"
+    )
+    dc_starters = dc_latest[dc_latest["pos_rank_int"] == 1]
+
+    promoted: set = set()
+    for _, row in dc_starters.iterrows():
+        pos_abb = str(row.get("pos_abb", ""))
+        fantasy_pos = _DEPTH_CHART_POS_ABB_TO_FANTASY.get(pos_abb)
+        if fantasy_pos is None:
+            continue
+        team_canon = _canonical_team(row.get("team"))
+        if (team_canon, fantasy_pos) not in team_pos_no_starter:
+            continue
+        pid = str(row.get("gsis_id") or "")
+        if pid and pid in already_projected_player_ids:
+            promoted.add(pid)
+    return promoted
+
+
 def project_low_sample_players(
     roster_df: pd.DataFrame,
     weekly_df: Optional[pd.DataFrame],

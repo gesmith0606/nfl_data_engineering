@@ -337,6 +337,38 @@ def get_script_sha(script_path: str) -> Dict[str, Any]:
     return {"sha": sha, "dirty": dirty, "resolved_at": resolved_at}
 
 
+# Map alternate team abbreviations to the canonical nflverse code so a
+# depth-chart-vs-projection team comparison doesn't false-positive on
+# alias drift (e.g. projection rows tagged "KAN" while the depth chart
+# uses "KC"). The Gold projections file mixes abbreviations because
+# rookie rows come from CFBD (PFR-style) while veterans come from
+# nflverse.
+_TEAM_ALIASES: Dict[str, str] = {
+    "KAN": "KC",
+    "LAR": "LA",
+    "LVR": "LV",
+    "NOR": "NO",
+    "NWE": "NE",
+    "SFO": "SF",
+    "TAM": "TB",
+    "JAC": "JAX",
+    "GNB": "GB",
+}
+
+
+def canonical_team(value: object) -> str:
+    """Return the canonical nflverse team code, uppercased.
+
+    Maps alternate abbreviations (KAN/LAR/LVR/NOR/NWE/SFO/TAM/JAC/GNB)
+    to their nflverse equivalents. Idempotent — passes nflverse codes
+    through unchanged. ``None``/empty inputs return ``""``.
+    """
+    if value is None:
+        return ""
+    code = str(value).strip().upper()
+    return _TEAM_ALIASES.get(code, code)
+
+
 def apply_sleeper_team_overrides(
     df: pd.DataFrame,
     sleeper_rosters: pd.DataFrame,
@@ -409,6 +441,13 @@ def apply_sleeper_team_overrides(
 
     name_keys = df[name_col].fillna("").astype(str).str.lower()
     if use_position:
+        # Rows with empty-string position values (e.g. malformed entries or
+        # defensive players accidentally in a fantasy frame) intentionally
+        # miss the (name_key, "") MultiIndex lookup and yield NaN. Behavior:
+        # the original team is preserved — the conservative outcome — at
+        # the cost of not overriding what would have been a name-only match
+        # under the legacy fallback. This is by design: a bad position is a
+        # data-quality signal, not a reason to broaden the join.
         positions = df[position_col].fillna("").astype(str)
         index = pd.MultiIndex.from_arrays(
             [name_keys.values, positions.values], names=dedup_keys

@@ -165,30 +165,13 @@ DEFENSE_STARTER_SLOTS: Dict[str, int] = {
 # ---------------------------------------------------------------------------
 
 
-# Map alternate team abbreviations to the canonical nflverse code so a
-# depth-chart-vs-projection team comparison doesn't false-positive on
-# alias drift (e.g. projection rows tagged "KAN" while the depth chart
-# uses "KC"). The Gold projections file mixes abbreviations because rookie
-# rows come from CFBD (PFR-style) while veterans come from nflverse.
-_TEAM_ALIASES: Dict[str, str] = {
-    "KAN": "KC",
-    "LAR": "LA",
-    "LVR": "LV",
-    "NOR": "NO",
-    "NWE": "NE",
-    "SFO": "SF",
-    "TAM": "TB",
-    "JAC": "JAX",
-    "GNB": "GB",
-}
-
-
-def _canonical_team(value: object) -> str:
-    """Return the canonical nflverse team code, uppercased."""
-    if value is None:
-        return ""
-    code = str(value).strip().upper()
-    return _TEAM_ALIASES.get(code, code)
+# Re-export the team-alias normalizer at module level so existing test
+# imports (`from lineup_builder import _canonical_team`) keep working;
+# the canonical implementation now lives in src/utils.py.
+try:
+    from src.utils import canonical_team as _canonical_team  # type: ignore
+except ImportError:  # script-level execution
+    from utils import canonical_team as _canonical_team  # type: ignore
 
 
 def _normalize_depth_chart_schema(df: pd.DataFrame) -> pd.DataFrame:

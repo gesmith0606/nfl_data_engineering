@@ -15,6 +15,7 @@ import pytest
 
 from src.rookie_projection import (
     _role_from_depth_charts,
+    find_promoted_veterans,
     project_low_sample_players,
 )
 
@@ -255,3 +256,177 @@ def test_synthesizer_high_pick_year1_promoted_when_no_depth_charts() -> None:
     )
     rookie = out[out["player_id"] == "rookie"].iloc[0]
     assert rookie["low_sample_role"] == "starter"
+
+
+# ---------------------------------------------------------------------------
+# find_promoted_veterans
+# ---------------------------------------------------------------------------
+
+
+def _upstream_row(player_id, team, position, points):
+    return {
+        "player_id": player_id,
+        "player_name": player_id,
+        "team": team,
+        "position": position,
+        "projected_points": points,
+    }
+
+
+def _dc_row(team, pos_abb, gsis_id, pos_rank, dt="2026-04-30T09:00:00Z"):
+    return {
+        "team": team,
+        "pos_abb": pos_abb,
+        "gsis_id": gsis_id,
+        "pos_rank": pos_rank,
+        "dt": dt,
+    }
+
+
+_DEFAULT_FLOORS = {"QB": 200.0, "RB": 100.0, "WR": 100.0, "TE": 80.0, "K": 100.0}
+
+
+def test_promoted_veteran_detected_when_no_starter_at_team_position():
+    """The canonical case: Willis at depth_team=1 on MIA QB, but his
+    upstream projection (53.8) is below the QB starter floor and no
+    other MIA QB clears the floor either → he should be flagged."""
+    upstream = pd.DataFrame(
+        [
+            _upstream_row("WILLIS", "MIA", "QB", 53.8),
+            _upstream_row("EWERS", "MIA", "QB", 92.7),  # also below floor
+            _upstream_row("MAHOMES", "KC", "QB", 350.0),  # has its own starter
+        ]
+    )
+    dc = pd.DataFrame([_dc_row("MIA", "QB", "WILLIS", 1)])
+    promoted = find_promoted_veterans(
+        upstream,
+        dc,
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"WILLIS", "EWERS", "MAHOMES"},
+    )
+    assert promoted == {"WILLIS"}
+
+
+def test_no_promotion_when_existing_starter_clears_floor():
+    """When the upstream projection already has a viable starter at
+    (team, position), depth-chart QB1 must NOT be flagged — the
+    starter is already correctly modeled."""
+    upstream = pd.DataFrame(
+        [
+            _upstream_row("MAHOMES", "KC", "QB", 330.8),  # >= 200 floor
+            _upstream_row("BLAINE", "KC", "QB", 30.0),
+        ]
+    )
+    dc = pd.DataFrame([_dc_row("KC", "QB", "MAHOMES", 1)])
+    promoted = find_promoted_veterans(
+        upstream,
+        dc,
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"MAHOMES", "BLAINE"},
+    )
+    assert promoted == set()
+
+
+def test_alias_drift_does_not_skip_promotion():
+    """Upstream projection tags MIA as 'MIA'; depth chart row carries
+    the same team but as some alternate code. The helper must
+    canonicalize both sides so the promotion still fires."""
+    upstream = pd.DataFrame(
+        [_upstream_row("LARQB", "LAR", "QB", 50.0)]  # below floor; uses LAR
+    )
+    # Depth chart says LA (the canonical nflverse code) — alias drift.
+    dc = pd.DataFrame([_dc_row("LA", "QB", "LARQB", 1)])
+    promoted = find_promoted_veterans(
+        upstream,
+        dc,
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"LARQB"},
+    )
+    assert promoted == {"LARQB"}
+
+
+def test_player_missing_from_already_set_not_promoted():
+    """A depth-chart QB1 who isn't in the upstream projection at all
+    should NOT be flagged — that path belongs to the rookie/silent-drop
+    synthesizer, not promotion."""
+    upstream = pd.DataFrame([_upstream_row("MAHOMES", "KC", "QB", 350.0)])
+    dc = pd.DataFrame(
+        [
+            _dc_row("MIA", "QB", "BRAND_NEW_PLAYER", 1),  # not in already set
+        ]
+    )
+    promoted = find_promoted_veterans(
+        upstream,
+        dc,
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"MAHOMES"},
+    )
+    assert promoted == set()
+
+
+def test_empty_inputs_return_empty_set():
+    """Defensive: empty upstream / empty depth chart / missing required
+    columns should each produce an empty set rather than raising."""
+    promoted = find_promoted_veterans(
+        pd.DataFrame(),
+        pd.DataFrame([_dc_row("MIA", "QB", "WILLIS", 1)]),
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids=set(),
+    )
+    assert promoted == set()
+
+    promoted = find_promoted_veterans(
+        pd.DataFrame([_upstream_row("WILLIS", "MIA", "QB", 50.0)]),
+        pd.DataFrame(),
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"WILLIS"},
+    )
+    assert promoted == set()
+
+    # Depth chart missing required `pos_rank` column.
+    bad_dc = pd.DataFrame([{"team": "MIA", "pos_abb": "QB", "gsis_id": "WILLIS"}])
+    promoted = find_promoted_veterans(
+        pd.DataFrame([_upstream_row("WILLIS", "MIA", "QB", 50.0)]),
+        bad_dc,
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"WILLIS"},
+    )
+    assert promoted == set()
+
+
+def test_pos_rank_2_player_not_promoted():
+    """Only pos_rank=1 players are promotion candidates. A backup at
+    pos_rank=2 must never be flagged even if his (team, position)
+    has no starter in the upstream projection."""
+    upstream = pd.DataFrame(
+        [_upstream_row("BACKUP", "MIA", "QB", 30.0)]  # below floor
+    )
+    dc = pd.DataFrame([_dc_row("MIA", "QB", "BACKUP", 2)])  # rank 2, not 1
+    promoted = find_promoted_veterans(
+        upstream,
+        dc,
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"BACKUP"},
+    )
+    assert promoted == set()
+
+
+def test_latest_snapshot_wins_when_multiple_dt():
+    """Multi-snapshot depth chart: keep only the latest dt per
+    (team, gsis_id, pos_abb) before checking pos_rank=1."""
+    upstream = pd.DataFrame([_upstream_row("PLAYER", "MIA", "QB", 50.0)])
+    dc = pd.DataFrame(
+        [
+            # Older snapshot says PLAYER is rank 2 (not a starter).
+            _dc_row("MIA", "QB", "PLAYER", 2, dt="2026-04-01T00:00:00Z"),
+            # Latest snapshot has PLAYER as rank 1 — should be promoted.
+            _dc_row("MIA", "QB", "PLAYER", 1, dt="2026-04-30T00:00:00Z"),
+        ]
+    )
+    promoted = find_promoted_veterans(
+        upstream,
+        dc,
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"PLAYER"},
+    )
+    assert promoted == {"PLAYER"}
