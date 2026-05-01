@@ -449,6 +449,17 @@ def main() -> int:
     )
     logger.info("Synthesized %d low-sample projection rows", len(additions))
 
+    # Synthesizer-internal columns are normally backfilled onto `proj`
+    # only when `additions` is non-empty (see backfill block below).
+    # Hoist that step here so the restore-stale-row fallback path can't
+    # produce a frame that's missing `is_low_sample_projection` /
+    # `low_sample_role` / `low_sample_n_games`. Without this, downstream
+    # `add_floor_ceiling` would silently skip the widened-variance band
+    # for restored rows because the gating column doesn't exist.
+    for col in ("is_low_sample_projection", "low_sample_role", "low_sample_n_games"):
+        if col not in proj.columns:
+            proj[col] = False if col == "is_low_sample_projection" else None
+
     # Post-synthesis fallback: if a player was flagged for promotion but
     # the synthesizer didn't emit a row for them (e.g. they're missing
     # from the roster bronze, or filtered out by an earlier guard), we
@@ -465,7 +476,16 @@ def main() -> int:
         if missing:
             restore = stale_promoted_rows[
                 stale_promoted_rows["player_id"].astype(str).isin(missing)
-            ]
+            ].copy()
+            # Stale rows pre-date the synthesizer-internal columns; align
+            # them to the post-hoist `proj` schema so the concat is clean.
+            for col in (
+                "is_low_sample_projection",
+                "low_sample_role",
+                "low_sample_n_games",
+            ):
+                if col not in restore.columns:
+                    restore[col] = False if col == "is_low_sample_projection" else None
             logger.warning(
                 "Promotion fallback: %d veteran(s) flagged for re-projection "
                 "but absent from synthesizer output; restoring stale rows so "
@@ -517,10 +537,8 @@ def main() -> int:
     for col in proj.columns:
         if col not in additions.columns:
             additions[col] = np.nan
-    # Drop addition-only synthesizer-internal cols if not in source.
-    for col in ("is_low_sample_projection", "low_sample_role", "low_sample_n_games"):
-        if col in additions.columns and col not in proj.columns:
-            proj[col] = False if col == "is_low_sample_projection" else None
+    # Synthesizer-internal cols are guaranteed to exist on `proj` by the
+    # hoisted backfill above; nothing further to do here.
 
     merged = pd.concat(
         [proj, additions[proj.columns]], ignore_index=True, sort=False

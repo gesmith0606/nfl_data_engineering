@@ -411,6 +411,28 @@ def test_pos_rank_2_player_not_promoted():
     assert promoted == set()
 
 
+def test_non_fantasy_pos_abb_skipped_silently():
+    """Defensive depth-chart entries (LDE/CB/SLB/etc.) carry pos_abb
+    values outside the fantasy mapping. The helper must skip them
+    without raising even when the player IS in the upstream
+    projection (which can happen for fantasy players ghost-listed at
+    a defensive slot)."""
+    upstream = pd.DataFrame(
+        [_upstream_row("DEF_GUY", "MIA", "QB", 50.0)]  # below QB floor
+    )
+    # pos_abb=LDE → outside _DEPTH_CHART_POS_ABB_TO_FANTASY → row skipped.
+    dc = pd.DataFrame([_dc_row("MIA", "LDE", "DEF_GUY", 1)])
+    promoted = find_promoted_veterans(
+        upstream,
+        dc,
+        starter_floors=_DEFAULT_FLOORS,
+        already_projected_player_ids={"DEF_GUY"},
+    )
+    # Same gsis_id, but the LDE row doesn't qualify as a fantasy
+    # promotion → empty set, no exception.
+    assert promoted == set()
+
+
 def test_latest_snapshot_wins_when_multiple_dt():
     """Multi-snapshot depth chart: keep only the latest dt per
     (team, gsis_id, pos_abb) before checking pos_rank=1."""
