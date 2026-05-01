@@ -343,6 +343,7 @@ def apply_sleeper_team_overrides(
     *,
     team_col: str = "team",
     name_col: str = "player_name",
+    position_col: Optional[str] = "position",
     logger=None,
 ) -> pd.DataFrame:
     """Override stale team assignments with the latest Sleeper rosters_live.
@@ -354,9 +355,11 @@ def apply_sleeper_team_overrides(
     stats to his previous team's role.
 
     Sleeper's rosters_live parquet keys on ``name_key`` (lowercased
-    ``player_name``); this helper lowercases the input frame's ``name_col``
-    to match. Only rostered (non-FA) Sleeper rows are used as the override
-    source, and the most-recent ingest per name is kept.
+    ``player_name``). When both ``df`` and Sleeper carry a ``position``
+    column the helper joins on ``(name_key, position)`` so two distinct
+    rostered players sharing a name (e.g. two "Mike Williams" at different
+    positions) don't silently overwrite each other. When position is
+    absent on either side it falls back to ``name_key`` alone.
 
     Args:
         df: Frame to mutate (returned with team_col updated).
@@ -365,6 +368,10 @@ def apply_sleeper_team_overrides(
             frame is a no-op.
         team_col: Column on ``df`` that carries the team to override.
         name_col: Column on ``df`` that carries the player name to match.
+        position_col: Column on ``df`` carrying the player position. When
+            both ``df[position_col]`` and ``sleeper_rosters['position']``
+            exist the helper joins on ``(name_key, position)``. Pass
+            ``None`` to force name-only matching (useful for tests).
         logger: Optional Python logger; when provided, an INFO message
             summarises overrides applied (count + sample).
 
@@ -380,21 +387,36 @@ def apply_sleeper_team_overrides(
     if name_col not in df.columns or team_col not in df.columns:
         return df
 
+    use_position = (
+        position_col is not None
+        and position_col in df.columns
+        and "position" in sleeper_rosters.columns
+    )
+    dedup_keys = ["name_key", "position"] if use_position else ["name_key"]
+
     sort_col = (
         "refreshed_at" if "refreshed_at" in sleeper_rosters.columns else "season"
     )
     if sort_col in sleeper_rosters.columns:
         latest = sleeper_rosters.sort_values(sort_col).drop_duplicates(
-            subset=["name_key"], keep="last"
+            subset=dedup_keys, keep="last"
         )
     else:
-        latest = sleeper_rosters.drop_duplicates(subset=["name_key"], keep="last")
+        latest = sleeper_rosters.drop_duplicates(subset=dedup_keys, keep="last")
 
     rostered = latest[~latest["is_free_agent"].astype(bool)]
-    lookup = rostered.set_index("name_key")["team"]
+    lookup = rostered.set_index(dedup_keys)["team"]
 
     name_keys = df[name_col].fillna("").astype(str).str.lower()
-    new_team = name_keys.map(lookup)
+    if use_position:
+        positions = df[position_col].fillna("").astype(str)
+        index = pd.MultiIndex.from_arrays(
+            [name_keys.values, positions.values], names=dedup_keys
+        )
+        new_team = pd.Series(lookup.reindex(index).values, index=df.index)
+    else:
+        new_team = name_keys.map(lookup)
+
     override_mask = new_team.notna() & (
         df[team_col].astype(str) != new_team.astype(str)
     )

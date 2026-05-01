@@ -384,6 +384,82 @@ def main() -> int:
         len(team_pos_starter_already),
     )
 
+    # ------------------------------------------------------------------
+    # Promoted-veteran detection: identify veterans whose depth-chart role
+    # outpaces their upstream projection tier. Without this step, players
+    # like Malik Willis (GB-backup projection 53.8 → MIA QB1 per ESPN's
+    # latest depth chart) keep their backup-tier number under their new
+    # starter slot. We:
+    #   1. Find (team, position) pairs that have NO viable starter in
+    #      the upstream projection.
+    #   2. For each, look up the depth-chart pos_rank=1 player.
+    #   3. If that player is in `already`, mark them for reprojection,
+    #      drop their stale row from `proj`, and pass their id through
+    #      to the synthesizer via `force_reproject_player_ids`.
+    # ------------------------------------------------------------------
+    promoted_player_ids: set = set()
+    if not depth_charts.empty and {"team", "pos_abb", "pos_rank"}.issubset(
+        depth_charts.columns
+    ):
+        # pos_abb→fantasy position. Limited to skill positions; defensive
+        # players are not in the projection.
+        pos_abb_map = {"QB": "QB", "RB": "RB", "WR": "WR", "TE": "TE", "PK": "K"}
+        # All (team, fantasy_pos) pairs covered by the projection.
+        all_team_pos = set(
+            (str(t), str(p))
+            for t, p in upstream[["team", "position"]]
+            .dropna()
+            .drop_duplicates()
+            .itertuples(index=False)
+        )
+        team_pos_no_starter = all_team_pos - team_pos_starter_already
+
+        # Latest snapshot per (team, gsis_id, pos_abb).
+        if "dt" in depth_charts.columns:
+            dc_latest = depth_charts.sort_values("dt", ascending=False)
+        else:
+            dc_latest = depth_charts
+        dc_latest = dc_latest.drop_duplicates(
+            subset=["team", "gsis_id", "pos_abb"], keep="first"
+        )
+        dc_latest = dc_latest.copy()
+        dc_latest["pos_rank_int"] = pd.to_numeric(
+            dc_latest["pos_rank"], errors="coerce"
+        )
+        # Only the depth_team=1 player at each slot.
+        dc_starters = dc_latest[dc_latest["pos_rank_int"] == 1]
+
+        for _, row in dc_starters.iterrows():
+            pos_abb = str(row.get("pos_abb", ""))
+            fantasy_pos = pos_abb_map.get(pos_abb)
+            if fantasy_pos is None:
+                continue
+            team = str(row.get("team", ""))
+            if (team, fantasy_pos) not in team_pos_no_starter:
+                continue
+            pid = str(row.get("gsis_id") or "")
+            if pid and pid in already:
+                promoted_player_ids.add(pid)
+
+    if promoted_player_ids:
+        sample = (
+            proj[proj["player_id"].astype(str).isin(promoted_player_ids)]
+            .head(8)[["player_id", "player_name", team_col, pts_col]]
+            .to_dict("records")
+        )
+        logger.info(
+            "Promoting %d veteran(s) to starter role for re-projection "
+            "(e.g. %s)",
+            len(promoted_player_ids),
+            sample,
+        )
+        # Remove stale rows so the synthesizer's new starter projections
+        # replace them after the concat.
+        proj = proj[
+            ~proj["player_id"].astype(str).isin(promoted_player_ids)
+        ].copy()
+        already = already - promoted_player_ids
+
     silver_dir = PROJECT_ROOT / "data" / "silver"
     college_features = _read_latest_prospect_features(silver_dir, args.season, args.scoring)
     if not college_features.empty:
@@ -401,6 +477,7 @@ def main() -> int:
         depth_charts_df=depth_charts if not depth_charts.empty else None,
         team_pos_starter_already_projected=team_pos_starter_already,
         college_features_df=college_features if not college_features.empty else None,
+        force_reproject_player_ids=promoted_player_ids,
     )
     logger.info("Synthesized %d low-sample projection rows", len(additions))
 

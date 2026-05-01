@@ -303,6 +303,7 @@ def project_low_sample_players(
     depth_charts_df: Optional[pd.DataFrame] = None,
     team_pos_starter_already_projected: Optional[set] = None,
     college_features_df: Optional[pd.DataFrame] = None,
+    force_reproject_player_ids: Optional[set] = None,
 ) -> pd.DataFrame:
     """Synthesize projections for rostered players missing from main pipeline.
 
@@ -324,6 +325,16 @@ def project_low_sample_players(
             depth-chart pos_rank (=1 starter / =2 backup) which reflects
             actual 2026 coaching decisions (e.g. Dart promoted to NYG QB1
             even though Winston is still on the 2025-end roster).
+        force_reproject_player_ids: optional set of ``player_id``s that
+            should be re-projected even when present in
+            ``already_projected_player_ids``. The caller uses this to
+            promote veterans whose depth-chart role outpaces their
+            historical sample (e.g. Malik Willis projected as a GB backup
+            but now MIA's QB1 — the original projection scored him at
+            backup usage; passing his id here causes the synthesizer to
+            re-score him at starter usage). The caller is responsible for
+            removing the stale projection rows from the upstream frame
+            before concatenating.
 
     Returns:
         DataFrame with the same columns as ``generate_preseason_projections``
@@ -453,8 +464,15 @@ def project_low_sample_players(
                 int(promote.sum()),
             )
 
-    # Now filter to players missing from the upstream projection pass.
-    sub = sub[~sub["player_id"].isin(already_projected_player_ids)].copy()
+    # Filter to players missing from the upstream projection pass, EXCEPT
+    # those the caller has explicitly flagged for re-projection (e.g.
+    # promoted veterans whose old projection was scored at a stale role).
+    keep_for_reproject = (
+        sub["player_id"].astype(str).isin(force_reproject_player_ids or set())
+    )
+    sub = sub[
+        ~sub["player_id"].isin(already_projected_player_ids) | keep_for_reproject
+    ].copy()
     if sub.empty:
         return pd.DataFrame()
 
