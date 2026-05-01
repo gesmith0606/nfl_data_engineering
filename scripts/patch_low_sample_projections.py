@@ -35,6 +35,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from projection_engine import add_floor_ceiling  # noqa: E402
 from rookie_projection import project_low_sample_players  # noqa: E402
+from utils import apply_sleeper_team_overrides  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
@@ -301,6 +302,31 @@ def main() -> int:
     )
     team_col = "recent_team" if "recent_team" in proj.columns else "team"
 
+    # Apply Sleeper rosters_live override before any team-based dedup logic
+    # below — players who moved teams in the offseason (e.g. Malik Willis
+    # GB→MIA) need their team corrected so the lineup builder doesn't fall
+    # back to the depth-chart-mismatch guard ("--").
+    live_pattern = str(
+        bronze_dir / "players/rosters_live/season=*/*.parquet"
+    )
+    live_files = sorted(glob.glob(live_pattern))
+    live_roster = (
+        pd.read_parquet(live_files[-1]) if live_files else pd.DataFrame()
+    )
+    # Track whether the Sleeper override actually mutated rows; if so, the
+    # bail-early branch below still needs to persist the corrected file.
+    pre_override_team = proj[team_col].astype(str).copy()
+    proj = apply_sleeper_team_overrides(
+        proj,
+        live_roster,
+        team_col=team_col,
+        name_col="player_name",
+        logger=logger,
+    )
+    team_overrides_applied = bool(
+        (pre_override_team != proj[team_col].astype(str)).any()
+    )
+
     roster = _read_latest_roster(bronze_dir)
     if roster.empty:
         logger.error("No roster bronze found — cannot identify silent drops")
@@ -379,7 +405,32 @@ def main() -> int:
     logger.info("Synthesized %d low-sample projection rows", len(additions))
 
     if additions.empty:
-        logger.info("Nothing to add — every rostered fantasy player is already projected")
+        if not team_overrides_applied:
+            logger.info(
+                "Nothing to add — every rostered fantasy player is already projected"
+            )
+            return 0
+        logger.info(
+            "No rookies to synthesize, but Sleeper team overrides were "
+            "applied; writing refreshed parquet so the lineup builder picks "
+            "up the corrected team assignments."
+        )
+        ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        dest = week_dir / f"projections_{args.scoring}_{ts}.parquet"
+        if args.dry_run:
+            logger.info(
+                "DRY-RUN — would write %d rows (team-overrides only) → %s",
+                len(proj),
+                dest,
+            )
+            return 0
+        proj.to_parquet(dest, index=False)
+        logger.info(
+            "Wrote %d rows (0 added, %d existing, team overrides applied) → %s",
+            len(proj),
+            len(proj),
+            dest,
+        )
         return 0
 
     # The synthesizer's output column is `projected_season_points`; the source

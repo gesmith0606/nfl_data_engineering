@@ -335,3 +335,85 @@ def get_script_sha(script_path: str) -> Dict[str, Any]:
             dirty = False
 
     return {"sha": sha, "dirty": dirty, "resolved_at": resolved_at}
+
+
+def apply_sleeper_team_overrides(
+    df: pd.DataFrame,
+    sleeper_rosters: pd.DataFrame,
+    *,
+    team_col: str = "team",
+    name_col: str = "player_name",
+    logger=None,
+) -> pd.DataFrame:
+    """Override stale team assignments with the latest Sleeper rosters_live.
+
+    nflverse seasonal rosters lag real-world roster moves by weeks during the
+    offseason — e.g. Malik Willis is on MIA per Sleeper but still tagged GB
+    in nflverse's seasonal frame. Without this override, projections (and
+    everything downstream that joins by player_id) attribute a player's
+    stats to his previous team's role.
+
+    Sleeper's rosters_live parquet keys on ``name_key`` (lowercased
+    ``player_name``); this helper lowercases the input frame's ``name_col``
+    to match. Only rostered (non-FA) Sleeper rows are used as the override
+    source, and the most-recent ingest per name is kept.
+
+    Args:
+        df: Frame to mutate (returned with team_col updated).
+        sleeper_rosters: Bronze ``rosters_live`` DataFrame. Must carry
+            ``name_key``, ``team``, and ``is_free_agent`` columns; an empty
+            frame is a no-op.
+        team_col: Column on ``df`` that carries the team to override.
+        name_col: Column on ``df`` that carries the player name to match.
+        logger: Optional Python logger; when provided, an INFO message
+            summarises overrides applied (count + sample).
+
+    Returns:
+        The same ``df`` (in-place ``team_col`` mutation) with the Sleeper
+        team value applied where it differs from the existing assignment.
+    """
+    if sleeper_rosters is None or sleeper_rosters.empty:
+        return df
+    required = {"name_key", "team", "is_free_agent"}
+    if not required.issubset(sleeper_rosters.columns):
+        return df
+    if name_col not in df.columns or team_col not in df.columns:
+        return df
+
+    sort_col = (
+        "refreshed_at" if "refreshed_at" in sleeper_rosters.columns else "season"
+    )
+    if sort_col in sleeper_rosters.columns:
+        latest = sleeper_rosters.sort_values(sort_col).drop_duplicates(
+            subset=["name_key"], keep="last"
+        )
+    else:
+        latest = sleeper_rosters.drop_duplicates(subset=["name_key"], keep="last")
+
+    rostered = latest[~latest["is_free_agent"].astype(bool)]
+    lookup = rostered.set_index("name_key")["team"]
+
+    name_keys = df[name_col].fillna("").astype(str).str.lower()
+    new_team = name_keys.map(lookup)
+    override_mask = new_team.notna() & (
+        df[team_col].astype(str) != new_team.astype(str)
+    )
+
+    if override_mask.any():
+        if logger is not None:
+            sample = (
+                df.loc[override_mask, [name_col, team_col]]
+                .assign(new_team=new_team[override_mask].values)
+                .head(8)
+                .to_dict("records")
+            )
+            logger.info(
+                "Overrode %s on %d player(s) from Sleeper rosters_live "
+                "(e.g. %s)",
+                team_col,
+                int(override_mask.sum()),
+                sample,
+            )
+        df.loc[override_mask, team_col] = new_team[override_mask]
+
+    return df

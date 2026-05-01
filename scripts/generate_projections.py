@@ -14,6 +14,7 @@ Usage:
 import sys
 import os
 import argparse
+import logging
 from datetime import datetime
 from typing import Dict, Optional
 
@@ -291,6 +292,31 @@ def main():
                 )
             except Exception as e:
                 print(f"  WARNING: could not fetch roster data: {e}")
+
+        # Override stale `recent_team` from nflverse seasonal rosters with the
+        # latest Sleeper rosters_live snapshot. nflverse's seasonal data lags
+        # real-world roster updates by weeks during the offseason — Malik
+        # Willis's GB→MIA move is a recent example where seasonal still says
+        # GB but Sleeper has him on MIA. Without this override the lineup
+        # page either shows "--" (depth-chart mismatch guard) or carries his
+        # GB-backup point total under his MIA-starter slot.
+        try:
+            live_roster = _read_local_parquet(
+                BRONZE_DIR, "players/rosters_live/season=*/*.parquet"
+            )
+        except Exception as e:  # pragma: no cover — defensive
+            live_roster = pd.DataFrame()
+            print(f"  WARNING: could not read rosters_live: {e}")
+
+        from utils import apply_sleeper_team_overrides
+
+        seasonal_df = apply_sleeper_team_overrides(
+            seasonal_df,
+            live_roster,
+            team_col="recent_team",
+            name_col="player_name",
+            logger=logging.getLogger(__name__),
+        )
 
         print(f"Loaded {len(seasonal_df):,} seasonal player rows")
 
