@@ -165,6 +165,32 @@ DEFENSE_STARTER_SLOTS: Dict[str, int] = {
 # ---------------------------------------------------------------------------
 
 
+# Map alternate team abbreviations to the canonical nflverse code so a
+# depth-chart-vs-projection team comparison doesn't false-positive on
+# alias drift (e.g. projection rows tagged "KAN" while the depth chart
+# uses "KC"). The Gold projections file mixes abbreviations because rookie
+# rows come from CFBD (PFR-style) while veterans come from nflverse.
+_TEAM_ALIASES: Dict[str, str] = {
+    "KAN": "KC",
+    "LAR": "LA",
+    "LVR": "LV",
+    "NOR": "NO",
+    "NWE": "NE",
+    "SFO": "SF",
+    "TAM": "TB",
+    "JAC": "JAX",
+    "GNB": "GB",
+}
+
+
+def _canonical_team(value: object) -> str:
+    """Return the canonical nflverse team code, uppercased."""
+    if value is None:
+        return ""
+    code = str(value).strip().upper()
+    return _TEAM_ALIASES.get(code, code)
+
+
 def _normalize_depth_chart_schema(df: pd.DataFrame) -> pd.DataFrame:
     """Translate the post-draft ESPN/Sleeper depth chart schema to nflverse.
 
@@ -572,12 +598,25 @@ def get_team_lineup_with_projections(
     proj_name_col = "player_name" if "player_name" in proj.columns else "full_name"
     proj_id_col = "player_id" if "player_id" in proj.columns else None
 
-    # Try joining on player_id first, fall back to name+team
+    # Try joining on player_id first, fall back to name+team. We also bring
+    # the projection's team along so we can null out any stale-team
+    # projection (the player was traded / promoted and the Gold parquet
+    # still has him scored under his previous team's role). Keying on
+    # player_id alone would otherwise let, e.g., Malik Willis's GB-backup
+    # 53.8-pt projection display under his MIA-starter depth-chart slot.
     if proj_id_col and "player_id" in starters.columns:
         proj_subset = proj[
-            [proj_id_col, "projected_points", "projected_floor", "projected_ceiling"]
+            [
+                proj_id_col,
+                proj_team_col,
+                "projected_points",
+                "projected_floor",
+                "projected_ceiling",
+            ]
         ].copy()
-        proj_subset = proj_subset.rename(columns={proj_id_col: "player_id"})
+        proj_subset = proj_subset.rename(
+            columns={proj_id_col: "player_id", proj_team_col: "_proj_team"}
+        )
         proj_subset = proj_subset.drop_duplicates(subset=["player_id"], keep="first")
         merged = starters.merge(proj_subset, on="player_id", how="left")
     else:
@@ -591,11 +630,41 @@ def get_team_lineup_with_projections(
             ]
         ].copy()
         proj_subset = proj_subset.rename(
-            columns={proj_team_col: "team", proj_name_col: "player_name"}
+            columns={proj_team_col: "_proj_team", proj_name_col: "player_name"}
         )
         proj_subset = proj_subset.drop_duplicates(
-            subset=["team", "player_name"], keep="first"
+            subset=["_proj_team", "player_name"], keep="first"
         )
-        merged = starters.merge(proj_subset, on=["team", "player_name"], how="left")
+        merged = starters.merge(
+            proj_subset,
+            left_on=["team", "player_name"],
+            right_on=["_proj_team", "player_name"],
+            how="left",
+        )
+
+    # Drop projections where the depth chart's team disagrees with the
+    # projection's team — the player has moved and the score reflects his
+    # previous role. The frontend renders NaN as "--" rather than a stale
+    # number. Aliases canonicalized first so KAN/KC, LAR/LA, etc. don't
+    # false-positive.
+    if "_proj_team" in merged.columns:
+        proj_canon = merged["_proj_team"].apply(_canonical_team)
+        dc_canon = merged["team"].apply(_canonical_team)
+        team_mismatch = merged["_proj_team"].notna() & (proj_canon != dc_canon)
+        if team_mismatch.any():
+            stale = merged.loc[
+                team_mismatch, ["team", "player_name", "_proj_team"]
+            ].head(5)
+            logger.warning(
+                "Dropping %d stale projection(s) where depth-chart team "
+                "differs from projection team. Sample: %s",
+                int(team_mismatch.sum()),
+                stale.to_dict("records"),
+            )
+            merged.loc[
+                team_mismatch,
+                ["projected_points", "projected_floor", "projected_ceiling"],
+            ] = np.nan
+        merged = merged.drop(columns=["_proj_team"])
 
     return merged

@@ -19,6 +19,7 @@ from lineup_builder import (
     DEFENSE_STARTER_SLOTS,
     OFFENSE_STARTER_SLOTS,
     _assign_field_position,
+    _canonical_team,
     _compute_starter_confidence,
     _normalize_depth_chart_schema,
     _resolve_position_group,
@@ -866,6 +867,129 @@ class TestNormalizeDepthChartSchema(unittest.TestCase):
         out = _normalize_depth_chart_schema(new)
         self.assertEqual(len(out), 1)
         self.assertEqual(out.iloc[0]["dt"], "2026-04-30T09:11:25Z")
+
+
+class TestStaleProjectionGuard(unittest.TestCase):
+    """When the depth chart's team disagrees with the projection's team for
+    a given player_id, the projection is treated as stale (e.g. player was
+    traded post-write) and zeroed out so the UI shows '--' instead of a
+    misleading number rooted in the prior team's role."""
+
+    @patch("lineup_builder._load_projections")
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_drops_projection_when_team_mismatches(
+        self, mock_dc, mock_sc, mock_proj
+    ):
+        # Depth chart: Willis listed at MIA.
+        dc = pd.DataFrame(
+            [
+                {
+                    "club_code": "MIA",
+                    "full_name": "Malik Willis",
+                    "gsis_id": "00-X",
+                    "position": "QB",
+                    "depth_position": "QB",
+                    "depth_team": "1",
+                    "week": 1.0,
+                }
+            ]
+        )
+        mock_dc.return_value = dc
+        mock_sc.return_value = pd.DataFrame()
+
+        # Projection still has Willis on GB — this is the stale row.
+        mock_proj.return_value = pd.DataFrame(
+            [
+                {
+                    "player_id": "00-X",
+                    "player_name": "Malik Willis",
+                    "team": "GB",
+                    "projected_points": 53.8,
+                    "projected_floor": 29.6,
+                    "projected_ceiling": 78.0,
+                }
+            ]
+        )
+
+        result = get_team_lineup_with_projections(
+            season=2026, week=1, team="MIA", scoring_format="half_ppr"
+        )
+        # Projection columns should be NaN (stale dropped); player still
+        # appears in the lineup so the UI doesn't lose the slot.
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result.iloc[0]["player_name"], "Malik Willis")
+        self.assertTrue(pd.isna(result.iloc[0]["projected_points"]))
+        self.assertTrue(pd.isna(result.iloc[0]["projected_floor"]))
+        self.assertTrue(pd.isna(result.iloc[0]["projected_ceiling"]))
+        # The internal `_proj_team` helper column must not leak through.
+        self.assertNotIn("_proj_team", result.columns)
+
+    @patch("lineup_builder._load_projections")
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_alias_does_not_false_positive(self, mock_dc, mock_sc, mock_proj):
+        # Depth chart says KC; projection file has him as KAN — same team,
+        # alias drift only. Projection must survive.
+        dc = pd.DataFrame(
+            [
+                {
+                    "club_code": "KC",
+                    "full_name": "Emmett Johnson",
+                    "gsis_id": "00-EJ",
+                    "position": "RB",
+                    "depth_position": "RB",
+                    "depth_team": "1",
+                    "week": 1.0,
+                }
+            ]
+        )
+        mock_dc.return_value = dc
+        mock_sc.return_value = pd.DataFrame()
+        mock_proj.return_value = pd.DataFrame(
+            [
+                {
+                    "player_id": "00-EJ",
+                    "player_name": "Emmett Johnson",
+                    "team": "KAN",  # alias of KC
+                    "projected_points": 83.0,
+                    "projected_floor": 49.8,
+                    "projected_ceiling": 116.2,
+                }
+            ]
+        )
+
+        result = get_team_lineup_with_projections(
+            season=2026, week=1, team="KC", scoring_format="half_ppr"
+        )
+        self.assertEqual(len(result), 1)
+        self.assertAlmostEqual(result.iloc[0]["projected_points"], 83.0)
+
+
+class TestCanonicalTeam(unittest.TestCase):
+    """Verify alias normalization for known team-code variants."""
+
+    def test_aliases_normalize(self):
+        self.assertEqual(_canonical_team("KAN"), "KC")
+        self.assertEqual(_canonical_team("LAR"), "LA")
+        self.assertEqual(_canonical_team("LVR"), "LV")
+        self.assertEqual(_canonical_team("NOR"), "NO")
+        self.assertEqual(_canonical_team("NWE"), "NE")
+        self.assertEqual(_canonical_team("SFO"), "SF")
+        self.assertEqual(_canonical_team("TAM"), "TB")
+
+    def test_canonical_passthrough(self):
+        self.assertEqual(_canonical_team("KC"), "KC")
+        self.assertEqual(_canonical_team("PHI"), "PHI")
+        self.assertEqual(_canonical_team("LAC"), "LAC")  # not aliased to LA
+
+    def test_handles_lowercase_and_whitespace(self):
+        self.assertEqual(_canonical_team(" kc "), "KC")
+        self.assertEqual(_canonical_team("kan"), "KC")
+
+    def test_handles_none_and_empty(self):
+        self.assertEqual(_canonical_team(None), "")
+        self.assertEqual(_canonical_team(""), "")
 
 
 class TestStarterSlots(unittest.TestCase):
