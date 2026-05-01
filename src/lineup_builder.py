@@ -410,8 +410,17 @@ def get_team_starters(
             logger.warning("No depth chart data for team=%s", team)
             return pd.DataFrame()
 
-    # --- Identify starters from depth chart (depth_team == '1') ---
-    dc["is_depth_starter"] = dc["depth_team"].astype(str) == "1"
+    # --- Coerce depth_team to a sortable numeric so the per-group ranking
+    # below picks lower-string players first (1 before 2 before 3). The
+    # legacy nflverse schema stored this as a string; the new ESPN/Sleeper
+    # schema stores it as an int. Both coerce cleanly. ---
+    dc["depth_team_ord"] = pd.to_numeric(
+        dc["depth_team"], errors="coerce"
+    ).fillna(99)
+    # Retain the boolean flag for downstream reporting (the player IS marked
+    # starting somewhere on the depth chart). It is no longer used to filter
+    # the candidate pool — see comment in the per-group loop below.
+    dc["is_depth_starter"] = dc["depth_team_ord"] <= 1
 
     # --- Load snap counts for context (optional) ---
     snap_df = _load_snap_counts(season, week)
@@ -441,12 +450,24 @@ def get_team_starters(
     all_groups = offense_groups | defense_groups
     dc = dc[dc["position_group"].isin(all_groups)]
 
-    # Filter depth_team == 1 for starters; also keep depth_team 2 as backups
-    # so we can rank within groups
-    starters = dc[dc["is_depth_starter"]].copy()
+    # For each team + position group, pick the top max_slots players by
+    # depth_team ascending. We do NOT pre-filter to depth_team==1:
+    #
+    # * Legacy nflverse depth charts mark every "first string" player at a
+    #   formation slot as depth_team=1 (e.g. 3 WRs in 11-personnel each get
+    #   depth_team=1), so a `head(max_slots)` from the depth_team=1 subset
+    #   produces the right starters. Sorting by depth_team asc in that case
+    #   is a no-op for the picked rows.
+    # * New ESPN/Sleeper depth charts encode depth as a strict 1/2/3 ordering
+    #   per pos_abb — only ONE player per slot has depth_team=1. To recover
+    #   "WR1 + WR2 + WR3" we have to pull the top 3 ranks within the WR
+    #   position group regardless of whether they're 1, 2, or 3.
+    #
+    # Sorting by depth_team asc (then snap_pct desc, then alphabetical)
+    # produces the right starters under both schemas.
+    candidates = dc.copy()
 
-    # For each team + position group, pick top N starters by depth chart
-    for (club, pos_group), group_df in starters.groupby(
+    for (club, pos_group), group_df in candidates.groupby(
         ["club_code", "position_group"]
     ):
         side = "offense" if pos_group in offense_groups else "defense"
@@ -460,7 +481,8 @@ def get_team_starters(
         if group_df.empty:
             continue
 
-        # Within this group, if we have snap data, sort by snap pct desc
+        # Within this group, sort by depth_team asc (lowest-numbered first),
+        # then snap_pct desc, then alphabetical for stability.
         group_df = group_df.copy()
         group_df["_snap_pct"] = group_df.apply(
             lambda r: snap_lookup.get(
@@ -468,9 +490,9 @@ def get_team_starters(
             ),
             axis=1,
         )
-        # Sort: prefer higher snap pct, then alphabetical for stability
         group_df = group_df.sort_values(
-            ["_snap_pct", "full_name"], ascending=[False, True]
+            ["depth_team_ord", "_snap_pct", "full_name"],
+            ascending=[True, False, True],
         )
 
         for rank, (_, row) in enumerate(group_df.head(max_slots).iterrows(), start=1):
