@@ -157,7 +157,11 @@ export async function POST(req: Request) {
           const params = new URLSearchParams({
             season: String(season),
             week: String(week),
-            scoring
+            scoring,
+            // Full slate so name-search reaches mid-tier players. Only the
+            // matched player is returned to the AI, so the larger response
+            // payload doesn't enter the model context.
+            limit: '1000'
           });
           type ProjectionPayload = { projections: Array<{
             player_name: string;
@@ -222,7 +226,11 @@ export async function POST(req: Request) {
           const params = new URLSearchParams({
             season: String(season),
             week: String(week),
-            scoring
+            scoring,
+            // Full slate so name-search reaches mid-tier players. Only the
+            // matched players are returned to the AI, so the larger response
+            // payload doesn't enter the model context.
+            limit: '1000'
           });
           type ComparePayload = { projections: Array<{
             player_name: string;
