@@ -1,0 +1,565 @@
+{
+  "fetch_run_id": "d709e7c0-dc01-434a-8d9a-1f41514fff9e",
+  "source": "pft",
+  "fetched_at": "2026-05-02T12:30:49.294653+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-beane-on-bills-not-winning-it-all-no-ones-more-angry-at-me-than-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-beane-on-bills-not-winning-it-all-no-ones-more-angry-at-me-than-me",
+      "permalink": "",
+      "title": "Brandon Beane on Bills not winning it all: No one's more angry at me than me",
+      "body_text": "The Bills were on a 17-year playoff drought when they hired Brandon Beane as general manager.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-02T12:12:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Beane",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-morgan-a-long-term-contract-for-bryce-young-is-something-were-talking-about",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-morgan-a-long-term-contract-for-bryce-young-is-something-were-talking-about",
+      "permalink": "",
+      "title": "Dan Morgan: A long-term contract for Bryce Young is something we're talking about",
+      "body_text": "Said the Panthers' GM about getting their franchise quarterback signed, \"We'll do it at the right time.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-02T08:13:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Morgan",
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0020443",
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-fifth-year-option-list-for-2023-first-round-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-fifth-year-option-list-for-2023-first-round-picks",
+      "permalink": "",
+      "title": "Final fifth-year option list for 2023 first-round picks",
+      "body_text": "22 were exercised; nine were not. (And two have gotten long-term deals.)",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T04:01:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-have-record-season-ticket-renewal-rate-at-99-5-percent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-have-record-season-ticket-renewal-rate-at-99-5-percent",
+      "permalink": "",
+      "title": "Broncos have record season-ticket renewal rate, at 99.5 percent",
+      "body_text": "The 2025 Broncos won the No. 1 seed in the AFC and came within a whisker (and a Bo Nix broken ankle with a twist of a freak snowstorm) of the Super Bowl.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T02:00:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-decline-cb-emmanuel-forbes-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-decline-cb-emmanuel-forbes-fifth-year-option",
+      "permalink": "",
+      "title": "Rams decline CB Emmanuel Forbes' fifth-year option",
+      "body_text": "The Rams declined the fifth-year option on the contract of cornerback Emmanuel Forbes, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T21:59:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emmanuel Forbes",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039151"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-not-the-first-time-the-steelers-called-a-prospect-early",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-not-the-first-time-the-steelers-called-a-prospect-early",
+      "permalink": "",
+      "title": "Report: \"Not the first time\" the Steelers called a prospect early",
+      "body_text": "Unnamed source dubs it \"crazy\" to call a prospect befre being on the clock.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T21:52:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-decline-felix-anudike-uzomahs-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-decline-felix-anudike-uzomahs-fifth-year-option",
+      "permalink": "",
+      "title": "Chiefs decline Felix Anudike-Uzomah's fifth-year option",
+      "body_text": "The Chiefs have declined the fifth-year option on the contract of defensive end Felix Anudike-Uzomah, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T21:45:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Felix Anudike",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-will-ease-titans-draft-picks-into-rookie-minicamp-to-avoid-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-will-ease-titans-draft-picks-into-rookie-minicamp-to-avoid-injuries",
+      "permalink": "",
+      "title": "Robert Saleh will ease Titans' draft picks into rookie minicamp to avoid injuries",
+      "body_text": "In 2015, Robert Saleh was the Jaguars' linebackers coach when they used the No. 3 overall pick in the draft on pass rusher Dante Fowler.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-01T21:12:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Saleh",
+        "Dante Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0032052"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-claim-de-ali-gaye-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-claim-de-ali-gaye-off-of-waivers",
+      "permalink": "",
+      "title": "Texans claim DE Ali Gaye off of waivers",
+      "body_text": "The Texans have brought defensive end Ali Gaye back for a second tour of duty with the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T21:00:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ali Gaye",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0038724"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-decline-fifth-year-option-for-cb-deonte-banks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-decline-fifth-year-option-for-cb-deonte-banks",
+      "permalink": "",
+      "title": "Giants decline fifth-year option for CB Deonte Banks",
+      "body_text": "Giants cornerback Deonte Banks is now set to become a free agent next spring.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-01T20:53:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deonte Banks"
+      ],
+      "resolved_player_ids": [
+        "00-0039000"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-fifth-round-cb-karon-prunty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-fifth-round-cb-karon-prunty",
+      "permalink": "",
+      "title": "Patriots sign fifth-round CB Karon Prunty",
+      "body_text": "The Patriots have signed fifth-round cornerback Karon Prunty to his four-year rookie deal, Christopher Price of the Boston Globe reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T20:11:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Karon Prunty",
+        "The Patriots",
+        "Christopher Price",
+        "Boston Globe"
+      ],
+      "resolved_player_ids": [
+        "PRU764260"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-jacob-clark-among-raiders-undrafted-free-agent-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-jacob-clark-among-raiders-undrafted-free-agent-signings",
+      "permalink": "",
+      "title": "QB Jacob Clark among Raiders' undrafted free agent signings",
+      "body_text": "Fernando Mendoza won't be the only rookie at Raiders practices this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T19:52:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacob Clark",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-seven-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-seven-undrafted-free-agents",
+      "permalink": "",
+      "title": "Seahawks sign seven undrafted free agents",
+      "body_text": "The Seahawks signed seven undrafted rookie free agents on Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T19:13:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kalshi-polymarket-offer-prediction-markets-tied-to-mike-vrabels-future-with-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kalshi-polymarket-offer-prediction-markets-tied-to-mike-vrabels-future-with-patriots",
+      "permalink": "",
+      "title": "Kalshi, Polymarket offer prediction markets tied to Mike Vrabel's future with Patriots",
+      "body_text": "Given the developments to date and the possibility, if not inevitability, of more developments to come, it remains possible that Mike Vrabel won't remain the head coach of the Patriots.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T19:42:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Patriots Given"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/meta-says-mark-zuckerberg-isnt-interested-in-the-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/meta-says-mark-zuckerberg-isnt-interested-in-the-seahawks",
+      "permalink": "",
+      "title": "Meta says Mark Zuckerberg isn't interested in the Seahawks",
+      "body_text": "It was fun while it lasted.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T19:09:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mark Zuckerberg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dk-metcalf-will-not-face-criminal-charges-for-incident-with-fan-in-detroit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dk-metcalf-will-not-face-criminal-charges-for-incident-with-fan-in-detroit",
+      "permalink": "",
+      "title": "DK Metcalf will not face criminal charges for incident with fan in Detroit",
+      "body_text": "Steelers wide receiver DK Metcalf will not face criminal charges for his altercation with a fan during a game against the Lions at Ford Field, prosecutors in Detroit announced today.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-01T19:09:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Detroit Steelers",
+        "Ford Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rbs-elijah-mitchell-khalil-herbert-trying-out-at-eagles-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rbs-elijah-mitchell-khalil-herbert-trying-out-at-eagles-rookie-minicamp",
+      "permalink": "",
+      "title": "RBs Elijah Mitchell, Khalil Herbert trying out at Eagles rookie minicamp",
+      "body_text": "The Eagles have a couple of veteran running backs trying out at their rookie minicamp this weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T18:59:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Elijah Mitchell",
+        "Khalil Herbert",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036567",
+        "00-0036906"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-announce-20-undrafted-free-agent-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-announce-20-undrafted-free-agent-signings",
+      "permalink": "",
+      "title": "Chiefs announce 20 undrafted free agent signings",
+      "body_text": "The Chiefs opened their three-day rookie minicamp on Friday and they added 20 undrafted free agents to their roster as it got underway.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T18:44:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-officially-sign-qbs-diego-pavia-and-joe-fagnano-17-other-undrafted-rookies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-officially-sign-qbs-diego-pavia-and-joe-fagnano-17-other-undrafted-rookies",
+      "permalink": "",
+      "title": "Ravens officially sign QBs Diego Pavia and Joe Fagnano, 17 other undrafted rookies",
+      "body_text": "Quarterbacks Diego Pavia and Joe Fagnano are officially on the roster in Baltimore.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T18:17:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Diego Pavia",
+        "Joe Fagnano",
+        "Quarterbacks Diego"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-announce-11-undrafted-free-agent-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-announce-11-undrafted-free-agent-signings",
+      "permalink": "",
+      "title": "Cowboys announce 11 undrafted free agent signings",
+      "body_text": "The Cowboys are holding their rookie minicamp this weekend and they used the occasion as reason to finalize agreements with 11 undrafted free agents.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T16:54:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cincinnati-has-inside-track-fo-2029-nfl-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cincinnati-has-inside-track-fo-2029-nfl-draft",
+      "permalink": "",
+      "title": "Cincinnati has \"inside track\" for 2029 NFL draft",
+      "body_text": "The NFL may be lining up its drafts farther into the future than its Super Bowls.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T14:05:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-seventh-round-pick-rayshaun-benny",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-seventh-round-pick-rayshaun-benny",
+      "permalink": "",
+      "title": "Ravens sign seventh-round pick Rayshaun Benny",
+      "body_text": "The Ravens are nearly done with signing their 2026 draft class.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-01T16:50:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rayshaun Benny",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "BEN488992"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-now-run-by-espn-goes-dark-on-comcast-amid-carriage-dispute",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-now-run-by-espn-goes-dark-on-comcast-amid-carriage-dispute",
+      "permalink": "",
+      "title": "NFL Network, now run by ESPN, goes dark on Comcast amid carriage dispute",
+      "body_text": "As of April 1, ESPN assumed control of NFL Network.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T16:49:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-eight-undrafted-rookies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-eight-undrafted-rookies",
+      "permalink": "",
+      "title": "Eagles sign eight undrafted rookies",
+      "body_text": "The Eagles announced eight undrafted additions to their 90-man roster on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T16:41:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-caleb-downs-five-other-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-caleb-downs-five-other-draft-picks",
+      "permalink": "",
+      "title": "Cowboys sign Caleb Downs, five other draft picks",
+      "body_text": "The Cowboys announced that they have signed their top pick from this year's draft.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T16:31:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Downs",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "DOW662609"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-we-will-have-affordable-seats-in-new-stadium-just-they-are-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-we-will-have-affordable-seats-in-new-stadium-just-they-are-now",
+      "permalink": "",
+      "title": "Jimmy Haslam: We will have affordable seats in new stadium, just as they are now",
+      "body_text": "On Thursday, the Browns held their official groundbreaking ceremony for the new Huntington Bank Field, which is currently slated to open for the 2029 season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-01T16:21:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jimmy Haslam",
+        "On Thursday",
+        "Huntington Bank"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-11-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-11-undrafted-free-agents",
+      "permalink": "",
+      "title": "Titans sign 11 undrafted free agents",
+      "body_text": "The Titans signed five draft picks this week and they've also added 11 undrafted free agents to their roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T16:19:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-five-draft-picks-10-undrafted-rookies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-five-draft-picks-10-undrafted-rookies",
+      "permalink": "",
+      "title": "Packers sign five draft picks, 10 undrafted rookies",
+      "body_text": "The Packers kicked off their rookie minicamp by signing most of their draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T16:07:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-russell-wilson-could-join-cbs-in-lieu-of-playing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-russell-wilson-could-join-cbs-in-lieu-of-playing",
+      "permalink": "",
+      "title": "Report: Russell Wilson could join CBS in lieu of playing",
+      "body_text": "Earlier this week, free-agent quarterback Russell Wilson had a visit with the Jets.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T15:54:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Russell Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-claypool-trying-out-for-packers-at-their-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-claypool-trying-out-for-packers-at-their-rookie-minicamp",
+      "permalink": "",
+      "title": "Chase Claypool trying out for Packers at their rookie minicamp",
+      "body_text": "Wide receiver Chase Claypool is trying to get back into the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T15:52:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chase Claypool"
+      ],
+      "resolved_player_ids": [
+        "00-0036326"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

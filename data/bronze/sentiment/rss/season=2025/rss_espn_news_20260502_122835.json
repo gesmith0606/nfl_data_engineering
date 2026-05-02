@@ -1,0 +1,397 @@
+{
+  "fetch_run_id": "6274f7eb-c7eb-4374-ae62-86ba1ff315fe",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-02T12:28:35.339019+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 25,
+  "items": [
+    {
+      "external_id": "US-EN-48638807",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48638807/2026-nfl-rookie-year-candidates-early-rankings-predictions-draft",
+      "title": "Solak's NFL Rookie of the Year favorites: Ranking ...",
+      "body_text": "Which draft picks are set up to win Offensive and Defensive Rookie of the Year? Let's stack the top names to watch on each side of the ball.",
+      "author": "Ben Solak",
+      "published_at": "2026-05-02T00:58:13+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Defensive Rookie"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48649873",
+      "url": "https://www.espn.com/nfl/story/_/id/48649873/colts-declining-richardson-fifth-year-option-27",
+      "title": "Sources: Colts declining Richardson's '27 option",
+      "body_text": "The Colts are declining to exercise QB Anthony Richardson's fifth-year option for 2027, a source told ESPN, meaning Richardson will hit unrestricted free agency after the 2026 season.",
+      "author": "Stephen Holder",
+      "published_at": "2026-05-02T00:58:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Colts",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-48649087",
+      "url": "https://www.espn.com/nfl/story/_/id/48649087/prosecutors-say-no-charges-dk-metcalf-fan-altercation",
+      "title": "No charges for Steelers' Metcalf over fan incident...",
+      "body_text": "Steelers wide receiver DK Metcalf will not face criminal charges stemming from his altercation with a fan at Ford Field during the Steelers' December game against the Detroit Lions, the Wayne County Prosecutors Office announced May 1.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-05-02T00:58:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ford Field",
+        "Detroit Lions",
+        "Wayne County",
+        "Prosecutors Office"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-48638308",
+      "url": "https://www.espn.com/nfl/story/_/id/48638308/source-calais-campbell-reuniting-ravens-19th-season",
+      "title": "Source: Vet DE Campbell reuniting with Ravens",
+      "body_text": "Veteran defensive end Calais Campbell, who played with the Ravens from 2020 to 2022, is returning to sign a one-year deal with Baltimore, a source told ESPN's Adam Schefter.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-05-02T00:58:05+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ravens Veteran",
+        "Calais Campbell",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0026190"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-48638006",
+      "url": "https://www.espn.com/nfl/story/_/id/48638006/sources-giants-wr-darius-slayton-core-muscle-surgery",
+      "title": "Sources: Giants' Slayton has core-muscle surgery",
+      "body_text": "Giants wide receiver Darius Slayton had surgery for a core-muscle injury recently and is expected to be sidelined throughout the Giants' offseason program this spring, sources told NFL Network.",
+      "author": null,
+      "published_at": "2026-05-02T00:58:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Darius Slayton"
+      ],
+      "resolved_player_ids": [
+        "00-0035535"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48642876",
+      "url": "https://www.espn.com/nfl/story/_/id/48642876/sources-steelers-declining-broderick-jones-5th-year-option",
+      "title": "Sources: Steelers not picking up option on Jones",
+      "body_text": "Tackle Broderick Jones, who continues to recover from offseason neck surgery, won't have his fifth-year option picked up by the Steelers, sources told ESPN's Jeremy Fowler.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-05-02T00:58:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jones Tackle",
+        "Broderick Jones",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0039109"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48638253",
+      "url": "https://www.espn.com/nfl/story/_/id/48638253/bengals-decline-de-myles-murphy-fifth-year-option-source-says",
+      "title": "Bengals decline DE Murphy's option, source says",
+      "body_text": "The Bengals are not picking up the fifth-year option for defensive end Myles Murphy, a source told ESPN's Jeremy Fowler.",
+      "author": "Ben Baby",
+      "published_at": "2026-05-02T00:58:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Bengals",
+        "Myles Murphy",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0038546"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-48642772",
+      "url": "https://www.espn.com/nfl/story/_/id/48642772/browns-break-ground-24-billion-stadium-targeted-29",
+      "title": "Browns break ground on stadium targeted for '29",
+      "body_text": "Browns owner Jimmy Haslam and NFL commissioner Roger Goodell were on hand for the groundbreaking ceremony for the team's new domed stadium scheduled to open for the 2029 season.",
+      "author": null,
+      "published_at": "2026-05-02T00:58:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jimmy Haslam",
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-48639345",
+      "url": "https://www.espn.com/nfl/story/_/id/48639345/source-packers-exercise-lukas-van-ness-fifth-year-option",
+      "title": "Source: Pack pick up Van Ness' fifth-year option",
+      "body_text": "Despite recording only 8.5 sacks over his first three NFL seasons, Packers defensive end Lukas Van Ness had the fifth-year option picked up on his rookie deal, a source confirmed to ESPN on Thursday.",
+      "author": "Rob Demovsky",
+      "published_at": "2026-05-02T00:58:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Van Ness",
+        "Lukas Van"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-48611355",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/48611355/2027-nfl-mock-draft-early-first-round-predictions-32-picks-manning-smith",
+      "title": "🏈 Reid's early 2027 NFL mock draft: Arch No. 1?",
+      "body_text": "We're still a full year out, but let's make way-too-early predictions for every first-round pick of the 2027 NFL draft. Will Arch Manning go No. 1? Jeremiah Smith?",
+      "author": "Jordan Reid",
+      "published_at": "2026-05-02T00:58:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Arch",
+        "Jeremiah Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48610121",
+      "url": "https://www.espn.com/nfl/story/_/id/48610121/houston-texans-pay-cj-stroud-qb-market-nfl-execs",
+      "title": "Should the Texans pay C.J. Stroud? NFL execs from around the league weigh in",
+      "body_text": "After paying Will Anderson, will Houston do the same with its franchise quarterback?",
+      "author": "DJ Bien-Aime",
+      "published_at": "2026-05-02T11:00:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Anderson"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "US-EN-48648835",
+      "url": "https://www.espn.com/nfl/story/_/id/48648835/seattle-seahawks-2026-nfl-draft-jadarian-price-bud-clark-john-schnieder-strategy-cpmpetitors",
+      "title": "Copy of Inside the Seahawks' draft approach to maintain a ...",
+      "body_text": "What did Jadarian Price, Bud Clark and six other Seattle picks have in common?",
+      "author": "Brady Henderson",
+      "published_at": "2026-05-02T13:15:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jadarian Price",
+        "Bud Clark"
+      ],
+      "resolved_player_ids": [
+        "PRI206342",
+        "CLA214868"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-48630512",
+      "url": "https://www.espn.com/nfl/story/_/id/48630512/new-york-giants-coach-john-harbaugh-joe-schoen-2026-nfl-draft-reese-mauigoa",
+      "title": "Copy of Why Giants leaned bigger, stronger and physical in...",
+      "body_text": "New York focused on bringing in bigger, more physical players in its first draft led by coach John Harbaugh. ﻿",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-02T13:15:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Giants",
+        "New York",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48637614",
+      "url": "https://www.espn.com/nfl/story/_/id/48637614/baltimore-ravens-2026-nfl-draft-imposing",
+      "title": "From the first pick to the owner's selection, Balt...",
+      "body_text": "The Ravens landed hard-hitting tone-setters with their first two picks in Olaivavega Ioane and Zion Young.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-05-02T13:17:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Ravens",
+        "Olaivavega Ioane",
+        "Zion Young"
+      ],
+      "resolved_player_ids": [
+        "IOA451705",
+        "YOU702783"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-FFMockDraft-48610592",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFMockDraft-48610592/2026-fantasy-football-mock-draft-post-nfl-draft",
+      "title": "Is 2026 the comeback year for running backs? Insid...",
+      "body_text": "Running backs went early as 10 ESPN fantasy analysts made their first draft picks of the year.",
+      "author": "ESPN Fantasy staff and Eric Karabell",
+      "published_at": "2026-05-01T17:01:11+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48630483",
+      "url": "https://www.espn.com/nfl/story/_/id/48630483/why-los-angeles-rams-see-qb-ty-simpson-matthew-stafford-heir-apparent",
+      "title": "Why the Rams see Simpson as Stafford's heir appare...",
+      "body_text": "The Rams eyed Simpson early in the process -- and just didn't let on.",
+      "author": "Sarah Barshop",
+      "published_at": "2026-05-01T13:25:02+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48610798",
+      "url": "https://www.espn.com/nfl/story/_/id/48610798/2026-nfl-draft-ty-simpson-matthew-stafford-rams-quarterback-playoffs-first-round-pick",
+      "title": "Does the Rams' Stafford-Simpson approach make sens...",
+      "body_text": "Matthew Stafford just won MVP, but the Rams still drafted Ty Simpson. Are there precedents for this working?",
+      "author": "Bill Barnwell",
+      "published_at": "2026-05-01T13:25:02+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "SIM639376"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48632243",
+      "url": "https://www.espn.com/nfl/story/_/id/48632243/2026-nfl-draft-scouts-coaches-execs-fowler-32-teams-classes",
+      "title": "What NFL scouts, coaches, execs are saying about a...",
+      "body_text": "One week since the start of the 2026 NFL draft, what are league sources saying about all 32 classes?",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-05-01T13:52:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48610584",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48610584/2026-nfl-draft-ranking-top-100-picks-best-steals-team-fits-trades",
+      "title": "Miller: Ranking the 100 best NFL draft picks of 20...",
+      "body_text": "Matt Miller picked out his 100 favorite selections, factoring in value, fit and trades.",
+      "author": "Matt Miller",
+      "published_at": "2026-05-01T13:52:57+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48641043",
+      "url": "https://www.espn.com/nfl/story/_/id/48641043/philadelphia-eagles-makai-lemon-no-9-jersey-nick-foles",
+      "title": "Makai Lemon to wear No. 9, first Eagle since Nick ...",
+      "body_text": "The Philadelphia Eagles first round pick received Nick Foles' blessing to wear No. 9.",
+      "author": "Anthony Gharib",
+      "published_at": "2026-05-01T19:50:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Makai Lemon",
+        "The Philadelphia",
+        "Nick Foles"
+      ],
+      "resolved_player_ids": [
+        "LEM694125",
+        "00-0029567"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48608897",
+      "url": "https://www.espn.com/nfl/story/_/id/48608897/revisiting-most-impactful-nfl-draft-day-trade-32-teams-2026",
+      "title": "32 draft-day trades that will always be remembered...",
+      "body_text": "NFL Nation looks back at the draft deals that produced memorable outcomes -- good or bad -- for their teams.",
+      "author": "NFL Nation",
+      "published_at": "2026-04-29T20:36:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48358999",
+      "url": "https://www.espn.com/nfl/story/_/id/48358999/fifth-year-option-tracker-nfl-players-2023-first-round-draft-class",
+      "title": "Tracking fifth-year options for 2023 first-rounder...",
+      "body_text": "The deadline for teams to pick up the fifth-year option on rookie contracts is Friday. Who has had their options picked up?",
+      "author": "ESPN Staff",
+      "published_at": "2026-05-01T02:57:53+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48648131",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48648131/our-midseason-look-ufl-how-new-rules-fared",
+      "title": "How have UFL's 4-point FG and ban on punts inside ...",
+      "body_text": "Taking a closer look at some of the trends, rule changes and other takeaways from the start of Mike Repole's first season with the league.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-05-02T13:20:36+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Repole"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48620623",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48620623/2026-ufl-power-rankings-week-5",
+      "title": "UFL Power Rankings: Calling on a Magic 8-Ball to a...",
+      "body_text": "At the halfway point of the season, defending champ DC is surging, while Birmingham still hasn't found its footing.",
+      "author": "Matt Willis",
+      "published_at": "2026-05-02T13:19:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

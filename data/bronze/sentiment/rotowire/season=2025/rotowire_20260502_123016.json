@@ -1,0 +1,95 @@
+{
+  "fetch_run_id": "b37b58c1-890e-4f25-af78-0d1049294b7c",
+  "source": "rotowire",
+  "fetched_at": "2026-05-02T12:30:16.411299+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 4,
+  "items": [
+    {
+      "external_id": "nfl630660",
+      "url": "https://www.rotowire.com//football/player/anthony-richardson-16653",
+      "permalink": "",
+      "title": "Anthony Richardson: Doesn't receive fifth-year option",
+      "body_text": "The Colts didn't exercise the fifth-year option on Richardson's (eye) rookie contract, Kevin Bowen of 107.5 The Fan Indianapolis reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-01T01:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson",
+        "The Colts",
+        "Kevin Bowen",
+        "The Fan"
+      ],
+      "resolved_player_ids": [
+        "00-0039164",
+        "00-0032373"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "nfl630635",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Aiming to play Week 1",
+      "body_text": "Coach Kyle Shanahan said Thursday that Kittle (Achilles) is aiming to be ready for the 49ers' Week 1 game against the Rams, David Lombardi of SFStandard.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-30T11:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Coach Kyle",
+        "David Lombardi"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl630634",
+      "url": "https://www.rotowire.com//football/player/chris-rodriguez-16933",
+      "permalink": "",
+      "title": "Chris Rodriguez: Projected as lead back",
+      "body_text": "Sports Illustrated's John Shipley projects Rodriguez to open the season as the Jaguars' lead running back. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-30T11:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Rodriguez",
+        "Sports Illustrated",
+        "John Shipley"
+      ],
+      "resolved_player_ids": [
+        "00-0038611"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "nfl630631",
+      "url": "https://www.rotowire.com//football/player/darius-slayton-13522",
+      "permalink": "",
+      "title": "Darius Slayton: Out until July after core surgery",
+      "body_text": "Slayton (abdomen) recently underwent surgery on a core-muscle injury and will miss spring workouts, but he's expected to be available for training camp in July, Mike Garafolo of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-04-30T08:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darius Slayton",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0035535"
+      ],
+      "team_hint": null
+    }
+  ]
+}
