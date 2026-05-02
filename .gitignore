@@ -242,16 +242,6 @@ data/gold/*
 !data/silver/sentiment/
 !data/silver/sentiment/**
 !data/silver/sentiment/**/*.json
-# Matchups page: /api/teams/{team}/defense-metrics needs Silver
-# defense+SoS parquets. Without these the matchups page returns
-# `{team: null, positional: []}` and the entire matchup-advantage
-# core renders empty. ~13 MB.
-!data/silver/defense/
-!data/silver/defense/**
-!data/silver/defense/**/*.parquet
-!data/silver/teams/
-!data/silver/teams/**
-!data/silver/teams/**/*.parquet
 !data/bronze/
 !data/bronze/sentiment/
 !data/bronze/sentiment/**

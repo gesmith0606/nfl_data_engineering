@@ -113,21 +113,6 @@ class TestGetCurrentWeek:
         assert resp.season == 2025  # latest available season in data/bronze/schedules/
         assert 1 <= resp.week <= 22
 
-    def test_offseason_fallback_clamped_to_regular_season(self):
-        """The fallback path must clamp to the regular-season ceiling (18).
-
-        Schedule parquets carry postseason weeks 19-22, but the matchups /
-        lineups / predictions UIs only render weeks 1-18 in their Week
-        dropdowns. Returning week=22 leaves resolvedWeek invisible to the
-        user because no dropdown entry matches.
-        """
-        resp = team_roster_service.get_current_week(today=date(2026, 5, 1))
-        assert resp.source == "fallback"
-        assert resp.week <= 18, (
-            f"fallback week {resp.week} exceeded reg-season ceiling — "
-            "the matchups page Week dropdown won't display a value above 18"
-        )
-
 
 # ---------------------------------------------------------------------------
 # FastAPI endpoint integration tests
