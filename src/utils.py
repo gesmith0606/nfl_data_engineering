@@ -1,6 +1,15 @@
 """
 Utility functions for the NFL Data Engineering Pipeline
 """
+# PEP 563: store annotations as strings so the module imports cleanly even
+# when optional deps (pyspark, boto3) are missing — the pandas-only
+# helpers (canonical_team, apply_sleeper_team_overrides, get_script_sha)
+# are imported by `src/lineup_builder.py` on the FastAPI surface, which
+# runs without those heavy deps. Without lazy annotations, `SparkSession`
+# in `def get_spark_session(...)` evaluates eagerly at module-import time
+# and crashes the whole API on Railway.
+from __future__ import annotations
+
 import logging
 import os
 import subprocess
@@ -8,8 +17,20 @@ from datetime import datetime, timezone
 from pathlib import Path
 import pandas as pd
 from typing import Optional, Dict, Any
-import boto3
-from botocore.exceptions import ClientError
+
+# boto3 is an optional dependency at module-import time. Production
+# Railway image runs only the FastAPI surface and doesn't ship boto3 in
+# `web/api/serverless/requirements.txt` (S3 is dev-only). Eagerly
+# importing it here would crash any caller that imports `utils` for the
+# pandas-only helpers (canonical_team, apply_sleeper_team_overrides,
+# get_script_sha), which is exactly how the Railway lineups endpoint
+# 500s. Defer to a lazy import inside the S3 helpers via _require_boto3().
+try:
+    import boto3  # noqa: F401
+    from botocore.exceptions import ClientError  # noqa: F401
+    _BOTO3_AVAILABLE = True
+except (ImportError, Exception):
+    _BOTO3_AVAILABLE = False
 
 # PySpark is an optional dependency — guard the import so that modules
 # using only the pandas/boto3 helpers (get_latest_s3_key, download_latest_parquet,
@@ -21,6 +42,22 @@ try:
     _PYSPARK_AVAILABLE = True
 except (ImportError, Exception):
     _PYSPARK_AVAILABLE = False
+
+
+def _require_boto3():
+    """Raise a clear error when boto3 is needed but not installed.
+
+    The Railway production image deliberately omits boto3 — the FastAPI
+    surface reads everything from local Parquet. Anything that calls into
+    S3 (dev/CI ingestion) needs boto3; the install hint here makes the
+    failure obvious instead of letting Python's `NameError: boto3` mask it.
+    """
+    if not _BOTO3_AVAILABLE:
+        raise ImportError(
+            "boto3 is required for S3 operations but is not installed. "
+            "Run `pip install boto3 botocore` (already in requirements.txt; "
+            "absent from web/api/serverless/requirements.txt by design)."
+        )
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -64,10 +101,10 @@ def pandas_to_spark(spark: SparkSession, df: pd.DataFrame, schema: Optional[Stru
 def validate_s3_path(s3_path: str) -> bool:
     """
     Validate if S3 path exists and is accessible
-    
+
     Args:
         s3_path: S3 path to validate
-        
+
     Returns:
         True if path is valid and accessible
     """
@@ -75,12 +112,13 @@ def validate_s3_path(s3_path: str) -> bool:
         # Parse S3 path
         if not s3_path.startswith('s3://'):
             return False
-            
+
         path_parts = s3_path.replace('s3://', '').split('/', 1)
         bucket = path_parts[0]
         key = path_parts[1] if len(path_parts) > 1 else ''
-        
+
         # Check if bucket exists
+        _require_boto3()
         s3_client = boto3.client('s3')
         s3_client.head_bucket(Bucket=bucket)
         
@@ -160,15 +198,16 @@ def write_validation_report(validation_results: Dict[str, Any], output_path: str
     """
     try:
         import json
-        
+
         # Convert to JSON and upload to S3
         report_json = json.dumps(validation_results, indent=2, default=str)
-        
+
         # Parse S3 path
         path_parts = output_path.replace('s3://', '').split('/', 1)
         bucket = path_parts[0]
         key = path_parts[1] if len(path_parts) > 1 else 'validation_report.json'
-        
+
+        _require_boto3()
         s3_client = boto3.client('s3')
         s3_client.put_object(
             Bucket=bucket,
@@ -201,6 +240,7 @@ def get_latest_s3_key(
     Returns:
         S3 key string of the latest object, or None if no matching objects exist.
     """
+    _require_boto3()
     candidates = []
     paginator = s3_client.get_paginator('list_objects_v2')
     try:
