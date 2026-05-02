@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
-  currentWeekQueryOptions,
   predictionsQueryOptions,
   projectionsQueryOptions,
   teamDefenseMetricsQueryOptions,
   teamRosterQueryOptions
 } from '../api/queries';
+import { useWeekParams } from '@/hooks/use-week-params';
 import type {
   GamePrediction,
   PlayerProjection,
@@ -31,7 +31,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
 import { formatRelativeTime } from '@/lib/format-relative-time';
-import { ApiError } from '@/lib/nfl/api';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { getTeamFullName, TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -1015,44 +1014,46 @@ function MatchupSkeleton() {
 // ---------------------------------------------------------------------------
 
 export function MatchupView() {
-  // --- Step 1: resolve the current NFL week from the API on mount ---
-  // Phase 70-01: capture the error so a 503 ("no games this week" during the
-  // offseason) can render a friendly empty state instead of silently leaving
-  // the page blank. 503 is an expected offseason signal, NOT an error —
-  // the empty state is styled as informational, not destructive.
-  const { data: currentWeek, error: currentWeekError } = useQuery(
-    currentWeekQueryOptions()
-  );
+  // Resolve season/week from `/api/projections/latest-week` rather than the
+  // schedule's current-week endpoint. The schedule resolves to a populated
+  // (season, week) pair; the projections endpoint resolves to a (season,
+  // week) pair where actual roster + projection data exists. During the
+  // offseason these diverge — schedule says "2025 week 18" but no week-18
+  // projection file exists, so the matchups page rendered every team with
+  // empty rosters. `useWeekParams` walks back across seasons (max 3 hops)
+  // until it finds a populated slice, matching the lineups + predictions
+  // pages.
+  const {
+    season: resolvedSeason,
+    week: resolvedWeek,
+    setSeason: setSeasonParam,
+    setWeek: setWeekParam,
+    isResolving,
+    dataAsOf: weekDataAsOf
+  } = useWeekParams();
 
-  const isOffseason503 =
-    currentWeekError instanceof ApiError && currentWeekError.status === 503;
+  const setSeason = (v: number) => setSeasonParam(v);
+  const setWeek = (v: number) => setWeekParam(v);
 
-  const [season, setSeason] = useState<number | null>(null);
-  const [week, setWeek] = useState<number | null>(null);
   const [scoring, setScoring] = useState<ScoringFormat>('half_ppr');
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
 
-  // Seed season/week from current-week once, then let the user override.
-  useEffect(() => {
-    if (currentWeek && season === null && week === null) {
-      setSeason(currentWeek.season);
-      setWeek(currentWeek.week);
-    }
-  }, [currentWeek, season, week]);
-
-  // Effective values — prefer user state, fall back to currentWeek, then 2025/1.
-  const resolvedSeason = season ?? currentWeek?.season ?? 2025;
-  const resolvedWeek = week ?? currentWeek?.week ?? 1;
+  const isOffseason503 = false; // useWeekParams handles offseason gracefully
 
   // --- Step 2: fetch projections + predictions for the resolved week ---
-  const { data: projData, isLoading: projLoading } = useQuery(
-    projectionsQueryOptions(resolvedSeason, resolvedWeek, scoring)
-  );
-  const { data: predData, isLoading: predLoading } = useQuery(
-    predictionsQueryOptions(resolvedSeason, resolvedWeek)
-  );
+  // Both queries gated on `!isResolving` so they don't fire with the
+  // fallback (DEFAULT_FALLBACK_SEASON, 1) values before the latest-week
+  // resolver has settled — which would briefly show empty rosters.
+  const { data: projData, isLoading: projLoading } = useQuery({
+    ...projectionsQueryOptions(resolvedSeason, resolvedWeek, scoring),
+    enabled: !isResolving
+  });
+  const { data: predData, isLoading: predLoading } = useQuery({
+    ...predictionsQueryOptions(resolvedSeason, resolvedWeek),
+    enabled: !isResolving
+  });
 
-  const isLoading = projLoading || predLoading;
+  const isLoading = isResolving || projLoading || predLoading;
   const projections = projData?.projections ?? [];
   const predictions = predData?.predictions ?? [];
 
@@ -1102,8 +1103,7 @@ export function MatchupView() {
   const anyFallback = Boolean(
     offenseRosterData?.fallback ||
       defenseRosterData?.fallback ||
-      defenseMetricsData?.fallback ||
-      currentWeek?.source === 'fallback'
+      defenseMetricsData?.fallback
   );
   const fallbackSeason =
     offenseRosterData?.fallback_season ??
@@ -1114,7 +1114,7 @@ export function MatchupView() {
   // Freshness timestamp — pull from whichever payload carries generated_at
   // first; silent when nothing is available (plan 70-01: no "Unknown" label).
   const dataAsOf: string | null =
-    predData?.generated_at ?? projData?.generated_at ?? null;
+    predData?.generated_at ?? projData?.generated_at ?? weekDataAsOf ?? null;
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
