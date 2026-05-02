@@ -236,6 +236,24 @@ class TestProjections:
         assert kelce["proj_pass_yards"] is None
         assert kelce["proj_rec"] == 6.0
 
+    @patch("web.api.services.projection_service.get_projections")
+    def test_default_limit_is_full_slate(self, mock_get):
+        """Unfiltered /api/projections must default to 1000 rows.
+
+        Regression for the matchups blanking bug: a 200-row default truncated
+        the global top-N by projected_points and silently dropped mid-tier
+        starters on lower-projected teams (NYJ TE, MIN WR3, etc.), leaving
+        their cards empty. The matchups page builds 32 team rosters from a
+        single fetch, so the default must be the API ceiling.
+        """
+        mock_get.return_value = _mock_projections_df()
+        client.get("/api/projections?season=2024&week=17&scoring=half_ppr")
+        _, kwargs = mock_get.call_args
+        assert kwargs["limit"] == 1000, (
+            "Default limit must be 1000 to keep all 32 teams represented in "
+            "an unfiltered fetch."
+        )
+
 
 # ---------------------------------------------------------------------------
 # Predictions

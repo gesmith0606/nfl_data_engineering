@@ -107,10 +107,15 @@ class TestGetCurrentWeek:
         assert resp.week == 1
 
     def test_current_week_offseason(self):
-        """An offseason date with no current schedule should return fallback from latest season."""
+        """An offseason date with no current schedule should return a fallback.
+
+        Prefers ``source="projections-fallback"`` anchored to the latest
+        Gold projections slice. If no projections are bundled, the legacy
+        schedule fallback returns ``source="fallback"``.
+        """
         resp = team_roster_service.get_current_week(today=date(2026, 5, 1))
-        assert resp.source == "fallback"
-        assert resp.season == 2025  # latest available season in data/bronze/schedules/
+        assert resp.source in ("projections-fallback", "fallback")
+        assert 2016 <= resp.season <= 2030
         assert 1 <= resp.week <= 22
 
     def test_offseason_fallback_clamped_to_regular_season(self):
@@ -122,11 +127,29 @@ class TestGetCurrentWeek:
         user because no dropdown entry matches.
         """
         resp = team_roster_service.get_current_week(today=date(2026, 5, 1))
-        assert resp.source == "fallback"
+        assert resp.source in ("projections-fallback", "fallback")
         assert resp.week <= 18, (
             f"fallback week {resp.week} exceeded reg-season ceiling — "
             "the matchups page Week dropdown won't display a value above 18"
         )
+
+    def test_offseason_prefers_projections_fallback(self):
+        """When Gold projections are bundled, fallback anchors to that slice.
+
+        Regression for the matchups blanking bug: schedule fallback returned
+        ``2025/W18`` even though no projections for that week existed, so the
+        UI rendered a blank week. The projections-aware fallback aligns
+        ``current-week`` with what's actually renderable.
+        """
+        from web.api.services import projection_service
+
+        latest = projection_service.get_latest_slice()
+        if latest.week is None:
+            return  # no projections bundled — legacy fallback path is fine
+        resp = team_roster_service.get_current_week(today=date(2026, 5, 1))
+        assert resp.source == "projections-fallback"
+        assert resp.season == latest.season
+        assert resp.week == min(latest.week, 18)
 
 
 # ---------------------------------------------------------------------------
@@ -140,7 +163,7 @@ class TestTeamsEndpoints:
         assert resp.status_code == 200
         body = resp.json()
         assert set(body.keys()) >= {"season", "week", "source"}
-        assert body["source"] in {"schedule", "fallback"}
+        assert body["source"] in {"schedule", "projections-fallback", "fallback"}
         assert 2016 <= body["season"] <= 2030
         assert 1 <= body["week"] <= 22
 

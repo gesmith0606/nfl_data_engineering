@@ -864,15 +864,21 @@ class AdpResponse(BaseModel):
 
 class CurrentWeekResponse(BaseModel):
     """Current NFL (season, week) pair derived from today's date and the latest
-    local schedule parquet. ``source == 'schedule'`` means today's date falls inside
-    a ``gameday .. gameday + 6 days`` window on a real schedule row; ``source ==
-    'fallback'`` means the offseason/no-match path — the endpoint returned the
-    max (season, week) found in the data lake.
+    local schedule parquet.
+
+    ``source`` values:
+      * ``'schedule'`` — today's date falls inside a ``gameday .. gameday + 6 days``
+        window on a real schedule row.
+      * ``'projections-fallback'`` — offseason path; no live game window matched, so
+        the endpoint anchored to the latest (season, week) that has Gold projections
+        available, ensuring downstream UIs land on a renderable slice.
+      * ``'fallback'`` — last-resort path; returned the max (season, week) found in
+        the schedule data lake when no projections exist anywhere.
     """
 
     season: int = Field(..., ge=2016, le=2030)
     week: int = Field(..., ge=1, le=22)
-    source: Literal["schedule", "fallback"]
+    source: Literal["schedule", "projections-fallback", "fallback"]
 
 
 class RosterPlayer(BaseModel):

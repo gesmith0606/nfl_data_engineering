@@ -97,9 +97,16 @@ def list_projections(
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
     team: Optional[str] = Query(None, description="Team abbreviation"),
-    limit: int = Query(200, ge=1, le=1000, description="Max results"),
+    limit: int = Query(1000, ge=1, le=1000, description="Max results"),
 ) -> ProjectionResponse:
-    """Return player projections for the given season, week, and scoring format."""
+    """Return player projections for the given season, week, and scoring format.
+
+    Default ``limit`` is the API ceiling (1000) so unfiltered callers — like
+    the matchups page, which builds 32 team rosters from a single fetch —
+    always receive the full slate. Truncating to a top-N by projected_points
+    silently drops mid-tier RB2/WR3/TE on lower-projected teams (NYJ/CHI/MIN)
+    and renders their offensive cards blank.
+    """
     if scoring not in VALID_SCORING_FORMATS:
         raise HTTPException(
             status_code=400,

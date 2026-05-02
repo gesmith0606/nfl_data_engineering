@@ -85,7 +85,11 @@ export async function fetchProjections(
   });
   if (position && position !== "ALL") params.set("position", position);
   if (team) params.set("team", team);
-  if (limit) params.set("limit", String(limit));
+  // Always request the full slate when neither team nor position is filtered.
+  // The matchups page builds 32 team cards from one fetch — truncating to
+  // the server-side default silently blanked out NYJ/CHI/MIN/etc. rosters.
+  const effectiveLimit = limit ?? (position || team ? undefined : 1000);
+  if (effectiveLimit) params.set("limit", String(effectiveLimit));
 
   return request<ProjectionResponse>(`/api/projections?${params}`);
 }

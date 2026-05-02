@@ -401,12 +401,27 @@ def get_current_week(today: Optional[date] = None) -> CurrentWeekResponse:
                 source="schedule",
             )
 
-    # Fallback: latest schedule parquet's max (season, week). Clamp to the
+    # Offseason fallback: prefer the (season, week) that has actual Gold
+    # projections bundled. Echoing the schedule's max (e.g. 2025/W18) when no
+    # projections exist for that slice means downstream callers — and the UI
+    # banner — point at an empty week.
+    try:
+        from .projection_service import get_latest_slice
+
+        latest_proj = get_latest_slice()
+        if latest_proj.week is not None:
+            return CurrentWeekResponse(
+                season=int(latest_proj.season),
+                week=min(int(latest_proj.week), _REG_SEASON_MAX_WEEK),
+                source="projections-fallback",
+            )
+    except Exception:  # pragma: no cover — projections unavailable, fall through
+        logger.debug("projections-fallback unavailable; using schedule fallback")
+
+    # Last resort: latest schedule parquet's max (season, week). Clamp to the
     # regular-season ceiling — schedule parquets carry weeks 19-22 for the
     # postseason, but the matchups / lineups / predictions UIs only model
-    # weeks 1-18 (the Week dropdown options stop at 18). Returning week=22
-    # leaves the resolvedWeek invisible to the user because no dropdown
-    # entry matches.
+    # weeks 1-18.
     result = _latest_schedule_any()
     if result is None:
         raise FileNotFoundError(f"No schedule parquet found under {_SCHEDULES_ROOT}")
