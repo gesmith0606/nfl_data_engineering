@@ -55,6 +55,11 @@ _ROSTERS_LIVE_ROOT = DATA_DIR / "bronze" / "players" / "rosters_live"
 _SNAPS_ROOT = DATA_DIR / "bronze" / "players" / "snaps"
 _SCHEDULES_ROOT = DATA_DIR / "bronze" / "schedules"
 
+# Regular-season ceiling. The matchup / lineups / predictions pages only
+# render weeks 1-18 in their Week dropdowns; the schedule parquet carries
+# postseason weeks 19-22 that we deliberately don't expose through the UI.
+_REG_SEASON_MAX_WEEK = 18
+
 _OFFENSE_POSITIONS = {"QB", "RB", "WR", "TE", "FB"}
 _OFFENSE_DEPTH = {"QB", "RB", "WR", "TE", "FB", "T", "G", "C"}
 _OL_DEPTH = {"T", "G", "C"}
@@ -396,12 +401,24 @@ def get_current_week(today: Optional[date] = None) -> CurrentWeekResponse:
                 source="schedule",
             )
 
-    # Fallback: latest schedule parquet's max (season, week)
+    # Fallback: latest schedule parquet's max (season, week). Clamp to the
+    # regular-season ceiling — schedule parquets carry weeks 19-22 for the
+    # postseason, but the matchups / lineups / predictions UIs only model
+    # weeks 1-18 (the Week dropdown options stop at 18). Returning week=22
+    # leaves the resolvedWeek invisible to the user because no dropdown
+    # entry matches.
     result = _latest_schedule_any()
     if result is None:
         raise FileNotFoundError(f"No schedule parquet found under {_SCHEDULES_ROOT}")
     df, season = result
-    max_week = int(df["week"].max())
+    weeks = pd.to_numeric(df["week"], errors="coerce").dropna()
+    reg_season_weeks = weeks[weeks <= _REG_SEASON_MAX_WEEK]
+    if not reg_season_weeks.empty:
+        max_week = int(reg_season_weeks.max())
+    elif not weeks.empty:
+        max_week = int(min(weeks.max(), _REG_SEASON_MAX_WEEK))
+    else:
+        max_week = _REG_SEASON_MAX_WEEK
     return CurrentWeekResponse(
         season=int(season),
         week=max_week,
