@@ -1,8 +1,8 @@
 FROM python:3.9-slim
 
-# Cache-buster: bumped 2026-04-30 to force Railway to re-run all COPY layers
+# Cache-buster: bumped 2026-05-01 to force Railway to re-run all COPY layers
 # instead of importing a stale cached image. Change this ARG to invalidate cache.
-ARG CACHE_BUST=2026-04-30-01
+ARG CACHE_BUST=2026-05-01-01
 
 WORKDIR /app
 
@@ -43,6 +43,14 @@ COPY data/bronze/players/rosters/ ./data/bronze/players/rosters/
 # Without these COPY'd, the endpoint silently returns lineups=[] for every
 # team. Allowlist already exists in .gitignore (TD-08).
 COPY data/bronze/depth_charts/ ./data/bronze/depth_charts/
+
+# Silver defense+team SoS: required by /api/teams/{team}/defense-metrics
+# (team_defense_service reads `data/silver/defense/positional/` and
+# `data/silver/teams/sos/`). Without these the matchups page renders an
+# empty matchup-advantages card and "neutral" tooltips for every key
+# matchup. ~13 MB.
+COPY data/silver/defense/ ./data/silver/defense/
+COPY data/silver/teams/ ./data/silver/teams/
 
 ENV PORT=8000
 EXPOSE 8000
