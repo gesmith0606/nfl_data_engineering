@@ -1,0 +1,75 @@
+{
+  "fetch_run_id": "4ae322ce-13e5-44b2-8abf-ea0571a35837",
+  "source": "rotowire",
+  "fetched_at": "2026-05-03T12:30:55.124890+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 3,
+  "items": [
+    {
+      "external_id": "nfl630678",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Expected to participate in OTAs",
+      "body_text": "Mahomes (knee) is expected to participate in Kansas City's OTAs, beginning May 26, Nate Taylor of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-02T06:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Kansas City",
+        "Nate Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630674",
+      "url": "https://www.rotowire.com//football/player/david-njoku-11734",
+      "permalink": "",
+      "title": "David Njoku: Getting look from Bolts",
+      "body_text": "Njoku will visit the Chargers on Monday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-02T02:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Njoku",
+        "Bolts Njoku",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl630660",
+      "url": "https://www.rotowire.com//football/player/anthony-richardson-16653",
+      "permalink": "",
+      "title": "Anthony Richardson: Doesn't receive fifth-year option",
+      "body_text": "The Colts didn't exercise the fifth-year option on Richardson's (eye) rookie contract, Kevin Bowen of 107.5 The Fan Indianapolis reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-01T01:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson",
+        "The Colts",
+        "Kevin Bowen",
+        "The Fan"
+      ],
+      "resolved_player_ids": [
+        "00-0039164",
+        "00-0032373"
+      ],
+      "team_hint": "IND"
+    }
+  ]
+}

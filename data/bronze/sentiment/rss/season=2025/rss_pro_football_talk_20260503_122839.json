@@ -1,0 +1,486 @@
+{
+  "fetch_run_id": "3484337c-d33c-4646-8472-48479e426303",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-03T12:28:39.379233+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-learning-to-play-from-under-center-for-the-first-time-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-learning-to-play-from-under-center-for-the-first-time-in-the-nfl",
+      "title": "Fernando Mendoza learning to play from under center for the first time in the NFL",
+      "body_text": "Mendoza took almost all his snaps in the shotgun in college. That won't be the case with the Raiders.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-03T08:39:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-on-diego-pavia-show-us-what-you-can-do",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-on-diego-pavia-show-us-what-you-can-do",
+      "title": "Jesse Minter on Diego Pavia: Show us what you can do",
+      "body_text": "The Ravens have given Diego Pavia a chance.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-03T03:01:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jesse Minter",
+        "Diego Pavia",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-doesnt-plan-to-visit-the-white-house-with-indiana",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-doesnt-plan-to-visit-the-white-house-with-indiana",
+      "title": "Fernando Mendoza doesn't plan to visit the White House with Indiana",
+      "body_text": "The Raiders' rookie quarterback said he has too much work to do to travel cross country for the May 11 celebration.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-03T02:32:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "White House",
+        "Indiana The"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-returns-to-colorado-to-get-his-degree",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-returns-to-colorado-to-get-his-degree",
+      "title": "Shedeur Sanders returns to Colorado to get his degree",
+      "body_text": "In the five years since the NIL era obliterated the facade that college football players are there for college, not much has been said about grade-point averages or graduation rates.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T23:52:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-hire-trent-baalke-in-a-consultant-role",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-hire-trent-baalke-in-a-consultant-role",
+      "title": "Report: Browns hire Trent Baalke in a consultant role",
+      "body_text": "The Browns have hired longtime NFL executive Trent Baalke in a \"consultant-like capacity,\" Matt Zenitz of CBS Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-02T23:03:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Baalke",
+        "The Browns",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-njoku-set-to-visit-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-njoku-set-to-visit-chargers",
+      "title": "David Njoku set to visit Chargers",
+      "body_text": "One of the top unsigned veteran free agents in the league has lined up a visit for early next week.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-02T21:44:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Njoku",
+        "Chargers One"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-could-be-headed-for-supplemental-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-could-be-headed-for-supplemental-draft",
+      "title": "Brendan Sorsby could be headed for supplemental draft",
+      "body_text": "Sorsby will first try to regain his college eligibility, with the help of attorney Jeffrey Kessler.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T21:31:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Jeffrey Kessler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dawand-jones-agrees-to-revised-contract-with-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dawand-jones-agrees-to-revised-contract-with-browns",
+      "title": "Dawand Jones agrees to revised contract with Browns",
+      "body_text": "Offensive tackle Dawand Jones and the Browns have come to agreement on a revised contract for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-02T21:37:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dawand Jones",
+        "Browns Offensive"
+      ],
+      "resolved_player_ids": [
+        "00-0039014"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-in-good-position-to-do-some-work-during-offseason-program",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-in-good-position-to-do-some-work-during-offseason-program",
+      "title": "Patrick Mahomes \"in good position\" to do some work during offseason program",
+      "body_text": "Chiefs head coach Andy Reid shared a positive update about quarterback Patrick Mahomes's recovery from his torn ACL on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-02T21:28:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Andy Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-addresses-the-shilo-sanders-comments-about-mary-kay-cabot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-addresses-the-shilo-sanders-comments-about-mary-kay-cabot",
+      "title": "Todd Monken addresses the Shilo Sanders comments about Mary Kay Cabot",
+      "body_text": "Shilo Sanders, the brother of Browns quarterback Shedeur Sanders, created a stir in recent days by making a misogynistic remark about longtime Browns reporter Mary Kay Cabot, and by following it not with an apology but an explanation that only reinforced his misguided views.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T18:10:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "Shilo Sanders",
+        "Mary Kay",
+        "Cabot Shilo",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040426",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/would-the-nfl-ever-hold-a-draft-in-another-country",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/would-the-nfl-ever-hold-a-draft-in-another-country",
+      "title": "Would the NFL ever hold a draft in another country?",
+      "body_text": "From time to time, the NFL drops a hint about the possibility of playing a Super Bowl on foreign soil.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T17:26:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-received-no-signing-bonus-with-the-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-received-no-signing-bonus-with-the-ravens",
+      "title": "Diego Pavia received no signing bonus with the Ravens",
+      "body_text": "After going undrafted and not immediately signed as an undrafted free agent last weekend, former Vanderbilt quarterback Diego Pavia has gotten an opportunity.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T16:46:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Diego Pavia",
+        "Ravens After"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cte-lawsuit-filed-by-family-of-1950s-player-results-in-140-million-verdict-against-ncaa",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cte-lawsuit-filed-by-family-of-1950s-player-results-in-140-million-verdict-against-ncaa",
+      "title": "CTE lawsuit filed by family of 1950s player results in $140 million verdict against NCAA",
+      "body_text": "J.T.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T16:33:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-malik-willis-first-pitch-didnt-go-very-well",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-malik-willis-first-pitch-didnt-go-very-well",
+      "title": "The Malik Willis first pitch didn't go very well",
+      "body_text": "For professional athletes — especially those who use their arms for a living — throwing out the first pitch at a baseball game becomes a no-win proposition.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T15:05:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Malik"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/miami-slips-out-of-super-bowl-rotation-due-to-nfl-requirements",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/miami-slips-out-of-super-bowl-rotation-due-to-nfl-requirements",
+      "title": "Miami slips out of Super Bowl rotation due to NFL requirements",
+      "body_text": "Miami has hosted 11 Super Bowls.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T14:40:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-beane-on-bills-not-winning-it-all-no-ones-more-angry-at-me-than-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-beane-on-bills-not-winning-it-all-no-ones-more-angry-at-me-than-me",
+      "title": "Brandon Beane on Bills not winning it all: No one's more angry at me than me",
+      "body_text": "The Bills were on a 17-year playoff drought when they hired Brandon Beane as general manager.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-02T12:12:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Beane",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-morgan-a-long-term-contract-for-bryce-young-is-something-were-talking-about",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-morgan-a-long-term-contract-for-bryce-young-is-something-were-talking-about",
+      "title": "Dan Morgan: A long-term contract for Bryce Young is something we're talking about",
+      "body_text": "Said the Panthers' GM about getting their franchise quarterback signed, \"We'll do it at the right time.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-02T08:13:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Morgan",
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0020443",
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-fifth-year-option-list-for-2023-first-round-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-fifth-year-option-list-for-2023-first-round-picks",
+      "title": "Final fifth-year option list for 2023 first-round picks",
+      "body_text": "22 were exercised; nine were not. (And two have gotten long-term deals.)",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T04:01:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-have-record-season-ticket-renewal-rate-at-99-5-percent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-have-record-season-ticket-renewal-rate-at-99-5-percent",
+      "title": "Broncos have record season-ticket renewal rate, at 99.5 percent",
+      "body_text": "The 2025 Broncos won the No. 1 seed in the AFC and came within a whisker (and a Bo Nix broken ankle with a twist of a freak snowstorm) of the Super Bowl.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T02:00:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-decline-cb-emmanuel-forbes-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-decline-cb-emmanuel-forbes-fifth-year-option",
+      "title": "Rams decline CB Emmanuel Forbes' fifth-year option",
+      "body_text": "The Rams declined the fifth-year option on the contract of cornerback Emmanuel Forbes, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T21:59:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Emmanuel Forbes",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039151"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-not-the-first-time-the-steelers-called-a-prospect-early",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-not-the-first-time-the-steelers-called-a-prospect-early",
+      "title": "Report: \"Not the first time\" the Steelers called a prospect early",
+      "body_text": "Unnamed source dubs it \"crazy\" to call a prospect befre being on the clock.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T21:52:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-decline-felix-anudike-uzomahs-fifth-year-option",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-decline-felix-anudike-uzomahs-fifth-year-option",
+      "title": "Chiefs decline Felix Anudike-Uzomah's fifth-year option",
+      "body_text": "The Chiefs have declined the fifth-year option on the contract of defensive end Felix Anudike-Uzomah, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T21:45:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Felix Anudike",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-will-ease-titans-draft-picks-into-rookie-minicamp-to-avoid-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-will-ease-titans-draft-picks-into-rookie-minicamp-to-avoid-injuries",
+      "title": "Robert Saleh will ease Titans' draft picks into rookie minicamp to avoid injuries",
+      "body_text": "In 2015, Robert Saleh was the Jaguars' linebackers coach when they used the No. 3 overall pick in the draft on pass rusher Dante Fowler.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-01T21:12:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Saleh",
+        "Dante Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0032052"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-claim-de-ali-gaye-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-claim-de-ali-gaye-off-of-waivers",
+      "title": "Texans claim DE Ali Gaye off of waivers",
+      "body_text": "The Texans have brought defensive end Ali Gaye back for a second tour of duty with the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T21:00:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ali Gaye",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0038724"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-decline-fifth-year-option-for-cb-deonte-banks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-decline-fifth-year-option-for-cb-deonte-banks",
+      "title": "Giants decline fifth-year option for CB Deonte Banks",
+      "body_text": "Giants cornerback Deonte Banks is now set to become a free agent next spring.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-01T20:53:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deonte Banks"
+      ],
+      "resolved_player_ids": [
+        "00-0039000"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-fifth-round-cb-karon-prunty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-fifth-round-cb-karon-prunty",
+      "title": "Patriots sign fifth-round CB Karon Prunty",
+      "body_text": "The Patriots have signed fifth-round cornerback Karon Prunty to his four-year rookie deal, Christopher Price of the Boston Globe reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T20:11:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Karon Prunty",
+        "The Patriots",
+        "Christopher Price",
+        "Boston Globe"
+      ],
+      "resolved_player_ids": [
+        "PRU764260"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-jacob-clark-among-raiders-undrafted-free-agent-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-jacob-clark-among-raiders-undrafted-free-agent-signings",
+      "title": "QB Jacob Clark among Raiders' undrafted free agent signings",
+      "body_text": "Fernando Mendoza won't be the only rookie at Raiders practices this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-01T19:52:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacob Clark",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-seven-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-seven-undrafted-free-agents",
+      "title": "Seahawks sign seven undrafted free agents",
+      "body_text": "The Seahawks signed seven undrafted rookie free agents on Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-01T19:13:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kalshi-polymarket-offer-prediction-markets-tied-to-mike-vrabels-future-with-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kalshi-polymarket-offer-prediction-markets-tied-to-mike-vrabels-future-with-patriots",
+      "title": "Kalshi, Polymarket offer prediction markets tied to Mike Vrabel's future with Patriots",
+      "body_text": "Given the developments to date and the possibility, if not inevitability, of more developments to come, it remains possible that Mike Vrabel won't remain the head coach of the Patriots.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T19:42:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Patriots Given"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/meta-says-mark-zuckerberg-isnt-interested-in-the-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/meta-says-mark-zuckerberg-isnt-interested-in-the-seahawks",
+      "title": "Meta says Mark Zuckerberg isn't interested in the Seahawks",
+      "body_text": "It was fun while it lasted.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T19:09:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Zuckerberg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    }
+  ]
+}
