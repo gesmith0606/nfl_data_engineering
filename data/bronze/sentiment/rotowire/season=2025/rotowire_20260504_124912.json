@@ -1,0 +1,52 @@
+{
+  "fetch_run_id": "3a3285b1-5b36-4f5c-8216-3b5d2ca4b080",
+  "source": "rotowire",
+  "fetched_at": "2026-05-04T12:49:12.864241+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 2,
+  "items": [
+    {
+      "external_id": "nfl630678",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Expected to participate in OTAs",
+      "body_text": "Mahomes (knee) is expected to participate in Kansas City's OTAs, beginning May 26, Nate Taylor of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-02T06:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Kansas City",
+        "Nate Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630674",
+      "url": "https://www.rotowire.com//football/player/david-njoku-11734",
+      "permalink": "",
+      "title": "David Njoku: Getting look from Bolts",
+      "body_text": "Njoku will visit the Chargers on Monday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-02T02:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Njoku",
+        "Bolts Njoku",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "LAC"
+    }
+  ]
+}
