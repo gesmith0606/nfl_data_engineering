@@ -1,0 +1,492 @@
+{
+  "fetch_run_id": "7de8c9d1-6e54-4f67-846c-0722483b003c",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-05T12:37:45.953988+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-ryan-sees-untapped-potential-in-jahan-dotson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-ryan-sees-untapped-potential-in-jahan-dotson",
+      "title": "Matt Ryan sees \"untapped potential\" in Jahan Dotson",
+      "body_text": "Falcons president of football Matt Ryan isn't quite sure what to expect from the team's quarterbacks once the team gets to training camp this summer, but he seems to have a bit more certainty when it comes to one of the team's offseason additions.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T11:17:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Ryan",
+        "Jahan Dotson"
+      ],
+      "resolved_player_ids": [
+        "00-0026143",
+        "00-0037741"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-oc-adam-stenavich-its-gonna-be-a-big-year-for-matthew-golden",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-oc-adam-stenavich-its-gonna-be-a-big-year-for-matthew-golden",
+      "title": "Packers OC Adam Stenavich: It's going to be a big year for Matthew Golden",
+      "body_text": "The 2025 first-round pick is expected to step up after offseason changes to the receiving corps.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T10:56:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adam Stenavich",
+        "Matthew Golden"
+      ],
+      "resolved_player_ids": [
+        "00-0040667"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-trial-will-continue-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-trial-will-continue-on-tuesday",
+      "title": "Stefon Diggs trial will continue on Tuesday",
+      "body_text": "First day ends during testimony of alleged victim.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T01:59:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stefon Diggs",
+        "Tuesday First"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hints-emerge-that-dianna-russini-will-eventually-tell-her-story",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hints-emerge-that-dianna-russini-will-eventually-tell-her-story",
+      "title": "Hints emerge that Dianna Russini will eventually tell her story",
+      "body_text": "The developments regarding the story that has had plenty of them over the past four weeks have slowed down, for now.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T00:54:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-i-couldnt-be-happier-that-saints-signed-travis-etienne",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-i-couldnt-be-happier-that-saints-signed-travis-etienne",
+      "title": "Alvin Kamara: I couldn't be happier that Saints signed Travis Etienne",
+      "body_text": "Alvin Kamara didn't specifically address his plans for next season during an interview on Terron Armstead's podcast The Set, but the running back sounds like he wants to play for the Saints this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-05T00:33:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alvin Kamara",
+        "Travis Etienne",
+        "Terron Armstead",
+        "The Set"
+      ],
+      "resolved_player_ids": [
+        "00-0033906",
+        "00-0036973",
+        "00-0030067"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-extend-contracts-of-big-dom-assistant-g-m-jon-ferrari",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-extend-contracts-of-big-dom-assistant-g-m-jon-ferrari",
+      "title": "Eagles extend contracts of Big Dom, assistant G.M. Jon Ferrari",
+      "body_text": "The post-draft period in Philadelphia has brought some changes to the front office.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T00:15:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Big Dom",
+        "Jon Ferrari"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-and-the-cardinals-make-sense-at-one-level-no-sense-at-another-level",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-and-the-cardinals-make-sense-at-one-level-no-sense-at-another-level",
+      "title": "Aaron Rodgers and the Cardinals make sense at one level, no sense at another level",
+      "body_text": "From the moment quarterback Aaron Rodgers became a free agent, it was obvious that not many teams were interested in signing him to be the starting quarterback.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-04T23:44:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawrence-taylor-released-from-new-jersey-hospital",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawrence-taylor-released-from-new-jersey-hospital",
+      "title": "Lawrence Taylor released from New Jersey hospital",
+      "body_text": "Doctors have released Lawrence Taylor from the hospital, sending him home to continue his recovery from pancreatitis.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-04T22:18:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lawrence Taylor",
+        "New Jersey"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-wr-deandre-hopkins-expresses-desire-to-play-with-joe-burrow",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-wr-deandre-hopkins-expresses-desire-to-play-with-joe-burrow",
+      "title": "Free agent WR DeAndre Hopkins expresses desire to play with Joe Burrow",
+      "body_text": "Wide receiver DeAndre Hopkins has played with 17 different starting quarterbacks in his 13-year career with the Texans, Cardinals, Titans, Chiefs and Ravens.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-04T21:26:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-wr-jonathan-brady-put-wr-justin-shorter-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-wr-jonathan-brady-put-wr-justin-shorter-on-ir",
+      "title": "Raiders sign WR Jonathan Brady, put WR Justin Shorter on IR",
+      "body_text": "Another one of Fernando Mendoza's Indiana teammates will be joining him with the Raiders.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-04T20:13:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Brady",
+        "Justin Shorter",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0038590",
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-te-jaheim-bell-to-a-one-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-te-jaheim-bell-to-a-one-year-deal",
+      "title": "Steelers sign TE Jaheim Bell to a one-year deal",
+      "body_text": "The Steelers signed tight end Jaheim Bell to a one-year contract, the team announced on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-04T20:05:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaheim Bell",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0039420"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-ryan-dont-know-what-to-expect-when-camp-starts-but-feel-were-in-a-good-spot-at-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-ryan-dont-know-what-to-expect-when-camp-starts-but-feel-were-in-a-good-spot-at-qb",
+      "title": "Matt Ryan: Don't know what to expect when camp starts, but feel we're in a \"good spot\" at QB",
+      "body_text": "When Matt Ryan was playing for the Falcons, the team didn't have to answer any questions about their quarterback plans but his first year as the franchise's president of football isn't starting under the same circumstances.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-04T19:56:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Ryan",
+        "When Matt"
+      ],
+      "resolved_player_ids": [
+        "00-0026143"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-cut-seven-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-cut-seven-players",
+      "title": "Dolphins cut seven players",
+      "body_text": "The Dolphins cut seven players on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-04T19:46:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-to-release-desmond-ridder",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-to-release-desmond-ridder",
+      "title": "Packers to release Desmond Ridder",
+      "body_text": "The Packers' move to sign Tyrod Taylor is going to cost another of the team's quarterbacks his spot on the 90-man roster in Green Bay.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-04T18:32:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Desmond Ridder",
+        "The Packers",
+        "Tyrod Taylor",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0038122",
+        "00-0028118"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ravens-are-expected-to-sign-qb-skylar-thompson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ravens-are-expected-to-sign-qb-skylar-thompson",
+      "title": "Report: Ravens are expected to sign QB Skylar Thompson",
+      "body_text": "The Ravens are set to make another addition to their quarterback room.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-04T18:16:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Skylar Thompson",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0037327"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-expresses-disagreement-with-recent-140-million-verdict-in-cte-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-expresses-disagreement-with-recent-140-million-verdict-in-cte-case",
+      "title": "NCAA expresses disagreement with recent $140 million verdict in CTE case",
+      "body_text": "A Texas jury recently entered a massive verdict against the NCAA arising from an SMU college football player from the 1950s.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-04T18:13:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-agree-to-sign-qb-tyrod-taylor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-agree-to-sign-qb-tyrod-taylor",
+      "title": "Packers agree to sign QB Tyrod Taylor",
+      "body_text": "With Malik Willis off to the Dolphins, the Packers have brought in a new veteran backup quarterback.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-04T17:57:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyrod Taylor",
+        "With Malik"
+      ],
+      "resolved_player_ids": [
+        "00-0028118"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-owner-cal-mcnair-were-fully-committed-to-c-j-stroud-will-see-how-contract-works-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-owner-cal-mcnair-were-fully-committed-to-c-j-stroud-will-see-how-contract-works-out",
+      "title": "Texans owner Cal McNair: We're fully committed to C.J. Stroud, will see how contract works out",
+      "body_text": "The Texans didn't waste much time after defensive end Will Anderson became eligible for a contract extension before signing him to a new deal that ties him to the franchise through the 2030 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-04T17:35:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Texans",
+        "Will Anderson"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-could-be-running-out-of-patience-with-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-could-be-running-out-of-patience-with-aaron-rodgers",
+      "title": "Steelers could be running out of patience with Aaron Rodgers",
+      "body_text": "The clock keeps ticking, and the Steelers keep waiting.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-04T17:28:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-reports-to-colts-offseason-program",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-reports-to-colts-offseason-program",
+      "title": "Anthony Richardson reports to Colts offseason program",
+      "body_text": "The Colts have been trying to trade 2023 No. 4 overall pick Anthony Richardson throughout the offseason.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-04T17:15:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Richardson",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-tatums-sudden-knee-injury-highlights-the-issue-of-inside-information",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-tatums-sudden-knee-injury-highlights-the-issue-of-inside-information",
+      "title": "Jayson Tatum's sudden knee injury highlights the issue of inside information",
+      "body_text": "The NBA has an inside information problem.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-04T15:23:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayson Tatum"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-played-beat-the-clock-to-draft-caleb-downs-at-no-11",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-played-beat-the-clock-to-draft-caleb-downs-at-no-11",
+      "title": "Cowboys played beat the clock to draft Caleb Downs at No. 11",
+      "body_text": "The reduction of the round one selection window from 10 minutes to eight minutes made things move more quickly in the 2026 NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-04T16:30:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Downs"
+      ],
+      "resolved_player_ids": [
+        "DOW662609"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nazeeh-johnson-visiting-with-eagles-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nazeeh-johnson-visiting-with-eagles-on-monday",
+      "title": "Nazeeh Johnson visiting with Eagles on Monday",
+      "body_text": "The Eagles are taking a look at a defensive player who would likely be a significant special teams contributor.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-04T16:19:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nazeeh Johnson",
+        "Monday The"
+      ],
+      "resolved_player_ids": [
+        "00-0037198"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-stefon-diggs-criminal-trial-began-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-stefon-diggs-criminal-trial-began-on-monday",
+      "title": "The Stefon Diggs criminal trial began on Monday",
+      "body_text": "Diggs faces felony strangulation and misdemeanor assault charges.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-04T15:58:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Stefon",
+        "Monday Diggs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-waive-qb-jake-haener-two-others",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-waive-qb-jake-haener-two-others",
+      "title": "Chiefs waive QB Jake Haener, two others",
+      "body_text": "Quarterback Jake Haener's time in Kansas City has come to an end.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-04T15:20:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Haener",
+        "Quarterback Jake",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0038998"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-ol-dj-wingfield-after-tryout-at-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-ol-dj-wingfield-after-tryout-at-rookie-minicamp",
+      "title": "Cowboys sign OL DJ Wingfield after tryout at rookie minicamp",
+      "body_text": "The Cowboys are adding an offensive lineman who tried out for the team at their rookie minicamp to their 90-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-04T15:02:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-downs-has-the-top-selling-rookie-jersey-so-far",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-downs-has-the-top-selling-rookie-jersey-so-far",
+      "title": "Caleb Downs has the top-selling rookie jersey, so far",
+      "body_text": "He was the eleventh overall pick in the draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-03T15:20:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Downs"
+      ],
+      "resolved_player_ids": [
+        "DOW662609"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-on-the-rookies-none-of-these-guys-are-in-great-shape-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-on-the-rookies-none-of-these-guys-are-in-great-shape-right-now",
+      "title": "Brian Schottenheimer on the rookies: \"None of these guys are in great shape right now\"",
+      "body_text": "As rookies throughout the NFL get their first taste of pro football, some of them will be getting a second taste of their most recent meals.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-04T14:19:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-fifth-year-option-list-for-2023-first-round-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-fifth-year-option-list-for-2023-first-round-picks",
+      "title": "Final fifth-year option list for 2023 first-round picks",
+      "body_text": "22 were exercised; nine were not. (And two have gotten long-term deals.)",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T04:01:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/meta-says-mark-zuckerberg-isnt-interested-in-the-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/meta-says-mark-zuckerberg-isnt-interested-in-the-seahawks",
+      "title": "Meta says Mark Zuckerberg isn't interested in the Seahawks",
+      "body_text": "It was fun while it lasted.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-01T19:09:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Zuckerberg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    }
+  ]
+}

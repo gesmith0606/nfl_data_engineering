@@ -1,0 +1,51 @@
+{
+  "fetch_run_id": "00eecb40-aea8-433f-9e60-80db8a4e05d7",
+  "source": "rotowire",
+  "fetched_at": "2026-05-05T12:39:59.022008+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 2,
+  "items": [
+    {
+      "external_id": "nfl630688",
+      "url": "https://www.rotowire.com//football/player/tyrod-taylor-7357",
+      "permalink": "",
+      "title": "Tyrod Taylor: Linking up with Packers",
+      "body_text": "Taylor (knee) is signing a contract with the Packers, Tom Pelissero of NFL Network reports Monday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-04T11:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyrod Taylor",
+        "Packers Taylor",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0028118"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl630687",
+      "url": "https://www.rotowire.com//football/player/anthony-richardson-16653",
+      "permalink": "",
+      "title": "Anthony Richardson: Present at Monday's voluntary OTAs",
+      "body_text": "Richardson (eye) reported for voluntary offseason workouts Monday, Stephen Holder of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-04T09:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson",
+        "Stephen Holder"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": null
+    }
+  ]
+}
