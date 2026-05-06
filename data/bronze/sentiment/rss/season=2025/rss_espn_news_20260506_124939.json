@@ -1,0 +1,294 @@
+{
+  "fetch_run_id": "31d4ef0f-e534-4253-8d54-a6b22e6901e9",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-06T12:49:39.993746+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 18,
+  "items": [
+    {
+      "external_id": "US-EN-48675818",
+      "url": "https://www.espn.com/nfl/story/_/id/48675818/2026-nfl-offseason-draft-veteran-hot-seats-position-battles-rookies",
+      "title": "Who is on the hot seat after the NFL draft? 14 vet...",
+      "body_text": "Could Xavier Legette lose snaps to Chris Brazzell II in Carolina? Will Carrington Valentine get jumped by Brandon Cisse on the Green Bay depth chart?",
+      "author": "Ben Solak",
+      "published_at": "2026-05-06T12:16:17+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Could Xavier",
+        "Chris Brazzell II",
+        "Will Carrington",
+        "Brandon Cisse",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "BRA836631",
+        "CIS501810"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48638948",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48638948/2026-nfl-draft-confidential-college-coaches-surprise-picks-sleepers",
+      "title": "College coaches evaluate the draft: Steal for Cowb...",
+      "body_text": "College coaches know the draftees in different ways. They were surprised by some moves and loved what others did.",
+      "author": "Adam Rittenberg",
+      "published_at": "2026-05-06T12:16:17+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48685492",
+      "url": "https://www.espn.com/nfl/story/_/id/48685492/chef-shies-financial-questions-stefon-diggs-assault-trial",
+      "title": "Chef shies from financial questions in Diggs trial...",
+      "body_text": "A jury found former New England Patriots receiver Stefon Diggs not guilty on charges of felony strangulation and misdemeanor assault and battery on Tuesday.",
+      "author": null,
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "New England",
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-48688152",
+      "url": "https://www.espn.com/nfl/story/_/id/48688152/sources-nflra-schedules-vote-ratify-new-cba-nfl",
+      "title": "Sources: NFL, refs on verge of agreeing on CBA",
+      "body_text": "Negotiations between the NFL and the NFL Referees Association on a new CBA have progressed far enough that the union has scheduled a ratification vote for Thursday night, sources said.",
+      "author": "Kevin Seifert and Kalyn Kahler",
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Referees Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48686672",
+      "url": "https://www.espn.com/nfl/story/_/id/48686672/source-giants-agree-two-year-deal-dt-dj-reader",
+      "title": "Source: Giants beef up D-line by adding Reader",
+      "body_text": "The Giants have agreed to a two-year, $12.5 million contract sign veteran defensive tackle DJ Reader, a source told ESPN's Jeremy Fowler.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Reader The",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48684397",
+      "url": "https://www.espn.com/nfl/story/_/id/48684397/source-seahawks-sign-veteran-edge-rusher-dante-fowler-jr",
+      "title": "Source: Seahawks to sign edge rusher Fowler Jr.",
+      "body_text": "The Seahawks are signing veteran edge rusher Dante Fowler Jr. to a one-year deal worth up to $5 million, a source told the NFL Network on Tuesday.",
+      "author": "Brady Henderson",
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Seahawks",
+        "Dante Fowler Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0032052"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-48684719",
+      "url": "https://www.espn.com/nfl/story/_/id/48684719/charges-ljarius-sneed-shooting-dropped",
+      "title": "Charges against Sneed from shooting dropped",
+      "body_text": "A charge against L'Jarius Sneed stemming from a 2024 shooting has been dropped.",
+      "author": "Turron Davenport",
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jarius Sneed"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48685366",
+      "url": "https://www.espn.com/nfl/story/_/id/48685366/lawrence-taylor-hospital-stomach-related-illness",
+      "title": "LT out of hospital after stomach-related issue",
+      "body_text": "New York Giants Hall of Fame linebacker Lawrence Taylor was discharged recently from the hospital following a stint for a stomach-related issue and is returning home to Florida.",
+      "author": null,
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "New York",
+        "Giants Hall",
+        "Lawrence Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48677459",
+      "url": "https://www.espn.com/nfl/story/_/id/48677459/source-packers-signing-veteran-tyrod-taylor-new-qb2",
+      "title": "Source: Pack signing veteran Taylor as new QB2",
+      "body_text": "Veteran quarterback Tyrod Taylor signed with the Packers and is expected to be the favorite to back up starter Jordan Love.",
+      "author": "Rob Demovsky",
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Tyrod Taylor",
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0028118",
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-48677667",
+      "url": "https://www.espn.com/nfl/story/_/id/48677667/source-anthony-richardson-ends-absence-colts-workouts",
+      "title": "Source: Richardson reports to Colts' workouts",
+      "body_text": "Colts quarterback Anthony Richardson Sr. reported Monday for voluntary offseason workouts after staying home the past two weeks, a source told ESPN's Stephen Holder.",
+      "author": "Stephen Holder",
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Anthony Richardson Sr",
+        "Stephen Holder"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-48611355",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/48611355/2027-nfl-mock-draft-early-first-round-predictions-32-picks-manning-smith",
+      "title": "👀 Reid's early 2027 NFL mock draft: Arch No. 1?",
+      "body_text": "We're still a full year out, but let's make way-too-early predictions for every first-round pick of the 2027 NFL draft. Will Arch Manning go No. 1? Jeremiah Smith?",
+      "author": "Jordan Reid",
+      "published_at": "2026-05-06T12:16:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Arch",
+        "Jeremiah Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48630373",
+      "url": "https://www.espn.com/nfl/story/_/id/48630373/2026-nfl-power-rankings-offseason-postdraft-poll-most-improved-positions",
+      "title": "New NFL Power Rankings poll: We ranked all 32 team...",
+      "body_text": "How do all 32 NFL teams stack up after free agency and the draft? Here are our early rankings for next season, plus one spot each roster got better.",
+      "author": "NFL Nation",
+      "published_at": "2026-05-06T12:17:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48678873",
+      "url": "https://www.espn.com/nfl/story/_/id/48678873/pittsburgh-steelers-2026-draft-class-rookies-tiers-starters-projects",
+      "title": "Steelers' 2026 draft picks ranked from starters to...",
+      "body_text": "From Germie Bernard to Eli Heidenreich, who are the Pittsburgh rookies who can contribute immediately?",
+      "author": "Brooke Pryor",
+      "published_at": "2026-05-06T12:27:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "From Germie",
+        "Eli Heidenreich"
+      ],
+      "resolved_player_ids": [
+        "HEI114391"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48688302",
+      "url": "https://www.espn.com/nfl/story/_/id/48688302/four-questions-san-francisco-49ers-need-answer-offseason",
+      "title": "Four questions the 49ers still need to answer: Fro...",
+      "body_text": "Which positions are still up for grabs, and when will the 49ers part ways with Brandon Aiyuk?",
+      "author": "Nick Wagoner",
+      "published_at": "2026-05-06T12:27:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-48686585",
+      "url": "https://www.espn.com/nfl/story/_/id/48686585/joe-burrow-justin-jefferson-met-gala-sex-city",
+      "title": "Joe Burrow and Justin Jefferson's Met Gala prep in...",
+      "body_text": "Former college teammates Joe Burrow and Justin Jefferson reunited while getting ready for the Met Gala -- and their preparation routine included a unique element.",
+      "author": "ESPN staff",
+      "published_at": "2026-05-05T21:06:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Joe Burrow",
+        "Justin Jefferson",
+        "Met Gala"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0036322"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48610121",
+      "url": "https://www.espn.com/nfl/story/_/id/48610121/houston-texans-pay-cj-stroud-qb-market-nfl-execs",
+      "title": "Should the Texans pay C.J. Stroud? NFL execs from around the league weigh in",
+      "body_text": "After paying Will Anderson, will Houston do the same with its franchise quarterback?",
+      "author": "DJ Bien-Aime",
+      "published_at": "2026-05-02T15:28:15+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Anderson"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "US-EN-FFMockDraft-48610592",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFMockDraft-48610592/2026-fantasy-football-mock-draft-post-nfl-draft",
+      "title": "Is 2026 the comeback year for running backs? Insid...",
+      "body_text": "Running backs went early as 10 ESPN fantasy analysts made their first draft picks of the year.",
+      "author": "ESPN Fantasy staff and Eric Karabell",
+      "published_at": "2026-05-01T17:01:11+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,590 @@
+{
+  "fetch_run_id": "f75d5bc2-2bdb-42c8-a3da-46191d637778",
+  "source": "pft",
+  "fetched_at": "2026-05-06T12:51:51.592494+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-gm-jason-licht-maxx-crosby-trade-falling-apart-helped-us-a-little-bit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-gm-jason-licht-maxx-crosby-trade-falling-apart-helped-us-a-little-bit",
+      "permalink": "",
+      "title": "Buccaneers GM Jason Licht: Maxx Crosby trade falling apart \"helped us a little bit\"",
+      "body_text": "Rueben Bain might not have been available had the Crosby trade gone through.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T11:19:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jason Licht",
+        "Maxx Crosby",
+        "Rueben Bain"
+      ],
+      "resolved_player_ids": [
+        "00-0034973",
+        "BAI741257"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-dc-jonathan-gannon-its-not-what-scheme-you-play-its-how-you-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-dc-jonathan-gannon-its-not-what-scheme-you-play-its-how-you-play",
+      "permalink": "",
+      "title": "Packers DC Jonathan Gannon: It's not what scheme you play, it's how you play",
+      "body_text": "Packers defensive coordinator Jonathan Gannon has been running defenses in the NFL for a while, but anyone expecting the approach in Green Bay to look like the ones he employed in Arizona and Philadelphia is going to be disappointed.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T10:46:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Gannon",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-kraft-expresses-hope-that-next-labor-deal-will-expand-season-to-18-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-kraft-expresses-hope-that-next-labor-deal-will-expand-season-to-18-games",
+      "permalink": "",
+      "title": "Robert Kraft expresses \"hope\" that next labor deal will expand season to 18 games",
+      "body_text": "18 games is a matter of when, not if.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T02:48:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Kraft"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggss-lawyer-professional-athletes-have-a-target-on-their-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggss-lawyer-professional-athletes-have-a-target-on-their-back",
+      "permalink": "",
+      "title": "Stefon Diggs's lawyer: \"Professional athletes have a target on their back\"",
+      "body_text": "With no corroboration and a shaky performance by the alleged victim, the prosecutor shouldn't have pushed the case.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T02:03:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-noise-about-aaron-rodgers-and-cardinals-not-at-all-real",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-noise-about-aaron-rodgers-and-cardinals-not-at-all-real",
+      "permalink": "",
+      "title": "Report: \"Noise\" about Aaron Rodgers and Cardinals \"not at all\" real",
+      "body_text": "The Steelers' recent decision to apply the unrestricted free agency tender to quarterback Aaron Rodgers has sparked speculation as to whether Rodgers may be thinking about signing with another team.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T02:19:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-agree-to-terms-with-seventh-round-lb-red-murdock",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-agree-to-terms-with-seventh-round-lb-red-murdock",
+      "permalink": "",
+      "title": "Broncos agree to terms with seventh-round LB Red Murdock",
+      "body_text": "The Broncos have agreed to terms with linebacker Red Murdock, Benjamin Allbright of KOA Colorado reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-05T22:59:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Red Murdock",
+        "The Broncos",
+        "Benjamin Allbright"
+      ],
+      "resolved_player_ids": [
+        "MUR134209"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nflra-schedules-ratification-vote-on-new-cba",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nflra-schedules-ratification-vote-on-new-cba",
+      "permalink": "",
+      "title": "Report: NFLRA schedules ratification vote on new CBA",
+      "body_text": "If the Collective Bargaining Agreement is approved, there will be no need for replacement officials.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T22:44:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Collective Bargaining"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jury-finds-stefon-diggs-not-guilty-of-assault-strangulation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jury-finds-stefon-diggs-not-guilty-of-assault-strangulation",
+      "permalink": "",
+      "title": "Jury finds Stefon Diggs not guilty of assault, strangulation",
+      "body_text": "The jury deliberated about 90 minutes before delivering the verdict.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-05T21:03:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-claim-dt-zacch-pickens-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-claim-dt-zacch-pickens-off-waivers",
+      "permalink": "",
+      "title": "Giants claim DT Zacch Pickens off waivers",
+      "body_text": "After agreeing to sign D.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-05T21:14:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zacch Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0038937"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dax-hill-hopes-bengals-keep-him-at-outside-cornerback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dax-hill-hopes-bengals-keep-him-at-outside-cornerback",
+      "permalink": "",
+      "title": "Dax Hill hopes Bengals keep him at outside cornerback",
+      "body_text": "Dax Hill has shown he has the versatility to play in multiple spots in the Bengals secondary over the years, but he thinks the best plan is for him to stay at one position moving forward.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T20:42:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dax Hill"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-close-the-book-on-the-micah-parsons-trade-feeling-really-good-about-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-close-the-book-on-the-micah-parsons-trade-feeling-really-good-about-it",
+      "permalink": "",
+      "title": "Cowboys close the book on the Micah Parsons trade feeling \"really good about it\"",
+      "body_text": "The Cowboys closed the book on the Micah Parsons trade during draft weekend.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-05T20:32:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Micah Parsons",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-cut-ol-sidney-fugar",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-cut-ol-sidney-fugar",
+      "permalink": "",
+      "title": "Cowboys cut OL Sidney Fugar",
+      "body_text": "The Cowboys signed offensive lineman DJ Winfield, who tried out for the team at their rookie minicamp.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-05T19:43:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sidney Fugar",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-lb-isiah-king-waive-db-tucker-large",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-lb-isiah-king-waive-db-tucker-large",
+      "permalink": "",
+      "title": "Eagles sign LB Isiah King, waive DB Tucker Large",
+      "body_text": "The Eagles made a couple of changes to their roster after their rookie minicamp.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T19:39:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isiah King",
+        "Tucker Large",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-our-expectation-is-that-george-pickens-will-be-here-and-working",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-our-expectation-is-that-george-pickens-will-be-here-and-working",
+      "permalink": "",
+      "title": "Stephen Jones: Our expectation is that George Pickens will be here and working",
+      "body_text": "Cowboys wide receiver George Pickens has signed his franchise tag, but he hasn't landed a long-term deal with the team and the lack of one has led some to wonder if he might still decide to skip some mandatory work periods this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T19:24:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stephen Jones",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037551",
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-exciting-to-see-bengals-initiative-to-get-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-exciting-to-see-bengals-initiative-to-get-better",
+      "permalink": "",
+      "title": "Joe Burrow: Exciting to see Bengals' initiative to get better",
+      "body_text": "The Dexter Lawrence trade and other moves have Burrow looking forward to the season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T17:51:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "The Dexter"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-decides-not-to-testify-in-criminal-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-decides-not-to-testify-in-criminal-case",
+      "permalink": "",
+      "title": "Stefon Diggs decides not to testify in criminal case",
+      "body_text": "Jury prepares to deliberate its verdict.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T19:00:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-agree-to-terms-with-dt-d-j-reader",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-agree-to-terms-with-dt-d-j-reader",
+      "permalink": "",
+      "title": "Giants agree to terms with DT D.J. Reader",
+      "body_text": "After trading Dexter Lawrence, the Giants have brought in a veteran defensive tackle.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-05T18:57:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Reader After",
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0035683"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/emeka-egbuka-theres-no-room-for-me-me-me-ill-do-whatever-bucs-ask",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/emeka-egbuka-theres-no-room-for-me-me-me-ill-do-whatever-bucs-ask",
+      "permalink": "",
+      "title": "Emeka Egbuka: There's no room for \"me, me, me,\" I'll do whatever Bucs ask",
+      "body_text": "Mike Evans spent more than a decade as the top receiver on the Buccaneers, but that run ended when he signed with the 49ers earlier this year.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T18:40:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emeka Egbuka",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0040129",
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-new-jonathan-greenard-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-new-jonathan-greenard-contract",
+      "permalink": "",
+      "title": "Inside the new Jonathan Greenard contract",
+      "body_text": "During the second night of the 2026 NFL draft, the Vikings traded defensive end Jonathan Greenard to the Eagles.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T18:27:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Greenard"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-van-noy-49ers-have-something-cooking-id-love-to-play-with-fred-warner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-van-noy-49ers-have-something-cooking-id-love-to-play-with-fred-warner",
+      "permalink": "",
+      "title": "Kyle Van Noy: 49ers have something cooking, I'd love to play with Fred Warner",
+      "body_text": "Free agent linebacker Kyle Van Noy wouldn't mind making a move to California for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T18:19:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Van",
+        "Fred Warner"
+      ],
+      "resolved_player_ids": [
+        "00-0034815"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adoree-jackson-is-visiting-the-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adoree-jackson-is-visiting-the-cowboys",
+      "permalink": "",
+      "title": "Adoree' Jackson is visiting the Cowboys",
+      "body_text": "The Cowboys are meeting with a potential addition to their secondary on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T17:28:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cowboys The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-gutekunst-we-expect-micah-parsons-tucker-kraft-back-early-in-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-gutekunst-we-expect-micah-parsons-tucker-kraft-back-early-in-the-season",
+      "permalink": "",
+      "title": "Brian Gutekunst: We expect Micah Parsons, Tucker Kraft back early in the season",
+      "body_text": "The Packers lost a pair of key players to injury last season, both of whom may have helped change the team’s ultimate outcome in 2025.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-05T17:27:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Gutekunst",
+        "Micah Parsons",
+        "Tucker Kraft",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0036932",
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-in-stefon-diggs-case-warned-alleged-victim-that-her-full-testimony-may-be-stricken",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-in-stefon-diggs-case-warned-alleged-victim-that-her-full-testimony-may-be-stricken",
+      "permalink": "",
+      "title": "Judge in Stefon Diggs case warned alleged victim that her full testimony may be stricken",
+      "body_text": "The first day of the Stefon Diggs trial ended with the alleged victim, Mila Adams, on the witness stand.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T14:39:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs",
+        "Mila Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-nielsen-wearable-technology-will-increase-nfl-ratings-starting-as-soon-as-the-2026-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-nielsen-wearable-technology-will-increase-nfl-ratings-starting-as-soon-as-the-2026-season",
+      "permalink": "",
+      "title": "New Nielsen wearable technology will increase NFL ratings, starting as soon as the 2026 season",
+      "body_text": "Nielsen continues to come up with ways to more accurately capture viewing audiences.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T17:24:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "New Nielsen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-fifth-round-pick-emmett-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-fifth-round-pick-emmett-johnson",
+      "permalink": "",
+      "title": "Chiefs sign fifth-round pick Emmett Johnson",
+      "body_text": "The Chiefs have signed a draft pick.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T16:17:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emmett Johnson",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "JOH224817"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/attorney-all-criminal-charges-against-ljarius-sneed-have-been-dropped",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/attorney-all-criminal-charges-against-ljarius-sneed-have-been-dropped",
+      "permalink": "",
+      "title": "Attorney: All criminal charges against L'Jarius Sneed have been dropped",
+      "body_text": "Free agent cornerback L'Jarius Sneed is no longer facing any criminal charges in Texas.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-05T15:44:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jarius Sneed"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-marcellus-wiley-faces-four-accusations-of-sexual-assault",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-marcellus-wiley-faces-four-accusations-of-sexual-assault",
+      "permalink": "",
+      "title": "Report: Marcellus Wiley faces four accusations of sexual assault",
+      "body_text": "Former NFL defensive end and Fox Sports and ESPN on-air personality Marcellus Wiley is facing four claims of sexual assault, according to Drew Lerner of Awful Announcing.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T15:05:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcellus Wiley",
+        "Fox Sports",
+        "Drew Lerner",
+        "Awful Announcing"
+      ],
+      "resolved_player_ids": [
+        "00-0017670"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-trial-will-continue-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-trial-will-continue-on-tuesday",
+      "permalink": "",
+      "title": "Stefon Diggs trial will continue on Tuesday",
+      "body_text": "First day ends during testimony of alleged victim.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T01:59:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs",
+        "Tuesday First"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/during-the-2025-season-super-bowl-mvp-kenneth-walker-iii-he-wouldnt-be-back-with-the-seahawks-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/during-the-2025-season-super-bowl-mvp-kenneth-walker-iii-he-wouldnt-be-back-with-the-seahawks-in-2026",
+      "permalink": "",
+      "title": "During the 2025 season, Super Bowl MVP Kenneth Walker III knew he wouldn't be back with the Seahawks",
+      "body_text": "Many were surprised when running back Kenneth Walker III left the Seahawks roughly a month after winning the Super Bowl LX MVP award.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-05T13:46:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl",
+        "Kenneth Walker III",
+        "Seahawks Many"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-on-the-rookies-none-of-these-guys-are-in-great-shape-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-on-the-rookies-none-of-these-guys-are-in-great-shape-right-now",
+      "permalink": "",
+      "title": "Brian Schottenheimer on the rookies: \"None of these guys are in great shape right now\"",
+      "body_text": "As rookies throughout the NFL get their first taste of pro football, some of them will be getting a second taste of their most recent meals.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-04T14:19:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
