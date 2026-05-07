@@ -1,0 +1,91 @@
+{
+  "fetch_run_id": "f2b243f4-16d7-4c51-8b85-a2d0706d75a7",
+  "source": "rotowire",
+  "fetched_at": "2026-05-07T12:52:44.022460+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 4,
+  "items": [
+    {
+      "external_id": "nfl630713",
+      "url": "https://www.rotowire.com//football/player/cj-stroud-16886",
+      "permalink": "",
+      "title": "C.J. Stroud: Shedding weight",
+      "body_text": "Stroud improved his diet this offseason in an effort to lose weight, according to DJ Bien-Aime of ESPN.com. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-06T02:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630711",
+      "url": "https://www.rotowire.com//football/player/travis-hunter-18578",
+      "permalink": "",
+      "title": "Travis Hunter: Expected to play both WR and CB",
+      "body_text": "Jaguars GM James Gladstone said Wednesday that Hunter (knee) should be a \"full go\" for training camp and will continue playing on both sides of the ball, per The Rich Eisen Show. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-06T01:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Hunter",
+        "James Gladstone",
+        "The Rich",
+        "Eisen Show"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "nfl630709",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "permalink": "",
+      "title": "Tucker Kraft: Ahead of schedule in recovery",
+      "body_text": "Packers general manager Brian Gutekunst said Tuesday that Kraft (ACL) is \"a little bit ahead of schedule\" in his recovery from a right ACL tear and that both he and Micah Parsons (ACL) are expected to be \"back early in the [regular] season,\" Andrew Bandstra of Channel 3000 News reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-06T12:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft",
+        "Brian Gutekunst",
+        "Micah Parsons",
+        "Andrew Bandstra"
+      ],
+      "resolved_player_ids": [
+        "00-0038996",
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl630702",
+      "url": "https://www.rotowire.com//football/player/kenneth-walker-15909",
+      "permalink": "",
+      "title": "Kenneth Walker: Could catch more passes with Chiefs",
+      "body_text": "Walker suggested Tuesday that he might have an opportunity to catch more passes with the Chiefs than he did with the Seahawks, Eric Edholm of NFL.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-05T06:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Walker",
+        "Chiefs Walker",
+        "Eric Edholm"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    }
+  ]
+}

@@ -1,0 +1,598 @@
+{
+  "fetch_run_id": "b78b07ea-2f34-4290-a305-8a171f65e20e",
+  "source": "pft",
+  "fetched_at": "2026-05-07T12:53:29.006759+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/would-the-nfl-ever-hold-a-draft-in-another-country",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/would-the-nfl-ever-hold-a-draft-in-another-country",
+      "permalink": "",
+      "title": "Would the NFL ever hold a draft in another country?",
+      "body_text": "From time to time, the NFL drops a hint about the possibility of playing a Super Bowl on foreign soil.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-02T17:26:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-we-basically-knew-travis-kelce-would-return-a-day-after-our-last-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brett-veach-we-basically-knew-travis-kelce-would-return-a-day-after-our-last-game",
+      "permalink": "",
+      "title": "Brett Veach: We basically knew Travis Kelce would return a day after our last game",
+      "body_text": "Kelce's decision about playing in 2026 wasn't a nail-biter for the Chiefs.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T12:24:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brett Veach",
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-downs-expects-more-opportunities-guarding-against-chasing-money",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-downs-expects-more-opportunities-guarding-against-chasing-money",
+      "permalink": "",
+      "title": "Josh Downs expects more opportunities, guards against \"chasing money\"",
+      "body_text": "Downs is in the final year of his current contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T11:00:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-again-backs-mike-vrabel-it-wont-be-a-distraction",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-again-backs-mike-vrabel-it-wont-be-a-distraction",
+      "permalink": "",
+      "title": "Drake Maye again backs Mike Vrabel: It won't be a distraction",
+      "body_text": "Kalshi now gives Mike Vrabel a 64 percent chance to be the coach of the Patriots in Week 1.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-07T01:42:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0039851",
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shilo-sanders-tries-to-avoid-11-million-debt-from-2015-incident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shilo-sanders-tries-to-avoid-11-million-debt-from-2015-incident",
+      "permalink": "",
+      "title": "Shilo Sanders tries to avoid $11 million debt from 2015 incident",
+      "body_text": "Former Buccaneers (for the 2025 offseason and training camp) safety Shilo Sanders interjected himself into the NFL narrative last week, with misogynistic comments directed at Mary Kay Cabot of the Cleveland Plain Dealer.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-07T01:34:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shilo Sanders",
+        "Former Buccaneers",
+        "Mary Kay",
+        "Cleveland Plain"
+      ],
+      "resolved_player_ids": [
+        "00-0040426"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-kalshi-mike-vrabels-chance-of-being-patriots-coach-as-of-week-1-is-down-to-64-percent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-kalshi-mike-vrabels-chance-of-being-patriots-coach-as-of-week-1-is-down-to-64-percent",
+      "permalink": "",
+      "title": "On Kalshi, Mike Vrabel's chance of being Patriots coach as of Week 1 is down to 64 percent",
+      "body_text": "News moves markets.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-07T00:18:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "On Kalshi",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameis-winston-will-be-world-cup-correspondent-for-fox",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameis-winston-will-be-world-cup-correspondent-for-fox",
+      "permalink": "",
+      "title": "Jameis Winston will be a World Cup correspondent for Fox",
+      "body_text": "Jameis Winston is going to eat a W this summer.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T23:59:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jameis Winston",
+        "World Cup",
+        "Fox Jameis"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-downs-makes-quick-change-from-no-18-to-no-13",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-downs-makes-quick-change-from-no-18-to-no-13",
+      "permalink": "",
+      "title": "Caleb Downs makes quick change from No. 18 to No. 13",
+      "body_text": "Cowboys safety Caleb Downs has the top-selling jersey of all rookies.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T23:37:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Downs"
+      ],
+      "resolved_player_ids": [
+        "DOW662609"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-vrabel-dianna-russini-rented-boat-together-in-june-2021",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-vrabel-dianna-russini-rented-boat-together-in-june-2021",
+      "permalink": "",
+      "title": "Report: Mike Vrabel, Dianna Russini rented boat together in June 2021",
+      "body_text": "It's impossible to know whether the situation involving Patriots coach Mike Vrabel and NFL reporter Dianna Russini will result in Vrabel stepping down as coach of the Patriots (or, possibly, taking a leave of absence for the 2026 season), because it's always possible that more information will come to light.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T23:07:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/calais-campbell-i-wanted-to-go-somewhere-i-could-make-plays-and-win-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/calais-campbell-i-wanted-to-go-somewhere-i-could-make-plays-and-win-games",
+      "permalink": "",
+      "title": "Calais Campbell: I wanted to go somewhere I could make plays and win games",
+      "body_text": "The edge rusher officially signed with the Ravens on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T22:11:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Calais Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0026190"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nathan-peterman-to-participate-in-broncos-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nathan-peterman-to-participate-in-broncos-rookie-minicamp",
+      "permalink": "",
+      "title": "Nathan Peterman to participate in Broncos' rookie minicamp",
+      "body_text": "The Broncos are giving veteran quarterback Nathan Peterman a tryout at their rookie minicamp this weekend, Mike Klis of 9News reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-06T22:04:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nathan Peterman",
+        "The Broncos",
+        "Mike Klis"
+      ],
+      "resolved_player_ids": [
+        "00-0033958"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-bob-cooter-were-going-to-get-good-work-out-of-anthony-richardson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-bob-cooter-were-going-to-get-good-work-out-of-anthony-richardson",
+      "permalink": "",
+      "title": "Jim Bob Cooter: We're going to get good work out of Anthony Richardson",
+      "body_text": "Anthony Richardson reported to the Colts' voluntary offseason program on Monday after staying away for the first two weeks.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-06T21:25:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Bob",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/younghoe-koo-to-attend-saints-rookie-minicamp-as-a-tryout-player",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/younghoe-koo-to-attend-saints-rookie-minicamp-as-a-tryout-player",
+      "permalink": "",
+      "title": "Younghoe Koo to attend Saints' rookie minicamp as a tryout player",
+      "body_text": "Kicker Younghoe Koo will take a shot at earning a job with the Saints this weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T21:07:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Younghoe Koo",
+        "Kicker Younghoe"
+      ],
+      "resolved_player_ids": [
+        "00-0033702"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-few-takeaways-from-the-stefon-diggs-criminal-trial",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-few-takeaways-from-the-stefon-diggs-criminal-trial",
+      "permalink": "",
+      "title": "A few takeaways from the Stefon Diggs criminal trial",
+      "body_text": "The criminal trial against free-agent receiver Stefon Diggs played out on Monday and Tuesday.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T20:50:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-trask-easton-stick-will-participate-in-saints-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-trask-easton-stick-will-participate-in-saints-rookie-minicamp",
+      "permalink": "",
+      "title": "Kyle Trask, Easton Stick will participate in Saints' rookie minicamp",
+      "body_text": "The Saints will host two veteran quarterbacks at their rookie minicamp.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-06T20:11:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Trask",
+        "Easton Stick",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0036928",
+        "00-0035282"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-will-wear-no-1-with-the-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-will-wear-no-1-with-the-vikings",
+      "permalink": "",
+      "title": "Kyler Murray will wear No. 1 with the Vikings",
+      "body_text": "Quarterback Kyler Murray will be in a new uniform for the 2026 season, but he'll be wearing a familiar number.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T20:04:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray",
+        "Vikings Quarterback"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-gladstone-travis-hunter-will-play-both-ways",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-gladstone-travis-hunter-will-play-both-ways",
+      "permalink": "",
+      "title": "James Gladstone: Travis Hunter will play both ways",
+      "body_text": "A report this offseason indicated the Jaguars planned to make the 2024 Heisman winner a full-time cornerback.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-06T19:26:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Gladstone",
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-downs-looking-forward-to-head-to-head-matchup-with-younger-brother-caleb-this-fall",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-downs-looking-forward-to-head-to-head-matchup-with-younger-brother-caleb-this-fall",
+      "permalink": "",
+      "title": "Josh Downs looking forward to \"head-to-head\" matchup with younger brother Caleb this fall",
+      "body_text": "Colts wide receiver Josh Downs will be looking for the date of one game in particular when the 2026 schedule is released later this month.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T19:21:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/frank-reich-geno-smith-is-perfect-fit-for-offense-his-best-football-is-ahead-of-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/frank-reich-geno-smith-is-perfect-fit-for-offense-his-best-football-is-ahead-of-him",
+      "permalink": "",
+      "title": "Frank Reich: Geno Smith is \"perfect\" fit for offense, his best football is ahead of him",
+      "body_text": "The 2025 season did not go well for quarterback Geno Smith.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-06T18:49:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Frank Reich",
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-hire-former-jets-gm-mike-maccagnan-announce-other-front-office-moves",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-hire-former-jets-gm-mike-maccagnan-announce-other-front-office-moves",
+      "permalink": "",
+      "title": "Eagles hire former Jets GM Mike Maccagnan, announce other front office moves",
+      "body_text": "The Eagles announced a number of title changes and new hires in their front office on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T18:45:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Maccagnan",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/emeka-egbuka-theres-a-passing-of-the-torch-post-mike-evans-it-needs-to-be-received-by-someone",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/emeka-egbuka-theres-a-passing-of-the-torch-post-mike-evans-it-needs-to-be-received-by-someone",
+      "permalink": "",
+      "title": "Emeka Egbuka: There’s a passing of the torch post-Mike Evans, it needs to be received by someone",
+      "body_text": "For many years, Mike Evans was the leader of the Buccaneers' receivers room.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-06T18:06:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emeka Egbuka",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0040129",
+        "00-0031408"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-e-j-warner-son-of-kurt-warner-accepts-invite-to-broncos-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-e-j-warner-son-of-kurt-warner-accepts-invite-to-broncos-rookie-minicamp",
+      "permalink": "",
+      "title": "QB E.J. Warner, son of Kurt Warner, accepts invite to Broncos rookie minicamp",
+      "body_text": "Kurt Warner went from going undrafted to playing quarterback in the NFL and his son is trying to follow the same path.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T18:07:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kurt Warner"
+      ],
+      "resolved_player_ids": [
+        "00-0017200"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-case-remains-under-review-by-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-case-remains-under-review-by-the-nfl",
+      "permalink": "",
+      "title": "Stefon Diggs case \"remains under review\" by the NFL",
+      "body_text": "Diggs didn't testify at criminal trial. The Fifth Amendment doesn't apply to NFL investigations.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T17:53:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs",
+        "The Fifth"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-agree-to-terms-with-seventh-rounder-dallen-bentley",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-agree-to-terms-with-seventh-rounder-dallen-bentley",
+      "permalink": "",
+      "title": "Broncos agree to terms with seventh-rounder Dallen Bentley",
+      "body_text": "The Broncos made the final two picks of the 2026 NFL Draft and they have both of those selections under contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T17:45:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallen Bentley",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "BEN687044"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/russell-wilson-jets-made-an-offer-choosing-between-that-and-tv-role",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/russell-wilson-jets-made-an-offer-choosing-between-that-and-tv-role",
+      "permalink": "",
+      "title": "Russell Wilson: Jets made an offer, weighing that and TV opportunities",
+      "body_text": "Russell Wilson has reached a fork in the road in his career.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T17:37:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Russell Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-gm-jason-licht-maxx-crosby-trade-falling-apart-helped-us-a-little-bit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-gm-jason-licht-maxx-crosby-trade-falling-apart-helped-us-a-little-bit",
+      "permalink": "",
+      "title": "Buccaneers GM Jason Licht: Maxx Crosby trade falling apart \"helped us a little bit\"",
+      "body_text": "Rueben Bain might not have been available had the Crosby trade gone through.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T11:19:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jason Licht",
+        "Maxx Crosby",
+        "Rueben Bain"
+      ],
+      "resolved_player_ids": [
+        "00-0034973",
+        "BAI741257"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-to-promote-adam-berry-to-assistant-gm",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-to-promote-adam-berry-to-assistant-gm",
+      "permalink": "",
+      "title": "Eagles to promote Adam Berry to assistant GM",
+      "body_text": "The Eagles are moving Adam Berry into a new position in their front office.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-06T17:10:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Adam Berry",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-disney-have-yet-to-engage-with-nfl-on-renewal-of-tv-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-disney-have-yet-to-engage-with-nfl-on-renewal-of-tv-deal",
+      "permalink": "",
+      "title": "ESPN, Disney have yet to engage with NFL on renewal of TV deal",
+      "body_text": "One of the more compelling subplots regarding pro football is the way we'll watch pro football.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T17:03:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gio-lopez-paints-a-predictable-picture-of-playing-for-bill-belichick-at-unc",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gio-lopez-paints-a-predictable-picture-of-playing-for-bill-belichick-at-unc",
+      "permalink": "",
+      "title": "Gio Lopez paints a predictable picture of playing for Bill Belichick at UNC",
+      "body_text": "North Carolina, under Bill Belichick, fancies itself the NFL's 33rd team.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T15:51:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gio Lopez",
+        "Bill Belichick",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-hotel-bookings-are-far-below-expectations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-hotel-bookings-are-far-below-expectations",
+      "permalink": "",
+      "title": "World Cup hotel bookings are far below expectations",
+      "body_text": "The United States is hosting the World Cup for the first time since 1994.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-06T14:46:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "The United"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
