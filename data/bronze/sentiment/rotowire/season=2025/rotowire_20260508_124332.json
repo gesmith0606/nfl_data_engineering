@@ -1,0 +1,107 @@
+{
+  "fetch_run_id": "2093cfaf-67d0-4071-b1dd-1b22d3b48be6",
+  "source": "rotowire",
+  "fetched_at": "2026-05-08T12:43:32.948129+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630744",
+      "url": "https://www.rotowire.com//football/player/jauan-jennings-14376",
+      "permalink": "",
+      "title": "Jauan Jennings: Inks deal with Minnesota",
+      "body_text": "Jennings and the Vikings agreed on a one-year, $13 million contract Thursday, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-07T06:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jauan Jennings",
+        "Minnesota Jennings",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl630721",
+      "url": "https://www.rotowire.com//football/player/kyle-pitts-15265",
+      "permalink": "",
+      "title": "Kyle Pitts: Locked in for 2026",
+      "body_text": "Pitts signed his franchise tender with the Falcons for the 2026 season Thursday, Tom Pelissero of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-07T02:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl630719",
+      "url": "https://www.rotowire.com//football/player/drake-maye-17673",
+      "permalink": "",
+      "title": "Drake Maye: Past his shoulder issue",
+      "body_text": "With regard to the right shoulder issue he managed ahead of Super Bowl LX, Maye noted Wednesday that he's doing \"great,\" ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-07T08:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630717",
+      "url": "https://www.rotowire.com//football/player/aaron-rodgers-4307",
+      "permalink": "",
+      "title": "Aaron Rodgers: Discussing new deal with Pittsburgh",
+      "body_text": "Rodgers is set to meet with Steelers officials in Pittsburgh this weekend as he looks to reach agreement on a deal to return to the team in 2026, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-07T07:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Pittsburgh Rodgers",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl630713",
+      "url": "https://www.rotowire.com//football/player/cj-stroud-16886",
+      "permalink": "",
+      "title": "C.J. Stroud: Shedding weight",
+      "body_text": "Stroud improved his diet this offseason in an effort to lose weight, according to DJ Bien-Aime of ESPN.com. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-06T02:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

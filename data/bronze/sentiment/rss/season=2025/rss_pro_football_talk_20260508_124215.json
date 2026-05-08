@@ -1,0 +1,488 @@
+{
+  "fetch_run_id": "2fc4a04e-70ce-4406-aa00-1e61d87fb8ff",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-08T12:42:15.672418+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-14-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-14-undrafted-free-agents",
+      "title": "Falcons sign 14 undrafted free agents",
+      "body_text": "The Falcons added 14 undrafted rookie free agents to their roster on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T11:02:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-six-draft-picks-12-undrafted-rookies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-six-draft-picks-12-undrafted-rookies",
+      "title": "Colts sign six draft picks, 12 undrafted rookies",
+      "body_text": "The Colts signed most of their draft class on Thursday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T10:55:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-fourth-rounder-cade-klubnik-seventh-rounder-vj-payne",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-fourth-rounder-cade-klubnik-seventh-rounder-vj-payne",
+      "title": "Jets sign fourth-rounder Cade Klubnik, seventh-rounder VJ Payne",
+      "body_text": "The Jets have now signed three of their eight 2026 draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T10:47:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cade Klubnik",
+        "Payne The"
+      ],
+      "resolved_player_ids": [
+        "KLU066027"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-says-hes-healthy-and-ready-to-roll",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-says-hes-healthy-and-ready-to-roll",
+      "title": "Carson Wentz says he's healthy and \"ready to roll\"",
+      "body_text": "Carson Wentz's 2025 season ended with a left shoulder injury that required surgery in October.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T02:02:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Wentz"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-three-draft-picks-cut-wr-andre-baccellia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-three-draft-picks-cut-wr-andre-baccellia",
+      "title": "Cardinals sign three draft picks, cut WR Andre Baccellia",
+      "body_text": "The Cardinals announced that they signed three of their third-day picks on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T01:44:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andre Baccellia",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0035876"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-jauan-jennings-reach-agreement-on-one-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-jauan-jennings-reach-agreement-on-one-year-deal",
+      "title": "Vikings, Jauan Jennings reach agreement on one-year deal",
+      "body_text": "Former 49ers WR lands in Minnesota.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T01:31:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jauan Jennings"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-four-draft-picks-including-third-round-wr-zachariah-branch",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-four-draft-picks-including-third-round-wr-zachariah-branch",
+      "title": "Falcons sign four draft picks, including third-round WR Zachariah Branch",
+      "body_text": "The Atlanta signed four draft picks on Thursday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T01:28:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zachariah Branch",
+        "The Atlanta"
+      ],
+      "resolved_player_ids": [
+        "BRA531428"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-six-picks-including-second-round-olb-tj-parker",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-six-picks-including-second-round-olb-tj-parker",
+      "title": "Bills sign six picks, including second-round OLB TJ Parker",
+      "body_text": "The Bills signed six of their 10 draft picks on Thursday ahead of their rookie minicamp.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T01:15:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Parker The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-first-round-te-kenyon-sadiq",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-first-round-te-kenyon-sadiq",
+      "title": "Jets sign first-round TE Kenyon Sadiq",
+      "body_text": "Two weeks ago tonight, the Jets made three picks in the first round of the draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T00:39:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenyon Sadiq"
+      ],
+      "resolved_player_ids": [
+        "SAD482340"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-criminal-case-behind-him-who-will-sign-stefon-diggs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-criminal-case-behind-him-who-will-sign-stefon-diggs",
+      "title": "With criminal case behind him, who will sign Stefon Diggs?",
+      "body_text": "Free-agent receiver Stefon Diggs spent two days this week in court, in a criminal trial that hinged on a star witness who badly failed to deliver.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T00:30:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-draft-night-demeanor-resulted-from-volatile-situation-before-press-conference",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-draft-night-demeanor-resulted-from-volatile-situation-before-press-conference",
+      "title": "Sean McVay: Draft night demeanor resulted from \"volatile situation\" before press conference",
+      "body_text": "Chris Simms spent most of the past week in London.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T00:06:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Simms"
+      ],
+      "resolved_player_ids": [
+        "00-0022005"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-in-email-blast-schedule-release-is-almost-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-in-email-blast-schedule-release-is-almost-here",
+      "title": "NFL announces in email blast schedule release \"is almost here\"",
+      "body_text": "It's an announcement of the announcement of the announcement.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-07T23:18:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/taylor-heinicke-announces-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/taylor-heinicke-announces-retirement",
+      "title": "Taylor Heinicke announces retirement",
+      "body_text": "Former NFL quarterback Taylor Heinicke announced his retirement from football.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-07T23:13:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylor Heinicke"
+      ],
+      "resolved_player_ids": [
+        "00-0031800"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kaelon-black-has-heard-the-criticism-ready-to-prove-49ers-right",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kaelon-black-has-heard-the-criticism-ready-to-prove-49ers-right",
+      "title": "Kaelon Black has heard the criticism, ready to prove 49ers right",
+      "body_text": "The 49ers used the 90th overall pick on Indiana running back Kaelon Black, drawing criticism from draft analysts who labeled his third-round selection a reach.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-07T22:58:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kaelon Black"
+      ],
+      "resolved_player_ids": [
+        "BLA097235"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-everybody-has-to-run-their-own-race-experience-i-gained-is-priceless",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-everybody-has-to-run-their-own-race-experience-i-gained-is-priceless",
+      "title": "Carson Beck: Everybody has to run their own race, experience I gained is priceless",
+      "body_text": "Quarterback Carson Beck got a reminder of how long he spent in college when he got to the Cardinals facility ahead of this weekend's rookie minicamp.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T22:44:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Beck",
+        "Quarterback Carson"
+      ],
+      "resolved_player_ids": [
+        "BEC122142"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-hire-ryan-kessenich-as-director-of-college-scouting",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-hire-ryan-kessenich-as-director-of-college-scouting",
+      "title": "Commanders hire Ryan Kessenich as director of college scouting",
+      "body_text": "The Commanders are hiring 49ers scout Ryan Kessenich as their new director of college scouting, Neil Stratton of ScoutSpeak reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-07T22:30:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Kessenich",
+        "The Commanders",
+        "Neil Stratton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-four-draft-picks-six-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-four-draft-picks-six-undrafted-free-agents",
+      "title": "Giants sign four draft picks, six undrafted free agents",
+      "body_text": "The Giants announced the signing of four draft picks on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T22:23:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-first-rounder-monroe-freeling-five-other-draft-picks-and-10-undrafted-rookies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-first-rounder-monroe-freeling-five-other-draft-picks-and-10-undrafted-rookies",
+      "title": "Panthers sign first-rounder Monroe Freeling, five other draft picks and 10 undrafted rookies",
+      "body_text": "The Panthers got six draft picks signed before the start of their rookie minicamp.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T21:55:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monroe Freeling",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "FRE136741"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/state-of-kansas-dismisses-case-against-chiefs-assistant-david-merritt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/state-of-kansas-dismisses-case-against-chiefs-assistant-david-merritt",
+      "title": "State of Kansas dismisses case against Chiefs assistant Dave Merritt",
+      "body_text": "The District Court of Johnson County, Kansas, has dismissed the case against Chiefs defensive backs coach Dave Merritt.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-07T21:52:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dave Merritt",
+        "The District",
+        "Johnson County"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-nine-of-their-10-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-nine-of-their-10-draft-picks",
+      "title": "Jaguars sign nine of their 10 draft picks",
+      "body_text": "The Jaguars signed most of their 2026 draft picks on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T21:42:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-enjoying-presence-of-alpha-wr-mike-evans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-enjoying-presence-of-alpha-wr-mike-evans",
+      "title": "49ers enjoying presence of \"alpha\" WR Mike Evans",
+      "body_text": "The 49ers secured a significant addition to their offense in March by signing veteran receiver Mike Evans.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-07T20:59:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sign-undrafted-rookie-dl-zxavian-harris",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sign-undrafted-rookie-dl-zxavian-harris",
+      "title": "Saints sign undrafted rookie DL Zxavian Harris",
+      "body_text": "The Saints added another undrafted rookie to their 90-man roster on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T20:44:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zxavian Harris",
+        "The Saints"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-sign-five-more-picks-leaving-only-one-unsigned",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-sign-five-more-picks-leaving-only-one-unsigned",
+      "title": "Buccaneers sign five more picks, leaving only one unsigned",
+      "body_text": "The Buccaneers not only signed their top pick, Rueben Bain Jr., but they also got nearly their entire draft class under contract on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-07T20:37:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Buccaneers",
+        "Rueben Bain Jr"
+      ],
+      "resolved_player_ids": [
+        "BAI741257"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-designate-dl-paschal-ekeji-as-international-player-waive-two-others",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-designate-dl-paschal-ekeji-as-international-player-waive-two-others",
+      "title": "Jets designate DL Paschal Ekeji as international player, waive two others",
+      "body_text": "The Jets opened up three spots on their 90-man roster Thursday, but they only parted ways with two players.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T20:30:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Paschal Ekeji",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "EKE080143"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sixth-round-lb-harold-perkins-signs-rookie-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sixth-round-lb-harold-perkins-signs-rookie-deal",
+      "title": "Falcons sixth-round LB Harold Perkins signs rookie deal",
+      "body_text": "Falcons rookie linebacker Harold Perkins Jr. has signed his rookie deal, Zach Klein of WSB-Ch. 2 Atlanta reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-07T20:25:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Harold Perkins",
+        "Harold Perkins Jr",
+        "Zach Klein"
+      ],
+      "resolved_player_ids": [
+        "PER296437"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-waive-2025-fifth-round-pick-zah-frazier",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-waive-2025-fifth-round-pick-zah-frazier",
+      "title": "Bears waive 2025 fifth-round pick Zah Frazier",
+      "body_text": "Cornerback Zah Frazier did not play any games for the Bears as a rookie and he won't be playing any with the team in 2026 either.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T20:08:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zah Frazier",
+        "Cornerback Zah"
+      ],
+      "resolved_player_ids": [
+        "00-0040191"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-de-mike-danna-visited-the-bills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-de-mike-danna-visited-the-bills",
+      "title": "Free agent DE Mike Danna visited the Bills",
+      "body_text": "The Bills spent some time with a potential addition to their defensive line recently.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T19:45:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Danna",
+        "Bills The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tmz-posts-a-video-from-mike-vrabel-dianna-russini-2021-boat-outing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tmz-posts-a-video-from-mike-vrabel-dianna-russini-2021-boat-outing",
+      "title": "TMZ posts a video from Mike Vrabel, Dianna Russini 2021 boat outing",
+      "body_text": "Exactly one month to the day since the first photos of Patriots coach and NFL reporter Dianna Russini emerged, TMZ has supplemented its report regarding the renting of a boat by the pair in June 2021 with a video of them on the dock.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-07T19:17:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/more-names-emerge-as-potential-buyers-of-the-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/more-names-emerge-as-potential-buyers-of-the-seahawks",
+      "title": "More names emerge as potential buyers of the Seahawks",
+      "body_text": "Last week, a report emerged that Meta tycoon Mark Zuckerberg and retired Apple CEO Tim Cook were contemplating making bids for the Seahawks.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-07T19:39:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Seahawks Last",
+        "Mark Zuckerberg",
+        "Tim Cook"
+      ],
+      "resolved_player_ids": [
+        "00-0033683"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-release-s-nasir-adderley",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-release-s-nasir-adderley",
+      "title": "Colts release S Nasir Adderley",
+      "body_text": "Safety Nasir Adderley's bid to return to the NFL as a member of the Colts has come to an end.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-07T18:32:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nasir Adderley",
+        "Safety Nasir"
+      ],
+      "resolved_player_ids": [
+        "00-0035677"
+      ],
+      "team_hint": "IND"
+    }
+  ]
+}
