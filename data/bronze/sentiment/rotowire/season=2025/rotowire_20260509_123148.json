@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "9a26fa1f-8dec-400f-957a-b3a4101a6588",
+  "source": "rotowire",
+  "fetched_at": "2026-05-09T12:31:48.782187+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630784",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Still absent, but dialogue ongoing",
+      "body_text": "Brissett remains absent from the Cardinals' offseason program, but coach Mike LaFleur said Friday that the veteran quarterback has \"played a lot of football, and we're in communication,\" Josh Weinfuss of ESPN.com reports. \"He knows what the expectation is,\" LaFleur added. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-08T03:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Josh Weinfuss"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl630770",
+      "url": "https://www.rotowire.com//football/player/joe-burrow-14442",
+      "permalink": "",
+      "title": "Joe Burrow: Continuity on O, more help on D",
+      "body_text": "Burrow was present for the start of Cincinnati's voluntary offseason workouts Thursday, Ben Baby of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-08T12:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Ben Baby"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630765",
+      "url": "https://www.rotowire.com//football/player/breece-hall-15810",
+      "permalink": "",
+      "title": "Breece Hall: Lands three-year extension",
+      "body_text": "The Jets and Hall (knee) agreed to terms on a three-year, $45.75 million contract Friday, NFL reporter Jordan Schultz reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-08T12:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Breece Hall",
+        "The Jets",
+        "Jordan Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl630744",
+      "url": "https://www.rotowire.com//football/player/jauan-jennings-14376",
+      "permalink": "",
+      "title": "Jauan Jennings: Inks deal with Minnesota",
+      "body_text": "Jennings and the Vikings agreed on a one-year, $13 million contract Thursday, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-07T06:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jauan Jennings",
+        "Minnesota Jennings",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl630721",
+      "url": "https://www.rotowire.com//football/player/kyle-pitts-15265",
+      "permalink": "",
+      "title": "Kyle Pitts: Locked in for 2026",
+      "body_text": "Pitts signed his franchise tender with the Falcons for the 2026 season Thursday, Tom Pelissero of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-07T02:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    }
+  ]
+}

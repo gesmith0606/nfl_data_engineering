@@ -1,0 +1,569 @@
+{
+  "fetch_run_id": "a056fdea-8c17-45fb-b867-8b9aa2902b45",
+  "source": "pft",
+  "fetched_at": "2026-05-09T12:32:21.656362+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-hopes-to-get-qb-justin-herbert-to-own-the-position-in-a-way-he-never-has",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-hopes-to-get-qb-justin-herbert-to-own-the-position-in-a-way-he-never-has",
+      "permalink": "",
+      "title": "Mike McDaniel hopes to get QB Justin Herbert to \"own the position\" in a way he never has",
+      "body_text": "As quarterback Justin Herbert enters the seventh year of his career, the Chargers continue to hope to unlock a potential that has yet to be fully realized n the form of a single postseason win.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T11:42:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sonny-styles-switches-from-no-0-in-college-to-no-52-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sonny-styles-switches-from-no-0-in-college-to-no-52-in-the-nfl",
+      "permalink": "",
+      "title": "Sonny Styles switches from No. 0 in college to No. 52 in the NFL",
+      "body_text": "Commanders linebacker Sonny Styles, the seventh overall pick in the draft, most recently wore No. 0 at Ohio State.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T00:17:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sonny Styles",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [
+        "STY526035"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-carnell-tate-agrees-to-terms",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-carnell-tate-agrees-to-terms",
+      "permalink": "",
+      "title": "Titans WR Carnell Tate agrees to terms",
+      "body_text": "Before 2011, first-round draft picks rarely agreed to terms on their rookie deals before the Fourth of July.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T00:36:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [
+        "TAT143045"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-pivots-to-boxing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-pivots-to-boxing",
+      "permalink": "",
+      "title": "Johnny Manziel pivots to boxing",
+      "body_text": "Twelve years to the month after Johnny Manziel became a first-round pick in the NFL draft, he'll step into a boxing ring for the first time.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T23:47:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Manziel"
+      ],
+      "resolved_player_ids": [
+        "00-0031409"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-sidesteps-questions-about-anthony-richardsons-future",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-sidesteps-questions-about-anthony-richardsons-future",
+      "permalink": "",
+      "title": "Shane Steichen sidesteps questions about Anthony Richardson's future",
+      "body_text": "Colts quarterback Anthony Richardson stayed away from the team for two weeks as he sought a trade.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T23:32:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shane Steichen",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-no-meeting-scheduled-or-expected-between-steelers-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-no-meeting-scheduled-or-expected-between-steelers-aaron-rodgers",
+      "permalink": "",
+      "title": "Report: No meeting scheduled or expected between Steelers, Aaron Rodgers",
+      "body_text": "For the Steelers and Rodgers, the new normal is abnormal.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T23:26:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-claim-wr-courtney-jackson-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-claim-wr-courtney-jackson-off-waivers",
+      "permalink": "",
+      "title": "Titans claim WR Courtney Jackson off waivers",
+      "body_text": "The Titans were awarded wide receiver Courtney Jackson off waivers on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T22:02:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtney Jackson",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0040445"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-claim-lb-swayze-bozeman-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-claim-lb-swayze-bozeman-off-waivers",
+      "permalink": "",
+      "title": "Bengals claim LB Swayze Bozeman off waivers",
+      "body_text": "The Bengals claimed linebacker Swayze Bozeman off waivers from the Giants, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T21:46:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Swayze Bozeman",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0039313"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-second-round-cb-davison-igbinosun",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-second-round-cb-davison-igbinosun",
+      "permalink": "",
+      "title": "Bills sign second-round CB Davison Igbinosun",
+      "body_text": "The Bills signed second-round cornerback Davison Igbinosun on Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T21:21:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davison Igbinosun",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "IGB185397"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-five-draft-picks-18-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-five-draft-picks-18-undrafted-free-agents",
+      "permalink": "",
+      "title": "Chargers sign five draft picks, 18 undrafted free agents",
+      "body_text": "The Chargers announced the signings of five players selected in the 2026 draft.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T21:00:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/theres-a-soft-market-for-the-seahawks-so-far",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/theres-a-soft-market-for-the-seahawks-so-far",
+      "permalink": "",
+      "title": "There's a soft market for the Seahawks, so far",
+      "body_text": "The Seahawks are selling.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T20:58:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-claim-dt-elijah-chatman-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-claim-dt-elijah-chatman-off-of-waivers",
+      "permalink": "",
+      "title": "Browns claim DT Elijah Chatman off of waivers",
+      "body_text": "The Browns announced a roster move on Friday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T20:56:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Elijah Chatman",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0039764"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-claim-lb-john-bullock-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-claim-lb-john-bullock-off-waivers",
+      "permalink": "",
+      "title": "Bucs claim LB John Bullock off waivers",
+      "body_text": "Linebacker John Bullock is rejoining the Buccaneers.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T20:43:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Bullock",
+        "Linebacker John"
+      ],
+      "resolved_player_ids": [
+        "00-0040416"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-restructure-jaycee-horns-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-restructure-jaycee-horns-contract",
+      "permalink": "",
+      "title": "Panthers restructure Jaycee Horn's contract",
+      "body_text": "The Panthers restructured the contract of cornerback Jaycee Horn.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T20:30:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaycee Horn",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036944"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-three-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-three-draft-picks",
+      "permalink": "",
+      "title": "Steelers sign three draft picks",
+      "body_text": "The Steelers signed three draft picks on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T20:14:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-five-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-five-draft-picks",
+      "permalink": "",
+      "title": "Patriots sign five draft picks",
+      "body_text": "The Patriots have five of this year's draft picks under contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T20:11:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-rush-will-participate-in-vikings-rookie-minicamp-on-a-tryout-basis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-rush-will-participate-in-vikings-rookie-minicamp-on-a-tryout-basis",
+      "permalink": "",
+      "title": "Cooper Rush will participate in Vikings' rookie minicamp on a tryout basis",
+      "body_text": "Rookie minicamps routinely include more than rookies.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T20:10:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cooper Rush"
+      ],
+      "resolved_player_ids": [
+        "00-0033662"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dezhaun-stribling-kaelon-black-among-six-draft-picks-to-sign-with-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dezhaun-stribling-kaelon-black-among-six-draft-picks-to-sign-with-49ers",
+      "permalink": "",
+      "title": "De'Zhaun Stribling, Kaelon Black among six draft picks to sign with 49ers",
+      "body_text": "The 49ers have started signing their 2026 draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T19:27:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zhaun Stribling",
+        "Kaelon Black"
+      ],
+      "resolved_player_ids": [
+        "BLA097235"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-jets-agree-to-three-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-jets-agree-to-three-year-deal",
+      "permalink": "",
+      "title": "Breece Hall, Jets agree to three-year deal",
+      "body_text": "Hall received the franchise tag, but won't be playing on it in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T19:01:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Breece Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rupert-murdoch-warned-president-trump-that-more-nfl-streaming-could-kill-networks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rupert-murdoch-warned-president-trump-that-more-nfl-streaming-could-kill-networks",
+      "permalink": "",
+      "title": "Report: Rupert Murdoch warned President Trump that more NFL streaming could kill networks",
+      "body_text": "The NFL's current effort to get more from its broadcast partners prompted one of them to go straight to the White House for help.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T18:56:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rupert Murdoch",
+        "President Trump",
+        "White House"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-on-jacoby-brissett-everythings-good-from-a-dialogue-standpoint",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-on-jacoby-brissett-everythings-good-from-a-dialogue-standpoint",
+      "permalink": "",
+      "title": "Mike LaFleur on Jacoby Brissett: Everything's good from a dialogue standpoint",
+      "body_text": "Carson Beck is working with the Cardinals for the first time at this weekend's rookie minicamp and another quarterback was also a topic of conversation during head coach Mike LaFleur's press conference on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T18:53:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [
+        "00-0033119",
+        "BEC122142"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/first-rounder-caleb-banks-seven-other-picks-sign-with-the-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/first-rounder-caleb-banks-seven-other-picks-sign-with-the-vikings",
+      "permalink": "",
+      "title": "First-rounder Caleb Banks, seven other picks sign with the Vikings",
+      "body_text": "The Vikings got most of their draft picks signed in one fell swoop.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T18:32:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Banks",
+        "Vikings The"
+      ],
+      "resolved_player_ids": [
+        "BAN414915"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-third-rounder-ted-hurst-14-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-third-rounder-ted-hurst-14-undrafted-free-agents",
+      "permalink": "",
+      "title": "Bucs sign third-rounder Ted Hurst, 14 undrafted free agents",
+      "body_text": "The Buccaneers are down to one unsigned draft pick.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T18:06:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ted Hurst",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "HUR541377"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-referees-association-approves-new-cba-by-116-4-vote",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-referees-association-approves-new-cba-by-116-4-vote",
+      "permalink": "",
+      "title": "NFL Referees Association approves new CBA by 116-4 vote",
+      "body_text": "Some votes are close.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T18:06:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Referees Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-sign-g-m-george-paton-through-2030",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-sign-g-m-george-paton-through-2030",
+      "permalink": "",
+      "title": "Broncos sign G.M. George Paton through 2030",
+      "body_text": "Broncos General Manager George Paton has been on the job for five seasons.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T17:55:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Paton",
+        "Broncos General",
+        "Manager George"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-to-announce-international-games-on-may-13",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-to-announce-international-games-on-may-13",
+      "permalink": "",
+      "title": "NFL to announce international games on May 13",
+      "body_text": "The NFL will announce the full 2026 schedule on Thursday, May 14, but the league's international slate of games will be revealed earlier than the domestic ones.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T17:54:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/schedule-release-is-coming-thursday-may-14",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/schedule-release-is-coming-thursday-may-14",
+      "permalink": "",
+      "title": "Schedule release is coming Thursday, May 14",
+      "body_text": "The announcement of the announcement of the announcement has become simply an announcement of the announcement.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T17:42:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-first-round-pick-jeremiyah-love",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-first-round-pick-jeremiyah-love",
+      "permalink": "",
+      "title": "Cardinals sign first-round pick Jeremiyah Love",
+      "body_text": "Add running back Jeremiyah Love to the list of 2026 first-round picks who have signed their first NFL contracts.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T17:10:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "LOV121782"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-nflra-agree-to-new-cba-that-will-run-through-2032",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-nflra-agree-to-new-cba-that-will-run-through-2032",
+      "permalink": "",
+      "title": "NFL, NFLRA agree to new CBA that will run through 2032",
+      "body_text": "The agreement means that there will be no replacement officials in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-08T16:56:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-release-k-brandon-mcmanus",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-release-k-brandon-mcmanus",
+      "permalink": "",
+      "title": "Packers release K Brandon McManus",
+      "body_text": "The Packers are moving on from their veteran kicker.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-08T16:42:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    }
+  ]
+}
