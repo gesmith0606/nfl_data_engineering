@@ -1,0 +1,564 @@
+{
+  "fetch_run_id": "81f33d1d-1fa5-4065-876d-71e6730a9f8a",
+  "source": "pft",
+  "fetched_at": "2026-05-10T12:32:34.153608+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cade-klubnik-is-undeterred-by-slide-to-round-four",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cade-klubnik-is-undeterred-by-slide-to-round-four",
+      "permalink": "",
+      "title": "Cade Klubnik is undeterred by slide to round four",
+      "body_text": "Entering the 2025 season, the expectations were high for former Clemson quarterback Cade Klubnik.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T03:43:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cade Klubnik"
+      ],
+      "resolved_player_ids": [
+        "KLU066027"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-undrafted-rookie-lb-javin-wright",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-undrafted-rookie-lb-javin-wright",
+      "permalink": "",
+      "title": "Bucs sign undrafted rookie LB Javin Wright",
+      "body_text": "The Buccaneers made two roster moves on Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-10T00:53:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Javin Wright",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fill-the-slow-time-with-a-little-reading",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fill-the-slow-time-with-a-little-reading",
+      "permalink": "",
+      "title": "Fill the slow time with a little reading",
+      "body_text": "The NFL never sleeps.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T00:44:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-are-selling-22-000-old-seats-from-acrisure-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-are-selling-22-000-old-seats-from-acrisure-stadium",
+      "permalink": "",
+      "title": "Steelers are selling 22,000 old seats from Acrisure Stadium",
+      "body_text": "Twenty-five years after Acrisure Stadium opened in Pittsburgh, some of the seats are being replaced.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T00:45:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Acrisure Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-weeks-after-the-draft-166-of-257-picks-have-signed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-weeks-after-the-draft-166-of-257-picks-have-signed",
+      "permalink": "",
+      "title": "Two weeks after the draft, 166 of 257 picks have signed",
+      "body_text": "All players should be signed before they ever set foot on a practice field.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T00:18:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/good-chance-bo-nix-will-return-to-work-in-june",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/good-chance-bo-nix-will-return-to-work-in-june",
+      "permalink": "",
+      "title": "Sean Payton: \"Good chance\" Bo Nix will return to work in June",
+      "body_text": "Broncos head coach Sean Payton gave a positive update on quarterback Bo Nix's right ankle during a press conference from the team's rookie minicamp on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-09T21:00:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "Bo Nix",
+        "June Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-third-rounder-eli-raridon-seventh-rounder-quintayvious-hutchins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-third-rounder-eli-raridon-seventh-rounder-quintayvious-hutchins",
+      "permalink": "",
+      "title": "Patriots sign third-rounder Eli Raridon, seventh-rounder Quintayvious Hutchins",
+      "body_text": "Two more Patriots draft picks have signed their rookie deals with the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-09T20:44:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eli Raridon",
+        "Quintayvious Hutchins"
+      ],
+      "resolved_player_ids": [
+        "RAR148318",
+        "HUT095931"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-odell-beckham-jr-its-got-to-be-right-for-both-parties",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-odell-beckham-jr-its-got-to-be-right-for-both-parties",
+      "permalink": "",
+      "title": "John Harbaugh on Odell Beckham Jr.: \"It's got to be right for both parties\"",
+      "body_text": "The Giants have talked to receiver Odell Beckham Jr. about a potential reunion.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T20:43:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Odell Beckham Jr",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sign-second-rounder-christen-miller-have-all-picks-under-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sign-second-rounder-christen-miller-have-all-picks-under-contract",
+      "permalink": "",
+      "title": "Saints sign second-rounder Christen Miller, have all picks under contract",
+      "body_text": "The Saints have signed all eight of their draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-09T20:33:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christen Miller",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "MIL178336"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-has-been-in-pittsburgh-for-a-couple-days-but-hasnt-met-with-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-has-been-in-pittsburgh-for-a-couple-days-but-hasnt-met-with-steelers",
+      "permalink": "",
+      "title": "Report: Aaron Rodgers has been in Pittsburgh for a couple days, but hasn't met with Steelers",
+      "body_text": "Rodgers's agent has been talking to the team.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T17:56:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Steelers Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-loves-record-guarantee-is-a-product-of-his-draft-slot-not-his-position",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-loves-record-guarantee-is-a-product-of-his-draft-slot-not-his-position",
+      "permalink": "",
+      "title": "Jeremiyah Love's record guarantee is a product of his draft slot, not his position",
+      "body_text": "When Cardinals rookie running back Jeremiyah Love recently put pen to paper on his rookie contract, he secured the biggest full guarantee of any running back in NFL history.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T17:38:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "When Cardinals"
+      ],
+      "resolved_player_ids": [
+        "LOV121782"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-second-round-pick-kayden-mcdonald-agree-to-rookie-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-second-round-pick-kayden-mcdonald-agree-to-rookie-contract",
+      "permalink": "",
+      "title": "Texans, second-round pick Kayden McDonald agree to rookie contract",
+      "body_text": "The Texans have taken care of an important piece of business on Saturday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-09T17:13:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-agree-to-sign-wr-scotty-miller",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-agree-to-sign-wr-scotty-miller",
+      "permalink": "",
+      "title": "Bears agree to sign WR Scotty Miller",
+      "body_text": "Scotty Miller attended Bears rookie minicamp on a tryout basis in an effort to get on the team's 90-man roster.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-09T16:56:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Scotty Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/veteran-wr-scotty-miller-angles-for-roster-spot-at-bears-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/veteran-wr-scotty-miller-angles-for-roster-spot-at-bears-rookie-minicamp",
+      "permalink": "",
+      "title": "Veteran WR Scotty Miller angles for roster spot at Bears' rookie minicamp",
+      "body_text": "Veteran receiver Scotty Miller, who spent the 2024 and 2025 seasons in Pittsburgh, has found no takers in free agency.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T16:13:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Scotty Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-will-be-as-involved-in-the-g-m-search-as-ownership-wants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-will-be-as-involved-in-the-g-m-search-as-ownership-wants",
+      "permalink": "",
+      "title": "Kevin O'Connell will be as involved in the G.M. search as ownership wants",
+      "body_text": "Vikings need a G.M. who will work well with the coaching staff.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T15:52:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-cant-or-wont-put-an-end-to-a-rash-of-player-driving-violations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-cant-or-wont-put-an-end-to-a-rash-of-player-driving-violations",
+      "permalink": "",
+      "title": "Bill Belichick can't, or won't, put an end to a rash of player driving violations",
+      "body_text": "Under coach Bill Belichick, the North Carolina Tar Heels are struggling to win on the field.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T15:28:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina",
+        "Tar Heels"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-three-more-picks-from-2026-draft-class",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-three-more-picks-from-2026-draft-class",
+      "permalink": "",
+      "title": "Steelers sign three more picks from 2026 draft class",
+      "body_text": "As the Steelers' rookies work their first minicamp, fewer and fewer of them are working for free.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T13:54:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-is-taking-on-a-bigger-role-with-the-milwaukee-bucks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-is-taking-on-a-bigger-role-with-the-milwaukee-bucks",
+      "permalink": "",
+      "title": "Jimmy Haslam is taking on a bigger role with the Milwaukee Bucks",
+      "body_text": "It's awkward, to say the least, when the owner of an NFL team in one market owns a sports team in another market.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T13:11:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jimmy Haslam",
+        "Milwaukee Bucks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-world-cup-gouging-continues-arthur-blank-will-keep-fan-friendly-pricing-for-atlanta-matches",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-world-cup-gouging-continues-arthur-blank-will-keep-fan-friendly-pricing-for-atlanta-matches",
+      "permalink": "",
+      "title": "As World Cup gouging continues, Arthur Blank will keep \"fan-friendly\" pricing for Atlanta matches",
+      "body_text": "As the World Cup creeps closer, the prices keep shooting higher.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T12:34:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "As World",
+        "Arthur Blank",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-hopes-to-get-qb-justin-herbert-to-own-the-position-in-a-way-he-never-has",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-hopes-to-get-qb-justin-herbert-to-own-the-position-in-a-way-he-never-has",
+      "permalink": "",
+      "title": "Mike McDaniel hopes to get QB Justin Herbert to \"own the position\" in a way he never has",
+      "body_text": "As quarterback Justin Herbert enters the seventh year of his career, the Chargers continue to hope to unlock a potential that has yet to be fully realized n the form of a single postseason win.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T11:42:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sonny-styles-switches-from-no-0-in-college-to-no-52-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sonny-styles-switches-from-no-0-in-college-to-no-52-in-the-nfl",
+      "permalink": "",
+      "title": "Sonny Styles switches from No. 0 in college to No. 52 in the NFL",
+      "body_text": "Commanders linebacker Sonny Styles, the seventh overall pick in the draft, most recently wore No. 0 at Ohio State.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T00:17:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sonny Styles",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [
+        "STY526035"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-carnell-tate-agrees-to-terms",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-carnell-tate-agrees-to-terms",
+      "permalink": "",
+      "title": "Titans WR Carnell Tate agrees to terms",
+      "body_text": "Before 2011, first-round draft picks rarely agreed to terms on their rookie deals before the Fourth of July.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T00:36:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [
+        "TAT143045"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-pivots-to-boxing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-pivots-to-boxing",
+      "permalink": "",
+      "title": "Johnny Manziel pivots to boxing",
+      "body_text": "Twelve years to the month after Johnny Manziel became a first-round pick in the NFL draft, he'll step into a boxing ring for the first time.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T23:47:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Manziel"
+      ],
+      "resolved_player_ids": [
+        "00-0031409"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-sidesteps-questions-about-anthony-richardsons-future",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-sidesteps-questions-about-anthony-richardsons-future",
+      "permalink": "",
+      "title": "Shane Steichen sidesteps questions about Anthony Richardson's future",
+      "body_text": "Colts quarterback Anthony Richardson stayed away from the team for two weeks as he sought a trade.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T23:32:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shane Steichen",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-no-meeting-scheduled-or-expected-between-steelers-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-no-meeting-scheduled-or-expected-between-steelers-aaron-rodgers",
+      "permalink": "",
+      "title": "Report: No meeting scheduled or expected between Steelers, Aaron Rodgers",
+      "body_text": "For the Steelers and Rodgers, the new normal is abnormal.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T23:26:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-claim-wr-courtney-jackson-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-claim-wr-courtney-jackson-off-waivers",
+      "permalink": "",
+      "title": "Titans claim WR Courtney Jackson off waivers",
+      "body_text": "The Titans were awarded wide receiver Courtney Jackson off waivers on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T22:02:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtney Jackson",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0040445"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-claim-lb-swayze-bozeman-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-claim-lb-swayze-bozeman-off-waivers",
+      "permalink": "",
+      "title": "Bengals claim LB Swayze Bozeman off waivers",
+      "body_text": "The Bengals claimed linebacker Swayze Bozeman off waivers from the Giants, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T21:46:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Swayze Bozeman",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0039313"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-second-round-cb-davison-igbinosun",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-second-round-cb-davison-igbinosun",
+      "permalink": "",
+      "title": "Bills sign second-round CB Davison Igbinosun",
+      "body_text": "The Bills signed second-round cornerback Davison Igbinosun on Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T21:21:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davison Igbinosun",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "IGB185397"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-five-draft-picks-18-undrafted-free-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-five-draft-picks-18-undrafted-free-agents",
+      "permalink": "",
+      "title": "Chargers sign five draft picks, 18 undrafted free agents",
+      "body_text": "The Chargers announced the signings of five players selected in the 2026 draft.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-08T21:00:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/theres-a-soft-market-for-the-seahawks-so-far",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/theres-a-soft-market-for-the-seahawks-so-far",
+      "permalink": "",
+      "title": "There's a soft market for the Seahawks, so far",
+      "body_text": "The Seahawks are selling.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-08T20:58:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    }
+  ]
+}

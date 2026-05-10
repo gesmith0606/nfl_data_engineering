@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "cb193729-ce94-47dd-ab43-038e76ceaa65",
+  "source": "rotowire",
+  "fetched_at": "2026-05-10T12:32:00.947206+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630812",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: On track for minicamp",
+      "body_text": "Head coach Sean Payton told reporters Saturday that Nix (ankle) will throw during mid-June minicamp and should be at full speed at training camp in July, Parker Gabriel of The Denver Post reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-09T12:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Sean Payton",
+        "Parker Gabriel",
+        "The Denver"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630811",
+      "url": "https://www.rotowire.com//football/player/jordyn-tyson-19233",
+      "permalink": "",
+      "title": "Jordyn Tyson: Sits out of Saturday's practice",
+      "body_text": "Tyson did not participate in Saturday's rookie minicamp practice due to a \"minor injury,\" Nick Underhill of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-09T10:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordyn Tyson",
+        "Nick Underhill"
+      ],
+      "resolved_player_ids": [
+        "TYS405541"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630784",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Still absent, but dialogue ongoing",
+      "body_text": "Brissett remains absent from the Cardinals' offseason program, but coach Mike LaFleur said Friday that the veteran quarterback has \"played a lot of football, and we're in communication,\" Josh Weinfuss of ESPN.com reports. \"He knows what the expectation is,\" LaFleur added. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-08T03:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Josh Weinfuss"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl630770",
+      "url": "https://www.rotowire.com//football/player/joe-burrow-14442",
+      "permalink": "",
+      "title": "Joe Burrow: Continuity on O, more help on D",
+      "body_text": "Burrow was present for the start of Cincinnati's voluntary offseason workouts Thursday, Ben Baby of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-08T12:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Ben Baby"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630765",
+      "url": "https://www.rotowire.com//football/player/breece-hall-15810",
+      "permalink": "",
+      "title": "Breece Hall: Lands three-year extension",
+      "body_text": "The Jets and Hall (knee) agreed to terms on a three-year, $45.75 million contract Friday, NFL reporter Jordan Schultz reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-08T12:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Breece Hall",
+        "The Jets",
+        "Jordan Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    }
+  ]
+}
