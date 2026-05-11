@@ -1,0 +1,324 @@
+{
+  "fetch_run_id": "49299913-8b5f-43eb-a1a7-dff68c02b76e",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-11T13:13:48.060074+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 20,
+  "items": [
+    {
+      "external_id": "US-EN-48702987",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48702987/2026-nfl-draft-rookie-year-impact-middle-late-rounders",
+      "title": "The non-Round 1 impact rookies: Yates lists 20 sle...",
+      "body_text": "We picked out Day 2 and Day 3 NFL draft picks who could contribute right away, including R Mason Thomas and Antonio Williams.",
+      "author": "Field Yates",
+      "published_at": "2026-05-11T13:48:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mason Thomas",
+        "Antonio Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0036188"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48687620",
+      "url": "https://www.espn.com/espn/betting/story/_/id/48687620/nfl-awards-offensive-rookie-year-coach-year-2026",
+      "title": "Early NFL awards favorites, long shots: Which rook...",
+      "body_text": "There's still a long way to go until the 2026 season kicks off, but it's never too early to see who's a front-runner.",
+      "author": "Pamela Maldonado",
+      "published_at": "2026-05-11T13:48:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48739754",
+      "url": "https://www.espn.com/nfl/story/_/id/48739754/sources-chargers-te-david-njoku-agree-one-year-deal",
+      "title": "Sources: Chargers, TE Njoku agree to 1-yr. deal",
+      "body_text": "After nine years with the Browns, David Njoku has agreed to terms with the Chargers on a one-year deal worth up to $8 million, sources told NFL Network's Ian Rapoport.",
+      "author": null,
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "David Njoku",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-48740437",
+      "url": "https://www.espn.com/nfl/story/_/id/48740437/john-harbaugh-giants-host-cowboys-week-1-sunday-night-football",
+      "title": "Harbaugh-led Giants to host Cowboys in Week 1",
+      "body_text": "The Giants will host the Cowboys on Sept. 13 in the first \"Sunday Night Football\" game of the 2026 season.",
+      "author": null,
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Giants",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48724463",
+      "url": "https://www.espn.com/nfl/story/_/id/48724463/jets-qb-klubnik-unshaken-fall-draft-winner",
+      "title": "Klubnik unshaken by fall in draft: 'I'm a winner'",
+      "body_text": "Jets rookie QB Cade Klubnik said he's still \"a winner\" despite a difficult final season at Clemson that saw his draft stock fall.",
+      "author": "Rich Cimini",
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Cade Klubnik"
+      ],
+      "resolved_player_ids": [
+        "KLU066027"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48722844",
+      "url": "https://www.espn.com/nfl/story/_/id/48722844/harbaugh-call-odell-beckham-jr-wait-training-camp",
+      "title": "Harbaugh: Decision on OBJ could wait until camp",
+      "body_text": "Giants coach John Harbaugh said he spoke to Odell Beckham Jr. three to four times in the past week as they remain in touch about reuniting. But they will \"play it out over the next month and into training camp\" before making a decision.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "John Harbaugh",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48724018",
+      "url": "https://www.espn.com/nfl/story/_/id/48724018/bo-nix-track-limited-minicamp-participation",
+      "title": "Payton: Nix 'doing good,' on course for minicamp",
+      "body_text": "Broncos coach Sean Payton said Saturday that quarterback Bo Nix is on track to participate on a limited basis in the team's minicamp next month and will be \"full speed'' by the time the team's training camp begins this summer.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Sean Payton",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-48714193",
+      "url": "https://www.espn.com/nfl/story/_/id/48714193/jets-give-rb-breece-hall-3-year-4575m-extension",
+      "title": "Jets give RB Hall 3-year, $45.75M extension",
+      "body_text": "Jets running back Breece Hall, given the franchise tag on March 3, agreed to a three-year, $43.5 million contract Friday that can be worth up to $45.75 million, sources told ESPN.",
+      "author": "Rich Cimini",
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Breece Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48724681",
+      "url": "https://www.espn.com/mma/story/_/id/48724681/ex-nfl-player-wint-fight-dana-white-contender-series",
+      "title": "Ex-NFLer Wint added to White's Contender Series",
+      "body_text": "Former NFL linebacker Anthony Wint, who played briefly for the New York Jets in 2018, will fight in Dana White's Contender Series later this year in an effort to land a UFC contract.",
+      "author": "Brett Okamoto",
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Contender Series",
+        "Anthony Wint",
+        "New York",
+        "Dana White"
+      ],
+      "resolved_player_ids": [
+        "00-0034303"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48712023",
+      "url": "https://www.espn.com/nfl/story/_/id/48712023/seattle-seahawks-sale-buyers-less-interested-nfl-expected",
+      "title": "Sources: Seahawks interest 'soft' from buyers",
+      "body_text": "The Seahawks haven't generated as much buyer interest as NFL officials originally expected, sources told ESPN.",
+      "author": "Seth Wickersham",
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-48713394",
+      "url": "https://www.espn.com/nfl/story/_/id/48713394/michael-penix-jr-olivia-carter-wedding-atlanta-falcons",
+      "title": "💍 Michael Penix Jr. marries fiancée Olivia Carter...",
+      "body_text": "The Atlanta Falcons quarterback seemed to be recovering well from his ACL surgery, showing off his moves on the dance floor.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-05-11T13:25:48+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Michael Penix Jr",
+        "Olivia Carter",
+        "The Atlanta"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48731876",
+      "url": "https://www.espn.com/nfl/story/_/id/48731876/cleveland-browns-2026-nfl-rookie-kc-concepcion-coach-todd-monken-version-ravens-zay-flowers",
+      "title": "Can KC Concepcion be the Browns' version of Zay Fl...",
+      "body_text": "Cleveland coach Todd Monken draws positive comparisons between his first-round pick and the Ravens WR.",
+      "author": "Daniel Oyefusi",
+      "published_at": "2026-05-11T12:11:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-48649984",
+      "url": "https://www.espn.com/nfl/story/_/id/48649984/2026-nfl-offseason-biggest-roster-holes-depth-needs-all-32-teams-postdraft",
+      "title": "The biggest remaining roster hole for every NFL te...",
+      "body_text": "Even after free agency, trades and the draft, NFL teams still have at least one position that needs a boost. Here's one for every roster.",
+      "author": "Aaron Schatz",
+      "published_at": "2026-05-09T20:06:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48675818",
+      "url": "https://www.espn.com/nfl/story/_/id/48675818/2026-nfl-offseason-draft-veteran-hot-seats-position-battles-rookies",
+      "title": "Who is on the hot seat after the NFL draft? 14 vet...",
+      "body_text": "Will Carrington Valentine get jumped by Brandon Cisse on the Green Bay depth chart?",
+      "author": "Ben Solak",
+      "published_at": "2026-05-09T20:06:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Carrington",
+        "Brandon Cisse",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "CIS501810"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48702889",
+      "url": "https://www.espn.com/nfl/story/_/id/48702889/new-york-jets-frank-new-oc-reich-challenge-turnaround",
+      "title": "Copy of 'Maybe I'm a little backwards': Why Frank Reich re...",
+      "body_text": "The former NFL coach was attracted at age 64 because he knew it wouldn't be easy getting New York back on track.",
+      "author": "Rich Cimini",
+      "published_at": "2026-05-08T21:49:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Frank",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48714260",
+      "url": "https://www.espn.com/nfl/story/_/id/48714260/jets-re-sign-breece-hall-answering-five-key-questions",
+      "title": "Breece Hall gets paid: What it means for Jets, fan...",
+      "body_text": "How does this Breece Hall deal impact the Jets' future? What are the fantasy ramifications? Here is the intel. ﻿",
+      "author": "Rich Cimini and Jeremy Fowler and Mike Clay",
+      "published_at": "2026-05-08T21:49:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Breece Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48711830",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48711830/2026-fantasy-football-rankings-ppr-field-yates",
+      "title": "Field Yates' rankings: PPR top 160",
+      "body_text": "Field provides his latest rankings for the upcoming season, which will be updated throughout the offseason.",
+      "author": "Field Yates",
+      "published_at": "2026-05-08T15:54:15+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Field Yates"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48717338",
+      "url": "https://www.espn.com/nfl/story/_/id/48717338/christian-mccaffrey-olivia-culpo-second-baby-announcement",
+      "title": "Baby No. 2 on the way for Christian McCaffrey, Oli...",
+      "body_text": "The San Francisco 49ers star and former Miss Universe announced that they are expecting their second child.",
+      "author": "Brianna Williams",
+      "published_at": "2026-05-09T04:34:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The San",
+        "Miss Universe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-48696952",
+      "url": "https://www.espn.com/nfl/story/_/id/48696952/justin-berbert-los-angeles-chargers-madison-beer-music-video-teaser",
+      "title": "Justin Herbert stars in girlfriend Madison Beer's ...",
+      "body_text": "The Grammy-nominated artist and the Chargers quarterback share the screen together in the video.",
+      "author": "Kalan Hooks",
+      "published_at": "2026-05-09T04:34:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Justin Herbert",
+        "Madison Beer",
+        "The Grammy"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

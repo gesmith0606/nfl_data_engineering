@@ -1,0 +1,73 @@
+{
+  "fetch_run_id": "25adab85-8537-4caa-9d9a-bb5005fa32b4",
+  "source": "rotowire",
+  "fetched_at": "2026-05-11T13:16:09.971828+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 3,
+  "items": [
+    {
+      "external_id": "nfl630818",
+      "url": "https://www.rotowire.com//football/player/david-njoku-11734",
+      "permalink": "",
+      "title": "David Njoku: Lands one-year deal with Chargers",
+      "body_text": "Njoku agreed Monday with the Chargers on a one-year deal worth up to $8 million, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-11T06:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Njoku",
+        "Chargers Njoku",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl630812",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: On track for minicamp",
+      "body_text": "Head coach Sean Payton told reporters Saturday that Nix (ankle) will throw during mid-June minicamp and should be at full speed at training camp in July, Parker Gabriel of The Denver Post reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-09T12:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Sean Payton",
+        "Parker Gabriel",
+        "The Denver"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630811",
+      "url": "https://www.rotowire.com//football/player/jordyn-tyson-19233",
+      "permalink": "",
+      "title": "Jordyn Tyson: Sits out of Saturday's practice",
+      "body_text": "Tyson did not participate in Saturday's rookie minicamp practice due to a \"minor injury,\" Nick Underhill of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-09T10:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordyn Tyson",
+        "Nick Underhill"
+      ],
+      "resolved_player_ids": [
+        "TYS405541"
+      ],
+      "team_hint": null
+    }
+  ]
+}

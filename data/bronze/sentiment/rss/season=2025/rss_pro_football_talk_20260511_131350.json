@@ -1,0 +1,475 @@
+{
+  "fetch_run_id": "49299913-8b5f-43eb-a1a7-dff68c02b76e",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-11T13:13:50.769782+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-to-sign-ol-layden-robinson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-to-sign-ol-layden-robinson",
+      "title": "Falcons to sign OL Layden Robinson",
+      "body_text": "Offensive lineman Layden Robinson took part in the Falcons' rookie minicamp on a tryout basis and he is set to stick around Atlanta for a little while longer.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T12:59:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Layden Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0039887"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-will-host-cowboys-on-sunday-night-in-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-will-host-cowboys-on-sunday-night-in-week-1",
+      "title": "Giants will host Cowboys on Sunday night in Week 1",
+      "body_text": "The 2026 NFL schedule is starting to take shape.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T11:56:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-i-started-my-career-in-houston-want-to-end-it-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-i-started-my-career-in-houston-want-to-end-it-there",
+      "title": "Nico Collins: I started my career in Houston, want to end it there",
+      "body_text": "When trade rumors swirled about Texans wide receiver Nico Collins ahead of the draft, General Manager Nick Caserio didn't hesitate to make it clear that the team has no interest in parting ways with the wideout.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T11:03:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nico Collins",
+        "General Manager",
+        "Nick Caserio"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-agree-to-terms-with-david-njoku",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-agree-to-terms-with-david-njoku",
+      "title": "Chargers agree to terms with David Njoku",
+      "body_text": "Long-time Browns tight end lands in L.A.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-11T10:52:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Njoku"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-rookie-qb-taylen-green-no-one-as-tall-as-me-moves-like-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-rookie-qb-taylen-green-no-one-as-tall-as-me-moves-like-me",
+      "title": "Browns rookie QB Taylen Green: No one as tall as me moves like me",
+      "body_text": "Browns rookie quarterback Taylen Green believes he's one of a kind.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T10:43:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylen Green"
+      ],
+      "resolved_player_ids": [
+        "GRE361852"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-true-competition-coming-between-kyler-murray-j-j-mccarthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-true-competition-coming-between-kyler-murray-j-j-mccarthy",
+      "title": "Report: \"True competition\" coming between Kyler Murray, J.J. McCarthy",
+      "body_text": "The Vikings have added quarterback Kyler Murray to a depth chart that includes 2024 first-rounder J.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-11T01:44:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-doesnt-rule-out-adding-another-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-doesnt-rule-out-adding-another-quarterback",
+      "title": "Sean Payton doesn't rule out adding another quarterback",
+      "body_text": "The Broncos have three quarterbacks on the roster.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T21:22:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-browns-get-to-work-on-taylen-greens-fundamentals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-browns-get-to-work-on-taylen-greens-fundamentals",
+      "title": "The Browns get to work on Taylen Green's fundamentals",
+      "body_text": "A year after the Browns used a fifth-round pick on quarterback Shedeur Sanders, they took a sixth-round flier on quarterback Taylen Green.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T18:26:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Browns",
+        "Taylen Green",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "GRE361852",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardsons-best-move-view-2026-as-a-career-reset",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardsons-best-move-view-2026-as-a-career-reset",
+      "title": "Anthony Richardson's best move? View 2026 as a career reset",
+      "body_text": "Three years after the Colts rolled the dice on quarterback Anthony Richardson with the fourth overall pick in the draft, his career enters a new phase.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T17:25:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-ol-landon-young",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-ol-landon-young",
+      "title": "Jets sign OL Landon Young",
+      "body_text": "The Jets added a veteran offensive lineman to their 90-man roster after a tryout at their rookie minicamp this weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-10T17:41:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Landon Young",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0036930"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donald-trump-on-the-nfls-pivot-to-paid-platforms-i-dont-like-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donald-trump-on-the-nfls-pivot-to-paid-platforms-i-dont-like-it",
+      "title": "Donald Trump on the NFL's pivot to paid platforms: \"I don't like it\"",
+      "body_text": "\"They're making a lot of money,\" Trump said. \"They could make a little bit less.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T15:07:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Donald Trump"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-takes-transparency-to-the-next-level-with-in-game-interview-of-official",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-takes-transparency-to-the-next-level-with-in-game-interview-of-official",
+      "title": "UFL takes transparency to the next level, with in-game interview of official",
+      "body_text": "The UFL has no fear about letting officials talk. The NFL should pay attention.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T13:44:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-didnt-really-see-the-grumpy-sean-mcvay-press-conference",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-didnt-really-see-the-grumpy-sean-mcvay-press-conference",
+      "title": "Ty Simpson \"didn't really see\" the \"grumpy\" Sean McVay press conference",
+      "body_text": "One of the biggest surprises during the 2026 NFL draft happened when the Rams used the 13th overall pick on quarterback Ty Simpson.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T13:00:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "SIM639376"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-jordyn-tyson-had-a-planned-rest-day-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-jordyn-tyson-had-a-planned-rest-day-saturday",
+      "title": "Saints WR Jordyn Tyson had a planned rest day Saturday",
+      "body_text": "There weren't any questions about wide receiver Jordyn Tyson's talent leading into the draft, but there were questions about his durability after a number of injuries at Arizona State.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-10T12:58:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordyn Tyson",
+        "Saturday There",
+        "Arizona State"
+      ],
+      "resolved_player_ids": [
+        "TYS405541"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-considers-himself-fortunate-regarding-the-general-managers-he-has-worked-with",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-considers-himself-fortunate-regarding-the-general-managers-he-has-worked-with",
+      "title": "Sean Payton considers himself \"fortunate\" regarding the General Managers he has worked with",
+      "body_text": "A strong coach-G.M. relationship \"is almost half the battle.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T12:29:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "General Managers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cade-klubnik-is-undeterred-by-slide-to-round-four",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cade-klubnik-is-undeterred-by-slide-to-round-four",
+      "title": "Cade Klubnik is undeterred by slide to round four",
+      "body_text": "Entering the 2025 season, the expectations were high for former Clemson quarterback Cade Klubnik.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T03:43:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cade Klubnik"
+      ],
+      "resolved_player_ids": [
+        "KLU066027"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-undrafted-rookie-lb-javin-wright",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-undrafted-rookie-lb-javin-wright",
+      "title": "Bucs sign undrafted rookie LB Javin Wright",
+      "body_text": "The Buccaneers made two roster moves on Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-10T00:53:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Javin Wright",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fill-the-slow-time-with-a-little-reading",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fill-the-slow-time-with-a-little-reading",
+      "title": "Fill the slow time with a little reading",
+      "body_text": "The NFL never sleeps.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T00:44:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-are-selling-22-000-old-seats-from-acrisure-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-are-selling-22-000-old-seats-from-acrisure-stadium",
+      "title": "Steelers are selling 22,000 old seats from Acrisure Stadium",
+      "body_text": "Twenty-five years after Acrisure Stadium opened in Pittsburgh, some of the seats are being replaced.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T00:45:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Acrisure Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-weeks-after-the-draft-166-of-257-picks-have-signed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-weeks-after-the-draft-166-of-257-picks-have-signed",
+      "title": "Two weeks after the draft, 166 of 257 picks have signed",
+      "body_text": "All players should be signed before they ever set foot on a practice field.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-10T00:18:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/good-chance-bo-nix-will-return-to-work-in-june",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/good-chance-bo-nix-will-return-to-work-in-june",
+      "title": "Sean Payton: \"Good chance\" Bo Nix will return to work in June",
+      "body_text": "Broncos head coach Sean Payton gave a positive update on quarterback Bo Nix's right ankle during a press conference from the team's rookie minicamp on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-09T21:00:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Bo Nix",
+        "June Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-third-rounder-eli-raridon-seventh-rounder-quintayvious-hutchins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-third-rounder-eli-raridon-seventh-rounder-quintayvious-hutchins",
+      "title": "Patriots sign third-rounder Eli Raridon, seventh-rounder Quintayvious Hutchins",
+      "body_text": "Two more Patriots draft picks have signed their rookie deals with the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-09T20:44:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eli Raridon",
+        "Quintayvious Hutchins"
+      ],
+      "resolved_player_ids": [
+        "RAR148318",
+        "HUT095931"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-odell-beckham-jr-its-got-to-be-right-for-both-parties",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-odell-beckham-jr-its-got-to-be-right-for-both-parties",
+      "title": "John Harbaugh on Odell Beckham Jr.: \"It's got to be right for both parties\"",
+      "body_text": "The Giants have talked to receiver Odell Beckham Jr. about a potential reunion.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T20:43:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Odell Beckham Jr",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sign-second-rounder-christen-miller-have-all-picks-under-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sign-second-rounder-christen-miller-have-all-picks-under-contract",
+      "title": "Saints sign second-rounder Christen Miller, have all picks under contract",
+      "body_text": "The Saints have signed all eight of their draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-09T20:33:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christen Miller",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "MIL178336"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-has-been-in-pittsburgh-for-a-couple-days-but-hasnt-met-with-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-has-been-in-pittsburgh-for-a-couple-days-but-hasnt-met-with-steelers",
+      "title": "Report: Aaron Rodgers has been in Pittsburgh for a couple days, but hasn't met with Steelers",
+      "body_text": "Rodgers's agent has been talking to the team.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T17:56:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Steelers Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-loves-record-guarantee-is-a-product-of-his-draft-slot-not-his-position",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-loves-record-guarantee-is-a-product-of-his-draft-slot-not-his-position",
+      "title": "Jeremiyah Love's record guarantee is a product of his draft slot, not his position",
+      "body_text": "When Cardinals rookie running back Jeremiyah Love recently put pen to paper on his rookie contract, he secured the biggest full guarantee of any running back in NFL history.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T17:38:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love",
+        "When Cardinals"
+      ],
+      "resolved_player_ids": [
+        "LOV121782"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-second-round-pick-kayden-mcdonald-agree-to-rookie-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-second-round-pick-kayden-mcdonald-agree-to-rookie-contract",
+      "title": "Texans, second-round pick Kayden McDonald agree to rookie contract",
+      "body_text": "The Texans have taken care of an important piece of business on Saturday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-09T17:13:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-agree-to-sign-wr-scotty-miller",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-agree-to-sign-wr-scotty-miller",
+      "title": "Bears agree to sign WR Scotty Miller",
+      "body_text": "Scotty Miller attended Bears rookie minicamp on a tryout basis in an effort to get on the team's 90-man roster.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-09T16:56:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Scotty Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/veteran-wr-scotty-miller-angles-for-roster-spot-at-bears-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/veteran-wr-scotty-miller-angles-for-roster-spot-at-bears-rookie-minicamp",
+      "title": "Veteran WR Scotty Miller angles for roster spot at Bears' rookie minicamp",
+      "body_text": "Veteran receiver Scotty Miller, who spent the 2024 and 2025 seasons in Pittsburgh, has found no takers in free agency.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T16:13:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Scotty Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-will-be-as-involved-in-the-g-m-search-as-ownership-wants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-will-be-as-involved-in-the-g-m-search-as-ownership-wants",
+      "title": "Kevin O'Connell will be as involved in the G.M. search as ownership wants",
+      "body_text": "Vikings need a G.M. who will work well with the coaching staff.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-09T15:52:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    }
+  ]
+}
