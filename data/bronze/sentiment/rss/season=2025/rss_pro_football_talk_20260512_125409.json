@@ -1,0 +1,489 @@
+{
+  "fetch_run_id": "c8ef4c20-9d3c-4ff4-baca-7f26ce98de77",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-12T12:54:09.113705+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-chiefs-will-be-the-monday-night-game-in-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-chiefs-will-be-the-monday-night-game-in-week-1",
+      "title": "Broncos-Chiefs will be the Monday night game in Week 1",
+      "body_text": "The location for the game has not been announced yet.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T11:55:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dante-fowler-demarcus-lawrence-told-me-to-sign-with-seahawks-if-i-want-a-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dante-fowler-demarcus-lawrence-told-me-to-sign-with-seahawks-if-i-want-a-super-bowl",
+      "title": "Dante Fowler: DeMarcus Lawrence told me to sign with Seahawks if I want a Super Bowl",
+      "body_text": "When edge rusher DeMarcus Lawrence signed with the Seahawks last year, he said Dallas was his home but that he moved on to Seattle because he kenw \"for sure I’m not going to win a Super Bowl there.\"",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T11:02:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dante Fowler",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0032052"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-issues-reminder-that-owners-will-install-high-quality-grass-for-fifa",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-issues-reminder-that-owners-will-install-high-quality-grass-for-fifa",
+      "title": "NFLPA issues reminder that owners will install high-quality grass for FIFA",
+      "body_text": "The World Cup stadiums with artificial turf are embracing grass, temporarily.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T02:26:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/foxs-lachlan-murdoch-claims-theres-really-no-tension-with-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/foxs-lachlan-murdoch-claims-theres-really-no-tension-with-the-nfl",
+      "title": "Fox's Lachlan Murdoch claims there's \"really no tension\" with the NFL",
+      "body_text": "On Monday, Fox CEO Lachlan Murdoch announced during an earnings call that the network will add a pair of nationally-televised games to its existing package for 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T09:23:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lachlan Murdoch",
+        "On Monday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyreek-hill-settles-with-influencer-during-civil-trial",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyreek-hill-settles-with-influencer-during-civil-trial",
+      "title": "Tyreek Hill settles with influencer during civil trial",
+      "body_text": "Former Chiefs and Dolphins receiver Tyreek Hill has one less legal issue to worry about.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T08:45:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyreek Hill",
+        "Former Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0033040"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donald-trump-not-happy-fernando-mendoza-skipped-indianas-visit-to-the-white-house",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donald-trump-not-happy-fernando-mendoza-skipped-indianas-visit-to-the-white-house",
+      "title": "Donald Trump \"not happy\" Fernando Mendoza skipped Indiana's visit to the White House",
+      "body_text": "Raiders quarterback Fernando Mendoza skipped Indiana's visit to the White House on Monday.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T02:03:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Donald Trump",
+        "Fernando Mendoza",
+        "White House"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-signed-undrafted-rookie-wr-brock-rechsteiner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-signed-undrafted-rookie-wr-brock-rechsteiner",
+      "title": "Report: Saints signed undrafted rookie WR Brock Rechsteiner",
+      "body_text": "The Saints signed undrafted rookie wide receiver Brock Rechsteiner on Monday, Nick Underhill of NewOrleans.Football reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-12T01:07:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Rechsteiner",
+        "The Saints",
+        "Nick Underhill"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-will-open-their-new-stadium-on-thursday-night-football-in-week-2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-will-open-their-new-stadium-on-thursday-night-football-in-week-2",
+      "title": "Bills will open their new stadium on Thursday Night Football in Week 2",
+      "body_text": "The Lions are the opponent in Buffalo's home opener.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T23:41:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-qb-craig-morton-dies-at-83",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-qb-craig-morton-dies-at-83",
+      "title": "Former NFL QB Craig Morton dies at 83",
+      "body_text": "Former NFL quarterback Craig Morton, who led the Broncos to their first Super Bowl appearance, died on May 9 at his home in Mill Valley, California, the Broncos announced Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T23:25:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Craig Morton",
+        "Super Bowl",
+        "Mill Valley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-signs-contract-extension-this-is-where-i-want-to-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-signs-contract-extension-this-is-where-i-want-to-be",
+      "title": "Breece Hall signs contract extension: This is where I want to be",
+      "body_text": "Jets running back Breece Hall has signed his multi-year extension, the team announced Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T23:07:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Breece Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-lb-larry-worth-iii-cut-lb-milo-eifler",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-lb-larry-worth-iii-cut-lb-milo-eifler",
+      "title": "49ers sign LB Larry Worth III, cut LB Milo Eifler",
+      "body_text": "The 49ers signed linebacker Larry Worth III to a three-year deal on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T22:45:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Larry Worth III",
+        "Milo Eifler"
+      ],
+      "resolved_player_ids": [
+        "00-0036511"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cbs-adds-a-saturday-night-game-in-week-15",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cbs-adds-a-saturday-night-game-in-week-15",
+      "title": "CBS adds a Saturday night game in Week 15",
+      "body_text": "CBS announced that it has added another national game to their package of broadcasts for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T22:26:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-lb-cameron-mcgrone-cut-wr-brenden-rice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-lb-cameron-mcgrone-cut-wr-brenden-rice",
+      "title": "Raiders sign LB Cameron McGrone, cut WR Brenden Rice",
+      "body_text": "The Raiders signed linebacker Cameron McGrone, the team announced Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T22:27:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brenden Rice",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0039415"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-third-rounder-keagen-trost-sixth-rounder-cj-daniels",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-third-rounder-keagen-trost-sixth-rounder-cj-daniels",
+      "title": "Rams sign third-rounder Keagen Trost, sixth-rounder CJ Daniels",
+      "body_text": "The Rams have signed two of their draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T22:16:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keagen Trost",
+        "Daniels The"
+      ],
+      "resolved_player_ids": [
+        "TRO363377"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-second-round-pick-jake-slaughter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-second-round-pick-jake-slaughter",
+      "title": "Chargers sign second-round pick Jake Slaughter",
+      "body_text": "The Chargers have signed another member of their 2026 draft class.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T22:06:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Slaughter",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "SLA663019"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-rb-evan-hull-after-tryout",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-rb-evan-hull-after-tryout",
+      "title": "Texans sign RB Evan Hull after tryout",
+      "body_text": "The Texans signed running back Evan Hull on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T21:55:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Evan Hull",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0038397"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-will-host-eagles-on-thanksgiving-day",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-will-host-eagles-on-thanksgiving-day",
+      "title": "Cowboys will host Eagles on Thanksgiving Day",
+      "body_text": "It marks only the third time the Eagles will play the Cowboys on Thanksgiving Day.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T21:48:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thanksgiving Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-s-kvon-wallace",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-s-kvon-wallace",
+      "title": "Ravens sign S K'Von Wallace",
+      "body_text": "The Ravens signed veteran safety K'Von Wallace, the team announced Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T20:56:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Von Wallace",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-dt-ross-blacklock-lb-daveren-rayner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-dt-ross-blacklock-lb-daveren-rayner",
+      "title": "Falcons sign DT Ross Blacklock, LB Daveren Rayner",
+      "body_text": "The Falcons have announced several roster moves on Monday, including two previously reported signings.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-11T20:28:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ross Blacklock",
+        "Daveren Rayner",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0036289"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-lb-jon-rhattigan-two-others",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-lb-jon-rhattigan-two-others",
+      "title": "Bears sign LB Jon Rhattigan, two others",
+      "body_text": "The Bears confirmed their signing of wide receiver Scotty Miller on Monday and they also announced three other new additions to the roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T20:23:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jon Rhattigan",
+        "The Bears",
+        "Scotty Miller"
+      ],
+      "resolved_player_ids": [
+        "00-0036802"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-fb-dj-herman",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-fb-dj-herman",
+      "title": "Dolphins sign FB DJ Herman",
+      "body_text": "The Dolphins added a player to the roster on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T20:11:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Herman The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-ol-brandon-walton-following-tryout",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-ol-brandon-walton-following-tryout",
+      "title": "Falcons sign OL Brandon Walton following tryout",
+      "body_text": "The Falcons are signing veteran offensive lineman Brandon Walton, Greg Auman of Fox Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T19:48:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Walton",
+        "The Falcons",
+        "Greg Auman",
+        "Fox Sports"
+      ],
+      "resolved_player_ids": [
+        "00-0036123"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-c-greg-crippen-waive-ol-sataoa-laumea",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-c-greg-crippen-waive-ol-sataoa-laumea",
+      "title": "Steelers sign C Greg Crippen, waive OL Sataoa Laumea",
+      "body_text": "The Steelers made a change on their offensive line after their rookie minicamp.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T19:46:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Crippen",
+        "Sataoa Laumea",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0039799"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-four-players-who-tried-out-at-their-rookie-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-four-players-who-tried-out-at-their-rookie-minicamp",
+      "title": "Bucs sign four players who tried out at their rookie minicamp",
+      "body_text": "The Buccaneers signed running back Kadarius Calloway, long snapper Scott Daly, outside linebacker Yasir Holmes and wide receiver Dean Patterson IV on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-11T19:32:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Buccaneers",
+        "Kadarius Calloway",
+        "Scott Daly",
+        "Yasir Holmes",
+        "Dean Patterson IV"
+      ],
+      "resolved_player_ids": [
+        "00-0034067"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-dc-dennis-allen-there-hasnt-been-a-ton-of-discussion-about-signing-cam-jordan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-dc-dennis-allen-there-hasnt-been-a-ton-of-discussion-about-signing-cam-jordan",
+      "title": "Bears DC Dennis Allen: There hasn't been a ton of discussion about signing Cam Jordan",
+      "body_text": "Defensive end Cam Jordan said last month that it would be \"phenomenal\" if things came together for him to return to the Saints for a 16th season, but that has yet to happen and there haven't been many signs that the status quo in New Orleans is set to change.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T18:57:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dennis Allen",
+        "Cam Jordan",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-did-not-meet-with-the-steelers-over-the-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-did-not-meet-with-the-steelers-over-the-weekend",
+      "title": "Report: Aaron Rodgers did not meet with the Steelers over the weekend",
+      "body_text": "Aaron Rodgers may have been in Pittsburgh over the weekend, but his visit didn't include a meeting with the Steelers.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T18:06:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-agree-to-sign-udfa-edge-rusher-xavier-holmes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-agree-to-sign-udfa-edge-rusher-xavier-holmes",
+      "title": "Patriots agree to sign UDFA edge rusher Xavier Holmes",
+      "body_text": "The Patriots are filling out their roster with a defensive player.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-11T17:50:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Xavier Holmes",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-michael-woods-to-sign-with-broncos-after-tryout",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-michael-woods-to-sign-with-broncos-after-tryout",
+      "title": "WR Michael Woods to sign with Broncos after tryout",
+      "body_text": "Wide receiver Michael Woods has earned himself another NFL shot.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T17:48:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Woods"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-to-induct-adrian-peterson-into-their-ring-of-honor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-to-induct-adrian-peterson-into-their-ring-of-honor",
+      "title": "Vikings to induct Adrian Peterson into their Ring of Honor",
+      "body_text": "Adrian Peterson had an eventful trip to the Vikings' facility last week.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T17:05:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adrian Peterson",
+        "Honor Adrian"
+      ],
+      "resolved_player_ids": [
+        "00-0025394"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nbc-peacock-will-broadcast-week-17-doubleheader-on-saturday-january-2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nbc-peacock-will-broadcast-week-17-doubleheader-on-saturday-january-2",
+      "title": "NBC, Peacock will broadcast Week 17 doubleheader on Saturday, January 2",
+      "body_text": "The teams involved in the two games have not been announced yet.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-11T16:39:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
