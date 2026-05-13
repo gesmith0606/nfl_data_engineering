@@ -1,0 +1,378 @@
+{
+  "fetch_run_id": "88a7424b-698d-401b-9099-ecf2423de33d",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-13T12:56:49.118182+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 24,
+  "items": [
+    {
+      "external_id": "US-EN-48750958",
+      "url": "https://www.espn.com/nfl/story/_/id/48750958/2026-nfl-tight-ends-13-personnel-rams-mcvay-trends-draft-jumbo-barnwell",
+      "title": "Can other NFL offenses copy the Rams' 13 personnel...",
+      "body_text": "The Rams had success with tight end-heavy sets in 2025, and other teams could be trying to follow after a TE-packed Day 2 of the draft. Can it keep working?",
+      "author": "Bill Barnwell",
+      "published_at": "2026-05-13T12:33:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48752282",
+      "url": "https://www.espn.com/nfl/story/_/id/48752282/bengals-iosivas-tuning-noise-online-abuse",
+      "title": "Bengals' Iosivas: Online abuse 'got in my head'",
+      "body_text": "Bengals receiver Andrei Iosivas says he's aiming to tune out the \"outside noise\" this year, admitting that online abuse caused him to get in his own head \"a little bit\" amid on-field struggles last season.",
+      "author": "Ben Baby",
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Andrei Iosivas"
+      ],
+      "resolved_player_ids": [
+        "00-0038619"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-48752800",
+      "url": "https://www.espn.com/nfl/story/_/id/48752800/bengals-play-falcons-madrid-week-9",
+      "title": "Bengals tabbed as Falcons' Madrid foe in Week 9",
+      "body_text": "The Bengals will face the Falcons in Madrid in Week 9 this season, the NFL announced Tuesday.",
+      "author": null,
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48749308",
+      "url": "https://www.espn.com/nfl/story/_/id/48749308/broncos-chiefs-meet-first-monday-night-football-game-2026",
+      "title": "Rivals Broncos, Chiefs to meet in first MNF game",
+      "body_text": "The defending AFC West champion Broncos and Kansas City Chiefs will square off Sept. 14 in the first \"Monday Night Football\" game of the coming season.",
+      "author": null,
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rivals Broncos",
+        "Kansas City",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48754413",
+      "url": "https://www.espn.com/nfl/story/_/id/48754413/penix-back-field-throwing-falcons-offseason-program",
+      "title": "Penix (ACL) back on field throwing in Falcons dril...",
+      "body_text": "Michael Penix, who is rehabbing a torn left ACL, was seen at the team's facility Tuesday throwing to wide receiver Drake London as part of Phase 2 of the Falcons' offseason program.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Michael Penix",
+        "Drake London"
+      ],
+      "resolved_player_ids": [
+        "00-0039917",
+        "00-0037238"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48750869",
+      "url": "https://www.espn.com/nfl/story/_/id/48750869/nflpa-head-players-strongly-want-high-quality-grass-fields",
+      "title": "NFLPA: Players want grass fields like World Cup",
+      "body_text": "Citing how FIFA was \"rolling out the green carpet\" for the World Cup, the NFLPA's JC Tretter said NFL players want the same high-quality surfaces.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48753500",
+      "url": "https://www.espn.com/nfl/story/_/id/48753500/charle-young-helped-49ers-win-1st-super-bowl-dies-75",
+      "title": "All-Pro TE Young dies; helped 49ers win 1st SB",
+      "body_text": "Charle Young, an All-Pro tight end who helped the 49ers win their first Super Bowl title, has died at age 75.",
+      "author": null,
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Charle Young",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-48744949",
+      "url": "https://www.espn.com/nfl/story/_/id/48744949/bills-play-first-regular-season-game-new-stadium-week-2",
+      "title": "Bills to open new stadium in Week 2 vs. Lions",
+      "body_text": "The Bills will play their first regular-season game at their new home, the newly constructed Highmark Stadium, in Week 2 against the Lions, it was announced Monday.",
+      "author": null,
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Lions The",
+        "Highmark Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "US-EN-48746277",
+      "url": "https://www.espn.com/nfl/story/_/id/48746277/craig-morton-super-bowl-starter-cowboys-broncos-dies",
+      "title": "Morton, SB starter for Cowboys and Broncos, dies",
+      "body_text": "Craig Morton, who spent 18 years in the NFL and became the first quarterback to start the Super Bowl for two franchises -- the Dallas Cowboys and Denver Broncos -- died over the weekend at 83.",
+      "author": null,
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Craig Morton",
+        "Super Bowl",
+        "Dallas Cowboys",
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48713394",
+      "url": "https://www.espn.com/nfl/story/_/id/48713394/michael-penix-jr-olivia-carter-wedding-atlanta-falcons",
+      "title": "💍 Michael Penix Jr. marries fiancée Olivia Carter...",
+      "body_text": "The Atlanta Falcons quarterback seemed to be recovering well from his ACL surgery, showing off his moves on the dance floor.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-05-13T12:33:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Michael Penix Jr",
+        "Olivia Carter",
+        "The Atlanta"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48753182",
+      "url": "https://www.espn.com/nfl/story/_/id/48753182/pittsburgh-steelers-coaching-rookie-quarterback-drew-allar-footwork-2026-nfl-draft",
+      "title": "How the Steelers are coaching up QB Drew Allar",
+      "body_text": "Building up the rookie's footwork and getting him more work under center is key for coach Mike McCarthy.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-05-13T12:41:40+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Drew Allar"
+      ],
+      "resolved_player_ids": [
+        "ALL015451"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48751321",
+      "url": "https://www.espn.com/nfl/story/_/id/48751321/arizona-cardinals-carson-beck-experience",
+      "title": "Why playing in two NFL-type systems has Carson Bec...",
+      "body_text": "Beck knows how to call a cadence and take snaps under center, while many other rookie QBs don't.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-05-13T13:03:59+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Carson Bec"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48745630",
+      "url": "https://www.espn.com/nfl/story/_/id/48745630/denver-broncos-more-production-tight-ends-2026-season-justin-joly",
+      "title": "Why Broncos are hoping mix of youth and veterans c...",
+      "body_text": "Denver's tight end production has lagged for years, but they hope new faces can improve their biggest weakness.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-05-13T13:03:59+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-48742512",
+      "url": "https://www.espn.com/nfl/story/_/id/48742512/2026-nfl-offseason-10-teams-questions-explaining-missed-moves",
+      "title": "Wait, why didn't my NFL team ____? Reasonable answ...",
+      "body_text": "Let's make sense of the Cowboys not extending George Pickens, the Steelers bypassing QB upgrades, the Dolphins not trading De'Von Achane and more.",
+      "author": "Dan Graziano",
+      "published_at": "2026-05-13T10:57:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "George Pickens",
+        "Von Achane"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48702987",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48702987/2026-nfl-draft-rookie-year-impact-middle-late-rounders",
+      "title": "The non-Round 1 impact rookies: Yates lists 20 sle...",
+      "body_text": "We picked out Day 2 and Day 3 NFL draft picks who could contribute right away, including R Mason Thomas and Antonio Williams.",
+      "author": "Field Yates",
+      "published_at": "2026-05-12T02:56:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mason Thomas",
+        "Antonio Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0036188"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48687620",
+      "url": "https://www.espn.com/espn/betting/story/_/id/48687620/nfl-awards-offensive-rookie-year-coach-year-2026",
+      "title": "Early NFL awards favorites, long shots: Which rook...",
+      "body_text": "There's still a long way to go until the 2026 season kicks off, but it's never too early to see who's a front-runner.",
+      "author": "Pamela Maldonado",
+      "published_at": "2026-05-12T02:56:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-nflschedulerelease-48704131",
+      "url": "https://www.espn.com/nfl/story/_/page/nflschedulerelease-48704131/2026-nfl-schedule-release-bold-predictions-takeaways-revenge-games-all-32-teams",
+      "title": "What to know ahead of Thursday's full 2026 NFL sch...",
+      "body_text": "Seahawks will open a season that features nine international games. Come back for bold predictions.",
+      "author": "NFL Nation",
+      "published_at": "2026-05-12T22:29:17+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-48649984",
+      "url": "https://www.espn.com/nfl/story/_/id/48649984/2026-nfl-offseason-biggest-roster-holes-depth-needs-all-32-teams-postdraft",
+      "title": "The biggest remaining roster hole for every NFL te...",
+      "body_text": "Even after free agency, trades and the draft, NFL teams still have at least one position that needs a boost. Here's one for every roster.",
+      "author": "Aaron Schatz",
+      "published_at": "2026-05-11T20:35:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48675818",
+      "url": "https://www.espn.com/nfl/story/_/id/48675818/2026-nfl-offseason-draft-veteran-hot-seats-position-battles-rookies",
+      "title": "Who is on the hot seat after the NFL draft? 14 vet...",
+      "body_text": "Will Carrington Valentine get jumped by Brandon Cisse on the Green Bay depth chart?",
+      "author": "Ben Solak",
+      "published_at": "2026-05-11T20:35:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Carrington",
+        "Brandon Cisse",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "CIS501810"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48750999",
+      "url": "https://www.espn.com/nfl/story/_/id/48750999/brock-rechsteiner-signs-new-orleans-saints-scott-steiner-son-wwe",
+      "title": "Family business: Saints sign WWE legend Scott Stei...",
+      "body_text": "Rechsteiner, who is also Bron Breakker's cousin, spent a short stint with the Titans before signing with the Saints.",
+      "author": "Katherine Terrell",
+      "published_at": "2026-05-12T19:14:36+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Scott Stei",
+        "Bron Breakker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "US-EN-48717338",
+      "url": "https://www.espn.com/nfl/story/_/id/48717338/christian-mccaffrey-olivia-culpo-second-baby-announcement",
+      "title": "Baby No. 2 on the way for Christian McCaffrey, Oli...",
+      "body_text": "The 49ers star and former Miss Universe announced that they are expecting their second child.",
+      "author": "Brianna Williams",
+      "published_at": "2026-05-12T19:14:36+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Miss Universe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Fantasy buzz: Which players benefit most from Njok...",
+      "body_text": "Discussing the impact on Oronde Gadsden, Kyler Murray, Justin Jefferson, Jordan Addison and others this season.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-05-11T16:12:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Oronde Gadsden",
+        "Kyler Murray",
+        "Justin Jefferson",
+        "Jordan Addison"
+      ],
+      "resolved_player_ids": [
+        "00-0040189",
+        "00-0035228",
+        "00-0036322",
+        "00-0038994"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48711830",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48711830/2026-fantasy-football-rankings-ppr-field-yates",
+      "title": "Field Yates' rankings: PPR top 160",
+      "body_text": "Field provides his latest rankings for the upcoming season, which will be updated throughout the offseason.",
+      "author": "Field Yates",
+      "published_at": "2026-05-11T16:12:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Field Yates"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

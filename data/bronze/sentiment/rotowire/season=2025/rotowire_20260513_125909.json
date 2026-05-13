@@ -1,0 +1,54 @@
+{
+  "fetch_run_id": "ad62eacb-5245-4b2a-89f9-474652d92804",
+  "source": "rotowire",
+  "fetched_at": "2026-05-13T12:59:09.040573+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 2,
+  "items": [
+    {
+      "external_id": "nfl630819",
+      "url": "https://www.rotowire.com//football/player/oronde-gadsden-18481",
+      "permalink": "",
+      "title": "Oronde Gadsden: Joined by Njoku",
+      "body_text": "Gadsden faces increased competition for snaps and targets in 2026 after free agent David Njoku agreed to a one-year deal with the Chargers on Monday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-11T07:19:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Oronde Gadsden",
+        "Njoku Gadsden",
+        "David Njoku",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0040189",
+        "00-0033885"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl630818",
+      "url": "https://www.rotowire.com//football/player/david-njoku-11734",
+      "permalink": "",
+      "title": "David Njoku: Lands one-year deal with Chargers",
+      "body_text": "Njoku agreed Monday with the Chargers on a one-year deal worth up to $8 million, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-11T06:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Njoku",
+        "Chargers Njoku",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "LAC"
+    }
+  ]
+}

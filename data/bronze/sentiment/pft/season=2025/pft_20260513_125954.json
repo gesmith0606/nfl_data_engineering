@@ -1,0 +1,585 @@
+{
+  "fetch_run_id": "f8ca521a-9e62-42e2-8190-640c9c8db186",
+  "source": "pft",
+  "fetched_at": "2026-05-13T12:59:54.626387+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-im-kinda-looking-at-this-as-my-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-im-kinda-looking-at-this-as-my-defense",
+      "permalink": "",
+      "title": "Brian Burns: I'm kinda looking at this as my defense",
+      "body_text": "Giants edge rusher Brian Burns said in mid-April that he did not want to play \"this season or any other season\" without Dexter Lawrence, but that didn't stop the team from trading Lawrence to the Bengals a short time later.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T11:18:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Burns",
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0035713",
+        "00-0035683"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-gm-dan-morgan-looking-forward-to-monroe-freeling-rasheed-walker-left-tackle-competition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-gm-dan-morgan-looking-forward-to-monroe-freeling-rasheed-walker-left-tackle-competition",
+      "permalink": "",
+      "title": "Panthers GM Dan Morgan: Looking forward to Monroe Freeling/Rasheed Walker left tackle competition",
+      "body_text": "The Panthers went into the offseason knowing that left tackle Ikem Ekwonu is unlikely to be available for some time as he recovers from a torn patellar tendon and they addressed that reality multiple times.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T10:56:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Morgan",
+        "Monroe Freeling",
+        "Rasheed Walker",
+        "The Panthers",
+        "Ikem Ekwonu"
+      ],
+      "resolved_player_ids": [
+        "00-0020443",
+        "FRE136741",
+        "00-0037196",
+        "00-0037229"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/could-aaron-rodgers-be-seeking-a-commitment-hell-be-released-by-steelers-if-season-goes-poorly",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/could-aaron-rodgers-be-seeking-a-commitment-hell-be-released-by-steelers-if-season-goes-poorly",
+      "permalink": "",
+      "title": "Could Aaron Rodgers be seeking a commitment he'll be released by Steelers, if season goes poorly?",
+      "body_text": "Rodgers could want an agreed-to escape hatch.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T10:43:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Could Aaron"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-george-pickens-not-present-for-cowboys-voluntary-offseason-work",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-george-pickens-not-present-for-cowboys-voluntary-offseason-work",
+      "permalink": "",
+      "title": "Report: George Pickens not present for Cowboys' voluntary offseason work",
+      "body_text": "Cowboys wide receiver George Pickens signed his franchise tag on April 29, and executive vice president Stephen Jones said soon after the team expected Pickens to show up for voluntary work.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-13T03:24:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Stephen Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0037551"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-honors-is-expected-to-move-to-netflix",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-honors-is-expected-to-move-to-netflix",
+      "permalink": "",
+      "title": "Report: NFL Honors is expected to move to Netflix",
+      "body_text": "The annual awards show could be headed to streaming.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T02:32:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Netflix The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-is-throwing-in-the-falcons-offseason-program",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-is-throwing-in-the-falcons-offseason-program",
+      "permalink": "",
+      "title": "Michael Penix is throwing in the Falcons' offseason program",
+      "body_text": "The uncertainty of Michael Penix's return from a torn ACL led the Falcons to sign veteran Tua Tagovailoa.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-13T01:46:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix",
+        "Tua Tagovailoa"
+      ],
+      "resolved_player_ids": [
+        "00-0039917",
+        "00-0036212"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-request-interviews-with-three-more-gm-candidates",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-request-interviews-with-three-more-gm-candidates",
+      "permalink": "",
+      "title": "Vikings request interviews with three more GM candidates",
+      "body_text": "The Vikings requested interviews with Lions assistant General Manager Ray Agnew, Broncos assistant GM Reed Burckhardt and Dolphins assistant GM Kyle Smith for their General Manager job, Tom Pelissero of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-13T01:33:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Vikings",
+        "General Manager",
+        "Ray Agnew",
+        "Reed Burckhardt",
+        "Kyle Smith",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0030653"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-ceo-ted-sarandos-reiterates-that-it-doesnt-want-a-full-nfl-package",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-ceo-ted-sarandos-reiterates-that-it-doesnt-want-a-full-nfl-package",
+      "permalink": "",
+      "title": "CEO Ted Sarandos reiterates that Netflix doesn't want a full NFL package",
+      "body_text": "Netflix is in the NFL business.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T00:46:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ted Sarandos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-will-play-saints-in-paris-on-october-25",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-will-play-saints-in-paris-on-october-25",
+      "permalink": "",
+      "title": "Report: Steelers will play Saints in Paris on October 25",
+      "body_text": "This season, the Saints will host the NFL's first-ever regular-season game in France.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T00:25:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-claim-cb-m-j-devonshire-te-luke-lachey-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-claim-cb-m-j-devonshire-te-luke-lachey-off-waivers",
+      "permalink": "",
+      "title": "Packers claim CB M.J. Devonshire, TE Luke Lachey off waivers",
+      "body_text": "The Packers added a pair of players to their 90-man roster on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T22:55:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luke Lachey",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0040250"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-wr-andrei-iosivas-online-vitriol-got-in-my-head-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-wr-andrei-iosivas-online-vitriol-got-in-my-head-last-year",
+      "permalink": "",
+      "title": "Bengals WR Andrei Iosivas: Online vitriol got in my head last year",
+      "body_text": "While the Bengals were struggling to win games in 2025, wide receiver Andrei Iosivas was struggling to deal with a barrage of online invective.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T22:36:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andrei Iosivas"
+      ],
+      "resolved_player_ids": [
+        "00-0038619"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-missouri-rb-ahmad-hardy-released-from-hospital-hopes-to-play-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-missouri-rb-ahmad-hardy-released-from-hospital-hopes-to-play-this-season",
+      "permalink": "",
+      "title": "Report: Missouri RB Ahmad Hardy released from hospital, hopes to play this season",
+      "body_text": "Missouri running back Ahmad Hardy is being released from the hospital today, Pete Thamel of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-12T22:20:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ahmad Hardy",
+        "Pete Thamel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-chiefs-will-host-week-1-monday-night-game-vs-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-chiefs-will-host-week-1-monday-night-game-vs-broncos",
+      "permalink": "",
+      "title": "NFL announces Chiefs will host Week 1 Monday night game vs. Broncos",
+      "body_text": "The Chiefs ended their 2025 home slate with a visit from the Broncos.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T20:46:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Broncos The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/64-years-later-tom-moore-returns-to-iowa",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/64-years-later-tom-moore-returns-to-iowa",
+      "permalink": "",
+      "title": "64 years later, Tom Moore returns to Iowa",
+      "body_text": "Long-time NFL assistant coach Tom Moore hasn't retired, after all.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T21:43:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Moore",
+        "Iowa Long"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-waive-rb-deuce-vaughn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-waive-rb-deuce-vaughn",
+      "permalink": "",
+      "title": "Broncos waive RB Deuce Vaughn",
+      "body_text": "The Broncos are moving on from a pair of players in a series of Tuesday roster moves.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-12T21:30:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deuce Vaughn",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0038622"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-all-pro-tight-end-charlie-young-dies-at-75",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-all-pro-tight-end-charlie-young-dies-at-75",
+      "permalink": "",
+      "title": "Former All-Pro tight end Charlie Young dies at 75",
+      "body_text": "Charlie Young, a first-round pick of the Eagles in 1973, has died.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T21:21:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former All",
+        "Charlie Young"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-te-johnny-pascuzzi-s-myles-purchase-ol-laekin-vakalahi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-te-johnny-pascuzzi-s-myles-purchase-ol-laekin-vakalahi",
+      "permalink": "",
+      "title": "Chargers sign TE Johnny Pascuzzi, S Myles Purchase, OL Laekin Vakalahi",
+      "body_text": "The Chargers are shuffling their roster in the wake of their rookie minicamp.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T21:11:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Pascuzzi",
+        "Myles Purchase",
+        "Laekin Vakalahi",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0040473",
+        "00-0039932"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/options-for-season-opening-game-at-seattle-are-down-to-four",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/options-for-season-opening-game-at-seattle-are-down-to-four",
+      "permalink": "",
+      "title": "Options for season-opening game at Seattle are down to four",
+      "body_text": "When the Seahawks won Super Bowl LX, there were nine potential options for the Week 1 season-opening game in Seattle.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T21:05:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-seventh-rounder-aiden-fisher",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-seventh-rounder-aiden-fisher",
+      "permalink": "",
+      "title": "Texans sign seventh-rounder Aiden Fisher",
+      "body_text": "The Texans announced a pair of draft pick signings on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T21:00:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aiden Fisher",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "FIS166729"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-second-round-pick-colton-hood",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-second-round-pick-colton-hood",
+      "permalink": "",
+      "title": "Giants sign second-round pick Colton Hood",
+      "body_text": "Cornerback Colton Hood has signed his rookie deal with the Giants.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T20:44:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Colton Hood",
+        "Cornerback Colton"
+      ],
+      "resolved_player_ids": [
+        "HOO037014"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-will-face-falcons-in-madrid-in-week-9",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-will-face-falcons-in-madrid-in-week-9",
+      "permalink": "",
+      "title": "Bengals will face Falcons in Madrid in Week 9",
+      "body_text": "Another game for the 2026 NFL season has been announced.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T20:34:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-put-rb-leveon-moss-on-reserve-retired-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-put-rb-leveon-moss-on-reserve-retired-list",
+      "permalink": "",
+      "title": "Dolphins put RB Le'Veon Moss on reserve/retired list",
+      "body_text": "Running back Le'Veon Moss will no longer be vying for a spot on the Dolphins' roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T20:24:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Veon Moss"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-kc-concepcion-has-similar-traits-to-zay-flowers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-kc-concepcion-has-similar-traits-to-zay-flowers",
+      "permalink": "",
+      "title": "Todd Monken: KC Concepcion has similar traits to Zay Flowers",
+      "body_text": "Browns head coach Todd Monken spent the last three years overseeing the Ravens' offense and part of that role involved the development of wide receiver Zay Flowers.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T20:09:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "Zay Flowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-oc-zac-robinson-sees-huge-huge-strides-for-emeka-egbuka",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-oc-zac-robinson-sees-huge-huge-strides-for-emeka-egbuka",
+      "permalink": "",
+      "title": "Bucs OC Zac Robinson sees \"huge, huge strides\" for Emeka Egbuka",
+      "body_text": "Buccaneers wide receiver Emeka Egbuka has talked about the heightened expectations that are coming his way with Mike Evans now on the 49ers and the team's offensive coordinator thinks he's up to taking more on his shoulders.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T19:22:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zac Robinson",
+        "Emeka Egbuka",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0027841",
+        "00-0040129",
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/romeo-doubs-open-to-all-roles-if-patriots-trade-for-a-j-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/romeo-doubs-open-to-all-roles-if-patriots-trade-for-a-j-brown",
+      "permalink": "",
+      "title": "Romeo Doubs \"open to all roles\" if Patriots trade for A.J. Brown",
+      "body_text": "When Romeo Doubs signed with the Patriots in March, he moved to the top of their depth chart at wide receiver but he may not be there at this time next month.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T18:54:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Romeo Doubs",
+        "Brown When"
+      ],
+      "resolved_player_ids": [
+        "00-0037816"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-waiting-to-learn-if-theyll-play-a-primetime-game-in-baltimore-for-fifth-straight-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-waiting-to-learn-if-theyll-play-a-primetime-game-in-baltimore-for-fifth-straight-season",
+      "permalink": "",
+      "title": "Bengals waiting to learn if they'll play a primetime game in Baltimore for fifth straight season",
+      "body_text": "The Bengals know they will be playing in Baltimore at some point during the 2026 season, but the timing of that game will be of some interest.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T18:30:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-te-shane-zylstra-two-2026-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-te-shane-zylstra-two-2026-draft-picks",
+      "permalink": "",
+      "title": "Bills sign TE Shane Zylstra, two 2026 draft picks",
+      "body_text": "The Bills have made a few roster moves on Tuesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-12T18:16:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shane Zylstra",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0036534"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-first-round-pick-blake-miller-rest-of-2026-draft-class",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-first-round-pick-blake-miller-rest-of-2026-draft-class",
+      "permalink": "",
+      "title": "Lions sign first-round pick Blake Miller, rest of 2026 draft class",
+      "body_text": "The Lions have taken care of some important business with their rookie class.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-12T17:47:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Miller",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0011237"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-doesnt-require-schedule-release-videos-to-be-submitted-for-approval",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-doesnt-require-schedule-release-videos-to-be-submitted-for-approval",
+      "permalink": "",
+      "title": "The NFL doesn't require schedule-release videos to be submitted for approval",
+      "body_text": "Will the Chargers or other teams make reference to the story of the month?",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T17:45:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-i-havent-always-had-ideal-situations-but-feel-in-position-to-really-flourish",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-i-havent-always-had-ideal-situations-but-feel-in-position-to-really-flourish",
+      "permalink": "",
+      "title": "Breece Hall: I haven't always had ideal situations, but feel in position to really flourish",
+      "body_text": "Jets running back Breece Hall's first four seasons set him up for the contract extension he signed this month, but he doesn't think that he's shown all he can offer in the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T17:14:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Breece Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    }
+  ]
+}
