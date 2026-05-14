@@ -1,0 +1,580 @@
+{
+  "fetch_run_id": "ce684f2c-b4d3-40aa-af8a-91589945115e",
+  "source": "pft",
+  "fetched_at": "2026-05-14T12:53:10.004508+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-panthers-will-host-the-bears-in-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-panthers-will-host-the-bears-in-week-1",
+      "permalink": "",
+      "title": "Report: Panthers will host the Bears in Week 1",
+      "body_text": "The Bears were one of the teams under consideration for a season-opening trip to Seattle, but the NFL is reportedly going with a Super Bowl rematch so the defending NFC North champs will be heading elsewhere.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-14T11:11:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bears",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-chiefs-will-visit-bills-on-thanksgiving-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-chiefs-will-visit-bills-on-thanksgiving-night",
+      "permalink": "",
+      "title": "Report: Chiefs will visit Bills on Thanksgiving night",
+      "body_text": "Patrick Mahomes and Josh Allen will meet again this November.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-14T11:01:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0034857"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-announce-signings-of-three-more-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-announce-signings-of-three-more-draft-picks",
+      "permalink": "",
+      "title": "Texans announce signings of three more draft picks",
+      "body_text": "The Texans signed three more draft picks to four-year contracts.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-14T01:06:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfls-response-to-florida-a-g-explains-that-its-diversity-policies-do-not-compel-hiring-decisions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfls-response-to-florida-a-g-explains-that-its-diversity-policies-do-not-compel-hiring-decisions",
+      "permalink": "",
+      "title": "NFL's response to Florida A.G. explains that its diversity policies do not compel hiring decisions",
+      "body_text": "When Florida attorney general James Uthmeier posted his latest letter to the NFL regarding his ongoing assault against the league's diversity policies, he didn't include the league's response to his initial letter.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-14T00:25:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "When Florida",
+        "James Uthmeier"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-rb-devon-achane-agree-to-four-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-rb-devon-achane-agree-to-four-year-extension",
+      "permalink": "",
+      "title": "Dolphins, RB De'Von Achane agree to four-year extension",
+      "body_text": "Reports differ on the new-money APY; either way, he's now No. 3 among all running backs.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-14T00:08:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Achane"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-seahawks-will-host-patriots-to-start-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-seahawks-will-host-patriots-to-start-the-season",
+      "permalink": "",
+      "title": "Report: Seahawks will host Patriots to start the season",
+      "body_text": "The 2026 season reportedly will start the way the 2025 season ended.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T23:25:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shemar-stewart-gives-no-97-to-dexter-lawrence-for-a-reasonable-number",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shemar-stewart-gives-no-97-to-dexter-lawrence-for-a-reasonable-number",
+      "permalink": "",
+      "title": "Shemar Stewart gives No. 97 to Dexter Lawrence for a \"reasonable number\"",
+      "body_text": "New Bengals defensive tackle Dexter Lawrence wanted No. 97 from Shemar Stewart.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T23:41:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shemar Stewart",
+        "Dexter Lawrence",
+        "New Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0040756",
+        "00-0035683"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-sign-wr-tim-patrick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-sign-wr-tim-patrick",
+      "permalink": "",
+      "title": "Jets to sign WR Tim Patrick",
+      "body_text": "The Jets added rookie Omar Cooper to their receiver group late in the first round of the draft and they're now set to add a veteran wideout to the corps as well.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T22:22:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tim Patrick",
+        "The Jets",
+        "Omar Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0033375",
+        "COO816508"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-dt-benito-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-dt-benito-jones",
+      "permalink": "",
+      "title": "Raiders sign DT Benito Jones",
+      "body_text": "Veteran defensive tackle Benito Jones has found a home for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T22:12:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Benito Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035841"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lions-to-host-bears-on-thanksgiving",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lions-to-host-bears-on-thanksgiving",
+      "permalink": "",
+      "title": "Report: Lions to host Bears on Thanksgiving",
+      "body_text": "One of the NFL's oldest rivalries will reportedly be involved in the 2026 Thanksgiving slate.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T21:56:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thanksgiving One"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-claim-wr-brenden-rice-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-claim-wr-brenden-rice-off-of-waivers",
+      "permalink": "",
+      "title": "Packers claim WR Brenden Rice off of waivers",
+      "body_text": "Wide receiver Brenden Rice is on to Green Bay.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T21:02:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brenden Rice",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0039415"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-nfl-extend-current-deal-through-2029-30-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-nfl-extend-current-deal-through-2029-30-season",
+      "permalink": "",
+      "title": "Netflix, NFL extend current deal through 2029-30 season",
+      "body_text": "The NFL's relationship with Netflix has been expanded — and extended.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T20:51:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-second-round-pick-chase-bisontis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-second-round-pick-chase-bisontis",
+      "permalink": "",
+      "title": "Cardinals sign second-round pick Chase Bisontis",
+      "body_text": "The Cardinals have signed their second-round pick from last month's draft.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T20:45:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chase Bisontis",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "BIS728645"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/florida-attorney-general-issues-subpoena-to-nfl-over-rooney-rule",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/florida-attorney-general-issues-subpoena-to-nfl-over-rooney-rule",
+      "permalink": "",
+      "title": "Florida attorney general issues subpoena to NFL over Rooney Rule",
+      "body_text": "James Uthmeier suggests NFL has violated the Florida Deceptive and Unfair Trade Practices Act.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T20:29:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rooney Rule",
+        "James Uthmeier",
+        "Florida Deceptive",
+        "Unfair Trade",
+        "Practices Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-s-makari-paige-cut-cb-cory-trice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-s-makari-paige-cut-cb-cory-trice",
+      "permalink": "",
+      "title": "Steelers sign S Makari Paige, cut CB Cory Trice",
+      "body_text": "The Steelers signed safety Makari Paige to a one-year contract on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-13T20:28:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makari Paige",
+        "Cory Trice",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0040437",
+        "00-0038639"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-second-round-s-bud-clark",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-second-round-s-bud-clark",
+      "permalink": "",
+      "title": "Seahawks sign second-round S Bud Clark",
+      "body_text": "The Seahawks signed second-round safety Bud Clark to his rookie contract on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-13T20:09:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bud Clark",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "CLA214868"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-malik-nabers-had-second-knee-surgery-to-remove-scar-tissue",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-malik-nabers-had-second-knee-surgery-to-remove-scar-tissue",
+      "permalink": "",
+      "title": "Report: Malik Nabers had second knee surgery to remove scar tissue",
+      "body_text": "Giants wide receiver Malik Nabers's recovery from last season's torn ACL reportedly included a second visit to an operating room.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T19:51:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-packers-will-visit-the-rams-on-the-night-before-thanksgiving",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-packers-will-visit-the-rams-on-the-night-before-thanksgiving",
+      "permalink": "",
+      "title": "The Packers will visit the Rams on the night before Thanksgiving",
+      "body_text": "It's the first time the NFL will play a game on Thanksgiving Eve.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T18:57:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Packers",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/season-3-of-quarterback-will-feature-cam-ward-jayden-daniels-baker-mayfield-and-joe-flacco",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/season-3-of-quarterback-will-feature-cam-ward-jayden-daniels-baker-mayfield-and-joe-flacco",
+      "permalink": "",
+      "title": "Season 3 of Quarterback will feature Cam Ward, Jayden Daniels, Baker Mayfield and Joe Flacco",
+      "body_text": "Four quarterbacks will be featured on the third season of the Netflix series Quarterback.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T19:15:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Ward",
+        "Jayden Daniels",
+        "Baker Mayfield",
+        "Joe Flacco"
+      ],
+      "resolved_player_ids": [
+        "00-0040676",
+        "00-0039910",
+        "00-0034855",
+        "00-0026158"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-sign-third-rounder-tacario-davis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-sign-third-rounder-tacario-davis",
+      "permalink": "",
+      "title": "Bengals sign third-rounder Tacario Davis",
+      "body_text": "The Bengals announced the signing of another draft pick on Wednesday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T18:45:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tacario Davis",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "DAV763631"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-doesnt-want-the-cfp-field-to-go-above-16-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-doesnt-want-the-cfp-field-to-go-above-16-teams",
+      "permalink": "",
+      "title": "ESPN doesn't want the CFP field to go above 16 teams",
+      "body_text": "At a time when college football coaches want to expand the size of the playoff from 12 to 24 teams, one of college football's biggest broadcast partners isn't interested.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T17:54:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texans-sign-fourth-round-pick-wade-woodaz",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texans-sign-fourth-round-pick-wade-woodaz",
+      "permalink": "",
+      "title": "Report: Texans sign fourth-round pick Wade Woodaz",
+      "body_text": "Houston has taken care of some business with a member of its rookie class.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-13T17:54:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Wade Woodaz"
+      ],
+      "resolved_player_ids": [
+        "WOO238011"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-oc-bobby-slowik-malik-williss-running-ability-lets-you-equalize-some-advantageous-situations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-oc-bobby-slowik-malik-williss-running-ability-lets-you-equalize-some-advantageous-situations",
+      "permalink": "",
+      "title": "Dolphins OC Bobby Slowik: Malik Willis's running ability \"lets you equalize some advantageous situations\"",
+      "body_text": "When Dolphins offensive coordinator Bobby Slowik was asked at a Tuesday press conference about the things that excite him about quarterback Malik Willis, he began his answer by saying Willis \"can spin the ball all over the field.\"",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T13:26:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bobby Slowik",
+        "Malik Willis",
+        "When Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-byard-sees-mike-vrabel-as-the-same-old-guy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-byard-sees-mike-vrabel-as-the-same-old-guy",
+      "permalink": "",
+      "title": "Kevin Byard sees Mike Vrabel as the \"same old guy\"",
+      "body_text": "Patriots safety Kevin Byard, who joined the team earlier this year, has been reunited with coach Mike Vrabel.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T17:19:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kevin Byard",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0033132",
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-seventh-rounder-quintayvious-hutchins-charged-with-assault-and-battery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-seventh-rounder-quintayvious-hutchins-charged-with-assault-and-battery",
+      "permalink": "",
+      "title": "Patriots seventh-rounder Quintayvious Hutchins charged with assault and battery",
+      "body_text": "Patriots seventh-round linebacker Quintayvious Hutchins was charged with misdemeanor assault and battery after an incident in a Boston College dorm on Tuesday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T16:13:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quintayvious Hutchins",
+        "Boston College"
+      ],
+      "resolved_player_ids": [
+        "HUT095931"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaire-alexander-ill-never-say-never-about-coming-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaire-alexander-ill-never-say-never-about-coming-back",
+      "permalink": "",
+      "title": "Jaire Alexander: I'll never say never about coming back",
+      "body_text": "When Jaire Alexander stepped away from the Eagles last season, there was word that he planned to \"focus on getting himself right physically and mentally before deciding on his future\" as a player.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-13T16:01:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaire Alexander",
+        "When Jaire"
+      ],
+      "resolved_player_ids": [
+        "00-0034728"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-players-push-for-grass-move-the-needle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-players-push-for-grass-move-the-needle",
+      "permalink": "",
+      "title": "Will players' push for grass move the needle?",
+      "body_text": "The NFLPA wants it. It remains to be seen whether the NFLPA will get it.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-13T15:32:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-on-john-harbaugh-i-couldnt-think-of-a-better-coach-to-play-for",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-on-john-harbaugh-i-couldnt-think-of-a-better-coach-to-play-for",
+      "permalink": "",
+      "title": "Jaxson Dart on John Harbaugh: I couldn’t think of a better coach to play for",
+      "body_text": "Quarterback Jaxson Dart has been in the building with new Giants head coach John Harbaugh for over a month now.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-13T14:55:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaxson Dart",
+        "John Harbaugh",
+        "Quarterback Jaxson"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-issues-reminder-that-owners-will-install-high-quality-grass-for-fifa",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-issues-reminder-that-owners-will-install-high-quality-grass-for-fifa",
+      "permalink": "",
+      "title": "NFLPA issues reminder that owners will install high-quality grass for FIFA",
+      "body_text": "The World Cup stadiums with artificial turf are embracing grass, temporarily.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-12T02:26:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-will-face-falcons-in-madrid-in-week-9",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-will-face-falcons-in-madrid-in-week-9",
+      "permalink": "",
+      "title": "Bengals will face Falcons in Madrid in Week 9",
+      "body_text": "Another game for the 2026 NFL season has been announced.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-12T20:34:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    }
+  ]
+}
