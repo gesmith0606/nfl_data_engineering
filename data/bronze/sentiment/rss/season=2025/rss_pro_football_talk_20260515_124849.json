@@ -1,0 +1,472 @@
+{
+  "fetch_run_id": "3a2d7fbc-1b61-4200-91d7-9eb7fcf459f6",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-15T12:48:49.318708+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-i-want-to-meet-todd-monken-to-talk-about-shedeur-as-a-coach-not-as-a-dad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-i-want-to-meet-todd-monken-to-talk-about-shedeur-as-a-coach-not-as-a-dad",
+      "title": "Deion Sanders: I want to meet Todd Monken to talk about Shedeur—as a coach, not as a dad",
+      "body_text": "Colorado head coach Deion Sanders says he'd like to talk to new Browns head coach Todd Monken about quarterback Shedeur Sanders — not because Deion is Shedeur's dad, but because Deion was Shedeur's college coach.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-15T12:18:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Todd Monken",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-on-patrick-mahomess-health-didnt-talk-to-nfl-but-hes-doing-great",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-on-patrick-mahomess-health-didnt-talk-to-nfl-but-hes-doing-great",
+      "title": "Andy Reid on Patrick Mahomes's health: Didn't talk to NFL, but he's doing great",
+      "body_text": "The Chiefs will play on Monday night and Sunday night to open the season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T12:12:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Reid",
+        "Patrick Mahomes",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-three-division-road-games-are-in-the-final-four-weeks-of-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-three-division-road-games-are-in-the-final-four-weeks-of-the-season",
+      "title": "Lions' three division road games are in the final four weeks of the season",
+      "body_text": "The NFC North race could come down to whether Detroit can win in Minnesota in December, and in Chicago and Green Bay in January.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-15T11:45:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-on-george-pickens-weve-worked-as-much-as-needed-comfortable-with-where-hes-at",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-on-george-pickens-weve-worked-as-much-as-needed-comfortable-with-where-hes-at",
+      "title": "Dak Prescott on George Pickens: We've worked as much as needed, comfortable with where he's at",
+      "body_text": "Pickens signed his franchise tag, but has not been at voluntary workouts.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T11:02:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dak Prescott",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0033077",
+        "00-0037247"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlins-first-afc-north-game-happens-in-week-5-with-ravens-at-falcons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlins-first-afc-north-game-happens-in-week-5-with-ravens-at-falcons",
+      "title": "Mike Tomlin's first AFC North game happens in Week 5, with Ravens at Falcons",
+      "body_text": "During 19 years with the Steelers, coach Mike Tomlin worked 114 games against teams from the AFC North.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T04:11:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Tomlin",
+        "Falcons During"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-not-49ers-will-get-extra-day-on-back-end-of-australia-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-not-49ers-will-get-extra-day-on-back-end-of-australia-game",
+      "title": "Rams (not 49ers) will get extra day on back end of Australia game",
+      "body_text": "When 49ers coach Kyle Shanahan aired grievances at the annual NFL meetings in March about his team getting the short straw for a long trip to Australia to face the Rams — at (as Shanahan insists) the specific request of the Rams — Shanahan held out hope for a nugget of consideration when the 49ers return to the United States.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T02:00:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "United States"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/when-will-fernando-mendoza-make-his-first-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/when-will-fernando-mendoza-make-his-first-start",
+      "title": "When will Fernando Mendoza make his first start?",
+      "body_text": "Raiders coach Klint Kubiak repeatedly has said he would prefer that a rookie quarterback not start Day 1.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T01:56:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Klint Kubiak"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevor-lawrence-gets-haircut-in-jaguars-schedule-release-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevor-lawrence-gets-haircut-in-jaguars-schedule-release-video",
+      "title": "Trevor Lawrence gets haircut in Jaguars' schedule-release video",
+      "body_text": "Last month, an image emerged of Jaguars quarterback Trevor Lawrence with short hair.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T01:45:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-panthers-get-early-bye-week-cowboys-cardinals-get-a-late-one",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-panthers-get-early-bye-week-cowboys-cardinals-get-a-late-one",
+      "title": "Chiefs, Panthers get early bye week; Cowboys, Cardinals get a late one",
+      "body_text": "The NFL did the Chiefs a favor, giving them an early off week as Patrick Mahomes works his way back.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T01:30:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-and-seahawks-wont-meet-until-christmas-day",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-and-seahawks-wont-meet-until-christmas-day",
+      "title": "Rams and Seahawks won't meet until Christmas Day",
+      "body_text": "In 2025, the Seahawks and Rams were arguably the best two teams in the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T01:21:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christmas Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/week-12-has-nine-different-windows",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/week-12-has-nine-different-windows",
+      "title": "Week 12 has nine different windows",
+      "body_text": "The Thanksgiving stretch will include even more football than turkey.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T01:11:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Thanksgiving"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/post-espn-merger-nfl-network-has-lost-its-schedule-release-show",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/post-espn-merger-nfl-network-has-lost-its-schedule-release-show",
+      "title": "Post ESPN merger, NFL Network has lost its schedule-release show",
+      "body_text": "The most tangible indication yet regarding ESPN's control over NFL Network happened on Thursday night.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T00:55:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/five-teams-have-no-primetime-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/five-teams-have-no-primetime-games",
+      "title": "Five teams have no primetime games",
+      "body_text": "The NFL does not expect the Jets, Cardinals, Titans, Dolphins or Raiders to be any good this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T00:46:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-schedule-release-video-makes-three-references-to-mike-vrabel-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-schedule-release-video-makes-three-references-to-mike-vrabel-situation",
+      "title": "Chargers' schedule-release video makes three references to Mike Vrabel situation",
+      "body_text": "If you had the over on 2.5 references to the Mike Vrabel-Dianna Russini situation in the Chargers' release video, go get your money.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T00:34:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/despite-patrick-mahomes-injury-chiefs-have-six-scheduled-primetime-games-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/despite-patrick-mahomes-injury-chiefs-have-six-scheduled-primetime-games-in-2026",
+      "title": "Despite Patrick Mahomes' injury, Chiefs have six scheduled primetime games in 2026",
+      "body_text": "Though quarterback Patrick Mahomes is coming off a torn ACL suffered in December, the league apparently has faith that the Chiefs will be a compelling team to watch in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-15T00:30:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Despite Patrick",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-tie-all-time-record-with-seven-primetime-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-tie-all-time-record-with-seven-primetime-games",
+      "title": "Rams tie all-time record with seven primetime games",
+      "body_text": "The Seahawks are the defending Super Bowl champions, but the Rams were given the most primetime games in 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T00:26:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Seahawks",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/season-opens-with-patriots-at-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/season-opens-with-patriots-at-seahawks",
+      "title": "Season opens with Patriots at Seahawks",
+      "body_text": "The Vrabel-Russini situation will loom over the first game of the 2026 campaign.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T00:20:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Seahawks The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-get-six-primetime-games-as-reigning-champions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-get-six-primetime-games-as-reigning-champions",
+      "title": "Seahawks get six primetime games as reigning champions",
+      "body_text": "Get ready to see plenty of the reigning Super Bowl champions in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-15T00:14:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-prime-video-unveils-its-16-game-regular-season-schedule",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-prime-video-unveils-its-16-game-regular-season-schedule",
+      "title": "Thursday Night Football: Prime Video unveils its 16-game regular-season schedule",
+      "body_text": "Prime Video will have 16 regular-season games on Thursday night, plus a wild-card game on either Jan. 16 or 17.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T00:08:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Prime Video"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-2026-seahawks-host-bears-cowboys-for-marquee-mnf-matchups",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-2026-seahawks-host-bears-cowboys-for-marquee-mnf-matchups",
+      "title": "Monday Night Football 2026: Seahawks host Bears, Cowboys for marquee MNF matchups",
+      "body_text": "The first Monday night matchup of 2026, between the Chiefs and Broncos, was announced earlier this week.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-15T00:06:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-full-2026-nfl-sunday-night-football-schedule",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-full-2026-nfl-sunday-night-football-schedule",
+      "title": "The full 2026 NFL Sunday Night Football schedule",
+      "body_text": "For the 21st year, NBC (and now Peacock) will be the home for Sunday Night Football.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T00:04:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-raiders-packers-vikings-among-week-1s-sunday-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-raiders-packers-vikings-among-week-1s-sunday-games",
+      "title": "Dolphins-Raiders, Packers-Vikings among Week 1's Sunday games",
+      "body_text": "We don't know if Fernando Mendoza will be starting at quarterback for the Raiders in Week 1 of the regular season, but we do know who the Raiders will be playing in the first overall pick's potential debut.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T00:04:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christmas-slate-ends-with-rams-seahawks-eagles-will-host-texans-on-christmas-eve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christmas-slate-ends-with-rams-seahawks-eagles-will-host-texans-on-christmas-eve",
+      "title": "Christmas Day ends with Rams-Seahawks, Eagles will host Texans on Christmas Eve",
+      "body_text": "The Rams and Seahawks played three nail-biters during the 2025 season and the NFL is banking on another one on Christmas night.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T00:00:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christmas Day",
+        "Christmas Eve",
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-steelers-to-play-on-black-friday-wrap-up-five-game-thanksgiving-holiday-slate",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-steelers-to-play-on-black-friday-wrap-up-five-game-thanksgiving-holiday-slate",
+      "title": "Broncos-Steelers to play on Black Friday, wrap up five-game Thanksgiving holiday slate",
+      "body_text": "The NFL will play a game on Thanksgiving Eve for the first time.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-14T23:34:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Black Friday",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/egon-durbans-group-will-soon-own-nearly-40-percent-of-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/egon-durbans-group-will-soon-own-nearly-40-percent-of-raiders",
+      "title": "Egon Durban's group will soon own nearly 40 percent of Raiders",
+      "body_text": "Durban inches closer to taking control of the team.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-14T23:00:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Egon Durban",
+        "Raiders Durban"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-teams-can-post-their-social-media-videos-at-7-30-p-m-et",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-teams-can-post-their-social-media-videos-at-7-30-p-m-et",
+      "title": "NFL teams can post their social media schedule videos at 7:30 p.m. ET",
+      "body_text": "The NFL won't release the full schedule until 8 p.m.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-14T22:22:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-breece-hall-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-breece-hall-deal",
+      "title": "Inside the Breece Hall deal",
+      "body_text": "The new Breece Hall contract with the Jets has been widely characterized as having a value of $45.75 million over three years.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-14T21:15:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Breece Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-second-rounder-brandon-cisse",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-second-rounder-brandon-cisse",
+      "title": "Packers sign second-rounder Brandon Cisse",
+      "body_text": "The Packers have all of their 2026 draft picks under contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-14T21:02:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Cisse",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "CIS501810"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-dt-james-ester-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-dt-james-ester-off-waivers",
+      "title": "Dolphins claim DT James Ester off waivers",
+      "body_text": "The Dolphins are bringing in a player who's familiar with their new General Manager and head coach.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-14T20:59:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Ester",
+        "The Dolphins",
+        "General Manager"
+      ],
+      "resolved_player_ids": [
+        "00-0039269"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-olb-khalid-kareem",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-olb-khalid-kareem",
+      "title": "Giants sign OLB Khalid Kareem",
+      "body_text": "The Giants signed free agent outside linebacker Khalid Kareem, according to the NFL's transaction report.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-14T20:57:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Khalid Kareem",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0036341"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}

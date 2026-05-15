@@ -1,0 +1,373 @@
+{
+  "fetch_run_id": "3a2d7fbc-1b61-4200-91d7-9eb7fcf459f6",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-15T12:48:47.144713+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 25,
+  "items": [
+    {
+      "external_id": "US-EN-48758666",
+      "url": "https://www.espn.com/nfl/story/_/id/48758666/2026-nfl-schedule-release-overreactions-takeaways-best-games-opponents-matchups",
+      "title": "Let's overreact to the NFL schedule release: Tough...",
+      "body_text": "How could strength of schedule impact postseason hopes for the Bears, Bengals and Chiefs? Does the Dolphins' slate point to them landing the top draft pick?",
+      "author": "Dan Graziano",
+      "published_at": "2026-05-15T07:38:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-nflschedulerelease-48704131",
+      "url": "https://www.espn.com/nfl/story/_/page/nflschedulerelease-48704131/2026-nfl-schedule-release-all-32-game-predictions-takeaways",
+      "title": "Schedule release: Tracking all 32 teams and predic...",
+      "body_text": "Seahawks vs. Patriots will open a season that features nine international games. Here are predictions and more.",
+      "author": "NFL Nation",
+      "published_at": "2026-05-15T07:38:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-48773123",
+      "url": "https://www.espn.com/nfl/story/_/id/48773123/full-2026-nfl-schedule-unveiled-patriots-seahawks-week-1",
+      "title": "Pats-Seahawks SB rematch to kick off '26 season",
+      "body_text": "In a rematch of Super Bowl LX, the Seahawks will welcome the Patriots to Lumen Field for the 2026 NFL season opener, one of 272 games officially announced throughout the league Thursday night.",
+      "author": null,
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl",
+        "Lumen Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-48774097",
+      "url": "https://www.espn.com/nfl/story/_/id/48774097/deion-shedeur-endured-hell-predraft-rookie-browns",
+      "title": "Deion: Shedeur endured 'hell' in draft, rookie yea...",
+      "body_text": "Deion Sanders said that his son Shedeur \"matured spiritually\" after enduring criticism and what he called untruthful reporting during his predraft process and rookie season with the Browns.",
+      "author": "Daniel Oyefusi",
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-48767796",
+      "url": "https://www.espn.com/nfl/story/_/id/48767796/source-giants-malik-nabers-target-week-1-2nd-surgery",
+      "title": "Source: Nabers had 'cleanup,' hopeful for Week 1",
+      "body_text": "Malik Nabers underwent a second procedure on his right knee earlier this offseason and the Giants remain hopeful the wide receiver will be ready for Week 1, a source confirmed to ESPN.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48763689",
+      "url": "https://www.espn.com/nfl/story/_/id/48763689/dolphins-rb-devon-achane-reach-4-year-extension",
+      "title": "Source: Fins make Achane 3rd-highest-paid RB",
+      "body_text": "The Dolphins and De'Von Achane agreed to a four-year contract extension worth $64 million, a source confirmed to ESPN on Wednesday, making him the third-highest-paid running back in the NFL.",
+      "author": "Marcel Louis-Jacques",
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Dolphins",
+        "Von Achane"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "US-EN-48762073",
+      "url": "https://www.espn.com/nfl/story/_/id/48762073/nfl-ended-minority-offensive-assistant-mandate-25-season",
+      "title": "NFL nixed minority offensive asst. mandate in '25",
+      "body_text": "The NFL ended a mandate that all 32 teams hire a minority coach as an offensive assistant ahead of the 2025 season and not because of recent pressure from Florida Attorney General James Uthmeier.",
+      "author": "Kris Rhim and Kalyn Kahler and Jason Reid",
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Florida Attorney",
+        "General James"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48762927",
+      "url": "https://www.espn.com/nfl/story/_/id/48762927/source-jets-agree-terms-veteran-wr-tim-patrick",
+      "title": "Source: Jets, veteran WR Patrick agree to terms",
+      "body_text": "Adding much-needed experience to their wide receivers room, the New York Jets have agreed to terms with free agent Tim Patrick.",
+      "author": "Rich Cimini",
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "New York",
+        "Tim Patrick"
+      ],
+      "resolved_player_ids": [
+        "00-0033375"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-48760916",
+      "url": "https://www.espn.com/nfl/story/_/id/48760916/florida-ag-issues-investigative-subpoena-nfl-rooney-rule",
+      "title": "Florida AG continues push against Rooney Rule",
+      "body_text": "Florida Attorney General James Uthmeier, who in March threatened potential civil action against the NFL over the Rooney Rule, said Wednesday that he has issued an investigative subpoena to the league.",
+      "author": "Kris Rhim",
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rooney Rule",
+        "Florida Attorney",
+        "General James"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48758779",
+      "url": "https://www.espn.com/nfl/story/_/id/48758779/nfl-unveils-matchups-record-nine-game-international-slate",
+      "title": "Steelers-Saints in Paris part of record int'l slat...",
+      "body_text": "The NFL on Wednesday revealed the matchups of an international slate that features nine games, the most outside the United States in the league's history.",
+      "author": null,
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "United States"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "US-EN-48764468",
+      "url": "https://www.espn.com/nfl/story/_/id/48764468/nfl-2026-schedule-release-social-media-posts-reactions",
+      "title": "🎥 2026 schedule reveals for all 32 NFL teams",
+      "body_text": "From memes to mini movies, all 32 teams brought their A-games with clever schedule reveal posts.",
+      "author": "ESPN staff",
+      "published_at": "2026-05-15T02:56:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48771161",
+      "url": "https://www.espn.com/nfl/story/_/id/48771161/2026-nfl-offseason-big-questions-second-year-sophomore-players-2025-draft",
+      "title": "Answering eight big questions about NFL sophomores...",
+      "body_text": "Should Travis Hunter play only defense? Can Ashton Jeanty and Emeka Egbuka break out? Is Will Campbell's role in danger? And what's next for Nick Emmanwori?",
+      "author": "Ben Solak",
+      "published_at": "2026-05-15T13:44:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Should Travis",
+        "Can Ashton",
+        "Emeka Egbuka",
+        "Is Will",
+        "Nick Emmanwori"
+      ],
+      "resolved_player_ids": [
+        "00-0040129",
+        "00-0040733"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48751952",
+      "url": "https://www.espn.com/nfl/story/_/id/48751952/what-los-angeles-rams-learned-qb-matthew-stafford-mvp-season",
+      "title": "Can Rams, Stafford repeat 2025 success with simila...",
+      "body_text": "The Rams allowed Stafford to spend time away from the facility, which helped the QB go into the season fresher than he has in years past.",
+      "author": "Sarah Barshop",
+      "published_at": "2026-05-15T13:44:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Rams",
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-nflschedulerelease-48738335",
+      "url": "https://www.espn.com/nfl/story/_/page/nflschedulerelease-48738335/seattle-seahawks-nfl-schedule-2026-takeaways-predictions",
+      "title": "Seahawks schedule 2026: Takeaways, predictions for...",
+      "body_text": "Here is everything to know about the Seahawks' 2026 NFL schedule.",
+      "author": "Brady Henderson",
+      "published_at": "2026-05-15T01:50:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-48750095",
+      "url": "https://www.espn.com/nfl/story/_/id/48750095/nfl-execs-predict-2027-offseason-qb-draft-george-pickens",
+      "title": "NFL execs predict 2027 offseason: QB carousel, Geo...",
+      "body_text": "From contract standoffs to the QB carousel and potential trades, NFL execs predicted next year's biggest stories.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-05-14T18:35:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48742531",
+      "url": "https://www.espn.com/nfl/draft2026/story/_/id/48742531/2026-nfl-rookie-quarterbacks-team-fits-projections-draft",
+      "title": "How every rookie QB fits with his new NFL team: Wh...",
+      "body_text": "Which quarterbacks landed in perfect spots? We look at expectations, fits and roles for every drafted QB, including two first-rounders.",
+      "author": "Jordan Reid and NFL Nation",
+      "published_at": "2026-05-14T20:58:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48649984",
+      "url": "https://www.espn.com/nfl/story/_/id/48649984/2026-nfl-offseason-biggest-roster-holes-depth-needs-all-32-teams-postdraft",
+      "title": "The biggest remaining roster hole for every NFL te...",
+      "body_text": "Even after free agency, trades and the draft, NFL teams still have at least one position that needs a boost.",
+      "author": "Aaron Schatz",
+      "published_at": "2026-05-14T20:58:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48742512",
+      "url": "https://www.espn.com/nfl/story/_/id/48742512/2026-nfl-offseason-10-teams-questions-explaining-missed-moves",
+      "title": "Wait, why didn't my NFL team ____? Reasonable answ...",
+      "body_text": "Let's make sense of the Cowboys not extending George Pickens, the Steelers bypassing QB upgrades, the Dolphins not trading De'Von Achane and more.",
+      "author": "Dan Graziano",
+      "published_at": "2026-05-15T00:41:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "George Pickens",
+        "Von Achane"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-48755370",
+      "url": "https://www.espn.com/nfl/story/_/id/48755370/aiyuk-diggs-rookie-antonio-williams-commanders-options-wr2",
+      "title": "Aiyuk, Diggs or the rookie? Sizing up Commanders' ...",
+      "body_text": "Since last season, Washington has wanted to answer this question: Who will be its receiver opposite Terry McLaurin?",
+      "author": "John Keim",
+      "published_at": "2026-05-15T00:41:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-48432437",
+      "url": "https://www.espn.com/espn/betting/story/_/id/48432437/2026-nfl-schedule-release-week-1-odds-lines-spreads-sports-betting-futures",
+      "title": "Early Week 1 bets and futures to target following ...",
+      "body_text": "With the full NFL schedule out, here are early bets we like for Week 1, as well as some futures to consider.",
+      "author": "ESPN",
+      "published_at": "2026-05-15T02:39:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Early Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48432180",
+      "url": "https://www.espn.com/espn/betting/story/_/id/48432180/2026-nfl-schedule-release-season-week-1-games-betting-odds-spreads-lines-highlights",
+      "title": "Schedule release: Betting odds for every Week 1 ga...",
+      "body_text": "Spreads, moneylines and totals for each Week 1 game in the NFL, plus other highlighted matchups.",
+      "author": "ESPN",
+      "published_at": "2026-05-15T02:39:57+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48750958",
+      "url": "https://www.espn.com/nfl/story/_/id/48750958/2026-nfl-tight-ends-13-personnel-rams-mcvay-trends-draft-jumbo-barnwell",
+      "title": "Will 13 personnel drive NFL offenses in 2026? Barn...",
+      "body_text": "The Rams had success with tight end-heavy sets in 2025, and other teams could be trying to follow after a TE-packed Day 2 of the draft. Can it keep working?",
+      "author": "Bill Barnwell",
+      "published_at": "2026-05-14T02:20:24+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Fantasy buzz: Which players benefit most from Njok...",
+      "body_text": "Discussing the impact on Oronde Gadsden, Kyler Murray, Justin Jefferson, Jordan Addison and others this season.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-05-11T16:12:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Oronde Gadsden",
+        "Kyler Murray",
+        "Justin Jefferson",
+        "Jordan Addison"
+      ],
+      "resolved_player_ids": [
+        "00-0040189",
+        "00-0035228",
+        "00-0036322",
+        "00-0038994"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48711830",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48711830/2026-fantasy-football-rankings-ppr-field-yates",
+      "title": "Field Yates' rankings: PPR top 160",
+      "body_text": "Field provides his latest rankings for the upcoming season, which will be updated throughout the offseason.",
+      "author": "Field Yates",
+      "published_at": "2026-05-11T16:12:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Field Yates"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

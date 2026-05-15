@@ -1,0 +1,94 @@
+{
+  "fetch_run_id": "fc922736-cbe7-48b4-bf4f-429f065e823f",
+  "source": "rotowire",
+  "fetched_at": "2026-05-15T12:51:07.313166+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 4,
+  "items": [
+    {
+      "external_id": "nfl630866",
+      "url": "https://www.rotowire.com//football/player/devon-achane-16661",
+      "permalink": "",
+      "title": "De'Von Achane: Inks four-year, $68M extension",
+      "body_text": "The Dolphins signed Achane to a four-year, $68 million contract extension Wednesday, NFL reporter Jordan Schultz reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-13T04:58:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Achane",
+        "The Dolphins",
+        "Jordan Schultz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl630860",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Recovering from second procedure",
+      "body_text": "Nabers had a procedure on his knee \"multiple weeks ago\" to remove scar tissue, but the Giants don't anticipate any change to the wideout's recovery timeline, Dan Duggan of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-13T12:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Dan Duggan",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl630859",
+      "url": "https://www.rotowire.com//football/player/bucky-irving-17784",
+      "permalink": "",
+      "title": "Bucky Irving: Shoulder injury still lingering",
+      "body_text": "The Buccaneers announced Tuesday that Irving (shoulder) may not be fully cleared for the start of OTAs, Andrew Harbaugh of USA Today reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-13T09:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bucky Irving",
+        "The Buccaneers",
+        "Andrew Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0039361"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "nfl630858",
+      "url": "https://www.rotowire.com//football/player/michael-penix-17700",
+      "permalink": "",
+      "title": "Michael Penix: Taking part in throwing drills",
+      "body_text": "The Falcons shared a video Tuesday showing Penix (knee - ACL) throwing to Drake London during spring offseason workouts, Marc Raimondi of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-13T07:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix",
+        "The Falcons",
+        "Drake London",
+        "Marc Raimondi"
+      ],
+      "resolved_player_ids": [
+        "00-0039917",
+        "00-0037238"
+      ],
+      "team_hint": "ATL"
+    }
+  ]
+}
