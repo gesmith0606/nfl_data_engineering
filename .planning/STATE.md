@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v7.2
 milestone_name: Data + Site Polish
-status: executing
-stopped_at: Phase 79 context gathered
-last_updated: "2026-04-28T22:05:24.815Z"
-last_activity: 2026-04-28
+status: paused
+stopped_at: Phase 79 complete; v7.2 paused after 2.5-week production-hotfix detour
+last_updated: "2026-05-15T00:00:00.000Z"
+last_activity: 2026-05-15
 progress:
   total_phases: 36
   completed_phases: 24
@@ -21,14 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
 
 **Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** Phase 79 — audit-provenance-version-probe (Wave 1 in progress: 79-01 complete)
+**Current focus:** v7.2 paused at 1/9 phases. Awaiting decision on which phase to resume (78 / 84 / 76 are the strongest starts).
 
 ## Current Position
 
-Phase: 79
-Plan: Not started
-Status: Wave 1 in progress
-Last activity: 2026-04-28
+Phase: 79 (complete) — v7.2 between phases
+Plan: —
+Status: Milestone paused; 1/9 phases done (79). 8 not started: 76, 77, 78, 80, 81, 82, 83, 84.
+Last activity: 2026-05-15
+
+**Reconciled 2026-05-15:** STATE was stale ("Phase 79 context gathered", last_updated 2026-04-28). Reality: Phase 79 completed 2026-04-28 (4/4 plans, per ROADMAP). From 2026-04-28 → 2026-05-15 **no v7.2 roadmap execution happened** — work was out-of-band production firefighting on the live site (commits `ed3b047`→`a7ebaf4`: api boto3/pyspark importability, matchups season/week resolution + truncation, projection silent-drop hardening, chat name-search limit, plus an auto-rollback after a sanity-check failure). Local was 13 commits behind origin (daily data cron only) — pulled. GSD upgraded 1.31.0→1.42.2 and committed; external rankings refresh committed.
 
 **Mode:** "Tighten each theme" — every requirement cut to its smallest defensible scope. Critical path is 79→84 (deploy hardening) and 82→83 (advisor auth-aware tool); everything else parallelizes.
 
@@ -110,10 +112,11 @@ Carried forward from v7.1 (shipped 2026-04-26):
 
 ## Session Continuity
 
-Last session: 2026-04-28T00:22:47.882Z
-Stopped at: Phase 79 context gathered
-Resume with: `/gsd:plan-phase 76` (or any of 76, 77, 78, 79, 80, 81, 82 — all independent starts).
-Resume file: .planning/milestones/v7.2-phases/79-audit-provenance-version-probe/79-CONTEXT.md
+Last session: 2026-05-15 (state reconciliation — no phase execution)
+Stopped at: Phase 79 complete; v7.2 paused, awaiting resume decision
+Resume with: `/gsd:plan-phase 78` (heuristic-consolidation debt) or `/gsd:plan-phase 84` (deploy hardening — directly addresses the 2.5wk firefighting, unblocked since 79 done) or `/gsd:plan-phase 76` (AWS refresh — unblocks S3 sync). 77/80/81/82 also independent.
+Prior context: .planning/milestones/v7.2-phases/79-audit-provenance-version-probe/79-CONTEXT.md
+Open tree decision: stray `web/frontend/.claude/` nested GSD install + oxlint/oxfmt/shadcn scaffolding — untracked, NOT auto-resolved (web/ gitignore is Dockerfile-coupled per TD-09; needs explicit call).
 
 ### Deferred follow-ups (post-v7.2)
 
