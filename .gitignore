@@ -312,3 +312,15 @@ live-*.png
 .claude/gsd-pre-update-backup-*/
 .claude/scheduled_tasks.lock
 
+# Stray frontend tooling scaffolding — NOT used by web/Dockerfile (verified:
+# Dockerfile COPYs only src/, web/api/, web/__init__.py, data/*; never web/frontend/).
+# Frontend deploys via Vercel. Placed after the TD-02 !web/frontend/**/*.json
+# allowlist so these override it (last-match-wins).
+web/frontend/.claude/
+web/frontend/.agents/skills/shadcn/evals/
+web/frontend/.agents/skills/tanstack-query/skill-rules-fragment.json
+web/frontend/.oxfmtrc.json
+web/frontend/.oxlintrc.json
+web/frontend/.vscode/
+web/frontend/skills-lock.json
+

@@ -30,7 +30,11 @@ Plan: —
 Status: Milestone paused; 1/9 phases done (79). 8 not started: 76, 77, 78, 80, 81, 82, 83, 84.
 Last activity: 2026-05-15
 
-**Reconciled 2026-05-15:** STATE was stale ("Phase 79 context gathered", last_updated 2026-04-28). Reality: Phase 79 completed 2026-04-28 (4/4 plans, per ROADMAP). From 2026-04-28 → 2026-05-15 **no v7.2 roadmap execution happened** — work was out-of-band production firefighting on the live site (commits `ed3b047`→`a7ebaf4`: api boto3/pyspark importability, matchups season/week resolution + truncation, projection silent-drop hardening, chat name-search limit, plus an auto-rollback after a sanity-check failure). Local was 13 commits behind origin (daily data cron only) — pulled. GSD upgraded 1.31.0→1.42.2 and committed; external rankings refresh committed.
+**🔴 P0 — PRODUCTION BACKEND DOWN ~18 DAYS (found 2026-05-15):** Railway `nfl_data_engineering` (project `nfl-api`, **trial plan**) — `latestDeployment.status = FAILED`, `activeDeployments = []`, no serving URL. Public domain `nfldataengineering-production.up.railway.app` returns Railway edge `{"code":404,"message":"Application not found"}` on every path. Frontend (Vercel) is UP but data-blind — `next.config.ts` rewrites all `/api/*` to the dead Railway host.
+- **Root cause chain:** (1) 2026-04-27 deploy (commit `861d2956`) FAILED on the documented TD-09 bug — Dockerfile `COPY data/bronze/schedules/` → `"/data/bronze/schedules": not found` (path was gitignored, absent from build context). (2) The code bug WAS fixed shortly after (`50fb805` + `56472f2` `311d5bb` `83dae9a` `88b8f3e`); schedules is now tracked + allowlisted on HEAD, and a build succeeded 2026-05-06. (3) But the Railway **trial plan** has `activeDeployments: []` and no promoted/running deployment — service is suspended/not serving despite the buildable code. (4) Every `fix(matchups|projections|api|chat)` commit from 2026-04-28→05-15 was written against an already-dead backend and **was never deployed or verified in production.**
+- **Recovery is a hosting/billing decision, not a code fix:** code on `main` is deploy-ready; the blocker is the exhausted Railway trial. Options: upgrade Railway off trial / add payment, or migrate backend host. A blind `railway redeploy` on an exhausted trial will likely fail or not stay up — needs the billing decision first. **Pending user decision.**
+
+**Reconciled 2026-05-15:** STATE was stale ("Phase 79 context gathered", last_updated 2026-04-28). Reality: Phase 79 completed 2026-04-28 (4/4 plans, per ROADMAP). From 2026-04-28 → 2026-05-15 **no v7.2 roadmap execution happened** — work was out-of-band production firefighting (commits `ed3b047`→`a7ebaf4`) on a backend that was already down (see P0 above). Local was 13 commits behind origin (daily data cron only) — pulled. GSD upgraded 1.31.0→1.42.2 and committed; external rankings refresh committed; stray `web/frontend/` tooling scaffolding gitignored (Dockerfile-verified safe).
 
 **Mode:** "Tighten each theme" — every requirement cut to its smallest defensible scope. Critical path is 79→84 (deploy hardening) and 82→83 (advisor auth-aware tool); everything else parallelizes.
 
@@ -90,6 +94,7 @@ Carried forward from v7.1 (shipped 2026-04-26):
 
 ### Blockers/Concerns
 
+- **🔴 P0: Production backend down ~18 days** — Railway trial exhausted; `activeDeployments: []`, `latestDeployment FAILED` (2026-04-27, TD-09 bug, since code-fixed). Site is data-blind. Recovery needs a Railway billing decision or host migration before any v7.2 work. ~2 weeks of unverified fix commits stacked behind it.
 - AWS credentials still expired (Phase 76 unblocks)
 - ANTHROPIC_API_KEY GitHub Secret + ENABLE_LLM_ENRICHMENT GitHub Variable assumed live (set during v7.0/v7.1 close-out)
 - W1-2026 sanity-threshold restore (`_NEWS_CONTENT_MIN_TEAMS_OK 10→20`) is a pre-season-kickoff checklist item, not a phase
