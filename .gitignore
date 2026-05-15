@@ -306,3 +306,9 @@ logs/
 .playwright-mcp/
 live-*.png
 
+# GSD transient/runtime artifacts (never commit — worktrees alone is 267 MB)
+.claude/worktrees/
+.claude/gsd-pristine/
+.claude/gsd-pre-update-backup-*/
+.claude/scheduled_tasks.lock
+

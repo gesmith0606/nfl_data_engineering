@@ -1,5 +1,7 @@
 <purpose>
 Zero-friction idea capture. One Write call, one confirmation line. No questions, no prompts.
+
+**Text mode (`workflow.text_mode: true` in config or `--text` flag):** Set `TEXT_MODE=true` if `--text` is present in `$ARGUMENTS` OR `text_mode` from init JSON is `true`. When TEXT_MODE is active, replace every `AskUserQuestion` call with a plain-text numbered list and ask the user to type their choice number. This is required for non-Claude runtimes (OpenAI Codex, Gemini CLI, etc.) where `AskUserQuestion` is not available.
 Runs inline — no Task, no AskUserQuestion, no Bash.
 </purpose>
 
@@ -43,7 +45,7 @@ promoted: false
 | Arguments are empty (no text at all) | **list** |
 | Anything else | **append** (the text IS the note) |
 
-**Critical**: `list` is only a subcommand when it's the ENTIRE argument. `/gsd:note list of groceries` saves a note with text "list of groceries". Same for `promote` — only a subcommand when followed by exactly one number.
+**Critical**: `list` is only a subcommand when it's the ENTIRE argument. `/gsd-note list of groceries` saves a note with text "list of groceries". Same for `promote` — only a subcommand when followed by exactly one number.
 </step>
 
 <step name="append">
@@ -87,7 +89,7 @@ Project (.planning/notes/):
 Global (/Users/georgesmith/repos/nfl_data_engineering/.claude/notes/):
   4. [2026-02-08 10:00] cross-project idea about shared config
 
-{count} active note(s). Use `/gsd:note promote <N>` to convert to a todo.
+{count} active note(s). Use `/gsd-note promote <N>` to convert to a todo.
 ```
 
 If a scope has no directory or no entries, show: `(no notes)`
@@ -110,7 +112,7 @@ If a scope has no directory or no entries, show: `(no notes)`
 title: "{note text}"
 status: pending
 priority: P2
-source: "promoted from /gsd:note"
+source: "promoted from /gsd-note"
 created: {YYYY-MM-DD}
 theme: general
 ---
@@ -135,7 +137,7 @@ Promoted from quick note captured on {original date}.
 </process>
 
 <edge_cases>
-1. **"list" as note text**: `/gsd:note list of things` saves note "list of things" (subcommand only when `list` is the entire arg)
+1. **"list" as note text**: `/gsd-note list of things` saves note "list of things" (subcommand only when `list` is the entire arg)
 2. **No `.planning/`**: Falls back to global `/Users/georgesmith/repos/nfl_data_engineering/.claude/notes/` — works in any directory
 3. **Promote without project**: Warns that todos require `.planning/`, suggests `/gsd:new-project`
 4. **Large files**: `list` shows last 10 when >20 active entries

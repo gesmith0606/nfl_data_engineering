@@ -1,79 +1,96 @@
 #!/usr/bin/env node
-// gsd-hook-version: 1.37.1
+// gsd-hook-version: 1.42.2
 // Claude Code Statusline - GSD Edition
 // Shows: model | current task (or GSD state) | directory | context usage
 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const { execSync } = require('child_process');
 
-// --- Claude Max session block (ccusage) ------------------------------------
+// --- Config + last-command readers ------------------------------------------
 
 /**
- * Stale-while-revalidate cache for ccusage (it takes ~2.5s, too slow inline).
- * Reads cached JSON written by a detached background refresher; if the cache
- * is older than CCUSAGE_TTL_SEC, spawns a new refresh but returns the stale
- * value immediately. First render returns null; subsequent renders have data.
+ * Walk up from dir looking for .planning/config.json and return its parsed contents.
+ * Returns {} if not found or unreadable.
  */
-const CCUSAGE_CACHE = path.join(os.tmpdir(), 'gsd-statusline-ccusage.json');
-const CCUSAGE_TTL_SEC = 30;
-
-function readSessionBlock() {
-  let cached = null;
-  let ageSec = Infinity;
-  try {
-    const stat = fs.statSync(CCUSAGE_CACHE);
-    ageSec = (Date.now() - stat.mtimeMs) / 1000;
-    cached = JSON.parse(fs.readFileSync(CCUSAGE_CACHE, 'utf8'));
-  } catch (e) {
-    // cache miss — first run or corrupted
+function readGsdConfig(dir) {
+  const home = os.homedir();
+  let current = dir;
+  for (let i = 0; i < 10; i++) {
+    const candidate = path.join(current, '.planning', 'config.json');
+    if (fs.existsSync(candidate)) {
+      try {
+        return JSON.parse(fs.readFileSync(candidate, 'utf8')) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+    const parent = path.dirname(current);
+    if (parent === current || current === home) break;
+    current = parent;
   }
-
-  if (ageSec > CCUSAGE_TTL_SEC) {
-    // Detached refresh; don't block the statusline.
-    try {
-      const { spawn } = require('child_process');
-      const child = spawn(
-        'sh',
-        ['-c', `ccusage blocks --active --json > ${CCUSAGE_CACHE}.tmp 2>/dev/null && mv ${CCUSAGE_CACHE}.tmp ${CCUSAGE_CACHE}`],
-        { detached: true, stdio: 'ignore' }
-      );
-      child.unref();
-    } catch (e) { /* best-effort */ }
-  }
-
-  if (!cached) return null;
-  try {
-    const block = cached.blocks && cached.blocks.find(b => b.isActive);
-    if (!block) return null;
-    const remainingMin = block.projection && block.projection.remainingMinutes;
-    return {
-      remainingMin: typeof remainingMin === 'number' ? remainingMin : null,
-      costUSD: typeof block.costUSD === 'number' ? block.costUSD : null,
-    };
-  } catch (e) {
-    return null;
-  }
+  return {};
 }
 
 /**
- * Format session block for statusline display.
- * Colors: green >90m, yellow 30-90m, red <30m.
+ * Lookup a dotted key path (e.g. 'statusline.show_last_command') in a config
+ * object that may use either nested or flat keys.
  */
-function formatSessionBlock(block) {
-  if (!block || block.remainingMin == null) return '';
-  const mins = Math.max(0, Math.round(block.remainingMin));
-  const h = Math.floor(mins / 60);
-  const m = mins % 60;
-  const timeStr = h > 0 ? `${h}h ${m}m` : `${m}m`;
-  const costStr = block.costUSD != null ? ` · $${block.costUSD.toFixed(2)}` : '';
-  const body = `⏱ ${timeStr}${costStr}`;
-  let color;
-  if (mins > 90) color = '\x1b[32m';
-  else if (mins > 30) color = '\x1b[33m';
-  else color = '\x1b[31m';
-  return ` │ ${color}${body}\x1b[0m`;
+function getConfigValue(cfg, keyPath) {
+  if (!cfg || typeof cfg !== 'object') return undefined;
+  if (keyPath in cfg) return cfg[keyPath];
+  const parts = keyPath.split('.');
+  let cur = cfg;
+  for (const p of parts) {
+    if (cur == null || typeof cur !== 'object' || !(p in cur)) return undefined;
+    cur = cur[p];
+  }
+  return cur;
+}
+
+/**
+ * Extract the most recently invoked slash command from a Claude Code JSONL
+ * transcript file. Returns the command name (no leading slash) or null.
+ *
+ * Claude Code embeds slash invocations in user messages as
+ *   <command-name>/foo</command-name>
+ * We scan lines from the end of the file, stopping at the first match.
+ */
+function readLastSlashCommand(transcriptPath) {
+  if (!transcriptPath || typeof transcriptPath !== 'string') return null;
+  let content;
+  try {
+    if (!fs.existsSync(transcriptPath)) return null;
+    // Read only the tail — typical transcripts grow large. 256 KiB comfortably
+    // covers dozens of recent turns while staying cheap per render.
+    const stat = fs.statSync(transcriptPath);
+    const MAX = 256 * 1024;
+    const start = Math.max(0, stat.size - MAX);
+    const fd = fs.openSync(transcriptPath, 'r');
+    try {
+      const buf = Buffer.alloc(stat.size - start);
+      fs.readSync(fd, buf, 0, buf.length, start);
+      content = buf.toString('utf8');
+    } finally {
+      fs.closeSync(fd);
+    }
+  } catch (e) {
+    return null;
+  }
+  // Find the LAST occurrence — scan right-to-left via lastIndexOf on the tag.
+  const tagClose = '</command-name>';
+  const idx = content.lastIndexOf(tagClose);
+  if (idx < 0) return null;
+  const openTag = '<command-name>';
+  const openIdx = content.lastIndexOf(openTag, idx);
+  if (openIdx < 0) return null;
+  let name = content.slice(openIdx + openTag.length, idx).trim();
+  // Strip a leading slash if present, and any trailing arguments-on-same-line noise.
+  if (name.startsWith('/')) name = name.slice(1);
+  // Command names in Claude Code transcripts are plain identifiers like "gsd-plan-phase"
+  // or namespaced like "plugin:skill". Reject anything with whitespace/newlines/control chars.
+  if (!name || /[\s\\"<>]/.test(name) || name.length > 80) return null;
+  return name;
 }
 
 // --- GSD state reader -------------------------------------------------------
@@ -103,22 +120,69 @@ function readGsdState(dir) {
 
 /**
  * Parse STATE.md frontmatter + Phase line from body.
- * Returns { status, milestone, milestoneName, phaseNum, phaseTotal, phaseName }
+ *
+ * Returns:
+ *   { status, milestone, milestoneName, phaseNum, phaseTotal, phaseName,
+ *     activePhase, nextAction, nextPhases, completedPhases, totalPhases, percent }
+ *
+ * Phase-lifecycle fields (issue #2833):
+ *   - activePhase  : phase number ("4.5") when an orchestrator is mid-flight, null otherwise
+ *   - nextAction   : recommended next command ("execute-phase") when idle, null otherwise
+ *   - nextPhases   : array of phase numbers (["4.5"]) for nextAction, null otherwise
+ *   - completedPhases / totalPhases / percent : milestone progress dimension
+ *
+ * All new fields default to undefined when absent — formatGsdState() degrades
+ * gracefully so existing STATE.md files (without these fields) keep working.
  */
 function parseStateMd(content) {
   const state = {};
 
-  // YAML frontmatter between --- markers
+  // YAML frontmatter between --- markers (anchored at file start)
   const fmMatch = content.match(/^---\n([\s\S]*?)\n---/);
   if (fmMatch) {
-    for (const line of fmMatch[1].split('\n')) {
+    const fm = fmMatch[1];
+    // Top-level scalar key: value
+    for (const line of fm.split('\n')) {
       const m = line.match(/^(\w+):\s*(.+)/);
       if (!m) continue;
       const [, key, val] = m;
       const v = val.trim().replace(/^["']|["']$/g, '');
+      // status / milestone-level fields (existing — preserved exactly)
       if (key === 'status') state.status = v === 'null' ? null : v;
       if (key === 'milestone') state.milestone = v === 'null' ? null : v;
       if (key === 'milestone_name') state.milestoneName = v === 'null' ? null : v;
+      // Phase-lifecycle fields (new in issue #2833)
+      // active_phase: phase number when an orchestrator is in-flight, null when idle
+      if (key === 'active_phase') state.activePhase = (v === 'null' || v === '') ? null : v;
+      // next_action: recommended command when idle (discuss-phase / plan-phase / execute-phase / verify-phase)
+      if (key === 'next_action') state.nextAction = (v === 'null' || v === '') ? null : v;
+    }
+    // next_phases supports both flow array and block-list YAML forms.
+    const npFlowMatch = fm.match(/^next_phases:\s*\[([^\]]*)\]/m);
+    if (npFlowMatch) {
+      const items = npFlowMatch[1].split(',').map(s => s.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+      state.nextPhases = items.length > 0 ? items : null;
+    } else {
+      const npBlockMatch = fm.match(/^next_phases:\s*\n((?:[ \t]*-[ \t]*[^\n]+\n?)*)/m);
+      if (npBlockMatch) {
+        const items = npBlockMatch[1]
+          .split('\n')
+          .map(line => line.match(/^[ \t]*-[ \t]*(.+)$/))
+          .filter(Boolean)
+          .map(m => m[1].trim().replace(/^["']|["']$/g, ''))
+          .filter(Boolean);
+        state.nextPhases = items.length > 0 ? items : null;
+      }
+    }
+    // progress nested block: completed_phases / total_phases / percent (2-space indent)
+    const progMatch = fm.match(/^progress:\s*\n((?:[ \t]+\w+:.+\n?)+)/m);
+    if (progMatch) {
+      const cp = progMatch[1].match(/^[ \t]+completed_phases:\s*(\d+)/m);
+      const tp = progMatch[1].match(/^[ \t]+total_phases:\s*(\d+)/m);
+      const pc = progMatch[1].match(/^[ \t]+percent:\s*(\d+)/m);
+      if (cp) state.completedPhases = cp[1];
+      if (tp) state.totalPhases = tp[1];
+      if (pc) state.percent = pc[1];
     }
   }
 
@@ -145,23 +209,76 @@ function parseStateMd(content) {
 }
 
 /**
+ * Render a 10-segment milestone progress bar (matches the context meter style).
+ *
+ * @param {number|string|null|undefined} percent — 0-100; missing/NaN returns ''
+ * @returns {string} '[█████░░░░░] 50%' or '' (so callers can `[bar].filter(Boolean)`)
+ */
+function renderProgressBar(percent) {
+  if (percent == null || isNaN(percent)) return '';
+  const pct = Math.max(0, Math.min(100, parseInt(percent, 10)));
+  const filled = Math.floor(pct / 10);
+  const bar = '█'.repeat(filled) + '░'.repeat(10 - filled);
+  return `[${bar}] ${pct}%`;
+}
+
+/**
  * Format GSD state into display string.
- * Format: "v1.9 Code Quality · executing · fix-graphiti-deployment (1/5)"
- * Gracefully degrades when parts are missing.
+ *
+ * Backward-compatible default (no new fields populated):
+ *   "v1.9 Code Quality · executing · fix-graphiti-deployment (1/5)"
+ *
+ * Phase-lifecycle scenes (issue #2833 — activate when STATE.md frontmatter
+ * carries the new fields; otherwise rendering falls through to the default):
+ *
+ *   active_phase set                       → "v2.0 [██░] X% · Phase 4.5 executing"
+ *   active_phase null + next_action set    → "v2.0 [██░] X% · next execute-phase 4.5"
+ *   percent=100 (milestone done)           → "v2.0 [██████████] 100% · milestone complete"
+ *   none of the above                      → existing "<status> · <phase>" path
+ *
+ * Progress bar is opt-in: appended to the milestone segment only when
+ * progress.percent is present in frontmatter; absent → empty string.
  */
 function formatGsdState(s) {
   const parts = [];
 
-  // Milestone version only — drop the long name (e.g. "v6.0" not
-  // "v6.0 Website Production Ready + Agent Ecosystem").
-  if (s.milestone) parts.push(s.milestone);
+  // Milestone segment: version + name + (opt-in) progress bar
+  if (s.milestone || s.milestoneName) {
+    const ver = s.milestone || '';
+    const name = (s.milestoneName && s.milestoneName !== 'milestone') ? s.milestoneName : '';
+    const bar = renderProgressBar(s.percent);
+    const pieces = [ver, name, bar].filter(Boolean);
+    if (pieces.length > 0) parts.push(pieces.join(' '));
+  }
 
-  // Status
-  if (s.status) parts.push(s.status);
+  // Phase-lifecycle scenes (issue #2833) — first match wins; falls through to
+  // the original "<status> · <phase>" path when none of the new fields apply.
+  const phasesStr = (s.nextPhases && s.nextPhases.length > 0) ? s.nextPhases.join('/') : null;
 
-  // Phase number only — drop the long phase name for compactness.
-  if (s.phaseNum && s.phaseTotal) {
-    parts.push(`ph ${s.phaseNum}/${s.phaseTotal}`);
+  if (s.activePhase) {
+    // Scene 1: an orchestrator is mid-flight on this phase.
+    // stage = whichever lifecycle status was written by the orchestrator
+    //   (discussing / planning / executing / verifying)
+    const stage = s.status || '';
+    parts.push(stage ? `Phase ${s.activePhase} ${stage}` : `Phase ${s.activePhase}`);
+  } else if (s.nextAction && phasesStr) {
+    // Scene 2: idle + a recommended next command is visible to the user.
+    // Surfaces "what to run next" without the user opening STATE.md.
+    parts.push(`next ${s.nextAction} ${phasesStr}`);
+  } else if (Number(s.percent) === 100 || (s.completedPhases && s.totalPhases && s.completedPhases === s.totalPhases)) {
+    // Scene 3: milestone complete (every phase done).
+    parts.push('milestone complete');
+  } else {
+    // Backward-compatible default — preserved EXACTLY for STATE.md files that
+    // don't carry the new lifecycle fields. Identical output to v1.38.x and
+    // earlier so no existing project's status-line changes shape.
+    if (s.status) parts.push(s.status);
+    if (s.phaseNum && s.phaseTotal) {
+      const phase = s.phaseName
+        ? `${s.phaseName} (${s.phaseNum}/${s.phaseTotal})`
+        : `ph ${s.phaseNum}/${s.phaseTotal}`;
+      parts.push(phase);
+    }
   }
 
   return parts.join(' · ');
@@ -209,10 +326,15 @@ function runStatusline() {
       if (sessionSafe) {
         try {
           const bridgePath = path.join(os.tmpdir(), `claude-ctx-${session}.json`);
+          // used_pct written to the bridge must match CC's native /context reporting:
+          // raw used = 100 - remaining_percentage (no buffer normalization applied).
+          // The normalized `used` value is correct for the statusline progress bar but
+          // inflates the context monitor warning messages by ~13 points (#2451).
+          const rawUsedPct = Math.round(100 - remaining);
           const bridgeData = JSON.stringify({
             session_id: session,
             remaining_percentage: remaining,
-            used_pct: used,
+            used_pct: rawUsedPct,
             timestamp: Math.floor(Date.now() / 1000)
           });
           fs.writeFileSync(bridgePath, bridgeData);
@@ -276,11 +398,11 @@ function runStatusline() {
       try {
         const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
         if (cache.update_available) {
-          gsdUpdate = '\x1b[33m⬆ /gsd-update\x1b[0m │ ';
+          gsdUpdate = '\x1b[33m⬆ /gsd:update\x1b[0m │ ';
         }
         if (cache.stale_hooks && cache.stale_hooks.length > 0) {
           // If installed version is ahead of npm latest, this is a dev install.
-          // Running /gsd-update would downgrade — show a contextual warning instead.
+          // Running /gsd:update would downgrade — show a contextual warning instead.
           const isDevInstall = (() => {
             if (!cache.installed || !cache.latest || cache.latest === 'unknown') return false;
             const parseV = v => v.replace(/^v/, '').split('.').map(Number);
@@ -291,37 +413,125 @@ function runStatusline() {
           if (isDevInstall) {
             gsdUpdate += '\x1b[33m⚠ dev install — re-run installer to sync hooks\x1b[0m │ ';
           } else {
-            gsdUpdate += '\x1b[31m⚠ stale hooks — run /gsd-update\x1b[0m │ ';
+            gsdUpdate += '\x1b[31m⚠ stale hooks — run /gsd:update\x1b[0m │ ';
           }
         }
       } catch (e) {}
     }
 
-    // Session block (Claude Max 5h rolling quota) — placed near the left
-    // so it stays visible even when the terminal truncates the statusline.
-    const sessionStr = formatSessionBlock(readSessionBlock());
+    // Last-slash-command suffix and context_position config (#2538, #2937).
+    // Reads the active session transcript for the most recent <command-name> tag.
+    // Failure here must never break the statusline — wrap the entire lookup.
+    let lastCmdSuffix = '';
+    let position = 'end';
+    try {
+      const cfg = readGsdConfig(dir);
+      if (getConfigValue(cfg, 'statusline.show_last_command') === true) {
+        const transcriptPath = data.transcript_path;
+        const lastCmd = readLastSlashCommand(transcriptPath);
+        if (lastCmd) {
+          lastCmdSuffix = ` │ \x1b[2mlast: /${lastCmd}\x1b[0m`;
+        }
+      }
+      const cfgPos = getConfigValue(cfg, 'statusline.context_position');
+      if (cfgPos != null) position = cfgPos;
+    } catch (e) {
+      // Never break the statusline on config/transcript errors
+    }
 
-    // Output: model │ session block │ [task/GSD state] │ context bar
-    // Dropped: dirname (redundant with terminal title); long milestone/phase
-    // names (handled in formatGsdState by keeping only version + status + ph N/M).
+    // Output
+    const dirname = path.basename(dir);
     const middle = task
       ? `\x1b[1m${task}\x1b[0m`
       : gsdStateStr
         ? `\x1b[2m${gsdStateStr}\x1b[0m`
         : null;
 
-    if (middle) {
-      process.stdout.write(`${gsdUpdate}\x1b[2m${model}\x1b[0m${sessionStr} │ ${middle}${ctx}`);
-    } else {
-      process.stdout.write(`${gsdUpdate}\x1b[2m${model}\x1b[0m${sessionStr}${ctx}`);
-    }
+    process.stdout.write(composeStatusline({ gsdUpdate, model, ctx, middle, dirname, lastCmdSuffix, position }));
   } catch (e) {
     // Silent fail - don't break statusline on parse errors
   }
 });
 }
 
+// --- Layout composer --------------------------------------------------------
+
+/**
+ * Compose the statusline string from pre-built segments.
+ *
+ * @param {object} opts
+ * @param {string} [opts.gsdUpdate='']      - leading update/stale-hooks warning (already formatted)
+ * @param {string} opts.model               - model display name (plain text; dim styling applied here)
+ * @param {string} [opts.ctx='']            - context-window meter segment (empty string = absent)
+ * @param {string|null} [opts.middle=null]  - middle segment (todo task or GSD state), null = absent
+ * @param {string} opts.dirname             - project directory basename (dim styling applied here)
+ * @param {string} [opts.lastCmdSuffix='']  - last-command suffix, e.g. ' │ last: /foo'
+ * @param {'end'|'front'} [opts.position='end']
+ *   - 'end'   (default): ctx appended after dirname — preserved byte-for-byte
+ *   - 'front': ctx immediately after model name so the meter stays visible in narrow terminals
+ *
+ * Invalid position values are silently coerced to 'end' — config-set schema rejects
+ * invalid values upfront; runtime fallback defends against stale/corrupt configs
+ * without breaking the statusline.
+ */
+function composeStatusline({
+  gsdUpdate = '',
+  model,
+  ctx = '',
+  middle = null,
+  dirname,
+  lastCmdSuffix = '',
+  position = 'end',
+} = {}) {
+  const modelSeg = `\x1b[2m${model}\x1b[0m`;
+  const dirSeg = `\x1b[2m${dirname}\x1b[0m`;
+  // Coerce invalid values to 'end' (belt-and-suspenders; see JSDoc above)
+  const pos = position === 'front' ? 'front' : 'end';
+
+  if (pos === 'front') {
+    if (middle) return `${gsdUpdate}${modelSeg}${ctx} │ ${middle} │ ${dirSeg}${lastCmdSuffix}`;
+    return `${gsdUpdate}${modelSeg}${ctx} │ ${dirSeg}${lastCmdSuffix}`;
+  }
+  // 'end' — preserved byte-for-byte relative to original inline templates
+  if (middle) return `${gsdUpdate}${modelSeg} │ ${middle} │ ${dirSeg}${ctx}${lastCmdSuffix}`;
+  return `${gsdUpdate}${modelSeg} │ ${dirSeg}${ctx}${lastCmdSuffix}`;
+}
+
 // Export helpers for unit tests. Harmless when run as a script.
-module.exports = { readGsdState, parseStateMd, formatGsdState };
+module.exports = {
+  readGsdState, parseStateMd, formatGsdState,
+  readGsdConfig, getConfigValue, readLastSlashCommand,
+  composeStatusline,
+};
+
+/**
+ * Render the statusline from an already-parsed hook input object. Exported for
+ * testing without feeding stdin. Returns the rendered string.
+ */
+function renderStatusline(data) {
+  const model = data.model?.display_name || 'Claude';
+  const dir = data.workspace?.current_dir || process.cwd();
+  const dirname = path.basename(dir);
+
+  let lastCmdSuffix = '';
+  let position = 'end';
+  try {
+    const cfg = readGsdConfig(dir);
+    if (getConfigValue(cfg, 'statusline.show_last_command') === true) {
+      const lastCmd = readLastSlashCommand(data.transcript_path);
+      if (lastCmd) {
+        lastCmdSuffix = ` │ \x1b[2mlast: /${lastCmd}\x1b[0m`;
+      }
+    }
+    const cfgPos = getConfigValue(cfg, 'statusline.context_position');
+    if (cfgPos != null) position = cfgPos;
+  } catch (e) { /* swallow */ }
+
+  const gsdStateStr = formatGsdState(readGsdState(dir) || {});
+  const middle = gsdStateStr ? `\x1b[2m${gsdStateStr}\x1b[0m` : null;
+  return composeStatusline({ model, ctx: '', middle, dirname, lastCmdSuffix, position });
+}
+
+module.exports.renderStatusline = renderStatusline;
 
 if (require.main === module) runStatusline();

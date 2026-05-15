@@ -16,16 +16,16 @@ Valid GSD subagent types (use exact names — do not fall back to 'general-purpo
 ## 0. Initialize
 
 ```bash
-INIT=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" init phase-op "${PHASE_ARG}")
+INIT=$(gsd-sdk query init.phase-op "${PHASE_ARG}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
-AGENT_SKILLS_AUDITOR=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" agent-skills gsd-security-auditor 2>/dev/null)
+AGENT_SKILLS_AUDITOR=$(gsd-sdk query agent-skills gsd-security-auditor)
 ```
 
 Parse: `phase_dir`, `phase_number`, `phase_name`, `phase_slug`, `padded_phase`.
 
 ```bash
-AUDITOR_MODEL=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" resolve-model gsd-security-auditor --raw)
-SECURITY_CFG=$(node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" config-get workflow.security_enforcement --raw 2>/dev/null || echo "true")
+AUDITOR_MODEL=$(gsd-sdk query resolve-model gsd-security-auditor --raw)
+SECURITY_CFG=$(gsd-sdk query config-get workflow.security_enforcement --raw 2>/dev/null || echo "true")
 ```
 
 If `SECURITY_CFG` is `false`: exit with "Security enforcement disabled. Enable via /gsd:settings."
@@ -58,6 +58,8 @@ Read SUMMARY.md — extract `## Threat Flags` entries.
 
 Per threat: `{ threat_id, category, component, disposition, mitigation_pattern, files_to_check }`
 
+Also set `register_authored_at_plan_time: true` if **at least one** PLAN file contained a parseable `<threat_model>` block; `false` if no PLAN files had any `<threat_model>` block (legacy phase authored before formal threat modelling was standard).
+
 ## 3. Threat Classification
 
 Classify each threat:
@@ -69,10 +71,15 @@ Classify each threat:
 
 Build: `{ threat_id, category, component, disposition, status, evidence }`
 
-If `threats_open: 0` → skip to Step 6 directly.
+**Short-circuit rule:**
+- If `threats_open: 0 AND register_authored_at_plan_time: true` → skip to Step 6 directly. All plan-time threats are verified CLOSED.
+- If `threats_open: 0 AND register_authored_at_plan_time: false` → **do NOT skip**. Empty-by-no-planning must not rubber-stamp a clean SECURITY.md. Proceed to Step 5 in **retroactive-STRIDE mode** — the auditor builds a register from implementation files first, then verifies mitigations.
+- If `threats_open > 0` → proceed to Step 4 (present threat plan to user).
 
 ## 4. Present Threat Plan
 
+
+**Text mode (`workflow.text_mode: true` in config or `--text` flag):** Set `TEXT_MODE=true` if `--text` is present in `$ARGUMENTS` OR `text_mode` from init JSON is `true`. When TEXT_MODE is active, replace every `AskUserQuestion` call with a plain-text numbered list and ask the user to type their choice number. This is required for non-Claude runtimes (OpenAI Codex, Gemini CLI, etc.) where `AskUserQuestion` is not available.
 Call AskUserQuestion with threat table and options:
 1. "Verify all open threats" → Step 5
 2. "Accept all open — document in accepted risks log" → add to SECURITY.md accepted risks, set all CLOSED, Step 6
@@ -80,8 +87,13 @@ Call AskUserQuestion with threat table and options:
 
 ## 5. Spawn gsd-security-auditor
 
+**Auditor constraint — varies by register origin:**
+
+- `register_authored_at_plan_time: true` — **Verify mitigations exist** — do not scan for new threats. The register is complete; verify each threat's mitigation is present in the implementation.
+- `register_authored_at_plan_time: false` (retroactive-STRIDE mode) — **Retroactive-STRIDE: build a STRIDE register from implementation files first, then verify mitigations.** The phase was authored before formal threat modelling; the auditor must construct the register from scratch before verifying.
+
 ```
-Task(
+Agent(
   prompt="Read /Users/georgesmith/repos/nfl_data_engineering/.claude/agents/gsd-security-auditor.md for instructions.\n\n" +
     "<files_to_read>{PLAN, SUMMARY, impl files, SECURITY.md}</files_to_read>" +
     "<threat_register>{threat register}</threat_register>" +
@@ -93,6 +105,8 @@ Task(
   description="Verify threat mitigations for Phase {N}"
 )
 ```
+
+> **ORCHESTRATOR RULE — CODEX RUNTIME**: After calling Agent() above, stop working on this task immediately. Do not read more files, edit code, or run tests related to this task while the subagent is active. Wait for the subagent to return its result. This prevents duplicate work, conflicting edits, and wasted context. Only resume when the subagent result is available.
 
 Handle return:
 - `## SECURED` → record closures → Step 6
@@ -132,7 +146,7 @@ Do NOT emit next-phase routing. Stop here.
 ## 7. Commit
 
 ```bash
-node "/Users/georgesmith/repos/nfl_data_engineering/.claude/get-shit-done/bin/gsd-tools.cjs" commit "docs(phase-${PHASE}): add/update security threat verification"
+gsd-sdk query commit "docs(phase-${PHASE}): add/update security threat verification"
 ```
 
 ## 8. Results + Routing
@@ -154,7 +168,8 @@ Display `/clear` reminder.
 - [ ] Input state detected (A/B/C) — state C exits cleanly
 - [ ] PLAN.md threat model parsed, register built
 - [ ] SUMMARY.md threat flags incorporated
-- [ ] threats_open: 0 → skip directly to Step 6
+- [ ] threats_open: 0 AND register_authored_at_plan_time: true → skip directly to Step 6
+- [ ] threats_open: 0 AND register_authored_at_plan_time: false → retroactive-STRIDE mode (Step 5), not skipped
 - [ ] User gate with threat table presented
 - [ ] Auditor spawned with complete context
 - [ ] All three return formats (SECURED/OPEN_THREATS/ESCALATE) handled

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// gsd-hook-version: 1.27.0
+// gsd-hook-version: 1.42.2
 // GSD Workflow Guard — PreToolUse hook
 // Detects when Claude attempts file edits outside a GSD workflow context
-// (no active /gsd: command or Task subagent) and injects an advisory warning.
+// (no active /gsd- skill or Task subagent) and injects an advisory warning.
 //
 // This is a SOFT guard — it advises, not blocks. The edit still proceeds.
 // The warning nudges Claude to use /gsd:quick or /gsd:fast instead of
@@ -29,7 +29,7 @@ process.stdin.on('end', () => {
       process.exit(0);
     }
 
-    // Check if we're inside a GSD workflow (Task subagent or /gsd: command)
+    // Check if we're inside a GSD workflow (Task subagent or /gsd- skill)
     // Subagents have a session_id that differs from the parent
     // and typically have a description field set by the orchestrator
     if (data.tool_input?.is_subagent || data.session_type === 'task') {
