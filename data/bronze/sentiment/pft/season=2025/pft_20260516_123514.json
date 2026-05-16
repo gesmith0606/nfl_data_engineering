@@ -1,0 +1,550 @@
+{
+  "fetch_run_id": "a947d639-647f-4d8d-bbd8-8e0c2fb0f7ee",
+  "source": "pft",
+  "fetched_at": "2026-05-16T12:35:14.570279+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-addresses-shilos-altercation-with-mary-kay-cabot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-addresses-shilos-altercation-with-mary-kay-cabot",
+      "permalink": "",
+      "title": "Deion Sanders addresses Shilo's \"altercation\" with Mary Kay Cabot",
+      "body_text": "In a recent podcast appearance, Colorado coach Deion Sanders covered a wide variety of topics.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T11:56:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders",
+        "Mary Kay"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-wanted-falcons-saints-mnf-game-to-mark-20-years-since-return-from-katrina",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-wanted-falcons-saints-mnf-game-to-mark-20-years-since-return-from-katrina",
+      "permalink": "",
+      "title": "Roger Goodell wanted Falcons-Saints MNF game to mark 20 years since return from Katrina",
+      "body_text": "A Monday night game in 2026 will recall one of the greatest moments in Saints franchise history in 2006.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-16T09:29:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arrest-is-made-in-shooting-of-missouri-rb-ahmad-hardy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arrest-is-made-in-shooting-of-missouri-rb-ahmad-hardy",
+      "permalink": "",
+      "title": "Arrest is made in shooting of Missouri RB Ahmad Hardy",
+      "body_text": "Missouri running back Ahmad Hardy was shot on Sunday at an outdoor concert in Mississippi.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T01:05:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ahmad Hardy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nhl-gets-very-tough-on-golden-knights-violation-of-media-policy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nhl-gets-very-tough-on-golden-knights-violation-of-media-policy",
+      "permalink": "",
+      "title": "NHL gets very tough on Golden Knights' violation of media policy",
+      "body_text": "When it comes to compliance with its media policy, the NHL doesn't mess around.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T00:35:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Golden Knights"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-josh-mauro-died-of-accidental-drug-overdose",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-josh-mauro-died-of-accidental-drug-overdose",
+      "permalink": "",
+      "title": "Report: Josh Mauro died of accidental drug overdose",
+      "body_text": "Former NFL defensive end Josh Mauro died last month at 35.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T00:17:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Mauro"
+      ],
+      "resolved_player_ids": [
+        "00-0030883"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-colts-are-giving-me-a-chance-to-work-and-potentially-get-back-on-the-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-colts-are-giving-me-a-chance-to-work-and-potentially-get-back-on-the-field",
+      "permalink": "",
+      "title": "Anthony Richardson: Colts are giving me a chance to work and potentially get back on the field",
+      "body_text": "Anthony Richardson wants a trade, and the Colts would love to trade him.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T21:16:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevor-lawrence-didnt-get-a-schedule-release-haircut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevor-lawrence-didnt-get-a-schedule-release-haircut",
+      "permalink": "",
+      "title": "Trevor Lawrence didn't get a schedule-release haircut",
+      "body_text": "One of the great mysteries of the 2026 offseason has been solved.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T21:01:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-first-round-ot-max-iheanachor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-first-round-ot-max-iheanachor",
+      "permalink": "",
+      "title": "Steelers sign first-round OT Max Iheanachor",
+      "body_text": "The Steelers signed first-round offensive tackle Max Iheanachor to his four-year rookie deal, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T20:56:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Max Iheanachor",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "IHE074158"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/current-rules-allow-up-to-eight-prime-time-games-per-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/current-rules-allow-up-to-eight-prime-time-games-per-team",
+      "permalink": "",
+      "title": "Current rules allow up to eight prime-time games per team",
+      "body_text": "The NFL wants maximum flexibility to put great games in desirable windows.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T20:49:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-is-back-playing-golf",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-is-back-playing-golf",
+      "permalink": "",
+      "title": "Patrick Mahomes is back playing golf",
+      "body_text": "Chiefs quarterback Patrick Mahomes is \"making progress\" in his rehab from major knee surgery, coach Andy Reid said Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T20:30:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Andy Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-could-potentially-end-up-with-nine-prime-time-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-could-potentially-end-up-with-nine-prime-time-games",
+      "permalink": "",
+      "title": "Rams could potentially end up with nine prime-time games",
+      "body_text": "The Rams have seven prime-time games in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T18:16:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-schedule-has-them-playing-on-every-day-of-the-week-except-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-schedule-has-them-playing-on-every-day-of-the-week-except-tuesday",
+      "permalink": "",
+      "title": "Seahawks' schedule has them playing on every day of the week except Tuesday",
+      "body_text": "The NFL is increasingly moving games off Sundays to play them on other days of the week, when TV networks and streaming platforms will pay more money for them.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-15T19:30:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-will-call-his-first-game-in-new-england-in-week-9",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-will-call-his-first-game-in-new-england-in-week-9",
+      "permalink": "",
+      "title": "Tom Brady will call his first game in New England in Week 9",
+      "body_text": "Tom Brady has spent the past two seasons working as a broadcaster for Fox.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T18:56:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/week-16-has-four-options-for-the-two-saturday-nfl-network-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/week-16-has-four-options-for-the-two-saturday-nfl-network-games",
+      "permalink": "",
+      "title": "Week 16 has four options for the two Saturday NFL Network games",
+      "body_text": "NFL Network lost its schedule-release show.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T18:37:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-vp-mike-north-we-dont-draft-our-way-into-primetime-we-play-our-way-into-primetime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-vp-mike-north-we-dont-draft-our-way-into-primetime-we-play-our-way-into-primetime",
+      "permalink": "",
+      "title": "NFL VP Mike North: We don't draft our way into primetime, we play our way into primetime",
+      "body_text": "Though they drafted quarterback Fernando Mendoza at No. 1 overall in April, the Raiders are one of five teams without a scheduled primetime game in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-15T18:32:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike North",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-bills-will-play-four-of-five-games-on-the-road-twice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-bills-will-play-four-of-five-games-on-the-road-twice",
+      "permalink": "",
+      "title": "The Bills will play four of five games on the road, twice",
+      "body_text": "For the Bills, the headline to the 2026 season relates to the christening of a new stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T15:23:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charles-woodson-jr-commits-to-the-university-of-michigan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charles-woodson-jr-commits-to-the-university-of-michigan",
+      "permalink": "",
+      "title": "Charles Woodson Jr. commits to the University of Michigan",
+      "body_text": "There's set to be a familiar name on the Michigan football team for the 2027 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T18:25:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Charles Woodson Jr",
+        "Michigan There"
+      ],
+      "resolved_player_ids": [
+        "00-0018227"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-wrap-up-draft-class-by-signing-second-rounder-lee-hunter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-wrap-up-draft-class-by-signing-second-rounder-lee-hunter",
+      "permalink": "",
+      "title": "Panthers wrap up draft class by signing second-rounder Lee Hunter",
+      "body_text": "The Panthers took care of some contractual business on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T16:39:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lee Hunter",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "HUN721690"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-second-round-pick-anthony-hill",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-second-round-pick-anthony-hill",
+      "permalink": "",
+      "title": "Titans sign second-round pick Anthony Hill",
+      "body_text": "The Titans are down to one unsigned draft pick.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T16:30:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Hill",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "HIL735988"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-chargers-assistant-gm-chad-alexander-declines-vikings-gm-interview",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-chargers-assistant-gm-chad-alexander-declines-vikings-gm-interview",
+      "permalink": "",
+      "title": "Report: Chargers assistant GM Chad Alexander declines Vikings GM interview",
+      "body_text": "There's one less name for the Vikings to consider for their General Manager opening.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T16:12:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chad Alexander",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-healthy-offseason-is-a-blessing-sets-me-up-to-be-my-best-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-healthy-offseason-is-a-blessing-sets-me-up-to-be-my-best-this-season",
+      "permalink": "",
+      "title": "DeMarvion Overshown: Healthy offseason is a blessing, sets me up to be my best this season",
+      "body_text": "One of the reasons the Cowboys can hope to have a better defense this season is the fact that linebacker DeMarvion Overshown isn't rehabbing an injury right now.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-15T16:01:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-sees-continued-global-expansion-as-major-focus-of-the-2026-schedule",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-sees-continued-global-expansion-as-major-focus-of-the-2026-schedule",
+      "permalink": "",
+      "title": "NFL sees continued global expansion as major focus of the 2026 schedule",
+      "body_text": "J.J.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-15T15:18:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlins-first-afc-north-game-happens-in-week-5-with-ravens-at-falcons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlins-first-afc-north-game-happens-in-week-5-with-ravens-at-falcons",
+      "permalink": "",
+      "title": "Mike Tomlin's first AFC North game happens in Week 5, with Ravens at Falcons",
+      "body_text": "During 19 years with the Steelers, coach Mike Tomlin worked 114 games against teams from the AFC North.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T04:11:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Tomlin",
+        "Falcons During"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-second-rounder-brandon-cisse",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-second-rounder-brandon-cisse",
+      "permalink": "",
+      "title": "Packers sign second-rounder Brandon Cisse",
+      "body_text": "The Packers have all of their 2026 draft picks under contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-14T21:02:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Cisse",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "CIS501810"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-get-six-primetime-games-as-reigning-champions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-get-six-primetime-games-as-reigning-champions",
+      "permalink": "",
+      "title": "Seahawks get six primetime games as reigning champions",
+      "body_text": "Get ready to see plenty of the reigning Super Bowl champions in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-15T00:14:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-would-be-great-to-have-same-qb-for-years-but-its-difficult-in-this-league",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-would-be-great-to-have-same-qb-for-years-but-its-difficult-in-this-league",
+      "permalink": "",
+      "title": "Justin Jefferson: Would be great to have same QB for years, but it's difficult in this league",
+      "body_text": "Vikings receiver Justin Jefferson had a consistent starting quarterback for his first four seasons in Kirk Cousins.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-15T14:44:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-full-2026-nfl-sunday-night-football-schedule",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-full-2026-nfl-sunday-night-football-schedule",
+      "permalink": "",
+      "title": "The full 2026 NFL Sunday Night Football schedule",
+      "body_text": "For the 21st year, NBC (and now Peacock) will be the home for Sunday Night Football.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T00:04:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-tie-all-time-record-with-seven-primetime-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-tie-all-time-record-with-seven-primetime-games",
+      "permalink": "",
+      "title": "Rams tie all-time record with seven primetime games",
+      "body_text": "The Seahawks are the defending Super Bowl champions, but the Rams were given the most primetime games in 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T00:26:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Seahawks",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/five-teams-have-no-primetime-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/five-teams-have-no-primetime-games",
+      "permalink": "",
+      "title": "Five teams have no primetime games",
+      "body_text": "The NFL does not expect the Jets, Cardinals, Titans, Dolphins or Raiders to be any good this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T00:46:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-three-division-road-games-are-in-the-final-four-weeks-of-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-three-division-road-games-are-in-the-final-four-weeks-of-the-season",
+      "permalink": "",
+      "title": "Lions' three division road games are in the final four weeks of the season",
+      "body_text": "The NFC North race could come down to whether Detroit can win in Minnesota in December, and in Chicago and Green Bay in January.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-15T11:45:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    }
+  ]
+}
