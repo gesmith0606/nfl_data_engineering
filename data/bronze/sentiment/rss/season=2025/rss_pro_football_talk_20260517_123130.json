@@ -1,0 +1,471 @@
+{
+  "fetch_run_id": "2ad640ea-61d6-463b-a0b2-01a0443703c6",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-17T12:31:30.661226+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eli-manning-refusing-to-play-for-the-chargers-was-my-call-my-dad-didnt-like-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eli-manning-refusing-to-play-for-the-chargers-was-my-call-my-dad-didnt-like-it",
+      "title": "Eli Manning: Refusing to play for the Chargers was my call, my dad didn't like it",
+      "body_text": "Manning said he also didn't want to go to Cleveland when the Chargers considered trading his draft rights to the Browns.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-17T11:54:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eli Manning"
+      ],
+      "resolved_player_ids": [
+        "00-0022803"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sherman-lewis-longtime-nfl-assistant-coach-and-college-all-american-dies-at-83",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sherman-lewis-longtime-nfl-assistant-coach-and-college-all-american-dies-at-83",
+      "title": "Sherman Lewis, longtime NFL assistant coach and college All-American, dies at 83",
+      "body_text": "Sherman Lewis, whose long coaching career included 12 seasons as an NFL offensive coordinator, has died at the age of 83.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-17T08:36:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sherman Lewis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-dallas-stadium-moves-mountains-to-install-grass-ceedee-lamb-wants-it-for-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-dallas-stadium-moves-mountains-to-install-grass-ceedee-lamb-wants-it-for-football",
+      "title": "As \"Dallas Stadium\" moves mountains to install grass, CeeDee Lamb wants it for football",
+      "body_text": "The stadium that periodically has an issue with sunlight from the outside now has a pink glow coming from the inside.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-17T03:53:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dallas Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-agrees-to-terms-with-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-agrees-to-terms-with-steelers",
+      "title": "Aaron Rodgers agrees to terms with Steelers",
+      "body_text": "Rodgers is back for a second season.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-17T00:01:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Steelers Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-can-earn-up-to-25-million-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-can-earn-up-to-25-million-in-2026",
+      "title": "Report: Aaron Rodgers can earn up to $25 million in 2026",
+      "body_text": "Last year, quarterback Aaron Rodgers gave the Steelers a massive bargain.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-17T00:13:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-is-spotted-in-pittsburgh-getting-ice-cream-with-steelers-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-is-spotted-in-pittsburgh-getting-ice-cream-with-steelers-players",
+      "title": "Aaron Rodgers is spotted in Pittsburgh, getting ice cream with Steelers players",
+      "body_text": "Even for a slow weekend, initial accounts on social media of free-agent quarterback Aaron Rodgers supposedly getting ice cream with multiple Steelers players in Pittsburgh didn't initially move the needle.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T23:27:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-explains-why-shedeur-didnt-hire-an-agent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-explains-why-shedeur-didnt-hire-an-agent",
+      "title": "Deion Sanders explains why Shedeur didn't hire an agent",
+      "body_text": "In a revealing and wide-ranging interview with Garrett Bush's The Barbershop, Colorado coach Deion Sanders opened up about the struggles his son, Shedeur, endured before and during the 2025 draft, when he fell all the way to the fifth round.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T20:53:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Garrett Bush",
+        "The Barbershop"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rose-bowl-litigation-shows-kevin-demoff-was-trying-to-lure-ucla-to-sofi-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rose-bowl-litigation-shows-kevin-demoff-was-trying-to-lure-ucla-to-sofi-stadium",
+      "title": "Rose Bowl litigation shows Kevin Demoff was trying to lure UCLA to SoFi Stadium",
+      "body_text": "When concerns first emerged that UCLA would break its lease at the Rose Bowl and move to SoFi Stadium, UCLA insisted that \"no decision has been made.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T18:03:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rose Bowl",
+        "Kevin Demoff",
+        "Stadium When"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-34-participants-in-the-accelerator-program-include-mike-mcdaniel-eric-bieniemy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-34-participants-in-the-accelerator-program-include-mike-mcdaniel-eric-bieniemy",
+      "title": "The 34 participants in the Accelerator program include Mike McDaniel, Eric Bieniemy",
+      "body_text": "After its cancellation in 2025, the Accelerator returns for 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T16:50:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eric Bieniemy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-seeks-expedited-resolution-to-ncaa-eligibility-question",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-seeks-expedited-resolution-to-ncaa-eligibility-question",
+      "title": "Brendan Sorsby seeks expedited resolution to NCAA eligibility question",
+      "body_text": "The clock is ticking for Texas Tech quarterback Brendan Sorsby.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T16:00:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/when-it-comes-to-standalone-windows-and-sunday-ticket-redzone-theres-a-delicate-balance-to-strike",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/when-it-comes-to-standalone-windows-and-sunday-ticket-redzone-theres-a-delicate-balance-to-strike",
+      "title": "When it comes to standalone windows and Sunday Ticket/RedZone, there's a delicate balance to strike",
+      "body_text": "At some point, expansion of the league will have to be considered.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T15:21:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-is-disappointed-he-didnt-hear-from-the-jaguars-about-travis-hunter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-is-disappointed-he-didnt-hear-from-the-jaguars-about-travis-hunter",
+      "title": "Deion Sanders is disappointed he didn't hear from the Jaguars about Travis Hunter",
+      "body_text": "When Colorado coach Deion Sanders recently explained his desire to meet with new Browns coach Todd Monken as a coach and not a father, Deion pointed out that, in 2025, he got no questions from the Browns about coaching Shedeur Sanders.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T14:39:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Travis Hunter",
+        "When Colorado",
+        "Todd Monken",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324",
+        "00-0040718",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-cardinals-schedule-release-video-didnt-go-well",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-cardinals-schedule-release-video-didnt-go-well",
+      "title": "The Cardinals' schedule-release video didn't go well",
+      "body_text": "In a sea of team-produced schedule-release video (some of which have morphed into way-too-long short films), there are two ways to stand out.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T14:05:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rich-eisen-addresses-nfl-network-losing-its-schedule-release-show",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rich-eisen-addresses-nfl-network-losing-its-schedule-release-show",
+      "title": "Rich Eisen addresses NFL Network losing its schedule-release show",
+      "body_text": "It was more than a little jarring to those on the outside to dial up NFL Network on Thursday night and to find ESPN's schedule-release show.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T13:45:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rich Eisen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-addresses-shilos-altercation-with-mary-kay-cabot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-addresses-shilos-altercation-with-mary-kay-cabot",
+      "title": "Deion Sanders addresses Shilo's \"altercation\" with Mary Kay Cabot",
+      "body_text": "In a recent podcast appearance, Colorado coach Deion Sanders covered a wide variety of topics.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T11:56:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Mary Kay"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-wanted-falcons-saints-mnf-game-to-mark-20-years-since-return-from-katrina",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-wanted-falcons-saints-mnf-game-to-mark-20-years-since-return-from-katrina",
+      "title": "Roger Goodell wanted Falcons-Saints MNF game to mark 20 years since return from Katrina",
+      "body_text": "A Monday night game in 2026 will recall one of the greatest moments in Saints franchise history in 2006.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-16T09:29:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arrest-is-made-in-shooting-of-missouri-rb-ahmad-hardy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arrest-is-made-in-shooting-of-missouri-rb-ahmad-hardy",
+      "title": "Arrest is made in shooting of Missouri RB Ahmad Hardy",
+      "body_text": "Missouri running back Ahmad Hardy was shot on Sunday at an outdoor concert in Mississippi.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T01:05:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ahmad Hardy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nhl-gets-very-tough-on-golden-knights-violation-of-media-policy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nhl-gets-very-tough-on-golden-knights-violation-of-media-policy",
+      "title": "NHL gets very tough on Golden Knights' violation of media policy",
+      "body_text": "When it comes to compliance with its media policy, the NHL doesn't mess around.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T00:35:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Golden Knights"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-josh-mauro-died-of-accidental-drug-overdose",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-josh-mauro-died-of-accidental-drug-overdose",
+      "title": "Report: Josh Mauro died of accidental drug overdose",
+      "body_text": "Former NFL defensive end Josh Mauro died last month at 35.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T00:17:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Mauro"
+      ],
+      "resolved_player_ids": [
+        "00-0030883"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-colts-are-giving-me-a-chance-to-work-and-potentially-get-back-on-the-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-colts-are-giving-me-a-chance-to-work-and-potentially-get-back-on-the-field",
+      "title": "Anthony Richardson: Colts are giving me a chance to work and potentially get back on the field",
+      "body_text": "Anthony Richardson wants a trade, and the Colts would love to trade him.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T21:16:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevor-lawrence-didnt-get-a-schedule-release-haircut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevor-lawrence-didnt-get-a-schedule-release-haircut",
+      "title": "Trevor Lawrence didn't get a schedule-release haircut",
+      "body_text": "One of the great mysteries of the 2026 offseason has been solved.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T21:01:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-first-round-ot-max-iheanachor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-first-round-ot-max-iheanachor",
+      "title": "Steelers sign first-round OT Max Iheanachor",
+      "body_text": "The Steelers signed first-round offensive tackle Max Iheanachor to his four-year rookie deal, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T20:56:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Max Iheanachor",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "IHE074158"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/current-rules-allow-up-to-eight-prime-time-games-per-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/current-rules-allow-up-to-eight-prime-time-games-per-team",
+      "title": "Current rules allow up to eight prime-time games per team",
+      "body_text": "The NFL wants maximum flexibility to put great games in desirable windows.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T20:49:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-is-back-playing-golf",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-is-back-playing-golf",
+      "title": "Patrick Mahomes is back playing golf",
+      "body_text": "Chiefs quarterback Patrick Mahomes is \"making progress\" in his rehab from major knee surgery, coach Andy Reid said Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T20:30:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Andy Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-could-potentially-end-up-with-nine-prime-time-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-could-potentially-end-up-with-nine-prime-time-games",
+      "title": "Rams could potentially end up with nine prime-time games",
+      "body_text": "The Rams have seven prime-time games in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T18:16:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-schedule-has-them-playing-on-every-day-of-the-week-except-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-schedule-has-them-playing-on-every-day-of-the-week-except-tuesday",
+      "title": "Seahawks' schedule has them playing on every day of the week except Tuesday",
+      "body_text": "The NFL is increasingly moving games off Sundays to play them on other days of the week, when TV networks and streaming platforms will pay more money for them.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-15T19:30:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-will-call-his-first-game-in-new-england-in-week-9",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-will-call-his-first-game-in-new-england-in-week-9",
+      "title": "Tom Brady will call his first game in New England in Week 9",
+      "body_text": "Tom Brady has spent the past two seasons working as a broadcaster for Fox.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T18:56:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tom Brady",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/week-16-has-four-options-for-the-two-saturday-nfl-network-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/week-16-has-four-options-for-the-two-saturday-nfl-network-games",
+      "title": "Week 16 has four options for the two Saturday NFL Network games",
+      "body_text": "NFL Network lost its schedule-release show.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T18:37:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-vp-mike-north-we-dont-draft-our-way-into-primetime-we-play-our-way-into-primetime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-vp-mike-north-we-dont-draft-our-way-into-primetime-we-play-our-way-into-primetime",
+      "title": "NFL VP Mike North: We don't draft our way into primetime, we play our way into primetime",
+      "body_text": "Though they drafted quarterback Fernando Mendoza at No. 1 overall in April, the Raiders are one of five teams without a scheduled primetime game in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-15T18:32:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike North",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-bills-will-play-four-of-five-games-on-the-road-twice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-bills-will-play-four-of-five-games-on-the-road-twice",
+      "title": "The Bills will play four of five games on the road, twice",
+      "body_text": "For the Bills, the headline to the 2026 season relates to the christening of a new stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-15T15:23:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    }
+  ]
+}
