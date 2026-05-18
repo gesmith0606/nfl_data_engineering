@@ -1,0 +1,31 @@
+{
+  "fetch_run_id": "27e767a2-9bc7-42ed-a6fa-604c78baaf0c",
+  "source": "rotowire",
+  "fetched_at": "2026-05-18T13:31:01.282037+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 1,
+  "items": [
+    {
+      "external_id": "nfl630887",
+      "url": "https://www.rotowire.com//football/player/aaron-rodgers-4307",
+      "permalink": "",
+      "title": "Aaron Rodgers: Slated to return to Pittsburgh",
+      "body_text": "Rodgers and the Steelers are expected to agree on a one-year contract, Adam Schefter of ESPN reports. The deal will be worth up to $25 million, according to Schefter. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-16T05:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Pittsburgh Rodgers",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}
