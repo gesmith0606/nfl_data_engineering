@@ -1,0 +1,92 @@
+{
+  "fetch_run_id": "9b1673f6-ea74-4815-a603-1c8fe5b7660d",
+  "source": "rotowire",
+  "fetched_at": "2026-05-19T13:22:56.981048+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 4,
+  "items": [
+    {
+      "external_id": "nfl630895",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Decision coming soon",
+      "body_text": "Saints GM Mickey Loomis said Monday that the team will make a decision on Kamara's (knee) future with the team in \"the next week or two,\" Mike Triplett of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-18T01:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Mickey Loomis",
+        "Mike Triplett"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl630894",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Not present for voluntary OTAs",
+      "body_text": "Brissett was not present for the start of voluntary OTAs on Monday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-18T12:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630892",
+      "url": "https://www.rotowire.com//football/player/chris-olave-15895",
+      "permalink": "",
+      "title": "Chris Olave: Talking extension with New Orleans",
+      "body_text": "Saints GM Mickey Loomis said Monday that talks with Olave (illness) regarding a contact extension have been positive, Katherine Terrell of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-18T08:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "New Orleans",
+        "Mickey Loomis",
+        "Katherine Terrell"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl630888",
+      "url": "https://www.rotowire.com//football/player/aaron-rodgers-4307",
+      "permalink": "",
+      "title": "Aaron Rodgers: Makes deal with Steelers official",
+      "body_text": "Rodgers officially signed a one-year contract with the Steelers on Monday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-18T08:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}

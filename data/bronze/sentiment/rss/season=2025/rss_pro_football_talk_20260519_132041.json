@@ -1,0 +1,483 @@
+{
+  "fetch_run_id": "9fef6060-dba0-405b-b9c7-4ff1e8acc831",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-19T13:20:41.087576+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigbas-offensive-player-of-the-year-trophy-said-defensive-player-of-theyear",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigbas-offensive-player-of-the-year-trophy-said-defensive-player-of-theyear",
+      "title": "Jaxon Smith-Njigba's Offensive Player of the Year trophy said \"Defensive Player of the Year\"",
+      "body_text": "Seahawks wide receiver Jaxon Smith-Njigba was last season's Associated Press NFL Offensive Player of the Year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-19T12:49:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxon Smith",
+        "Offensive Player",
+        "Defensive Player",
+        "Associated Press"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-colts-are-giving-me-a-chance-to-work-and-potentially-get-back-on-the-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-colts-are-giving-me-a-chance-to-work-and-potentially-get-back-on-the-field",
+      "title": "Anthony Richardson: Colts are giving me a chance to work and potentially get back on the field",
+      "body_text": "Anthony Richardson wants a trade, and the Colts would love to trade him.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-15T21:16:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nhl-gets-very-tough-on-golden-knights-violation-of-media-policy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nhl-gets-very-tough-on-golden-knights-violation-of-media-policy",
+      "title": "NHL gets very tough on Golden Knights' violation of media policy",
+      "body_text": "When it comes to compliance with its media policy, the NHL doesn't mess around.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-16T00:35:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Golden Knights"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-lb-payton-wilson-was-a-little-shocked-to-see-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-lb-payton-wilson-was-a-little-shocked-to-see-aaron-rodgers",
+      "title": "Steelers LB Payton Wilson was \"a little shocked\" to see Aaron Rodgers",
+      "body_text": "The news broke over the weekend that quarterback Aaron Rodgers is back with the Steelers.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-19T02:25:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Payton Wilson",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0039741",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/de-janarius-robinson-to-work-out-for-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/de-janarius-robinson-to-work-out-for-patriots",
+      "title": "DE Janarius Robinson to work out for Patriots",
+      "body_text": "The Patriots will be checking out a potential addition to their defense on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T12:53:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Janarius Robinson",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [
+        "00-0036878"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-cb-will-johnson-just-feels-right-wearing-no-2-in-second-cardinals-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-cb-will-johnson-just-feels-right-wearing-no-2-in-second-cardinals-season",
+      "title": "Cardinals CB Will Johnson \"just feels right\" wearing No. 2 in second Cardinals season",
+      "body_text": "Will Johnson won a national title and made All-America teams while wearing No. 2 at Michigan, but it wasn't available when he joined the Cardinals as a second-round pick in 2025.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T11:01:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0040751"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-im-a-little-ways-out-but-will-be-ready-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-im-a-little-ways-out-but-will-be-ready-week-1",
+      "title": "Cam Skattebo: I'm a little ways out, but will be ready Week 1",
+      "body_text": "The Giants held a town hall event for fans in New York City on Monday night and it included an update on running back Cam Skattebo's condition.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T10:34:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo",
+        "The Giants",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-marlon-jones-undrafted-cornerback-who-battled-cancer-in-college",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-marlon-jones-undrafted-cornerback-who-battled-cancer-in-college",
+      "title": "Packers sign Marlon Jones, undrafted cornerback who battled cancer in college",
+      "body_text": "The Packers are bringing in an undafted rookie with a back story that makes him easy to root for.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-19T09:26:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marlon Jones",
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-open-otas-today-dont-expect-myles-garrett-to-be-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-open-otas-today-dont-expect-myles-garrett-to-be-there",
+      "title": "Browns open OTAs today, don't expect Myles Garrett to be there",
+      "body_text": "The NFL's reigning Defensive Player of the Year is skipping voluntary offseason work.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-19T08:12:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "Defensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-finally-explains-his-no-days-off-motto",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-finally-explains-his-no-days-off-motto",
+      "title": "Bill Belichick finally explains his \"no days off\" motto",
+      "body_text": "North Carolina coach Bill Belichick could use some good P.R.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-19T00:25:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-we-have-everything-we-need",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-we-have-everything-we-need",
+      "title": "Joe Burrow: We have everything we need",
+      "body_text": "Joe Burrow expressed his frustration at the end of an injury-plagued 2025 season.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-19T00:12:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-c-defenders-lose-starting-qb-jordan-taamu-with-season-ending-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-c-defenders-lose-starting-qb-jordan-taamu-with-season-ending-injury",
+      "title": "D.C. Defenders lose starting QB Jordan Ta'amu with season-ending injury",
+      "body_text": "Even though the UFL has been generating solid TV ratings, it's had a hard time moving the needle.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-19T00:01:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-weve-had-contact-with-jacoby-brissett-ill-leave-it-at-that",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-weve-had-contact-with-jacoby-brissett-ill-leave-it-at-that",
+      "title": "Mike LaFleur: We've had contact with Jacoby Brissett, I'll leave it at that",
+      "body_text": "Brissett remained away from the team when OTAs started on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-18T22:21:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wednesday-thursday-opening-games-could-be-here-to-stay",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wednesday-thursday-opening-games-could-be-here-to-stay",
+      "title": "Wednesday, Thursday opening games could be here to stay",
+      "body_text": "The NFL's effort to find more places to cram cheese into the pizza likely means the Wednesday night opener is here to stay.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-18T21:15:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-files-suit-to-restore-ncaa-eligibility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-files-suit-to-restore-ncaa-eligibility",
+      "title": "Brendan Sorsby files suit to restore NCAA eligibility",
+      "body_text": "The legal battle over the eligibility of Brendan Sorsby has begun.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-18T20:57:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-dt-tywone-malone-rb-miles-davis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-dt-tywone-malone-rb-miles-davis",
+      "title": "Panthers sign DT Tywone Malone, RB Miles Davis",
+      "body_text": "The Panthers made a handful of roster moves on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-18T20:55:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tywone Malone",
+        "Miles Davis",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-2026-draft-picks-germie-bernard-eli-heidenreich",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-2026-draft-picks-germie-bernard-eli-heidenreich",
+      "title": "Steelers sign 2026 draft picks Germie Bernard, Eli Heidenreich",
+      "body_text": "The Steelers have signed a pair of their draft picks on Monday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-18T20:43:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Germie Bernard",
+        "Eli Heidenreich",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "BER218265",
+        "HEI114391"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-raiders-to-hold-a-joint-practice-ahead-of-their-preseason-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-raiders-to-hold-a-joint-practice-ahead-of-their-preseason-game",
+      "title": "Texans, Raiders to hold a joint practice ahead of their preseason game",
+      "body_text": "The Texans will have joint practices with two teams this summer.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-18T20:41:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-fautanu-on-aaron-rodgers-we-just-picked-up-where-we-left-off",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-fautanu-on-aaron-rodgers-we-just-picked-up-where-we-left-off",
+      "title": "Troy Fautanu on Aaron Rodgers: We just picked up where we left off",
+      "body_text": "Aaron Rodgers returned to the Steelers for the start of Phase III of the club’s offseason program, immediately getting on the field for Monday’s practice.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-18T20:22:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Troy Fautanu",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0039871",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-undrafted-free-agent-cb-tamon-lynum",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-undrafted-free-agent-cb-tamon-lynum",
+      "title": "Steelers sign undrafted free agent CB Tamon Lynum",
+      "body_text": "The Steelers signed undrafted free agent cornerback Tamon Lynum on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-18T20:03:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tamon Lynum",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-set-for-joint-practices-with-ravens-dolphins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-set-for-joint-practices-with-ravens-dolphins",
+      "title": "Commanders set for joint practices with Ravens, Dolphins",
+      "body_text": "The Commanders and Ravens are both set for joint practices with multiple teams this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-18T20:02:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dolphins The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-jordyn-tyson-is-so-sure-handed-and-an-elite-separator",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-jordyn-tyson-is-so-sure-handed-and-an-elite-separator",
+      "title": "Tyler Shough: Jordyn Tyson is \"so sure-handed\" and \"an elite separator\"",
+      "body_text": "With the No. 8 overall pick of this year’s draft, the Saints added a player who should be able to make a major impact on their offense in receiver Jordyn Tyson.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-18T19:48:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Shough",
+        "Jordyn Tyson"
+      ],
+      "resolved_player_ids": [
+        "00-0040743",
+        "TYS405541"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-and-ravens-will-practice-together-in-august",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-and-ravens-will-practice-together-in-august",
+      "title": "Vikings and Ravens will practice together in August",
+      "body_text": "The Vikings will only have one home preseason game this summer, but they'll get more than one day of work against their opponents that week.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-18T19:39:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "August The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-hire-carl-smith-as-top-senior-advisor-replacing-jim-caldwell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-hire-carl-smith-as-top-senior-advisor-replacing-jim-caldwell",
+      "title": "Panthers hire Carl Smith as top senior advisor, replacing Jim Caldwell",
+      "body_text": "Jim Caldwell is no longer with the Panthers after serving as the top senior advisor for three seasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-18T19:30:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carl Smith",
+        "Jim Caldwell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-thrilled-the-panthers-play-four-of-their-final-five-games-at-home",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-thrilled-the-panthers-play-four-of-their-final-five-games-at-home",
+      "title": "Dave Canales thrilled the Panthers play four of their final five games at home",
+      "body_text": "Carolina head coach Dave Canales liked what he saw when he read to the end of the Panthers' 2026 schedule.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-18T19:27:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dave Canales"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-pittman-on-aaron-rodgers-were-going-to-get-as-many-reps-as-possible",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-pittman-on-aaron-rodgers-were-going-to-get-as-many-reps-as-possible",
+      "title": "Michael Pittman on Aaron Rodgers: We're going to get as many reps as possible",
+      "body_text": "Quarterback Aaron Rodgers officially re-signed with the Steelers on Monday, just as the team began its OTAs.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-18T19:19:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Pittman",
+        "Aaron Rodgers",
+        "Quarterback Aaron"
+      ],
+      "resolved_player_ids": [
+        "00-0036252",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-is-not-present-as-cardinals-start-otas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-is-not-present-as-cardinals-start-otas",
+      "title": "Jacoby Brissett is not present as Cardinals start OTAs",
+      "body_text": "Brissett is looking for a contract adjustment ahead of the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-18T19:15:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mack-wilson-was-in-a-dark-place-last-season-with-a-serious-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mack-wilson-was-in-a-dark-place-last-season-with-a-serious-injury",
+      "title": "Mack Wilson was \"in a dark place\" last season with a serious injury",
+      "body_text": "Cardinals linebacker Mack Wilson was injured in a Week 9 game against the Cowboys.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-18T18:58:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mack Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0035144"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-dl-tershawn-wharton-had-neck-surgery-likely-to-open-camp-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-dl-tershawn-wharton-had-neck-surgery-likely-to-open-camp-on-pup-list",
+      "title": "Panthers DL Tershawn Wharton had neck surgery, likely to open camp on PUP list",
+      "body_text": "Panthers defensive lineman Tershawn Wharton is going to need to recover from neck surgery before he's ready to get back on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-18T18:50:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tershawn Wharton"
+      ],
+      "resolved_player_ids": [
+        "00-0035890"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-second-round-pick-eli-stowers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-second-round-pick-eli-stowers",
+      "title": "Eagles sign second-round pick Eli Stowers",
+      "body_text": "Eagles second-round pick Eli Stowers has signed his first NFL contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-18T18:31:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eli Stowers"
+      ],
+      "resolved_player_ids": [
+        "STO806346"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}
