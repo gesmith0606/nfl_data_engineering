@@ -1,0 +1,572 @@
+{
+  "fetch_run_id": "7b0966eb-66c8-4bd2-8060-4159ec340ef4",
+  "source": "pft",
+  "fetched_at": "2026-05-20T13:08:44.528855+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-is-still-complaining-about-last-years-cbs-interview",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-is-still-complaining-about-last-years-cbs-interview",
+      "permalink": "",
+      "title": "Bill Belichick is still complaining about last year's CBS interview",
+      "body_text": "Last year, when North Carolina coach Bill Belichick was selling a book, he conducted a very truncated media tour.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-19T21:45:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-mclaurin-loves-commanders-oc-david-bloughs-plans-to-feature-him-in-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-mclaurin-loves-commanders-oc-david-bloughs-plans-to-feature-him-in-offense",
+      "permalink": "",
+      "title": "Terry McLaurin loves Commanders OC David Blough's plans to feature him in offense",
+      "body_text": "Wide receiver Terry McLaurin likes what he's been hearing and seeing from new Commanders offensive coordinator David Blough.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T11:17:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Blough"
+      ],
+      "resolved_player_ids": [
+        "00-0035040"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-te-david-njoku-we-have-the-players-tools-to-do-it-all",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-te-david-njoku-we-have-the-players-tools-to-do-it-all",
+      "permalink": "",
+      "title": "Chargers TE David Njoku: We have the players, tools to do it all",
+      "body_text": "Tight end David Njoku spent an extended time on the open market as a free agent before signing a one-year deal with the Chargers earlier this month.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T12:39:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Njoku"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-ready-to-move-on-to-next-round-of-gm-interviews",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-ready-to-move-on-to-next-round-of-gm-interviews",
+      "permalink": "",
+      "title": "Vikings ready to move on to next round of GM interviews",
+      "body_text": "The Vikings are moving closer to naming their next General Manager.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T11:00:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Vikings",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-pleased-with-attendance-at-bills-voluntary-work-great-guys-who-want-to-be-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-pleased-with-attendance-at-bills-voluntary-work-great-guys-who-want-to-be-here",
+      "permalink": "",
+      "title": "Joe Brady pleased with attendance at Bills' voluntary work: Great guys who want to be here",
+      "body_text": "Organized Team Activities are voluntary for NFL players, and new Bills head coach Joe Brady was pleased with how many players volunteered to show up to work for the first day on Tuesday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-20T10:34:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Brady",
+        "Organized Team"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-still-enjoys-putting-in-the-offseason-work-heading-into-year-11",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-still-enjoys-putting-in-the-offseason-work-heading-into-year-11",
+      "permalink": "",
+      "title": "Derrick Henry still enjoys putting in the offseason work, heading into Year 11",
+      "body_text": "\"I love putting the work in, conditioning, being in the weight room, being around the guys, and putting the work in in the offseason,\" Henry said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-20T09:08:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-shooting-for-a-2-000-yard-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-shooting-for-a-2-000-yard-season",
+      "permalink": "",
+      "title": "Cam Skattebo shooting for a 2,000-yard season",
+      "body_text": "Cam Skattebo insists he will be \"ready to go\" Week 1 as he continues his rehab from a gruesome leg injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T03:36:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-second-round-lb-jake-golday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-second-round-lb-jake-golday",
+      "permalink": "",
+      "title": "Vikings sign second-round LB Jake Golday",
+      "body_text": "The Vikings signed second-round linebacker Jake Golday to his four-year rookie deal on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T03:20:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jake Golday",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "GOL029315"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-flores-will-amend-lawsuit-to-include-retaliation-claim-over-arbitration-issue",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-flores-will-amend-lawsuit-to-include-retaliation-claim-over-arbitration-issue",
+      "permalink": "",
+      "title": "Brian Flores will amend lawsuit to include retaliation claim over arbitration issue",
+      "body_text": "Vikings defensive coordinator Brian Flores has a tiger by the tail.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-20T01:29:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-davis-keeps-selling-off-more-and-more-pieces-of-the-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-davis-keeps-selling-off-more-and-more-pieces-of-the-raiders",
+      "permalink": "",
+      "title": "Mark Davis keeps selling off more and more pieces of the Raiders",
+      "body_text": "Raiders owner Mark Davis continues to own less and less of the team.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-19T15:40:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mark Davis",
+        "Raiders Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-moves-toward-adding-a-flag-football-championship",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-moves-toward-adding-a-flag-football-championship",
+      "permalink": "",
+      "title": "NCAA moves toward adding a flag football championship",
+      "body_text": "As the NFL tries to expand flag football's international footprint, the domestic reach is growing, too.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-20T00:53:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-had-recent-knee-surgery-wont-be-able-to-rehab-while-in-jail",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-had-recent-knee-surgery-wont-be-able-to-rehab-while-in-jail",
+      "permalink": "",
+      "title": "Rashee Rice had recent knee surgery, won't be able to rehab while in jail",
+      "body_text": "Rice underwent procedure without knowing he was facing probation violation.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-20T00:25:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-second-round-pick-zion-young",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-second-round-pick-zion-young",
+      "permalink": "",
+      "title": "Ravens sign second-round pick Zion Young",
+      "body_text": "The Ravens have signed all of their 2026 draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T22:43:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zion Young",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "YOU702783"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-says-all-is-well-after-practice-collision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-says-all-is-well-after-practice-collision",
+      "permalink": "",
+      "title": "Derrick Henry says all is well after practice collision",
+      "body_text": "Running back Derrick Henry down on the ground holding his knee is just about the last thing that the Ravens want to see at an OTA practice, but they got a glimpse of it on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T22:32:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-im-running-my-own-race-cant-look-into-another-lane",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-im-running-my-own-race-cant-look-into-another-lane",
+      "permalink": "",
+      "title": "Michael Penix: I'm running my own race, can't look into another lane",
+      "body_text": "Falcons quarterback Michael Penix isn't a full participant in the team's OTA practices this week, but his recovery from a torn ACL has gone well enough for him to take part in 7-on-7 work at this point in the offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T22:21:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keon-coleman-its-a-make-or-break-season-for-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keon-coleman-its-a-make-or-break-season-for-me",
+      "permalink": "",
+      "title": "Keon Coleman: It's a make or break season for me",
+      "body_text": "Bills head coach Joe Brady, quarterback Josh Allen and others in Buffalo have been steadfast in their support of wide receiver Keon Coleman since team owner Terry Pegula's comments about him after the team's playoff loss, but Coleman knows that there's a point where that support will come to an end.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T21:00:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keon Coleman",
+        "Joe Brady",
+        "Josh Allen",
+        "Terry Pegula"
+      ],
+      "resolved_player_ids": [
+        "00-0039901",
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-jaylen-waddle-trade-was-unfortunate-but-above-my-pay-grade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-jaylen-waddle-trade-was-unfortunate-but-above-my-pay-grade",
+      "permalink": "",
+      "title": "Malik Willis: Jaylen Waddle trade was unfortunate, but above my pay grade",
+      "body_text": "When quarterback Malik Willis agreed to sign with the Dolphins in March, Jaylen Waddle was on the team and was expected to be the club’s leading receiver.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-19T20:45:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Willis",
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0038128",
+        "00-0036613"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-were-aware-of-rashee-rice-matter-decline-further-comment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-were-aware-of-rashee-rice-matter-decline-further-comment",
+      "permalink": "",
+      "title": "NFL: We're aware of Rashee Rice report, decline further comment",
+      "body_text": "Rice was ordered to serve 30 days in jail for violating his probation.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T20:39:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-dj-moore-fits-in-this-locker-room-really-well",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-dj-moore-fits-in-this-locker-room-really-well",
+      "permalink": "",
+      "title": "Josh Allen: DJ Moore fits in this locker room really well",
+      "body_text": "After consecutive years of leading the Bears in receiving, DJ Moore’s production dipped in 2025.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-19T20:13:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-approves-10-international-games-in-2027-with-jaguars-game-making-11",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-approves-10-international-games-in-2027-with-jaguars-game-making-11",
+      "permalink": "",
+      "title": "NFL approves 10 international games in 2027, with Jaguars' game making 11",
+      "body_text": "The NFL will play a record nine international games in 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-19T19:56:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-good-to-go-in-offseason-workouts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-good-to-go-in-offseason-workouts",
+      "permalink": "",
+      "title": "Josh Allen \"good to go\" in offseason workouts",
+      "body_text": "Josh Allen said after last season that he would return in time for organized team activities despite offseason foot surgery.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-19T19:18:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-gets-30-days-in-jail-for-probation-violation-after-testing-positive-for-thc",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-gets-30-days-in-jail-for-probation-violation-after-testing-positive-for-thc",
+      "permalink": "",
+      "title": "Rashee Rice gets 30 days in jail for probation violation after testing positive for THC",
+      "body_text": "Rice was on probation for a street racing incident, which also got him suspended for six games.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-19T18:50:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-jets-will-not-have-a-joint-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-jets-will-not-have-a-joint-practice",
+      "permalink": "",
+      "title": "Report: Giants, Jets will not have a joint practice",
+      "body_text": "The Giants will have a joint practice with the Dolphins before the teams play in Week 2 of the preseason on Aug. 22.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-19T19:02:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-lamar-jackson-had-a-couple-things-going-on-expect-him-back-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-lamar-jackson-had-a-couple-things-going-on-expect-him-back-soon",
+      "permalink": "",
+      "title": "Jesse Minter: Lamar Jackson had a couple things going on, expect him back soon",
+      "body_text": "Jackson's offseason workout attendance continues to be a talking point in Baltimore.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T18:49:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jesse Minter",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-not-attending-tuesdays-voluntary-offseason-work",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-not-attending-tuesdays-voluntary-offseason-work",
+      "permalink": "",
+      "title": "Justin Herbert not attending Tuesday's voluntary offseason work",
+      "body_text": "The Chargers quarterback also didn't attend last week's session open to the media.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-19T18:37:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-not-in-attendance-for-ravens-ota-practice-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-not-in-attendance-for-ravens-ota-practice-on-tuesday",
+      "permalink": "",
+      "title": "Lamar Jackson not in attendance for Ravens OTA practice on Tuesday",
+      "body_text": "Jackson has attended portions of this year's offseason program under new HC Jesse Minter.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-19T17:29:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lamar Jackson",
+        "Tuesday Jackson",
+        "Jesse Minter"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-waive-wr-shaleak-knotts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-waive-wr-shaleak-knotts",
+      "permalink": "",
+      "title": "Vikings waive WR Shaleak Knotts",
+      "body_text": "The Vikings opened up a spot on their 90-man roster on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T18:01:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shaleak Knotts",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-send-jaxon-smith-njigba-a-new-and-corrrect-opoy-trophy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-send-jaxon-smith-njigba-a-new-and-corrrect-opoy-trophy",
+      "permalink": "",
+      "title": "NFL will send Jaxon Smith-Njigba a new (and corrrect) OPOY trophy",
+      "body_text": "Jaxon Smith-Njigba's offensive player of the year trophy had one small problem.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-19T17:59:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-its-our-job-to-be-intentional-about-qb-competition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-its-our-job-to-be-intentional-about-qb-competition",
+      "permalink": "",
+      "title": "Kevin Stefanski: It's our job to be intentional about QB competition",
+      "body_text": "The Falcons moved into the OTA phase of their offseason workouts this week and that allows them to start doing 11-on-11 work during practice sessions.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-19T17:30:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kevin Stefanski",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/who-cares-if-shams-charania-reported-on-the-nba-mvp-award",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/who-cares-if-shams-charania-reported-on-the-nba-mvp-award",
+      "permalink": "",
+      "title": "Who cares if Shams Charania reported on the NBA MVP award?",
+      "body_text": "A strange media dustup has emerged in recent days, after ESPN's Shams Charania reported that Oklahoma City's Shai Gilgeous-Alexander has won the 2025-26 NBA MVP award.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-19T17:14:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shams Charania",
+        "Oklahoma City",
+        "Shai Gilgeous"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

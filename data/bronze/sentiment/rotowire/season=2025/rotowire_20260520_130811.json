@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "c0ce291d-1063-4662-97f8-f4498d54bcdc",
+  "source": "rotowire",
+  "fetched_at": "2026-05-20T13:08:11.537255+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630920",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Says he'll be ready for Week 1",
+      "body_text": "Skattebo (ankle) said at the Giants Town Hall on Monday night that he is expecting to be ready to play in Week 1 of the upcoming campaign, Kevin Patra of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-19T08:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Giants Town",
+        "Kevin Patra"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl630910",
+      "url": "https://www.rotowire.com//football/player/rashee-rice-16963",
+      "permalink": "",
+      "title": "Rashee Rice: Had knee procedure last week",
+      "body_text": "Rice underwent a clean-up surgery on his right knee last week, which is expected to sideline the wideout for two months, ESPN's Adam Schefter reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-19T04:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630908",
+      "url": "https://www.rotowire.com//football/player/josh-allen-12483",
+      "permalink": "",
+      "title": "Josh Allen: Healthy for OTAs",
+      "body_text": "Coach Joe Brady said Tuesday that Allen is \"good to go\" after the quarterback underwent foot surgery in the offseason, Sal Capaccio of WGR Sports Radio 550 Buffalo reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-19T12:23:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen",
+        "Coach Joe",
+        "Sal Capaccio",
+        "Sports Radio"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630907",
+      "url": "https://www.rotowire.com//football/player/rashee-rice-16963",
+      "permalink": "",
+      "title": "Rashee Rice: Violates probation",
+      "body_text": "Rice was placed in custody Tuesday and sentenced to 30 days in jail for violating terms of his probation with a positive test for THC, Matt Foster of KSHB reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-19T11:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice",
+        "Matt Foster"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630905",
+      "url": "https://www.rotowire.com//football/player/michael-penix-17700",
+      "permalink": "",
+      "title": "Michael Penix: Taking part in 7-on-7s",
+      "body_text": "Penix (knee) will participate in 7-on-7s and individual drills Tuesday, Marc Raimondi of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-19T09:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix",
+        "Marc Raimondi"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": null
+    }
+  ]
+}
