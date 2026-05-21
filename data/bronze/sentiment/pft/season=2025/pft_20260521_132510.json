@@ -1,0 +1,595 @@
+{
+  "fetch_run_id": "81899097-1c63-450c-8cd8-869145ead203",
+  "source": "pft",
+  "fetched_at": "2026-05-21T13:25:10.814186+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-week-2-al-michaels-will-call-the-first-game-at-yet-another-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-week-2-al-michaels-will-call-the-first-game-at-yet-another-stadium",
+      "permalink": "",
+      "title": "In Week 2, Al Michaels will call the first game at yet another stadium",
+      "body_text": "On September 17, the legendary Al Michaels will call the first game at yet another stadium, when the Bills christen their new home against the Lions.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-18T17:42:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "In Week",
+        "Al Michaels",
+        "On September"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-says-this-will-be-his-last-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-says-this-will-be-his-last-season",
+      "permalink": "",
+      "title": "Aaron Rodgers says this will be his last season",
+      "body_text": "\"This is it,\" Rodgers said today when asked if he will retire after this year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-20T18:37:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-says-hes-back-in-pittsburgh-because-of-mike-mccarthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-says-hes-back-in-pittsburgh-because-of-mike-mccarthy",
+      "permalink": "",
+      "title": "Aaron Rodgers says he's back in Pittsburgh because of Mike McCarthy",
+      "body_text": "Aaron Rodgers announced on Wednesday that 2026 will be his last season in the NFL.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T20:09:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-we-have-four-qbs-we-love-all-four-could-make-the-regular-season-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-we-have-four-qbs-we-love-all-four-could-make-the-regular-season-roster",
+      "permalink": "",
+      "title": "Mike McCarthy: We have four QBs we love, all four could make the regular-season roster",
+      "body_text": "The Steelers currently have four quarterbacks: Aaron Rodgers, Mason Rudolph, Will Howard and Drew Allar.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-20T20:56:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Steelers",
+        "Aaron Rodgers",
+        "Mason Rudolph",
+        "Will Howard",
+        "Drew Allar"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0034771",
+        "00-0040203",
+        "ALL015451"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-howard-unbelievable-opportunity-to-learn-from-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-howard-unbelievable-opportunity-to-learn-from-aaron-rodgers",
+      "permalink": "",
+      "title": "Will Howard: Unbelievable opportunity to learn from Aaron Rodgers",
+      "body_text": "Will Howard's chances of starting games at quarterback for the Steelers this season took a hit with Aaron Rodgers's return to Pittsburgh this week, but the 2025 sixth-round pick wasn't lamenting the turn of events on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-21T12:52:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Howard",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0040203",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-feels-things-have-slowed-down-for-him-in-year-2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-feels-things-have-slowed-down-for-him-in-year-2",
+      "permalink": "",
+      "title": "Ashton Jeanty feels things have slowed down for him in Year 2",
+      "body_text": "Raiders running back Ashton Jeanty came into the league with high expectations last season, but he didn't quite reach them during a dismal year in Las Vegas.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-21T11:19:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-would-be-nice-to-break-bengals-career-touchdown-pass-record-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-would-be-nice-to-break-bengals-career-touchdown-pass-record-this-year",
+      "permalink": "",
+      "title": "Joe Burrow: Would be nice to break Bengals career touchdown pass record this year",
+      "body_text": "Bengals quarterback Joe Burrow thinks he's surrounded by more talent than at any other point in his NFL career and that has him thinking big about the kind of numbers he'll be able to put up this season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-21T11:02:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nolan-smith-was-allegedly-driving-135-miles-per-hour",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nolan-smith-was-allegedly-driving-135-miles-per-hour",
+      "permalink": "",
+      "title": "Nolan Smith Jr. was allegedly driving 135 miles per hour",
+      "body_text": "It's time for the league to take action, before someone gets killed.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-21T10:17:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nolan Smith Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039013"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgerss-incentives-are-tied-to-playing-time-postseason-success",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgerss-incentives-are-tied-to-playing-time-postseason-success",
+      "permalink": "",
+      "title": "Aaron Rodgers's incentives are tied to playing time, postseason success",
+      "body_text": "If Aaron Rodgers makes $25 million in 2026, it'll be the best $25 million the Steelers ever spent.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-21T09:54:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "If Aaron"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-says-browns-qbs-threw-embarrassing-interceptions-at-otas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-says-browns-qbs-threw-embarrassing-interceptions-at-otas",
+      "permalink": "",
+      "title": "Todd Monken says Browns' QBs threw \"embarrassing\" interceptions at OTAs",
+      "body_text": "“We threw interceptions in 7-on-7 for God’s sakes. Who does that? There’s no pass rush. I mean, it was embarrassing,” Monken said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-21T09:12:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nolan-smith-jr-was-recently-arrested-for-reckless-driving-speeding-in-georgia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nolan-smith-jr-was-recently-arrested-for-reckless-driving-speeding-in-georgia",
+      "permalink": "",
+      "title": "Nolan Smith Jr. was recently arrested for reckless driving, speeding in Georgia",
+      "body_text": "Eagles linebacker Nolan Smith Jr. recently was arrested in Georgia for reckless driving and speeding.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-21T03:24:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nolan Smith Jr",
+        "Georgia Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039013"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-to-sign-rb-salvon-ahmed-s-anthony-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-to-sign-rb-salvon-ahmed-s-anthony-johnson",
+      "permalink": "",
+      "title": "Bears to sign RB Salvon Ahmed, S Anthony Johnson",
+      "body_text": "The Bears are signing running back Salvon Ahmed and safety Anthony Johnson Jr., according to Jordan Schultz of The Schultz Report.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-21T02:53:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Salvon Ahmed",
+        "Anthony Johnson",
+        "The Bears",
+        "Anthony Johnson Jr",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0036020",
+        "00-0038411"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-world-will-block-the-sun-for-the-world-cup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-world-will-block-the-sun-for-the-world-cup",
+      "permalink": "",
+      "title": "Jerry World will block the sun for the World Cup",
+      "body_text": "Jones, who refuses to put up curtains for football games, will do it for FIFA.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-21T00:28:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry World",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-fernando-mendoza-has-not-disappointed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-fernando-mendoza-has-not-disappointed",
+      "permalink": "",
+      "title": "Klint Kubiak: Fernando Mendoza has not disappointed",
+      "body_text": "The Raiders drafted Fernando Mendoza to be their quarterback of the future.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-21T00:11:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "Fernando Mendoza",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-in-brendan-sorsby-case-recuses-himself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-in-brendan-sorsby-case-recuses-himself",
+      "permalink": "",
+      "title": "Judge in Brendan Sorsby case recuses himself",
+      "body_text": "Texas Tech quarterback Brendan Sorsby, like all civil litigants, would like to find some home cooking in court.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-20T23:37:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-praises-shedeur-sanders-development",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-praises-shedeur-sanders-development",
+      "permalink": "",
+      "title": "Todd Monken praises Shedeur Sanders' development",
+      "body_text": "Shedeur Sanders made the Pro Bowl last season despite starting only seven games and throwing seven touchdowns to 10 interceptions as a rookie.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T23:02:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "Shedeur Sanders",
+        "Pro Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-reports-on-soft-market-for-seahawks-are-not-accurate",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-reports-on-soft-market-for-seahawks-are-not-accurate",
+      "permalink": "",
+      "title": "Roger Goodell: Reports on \"soft\" market for Seahawks are \"not accurate\"",
+      "body_text": "\"It's exactly the opposite,\" Goodell said Tuesday.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-20T22:48:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-george-pickens-gets-another-season-to-answer-all-those-questions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-george-pickens-gets-another-season-to-answer-all-those-questions",
+      "permalink": "",
+      "title": "Jerry Jones: George Pickens gets another season to answer \"all those questions\"",
+      "body_text": "Cowboys wide receiver George Pickens signed the non-exclusive franchise tag, but he hasn't attended the team's voluntary offseason workouts.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T22:36:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-wrap-up-draft-class-by-signing-second-rounder-nate-boerkircher",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-wrap-up-draft-class-by-signing-second-rounder-nate-boerkircher",
+      "permalink": "",
+      "title": "Jaguars wrap up draft class by signing second-rounder Nate Boerkircher",
+      "body_text": "Nate Boerkircher was the first player the Jaguars drafted in April and he became the last member of the draft class to sign with the team on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T22:32:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nate Boerkircher"
+      ],
+      "resolved_player_ids": [
+        "BOE586077"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-hire-dave-gardi-as-executive-vp-of-football-operations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-hire-dave-gardi-as-executive-vp-of-football-operations",
+      "permalink": "",
+      "title": "Titans hire Dave Gardi as executive VP of football operations",
+      "body_text": "The Titans announced a significant addition to their front office on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T22:06:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Gardi",
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-counting-on-maxx-crosby-being-ready-for-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-counting-on-maxx-crosby-being-ready-for-training-camp",
+      "permalink": "",
+      "title": "Raiders \"counting on\" Maxx Crosby being ready for training camp",
+      "body_text": "Defensive end Maxx Crosby's unexpected return to the Raiders has not included a return to the practice field yet.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T21:57:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-brock-bowers-is-a-football-robot-from-heaven",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-brock-bowers-is-a-football-robot-from-heaven",
+      "permalink": "",
+      "title": "Klint Kubiak: Brock Bowers is a football robot from heaven",
+      "body_text": "Raiders head coach Klint Kubiak hasn't been in his job long, but he's been in it long enough to know who one of the cornerstones of his team will be this season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T20:42:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-not-surprised-trey-hendrickson-signed-with-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-not-surprised-trey-hendrickson-signed-with-ravens",
+      "permalink": "",
+      "title": "Joe Burrow not surprised Trey Hendrickson signed with Ravens",
+      "body_text": "Edge rusher Trey Hendrickson was never going to re-sign with the Bengals once he hit free agency.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T21:37:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Trey Hendrickson",
+        "Ravens Edge"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0033935"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-fourth-round-pick-jadon-canady",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-fourth-round-pick-jadon-canady",
+      "permalink": "",
+      "title": "Chiefs sign fourth-round pick Jadon Canady",
+      "body_text": "The Chiefs signed one of their draft picks on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T20:57:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadon Canady",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "CAN132804"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-wr-cedrick-wilson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-wr-cedrick-wilson",
+      "permalink": "",
+      "title": "Lions sign WR Cedrick Wilson",
+      "body_text": "The Lions signed free agent wide receiver Cedrick Wilson, the team announced Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T20:35:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cedrick Wilson",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0034418"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-rookie-free-agent-dt-travis-shaw",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-rookie-free-agent-dt-travis-shaw",
+      "permalink": "",
+      "title": "Patriots sign rookie free agent DT Travis Shaw",
+      "body_text": "The Patriots signed undrafted rookie defensive tackle Travis Shaw, the team announced Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T20:23:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Shaw",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charvarius-ward-i-didnt-want-to-finish-my-career-like-i-finished-last-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charvarius-ward-i-didnt-want-to-finish-my-career-like-i-finished-last-season",
+      "permalink": "",
+      "title": "Charvarius Ward: I didn't want to finish my career like I finished last season",
+      "body_text": "Colts cornerback Charvarius Ward considered retiring from the NFL at the end of the 2025 season, but he opted to go the other way and returned for a second season with the club.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T20:23:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Charvarius Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0034573"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fully-guaranteed-rookie-deals-now-go-at-least-16-picks-into-second-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fully-guaranteed-rookie-deals-now-go-at-least-16-picks-into-second-round",
+      "permalink": "",
+      "title": "Fully-guaranteed rookie deals now go at least 16 picks into second round",
+      "body_text": "When the current rookie wage scale first arrived in 2011, teams and agents began haggling over the number of four-year, first-round deals that would be fully guaranteed.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-20T20:02:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-on-international-travel-wear-and-tear-is-a-lot-less-than-a-night-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-on-international-travel-wear-and-tear-is-a-lot-less-than-a-night-out",
+      "permalink": "",
+      "title": "Jerry Jones on international travel: Wear and tear is a lot less than a night out",
+      "body_text": "The Cowboys have not played an international game since 2014 when they traveled to London to play the Jaguars.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-20T19:30:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-nothings-changed-with-qb-competition-hope-to-have-answer-by-end-of-spring",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-nothings-changed-with-qb-competition-hope-to-have-answer-by-end-of-spring",
+      "permalink": "",
+      "title": "Todd Monken: \"Nothing's changed\" with QB competition, hope to have answer by end of spring",
+      "body_text": "The Browns kicked off the OTA stage of their offseason program this week and the move into more intense on-field work hasn't altered their approach to their quarterback competition.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-20T19:26:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "The Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    }
+  ]
+}

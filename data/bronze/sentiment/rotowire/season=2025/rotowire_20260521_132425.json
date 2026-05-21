@@ -1,0 +1,116 @@
+{
+  "fetch_run_id": "47f14e43-ab78-483b-a722-e906fdf73cec",
+  "source": "rotowire",
+  "fetched_at": "2026-05-21T13:24:25.782941+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl630926",
+      "url": "https://www.rotowire.com//football/player/shedeur-sanders-18479",
+      "permalink": "",
+      "title": "Shedeur Sanders: Splitting first-team reps with Watson",
+      "body_text": "Shedeur and Deshaun Watson split first-team reps for most of Wednesday's practice, but Watson then took all the reps at the end in a simulated hurry-up drill, Daniel Oyefusi of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-20T12:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Watson Shedeur",
+        "Deshaun Watson",
+        "Daniel Oyefusi"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630925",
+      "url": "https://www.rotowire.com//football/player/aaron-rodgers-4307",
+      "permalink": "",
+      "title": "Aaron Rodgers: Plans to retire after 2026",
+      "body_text": "Rodgers said Wednesday that 2026 will be his final NFL season, Brooke Pryor of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-20T11:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Brooke Pryor"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630923",
+      "url": "https://www.rotowire.com//football/player/deshaun-watson-11712",
+      "permalink": "",
+      "title": "Deshaun Watson: First QB through drills",
+      "body_text": "Watson was the first QB through the rotation at Wednesday's practice, Chris Easterling of the Akron Beacon Journal reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-20T10:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "Chris Easterling",
+        "Akron Beacon"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630921",
+      "url": "https://www.rotowire.com//football/player/quinshon-judkins-18516",
+      "permalink": "",
+      "title": "Quinshon Judkins: Taking 11-on-11 reps",
+      "body_text": "Judkins (ankle) is taking carries in 11-on-11s, Chris Easterling of the Akron Beacon Journal reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-20T10:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quinshon Judkins",
+        "Chris Easterling",
+        "Akron Beacon"
+      ],
+      "resolved_player_ids": [
+        "00-0040784"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl630920",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Says he'll be ready for Week 1",
+      "body_text": "Skattebo (ankle) said at the Giants Town Hall on Monday night that he is expecting to be ready to play in Week 1 of the upcoming campaign, Kevin Patra of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-19T08:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Giants Town",
+        "Kevin Patra"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "fetch_run_id": "6aaa9361-f259-467d-8e9a-6f1715f5cfd9",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-21T13:22:07.345801+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 19,
+  "items": [
+    {
+      "external_id": "US-EN-48817340",
+      "url": "https://www.espn.com/nfl/story/_/id/48817340/2026-nfl-offseason-afc-teams-best-worst-moves-trades-signings-draft-picks-contracts",
+      "title": "The best, worst offseason moves of the AFC: Barnwe...",
+      "body_text": "The Steelers signing Jamel Dean? Solid move. The Colts guaranteeing big money to Daniel Jones? Not so much. Let's pick out offseason highs and lows in the AFC.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-05-21T12:32:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Steelers",
+        "Jamel Dean",
+        "The Colts",
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035699",
+        "00-0035710"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48832227",
+      "url": "https://www.espn.com/nfl/story/_/id/48832227/police-arrest-eagles-nolan-smith-car-clocked-135-mph-georgia",
+      "title": "Eagles LB Smith arrested after car clocked at 135",
+      "body_text": "Eagles linebacker Nolan Smith Jr. was arrested Friday and accused of speeding and reckless driving in Georgia, the Twiggs County Sheriff's Office told ESPN.",
+      "author": "Tim McManus",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Nolan Smith Jr",
+        "Twiggs County"
+      ],
+      "resolved_player_ids": [
+        "00-0039013"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48827851",
+      "url": "https://www.espn.com/nfl/story/_/id/48827851/steelers-aaron-rodgers-says-plans-retire-season",
+      "title": "Rodgers says he'll retire after season: 'This is i...",
+      "body_text": "Steelers quarterback Aaron Rodgers said Wednesday that the 2026 season will be the last of his Hall of Fame-worthy career.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48828868",
+      "url": "https://www.espn.com/nfl/story/_/id/48828868/browns-monken-praises-sanders-development-come-long-way",
+      "title": "Browns HC praises Sanders: 'Come a long way'",
+      "body_text": "Browns coach Todd Monken praised quarterback Shedeur Sanders' development Wednesday, saying the second-year player has \"come a long way.\"",
+      "author": "Daniel Oyefusi",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Todd Monken",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-48829357",
+      "url": "https://www.espn.com/nfl/story/_/id/48829357/raiders-rookie-fernando-mendoza-impresses-coaches-teammates",
+      "title": "Raiders' Kubiak: Mendoza has been 'as advertised'",
+      "body_text": "QB Fernando Mendoza has made a strong impression in his first month with the Raiders, with coach Klint Kubiak saying the No. 1 pick has been \"as advertised.\"",
+      "author": "Ryan McFadden",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Klint Kubiak"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-48827476",
+      "url": "https://www.espn.com/nfl/story/_/id/48827476/joe-burrow-most-talented-bengals-team-on",
+      "title": "Burrow: 2026 Bengals 'most talented' in my era",
+      "body_text": "Quarterback Joe Burrow said he believes this year's Bengals squad is the most talented roster he's played with since joining the franchise.",
+      "author": "Ben Baby",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Quarterback Joe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-48828338",
+      "url": "https://www.espn.com/nfl/story/_/id/48828338/colts-charvarius-ward-opted-return-working-myself",
+      "title": "Colts' Ward 'whole' again after tragedy, injuries",
+      "body_text": "After two seasons of heartbreak and injury, Colts cornerback Charvarius Ward, who pondered retirement, said he opted to return because he's in a better headspace.",
+      "author": "Stephen Holder",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Charvarius Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0034573"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-48830362",
+      "url": "https://www.espn.com/nfl/story/_/id/48830362/titans-hire-dave-gardi-executive-vp-football-operations",
+      "title": "Titans hire Gardi as executive VP of football ops",
+      "body_text": "The Titans hired Dave Gardi, formerly of the Commanders, to be their executive vice president of football operations.",
+      "author": "Turron Davenport",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Titans",
+        "Dave Gardi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-48818374",
+      "url": "https://www.espn.com/nfl/story/_/id/48818374/chiefs-rashee-rice-tests-positive-pot-miss-otas-minicamp",
+      "title": "Chiefs' Rice violates probation, ordered to jail",
+      "body_text": "Chiefs receiver Rashee Rice has been sentenced to immediately serve 30 days in jail after testing positive for marijuana in violation of the terms of his probation.",
+      "author": "Nate Taylor and Michael Rothstein",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48807804",
+      "url": "https://www.espn.com/nfl/story/_/id/48807804/cincinnati-bengals-kid-cudi-joe-burrow-offseason-workout",
+      "title": "👀 Day 'N' Nite: Burrow meets Kid Cudi at practice...",
+      "body_text": "Fresh off a concert in Cincinnati, Kid Cudi rolled through to catch Burrow and the Bengals as they ramp up their preparation for the upcoming season.",
+      "author": "Ben Baby",
+      "published_at": "2026-05-21T12:32:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Kid Cudi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-48818826",
+      "url": "https://www.espn.com/nfl/story/_/id/48818826/indianapolis-colts-owner-carlie-irsay-gordon-learned-key-lesson-3rd-grade",
+      "title": "A welcome-to-the-NFL moment in the third grade? Co...",
+      "body_text": "As Carlie Irsay-Gordon emerges from her father's shadow, criticism becomes a bigger part of the job, but she's prepared.",
+      "author": "Stephen Holder",
+      "published_at": "2026-05-21T12:59:02+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "As Carlie"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48827529",
+      "url": "https://www.espn.com/nfl/story/_/id/48827529/baltimore-ravens-derrick-henry-brief-scare-underscores-durability",
+      "title": "How Derrick Henry's brief injury scare underscores...",
+      "body_text": "The running back's continuity has stabilized one of the most unsettled positions in recent Baltimore history.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-05-21T13:01:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "How Derrick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48761066",
+      "url": "https://www.espn.com/nfl/story/_/id/48761066/nfl-owners-haslam-eagles-lurie-jerry-jones-cowboys-bears-mccaskey",
+      "title": "'I think you can never have too much Tebow': A loo...",
+      "body_text": "Some owners like Jeffrey Lurie and Clark Hunt helped land franchise quarterbacks, while others -- like Jimmy Haslam -- were less fortunate.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-05-21T13:50:11+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jeffrey Lurie",
+        "Clark Hunt",
+        "Jimmy Haslam"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48791209",
+      "url": "https://www.espn.com/nfl/story/_/id/48791209/steelers-sign-aaron-rodgers-quarterback-2026-offense-mike-mccarthy",
+      "title": "Can the Steelers win with a 42-year-old quarterbac...",
+      "body_text": "Does Rodgers have anything left? Will the Steelers' offense look the same as it did in 2025? And can running it back actually work for Pittsburgh?",
+      "author": "Ben Solak",
+      "published_at": "2026-05-21T04:05:45+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Does Rodgers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48777825",
+      "url": "https://www.espn.com/nfl/story/_/id/48777825/2026-nfl-season-projections-rookie-leaders-statistics-touchdowns-sacks",
+      "title": "Which rookies will make the biggest 2026 impact? W...",
+      "body_text": "Let's predict the NFL's top rookies in 10 different stats for the 2026 season. Who will lead in rushing yards? Touchdowns? Sacks?",
+      "author": "Mike Clay",
+      "published_at": "2026-05-21T13:50:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48751416",
+      "url": "https://www.espn.com/nfl/story/_/id/48751416/2026-nfl-best-team-fits-remaining-free-agents-samuel-bosa-diggs",
+      "title": "Perfect team fits for 14 remaining NFL free agents...",
+      "body_text": "Let's find new homes for 14 players who are still available, including Stefon Diggs and Jadeveon Clowney.",
+      "author": "Matt Bowen",
+      "published_at": "2026-05-21T13:50:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Stefon Diggs",
+        "Jadeveon Clowney"
+      ],
+      "resolved_player_ids": [
+        "00-0031588",
+        "00-0031364"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48780649",
+      "url": "https://www.espn.com/soccer/story/_/id/48780649/kansas-city-fifa-world-cup-2026-base-camp-host-city",
+      "title": "Chiefs who? This summer, Kansas City is all-in on the World Cup",
+      "body_text": "The FIFA World Cup is the biggest event to ever come to Kansas City, and the locals are ready to impress.",
+      "author": "Elizabeth Merrill",
+      "published_at": "2026-05-19T14:06:59+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Kansas City",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48802116",
+      "url": "https://www.espn.com/nfl/story/_/id/48802116/john-harbaugh-new-york-giants-commencement-speech-ravens-firing",
+      "title": "John Harbaugh references Ravens' firing in speech ...",
+      "body_text": "Harbaugh lightheartedly used his firing by the Baltimore Ravens as an example of resilience.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-19T17:24:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "John Harbaugh",
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
