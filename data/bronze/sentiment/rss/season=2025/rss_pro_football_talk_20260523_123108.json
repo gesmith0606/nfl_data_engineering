@@ -1,0 +1,481 @@
+{
+  "fetch_run_id": "f089fdf8-ebe6-49a1-b137-3596b5d12e80",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-05-23T12:31:08.527424+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/this-weekend-its-just-you-and-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/this-weekend-its-just-you-and-me",
+      "title": "This weekend, it's just you and me",
+      "body_text": "It's Memorial Day weekend.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T03:07:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Memorial Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-opened-tampering-investigation-of-ole-miss-on-the-same-day-dabo-swinney-complained",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-opened-tampering-investigation-of-ole-miss-on-the-same-day-dabo-swinney-complained",
+      "title": "NCAA opened tampering investigation of Ole Miss on the same day Dabo Swinney complained",
+      "body_text": "When it comes to the rules regarding players, the NCAA has largely become toothless.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T02:53:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ole Miss",
+        "Dabo Swinney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-introduces-donald-trump-at-new-york-event",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-introduces-donald-trump-at-new-york-event",
+      "title": "Jaxson Dart introduces Donald Trump at New York event",
+      "body_text": "Well, this won't upset anyone.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T22:13:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart",
+        "Donald Trump",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-and-jacoby-brissett-are-significantly-far-apart-in-negotiations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-and-jacoby-brissett-are-significantly-far-apart-in-negotiations",
+      "title": "Report: Cardinals and Jacoby Brissett are \"significantly\" far apart in negotiations",
+      "body_text": "Brissett is not participating in the team's voluntary offseason program as he seeks a reworked deal for this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-22T21:53:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-lb-e-j-speed-partially-tore-a-quadriceps-while-lifting-weights",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-lb-e-j-speed-partially-tore-a-quadriceps-while-lifting-weights",
+      "title": "Texans LB E.J. Speed partially tore a quadriceps while lifting weights",
+      "body_text": "Texans linebacker E.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-22T19:54:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-wants-to-challenge-ashton-jeanty-get-more-out-of-him-in-year-2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-wants-to-challenge-ashton-jeanty-get-more-out-of-him-in-year-2",
+      "title": "Klint Kubiak wants to challenge Ashton Jeanty, get more out of him in Year 2",
+      "body_text": "Raiders coach Klint Kubiak thinks running back Ashton Jeanty can do more in his second year in the league.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-22T19:31:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Klint Kubiak",
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teddy-bridgewater-act-becomes-law-in-florida",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teddy-bridgewater-act-becomes-law-in-florida",
+      "title": "\"Teddy Bridgewater Act\" becomes law in Florida",
+      "body_text": "High-school coaches can now spent $15,000 on food, transportation, and recovery for players.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T18:26:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Teddy Bridgewater",
+        "Florida High"
+      ],
+      "resolved_player_ids": [
+        "00-0031237"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-brown-people-dont-want-to-admit-how-wrong-they-were-about-bryce-young",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-brown-people-dont-want-to-admit-how-wrong-they-were-about-bryce-young",
+      "title": "Derrick Brown: People don’t want to admit how wrong they were about Bryce Young",
+      "body_text": "The Panthers made the postseason for the first time since 2017 last season, winning the NFC South via a tiebreaker with an 8-9 record.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-22T16:38:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Brown",
+        "Bryce Young",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036220",
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-rams-nearly-put-matthew-stafford-on-ir-to-start-2025-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-rams-nearly-put-matthew-stafford-on-ir-to-start-2025-season",
+      "title": "Sean McVay: Rams nearly put Matthew Stafford on IR to start 2025 season",
+      "body_text": "Making Matthew Stafford's MVP season more impressive was that he almost didn't play in Week 1.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T17:57:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Making Matthew"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-ot-broderick-jones-i-dont-really-have-a-timeline-to-return-from-neck-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-ot-broderick-jones-i-dont-really-have-a-timeline-to-return-from-neck-injury",
+      "title": "Steelers OT Broderick Jones: I don't really have a timeline to return from neck injury",
+      "body_text": "Steelers offensive tackle Broderick Jones had spinal fusion surgery this offseason and it remains unclear when he will be able to play again.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-22T15:55:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Broderick Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0039109"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/henry-ruggs-iii-seeks-release-on-parole",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/henry-ruggs-iii-seeks-release-on-parole",
+      "title": "Henry Ruggs III seeks release on parole",
+      "body_text": "Former Raiders receiver Henry Ruggs III, the first receiver taken in the 2021 draft, is serving a sentence of three to 10 years after pleading guilty to DUI resulting in death and one count of misdemeanor vehicular manslaughter.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T15:23:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Henry Ruggs III",
+        "Former Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0036357"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-totally-understands-vikings-decision-to-move-on-from-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-totally-understands-vikings-decision-to-move-on-from-him",
+      "title": "Sam Darnold \"totally understands\" Vikings' decision to move on from him",
+      "body_text": "It's easier to take the high road when you're sitting on top of the mountain.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T14:39:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichicks-recent-podcast-tour-suggests-hes-doing-damage-control",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichicks-recent-podcast-tour-suggests-hes-doing-damage-control",
+      "title": "Bill Belichick's recent podcast tour suggests he's doing damage control",
+      "body_text": "North Carolina coach Bill Belichick, who didn't spend much time talking to the media a year ago when promoting his book, submitted this week to a pair of lengthy podcast interviews.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-21T14:11:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-to-its-credit-admits-mnf-doubleheaders-were-a-dud",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-to-its-credit-admits-mnf-doubleheaders-were-a-dud",
+      "title": "NFL, to its credit, admits MNF doubleheaders were a dud",
+      "body_text": "It's human nature to resist admitting mistakes.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T13:56:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jack-campbells-four-year-extension-is-worth-81-million-with-51-5-million-guaranteed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jack-campbells-four-year-extension-is-worth-81-million-with-51-5-million-guaranteed",
+      "title": "Report: Jack Campbell's four-year extension is worth $81 million, with $51.5 million guaranteed",
+      "body_text": "The Lions announced earlier in the day that they have signed linebacker Jack Campbell to a four-year extension.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-22T00:04:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jack Campbell",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshall-faulk-shares-strong-views-about-racial-disparity-in-key-college-pro-jobs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshall-faulk-shares-strong-views-about-racial-disparity-in-key-college-pro-jobs",
+      "title": "Marshall Faulk shares strong views about racial disparity in key college, pro jobs",
+      "body_text": "James Uthmeier probably won't want to read this.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-21T13:40:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marshall Faulk",
+        "James Uthmeier"
+      ],
+      "resolved_player_ids": [
+        "00-0005092"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-extend-g-m-joe-schoens-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-extend-g-m-joe-schoens-contract",
+      "title": "Giants extend G.M. Joe Schoen's contract",
+      "body_text": "Schoen emerges from major internal overhaul with a new deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-21T23:16:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Schoen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-say-they-have-exhausted-every-opportunity-to-stay-in-chicago",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-say-they-have-exhausted-every-opportunity-to-stay-in-chicago",
+      "title": "Bears say they have \"exhausted every opportunity to stay in Chicago\"",
+      "body_text": "The Bears are where we thought they were.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T01:31:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-matthew-stafford-agree-to-one-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-matthew-stafford-agree-to-one-year-extension",
+      "title": "Rams, Matthew Stafford agree to one-year extension",
+      "body_text": "MVP is under contract through 2027.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-21T23:46:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-announce-coaching-staff-promotions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-announce-coaching-staff-promotions",
+      "title": "Chargers announce coaching staff promotions",
+      "body_text": "The Chargers have announced a handful of promotions on their coaching staff.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-22T12:14:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-roy-robertson-harris-suffers-torn-achilles-at-otas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-roy-robertson-harris-suffers-torn-achilles-at-otas",
+      "title": "Giants' Roy Robertson-Harris suffers torn Achilles at OTAs",
+      "body_text": "The Giants have lost a key member of their defensive line during Organized Team Activities.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-22T11:59:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roy Robertson",
+        "The Giants",
+        "Organized Team"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mannion-jalen-hurts-can-do-anything-we-ask-of-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mannion-jalen-hurts-can-do-anything-we-ask-of-him",
+      "title": "Sean Mannion: Jalen Hurts can do anything we ask of him",
+      "body_text": "Sean Mannion took over a high-profile job this offseason when he was named the offensive coordinator of the Eagles in the wake of their disappointing 2025 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-22T11:06:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Mannion",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0032245",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-removing-all-seed-oils-from-the-titans-facility-was-a-top-priority",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-removing-all-seed-oils-from-the-titans-facility-was-a-top-priority",
+      "title": "Robert Saleh: Removing all seed oils from the Titans' facility was a top priority",
+      "body_text": "New Titans head coach Robert Saleh made an immediate change in Tennessee when he got the job four months ago: He ensured that players wouldn't eat seed oils at the team facility.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-22T11:03:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Saleh",
+        "New Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-stresses-a-different-kind-of-competition-in-non-contact-offseason-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-stresses-a-different-kind-of-competition-in-non-contact-offseason-practices",
+      "title": "John Harbaugh stresses a different kind of competition in non-contact offseason practices",
+      "body_text": "Contact is not allowed at Organized Team Activities, so the Giants are telling players they're competing with themselves, not against each other.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-22T08:52:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Organized Team"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-weve-been-talking-a-ton-with-about-when-to-take-risks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-weve-been-talking-a-ton-with-about-when-to-take-risks",
+      "title": "Jaxson Dart: We've been talking \"a ton\" about when to take risks",
+      "body_text": "Giants quarterback Jaxson Dart's penchant for risky runs that exposed him to injuries were a frequent topic of conversation during his rookie season and the team's new coaching staff has been addressing the issue with him this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-21T19:04:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-are-favored-in-15-of-17-regular-season-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-are-favored-in-15-of-17-regular-season-games",
+      "title": "Bengals are favored in 15 of 17 regular-season games",
+      "body_text": "After three straight years with no playoff appearances, the pressure is on the Bengals in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T03:24:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-olympics-looming-usa-football-hires-marcel-reece-for-a-key-role",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-olympics-looming-usa-football-hires-marcel-reece-for-a-key-role",
+      "title": "With Olympics looming, USA Football hires Marcel Reece for a key role",
+      "body_text": "USA Football soon will step into the spotlight, when it comes to figuring out the members of the 2028 Olympics flag football team.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-22T00:37:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With Olympics",
+        "Marcel Reece"
+      ],
+      "resolved_player_ids": [
+        "00-0026393"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-wilson-looking-to-build-on-last-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-wilson-looking-to-build-on-last-season",
+      "title": "Michael Wilson looking to build on last season",
+      "body_text": "Michael Wilson caught 85 passes for 1,113 yards and seven touchdowns over his first two seasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-22T01:00:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0038559"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylon-johnson-not-participating-in-voluntary-offseason-work",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylon-johnson-not-participating-in-voluntary-offseason-work",
+      "title": "Jaylon Johnson not participating in voluntary offseason work",
+      "body_text": "Bears cornerback Jaylon Johnson is not participating in the team's voluntary offseason program.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-21T23:07:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaylon Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0036292"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-managing-lt-andrew-thomas-offseason-reps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-managing-lt-andrew-thomas-offseason-reps",
+      "title": "Giants managing LT Andrew Thomas' offseason reps",
+      "body_text": "The Giants had their first three organized team activities this week, and starting left tackle participated in two of them.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-21T22:48:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andrew Thomas",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0036386"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}

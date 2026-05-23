@@ -1,0 +1,42 @@
+{
+  "batch_id": "1817e3f3",
+  "season": 2025,
+  "week": 18,
+  "computed_at": "2026-05-23T12:33:53.212802+00:00",
+  "signal_count": 1,
+  "records": [
+    {
+      "signal_id": "32c6b0ca-ac7a-4018-b7f0-fa86139f5bab",
+      "doc_id": "US-EN-48818608",
+      "source": "rss",
+      "season": 2025,
+      "week": 18,
+      "player_name": "Malik Willis",
+      "player_id": "00-0038128",
+      "sentiment_score": 0.2,
+      "sentiment_confidence": 0.7,
+      "category": "trade",
+      "events": {
+        "is_ruled_out": false,
+        "is_inactive": false,
+        "is_questionable": false,
+        "is_suspended": false,
+        "is_returning": false,
+        "is_traded": false,
+        "is_released": false,
+        "is_signed": true,
+        "is_activated": false,
+        "is_usage_boost": false,
+        "is_usage_drop": false,
+        "is_weather_risk": false
+      },
+      "published_at": "2026-05-23T12:48:58+00:00",
+      "extracted_at": "2026-05-23T12:33:53.212124+00:00",
+      "model_version": "ClaudeExtractor",
+      "raw_excerpt": "'It's about building trust': QB Malik Willis focus...\n\nWillis signed a three-year, $67.5 million contract this offseason because the Dolphins believe he can be their franchise quarterback.",
+      "extractor": "rule",
+      "summary": ""
+    }
+  ],
+  "is_claude_primary": true
+}
