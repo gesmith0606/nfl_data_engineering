@@ -1,0 +1,50 @@
+{
+  "fetch_run_id": "78ce002b-8c79-4674-857c-1e0afbcbdf26",
+  "source": "rotowire",
+  "fetched_at": "2026-05-24T12:36:20.117756+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 2,
+  "items": [
+    {
+      "external_id": "nfl630988",
+      "url": "https://www.rotowire.com//football/player/marvin-harrison-17674",
+      "permalink": "",
+      "title": "Marvin Harrison: Healthy for offseason program",
+      "body_text": "Harrison (foot) participated at Cardinals OTAs this week. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-22T04:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Harrison"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl630986",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Still far from new deal",
+      "body_text": "The Cardinals and Brissett haven't made inroads on an amended contract, Josh Weinfuss of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-22T04:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "The Cardinals",
+        "Josh Weinfuss"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    }
+  ]
+}
