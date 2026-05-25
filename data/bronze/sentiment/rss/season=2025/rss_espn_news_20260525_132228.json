@@ -1,0 +1,312 @@
+{
+  "fetch_run_id": "a7bb5877-7d24-4d00-ae3f-397aed3a892a",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-25T13:22:28.459618+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 19,
+  "items": [
+    {
+      "external_id": "US-EN-48826160",
+      "url": "https://www.espn.com/nfl/story/_/id/48826160/tennessee-titans-wr-carnell-tate-perfect-pairing-cam-ward",
+      "title": "Why drafting OSU's Carnell Tate to pair with Cam W...",
+      "body_text": "With premium defensive options on the board, Tennessee made a  unanimous decision to get an impact player on offense.",
+      "author": "Turron Davenport",
+      "published_at": "2026-05-25T12:23:21+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [
+        "TAT143045"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48856461",
+      "url": "https://www.espn.com/nfl/story/_/id/48856461/carter-halts-talk-giants-rift-dart-introduces-trump",
+      "title": "Carter halts talk of Giants rift over Dart's polit...",
+      "body_text": "Linebacker Abdul Carter was among Giants players who took to social media  to shut down speculation that there was a locker room rift after quarterback Jaxson Dart introduced Donald Trump at a pep rally.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Linebacker Abdul",
+        "Jaxson Dart",
+        "Donald Trump"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48859493",
+      "url": "https://www.espn.com/mma/story/_/id/48859493/johnny-manziel-dominates-mma-debut-says-fight-again",
+      "title": "Ex-QB Manziel pummels influencer in MMA debut",
+      "body_text": "Former NFL quarterback Johnny Manziel flashed some skills as a fighter in his MMA debut, stopping social media influencer Bob Menery in the first round before saying one fight was \"good enough.\"",
+      "author": null,
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Johnny Manziel",
+        "Bob Menery"
+      ],
+      "resolved_player_ids": [
+        "00-0031409"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48850984",
+      "url": "https://www.espn.com/espn/story/_/id/48850984/florida-signs-teddy-bridgewater-act-law",
+      "title": "Florida signs 'Teddy Bridgewater Act' into law",
+      "body_text": "Florida has signed the \"Teddy Bridgewater Act\" into law, meaning high school coaches in the state will now be able to use their own money to help their players with expenses such as food, transportation, physical therapy and rehabilitation services.",
+      "author": null,
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Teddy Bridgewater"
+      ],
+      "resolved_player_ids": [
+        "00-0031237"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48846780",
+      "url": "https://www.espn.com/nfl/story/_/id/48846780/jacoby-brissett-not-close-reworked-deal-cardinals",
+      "title": "Source: Brissett, Cardinals not close on new deal",
+      "body_text": "A reworked deal between the Arizona Cardinals and quarterback Jacoby Brissett is still not close, a source told ESPN on Friday.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Arizona Cardinals",
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "US-EN-48839342",
+      "url": "https://www.espn.com/nfl/story/_/id/48839342/sources-matthew-stafford-rams-reach-1-year-55m-extension",
+      "title": "Sources: Stafford lands 1-year, $55M extension",
+      "body_text": "Reigning NFL MVP Matthew Stafford and the Rams reached agreement on a one-year, $55 million extension, sources told ESPN's Adam Schefter. The QB is now tied to L.A. through the 2027 season, with $105 million remaining on his deal.",
+      "author": "Adam Schefter",
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48843258",
+      "url": "https://www.espn.com/nfl/story/_/id/48843258/source-giants-dl-roy-robertson-harris-tears-achilles",
+      "title": "Source: Giants DL Robertson-Harris tears Achilles",
+      "body_text": "Giants defensive lineman Roy Robertson-Harris tore his Achilles at Thursday's OTA workout and is expected to miss the 2026 season, a source told ESPN.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Achilles Giants",
+        "Roy Robertson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48836875",
+      "url": "https://www.espn.com/nfl/story/_/id/48836875/lions-sign-all-pro-lb-jack-campbell-four-year-extension",
+      "title": "Lions ink All-Pro LB Campbell to 4-year extension",
+      "body_text": "The Lions have signed Jack Campbell to a four-year extension, putting him under contract with the franchise through the 2030 season. The deal is for $81 million and includes $51.5M guaranteed, sources told NFL Network's Ian Rapoport.",
+      "author": null,
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Lions",
+        "Jack Campbell",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-48839144",
+      "url": "https://www.espn.com/nfl/story/_/id/48839144/source-giants-give-gm-joe-schoen-multiyear-extension",
+      "title": "Source: Giants give GM Schoen multiyear deal",
+      "body_text": "The Giants and general manager Joe Schoen agreed to terms on a multiyear extension.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Giants",
+        "Joe Schoen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48855003",
+      "url": "https://www.espn.com/nfl/story/_/id/48855003/green-bay-packers-jordan-love-ronika-stone-baby-announcement-daughter",
+      "title": "🍼 Jordan Love, Ronika Stone welcome first child",
+      "body_text": "Jordan Love and Ronika Stone have spent a full month with their newborn daughter.",
+      "author": "Kalan Hooks",
+      "published_at": "2026-05-24T18:12:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jordan Love",
+        "Ronika Stone"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48845391",
+      "url": "https://www.espn.com/nfl/story/_/id/48845391/espn-scored-touchdown-super-bowl-pittsburgh-steelers-antwaan-randle-el-hines-ward-special-moment",
+      "title": "'I Scored a Touchdown': Antwaan Randle El to Ward ...",
+      "body_text": "The Steelers teammates share the details of the TD -- and the celebration -- from Super Bowl XL.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-05-25T13:19:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Antwaan Randle",
+        "The Steelers",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48818826",
+      "url": "https://www.espn.com/nfl/story/_/id/48818826/indianapolis-colts-owner-carlie-irsay-gordon-learned-key-lesson-3rd-grade",
+      "title": "A welcome-to-the-NFL moment in the third grade? Co...",
+      "body_text": "As Carlie Irsay-Gordon emerges from her father's shadow, criticism becomes a bigger part of the job, but she's prepared.",
+      "author": "Stephen Holder",
+      "published_at": "2026-05-24T13:52:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "As Carlie"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48761066",
+      "url": "https://www.espn.com/nfl/story/_/id/48761066/nfl-owners-haslam-eagles-lurie-jerry-jones-cowboys-bears-mccaskey",
+      "title": "A look at how owners have fared when getting invol...",
+      "body_text": "Some owners helped land franchise QBs, while others -- like Jimmy Haslam -- were less fortunate.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-05-24T13:52:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jimmy Haslam"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48837433",
+      "url": "https://www.espn.com/nfl/story/_/id/48837433/new-york-giants-brian-burns-nephew-autism-awareness",
+      "title": "Brian Burns doing it all for his nephew, autism awareness",
+      "body_text": "Giants defensive veteran Brian Burns' success has opened doors for him to show his true purpose.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-23T14:34:05+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brian Burns"
+      ],
+      "resolved_player_ids": [
+        "00-0035713"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48834642",
+      "url": "https://www.espn.com/nfl/story/_/id/48834642/nfl-nfc-lions-packers-bears-vikings-kyler-murray-caleb-williams-jordan-love",
+      "title": "NFC North: QB buzz, plus underrated, surprising ro...",
+      "body_text": "The Bears, Packers, Lions and Vikings finished with winning records in 2025. Here's how their offseasons have impacted the NFC North.",
+      "author": "NFL Nation",
+      "published_at": "2026-05-24T22:51:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-48817340",
+      "url": "https://www.espn.com/nfl/story/_/id/48817340/2026-nfl-offseason-afc-teams-best-worst-moves-trades-signings-draft-picks-contracts",
+      "title": "The best, worst offseason moves of the AFC: Barnwe...",
+      "body_text": "The Steelers signing Jamel Dean? Solid move. The Colts guaranteeing big money to Daniel Jones? Not so much. Let's pick out offseason highs and lows in the AFC.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-05-24T22:51:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Steelers",
+        "Jamel Dean",
+        "The Colts",
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035699",
+        "00-0035710"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48836181",
+      "url": "https://www.espn.com/nfl/story/_/id/48836181/philadelphia-eagles-aj-brown-wedding-married-kelsey-nicole-riley",
+      "title": "'It means everything': A.J. Brown gets married to ...",
+      "body_text": "Eagles wide receiver became a husband over the weekend at Montage Laguna Beach in California.",
+      "author": "Kalan Hooks",
+      "published_at": "2026-05-24T22:50:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Montage Laguna"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48829169",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/48829169/fantasy-football-mock-draft-result-10-team-ppr",
+      "title": "Mock Draft Season: Players experts are taking (and...",
+      "body_text": "Every mock draft is a little bit different, so we did it 10 times. Here are the results and the insights, from what to do in the first few rounds to when you should take your quarterback and tight end.",
+      "author": null,
+      "published_at": "2026-05-23T13:53:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mock Draft"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47819308",
+      "url": "https://www.espn.com/nfl/story/_/id/47819308/super-bowl-2027-espn-how-watch-schedule-facts-stats",
+      "title": "Super Bowl 2027 on ESPN: Date, location, venue, more details",
+      "body_text": "The 2027 Super Bowl will air on ESPN for the first time in network history. Learn more information about Super Bowl LXI festivities now.",
+      "author": "ESPN",
+      "published_at": "2026-02-19T13:05:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
