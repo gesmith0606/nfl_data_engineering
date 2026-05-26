@@ -1,0 +1,580 @@
+{
+  "fetch_run_id": "a1867a4e-2e15-4d8a-bdaa-cbb03f3b172a",
+  "source": "pft",
+  "fetched_at": "2026-05-26T13:17:26.315180+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cavs-coach-kenny-atkinson-makes-strangest-analytics-remark-yet",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cavs-coach-kenny-atkinson-makes-strangest-analytics-remark-yet",
+      "permalink": "",
+      "title": "Cavs coach Kenny Atkinson makes strangest analytics remark yet",
+      "body_text": "As it turns out, the Browns aren't the Cleveland-based sports team having the most warped obsession with analytics.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-25T13:23:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenny Atkinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-dolphins-dl-manny-fernandez-dies-at-79",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-dolphins-dl-manny-fernandez-dies-at-79",
+      "permalink": "",
+      "title": "Former Dolphins DL Manny Fernandez dies at 79",
+      "body_text": "The Dolphins have announced the death of Manny Fernandez at the age of 79.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T12:59:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former Dolphins",
+        "Manny Fernandez",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-seahawks-offered-devon-witherspoon-a-new-contract-but-no-agreement-is-close",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-seahawks-offered-devon-witherspoon-a-new-contract-but-no-agreement-is-close",
+      "permalink": "",
+      "title": "Report: Seahawks offered Devon Witherspoon a new contract, but no agreement is close",
+      "body_text": "The Seahawks are discussing a contract extension with cornerback Devon Witherspoon, but he so far hasn't heard an offer to his liking.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-26T12:29:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Devon Witherspoon",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0039169"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-murphy-i-understand-why-bengals-declined-2027-option-have-to-be-at-my-best",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-murphy-i-understand-why-bengals-declined-2027-option-have-to-be-at-my-best",
+      "permalink": "",
+      "title": "Myles Murphy: I understand why Bengals declined 2027 option, have to be at my best",
+      "body_text": "Edge rusher Myles Murphy set career highs for sacks, tackles and quarterback hits during the 2025 season, but his improvement wasn't enough to convince the Bengals to guarantee his return for the 2027 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T11:00:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Murphy"
+      ],
+      "resolved_player_ids": [
+        "00-0038546"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-gm-joe-hortiz-high-priority-on-derwin-james-spending-his-whole-career-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-gm-joe-hortiz-high-priority-on-derwin-james-spending-his-whole-career-here",
+      "permalink": "",
+      "title": "Chargers GM Joe Hortiz: \"High\" priority on Derwin James spending his whole career here",
+      "body_text": "Safety Derwin James has been with the Chargers since entering the NFL in 2018 and the team would like to see him continue to wear their uniform through the end of his playing days.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T10:38:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Hortiz",
+        "Derwin James",
+        "Safety Derwin"
+      ],
+      "resolved_player_ids": [
+        "00-0034790"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-i-really-didnt-care-about-the-reaction-to-rams-taking-me-in-the-first-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-i-really-didnt-care-about-the-reaction-to-rams-taking-me-in-the-first-round",
+      "permalink": "",
+      "title": "Ty Simpson: I really didn't care about the reaction to Rams taking me in the first round",
+      "body_text": "\"Everybody can have an opinion, but it’s my job to take care of my business,\" Simpson said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-26T08:48:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "SIM639376"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vic-fangio-jalen-carters-shoulders-are-fine",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vic-fangio-jalen-carters-shoulders-are-fine",
+      "permalink": "",
+      "title": "Vic Fangio: Jalen Carter's shoulders are \"fine\"",
+      "body_text": "Eagles defensive tackle Jalen Carter missed a month of football late in the 2025 regular season after undergoing surgical procedures on both of his shoulders.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-25T21:30:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Vic Fangio",
+        "Jalen Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-ward-sees-an-explosive-year-coming-for-carnell-tate",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-ward-sees-an-explosive-year-coming-for-carnell-tate",
+      "permalink": "",
+      "title": "Cam Ward sees an \"explosive year\" coming for Carnell Tate",
+      "body_text": "On the outside, the Titans' decision to use the fourth overall pick in the draft on receiver Carnell Tate was a surprise.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-25T21:03:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Ward",
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [
+        "00-0040676",
+        "TAT143045"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-kelce-sunday-is-the-nfl-were-getting-away-from-that-a-little-bit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-kelce-sunday-is-the-nfl-were-getting-away-from-that-a-little-bit",
+      "permalink": "",
+      "title": "Jason Kelce: \"Sunday is the NFL . . . we're getting away from that a little bit\"",
+      "body_text": "The NFL has been slicing games away from Sunday afternoon in an effort to create more standalone windows.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-25T18:16:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jason Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0028129"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-wasnt-happy-to-leave-work-for-nflpa-rookie-premiere",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-wasnt-happy-to-leave-work-for-nflpa-rookie-premiere",
+      "permalink": "",
+      "title": "Fernando Mendoza wasn't happy to leave work for NFLPA Rookie Premiere",
+      "body_text": "Raiders quarterback Fernando Mendoza skipped Indiana's visit to the White House so that he could focus on his current job.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-25T16:45:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Rookie Premiere",
+        "White House"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/expansion-to-18-games-by-2027-is-highly-unlikely-but-still-not-impossible",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/expansion-to-18-games-by-2027-is-highly-unlikely-but-still-not-impossible",
+      "permalink": "",
+      "title": "Expansion to 18 games by 2027 is highly unlikely (but still not impossible)",
+      "body_text": "Until a date is picked for Super Bowl LXII, the door remains open for 18 by next year.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-25T15:58:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-freeman-wasnt-ready-to-let-go-of-his-position-at-notre-dame",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-freeman-wasnt-ready-to-let-go-of-his-position-at-notre-dame",
+      "permalink": "",
+      "title": "Marcus Freeman wasn't \"ready to let go\" of his position at Notre Dame",
+      "body_text": "The NFL is always looking for a few good coaches.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-25T15:22:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcus Freeman",
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [
+        "00-0024711"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-rashee-rices-probation-violation-result-in-another-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-rashee-rices-probation-violation-result-in-another-suspension",
+      "permalink": "",
+      "title": "Will Rashee Rice's probation violation result in another suspension?",
+      "body_text": "The NFL has multiple possible avenues for imposing discipline, if it chooses to pursue them.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-25T14:26:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Rashee"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-hopes-to-make-mature-decisions-when-running-with-the-ball",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-hopes-to-make-mature-decisions-when-running-with-the-ball",
+      "permalink": "",
+      "title": "Jaxson Dart hopes to make \"mature decisions\" when running with the ball",
+      "body_text": "Dart and new Giants coaching staff are focusing on weighing risk against situation.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-24T21:23:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-williams-is-working-to-earn-more-reps-and-targets-in-his-second-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-williams-is-working-to-earn-more-reps-and-targets-in-his-second-season",
+      "permalink": "",
+      "title": "Kyle Williams is working to earn more reps and targets in his second season",
+      "body_text": "Patriots receiver Kyle Williams, a third-round pick in 2025, had only 10 catches as a rookie, and only two in four postseason games.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-24T17:41:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0040131"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-delay-signing-a-veteran-qb-as-they-wait-to-see-what-rookie-cade-klubnik-can-do",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-delay-signing-a-veteran-qb-as-they-wait-to-see-what-rookie-cade-klubnik-can-do",
+      "permalink": "",
+      "title": "Jets delay signing a veteran QB as they wait to see what rookie Cade Klubnik can do",
+      "body_text": "The Jets have four quarterbacks on the roster.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-24T15:24:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cade Klubnik",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "KLU066027"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-sells-house-in-order-to-move-closer-to-work",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-sells-house-in-order-to-move-closer-to-work",
+      "permalink": "",
+      "title": "Brian Schottenheimer sells house, in order to move closer to work",
+      "body_text": "As the expectations grow for the 2026 Cowboys, every second counts.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-24T13:09:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-big-shield-ebook-offer-is-extended-to-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-big-shield-ebook-offer-is-extended-to-sunday",
+      "permalink": "",
+      "title": "Free Big Shield ebook offer is extended to Sunday",
+      "body_text": "It's a bonus day to get a free copy of the Big Shield ebook.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-24T12:45:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Free Big",
+        "Big Shield"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-final-countdown-to-an-a-j-brown-trade-begins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-final-countdown-to-an-a-j-brown-trade-begins",
+      "permalink": "",
+      "title": "The final countdown to an A.J. Brown trade begins",
+      "body_text": "June 2 is coming soon.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-24T12:20:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-beats-bob-menery-in-battle-of-dad-bods",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-beats-bob-menery-in-battle-of-dad-bods",
+      "permalink": "",
+      "title": "Johnny Manziel beats Bob Menery in Battle of Dad Bods",
+      "body_text": "Former Heisman winner and Browns first-rounder Johnny Manziel made his MMA debut on Saturday, against an influencer named Bob Menery.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-24T11:59:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Manziel",
+        "Bob Menery",
+        "Dad Bods",
+        "Former Heisman"
+      ],
+      "resolved_player_ids": [
+        "00-0031409"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-and-jaxson-dart-spoke-earlier-as-men-after-social-media-dustup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-and-jaxson-dart-spoke-earlier-as-men-after-social-media-dustup",
+      "permalink": "",
+      "title": "Abdul Carter and Jaxson Dart \"spoke earlier as men\" after social-media dustup",
+      "body_text": "Carter takes issue with \"narratives\" that flowed directly from his tweet.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T22:29:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Abdul Carter",
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040677",
+        "00-0040691"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-big-shield-ebook-is-free-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-big-shield-ebook-is-free-on-saturday",
+      "permalink": "",
+      "title": "The Big Shield ebook is free on Saturday",
+      "body_text": "A slow holiday weekend is the truest test of an audience's loyalty.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T20:31:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Big"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/illinois-governor-on-bears-stadium-bill-ive-seen-miracles-happen-every-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/illinois-governor-on-bears-stadium-bill-ive-seen-miracles-happen-every-year",
+      "permalink": "",
+      "title": "Illinois governor on Bears stadium bill: \"I've seen miracles happen every year\"",
+      "body_text": "The clock is ticking on a deal to keep the Bears from moving to Indiana.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T20:33:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-coach-jeff-hafley-wants-malik-willis-to-focus-on-performance-before-leadership",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-coach-jeff-hafley-wants-malik-willis-to-focus-on-performance-before-leadership",
+      "permalink": "",
+      "title": "Dolphins coach Jeff Hafley wants Malik Willis to focus on performance before leadership",
+      "body_text": "The Dolphins have many key new pieces.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T17:28:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeff Hafley",
+        "Malik Willis",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-recent-aaron-rodgers-press-conference-included-an-interesting-exchange",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-recent-aaron-rodgers-press-conference-included-an-interesting-exchange",
+      "permalink": "",
+      "title": "The recent Aaron Rodgers press conference included an interesting exchange",
+      "body_text": "Steelers quarterback Aaron Rodgers has said that, when he's done playing, he plans to disappear.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T15:51:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-can-make-a-big-move-up-the-all-time-catch-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-can-make-a-big-move-up-the-all-time-catch-list",
+      "permalink": "",
+      "title": "Davante Adams can make a big move up the all-time catch list",
+      "body_text": "As his 13th NFL season approaches, receiver Davante Adams has a chance to make a big move on the list of all-time receptions.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T15:09:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-on-jaxson-dart-introducing-donald-trump-what-we-doing-man",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-on-jaxson-dart-introducing-donald-trump-what-we-doing-man",
+      "permalink": "",
+      "title": "Abdul Carter on Jaxson Dart introducing Donald Trump: \"What we doing man\"",
+      "body_text": "New coach John Harbaugh has an unexpected test, months before his first game.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T12:58:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Abdul Carter",
+        "Jaxson Dart",
+        "Donald Trump",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0040677",
+        "00-0040691"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryan-cook-aims-to-help-get-the-bengals-over-the-hump",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryan-cook-aims-to-help-get-the-bengals-over-the-hump",
+      "permalink": "",
+      "title": "Bryan Cook aims to help get the Bengals over the hump",
+      "body_text": "Former Chief hopes to lead his new team to the next level.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T12:34:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryan Cook",
+        "Former Chief"
+      ],
+      "resolved_player_ids": [
+        "00-0037193"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/this-weekend-its-just-you-and-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/this-weekend-its-just-you-and-me",
+      "permalink": "",
+      "title": "This weekend, it's just you and me",
+      "body_text": "It's Memorial Day weekend.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T03:07:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Memorial Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-opened-tampering-investigation-of-ole-miss-on-the-same-day-dabo-swinney-complained",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-opened-tampering-investigation-of-ole-miss-on-the-same-day-dabo-swinney-complained",
+      "permalink": "",
+      "title": "NCAA opened tampering investigation of Ole Miss on the same day Dabo Swinney complained",
+      "body_text": "When it comes to the rules regarding players, the NCAA has largely become toothless.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-23T02:53:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ole Miss",
+        "Dabo Swinney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
