@@ -1,0 +1,583 @@
+{
+  "fetch_run_id": "c234d6ec-df93-4015-a936-d39b35c2eb28",
+  "source": "pft",
+  "fetched_at": "2026-05-27T13:29:11.857048+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-agree-to-bring-back-lb-k-c-ossai",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-agree-to-bring-back-lb-k-c-ossai",
+      "permalink": "",
+      "title": "Texans agree to bring back LB K.C. Ossai",
+      "body_text": "Houston is bringing back a defensive player.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-26T13:56:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ossai Houston"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-to-get-17-million-in-new-money-over-next-two-seasons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-to-get-17-million-in-new-money-over-next-two-seasons",
+      "permalink": "",
+      "title": "Nico Collins agrees to revised contract, will get $17 million in new money",
+      "body_text": "The Texans have also guaranteed the final two years of Collins's contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T20:17:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nico Collins",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawyers-say-josh-jacobs-vehemently-denies-criminal-charges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawyers-say-josh-jacobs-vehemently-denies-criminal-charges",
+      "permalink": "",
+      "title": "Lawyers say Josh Jacobs \"vehemently denies\" criminal charges",
+      "body_text": "Packers running back Josh Jacobs faces five criminal charges arising from a domestic disturbance over the weekend.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-26T23:18:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-faces-five-charges-after-domestic-disturbance-call",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-faces-five-charges-after-domestic-disturbance-call",
+      "permalink": "",
+      "title": "Josh Jacobs faces five charges after domestic disturbance call",
+      "body_text": "The NFL and Packers confirmed they are aware of the arrest.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-26T22:51:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-mac-jones-agree-to-revised-contract-that-includes-a-300k-roster-bonus",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-mac-jones-agree-to-revised-contract-that-includes-a-300k-roster-bonus",
+      "permalink": "",
+      "title": "49ers, Mac Jones agree to revised contract that includes a $300K roster bonus",
+      "body_text": "49ers quarterback Mac Jones is set to make a little more money in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T12:57:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mac Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0036972"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-have-a-truly-wide-open-running-back-room",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-have-a-truly-wide-open-running-back-room",
+      "permalink": "",
+      "title": "Jaguars have a \"truly wide open\" running back room",
+      "body_text": "It will be a while before the Jaguars have to submit any depth charts for the 2026 season and it sounds like the one they publish for the running back position is going to be subject to change at any moment.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T12:35:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-bryce-young-has-total-command-of-the-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-bryce-young-has-total-command-of-the-offense",
+      "permalink": "",
+      "title": "Dave Canales: Bryce Young has total command of the offense",
+      "body_text": "Heading into his fourth NFL season, Panthers quarterback Bryce Young is leading the team like never before.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-27T12:24:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Canales",
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-seahawks-to-run-it-forward-instead-of-running-it-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-seahawks-to-run-it-forward-instead-of-running-it-back",
+      "permalink": "",
+      "title": "Mike Macdonald wants Seahawks to \"run it forward\" instead of running it back",
+      "body_text": "The Seahawks' head coach wants to avoid complacency.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T12:19:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-buys-a-minority-stake-in-the-guardians",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-buys-a-minority-stake-in-the-guardians",
+      "permalink": "",
+      "title": "Travis Kelce buys a minority stake in the Guardians",
+      "body_text": "Chiefs tight end Travis Kelce made a courtside appearance to watch the Cavaliers lose a game in the NBA's Eastern Conference Finals and he'll be taking on a different role with another one of his hometown teams.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T12:08:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce",
+        "Guardians Chiefs",
+        "Eastern Conference"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-buccaneers-have-talented-receivers-they-need-to-step-up-to-replace-mike-evans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-buccaneers-have-talented-receivers-they-need-to-step-up-to-replace-mike-evans",
+      "permalink": "",
+      "title": "Todd Bowles: Buccaneers have talented receivers, they need to step up to replace Mike Evans",
+      "body_text": "The Bucs lost the best receiver in franchise history this offseason, and their coach wants to see who's ready to replace him.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-27T08:17:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Bowles",
+        "Mike Evans",
+        "The Bucs"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/recent-amendment-to-brian-flores-lawsuit-accuses-nfl-of-culture-of-retaliation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/recent-amendment-to-brian-flores-lawsuit-accuses-nfl-of-culture-of-retaliation",
+      "permalink": "",
+      "title": "Recent amendment to Brian Flores lawsuit accuses NFL of \"culture of retaliation\"",
+      "body_text": "Flores claims he hasn't gotten a head-coaching job because of his lawsuit.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-27T03:51:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-olsen-wins-emmy-over-tom-brady",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-olsen-wins-emmy-over-tom-brady",
+      "permalink": "",
+      "title": "Greg Olsen wins Emmy, over Tom Brady",
+      "body_text": "The awkward situation at Fox got a little more awkward on Tuesday night, at the annual Sports Emmys awards.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-27T01:58:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Greg Olsen",
+        "Tom Brady",
+        "Sports Emmys"
+      ],
+      "resolved_player_ids": [
+        "00-0025418",
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-wr-tory-horton-could-return-before-offseason-work-is-done",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-wr-tory-horton-could-return-before-offseason-work-is-done",
+      "permalink": "",
+      "title": "Seahawks WR Tory Horton could return before offseason work is done",
+      "body_text": "Wide receiver Tory Horton, a fifth-round pick in 2025, made 13 catches for 161 yards and five touchdowns and also contributed a 95-yard punt return touchdown.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-27T00:31:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tory Horton"
+      ],
+      "resolved_player_ids": [
+        "00-0040648"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-is-back-on-the-field-for-otas-after-acl-repair",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-is-back-on-the-field-for-otas-after-acl-repair",
+      "permalink": "",
+      "title": "Patrick Mahomes is back on the field for OTAs after ACL repair",
+      "body_text": "Don't bet against Mahomes being ready for Week 1.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-27T00:10:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-new-front-office-culture-is-to-think-ai-first",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-new-front-office-culture-is-to-think-ai-first",
+      "permalink": "",
+      "title": "Jets' new front-office culture is \"to think AI-first\"",
+      "body_text": "The Jets are expanding their reliance on automation well beyond Madden ratings.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-26T23:59:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-will-appeal-brendan-sorsbys-eligibility-ruling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-will-appeal-brendan-sorsbys-eligibility-ruling",
+      "permalink": "",
+      "title": "Texas Tech will appeal Brendan Sorsby's eligibility ruling",
+      "body_text": "Texas Tech, which was recently derided by Tom Brady as a \"glorified community college\" (yes, comedy is hard), is taking on the overseer of the college football community.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-26T23:37:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby",
+        "Tom Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derwin-james-agrees-to-three-year-75-6-million-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derwin-james-agrees-to-three-year-75-6-million-extension",
+      "permalink": "",
+      "title": "Derwin James agrees to three-year, $75.6 million extension",
+      "body_text": "Chargers General Manager Joe Hortiz said last week that keeping safety Derwin James in the organization for his entire career was a high priority and that became a likelier outcome on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T23:03:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derwin James",
+        "Chargers General",
+        "Manager Joe"
+      ],
+      "resolved_player_ids": [
+        "00-0034790"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dc-jim-leonhard-were-going-to-give-ed-oliver-more-freedom-in-our-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dc-jim-leonhard-were-going-to-give-ed-oliver-more-freedom-in-our-defense",
+      "permalink": "",
+      "title": "Bills DC Jim Leonhard: We're going to give Ed Oliver more freedom in our defense",
+      "body_text": "The Bills are installing a new defense after this offseason's coaching change, but one player will remain a central part of the plans in Buffalo.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T22:22:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Leonhard",
+        "Ed Oliver",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0023287",
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-is-not-attending-the-voluntary-offseason-workouts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-is-not-attending-the-voluntary-offseason-workouts",
+      "permalink": "",
+      "title": "DeMarcus Lawrence is not attending the voluntary offseason workouts",
+      "body_text": "Seahawks edge rusher DeMarcus Lawrence has not attended the team's voluntary offseason workouts.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-26T21:52:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-to-practice-with-jets-this-summer-likely-to-work-with-jaguars-as-well",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-to-practice-with-jets-this-summer-likely-to-work-with-jaguars-as-well",
+      "permalink": "",
+      "title": "Bucs to practice with Jets this summer, likely to work with Jaguars as well",
+      "body_text": "Buccaneers head coach Todd Bowles will get to catch up with one of his former teams this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T20:54:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Bowles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-denies-brendan-sorsbys-request-for-reinstatement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-denies-brendan-sorsbys-request-for-reinstatement",
+      "permalink": "",
+      "title": "NCAA denies Brendan Sorsby's request for reinstatement",
+      "body_text": "Sorsby's June 1 hearing in court will now focus on restoring his eligibility.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-26T20:46:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-receiving-trade-calls-about-josh-sweat",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-receiving-trade-calls-about-josh-sweat",
+      "permalink": "",
+      "title": "Report: Cardinals receiving trade calls about Josh Sweat",
+      "body_text": "The Cardinals have received trade calls about Pro Bowl defensive end Josh Sweat, according to Jordan Schultz of The Schultz Report.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-26T20:34:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Sweat",
+        "The Cardinals",
+        "Pro Bowl",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0034381"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dean-lowry-signs-one-year-deal-with-the-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dean-lowry-signs-one-year-deal-with-the-steelers",
+      "permalink": "",
+      "title": "Dean Lowry signs one-year deal with the Steelers",
+      "body_text": "It took a little longer than originally expected, but defensive lineman Dean Lowry is now officially back with the Steelers.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T20:24:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dean Lowry"
+      ],
+      "resolved_player_ids": [
+        "00-0032412"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-pearce-jr-accepts-one-year-diversion-program-to-have-charges-dropped",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-pearce-jr-accepts-one-year-diversion-program-to-have-charges-dropped",
+      "permalink": "",
+      "title": "James Pearce Jr. accepts one-year diversion program to have charges dropped",
+      "body_text": "Falcons edge rusher James Pearce Jr. has accepted a fast-track, pre-trial intervention program, his attorney, Yale Sanford, told The Atlanta Journal-Constitution on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-26T20:16:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Pearce Jr",
+        "Yale Sanford",
+        "The Atlanta"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dt-eddie-goldman-worked-out-with-giants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dt-eddie-goldman-worked-out-with-giants",
+      "permalink": "",
+      "title": "Report: DT Eddie Goldman worked out with Giants",
+      "body_text": "Once again this offseason, the Giants are taking a look at a defensive tackle.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-26T19:35:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eddie Goldman",
+        "Giants Once"
+      ],
+      "resolved_player_ids": [
+        "00-0031551"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-s-malaki-starks-rookie-year-didnt-meet-my-standard-im-expecting-better-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-s-malaki-starks-rookie-year-didnt-meet-my-standard-im-expecting-better-this-year",
+      "permalink": "",
+      "title": "Ravens S Malaki Starks: Rookie year didn't meet my standard, I'm expecting better this year",
+      "body_text": "Safety Malaki Starks jumped right into a leading role for the Ravens during his rookie season, but the 2025 first-round pick wasn't thrilled with his overall body of work in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T19:17:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malaki Starks",
+        "Safety Malaki"
+      ],
+      "resolved_player_ids": [
+        "00-0040688"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/guard-or-tackle-tyler-smith-says-hes-comfortable-with-cowboys-plans-for-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/guard-or-tackle-tyler-smith-says-hes-comfortable-with-cowboys-plans-for-him",
+      "permalink": "",
+      "title": "Guard or tackle? Tyler Smith says he's comfortable with Cowboys' plans for him",
+      "body_text": "Cowboys offensive lineman Tyler Smith has been a guard for most of his career, but he has at times played left tackle, including the final three games of last season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-26T19:16:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0037243"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devon-achane-doesnt-want-to-hear-about-2026-being-a-rebuilding-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devon-achane-doesnt-want-to-hear-about-2026-being-a-rebuilding-year",
+      "permalink": "",
+      "title": "De'Von Achane doesn't want to hear about 2026 being a rebuilding year",
+      "body_text": "Running back De'Von Achane signed a four-year contract extension with the Dolphins this month, but he's not taking the long view when it comes to the Dolphins turning into a winning team.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-26T18:51:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Achane"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/expanded-cfp-could-impact-the-heisman-trophy-ceremony",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/expanded-cfp-could-impact-the-heisman-trophy-ceremony",
+      "permalink": "",
+      "title": "Expanded CFP could impact the Heisman Trophy ceremony",
+      "body_text": "The potential, if not inevitable, expansion of the College Football Playoff will have consequences.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-26T18:11:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Heisman Trophy",
+        "College Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-we-expect-bucky-irving-back-sometime-in-the-summer-or-fall",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-we-expect-bucky-irving-back-sometime-in-the-summer-or-fall",
+      "permalink": "",
+      "title": "Todd Bowles: We expect Bucky Irving back sometime in the summer or fall",
+      "body_text": "Buccaneers running back Bucky Irving was limited to 10 games last season due to injury.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-26T17:49:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Bowles",
+        "Bucky Irving"
+      ],
+      "resolved_player_ids": [
+        "00-0039361"
+      ],
+      "team_hint": "TB"
+    }
+  ]
+}

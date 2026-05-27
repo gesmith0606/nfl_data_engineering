@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "ebc1c416-05c1-4d8e-9651-3c95ee05acf6",
+  "source": "rotowire",
+  "fetched_at": "2026-05-27T13:28:27.009304+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631016",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Still not present for OTAs",
+      "body_text": "Brissett didn't report to Arizona's OTAs on Tuesday, Josh Weinfuss of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-26T08:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Josh Weinfuss"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631014",
+      "url": "https://www.rotowire.com//football/player/josh-jacobs-13582",
+      "permalink": "",
+      "title": "Josh Jacobs: Arrested Tuesday",
+      "body_text": "Jacobs was arrested Tuesday and booked into Brown County Jail on five charges, Matt Schneidman of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-26T04:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs",
+        "Arrested Tuesday",
+        "Brown County",
+        "Matt Schneidman",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631013",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: On the field for OTAs",
+      "body_text": "Mahomes (knee) participated in the Chiefs' opening OTA practice Tuesday, Nate Taylor of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-26T03:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Nate Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl631012",
+      "url": "https://www.rotowire.com//football/player/bucky-irving-17784",
+      "permalink": "",
+      "title": "Bucky Irving: Likely healthy for training camp",
+      "body_text": "Irving is recovering from offseason shoulder surgery, and while he isn't expected to take part in mandatory minicamp June 16-18, he'll likely be healthy during training camp, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-26T03:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bucky Irving",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039361"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631007",
+      "url": "https://www.rotowire.com//football/player/nico-collins-15200",
+      "permalink": "",
+      "title": "Nico Collins: Gets raise via restructure",
+      "body_text": "Collins agreed to terms Tuesday on a contract restructure with the Texans, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-26T01:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nico Collins",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    }
+  ]
+}

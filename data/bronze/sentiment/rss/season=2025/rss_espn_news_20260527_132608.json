@@ -1,0 +1,218 @@
+{
+  "fetch_run_id": "c588dd97-aafa-4b03-8467-9d47585bc6f3",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-27T13:26:08.587800+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 13,
+  "items": [
+    {
+      "external_id": "US-EN-48816864",
+      "url": "https://www.espn.com/nfl/story/_/id/48816864/2026-nfl-offseason-trade-offers-best-deals-coleman-kmet-richardson-thibodeaux",
+      "title": "Four trade candidates, 16 offers, just one deal: W...",
+      "body_text": "We proposed trade offers for Keon Coleman, Cole Kmet, Anthony Richardson Sr. and Kayvon Thibodeaux. Could any of them be on the move?",
+      "author": "Courtney Cronin, Jeremy Fowler, Alaina Getzenberg, Dan Graziano, Stephen Holder, Jordan Raanan, Ben Solak and Seth Walder",
+      "published_at": "2026-05-27T13:57:02+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Keon Coleman",
+        "Cole Kmet",
+        "Anthony Richardson Sr",
+        "Kayvon Thibodeaux"
+      ],
+      "resolved_player_ids": [
+        "00-0039901",
+        "00-0036290",
+        "00-0039164",
+        "00-0037611"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48885159",
+      "url": "https://www.espn.com/nfl/story/_/id/48885159/packers-jacobs-arrested-faces-several-domestic-violence-charges",
+      "title": "Pack's Jacobs facing domestic violence charges",
+      "body_text": "Packers running back Josh Jacobs was arrested Tuesday and booked on several domestic violence charges, according to the Hobart-Lawrence (Wisconsin) Police Department.",
+      "author": null,
+      "published_at": "2026-05-27T13:13:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Police Department"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-48889141",
+      "url": "https://www.espn.com/mlb/story/_/id/48889141/chiefs-travis-kelce-purchases-minority-stake-guardians",
+      "title": "Chiefs' Kelce joining Guardians ownership group",
+      "body_text": "Chiefs tight end Travis Kelce is joining the Guardians' ownership group as a minority investor, he told ESPN, purchasing a stake in the team he grew up watching.",
+      "author": "Jeff Passan",
+      "published_at": "2026-05-27T13:13:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48885409",
+      "url": "https://www.espn.com/nfl/story/_/id/48885409/chargers-make-derwin-james-nfl-highest-paid-safety-again",
+      "title": "Chargers make James highest-paid safety again",
+      "body_text": "The Chargers and Derwin James Jr. agreed to a three-year, $75.6 million contract extension, making him the highest-paid safety for the second time in his career, his agent David Mulugheta told ESPN's Adam Schefter on Tuesday.",
+      "author": "Kris Rhim",
+      "published_at": "2026-05-27T13:13:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Chargers",
+        "Derwin James Jr",
+        "David Mulugheta",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0034790"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "US-EN-48884510",
+      "url": "https://www.espn.com/nfl/story/_/id/48884510/sources-mahomes-back-field-chiefs-first-ota-practice",
+      "title": "Sources: Mahomes on field for first OTA practice",
+      "body_text": "Chiefs QB Patrick Mahomes returned to the field with his teammates Tuesday for the first time since tearing the ACL and LCL in his left knee.",
+      "author": "Nate Taylor",
+      "published_at": "2026-05-27T13:13:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48883953",
+      "url": "https://www.espn.com/nfl/story/_/id/48883953/texans-give-star-wr-nico-collins-raise-reworked-deal",
+      "title": "Texans WR Collins gets raise in reworked contract",
+      "body_text": "Two-time Pro Bowl wide receiver Nico Collins and the Texans reached agreement on an adjusted contract that guarantees his salary the next two seasons and includes a $9 million cash increase this year and an $8 million cash increase next year.",
+      "author": "DJ Bien-Aime",
+      "published_at": "2026-05-27T13:13:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Pro Bowl",
+        "Nico Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "US-EN-48886113",
+      "url": "https://www.espn.com/nfl/story/_/id/48886113/macdonald-no-complacency-seahawks-try-run-forward",
+      "title": "Macdonald: Seahawks want to 'run it forward'",
+      "body_text": "As the Seahawks look to repeat as Super Bowl champions, they aren't talking about defending their title or \"running it back.\"",
+      "author": "Brady Henderson",
+      "published_at": "2026-05-27T13:13:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-48881804",
+      "url": "https://www.espn.com/nfl/story/_/id/48881804/supreme-court-intervene-brian-flores-suit-vs-nfl",
+      "title": "Flores' discrimination suit vs. NFL can go to tria...",
+      "body_text": "The Supreme Court refused to intervene in a discrimination lawsuit led by former Dolphins coach Brian Flores against the NFL, allowing the case to proceed toward trial. The NFL had hoped to handle the case through its own arbitration process.",
+      "author": null,
+      "published_at": "2026-05-27T13:13:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Supreme",
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "US-EN-48888296",
+      "url": "https://www.espn.com/nfl/story/_/id/48888296/argentine-police-arrest-suspects-us-athlete-burglaries",
+      "title": "Suspects in athlete break-ins arrested in Argentin...",
+      "body_text": "Men suspected of being part of a transnational gang that orchestrated burglaries at the homes of well-known athletes, including stars from the NBA and NFL, have been arrested in Argentina.",
+      "author": null,
+      "published_at": "2026-05-27T13:13:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48884765",
+      "url": "https://www.espn.com/nfl/story/_/id/48884765/trevor-lawrence-jacksonville-jaguars-schedule-release-hairstyle",
+      "title": "✂️ Lawrence concerns family with faux haircut",
+      "body_text": "The Jaguars quarterback's trademark flowing blonde hair disappeared during the team's schedule reveal video.",
+      "author": "Michael Dirocco",
+      "published_at": "2026-05-27T13:13:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "US-EN-48827325",
+      "url": "https://www.espn.com/nfl/story/_/id/48827325/nik-bonitto-denver-broncos-pro-bowl-edge-rusher-improvement-double-teams-more-sacks",
+      "title": "The next step in Nik Bonitto's rise to stardom? Pr...",
+      "body_text": "Bonitto set a career high with 14 sacks last season, but he knows that he'll be facing more double-teams and chips in 2026.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-05-27T13:14:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Nik Bonitto"
+      ],
+      "resolved_player_ids": [
+        "00-0037249"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48828988",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/48828988/2027-nfl-draft-quarterback-class-top-prospects-manning-moore-carr",
+      "title": "Who are the top quarterbacks in next year's NFL dr...",
+      "body_text": "Next year's QB draft class should be loaded, with big names such as Arch Manning, Dante Moore, CJ Carr and Trinidad Chambliss. Here's what you need to know.",
+      "author": "Jordan Reid",
+      "published_at": "2026-05-27T13:29:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Arch Manning",
+        "Dante Moore",
+        "Trinidad Chambliss"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48882412",
+      "url": "https://www.espn.com/united-football-league/story/_/id/48882412/ufl-final-season-2026-power-rankings-playoffs",
+      "title": "Final UFL Power Rankings: Which team tops the list...",
+      "body_text": "The final UFL Power Rankings feature familiar teams at the top and include each team's season grade.",
+      "author": "Matt Willis",
+      "published_at": "2026-05-27T12:13:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
