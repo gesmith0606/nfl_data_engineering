@@ -6,7 +6,7 @@ colorTo: blue
 sdk: docker
 app_port: 7860
 pinned: false
-short_description: FastAPI backend (bridge) for the NFL fantasy + game-prediction site
+short_description: FastAPI bridge backend for the NFL fantasy + game site
 ---
 
 # NFL Data Engineering API — bridge backend
