@@ -1,0 +1,114 @@
+{
+  "fetch_run_id": "ea51162e-f3ef-4d17-9924-16a5cb768f58",
+  "source": "rotowire",
+  "fetched_at": "2026-05-28T13:31:05.964608+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631063",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Preparing for 2026 campaign",
+      "body_text": "Kamara (knee/ankle) is still working out with his trainers daily in preparation for the 2026 season, Nick Underhill of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-27T06:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Nick Underhill"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631035",
+      "url": "https://www.rotowire.com//football/player/daniel-jones-13491",
+      "permalink": "",
+      "title": "Daniel Jones: Throwing at OTAs",
+      "body_text": "Jones (Achilles) is present at OTAs on Wednesday and is throwing to teammates on individual routes, Joel Erickson of the Indianapolis Star reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-27T11:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Jones",
+        "Joel Erickson",
+        "Indianapolis Star"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631030",
+      "url": "https://www.rotowire.com//football/player/josh-jacobs-13582",
+      "permalink": "",
+      "title": "Josh Jacobs: Released from custody",
+      "body_text": "Jacobs is slated to be released from custody Wednesday, and the Brown County District Attorney's Office has announced that it is \"not yet prepared to make a formal charging decision\" and will make a final charging decision at a later date, Rob Demovsky of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-27T10:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs",
+        "Brown County",
+        "District Attorney",
+        "Rob Demovsky"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631026",
+      "url": "https://www.rotowire.com//football/player/jayden-daniels-17692",
+      "permalink": "",
+      "title": "Jayden Daniels: Participating in OTAs",
+      "body_text": "Daniels (elbow) is participating in OTAs this week, Zach Selby of the Commanders' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-27T09:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "Zach Selby"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl631025",
+      "url": "https://www.rotowire.com//football/player/zach-charbonnet-16897",
+      "permalink": "",
+      "title": "Zach Charbonnet: Looking at midseason return?",
+      "body_text": "Charbonnet (knee) is realistically looking at a midseason return, Bob Condotta of The Seattle Times reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-27T09:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zach Charbonnet",
+        "Bob Condotta",
+        "The Seattle"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": null
+    }
+  ]
+}

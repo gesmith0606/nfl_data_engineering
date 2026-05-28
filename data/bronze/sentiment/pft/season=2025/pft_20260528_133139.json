@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "37dcaee7-ed27-4f41-adab-745991e4d763",
+  "source": "pft",
+  "fetched_at": "2026-05-28T13:31:39.086437+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-brandon-aiyuks-my-brother-but-i-have-no-sense-of-his-football-future",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-brandon-aiyuks-my-brother-but-i-have-no-sense-of-his-football-future",
+      "permalink": "",
+      "title": "Jayden Daniels: Brandon Aiyuk's my brother, but I have no sense of his football future",
+      "body_text": "The Commanders have been seen as a landing spot for wide receiver Brandon Aiyuk since it became clear he would not be playing for the 49ers anymore, but Aiyuk remains on the roster for San Francisco.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-28T13:25:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "Brandon Aiyuk",
+        "The Commanders",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-playing-seahawks-week-1-provides-extra-motivation-for-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-playing-seahawks-week-1-provides-extra-motivation-for-training-camp",
+      "permalink": "",
+      "title": "Drake Maye: Playing Seahawks Week 1 provides \"extra motivation\" for training camp",
+      "body_text": "The 2026 season will begin just as the 2025 postseason ended, with the Patriots taking on the Seahawks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-27T19:37:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Playing Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-on-possible-a-j-brown-trade-were-focused-on-learning-the-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-on-possible-a-j-brown-trade-were-focused-on-learning-the-offense",
+      "permalink": "",
+      "title": "Jalen Hurts on possible A.J. Brown trade: We're focused on learning the offense",
+      "body_text": "Hurts added that \"nothing can replace all the greatness\" they achieved with the Eagles.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T19:25:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-on-potential-future-offseason-absences-who-knows-whats-gonna-come-up",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-on-potential-future-offseason-absences-who-knows-whats-gonna-come-up",
+      "permalink": "",
+      "title": "Mike Vrabel on potential future offseason absences: \"Who knows what's gonna come up?\"",
+      "body_text": "Vrabel meets with reporters for the first time since the first day of the draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-27T17:19:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pft-tweet-lands-on-inside-the-nba",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pft-tweet-lands-on-inside-the-nba",
+      "permalink": "",
+      "title": "PFT tweet lands on Inside The NBA",
+      "body_text": "I've rediscovered the NBA in recent days.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-26T15:01:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Inside The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-on-adding-a-wr-we-want-to-strengthen-the-roster-wherever-we-can",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-on-adding-a-wr-we-want-to-strengthen-the-roster-wherever-we-can",
+      "permalink": "",
+      "title": "Mike Vrabel on adding a WR: We want to strengthen the roster wherever we can",
+      "body_text": "For much of the offseason, the expectation has been that the Eagles will trade receiver A.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-27T16:09:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-clear-cap-space-by-restructuring-andrew-thomass-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-clear-cap-space-by-restructuring-andrew-thomass-contract",
+      "permalink": "",
+      "title": "Giants clear cap space by restructuring Andrew Thomas's contract",
+      "body_text": "The Giants are near the bottom of the NFL in available cap space, but they've given themselves some room by restructuring the contract of one of their most expensive players.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-28T12:42:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andrew Thomas",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0036386"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-campbell-i-didnt-need-to-be-highest-paid-lb-i-wanted-to-remain-a-lion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-campbell-i-didnt-need-to-be-highest-paid-lb-i-wanted-to-remain-a-lion",
+      "permalink": "",
+      "title": "Jack Campbell: I didn't need to be highest-paid LB, I wanted to remain a Lion",
+      "body_text": "The Lions didn't exercise their option on linebacker Jack Campbell's contract for the 2027 season, but they said the move didn't change their desire to keep Campbell in Detroit for the long term.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-28T11:18:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jack Campbell",
+        "Lion The"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derwin-james-moneys-good-but-i-want-a-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derwin-james-moneys-good-but-i-want-a-super-bowl",
+      "permalink": "",
+      "title": "Derwin James: Money's good, but I want a Super Bowl",
+      "body_text": "Chargers safety Derwin James has reason to celebrate this week, but it's not the kind of celebration that he's most interested in experiencing at this point in his career.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-28T11:04:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derwin James",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0034790"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-packers-need-marshawn-lloyd-to-prove-what-he-can-do",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-packers-need-marshawn-lloyd-to-prove-what-he-can-do",
+      "permalink": "",
+      "title": "Matt LaFleur: Packers need MarShawn Lloyd to prove what he can do",
+      "body_text": "The Packers spent a third-round draft pick on running back MarShawn Lloyd in 2024, and so far they've gotten nothing out of him: Lloyd has played in only one game, carrying six times for 15 yards and never even picking up a first down in that game.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-28T10:19:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-im-a-big-fan-of-ty-simpson-trying-to-share-my-knowledge-with-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-im-a-big-fan-of-ty-simpson-trying-to-share-my-knowledge-with-him",
+      "permalink": "",
+      "title": "Matthew Stafford: I'm a big fan of Ty Simpson, trying to share my knowledge with him",
+      "body_text": "Stafford says he's happy to do everything he can for his rookie teammate.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-28T08:23:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "SIM639376"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-suddenly-robust-market-for-seahawks-could-lead-to-sale-by-august",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-suddenly-robust-market-for-seahawks-could-lead-to-sale-by-august",
+      "permalink": "",
+      "title": "Report: Suddenly \"robust\" market for Seahawks could lead to sale by August",
+      "body_text": "Things have apparently changed, quickly, regarding the interest in the defending champions.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-28T03:08:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "August Things"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-is-unbothered-by-critics-having-heard-it-all-before",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-is-unbothered-by-critics-having-heard-it-all-before",
+      "permalink": "",
+      "title": "Travis Hunter is unbothered by critics, having heard it all before",
+      "body_text": "Travis Hunter will play both ways for the Jaguars again this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T03:03:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-consults-with-todd-gurley-about-eagles-new-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-consults-with-todd-gurley-about-eagles-new-offense",
+      "permalink": "",
+      "title": "Saquon Barkley consulted with Todd Gurley about Eagles' new offense",
+      "body_text": "New Eagles offensive coordinator Sean Mannion will run a Sean McVay-style offense this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T02:40:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Todd Gurley",
+        "New Eagles",
+        "Sean Mannion"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0032241",
+        "00-0032245"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-unworried-about-absences-of-jacoby-brissett-josh-sweat",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-unworried-about-absences-of-jacoby-brissett-josh-sweat",
+      "permalink": "",
+      "title": "Mike LaFleur unworried about absences of Jacoby Brissett, Josh Sweat",
+      "body_text": "The Cardinals are projected to be one of the worst teams in the NFL this season, with oddsmakers listing them as underdogs in every game.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T02:19:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Josh Sweat",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0033119",
+        "00-0034381"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stan-kroenke-inglewood-do-legal-battle-over-400-million",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stan-kroenke-inglewood-do-legal-battle-over-400-million",
+      "permalink": "",
+      "title": "Stan Kroenke, Inglewood do legal battle over $400 million",
+      "body_text": "Stan Kroenke built SoFi Stadium without public money.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-27T20:01:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stan Kroenke"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shemar-stewart-is-ready-for-a-breakout-season-after-a-lost-rookie-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shemar-stewart-is-ready-for-a-breakout-season-after-a-lost-rookie-season",
+      "permalink": "",
+      "title": "Shemar Stewart is ready for a breakout season after a lost rookie season",
+      "body_text": "Bengals coach Zac Taylor said earlier this offseason that Shemar Stewart's development is a \"priority\" for the team.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T00:41:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shemar Stewart",
+        "Zac Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0040756"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirby-smart-suggests-sec-could-leave-the-ncaa",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirby-smart-suggests-sec-could-leave-the-ncaa",
+      "permalink": "",
+      "title": "Kirby Smart suggests SEC could leave the NCAA",
+      "body_text": "Chaos creates consequences.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-28T00:39:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirby Smart"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-von-miller-is-lobbying-for-the-broncos-to-sign-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-von-miller-is-lobbying-for-the-broncos-to-sign-him",
+      "permalink": "",
+      "title": "Free agent Von Miller is lobbying for the Broncos to sign him",
+      "body_text": "Free agent edge rusher Von Miller has expressed a desire to play in 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T00:18:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Miller"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-on-nolan-smiths-recent-arrest-we-address-everything",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-on-nolan-smiths-recent-arrest-we-address-everything",
+      "permalink": "",
+      "title": "Nick Sirianni on Nolan Smith's recent arrest: \"We address everything\"",
+      "body_text": "Earlier this month, Eagles linebacker Nolan Smith Jr. was arrested for speeding and reckless driving after being clocked at 135 miles per hour.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-28T00:15:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Sirianni",
+        "Nolan Smith",
+        "Nolan Smith Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039013"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-are-in-ongoing-conversation-with-nfl-to-host-2029-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-are-in-ongoing-conversation-with-nfl-to-host-2029-draft",
+      "permalink": "",
+      "title": "Bengals are in \"ongoing conversation\" with NFL to host 2029 draft",
+      "body_text": "The next two drafts have been awarded.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-27T23:53:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-new-jersey-subpoena-fifa-over-world-cup-ticket-pricing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-new-jersey-subpoena-fifa-over-world-cup-ticket-pricing",
+      "permalink": "",
+      "title": "New York, New Jersey subpoena FIFA over World Cup ticket pricing",
+      "body_text": "As it turns out, there's a limit to the power of FIFA.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-27T23:02:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "New York",
+        "New Jersey",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-were-going-to-leave-fully-guaranteed-contract-conversation-in-the-past",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-were-going-to-leave-fully-guaranteed-contract-conversation-in-the-past",
+      "permalink": "",
+      "title": "Lamar Jackson: We're going to leave fully guaranteed contract conversation in the past",
+      "body_text": "Ravens quarterback Lamar Jackson's first media session since the end of the 2025 season included questions about his contract situation.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T22:42:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-sign-k-younghoe-koo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-sign-k-younghoe-koo",
+      "permalink": "",
+      "title": "Jets to sign K Younghoe Koo",
+      "body_text": "The Jets are signing kicker Younghoe Koo, Connor Hughes of SNYtv reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-27T22:29:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Younghoe Koo",
+        "The Jets",
+        "Connor Hughes"
+      ],
+      "resolved_player_ids": [
+        "00-0033702"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-last-season-left-him-with-a-miserable-feeling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-last-season-left-him-with-a-miserable-feeling",
+      "permalink": "",
+      "title": "Jayden Daniels: Last season left me with a \"miserable feeling\"",
+      "body_text": "Commanders quarterback Jayden Daniels was the NFL's Offensive Rookie of the Year in 2024.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-27T21:35:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "Offensive Rookie"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-im-here-right-now-i-dont-think-its-awkward",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-im-here-right-now-i-dont-think-its-awkward",
+      "permalink": "",
+      "title": "Anthony Richardson: I'm here right now, I don't think it's awkward",
+      "body_text": "Quarterback Anthony Richardson asked for a trade away from the Colts this offseason, but no deal came and Richardson is now taking part in the team's offseason workouts.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T22:09:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson",
+        "Quarterback Anthony"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-first-round-pick-keldric-faulk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-first-round-pick-keldric-faulk",
+      "permalink": "",
+      "title": "Titans sign first-round pick Keldric Faulk",
+      "body_text": "The Titans have signed all of their 2026 draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T21:50:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keldric Faulk",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "FAU124764"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-no-awkwardness-with-kyler-murray",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-no-awkwardness-with-kyler-murray",
+      "permalink": "",
+      "title": "J.J. McCarthy: No awkwardness with Kyler Murray",
+      "body_text": "The Vikings have not named Murray the starter, allowing McCarthy to compete for the job.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-27T21:14:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-dt-josh-tupou",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-dt-josh-tupou",
+      "permalink": "",
+      "title": "Giants sign DT Josh Tupou",
+      "body_text": "The Giants have made another veteran addition to their defensive line.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-27T21:06:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Tupou",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0033347"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-parris-campbell-on-reserve-retired-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-parris-campbell-on-reserve-retired-list",
+      "permalink": "",
+      "title": "Cowboys place Parris Campbell on reserve/retired list",
+      "body_text": "A veteran receiver is hanging up his cleats.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-27T21:04:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Parris Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0035639"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
