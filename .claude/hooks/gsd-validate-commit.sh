@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# gsd-hook-version: 1.42.2
+# gsd-hook-version: 1.42.3
 # gsd-validate-commit.sh — PreToolUse hook: enforce Conventional Commits format
 # Blocks git commit commands with non-conforming messages (exit 2).
 # Allows conforming messages and all non-commit commands (exit 0).
