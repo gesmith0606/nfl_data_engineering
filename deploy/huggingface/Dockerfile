@@ -28,8 +28,12 @@ WORKDIR /home/user/app
 # (e.g. after the daily data cron pushes fresh Parquet to GitHub).
 ARG REPO=https://github.com/gesmith0606/nfl_data_engineering.git
 ARG REF=main
-ARG CACHE_BUST=2026-05-29-01
-RUN git clone --depth 1 --branch ${REF} ${REPO} repo
+ARG CACHE_BUST=2026-05-29-02
+# CACHE_BUST must be referenced in the RUN command itself — declaring it as
+# an ARG above is not enough. Docker's layer cache hashes the literal RUN
+# string, so unless ${CACHE_BUST} appears here the layer is reused and the
+# clone is never re-run. (The previous form silently served stale main.)
+RUN echo "cache-bust ${CACHE_BUST}" && git clone --depth 1 --branch ${REF} ${REPO} repo
 
 WORKDIR /home/user/app/repo
 
