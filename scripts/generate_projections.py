@@ -256,12 +256,17 @@ def main():
         most_recent_season = args.season - 1   # e.g. 2025 — REQUIRED
         prior_season = args.season - 2         # e.g. 2024 — best-effort
 
+        # Hoisted out of the conditional below: line 273 references this in a
+        # list comprehension unconditionally, so a 2026 run (where the if-block
+        # is skipped because 2025 IS in available_seasons) would NameError on
+        # any caller that hasn't already loaded `config` transitively.
+        from config import STATS_PLAYER_MIN_SEASON
+
         # Validate season-1 before attempting the fetch.
         if most_recent_season not in fetcher.available_seasons:
             # fetcher.available_seasons uses the legacy nfl-data-py range; the
             # adapter extends coverage via stats_player. Allow it if the adapter
             # can handle it (season >= STATS_PLAYER_MIN_SEASON).
-            from config import STATS_PLAYER_MIN_SEASON
             if most_recent_season < STATS_PLAYER_MIN_SEASON:
                 print(
                     f"ERROR: required season {most_recent_season} is not in "
@@ -283,6 +288,16 @@ def main():
         # Hard failure if season-1 produced no rows — silently continuing on
         # stale data (season-2 only) would degrade all 2025 rookies to the
         # crude unknown-role fallback without any visible warning.
+        # Also guard against an upstream schema change that drops the `season`
+        # column entirely, which would otherwise raise KeyError instead of
+        # producing a clean diagnostic.
+        if "season" not in seasonal_df.columns:
+            print(
+                "ERROR: NFLDataAdapter output is missing the 'season' column. "
+                "Cannot identify season-1 rows — aborting. Likely an upstream "
+                "schema change in the nflverse stats_player release."
+            )
+            return 1
         season1_rows = seasonal_df[seasonal_df["season"] == most_recent_season]
         if season1_rows.empty:
             print(
