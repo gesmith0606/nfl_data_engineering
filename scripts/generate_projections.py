@@ -233,27 +233,92 @@ def main():
     # -----------------------------------------------------------------------
     if args.preseason:
         print("\nFetching historical seasonal data...")
-        # Use past 2 seasons as training data; filter to seasons that nfl-data-py has
-        candidate_seasons = [args.season - 2, args.season - 1]
-        past_seasons = [s for s in candidate_seasons if s in fetcher.available_seasons]
-        if not past_seasons:
-            print(f"ERROR: no available seasons in {candidate_seasons}")
-            return 1
+        # Use the two most-recent completed seasons as training data.
+        # season-1 (e.g. 2025 when targeting 2026) is REQUIRED: it is the
+        # only source of truth for players who debuted last year (2025
+        # rookies are 2026 sophomores). A missing season-1 means every
+        # first-year player silently falls through to the crude unknown-role
+        # fallback, which is worse than a loud failure.
+        # season-2 (e.g. 2024) is a soft supplement — warn but continue if
+        # it cannot be loaded.
+        #
+        # NFLDataAdapter.fetch_seasonal_data() is used instead of the legacy
+        # NFLDataFetcher.fetch_player_seasonal() because the latter calls
+        # nfl.import_seasonal_data() which returns HTTP 404 for seasons >=
+        # STATS_PLAYER_MIN_SEASON (2025). The adapter routes those seasons
+        # through the nflverse stats_player release tag which does have 2025.
+        # It also returns position/player_name/recent_team directly, so the
+        # roster-enrichment step below is skipped for adapter-sourced rows.
+        from nfl_data_adapter import NFLDataAdapter  # noqa: E402
 
-        seasonal_df = pd.DataFrame()
-        for s in past_seasons:
-            try:
-                chunk = fetcher.fetch_player_seasonal([s])
-                seasonal_df = pd.concat([seasonal_df, chunk], ignore_index=True)
-            except Exception as e:
-                print(f"  WARNING: could not fetch season {s}: {e} — skipping")
+        adapter = NFLDataAdapter()
+
+        most_recent_season = args.season - 1   # e.g. 2025 — REQUIRED
+        prior_season = args.season - 2         # e.g. 2024 — best-effort
+
+        # Validate season-1 before attempting the fetch.
+        if most_recent_season not in fetcher.available_seasons:
+            # fetcher.available_seasons uses the legacy nfl-data-py range; the
+            # adapter extends coverage via stats_player. Allow it if the adapter
+            # can handle it (season >= STATS_PLAYER_MIN_SEASON).
+            from config import STATS_PLAYER_MIN_SEASON
+            if most_recent_season < STATS_PLAYER_MIN_SEASON:
+                print(
+                    f"ERROR: required season {most_recent_season} is not in "
+                    f"available_seasons and predates stats_player coverage "
+                    f"({STATS_PLAYER_MIN_SEASON}+). Cannot build projections."
+                )
+                return 1
+
+        past_seasons = [s for s in [prior_season, most_recent_season]
+                        if s in fetcher.available_seasons
+                        or s >= STATS_PLAYER_MIN_SEASON]
+
+        seasonal_df = adapter.fetch_seasonal_data(past_seasons)
 
         if seasonal_df.empty:
             print("ERROR: no seasonal data could be fetched")
             return 1
 
-        # Enrich with position, player_name, and recent_team from seasonal rosters
-        # (import_seasonal_data only returns player_id + stats, no name/position/team)
+        # Hard failure if season-1 produced no rows — silently continuing on
+        # stale data (season-2 only) would degrade all 2025 rookies to the
+        # crude unknown-role fallback without any visible warning.
+        season1_rows = seasonal_df[seasonal_df["season"] == most_recent_season]
+        if season1_rows.empty:
+            print(
+                f"ERROR: NFLDataAdapter returned 0 rows for required season "
+                f"{most_recent_season}. Cannot build reliable projections on "
+                f"season-2 data alone — aborting. Check network access or "
+                f"nflverse stats_player release availability."
+            )
+            return 1
+
+        seasons_loaded = sorted(seasonal_df["season"].unique().tolist())
+        if prior_season not in seasons_loaded:
+            print(
+                f"  WARNING: optional season {prior_season} could not be loaded "
+                f"— projections will use {most_recent_season} data only."
+            )
+
+        print(
+            f"  Loaded {len(seasonal_df):,} rows via NFLDataAdapter "
+            f"(seasons: {seasons_loaded})"
+        )
+
+        # The adapter's `player_name` is the abbreviated nflverse form
+        # ("C.Ward"); production output and the web UI expect full names
+        # ("Cam Ward"). Prefer `player_display_name` wherever it is present,
+        # falling back to the abbreviated name only when display is missing.
+        if "player_display_name" in seasonal_df.columns:
+            seasonal_df["player_name"] = seasonal_df["player_display_name"].where(
+                seasonal_df["player_display_name"].notna(),
+                seasonal_df.get("player_name"),
+            )
+
+        # NFLDataAdapter.fetch_seasonal_data() already includes position,
+        # player_name, recent_team, and season — no roster-join enrichment
+        # needed. The needs_enrich guard below is retained as a safety net for
+        # any edge case where those columns are somehow absent.
         needs_enrich = (
             "position" not in seasonal_df.columns
             or "player_name" not in seasonal_df.columns
@@ -262,7 +327,7 @@ def main():
         if needs_enrich:
             import nfl_data_py as nfl
 
-            roster_seasons = [s for s in past_seasons if s in fetcher.available_seasons]
+            roster_seasons = past_seasons
             try:
                 rosters = nfl.import_seasonal_rosters(roster_seasons)
                 # Take the most-recent roster entry per player_id for stable values

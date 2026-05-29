@@ -1008,13 +1008,23 @@ def run_sanity_check(scoring: str, season: int) -> int:
     criticals.extend(neg_crit)
     warnings.extend(neg_warn)
 
-    rookie_crit, rookie_warn = _check_dqal_rookie_ingestion(season=2025)
+    # season-1: the most-recent completed season relative to the target season.
+    # The Bronze rookies path only holds data for completed draft classes; the
+    # incoming 2026 draft class won't exist yet when running a 2026 projection,
+    # so we check season-1 (2025 for a 2026 run) rather than season itself.
+    rookie_crit, rookie_warn = _check_dqal_rookie_ingestion(season=season - 1)
     criticals.extend(rookie_crit)
     warnings.extend(rookie_warn)
 
     gap_crit, gap_warn = _check_dqal_rank_gap(season=season)
     criticals.extend(gap_crit)
     warnings.extend(gap_warn)
+
+    recent_crit, recent_warn = _check_projection_incorporates_recent_season(
+        season, scoring
+    )
+    criticals.extend(recent_crit)
+    warnings.extend(recent_warn)
 
     # Return code
     if criticals:
@@ -1784,6 +1794,335 @@ def _check_dqal_rookie_ingestion(
             f"  [PASS] DQAL rookie ingestion  ({row_count} rookies in "
             f"season={season})"
         )
+    return criticals, warnings
+
+
+# ---------------------------------------------------------------------------
+# Thresholds for _check_projection_incorporates_recent_season (SANITY-11)
+# ---------------------------------------------------------------------------
+# Minimum season-1 actual fantasy points (PPR) for a player to count as a
+# "significant producer" when checking first-season-only players.
+_RECENT_SEASON_MIN_ACTUAL_PTS = 100.0
+# Maximum fraction of the top-30 season-1 skill producers that may be absent
+# from the current projection (zero pts OR flagged is_low_sample_projection).
+# Exceeding this fraction indicates the projection ignored season-1 data.
+_RECENT_SEASON_MAX_BAD_FRACTION = 0.40
+# For the more sensitive first-season-only player check: maximum fraction of
+# top-N debut-season players (those with zero prior-season NFL data) that may
+# be flagged is_low_sample_projection in the current projection.  Even a
+# modest fraction signals the projection engine fell back to its rookie
+# baseline instead of incorporating their completed season stats.
+_RECENT_SEASON_MAX_DEBUT_BAD_FRACTION = 0.40
+# How many debut-season players to include in the targeted check.
+_RECENT_SEASON_DEBUT_TOP_N = 15
+# Skill positions considered for fantasy relevance.
+_SKILL_POSITIONS = {"QB", "RB", "WR", "TE"}
+
+
+def _check_projection_incorporates_recent_season(
+    season: int,
+    scoring: str,
+) -> Tuple[List[str], List[str]]:
+    """SANITY-11: confirm the projection used ``season-1`` completed-season data.
+
+    This check was introduced after a bug where the 2026 preseason projection
+    was silently built on 2024 data only because a network 404 from nfl-data-py
+    for the 2025 season was swallowed.  The symptom: players who had their
+    first significant NFL season in 2025 (Ashton Jeanty, Cam Ward, Tetairoa
+    McMillan, etc.) were either missing from the projection or flagged as
+    ``is_low_sample_projection=True``, indicating the engine fell back to
+    conservative rookie baselines instead of using their actual 2025 stats.
+
+    Two complementary sub-checks are run:
+
+    **Broad coverage check** — For the top-30 skill-position fantasy producers
+    from ``season-1`` Bronze seasonal actuals, verify that ≤40% are absent
+    (``projected_season_points <= 0``) or flagged ``is_low_sample_projection``
+    in the current Gold projection.  Veterans dominate this list so the
+    fraction is typically <5%; a value >40% indicates a catastrophic data drop.
+
+    **Debut-season player check** (the more sensitive signal) — Identify
+    players whose *first* NFL season was ``season-1`` (no prior-season data in
+    Bronze seasonal) and rank them by ``season-1`` actual points.  Among the
+    top-``_RECENT_SEASON_DEBUT_TOP_N`` such players who scored above
+    ``_RECENT_SEASON_MIN_ACTUAL_PTS``, if >40% are flagged
+    ``is_low_sample_projection`` in the current projection, that is strong
+    evidence the projection engine never saw their completed season.
+
+    Args:
+        season: The target projection season (e.g., 2026).
+        scoring: Scoring format string used to locate the Gold projection file.
+
+    Returns:
+        ``(criticals, warnings)`` lists.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+
+    prior_season = season - 1
+
+    # ------------------------------------------------------------------
+    # 1. Load season-1 Bronze seasonal actuals
+    # ------------------------------------------------------------------
+    bronze_seasonal_dir = os.path.join(
+        PROJECT_ROOT,
+        "data",
+        "bronze",
+        "players",
+        "seasonal",
+        f"season={prior_season}",
+    )
+    parquet_files = sorted(globmod.glob(os.path.join(bronze_seasonal_dir, "*.parquet")))
+    if not parquet_files:
+        warnings.append(
+            f"RECENT-SEASON CHECK SKIPPED: no Bronze seasonal parquet found for "
+            f"season={prior_season} at {bronze_seasonal_dir}. Cannot verify "
+            f"projection incorporates recent data."
+        )
+        print(
+            f"  [SKIP] SANITY-11 recent-season check  "
+            f"(no Bronze seasonal data for season={prior_season})"
+        )
+        return criticals, warnings
+
+    try:
+        actuals_df = pd.read_parquet(parquet_files[-1])
+    except Exception as exc:  # noqa: BLE001
+        warnings.append(
+            f"RECENT-SEASON CHECK SKIPPED: failed to read Bronze seasonal for "
+            f"season={prior_season}: {exc}"
+        )
+        return criticals, warnings
+
+    # Filter to skill positions; require player_display_name and fantasy_points_ppr.
+    if "player_display_name" not in actuals_df.columns:
+        warnings.append(
+            f"RECENT-SEASON CHECK SKIPPED: Bronze seasonal season={prior_season} "
+            f"missing player_display_name column."
+        )
+        return criticals, warnings
+    if "fantasy_points_ppr" not in actuals_df.columns:
+        warnings.append(
+            f"RECENT-SEASON CHECK SKIPPED: Bronze seasonal season={prior_season} "
+            f"missing fantasy_points_ppr column."
+        )
+        return criticals, warnings
+
+    if "position" in actuals_df.columns:
+        actuals_df = actuals_df[actuals_df["position"].isin(_SKILL_POSITIONS)]
+
+    top30_prior = actuals_df.nlargest(30, "fantasy_points_ppr")
+
+    # ------------------------------------------------------------------
+    # 2. Load current preseason projection
+    # ------------------------------------------------------------------
+    try:
+        proj_df = _load_our_projections(scoring, season)
+    except FileNotFoundError as exc:
+        warnings.append(f"RECENT-SEASON CHECK SKIPPED: {exc}")
+        return criticals, warnings
+
+    if proj_df is None or proj_df.empty:
+        warnings.append("RECENT-SEASON CHECK SKIPPED: Gold projections empty.")
+        return criticals, warnings
+
+    if "player_name" not in proj_df.columns:
+        warnings.append(
+            "RECENT-SEASON CHECK SKIPPED: Gold projection missing player_name column."
+        )
+        return criticals, warnings
+
+    points_col = (
+        "projected_points"
+        if "projected_points" in proj_df.columns
+        else "projected_season_points"
+    )
+    if points_col not in proj_df.columns:
+        warnings.append(
+            "RECENT-SEASON CHECK SKIPPED: Gold projection missing "
+            "projected_points / projected_season_points column."
+        )
+        return criticals, warnings
+
+    has_low_sample_col = "is_low_sample_projection" in proj_df.columns
+
+    def _extract_last_name(name: str) -> str:
+        """Return lowercase last name, stripping suffixes and handling abbreviations."""
+        import re as _re
+
+        n = name.strip().lower()
+        for suf in [" jr.", " jr", " iii", " ii", " iv", " sr.", " sr"]:
+            n = n.replace(suf, "")
+        # Abbreviated form "F.Lastname" → take after the dot
+        if _re.match(r"^[a-z]\.", n):
+            return n.split(".", 1)[1].strip()
+        parts = n.split()
+        return parts[-1] if parts else n
+
+    proj_df = proj_df.copy()
+    proj_df["_last_name"] = proj_df["player_name"].apply(_extract_last_name)
+
+    def _is_low_sample(val: object) -> bool:
+        """Return True for any truthy representation of low_sample flag."""
+        return val in (True, "True", "true", 1, "1")
+
+    # ------------------------------------------------------------------
+    # 3. Broad coverage check: top-30 season-1 producers
+    # ------------------------------------------------------------------
+    broad_missing: List[str] = []
+    broad_low_sample: List[str] = []
+
+    for _, row in top30_prior.iterrows():
+        display = row.get("player_display_name", "")
+        if not display:
+            continue
+        ln = _extract_last_name(display)
+        matches = proj_df[proj_df["_last_name"] == ln]
+        if matches.empty or matches[points_col].iloc[0] <= 0:
+            broad_missing.append(display)
+        elif has_low_sample_col and _is_low_sample(
+            matches["is_low_sample_projection"].iloc[0]
+        ):
+            broad_low_sample.append(display)
+
+    n_broad_bad = len(broad_missing) + len(broad_low_sample)
+    broad_frac = n_broad_bad / max(len(top30_prior), 1)
+
+    if broad_frac > _RECENT_SEASON_MAX_BAD_FRACTION:
+        sample = (broad_missing + broad_low_sample)[:5]
+        criticals.append(
+            f"PROJECTION IGNORES RECENT SEASON: {n_broad_bad}/{len(top30_prior)} "
+            f"({broad_frac:.0%}) of the top-30 season={prior_season} skill producers "
+            f"are absent or low-sample in the season={season} projection — "
+            f"threshold is {_RECENT_SEASON_MAX_BAD_FRACTION:.0%}. "
+            f"First offenders: {', '.join(sample)}. "
+            f"Likely cause: season={prior_season} data was dropped during ingestion."
+        )
+        print(
+            f"  [FAIL] SANITY-11 recent-season (broad)  "
+            f"({n_broad_bad}/{len(top30_prior)} = {broad_frac:.0%} bad, "
+            f"threshold {_RECENT_SEASON_MAX_BAD_FRACTION:.0%})"
+        )
+    else:
+        print(
+            f"  [PASS] SANITY-11 recent-season (broad)  "
+            f"({n_broad_bad}/{len(top30_prior)} bad, {broad_frac:.0%} ≤ "
+            f"{_RECENT_SEASON_MAX_BAD_FRACTION:.0%})"
+        )
+
+    # ------------------------------------------------------------------
+    # 4. Debut-season player check: players whose first NFL season was season-1
+    #
+    # A projection built on season-2 (or older) data would flag these players
+    # as low_sample because the engine has no completed-season stats for them.
+    # This check is the sensitive signal for the "2025 data swallowed" bug class.
+    # ------------------------------------------------------------------
+    prior_prior_season = prior_season - 1
+    prior_prior_dir = os.path.join(
+        PROJECT_ROOT,
+        "data",
+        "bronze",
+        "players",
+        "seasonal",
+        f"season={prior_prior_season}",
+    )
+    prior_prior_files = sorted(
+        globmod.glob(os.path.join(prior_prior_dir, "*.parquet"))
+    )
+    if not prior_prior_files:
+        # Cannot determine debut-season players without season-2 data; skip sub-check.
+        print(
+            f"  [SKIP] SANITY-11 recent-season (debut)  "
+            f"(no Bronze seasonal data for season={prior_prior_season}; "
+            f"cannot identify debut-season players)"
+        )
+        return criticals, warnings
+
+    try:
+        prior_prior_df = pd.read_parquet(prior_prior_files[-1])
+    except Exception as exc:  # noqa: BLE001
+        warnings.append(
+            f"RECENT-SEASON DEBUT CHECK SKIPPED: could not read season={prior_prior_season} "
+            f"Bronze seasonal: {exc}"
+        )
+        return criticals, warnings
+
+    # player_id column must exist for debut detection
+    if "player_id" not in actuals_df.columns or "player_id" not in prior_prior_df.columns:
+        print(
+            f"  [SKIP] SANITY-11 recent-season (debut)  "
+            f"(player_id column missing from Bronze seasonal files)"
+        )
+        return criticals, warnings
+
+    ids_with_prior_data = set(prior_prior_df["player_id"].dropna().tolist())
+    debut_players = actuals_df[
+        ~actuals_df["player_id"].isin(ids_with_prior_data)
+    ]
+    top_debut = (
+        debut_players.nlargest(_RECENT_SEASON_DEBUT_TOP_N, "fantasy_points_ppr")
+        if len(debut_players) >= _RECENT_SEASON_DEBUT_TOP_N
+        else debut_players.sort_values("fantasy_points_ppr", ascending=False)
+    )
+    # Only evaluate players who scored above the significance floor.
+    top_debut = top_debut[
+        top_debut["fantasy_points_ppr"] >= _RECENT_SEASON_MIN_ACTUAL_PTS
+    ]
+
+    if top_debut.empty:
+        print(
+            f"  [SKIP] SANITY-11 recent-season (debut)  "
+            f"(no debut-season players above {_RECENT_SEASON_MIN_ACTUAL_PTS:.0f} pts "
+            f"threshold found for season={prior_season})"
+        )
+        return criticals, warnings
+
+    debut_low_sample: List[str] = []
+    debut_missing: List[str] = []
+
+    for _, row in top_debut.iterrows():
+        display = row.get("player_display_name", "")
+        if not display:
+            continue
+        ln = _extract_last_name(display)
+        actual_pts = row["fantasy_points_ppr"]
+        matches = proj_df[proj_df["_last_name"] == ln]
+        if matches.empty or matches[points_col].iloc[0] <= 0:
+            debut_missing.append(f"{display} (actual={actual_pts:.0f})")
+        elif has_low_sample_col and _is_low_sample(
+            matches["is_low_sample_projection"].iloc[0]
+        ):
+            debut_low_sample.append(f"{display} (actual={actual_pts:.0f})")
+
+    n_debut_bad = len(debut_missing) + len(debut_low_sample)
+    n_debut_total = len(top_debut)
+    debut_frac = n_debut_bad / max(n_debut_total, 1)
+
+    if debut_frac > _RECENT_SEASON_MAX_DEBUT_BAD_FRACTION:
+        offenders = (debut_missing + debut_low_sample)[:5]
+        criticals.append(
+            f"PROJECTION IGNORES RECENT SEASON (debut-class): {n_debut_bad}/{n_debut_total} "
+            f"({debut_frac:.0%}) of the top season={prior_season} debut-class players "
+            f"are absent or low-sample in the season={season} projection — "
+            f"threshold is {_RECENT_SEASON_MAX_DEBUT_BAD_FRACTION:.0%}. "
+            f"These players had their first NFL season in {prior_season} and the projection "
+            f"should reflect their completed stats, not rookie fallback baselines. "
+            f"First offenders: {', '.join(offenders)}. "
+            f"Likely cause: season={prior_season} data was dropped during ingestion "
+            f"(e.g., nfl-data-py network 404 silently swallowed)."
+        )
+        print(
+            f"  [FAIL] SANITY-11 recent-season (debut)  "
+            f"({n_debut_bad}/{n_debut_total} = {debut_frac:.0%} bad, "
+            f"threshold {_RECENT_SEASON_MAX_DEBUT_BAD_FRACTION:.0%})"
+        )
+    else:
+        print(
+            f"  [PASS] SANITY-11 recent-season (debut)  "
+            f"({n_debut_bad}/{n_debut_total} bad, {debut_frac:.0%} ≤ "
+            f"{_RECENT_SEASON_MAX_DEBUT_BAD_FRACTION:.0%})"
+        )
+
     return criticals, warnings
 
 

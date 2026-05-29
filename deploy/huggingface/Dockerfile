@@ -28,7 +28,7 @@ WORKDIR /home/user/app
 # (e.g. after the daily data cron pushes fresh Parquet to GitHub).
 ARG REPO=https://github.com/gesmith0606/nfl_data_engineering.git
 ARG REF=main
-ARG CACHE_BUST=2026-05-17-01
+ARG CACHE_BUST=2026-05-29-01
 RUN git clone --depth 1 --branch ${REF} ${REPO} repo
 
 WORKDIR /home/user/app/repo
