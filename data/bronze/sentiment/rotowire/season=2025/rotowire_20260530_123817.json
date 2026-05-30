@@ -1,0 +1,114 @@
+{
+  "fetch_run_id": "4ae9ec35-f95f-4ab0-8f3e-882086aacad0",
+  "source": "rotowire",
+  "fetched_at": "2026-05-30T12:38:17.282735+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631073",
+      "url": "https://www.rotowire.com//football/player/brock-bowers-17693",
+      "permalink": "",
+      "title": "Brock Bowers: Participating in OTAs",
+      "body_text": "Bowers (knee) is participating in OTAs this week, Ryan McFadden of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-28T11:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631071",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Limited to 7-on-7 work at OTAs",
+      "body_text": "Mahomes (knee) has been participating in OTAs this week in a limited capacity, Pete Sweeney of ArrowheadPride.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-28T11:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Pete Sweeney"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631070",
+      "url": "https://www.rotowire.com//football/player/xavier-worthy-17687",
+      "permalink": "",
+      "title": "Xavier Worthy: Had offseason shoulder surgery",
+      "body_text": "Worthy (shoulder) has been limited at OTAs this week after he underwent offseason surgery to repair a torn labrum in his left shoulder, Matt Foster of KSHB Kansas City reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-28T11:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy",
+        "Matt Foster",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0039894"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631068",
+      "url": "https://www.rotowire.com//football/player/garrett-wilson-15829",
+      "permalink": "",
+      "title": "Garrett Wilson: Participating in OTAs",
+      "body_text": "Wilson (knee) is participating in OTAs this week, Ryan Dunleavy of the New York Post reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-28T10:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Garrett Wilson",
+        "Ryan Dunleavy",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0037740"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631067",
+      "url": "https://www.rotowire.com//football/player/luther-burden-18548",
+      "permalink": "",
+      "title": "Luther Burden: Draws praise from head coach",
+      "body_text": "Speaking with the media Thursday, coach Ben Johnson said he's \"buying Burden stock right now\" after a strong start to the Bears' offseason program, Kevin Fishbain of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-28T10:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luther Burden",
+        "Ben Johnson",
+        "Kevin Fishbain",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0040735",
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    }
+  ]
+}
