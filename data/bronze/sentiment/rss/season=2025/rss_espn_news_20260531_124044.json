@@ -1,0 +1,234 @@
+{
+  "fetch_run_id": "b4009143-37e7-431f-b9f5-0776888a2d49",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-05-31T12:40:44.309119+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 14,
+  "items": [
+    {
+      "external_id": "US-EN-48913662",
+      "url": "https://www.espn.com/nfl/story/_/id/48913662/what-aj-brown-patriots-new-england-philadelphia-eagles-trade",
+      "title": "What A.J. Brown would bring to the Patriots' offen...",
+      "body_text": "An Eagles' trade with New England for the receiver has been rumored for months. Could it happen this week?",
+      "author": "Mike Reiss",
+      "published_at": "2026-05-31T12:17:30+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "An Eagles",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48913350",
+      "url": "https://www.espn.com/nfl/story/_/id/48913350/offseason-changes-bringing-new-look-2026-commanders",
+      "title": "Offseason changes bring new look to Commanders: 'W...",
+      "body_text": "Here are the changes on offense and defense that Washington has made -- so far -- this offseason.",
+      "author": "John Keim",
+      "published_at": "2026-05-31T12:17:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-48920534",
+      "url": "https://www.espn.com/nfl/story/_/id/48920534/sources-vikings-hire-seahawks-nolan-teasley-new-gm",
+      "title": "Sources: Vikings hire Seahawks' Teasley as GM",
+      "body_text": "The Vikings have hired Nolan Teasley as their general manager, sources told NFL Network, concluding an unusual chapter for the franchise.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Vikings",
+        "Nolan Teasley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "US-EN-48913495",
+      "url": "https://www.espn.com/nfl/story/_/id/48913495/giants-carter-dart-express-unity-disagreement-trump",
+      "title": "Carter, Dart express unity after Trump dispute",
+      "body_text": "Giants teammates Jaxson Dart and Abdul Carter expressed solidarity Friday following their \"disagreement\" over the quarterback's involvement in an event for President Donald Trump.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jaxson Dart",
+        "Abdul Carter",
+        "President Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0040691",
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48913425",
+      "url": "https://www.espn.com/nfl/story/_/id/48913425/giants-fear-wr-gunner-olszewski-torn-achilles-sources-say",
+      "title": "Sources: Giants fear Olszewski has torn Achilles",
+      "body_text": "Giants wide receiver Gunner Olszewski went down during OTAs with a noncontact injury that the team fears is a torn Achilles tendon, sources told ESPN.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Achilles Giants",
+        "Gunner Olszewski"
+      ],
+      "resolved_player_ids": [
+        "00-0035645"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48904688",
+      "url": "https://www.espn.com/nfl/story/_/id/48904688/puka-nacua-says-grateful-rams-support-lawsuit",
+      "title": "Nacua 'grateful' to Rams for support after lawsuit...",
+      "body_text": "Puka Nacua said he is \"grateful for the support\" from the Rams organization after a civil lawsuit was filed against him in March.",
+      "author": "Sarah Barshop",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48912033",
+      "url": "https://www.espn.com/nfl/story/_/id/48912033/sources-steelers-fire-assistant-swinton-months-job",
+      "title": "Source: Steelers assistant fired for misconduct",
+      "body_text": "The Steelers have fired senior special teams assistant Derius Swinton II for a violation of club policy, sources told ESPN.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Steelers",
+        "Derius Swinton II"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-48904921",
+      "url": "https://www.espn.com/nfl/story/_/id/48904921/49ers-bosa-making-progress-back-training-camp",
+      "title": "49ers' Bosa 'far along' in rehab, eyes camp return...",
+      "body_text": "49ers defensive end Nick Bosa said he is making progress recovering from a torn ACL and could be back for the start of training camp or soon after, barring any setbacks.",
+      "author": "Nick Wagoner",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-48903684",
+      "url": "https://www.espn.com/nfl/story/_/id/48903684/reid-chiefs-moving-forward-get-rice-caught-up",
+      "title": "Reid: Jailed Rice learning life lesson right now",
+      "body_text": "While most of the Chiefs participated in voluntary workouts this week, Rashee Rice was back in Texas serving his 30-day jail sentence after violating the terms of his probation for his role in a car crash that left multiple people injured.",
+      "author": "Nate Taylor",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jailed Rice",
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48905191",
+      "url": "https://www.espn.com/nfl/story/_/id/48905191/workload-managed-practice-not-games",
+      "title": "CMC: Workload monitored in practice, not games",
+      "body_text": "49ers running back Christian McCaffrey said he doesn't want a lighter workload this season after leading the NFL with 413 touches last season.",
+      "author": "Nick Wagoner",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-48816864",
+      "url": "https://www.espn.com/nfl/story/_/id/48816864/2026-nfl-offseason-trade-offers-best-deals-coleman-kmet-richardson-thibodeaux",
+      "title": "🏈 Simulating trades for Coleman, Kmet, more",
+      "body_text": "We proposed trade offers for Keon Coleman, Cole Kmet, Anthony Richardson Sr. and Kayvon Thibodeaux. Could any of them be on the move?",
+      "author": "Courtney Cronin, Jeremy Fowler, Alaina Getzenberg, Dan Graziano, Stephen Holder, Jordan Raanan, Ben Solak and Seth Walder",
+      "published_at": "2026-05-30T19:05:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Keon Coleman",
+        "Cole Kmet",
+        "Anthony Richardson Sr",
+        "Kayvon Thibodeaux"
+      ],
+      "resolved_player_ids": [
+        "00-0039901",
+        "00-0036290",
+        "00-0039164",
+        "00-0037611"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48903726",
+      "url": "https://www.espn.com/nfl/story/_/id/48903726/2026-nfl-offseason-ranking-top-10-biggest-position-upgrades-improvements",
+      "title": "Solak picks the 10 most improved units through off...",
+      "body_text": "Let's stack the 10 biggest upgrades at specific positions since the end of last season, including three teams' linebacker units.",
+      "author": "Ben Solak",
+      "published_at": "2026-05-30T18:25:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48866785",
+      "url": "https://www.espn.com/nfl/story/_/id/48866785/2026-nfl-offseason-nfc-teams-best-worst-moves-trades-signings-draft-picks-contracts",
+      "title": "Let's evaluate every NFC team's offseason: 16 team...",
+      "body_text": "We're picking out the offseason's highs (Vikings getting Kyler Murray on the veterans minimum) and lows (Niners taking Kaelon Black in Round 3) for every NFC team.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-05-29T12:52:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Kyler Murray",
+        "Kaelon Black"
+      ],
+      "resolved_player_ids": [
+        "00-0035228",
+        "BLA097235"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "US-EN-48904404",
+      "url": "https://www.espn.com/nfl/story/_/id/48904404/garrett-wilson-new-york-jets-nba-finals",
+      "title": "Garrett Wilson and Jets find inspiration in Knicks...",
+      "body_text": "Wilson offered a presumably unwitting shoutout to another memorable New York sports team -- the 1973 Mets -- in his commentary on the Knicks and sports in the Big Apple.",
+      "author": "Rich Cimini",
+      "published_at": "2026-05-29T12:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Garrett Wilson",
+        "New York",
+        "Big Apple"
+      ],
+      "resolved_player_ids": [
+        "00-0037740"
+      ],
+      "team_hint": "NYJ"
+    }
+  ]
+}
