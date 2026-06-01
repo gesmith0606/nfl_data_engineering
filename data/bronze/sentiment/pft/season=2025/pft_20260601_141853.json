@@ -1,0 +1,580 @@
+{
+  "fetch_run_id": "063c61ae-b0c3-4d9f-ba6f-0f0035af433d",
+  "source": "pft",
+  "fetched_at": "2026-06-01T14:18:53.677123+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-illinois-solution-hinges-on-new-plan-to-create-local-stadium-authorities",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-illinois-solution-hinges-on-new-plan-to-create-local-stadium-authorities",
+      "permalink": "",
+      "title": "Bears' Illinois solution hinges on new plan to create local stadium authorities",
+      "body_text": "The Illinois legislature is playing beat the clock.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-31T22:48:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Illinois"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-trade-looms-a-j-brown-is-absent-from-twitter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-trade-looms-a-j-brown-is-absent-from-twitter",
+      "permalink": "",
+      "title": "As trade looms, A.J. Brown is absent from Twitter",
+      "body_text": "It's trading day (potentially) for Eagles receiver A.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-01T10:34:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-say-they-are-evaluating-their-options-after-getting-no-help-from-illinois-legislature",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-say-they-are-evaluating-their-options-after-getting-no-help-from-illinois-legislature",
+      "permalink": "",
+      "title": "Bears say they are evaluating their options after getting no help from Illinois legislature",
+      "body_text": "The Illinois House has closed its legislative session, without passing a bill that would help the Bears build a stadium.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-01T10:35:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Illinois"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-shilo-sanders-bankruptcy-mess-apparently-could-have-been-avoided",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-shilo-sanders-bankruptcy-mess-apparently-could-have-been-avoided",
+      "permalink": "",
+      "title": "The Shilo Sanders bankruptcy mess apparently could have been avoided",
+      "body_text": "Free-agent safety Shilo Sanders faces a trial later this summer on the question of whether his bankruptcy case will discharge an $11.89 million civil verdict against him.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-01T13:55:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Shilo",
+        "Shilo Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040426"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-nolan-teasley-is-the-primary-football-executive-in-minnesota-seahawks-will-get-compensatory-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-nolan-teasley-is-the-primary-football-executive-in-minnesota-seahawks-will-get-compensatory-picks",
+      "permalink": "",
+      "title": "If Nolan Teasley is the \"primary football executive\" in Minnesota, Seahawks will get compensatory picks",
+      "body_text": "The hiring of Seahawks assistant G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-30T21:09:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "If Nolan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-odell-beckham-jr-juju-smith-schuster-braxton-berrios-to-work-out-for-giants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-odell-beckham-jr-juju-smith-schuster-braxton-berrios-to-work-out-for-giants",
+      "permalink": "",
+      "title": "Report: Odell Beckham Jr., JuJu Smith-Schuster, Braxton Berrios to work out for Giants",
+      "body_text": "Beckham could return to the Giants, but he's not the only receiver on the radar.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-01T12:21:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "Braxton Berrios",
+        "Giants Beckham"
+      ],
+      "resolved_player_ids": [
+        "00-0031235",
+        "00-0034419"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jets-to-waive-k-lenny-krieg-lb-kobe-king",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jets-to-waive-k-lenny-krieg-lb-kobe-king",
+      "permalink": "",
+      "title": "Report: Jets to waive K Lenny Krieg, LB Kobe King",
+      "body_text": "The Jets signed Younghoe Koo last week in a move that gave them three kickers on their 90-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-01T13:45:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lenny Krieg",
+        "Kobe King",
+        "The Jets",
+        "Younghoe Koo"
+      ],
+      "resolved_player_ids": [
+        "00-0040003",
+        "00-0040214",
+        "00-0033702"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-week-is-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-week-is-here",
+      "permalink": "",
+      "title": "A.J. Brown week is here",
+      "body_text": "A trade can become official as soon as June 2.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-31T13:33:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alim-mcneill-i-wasnt-all-the-way-back-from-torn-acl-last-year-i-am-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alim-mcneill-i-wasnt-all-the-way-back-from-torn-acl-last-year-i-am-now",
+      "permalink": "",
+      "title": "Alim McNeill: I wasn't all the way back from torn ACL last year, I am now",
+      "body_text": "Lions defensive tackle Alim McNeill didn't make his first appearance of the 2025 season until October and making a full return from his 2024 torn ACL took longer than that.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-01T13:12:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-dt-byron-murphy-we-have-to-start-from-scratch-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-dt-byron-murphy-we-have-to-start-from-scratch-this-season",
+      "permalink": "",
+      "title": "Seahawks DT Byron Murphy: We have to start from scratch this season",
+      "body_text": "Seahawks head coach Mike Macdonald is going to like defensive tackle Byron Murphy's approach to the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-01T11:07:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Byron Murphy",
+        "Mike Macdonald"
+      ],
+      "resolved_player_ids": [
+        "00-0039309"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-pollard-im-still-progressing-after-four-straight-1-000-yard-seasons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-pollard-im-still-progressing-after-four-straight-1-000-yard-seasons",
+      "permalink": "",
+      "title": "Tony Pollard: I'm still progressing after four straight 1,000-yard seasons",
+      "body_text": "There's not much physical resemblance between running backs Derrick Henry and Tony Pollard, but Pollard has proven to be a capable replacement for Henry in the Titans' backfield.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-01T10:42:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Pollard",
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0035261",
+        "00-0032764"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-pitts-sees-the-same-leadership-from-president-matt-ryan-as-when-they-were-teammates",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-pitts-sees-the-same-leadership-from-president-matt-ryan-as-when-they-were-teammates",
+      "permalink": "",
+      "title": "Kyle Pitts sees the same leadership from President Matt Ryan as when they were teammates",
+      "body_text": "The Falcons' tight end and the Falcons' President of Football were teammates in 2021.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-01T08:04:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts",
+        "President Matt",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-nfl-teams-hosting-world-cup-matches-is-the-juice-worth-the-squeeze",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-nfl-teams-hosting-world-cup-matches-is-the-juice-worth-the-squeeze",
+      "permalink": "",
+      "title": "For NFL teams hosting World Cup matches, is the juice worth the squeeze?",
+      "body_text": "They have to install playing surfaces that meet exacting standards.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-31T23:38:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-is-hoping-for-the-best-in-a-potential-return-to-the-giants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-is-hoping-for-the-best-in-a-potential-return-to-the-giants",
+      "permalink": "",
+      "title": "Odell Beckham Jr. is \"hoping for the best\" in a potential return to the Giants",
+      "body_text": "The Giants need another receiver, after the recent torn Achilles tendon suffered by Gunner Olszewski.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-31T22:19:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "Giants The",
+        "Gunner Olszewski"
+      ],
+      "resolved_player_ids": [
+        "00-0031235",
+        "00-0035645"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-growing-pains-part-of-adjusting-to-new-offense-it-will-be-perfect-later",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-growing-pains-part-of-adjusting-to-new-offense-it-will-be-perfect-later",
+      "permalink": "",
+      "title": "DJ Moore: \"Growing pains\" part of adjusting to new offense, it will be \"perfect\" later",
+      "body_text": "WIde receiver DJ Moore is in his first offseason with the Bills and adjusting to the team's offense remains a work in progress.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-31T19:05:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/garrett-wilson-is-rooting-for-the-knicks-but-he-wont-be-paying-for-nba-finals-tickets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/garrett-wilson-is-rooting-for-the-knicks-but-he-wont-be-paying-for-nba-finals-tickets",
+      "permalink": "",
+      "title": "Garrett Wilson is rooting for the Knicks, but he won't be paying for NBA Finals tickets",
+      "body_text": "The New York Knicks are back in the NBA Finals, for the first time since 1999.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-31T18:35:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Garrett Wilson",
+        "The New",
+        "York Knicks"
+      ],
+      "resolved_player_ids": [
+        "00-0037740"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-pollard-unbothered-by-pre-draft-talk-of-titans-interest-in-jeremiyah-love",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-pollard-unbothered-by-pre-draft-talk-of-titans-interest-in-jeremiyah-love",
+      "permalink": "",
+      "title": "Tony Pollard unbothered by pre-draft talk of Titans' interest in Jeremiyah Love",
+      "body_text": "Tony Pollard has had four consecutive 1,000-yard seasons, the past two with the Titans.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-31T18:34:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Pollard",
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0035261",
+        "LOV121782"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-queen-steelers-and-i-have-had-talks-about-my-contract-no-movement-either-way",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-queen-steelers-and-i-have-had-talks-about-my-contract-no-movement-either-way",
+      "permalink": "",
+      "title": "Patrick Queen: Steelers and I have had talks about my contract, \"no movement either way\"",
+      "body_text": "Steelers linebacker Patrick Queen says he and the team have talked about a new contract, but so far, it's all talk.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-31T18:02:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Queen"
+      ],
+      "resolved_player_ids": [
+        "00-0036323"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-discovery-process-in-the-brian-flores-case-will-be-revealing-and-possibly-nasty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-discovery-process-in-the-brian-flores-case-will-be-revealing-and-possibly-nasty",
+      "permalink": "",
+      "title": "The discovery process in the Brian Flores case will be revealing — and possibly nasty",
+      "body_text": "The deposition process will become the legal equivalent of a street fight.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-31T16:17:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/garrett-wilson-i-feel-great-but-still-some-work-to-do-to-be-back-to-myself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/garrett-wilson-i-feel-great-but-still-some-work-to-do-to-be-back-to-myself",
+      "permalink": "",
+      "title": "Garrett Wilson: I feel great, but still some work to do to be back to myself",
+      "body_text": "The Jets took three players in the first round of this year's draft, which led to hope that David Bailey, Kenyon Sadiq and Omar Cooper can spark a long-awaited return to the playoffs for the AFC East team.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-31T16:43:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Garrett Wilson",
+        "The Jets",
+        "David Bailey",
+        "Kenyon Sadiq",
+        "Omar Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0037740",
+        "BAI173035",
+        "SAD482340",
+        "COO816508"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-lays-out-its-case-for-brendan-sorsbys-banishment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-lays-out-its-case-for-brendan-sorsbys-banishment",
+      "permalink": "",
+      "title": "NCAA lays out its case for Brendan Sorsby's banishment",
+      "body_text": "On Monday, lawyers representing the NCAA and Texas Tech quarterback Brendan Sorsby will convene in a Texas courtroom to argue the question of whether Sorsby's eligibility to play college football should be temporarily reinstated.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-31T15:17:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "On Monday",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aidan-hutchinson-pleased-with-his-2025-aspires-to-be-defensive-player-of-the-year-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aidan-hutchinson-pleased-with-his-2025-aspires-to-be-defensive-player-of-the-year-in-2026",
+      "permalink": "",
+      "title": "Aidan Hutchinson pleased with his 2025, aspires to be Defensive Player of the Year in 2026",
+      "body_text": "Hutchinson said last year was a good step toward re-establishing himself after a bad injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-31T09:48:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aidan Hutchinson",
+        "Defensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0037236"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-stadium-deal-moves-to-back-burner-on-last-day-of-illinois-legislative-session",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-stadium-deal-moves-to-back-burner-on-last-day-of-illinois-legislative-session",
+      "permalink": "",
+      "title": "Bears stadium deal moves to back burner on last day of Illinois legislative session",
+      "body_text": "Absent a deal on Sunday, the Bears could move to Indiana.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-31T04:52:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/president-trump-attacks-jealous-critics-of-jaxson-dart",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/president-trump-attacks-jealous-critics-of-jaxson-dart",
+      "permalink": "",
+      "title": "President Trump attacks \"jealous\" critics of Jaxson Dart",
+      "body_text": "Just when the Giants thought they were out of the Jaxson Dart-Donald Trump conundrum, Trump pulled them back in.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-30T23:35:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "President Trump",
+        "Jaxson Dart",
+        "Donald Trump"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-get-second-round-te-max-klare-under-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-get-second-round-te-max-klare-under-contract",
+      "permalink": "",
+      "title": "Rams get second-round TE Max Klare under contract",
+      "body_text": "The Rams signed second-round tight end Max Klare to his four-year rookie deal.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-30T22:14:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Max Klare",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "KLA269938"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-chief-spokesperson-brian-mccarthy-wins-horrigan-award",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-chief-spokesperson-brian-mccarthy-wins-horrigan-award",
+      "permalink": "",
+      "title": "NFL chief spokesperson Brian McCarthy wins Horrigan Award",
+      "body_text": "Brian McCarthy, the NFL vice president of communications and chief spokesperson, won the 2026 Horrigan Award as voted on by the Professional Football Writers of America.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-30T21:13:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Horrigan Award",
+        "Professional Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nolan-teasley-kevin-oconnell-relationship-becomes-critical-for-the-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nolan-teasley-kevin-oconnell-relationship-becomes-critical-for-the-vikings",
+      "permalink": "",
+      "title": "The Nolan Teasley, Kevin O'Connell relationship becomes critical for the Vikings",
+      "body_text": "For any NFL team, the most important relationship happens between the head coach and the G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-30T20:48:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Nolan",
+        "Vikings For"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-agree-to-hire-nolan-teasley-as-their-new-gm",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-agree-to-hire-nolan-teasley-as-their-new-gm",
+      "permalink": "",
+      "title": "Vikings agree to hire Nolan Teasley as their new GM",
+      "body_text": "The former Assistant General Manager of the Seahawks gets the top job in the Vikings' front office.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-30T18:04:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nolan Teasley",
+        "Assistant General"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-earned-12-8-million-from-nflpa-in-his-first-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-earned-12-8-million-from-nflpa-in-his-first-year",
+      "permalink": "",
+      "title": "Travis Hunter earned $12.8 million from NFLPA in his first year",
+      "body_text": "It's unknown whether Travis Hunter will become an effective two-way player in the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-30T17:22:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerod-mayo-returns-to-the-business-world",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerod-mayo-returns-to-the-business-world",
+      "permalink": "",
+      "title": "Jerod Mayo returns to the business world",
+      "body_text": "Former Patriots coach Jerod Mayo, who spent several years in the business world between the end of his playing career and the start of his coaching career, has officially left football for a second time.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-30T16:57:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerod Mayo",
+        "Former Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0026150"
+      ],
+      "team_hint": "NE"
+    }
+  ]
+}

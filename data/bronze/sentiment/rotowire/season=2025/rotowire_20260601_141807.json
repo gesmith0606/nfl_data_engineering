@@ -1,0 +1,31 @@
+{
+  "fetch_run_id": "c5519b54-b765-4a67-be8d-ba5db4347c34",
+  "source": "rotowire",
+  "fetched_at": "2026-06-01T14:18:07.591083+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 1,
+  "items": [
+    {
+      "external_id": "nfl631108",
+      "url": "https://www.rotowire.com//football/player/odell-beckham-9255",
+      "permalink": "",
+      "title": "Odell Beckham: Set to work out for Giants",
+      "body_text": "Beckham will work out for the Giants on Monday, NFL reporter Jordan Schultz reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-05-31T08:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham",
+        "Giants Beckham",
+        "Jordan Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
