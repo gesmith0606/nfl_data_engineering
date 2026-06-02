@@ -1,0 +1,596 @@
+{
+  "fetch_run_id": "6cc23bdb-9066-4321-b5f5-c831dd597d4b",
+  "source": "pft",
+  "fetched_at": "2026-06-02T13:34:00.125798+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/howie-roseman-on-taking-a-2028-first-round-pick-for-a-j-brown-a-pick-is-a-pick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/howie-roseman-on-taking-a-2028-first-round-pick-for-a-j-brown-a-pick-is-a-pick",
+      "permalink": "",
+      "title": "Howie Roseman on taking a 2028 first-round pick for A.J. Brown: \"A pick is a pick\"",
+      "body_text": "Are all first-round picks the same?",
+      "author": "Mike Florio",
+      "published_at": "2026-06-02T00:16:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-are-first-team-with-reigning-mvp-qb-and-reigning-defensive-player-of-the-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-are-first-team-with-reigning-mvp-qb-and-reigning-defensive-player-of-the-year",
+      "permalink": "",
+      "title": "Rams are first team with reigning MVP QB and reigning Defensive Player of the Year",
+      "body_text": "With reigning NFL Defensive Player of the Year Myles Garrett joining reigning league MVP Matthew Stafford, the 2026 Rams will occupy a unique place in NFL history.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-02T11:40:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Defensive Player",
+        "Year With",
+        "Year Myles",
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-thinks-contract-extension-is-going-to-get-done-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-thinks-contract-extension-is-going-to-get-done-soon",
+      "permalink": "",
+      "title": "Chris Olave thinks contract extension \"is going to get done soon\"",
+      "body_text": "While some players looking for contract extensions opt to skip voluntary offseason work periods in hopes of speeding the process along, Saints wide receiver Chris Olave has not gone that route this spring.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-02T11:12:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texans-lb-e-j-speed-is-expected-to-miss-entire-season-with-torn-quadriceps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texans-lb-e-j-speed-is-expected-to-miss-entire-season-with-torn-quadriceps",
+      "permalink": "",
+      "title": "Report: Texans LB E.J. Speed is expected to miss entire season with torn quadriceps",
+      "body_text": "The outlook for Texans linebacker E.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-02T10:52:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-progresses-to-7-on-7-work-at-colts-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-progresses-to-7-on-7-work-at-colts-practice",
+      "permalink": "",
+      "title": "Daniel Jones progresses to 7-on-7 work at Colts practice",
+      "body_text": "Jones continues to progress in his recovery from a torn Achilles.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-02T10:37:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-joe-flacco-says-good-for-us-as-myles-garrett-leaves-the-division",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-joe-flacco-says-good-for-us-as-myles-garrett-leaves-the-division",
+      "permalink": "",
+      "title": "Bengals' Joe Flacco says \"Good for us\" as Myles Garrett leaves the division",
+      "body_text": "Flacco has played both with Garrett and against him, and is glad not to have Garrett in the division anymore.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-02T08:05:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Flacco",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0026158",
+        "00-0033868"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fully-healed-from-his-neck-injury-jalen-mcmillan-ready-to-help-replace-mike-evans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fully-healed-from-his-neck-injury-jalen-mcmillan-ready-to-help-replace-mike-evans",
+      "permalink": "",
+      "title": "Fully healed from his neck injury, Jalen McMillan ready to help replace Mike Evans",
+      "body_text": "Buccaneers receiver Jalen McMillan played only four games last season after a scary neck injury that not only nearly ended his season but also jeopardized his career.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T02:46:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-fitzgerald-sr-dies-at-71",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-fitzgerald-sr-dies-at-71",
+      "permalink": "",
+      "title": "Larry Fitzgerald Sr. dies at 71",
+      "body_text": "Larry Fitzgerald Sr., a long-time Minnesota sports reporter and the father of soon-to-be Hall of Fame receiver Larry Fitzgerald Jr., has died.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-02T01:38:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Larry Fitzgerald Sr",
+        "Larry Fitzgerald Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0022921"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/illinois-governor-j-b-pritzker-wasnt-willing-to-foist-billions-onto-taxpayers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/illinois-governor-j-b-pritzker-wasnt-willing-to-foist-billions-onto-taxpayers",
+      "permalink": "",
+      "title": "Illinois Governor J.B. Pritzker wasn't willing to \"foist\" billions onto taxpayers",
+      "body_text": "The Illinois legislature failed to pass a measure that would keep the Bears in the state.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-02T01:21:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Illinois Governor",
+        "The Illinois"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-bids-farewell-to-cleveland-i-wish-i-could-have-done-more-for-you",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-bids-farewell-to-cleveland-i-wish-i-could-have-done-more-for-you",
+      "permalink": "",
+      "title": "Myles Garrett bids farewell to Cleveland: I wish I could have done more for you",
+      "body_text": "The Browns drafted Myles Garrett with the first overall pick in 2017.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T00:39:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/house-judiciary-committee-invites-roger-goodell-to-testify-at-hearing-on-sports-broadcasting-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/house-judiciary-committee-invites-roger-goodell-to-testify-at-hearing-on-sports-broadcasting-act",
+      "permalink": "",
+      "title": "House Judiciary Committee invites Roger Goodell to testify at hearing on Sports Broadcasting Act",
+      "body_text": "The government continues to turn the screws on the NFL, regarding the broadcast antitrust exemption created by the Sports Broadcasting Act of 1961.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-02T00:37:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "House Judiciary",
+        "Roger Goodell",
+        "Sports Broadcasting",
+        "Act The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-skipping-otas-as-he-seeks-a-long-term-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-skipping-otas-as-he-seeks-a-long-term-deal",
+      "permalink": "",
+      "title": "Christian Gonzalez skipping OTAs as he seeks a long-term deal",
+      "body_text": "Patriots cornerback Christian Gonzalez is staying away from the team's organized team activities as he seeks a contract extension.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-01T23:37:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-release-ls-zach-triner-among-their-five-moves",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-release-ls-zach-triner-among-their-five-moves",
+      "permalink": "",
+      "title": "Giants release LS Zach Triner among their five moves",
+      "body_text": "The Giants made official their signings of wide receivers Odell Beckham and Braxton Berrios, announcing both moves.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-01T21:58:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zach Triner",
+        "The Giants",
+        "Odell Beckham",
+        "Braxton Berrios"
+      ],
+      "resolved_player_ids": [
+        "00-0033196",
+        "00-0031235",
+        "00-0034419"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-will-wear-no-1-with-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-will-wear-no-1-with-patriots",
+      "permalink": "",
+      "title": "A.J. Brown will wear No. 1 with Patriots",
+      "body_text": "A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-01T22:26:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-im-thankful-for-every-moment-i-had-in-midnight-green",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-im-thankful-for-every-moment-i-had-in-midnight-green",
+      "permalink": "",
+      "title": "A.J. Brown: I’m thankful for every moment I had in midnight green",
+      "body_text": "A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-01T22:11:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/orlando-storm-playoff-game-pivots-from-columbus-back-to-florida",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/orlando-storm-playoff-game-pivots-from-columbus-back-to-florida",
+      "permalink": "",
+      "title": "Orlando Storm playoff game pivots from Columbus back to Florida",
+      "body_text": "The Orlando Storm's home playoff game will be played in Florida, after all.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-01T21:36:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Orlando Storm",
+        "Florida The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-te-julian-hill-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-te-julian-hill-on-ir",
+      "permalink": "",
+      "title": "Patriots place TE Julian Hill on IR",
+      "body_text": "The Patriots officially acquired wide receiver A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-01T21:25:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Julian Hill",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0038720"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-pr-staff-wins-rozelle-award",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-pr-staff-wins-rozelle-award",
+      "permalink": "",
+      "title": "Cowboys PR staff wins Rozelle Award",
+      "body_text": "The Cowboys public relations staff, lauded for overall professionalism with reporters who cover the franchise, were selected as the 2026 Pete Rozelle Award winner by the Professional Football Writers of America.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-01T20:57:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rozelle Award",
+        "The Cowboys",
+        "Pete Rozelle",
+        "Professional Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-trade-a-j-brown-to-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-trade-a-j-brown-to-patriots",
+      "permalink": "",
+      "title": "Eagles trade A.J. Brown to Patriots",
+      "body_text": "The Patriots will send a 2028 first-round pick and a 2027 fifth-round pick to Philadelphia",
+      "author": "Josh Alper",
+      "published_at": "2026-06-01T20:28:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patriots The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-wouldnt-consider-trade-without-jared-verse-being-part-of-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-wouldnt-consider-trade-without-jared-verse-being-part-of-deal",
+      "permalink": "",
+      "title": "Report: Browns wouldn't consider trade without Jared Verse being part of deal",
+      "body_text": "Browns General Manager Andrew Berry called Myles Garrett \"a career Brown\" in March.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-01T20:41:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Verse",
+        "Browns General",
+        "Manager Andrew",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0039852",
+        "00-0033868"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dee-and-jimmy-haslam-trading-myles-garrett-wasnt-our-intent-but-this-is-the-right-move-for-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dee-and-jimmy-haslam-trading-myles-garrett-wasnt-our-intent-but-this-is-the-right-move-for-us",
+      "permalink": "",
+      "title": "Dee and Jimmy Haslam: Trading Myles Garrett wasn't our intent, but this is the right move for us",
+      "body_text": "It's official: Myles Garrett is headed to Los Angeles.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-01T20:26:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jimmy Haslam",
+        "Trading Myles",
+        "Myles Garrett",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-waive-g-sidy-sow",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-waive-g-sidy-sow",
+      "permalink": "",
+      "title": "Texans waive G Sidy Sow",
+      "body_text": "The Texans parted ways with offensive lineman Sidy Sow on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-01T20:09:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sidy Sow",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0038569"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/college-football-playoff-first-round-will-again-go-head-to-head-with-saturday-nfl-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/college-football-playoff-first-round-will-again-go-head-to-head-with-saturday-nfl-games",
+      "permalink": "",
+      "title": "College Football Playoff first round will again go head-to-head with Saturday NFL games",
+      "body_text": "The NFL and college football will once again go head-to-head on a Saturday in December, as two College Football Playoff games will be played simultaneously with NFL games.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-01T19:40:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "College Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-a-hard-no-on-denzel-ward-being-available-for-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-a-hard-no-on-denzel-ward-being-available-for-trade",
+      "permalink": "",
+      "title": "Report: Browns a \"hard no\" on Denzel Ward being available for trade",
+      "body_text": "Cleveland's best defensive player is on the way out of Northeast Ohio after the Browns agreed to trade Myles Garrett to the Rams on Monday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-01T19:35:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Denzel Ward",
+        "Northeast Ohio",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0034856",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-announce-nolan-teasley-as-their-new-gm",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-announce-nolan-teasley-as-their-new-gm",
+      "permalink": "",
+      "title": "Vikings announce Nolan Teasley as their new GM",
+      "body_text": "Nolan Teasley officially became the new General Manager of the Vikings on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-01T19:33:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nolan Teasley",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-trade-makes-rams-the-clear-betting-favorites-to-win-the-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-trade-makes-rams-the-clear-betting-favorites-to-win-the-super-bowl",
+      "permalink": "",
+      "title": "Myles Garrett trade makes Rams the clear betting favorites to win the Super Bowl",
+      "body_text": "The Rams were already viewed as Super Bowl contenders before today's trade for Myles Garrett.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-01T19:08:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Super Bowl",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-get-jared-verse-a-first-second-and-third-round-pick-for-myles-garrett",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-get-jared-verse-a-first-second-and-third-round-pick-for-myles-garrett",
+      "permalink": "",
+      "title": "Browns get Jared Verse, a first-, second-, and third-round pick for Myles Garrett",
+      "body_text": "The Rams are going all in now, and the Browns are building for a bright future.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-01T18:43:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Verse",
+        "Myles Garrett",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039852",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-i-wasnt-assured-myles-garrett-would-be-here-when-i-took-the-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-i-wasnt-assured-myles-garrett-would-be-here-when-i-took-the-job",
+      "permalink": "",
+      "title": "Todd Monken: I wasn't assured Myles Garrett would be here when I took the job",
+      "body_text": "With the calendar flipped to June, there is more smoke around the possibility that the Browns could trade NFL sack king Myles Garrett.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-01T17:06:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-will-trade-myles-garrett-to-the-rams-for-jared-verse-and-more",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-will-trade-myles-garrett-to-the-rams-for-jared-verse-and-more",
+      "permalink": "",
+      "title": "Browns will trade Myles Garrett to the Rams for Jared Verse and more",
+      "body_text": "The 2025 defensive player of the year gets a shot at a Super Bowl.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-01T17:28:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Jared Verse",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0039852"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-on-myles-garrett-nothing-is-final-at-this-point-were-hopeful-we-close-a-deal-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-on-myles-garrett-nothing-is-final-at-this-point-were-hopeful-we-close-a-deal-soon",
+      "permalink": "",
+      "title": "Andrew Berry on Myles Garrett: Nothing is final at this point, we're hopeful we close a deal soon",
+      "body_text": "Is Myles Garrett really headed to the Rams?",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-01T17:46:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andrew Berry",
+        "Myles Garrett",
+        "Is Myles"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}

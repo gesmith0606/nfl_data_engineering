@@ -1,0 +1,106 @@
+{
+  "fetch_run_id": "dc21d33d-9677-4148-80c8-1f0f816243f5",
+  "source": "rotowire",
+  "fetched_at": "2026-06-02T13:33:26.629586+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631137",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Remains away from team",
+      "body_text": "Brissett was not present for the first day of the final week of Arizona's voluntary OTAs on Monday, Josh Weinfuss of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-01T05:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Josh Weinfuss"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631122",
+      "url": "https://www.rotowire.com//football/player/romeo-doubs-16027",
+      "permalink": "",
+      "title": "Romeo Doubs: Patriots bolster WR room",
+      "body_text": "Doubs projects as the No. 2 wide receiver on New England's depth chart after the team traded for A.J. Brown from the Eagles on Monday, Evan Lazar of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-01T02:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Romeo Doubs",
+        "New England",
+        "Evan Lazar"
+      ],
+      "resolved_player_ids": [
+        "00-0037816"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl631120",
+      "url": "https://www.rotowire.com//football/player/devonta-smith-15406",
+      "permalink": "",
+      "title": "DeVonta Smith: Philly's WR1 after Brown trade",
+      "body_text": "Smith is set to operate as the Eagles' top wide receiver after the team traded A.J. Brown to the Patriots on Monday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-01T02:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl631119",
+      "url": "https://www.rotowire.com//football/player/drake-maye-17673",
+      "permalink": "",
+      "title": "Drake Maye: Pats add new No. 1 wideout",
+      "body_text": "Maye has a new No. 1 wide receiver after the Patriots traded for A.J. Brown from the Eagles on Monday, Evan Lazar of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-01T01:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Evan Lazar"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl631118",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "permalink": "",
+      "title": "A.J. Brown: Headed to Patriots",
+      "body_text": "The Eagles are trading Brown to the Patriots, Evan Lazar of the team's official site reports. Per Mike Reiss of ESPN.com, New England is sending a 2028 first-round pick and 2027 fifth-round pick to Philadelphia in exchange for the wideout. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-01T01:26:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patriots The",
+        "Evan Lazar",
+        "Per Mike",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    }
+  ]
+}

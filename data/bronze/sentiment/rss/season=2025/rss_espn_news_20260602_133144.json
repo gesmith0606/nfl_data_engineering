@@ -1,0 +1,323 @@
+{
+  "fetch_run_id": "2f601318-5061-472d-a829-d33469f0adc7",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-06-02T13:31:44.463368+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 20,
+  "items": [
+    {
+      "external_id": "US-EN-48939835",
+      "url": "https://www.espn.com/nfl/story/_/id/48939835/2026-nfl-offseason-trade-myles-garrett-jared-verse-rams-browns-draft-picks-barnwell",
+      "title": "Barnwell makes sense of the Myles Garrett blockbus...",
+      "body_text": "Does Myles Garrett really put the Rams over the top? Will the Browns regret the move? And how does Jared Verse fit in? Let's size up this massive trade.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-06-02T00:41:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Myles Garrett",
+        "Does Myles",
+        "Jared Verse"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0039852"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48939542",
+      "url": "https://www.espn.com/nfl/story/_/id/48939542/myles-garrett-los-angeles-rams-cleveland-browns-jared-verse-trade-big-questions",
+      "title": "Garrett is off to the Rams: How did it come to thi...",
+      "body_text": "Answering seven questions and grading the Myles Garrett and Jared Verse trade.",
+      "author": "Multiple Contributors",
+      "published_at": "2026-06-02T00:41:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Myles Garrett",
+        "Jared Verse"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0039852"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48937845",
+      "url": "https://www.espn.com/nfl/story/_/id/48937845/sources-eagles-agree-trade-aj-brown-patriots-2-picks",
+      "title": "Eagles trade star WR Brown to Pats for two picks",
+      "body_text": "The Eagles are trading star wide receiver A.J. Brown to the Patriots for a first-round draft pick in 2028 and a 2027 fifth-round pick.",
+      "author": "Adam Schefter and Mike Reiss",
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48939456",
+      "url": "https://www.espn.com/nfl/story/_/id/48939456/sources-browns-rams-finalizing-myles-garrett-blockbuster-trade",
+      "title": "Copy of Sources: Garrett traded to Rams in blockbuster",
+      "body_text": "The Browns have traded Myles Garrett to the Rams for Jared Verse and multiple draft picks, including a 2027 first-rounder.",
+      "author": null,
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Browns",
+        "Myles Garrett",
+        "Jared Verse"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0039852"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-48939305",
+      "url": "https://www.espn.com/nfl/story/_/id/48939305/sources-qb-russell-wilson-finalizing-deal-join-cbs-sports",
+      "title": "Sources: QB Wilson set to leave NFL for CBS job",
+      "body_text": "Quarterback Russell Wilson is finalizing a deal to become a CBS Sports analyst, sources told ESPN's Adam Schefter on Monday.",
+      "author": null,
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Quarterback Russell",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48939355",
+      "url": "https://www.espn.com/nfl/story/_/id/48939355/giants-sign-odell-beckham-jr-bolster-wr-room",
+      "title": "Back in Blue: Giants sign OBJ to boost WR room",
+      "body_text": "The New York Giants have signed wide receiver Odell Beckham Jr., the team announced Monday.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The New",
+        "York Giants",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48942600",
+      "url": "https://www.espn.com/nfl/story/_/id/48942600/larry-fitzgerald-sr-long-minnesota-sportswriter-father-hall-fame-receiver-dies-71",
+      "title": "Larry Fitzgerald Sr., longtime sportswriter, dies ...",
+      "body_text": "Larry Fitzgerald Sr., the longtime Minnesota sportswriter and father of Hall of Fame wide receiver Larry Fitzgerald Jr., died Monday, according to his family. He was 71.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Larry Fitzgerald Sr",
+        "Larry Fitzgerald Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0022921"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48941023",
+      "url": "https://www.espn.com/nfl/story/_/id/48941023/congress-asks-roger-goodell-testify-nfl-broadcast-deals",
+      "title": "Congress asks Goodell to testify about TV deals",
+      "body_text": "NFL commissioner Roger Goodell has been summoned by Congress to testify about the league's broadcast contracts and whether they are harming American consumers.",
+      "author": "Dan Murphy",
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48938330",
+      "url": "https://www.espn.com/nfl/story/_/id/48938330/hall-fame-receiver-nfl-coach-raymond-berry-dies-93",
+      "title": "HOF receiver, ex-coach Raymond Berry dies at 93",
+      "body_text": "Raymond Berry, a Hall of Fame receiver with the Baltimore Colts who led the NFL in catches three times and who later coached the Patriots, has died at the age of 93.",
+      "author": null,
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Raymond Berry",
+        "Baltimore Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-48941883",
+      "url": "https://www.espn.com/nfl/story/_/id/48941883/colts-daniel-jones-cleared-7-7-work-looked-good",
+      "title": "Colts' Jones takes another step with 7-on-7 work",
+      "body_text": "Colts quarterback Daniel Jones was cleared to participate in seven-on-seven drills Monday, marking yet another significant step in his comeback from a torn right Achilles tendon.",
+      "author": null,
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-48816864",
+      "url": "https://www.espn.com/nfl/story/_/id/48816864/2026-nfl-offseason-trade-offers-best-deals-coleman-kmet-richardson-thibodeaux",
+      "title": "🏈 Simulating trades for Coleman, Kmet, more",
+      "body_text": "We proposed trade offers for Keon Coleman, Cole Kmet, Anthony Richardson Sr. and Kayvon Thibodeaux. Could any of them be on the move?",
+      "author": "Courtney Cronin, Jeremy Fowler, Alaina Getzenberg, Dan Graziano, Stephen Holder, Jordan Raanan, Ben Solak and Seth Walder",
+      "published_at": "2026-06-02T01:59:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Keon Coleman",
+        "Cole Kmet",
+        "Anthony Richardson Sr",
+        "Kayvon Thibodeaux"
+      ],
+      "resolved_player_ids": [
+        "00-0039901",
+        "00-0036290",
+        "00-0039164",
+        "00-0037611"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48912173",
+      "url": "https://www.espn.com/nfl/story/_/id/48912173/2026-nfl-offseason-aj-brown-trade-patriots-eagles-receiver-draft-picks-barnwell",
+      "title": "Did New England finally get its WR1 in A.J. Brown?...",
+      "body_text": "A.J. Brown is heading to New England at long last. Does he put the Patriots over the top, and how does he fit in the offense? And what now for the Eagles?",
+      "author": "Bill Barnwell",
+      "published_at": "2026-06-01T23:18:08+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Did New",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48894633",
+      "url": "https://www.espn.com/nfl/story/_/id/48894633/philadelphia-eagles-aj-brown-traded-patriots-new-england-next",
+      "title": "Brown trade: Answering top questions on Eagles' de...",
+      "body_text": "Philly sent its No. 1 receiver to New England. How the trade impacts both teams, plus your fantasy league.",
+      "author": "Mike Reiss and Tim McManus and Dan Graziano and Mike Clay",
+      "published_at": "2026-06-01T23:18:08+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-48894110",
+      "url": "https://www.espn.com/nfl/story/_/id/48894110/2026-nfl-season-100-days-nuggets-mvp-predictions-fantasy-rookies",
+      "title": "Our way-too-early look at the NFL season: Biggest ...",
+      "body_text": "The NFL season is 100 days away. Let's celebrate with 100 things to know, including bold predictions, fantasy sleepers and injury buzz.",
+      "author": "ESPN Staff",
+      "published_at": "2026-06-01T14:24:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48903726",
+      "url": "https://www.espn.com/nfl/story/_/id/48903726/2026-nfl-offseason-ranking-top-10-biggest-position-upgrades-improvements",
+      "title": "Solak picks the 10 most improved units through off...",
+      "body_text": "Let's stack the 10 biggest upgrades at specific positions since the end of last season.",
+      "author": "Ben Solak",
+      "published_at": "2026-06-01T14:24:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48933195",
+      "url": "https://www.espn.com/nfl/story/_/id/48933195/miami-dolphins-rebuild-trades-offseason-otas-jeff-hafley-roster-nfl-draft",
+      "title": "'Ego at the door': How Dolphins went from flashy to no-frills in just three months",
+      "body_text": "In a short span, Miami transformed from a team of stars to a roster and staff emphasizing the basics. Here's how.",
+      "author": "Marcel Louis-Jacques",
+      "published_at": "2026-06-01T15:48:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "How Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "US-EN-48940859",
+      "url": "https://www.espn.com/nfl/story/_/id/48940859/cardinals-quarterback-gardner-minshew-quickly-learning-mike-lafleur-offense",
+      "title": "'Been a lot of fun': On 6th team in 8 years, Cards...",
+      "body_text": "The Arizona quarterback's NFL journey has taught and prepared him to pick up new schemes quickly.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-06-02T12:26:11+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Arizona"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-47809892",
+      "url": "https://www.espn.com/espn/betting/story/_/id/47809892/2026-super-bowl-lxi-odds-nfl-sports-betting-season-win-totals-playoffs",
+      "title": "NFL futures: How blockbuster trades for Myles Garr...",
+      "body_text": "Every NFL team's win total, as well as odds to win their division, the conference and Super Bowl LXI.",
+      "author": "Doug Greenberg",
+      "published_at": "2026-06-01T22:54:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Myles Garr",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Buzz: Don't believe the player -- McCaffrey will s...",
+      "body_text": "Why you shouldn't put any stock in Christian McCaffrey's thoughts about his 2026 workload.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-06-02T13:39:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48866785",
+      "url": "https://www.espn.com/nfl/story/_/id/48866785/2026-nfl-offseason-nfc-teams-best-worst-moves-trades-signings-draft-picks-contracts",
+      "title": "Let's evaluate every NFC team's offseason: 16 team...",
+      "body_text": "We're picking out the offseason's highs (Vikings getting Kyler Murray on the veterans minimum) and lows (Niners taking Kaelon Black in Round 3) for every NFC team.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-05-29T12:52:25+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Kyler Murray",
+        "Kaelon Black"
+      ],
+      "resolved_player_ids": [
+        "00-0035228",
+        "BLA097235"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}
