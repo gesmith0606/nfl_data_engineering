@@ -1,0 +1,114 @@
+{
+  "fetch_run_id": "f07c3bc2-02df-4de1-9f9e-e907b33e7c96",
+  "source": "rotowire",
+  "fetched_at": "2026-06-03T13:55:54.921754+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631144",
+      "url": "https://www.rotowire.com//football/player/drake-london-15868",
+      "permalink": "",
+      "title": "Drake London: Inks extension with Falcons",
+      "body_text": "London has agreed to a four-year extension with the Falcons, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-02T03:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake London",
+        "Falcons London",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0037238"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl631142",
+      "url": "https://www.rotowire.com//football/player/makai-lemon-19231",
+      "permalink": "",
+      "title": "Makai Lemon: Dealing with hamstring injury",
+      "body_text": "Lemon did not participate in Tuesday's practice due to a hamstring injury, Brooks Kubena of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-02T11:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon",
+        "Brooks Kubena",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "LEM694125"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631141",
+      "url": "https://www.rotowire.com//football/player/aaron-donald-9391",
+      "permalink": "",
+      "title": "Aaron Donald: Considering return to NFL",
+      "body_text": "Donald told Pat McAfee of The Pat McAfee Show on Tuesday that the Rams' acquisition of Myles Garrett on Monday \"for sure got [him] thinking\" of coming out of retirement. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-02T11:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "The Pat",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0031388",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl631140",
+      "url": "https://www.rotowire.com//football/player/tetairoa-mcmillan-18547",
+      "permalink": "",
+      "title": "Tetairoa McMillan: Remains idle with foot injury",
+      "body_text": "McMillan (foot) remains sidelined for Tuesday's practice, Joe Person of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-02T10:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Person",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631139",
+      "url": "https://www.rotowire.com//football/player/josh-jacobs-13582",
+      "permalink": "",
+      "title": "Josh Jacobs: Practicing with team Tuesday",
+      "body_text": "Jacobs is participating in Tuesday's practice, Matt Schneidman of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-02T09:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs",
+        "Tuesday Jacobs",
+        "Matt Schneidman",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    }
+  ]
+}

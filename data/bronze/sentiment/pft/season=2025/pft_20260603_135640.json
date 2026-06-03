@@ -1,0 +1,601 @@
+{
+  "fetch_run_id": "4e7d10ae-948b-4576-bf15-11165350d97b",
+  "source": "pft",
+  "fetched_at": "2026-06-03T13:56:40.922566+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-doing-limited-work-at-steelers-otas-with-contract-extension-looming",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-doing-limited-work-at-steelers-otas-with-contract-extension-looming",
+      "permalink": "",
+      "title": "Joey Porter Jr. doing limited work at Steelers OTAs with contract extension looming",
+      "body_text": "The Steelers signed edge rusher Nick Herbig to a four-year contract extension on Tuesday and he hasn't been the only player angling for a new deal with the team this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-03T13:43:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr",
+        "The Steelers",
+        "Nick Herbig"
+      ],
+      "resolved_player_ids": [
+        "00-0039167",
+        "00-0038577"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/les-snead-spent-months-of-the-offseason-trying-to-get-the-browns-to-trade-myles-garrett",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/les-snead-spent-months-of-the-offseason-trying-to-get-the-browns-to-trade-myles-garrett",
+      "permalink": "",
+      "title": "Les Snead spent months of the offseason trying to get the Browns to trade Myles Garrett",
+      "body_text": "The Rams' General Manager says he was hard at work all offseason trying to get Garrett in Los Angeles.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-03T10:13:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Les Snead",
+        "Myles Garrett",
+        "The Rams",
+        "General Manager",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-trade-is-a-win-for-the-nfl-tv-audience",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-trade-is-a-win-for-the-nfl-tv-audience",
+      "permalink": "",
+      "title": "Myles Garrett trade is a win for the NFL, TV audience",
+      "body_text": "The Myles Garrett trade can be fairly characterized as a win-win for the Rams and the Browns.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-02T19:06:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "The Myles"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-if-aaron-donald-is-interested-in-a-return-rams-are-interested",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-if-aaron-donald-is-interested-in-a-return-rams-are-interested",
+      "permalink": "",
+      "title": "Sean McVay: If Aaron Donald is interested in a return, Rams are interested",
+      "body_text": "Aaron Donald told Jordan Schultz of The Schultz Report that he is considering a return.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T00:04:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "If Aaron",
+        "Aaron Donald",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-says-it-cost-him-more-than-a-couple-bucks-to-get-the-rams-no-95-jersey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-says-it-cost-him-more-than-a-couple-bucks-to-get-the-rams-no-95-jersey",
+      "permalink": "",
+      "title": "Myles Garrett says it cost him \"more than a couple bucks\" to get the Rams' No. 95 jersey",
+      "body_text": "Garrett purchased the 95 jersey from new teammate Poona Ford.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-03T07:51:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Poona Ford"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0034234"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-announce-myles-garrett-will-wear-no-95",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-announce-myles-garrett-will-wear-no-95",
+      "permalink": "",
+      "title": "Rams announce Myles Garrett will wear No. 95",
+      "body_text": "Myles Garrett will be wearing a new uniform in 2026, but it will have a familiar number.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-02T17:41:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-congrats-to-russell-wilson-on-tv-job-were-looking-at-qb-options",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-congrats-to-russell-wilson-on-tv-job-were-looking-at-qb-options",
+      "permalink": "",
+      "title": "Aaron Glenn: Congrats to Russell Wilson on TV job, we're looking at QB options",
+      "body_text": "Russell Wilson is joining CBS as an analyst on The NFL Today for the 2026 season and he chose that job over an opportunity to serve as the backup quarterback to Geno Smith with the Jets.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-03T13:08:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn",
+        "Russell Wilson",
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0006034",
+        "00-0029263",
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-jared-verse-the-browns-get-more-than-a-first-round-pick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-jared-verse-the-browns-get-more-than-a-first-round-pick",
+      "permalink": "",
+      "title": "In Jared Verse, the Browns get more than a first-round pick",
+      "body_text": "The Rams have relished the periodic \"eff them picks\" vibe of the past several years.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-02T17:57:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "In Jared",
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-chosen-for-madden-27-cover",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-chosen-for-madden-27-cover",
+      "permalink": "",
+      "title": "Caleb Williams chosen for Madden 27 cover",
+      "body_text": "Bears quarterback Caleb Williams is the cover model for Madden NFL 27.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-03T12:50:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-add-former-dolphins-gm-chris-grier-to-front-office",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-add-former-dolphins-gm-chris-grier-to-front-office",
+      "permalink": "",
+      "title": "Lions add former Dolphins GM Chris Grier to front office",
+      "body_text": "Former Dolphins General Manager Chris Grier has found a new job in Detroit.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-03T12:19:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Grier",
+        "Former Dolphins",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-campbell-i-feel-i-did-a-good-job-rebuilding-strength-in-my-knee",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-campbell-i-feel-i-did-a-good-job-rebuilding-strength-in-my-knee",
+      "permalink": "",
+      "title": "Will Campbell: I feel I did a good job rebuilding strength in my knee",
+      "body_text": "Patriots left tackle Will Campbell offered an update on how his knee is feeling when he spoke to reporters from the team's facility on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-03T11:13:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0040699"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-i-support-jacoby-brissett-but-cant-build-chemistry-while-he-holds-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-i-support-jacoby-brissett-but-cant-build-chemistry-while-he-holds-out",
+      "permalink": "",
+      "title": "Marvin Harrison: I support Jacoby Brissett, but can't build chemistry while he holds out",
+      "body_text": "Cardinals quarterback Jacoby Brissett is sitting out voluntary offseason practices while he seeks a new contract, which means he's not building chemistry with wide receiver Marvin Harrison Jr.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-03T10:57:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Harrison",
+        "Jacoby Brissett",
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849",
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-10-of-their-draft-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-10-of-their-draft-picks",
+      "permalink": "",
+      "title": "Dolphins sign 10 of their draft picks",
+      "body_text": "The Dolphins took their time before starting the process of signing their 2026 draft picks, but they made up for their slow start by getting a lot of work done all at once.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-03T10:49:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-roger-goodell-will-politely-decline-invitation-to-testify-on-sport-broadcasting-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-roger-goodell-will-politely-decline-invitation-to-testify-on-sport-broadcasting-act",
+      "permalink": "",
+      "title": "Report: Roger Goodell will \"politely decline\" invitation to testify on Sport Broadcasting Act",
+      "body_text": "The House Judiciary Committee has asked NFL Commissioner Roger Goodell to testify at a hearing next week regarding the Sports Broadcasting Act of 1961.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-03T03:00:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell",
+        "Sport Broadcasting",
+        "Act The",
+        "House Judiciary",
+        "Commissioner Roger",
+        "Sports Broadcasting"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-says-his-knees-are-fine-nothing-to-worry-about",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-says-his-knees-are-fine-nothing-to-worry-about",
+      "permalink": "",
+      "title": "A.J. Brown says his knees are fine: Nothing to worry about",
+      "body_text": "Patriots wide receiver A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T02:17:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-overhauling-footwork-as-he-seeks-a-quicker-release",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-overhauling-footwork-as-he-seeks-a-quicker-release",
+      "permalink": "",
+      "title": "Justin Herbert overhauling footwork as he seeks a quicker release",
+      "body_text": "Justin Herbert is overhauling his footwork, as offensive coordinator Mike McDaniel tries to get the Chargers quarterback to speed up his release.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T01:45:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-schwartz-it-would-have-been-a-bad-situation-if-id-stayed-with-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-schwartz-it-would-have-been-a-bad-situation-if-id-stayed-with-browns",
+      "permalink": "",
+      "title": "Jim Schwartz: It would have been a \"bad situation\" if I'd stayed with Browns",
+      "body_text": "Schwartz addresses his disagreement with being \"passed over\" for Todd Monken.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-03T01:22:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Schwartz",
+        "Browns Schwartz",
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-godwin-didnt-believe-reports-mike-evans-was-signing-with-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-godwin-didnt-believe-reports-mike-evans-was-signing-with-49ers",
+      "permalink": "",
+      "title": "Chris Godwin \"didn't believe\" reports Mike Evans was signing with 49ers",
+      "body_text": "Chris Godwin has spent nine seasons in the NFL, all of them with Mike Evans as his teammate.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-02T23:18:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Godwin",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0033921",
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-made-play-for-myles-garrett-but-browns-wanted-jalen-carter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-made-play-for-myles-garrett-but-browns-wanted-jalen-carter",
+      "permalink": "",
+      "title": "Eagles made play for Myles Garrett, but Browns wanted Jalen Carter",
+      "body_text": "On Monday morning, before the Browns traded defensive end Myles Garrett to the Rams, Mary Kay Cabot of the Cleveland Plain Dealer flagged the Rams, Cowboys, and Eagles as potential destinations.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-03T00:00:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Jalen Carter",
+        "On Monday",
+        "Mary Kay",
+        "Cleveland Plain"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chicago-mayor-continues-to-believe-bears-will-stay-put",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chicago-mayor-continues-to-believe-bears-will-stay-put",
+      "permalink": "",
+      "title": "Chicago mayor continues to believe Bears will stay put",
+      "body_text": "The Bears supposedly have narrowed their focus for the site of a new stadium to Arlington Heights and Hammond, Indiana.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-02T23:35:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bears",
+        "Arlington Heights"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-since-the-very-beginning-its-always-been-about-winning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-since-the-very-beginning-its-always-been-about-winning",
+      "permalink": "",
+      "title": "Myles Garrett: Since the very beginning, it's always been about winning",
+      "body_text": "Myles Garrett learned a week ago that a trade to the Rams was a possibility.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T23:21:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-london-falcons-agree-to-a-four-year-141-million-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-london-falcons-agree-to-a-four-year-141-million-extension",
+      "permalink": "",
+      "title": "Drake London, Falcons agree to a four-year, $141 million extension",
+      "body_text": "It makes London the third-highest paid receiver in the league, with the highest average per year in team history.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T22:38:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake London"
+      ],
+      "resolved_player_ids": [
+        "00-0037238"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-release-de-brandon-graham-in-a-procedural-move",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-release-de-brandon-graham-in-a-procedural-move",
+      "permalink": "",
+      "title": "Eagles release DE Brandon Graham in a procedural move",
+      "body_text": "The Eagles released veteran defensive end Brandon Graham on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T22:02:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Graham",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0027865"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-i-know-this-aint-heaven-but-its-close-to-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-i-know-this-aint-heaven-but-its-close-to-it",
+      "permalink": "",
+      "title": "A.J. Brown: I know this ain't heaven, but it's close to it",
+      "body_text": "A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T20:26:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-s-ashtyn-davis-to-a-one-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-s-ashtyn-davis-to-a-one-year-deal",
+      "permalink": "",
+      "title": "49ers sign S Ashtyn Davis to a one-year deal",
+      "body_text": "The 49ers signed safety Ashtyn Davis to a one-year deal, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T21:48:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashtyn Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0036329"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rookie-wr-makai-lemon-did-not-practice-tuesday-with-a-leg-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rookie-wr-makai-lemon-did-not-practice-tuesday-with-a-leg-injury",
+      "permalink": "",
+      "title": "Rookie WR Makai Lemon did not practice Tuesday with a leg injury",
+      "body_text": "After the trade of A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T21:35:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [
+        "LEM694125"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-defensive-moves-have-raised-our-expectations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-defensive-moves-have-raised-our-expectations",
+      "permalink": "",
+      "title": "Ja'Marr Chase: Defensive moves have raised our expectations",
+      "body_text": "Bengals quarterback Joe Burrow called this year's roster the most talented one he's been a part of in the NFL and the offseason moves on the defensive side of the ball are the biggest reason to feel that way.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-02T20:59:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marr Chase",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-chose-no-1-jersey-despite-julian-edelman-giving-his-blessing-to-wear-no-11",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-chose-no-1-jersey-despite-julian-edelman-giving-his-blessing-to-wear-no-11",
+      "permalink": "",
+      "title": "A.J. Brown chose No. 1 jersey despite Julian Edelman giving his blessing to wear No. 11",
+      "body_text": "New Patriots wide receiver A.J.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-02T20:58:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Julian Edelman",
+        "New Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0027150"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cut-k-jason-sanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cut-k-jason-sanders",
+      "permalink": "",
+      "title": "Giants cut K Jason Sanders",
+      "body_text": "The Giants cut veteran kicker Jason Sanders on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T18:40:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jason Sanders",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0034794"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-bears-to-hold-joint-practice-before-their-preseason-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-bears-to-hold-joint-practice-before-their-preseason-game",
+      "permalink": "",
+      "title": "Bengals-Bears to hold joint practice before their preseason game",
+      "body_text": "The Bengals and Bears will hold a joint practice ahead of their Aug. 22 preseason game at Paycor Stadium.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-02T20:47:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bengals",
+        "Paycor Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    }
+  ]
+}
