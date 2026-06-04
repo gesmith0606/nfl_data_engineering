@@ -1,0 +1,114 @@
+{
+  "fetch_run_id": "c865ad6d-7b8f-40f2-968a-205a47c85691",
+  "source": "rotowire",
+  "fetched_at": "2026-06-04T13:22:16.828421+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631179",
+      "url": "https://www.rotowire.com//football/player/russell-wilson-8043",
+      "permalink": "",
+      "title": "Russell Wilson: Confirms move to broadcast booth",
+      "body_text": "Wilson confirmed Wednesday that he is joining CBS Sports and \"The NFL Today\" via a video that he posted to social media, Jayna Bardahl and Dan Shanoff of the Athletic report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-03T04:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Russell Wilson",
+        "Jayna Bardahl",
+        "Dan Shanoff"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631174",
+      "url": "https://www.rotowire.com//football/player/devon-achane-16661",
+      "permalink": "",
+      "title": "De'Von Achane: Taking individual reps at minicamp",
+      "body_text": "Dolphins head coach Jeff Hafley said Wednesday that Achane (shoulder) has been limited to individual drills at mandatory minicamp, Chris Perkins of the South Florida Sun Sentinel reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-03T11:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Achane",
+        "Jeff Hafley",
+        "Chris Perkins",
+        "South Florida",
+        "Sun Sentinel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl631169",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Shows up for OTAs",
+      "body_text": "Saints head coach Kellen Moore said Wednesday that Kamara (knee/ankle) is attending voluntary OTAs on Wednesday, Mike Triplett of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-03T09:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Kellen Moore",
+        "Mike Triplett"
+      ],
+      "resolved_player_ids": [
+        "00-0033906",
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl631168",
+      "url": "https://www.rotowire.com//football/player/justin-herbert-14446",
+      "permalink": "",
+      "title": "Justin Herbert: Focused on improving footwork",
+      "body_text": "Herbert said Tuesday that a priority during OTAs has been to overhaul his footwork under the direction of new offensive coordinator Mike McDaniel, Kris Rhim of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-03T09:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert",
+        "Kris Rhim"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631167",
+      "url": "https://www.rotowire.com//football/player/marvin-harrison-17674",
+      "permalink": "",
+      "title": "Marvin Harrison: Still working back to full health",
+      "body_text": "Harrison said Tuesday that he is not yet 100 percent recovered from the injuries he dealt with in 2025 but that he doesn't \"think it's going to linger into next season, for sure,\" Josh Weinfuss of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-03T09:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Harrison",
+        "Josh Weinfuss"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": null
+    }
+  ]
+}

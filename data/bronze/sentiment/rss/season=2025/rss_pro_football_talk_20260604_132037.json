@@ -1,0 +1,514 @@
+{
+  "fetch_run_id": "b2354ec6-fa42-42d4-a256-e53b3c48fd48",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-06-04T13:20:37.946591+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cbs-announces-kyle-long-russell-wilson-are-joining-the-nfl-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cbs-announces-kyle-long-russell-wilson-are-joining-the-nfl-today",
+      "title": "CBS announces Kyle Long, Russell Wilson are joining The NFL Today",
+      "body_text": "Russell Wilson announced on Wednesday that he will be retiring from the NFL to join CBS' The NFL Today for the 2026 season and the network confirmed the move on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T13:09:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Long",
+        "Russell Wilson",
+        "Today Russell"
+      ],
+      "resolved_player_ids": [
+        "00-0030441",
+        "00-0029263"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-herbig-i-cant-wait-to-show-steelers-they-made-the-right-choice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-herbig-i-cant-wait-to-show-steelers-they-made-the-right-choice",
+      "title": "Nick Herbig: I can't wait to show Steelers they made the right choice",
+      "body_text": "The Steelers have a lot invested in T.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T12:55:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Herbig",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0038577"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-evaluating-linemen-in-non-contact-practices-is-fools-gold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-evaluating-linemen-in-non-contact-practices-is-fools-gold",
+      "title": "Ben Johnson: Evaluating linemen in non-contact practices is \"fool's gold\"",
+      "body_text": "Bears coach Ben Johnson says June is no time to evaluate his offensive and defensive lines.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-04T12:27:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derick-hall-was-willing-to-sacrifice-shot-at-free-agency-to-remain-with-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derick-hall-was-willing-to-sacrifice-shot-at-free-agency-to-remain-with-seahawks",
+      "title": "Derick Hall was \"willing to sacrifice\" shot at free agency to remain with Seahawks",
+      "body_text": "The last time that edge rusher Derick Hall took the field, he had two sacks that helped the Seahawks secure a Super Bowl win over the Patriots.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T11:01:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derick Hall",
+        "Seahawks The",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0039047"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-verse-i-can-play-free-with-carson-schwesinger-behind-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-verse-i-can-play-free-with-carson-schwesinger-behind-me",
+      "title": "Jared Verse: I can play free with Carson Schwesinger behind me",
+      "body_text": "The Browns traded away the current defensive player of the year when they dealt Myles Garrett to the Rams earlier this week, but they emerged from the trade with the last two defensive rookies of the year.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T10:46:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jared Verse",
+        "Carson Schwesinger",
+        "The Browns",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0039852",
+        "00-0040579",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-its-always-been-about-winning-and-i-want-to-win-a-championship",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-its-always-been-about-winning-and-i-want-to-win-a-championship",
+      "title": "Myles Garrett: It's always been about winning, and I want to win a championship",
+      "body_text": "\"I've done pretty much everything I set out to do in Cleveland,\" Garrett said. \"But it's always been about winning.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-04T08:54:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-kupp-told-aaron-donald-youre-not-allowed-to-unretire",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-kupp-told-aaron-donald-youre-not-allowed-to-unretire",
+      "title": "Cooper Kupp told Aaron Donald: You're not allowed to unretire",
+      "body_text": "\"I already texted him and told him he's not allowed. So we're good,\" Kupp joked.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-04T08:03:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cooper Kupp",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0033908",
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/senate-hearing-on-protect-college-sports-act-didnt-plow-much-new-ground",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/senate-hearing-on-protect-college-sports-act-didnt-plow-much-new-ground",
+      "title": "Senate hearing on \"Protect College Sports Act\" didn't plow much new ground",
+      "body_text": "The Senate Commerce Committee conducted a hearing on Wednesday regarding the bipartisan bill known as the \"Protect College Sports Act.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-06-04T04:19:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Protect College",
+        "Sports Act",
+        "The Senate",
+        "Commerce Committee"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-continues-push-for-week-1-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-continues-push-for-week-1-return",
+      "title": "George Kittle continues push for Week 1 return",
+      "body_text": "George Kittle's goal from the moment he tore his Achilles was to get back for the season opener.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T02:54:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-announce-kwesi-adofo-mensahs-title-nine-internal-promotions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-announce-kwesi-adofo-mensahs-title-nine-internal-promotions",
+      "title": "49ers announce Kwesi Adofo-Mensah's title, nine internal promotions",
+      "body_text": "49ers General Manager John Lynch announced in February that the team had hired Kwesi Adofo-Mensah.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T02:34:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kwesi Adofo",
+        "General Manager",
+        "John Lynch"
+      ],
+      "resolved_player_ids": [
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-i-never-wanted-to-the-leave-the-giants-and-im-grateful-to-be-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-i-never-wanted-to-the-leave-the-giants-and-im-grateful-to-be-back",
+      "title": "Odell Beckham: I never wanted to the leave the Giants, and I'm grateful to be back",
+      "body_text": "Odell Beckham spent his first five seasons with the Giants.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T02:05:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Odell Beckham"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-te-darnell-washington-agree-to-a-four-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-te-darnell-washington-agree-to-a-four-year-extension",
+      "title": "Steelers, TE Darnell Washington agree to a four-year extension",
+      "body_text": "The Steelers have agreed to terms with tight end Darnell Washington on a four-year extension.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T01:37:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darnell Washington",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0038558"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arm-soreness-has-kept-mac-jones-from-throwing-of-late",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arm-soreness-has-kept-mac-jones-from-throwing-of-late",
+      "title": "Arm soreness has kept Mac Jones from throwing of late",
+      "body_text": "The 49ers canceled next week's mandatory minicamp, so they will wrap up their offseason program on Thursday. 49ers backup quarterback Mac Jones did not throw last week or this week as he rests his throwing arm.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T01:26:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mac Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0036972"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/t-j-watt-indicates-he-will-move-around-in-patrick-grahams-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/t-j-watt-indicates-he-will-move-around-in-patrick-grahams-defense",
+      "title": "T.J. Watt indicates he will move around in Patrick Graham's defense",
+      "body_text": "Steelers edge rusher T.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T01:03:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Graham"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philadelphia-inquirers-olivia-reiner-wins-2026-terez-paylor-emerging-writer-award",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philadelphia-inquirers-olivia-reiner-wins-2026-terez-paylor-emerging-writer-award",
+      "title": "Philadelphia Inquirer's Olivia Reiner wins 2026 Terez Paylor Emerging Writer Award",
+      "body_text": "Olivia Reiner, an Eagles beat writer for the Philadelphia Inquirer, was named the 2026 Terez A.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T00:19:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Philadelphia Inquirer",
+        "Olivia Reiner",
+        "Terez Paylor",
+        "Emerging Writer",
+        "Award Olivia"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-shedeurs-massive-nflpa-royalty-payment-wasnt-from-jersey-sales",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-shedeurs-massive-nflpa-royalty-payment-wasnt-from-jersey-sales",
+      "title": "Deion Sanders: Shedeur's massive NFLPA royalty payment wasn't from jersey sales",
+      "body_text": "The recent federal LM-2 filing from the NFL Players Association including a stunning revelation regarding Browns quarterback Shedeur Sanders.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-04T00:00:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Players Association",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rome-odunze-says-he-has-a-new-normal-with-his-foot-after-injury-last-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rome-odunze-says-he-has-a-new-normal-with-his-foot-after-injury-last-season",
+      "title": "Rome Odunze says he has a \"new normal\" with his foot after injury last season",
+      "body_text": "Rome Odunze missed five games last season with a left foot injury and was hampered by it in others.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T23:53:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rome Odunze"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-doesnt-have-much-to-say-about-rams-acquiring-myles-garrett",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-doesnt-have-much-to-say-about-rams-acquiring-myles-garrett",
+      "title": "Sam Darnold doesn't have much to say about Rams acquiring Myles Garrett",
+      "body_text": "The narrow gap between the Seahawks and Rams may have been closed, and then some, with this week's acquisition of defensive end Myles Garrett by L.A.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-03T23:28:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/russell-wilson-announces-his-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/russell-wilson-announces-his-retirement",
+      "title": "Russell Wilson announces his retirement",
+      "body_text": "Wilson confirms he's heading to CBS.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-03T23:10:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Russell Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-on-his-knee-rehab-im-almost-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-on-his-knee-rehab-im-almost-there",
+      "title": "Maxx Crosby on his knee rehab: I'm almost there",
+      "body_text": "The Ravens backed out of a trade for Maxx Crosby in March after the edge rusher failed their physical.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T22:57:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Maxx Crosby",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-i-want-to-solidify-myself-among-the-very-greats",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-i-want-to-solidify-myself-among-the-very-greats",
+      "title": "Myles Garrett: I want to solidify myself among the very greats",
+      "body_text": "Myles Garrett was so dominant last season that he earned all 50 first-place votes for Defensive Player of the Year.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T22:27:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "Defensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-wide-receiver-additions-have-nothing-to-do-with-malik-nabers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-wide-receiver-additions-have-nothing-to-do-with-malik-nabers",
+      "title": "John Harbaugh: Wide receiver additions have nothing to do with Malik Nabers",
+      "body_text": "Odell Beckham Jr.'",
+      "author": "Josh Alper",
+      "published_at": "2026-06-03T22:29:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Malik Nabers",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039337",
+        "00-0031235"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-thinks-2027-season-will-probably-be-his-last",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-thinks-2027-season-will-probably-be-his-last",
+      "title": "Trent Williams thinks 2027 season will \"probably\" be his last",
+      "body_text": "Trent Williams signed a two-year, $50 million contract this offseason, with $37 million fully guaranteed.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T22:02:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0027857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-ol-coach-calls-myles-garrett-an-all-time-great-who-presents-a-good-challenge",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-ol-coach-calls-myles-garrett-an-all-time-great-who-presents-a-good-challenge",
+      "title": "49ers OL coach calls Myles Garrett an \"all-time great\" who presents a \"good challenge\"",
+      "body_text": "Myles Garrett went from the Browns to the Rams this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T21:40:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cancel-next-weeks-mandatory-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cancel-next-weeks-mandatory-minicamp",
+      "title": "49ers cancel next week's mandatory minicamp",
+      "body_text": "The 49ers won't be holding a mandatory minicamp this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-03T21:13:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-trade-is-water-under-the-bridge-im-in-las-vegas-and-i-want-to-be-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-trade-is-water-under-the-bridge-im-in-las-vegas-and-i-want-to-be-here",
+      "title": "Maxx Crosby: Trade is water under the bridge, I'm in Las Vegas and I want to be here",
+      "body_text": "\"I want to be out there and be part of the team,\" Crosby said. \"I just love what I do and I love playing football and I love being on the field.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-03T21:09:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Maxx Crosby",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-we-cant-build-trust-with-kyler-gordon-if-he-isnt-available",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-we-cant-build-trust-with-kyler-gordon-if-he-isnt-available",
+      "title": "Ben Johnson: We can't build trust with Kyler Gordon if he isn't available",
+      "body_text": "Injuries kept cornerback Kyler Gordon off the field for most of the 2025 season and it's been more of the same during the Bears' offseason program.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-03T21:07:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson",
+        "Kyler Gordon"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0038111"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/did-the-patriots-overpay-for-a-j-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/did-the-patriots-overpay-for-a-j-brown",
+      "title": "Did the Patriots overpay for A.J. Brown?",
+      "body_text": "Four years after the Eagles gave up a first-round pick and a third-round pick to acquire receiver A.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-03T20:59:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-first-round-ol-kadyn-proctor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-first-round-ol-kadyn-proctor",
+      "title": "Dolphins sign first-round OL Kadyn Proctor",
+      "body_text": "The Dolphins signed first-round offensive lineman Kadyn Proctor, the team announced Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-03T20:17:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kadyn Proctor",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "PRO114835"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-i-came-here-to-earn-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-i-came-here-to-earn-it",
+      "title": "Odell Beckham Jr.: I came here to earn it",
+      "body_text": "Wide receiver Odell Beckham practiced with the Giants on Wednesday and said it has been \"surreal\" to return to the team after leaving for the Browns in a trade ahead of the 2019 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-03T20:15:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "Odell Beckham"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "CLE"
+    }
+  ]
+}
