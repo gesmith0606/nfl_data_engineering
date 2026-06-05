@@ -1,0 +1,510 @@
+{
+  "fetch_run_id": "d23c2c69-77d5-4867-99fd-16bfe9d17f33",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-06-05T13:15:18.222112+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-spoke-to-chicago-throughout-april-about-possible-stadium-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-spoke-to-chicago-throughout-april-about-possible-stadium-deal",
+      "title": "Report: Bears spoke to Chicago throughout April about possible stadium deal",
+      "body_text": "In late March, the Bears made their position clear regarding a new stadium — Arlington Heights or Hammond, Indiana.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-05T12:38:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arlington Heights"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-network-acquisition-will-spark-more-espn-layoffs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-network-acquisition-will-spark-more-espn-layoffs",
+      "title": "Report: NFL Network acquisition will spark more ESPN layoffs",
+      "body_text": "The more a company grows, the more it looks for ways to shrink the workforce.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-05T12:07:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-lt-christian-darrisaw-says-knee-feels-best-it-has-since-2024-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-lt-christian-darrisaw-says-knee-feels-best-it-has-since-2024-injury",
+      "title": "Vikings LT Christian Darrisaw says knee feels best it has since 2024 injury",
+      "body_text": "The Vikings have played 34 regular season games over the last two seasons, but they've only had left tackle Christian Darrisaw for half of them.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-05T11:17:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Darrisaw",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0036616"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-my-agent-can-handle-my-contract-im-just-thinking-about-the-team-and-ball",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-my-agent-can-handle-my-contract-im-just-thinking-about-the-team-and-ball",
+      "title": "Jahmyr Gibbs: My agent can handle my contract, I'm just thinking about the team and ball",
+      "body_text": "Lions running back Jahmyr Gibbs is heading into the fourth season of his rookie contract, which means he's eligible to get a new deal, and surely wants to become one of the highest-paid running backs in football.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-05T11:07:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-dont-know-when-kerby-joseph-will-be-healthy-enough-to-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-dont-know-when-kerby-joseph-will-be-healthy-enough-to-return",
+      "title": "Lions don't know when Kerby Joseph will be healthy enough to return",
+      "body_text": "In 2024, Lions safety Kerby Joseph was a first-team All-Pro, and in early 2025 he was rewarded with a four–year, $86 million contract extension.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-05T09:59:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kerby Joseph"
+      ],
+      "resolved_player_ids": [
+        "00-0037667"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garretts-sights-are-set-on-bruce-smiths-career-record-of-200-sacks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garretts-sights-are-set-on-bruce-smiths-career-record-of-200-sacks",
+      "title": "Myles Garrett's sights are set on Bruce Smith's career record of 200 sacks",
+      "body_text": "Garrett is the NFL's single-season sack record holder. He'd like to be the career record holder as well.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-05T07:52:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "Bruce Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0015111"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-on-the-rams-addition-of-myles-garrett-it-sucks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-on-the-rams-addition-of-myles-garrett-it-sucks",
+      "title": "Trent Williams on the Rams' addition of Myles Garrett: It sucks",
+      "body_text": "The Rams' trade for Myles Garrett on Monday made the reigning Defensive Player of the Year the NFC West's problem.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-05T01:23:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Williams",
+        "Myles Garrett",
+        "The Rams",
+        "Defensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0027857",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-guyton-in-competition-with-nate-thomas-for-starting-lt-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-guyton-in-competition-with-nate-thomas-for-starting-lt-job",
+      "title": "Tyler Guyton in competition with Nate Thomas for starting LT job",
+      "body_text": "The Cowboys selected offensive tackle Tyler Guyton with the 29th overall pick in 2024.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T23:40:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Guyton",
+        "Nate Thomas",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039341"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-latest-myles-garrett-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-latest-myles-garrett-deal",
+      "title": "Inside the latest Myles Garrett deal",
+      "body_text": "Yes, the Rams and defensive end Myles Garrett have a new deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-04T23:03:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-sign-de-benton-whitley",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-sign-de-benton-whitley",
+      "title": "Browns sign DE Benton Whitley",
+      "body_text": "The Browns signed free agent defensive end Benton Whitley, the team announced on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T22:30:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Benton Whitley",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0037638"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-agree-to-terms-with-first-round-pick-akheem-mesidor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-agree-to-terms-with-first-round-pick-akheem-mesidor",
+      "title": "Chargers agree to terms with first-round pick Akheem Mesidor",
+      "body_text": "The Chargers have agreed to a contract with their top pick in this year's draft.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T22:16:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Akheem Mesidor",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "MES250563"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-seventh-round-dt-tim-keenan-iii",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-seventh-round-dt-tim-keenan-iii",
+      "title": "Rams sign seventh-round DT Tim Keenan III",
+      "body_text": "The Rams signed seventh-round defensive tackle Tim Keenan III on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T22:16:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tim Keenan III",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "KEE636403"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-to-hold-a-joint-practice-with-the-rams-in-addition-to-the-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-to-hold-a-joint-practice-with-the-rams-in-addition-to-the-saints",
+      "title": "Cowboys to hold a joint practice with the Rams in addition to the Saints",
+      "body_text": "The Cowboys and Rams do not play in the preseason, but they both train in Southern California.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T20:37:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saints The",
+        "Southern California"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-first-round-pick-chris-johnson-complete-2026-draft-class",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-first-round-pick-chris-johnson-complete-2026-draft-class",
+      "title": "Dolphins sign first-round pick Chris Johnson, complete 2026 draft class",
+      "body_text": "The Dolphins have gotten their entire 2026 draft class under contract.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-04T20:15:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Johnson",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "JOH127117"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-first-round-ol-keylan-rutledge",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-first-round-ol-keylan-rutledge",
+      "title": "Texans sign first-round OL Keylan Rutledge",
+      "body_text": "The Texans have agreed to terms with first-round offensive lineman Keylan Rutledge on his four-year rookie contract, Aaron Wilson of KPRC reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T20:08:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keylan Rutledge",
+        "The Texans",
+        "Aaron Wilson"
+      ],
+      "resolved_player_ids": [
+        "RUT745912"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-release-k-josh-karty-sign-db-isaiah-oliver",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-release-k-josh-karty-sign-db-isaiah-oliver",
+      "title": "Cardinals release K Josh Karty, sign DB Isaiah Oliver",
+      "body_text": "The Cardinals are down to one kicker on their 90-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T20:07:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Karty",
+        "Isaiah Oliver",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0034357"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-flores-wins-halas-award-from-the-pfwa-for-overcoming-adversity",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-flores-wins-halas-award-from-the-pfwa-for-overcoming-adversity",
+      "title": "Brian Flores wins Halas Award from the PFWA for overcoming adversity",
+      "body_text": "The Pro Football Writers of America announced Vikings defensive coordinator Brian Flores as the 2026 George Halas Award winner.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-04T19:54:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Flores",
+        "Halas Award",
+        "The Pro",
+        "Football Writers",
+        "George Halas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-wr-gee-scott",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-wr-gee-scott",
+      "title": "Jets sign WR Gee Scott",
+      "body_text": "The Jets added a wide receiver to their roster on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T19:35:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gee Scott",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0040571"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-cb-dane-jackson-ol-trystan-colon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-cb-dane-jackson-ol-trystan-colon",
+      "title": "Jaguars sign CB Dane Jackson, OL Trystan Colon",
+      "body_text": "The Jaguars have added a pair of players on Thursday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-04T19:23:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dane Jackson",
+        "Trystan Colon",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0036166",
+        "00-0035992"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-expect-bo-nix-to-have-more-of-a-role-at-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-expect-bo-nix-to-have-more-of-a-role-at-minicamp",
+      "title": "Broncos expect Bo Nix to have \"more of a role\" at minicamp",
+      "body_text": "Nix is recovering from the fractured ankle he suffered in the postseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T19:18:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-relationship-between-j-j-mccarthy-and-kyler-murray-is-very-professional",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-relationship-between-j-j-mccarthy-and-kyler-murray-is-very-professional",
+      "title": "Kevin O'Connell: Relationship between J.J. McCarthy and Kyler Murray is very professional",
+      "body_text": "J.J.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-04T19:11:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ea-sports-teases-introduction-of-the-tush-push-in-madden-27",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ea-sports-teases-introduction-of-the-tush-push-in-madden-27",
+      "title": "EA Sports teases introduction of the tush push in Madden 27",
+      "body_text": "Bears quarterback Caleb Williams will be making his first appearance on the cover of a Madden game with the 2027 and the game will also include the first appearance of a play made famous by another team.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T18:58:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-rozier-loses-most-of-his-26-6-million-salary-due-to-his-gambling-indictment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-rozier-loses-most-of-his-26-6-million-salary-due-to-his-gambling-indictment",
+      "title": "Terry Rozier loses most of his $26.6 million salary, due to his gambling indictment",
+      "body_text": "Gamblers typically don't win.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-04T18:10:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terry Rozier"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-lb-jamin-davis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-lb-jamin-davis",
+      "title": "Steelers sign LB Jamin Davis",
+      "body_text": "The Steelers doubled up on veteran additions to their roster on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T17:36:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamin Davis",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0036614"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-is-not-at-otas-cowboys-expect-him-to-be-at-mandatory-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-is-not-at-otas-cowboys-expect-him-to-be-at-mandatory-minicamp",
+      "title": "George Pickens is not at OTAs, Cowboys expect him to be at mandatory minicamp",
+      "body_text": "Cowboys wide receiver George Pickens didn't attend the early phases of the team's offseason workouts and he didn't change course for the team's first week of OTAs.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T17:01:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-eric-sullivan-dolphins-are-100-not-mailing-it-in-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-eric-sullivan-dolphins-are-100-not-mailing-it-in-this-year",
+      "title": "Jon-Eric Sullivan: Dolphins are 100% not mailing it in this year",
+      "body_text": "When the Dolphins traded one of their best players away in wide receiver Jaylen Waddle, it led to questions about whether they're tanking on the 2026 season and turning their attention to the future.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-04T16:50:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eric Sullivan",
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-wrs-michael-briscoe-trayvon-rudolph",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-wrs-michael-briscoe-trayvon-rudolph",
+      "title": "Vikings sign WRs Michael Briscoe, Trayvon Rudolph",
+      "body_text": "The Vikings have made their first roster moves since hiring Nolan Teasley as their General Manager.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T16:44:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Briscoe",
+        "Trayvon Rudolph",
+        "The Vikings",
+        "Nolan Teasley",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-wr-kyre-duplessis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-wr-kyre-duplessis",
+      "title": "Lions sign WR Kyre Duplessis",
+      "body_text": "The Lions lost a receiver to an injury at practice this week and they moved to replace him on the roster on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-04T16:36:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyre Duplessis",
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-myles-garrett-execute-a-new-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-myles-garrett-execute-a-new-contract",
+      "title": "Rams, Myles Garrett execute a new contract",
+      "body_text": "Garrett gets a $6.5 million raise (and possibly more) for 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-04T15:44:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-herbig-deal-raises-obvious-questions-about-the-future-of-t-j-watt-alex-highsmith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-herbig-deal-raises-obvious-questions-about-the-future-of-t-j-watt-alex-highsmith",
+      "title": "Nick Herbig deal raises obvious questions about the future of T.J. Watt, Alex Highsmith",
+      "body_text": "The Steelers' decision to move quickly to give linebacker Nick Herbig a four-year, $100 million extension makes the organization's feeling about the 2023 fourth-round pick clear.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-04T16:00:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Herbig",
+        "Alex Highsmith",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0038577",
+        "00-0036333"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}

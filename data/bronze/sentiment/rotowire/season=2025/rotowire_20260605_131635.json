@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "beb8b10c-74f3-447e-91f7-5e0bb56ceadf",
+  "source": "rotowire",
+  "fetched_at": "2026-06-05T13:16:35.869553+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631210",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Nearing practice return?",
+      "body_text": "Broncos coach Sean Payton said Thursday that Nix (ankle) has been throwing at OTAs and will resume practicing with teammates at June minicamp, Luca Evans of The Denver Post reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-04T01:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Sean Payton",
+        "Luca Evans",
+        "The Denver"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl631208",
+      "url": "https://www.rotowire.com//football/player/sam-laporta-17033",
+      "permalink": "",
+      "title": "Sam LaPorta: Practices Thursday",
+      "body_text": "LaPorta (back) participated in Detroit's second open practice of OTAs on Thursday, Tim Twentyman of detroitlions.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-04T01:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Practices Thursday",
+        "Tim Twentyman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631205",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Says he's ahead of schedule",
+      "body_text": "Kittle (Achilles) said Wednesday that he's \"doing great\" and is \"ahead of schedule\" in his rehab, ESPN.com's Nick Wagoner reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-04T12:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631203",
+      "url": "https://www.rotowire.com//football/player/mike-evans-9253",
+      "permalink": "",
+      "title": "Mike Evans: Winning over teammates and coaches",
+      "body_text": "Evans is making a strong impression at voluntary OTAs and feels rejuvenated after an injury-plagued 2025, Matt Barrows of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-04T11:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans",
+        "Matt Barrows",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631202",
+      "url": "https://www.rotowire.com//football/player/george-pickens-15853",
+      "permalink": "",
+      "title": "George Pickens: Expected back for minicamp",
+      "body_text": "Pickens hasn't been present for voluntary OTAs, but he remains in communication with the Cowboys and is expected to show up for mandatory minicamp June 16-18, Nick Harris of the Fort Worth Star-Telegram reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-04T11:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Nick Harris",
+        "Fort Worth"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0036236"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
