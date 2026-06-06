@@ -1,0 +1,115 @@
+{
+  "fetch_run_id": "b0ef27b5-96e5-47e6-b6f3-c87a0107e7fc",
+  "source": "rotowire",
+  "fetched_at": "2026-06-06T12:41:00.180514+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631243",
+      "url": "https://www.rotowire.com//football/player/brian-thomas-17716",
+      "permalink": "",
+      "title": "Brian Thomas: Improving chemistry with QB1",
+      "body_text": "Thomas has demonstrated increased chemistry with quarterback Trevor Lawrence during spring practices, Michael DiRocco of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-05T10:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Thomas",
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0039893",
+        "00-0036971"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631238",
+      "url": "https://www.rotowire.com//football/player/malik-willis-15872",
+      "permalink": "",
+      "title": "Malik Willis: Chemistry with WRs not there yet",
+      "body_text": "Dolphins head coach Jeff Halfley said Tuesday at the start of mandatory minicamp that Willis building a rapport with his new pass-catching corps is \"a work in progress,\" David Furones of the South Florida Sun Sentinel reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-05T09:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Willis",
+        "Jeff Halfley",
+        "David Furones",
+        "South Florida",
+        "Sun Sentinel"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl631237",
+      "url": "https://www.rotowire.com//football/player/baker-mayfield-12619",
+      "permalink": "",
+      "title": "Baker Mayfield: Wants new contract before camp",
+      "body_text": "Mayfield said Friday negotiations with the Buccaneers on an extension are ongoing and he would \"love to have a long-term deal\" beyond 2026, but talks are currently \"not anywhere close\" and he considers the start of training camp a firm negotiation deadline, Rick Stroud of the Tampa Bay Times reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-05T07:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Rick Stroud",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "nfl631210",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Nearing practice return?",
+      "body_text": "Broncos coach Sean Payton said Thursday that Nix (ankle) has been throwing at OTAs and will resume practicing with teammates at June minicamp, Luca Evans of The Denver Post reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-04T01:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Sean Payton",
+        "Luca Evans",
+        "The Denver"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl631208",
+      "url": "https://www.rotowire.com//football/player/sam-laporta-17033",
+      "permalink": "",
+      "title": "Sam LaPorta: Practices Thursday",
+      "body_text": "LaPorta (back) participated in Detroit's second open practice of OTAs on Thursday, Tim Twentyman of detroitlions.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-04T01:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Practices Thursday",
+        "Tim Twentyman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

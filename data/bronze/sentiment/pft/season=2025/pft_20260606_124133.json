@@ -1,0 +1,587 @@
+{
+  "fetch_run_id": "1f212d70-1356-411a-af4e-ca1e24f10ace",
+  "source": "pft",
+  "fetched_at": "2026-06-06T12:41:33.713244+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-strongly-opposes-proposed-california-workers-compensation-law",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-strongly-opposes-proposed-california-workers-compensation-law",
+      "permalink": "",
+      "title": "NFLPA \"strongly opposes\" proposed changes to California workers' compensation laws",
+      "body_text": "Although most of an NFL player's rights and responsibilities are governed by the Collective Bargaining Agreement between the NFL Players Association and the NFL, the geographic location of a player's employment has a potentially significant impact on their overall work experience.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T11:42:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Collective Bargaining",
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-the-tush-push-is-hard-to-stop-and-dolphins-can-get-good-at-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-the-tush-push-is-hard-to-stop-and-dolphins-can-get-good-at-it",
+      "permalink": "",
+      "title": "Jeff Hafley: The tush push is hard to stop, and Dolphins can get good at it",
+      "body_text": "New Dolphins head coach Jeff Hafley wants his team to be good at the tush push, on both sides of the ball.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-06T10:59:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeff Hafley",
+        "New Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-remains-off-comcast-xfinity-cable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-remains-off-comcast-xfinity-cable",
+      "permalink": "",
+      "title": "NFL Network remains off Comcast Xfinity cable",
+      "body_text": "If the dispute extends into the regular season, it would also mean Xfinity subscribers would not have NFL RedZone Channel.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-06T08:57:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Comcast Xfinity"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-finds-that-four-alabama-state-basketball-players-threw-a-game-for-2-000",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-finds-that-four-alabama-state-basketball-players-threw-a-game-for-2-000",
+      "permalink": "",
+      "title": "NCAA finds that four Alabama State basketball players threw a game for $2,000",
+      "body_text": "The biggest risk when it comes to the proliferation of legal sports betting comes from the possibility of players deliberately losing games.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T04:34:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alabama State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-denies-texas-techs-appeal-regarding-brendan-sorsbys-eligibility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-denies-texas-techs-appeal-regarding-brendan-sorsbys-eligibility",
+      "permalink": "",
+      "title": "NCAA denies Texas Tech's appeal regarding Brendan Sorsby's eligibility",
+      "body_text": "As a judge weighs whether to reinstate the eligibility of Texas Tech quarterback Brendan Sorsby, the NCAA has reiterated its decision that Sorsby's gambling habits prevent him from playing again.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T04:07:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-pays-homage-to-michael-jordan-on-madden-27-cover",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-pays-homage-to-michael-jordan-on-madden-27-cover",
+      "permalink": "",
+      "title": "Caleb Williams pays homage to Michael Jordan on Madden 27 cover",
+      "body_text": "Caleb Williams wants to trademark the nickname of one Basketball Hall of Famer, but he wants to be like another.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-06T02:20:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams",
+        "Michael Jordan",
+        "Basketball Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wandale-robinson-chose-no-4-to-honor-rondale-moore",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wandale-robinson-chose-no-4-to-honor-rondale-moore",
+      "permalink": "",
+      "title": "Wan'Dale Robinson chose No. 4 to honor Rondale Moore",
+      "body_text": "Titans wide receiver Wan'Dale Robinson wore No. 17 in his four seasons with the Giants.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-06T01:19:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dale Robinson",
+        "Rondale Moore"
+      ],
+      "resolved_player_ids": [
+        "00-0036936"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-rookie-dt-zion-wilson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-rookie-dt-zion-wilson",
+      "permalink": "",
+      "title": "Eagles sign rookie DT Zion Wilson",
+      "body_text": "The Eagles signed free agent defensive tackle Zion Wilson, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-05T20:49:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zion Wilson",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/illinois-governor-j-b-pritzker-bears-shifting-positions-have-hindered-their-progress",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/illinois-governor-j-b-pritzker-bears-shifting-positions-have-hindered-their-progress",
+      "permalink": "",
+      "title": "Illinois Governor J.B. Pritzker: Bears' shifting positions have hindered their progress",
+      "body_text": "With the Bears announcing a plan to proceed with plans to build a new stadium (but with nothing official at this point), Illinois still has a chance to turn things around.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-05T19:05:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Illinois Governor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-i-dont-know-aaron-donalds-plans-but-i-want-to-talk-to-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-i-dont-know-aaron-donalds-plans-but-i-want-to-talk-to-him",
+      "permalink": "",
+      "title": "Myles Garrett: I don't know Aaron Donald's plans, but I want to talk to him",
+      "body_text": "The Rams' defensive line has already added a two-time NFL Defensive Player of the Year this week in Myles Garrett.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-05T20:41:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Aaron Donald",
+        "The Rams",
+        "Defensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/more-details-emerge-in-jonathon-coopers-arrest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/more-details-emerge-in-jonathon-coopers-arrest",
+      "permalink": "",
+      "title": "More details emerge in Jonathon Cooper's arrest",
+      "body_text": "More details have emerged in the arrest of Broncos linebacker Jonathon Cooper.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-05T19:43:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daron-bland-donovan-ezeiruaku-are-expected-to-be-ready-for-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daron-bland-donovan-ezeiruaku-are-expected-to-be-ready-for-training-camp",
+      "permalink": "",
+      "title": "DaRon Bland, Donovan Ezeiruaku are expected to be ready for training camp",
+      "body_text": "Cowboys cornerback DaRon Bland and edge rusher Donovan Ezeiruaku aren't practicing with their teammates yet as they continue rehabbing.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-05T19:13:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Donovan Ezeiruaku"
+      ],
+      "resolved_player_ids": [
+        "00-0040725"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chicago-mayor-brandon-johnson-hammond-move-is-not-a-done-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chicago-mayor-brandon-johnson-hammond-move-is-not-a-done-deal",
+      "permalink": "",
+      "title": "Chicago Mayor Brandon Johnson: Hammond move is not a \"done deal\"",
+      "body_text": "Friday's announcement from the Bears regarding the intention to move forward with a new stadium in Hammond, Indiana doesn't mean much, because it's not binding on the Bears.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-05T18:46:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chicago Mayor",
+        "Brandon Johnson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-verse-to-wear-no-8-with-browns-dillon-gabriel-will-change-his-number",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-verse-to-wear-no-8-with-browns-dillon-gabriel-will-change-his-number",
+      "permalink": "",
+      "title": "Jared Verse to wear No. 8 with Browns, Dillon Gabriel will change his number",
+      "body_text": "Jared Verse and Dillon Gabriel were both wearing No. 8 at Browns practice this week, but that won't be the case for long.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-05T17:43:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Verse",
+        "Dillon Gabriel"
+      ],
+      "resolved_player_ids": [
+        "00-0039852",
+        "00-0040704"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-disappointing-to-lose-mike-evans-but-we-have-a-lot-of-weapons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-disappointing-to-lose-mike-evans-but-we-have-a-lot-of-weapons",
+      "permalink": "",
+      "title": "Baker Mayfield: Disappointing to lose Mike Evans, but we have a lot of weapons",
+      "body_text": "Baker Mayfield's take on his contract situation was the juiciest bit of information to come out of his first media session of the offseason, but he also had a chance to weigh in on a significant change to the team's receiving corps.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-05T17:32:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0034855",
+        "00-0031408"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-defends-streaming-strategy-in-letter-to-congress",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-defends-streaming-strategy-in-letter-to-congress",
+      "permalink": "",
+      "title": "NFL defends streaming strategy in letter to Congress",
+      "body_text": "The House Judiciary Committee will conduct a hearing next week on the Sports Broadcasting Act.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-05T17:02:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Congress The",
+        "House Judiciary",
+        "Sports Broadcasting"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-lb-jonathon-cooper-arrested-for-domestic-violence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-lb-jonathon-cooper-arrested-for-domestic-violence",
+      "permalink": "",
+      "title": "Broncos LB Jonathon Cooper arrested for domestic violence",
+      "body_text": "Broncos linebacker Jonathon Cooper was arrested in Colorado on Thursday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-05T16:50:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-board-of-directors-votes-to-advance-stadium-in-hammond-indiana",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-board-of-directors-votes-to-advance-stadium-in-hammond-indiana",
+      "permalink": "",
+      "title": "Bears board of directors votes to advance stadium in Hammond, Indiana",
+      "body_text": "The Bears are a step closer to playing their home games across the border.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-05T16:25:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Indiana The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-terms-with-first-rounder-malachi-lawrence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-terms-with-first-rounder-malachi-lawrence",
+      "permalink": "",
+      "title": "Cowboys agree to terms with first-rounder Malachi Lawrence",
+      "body_text": "The Cowboys have all of their draft picks under contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-05T15:52:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malachi Lawrence",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "LAW442372"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-pleased-with-how-fast-jaylen-waddle-is-picking-up-the-broncos-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-pleased-with-how-fast-jaylen-waddle-is-picking-up-the-broncos-offense",
+      "permalink": "",
+      "title": "Sean Payton pleased with how fast Jaylen Waddle is picking up the Broncos' offense",
+      "body_text": "The Broncos have just started their Organized Team Activities, and newly acquired wide receiver Jaylen Waddle is already impressing head coach Sean Payton.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-05T15:26:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "Jaylen Waddle",
+        "The Broncos",
+        "Organized Team"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mac-jones-no-regrets-about-signing-a-two-year-deal-with-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mac-jones-no-regrets-about-signing-a-two-year-deal-with-49ers",
+      "permalink": "",
+      "title": "Mac Jones: No regrets about signing a two-year deal with 49ers",
+      "body_text": "Mac Jones had a strong run as the starting quarterback for the 49ers while Brock Purdy was injured last season, but there was no chance to cash in on that as a free agent this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-05T15:24:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mac Jones",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0036972",
+        "00-0037834"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-buccaneers-are-not-anywhere-close-in-talks-on-new-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-buccaneers-are-not-anywhere-close-in-talks-on-new-contract",
+      "permalink": "",
+      "title": "Baker Mayfield, Buccaneers are \"not anywhere close\" in talks on new contract",
+      "body_text": "Mayfield is entering the final season of the three-year deal he signed with Tampa Bay in 2024.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-05T15:11:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-agree-to-terms-with-top-2026-draft-picks-dillon-thieneman-logan-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-agree-to-terms-with-top-2026-draft-picks-dillon-thieneman-logan-jones",
+      "permalink": "",
+      "title": "Bears agree to terms with top 2026 draft picks, Dillon Thieneman, Logan Jones",
+      "body_text": "The Bears are getting their top two draft picks under contract.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-05T14:25:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dillon Thieneman",
+        "Logan Jones",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "THI666823",
+        "JON586541"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-jahmyr-gibbs-is-going-to-be-our-bell-cow-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-jahmyr-gibbs-is-going-to-be-our-bell-cow-now",
+      "permalink": "",
+      "title": "Dan Campbell: Jahmyr Gibbs is going to be our bell cow now",
+      "body_text": "After two years as a major contributor, Lions running back Jahmyr Gibbs was promoted to starter in 2025.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-05T13:51:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-thought-hed-easily-break-the-record-for-consecutive-1-000-yard-seasons-in-2025",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-thought-hed-easily-break-the-record-for-consecutive-1-000-yard-seasons-in-2025",
+      "permalink": "",
+      "title": "Mike Evans thought he'd easily break the record for consecutive 1,000-yard seasons in 2025",
+      "body_text": "In 2024, 49ers receiver Mike Evans set a record in Tampa by becoming the first player with 11 straight 1,000-yard receiving seasons to start a career.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-05T13:50:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/courtland-sutton-unconcerned-with-who-is-broncos-no-1-receiver-after-jaylen-waddles-arrival",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/courtland-sutton-unconcerned-with-who-is-broncos-no-1-receiver-after-jaylen-waddles-arrival",
+      "permalink": "",
+      "title": "Courtland Sutton unconcerned with who is Broncos No. 1 receiver after Jaylen Waddle's arrival",
+      "body_text": "There was no doubt about Courtland Sutton's placement in the pecking order of Broncos receivers in 2025, but the team's biggest offseason move shook up that depth chart.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-05T13:13:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtland Sutton",
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0034348",
+        "00-0036613"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-spoke-to-chicago-throughout-april-about-possible-stadium-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-spoke-to-chicago-throughout-april-about-possible-stadium-deal",
+      "permalink": "",
+      "title": "Report: Bears spoke to Chicago throughout April about possible stadium deal",
+      "body_text": "In late March, the Bears made their position clear regarding a new stadium — Arlington Heights or Hammond, Indiana.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-05T12:38:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Arlington Heights"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-network-acquisition-will-spark-more-espn-layoffs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-network-acquisition-will-spark-more-espn-layoffs",
+      "permalink": "",
+      "title": "Report: NFL Network acquisition will spark more ESPN layoffs",
+      "body_text": "The more a company grows, the more it looks for ways to shrink the workforce.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-05T12:07:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-lt-christian-darrisaw-says-knee-feels-best-it-has-since-2024-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-lt-christian-darrisaw-says-knee-feels-best-it-has-since-2024-injury",
+      "permalink": "",
+      "title": "Vikings LT Christian Darrisaw says knee feels best it has since 2024 injury",
+      "body_text": "The Vikings have played 34 regular season games over the last two seasons, but they've only had left tackle Christian Darrisaw for half of them.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-05T11:17:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Darrisaw",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0036616"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-my-agent-can-handle-my-contract-im-just-thinking-about-the-team-and-ball",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-my-agent-can-handle-my-contract-im-just-thinking-about-the-team-and-ball",
+      "permalink": "",
+      "title": "Jahmyr Gibbs: My agent can handle my contract, I'm just thinking about the team and ball",
+      "body_text": "Lions running back Jahmyr Gibbs is heading into the fourth season of his rookie contract, which means he's eligible to get a new deal, and surely wants to become one of the highest-paid running backs in football.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-05T11:07:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    }
+  ]
+}
