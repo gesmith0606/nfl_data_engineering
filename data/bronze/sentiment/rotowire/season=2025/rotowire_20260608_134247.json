@@ -1,0 +1,30 @@
+{
+  "fetch_run_id": "6e49aa07-5867-49ff-a983-003549a4d0ae",
+  "source": "rotowire",
+  "fetched_at": "2026-06-08T13:42:47.136916+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 1,
+  "items": [
+    {
+      "external_id": "nfl631250",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Expected to report to minicamp",
+      "body_text": "Brissett is expected to report to the Cardinals' minicamp this week, Jeremy Fowler of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-07T09:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    }
+  ]
+}

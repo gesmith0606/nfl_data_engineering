@@ -1,0 +1,484 @@
+{
+  "fetch_run_id": "4635415e-22c8-4028-ac2b-28656572e3ef",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-06-08T13:40:33.470791+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-campbell-im-22-years-old-so-im-a-long-way-from-where-im-going-to-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-campbell-im-22-years-old-so-im-a-long-way-from-where-im-going-to-be",
+      "title": "Will Campbell: I'm 22 years old, so I'm a long way from where I'm going to be",
+      "body_text": "Patriots left tackle Will Campbell had an up-and-down rookie season in 2025, and it ended on a down note when he struggled mightily in New England's Super Bowl loss.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-08T13:30:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Campbell",
+        "New England",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0040699"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-has-a-message-for-the-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-has-a-message-for-the-49ers",
+      "title": "Brandon Aiyuk has a message for the 49ers: \"Stop running from the belt\"",
+      "body_text": "49ers continue to squat on Aiyuk's contract, because they can.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T18:05:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-buccaneers-are-on-a-contractual-collision-course",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-buccaneers-are-on-a-contractual-collision-course",
+      "title": "Baker Mayfield, Buccaneers are on a contractual collision course",
+      "body_text": "On Friday, Buccaneers quarterback Baker Mayfield made it clear that talks on a new contract are not going well.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T17:34:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield",
+        "On Friday"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-our-new-defense-is-annoying-to-prepare-against",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-our-new-defense-is-annoying-to-prepare-against",
+      "title": "CeeDee Lamb: Our new defense is \"annoying to prepare against\"",
+      "body_text": "It will still be some time before we see the Cowboys defense against an opposing offense, but there's been enough practice time for members of the Dallas offense to draw some insights into the new scheme.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T13:19:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-charles-woodson-is-an-excellent-comparison-for-how-we-can-use-jalen-ramsey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-charles-woodson-is-an-excellent-comparison-for-how-we-can-use-jalen-ramsey",
+      "title": "Mike McCarthy: Charles Woodson is an \"excellent comparison\" for how we can use Jalen Ramsey",
+      "body_text": "Steelers head coach Mike McCarthy will be coaching Aaron Rodgers again this season and another one of his Packers stars came up during last week's OTAs.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T11:15:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Charles Woodson",
+        "Jalen Ramsey",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0018227",
+        "00-0033055",
+        "00-0023459"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-anderson-new-contract-isnt-pressure-its-opportunity",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-anderson-new-contract-isnt-pressure-its-opportunity",
+      "title": "Will Anderson: New contract isn't pressure, it's opportunity",
+      "body_text": "Texans defensive end Will Anderson left no doubt about his expectations for the 2026 season when he spoke to reporters at OTAs last week.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T10:59:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Anderson"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-bieniemy-returns-chiefs-focus-to-fundamentals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-bieniemy-returns-chiefs-focus-to-fundamentals",
+      "title": "Eric Bieniemy returns Chiefs' focus to fundamentals",
+      "body_text": "The return of offensive coordinator Eric Bieniemy could be exactly what the Chiefs' offense needed.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-08T10:40:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eric Bieniemy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-plans-to-attend-cardinals-mandatory-minicamp-despite-contract-dispute",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-plans-to-attend-cardinals-mandatory-minicamp-despite-contract-dispute",
+      "title": "Jacoby Brissett plans to attend Cardinals' mandatory minicamp, despite contract dispute",
+      "body_text": "Brissett has skipped the Cardinals' voluntary offseason work.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-08T09:22:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/plenty-of-tickets-still-available-for-texans-jaguars-game-at-londons-wembley-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/plenty-of-tickets-still-available-for-texans-jaguars-game-at-londons-wembley-stadium",
+      "title": "Plenty of tickets still available for Texans-Jaguars game at London's Wembley Stadium",
+      "body_text": "Ticket sales appear to be sluggish for the annual Jacksonville \"home\" game in London.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-08T08:32:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Wembley Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/louisville-kings-punch-their-ticket-to-the-ufl-championship",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/louisville-kings-punch-their-ticket-to-the-ufl-championship",
+      "title": "Louisville Kings punch their ticket to the UFL Championship",
+      "body_text": "In their first UFL season, the Louisville Kings will be playing for the UFL title.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-08T01:24:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Louisville Kings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-on-jets-having-no-prime-time-games-you-earn-the-right",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-on-jets-having-no-prime-time-games-you-earn-the-right",
+      "title": "Aaron Glenn on Jets having no prime-time games: \"You earn the right\"",
+      "body_text": "Despite playing in the nation's top market, the Jets didn't get a single prime-time game in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T22:56:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Glenn"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-c-defenders-upset-orlando-storm-to-secure-berth-in-ufl-championship",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-c-defenders-upset-orlando-storm-to-secure-berth-in-ufl-championship",
+      "title": "D.C. Defenders upset Orlando Storm to secure berth in UFL Championship",
+      "body_text": "The D.C.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T22:42:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Orlando Storm",
+        "Championship The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-world-cup-looming-sofi-stadium-workers-vote-to-authorize-a-strike",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-world-cup-looming-sofi-stadium-workers-vote-to-authorize-a-strike",
+      "title": "With World Cup looming, SoFi Stadium workers vote to authorize a strike",
+      "body_text": "The World Cup is coming.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T18:47:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With World",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/by-not-getting-a-raise-myles-garrett-will-be-taking-a-pay-cut-in-california",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/by-not-getting-a-raise-myles-garrett-will-be-taking-a-pay-cut-in-california",
+      "title": "By not getting a raise, Myles Garrett will be taking a pay cut in California",
+      "body_text": "In the days following his trade from the Browns to the Rams, defensive end Myles Garrett received a new contract.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T14:19:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/no-a-j-brown-did-not-say-he-leaked-eagles-stories-to-the-media",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/no-a-j-brown-did-not-say-he-leaked-eagles-stories-to-the-media",
+      "title": "No, A.J. Brown did not say he \"leaked\" Eagles stories to the media",
+      "body_text": "Too many reporters and outlets falsely claimed otherwise.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T13:34:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/of-course-indiana-is-leverage-for-the-bears-in-illinois",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/of-course-indiana-is-leverage-for-the-bears-in-illinois",
+      "title": "Of course Indiana is leverage for the Bears in Illinois",
+      "body_text": "The question isn't whether Hammond is leverage, but whether it's a bluff.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T12:31:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Illinois The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-mcdaniels-drake-maye-knows-a-hell-of-a-lot-more-than-he-did-last-year-at-this-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-mcdaniels-drake-maye-knows-a-hell-of-a-lot-more-than-he-did-last-year-at-this-time",
+      "title": "Josh McDaniels: Drake Maye knows a hell of a lot more than he did last year at this time",
+      "body_text": "\"This offseason is different,\" McDaniels said. \"Last offseason, we were just getting to know the language and learning how to operate within a system of offensive football.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-07T12:10:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-delivers-in-his-first-l-a-appearance",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-delivers-in-his-first-l-a-appearance",
+      "title": "Myles Garrett delivers in his first L.A. appearance",
+      "body_text": "As Dolphins quarterback Malik Willis learned last month, throwing out the first pitch at a Major League Baseball game is usually a no-win proposition.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T11:52:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "As Dolphins",
+        "Malik Willis",
+        "Major League"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kayshon-boutte-says-he-will-attend-patriots-mandatory-minicamp-amid-talk-of-a-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kayshon-boutte-says-he-will-attend-patriots-mandatory-minicamp-amid-talk-of-a-trade",
+      "title": "Kayshon Boutte says he will attend Patriots' mandatory minicamp amid talk of a trade",
+      "body_text": "Patriots wide receiver Kayshon Boutte has skipped voluntary offseason work and is reportedly interested in getting traded.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-07T08:11:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kayshon Boutte"
+      ],
+      "resolved_player_ids": [
+        "00-0038608"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-are-getting-their-super-bowl-lx-rings-on-june-11",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-are-getting-their-super-bowl-lx-rings-on-june-11",
+      "title": "Seahawks are getting their Super Bowl LX rings on June 11",
+      "body_text": "Super Bowl MVP Kenneth Walker III, now with the Chiefs, has said he'll be there.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T01:08:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl",
+        "Kenneth Walker III"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-chargers-49ers-support-the-proposed-california-workers-compensation-law-change",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-chargers-49ers-support-the-proposed-california-workers-compensation-law-change",
+      "title": "Rams, Chargers, 49ers support the proposed California workers' compensation law change",
+      "body_text": "The NFL Players Association \"strongly opposes\" the proposed changes to the California workers' compensation laws, which would limit the rights of professional athletes.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-07T00:32:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darrell-housh-doucette-thinks-one-or-two-nfl-players-could-make-u-s-mens-olympic-flag-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darrell-housh-doucette-thinks-one-or-two-nfl-players-could-make-u-s-mens-olympic-flag-team",
+      "title": "Darrell \"Housh\" Doucette thinks \"one or two\" NFL players could make U.S. men's Olympic flag team",
+      "body_text": "Two years ago, flag-football star Darrell \"Housh\" Doucette said he'd be a better option for the Olympics than Patrick Mahomes.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T19:25:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/denzel-ward-says-he-wants-to-stay-with-the-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/denzel-ward-says-he-wants-to-stay-with-the-browns",
+      "title": "Denzel Ward says he wants to stay with the Browns",
+      "body_text": "Garrett trade doesn't change Ward's mindset.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T18:10:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Denzel Ward",
+        "Browns Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0034856"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-is-the-betting-favorite-to-win-defensive-player-of-the-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-is-the-betting-favorite-to-win-defensive-player-of-the-year",
+      "title": "Myles Garrett is the betting favorite to win Defensive Player of the Year",
+      "body_text": "Garrett would join Lawrence Taylor, J. J. Watt and Aaron Donald as the only three-time Defensive Players of the Year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-06T14:34:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "Defensive Player",
+        "Year Garrett",
+        "Lawrence Taylor",
+        "Aaron Donald",
+        "Defensive Players"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-strongly-opposes-proposed-california-workers-compensation-law",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-strongly-opposes-proposed-california-workers-compensation-law",
+      "title": "NFLPA \"strongly opposes\" proposed changes to California workers' compensation laws",
+      "body_text": "Although most of an NFL player's rights and responsibilities are governed by the Collective Bargaining Agreement between the NFL Players Association and the NFL, the geographic location of a player's employment has a potentially significant impact on their overall work experience.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T11:42:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Collective Bargaining",
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-the-tush-push-is-hard-to-stop-and-dolphins-can-get-good-at-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-the-tush-push-is-hard-to-stop-and-dolphins-can-get-good-at-it",
+      "title": "Jeff Hafley: The tush push is hard to stop, and Dolphins can get good at it",
+      "body_text": "New Dolphins head coach Jeff Hafley wants his team to be good at the tush push, on both sides of the ball.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-06T10:59:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeff Hafley",
+        "New Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-remains-off-comcast-xfinity-cable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-remains-off-comcast-xfinity-cable",
+      "title": "NFL Network remains off Comcast Xfinity cable",
+      "body_text": "If the dispute extends into the regular season, it would also mean Xfinity subscribers would not have NFL RedZone Channel.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-06T08:57:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Comcast Xfinity"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-finds-that-four-alabama-state-basketball-players-threw-a-game-for-2-000",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-finds-that-four-alabama-state-basketball-players-threw-a-game-for-2-000",
+      "title": "NCAA finds that four Alabama State basketball players threw a game for $2,000",
+      "body_text": "The biggest risk when it comes to the proliferation of legal sports betting comes from the possibility of players deliberately losing games.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T04:34:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alabama State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-denies-texas-techs-appeal-regarding-brendan-sorsbys-eligibility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-denies-texas-techs-appeal-regarding-brendan-sorsbys-eligibility",
+      "title": "NCAA denies Texas Tech's appeal regarding Brendan Sorsby's eligibility",
+      "body_text": "As a judge weighs whether to reinstate the eligibility of Texas Tech quarterback Brendan Sorsby, the NCAA has reiterated its decision that Sorsby's gambling habits prevent him from playing again.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-06T04:07:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-pays-homage-to-michael-jordan-on-madden-27-cover",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-pays-homage-to-michael-jordan-on-madden-27-cover",
+      "title": "Caleb Williams pays homage to Michael Jordan on Madden 27 cover",
+      "body_text": "Caleb Williams wants to trademark the nickname of one Basketball Hall of Famer, but he wants to be like another.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-06T02:20:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams",
+        "Michael Jordan",
+        "Basketball Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    }
+  ]
+}
