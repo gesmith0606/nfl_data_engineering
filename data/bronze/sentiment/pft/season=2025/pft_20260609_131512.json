@@ -1,0 +1,590 @@
+{
+  "fetch_run_id": "08cfaa26-f178-4d3d-92b2-078cba60832a",
+  "source": "pft",
+  "fetched_at": "2026-06-09T13:15:12.320251+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dc-chris-shula-we-have-our-principles-but-myles-garrett-will-do-what-he-does-best",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dc-chris-shula-we-have-our-principles-but-myles-garrett-will-do-what-he-does-best",
+      "permalink": "",
+      "title": "Rams DC Chris Shula: We have our principles, but Myles Garrett will do what he does best",
+      "body_text": "Myles Garrett got on the practice field with the Rams for the first time on Monday and he began to acclimate himself into life with a new team.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-09T11:11:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Shula",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-giants-feel-different-but-have-to-prove-it-on-the-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-giants-feel-different-but-have-to-prove-it-on-the-field",
+      "permalink": "",
+      "title": "Brian Burns: Giants feel different, but have to prove it on the field",
+      "body_text": "The Giants' move to hire John Harbaugh as their head coach in January sparked hopes that the team will be able to return to being contender and that feeling has not flagged as the team nears the end of its offseason program.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-09T10:47:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Burns",
+        "The Giants",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0035713"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-to-discuss-a-mandate-to-not-play-texas-tech-given-the-brendan-sorsby-ruling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-to-discuss-a-mandate-to-not-play-texas-tech-given-the-brendan-sorsby-ruling",
+      "permalink": "",
+      "title": "Big Ten to discuss a mandate to not play Texas Tech in any sport, given the Brendan Sorsby ruling",
+      "body_text": "Monday's ruling in the Brendan Sorsby case has had ripple effects far beyond Texas Tech and the Big 12 conference.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-09T10:34:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Big Ten",
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/top-6-picks-of-third-round-and-top-7-picks-of-fourth-round-remain-unsigned",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/top-6-picks-of-third-round-and-top-7-picks-of-fourth-round-remain-unsigned",
+      "permalink": "",
+      "title": "Top 6 picks of third round and Top 7 picks of fourth round remain unsigned",
+      "body_text": "More than 90 percent of draft picks have signed their rookie contracts, but there are two big unsigned clusters, at the top of the third and fourth rounds.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-09T08:55:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dreaming-of-the-possibility-of-an-aaron-donald-comeback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dreaming-of-the-possibility-of-an-aaron-donald-comeback",
+      "permalink": "",
+      "title": "Rams dreaming of the possibility of an Aaron Donald comeback",
+      "body_text": "Retired defensive lineman Aaron Donald is \"flirting\" with a comeback after the Rams traded for edge rusher Myles Garrett last week.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-09T01:06:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0031388",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-appeals-brendan-sorsby-ruling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-appeals-brendan-sorsby-ruling",
+      "permalink": "",
+      "title": "NCAA appeals Brendan Sorsby ruling",
+      "body_text": "As expected, the NCAA has appealed the court decision restoring the eligibility of Texas Tech quarterback Brendan Sorsby.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-09T00:49:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-kyler-murray-understands-the-game-because-hes-been-in-the-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-kyler-murray-understands-the-game-because-hes-been-in-the-game",
+      "permalink": "",
+      "title": "Justin Jefferson: Kyler Murray understands the game because he's been in the game",
+      "body_text": "Vikings star wide receiver Justin Jefferson said recently that it would be great to have the same quarterback for \"these next couple of years.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-06-09T00:10:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alex-van-pelt-falcons-qb-battle-wont-begin-until-michael-penix-is-cleared",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alex-van-pelt-falcons-qb-battle-wont-begin-until-michael-penix-is-cleared",
+      "permalink": "",
+      "title": "Alex Van Pelt: Falcons' QB battle won't begin until Michael Penix is cleared",
+      "body_text": "Penix is almost seven months removed from his surgery for a torn ACL.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-08T23:45:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alex Van",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-his-knee-100-percent-shavon-revel-working-on-situational-ball",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-his-knee-100-percent-shavon-revel-working-on-situational-ball",
+      "permalink": "",
+      "title": "With his knee 100 percent, Shavon Revel working on \"situational ball\"",
+      "body_text": "The Cowboys drafted cornerback Shavon Revel Jr. in the third round in 2025, knowing he would miss part of his rookie season.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-08T23:29:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shavon Revel",
+        "The Cowboys",
+        "Shavon Revel Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040008"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-ot-bobby-hart",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-ot-bobby-hart",
+      "permalink": "",
+      "title": "Seahawks sign OT Bobby Hart",
+      "body_text": "The Seahawks added some experienced depth to their offensive line on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T22:00:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bobby Hart",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0031622"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinson-on-whether-hes-the-next-falcon-to-sign-extension-well-see",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinson-on-whether-hes-the-next-falcon-to-sign-extension-well-see",
+      "permalink": "",
+      "title": "Bijan Robinson on whether he's next in line for extension: We'll see",
+      "body_text": "Bijan Robinson is eligible for a contract extension.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-08T21:29:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-ifeatu-melifonwu-works-out-for-the-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-ifeatu-melifonwu-works-out-for-the-seahawks",
+      "permalink": "",
+      "title": "S Ifeatu Melifonwu works out for the Seahawks",
+      "body_text": "The Seahawks took a look at a possible veteran addition to their secondary on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T21:15:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ifeatu Melifonwu",
+        "Seahawks The"
+      ],
+      "resolved_player_ids": [
+        "00-0036993"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-te-caleb-lohner-undergoes-cleanup-procedure",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-te-caleb-lohner-undergoes-cleanup-procedure",
+      "permalink": "",
+      "title": "Broncos TE Caleb Lohner undergoes cleanup procedure",
+      "body_text": "Broncos tight end Caleb Lohner will miss the rest of the offseason program after a cleanup surgery, Mike Klis of 9News reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-08T20:48:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Lohner",
+        "Mike Klis"
+      ],
+      "resolved_player_ids": [
+        "00-0040240"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-to-sign-ljarius-sneed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-to-sign-ljarius-sneed",
+      "permalink": "",
+      "title": "Chiefs will sign L'Jarius Sneed",
+      "body_text": "Cornerback L'Jarius Sneed is headed back to Kansas City.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T20:35:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jarius Sneed",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-wr-malick-meiga",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-wr-malick-meiga",
+      "permalink": "",
+      "title": "Panthers sign WR Malick Meiga",
+      "body_text": "The Panthers announced the addition of a wide receiver to their 90-man roster on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T20:27:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malick Meiga",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-k-b-t-potter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-k-b-t-potter",
+      "permalink": "",
+      "title": "Bucs sign K B.T. Potter",
+      "body_text": "The Buccaneers signed kicker B.T.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-08T20:23:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Potter The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-say-abdul-carters-ankle-injury-doesnt-look-serious",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-say-abdul-carters-ankle-injury-doesnt-look-serious",
+      "permalink": "",
+      "title": "Giants say Abdul Carter's ankle injury \"doesn't look serious\"",
+      "body_text": "Reports from Monday's Giants minicamp practice concerning edge rusher Abdul Carter may have provided a few scares, but there don't appear to be any long-term fears for the 2025 first-round pick.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T20:19:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Abdul Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-first-round-pick-caleb-lomu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-first-round-pick-caleb-lomu",
+      "permalink": "",
+      "title": "Patriots sign first-round pick Caleb Lomu",
+      "body_text": "The Patriots have taken care of some important business with their rookie class.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-08T20:12:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Lomu",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "LOM719974"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-moving-well-in-giants-minicamp-drills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-moving-well-in-giants-minicamp-drills",
+      "permalink": "",
+      "title": "Cam Skattebo moving well in Giants minicamp drills",
+      "body_text": "The Giants got an injury scare from edge rusher Abdul Carter at their first minicamp practice on Monday, but there was a more positive update on the medical front for another of their 2024 draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T20:11:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "The Giants",
+        "Abdul Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-participates-in-rams-ota",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-participates-in-rams-ota",
+      "permalink": "",
+      "title": "Myles Garrett participates in Rams' OTA",
+      "body_text": "Myles Garrett was noncommittal on participating in the Rams' organized team activities during his introductory news conference last week.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-08T20:01:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcdermott-visited-giants-minicamp-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcdermott-visited-giants-minicamp-on-monday",
+      "permalink": "",
+      "title": "Sean McDermott visited Giants minicamp on Monday",
+      "body_text": "Sean McDermott has said that he's planning on spending his 2026 speaking with people about leadership in order to grow as a coach.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-08T19:51:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Sean"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-12-teams-consider-not-playing-texas-tech-given-the-brendan-sorsby-ruling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-12-teams-consider-not-playing-texas-tech-given-the-brendan-sorsby-ruling",
+      "permalink": "",
+      "title": "Big 12 teams consider not playing Texas Tech, given the Brendan Sorsby ruling",
+      "body_text": "Would other Big 12 teams boycott Texas Tech games?",
+      "author": "Mike Florio",
+      "published_at": "2026-06-08T19:33:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-limps-off-giants-practice-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-limps-off-giants-practice-field",
+      "permalink": "",
+      "title": "Abdul Carter limps off Giants' practice field",
+      "body_text": "Giants edge rusher Abdul Carter suffered an injury that forced him off the field at today's mandatory minicamp practice.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-08T19:18:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Abdul Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/house-judiciary-committee-report-suggests-nfl-misled-congress-about-sunday-ticket",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/house-judiciary-committee-report-suggests-nfl-misled-congress-about-sunday-ticket",
+      "permalink": "",
+      "title": "House Judiciary Committee report suggests NFL misled Congress about Sunday Ticket",
+      "body_text": "On Wednesday, the House Judiciary Committee will hold a hearing on the Sports Broadcasting Act of 1961.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-08T18:58:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "House Judiciary",
+        "Sunday Ticket",
+        "On Wednesday",
+        "Sports Broadcasting"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-agree-to-terms-with-first-round-pick-mansoor-delane",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-agree-to-terms-with-first-round-pick-mansoor-delane",
+      "permalink": "",
+      "title": "Chiefs agree to terms with first-round pick Mansoor Delane",
+      "body_text": "The Chiefs wrapped up contracts for both of their first-round picks on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T18:55:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mansoor Delane",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "DEL076452"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-wr-jalen-walthall",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-wr-jalen-walthall",
+      "permalink": "",
+      "title": "Jets sign WR Jalen Walthall",
+      "body_text": "The Jets made a change to their wide receiver group on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T18:50:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Walthall",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-drake-london-represents-all-the-things-we-believe-in",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-drake-london-represents-all-the-things-we-believe-in",
+      "permalink": "",
+      "title": "Kevin Stefanski: Drake London represents all the things we believe in",
+      "body_text": "Drake London's contract extension with the Falcons became official on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T18:45:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kevin Stefanski",
+        "Drake London"
+      ],
+      "resolved_player_ids": [
+        "00-0037238"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-sweat-jacoby-brissett-in-attendance-for-cardinals-mandatory-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-sweat-jacoby-brissett-in-attendance-for-cardinals-mandatory-minicamp",
+      "permalink": "",
+      "title": "Josh Sweat, Jacoby Brissett in attendance for Cardinals' mandatory minicamp",
+      "body_text": "Word on Monday morning was that quarterback Jacoby Brissett would attend the Cardinals' mandatory minicamp this week and he's not the only member of the team who decided to report after missing the team's voluntary offseason sessions.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T18:21:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Sweat",
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0034381",
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-lb-jonathon-cooper-pleads-not-guilty-to-domestic-violence-charges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-lb-jonathon-cooper-pleads-not-guilty-to-domestic-violence-charges",
+      "permalink": "",
+      "title": "Broncos LB Jonathon Cooper pleads not guilty to domestic violence charges",
+      "body_text": "Broncos linebacker Jonathon Cooper was arrested last Thursday on domestic violence charges and he was in a Douglas County, Colorado courtroom to enter a plea on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-08T18:11:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Cooper",
+        "Douglas County"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fanatics-flag-football-classic-results-in-litigation-over-relocation-to-l-a",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fanatics-flag-football-classic-results-in-litigation-over-relocation-to-l-a",
+      "permalink": "",
+      "title": "Fanatics Flag Football Classic results in litigation over relocation to L.A.",
+      "body_text": "The war that some would say isn't a war in Iran disrupted plans for the inaugural Fanatics Flag Football Classic in Saudi Arabia.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-08T17:55:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fanatics Flag",
+        "Football Classic",
+        "Saudi Arabia"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

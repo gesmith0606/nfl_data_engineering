@@ -1,0 +1,111 @@
+{
+  "fetch_run_id": "fa5060fb-ba3f-4027-b140-2a98410bc87a",
+  "source": "rotowire",
+  "fetched_at": "2026-06-09T13:14:27.637815+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631264",
+      "url": "https://www.rotowire.com//football/player/chris-rodriguez-16933",
+      "permalink": "",
+      "title": "Chris Rodriguez: Bouncing back from foot procedure",
+      "body_text": "Rodriguez, who underwent a procedure on his left foot following an injury he sustained earlier in the Jaguars' offseason program, is expected to be ready for the start of training camp, Ryan O'Halloran of The Florida Times-Union reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-08T02:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Rodriguez",
+        "The Florida"
+      ],
+      "resolved_player_ids": [
+        "00-0038611"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "nfl631254",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Reports for mandatory minicamp",
+      "body_text": "Brissett reported for the start of mandatory minicamp Monday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-08T11:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631253",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Taking part in drills at minicamp",
+      "body_text": "Skattebo (ankle) took part in running and agility drills at the first day of mandatory minicamp Monday, Jordan Raanan of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-08T11:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Jordan Raanan"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631252",
+      "url": "https://www.rotowire.com//football/player/calvin-ridley-12616",
+      "permalink": "",
+      "title": "Calvin Ridley: Participating in OTAs on Monday",
+      "body_text": "Ridley (leg) is participating in Monday's practice, Jim Wyatt of the Titans' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-08T11:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Calvin Ridley",
+        "Monday Ridley",
+        "Jim Wyatt"
+      ],
+      "resolved_player_ids": [
+        "00-0034837"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "nfl631250",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Expected to report to minicamp",
+      "body_text": "Brissett is expected to report to the Cardinals' minicamp this week, Jeremy Fowler of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-07T09:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    }
+  ]
+}
