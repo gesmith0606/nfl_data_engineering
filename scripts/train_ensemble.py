@@ -68,6 +68,15 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help=f"Output directory for ensemble artifacts (default: {ENSEMBLE_DIR}).",
     )
+    parser.add_argument(
+        "--features-from",
+        type=str,
+        default=None,
+        help=(
+            "Path to an existing ensemble metadata.json whose selected_features "
+            "list should be reused (e.g. models/ensemble/metadata.json)."
+        ),
+    )
     return parser
 
 
@@ -277,7 +286,19 @@ def main(argv: list = None) -> int:
         return 1
 
     # Step 2: Determine feature columns
-    if SELECTED_FEATURES is not None:
+    if args.features_from:
+        import json
+
+        with open(args.features_from) as fh:
+            prior_meta = json.load(fh)
+        prior_features = prior_meta.get("selected_features") or []
+        feature_cols = [c for c in prior_features if c in all_data.columns]
+        missing = sorted(set(prior_features) - set(feature_cols))
+        print(
+            f"Using {len(feature_cols)} features from {args.features_from}"
+            + (f" ({len(missing)} missing in current data)" if missing else "")
+        )
+    elif SELECTED_FEATURES is not None:
         feature_cols = [c for c in SELECTED_FEATURES if c in all_data.columns]
         print(f"Using {len(feature_cols)} selected features from config")
     else:

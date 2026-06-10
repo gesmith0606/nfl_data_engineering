@@ -60,6 +60,8 @@ OUTPUT_COLUMNS = [
     "confidence_tier",
     "ats_pick",
     "ou_pick",
+    "home_cover_prob",
+    "over_prob",
 ]
 
 
@@ -120,6 +122,11 @@ def _normalize_prediction_columns(df: pd.DataFrame) -> pd.DataFrame:
         out["ou_pick"] = out["total_edge"].apply(
             lambda e: "over" if (e is not None and not pd.isna(e) and e > 0) else "under"
         )
+
+    # Calibrated probabilities default to NaN when no calibrator was applied
+    for prob_col in ("home_cover_prob", "over_prob"):
+        if prob_col not in out.columns:
+            out[prob_col] = float("nan")
 
     return out
 
@@ -339,6 +346,19 @@ def main(argv: Optional[List[str]] = None) -> int:
         week_df["total_edge"] = week_df["model_total"] - week_df["vegas_total"]
         week_df["spread_confidence_tier"] = week_df["spread_edge"].apply(classify_tier)
         week_df["total_confidence_tier"] = week_df["total_edge"].apply(classify_tier)
+
+        # Calibrated edge -> probability (trained on leak-free OOF predictions)
+        for prob_col, models_dict, edge_col in (
+            ("home_cover_prob", spread_models, "spread_edge"),
+            ("over_prob", total_models, "total_edge"),
+        ):
+            calibrator = models_dict.get("calibrator")
+            if calibrator is not None:
+                edge_vals = week_df[edge_col].fillna(0.0).values.reshape(-1, 1)
+                week_df[prob_col] = calibrator.predict_proba(edge_vals)[:, 1].round(4)
+            else:
+                week_df[prob_col] = float("nan")
+
         week_df["model_version"] = model_version
         week_df["prediction_timestamp"] = datetime.utcnow()
 

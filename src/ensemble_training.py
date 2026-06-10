@@ -30,7 +30,7 @@ import lightgbm as lgb
 import numpy as np
 import pandas as pd
 import xgboost as xgb
-from sklearn.linear_model import RidgeCV
+from sklearn.linear_model import LogisticRegression, Ridge, RidgeCV
 from sklearn.metrics import mean_absolute_error
 
 from model_training import WalkForwardResult
@@ -166,20 +166,24 @@ def walk_forward_cv_with_oof(
         mae = float(mean_absolute_error(y_val, preds))
         fold_maes.append(mae)
 
-        fold_details.append({
-            "train_seasons": train_seasons,
-            "val_season": val_season,
-            "train_size": len(train),
-            "val_size": len(val),
-            "mae": mae,
-        })
+        fold_details.append(
+            {
+                "train_seasons": train_seasons,
+                "val_season": val_season,
+                "train_size": len(train),
+                "val_size": len(val),
+                "mae": mae,
+            }
+        )
 
         # Collect OOF predictions
-        oof_fold = pd.DataFrame({
-            "game_id": val["game_id"].values,
-            "season": val["season"].values,
-            "oof_prediction": preds,
-        })
+        oof_fold = pd.DataFrame(
+            {
+                "game_id": val["game_id"].values,
+                "season": val["season"].values,
+                "oof_prediction": preds,
+            }
+        )
         oof_records.append(oof_fold)
 
     mean_mae = float(np.mean(fold_maes)) if fold_maes else 0.0
@@ -189,8 +193,10 @@ def walk_forward_cv_with_oof(
         fold_details=fold_details,
     )
 
-    oof_df = pd.concat(oof_records, ignore_index=True) if oof_records else pd.DataFrame(
-        columns=["game_id", "season", "oof_prediction"]
+    oof_df = (
+        pd.concat(oof_records, ignore_index=True)
+        if oof_records
+        else pd.DataFrame(columns=["game_id", "season", "oof_prediction"])
     )
 
     return result, oof_df
@@ -271,6 +277,158 @@ def train_ridge_meta(
     ridge.fit(X, y)
 
     return ridge
+
+
+# ---------------------------------------------------------------------------
+# Meta-learner candidate selection (season-out CV on the OOF matrix)
+# ---------------------------------------------------------------------------
+
+_META_COLS = ["xgb_pred", "lgb_pred", "cb_pred"]
+
+
+class MeanMeta:
+    """Equal-weight average of base model predictions.
+
+    Exposes the sklearn predict() interface so it can be saved and loaded
+    interchangeably with Ridge meta-learners.
+    """
+
+    coef_ = np.array([1 / 3, 1 / 3, 1 / 3])
+    intercept_ = 0.0
+
+    def fit(self, X, y=None) -> "MeanMeta":
+        """No-op fit for interface compatibility."""
+        return self
+
+    def predict(self, X) -> np.ndarray:
+        """Return the row-wise mean of the base predictions."""
+        return np.asarray(X).mean(axis=1)
+
+
+def _meta_candidates() -> Dict[str, Callable[[], Any]]:
+    """Factories for the meta-learner candidates compared via season-out CV.
+
+    Candidates:
+        ridge_cv: unconstrained RidgeCV (legacy production meta).
+        nonneg_ridge: Ridge constrained to non-negative weights — guards
+            against sign-flipped weights that fit OOF noise (e.g. the v2.0
+            total stack learned -0.649 on LightGBM).
+        mean: equal-weight average (hardest to overfit).
+    """
+    return {
+        "ridge_cv": lambda: RidgeCV(alphas=[0.01, 0.1, 1.0, 10.0, 100.0]),
+        "nonneg_ridge": lambda: Ridge(
+            alpha=1.0, positive=True, solver="lbfgs", fit_intercept=True
+        ),
+        "mean": MeanMeta,
+    }
+
+
+def season_out_meta_predictions(
+    oof_matrix: pd.DataFrame,
+    model_factory: Callable[[], Any],
+    target_col: str = "actual",
+) -> pd.Series:
+    """Leave-one-season-out predictions for a meta-learner candidate.
+
+    For each season in the OOF matrix, fits the candidate on all other
+    seasons' OOF rows and predicts the held-out season. The result is a
+    leak-free estimate of the meta-learner's generalization.
+
+    Args:
+        oof_matrix: OOF matrix with xgb_pred, lgb_pred, cb_pred, season, target.
+        model_factory: Zero-arg callable returning an unfitted meta model.
+        target_col: Actual target column name.
+
+    Returns:
+        Series of out-of-season meta predictions aligned to oof_matrix.index.
+    """
+    preds = pd.Series(np.nan, index=oof_matrix.index)
+    for season in sorted(oof_matrix["season"].unique()):
+        val_mask = oof_matrix["season"] == season
+        train = oof_matrix[~val_mask]
+        if train.empty:
+            continue
+        model = model_factory()
+        model.fit(train[_META_COLS].values, train[target_col].values)
+        preds[val_mask] = model.predict(oof_matrix.loc[val_mask, _META_COLS].values)
+    return preds
+
+
+def select_meta_learner(
+    oof_matrix: pd.DataFrame,
+    target_col: str = "actual",
+) -> Tuple[Any, Dict[str, Any]]:
+    """Select the best meta-learner by season-out CV MAE on the OOF matrix.
+
+    Compares unconstrained RidgeCV, non-negative Ridge, and equal-weight
+    averaging. The winner is refit on the full OOF matrix.
+
+    Args:
+        oof_matrix: OOF matrix with xgb_pred, lgb_pred, cb_pred, season, target.
+        target_col: Actual target column name.
+
+    Returns:
+        Tuple of (fitted winning meta model, report dict with per-candidate
+        CV MAE, winner name, and the winner's season-out predictions stored
+        under key "winner_oof_preds" as a pd.Series).
+    """
+    candidates = _meta_candidates()
+    scores: Dict[str, float] = {}
+    cv_preds: Dict[str, pd.Series] = {}
+    y = oof_matrix[target_col]
+
+    for name, factory in candidates.items():
+        preds = season_out_meta_predictions(oof_matrix, factory, target_col)
+        valid = preds.notna()
+        scores[name] = float(mean_absolute_error(y[valid], preds[valid]))
+        cv_preds[name] = preds
+
+    winner = min(scores, key=scores.get)
+    model = candidates[winner]()
+    model.fit(oof_matrix[_META_COLS].values, y.values)
+
+    report: Dict[str, Any] = {
+        "candidate_cv_mae": scores,
+        "winner": winner,
+        "winner_oof_preds": cv_preds[winner],
+    }
+    return model, report
+
+
+# ---------------------------------------------------------------------------
+# Edge -> probability calibration
+# ---------------------------------------------------------------------------
+
+
+def train_edge_calibrator(
+    edges: pd.Series,
+    outcomes: pd.Series,
+) -> Optional[LogisticRegression]:
+    """Fit a logistic calibrator mapping model edge to win probability.
+
+    For spreads: edge = predicted_margin - spread_line, outcome = home covered.
+    For totals: edge = predicted_total - total_line, outcome = game went over.
+    Inputs must be leak-free (season-out OOF predictions), otherwise the
+    calibrated probabilities will be optimistic.
+
+    Args:
+        edges: Model edge values (prediction minus market line).
+        outcomes: Boolean outcomes (cover / over). Pushes must be dropped
+            by the caller.
+
+    Returns:
+        Fitted LogisticRegression on the single edge feature, or None when
+        fewer than 50 valid rows are available.
+    """
+    mask = edges.notna() & outcomes.notna()
+    if int(mask.sum()) < 50:
+        return None
+    X = edges[mask].values.reshape(-1, 1)
+    y = outcomes[mask].astype(int).values
+    calib = LogisticRegression(C=1.0)
+    calib.fit(X, y)
+    return calib
 
 
 # ---------------------------------------------------------------------------
@@ -361,28 +519,61 @@ def train_ensemble(
     for target_name, target_col in targets.items():
         # --- Walk-forward CV with OOF for each base learner ---
         xgb_result, xgb_oof = walk_forward_cv_with_oof(
-            all_data, feature_cols, target_col,
+            all_data,
+            feature_cols,
+            target_col,
             model_factory=lambda: make_xgb_model(xgb_params),
             fit_kwargs_fn=_xgb_fit_kwargs,
         )
 
         lgb_result, lgb_oof = walk_forward_cv_with_oof(
-            all_data, feature_cols, target_col,
+            all_data,
+            feature_cols,
+            target_col,
             model_factory=lambda: make_lgb_model(lgb_params),
             fit_kwargs_fn=_lgb_fit_kwargs,
         )
 
         cb_result, cb_oof = walk_forward_cv_with_oof(
-            all_data, feature_cols, target_col,
+            all_data,
+            feature_cols,
+            target_col,
             model_factory=lambda: make_cb_model(cb_params),
             fit_kwargs_fn=_cb_fit_kwargs,
         )
 
-        # --- Assemble OOF matrix and train Ridge ---
+        # --- Assemble OOF matrix and select meta-learner by season-out CV ---
         oof_matrix = assemble_oof_matrix(
-            xgb_oof, lgb_oof, cb_oof, all_data, target_col,
+            xgb_oof,
+            lgb_oof,
+            cb_oof,
+            all_data,
+            target_col,
         )
-        ridge = train_ridge_meta(oof_matrix)
+        ridge, meta_report = select_meta_learner(oof_matrix)
+        meta_oof_preds = meta_report.pop("winner_oof_preds")
+
+        # Persist OOF matrix for later analysis / recalibration
+        oof_matrix.assign(meta_oof_pred=meta_oof_preds).to_parquet(
+            os.path.join(ensemble_dir, f"oof_{target_name}.parquet"), index=False
+        )
+
+        # --- Edge -> probability calibrator on leak-free OOF predictions ---
+        line_col = "spread_line" if target_name == "spread" else "total_line"
+        calibrator = None
+        if line_col in all_data.columns:
+            lines = all_data[["game_id", line_col]].drop_duplicates("game_id")
+            calib_df = oof_matrix.merge(lines, on="game_id", how="left")
+            calib_df["meta_oof_pred"] = meta_oof_preds.values
+            edge = calib_df["meta_oof_pred"] - calib_df[line_col]
+            push = calib_df["actual"] == calib_df[line_col]
+            outcome = (calib_df["actual"] > calib_df[line_col]).where(~push)
+            calibrator = train_edge_calibrator(edge, outcome)
+            if calibrator is not None:
+                with open(
+                    os.path.join(ensemble_dir, f"calibrator_{target_name}.pkl"), "wb"
+                ) as f:
+                    pickle.dump(calibrator, f)
 
         # --- Train final base models on all training data ---
         train_set = train_data[train_data["season"] < last_val_season]
@@ -400,7 +591,8 @@ def train_ensemble(
         # LightGBM final
         lgb_final = make_lgb_model(lgb_params)
         lgb_final.fit(
-            X_train, y_train,
+            X_train,
+            y_train,
             eval_set=[(X_eval, y_eval)],
             callbacks=[lgb.early_stopping(50, verbose=False)],
         )
@@ -411,7 +603,9 @@ def train_ensemble(
 
         # --- Save artifacts ---
         xgb_final.save_model(os.path.join(ensemble_dir, f"xgb_{target_name}.json"))
-        lgb_final.booster_.save_model(os.path.join(ensemble_dir, f"lgb_{target_name}.txt"))
+        lgb_final.booster_.save_model(
+            os.path.join(ensemble_dir, f"lgb_{target_name}.txt")
+        )
         cb_final.save_model(os.path.join(ensemble_dir, f"cb_{target_name}.cbm"))
 
         ridge_path = os.path.join(ensemble_dir, f"ridge_{target_name}.pkl")
@@ -424,8 +618,18 @@ def train_ensemble(
             "xgb_cv_mae": xgb_result.mean_mae,
             "lgb_cv_mae": lgb_result.mean_mae,
             "cb_cv_mae": cb_result.mean_mae,
-            "ridge_alpha": float(ridge.alpha_),
-            "ridge_coefficients": ridge.coef_.tolist(),
+            "meta_learner": meta_report["winner"],
+            "meta_candidate_cv_mae": meta_report["candidate_cv_mae"],
+            "ridge_alpha": float(getattr(ridge, "alpha_", np.nan)),
+            "ridge_coefficients": np.asarray(ridge.coef_).tolist(),
+            "calibrator": (
+                {
+                    "coef": float(calibrator.coef_[0][0]),
+                    "intercept": float(calibrator.intercept_[0]),
+                }
+                if calibrator is not None
+                else None
+            ),
         }
 
     # Save metadata.json
@@ -467,7 +671,9 @@ def load_ensemble(
         xgb_model.load_model(os.path.join(ensemble_dir, f"xgb_{target_name}.json"))
 
         # LightGBM -- load as Booster for prediction
-        lgb_model = lgb.Booster(model_file=os.path.join(ensemble_dir, f"lgb_{target_name}.txt"))
+        lgb_model = lgb.Booster(
+            model_file=os.path.join(ensemble_dir, f"lgb_{target_name}.txt")
+        )
 
         # CatBoost
         cb_model = cb.CatBoostRegressor()
@@ -477,11 +683,19 @@ def load_ensemble(
         with open(os.path.join(ensemble_dir, f"ridge_{target_name}.pkl"), "rb") as f:
             ridge_model = pickle.load(f)
 
+        # Optional edge -> probability calibrator (added with meta selection)
+        calibrator = None
+        calib_path = os.path.join(ensemble_dir, f"calibrator_{target_name}.pkl")
+        if os.path.exists(calib_path):
+            with open(calib_path, "rb") as f:
+                calibrator = pickle.load(f)
+
         return {
             "xgb": xgb_model,
             "lgb": lgb_model,
             "cb": cb_model,
             "ridge": ridge_model,
+            "calibrator": calibrator,
         }
 
     spread_models = _load_target_models("spread")
