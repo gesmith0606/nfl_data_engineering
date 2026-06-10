@@ -187,3 +187,75 @@ def build_opp_rankings(
     except Exception as e:
         logger.warning("Failed to build opponent rankings: %s", e)
         return pd.DataFrame()
+
+
+def build_defensive_strength_table(
+    seasons: Optional[List[int]] = None,
+) -> pd.DataFrame:
+    """Build the trailing defensive-strength table from Bronze data.
+
+    v4.2 counterpart to ``build_opp_rankings``: loads Bronze weekly stats and
+    schedules, then computes ``player_analytics.compute_defensive_strength``
+    (trailing fantasy points allowed vs position, shift(1) lagged). Passing
+    this table to ``compute_heuristic_baseline`` reproduces the production
+    matchup factor exactly, keeping residual-model training targets
+    numerically consistent with production projections.
+
+    Args:
+        seasons: Seasons to include. Defaults to PLAYER_DATA_SEASONS. The
+            prior season of the earliest requested season is included so the
+            trailing window spans the boundary.
+
+    Returns:
+        Strength DataFrame (season, week, team, position, ratio), or empty
+        DataFrame on failure.
+    """
+    from config import PLAYER_DATA_SEASONS
+
+    if seasons is None:
+        seasons = list(PLAYER_DATA_SEASONS)
+    load_seasons = sorted(set(list(seasons) + [min(seasons) - 1]))
+
+    try:
+        dfs = []
+        for season in load_seasons:
+            files = sorted(
+                glob.glob(
+                    os.path.join(
+                        _BRONZE_DIR, f"players/weekly/season={season}/*.parquet"
+                    )
+                )
+            )
+            if files:
+                dfs.append(pd.read_parquet(files[-1]))
+        if not dfs:
+            logger.warning("No Bronze weekly data for defensive strength")
+            return pd.DataFrame()
+        weekly_df = pd.concat(dfs, ignore_index=True)
+
+        sched_dfs = []
+        for season in load_seasons:
+            for pattern in [
+                f"games/season={season}/*.parquet",
+                f"schedules/season={season}/*.parquet",
+            ]:
+                files = sorted(glob.glob(os.path.join(_BRONZE_DIR, pattern)))
+                if files:
+                    sdf = pd.read_parquet(files[-1])
+                    if "season" not in sdf.columns:
+                        sdf["season"] = season
+                    sched_dfs.append(sdf)
+                    break
+        if not sched_dfs:
+            logger.warning("No schedules for defensive strength")
+            return pd.DataFrame()
+        schedules_df = pd.concat(sched_dfs, ignore_index=True)
+
+        from player_analytics import compute_defensive_strength
+
+        strength = compute_defensive_strength(weekly_df, schedules_df)
+        logger.info("Built defensive strength table: %d rows", len(strength))
+        return strength
+    except Exception as e:
+        logger.warning("Failed to build defensive strength table: %s", e)
+        return pd.DataFrame()

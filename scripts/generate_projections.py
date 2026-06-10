@@ -486,40 +486,71 @@ def main():
                 print(f"ERROR: {e}")
                 return 1
 
-        # Load opponent rankings
-        opp_rankings = pd.DataFrame()
-        opp_rankings = _read_local_parquet(
-            SILVER_DIR, f"defense/positional/season={args.season}/*.parquet"
+        # Load schedules unconditionally — needed for the matchup factor's
+        # upcoming-opponent derivation and bye detection (prior season
+        # included so the trailing defensive window spans the boundary).
+        sched_parts = []
+        for s in (args.season - 1, args.season):
+            part = _read_local_parquet(BRONZE_DIR, f"schedules/season={s}/*.parquet")
+            if part.empty:
+                try:
+                    part = fetcher.fetch_schedules([s])
+                except Exception as e:
+                    print(f"WARN: Could not load schedules for {s}: {e}")
+                    part = pd.DataFrame()
+            if not part.empty:
+                if "season" not in part.columns:
+                    part["season"] = s
+                sched_parts.append(part)
+        schedules_df = (
+            pd.concat(sched_parts, ignore_index=True)
+            if sched_parts
+            else pd.DataFrame()
         )
+
+        # Build the defensive strength table for the matchup factor
+        # (trailing fantasy points allowed vs position, properly lagged).
+        from player_analytics import compute_defensive_strength
+
+        weekly_parts = []
+        for s in (args.season - 1, args.season):
+            part = _read_local_parquet(
+                BRONZE_DIR, f"players/weekly/season={s}/*.parquet"
+            )
+            if not part.empty:
+                weekly_parts.append(part)
+        strength_weekly = (
+            pd.concat(weekly_parts, ignore_index=True)
+            if weekly_parts
+            else silver_df
+        )
+        opp_rankings = pd.DataFrame()
+        try:
+            opp_rankings = compute_defensive_strength(
+                strength_weekly, schedules_df, scoring_format=args.scoring
+            )
+        except Exception as e:
+            print(f"WARN: Could not compute defensive strength: {e}")
         if not opp_rankings.empty:
             print(
-                f"Loaded {len(opp_rankings):,} opponent ranking rows from local Silver"
+                f"Computed defensive strength table: {len(opp_rankings):,} rows"
             )
+        else:
+            print("WARN: No defensive strength table; matchup factor neutral")
 
-        if opp_rankings.empty and has_aws:
-            try:
-                opp_prefix = (
-                    f"defense/positional/season={args.season}/week={args.week}/"
-                )
-                opp_rankings = download_latest_parquet(s3, silver_bucket, opp_prefix)
-                print(f"Loaded {len(opp_rankings):,} opponent ranking rows from S3")
-            except Exception as e:
-                print(f"WARN: Could not load opponent rankings: {e}")
+        # Current-season slice for bye detection / implied totals — the
+        # two-season frame above is only for the trailing strength window.
+        season_sched = (
+            schedules_df[schedules_df["season"] == args.season]
+            if "season" in schedules_df.columns
+            else schedules_df
+        )
 
-        # Load schedules for implied totals (needed for --constrain)
-        schedules_df = pd.DataFrame()
+        # Implied totals (needed for --constrain)
         implied_totals = None
         if args.constrain:
-            schedules_df = _read_local_parquet(
-                BRONZE_DIR, f"schedules/season={args.season}/*.parquet"
-            )
-            if schedules_df.empty:
-                try:
-                    schedules_df = fetcher.fetch_schedules([args.season])
-                except Exception as e:
-                    print(f"WARN: Could not load schedules for constraints: {e}")
-            if not schedules_df.empty:
-                implied_totals = _load_implied_totals(schedules_df, args.week)
+            if not season_sched.empty:
+                implied_totals = _load_implied_totals(season_sched, args.week)
                 if implied_totals:
                     print(
                         f"Loaded implied totals for {len(implied_totals)} teams (Week {args.week})"
@@ -564,7 +595,7 @@ def main():
                 season=args.season,
                 week=args.week,
                 scoring_format=args.scoring,
-                schedules_df=schedules_df if not schedules_df.empty else None,
+                schedules_df=season_sched if not season_sched.empty else None,
                 implied_totals=implied_totals,
                 apply_constraints=args.constrain,
                 feature_df=feature_df,
@@ -576,7 +607,7 @@ def main():
                 season=args.season,
                 week=args.week,
                 scoring_format=args.scoring,
-                schedules_df=schedules_df if not schedules_df.empty else None,
+                schedules_df=season_sched if not season_sched.empty else None,
                 implied_totals=implied_totals,
                 apply_constraints=args.constrain,
             )

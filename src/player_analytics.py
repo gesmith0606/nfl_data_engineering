@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 # Usage Metrics
 # ---------------------------------------------------------------------------
 
+
 def compute_usage_metrics(
     weekly_df: pd.DataFrame,
     snap_df: Optional[pd.DataFrame] = None,
@@ -38,56 +39,55 @@ def compute_usage_metrics(
     df = weekly_df.copy()
 
     # --- Team-level aggregates per game ------------------------------------------------
-    team_pass_cols = ['targets', 'air_yards']
-    team_rush_cols = ['carries']
-    rz_pass_cols = ['target_share']  # we'll use a proxy below
+    team_pass_cols = ["targets", "air_yards"]
+    team_rush_cols = ["carries"]
+    rz_pass_cols = ["target_share"]  # we'll use a proxy below
 
     # Sum per team per week
-    team_agg = (
-        df.groupby(['season', 'week', 'recent_team'], as_index=False)
-        .agg(
-            team_targets=('targets', 'sum'),
-            team_air_yards=('air_yards', 'sum'),
-            team_carries=('carries', 'sum'),
-        )
+    team_agg = df.groupby(["season", "week", "recent_team"], as_index=False).agg(
+        team_targets=("targets", "sum"),
+        team_air_yards=("air_yards", "sum"),
+        team_carries=("carries", "sum"),
     )
-    team_agg.rename(columns={'recent_team': 'team'}, inplace=True)
+    team_agg.rename(columns={"recent_team": "team"}, inplace=True)
 
     # Merge back
     df = df.merge(
         team_agg,
-        left_on=['season', 'week', 'recent_team'],
-        right_on=['season', 'week', 'team'],
-        how='left',
-    ).drop(columns=['team'])
+        left_on=["season", "week", "recent_team"],
+        right_on=["season", "week", "team"],
+        how="left",
+    ).drop(columns=["team"])
 
     # --- Compute shares ----------------------------------------------------------------
-    df['target_share'] = np.where(
-        df['team_targets'] > 0,
-        df['targets'] / df['team_targets'],
+    df["target_share"] = np.where(
+        df["team_targets"] > 0,
+        df["targets"] / df["team_targets"],
         np.nan,
     )
-    df['air_yards_share'] = np.where(
-        df['team_air_yards'] > 0,
-        df['air_yards'] / df['team_air_yards'],
+    df["air_yards_share"] = np.where(
+        df["team_air_yards"] > 0,
+        df["air_yards"] / df["team_air_yards"],
         np.nan,
     )
-    df['carry_share'] = np.where(
-        df['team_carries'] > 0,
-        df['carries'] / df['team_carries'],
+    df["carry_share"] = np.where(
+        df["team_carries"] > 0,
+        df["carries"] / df["team_carries"],
         np.nan,
     )
 
     # Red-zone shares (use wopr as proxy if available, else estimate from targets)
-    if 'wopr' in df.columns:
-        df['rz_target_share'] = df['wopr']  # WOPR is a composite air-yards+target metric
-    elif 'target_share' in df.columns:
-        df['rz_target_share'] = df['target_share']  # fallback
+    if "wopr" in df.columns:
+        df["rz_target_share"] = df[
+            "wopr"
+        ]  # WOPR is a composite air-yards+target metric
+    elif "target_share" in df.columns:
+        df["rz_target_share"] = df["target_share"]  # fallback
 
     # --- Merge snap counts -------------------------------------------------------------
     if snap_df is not None:
-        snap_subset = snap_df[['player_id', 'season', 'week', 'snap_pct']].copy()
-        df = df.merge(snap_subset, on=['player_id', 'season', 'week'], how='left')
+        snap_subset = snap_df[["player_id", "season", "week", "snap_pct"]].copy()
+        df = df.merge(snap_subset, on=["player_id", "season", "week"], how="left")
 
     logger.info(f"Usage metrics computed for {len(df)} player-week rows")
     return df
@@ -96,6 +96,7 @@ def compute_usage_metrics(
 # ---------------------------------------------------------------------------
 # Opponent Defensive Rankings
 # ---------------------------------------------------------------------------
+
 
 def compute_opponent_rankings(
     weekly_df: pd.DataFrame,
@@ -119,51 +120,57 @@ def compute_opponent_rankings(
     """
     df = weekly_df.copy()
 
-    if 'fantasy_points_ppr' not in df.columns and 'fantasy_points' not in df.columns:
+    if "fantasy_points_ppr" not in df.columns and "fantasy_points" not in df.columns:
         logger.warning("No fantasy_points column found; skipping opponent rankings")
         return pd.DataFrame()
 
-    pts_col = 'fantasy_points_ppr' if 'fantasy_points_ppr' in df.columns else 'fantasy_points'
+    pts_col = (
+        "fantasy_points_ppr" if "fantasy_points_ppr" in df.columns else "fantasy_points"
+    )
 
     # Limit to relevant seasons
-    if n_seasons and 'season' in df.columns:
-        max_season = df['season'].max()
-        df = df[df['season'] >= max_season - n_seasons + 1]
+    if n_seasons and "season" in df.columns:
+        max_season = df["season"].max()
+        df = df[df["season"] >= max_season - n_seasons + 1]
 
     # Build opponent lookup from schedules
     if schedules_df is not None and len(schedules_df) > 0:
-        sched_subset = schedules_df[['season', 'week', 'home_team', 'away_team']].copy()
+        sched_subset = schedules_df[["season", "week", "home_team", "away_team"]].copy()
         # Each player's team faced the *other* team in that game
-        home_map = sched_subset.rename(columns={'home_team': 'player_team', 'away_team': 'opponent'})
-        away_map = sched_subset.rename(columns={'away_team': 'player_team', 'home_team': 'opponent'})
+        home_map = sched_subset.rename(
+            columns={"home_team": "player_team", "away_team": "opponent"}
+        )
+        away_map = sched_subset.rename(
+            columns={"away_team": "player_team", "home_team": "opponent"}
+        )
         opp_map = pd.concat([home_map, away_map], ignore_index=True)
 
         df = df.merge(
             opp_map,
-            left_on=['season', 'week', 'recent_team'],
-            right_on=['season', 'week', 'player_team'],
-            how='left',
-        ).drop(columns=['player_team'])
+            left_on=["season", "week", "recent_team"],
+            right_on=["season", "week", "player_team"],
+            how="left",
+        ).drop(columns=["player_team"])
     else:
-        df['opponent'] = np.nan
+        df["opponent"] = np.nan
 
-    if 'position' not in df.columns:
+    if "position" not in df.columns:
         logger.warning("No position column; cannot compute positional rankings")
         return pd.DataFrame()
 
     # Filter to fantasy-relevant positions
-    df = df[df['position'].isin(['QB', 'RB', 'WR', 'TE'])]
+    df = df[df["position"].isin(["QB", "RB", "WR", "TE"])]
 
     # Average fantasy points allowed per team per position per week
     opp_pts = (
-        df.groupby(['season', 'week', 'opponent', 'position'], as_index=False)
-        [pts_col].mean()
-        .rename(columns={pts_col: 'avg_pts_allowed', 'opponent': 'team'})
+        df.groupby(["season", "week", "opponent", "position"], as_index=False)[pts_col]
+        .mean()
+        .rename(columns={pts_col: "avg_pts_allowed", "opponent": "team"})
     )
 
     # Rank within each season-week-position (1 = most pts allowed = easiest)
-    opp_pts['rank'] = (
-        opp_pts.groupby(['season', 'week', 'position'])[['avg_pts_allowed']]
+    opp_pts["rank"] = (
+        opp_pts.groupby(["season", "week", "position"])[["avg_pts_allowed"]]
         .rank(ascending=False)
         .astype(int)
     )
@@ -172,16 +179,110 @@ def compute_opponent_rankings(
     return opp_pts
 
 
+def compute_defensive_strength(
+    weekly_df: pd.DataFrame,
+    schedules_df: pd.DataFrame,
+    scoring_format: str = "half_ppr",
+    window: int = 8,
+    min_games: int = 3,
+) -> pd.DataFrame:
+    """Trailing fantasy points allowed per position by each defense.
+
+    For each (season, week, team, position), computes the mean fantasy points
+    that position group scored against the team's defense over its previous
+    ``window`` games — strictly before that week (shift(1) lag, spanning
+    season boundaries), so the value is leak-free for projecting that week.
+    Normalized to a ratio against the league mean of the same week.
+
+    This replaces the single-week ``compute_opponent_rankings`` table for the
+    projection matchup factor: the rank table measured one noisy game and was
+    keyed to the feature row's past week, while this table measures a stable
+    trailing window keyed to the projected week's opponent.
+
+    Args:
+        weekly_df: Bronze player weekly stats with raw stat columns.
+        schedules_df: Game schedule DataFrame with home_team/away_team.
+        scoring_format: Fantasy scoring format for the points-allowed metric.
+        window: Number of trailing games in the rolling mean.
+        min_games: Minimum games required before emitting a value.
+
+    Returns:
+        DataFrame with columns: season, week, team, position, ratio
+        (ratio > 1 = defense allows more fantasy points than league average,
+        i.e. a favorable matchup). Empty DataFrame when inputs are missing.
+    """
+    from scoring_calculator import calculate_fantasy_points_df
+
+    required = {"season", "week", "home_team", "away_team"}
+    if (
+        weekly_df.empty
+        or schedules_df is None
+        or schedules_df.empty
+        or not required.issubset(schedules_df.columns)
+    ):
+        return pd.DataFrame()
+
+    pts = calculate_fantasy_points_df(
+        weekly_df.copy(), scoring_format=scoring_format, output_col="_fp"
+    )
+
+    sched = schedules_df[["season", "week", "home_team", "away_team"]].copy()
+    home = sched.rename(columns={"home_team": "player_team", "away_team": "defense"})
+    away = sched.rename(columns={"away_team": "player_team", "home_team": "defense"})
+    opp_map = pd.concat([home, away], ignore_index=True)
+
+    pts = pts.merge(
+        opp_map,
+        left_on=["season", "week", "recent_team"],
+        right_on=["season", "week", "player_team"],
+        how="inner",
+    )
+    pts = pts[pts["position"].isin(["QB", "RB", "WR", "TE"])]
+    if pts.empty:
+        return pd.DataFrame()
+
+    allowed = (
+        pts.groupby(["season", "week", "defense", "position"], as_index=False)["_fp"]
+        .sum()
+        .rename(columns={"_fp": "pts_allowed"})
+    )
+    allowed = allowed.sort_values(["defense", "position", "season", "week"])
+    allowed["trailing"] = allowed.groupby(["defense", "position"])[
+        "pts_allowed"
+    ].transform(lambda s: s.shift(1).rolling(window, min_periods=min_games).mean())
+
+    league = allowed.groupby(["season", "week", "position"])["trailing"].transform(
+        "mean"
+    )
+    allowed["ratio"] = allowed["trailing"] / league
+    out = allowed.rename(columns={"defense": "team"})[
+        ["season", "week", "team", "position", "ratio"]
+    ].dropna(subset=["ratio"])
+
+    logger.info(f"Defensive strength computed: {len(out)} rows (window={window})")
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Rolling Averages
 # ---------------------------------------------------------------------------
 
 ROLLING_STAT_COLS = [
-    'passing_yards', 'passing_tds', 'interceptions',
-    'rushing_yards', 'rushing_tds', 'carries',
-    'receiving_yards', 'receiving_tds', 'receptions', 'targets',
-    'air_yards', 'target_share', 'carry_share', 'snap_pct',
-    'fantasy_points_ppr',
+    "passing_yards",
+    "passing_tds",
+    "interceptions",
+    "rushing_yards",
+    "rushing_tds",
+    "carries",
+    "receiving_yards",
+    "receiving_tds",
+    "receptions",
+    "targets",
+    "air_yards",
+    "target_share",
+    "carry_share",
+    "snap_pct",
+    "fantasy_points_ppr",
 ]
 
 
@@ -202,24 +303,22 @@ def compute_rolling_averages(
         DataFrame with rolling average columns appended.
     """
     df = df.copy()
-    df = df.sort_values(['player_id', 'season', 'week'])
+    df = df.sort_values(["player_id", "season", "week"])
 
     stat_cols = [c for c in ROLLING_STAT_COLS if c in df.columns]
 
     for window in windows:
         roll_cols = {}
         for col in stat_cols:
-            roll_cols[f"{col}_roll{window}"] = (
-                df.groupby(['player_id', 'season'])[col]
-                .transform(lambda s: s.shift(1).rolling(window, min_periods=1).mean())
-            )
+            roll_cols[f"{col}_roll{window}"] = df.groupby(["player_id", "season"])[
+                col
+            ].transform(lambda s: s.shift(1).rolling(window, min_periods=1).mean())
         df = df.assign(**roll_cols)
 
     # Season-to-date average
     for col in stat_cols:
-        df[f"{col}_std"] = (
-            df.groupby(['player_id', 'season'])[col]
-            .transform(lambda s: s.shift(1).expanding().mean())
+        df[f"{col}_std"] = df.groupby(["player_id", "season"])[col].transform(
+            lambda s: s.shift(1).expanding().mean()
         )
 
     logger.info(f"Rolling averages computed ({windows}) for {len(df)} rows")
@@ -229,6 +328,7 @@ def compute_rolling_averages(
 # ---------------------------------------------------------------------------
 # Game Script Indicators
 # ---------------------------------------------------------------------------
+
 
 def compute_game_script_indicators(
     weekly_df: pd.DataFrame,
@@ -250,36 +350,46 @@ def compute_game_script_indicators(
     """
     df = weekly_df.copy()
 
-    score_cols = [c for c in ['home_score', 'away_score'] if c in schedules_df.columns]
+    score_cols = [c for c in ["home_score", "away_score"] if c in schedules_df.columns]
     if not score_cols:
         logger.warning("No score columns in schedules; skipping game script indicators")
         return df
 
-    sched = schedules_df[['season', 'week', 'home_team', 'away_team', 'home_score', 'away_score']].copy()
+    sched = schedules_df[
+        ["season", "week", "home_team", "away_team", "home_score", "away_score"]
+    ].copy()
 
     # Build team score lookup
-    home_scores = sched.rename(columns={
-        'home_team': 'player_team', 'home_score': 'team_score', 'away_score': 'opp_score'
-    })[['season', 'week', 'player_team', 'team_score', 'opp_score']]
+    home_scores = sched.rename(
+        columns={
+            "home_team": "player_team",
+            "home_score": "team_score",
+            "away_score": "opp_score",
+        }
+    )[["season", "week", "player_team", "team_score", "opp_score"]]
 
-    away_scores = sched.rename(columns={
-        'away_team': 'player_team', 'away_score': 'team_score', 'home_score': 'opp_score'
-    })[['season', 'week', 'player_team', 'team_score', 'opp_score']]
+    away_scores = sched.rename(
+        columns={
+            "away_team": "player_team",
+            "away_score": "team_score",
+            "home_score": "opp_score",
+        }
+    )[["season", "week", "player_team", "team_score", "opp_score"]]
 
     score_map = pd.concat([home_scores, away_scores], ignore_index=True)
 
     df = df.merge(
         score_map,
-        left_on=['season', 'week', 'recent_team'],
-        right_on=['season', 'week', 'player_team'],
-        how='left',
-    ).drop(columns=['player_team'])
+        left_on=["season", "week", "recent_team"],
+        right_on=["season", "week", "player_team"],
+        how="left",
+    ).drop(columns=["player_team"])
 
-    df['score_diff'] = df['team_score'] - df['opp_score']
+    df["score_diff"] = df["team_score"] - df["opp_score"]
 
     bins = [-100, -14, -7, 7, 14, 100]
-    labels = ['blowout_loss', 'losing', 'close', 'comfortable_win', 'blowout_win']
-    df['game_script'] = pd.cut(df['score_diff'], bins=bins, labels=labels)
+    labels = ["blowout_loss", "losing", "close", "comfortable_win", "blowout_win"]
+    df["game_script"] = pd.cut(df["score_diff"], bins=bins, labels=labels)
 
     return df
 
@@ -287,6 +397,7 @@ def compute_game_script_indicators(
 # ---------------------------------------------------------------------------
 # Vegas Lines Integration
 # ---------------------------------------------------------------------------
+
 
 def compute_implied_team_totals(schedules_df: pd.DataFrame) -> Dict[str, float]:
     """
@@ -318,7 +429,7 @@ def compute_implied_team_totals(schedules_df: pd.DataFrame) -> Dict[str, float]:
     """
     LEAGUE_AVG_TOTAL: float = 23.0
 
-    required_team_cols = {'home_team', 'away_team'}
+    required_team_cols = {"home_team", "away_team"}
     if not required_team_cols.issubset(schedules_df.columns):
         logger.warning(
             "schedules_df missing home_team/away_team columns; "
@@ -329,33 +440,37 @@ def compute_implied_team_totals(schedules_df: pd.DataFrame) -> Dict[str, float]:
     df = schedules_df.copy()
 
     # Fill missing line data with league-average assumptions before arithmetic
-    if 'total_line' not in df.columns:
-        logger.warning("total_line column not found; defaulting all to %.1f", LEAGUE_AVG_TOTAL)
-        df['total_line'] = LEAGUE_AVG_TOTAL * 2  # will halve below
+    if "total_line" not in df.columns:
+        logger.warning(
+            "total_line column not found; defaulting all to %.1f", LEAGUE_AVG_TOTAL
+        )
+        df["total_line"] = LEAGUE_AVG_TOTAL * 2  # will halve below
     else:
         # A missing total_line means we default each team in that game to LEAGUE_AVG_TOTAL
         # Set total_line NaN rows to 2 * LEAGUE_AVG_TOTAL so the /2 yields the average
-        df['total_line'] = df['total_line'].fillna(LEAGUE_AVG_TOTAL * 2)
+        df["total_line"] = df["total_line"].fillna(LEAGUE_AVG_TOTAL * 2)
 
-    if 'spread_line' not in df.columns:
-        logger.warning("spread_line column not found; treating spread as 0 for all games")
-        df['spread_line'] = 0.0
+    if "spread_line" not in df.columns:
+        logger.warning(
+            "spread_line column not found; treating spread as 0 for all games"
+        )
+        df["spread_line"] = 0.0
     else:
         # Missing spread → treat as pick-em (0), so each team gets total_line / 2
-        df['spread_line'] = df['spread_line'].fillna(0.0)
+        df["spread_line"] = df["spread_line"].fillna(0.0)
 
     # Vectorised implied totals
-    df['implied_home'] = (df['total_line'] / 2) - (df['spread_line'] / 2)
-    df['implied_away'] = (df['total_line'] / 2) + (df['spread_line'] / 2)
+    df["implied_home"] = (df["total_line"] / 2) - (df["spread_line"] / 2)
+    df["implied_away"] = (df["total_line"] / 2) + (df["spread_line"] / 2)
 
     # Clip to a sane range: no team is implied to score < 5 or > 45
-    df['implied_home'] = df['implied_home'].clip(5.0, 45.0)
-    df['implied_away'] = df['implied_away'].clip(5.0, 45.0)
+    df["implied_home"] = df["implied_home"].clip(5.0, 45.0)
+    df["implied_away"] = df["implied_away"].clip(5.0, 45.0)
 
     implied_totals: Dict[str, float] = {}
     for _, row in df.iterrows():
-        implied_totals[row['home_team']] = float(row['implied_home'])
-        implied_totals[row['away_team']] = float(row['implied_away'])
+        implied_totals[row["home_team"]] = float(row["implied_home"])
+        implied_totals[row["away_team"]] = float(row["implied_away"])
 
     logger.info(
         "Implied team totals computed for %d teams across %d games",
@@ -368,6 +483,7 @@ def compute_implied_team_totals(schedules_df: pd.DataFrame) -> Dict[str, float]:
 # ---------------------------------------------------------------------------
 # Home/Away + Dome Splits
 # ---------------------------------------------------------------------------
+
 
 def compute_venue_splits(
     df: pd.DataFrame,
@@ -385,33 +501,39 @@ def compute_venue_splits(
     """
     df = df.copy()
 
-    sched_cols = ['season', 'week', 'home_team', 'away_team']
-    if 'roof' in schedules_df.columns:
-        sched_cols.append('roof')
+    sched_cols = ["season", "week", "home_team", "away_team"]
+    if "roof" in schedules_df.columns:
+        sched_cols.append("roof")
     sched = schedules_df[sched_cols].copy()
 
     # Home flag
-    home_map = sched[['season', 'week', 'home_team']].copy()
-    home_map['is_home'] = True
-    home_map = home_map.rename(columns={'home_team': 'player_team'})
-    away_map = sched[['season', 'week', 'away_team']].copy()
-    away_map['is_home'] = False
-    away_map = away_map.rename(columns={'away_team': 'player_team'})
+    home_map = sched[["season", "week", "home_team"]].copy()
+    home_map["is_home"] = True
+    home_map = home_map.rename(columns={"home_team": "player_team"})
+    away_map = sched[["season", "week", "away_team"]].copy()
+    away_map["is_home"] = False
+    away_map = away_map.rename(columns={"away_team": "player_team"})
     venue_map = pd.concat([home_map, away_map], ignore_index=True)
 
-    if 'roof' in sched.columns:
-        roof_home = sched[['season', 'week', 'home_team', 'roof']].rename(columns={'home_team': 'player_team'})
-        roof_away = sched[['season', 'week', 'away_team', 'roof']].rename(columns={'away_team': 'player_team'})
+    if "roof" in sched.columns:
+        roof_home = sched[["season", "week", "home_team", "roof"]].rename(
+            columns={"home_team": "player_team"}
+        )
+        roof_away = sched[["season", "week", "away_team", "roof"]].rename(
+            columns={"away_team": "player_team"}
+        )
         roof_map = pd.concat([roof_home, roof_away], ignore_index=True)
-        venue_map = venue_map.merge(roof_map, on=['season', 'week', 'player_team'], how='left')
-        venue_map['is_dome'] = venue_map['roof'].isin(['dome', 'closed'])
-        venue_map.drop(columns=['roof'], inplace=True)
+        venue_map = venue_map.merge(
+            roof_map, on=["season", "week", "player_team"], how="left"
+        )
+        venue_map["is_dome"] = venue_map["roof"].isin(["dome", "closed"])
+        venue_map.drop(columns=["roof"], inplace=True)
 
     df = df.merge(
         venue_map,
-        left_on=['season', 'week', 'recent_team'],
-        right_on=['season', 'week', 'player_team'],
-        how='left',
-    ).drop(columns=['player_team'])
+        left_on=["season", "week", "recent_team"],
+        right_on=["season", "week", "player_team"],
+        how="left",
+    ).drop(columns=["player_team"])
 
     return df

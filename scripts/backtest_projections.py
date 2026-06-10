@@ -27,6 +27,7 @@ from scoring_calculator import calculate_fantasy_points_df, list_scoring_formats
 from player_analytics import (
     compute_usage_metrics,
     compute_rolling_averages,
+    compute_defensive_strength,
     compute_opponent_rankings,
     compute_implied_team_totals,
 )
@@ -227,6 +228,16 @@ def run_backtest(
                 print(f"  Season {s}: no features assembled")
         print()
 
+    # Defensive strength table for the matchup factor — properly lagged
+    # (trailing window with shift(1)), so one table serves every week.
+    try:
+        opp_rankings = compute_defensive_strength(
+            weekly_df, schedules_df, scoring_format=scoring_format
+        )
+    except Exception as e:
+        logger.warning("Defensive strength computation failed: %s", e)
+        opp_rankings = pd.DataFrame()
+
     results = []
     total_weeks = 0
 
@@ -243,12 +254,6 @@ def run_backtest(
             if silver_df.empty:
                 print("SKIP (insufficient history)")
                 continue
-
-            # Build opponent rankings
-            try:
-                opp_rankings = compute_opponent_rankings(weekly_df, schedules_df)
-            except Exception:
-                opp_rankings = pd.DataFrame()
 
             # Compute implied totals for constraints (if enabled)
             implied_totals = None

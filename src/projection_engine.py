@@ -32,6 +32,18 @@ RECENCY_WEIGHTS = {
     "std": 0.55,  # Season-to-date — highest weight dampens week-to-week noise
 }
 
+# Per-position recency weights (v4.2 heuristic lab, 2022-2024 weeks 3-18).
+# Lab sweep showed season-to-date should dominate even more than the global
+# weights: WR is best with pure season-to-date, QB/TE close to it. RB is the
+# exception — keeps the legacy blend (recent form carries real signal for RB
+# workloads). Positions absent from this dict fall back to RECENCY_WEIGHTS.
+POSITION_RECENCY_WEIGHTS: Dict[str, Dict[str, float]] = {
+    "QB": {"roll3": 0.10, "roll6": 0.05, "std": 0.85},
+    "RB": {"roll3": 0.30, "roll6": 0.15, "std": 0.55},
+    "WR": {"roll3": 0.00, "roll6": 0.00, "std": 1.00},
+    "TE": {"roll3": 0.15, "roll6": 0.00, "std": 0.85},
+}
+
 # Regression-to-mean shrinkage applied after scoring.
 # Lower thresholds catch mid-tier projections that also overshoot.
 # Grid search on 2016-2025 data, validated on 2022-2024 weeks 3-18.
@@ -61,7 +73,10 @@ POSITION_CEILING_SHRINKAGE: Dict[str, Dict[float, float]] = {
 # the need for the XGBoost SHIP path (which added 0.45 MAE of noise while
 # correcting the same bias). Applied uniformly to all non-bye QB rows.
 POSITION_BIAS_CORRECTION: Dict[str, float] = {
-    "QB": 2.5,  # Correct -2.47 systematic under-projection
+    # v4.2: reduced from 2.5 — TD regression + per-position recency weights
+    # recover part of the QB under-projection, so the additive correction
+    # shrinks to keep QB bias ~0 (lab: +0.02 at 2.3 vs +0.21 at 2.5).
+    "QB": 2.3,
 }
 
 # Low-projection floor boost: players projected 0-5 pts systematically
@@ -71,11 +86,77 @@ POSITION_BIAS_CORRECTION: Dict[str, float] = {
 # Tuned conservatively: half the observed bias to avoid overcorrection.
 LOW_PROJECTION_FLOOR_BOOST: Dict[str, Tuple[float, float]] = {
     # (threshold, additive_boost) — only applied when projected_points < threshold
-    "QB": (5.0, 1.0),   # QB low-tier under-projects by ~5 pts
-    "RB": (3.0, 0.5),   # RB low-tier under-projects by ~2 pts
-    "WR": (3.0, 0.5),   # WR low-tier under-projects by ~2 pts
-    "TE": (2.5, 0.3),   # TE low-tier under-projects by ~1.6 pts
+    "QB": (5.0, 1.0),  # QB low-tier under-projects by ~5 pts
+    "RB": (3.0, 0.5),  # RB low-tier under-projects by ~2 pts
+    "WR": (3.0, 0.5),  # WR low-tier under-projects by ~2 pts
+    "TE": (2.5, 0.3),  # TE low-tier under-projects by ~1.6 pts
 }
+
+# TD regression-to-mean: blend a player's rolling TD baseline toward the
+# yardage-implied expectation (projected yards x league TD-per-yard rate).
+# TDs are the noisiest component of the heuristic — yardage is far more
+# stable week to week, so anchoring TD projections to projected yardage
+# reduces variance without changing the yardage signal itself.
+# Rates computed from 2016-2021 Bronze weekly data (pre-evaluation window,
+# leak-free vs the 2022-2024 tuning backtest).
+TD_LEAGUE_RATES: Dict[str, Dict[str, float]] = {
+    # position -> {td_stat: (yards_stat, league TD per yard)}
+    "QB": {
+        "passing_tds": ("passing_yards", 0.00626),
+        "rushing_tds": ("rushing_yards", 0.01048),
+    },
+    "RB": {
+        "rushing_tds": ("rushing_yards", 0.00741),
+        "receiving_tds": ("receiving_yards", 0.00501),
+    },
+    "WR": {
+        "receiving_tds": ("receiving_yards", 0.00609),
+    },
+    "TE": {
+        "receiving_tds": ("receiving_yards", 0.00760),
+    },
+}
+
+# Blend weight per position: 0.0 = pure rolling TD baseline (legacy
+# behavior), 1.0 = pure yardage-implied TDs. Empty/missing = no-op.
+# v4.2 lab (2022-2024 weeks 3-18): the single biggest heuristic win
+# (-0.05 MAE overall on its own); RB prefers fully yardage-implied TDs.
+TD_REGRESSION_WEIGHT: Dict[str, float] = {
+    "QB": 0.75,
+    "RB": 1.00,
+    "WR": 0.75,
+    "TE": 0.50,
+}
+
+
+def _apply_td_regression(
+    proj_stats: Dict[str, pd.Series],
+    position: str,
+) -> Dict[str, pd.Series]:
+    """Blend projected TD stats toward yardage-implied league rates.
+
+    Args:
+        proj_stats: Mapping of ``proj_{stat}`` -> projected Series (already
+            usage/matchup adjusted).
+        position: Position code.
+
+    Returns:
+        The proj_stats mapping with TD entries blended in place.
+    """
+    weight = TD_REGRESSION_WEIGHT.get(position, 0.0)
+    if weight <= 0.0:
+        return proj_stats
+
+    for td_stat, (yards_stat, rate) in TD_LEAGUE_RATES.get(position, {}).items():
+        td_col = f"proj_{td_stat}"
+        yds_col = f"proj_{yards_stat}"
+        if td_col in proj_stats and yds_col in proj_stats:
+            implied = proj_stats[yds_col].clip(lower=0) * rate
+            proj_stats[td_col] = (
+                (1.0 - weight) * proj_stats[td_col] + weight * implied
+            ).round(3)
+    return proj_stats
+
 
 # Stats to project by position
 POSITION_STAT_PROFILE: Dict[str, List[str]] = {
@@ -163,22 +244,36 @@ _IMPLIED_TO_FANTASY_MULT: Dict[str, float] = {
 # ---------------------------------------------------------------------------
 
 
-def _weighted_baseline(df: pd.DataFrame, stat: str) -> pd.Series:
+def _weighted_baseline(
+    df: pd.DataFrame, stat: str, position: Optional[str] = None
+) -> pd.Series:
     """
     Blend roll3, roll6, and season-to-date columns for a single stat.
     Falls back gracefully if columns are missing.
+
+    Args:
+        df: Player-week DataFrame with rolling columns.
+        stat: Stat name (e.g. 'rushing_yards').
+        position: Optional position code — selects per-position weights from
+            POSITION_RECENCY_WEIGHTS; falls back to global RECENCY_WEIGHTS.
     """
+    weights = POSITION_RECENCY_WEIGHTS.get(position, RECENCY_WEIGHTS)
     result = pd.Series(0.0, index=df.index)
     total_weight = 0.0
 
-    for suffix, weight in RECENCY_WEIGHTS.items():
+    for suffix, weight in weights.items():
         col = f"{stat}_{suffix}"
-        if col in df.columns:
+        if col in df.columns and weight > 0:
             result += df[col].fillna(0) * weight
             total_weight += weight
 
     if total_weight > 0:
         result /= total_weight
+    elif weights is not RECENCY_WEIGHTS:
+        # Per-position weights put all mass on columns missing from df
+        # (e.g. WR pure season-to-date but no _std column) — fall back to
+        # the global blend rather than projecting zero.
+        return _weighted_baseline(df, stat, position=None)
 
     return result
 
@@ -212,20 +307,66 @@ def _usage_multiplier(df: pd.DataFrame, position: str) -> pd.Series:
     return multiplier.clip(0.80, 1.15)
 
 
+# Matchup sensitivity per position for the defensive-strength path
+# (v4.2 heuristic lab, 2022-2024 weeks 3-18). factor = 1 + beta * (ratio - 1)
+# where ratio is the opponent's trailing fantasy-points-allowed vs the league
+# mean for that position. RB usage/efficiency responds strongly to run
+# defense quality; QB/WR only mildly.
+MATCHUP_BETA: Dict[str, float] = {
+    "QB": 0.15,
+    "RB": 1.50,
+    "WR": 0.15,
+    "TE": 0.50,
+}
+_MATCHUP_CLIP: Tuple[float, float] = (0.85, 1.15)
+
+
 def _matchup_factor(
     df: pd.DataFrame,
     opp_rankings: pd.DataFrame,
     position: str,
 ) -> pd.Series:
     """
-    Look up opponent defensive ranking and return a matchup adjustment factor.
+    Return a matchup adjustment factor from opponent defensive strength.
 
-    Rank 1 (easiest) → factor ~1.15
-    Rank 16 (median) → factor ~1.00
-    Rank 32 (hardest) → factor ~0.85
+    Two supported inputs (detected by columns):
+
+    1. **Defensive strength table** (new-style, has a ``ratio`` column from
+       ``player_analytics.compute_defensive_strength``): continuous factor
+       ``clip(1 + MATCHUP_BETA[position] * (ratio - 1), 0.85, 1.15)`` looked
+       up by the player's *upcoming* opponent for the projected week. Rows
+       use ``proj_season``/``proj_week`` when present (the feature rows are
+       the prior week's), falling back to ``season``/``week``.
+
+    2. **Legacy rank table** (has a ``rank`` column): linear scale where
+       rank 1 (easiest) → ~1.15 and rank 32 (hardest) → ~0.85, merged on the
+       rows' own season/week/opponent.
+
+    Returns neutral 1.0 when the table is empty or ``opponent`` is missing.
     """
     if opp_rankings.empty or "opponent" not in df.columns:
         return pd.Series(1.0, index=df.index)
+
+    if "ratio" in opp_rankings.columns:
+        beta = MATCHUP_BETA.get(position, 0.0)
+        if beta == 0.0:
+            return pd.Series(1.0, index=df.index)
+
+        season_col = "proj_season" if "proj_season" in df.columns else "season"
+        week_col = "proj_week" if "proj_week" in df.columns else "week"
+
+        pos_strength = opp_rankings[opp_rankings["position"] == position][
+            ["season", "week", "team", "ratio"]
+        ].rename(columns={"team": "opponent"})
+
+        keys = df[[season_col, week_col, "opponent"]].rename(
+            columns={season_col: "season", week_col: "week"}
+        )
+        merged = keys.merge(pos_strength, on=["season", "week", "opponent"], how="left")
+        ratio = merged["ratio"]
+        ratio.index = df.index
+        factor = (1.0 + beta * (ratio - 1.0)).fillna(1.0)
+        return factor.clip(*_MATCHUP_CLIP)
 
     pos_rankings = opp_rankings[opp_rankings["position"] == position][
         ["team", "week", "season", "rank"]
@@ -488,9 +629,10 @@ def project_position(
 
     proj_stats = {}
     for stat in stat_cols:
-        baseline = _weighted_baseline(pos_df, stat)
+        baseline = _weighted_baseline(pos_df, stat, position)
         proj_stats[f"proj_{stat}"] = (baseline * usage_mult * matchup).round(2)
 
+    proj_stats = _apply_td_regression(proj_stats, position)
     proj_df = pos_df.assign(**proj_stats)
 
     # Map projected stat column names to scoring calculator expectations
@@ -652,6 +794,12 @@ def compute_heuristic_baseline(
     # _matchup_factor, which creates its own opp_rank column.
     work = work.drop(columns=["opp_rank"], errors="ignore")
 
+    # Training/backtest feature rows carry the nflverse column name
+    # opponent_team; alias it so the matchup factor can key on it. Rows from
+    # generate_weekly_projections already have the upcoming opponent set.
+    if "opponent" not in work.columns and "opponent_team" in work.columns:
+        work["opponent"] = work["opponent_team"]
+
     # Steps 1–3: baseline * usage * matchup per stat
     usage_mult = _usage_multiplier(work, position)
     matchup = _matchup_factor(work, opp_rankings, position)
@@ -659,11 +807,12 @@ def compute_heuristic_baseline(
     rename_map: Dict[str, str] = {}
     proj_cols: Dict[str, pd.Series] = {}
     for stat in stat_cols:
-        baseline = _weighted_baseline(work, stat)
+        baseline = _weighted_baseline(work, stat, position)
         proj_col = f"proj_{stat}"
         proj_cols[proj_col] = (baseline * usage_mult * matchup).round(2)
         rename_map[proj_col] = stat
 
+    proj_cols = _apply_td_regression(proj_cols, position)
     work = work.assign(**proj_cols)
 
     # Step 4: calculate fantasy points
@@ -957,6 +1106,26 @@ def generate_weekly_projections(
     # Stamp the projection week
     target_df["proj_season"] = season
     target_df["proj_week"] = week
+
+    # Derive each player's *upcoming* opponent for the projected week from
+    # the schedule, so the matchup factor adjusts for the defense the player
+    # is about to face (the rows' own opponent_team is last week's).
+    if (
+        schedules_df is not None
+        and not schedules_df.empty
+        and {"week", "home_team", "away_team"}.issubset(schedules_df.columns)
+        and "recent_team" in target_df.columns
+    ):
+        sched = schedules_df
+        if "season" in sched.columns:
+            sched = sched[sched["season"] == season]
+        week_games = sched[sched["week"] == week]
+        upcoming: Dict[str, str] = {}
+        for game in week_games.itertuples(index=False):
+            upcoming[game.home_team] = game.away_team
+            upcoming[game.away_team] = game.home_team
+        if upcoming:
+            target_df["opponent"] = target_df["recent_team"].map(upcoming)
 
     # ------------------------------------------------------------------
     # 2. Determine bye teams (requires schedules_df for the target week)
@@ -1316,20 +1485,20 @@ def apply_injury_adjustments(
 
 EVENT_MULTIPLIERS: Dict[str, float] = {
     # Injury / non-play events
-    "is_ruled_out": 0.0,       # player doesn't play
-    "is_inactive": 0.0,        # player doesn't play
-    "is_questionable": 0.85,   # matches INJURY_MULTIPLIERS["Questionable"]
-    "is_suspended": 0.0,       # player doesn't play
+    "is_ruled_out": 0.0,  # player doesn't play
+    "is_inactive": 0.0,  # player doesn't play
+    "is_questionable": 0.85,  # matches INJURY_MULTIPLIERS["Questionable"]
+    "is_suspended": 0.0,  # player doesn't play
     # Return-to-play events (conservative first game back)
     "is_returning": 0.90,
     "is_activated": 0.90,
     # Transaction events
-    "is_traded": 0.85,         # new team uncertainty
-    "is_released": 0.0,        # no team, no projection
-    "is_signed": 1.00,         # neutral — team exists, no usage signal yet
+    "is_traded": 0.85,  # new team uncertainty
+    "is_released": 0.0,  # no team, no projection
+    "is_signed": 1.00,  # neutral — team exists, no usage signal yet
     # Usage events
-    "is_usage_boost": 1.08,    # bounded upside
-    "is_usage_drop": 0.85,     # bounded downside
+    "is_usage_boost": 1.08,  # bounded upside
+    "is_usage_drop": 0.85,  # bounded downside
     # Game-level
     "is_weather_risk": 0.92,
 }
@@ -1400,9 +1569,7 @@ def apply_event_adjustments(
     df["event_flags"] = [[] for _ in range(len(df))]
 
     if events_df is None or events_df.empty:
-        logger.info(
-            "No event data provided; all players get neutral event multiplier"
-        )
+        logger.info("No event data provided; all players get neutral event multiplier")
         return df
 
     # Determine join column — prefer player_id, fall back to gsis_id
@@ -1414,9 +1581,7 @@ def apply_event_adjustments(
         events_df = events_df.rename(columns={"gsis_id": "player_id"})
         join_col = "player_id"
     else:
-        logger.warning(
-            "Cannot join events data — no common identifier column found"
-        )
+        logger.warning("Cannot join events data — no common identifier column found")
         return df
 
     # Only consider known event flags actually present in events_df.
@@ -1480,13 +1645,11 @@ def apply_event_adjustments(
     # Scale projection columns by the event multiplier.
     for col in proj_cols:
         df[col] = (df[col] * df["event_multiplier"]).round(2)
-    df["projected_points"] = (
-        df["projected_points"] * df["event_multiplier"]
-    ).round(2)
+    df["projected_points"] = (df["projected_points"] * df["event_multiplier"]).round(2)
     if "projected_floor" in df.columns:
-        df["projected_floor"] = (
-            df["projected_floor"] * df["event_multiplier"]
-        ).round(2)
+        df["projected_floor"] = (df["projected_floor"] * df["event_multiplier"]).round(
+            2
+        )
     if "projected_ceiling" in df.columns:
         df["projected_ceiling"] = (
             df["projected_ceiling"] * df["event_multiplier"]
@@ -1537,8 +1700,12 @@ def load_latest_sentiment(season: int, week: int) -> pd.DataFrame:
 
     project_root = _os.path.join(_os.path.dirname(__file__), "..")
     local_dir = _os.path.join(
-        project_root, "data", "gold", "sentiment",
-        f"season={season}", f"week={week:02d}",
+        project_root,
+        "data",
+        "gold",
+        "sentiment",
+        f"season={season}",
+        f"week={week:02d}",
     )
     pattern = _os.path.join(local_dir, "*.parquet")
     local_files = sorted(_glob.glob(pattern))
@@ -1559,6 +1726,7 @@ def load_latest_sentiment(season: int, week: int) -> pd.DataFrame:
     try:
         import boto3
         from dotenv import load_dotenv
+
         load_dotenv()
 
         access_key = _os.getenv("AWS_ACCESS_KEY_ID")
@@ -1646,7 +1814,10 @@ def apply_sentiment_adjustments(
         logger.info("No sentiment data provided; all players get neutral multiplier")
         return df
 
-    if "player_id" not in sentiment_df.columns or "sentiment_multiplier" not in sentiment_df.columns:
+    if (
+        "player_id" not in sentiment_df.columns
+        or "sentiment_multiplier" not in sentiment_df.columns
+    ):
         logger.warning(
             "Sentiment DataFrame missing required columns (player_id, sentiment_multiplier); skipping"
         )
@@ -1678,20 +1849,23 @@ def apply_sentiment_adjustments(
         sent_row = sent_lookup.loc[pid]
 
         # Skip players already zeroed by injury — do not restore via sentiment
-        if row.get("projected_points", 0.0) == 0.0 and row.get("injury_multiplier", 1.0) == 0.0:
+        if (
+            row.get("projected_points", 0.0) == 0.0
+            and row.get("injury_multiplier", 1.0) == 0.0
+        ):
             continue
 
         # Determine active event flags for transparency column
         active_flags = [
-            flag for flag in event_flag_cols
+            flag
+            for flag in event_flag_cols
             if flag in sent_row.index and bool(sent_row[flag])
         ]
         df.at[idx, "sentiment_events"] = ",".join(active_flags)
 
         # Ruled-out / inactive → zero projection regardless of multiplier
-        if (
-            ("is_ruled_out" in sent_row.index and bool(sent_row["is_ruled_out"]))
-            or ("is_inactive" in sent_row.index and bool(sent_row["is_inactive"]))
+        if ("is_ruled_out" in sent_row.index and bool(sent_row["is_ruled_out"])) or (
+            "is_inactive" in sent_row.index and bool(sent_row["is_inactive"])
         ):
             df.at[idx, "sentiment_multiplier"] = 0.0
             df.at[idx, "projected_points"] = 0.0
@@ -1815,7 +1989,9 @@ def _generate_preseason_kicker_projections(target_season: int) -> pd.DataFrame:
         rosters = nfl.import_seasonal_rosters([roster_season])
         kickers = rosters[rosters["position"] == "K"].copy()
         if kickers.empty:
-            logger.warning("No kickers found in roster data for season %d", roster_season)
+            logger.warning(
+                "No kickers found in roster data for season %d", roster_season
+            )
             return pd.DataFrame()
 
         # Keep one row per kicker (most recent)
@@ -1835,30 +2011,33 @@ def _generate_preseason_kicker_projections(target_season: int) -> pd.DataFrame:
 
         rows = []
         for _, k in kickers.iterrows():
-            rows.append({
-                "player_id": k.get("player_id", ""),
-                "player_name": k.get("player_name", "Unknown"),
-                "position": "K",
-                "recent_team": k.get("team", ""),
-                "projected_season_points": round(_BASELINE_PTS, 1),
-                "proj_season": target_season,
-                # Zero out non-kicker stat columns for schema compatibility
-                "passing_yards": 0.0,
-                "passing_tds": 0.0,
-                "interceptions": 0.0,
-                "rushing_yards": 0.0,
-                "rushing_tds": 0.0,
-                "carries": 0.0,
-                "receiving_yards": 0.0,
-                "receiving_tds": 0.0,
-                "receptions": 0.0,
-                "targets": 0.0,
-            })
+            rows.append(
+                {
+                    "player_id": k.get("player_id", ""),
+                    "player_name": k.get("player_name", "Unknown"),
+                    "position": "K",
+                    "recent_team": k.get("team", ""),
+                    "projected_season_points": round(_BASELINE_PTS, 1),
+                    "proj_season": target_season,
+                    # Zero out non-kicker stat columns for schema compatibility
+                    "passing_yards": 0.0,
+                    "passing_tds": 0.0,
+                    "interceptions": 0.0,
+                    "rushing_yards": 0.0,
+                    "rushing_tds": 0.0,
+                    "carries": 0.0,
+                    "receiving_yards": 0.0,
+                    "receiving_tds": 0.0,
+                    "receptions": 0.0,
+                    "targets": 0.0,
+                }
+            )
 
         kicker_df = pd.DataFrame(rows)
         logger.info(
             "Generated preseason kicker projections: %d kickers at %.1f baseline pts",
-            len(kicker_df), _BASELINE_PTS,
+            len(kicker_df),
+            _BASELINE_PTS,
         )
         return kicker_df
 
@@ -1930,9 +2109,8 @@ def generate_preseason_projections(
 
             roster_seasons = [int(s) for s in recent_seasons]
             rosters = nfl.import_seasonal_rosters(roster_seasons)
-            roster_latest = (
-                rosters.sort_values("season")
-                .drop_duplicates(subset=["player_id"], keep="last")
+            roster_latest = rosters.sort_values("season").drop_duplicates(
+                subset=["player_id"], keep="last"
             )
             roster_lookup = roster_latest.set_index("player_id")
             for col in missing_cols:
@@ -1945,7 +2123,9 @@ def generate_preseason_projections(
                         df[col] = mapped
                         logger.info(
                             "Enriched %s from roster data — %d of %d rows matched",
-                            col, matched, len(df),
+                            col,
+                            matched,
+                            len(df),
                         )
                     else:
                         logger.info(
@@ -1953,7 +2133,9 @@ def generate_preseason_projections(
                             col,
                         )
         except Exception as exc:
-            logger.warning("Could not fetch roster data for metadata enrichment: %s", exc)
+            logger.warning(
+                "Could not fetch roster data for metadata enrichment: %s", exc
+            )
 
     for col in metadata_cols:
         if col not in df.columns:
@@ -1975,9 +2157,7 @@ def generate_preseason_projections(
     if "position" in df.columns:
         no_pos = df["position"].isna()
         if no_pos.any():
-            logger.info(
-                "Dropping %d rows with unknown position", no_pos.sum()
-            )
+            logger.info("Dropping %d rows with unknown position", no_pos.sum())
             df = df[~no_pos].copy()
 
     # ------------------------------------------------------------------
@@ -2081,12 +2261,18 @@ def generate_preseason_projections(
             merge_key = None
 
         if merge_key is not None:
-            comp_cols = ["prospect_comp_median", "prospect_comp_ceiling",
-                         "prospect_comp_floor", "scheme_familiarity_score"]
+            comp_cols = [
+                "prospect_comp_median",
+                "prospect_comp_ceiling",
+                "prospect_comp_floor",
+                "scheme_familiarity_score",
+            ]
             available_comp = [c for c in comp_cols if c in cf.columns]
             if available_comp:
                 proj = proj.merge(
-                    cf[[merge_key] + available_comp].drop_duplicates(subset=[merge_key]),
+                    cf[[merge_key] + available_comp].drop_duplicates(
+                        subset=[merge_key]
+                    ),
                     on=merge_key,
                     how="left",
                 )
@@ -2098,7 +2284,9 @@ def generate_preseason_projections(
                 )
                 if has_comp.any():
                     # Use comp median as base, apply scheme familiarity multiplier
-                    scheme_mult = proj.loc[has_comp, "scheme_familiarity_score"].fillna(0.5)
+                    scheme_mult = proj.loc[has_comp, "scheme_familiarity_score"].fillna(
+                        0.5
+                    )
                     # Scheme familiarity: scale from 0.90 (unfamiliar) to 1.05 (perfect fit)
                     scheme_factor = 0.90 + scheme_mult * 0.15
 
@@ -2194,8 +2382,7 @@ def generate_preseason_projections(
         team_pos_starter_already: set = set()
         for pos, floor in starter_floors.items():
             pos_rows = proj[
-                (proj["position"] == pos)
-                & (proj["projected_season_points"] >= floor)
+                (proj["position"] == pos) & (proj["projected_season_points"] >= floor)
             ]
             for t in pos_rows["recent_team"].dropna().unique():
                 team_pos_starter_already.add((str(t), pos))
@@ -2245,9 +2432,7 @@ def generate_preseason_projections(
 
     # Overall rank by VORP (higher VORP = better draft value)
     proj["overall_rank"] = (
-        proj["vorp"]
-        .rank(ascending=False, method="first")
-        .astype(int)
+        proj["vorp"].rank(ascending=False, method="first").astype(int)
     )
     proj["position_rank"] = (
         proj.groupby("position")[pts_col]
