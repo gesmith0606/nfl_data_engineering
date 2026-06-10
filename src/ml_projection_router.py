@@ -59,7 +59,15 @@ logger = logging.getLogger(__name__)
 #     unstable extrapolation. QB stays on heuristic until bias is corrected.
 # Models: models/residual/rb_residual_{lgb,imputer}_v2.pkl (promoted to production)
 #         models/residual/qb_residual_{lgb,imputer}_v2.pkl (saved, not activated)
-HYBRID_POSITIONS = {"WR", "TE"}  # v4.1-p3: RB reverted from v2 pending bisect on MAE regression
+# v4.2 (2026-06-10): TE ships, WR does not.
+# After the feature-leakage fix and the week-alignment fix below, Ridge
+# residuals (60 SHAP features incl. graph features, trained 2016-2024
+# against the v4.2 heuristic) were gated on sealed 2025:
+#   TE: 3.521 -> 3.361 MAE (bias +0.14) — SHIP
+#   WR: 4.057 -> 4.144 MAE (bias +0.73) — FAIL; WR residuals are
+#       non-stationary (leak-free 2022-24 eval showed -0.11, 2025 reversed).
+# RB residuals degrade even leak-free (2022-24: +0.01..+0.18) — heuristic.
+HYBRID_POSITIONS = {"TE"}
 
 # ---------------------------------------------------------------------------
 # MAPIE optional import
@@ -128,13 +136,27 @@ def _load_ship_gate(model_dir: str = "models/player") -> Dict[str, str]:
     #         verdicts["RB"] = "SHIP"
     #         logger.info("RB promoted to SHIP (XGB MAE < heuristic MAE)")
 
-    # NOTE: WR/TE HYBRID override disabled (Exp 4 — 2026-04-13).
-    # Production evaluation showed the Ridge residual correction degrades MAE
-    # by +0.44 pts overall vs heuristic-only (WR: +0.58, TE: +0.43) because
-    # the models systematically over-correct: mean correction +0.80 vs actual
-    # heuristic bias of only -0.38. The ship gate's SKIP verdict is correct.
-    # WR/TE now follow the ship gate (SKIP → pure heuristic).
-    # Preserved in HYBRID_POSITIONS constant for future experimentation.
+    # TE HYBRID override (v4.2, 2026-06-10).
+    # The Exp-4 over-correction (mean +0.80 vs bias -0.38) traced to feature
+    # leakage (raw same-week NGS/team metrics, same-game wr/te_matchup_*
+    # graph aggregates) plus an off-by-one in the inference feature-week.
+    # With both fixed and models retrained against the v4.2 heuristic, the
+    # sealed 2025 gate shipped TE (3.521 -> 3.361 MAE) and rejected WR
+    # (4.057 -> 4.144, bias +0.73). Guard: only activate when the on-disk
+    # model meta is stamped heuristic_version == v4.2 — stale models SKIP.
+    residual_dir = os.path.join(os.path.dirname(os.path.abspath(model_dir)), "residual")
+    for position in HYBRID_POSITIONS:
+        meta_path = os.path.join(residual_dir, f"{position.lower()}_residual_meta.json")
+        if not os.path.exists(meta_path):
+            continue
+        try:
+            with open(meta_path, "r") as f:
+                residual_meta = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            continue
+        if residual_meta.get("heuristic_version") == "v4.2":
+            verdicts[position] = "HYBRID"
+            logger.info("%s promoted to HYBRID (v4.2 residual model present)", position)
 
     return verdicts
 
@@ -483,11 +505,18 @@ def generate_ml_projections(
             if hybrid_result.empty:
                 continue
 
-            # Get feature data for these players — prefer full feature_df
+            # Get feature data for these players — prefer full feature_df.
+            # Training pairs the week-W feature row (rolling columns lagged
+            # through W-1 internally) with the week-W residual, so inference
+            # must use the week-W row too. The previous week-1 selection fed
+            # the model rows one week staler than training (v4.2 audit:
+            # off-by-one contributed to the v4.1 hybrid over-correction).
+            # Live projections of an unplayed week have no week-W row yet —
+            # fall back to the latest available row in that case.
             feat_source = feature_df if feature_df is not None else silver_df
             target_df = feat_source[
                 (feat_source["season"] == season)
-                & (feat_source["week"] == week - 1)
+                & (feat_source["week"] == week)
                 & (feat_source["position"] == position)
             ]
             if target_df.empty:
@@ -501,6 +530,20 @@ def generate_ml_projections(
                         & (feat_source["week"] == latest)
                         & (feat_source["position"] == position)
                     ]
+                    logger.info(
+                        "%s: no week-%d feature rows (live projection); "
+                        "using latest week %s",
+                        position,
+                        week,
+                        latest,
+                    )
+
+            # Align the merge key inside apply_residual_correction: the
+            # heuristic rows carry week = W-1 (their feature-source week),
+            # but the feature rows selected above carry the projected week
+            # (or the latest played week in live mode).
+            if not target_df.empty:
+                hybrid_result["week"] = int(target_df["week"].iloc[0])
 
             if not target_df.empty:
                 # Determine residual model directory
@@ -639,7 +682,8 @@ def _generate_ml_for_position(
         if target_df.empty:
             # Fallback: most recent week
             latest = feat_source[
-                (feat_source["season"] == season) & (feat_source["position"] == position)
+                (feat_source["season"] == season)
+                & (feat_source["position"] == position)
             ]["week"].max()
             if pd.notna(latest):
                 target_df = feat_source[

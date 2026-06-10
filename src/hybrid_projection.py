@@ -353,9 +353,7 @@ def load_graph_features(
             if base_df is None:
                 base_df = subset
             else:
-                dup_cols = [
-                    c for c in avail_feats if c in base_df.columns
-                ]
+                dup_cols = [c for c in avail_feats if c in base_df.columns]
                 merge_feats = [c for c in avail_feats if c not in dup_cols]
                 if not merge_feats:
                     continue
@@ -588,7 +586,10 @@ def train_residual_model(
         - oof_df with columns [idx, season, week, heuristic_pts,
           residual_pred, hybrid_pts, actual_pts]
     """
-    from unified_evaluation import build_opp_rankings, compute_production_heuristic
+    from unified_evaluation import (
+        build_defensive_strength_table,
+        compute_production_heuristic,
+    )
 
     if val_seasons is None:
         val_seasons = [2022, 2023, 2024]
@@ -598,15 +599,24 @@ def train_residual_model(
         logger.warning("No features available for residual model")
         return {"mean_mae": 0.0, "fold_details": []}, pd.DataFrame()
 
-    # Build opponent rankings so the heuristic uses the same full pipeline
-    # (weighted baseline × usage × matchup × ceiling shrinkage) as production.
-    # This matches the approach used by train_and_save_residual_models(), which
-    # already called compute_production_heuristic() correctly.
-    seasons_present = sorted(pos_data["season"].unique().tolist()) if "season" in pos_data.columns else []
-    opp_rankings = build_opp_rankings(seasons_present) if seasons_present else pd.DataFrame()
+    # Build the defensive strength table so the heuristic uses the same full
+    # pipeline (weighted baseline × usage × matchup × ceiling shrinkage) as
+    # production (v4.2: continuous strength factor, not the legacy rank table).
+    seasons_present = (
+        sorted(pos_data["season"].unique().tolist())
+        if "season" in pos_data.columns
+        else []
+    )
+    opp_rankings = (
+        build_defensive_strength_table(seasons_present)
+        if seasons_present
+        else pd.DataFrame()
+    )
 
     # Pre-compute heuristic predictions for all rows using the canonical function
-    heur_pts = compute_production_heuristic(pos_data, position, opp_rankings, scoring_format)
+    heur_pts = compute_production_heuristic(
+        pos_data, position, opp_rankings, scoring_format
+    )
     actual_pts = compute_actual_fantasy_points(
         pos_data, scoring_format, output_col="actual_pts"
     )
@@ -854,7 +864,7 @@ def train_and_save_residual_models(
         get_player_feature_columns,
     )
     from unified_evaluation import (
-        build_opp_rankings,
+        build_defensive_strength_table,
         compute_actual_fantasy_points,
         compute_production_heuristic,
     )
@@ -882,9 +892,7 @@ def train_and_save_residual_models(
     # Optionally merge graph features explicitly
     graph_features_added: int = 0
     if use_graph_features:
-        logger.info(
-            "Loading graph features from Silver for explicit enrichment..."
-        )
+        logger.info("Loading graph features from Silver for explicit enrichment...")
         graph_df = load_graph_features(training_seasons)
         if not graph_df.empty:
             join_keys = ["player_id", "season", "week"]
@@ -914,8 +922,8 @@ def train_and_save_residual_models(
     feature_cols = get_player_feature_columns(all_data)
     logger.info("Found %d candidate features", len(feature_cols))
 
-    # Build opponent rankings (for production heuristic)
-    opp_rankings = build_opp_rankings(training_seasons)
+    # Build defensive strength table (v4.2 production matchup factor)
+    opp_rankings = build_defensive_strength_table(training_seasons)
 
     results: Dict[str, Dict[str, Any]] = {}
 
@@ -994,17 +1002,13 @@ def train_and_save_residual_models(
                     y_train.iloc[es_idx].values,
                 )
             else:
-                lgb_model = _train_lgb_residual(
-                    X_train_imp, y_train.values
-                )
+                lgb_model = _train_lgb_residual(X_train_imp, y_train.values)
 
             train_preds = lgb_model.predict(X_train_imp)
             train_mae = float(mean_absolute_error(y_train, train_preds))
 
             # Save imputer + LightGBM model + metadata
-            model_path = os.path.join(
-                output_dir, f"{position.lower()}_residual.joblib"
-            )
+            model_path = os.path.join(output_dir, f"{position.lower()}_residual.joblib")
             imputer_path = os.path.join(
                 output_dir, f"{position.lower()}_residual_imputer.joblib"
             )
@@ -1018,6 +1022,7 @@ def train_and_save_residual_models(
             meta = {
                 "position": position,
                 "model_type": "lgb",
+                "heuristic_version": "v4.2",
                 "scoring_format": scoring_format,
                 "n_train": len(X_train_raw),
                 "train_residual_mae": train_mae,
@@ -1058,9 +1063,7 @@ def train_and_save_residual_models(
             train_preds = model.predict(X_train_raw)
             train_mae = float(mean_absolute_error(y_train, train_preds))
 
-            model_path = os.path.join(
-                output_dir, f"{position.lower()}_residual.joblib"
-            )
+            model_path = os.path.join(output_dir, f"{position.lower()}_residual.joblib")
             meta_path = os.path.join(
                 output_dir, f"{position.lower()}_residual_meta.json"
             )
@@ -1069,6 +1072,7 @@ def train_and_save_residual_models(
             meta = {
                 "position": position,
                 "model_type": "ridge",
+                "heuristic_version": "v4.2",
                 "scoring_format": scoring_format,
                 "ridge_alpha": ridge_alpha,
                 "n_train": len(X_train_raw),
@@ -1209,7 +1213,9 @@ def apply_residual_correction(
     enrich_df = player_features.copy()
 
     if graph_features_added > 0:
-        missing_graph = [f for f in features if f in GRAPH_FEATURE_SET and f not in enrich_df.columns]
+        missing_graph = [
+            f for f in features if f in GRAPH_FEATURE_SET and f not in enrich_df.columns
+        ]
         if missing_graph:
             logger.info(
                 "%s: %d/%d graph features missing at inference; loading from Silver",
@@ -1220,19 +1226,27 @@ def apply_residual_correction(
             # Determine seasons from player_features, with fallback to current year
             seasons_present: List[int] = []
             if "season" in enrich_df.columns:
-                seasons_present = sorted(enrich_df["season"].dropna().unique().astype(int).tolist())
+                seasons_present = sorted(
+                    enrich_df["season"].dropna().unique().astype(int).tolist()
+                )
             if not seasons_present:
                 import datetime
+
                 seasons_present = [datetime.datetime.now().year]
 
             gf_df = load_graph_features(seasons_present)
             if not gf_df.empty:
                 join_keys = ["player_id", "season", "week"]
-                avail_keys = [k for k in join_keys if k in enrich_df.columns and k in gf_df.columns]
+                avail_keys = [
+                    k
+                    for k in join_keys
+                    if k in enrich_df.columns and k in gf_df.columns
+                ]
                 if len(avail_keys) >= 1:
                     # Only bring in columns the model needs that are missing
                     new_cols = [
-                        c for c in gf_df.columns
+                        c
+                        for c in gf_df.columns
                         if c not in avail_keys and c not in enrich_df.columns
                     ]
                     if new_cols:
@@ -1275,9 +1289,7 @@ def apply_residual_correction(
 
     # Build feature matrix aligned to heuristic players
     id_col = "player_id" if "player_id" in result.columns else "player_name"
-    feat_id_col = (
-        "player_id" if "player_id" in enrich_df.columns else "player_name"
-    )
+    feat_id_col = "player_id" if "player_id" in enrich_df.columns else "player_name"
 
     if id_col not in result.columns or feat_id_col not in enrich_df.columns:
         logger.warning("Cannot align features for residual correction")
@@ -1285,14 +1297,16 @@ def apply_residual_correction(
 
     # Merge features onto projections — prefer season+week keyed merge when available
     # to avoid picking stale values when player_features spans multiple weeks.
-    extra_keys = [k for k in ("season", "week") if k in result.columns and k in enrich_df.columns]
+    extra_keys = [
+        k for k in ("season", "week") if k in result.columns and k in enrich_df.columns
+    ]
     merge_on = [id_col] + extra_keys
     feat_merge_on = [feat_id_col] + extra_keys if feat_id_col != id_col else merge_on
 
     dedup_keys = [feat_id_col] + extra_keys
-    feat_subset = enrich_df[list(dict.fromkeys([feat_id_col] + extra_keys + available))].drop_duplicates(
-        subset=dedup_keys, keep="last"
-    )
+    feat_subset = enrich_df[
+        list(dict.fromkeys([feat_id_col] + extra_keys + available))
+    ].drop_duplicates(subset=dedup_keys, keep="last")
 
     if feat_id_col != id_col:
         merged = result.merge(
@@ -1326,7 +1340,9 @@ def apply_residual_correction(
             if imputer is not None:
                 X_imp_arr = imputer.transform(X_predict)
                 # Preserve column names so LightGBM doesn't warn about feature name mismatch
-                X_imp = pd.DataFrame(X_imp_arr, columns=X_predict.columns, index=X_predict.index)
+                X_imp = pd.DataFrame(
+                    X_imp_arr, columns=X_predict.columns, index=X_predict.index
+                )
             else:
                 X_imp = X_predict.fillna(0.0)
             corrections[has_features] = lgb_model.predict(X_imp)

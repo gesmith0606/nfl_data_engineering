@@ -609,7 +609,11 @@ class TestGetPlayerFeatureColumns:
                 "targets": [0, 5],  # label
                 "snap_pct_roll3": [0.8, 0.5],  # feature
                 "draft_round": [1, 3],  # feature
-                "qb_passing_epa": [0.15, -0.1],  # feature
+                "qb_passing_epa": [0.15, -0.1],  # same-week team metric (leak)
+                "qb_passing_epa_roll3": [0.12, -0.05],  # lagged variant (valid)
+                "ngs_catch_percentage": [70.0, 65.0],  # same-week NGS (leak)
+                "wr_matchup_yac_per_catch": [5.0, 4.0],  # same-game graph (leak)
+                "rec_tds": [45, 2],  # career outcome total (future-informed)
             }
         )
         features = get_player_feature_columns(df)
@@ -617,7 +621,7 @@ class TestGetPlayerFeatureColumns:
         # Should include numeric features
         assert "snap_pct_roll3" in features
         assert "draft_round" in features
-        assert "qb_passing_epa" in features
+        assert "qb_passing_epa_roll3" in features
 
         # Should exclude identifiers and labels
         assert "player_id" not in features
@@ -625,6 +629,12 @@ class TestGetPlayerFeatureColumns:
         assert "position" not in features
         assert "passing_yards" not in features
         assert "targets" not in features
+
+        # v4.2 leakage audit: same-week and future-informed columns excluded
+        assert "qb_passing_epa" not in features
+        assert "ngs_catch_percentage" not in features
+        assert "wr_matchup_yac_per_catch" not in features
+        assert "rec_tds" not in features
 
 
 # ---------------------------------------------------------------------------

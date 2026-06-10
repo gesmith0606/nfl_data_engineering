@@ -104,6 +104,109 @@ _SAME_WEEK_RAW_STATS = {
     "score_diff",
 }
 
+# Lagged column suffixes — rolling variants have shift(1) applied upstream
+# and are the only valid form of the raw metrics below.
+_LAGGED_SUFFIXES = ("_roll3", "_roll6", "_std")
+
+# Raw weekly advanced stats (NGS / PFR / QBR) are joined on
+# (player_id, season, week) with NO lag in assemble_multiyear_player_features
+# step 2 — they describe the very week being predicted (e.g. raw
+# ngs_catch_percentage correlates 1.0 with same-week receptions/targets).
+# v4.2 leakage audit: these inflated every residual-model evaluation in
+# Phases 51-57 while being NaN at live projection time, which is why WFCV
+# gains never materialized in production. Only their _roll3/_roll6/_std
+# variants are legitimate features.
+#
+# wr_matchup_* / te_matchup_* graph features are aggregated per
+# (player, defteam, season, week) from THAT WEEK'S plays in
+# graph_wr_matchup.py / graph_te_matchup.py — same-game outcome stats
+# (e.g. wr_matchup_yac_per_catch is the YAC of the game being predicted;
+# empirical check: corr +0.39 with same-week points vs +0.07 with
+# prior-week). Excluded until those modules compute trailing/lagged
+# versions. The base graph features from graph_feature_extraction.py
+# (def_pass_epa_allowed, *_history) are properly lagged and stay.
+_SAME_WEEK_PREFIXES = ("ngs_", "pfr_", "qbr_", "wr_matchup_", "te_matchup_")
+
+# Raw team metrics joined on (recent_team, season, week) with NO lag in
+# step 6 — same-week team performance (off_pass_epa of the game being
+# predicted, etc.). Rolling variants are lagged and safe. Pre-game context
+# columns from the same tables (weather, rest, travel, opening lines,
+# coaching) are NOT listed — they are known before kickoff.
+_SAME_WEEK_TEAM_METRICS = {
+    "def_epa_per_play",
+    "def_injury_impact",
+    "def_rz_epa",
+    "def_rz_pass_rate",
+    "def_rz_success_rate",
+    "def_rz_td_rate",
+    "def_success_rate",
+    "early_down_run_rate",
+    "fourth_down_go_rate",
+    "fourth_down_success_rate",
+    "off_cpoe",
+    "off_epa_per_play",
+    "off_pass_epa",
+    "off_rush_epa",
+    "off_rz_epa",
+    "off_rz_pass_rate",
+    "off_rz_success_rate",
+    "off_rz_td_rate",
+    "off_success_rate",
+    "pace",
+    "proe",
+    "qb_injury_impact",
+    "qb_passing_epa",
+    "rb_weighted_epa",
+    "skill_injury_impact",
+    "wr_te_weighted_epa",
+}
+
+# Career outcome totals from the historical dimension table (joined on
+# player_id only). The table is built from the full dataset, so a 2022 row
+# carries career totals through the latest ingested season — leaking future
+# player quality into backtests. Static pre-career facts (combine metrics,
+# draft capital) remain valid features.
+_CAREER_OUTCOME_COLS = {
+    "allpro",
+    "car_av",
+    "def_ints",
+    "def_sacks",
+    "def_solo_tackles",
+    "dr_av",
+    "games",
+    "hof",
+    "pass_attempts",
+    "pass_completions",
+    "pass_ints",
+    "pass_tds",
+    "pass_yards",
+    "probowls",
+    "rec_tds",
+    "rec_yards",
+    "rush_atts",
+    "rush_tds",
+    "rush_yards",
+    "seasons_started",
+    "to",
+    "w_av",
+}
+
+
+def _is_unlagged_leak(column: str) -> bool:
+    """Return True when a column is a same-week or future-informed leak.
+
+    Lagged rolling variants (_roll3/_roll6/_std) are always allowed; raw
+    NGS/PFR/QBR weekly stats, raw same-week team metrics, and career outcome
+    totals are excluded.
+    """
+    if column.endswith(_LAGGED_SUFFIXES):
+        return False
+    return (
+        column.startswith(_SAME_WEEK_PREFIXES)
+        or column in _SAME_WEEK_TEAM_METRICS
+        or column in _CAREER_OUTCOME_COLS
+    )
+
 
 # ---------------------------------------------------------------------------
 # Data readers (same pattern as feature_engineering.py)
@@ -506,12 +609,16 @@ def _join_wr_matchup_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     )
     from hybrid_projection import _WR_ADVANCED_FEATURES
 
-    all_new_cols = WR_MATCHUP_FEATURE_COLUMNS + _WR_ADVANCED_FEATURES + OL_RB_FEATURE_COLUMNS
+    all_new_cols = (
+        WR_MATCHUP_FEATURE_COLUMNS + _WR_ADVANCED_FEATURES + OL_RB_FEATURE_COLUMNS
+    )
 
     # Try cached Silver parquets first
     wr_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
     wr_files = sorted(glob.glob(os.path.join(wr_dir, "graph_wr_matchup_*.parquet")))
-    wr_adv_files = sorted(glob.glob(os.path.join(wr_dir, "graph_wr_advanced_*.parquet")))
+    wr_adv_files = sorted(
+        glob.glob(os.path.join(wr_dir, "graph_wr_advanced_*.parquet"))
+    )
     ol_files = sorted(glob.glob(os.path.join(wr_dir, "graph_ol_rb_*.parquet")))
 
     wr_df = pd.DataFrame()
@@ -618,7 +725,9 @@ def _join_te_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     # Try cached Silver parquets first
     te_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
     te_files = sorted(glob.glob(os.path.join(te_dir, "graph_te_matchup_*.parquet")))
-    te_adv_files = sorted(glob.glob(os.path.join(te_dir, "graph_te_advanced_*.parquet")))
+    te_adv_files = sorted(
+        glob.glob(os.path.join(te_dir, "graph_te_advanced_*.parquet"))
+    )
 
     te_df = pd.DataFrame()
     te_adv_df = pd.DataFrame()
@@ -1405,7 +1514,9 @@ def get_player_feature_columns(df: pd.DataFrame) -> List[str]:
         [
             c
             for c in df.columns
-            if c not in exclude and str(df[c].dtype) in numeric_dtypes
+            if c not in exclude
+            and not _is_unlagged_leak(c)
+            and str(df[c].dtype) in numeric_dtypes
         ]
     )
 

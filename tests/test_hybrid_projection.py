@@ -471,14 +471,17 @@ class TestApplyResidualCorrection:
 
 class TestRouterHybridIntegration:
     def test_hybrid_positions_constant(self):
-        """HYBRID_POSITIONS contains WR and TE."""
+        """HYBRID_POSITIONS is TE-only after the v4.2 sealed-2025 gate.
+
+        TE shipped (3.521 -> 3.361 MAE); WR failed the gate (4.057 -> 4.144,
+        bias +0.73 — residuals non-stationary across seasons).
+        """
         from ml_projection_router import HYBRID_POSITIONS
 
-        assert "WR" in HYBRID_POSITIONS
-        assert "TE" in HYBRID_POSITIONS
+        assert HYBRID_POSITIONS == {"TE"}
 
-    def test_ship_gate_returns_skip_for_all_positions(self):
-        """Ship gate returns SKIP for all positions — heuristic-only with bias corrections."""
+    def test_ship_gate_verdicts_v42(self):
+        """QB/RB/WR are heuristic-only; TE is HYBRID when a v4.2 model exists."""
         model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "player")
         if not os.path.exists(os.path.join(model_dir, "ship_gate_report.json")):
             pytest.skip("Ship gate report not found")
@@ -486,8 +489,22 @@ class TestRouterHybridIntegration:
         from ml_projection_router import _load_ship_gate
 
         verdicts = _load_ship_gate(model_dir)
-        # v4.1-p5: All positions use heuristic-only with bias corrections
-        # QB: POSITION_BIAS_CORRECTION +2.5, WR/TE: POSITION_CEILING_SHRINKAGE
         assert verdicts.get("QB") == "SKIP"
         assert verdicts.get("WR") == "SKIP"
-        assert verdicts.get("TE") == "SKIP"
+
+        te_meta_path = os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "models",
+            "residual",
+            "te_residual_meta.json",
+        )
+        if os.path.exists(te_meta_path):
+            with open(te_meta_path) as fh:
+                te_meta = json.load(fh)
+            expected = (
+                "HYBRID" if te_meta.get("heuristic_version") == "v4.2" else "SKIP"
+            )
+            assert verdicts.get("TE") == expected
+        else:
+            assert verdicts.get("TE") == "SKIP"
