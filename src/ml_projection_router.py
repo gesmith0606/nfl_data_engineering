@@ -6,11 +6,12 @@ Reads the ship gate report to determine which positions use ML models
 heuristic projections. Provides MAPIE confidence intervals for ML positions
 and team-total coherence checks.
 
-Routing (v4):
-    QB -> Heuristic only (SKIP; bias corrected via POSITION_BIAS_CORRECTION +2.5 pts)
-    RB -> Heuristic only (SKIP; XGB degrades MAE vs heuristic — Exp 4b, 2026-04-13)
-    WR -> Heuristic only (SKIP; Ridge over-corrects — Exp 4, 2026-04-13)
-    TE -> Heuristic only (SKIP; Ridge over-corrects — Exp 4, 2026-04-13)
+Routing (v4.2, 2026-06-10):
+    QB -> Heuristic only (SKIP; bias corrected via POSITION_BIAS_CORRECTION +2.3 pts)
+    RB -> Heuristic only (SKIP; residuals degrade even leak-free)
+    WR -> Heuristic only (SKIP; failed sealed 2025 gate — non-stationary residuals)
+    TE -> HYBRID (heuristic + Ridge residual w/ graph features; sealed 2025
+          gate 3.521 -> 3.361 MAE after the leakage + week-alignment fixes)
 
 Exports:
     generate_ml_projections: Main entry point for mixed ML/heuristic projections.
