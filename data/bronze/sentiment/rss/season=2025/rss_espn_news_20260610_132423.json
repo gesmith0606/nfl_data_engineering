@@ -1,0 +1,369 @@
+{
+  "fetch_run_id": "292ab5fd-ced4-47b0-8ec2-a4f6c6aed8c9",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-06-10T13:24:23.382029+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 24,
+  "items": [
+    {
+      "external_id": "US-EN-48881830",
+      "url": "https://www.espn.com/nfl/story/_/id/48881830/nfl-best-offenses-personnel-groupings-cowboys-rams-dolphins",
+      "title": "Picking the NFL's best at every personnel grouping...",
+      "body_text": "Which teams stand out in 11, 12, 13, 21 and 22 personnel groupings? We looked back at the 2025 season and then gave an outlook for the top offenses in 2026.",
+      "author": "Matt Bowen",
+      "published_at": "2026-06-10T13:32:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49012436",
+      "url": "https://www.espn.com/nfl/story/_/id/49012436/sources-bengals-restructure-burrow-deal-free-cap-space",
+      "title": "Sources: Bengals restructure Burrow's contract",
+      "body_text": "The Cincinnati Bengals have restructured quarterback Joe Burrow's contract, freeing up $10 million in cap space for the upcoming season.",
+      "author": "Ben Baby",
+      "published_at": "2026-06-10T04:10:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Cincinnati",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-49014557",
+      "url": "https://www.espn.com/nfl/story/_/id/49014557/five-law-firms-accused-defrauding-nfl-concussion-fund",
+      "title": "Firms accused of defrauding NFL's concussion fund",
+      "body_text": "Five law firms were accused of scheming to defraud the NFL's concussion settlement fund of more than $87 million.",
+      "author": "Robert Klemko",
+      "published_at": "2026-06-10T04:10:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49014672",
+      "url": "https://www.espn.com/nfl/story/_/id/49014672/brandon-aiyuk-again-aims-harsh-comments-49ers",
+      "title": "Aiyuk aims more harsh comments toward 49ers",
+      "body_text": "For the second time in three days, wide receiver Brandon Aiyuk seemingly aimed some harsh comments at the San Francisco 49ers for how they have handled his situation over the past couple of years.",
+      "author": "Nick Wagoner",
+      "published_at": "2026-06-10T04:10:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-49012830",
+      "url": "https://www.espn.com/nfl/story/_/id/49012830/browns-qb1-decision-end-minicamp-unlikely-monken-says",
+      "title": "Coach says Browns QB1 competition to continue",
+      "body_text": "Browns coach Todd Monken said he is unlikely to name a starting quarterback between Deshaun Watson and Shedeur Sanders at the conclusion of mandatory minicamp on Thursday.",
+      "author": "Daniel Oyefusi",
+      "published_at": "2026-06-10T04:10:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Todd Monken",
+        "Deshaun Watson",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-49013335",
+      "url": "https://www.espn.com/nfl/story/_/id/49013335/ravens-calais-campbell-says-2026-season-19th-likely-last",
+      "title": "Ravens' Campbell says 19th season likely his last",
+      "body_text": "Ravens defensive end Calais Campbell believes his 19th season in the NFL will be his final one.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-06-10T04:10:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Calais Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0026190"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-49013095",
+      "url": "https://www.espn.com/nfl/story/_/id/49013095/kyler-murray-more-reps-help-ease-transition-vikings",
+      "title": "Murray: More reps would ease transition to Vikes",
+      "body_text": "Kyler Murray said the most difficult part of the transition to Minnesota from Arizona has been splitting reps with J.J. McCarthy and the rest of the Vikings' quarterbacks as part of the competition.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-06-10T04:10:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Vikes Kyler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "US-EN-49013401",
+      "url": "https://www.espn.com/nfl/story/_/id/49013401/patriots-christian-gonzalez-reports-mandatory-minicamp",
+      "title": "Pats' Gonzalez, desiring new deal, shows at camp",
+      "body_text": "Patriots cornerback Christian Gonzalez, who is eligible for a contract extension, reported for mandatory minicamp this week after skipping most of the voluntary program.",
+      "author": "Mike Reiss",
+      "published_at": "2026-06-10T04:10:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-49013532",
+      "url": "https://www.espn.com/nfl/story/_/id/49013532/cousins-bucks-mentor-label-raiders-qbs-working-force-together",
+      "title": "Cousins: Raiders QBs 'a working force together'",
+      "body_text": "Veteran Kirk Cousins doesn't see himself as a mentor to rookie Fernando Mendoza and the rest of the Raiders quarterbacks, suggesting the group is \"a working force together.\"",
+      "author": "Ryan McFadden",
+      "published_at": "2026-06-10T04:10:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Veteran Kirk",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-48988004",
+      "url": "https://www.espn.com/nfl/story/_/id/48988004/2026-nfl-minicamps-otas-teams-rookies-qbs-veterans-watching",
+      "title": "🏈 QB battles, rookies, more from NFL minicamps",
+      "body_text": "NFL Nation frames minicamp storylines, including Jalen Hurts, Patrick Mahomes and QBs in Arizona and Minnesota.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-10T04:10:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jalen Hurts",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0036389",
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48957897",
+      "url": "https://www.espn.com/nfl/story/_/id/48957897/2026-nfl-quarterback-questions-32-teams-battles-contracts-expectations-injuries",
+      "title": "32 NFL teams, 32 unanswered QB questions: Graziano...",
+      "body_text": "Are Baker Mayfield and Sam Darnold headed for big extensions? Can Bryce Young level up again? When will Fernando Mendoza start?",
+      "author": "Dan Graziano",
+      "published_at": "2026-06-10T13:32:15+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Are Baker",
+        "Sam Darnold",
+        "Can Bryce",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "MEN516487"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48951382",
+      "url": "https://www.espn.com/nfl/story/_/id/48951382/2026-nfl-season-worst-first-afc-nfc-division-odds-predictions-turnarounds",
+      "title": "Which NFL teams are most likely to have a big turn...",
+      "body_text": "We stacked last season's last-place finishers in each division by their chances to jump all the way to first.",
+      "author": "Aaron Schatz",
+      "published_at": "2026-06-10T13:32:15+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49002856",
+      "url": "https://www.espn.com/nfl/story/_/id/49002856/jonathan-taylor-quenton-nelson-deforest-buckner-indianapolis-colts-entering-contract-years",
+      "title": "Future is uncertain for 3 Colts -- including Jonathan Taylor -- entering contract years",
+      "body_text": "Jonathan Taylor, DeForest Buckner and Quenton Nelson are headed toward the last year of their deals.",
+      "author": "Stephen Holder",
+      "published_at": "2026-06-10T11:00:02+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0034342"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-48950554",
+      "url": "https://www.espn.com/nfl/story/_/id/48950554/2026-nfl-minicamp-live-updates-teams-mandatory-camps-news-notes-depth-charts",
+      "title": "NFL minicamp daily updates: Yes! Jaxson Dart is ad...",
+      "body_text": "Week 2 of OTAs is underway with 17 teams, and ESPN's NFL Nation shares news and insights from every practice.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-09T23:35:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49011168",
+      "url": "https://www.espn.com/nfl/story/_/id/49011168/san-francisco-49ers-nfl-reaction-los-angeles-rams-trade-myles-garrett",
+      "title": "How the 49ers reacted to their rival Rams trading ...",
+      "body_text": "From the moment the trade was announced, San Francisco began to prepare for a tougher Week 1.",
+      "author": "Nick Wagoner",
+      "published_at": "2026-06-10T13:06:52+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-48995215",
+      "url": "https://www.espn.com/nfl/story/_/id/48995215/why-chiefs-believe-kenneth-walker-transform-offense-free-agency-otas-offseason-super-bowl",
+      "title": "'He's going to help us a lot': Why Chiefs believe ...",
+      "body_text": "Kenneth Walker is being asked to lift the Chiefs' offense more than any running back before in the Mahomes era. Can he?",
+      "author": "Nate Taylor",
+      "published_at": "2026-06-09T23:35:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Chiefs",
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-49000119",
+      "url": "https://www.espn.com/nfl/story/_/id/49000119/why-cleveland-browns-2026-nfl-see-world-upside-jared-verse-trade",
+      "title": "Copy of Why the Browns see a 'world of upside' in Jared Ve...",
+      "body_text": "\"This is an attacking front, and that's kind of my style,\" the edge rusher says of his new team in Cleveland.",
+      "author": "Daniel Oyefusi",
+      "published_at": "2026-06-09T23:35:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-48976999",
+      "url": "https://www.espn.com/nfl/story/_/id/48976999/how-june-1-2026-blockbuster-trade-day-nfl-myles-garrett-aj-brown-jared-verse",
+      "title": "Cap casualties to trade fireworks: Inside NFL's hi...",
+      "body_text": "More than 15 coaches, players and execs shed light on the back-to-back trades that happened on a key June day.",
+      "author": "Jeremy Fowler and Sarah Barshop and Mike Reiss and Daniel Oyefusi and Tim McManus",
+      "published_at": "2026-06-09T14:37:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48947413",
+      "url": "https://www.espn.com/nfl/story/_/id/48947413/2026-nfl-trade-deadline-early-look-players-candidates-buzz-crosby-aiyuk-kamara",
+      "title": "Copy of 10 players who could get traded before the season'...",
+      "body_text": "The NFL trade deadline isn't until November, but we're making early predictions on 10 players.",
+      "author": "Dan Graziano",
+      "published_at": "2026-06-09T14:37:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49002139",
+      "url": "https://www.espn.com/united-football-league/story/_/id/49002139/ufl-dc-defenders-andre-mintze-pto-unretire",
+      "title": "How did the DC Defenders get a retired champ back ...",
+      "body_text": "During Sunday's UFL playoffs semifinal, Mintze was asked about his \"two-week sabbatical from his real job.\" Mintze's response? \"Allegedly.\"",
+      "author": "J.J. Post",
+      "published_at": "2026-06-09T13:50:15+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "During Sunday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49000804",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49000804/fantasy-football-make-six-draft-mistakes",
+      "title": "Fantasy football: Don't make these six draft mista...",
+      "body_text": "Avoiding common pitfalls can keep your draft on track for success.",
+      "author": "Eric Moody",
+      "published_at": "2026-06-10T13:26:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Fantasy buzz: Does the returning Cam Skattebo have...",
+      "body_text": "What is Cam Skattebo's ceiling as he returns to a Giants squad that is expected to feature the run game?",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-06-10T13:26:42+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "US-EN-48845972",
+      "url": "https://www.espn.com/nfl/story/_/id/48845972/2026-nfl-season-football-power-index-projections-super-bowl-chances-simulations",
+      "title": "New FPI projections for the 2026 NFL season: Which...",
+      "body_text": "ESPN's Football Power Index ratings are live. These simulations of the 2026 season provide playoff chances, potential draft order and our 1-32 team ranking.",
+      "author": "Seth Walder",
+      "published_at": "2026-06-04T13:55:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Football Power"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48894110",
+      "url": "https://www.espn.com/nfl/story/_/id/48894110/2026-nfl-season-100-days-nuggets-mvp-predictions-fantasy-rookies",
+      "title": "100 things to know for the 2026 NFL season ... 100...",
+      "body_text": "100 things to know, including bold predictions, fantasy sleepers and injury buzz.",
+      "author": "ESPN Staff",
+      "published_at": "2026-06-04T13:55:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
