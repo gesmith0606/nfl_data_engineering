@@ -451,7 +451,18 @@ def run(
 
     log_quota(headers)
 
-    df = normalize_response(games, snapshot_ts)
+    # Fail-open on normalization too: a malformed API payload (e.g. a
+    # semantically bad commence_time tripping the season bounds guard)
+    # must log-and-skip, not crash the cron run.
+    try:
+        df = normalize_response(games, snapshot_ts)
+    except (ValueError, KeyError, TypeError) as exc:
+        logger.warning(
+            "Odds payload normalization failed (fail-open): %s. "
+            "No parquet written; cron will retry next run.",
+            exc,
+        )
+        return 0
     logger.info("Normalised %d rows from %d games.", len(df), len(games))
 
     if df.empty:

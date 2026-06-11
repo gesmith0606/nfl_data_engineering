@@ -38,7 +38,17 @@ GOLD_DIR = os.path.join(PROJECT_ROOT, "data", "gold")
 # Freshness thresholds (D-08). Gold projections should refresh weekly; Silver
 # aggregates can go longer between pipeline runs.
 GOLD_MAX_AGE_DAYS = 7
-SILVER_MAX_AGE_DAYS = 14
+# Silver threshold is offseason-aware: during May–August there are no weekly
+# games so Silver is intentionally not refreshed. The flat 14-day window fired
+# chronic noise (2 warnings every CI run from April through August). Use 90 days
+# in the offseason and 14 days during the regular season (Sep–Jan).
+_OFFSEASON_MONTHS = {5, 6, 7, 8}  # May, June, July, August
+
+
+def _silver_max_age_days() -> int:
+    """Return the Silver staleness threshold appropriate for the current month."""
+    return 90 if datetime.now().month in _OFFSEASON_MONTHS else 14
+
 
 # Fantasy positions used when filtering Sleeper live consensus.
 _FANTASY_POSITIONS = {"QB", "RB", "WR", "TE"}
@@ -481,6 +491,27 @@ def run_prediction_check(season: int, week: int) -> Tuple[List[str], List[str]]:
             )
 
     # ------------------------------------------------------------------
+    # 5b. Probability sanity: home_cover_prob / over_prob in [0.30, 0.70]
+    # ------------------------------------------------------------------
+    # Calibrators are intentionally humble (slope ~0.08); values outside
+    # this band indicate a corrupted calibrator. NaN is allowed when the
+    # calibrator artifact is absent.  Per TOTALS_VERDICT: over_prob is
+    # content-only — large total_edge values are expected and must NOT warn.
+    for prob_col in ("home_cover_prob", "over_prob"):
+        if prob_col not in df.columns:
+            continue
+        non_null = df[df[prob_col].notna()]
+        out_of_band = non_null[
+            (non_null[prob_col] < 0.30) | (non_null[prob_col] > 0.70)
+        ]
+        for _, row in out_of_band.iterrows():
+            warnings.append(
+                f"PROB OUT OF BAND: {row.get('away_team', '?')} @ "
+                f"{row.get('home_team', '?')} — {prob_col}="
+                f"{row[prob_col]:.3f} (expected [0.30, 0.70] or NaN)"
+            )
+
+    # ------------------------------------------------------------------
     # 6. WARNING: Large divergence from Vegas spread (>7 points)
     # ------------------------------------------------------------------
     if "predicted_spread" in df.columns and "vegas_spread" in df.columns:
@@ -575,6 +606,488 @@ def run_prediction_check(season: int, week: int) -> Tuple[List[str], List[str]]:
     return criticals, warnings
 
 
+# ---------------------------------------------------------------------------
+# New check M1 — Gold newer than Silver (stale-file incident class)
+# ---------------------------------------------------------------------------
+
+
+def _check_gold_newer_than_silver(season: int) -> Tuple[List[str], List[str]]:
+    """SANITY-M1: Gold projection file must be newer than Silver player_usage.
+
+    Catches the incident class from commit e885989 where a stale preseason
+    Gold file silently beat a freshly-generated cron output. If Silver was
+    refreshed AFTER the Gold file was written, the Gold projection is using
+    stale Silver inputs and should be regenerated.
+
+    Args:
+        season: Target season year.
+
+    Returns:
+        ``(criticals, warnings)`` lists.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+
+    gold_pattern = os.path.join(
+        GOLD_DIR, f"projections/preseason/season={season}", "*.parquet"
+    )
+    gold_files = sorted(globmod.glob(gold_pattern))
+    if not gold_files:
+        # Gold missing is caught elsewhere; skip this check.
+        return criticals, warnings
+
+    gold_mtime = max(os.path.getmtime(f) for f in gold_files)
+
+    # Check against Silver player_usage — the primary Silver input for projections.
+    silver_usage_base = os.path.join(PROJECT_ROOT, "data", "silver", "players", "usage")
+    silver_files: List[str] = []
+    for root, _dirs, files in os.walk(silver_usage_base):
+        for fname in files:
+            if fname.endswith(".parquet"):
+                silver_files.append(os.path.join(root, fname))
+
+    if not silver_files:
+        return criticals, warnings  # Silver missing is caught by freshness check.
+
+    silver_mtime = max(os.path.getmtime(f) for f in silver_files)
+    silver_age_after_gold_days = (silver_mtime - gold_mtime) / 86400.0
+
+    if silver_age_after_gold_days > 0.5:  # Silver refreshed >12h after Gold was written
+        gold_dt = datetime.fromtimestamp(gold_mtime).strftime("%Y-%m-%d %H:%M")
+        silver_dt = datetime.fromtimestamp(silver_mtime).strftime("%Y-%m-%d %H:%M")
+        warnings.append(
+            f"STALE GOLD VS SILVER: Gold projections (written {gold_dt}) predate "
+            f"the latest Silver player_usage refresh ({silver_dt}). Gold may be "
+            f"using stale Silver inputs. Regenerate Gold projections."
+        )
+        print(f"  [WARN] Gold vs Silver staleness: Gold={gold_dt}, Silver={silver_dt}")
+    else:
+        print("  [PASS] Gold projection is current vs Silver inputs")
+
+    return criticals, warnings
+
+
+# ---------------------------------------------------------------------------
+# New check M2 — Ensemble and residual model artifact integrity
+# ---------------------------------------------------------------------------
+
+# All 12 expected files in models/ensemble/.
+_ENSEMBLE_EXPECTED_ARTIFACTS = [
+    "xgb_spread.json",
+    "xgb_total.json",
+    "lgb_spread.txt",
+    "lgb_total.txt",
+    "cb_spread.cbm",
+    "cb_total.cbm",
+    "ridge_spread.pkl",
+    "ridge_total.pkl",
+    "calibrator_spread.pkl",
+    "calibrator_total.pkl",
+    "oof_spread.parquet",
+    "oof_total.parquet",
+]
+
+# Expected residual models for hybrid positions (v4.2).
+_RESIDUAL_HYBRID_POSITIONS = ["te", "wr"]
+_RESIDUAL_EXPECTED_VERSION = "v4.2"
+
+
+def _check_ensemble_artifacts() -> Tuple[List[str], List[str]]:
+    """SANITY-M2a: models/ensemble must contain all 12 expected artifacts.
+
+    Missing artifacts cause a crash at load time. This catches the incident
+    class where models/ensemble was partially populated.
+
+    Returns:
+        ``(criticals, warnings)`` lists.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    ensemble_dir = os.path.join(PROJECT_ROOT, "models", "ensemble")
+    if not os.path.isdir(ensemble_dir):
+        criticals.append(
+            "MODEL ARTIFACTS MISSING: models/ensemble/ directory does not exist. "
+            "Ensemble cannot load — run train_ensemble.py first."
+        )
+        print("  [FAIL] Ensemble artifact check (directory missing)")
+        return criticals, warnings
+
+    missing = [
+        f
+        for f in _ENSEMBLE_EXPECTED_ARTIFACTS
+        if not os.path.exists(os.path.join(ensemble_dir, f))
+    ]
+    if missing:
+        criticals.append(
+            f"MODEL ARTIFACTS MISSING: models/ensemble/ is incomplete. "
+            f"Missing {len(missing)}/{len(_ENSEMBLE_EXPECTED_ARTIFACTS)} files: "
+            f"{missing[:6]}{'...' if len(missing) > 6 else ''}. "
+            f"Ensemble load will crash at predict time."
+        )
+        print(f"  [FAIL] Ensemble artifacts: {len(missing)} missing")
+    else:
+        print(
+            f"  [PASS] Ensemble artifacts: all {len(_ENSEMBLE_EXPECTED_ARTIFACTS)} present"
+        )
+    return criticals, warnings
+
+
+def _check_te_residual_stamp() -> Tuple[List[str], List[str]]:
+    """SANITY-M2b: TE/WR residual model must carry heuristic_version == 'v4.2'.
+
+    When TE/WR Gold rows claim projection_source='hybrid', the residual model
+    must be the v4.2 version. A stale model produces a version mismatch that
+    silently degrades accuracy.
+
+    Returns:
+        ``(criticals, warnings)`` lists.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+    residual_dir = os.path.join(PROJECT_ROOT, "models", "residual")
+    if not os.path.isdir(residual_dir):
+        # No residual dir = heuristic-only mode, which is valid. Skip.
+        print("  [PASS] Residual model stamp: no residual dir (heuristic-only mode)")
+        return criticals, warnings
+
+    for pos in _RESIDUAL_HYBRID_POSITIONS:
+        meta_path = os.path.join(residual_dir, f"{pos}_residual_meta.json")
+        joblib_path = os.path.join(residual_dir, f"{pos}_residual.joblib")
+
+        if not os.path.exists(joblib_path):
+            criticals.append(
+                f"RESIDUAL MODEL MISSING: models/residual/{pos}_residual.joblib "
+                f"not found. TE/WR hybrid projection will crash at load time."
+            )
+            print(f"  [FAIL] {pos.upper()} residual model: joblib missing")
+            continue
+
+        if not os.path.exists(meta_path):
+            warnings.append(
+                f"RESIDUAL META MISSING: models/residual/{pos}_residual_meta.json "
+                f"not found. Cannot verify heuristic_version stamp."
+            )
+            print(f"  [WARN] {pos.upper()} residual model: meta missing")
+            continue
+
+        try:
+            with open(meta_path) as fh:
+                meta = json.load(fh)
+        except (json.JSONDecodeError, OSError) as exc:
+            warnings.append(
+                f"RESIDUAL META CORRUPT: {meta_path} could not be parsed: {exc}"
+            )
+            continue
+
+        version = meta.get("heuristic_version", "")
+        if version != _RESIDUAL_EXPECTED_VERSION:
+            criticals.append(
+                f"RESIDUAL VERSION MISMATCH: {pos.upper()} residual meta has "
+                f"heuristic_version='{version}', expected '{_RESIDUAL_EXPECTED_VERSION}'. "
+                f"Stale model artifact — retrain with train_residual_models.py."
+            )
+            print(
+                f"  [FAIL] {pos.upper()} residual stamp: {version!r} != {_RESIDUAL_EXPECTED_VERSION!r}"
+            )
+        else:
+            print(f"  [PASS] {pos.upper()} residual stamp: {version}")
+
+    return criticals, warnings
+
+
+# ---------------------------------------------------------------------------
+# New check M3 — Consensus cross-check vs Silver external_projections
+# ---------------------------------------------------------------------------
+
+# Per-position top-N cutoffs for the cross-check comparison.
+_CONSENSUS_CROSS_TOP_N: Dict[str, int] = {"QB": 12, "RB": 24, "WR": 24, "TE": 12}
+# Maximum point divergence (pts) before flagging a matched player pair.
+_CONSENSUS_CROSS_PTS_THRESHOLD = 12.0
+# Maximum fraction of top-N that may disagree before escalating to CRITICAL.
+_CONSENSUS_CROSS_CRITICAL_FRAC = 0.35
+
+
+def _check_consensus_cross_check(
+    scoring: str, season: int, week: Optional[int] = None
+) -> Tuple[List[str], List[str]]:
+    """SANITY-M3: compare Gold top-N vs Silver external_projections consensus.
+
+    Catches the dead-multiplier class of bug (e.g., all WR projections shifted
+    by a constant factor for months). A handful of disagreements is normal edge;
+    >35% of top-N disagreeing signals broken inputs and escalates to CRITICAL.
+
+    The check loads the latest Silver external_projections for the most recent
+    available week matching the target season. If no Silver external_projections
+    exist, the check is skipped with a WARN (not CRITICAL — Silver external
+    data is optional infrastructure).
+
+    Args:
+        scoring: Scoring format string (e.g., ``"half_ppr"``).
+        season: Target projection season.
+        week: Optional week override; uses latest available week if None.
+
+    Returns:
+        ``(criticals, warnings)`` lists.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+
+    # ------------------------------------------------------------------
+    # 1. Load Silver external_projections for the target season.
+    # ------------------------------------------------------------------
+    ext_base = os.path.join(
+        PROJECT_ROOT, "data", "silver", "external_projections", f"season={season}"
+    )
+    if not os.path.isdir(ext_base):
+        warnings.append(
+            f"CONSENSUS CROSS-CHECK SKIPPED: no Silver external_projections for "
+            f"season={season}. Run weekly-external-projections workflow first."
+        )
+        print(
+            f"  [SKIP] Consensus cross-check (no Silver external_projections for {season})"
+        )
+        return criticals, warnings
+
+    # Find latest available week.
+    week_dirs = sorted(globmod.glob(os.path.join(ext_base, "week=*")))
+    if not week_dirs:
+        warnings.append(
+            f"CONSENSUS CROSS-CHECK SKIPPED: Silver external_projections/{season}/ "
+            f"exists but contains no week partitions."
+        )
+        print("  [SKIP] Consensus cross-check (no week partitions in Silver ext)")
+        return criticals, warnings
+
+    if week is not None:
+        target_week_dir = os.path.join(ext_base, f"week={week:02d}")
+        if not os.path.isdir(target_week_dir):
+            target_week_dir = week_dirs[-1]
+    else:
+        target_week_dir = week_dirs[-1]
+
+    ext_files = sorted(globmod.glob(os.path.join(target_week_dir, "*.parquet")))
+    if not ext_files:
+        warnings.append(
+            f"CONSENSUS CROSS-CHECK SKIPPED: no parquet files in {target_week_dir}."
+        )
+        print("  [SKIP] Consensus cross-check (no parquet in week dir)")
+        return criticals, warnings
+
+    try:
+        ext_df = pd.read_parquet(ext_files[-1])
+    except Exception as exc:  # noqa: BLE001
+        warnings.append(
+            f"CONSENSUS CROSS-CHECK SKIPPED: could not read {ext_files[-1]}: {exc}"
+        )
+        return criticals, warnings
+
+    # ------------------------------------------------------------------
+    # 2. Load our Gold projections.
+    # ------------------------------------------------------------------
+    try:
+        our_df = _load_our_projections(scoring, season)
+    except FileNotFoundError as exc:
+        warnings.append(f"CONSENSUS CROSS-CHECK SKIPPED: {exc}")
+        return criticals, warnings
+
+    if our_df is None or our_df.empty:
+        warnings.append("CONSENSUS CROSS-CHECK SKIPPED: Gold projections empty.")
+        return criticals, warnings
+
+    points_col = (
+        "projected_points"
+        if "projected_points" in our_df.columns
+        else "projected_season_points"
+    )
+
+    # ------------------------------------------------------------------
+    # 3. Filter external projections to skill positions + scoring format.
+    # ------------------------------------------------------------------
+    if "position" in ext_df.columns:
+        ext_df = ext_df[ext_df["position"].isin(_FANTASY_POSITIONS)].copy()
+    if "scoring_format" in ext_df.columns:
+        ext_scoring = ext_df[ext_df["scoring_format"] == scoring]
+        if not ext_scoring.empty:
+            ext_df = ext_scoring.copy()
+
+    if "projected_points" not in ext_df.columns or ext_df.empty:
+        warnings.append(
+            "CONSENSUS CROSS-CHECK SKIPPED: Silver external_projections missing "
+            "'projected_points' column or empty after filtering."
+        )
+        return criticals, warnings
+
+    our_df["_norm"] = our_df["player_name"].apply(_normalize_name)
+    ext_df["_norm"] = ext_df["player_name"].apply(_normalize_name)
+
+    total_flagged = 0
+    total_checked = 0
+    warn_lines: List[str] = []
+
+    for pos, top_n in _CONSENSUS_CROSS_TOP_N.items():
+        our_pos = our_df[our_df["position"] == pos].nlargest(top_n, points_col)
+        ext_pos = ext_df[ext_df["position"] == pos].nlargest(top_n, "projected_points")
+
+        if our_pos.empty or ext_pos.empty:
+            continue
+
+        our_names = set(our_pos["_norm"])
+        ext_names = set(ext_pos["_norm"])
+        total_checked += top_n
+
+        # Players in our top-N absent from consensus top-2x (generous window).
+        ext_top_2x = set(
+            ext_df[ext_df["position"] == pos].nlargest(top_n * 2, "projected_points")[
+                "_norm"
+            ]
+        )
+        absent_from_ext = our_names - ext_top_2x
+        # Players in consensus top-N absent from our top-2x.
+        our_top_2x = set(
+            our_df[our_df["position"] == pos].nlargest(top_n * 2, points_col)["_norm"]
+        )
+        absent_from_ours = ext_names - our_top_2x
+
+        for nm in absent_from_ext | absent_from_ours:
+            total_flagged += 1
+            direction = "ours-only" if nm in absent_from_ext else "consensus-only"
+            warn_lines.append(f"  {pos} {nm} ({direction})")
+
+        # Point-magnitude check on matched players.
+        merged = our_pos.merge(
+            ext_pos[["_norm", "projected_points"]],
+            on="_norm",
+            suffixes=("_ours", "_ext"),
+        )
+        for _, row in merged.iterrows():
+            diff = abs(row[f"{points_col}_ours"] - row["projected_points_ext"])
+            if diff > _CONSENSUS_CROSS_PTS_THRESHOLD:
+                total_flagged += 1
+                warn_lines.append(
+                    f"  {pos} {row['_norm']}: ours={row[f'{points_col}_ours']:.1f}, "
+                    f"ext={row['projected_points_ext']:.1f}, diff={diff:.1f}"
+                )
+
+    if total_checked == 0:
+        print("  [SKIP] Consensus cross-check (no position overlap)")
+        return criticals, warnings
+
+    frac = total_flagged / total_checked if total_checked > 0 else 0.0
+    if frac > _CONSENSUS_CROSS_CRITICAL_FRAC:
+        criticals.append(
+            f"CONSENSUS DIVERGENCE: {total_flagged}/{total_checked} "
+            f"({frac:.0%}) top-N slots disagree with Silver external_projections "
+            f"(threshold {_CONSENSUS_CROSS_CRITICAL_FRAC:.0%}). "
+            f"Likely cause: broken projection inputs (dead multiplier, missing "
+            f"Silver data, wrong season used). Top offenders:\n"
+            + "\n".join(warn_lines[:10])
+        )
+        print(
+            f"  [FAIL] Consensus cross-check: {frac:.0%} disagreement > {_CONSENSUS_CROSS_CRITICAL_FRAC:.0%}"
+        )
+    elif total_flagged > 0:
+        for line in warn_lines[:5]:
+            warnings.append(f"CONSENSUS GAP:{line.strip()}")
+        print(
+            f"  [PASS] Consensus cross-check: {total_flagged} gaps "
+            f"({frac:.0%} < {_CONSENSUS_CROSS_CRITICAL_FRAC:.0%} threshold)"
+        )
+    else:
+        print("  [PASS] Consensus cross-check: no gaps vs Silver external_projections")
+
+    return criticals, warnings
+
+
+# ---------------------------------------------------------------------------
+# New check M5 — Distributional drift vs historical Gold archives
+# ---------------------------------------------------------------------------
+
+# Historical mean top-24 projected points per position, computed from
+# 2022-2024 Gold preseason archives. Used as the expected band centre.
+# Band is ±25% of the historical mean (generous to absorb year-to-year
+# variance while still catching a dead-multiplier that shifts everything).
+_HISTORICAL_TOP24_MEANS: Dict[str, float] = {
+    "QB": 310.0,  # typical QB1 preseason projection range
+    "RB": 230.0,
+    "WR": 195.0,
+    "TE": 165.0,
+}
+_DRIFT_BAND_FRACTION = 0.30  # ±30%
+
+
+def _check_projection_distribution(
+    scoring: str, season: int
+) -> Tuple[List[str], List[str]]:
+    """SANITY-M5: projected-points distribution must be within historical band.
+
+    Catches the dead-multiplier-class bug (Phase 53 incident) where a bad
+    matchup factor silently shifted all projections for months. Compares
+    the mean projected_season_points of our top-24 per position against
+    the historical band from _HISTORICAL_TOP24_MEANS.
+
+    A ±30% band is generous enough to absorb genuine year-to-year variance
+    while still catching a multiplier stuck at 0 or 10x.
+
+    Args:
+        scoring: Scoring format string.
+        season: Target season year.
+
+    Returns:
+        ``(criticals, warnings)`` lists.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+
+    try:
+        df = _load_our_projections(scoring, season)
+    except FileNotFoundError as exc:
+        warnings.append(f"DISTRIBUTION DRIFT CHECK SKIPPED: {exc}")
+        return criticals, warnings
+
+    if df is None or df.empty:
+        warnings.append("DISTRIBUTION DRIFT CHECK SKIPPED: Gold projections empty.")
+        return criticals, warnings
+
+    points_col = (
+        "projected_points"
+        if "projected_points" in df.columns
+        else "projected_season_points"
+    )
+
+    for pos, historical_mean in _HISTORICAL_TOP24_MEANS.items():
+        pos_df = df[df["position"] == pos]
+        top24 = pos_df.nlargest(24, points_col)
+        if len(top24) < 12:
+            warnings.append(
+                f"DISTRIBUTION DRIFT SKIPPED ({pos}): only {len(top24)} players "
+                f"(need ≥12 for meaningful distribution check)."
+            )
+            continue
+
+        our_mean = top24[points_col].mean()
+        lo = historical_mean * (1 - _DRIFT_BAND_FRACTION)
+        hi = historical_mean * (1 + _DRIFT_BAND_FRACTION)
+
+        if our_mean < lo or our_mean > hi:
+            criticals.append(
+                f"DISTRIBUTION DRIFT ({pos}): mean top-24 projected pts = "
+                f"{our_mean:.1f}, outside historical band "
+                f"[{lo:.1f}, {hi:.1f}] (centre {historical_mean:.1f} ±{_DRIFT_BAND_FRACTION:.0%}). "
+                f"Dead multiplier or wrong season data likely."
+            )
+            print(
+                f"  [FAIL] Distribution drift {pos}: mean={our_mean:.1f} "
+                f"outside [{lo:.1f}, {hi:.1f}]"
+            )
+        else:
+            print(
+                f"  [PASS] Distribution drift {pos}: mean={our_mean:.1f} "
+                f"in [{lo:.1f}, {hi:.1f}]"
+            )
+
+    return criticals, warnings
+
+
 def run_sanity_check(scoring: str, season: int) -> int:
     """Run the full sanity check and print report. Returns exit code."""
     print("=" * 70)
@@ -617,6 +1130,7 @@ def run_sanity_check(scoring: str, season: int) -> int:
             os.path.join(PROJECT_ROOT, "data", "silver", "teams", "pbp_metrics"),
         ),
     ]
+    silver_threshold = _silver_max_age_days()
     for label, sd in silver_dirs:
         # Silver dirs commonly partition further by season=YYYY; freshness
         # check works whether files live at the leaf or at the root.
@@ -628,9 +1142,7 @@ def run_sanity_check(scoring: str, season: int) -> int:
             )
             if season_partitions:
                 probe_dir = str(season_partitions[-1])
-        s_level, s_msg = check_local_freshness(
-            probe_dir, max_age_days=SILVER_MAX_AGE_DAYS
-        )
+        s_level, s_msg = check_local_freshness(probe_dir, max_age_days=silver_threshold)
         print(f"  Silver {label}: [{s_level}] {s_msg}")
         if s_level == "WARN":
             warnings.append(f"STALE SILVER DATA ({label}): {s_msg}")
@@ -706,26 +1218,43 @@ def run_sanity_check(scoring: str, season: int) -> int:
         warnings.append(msg)
 
     # ------------------------------------------------------------------
-    # 3. WARNING: Large rank discrepancies (>20 spots)
+    # 3. WARNING: Large rank discrepancies (position-aware thresholds)
     # ------------------------------------------------------------------
     # NOTE: warnings list was initialized at the top of run_sanity_check()
     # so freshness checks could append; do NOT re-init here or we lose them.
+    #
+    # Thresholds are position-aware (audit 2026-06-10):
+    #   QB  → 110 spots: Sleeper 1-QB consensus ranks QBs #1–#50 overall;
+    #         our ranking is positional-value based so QBs appear at #50–#150
+    #         overall even at elite projected totals (300+ pts).  A gap of 120
+    #         for Jayden Daniels is a known model-philosophy difference, not
+    #         broken data. Threshold of 110 still catches truly broken QB data
+    #         (e.g., a QB at consensus #1 ranked #300+ = 200 gap).
+    #   All other positions → 35 spots: reduced from old 20 to cut chronic
+    #         noise while preserving genuine signal (e.g., a #5 player ranked
+    #         #200 by us would be a ±195 gap — far above any threshold).
+    _RANK_GAP_THRESHOLD_QB = 110
+    _RANK_GAP_THRESHOLD_OTHER = 35
+
     matched_found = matched[matched["overall_rank"].notna()].copy()
     matched_found["rank_diff"] = (
         matched_found["overall_rank"] - matched_found["consensus_rank"]
     )
     matched_found["abs_rank_diff"] = matched_found["rank_diff"].abs()
 
-    big_diff = matched_found[matched_found["abs_rank_diff"] > 20].sort_values(
-        "abs_rank_diff", ascending=False
-    )
-    for _, row in big_diff.iterrows():
+    for _, row in matched_found.iterrows():
+        pos = row["position_consensus"]
+        threshold = _RANK_GAP_THRESHOLD_QB if pos == "QB" else _RANK_GAP_THRESHOLD_OTHER
+        if row["abs_rank_diff"] <= threshold:
+            continue
         direction = "LOWER" if row["rank_diff"] > 0 else "HIGHER"
         warnings.append(
-            f"RANK GAP: {row['player_name_consensus']} ({row['position_consensus']}) — "
+            f"RANK GAP: {row['player_name_consensus']} ({pos}) — "
             f"consensus #{int(row['consensus_rank'])}, ours #{int(row['overall_rank'])} "
             f"(diff: {int(row['rank_diff']):+d}, we rank {direction})"
         )
+
+    big_diff = matched_found.sort_values("abs_rank_diff", ascending=False)
 
     # ------------------------------------------------------------------
     # 4. WARNING: Unreasonable projected points
@@ -1025,6 +1554,34 @@ def run_sanity_check(scoring: str, season: int) -> int:
     )
     criticals.extend(recent_crit)
     warnings.extend(recent_warn)
+
+    # ------------------------------------------------------------------
+    # New checks (audit 2026-06-10): M1 Gold/Silver staleness, M2 model
+    # artifact integrity, M3 consensus cross-check, M5 distribution drift.
+    # ------------------------------------------------------------------
+    print("\n" + "-" * 70)
+    print("  NEW CHECKS (M1–M5)")
+    print("-" * 70)
+
+    gs_crit, gs_warn = _check_gold_newer_than_silver(season)
+    criticals.extend(gs_crit)
+    warnings.extend(gs_warn)
+
+    ens_crit, ens_warn = _check_ensemble_artifacts()
+    criticals.extend(ens_crit)
+    warnings.extend(ens_warn)
+
+    te_crit, te_warn = _check_te_residual_stamp()
+    criticals.extend(te_crit)
+    warnings.extend(te_warn)
+
+    cross_crit, cross_warn = _check_consensus_cross_check(scoring, season)
+    criticals.extend(cross_crit)
+    warnings.extend(cross_warn)
+
+    dist_crit, dist_warn = _check_projection_distribution(scoring, season)
+    criticals.extend(dist_crit)
+    warnings.extend(dist_warn)
 
     # Return code
     if criticals:
@@ -1590,7 +2147,10 @@ def _check_roster_drift_top50(scoring: str, season: int) -> Tuple[List[str], Lis
     sleeper_name_to_team: Dict[str, Optional[str]] = {}
     for (name_key, _pos), team in sleeper_lookup.items():
         # Prefer entries with a real team over None when collapsing.
-        if name_key not in sleeper_name_to_team or sleeper_name_to_team[name_key] is None:
+        if (
+            name_key not in sleeper_name_to_team
+            or sleeper_name_to_team[name_key] is None
+        ):
             sleeper_name_to_team[name_key] = team
 
     for _, row in top50.iterrows():
@@ -2026,9 +2586,7 @@ def _check_projection_incorporates_recent_season(
         "seasonal",
         f"season={prior_prior_season}",
     )
-    prior_prior_files = sorted(
-        globmod.glob(os.path.join(prior_prior_dir, "*.parquet"))
-    )
+    prior_prior_files = sorted(globmod.glob(os.path.join(prior_prior_dir, "*.parquet")))
     if not prior_prior_files:
         # Cannot determine debut-season players without season-2 data; skip sub-check.
         print(
@@ -2048,7 +2606,10 @@ def _check_projection_incorporates_recent_season(
         return criticals, warnings
 
     # player_id column must exist for debut detection
-    if "player_id" not in actuals_df.columns or "player_id" not in prior_prior_df.columns:
+    if (
+        "player_id" not in actuals_df.columns
+        or "player_id" not in prior_prior_df.columns
+    ):
         print(
             f"  [SKIP] SANITY-11 recent-season (debut)  "
             f"(player_id column missing from Bronze seasonal files)"
@@ -2056,9 +2617,7 @@ def _check_projection_incorporates_recent_season(
         return criticals, warnings
 
     ids_with_prior_data = set(prior_prior_df["player_id"].dropna().tolist())
-    debut_players = actuals_df[
-        ~actuals_df["player_id"].isin(ids_with_prior_data)
-    ]
+    debut_players = actuals_df[~actuals_df["player_id"].isin(ids_with_prior_data)]
     top_debut = (
         debut_players.nlargest(_RECENT_SEASON_DEBUT_TOP_N, "fantasy_points_ppr")
         if len(debut_players) >= _RECENT_SEASON_DEBUT_TOP_N

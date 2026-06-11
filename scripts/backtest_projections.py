@@ -77,7 +77,14 @@ def parse_weeks(weeks_str: str) -> List[int]:
 def compute_actuals(
     weekly_df: pd.DataFrame, season: int, week: int, scoring_format: str
 ) -> pd.DataFrame:
-    """Compute actual fantasy points for a specific week."""
+    """Compute actual fantasy points for a specific week.
+
+    Always keeps player_id when present so that the merge in run_backtest
+    can use an exact ID join instead of a name-based join.  Name-based joins
+    fan out when two different players share an abbreviated name (e.g.
+    Tyreek Hill and Taysom Hill both become "T.Hill"), producing duplicate
+    rows with different actual_points for the same projection row.
+    """
     week_data = weekly_df[
         (weekly_df["season"] == season) & (weekly_df["week"] == week)
     ].copy()
@@ -88,8 +95,8 @@ def compute_actuals(
         week_data, scoring_format=scoring_format, output_col="actual_points"
     )
 
-    id_col = "player_id" if "player_id" in week_data.columns else "player_name"
-    keep = [id_col, "player_name", "position", "recent_team", "actual_points"]
+    # Always include player_id; fall back gracefully if it is absent.
+    keep = ["player_id", "player_name", "position", "recent_team", "actual_points"]
     keep = [c for c in keep if c in week_data.columns]
     return week_data[keep]
 
@@ -700,13 +707,47 @@ def run_backtest(
                 print("SKIP (no actuals)")
                 continue
 
-            # Merge projected vs actual
-            id_col = "player_name"
-            merged = projections.merge(
-                actuals[[id_col, "actual_points"]],
-                on=id_col,
-                how="inner",
-            )
+            # Merge projected vs actual using player_id when available on both
+            # sides.  A name-only join fans out when two players share an
+            # abbreviated name (e.g. T.Hill = Tyreek Hill + Taysom Hill),
+            # producing duplicate rows with different actual_points for the
+            # same projection — which corrupts MAE and consensus benchmarks.
+            has_pid_proj = "player_id" in projections.columns
+            has_pid_act = "player_id" in actuals.columns
+
+            if has_pid_proj and has_pid_act:
+                proj_copy = projections.copy()
+                act_copy = actuals.copy()
+                proj_copy["player_id"] = proj_copy["player_id"].astype(str).str.strip()
+                act_copy["player_id"] = act_copy["player_id"].astype(str).str.strip()
+                # Deduplicate actuals on player_id — keep highest-scoring row
+                # for the rare case of two identical IDs in the same week.
+                act_copy = act_copy.sort_values(
+                    "actual_points", ascending=False
+                ).drop_duplicates(subset=["player_id"], keep="first")
+                merged = proj_copy.merge(
+                    act_copy[["player_id", "actual_points"]],
+                    on="player_id",
+                    how="inner",
+                )
+            else:
+                # Fallback: name join with explicit dedup to prevent fan-out.
+                # For each (player_name, recent_team) pair keep only the row
+                # with the highest actual_points so a single projection never
+                # maps to more than one actual row.
+                act_copy = actuals.copy()
+                dedup_keys = [
+                    k for k in ["player_name", "recent_team"] if k in act_copy.columns
+                ]
+                if dedup_keys:
+                    act_copy = act_copy.sort_values(
+                        "actual_points", ascending=False
+                    ).drop_duplicates(subset=dedup_keys, keep="first")
+                merged = projections.merge(
+                    act_copy[["player_name", "actual_points"]],
+                    on="player_name",
+                    how="inner",
+                )
             if merged.empty:
                 print("SKIP (no matches)")
                 continue
