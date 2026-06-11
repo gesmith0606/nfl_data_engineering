@@ -173,10 +173,11 @@ _SCHEME_FEATURES = [
     "def_run_epa_allowed",
 ]
 
-# Route participation features (2, lagged) — from graph_route_participation
+# Route participation features (3, lagged) — from graph_route_participation
 _ROUTE_PARTICIPATION_FEATURES = [
     "route_rate_trail4",
-    "route_rate_delta_trail2",
+    "route_rate_delta",
+    "route_rate_slope",
 ]
 
 # RB matchup features (8) — from compute_rb_matchup_features (new module)

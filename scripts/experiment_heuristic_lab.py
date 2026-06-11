@@ -773,10 +773,19 @@ def cmd_consensus_gap(
         non_base = sweep_df[sweep_df["label"] != "baseline_no_prior"]
         if not non_base.empty and "WR_mae" in non_base.columns:
             best_row = non_base.loc[non_base["WR_mae"].idxmin()]
-            best_n_full = int(best_row.get("n_full", 5))
-            best_steepness = float(best_row.get("steepness", 0.7))
-            best_decay = float(best_row.get("team_change_decay", 0.7))
-            best_disc = float(best_row.get("first_week_back_discount", 0.85))
+
+            # Series.get returns the CELL value even when it is NaN — the
+            # default only fires when the key is absent.  Rows from sweeps
+            # that didn't pass a kwarg have NaN cells, so guard explicitly
+            # or NaN decay/discount silently corrupts the blend.
+            def _param(key: str, default: float) -> float:
+                val = best_row.get(key, default)
+                return default if pd.isna(val) else float(val)
+
+            best_n_full = int(_param("n_full", 5))
+            best_steepness = _param("steepness", 0.7)
+            best_decay = _param("team_change_decay", 0.7)
+            best_disc = _param("first_week_back_discount", 0.85)
             print(
                 f"Using best params from sweep: n_full={best_n_full} steepness={best_steepness} "
                 f"decay={best_decay} fwb={best_disc}"

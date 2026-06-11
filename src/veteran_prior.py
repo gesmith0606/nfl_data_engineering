@@ -181,7 +181,7 @@ def build_player_priors(
         return pd.DataFrame()
 
     # Compute actual fantasy points if not already present
-    fp_col = f"actual_fp_vpblend"
+    fp_col = "actual_fp_vpblend"
     work = weekly_df.copy()
 
     try:

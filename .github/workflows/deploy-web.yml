@@ -218,8 +218,9 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      # Give Railway/Vercel a moment to serve the new image on the edge.
-      # Railway cold-start + router drain can exceed 45s under load.
+      # Give Vercel a moment to serve the new build on the edge. (The HF
+      # Spaces bridge backend doesn't redeploy on push, so the wait is only
+      # for frontend edge propagation.)
       - name: Wait for deployments to stabilise
         run: sleep 60
 
