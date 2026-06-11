@@ -146,94 +146,48 @@ jobs:
           fi
 
   # ------------------------------------------------------------------
-  # Backend: build Docker image and push to ECR
-  # ------------------------------------------------------------------
-  # ------------------------------------------------------------------
-  # Backend deploy: Railway auto-deploys from main via its own GitHub
-  # webhook (independent of GHA). The previous AWS Lambda / ECR / SAM
-  # path is dead infrastructure — AWS credentials expired March 2026
-  # and the production backend has been on Railway since v3.2.
-  # We keep this job as a no-op so the live-gate-blocking job's
-  # `needs: deploy-backend` dependency still resolves, and we wait
-  # ~120s for Railway's webhook deploy to settle before the live gate
-  # probes Railway endpoints.
+  # Backend deploy: the production backend is the HF Spaces bridge
+  # (https://gesmith0606-nfl-data-api.hf.space) since 2026-05-28, when
+  # the Railway trial expired (the old Railway URL 404s on every route
+  # — that read as a total live-site outage in the gate's first CI run
+  # on 2026-06-11). The bridge serves prebuilt Parquet and does NOT
+  # redeploy on push to this repo, so there is nothing to wait for —
+  # we just probe /api/health so a dead bridge fails fast here instead
+  # of as a confusing wall of 404s in the live gate. The job is kept
+  # so live-gate-blocking's `needs: deploy-backend` still resolves.
+  #
+  # PARKED — Phase 79 D-06/D-07 SHA-match probe and its Phase 84
+  # DEPLOY-02 hard-gate promotion: the bridge reports git_sha="unknown"
+  # because it does not build from this repo, so a SHA match can never
+  # succeed. Restore the probe from the git history of this file when
+  # a per-commit-deploying backend (Railway or successor) returns.
   # ------------------------------------------------------------------
   deploy-backend:
-    name: Wait for Railway auto-deploy
+    name: Probe backend (HF Spaces bridge)
     runs-on: ubuntu-latest
     needs: quality-gate
     steps:
-      - name: Wait for Railway webhook to redeploy
-        run: |
-          echo "Railway auto-deploys https://nfldataengineering-production.up.railway.app"
-          echo "from the main branch via its own GitHub webhook (no GHA action needed)."
-          echo "Sleeping 120s to let the new image start serving before live-gate probes."
-          sleep 120
-          echo "Railway should be serving the new commit by now."
-
-      - name: Probe Railway /api/version for SHA match
-        # Phase 79 D-06 / D-07: warn-only asymmetry probe.
-        # Phase 84 DEPLOY-02 promotes this to fail-on-mismatch by:
-        #   1. removing `continue-on-error: true`
-        #   2. flipping the timeout branch from ::warning:: to ::error:: + exit 1
-        # The 5-minute budget mirrors Railway's observed p95 redeploy time
-        # during v7.0 hotfixes (Phase 66). Tail-latency beyond that = real freeze.
-        continue-on-error: true
-        env:
-          EXPECTED_SHA: ${{ github.sha }}
-          RAILWAY_API_KEY: ${{ secrets.RAILWAY_API_KEY }}
+      - name: Probe bridge /api/health
         run: |
           set -uo pipefail
-          BASE_URL="https://nfldataengineering-production.up.railway.app"
-          VERSION_URL="${BASE_URL}/api/version"
-          BUDGET_SECONDS=300
-          POLL_INTERVAL=15
-
-          HEADER_ARGS=()
-          if [ -n "${RAILWAY_API_KEY:-}" ]; then
-            HEADER_ARGS=(-H "X-API-Key: ${RAILWAY_API_KEY}")
+          BASE_URL="https://gesmith0606-nfl-data-api.hf.space"
+          probe() {
+            curl -s -o /dev/null -m 20 -w "%{http_code}" "${BASE_URL}/api/health" || echo "000"
+          }
+          HTTP=$(probe)
+          echo "GET ${BASE_URL}/api/health -> HTTP ${HTTP}"
+          if [ "${HTTP}" != "200" ]; then
+            # HF Spaces free tier can cold-start; give it one retry.
+            echo "Bridge not serving yet — retrying once after 30s (HF cold start)."
+            sleep 30
+            HTTP=$(probe)
+            echo "GET ${BASE_URL}/api/health -> HTTP ${HTTP}"
           fi
-
-          echo "Phase 79 D-06 asymmetry probe"
-          echo "  Expected git_sha: ${EXPECTED_SHA}"
-          echo "  URL: ${VERSION_URL}"
-          echo "  Budget: ${BUDGET_SECONDS}s, poll every ${POLL_INTERVAL}s"
-          echo ""
-
-          START=$(date -u +%s)
-          LAST_SEEN_SHA="<never_seen>"
-          LAST_HTTP="<never>"
-          ATTEMPT=0
-          while :; do
-            ATTEMPT=$((ATTEMPT + 1))
-            NOW=$(date -u +%s)
-            ELAPSED=$((NOW - START))
-            if [ "${ELAPSED}" -gt "${BUDGET_SECONDS}" ]; then
-              echo "::warning title=Railway /api/version SHA asymmetry::Expected ${EXPECTED_SHA} after ${BUDGET_SECONDS}s; last seen git_sha=${LAST_SEEN_SHA} (last HTTP ${LAST_HTTP}, ${ATTEMPT} attempts). Phase 84 DEPLOY-02 promotes this to a hard gate."
-              echo "Probe outcome: TIMEOUT (warn-only per Phase 79 D-07)"
-              exit 0
-            fi
-
-            # -m gives curl a per-request timeout so a hung Railway can't eat the whole budget.
-            HTTP=$(curl -s -o response.json -m 10 -w "%{http_code}" "${HEADER_ARGS[@]}" "${VERSION_URL}" || echo "000")
-            LAST_HTTP="${HTTP}"
-
-            if [ "${HTTP}" = "200" ]; then
-              # jq -r returns "null" when the field is absent; coerce to a stable sentinel.
-              SEEN_SHA=$(jq -r '.git_sha // "missing"' response.json 2>/dev/null || echo "parse_error")
-              LAST_SEEN_SHA="${SEEN_SHA}"
-              if [ "${SEEN_SHA}" = "${EXPECTED_SHA}" ]; then
-                echo "::notice title=Railway /api/version SHA match::git_sha=${SEEN_SHA} after ${ELAPSED}s (${ATTEMPT} attempts)"
-                echo "Probe outcome: MATCH"
-                exit 0
-              fi
-              echo "  attempt ${ATTEMPT} t+${ELAPSED}s: HTTP ${HTTP}, git_sha=${SEEN_SHA} (waiting for ${EXPECTED_SHA})"
-            else
-              echo "  attempt ${ATTEMPT} t+${ELAPSED}s: HTTP ${HTTP} (expected 200; will retry)"
-            fi
-
-            sleep "${POLL_INTERVAL}"
-          done
+          if [ "${HTTP}" != "200" ]; then
+            echo "::error::HF Spaces bridge is not serving /api/health (HTTP ${HTTP}). The live gate would fail on every backend probe — failing fast here. Check https://huggingface.co/spaces/gesmith0606/nfl-data-api"
+            exit 1
+          fi
+          echo "Bridge healthy."
 
   # ------------------------------------------------------------------
   # Live gate (BLOCKING per Plan 68-03 SANITY-08, SANITY-09):

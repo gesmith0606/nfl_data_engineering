@@ -1609,7 +1609,11 @@ def run_sanity_check(scoring: str, season: int) -> int:
         return 0
 
 
-DEFAULT_LIVE_BACKEND = "https://nfldataengineering-production.up.railway.app"
+# HF Spaces bridge — production backend since 2026-05-28, when the Railway
+# trial expired (the old nfldataengineering-production.up.railway.app URL
+# now returns 404 for every route, which read as a total live-site outage
+# in the gate's first CI run on 2026-06-11).
+DEFAULT_LIVE_BACKEND = "https://gesmith0606-nfl-data-api.hf.space"
 DEFAULT_LIVE_FRONTEND = "https://frontend-jet-seven-33.vercel.app"
 
 
@@ -1909,8 +1913,9 @@ def _validate_team_events_content(payload) -> Tuple[List[str], List[str]]:
     on the 2026-04-20 regression where all 32 teams had ``total_articles=0``
     because the extractor never ran (ANTHROPIC_API_KEY unset on Railway).
     This validator fails CRITICAL when fewer than
-    ``_NEWS_CONTENT_MIN_TEAMS_WARN`` teams have articles, WARN at the 17..19
-    band, PASS at ≥20.
+    ``_NEWS_CONTENT_MIN_TEAMS_WARN`` teams have articles, WARN in the
+    ``_NEWS_CONTENT_MIN_TEAMS_WARN``..``_NEWS_CONTENT_MIN_TEAMS_OK - 1``
+    band, PASS at ``>= _NEWS_CONTENT_MIN_TEAMS_OK``.
 
     Args:
         payload: JSON body returned by GET /api/news/team-events — expected
