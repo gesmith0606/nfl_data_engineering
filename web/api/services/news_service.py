@@ -656,7 +656,7 @@ def _build_news_item_from_silver(
 
     return {
         "doc_id": str(doc_id) if doc_id else None,
-        "title": None,
+        "title": silver_rec.get("title"),
         "source": silver_rec.get("source", "unknown"),
         "url": None,
         "published_at": silver_rec.get("published_at"),

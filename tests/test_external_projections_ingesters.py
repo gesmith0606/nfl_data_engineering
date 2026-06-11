@@ -39,12 +39,6 @@ def _load_json_fixture(name: str) -> Dict[str, Any]:
         return json.load(fh)
 
 
-def _load_text_fixture(name: str) -> str:
-    path = _FIXTURE_DIR / name
-    with open(path, "r", encoding="utf-8") as fh:
-        return fh.read()
-
-
 # ===========================================================================
 # Task 1: ESPN ingester
 # ===========================================================================
@@ -234,10 +228,13 @@ def test_fantasypros_parses_fixture_qb() -> None:
         "scripts.ingest_external_projections_yahoo"
     )
 
-    html = _load_text_fixture("fantasypros_sample.html")
-    df = yahoo_module._parse_fp_position(
-        html, position="qb", season=2025, week=1, scoring="half_ppr"
+    # Fixture is a JSON map of {position: html_string} — the same envelope
+    # the ingester's --html-fixture test mode consumes.
+    fixture = _load_json_fixture("fantasypros_sample.json")
+    records = yahoo_module._parse_fp_html(
+        fixture["qb"], position="qb", season=2025, week=1, scoring="half_ppr"
     )
+    df = pd.DataFrame(records)
 
     assert len(df) >= 5
     expected_cols = {
@@ -269,10 +266,11 @@ def test_yahoo_proxy_label_present() -> None:
 
     assert yahoo_module._SOURCE_LABEL == "yahoo_proxy_fp"
 
-    html = _load_text_fixture("fantasypros_sample.html")
-    df = yahoo_module._parse_fp_position(
-        html, position="qb", season=2025, week=1, scoring="half_ppr"
+    fixture = _load_json_fixture("fantasypros_sample.json")
+    records = yahoo_module._parse_fp_html(
+        fixture["qb"], position="qb", season=2025, week=1, scoring="half_ppr"
     )
+    df = pd.DataFrame(records)
     assert (df["source"] == "yahoo_proxy_fp").all(), (
         "All rows must carry source='yahoo_proxy_fp' for provenance "
         "transparency per D-03."

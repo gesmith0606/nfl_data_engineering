@@ -17,7 +17,7 @@ CLI
 ---
     python scripts/ingest_external_projections_yahoo.py --season 2025 --week 1
     python scripts/ingest_external_projections_yahoo.py --season 2025 --week 1 \\
-        --html-fixture tests/fixtures/external_projections/fantasypros_sample.html
+        --html-fixture tests/fixtures/external_projections/fantasypros_sample.json
 """
 
 from __future__ import annotations
@@ -165,7 +165,7 @@ def _write_bronze(
     return out_path
 
 
-def main() -> int:
+def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--season", type=int, required=True)
     parser.add_argument("--week", type=int, required=True)
@@ -182,7 +182,7 @@ def main() -> int:
             "for hermetic testing."
         ),
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     all_records: List[Dict] = []
 

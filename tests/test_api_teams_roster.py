@@ -76,12 +76,28 @@ class TestLoadTeamRoster:
             }, f"placeholder OL name leaked: {r.player_name}"
             assert r.player_name != f"BUF-{r.depth_chart_position}"
 
-    def test_fallback_when_season_missing(self):
-        """Request for 2026 (absent locally) should fall back to latest available season."""
-        resp = team_roster_service.load_team_roster("BUF", 2026, 1, "defense")
+    def test_fallback_when_season_missing(self, tmp_path):
+        """Request for a season with no roster parquet falls back to latest available.
+
+        Hermetic: points _ROSTERS_ROOT at a temp dir containing only a 2024
+        roster file, so the test no longer depends on which seasons exist in
+        the real data lake (2026 rosters now exist, which broke the original
+        version of this test).
+        """
+        import shutil
+
+        src_dir = (
+            _PROJECT_ROOT / "data" / "bronze" / "players" / "rosters" / "season=2024"
+        )
+        src_file = sorted(src_dir.glob("rosters_*.parquet"))[-1]
+        dst_dir = tmp_path / "season=2024"
+        dst_dir.mkdir()
+        shutil.copy(src_file, dst_dir / src_file.name)
+
+        with patch.object(team_roster_service, "_ROSTERS_ROOT", tmp_path):
+            resp = team_roster_service.load_team_roster("BUF", 2026, 1, "defense")
         assert resp.fallback is True
-        assert resp.fallback_season is not None
-        assert resp.fallback_season < 2026
+        assert resp.fallback_season == 2024
         assert len(resp.roster) >= 1
 
     def test_unknown_team_raises(self):
@@ -186,14 +202,26 @@ class TestTeamsEndpoints:
         resp = client.get("/api/teams/BUF/roster?season=2024&week=99&side=all")
         assert resp.status_code == 422
 
-    def test_endpoint_fallback_flag_set_for_2026(self):
-        """2026 roster parquet is absent at execution time; response should carry fallback=true.
+    def test_endpoint_fallback_flag_set_for_missing_season(self, tmp_path):
+        """A season with no roster parquet should carry fallback=true in the response.
 
-        Note: if 2026 parquet is added to the data lake after this test was written,
-        this assertion must flip — inspect `data/bronze/players/rosters/season=2026/`.
+        Hermetic: patches _ROSTERS_ROOT to a temp dir with only a 2024 file
+        (2026 rosters now exist in the real data lake, so the original
+        unpatched version of this test no longer exercised the fallback).
         """
-        resp = client.get("/api/teams/BUF/roster?season=2026&week=1&side=defense")
+        import shutil
+
+        src_dir = (
+            _PROJECT_ROOT / "data" / "bronze" / "players" / "rosters" / "season=2024"
+        )
+        src_file = sorted(src_dir.glob("rosters_*.parquet"))[-1]
+        dst_dir = tmp_path / "season=2024"
+        dst_dir.mkdir()
+        shutil.copy(src_file, dst_dir / src_file.name)
+
+        with patch.object(team_roster_service, "_ROSTERS_ROOT", tmp_path):
+            resp = client.get("/api/teams/BUF/roster?season=2026&week=1&side=defense")
         assert resp.status_code == 200, resp.text
         body = resp.json()
         assert body["fallback"] is True
-        assert body["fallback_season"] is not None
+        assert body["fallback_season"] == 2024

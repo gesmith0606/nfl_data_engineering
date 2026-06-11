@@ -31,7 +31,7 @@ import pytest
 import requests
 
 # Ensure repo root is importable so `scripts.refresh_rosters` resolves.
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from scripts.refresh_rosters import (  # noqa: E402 -- path setup must precede import
     build_roster_mapping,
@@ -146,14 +146,26 @@ def test_build_roster_mapping_returns_team_and_position(mock_sleeper_players):
     mapping = build_roster_mapping(mock_sleeper_players)
 
     assert "josh allen" in mapping
-    assert mapping["josh allen"] == {"team": "BUF", "position": "QB"}
+    assert mapping["josh allen"] == {
+        "team": "BUF",
+        "position": "QB",
+        "status": "Active",
+    }
 
     assert "isiah pacheco" in mapping
-    assert mapping["isiah pacheco"] == {"team": "KC", "position": "RB"}
+    assert mapping["isiah pacheco"] == {
+        "team": "KC",
+        "position": "RB",
+        "status": "Active",
+    }
 
     # LAR -> LA normalization via SLEEPER_TO_NFLVERSE_TEAM
     assert "puka nacua" in mapping
-    assert mapping["puka nacua"] == {"team": "LA", "position": "WR"}
+    assert mapping["puka nacua"] == {
+        "team": "LA",
+        "position": "WR",
+        "status": "Active",
+    }
 
 
 def test_build_roster_mapping_name_collision(mock_sleeper_players):
@@ -231,7 +243,9 @@ def test_update_rosters_leaves_unmapped_players_untouched(mock_gold_df):
     ghost_row = updated_df[updated_df["player_name"] == "Ghost Player"].iloc[0]
     assert ghost_row["recent_team"] == "CHI"
     assert ghost_row["position"] == "TE"
-    assert "Ghost Player" not in changes_df.get("player_name", pd.Series(dtype=str)).values
+    assert (
+        "Ghost Player" not in changes_df.get("player_name", pd.Series(dtype=str)).values
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -333,7 +347,11 @@ def test_name_collision_handling(mock_sleeper_players):
     # id=1 (Active QB, BUF) beats id=4 (Inactive OL). Even though id=4 is
     # already filtered by the non-fantasy-position rule, the Active-wins
     # preference is the backstop for collisions within FANTASY_POSITIONS.
-    assert mapping["josh allen"] == {"team": "BUF", "position": "QB"}
+    assert mapping["josh allen"] == {
+        "team": "BUF",
+        "position": "QB",
+        "status": "Active",
+    }
 
 
 def test_roster_changes_log(tmp_path):
@@ -368,7 +386,9 @@ def test_roster_changes_log(tmp_path):
 # ---------------------------------------------------------------------------
 
 
-def _write_parquet_with_age(directory, age_days: int, name: str = "snapshot.parquet") -> None:
+def _write_parquet_with_age(
+    directory, age_days: int, name: str = "snapshot.parquet"
+) -> None:
     """Create a fake parquet file in `directory` and backdate its mtime."""
     directory.mkdir(parents=True, exist_ok=True)
     fake = directory / name
