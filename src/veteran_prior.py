@@ -69,41 +69,23 @@ MIN_PRIOR_GAMES: int = 4
 TEAM_CHANGE_DECAY: float = 0.7
 
 # Positional baseline per-game stats used as the "floor prior" for team-
-# changers and players with low prior game counts.  Matches the starter
-# tier from projection_engine._STARTER_BASELINES but expressed as per-game
-# half-PPR rates and the component stats projected in POSITION_STAT_PROFILE.
+# changers and players with low prior game counts.  The component-stat rates
+# are imported from projection_engine._STARTER_BASELINES (the single source
+# of truth — tuning that dict automatically propagates here); only the
+# per-game half-PPR scalar is owned by this module.
+from projection_engine import _STARTER_BASELINES as _ENGINE_STARTER_BASELINES
+
+_PRIOR_HALF_PPR_BASELINES: Dict[str, float] = {
+    "QB": 16.5,
+    "RB": 10.5,
+    "WR": 9.8,
+    "TE": 7.2,
+}
+
 _POSITIONAL_PRIOR_BASELINES: Dict[str, Dict[str, float]] = {
-    "QB": {
-        "passing_yards": 230.0,
-        "passing_tds": 1.4,
-        "interceptions": 0.8,
-        "rushing_yards": 15.0,
-        "rushing_tds": 0.1,
-        "half_ppr": 16.5,
-    },
-    "RB": {
-        "rushing_yards": 55.0,
-        "rushing_tds": 0.4,
-        "carries": 12.0,
-        "receptions": 3.0,
-        "receiving_yards": 22.0,
-        "receiving_tds": 0.1,
-        "half_ppr": 10.5,
-    },
-    "WR": {
-        "receiving_yards": 60.0,
-        "receiving_tds": 0.4,
-        "receptions": 4.5,
-        "targets": 6.5,
-        "half_ppr": 9.8,
-    },
-    "TE": {
-        "receiving_yards": 40.0,
-        "receiving_tds": 0.3,
-        "receptions": 3.0,
-        "targets": 4.5,
-        "half_ppr": 7.2,
-    },
+    pos: {**stats, "half_ppr": _PRIOR_HALF_PPR_BASELINES[pos]}
+    for pos, stats in _ENGINE_STARTER_BASELINES.items()
+    if pos in _PRIOR_HALF_PPR_BASELINES
 }
 
 # First-week-back discount: multiplier applied to the prior for players

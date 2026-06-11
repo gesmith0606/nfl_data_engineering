@@ -410,6 +410,8 @@ def generate_ml_projections(
     model_dir: str = "models/player",
     apply_constraints: bool = False,
     feature_df: Optional[pd.DataFrame] = None,
+    weekly_df: Optional[pd.DataFrame] = None,
+    snap_counts_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """Generate projections routing each position to ML or heuristic.
 
@@ -455,6 +457,8 @@ def generate_ml_projections(
             scoring_format,
             schedules_df,
             implied_totals,
+            weekly_df=weekly_df,
+            snap_counts_df=snap_counts_df,
         )
         result = add_floor_ceiling(result)
         result["projection_source"] = "heuristic"
@@ -485,6 +489,8 @@ def generate_ml_projections(
             scoring_format,
             schedules_df,
             implied_totals,
+            weekly_df=weekly_df,
+            snap_counts_df=snap_counts_df,
         )
         heuristic_all = add_floor_ceiling(heuristic_all)
 
@@ -586,6 +592,8 @@ def generate_ml_projections(
             implied_totals=implied_totals,
             model_dir=model_dir,
             feature_df=feature_df,
+            weekly_df=weekly_df,
+            snap_counts_df=snap_counts_df,
         )
         if ml_result is not None and not ml_result.empty:
             all_projections.append(ml_result)
@@ -646,6 +654,8 @@ def _generate_ml_for_position(
     implied_totals: Optional[Dict[str, float]] = None,
     model_dir: str = "models/player",
     feature_df: Optional[pd.DataFrame] = None,
+    weekly_df: Optional[pd.DataFrame] = None,
+    snap_counts_df: Optional[pd.DataFrame] = None,
 ) -> Optional[pd.DataFrame]:
     """Generate ML projections for a single SHIP position.
 
@@ -801,6 +811,8 @@ def _generate_ml_for_position(
                 scoring_format,
                 schedules_df,
                 implied_totals,
+                weekly_df=weekly_df,
+                snap_counts_df=snap_counts_df,
             )
             heuristic_all = add_floor_ceiling(heuristic_all)
             fallback_ids = set(fallback_players["player_id"].values)
@@ -830,6 +842,8 @@ def _generate_ml_for_position(
             scoring_format,
             schedules_df,
             implied_totals,
+            weekly_df=weekly_df,
+            snap_counts_df=snap_counts_df,
         )
         heuristic = add_floor_ceiling(heuristic)
         heuristic = heuristic[heuristic["position"] == position].copy()

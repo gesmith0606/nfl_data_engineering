@@ -602,6 +602,32 @@ def run_backtest(
             has_lines = {"total_line", "spread_line"}.issubset(schedules_df.columns)
             print(f"  Constraints enabled — Vegas lines available: {has_lines}")
 
+    # Load snap counts across all backtest seasons (week-partitioned Bronze)
+    snap_dfs = []
+    for s in sorted(all_seasons):
+        snap_pattern = os.path.join(bronze_dir, f"players/snaps/season={s}/week=*/*.parquet")
+        import glob as _glob
+        snap_files = sorted(_glob.glob(snap_pattern))
+        if snap_files:
+            season_snaps = pd.concat(
+                [pd.read_parquet(f) for f in snap_files], ignore_index=True
+            )
+            snap_dfs.append(season_snaps)
+    snap_counts_df: Optional[pd.DataFrame] = None
+    if snap_dfs:
+        snap_counts_df = pd.concat(snap_dfs, ignore_index=True)
+        if "week" in snap_counts_df.columns:
+            snap_counts_df["week"] = pd.to_numeric(snap_counts_df["week"], errors="coerce")
+        if "season" in snap_counts_df.columns:
+            snap_counts_df["season"] = pd.to_numeric(snap_counts_df["season"], errors="coerce")
+        if "offense_pct" in snap_counts_df.columns:
+            snap_counts_df["offense_pct"] = pd.to_numeric(
+                snap_counts_df["offense_pct"], errors="coerce"
+            ).fillna(0.0)
+        print(f"Loaded {len(snap_counts_df):,} snap-count rows across {len(snap_dfs)} season(s)")
+    else:
+        print("No snap count data found — RB snap-collapse signal will be skipped")
+
     # Pre-assemble full feature vectors per season (if requested)
     season_features: Dict[int, pd.DataFrame] = {}
     if full_features and use_ml and HAS_FEATURE_ENGINEERING:
@@ -677,6 +703,11 @@ def run_backtest(
                         implied_totals=implied_totals,
                         apply_constraints=apply_constraints,
                         feature_df=feat_df,
+                        # Same data the default heuristic path passes — the
+                        # --ml and heuristic backtests must measure the SAME
+                        # underlying heuristic baseline.
+                        weekly_df=weekly_df,
+                        snap_counts_df=snap_counts_df,
                     )
                 else:
                     projections = generate_weekly_projections(
@@ -692,6 +723,8 @@ def run_backtest(
                         ),
                         implied_totals=implied_totals,
                         apply_constraints=apply_constraints,
+                        weekly_df=weekly_df,
+                        snap_counts_df=snap_counts_df,
                     )
             except Exception as e:
                 print(f"FAIL ({e})")

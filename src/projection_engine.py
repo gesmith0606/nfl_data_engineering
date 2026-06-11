@@ -24,6 +24,240 @@ from scoring_calculator import calculate_fantasy_points_df
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
+# Veteran prior blend — fixes two systematic early-season failure modes
+# (see src/veteran_prior.py for full documentation):
+#   1. Established starters buried after 1-2 quiet weeks (WR w3-6 gap).
+#   2. Stars returning from IR/suspension misrouted through rookie fallback.
+#
+# Swept on 2022-2024 w3-18 (experiment_heuristic_lab.py sweep-veteran-prior).
+# Best config: n_full=5, steep=0.7, decay=1.0, fwb=0.85, all positions.
+# Gate (2022-24 consensus subset, cons≥5):
+#   WR gap +0.252 → +0.133 (improvement 0.119, gate ≥0.05 ✅)
+#   QB gap −0.217 → −0.314 (improves further ✅)
+#   TE gap +0.327 → +0.248 (no regression ✅)
+# ---------------------------------------------------------------------------
+
+#: Master on/off switch.  Set to False to disable for a single run without
+#: modifying the constants below (e.g. for diagnostic comparison).
+USE_VETERAN_PRIOR_BLEND: bool = True
+
+#: Games played in the lookback at which rolling weight saturates at 1.0.
+VETERAN_PRIOR_N_FULL: int = 5
+
+#: Steepness of the exponential blend schedule (0.7 → w(1)≈0.50, w(5)≈0.97).
+VETERAN_PRIOR_STEEPNESS: float = 0.7
+
+#: Min prior-season games for a player to qualify as a veteran (not a rookie).
+VETERAN_PRIOR_MIN_GAMES: int = 4
+
+#: Team-change decay — lerp prior toward positional baseline on team change.
+#: 1.0 = no decay (use full prior even after team change).
+VETERAN_PRIOR_TEAM_CHANGE_DECAY: float = 1.0
+
+#: Discount applied to the prior stats on the first week back from absence.
+#: 0.85 = mild 15% downgrade for first-game-back uncertainty.
+VETERAN_PRIOR_FIRST_WEEK_BACK_DISCOUNT: float = 0.85
+
+# ---------------------------------------------------------------------------
+# RB snap-share collapse signal — Workstream C (2026-06-11)
+# (see src/rb_role_signals.py for full documentation):
+#   snap_share_collapsing fires when trailing 2-week mean snap share has
+#   fallen ≥18 pp below the prior 2-week mean AND recent share < 0.55.
+#   Catches role-loss cases (Z.Moss 2023 w8-10) that stale rolling averages
+#   over-project.
+#
+# Validated on 2022-2024 w3-18 consensus-matched subset (n=2,814 RB rows):
+#   est. RB MAE delta +0.032 (gate ≥0.02 ✅).
+#
+# KILLED signals (joint re-test on blend+collapse baseline, 2026-06-11):
+#   rb_better_teammate_out   (1.25x) — +0.0044 RB MAE jointly; gate ≥0.02 FAIL.
+#   rb_better_teammate_returning (0.75x) — +0.0055 jointly; FAIL. Both +0.0089
+#     together. Root cause unchanged: Bronze injury data misses holdouts/
+#     trades, so recall is structurally capped. Do not revisit without a
+#     news/transaction-based absence source.
+#   depth_rank_improved  (+0.002) — below gate; snap trend subsumes demotions.
+#     KILL (do not revisit unless rank-1 gating added).
+#   depth_rank_worsened  (+0.015) — below gate. KILL.
+# ---------------------------------------------------------------------------
+
+#: Master on/off switch for snap-share collapse correction.
+USE_RB_SNAP_COLLAPSE: bool = True
+
+#: Multiplier applied to RB projection when snap_share_collapsing fires.
+#: 0.60x validated as optimal on 2022-2024 consensus-matched data.
+RB_SNAP_COLLAPSE_MULT: float = 0.60
+
+# ---------------------------------------------------------------------------
+# Identity-keyed caches for per-call-invariant derived inputs.
+#
+# The backtest calls generate_weekly_projections() once per week with the
+# SAME weekly_df object; player priors and the RB name->id map depend only
+# on that object's contents, so recomputing them on every call wasted a
+# large share of backtest wall-clock (48 redundant groupbys per run).
+# Entries hold a strong reference to the keying DataFrame, so `is` identity
+# cannot collide with a recycled id().
+# ---------------------------------------------------------------------------
+_PRIORS_CACHE: list = []
+_RB_NAME_MAP_CACHE: list = []
+_DERIVED_CACHE_MAX = 4
+
+# Config-contract warnings already emitted this process (see _warn_once).
+_SKIP_WARNINGS_EMITTED: set = set()
+
+
+def _warn_once(key: str, message: str) -> None:
+    """Emit a config-contract warning once per process.
+
+    The veteran-prior blend and RB snap-collapse only activate when the
+    caller supplies the data they need. Skipping silently is how the
+    production-vs-eval heuristic divergence starts, so a missing input
+    with the feature flag ON is always warned about (once).
+    """
+    if key not in _SKIP_WARNINGS_EMITTED:
+        _SKIP_WARNINGS_EMITTED.add(key)
+        logger.warning(message)
+
+
+def _cached_player_priors(weekly_df, scoring_format: str):
+    """``build_player_priors`` memoized on weekly_df identity."""
+    from veteran_prior import build_player_priors
+
+    for df_ref, fmt, priors in _PRIORS_CACHE:
+        if df_ref is weekly_df and fmt == scoring_format:
+            return priors
+    priors = build_player_priors(weekly_df, scoring_format=scoring_format)
+    _PRIORS_CACHE.append((weekly_df, scoring_format, priors))
+    if len(_PRIORS_CACHE) > _DERIVED_CACHE_MAX:
+        _PRIORS_CACHE.pop(0)
+    return priors
+
+
+def _build_rb_name_map(weekly_df):
+    """Display-name -> player_id map for RBs (snap data is name-keyed).
+
+    snap_counts identifies players by full display name ("Zack Moss") while
+    player_weekly has player_display_name + player_id; the map joins on
+    (player_name, recent_team, season).
+    """
+    pw_all = weekly_df
+    if "position" in pw_all.columns:
+        pw_all = pw_all[pw_all["position"] == "RB"]
+    name_col = (
+        "player_display_name"
+        if "player_display_name" in pw_all.columns
+        else "player_name" if "player_name" in pw_all.columns else None
+    )
+    team_col = (
+        "recent_team"
+        if "recent_team" in pw_all.columns
+        else "team" if "team" in pw_all.columns else None
+    )
+    if (
+        name_col is None
+        or team_col is None
+        or "player_id" not in pw_all.columns
+        or "season" not in pw_all.columns
+    ):
+        return None
+    pw_map = (
+        pw_all[[name_col, "player_id", team_col, "season"]]
+        .rename(columns={name_col: "player_name", team_col: "recent_team"})
+        .dropna(subset=["player_id", "player_name"])
+        .drop_duplicates(
+            subset=["player_id", "player_name", "recent_team", "season"],
+            keep="first",
+        )
+    )
+    return pw_map if not pw_map.empty else None
+
+
+def _cached_rb_name_map(weekly_df):
+    """``_build_rb_name_map`` memoized on weekly_df identity."""
+    for df_ref, pw_map in _RB_NAME_MAP_CACHE:
+        if df_ref is weekly_df:
+            return pw_map
+    pw_map = _build_rb_name_map(weekly_df)
+    _RB_NAME_MAP_CACHE.append((weekly_df, pw_map))
+    if len(_RB_NAME_MAP_CACHE) > _DERIVED_CACHE_MAX:
+        _RB_NAME_MAP_CACHE.pop(0)
+    return pw_map
+
+
+def _apply_rb_snap_collapse(
+    combined,
+    snap_counts_df,
+    weekly_df,
+    season: int,
+    week: int,
+) -> int:
+    """Apply the RB snap-share-collapse multiplier to ``combined`` in place.
+
+    Lag contract: the signal for week ``week`` is computed by
+    ``compute_snap_trend_signals`` from snaps in weeks < ``week`` ONLY —
+    week-t offense_pct never influences the week-t signal. Week-t rows are
+    included in the input solely so a signal row exists at week=t.
+
+    Returns the number of RB rows the multiplier was applied to. Raises
+    ImportError if rb_role_signals is unavailable (caller handles).
+    """
+    from rb_role_signals import compute_snap_trend_signals
+
+    snaps_lagged = snap_counts_df[
+        ((snap_counts_df["season"] == season) & (snap_counts_df["week"] <= week))
+        | (snap_counts_df["season"] < season)
+    ].copy()
+    if snaps_lagged.empty:
+        return 0
+
+    pw_map = None
+    if weekly_df is not None and not weekly_df.empty:
+        pw_map = _cached_rb_name_map(weekly_df)
+
+    snap_signals = compute_snap_trend_signals(snaps_lagged, player_weekly=pw_map)
+    if snap_signals.empty:
+        return 0
+
+    collapse_rows = snap_signals[
+        (snap_signals["week"] == week)
+        & (snap_signals["season"] == season)
+        & (snap_signals["snap_share_collapsing"] == 1)
+    ]
+    if (
+        collapse_rows.empty
+        or "player_id" not in collapse_rows.columns
+        or "player_id" not in combined.columns
+    ):
+        return 0
+
+    collapse_rows = collapse_rows.dropna(subset=["player_id"])
+    if collapse_rows.empty:
+        return 0
+
+    collapse_ids = set(collapse_rows["player_id"].astype(str))
+    rb_mask = (combined["position"] == "RB") & combined["player_id"].astype(
+        str
+    ).isin(collapse_ids)
+    if not rb_mask.any():
+        return 0
+
+    proj_cols = [
+        c
+        for c in combined.columns
+        if c.startswith("proj_") and c not in ("proj_season", "proj_week")
+    ]
+    combined.loc[rb_mask, proj_cols] = (
+        combined.loc[rb_mask, proj_cols] * RB_SNAP_COLLAPSE_MULT
+    ).round(2)
+    if "projected_points" in combined.columns:
+        combined.loc[rb_mask, "projected_points"] = (
+            (combined.loc[rb_mask, "projected_points"] * RB_SNAP_COLLAPSE_MULT)
+            .clip(lower=0)
+            .round(2)
+        )
+    return int(rb_mask.sum())
+
+
+# ---------------------------------------------------------------------------
 # Weights for blending rolling windows
 # ---------------------------------------------------------------------------
 RECENCY_WEIGHTS = {
@@ -1038,6 +1272,8 @@ def generate_weekly_projections(
     schedules_df: Optional[pd.DataFrame] = None,
     implied_totals: Optional[Dict[str, float]] = None,
     apply_constraints: bool = False,
+    weekly_df: Optional[pd.DataFrame] = None,
+    snap_counts_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """
     Generate weekly projections for all fantasy-relevant positions.
@@ -1082,6 +1318,19 @@ def generate_weekly_projections(
         apply_constraints: If True and implied_totals is provided, apply
                         team-level constraints via ``apply_team_constraints()``
                         after all other adjustments.  Default False.
+        weekly_df:      Optional Bronze player_weekly DataFrame used to build
+                        veteran prior stats (``USE_VETERAN_PRIOR_BLEND``).
+                        Must cover at least ``season - 1`` so prior-season
+                        per-game rates can be computed.  If None and
+                        ``USE_VETERAN_PRIOR_BLEND`` is True, the blend is
+                        silently skipped (backward-compatible).
+        snap_counts_df: Optional Bronze snap counts DataFrame (multi-season,
+                        all weeks prior to ``week``).  Used by the RB
+                        snap-share collapse signal (``USE_RB_SNAP_COLLAPSE``).
+                        Expected columns: season, week, team, player (display
+                        name), position, offense_pct.  If None or the signal
+                        module is unavailable, the step is silently skipped
+                        (backward-compatible).
 
     Returns:
         Combined DataFrame with projections for QB/RB/WR/TE, sorted by
@@ -1145,6 +1394,86 @@ def generate_weekly_projections(
         spread_by_team = _build_spread_by_team(schedules_df, week)
 
     # ------------------------------------------------------------------
+    # 3b. Veteran prior blend (optional — controlled by USE_VETERAN_PRIOR_BLEND)
+    #
+    # Fixes two systematic early-season failure modes:
+    #   (a) WR/RB starters buried after 1-2 quiet weeks: blends in the
+    #       prior-season per-game rate so the projection doesn't collapse
+    #       to near-zero before 4-5 productive games have accumulated.
+    #   (b) Stars returning from IR/suspension (CMC 2024 w11, Kupp 2023 w6,
+    #       Hopkins 2022 w8) incorrectly hitting the rookie fallback when
+    #       all rolling windows are NaN: rerouted to prior-based fill.
+    #
+    # Gate (2022-24 consensus, cons≥5): WR gap +0.252→+0.133 (Δ−0.119 ✅)
+    # ------------------------------------------------------------------
+    vet_return_ids: set = set()
+    if USE_VETERAN_PRIOR_BLEND and weekly_df is not None and not weekly_df.empty:
+        try:
+            from veteran_prior import apply_veteran_prior_blend
+
+            priors_df = _cached_player_priors(weekly_df, scoring_format)
+            if not priors_df.empty:
+                blended_parts = []
+                blended_positions = set()
+                for _pos in ["QB", "RB", "WR", "TE"]:
+                    blended_pos = apply_veteran_prior_blend(
+                        target_df=target_df,
+                        priors_df=priors_df,
+                        weekly_df=weekly_df,
+                        position=_pos,
+                        proj_season=season,
+                        proj_week=week,
+                        n_full=VETERAN_PRIOR_N_FULL,
+                        steepness=VETERAN_PRIOR_STEEPNESS,
+                        min_prior_games=VETERAN_PRIOR_MIN_GAMES,
+                        team_change_decay=VETERAN_PRIOR_TEAM_CHANGE_DECAY,
+                        first_week_back_discount=VETERAN_PRIOR_FIRST_WEEK_BACK_DISCOUNT,
+                    )
+                    if not blended_pos.empty:
+                        blended_parts.append(blended_pos)
+                        blended_positions.add(_pos)
+                if blended_parts:
+                    other_rows = target_df[~target_df["position"].isin(blended_positions)]
+                    target_df = pd.concat(
+                        [other_rows] + blended_parts, ignore_index=True
+                    )
+                    for p in blended_parts:
+                        if (
+                            "is_veteran_return" in p.columns
+                            and "player_id" in p.columns
+                        ):
+                            vet_return_ids.update(
+                                p.loc[
+                                    p["is_veteran_return"].fillna(False),
+                                    "player_id",
+                                ].astype(str)
+                            )
+                    if vet_return_ids:
+                        logger.info(
+                            "Veteran prior blend: rerouted %d return-from-absence player(s) "
+                            "away from rookie fallback for %d %d",
+                            len(vet_return_ids),
+                            season,
+                            week,
+                        )
+        except ImportError:
+            logger.warning(
+                "veteran_prior module not found; skipping blend "
+                "(USE_VETERAN_PRIOR_BLEND=True but module unavailable)"
+            )
+        except Exception as exc:
+            logger.warning(
+                "Veteran prior blend failed; projecting without blend: %s", exc
+            )
+    elif USE_VETERAN_PRIOR_BLEND:
+        _warn_once(
+            "veteran_prior_no_weekly",
+            "USE_VETERAN_PRIOR_BLEND=True but no weekly_df was passed — veteran "
+            "prior blend SKIPPED for this caller. Pass Bronze player_weekly data "
+            "to keep this path consistent with production/eval.",
+        )
+
+    # ------------------------------------------------------------------
     # 4. Run per-position projections
     # ------------------------------------------------------------------
     all_projections = []
@@ -1159,6 +1488,62 @@ def generate_weekly_projections(
         return pd.DataFrame()
 
     combined = pd.concat(all_projections, ignore_index=True)
+
+    # Veteran-return audit flag (consumed by web API / debugging): True for
+    # players the blend rerouted away from the rookie fallback this week.
+    if "player_id" in combined.columns:
+        combined["is_veteran_return"] = (
+            combined["player_id"].astype(str).isin(vet_return_ids)
+        )
+
+    # ------------------------------------------------------------------
+    # 4b. RB snap-share collapse correction (Workstream C, 2026-06-11)
+    #
+    # When an RB's trailing 2-week snap share has fallen sharply vs the
+    # prior 2-week mean (snap_share_collapsing == 1), the rolling-average
+    # heuristic uses stale high-volume stats.  The 0.60x multiplier corrects
+    # systematic over-projections (Z.Moss 2023 w8-10 prototype).
+    #
+    # Lag contract: enforced inside _apply_rb_snap_collapse (see its
+    # docstring) — week-t snaps never influence the week-t signal.
+    #
+    # If snap_counts_df is None or rb_role_signals is unavailable, skipped
+    # (with a once-per-process warning so the skip is never silent).
+    # ------------------------------------------------------------------
+    if (
+        USE_RB_SNAP_COLLAPSE
+        and snap_counts_df is not None
+        and not snap_counts_df.empty
+        and "position" in combined.columns
+    ):
+        try:
+            n_collapsed = _apply_rb_snap_collapse(
+                combined, snap_counts_df, weekly_df, season, week
+            )
+            if n_collapsed > 0:
+                logger.info(
+                    "RB snap-collapse (%.2fx): applied to %d RB(s) for %d w%d",
+                    RB_SNAP_COLLAPSE_MULT,
+                    n_collapsed,
+                    season,
+                    week,
+                )
+        except ImportError:
+            logger.warning(
+                "rb_role_signals module not found; skipping snap-collapse step "
+                "(USE_RB_SNAP_COLLAPSE=True but module unavailable)"
+            )
+        except Exception as exc:
+            logger.warning(
+                "RB snap-collapse correction failed; projecting without: %s", exc
+            )
+    elif USE_RB_SNAP_COLLAPSE and "position" in combined.columns:
+        _warn_once(
+            "rb_snap_collapse_no_snaps",
+            "USE_RB_SNAP_COLLAPSE=True but no snap_counts_df was passed — RB "
+            "snap-collapse SKIPPED for this caller. Pass Bronze snap-count data "
+            "to keep this path consistent with production/eval.",
+        )
 
     # ------------------------------------------------------------------
     # 5. Vegas multiplier adjustment
@@ -1260,6 +1645,7 @@ def generate_weekly_projections(
         for c in (
             "is_bye_week",
             "is_rookie_projection",
+            "is_veteran_return",
             "vegas_multiplier",
             "team_constraint_factor",
         )

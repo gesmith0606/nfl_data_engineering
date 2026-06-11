@@ -47,6 +47,35 @@ Disagreement buckets account for ~0.29 of the 0.30 RB gap. **We don't need a bet
 | **RB role gain not detected (teammate leaves)** | D.Foreman 2022 w8 (CMC traded; ours 1.6, cons 10.4, actual 29.8), Charbonnet 2024 w15 (K9 hurt) | Same — no opportunity-redistribution signal. We HAVE `src/graph_injury_cascade.py` but it doesn't drive the heuristic. |
 | **Harness data bug** | T.Hill appears twice 2023 w3 MIA with different actuals (26.2 / 2.6) | Join duplication in consensus matching — must fix before trusting per-row analysis. |
 
+## RESULTS (2026-06-11 — Workstreams A, B, C complete)
+
+Consensus gap (matched, cons≥5, 2022-24 w3-18, half-PPR; heuristic path):
+
+| Pos | Session start | After B (veteran priors) | After B+C (snap collapse) | Total movement |
+|-----|------|------|------|------|
+| QB  | −0.22 win | −0.31 | **−0.32 (bigger win)** | −0.10 |
+| RB  | +0.44 | +0.37 | **+0.27** | **−0.17** |
+| WR  | +0.25 | +0.13 | **+0.12** (w3-6: +0.78 → +0.38) | **−0.13** |
+| TE  | +0.33 | +0.25 | **+0.23** (hybrid path separately wins −0.38) | −0.10 |
+
+Shipped (uncommitted): veteran prior blend (all positions, n_full=5 steep=0.7 decay=1.0,
+`USE_VETERAN_PRIOR_BLEND`), veteran-never-rookie routing (CMC 2024 w11: 3.81→15.83,
+is_rookie False), RB snap-collapse 0.60x (`USE_RB_SNAP_COLLAPSE`; Z.Moss w8-10 14-17→7.7-10.2).
+Killed with evidence: both teammate signals (+0.004/+0.006 joint, gate 0.02), both depth-rank
+signals. Full suite 2225 passed / 0 failed. Remaining gap to close: workstreams D (route-rate
+for WR rank ordering) and E (yardage allowances); rank-corr gates not yet re-measured.
+
+**Post-review fixes (2026-06-11):** code review found the snap-collapse was eval-only —
+production `generate_projections.py` never passed snap_counts_df (now loads + passes it;
+verified live: blend rerouted 2 players, collapse fired on 6 RBs, 2024 w11). All ML-router
+call sites now thread weekly_df/snap_counts_df; missing inputs warn once instead of silently
+skipping; priors/name-map identity-cached (backtest speedup); baselines single-sourced from
+projection_engine; is_veteran_return exposed in output.
+**FOLLOW-UP REQUIRED — TE hybrid re-validation:** the router's heuristic baseline now includes
+the veteran blend, but the TE Ridge residual was trained on the PRE-blend baseline. Re-run
+`backtest_projections --ml` TE eval on 2022-24; if degraded, retrain residual on the blended
+baseline before next production --ml run.
+
 ## Workstreams (ranked by expected gap closure ÷ effort)
 
 ### A. Harness integrity fix — 0.5 day, do first

@@ -159,6 +159,9 @@ def _project_week(
             ),
             implied_totals=implied_totals,
             apply_constraints=False,
+            # Keep this eval baseline consistent with the main backtest
+            # (veteran prior blend needs the Bronze weekly frame).
+            weekly_df=weekly_df,
         )
     except Exception as exc:
         logger.debug("projection failure %s W%s: %s", season, week, exc)
