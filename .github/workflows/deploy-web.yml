@@ -102,9 +102,10 @@ jobs:
           # hashes are legitimate on warm-cache rebuilds. This gate is a
           # HARD check: /api/version reports VERCEL_GIT_COMMIT_SHA, and we
           # poll until it equals the pushed SHA (or a descendant of it,
-          # when a newer push raced this workflow). 20 polls x 30s = 10
-          # minutes, generous for a Vercel build; timeout = webhook freeze
-          # = fail the deploy loudly instead of drifting silently.
+          # when a newer push raced this workflow). 60s head start + 18
+          # polls x 30s ≈ 9.5 minutes, generous for a Vercel build;
+          # timeout = webhook freeze = fail the deploy loudly instead of
+          # drifting silently.
           #
           # Hard status gate (200/307 on /) is kept — catches total outage.
           EXPECTED="${{ github.sha }}"
@@ -117,9 +118,15 @@ jobs:
             exit 1
           fi
 
-          for i in $(seq 1 20); do
+          # Vercel's webhook build takes 60-120s to even start serving —
+          # polling earlier just burns budget against the old build.
+          echo "Waiting 60s for the Vercel webhook build to start..."
+          sleep 60
+
+          LIVE="unknown"
+          for i in $(seq 1 18); do
             LIVE=$(curl -s -m 20 "$BASE/api/version" | jq -r '.commit // "unknown"' 2>/dev/null || echo "unknown")
-            echo "Poll $i/20: live commit = $LIVE (expected $EXPECTED)"
+            echo "Poll $i/18: live commit = $LIVE (expected $EXPECTED)"
             if [ "$LIVE" = "$EXPECTED" ]; then
               echo "Live build matches the pushed commit."
               exit 0
@@ -132,7 +139,8 @@ jobs:
               echo "Live build ($LIVE) is a descendant of the pushed commit — converged via a newer push."
               exit 0
             fi
-            sleep 30
+            # No sleep after the final poll — fail immediately.
+            [ "$i" -lt 18 ] && sleep 30
           done
           echo "::error::Live frontend never served commit $EXPECTED within 10 minutes (last seen: $LIVE). Vercel webhook freeze suspected — check the Vercel dashboard deployments tab. Production may be serving a stale build. (If LIVE is persistently 'unknown' on a fresh deploy, ensure 'Automatically expose System Environment Variables' is enabled in Vercel project settings.)"
           exit 1

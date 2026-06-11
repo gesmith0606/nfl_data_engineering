@@ -181,9 +181,8 @@
    * `text-green-600` / `text-red-600` / `amber-600` for delta and rating
    * signals — a green no theme defines, inconsistent across the 10 themes.
    * These tokens give those signals ONE source of truth that reads correctly
-   * on both light and dark surfaces. `*-fg` is the on-tint text color for
-   * filled badges; the base token is for text/icon foreground on the page
-   * surface. Light values live here in :root; `.dark` overrides below shift
+   * on both light and dark surfaces (text/icon foreground on the page
+   * surface). Light values live here in :root; `.dark` overrides below shift
    * lightness up for AA contrast on dark backgrounds.
    *
    * Use via the helpers in `src/lib/nfl/semantic-colors.ts`, never inline.
@@ -197,11 +196,8 @@
   --surface-scoreboard: oklch(0.185 0.012 254);   /* = #0f1318 player panel */
 
   --success: oklch(0.58 0.15 150);       /* green-600 equivalent (text/icon) */
-  --success-fg: oklch(0.98 0.02 150);    /* on-tint text for filled badge */
   --warn: oklch(0.66 0.15 75);           /* amber-600 equivalent */
-  --warn-fg: oklch(0.99 0.02 95);
   --danger: oklch(0.58 0.20 25);         /* red-600 equivalent */
-  --danger-fg: oklch(0.98 0.02 25);
 }
 
 /* Dark-mode lift: nudge lightness up so semantic text clears AA on dark

@@ -14,9 +14,16 @@
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  return Response.json({
-    commit: process.env.VERCEL_GIT_COMMIT_SHA ?? 'unknown',
-    branch: process.env.VERCEL_GIT_COMMIT_REF ?? 'unknown',
-    deploymentId: process.env.VERCEL_DEPLOYMENT_ID ?? null
-  });
+  return Response.json(
+    {
+      commit: process.env.VERCEL_GIT_COMMIT_SHA ?? 'unknown',
+      branch: process.env.VERCEL_GIT_COMMIT_REF ?? 'unknown',
+      deploymentId: process.env.VERCEL_DEPLOYMENT_ID ?? null
+    },
+    {
+      // The CI gate polls this for build identity — a CDN-cached response
+      // from the previous build would defeat the check.
+      headers: { 'Cache-Control': 'no-store, no-cache' }
+    }
+  );
 }
