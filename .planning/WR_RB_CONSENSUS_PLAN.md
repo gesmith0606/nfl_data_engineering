@@ -4,15 +4,23 @@
 
 ## Where We Stand (measured, not guessed)
 
-Head-to-head vs Sleeper consensus, matched player-weeks, 2022-24 w3-18, half-PPR, consensus ≥ 5 pts
-(`output/backtest/consensus_matched_half_ppr_20260610_213405.csv`, n=10,912):
+Head-to-head vs Sleeper consensus, matched player-weeks, 2022-24 w3-18, half-PPR, consensus ≥ 5 pts.
 
-| Pos | n | MAE ours | MAE consensus | Gap | Rank corr ours | Rank corr cons | Top-24 hit ours | Top-24 hit cons |
-|-----|------|------|------|--------|------|------|------|------|
-| QB  | 1305 | 6.29 | 6.55 | **−0.27 (we win)** | — | — | — | — |
-| TE  | 2037 | 3.29 | 3.46 | **−0.17 (we win)** | — | — | — | — |
-| RB  | 3021 | 4.86 | 4.56 | **+0.30 (we lose)** | 0.543 | 0.610 | 62.1% | 64.7% |
-| WR  | 4549 | 4.63 | 4.45 | **+0.19 (we lose)** | 0.457 | 0.516 | 47.2% | 50.5% |
+**CORRECTED BASELINE (2026-06-10, post Workstream A dedup fix —
+`output/backtest/consensus_matched_half_ppr_20260610_220524.csv`, n=7,009 at cons≥5):**
+
+| Pos | n | MAE ours | MAE consensus | Gap |
+|-----|------|------|------|--------|
+| QB  | 1250 | 6.16 | 6.40 | **−0.24 (we win)** |
+| TE  |  917 | 4.76 | 4.46 | **+0.30 (we lose)** |
+| RB  | 1877 | 5.69 | 5.33 | **+0.36 (we lose)** |
+| WR  | 2965 | 5.26 | 5.04 | **+0.21 (we lose)** |
+
+The original baseline (n=10,912 file) contained 842 duplicate rows from an abbreviated-name join
+fan-out (Tyreek/Taysom Hill both "T.Hill"); dedup flipped TE from apparent −0.17 win to +0.30 loss
+and is confirmed filter-independent. TE remediation is out of scope for this plan (WR/RB focus) but
+inherits workstreams B/D. Pre-fix rank-corr/top-24 numbers (RB 0.543 vs 0.610, WR 0.457 vs 0.516)
+need recomputation on the corrected file before use as gates.
 
 ## Gap Decomposition — Where the Losses Actually Are
 
@@ -56,6 +64,12 @@ One mechanism fixes the two biggest failure modes:
 **Gate:** WR consensus gap ≤ +0.05 on 2022-24 (from +0.19); no regression w7-18; QB/TE wins preserved. Kill: <0.05 WR gap improvement after sweep → revisit decay shape before abandoning.
 
 ### C. RB role-change detection (teammate status + depth chart) — 3-5 days
+
+> **VALIDATED 2026-06-11** (31/31 tests; `output/backtest/rb_role_signal_validation.csv` in worktree, corrected CSV, n=2,814 RB rows):
+> - **SHIP: `snap_share_collapsing`** (trailing 2-wk vs prior 2-wk snap-share delta) at 0.60x multiplier → est **+0.032 RB MAE** (clears 0.02 gate). Catches Z.Moss 2023 w8-10 over-projections. Distinct mechanism from the killed route-rate multiplier (velocity of collapse, not usage level).
+> - **HOLD, re-evaluate jointly with Workstream B:** `rb_better_teammate_out` (+0.004), `rb_better_teammate_returning` (+0.009) — mechanisms correct (Charbonnet 2024 w15 fires; Foreman 2022 w8 caught via depth-rank instead since trades aren't injury-report events) but Bronze injury data misses holdouts/trades → recall too low standalone.
+> - **KILL: `depth_rank_improved` (+0.002), `depth_rank_worsened` (+0.015)** — below gate, weak precision; snap trend subsumes demotions. Revisit depth_rank_improved only with rank-1 gating.
+> Integration pending: apply snap_share_collapsing 0.60x in projection_engine AFTER Workstream B lands (same file).
 RB is a *who-gets-the-work* problem. Three lagged, leak-safe signals:
 1. **Teammate-status adjustment:** for each RB, weekly status of higher/lower depth-chart RBs on own team (depth_charts Bronze, committed per TD-08; injuries Bronze). Teammate OUT → redistribute opportunity up; teammate RETURNING → haircut the fill-in. Wire `src/graph_injury_cascade.py::compute_redistribution` output into the heuristic as a multiplier candidate.
 2. **Snap-share trend:** trailing 2-week snap-share delta (snap_counts Bronze) — role changes show in snaps a week before points. Shrink projection toward prior when snap share is collapsing (Z.Moss case).

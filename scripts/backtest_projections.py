@@ -731,18 +731,15 @@ def run_backtest(
                     how="inner",
                 )
             else:
-                # Fallback: name join with explicit dedup to prevent fan-out.
-                # For each (player_name, recent_team) pair keep only the row
-                # with the highest actual_points so a single projection never
-                # maps to more than one actual row.
+                # Fallback: name join with explicit dedup on player_name to
+                # prevent fan-out.  The merge key is player_name, so we must
+                # dedup on player_name — not on (player_name, recent_team),
+                # which would still leave multiple rows per name.  Keep the
+                # row with the highest actual_points for each name.
                 act_copy = actuals.copy()
-                dedup_keys = [
-                    k for k in ["player_name", "recent_team"] if k in act_copy.columns
-                ]
-                if dedup_keys:
-                    act_copy = act_copy.sort_values(
-                        "actual_points", ascending=False
-                    ).drop_duplicates(subset=dedup_keys, keep="first")
+                act_copy = act_copy.sort_values(
+                    "actual_points", ascending=False
+                ).drop_duplicates(subset=["player_name"], keep="first")
                 merged = projections.merge(
                     act_copy[["player_name", "actual_points"]],
                     on="player_name",

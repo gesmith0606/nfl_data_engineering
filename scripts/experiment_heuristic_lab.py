@@ -41,6 +41,11 @@ from backtest_projections import (  # noqa: E402
     _load_local_parquet,
     _prepare_weekly,
 )
+import veteran_prior  # noqa: E402
+from veteran_prior import (  # noqa: E402
+    build_player_priors,
+    apply_veteran_prior_blend,
+)
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -246,8 +251,19 @@ def evaluate_config(
     recency_by_pos: Optional[Dict[str, Dict[str, float]]] = None,
     matchup_patch=None,
     td_regression: Optional[Dict[str, float]] = None,
+    prior_blend_fn=None,
 ) -> pd.DataFrame:
     """Evaluate one heuristic config over the cached weeks.
+
+    Args:
+        manifest: List of {season, week} dicts from the cache.
+        recency_by_pos: Optional per-position recency weight overrides.
+        matchup_patch: Optional replacement for projection_engine._matchup_factor.
+        td_regression: Optional TD_REGRESSION_WEIGHT overrides.
+        prior_blend_fn: Optional callable ``(target_df, pos, season, week)
+            -> pd.DataFrame`` that pre-processes the position-filtered target
+            frame to blend veteran prior stats into rolling columns before
+            ``project_position`` is called.  If None, no blending is applied.
 
     Returns per-row results DataFrame with position, error, abs_error.
     """
@@ -276,7 +292,19 @@ def evaluate_config(
                 else:
                     projection_engine.RECENCY_WEIGHTS.clear()
                     projection_engine.RECENCY_WEIGHTS.update(orig_weights)
-                proj = project_position(target_df, pos, empty_rankings, SCORING)
+
+                # Apply veteran prior blend if provided
+                proj_input = target_df
+                if prior_blend_fn is not None:
+                    blended_pos = prior_blend_fn(target_df, pos, season, week)
+                    if not blended_pos.empty:
+                        # Reconstruct full target_df with blended position rows
+                        other_rows = target_df[target_df["position"] != pos]
+                        proj_input = pd.concat(
+                            [other_rows, blended_pos], ignore_index=True
+                        )
+
+                proj = project_position(proj_input, pos, empty_rankings, SCORING)
                 if proj.empty:
                     continue
                 merged = proj.merge(
@@ -581,6 +609,346 @@ def cmd_sweep_residual(model_dir: str) -> None:
     )
 
 
+def _load_prior_weekly(seasons: List[int]) -> pd.DataFrame:
+    """Load Bronze weekly data for prior computation (includes prior season)."""
+    prior_seasons = sorted(set(seasons + [s - 1 for s in seasons]))
+    dfs = []
+    for s in prior_seasons:
+        local = _load_local_parquet(BRONZE_DIR, f"players/weekly/season={s}/*.parquet")
+        if not local.empty:
+            dfs.append(local)
+    if not dfs:
+        return pd.DataFrame()
+    weekly = pd.concat(dfs, ignore_index=True)
+    return _prepare_weekly(weekly)
+
+
+def _make_prior_blend_fn(
+    priors_df: pd.DataFrame,
+    weekly_df: pd.DataFrame,
+    n_full: int = 5,
+    steepness: float = 0.7,
+    min_prior_games: int = 4,
+    team_change_decay: float = 0.7,
+    first_week_back_discount: float = 0.85,
+):
+    """Return a prior_blend_fn closure with the given hyperparameters."""
+
+    def blend_fn(
+        target_df: pd.DataFrame, pos: str, season: int, week: int
+    ) -> pd.DataFrame:
+        return apply_veteran_prior_blend(
+            target_df=target_df,
+            priors_df=priors_df,
+            weekly_df=weekly_df,
+            position=pos,
+            proj_season=season,
+            proj_week=week,
+            n_full=n_full,
+            steepness=steepness,
+            min_prior_games=min_prior_games,
+            team_change_decay=team_change_decay,
+            first_week_back_discount=first_week_back_discount,
+        )
+
+    return blend_fn
+
+
+def cmd_sweep_veteran_prior() -> None:
+    """Sweep veteran prior blending hyperparameters on 2022-2024 cached weeks.
+
+    Sweeps:
+      - n_full: [3, 4, 5, 6]  (games to reach full rolling weight)
+      - steepness: [0.5, 0.7, 1.0]  (exponential schedule steepness)
+      - team_change_decay: [0.5, 0.7, 0.9]  (decay factor on team change)
+      - first_week_back_discount: [0.75, 0.85, 1.0]
+
+    Each config is evaluated with the v4.2 matchup patch active (same as
+    the production baseline) so results are directly comparable.
+
+    Outputs:
+      - Console: per-config summary with overall + per-position MAE
+      - CSV: output/heuristic_lab_cache/sweep_veteran_prior.csv
+    """
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    omap = build_upcoming_opponent_map(sched)
+    strength = build_defense_strength(weekly, sched, window=8)
+    matchup = _make_matchup_patch(strength, omap, dict(projection_engine.MATCHUP_BETA))
+
+    seasons = sorted({e["season"] for e in manifest})
+    prior_weekly = _load_prior_weekly(seasons)
+    priors_df = build_player_priors(prior_weekly, scoring_format=SCORING)
+    print(f"Built priors for {len(priors_df)} player-seasons")
+
+    rows = []
+
+    def run(label: str, **blend_kwargs) -> Dict:
+        blend_fn = _make_prior_blend_fn(priors_df, prior_weekly, **blend_kwargs)
+        results = evaluate_config(
+            manifest, matchup_patch=matchup, prior_blend_fn=blend_fn
+        )
+        s = summarize(results)
+        s["label"] = label
+        s.update(blend_kwargs)
+        rows.append(s)
+        print(f"{label:<60} {_fmt(s)}")
+        return s
+
+    # Baseline (no prior blend) for comparison
+    base_results = evaluate_config(manifest, matchup_patch=matchup)
+    base = summarize(base_results)
+    base["label"] = "baseline_no_prior"
+    rows.append(base)
+    print(f"{'baseline_no_prior':<60} {_fmt(base)}")
+
+    # Sweep n_full and steepness
+    for n_full in [3, 4, 5, 6]:
+        for steepness in [0.5, 0.7, 1.0]:
+            label = f"n_full={n_full} steep={steepness}"
+            run(label, n_full=n_full, steepness=steepness)
+
+    # Sweep team_change_decay (fix best n_full/steepness from above)
+    for decay in [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
+        label = f"n_full=5 steep=0.7 decay={decay}"
+        run(label, n_full=5, steepness=0.7, team_change_decay=decay)
+
+    # Sweep first_week_back_discount
+    for disc in [0.70, 0.75, 0.80, 0.85, 0.90, 1.0]:
+        label = f"n_full=5 steep=0.7 fwb={disc}"
+        run(label, n_full=5, steepness=0.7, first_week_back_discount=disc)
+
+    df = pd.DataFrame(rows)
+    out = os.path.join(CACHE_DIR, "sweep_veteran_prior.csv")
+    df.to_csv(out, index=False)
+    print(f"\nSaved to {out}")
+
+    # Print top-5 by WR MAE improvement
+    if "WR_mae" in df.columns:
+        top5 = df.nsmallest(5, "WR_mae")
+        print("\nTop-5 configs by WR MAE:")
+        for _, row in top5.iterrows():
+            print(
+                f"  {row['label']:<50} WR:{row['WR_mae']:.4f} RB:{row['RB_mae']:.4f} QB:{row['QB_mae']:.4f}"
+            )
+
+
+def cmd_consensus_gap(
+    early_weeks: Optional[List[int]] = None,
+) -> None:
+    """Compute consensus gap before/after veteran prior blending.
+
+    Joins per-row projections (baseline and with best veteran prior config)
+    against Sleeper consensus projections (data/silver/external_projections/).
+    Only rows where consensus_proj >= 5 are included (per the plan's filter).
+
+    Outputs:
+      - Console: gap table by position + WR w3-6 breakdown
+      - Named-case before/after table
+      - CSV: output/heuristic_lab_cache/consensus_gap_veteran_prior.csv
+    """
+    import glob as globmod
+
+    if early_weeks is None:
+        early_weeks = [3, 4, 5, 6]
+
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    omap = build_upcoming_opponent_map(sched)
+    strength = build_defense_strength(weekly, sched, window=8)
+    matchup = _make_matchup_patch(strength, omap, dict(projection_engine.MATCHUP_BETA))
+
+    seasons = sorted({e["season"] for e in manifest})
+    prior_weekly = _load_prior_weekly(seasons)
+    priors_df = build_player_priors(prior_weekly, scoring_format=SCORING)
+    print(f"Built priors for {len(priors_df)} player-seasons")
+
+    # Load best config from sweep CSV if available
+    sweep_csv = os.path.join(CACHE_DIR, "sweep_veteran_prior.csv")
+    best_n_full, best_steepness, best_decay, best_disc = 5, 0.7, 0.7, 0.85
+    if os.path.exists(sweep_csv):
+        sweep_df = pd.read_csv(sweep_csv)
+        non_base = sweep_df[sweep_df["label"] != "baseline_no_prior"]
+        if not non_base.empty and "WR_mae" in non_base.columns:
+            best_row = non_base.loc[non_base["WR_mae"].idxmin()]
+            best_n_full = int(best_row.get("n_full", 5))
+            best_steepness = float(best_row.get("steepness", 0.7))
+            best_decay = float(best_row.get("team_change_decay", 0.7))
+            best_disc = float(best_row.get("first_week_back_discount", 0.85))
+            print(
+                f"Using best params from sweep: n_full={best_n_full} steepness={best_steepness} "
+                f"decay={best_decay} fwb={best_disc}"
+            )
+
+    # --- Compute projections ---
+    def collect_projections(results_df: pd.DataFrame, label: str) -> pd.DataFrame:
+        results_df = results_df.copy()
+        results_df["config"] = label
+        return results_df
+
+    base_results = evaluate_config(manifest, matchup_patch=matchup)
+    best_blend = _make_prior_blend_fn(
+        priors_df,
+        prior_weekly,
+        n_full=best_n_full,
+        steepness=best_steepness,
+        team_change_decay=best_decay,
+        first_week_back_discount=best_disc,
+    )
+    blend_results = evaluate_config(
+        manifest, matchup_patch=matchup, prior_blend_fn=best_blend
+    )
+
+    # --- Load consensus ---
+    silver_root = os.path.join(PROJECT_ROOT, "data", "silver", "external_projections")
+    consensus_rows = []
+    for season in seasons:
+        for week in range(3, 19):
+            week_dir = os.path.join(silver_root, f"season={season}", f"week={week:02d}")
+            files = sorted(globmod.glob(os.path.join(week_dir, "*.parquet")))
+            if not files:
+                continue
+            df = pd.read_parquet(files[-1])
+            df = df[(df["source"] == "sleeper") & (df["scoring_format"] == SCORING)]
+            df = df[df["position"].isin(POSITIONS)]
+            if df.empty:
+                continue
+            df = df.rename(columns={"projected_points": "consensus_proj"})
+            df["season"] = season
+            df["week"] = week
+            consensus_rows.append(df[["player_id", "season", "week", "consensus_proj"]])
+
+    if not consensus_rows:
+        print("No consensus data found.")
+        return
+
+    consensus = pd.concat(consensus_rows, ignore_index=True)
+    # Dedup: sleeper data confirmed no dupes; drop exact-duplicate rows defensively
+    consensus = consensus.drop_duplicates(subset=["player_id", "season", "week"])
+    print(f"Consensus rows: {len(consensus)}")
+
+    def compute_gap_df(results: pd.DataFrame, label: str) -> pd.DataFrame:
+        """Merge results with consensus and actuals, return gap analysis frame."""
+        # results has player_id (sometimes), player_name, season, week, projected_points, actual_points
+        if "player_id" not in results.columns:
+            # No player_id in results; try name-based join via actuals
+            return pd.DataFrame()
+
+        merged = results.merge(
+            consensus, on=["player_id", "season", "week"], how="inner"
+        )
+        merged = merged[merged["consensus_proj"] >= 5.0].copy()
+        merged["our_mae"] = (merged["projected_points"] - merged["actual_points"]).abs()
+        merged["cons_mae"] = (merged["consensus_proj"] - merged["actual_points"]).abs()
+        merged["gap"] = merged["our_mae"] - merged["cons_mae"]
+        merged["config"] = label
+        return merged
+
+    base_gap = compute_gap_df(base_results, "baseline")
+    blend_gap = compute_gap_df(blend_results, "veteran_prior")
+
+    if base_gap.empty or blend_gap.empty:
+        # Fallback: join on player_name if player_id not in results
+        print("NOTE: player_id not in results — attempting name-based consensus join")
+        print("Skipping gap analysis (need player_id in evaluate_config output)")
+        print(f"Baseline MAE: {_fmt(summarize(base_results))}")
+        print(f"Veteran prior MAE: {_fmt(summarize(blend_results))}")
+        return
+
+    combined = pd.concat([base_gap, blend_gap], ignore_index=True)
+
+    def print_gap_table(df: pd.DataFrame, config_label: str) -> None:
+        sub = df[df["config"] == config_label]
+        print(f"\n{config_label} (consensus_proj >= 5, matched rows):")
+        print(f"  {'Pos':<6} {'n':>6} {'Our MAE':>9} {'Cons MAE':>9} {'Gap':>8}")
+        for pos in POSITIONS:
+            p = sub[sub["position"] == pos]
+            if p.empty:
+                continue
+            print(
+                f"  {pos:<6} {len(p):>6} {p['our_mae'].mean():>9.3f} "
+                f"{p['cons_mae'].mean():>9.3f} {p['gap'].mean():>+8.3f}"
+            )
+        # WR early weeks
+        wr_early = sub[(sub["position"] == "WR") & (sub["week"].isin(early_weeks))]
+        if not wr_early.empty:
+            print(
+                f"  {'WR w3-6':<6} {len(wr_early):>6} {wr_early['our_mae'].mean():>9.3f} "
+                f"{wr_early['cons_mae'].mean():>9.3f} {wr_early['gap'].mean():>+8.3f}"
+            )
+        # RB early weeks
+        rb_early = sub[(sub["position"] == "RB") & (sub["week"].isin(early_weeks))]
+        if not rb_early.empty:
+            print(
+                f"  {'RB w3-6':<6} {len(rb_early):>6} {rb_early['our_mae'].mean():>9.3f} "
+                f"{rb_early['cons_mae'].mean():>9.3f} {rb_early['gap'].mean():>+8.3f}"
+            )
+
+    print_gap_table(combined, "baseline")
+    print_gap_table(combined, "veteran_prior")
+
+    # --- Named cases ---
+    named_cases = [
+        ("CMC 2024 w11", "00-0033280", 2024, 11),
+        ("D.Smith 2022 w3", "00-0036912", 2022, 3),
+        ("A.St.Brown 2024 w3", "00-0036963", 2024, 3),
+        ("C.Kupp 2023 w6", "00-0033908", 2023, 6),
+    ]
+    print("\nNamed cases (before / after veteran prior blending):")
+    print(f"  {'Case':<22} {'Ours':>7} {'Prior':>7} {'Actual':>7} {'Cons':>7}")
+    for name, pid, season, week in named_cases:
+        base_row = base_results[
+            (
+                (base_results.get("player_id", pd.Series()) == pid)
+                if "player_id" in base_results.columns
+                else pd.Series(False, index=base_results.index)
+            )
+        ]
+        # Use player_id column directly
+        if "player_id" in base_results.columns:
+            b = base_results[
+                (base_results["player_id"] == pid)
+                & (base_results["season"] == season)
+                & (base_results["week"] == week)
+            ]
+            v = blend_results[
+                (blend_results["player_id"] == pid)
+                & (blend_results["season"] == season)
+                & (blend_results["week"] == week)
+            ]
+        else:
+            b, v = pd.DataFrame(), pd.DataFrame()
+
+        if b.empty or v.empty:
+            print(f"  {name:<22} {'N/A':>7} {'N/A':>7} {'N/A':>7} {'N/A':>7}")
+            continue
+
+        cons_row = consensus[
+            (consensus["player_id"] == pid)
+            & (consensus["season"] == season)
+            & (consensus["week"] == week)
+        ]
+        cons_val = (
+            float(cons_row["consensus_proj"].iloc[0])
+            if not cons_row.empty
+            else float("nan")
+        )
+
+        b_proj = float(b["projected_points"].iloc[0])
+        v_proj = float(v["projected_points"].iloc[0])
+        actual = float(b["actual_points"].iloc[0])
+        print(
+            f"  {name:<22} {b_proj:>7.2f} {v_proj:>7.2f} {actual:>7.2f} {cons_val:>7.2f}"
+        )
+
+    # Save combined gap analysis
+    out = os.path.join(CACHE_DIR, "consensus_gap_veteran_prior.csv")
+    combined.to_csv(out, index=False)
+    print(f"\nSaved gap analysis to {out}")
+
+
 def _load_route_features(seasons: List[int]) -> pd.DataFrame:
     """Load route participation Silver tables for the given seasons."""
     import glob as globmod
@@ -676,6 +1044,8 @@ def main() -> int:
             "eval-json",
             "sweep-residual",
             "sweep-rb-route",
+            "sweep-veteran-prior",
+            "consensus-gap",
         ],
     )
     parser.add_argument("--seasons", type=str, default="2022,2023,2024")
@@ -699,6 +1069,10 @@ def main() -> int:
         cmd_sweep_residual(args.model_dir)
     elif args.command == "sweep-rb-route":
         cmd_sweep_rb_route()
+    elif args.command == "sweep-veteran-prior":
+        cmd_sweep_veteran_prior()
+    elif args.command == "consensus-gap":
+        cmd_consensus_gap()
     return 0
 
 
