@@ -14,6 +14,7 @@
 - ✅ **v3.1 Graph-Enhanced Fantasy Projections** — Phases 49-53 (shipped 2026-04-03)
 - ✅ **v3.2 Model Perfection** — Phases 54-57 (shipped 2026-04-09)
 - *v4.0 Production Launch* — Phases W7-W12 (parallel, see `.planning/v4.0-web/`)
+- ✅ **v4.2 Model Upgrade** — 2026-06-10: heuristic 4.78→4.71 MAE (matchup factor + TD regression + recency); TE hybrid SHIP 3.36 MAE; ensemble v3.0 52.92% OOF ATS; feature leakage audit
 - *v5.0 Sentiment v2* — Phases SV2-01 through SV2-04 (complete)
 - ✅ **v6.0 Website Production Ready + Agent Ecosystem** — Phases 60-65 (shipped 2026-04-20)
 - ✅ **v7.0 Production Stabilization** — Phases 66-70 (shipped 2026-04-24; 4 human_needed + 1 passed — see `.planning/milestones/v7.0-ROADMAP.md`)

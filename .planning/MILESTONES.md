@@ -1,5 +1,27 @@
 # Milestones
 
+## v4.2 Model Upgrade (Shipped: 2026-06-10)
+
+**Commits:** 958e0af, 45464f4, 8192643, cd59cdc, 12bff43, 9697427, 91c1821
+
+**Key accomplishments:**
+
+- Fantasy heuristic MAE improved 4.78 → 4.71: matchup factor revived via lagged defensive strength (was dead code), TD regression added, per-position recency weights applied
+- Feature leakage audit complete: same-week NGS/team/graph features removed from `player_feature_engineering.py`; `wr_matchup_*`/`te_matchup_*` graph features excluded as same-game leaks (planned rebuild as lagged trailing versions)
+- TE hybrid SHIPPED on sealed 2025 (3.52 → 3.36 MAE, bias +0.14) after leakage + week-alignment fixes; WR/RB heuristic-only (non-stationary residuals); QB unchanged (heuristic + +2.3 bias correction, down from +2.5)
+- Game ensemble v3.0: CV-selected mean meta-learner (51.96 → 52.92% OOF ATS) + calibrated cover/over probabilities
+- Quantile models retrained after target-column leak fix + conformal calibration applied
+- ELITE_MODELS_PLAN roadmap created at `.planning/ELITE_MODELS_PLAN.md`
+- `PlayerNameResolver` vectorized name-index dedup for performance
+
+**v4.2 production routing:**
+- QB: heuristic only (POSITION_BIAS_CORRECTION +2.3 pts)
+- RB: heuristic only
+- WR: heuristic only
+- TE: hybrid (heuristic + Ridge 60f+graph residual)
+
+---
+
 ## v6.0 Website Production Ready + Agent Ecosystem (Shipped: 2026-04-20)
 
 **Phases completed:** 6 phases, 29 plans | **266 files changed, +64,453 / -2,520 lines** | **4 days** (2026-04-17 → 2026-04-20)

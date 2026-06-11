@@ -75,23 +75,28 @@ Ingested via `scripts/bronze_ingestion_simple.py`:
 
 ### Gold Layer — Fantasy Projections
 
-Projection model: `roll3(50%) + roll6(30%) + STD(20%) * usage_mult * matchup * vegas`
+Projection model: `roll3(30%) + roll6(15%) + STD(55%) * usage_mult * matchup * vegas`
+
+Per-position recency weights (v4.2); weights were previously 50%/30%/20%.
 
 - Usage multiplier: 0.80-1.15 based on target/carry share
-- Matchup multiplier: 0.85-1.15 based on opponent position ranking
+- Matchup multiplier: 0.85-1.15 based on lagged opponent defensive strength (v4.2: revived from dead code, now uses prior-week rankings)
 - Vegas multiplier: implied team total / 23.0; RB run-heavy bonus when total < 20 and spread < -7
 - Injury adjustments: Active 1.0, Questionable 0.85, Doubtful 0.50, Out/IR/PUP 0.0
 - Bye week handling: zeroes all stats, sets `is_bye_week=True`
 - Rookie fallback: starter/backup/unknown baselines at 100%/40%/25% of positional average
 - Floor/ceiling: position-specific variance bands (QB: 45%, RB: 40%, WR: 38%, TE: 35%)
 
-**Backtesting results (2022-2024, Weeks 3-18, Half-PPR, 11,183 player-weeks):**
+**v4.2 ML routing:**
+- QB: heuristic only (bias correction +2.3 pts replaces XGB path)
+- RB: heuristic only
+- WR: heuristic only (residuals non-stationary post leak-fix; FAIL on sealed 2025)
+- TE: hybrid — heuristic + Ridge residual with 60 SHAP features including graph features (sealed 2025: 3.52 → 3.36 MAE)
 
-| Metric | Overall | QB | RB | WR | TE |
-|--------|---------|----|----|----|----|
-| MAE | 4.91 | 6.58 | 5.06 | 4.85 | 3.77 |
-| Bias | -0.60 | -2.20 | -0.37 | -0.28 | -0.63 |
-| Correlation | 0.51 | — | — | — | — |
+**Backtesting results (v4.2):**
+
+- Heuristic (2022-2024, Weeks 3-18, Half-PPR, 11,183 player-weeks): overall MAE 4.71, improved from 4.78 via matchup factor revival, TD regression, and per-position recency weights; sealed-2025 confirmed.
+- TE hybrid (sealed 2025 holdout): MAE 3.52 → 3.36 with the Ridge residual correction.
 
 ### Draft Tool
 
@@ -283,7 +288,7 @@ source venv/bin/activate
 python -m pytest tests/ -v
 ```
 
-274 tests pass across scoring, projections, player analytics, team analytics, advanced profiles, draft optimization, ingestion, and utilities.
+2,120 tests pass across scoring, projections, player analytics, team analytics, advanced profiles, draft optimization, ingestion, web API, and utilities.
 
 Code quality:
 
@@ -296,20 +301,31 @@ python -m flake8 src/ tests/ scripts/
 
 ## Roadmap
 
-### v1.2 Silver Expansion (in progress)
+### Current: v7.2 Data + Site Polish (Phases 76-84, in flight)
 
 | Phase | Status | Description |
 |-------|--------|-------------|
-| 15 — PBP Team Metrics | Complete | Team EPA, CPOE, success rate, red zone, pace, PROE, 4th down with rolling windows |
-| 16 — SOS and Situational Splits | Complete | Opponent-adjusted EPA rankings, home/away, divisional, game script splits |
-| 17 — Advanced Player Profiles | Complete | NGS separation/RYOE/TTT, PFR pressure/blitz/sack, QBR rolling windows |
-| 18 — Historical Context | Next | Combine measurables + draft capital linked to player IDs; composite scores (speed score, burst score, BMI); static dimension table for rookie/breakout modeling |
+| 76 — AWS Refresh + S3 Sync | Not started | Refresh expired credentials, sync local data to S3 |
+| 77 — Sentiment Source Expansion | Not started | Additional RSS/API sentiment sources |
+| 78 — Heuristic Consolidation | Not started | Unify 3 duplicate heuristic functions |
+| 79 — Audit Provenance | Complete | Script-SHA helper, version probe endpoint |
+| 80 — Sanity Warning Triage | Not started | Triage remaining sanity-check warnings |
+| 81 — Dashboard Feature Audit | Not started | Audit dashboard features vs data availability |
+| 82 — Sleeper OAuth + Multi-User | Not started | Sleeper account linking, per-user leagues |
+| 83 — Advisor Tool Expansion | Not started | Expand AI advisor tool coverage |
+| 84 — Deploy Hardening | Not started | Slim Docker image, reduce Railway build fragility |
 
-### Planned (post-v1.2)
+### Next: ELITE_MODELS_PLAN (post-v7.2)
 
-- **ML pipeline**: Random Forest / XGBoost game outcome model trained on Silver team features; target 65%+ win accuracy, < 3.5 point spread MAE
-- **Neo4j integration**: WR-CB matchup graphs, QB-WR target share networks, injury cascade modeling
-- **Live Sleeper integration**: Real-time league data, trade analysis, and waiver suggestions
+- **Beat-the-consensus harness**: Backfill Sleeper historical projections (2022-2025) and benchmark our projections head-to-head
+- **Lagged WR/TE matchup features**: Rebuild `wr_matchup_*`/`te_matchup_*` graph features as lagged trailing versions (currently excluded as same-game leaks)
+- **Game totals diagnosis**: One-shot diagnostic on whether predicted totals carry signal beyond closing line
+- **Live 2026 odds capture**: The Odds API for opener capture before the 2026 season
+
+### Long-term
+
+- **Neo4j Aura**: Cloud graph database for WR-CB matchups, target share networks, injury cascade modeling
+- **PFF subscription**: WR-CB coverage grades, OL grades for higher-fidelity graph features
 - **Keeper/dynasty support**: Multi-year roster tracking and dynasty-specific VORP
 
 ---

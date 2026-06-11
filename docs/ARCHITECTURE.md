@@ -94,24 +94,24 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ ┌─ Fantasy Projections ────────────────────────────────┐   │
 │ │ • Weekly projections (optimized heuristics)          │   │
 │ │ • Preseason projections (rookie fallback)            │   │
-│ │ • QB: Heuristic + bias correction (+2.5 pts)         │   │
-│ │ • RB: Heuristic (XGB SHIP path removed v4.2)        │   │
-│ │ • WR/TE: Ridge 60f+graph hybrid residual             │   │
+│ │ • QB: Heuristic + bias correction (+2.3 pts, v4.2)   │   │
+│ │ • RB/WR: Heuristic only (v4.2)                       │   │
+│ │ • TE: Heuristic + Ridge 60f+graph hybrid (v4.2 SHIP) │   │
 │ │ • Weights: roll3=0.30, roll6=0.15, std=0.55         │   │
 │ │ • Ceiling: 12/18/23 pt shrinkage + WR/TE 12% extra  │   │
 │ │ • VORP ranking + position_rank per scoring format    │   │
-│ │ • MAE 5.05 (production-faithful eval)                │   │
+│ │ • Heuristic MAE 4.71 (v4.2; 2022-24, sealed-2025 confirmed) │
 │ │ • Output: 25+ columns per player-week                │   │
 │ │                                                       │   │
 │ ├─ Game Predictions ──────────────────────────────────┤   │
-│ │ • v2.1 Model: XGB+LGB+CB+Ridge ensemble             │   │
+│ │ • v3.0 Ensemble: XGB+LGB+CB + CV-selected meta      │   │
 │ │ • Input: 120 SHAP-selected features (1139 raw)      │   │
-│ │ • Output: spread/total with edge detection          │   │
-│ │ • Backtest: 53.0% ATS on sealed 2024 holdout        │   │
+│ │ • Output: spread/total + calibrated cover/over probs│   │
+│ │ • OOF ATS: 52.92% (up from 51.96%); 53.0% sealed 2024│ │
 │ │                                                       │   │
 │ ├─ Player ML Predictions ─────────────────────────────┤   │
-│ │ • QB: heuristic-only (bias correction replaces XGB)   │   │
-│ │ • WR/TE: Ridge 60f+graph hybrid residual correction  │   │
+│ │ • QB/RB/WR: heuristic-only (SKIP; v4.2 routing)      │   │
+│ │ • TE: Ridge 60f+graph hybrid (SHIP; 3.36 sealed-2025)│   │
 │ │ • Feature input: player_feature_engineering.py       │   │
 │ │ • Router: ml_projection_router.py selects per-pos    │   │
 │ │                                                       │   │
@@ -393,27 +393,32 @@ position_ceiling_shrinkage = {
 }
 
 position_bias_correction = {
-    "QB": +2.5,  # Correct -2.47 systematic under-projection
+    # v4.2: reduced from 2.5 — TD regression + per-position recency weights
+    # recover part of the QB under-projection, so the additive correction
+    # shrinks to keep QB bias ~0.
+    "QB": +2.3,
 }
 ```
 
-#### QB Special Handling: ML Router
+#### ML Router (v4.2)
 
 **Module:** `src/ml_projection_router.py`
 
 ```
-QB projection decision:
-    ├─ IF player_model available for QB
-    │  └─ Use player_feature_engineering + QB-specific model
-    └─ ELSE
-       └─ Use heuristic (weighted rolling averages)
+v4.2 routing (2026-06-10):
+    QB  → Heuristic only (SKIP; bias corrected via POSITION_BIAS_CORRECTION +2.3 pts)
+    RB  → Heuristic only (SKIP; residuals degrade even after leakage fix)
+    WR  → Heuristic only (SKIP; non-stationary residuals failed sealed 2025 gate)
+    TE  → HYBRID (heuristic + Ridge residual; sealed 2025: 3.52 → 3.36 MAE)
 ```
+
+**HYBRID_POSITIONS = {"TE"}** — only TE applies residual correction.
 
 **Player Model** (`src/player_model_training.py`):
 - Per-position per-stat models trained via walk-forward CV
-- Input: 337-column feature vector from `player_feature_engineering.py`
-- Currently: QB models shipped, RB/WR/TE use heuristic fallback
-- Feature selection: SHAP importance on validation fold, correlation filtering
+- Input: 60 SHAP-selected features (including graph features) from `player_feature_engineering.py`
+- Feature leakage fix (v4.2): same-week NGS/team/graph features excluded; `wr_matchup_*`/`te_matchup_*` graph features excluded as same-game leaks, planned rebuild as lagged trailing versions
+- Model activation requires on-disk `te_residual_meta.json` stamped `heuristic_version == v4.2`
 
 #### Output Schema (25 columns)
 
@@ -572,25 +577,27 @@ Evaluation Metrics:
     └─ ROI: profit / total_action
 ```
 
-#### Backtest Results (v2.1 Sealed 2024 Holdout)
+#### Backtest Results (v3.0 Ensemble, 2026-06-10)
 
 ```
-Ensemble Performance:
-    ├─ ATS Accuracy: 53.0% (profit +$3.09 on 100 games)
+Ensemble Performance (v3.0 — CV meta-learner selection + calibrated probabilities):
+    ├─ OOF ATS Accuracy: 52.92% (up from 51.96% in v2.2)
+    ├─ Sealed 2024 Holdout ATS: 53.0% (profit +$3.09 on 100 games)
     ├─ O/U Accuracy: 51.2%
     ├─ Avg CLV: +0.12 points
     └─ ROI: +1.2% at -110 vig
+    New in v3.0: calibrated cover/over probabilities alongside edge tiers
 
 vs v1.4 Single Model:
     ├─ v1.4: 50.0% ATS, -$12.18 loss
-    ├─ v2.1: 53.0% ATS, +$3.09 profit
+    ├─ v3.0: 53.0% ATS, +$3.09 profit (sealed 2024)
     └─ Improvement: +3.0% win rate, +$15.27 swing
 ```
 
 ### Track 3: Player ML Predictions — Hybrid Residual Strategy
 
-**Status:** v3.1-v3.2 research complete (Phase 51-54); hybrid residual approach shipped with optimized weights
-**Modules:** `src/player_model_training.py`, `src/hybrid_projection.py`, `src/train_residual_models.py`
+**Status:** v4.2 production — TE HYBRID SHIP (3.36 MAE sealed 2025); QB/RB/WR heuristic-only. Feature leakage audit complete; same-week NGS/team/graph leaks removed.
+**Modules:** `src/player_model_training.py`, `src/hybrid_projection.py`, `src/ml_projection_router.py`
 
 #### Research Summary (Phases 51-53)
 
@@ -655,24 +662,26 @@ Player Feature Engineering (player_feature_engineering.py)
     │
     └─ Output: 337-column feature vector per player-week
 
-Per-Position Per-Stat Models (WalkForward CV)
-    ├─ QB Models: XGBoost on raw projections (SHIP: 14% improvement with expanded data)
-    ├─ RB/WR/TE: XGBoost on residuals (hybrid approach in testing)
+Per-Position Per-Stat Models (WalkForward CV) — research history
+    ├─ QB XGB: 14% improvement with expanded data (research finding; SHIP path removed v4.2)
+    ├─ RB/WR/TE: XGBoost on residuals (hybrid approach researched; WR/RB now heuristic-only)
+    ├─ TE: Ridge 60f+graph residual SHIPPED at v4.2 (3.36 MAE sealed 2025)
     │
     ├─ Training: 2016-2025 (expanded from 2020-2025, +66% data)
-    ├─ Validation: 2024 holdout (sealed)
-    └─ Walk-forward folds: [2016-2018], [2016-2019], ..., [2016-2023]
+    ├─ Validation: 2025 holdout (sealed; 2024 was previous holdout)
+    └─ Walk-forward folds: [2016-2018], [2016-2019], ..., [2016-2024]
 
 Model Variants Available (--model-type CLI flag):
     ├─ xgb (default): XGBoost, original approach
     ├─ ridge: Ridge regression with 21 interaction features
     └─ elasticnet: ElasticNet for sparse feature selection
 
-Ship/Skip Gates (per position):
-    ├─ QB: Ship (XGBoost 6.72 MAE, 14% better than heuristic baseline)
-    ├─ RB: Hybrid Residual (heuristic fallback for backup RBs)
-    ├─ WR/TE: Hybrid Residual with weight tuning (Phase 54)
-    └─ Fallback: Always revert to projection_engine heuristic if model degrades
+Ship/Skip Gates (per position, v4.2):
+    ├─ QB: SKIP (heuristic with +2.3 pt bias correction; XGB path removed)
+    ├─ RB: SKIP (residuals degrade even leak-free)
+    ├─ WR: SKIP (non-stationary residuals; bias +0.73 on sealed 2025 — FAIL)
+    ├─ TE: HYBRID SHIP (sealed 2025: 3.52 → 3.36 MAE after leakage fix)
+    └─ Fallback: Always revert to projection_engine heuristic if model absent
 ```
 
 #### Hybrid Projection (in testing)
@@ -689,32 +698,27 @@ def get_hybrid_projection(player_row, heuristic_projection, ml_model):
     return final_projection
 ```
 
-#### ML Routing in Projections
+#### ML Routing in Projections (v4.2)
 
 ```python
-# src/ml_projection_router.py — evolved in Phase 52+
-def get_projection(player_row, models, projection_type='final'):
-    """
-    Position-based routing:
-    - QB: ML (XGBoost on raw, shipped v3.0)
-    - RB/WR/TE: Heuristic (with hybrid residual testing)
-    """
-    position = player_row['position']
-    
-    if position == 'QB' and 'QB' in models:
-        # Use QB ML model
-        features = player_feature_engineering.assemble_player_features(player_row)
-        prediction = models['QB'][stat].predict([features])
-    else:
-        # RB/WR/TE: heuristic baseline
-        prediction = projection_engine._weighted_baseline(player_row, stat)
-        
-        # Optional: apply hybrid residual correction (in testing)
-        if projection_type == 'hybrid' and 'residual' in models.get(position, {}):
-            residual_correction = models[position]['residual'].predict([features])
-            prediction += residual_correction * shrinkage_factor
-    
-    return prediction
+# src/ml_projection_router.py
+# HYBRID_POSITIONS = {"TE"}  — only TE applies residual correction
+#
+# Routing:
+#   QB  → heuristic (SKIP; QB forced SKIP in _load_ship_gate regardless of model files)
+#   RB  → heuristic (SKIP; production backtest shows degradation)
+#   WR  → heuristic (SKIP; non-stationary residuals failed sealed 2025 gate)
+#   TE  → HYBRID (heuristic + Ridge residual when v4.2-stamped model present)
+#
+# HYBRID path:
+#   1. generate_weekly_projections() produces heuristic baseline
+#   2. apply_residual_correction() adds Ridge correction from 60 SHAP features
+#   3. add_floor_ceiling() recalculates floor/ceiling after correction
+#
+# Leakage safeguards (v4.2):
+#   - Same-week NGS/team/graph features excluded from feature assembly
+#   - wr_matchup_*/te_matchup_* excluded as same-game leaks
+#   - week-W feature row used for inference (off-by-one fixed from v4.1)
 ```
 
 ---
@@ -883,10 +887,10 @@ PROJECTION_CEILING_SHRINKAGE = {
     23.0: 0.80,   # 23+ pts   → ×0.80
 }
 POSITION_CEILING_SHRINKAGE = {"WR": {12.0: 0.88}, "TE": {12.0: 0.88}}
-POSITION_BIAS_CORRECTION = {"QB": 2.5}  # +2.5 pts additive
+POSITION_BIAS_CORRECTION = {"QB": 2.3}  # +2.3 pts additive (v4.2; reduced from 2.5)
 ```
 
-**Benefit:** Final MAE 5.05 (production-faithful eval); better calibration without widening bands.
+**Benefit:** Heuristic MAE 4.71 (v4.2, 2022-24 sealed-2025 confirmed); better calibration without widening bands.
 
 ### 6. Ship/Skip Gates
 
@@ -1337,16 +1341,9 @@ WHERE position = 'WR' AND season = 2024;
 
 ### Testing Suite
 
-**Location:** `tests/` (571 tests, all passing)
+**Location:** `tests/` (2,120 tests collected as of 2026-06-10)
 
-| Category | Files | Tests |
-|----------|-------|-------|
-| Fantasy | 4 | 120 |
-| Prediction | 3 | 85 |
-| Analytics | 3 | 95 |
-| Ensemble | 2 | 70 |
-| Market | 1 | 30 |
-| Infrastructure | 4 | 171 |
+Coverage spans fantasy scoring/projections, game predictions, ensemble training, market features, player/team analytics, sentiment pipeline, web API routers, and infrastructure utilities.
 
 ### Key Files Reference
 
@@ -1398,5 +1395,6 @@ python -m flake8 src/ tests/ scripts/
 - **v1.0 (2026-04-01):** Initial architecture document. Covers medallion pattern, all three tracks (fantasy, game prediction, player ML), infrastructure, design patterns, constraints, and Neo4j planned work.
 - **v2.0 (2026-04-02):** Updated with v3.0 Graph Layer (Neo4j + pandas dual-path, 22 features, 6 modules, participation data) and v4.0 Web Services (FastAPI 7 endpoints + Next.js frontend + Vercel deployment). Added kicker projections. Updated medallion diagram. Added 858 tests status.
 - **v3.0 (2026-04-03):** Added v4.1 College Integration (CFBD API, prospect features, college teammate networks, coaching trees, 27 new college features, 49 total graph features). Added Game Archive (game_results, game_player_stats tables, historical lookup endpoints). Updated Web Services to 14 endpoints + PostgreSQL. Updated test count to 1154.
+- **v4.0 (2026-06-10):** Updated for v4.2 Model Upgrade. Routing: QB/RB/WR heuristic-only, TE hybrid SHIP (3.36 MAE sealed 2025). QB bias correction +2.5 → +2.3. Game ensemble v3.0 (CV meta-learner, 52.92% OOF ATS, calibrated cover/over probabilities). Feature leakage audit: same-week NGS/team/graph features excluded; `wr_matchup_*`/`te_matchup_*` excluded as same-game leaks. Heuristic MAE 4.78 → 4.71. Test count updated to 2,120.
 
-**Last Reviewed:** 2026-04-03
+**Last Reviewed:** 2026-06-10

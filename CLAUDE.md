@@ -180,7 +180,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `web/api/routers/players.py` | Player query endpoints (history, matchups) |
 | `web/api/routers/lineups.py` | Lineup builder endpoint (GET /api/lineups) |
 | `web/api/routers/games.py` | Game archive endpoints (results, player stats, historical lookup) |
-| `web/api/routers/college.py` | College data endpoints (prospect profiles, college stats, coaching trees) |
+| `web/api/routers/rankings.py` | External rankings endpoints (Sleeper/FantasyPros/ESPN compare, multi-compare) |
 | `web/api/routers/news.py` | News/sentiment endpoints (player alerts, sentiment signals) |
 | `web/api/services/projection_service.py` | Projection business logic, S3 reads |
 | `web/api/services/prediction_service.py` | Prediction business logic, ensemble dispatch |
