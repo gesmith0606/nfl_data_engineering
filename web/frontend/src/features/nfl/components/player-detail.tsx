@@ -24,6 +24,7 @@ import {
   TableRow
 } from '@/components/ui/table';
 import { Icons } from '@/components/icons';
+import { EmptyState } from '@/components/EmptyState';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -46,7 +47,7 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
   const [week, setWeek] = useState(1);
   const [scoring, setScoring] = useState<ScoringFormat>('half_ppr');
 
-  const { data: player, isLoading, isError } = useQuery(
+  const { data: player, isLoading, isError, refetch } = useQuery(
     playerDetailQueryOptions(playerId, season, week, scoring)
   );
 
@@ -65,14 +66,16 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
 
   if (isError || !player) {
     return (
-      <Card>
-        <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-          <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
-          <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-            Failed to load player details. Ensure the API is running.
-          </p>
-        </CardContent>
-      </Card>
+      <EmptyState
+        icon={Icons.alertCircle}
+        title='Unable to load player details'
+        description='Something went wrong fetching this player. Please try again.'
+        action={
+          <Button variant='outline' size='sm' onClick={() => void refetch()}>
+            Retry
+          </Button>
+        }
+      />
     );
   }
 

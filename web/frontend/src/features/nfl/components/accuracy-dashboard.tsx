@@ -20,26 +20,22 @@ import {
 } from '@/components/ui/table';
 import { Icons } from '@/components/icons';
 import { WeeklyAccuracyChart } from './accuracy-chart';
+import modelMetrics from '../config/model-metrics.json';
 
-/** Overall backtest metrics from Phase 54 (2022-2024, Weeks 3-18, Half-PPR). */
-const OVERALL_METRICS = {
-  mae: 4.77,
-  rmse: 6.72,
-  correlation: 0.510,
-  bias: -0.60,
-  playerWeeks: 11183,
-  seasons: '2022-2024',
-  weeks: '3-18',
-  scoringFormat: 'Half-PPR'
+/** Overall backtest metrics generated from the v4.2 production backtest artifact. */
+const OVERALL_METRICS = modelMetrics.overall;
+
+const MODEL_NOTES: Record<string, string> = {
+  Heuristic: 'Weighted rolling averages + usage/matchup/Vegas multipliers',
+  'Hybrid Residual': 'Heuristic + ML correction',
+  XGBoost: 'Direct XGBoost'
 };
 
-/** Per-position breakdown from Phase 54 backtest. */
-const POSITION_METRICS = [
-  { position: 'QB', model: 'XGBoost', mae: 6.58, rmse: 8.94, bias: -0.42, notes: 'Direct XGBoost' },
-  { position: 'RB', model: 'Hybrid Residual', mae: 5.00, rmse: 6.88, bias: -0.71, notes: 'Heuristic + ML correction' },
-  { position: 'WR', model: 'Hybrid Residual', mae: 4.63, rmse: 6.41, bias: -0.58, notes: 'Heuristic + ML correction' },
-  { position: 'TE', model: 'Hybrid Residual', mae: 3.58, rmse: 4.89, bias: -0.44, notes: 'Heuristic + ML correction' }
-];
+/** Per-position breakdown from the v4.2 production backtest. */
+const POSITION_METRICS = modelMetrics.positions.map((p) => ({
+  ...p,
+  notes: MODEL_NOTES[p.model] ?? p.model
+}));
 
 const POSITION_COLORS: Record<string, string> = {
   QB: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
@@ -104,7 +100,7 @@ export function AccuracyDashboard() {
           title='Mean Absolute Error'
           value={OVERALL_METRICS.mae.toFixed(2)}
           description='Fantasy points average error per player-week'
-          trend='-3.2% vs baseline'
+          trend='-3.0% in v4.2'
           trendDirection='down'
         />
         <MetricCard
@@ -116,8 +112,6 @@ export function AccuracyDashboard() {
           title='Correlation'
           value={OVERALL_METRICS.correlation.toFixed(3)}
           description='Projected vs actual fantasy points (Pearson r)'
-          trend='+0.051 vs baseline'
-          trendDirection='up'
         />
         <MetricCard
           title='Bias'
@@ -131,7 +125,7 @@ export function AccuracyDashboard() {
         <CardHeader>
           <CardTitle>Evaluation Context</CardTitle>
           <CardDescription>
-            Backtest conditions for the Phase 54 tuned model
+            Backtest conditions for the v4.2 production model
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -233,14 +227,14 @@ export function AccuracyDashboard() {
         </CardHeader>
         <CardContent className='space-y-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
           <p>
-            Projections are generated using a hybrid approach: a heuristic base model (weighted
-            rolling averages, usage multipliers, Vegas implied totals) corrected by an ML residual
-            layer trained on 2016-2025 data.
+            Projections are generated from a heuristic base model: weighted rolling averages
+            combined with usage, matchup, and Vegas implied-total multipliers, with TD regression
+            and per-position recency weighting (v4.2).
           </p>
           <p>
-            QB projections use XGBoost directly. RB, WR, and TE projections use the hybrid
-            heuristic + residual model. All models are evaluated on held-out seasons using
-            walk-forward cross-validation to prevent data leakage.
+            QB, RB, and WR projections use the tuned heuristic directly. TE projections add an ML
+            residual correction layer trained on 2016-2025 data. All models are evaluated on
+            held-out seasons, and ship decisions are confirmed on a sealed 2025 holdout.
           </p>
           <p>
             <span className='font-medium text-foreground'>Lower MAE is better.</span> A bias near

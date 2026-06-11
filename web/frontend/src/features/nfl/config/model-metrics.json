@@ -1,0 +1,115 @@
+{
+  "generatedFrom": "backtest_half_ppr_ml_fullfeatures_consensus_20260610_213405.csv",
+  "generatedBy": "scripts/generate_frontend_metrics.py",
+  "overall": {
+    "mae": 4.63,
+    "rmse": 6.33,
+    "correlation": 0.56,
+    "bias": -0.37,
+    "playerWeeks": 11183,
+    "seasons": "2022-2024",
+    "weeks": "3-18",
+    "scoringFormat": "Half-PPR"
+  },
+  "positions": [
+    {
+      "position": "QB",
+      "model": "Heuristic",
+      "mae": 6.28,
+      "rmse": 7.89,
+      "bias": 0.02
+    },
+    {
+      "position": "RB",
+      "model": "Heuristic",
+      "mae": 4.84,
+      "rmse": 6.56,
+      "bias": -0.41
+    },
+    {
+      "position": "WR",
+      "model": "Heuristic",
+      "mae": 4.63,
+      "rmse": 6.32,
+      "bias": -0.49
+    },
+    {
+      "position": "TE",
+      "model": "Hybrid Residual",
+      "mae": 3.28,
+      "rmse": 4.67,
+      "bias": -0.32
+    }
+  ],
+  "weeklyMae": [
+    {
+      "week": "W3",
+      "mae": 5.22
+    },
+    {
+      "week": "W4",
+      "mae": 4.81
+    },
+    {
+      "week": "W5",
+      "mae": 4.89
+    },
+    {
+      "week": "W6",
+      "mae": 4.48
+    },
+    {
+      "week": "W7",
+      "mae": 4.77
+    },
+    {
+      "week": "W8",
+      "mae": 4.64
+    },
+    {
+      "week": "W9",
+      "mae": 4.29
+    },
+    {
+      "week": "W10",
+      "mae": 4.5
+    },
+    {
+      "week": "W11",
+      "mae": 4.42
+    },
+    {
+      "week": "W12",
+      "mae": 4.25
+    },
+    {
+      "week": "W13",
+      "mae": 4.45
+    },
+    {
+      "week": "W14",
+      "mae": 4.69
+    },
+    {
+      "week": "W15",
+      "mae": 4.79
+    },
+    {
+      "week": "W16",
+      "mae": 4.51
+    },
+    {
+      "week": "W17",
+      "mae": 4.75
+    },
+    {
+      "week": "W18",
+      "mae": 4.54
+    }
+  ],
+  "testsPassing": 2242,
+  "atsAccuracy": {
+    "value": 53.0,
+    "context": "Against the spread (sealed 2024 holdout, v2.0 ensemble)"
+  }
+}

@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Icons } from '@/components/icons';
+import { Button } from '@/components/ui/button';
+import { EmptyState } from '@/components/EmptyState';
 import { useQuery } from '@tanstack/react-query';
 import { nflKeys } from '../../api/queries';
 import { fetchProjections } from '../../api/service';
@@ -83,7 +85,7 @@ export function RankingsTable() {
   const [search, setSearch] = useState('');
 
   // Fetch all players (week=1 for preseason/season-long, high limit)
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [...nflKeys.all, 'rankings', { scoring }],
     queryFn: () => fetchProjections(2026, 1, scoring, undefined, undefined, 1000)
   });
@@ -233,14 +235,16 @@ export function RankingsTable() {
           </CardContent>
         </Card>
       ) : isError ? (
-        <Card>
-          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-            <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
-            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-              Failed to load rankings. Ensure the API is running.
-            </p>
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={Icons.alertCircle}
+          title='Unable to load rankings'
+          description='Something went wrong fetching the latest rankings. Please try again.'
+          action={
+            <Button variant='outline' size='sm' onClick={() => void refetch()}>
+              Retry
+            </Button>
+          }
+        />
       ) : filteredPlayers.length === 0 ? (
         <Card>
           <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>

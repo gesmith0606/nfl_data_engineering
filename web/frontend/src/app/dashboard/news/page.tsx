@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { parseAsInteger, useQueryStates } from 'nuqs';
 import PageContainer from '@/components/layout/page-container';
 import { NewsFeed } from '@/features/nfl/components/news-feed';
 import { TeamEventDensityGrid } from '@/features/nfl/components/TeamEventDensityGrid';
@@ -32,8 +32,14 @@ import { FadeIn } from '@/lib/motion-primitives';
  * - Player Signals: bullish/bearish/neutral breakdown per player
  */
 export default function NewsPage() {
-  const [season, setSeason] = useState(2025);
-  const [week, setWeek] = useState<number | undefined>(1);
+  // URL-backed season/week so views are bookmarkable (codebase nuqs
+  // convention). Season defaults to the latest season with sentiment
+  // data; week=null means "all weeks" on the feed.
+  const [{ season, week: weekParam }, setParams] = useQueryStates({
+    season: parseAsInteger.withDefault(2025),
+    week: parseAsInteger.withDefault(1)
+  });
+  const week = weekParam < 1 ? undefined : weekParam;
 
   // The event grid needs a concrete week — default to 1 when the user
   // has selected "all weeks" on the feed.
@@ -50,7 +56,7 @@ export default function NewsPage() {
         <div className='flex flex-wrap items-center gap-[var(--space-3)]'>
           <Select
             value={String(season)}
-            onValueChange={(v) => setSeason(Number(v))}
+            onValueChange={(v) => setParams({ season: Number(v) })}
           >
             <SelectTrigger className='w-28'>
               <SelectValue placeholder='Season' />
@@ -67,7 +73,7 @@ export default function NewsPage() {
           <Select
             value={week !== undefined ? String(week) : 'all'}
             onValueChange={(v) =>
-              setWeek(v === 'all' ? undefined : Number(v))
+              setParams({ week: v === 'all' ? 0 : Number(v) })
             }
           >
             <SelectTrigger className='w-28'>

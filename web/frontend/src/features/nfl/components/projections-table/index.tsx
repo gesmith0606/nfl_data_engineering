@@ -17,7 +17,10 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
+import { EmptyState } from '@/components/EmptyState';
+import { useWeekParams } from '@/hooks/use-week-params';
 import { useState } from 'react';
 
 const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K'];
@@ -28,12 +31,11 @@ const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
 ];
 
 export function ProjectionsTable() {
-  const [season, setSeason] = useState(2026);
-  const [week, setWeek] = useState(1);
+  const { season, week, setSeason, setWeek, isResolving } = useWeekParams();
   const [scoring, setScoring] = useState<ScoringFormat>('half_ppr');
   const [position, setPosition] = useState<Position>('ALL');
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading, isError, refetch } = useQuery(
     projectionsQueryOptions(season, week, scoring, position === 'ALL' ? undefined : position)
   );
 
@@ -112,7 +114,7 @@ export function ProjectionsTable() {
       </Tabs>
 
       {/* Table */}
-      {isLoading ? (
+      {isLoading || isResolving ? (
         <Card>
           <CardContent className='pt-[var(--space-4)] space-y-[var(--space-2)]'>
             {/* Header row */}
@@ -132,14 +134,16 @@ export function ProjectionsTable() {
           </CardContent>
         </Card>
       ) : isError ? (
-        <Card>
-          <CardContent className='flex flex-col items-center justify-center py-[var(--space-12)]'>
-            <Icons.alertCircle className='text-muted-foreground mb-[var(--space-2)] h-[var(--space-8)] w-[var(--space-8)]' />
-            <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-              Failed to load projections. Ensure the API is running on localhost:8000.
-            </p>
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={Icons.alertCircle}
+          title='Unable to load projections'
+          description='Something went wrong fetching the latest projections. Please try again.'
+          action={
+            <Button variant='outline' size='sm' onClick={() => void refetch()}>
+              Retry
+            </Button>
+          }
+        />
       ) : (
         <DataTable table={table}>
           <DataTableToolbar table={table} />

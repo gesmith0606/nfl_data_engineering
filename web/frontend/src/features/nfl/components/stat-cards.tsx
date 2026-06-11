@@ -11,6 +11,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
 import { Stagger, HoverLift } from '@/lib/motion-primitives';
+import modelMetrics from '../config/model-metrics.json';
 
 interface StatCardProps {
   title: string;
@@ -56,28 +57,28 @@ export function OverviewStatCards() {
     >
       <StatCard
         title='Projection MAE'
-        value='4.77'
-        description='Fantasy points mean absolute error'
-        trend='-3.2%'
+        value={modelMetrics.overall.mae.toFixed(2)}
+        description={`Fantasy points mean absolute error (${modelMetrics.overall.seasons} backtest)`}
+        trend='-3.0% in v4.2'
         trendDirection='down'
       />
       <StatCard
         title='Tests Passing'
-        value='571'
+        value={modelMetrics.testsPassing.toLocaleString()}
         description='Full test suite coverage'
         trend='100%'
         trendDirection='up'
       />
       <StatCard
         title='ATS Accuracy'
-        value='53.0%'
-        description='Against the spread (2024 holdout)'
+        value={`${modelMetrics.atsAccuracy.value.toFixed(1)}%`}
+        description='Against the spread (sealed 2024 holdout)'
         trend='+3.0%'
         trendDirection='up'
       />
       <StatCard
         title='Players Tracked'
-        value='500+'
+        value='569'
         description='Across all NFL positions'
       />
     </Stagger>

@@ -18,6 +18,8 @@ import { cn } from '@/lib/utils';
  * - `dataAsOf`: Optional ISO timestamp (or Date). When present, a muted
  *   "Updated <relative time>" badge is appended below the description. When
  *   null/undefined, the badge is suppressed cleanly (no "unknown" garbage).
+ * - `action`: Optional action node (e.g. a Retry button) rendered below the
+ *   description — used by error variants to offer recovery.
  * - `className`: Optional extra classes for the outer Card.
  */
 export interface EmptyStateProps {
@@ -25,6 +27,7 @@ export interface EmptyStateProps {
   title: string;
   description?: string;
   dataAsOf?: string | Date | null;
+  action?: React.ReactNode;
   className?: string;
 }
 
@@ -49,6 +52,7 @@ export function EmptyState({
   title,
   description,
   dataAsOf,
+  action,
   className
 }: EmptyStateProps) {
   return (
@@ -72,6 +76,7 @@ export function EmptyState({
             {description}
           </p>
         ) : null}
+        {action ? <div className='mt-[var(--space-2)]'>{action}</div> : null}
         {dataAsOf ? (
           <Badge
             variant='outline'

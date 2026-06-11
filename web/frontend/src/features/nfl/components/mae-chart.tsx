@@ -8,13 +8,15 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart';
+import modelMetrics from '../config/model-metrics.json';
 
 const maeData = [
-  { position: 'QB', mae: 6.58, fill: 'var(--chart-1)' },
-  { position: 'RB', mae: 5.06, fill: 'var(--chart-2)' },
-  { position: 'WR', mae: 4.85, fill: 'var(--chart-3)' },
-  { position: 'TE', mae: 3.77, fill: 'var(--chart-4)' },
-  { position: 'Overall', mae: 4.91, fill: 'var(--chart-5)' }
+  ...modelMetrics.positions.map((p, i) => ({
+    position: p.position,
+    mae: p.mae,
+    fill: `var(--chart-${i + 1})`
+  })),
+  { position: 'Overall', mae: modelMetrics.overall.mae, fill: 'var(--chart-5)' }
 ];
 
 const chartConfig = {

@@ -28,7 +28,7 @@ export const columns: ColumnDef<PlayerProjection>[] = [
     id: 'position_rank',
     accessorKey: 'position_rank',
     header: ({ column }: { column: Column<PlayerProjection, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Rank' />
+      <DataTableColumnHeader column={column} title='Pos Rk' />
     ),
     cell: ({ cell }) => (
       <span className='text-muted-foreground tabular-nums font-medium'>

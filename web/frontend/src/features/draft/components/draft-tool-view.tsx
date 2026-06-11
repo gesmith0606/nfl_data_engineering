@@ -188,7 +188,7 @@ export function DraftToolView() {
             <div className='flex flex-col items-center gap-[var(--space-2)]'>
               <Icons.alertCircle className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)]' />
               <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                Failed to load draft board. Ensure the API is running on localhost:8000.
+                Unable to load the draft board. Please try again.
               </p>
               <PressScale>
                 <Button variant='outline' size='sm' onClick={() => void refetch()}>
