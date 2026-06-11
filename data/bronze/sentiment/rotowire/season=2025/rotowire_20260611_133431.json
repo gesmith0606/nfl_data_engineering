@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "631a7cd5-7b2f-46e7-8e40-820e599235d8",
+  "source": "rotowire",
+  "fetched_at": "2026-06-11T13:34:31.847247+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631319",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Chiefs add two years to contract",
+      "body_text": "Mahomes (ACL) and Kansas City agreed to terms Wednesday on a deal that amends two additional years to his contract, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-10T01:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Kansas City",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl631314",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Coach won't name starting QB",
+      "body_text": "Cardinals head coach Mike LaFleur declined Wednesday to name a starting quarterback, though Brissett reported for the start of mandatory minicamp on Monday, Bo Brack of GoPHNX.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-10T12:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Bo Brack"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl631313",
+      "url": "https://www.rotowire.com//football/player/alec-pierce-16022",
+      "permalink": "",
+      "title": "Alec Pierce: Discusses ankle surgery",
+      "body_text": "Pierce (ankle) revealed Wednesday that he underwent surgery this spring after not getting the results he wanted from a platelet-rich plasma (PRP) injection at the start of the offseason, JJ Stankevitz of Colts.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-10T12:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "nfl631311",
+      "url": "https://www.rotowire.com//football/player/tetairoa-mcmillan-18547",
+      "permalink": "",
+      "title": "Tetairoa McMillan: On track for training camp",
+      "body_text": "The Panthers expect McMillan (ankle) to be ready for the start of training camp, Mike Kaye of The Charlotte Observer reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-10T12:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Panthers",
+        "Mike Kaye",
+        "The Charlotte"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "nfl631310",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "permalink": "",
+      "title": "Tucker Kraft: Expects to play Week 1",
+      "body_text": "Kraft (knee) said Wednesday that he expects to play Week 1 without any playing-time restrictions, Matt Schneidman of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-10T11:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft",
+        "Matt Schneidman",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,496 @@
+{
+  "fetch_run_id": "57a344e6-caea-49a3-a074-16fd2c384c10",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-06-11T13:34:19.310399+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-were-not-exploring-re-signing-stefon-diggs-right-now-but-would-never-say-no",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-were-not-exploring-re-signing-stefon-diggs-right-now-but-would-never-say-no",
+      "title": "Mike Vrabel: We're not exploring re-signing Stefon Diggs right now, but would never say no",
+      "body_text": "The Patriots traded for receiver A.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-10T17:45:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Stefon Diggs",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0031588"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-not-really-concerned-about-cardinals-starting-qb-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-not-really-concerned-about-cardinals-starting-qb-right-now",
+      "title": "Mike LaFleur \"not really concerned\" about Cardinals starting QB right now",
+      "body_text": "The Cardinals wrapped up their offseason program on Wednesday with a significant blank spot on their depth chart.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T12:29:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-im-liking-our-choices-at-center",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-im-liking-our-choices-at-center",
+      "title": "Lamar Jackson: I'm liking our choices at center",
+      "body_text": "Learning a new offense isn't the only adjustment that Ravens quarterback Lamar Jackson is making this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T12:09:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-is-excited-as-heck-to-see-what-rashid-shaheed-does-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-is-excited-as-heck-to-see-what-rashid-shaheed-does-in-2026",
+      "title": "Mike Macdonald is \"excited as heck\" to see what Rashid Shaheed does in 2026",
+      "body_text": "The Seahawks' Super Bowl run was fueled in part by the in-season trade that brought receiver Rashid Shaheed from New Orleans.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T10:38:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Rashid Shaheed",
+        "The Seahawks",
+        "Super Bowl",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0037545"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-says-practice-reps-are-getting-him-comfortable-in-eagles-new-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-says-practice-reps-are-getting-him-comfortable-in-eagles-new-offense",
+      "title": "Jalen Hurts says practice reps are getting him comfortable in Eagles' new offense",
+      "body_text": "\"The comfort comes with the repetition,\" Hurts said. \"The comfort comes with the teaching.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-11T08:45:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-booster-cody-campbell-on-brendan-sorsby-backlash-they-dont-want-to-play-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-booster-cody-campbell-on-brendan-sorsby-backlash-they-dont-want-to-play-us",
+      "title": "Texas Tech booster Cody Campbell on Brendan Sorsby backlash: \"They don't want to play us\"",
+      "body_text": "The Brendan Sorsby saga has put billionaire Texas Tech booster Cody Campbell in a pickle.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T03:15:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Texas Tech",
+        "Cody Campbell",
+        "Brendan Sorsby",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-hopeful-that-malik-nabers-will-be-back-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-hopeful-that-malik-nabers-will-be-back-soon",
+      "title": "John Harbaugh \"hopeful\" that Malik Nabers will be back \"soon\"",
+      "body_text": "General Manager Joe Schoen said this week that the Giants expect Malik Nabers to play in the season opener on Sept. 13.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-11T02:14:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Malik Nabers",
+        "General Manager",
+        "Joe Schoen"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-chris-olave-still-not-fully-cleared",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-chris-olave-still-not-fully-cleared",
+      "title": "Saints WR Chris Olave still not fully cleared",
+      "body_text": "Saints wide receiver Chris Olave missed the Week 18 game against the Falcons with a blood clot in his lung.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-11T01:33:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Olave"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-being-challenged-by-new-offense-declan-doyle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-being-challenged-by-new-offense-declan-doyle",
+      "title": "Lamar Jackson being \"challenged\" by new offense, Declan Doyle",
+      "body_text": "Lamar Jackson has a new offensive coordinator and a new offense.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-11T01:07:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Declan Doyle"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-drake-london-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-drake-london-deal",
+      "title": "Inside the Drake London deal",
+      "body_text": "The Falcons have signed receiver Drake London to a long-term deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T00:38:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake London",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0037238"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-political-pressure-on-the-nfl-intensifies-will-the-league-eventually-dump-fox-as-a-partner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-political-pressure-on-the-nfl-intensifies-will-the-league-eventually-dump-fox-as-a-partner",
+      "title": "As political pressure on the NFL intensifies, will the league eventually dump Fox as a partner?",
+      "body_text": "Regardless of how it happened, it's happening.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-10T23:13:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-cb-garrett-williams-for-sure-has-a-chance-to-play-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-cb-garrett-williams-for-sure-has-a-chance-to-play-week-1",
+      "title": "Cardinals CB Garrett Williams \"for sure\" has a chance to play Week 1",
+      "body_text": "The Cardinals received \"great news\" on cornerback Garrett Williams' recovery from a torn Achilles.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-10T22:53:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Garrett Williams",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0039007"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-wants-a-home-run-after-jimmy-haslam-called-his-signing-a-swing-and-miss",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-wants-a-home-run-after-jimmy-haslam-called-his-signing-a-swing-and-miss",
+      "title": "Deshaun Watson wants a home run after Jimmy Haslam called his signing a \"swing and miss\"",
+      "body_text": "Jimmy Haslam gave up on Deshaun Watson 15 months ago when the Browns owner called the team's signing of the quarterback \"a big swing and miss.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-06-10T22:15:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson",
+        "Jimmy Haslam"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-loop-nothings-changed-for-me-im-still-confident-in-my-abilities",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-loop-nothings-changed-for-me-im-still-confident-in-my-abilities",
+      "title": "Tyler Loop: Nothing's changed for me, I'm still confident in my abilities",
+      "body_text": "Ravens kicker Tyler Loop had a chance to send his team to the playoffs in Week 18, but he missed a field goal at the final whistle in a 26-24 loss to the Steelers that set off an offseason of change in Baltimore that included the departure of head coach John Harbaugh.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-10T22:14:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Loop",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0040074"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-zach-charbonnet-being-back-for-week-1-everythings-possible",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-zach-charbonnet-being-back-for-week-1-everythings-possible",
+      "title": "Mike Macdonald on Zach Charbonnet being back for Week 1: \"Everything's possible\"",
+      "body_text": "Seahawks running back Zach Charbonnet suffered a torn ACL during the playoffs.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-10T22:10:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Zach Charbonnet"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-release-zadarius-smith-from-reserve-retired-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-release-zadarius-smith-from-reserve-retired-list",
+      "title": "Eagles release Za'Darius Smith from reserve/retired list",
+      "body_text": "Edge rusher Za'Darius Smith abruptly retired from the Eagles last October, but he's now free to play for any team if he wants to return to the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-10T22:04:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darius Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seth-ryan-coaching-with-jets-means-a-lot-to-my-family",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seth-ryan-coaching-with-jets-means-a-lot-to-my-family",
+      "title": "Seth Ryan: Coaching with Jets means a lot to my family",
+      "body_text": "The last time the Jets made the playoffs, their passing game coordinator was the teenage son of the team's head coach.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-10T21:57:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Seth Ryan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alleged-victim-in-alaric-jackson-case-is-pregnant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alleged-victim-in-alaric-jackson-case-is-pregnant",
+      "title": "Report: Alleged victim in Alaric Jackson case is pregnant",
+      "body_text": "More details are emerging as to the recent criminal allegations against Rams tackle Alaric Jackson.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-10T21:52:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alaric Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0036603"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-c-aaron-brewer-agrees-to-a-three-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-c-aaron-brewer-agrees-to-a-three-year-extension",
+      "title": "Dolphins C Aaron Brewer agrees to a three-year extension",
+      "body_text": "Center Aaron Brewer has agreed to a three-year, $52.5 million extension with the Dolphins, Adam Schefter of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-10T21:49:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Brewer",
+        "Center Aaron",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036171"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-de-a-j-epenesa-og-michael-jordan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-de-a-j-epenesa-og-michael-jordan",
+      "title": "Eagles sign DE A.J. Epenesa, OG Michael Jordan",
+      "body_text": "Defensive end A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-10T21:31:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Jordan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-bring-back-rb-sincere-mccormick-cut-rb-jordan-mims",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-bring-back-rb-sincere-mccormick-cut-rb-jordan-mims",
+      "title": "49ers bring back RB Sincere McCormick, cut RB Jordan Mims",
+      "body_text": "The 49ers have made a change at running back.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-10T21:24:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Mims"
+      ],
+      "resolved_player_ids": [
+        "00-0038678"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cole-bishop-expects-to-be-ready-for-camp-after-cleanup-surgery-on-his-knee",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cole-bishop-expects-to-be-ready-for-camp-after-cleanup-surgery-on-his-knee",
+      "title": "Cole Bishop expects to be ready for camp after cleanup surgery on his knee",
+      "body_text": "Bills safety Cole Bishop became a full-time starter last season, playing all 17 games.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-10T21:04:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cole Bishop"
+      ],
+      "resolved_player_ids": [
+        "00-0039872"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-wr-brandon-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-wr-brandon-johnson",
+      "title": "Raiders sign WR Brandon Johnson",
+      "body_text": "Veteran wide receiver Brandon Johnson didn't have to wait long to find a new home after being released by the Steelers on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-10T20:57:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0037382"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-on-a-j-brown-saying-they-drifted-apart-i-cant-challenge-anyones-perspective",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-on-a-j-brown-saying-they-drifted-apart-i-cant-challenge-anyones-perspective",
+      "title": "Jalen Hurts on A.J. Brown saying they drifted apart: I can't challenge anyone's perspective",
+      "body_text": "Eagles quarterback Jalen Hurts spoke to reporters on Wednesday for the first time since wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-10T20:50:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-patrick-mahomes-chiefs-agree-to-first-nfl-deal-worth-over-500m",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-patrick-mahomes-chiefs-agree-to-first-nfl-deal-worth-over-500m",
+      "title": "Report: Patrick Mahomes, Chiefs agree to first NFL deal worth over $500M",
+      "body_text": "Kansas City's QB1 is now under contract through 2033, with his new money also carrying a record AAV of $64M.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-10T20:41:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-on-a-j-brown-its-hard-not-to-get-excited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-on-a-j-brown-its-hard-not-to-get-excited",
+      "title": "Drake Maye on A.J. Brown: \"It's hard not to get excited\"",
+      "body_text": "One of the biggest beneficiaries of the Patriots bringing in receiver A.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-10T20:22:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texas-tech-will-sue-if-big-12-tries-to-impose-sanctions-regarding-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texas-tech-will-sue-if-big-12-tries-to-impose-sanctions-regarding-brendan-sorsby",
+      "title": "Report: Texas Tech will sue, if Big 12 tries to impose sanctions regarding Brendan Sorsby",
+      "body_text": "At a time when the Big 12 is considering taking action against Texas Tech, if/when quarterback Brendan Sorsby plays in games this season, Texas Tech has a message for its conference.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-10T20:20:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-nflpa-have-yet-to-begin-formal-negotiations-on-cba-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-nflpa-have-yet-to-begin-formal-negotiations-on-cba-extension",
+      "title": "NFL, NFLPA have yet to begin \"formal negotiations\" on CBA extension",
+      "body_text": "18 games by 2027 remains highly unlikely.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-10T20:00:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-declines-to-share-why-jalen-carter-isnt-doing-team-drills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-declines-to-share-why-jalen-carter-isnt-doing-team-drills",
+      "title": "Nick Sirianni declines to share why Jalen Carter isn't doing team drills",
+      "body_text": "Eagles defensive tackle Jalen Carter didn't do team drills at this week's minicamp, but head coach Nick Sirianni had no interest in discussing the reason why Carter was not part of that work.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-10T19:55:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Jalen Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-is-not-ready-to-say-whether-andy-dalton-or-tanner-mckee-is-eagles-no-2-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-is-not-ready-to-say-whether-andy-dalton-or-tanner-mckee-is-eagles-no-2-qb",
+      "title": "Nick Sirianni is not ready to say whether Andy Dalton or Tanner McKee is Eagles' No. 2 QB",
+      "body_text": "The Eagles have four quarterbacks on their roster.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-10T19:44:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Andy Dalton",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0027973"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}
