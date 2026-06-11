@@ -55,6 +55,7 @@ from graph_game_script import (
     compute_game_script_features,
     compute_game_script_usage,
 )
+from graph_route_participation import compute_route_participation
 from graph_red_zone import (
     RED_ZONE_FEATURE_COLUMNS,
     compute_red_zone_features,
@@ -364,9 +365,7 @@ def compute_season_features(
         )
         # Filter to target season only
         if not wr_advanced_df.empty and "season" in wr_advanced_df.columns:
-            wr_advanced_df = wr_advanced_df[
-                wr_advanced_df["season"] == season
-            ].copy()
+            wr_advanced_df = wr_advanced_df[wr_advanced_df["season"] == season].copy()
         # Rename receiver_player_id -> player_id for consistent join keys
         if not wr_advanced_df.empty and "receiver_player_id" in wr_advanced_df.columns:
             wr_advanced_df = wr_advanced_df.rename(
@@ -389,9 +388,7 @@ def compute_season_features(
         )
         # Filter to target season only
         if not te_advanced_df.empty and "season" in te_advanced_df.columns:
-            te_advanced_df = te_advanced_df[
-                te_advanced_df["season"] == season
-            ].copy()
+            te_advanced_df = te_advanced_df[te_advanced_df["season"] == season].copy()
         # Rename receiver_player_id -> player_id for consistent join keys
         if not te_advanced_df.empty and "receiver_player_id" in te_advanced_df.columns:
             te_advanced_df = te_advanced_df.rename(
@@ -399,6 +396,13 @@ def compute_season_features(
             )
     results["te_advanced"] = te_advanced_df
     logger.info("TE advanced matchup: %d rows", len(results["te_advanced"]))
+
+    # --- 12. Route participation features (plan 2.2) ---
+    logger.info("Computing route participation features...")
+    results["route_participation"] = compute_route_participation(
+        pbp_df, participation_df
+    )
+    logger.info("Route participation: %d rows", len(results["route_participation"]))
 
     return results
 
@@ -447,6 +451,7 @@ def save_features(
         "rb_matchup": f"graph_rb_matchup_{ts}.parquet",
         "wr_advanced": f"graph_wr_advanced_{ts}.parquet",
         "te_advanced": f"graph_te_advanced_{ts}.parquet",
+        "route_participation": f"graph_route_participation_{ts}.parquet",
     }
 
     for key, filename in file_map.items():
@@ -475,6 +480,7 @@ def save_features(
         "rb_matchup",
         "wr_advanced",
         "te_advanced",
+        "route_participation",
     ]:
         df = results.get(key, pd.DataFrame())
         if not df.empty and all(c in df.columns for c in join_cols):

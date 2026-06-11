@@ -108,12 +108,17 @@ _SAME_WEEK_RAW_STATS = {
     "fantasy_points_target",
     "actual_pts",
     "actual_points",
+    # Route participation raw values describe the week being played
+    # (graph_route_participation.py); only the _trail variants are features.
+    "route_rate",
+    "dropbacks_on_field",
+    "team_dropbacks",
 }
 
 # Lagged column suffixes — rolling variants have shift(1) applied upstream
 # and are the only valid form of the raw metrics below. _trail8 marks the
 # trailing-form columns computed by _add_trailing_matchup_form().
-_LAGGED_SUFFIXES = ("_roll3", "_roll6", "_std", "_trail8")
+_LAGGED_SUFFIXES = ("_roll3", "_roll6", "_std", "_trail8", "_trail4", "_trail2")
 
 # Raw weekly advanced stats (NGS / PFR / QBR) are joined on
 # (player_id, season, week) with NO lag in assemble_multiyear_player_features
@@ -197,6 +202,52 @@ _CAREER_OUTCOME_COLS = {
     "to",
     "w_av",
 }
+
+
+def _join_route_participation(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join route participation features from Silver graph tables.
+
+    Joins graph_route_participation_*.parquet on (player_id, season, week).
+    Raw route_rate/counts come along for Silver completeness but are
+    excluded from model features via _SAME_WEEK_RAW_STATS; the lagged
+    _trail variants are the model features.
+
+    Args:
+        df: Player-week DataFrame.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with route participation columns joined (no-op when the
+        Silver table is absent).
+    """
+    rp_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    files = sorted(
+        glob.glob(os.path.join(rp_dir, "graph_route_participation_*.parquet"))
+    )
+    if not files:
+        return df
+    try:
+        rp = pd.read_parquet(files[-1])
+    except Exception as exc:
+        logger.warning("Could not read route participation: %s", exc)
+        return df
+    join_cols = ["player_id", "season", "week"]
+    if not all(c in rp.columns for c in join_cols):
+        return df
+    new_cols = [
+        c
+        for c in rp.columns
+        if c not in join_cols and c not in df.columns and c != "recent_team"
+    ]
+    if not new_cols:
+        return df
+    out = df.merge(
+        rp[join_cols + new_cols].drop_duplicates(subset=join_cols, keep="last"),
+        on=join_cols,
+        how="left",
+    )
+    logger.info("Joined %d route participation columns", len(new_cols))
+    return out
 
 
 def _add_trailing_matchup_form(df: pd.DataFrame, window: int = 8) -> pd.DataFrame:
@@ -1517,6 +1568,9 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 13. Optional: join TE matchup + red zone features (Phase 2 graph)
     base = _join_te_features(base, season)
+
+    # 13a. Route participation (plan 2.2): lagged route-rate form.
+    base = _join_route_participation(base, season)
 
     # 13b. Trailing-form versions of the same-game matchup aggregates.
     # The raw wr_matchup_*/te_matchup_* columns describe the week being

@@ -173,6 +173,12 @@ _SCHEME_FEATURES = [
     "def_run_epa_allowed",
 ]
 
+# Route participation features (2, lagged) — from graph_route_participation
+_ROUTE_PARTICIPATION_FEATURES = [
+    "route_rate_trail4",
+    "route_rate_delta_trail2",
+]
+
 # RB matchup features (8) — from compute_rb_matchup_features (new module)
 _RB_MATCHUP_FEATURES = [
     "rb_matchup_avg_dl_count",
@@ -198,6 +204,7 @@ GRAPH_FEATURE_SET: List[str] = (
     + _OL_RB_FEATURES
     + _SCHEME_FEATURES
     + _RB_MATCHUP_FEATURES
+    + _ROUTE_PARTICIPATION_FEATURES
 )
 
 # Position-specific graph feature subsets for targeted enrichment
@@ -209,6 +216,7 @@ GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
         + _GAME_SCRIPT_FEATURES
         + _RED_ZONE_FEATURES
         + _INJURY_CASCADE_FEATURES
+        + _ROUTE_PARTICIPATION_FEATURES
     ),
     "TE": (
         _TE_MATCHUP_FEATURES
@@ -217,6 +225,7 @@ GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
         + _GAME_SCRIPT_FEATURES
         + _QB_WR_CHEMISTRY_FEATURES
         + _INJURY_CASCADE_FEATURES
+        + _ROUTE_PARTICIPATION_FEATURES
     ),
     "RB": (
         _OL_RB_FEATURES
