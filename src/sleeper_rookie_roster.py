@@ -157,6 +157,7 @@ def build_sleeper_rookie_supplement(
     target_season: int,
     existing_player_ids: set[str],
     draft_picks_df: Optional[pd.DataFrame] = None,
+    existing_player_names: Optional[set[str]] = None,
 ) -> pd.DataFrame:
     """Build a roster-compatible supplement for 2026 rookies missing from nfl-data-py.
 
@@ -166,7 +167,13 @@ def build_sleeper_rookie_supplement(
     ``project_low_sample_players``.
 
     Players whose ``player_id`` already appears in ``existing_player_ids`` are
-    skipped to avoid duplicate rows.
+    skipped to avoid duplicate rows.  Because the supplement assigns short
+    gsis_ids (or ``SLP-`` ids) while nfl-data-py uses ``00-0XXXXXX`` ids, the
+    id check alone cannot detect the same human under both formats — once
+    nfl-data-py ingests the draft class (typically 2-4 weeks post-draft) the
+    id sets are disjoint.  ``existing_player_names`` closes that gap: rookies
+    whose ``(lowercased name, position)`` key already appears in the
+    nfl-data-py roster are skipped regardless of id format.
 
     Args:
         target_season: The season being projected (e.g. 2026).  Used to
@@ -178,6 +185,9 @@ def build_sleeper_rookie_supplement(
             the supplement uses the short gsis_id from this table as
             ``player_id`` (matching depth_charts) and populates
             ``draft_number`` for the draft-capital override logic.
+        existing_player_names: Optional set of ``"{name_lower}|{position}"``
+            keys already present in the nfl-data-py roster_df.  Guards
+            against duplicate rows under mismatched id formats.
 
     Returns:
         DataFrame with columns compatible with the nfl-data-py rosters schema.
@@ -202,6 +212,9 @@ def build_sleeper_rookie_supplement(
             continue
 
         # True rookies only (years_exp = 0 means entering their first season).
+        # years_exp=None (unsigned UDFA whose contract Sleeper hasn't
+        # processed yet) is intentionally excluded: those players also lack a
+        # team assignment and would fall to the noisy unknown-role baseline.
         years_exp = info.get("years_exp")
         if years_exp != 0:
             continue
@@ -239,6 +252,15 @@ def build_sleeper_rookie_supplement(
         if f"SLP-{sleeper_pid}" in existing_player_ids:
             continue
 
+        # Name+position dedup: catches the same human present in nfl-data-py
+        # under a canonical 00-0XXXXXX id (id formats are disjoint, so the id
+        # checks above can never fire for that case).
+        if (
+            existing_player_names is not None
+            and f"{name_lower}|{position}" in existing_player_names
+        ):
+            continue
+
         draft_number = pick_number_map.get(name_lower)
 
         status = str(info.get("status") or "ACT")
@@ -251,6 +273,9 @@ def build_sleeper_rookie_supplement(
             "PracticeSquad": "INA",
         }
         status = status_map.get(status, status)
+        # Practice-squad (and any unknown status) coerces to ACT on purpose:
+        # PS rookies are routinely elevated mid-season and should keep their
+        # full projection weight rather than being zeroed by injury logic.
         if status not in {"ACT", "RES", "PUP"}:
             status = "ACT"
 
@@ -288,7 +313,9 @@ def build_sleeper_rookie_supplement(
             "pfr_id": None,
             "fantasy_data_id": None,
             "sleeper_id": sleeper_pid,
-            "headshot_url": info.get("fantasy_data_id"),
+            "headshot_url": (
+                f"https://sleepercdn.com/content/nfl/players/thumb/{sleeper_pid}.jpg"
+            ),
             "esb_id": None,
             "gsis_it_id": None,
             "smart_id": None,

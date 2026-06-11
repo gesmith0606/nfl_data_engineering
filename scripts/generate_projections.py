@@ -451,10 +451,23 @@ def main():
                     if not roster_df.empty
                     else []
                 )
+                # Name+position keys guard against duplicates once
+                # nfl-data-py ingests the draft class under canonical
+                # 00-0XXXXXX ids (disjoint from the supplement's short ids).
+                existing_names: set = set()
+                if not roster_df.empty and {"player_name", "position"}.issubset(
+                    roster_df.columns
+                ):
+                    existing_names = set(
+                        roster_df["player_name"].astype(str).str.lower().str.strip()
+                        + "|"
+                        + roster_df["position"].astype(str)
+                    )
                 sleeper_supplement = build_sleeper_rookie_supplement(
                     target_season=args.season,
                     existing_player_ids=existing_ids,
                     draft_picks_df=draft_picks_df if not draft_picks_df.empty else None,
+                    existing_player_names=existing_names,
                 )
                 if not sleeper_supplement.empty:
                     if roster_df.empty:
@@ -585,6 +598,40 @@ def main():
         else:
             print("WARN: No defensive strength table; matchup factor neutral")
 
+        # Load snap counts for the RB snap-collapse correction (week-
+        # partitioned Bronze; prior season included so the trailing snap
+        # window spans the season boundary). The engine lags internally —
+        # week-t snaps never influence the week-t signal.
+        snap_parts = []
+        for s in (args.season - 1, args.season):
+            snap_pattern = os.path.join(
+                BRONZE_DIR, f"players/snaps/season={s}/week=*/*.parquet"
+            )
+            snap_files = sorted(globmod.glob(snap_pattern))
+            if snap_files:
+                snap_parts.append(
+                    pd.concat(
+                        [pd.read_parquet(f) for f in snap_files],
+                        ignore_index=True,
+                    )
+                )
+        snap_counts_df = (
+            pd.concat(snap_parts, ignore_index=True) if snap_parts else pd.DataFrame()
+        )
+        if not snap_counts_df.empty:
+            for _c in ("week", "season"):
+                if _c in snap_counts_df.columns:
+                    snap_counts_df[_c] = pd.to_numeric(
+                        snap_counts_df[_c], errors="coerce"
+                    )
+            if "offense_pct" in snap_counts_df.columns:
+                snap_counts_df["offense_pct"] = pd.to_numeric(
+                    snap_counts_df["offense_pct"], errors="coerce"
+                ).fillna(0.0)
+            print(f"Loaded {len(snap_counts_df):,} snap-count rows (RB snap-collapse)")
+        else:
+            print("WARN: No snap counts found — RB snap-collapse will be skipped")
+
         # Current-season slice for bye detection / implied totals — the
         # two-season frame above is only for the trailing strength window.
         season_sched = (
@@ -654,6 +701,10 @@ def main():
                 implied_totals=implied_totals,
                 apply_constraints=args.constrain,
                 feature_df=feature_df,
+                # Same data the heuristic branch passes — keeps the router's
+                # internal heuristic baselines identical to the plain path.
+                weekly_df=strength_weekly if not strength_weekly.empty else None,
+                snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
             )
         else:
             projections = generate_weekly_projections(
@@ -670,6 +721,7 @@ def main():
                 # strength_weekly was already loaded above for the defensive
                 # strength table and covers season-1 and season.
                 weekly_df=strength_weekly if not strength_weekly.empty else None,
+                snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
             )
 
         # Load injury data and apply adjustments
