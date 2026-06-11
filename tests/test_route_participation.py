@@ -91,12 +91,23 @@ class TestComputeRouteParticipation:
         assert wk3 == pytest.approx(1.0)
 
     def test_delta_is_prior_weeks_only(self):
-        pbp = _pbp(n_weeks=4)
+        pbp = _pbp(n_weeks=5)
         out = compute_route_participation(pbp, _participation(pbp))
         full = out[out["player_id"] == "wr_full"].sort_values("week")
-        # constant 1.0 rate -> delta 0 from week 3 on; week 1-2 NaN
-        assert full[full["week"] >= 3]["route_rate_delta_trail2"].eq(0).all()
-        assert full[full["week"] <= 2]["route_rate_delta_trail2"].isna().all()
+        # delta = diff of trail4, which is defined from week 3 (min_periods=2
+        # on the shifted series), so the diff is defined (and 0 for a
+        # constant 1.0 rate) from week 4 on; weeks 1-3 NaN
+        assert full[full["week"] >= 4]["route_rate_delta"].eq(0).all()
+        assert full[full["week"] <= 3]["route_rate_delta"].isna().all()
+
+    def test_slope_is_prior_weeks_only(self):
+        pbp = _pbp(n_weeks=5)
+        out = compute_route_participation(pbp, _participation(pbp))
+        full = out[out["player_id"] == "wr_full"].sort_values("week")
+        # slope needs >=3 prior weeks of shifted data, so weeks 1-3 NaN;
+        # constant 1.0 rate -> slope 0 once defined
+        assert full[full["week"] <= 3]["route_rate_slope"].isna().all()
+        assert full[full["week"] >= 4]["route_rate_slope"].eq(0).all()
 
     def test_empty_inputs(self):
         assert compute_route_participation(pd.DataFrame(), pd.DataFrame()).empty
