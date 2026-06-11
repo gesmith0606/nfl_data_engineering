@@ -39,9 +39,7 @@ from backtest_projections import run_backtest  # noqa: E402
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-EVAL_OUTPUT_DIR = os.path.join(
-    os.path.dirname(__file__), "..", "output", "eval"
-)
+EVAL_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "output", "eval")
 
 # Ship gate thresholds per the PFE protocol spec
 SHIP_GATE_MIN_MAE_IMPROVEMENT = 0.10  # pts — minimum improvement per position
@@ -49,6 +47,50 @@ SHIP_GATE_MAX_BIAS_ITER = 0.5  # pts — max bias magnitude on iteration (2024) 
 SHIP_GATE_MAX_BIAS_GATE = 1.0  # pts — max bias magnitude on sealed gate (2025)
 
 POSITIONS = ["QB", "RB", "WR", "TE"]
+
+# Holdout-use ledger: every sealed-gate evaluation is recorded so erosion of
+# the holdout is visible. 2025 was used 4x on 2026-06-10 (ensemble meta check,
+# v4.2 heuristic gate, two hybrid gate runs) and is now AMBER: acceptable for
+# confirming an already-selected change, no longer valid for selecting among
+# candidates. The 2026 season (forward-only, zero-look) becomes the next
+# sealed set as it completes.
+HOLDOUT_LEDGER_PATH = os.path.join(
+    os.path.dirname(__file__), "..", ".planning", "holdout_ledger.json"
+)
+HOLDOUT_AMBER_THRESHOLD = 3  # uses after which a season is declared amber
+
+
+def _record_holdout_use(experiment_name: str, seasons: List[int]) -> int:
+    """Append a sealed-gate use to the ledger and return total prior uses.
+
+    Args:
+        experiment_name: Name of the gate experiment being run.
+        seasons: Seasons evaluated in this gate run.
+
+    Returns:
+        Number of ledger entries that already touched any of these seasons
+        (before this run was recorded).
+    """
+    ledger: List[Dict] = []
+    if os.path.exists(HOLDOUT_LEDGER_PATH):
+        try:
+            with open(HOLDOUT_LEDGER_PATH, "r") as fh:
+                ledger = json.load(fh)
+        except (OSError, json.JSONDecodeError):
+            ledger = []
+
+    prior_uses = sum(1 for e in ledger if set(e.get("seasons", [])) & set(seasons))
+    ledger.append(
+        {
+            "timestamp": datetime.utcnow().isoformat(),
+            "experiment": experiment_name,
+            "seasons": seasons,
+        }
+    )
+    os.makedirs(os.path.dirname(HOLDOUT_LEDGER_PATH), exist_ok=True)
+    with open(HOLDOUT_LEDGER_PATH, "w") as fh:
+        json.dump(ledger, fh, indent=2)
+    return prior_uses
 
 
 def _summary_path(experiment_name: str) -> str:
@@ -213,9 +255,7 @@ def _compute_delta(
                 f"delta {diff:+.3f} does not meet -{SHIP_GATE_MIN_MAE_IMPROVEMENT} threshold"
             )
         if not bias_ok:
-            reasons.append(
-                f"bias {e_bias:+.3f} exceeds +/-{max_bias} limit"
-            )
+            reasons.append(f"bias {e_bias:+.3f} exceeds +/-{max_bias} limit")
 
         delta[pos] = {
             "baseline_mae": round(b_mae, 4),
@@ -247,11 +287,7 @@ def _print_comparison_table(
         | set(exp2.get("position_mae", {}).keys())
     )
 
-    header = (
-        f"\n{'=' * 75}\n"
-        f"COMPARISON: {exp1_name} vs {exp2_name}\n"
-        f"{'=' * 75}"
-    )
+    header = f"\n{'=' * 75}\n" f"COMPARISON: {exp1_name} vs {exp2_name}\n" f"{'=' * 75}"
     print(header)
     print(
         f"  {'Position':<10} {'Baseline MAE':>14} {'Experiment MAE':>16}"
@@ -271,7 +307,11 @@ def _print_comparison_table(
         diff = e_mae - b_mae
         bias_ok = e_bias is not None and abs(e_bias) <= SHIP_GATE_MAX_BIAS_ITER
         ships = diff <= -SHIP_GATE_MIN_MAE_IMPROVEMENT and bias_ok
-        ship_label = f"YES (>{SHIP_GATE_MIN_MAE_IMPROVEMENT})" if ships else f"NO (<{SHIP_GATE_MIN_MAE_IMPROVEMENT})"
+        ship_label = (
+            f"YES (>{SHIP_GATE_MIN_MAE_IMPROVEMENT})"
+            if ships
+            else f"NO (<{SHIP_GATE_MIN_MAE_IMPROVEMENT})"
+        )
         print(
             f"  {pos:<10} {b_mae:>14.2f} {e_mae:>16.2f} {diff:>+10.2f} {ship_label:>8}"
         )
@@ -319,9 +359,7 @@ def _print_delta_report(
         e_str = f"{e:.2f}" if e is not None else "N/A"
         d_str = f"{d:+.2f}" if d is not None else "N/A"
         ship_str = "YES" if ships else "NO"
-        print(
-            f"  {pos:<10} {b_str:>14} {e_str:>16} {d_str:>10} {ship_str:>8}"
-        )
+        print(f"  {pos:<10} {b_str:>14} {e_str:>16} {d_str:>10} {ship_str:>8}")
     print()
     print(f"  Overall MAE:  {metrics['overall_mae']:.2f}")
     print(f"  Overall Bias: {metrics['overall_bias']:+.2f}")
@@ -359,6 +397,7 @@ def run_experiment(
         The summary dict that was written to disk.
     """
     if is_gate:
+        prior_uses = _record_holdout_use(experiment_name, seasons)
         warnings.warn(
             "\n"
             "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
@@ -368,14 +407,22 @@ def run_experiment(
             "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n",
             stacklevel=2,
         )
+        amber = (
+            " (AMBER — confirmation only)"
+            if prior_uses >= HOLDOUT_AMBER_THRESHOLD
+            else ""
+        )
         print(
-            "\nWARNING: --gate flag active. This is the SEALED HOLDOUT set.\n"
+            f"\nWARNING: --gate flag active. This is the SEALED HOLDOUT set{amber}.\n"
+            f"         Prior recorded gate uses of these seasons: {prior_uses}.\n"
             "         Run at most once per candidate model.\n"
         )
 
     season_label = ",".join(str(s) for s in seasons)
-    mode_label = "ML + Full Features" if (use_ml and full_features) else (
-        "ML" if use_ml else "Heuristic"
+    mode_label = (
+        "ML + Full Features"
+        if (use_ml and full_features)
+        else ("ML" if use_ml else "Heuristic")
     )
     print(f"\n{'=' * 60}")
     print(f"PFE Run: experiment={experiment_name}")
