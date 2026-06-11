@@ -203,7 +203,12 @@ class PlayerNameResolver:
 
     # Canonical columns retained after per-file normalisation before concat.
     _KEEP_COLS: List[str] = [
-        "player_id", "full_name", "football_name", "team", "position", "season"
+        "player_id",
+        "full_name",
+        "football_name",
+        "team",
+        "position",
+        "season",
     ]
 
     def _build_index(self) -> None:
@@ -269,6 +274,17 @@ class PlayerNameResolver:
         if "season" in combined.columns:
             combined = combined.sort_values("season", ascending=False)
 
+        # De-duplicate BEFORE iterating: the loop below only keeps the first
+        # occurrence per player_id anyway, but iterating every roster/depth
+        # chart row across all committed seasons (hundreds of thousands) via
+        # iterrows() took minutes and grew with every daily roster commit —
+        # it stalled both the test suite and the daily sentiment pipeline.
+        # drop_duplicates(keep="first") on the newest-first sort is identical
+        # in behaviour and reduces the loop to ~unique-player count.
+        combined["player_id"] = combined["player_id"].astype(str).str.strip()
+        combined = combined[combined["player_id"] != ""]
+        combined = combined.drop_duplicates(subset="player_id", keep="first")
+
         for _, row in combined.iterrows():
             pid = str(row["player_id"]).strip()
             if not pid or pid in seen_player_ids:
@@ -286,9 +302,7 @@ class PlayerNameResolver:
             display = str(row.get("football_name", "")).strip()
             first_token = full.split()[0] if full else ""
             use_display = (
-                display
-                and display != "nan"
-                and display.lower() != first_token.lower()
+                display and display != "nan" and display.lower() != first_token.lower()
             )
             norm = _normalise(display if use_display else full)
 
@@ -296,7 +310,11 @@ class PlayerNameResolver:
             position = str(row.get("position", "")).strip().upper()
             season_val = row["season"] if "season" in row.index else None
             try:
-                season = int(season_val) if season_val is not None and season_val == season_val else 0
+                season = (
+                    int(season_val)
+                    if season_val is not None and season_val == season_val
+                    else 0
+                )
             except (TypeError, ValueError):
                 season = 0
 
@@ -413,7 +431,9 @@ class PlayerNameResolver:
             candidates = self._fuzzy_candidates(norm, threshold=0.80)
 
         if not candidates:
-            logger.debug("PlayerNameResolver: no match for '%s' (norm='%s')", name, norm)
+            logger.debug(
+                "PlayerNameResolver: no match for '%s' (norm='%s')", name, norm
+            )
             return None
 
         if len(candidates) == 1:
@@ -493,7 +513,8 @@ class PlayerNameResolver:
         # Filter to team+position match
         if team_upper and pos_upper:
             both = [
-                c for c in candidates
+                c
+                for c in candidates
                 if c.team == team_upper and c.position == pos_upper
             ]
             if len(both) == 1:
