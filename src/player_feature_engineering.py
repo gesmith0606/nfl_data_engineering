@@ -102,11 +102,18 @@ _SAME_WEEK_RAW_STATS = {
     "team_score",
     "opp_score",
     "score_diff",
+    # Script-invented target columns (training scripts append these to the
+    # frame before feature selection; without this entry the target itself
+    # becomes a feature — the Phase 56/57 calibration-research bug).
+    "fantasy_points_target",
+    "actual_pts",
+    "actual_points",
 }
 
 # Lagged column suffixes — rolling variants have shift(1) applied upstream
-# and are the only valid form of the raw metrics below.
-_LAGGED_SUFFIXES = ("_roll3", "_roll6", "_std")
+# and are the only valid form of the raw metrics below. _trail8 marks the
+# trailing-form columns computed by _add_trailing_matchup_form().
+_LAGGED_SUFFIXES = ("_roll3", "_roll6", "_std", "_trail8")
 
 # Raw weekly advanced stats (NGS / PFR / QBR) are joined on
 # (player_id, season, week) with NO lag in assemble_multiyear_player_features
@@ -190,6 +197,49 @@ _CAREER_OUTCOME_COLS = {
     "to",
     "w_av",
 }
+
+
+def _add_trailing_matchup_form(df: pd.DataFrame, window: int = 8) -> pd.DataFrame:
+    """Add shift(1) trailing means of the same-game matchup aggregates.
+
+    The wr_matchup_*/te_matchup_* graph columns are per-game outcome stats of
+    the very week being predicted, so they are excluded as model features
+    (v4.2 leakage audit). Their trailing per-player means are legitimate
+    "receiver form" signals: e.g. wr_matchup_yac_per_catch_trail8 is the
+    player's average YAC per catch over the previous ``window`` games.
+
+    Args:
+        df: Player-week DataFrame (single season) with player_id, season,
+            week, and raw matchup columns.
+        window: Trailing window size in games.
+
+    Returns:
+        DataFrame with ``{col}_trail8`` columns appended for each raw
+        wr_matchup_*/te_matchup_* column present. No-op when none exist.
+    """
+    matchup_cols = [
+        c
+        for c in df.columns
+        if c.startswith(("wr_matchup_", "te_matchup_"))
+        and not c.endswith(_LAGGED_SUFFIXES)
+    ]
+    if not matchup_cols or "player_id" not in df.columns:
+        return df
+
+    df = df.sort_values(["player_id", "season", "week"])
+    trail = {}
+    grouped = df.groupby("player_id")
+    for col in matchup_cols:
+        trail[f"{col}_trail{window}"] = grouped[col].transform(
+            lambda s: s.shift(1).rolling(window, min_periods=2).mean()
+        )
+    df = df.assign(**trail)
+    logger.info(
+        "Added %d trailing matchup form columns (window=%d)",
+        len(trail),
+        window,
+    )
+    return df
 
 
 def _is_unlagged_leak(column: str) -> bool:
@@ -1467,6 +1517,13 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 13. Optional: join TE matchup + red zone features (Phase 2 graph)
     base = _join_te_features(base, season)
+
+    # 13b. Trailing-form versions of the same-game matchup aggregates.
+    # The raw wr_matchup_*/te_matchup_* columns describe the week being
+    # predicted (leakage — excluded from features); their _trail8 variants
+    # are shift(1) trailing means of the player's own per-game values and
+    # are the legitimate "form" signal.
+    base = _add_trailing_matchup_form(base)
 
     # 14. Optional: join scheme/defensive front features (RB only)
     base = _join_scheme_features(base, season)

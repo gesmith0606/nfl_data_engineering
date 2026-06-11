@@ -93,7 +93,14 @@ def train_quantile_models(
     # Identify feature columns (exclude identifiers, labels, target)
     from player_feature_engineering import get_player_feature_columns
 
-    feature_cols = get_player_feature_columns(features_df)
+    # CRITICAL: the caller appends target_col to features_df before this
+    # function runs; get_player_feature_columns has no knowledge of
+    # script-invented column names, so the target itself leaked into the
+    # feature set (Phase 57's "74-82% calibration" was the model predicting
+    # the target from itself — q50 MAE 0.14 vs heuristic 4.78).
+    feature_cols = [
+        c for c in get_player_feature_columns(features_df) if c != target_col
+    ]
     logger.info("Using %d feature columns for quantile training", len(feature_cols))
 
     # Determine validation seasons
