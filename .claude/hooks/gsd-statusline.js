@@ -318,6 +318,12 @@ function runStatusline() {
       const usableRemaining = Math.max(0, ((remaining - AUTO_COMPACT_BUFFER_PCT) / (100 - AUTO_COMPACT_BUFFER_PCT)) * 100);
       const used = Math.max(0, Math.min(100, Math.round(100 - usableRemaining)));
 
+      // Raw tokens left, k-suffixed for status-line readability.
+      // Uses raw remaining_percentage (not the auto-compact-normalized usable
+      // value) so the count matches what `/context` and the Anthropic API
+      // report — the user's mental model of "tokens left in this session".
+      const tokensLeft = Math.round((totalCtx * remaining) / 100 / 1000);
+
       // Write context metrics to bridge file for the context-monitor PostToolUse hook.
       // The monitor reads this file to inject agent-facing warnings when context is low.
       // Reject session IDs with path separators or traversal sequences to prevent
@@ -347,15 +353,18 @@ function runStatusline() {
       const filled = Math.floor(used / 10);
       const bar = '█'.repeat(filled) + '░'.repeat(10 - filled);
 
-      // Color based on usable context thresholds
+      // Color based on usable context thresholds.
+      // Suffix appends `(NNNk left)` so the actual token count is visible
+      // alongside the percentage meter, not just the % bar.
+      const tail = `${bar} ${used}% (${tokensLeft}k left)`;
       if (used < 50) {
-        ctx = ` \x1b[32m${bar} ${used}%\x1b[0m`;
+        ctx = ` \x1b[32m${tail}\x1b[0m`;
       } else if (used < 65) {
-        ctx = ` \x1b[33m${bar} ${used}%\x1b[0m`;
+        ctx = ` \x1b[33m${tail}\x1b[0m`;
       } else if (used < 80) {
-        ctx = ` \x1b[38;5;208m${bar} ${used}%\x1b[0m`;
+        ctx = ` \x1b[38;5;208m${tail}\x1b[0m`;
       } else {
-        ctx = ` \x1b[5;31m💀 ${bar} ${used}%\x1b[0m`;
+        ctx = ` \x1b[5;31m💀 ${tail}\x1b[0m`;
       }
     }
 
