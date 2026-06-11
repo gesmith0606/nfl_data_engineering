@@ -253,8 +253,8 @@ def main():
 
         adapter = NFLDataAdapter()
 
-        most_recent_season = args.season - 1   # e.g. 2025 — REQUIRED
-        prior_season = args.season - 2         # e.g. 2024 — best-effort
+        most_recent_season = args.season - 1  # e.g. 2025 — REQUIRED
+        prior_season = args.season - 2  # e.g. 2024 — best-effort
 
         # Hoisted out of the conditional below: line 273 references this in a
         # list comprehension unconditionally, so a 2026 run (where the if-block
@@ -275,9 +275,11 @@ def main():
                 )
                 return 1
 
-        past_seasons = [s for s in [prior_season, most_recent_season]
-                        if s in fetcher.available_seasons
-                        or s >= STATS_PLAYER_MIN_SEASON]
+        past_seasons = [
+            s
+            for s in [prior_season, most_recent_season]
+            if s in fetcher.available_seasons or s >= STATS_PLAYER_MIN_SEASON
+        ]
 
         seasonal_df = adapter.fetch_seasonal_data(past_seasons)
 
@@ -346,9 +348,8 @@ def main():
             try:
                 rosters = nfl.import_seasonal_rosters(roster_seasons)
                 # Take the most-recent roster entry per player_id for stable values
-                roster_latest = (
-                    rosters.sort_values("season")
-                    .drop_duplicates(subset=["player_id"], keep="last")
+                roster_latest = rosters.sort_values("season").drop_duplicates(
+                    subset=["player_id"], keep="last"
                 )
                 roster_lookup = roster_latest.set_index("player_id")[
                     ["position", "player_name", "team"]
@@ -410,7 +411,9 @@ def main():
         # Load latest roster bronze + recent weekly bronze to drive the
         # low-sample / silent-drop fix (rookies and journeymen with thin NFL
         # samples that the seasonal aggregation drops).
-        roster_df = _read_local_parquet(BRONZE_DIR, "players/rosters/season=*/*.parquet")
+        roster_df = _read_local_parquet(
+            BRONZE_DIR, "players/rosters/season=*/*.parquet"
+        )
         if not roster_df.empty:
             # Keep only the latest snapshot (latest season).
             latest_season = roster_df["season"].max()
@@ -418,6 +421,56 @@ def main():
             print(
                 f"Loaded {len(roster_df):,} roster rows (season={latest_season}) for low-sample fix"
             )
+
+        # Supplement the nfl-data-py roster with Sleeper rookie data.
+        # nfl-data-py's seasonal rosters lag several weeks after the NFL draft
+        # before newly-signed draftees appear.  Sleeper updates within hours of
+        # signings and always has the full incoming draft class.
+        # We only do this for the target season to avoid adding historical noise.
+        if args.season >= 2026:
+            try:
+                from sleeper_rookie_roster import build_sleeper_rookie_supplement
+
+                # Load draft_picks bronze for the target season to get gsis_ids
+                # (short format matching depth_charts) and overall pick numbers.
+                draft_picks_df = _read_local_parquet(
+                    BRONZE_DIR, f"draft_picks/season={args.season}/*.parquet"
+                )
+                if draft_picks_df.empty:
+                    # Fall back to any available draft_picks vintage.
+                    draft_picks_df = _read_local_parquet(
+                        BRONZE_DIR, "draft_picks/season=*/*.parquet"
+                    )
+                    if not draft_picks_df.empty:
+                        draft_picks_df = draft_picks_df[
+                            draft_picks_df["season"] == args.season
+                        ].copy()
+
+                existing_ids = set(
+                    roster_df["player_id"].dropna().astype(str)
+                    if not roster_df.empty
+                    else []
+                )
+                sleeper_supplement = build_sleeper_rookie_supplement(
+                    target_season=args.season,
+                    existing_player_ids=existing_ids,
+                    draft_picks_df=draft_picks_df if not draft_picks_df.empty else None,
+                )
+                if not sleeper_supplement.empty:
+                    if roster_df.empty:
+                        roster_df = sleeper_supplement
+                    else:
+                        roster_df = pd.concat(
+                            [roster_df, sleeper_supplement],
+                            ignore_index=True,
+                            sort=False,
+                        )
+                    print(
+                        f"  + Sleeper rookie supplement: added {len(sleeper_supplement)} "
+                        f"2026 draftees missing from nfl-data-py roster"
+                    )
+            except Exception as exc:
+                print(f"  WARNING: Sleeper rookie supplement failed: {exc}")
 
         weekly_df = _read_local_parquet(
             BRONZE_DIR, "player_weekly/season=*/week=*/*.parquet"
@@ -503,9 +556,7 @@ def main():
                     part["season"] = s
                 sched_parts.append(part)
         schedules_df = (
-            pd.concat(sched_parts, ignore_index=True)
-            if sched_parts
-            else pd.DataFrame()
+            pd.concat(sched_parts, ignore_index=True) if sched_parts else pd.DataFrame()
         )
 
         # Build the defensive strength table for the matchup factor
@@ -520,9 +571,7 @@ def main():
             if not part.empty:
                 weekly_parts.append(part)
         strength_weekly = (
-            pd.concat(weekly_parts, ignore_index=True)
-            if weekly_parts
-            else silver_df
+            pd.concat(weekly_parts, ignore_index=True) if weekly_parts else silver_df
         )
         opp_rankings = pd.DataFrame()
         try:
@@ -532,9 +581,7 @@ def main():
         except Exception as e:
             print(f"WARN: Could not compute defensive strength: {e}")
         if not opp_rankings.empty:
-            print(
-                f"Computed defensive strength table: {len(opp_rankings):,} rows"
-            )
+            print(f"Computed defensive strength table: {len(opp_rankings):,} rows")
         else:
             print("WARN: No defensive strength table; matchup factor neutral")
 
@@ -573,13 +620,19 @@ def main():
             try:
                 import sys
                 import os as _os
-                _src = _os.path.join(_os.path.dirname(_os.path.dirname(__file__)), "src")
+
+                _src = _os.path.join(
+                    _os.path.dirname(_os.path.dirname(__file__)), "src"
+                )
                 if _src not in sys.path:
                     sys.path.insert(0, _src)
                 from player_feature_engineering import assemble_player_features
+
                 feature_df = assemble_player_features(season=args.season)
                 if feature_df.empty:
-                    print("WARN: assemble_player_features returned empty; SHIP path will use silver_df")
+                    print(
+                        "WARN: assemble_player_features returned empty; SHIP path will use silver_df"
+                    )
                 else:
                     qbr_cols = [c for c in feature_df.columns if c.startswith("qbr_")]
                     print(
@@ -587,7 +640,9 @@ def main():
                         f"{len(feature_df.columns)} cols ({len(qbr_cols)} qbr_* cols)"
                     )
             except Exception as e:
-                print(f"WARN: Could not assemble feature vector: {e}; SHIP path will use silver_df")
+                print(
+                    f"WARN: Could not assemble feature vector: {e}; SHIP path will use silver_df"
+                )
 
             projections = generate_ml_projections(
                 silver_df,
@@ -610,6 +665,11 @@ def main():
                 schedules_df=season_sched if not season_sched.empty else None,
                 implied_totals=implied_totals,
                 apply_constraints=args.constrain,
+                # Pass the Bronze weekly data so the veteran prior blend can
+                # compute per-player prior-season rates (USE_VETERAN_PRIOR_BLEND).
+                # strength_weekly was already loaded above for the defensive
+                # strength table and covers season-1 and season.
+                weekly_df=strength_weekly if not strength_weekly.empty else None,
             )
 
         # Load injury data and apply adjustments
@@ -644,21 +704,16 @@ def main():
         # continuous --use-sentiment path.
         if args.use_events and not projections.empty:
             print(
-                f"\nLoading event data for Season {args.season} "
-                f"Week {args.week}..."
+                f"\nLoading event data for Season {args.season} " f"Week {args.week}..."
             )
             events_df = load_latest_sentiment(args.season, args.week)
             if events_df.empty:
-                print(
-                    "WARN: No event data available; skipping event adjustments"
-                )
+                print("WARN: No event data available; skipping event adjustments")
             else:
                 before_total = float(projections["projected_points"].sum())
                 projections = apply_event_adjustments(projections, events_df)
                 after_total = float(projections["projected_points"].sum())
-                affected = int(
-                    (projections["event_multiplier"] != 1.0).sum()
-                )
+                affected = int((projections["event_multiplier"] != 1.0).sum())
                 delta = after_total - before_total
                 print(
                     f"Event adjustments applied: {affected} players affected; "
@@ -668,10 +723,14 @@ def main():
 
         # --- Sentiment adjustments (opt-in via --use-sentiment) ---
         if args.use_sentiment and not projections.empty:
-            print(f"\nLoading sentiment data for Season {args.season} Week {args.week}...")
+            print(
+                f"\nLoading sentiment data for Season {args.season} Week {args.week}..."
+            )
             sentiment_df = load_latest_sentiment(args.season, args.week)
             if sentiment_df.empty:
-                print("WARN: No sentiment data available; skipping sentiment adjustments")
+                print(
+                    "WARN: No sentiment data available; skipping sentiment adjustments"
+                )
             else:
                 print(
                     f"Loaded sentiment data: {len(sentiment_df)} players"
