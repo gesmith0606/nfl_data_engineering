@@ -199,6 +199,26 @@ SPREAD_MIN, SPREAD_MAX = -20.0, 20.0
 TOTAL_MIN, TOTAL_MAX = 30.0, 65.0
 VEGAS_SPREAD_DIVERGENCE_THRESHOLD = 7.0
 
+# ---------------------------------------------------------------------------
+# Position-rank gap thresholds for rank-gap warnings (section 3 in run_sanity_check)
+# ---------------------------------------------------------------------------
+# Compare our ``position_rank`` vs ``consensus_position_rank`` (both in units
+# of "Nth player at this position") rather than cross-position overall ranks.
+#
+# Thresholds (position-aware):
+#   QB / TE → 8 slots: smaller starter pools make larger gaps meaningful.
+#   RB / WR → 12 slots: deeper pools → more variance at the margins.
+#
+# Calibrated on 2026 preseason data: QB/TE=8 and RB/WR=12 produces ~3 signal
+# warnings (Kenneth Walker RB+17, Jayden Daniels QB+11, Caleb Williams QB+10)
+# vs the previous ~14 spurious QB warnings from the VORP overall_rank approach.
+_POS_RANK_GAP_THRESHOLD: Dict[str, int] = {
+    "QB": 8,
+    "RB": 12,
+    "WR": 12,
+    "TE": 8,
+}
+
 
 def _load_our_projections(scoring: str, season: int) -> pd.DataFrame:
     """Load latest preseason projections from Gold layer."""
@@ -335,6 +355,7 @@ def fetch_live_consensus(limit: int = 50) -> pd.DataFrame:
             # Re-rank 1..N so ranks are contiguous for downstream comparison.
             df["consensus_rank"] = range(1, len(df) + 1)
             df["norm_name"] = df["player_name"].apply(_normalize_name)
+            df = _add_consensus_position_ranks(df)
             logger.info("Live Sleeper consensus: %d players", len(df))
             return df
     except Exception as exc:  # noqa: BLE001 -- defensive; we always want a fallback
@@ -343,11 +364,54 @@ def fetch_live_consensus(limit: int = 50) -> pd.DataFrame:
     logger.warning(
         "Using hardcoded CONSENSUS_TOP_50 fallback (live sources unavailable)"
     )
-    return _build_consensus_df()
+    return _add_consensus_position_ranks(_build_consensus_df())
+
+
+def _add_consensus_position_ranks(consensus_df: pd.DataFrame) -> pd.DataFrame:
+    """Derive per-position ranks from a consensus DataFrame.
+
+    The consensus ``consensus_rank`` is a cross-position popularity rank (e.g.,
+    Sleeper ``search_rank``). To compare apples-to-apples against our
+    ``position_rank`` we re-rank each position's players by their consensus
+    overall rank, assigning ``consensus_position_rank = 1`` to the player with
+    the lowest (best) overall consensus rank in that position.
+
+    Args:
+        consensus_df: DataFrame with columns ``consensus_rank`` and
+            ``position``.  Must already be sorted by ``consensus_rank``
+            ascending before calling, or ranks are re-derived correctly
+            regardless of existing sort order.
+
+    Returns:
+        A copy of ``consensus_df`` with an added integer column
+        ``consensus_position_rank`` (1 = best in position).
+    """
+    df = consensus_df.copy()
+    df["consensus_position_rank"] = (
+        df.groupby("position")["consensus_rank"]
+        .rank(method="first", ascending=True)
+        .astype(int)
+    )
+    return df
 
 
 def _match_players(our_df: pd.DataFrame, consensus_df: pd.DataFrame) -> pd.DataFrame:
-    """Match consensus players to our projections using fuzzy name matching."""
+    """Match consensus players to our projections using fuzzy name matching.
+
+    Args:
+        our_df: Gold projection DataFrame; must contain ``player_name``,
+            ``position``, ``recent_team``, ``projected_season_points``,
+            ``overall_rank``, and ``position_rank``.
+        consensus_df: Consensus DataFrame produced by
+            :func:`fetch_live_consensus`; should already carry a
+            ``consensus_position_rank`` column (added by
+            :func:`_add_consensus_position_ranks`).
+
+    Returns:
+        Left-merged DataFrame joining consensus rows onto our projections by
+        normalised player name.  Unmatched consensus players have NaN in the
+        ``_ours`` columns.
+    """
     our = our_df.copy()
     our["norm_name"] = our["player_name"].apply(_normalize_name)
 
@@ -1232,43 +1296,50 @@ def run_sanity_check(scoring: str, season: int) -> int:
         warnings.append(msg)
 
     # ------------------------------------------------------------------
-    # 3. WARNING: Large rank discrepancies (position-aware thresholds)
+    # 3. WARNING: Large rank discrepancies — position rank vs position rank
     # ------------------------------------------------------------------
     # NOTE: warnings list was initialized at the top of run_sanity_check()
     # so freshness checks could append; do NOT re-init here or we lose them.
     #
-    # Thresholds are position-aware (audit 2026-06-10):
-    #   QB  → 110 spots: Sleeper 1-QB consensus ranks QBs #1–#50 overall;
-    #         our ranking is positional-value based so QBs appear at #50–#150
-    #         overall even at elite projected totals (300+ pts).  A gap of 120
-    #         for Jayden Daniels is a known model-philosophy difference, not
-    #         broken data. Threshold of 110 still catches truly broken QB data
-    #         (e.g., a QB at consensus #1 ranked #300+ = 200 gap).
-    #   All other positions → 35 spots: reduced from old 20 to cut chronic
-    #         noise while preserving genuine signal (e.g., a #5 player ranked
-    #         #200 by us would be a ±195 gap — far above any threshold).
-    _RANK_GAP_THRESHOLD_QB = 110
-    _RANK_GAP_THRESHOLD_OTHER = 35
-
-    matched_found = matched[matched["overall_rank"].notna()].copy()
+    # The previous approach compared our VORP-based ``overall_rank`` against
+    # the consensus cross-position popularity rank (Sleeper ``search_rank``).
+    # That is apples-to-oranges: VORP intentionally buries QBs in 1-QB leagues
+    # (1 starter slot vs 2 RB/WR), so elite QBs appear at overall #50–#150 even
+    # with 300+ projected points.  This produced ~14 spurious QB warnings per CI
+    # run (Jayden Daniels +120, Caleb Williams +118, etc.) that drowned out real
+    # signal.
+    #
+    # Fix (2026-06-11): compare ``position_rank`` (ours) vs
+    # ``consensus_position_rank`` (derived by re-ranking consensus entries within
+    # each position by their cross-position rank).  Both quantities are on the
+    # same scale (QB1 = 1, QB2 = 2, …) so the diff is meaningful.
+    #
+    matched_found = matched[matched["position_rank"].notna()].copy()
+    # position_rank / consensus_position_rank are both integers after dtype cast.
+    matched_found["pos_rank_diff"] = matched_found["position_rank"].astype(
+        int
+    ) - matched_found["consensus_position_rank"].astype(int)
+    matched_found["abs_pos_rank_diff"] = matched_found["pos_rank_diff"].abs()
+    # Keep overall_rank diff available for display tables (sorted by abs diff).
     matched_found["rank_diff"] = (
         matched_found["overall_rank"] - matched_found["consensus_rank"]
     )
     matched_found["abs_rank_diff"] = matched_found["rank_diff"].abs()
 
     for _, row in matched_found.iterrows():
-        pos = row["position_consensus"]
-        threshold = _RANK_GAP_THRESHOLD_QB if pos == "QB" else _RANK_GAP_THRESHOLD_OTHER
-        if row["abs_rank_diff"] <= threshold:
+        pos = str(row["position_consensus"])
+        threshold = _POS_RANK_GAP_THRESHOLD.get(pos, 12)
+        if row["abs_pos_rank_diff"] <= threshold:
             continue
-        direction = "LOWER" if row["rank_diff"] > 0 else "HIGHER"
+        direction = "LOWER" if row["pos_rank_diff"] > 0 else "HIGHER"
         warnings.append(
             f"RANK GAP: {row['player_name_consensus']} ({pos}) — "
-            f"consensus #{int(row['consensus_rank'])}, ours #{int(row['overall_rank'])} "
-            f"(diff: {int(row['rank_diff']):+d}, we rank {direction})"
+            f"consensus {pos}#{int(row['consensus_position_rank'])}, "
+            f"ours {pos}#{int(row['position_rank'])} "
+            f"(diff: {int(row['pos_rank_diff']):+d}, we rank {direction})"
         )
 
-    big_diff = matched_found.sort_values("abs_rank_diff", ascending=False)
+    big_diff = matched_found.sort_values("abs_pos_rank_diff", ascending=False)
 
     # ------------------------------------------------------------------
     # 4. WARNING: Unreasonable projected points
@@ -1398,47 +1469,58 @@ def run_sanity_check(scoring: str, season: int) -> int:
         print("  None — all ranks within 20 spots, all points reasonable.")
 
     # ------------------------------------------------------------------
-    # Top-20 comparison table
+    # Top-20 comparison table (position rank vs position rank)
     # ------------------------------------------------------------------
+    # Columns show position-scoped ranks (QB1/QB2, RB1/RB2 …) so the
+    # diff is directly interpretable without the VORP-scale distortion
+    # that inflated QB overall_rank gaps by 80–120 slots.
     print("\n" + "=" * 70)
-    print("  TOP-20 COMPARISON TABLE")
+    print("  TOP-20 COMPARISON TABLE (position ranks)")
     print("=" * 70)
     top20 = matched_found.sort_values("consensus_rank").head(20)
-    header = f"{'Player':<25} {'Pos':<4} {'Cons#':>6} {'Ours#':>6} {'Diff':>6} {'Our Pts':>8}"
+    header = (
+        f"{'Player':<25} {'Pos':<4} {'CPos#':>6} {'OPos#':>6} "
+        f"{'Diff':>6} {'Our Pts':>8}"
+    )
     print(f"  {header}")
     print(f"  {'-' * len(header)}")
     for _, row in top20.iterrows():
         name = row["player_name_consensus"][:24]
         pos = row["position_consensus"]
-        cons_rank = int(row["consensus_rank"])
-        our_rank = int(row["overall_rank"])
-        diff = int(row["rank_diff"])
+        cons_pos = int(row["consensus_position_rank"])
+        our_pos = int(row["position_rank"])
+        diff = int(row["pos_rank_diff"])
         pts = row["projected_season_points"]
         diff_str = f"{diff:+d}"
         print(
-            f"  {name:<25} {pos:<4} {cons_rank:>6} {our_rank:>6} {diff_str:>6} {pts:>8.1f}"
+            f"  {name:<25} {pos:<4} {cons_pos:>6} {our_pos:>6} "
+            f"{diff_str:>6} {pts:>8.1f}"
         )
 
     # ------------------------------------------------------------------
-    # Biggest rank discrepancies
+    # Biggest rank discrepancies (position rank vs position rank)
     # ------------------------------------------------------------------
     print("\n" + "=" * 70)
-    print("  BIGGEST RANK DISCREPANCIES (top 10)")
+    print("  BIGGEST POSITION-RANK DISCREPANCIES (top 10)")
     print("=" * 70)
-    worst = matched_found.sort_values("abs_rank_diff", ascending=False).head(10)
-    header2 = f"{'Player':<25} {'Pos':<4} {'Cons#':>6} {'Ours#':>6} {'Diff':>6} {'Our Pts':>8}"
+    worst = matched_found.sort_values("abs_pos_rank_diff", ascending=False).head(10)
+    header2 = (
+        f"{'Player':<25} {'Pos':<4} {'CPos#':>6} {'OPos#':>6} "
+        f"{'Diff':>6} {'Our Pts':>8}"
+    )
     print(f"  {header2}")
     print(f"  {'-' * len(header2)}")
     for _, row in worst.iterrows():
         name = row["player_name_consensus"][:24]
         pos = row["position_consensus"]
-        cons_rank = int(row["consensus_rank"])
-        our_rank = int(row["overall_rank"])
-        diff = int(row["rank_diff"])
+        cons_pos = int(row["consensus_position_rank"])
+        our_pos = int(row["position_rank"])
+        diff = int(row["pos_rank_diff"])
         pts = row["projected_season_points"]
         diff_str = f"{diff:+d}"
         print(
-            f"  {name:<25} {pos:<4} {cons_rank:>6} {our_rank:>6} {diff_str:>6} {pts:>8.1f}"
+            f"  {name:<25} {pos:<4} {cons_pos:>6} {our_pos:>6} "
+            f"{diff_str:>6} {pts:>8.1f}"
         )
 
     # ------------------------------------------------------------------
@@ -1458,13 +1540,13 @@ def run_sanity_check(scoring: str, season: int) -> int:
     print(f"  Warnings: {len(warnings)}")
 
     if n_matched > 1:
-        # Rank correlation (Spearman)
+        # Spearman rank correlation on position ranks (apples-to-apples)
         from scipy import stats as sp_stats
 
         corr, p_value = sp_stats.spearmanr(
-            matched_found["consensus_rank"], matched_found["overall_rank"]
+            matched_found["consensus_position_rank"], matched_found["position_rank"]
         )
-        print(f"\n  Spearman rank correlation: {corr:.3f} (p={p_value:.4f})")
+        print(f"\n  Spearman position-rank correlation: {corr:.3f} (p={p_value:.4f})")
         if corr > 0.8:
             print("  Interpretation: STRONG agreement with consensus")
         elif corr > 0.6:
@@ -1474,36 +1556,40 @@ def run_sanity_check(scoring: str, season: int) -> int:
         else:
             print("  Interpretation: POOR agreement — investigate model")
 
-        # Mean absolute rank difference
-        mean_diff = matched_found["abs_rank_diff"].mean()
-        median_diff = matched_found["abs_rank_diff"].median()
-        print(f"  Mean absolute rank difference: {mean_diff:.1f}")
-        print(f"  Median absolute rank difference: {median_diff:.1f}")
+        # Mean absolute position-rank difference
+        mean_diff = matched_found["abs_pos_rank_diff"].mean()
+        median_diff = matched_found["abs_pos_rank_diff"].median()
+        print(f"  Mean absolute position-rank difference: {mean_diff:.1f}")
+        print(f"  Median absolute position-rank difference: {median_diff:.1f}")
 
         # Per-position breakdown
-        print(f"\n  Per-position rank correlation:")
+        print(f"\n  Per-position position-rank correlation:")
         for pos in ["QB", "RB", "WR", "TE"]:
             pos_data = matched_found[matched_found["position_consensus"] == pos]
             if len(pos_data) > 2:
                 pos_corr, _ = sp_stats.spearmanr(
-                    pos_data["consensus_rank"], pos_data["overall_rank"]
+                    pos_data["consensus_position_rank"], pos_data["position_rank"]
                 )
-                pos_mean = pos_data["abs_rank_diff"].mean()
+                pos_mean = pos_data["abs_pos_rank_diff"].mean()
                 print(
-                    f"    {pos}: r={pos_corr:.3f}, mean rank diff={pos_mean:.1f} "
+                    f"    {pos}: r={pos_corr:.3f}, mean pos-rank diff={pos_mean:.1f} "
                     f"({len(pos_data)} players)"
                 )
 
     # ------------------------------------------------------------------
-    # Our top-10 players (what we think are the best)
+    # Our top-10 players sorted by raw projected points
     # ------------------------------------------------------------------
+    # Sorted by projected_season_points (not overall_rank) so the list
+    # reads naturally — VORP-based overall_rank buries QBs in 1-QB leagues
+    # which made the old display confusing (e.g. Nacua 307 pts above Bijan
+    # 326 pts).  Points order is unambiguous and self-explanatory.
     print("\n" + "=" * 70)
-    print("  OUR TOP-10 OVERALL")
+    print("  OUR TOP-10 OVERALL (by projected points)")
     print("=" * 70)
-    our_top10 = our_df.sort_values("overall_rank").head(10)
-    for _, row in our_top10.iterrows():
+    our_top10 = our_df.sort_values("projected_season_points", ascending=False).head(10)
+    for rank_idx, (_, row) in enumerate(our_top10.iterrows(), start=1):
         print(
-            f"  #{int(row['overall_rank']):>3}  {row['player_name']:<25} "
+            f"  #{rank_idx:>2}  {row['player_name']:<25} "
             f"{row['position']:<3}  {row['recent_team']:<4}  "
             f"{row['projected_season_points']:.1f} pts"
         )
@@ -1511,11 +1597,15 @@ def run_sanity_check(scoring: str, season: int) -> int:
     # ------------------------------------------------------------------
     # Position distribution comparison
     # ------------------------------------------------------------------
+    # Both sides use top-50 by raw projected points so the comparison is
+    # apples-to-apples.  The previous implementation selected our top-50
+    # via overall_rank (VORP-based), which under-counted QBs significantly
+    # vs the popularity-ranked consensus list.
     print("\n" + "=" * 70)
-    print("  POSITION DISTRIBUTION IN TOP-50")
+    print("  POSITION DISTRIBUTION IN TOP-50 (by projected points)")
     print("=" * 70)
-    our_top50 = our_df[our_df["overall_rank"] <= 50]
-    our_pos_counts = our_top50["position"].value_counts().to_dict()
+    our_top50_by_pts = our_df.nlargest(50, "projected_season_points")
+    our_pos_counts = our_top50_by_pts["position"].value_counts().to_dict()
     cons_pos_counts = consensus_df["position"].value_counts().to_dict()
 
     header3 = f"{'Position':<10} {'Consensus':>10} {'Ours':>10} {'Diff':>10}"
