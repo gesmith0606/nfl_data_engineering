@@ -556,6 +556,12 @@ def generate_ml_projections(
                     hybrid_result, target_df, position, model_dir=residual_dir
                 )
 
+            # Restore the projected week on the output rows — the merge
+            # alignment above set "week" to the feature-row week (W or
+            # latest-played in live mode); consumers reading "week" instead
+            # of "proj_week" must see the projected week.
+            hybrid_result["week"] = week
+
             # Recalculate floor/ceiling after correction
             hybrid_result = add_floor_ceiling(hybrid_result)
             hybrid_result["projection_source"] = "hybrid"

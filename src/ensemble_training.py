@@ -293,8 +293,11 @@ class MeanMeta:
     interchangeably with Ridge meta-learners.
     """
 
-    coef_ = np.array([1 / 3, 1 / 3, 1 / 3])
-    intercept_ = 0.0
+    def __init__(self) -> None:
+        # Instance attributes (not class-level) so any future mutation of
+        # coef_ on one instance cannot silently alter all instances.
+        self.coef_ = np.array([1 / 3, 1 / 3, 1 / 3])
+        self.intercept_ = 0.0
 
     def fit(self, X, y=None) -> "MeanMeta":
         """No-op fit for interface compatibility."""

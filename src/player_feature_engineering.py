@@ -108,6 +108,9 @@ _SAME_WEEK_RAW_STATS = {
     "fantasy_points_target",
     "actual_pts",
     "actual_points",
+    "fantasy_points_ppr",
+    "fantasy_points_half_ppr",
+    "fantasy_points_standard",
     # Route participation raw values describe the week being played
     # (graph_route_participation.py); only the _trail variants are features.
     "route_rate",
@@ -279,7 +282,7 @@ def _add_trailing_matchup_form(df: pd.DataFrame, window: int = 8) -> pd.DataFram
 
     df = df.sort_values(["player_id", "season", "week"])
     trail = {}
-    grouped = df.groupby("player_id")
+    grouped = df.groupby(["player_id", "season"])
     for col in matchup_cols:
         trail[f"{col}_trail{window}"] = grouped[col].transform(
             lambda s: s.shift(1).rolling(window, min_periods=2).mean()

@@ -318,6 +318,9 @@ MATCHUP_BETA: Dict[str, float] = {
     "WR": 0.15,
     "TE": 0.50,
 }
+# NOTE: intentionally tighter than the legacy rank path's (0.75, 1.25) —
+# the continuous strength ratio was swept in the v4.2 lab at this clip;
+# the legacy path keeps its historical bounds for backward compatibility.
 _MATCHUP_CLIP: Tuple[float, float] = (0.85, 1.15)
 
 

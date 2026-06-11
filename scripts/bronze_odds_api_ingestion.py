@@ -71,7 +71,14 @@ ODDS_ENDPOINT = (
     "/v4/sports/americanfootball_nfl/odds"
     "?regions=us&markets=spreads,totals&oddsFormat=american"
 )
-BRONZE_DIR = "data/bronze/odds_api/snapshots"
+BRONZE_DIR = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "..",
+    "data",
+    "bronze",
+    "odds_api",
+    "snapshots",
+)
 
 # The Odds API uses full team names; map them to nflverse abbreviations.
 # Covers all 32 current franchises plus recent relocations / renames.
@@ -129,6 +136,7 @@ ODDS_API_TO_NFLVERSE: dict = {
 # Season inference
 # ---------------------------------------------------------------------------
 
+
 def infer_nfl_season(commence_time: str) -> int:
     """Return the NFL season year for a given game commence_time.
 
@@ -148,16 +156,25 @@ def infer_nfl_season(commence_time: str) -> int:
         2026
     """
     dt = datetime.fromisoformat(commence_time.replace("Z", "+00:00"))
-    if dt.month <= 2:
-        return dt.year - 1
-    return dt.year
+    season = dt.year - 1 if dt.month <= 2 else dt.year
+    # Guard against malformed API timestamps producing out-of-range season
+    # partitions that would be committed to git by the capture cron.
+    if not 1999 <= season <= 2100:
+        raise ValueError(
+            f"Inferred season {season} outside valid range for "
+            f"commence_time={commence_time!r}"
+        )
+    return season
 
 
 # ---------------------------------------------------------------------------
 # API fetch
 # ---------------------------------------------------------------------------
 
-def fetch_odds(api_key: str, bookmakers: Optional[List[str]] = None) -> Tuple[List[dict], dict]:
+
+def fetch_odds(
+    api_key: str, bookmakers: Optional[List[str]] = None
+) -> Tuple[List[dict], dict]:
     """Fetch current NFL odds from The Odds API.
 
     Args:
@@ -186,6 +203,7 @@ def fetch_odds(api_key: str, bookmakers: Optional[List[str]] = None) -> Tuple[Li
 # ---------------------------------------------------------------------------
 # Normalisation
 # ---------------------------------------------------------------------------
+
 
 def normalize_game(
     game: dict,
@@ -239,7 +257,7 @@ def normalize_game(
                 over_out = outcomes.get("Over", {})
                 under_out = outcomes.get("Under", {})
                 total_points = over_out.get("point")
-                price_home = over_out.get("price")   # over
+                price_home = over_out.get("price")  # over
                 price_away = under_out.get("price")  # under
 
             rows.append(
@@ -309,9 +327,13 @@ def normalize_response(
     unmapped_home = df.loc[df["home_team_nfl"].isna(), "home_team"].unique()
     unmapped_away = df.loc[df["away_team_nfl"].isna(), "away_team"].unique()
     if len(unmapped_home):
-        logger.warning("Unmapped home teams (no nflverse abbr): %s", list(unmapped_home))
+        logger.warning(
+            "Unmapped home teams (no nflverse abbr): %s", list(unmapped_home)
+        )
     if len(unmapped_away):
-        logger.warning("Unmapped away teams (no nflverse abbr): %s", list(unmapped_away))
+        logger.warning(
+            "Unmapped away teams (no nflverse abbr): %s", list(unmapped_away)
+        )
 
     return df
 
@@ -319,6 +341,7 @@ def normalize_response(
 # ---------------------------------------------------------------------------
 # Parquet output
 # ---------------------------------------------------------------------------
+
 
 def write_parquet(df: pd.DataFrame, season: int, dry_run: bool = False) -> str:
     """Write snapshot DataFrame to Bronze Parquet.
@@ -349,6 +372,7 @@ def write_parquet(df: pd.DataFrame, season: int, dry_run: bool = False) -> str:
 # Quota logging
 # ---------------------------------------------------------------------------
 
+
 def log_quota(headers: dict[str, str]) -> None:
     """Log The Odds API request quota from response headers.
 
@@ -369,6 +393,7 @@ def log_quota(headers: dict[str, str]) -> None:
 # ---------------------------------------------------------------------------
 # Config validation (used by --dry-run)
 # ---------------------------------------------------------------------------
+
 
 def validate_config() -> bool:
     """Check that ODDS_API_KEY is present and BRONZE_DIR is writable.
@@ -392,6 +417,7 @@ def validate_config() -> bool:
 # Main pipeline
 # ---------------------------------------------------------------------------
 
+
 def run(
     api_key: str,
     bookmakers: Optional[List[str]] = None,
@@ -412,10 +438,14 @@ def run(
     try:
         games, headers = fetch_odds(api_key, bookmakers=bookmakers)
     except requests.RequestException as exc:
+        # HTTPError messages embed the request URL, which carries the API
+        # key as a query parameter — redact it before it reaches (public)
+        # GHA logs.
+        sanitized = str(exc).replace(api_key, "***") if api_key else str(exc)
         logger.warning(
             "The Odds API request failed (fail-open): %s. "
             "No parquet written; cron will retry next run.",
-            exc,
+            sanitized,
         )
         return 0
 
@@ -448,6 +478,7 @@ def run(
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def main() -> None:
     """Entry point for the Bronze Odds API ingestion script."""

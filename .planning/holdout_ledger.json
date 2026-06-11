@@ -2,21 +2,29 @@
   {
     "timestamp": "2026-06-10T13:00:00",
     "experiment": "ensemble_meta_holdout_compare (legacy ridge vs mean meta, spread+total)",
-    "seasons": [2025]
+    "seasons": [
+      2025
+    ]
   },
   {
     "timestamp": "2026-06-10T14:30:00",
     "experiment": "v42_heuristic_gate (legacy vs v4.2 constants)",
-    "seasons": [2025]
+    "seasons": [
+      2025
+    ]
   },
   {
     "timestamp": "2026-06-10T15:30:00",
-    "experiment": "hybrid_gate_run1 (WR/TE residuals, pre week-alignment fix — invalidated by off-by-one)",
-    "seasons": [2025]
+    "experiment": "hybrid_gate_run1 (WR/TE residuals, pre week-alignment fix \u2014 invalidated by off-by-one) \u2014 superseded by week-alignment fix in commit 12bff43",
+    "seasons": [
+      2025
+    ]
   },
   {
     "timestamp": "2026-06-10T16:30:00",
     "experiment": "hybrid_gate_final (TE SHIP, WR FAIL)",
-    "seasons": [2025]
+    "seasons": [
+      2025
+    ]
   }
 ]
