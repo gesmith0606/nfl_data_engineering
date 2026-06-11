@@ -2,6 +2,7 @@
 
 import type { OverallSentimentLabel } from '../api/types';
 import { Badge } from '@/components/ui/badge';
+import { SUCCESS_BADGE, WARN_BADGE, DANGER_BADGE } from '@/lib/nfl/semantic-colors';
 
 /**
  * Reusable pill badges rendering rule-extracted event flags (NEWS-04).
@@ -65,17 +66,15 @@ function bucketForBadge(label: string): BadgeBucket {
 // ---------------------------------------------------------------------------
 
 const BUCKET_CLASSES: Record<BadgeBucket, string> = {
-  bearish: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  bullish:
-    'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-  neutral:
-    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
+  bearish: DANGER_BADGE,
+  bullish: SUCCESS_BADGE,
+  neutral: WARN_BADGE
 };
 
 const OVERALL_RING_CLASSES: Record<OverallSentimentLabel, string> = {
-  bearish: 'ring-red-300 dark:ring-red-700',
-  bullish: 'ring-green-300 dark:ring-green-700',
-  neutral: 'ring-yellow-300 dark:ring-yellow-700'
+  bearish: 'ring-[color-mix(in_oklch,var(--danger)_45%,transparent)]',
+  bullish: 'ring-[color-mix(in_oklch,var(--success)_45%,transparent)]',
+  neutral: 'ring-[color-mix(in_oklch,var(--warn)_45%,transparent)]'
 };
 
 // ---------------------------------------------------------------------------

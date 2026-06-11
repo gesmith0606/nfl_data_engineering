@@ -27,6 +27,14 @@ import { EmptyState } from '@/components/EmptyState';
 import { formatRelativeTime } from '@/lib/format-relative-time';
 import { EventBadges } from './EventBadges';
 import {
+  SUCCESS_TEXT,
+  WARN_TEXT,
+  DANGER_TEXT,
+  SUCCESS_BADGE,
+  WARN_BADGE,
+  DANGER_BADGE
+} from '@/lib/nfl/semantic-colors';
+import {
   DataLoadReveal,
   FadeIn,
   HoverLift,
@@ -82,11 +90,9 @@ function relativeTime(isoString: string | null): string {
 
 function getSentimentBadgeClass(sentiment: number | null): string {
   if (sentiment === null) return 'bg-muted text-muted-foreground';
-  if (sentiment >= 0.2)
-    return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
-  if (sentiment <= -0.2)
-    return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
-  return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
+  if (sentiment >= 0.2) return SUCCESS_BADGE;
+  if (sentiment <= -0.2) return DANGER_BADGE;
+  return WARN_BADGE;
 }
 
 function getSentimentLabel(sentiment: number | null): string {
@@ -103,17 +109,28 @@ function getMultiplierLabel(mult: number): string {
 }
 
 function getMultiplierClass(mult: number): string {
-  if (mult >= 1.10) return 'text-green-600 dark:text-green-400';
-  if (mult <= 0.90) return 'text-red-600 dark:text-red-400';
-  return 'text-yellow-600 dark:text-yellow-400';
+  if (mult >= 1.10) return SUCCESS_TEXT;
+  if (mult <= 0.90) return DANGER_TEXT;
+  return WARN_TEXT;
+}
+
+/**
+ * Color a signal COUNT by significance, not by category: a zero is neutral,
+ * never alarming. Fixes the "0 Bearish Signals" red miscue — only a non-zero
+ * count carries the semantic hue. */
+function countSignalClass(count: number, tone: 'success' | 'danger' | 'warn'): string {
+  if (count === 0) return 'text-muted-foreground';
+  if (tone === 'success') return SUCCESS_TEXT;
+  if (tone === 'danger') return DANGER_TEXT;
+  return WARN_TEXT;
 }
 
 function getTeamSentimentBg(label: string): string {
   switch (label) {
     case 'positive':
-      return 'border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/20';
+      return 'border-[color-mix(in_oklch,var(--success)_35%,transparent)] bg-[color-mix(in_oklch,var(--success)_8%,transparent)]';
     case 'negative':
-      return 'border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/20';
+      return 'border-[color-mix(in_oklch,var(--danger)_35%,transparent)] bg-[color-mix(in_oklch,var(--danger)_8%,transparent)]';
     default:
       return 'border-border bg-muted/30';
   }
@@ -225,7 +242,7 @@ function SentimentSummaryBar({
             <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
               Bullish Signals
             </p>
-            <p className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums text-green-600 dark:text-green-400'>
+            <p className={`text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums ${countSignalClass(dist.positive, 'success')}`}>
               {dist.positive}
             </p>
             <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
@@ -242,7 +259,7 @@ function SentimentSummaryBar({
             <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
               Bearish Signals
             </p>
-            <p className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums text-red-600 dark:text-red-400'>
+            <p className={`text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums ${countSignalClass(dist.negative, 'danger')}`}>
               {dist.negative}
             </p>
             <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
@@ -259,7 +276,7 @@ function SentimentSummaryBar({
             <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
               Neutral
             </p>
-            <p className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums text-yellow-600 dark:text-yellow-400'>
+            <p className={`text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums ${countSignalClass(dist.neutral, 'warn')}`}>
               {dist.neutral}
             </p>
             <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
@@ -307,7 +324,7 @@ function AlertsPanel({
       <Card>
         <CardHeader>
           <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
-            <Icons.circleCheck className='h-[var(--space-4)] w-[var(--space-4)] text-green-600 dark:text-green-400' />
+            <Icons.circleCheck className={`h-[var(--space-4)] w-[var(--space-4)] ${SUCCESS_TEXT}`} />
             No Active Alerts
           </CardTitle>
         </CardHeader>
@@ -325,7 +342,7 @@ function AlertsPanel({
     <Card>
       <CardHeader>
         <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
-          <Icons.warning className='h-[var(--space-4)] w-[var(--space-4)] text-amber-500' />
+          <Icons.warning className={`h-[var(--space-4)] w-[var(--space-4)] ${WARN_TEXT}`} />
           Active Alerts ({alerts.length})
         </CardTitle>
       </CardHeader>
@@ -406,10 +423,10 @@ function TopMoversPanel({
   return (
     <div className='grid grid-cols-1 gap-[var(--space-3)] md:grid-cols-2'>
       {/* Bullish players */}
-      <Card className='border-green-200 dark:border-green-900'>
+      <Card className='border-[color-mix(in_oklch,var(--success)_35%,transparent)]'>
         <CardHeader className='pb-[var(--space-2)]'>
           <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
-            <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-green-600 dark:text-green-400' />
+            <Icons.trendingUp className={`h-[var(--space-4)] w-[var(--space-4)] ${SUCCESS_TEXT}`} />
             Bullish Players
           </CardTitle>
           <CardDescription>
@@ -435,7 +452,7 @@ function TopMoversPanel({
                     <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
                       {p.doc_count} doc{p.doc_count !== 1 ? 's' : ''}
                     </span>
-                    <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold tabular-nums text-green-600 dark:text-green-400'>
+                    <span className={`text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold tabular-nums ${SUCCESS_TEXT}`}>
                       {p.sentiment_multiplier.toFixed(2)}x
                     </span>
                   </div>
@@ -447,10 +464,10 @@ function TopMoversPanel({
       </Card>
 
       {/* Bearish players */}
-      <Card className='border-red-200 dark:border-red-900'>
+      <Card className='border-[color-mix(in_oklch,var(--danger)_35%,transparent)]'>
         <CardHeader className='pb-[var(--space-2)]'>
           <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
-            <Icons.trendingDown className='h-[var(--space-4)] w-[var(--space-4)] text-red-600 dark:text-red-400' />
+            <Icons.trendingDown className={`h-[var(--space-4)] w-[var(--space-4)] ${DANGER_TEXT}`} />
             Bearish Players
           </CardTitle>
           <CardDescription>
@@ -476,7 +493,7 @@ function TopMoversPanel({
                     <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
                       {p.doc_count} doc{p.doc_count !== 1 ? 's' : ''}
                     </span>
-                    <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold tabular-nums text-red-600 dark:text-red-400'>
+                    <span className={`text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold tabular-nums ${DANGER_TEXT}`}>
                       {p.sentiment_multiplier.toFixed(2)}x
                     </span>
                   </div>
@@ -533,10 +550,10 @@ function TeamSentimentGrid({
         const bgClass = getTeamSentimentBg(team.sentiment_label);
         const scoreColor =
           team.sentiment_label === 'positive'
-            ? 'text-green-600 dark:text-green-400'
+            ? SUCCESS_TEXT
             : team.sentiment_label === 'negative'
-              ? 'text-red-600 dark:text-red-400'
-              : 'text-yellow-600 dark:text-yellow-400';
+              ? DANGER_TEXT
+              : WARN_TEXT;
         const TrendIcon =
           team.sentiment_label === 'positive'
             ? Icons.trendingUp
@@ -994,9 +1011,9 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
                   {teamSentiments.map((team) => {
                     const scoreColor =
                       team.sentiment_label === 'positive'
-                        ? 'text-green-600 dark:text-green-400'
+                        ? SUCCESS_TEXT
                         : team.sentiment_label === 'negative'
-                          ? 'text-red-600 dark:text-red-400'
+                          ? DANGER_TEXT
                           : 'text-muted-foreground';
                     return (
                       <div
@@ -1069,7 +1086,7 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
                 <div className='flex h-[var(--space-4)] rounded-full overflow-hidden mb-[var(--space-4)]'>
                   {summary.sentiment_distribution.positive > 0 && (
                     <div
-                      className='bg-green-500 dark:bg-green-600'
+                      className='bg-[var(--success)]'
                       style={{
                         width: `${(summary.sentiment_distribution.positive / summary.total_players) * 100}%`
                       }}
@@ -1077,7 +1094,7 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
                   )}
                   {summary.sentiment_distribution.neutral > 0 && (
                     <div
-                      className='bg-yellow-400 dark:bg-yellow-600'
+                      className='bg-[var(--warn)]'
                       style={{
                         width: `${(summary.sentiment_distribution.neutral / summary.total_players) * 100}%`
                       }}
@@ -1085,7 +1102,7 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
                   )}
                   {summary.sentiment_distribution.negative > 0 && (
                     <div
-                      className='bg-red-500 dark:bg-red-600'
+                      className='bg-[var(--danger)]'
                       style={{
                         width: `${(summary.sentiment_distribution.negative / summary.total_players) * 100}%`
                       }}
@@ -1093,13 +1110,13 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
                   )}
                 </div>
                 <div className='flex justify-between text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  <span className='text-green-600 dark:text-green-400'>
+                  <span className={SUCCESS_TEXT}>
                     {summary.sentiment_distribution.positive} Bullish
                   </span>
-                  <span className='text-yellow-600 dark:text-yellow-400'>
+                  <span className={WARN_TEXT}>
                     {summary.sentiment_distribution.neutral} Neutral
                   </span>
-                  <span className='text-red-600 dark:text-red-400'>
+                  <span className={DANGER_TEXT}>
                     {summary.sentiment_distribution.negative} Bearish
                   </span>
                 </div>

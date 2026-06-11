@@ -15,6 +15,8 @@ import type {
   ScoringFormat
 } from '../../api/types';
 import { getTeamColor } from '@/lib/nfl/team-colors';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
+import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 
 const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K'];
 const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
@@ -24,14 +26,6 @@ const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
 ];
 
 const SOURCES: RankingSource[] = ['sleeper', 'espn', 'yahoo'];
-
-const POS_COLORS: Record<string, string> = {
-  QB: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  RB: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400',
-  WR: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
-  TE: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400',
-  K: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
-};
 
 const SOURCE_LABEL: Record<RankingSource, string> = {
   sleeper: 'Sleeper',
@@ -46,8 +40,8 @@ function formatRank(v: number | null): string {
 
 function diffClass(diff: number | null): string {
   if (diff === null) return 'text-muted-foreground';
-  if (diff > 5) return 'text-green-600 dark:text-green-400 font-medium'; // we rank higher
-  if (diff < -5) return 'text-red-600 dark:text-red-400 font-medium'; // we rank lower
+  if (diff > 5) return `${SUCCESS_TEXT} font-medium`; // we rank higher
+  if (diff < -5) return `${DANGER_TEXT} font-medium`; // we rank lower
   return 'text-muted-foreground';
 }
 
@@ -347,7 +341,7 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                           {p.position && (
                             <Badge
                               variant='outline'
-                              className={POS_COLORS[p.position] ?? ''}
+                              className={getPositionBadgeClass(p.position)}
                             >
                               {p.position}
                             </Badge>

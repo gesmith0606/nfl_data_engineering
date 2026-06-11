@@ -271,10 +271,10 @@ function SentimentDot({ score }: { score: number | null }) {
   if (score === null) return null;
   const color =
     score > 0.1
-      ? 'bg-green-500'
+      ? 'bg-[var(--success)]'
       : score < -0.1
-        ? 'bg-red-500'
-        : 'bg-yellow-500';
+        ? 'bg-[var(--danger)]'
+        : 'bg-[var(--warn)]';
   const label = score > 0.1 ? 'Positive' : score < -0.1 ? 'Negative' : 'Neutral';
   return (
     <span
@@ -342,7 +342,7 @@ function NewsCard({ data }: { data: NewsFeedResult }) {
                 {item.is_returning && (
                   <Badge
                     variant='outline'
-                    className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-green-600 border-green-600'
+                    className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-[var(--success)] border-[var(--success)]'
                   >
                     RTN
                   </Badge>

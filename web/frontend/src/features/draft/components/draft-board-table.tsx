@@ -13,6 +13,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
 import { PressScale } from '@/lib/motion-primitives'
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
+import { SUCCESS_BADGE, DANGER_BADGE, deltaTextClass } from '@/lib/nfl/semantic-colors'
 import type { DraftPlayer, Position, SortDirection } from '@/lib/nfl/types'
 
 interface DraftBoardTableProps {
@@ -24,18 +26,10 @@ interface DraftBoardTableProps {
 
 type SortKey = 'model_rank' | 'projected_points' | 'adp_rank' | 'adp_diff' | 'vorp'
 
-const POSITION_COLORS: Record<string, string> = {
-  QB: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-  RB: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-  WR: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-  TE: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-  K: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
-}
-
 const VALUE_TIER_COLORS: Record<string, string> = {
-  undervalued: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-  fair_value: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  overvalued: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+  undervalued: SUCCESS_BADGE,
+  fair_value: 'bg-muted text-muted-foreground',
+  overvalued: DANGER_BADGE
 }
 
 function SortableHeader({
@@ -110,9 +104,7 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
 
   function adpDiffColor(diff: number | null): string {
     if (diff === null) return 'text-muted-foreground'
-    if (diff > 0) return 'text-green-600 dark:text-green-400'
-    if (diff < 0) return 'text-red-600 dark:text-red-400'
-    return 'text-muted-foreground'
+    return deltaTextClass(diff)
   }
 
   return (
@@ -207,7 +199,7 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
                         {player.player_name}
                       </span>
                       <span
-                        className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${POSITION_COLORS[player.position] ?? 'bg-gray-100 text-gray-700'}`}
+                        className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${getPositionBadgeClass(player.position)}`}
                       >
                         {player.position}
                       </span>

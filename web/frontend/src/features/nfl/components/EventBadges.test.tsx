@@ -31,28 +31,30 @@ describe('EventBadges (Phase 72)', () => {
     }
   });
 
-  it('Drafted gets bullish color class', () => {
+  // Color classes now derive from the semantic design tokens
+  // (--success / --danger / --warn) instead of raw Tailwind palette names.
+  it('Drafted gets bullish (success) color class', () => {
     render(<EventBadges badges={['Drafted']} />);
     const badge = screen.getByText('Drafted');
-    expect(badge.className).toMatch(/green/);
+    expect(badge.className).toMatch(/--success/);
   });
 
-  it('Cap Cut gets bearish color class', () => {
+  it('Cap Cut gets bearish (danger) color class', () => {
     render(<EventBadges badges={['Cap Cut']} />);
     const badge = screen.getByText('Cap Cut');
-    expect(badge.className).toMatch(/red/);
+    expect(badge.className).toMatch(/--danger/);
   });
 
-  it('Coaching Change gets neutral color class', () => {
+  it('Coaching Change gets neutral (warn) color class', () => {
     render(<EventBadges badges={['Coaching Change']} />);
     const badge = screen.getByText('Coaching Change');
-    expect(badge.className).toMatch(/yellow/);
+    expect(badge.className).toMatch(/--warn/);
   });
 
   it('mixed badges render distinctly with their own bucket colors', () => {
     render(<EventBadges badges={['Drafted', 'Cap Cut', 'Trade Buzz']} />);
-    expect(screen.getByText('Drafted').className).toMatch(/green/);
-    expect(screen.getByText('Cap Cut').className).toMatch(/red/);
-    expect(screen.getByText('Trade Buzz').className).toMatch(/yellow/);
+    expect(screen.getByText('Drafted').className).toMatch(/--success/);
+    expect(screen.getByText('Cap Cut').className).toMatch(/--danger/);
+    expect(screen.getByText('Trade Buzz').className).toMatch(/--warn/);
   });
 });

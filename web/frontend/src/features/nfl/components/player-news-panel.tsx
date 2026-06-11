@@ -9,6 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
 import { DataLoadReveal, Stagger } from '@/lib/motion-primitives';
+import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 // TD-04 (Phase 75): canonical formatter consolidated here.
 import { formatRelativeTime } from '@/lib/format-relative-time';
 
@@ -24,9 +25,9 @@ interface PlayerNewsPanelProps {
 
 function getSentimentColor(sentiment: number | null): string {
   if (sentiment === null) return 'text-muted-foreground';
-  if (sentiment >= 0.2) return 'text-green-600 dark:text-green-400';
-  if (sentiment <= -0.2) return 'text-red-600 dark:text-red-400';
-  return 'text-yellow-600 dark:text-yellow-400';
+  if (sentiment >= 0.2) return SUCCESS_TEXT;
+  if (sentiment <= -0.2) return DANGER_TEXT;
+  return WARN_TEXT;
 }
 
 function getSentimentLabel(sentiment: number | null): string {

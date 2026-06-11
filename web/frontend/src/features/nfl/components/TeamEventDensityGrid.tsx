@@ -7,6 +7,7 @@ import type { OverallSentimentLabel, TeamEvents } from '../api/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
+import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 
 /**
  * 32-team event density grid (NEWS-03).
@@ -34,9 +35,9 @@ interface TeamEventDensityGridProps {
 function bucketBgClass(label: OverallSentimentLabel): string {
   switch (label) {
     case 'bearish':
-      return 'border-red-200 bg-red-50 hover:bg-red-100 dark:border-red-900 dark:bg-red-950/40 dark:hover:bg-red-900/40';
+      return 'border-[color-mix(in_oklch,var(--danger)_30%,transparent)] bg-[color-mix(in_oklch,var(--danger)_8%,transparent)] hover:bg-[color-mix(in_oklch,var(--danger)_16%,transparent)]';
     case 'bullish':
-      return 'border-green-200 bg-green-50 hover:bg-green-100 dark:border-green-900 dark:bg-green-950/40 dark:hover:bg-green-900/40';
+      return 'border-[color-mix(in_oklch,var(--success)_30%,transparent)] bg-[color-mix(in_oklch,var(--success)_8%,transparent)] hover:bg-[color-mix(in_oklch,var(--success)_16%,transparent)]';
     default:
       return 'border-border bg-muted/40 hover:bg-muted dark:border-border dark:bg-muted/20 dark:hover:bg-muted/40';
   }
@@ -45,9 +46,9 @@ function bucketBgClass(label: OverallSentimentLabel): string {
 function bucketTextClass(label: OverallSentimentLabel): string {
   switch (label) {
     case 'bearish':
-      return 'text-red-700 dark:text-red-400';
+      return DANGER_TEXT;
     case 'bullish':
-      return 'text-green-700 dark:text-green-400';
+      return SUCCESS_TEXT;
     default:
       return 'text-muted-foreground';
   }
@@ -100,13 +101,13 @@ function TeamTile({
         <span className={`text-xs font-medium capitalize ${textClass}`}>
           {team.sentiment_label}
         </span>
-        <span className='text-muted-foreground text-[11px] tabular-nums'>
+        <span className='text-muted-foreground text-[length:var(--fs-micro)] leading-[var(--lh-micro)] tabular-nums'>
           {team.total_articles} article{team.total_articles === 1 ? '' : 's'}
         </span>
       </div>
 
       {team.top_events.length > 0 && (
-        <ul className='mt-2 w-full space-y-0.5 text-[11px] text-muted-foreground'>
+        <ul className='mt-2 w-full space-y-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
           {team.top_events.slice(0, 3).map((evt) => (
             <li key={evt} className='truncate'>
               {evt}

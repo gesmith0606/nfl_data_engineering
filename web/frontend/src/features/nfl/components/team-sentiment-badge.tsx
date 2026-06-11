@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { teamSentimentQueryOptions } from '../api/queries';
+import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 import type { TeamSentiment } from '../api/types';
 
 // ---------------------------------------------------------------------------
@@ -11,22 +12,22 @@ import type { TeamSentiment } from '../api/types';
 function sentimentDotClass(label: TeamSentiment['sentiment_label']): string {
   switch (label) {
     case 'positive':
-      return 'bg-green-500';
+      return 'bg-[var(--success)]';
     case 'negative':
-      return 'bg-red-500';
+      return 'bg-[var(--danger)]';
     default:
-      return 'bg-yellow-500';
+      return 'bg-[var(--warn)]';
   }
 }
 
 function sentimentTextClass(label: TeamSentiment['sentiment_label']): string {
   switch (label) {
     case 'positive':
-      return 'text-green-600 dark:text-green-400';
+      return SUCCESS_TEXT;
     case 'negative':
-      return 'text-red-600 dark:text-red-400';
+      return DANGER_TEXT;
     default:
-      return 'text-yellow-600 dark:text-yellow-400';
+      return WARN_TEXT;
   }
 }
 

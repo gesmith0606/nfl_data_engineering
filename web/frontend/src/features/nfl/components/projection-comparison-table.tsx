@@ -14,6 +14,7 @@
 
 import { useEffect, useState } from 'react';
 import { fetchProjectionsComparison } from '@/lib/nfl/api';
+import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 import type { ProjectionComparison, ProjectionComparisonRow } from '@/lib/nfl/types';
 
 const EMPTY_DASH = '—';
@@ -31,9 +32,7 @@ function formatDelta(value: number | null): string {
 function deltaClass(value: number | null): string {
   if (value == null) return 'text-muted-foreground';
   if (Math.abs(value) < 0.5) return 'text-muted-foreground';
-  return value > 0
-    ? 'text-green-600 dark:text-green-400'
-    : 'text-red-600 dark:text-red-400';
+  return value > 0 ? SUCCESS_TEXT : DANGER_TEXT;
 }
 
 export interface ProjectionComparisonTableProps {
@@ -82,7 +81,7 @@ export function ProjectionComparisonTable({
 
   if (error) {
     return (
-      <div className='text-sm text-red-600 dark:text-red-400'>
+      <div className={`text-sm ${DANGER_TEXT}`}>
         Failed to load comparison: {error}
       </div>
     );

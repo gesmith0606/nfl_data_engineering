@@ -5,6 +5,7 @@ import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-h
 import type { PlayerProjection } from '../../api/types';
 import { Column, ColumnDef } from '@tanstack/react-table';
 import { getTeamColor } from '@/lib/nfl/team-colors';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import Link from 'next/link';
 
 /**
@@ -104,15 +105,8 @@ export const columns: ColumnDef<PlayerProjection>[] = [
     header: 'Pos',
     cell: ({ cell }) => {
       const pos = cell.getValue<string>();
-      const colorMap: Record<string, string> = {
-        QB: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-        RB: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400',
-        WR: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
-        TE: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400',
-        K: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
-      };
       return (
-        <Badge variant='outline' className={colorMap[pos] || ''}>
+        <Badge variant='outline' className={getPositionBadgeClass(pos)}>
           {pos}
         </Badge>
       );

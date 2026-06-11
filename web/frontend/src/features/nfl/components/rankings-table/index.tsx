@@ -13,6 +13,7 @@ import { nflKeys } from '../../api/queries';
 import { fetchProjections } from '../../api/service';
 import type { PlayerProjection, ScoringFormat, Position } from '../../api/types';
 import { getTeamColor } from '@/lib/nfl/team-colors';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
@@ -22,14 +23,6 @@ const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
   { value: 'half_ppr', label: 'Half PPR' },
   { value: 'standard', label: 'Standard' }
 ];
-
-const POS_COLORS: Record<string, string> = {
-  QB: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  RB: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400',
-  WR: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
-  TE: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400',
-  K: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
-};
 
 const TIER_CONFIG: Record<string, { label: string; bg: string; badge: string }> = {
   Elite: {
@@ -400,7 +393,7 @@ function PlayerRow({
       <td className='px-[var(--space-3)] py-[var(--space-3)]'>
         <Badge
           variant='outline'
-          className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-2)] py-0 ${POS_COLORS[player.position] || ''}`}
+          className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-2)] py-0 ${getPositionBadgeClass(player.position)}`}
         >
           {player.position}
         </Badge>

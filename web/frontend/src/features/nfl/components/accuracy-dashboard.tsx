@@ -20,6 +20,8 @@ import {
 } from '@/components/ui/table';
 import { Icons } from '@/components/icons';
 import { WeeklyAccuracyChart } from './accuracy-chart';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
+import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 import modelMetrics from '../config/model-metrics.json';
 
 /** Overall backtest metrics generated from the v4.2 production backtest artifact. */
@@ -36,13 +38,6 @@ const POSITION_METRICS = modelMetrics.positions.map((p) => ({
   ...p,
   notes: MODEL_NOTES[p.model] ?? p.model
 }));
-
-const POSITION_COLORS: Record<string, string> = {
-  QB: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  RB: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400',
-  WR: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
-  TE: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400'
-};
 
 interface MetricCardProps {
   title: string;
@@ -85,10 +80,10 @@ function MetricCard({ title, value, description, trend, trendDirection = 'neutra
 
 /** MAE interpretation helper — lower is better for fantasy point error. */
 function getMaeRating(mae: number): { label: string; className: string } {
-  if (mae < 4.0) return { label: 'Excellent', className: 'text-green-600 dark:text-green-400' };
+  if (mae < 4.0) return { label: 'Excellent', className: SUCCESS_TEXT };
   if (mae < 5.0) return { label: 'Good', className: 'text-blue-600 dark:text-blue-400' };
-  if (mae < 6.0) return { label: 'Fair', className: 'text-amber-600 dark:text-amber-400' };
-  return { label: 'High', className: 'text-red-600 dark:text-red-400' };
+  if (mae < 6.0) return { label: 'Fair', className: WARN_TEXT };
+  return { label: 'High', className: DANGER_TEXT };
 }
 
 export function AccuracyDashboard() {
@@ -185,7 +180,7 @@ export function AccuracyDashboard() {
                 return (
                   <TableRow key={row.position}>
                     <TableCell>
-                      <Badge variant='outline' className={POSITION_COLORS[row.position] ?? ''}>
+                      <Badge variant='outline' className={getPositionBadgeClass(row.position)}>
                         {row.position}
                       </Badge>
                     </TableCell>

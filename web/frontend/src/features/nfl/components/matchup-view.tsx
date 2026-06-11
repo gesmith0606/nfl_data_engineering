@@ -568,7 +568,10 @@ interface TeamPanelProps {
 
 function TeamPanel({ team, side, roster, opponentDefense }: TeamPanelProps) {
   const color = getTeamColor(team);
-  const secColor = TEAM_SECONDARY_COLORS[team] ?? '#333';
+  // Brand-color fallback. Kept as a hex literal because it is concatenated with
+  // an `88` alpha suffix in the gradient below (a CSS var() cannot take a hex
+  // alpha suffix); only used when a team has no secondary color mapped.
+  const secColor = TEAM_SECONDARY_COLORS[team] ?? '#333333';
   const fullName = getTeamFullName(team);
   const slots = side === 'offense' ? OFFENSE_SLOTS : DEFENSE_SLOTS;
 
@@ -677,7 +680,7 @@ function TeamPanel({ team, side, roster, opponentDefense }: TeamPanelProps) {
       {/* Player rows */}
       <div
         className='space-y-0.5 rounded-b-xl p-[var(--space-2)]'
-        style={{ backgroundColor: '#0f1318' }}
+        style={{ backgroundColor: 'var(--surface-scoreboard)' }}
       >
         {Array.from(rows.entries()).map(([rowKey, rowSlots]) => (
           <div key={rowKey}>

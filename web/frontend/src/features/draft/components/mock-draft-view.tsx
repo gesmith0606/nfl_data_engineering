@@ -15,6 +15,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { PressScale } from '@/lib/motion-primitives'
+import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors'
 import type { DraftConfig, MockDraftPickResponse } from '@/lib/nfl/types'
 
 interface MockDraftViewProps {
@@ -24,10 +25,10 @@ interface MockDraftViewProps {
 }
 
 const GRADE_COLORS: Record<string, string> = {
-  A: 'text-green-600 dark:text-green-400',
+  A: SUCCESS_TEXT,
   B: 'text-blue-600 dark:text-blue-400',
-  C: 'text-yellow-600 dark:text-yellow-400',
-  D: 'text-red-600 dark:text-red-400'
+  C: WARN_TEXT,
+  D: DANGER_TEXT
 }
 
 export function MockDraftView({ sessionId, config, onReset }: MockDraftViewProps) {
