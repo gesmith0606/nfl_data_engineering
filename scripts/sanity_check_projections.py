@@ -685,6 +685,7 @@ _ENSEMBLE_EXPECTED_ARTIFACTS = [
     "calibrator_total.pkl",
     "oof_spread.parquet",
     "oof_total.parquet",
+    "metadata.json",
 ]
 
 # Expected residual models for hybrid positions (v4.2).
@@ -1053,6 +1054,19 @@ def _check_projection_distribution(
         if "projected_points" in df.columns
         else "projected_season_points"
     )
+
+    # The historical bands are SEASON-TOTAL magnitudes (preseason files).
+    # A weekly Gold file uses the same projected_points column at ~1/17 the
+    # scale — comparing it to season bands would fire four spurious
+    # CRITICALs. Skip (INFO-style warning) when magnitudes are weekly.
+    overall_max = float(df[points_col].max()) if len(df) else 0.0
+    if overall_max < 60.0:
+        warnings.append(
+            "DISTRIBUTION DRIFT CHECK SKIPPED: weekly-scale projections "
+            f"detected (max {overall_max:.1f} pts); bands are calibrated "
+            "for preseason season totals only."
+        )
+        return criticals, warnings
 
     for pos, historical_mean in _HISTORICAL_TOP24_MEANS.items():
         pos_df = df[df["position"] == pos]
