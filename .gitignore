@@ -283,6 +283,13 @@ data/gold/*
 !data/bronze/schedules/
 !data/bronze/schedules/**
 !data/bronze/schedules/**/*.parquet
+# Phase 1.4 (Live Odds Capture): The Odds API snapshots committed so the
+# open/close proxy history accumulates in git (TD-08/09 pattern).
+# Each 2×/daily GHA cron run appends one parquet; the full season history
+# is needed for true CLV evaluation (Phase 2.4).
+!data/bronze/odds_api/
+!data/bronze/odds_api/**
+!data/bronze/odds_api/**/*.parquet
 
 # External rankings cache (ADVR-03): commit the Sleeper/FantasyPros/ESPN JSON
 # so compareExternalRankings never returns empty on first deploy.

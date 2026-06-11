@@ -1,0 +1,127 @@
+name: Live Odds Capture
+
+# ---------------------------------------------------------------------------
+# Triggers
+# ---------------------------------------------------------------------------
+# 2×/day: 13:00 UTC (morning US lines) and 21:00 UTC (evening/closing lines).
+# Choosing non-round times reduces API collision with other popular scrapers.
+#
+# workflow_dispatch for manual one-off runs:
+#   gh workflow run odds-capture.yml
+on:
+  schedule:
+    - cron: "0 13 * * *"   # 13:00 UTC — morning snapshot
+    - cron: "0 21 * * *"   # 21:00 UTC — evening/closing snapshot
+
+  workflow_dispatch: {}
+
+# ---------------------------------------------------------------------------
+# Prevent overlapping runs from racing on the same parquet directory.
+# cancel-in-progress: false so a slow run always completes and we never
+# silently skip a snapshot.
+# ---------------------------------------------------------------------------
+concurrency:
+  group: odds-capture
+  cancel-in-progress: false
+
+# ---------------------------------------------------------------------------
+# Permissions
+# The workflow commits new parquet files back to main (TD-08/09 pattern).
+# contents:write is the only permission needed.
+# ---------------------------------------------------------------------------
+permissions:
+  contents: write
+
+# ---------------------------------------------------------------------------
+# Jobs
+# ---------------------------------------------------------------------------
+jobs:
+  capture:
+    name: Fetch and persist odds snapshot
+    runs-on: ubuntu-latest
+
+    steps:
+      # -----------------------------------------------------------------------
+      # 1. Checkout (full depth not needed — shallow clone is fine for data push)
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      # 2. Python
+      # -----------------------------------------------------------------------
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # -----------------------------------------------------------------------
+      # 3. Dependencies
+      # -----------------------------------------------------------------------
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      # -----------------------------------------------------------------------
+      # 4. Run ingestion
+      # Exits 0 on any network/API error (fail-open design); the workflow
+      # will never fail-hard because the API is temporarily unavailable.
+      # -----------------------------------------------------------------------
+      - name: Fetch NFL odds snapshot
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          python scripts/bronze_odds_api_ingestion.py
+
+      # -----------------------------------------------------------------------
+      # 5. Commit new parquet files back to the repo
+      # Pattern mirrors daily-sentiment.yml (TD-08/09):
+      #   - git add only the specific path
+      #   - skip commit when nothing changed (off-season / no games)
+      #   - rebase-and-retry up to 3× to handle concurrent pushes
+      # -----------------------------------------------------------------------
+      - name: Commit odds snapshot to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/bronze/odds_api/ 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No new odds data to commit (off-season or API returned no games)"
+          else
+            COUNT=$(git diff --cached --name-only | wc -l | tr -d ' ')
+            HOUR=$(date -u +%H)
+            SLOT=$( [ "$HOUR" -lt "17" ] && echo "morning" || echo "evening" )
+
+            git commit -m "data(odds): live odds snapshot — ${COUNT} file(s) [${SLOT}]
+
+          Automated 2x-daily odds capture via The Odds API (Phase 1.4)."
+
+            for attempt in 1 2 3; do
+              if git push 2>&1; then
+                echo "Pushed ${COUNT} odds file(s) (attempt ${attempt})"
+                break
+              fi
+              echo "Push attempt ${attempt} rejected; rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main || {
+                echo "::error::Rebase conflict on odds data commit — manual intervention required"
+                exit 1
+              }
+              if [ "$attempt" = "3" ]; then
+                echo "::error::Push rejected 3 times after rebase — bailing"
+                exit 1
+              fi
+            done
+          fi
+
+      # -----------------------------------------------------------------------
+      # 6. Always-run quota notice so the log shows remaining credits.
+      # -----------------------------------------------------------------------
+      - name: Log quota reminder
+        if: always()
+        run: |
+          echo "::notice::Odds capture complete. Check script output above for x-requests-remaining."
+          echo "::notice::Free tier: 500 credits/month. 2x daily = ~60/month in-season."
