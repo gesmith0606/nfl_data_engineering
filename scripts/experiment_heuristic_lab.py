@@ -581,6 +581,88 @@ def cmd_sweep_residual(model_dir: str) -> None:
     )
 
 
+def _load_route_features(seasons: List[int]) -> pd.DataFrame:
+    """Load route participation Silver tables for the given seasons."""
+    import glob as globmod
+
+    frames = []
+    for season in seasons:
+        files = sorted(
+            globmod.glob(
+                os.path.join(
+                    PROJECT_ROOT,
+                    "data",
+                    "silver",
+                    "graph_features",
+                    f"season={season}",
+                    "graph_route_participation_*.parquet",
+                )
+            )
+        )
+        if files:
+            frames.append(pd.read_parquet(files[-1]))
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+
+
+def cmd_sweep_rb_route() -> None:
+    """Sweep blending route_rate_trail4 into the RB usage multiplier.
+
+    Production _usage_multiplier(RB) ranks carry_share into [0.80, 1.15].
+    Candidate: blended percentile w*pct(route_rate_trail4) +
+    (1-w)*pct(carry_share). Rows without route data fall back to pure
+    carry_share. Evaluated on the cached 2022-2024 frames with the
+    production v4.2 matchup patch active (apples-to-apples vs baseline).
+    """
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    strength = build_defense_strength(weekly, sched, window=8)
+    omap = build_upcoming_opponent_map(sched)
+    matchup = _make_matchup_patch(strength, omap, dict(projection_engine.MATCHUP_BETA))
+
+    seasons = sorted({e["season"] for e in manifest})
+    route = _load_route_features(seasons)
+    if route.empty:
+        print("No route participation data - aborting")
+        return
+    # lookup keyed at the PROJECTED week (trail4 is lagged through W-1)
+    route_lut = route.set_index(["player_id", "season", "week"])["route_rate_trail4"]
+
+    orig_usage = projection_engine._usage_multiplier
+
+    def make_usage_patch(w: float):
+        def patched(df: pd.DataFrame, position: str) -> pd.Series:
+            base = orig_usage(df, position)
+            if position != "RB" or w == 0.0 or "player_id" not in df.columns:
+                return base
+            season_col = (
+                df["proj_season"] if "proj_season" in df.columns else df["season"]
+            )
+            week_col = df["proj_week"] if "proj_week" in df.columns else df["week"]
+            keys = list(zip(df["player_id"], season_col, week_col))
+            rr = pd.Series([route_lut.get(k, np.nan) for k in keys], index=df.index)
+            if rr.notna().sum() < 5:
+                return base
+            rr_pct = rr.rank(pct=True)
+            base_pct = (base - 0.80) / 0.35  # invert to percentile
+            blended = (1 - w) * base_pct + w * rr_pct.fillna(base_pct)
+            return (0.80 + 0.35 * blended).clip(0.80, 1.15)
+
+        return patched
+
+    for w in [0.0, 0.25, 0.5, 0.75, 1.0]:
+        projection_engine._usage_multiplier = make_usage_patch(w)
+        try:
+            results = evaluate_config(manifest, matchup_patch=matchup)
+        finally:
+            projection_engine._usage_multiplier = orig_usage
+        s = summarize(results)
+        print(
+            f"rb_route_w={w:<5} RB MAE {s['RB_mae']:.4f} "
+            f"(bias {s['RB_bias']:+.3f}) | {_fmt(s)}"
+        )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -593,6 +675,7 @@ def main() -> int:
             "sweep-round2",
             "eval-json",
             "sweep-residual",
+            "sweep-rb-route",
         ],
     )
     parser.add_argument("--seasons", type=str, default="2022,2023,2024")
@@ -614,6 +697,8 @@ def main() -> int:
         cmd_eval_json(args.config)
     elif args.command == "sweep-residual":
         cmd_sweep_residual(args.model_dir)
+    elif args.command == "sweep-rb-route":
+        cmd_sweep_rb_route()
     return 0
 
 
