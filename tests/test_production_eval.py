@@ -35,8 +35,16 @@ import swap_and_eval as sae
 
 @pytest.fixture
 def tmp_eval_dir(tmp_path, monkeypatch):
-    """Redirect all eval output to a temp directory."""
+    """Redirect all eval output to a temp directory.
+
+    Also redirects the holdout ledger — without this, every --gate test run
+    appends a fake "gate_test" entry to the REAL .planning/holdout_ledger.json
+    (found polluted with 10 such entries on 2026-06-12).
+    """
     monkeypatch.setattr(pe, "EVAL_OUTPUT_DIR", str(tmp_path / "eval"))
+    monkeypatch.setattr(
+        pe, "HOLDOUT_LEDGER_PATH", str(tmp_path / "holdout_ledger.json")
+    )
     return tmp_path / "eval"
 
 
