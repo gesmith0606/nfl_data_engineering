@@ -116,6 +116,19 @@ _SAME_WEEK_RAW_STATS = {
     "route_rate",
     "dropbacks_on_field",
     "team_dropbacks",
+    # FTN charting per-week raw values — same-week stats, not model features.
+    # Only the _roll4 and _trail lagged variants (from ftn_features.py) are valid.
+    "ftn_catchable_rate",
+    "ftn_contested_rate",
+    "ftn_drop_rate",
+    "ftn_pa_target_share",
+    "ftn_created_rec_rate",
+    "ftn_blitz_rate",
+    "ftn_avg_pass_rushers",
+    "ftn_out_of_pocket_rate",
+    "ftn_throw_away_rate",
+    "ftn_interception_worthy_rate",
+    "ftn_play_action_rate",
 }
 
 # Lagged column suffixes — rolling variants have shift(1) applied upstream
@@ -396,8 +409,9 @@ def _filter_eligible_players(df: pd.DataFrame) -> pd.DataFrame:
 def _add_implied_totals(df: pd.DataFrame, schedules: pd.DataFrame) -> pd.DataFrame:
     """Add Vegas implied team total to each player-week row.
 
-    Per FEAT-04: implied_total = (total_line / 2) - (spread_line / 2) for home,
-    clipped to [5.0, 45.0].
+    Per FEAT-04: implied_total = (total_line / 2) + (spread_line / 2) for home,
+    clipped to [5.0, 45.0]. nflverse ``spread_line`` is the expected HOME
+    margin (positive = home favored), so the favorite gets the larger total.
 
     Args:
         df: Player-week DataFrame with recent_team, season, week.
@@ -414,14 +428,14 @@ def _add_implied_totals(df: pd.DataFrame, schedules: pd.DataFrame) -> pd.DataFra
         ["season", "week", "home_team", "away_team", "spread_line", "total_line"]
     ].copy()
 
-    # Home implied = (total/2) - (spread/2); negative spread = home favored
+    # Home implied = (total/2) + (spread/2); positive spread = home favored
     sched["implied_home"] = (
-        (sched["total_line"] / 2) - (sched["spread_line"] / 2)
+        (sched["total_line"] / 2) + (sched["spread_line"] / 2)
     ).clip(5.0, 45.0)
 
-    # Away implied = (total/2) + (spread/2)
+    # Away implied = (total/2) - (spread/2)
     sched["implied_away"] = (
-        (sched["total_line"] / 2) + (sched["spread_line"] / 2)
+        (sched["total_line"] / 2) - (sched["spread_line"] / 2)
     ).clip(5.0, 45.0)
 
     # Reshape to per-team rows
@@ -1406,6 +1420,73 @@ def _join_college_network_features(df: pd.DataFrame, season: int) -> pd.DataFram
     return df
 
 
+def _join_ftn_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join FTN charting trailing features if available (2022+ only).
+
+    Reads Silver FTN player-week parquet and merges on (player_id, season, week).
+    Only the _roll4 and _trail variants are model features; the raw per-week
+    FTN columns are retained in the Silver table for inspection but must remain
+    in _SAME_WEEK_RAW_STATS to be excluded from the model feature set.
+
+    For seasons < 2022 all FTN columns are NaN by design — FTN coverage begins
+    2022. Downstream imputation (position-mean or 2022+ subset) is handled by
+    the caller.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with FTN_FEATURE_COLUMNS joined (NaN-filled when unavailable).
+    """
+    try:
+        from ftn_features import FTN_FEATURE_COLUMNS
+    except ImportError:
+        logger.info("ftn_features module unavailable — skipping FTN join")
+        return df
+
+    # Try cached Silver parquet
+    ftn_dir = os.path.join(SILVER_DIR, "players", "ftn", f"season={season}")
+    ftn_files = sorted(glob.glob(os.path.join(ftn_dir, "ftn_player_week_*.parquet")))
+
+    ftn_df = pd.DataFrame()
+    if ftn_files:
+        try:
+            ftn_df = pd.read_parquet(ftn_files[-1])
+            logger.info("Loaded Silver FTN features from %s", ftn_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read Silver FTN features: %s", exc)
+
+    # Join on player_id, season, week
+    join_cols = ["player_id", "season", "week"]
+    if not ftn_df.empty:
+        avail = [c for c in join_cols if c in ftn_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in FTN_FEATURE_COLUMNS if c in ftn_df.columns]
+            # Deduplicate (a player may appear once as receiver + once as QB)
+            ftn_slim = (
+                ftn_df[avail + feat_cols]
+                .groupby(avail, as_index=False)
+                .mean(numeric_only=True)
+            )
+            df = df.merge(
+                ftn_slim,
+                on=avail,
+                how="left",
+                suffixes=("", "__ftn"),
+            )
+            dup = [c for c in df.columns if c.endswith("__ftn")]
+            df = df.drop(columns=dup, errors="ignore")
+            logger.info("Joined %d FTN trailing feature columns", len(feat_cols))
+
+    # Fill missing columns with NaN for schema consistency
+    for col in FTN_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df
+
+
 # ---------------------------------------------------------------------------
 # Core assembly
 # ---------------------------------------------------------------------------
@@ -1596,6 +1677,9 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 18. Optional: join college network features (teammate, scheme, prospect comps)
     base = _join_college_network_features(base, season)
+
+    # 19. Optional: join FTN charting trailing features (2022+ only; NaN for 2016-2021)
+    base = _join_ftn_features(base, season)
 
     logger.info(
         "Assembled player features for season %d: %d rows, %d columns",
