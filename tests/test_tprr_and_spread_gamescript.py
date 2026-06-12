@@ -525,3 +525,104 @@ class TestComputePerPositionSpearman:
         out = _compute_per_position_spearman(empty)
         for pos in ["QB", "RB", "WR", "TE"]:
             assert np.isnan(out[f"{pos}_spearman_weekly"])
+
+
+# ---------------------------------------------------------------------------
+# Production wiring: _apply_wr_tprr_collapse in projection_engine
+# ---------------------------------------------------------------------------
+
+
+class TestWrTprrCollapseProduction:
+    """The TPRR collapse production correction (projection_engine 4d)."""
+
+    @staticmethod
+    def _frames():
+        import pandas as pd
+
+        combined = pd.DataFrame(
+            {
+                "player_id": ["W1", "W2", "R1"],
+                "position": ["WR", "WR", "RB"],
+                "projected_points": [10.0, 12.0, 14.0],
+                "proj_receiving_yards": [60.0, 70.0, 10.0],
+            }
+        )
+        tprr_rows = pd.DataFrame(
+            {
+                "player_id": ["W1", "W2", "R1"],
+                "season": [2024] * 3,
+                "week": [10] * 3,
+                # W1 collapsing (< -0.02), W2 stable, R1 collapsing but RB
+                "tprr_trail4_slope": [-0.05, 0.01, -0.08],
+            }
+        )
+        return combined, tprr_rows
+
+    def test_collapse_applies_to_flagged_wr_only(self):
+        import pandas as pd
+        from projection_engine import (
+            WR_TPRR_COLLAPSE_MULT,
+            _apply_wr_tprr_collapse,
+        )
+
+        combined, tprr_rows = self._frames()
+        weekly = pd.DataFrame(
+            {"player_id": ["W1"], "season": [2024], "week": [9], "targets": [5]}
+        )
+        n = _apply_wr_tprr_collapse(combined, tprr_rows, weekly, 2024, 10)
+        assert n == 1
+        # W1 scaled, W2 untouched, RB untouched despite collapsing slope
+        assert combined.loc[0, "projected_points"] == round(
+            10.0 * WR_TPRR_COLLAPSE_MULT, 2
+        )
+        assert combined.loc[1, "projected_points"] == 12.0
+        assert combined.loc[2, "projected_points"] == 14.0
+        # Stat columns scaled too
+        assert combined.loc[0, "proj_receiving_yards"] == round(
+            60.0 * WR_TPRR_COLLAPSE_MULT, 2
+        )
+
+    def test_no_data_is_noop(self):
+        import pandas as pd
+        from projection_engine import _apply_wr_tprr_collapse
+
+        combined, _ = self._frames()
+        before = combined["projected_points"].tolist()
+        n = _apply_wr_tprr_collapse(
+            combined, pd.DataFrame(), pd.DataFrame(), 2024, 10
+        )
+        assert n == 0
+        assert combined["projected_points"].tolist() == before
+
+    def test_computes_tprr_when_columns_absent(self):
+        """When route_df lacks tprr columns, they are computed on the fly
+        from dropbacks + targets (via compute_tprr_features)."""
+        import pandas as pd
+        from projection_engine import _apply_wr_tprr_collapse
+
+        combined, _ = self._frames()
+        # Raw route participation (no tprr columns): W1 has a declining
+        # targets-per-route trend over weeks 1-9.
+        rows = []
+        for wk in range(1, 11):
+            rows.append(
+                {
+                    "player_id": "W1",
+                    "season": 2024,
+                    "week": wk,
+                    "dropbacks_on_field": 30,
+                }
+            )
+        route_df = pd.DataFrame(rows)
+        weekly = pd.DataFrame(
+            {
+                "player_id": ["W1"] * 10,
+                "season": [2024] * 10,
+                "week": list(range(1, 11)),
+                # Steep target decline: 12 -> 0
+                "targets": [12, 11, 10, 8, 6, 5, 3, 2, 1, 0],
+            }
+        )
+        n = _apply_wr_tprr_collapse(combined, route_df, weekly, 2024, 10)
+        assert n == 1
+        assert combined.loc[0, "projected_points"] < 10.0

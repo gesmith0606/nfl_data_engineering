@@ -121,6 +121,30 @@ WR_ROUTE_SLOPE_THRESHOLD: float = -0.03
 WR_ROUTE_SLOPE_COLLAPSE_MULT: float = 0.75
 
 # ---------------------------------------------------------------------------
+# WR TPRR-slope collapse (rank-ordering experiments, 2026-06-12)
+#
+# TPRR (targets per route run) is the stickiest role-quality signal in public
+# research. A sustained DECLINE in trailing TPRR (slope of the lagged
+# trailing-4 series) marks a target-earning role loss that rolling point
+# averages haven't priced yet — a distinct velocity mechanism from the
+# route-participation slope above (routes can hold steady while per-route
+# targets collapse, e.g. a WR demoted to decoy/clear-out routes).
+#
+# Validated in the heuristic lab (sweep-tprr, 2022-24 w3-18, mechanism 2c):
+#   WR MAE 4.5763 -> 4.5488 (delta +0.0275, gate >=0.020 PASS); Spearman
+#   flat; QB/RB/TE untouched. See .planning/RANK_ORDERING_EXPERIMENTS.md.
+# ---------------------------------------------------------------------------
+
+#: Master on/off switch for WR TPRR-slope collapse correction.
+USE_WR_TPRR_COLLAPSE: bool = True
+
+#: Trailing-TPRR slope threshold below which a WR is flagged.
+WR_TPRR_SLOPE_THRESHOLD: float = -0.02
+
+#: Multiplier applied to WR projection when TPRR collapse fires.
+WR_TPRR_COLLAPSE_MULT: float = 0.85
+
+# ---------------------------------------------------------------------------
 # Identity-keyed caches for per-call-invariant derived inputs.
 #
 # The backtest calls generate_weekly_projections() once per week with the
@@ -132,6 +156,7 @@ WR_ROUTE_SLOPE_COLLAPSE_MULT: float = 0.75
 # ---------------------------------------------------------------------------
 _PRIORS_CACHE: list = []
 _RB_NAME_MAP_CACHE: list = []
+_TPRR_CACHE: list = []
 _DERIVED_CACHE_MAX = 4
 
 # Config-contract warnings already emitted this process (see _warn_once).
@@ -149,6 +174,25 @@ def _warn_once(key: str, message: str) -> None:
     if key not in _SKIP_WARNINGS_EMITTED:
         _SKIP_WARNINGS_EMITTED.add(key)
         logger.warning(message)
+
+
+def _cached_tprr_features(route_df, weekly_df):
+    """``compute_tprr_features`` memoized on (route_df, weekly_df) identity.
+
+    The backtest calls generate_weekly_projections() once per week with the
+    same route_df/weekly_df objects; TPRR features depend only on their
+    contents.
+    """
+    from graph_route_participation import compute_tprr_features
+
+    for r_ref, w_ref, tprr in _TPRR_CACHE:
+        if r_ref is route_df and w_ref is weekly_df:
+            return tprr
+    tprr = compute_tprr_features(route_df, weekly_df)
+    _TPRR_CACHE.append((route_df, weekly_df, tprr))
+    if len(_TPRR_CACHE) > _DERIVED_CACHE_MAX:
+        _TPRR_CACHE.pop(0)
+    return tprr
 
 
 def _cached_player_priors(weekly_df, scoring_format: str):
@@ -359,6 +403,83 @@ def _apply_wr_route_slope_collapse(
     if "projected_points" in combined.columns:
         combined.loc[wr_mask, "projected_points"] = (
             (combined.loc[wr_mask, "projected_points"] * WR_ROUTE_SLOPE_COLLAPSE_MULT)
+            .clip(lower=0)
+            .round(2)
+        )
+    return int(wr_mask.sum())
+
+
+def _apply_wr_tprr_collapse(
+    combined: pd.DataFrame,
+    route_df: pd.DataFrame,
+    weekly_df: pd.DataFrame,
+    season: int,
+    week: int,
+) -> int:
+    """Apply the WR TPRR-slope-collapse multiplier to ``combined`` in place.
+
+    When a WR's trailing TPRR slope (``tprr_trail4_slope``) is below
+    ``WR_TPRR_SLOPE_THRESHOLD`` for the projected week, the player's
+    projected stats and points are scaled by ``WR_TPRR_COLLAPSE_MULT``.
+
+    Lag contract: ``compute_tprr_features`` shifts the per-week TPRR series
+    by one week within season before any trailing aggregation, so week-t
+    target data never enters the week-t slope.
+
+    Args:
+        combined: Full projections DataFrame being mutated in place.
+        route_df: Route-participation DataFrame (Silver graph features or
+            ``compute_route_participation`` output) with dropbacks_on_field.
+        weekly_df: Bronze weekly player stats with targets.
+        season: The season being projected.
+        week: The week being projected.
+
+    Returns:
+        Number of WR rows the multiplier was applied to.
+    """
+    if route_df.empty or weekly_df is None or weekly_df.empty:
+        return 0
+    if "player_id" not in combined.columns:
+        return 0
+
+    if "tprr_trail4_slope" in route_df.columns:
+        tprr_df = route_df
+    else:
+        tprr_df = _cached_tprr_features(route_df, weekly_df)
+    if tprr_df.empty or "tprr_trail4_slope" not in tprr_df.columns:
+        return 0
+
+    slope_rows = tprr_df[
+        (tprr_df["season"] == season) & (tprr_df["week"] == week)
+    ][["player_id", "tprr_trail4_slope"]].dropna(subset=["tprr_trail4_slope"])
+    if slope_rows.empty:
+        return 0
+
+    collapsing_ids = set(
+        slope_rows.loc[
+            slope_rows["tprr_trail4_slope"] < WR_TPRR_SLOPE_THRESHOLD, "player_id"
+        ].astype(str)
+    )
+    if not collapsing_ids:
+        return 0
+
+    wr_mask = (combined["position"] == "WR") & combined["player_id"].astype(
+        str
+    ).isin(collapsing_ids)
+    if not wr_mask.any():
+        return 0
+
+    proj_cols = [
+        c
+        for c in combined.columns
+        if c.startswith("proj_") and c not in ("proj_season", "proj_week")
+    ]
+    combined.loc[wr_mask, proj_cols] = (
+        combined.loc[wr_mask, proj_cols] * WR_TPRR_COLLAPSE_MULT
+    ).round(2)
+    if "projected_points" in combined.columns:
+        combined.loc[wr_mask, "projected_points"] = (
+            (combined.loc[wr_mask, "projected_points"] * WR_TPRR_COLLAPSE_MULT)
             .clip(lower=0)
             .round(2)
         )
@@ -1800,6 +1921,45 @@ def generate_weekly_projections(
             "route-slope collapse SKIPPED for this caller. Pass Silver "
             "graph_route_participation data to keep this path consistent with "
             "production/eval.",
+        )
+
+    # ------------------------------------------------------------------
+    # 4d. WR TPRR-slope collapse correction (rank-ordering exp, 2026-06-12)
+    #
+    # Distinct velocity mechanism from 4c: per-route TARGET earning can
+    # collapse while route participation holds (demotion to decoy routes).
+    # Lab-gated: WR MAE +0.0275 (gate >=0.020), QB/RB/TE untouched.
+    # ------------------------------------------------------------------
+    if (
+        USE_WR_TPRR_COLLAPSE
+        and route_df is not None
+        and not route_df.empty
+        and weekly_df is not None
+        and "position" in combined.columns
+    ):
+        try:
+            n_tprr_collapsed = _apply_wr_tprr_collapse(
+                combined, route_df, weekly_df, season, week
+            )
+            if n_tprr_collapsed > 0:
+                logger.info(
+                    "WR TPRR collapse (%.2fx): applied to %d WR(s) for %d w%d",
+                    WR_TPRR_COLLAPSE_MULT,
+                    n_tprr_collapsed,
+                    season,
+                    week,
+                )
+        except Exception as exc:
+            logger.warning(
+                "WR TPRR collapse correction failed; projecting without: %s",
+                exc,
+            )
+    elif USE_WR_TPRR_COLLAPSE and (route_df is None or weekly_df is None):
+        _warn_once(
+            "wr_tprr_no_data",
+            "USE_WR_TPRR_COLLAPSE=True but route_df/weekly_df missing — WR "
+            "TPRR collapse SKIPPED for this caller. Pass both to keep this "
+            "path consistent with production/eval.",
         )
 
     # ------------------------------------------------------------------
