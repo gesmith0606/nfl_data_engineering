@@ -259,6 +259,63 @@ def compute_calibration(
     return pd.DataFrame(results)
 
 
+def compute_conformal_width_factors(
+    oof_df: pd.DataFrame,
+    target_coverage: float = 0.80,
+    factor_grid: Optional[List[float]] = None,
+) -> Dict[str, Dict[str, float]]:
+    """Compute per-position conformal width factors from OOF predictions.
+
+    Raw LGB 10-90 quantile bands under-cover (~72-75% OOF). For each
+    position, sweep multiplicative width factors (band widened around q50)
+    and pick the smallest factor whose OOF coverage reaches
+    ``target_coverage``; fall back to the largest grid factor.
+
+    Args:
+        oof_df: OOF predictions with position, actual, q10, q50, q90 columns.
+        target_coverage: Desired 10-90 empirical coverage (default 0.80).
+        factor_grid: Width factors to sweep (default 1.00-1.50 by 0.05).
+
+    Returns:
+        Dict per position: {width_factor, oof_coverage_at_factor,
+        raw_coverage, n} — the metadata schema consumed by
+        predict_quantiles(apply_conformal=True).
+    """
+    if factor_grid is None:
+        factor_grid = [round(1.0 + 0.05 * i, 2) for i in range(11)]
+
+    factors: Dict[str, Dict[str, float]] = {}
+    if oof_df.empty or "position" not in oof_df.columns:
+        return factors
+
+    for pos in sorted(oof_df["position"].unique()):
+        d = oof_df[oof_df["position"] == pos].dropna(
+            subset=["actual", "q10", "q50", "q90"]
+        )
+        if d.empty:
+            continue
+        actual = d["actual"].values
+        q10, q50, q90 = d["q10"].values, d["q50"].values, d["q90"].values
+        raw_cov = float(np.mean((actual >= q10) & (actual <= q90)))
+
+        chosen, chosen_cov = factor_grid[-1], None
+        for wf in factor_grid:
+            lo = np.clip(q50 - (q50 - q10) * wf, 0.0, None)
+            hi = q50 + (q90 - q50) * wf
+            cov = float(np.mean((actual >= lo) & (actual <= hi)))
+            if cov >= target_coverage:
+                chosen, chosen_cov = wf, cov
+                break
+            chosen_cov = cov
+        factors[pos] = {
+            "width_factor": chosen,
+            "oof_coverage_at_factor": round(chosen_cov, 4),
+            "raw_coverage": round(raw_cov, 4),
+            "n": int(len(d)),
+        }
+    return factors
+
+
 # ---------------------------------------------------------------------------
 # Persistence
 # ---------------------------------------------------------------------------
@@ -293,7 +350,15 @@ def save_quantile_models(
     with open(os.path.join(path, "imputer.pkl"), "wb") as f:
         pickle.dump(result["imputer"], f)
 
-    # Save metadata
+    # Save metadata. Conformal width factors are computed from OOF
+    # predictions so every retrain ships calibrated bands (previously
+    # added ad-hoc and silently lost on retrain).
+    oof_df = result.get("oof_predictions")
+    conformal = (
+        compute_conformal_width_factors(oof_df)
+        if oof_df is not None and not oof_df.empty
+        else result.get("conformal_width_factors", {})
+    )
     metadata = {
         "feature_cols": result["feature_cols"],
         "positions": list(result["models"].keys()),
@@ -303,6 +368,7 @@ def save_quantile_models(
             else []
         ),
         "created_at": datetime.now().isoformat(),
+        "conformal_width_factors": conformal,
     }
     with open(os.path.join(path, "metadata.json"), "w") as f:
         json.dump(metadata, f, indent=2)
