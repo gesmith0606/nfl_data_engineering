@@ -1,0 +1,117 @@
+{
+  "fetch_run_id": "db9c88ed-7f06-45ba-843f-a07d6336317d",
+  "source": "rotowire",
+  "fetched_at": "2026-06-10T13:41:07.200073+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631299",
+      "url": "https://www.rotowire.com//football/player/zach-charbonnet-16897",
+      "permalink": "",
+      "title": "Zach Charbonnet: Gets in some light on-field work",
+      "body_text": "Charbonnet, who underwent surgery to repair a torn ACL in mid-February, was spotted doing what Brendon Nelson of SI.com describes as some light on-field work during Tuesday's mandatory minicamp. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-09T07:19:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zach Charbonnet",
+        "Brendon Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631292",
+      "url": "https://www.rotowire.com//football/player/alec-pierce-16022",
+      "permalink": "",
+      "title": "Alec Pierce: May miss start of training camp",
+      "body_text": "Coach Shane Steichen acknowledged Tuesday that Pierce, who is bouncing back from an offseason ankle procedure, isn't a lock to be ready for the start of training camp, Stephen Holder of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-09T06:16:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "Coach Shane",
+        "Stephen Holder"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631273",
+      "url": "https://www.rotowire.com//football/player/deshaun-watson-11712",
+      "permalink": "",
+      "title": "Deshaun Watson: Starting QB decision not imminent",
+      "body_text": "Coach Todd Monken acknowledged Tuesday that he's unlikely to name a starting QB (between Watson and Shedeur Sanders) by the conclusion of the team's current minicamp, which runs through Thursday, Mary Kay Cabot of the Cleveland Plain Dealer reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-09T03:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "Coach Todd",
+        "Shedeur Sanders",
+        "Mary Kay",
+        "Cleveland Plain"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631271",
+      "url": "https://www.rotowire.com//football/player/joe-burrow-14442",
+      "permalink": "",
+      "title": "Joe Burrow: Agrees to contract restructure",
+      "body_text": "Burrow agreed to a restructured contract Tuesday, creating $10 million in cap space for the Bengals, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-09T12:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "nfl631270",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Doing 11-on-11 drills Tuesday",
+      "body_text": "Skattebo (ankle) is participating in team drills at Tuesday's practice, Dan Duggan of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-09T11:36:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Tuesday Skattebo",
+        "Dan Duggan",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    }
+  ]
+}

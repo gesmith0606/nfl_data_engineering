@@ -1,0 +1,578 @@
+{
+  "fetch_run_id": "0c09a4f5-2aa6-4416-a9ef-fd6982dbfee0",
+  "source": "pft",
+  "fetched_at": "2026-05-29T08:58:52.508420+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/grady-jarrett-i-owe-chicago-a-better-year-after-subpar-first-season-with-the-bears",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/grady-jarrett-i-owe-chicago-a-better-year-after-subpar-first-season-with-the-bears",
+      "permalink": "",
+      "title": "Grady Jarrett: I owe Chicago a better year after subpar first season with the Bears",
+      "body_text": "Veteran defensive tackle Grady Jarrett signed a three-year, $43.5 million contract with the Bears last offseason.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-29T08:25:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Grady Jarrett",
+        "Bears Veteran"
+      ],
+      "resolved_player_ids": [
+        "00-0031583"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-on-sean-mannion-you-can-definitely-see-the-vision-for-the-eagles-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-on-sean-mannion-you-can-definitely-see-the-vision-for-the-eagles-offense",
+      "permalink": "",
+      "title": "Jalen Hurts on Sean Mannion: You can definitely see the vision for the Eagles' offense",
+      "body_text": "\"It's been a really good process so far,” Hurts said of learning the Eagles' new offensive system.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-29T07:32:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts",
+        "Sean Mannion"
+      ],
+      "resolved_player_ids": [
+        "00-0036389",
+        "00-0032245"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-49ers-may-be-gone-longer-for-mexico-game-than-for-australia-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-49ers-may-be-gone-longer-for-mexico-game-than-for-australia-game",
+      "permalink": "",
+      "title": "Kyle Shanahan: 49ers may be gone longer for Mexico game than for Australia game",
+      "body_text": "The 49ers ended up with not one but two international games in 2026 — one in Australia and one in Mexico.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-29T03:09:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-pretty-far-along-in-his-rehab",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-pretty-far-along-in-his-rehab",
+      "permalink": "",
+      "title": "Nick Bosa \"pretty far along\" in his rehab",
+      "body_text": "49ers edge rusher Nick Bosa tore the ACL in his right knee in a Sept. 21 win over the Cardinals.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-29T02:53:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-workload-is-an-issue-for-practice-not-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-workload-is-an-issue-for-practice-not-games",
+      "permalink": "",
+      "title": "Christian McCaffrey: Workload is an issue for practice, not games",
+      "body_text": "49ers running back Christian McCaffrey soon will turn 30.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-29T01:29:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-a-j-brown-trade-its-patriots-or-no-one",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-a-j-brown-trade-its-patriots-or-no-one",
+      "permalink": "",
+      "title": "For A.J. Brown trade, it's Patriots or no one",
+      "body_text": "If anyone else was pursuing a Brown trade, it would have been leaked.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-29T00:50:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-free-agent-joey-bosa-is-working-on-his-golf-game-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-free-agent-joey-bosa-is-working-on-his-golf-game-right-now",
+      "permalink": "",
+      "title": "Nick Bosa: Free agent Joey Bosa is working on his golf game right now",
+      "body_text": "Veteran edge rusher Joey Bosa is one of the top players remaining on the free agent market.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-29T00:14:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Bosa",
+        "Joey Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717",
+        "00-0033156"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-is-back-for-13th-season-with-more-to-give",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-is-back-for-13th-season-with-more-to-give",
+      "permalink": "",
+      "title": "DeMarcus Lawrence is back for 13th season with \"more to give\"",
+      "body_text": "Seahawks edge rusher DeMarcus Lawrence did not attend the start of the team's voluntary offseason workouts until this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T23:51:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nba-revamps-draft-lottery-to-address-tanking",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nba-revamps-draft-lottery-to-address-tanking",
+      "permalink": "",
+      "title": "NBA revamps draft lottery to address tanking",
+      "body_text": "The NBA has a tanking problem.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-28T23:50:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-moves-up-date-of-the-cutdown-deadline-to-53-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-moves-up-date-of-the-cutdown-deadline-to-53-players",
+      "permalink": "",
+      "title": "NFL moves up date of the cutdown deadline to 53 players",
+      "body_text": "The NFL has informed teams that this year’s cutdown deadline to 53 players has moved up by two days compared to what it was in recent years.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T23:41:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-learns-in-rehab-stint-that-its-ok-to-ask-for-support",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-learns-in-rehab-stint-that-its-ok-to-ask-for-support",
+      "permalink": "",
+      "title": "Puka Nacua learns in rehab stint that \"it's OK to ask for support\"",
+      "body_text": "Rams wide receiver Puka Nacua met with the media for the first time since completing rehab this offseason.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T23:01:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/isaac-guerendo-tore-a-pectoral-muscle-expected-back-late-in-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/isaac-guerendo-tore-a-pectoral-muscle-expected-back-late-in-camp",
+      "permalink": "",
+      "title": "Isaac Guerendo tore a pectoral muscle, expected back late in camp",
+      "body_text": "49ers running back Isaac Guerendo tore a pectoral muscle about a month ago while lifting weights, coach Kyle Shanahan said.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T22:22:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaac Guerendo",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [
+        "00-0039363"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-te-brock-bowers-back-to-100-percent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-te-brock-bowers-back-to-100-percent",
+      "permalink": "",
+      "title": "Raiders TE Brock Bowers back to 100 percent",
+      "body_text": "Raiders tight end Brock Bowers made five catches for 103 yards in Week 1 of last season, but he injured his knee.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T21:42:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-has-arrived-at-seahawks-voluntary-offseason-workouts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-has-arrived-at-seahawks-voluntary-offseason-workouts",
+      "permalink": "",
+      "title": "DeMarcus Lawrence has arrived at Seahawks' voluntary offseason workouts",
+      "body_text": "Seahawks edge rusher DeMarcus Lawrence is on the practice field for today's voluntary Organized Team Activities.",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-28T21:31:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Organized Team"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lloyd-howell-made-7-3-million-during-his-short-nflpa-stint",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lloyd-howell-made-7-3-million-during-his-short-nflpa-stint",
+      "permalink": "",
+      "title": "Lloyd Howell made $7.3 million during his short NFLPA stint",
+      "body_text": "Lloyd Howell's cup of coffee with the NFL Players Association put more than a few beans in his pocket.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-28T21:06:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lloyd Howell",
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-associated-press-journalist-barry-wilner-wins-2026-bill-nunn-award",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-associated-press-journalist-barry-wilner-wins-2026-bill-nunn-award",
+      "permalink": "",
+      "title": "Former Associated Press journalist Barry Wilner wins 2026 Bill Nunn Award",
+      "body_text": "The Pro Football Writers of America announced Thursday that former Associated Press writer Barry Wilner as the 2026 Bill Nunn Jr.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T21:01:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former Associated",
+        "Barry Wilner",
+        "Bill Nunn",
+        "Award The",
+        "Pro Football",
+        "Associated Press",
+        "Bill Nunn Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-vikings-complete-second-round-of-gm-interviews",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-vikings-complete-second-round-of-gm-interviews",
+      "permalink": "",
+      "title": "Report: Vikings complete second round of GM interviews",
+      "body_text": "The Vikings completed a second round of General Manager interviews on Thursday, Alec Lewis of TheAthletic.com reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T20:49:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Vikings",
+        "General Manager",
+        "Alec Lewis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-rb-jordan-mims",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-rb-jordan-mims",
+      "permalink": "",
+      "title": "49ers sign RB Jordan Mims",
+      "body_text": "The 49ers have made an addition to their offensive backfield.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-28T20:26:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Mims"
+      ],
+      "resolved_player_ids": [
+        "00-0038678"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-oc-andrew-janocko-fernando-mendoza-wants-to-come-in-grind-every-day",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-oc-andrew-janocko-fernando-mendoza-wants-to-come-in-grind-every-day",
+      "permalink": "",
+      "title": "Raiders OC Andrew Janocko: Fernando Mendoza wants to come in, grind every day",
+      "body_text": "Fernando Mendoza, the No. 1 overall pick of this year's draft, has been making a positive impression on his new offensive coordinator.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-28T20:31:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andrew Janocko",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-rb-zamir-white-works-out-for-dolphins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-rb-zamir-white-works-out-for-dolphins",
+      "permalink": "",
+      "title": "Free agent RB Zamir White works out for Dolphins",
+      "body_text": "Free agent running back Zamir White worked out for the Dolphins, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-05-28T20:23:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zamir White",
+        "Dolphins Free",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0038040"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-always-the-goal-to-play-week-1-but-its-a-long-ways-away",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-always-the-goal-to-play-week-1-but-its-a-long-ways-away",
+      "permalink": "",
+      "title": "Patrick Mahomes: Always the goal to play Week 1, but it's a long ways away",
+      "body_text": "Chiefs quarterback Patrick Mahomes suffered a torn ACL in December.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-28T20:14:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-on-rashee-rice-were-given-chances-to-learn-hes-in-that-position-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-on-rashee-rice-were-given-chances-to-learn-hes-in-that-position-now",
+      "permalink": "",
+      "title": "Andy Reid on Rashee Rice: We're given chances to learn, he's in that position now",
+      "body_text": "Chiefs head coach Andy Reid spoke to the media on Thursday for the first time since wide receiver Rashee Rice was ordered to spend 30 days in jail last week.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-28T19:47:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-says-hell-hopefully-play-more-football-beyond-the-2026-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-says-hell-hopefully-play-more-football-beyond-the-2026-season",
+      "permalink": "",
+      "title": "Matthew Stafford says he'll \"hopefully\" play more football beyond the 2026 season",
+      "body_text": "“It is something delicate,\" Stafford said. \"I've got to navigate the end of it, and I’m not sure when that is. I want to be fair to our team, but I also want to be fair to myself.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-05-28T19:41:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-abdul-carter-drama-will-take-center-stage-when-giants-otas-resume",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-abdul-carter-drama-will-take-center-stage-when-giants-otas-resume",
+      "permalink": "",
+      "title": "Jaxson Dart-Abdul Carter drama will take center stage when Giants OTAs resume",
+      "body_text": "They arrived together as first-round picks in 2025.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-26T15:49:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaxson Dart",
+        "Abdul Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0040691",
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/englands-world-cup-tuneup-in-tampa-could-have-50-000-empty-seats",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/englands-world-cup-tuneup-in-tampa-could-have-50-000-empty-seats",
+      "permalink": "",
+      "title": "England's World Cup tuneup in Tampa could have 50,000 empty seats",
+      "body_text": "With the World Cup starting next month, many of the teams will be playing tuneup games before the competition commences.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-28T18:36:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-im-buying-luther-burden-stock-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-im-buying-luther-burden-stock-right-now",
+      "permalink": "",
+      "title": "Ben Johnson: I'm buying Luther Burden stock right now",
+      "body_text": "The Bears made a significant change to their wide receiver room this offseason when they traded DJ Moore to the Bills and the move set up a significant change for second-year wideout Luther Burden.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-28T18:08:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ben Johnson",
+        "Luther Burden",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0040735"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-wasnt-present-for-giants-team-meeting",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-wasnt-present-for-giants-team-meeting",
+      "permalink": "",
+      "title": "Abdul Carter wasn't present for Giants' team meeting",
+      "body_text": "On Wednesday, Giants quarterback Jaxson Dart addressed his teammates regarding his recent introduction of President Trump at a New York rally.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-28T18:04:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Abdul Carter",
+        "On Wednesday",
+        "Jaxson Dart",
+        "President Trump",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040677",
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-on-possible-contract-extension-if-its-time-to-do-it-then-it-is",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-on-possible-contract-extension-if-its-time-to-do-it-then-it-is",
+      "permalink": "",
+      "title": "C.J. Stroud on possible contract extension: If it's time to do it, then it is",
+      "body_text": "Defensive end Will Anderson signed a contract extension with the Texans this offseason, but their other 2023 first-round pick did not land a similar deal.",
+      "author": "Josh Alper",
+      "published_at": "2026-05-28T17:51:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Anderson"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/american-gaming-association-blames-1-billion-in-tax-losses-on-prediction-markets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/american-gaming-association-blames-1-billion-in-tax-losses-on-prediction-markets",
+      "permalink": "",
+      "title": "American Gaming Association blames $1 billion in tax losses on prediction markets",
+      "body_text": "The battle between sportsbooks and prediction markets continues.",
+      "author": "Mike Florio",
+      "published_at": "2026-05-28T17:35:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "American Gaming"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-is-not-attending-saints-thursday-ota-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-is-not-attending-saints-thursday-ota-practice",
+      "permalink": "",
+      "title": "Alvin Kamara is not attending Saints Thursday OTA practice",
+      "body_text": "In his Thursday press conference, Saints head coach Kellen Moore noted that running back Alvin Kamara is not in attendance for the day's OTA practice.",
+      "author": "Myles Simmons",
+      "published_at": "2026-05-28T17:04:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Saints Thursday",
+        "Kellen Moore"
+      ],
+      "resolved_player_ids": [
+        "00-0033906",
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}
