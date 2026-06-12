@@ -68,7 +68,15 @@ logger = logging.getLogger(__name__)
 #   WR: 4.057 -> 4.144 MAE (bias +0.73) — FAIL; WR residuals are
 #       non-stationary (leak-free 2022-24 eval showed -0.11, 2025 reversed).
 # RB residuals degrade even leak-free (2022-24: +0.01..+0.18) — heuristic.
-HYBRID_POSITIONS = {"TE"}
+#
+# v4.3 (2026-06-12): WR ships after the blend-consistency fix (743009f
+# protocol applied to WR — the pre-blend WR rejection above predates it).
+# Blend-consistent Ridge (trained 2016-2021, v4.2+blend baseline), evaluated
+# through the production backtest path on 2022-24 matched consensus:
+#   WR: gap +0.09 -> -0.047 (beats Sleeper), Spearman -0.056 -> +0.017.
+#   RB: retried with the same protocol — null effect, killed again.
+# Sealed amber-2025 confirmation recorded in .planning/holdout_ledger.json.
+HYBRID_POSITIONS = {"TE", "WR"}
 
 # ---------------------------------------------------------------------------
 # MAPIE optional import

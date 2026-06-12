@@ -26,5 +26,12 @@
     "seasons": [
       2025
     ]
+  },
+  {
+    "timestamp": "2026-06-12T09:40:52.604045",
+    "experiment": "wr_hybrid_ship_gate (blend-consistent WR Ridge, HYBRID={TE,WR}, post Vegas-fix trilogy dbbef92/6b0cce6/661f077; 2022-24 result WR gap -0.047, Spearman +0.017)",
+    "seasons": [
+      2025
+    ]
   }
 ]
