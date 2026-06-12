@@ -32,7 +32,8 @@ Credit cost:
     - /events fetch:                     0 credits (free endpoint)
     - /events/{id}/odds per call:        #markets × #regions credits
     - Default 5 markets, region=us → 5 credits/event
-    - With --days-ahead 7 filtering ~5 events typical in-season → ~25 credits/run
+    - With --days-ahead 7, in-season Sundays see 13-17 events → 65-85 credits/run
+      (off-season weekdays often 0-5 events → 0-25 credits)
 
 Usage:
     python scripts/bronze_props_ingestion.py
@@ -442,6 +443,13 @@ def _normalize_binary_outcomes(
     rows = []
     for outcome in outcomes:
         player_name = outcome.get("description") or outcome.get("name", "")
+        if not player_name:
+            logger.warning(
+                "Outcome with empty player_name in market %s — row kept but "
+                "downstream player joins will miss it: %s",
+                base_kwargs.get("market", "?"),
+                {k: outcome.get(k) for k in ("name", "description", "price")},
+            )
         price = outcome.get("price")
         row = _make_base_row(**base_kwargs)
         row.update(
@@ -491,7 +499,7 @@ def _normalize_over_under_outcomes(
     for player_name, sides in players.items():
         over = sides.get("Over", {})
         under = sides.get("Under", {})
-        line = over.get("point") or under.get("point")
+        line = over["point"] if over.get("point") is not None else under.get("point")
         row = _make_base_row(**base_kwargs)
         row.update(
             {
@@ -578,7 +586,7 @@ def run_props(
     api_key: str,
     markets: Optional[List[str]] = None,
     days_ahead: int = 7,
-    max_credits: int = 60,
+    max_credits: int = 100,
     dry_run: bool = False,
 ) -> int:
     """Fetch, normalise, and persist a single player-props snapshot.
@@ -701,9 +709,23 @@ def run_props(
 
         log_quota(prop_headers)
 
+        try:
+            rows = normalize_event_props(event_data, snapshot_ts)
+        except (ValueError, KeyError, TypeError) as exc:
+            logger.warning(
+                "Props normalisation failed for event %s (skipping): %s", event_id, exc
+            )
+            events_skipped += 1
+            continue
+        else:
+            all_rows.extend(rows)
+            events_ok += 1
+            logger.debug("Event %s: %d prop rows.", event_id, len(rows))
+
         # ------------------------------------------------------------------
         # Mid-run credit reserve guard: stop before we drain the quota
-        # shared by the spreads cron.
+        # shared by the spreads cron. Checked AFTER collecting the event we
+        # just paid credits for — never discard purchased data.
         # ------------------------------------------------------------------
         lower_headers = {k.lower(): v for k, v in prop_headers.items()}
         remaining_str = lower_headers.get("x-requests-remaining", "")
@@ -715,22 +737,9 @@ def run_props(
                 remaining_str,
                 CREDIT_RESERVE_THRESHOLD,
                 events_ok,
-                len(events_in_window) - events_ok - events_skipped - 1,
+                len(events_in_window) - events_ok - events_skipped,
             )
             break
-
-        try:
-            rows = normalize_event_props(event_data, snapshot_ts)
-        except (ValueError, KeyError, TypeError) as exc:
-            logger.warning(
-                "Props normalisation failed for event %s (skipping): %s", event_id, exc
-            )
-            events_skipped += 1
-            continue
-
-        all_rows.extend(rows)
-        events_ok += 1
-        logger.debug("Event %s: %d prop rows.", event_id, len(rows))
 
     logger.info(
         "Props fetch complete: %d events ok, %d skipped, %d total rows.",
@@ -807,7 +816,7 @@ def main() -> None:
     parser.add_argument(
         "--max-credits",
         type=int,
-        default=60,
+        default=100,
         metavar="N",
         help=(
             "Abort the run if the estimated credit cost exceeds N (default: 60). "

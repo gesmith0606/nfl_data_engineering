@@ -227,5 +227,5 @@ jobs:
         if: always()
         run: |
           echo "::notice::Props capture complete. Check script output above for x-requests-remaining."
-          echo "::notice::Budget: ~25 credits/run × 4-5 Sundays/month = ~100-125 credits/month for props."
+          echo "::notice::Budget: 65-85 credits/run in-season × 4-5 Sundays = 260-425/month for props; +~120 spreads. In a 5-Sunday month the worst case (~545) exceeds the 500 free-tier cap — the in-script reserve guard (stop below 50 remaining) is what protects the spreads cron. Manual workflow_dispatch runs BOTH jobs (~87 extra credits)."
           echo "::notice::Combined with spreads (~120/mo), total ~220-245 credits/month vs 500 free tier budget."
