@@ -21,7 +21,13 @@ name: Sunday Projection Refresh
 #   gh workflow run sunday-refresh.yml -f season=2026 -f week=5
 on:
   schedule:
-    - cron: "30 15 * * 0"   # 15:30 UTC Sunday — post-inactives, pre-kickoff
+    # Two passes because "11:30am ET inactives" moves in UTC across the DST
+    # boundary (EDT Sep-Oct: 15:30 UTC; EST Nov+: 16:30 UTC). The refresh is
+    # idempotent and uses zero API credits, so running both year-round is
+    # free — the second pass picks up EST-era inactives and any late news.
+    - cron: "35 15 * * 0"   # 15:35 UTC Sunday — post-inactives during EDT
+    - cron: "45 16 * * 0"   # 16:45 UTC Sunday — post-inactives during EST,
+                            # still ~15 min pre-kickoff in EDT weeks
 
   workflow_dispatch:
     inputs:
