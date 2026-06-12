@@ -439,10 +439,12 @@ jobs:
             # race — latest-wins already favors the fallback file written
             # below, but the bad file must not linger as a permanent orphan).
             if [ "$ML_EXIT" -eq 0 ] && [ "$SANITY_EXIT" -ne 0 ]; then
-              WEEK_PADDED=$(printf "%02d" "$WEEK")
-              BAD_LOCAL=$(ls -t data/gold/projections/season=${SEASON}/week=${WEEK_PADDED}/*.parquet 2>/dev/null | head -1)
+              # NOTE: generate_projections.py writes UNPADDED week dirs
+              # (week=5, not week=05) — a padded glob here is a no-op for
+              # weeks 1-9 (post-push review catch).
+              BAD_LOCAL=$(ls -t data/gold/projections/season=${SEASON}/week=${WEEK}/*.parquet 2>/dev/null | head -1)
               if [ -n "$BAD_LOCAL" ]; then
-                BAD_KEY="projections/season=${SEASON}/week=${WEEK_PADDED}/$(basename "$BAD_LOCAL")"
+                BAD_KEY="projections/season=${SEASON}/week=${WEEK}/$(basename "$BAD_LOCAL")"
                 aws s3 rm "s3://nfl-trusted/${BAD_KEY}" 2>/dev/null \
                   && echo "Removed invalidated ML artifact from S3: ${BAD_KEY}" \
                   || echo "Note: could not remove ${BAD_KEY} from S3 (missing creds or object)"
