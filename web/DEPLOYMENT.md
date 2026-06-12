@@ -70,27 +70,23 @@ vercel link   # Follow prompts to create/link a Vercel project
 vercel --prod
 ```
 
-#### Option B: Vercel Dashboard (Recommended)
+#### Option B: Git Integration (PRODUCTION — active since 2026-06-12)
 
-1. Go to https://vercel.com/new
-2. Import the GitHub repository
-3. Set **Root Directory** to `web/frontend`
-4. Framework preset will auto-detect Next.js
-5. Add environment variables (see below)
-6. Deploy
+The Vercel `frontend` project is connected to this GitHub repo with
+**Root Directory** = `web/frontend`. Every push to `main` triggers a
+Vercel build automatically — no tokens, no GHA deploy step.
 
-#### Option C: GitHub Actions (CI/CD)
+> History: the project was created 2026-04-05 WITHOUT a git connection,
+> so production only updated on manual `vercel --prod` runs and silently
+> drifted 14 days stale (TD-09's Vercel-side twin). The git link +
+> sentinel gate below closed that hole.
 
-Pushes to `main` that touch `web/frontend/` auto-deploy via `.github/workflows/deploy-web.yml`.
-
-**Required GitHub Secrets:**
-
-| Secret | Description |
-|--------|-------------|
-| `VERCEL_TOKEN` | Personal access token from https://vercel.com/account/tokens |
-| `VERCEL_ORG_ID` | From `.vercel/project.json` after `vercel link` |
-| `VERCEL_PROJECT_ID` | From `.vercel/project.json` after `vercel link` |
-| `API_URL` | Production API URL (e.g., `https://api.yourdomain.com`) |
+**Sentinel gate** (`.github/workflows/deploy-web.yml`, `deploy-frontend`
+job): after each push, CI polls `https://frontend-jet-seven-33.vercel.app/api/version`
+until the live `commit` equals the pushed SHA (or a descendant). It
+hard-fails after ~10 minutes — a stale build can never again pass CI
+silently. The route reports `VERCEL_GIT_COMMIT_SHA`, so CLI deploys show
+`unknown` and will NOT satisfy the gate; deploy via git push.
 
 #### Vercel Environment Variables
 
