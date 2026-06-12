@@ -1792,6 +1792,1047 @@ def cmd_consensus_gap_wr_route() -> None:
     print(f"\nSaved consensus gap analysis to {out}")
 
 
+def _compute_per_position_spearman(results: pd.DataFrame) -> Dict[str, float]:
+    """Compute mean within-position-week Spearman rank correlation.
+
+    The plan's primary gate metric for rank-ordering experiments.  For each
+    (position, season, week) with >= 5 players, computes Spearman between
+    projected_points and actual_points, then averages across all qualifying
+    weeks.
+
+    Args:
+        results: Per-row results DataFrame from evaluate_config with columns
+            position, season, week, projected_points, actual_points.
+
+    Returns:
+        Dict with keys "{POS}_spearman_weekly" for QB/RB/WR/TE containing the
+        mean within-week Spearman value.  NaN when no qualifying weeks exist.
+    """
+    from scipy.stats import spearmanr  # type: ignore
+
+    out: Dict[str, float] = {}
+    for pos in POSITIONS:
+        pos_df = results[results["position"] == pos]
+        if pos_df.empty:
+            out[f"{pos}_spearman_weekly"] = float("nan")
+            continue
+        week_corrs = []
+        for (season, week), grp in pos_df.groupby(["season", "week"]):
+            if len(grp) < 5:
+                continue
+            rho, _ = spearmanr(grp["projected_points"], grp["actual_points"])
+            if np.isfinite(rho):
+                week_corrs.append(float(rho))
+        out[f"{pos}_spearman_weekly"] = (
+            float(np.mean(week_corrs)) if week_corrs else float("nan")
+        )
+    return out
+
+
+def _summarize_with_spearman(results: pd.DataFrame) -> Dict:
+    """Summarize results including both MAE and per-position mean weekly Spearman.
+
+    Extends summarize() with _compute_per_position_spearman().
+
+    Args:
+        results: Per-row results DataFrame from evaluate_config.
+
+    Returns:
+        Summary dict with overall_mae, {POS}_mae, {POS}_spearman_weekly keys.
+    """
+    s = summarize(results)
+    s.update(_compute_per_position_spearman(results))
+    return s
+
+
+def _fmt_with_spearman(s: Dict) -> str:
+    """Format a summary dict including Spearman values for RB and WR.
+
+    Args:
+        s: Summary dict from _summarize_with_spearman.
+
+    Returns:
+        Human-readable string for console output.
+    """
+    base = _fmt(s)
+    rb_rho = s.get("RB_spearman_weekly", float("nan"))
+    wr_rho = s.get("WR_spearman_weekly", float("nan"))
+    return f"{base} | RB_rho={rb_rho:.4f} WR_rho={wr_rho:.4f}"
+
+
+# ---------------------------------------------------------------------------
+# Experiment 1: TPRR (Targets Per Route Run) sweep
+# ---------------------------------------------------------------------------
+
+
+def _load_tprr_features(seasons: List[int], weekly_df: pd.DataFrame) -> pd.DataFrame:
+    """Build TPRR features for the given seasons from Silver route parquets.
+
+    Loads the most-recent graph_route_participation_*.parquet for each season,
+    then calls compute_tprr_features to produce tprr_trail4, tprr_trail4_slope,
+    and tprr_x_route_slope (all strictly lagged).
+
+    Args:
+        seasons: List of evaluation seasons (e.g. [2022, 2023, 2024]).
+        weekly_df: Bronze weekly DataFrame (must have player_id, season, week,
+            targets).
+
+    Returns:
+        DataFrame with TPRR features (possibly empty if no route parquets found).
+    """
+    import glob as globmod
+    from graph_route_participation import compute_tprr_features  # noqa: E402
+
+    route_frames = []
+    for season in seasons:
+        files = sorted(
+            globmod.glob(
+                os.path.join(
+                    PROJECT_ROOT,
+                    "data",
+                    "silver",
+                    "graph_features",
+                    f"season={season}",
+                    "graph_route_participation_*.parquet",
+                )
+            )
+        )
+        if files:
+            route_frames.append(pd.read_parquet(files[-1]))
+
+    if not route_frames:
+        logger.warning("No route participation parquets found for seasons %s", seasons)
+        return pd.DataFrame()
+
+    route_df = pd.concat(route_frames, ignore_index=True)
+    tprr_df = compute_tprr_features(route_df, weekly_df)
+    print(
+        f"TPRR features built: {len(tprr_df)} rows, "
+        f"tprr_trail4 non-null: {tprr_df['tprr_trail4'].notna().sum() if not tprr_df.empty else 0}"
+    )
+    return tprr_df
+
+
+def cmd_sweep_tprr() -> None:
+    """Experiment 1: Sweep TPRR-based WR/TE usage multiplier adjustments.
+
+    TPRR (targets per route run) is the stickiest WR role-quality signal
+    (YoY r≈0.65).  This is distinct from target_share (different denominator:
+    routes vs team pass attempts) and from route_rate_trail4 (measures volume
+    of routes, not conversion).
+
+    Three candidate mechanisms are swept, all WR/TE only:
+
+    **Mechanism 1 — TPRR percentile blend into usage multiplier:**
+        Blend tprr_trail4 percentile (weight w) into the WR/TE usage
+        multiplier alongside target_share.  Expected to be null (same as
+        route-rate level blend); included to confirm.
+
+    **Mechanism 2 — TPRR × route-slope interaction boost/collapse:**
+        When tprr_x_route_slope exceeds a threshold (rising TPRR + growing
+        routes = classic breakout) or falls below a threshold (declining TPRR
+        + shrinking routes = fade), apply a directional multiplier.
+        Grid: interaction threshold in {-0.03, -0.02, 0.02, 0.03, 0.05};
+        multipliers in {0.80-0.95 for negative, 1.05-1.15 for positive}.
+
+    **Mechanism 3 — Early-season TPRR anchor (< 5 recent games):**
+        For players with fewer than 5 rolling-window games, blend heuristic
+        projection toward a TPRR-implied target count.  TPRR-implied targets
+        = tprr_trail4 * team_dropbacks_est (position-mean dropbacks).
+        Shrinks the prior-season bias for WRs with short in-season history.
+        Sweep anchor weight in {0.15, 0.25, 0.35, 0.50}.
+
+    Gates (from plan): ship-candidate if MAE improves >= 0.02 at the position
+    OR mean within-position-week Spearman improves >= 0.015 with MAE not worse
+    by > 0.005.
+
+    Note: Spearman is the first-class gate for this experiment because the
+    plan's RB/WR Spearman gaps (−0.080, −0.056) are the primary target.
+
+    Outputs:
+        - Console: per-config table with WR/TE MAE + WR/TE weekly Spearman
+        - CSV: output/heuristic_lab_cache/sweep_tprr.csv
+        - Gate verdict: PASS/KILL per plan criteria
+    """
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    strength = build_defense_strength(weekly, sched, window=8)
+    omap = build_upcoming_opponent_map(sched)
+    matchup = _make_matchup_patch(strength, omap, dict(projection_engine.MATCHUP_BETA))
+    prior_blend = _build_production_blend_fn(weekly, manifest)
+
+    seasons = sorted({e["season"] for e in manifest})
+    tprr_df = _load_tprr_features(seasons, weekly)
+
+    if tprr_df.empty:
+        print("No TPRR features available — aborting sweep.")
+        return
+
+    # Build TPRR lookup tables keyed at the PROJECTED week (features are
+    # lagged through W-1 inside compute_tprr_features, so the key
+    # (player_id, proj_season, proj_week) reads the prior-week TPRR).
+    tprr_lut_trail4 = tprr_df.set_index(["player_id", "season", "week"])["tprr_trail4"]
+    tprr_lut_slope = tprr_df.set_index(["player_id", "season", "week"])[
+        "tprr_trail4_slope"
+    ]
+    tprr_lut_xslope = tprr_df.set_index(["player_id", "season", "week"])[
+        "tprr_x_route_slope"
+    ]
+
+    # Load route data for mechanism 3 (team dropbacks estimate)
+    route = _load_route_features(seasons)
+    route_lut_team_db = pd.Series(dtype=float)
+    if not route.empty and "team_dropbacks" in route.columns:
+        route_lut_team_db = route.set_index(["player_id", "season", "week"])[
+            "team_dropbacks"
+        ]
+
+    orig_usage = projection_engine._usage_multiplier
+
+    def _run(label: str, usage_patch=None) -> Dict:
+        pe_usage = usage_patch if usage_patch is not None else orig_usage
+        projection_engine._usage_multiplier = pe_usage
+        try:
+            results = evaluate_config(
+                manifest,
+                matchup_patch=matchup,
+                prior_blend_fn=prior_blend,
+            )
+        finally:
+            projection_engine._usage_multiplier = orig_usage
+        s = _summarize_with_spearman(results)
+        s["label"] = label
+        return s
+
+    rows: List[Dict] = []
+
+    def _record(s: Dict) -> None:
+        rows.append(s)
+        wr_rho = s.get("WR_spearman_weekly", float("nan"))
+        te_rho = s.get("TE_spearman_weekly", float("nan"))
+        rb_rho = s.get("RB_spearman_weekly", float("nan"))
+        print(
+            f"{s['label']:<60} "
+            f"WR:{s.get('WR_mae', float('nan')):.4f} "
+            f"TE:{s.get('TE_mae', float('nan')):.4f} "
+            f"RB:{s.get('RB_mae', float('nan')):.4f} "
+            f"WR_rho={wr_rho:.4f} TE_rho={te_rho:.4f} RB_rho={rb_rho:.4f}"
+        )
+
+    # --- Baseline ---
+    base_s = _run("baseline_production")
+    _record(base_s)
+    baseline_wr_mae = base_s.get("WR_mae", float("nan"))
+    baseline_wr_rho = base_s.get("WR_spearman_weekly", float("nan"))
+    baseline_rb_mae = base_s.get("RB_mae", float("nan"))
+    baseline_rb_rho = base_s.get("RB_spearman_weekly", float("nan"))
+    baseline_te_mae = base_s.get("TE_mae", float("nan"))
+    print(
+        f"\nBaseline — WR MAE: {baseline_wr_mae:.4f}  WR Spearman: {baseline_wr_rho:.4f}"
+        f"  |  RB MAE: {baseline_rb_mae:.4f}  RB Spearman: {baseline_rb_rho:.4f}"
+        f"  |  TE MAE: {baseline_te_mae:.4f}"
+    )
+    print(
+        "Gates: ship if MAE improves >= 0.02 at position "
+        "OR Spearman improves >= 0.015 with MAE not worse by > 0.005"
+    )
+
+    # -----------------------------------------------------------------------
+    # MECHANISM 1 — TPRR percentile blend into WR/TE usage multiplier
+    # -----------------------------------------------------------------------
+    print("\n=== Mechanism 1: TPRR trail4 percentile blend into WR/TE usage mult ===")
+
+    def _make_tprr_level_usage(w: float, positions: List[str]) -> object:
+        """Blend tprr_trail4 percentile (weight w) into usage multiplier.
+
+        Args:
+            w: Blend weight for TPRR percentile (0.0 = pure target_share).
+            positions: Positions to apply the blend to (e.g. ['WR', 'TE']).
+
+        Returns:
+            Patched _usage_multiplier function.
+        """
+
+        def patched(df: pd.DataFrame, position: str) -> pd.Series:
+            base = orig_usage(df, position)
+            if position not in positions or w == 0.0 or "player_id" not in df.columns:
+                return base
+            sc = df.get("proj_season", df["season"])
+            wc = df.get("proj_week", df["week"])
+            keys = list(zip(df["player_id"], sc, wc))
+            tprr_vals = pd.Series(
+                [tprr_lut_trail4.get(k, np.nan) for k in keys], index=df.index
+            )
+            if tprr_vals.notna().sum() < 5:
+                return base
+            tprr_pct = tprr_vals.rank(pct=True)
+            base_pct = (base - 0.80) / 0.35
+            blended = (1 - w) * base_pct + w * tprr_pct.fillna(base_pct)
+            return (0.80 + 0.35 * blended).clip(0.80, 1.15)
+
+        return patched
+
+    for pos_set, pos_label in [
+        (["WR"], "WR"),
+        (["TE"], "TE"),
+        (["WR", "TE"], "WR+TE"),
+    ]:
+        for w in [0.25, 0.5, 0.75]:
+            label = f"tprr_m1_{pos_label}_w={w}"
+            s = _run(label, usage_patch=_make_tprr_level_usage(w, pos_set))
+            _record(s)
+
+    # -----------------------------------------------------------------------
+    # MECHANISM 2 — TPRR × route-slope interaction
+    # -----------------------------------------------------------------------
+    print("\n=== Mechanism 2: TPRR × route-slope interaction (breakout/fade) ===")
+
+    def _make_tprr_interaction_usage(
+        neg_thr: float,
+        neg_mult: float,
+        pos_thr: float,
+        pos_mult: float,
+        positions: List[str],
+        signal: str = "xslope",
+    ) -> object:
+        """Apply directional multiplier based on TPRR interaction signal.
+
+        Uses tprr_x_route_slope (tprr_trail4 * route_rate_slope) or
+        tprr_trail4_slope depending on ``signal``.
+
+        Args:
+            neg_thr: Negative threshold; rows below get neg_mult applied.
+            neg_mult: Multiplier for fading players (< 1.0).
+            pos_thr: Positive threshold; rows above get pos_mult applied.
+            pos_mult: Multiplier for breaking-out players (> 1.0).
+            positions: Positions to apply to.
+            signal: 'xslope' uses tprr_x_route_slope; 'slope' uses
+                tprr_trail4_slope.
+
+        Returns:
+            Patched _usage_multiplier function.
+        """
+        lut = tprr_lut_xslope if signal == "xslope" else tprr_lut_slope
+
+        def patched(df: pd.DataFrame, position: str) -> pd.Series:
+            base = orig_usage(df, position)
+            if position not in positions or "player_id" not in df.columns:
+                return base
+            sc = df.get("proj_season", df["season"])
+            wc = df.get("proj_week", df["week"])
+            keys = list(zip(df["player_id"], sc, wc))
+            sig_vals = pd.Series(
+                [lut.get(k, np.nan) for k in keys], index=df.index
+            )
+            result = base.copy()
+            fading = sig_vals.notna() & (sig_vals < neg_thr)
+            if fading.any():
+                result.loc[fading] = (
+                    result.loc[fading] * neg_mult
+                ).clip(0.70, 1.15)
+            breaking = sig_vals.notna() & (sig_vals > pos_thr)
+            if breaking.any():
+                result.loc[breaking] = (
+                    result.loc[breaking] * pos_mult
+                ).clip(0.80, 1.25)
+            return result
+
+        return patched
+
+    # 2a: xslope signal (tprr_trail4 * route_rate_slope), collapse-only
+    print("--- 2a: xslope signal, collapse/fade only ---")
+    for neg_thr, neg_mult in [(-0.02, 0.85), (-0.02, 0.90), (-0.03, 0.85), (-0.03, 0.90)]:
+        for pos_set, pos_label in [(["WR"], "WR"), (["WR", "TE"], "WR+TE")]:
+            label = f"tprr_m2a_{pos_label}_xthr={neg_thr}_xm={neg_mult}"
+            s = _run(
+                label,
+                usage_patch=_make_tprr_interaction_usage(
+                    neg_thr=neg_thr,
+                    neg_mult=neg_mult,
+                    pos_thr=999.0,
+                    pos_mult=1.0,
+                    positions=pos_set,
+                    signal="xslope",
+                ),
+            )
+            _record(s)
+
+    # 2b: xslope signal, boost-only
+    print("--- 2b: xslope signal, boost/breakout only ---")
+    for pos_thr, pos_mult in [(0.02, 1.10), (0.02, 1.15), (0.03, 1.10), (0.03, 1.15)]:
+        for pos_set, pos_label in [(["WR"], "WR"), (["WR", "TE"], "WR+TE")]:
+            label = f"tprr_m2b_{pos_label}_xthr={pos_thr}_xm={pos_mult}"
+            s = _run(
+                label,
+                usage_patch=_make_tprr_interaction_usage(
+                    neg_thr=-999.0,
+                    neg_mult=1.0,
+                    pos_thr=pos_thr,
+                    pos_mult=pos_mult,
+                    positions=pos_set,
+                    signal="xslope",
+                ),
+            )
+            _record(s)
+
+    # 2c: tprr_trail4_slope signal (pure TPRR slope, no route-rate cross)
+    print("--- 2c: tprr_trail4_slope signal (pure TPRR velocity), collapse only ---")
+    for neg_thr, neg_mult in [(-0.02, 0.85), (-0.02, 0.90), (-0.03, 0.85)]:
+        label = f"tprr_m2c_WR_slope_thr={neg_thr}_m={neg_mult}"
+        s = _run(
+            label,
+            usage_patch=_make_tprr_interaction_usage(
+                neg_thr=neg_thr,
+                neg_mult=neg_mult,
+                pos_thr=999.0,
+                pos_mult=1.0,
+                positions=["WR"],
+                signal="slope",
+            ),
+        )
+        _record(s)
+
+    # -----------------------------------------------------------------------
+    # MECHANISM 3 — Early-season TPRR anchor (< n_games recent weeks)
+    # -----------------------------------------------------------------------
+    print("\n=== Mechanism 3: TPRR-implied target anchor (early season / sparse history) ===")
+    # Team dropbacks estimate: median team_dropbacks per week from route data
+    # (position-agnostic proxy; real team dropbacks vary but median ~34)
+    LEAGUE_MEAN_DROPBACKS = 34.0  # typical team dropbacks per game
+
+    def _make_tprr_anchor_usage(
+        anchor_weight: float,
+        n_games_thr: int,
+        positions: List[str],
+    ) -> object:
+        """Blend TPRR-implied projection toward heuristic for sparse-history rows.
+
+        For players with fewer than n_games_thr valid rolling windows,
+        override the base usage multiplier toward one derived from
+        tprr_trail4 * team_dropbacks_est / team_targets_est.
+
+        Mechanism: tprr_trail4 * LEAGUE_MEAN_DROPBACKS gives an implied
+        weekly target count.  Convert to a usage-mult proxy via the same
+        normalization as target_share.  Blend anchor_weight of this implied
+        usage with (1 - anchor_weight) of the base multiplier.
+
+        Args:
+            anchor_weight: Weight for TPRR-implied usage (0 = pure base).
+            n_games_thr: Apply anchor only when roll3 column suggests fewer
+                than this many recent games (proxied by NaN count in rolling
+                stats: if roll3 is NaN but prior TPRR exists, player has
+                sparse in-season history).
+            positions: Positions to apply to.
+
+        Returns:
+            Patched _usage_multiplier function.
+        """
+
+        def patched(df: pd.DataFrame, position: str) -> pd.Series:
+            base = orig_usage(df, position)
+            if position not in positions or "player_id" not in df.columns:
+                return base
+            sc = df.get("proj_season", df["season"])
+            wc = df.get("proj_week", df["week"])
+            keys = list(zip(df["player_id"], sc, wc))
+            tprr_vals = pd.Series(
+                [tprr_lut_trail4.get(k, np.nan) for k in keys], index=df.index
+            )
+            if tprr_vals.notna().sum() < 3:
+                return base
+
+            # Identify sparse-history rows: use a proxy of roll3 stats being
+            # NaN (player has < 3 games of data in current season window)
+            roll3_col = "targets_roll3" if "targets_roll3" in df.columns else None
+            if roll3_col is not None:
+                sparse_mask = df[roll3_col].isna() & tprr_vals.notna()
+            else:
+                # Fallback: apply to all rows with valid TPRR
+                sparse_mask = tprr_vals.notna()
+
+            if not sparse_mask.any():
+                return base
+
+            # Implied usage percentile from TPRR
+            implied_targets = tprr_vals * LEAGUE_MEAN_DROPBACKS
+            # Normalize to a usage multiplier in [0.80, 1.15] range
+            # via team-level quantile normalization
+            implied_pct = implied_targets.rank(pct=True)
+            implied_mult = (0.80 + 0.35 * implied_pct).clip(0.80, 1.15)
+
+            result = base.copy()
+            result.loc[sparse_mask] = (
+                (1 - anchor_weight) * base.loc[sparse_mask]
+                + anchor_weight * implied_mult.loc[sparse_mask]
+            )
+            return result
+
+        return patched
+
+    for pos_set, pos_label in [(["WR"], "WR"), (["WR", "TE"], "WR+TE")]:
+        for w in [0.15, 0.25, 0.35]:
+            for n_thr in [3, 5]:
+                label = f"tprr_m3_{pos_label}_w={w}_n={n_thr}"
+                s = _run(
+                    label,
+                    usage_patch=_make_tprr_anchor_usage(
+                        anchor_weight=w,
+                        n_games_thr=n_thr,
+                        positions=pos_set,
+                    ),
+                )
+                _record(s)
+
+    # -----------------------------------------------------------------------
+    # Save results and print summary
+    # -----------------------------------------------------------------------
+    df_out = pd.DataFrame(rows)
+    out_path = os.path.join(CACHE_DIR, "sweep_tprr.csv")
+    df_out.to_csv(out_path, index=False)
+    print(f"\nSaved sweep results to {out_path}")
+
+    print(
+        f"\n=== Summary: baseline WR MAE={baseline_wr_mae:.4f} "
+        f"WR_rho={baseline_wr_rho:.4f} | RB MAE={baseline_rb_mae:.4f} "
+        f"RB_rho={baseline_rb_rho:.4f} ==="
+    )
+    print(
+        "Gate: ship if MAE improves >= 0.02 at WR/TE/RB "
+        "OR Spearman improves >= 0.015 with MAE not worse by > 0.005\n"
+    )
+
+    if "WR_mae" in df_out.columns:
+        non_base = df_out[df_out["label"] != "baseline_production"].copy()
+        non_base["wr_mae_delta"] = baseline_wr_mae - non_base["WR_mae"]
+        non_base["rb_mae_delta"] = baseline_rb_mae - non_base["RB_mae"]
+        non_base["wr_rho_delta"] = (
+            non_base.get("WR_spearman_weekly", pd.Series(float("nan"), index=non_base.index))
+            - baseline_wr_rho
+        )
+        non_base["rb_rho_delta"] = (
+            non_base.get("RB_spearman_weekly", pd.Series(float("nan"), index=non_base.index))
+            - baseline_rb_rho
+        )
+
+        ranked = non_base.sort_values("WR_mae").head(10)
+        print("Top-10 by WR MAE:")
+        print(
+            f"  {'Label':<60} {'WR_MAE':>8} {'dWRMAE':>7} {'WR_rho':>8} "
+            f"{'dWRrho':>7} {'RB_rho':>8} {'dRBrho':>7} {'TE_mae':>7}"
+        )
+        for _, r in ranked.iterrows():
+            print(
+                f"  {str(r['label']):<60} "
+                f"{r.get('WR_mae', float('nan')):>8.4f} "
+                f"{r.get('wr_mae_delta', float('nan')):>+7.4f} "
+                f"{r.get('WR_spearman_weekly', float('nan')):>8.4f} "
+                f"{r.get('wr_rho_delta', float('nan')):>+7.4f} "
+                f"{r.get('RB_spearman_weekly', float('nan')):>8.4f} "
+                f"{r.get('rb_rho_delta', float('nan')):>+7.4f} "
+                f"{r.get('TE_mae', float('nan')):>7.4f}"
+            )
+
+        # Gate verdict
+        wr_mae_gate = non_base[non_base["wr_mae_delta"] >= 0.02]
+        wr_rho_gate = non_base[
+            (non_base.get("wr_rho_delta", pd.Series(float("nan"), index=non_base.index)) >= 0.015)
+            & (non_base["WR_mae"] <= baseline_wr_mae + 0.005)
+        ]
+        rb_mae_gate = non_base[non_base["rb_mae_delta"] >= 0.02]
+        rb_rho_gate = non_base[
+            (non_base.get("rb_rho_delta", pd.Series(float("nan"), index=non_base.index)) >= 0.015)
+            & (non_base["RB_mae"] <= baseline_rb_mae + 0.005)
+        ]
+
+        print("\n=== GATE VERDICT (TPRR Experiment) ===")
+        verdicts = []
+        for gate_df, gate_name, key_mae, key_delta in [
+            (wr_mae_gate, "WR MAE gate (>=0.02)", "WR_mae", "wr_mae_delta"),
+            (wr_rho_gate, "WR Spearman gate (>=0.015, no MAE regression)", "WR_spearman_weekly", "wr_rho_delta"),
+            (rb_mae_gate, "RB MAE gate (>=0.02)", "RB_mae", "rb_mae_delta"),
+            (rb_rho_gate, "RB Spearman gate (>=0.015, no MAE regression)", "RB_spearman_weekly", "rb_rho_delta"),
+        ]:
+            if not gate_df.empty:
+                best = gate_df.loc[gate_df[key_delta].idxmax()]
+                verdicts.append(
+                    f"PASS ({gate_name}): {best['label']}  "
+                    f"delta={best[key_delta]:+.4f}"
+                )
+            else:
+                verdicts.append(f"KILL ({gate_name}): no config cleared")
+
+        for v in verdicts:
+            print(f"  {v}")
+
+
+# ---------------------------------------------------------------------------
+# Experiment 2: Spread-conditioned game-script volume tilt
+# ---------------------------------------------------------------------------
+
+
+def _build_spread_by_week(
+    schedules_df: pd.DataFrame,
+) -> Dict[Tuple, float]:
+    """Build a (season, week, team) -> spread_from_team_perspective dict.
+
+    nflverse ``spread_line`` is POSITIVE when the home team is favoured
+    (e.g., KC home favourite by 7 → spread_line = +7.0).  This function
+    converts to the BETTING CONVENTION used by _vegas_multiplier and
+    _build_spread_by_team: NEGATIVE = favoured.
+
+    Conversion:
+      home_team perspective = -spread_line  (home fav by 7 → -7)
+      away_team perspective = +spread_line  (away dog by 7 → +7)
+
+    This matches ``_build_spread_by_team`` in src/projection_engine.py,
+    which documents the same convention.
+
+    Args:
+        schedules_df: Schedule DataFrame with season, week, home_team,
+            away_team, spread_line columns.
+
+    Returns:
+        Dict keyed as (season, week, team_abbr) -> spread_betting_conv.
+        Negative values indicate the team is favoured.
+        Missing or NaN spread_line games get 0.0 (pick-em / neutral).
+    """
+    required = {"season", "week", "home_team", "away_team", "spread_line"}
+    if schedules_df.empty or not required.issubset(schedules_df.columns):
+        return {}
+    spread_map: Dict[Tuple, float] = {}
+    for row in schedules_df[
+        ["season", "week", "home_team", "away_team", "spread_line"]
+    ].itertuples(index=False):
+        raw = float(row.spread_line) if pd.notna(row.spread_line) else 0.0
+        # nflverse: positive raw = home favored → betting conv: home gets -raw
+        spread_map[(row.season, row.week, row.home_team)] = -raw
+        spread_map[(row.season, row.week, row.away_team)] = raw
+    return spread_map
+
+
+def cmd_sweep_spread_gamescript() -> None:
+    """Experiment 2: Sweep spread-conditioned game-script volume multipliers.
+
+    Motivation: The current heuristic uses Vegas implied team total multiplier
+    only (plus a small RB run-heavy bonus at total<20 & spread<-7).  SOTA
+    systems (PFF Greenline, Peabody) condition VOLUME MIX on the spread:
+
+      - Big favourites → more RB carries / fewer WR targets late in games
+        (running out the clock, preventing garbage time pass volume)
+      - Big underdogs → more WR/TE targets (must pass to catch up), fewer
+        RB carries
+
+    This attacks WITHIN-TEAM ordering: the current vegas_multiplier moves
+    the whole team up/down but cannot reorder an RB vs his WR teammates.
+
+    Implementation: spread-conditioned multipliers are layered ON TOP of the
+    base usage multiplier, applied after the standard usage calc.  The spread
+    is the pre-game line (spread_line from schedules Bronze — same source used
+    by _build_spread_by_team in projection_engine.py).
+
+    Buckets swept:
+      - Spread < -10 (heavy favourite): RB boost, WR/TE cut
+      - Spread < -7 (moderate favourite): RB boost, WR/TE cut
+      - Spread > +7 (moderate underdog): RB cut, WR/TE boost
+      - Spread > +10 (heavy underdog): RB cut, WR/TE boost
+      - Combined: both tails active
+
+    Multiplier values swept: k_fav_rb in {1.05, 1.08, 1.10, 1.12};
+    k_dog_rb in {0.88, 0.90, 0.92, 0.95};
+    mirror for WR/TE (1/k approximately).
+
+    The spread source is the pre-game line from data/bronze/schedules
+    (``spread_line`` column, which is the home-team spread at game time;
+    the lab builds a per-team per-week map so every row can look up its
+    own spread perspective).
+
+    Gates: ship-candidate if MAE improves >= 0.02 OR mean within-position-week
+    Spearman improves >= 0.015 with MAE not worse by > 0.005.
+
+    Outputs:
+        - Console: per-config table with RB/WR MAE + RB/WR weekly Spearman
+        - CSV: output/heuristic_lab_cache/sweep_spread_gamescript.csv
+        - Gate verdict: PASS/KILL per plan criteria
+    """
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    strength = build_defense_strength(weekly, sched, window=8)
+    omap = build_upcoming_opponent_map(sched)
+    matchup = _make_matchup_patch(strength, omap, dict(projection_engine.MATCHUP_BETA))
+    prior_blend = _build_production_blend_fn(weekly, manifest)
+
+    # Build spread lookup: (season, week, team) -> spread_from_team_perspective
+    spread_map = _build_spread_by_week(sched)
+    if not spread_map:
+        print("No spread data in schedules — aborting sweep.")
+        return
+
+    n_covered = sum(1 for v in spread_map.values() if v != 0.0)
+    print(
+        f"Spread map built: {len(spread_map)} team-weeks, "
+        f"{n_covered} with non-zero spread"
+    )
+
+    orig_usage = projection_engine._usage_multiplier
+
+    def _make_spread_usage(
+        fav_threshold: float,
+        dog_threshold: float,
+        rb_fav_mult: float,
+        wr_fav_mult: float,
+        rb_dog_mult: float,
+        wr_dog_mult: float,
+        apply_rb: bool = True,
+        apply_wr: bool = True,
+    ) -> object:
+        """Create a usage multiplier that conditions on the pre-game spread.
+
+        For RB: big-favourite games -> rb_fav_mult; big-underdog games ->
+        rb_dog_mult.  For WR/TE: mirror (wr_fav_mult in favourite game,
+        wr_dog_mult in underdog game).
+
+        Args:
+            fav_threshold: Spread below which team is a favourite (negative
+                value, e.g. -7.0 means favoured by 7+).
+            dog_threshold: Spread above which team is an underdog (positive
+                value, e.g. +7.0 means underdog by 7+).
+            rb_fav_mult: RB multiplier when team is a heavy favourite (> 1).
+            wr_fav_mult: WR/TE multiplier when team is a heavy favourite (< 1).
+            rb_dog_mult: RB multiplier when team is a big underdog (< 1).
+            wr_dog_mult: WR/TE multiplier when team is a big underdog (> 1).
+            apply_rb: Whether to apply spread tilt to RB position.
+            apply_wr: Whether to apply spread tilt to WR/TE positions.
+
+        Returns:
+            Patched _usage_multiplier function.
+        """
+
+        def patched(df: pd.DataFrame, position: str) -> pd.Series:
+            base = orig_usage(df, position)
+            is_rb = position == "RB"
+            is_wr_te = position in ("WR", "TE")
+            if not ((is_rb and apply_rb) or (is_wr_te and apply_wr)):
+                return base
+            if "recent_team" not in df.columns:
+                return base
+
+            sc = df.get("proj_season", df.get("season", pd.Series(dtype=int)))
+            wc = df.get("proj_week", df.get("week", pd.Series(dtype=int)))
+            spreads = pd.Series(
+                [
+                    spread_map.get((s, w, t), 0.0)
+                    for s, w, t in zip(sc, wc, df["recent_team"])
+                ],
+                index=df.index,
+            )
+
+            result = base.copy()
+
+            # Favourite bucket: spread < fav_threshold (e.g. < -7)
+            fav_mask = spreads < fav_threshold
+            if fav_mask.any():
+                if is_rb and apply_rb:
+                    result.loc[fav_mask] = (
+                        result.loc[fav_mask] * rb_fav_mult
+                    ).clip(0.80, 1.25)
+                elif is_wr_te and apply_wr:
+                    result.loc[fav_mask] = (
+                        result.loc[fav_mask] * wr_fav_mult
+                    ).clip(0.70, 1.15)
+
+            # Underdog bucket: spread > dog_threshold (e.g. > +7)
+            dog_mask = spreads > dog_threshold
+            if dog_mask.any():
+                if is_rb and apply_rb:
+                    result.loc[dog_mask] = (
+                        result.loc[dog_mask] * rb_dog_mult
+                    ).clip(0.70, 1.15)
+                elif is_wr_te and apply_wr:
+                    result.loc[dog_mask] = (
+                        result.loc[dog_mask] * wr_dog_mult
+                    ).clip(0.80, 1.25)
+
+            return result
+
+        return patched
+
+    def _run(label: str, usage_patch=None) -> Dict:
+        pe_usage = usage_patch if usage_patch is not None else orig_usage
+        projection_engine._usage_multiplier = pe_usage
+        try:
+            results = evaluate_config(
+                manifest,
+                matchup_patch=matchup,
+                prior_blend_fn=prior_blend,
+            )
+        finally:
+            projection_engine._usage_multiplier = orig_usage
+        s = _summarize_with_spearman(results)
+        s["label"] = label
+        return s
+
+    rows: List[Dict] = []
+
+    def _record(s: Dict) -> None:
+        rows.append(s)
+        rb_rho = s.get("RB_spearman_weekly", float("nan"))
+        wr_rho = s.get("WR_spearman_weekly", float("nan"))
+        print(
+            f"{s['label']:<72} "
+            f"RB:{s.get('RB_mae', float('nan')):.4f} "
+            f"WR:{s.get('WR_mae', float('nan')):.4f} "
+            f"RB_rho={rb_rho:.4f} WR_rho={wr_rho:.4f}"
+        )
+
+    # Baseline
+    base_s = _run("baseline_production")
+    _record(base_s)
+    baseline_rb_mae = base_s.get("RB_mae", float("nan"))
+    baseline_rb_rho = base_s.get("RB_spearman_weekly", float("nan"))
+    baseline_wr_mae = base_s.get("WR_mae", float("nan"))
+    baseline_wr_rho = base_s.get("WR_spearman_weekly", float("nan"))
+    print(
+        f"\nBaseline — RB MAE: {baseline_rb_mae:.4f}  RB Spearman: {baseline_rb_rho:.4f}"
+        f"  |  WR MAE: {baseline_wr_mae:.4f}  WR Spearman: {baseline_wr_rho:.4f}"
+    )
+    print(
+        "Gates: ship if MAE improves >= 0.02 OR Spearman improves >= 0.015 "
+        "with MAE not worse by > 0.005"
+    )
+
+    # -----------------------------------------------------------------------
+    # Sub-experiment A: RB-only spread tilt
+    # -----------------------------------------------------------------------
+    print("\n=== Sub-experiment A: RB-only spread tilt ===")
+    for fav_thr, dog_thr in [(-7.0, 7.0), (-10.0, 10.0)]:
+        thr_label = f"fav{abs(fav_thr):.0f}"
+        for rb_fav in [1.05, 1.08, 1.10, 1.12]:
+            for rb_dog in [0.88, 0.90, 0.92, 0.95]:
+                # Mirror for WR/TE: wr_fav = inverse of rb_dog tendency;
+                # neutral here (apply_wr=False) to isolate RB effect
+                label = (
+                    f"spread_A_{thr_label}_rbfav={rb_fav}_rbdog={rb_dog}"
+                )
+                s = _run(
+                    label,
+                    usage_patch=_make_spread_usage(
+                        fav_threshold=fav_thr,
+                        dog_threshold=dog_thr,
+                        rb_fav_mult=rb_fav,
+                        wr_fav_mult=1.0,
+                        rb_dog_mult=rb_dog,
+                        wr_dog_mult=1.0,
+                        apply_rb=True,
+                        apply_wr=False,
+                    ),
+                )
+                _record(s)
+
+    # -----------------------------------------------------------------------
+    # Sub-experiment B: WR/TE-only spread tilt
+    # -----------------------------------------------------------------------
+    print("\n=== Sub-experiment B: WR/TE-only spread tilt ===")
+    for fav_thr, dog_thr in [(-7.0, 7.0), (-10.0, 10.0)]:
+        thr_label = f"fav{abs(fav_thr):.0f}"
+        for wr_fav in [0.90, 0.92, 0.95]:
+            for wr_dog in [1.05, 1.08, 1.10]:
+                label = (
+                    f"spread_B_{thr_label}_wrfav={wr_fav}_wrdog={wr_dog}"
+                )
+                s = _run(
+                    label,
+                    usage_patch=_make_spread_usage(
+                        fav_threshold=fav_thr,
+                        dog_threshold=dog_thr,
+                        rb_fav_mult=1.0,
+                        wr_fav_mult=wr_fav,
+                        rb_dog_mult=1.0,
+                        wr_dog_mult=wr_dog,
+                        apply_rb=False,
+                        apply_wr=True,
+                    ),
+                )
+                _record(s)
+
+    # -----------------------------------------------------------------------
+    # Sub-experiment C: Joint RB + WR/TE (both tails active)
+    # Best RB config from A + best WR config from B
+    # -----------------------------------------------------------------------
+    print("\n=== Sub-experiment C: Joint RB + WR/TE tilt (both tails active) ===")
+    df_so_far = pd.DataFrame(rows)
+    # Find best RB config from sub-A (lowest RB MAE)
+    sub_a = df_so_far[df_so_far["label"].str.startswith("spread_A_")]
+    # Find best WR config from sub-B (lowest WR MAE)
+    sub_b = df_so_far[df_so_far["label"].str.startswith("spread_B_")]
+
+    joint_configs = []
+    if not sub_a.empty and not sub_b.empty and "RB_mae" in sub_a.columns and "WR_mae" in sub_b.columns:
+        # Top-3 RB × Top-3 WR joint combos
+        top_rb = sub_a.nsmallest(3, "RB_mae")
+        top_wr = sub_b.nsmallest(3, "WR_mae")
+        for _, rb_row in top_rb.iterrows():
+            for _, wr_row in top_wr.iterrows():
+                joint_configs.append((str(rb_row["label"]), str(wr_row["label"])))
+
+    def _parse_spread_params(label: str) -> Optional[Dict]:
+        """Parse spread parameters from a sweep label string.
+
+        Args:
+            label: Label string from spread_A_* or spread_B_* entries.
+
+        Returns:
+            Dict with threshold and multiplier params, or None if parsing fails.
+        """
+        try:
+            # Determine threshold from label (fav7 or fav10)
+            if "fav7" in label:
+                fav_thr, dog_thr = -7.0, 7.0
+            elif "fav10" in label:
+                fav_thr, dog_thr = -10.0, 10.0
+            else:
+                return None
+            params: Dict = {"fav_threshold": fav_thr, "dog_threshold": dog_thr}
+            if "rbfav=" in label:
+                params["rb_fav_mult"] = float(label.split("rbfav=")[1].split("_")[0])
+                params["rb_dog_mult"] = float(label.split("rbdog=")[1].split("_")[0])
+            else:
+                params["rb_fav_mult"] = 1.0
+                params["rb_dog_mult"] = 1.0
+            if "wrfav=" in label:
+                params["wr_fav_mult"] = float(label.split("wrfav=")[1].split("_")[0])
+                params["wr_dog_mult"] = float(label.split("wrdog=")[1])
+            else:
+                params["wr_fav_mult"] = 1.0
+                params["wr_dog_mult"] = 1.0
+            return params
+        except (IndexError, ValueError):
+            return None
+
+    for rb_label, wr_label in joint_configs[:9]:  # limit to 9 joint combos
+        rb_p = _parse_spread_params(rb_label)
+        wr_p = _parse_spread_params(wr_label)
+        if rb_p is None or wr_p is None:
+            continue
+        # Use the tighter threshold (larger abs value) for the joint config
+        fav_thr = min(rb_p["fav_threshold"], wr_p["fav_threshold"])
+        dog_thr = max(rb_p["dog_threshold"], wr_p["dog_threshold"])
+        label = (
+            f"spread_C_fav{abs(fav_thr):.0f}"
+            f"_rbfav={rb_p['rb_fav_mult']}_rbdog={rb_p['rb_dog_mult']}"
+            f"_wrfav={wr_p['wr_fav_mult']}_wrdog={wr_p['wr_dog_mult']}"
+        )
+        s = _run(
+            label,
+            usage_patch=_make_spread_usage(
+                fav_threshold=fav_thr,
+                dog_threshold=dog_thr,
+                rb_fav_mult=rb_p["rb_fav_mult"],
+                wr_fav_mult=wr_p["wr_fav_mult"],
+                rb_dog_mult=rb_p["rb_dog_mult"],
+                wr_dog_mult=wr_p["wr_dog_mult"],
+                apply_rb=True,
+                apply_wr=True,
+            ),
+        )
+        _record(s)
+
+    # -----------------------------------------------------------------------
+    # Save results and gate verdicts
+    # -----------------------------------------------------------------------
+    df_out = pd.DataFrame(rows)
+    out_path = os.path.join(CACHE_DIR, "sweep_spread_gamescript.csv")
+    df_out.to_csv(out_path, index=False)
+    print(f"\nSaved sweep results to {out_path}")
+
+    print(
+        f"\n=== Summary: baseline RB MAE={baseline_rb_mae:.4f} "
+        f"RB_rho={baseline_rb_rho:.4f} | WR MAE={baseline_wr_mae:.4f} "
+        f"WR_rho={baseline_wr_rho:.4f} ==="
+    )
+
+    if len(df_out) > 1:
+        non_base = df_out[df_out["label"] != "baseline_production"].copy()
+        non_base["rb_mae_delta"] = baseline_rb_mae - non_base["RB_mae"]
+        non_base["wr_mae_delta"] = baseline_wr_mae - non_base["WR_mae"]
+        non_base["rb_rho_delta"] = (
+            non_base.get("RB_spearman_weekly", pd.Series(float("nan"), index=non_base.index))
+            - baseline_rb_rho
+        )
+        non_base["wr_rho_delta"] = (
+            non_base.get("WR_spearman_weekly", pd.Series(float("nan"), index=non_base.index))
+            - baseline_wr_rho
+        )
+
+        print("\nTop-10 by RB MAE improvement:")
+        ranked_rb = non_base.nlargest(10, "rb_mae_delta")
+        print(
+            f"  {'Label':<72} {'RB_MAE':>8} {'dRBMAE':>7} {'RB_rho':>8} "
+            f"{'dRBrho':>7} {'WR_MAE':>8} {'dWRMAE':>7}"
+        )
+        for _, r in ranked_rb.iterrows():
+            print(
+                f"  {str(r['label']):<72} "
+                f"{r.get('RB_mae', float('nan')):>8.4f} "
+                f"{r.get('rb_mae_delta', float('nan')):>+7.4f} "
+                f"{r.get('RB_spearman_weekly', float('nan')):>8.4f} "
+                f"{r.get('rb_rho_delta', float('nan')):>+7.4f} "
+                f"{r.get('WR_mae', float('nan')):>8.4f} "
+                f"{r.get('wr_mae_delta', float('nan')):>+7.4f}"
+            )
+
+        print("\nTop-10 by WR MAE improvement:")
+        ranked_wr = non_base.nlargest(10, "wr_mae_delta")
+        for _, r in ranked_wr.iterrows():
+            print(
+                f"  {str(r['label']):<72} "
+                f"{r.get('WR_mae', float('nan')):>8.4f} "
+                f"{r.get('wr_mae_delta', float('nan')):>+7.4f} "
+                f"{r.get('WR_spearman_weekly', float('nan')):>8.4f} "
+                f"{r.get('wr_rho_delta', float('nan')):>+7.4f} "
+                f"{r.get('RB_mae', float('nan')):>8.4f} "
+                f"{r.get('rb_mae_delta', float('nan')):>+7.4f}"
+            )
+
+        # Gate verdicts
+        print("\n=== GATE VERDICT (Spread Game-Script Experiment) ===")
+        for pos, mae_key, rho_key, mae_delta_key, rho_delta_key, base_mae, base_rho in [
+            ("RB", "RB_mae", "RB_spearman_weekly", "rb_mae_delta", "rb_rho_delta",
+             baseline_rb_mae, baseline_rb_rho),
+            ("WR", "WR_mae", "WR_spearman_weekly", "wr_mae_delta", "wr_rho_delta",
+             baseline_wr_mae, baseline_wr_rho),
+        ]:
+            mae_gate = non_base[non_base[mae_delta_key] >= 0.02]
+            rho_gate = non_base[
+                (non_base.get(rho_delta_key, pd.Series(float("nan"), index=non_base.index)) >= 0.015)
+                & (non_base[mae_key] <= base_mae + 0.005)
+            ]
+            if not mae_gate.empty:
+                best = mae_gate.loc[mae_gate[mae_delta_key].idxmax()]
+                print(
+                    f"  PASS ({pos} MAE gate >=0.02): {best['label']}  "
+                    f"delta {best[mae_delta_key]:+.4f}  "
+                    f"MAE {base_mae:.4f} -> {best[mae_key]:.4f}"
+                )
+            elif not rho_gate.empty:
+                best = rho_gate.loc[rho_gate[rho_delta_key].idxmax()]
+                print(
+                    f"  PASS ({pos} Spearman gate >=0.015): {best['label']}  "
+                    f"rho delta {best[rho_delta_key]:+.4f}  "
+                    f"MAE delta {best[mae_delta_key]:+.4f}"
+                )
+            else:
+                best_mae_d = float(non_base[mae_delta_key].max()) if len(non_base) > 0 else float("nan")
+                rho_col_vals = non_base.get(rho_delta_key, pd.Series(dtype=float))
+                best_rho_d = float(rho_col_vals.max()) if len(rho_col_vals) > 0 else float("nan")
+                print(
+                    f"  KILL ({pos}): no config cleared gate "
+                    f"(best MAE delta={best_mae_d:+.4f}, need >=+0.02; "
+                    f"best rho delta={best_rho_d:+.4f}, need >=+0.015)"
+                )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -1809,6 +2850,8 @@ def main() -> int:
             "consensus-gap",
             "sweep-wr-route",
             "consensus-gap-wr-route",
+            "sweep-tprr",
+            "sweep-spread-gamescript",
         ],
     )
     parser.add_argument("--seasons", type=str, default="2022,2023,2024")
@@ -1840,6 +2883,10 @@ def main() -> int:
         cmd_sweep_wr_route()
     elif args.command == "consensus-gap-wr-route":
         cmd_consensus_gap_wr_route()
+    elif args.command == "sweep-tprr":
+        cmd_sweep_tprr()
+    elif args.command == "sweep-spread-gamescript":
+        cmd_sweep_spread_gamescript()
     return 0
 
 

@@ -30,9 +30,36 @@ Leakage discipline:
           negative = role shrinking.  NaN when fewer than 3 prior weeks of
           data are available.
 
+TPRR (Targets Per Route Run) features (Experiment 1, Task #3):
+    TPRR = targets / dropbacks_on_field per week. Measures target conversion
+    efficiency per route run. YoY r≈0.65 — the stickiest WR role-quality stat.
+    All TPRR features are strictly lagged (shift-1 within season):
+
+      ``tprr``
+          Raw targets-per-route-run for the week (same-week stat, stored for
+          Silver completeness but NOT a model feature).
+
+      ``tprr_trail4``
+          Trailing 4-week mean TPRR (strictly lagged).  This is the primary
+          TPRR feature — stable role signal that persists across seasons.
+          NaN when fewer than 2 lagged games available.
+
+      ``tprr_trail4_slope``
+          OLS slope of the trailing 4 lagged TPRR values.  Positive = player
+          increasingly targeted per route; the "rising TPRR" breakout pattern.
+          NaN when fewer than 3 lagged games available.
+
+      ``tprr_x_route_slope``
+          Interaction term: tprr_trail4 * route_rate_slope.  High TPRR + rising
+          route rate = classic breakout pattern; low TPRR + falling route rate
+          = fade. This cross-signal captures the combined momentum. NaN when
+          either component is NaN.
+
 Exports:
     compute_route_participation: per player-week route rate + lagged features.
+    compute_tprr_features: TPRR features joined to an existing route-rate frame.
     ROUTE_PARTICIPATION_FEATURES: lagged model-feature column names.
+    TPRR_FEATURES: TPRR model-feature column names.
 """
 
 import logging
@@ -49,6 +76,13 @@ ROUTE_PARTICIPATION_FEATURES: List[str] = [
     "route_rate_trail4",
     "route_rate_delta",
     "route_rate_slope",
+]
+
+# TPRR model features (all strictly lagged; raw tprr is same-week).
+TPRR_FEATURES: List[str] = [
+    "tprr_trail4",
+    "tprr_trail4_slope",
+    "tprr_x_route_slope",
 ]
 
 _TRAIL_WINDOW = 4
@@ -249,5 +283,114 @@ def compute_route_participation(
             "route_rate_trail4",
             "route_rate_delta",
             "route_rate_slope",
+        ]
+    ]
+
+
+def compute_tprr_features(
+    route_df: pd.DataFrame,
+    weekly_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """Compute trailing TPRR (targets per route run) features.
+
+    TPRR = targets / dropbacks_on_field per week.  All model features are
+    strictly lagged (shift-1 within season) so no week-N target data leaks
+    into the projection for week N.
+
+    Handling of missing data:
+    - Players without participation data (2019 and earlier, ~7% of 2020,
+      ~7% of 2021) get NaN for all TPRR features; the heuristic falls back
+      to the target-share baseline for those rows.
+    - Zero-dropbacks rows (special teams, inactive) get TPRR = NaN.
+
+    Args:
+        route_df: DataFrame from ``compute_route_participation`` (or the
+            stored Silver parquet) with columns player_id, season, week,
+            dropbacks_on_field.
+        weekly_df: Bronze weekly player stats with columns player_id, season,
+            week, targets.
+
+    Returns:
+        DataFrame with columns: player_id, season, week, tprr,
+        tprr_trail4, tprr_trail4_slope, tprr_x_route_slope.
+        One row per (player_id, season, week) that appears in route_df.
+        Returns empty DataFrame if inputs lack required columns.
+    """
+    required_route = {"player_id", "season", "week", "dropbacks_on_field"}
+    required_weekly = {"player_id", "season", "week", "targets"}
+    if route_df.empty or not required_route.issubset(route_df.columns):
+        logger.warning("compute_tprr_features: route_df missing required columns")
+        return pd.DataFrame()
+    if weekly_df.empty or not required_weekly.issubset(weekly_df.columns):
+        logger.warning("compute_tprr_features: weekly_df missing required columns")
+        return pd.DataFrame()
+
+    # Join targets onto route frame (inner join — only rows with both)
+    tprr = route_df[["player_id", "season", "week", "dropbacks_on_field"]].merge(
+        weekly_df[["player_id", "season", "week", "targets"]].copy(),
+        on=["player_id", "season", "week"],
+        how="left",
+    )
+    tprr["targets"] = tprr["targets"].fillna(0.0)
+
+    # Raw TPRR: targets / routes-run proxy (dropbacks_on_field)
+    # Zero dropbacks → NaN (player not on field for passes)
+    tprr["tprr"] = np.where(
+        tprr["dropbacks_on_field"] > 0,
+        tprr["targets"] / tprr["dropbacks_on_field"],
+        np.nan,
+    )
+
+    # Sort for within-season lagged transforms
+    tprr = tprr.sort_values(["player_id", "season", "week"]).reset_index(drop=True)
+
+    # Lagged trailing 4-week mean TPRR (shift-1 within season)
+    tprr["tprr_trail4"] = tprr.groupby(["player_id", "season"])["tprr"].transform(
+        lambda s: s.shift(1).rolling(_TRAIL_WINDOW, min_periods=_MIN_GAMES).mean()
+    )
+
+    # OLS slope of trailing 4 lagged TPRR values
+    shifted_tprr = tprr.groupby(["player_id", "season"])["tprr"].transform(
+        lambda s: s.shift(1)
+    )
+    tprr["_tprr_shifted"] = shifted_tprr
+    tprr["tprr_trail4_slope"] = tprr.groupby(["player_id", "season"])[
+        "_tprr_shifted"
+    ].transform(
+        lambda s: _compute_slope_vectorized(s, _TRAIL_WINDOW, _SLOPE_MIN_GAMES)
+    )
+    tprr = tprr.drop(columns=["_tprr_shifted"])
+
+    # Interaction: tprr_trail4 × route_rate_slope (if present in route_df)
+    if "route_rate_slope" in route_df.columns:
+        tprr = tprr.merge(
+            route_df[["player_id", "season", "week", "route_rate_slope"]],
+            on=["player_id", "season", "week"],
+            how="left",
+        )
+        tprr["tprr_x_route_slope"] = tprr["tprr_trail4"] * tprr["route_rate_slope"]
+        tprr = tprr.drop(columns=["route_rate_slope"])
+    else:
+        tprr["tprr_x_route_slope"] = np.nan
+
+    logger.info(
+        "TPRR features: %d player-weeks | tprr non-null: %d | "
+        "trail4 non-null: %d | slope non-null: %d | interaction non-null: %d",
+        len(tprr),
+        int(tprr["tprr"].notna().sum()),
+        int(tprr["tprr_trail4"].notna().sum()),
+        int(tprr["tprr_trail4_slope"].notna().sum()),
+        int(tprr["tprr_x_route_slope"].notna().sum()),
+    )
+
+    return tprr[
+        [
+            "player_id",
+            "season",
+            "week",
+            "tprr",
+            "tprr_trail4",
+            "tprr_trail4_slope",
+            "tprr_x_route_slope",
         ]
     ]
