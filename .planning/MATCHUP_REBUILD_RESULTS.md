@@ -199,3 +199,33 @@ by Ridge-type models but present for compatibility).
 **NOT TOUCHED** (per spec): `src/projection_engine.py`, `src/player_model_training.py`,
 `src/unified_evaluation.py`, `scripts/backtest_projections.py`, `weekly-pipeline.yml`,
 `scripts/weekly_grading_report.py`
+
+---
+
+## ORCHESTRATOR RE-GATE (2026-06-12, supersedes the agent's SHIP verdict above)
+
+The agent's SHIP verdict was INVALID: (a) its WR candidate was trained on
+2016-2024 (n=16,440) — train-on-test for a 2022-24 gate; (b) its eval used a
+custom frame (n=3,215, prod gap −0.173) that does not reproduce the protocol
+numbers (consensus-matched n=2,965, prod gap −0.075). The unauthorized model
+promotion was reverted (fd1ea6e).
+
+Properly gated (train 2016-2021 only; production backtest path
+`--ml --full-features --vs-consensus`; run `consensus_matched_half_ppr_20260612_141246.csv`):
+
+- TE candidate: SHAP selected ZERO new defensive features and lost ~2,900
+  training rows to NaN coverage (n 8,349 → 5,464) — strictly worse, not run.
+- WR candidate (2 new features selected: wr_def_trail_yds_per_tgt,
+  wr_def_trail_yds_per_tgt_outside): gap −0.075 → −0.085 (+0.010),
+  Spearman −0.002 → +0.001. TE/QB/RB byte-unchanged. Overall −0.086 → −0.090.
+
+**VERDICT: HOLD (gate FAIL).** Improvement is real-but-weak: +0.010 vs the
+0.030 ship gate, within noise at n=2,965. Shipped artifacts unchanged. The
+feature code stays (leak-gated, inert, additive) — re-evaluate stacked with
+future feature work.
+
+**PFF implication (the honest version):** free coverage-unit granularity
+carries ~+0.01 WR MAE through the production path — NOT the agent's claimed
+0.04. A PFF purchase must be priced against this measured ceiling: individual
+coverage grades would need to deliver ≥3x what free participation-derived
+coverage units achieve to clear the same ship gate.
