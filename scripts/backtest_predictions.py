@@ -9,6 +9,25 @@ Usage:
     python scripts/backtest_predictions.py --target both
     python scripts/backtest_predictions.py --target spread --seasons 2022 2023 2024
     python scripts/backtest_predictions.py --target total --model-dir models/
+    python scripts/backtest_predictions.py --ensemble --clv-true --season 2026
+
+CLV (line-capture) mode (--clv-true)
+=====================================
+When ``--clv-true`` is passed, the script reads Bronze Parquet snapshots
+written by ``scripts/bronze_odds_api_ingestion.py`` (via the odds-capture cron
+``odds-capture.yml``), derives an open-proxy and closing line per game, and
+computes true signed line capture for each pick made against the open-proxy.
+
+This mode requires live snapshot data.  The odds-capture cron is activated once
+ODDS_API_KEY is set in GitHub Secrets (register free at https://the-odds-api.com).
+Once the key is set, the cron runs 2×/day and commits snapshots to
+``data/bronze/odds_api/snapshots/season=YYYY/``.
+
+Success gate (ELITE 2.4): mean signed capture > +0.3 pts, n ≥ 100 picks, by
+2026 week 10.  Kill criterion: capture ≤ 0 at n ≥ 150.
+
+Primary spread metric once 2026 data flows: line capture.
+ATS% is secondary — it cannot distinguish sharp from lucky.
 """
 
 import argparse
@@ -32,6 +51,8 @@ from prediction_backtester import (
     evaluate_clv,
     evaluate_holdout,
     evaluate_ou,
+    evaluate_line_capture,
+    compute_line_capture_summary,
     compute_clv_by_season,
     compute_clv_by_tier,
     compute_season_stability,
@@ -599,6 +620,243 @@ def run_holdout_comparison(
     return comparison
 
 
+def print_line_capture_report(
+    summary: dict,
+    label: str = "Overall",
+) -> None:
+    """Print formatted line-capture (true CLV) report.
+
+    Args:
+        summary: Dict returned by ``compute_line_capture_summary``.
+        label: Report section label.
+    """
+    print(f"\n{'=' * 60}")
+    print(f"LINE CAPTURE (True CLV) -- {label}")
+    print(f"{'=' * 60}")
+
+    n = summary.get("n", 0)
+    if n == 0:
+        print("  No valid line-capture data (missing open/close lines).")
+        print(f"{'=' * 60}")
+        return
+
+    mean_cap = summary.get("mean_capture", float("nan"))
+    median_cap = summary.get("median_capture", float("nan"))
+    pct_cap = summary.get("pct_captured", float("nan"))
+    std_cap = summary.get("std_capture", float("nan"))
+
+    print(f"  Picks with capture data: {n}")
+    print(f"  Mean capture:   {mean_cap:+.2f} pts  (success gate: > +0.3)")
+    print(f"  Median capture: {median_cap:+.2f} pts")
+    print(f"  Std deviation:  {std_cap:.2f} pts")
+    print(f"  Pct captured:   {pct_cap:.1%}  (fraction where number moved our way)")
+
+    # Verdict vs gate
+    if n >= 100:
+        if mean_cap > 0.3:
+            verdict = f"PASS  (mean {mean_cap:+.2f} > +0.3, n={n})"
+        else:
+            verdict = f"FAIL  (mean {mean_cap:+.2f} ≤ +0.3, n={n})"
+        print(f"\n  Gate (n≥100):   {verdict}")
+    else:
+        print(f"\n  Gate: not yet evaluable (need n≥100, have n={n})")
+
+    # By tier (if available)
+    by_tier = summary.get("by_tier")
+    if by_tier:
+        print(f"\n  By Edge Tier:")
+        print(f"  {'Tier':<10} {'n':>5}  {'Mean Capture':>14}  {'Pct Captured':>14}")
+        print(f"  {'-' * 48}")
+        for row in by_tier:
+            print(
+                f"  {row['tier']:<10} {row['n']:>5}  "
+                f"{row['mean_capture']:>+14.2f}  "
+                f"{row['pct_captured']:>13.1%}"
+            )
+
+    print(f"{'=' * 60}")
+
+
+def run_clv_true_backtest(
+    seasons: Optional[List[int]],
+    ensemble_dir: Optional[str],
+    snapshot_dir: Optional[str] = None,
+) -> None:
+    """Run true-CLV (line-capture) evaluation using Bronze odds snapshots.
+
+    For each season in ``seasons``, loads open-proxy and closing lines from
+    the Bronze Parquet snapshots written by the odds-capture cron
+    (``scripts/bronze_odds_api_ingestion.py``).  Assembles game features,
+    generates ensemble spread predictions, determines pick direction, and
+    computes signed line capture per pick.
+
+    This function requires Bronze snapshot data (ODDS_API_KEY must have been
+    active during the season).  When no snapshot data exists for a season (e.g.
+    pre-2026 or key not yet set), it reports 0 picks with valid capture data
+    and exits cleanly without error.
+
+    Args:
+        seasons: List of season years to evaluate.  Defaults to all
+            PREDICTION_SEASONS when None.
+        ensemble_dir: Path to ensemble model artifacts.  Defaults to
+            ENSEMBLE_DIR from config.
+        snapshot_dir: Override path to Bronze snapshot root.  Defaults to
+            ``data/bronze/odds_api/snapshots``.
+
+    Note:
+        Once the ODDS_API_KEY GitHub Secret is set, the cron captures
+        snapshots twice daily.  Re-run this command after each game week to
+        accumulate line-capture evidence toward the ELITE 2.4 gate.
+        Command once key is live:
+            python scripts/backtest_predictions.py --ensemble --clv-true --seasons 2026
+    """
+    import sys as _sys
+    _sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+
+    from odds_snapshot_loader import load_open_close_lines
+    from config import PREDICTION_SEASONS
+
+    if seasons is None:
+        seasons = PREDICTION_SEASONS
+
+    print(f"\nNFL True CLV (Line Capture) Backtest")
+    print(f"Seasons: {seasons}")
+    print("=" * 60)
+    print(
+        "NOTE: Requires Bronze snapshot data from the odds-capture cron.\n"
+        "      Set ODDS_API_KEY in GitHub Secrets to activate capture.\n"
+        "      See .github/workflows/odds-capture.yml for details."
+    )
+    print("=" * 60)
+
+    # Load ensemble.
+    print("\nLoading ensemble models...")
+    try:
+        from ensemble_training import load_ensemble, predict_ensemble
+        spread_models, _total_models, metadata = load_ensemble(ensemble_dir)
+    except FileNotFoundError as exc:
+        print(f"ERROR: {exc}")
+        print("  Train the ensemble first: python scripts/train_ensemble.py")
+        return
+
+    # Assemble game features.
+    from feature_engineering import assemble_multiyear_features
+    print("Assembling game features...")
+    all_data = assemble_multiyear_features(seasons)
+    if all_data.empty:
+        print("ERROR: No game data assembled.")
+        return
+
+    feature_cols = metadata.get("selected_features", [])
+    available = [c for c in feature_cols if c in all_data.columns]
+    all_data["predicted_margin"] = predict_ensemble(
+        all_data[available].fillna(0.0), spread_models
+    )
+
+    # Determine pick direction for each game.
+    if "spread_line" not in all_data.columns:
+        print("ERROR: spread_line column missing from assembled features.")
+        return
+
+    # nflverse sign: negative spread_line = home favoured.
+    # We pick home when predicted_margin > spread_line (model thinks home does
+    # better than the line), away otherwise.
+    all_data["pick_side"] = "away"
+    all_data.loc[all_data["predicted_margin"] > all_data["spread_line"], "pick_side"] = "home"
+
+    # Build a model-edge column for tier breakdown.
+    all_data["model_edge"] = (
+        all_data["predicted_margin"] - all_data["spread_line"]
+    ).abs()
+
+    # Load open/close lines from Bronze snapshots for each season.
+    season_frames = []
+    for season in sorted(seasons):
+        snap_df = load_open_close_lines(
+            season=season,
+            market="spreads",
+            snapshot_dir=snapshot_dir,
+        )
+        if snap_df.empty:
+            logger.info("No spread snapshot data for season=%d", season)
+            continue
+        snap_df["season"] = season
+        season_frames.append(snap_df)
+
+    if not season_frames:
+        print(
+            "\n  No Bronze snapshot data found for any requested season.\n"
+            "  Activate the capture cron by setting ODDS_API_KEY in GitHub Secrets."
+        )
+        print_line_capture_report(
+            {"n": 0}, label=f"Seasons {min(seasons)}–{max(seasons)}"
+        )
+        return
+
+    snap_combined = pd.concat(season_frames, ignore_index=True)
+
+    # Join open/close lines onto the game features.
+    # Match on (home_team_nfl, away_team_nfl, season).
+    required_join_cols = {"home_team_nfl", "away_team_nfl"}
+    if not required_join_cols.issubset(all_data.columns):
+        missing = required_join_cols - set(all_data.columns)
+        print(f"ERROR: Missing join columns in assembled features: {sorted(missing)}")
+        return
+
+    joined = all_data.merge(
+        snap_combined[["home_team_nfl", "away_team_nfl", "season", "open_spread", "close_spread"]],
+        on=["home_team_nfl", "away_team_nfl", "season"],
+        how="left",
+    )
+
+    n_total = len(joined)
+    n_with_open = joined["open_spread"].notna().sum()
+    n_with_close = joined["close_spread"].notna().sum()
+    print(
+        f"\n  Games in feature set:     {n_total}"
+        f"\n  Games with open-proxy:    {n_with_open}"
+        f"\n  Games with close line:    {n_with_close}"
+    )
+
+    if n_with_open == 0:
+        print(
+            "\n  No open-proxy lines available.  "
+            "Start capturing before 2026 week 1."
+        )
+        print_line_capture_report({"n": 0}, label="All Seasons")
+        return
+
+    # Compute true line capture.
+    capture_df = evaluate_line_capture(
+        joined,
+        open_col="open_spread",
+        close_col="close_spread",
+        pick_side_col="pick_side",
+        market="spread",
+    )
+
+    # Overall summary.
+    summary = compute_line_capture_summary(capture_df, edge_col="model_edge")
+    print_line_capture_report(summary, label=f"All ({len(seasons)} seasons)")
+
+    # Per-season breakdown.
+    if "season" in capture_df.columns:
+        print(f"\n  Per-Season Line Capture:")
+        print(f"  {'Season':<8} {'n':>5}  {'Mean Capture':>14}  {'Pct Captured':>14}")
+        print(f"  {'-' * 48}")
+        for season_val in sorted(capture_df["season"].dropna().unique()):
+            season_df = capture_df[capture_df["season"] == season_val]
+            s = compute_line_capture_summary(season_df)
+            if s["n"] > 0:
+                print(
+                    f"  {int(season_val):<8} {s['n']:>5}  "
+                    f"{s['mean_capture']:>+14.2f}  "
+                    f"{s['pct_captured']:>13.1%}"
+                )
+            else:
+                print(f"  {int(season_val):<8} {'0':>5}  {'N/A':>14}  {'N/A':>14}")
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     """CLI entry point for prediction backtesting.
 
@@ -609,7 +867,20 @@ def main(argv: Optional[List[str]] = None) -> int:
         Exit code (0 for success, 1 for error).
     """
     parser = argparse.ArgumentParser(
-        description="Backtest NFL game prediction models against Vegas closing lines"
+        description=(
+            "Backtest NFL game prediction models against Vegas closing lines.\n\n"
+            "Primary spread metric once 2026 data flows: line capture (--clv-true).\n"
+            "ATS% is secondary — it cannot distinguish sharp from lucky.\n\n"
+            "CLV (true line capture) requires Bronze snapshot data from the\n"
+            "odds-capture cron.  Activate by setting ODDS_API_KEY in GitHub Secrets.\n"
+            "Register free at https://the-odds-api.com — free tier is sufficient\n"
+            "(~60 credits/month for 2x daily capture).\n\n"
+            "Once ODDS_API_KEY is live, run:\n"
+            "  python scripts/backtest_predictions.py --ensemble --clv-true --seasons 2026\n\n"
+            "ELITE 2.4 success gate: mean signed capture > +0.3 pts, n >= 100, by 2026 w10.\n"
+            "Kill criterion: capture <= 0 at n >= 150 -> declare no betting edge."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
         "--target",
@@ -646,6 +917,27 @@ def main(argv: Optional[List[str]] = None) -> int:
         action="store_true",
         help="Run sealed holdout comparison (v1.4 vs Phase-30 vs Phase-31)",
     )
+    parser.add_argument(
+        "--clv-true",
+        action="store_true",
+        dest="clv_true",
+        help=(
+            "Run true CLV (line-capture) evaluation using Bronze odds snapshots.\n"
+            "Requires --ensemble and snapshot data from the odds-capture cron.\n"
+            "Reads data/bronze/odds_api/snapshots/ (written by bronze_odds_api_ingestion.py).\n"
+            "Primary spread metric for 2026 season evaluation."
+        ),
+    )
+    parser.add_argument(
+        "--snapshot-dir",
+        type=str,
+        default=None,
+        dest="snapshot_dir",
+        help=(
+            "Override Bronze snapshot directory for --clv-true mode.\n"
+            "Default: data/bronze/odds_api/snapshots (project root-relative)."
+        ),
+    )
     args = parser.parse_args(argv)
 
     print(f"\nNFL Game Prediction Backtester")
@@ -655,7 +947,16 @@ def main(argv: Optional[List[str]] = None) -> int:
     print("=" * 60)
 
     try:
-        if args.holdout:
+        if args.clv_true:
+            if not args.ensemble:
+                print("ERROR: --clv-true requires --ensemble (ensemble models provide pick direction).")
+                return 1
+            run_clv_true_backtest(
+                seasons=args.seasons,
+                ensemble_dir=args.ensemble_dir,
+                snapshot_dir=args.snapshot_dir,
+            )
+        elif args.holdout:
             run_holdout_comparison(args.model_dir, args.ensemble_dir)
         elif args.ensemble:
             run_comparison_backtest(

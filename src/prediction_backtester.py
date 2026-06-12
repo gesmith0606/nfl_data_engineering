@@ -3,16 +3,38 @@
 Provides ATS (against the spread) evaluation, over/under evaluation, and
 vig-adjusted profit accounting at standard -110 odds.
 
+TRUE CLV vs MODEL-VS-CLOSE NOTE
+================================
+``evaluate_clv`` computes *model-vs-close*: how far the model's predicted margin
+differed from the closing spread.  This is NOT true Closing Line Value — it
+measures model signal relative to closing prices, which is useful as a
+directional indicator but cannot capture whether our pick beat the number we
+actually got.
+
+``evaluate_line_capture`` is true CLV: given the spread/total at the time we
+made the pick (open_line) and the final closing line, it measures how many
+points the number moved in our favour by kickoff.  This is the primary spread
+metric once 2026 live-capture data flows from the odds-capture cron.
+
+See also: ``src/odds_snapshot_loader.py`` for deriving open_line/close_line
+from Bronze Parquet snapshots written by ``scripts/bronze_odds_api_ingestion.py``.
+
+Success gate (ELITE 2.4): mean signed capture > +0.3 pts on n ≥ 100 picks by
+2026 week 10.  Kill criterion: capture ≤ 0 at n ≥ 150 → declare no betting edge.
+
 Exports:
     evaluate_ats: Add ATS classification columns to a game DataFrame.
     evaluate_ou: Add over/under classification columns to a game DataFrame.
+    evaluate_clv: Model-vs-close pseudo-CLV (NOT true CLV — see above).
+    evaluate_line_capture: True CLV — signed line movement in our favour.
+    compute_line_capture_summary: Summary stats for line capture results.
     compute_profit: Compute vig-adjusted profit from backtest results.
     VIG_WIN: Profit per winning bet at -110 odds (+0.9091 units).
     VIG_LOSS: Loss per losing bet at -110 odds (-1.0 units).
     BREAK_EVEN_PCT: Win percentage needed to break even at -110 (52.38%).
 """
 
-from typing import Dict
+from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -70,10 +92,17 @@ def evaluate_ou(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def evaluate_clv(df: pd.DataFrame) -> pd.DataFrame:
-    """Add CLV (Closing Line Value) column.
+    """Add model-vs-close pseudo-CLV column.
 
-    CLV measures whether the model's predicted margin was closer to the actual
-    outcome than the Vegas closing line. Positive CLV = model beat the close.
+    WARNING: This is NOT true Closing Line Value (CLV).  It computes
+    ``predicted_margin - spread_line`` — i.e., how far the model's prediction
+    deviated from the Vegas *closing* line.  Positive values indicate the model
+    predicted a bigger home margin than the market implied at close.
+
+    This function is useful as a directional model-signal indicator, but it
+    cannot tell you whether a pick made at the *opening* line was captured at a
+    better number than the close.  Use ``evaluate_line_capture`` for true CLV
+    once 2026 odds-capture data is available.
 
     Args:
         df: DataFrame with columns predicted_margin, spread_line.
@@ -84,6 +113,230 @@ def evaluate_clv(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df["clv"] = df["predicted_margin"] - df["spread_line"]
     return df
+
+
+def evaluate_line_capture(
+    df: pd.DataFrame,
+    open_col: str = "open_line",
+    close_col: str = "close_line",
+    pick_side_col: str = "pick_side",
+    market: str = "spread",
+) -> pd.DataFrame:
+    """Compute true line-capture (CLV) for each pick.
+
+    For each game where a pick was made against the open-proxy line, measures
+    how many points the number moved in our favour by the time the closing line
+    was set.  Positive capture means we got a better number than the close —
+    the defining signal of a sharp bettor.
+
+    Sign conventions
+    ----------------
+    Spread market (``market="spread"``)
+        ``open_line`` and ``close_line`` are *home-relative* spread values using
+        **nflverse sign convention**: negative = home favoured (e.g., -3.5 means
+        home is a 3.5-point favourite).
+
+        ``pick_side`` must be either ``"home"`` or ``"away"``.
+
+        Capture is defined as: the number of points the line moved away from the
+        picked side from open to close.
+
+        - Home pick: home spread improved (moved more negative, i.e. home became
+          more favoured) → positive capture.
+          ``capture = open_line - close_line``
+        - Away pick: away spread improved (home line moved less negative / more
+          positive, making the away side a bigger underdog from the line's
+          perspective) → positive capture.
+          ``capture = close_line - open_line``
+
+    Totals market (``market="total"``)
+        ``open_line`` and ``close_line`` are the over/under totals.
+
+        ``pick_side`` must be either ``"over"`` or ``"under"``.
+
+        - Over pick: total moved up (more points needed to hit over) → positive
+          capture.  ``capture = open_line - close_line``
+        - Under pick: total moved down (fewer total points expected) → positive
+          capture.  ``capture = close_line - open_line``
+
+    Handling missing data
+    ---------------------
+    Rows where ``open_col`` or ``close_col`` are NaN receive NaN capture and are
+    excluded from summary statistics.  This handles the pre-season period before
+    2026 capture data flows.
+
+    Args:
+        df: DataFrame with at minimum the three columns named by ``open_col``,
+            ``close_col``, and ``pick_side_col``.  All other columns are
+            preserved unchanged.
+        open_col: Column name for the open-proxy line value.
+        close_col: Column name for the closing-line value.
+        pick_side_col: Column name for the side picked ("home"/"away" or
+            "over"/"under").
+        market: ``"spread"`` or ``"total"``.  Determines which pick-side labels
+            are valid and which direction constitutes positive capture.
+
+    Returns:
+        Copy of ``df`` with three added columns:
+
+        - ``line_capture``: signed capture in points (positive = we beat the
+          close, negative = close beat us, NaN = missing open/close).
+        - ``captured``: boolean; True when ``line_capture > 0``.
+        - ``line_move``: raw line movement ``close_line - open_line``
+          (informational; sign follows home-relative or total convention).
+
+    Raises:
+        ValueError: If ``market`` is not ``"spread"`` or ``"total"``.
+        ValueError: If ``pick_side_col`` contains values other than the expected
+            pair for the given market.
+
+    Examples:
+        >>> import pandas as pd
+        >>> df = pd.DataFrame({
+        ...     "game_id": ["2026_01_KC_BUF"],
+        ...     "open_line": [-3.5],
+        ...     "close_line": [-5.0],
+        ...     "pick_side": ["home"],
+        ... })
+        >>> result = evaluate_line_capture(df)
+        >>> float(result["line_capture"].iloc[0])
+        1.5
+    """
+    if market not in ("spread", "total"):
+        raise ValueError(f"market must be 'spread' or 'total', got {market!r}")
+
+    valid_sides: dict = {
+        "spread": {"home", "away"},
+        "total": {"over", "under"},
+    }
+    expected_sides = valid_sides[market]
+
+    df = df.copy()
+
+    # Normalise pick_side to lower-case before validation and computation.
+    # This allows callers to pass "Home", "AWAY", "Over", etc.
+    if not df.empty and pick_side_col in df.columns:
+        df[pick_side_col] = df[pick_side_col].str.lower()
+
+    # Validate pick_side values (ignore NaN rows — they'll produce NaN capture)
+    present_sides = set(df[pick_side_col].dropna().unique())
+    bad_sides = present_sides - expected_sides
+    if bad_sides:
+        raise ValueError(
+            f"pick_side column contains unexpected values for market={market!r}: "
+            f"{sorted(bad_sides)}.  Expected values from {sorted(expected_sides)}."
+        )
+
+    open_vals = pd.to_numeric(df[open_col], errors="coerce")
+    close_vals = pd.to_numeric(df[close_col], errors="coerce")
+
+    # Raw line movement (home-relative or total-relative).
+    # Positive = line moved in favour of home (home became bigger favourite)
+    #           OR total increased.
+    line_move = close_vals - open_vals
+
+    if market == "spread":
+        # Home pick: want line to move MORE negative (home more favoured).
+        # open - close > 0 when home spread got better for home bettors.
+        home_capture = open_vals - close_vals
+        away_capture = close_vals - open_vals
+
+        is_home = df[pick_side_col] == "home"  # already lower-cased above
+        capture = np.where(is_home, home_capture, away_capture)
+        capture = pd.Series(capture, index=df.index, dtype=float)
+
+    else:  # total
+        # Over pick: want total to move UP (harder to hit → better open price).
+        # open - close > 0 when total increased (over is more valuable at open).
+        over_capture = open_vals - close_vals
+        under_capture = close_vals - open_vals
+
+        is_over = df[pick_side_col] == "over"  # already lower-cased above
+        capture = np.where(is_over, over_capture, under_capture)
+        capture = pd.Series(capture, index=df.index, dtype=float)
+
+    # Force NaN where either line is missing — cannot compute capture.
+    missing_mask = open_vals.isna() | close_vals.isna()
+    capture[missing_mask] = np.nan
+
+    df["line_capture"] = capture
+    df["captured"] = capture > 0
+    df["line_move"] = line_move
+
+    return df
+
+
+def compute_line_capture_summary(
+    df: pd.DataFrame,
+    capture_col: str = "line_capture",
+    edge_col: Optional[str] = None,
+) -> dict:
+    """Compute summary statistics for line-capture (true CLV) results.
+
+    Args:
+        df: DataFrame with ``line_capture`` column from ``evaluate_line_capture``.
+            Rows with NaN capture are automatically excluded.
+        capture_col: Column name for signed line-capture values.
+        edge_col: Optional column name for model edge magnitude used to split
+            results by tier (high/medium/low).  When provided the summary
+            includes a ``by_tier`` key.
+
+    Returns:
+        Dict with keys:
+
+        - ``n``: number of picks with valid capture data.
+        - ``mean_capture``: mean signed capture across all picks.
+        - ``median_capture``: median signed capture.
+        - ``pct_captured``: fraction of picks where capture > 0.
+        - ``std_capture``: standard deviation of capture.
+        - ``by_tier``: (only when ``edge_col`` provided) list of dicts, each
+          with keys ``tier``, ``n``, ``mean_capture``, ``pct_captured``.
+          Tiers use the same thresholds as ``compute_clv_by_tier``:
+          high ≥ 3.0, medium ≥ 1.5, low < 1.5.
+    """
+    valid = df[df[capture_col].notna()].copy()
+    n = len(valid)
+
+    if n == 0:
+        summary: dict = {
+            "n": 0,
+            "mean_capture": float("nan"),
+            "median_capture": float("nan"),
+            "pct_captured": float("nan"),
+            "std_capture": float("nan"),
+        }
+        if edge_col is not None:
+            summary["by_tier"] = []
+        return summary
+
+    captures = valid[capture_col].astype(float)
+    summary = {
+        "n": n,
+        "mean_capture": float(captures.mean()),
+        "median_capture": float(captures.median()),
+        "pct_captured": float((captures > 0).mean()),
+        "std_capture": float(captures.std()),
+    }
+
+    if edge_col is not None and edge_col in valid.columns:
+        edge_vals = valid[edge_col].abs()
+        tier_labels = pd.cut(
+            edge_vals,
+            bins=[-float("inf"), 1.5, 3.0, float("inf")],
+            labels=["low", "medium", "high"],
+        )
+        tier_rows: List[dict] = []
+        for tier_label, group in valid.groupby(tier_labels, observed=True):
+            grp_cap = group[capture_col].astype(float)
+            tier_rows.append({
+                "tier": str(tier_label),
+                "n": len(group),
+                "mean_capture": float(grp_cap.mean()),
+                "pct_captured": float((grp_cap > 0).mean()),
+            })
+        summary["by_tier"] = tier_rows
+
+    return summary
 
 
 def compute_clv_by_tier(df: pd.DataFrame) -> pd.DataFrame:
