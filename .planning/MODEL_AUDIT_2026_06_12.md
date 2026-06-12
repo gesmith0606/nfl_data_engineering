@@ -15,6 +15,16 @@ suppressed favorites); RB run-heavy bonus fired for the wrong teams;
 predicted_script_boost penalized favorites. Game-prediction stack was unaffected
 (always used the correct convention). 7 regression tests pin the convention.
 
+### 1b. PRODUCTION BUG: Vegas branch discarded all points-level tuning (fixed — 661f077)
+The implied_totals branch of generate_weekly_projections re-derived
+projected_points from scaled raw stats — silently discarding ceiling shrinkage,
+the QB +2.3 bias correction and the low-projection floor boost. Live production
+ALWAYS passes implied_totals; backtests never did (bug #2) — so live ran without
+the v4.2 tuning that backtests validated (C.Kupp 2022w3: 18.92 shrunk vs 26.88
+raw). Together with bug #1 (inverted Vegas), this plausibly explains the live
+sanity-gate rank-gap anomalies (Jayden Daniels cons #12 vs ours #132) that were
+previously attributed to model signal. Live quality should now match backtests.
+
 ### 2. EVAL-VALIDITY BUG: backtests never applied the Vegas multiplier (fixed — 6b0cce6)
 `implied_totals` was gated on `--constrain`, so vegas_multiplier == 1.0 on 100% of
 rows in every standard backtest — all historical consensus-gap numbers measured a
