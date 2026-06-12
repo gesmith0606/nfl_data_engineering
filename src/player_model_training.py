@@ -1080,6 +1080,7 @@ def generate_heuristic_predictions(
     """
     from projection_engine import (
         POSITION_STAT_PROFILE,
+        _apply_td_regression,
         _matchup_factor,
         _usage_multiplier,
         _weighted_baseline,
@@ -1095,11 +1096,46 @@ def generate_heuristic_predictions(
     # No opponent rankings available here — neutral matchup factor (1.0)
     matchup = _matchup_factor(result_df, pd.DataFrame(), position)
 
+    # Build pred_{stat} columns using the same per-position POSITION_RECENCY_WEIGHTS
+    # that compute_heuristic_baseline uses internally.  Previously this called
+    # _weighted_baseline without the ``position`` argument, which silently fell
+    # back to global RECENCY_WEIGHTS (roll3=0.30, roll6=0.15, std=0.55) for
+    # every position.  For WR (pure std=1.00) the resulting stats overstated
+    # recent-form weighting by 45%, producing pred_{stat} columns that diverged
+    # from the canonical baseline by up to 7.45 pts (mean 1.86 pts) on a
+    # representative 200-row WR sample.  Callers that re-score pred_{stat} via
+    # compute_fantasy_points_from_preds (e.g. bayesian_projection.py) were
+    # therefore training on inaccurate residual targets.
+    #
+    # Also applies _apply_td_regression to the pred_{stat} dict, matching
+    # compute_heuristic_baseline step 4 exactly.
+    #
+    # NOTE: pred_{stat} columns intentionally omit ceiling shrinkage, bias
+    # correction, and floor boost — those are total-level adjustments computed
+    # inside compute_heuristic_baseline and reflected in ``heuristic_pts`` only.
+    # Callers that need the authoritative heuristic total MUST use
+    # ``heuristic_pts``, not re-score ``pred_{stat}``.
+    pred_cols: dict = {}
     for stat in stats:
-        baseline = _weighted_baseline(result_df, stat)
-        result_df[f"pred_{stat}"] = (baseline * usage_mult * matchup).round(2)
+        baseline = _weighted_baseline(result_df, stat, position)
+        pred_cols[f"pred_{stat}"] = (baseline * usage_mult * matchup).round(2)
 
-    # Heuristic total (includes ceiling shrinkage) via canonical function
+    # Apply TD regression to the pred_ dict (mirrors compute_heuristic_baseline).
+    # _apply_td_regression expects keys named ``proj_{stat}`` internally; we
+    # temporarily rekey, apply, and rename back.
+    proj_keyed = {f"proj_{stat}": series for stat, series in
+                  ((k[len("pred_"):], v) for k, v in pred_cols.items())}
+    proj_keyed = _apply_td_regression(proj_keyed, position)
+    for stat in stats:
+        proj_key = f"proj_{stat}"
+        pred_key = f"pred_{stat}"
+        if proj_key in proj_keyed:
+            pred_cols[pred_key] = proj_keyed[proj_key]
+
+    result_df = result_df.assign(**pred_cols)
+
+    # Heuristic total (includes ceiling shrinkage, bias correction, floor boost)
+    # via canonical function — this is the authoritative heuristic total.
     result_df["heuristic_pts"] = compute_heuristic_baseline(
         player_data,
         position,

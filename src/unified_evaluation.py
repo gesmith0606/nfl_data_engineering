@@ -12,11 +12,16 @@ Key functions:
     build_opp_rankings: Build opponent rankings from Bronze data.
 
 The heuristic replicates projection_engine.py exactly:
-    1. _weighted_baseline (RECENCY_WEIGHTS: roll3=0.30, roll6=0.15, std=0.55)
+    1. _weighted_baseline (POSITION_RECENCY_WEIGHTS per position — QB: 85% std,
+       RB: global 55% std, WR: 100% std, TE: 85% std; global fallback otherwise)
     2. _usage_multiplier [0.80, 1.15]
     3. _matchup_factor [0.75, 1.25]
-    4. calculate_fantasy_points_df
-    5. PROJECTION_CEILING_SHRINKAGE (12/18/23 pt thresholds)
+    4. _apply_td_regression (blends TD stats toward yardage-implied rates)
+    5. calculate_fantasy_points_df
+    6. PROJECTION_CEILING_SHRINKAGE (12/18/23 pt thresholds)
+    7. POSITION_CEILING_SHRINKAGE (WR/TE: additional 12% at 12+ pts)
+    8. POSITION_BIAS_CORRECTION (QB: +2.3 pts additive)
+    9. LOW_PROJECTION_FLOOR_BOOST (position-specific low-projection lift)
 
 Does NOT include:
     - Vegas multiplier (not available in historical feature data)
@@ -63,12 +68,9 @@ def compute_production_heuristic(
     preserved for backward compatibility with all existing call sites in
     ``hybrid_projection.py`` and ``bayesian_projection.py``.
 
-    Applies the full production pipeline:
-    1. _weighted_baseline (roll3/roll6/std blending with RECENCY_WEIGHTS)
-    2. _usage_multiplier [0.80, 1.15]
-    3. _matchup_factor [0.75, 1.25]
-    4. calculate_fantasy_points_df
-    5. PROJECTION_CEILING_SHRINKAGE (12/18/23 pt thresholds)
+    Applies the full production pipeline (see compute_heuristic_baseline for
+    the authoritative step list, which includes per-position recency weights,
+    TD regression, ceiling shrinkage, bias correction, and floor boost).
 
     Does NOT include Vegas multiplier, bye week zeroing, or injury adjustments.
 

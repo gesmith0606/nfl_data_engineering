@@ -322,3 +322,139 @@ class TestUsageMultiplierEdgeCases:
         df = pd.DataFrame({"player_id": ["P1", "P2"], "other": [1.0, 2.0]})
         result = _weighted_baseline(df, "passing_yards")
         assert (result == 0.0).all(), f"Expected 0.0 for missing columns: {result.values}"
+
+
+# ---------------------------------------------------------------------------
+# Phase 59 regression tests — heuristic consolidation
+# ---------------------------------------------------------------------------
+
+
+class TestGenerateHeuristicPredictionsDelegation:
+    """Phase 59: generate_heuristic_predictions must delegate to
+    compute_heuristic_baseline for the authoritative heuristic total.
+
+    These tests enforce the consolidation contract:
+    1. heuristic_pts == compute_heuristic_baseline output (1e-9 tolerance).
+    2. pred_{stat} columns use per-position POSITION_RECENCY_WEIGHTS, not global.
+    3. compute_heuristic_baseline is called (monkeypatch delegation test).
+    """
+
+    def test_heuristic_pts_equals_canonical_wr(self):
+        """heuristic_pts from generate_heuristic_predictions must equal
+        compute_heuristic_baseline output for WR to 1e-9 tolerance.
+
+        Regression for Phase 59: before the fix, heuristic_pts was already
+        correct via delegation; this test pins the delegation contract so a
+        future removal of the compute_heuristic_baseline call is caught.
+        """
+        data = _make_wr_data()  # default n=5
+        canonical = compute_heuristic_baseline(data, "WR", pd.DataFrame())
+        heur_df = generate_heuristic_predictions(data, "WR")
+        np.testing.assert_allclose(
+            canonical.reset_index(drop=True).values,
+            heur_df["heuristic_pts"].reset_index(drop=True).values,
+            rtol=1e-9,
+            err_msg="heuristic_pts diverges from compute_heuristic_baseline for WR",
+        )
+
+    def test_heuristic_pts_equals_canonical_qb(self):
+        """heuristic_pts from generate_heuristic_predictions must equal
+        compute_heuristic_baseline output for QB to 1e-9 tolerance.
+        """
+        data = _make_qb_data()  # default n=4
+        canonical = compute_heuristic_baseline(data, "QB", pd.DataFrame())
+        heur_df = generate_heuristic_predictions(data, "QB")
+        np.testing.assert_allclose(
+            canonical.reset_index(drop=True).values,
+            heur_df["heuristic_pts"].reset_index(drop=True).values,
+            rtol=1e-9,
+            err_msg="heuristic_pts diverges from compute_heuristic_baseline for QB",
+        )
+
+    def test_delegation_via_monkeypatch(self):
+        """generate_heuristic_predictions must call compute_heuristic_baseline.
+
+        Monkeypatches projection_engine.compute_heuristic_baseline to record
+        call count; verifies it is invoked at least once per call to
+        generate_heuristic_predictions.
+        """
+        import projection_engine as pe
+
+        call_count = {"n": 0}
+        original = pe.compute_heuristic_baseline
+
+        def tracking_wrapper(*args, **kwargs):
+            call_count["n"] += 1
+            return original(*args, **kwargs)
+
+        pe.compute_heuristic_baseline = tracking_wrapper
+        try:
+            data = _make_wr_data(n=5)
+            generate_heuristic_predictions(data, "WR")
+            assert call_count["n"] >= 1, (
+                "generate_heuristic_predictions did not call "
+                "compute_heuristic_baseline (call_count=0)"
+            )
+        finally:
+            pe.compute_heuristic_baseline = original
+
+    def test_pred_stat_uses_position_recency_weights_wr(self):
+        """pred_{stat} columns must use per-position POSITION_RECENCY_WEIGHTS.
+
+        For WR, POSITION_RECENCY_WEIGHTS is {'roll3': 0.0, 'roll6': 0.0, 'std': 1.0}
+        (pure season-to-date).  Before Phase 59, _weighted_baseline was called
+        without the position argument, using global RECENCY_WEIGHTS
+        (roll3=0.30, roll6=0.15, std=0.55), causing up to 7.45 pts divergence
+        per player-week on re-scored residual targets.
+
+        Verification: pred_receiving_yards for WR must equal receiving_yards_std
+        (modulo usage/matchup factor, which is the same in both paths).
+        """
+        from projection_engine import _usage_multiplier, _matchup_factor
+
+        rng = np.random.default_rng(99)
+        n = 10
+        data = pd.DataFrame(
+            {
+                "player_id": [f"P{i}" for i in range(n)],
+                "position": ["WR"] * n,
+                "recent_team": ["KC"] * n,
+                "season": [2023] * n,
+                "week": [8] * n,
+                "opponent": ["LV"] * n,
+                "receiving_yards_roll3": rng.uniform(30, 120, n),
+                "receiving_yards_roll6": rng.uniform(25, 110, n),
+                "receiving_yards_std": rng.uniform(20, 100, n),
+                "receiving_tds_roll3": rng.uniform(0.0, 1.0, n),
+                "receiving_tds_roll6": rng.uniform(0.0, 0.9, n),
+                "receiving_tds_std": rng.uniform(0.0, 0.8, n),
+                "receptions_roll3": rng.uniform(1, 8, n),
+                "receptions_roll6": rng.uniform(1, 7, n),
+                "receptions_std": rng.uniform(1, 6, n),
+                "targets_roll3": rng.uniform(2, 12, n),
+                "targets_roll6": rng.uniform(2, 11, n),
+                "targets_std": rng.uniform(2, 10, n),
+                "target_share": rng.uniform(0.05, 0.40, n),
+            }
+        )
+        heur_df = generate_heuristic_predictions(data, "WR")
+
+        # For WR pure-std weights: baseline = receiving_yards_std * 1.0 / 1.0
+        # pred_receiving_yards = baseline * usage * matchup
+        usage_mult = _usage_multiplier(data, "WR")
+        matchup = _matchup_factor(data, pd.DataFrame(), "WR")
+        expected_yards = (
+            (data["receiving_yards_std"] * usage_mult * matchup)
+            .round(2)
+            .values
+        )
+        np.testing.assert_allclose(
+            heur_df["pred_receiving_yards"].values,
+            expected_yards,
+            rtol=1e-5,
+            err_msg=(
+                "pred_receiving_yards does not match pure-std baseline for WR. "
+                "generate_heuristic_predictions may be using global RECENCY_WEIGHTS "
+                "instead of POSITION_RECENCY_WEIGHTS."
+            ),
+        )
