@@ -175,6 +175,18 @@ def main():
         help="Include kicker (K) projections from PBP data",
     )
     parser.add_argument(
+        "--conformal-bands",
+        action="store_true",
+        default=False,
+        help=(
+            "Apply conformal width factors to quantile floor/ceiling bands "
+            "(ELITE 2.5). Widens the 10-90 band per position to reach ~80%% "
+            "empirical coverage (raw quantile bands under-cover at ~72-75%%). "
+            "Only affects the quantile-model path of add_floor_ceiling. "
+            "Default: False (opt-in)."
+        ),
+    )
+    parser.add_argument(
         "--use-sentiment",
         action="store_true",
         default=False,
@@ -891,7 +903,9 @@ def main():
     # Preseason mode uses projected_season_points (full-season totals), not
     # projected_points (weekly), so floor/ceiling is not applicable there.
     if not args.ml and not args.preseason:
-        projections = add_floor_ceiling(projections)
+        projections = add_floor_ceiling(
+            projections, use_conformal=args.conformal_bands
+        )
 
     print(f"\nProjections generated: {len(projections):,} players")
 

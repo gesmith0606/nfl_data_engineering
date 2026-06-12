@@ -437,3 +437,111 @@ class TestIntegrationProjectionEngine:
             valid = preds.dropna()
             if not valid.empty:
                 assert (valid["quantile_floor"] <= valid["quantile_ceiling"]).all()
+
+
+# ---------------------------------------------------------------------------
+# T-07: Conformal width factors (ELITE 2.5)
+# ---------------------------------------------------------------------------
+
+
+class TestConformalWidening:
+    """Test conformal width-factor application in predict_quantiles."""
+
+    @staticmethod
+    def _with_factors(result: dict, position: str, factor: float) -> dict:
+        """Inject conformal width factors into a trained-result dict."""
+        out = dict(result)
+        out["conformal_width_factors"] = {
+            position: {"width_factor": factor, "oof_coverage_at_factor": 0.80}
+        }
+        return out
+
+    def test_widening_expands_band(self, synthetic_df: pd.DataFrame) -> None:
+        """factor > 1 should lower floors and raise ceilings around q50."""
+        result = train_quantile_models(
+            synthetic_df,
+            target_col="fantasy_points_target",
+            positions=["WR"],
+        )
+        wr_data = synthetic_df[synthetic_df["position"] == "WR"].head(30)
+        raw = predict_quantiles(result, wr_data, "WR", apply_conformal=False)
+        conf = predict_quantiles(
+            self._with_factors(result, "WR", 1.15),
+            wr_data,
+            "WR",
+            apply_conformal=True,
+        )
+
+        raw_width = raw["quantile_ceiling"] - raw["quantile_floor"]
+        conf_width = conf["quantile_ceiling"] - conf["quantile_floor"]
+        # Width must never shrink, and must grow wherever the raw band has
+        # room (floor not clipped at 0).
+        assert (conf_width >= raw_width - 1e-9).all()
+        assert (conf["quantile_ceiling"] >= raw["quantile_ceiling"] - 1e-9).all()
+        assert (conf_width > raw_width).any()
+
+    def test_no_factor_is_noop(self, synthetic_df: pd.DataFrame) -> None:
+        """apply_conformal=True without stored factors must not change output."""
+        result = train_quantile_models(
+            synthetic_df,
+            target_col="fantasy_points_target",
+            positions=["RB"],
+        )
+        rb_data = synthetic_df[synthetic_df["position"] == "RB"].head(30)
+        raw = predict_quantiles(result, rb_data, "RB", apply_conformal=False)
+        conf = predict_quantiles(result, rb_data, "RB", apply_conformal=True)
+        pd.testing.assert_frame_equal(raw, conf)
+
+    def test_invariants_hold_after_widening(
+        self, synthetic_df: pd.DataFrame
+    ) -> None:
+        """Floor >= 0 and floor <= projection <= ceiling after conformal."""
+        result = train_quantile_models(
+            synthetic_df,
+            target_col="fantasy_points_target",
+            positions=["TE"],
+        )
+        te_data = synthetic_df[synthetic_df["position"] == "TE"]
+        preds = predict_quantiles(
+            self._with_factors(result, "TE", 1.15),
+            te_data,
+            "TE",
+            apply_conformal=True,
+        )
+        valid = preds.dropna()
+        assert (valid["quantile_floor"] >= 0).all()
+        assert (valid["quantile_floor"] <= valid["quantile_projection"]).all()
+        assert (valid["quantile_projection"] <= valid["quantile_ceiling"]).all()
+
+    def test_load_exposes_conformal_factors(
+        self, synthetic_df: pd.DataFrame, tmp_model_dir: str
+    ) -> None:
+        """load_quantile_models returns conformal_width_factors key (empty
+        dict when metadata lacks them)."""
+        result = train_quantile_models(
+            synthetic_df,
+            target_col="fantasy_points_target",
+            positions=["QB"],
+        )
+        save_quantile_models(result, path=tmp_model_dir)
+        loaded = load_quantile_models(path=tmp_model_dir)
+        assert loaded is not None
+        assert "conformal_width_factors" in loaded
+        assert isinstance(loaded["conformal_width_factors"], dict)
+
+    def test_production_metadata_has_factors(self) -> None:
+        """The shipped models/quantile/metadata.json carries width factors
+        for all four positions (regression guard for ELITE 2.5)."""
+        import json
+
+        meta_path = os.path.join(
+            os.path.dirname(__file__), "..", "models", "quantile", "metadata.json"
+        )
+        if not os.path.exists(meta_path):
+            pytest.skip("production quantile metadata not present")
+        with open(meta_path) as f:
+            meta = json.load(f)
+        factors = meta.get("conformal_width_factors", {})
+        for pos in ["QB", "RB", "WR", "TE"]:
+            assert pos in factors
+            assert factors[pos]["width_factor"] >= 1.0

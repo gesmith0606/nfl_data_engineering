@@ -356,6 +356,7 @@ def load_quantile_models(
         "models": models,
         "feature_cols": metadata["feature_cols"],
         "imputer": imputer,
+        "conformal_width_factors": metadata.get("conformal_width_factors", {}),
     }
 
 
@@ -368,6 +369,7 @@ def predict_quantiles(
     quantile_data: Dict[str, Any],
     features_df: pd.DataFrame,
     position: str,
+    apply_conformal: bool = False,
 ) -> pd.DataFrame:
     """Generate quantile predictions for a given position.
 
@@ -375,6 +377,11 @@ def predict_quantiles(
         quantile_data: Loaded model data from load_quantile_models().
         features_df: Player-week DataFrame with feature columns.
         position: Position to predict (QB, RB, WR, TE).
+        apply_conformal: When True, widen the floor/ceiling band around the
+            median by the per-position conformal width factor stored at
+            training time (metadata ``conformal_width_factors``). Raw 10-90
+            bands under-cover (~72-75% OOF); the conformal factors restore
+            ~80% coverage. No-op when factors are absent for the position.
 
     Returns:
         DataFrame with quantile_floor, quantile_projection, quantile_ceiling
@@ -420,6 +427,24 @@ def predict_quantiles(
         col_name = quantile_map.get(alpha, f"quantile_{int(alpha * 100):02d}")
         preds = model.predict(X_imp)
         result[col_name] = np.clip(preds, 0.0, None).round(2)
+
+    # Conformal widening: scale the band around the median so that empirical
+    # 10-90 coverage hits ~80% (raw LGB quantiles under-cover on OOF data).
+    if apply_conformal and "quantile_projection" in result.columns:
+        factors = quantile_data.get("conformal_width_factors", {})
+        pos_factor = factors.get(position, {}).get("width_factor")
+        if pos_factor is not None and pos_factor > 0:
+            q50 = result["quantile_projection"]
+            if "quantile_floor" in result.columns:
+                result["quantile_floor"] = (
+                    (q50 - (q50 - result["quantile_floor"]) * pos_factor)
+                    .clip(lower=0.0)
+                    .round(2)
+                )
+            if "quantile_ceiling" in result.columns:
+                result["quantile_ceiling"] = (
+                    q50 + (result["quantile_ceiling"] - q50) * pos_factor
+                ).round(2)
 
     # Enforce floor <= projection <= ceiling invariant
     if "quantile_floor" in result.columns and "quantile_ceiling" in result.columns:

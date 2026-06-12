@@ -1919,6 +1919,7 @@ _FLOOR_CEILING_MULT = {"QB": 0.45, "RB": 0.40, "WR": 0.38, "TE": 0.35, "K": 0.40
 def add_floor_ceiling(
     df: pd.DataFrame,
     quantile_model_path: Optional[str] = None,
+    use_conformal: bool = False,
 ) -> pd.DataFrame:
     """Add projected_floor and projected_ceiling columns.
 
@@ -1933,6 +1934,11 @@ def add_floor_ceiling(
         df: Projections DataFrame with 'projected_points' and 'position' columns.
         quantile_model_path: Optional path to quantile model directory.
             Defaults to models/quantile/.
+        use_conformal: Opt-in (ELITE 2.5): apply per-position conformal width
+            factors stored at quantile training time so the 10-90 band hits
+            ~80% empirical coverage (raw bands under-cover at ~72-75%). Only
+            affects the quantile-model path; the heuristic fallback is
+            unchanged.
 
     Returns:
         DataFrame with projected_floor and projected_ceiling columns added.
@@ -1966,7 +1972,9 @@ def add_floor_ceiling(
 
                     mask = df["position"] == pos
                     pos_df = df[mask]
-                    preds = predict_quantiles(qdata, pos_df, pos)
+                    preds = predict_quantiles(
+                        qdata, pos_df, pos, apply_conformal=use_conformal
+                    )
                     df.loc[mask, "projected_floor"] = (
                         preds["quantile_floor"].clip(lower=0).round(2).values
                     )
