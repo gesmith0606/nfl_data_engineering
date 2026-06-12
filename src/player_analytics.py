@@ -263,6 +263,167 @@ def compute_defensive_strength(
     return out
 
 
+def build_yardage_allowances(
+    weekly_df: pd.DataFrame,
+    schedules_df: pd.DataFrame,
+    window: int = 8,
+    min_games: int = 3,
+) -> pd.DataFrame:
+    """Build position-specific opponent-adjusted trailing yardage/reception allowances.
+
+    Extends ``compute_defensive_strength`` with granular stat-split signals:
+    rather than a single fantasy-points ratio, this returns one row per
+    (season, week, defense, position, stat) where ``stat`` is one of:
+
+    * ``WR_recv_yds_trail``  — receiving yards allowed to WRs
+    * ``WR_receptions_trail``— receptions allowed to WRs
+    * ``TE_recv_yds_trail``  — receiving yards allowed to TEs
+    * ``TE_receptions_trail``— receptions allowed to TEs
+    * ``RB_recv_yds_trail``  — receiving yards allowed to RBs (PPR signal)
+    * ``RB_rush_yds_trail``  — rushing yards allowed to RBs
+    * ``RB_carries_trail``   — carries allowed to RBs (volume signal)
+
+    All values are:
+    1. Trailing: computed with ``shift(1).rolling(window, min_periods=min_games)``
+       so the value labelled week W contains only data from weeks W-8..W-1.
+       This satisfies the leak-discipline requirement (no current-week data).
+    2. Opponent-adjusted: each trailing value has the league-week mean for that
+       (position, stat) subtracted, so the column measures *above/below average*
+       rather than an absolute yardage count.  This removes schedule-strength
+       confounds (e.g., some defenses face more WR targets league-wide in a week).
+
+    The returned DataFrame is keyed on (season, week, team) — where ``team``
+    is the *defending* team — so callers join on the *upcoming opponent* of the
+    player being projected, identical to the ``compute_defensive_strength``
+    interface.
+
+    Args:
+        weekly_df:     Bronze player weekly stats (needs position, recent_team,
+                       season, week, receiving_yards, receptions, rushing_yards,
+                       carries columns).
+        schedules_df:  Game schedule DataFrame with home_team/away_team.
+        window:        Number of trailing games in the rolling mean (default 8).
+        min_games:     Minimum games required before emitting a non-null value
+                       (default 3).
+
+    Returns:
+        Long-format DataFrame with columns:
+            season, week, team (defending), position, stat, opp_adj
+        where ``opp_adj`` is the trailing stat value minus the league-week mean
+        for that (position, stat).  Rows with null ``opp_adj`` (< min_games
+        of prior data) are dropped.  Returns an empty DataFrame when inputs
+        are missing or lack required columns.
+
+    Example:
+        >>> allow = build_yardage_allowances(weekly_df, schedules_df)
+        >>> # Get WR receiving-yards allowance for KC defense in 2024 w5:
+        >>> allow[
+        ...     (allow['team'] == 'KC') & (allow['season'] == 2024)
+        ...     & (allow['week'] == 5) & (allow['position'] == 'WR')
+        ...     & (allow['stat'] == 'WR_recv_yds_trail')
+        ... ]['opp_adj'].values
+    """
+    required_sched = {"season", "week", "home_team", "away_team"}
+    required_weekly = {"season", "week", "recent_team", "position"}
+
+    if (
+        weekly_df is None
+        or weekly_df.empty
+        or schedules_df is None
+        or schedules_df.empty
+        or not required_sched.issubset(schedules_df.columns)
+        or not required_weekly.issubset(weekly_df.columns)
+    ):
+        logger.warning(
+            "build_yardage_allowances: missing required inputs; returning empty"
+        )
+        return pd.DataFrame()
+
+    # Build defense mapping: player's team → opposing defense for that game
+    sched = schedules_df[["season", "week", "home_team", "away_team"]].copy()
+    home = sched.rename(columns={"home_team": "player_team", "away_team": "defense"})
+    away = sched.rename(columns={"away_team": "player_team", "home_team": "defense"})
+    opp_map = pd.concat([home, away], ignore_index=True)
+
+    skill_positions = ["WR", "TE", "RB"]
+    weekly_skill = weekly_df[weekly_df["position"].isin(skill_positions)].copy()
+    if weekly_skill.empty:
+        return pd.DataFrame()
+
+    # Join each player-week to the defense they faced
+    merged = weekly_skill.merge(
+        opp_map,
+        left_on=["season", "week", "recent_team"],
+        right_on=["season", "week", "player_team"],
+        how="inner",
+    )
+    if merged.empty:
+        return pd.DataFrame()
+
+    # Stat definitions: (position_filter, stat_label, raw_column)
+    stat_defs: List[tuple] = [
+        ("WR", "WR_recv_yds_trail", "receiving_yards"),
+        ("WR", "WR_receptions_trail", "receptions"),
+        ("TE", "TE_recv_yds_trail", "receiving_yards"),
+        ("TE", "TE_receptions_trail", "receptions"),
+        ("RB", "RB_recv_yds_trail", "receiving_yards"),
+        ("RB", "RB_rush_yds_trail", "rushing_yards"),
+        ("RB", "RB_carries_trail", "carries"),
+    ]
+
+    frame_parts: List[pd.DataFrame] = []
+
+    for pos_filter, stat_label, raw_col in stat_defs:
+        if raw_col not in merged.columns:
+            logger.debug(
+                "build_yardage_allowances: column %s not found; skipping %s",
+                raw_col,
+                stat_label,
+            )
+            continue
+
+        pos_merged = merged[merged["position"] == pos_filter]
+        if pos_merged.empty:
+            continue
+
+        # Sum raw stat per (season, week, defense)
+        allowed = (
+            pos_merged.groupby(["season", "week", "defense"], as_index=False)[raw_col]
+            .sum()
+            .rename(columns={raw_col: "raw_allowed"})
+        )
+        allowed = allowed.sort_values(["defense", "season", "week"])
+
+        # Trailing rolling mean (shift(1) ensures no current-week data leaks in)
+        allowed["trailing"] = allowed.groupby("defense")["raw_allowed"].transform(
+            lambda s: s.shift(1).rolling(window, min_periods=min_games).mean()
+        )
+
+        # Opponent-adjust: subtract league-week mean
+        league_mean = allowed.groupby(["season", "week"])["trailing"].transform("mean")
+        allowed["opp_adj"] = allowed["trailing"] - league_mean
+
+        allowed["position"] = pos_filter
+        allowed["stat"] = stat_label
+        frame_parts.append(
+            allowed[["season", "week", "defense", "position", "stat", "opp_adj"]]
+            .dropna(subset=["opp_adj"])
+            .rename(columns={"defense": "team"})
+        )
+
+    if not frame_parts:
+        return pd.DataFrame()
+
+    out = pd.concat(frame_parts, ignore_index=True)
+    logger.info(
+        "Yardage allowances computed: %d rows, %d stat-types (window=%d)",
+        len(out),
+        len(set(out["stat"])),
+        window,
+    )
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Rolling Averages
 # ---------------------------------------------------------------------------
