@@ -801,8 +801,11 @@ def main():
                 week_inj = injuries_df[
                     pd.to_numeric(injuries_df["week"], errors="coerce") == args.week
                 ]
-                if not week_inj.empty:
-                    injuries_df = week_inj
+                # No rows for the target week → treat everyone as Active
+                # rather than falling back to the full-season file, whose
+                # keep-last semantics would apply STALE statuses (a player
+                # Out in week 5 must not be zeroed for week 7).
+                injuries_df = week_inj
             projections = apply_injury_adjustments(projections, injuries_df)
             injured = (projections["injury_multiplier"] < 1.0).sum()
             print(f"Injury adjustments applied: {injured} players affected")
