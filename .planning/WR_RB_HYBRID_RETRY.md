@@ -43,7 +43,23 @@ Heuristic-path reference (2026-06-12 final): RB +0.27/Sp −0.080, WR +0.09/Sp �
   deficit is not residual-correctable with current features; it lives in
   who-gets-the-work variance (consistent with prior kills). RB stays heuristic.
 
-## Blocking dependency before WR ship — Vegas sign fix (dbbef92)
+## SHIPPED 2026-06-12 (63b8919) — sealed gate PASSED
+
+Sealed amber-2025 confirmation (holdout ledger use #5, run
+`consensus_matched_half_ppr_20260612_094446.csv`, HYBRID={TE,WR} via
+production path, post Vegas-fix trilogy):
+
+| Pos | n | Gap vs Sleeper | Spearman gap | Bias |
+|-----|-----|------|------|------|
+| QB (heuristic+VEGAS_BETA) | 416 | **−0.410 (win)** | −0.038 | −0.22 |
+| RB (heuristic) | 696 | +0.238 | −0.111 | −0.85 |
+| WR (hybrid) | 949 | **−0.148 (WIN — bigger than 2022-24)** | +0.007 | +0.29 |
+| TE (hybrid) | 382 | **−0.406 (win holds)** | +0.183 | −0.47 |
+
+WR bias +0.29 vs the old +0.73 failure — blend-consistency cured the
+non-stationarity. HYBRID_POSITIONS = {"TE", "WR"} in production.
+
+## Historical: blocking dependency before WR ship — Vegas sign fix (dbbef92)
 
 The same audit session discovered the nflverse spread_line sign inversion
 (implied totals swapped favorite/underdog since inception). The fix changes the
