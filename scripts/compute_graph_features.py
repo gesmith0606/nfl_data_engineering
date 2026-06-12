@@ -61,8 +61,16 @@ from graph_red_zone import (
     compute_red_zone_features,
     compute_red_zone_usage,
 )
-from graph_wr_matchup import build_wr_advanced_matchup_features
-from graph_te_matchup import build_te_advanced_matchup_features
+from graph_wr_matchup import (
+    WR_DEF_TRAILING_FEATURE_COLUMNS,
+    build_wr_advanced_matchup_features,
+    compute_wr_def_trailing_features,
+)
+from graph_te_matchup import (
+    TE_DEF_TRAILING_FEATURE_COLUMNS,
+    build_te_advanced_matchup_features,
+    compute_te_def_trailing_features,
+)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -404,6 +412,41 @@ def compute_season_features(
     )
     logger.info("Route participation: %d rows", len(results["route_participation"]))
 
+    # --- 13. WR defense-side trailing allowance features (ELITE-2.3) ---
+    # These are strictly-lagged defense-unit features; NaN for seasons < 2020
+    # (pbp_participation absent) for the cb_count_per_play feature; the yardage
+    # allowance features use only PBP and are available back to 2016.
+    logger.info("Computing WR def trailing features (ELITE-2.3)...")
+    wr_def_trail_df = pd.DataFrame()
+    if not pbp_multi.empty and not pw_multi.empty:
+        wr_def_trail_df = compute_wr_def_trailing_features(
+            pbp_df=pbp_multi,
+            player_weekly_df=pw_multi,
+            rosters_df=rosters_df if not rosters_df.empty else None,
+            participation_parsed_df=(
+                parsed_participation if not parsed_participation.empty else None
+            ),
+            season=season,
+        )
+    results["wr_def_trailing"] = wr_def_trail_df
+    logger.info("WR def trailing: %d rows", len(results["wr_def_trailing"]))
+
+    # --- 14. TE defense-side trailing allowance features (ELITE-2.3) ---
+    logger.info("Computing TE def trailing features (ELITE-2.3)...")
+    te_def_trail_df = pd.DataFrame()
+    if not pbp_multi.empty and not pw_multi.empty:
+        te_def_trail_df = compute_te_def_trailing_features(
+            pbp_df=pbp_multi,
+            player_weekly_df=pw_multi,
+            rosters_df=rosters_df if not rosters_df.empty else None,
+            participation_parsed_df=(
+                parsed_participation if not parsed_participation.empty else None
+            ),
+            season=season,
+        )
+    results["te_def_trailing"] = te_def_trail_df
+    logger.info("TE def trailing: %d rows", len(results["te_def_trailing"]))
+
     return results
 
 
@@ -452,6 +495,8 @@ def save_features(
         "wr_advanced": f"graph_wr_advanced_{ts}.parquet",
         "te_advanced": f"graph_te_advanced_{ts}.parquet",
         "route_participation": f"graph_route_participation_{ts}.parquet",
+        "wr_def_trailing": f"graph_wr_def_trailing_{ts}.parquet",
+        "te_def_trailing": f"graph_te_def_trailing_{ts}.parquet",
     }
 
     for key, filename in file_map.items():
@@ -481,6 +526,8 @@ def save_features(
         "wr_advanced",
         "te_advanced",
         "route_participation",
+        "wr_def_trailing",
+        "te_def_trailing",
     ]:
         df = results.get(key, pd.DataFrame())
         if not df.empty and all(c in df.columns for c in join_cols):

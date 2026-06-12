@@ -220,6 +220,55 @@ _CAREER_OUTCOME_COLS = {
 }
 
 
+def _join_def_trailing_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join defense-side trailing WR/TE allowance features (ELITE-2.3).
+
+    Reads ``graph_wr_def_trailing_*.parquet`` and
+    ``graph_te_def_trailing_*.parquet`` from Silver and joins on
+    (player_id, season, week). All feature names start with ``wr_def_trail_``
+    or ``te_def_trail_`` and are NOT blocked by ``_SAME_WEEK_PREFIXES``;
+    they are properly lagged in the computation module.
+
+    Args:
+        df: Player-week DataFrame.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with trailing defense allowance columns joined (no-op when
+        Silver tables are absent).
+    """
+    gf_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    join_cols = ["player_id", "season", "week"]
+
+    for prefix in ("graph_wr_def_trailing", "graph_te_def_trailing"):
+        files = sorted(glob.glob(os.path.join(gf_dir, f"{prefix}_*.parquet")))
+        if not files:
+            continue
+        try:
+            trail = pd.read_parquet(files[-1])
+        except Exception as exc:
+            logger.warning("Could not read %s: %s", prefix, exc)
+            continue
+        if not all(c in trail.columns for c in join_cols):
+            continue
+        new_cols = [
+            c
+            for c in trail.columns
+            if c not in join_cols and c not in df.columns
+        ]
+        if not new_cols:
+            continue
+        df = df.merge(
+            trail[join_cols + new_cols].drop_duplicates(subset=join_cols, keep="last"),
+            on=join_cols,
+            how="left",
+        )
+        logger.info(
+            "Joined %d columns from %s for season %d", len(new_cols), prefix, season
+        )
+    return df
+
+
 def _join_route_participation(df: pd.DataFrame, season: int) -> pd.DataFrame:
     """Left-join route participation features from Silver graph tables.
 
@@ -1655,6 +1704,11 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 13a. Route participation (plan 2.2): lagged route-rate form.
     base = _join_route_participation(base, season)
+
+    # 13c. Defense-side trailing allowance features (ELITE-2.3):
+    # wr_def_trail_* and te_def_trail_* — lagged defense-unit stats,
+    # NaN pre-2020 (participation absent for cb_count_per_play).
+    base = _join_def_trailing_features(base, season)
 
     # 13b. Trailing-form versions of the same-game matchup aggregates.
     # The raw wr_matchup_*/te_matchup_* columns describe the week being

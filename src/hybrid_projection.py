@@ -77,8 +77,27 @@ _BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 _SILVER_GRAPH_DIR = os.path.join(_BASE_DIR, "data", "silver", "graph_features")
 
 # ---------------------------------------------------------------------------
-# Complete set of 71 graph feature columns (from all Silver graph tables)
+# Complete set of 77 graph feature columns (from all Silver graph tables)
 # ---------------------------------------------------------------------------
+
+# WR defense-side trailing allowance features (6) — ELITE-2.3, strictly lagged
+_WR_DEF_TRAILING_FEATURES = [
+    "wr_def_trail_yds_per_tgt",
+    "wr_def_trail_yds_per_tgt_outside",
+    "wr_def_trail_yds_per_tgt_slot",
+    "wr_def_trail_comp_rate",
+    "wr_def_trail_td_rate",
+    "wr_def_trail_cb_count_per_play",
+]
+
+# TE defense-side trailing allowance features (5) — ELITE-2.3, strictly lagged
+_TE_DEF_TRAILING_FEATURES = [
+    "te_def_trail_yds_per_tgt",
+    "te_def_trail_comp_rate",
+    "te_def_trail_td_rate",
+    "te_def_trail_lb_coverage_share",
+    "te_def_trail_cb_coverage_share",
+]
 
 # WR matchup features (4) — base set from compute_wr_matchup_features
 _WR_MATCHUP_FEATURES = [
@@ -192,12 +211,14 @@ _RB_MATCHUP_FEATURES = [
     "rb_matchup_short_yardage_conv",
 ]
 
-# All 71 graph features combined (the complete "graph feature set")
+# All 82 graph features combined (71 original + 11 ELITE-2.3 defense trailing)
 GRAPH_FEATURE_SET: List[str] = (
     _WR_MATCHUP_FEATURES
     + _WR_ADVANCED_FEATURES
+    + _WR_DEF_TRAILING_FEATURES
     + _TE_MATCHUP_FEATURES
     + _TE_ADVANCED_FEATURES
+    + _TE_DEF_TRAILING_FEATURES
     + _QB_WR_CHEMISTRY_FEATURES
     + _RED_ZONE_FEATURES
     + _GAME_SCRIPT_FEATURES
@@ -214,6 +235,7 @@ GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
         _QB_WR_CHEMISTRY_FEATURES
         + _WR_MATCHUP_FEATURES
         + _WR_ADVANCED_FEATURES
+        + _WR_DEF_TRAILING_FEATURES
         + _GAME_SCRIPT_FEATURES
         + _RED_ZONE_FEATURES
         + _INJURY_CASCADE_FEATURES
@@ -222,6 +244,7 @@ GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
     "TE": (
         _TE_MATCHUP_FEATURES
         + _TE_ADVANCED_FEATURES
+        + _TE_DEF_TRAILING_FEATURES
         + _RED_ZONE_FEATURES
         + _GAME_SCRIPT_FEATURES
         + _QB_WR_CHEMISTRY_FEATURES
@@ -316,6 +339,8 @@ def load_graph_features(
         ("graph_game_script", _GAME_SCRIPT_FEATURES),
         ("graph_wr_matchup", _WR_MATCHUP_FEATURES),
         ("graph_te_matchup", _TE_MATCHUP_FEATURES),
+        ("graph_wr_def_trailing", _WR_DEF_TRAILING_FEATURES),
+        ("graph_te_def_trailing", _TE_DEF_TRAILING_FEATURES),
         ("graph_injury_cascade", _INJURY_CASCADE_FEATURES),
         ("graph_ol_rb", _OL_RB_FEATURES),
     ]
