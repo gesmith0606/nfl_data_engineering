@@ -168,9 +168,10 @@ jobs:
 
       # -----------------------------------------------------------------------
       # 4. Run props ingestion
-      # Credit cost: ~5 events × 5 markets × 1 region = ~25 credits/run.
-      # --max-credits 60 caps the run; --days-ahead 7 filters to this week's
-      # games where props are fully posted.
+      # Credit cost: in-season Sundays have 13-16 games in the 7-day window
+      # → 65-80 credits at 5 markets × 1 region. --max-credits 100 covers a
+      # full slate; the script's internal reserve guard (stops when fewer
+      # than 50 credits remain) protects the daily spreads cron's budget.
       # Exits 0 on any network/API error (fail-open).
       # -----------------------------------------------------------------------
       - name: Fetch NFL player-props snapshot
@@ -179,7 +180,7 @@ jobs:
         run: |
           python scripts/bronze_props_ingestion.py \
             --days-ahead 7 \
-            --max-credits 60
+            --max-credits 100
 
       # -----------------------------------------------------------------------
       # 5. Commit new parquet files back to the repo
