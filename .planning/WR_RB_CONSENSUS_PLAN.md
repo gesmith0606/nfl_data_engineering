@@ -203,3 +203,22 @@ Position-split trailing allowances (rush vs receiving). Run AFTER B-D: matchup s
 **Rules carried from ELITE_MODELS_PLAN:** select on 2022-24 CV, confirm on amber-2025 at most once per shipped change; every feature passes `assemble_player_features.py --validate`; lab sweeps in `scripts/experiment_heuristic_lab.py` gate all multiplier changes; consensus gap is the primary metric (raw MAE secondary). No new model architectures — every workstream above is new *information*, not new fitting.
 
 **Definition of done (A grade):** RB and WR matched-MAE ≤ Sleeper consensus AND rank corr within 0.02, on 2022-24 backtest, confirmed once on amber-2025. (A+ = sustained over live 2026 w3-18 per ELITE 3.1.)
+
+## NEXT FRONTIER — Within-Band Rank Ordering (diagnosed 2026-06-12)
+
+Band-level Spearman on the final CSV (band = consensus rank within position-week):
+
+| Band | RB ours/cons (gap) | WR ours/cons (gap) |
+|------|------|------|
+| top-12 | +0.140 / +0.156 (−0.016, parity) | +0.126 / +0.260 (**−0.135**) |
+| 13-24 | +0.002 / +0.105 (**−0.103, ours ≈ random**) | +0.007 / +0.126 (**−0.119**) |
+| 25+ | +0.179 / +0.205 (−0.026) | +0.201 / +0.240 (−0.039) |
+
+Disagreed-order pairs (|actual diff|>1): consensus right 57.5% (RB) / 56.1% (WR).
+Interpretation: we order *similar-volume starters* nearly randomly within a week —
+the missing signal is weekly context differentiation, not player quality. Candidate
+mechanisms: (1) unexploited graph features (red-zone share, QB-WR chemistry,
+game-script — computed but heuristic-unused); (2) within-band variance compression
+(ceiling shrinkage may flatten starters into indistinguishability). Gates for any
+mechanism: band-level Spearman improvement ≥0.03 in the broken bands, MAE not worse
+by >0.01, select on 2022-24 only.
