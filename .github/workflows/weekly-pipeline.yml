@@ -158,11 +158,16 @@ jobs:
     name: "Run Pipeline — Season ${{ needs.compute-week.outputs.season }} Week ${{ needs.compute-week.outputs.week }}"
     runs-on: ubuntu-latest
     needs: compute-week
+    # Hard ceiling (post-push review): the informal budget is ~60 min; a
+    # stalled PBP download must not silently burn the 6h GHA default.
+    timeout-minutes: 90
 
     # Make season/week available as environment variables throughout all steps.
     env:
       SEASON: ${{ needs.compute-week.outputs.season }}
       WEEK:   ${{ needs.compute-week.outputs.week }}
+      # For the gh CLI (deduped ML-fallback escalation issue in step 7).
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       # ------------------------------------------------------------------
@@ -322,6 +327,7 @@ jobs:
         # Both seasons are needed: prior season drives early-week trailing
         # windows (wr_def_trail_*, te_def_trail_*) before enough current-
         # season data accumulates.
+        timeout-minutes: 25
         continue-on-error: true
         run: |
           PREV_SEASON=$(( SEASON - 1 ))
@@ -427,6 +433,36 @@ jobs:
 
           if [ "$ML_EXIT" -ne 0 ] || [ "$SANITY_EXIT" -ne 0 ]; then
             echo "::warning::--ml projection failed (ml_exit=$ML_EXIT sanity_exit=$SANITY_EXIT) — falling back to heuristic-only"
+
+            # If the --ml run PUBLISHED before validation failed, remove the
+            # invalidated artifact (post-push review: publish-then-validate
+            # race — latest-wins already favors the fallback file written
+            # below, but the bad file must not linger as a permanent orphan).
+            if [ "$ML_EXIT" -eq 0 ] && [ "$SANITY_EXIT" -ne 0 ]; then
+              WEEK_PADDED=$(printf "%02d" "$WEEK")
+              BAD_LOCAL=$(ls -t data/gold/projections/season=${SEASON}/week=${WEEK_PADDED}/*.parquet 2>/dev/null | head -1)
+              if [ -n "$BAD_LOCAL" ]; then
+                BAD_KEY="projections/season=${SEASON}/week=${WEEK_PADDED}/$(basename "$BAD_LOCAL")"
+                aws s3 rm "s3://nfl-trusted/${BAD_KEY}" 2>/dev/null \
+                  && echo "Removed invalidated ML artifact from S3: ${BAD_KEY}" \
+                  || echo "Note: could not remove ${BAD_KEY} from S3 (missing creds or object)"
+                rm -f "$BAD_LOCAL"
+                echo "Removed invalidated local ML artifact: $BAD_LOCAL"
+              fi
+            fi
+
+            # Durable escalation (post-push review): repeated silent ML
+            # fallbacks must not hide in per-run warnings. Open ONE deduped
+            # issue; close it to re-arm after fixing the upstream cause.
+            FALLBACK_TITLE="Weekly pipeline running on heuristic fallback — ML path failing"
+            if ! gh issue list --state open --label pipeline-failure --json title \
+                 --jq '.[].title' 2>/dev/null | grep -qF "$FALLBACK_TITLE"; then
+              gh issue create --title "$FALLBACK_TITLE" \
+                --label "pipeline-failure,automated" \
+                --body "The Tuesday cron's --ml projection path failed (ml_exit=$ML_EXIT sanity_exit=$SANITY_EXIT) for season=$SEASON week=$WEEK; the pipeline published heuristic-only output. The hybrid WR/TE models are the consensus-winning configuration — diagnose the upstream data steps (NGS/PFR/QBR/PBP ingestion, silver advanced, graph features) in this run's logs. Close this issue once fixed to re-arm the alert." \
+                2>/dev/null || echo "::warning::could not open fallback escalation issue"
+            fi
+
             # --- Fallback: heuristic-only ---
             python scripts/generate_projections.py \
               --season  "$SEASON"   \
@@ -521,9 +557,9 @@ jobs:
           | injuries | ingested |
           | rosters | ingested (non-blocking) |
           | ngs | ingested (non-blocking) |
-          | pfr_weekly | ingested (non-blocking) |
-          | qbr | ingested (non-blocking) |
-          | pbp + participation | ingested current+prior season (non-blocking) |
+          | pfr_weekly | attempted — fail-open, see step log |
+          | qbr | attempted — fail-open, see step log |
+          | pbp + participation | attempted current+prior season — fail-open, see step log |
 
           ### Pipeline Stages
 
@@ -531,8 +567,8 @@ jobs:
           |-------|--------|
           | Bronze ingestion | complete |
           | Silver — player transformation | complete |
-          | Silver — advanced profiles (NGS/PFR/QBR) | complete (non-blocking) |
-          | Silver — graph features (prior+current season) | complete (non-blocking) |
+          | Silver — advanced profiles (NGS/PFR/QBR) | attempted — fail-open, see step log |
+          | Silver — graph features (prior+current season) | attempted — fail-open, see step log |
           | Gold projections (half_ppr, hybrid WR/TE ML) | complete |
           | Sanity check | passed |
           | Health check | passed |

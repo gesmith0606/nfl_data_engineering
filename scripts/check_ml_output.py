@@ -148,13 +148,41 @@ def run_checks(
                     f"Residual correction was silently skipped."
                 )
             else:
-                hybrid_counts = (
-                    hybrid_rows.groupby("position").size().to_dict()
+                # Coverage check (post-push review M-2): when the model is
+                # present, ALL non-bye rows at the position should route
+                # hybrid — a single hybrid row among dozens of heuristic
+                # rows means routing silently failed for most players.
+                # Threshold 0.95 leaves room for rare legitimate fallbacks.
+                bye_mask = (
+                    df["is_bye_week"].fillna(False).astype(bool)
+                    if "is_bye_week" in df.columns
+                    else pd.Series(False, index=df.index)
                 )
-                print(
-                    f"  [PASS] hybrid rows by position: "
-                    + ", ".join(f"{p}={n}" for p, n in sorted(hybrid_counts.items()))
-                )
+                for pos in sorted(expected_hybrid):
+                    pos_rows = df[(df["position"] == pos) & ~bye_mask]
+                    if pos_rows.empty:
+                        continue
+                    frac = float(
+                        (pos_rows["projection_source"] == "hybrid").mean()
+                    )
+                    if frac < 0.95:
+                        failures.append(
+                            f"CHECK3 FAIL: only {frac:.0%} of non-bye {pos} "
+                            f"rows are projection_source='hybrid' "
+                            f"(n={len(pos_rows)}); expected ~100% when the "
+                            f"residual model is present — routing partially "
+                            f"failed."
+                        )
+                if not failures:
+                    hybrid_counts = (
+                        hybrid_rows.groupby("position").size().to_dict()
+                    )
+                    print(
+                        f"  [PASS] hybrid rows by position: "
+                        + ", ".join(
+                            f"{p}={n}" for p, n in sorted(hybrid_counts.items())
+                        )
+                    )
     else:
         warnings.append(
             "CHECK3 WARN: 'projection_source' column absent from Gold file; "

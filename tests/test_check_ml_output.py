@@ -239,3 +239,31 @@ class TestMainExitCodes:
         with mock.patch("sys.argv", ["check_ml_output.py", "--season", "2026", "--week", "5"]):
             result = cml.main()
         assert result == 1
+
+
+class TestCheck3PartialHybrid:
+    """Post-push review M-2: partial hybrid routing must FAIL, not pass."""
+
+    def test_partial_hybrid_wr_is_failure(self, tmp_path):
+        # 40 WR rows but only 1 routed hybrid — Check 3's old position-level
+        # set test would pass; the coverage check must fail it.
+        df = _make_projection_df(wr_source="heuristic", te_source="hybrid")
+        wr_idx = df.index[df["position"] == "WR"][:1]
+        df.loc[wr_idx, "projection_source"] = "hybrid"
+        _write_gold(df, str(tmp_path), season=2026, week=5, scoring="half_ppr")
+        _write_residual_meta(str(tmp_path), "WR")
+        _write_residual_meta(str(tmp_path), "TE")
+        with _patch_paths(str(tmp_path)):
+            failures, _ = cml.run_checks(2026, 5, "half_ppr")
+        assert any(
+            "CHECK3" in f and "WR" in f and "%" in f for f in failures
+        ), f"partial WR hybrid coverage must fail Check 3: {failures}"
+
+    def test_full_hybrid_coverage_passes(self, tmp_path):
+        df = _make_projection_df(wr_source="hybrid", te_source="hybrid")
+        _write_gold(df, str(tmp_path), season=2026, week=5, scoring="half_ppr")
+        _write_residual_meta(str(tmp_path), "WR")
+        _write_residual_meta(str(tmp_path), "TE")
+        with _patch_paths(str(tmp_path)):
+            failures, _ = cml.run_checks(2026, 5, "half_ppr")
+        assert not any("CHECK3" in f for f in failures)
