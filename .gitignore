@@ -344,3 +344,6 @@ web/frontend/.oxlintrc.json
 web/frontend/.vscode/
 web/frontend/skills-lock.json
 
+
+# Ephemeral grading reports — CI writes these on the runner and never commits them
+output/grading/
