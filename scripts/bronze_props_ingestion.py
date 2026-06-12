@@ -716,7 +716,6 @@ def run_props(
                 "Props normalisation failed for event %s (skipping): %s", event_id, exc
             )
             events_skipped += 1
-            continue
         else:
             all_rows.extend(rows)
             events_ok += 1
@@ -725,7 +724,9 @@ def run_props(
         # ------------------------------------------------------------------
         # Mid-run credit reserve guard: stop before we drain the quota
         # shared by the spreads cron. Checked AFTER collecting the event we
-        # just paid credits for — never discard purchased data.
+        # just paid credits for (never discard purchased data) and runs even
+        # when normalisation failed — a string of bad events at low quota
+        # must not keep spending credits.
         # ------------------------------------------------------------------
         lower_headers = {k.lower(): v for k, v in prop_headers.items()}
         remaining_str = lower_headers.get("x-requests-remaining", "")
