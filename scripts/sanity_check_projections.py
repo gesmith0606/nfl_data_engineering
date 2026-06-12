@@ -752,9 +752,9 @@ _ENSEMBLE_EXPECTED_ARTIFACTS = [
     "metadata.json",
 ]
 
-# Expected residual models for hybrid positions (v4.2).
+# Expected residual models for hybrid positions (v4.2+blend shipped in v4.2 cycle).
 _RESIDUAL_HYBRID_POSITIONS = ["te", "wr"]
-_RESIDUAL_EXPECTED_VERSION = "v4.2"
+_RESIDUAL_EXPECTED_VERSION = "v4.2+blend"
 
 
 def _check_ensemble_artifacts() -> Tuple[List[str], List[str]]:
