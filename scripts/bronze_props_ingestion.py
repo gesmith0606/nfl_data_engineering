@@ -820,7 +820,7 @@ def main() -> None:
         default=100,
         metavar="N",
         help=(
-            "Abort the run if the estimated credit cost exceeds N (default: 60). "
+            "Abort the run if the estimated credit cost exceeds N (default: 100). "
             "The run halts before any per-event call if the estimate is over budget."
         ),
     )
