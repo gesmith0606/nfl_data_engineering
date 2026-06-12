@@ -42,7 +42,7 @@ load_consensus_for_seasons = _bp.load_consensus_for_seasons
 print_consensus_report = _bp.print_consensus_report
 _CONSENSUS_POSITIONS = _bp._CONSENSUS_POSITIONS
 _CONSENSUS_MIN_PTS = _bp._CONSENSUS_MIN_PTS
-_TOP_N = _bp._TOP_N
+from consensus_metrics import TOP_N as _TOP_N  # canonical (ELITE 3.1)
 
 
 # ---------------------------------------------------------------------------

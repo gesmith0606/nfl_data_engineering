@@ -340,7 +340,6 @@ def join_consensus(
 # These were previously duplicated here; any threshold/definition change
 # now happens ONLY in src/consensus_metrics.py.
 from consensus_metrics import (  # noqa: E402
-    TOP_N as _TOP_N,
     compute_spearman_rank_corr,
     compute_top_n_hit_rate,
 )
