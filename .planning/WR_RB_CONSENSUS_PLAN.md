@@ -222,3 +222,19 @@ game-script — computed but heuristic-unused); (2) within-band variance compres
 (ceiling shrinkage may flatten starters into indistinguishability). Gates for any
 mechanism: band-level Spearman improvement ≥0.03 in the broken bands, MAE not worse
 by >0.01, select on 2022-24 only.
+
+### Variance-compression hypothesis — FALSIFIED (2026-06-12, clean kill)
+
+Three independent falsifications (worktree agent-aec86afccffc2e14c;
+`output/variance_compression_analysis.txt` in that branch):
+1. **Spread direction inverted**: we are 1.3-3x WIDER than consensus in every starter band
+   (fat low tail from remaining disagreement cases), not flatter.
+2. **Shrinkage is provably rank-preserving**: flip_rate 0.0000 — the tiered multiplicative
+   structure cannot reorder players; de-compression has zero theoretical Spearman effect.
+3. **Oracle tiebreak headroom ≤ +0.008** (4x below gate) even at 2-pt tolerance; 7-config
+   shrinkage sweep all missed the gate (best +0.008).
+
+**Conclusion: within-band ordering is a SIGNAL problem.** Agree-only Spearman is near
+parity at WR top-12 (−0.025) — disagreement cases corrupt ordering, and new weekly
+contextual signal (graph features) is the only remaining lever. Carried by the
+graph-ordering workstream.

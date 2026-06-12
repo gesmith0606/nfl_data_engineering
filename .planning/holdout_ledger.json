@@ -11,7 +11,15 @@
     "experiment": "v42_heuristic_gate (legacy vs v4.2 constants)",
     "seasons": [
       2025
-    ]
+    ],
+    "results": {
+      "selection_2022_24_mae": {
+        "legacy": 4.78,
+        "v42": 4.71
+      },
+      "sealed2025": "confirmed directionally (v4.2 better); selection done on 2022-24 only",
+      "source": "backfilled 2026-06-12 from commit 7141e59 / project_v42_model_upgrade memory"
+    }
   },
   {
     "timestamp": "2026-06-10T15:30:00",
@@ -25,7 +33,21 @@
     "experiment": "hybrid_gate_final (TE SHIP, WR FAIL)",
     "seasons": [
       2025
-    ]
+    ],
+    "results": {
+      "te_mae_sealed2025": {
+        "heuristic": 3.521,
+        "hybrid": 3.361,
+        "verdict": "SHIP"
+      },
+      "wr_mae_sealed2025": {
+        "heuristic": 4.057,
+        "hybrid": 4.144,
+        "bias": 0.73,
+        "verdict": "FAIL"
+      },
+      "source": "backfilled 2026-06-12 from ml_projection_router.py gate comment + commit 939e666"
+    }
   },
   {
     "timestamp": "2026-06-12T09:40:52.604045",

@@ -555,8 +555,7 @@ def run_backtest(
     snap_dfs = []
     for s in sorted(all_seasons):
         snap_pattern = os.path.join(bronze_dir, f"players/snaps/season={s}/week=*/*.parquet")
-        import glob as _glob
-        snap_files = sorted(_glob.glob(snap_pattern))
+        snap_files = sorted(globmod.glob(snap_pattern))
         if snap_files:
             season_snaps = pd.concat(
                 [pd.read_parquet(f) for f in snap_files], ignore_index=True

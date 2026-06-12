@@ -93,6 +93,30 @@ def _record_holdout_use(experiment_name: str, seasons: List[int]) -> int:
     return prior_uses
 
 
+def _attach_holdout_results(experiment_name: str, results: Dict) -> None:
+    """Attach numeric gate results to the most recent matching ledger entry.
+
+    The entry is created by ``_record_holdout_use`` before the eval runs;
+    this back-fills it once the metrics exist so the ledger is a
+    self-contained, re-verifiable record of every sealed-gate decision.
+    """
+    if not os.path.exists(HOLDOUT_LEDGER_PATH):
+        return
+    try:
+        with open(HOLDOUT_LEDGER_PATH, "r") as fh:
+            ledger = json.load(fh)
+    except (OSError, json.JSONDecodeError):
+        return
+    for entry in reversed(ledger):
+        if entry.get("experiment") == experiment_name and "results" not in entry:
+            entry["results"] = results
+            break
+    else:
+        return
+    with open(HOLDOUT_LEDGER_PATH, "w") as fh:
+        json.dump(ledger, fh, indent=2)
+
+
 def _summary_path(experiment_name: str) -> str:
     """Return absolute path to the summary JSON for a named experiment.
 
@@ -480,6 +504,20 @@ def run_experiment(
         delta,
     )
     print(f"\nSummary saved to: {summary_path}\n")
+
+    if is_gate:
+        # Attach the numeric outcome to the ledger entry created at gate
+        # start — the ledger is the canonical sealed-gate record and must be
+        # independently re-verifiable without hunting through commit messages.
+        _attach_holdout_results(
+            experiment_name,
+            {
+                "overall_mae": metrics.get("overall_mae"),
+                "overall_bias": metrics.get("overall_bias"),
+                "position_mae": metrics.get("position_mae"),
+                "summary_path": summary_path,
+            },
+        )
 
     return _load_summary(experiment_name)  # return what was written
 

@@ -502,9 +502,12 @@ class TestRouterHybridIntegration:
         if os.path.exists(wr_meta_path):
             with open(wr_meta_path) as fh:
                 wr_meta = json.load(fh)
+            # Only blend-consistent models may activate HYBRID: a "v4.2"
+            # stamp predates the veteran prior blend in the inference
+            # baseline and is known-broken (TE -0.38 -> +0.15 swing).
             expected_wr = (
                 "HYBRID"
-                if wr_meta.get("heuristic_version") in {"v4.2", "v4.2+blend"}
+                if wr_meta.get("heuristic_version") == "v4.2+blend"
                 else "SKIP"
             )
             assert verdicts.get("WR") == expected_wr
@@ -519,17 +522,48 @@ class TestRouterHybridIntegration:
         if os.path.exists(te_meta_path):
             with open(te_meta_path) as fh:
                 te_meta = json.load(fh)
-            # Accept v4.2 (original) and v4.2+blend (blend-aware retrain
-            # that fixes the train/inference consistency issue for TE).
-            valid_hybrid_versions = {"v4.2", "v4.2+blend"}
+            # Only the blend-consistent retrain may activate HYBRID.
             expected = (
                 "HYBRID"
-                if te_meta.get("heuristic_version") in valid_hybrid_versions
+                if te_meta.get("heuristic_version") == "v4.2+blend"
                 else "SKIP"
             )
             assert verdicts.get("TE") == expected
-        else:
-            assert verdicts.get("TE") == "SKIP"
+
+    def test_stale_pre_blend_stamp_stays_skip(self, tmp_path):
+        """A v4.2 (pre-blend) residual meta must NOT activate HYBRID.
+
+        Guards against restoring *.pre_blend_backup models: the inference
+        baseline includes the veteran prior blend, so a residual trained on
+        the raw heuristic is the exact mismatch that swung TE -0.38 -> +0.15
+        vs consensus.
+        """
+        from ml_projection_router import _load_ship_gate
+
+        model_dir = tmp_path / "player"
+        model_dir.mkdir()
+        (model_dir / "ship_gate_report.json").write_text(
+            json.dumps(
+                {
+                    "positions": [
+                        {"position": "TE", "verdict": "SKIP"},
+                        {"position": "WR", "verdict": "SKIP"},
+                    ]
+                }
+            )
+        )
+        residual_dir = tmp_path / "residual"
+        residual_dir.mkdir()
+        (residual_dir / "te_residual_meta.json").write_text(
+            json.dumps({"heuristic_version": "v4.2"})
+        )
+        (residual_dir / "wr_residual_meta.json").write_text(
+            json.dumps({"heuristic_version": "v4.2+blend"})
+        )
+
+        verdicts = _load_ship_gate(str(model_dir))
+        assert verdicts.get("TE") == "SKIP"  # stale pre-blend stamp rejected
+        assert verdicts.get("WR") == "HYBRID"  # blend-consistent accepted
 
 
 class TestComputeHeuristicBaselineVeteranBlend:

@@ -163,15 +163,26 @@ def _load_ship_gate(model_dir: str = "models/player") -> Dict[str, str]:
                 residual_meta = json.load(f)
         except (OSError, json.JSONDecodeError):
             continue
-        # Accept v4.2 (original) and v4.2+blend (retrained with veteran prior
-        # blend applied during training — fixes train/inference mismatch for TE).
+        # Accept ONLY v4.2+blend: the inference baseline now includes the
+        # veteran prior blend, so a residual trained on the pre-blend "v4.2"
+        # baseline is known-broken here (TE swung -0.38 -> +0.15 vs consensus
+        # before the blend-consistent retrain). Restoring a *.pre_blend_backup
+        # model therefore demotes the position to SKIP instead of silently
+        # re-activating the mismatched model.
         _hv = residual_meta.get("heuristic_version", "")
-        if _hv in ("v4.2", "v4.2+blend"):
+        if _hv == "v4.2+blend":
             verdicts[position] = "HYBRID"
             logger.info(
                 "%s promoted to HYBRID (residual model present, heuristic_version=%s)",
                 position,
                 _hv,
+            )
+        elif _hv == "v4.2":
+            logger.warning(
+                "%s residual model is stamped v4.2 (pre-blend baseline) — "
+                "stale for the blended inference path; position stays SKIP. "
+                "Retrain via train_residual_models to restore HYBRID.",
+                position,
             )
 
     return verdicts

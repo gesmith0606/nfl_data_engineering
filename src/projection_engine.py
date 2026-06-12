@@ -1309,6 +1309,15 @@ def compute_heuristic_baseline(
 
                 priors_df = _cached_player_priors(weekly_df, scoring_format)
                 if not priors_df.empty:
+                    # reindex(work.index) below silently drops/duplicates rows
+                    # when the index is non-unique (possible for callers that
+                    # pass filtered Silver frames without reset_index). Reset
+                    # to a unique positional index for the blend, then restore
+                    # so the returned Series stays aligned to pos_data.index.
+                    _original_index = None
+                    if not work.index.is_unique:
+                        _original_index = work.index
+                        work = work.reset_index(drop=True)
                     blended_rows: List[pd.DataFrame] = []
                     # Process each unique (season, week) pair separately so
                     # count_games_in_lookback uses the correct temporal window.
@@ -1337,6 +1346,10 @@ def compute_heuristic_baseline(
                             position,
                             len(blended_rows),
                         )
+                    if _original_index is not None:
+                        # Restore the caller's (possibly non-unique) index so
+                        # the returned Series stays aligned to pos_data.index.
+                        work.index = _original_index
             except ImportError:
                 logger.warning(
                     "veteran_prior module unavailable; skipping blend in "

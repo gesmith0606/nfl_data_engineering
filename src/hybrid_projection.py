@@ -598,6 +598,7 @@ def train_residual_model(
     feature_cols: List[str],
     scoring_format: str = "half_ppr",
     val_seasons: Optional[List[int]] = None,
+    weekly_df: Optional[pd.DataFrame] = None,
 ) -> Tuple[Dict[str, Any], pd.DataFrame]:
     """Train residual correction model with walk-forward CV.
 
@@ -614,6 +615,9 @@ def train_residual_model(
         feature_cols: Feature column names.
         scoring_format: Scoring format.
         val_seasons: Validation seasons. Default [2022, 2023, 2024].
+        weekly_df: Optional Bronze weekly frame. Pass it whenever the
+            production model is trained with the veteran prior blend
+            (v4.2+blend) so the WFCV baseline matches production.
 
     Returns:
         Tuple of:
@@ -648,9 +652,13 @@ def train_residual_model(
         else pd.DataFrame()
     )
 
-    # Pre-compute heuristic predictions for all rows using the canonical function
+    # Pre-compute heuristic predictions for all rows using the canonical
+    # function. weekly_df must be passed when the production model is trained
+    # with the veteran prior blend (v4.2+blend) — otherwise the WFCV fold MAE
+    # is measured against an un-blended baseline and overstates model quality
+    # relative to what production delivers.
     heur_pts = compute_production_heuristic(
-        pos_data, position, opp_rankings, scoring_format
+        pos_data, position, opp_rankings, scoring_format, weekly_df=weekly_df
     )
     actual_pts = compute_actual_fantasy_points(
         pos_data, scoring_format, output_col="actual_pts"
