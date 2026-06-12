@@ -843,6 +843,18 @@ def _determine_usage_role(row: pd.Series) -> str:
     return "unknown"
 
 
+# Per-position Vegas damping exponent (2026-06-12 audit).
+# Measured on 2022-24 matched-consensus eval after the spread sign fix
+# (dbbef92) un-hid the multiplier from backtests (6b0cce6): full-strength
+# (beta=1.0) Vegas improves within-week Spearman at every position but
+# degrades MAE at RB/WR/TE (mean multiplier 0.962 systematically shrinks).
+# beta=0.25 strictly dominates the no-Vegas baseline for QB (MAE -0.334 vs
+# -0.320, Spearman -0.004 vs -0.027 vs consensus); no beta helps RB; WR/TE
+# are ~neutral and route through the residual hybrid instead.
+# beta=0 -> multiplier forced to 1.0 (including the RB run-heavy bonus).
+VEGAS_BETA: Dict[str, float] = {"QB": 0.25, "RB": 0.0, "WR": 0.0, "TE": 0.0}
+
+
 def _vegas_multiplier(
     player_team: str,
     implied_totals: Dict[str, float],
@@ -872,15 +884,21 @@ def _vegas_multiplier(
                          for the RB run-heavy bonus; bonus is skipped if None.
 
     Returns:
-        Multiplier float in the range [0.80, 1.26].  The upper bound extends
-        slightly beyond 1.20 when the RB run-heavy bonus applies.
+        Multiplier float. The raw multiplier lies in [0.80, 1.26] (upper
+        bound extends beyond 1.20 when the RB run-heavy bonus applies) and
+        is then damped to ``raw ** VEGAS_BETA[position]``; positions with
+        beta == 0 always return 1.0.
 
     Example:
-        >>> _vegas_multiplier('KC', {'KC': 27.6}, 'QB')
-        1.2
-        >>> _vegas_multiplier('KC', {'KC': 27.6}, 'RB')
-        1.2
+        >>> _vegas_multiplier('KC', {'KC': 27.6}, 'QB')  # 1.2 ** 0.25
+        1.0466
+        >>> _vegas_multiplier('KC', {'KC': 27.6}, 'RB')  # beta = 0
+        1.0
     """
+    beta = VEGAS_BETA.get(position, 0.0)
+    if beta <= 0.0:
+        return 1.0
+
     league_avg = _LEAGUE_AVG_IMPLIED_TOTAL
     team_implied = implied_totals.get(player_team, league_avg)
 
@@ -892,6 +910,9 @@ def _vegas_multiplier(
         team_spread = spread_by_team.get(player_team, 0.0)
         if team_implied < 20.0 and team_spread < -7.0:
             multiplier *= 1.05
+
+    # Per-position damping: full multiplier raised to VEGAS_BETA[position].
+    multiplier = float(multiplier**beta)
 
     return round(multiplier, 4)
 

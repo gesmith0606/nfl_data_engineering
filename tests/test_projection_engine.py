@@ -109,28 +109,54 @@ class TestVegasMultiplier(unittest.TestCase):
         self.assertAlmostEqual(mult, 1.0)
 
     def test_high_implied_capped(self):
+        # Raw caps at 1.20, then damped by QB beta=0.25.
         mult = _vegas_multiplier('KC', {'KC': 35.0}, 'QB')
-        self.assertAlmostEqual(mult, 1.20)
+        self.assertAlmostEqual(mult, round(1.20 ** 0.25, 4))
 
     def test_low_implied_floored(self):
+        # Raw floors at 0.80, then damped by QB beta=0.25.
         mult = _vegas_multiplier('KC', {'KC': 10.0}, 'QB')
-        self.assertAlmostEqual(mult, 0.80)
+        self.assertAlmostEqual(mult, round(0.80 ** 0.25, 4))
 
     def test_missing_team_defaults(self):
         mult = _vegas_multiplier('XYZ', {'KC': 30.0}, 'WR')
         self.assertAlmostEqual(mult, 1.0)
 
+    def _with_rb_beta(self, beta):
+        import projection_engine as pe
+        original = dict(pe.VEGAS_BETA)
+        pe.VEGAS_BETA['RB'] = beta
+        return pe, original
+
     def test_rb_run_heavy_bonus(self):
-        spread = {'KC': -10.0}
-        mult = _vegas_multiplier('KC', {'KC': 18.0}, 'RB', spread_by_team=spread)
-        # base: 18/23 ≈ 0.7826 → clipped to 0.80, then * 1.05 = 0.84
-        self.assertAlmostEqual(mult, round(0.80 * 1.05, 4))
+        # RB ships beta=0 (neutral); verify the bonus mechanism under
+        # a temporary beta=1.0 override.
+        pe, original = self._with_rb_beta(1.0)
+        try:
+            spread = {'KC': -10.0}
+            mult = _vegas_multiplier('KC', {'KC': 18.0}, 'RB', spread_by_team=spread)
+            # base: 18/23 ≈ 0.7826 → clipped to 0.80, then * 1.05 = 0.84
+            self.assertAlmostEqual(mult, round(0.80 * 1.05, 4))
+        finally:
+            pe.VEGAS_BETA.clear()
+            pe.VEGAS_BETA.update(original)
 
     def test_rb_no_bonus_when_not_favorite(self):
-        spread = {'KC': 3.0}
+        pe, original = self._with_rb_beta(1.0)
+        try:
+            spread = {'KC': 3.0}
+            mult = _vegas_multiplier('KC', {'KC': 18.0}, 'RB', spread_by_team=spread)
+            # base clipped to 0.80, no bonus because spread > -7
+            self.assertAlmostEqual(mult, 0.80)
+        finally:
+            pe.VEGAS_BETA.clear()
+            pe.VEGAS_BETA.update(original)
+
+    def test_rb_neutral_at_shipped_beta(self):
+        # Shipped config: RB beta=0 → multiplier always 1.0.
+        spread = {'KC': -10.0}
         mult = _vegas_multiplier('KC', {'KC': 18.0}, 'RB', spread_by_team=spread)
-        # base clipped to 0.80, no bonus because spread > -7
-        self.assertAlmostEqual(mult, 0.80)
+        self.assertAlmostEqual(mult, 1.0)
 
 
 class TestWeightedBaseline(unittest.TestCase):

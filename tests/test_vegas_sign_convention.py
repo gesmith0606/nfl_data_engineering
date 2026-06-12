@@ -101,20 +101,39 @@ class TestSpreadByTeamBettingConvention:
         assert spreads["CAR"] == pytest.approx(7.0)
 
     def test_rb_run_heavy_bonus_fires_for_favorite(self) -> None:
-        """RB bonus requires implied < 20 AND the team FAVORED (spread < -7)."""
+        """RB bonus requires implied < 20 AND the team FAVORED (spread < -7).
+
+        RB ships with VEGAS_BETA == 0 (multiplier neutral); the bonus
+        mechanism is verified under a temporary beta override.
+        """
+        import projection_engine
         from projection_engine import _vegas_multiplier
 
-        # Low-total game, team favored by 8 → bonus applies on top of the
-        # clipped base multiplier.
-        favored = _vegas_multiplier(
-            "PIT", {"PIT": 18.0}, "RB", spread_by_team={"PIT": -8.0}
-        )
-        dog = _vegas_multiplier(
-            "NE", {"NE": 18.0}, "RB", spread_by_team={"NE": 8.0}
-        )
+        original = dict(projection_engine.VEGAS_BETA)
+        try:
+            projection_engine.VEGAS_BETA["RB"] = 1.0
+            favored = _vegas_multiplier(
+                "PIT", {"PIT": 18.0}, "RB", spread_by_team={"PIT": -8.0}
+            )
+            dog = _vegas_multiplier(
+                "NE", {"NE": 18.0}, "RB", spread_by_team={"NE": 8.0}
+            )
+        finally:
+            projection_engine.VEGAS_BETA.clear()
+            projection_engine.VEGAS_BETA.update(original)
+
         assert favored > dog
         # Base raw 18/23 clips to the 0.80 floor; bonus multiplies on top.
         assert favored == pytest.approx(0.80 * 1.05, abs=1e-3)
+
+    def test_vegas_beta_damping(self) -> None:
+        """QB beta=0.25 damps the multiplier; RB/WR/TE beta=0 → neutral."""
+        from projection_engine import _vegas_multiplier
+
+        qb = _vegas_multiplier("KC", {"KC": 27.6}, "QB")
+        assert qb == pytest.approx(1.2**0.25, abs=1e-3)
+        for pos in ["RB", "WR", "TE"]:
+            assert _vegas_multiplier("KC", {"KC": 27.6}, pos) == 1.0
 
 
 class TestGameScriptBoostDirection:
