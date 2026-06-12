@@ -30,9 +30,12 @@ Notes
 -----
 - The function is tolerant of missing seasons / empty directories — it returns
   an empty DataFrame with the correct columns so callers can always join safely.
-- Sign convention for ``home_spread`` matches nflverse: *negative = home is the
-  favourite*.  The loader passes through the value as recorded by the bookmaker
-  (already nflverse-signed in the ingestion script).
+- Sign convention for ``home_spread`` is the SPORTSBOOK convention: *negative =
+  home is the favourite* (the raw bookmaker point passed through by the
+  ingestion script). WARNING: this is the OPPOSITE of nflverse
+  ``spread_line``, which is the expected HOME MARGIN (positive = home
+  favoured). Convert with ``margin = -home_spread`` before comparing to
+  nflverse-derived predictions.
 """
 
 import logging

@@ -133,8 +133,12 @@ def evaluate_line_capture(
     ----------------
     Spread market (``market="spread"``)
         ``open_line`` and ``close_line`` are *home-relative* spread values using
-        **nflverse sign convention**: negative = home favoured (e.g., -3.5 means
-        home is a 3.5-point favourite).
+        the **SPORTSBOOK sign convention**: negative = home favoured (e.g.,
+        -3.5 means home is a 3.5-point favourite). This matches the raw
+        ``home_spread`` stored by ``bronze_odds_api_ingestion.py`` and served
+        by ``odds_snapshot_loader``. WARNING: it is the OPPOSITE of nflverse
+        ``spread_line`` (expected home margin, positive = home favoured) —
+        convert nflverse lines with ``-spread_line`` before passing them here.
 
         ``pick_side`` must be either ``"home"`` or ``"away"``.
 

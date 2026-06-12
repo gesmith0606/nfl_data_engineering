@@ -758,9 +758,12 @@ def run_clv_true_backtest(
         print("ERROR: spread_line column missing from assembled features.")
         return
 
-    # nflverse sign: negative spread_line = home favoured.
-    # We pick home when predicted_margin > spread_line (model thinks home does
-    # better than the line), away otherwise.
+    # nflverse spread_line is the expected HOME MARGIN (positive = home
+    # favoured). We pick home when predicted_margin > spread_line (model
+    # thinks home does better than the line), away otherwise. This is the
+    # FALLBACK pick basis; where an open-proxy snapshot exists the pick is
+    # re-made against the open line below — true CLV requires picking at
+    # the open, not the close.
     all_data["pick_side"] = "away"
     all_data.loc[all_data["predicted_margin"] > all_data["spread_line"], "pick_side"] = "home"
 
@@ -808,6 +811,22 @@ def run_clv_true_backtest(
         on=["home_team_nfl", "away_team_nfl", "season"],
         how="left",
     )
+
+    # Re-make picks at the OPEN-proxy line where available (true CLV =
+    # value captured by picking at the open). open_spread is in the
+    # sportsbook convention (negative = home favoured); convert to the
+    # nflverse margin convention with -open_spread before comparing to
+    # predicted_margin. Games without snapshots keep the closing-line pick.
+    has_open = joined["open_spread"].notna()
+    joined.loc[has_open, "pick_side"] = "away"
+    joined.loc[
+        has_open & (joined["predicted_margin"] > -joined["open_spread"]),
+        "pick_side",
+    ] = "home"
+    joined.loc[has_open, "model_edge"] = (
+        joined.loc[has_open, "predicted_margin"]
+        + joined.loc[has_open, "open_spread"]
+    ).abs()
 
     n_total = len(joined)
     n_with_open = joined["open_spread"].notna().sum()
