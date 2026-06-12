@@ -114,6 +114,28 @@
     "fourth_down_success_rate_roll3",
     "fourth_down_success_rate_roll6",
     "fourth_down_success_rate_std",
+    "ftn_avg_pass_rushers_roll4",
+    "ftn_avg_pass_rushers_trail",
+    "ftn_blitz_rate_roll4",
+    "ftn_blitz_rate_trail",
+    "ftn_catchable_rate_roll4",
+    "ftn_catchable_rate_trail",
+    "ftn_contested_rate_roll4",
+    "ftn_contested_rate_trail",
+    "ftn_created_rec_rate_roll4",
+    "ftn_created_rec_rate_trail",
+    "ftn_drop_rate_roll4",
+    "ftn_drop_rate_trail",
+    "ftn_interception_worthy_rate_roll4",
+    "ftn_interception_worthy_rate_trail",
+    "ftn_out_of_pocket_rate_roll4",
+    "ftn_out_of_pocket_rate_trail",
+    "ftn_pa_target_share_roll4",
+    "ftn_pa_target_share_trail",
+    "ftn_play_action_rate_roll4",
+    "ftn_play_action_rate_trail",
+    "ftn_throw_away_rate_roll4",
+    "ftn_throw_away_rate_trail",
     "fumble_recovery_opp",
     "fumble_recovery_own",
     "fumble_recovery_tds",
@@ -342,6 +364,9 @@
     "rest_advantage",
     "rest_days",
     "round",
+    "route_rate_delta",
+    "route_rate_slope",
+    "route_rate_trail4",
     "rush_td_rate_roll3",
     "rush_td_rate_roll6",
     "rushing_tds_roll3",
@@ -441,32 +466,31 @@
     0.5,
     0.9
   ],
-  "created_at": "2026-06-10T19:57:08.944151",
+  "created_at": "2026-06-12T09:53:11.814206",
   "conformal_width_factors": {
     "QB": {
-      "width_factor": 1.15,
-      "oof_coverage_at_factor": 0.7938,
-      "raw_coverage": 0.718,
+      "width_factor": 1.25,
+      "oof_coverage_at_factor": 0.8022,
+      "raw_coverage": 0.7242,
       "n": 5127
     },
     "RB": {
       "width_factor": 1.1,
-      "oof_coverage_at_factor": 0.8029,
-      "raw_coverage": 0.7474,
+      "oof_coverage_at_factor": 0.8061,
+      "raw_coverage": 0.7479,
       "n": 10908
+    },
+    "TE": {
+      "width_factor": 1.1,
+      "oof_coverage_at_factor": 0.8292,
+      "raw_coverage": 0.7291,
+      "n": 8714
     },
     "WR": {
       "width_factor": 1.05,
-      "oof_coverage_at_factor": 0.8061,
-      "raw_coverage": 0.7544,
+      "oof_coverage_at_factor": 0.8043,
+      "raw_coverage": 0.7504,
       "n": 17201
-    },
-    "TE": {
-      "width_factor": 1.05,
-      "oof_coverage_at_factor": 0.7878,
-      "raw_coverage": 0.7356,
-      "n": 8714
     }
-  },
-  "note": "v4.2: target-leak fixed (fantasy_points_target was a feature); raw 10-90 coverage 72-75%, conformal width_factor per position widens intervals around q50 to hit 80% on OOF."
+  }
 }
