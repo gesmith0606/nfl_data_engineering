@@ -36,7 +36,7 @@ from player_analytics import (
     compute_opponent_rankings,
     compute_implied_team_totals,
 )
-from projection_engine import generate_weekly_projections
+from projection_engine import apply_injury_adjustments, generate_weekly_projections
 
 try:
     from ml_projection_router import generate_ml_projections
@@ -550,6 +550,7 @@ def run_backtest(
     use_ml: bool = False,
     apply_constraints: bool = False,
     full_features: bool = False,
+    apply_injuries: bool = True,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -563,6 +564,9 @@ def run_backtest(
             466-column feature vector from player_feature_engineering and
             pass it to the ML projection router for richer residual
             correction. Requires local Silver data.
+        apply_injuries: Apply weekly injury-report adjustments
+            (production-faithful; pre-game information, leak-free).
+            Default True to match generate_projections.py.
     """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
@@ -646,6 +650,36 @@ def run_backtest(
         print(f"Loaded {len(route_df):,} route-participation rows for WR slope-collapse")
     else:
         print("No route participation data found — WR slope-collapse signal will be skipped")
+
+    # Load weekly injury reports (Bronze) — PRODUCTION-FAITHFULNESS FIX
+    # (2026-06-12): generate_projections.py has always applied
+    # apply_injury_adjustments (Questionable 0.85 / Doubtful 0.50 / Out 0.0)
+    # but the backtest never did, handicapping our side of the consensus
+    # benchmark — Sleeper's archived projections embed the same pre-game
+    # injury-report information. Reports are published before kickoff
+    # (practice status Wed-Fri + game status), so this is leak-free.
+    injuries_df: Optional[pd.DataFrame] = None
+    if apply_injuries:
+        inj_parts = []
+        for s in sorted(set(seasons)):
+            inj_pattern = os.path.join(
+                bronze_dir, f"players/injuries/season={s}/*.parquet"
+            )
+            inj_files = sorted(globmod.glob(inj_pattern))
+            if inj_files:
+                inj_parts.append(pd.read_parquet(inj_files[-1]))
+        if inj_parts:
+            injuries_df = pd.concat(inj_parts, ignore_index=True)
+            if "week" in injuries_df.columns:
+                injuries_df["week"] = pd.to_numeric(
+                    injuries_df["week"], errors="coerce"
+                )
+            print(
+                f"Loaded {len(injuries_df):,} injury-report rows across "
+                f"{len(inj_parts)} season(s)"
+            )
+        else:
+            print("No injury data found — injury adjustments skipped")
 
     # Pre-assemble full feature vectors per season (if requested)
     season_features: Dict[int, pd.DataFrame] = {}
@@ -754,6 +788,16 @@ def run_backtest(
             if projections.empty:
                 print("SKIP (no projections)")
                 continue
+
+            # Apply this week's injury report (production-faithful; the
+            # slice is strictly (season, week) so no future statuses leak).
+            if injuries_df is not None and not injuries_df.empty:
+                inj_week = injuries_df[
+                    (injuries_df["season"] == season)
+                    & (injuries_df["week"] == week)
+                ]
+                if not inj_week.empty:
+                    projections = apply_injury_adjustments(projections, inj_week)
 
             # Compute actuals
             actuals = compute_actuals(weekly_df, season, week, scoring_format)
@@ -949,6 +993,16 @@ def main():
             "(default: data/silver/external_projections relative to repo root)."
         ),
     )
+    parser.add_argument(
+        "--no-injuries",
+        action="store_true",
+        help=(
+            "Skip weekly injury-report adjustments. Default is to APPLY them "
+            "(production-faithful: generate_projections.py always applies "
+            "Questionable 0.85 / Doubtful 0.50 / Out 0.0; reports are "
+            "pre-game information, leak-free)."
+        ),
+    )
     args = parser.parse_args()
 
     seasons = [int(s) for s in args.seasons.split(",")]
@@ -988,6 +1042,7 @@ def main():
         use_ml=args.ml,
         apply_constraints=args.constrain,
         full_features=full_features,
+        apply_injuries=not args.no_injuries,
     )
 
     if results.empty:

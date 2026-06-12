@@ -792,6 +792,17 @@ def main():
             except Exception as e:
                 print(f"WARN: Could not fetch injuries: {e}")
         if not injuries_df.empty and not projections.empty:
+            # Filter to the target week — the season-level Bronze file holds
+            # every week's report, and apply_injury_adjustments keeps the
+            # LAST row per player, which is row-order dependent across
+            # weeks. Without this filter a player Out in an earlier week
+            # could be zeroed for the projected week.
+            if "week" in injuries_df.columns:
+                week_inj = injuries_df[
+                    pd.to_numeric(injuries_df["week"], errors="coerce") == args.week
+                ]
+                if not week_inj.empty:
+                    injuries_df = week_inj
             projections = apply_injury_adjustments(projections, injuries_df)
             injured = (projections["injury_multiplier"] < 1.0).sum()
             print(f"Injury adjustments applied: {injured} players affected")
