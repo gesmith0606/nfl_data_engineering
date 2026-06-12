@@ -471,17 +471,19 @@ class TestApplyResidualCorrection:
 
 class TestRouterHybridIntegration:
     def test_hybrid_positions_constant(self):
-        """HYBRID_POSITIONS is TE-only after the v4.2 sealed-2025 gate.
+        """HYBRID_POSITIONS is {TE, WR} after the v4.3 sealed-2025 gate.
 
-        TE shipped (3.521 -> 3.361 MAE); WR failed the gate (4.057 -> 4.144,
-        bias +0.73 — residuals non-stationary across seasons).
+        v4.2: TE shipped (3.521 -> 3.361 MAE); WR failed (bias +0.73,
+        pre-blend-consistency training). v4.3 (2026-06-12): WR ships after
+        the blend-consistent retrain — sealed 2025 gap -0.148 vs Sleeper,
+        bias +0.29. RB retried and killed again (stays heuristic).
         """
         from ml_projection_router import HYBRID_POSITIONS
 
-        assert HYBRID_POSITIONS == {"TE"}
+        assert HYBRID_POSITIONS == {"TE", "WR"}
 
     def test_ship_gate_verdicts_v42(self):
-        """QB/RB/WR are heuristic-only; TE is HYBRID when a v4.2 model exists."""
+        """QB/RB are heuristic-only; TE/WR are HYBRID when models exist."""
         model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "player")
         if not os.path.exists(os.path.join(model_dir, "ship_gate_report.json")):
             pytest.skip("Ship gate report not found")
@@ -490,7 +492,22 @@ class TestRouterHybridIntegration:
 
         verdicts = _load_ship_gate(model_dir)
         assert verdicts.get("QB") == "SKIP"
-        assert verdicts.get("WR") == "SKIP"
+        wr_meta_path = os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "models",
+            "residual",
+            "wr_residual_meta.json",
+        )
+        if os.path.exists(wr_meta_path):
+            with open(wr_meta_path) as fh:
+                wr_meta = json.load(fh)
+            expected_wr = (
+                "HYBRID"
+                if wr_meta.get("heuristic_version") in {"v4.2", "v4.2+blend"}
+                else "SKIP"
+            )
+            assert verdicts.get("WR") == expected_wr
 
         te_meta_path = os.path.join(
             os.path.dirname(__file__),
