@@ -62,7 +62,6 @@ logger = logging.getLogger(__name__)
 # Consensus benchmark constants (Phase 1.1).
 _CONSENSUS_SOURCE: str = "sleeper"
 _CONSENSUS_MIN_PTS: float = 5.0  # Minimum consensus projection to include.
-_TOP_N: Dict[str, int] = {"QB": 12, "TE": 12, "RB": 24, "WR": 24}
 _CONSENSUS_POSITIONS: List[str] = ["QB", "RB", "WR", "TE"]
 
 
@@ -337,70 +336,14 @@ def join_consensus(
     return merged
 
 
-def compute_spearman_rank_corr(
-    df: pd.DataFrame,
-    proj_col: str,
-    actual_col: str,
-    position: str,
-) -> float:
-    """Compute mean within-position-week Spearman rank correlation.
-
-    For each (season, week) group, compute the Spearman rank correlation
-    between projected and actual points, then average across weeks.
-
-    Args:
-        df: DataFrame with proj_col, actual_col, season, week columns.
-        proj_col: Column name for projected points.
-        actual_col: Column name for actual points.
-        position: Position label (for logging only).
-
-    Returns:
-        Mean Spearman rank correlation (float, NaN if not computable).
-    """
-    week_corrs: List[float] = []
-    for (season, week), grp in df.groupby(["season", "week"]):
-        if len(grp) < 3:
-            continue
-        rho, _ = scipy_stats.spearmanr(grp[proj_col], grp[actual_col])
-        if not np.isnan(rho):
-            week_corrs.append(rho)
-    if not week_corrs:
-        return float("nan")
-    return float(np.mean(week_corrs))
-
-
-def compute_top_n_hit_rate(
-    df: pd.DataFrame,
-    proj_col: str,
-    actual_col: str,
-    position: str,
-) -> float:
-    """Compute Top-N hit rate: fraction of actual top-N captured in projected top-N.
-
-    For each (season, week) group, take the top-N actual scorers.  Count
-    what fraction of them appear in the projected top-N.  Average across weeks.
-
-    Args:
-        df: DataFrame with proj_col, actual_col, season, week columns.
-        proj_col: Column name for projected points.
-        actual_col: Column name for actual points.
-        position: Position used to look up N in _TOP_N.
-
-    Returns:
-        Mean hit rate in [0, 1] (float, NaN if not computable).
-    """
-    n = _TOP_N.get(position, 12)
-    week_rates: List[float] = []
-    for (season, week), grp in df.groupby(["season", "week"]):
-        if len(grp) < n:
-            continue
-        actual_top = set(grp.nlargest(n, actual_col).index)
-        proj_top = set(grp.nlargest(n, proj_col).index)
-        overlap = len(actual_top & proj_top)
-        week_rates.append(overlap / n)
-    if not week_rates:
-        return float("nan")
-    return float(np.mean(week_rates))
+# Canonical consensus metrics — single source of truth (ELITE 3.1).
+# These were previously duplicated here; any threshold/definition change
+# now happens ONLY in src/consensus_metrics.py.
+from consensus_metrics import (  # noqa: E402
+    TOP_N as _TOP_N,
+    compute_spearman_rank_corr,
+    compute_top_n_hit_rate,
+)
 
 
 def print_consensus_report(

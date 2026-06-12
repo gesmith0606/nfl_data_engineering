@@ -98,9 +98,11 @@ def compute_spearman_rank_corr(
 ) -> float:
     """Compute mean within-position-week Spearman rank correlation.
 
-    For each (season, week) group with ≥3 players, compute the Spearman rank
+    For each (season, week) group with ≥10 players, compute the Spearman rank
     correlation between ``proj_col`` and ``actual_col``.  Returns the mean
-    across all qualifying weeks.
+    across all qualifying weeks.  The ≥10 minimum matches the audit protocol
+    (a Spearman over 3 players is computable but statistically meaningless;
+    partial early-season weeks must not dilute the season metric).
 
     This is the primary rank-ordering metric (start/sit relevance).  The A+
     gate requires this to be within 0.01 of the Sleeper consensus value over
@@ -117,7 +119,7 @@ def compute_spearman_rank_corr(
     """
     week_corrs: List[float] = []
     for (season, week), grp in df.groupby(["season", "week"]):
-        if len(grp) < 3:
+        if len(grp) < 10:
             continue
         rho, _ = scipy_stats.spearmanr(grp[proj_col], grp[actual_col])
         if not np.isnan(rho):
@@ -326,7 +328,7 @@ def build_cumulative_table(
         List of per-position dicts from ``build_position_table`` for the
         season-to-date slice, plus a ``"weeks_completed"`` entry and
         ``"aplus_gate_fantasy"`` boolean (True = currently beating A+ on both
-        MAE gap ≤ 0 AND spearman_gap ≥ −0.01 overall).
+        MAE gap ≤ 0 overall AND spearman_gap ≥ −0.01 at EVERY position (per-position strictness — a single position losing rank-ordering by >0.01 fails the gate)).
     """
     season_df = matched_df[
         (matched_df["season"] == target_season)

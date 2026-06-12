@@ -227,7 +227,7 @@ def test_spearman_rank_corr_perfect_positive() -> None:
     n_weeks = 5
     rows = []
     for week in range(1, n_weeks + 1):
-        for i in range(8):
+        for i in range(12):
             val = float(i * 3)
             rows.append({"season": 2023, "week": week, "proj": val, "actual": val})
     df = pd.DataFrame(rows)
@@ -240,9 +240,9 @@ def test_spearman_rank_corr_perfect_negative() -> None:
     """Perfect inverse rank correlation returns -1.0."""
     rows = []
     for week in range(1, 4):
-        for i in range(8):
+        for i in range(12):
             rows.append(
-                {"season": 2023, "week": week, "proj": float(i), "actual": float(7 - i)}
+                {"season": 2023, "week": week, "proj": float(i), "actual": float(11 - i)}
             )
     df = pd.DataFrame(rows)
     rho = compute_spearman_rank_corr(df, "proj", "actual", "WR")
@@ -251,7 +251,7 @@ def test_spearman_rank_corr_perfect_negative() -> None:
 
 @pytest.mark.unit
 def test_spearman_rank_corr_insufficient_data() -> None:
-    """Groups with fewer than 3 rows are skipped; returns NaN if no valid groups."""
+    """Groups with fewer than 10 rows are skipped; returns NaN if no valid groups."""
     df = pd.DataFrame(
         {
             "season": [2023, 2023],
@@ -269,11 +269,11 @@ def test_spearman_rank_corr_multi_week_average() -> None:
     """Mean is computed across weeks, not across all rows jointly."""
     # Week 1: perfect positive, Week 2: perfect negative -> mean ~0
     rows = []
-    for i in range(5):
+    for i in range(12):
         rows.append({"season": 2023, "week": 1, "proj": float(i), "actual": float(i)})
-    for i in range(5):
+    for i in range(12):
         rows.append(
-            {"season": 2023, "week": 2, "proj": float(i), "actual": float(4 - i)}
+            {"season": 2023, "week": 2, "proj": float(i), "actual": float(11 - i)}
         )
     df = pd.DataFrame(rows)
     rho = compute_spearman_rank_corr(df, "proj", "actual", "RB")

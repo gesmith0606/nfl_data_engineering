@@ -28,7 +28,7 @@ Exports:
     load_residual_model: Load saved residual model.
     apply_residual_correction: Apply residual correction to heuristic projections.
     load_graph_features: Load and merge all Silver graph feature tables by season.
-    GRAPH_FEATURE_SET: Complete list of 49 graph feature column names.
+    GRAPH_FEATURE_SET: Complete list of 82 graph feature column names.
 """
 
 import glob
@@ -77,7 +77,7 @@ _BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 _SILVER_GRAPH_DIR = os.path.join(_BASE_DIR, "data", "silver", "graph_features")
 
 # ---------------------------------------------------------------------------
-# Complete set of 77 graph feature columns (from all Silver graph tables)
+# Complete set of 82 graph feature columns (from all Silver graph tables)
 # ---------------------------------------------------------------------------
 
 # WR defense-side trailing allowance features (6) — ELITE-2.3, strictly lagged

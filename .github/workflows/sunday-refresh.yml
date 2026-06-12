@@ -110,7 +110,7 @@ jobs:
             ${{ inputs.season && format('--season {0}', inputs.season) || '' }} \
             ${{ inputs.week && format('--week {0}', inputs.week) || '' }} \
             --scoring ${{ inputs.scoring || 'all' }} \
-            2>&1 || true
+            2>&1
 
       # -----------------------------------------------------------------------
       # 5. Commit refreshed Gold files back to repo
@@ -133,7 +133,7 @@ jobs:
 
             git commit -m "data(refresh): Sunday injury refresh — ${COUNT} file(s)
 
-          Automated Sunday 15:30 UTC projection refresh: re-applied latest
+          Automated Sunday $(date -u +%H:%M) UTC projection refresh: re-applied latest
           injury/inactive data to published Gold projections without re-running
           the model.  Targets RB/WR rank-ordering gap from Tuesday staleness."
 
@@ -162,7 +162,7 @@ jobs:
         if: always()
         run: |
           echo "::notice::Sunday projection refresh complete. Check step output for player status changes."
-          echo "::notice::Timing: 15:30 UTC (post-inactives, pre-kickoff). Next run: next Sunday."
+          echo "::notice::Dual-pass Sundays: 15:35 UTC (EDT inactives) + 16:45 UTC (EST inactives); idempotent."
 
   # ---------------------------------------------------------------------------
   # Hard-failure notification — opens a GitHub issue when the refresh job
