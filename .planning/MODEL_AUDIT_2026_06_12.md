@@ -69,6 +69,26 @@ This also further prices the PFF decision: free charting ≈ exhausted.
 - WR/RB/TE rank-ordering experiments (TPRR, spread-conditioned game script) in
   flight (opportunity-lab agent) — warned re: spread convention.
 
+## FINAL SESSION STANDING (2022-24 matched vs Sleeper, cons≥5, n=7,009)
+
+After the continuation round (injury-aware eval 97c8b0c, TPRR collapse bd6aeb8,
+--ml route_df threading fix):
+
+| Pos | MAE gap | Spearman gap | Path |
+|-----|------|------|------|
+| QB | **−0.386 (win)** | **0.000 (exact parity)** | heuristic + VEGAS_BETA + injuries |
+| RB | +0.264 | −0.080 | heuristic + injuries |
+| WR | **−0.075 (win)** | −0.002 (parity) | hybrid + collapses + injuries |
+| TE | **−0.428 (win)** | **+0.224 (win)** | hybrid + injuries |
+| **Overall** | **−0.086 (WE BEAT THE CONSENSUS)** | | (was +0.083 at session start) |
+
+Additional fixes in the continuation: backtest never applied injury reports
+(production always did; Sleeper embeds them — eval-fidelity, leak-free);
+production injuries week-filter bug (season file + keep-last was row-order
+dependent); --ml backtest branch dropped route_df (every hybrid eval skipped
+the WR collapses production applies). TPRR collapse forward-confirms on the
+2026 live season (sealed-2025 budget preserved at 5 uses).
+
 ## Open items (priority order)
 1. **Task #7 remediation cascade**: graph cache regen (running) → Vegas-active
    baseline measurement (running) → blend-consistent TE+WR retrain vs the fixed
