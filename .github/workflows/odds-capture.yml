@@ -4,8 +4,13 @@ name: Live Odds Capture
 # Triggers
 # ---------------------------------------------------------------------------
 # Spreads/totals: 2×/day at 13:00 UTC and 21:00 UTC.
-# Player props:   once weekly on Sunday 14:00 UTC — ~90 min before early
-#                 kickoffs, when prop menus are final and inactives are out.
+# Player props:   Sunday 14:00 UTC (~90 min before early kickoffs, when prop
+#                 menus are final and inactives are out) + Thursday 22:00 UTC
+#                 (TNF coverage, ~5 credits).
+# Monitoring:     hard failures open a GitHub issue (notify-failure below);
+#                 a silently-dead capture is caught by the freshness watchdog
+#                 in daily-sentiment.yml (fail-open API errors can't fail
+#                 this workflow by design).
 #
 # workflow_dispatch for manual one-off runs:
 #   gh workflow run odds-capture.yml
@@ -14,6 +19,8 @@ on:
     - cron: "0 13 * * *"   # 13:00 UTC daily — morning spreads snapshot
     - cron: "0 21 * * *"   # 21:00 UTC daily — evening/closing spreads snapshot
     - cron: "0 14 * * 0"   # 14:00 UTC Sunday — weekly player-props snapshot
+    - cron: "0 22 * * 4"   # 22:00 UTC Thursday — TNF props (~2h pre-kickoff;
+                           # Sunday-only capture would never see TNF props)
 
   workflow_dispatch: {}
 
@@ -141,7 +148,8 @@ jobs:
     # should NOT run this job — guard with github.event.schedule.
     if: >
       github.event_name == 'workflow_dispatch' ||
-      github.event.schedule == '0 14 * * 0'
+      github.event.schedule == '0 14 * * 0' ||
+      github.event.schedule == '0 22 * * 4'
 
     steps:
       # -----------------------------------------------------------------------
@@ -168,18 +176,22 @@ jobs:
 
       # -----------------------------------------------------------------------
       # 4. Run props ingestion
-      # Credit cost: in-season Sundays have 13-16 games in the 7-day window
-      # → 65-80 credits at 5 markets × 1 region. --max-credits 100 covers a
-      # full slate; the script's internal reserve guard (stops when fewer
-      # than 50 credits remain) protects the daily spreads cron's budget.
-      # Exits 0 on any network/API error (fail-open).
+      # Two schedules share this job:
+      #   Sunday 14:00 UTC  — days-ahead 2 covers the Sun+Mon slate
+      #                       (13-15 games → 65-75 credits at 5 markets)
+      #   Thursday 22:00 UTC — days-ahead 2 covers TNF (~1 game → 5 credits)
+      # --max-credits 100 covers a full slate; the script's internal reserve
+      # guard (stops when fewer than 50 credits remain) protects the daily
+      # spreads cron's budget. Exits 0 on any network/API error (fail-open);
+      # the independent freshness watchdog in daily-sentiment.yml catches a
+      # silently dead capture.
       # -----------------------------------------------------------------------
       - name: Fetch NFL player-props snapshot
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           python scripts/bronze_props_ingestion.py \
-            --days-ahead 7 \
+            --days-ahead 2 \
             --max-credits 100
 
       # -----------------------------------------------------------------------
@@ -227,5 +239,58 @@ jobs:
         if: always()
         run: |
           echo "::notice::Props capture complete. Check script output above for x-requests-remaining."
-          echo "::notice::Budget: 65-85 credits/run in-season × 4-5 Sundays = 260-425/month for props; +~120 spreads. In a 5-Sunday month the worst case (~545) exceeds the 500 free-tier cap — the in-script reserve guard (stop below 50 remaining) is what protects the spreads cron. Manual workflow_dispatch runs BOTH jobs (~87 extra credits)."
-          echo "::notice::Combined with spreads (~120/mo), total ~220-245 credits/month vs 500 free tier budget."
+          echo "::notice::Budget: Sundays 65-75 credits (Sun+Mon slate, days-ahead 2) + Thursdays ~5 (TNF) = ~280-400/month props in-season; +~120 spreads = ~400-520 worst case in a 5-Sunday month vs the 500 free-tier cap. The in-script reserve guard (stop below 50 remaining) is what protects the spreads cron at the margin. Manual workflow_dispatch runs BOTH jobs (~75-85 extra credits)."
+
+  # ---------------------------------------------------------------------------
+  # Hard-failure notification (2026-06-12) — opens a GitHub issue when either
+  # capture job fails outright (rebase conflict, push rejection, runner
+  # error). API blips are fail-open and do NOT land here; a silently dead
+  # capture is caught by the freshness watchdog in daily-sentiment.yml.
+  # ---------------------------------------------------------------------------
+  notify-failure:
+    name: Notify on hard failure
+    runs-on: ubuntu-latest
+    needs: [capture, capture-props]
+    if: failure()
+    permissions:
+      issues: write
+
+    steps:
+      - name: Create GitHub issue for capture failure
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const now = new Date().toISOString().split('T')[0];
+            const title = `Odds Capture Failed - ${now}`;
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'pipeline-failure',
+            });
+            if (open.data.some(i => i.title === title)) {
+              core.info('Failure issue already open today — not duplicating.');
+              return;
+            }
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body: [
+                '## Odds capture hard failure',
+                '',
+                'Line history cannot be backfilled on the free tier — diagnose promptly.',
+                '',
+                `Run: [${context.runId}](${runUrl})`,
+                '',
+                '```bash',
+                'gh run view --log ' + context.runId,
+                'gh workflow run odds-capture.yml   # manual retry (runs both jobs)',
+                '```',
+                '',
+                '_Auto-generated by odds-capture notify-failure._',
+              ].join('\n'),
+              labels: ['pipeline-failure', 'automated'],
+            });
