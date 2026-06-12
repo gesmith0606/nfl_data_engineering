@@ -2542,9 +2542,11 @@ def _build_spread_by_team(
     Build a dict of {team_abbr: spread_from_team_perspective} for the
     given week.
 
-    ``spread_line`` in the schedule is the home-team spread (negative when
-    the home team is favoured).  The away team's spread is the mirror:
-    ``-spread_line``.
+    nflverse ``spread_line`` is the expected HOME margin — POSITIVE when
+    the home team is favoured. The output of this function uses the
+    betting convention consumed by ``_vegas_multiplier`` (NEGATIVE =
+    favoured), so the home team's perspective spread is ``-spread_line``
+    and the away team's is ``+spread_line``.
 
     Args:
         schedules_df: Game schedule DataFrame containing ``week``,
@@ -2573,8 +2575,11 @@ def _build_spread_by_team(
         home_spread = (
             float(row[spread_col]) if spread_col and pd.notna(row[spread_col]) else 0.0
         )
-        spread_by_team[home] = home_spread
-        spread_by_team[away] = -home_spread  # mirror: if home is -7, away is +7
+        # Negate: nflverse positive = home favored → betting convention
+        # negative = favored. A 7-pt home favorite (spread_line=+7) becomes
+        # home: -7 (favored), away: +7 (dog).
+        spread_by_team[home] = -home_spread
+        spread_by_team[away] = home_spread
 
     return spread_by_team
 

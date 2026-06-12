@@ -137,7 +137,7 @@ def schedules_df():
             "week": [1, 2, 3, 4, 5],
             "home_team": ["KC"] * 5,
             "away_team": ["BUF"] * 5,
-            "spread_line": [-7.0, -3.0, 2.5, -14.0, 0.0],
+            "spread_line": [7.0, 3.0, -2.5, 14.0, 0.0],
             "total_line": [48.0, 45.0, 42.0, 51.0, 44.0],
             "game_type": ["REG"] * 5,
         }
@@ -407,7 +407,7 @@ class TestComputeGameScriptFeatures:
                 "week": [1, 2],
                 "home_team": ["KC", "KC"],
                 "away_team": ["BUF", "BUF"],
-                "spread_line": [-7.0, -7.0],
+                "spread_line": [7.0, 7.0],
                 "total_line": [48.0, 48.0],
                 "game_type": ["REG", "REG"],
             }
@@ -415,7 +415,8 @@ class TestComputeGameScriptFeatures:
         result = compute_game_script_features(usage, schedules)
 
         kc_rows = result[result["recent_team"] == "KC"]
-        # Home favorite with -7 spread: boost = 1.0 + ((-7) * -0.01) = 1.07
+        # Home favorite (nflverse spread_line=+7 -> team perspective -7):
+        # boost = 1.0 + ((-7) * -0.01) = 1.07
         boosts = kc_rows["predicted_script_boost"].dropna()
         assert (boosts > 1.0).all()
 
@@ -437,7 +438,7 @@ class TestComputeGameScriptFeatures:
                 "week": [1, 2],
                 "home_team": ["KC", "KC"],
                 "away_team": ["BUF", "BUF"],
-                "spread_line": [-7.0, -7.0],
+                "spread_line": [7.0, 7.0],
                 "total_line": [48.0, 48.0],
                 "game_type": ["REG", "REG"],
             }
@@ -446,7 +447,7 @@ class TestComputeGameScriptFeatures:
 
         buf_rows = result[result["recent_team"] == "BUF"]
         boosts = buf_rows["predicted_script_boost"].dropna()
-        # Away team: spread flipped to +7 -> boost = 1.0 + (7 * -0.01) = 0.93
+        # Away underdog (team perspective +7) -> boost = 1.0 + (7 * -0.01) = 0.93
         assert (boosts < 1.0).all()
 
     def test_predicted_script_boost_no_schedules(self, multi_week_pbp):

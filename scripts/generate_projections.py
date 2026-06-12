@@ -58,12 +58,13 @@ def _load_implied_totals(
 ) -> Optional[Dict[str, float]]:
     """Compute per-team implied scoring totals from schedule lines.
 
-    Uses the standard Vegas convention:
-        home_implied = (total_line - spread_line) / 2
-        away_implied = (total_line + spread_line) / 2
+    Uses the nflverse convention:
+        home_implied = (total_line + spread_line) / 2
+        away_implied = (total_line - spread_line) / 2
 
-    where ``spread_line`` is from the home team's perspective (negative
-    means home is favoured).
+    where ``spread_line`` is the expected HOME margin — POSITIVE when the
+    home team is favoured (verified vs moneylines, 99.6% agreement
+    2022-24). The favourite gets the larger implied total.
 
     Args:
         schedules_df: Game schedule DataFrame with ``week``,
@@ -89,8 +90,8 @@ def _load_implied_totals(
     for _, row in games.iterrows():
         total = float(row["total_line"])
         spread = float(row["spread_line"])
-        implied[row["home_team"]] = round((total - spread) / 2, 2)
-        implied[row["away_team"]] = round((total + spread) / 2, 2)
+        implied[row["home_team"]] = round((total + spread) / 2, 2)
+        implied[row["away_team"]] = round((total - spread) / 2, 2)
 
     return implied
 

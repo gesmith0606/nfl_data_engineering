@@ -164,8 +164,11 @@ def _compute_week_implied_totals(
     for _, row in games.iterrows():
         total = float(row["total_line"])
         spread = float(row["spread_line"])
-        implied[row["home_team"]] = round((total - spread) / 2, 2)
-        implied[row["away_team"]] = round((total + spread) / 2, 2)
+        # nflverse convention: spread_line is the expected HOME margin
+        # (positive = home favored), so the home implied total is
+        # (total + spread) / 2.
+        implied[row["home_team"]] = round((total + spread) / 2, 2)
+        implied[row["away_team"]] = round((total - spread) / 2, 2)
 
     return implied
 

@@ -270,9 +270,13 @@ def generate_kicker_projections(
             if pd.notna(home) and pd.notna(away):
                 team_opponent[home] = away
                 team_opponent[away] = home
-                # spread_line is from home perspective; negative = home favored
-                team_spread[home] = float(spread) if pd.notna(spread) else 0.0
-                team_spread[away] = -float(spread) if pd.notna(spread) else 0.0
+                # nflverse spread_line: expected HOME margin (positive =
+                # home favored). Negate so this dict follows the betting
+                # convention (negative = favored) stated in
+                # _game_script_multiplier's docstring. (Multiplier currently
+                # uses abs(), so this is sign hygiene, not a behavior change.)
+                team_spread[home] = -float(spread) if pd.notna(spread) else 0.0
+                team_spread[away] = float(spread) if pd.notna(spread) else 0.0
                 team_home[home] = home
                 team_home[away] = home
                 team_wind[home] = float(wind_val) if pd.notna(wind_val) else None

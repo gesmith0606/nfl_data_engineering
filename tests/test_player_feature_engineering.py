@@ -461,11 +461,11 @@ class TestAssemblePlayerFeatures:
         assert (valid >= 5.0).all(), "Implied total should be >= 5.0"
         assert (valid <= 45.0).all(), "Implied total should be <= 45.0"
 
-        # Check formula for KC week 1: home team, spread=-3.0, total=48.0
-        # implied_home = (48/2) - (-3/2) = 24 + 1.5 = 25.5
+        # Check formula for KC week 1: home team, spread_line=-3.0 (nflverse:
+        # home DOG by 3), total=48.0 → implied_home = (48/2) + (-3/2) = 22.5
         kc_w1 = result[(result["recent_team"] == "KC") & (result["week"] == 1)]
         if not kc_w1.empty:
-            expected = 25.5
+            expected = 22.5
             actual = kc_w1["implied_team_total"].iloc[0]
             assert abs(actual - expected) < 0.1, f"Expected ~{expected}, got {actual}"
 

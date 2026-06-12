@@ -402,13 +402,15 @@ def _add_predicted_script_boost(
     if not required.issubset(sched.columns):
         return df
 
-    # Reshape to per-team spread (from team perspective: negative = favored)
-    # spread_line is typically: home_team spread (negative if home favored)
+    # Reshape to per-team spread (from team perspective: negative = favored).
+    # nflverse spread_line is the expected HOME margin (POSITIVE = home
+    # favored), so the home perspective is -spread_line and away is
+    # +spread_line under the negative-=-favored convention consumed below.
     home = sched[["season", "week", "home_team", "spread_line"]].copy()
+    home["spread_line"] = -home["spread_line"]  # nflverse → betting convention
     home = home.rename(columns={"home_team": "team", "spread_line": "team_spread"})
 
     away = sched[["season", "week", "away_team", "spread_line"]].copy()
-    away["spread_line"] = -away["spread_line"]  # flip for away team
     away = away.rename(columns={"away_team": "team", "spread_line": "team_spread"})
 
     team_spreads = pd.concat([home, away], ignore_index=True)

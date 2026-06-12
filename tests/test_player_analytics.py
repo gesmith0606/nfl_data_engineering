@@ -112,19 +112,20 @@ class TestComputeRollingAverages(unittest.TestCase):
 class TestComputeImpliedTeamTotals(unittest.TestCase):
 
     def _make_schedule(self):
+        # nflverse convention: spread_line POSITIVE = home favored
         return pd.DataFrame({
             'home_team': ['KC', 'BUF'],
             'away_team': ['DET', 'MIA'],
             'total_line': [50.0, 44.0],
-            'spread_line': [-6.0, -3.0],
+            'spread_line': [6.0, 3.0],
         })
 
     def test_implied_totals_calculated(self):
         sched = self._make_schedule()
         totals = compute_implied_team_totals(sched)
-        # KC home: (50/2) - (-6/2) = 25 + 3 = 28
+        # KC home favorite: (50/2) + (6/2) = 25 + 3 = 28
         self.assertAlmostEqual(totals['KC'], 28.0, places=1)
-        # DET away: (50/2) + (-6/2) = 25 - 3 = 22
+        # DET away underdog: (50/2) - (6/2) = 25 - 3 = 22
         self.assertAlmostEqual(totals['DET'], 22.0, places=1)
 
     def test_missing_total_line(self):
