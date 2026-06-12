@@ -763,9 +763,14 @@ def run_backtest(
                         feature_df=feat_df,
                         # Same data the default heuristic path passes — the
                         # --ml and heuristic backtests must measure the SAME
-                        # underlying heuristic baseline.
+                        # underlying heuristic baseline. route_df was missing
+                        # here until 2026-06-12: every --ml eval silently
+                        # skipped the WR route-slope/TPRR collapses that
+                        # production applies (production's ML branch passes
+                        # route_df).
                         weekly_df=weekly_df,
                         snap_counts_df=snap_counts_df,
+                        route_df=route_df,
                     )
                 else:
                     projections = generate_weekly_projections(
