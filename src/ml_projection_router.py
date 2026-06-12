@@ -155,9 +155,16 @@ def _load_ship_gate(model_dir: str = "models/player") -> Dict[str, str]:
                 residual_meta = json.load(f)
         except (OSError, json.JSONDecodeError):
             continue
-        if residual_meta.get("heuristic_version") == "v4.2":
+        # Accept v4.2 (original) and v4.2+blend (retrained with veteran prior
+        # blend applied during training — fixes train/inference mismatch for TE).
+        _hv = residual_meta.get("heuristic_version", "")
+        if _hv in ("v4.2", "v4.2+blend"):
             verdicts[position] = "HYBRID"
-            logger.info("%s promoted to HYBRID (v4.2 residual model present)", position)
+            logger.info(
+                "%s promoted to HYBRID (residual model present, heuristic_version=%s)",
+                position,
+                _hv,
+            )
 
     return verdicts
 

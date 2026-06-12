@@ -975,6 +975,7 @@ def compute_heuristic_baseline(
     position: str,
     opp_rankings: pd.DataFrame,
     scoring_format: str = "half_ppr",
+    weekly_df: Optional[pd.DataFrame] = None,
 ) -> pd.Series:
     """Compute the production heuristic fantasy points for a position DataFrame.
 
@@ -999,6 +1000,18 @@ def compute_heuristic_baseline(
     - Injury adjustments (separate post-projection layer)
     - Rookie baseline filling (training data already has rolling averages)
 
+    Veteran prior blend (training/inference consistency):
+    When ``weekly_df`` is provided and ``USE_VETERAN_PRIOR_BLEND=True``, the
+    veteran prior blend is applied per unique (season, week) group before
+    computing the heuristic.  This is REQUIRED during residual model training
+    so that training targets (``actual − heuristic``) use the same blended
+    baseline as production inference via ``generate_weekly_projections``.
+
+    Without passing ``weekly_df``, the blend is skipped and training residuals
+    will be systematically too large for players who had their baseline raised
+    by the blend (return-from-absence veterans, early-season ramp-up), causing
+    the residual model to over-correct at inference.
+
     Args:
         pos_data: Position-filtered player-week DataFrame with rolling columns
             (e.g. ``rushing_yards_roll3``, ``rushing_yards_roll6``,
@@ -1011,6 +1024,11 @@ def compute_heuristic_baseline(
             adjustment (defaults to neutral factor 1.0).
         scoring_format: Fantasy scoring format — ``'half_ppr'``, ``'ppr'``,
             or ``'standard'``.
+        weekly_df: Optional Bronze player_weekly DataFrame spanning all
+            training seasons.  When provided and ``USE_VETERAN_PRIOR_BLEND``
+            is True, the veteran prior blend is applied per (season, week)
+            group before heuristic computation.  Callers SHOULD pass this
+            during residual training; omit only when Bronze data is unavailable.
 
     Returns:
         ``pd.Series`` of heuristic fantasy points aligned to ``pos_data.index``.
@@ -1026,6 +1044,60 @@ def compute_heuristic_baseline(
         return pd.Series(np.nan, index=pos_data.index)
 
     work = pos_data.copy()
+
+    # ------------------------------------------------------------------
+    # Veteran prior blend (training/inference consistency)
+    # Apply per unique (season, week) group so that priors and game-counts
+    # are computed with the correct temporal boundary (only data strictly
+    # before the projected week).  This replicates what generate_weekly_
+    # projections does at inference and must stay numerically in sync.
+    # ------------------------------------------------------------------
+    if USE_VETERAN_PRIOR_BLEND and weekly_df is not None and not weekly_df.empty:
+        if "season" in work.columns and "week" in work.columns:
+            try:
+                from veteran_prior import apply_veteran_prior_blend
+
+                priors_df = _cached_player_priors(weekly_df, scoring_format)
+                if not priors_df.empty:
+                    blended_rows: List[pd.DataFrame] = []
+                    # Process each unique (season, week) pair separately so
+                    # count_games_in_lookback uses the correct temporal window.
+                    for (grp_season, grp_week), grp in work.groupby(
+                        ["season", "week"], sort=False
+                    ):
+                        blended = apply_veteran_prior_blend(
+                            target_df=grp,
+                            priors_df=priors_df,
+                            weekly_df=weekly_df,
+                            position=position,
+                            proj_season=int(grp_season),
+                            proj_week=int(grp_week),
+                            n_full=VETERAN_PRIOR_N_FULL,
+                            steepness=VETERAN_PRIOR_STEEPNESS,
+                            min_prior_games=VETERAN_PRIOR_MIN_GAMES,
+                            team_change_decay=VETERAN_PRIOR_TEAM_CHANGE_DECAY,
+                            first_week_back_discount=VETERAN_PRIOR_FIRST_WEEK_BACK_DISCOUNT,
+                        )
+                        blended_rows.append(blended)
+                    if blended_rows:
+                        work = pd.concat(blended_rows).reindex(work.index)
+                        logger.debug(
+                            "compute_heuristic_baseline: veteran blend applied "
+                            "to %s across %d (season, week) groups",
+                            position,
+                            len(blended_rows),
+                        )
+            except ImportError:
+                logger.warning(
+                    "veteran_prior module unavailable; skipping blend in "
+                    "compute_heuristic_baseline"
+                )
+            except Exception as exc:
+                logger.warning(
+                    "Veteran blend failed in compute_heuristic_baseline: %s; "
+                    "continuing without blend",
+                    exc,
+                )
 
     # Drop opp_rank if already present to avoid merge conflict inside
     # _matchup_factor, which creates its own opp_rank column.

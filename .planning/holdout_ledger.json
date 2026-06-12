@@ -68,5 +68,19 @@
     "seasons": [
       2024
     ]
+  },
+  {
+    "timestamp": "2026-06-11T23:09:30.778780",
+    "experiment": "gate_test",
+    "seasons": [
+      2024
+    ]
+  },
+  {
+    "timestamp": "2026-06-12T00:02:19.926206",
+    "experiment": "gate_test",
+    "seasons": [
+      2024
+    ]
   }
 ]

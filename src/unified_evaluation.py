@@ -54,6 +54,7 @@ def compute_production_heuristic(
     position: str,
     opp_rankings: pd.DataFrame,
     scoring_format: str = "half_ppr",
+    weekly_df: Optional[pd.DataFrame] = None,
 ) -> pd.Series:
     """Reproduce the production heuristic on a player-week DataFrame.
 
@@ -71,6 +72,12 @@ def compute_production_heuristic(
 
     Does NOT include Vegas multiplier, bye week zeroing, or injury adjustments.
 
+    Training/inference consistency: when ``weekly_df`` is provided and
+    ``USE_VETERAN_PRIOR_BLEND=True`` in ``projection_engine``, the veteran
+    prior blend is applied before heuristic computation.  Residual model
+    training MUST pass ``weekly_df`` so that training residuals
+    (``actual − heuristic``) match the blended baseline used at inference.
+
     Args:
         pos_data: Position-filtered feature DataFrame with rolling columns
             (e.g. rushing_yards_roll3, rushing_yards_roll6, rushing_yards_std).
@@ -78,11 +85,16 @@ def compute_production_heuristic(
         opp_rankings: Opponent rankings DataFrame compatible with
             _matchup_factor. Can be empty (matchup factor defaults to 1.0).
         scoring_format: Scoring format string.
+        weekly_df: Optional Bronze player_weekly DataFrame.  Pass to activate
+            veteran prior blend in training (keeps training targets consistent
+            with production inference).
 
     Returns:
         Series of production heuristic fantasy points aligned to pos_data.index.
     """
-    return compute_heuristic_baseline(pos_data, position, opp_rankings, scoring_format)
+    return compute_heuristic_baseline(
+        pos_data, position, opp_rankings, scoring_format, weekly_df=weekly_df
+    )
 
 
 # ---------------------------------------------------------------------------

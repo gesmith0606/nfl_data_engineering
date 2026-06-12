@@ -71,10 +71,68 @@ verified live: blend rerouted 2 players, collapse fired on 6 RBs, 2024 w11). All
 call sites now thread weekly_df/snap_counts_df; missing inputs warn once instead of silently
 skipping; priors/name-map identity-cached (backtest speedup); baselines single-sourced from
 projection_engine; is_veteran_return exposed in output.
-**FOLLOW-UP REQUIRED — TE hybrid re-validation:** the router's heuristic baseline now includes
-the veteran blend, but the TE Ridge residual was trained on the PRE-blend baseline. Re-run
-`backtest_projections --ml` TE eval on 2022-24; if degraded, retrain residual on the blended
-baseline before next production --ml run.
+**TE hybrid re-validation COMPLETE (2026-06-11) — GATE PASSED after architectural fix:**
+
+| Run | TE gap | Notes |
+|-----|--------|-------|
+| Pre-blend (2026-06-10, reference) | −0.38 | We won by 0.38 |
+| Post-blend + old residual (2026-06-11, `backtest_half_ppr_ml_consensus_20260611_191929.csv`) | +0.15 | We lose — degraded +0.53 |
+| Post-retrain (same arch, 2026-06-11, `consensus_matched_half_ppr_20260611_193110.csv`) | +0.25 | Worse — discarded |
+| **Blend-consistent retrain (2026-06-11, `consensus_matched_half_ppr_20260611_200019.csv`)** | **−0.44** | **GATE PASSED ✅** |
+
+Gate was ≤ −0.35; result is −0.44 (improved further beyond the −0.38 reference by 0.06). **SHIPPED.**
+
+Root cause (fixed): `train_and_save_residual_models` called `compute_heuristic_baseline` on raw
+Silver features without passing `weekly_df` — the veteran blend was never applied during training.
+Residual model learned offsets against the unblended heuristic; at inference the blended baseline
+was higher (mean +3.1 pts for the ~20% of TE rows affected), causing systematic over-correction.
+
+**Fix applied (Primary — Option 1):**
+1. `compute_heuristic_baseline` in `projection_engine.py` extended with optional `weekly_df`
+   parameter.  When provided and `USE_VETERAN_PRIOR_BLEND=True`, applies `apply_veteran_prior_blend`
+   per unique (season, week) group before computing the heuristic — exact same logic as
+   `generate_weekly_projections` uses at inference.
+2. `compute_production_heuristic` in `unified_evaluation.py` passes `weekly_df` through.
+3. `train_and_save_residual_models` in `hybrid_projection.py` loads Bronze weekly data (incl.
+   prior season) and passes it to `compute_production_heuristic`, making training residuals
+   numerically consistent with production.
+4. Version stamp: `heuristic_version: "v4.2+blend"` (new), router updated to accept both
+   `"v4.2"` and `"v4.2+blend"` for HYBRID routing.
+5. Pre-blend backup files preserved: `te_residual.joblib.pre_blend_backup`,
+   `te_residual_meta.json.pre_blend_backup`.
+
+Fallback (Option 3) not needed — primary fix cleared the gate on first retrain.
+
+**New TE metrics (2022-24, w3-18, half-PPR, --ml path, consensus ≥5):**
+- TE MAE: 4.02 (ours) vs 4.46 (Sleeper) → gap **−0.44** ✅
+- TE Spearman: 0.481 (ours) vs 0.253 (Sleeper) → delta **+0.227** ✅
+- TE Top-12 hit rate: 0.799 (ours) vs 0.738 (Sleeper) → delta **+0.061** ✅
+- Model file: `models/residual/te_residual.joblib` (ridge, alpha=0.001, n=8349, 60 features)
+- All 2259 tests pass (0 failed).
+
+### Rank-ordering gates re-measured (2026-06-11)
+
+On the deduped files (pre-blend `20260610_220524` vs post-blend `20260611_101631`; cons≥5,
+mean within-position-week Spearman over weeks with ≥10 players; top-12 QB/TE, top-24 RB/WR
+hit rate; 48 weeks each, 0 duplicate player-weeks in both):
+
+| Pos | Spearman ours pre→post | Spearman cons | Rank gap post | Top-N ours pre→post | Top-N cons | Top-N gap post |
+|-----|------|------|------|------|------|------|
+| QB  | 0.326 → 0.343 | 0.370 | **−0.027** | 0.595 → 0.602 | 0.599 | **+0.003** |
+| RB  | 0.359 → 0.373 | 0.453 | **−0.080** | 0.727 → 0.735 | 0.753 | −0.017 |
+| WR  | 0.336 → 0.349 | 0.405 | **−0.056** | 0.552 → 0.553 | 0.568 | −0.015 |
+| TE  | 0.166 → 0.178 | 0.253 | **−0.075** | 0.710 → 0.710 | 0.738 | −0.028 |
+
+WR w3-6 Spearman (the named weakness): ours 0.203 → **0.254** vs consensus 0.391 (gap −0.189 → −0.137; 12 weeks).
+
+**Interpretation:** the blend+collapse ship improved rank ordering, not just MAE — every position
+gained +0.012 to +0.017 Spearman with consensus fixed, the biggest single move being WR w3-6
+(+0.051), and QB top-12 hit rate now edges consensus. But the A-grade gate (rank corr within 0.02
+of consensus) is met nowhere: QB is closest at −0.027; RB (−0.080), TE (−0.075), and WR (−0.056)
+remain well short — consensus's rank-ordering edge is 3-4x the gate at RB/WR/TE, so workstreams
+D (route rate) and E (allowances) must carry the rest. Note the pre-fix numbers quoted above
+(RB 0.543 vs 0.610, WR 0.457 vs 0.516) came from the duplicated file with a different
+aggregation and should not be compared to these; this table is the new baseline for gates.
 
 ## Workstreams (ranked by expected gap closure ÷ effort)
 
@@ -112,6 +170,16 @@ Per-player share of team dropbacks on field from `data/bronze/pbp_participation`
 **Gate:** WR consensus gap improvement ≥0.03 beyond workstream B; route-rate vs snap-share sanity corr ≥0.8. Kill: <0.02 → web content only.
 
 ### E. Opponent-adjusted yardage allowances — ~1 week (= ELITE 2.1, demoted)
+
+> **KILLED 2026-06-11** (worktree agent-abdc6dd56547d7a23; 50-config sweep, 18 tests passing):
+> position-split opponent-adjusted trailing allowances (7 stat-types, strictly lagged,
+> league-week-mean adjusted) moved MAE <0.002 at every position vs the 0.02 kill threshold.
+> Root cause: trailing yardage-allowed correlates only ~0.08 with next-week actuals, and the
+> remaining WR/RB gap lives in who-has-the-role disagreement cases, not defense-quality cases.
+> **Feeds ELITE 3.2 (PFF ROI):** the free version of matchup-allowance data measurably carries
+> <0.001 MAE per position — any PFF purchase must justify itself against this, not assumptions.
+> Experiment code preserved in the worktree branch (build_yardage_allowances +
+> sweep-yardage-allowances + tests) for optional salvage as a lab-only commit.
 Position-split trailing allowances (rush vs receiving). Run AFTER B-D: matchup sharpening can't fix being wrong about who has the role, and the agree-bucket gap (where matchup would help) is already ≈ 0.
 **Gate:** ≥0.03 CV MAE + consensus-gap narrowing. Kill: <0.02 → revert.
 

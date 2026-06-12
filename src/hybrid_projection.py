@@ -935,6 +935,50 @@ def train_and_save_residual_models(
     # Build defensive strength table (v4.2 production matchup factor)
     opp_rankings = build_defensive_strength_table(training_seasons)
 
+    # -------------------------------------------------------------------------
+    # Load Bronze weekly data for veteran prior blend.
+    # The training heuristic must apply the same veteran prior blend as
+    # production inference (generate_weekly_projections).  Without passing
+    # weekly_df, residuals are trained against the un-blended heuristic while
+    # production applies the blend — causing systematic over-correction for the
+    # ~20% of TE rows where the blend materially raises the baseline.
+    # -------------------------------------------------------------------------
+    training_weekly_df: Optional[pd.DataFrame] = None
+    try:
+        bronze_weekly_dfs = []
+        # Include one prior season so the blend can look up prior-season stats
+        # for the earliest training season (e.g. 2015 priors for 2016 training).
+        load_seasons_for_weekly = sorted(
+            set(list(training_seasons) + [min(training_seasons) - 1])
+        )
+        for s in load_seasons_for_weekly:
+            pattern = os.path.join(
+                _BASE_DIR, "data", "bronze", "players", "weekly",
+                f"season={s}", "*.parquet"
+            )
+            files = sorted(glob.glob(pattern))
+            if files:
+                bronze_weekly_dfs.append(pd.read_parquet(files[-1]))
+        if bronze_weekly_dfs:
+            training_weekly_df = pd.concat(bronze_weekly_dfs, ignore_index=True)
+            logger.info(
+                "Loaded Bronze weekly data for veteran blend: %d rows across "
+                "%d seasons",
+                len(training_weekly_df),
+                len(bronze_weekly_dfs),
+            )
+        else:
+            logger.warning(
+                "No Bronze weekly data found; residual targets will be computed "
+                "WITHOUT veteran prior blend (train/inference mismatch)."
+            )
+    except Exception as exc:
+        logger.warning(
+            "Failed to load Bronze weekly data for veteran blend: %s; "
+            "continuing without blend in training heuristic",
+            exc,
+        )
+
     results: Dict[str, Dict[str, Any]] = {}
 
     for position in positions:
@@ -948,9 +992,16 @@ def train_and_save_residual_models(
             logger.warning("No data for %s", position)
             continue
 
-        # Compute heuristic + actual using unified evaluation
+        # Compute heuristic + actual using unified evaluation.
+        # Pass training_weekly_df so the veteran prior blend is applied during
+        # training — this keeps training residuals (actual − heuristic)
+        # numerically consistent with production inference.
         prod_pts = compute_production_heuristic(
-            pos_data, position, opp_rankings, scoring_format
+            pos_data,
+            position,
+            opp_rankings,
+            scoring_format,
+            weekly_df=training_weekly_df,
         )
         actual_pts = compute_actual_fantasy_points(pos_data, scoring_format)
 
@@ -1029,10 +1080,13 @@ def train_and_save_residual_models(
             joblib.dump(lgb_model, model_path)
             joblib.dump(imputer, imputer_path)
 
+            _heuristic_ver = (
+                "v4.2+blend" if training_weekly_df is not None else "v4.2"
+            )
             meta = {
                 "position": position,
                 "model_type": "lgb",
-                "heuristic_version": "v4.2",
+                "heuristic_version": _heuristic_ver,
                 "scoring_format": scoring_format,
                 "n_train": len(X_train_raw),
                 "train_residual_mae": train_mae,
@@ -1079,10 +1133,13 @@ def train_and_save_residual_models(
             )
 
             joblib.dump(model, model_path)
+            _heuristic_ver = (
+                "v4.2+blend" if training_weekly_df is not None else "v4.2"
+            )
             meta = {
                 "position": position,
                 "model_type": "ridge",
-                "heuristic_version": "v4.2",
+                "heuristic_version": _heuristic_ver,
                 "scoring_format": scoring_format,
                 "ridge_alpha": ridge_alpha,
                 "n_train": len(X_train_raw),

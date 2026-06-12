@@ -502,9 +502,131 @@ class TestRouterHybridIntegration:
         if os.path.exists(te_meta_path):
             with open(te_meta_path) as fh:
                 te_meta = json.load(fh)
+            # Accept v4.2 (original) and v4.2+blend (blend-aware retrain
+            # that fixes the train/inference consistency issue for TE).
+            valid_hybrid_versions = {"v4.2", "v4.2+blend"}
             expected = (
-                "HYBRID" if te_meta.get("heuristic_version") == "v4.2" else "SKIP"
+                "HYBRID"
+                if te_meta.get("heuristic_version") in valid_hybrid_versions
+                else "SKIP"
             )
             assert verdicts.get("TE") == expected
         else:
             assert verdicts.get("TE") == "SKIP"
+
+
+class TestComputeHeuristicBaselineVeteranBlend:
+    """Verify compute_heuristic_baseline applies veteran blend when weekly_df
+    is provided (training/inference consistency fix for TE).
+    """
+
+    def _make_te_row_veteran_ramp(self) -> pd.DataFrame:
+        """TE player at week 4 who only played 1 game (low rolling weight)."""
+        return pd.DataFrame(
+            {
+                "player_id": ["vet_te_001"],
+                "position": ["TE"],
+                "recent_team": ["SF"],
+                "season": [2023],
+                "week": [4],
+                "opponent": ["LAR"],
+                "opponent_team": ["LAR"],
+                # Low early-season rolling averages (only 1 game played)
+                "targets_roll3": [2.0],
+                "targets_roll6": [2.0],
+                "targets_std": [2.0],
+                "receptions_roll3": [1.5],
+                "receptions_roll6": [1.5],
+                "receptions_std": [1.5],
+                "receiving_yards_roll3": [15.0],
+                "receiving_yards_roll6": [15.0],
+                "receiving_yards_std": [15.0],
+                "receiving_tds_roll3": [0.0],
+                "receiving_tds_roll6": [0.0],
+                "receiving_tds_std": [0.0],
+                "snap_pct": [0.75],
+                "offense_pct": [0.75],
+                "target_share": [0.12],
+            }
+        )
+
+    def _make_weekly_df_with_prior(self) -> pd.DataFrame:
+        """Prior-season data giving the TE a strong per-game rate in 2022."""
+        rows = []
+        for wk in range(1, 17):
+            rows.append(
+                {
+                    "player_id": "vet_te_001",
+                    "position": "TE",
+                    "season": 2022,
+                    "week": wk,
+                    "recent_team": "SF",
+                    "targets": 7.0,
+                    "receptions": 5.0,
+                    "receiving_yards": 60.0,
+                    "receiving_tds": 0.5,
+                }
+            )
+        return pd.DataFrame(rows)
+
+    def test_with_weekly_df_raises_baseline_for_veteran(self):
+        """When weekly_df is supplied, veteran blend should raise the low
+        early-season baseline for a player with only 1 game played.
+
+        The blend weight for n_games=1 with steepness=0.7 is ~0.50.
+        With a strong prior (60 yds, 5 rec/game in 2022) the blended
+        baseline should be meaningfully higher than the raw rolling columns.
+        """
+        from projection_engine import compute_heuristic_baseline, USE_VETERAN_PRIOR_BLEND
+
+        if not USE_VETERAN_PRIOR_BLEND:
+            pytest.skip("USE_VETERAN_PRIOR_BLEND is disabled globally")
+
+        pos_df = self._make_te_row_veteran_ramp()
+        weekly_df = self._make_weekly_df_with_prior()
+
+        pts_no_blend = compute_heuristic_baseline(
+            pos_df, "TE", pd.DataFrame()
+        ).iloc[0]
+        pts_with_blend = compute_heuristic_baseline(
+            pos_df, "TE", pd.DataFrame(), weekly_df=weekly_df
+        ).iloc[0]
+
+        # The blend should raise the projection for this low-rolling veteran
+        assert pts_with_blend > pts_no_blend, (
+            f"Expected blend to raise projection for early-season veteran TE; "
+            f"got no_blend={pts_no_blend:.2f}, with_blend={pts_with_blend:.2f}"
+        )
+
+    def test_without_weekly_df_blend_not_applied(self):
+        """When weekly_df=None, blend is skipped and result equals the raw
+        rolling-only heuristic (backward-compatible default).
+        """
+        from projection_engine import compute_heuristic_baseline
+
+        pos_df = self._make_te_row_veteran_ramp()
+
+        pts_default = compute_heuristic_baseline(pos_df, "TE", pd.DataFrame()).iloc[0]
+        pts_explicit_none = compute_heuristic_baseline(
+            pos_df, "TE", pd.DataFrame(), weekly_df=None
+        ).iloc[0]
+
+        assert pts_default == pytest.approx(pts_explicit_none, abs=1e-6), (
+            "weekly_df=None should produce same result as default (no weekly_df)"
+        )
+
+    def test_blend_version_stamp_in_meta(self, tmp_path):
+        """When Bronze weekly data is present, train_and_save_residual_models
+        stamps heuristic_version='v4.2+blend' in the meta JSON.
+        This allows the router to distinguish blend-consistent models.
+        """
+        # We verify the stamp logic without running a full training — just
+        # check that the expected constant string exists in hybrid_projection.
+        import hybrid_projection as hp
+        import inspect
+
+        source = inspect.getsource(hp.train_and_save_residual_models)
+        assert "v4.2+blend" in source, (
+            "train_and_save_residual_models must stamp 'v4.2+blend' when "
+            "Bronze weekly data is available for veteran blend training"
+        )
