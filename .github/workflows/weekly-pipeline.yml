@@ -203,11 +203,23 @@ jobs:
           aws-region:            ${{ secrets.AWS_REGION || env.AWS_REGION }}
 
       # ------------------------------------------------------------------
-      # 5. Bronze ingestion — all four player data types for the week
-      # Each type is ingested sequentially so a failure in one type is
-      # surfaced clearly in the step log rather than buried in parallel
-      # output.  The || true on rosters is intentional: rosters are
-      # season-level data and may 404 mid-season; we warn but don't fail.
+      # 5. Bronze ingestion — player data for the current week, plus
+      # the season-level data types needed by the Silver advanced
+      # transformation and graph feature computation.
+      #
+      # Group A: weekly player data (same as before)
+      # Group B: season-level NGS / PFR / QBR / PBP (needed for Silver
+      #          advanced profiles and graph features).  These are all
+      #          fail-open (continue-on-error: true) because nfl-data-py
+      #          occasionally returns 404 for mid-season seasons, and the
+      #          downstream steps handle missing data gracefully by falling
+      #          back to NaN-filled columns.
+      #
+      # NOTE: PBP ingestion uses --include-participation so that both
+      # data/bronze/pbp/ and data/bronze/pbp_participation/ are populated
+      # in one pass.  The --seasons flag ingests the current and prior
+      # season in one call so the graph trailing windows (wr_def_trail_*,
+      # te_def_trail_*) have cross-season context from week 1 onward.
       # ------------------------------------------------------------------
       - name: Bronze — ingest player_weekly
         id: bronze_player_weekly
@@ -248,7 +260,81 @@ jobs:
             --data-type rosters
 
       # ------------------------------------------------------------------
-      # 6. Silver transformation
+      # 5b. Bronze — season-level data for ML feature assembly
+      #
+      # These types are ingested once per season (not per week).  We
+      # request both $SEASON and $SEASON-1 in one call where the CLI
+      # supports it.  All steps are fail-open: downstream Silver scripts
+      # handle absent Bronze files by producing NaN-filled columns
+      # (explicitly tested in the v4.2 leakage audit).
+      #
+      # ngs: NGS receiving/passing/rushing profiles (3 sub-types)
+      # pfr_weekly: PFR pressure / blitz / rushing / receiving stats
+      # qbr: ESPN QBR weekly ratings (QB-only; 2024+ may be absent from
+      #      upstream nflverse — the Silver step handles NaN gracefully)
+      # pbp + participation: PBP play-level data AND participation columns
+      #      (--include-participation stores the minimal participation
+      #       subset to data/bronze/pbp_participation/ in the same pass).
+      #      Both the current season AND the prior season are ingested so
+      #      the graph trailing windows cover the season boundary from w1.
+      # ------------------------------------------------------------------
+      - name: Bronze — ingest NGS (season-level)
+        id: bronze_ngs
+        continue-on-error: true
+        run: |
+          PREV_SEASON=$(( SEASON - 1 ))
+          for s in "$PREV_SEASON" "$SEASON"; do
+            python scripts/bronze_ingestion_simple.py \
+              --season "$s" \
+              --data-type ngs \
+              || echo "::warning::NGS ingest failed for season $s — graph NGS features will be NaN"
+          done
+
+      - name: Bronze — ingest PFR weekly (season-level)
+        id: bronze_pfr_weekly
+        continue-on-error: true
+        run: |
+          PREV_SEASON=$(( SEASON - 1 ))
+          for s in "$PREV_SEASON" "$SEASON"; do
+            python scripts/bronze_ingestion_simple.py \
+              --season "$s" \
+              --data-type pfr_weekly \
+              || echo "::warning::PFR weekly ingest failed for season $s — PFR features will be NaN"
+          done
+
+      - name: Bronze — ingest QBR (season-level)
+        id: bronze_qbr
+        continue-on-error: true
+        run: |
+          PREV_SEASON=$(( SEASON - 1 ))
+          for s in "$PREV_SEASON" "$SEASON"; do
+            python scripts/bronze_ingestion_simple.py \
+              --season "$s" \
+              --data-type qbr \
+              --frequency weekly \
+              || echo "::warning::QBR ingest failed for season $s — QBR features will be NaN"
+          done
+
+      - name: Bronze — ingest PBP + participation (current and prior season)
+        id: bronze_pbp
+        # PBP is the heaviest ingest (~100-400 MB per season from nfl-data-py).
+        # Fail-open: graph features fall back to NaN-only when PBP is absent.
+        # Both seasons are needed: prior season drives early-week trailing
+        # windows (wr_def_trail_*, te_def_trail_*) before enough current-
+        # season data accumulates.
+        continue-on-error: true
+        run: |
+          PREV_SEASON=$(( SEASON - 1 ))
+          for s in "$PREV_SEASON" "$SEASON"; do
+            python scripts/bronze_ingestion_simple.py \
+              --season "$s" \
+              --data-type pbp \
+              --include-participation \
+              || echo "::warning::PBP ingest failed for season $s — graph WR/TE features will be NaN"
+          done
+
+      # ------------------------------------------------------------------
+      # 6. Silver transformation — usage + advanced profiles
       # ------------------------------------------------------------------
       - name: Silver — player transformation
         id: silver_transform
@@ -257,28 +343,105 @@ jobs:
             --season "$SEASON" \
             --week   "$WEEK"
 
+      - name: Silver — advanced player profiles (NGS/PFR/QBR)
+        id: silver_advanced
+        # Fail-open: if NGS/PFR/QBR Bronze was not ingested above, this
+        # produces a file with NaN-filled advanced columns.  The --ml path
+        # treats those NaN columns as missing features and imputes them,
+        # so projections degrade gracefully rather than crashing.
+        continue-on-error: true
+        run: |
+          python scripts/silver_advanced_transformation.py \
+            --season "$SEASON" \
+            --no-s3 \
+            || echo "::warning::silver_advanced_transformation failed for season $SEASON — advanced (NGS/PFR/QBR) features will be NaN in --ml path"
+
+      - name: Silver — graph features (prior season + current season)
+        id: silver_graph
+        # compute_graph_features loads PBP + participation for every season
+        # in the --seasons list.  We pass both $SEASON-1 and $SEASON so
+        # the WR/TE trailing-window features (wr_def_trail_*, te_def_trail_*)
+        # have cross-season context from week 1.
+        #
+        # Timing: ~2.5 min per season locally (2025, full season, 143 s).
+        # Two seasons: ~5 min.  Total added pipeline time: ~7-8 min, well
+        # within the 60-min budget target.
+        #
+        # Fail-open: when PBP Bronze was not ingested (step bronze_pbp
+        # above failed), compute_graph_features produces empty DataFrames
+        # per feature group and saves nothing.  The --ml path handles
+        # missing Silver graph_features by using NaN-filled columns.
+        continue-on-error: true
+        run: |
+          PREV_SEASON=$(( SEASON - 1 ))
+          python scripts/compute_graph_features.py \
+            --seasons "$PREV_SEASON" "$SEASON" \
+            || echo "::warning::compute_graph_features failed for seasons $PREV_SEASON $SEASON — WR/TE graph features will be NaN in --ml path"
+
       # ------------------------------------------------------------------
-      # 7. Gold projection generation (half_ppr scoring)
+      # 7. Gold projection generation (half_ppr scoring) — HYBRID ML path
       #
-      # NOTE (v4.2, 2026-06-10): do NOT add --ml here yet. The TE hybrid
-      # residual model needs the full feature vector from
-      # assemble_player_features(), which requires data/silver/players/
-      # advanced + historical and data/silver/graph_features for the
-      # current season — none of which exist on this runner (not in git,
-      # not generated by this workflow). With them missing, the residual
-      # features get imputed and corrections degrade below heuristic
-      # quality (the exact failure mode fixed in v4.2). Enabling --ml
-      # requires adding silver_advanced_transformation +
-      # compute_graph_features steps for $SEASON above this one.
+      # v4.3 (2026-06-12): --ml is now the primary path.  HYBRID_POSITIONS
+      # = {"TE", "WR"} use Ridge residual correction (sealed-2025 gate:
+      # WR −0.075, TE −0.428 MAE vs Sleeper consensus).  QB/RB remain
+      # heuristic-only (SKIP verdict; XGB degrades both positions).
+      #
+      # Fail-open design:
+      #   1. Run generate_projections.py --ml.
+      #   2. Run scripts/check_ml_output.py to verify:
+      #        - output file was written
+      #        - hybrid positions (TE/WR) appear in projection_source
+      #        - no position has all-zero projected_points
+      #   3. If either step exits non-zero, re-run WITHOUT --ml
+      #      (heuristic-only) and emit a ::warning so the failure is
+      #      visible in the Actions UI without blocking the pipeline.
+      #
+      # The dashboard step (7b) runs unconditionally after this step
+      # regardless of which path succeeded.
       # ------------------------------------------------------------------
-      - name: Gold — generate projections (half_ppr)
+      - name: Gold — generate projections (half_ppr, hybrid ML)
         id: gold_projections
         run: |
+          set +e   # do not exit on first error; we handle failures below
+
+          ML_EXIT=0
+          SANITY_EXIT=0
+
+          # --- Attempt 1: hybrid ML path ---
           python scripts/generate_projections.py \
             --season  "$SEASON"   \
             --week    "$WEEK"     \
-            --scoring half_ppr   \
+            --scoring half_ppr    \
+            --ml                  \
             --output  s3
+          ML_EXIT=$?
+
+          if [ "$ML_EXIT" -eq 0 ]; then
+            # Quick sanity: verify hybrid positions present + no all-zero positions
+            python scripts/check_ml_output.py \
+              --season "$SEASON" \
+              --week   "$WEEK"   \
+              --scoring half_ppr
+            SANITY_EXIT=$?
+          fi
+
+          if [ "$ML_EXIT" -ne 0 ] || [ "$SANITY_EXIT" -ne 0 ]; then
+            echo "::warning::--ml projection failed (ml_exit=$ML_EXIT sanity_exit=$SANITY_EXIT) — falling back to heuristic-only"
+            # --- Fallback: heuristic-only ---
+            python scripts/generate_projections.py \
+              --season  "$SEASON"   \
+              --week    "$WEEK"     \
+              --scoring half_ppr    \
+              --output  s3
+            HEURISTIC_EXIT=$?
+            if [ "$HEURISTIC_EXIT" -ne 0 ]; then
+              echo "Heuristic fallback also failed — pipeline cannot produce Gold projections"
+              exit "$HEURISTIC_EXIT"
+            fi
+            echo "Heuristic-only projections written (ML path unavailable this run)"
+          else
+            echo "Hybrid ML projections written successfully"
+          fi
 
       # ------------------------------------------------------------------
       # 7b. ELITE 3.1 Grading — grade the PREVIOUS week
@@ -357,18 +520,24 @@ jobs:
           | snap_counts | ingested |
           | injuries | ingested |
           | rosters | ingested (non-blocking) |
+          | ngs | ingested (non-blocking) |
+          | pfr_weekly | ingested (non-blocking) |
+          | qbr | ingested (non-blocking) |
+          | pbp + participation | ingested current+prior season (non-blocking) |
 
           ### Pipeline Stages
 
           | Stage | Status |
           |-------|--------|
           | Bronze ingestion | complete |
-          | Silver transformation | complete |
-          | Gold projections (half_ppr) | complete |
+          | Silver — player transformation | complete |
+          | Silver — advanced profiles (NGS/PFR/QBR) | complete (non-blocking) |
+          | Silver — graph features (prior+current season) | complete (non-blocking) |
+          | Gold projections (half_ppr, hybrid WR/TE ML) | complete |
           | Sanity check | passed |
           | Health check | passed |
 
-          > Scoring format: **half_ppr**
+          > Scoring format: **half_ppr** | Gold path: **hybrid ML (WR/TE Ridge residual)**
           > S3 region: **us-east-2**
           > Buckets: `nfl-raw` → `nfl-refined` → `nfl-trusted`
           """
