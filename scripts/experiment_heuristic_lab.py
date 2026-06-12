@@ -1040,6 +1040,397 @@ def cmd_sweep_rb_route() -> None:
         )
 
 
+def _build_yardage_allowances(
+    weekly_df: pd.DataFrame,
+    schedules_df: pd.DataFrame,
+    window: int = 8,
+    min_games: int = 3,
+) -> pd.DataFrame:
+    """Lab-local version of player_analytics.build_yardage_allowances.
+
+    Returns a long-format DataFrame with columns:
+        season, week, team (defending), position, stat, opp_adj
+
+    ``stat`` is one of:
+        WR_recv_yds_trail, WR_receptions_trail,
+        TE_recv_yds_trail, TE_receptions_trail,
+        RB_recv_yds_trail, RB_rush_yds_trail, RB_carries_trail
+
+    ``opp_adj`` = trailing_{window}-week mean of that stat allowed by the
+    defense, minus the league-week mean for (position, stat) — so positive
+    means the defense allows *more* of that stat than average (favorable
+    matchup for the offensive player).
+
+    All trailing values use shift(1) before rolling so the current week's
+    data is strictly excluded (leak-free for projecting that week).
+    """
+    if weekly_df.empty or schedules_df.empty:
+        return pd.DataFrame()
+
+    sched = schedules_df[["season", "week", "home_team", "away_team"]].copy()
+    home = sched.rename(columns={"home_team": "player_team", "away_team": "defense"})
+    away = sched.rename(columns={"away_team": "player_team", "home_team": "defense"})
+    opp_map = pd.concat([home, away], ignore_index=True)
+
+    skill = weekly_df[weekly_df["position"].isin(["WR", "TE", "RB"])].copy()
+    if skill.empty:
+        return pd.DataFrame()
+
+    merged = skill.merge(
+        opp_map,
+        left_on=["season", "week", "recent_team"],
+        right_on=["season", "week", "player_team"],
+        how="inner",
+    )
+    if merged.empty:
+        return pd.DataFrame()
+
+    # (position_filter, stat_label, raw_column)
+    stat_defs = [
+        ("WR", "WR_recv_yds_trail", "receiving_yards"),
+        ("WR", "WR_receptions_trail", "receptions"),
+        ("TE", "TE_recv_yds_trail", "receiving_yards"),
+        ("TE", "TE_receptions_trail", "receptions"),
+        ("RB", "RB_recv_yds_trail", "receiving_yards"),
+        ("RB", "RB_rush_yds_trail", "rushing_yards"),
+        ("RB", "RB_carries_trail", "carries"),
+    ]
+
+    parts = []
+    for pos_filter, stat_label, raw_col in stat_defs:
+        if raw_col not in merged.columns:
+            continue
+        pos_merged = merged[merged["position"] == pos_filter]
+        if pos_merged.empty:
+            continue
+
+        allowed = (
+            pos_merged.groupby(["season", "week", "defense"], as_index=False)[raw_col]
+            .sum()
+            .rename(columns={raw_col: "raw_allowed"})
+        )
+        allowed = allowed.sort_values(["defense", "season", "week"])
+        allowed["trailing"] = allowed.groupby("defense")["raw_allowed"].transform(
+            lambda s: s.shift(1).rolling(window, min_periods=min_games).mean()
+        )
+        league_mean = allowed.groupby(["season", "week"])["trailing"].transform("mean")
+        allowed["opp_adj"] = allowed["trailing"] - league_mean
+        allowed["position"] = pos_filter
+        allowed["stat"] = stat_label
+        parts.append(
+            allowed[["season", "week", "defense", "position", "stat", "opp_adj"]]
+            .dropna(subset=["opp_adj"])
+            .rename(columns={"defense": "team"})
+        )
+
+    return pd.concat(parts, ignore_index=True) if parts else pd.DataFrame()
+
+
+def _make_yardage_matchup_patch(
+    yardage_allow: pd.DataFrame,
+    strength: pd.DataFrame,
+    opp_map: Dict,
+    pos_betas: Dict[str, Dict[str, float]],
+    base_betas: Optional[Dict[str, float]] = None,
+    clip_lo: float = 0.85,
+    clip_hi: float = 1.15,
+) -> callable:
+    """Return a ``_matchup_factor`` replacement combining yardage allowances.
+
+    The combined factor for position P is:
+
+        factor = clip(1 + beta_base * (pts_ratio - 1)
+                      + sum_stat(beta_stat * norm(opp_adj_stat)),
+                 clip_lo, clip_hi)
+
+    where ``pts_ratio`` is from the existing defense_strength table (overall
+    fantasy-points-allowed ratio), ``opp_adj_stat`` is from yardage_allow,
+    and ``norm`` scales each stat to unit variance (computed over the
+    provided allowance table so it is consistent within the sweep).
+
+    Args:
+        yardage_allow: Output of ``_build_yardage_allowances``.
+        strength:      Output of ``build_defense_strength`` (pts ratio table).
+        opp_map:       (season, week, team) -> opponent dict.
+        pos_betas:     Per-position stat-beta dict, e.g.
+                       ``{"WR": {"WR_recv_yds_trail": 0.02, ...}, ...}``.
+        base_betas:    Per-position beta for the overall pts-ratio term.
+                       Defaults to production ``projection_engine.MATCHUP_BETA``.
+        clip_lo:       Lower clip bound (default 0.85).
+        clip_hi:       Upper clip bound (default 1.15).
+    """
+    if base_betas is None:
+        base_betas = dict(projection_engine.MATCHUP_BETA)
+
+    # Build the per-stat normalisation denominators (std over non-null rows)
+    stat_std: Dict[str, float] = {}
+    if not yardage_allow.empty:
+        for stat_name, grp in yardage_allow.groupby("stat"):
+            s = grp["opp_adj"].dropna()
+            stat_std[stat_name] = float(s.std()) if len(s) > 1 else 1.0
+
+    # Build lookup tables
+    pts_lut: Dict[tuple, float] = {}
+    if not strength.empty:
+        for r in strength.itertuples(index=False):
+            pts_lut[(r.season, r.week, r.team, r.position)] = r.ratio
+
+    ydg_lut: Dict[tuple, float] = {}
+    if not yardage_allow.empty:
+        for r in yardage_allow.itertuples(index=False):
+            ydg_lut[(r.season, r.week, r.team, r.stat)] = r.opp_adj
+
+    def patched(df: pd.DataFrame, opp_rankings, position: str) -> pd.Series:  # noqa: ARG001
+        base_beta = base_betas.get(position, 0.0)
+        stat_betas = pos_betas.get(position, {})
+
+        season_col = "proj_season" if "proj_season" in df.columns else "season"
+        week_col = "proj_week" if "proj_week" in df.columns else "week"
+
+        vals = []
+        for row in df.itertuples(index=False):
+            season = getattr(row, season_col, None)
+            week = getattr(row, week_col, None)
+            team = getattr(row, "recent_team", None)
+            opp = opp_map.get((season, week, team)) if season and week and team else None
+
+            # Base pts-ratio term
+            pts_ratio = pts_lut.get((season, week, opp, position)) if opp else None
+            base_contrib = (
+                base_beta * (pts_ratio - 1.0) if pts_ratio is not None and np.isfinite(pts_ratio) else 0.0
+            )
+
+            # Yardage-allowance terms
+            ydg_contrib = 0.0
+            for stat_name, beta_stat in stat_betas.items():
+                if beta_stat == 0.0 or not opp:
+                    continue
+                adj = ydg_lut.get((season, week, opp, stat_name))
+                if adj is None or not np.isfinite(adj):
+                    continue
+                std = stat_std.get(stat_name, 1.0)
+                if std < 1e-6:
+                    continue
+                ydg_contrib += beta_stat * (adj / std)
+
+            factor = 1.0 + base_contrib + ydg_contrib
+            vals.append(float(np.clip(factor, clip_lo, clip_hi)))
+
+        return pd.Series(vals, index=df.index)
+
+    return patched
+
+
+def cmd_sweep_yardage_allowances() -> None:
+    """Sweep position-specific yardage-allowance betas on 2022-2024 cached weeks.
+
+    Strategy:
+    1. Load the cached weekly + schedule data.
+    2. Build yardage allowances (7 stat-types across WR/TE/RB).
+    3. Sweep individual stat betas per position, one at a time, on top of the
+       production v4.2 matchup patch (apples-to-apples baseline).
+    4. Evaluate combined WR+TE and WR+RB multi-stat combos at winner betas.
+
+    Gate: improvement >= 0.03 CV MAE per position to report as SHIP candidate.
+    Kill: < 0.02 overall MAE delta → record null result.
+
+    Outputs:
+      - Console: per-config summary with position MAE + delta vs baseline
+      - CSV: output/heuristic_lab_cache/sweep_yardage_allowances.csv
+    """
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    omap = build_upcoming_opponent_map(sched)
+    strength = build_defense_strength(weekly, sched, window=8)
+    base_betas = dict(projection_engine.MATCHUP_BETA)
+
+    print("Building yardage allowances table...")
+    yardage_allow = _build_yardage_allowances(weekly, sched, window=8, min_games=3)
+    if yardage_allow.empty:
+        print("ERROR: yardage allowances table is empty — aborting")
+        return
+
+    stat_counts = yardage_allow.groupby("stat").size()
+    print(f"Yardage allowances: {len(yardage_allow)} rows")
+    print(stat_counts.to_string())
+
+    rows = []
+
+    def run(label: str, pos_betas: Dict) -> Dict:
+        """Evaluate one config and print result."""
+        patch = _make_yardage_matchup_patch(
+            yardage_allow, strength, omap, pos_betas, base_betas
+        )
+        results = evaluate_config(manifest, matchup_patch=patch)
+        s = summarize(results)
+        s["label"] = label
+        s.update({f"beta_{k}": str(v) for k, v in pos_betas.items()})
+        rows.append(s)
+        print(f"{label:<55} {_fmt(s)}")
+        return s
+
+    # -----------------------------------------------------------------------
+    # Baseline: v4.2 production (no yardage terms, pure pts-ratio matchup)
+    # -----------------------------------------------------------------------
+    base_patch = _make_yardage_matchup_patch(
+        yardage_allow, strength, omap, {}, base_betas
+    )
+    base_results = evaluate_config(manifest, matchup_patch=base_patch)
+    base = summarize(base_results)
+    base["label"] = "baseline_v42"
+    rows.append(base)
+    print(f"{'baseline_v42 (pts-ratio only)':<55} {_fmt(base)}")
+    print()
+
+    # -----------------------------------------------------------------------
+    # Phase 1: Single-stat sweeps per position
+    # WR stats: WR_recv_yds_trail, WR_receptions_trail
+    # TE stats: TE_recv_yds_trail, TE_receptions_trail
+    # RB stats: RB_recv_yds_trail, RB_rush_yds_trail, RB_carries_trail
+    # -----------------------------------------------------------------------
+    print("--- WR single-stat sweeps ---")
+    wr_stats = ["WR_recv_yds_trail", "WR_receptions_trail"]
+    for stat in wr_stats:
+        for beta in [0.01, 0.02, 0.04, 0.07, 0.10]:
+            run(
+                f"WR {stat} b={beta}",
+                {"WR": {stat: beta}},
+            )
+
+    print()
+    print("--- TE single-stat sweeps ---")
+    te_stats = ["TE_recv_yds_trail", "TE_receptions_trail"]
+    for stat in te_stats:
+        for beta in [0.01, 0.02, 0.04, 0.07, 0.10]:
+            run(
+                f"TE {stat} b={beta}",
+                {"TE": {stat: beta}},
+            )
+
+    print()
+    print("--- RB single-stat sweeps ---")
+    rb_stats = ["RB_rush_yds_trail", "RB_carries_trail", "RB_recv_yds_trail"]
+    for stat in rb_stats:
+        for beta in [0.02, 0.05, 0.10, 0.15, 0.20]:
+            run(
+                f"RB {stat} b={beta}",
+                {"RB": {stat: beta}},
+            )
+
+    # -----------------------------------------------------------------------
+    # Phase 2: Winner combos (best single per position, then multi-stat)
+    # -----------------------------------------------------------------------
+    print()
+    print("--- Best-of-phase-1 combos ---")
+
+    # Find per-position best single stat from phase-1 sweep
+    df_rows = pd.DataFrame(rows)
+    best_by_pos: Dict[str, Tuple[str, float, float]] = {}
+    for pos in ["WR", "TE", "RB"]:
+        pos_key = f"{pos}_mae"
+        if pos_key not in df_rows.columns:
+            continue
+        phase1 = df_rows[
+            df_rows["label"].str.startswith(pos + " ") & df_rows[pos_key].notna()
+        ]
+        if phase1.empty:
+            continue
+        best_row = phase1.loc[phase1[pos_key].idxmin()]
+        # Parse best stat + beta from label: "{POS} {stat} b={beta}"
+        try:
+            parts = best_row["label"].split()
+            stat_best = parts[1]
+            beta_best = float(parts[2].split("=")[1])
+            base_pos_mae = float(base[pos_key])
+            best_pos_mae = float(best_row[pos_key])
+            delta = best_pos_mae - base_pos_mae
+            best_by_pos[pos] = (stat_best, beta_best, delta)
+            print(
+                f"  {pos} best: {stat_best} b={beta_best}  "
+                f"MAE {best_pos_mae:.4f} (delta {delta:+.4f})"
+            )
+        except (IndexError, ValueError, KeyError):
+            pass
+
+    # Multi-stat combo: combine all winning stats simultaneously
+    if len(best_by_pos) >= 2:
+        combo_betas: Dict[str, Dict[str, float]] = {}
+        for pos, (stat, beta, _) in best_by_pos.items():
+            combo_betas[pos] = {stat: beta}
+        run("combo_all_best_stats", combo_betas)
+
+    # WR + TE combined (most likely to interact)
+    if "WR" in best_by_pos and "TE" in best_by_pos:
+        wr_stat, wr_b, _ = best_by_pos["WR"]
+        te_stat, te_b, _ = best_by_pos["TE"]
+        run(
+            "combo_WR+TE_best",
+            {"WR": {wr_stat: wr_b}, "TE": {te_stat: te_b}},
+        )
+
+    # RB multi-stat (rush yards + carries together)
+    run(
+        "RB_rush_yds+carries_0.05",
+        {"RB": {"RB_rush_yds_trail": 0.05, "RB_carries_trail": 0.05}},
+    )
+    run(
+        "RB_rush_yds+carries_0.10",
+        {"RB": {"RB_rush_yds_trail": 0.10, "RB_carries_trail": 0.10}},
+    )
+
+    # -----------------------------------------------------------------------
+    # Phase 3: Fine-tune best combos (tighter grid around winner)
+    # -----------------------------------------------------------------------
+    print()
+    print("--- Phase 3: fine-tune grid around best combo ---")
+    if "WR" in best_by_pos:
+        wr_stat, wr_b, _ = best_by_pos["WR"]
+        for b in [max(0.005, wr_b - 0.015), wr_b - 0.01, wr_b, wr_b + 0.01, wr_b + 0.02]:
+            if b < 0:
+                continue
+            run(f"fine_WR {wr_stat} b={b:.3f}", {"WR": {wr_stat: b}})
+
+    if "RB" in best_by_pos:
+        rb_stat, rb_b, _ = best_by_pos["RB"]
+        for b in [rb_b - 0.02, rb_b - 0.01, rb_b, rb_b + 0.02, rb_b + 0.04]:
+            if b < 0:
+                continue
+            run(f"fine_RB {rb_stat} b={b:.3f}", {"RB": {rb_stat: b}})
+
+    # Save results
+    out_df = pd.DataFrame(rows)
+    out_path = os.path.join(CACHE_DIR, "sweep_yardage_allowances.csv")
+    out_df.to_csv(out_path, index=False)
+    print(f"\nSaved to {out_path}")
+
+    # -----------------------------------------------------------------------
+    # Summary: gate assessment
+    # -----------------------------------------------------------------------
+    print()
+    print("=" * 72)
+    print("GATE ASSESSMENT (threshold: >= 0.03 MAE improvement per position)")
+    print("=" * 72)
+    base_overall = base["overall_mae"]
+    for pos in POSITIONS:
+        pos_key = f"{pos}_mae"
+        base_pos = base.get(pos_key, float("nan"))
+        best_overall = out_df[pos_key].min() if pos_key in out_df.columns else float("nan")
+        delta = best_overall - base_pos
+        gate = "PASS (>= 0.03)" if delta <= -0.03 else ("MARGINAL" if delta <= -0.02 else "KILL (< 0.02)")
+        print(f"  {pos}: base {base_pos:.4f}  best {best_overall:.4f}  delta {delta:+.4f}  => {gate}")
+
+    best_overall = out_df["overall_mae"].min() if "overall_mae" in out_df.columns else float("nan")
+    overall_delta = best_overall - base_overall
+    print(f"\n  Overall: base {base_overall:.4f}  best {best_overall:.4f}  delta {overall_delta:+.4f}")
+    if overall_delta <= -0.03:
+        print("  VERDICT: SHIP — substantial overall improvement")
+    elif overall_delta <= -0.02:
+        print("  VERDICT: MARGINAL — investigate per-position decomposition")
+    else:
+        print("  VERDICT: KILL — less than 0.02 overall improvement; revert")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -1055,6 +1446,7 @@ def main() -> int:
             "sweep-rb-route",
             "sweep-veteran-prior",
             "consensus-gap",
+            "sweep-yardage-allowances",
         ],
     )
     parser.add_argument("--seasons", type=str, default="2022,2023,2024")
@@ -1082,6 +1474,8 @@ def main() -> int:
         cmd_sweep_veteran_prior()
     elif args.command == "consensus-gap":
         cmd_consensus_gap()
+    elif args.command == "sweep-yardage-allowances":
+        cmd_sweep_yardage_allowances()
     return 0
 
 
