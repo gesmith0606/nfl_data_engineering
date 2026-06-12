@@ -19,7 +19,8 @@ on:
     - cron: "0 13 * * *"   # 13:00 UTC daily — morning spreads snapshot
     - cron: "0 21 * * *"   # 21:00 UTC daily — evening/closing spreads snapshot
     - cron: "0 14 * * 0"   # 14:00 UTC Sunday — weekly player-props snapshot
-    - cron: "0 22 * * 4"   # 22:00 UTC Thursday — TNF props (~2h pre-kickoff;
+    - cron: "0 22 * * 4"   # 22:00 UTC Thursday — TNF props (~2h pre-kickoff
+                           # but ~1h PRE-inactives, unavoidable for TNF;
                            # Sunday-only capture would never see TNF props)
 
   workflow_dispatch: {}
@@ -141,7 +142,7 @@ jobs:
   # returns no games within the 7-day window on most weekdays.
   # ---------------------------------------------------------------------------
   capture-props:
-    name: Fetch and persist player-props snapshot (Sunday)
+    name: Fetch and persist player-props snapshot (Sun/Thu)
     runs-on: ubuntu-latest
     # Only run when triggered by the Sunday 14:00 UTC cron (minute=0, hour=14,
     # dow=0) or by a manual workflow_dispatch.  The daily 13:00/21:00 triggers
@@ -210,7 +211,8 @@ jobs:
           else
             COUNT=$(git diff --cached --name-only | wc -l | tr -d ' ')
 
-            git commit -m "data(props): player-props snapshot — ${COUNT} file(s) [Sunday]
+            DOW=$(date -u +%a)
+            git commit -m "data(props): player-props snapshot — ${COUNT} file(s) [${DOW}]
 
           Automated weekly player-props capture via The Odds API (Phase 1.5)."
 

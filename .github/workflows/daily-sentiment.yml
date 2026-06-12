@@ -231,6 +231,19 @@ jobs:
       - name: Check newest odds snapshot age
         id: freshness
         run: |
+          # Dead-zone guard: The Odds API posts NFL look-ahead lines most of
+          # the year (verified: 75 games live in June), but roughly March-May
+          # no lines exist, no snapshots are written, and staleness is
+          # EXPECTED — alerting then would open a false issue whose presence
+          # could suppress a real in-season alert via the dedupe check.
+          MONTH=$(date -u +%m)
+          case "$MONTH" in
+            03|04|05)
+              echo "stale=false" >> "$GITHUB_OUTPUT"
+              echo "NFL odds dead zone (month $MONTH) — staleness check skipped."
+              exit 0
+              ;;
+          esac
           # Snapshot filenames embed their capture time:
           # odds_YYYYMMDD_HHMMSS.parquet — sort lexicographically for newest.
           NEWEST=$(find data/bronze/odds_api/snapshots -name "odds_*.parquet" 2>/dev/null \
@@ -257,15 +270,18 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const title = 'Odds capture STALE — line history is being lost';
-            // Dedupe: skip if an open issue with this title already exists.
+            const now = new Date().toISOString().split('T')[0];
+            const titlePrefix = 'Odds capture STALE — line history is being lost';
+            const title = `${titlePrefix} (since ${now})`;
+            // Dedupe on the PREFIX: one open issue per stale EPISODE.
+            // Closing it (when capture resumes) re-arms the alert.
             const open = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
               labels: 'pipeline-failure',
             });
-            if (open.data.some(i => i.title === title)) {
+            if (open.data.some(i => i.title.startsWith(titlePrefix))) {
               core.info('Stale-odds issue already open — not duplicating.');
               return;
             }
@@ -277,7 +293,7 @@ jobs:
               body: [
                 '## Odds snapshot freshness check failed',
                 '',
-                `Detail: ${{ toJSON(steps.freshness.outputs.detail) }}`,
+                `Detail: ${{ steps.freshness.outputs.detail }}`,
                 '',
                 'The odds-capture cron appears to have stopped. Every day without',
                 'capture is **permanently lost** open/close line history (free tier',
