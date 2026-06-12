@@ -281,6 +281,34 @@ jobs:
             --output  s3
 
       # ------------------------------------------------------------------
+      # 7b. ELITE 3.1 Grading — grade the PREVIOUS week
+      #
+      # The Tuesday cron fires after Monday Night Football completes, so
+      # actuals for week (WEEK-1) are finalised.  We grade that previous week.
+      # Fail-open: a grading failure never blocks the pipeline.  Missing
+      # upstream data (no consensus, no snapshots) produces a partial report
+      # with warnings rather than an error.
+      # ------------------------------------------------------------------
+      - name: ELITE grading — grade previous week
+        id: elite_grading
+        continue-on-error: true
+        run: |
+          GRADE_WEEK=$(( WEEK - 1 ))
+          if [ "$GRADE_WEEK" -lt 1 ]; then
+            echo "Week $WEEK is week 1 — no previous week to grade; skipping."
+            exit 0
+          fi
+          echo "Grading season=$SEASON week=$GRADE_WEEK"
+          python scripts/weekly_grading_report.py \
+            --season  "$SEASON"     \
+            --week    "$GRADE_WEEK" \
+            --scoring half_ppr      \
+            --output-root output/grading \
+          || {
+            echo "::warning::weekly_grading_report exited non-zero for $SEASON w$GRADE_WEEK — report may be partial."
+          }
+
+      # ------------------------------------------------------------------
       # 8. Sanity check — validate projections/predictions before deploy
       # Exits 1 on CRITICAL failures (blocks pipeline), 0 on PASS/WARN.
       # ------------------------------------------------------------------
