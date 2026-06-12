@@ -47,16 +47,23 @@ Disagreement buckets account for ~0.29 of the 0.30 RB gap. **We don't need a bet
 | **RB role gain not detected (teammate leaves)** | D.Foreman 2022 w8 (CMC traded; ours 1.6, cons 10.4, actual 29.8), Charbonnet 2024 w15 (K9 hurt) | Same — no opportunity-redistribution signal. We HAVE `src/graph_injury_cascade.py` but it doesn't drive the heuristic. |
 | **Harness data bug** | T.Hill appears twice 2023 w3 MIA with different actuals (26.2 / 2.6) | Join duplication in consensus matching — must fix before trusting per-row analysis. |
 
-## RESULTS (2026-06-11 — Workstreams A, B, C complete)
+## RESULTS (final 2026-06-12 — Workstreams A, B, C, D complete; E killed)
 
-Consensus gap (matched, cons≥5, 2022-24 w3-18, half-PPR; heuristic path):
+Consensus gap (matched, cons≥5, 2022-24 w3-18, half-PPR; heuristic path; FINAL column from
+`consensus_matched_half_ppr_20260611_235925.csv` with blend + RB snap-collapse + WR
+route-slope collapse all active):
 
-| Pos | Session start | After B (veteran priors) | After B+C (snap collapse) | Total movement |
-|-----|------|------|------|------|
-| QB  | −0.22 win | −0.31 | **−0.32 (bigger win)** | −0.10 |
-| RB  | +0.44 | +0.37 | **+0.27** | **−0.17** |
-| WR  | +0.25 | +0.13 | **+0.12** (w3-6: +0.78 → +0.38) | **−0.13** |
-| TE  | +0.33 | +0.25 | **+0.23** (hybrid path separately wins −0.38) | −0.10 |
+| Pos | Session start | After B (priors) | After B+C (snap) | **FINAL (B+C+D)** | Total movement |
+|-----|------|------|------|------|------|
+| QB  | −0.22 win | −0.31 | −0.32 | **−0.32 (win)** | −0.10 |
+| RB  | +0.44 | +0.37 | +0.27 | **+0.27** | **−0.17** |
+| WR  | +0.25 | +0.13 | +0.12 | **+0.09** (w3-6: +0.78 → +0.31) | **−0.16** |
+| TE  | +0.33 | +0.25 | +0.23 | **+0.23 heuristic / −0.44 hybrid (--ml, post blend-fix)** | win restored+improved |
+
+Overall matched gap: +0.083. Workstream D (WR route-slope collapse 0.75x at slope <−0.03)
+merged from worktree branch 13deddd; verified live (17 WRs corrected, 2024 w11). TE hybrid
+blend-consistency fix committed (743009f): TE −0.44 on --ml, Spearman 0.481 vs Sleeper 0.253.
+Suite on merged state: 2269 passed / 0 failed.
 
 Shipped (uncommitted): veteran prior blend (all positions, n_full=5 steep=0.7 decay=1.0,
 `USE_VETERAN_PRIOR_BLEND`), veteran-never-rookie routing (CMC 2024 w11: 3.81→15.83,
