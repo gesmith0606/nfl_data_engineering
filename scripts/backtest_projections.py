@@ -688,10 +688,16 @@ def run_backtest(
                 print("SKIP (insufficient history)")
                 continue
 
-            # Compute implied totals for constraints (if enabled)
+            # Compute implied totals whenever schedule lines are available.
+            # EVAL-VALIDITY FIX (2026-06-12): this was previously gated on
+            # apply_constraints, so every standard backtest ran with the
+            # Vegas multiplier silently DISABLED (vegas_multiplier == 1.0 on
+            # all rows) while production applied it — the backtest was not
+            # measuring the production system. Constraints remain gated on
+            # apply_constraints inside the projection call.
             implied_totals = None
             sched_for_week = None
-            if apply_constraints and not schedules_df.empty:
+            if not schedules_df.empty:
                 week_sched = (
                     schedules_df[
                         schedules_df.get("season", pd.Series(dtype=int)).eq(season)
