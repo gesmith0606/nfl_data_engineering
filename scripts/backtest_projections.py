@@ -628,6 +628,22 @@ def run_backtest(
     else:
         print("No snap count data found — RB snap-collapse signal will be skipped")
 
+    # Load route participation features (Silver graph_features) for WR slope-collapse
+    silver_dir = os.path.join(project_root, "data", "silver")
+    route_parts = []
+    for s in sorted(all_seasons):
+        route_pattern = os.path.join(
+            silver_dir, f"graph_features/season={s}/graph_route_participation_*.parquet"
+        )
+        route_files = sorted(globmod.glob(route_pattern))
+        if route_files:
+            route_parts.append(pd.read_parquet(route_files[-1]))
+    route_df: Optional[pd.DataFrame] = pd.concat(route_parts, ignore_index=True) if route_parts else None
+    if route_df is not None:
+        print(f"Loaded {len(route_df):,} route-participation rows for WR slope-collapse")
+    else:
+        print("No route participation data found — WR slope-collapse signal will be skipped")
+
     # Pre-assemble full feature vectors per season (if requested)
     season_features: Dict[int, pd.DataFrame] = {}
     if full_features and use_ml and HAS_FEATURE_ENGINEERING:
@@ -725,6 +741,7 @@ def run_backtest(
                         apply_constraints=apply_constraints,
                         weekly_df=weekly_df,
                         snap_counts_df=snap_counts_df,
+                        route_df=route_df,
                     )
             except Exception as e:
                 print(f"FAIL ({e})")

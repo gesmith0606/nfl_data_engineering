@@ -1040,6 +1040,758 @@ def cmd_sweep_rb_route() -> None:
         )
 
 
+def _build_production_blend_fn(
+    weekly: pd.DataFrame,
+    manifest: List[Dict],
+) -> object:
+    """Build the best-params veteran prior blend fn from the sweep CSV.
+
+    Uses n_full=5, steepness=0.7, team_change_decay=1.0 (shipped params from
+    plan RESULTS section).  Falls back to defaults when sweep CSV is absent.
+
+    Args:
+        weekly: Bronze weekly DataFrame (used as both training and lookup).
+        manifest: Manifest from the lab cache.
+
+    Returns:
+        Callable ``(target_df, pos, season, week) -> pd.DataFrame`` ready
+        for ``evaluate_config(prior_blend_fn=...)``.
+    """
+    seasons = sorted({e["season"] for e in manifest})
+    prior_weekly = _load_prior_weekly(seasons)
+    priors_df = build_player_priors(prior_weekly, scoring_format=SCORING)
+
+    sweep_csv = os.path.join(CACHE_DIR, "sweep_veteran_prior.csv")
+    n_full, steepness, decay, disc = 5, 0.7, 1.0, 0.85
+    if os.path.exists(sweep_csv):
+        sweep_df = pd.read_csv(sweep_csv)
+        non_base = sweep_df[sweep_df["label"] != "baseline_no_prior"]
+        if not non_base.empty and "WR_mae" in non_base.columns:
+            best_row = non_base.loc[non_base["WR_mae"].idxmin()]
+
+            def _param(key: str, default: float) -> float:
+                val = best_row.get(key, default)
+                return default if pd.isna(val) else float(val)
+
+            n_full = int(_param("n_full", 5))
+            steepness = _param("steepness", 0.7)
+            decay = _param("team_change_decay", 1.0)
+            disc = _param("first_week_back_discount", 0.85)
+
+    return _make_prior_blend_fn(
+        priors_df,
+        prior_weekly,
+        n_full=n_full,
+        steepness=steepness,
+        team_change_decay=decay,
+        first_week_back_discount=disc,
+    )
+
+
+def cmd_sweep_wr_route() -> None:
+    """Sweep WR route-rate signals as projection modifiers.
+
+    Tests three mechanisms against the production-config baseline
+    (v4.2 matchup + veteran prior blend + RB snap-collapse active):
+
+    **Mechanism A — usage level blend (null hypothesis from RB sweep):**
+    Blend ``route_rate_trail4`` percentile into the WR usage multiplier
+    alongside ``target_share``.  Weight ``w`` in {0.25, 0.5, 0.75, 1.0}.
+    Predicted to be null (same as RB); included to confirm.
+
+    **Mechanism B — role-change detector (velocity, asymmetric):**
+    Apply a multiplier when ``route_rate_delta`` or ``route_rate_slope``
+    exceeds a threshold, analogous to the RB snap-collapse 0.60x.
+    Asymmetric: rising role gets a boost; collapsing role gets a shrink.
+    Grid:
+
+    - collapse_threshold in {-0.05, -0.08, -0.10, -0.12}
+    - boost_threshold    in {+0.05, +0.08, +0.10, +0.12}
+    - collapse_mult      in {0.70, 0.75, 0.80, 0.85}
+    - boost_mult         in {1.05, 1.10, 1.15}
+    - signal source      in {delta, slope}
+
+    The boost and collapse sides are swept separately first, then jointly
+    for top candidates.
+
+    All mechanisms are applied ONLY to WR; QB/RB/TE are unchanged.
+
+    Outputs:
+      - Console: per-mechanism table with WR/QB/RB/TE MAE + WR Spearman
+      - CSV: output/heuristic_lab_cache/sweep_wr_route.csv
+      - Gate verdict: PASS/KILL per plan criteria
+    """
+    from scipy.stats import spearmanr  # type: ignore
+
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    strength = build_defense_strength(weekly, sched, window=8)
+    omap = build_upcoming_opponent_map(sched)
+    matchup = _make_matchup_patch(strength, omap, dict(projection_engine.MATCHUP_BETA))
+    prior_blend = _build_production_blend_fn(weekly, manifest)
+
+    seasons = sorted({e["season"] for e in manifest})
+    route = _load_route_features(seasons)
+    if route.empty:
+        print("No route participation data found — aborting")
+        return
+
+    # Build lookup tables.  trail4/delta/slope are all lagged through W-1
+    # inside compute_route_participation, so keying at the projected week is
+    # safe (no leakage).
+    route_lut_trail4 = route.set_index(["player_id", "season", "week"])[
+        "route_rate_trail4"
+    ]
+    route_lut_delta = route.set_index(["player_id", "season", "week"])[
+        "route_rate_delta"
+    ]
+    route_lut_slope = route.set_index(["player_id", "season", "week"])[
+        "route_rate_slope"
+    ]
+
+    orig_usage = projection_engine._usage_multiplier
+
+    # ------------------------------------------------------------------
+    # Helper: evaluate one config, return summary dict + WR Spearman
+    # ------------------------------------------------------------------
+
+    def _run(
+        label: str,
+        usage_patch=None,
+        **eval_kwargs,
+    ) -> Dict:
+        pe_usage = usage_patch if usage_patch is not None else orig_usage
+        projection_engine._usage_multiplier = pe_usage
+        try:
+            results = evaluate_config(
+                manifest,
+                matchup_patch=matchup,
+                prior_blend_fn=prior_blend,
+                **eval_kwargs,
+            )
+        finally:
+            projection_engine._usage_multiplier = orig_usage
+
+        s = summarize(results)
+        s["label"] = label
+
+        wr = results[results["position"] == "WR"]
+        if len(wr) >= 10:
+            corr, _ = spearmanr(wr["projected_points"], wr["actual_points"])
+            s["WR_spearman"] = float(corr)
+        else:
+            s["WR_spearman"] = float("nan")
+        return s
+
+    rows: List[Dict] = []
+
+    def _record(s: Dict) -> None:
+        rows.append(s)
+        sp = s.get("WR_spearman", float("nan"))
+        print(
+            f"{s['label']:<62} WR:{s.get('WR_mae', float('nan')):.4f} "
+            f"rho={sp:.4f} | {_fmt(s)}"
+        )
+
+    # ------------------------------------------------------------------
+    # BASELINE (production config: matchup + prior blend + snap-collapse)
+    # ------------------------------------------------------------------
+    base_s = _run("baseline_production")
+    _record(base_s)
+    baseline_wr_mae = base_s.get("WR_mae", float("nan"))
+    baseline_wr_rho = base_s.get("WR_spearman", float("nan"))
+    print(
+        f"\nBaseline WR MAE: {baseline_wr_mae:.4f}  "
+        f"WR Spearman: {baseline_wr_rho:.4f}"
+    )
+    print(
+        "Gates: improve >=0.03 WR MAE vs baseline OR improve >=0.02 WR Spearman "
+        "with no WR MAE regression; QB/RB/TE unchanged within +/-0.01."
+    )
+
+    # ------------------------------------------------------------------
+    # MECHANISM A — usage-level blend (trail4 percentile into WR usage mult)
+    # RB sweep found this null; checking WR separately.
+    # ------------------------------------------------------------------
+    print("\n=== Mechanism A: WR route-level usage blend (trail4 percentile) ===")
+
+    def _make_wr_level_usage(w: float):
+        """Blend route_rate_trail4 percentile (weight w) into WR usage mult.
+
+        Args:
+            w: Blend weight for the route-rate percentile (0.0 = pure
+               target_share; 1.0 = pure route-rate percentile).
+
+        Returns:
+            Patched _usage_multiplier function.
+        """
+
+        def patched(df: pd.DataFrame, position: str) -> pd.Series:
+            base = orig_usage(df, position)
+            if position != "WR" or w == 0.0 or "player_id" not in df.columns:
+                return base
+            season_col = (
+                df["proj_season"] if "proj_season" in df.columns else df["season"]
+            )
+            week_col = df["proj_week"] if "proj_week" in df.columns else df["week"]
+            keys = list(zip(df["player_id"], season_col, week_col))
+            rr = pd.Series(
+                [route_lut_trail4.get(k, np.nan) for k in keys], index=df.index
+            )
+            if rr.notna().sum() < 5:
+                return base
+            rr_pct = rr.rank(pct=True)
+            base_pct = (base - 0.80) / 0.35
+            blended = (1 - w) * base_pct + w * rr_pct.fillna(base_pct)
+            return (0.80 + 0.35 * blended).clip(0.80, 1.15)
+
+        return patched
+
+    for w in [0.25, 0.5, 0.75, 1.0]:
+        s = _run(f"mech_A_trail4_w={w}", usage_patch=_make_wr_level_usage(w))
+        _record(s)
+
+    # ------------------------------------------------------------------
+    # MECHANISM B — velocity / role-change detector
+    # ------------------------------------------------------------------
+    print("\n=== Mechanism B: WR route-velocity role-change detector ===")
+
+    def _make_wr_velocity_usage(
+        collapse_thr: float,
+        collapse_mult: float,
+        boost_thr: float,
+        boost_mult: float,
+        signal: str = "delta",
+    ):
+        """Apply an asymmetric multiplier when route velocity crosses a threshold.
+
+        For WR rows where the lagged signal (delta or slope) is below
+        ``collapse_thr``, apply ``collapse_mult`` on top of the base usage
+        multiplier.  Where the signal exceeds ``boost_thr``, apply
+        ``boost_mult``.  All other WRs and all non-WR positions are unchanged.
+
+        Args:
+            collapse_thr: Negative threshold; rows below this are collapsing.
+            collapse_mult: Multiplier for collapsing WRs (< 1.0).
+            boost_thr: Positive threshold; rows above this are rising.
+            boost_mult: Multiplier for rising WRs (> 1.0).
+            signal: ``"delta"`` uses route_rate_delta; ``"slope"`` uses
+                route_rate_slope.
+
+        Returns:
+            Patched _usage_multiplier function.
+        """
+        lut = route_lut_delta if signal == "delta" else route_lut_slope
+
+        def patched(df: pd.DataFrame, position: str) -> pd.Series:
+            base = orig_usage(df, position)
+            if position != "WR" or "player_id" not in df.columns:
+                return base
+            season_col = (
+                df["proj_season"] if "proj_season" in df.columns else df["season"]
+            )
+            week_col = df["proj_week"] if "proj_week" in df.columns else df["week"]
+            keys = list(zip(df["player_id"], season_col, week_col))
+            sig_vals = pd.Series(
+                [lut.get(k, np.nan) for k in keys], index=df.index
+            )
+            result = base.copy()
+            collapsing = sig_vals.notna() & (sig_vals < collapse_thr)
+            if collapsing.any():
+                result.loc[collapsing] = (
+                    result.loc[collapsing] * collapse_mult
+                ).clip(0.70, 1.15)
+            rising = sig_vals.notna() & (sig_vals > boost_thr)
+            if rising.any():
+                result.loc[rising] = (
+                    result.loc[rising] * boost_mult
+                ).clip(0.80, 1.25)
+            return result
+
+        return patched
+
+    print("--- B1: collapse-only sweep (boost disabled) on delta signal ---")
+    for collapse_thr in [-0.05, -0.08, -0.10, -0.12]:
+        for collapse_mult in [0.70, 0.75, 0.80, 0.85]:
+            label = f"mech_B1_delta_cthr={collapse_thr}_cmult={collapse_mult}"
+            s = _run(
+                label,
+                usage_patch=_make_wr_velocity_usage(
+                    collapse_thr=collapse_thr,
+                    collapse_mult=collapse_mult,
+                    boost_thr=999.0,
+                    boost_mult=1.0,
+                    signal="delta",
+                ),
+            )
+            _record(s)
+
+    print("--- B2: boost-only sweep (collapse disabled) on delta signal ---")
+    for boost_thr in [0.05, 0.08, 0.10, 0.12]:
+        for boost_mult in [1.05, 1.10, 1.15]:
+            label = f"mech_B2_delta_bthr={boost_thr}_bmult={boost_mult}"
+            s = _run(
+                label,
+                usage_patch=_make_wr_velocity_usage(
+                    collapse_thr=-999.0,
+                    collapse_mult=1.0,
+                    boost_thr=boost_thr,
+                    boost_mult=boost_mult,
+                    signal="delta",
+                ),
+            )
+            _record(s)
+
+    print("--- B3: collapse-only sweep on slope signal ---")
+    for collapse_thr in [-0.03, -0.05, -0.08]:
+        for collapse_mult in [0.75, 0.80, 0.85]:
+            label = f"mech_B3_slope_cthr={collapse_thr}_cmult={collapse_mult}"
+            s = _run(
+                label,
+                usage_patch=_make_wr_velocity_usage(
+                    collapse_thr=collapse_thr,
+                    collapse_mult=collapse_mult,
+                    boost_thr=999.0,
+                    boost_mult=1.0,
+                    signal="slope",
+                ),
+            )
+            _record(s)
+
+    print("--- B4: joint sweep (best collapse + best boost) ---")
+    df_so_far = pd.DataFrame(rows)
+    b1b3 = df_so_far[
+        df_so_far["label"].str.startswith("mech_B1")
+        | df_so_far["label"].str.startswith("mech_B3")
+    ]
+    if not b1b3.empty and "WR_mae" in b1b3.columns:
+        top_collapse = b1b3.nsmallest(5, "WR_mae")
+        for _, crow in top_collapse.iterrows():
+            lbl = str(crow["label"])
+            sig = "slope" if "slope" in lbl else "delta"
+            try:
+                cthr = float(lbl.split("cthr=")[1].split("_")[0])
+                cmult = float(lbl.split("cmult=")[1])
+            except (IndexError, ValueError):
+                continue
+            for boost_thr in [0.08, 0.10]:
+                for boost_mult in [1.10, 1.15]:
+                    joint_label = (
+                        f"mech_B4_{sig}_c{cthr}_m{cmult}_b{boost_thr}_bm{boost_mult}"
+                    )
+                    s = _run(
+                        joint_label,
+                        usage_patch=_make_wr_velocity_usage(
+                            collapse_thr=cthr,
+                            collapse_mult=cmult,
+                            boost_thr=boost_thr,
+                            boost_mult=boost_mult,
+                            signal=sig,
+                        ),
+                    )
+                    _record(s)
+
+    # ------------------------------------------------------------------
+    # Save results and print summary
+    # ------------------------------------------------------------------
+    df_out = pd.DataFrame(rows)
+    out_path = os.path.join(CACHE_DIR, "sweep_wr_route.csv")
+    df_out.to_csv(out_path, index=False)
+    print(f"\nSaved sweep results to {out_path}")
+
+    print(
+        f"\n=== Summary: baseline WR MAE={baseline_wr_mae:.4f} "
+        f"WR_rho={baseline_wr_rho:.4f} ==="
+    )
+    print(
+        "Gate: improve >=0.03 WR MAE OR >=0.02 Spearman with no MAE regression\n"
+    )
+
+    if "WR_mae" in df_out.columns:
+        non_base = df_out[df_out["label"] != "baseline_production"].copy()
+        non_base["wr_delta"] = baseline_wr_mae - non_base["WR_mae"]
+        non_base["rho_delta"] = non_base.get(
+            "WR_spearman", pd.Series(float("nan"), index=non_base.index)
+        ) - baseline_wr_rho
+        ranked = non_base.sort_values("WR_mae").head(10)
+        print("Top-10 configs by WR MAE (lower is better):")
+        print(
+            f"  {'Label':<62} {'WR_MAE':>8} {'DMAE':>7} {'WR_rho':>8} "
+            f"{'Drho':>7} {'QB':>7} {'RB':>7} {'TE':>7}"
+        )
+        for _, r in ranked.iterrows():
+            print(
+                f"  {str(r['label']):<62} "
+                f"{r.get('WR_mae', float('nan')):>8.4f} "
+                f"{r.get('wr_delta', float('nan')):>+7.4f} "
+                f"{r.get('WR_spearman', float('nan')):>8.4f} "
+                f"{r.get('rho_delta', float('nan')):>+7.4f} "
+                f"{r.get('QB_mae', float('nan')):>7.4f} "
+                f"{r.get('RB_mae', float('nan')):>7.4f} "
+                f"{r.get('TE_mae', float('nan')):>7.4f}"
+            )
+
+        mae_gate = non_base[non_base["wr_delta"] >= 0.03]
+        rho_col = "WR_spearman" if "WR_spearman" in non_base.columns else None
+        rho_gate = (
+            non_base[
+                (non_base["WR_spearman"] - baseline_wr_rho >= 0.02)
+                & (non_base["WR_mae"] <= baseline_wr_mae + 0.001)
+            ]
+            if rho_col
+            else pd.DataFrame()
+        )
+
+        print("\n=== GATE VERDICT ===")
+        if not mae_gate.empty:
+            best = mae_gate.loc[mae_gate["wr_delta"].idxmax()]
+            print(
+                f"PASS (MAE gate): {best['label']}  "
+                f"WR MAE {baseline_wr_mae:.4f} -> {best['WR_mae']:.4f} "
+                f"(delta {best['wr_delta']:+.4f})"
+            )
+        elif not rho_gate.empty:
+            best = rho_gate.loc[rho_gate["WR_spearman"].idxmax()]
+            rho_d = float(best["WR_spearman"]) - baseline_wr_rho
+            print(
+                f"PASS (Spearman gate): {best['label']}  "
+                f"WR rho {baseline_wr_rho:.4f} -> {best['WR_spearman']:.4f} "
+                f"(delta {rho_d:+.4f})"
+            )
+        else:
+            best_mae_d = float(non_base["wr_delta"].max())
+            best_rho_d = (
+                float((non_base["WR_spearman"] - baseline_wr_rho).max())
+                if rho_col
+                else float("nan")
+            )
+            print(
+                f"KILL: no config cleared the gate "
+                f"(best WR MAE delta={best_mae_d:+.4f}, need >=+0.03; "
+                f"best rho delta={best_rho_d:+.4f}, need >=+0.02)."
+            )
+
+
+def cmd_consensus_gap_wr_route() -> None:
+    """Compute consensus gap + Spearman before/after WR route signals.
+
+    Uses the best WR route config from sweep_wr_route.csv (if the gate was
+    cleared) or the best-performing config (if killed, for reference).
+
+    Joins per-row projections against Sleeper consensus
+    (data/silver/external_projections/), filtering to consensus_proj >= 5.
+
+    Outputs:
+      - Console: gap table by position + WR w3-6 breakdown + Spearman
+      - CSV: output/heuristic_lab_cache/consensus_gap_wr_route.csv
+    """
+    import glob as globmod
+    from scipy.stats import spearmanr  # type: ignore
+
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    omap = build_upcoming_opponent_map(sched)
+    strength = build_defense_strength(weekly, sched, window=8)
+    matchup = _make_matchup_patch(strength, omap, dict(projection_engine.MATCHUP_BETA))
+    prior_blend = _build_production_blend_fn(weekly, manifest)
+
+    seasons = sorted({e["season"] for e in manifest})
+    route = _load_route_features(seasons)
+
+    route_lut_delta = (
+        route.set_index(["player_id", "season", "week"])["route_rate_delta"]
+        if not route.empty
+        else pd.Series(dtype=float)
+    )
+    route_lut_slope = (
+        route.set_index(["player_id", "season", "week"])["route_rate_slope"]
+        if not route.empty
+        else pd.Series(dtype=float)
+    )
+    route_lut_trail4 = (
+        route.set_index(["player_id", "season", "week"])["route_rate_trail4"]
+        if not route.empty
+        else pd.Series(dtype=float)
+    )
+
+    orig_usage = projection_engine._usage_multiplier
+    best_config_label = "baseline_production"
+    gate_cleared = False
+    best_usage_patch = None
+
+    sweep_csv = os.path.join(CACHE_DIR, "sweep_wr_route.csv")
+    baseline_wr_mae = float("nan")
+    baseline_wr_rho = float("nan")
+
+    if os.path.exists(sweep_csv):
+        sweep_df = pd.read_csv(sweep_csv)
+        base_row = sweep_df[sweep_df["label"] == "baseline_production"]
+        if not base_row.empty:
+            baseline_wr_mae = float(base_row["WR_mae"].iloc[0])
+            baseline_wr_rho = (
+                float(base_row["WR_spearman"].iloc[0])
+                if "WR_spearman" in base_row.columns
+                else float("nan")
+            )
+        non_base = sweep_df[sweep_df["label"] != "baseline_production"].copy()
+        if not non_base.empty and "WR_mae" in non_base.columns:
+            non_base["wr_delta"] = baseline_wr_mae - non_base["WR_mae"]
+            mae_gate = non_base[non_base["wr_delta"] >= 0.03]
+            rho_gate = pd.DataFrame()
+            if "WR_spearman" in non_base.columns:
+                rho_gate = non_base[
+                    (non_base["WR_spearman"] - baseline_wr_rho >= 0.02)
+                    & (non_base["WR_mae"] <= baseline_wr_mae + 0.001)
+                ]
+            if not mae_gate.empty:
+                best_lbl = mae_gate.loc[mae_gate["wr_delta"].idxmax(), "label"]
+                best_config_label = best_lbl
+                gate_cleared = True
+                print(f"Using MAE gate-cleared config: {best_config_label}")
+            elif not rho_gate.empty:
+                best_lbl = rho_gate.loc[rho_gate["WR_spearman"].idxmax(), "label"]
+                best_config_label = best_lbl
+                gate_cleared = True
+                print(f"Using Spearman gate-cleared config: {best_config_label}")
+            else:
+                best_lbl = non_base.loc[non_base["WR_mae"].idxmin(), "label"]
+                best_config_label = best_lbl
+                print(
+                    f"No gate cleared — using best-performing for reference: "
+                    f"{best_config_label}"
+                )
+
+    def _parse_usage_patch(label: str):
+        """Reconstruct a usage patch function from a sweep label string.
+
+        Args:
+            label: Label string from sweep_wr_route.csv.
+
+        Returns:
+            Patched usage function or None if label cannot be parsed.
+        """
+        if "mech_A" in label:
+            try:
+                w = float(label.split("w=")[1])
+            except (IndexError, ValueError):
+                return None
+
+            def _lvl(df: pd.DataFrame, position: str) -> pd.Series:
+                base = orig_usage(df, position)
+                if position != "WR" or "player_id" not in df.columns:
+                    return base
+                sc = df.get("proj_season", df["season"])
+                wc = df.get("proj_week", df["week"])
+                keys = list(zip(df["player_id"], sc, wc))
+                rr = pd.Series(
+                    [route_lut_trail4.get(k, np.nan) for k in keys], index=df.index
+                )
+                if rr.notna().sum() < 5:
+                    return base
+                rr_pct = rr.rank(pct=True)
+                bp = (base - 0.80) / 0.35
+                blended = (1 - w) * bp + w * rr_pct.fillna(bp)
+                return (0.80 + 0.35 * blended).clip(0.80, 1.15)
+
+            return _lvl
+
+        if "mech_B" in label:
+            sig = "slope" if "slope" in label else "delta"
+            lut = route_lut_slope if sig == "slope" else route_lut_delta
+            try:
+                cthr = float(label.split("cthr=")[1].split("_")[0])
+                cmult = float(label.split("cmult=")[1].split("_")[0] if "_" in label.split("cmult=")[1] else label.split("cmult=")[1])
+            except (IndexError, ValueError):
+                cthr, cmult = -999.0, 1.0
+            try:
+                bthr = float(label.split("bthr=")[1].split("_")[0]) if "bthr=" in label else 999.0
+                bmult = float(label.split("bmult=")[1]) if "bmult=" in label else 1.0
+            except (IndexError, ValueError):
+                bthr, bmult = 999.0, 1.0
+            # Handle mech_B4 label format: c{val}_m{val}_b{val}_bm{val}
+            if "mech_B4" in label:
+                try:
+                    parts = label.split("_")
+                    for i, p in enumerate(parts):
+                        if p.startswith("c") and not p.startswith("cm"):
+                            cthr = float(p[1:])
+                        elif p.startswith("m") and not p.startswith("mech"):
+                            cmult = float(p[1:])
+                        elif p.startswith("b") and not p.startswith("bm"):
+                            bthr = float(p[1:])
+                        elif p.startswith("bm"):
+                            bmult = float(p[2:])
+                except (IndexError, ValueError):
+                    pass
+
+            _cthr, _cmult, _bthr, _bmult, _lut = cthr, cmult, bthr, bmult, lut
+
+            def _vel(
+                df: pd.DataFrame,
+                position: str,
+                __cthr=_cthr,
+                __cmult=_cmult,
+                __bthr=_bthr,
+                __bmult=_bmult,
+                __lut=_lut,
+            ) -> pd.Series:
+                base = orig_usage(df, position)
+                if position != "WR" or "player_id" not in df.columns:
+                    return base
+                sc = df.get("proj_season", df["season"])
+                wc = df.get("proj_week", df["week"])
+                keys = list(zip(df["player_id"], sc, wc))
+                sv = pd.Series([__lut.get(k, np.nan) for k in keys], index=df.index)
+                result = base.copy()
+                collapsing = sv.notna() & (sv < __cthr)
+                if collapsing.any():
+                    result.loc[collapsing] = (
+                        result.loc[collapsing] * __cmult
+                    ).clip(0.70, 1.15)
+                rising = sv.notna() & (sv > __bthr)
+                if rising.any():
+                    result.loc[rising] = (
+                        result.loc[rising] * __bmult
+                    ).clip(0.80, 1.25)
+                return result
+
+            return _vel
+
+        return None
+
+    best_usage_patch = _parse_usage_patch(best_config_label)
+
+    # --- Run projections ---
+    def _get_results(usage_patch=None) -> pd.DataFrame:
+        if usage_patch is not None:
+            projection_engine._usage_multiplier = usage_patch
+        try:
+            return evaluate_config(
+                manifest, matchup_patch=matchup, prior_blend_fn=prior_blend
+            )
+        finally:
+            projection_engine._usage_multiplier = orig_usage
+
+    base_results = _get_results()
+    best_results = _get_results(best_usage_patch)
+
+    # --- Load consensus ---
+    silver_root = os.path.join(PROJECT_ROOT, "data", "silver", "external_projections")
+    consensus_rows = []
+    for season in seasons:
+        for week in range(3, 19):
+            week_dir = os.path.join(
+                silver_root, f"season={season}", f"week={week:02d}"
+            )
+            files = sorted(
+                __import__("glob").glob(os.path.join(week_dir, "*.parquet"))
+            )
+            if not files:
+                continue
+            df = pd.read_parquet(files[-1])
+            df = df[(df["source"] == "sleeper") & (df["scoring_format"] == SCORING)]
+            df = df[df["position"].isin(POSITIONS)]
+            if df.empty:
+                continue
+            df = df.rename(columns={"projected_points": "consensus_proj"})
+            df["season"] = season
+            df["week"] = week
+            consensus_rows.append(
+                df[["player_id", "season", "week", "consensus_proj"]]
+            )
+
+    if not consensus_rows:
+        print("No consensus data found.")
+        return
+
+    consensus = pd.concat(consensus_rows, ignore_index=True).drop_duplicates(
+        subset=["player_id", "season", "week"]
+    )
+    print(f"Consensus rows: {len(consensus)}")
+
+    early_weeks = [3, 4, 5, 6]
+
+    def _gap_df(results: pd.DataFrame, label: str) -> pd.DataFrame:
+        if "player_id" not in results.columns:
+            return pd.DataFrame()
+        merged = results.merge(
+            consensus, on=["player_id", "season", "week"], how="inner"
+        )
+        merged = merged[merged["consensus_proj"] >= 5.0].copy()
+        merged["our_mae"] = (
+            merged["projected_points"] - merged["actual_points"]
+        ).abs()
+        merged["cons_mae"] = (
+            merged["consensus_proj"] - merged["actual_points"]
+        ).abs()
+        merged["gap"] = merged["our_mae"] - merged["cons_mae"]
+        merged["config"] = label
+        return merged
+
+    base_gap = _gap_df(base_results, "baseline_production")
+    best_gap = _gap_df(best_results, best_config_label)
+    combined = pd.concat([base_gap, best_gap], ignore_index=True)
+
+    def _print_gap(df: pd.DataFrame, cfg: str) -> None:
+        sub = df[df["config"] == cfg]
+        print(f"\n{cfg} (consensus_proj >= 5):")
+        print(
+            f"  {'Pos':<8} {'n':>6} {'Our MAE':>9} {'Cons MAE':>10} "
+            f"{'Gap':>8} {'WR rho':>8}"
+        )
+        for pos in POSITIONS:
+            p = sub[sub["position"] == pos]
+            if p.empty:
+                continue
+            rho = float("nan")
+            if pos == "WR" and len(p) >= 10:
+                rho, _ = spearmanr(p["projected_points"], p["actual_points"])
+            print(
+                f"  {pos:<8} {len(p):>6} {p['our_mae'].mean():>9.3f} "
+                f"{p['cons_mae'].mean():>10.3f} {p['gap'].mean():>+8.3f} "
+                f"{rho:>8.4f}"
+            )
+        wr_early = sub[
+            (sub["position"] == "WR") & (sub["week"].isin(early_weeks))
+        ]
+        if not wr_early.empty:
+            rho_e = float("nan")
+            if len(wr_early) >= 5:
+                rho_e, _ = spearmanr(
+                    wr_early["projected_points"], wr_early["actual_points"]
+                )
+            print(
+                f"  {'WR w3-6':<8} {len(wr_early):>6} "
+                f"{wr_early['our_mae'].mean():>9.3f} "
+                f"{wr_early['cons_mae'].mean():>10.3f} "
+                f"{wr_early['gap'].mean():>+8.3f} {rho_e:>8.4f}"
+            )
+
+    _print_gap(combined, "baseline_production")
+    _print_gap(combined, best_config_label)
+
+    print(f"\nGate cleared: {gate_cleared}")
+    if not base_gap.empty and not best_gap.empty:
+        wr_base = base_gap[base_gap["position"] == "WR"]
+        wr_best = best_gap[best_gap["position"] == "WR"]
+        gap_before = float(wr_base["gap"].mean()) if not wr_base.empty else float("nan")
+        gap_after = float(wr_best["gap"].mean()) if not wr_best.empty else float("nan")
+        rho_base = float("nan")
+        rho_best = float("nan")
+        if len(wr_base) >= 10:
+            rho_base, _ = spearmanr(wr_base["projected_points"], wr_base["actual_points"])
+        if len(wr_best) >= 10:
+            rho_best, _ = spearmanr(wr_best["projected_points"], wr_best["actual_points"])
+        print(f"WR consensus gap: {gap_before:+.3f} -> {gap_after:+.3f}  delta={gap_after - gap_before:+.3f}")
+        print(f"WR Spearman:      {rho_base:.4f} -> {rho_best:.4f}  delta={rho_best - rho_base:+.4f}")
+
+    out = os.path.join(CACHE_DIR, "consensus_gap_wr_route.csv")
+    combined.to_csv(out, index=False)
+    print(f"\nSaved consensus gap analysis to {out}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -1055,6 +1807,8 @@ def main() -> int:
             "sweep-rb-route",
             "sweep-veteran-prior",
             "consensus-gap",
+            "sweep-wr-route",
+            "consensus-gap-wr-route",
         ],
     )
     parser.add_argument("--seasons", type=str, default="2022,2023,2024")
@@ -1082,6 +1836,10 @@ def main() -> int:
         cmd_sweep_veteran_prior()
     elif args.command == "consensus-gap":
         cmd_consensus_gap()
+    elif args.command == "sweep-wr-route":
+        cmd_sweep_wr_route()
+    elif args.command == "consensus-gap-wr-route":
+        cmd_consensus_gap_wr_route()
     return 0
 
 

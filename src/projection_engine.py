@@ -88,6 +88,39 @@ USE_RB_SNAP_COLLAPSE: bool = True
 RB_SNAP_COLLAPSE_MULT: float = 0.60
 
 # ---------------------------------------------------------------------------
+# WR route-slope collapse signal — Workstream D (2026-06-11)
+# (see src/graph_route_participation.py for feature computation):
+#   route_rate_slope measures the OLS slope of the trailing 4 raw route-rate
+#   values (all shifted by 1, strictly prior-week data).  A negative slope
+#   < WR_ROUTE_SLOPE_THRESHOLD indicates a sustained role-shrink that has not
+#   yet fully propagated into the rolling-average stats.
+#
+# Validated on 2022-2024 w3-18 (2022-24 w3-18 consensus-matched subset,
+# n=3,105 WR rows; heuristic lab sweep-wr-route):
+#   best WR MAE delta +0.0357 (gate ≥0.03 ✅).
+#   WR consensus gap: +0.134 → +0.101 (delta −0.033 on matched set).
+#   WR Spearman: 0.3160 → 0.3205 (delta +0.0045).
+#   QB/RB/TE MAE: 0.0000 change (perfectly isolated).
+#
+# Mechanism: when route_rate_slope < -0.03 for a WR, scale all projected stat
+# columns and projected_points by 0.75x.  Players without route data are
+# unaffected (graceful fallback).  Collapsed from the lab's usage-multiplier
+# patch into a post-projection correction following the same pattern as the
+# RB snap-collapse step.
+# ---------------------------------------------------------------------------
+
+#: Master on/off switch for WR route-slope collapse correction.
+USE_WR_ROUTE_SLOPE_COLLAPSE: bool = True
+
+#: OLS slope threshold below which a WR is flagged as role-collapsing.
+#: −0.03 validated as optimal on 2022-2024 consensus-matched data.
+WR_ROUTE_SLOPE_THRESHOLD: float = -0.03
+
+#: Multiplier applied to WR projection when route-slope collapse fires.
+#: 0.75x validated as optimal on 2022-2024 data.
+WR_ROUTE_SLOPE_COLLAPSE_MULT: float = 0.75
+
+# ---------------------------------------------------------------------------
 # Identity-keyed caches for per-call-invariant derived inputs.
 #
 # The backtest calls generate_weekly_projections() once per week with the
@@ -255,6 +288,81 @@ def _apply_rb_snap_collapse(
             .round(2)
         )
     return int(rb_mask.sum())
+
+
+def _apply_wr_route_slope_collapse(
+    combined: pd.DataFrame,
+    route_df: pd.DataFrame,
+    season: int,
+    week: int,
+) -> int:
+    """Apply the WR route-slope-collapse multiplier to ``combined`` in place.
+
+    When a WR's trailing OLS slope of route participation (``route_rate_slope``)
+    is below ``WR_ROUTE_SLOPE_THRESHOLD`` for the upcoming projected week, the
+    player's projected stats are scaled by ``WR_ROUTE_SLOPE_COLLAPSE_MULT``.
+
+    Lag contract: ``route_rate_slope`` in ``route_df`` is the OLS slope of the
+    *shifted* (shift-1) trailing 4 route-rate values computed by
+    ``compute_route_participation`` in ``src/graph_route_participation.py`` —
+    week-t route data never enters the week-t slope.  The slope at row
+    (player_id, season, week) already reflects only weeks 1..week-1 within the
+    season.
+
+    Args:
+        combined: Full projections DataFrame being mutated in place.
+        route_df: Silver graph-features route-participation DataFrame with
+            columns ``player_id``, ``season``, ``week``, ``route_rate_slope``.
+        season: The season being projected.
+        week: The week being projected.
+
+    Returns:
+        Number of WR rows the multiplier was applied to.
+    """
+    required_cols = {"player_id", "season", "week", "route_rate_slope"}
+    if route_df.empty or not required_cols.issubset(route_df.columns):
+        return 0
+    if "player_id" not in combined.columns:
+        return 0
+
+    # Use the slope row keyed at (season, week) — this is the lagged signal
+    # for week ``week`` (slopes are built on prior-week data by shift-1).
+    slope_rows = route_df[
+        (route_df["season"] == season) & (route_df["week"] == week)
+    ][["player_id", "route_rate_slope"]].dropna(subset=["route_rate_slope"])
+
+    if slope_rows.empty:
+        return 0
+
+    collapsing_ids = set(
+        slope_rows.loc[
+            slope_rows["route_rate_slope"] < WR_ROUTE_SLOPE_THRESHOLD, "player_id"
+        ].astype(str)
+    )
+    if not collapsing_ids:
+        return 0
+
+    wr_mask = (combined["position"] == "WR") & combined["player_id"].astype(
+        str
+    ).isin(collapsing_ids)
+    if not wr_mask.any():
+        return 0
+
+    proj_cols = [
+        c
+        for c in combined.columns
+        if c.startswith("proj_") and c not in ("proj_season", "proj_week")
+    ]
+    combined.loc[wr_mask, proj_cols] = (
+        combined.loc[wr_mask, proj_cols] * WR_ROUTE_SLOPE_COLLAPSE_MULT
+    ).round(2)
+    if "projected_points" in combined.columns:
+        combined.loc[wr_mask, "projected_points"] = (
+            (combined.loc[wr_mask, "projected_points"] * WR_ROUTE_SLOPE_COLLAPSE_MULT)
+            .clip(lower=0)
+            .round(2)
+        )
+    return int(wr_mask.sum())
 
 
 # ---------------------------------------------------------------------------
@@ -1346,6 +1454,7 @@ def generate_weekly_projections(
     apply_constraints: bool = False,
     weekly_df: Optional[pd.DataFrame] = None,
     snap_counts_df: Optional[pd.DataFrame] = None,
+    route_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """
     Generate weekly projections for all fantasy-relevant positions.
@@ -1403,6 +1512,14 @@ def generate_weekly_projections(
                         name), position, offense_pct.  If None or the signal
                         module is unavailable, the step is silently skipped
                         (backward-compatible).
+        route_df:       Optional Silver graph-features route-participation
+                        DataFrame.  Used by the WR route-slope collapse signal
+                        (``USE_WR_ROUTE_SLOPE_COLLAPSE``).  Expected columns:
+                        player_id, season, week, route_rate_slope.  Keyed at
+                        the projected week — the slope values are already lagged
+                        (shift-1 within season) by the compute pipeline.  If
+                        None or the signal is disabled, the step is silently
+                        skipped (backward-compatible).
 
     Returns:
         Combined DataFrame with projections for QB/RB/WR/TE, sorted by
@@ -1615,6 +1732,53 @@ def generate_weekly_projections(
             "USE_RB_SNAP_COLLAPSE=True but no snap_counts_df was passed — RB "
             "snap-collapse SKIPPED for this caller. Pass Bronze snap-count data "
             "to keep this path consistent with production/eval.",
+        )
+
+    # ------------------------------------------------------------------
+    # 4c. WR route-slope collapse correction (Workstream D, 2026-06-11)
+    #
+    # When a WR's trailing OLS slope of route participation is below
+    # WR_ROUTE_SLOPE_THRESHOLD, the rolling-average heuristic over-projects
+    # because the role shrink hasn't yet propagated into the stats.
+    # The 0.75x multiplier shrinks WR projections for sustained role-losers.
+    #
+    # Lag contract: route_rate_slope at (season, week) reflects only weeks
+    # 1..week-1 within the season (computed via shift-1 before OLS in
+    # src/graph_route_participation.py).
+    #
+    # If route_df is None or USE_WR_ROUTE_SLOPE_COLLAPSE is False, silently
+    # skipped (backward-compatible).
+    # ------------------------------------------------------------------
+    if (
+        USE_WR_ROUTE_SLOPE_COLLAPSE
+        and route_df is not None
+        and not route_df.empty
+        and "position" in combined.columns
+    ):
+        try:
+            n_wr_collapsed = _apply_wr_route_slope_collapse(
+                combined, route_df, season, week
+            )
+            if n_wr_collapsed > 0:
+                logger.info(
+                    "WR route-slope collapse (%.2fx): applied to %d WR(s) for %d w%d",
+                    WR_ROUTE_SLOPE_COLLAPSE_MULT,
+                    n_wr_collapsed,
+                    season,
+                    week,
+                )
+        except Exception as exc:
+            logger.warning(
+                "WR route-slope collapse correction failed; projecting without: %s",
+                exc,
+            )
+    elif USE_WR_ROUTE_SLOPE_COLLAPSE and route_df is None:
+        _warn_once(
+            "wr_route_slope_no_data",
+            "USE_WR_ROUTE_SLOPE_COLLAPSE=True but no route_df was passed — WR "
+            "route-slope collapse SKIPPED for this caller. Pass Silver "
+            "graph_route_participation data to keep this path consistent with "
+            "production/eval.",
         )
 
     # ------------------------------------------------------------------

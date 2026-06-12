@@ -632,6 +632,37 @@ def main():
         else:
             print("WARN: No snap counts found — RB snap-collapse will be skipped")
 
+        # Load route participation for the WR route-slope collapse correction
+        # (Silver graph_features, latest file per season).  The slope values
+        # are already lagged by compute_route_participation — no extra slicing
+        # needed here; the engine selects (season, week) internally.
+        route_parts = []
+        for s in (args.season,):
+            route_pattern = os.path.join(
+                PROJECT_ROOT,
+                "data",
+                "silver",
+                "graph_features",
+                f"season={s}",
+                "graph_route_participation_*.parquet",
+            )
+            route_files = sorted(globmod.glob(route_pattern))
+            if route_files:
+                route_parts.append(pd.read_parquet(route_files[-1]))
+        route_df = (
+            pd.concat(route_parts, ignore_index=True) if route_parts else pd.DataFrame()
+        )
+        if not route_df.empty:
+            print(
+                f"Loaded {len(route_df):,} route-participation rows "
+                f"(WR route-slope collapse)"
+            )
+        else:
+            print(
+                "WARN: No route participation data found — "
+                "WR route-slope collapse will be skipped"
+            )
+
         # Current-season slice for bye detection / implied totals — the
         # two-season frame above is only for the trailing strength window.
         season_sched = (
@@ -705,6 +736,7 @@ def main():
                 # internal heuristic baselines identical to the plain path.
                 weekly_df=strength_weekly if not strength_weekly.empty else None,
                 snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
+                route_df=route_df if not route_df.empty else None,
             )
         else:
             projections = generate_weekly_projections(
@@ -722,6 +754,7 @@ def main():
                 # strength table and covers season-1 and season.
                 weekly_df=strength_weekly if not strength_weekly.empty else None,
                 snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
+                route_df=route_df if not route_df.empty else None,
             )
 
         # Load injury data and apply adjustments
