@@ -823,7 +823,12 @@ def run_clv_true_backtest(
         has_open & (joined["predicted_margin"] > -joined["open_spread"]),
         "pick_side",
     ] = "home"
-    joined.loc[has_open, "model_edge"] = (
+    # Keep model_edge on the CLOSING-line basis for ALL rows so the tier
+    # breakdown stays comparable between snapshot and no-snapshot games
+    # (post-push review finding). The open-line edge — the basis the pick
+    # was actually made on — is recorded separately for capture analysis.
+    joined["open_edge"] = float("nan")
+    joined.loc[has_open, "open_edge"] = (
         joined.loc[has_open, "predicted_margin"]
         + joined.loc[has_open, "open_spread"]
     ).abs()
