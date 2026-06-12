@@ -1817,7 +1817,7 @@ def generate_weekly_projections(
         )
         combined["vegas_multiplier"] = vegas_mults
 
-        # Scale all projected stat columns and recalculate points
+        # Scale all projected stat columns by the multiplier.
         proj_stat_cols_for_vegas = [
             c
             for c in combined.columns
@@ -1826,27 +1826,23 @@ def generate_weekly_projections(
         for col in proj_stat_cols_for_vegas:
             combined[col] = (combined[col] * combined["vegas_multiplier"]).round(2)
 
-        # Recalculate projected_points after Vegas scaling
-        rename_map = {
-            "proj_passing_yards": "passing_yards",
-            "proj_passing_tds": "passing_tds",
-            "proj_interceptions": "interceptions",
-            "proj_rushing_yards": "rushing_yards",
-            "proj_rushing_tds": "rushing_tds",
-            "proj_receptions": "receptions",
-            "proj_receiving_yards": "receiving_yards",
-            "proj_receiving_tds": "receiving_tds",
-            "proj_targets": "targets",
-            "proj_carries": "carries",
-        }
-        scoring_input = combined.rename(columns=rename_map)
-        scoring_input = calculate_fantasy_points_df(
-            scoring_input, scoring_format=scoring_format, output_col="projected_points"
+        # Scale projected_points DIRECTLY by the multiplier.
+        #
+        # BUG FIX (2026-06-12): this branch previously re-derived
+        # projected_points from the scaled raw stats via
+        # calculate_fantasy_points_df, which silently DISCARDED every
+        # points-level transform applied in project_position — ceiling
+        # shrinkage (PROJECTION_CEILING_SHRINKAGE / POSITION_CEILING_
+        # SHRINKAGE), POSITION_BIAS_CORRECTION (QB +2.3), and
+        # LOW_PROJECTION_FLOOR_BOOST. Because live production always passes
+        # implied_totals and backtests historically never did (see 6b0cce6),
+        # production ran WITHOUT the v4.2 tuning that backtests validated
+        # (e.g. C.Kupp 2022 w3: 18.92 shrunk vs 26.88 unshrunk).
+        combined["projected_points"] = (
+            (combined["projected_points"] * combined["vegas_multiplier"])
+            .clip(lower=0)
+            .round(2)
         )
-        for proj_col, stat_col in rename_map.items():
-            if stat_col in scoring_input.columns:
-                scoring_input[proj_col] = scoring_input[stat_col]
-        combined = scoring_input
     else:
         combined["vegas_multiplier"] = 1.0
 

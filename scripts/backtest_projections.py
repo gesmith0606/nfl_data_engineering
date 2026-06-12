@@ -695,8 +695,13 @@ def run_backtest(
             # all rows) while production applied it — the backtest was not
             # measuring the production system. Constraints remain gated on
             # apply_constraints inside the projection call.
+            # NOTE: the projection call must always receive the FULL
+            # multi-season schedules frame — compute_defensive_strength's
+            # trailing-8 window crosses season boundaries for early weeks,
+            # and a season-filtered frame silently degrades the matchup
+            # factor (measured: RB gap +0.27 -> +0.44 when filtered).
+            # The week-filtered frame is used ONLY for implied totals.
             implied_totals = None
-            sched_for_week = None
             if not schedules_df.empty:
                 week_sched = (
                     schedules_df[
@@ -706,8 +711,6 @@ def run_backtest(
                     else schedules_df
                 )
                 implied_totals = _compute_week_implied_totals(week_sched, week)
-                if implied_totals:
-                    sched_for_week = week_sched
 
             # Generate projections
             try:
@@ -720,11 +723,7 @@ def run_backtest(
                         season=season,
                         week=week,
                         scoring_format=scoring_format,
-                        schedules_df=(
-                            sched_for_week
-                            if sched_for_week is not None
-                            else (schedules_df if not schedules_df.empty else None)
-                        ),
+                        schedules_df=(schedules_df if not schedules_df.empty else None),
                         implied_totals=implied_totals,
                         apply_constraints=apply_constraints,
                         feature_df=feat_df,
@@ -741,11 +740,7 @@ def run_backtest(
                         season=season,
                         week=week,
                         scoring_format=scoring_format,
-                        schedules_df=(
-                            sched_for_week
-                            if sched_for_week is not None
-                            else (schedules_df if not schedules_df.empty else None)
-                        ),
+                        schedules_df=(schedules_df if not schedules_df.empty else None),
                         implied_totals=implied_totals,
                         apply_constraints=apply_constraints,
                         weekly_df=weekly_df,
