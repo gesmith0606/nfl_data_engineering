@@ -1,0 +1,583 @@
+{
+  "fetch_run_id": "6dc012f4-8bff-4df2-9e5d-cf32cdbb96e4",
+  "source": "pft",
+  "fetched_at": "2026-06-12T13:22:57.252598+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-kelvin-sheppard-is-a-better-defensive-coordinator-in-year-two",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-kelvin-sheppard-is-a-better-defensive-coordinator-in-year-two",
+      "permalink": "",
+      "title": "Dan Campbell says Kelvin Sheppard is a better defensive coordinator in Year Two",
+      "body_text": "Lions head coach Dan Campbell made Kelvin Sheppard one of his first assistant coach hires when he got the job in 2021, and promoted him to defensive coordinator in 2025.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-12T12:40:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell",
+        "Kelvin Sheppard",
+        "Year Two"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0028006"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-baker-mayfields-a-true-pro-contract-will-take-care-of-itself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-baker-mayfields-a-true-pro-contract-will-take-care-of-itself",
+      "permalink": "",
+      "title": "Todd Bowles: Baker Mayfield's a true pro, contract will take care of itself",
+      "body_text": "There are issues for the Buccaneers and quarterback Baker Mayfield to work out on the business side, but there's been no issues on the football side of things.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-12T12:11:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Bowles",
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-receive-their-super-bowl-lx-rings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-receive-their-super-bowl-lx-rings",
+      "permalink": "",
+      "title": "Seahawks receive their Super Bowl LX rings",
+      "body_text": "The Seahawks unveiled their championship hardware on Thursday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-12T12:02:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/attendance-down-ratings-up-for-ufl-in-third-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/attendance-down-ratings-up-for-ufl-in-third-season",
+      "permalink": "",
+      "title": "Attendance down, ratings up for UFL in third season",
+      "body_text": "The UFL is surviving.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T10:42:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-expect-jermod-mccoy-to-be-healthy-enough-to-do-plenty-of-work-in-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-expect-jermod-mccoy-to-be-healthy-enough-to-do-plenty-of-work-in-training-camp",
+      "permalink": "",
+      "title": "Raiders expect Jermod McCoy to be healthy enough to do plenty of work in training camp",
+      "body_text": "McCoy, a first-round prospect, dropped to the fourth round amid concerns about his surgically repaired knee.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-12T08:35:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-quarterbacks-are-judged-by-winning-that-last-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-quarterbacks-are-judged-by-winning-that-last-game",
+      "permalink": "",
+      "title": "Dak Prescott: Quarterbacks are judged by winning that last game",
+      "body_text": "Dak Prescott and Tony Romo own all of the Cowboys' major passing records.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-12T02:17:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott",
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0033077",
+        "00-0021678"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dr-neal-elattrache-faces-scrutiny-over-conor-mcgregors-use-of-peds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dr-neal-elattrache-faces-scrutiny-over-conor-mcgregors-use-of-peds",
+      "permalink": "",
+      "title": "Dr. Neal ElAttrache faces scrutiny over Conor McGregor's use of PEDs",
+      "body_text": "Dr.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T01:45:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-seahawks-find-a-little-extra-motivation-in-not-being-favored-to-win-the-nfc-west",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-seahawks-find-a-little-extra-motivation-in-not-being-favored-to-win-the-nfc-west",
+      "permalink": "",
+      "title": "Leonard Williams: Seahawks find \"a little extra motivation\" in not being favored to win the NFC West",
+      "body_text": "The defending Super Bowl champions aren't the betting favorites to repeat — either as NFL champions or as division winners.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T01:22:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Leonard Williams",
+        "West The",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0031933"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-zeroing-in-on-dave-pasch-bob-wichusen-to-replace-chris-fowler",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-zeroing-in-on-dave-pasch-bob-wichusen-to-replace-chris-fowler",
+      "permalink": "",
+      "title": "ESPN \"zeroing in\" on Dave Pasch, Bob Wichusen to replace Chris Fowler",
+      "body_text": "ESPN is making big changes to its NFL \"B\" team.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T00:53:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Pasch",
+        "Bob Wichusen",
+        "Chris Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-new-five-year-contract-in-hand-sean-payton-plans-to-keep-going-as-long-as-he-enjoys-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-new-five-year-contract-in-hand-sean-payton-plans-to-keep-going-as-long-as-he-enjoys-it",
+      "permalink": "",
+      "title": "With new five-year contract in hand, Sean Payton plans to keep going as long as he enjoys it",
+      "body_text": "Three years after signing a five-year contract with the Broncos, coach Sean Payton has a new five-year deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T00:20:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-makes-a-favorable-first-impression-with-a-j-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-makes-a-favorable-first-impression-with-a-j-brown",
+      "permalink": "",
+      "title": "Drake Maye makes a favorable first impression with A.J. Brown",
+      "body_text": "A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-12T00:16:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-lawyer-warns-big-12-to-not-circumvent-court-order",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-lawyer-warns-big-12-to-not-circumvent-court-order",
+      "permalink": "",
+      "title": "Brendan Sorsby's lawyer warns Big 12 to not circumvent court order",
+      "body_text": "With plenty of noise coming from the Big 12 and Texas Tech regarding the conference's potential reaction to Monday's court order restoring the eligibility of quarterback Brendan Sorsby, Sorsby has gotten involved.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T00:03:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-jalen-coker-agrees-to-three-year-extension-with-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-jalen-coker-agrees-to-three-year-extension-with-panthers",
+      "permalink": "",
+      "title": "WR Jalen Coker agrees to three-year extension with Panthers",
+      "body_text": "The Panthers and wide receiver Jalen Coker agreed to terms on a three-year, $35 million extension, Ian Rapoport of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-11T23:31:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Coker",
+        "Panthers The",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039491"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-anybody-who-has-kyle-shanahan-on-the-hot-seat-is-not-the-smartest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-anybody-who-has-kyle-shanahan-on-the-hot-seat-is-not-the-smartest",
+      "permalink": "",
+      "title": "George Kittle: Anybody who has Kyle Shanahan on the hot seat is \"not the smartest\"",
+      "body_text": "Kyle Shanahan is one of a handful of NFL coaches who would immediately be hired elsewhere if his team ever moved on.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-11T22:27:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-becht-is-the-ufl-coach-of-the-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-becht-is-the-ufl-coach-of-the-year",
+      "permalink": "",
+      "title": "Anthony Becht is the UFL coach of the year",
+      "body_text": "Former NFL first-round tight end Anthony Becht has thrived as a coach in the UFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T22:23:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Becht"
+      ],
+      "resolved_player_ids": [
+        "00-0019457"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-ready-for-new-responsibilities-a-chance-to-prove-himself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-ready-for-new-responsibilities-a-chance-to-prove-himself",
+      "permalink": "",
+      "title": "DeMarvion Overshown ready for new responsibilities, a chance to prove himself",
+      "body_text": "The Cowboys drafted linebacker DeMarvion Overshown in the third round in 2023.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-11T21:45:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-wr-lance-rentzel-dies-at-82",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-wr-lance-rentzel-dies-at-82",
+      "permalink": "",
+      "title": "Former NFL WR Lance Rentzel dies at 82",
+      "body_text": "Former NFL wide receiver Lance Rentzel died Sunday in Virginia, Kevin Sherrington of the Dallas Morning News reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-11T21:23:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lance Rentzel",
+        "Kevin Sherrington",
+        "Dallas Morning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-plans-to-work-with-kyler-murray-j-j-mccarthy-ahead-of-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-plans-to-work-with-kyler-murray-j-j-mccarthy-ahead-of-training-camp",
+      "permalink": "",
+      "title": "Justin Jefferson plans to work with Kyler Murray, J.J. McCarthy ahead of training camp",
+      "body_text": "Vikings head coach Kevin O'Connell told reporters on Thursday that the team's quarterback competition will continue into training camp, but that won't be the next time that Kyler Murray and J.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T21:05:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wont-name-a-starting-quarterback-before-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wont-name-a-starting-quarterback-before-training-camp",
+      "permalink": "",
+      "title": "Vikings won't name a starting quarterback before training camp",
+      "body_text": "Kyler Murray and J.J. McCarthy will continue competing into the summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T19:46:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-wrs-deven-thompkins-max-tomczak",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-wrs-deven-thompkins-max-tomczak",
+      "permalink": "",
+      "title": "Bills sign WRs Deven Thompkins, Max Tomczak",
+      "body_text": "The Bills made five roster moves on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-11T20:18:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deven Thompkins",
+        "Max Tomczak",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0037487"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-i-think-rashee-rice-will-be-ready-for-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-i-think-rashee-rice-will-be-ready-for-training-camp",
+      "permalink": "",
+      "title": "Andy Reid: I think Rashee Rice will be ready for training camp",
+      "body_text": "Chiefs receiver Rashee Rice is currently serving a 30-day jail sentence for violating his probation, a fact made more complicated by Rice having recently undergone a procedure on his knee.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-11T20:17:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-put-ot-storm-norton-on-the-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-put-ot-storm-norton-on-the-pup-list",
+      "permalink": "",
+      "title": "Falcons put OT Storm Norton on the PUP list",
+      "body_text": "The Falcons announced a roster move on Thursday that's tied to the report that they are trading for Chiefs offensive tackle Wanya Morris.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T20:00:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Storm Norton",
+        "The Falcons",
+        "Wanya Morris"
+      ],
+      "resolved_player_ids": [
+        "00-0033752",
+        "00-0038981"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/henry-ruggs-denied-parole-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/henry-ruggs-denied-parole-on-thursday",
+      "permalink": "",
+      "title": "Henry Ruggs denied parole on Thursday",
+      "body_text": "Henry Ruggs III was denied parole on Thursday in a ruling by the Nevada Board of Parole Commissioners, the Associated Press reports.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-11T19:45:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Henry Ruggs",
+        "Thursday Henry",
+        "Nevada Board",
+        "Parole Commissioners",
+        "Associated Press"
+      ],
+      "resolved_player_ids": [
+        "00-0036357"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-did-some-walkthrough-work-today-will-participate-in-next-weeks-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-did-some-walkthrough-work-today-will-participate-in-next-weeks-minicamp",
+      "permalink": "",
+      "title": "Bo Nix did some walkthrough work today, will participate in next week's minicamp",
+      "body_text": "Broncos quarterback Bo Nix is making progress in his recovery from the fractured ankle he suffered in the playoffs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-11T19:16:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-make-several-front-office-moves-following-the-hiring-of-g-m-nolan-teasley",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-make-several-front-office-moves-following-the-hiring-of-g-m-nolan-teasley",
+      "permalink": "",
+      "title": "Vikings make several front-office moves, following the hiring of G.M. Nolan Teasley",
+      "body_text": "New Vikings G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T18:48:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nolan Teasley",
+        "New Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-on-shedeur-sanders-it-feels-like-hes-making-quicker-decisions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-on-shedeur-sanders-it-feels-like-hes-making-quicker-decisions",
+      "permalink": "",
+      "title": "Todd Monken on Shedeur Sanders: It feels like he's making quicker decisions",
+      "body_text": "With head coach Todd Monken saying the Browns’ quarterback competition will continue into training camp, second-year signal-caller Shedeur Sanders will have the chance to show what he can do with pads on.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-11T18:44:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-to-sign-te-kenny-yeboah",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-to-sign-te-kenny-yeboah",
+      "permalink": "",
+      "title": "Cardinals to sign TE Kenny Yeboah",
+      "body_text": "The Cardinals will have a new tight end on the roster when they report to training camp this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T18:34:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenny Yeboah",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0036510"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-agree-to-trade-wanya-morris-to-the-falcons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-agree-to-trade-wanya-morris-to-the-falcons",
+      "permalink": "",
+      "title": "Chiefs agree to trade Wanya Morris to the Falcons",
+      "body_text": "Offensive tackle Wanya Morris wanted to move on from the Chiefs and he'll be doing so in the near future.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T18:12:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Wanya Morris",
+        "Falcons Offensive"
+      ],
+      "resolved_player_ids": [
+        "00-0038981"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-buccaneers-lost-an-offseason-practice-for-having-too-many-guys-on-the-ground",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-buccaneers-lost-an-offseason-practice-for-having-too-many-guys-on-the-ground",
+      "permalink": "",
+      "title": "The Buccaneers lost an offseason practice for having \"too many guys on the ground\"",
+      "body_text": "The Buccaneers didn't practice on Tuesday, by choice.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T18:06:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-cancel-their-mandatory-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-cancel-their-mandatory-minicamp",
+      "permalink": "",
+      "title": "Rams cancel their mandatory minicamp",
+      "body_text": "The Rams will be wrapping up their offseason program a little earlier than expected.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T17:53:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    }
+  ]
+}

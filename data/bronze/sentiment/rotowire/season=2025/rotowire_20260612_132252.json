@@ -1,0 +1,108 @@
+{
+  "fetch_run_id": "308aa3ec-95d0-4ca8-b463-d25819794864",
+  "source": "rotowire",
+  "fetched_at": "2026-06-12T13:22:52.839254+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631378",
+      "url": "https://www.rotowire.com//football/player/tank-dell-16935",
+      "permalink": "",
+      "title": "Tank Dell: Shows good progress in minicamp",
+      "body_text": "Dell (knee) was limited during the Texans' minicamp that ended Thursday, but he has been \"running and cutting without setbacks,\" Aaron Wilson of KPRC 2 Houston reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-11T10:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tank Dell",
+        "Aaron Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0038977"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "nfl631359",
+      "url": "https://www.rotowire.com//football/player/jalen-coker-17976",
+      "permalink": "",
+      "title": "Jalen Coker: Signs three-year extension",
+      "body_text": "Coker and the Panthers agreed on a three-year, $35 million contract extension with incentives up to $41 million Thursday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-11T04:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Coker",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039491"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "nfl631351",
+      "url": "https://www.rotowire.com//football/player/jacory-croskey-merritt-18811",
+      "permalink": "",
+      "title": "Jacory Croskey-Merritt: Dealing with soft-tissue injury",
+      "body_text": "Croskey-Merritt has been absent from spring practices due to a soft-tissue injury, NFL reporter Ben Standig reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-11T02:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacory Croskey",
+        "Ben Standig"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631349",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: In line to practice next week",
+      "body_text": "Coach Sean Payton said Thursday that Nix (ankle) is expected to practice at mandatory minicamp next week, Zac Stevens of TheDNVR.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-11T11:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Coach Sean",
+        "Zac Stevens"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631348",
+      "url": "https://www.rotowire.com//football/player/bucky-irving-17784",
+      "permalink": "",
+      "title": "Bucky Irving: Spotted at OTA practice",
+      "body_text": "Irving (shoulder) was on the field for Thursday's OTA. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-11T10:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bucky Irving"
+      ],
+      "resolved_player_ids": [
+        "00-0039361"
+      ],
+      "team_hint": null
+    }
+  ]
+}
