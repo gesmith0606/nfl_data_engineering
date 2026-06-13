@@ -286,6 +286,18 @@ data/gold/*
 !data/bronze/depth_charts/
 !data/bronze/depth_charts/**
 !data/bronze/depth_charts/**/*.parquet
+# External projections (Sleeper/ESPN/Yahoo-via-FP): the weekly-external-
+# projections workflow has been committing NOTHING since launch — its git-add
+# was silently swallowed by the broad *.parquet ignore (TD-09 class, third
+# occurrence). The website's yahoo rankings column reads the Bronze
+# yahoo_proxy_fp parquet as its fallback tier (FP's v2 API now 403s without
+# an auth token), and the consensus-grading backtests read the Silver tables.
+!data/bronze/external_projections/
+!data/bronze/external_projections/**
+!data/bronze/external_projections/**/*.parquet
+!data/silver/external_projections/
+!data/silver/external_projections/**
+!data/silver/external_projections/**/*.parquet
 # Schedules: required by web/Dockerfile (COPY data/bronze/schedules/) — the
 # Railway image won't build without these. Same pattern as rosters/depth_charts
 # above. /api/teams/current-week, /api/teams/{team}/roster default-week

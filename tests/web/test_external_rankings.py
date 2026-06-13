@@ -614,6 +614,9 @@ def test_multi_compare_sort_by_consensus_uses_external_mean(
         "get",
         lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
     )
+    # Neutralize the Bronze yahoo_proxy_fp tier — this test seeds caches for
+    # sleeper/espn only and must not pick up real repo data for yahoo.
+    monkeypatch.setattr(svc, "_load_bronze_fantasypros", lambda **kw: None)
 
     # Alice: sleeper=10, espn=10  → mean=10
     # Bob:   sleeper=1,  espn=99  → mean=50
@@ -683,7 +686,7 @@ def test_multi_compare_fail_open_when_all_sources_blocked(
     empty_projections: None,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """No live, no cache, no projections → empty players + stale=True per source."""
+    """No live, no cache, no bronze, no projections → empty + stale per source."""
     import requests
 
     monkeypatch.setattr(
@@ -691,6 +694,9 @@ def test_multi_compare_fail_open_when_all_sources_blocked(
         "get",
         lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
     )
+    # Neutralize the Bronze yahoo_proxy_fp tier so "everything blocked"
+    # genuinely means every tier, not just live+cache.
+    monkeypatch.setattr(svc, "_load_bronze_fantasypros", lambda **kw: None)
 
     result = svc.multi_compare_rankings(limit=10)
 
@@ -709,3 +715,62 @@ def test_multi_compare_rejects_invalid_sort_by(tmp_cache_dir: Path) -> None:
 def test_multi_compare_rejects_invalid_source(tmp_cache_dir: Path) -> None:
     with pytest.raises(ValueError, match="Invalid source"):
         svc.multi_compare_rankings(sources=("not_a_source",))
+
+
+@pytest.mark.unit
+def test_fantasypros_bronze_fallback_serves_when_live_and_cache_fail(
+    tmp_cache_dir: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Tier 3: fantasypros resolves from the Bronze yahoo_proxy_fp parquet.
+
+    FP's v2 API requires an auth token (403 since ~2026-06), so with no cache
+    the Bronze scrape is the only thing standing between the website and an
+    empty yahoo column.
+    """
+    import pandas as pd
+    import requests
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+
+    bronze_dir = (
+        tmp_path
+        / "bronze"
+        / "external_projections"
+        / "yahoo_proxy_fp"
+        / "season=2026"
+        / "week=00"
+    )
+    bronze_dir.mkdir(parents=True)
+    pd.DataFrame(
+        [
+            {
+                "player_name": "Josh Allen",
+                "position": "QB",
+                "team": "BUF",
+                "projected_points": 374.7,
+                "projected_at": "2026-06-12T00:00:00+00:00",
+            },
+            {
+                "player_name": "Bijan Robinson",
+                "position": "RB",
+                "team": "ATL",
+                "projected_points": 294.2,
+                "projected_at": "2026-06-12T00:00:00+00:00",
+            },
+        ]
+    ).to_parquet(bronze_dir / "yahoo_proxy_fp_20260612_000000.parquet", index=False)
+    monkeypatch.setattr(svc, "DATA_DIR", tmp_path)
+
+    players, stale, age_hours, _ = svc._resolve_source(
+        "fantasypros", season=2026, scoring="half_ppr", limit=10
+    )
+    assert stale is True
+    assert age_hours is not None
+    assert [p["player_name"] for p in players] == ["Josh Allen", "Bijan Robinson"]
+    assert players[0]["external_rank"] == 1

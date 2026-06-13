@@ -52,6 +52,12 @@ COPY data/bronze/depth_charts/ ./data/bronze/depth_charts/
 COPY data/silver/defense/ ./data/silver/defense/
 COPY data/silver/teams/ ./data/silver/teams/
 
+# Bronze external projections: the rankings multi-compare yahoo column is
+# served from the yahoo_proxy_fp parquet (Bronze fallback tier) because
+# FantasyPros' v2 API requires an auth token since ~2026-06. Without this
+# COPY the yahoo column is empty on the live site.
+COPY data/bronze/external_projections/ ./data/bronze/external_projections/
+
 ENV PORT=8000
 EXPOSE 8000
 

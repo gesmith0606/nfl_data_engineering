@@ -12,7 +12,10 @@ Cache-first fallback chain (ADVR-03 contract):
   2. On any transport failure / non-2xx / parse error, fall back to
      ``data/external/{source}_rankings.json``. Return ``stale=True`` and
      populate ``cache_age_hours`` from the cache file's fetched_at timestamp.
-  3. When neither live nor cache yields data, return ``players=[]`` with
+  3. (fantasypros only) Fall back to the committed Bronze yahoo_proxy_fp
+     parquet (weekly FantasyPros HTML scrape) — FP's v2 API requires an auth
+     token since ~2026-06, so without an API key the live tier always fails.
+  4. When no tier yields data, return ``players=[]`` with
      ``stale=True, cache_age_hours=None``. Never raise HTTPException.
 
 Cache file format (canonical envelope written by ``_save_cache``)::
@@ -444,10 +447,96 @@ def _resolve_source(
         logger.warning("Serving stale cache for %s (age=%.2fh)", source, age_hours)
         return (list(players)[:limit], True, age_hours, fetched_at.isoformat())
 
+    # Tier 3 — Bronze fallback (fantasypros only): FantasyPros' v2 API now
+    # requires an auth token (403 since ~2026-06), so the live tier is dead
+    # without an API key. The weekly-external-projections workflow scrapes
+    # the FP consensus HTML pages into Bronze (yahoo_proxy_fp), which is
+    # committed to the repo and shipped with the backend image — serve that
+    # before giving up.
+    if source == "fantasypros":
+        bronze = _load_bronze_fantasypros(season=season, limit=limit)
+        if bronze is not None:
+            players, fetched_at = bronze
+            age_seconds = max(0.0, (now - fetched_at).total_seconds())
+            age_hours = round(age_seconds / 3600.0, 2)
+            logger.warning(
+                "Serving Bronze yahoo_proxy_fp fallback for fantasypros " "(age=%.2fh)",
+                age_hours,
+            )
+            return (players[:limit], True, age_hours, fetched_at.isoformat())
+
     logger.warning(
         "No live data and no cache for %s — returning empty envelope", source
     )
     return ([], True, None, now.isoformat())
+
+
+def _load_bronze_fantasypros(
+    season: int, limit: int = 300
+) -> Optional[Tuple[List[Dict[str, Any]], datetime]]:
+    """Load FP-consensus rankings from the Bronze yahoo_proxy_fp parquet.
+
+    Reads the newest ``yahoo_proxy_fp_*.parquet`` for the requested season
+    (falling back to the newest file of any season), orders players by
+    scraped ``projected_points`` descending, and converts to the standard
+    ranking-row shape used by ``_fetch_live``/``_load_cache``.
+
+    Args:
+        season: Preferred season partition.
+        limit: Maximum rows to return.
+
+    Returns:
+        ``(rows, fetched_at)`` where ``fetched_at`` is the parquet's
+        ``projected_at`` timestamp (file mtime as fallback), or ``None``
+        when no Bronze data exists or it cannot be read.
+    """
+    root = DATA_DIR / "bronze" / "external_projections" / "yahoo_proxy_fp"
+    files = list(root.glob(f"season={season}/week=*/yahoo_proxy_fp_*.parquet"))
+    if not files:
+        files = list(root.glob("season=*/week=*/yahoo_proxy_fp_*.parquet"))
+    if not files:
+        return None
+
+    # Newest scrape wins — sort by the filename's YYYYMMDD_HHMMSS suffix, not
+    # the path (week=00 draft vintage sorts before week=01 by path, but a
+    # fresh draft scrape must beat a stale weekly one).
+    path = max(files, key=lambda p: p.stem.rsplit("_", 2)[-2:])
+    try:
+        df = pd.read_parquet(path)
+    except Exception as exc:
+        logger.warning("Could not read Bronze FP fallback %s: %s", path, exc)
+        return None
+    if df.empty or "projected_points" not in df.columns:
+        return None
+
+    df = df[df["position"].isin(FANTASY_POSITIONS)].copy()
+    df = df.sort_values("projected_points", ascending=False).head(limit)
+
+    rows: List[Dict[str, Any]] = []
+    for i, (_, r) in enumerate(df.iterrows(), 1):
+        rows.append(
+            {
+                "rank": i,
+                "player_name": str(r.get("player_name", "") or ""),
+                "position": str(r.get("position", "") or ""),
+                "team": str(r.get("team", "") or ""),
+                "external_rank": i,
+            }
+        )
+    if not rows:
+        return None
+
+    fetched_at: Optional[datetime] = None
+    if "projected_at" in df.columns:
+        try:
+            fetched_at = pd.to_datetime(df["projected_at"].iloc[0], utc=True)
+            fetched_at = fetched_at.to_pydatetime()
+        except (ValueError, TypeError):
+            fetched_at = None
+    if fetched_at is None:
+        fetched_at = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
+
+    return rows, fetched_at
 
 
 def _resolve_consensus(
@@ -622,8 +711,16 @@ def _load_our_projections(
     If the parquet predates Phase X (no ``position_rank`` field), we fall back
     to deriving ranks from ``projected_points``.
     """
-    for week in [0, 1]:
-        week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
+    # Candidate directories in preference order: weekly slices first, then
+    # the preseason vintage (generate_projections.py --preseason writes to
+    # projections/preseason/season=YYYY/ — in the offseason that is the only
+    # slice that exists for the upcoming season).
+    candidate_dirs = [
+        GOLD_PROJECTIONS_DIR / f"season={season}" / "week=0",
+        GOLD_PROJECTIONS_DIR / f"season={season}" / "week=1",
+        GOLD_PROJECTIONS_DIR / "preseason" / f"season={season}",
+    ]
+    for week_dir in candidate_dirs:
         if not week_dir.exists():
             continue
         parquet_path = _latest_parquet(week_dir)
@@ -1061,15 +1158,19 @@ def multi_compare_rankings(
     def _sort_key(row: Dict[str, Any]) -> Tuple[float, float]:
         if sort_by == "ours":
             v = row.get("our_rank")
-            return (0.0 if v is not None else 2.0, float(v) if v is not None else float("inf"))
+            return (
+                0.0 if v is not None else 2.0,
+                float(v) if v is not None else float("inf"),
+            )
         if sort_by in requested:
             v = row.get(f"{sort_by}_rank")
-            return (0.0 if v is not None else 2.0, float(v) if v is not None else float("inf"))
+            return (
+                0.0 if v is not None else 2.0,
+                float(v) if v is not None else float("inf"),
+            )
         # consensus: mean of available external ranks; missing → bottom
         external_ranks = [
-            row[f"{k}_rank"]
-            for k in requested
-            if row.get(f"{k}_rank") is not None
+            row[f"{k}_rank"] for k in requested if row.get(f"{k}_rank") is not None
         ]
         if external_ranks:
             return (0.0, sum(external_ranks) / len(external_ranks))

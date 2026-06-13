@@ -49,9 +49,7 @@ _SOURCE_LABEL: str = "yahoo_proxy_fp"
 _REQUEST_TIMEOUT_S: int = 15
 _USER_AGENT: str = "nfl-data-engineering/0.1 (external-projections-yahoo-via-fp)"
 
-_DEFAULT_OUT_ROOT: Path = (
-    _PROJECT_ROOT / "data" / "bronze" / "external_projections"
-)
+_DEFAULT_OUT_ROOT: Path = _PROJECT_ROOT / "data" / "bronze" / "external_projections"
 
 _FP_URL_TEMPLATE: str = (
     "https://www.fantasypros.com/nfl/projections/{position}.php?week={week}"
@@ -82,9 +80,7 @@ _ROW_RE = re.compile(
 )
 _NAME_RE = re.compile(r"<a[^>]*class=\"[^\"]*player-name[^\"]*\"[^>]*>([^<]+)</a>")
 _TEAM_RE = re.compile(r"<small[^>]*class=\"[^\"]*grey[^\"]*\">([A-Z]{2,3})</small>")
-_FPTS_RE = re.compile(
-    r'<td[^>]*class="[^"]*center[^"]*"[^>]*>([0-9]+\.[0-9]+)</td>'
-)
+_FPTS_RE = re.compile(r'<td[^>]*class="[^"]*center[^"]*"[^>]*>([0-9]+\.[0-9]+)</td>')
 
 
 def _parse_fp_html(
@@ -114,12 +110,16 @@ def _parse_fp_html(
         row = row_match.group(1)
         name_m = _NAME_RE.search(row)
         team_m = _TEAM_RE.search(row)
-        fpts_m = _FPTS_RE.search(row)
-        if not (name_m and fpts_m):
+        # FPTS is the LAST numeric column on FP projection tables; the
+        # earlier columns are stat projections (attempts/targets/etc.).
+        # Searching for the first match silently captured pass attempts for
+        # QBs and targets for WRs.
+        fpts_all = _FPTS_RE.findall(row)
+        if not (name_m and fpts_all):
             continue
 
         try:
-            fpts = float(fpts_m.group(1))
+            fpts = float(fpts_all[-1])
         except (TypeError, ValueError):
             continue
 
@@ -152,9 +152,7 @@ def _write_bronze(
         )
         return None
 
-    week_dir = (
-        out_root / _SOURCE_LABEL / f"season={season}" / f"week={week:02d}"
-    )
+    week_dir = out_root / _SOURCE_LABEL / f"season={season}" / f"week={week:02d}"
     week_dir.mkdir(parents=True, exist_ok=True)
     ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     out_path = week_dir / f"{_SOURCE_LABEL}_{ts}.parquet"
@@ -168,7 +166,16 @@ def _write_bronze(
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--season", type=int, required=True)
-    parser.add_argument("--week", type=int, required=True)
+    parser.add_argument("--week", type=int, default=None)
+    parser.add_argument(
+        "--draft",
+        action="store_true",
+        help=(
+            "Scrape FP's season-long draft projections (?week=draft) instead "
+            "of a weekly page. Writes to the week=00 partition. Use in the "
+            "offseason — the weekly pages serve stale content before week 1."
+        ),
+    )
     parser.add_argument(
         "--scoring", choices=["ppr", "half_ppr", "standard"], default="half_ppr"
     )
@@ -184,6 +191,15 @@ def main(argv: Optional[List[str]] = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    if args.draft:
+        url_week = "draft"
+        partition_week = 0  # week=00 partition holds the season-long vintage
+    elif args.week is not None:
+        url_week = str(args.week)
+        partition_week = args.week
+    else:
+        parser.error("Specify --week N for a weekly page or --draft for season-long")
+
     all_records: List[Dict] = []
 
     if args.html_fixture and args.html_fixture.exists():
@@ -192,19 +208,19 @@ def main(argv: Optional[List[str]] = None) -> int:
         for pos in _POSITIONS:
             html = fixture.get(pos, "")
             all_records.extend(
-                _parse_fp_html(html, pos, args.season, args.week, args.scoring)
+                _parse_fp_html(html, pos, args.season, partition_week, args.scoring)
             )
     else:
         for pos in _POSITIONS:
-            url = _FP_URL_TEMPLATE.format(position=pos, week=args.week)
+            url = _FP_URL_TEMPLATE.format(position=pos, week=url_week)
             html = _fetch_html(url)
             if not html:
                 continue
             all_records.extend(
-                _parse_fp_html(html, pos, args.season, args.week, args.scoring)
+                _parse_fp_html(html, pos, args.season, partition_week, args.scoring)
             )
 
-    _write_bronze(all_records, args.season, args.week, args.out_root)
+    _write_bronze(all_records, args.season, partition_week, args.out_root)
     return 0
 
 
