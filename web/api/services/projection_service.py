@@ -447,6 +447,9 @@ def _latest_week_preseason_fallback(season: int) -> ProjectionMetaInfo:
         week=1,
         data_as_of=_iso_utc(mtime) if mtime is not None else None,
         source_path=_project_relative(preseason_path),
+        # Future-safe: LatestWeekResponse doesn't serialise source today,
+        # but if it ever does this path must not claim to be "weekly".
+        source="preseason_fallback",
     )
 
 
