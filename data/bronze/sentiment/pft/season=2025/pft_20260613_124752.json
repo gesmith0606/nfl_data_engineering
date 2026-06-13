@@ -1,0 +1,593 @@
+{
+  "fetch_run_id": "370084f0-5759-46ce-987d-fd3387cf1cd0",
+  "source": "pft",
+  "fetched_at": "2026-06-13T12:47:52.104860+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/whats-next-in-the-congressional-scrutiny-of-the-nfls-antitrust-exemption",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/whats-next-in-the-congressional-scrutiny-of-the-nfls-antitrust-exemption",
+      "permalink": "",
+      "title": "What's next in the Congressional scrutiny of the NFL's antitrust exemption?",
+      "body_text": "Rupert Murdoch's power play against pro football culminated this week in a House Judiciary Committee hearing regarding the NFL's broadcast antitrust exemption.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T12:28:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rupert Murdoch",
+        "House Judiciary"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-worthy-lessons-learned-rehabbing-my-shoulder-might-have-been-the-best-thing-for-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-worthy-lessons-learned-rehabbing-my-shoulder-might-have-been-the-best-thing-for-me",
+      "permalink": "",
+      "title": "Xavier Worthy: Lessons learned rehabbing my shoulder might have been the best thing for me",
+      "body_text": "Xavier Worthy ran the fastest 40-yard dash in Scouting Combine history before the Chiefs took him in the first round of the 2024 NFL draft, so when asked about competing with the Chiefs' other wide receivers on the practice field, Worthy said he knows he'll always stand out.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-13T12:04:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy",
+        "Scouting Combine"
+      ],
+      "resolved_player_ids": [
+        "00-0039894"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-world-cup-opener-was-a-sign-of-what-sofi-stadium-could-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-world-cup-opener-was-a-sign-of-what-sofi-stadium-could-be",
+      "permalink": "",
+      "title": "U.S. World Cup opener was a sign of what SoFi Stadium could be",
+      "body_text": "If NFL players want grass, they have to be willing to strike for it.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T11:59:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-chiefs-lt-josh-simmons-may-gain-weight-but-you-dont-want-cheeseburger-weight",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-chiefs-lt-josh-simmons-may-gain-weight-but-you-dont-want-cheeseburger-weight",
+      "permalink": "",
+      "title": "Andy Reid: Chiefs LT Josh Simmons may gain weight, but you don't want cheeseburger weight",
+      "body_text": "Simmons said he currently weighs around 285-290 pounds, which makes him one of the lightest tackles in the NFL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-13T08:40:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "Josh Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0040116"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-harold-fannin-jr-didnt-participate-in-offseason-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-harold-fannin-jr-didnt-participate-in-offseason-practices",
+      "permalink": "",
+      "title": "Report: Harold Fannin Jr. didn't participate in offseason practices",
+      "body_text": "The Browns' offseason program has ended.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T04:24:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Harold Fannin Jr",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040663"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-isnt-fazed-by-bears-stadium-uncertainty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-isnt-fazed-by-bears-stadium-uncertainty",
+      "permalink": "",
+      "title": "Caleb Williams isn't fazed by Bears' stadium uncertainty",
+      "body_text": "As the Bears play a stadium shell game — possibly without a ball hiding under any of them — the football team has more immediate business.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T04:13:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-hire-andrew-healy-trent-kirchner-as-assistant-gms",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-hire-andrew-healy-trent-kirchner-as-assistant-gms",
+      "permalink": "",
+      "title": "Vikings hire Andrew Healy, Trent Kirchner as assistant GMs",
+      "body_text": "The Vikings are hiring Andrew Healy and Trent Kirchner as assistant General Managers under new General Manager Nolan Teasley, Alec Lewis of TheAthletic.com reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-13T00:03:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andrew Healy",
+        "Trent Kirchner",
+        "The Vikings",
+        "General Managers",
+        "General Manager",
+        "Nolan Teasley",
+        "Alec Lewis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-believes-the-protect-college-sports-act-would-trump-brendan-sorsbys-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-believes-the-protect-college-sports-act-would-trump-brendan-sorsbys-case",
+      "permalink": "",
+      "title": "NCAA believes the \"Protect College Sports Act\" would trump Brendan Sorsby's case",
+      "body_text": "The NCAA hopes to convert one specific problem into a far broader solution.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T23:42:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Protect College",
+        "Sports Act",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-plummer-wins-ufl-mvp-award",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-plummer-wins-ufl-mvp-award",
+      "permalink": "",
+      "title": "Jack Plummer wins UFL MVP award",
+      "body_text": "Jack Plummer's first season in the UFL ended with the league's top individual honor.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T23:06:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jack Plummer"
+      ],
+      "resolved_player_ids": [
+        "00-0039501"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-licht-no-one-wants-to-see-baker-mayfield-leave",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-licht-no-one-wants-to-see-baker-mayfield-leave",
+      "permalink": "",
+      "title": "Jason Licht: No one wants to see Baker Mayfield leave",
+      "body_text": "The Buccaneers and quarterback Baker Mayfield are on a contractual collision course.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T22:17:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jason Licht",
+        "Baker Mayfield",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-iii-missed-super-bowl-ring-ceremony",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-iii-missed-super-bowl-ring-ceremony",
+      "permalink": "",
+      "title": "Kenneth Walker III missed Super Bowl ring ceremony",
+      "body_text": "On Thursday night, the Seahawks got their Super Bowl rings.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T21:31:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Walker III",
+        "Super Bowl",
+        "On Thursday"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lukas-van-ness-still-seeking-his-breakout-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lukas-van-ness-still-seeking-his-breakout-season",
+      "permalink": "",
+      "title": "Lukas Van Ness still seeking his breakout season",
+      "body_text": "The Packers exercised the fifth-year option on Lukas Van Ness' contract despite the edge rusher's first three seasons being disappointing.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-12T20:48:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lukas Van",
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-latest-patrick-mahomes-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-latest-patrick-mahomes-deal",
+      "permalink": "",
+      "title": "Inside the latest Patrick Mahomes deal",
+      "body_text": "Mahomes received a $54.5 million signing bonus.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T17:35:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oklahoma-attorney-general-urges-big-12-to-suspend-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oklahoma-attorney-general-urges-big-12-to-suspend-brendan-sorsby",
+      "permalink": "",
+      "title": "Oklahoma attorney general urges Big 12 to suspend Brendan Sorsby",
+      "body_text": "The Brendan Sorsby case continues to provide a platform for plenty of political theatrics.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T20:33:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-opens-with-thousands-of-empty-seats-in-guadalajara",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-opens-with-thousands-of-empty-seats-in-guadalajara",
+      "permalink": "",
+      "title": "World Cup opens with \"thousands\" of empty seats in Guadalajara",
+      "body_text": "The World Cup has begun, and attendance has become a point of curiosity.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T20:14:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "Guadalajara The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-closes-personal-conduct-policy-investigation-of-stefon-diggs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-closes-personal-conduct-policy-investigation-of-stefon-diggs",
+      "permalink": "",
+      "title": "NFL closes Personal Conduct Policy investigation of Stefon Diggs",
+      "body_text": "Veteran receiver remains a free agent.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T18:05:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Personal Conduct",
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-get-ol-jude-bowry-under-contract-to-complete-draft-class-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-get-ol-jude-bowry-under-contract-to-complete-draft-class-signings",
+      "permalink": "",
+      "title": "Bills get OL Jude Bowry under contract to complete draft class signings",
+      "body_text": "The Bills have signed all 10 members of their 2026 draft class.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-12T19:43:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jude Bowry",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "BOW688689"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/frank-ragnow-has-closed-the-door-on-an-nfl-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/frank-ragnow-has-closed-the-door-on-an-nfl-return",
+      "permalink": "",
+      "title": "Frank Ragnow has closed the door on an NFL return",
+      "body_text": "Frank Ragnow said Friday that he didn't want to retire.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-12T19:24:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Frank Ragnow"
+      ],
+      "resolved_player_ids": [
+        "00-0034345"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/south-carolina-judge-grants-injunction-for-clemson-wr-tristan-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/south-carolina-judge-grants-injunction-for-clemson-wr-tristan-smith",
+      "permalink": "",
+      "title": "South Carolina judge grants injunction for Clemson WR Tristan Smith",
+      "body_text": "The Brendan Sorsby case has directed unprecedented attention to the ability of college players to sue, and beat, the NCAA in state court.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T19:23:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "South Carolina",
+        "Tristan Smith",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-feels-at-home-in-new-england-with-plenty-of-familiar-faces-from-tennessee",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-feels-at-home-in-new-england-with-plenty-of-familiar-faces-from-tennessee",
+      "permalink": "",
+      "title": "A.J. Brown feels at home in New England, with plenty of familiar faces from Tennessee",
+      "body_text": "Patriots head coach Mike Vrabel's relationship with wide receiver A.J.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-12T17:32:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "New England",
+        "Tennessee Patriots",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-techs-clumsy-p-r-effort-continues",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-techs-clumsy-p-r-effort-continues",
+      "permalink": "",
+      "title": "Texas Tech's clumsy P.R. effort continues",
+      "body_text": "The Brendan Sorsby situation, like most high-profile controversies, has two components: the legal side, and the P.R. side.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T16:14:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/all-first-round-picks-are-signed-except-quarterbacks-fernando-mendoza-and-ty-simpson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/all-first-round-picks-are-signed-except-quarterbacks-fernando-mendoza-and-ty-simpson",
+      "permalink": "",
+      "title": "All first-round picks are signed, except quarterbacks Fernando Mendoza and Ty Simpson",
+      "body_text": "Before the 2011 Collective Bargaining Agreement created a rookie wage scale with slotted contracts based on selection position, the first overall pick would often sign a contract before the draft even began.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T15:29:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Ty Simpson",
+        "Collective Bargaining"
+      ],
+      "resolved_player_ids": [
+        "MEN516487",
+        "SIM639376"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordon-hudsons-foia-habit-wont-make-things-any-easier-for-bill-belichick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordon-hudsons-foia-habit-wont-make-things-any-easier-for-bill-belichick",
+      "permalink": "",
+      "title": "Jordon Hudson's FOIA habit won't make things any easier for Bill Belichick",
+      "body_text": "Jordon Hudson keeps trying to extend her 15 minutes of fame.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T14:40:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordon Hudson",
+        "Bill Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-everything-is-on-the-table-for-deshaun-watson-browns-at-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-everything-is-on-the-table-for-deshaun-watson-browns-at-qb",
+      "permalink": "",
+      "title": "Andrew Berry: \"Everything is on the table\" for Deshaun Watson, Browns at QB",
+      "body_text": "Browns head coach Todd Monken told reporters this week that between Shedeur Sanders and Deshaun Watson, Cleveland has two quarterbacks capable of playing winning football.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-12T14:28:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andrew Berry",
+        "Deshaun Watson",
+        "Todd Monken",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathon-cooper-arrested-and-jailed-again-accused-of-violating-protection-order",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathon-cooper-arrested-and-jailed-again-accused-of-violating-protection-order",
+      "permalink": "",
+      "title": "Jonathon Cooper arrested and jailed again, accused of violating protection order",
+      "body_text": "Broncos outside linebacker Jonathon Cooper has been arrested and jailed again after he was accused of violating a protection order in connection with his arrest last week.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-12T14:26:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tickets-are-still-available-for-u-s-world-cup-debut-at-sofi-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tickets-are-still-available-for-u-s-world-cup-debut-at-sofi-stadium",
+      "permalink": "",
+      "title": "Tickets are still available for U.S. World Cup debut at SoFi Stadium",
+      "body_text": "The United States makes its 2026 World Cup debut on Friday, at the stadium formerly known as \"SoFi\" (the name has been redacted, per FIFA demands).",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T14:08:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "Stadium The",
+        "United States"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wont-name-a-starting-quarterback-before-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wont-name-a-starting-quarterback-before-training-camp",
+      "permalink": "",
+      "title": "Vikings won't name a starting quarterback before training camp",
+      "body_text": "Kyler Murray and J.J. McCarthy will continue competing into the summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-11T19:46:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-on-shedeur-sanders-it-feels-like-hes-making-quicker-decisions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-on-shedeur-sanders-it-feels-like-hes-making-quicker-decisions",
+      "permalink": "",
+      "title": "Todd Monken on Shedeur Sanders: It feels like he's making quicker decisions",
+      "body_text": "With head coach Todd Monken saying the Browns’ quarterback competition will continue into training camp, second-year signal-caller Shedeur Sanders will have the chance to show what he can do with pads on.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-11T18:44:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-buccaneers-lost-an-offseason-practice-for-having-too-many-guys-on-the-ground",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-buccaneers-lost-an-offseason-practice-for-having-too-many-guys-on-the-ground",
+      "permalink": "",
+      "title": "The Buccaneers lost an offseason practice for having \"too many guys on the ground\"",
+      "body_text": "The Buccaneers didn't practice on Tuesday, by choice.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T18:06:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-jonathon-cooper-now-faces-felony-charge-after-domestic-violence-accusation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-jonathon-cooper-now-faces-felony-charge-after-domestic-violence-accusation",
+      "permalink": "",
+      "title": "Broncos' Jonathon Cooper now faces felony charge after domestic violence accusation",
+      "body_text": "Broncos linebacker Jonathon Cooper, who was arrested last week and charged with a misdemeanor after his girlfriend accused him of domestic violence, is now facing a more serious felony charge.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-12T13:46:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    }
+  ]
+}
