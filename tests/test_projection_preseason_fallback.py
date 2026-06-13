@@ -11,7 +11,7 @@ missing or stale, and labels the response ``source="preseason_fallback"``.
 import os
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -80,10 +80,16 @@ def gold_dir(tmp_path, monkeypatch):
 def _write_weekly(root: Path, season: int, week: int, stale: bool = False) -> Path:
     week_dir = root / f"season={season}" / f"week={week}"
     week_dir.mkdir(parents=True, exist_ok=True)
-    path = week_dir / "projections_half_ppr_20260501_024908.parquet"
+    # Staleness is read from the filename-embedded timestamp (mtime is
+    # unreliable in clone deployments), so encode the age in the name.
+    age_days = (ps.WEEKLY_STALENESS_THRESHOLD_DAYS + 30) if stale else 0
+    ts = (datetime.now(timezone.utc) - timedelta(days=age_days)).strftime(
+        "%Y%m%d_%H%M%S"
+    )
+    path = week_dir / f"projections_half_ppr_{ts}.parquet"
     _weekly_df(season, week).to_parquet(path, index=False)
     if stale:
-        old = time.time() - (ps.WEEKLY_STALENESS_THRESHOLD_DAYS + 30) * 86400
+        old = time.time() - age_days * 86400
         os.utime(path, (old, old))
     return path
 
@@ -224,3 +230,57 @@ class TestFallbackResponseShape:
         meta = ps.get_projection_meta(season=PAST_SEASON, week=10)
 
         assert meta.source == "weekly"
+
+
+# ---------------------------------------------------------------------------
+# File selection — clone-mtime and scoring-format regressions
+# ---------------------------------------------------------------------------
+
+
+class TestLatestParquetSelection:
+    def test_latest_by_filename_timestamp_when_mtimes_identical(self, gold_dir):
+        """HF Spaces clones the repo fresh, so every file shares one mtime.
+
+        The newest file by embedded filename timestamp must win regardless.
+        This reproduces the 2026-06-12 incident where the Space served the
+        oldest (2026-04-10) preseason parquet as 'latest'.
+        """
+        ps_dir = gold_dir / "preseason" / f"season={CURRENT_YEAR}"
+        ps_dir.mkdir(parents=True)
+        old = ps_dir / "season_proj_20260410_184651.parquet"
+        new = ps_dir / "season_proj_20260612_152045.parquet"
+        df_old = _preseason_df(CURRENT_YEAR)
+        df_old["player_name"] = ["Old QB", "Old RB"]
+        df_old.to_parquet(old, index=False)
+        _preseason_df(CURRENT_YEAR).to_parquet(new, index=False)
+        # Equalize mtimes to simulate a fresh git clone.
+        clone_time = time.time()
+        os.utime(old, (clone_time, clone_time))
+        os.utime(new, (clone_time, clone_time))
+
+        df = ps.get_projections(
+            season=CURRENT_YEAR, week=1, scoring_format="half_ppr"
+        )
+
+        assert set(df["player_name"]) == {"Preseason QB", "Preseason RB"}
+
+    def test_weekly_read_prefers_requested_scoring_format(self, gold_dir):
+        week_dir = gold_dir / f"season={CURRENT_YEAR}" / "week=1"
+        week_dir.mkdir(parents=True)
+        half = _weekly_df(CURRENT_YEAR, 1)
+        half.to_parquet(
+            week_dir / "projections_half_ppr_20260612_100000.parquet", index=False
+        )
+        std = _weekly_df(CURRENT_YEAR, 1)
+        std["player_name"] = ["Std QB", "Std RB"]
+        # Standard file has a NEWER timestamp — must still not be served
+        # for a half_ppr request.
+        std.to_parquet(
+            week_dir / "projections_standard_20260612_110000.parquet", index=False
+        )
+
+        df = ps.get_projections(
+            season=CURRENT_YEAR, week=1, scoring_format="half_ppr"
+        )
+
+        assert set(df["player_name"]) == {"Weekly QB", "Weekly RB"}

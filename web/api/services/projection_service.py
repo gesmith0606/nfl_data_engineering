@@ -18,10 +18,11 @@ check — their frozen data is intentional.
 """
 
 import logging
+import re
 from dataclasses import dataclass
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 
 import pandas as pd
 
@@ -72,21 +73,31 @@ class ProjectionMetaInfo:
 # ---------------------------------------------------------------------------
 
 
-def _latest_parquet(directory: Path) -> Optional[Path]:
-    """Return the most-recently modified Parquet file in *directory*.
+#: Gold filenames embed a YYYYMMDD_HHMMSS generation timestamp. Sort on it,
+#: NOT on filesystem mtime: in the HF Spaces deployment the repo is cloned
+#: fresh at build time, so every file shares the clone-time mtime and an
+#: mtime sort picks an arbitrary file (this served the 2026-04-10 parquet
+#: as "latest" in the 2026-06-12 incident).
+_FILENAME_TS_RE = re.compile(r"(\d{8}_\d{6})")
 
-    Tolerates files deleted mid-scan (race between glob and stat).
+
+def _filename_sort_key(p: Path) -> Tuple[str, str]:
+    m = _FILENAME_TS_RE.search(p.name)
+    return (m.group(1) if m else "", p.name)
+
+
+def _latest_parquet(directory: Path, pattern: str = "*.parquet") -> Optional[Path]:
+    """Return the newest Parquet in *directory* by filename-embedded timestamp.
+
+    Args:
+        directory: Directory to scan (non-recursive).
+        pattern: Glob pattern; pass e.g. ``"projections_half_ppr_*.parquet"``
+            to scope weekly reads to one scoring format.
     """
-    def _mtime(p: Path) -> float:
-        try:
-            return p.stat().st_mtime
-        except OSError:
-            return -1.0
-
-    parquets = [p for p in directory.glob("*.parquet") if _mtime(p) >= 0]
+    parquets = sorted(directory.glob(pattern), key=_filename_sort_key)
     if not parquets:
         return None
-    return max(parquets, key=_mtime)
+    return parquets[-1]
 
 
 # Project root anchored off this file: web/api/services/projection_service.py
@@ -121,20 +132,32 @@ def _preseason_dir(season: int) -> Path:
 
 
 def _weekly_file_is_stale(parquet_path: Path) -> bool:
-    """Return True when ``parquet_path``'s mtime is older than the threshold.
+    """Return True when the file is older than the staleness threshold.
 
-    Uses the filesystem mtime rather than parsing the embedded timestamp in
-    the filename so the check is consistent with how the rest of the service
-    resolves freshness.
+    Prefers the YYYYMMDD_HHMMSS timestamp embedded in the filename over
+    filesystem mtime: in the HF Spaces deployment the repo is cloned fresh at
+    build time, so mtime equals build time and would make every committed
+    file — however old its contents — look fresh.
     """
-    try:
-        age = datetime.now(tz=timezone.utc) - datetime.fromtimestamp(
-            parquet_path.stat().st_mtime, tz=timezone.utc
-        )
-        return age > timedelta(days=WEEKLY_STALENESS_THRESHOLD_DAYS)
-    except OSError:
-        # File vanished between discovery and stat — treat as stale.
-        return True
+    file_ts: Optional[datetime] = None
+    m = _FILENAME_TS_RE.search(parquet_path.name)
+    if m:
+        try:
+            file_ts = datetime.strptime(m.group(1), "%Y%m%d_%H%M%S").replace(
+                tzinfo=timezone.utc
+            )
+        except ValueError:
+            file_ts = None
+    if file_ts is None:
+        try:
+            file_ts = datetime.fromtimestamp(
+                parquet_path.stat().st_mtime, tz=timezone.utc
+            )
+        except OSError:
+            # File vanished between discovery and stat — treat as stale.
+            return True
+    age = datetime.now(tz=timezone.utc) - file_ts
+    return age > timedelta(days=WEEKLY_STALENESS_THRESHOLD_DAYS)
 
 
 def _should_apply_fallback(season: int) -> bool:
@@ -423,7 +446,13 @@ def _get_projections_parquet(
     when the weekly parquet is missing or stale (see module docstring).
     """
     week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
-    parquet_path = _latest_parquet(week_dir) if week_dir.exists() else None
+    # Prefer the file matching the requested scoring format; fall back to any
+    # parquet for older partitions written before scoring-named files existed.
+    parquet_path = None
+    if week_dir.exists():
+        parquet_path = _latest_parquet(
+            week_dir, f"projections_{scoring_format}_*.parquet"
+        ) or _latest_parquet(week_dir)
 
     if _should_apply_fallback(season) and (
         parquet_path is None or _weekly_file_is_stale(parquet_path)

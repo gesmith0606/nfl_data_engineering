@@ -199,10 +199,15 @@ def _classify_sentiment(negative: int, positive: int, neutral: int) -> str:
 
 
 def _latest_parquet(directory: Path) -> Optional[Path]:
-    """Return the most-recently modified Parquet file in *directory*, or None."""
+    """Return the newest Parquet in *directory* by filename timestamp, or None.
+
+    Filenames carry a YYYYMMDD_HHMMSS generation timestamp, so a name sort is
+    chronological. Do NOT sort on mtime: the HF Spaces deployment clones the
+    repo at build time, giving every file the same mtime.
+    """
     if not directory.exists():
         return None
-    parquets = sorted(directory.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
+    parquets = sorted(directory.glob("*.parquet"), key=lambda p: p.name)
     return parquets[-1] if parquets else None
 
 

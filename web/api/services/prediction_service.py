@@ -51,8 +51,13 @@ def _project_relative(path: Path) -> str:
 
 
 def _latest_parquet(directory: Path) -> Optional[Path]:
-    """Return the most-recently modified Parquet file in *directory*."""
-    parquets = sorted(directory.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
+    """Return the newest Parquet in *directory* by filename-embedded timestamp.
+
+    Filenames carry a YYYYMMDD_HHMMSS generation timestamp, so a name sort is
+    chronological. Do NOT sort on mtime: the HF Spaces deployment clones the
+    repo at build time, giving every file the same mtime.
+    """
+    parquets = sorted(directory.glob("*.parquet"), key=lambda p: p.name)
     return parquets[-1] if parquets else None
 
 

@@ -34,6 +34,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -688,9 +689,23 @@ def get_external_rankings(
 # ---------------------------------------------------------------------------
 # Projection loader (reads our Gold data)
 # ---------------------------------------------------------------------------
+_FILENAME_TS_RE = re.compile(r"(\d{8}_\d{6})")
+
+
 def _latest_parquet(directory: Path) -> Optional[Path]:
-    """Return the most-recently modified Parquet file in *directory*."""
-    parquets = sorted(directory.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
+    """Return the newest Parquet in *directory* by filename-embedded timestamp.
+
+    Filenames carry a YYYYMMDD_HHMMSS generation timestamp; sort on that, not
+    on mtime — the HF Spaces deployment clones the repo at build time, giving
+    every file the same mtime. Directories here can mix filename prefixes
+    (e.g. scoring formats), so the timestamp is extracted rather than relying
+    on a whole-name sort.
+    """
+    def _key(p: Path) -> Tuple[str, str]:
+        m = _FILENAME_TS_RE.search(p.name)
+        return (m.group(1) if m else "", p.name)
+
+    parquets = sorted(directory.glob("*.parquet"), key=_key)
     return parquets[-1] if parquets else None
 
 
