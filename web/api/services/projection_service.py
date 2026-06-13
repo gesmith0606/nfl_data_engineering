@@ -227,15 +227,13 @@ def _normalize_preseason_df(
     if "projected_points" in df.columns:
         if "projected_floor" not in df.columns:
             variance = df["position"].map(_POSITION_VARIANCE).fillna(_DEFAULT_VARIANCE)
-            df["projected_floor"] = (
-                df["projected_points"] * (1.0 - variance)
-            ).round(2)
+            df["projected_floor"] = (df["projected_points"] * (1.0 - variance)).round(2)
 
         if "projected_ceiling" not in df.columns:
             variance = df["position"].map(_POSITION_VARIANCE).fillna(_DEFAULT_VARIANCE)
-            df["projected_ceiling"] = (
-                df["projected_points"] * (1.0 + variance)
-            ).round(2)
+            df["projected_ceiling"] = (df["projected_points"] * (1.0 + variance)).round(
+                2
+            )
 
     # Ensure projected_points >= 0 (business rule for skill positions).
     if "projected_points" in df.columns:
@@ -271,15 +269,11 @@ def _get_preseason_projections_parquet(
     """
     preseason_dir = _preseason_dir(season)
     if not preseason_dir.exists():
-        raise FileNotFoundError(
-            f"No preseason projection data for season={season}"
-        )
+        raise FileNotFoundError(f"No preseason projection data for season={season}")
 
     parquet_path = _latest_parquet(preseason_dir)
     if parquet_path is None:
-        raise FileNotFoundError(
-            f"No preseason parquet files in {preseason_dir}"
-        )
+        raise FileNotFoundError(f"No preseason parquet files in {preseason_dir}")
 
     logger.info(
         "Preseason fallback: reading %s for season=%s week=%s",
@@ -394,9 +388,7 @@ def get_latest_week(season: int) -> ProjectionMetaInfo:
     """
     season_dir = GOLD_PROJECTIONS_DIR / f"season={season}"
     if not season_dir.exists():
-        return ProjectionMetaInfo(
-            season=season, week=None, data_as_of=None, source_path=None  # type: ignore[arg-type]
-        )
+        return _latest_week_preseason_fallback(season)
 
     best_week: Optional[int] = None
     best_path: Optional[Path] = None
@@ -420,15 +412,41 @@ def get_latest_week(season: int) -> ProjectionMetaInfo:
             best_mtime = mtime
 
     if best_week is None or best_path is None:
-        return ProjectionMetaInfo(
-            season=season, week=None, data_as_of=None, source_path=None  # type: ignore[arg-type]
-        )
+        return _latest_week_preseason_fallback(season)
 
     return ProjectionMetaInfo(
         season=season,
         week=best_week,
         data_as_of=_iso_utc(best_mtime),
         source_path=_project_relative(best_path),
+    )
+
+
+def _latest_week_preseason_fallback(season: int) -> ProjectionMetaInfo:
+    """Resolve latest-week from the preseason vintage when no weekly slice exists.
+
+    In the offseason ``projections/preseason/season=<season>/`` is the only
+    Gold slice for the upcoming season (the ``season=<season>/week=N`` dirs
+    don't exist until week 1 is generated). Report it as week 1 — the
+    projections UI keys its default week off this endpoint, and week-1
+    requests already serve the preseason file via the projections fallback.
+    Returns the week=None envelope when the preseason slice is also absent.
+    """
+    preseason_dir = GOLD_PROJECTIONS_DIR / "preseason" / f"season={season}"
+    preseason_path = _latest_parquet(preseason_dir) if preseason_dir.exists() else None
+    if preseason_path is None:
+        return ProjectionMetaInfo(
+            season=season, week=None, data_as_of=None, source_path=None  # type: ignore[arg-type]
+        )
+    try:
+        mtime: Optional[float] = preseason_path.stat().st_mtime
+    except OSError:
+        mtime = None
+    return ProjectionMetaInfo(
+        season=season,
+        week=1,
+        data_as_of=_iso_utc(mtime) if mtime is not None else None,
+        source_path=_project_relative(preseason_path),
     )
 
 
@@ -723,14 +741,11 @@ def get_comparison(
     long["source"] = long["source"].replace({"yahoo_proxy_fp": "yahoo"})
 
     # Aggregate duplicates with mean (rare — different ingest passes for same week)
-    grouped = (
-        long.groupby(
-            ["player_id", "player_name", "position", "team", "source"],
-            dropna=False,
-            as_index=False,
-        )["projected_points"]
-        .mean()
-    )
+    grouped = long.groupby(
+        ["player_id", "player_name", "position", "team", "source"],
+        dropna=False,
+        as_index=False,
+    )["projected_points"].mean()
 
     wide = grouped.pivot_table(
         index=["player_id", "player_name", "position", "team"],
@@ -755,13 +770,19 @@ def get_comparison(
 
     rows = []
     for _, row in wide.iterrows():
+
         def _f(x):
             return float(x) if pd.notna(x) else None
+
         rows.append(
             {
-                "player_id": str(row["player_id"]) if pd.notna(row["player_id"]) else "",
+                "player_id": (
+                    str(row["player_id"]) if pd.notna(row["player_id"]) else ""
+                ),
                 "player_name": str(row.get("player_name") or ""),
-                "position": str(row["position"]) if pd.notna(row.get("position")) else None,
+                "position": (
+                    str(row["position"]) if pd.notna(row.get("position")) else None
+                ),
                 "team": str(row["team"]) if pd.notna(row.get("team")) else None,
                 "ours": _f(row.get("ours")),
                 "espn": _f(row.get("espn")),
