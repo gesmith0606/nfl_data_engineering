@@ -40,3 +40,15 @@ CORS_ORIGINS = os.getenv(
 # ---------------------------------------------------------------------------
 VALID_SCORING_FORMATS = {"ppr", "half_ppr", "standard"}
 VALID_POSITIONS = {"QB", "RB", "WR", "TE", "K"}
+
+# ---------------------------------------------------------------------------
+# Preseason fallback freshness threshold
+# ---------------------------------------------------------------------------
+# When a weekly projection parquet for a *current or future* season is missing
+# or older than this many days, the weekly endpoint falls back to the preseason
+# projections for that season.  Historical seasons (season < current year) are
+# never subject to this check — their stale data is intentionally frozen.
+#
+# 14 days covers a typical bye week + one extra day of buffer.  Adjust here if
+# the production publish cadence changes.
+WEEKLY_STALENESS_THRESHOLD_DAYS: int = 14

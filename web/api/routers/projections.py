@@ -143,6 +143,7 @@ def list_projections(
             week=meta_info.week,
             data_as_of=meta_info.data_as_of,
             source_path=meta_info.source_path,
+            source=meta_info.source,
         ),
     )
 

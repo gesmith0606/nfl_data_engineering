@@ -172,6 +172,14 @@ class ProjectionMeta(BaseModel):
     source_path: Optional[str] = Field(
         None, description="Relative path to the source parquet (or null for DB)"
     )
+    source: str = Field(
+        "weekly",
+        description=(
+            "'weekly' when the Gold weekly parquet was used; "
+            "'preseason_fallback' when the weekly file was missing or stale "
+            "and the preseason projections were served instead."
+        ),
+    )
 
 
 class ProjectionResponse(BaseModel):

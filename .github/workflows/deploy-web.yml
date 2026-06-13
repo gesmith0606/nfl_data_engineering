@@ -52,6 +52,20 @@ jobs:
             --season 2026
         # Exit code 1 on CRITICAL issues -> blocks deployment
 
+      # Weekly partition gate (SANITY-M6): validates the weekly Gold
+      # parquet the website's weekly view serves — freshness, duplicate
+      # players, weekly-scale points, star-player ranks vs consensus.
+      # Catches the 2026-06-12 incident class (42-day-old file with
+      # CMC at RB118 / Drake Maye at QB29 baked into the deploy image).
+      # A missing weekly partition is a SKIP (API falls back to
+      # preseason); a present-but-stale or garbage one blocks deploy.
+      - name: Run weekly projection gate
+        run: |
+          python scripts/sanity_check_projections.py \
+            --check-weekly \
+            --scoring half_ppr \
+            --season 2026
+
       # --------------------------------------------------------------
       # Capture deploy metadata for the rollback window check. The
       # 5-minute gate in auto-rollback consumes DEPLOY_SHA +

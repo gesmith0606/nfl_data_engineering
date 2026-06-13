@@ -3050,6 +3050,563 @@ def run_live_site_check(
     return criticals, warnings
 
 
+# ---------------------------------------------------------------------------
+# Weekly projection sanity check (M6)
+# ---------------------------------------------------------------------------
+# Single-week projected-points bands (half-PPR). Calibrated against
+# 2024–2025 in-season weekly Gold files: QB top typically 15–25,
+# absolute lower bound 8 (bye-week-heavy week) and upper bound 45
+# (extreme outlier ceiling). Season-scale values (100+) in a weekly
+# file are a hard bug.
+_WEEKLY_POINTS_BANDS: Dict[str, Tuple[float, float]] = {
+    "QB": (8.0, 50.0),
+    "RB": (5.0, 40.0),
+    "WR": (4.0, 35.0),
+    "TE": (3.0, 25.0),
+}
+# Any position1 value above this is unambiguously season-scale in a weekly file.
+_WEEKLY_SEASON_SCALE_THRESHOLD = 60.0
+
+# Freshness threshold for weekly projection files (same as GOLD_MAX_AGE_DAYS
+# so a 6-week-old file hard-fails identically to other Gold freshness gates).
+_WEEKLY_MAX_AGE_DAYS = GOLD_MAX_AGE_DAYS  # 7 days
+
+# Top-N consensus players at each position to validate rank placement.
+# For each position we take the consensus top-5 and verify every one that
+# appears in our weekly file ranks within our top-20 at that position.
+_WEEKLY_CONSENSUS_TOP_N = 5
+_WEEKLY_RANK_WINDOW = 20
+
+
+def _parse_timestamp_from_filename(fname: str) -> Optional[datetime]:
+    """Extract the YYYYMMDD_HHMMSS timestamp embedded in a Gold filename.
+
+    Gold filenames follow the pattern ``projections_<scoring>_YYYYMMDD_HHMMSS.parquet``
+    or ``predictions_YYYYMMDD_HHMMSS.parquet``. Returns ``None`` when no
+    timestamp is found so callers can fall back to filesystem mtime.
+
+    Args:
+        fname: Basename of the file (e.g. ``projections_half_ppr_20260501_024908.parquet``).
+
+    Returns:
+        Parsed ``datetime`` or ``None`` if the pattern is absent.
+    """
+    import re as _re
+
+    m = _re.search(r"(\d{8})_(\d{6})", fname)
+    if not m:
+        return None
+    try:
+        return datetime.strptime(m.group(1) + m.group(2), "%Y%m%d%H%M%S")
+    except ValueError:
+        return None
+
+
+def _load_weekly_projections(
+    scoring: str, season: int, week: int
+) -> Tuple[Optional[str], pd.DataFrame]:
+    """Load the latest weekly projection parquet for (season, week, scoring).
+
+    Args:
+        scoring: Scoring format key (``"half_ppr"``, ``"ppr"``, or ``"standard"``).
+        season: Target season year.
+        week: Target week number (1–18).
+
+    Returns:
+        ``(file_path, df)`` where ``file_path`` is the absolute path to the
+        loaded parquet file (or ``None`` when no files exist) and ``df`` is the
+        loaded DataFrame (empty when no files exist).
+    """
+    pattern = os.path.join(
+        GOLD_DIR,
+        f"projections/season={season}/week={week}",
+        f"projections_{scoring}_*.parquet",
+    )
+    files = sorted(globmod.glob(pattern))
+    if not files:
+        return None, pd.DataFrame()
+
+    latest = files[-1]
+    try:
+        df = pd.read_parquet(latest)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Failed to read weekly projection parquet %s: %s", latest, exc)
+        return latest, pd.DataFrame()
+
+    print(f"Loaded weekly projections from: {os.path.basename(latest)}")
+    print(f"  {len(df)} players, columns: {list(df.columns)[:8]}...")
+    return latest, df
+
+
+def run_weekly_projection_check(
+    season: int, week: int, scoring: str
+) -> Tuple[List[str], List[str]]:
+    """SANITY-M6: validate weekly Gold projection file before deploy.
+
+    Catches the incident class from the stale-file bug (2026-05-01 file
+    served six weeks later with season-scale totals, CMC at RB118, Drake
+    Maye at QB29, and duplicate rookie-fallback rows).
+
+    Four sub-checks are run:
+
+    1. **Freshness (CRITICAL)**: filename-embedded timestamp must not be
+       older than ``_WEEKLY_MAX_AGE_DAYS`` (7 days).  A six-week-old file
+       hard-fails this gate.  A missing partition emits SKIP (the API falls
+       back to preseason projections — this is acceptable pre-season or for
+       future weeks that have not been run yet).
+
+    2. **No duplicate player_ids (CRITICAL)**: same player_id appearing
+       more than once indicates a projection-engine merge bug (the
+       Fernando Mendoza / Ty Simpson 260.1-pt row pair in the incident).
+
+    3. **Star-player rank sanity (CRITICAL)**: cross-check against Silver
+       external_projections (latest available week for the season; falls
+       back gracefully with SKIP when unavailable).  For each position,
+       take the consensus top-``_WEEKLY_CONSENSUS_TOP_N`` players by
+       projected_points and assert each one that appears in our weekly
+       file ranks within our top-``_WEEKLY_RANK_WINDOW`` at that position.
+       CMC at RB118 hard-fails this check.
+
+    4. **Scale sanity (CRITICAL)**: weekly projected_points for the top
+       player at each skill position must fall within ``_WEEKLY_POINTS_BANDS``.
+       Lamar Jackson at 483.1 pts (season-scale) in a weekly file is
+       unambiguously wrong.  Any value above ``_WEEKLY_SEASON_SCALE_THRESHOLD``
+       triggers CRITICAL regardless of position-band.  Non-negative clamp
+       is also verified here.
+
+    Args:
+        season: Target season year.
+        week: Target week number (1–18).
+        scoring: Scoring format string (e.g. ``"half_ppr"``).
+
+    Returns:
+        ``(criticals, warnings)`` lists of human-readable messages.
+    """
+    print("\n" + "=" * 70)
+    print(
+        f"  NFL Weekly Projection Sanity Check — Season {season}, "
+        f"Week {week}, {scoring.upper()}"
+    )
+    print("=" * 70)
+
+    criticals: List[str] = []
+    warnings: List[str] = []
+
+    # ------------------------------------------------------------------
+    # Load weekly parquet
+    # ------------------------------------------------------------------
+    file_path, df = _load_weekly_projections(scoring, season, week)
+
+    if file_path is None:
+        # Missing partition is acceptable for future/pre-season weeks.
+        print(
+            f"\n  [SKIP] No weekly projection file found for season={season} "
+            f"week={week} scoring={scoring}. "
+            f"API will fall back to preseason projections — this is expected "
+            f"for future or pre-season weeks."
+        )
+        return criticals, warnings
+
+    if df.empty:
+        criticals.append(
+            f"WEEKLY FILE UNREADABLE: {os.path.basename(file_path)} could not "
+            f"be loaded as a valid parquet."
+        )
+        print(f"  [FAIL] Weekly file unreadable: {os.path.basename(file_path)}")
+        return criticals, warnings
+
+    # Resolve projected_points column (schema varies between generator versions).
+    pts_col = (
+        "projected_points"
+        if "projected_points" in df.columns
+        else "projected_season_points"
+    )
+
+    print("\n" + "-" * 70)
+    print("  CHECK 1: FILE FRESHNESS")
+    print("-" * 70)
+
+    # ------------------------------------------------------------------
+    # 1. CRITICAL: Freshness — parse timestamp from filename.
+    # ------------------------------------------------------------------
+    fname = os.path.basename(file_path)
+    file_ts = _parse_timestamp_from_filename(fname)
+    if file_ts is None:
+        # Fall back to filesystem mtime when filename has no timestamp.
+        file_ts = datetime.fromtimestamp(os.path.getmtime(file_path))
+
+    age_days = (datetime.now() - file_ts).days
+    if age_days > _WEEKLY_MAX_AGE_DAYS:
+        criticals.append(
+            f"STALE WEEKLY FILE: {fname} is {age_days} days old "
+            f"(threshold: {_WEEKLY_MAX_AGE_DAYS} days). Weekly projection must "
+            f"be regenerated before deploy. This is the incident class from "
+            f"the 2026-05-01 file served six weeks later."
+        )
+        print(
+            f"  [FAIL] {fname} is {age_days} days old "
+            f"(threshold: {_WEEKLY_MAX_AGE_DAYS})"
+        )
+    else:
+        print(
+            f"  [PASS] {fname} is {age_days} days old "
+            f"(threshold: {_WEEKLY_MAX_AGE_DAYS})"
+        )
+
+    print("\n" + "-" * 70)
+    print("  CHECK 2: DUPLICATE player_id")
+    print("-" * 70)
+
+    # ------------------------------------------------------------------
+    # 2. CRITICAL: No duplicate player_ids.
+    # ------------------------------------------------------------------
+    if "player_id" in df.columns:
+        dupe_mask = df.duplicated(subset=["player_id"], keep=False)
+        dupes = df[dupe_mask]
+        if not dupes.empty:
+            dupe_ids = dupes["player_id"].unique().tolist()
+            dupe_sample = dupes[["player_id", "player_name", pts_col]].head(6)
+            sample_str = "; ".join(
+                f"{r['player_name']} ({r[pts_col]:.1f})"
+                for _, r in dupe_sample.iterrows()
+            )
+            criticals.append(
+                f"DUPLICATE player_id: {len(dupe_ids)} duplicated player_id(s) "
+                f"({len(dupes)} rows). Sample: {sample_str}. "
+                f"This was the Fernando Mendoza/Ty Simpson 260.1-pt incident."
+            )
+            print(
+                f"  [FAIL] {len(dupe_ids)} duplicate player_id(s), "
+                f"{len(dupes)} affected rows"
+            )
+        else:
+            print(f"  [PASS] No duplicate player_ids ({len(df)} players)")
+    else:
+        warnings.append(
+            "WEEKLY SCHEMA: 'player_id' column absent — duplicate detection skipped."
+        )
+        print("  [SKIP] No player_id column — duplicate detection skipped")
+
+    print("\n" + "-" * 70)
+    print("  CHECK 3: SCALE SANITY (weekly projected_points bands)")
+    print("-" * 70)
+
+    # ------------------------------------------------------------------
+    # 3. Scale sanity — weekly-scale vs season-scale detection.
+    # Non-negative clamp is checked here too.
+    # ------------------------------------------------------------------
+    if pts_col in df.columns:
+        # Check non-negative (skill positions).
+        skill_positions = {"QB", "RB", "WR", "TE"}
+        pos_col = "position" if "position" in df.columns else None
+        if pos_col:
+            neg_skill = df[
+                df[pos_col].isin(skill_positions) & (df[pts_col] < 0)
+            ]
+        else:
+            neg_skill = df[df[pts_col] < 0]
+
+        if not neg_skill.empty:
+            sample = ", ".join(
+                f"{r.get('player_name', '?')} ({r[pts_col]:.2f})"
+                for _, r in neg_skill.head(5).iterrows()
+            )
+            criticals.append(
+                f"NEGATIVE WEEKLY PTS: {len(neg_skill)} player(s) have "
+                f"{pts_col} < 0 in weekly file. First {min(5, len(neg_skill))}: "
+                f"{sample}. Clamp invariant violated."
+            )
+            print(f"  [FAIL] {len(neg_skill)} player(s) have negative projected_points")
+        else:
+            print(f"  [PASS] Non-negative clamp: all skill-position players >= 0")
+
+        # Check position-specific bands for top player at each position.
+        if pos_col:
+            for pos, (lo, hi) in _WEEKLY_POINTS_BANDS.items():
+                pos_df = df[df[pos_col] == pos]
+                if pos_df.empty:
+                    continue
+                top_val = float(pos_df[pts_col].max())
+                player_name = pos_df.loc[pos_df[pts_col].idxmax()].get(
+                    "player_name", "?"
+                )
+                # Any value above the absolute season-scale threshold is
+                # unambiguously wrong regardless of the per-position band.
+                if top_val > _WEEKLY_SEASON_SCALE_THRESHOLD:
+                    criticals.append(
+                        f"SEASON-SCALE IN WEEKLY FILE ({pos}): {player_name} has "
+                        f"{top_val:.1f} pts — this is season-scale, not weekly. "
+                        f"Weekly Gold files must have weekly-scale values "
+                        f"(expected {pos}1 in [{lo:.0f}, {hi:.0f}]). "
+                        f"This was the Lamar Jackson 483.1 incident."
+                    )
+                    print(
+                        f"  [FAIL] {pos} top player {player_name} = {top_val:.1f} "
+                        f"(season-scale threshold: {_WEEKLY_SEASON_SCALE_THRESHOLD})"
+                    )
+                elif top_val > hi:
+                    criticals.append(
+                        f"WEEKLY SCALE HIGH ({pos}): {player_name} has "
+                        f"{top_val:.1f} pts — above expected weekly band "
+                        f"[{lo:.0f}, {hi:.0f}] for {pos}1."
+                    )
+                    print(
+                        f"  [FAIL] {pos} top player {player_name} = {top_val:.1f} "
+                        f"(band [{lo:.0f}, {hi:.0f}])"
+                    )
+                elif top_val < lo:
+                    warnings.append(
+                        f"WEEKLY SCALE LOW ({pos}): top player {player_name} has "
+                        f"{top_val:.1f} pts — below expected weekly floor "
+                        f"{lo:.0f}. May be a bye-week-heavy week or pipeline issue."
+                    )
+                    print(
+                        f"  [WARN] {pos} top player {player_name} = {top_val:.1f} "
+                        f"(floor {lo:.0f})"
+                    )
+                else:
+                    print(
+                        f"  [PASS] {pos} top player {player_name} = {top_val:.1f} "
+                        f"in [{lo:.0f}, {hi:.0f}]"
+                    )
+    else:
+        warnings.append(
+            f"WEEKLY SCHEMA: '{pts_col}' column absent — scale check skipped."
+        )
+        print(f"  [SKIP] No {pts_col} column — scale check skipped")
+
+    print("\n" + "-" * 70)
+    print("  CHECK 4: STAR-PLAYER RANK SANITY (vs Silver external_projections)")
+    print("-" * 70)
+
+    # ------------------------------------------------------------------
+    # 4. Star-player rank sanity against Silver external_projections.
+    # Fall back gracefully with SKIP when Silver data is unavailable.
+    # ------------------------------------------------------------------
+    # Determine the best available season for Silver external_projections.
+    # The weekly file's season may not have Silver data yet (future season),
+    # so we search for the most recent available season <= the target season.
+    ext_crit, ext_warn = _check_weekly_star_rank_sanity(df, pts_col, season, week)
+    criticals.extend(ext_crit)
+    warnings.extend(ext_warn)
+
+    # ------------------------------------------------------------------
+    # Print CRITICAL issues
+    # ------------------------------------------------------------------
+    print("\n" + "-" * 70)
+    print("  WEEKLY PROJECTION CRITICAL ISSUES")
+    print("-" * 70)
+    if criticals:
+        for c in criticals:
+            print(f"  [CRITICAL] {c}")
+    else:
+        print("  None — weekly projection checks passed.")
+
+    print("\n" + "-" * 70)
+    print("  WEEKLY PROJECTION WARNINGS")
+    print("-" * 70)
+    if warnings:
+        for w in warnings:
+            print(f"  [WARNING]  {w}")
+    else:
+        print("  None — all weekly checks within expected bounds.")
+
+    return criticals, warnings
+
+
+def _check_weekly_star_rank_sanity(
+    weekly_df: pd.DataFrame,
+    pts_col: str,
+    season: int,
+    week: int,
+) -> Tuple[List[str], List[str]]:
+    """SANITY-M6c: assert consensus top-N stars rank in our weekly top-20.
+
+    Loads the Silver external_projections for the most recent available
+    week of the most recent available season <= ``season``. For each
+    position, takes the consensus top-``_WEEKLY_CONSENSUS_TOP_N`` players
+    by projected_points and verifies each one that appears in our weekly
+    file ranks within our top-``_WEEKLY_RANK_WINDOW`` at that position.
+
+    Falls back gracefully with SKIP when Silver data is unavailable — this
+    is optional infrastructure (same pattern as ``_check_consensus_cross_check``).
+
+    CMC at RB118 in our weekly file will hard-fail this check because
+    he ranks consensus RB1 in Silver external_projections.
+
+    Args:
+        weekly_df: Weekly Gold projection DataFrame.
+        pts_col: Name of the projected-points column in ``weekly_df``.
+        season: Target season year.
+        week: Target week number.
+
+    Returns:
+        ``(criticals, warnings)`` lists.
+    """
+    criticals: List[str] = []
+    warnings: List[str] = []
+
+    # Find the best available Silver external_projections season.
+    ext_season: Optional[int] = None
+    for s in range(season, season - 4, -1):
+        ext_base = os.path.join(
+            PROJECT_ROOT, "data", "silver", "external_projections", f"season={s}"
+        )
+        if os.path.isdir(ext_base):
+            ext_season = s
+            break
+
+    if ext_season is None:
+        warnings.append(
+            "WEEKLY STAR-RANK SKIPPED: no Silver external_projections found for "
+            f"season={season} or prior 3 seasons. Run weekly-external-projections "
+            "workflow first."
+        )
+        print("  [SKIP] Star-rank check (no Silver external_projections found)")
+        return criticals, warnings
+
+    ext_base = os.path.join(
+        PROJECT_ROOT, "data", "silver", "external_projections", f"season={ext_season}"
+    )
+    week_dirs = sorted(globmod.glob(os.path.join(ext_base, "week=*")))
+    if not week_dirs:
+        warnings.append(
+            f"WEEKLY STAR-RANK SKIPPED: Silver external_projections/season={ext_season}/ "
+            "exists but contains no week partitions."
+        )
+        print(
+            f"  [SKIP] Star-rank check (no week partitions for season={ext_season})"
+        )
+        return criticals, warnings
+
+    # Pick the requested week's partition when it exists; otherwise use latest.
+    target_week_dir = os.path.join(ext_base, f"week={week:02d}")
+    if not os.path.isdir(target_week_dir):
+        target_week_dir = week_dirs[-1]
+
+    ext_files = sorted(globmod.glob(os.path.join(target_week_dir, "*.parquet")))
+    if not ext_files:
+        warnings.append(
+            f"WEEKLY STAR-RANK SKIPPED: no parquet files in {target_week_dir}."
+        )
+        print("  [SKIP] Star-rank check (no parquet in external_projections week dir)")
+        return criticals, warnings
+
+    try:
+        ext_df = pd.read_parquet(ext_files[-1])
+    except Exception as exc:  # noqa: BLE001
+        warnings.append(
+            f"WEEKLY STAR-RANK SKIPPED: could not read {ext_files[-1]}: {exc}"
+        )
+        return criticals, warnings
+
+    if "projected_points" not in ext_df.columns or "player_name" not in ext_df.columns:
+        warnings.append(
+            "WEEKLY STAR-RANK SKIPPED: Silver external_projections missing "
+            "'projected_points' or 'player_name' column."
+        )
+        return criticals, warnings
+
+    if "position" not in ext_df.columns:
+        warnings.append(
+            "WEEKLY STAR-RANK SKIPPED: Silver external_projections missing "
+            "'position' column."
+        )
+        return criticals, warnings
+
+    # Filter to skill positions.
+    ext_df = ext_df[ext_df["position"].isin(_FANTASY_POSITIONS)].copy()
+
+    if "scoring_format" in ext_df.columns:
+        ext_scoring = ext_df[ext_df["scoring_format"] == "half_ppr"]
+        if not ext_scoring.empty:
+            ext_df = ext_scoring.copy()
+
+    # Build normalized name lookup in our weekly file.
+    if pts_col not in weekly_df.columns or "position" not in weekly_df.columns:
+        warnings.append(
+            "WEEKLY STAR-RANK SKIPPED: weekly df missing required columns."
+        )
+        return criticals, warnings
+
+    weekly = weekly_df.copy()
+    weekly["_norm"] = weekly["player_name"].apply(_normalize_name)
+    ext_df["_norm"] = ext_df["player_name"].apply(_normalize_name)
+
+    # Compute our position ranks if not already present.
+    if "position_rank" not in weekly.columns:
+        weekly["position_rank"] = weekly.groupby("position")[pts_col].rank(
+            ascending=False, method="first"
+        )
+
+    n_checked = 0
+    n_failed = 0
+
+    for pos in _FANTASY_POSITIONS:
+        our_pos = weekly[weekly["position"] == pos].copy()
+        ext_pos = ext_df[ext_df["position"] == pos].copy()
+
+        if our_pos.empty or ext_pos.empty:
+            continue
+
+        # Consensus top-N by projected_points.
+        top_consensus = ext_pos.nlargest(_WEEKLY_CONSENSUS_TOP_N, "projected_points")
+        n_checked += len(top_consensus)
+
+        for _, cons_row in top_consensus.iterrows():
+            norm = cons_row["_norm"]
+            our_rows = our_pos[our_pos["_norm"] == norm]
+            if our_rows.empty:
+                # Player not in our weekly file — may be injured or bye week.
+                # This is a WARNING not CRITICAL since weekly files
+                # legitimately omit bye-week players.
+                warnings.append(
+                    f"WEEKLY STAR MISSING: consensus {pos} star "
+                    f"'{cons_row['player_name']}' (ext {pos}#{int(top_consensus.index.get_loc(cons_row.name) + 1)}) "
+                    f"not found in our weekly file."
+                )
+                continue
+
+            our_rank = int(our_rows["position_rank"].iloc[0])
+            if our_rank > _WEEKLY_RANK_WINDOW:
+                n_failed += 1
+                criticals.append(
+                    f"WEEKLY STAR RANK ({pos}): '{cons_row['player_name']}' is "
+                    f"consensus {pos} top-{_WEEKLY_CONSENSUS_TOP_N} but ranks "
+                    f"{pos}#{our_rank} in our weekly file "
+                    f"(window: top-{_WEEKLY_RANK_WINDOW}). "
+                    f"CMC-at-RB118 incident class."
+                )
+                print(
+                    f"  [FAIL] {pos} star '{cons_row['player_name']}': "
+                    f"our rank {pos}#{our_rank} > top-{_WEEKLY_RANK_WINDOW}"
+                )
+            else:
+                print(
+                    f"  [PASS] {pos} star '{cons_row['player_name']}': "
+                    f"our rank {pos}#{our_rank} within top-{_WEEKLY_RANK_WINDOW}"
+                )
+
+    if n_checked == 0:
+        warnings.append(
+            "WEEKLY STAR-RANK SKIPPED: no position overlap between weekly file "
+            "and Silver external_projections."
+        )
+        print("  [SKIP] Star-rank check (no position overlap)")
+    elif n_failed == 0:
+        print(
+            f"  [PASS] Star-rank check: all {n_checked} consensus stars "
+            f"within our top-{_WEEKLY_RANK_WINDOW} per position"
+        )
+    else:
+        print(
+            f"  [FAIL] Star-rank check: {n_failed}/{n_checked} consensus stars "
+            f"outside our top-{_WEEKLY_RANK_WINDOW}"
+        )
+
+    return criticals, warnings
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Sanity check NFL projections and/or game predictions"
@@ -3078,6 +3635,13 @@ def main() -> int:
         help="Validate game predictions/lines instead of projections",
     )
     parser.add_argument(
+        "--check-weekly",
+        action="store_true",
+        help="Validate the weekly Gold projection partition the website "
+        "serves (freshness, duplicates, star-player ranks, weekly-scale "
+        "points). Catches the stale-file incident class (CMC at RB118).",
+    )
+    parser.add_argument(
         "--all",
         action="store_true",
         dest="check_all",
@@ -3102,8 +3666,30 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    run_projections = not args.check_predictions or args.check_all
+    run_projections = (
+        not args.check_predictions and not args.check_weekly
+    ) or args.check_all
     run_predictions = args.check_predictions or args.check_all
+    run_weekly = args.check_weekly or args.check_all
+
+    # Resolve the week for the weekly projection check independently of the
+    # prediction auto-detect below: a missing partition is a SKIP (the API
+    # falls back to preseason), never a hard CLI error.
+    weekly_week = args.week
+    if run_weekly and weekly_week is None:
+        proj_dir = os.path.join(GOLD_DIR, f"projections/season={args.season}")
+        week_dirs = sorted(
+            globmod.glob(os.path.join(proj_dir, "week=*")),
+            key=lambda p: int(os.path.basename(p).split("=")[1]),
+        )
+        if week_dirs:
+            weekly_week = int(os.path.basename(week_dirs[-1]).split("=")[1])
+            print(
+                f"No --week specified; auto-detected weekly projection "
+                f"week {weekly_week}"
+            )
+        else:
+            weekly_week = 1  # run_weekly_projection_check emits SKIP
 
     if run_predictions and args.week is None:
         # Try to find any available week for the season
@@ -3127,11 +3713,22 @@ def main() -> int:
     all_warnings: List[str] = []
     projection_exit = 0
     prediction_exit = 0
+    weekly_exit = 0
     live_exit = 0
 
     # --- Projection checks ---
     if run_projections:
         projection_exit = run_sanity_check(args.scoring, args.season)
+
+    # --- Weekly projection checks (the partition the website serves) ---
+    if run_weekly:
+        weekly_criticals, weekly_warnings = run_weekly_projection_check(
+            args.season, weekly_week, args.scoring
+        )
+        all_criticals.extend(weekly_criticals)
+        all_warnings.extend(weekly_warnings)
+        if weekly_criticals:
+            weekly_exit = 1
 
     # --- Prediction checks ---
     if run_predictions:
@@ -3165,6 +3762,9 @@ def main() -> int:
     if run_predictions:
         status = "FAIL" if prediction_exit != 0 else "PASS"
         sections_run.append(("Predictions", status))
+    if run_weekly:
+        status = "FAIL" if weekly_exit != 0 else "PASS"
+        sections_run.append(("Weekly Projections", status))
     if args.check_live:
         status = "FAIL" if live_exit != 0 else "PASS"
         sections_run.append(("Live Site", status))

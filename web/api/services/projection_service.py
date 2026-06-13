@@ -4,17 +4,28 @@ Service layer for reading and filtering player projections.
 Supports two data backends:
   1. PostgreSQL -- when DATABASE_URL is set (production)
   2. Parquet    -- local file reads (development fallback)
+
+Preseason Fallback
+------------------
+When the requested weekly Parquet for a *current or future* season is either
+missing or older than ``WEEKLY_STALENESS_THRESHOLD_DAYS`` days, the service
+automatically serves the preseason projections for that season instead.  The
+response is labelled ``source="preseason_fallback"`` so callers can surface a
+freshness indicator without breaking schema compatibility.
+
+Historical seasons (``season < current year``) are never subject to this
+check — their frozen data is intentional.
 """
 
 import logging
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Optional
 
 import pandas as pd
 
-from ..config import DATA_DIR, GOLD_PROJECTIONS_DIR
+from ..config import DATA_DIR, GOLD_PROJECTIONS_DIR, WEEKLY_STALENESS_THRESHOLD_DAYS
 from ..db import get_connection, is_db_enabled
 
 logger = logging.getLogger(__name__)
@@ -43,12 +54,17 @@ class ProjectionMetaInfo:
     the requested ``(season, week)``. ``source_path`` is the project-relative
     path to that parquet. Both are ``None`` when the PostgreSQL backend
     served the query (no filesystem origin).
+
+    ``source`` is either ``"weekly"`` (normal path) or ``"preseason_fallback"``
+    when the weekly file was missing / stale and the preseason projections for
+    the season were served instead.
     """
 
     season: int
     week: int
     data_as_of: Optional[str]
     source_path: Optional[str]
+    source: str = "weekly"
 
 
 # ---------------------------------------------------------------------------
@@ -91,6 +107,175 @@ def _iso_utc(mtime: float) -> str:
     return datetime.fromtimestamp(mtime, tz=timezone.utc).isoformat()
 
 
+# ---------------------------------------------------------------------------
+# Preseason fallback helpers
+# ---------------------------------------------------------------------------
+
+#: Directory pattern for preseason projections (no week partition).
+_PRESEASON_DIR_NAME = "preseason"
+
+
+def _preseason_dir(season: int) -> Path:
+    """Return the local preseason projections directory for ``season``."""
+    return GOLD_PROJECTIONS_DIR / _PRESEASON_DIR_NAME / f"season={season}"
+
+
+def _weekly_file_is_stale(parquet_path: Path) -> bool:
+    """Return True when ``parquet_path``'s mtime is older than the threshold.
+
+    Uses the filesystem mtime rather than parsing the embedded timestamp in
+    the filename so the check is consistent with how the rest of the service
+    resolves freshness.
+    """
+    try:
+        age = datetime.now(tz=timezone.utc) - datetime.fromtimestamp(
+            parquet_path.stat().st_mtime, tz=timezone.utc
+        )
+        return age > timedelta(days=WEEKLY_STALENESS_THRESHOLD_DAYS)
+    except OSError:
+        # File vanished between discovery and stat — treat as stale.
+        return True
+
+
+def _should_apply_fallback(season: int) -> bool:
+    """Return True when the preseason fallback is applicable for ``season``.
+
+    Only current and future seasons warrant a freshness check.  Historical
+    seasons have intentionally frozen data — treating them as stale would
+    incorrectly return preseason projections in place of valid backtest data.
+    """
+    return season >= datetime.now(tz=timezone.utc).year
+
+
+def _normalize_preseason_df(
+    df: pd.DataFrame,
+    season: int,
+    week: int,
+    scoring_format: str,
+) -> pd.DataFrame:
+    """Normalize a raw preseason DataFrame to match the weekly response schema.
+
+    The preseason parquet uses different column names and lacks per-week stat
+    projections (floor/ceiling).  This function:
+      * renames columns to the weekly convention,
+      * sets ``week`` to the requested week number,
+      * synthesises ``projected_floor``/``projected_ceiling`` via the same
+        position-specific variance factors used by the projection engine when
+        a preseason file has neither column.
+
+    Args:
+        df: Raw DataFrame from the preseason parquet.
+        season: Requested NFL season year.
+        week: Requested NFL week number (1-18).
+        scoring_format: Scoring format string (ppr / half_ppr / standard).
+
+    Returns:
+        Normalised DataFrame whose columns are compatible with
+        ``_df_to_projection_list`` in the router.
+    """
+    rename_map = {
+        "recent_team": "team",
+        "passing_yards": "proj_pass_yards",
+        "passing_tds": "proj_pass_tds",
+        "rushing_yards": "proj_rush_yards",
+        "rushing_tds": "proj_rush_tds",
+        "receptions": "proj_rec",
+        "receiving_yards": "proj_rec_yards",
+        "receiving_tds": "proj_rec_tds",
+        "interceptions": "proj_interceptions",
+        "targets": "proj_targets",
+        "carries": "proj_carries",
+        # Preseason-specific names
+        "projected_season_points": "projected_points",
+        "proj_season": "season",
+    }
+    df = df.rename(columns={k: v for k, v in rename_map.items() if k in df.columns})
+
+    # Set season/week to the requested slice so the API envelope is honest.
+    df["season"] = season
+    df["week"] = week
+    df["scoring_format"] = scoring_format
+
+    # Derive floor/ceiling from projected_points when the preseason file does
+    # not carry them.  Variance factors mirror projection_engine.py defaults.
+    _POSITION_VARIANCE = {"QB": 0.45, "RB": 0.40, "WR": 0.38, "TE": 0.35}
+    _DEFAULT_VARIANCE = 0.40
+
+    if "projected_points" in df.columns:
+        if "projected_floor" not in df.columns:
+            variance = df["position"].map(_POSITION_VARIANCE).fillna(_DEFAULT_VARIANCE)
+            df["projected_floor"] = (
+                df["projected_points"] * (1.0 - variance)
+            ).round(2)
+
+        if "projected_ceiling" not in df.columns:
+            variance = df["position"].map(_POSITION_VARIANCE).fillna(_DEFAULT_VARIANCE)
+            df["projected_ceiling"] = (
+                df["projected_points"] * (1.0 + variance)
+            ).round(2)
+
+    # Ensure projected_points >= 0 (business rule for skill positions).
+    if "projected_points" in df.columns:
+        df["projected_points"] = df["projected_points"].clip(lower=0)
+
+    return df
+
+
+def _get_preseason_projections_parquet(
+    season: int,
+    week: int,
+    scoring_format: str,
+    position: Optional[str] = None,
+    team: Optional[str] = None,
+    limit: int = 200,
+) -> pd.DataFrame:
+    """Read preseason projections for ``season`` and normalise to weekly schema.
+
+    Args:
+        season: NFL season year.
+        week: Requested week number — stamped onto every row so the response
+            envelope remains consistent (actual projections are season-level).
+        scoring_format: One of ppr / half_ppr / standard.
+        position: Optional position filter.
+        team: Optional team abbreviation filter.
+        limit: Maximum rows to return.
+
+    Returns:
+        Normalised DataFrame ready for ``_df_to_projection_list``.
+
+    Raises:
+        FileNotFoundError: When no preseason parquet exists for ``season``.
+    """
+    preseason_dir = _preseason_dir(season)
+    if not preseason_dir.exists():
+        raise FileNotFoundError(
+            f"No preseason projection data for season={season}"
+        )
+
+    parquet_path = _latest_parquet(preseason_dir)
+    if parquet_path is None:
+        raise FileNotFoundError(
+            f"No preseason parquet files in {preseason_dir}"
+        )
+
+    logger.info(
+        "Preseason fallback: reading %s for season=%s week=%s",
+        parquet_path,
+        season,
+        week,
+    )
+    df = pd.read_parquet(parquet_path)
+    df = _normalize_preseason_df(df, season, week, scoring_format)
+
+    if position:
+        df = df[df["position"].str.upper() == position.upper()]
+    if team and "team" in df.columns:
+        df = df[df["team"].str.upper() == team.upper()]
+
+    df = df.sort_values("projected_points", ascending=False).head(limit)
+    return df
+
+
 def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
     """Return source-parquet metadata for a given season/week.
 
@@ -105,12 +290,26 @@ def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
         )
 
     week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
-    if not week_dir.exists():
-        return ProjectionMetaInfo(
-            season=season, week=week, data_as_of=None, source_path=None
-        )
+    parquet_path = _latest_parquet(week_dir) if week_dir.exists() else None
 
-    parquet_path = _latest_parquet(week_dir)
+    # Mirror the _get_projections_parquet fallback so the envelope reports
+    # the file actually served, not the one that was requested.
+    if _should_apply_fallback(season) and (
+        parquet_path is None or _weekly_file_is_stale(parquet_path)
+    ):
+        preseason_dir = _preseason_dir(season)
+        preseason_path = (
+            _latest_parquet(preseason_dir) if preseason_dir.exists() else None
+        )
+        if preseason_path is not None:
+            return ProjectionMetaInfo(
+                season=season,
+                week=week,
+                data_as_of=_iso_utc(preseason_path.stat().st_mtime),
+                source_path=_project_relative(preseason_path),
+                source="preseason_fallback",
+            )
+
     if parquet_path is None:
         return ProjectionMetaInfo(
             season=season, week=week, data_as_of=None, source_path=None
@@ -218,14 +417,36 @@ def _get_projections_parquet(
     team: Optional[str] = None,
     limit: int = 200,
 ) -> pd.DataFrame:
-    """Read projections from local Parquet files."""
-    week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
-    if not week_dir.exists():
-        raise FileNotFoundError(f"No projection data for season={season} week={week}")
+    """Read projections from local Parquet files.
 
-    parquet_path = _latest_parquet(week_dir)
+    For current/future seasons, falls back to the preseason projections
+    when the weekly parquet is missing or stale (see module docstring).
+    """
+    week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
+    parquet_path = _latest_parquet(week_dir) if week_dir.exists() else None
+
+    if _should_apply_fallback(season) and (
+        parquet_path is None or _weekly_file_is_stale(parquet_path)
+    ):
+        try:
+            return _get_preseason_projections_parquet(
+                season, week, scoring_format, position, team, limit
+            )
+        except FileNotFoundError:
+            if parquet_path is None:
+                raise FileNotFoundError(
+                    f"No projection data for season={season} week={week} "
+                    f"and no preseason data to fall back to"
+                )
+            logger.warning(
+                "Weekly parquet %s is stale but no preseason data exists "
+                "for season=%s; serving the stale file",
+                parquet_path,
+                season,
+            )
+
     if parquet_path is None:
-        raise FileNotFoundError(f"No parquet files in {week_dir}")
+        raise FileNotFoundError(f"No projection data for season={season} week={week}")
 
     logger.info("Reading projections from %s", parquet_path)
     df = pd.read_parquet(parquet_path)
