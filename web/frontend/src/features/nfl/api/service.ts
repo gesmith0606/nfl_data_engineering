@@ -26,4 +26,7 @@ export {
   fetchAdp,
   // Multi-source rankings
   fetchMultiCompareRankings,
+  // Game archive
+  fetchGames,
+  fetchGameSeasons,
 } from '@/lib/nfl/api';

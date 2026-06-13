@@ -5,6 +5,8 @@ import {
   fetchCurrentWeek,
   fetchDraftBoard,
   fetchDraftRecommendations,
+  fetchGameSeasons,
+  fetchGames,
   fetchHealth,
   fetchLineup,
   fetchNewsFeed,
@@ -57,7 +59,10 @@ export const nflKeys = {
       ...nflKeys.all,
       'multi-compare',
       { season, scoring, position, sortBy, sources, limit },
-    ] as const
+    ] as const,
+  games: (season: number, week: number) =>
+    [...nflKeys.all, 'games', { season, week }] as const,
+  gameSeasons: () => [...nflKeys.all, 'game-seasons'] as const
 };
 
 export const projectionsQueryOptions = (
@@ -299,4 +304,35 @@ export const multiCompareQueryOptions = (opts: {
         limit: opts.limit,
       }),
     staleTime: 30 * 60 * 1000 // 30 minutes — external sources cache 24h server-side
+  });
+
+// ---------------------------------------------------------------------------
+// Game archive
+// ---------------------------------------------------------------------------
+
+/**
+ * Game results for a season / week. Stale after 1 hour — scores are final
+ * once posted and rarely change, but we still want the cache to refresh
+ * during live games on Sunday.
+ */
+export const gamesQueryOptions = (season: number, week: number) =>
+  queryOptions({
+    queryKey: nflKeys.games(season, week),
+    queryFn: () => fetchGames(season, week),
+    staleTime: 60 * 60 * 1000,
+    retry: (failureCount, error) => {
+      if (error && 'status' in error && (error as { status: number }).status === 404) return false;
+      return failureCount < 2;
+    }
+  });
+
+/**
+ * Available seasons. Very stable — only changes once per NFL season.
+ * Cache for 24 hours.
+ */
+export const gameSeasonsQueryOptions = () =>
+  queryOptions({
+    queryKey: nflKeys.gameSeasons(),
+    queryFn: () => fetchGameSeasons(),
+    staleTime: 24 * 60 * 60 * 1000
   });

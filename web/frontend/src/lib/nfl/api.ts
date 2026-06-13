@@ -6,6 +6,8 @@ import type {
   DraftPickRequest,
   DraftPickResponse,
   DraftRecommendationsResponse,
+  GameSeasonsResponse,
+  GamesResponse,
   HealthResponse,
   LineupResponse,
   MockDraftPickRequest,
@@ -365,6 +367,24 @@ export async function fetchPlayerBadges(
   return request<PlayerEventBadges>(
     `/api/news/player-badges/${encodeURIComponent(playerId)}?${params}`,
   );
+}
+
+// ---------------------------------------------------------------------------
+// Game archive
+// ---------------------------------------------------------------------------
+
+/** Fetch final game scores for a season / week. */
+export async function fetchGames(season: number, week: number): Promise<GamesResponse> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week)
+  });
+  return request<GamesResponse>(`/api/games?${params}`);
+}
+
+/** Fetch the list of seasons with game data. */
+export async function fetchGameSeasons(): Promise<GameSeasonsResponse> {
+  return request<GameSeasonsResponse>('/api/games/seasons');
 }
 
 export { ApiError };

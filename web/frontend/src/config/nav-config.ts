@@ -37,6 +37,14 @@ export const navGroups: NavGroup[] = [
         items: []
       },
       {
+        title: 'Scores',
+        url: '/dashboard/games',
+        icon: 'table',
+        isActive: false,
+        shortcut: ['s', 'c'],
+        items: []
+      },
+      {
         title: 'Lineups',
         url: '/dashboard/lineups',
         icon: 'football',

@@ -318,6 +318,45 @@ export interface SentimentPlayer {
   doc_count: number;
 }
 
+// ---------------------------------------------------------------------------
+// Game archive types (/api/games, /api/games/seasons)
+// ---------------------------------------------------------------------------
+
+/** Final score record for a single NFL game. */
+export interface GameResult {
+  game_id: string;
+  season: number;
+  week: number;
+  home_team: string;
+  away_team: string;
+  home_score: number | null;
+  away_score: number | null;
+  winner: string | null;
+  point_spread_result: number | null;
+  total_points: number | null;
+  game_date: string | null;
+  game_time: string | null;
+}
+
+/** Envelope for a list of game results. */
+export interface GamesResponse {
+  season: number;
+  week: number;
+  games: GameResult[];
+}
+
+/** Season metadata entry from /api/games/seasons. */
+export interface GameSeasonEntry {
+  season: number;
+  game_count: number;
+  has_player_stats: boolean;
+}
+
+/** Envelope for the seasons list. */
+export interface GameSeasonsResponse {
+  seasons: GameSeasonEntry[];
+}
+
 /** Scoring format options. */
 export type ScoringFormat = "ppr" | "half_ppr" | "standard";
 
