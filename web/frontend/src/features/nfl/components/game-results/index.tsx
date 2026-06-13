@@ -198,10 +198,13 @@ export function GameResultsGrid() {
     'season',
     parseAsInteger.withDefault(DEFAULT_SEASON)
   );
-  const [week, setWeek] = useQueryState(
+  const [rawWeek, setWeek] = useQueryState(
     'week',
     parseAsInteger.withDefault(DEFAULT_WEEK)
   );
+  // Clamp hand-edited URLs (?week=99) into the valid range — the backend
+  // 422s outside 1..18 and that should never reach the network.
+  const week = Math.min(Math.max(rawWeek, 1), TOTAL_WEEKS);
 
   const { data: seasonsData } = useQuery(gameSeasonsQueryOptions());
   const { data, isLoading, isError, error } = useQuery(gamesQueryOptions(season, week));
@@ -216,7 +219,10 @@ export function GameResultsGrid() {
       {/* Filters */}
       <div className='grid grid-cols-2 gap-[var(--space-2)] sm:flex sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
-          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
+          <SelectTrigger
+            aria-label='Season'
+            className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'
+          >
             <SelectValue placeholder='Season' />
           </SelectTrigger>
           <SelectContent>
@@ -232,7 +238,10 @@ export function GameResultsGrid() {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-24'>
+          <SelectTrigger
+            aria-label='Week'
+            className='h-[var(--tap-min)] w-full sm:h-9 sm:w-24'
+          >
             <SelectValue placeholder='Week' />
           </SelectTrigger>
           <SelectContent>

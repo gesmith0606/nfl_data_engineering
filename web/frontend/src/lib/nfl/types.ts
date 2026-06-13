@@ -343,6 +343,7 @@ export interface GamesResponse {
   season: number;
   week: number;
   games: GameResult[];
+  count: number;
 }
 
 /** Season metadata entry from /api/games/seasons. */

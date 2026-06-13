@@ -321,7 +321,12 @@ export const gamesQueryOptions = (season: number, week: number) =>
     queryFn: () => fetchGames(season, week),
     staleTime: 60 * 60 * 1000,
     retry: (failureCount, error) => {
-      if (error && 'status' in error && (error as { status: number }).status === 404) return false;
+      // 404 (no data for the slice) and 422 (out-of-range params) are
+      // deterministic — retrying cannot help.
+      if (error && 'status' in error) {
+        const status = (error as { status: number }).status;
+        if (status === 404 || status === 422) return false;
+      }
       return failureCount < 2;
     }
   });
