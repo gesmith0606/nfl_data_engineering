@@ -238,3 +238,21 @@ Three independent falsifications (worktree agent-aec86afccffc2e14c;
 parity at WR top-12 (−0.025) — disagreement cases corrupt ordering, and new weekly
 contextual signal (graph features) is the only remaining lever. Carried by the
 graph-ordering workstream.
+
+### Graph-feature ordering multipliers — KILLED (2026-06-12), with a near-miss that points the way
+
+67-config sweep (10 signals × alphas incl. extension grid to a=0.28; code preserved on
+branch worktree-agent-a2e05852c20b3a13d; results in sweep_graph_ordering{,_round1,_ext}.csv):
+- ONLY ONE config crosses the band gate: **QB-WR chemistry EPA a=0.28, WR top-12 Spearman
+  +0.030 — but at +0.029 WR MAE, 3x the 0.01 budget.** The Spearman/MAE tradeoff curve never
+  offers a compliant point; every other signal/joint is below gate at any alpha.
+- RB signals (script boost, RZ TD regression) top out at +0.013-0.016 band Spearman.
+
+**The reframe this suggests (RECOMMENDED NEXT, needs a product decision):** ordering signal
+exists (chemistry is real) but pricing it into projected_points destroys MAE. Rankings and
+point projections are currently the SAME number. Decoupling them — a ranking score =
+projected_points + small ordering nudges (chemistry, RZ share), used ONLY to order players
+on the site/draft tool while displayed points stay MAE-optimal — would capture the +0.03
+WR top-12 ordering gain at zero MAE cost. Gates for that workstream: rank-corr/top-N only,
+MAE irrelevant by construction. This changes what "our rankings" means product-wise —
+user decision required before building.
