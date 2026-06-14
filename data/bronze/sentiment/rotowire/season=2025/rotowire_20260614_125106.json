@@ -1,0 +1,29 @@
+{
+  "fetch_run_id": "a05b0fd3-d5f2-4b4c-a77c-824b8e438436",
+  "source": "rotowire",
+  "fetched_at": "2026-06-14T12:51:06.065955+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 1,
+  "items": [
+    {
+      "external_id": "nfl631382",
+      "url": "https://www.rotowire.com//football/player/stefon-diggs-10133",
+      "permalink": "",
+      "title": "Stefon Diggs: NFL closes personal conduct review",
+      "body_text": "The NFL has closed its review of Diggs after determining that there was insufficient evidence of a personal conduct policy violation stemming from an alleged dispute with his private chef this past December, ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-12T11:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    }
+  ]
+}

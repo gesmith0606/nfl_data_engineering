@@ -1,0 +1,358 @@
+{
+  "fetch_run_id": "df535e3e-0e41-4fff-940a-f1e428140671",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-06-14T12:50:51.002526+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 23,
+  "items": [
+    {
+      "external_id": "US-EN-49045930",
+      "url": "https://www.espn.com/nfl/story/_/id/49045930/cleveland-browns-quarterback-competition-deshaun-watson-shedeur-sanders-more-learned-otas",
+      "title": "Browns' QB competition and 4 more things learned f...",
+      "body_text": "Whether Shedeur Sanders or Deshaun Watson will start and the WRs' fit are among Cleveland's top storylines.",
+      "author": "Daniel Oyefusi",
+      "published_at": "2026-06-14T12:15:02+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Whether Shedeur",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-49054479",
+      "url": "https://www.espn.com/nfl/story/_/id/49054479/former-nfl-defensive-lineman-aldon-smith-dies-age-36",
+      "title": "Former defensive lineman Aldon Smith dies at 36",
+      "body_text": "Aldon Smith, who played six seasons in the NFL with the 49ers, Raiders and Cowboys, died on Saturday at age 36.",
+      "author": "Nick Wagoner",
+      "published_at": "2026-06-14T00:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49042034",
+      "url": "https://www.espn.com/nfl/story/_/id/49042034/nfl-closes-personal-conduct-review-wr-stefon-diggs",
+      "title": "NFL closes personal conduct review of WR Diggs",
+      "body_text": "The NFL has closed its review of wide receiver Stefon Diggs after determining there was insufficient evidence of a personal conduct policy violation, a league official told ESPN's Adam Schefter.",
+      "author": null,
+      "published_at": "2026-06-14T00:54:26+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Diggs The",
+        "Stefon Diggs",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49043269",
+      "url": "https://www.espn.com/nfl/story/_/id/49043269/frank-ragnow-reflects-abrupt-lions-retirement-aborted-return",
+      "title": "Retired Ragnow: Body told me to stop playing",
+      "body_text": "One year after announcing his abrupt retirement on social media, former Lions center Frank Ragnow broke his silence on the process and the failed physical that prevented his in-season return.",
+      "author": "Eric Woodyard",
+      "published_at": "2026-06-14T00:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Retired Ragnow",
+        "Frank Ragnow"
+      ],
+      "resolved_player_ids": [
+        "00-0034345"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49040520",
+      "url": "https://www.espn.com/nfl/story/_/id/49040520/jonathon-cooper-arrested-again-allegedly-violated-protection-order",
+      "title": "Broncos' Cooper arrested for alleged harassment",
+      "body_text": "Broncos linebacker Jonathon Cooper was arrested Thursday after he allegedly violated a protection order against him, according to jail records.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-06-14T00:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jonathon Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-49038108",
+      "url": "https://www.espn.com/nfl/story/_/id/49038108/seahawks-super-bowl-lx-title-rings-salute-fans-city-history",
+      "title": "Seahawks' SB LX rings salute fans, city, history",
+      "body_text": "At a private ceremony Thursday night, the Seahawks received their Super Bowl LX rings, which feature diamonds, sapphires, team mantras and a tribute to the team's fans, among other elements.",
+      "author": "Brady Henderson",
+      "published_at": "2026-06-14T00:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-49037608",
+      "url": "https://www.espn.com/nfl/story/_/id/49037608/bucs-bowles-backs-mayfield-long-term-qb-amid-contract-talks",
+      "title": "Bowles backs Mayfield as long-term QB amid talks",
+      "body_text": "Bucs coach Todd Bowles said he \"absolutely\" wants Baker Mayfield as his long-term quarterback and that he doesn't believe the lack of progress on a new deal has impacted him.",
+      "author": "Jenna Laine",
+      "published_at": "2026-06-14T00:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Todd Bowles",
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49039791",
+      "url": "https://www.espn.com/nfl/story/_/id/49039791/sources-no-league-discipline-chiefs-dbs-coach-merritt",
+      "title": "Sources: No NFL discipline for Chiefs coach Merrit...",
+      "body_text": "The NFL has concluded its investigation of Kansas City Chiefs defensive backs coach Dave Merritt and found insufficient evidence of a violation of the personal conduct policy, sources told NFL Network's Mike Garafolo.",
+      "author": null,
+      "published_at": "2026-06-14T00:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Kansas City",
+        "Dave Merritt",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-49032484",
+      "url": "https://www.espn.com/nfl/story/_/id/49032484/ex-raiders-wr-henry-ruggs-denied-parole-nearly-5-years-crash",
+      "title": "Ruggs denied parole nearly five years after crash",
+      "body_text": "Ex-NFL player Henry Ruggs was denied parole nearly five years after killing a woman in a car crash in Las Vegas, the Nevada Board of Parole Commissioners ruled Thursday.",
+      "author": "Elizabeth Merrill and Anthony Olivieri",
+      "published_at": "2026-06-14T00:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Henry Ruggs",
+        "Las Vegas",
+        "Nevada Board",
+        "Parole Commissioners"
+      ],
+      "resolved_player_ids": [
+        "00-0036357"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49033308",
+      "url": "https://www.espn.com/nfl/story/_/id/49033308/andy-reid-travis-kelce-taylor-swift-wedding-kansas-city-chiefs",
+      "title": "😐 Reid coy on Kelce-Swift wedding attendance",
+      "body_text": "According to Reid, despite being half of one of the most anticipated weddings in recent memory, Kelce is focused on training camp.",
+      "author": "Nate Taylor",
+      "published_at": "2026-06-14T00:54:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49030490",
+      "url": "https://www.espn.com/nfl/story/_/id/49030490/fifa-world-cup-grass-nfl-stadiums-debate-field-surface",
+      "title": "World Cup only amplifies NFL players' desire for a...",
+      "body_text": "The World Cup is the latest proof of concept that it's possible to have grass fields in all 30 NFL stadiums, even the domes. But obstacles remain from keeping it full time.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-06-13T21:59:32+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "World Cup",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49009790",
+      "url": "https://www.espn.com/nfl/story/_/id/49009790/nfl-players-world-cup-golden-boot-predictions-france-kylian-mbappe",
+      "title": "Can the U.S. win it all? NFL players make World Cu...",
+      "body_text": "We asked 29 NFL players to weigh in on who would win the Golden Boot and World Cup.",
+      "author": "Rich Cimini",
+      "published_at": "2026-06-13T21:59:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Golden Boot",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48950554",
+      "url": "https://www.espn.com/nfl/story/_/id/48950554/2026-nfl-minicamp-live-updates-teams-mandatory-camps-news-notes-depth-charts",
+      "title": "NFL minicamp daily updates: Yes! Jaxson Dart is ad...",
+      "body_text": "Week 2 of OTAs is underway with 17 teams, and ESPN's NFL Nation shares news and insights from every practice.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-13T00:28:01+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48988004",
+      "url": "https://www.espn.com/nfl/story/_/id/48988004/2026-nfl-minicamps-otas-teams-rookies-qbs-veterans-watching",
+      "title": "From QB battles to rookie progress, here's everyth...",
+      "body_text": "NFL Nation frames minicamp storylines, including Hurts, Mahomes and QBs in Arizona and Minnesota.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-13T00:28:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49001685",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/49001685/nfl-draft-2027-top-five-every-position-players-watch",
+      "title": "Way-too-early NFL draft rankings for 2027: The top...",
+      "body_text": "The NFL draft is a long way off, but Matt Miller and Jordan Reid ranked the five best prospects at every position. How do the top QBs, OTs, CBs and more stack up?",
+      "author": "Matt Miller and Jordan Reid",
+      "published_at": "2026-06-12T18:49:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matt Miller",
+        "Jordan Reid"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49044989",
+      "url": "https://www.espn.com/nfl/story/_/id/49044989/taylor-swift-travis-kelce-wedding-madison-square-garden-msg-venue-date-kansas-city-chiefs",
+      "title": "It was all by design: The case for MSG as part of ...",
+      "body_text": "As for where they're getting married, has the \"Life of a Showgirl\" singer already spelled it out for us?",
+      "author": "Tory Barron",
+      "published_at": "2026-06-13T19:50:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49010295",
+      "url": "https://www.espn.com/nfl/story/_/id/49010295/2026-nfl-season-contracts-market-reset-every-position-extensions-barnwell",
+      "title": "$63.4M per year to Mahomes? Let's size up the bigg...",
+      "body_text": "Will Patrick Mahomes stick as the highest-paid QB? Could another edge rusher top Will Anderson Jr.? We named the next players to get PAID at every position.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-06-11T19:12:40+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Patrick",
+        "Will Anderson Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Fantasy buzz: Is Jakobi Meyers the Jaguars WR to t...",
+      "body_text": "Eric Moody breaks down the Jaguars' crowded receiver room and explains why Jakobi Meyers is his WR of choice.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-06-12T16:18:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Is Jakobi",
+        "Eric Moody",
+        "Jakobi Meyers"
+      ],
+      "resolved_player_ids": [
+        "00-0034960"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "US-EN-49000804",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49000804/fantasy-football-make-six-draft-mistakes",
+      "title": "Don't make these six draft mistakes",
+      "body_text": "Avoiding common pitfalls can keep your draft on track for success.",
+      "author": "Eric Moody",
+      "published_at": "2026-06-12T16:18:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49032415",
+      "url": "https://www.espn.com/nfl/story/_/id/49032415/indianapolis-colts-camryn-bynum-philippines-earthquake-relief",
+      "title": "'It's a community thing': Cam Bynum to travel to P...",
+      "body_text": "Bynum, who is half-Filipino and makes his offseason home in the Philippines, said he'll focus on addressing issues such as the lack of clean water due to broken pipes.",
+      "author": "Stephen Holder",
+      "published_at": "2026-06-11T20:32:12+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Cam Bynum"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48915793",
+      "url": "https://www.espn.com/nfl/story/_/id/48915793/2026-nfl-offseason-trade-tracker-updates-news-contracts-training-camp-preseason",
+      "title": "Tracking postdraft NFL trades: Wanya Morris to the...",
+      "body_text": "We're following trades right through the kickoff of the 2026 NFL season, including Wanya Morris to the Falcons.",
+      "author": "ESPN Staff",
+      "published_at": "2026-06-14T00:20:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Wanya Morris"
+      ],
+      "resolved_player_ids": [
+        "00-0038981"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-48976999",
+      "url": "https://www.espn.com/nfl/story/_/id/48976999/how-june-1-2026-blockbuster-trade-day-nfl-myles-garrett-aj-brown-jared-verse",
+      "title": "Cap casualties to trade fireworks: Inside the NFL'...",
+      "body_text": "More than 15 coaches, players and execs shed light on the back-to-back trades that happened on a key June day.",
+      "author": "Jeremy Fowler and Sarah Barshop and Mike Reiss and Daniel Oyefusi and Tim McManus",
+      "published_at": "2026-06-14T00:20:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48881830",
+      "url": "https://www.espn.com/nfl/story/_/id/48881830/nfl-best-offenses-personnel-groupings-cowboys-rams-dolphins",
+      "title": "Let's size up the best NFL offenses by personnel g...",
+      "body_text": "Which teams stand out in 11, 12, 13, 21 and 22 personnel groupings? We looked back at the 2025 season and then gave an outlook for the top offenses in 2026.",
+      "author": "Matt Bowen",
+      "published_at": "2026-06-10T20:01:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
