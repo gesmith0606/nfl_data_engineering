@@ -69,6 +69,7 @@ python -m flake8 src/ tests/ scripts/
 /validate-data 2024 10            # Business rules + DuckDB SQL on Parquet
 /test                             # Full test suite
 /draft-prep 2026 half_ppr 5 12    # Draft workflow (Sleeper + fetch MCPs)
+/draft-live georgesmith 5         # Live draft co-pilot (Sleeper; polls picks, advises in-session)
 /simplify                         # Code quality review of changed files
 ```
 
@@ -166,6 +167,12 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/ablation_market_features.py` | Ablation CLI — P30 baseline vs market features on holdout |
 | `scripts/generate_projections.py` | Gold CLI — `--week` or `--preseason` |
 | `scripts/draft_assistant.py` | Interactive draft CLI — snake, auction, simulation, waiver wire |
+| `scripts/draft_live.py` | Live draft co-pilot CLI (v8.0) — polls a live Sleeper draft, snapshot/`--watch`/`--manual`, drives `LiveDraftEngine` |
+| `src/draft_models.py` | Platform-neutral `PickEvent` / `DraftState` (v8.0 live draft) |
+| `src/sleeper_draft.py` | Sleeper draft parsing + active-draft resolution (v8.0) |
+| `src/sleeper_player_map.py` | Sleeper player_id → projection mapping, cached registry (v8.0) |
+| `src/draft_adapter.py` | `DraftAdapter` protocol + `SleeperAdapter` (v8.0; Yahoo/ESPN plug in here) |
+| `src/live_draft_engine.py` | `LiveDraftEngine` — pick diff, board/roster sync, slot math, recs, key moments (v8.0) |
 | `scripts/backtest_projections.py` | Fantasy backtest — MAE/RMSE/bias per position |
 | `scripts/refresh_adp.py` | Fetch ADP from Sleeper API → data/adp_latest.csv |
 | `scripts/check_pipeline_health.py` | S3 freshness + size checks across all layers |
