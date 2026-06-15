@@ -20,7 +20,7 @@
 - ✅ **v7.0 Production Stabilization** — Phases 66-70 (shipped 2026-04-24; 4 human_needed + 1 passed — see `.planning/milestones/v7.0-ROADMAP.md`)
 - ✅ **v7.1 Draft Season Readiness** — Phases 71-75 (shipped 2026-04-26; LLM-primary extraction, external projections comparison, Sleeper league integration, tech debt cleanup — see `.planning/milestones/v7.1-ROADMAP.md`)
 - 📋 **v7.2 Data + Site Polish** — Phases 76-84 (in flight; see `.planning/milestones/v7.2-ROADMAP.md`)
-- 🎯 **v8.0 Live Draft Co-Pilot** — Phases 85-89 (planning; Claude Code-native live draft assistant across Sleeper→Yahoo→ESPN, adapter-based, separate from website chatbot; see `.planning/milestones/v8.0-ROADMAP.md`)
+- 🚧 **v8.0 Live Draft Co-Pilot** — Phases 85-90 (active — code complete on branch `feat/v8-live-draft-copilot`, awaiting PR/merge; Claude Code-native live draft assistant across Sleeper→Yahoo→ESPN + keeper-league support, adapter-based, separate from website chatbot; see `.planning/milestones/v8.0-ROADMAP.md`)
 
 ## Phases
 

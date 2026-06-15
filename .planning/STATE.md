@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v7.2
-milestone_name: Data + Site Polish
-status: paused
-stopped_at: Phase 79 complete; v7.2 paused after 2.5-week production-hotfix detour
-last_updated: "2026-05-15T00:00:00.000Z"
-last_activity: 2026-05-15
+milestone: v8.0
+milestone_name: Live Draft Co-Pilot
+status: active
+stopped_at: Phases 85-90 complete on branch feat/v8-live-draft-copilot (awaiting PR/merge). v7.2 deferred (paused at Phase 79 after production-hotfix detour).
+last_updated: "2026-06-15T00:00:00.000Z"
+last_activity: 2026-06-15
 progress:
-  total_phases: 36
-  completed_phases: 24
-  total_plans: 48
-  completed_plans: 46
-  percent: 96
+  total_phases: 6
+  completed_phases: 6
+  total_plans: 7
+  completed_plans: 7
+  percent: 100
 ---
 
 # Project State
