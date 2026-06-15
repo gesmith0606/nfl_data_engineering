@@ -24,7 +24,7 @@ from typing import (
 
 import pandas as pd
 
-from src import sleeper_draft, sleeper_player_map
+from src import sleeper_draft, sleeper_http, sleeper_player_map
 from src.draft_models import DraftState, PickEvent
 
 
@@ -83,4 +83,53 @@ class SleeperAdapter:
     ) -> Tuple[List[Dict[str, Any]], List[PickEvent]]:
         return sleeper_player_map.map_picks_to_projections(
             picks, projections_df, player_index=self._ensure_index()
+        )
+
+    # Keeper support (Phase 90) — not part of the DraftAdapter Protocol; the engine
+    # calls it via hasattr() so non-keeper platforms need not implement it.
+    def get_keepers(
+        self, league_id: str, my_user_id: Optional[str] = None
+    ) -> Dict[str, List[PickEvent]]:
+        """Return already-rostered (kept) players for a keeper-league draft.
+
+        Reads every team's league roster and represents each kept player as a
+        ``PickEvent`` (``is_keeper=True``) so it flows through the same mapping
+        path as live picks. ``mine`` is the subset on the user's roster.
+
+        Returns ``{"all": [...], "mine": [...]}``; empty lists on any error.
+        """
+        rosters = sleeper_http.get_league_rosters(league_id)
+        index = self._ensure_index()
+        all_kept: List[PickEvent] = []
+        mine: List[PickEvent] = []
+        for roster in rosters:
+            if not isinstance(roster, dict):
+                continue
+            owner = str(roster.get("owner_id") or "")
+            roster_id = roster.get("roster_id")
+            for pid in roster.get("players") or []:
+                pe = self._keeper_pick(str(pid), index, roster_id, owner)
+                all_kept.append(pe)
+                if my_user_id and owner == str(my_user_id):
+                    mine.append(pe)
+        return {"all": all_kept, "mine": mine}
+
+    @staticmethod
+    def _keeper_pick(
+        player_id: str, index: Dict[str, Dict[str, str]], roster_id, owner: str
+    ) -> PickEvent:
+        rec = index.get(player_id, {})
+        first, _, last = str(rec.get("full_name", "")).partition(" ")
+        return PickEvent(
+            pick_no=0,
+            round=0,
+            draft_slot=0,
+            roster_id=None if roster_id is None else int(roster_id),
+            picked_by=owner,
+            sleeper_player_id=player_id,
+            first_name=first,
+            last_name=last,
+            position=str(rec.get("position", "")).upper(),
+            team=str(rec.get("team", "")).upper(),
+            is_keeper=True,
         )

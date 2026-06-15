@@ -64,6 +64,24 @@ source venv/bin/activate && python scripts/draft_live.py --manual --teams 12 --m
 ```
 Re-run with the full accumulated `--add-pick` list each time a pick is made.
 
+## Keeper / rookie leagues (Phase 90)
+If the user's league is a keeper league (e.g. a rookie-only draft), pass `--league-id`
+(and `--username` or `--my-user-id`) so every already-rostered player across the
+league is marked off the board — recommendations then come only from the true
+draftable pool (rookies + any dropped players), and the user's keepers load as their
+starting roster so "what do I still need" is correct.
+```bash
+source venv/bin/activate && python scripts/draft_live.py --username USER --league-id LID \
+  --my-slot N --watch --json
+```
+**Roster management / who to drop:** when the user must cut an existing player to
+roster a rookie, run the roster report — it prints the optimal starting lineup and
+ranked drop candidates (weakest bench / streamable K-DST / positional redundancy):
+```bash
+source venv/bin/activate && python scripts/draft_live.py --username USER --league-id LID \
+  --draft-id ID --roster-report --json
+```
+
 ## Platforms
 - **Sleeper** (`--platform sleeper`, default) — full live support, no auth.
 - **Yahoo** (`--platform yahoo`) — full live support via the official Fantasy API.

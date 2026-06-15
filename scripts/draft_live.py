@@ -41,6 +41,7 @@ from src.espn_adapter import EspnAdapter  # noqa: E402
 from src.live_draft_engine import LiveDraftEngine, PollResult  # noqa: E402
 from src.nfl_data_integration import NFLDataFetcher  # noqa: E402
 from src.projection_engine import generate_preseason_projections  # noqa: E402
+from src.roster_optimizer import drop_candidates, optimal_lineup  # noqa: E402
 from src.yahoo_adapter import YahooAdapter  # noqa: E402
 
 # sleeper: live. yahoo: live (requires OAuth env + one-time grant). espn: gated
@@ -244,6 +245,75 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
     return "\n".join(lines)
 
 
+def _player_points(p: dict):
+    return p.get("projected_points") or p.get("projected_season_points")
+
+
+def _render_roster_report(
+    engine: LiveDraftEngine, roster_format: str, as_json: bool
+) -> str:
+    """Render optimal starting lineup + drop candidates for the user's roster."""
+    roster = engine.my_full_roster()
+    lineup = optimal_lineup(roster, roster_format)
+    drops = drop_candidates(roster, roster_format, top_n=5)
+
+    if as_json:
+        return json.dumps(
+            {
+                "roster_size": len(roster),
+                "starters": {
+                    slot: [
+                        {
+                            "player_name": p.get("player_name"),
+                            "position": p.get("position"),
+                            "points": _player_points(p),
+                        }
+                        for p in players
+                    ]
+                    for slot, players in lineup["starters"].items()
+                },
+                "bench": [
+                    {"player_name": p.get("player_name"), "position": p.get("position")}
+                    for p in lineup["bench"]
+                ],
+                "drop_candidates": [
+                    {
+                        "player_name": d["player"].get("player_name"),
+                        "position": d["player"].get("position"),
+                        "value": d["value"],
+                        "reason": d["reason"],
+                    }
+                    for d in drops
+                ],
+            },
+            indent=2,
+            default=str,
+        )
+
+    lines = [f"ROSTER REPORT — {len(roster)} players ({roster_format})", ""]
+    if not roster:
+        lines.append(
+            "(no roster loaded — pass --league-id with --username/--my-user-id so "
+            "your keepers load)"
+        )
+        return "\n".join(lines)
+    lines.append("OPTIMAL STARTERS:")
+    for slot, players in lineup["starters"].items():
+        for p in players:
+            lines.append(
+                f"  {slot:<5} {str(p.get('player_name','')):<22} "
+                f"{str(p.get('position','')):<3} {_player_points(p)}"
+            )
+    lines.append("\nDROP CANDIDATES (cut to roster a rookie):")
+    for d in drops:
+        pl = d["player"]
+        lines.append(
+            f"  {str(pl.get('player_name','')):<22} {str(pl.get('position','')):<3} "
+            f"value={d['value']}  — {d['reason']}"
+        )
+    return "\n".join(lines)
+
+
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
@@ -261,6 +331,15 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--roster-format", default="standard")
     p.add_argument("--my-slot", type=int, help="Your draft slot (1-indexed)")
     p.add_argument("--my-user-id", help="Your Sleeper user_id (auto-derives slot)")
+    p.add_argument(
+        "--league-id",
+        help="League id for keeper leagues — pre-marks kept players off the board",
+    )
+    p.add_argument(
+        "--roster-report",
+        action="store_true",
+        help="Print optimal lineup + drop candidates for your roster (keepers + picks)",
+    )
     p.add_argument("--projections-file", help="CSV of projections (else generated)")
     p.add_argument("--adp-file", help="CSV of ADP (default data/adp_latest.csv)")
     p.add_argument("--top", type=int, default=8, help="Number of recommendations")
@@ -308,6 +387,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     adapter = _ADAPTERS[args.platform]()
 
     draft_id = args.draft_id
+    league_id = args.league_id
     if not draft_id:
         if not args.username:
             print("ERROR: provide --draft-id or --username.")
@@ -317,18 +397,47 @@ def main(argv: Optional[List[str]] = None) -> int:
             print(f"No active draft found for '{args.username}' in {args.season}.")
             return 1
         draft_id = res["draft_id"]
+        league_id = league_id or res.get("league_id")
         if len(res.get("candidates", [])) > 1:
             print(
                 f"Multiple drafts found; using {draft_id}. Candidates: "
                 f"{[c['draft_id'] for c in res['candidates']]}"
             )
 
+    # Resolve user_id (needed to identify YOUR keepers) from username if not given.
+    my_user_id = args.my_user_id
+    if not my_user_id and args.username and args.platform == "sleeper":
+        from src import sleeper_http
+
+        my_user_id = (
+            str(sleeper_http.get_user(args.username).get("user_id") or "") or None
+        )
+
     engine = LiveDraftEngine(
-        adapter, projections, adp_df, my_user_id=args.my_user_id, my_slot=args.my_slot
+        adapter, projections, adp_df, my_user_id=my_user_id, my_slot=args.my_slot
     )
 
+    _keepers_loaded = {"done": False}
+
     def _poll_once() -> PollResult:
-        return engine.update(adapter.load_state(draft_id))
+        poll = engine.update(adapter.load_state(draft_id))
+        # Keeper preload (once) — mark every league-rostered player off the board.
+        if (
+            not _keepers_loaded["done"]
+            and league_id
+            and hasattr(adapter, "get_keepers")
+        ):
+            info = adapter.get_keepers(league_id, my_user_id)
+            n = engine.preload_keepers(info)
+            _keepers_loaded["done"] = True
+            if not args.json:
+                print(f"(keeper league: marked {n} rostered players off the board)")
+        return poll
+
+    if args.roster_report:
+        _poll_once()
+        print(_render_roster_report(engine, args.roster_format, args.json))
+        return 0
 
     if not args.watch:
         print(render(engine, _poll_once(), args.top, args.json))

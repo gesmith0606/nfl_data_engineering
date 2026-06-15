@@ -246,3 +246,25 @@ def get_traded_picks(draft_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
             f"{_BASE_URL}/draft/{draft_id}/traded_picks", timeout=timeout
         )
     )
+
+
+def get_league_rosters(league_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
+    """Fetch all rosters in a league (owner_id + kept player_ids per team).
+
+    In a keeper league this is the pre-draft source of truth for who is already
+    rostered — used to compute the true draftable pool.
+
+    Args:
+        league_id: Sleeper league_id.
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        List of roster dicts (``roster_id``, ``owner_id``, ``players``, ...);
+        ``[]`` on any error or empty input.
+    """
+    if not league_id:
+        logger.warning("get_league_rosters: empty league_id provided")
+        return []
+    return _as_list(
+        fetch_sleeper_json(f"{_BASE_URL}/league/{league_id}/rosters", timeout=timeout)
+    )

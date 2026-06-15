@@ -83,6 +83,7 @@ class LiveDraftEngine:
         self.board: Optional[DraftBoard] = None
         self.advisor: Optional[DraftAdvisor] = None
         self.rosters: Dict[int, List[Dict[str, Any]]] = {}
+        self.my_keepers: List[Dict[str, Any]] = []
         self._seen_pick_no = 0
         self.state: Optional[DraftState] = None
         # Fast lookup: model_rank -> vorp, for pick grading / par value.
@@ -132,6 +133,37 @@ class LiveDraftEngine:
             turn=self.turn_info(),
             key_moments=moments,
         )
+
+    def preload_keepers(self, keeper_info: Dict[str, List[PickEvent]]) -> int:
+        """Mark already-rostered (kept) players off the board before the draft.
+
+        For a keeper league: every kept player across the league becomes
+        unavailable, so recommendations come only from the true draftable pool
+        (rookies + any dropped players). The user's own keepers are marked as
+        their roster so ``remaining_needs`` is correct. Call AFTER the first
+        ``update()`` (the board must exist). Returns the count marked off.
+
+        Idempotent enough for repeated calls — drafting an already-drafted player
+        is a no-op on the board.
+        """
+        if self.board is None:
+            return 0
+        all_kept = keeper_info.get("all", [])
+        mine = keeper_info.get("mine", [])
+        matched_all, _ = self.adapter.map_picks(all_kept, self.enriched)
+        matched_mine, _ = self.adapter.map_picks(mine, self.enriched)
+        my_ids = {m.get("player_id") for m in matched_mine}
+        self.my_keepers = matched_mine
+        for m in matched_all:
+            pid = str(m.get("player_id") or "")
+            if pid:
+                self.board.draft_player(pid, by_me=(m.get("player_id") in my_ids))
+        return len(matched_all)
+
+    def my_full_roster(self) -> List[Dict[str, Any]]:
+        """Your complete roster: keepers + players you've drafted live."""
+        drafted = self.rosters.get(self.my_slot, []) if self.my_slot else []
+        return list(self.my_keepers) + list(drafted)
 
     def turn_info(self) -> Optional[TurnInfo]:
         """Compute on-the-clock slot + the user's next pick number."""

@@ -1,0 +1,5 @@
+[
+  {"roster_id": 1, "owner_id": "u_alpha", "players": ["4046", "8112"]},
+  {"roster_id": 2, "owner_id": "u_bravo", "players": ["4035", "5859"]},
+  {"roster_id": 3, "owner_id": "u_charlie", "players": ["6794", "1234"]}
+]
