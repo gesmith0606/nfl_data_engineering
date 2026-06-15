@@ -1,0 +1,37 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "nfl.l.123456",
+        "league_id": "123456",
+        "name": "Co-Pilot Test League",
+        "num_teams": 12,
+        "season": "2026",
+        "draft_status": "drafting"
+      },
+      {
+        "settings": {
+          "draft_type": "snake",
+          "scoring_type": "head",
+          "stat_modifiers": {
+            "stats": {
+              "0": {"stat": {"stat_id": "4", "value": "0.04"}},
+              "1": {"stat": {"stat_id": "11", "value": "0.5"}},
+              "count": 2
+            }
+          },
+          "roster_positions": {
+            "0": {"roster_position": {"position": "QB", "count": 1}},
+            "1": {"roster_position": {"position": "RB", "count": 2}},
+            "2": {"roster_position": {"position": "WR", "count": 2}},
+            "3": {"roster_position": {"position": "TE", "count": 1}},
+            "4": {"roster_position": {"position": "W/R/T", "count": 1}},
+            "5": {"roster_position": {"position": "K", "count": 1}},
+            "6": {"roster_position": {"position": "DEF", "count": 1}},
+            "count": 7
+          }
+        }
+      }
+    ]
+  }
+}

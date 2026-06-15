@@ -1,0 +1,50 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "nfl.l.123456"
+      },
+      {
+        "players": {
+          "0": {"player": [
+            {"player_key": "nfl.p.30977"},
+            {"name": {"full": "Christian McCaffrey", "first": "Christian", "last": "McCaffrey"}},
+            {"editorial_team_abbr": "SF"},
+            {"display_position": "RB"}
+          ]},
+          "1": {"player": [
+            {"player_key": "nfl.p.31883"},
+            {"name": {"full": "Ja'Marr Chase", "first": "Ja'Marr", "last": "Chase"}},
+            {"editorial_team_abbr": "CIN"},
+            {"display_position": "WR"}
+          ]},
+          "2": {"player": [
+            {"player_key": "nfl.p.32671"},
+            {"name": {"full": "Patrick Mahomes", "first": "Patrick", "last": "Mahomes"}},
+            {"editorial_team_abbr": "KC"},
+            {"display_position": "QB"}
+          ]},
+          "3": {"player": [
+            {"player_key": "nfl.p.40026"},
+            {"name": {"full": "Travis Kelce", "first": "Travis", "last": "Kelce"}},
+            {"editorial_team_abbr": "KC"},
+            {"display_position": "TE"}
+          ]},
+          "4": {"player": [
+            {"player_key": "nfl.p.100021"},
+            {"name": {"full": "Justin Tucker", "first": "Justin", "last": "Tucker"}},
+            {"editorial_team_abbr": "BAL"},
+            {"display_position": "K"}
+          ]},
+          "5": {"player": [
+            {"player_key": "nfl.p.100007"},
+            {"name": {"full": "San Francisco", "first": "San Francisco", "last": ""}},
+            {"editorial_team_abbr": "SF"},
+            {"display_position": "DEF"}
+          ]},
+          "count": 6
+        }
+      }
+    ]
+  }
+}

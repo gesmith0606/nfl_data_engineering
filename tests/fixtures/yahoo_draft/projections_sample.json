@@ -1,0 +1,8 @@
+[
+  {"player_id": "P001", "player_name": "Christian McCaffrey", "position": "RB", "team": "SF", "projected_points": 320.5},
+  {"player_id": "P002", "player_name": "Ja'Marr Chase", "position": "WR", "team": "CIN", "projected_points": 295.1},
+  {"player_id": "P003", "player_name": "Patrick Mahomes", "position": "QB", "team": "KC", "projected_points": 380.4},
+  {"player_id": "P004", "player_name": "Travis Kelce", "position": "TE", "team": "KC", "projected_points": 210.7},
+  {"player_id": "P005", "player_name": "Justin Tucker", "position": "K", "team": "BAL", "projected_points": 150.0},
+  {"player_id": "P006", "player_name": "Saquon Barkley", "position": "RB", "team": "PHI", "projected_points": 290.0}
+]
