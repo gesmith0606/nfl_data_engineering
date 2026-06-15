@@ -1,0 +1,11 @@
+{
+  "draft_id": "999000111",
+  "league_id": "888777666",
+  "status": "complete",
+  "type": "snake",
+  "season": "2026",
+  "metadata": {"scoring_type": "half_ppr", "name": "Mock Half-PPR 12-team"},
+  "settings": {"teams": 12, "rounds": 15, "rec": 0.5, "slots_qb": 1, "slots_super_flex": 0},
+  "draft_order": {"u_alpha": 1, "u_bravo": 2, "u_charlie": 3},
+  "slot_to_roster_id": {"1": 1, "2": 2, "3": 3}
+}

@@ -1,0 +1,8 @@
+[
+  {"player_id": "p_mahomes", "player_name": "Patrick Mahomes", "position": "QB", "team": "KC", "projected_points": 360.0},
+  {"player_id": "p_cmc", "player_name": "Christian McCaffrey", "position": "RB", "team": "SF", "projected_points": 320.0},
+  {"player_id": "p_chase", "player_name": "Ja'Marr Chase", "position": "WR", "team": "CIN", "projected_points": 300.0},
+  {"player_id": "p_kelce", "player_name": "Travis Kelce", "position": "TE", "team": "KC", "projected_points": 240.0},
+  {"player_id": "p_bijan", "player_name": "Bijan Robinson", "position": "RB", "team": "ATL", "projected_points": 290.0},
+  {"player_id": "p_mhj", "player_name": "Marvin Harrison", "position": "WR", "team": "ARI", "projected_points": 270.0}
+]

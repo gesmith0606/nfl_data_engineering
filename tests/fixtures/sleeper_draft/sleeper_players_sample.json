@@ -1,0 +1,10 @@
+{
+  "4046": {"full_name": "Patrick Mahomes", "first_name": "Patrick", "last_name": "Mahomes", "position": "QB", "team": "KC"},
+  "4035": {"full_name": "Christian McCaffrey", "first_name": "Christian", "last_name": "McCaffrey", "position": "RB", "team": "SF"},
+  "6794": {"full_name": "Ja'Marr Chase", "first_name": "Ja'Marr", "last_name": "Chase", "position": "WR", "team": "CIN"},
+  "1234": {"full_name": "Travis Kelce", "first_name": "Travis", "last_name": "Kelce", "position": "TE", "team": "KC"},
+  "5859": {"full_name": "Bijan Robinson", "first_name": "Bijan", "last_name": "Robinson", "position": "RB", "team": "ATL"},
+  "8112": {"full_name": "Marvin Harrison Jr.", "first_name": "Marvin", "last_name": "Harrison", "position": "WR", "team": "ARI"},
+  "SF": {"full_name": "San Francisco 49ers", "first_name": "San Francisco", "last_name": "49ers", "position": "DEF", "team": "SF"},
+  "K9001": {"full_name": "Harrison Butker", "first_name": "Harrison", "last_name": "Butker", "position": "K", "team": "KC"}
+}

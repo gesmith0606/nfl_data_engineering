@@ -25,6 +25,18 @@ Public API
     return type usable for the most common Sleeper endpoints (registry,
     projections); endpoints that return lists should ``isinstance`` check
     before iterating.
+
+Draft + user read helpers (typed, fail-open) — v8.0 Live Draft Co-Pilot
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``get_user(username) -> dict``
+``get_user_drafts(user_id, season) -> list``
+``get_drafts_for_league(league_id) -> list``
+``get_draft(draft_id) -> dict``
+``get_draft_picks(draft_id) -> list``
+``get_traded_picks(draft_id) -> list``
+    Thin wrappers over ``fetch_sleeper_json`` that build the Sleeper v1 URL and
+    normalize the fail-open default so list endpoints always return ``[]`` and
+    object endpoints always return ``{}`` (never the wrong container type).
 """
 
 from __future__ import annotations
@@ -98,3 +110,139 @@ def fetch_sleeper_json(url: str, timeout: int = _DEFAULT_TIMEOUT_S) -> Any:
             "Sleeper invalid JSON from %s: %s — fail-open returning {}", url, exc
         )
         return {}
+
+
+# ---------------------------------------------------------------------------
+# Draft + user read helpers (v8.0 Live Draft Co-Pilot)
+# ---------------------------------------------------------------------------
+
+_BASE_URL: str = "https://api.sleeper.app/v1"
+
+
+def _as_list(value: Any) -> list:
+    """Normalize a fail-open / unexpected payload to a list.
+
+    ``fetch_sleeper_json`` returns ``{}`` on error; Sleeper list endpoints must
+    therefore coerce a non-list result to ``[]`` so callers can always iterate.
+    """
+    return value if isinstance(value, list) else []
+
+
+def _as_dict(value: Any) -> dict:
+    """Normalize a fail-open / unexpected payload to a dict."""
+    return value if isinstance(value, dict) else {}
+
+
+def get_user(username: str, timeout: int = _DEFAULT_TIMEOUT_S) -> dict:
+    """Fetch a Sleeper user object by username (or user_id).
+
+    Args:
+        username: Sleeper display username or numeric user_id.
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        The user dict (``user_id``, ``username``, ...) or ``{}`` on any error
+        or empty input.
+    """
+    if not username:
+        logger.warning("get_user: empty username provided")
+        return {}
+    return _as_dict(fetch_sleeper_json(f"{_BASE_URL}/user/{username}", timeout=timeout))
+
+
+def get_user_drafts(
+    user_id: str, season: str, timeout: int = _DEFAULT_TIMEOUT_S
+) -> list:
+    """Fetch all NFL drafts a user participates in for a season.
+
+    Args:
+        user_id: Sleeper numeric user_id.
+        season: Four-digit season string (e.g. ``"2026"``).
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        List of draft dicts (possibly empty); ``[]`` on any error or empty input.
+    """
+    if not user_id or not season:
+        logger.warning("get_user_drafts: empty user_id or season provided")
+        return []
+    return _as_list(
+        fetch_sleeper_json(
+            f"{_BASE_URL}/user/{user_id}/drafts/nfl/{season}", timeout=timeout
+        )
+    )
+
+
+def get_drafts_for_league(league_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
+    """Fetch all drafts associated with a league.
+
+    Args:
+        league_id: Sleeper league_id.
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        List of draft dicts (possibly empty); ``[]`` on any error or empty input.
+    """
+    if not league_id:
+        logger.warning("get_drafts_for_league: empty league_id provided")
+        return []
+    return _as_list(
+        fetch_sleeper_json(f"{_BASE_URL}/league/{league_id}/drafts", timeout=timeout)
+    )
+
+
+def get_draft(draft_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> dict:
+    """Fetch a single draft's metadata (status, type, settings, draft_order).
+
+    Args:
+        draft_id: Sleeper draft_id.
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        The draft dict or ``{}`` on any error or empty input.
+    """
+    if not draft_id:
+        logger.warning("get_draft: empty draft_id provided")
+        return {}
+    return _as_dict(
+        fetch_sleeper_json(f"{_BASE_URL}/draft/{draft_id}", timeout=timeout)
+    )
+
+
+def get_draft_picks(draft_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
+    """Fetch all picks made so far in a draft (works mid-draft).
+
+    Args:
+        draft_id: Sleeper draft_id.
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        List of pick dicts (possibly empty); ``[]`` on any error or empty input.
+    """
+    if not draft_id:
+        logger.warning("get_draft_picks: empty draft_id provided")
+        return []
+    return _as_list(
+        fetch_sleeper_json(f"{_BASE_URL}/draft/{draft_id}/picks", timeout=timeout)
+    )
+
+
+def get_traded_picks(draft_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
+    """Fetch traded picks for a draft.
+
+    Args:
+        draft_id: Sleeper draft_id.
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        List of traded-pick dicts (possibly empty); ``[]`` on any error or
+        empty input.
+    """
+    if not draft_id:
+        logger.warning("get_traded_picks: empty draft_id provided")
+        return []
+    return _as_list(
+        fetch_sleeper_json(
+            f"{_BASE_URL}/draft/{draft_id}/traded_picks", timeout=timeout
+        )
+    )
