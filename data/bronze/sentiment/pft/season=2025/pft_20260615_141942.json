@@ -1,0 +1,582 @@
+{
+  "fetch_run_id": "2aa13269-7f59-4494-b0c6-832e9be53b38",
+  "source": "pft",
+  "fetched_at": "2026-06-15T14:19:42.330093+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-shedeur-sanders-growth-has-truly-been-phenomenal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-shedeur-sanders-growth-has-truly-been-phenomenal",
+      "permalink": "",
+      "title": "Andrew Berry: Shedeur Sanders' growth has truly been phenomenal",
+      "body_text": "The Browns' quarterback competition will extend into training camp, as head coach Todd Monken told reporters last week that he's not yet ready to name a starter.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-15T13:44:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andrew Berry",
+        "Shedeur Sanders",
+        "The Browns",
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-wr-tank-dell-sees-light-at-the-end-of-the-tunnel-in-recovery-from-2024-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-wr-tank-dell-sees-light-at-the-end-of-the-tunnel-in-recovery-from-2024-knee-injury",
+      "permalink": "",
+      "title": "Texans WR Tank Dell sees \"light at the end of the tunnel\" in recovery from 2024 knee injury",
+      "body_text": "Texans wide receiver Tank Bell has not played in an NFL game since December 2024, but a return to the lineup appears to be on the horizon.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-15T13:30:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tank Dell",
+        "Tank Bell"
+      ],
+      "resolved_player_ids": [
+        "00-0038977"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aldon-smiths-final-interview-from-a-recent-barber-shop-visit-was-posted-last-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aldon-smiths-final-interview-from-a-recent-barber-shop-visit-was-posted-last-week",
+      "permalink": "",
+      "title": "Aldon Smith's final interview, from a recent barber shop visit, was posted last week",
+      "body_text": "A recent interview has emergedof Aldon Smith, a former NFL defensive end who died suddenly on Saturday.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-15T11:17:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-to-sign-ufl-offensive-player-of-the-year-hakeem-butler",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-to-sign-ufl-offensive-player-of-the-year-hakeem-butler",
+      "permalink": "",
+      "title": "Broncos to sign UFL offensive player of the year Hakeem Butler",
+      "body_text": "UFL offensive player of the year Hakeem Butler is getting another shot at the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-15T12:50:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hakeem Butler"
+      ],
+      "resolved_player_ids": [
+        "00-0035529"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-agree-to-four-year-extension-with-g-joe-tippmann",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-agree-to-four-year-extension-with-g-joe-tippmann",
+      "permalink": "",
+      "title": "Jets agree to four-year extension with G Joe Tippmann",
+      "body_text": "The Jets want right guard Joe Tippmann on their offensive line for years to come.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-15T12:35:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Tippmann",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0039145"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-legette-i-cant-have-another-year-like-2025",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-legette-i-cant-have-another-year-like-2025",
+      "permalink": "",
+      "title": "Xavier Legette: I can't have another year like 2025",
+      "body_text": "The Panthers made a commitment to wide receiver Jalen Coker with a three-year contract extension last week and 2025 offensive rookie of the year Tetairoa McMillan is clearly part of their future plans, but it's less clear if the wideout they picked in the first round in 2024 is in that picture.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-15T12:25:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Legette",
+        "The Panthers",
+        "Jalen Coker"
+      ],
+      "resolved_player_ids": [
+        "00-0039342",
+        "00-0039491"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-plans-to-attend-cowboys-mandatory-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-plans-to-attend-cowboys-mandatory-minicamp",
+      "permalink": "",
+      "title": "George Pickens plans to attend Cowboys' mandatory minicamp",
+      "body_text": "Cowboys wide receiver George Pickens has not been participating in voluntary offseason work.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-15T12:13:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-patrick-mahomes-pleased-with-what-kenneth-walker-is-bringing-to-chiefs-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-patrick-mahomes-pleased-with-what-kenneth-walker-is-bringing-to-chiefs-offense",
+      "permalink": "",
+      "title": "Andy Reid, Patrick Mahomes pleased with what Kenneth Walker is bringing to Chiefs' offense",
+      "body_text": "The Chiefs made a big offseason move to sign running back Kenneth Walker, the reigning Super Bowl MVP, away from the Seahawks.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-15T07:56:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "Patrick Mahomes",
+        "Kenneth Walker",
+        "The Chiefs",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-white-house-visit-apparently-isnt-happening",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-white-house-visit-apparently-isnt-happening",
+      "permalink": "",
+      "title": "Seahawks' White House visit apparently isn't happening",
+      "body_text": "With offseason program over, the window has closed.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-15T02:19:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "White House"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/levis-leans-in-to-absurd-fifa-requirement-that-stadium-names-be-changed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/levis-leans-in-to-absurd-fifa-requirement-that-stadium-names-be-changed",
+      "permalink": "",
+      "title": "Levi's leans in to absurd FIFA requirement that stadium names be changed",
+      "body_text": "Landing the World Cup included complying with plenty of FIFA requirements, including covering up the names of the 11 NFL stadiums that are hosting matches.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T23:59:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/peyton-mannings-omaha-productions-is-already-getting-roughly-60m-per-year-from-espn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/peyton-mannings-omaha-productions-is-already-getting-roughly-60m-per-year-from-espn",
+      "permalink": "",
+      "title": "Peyton Manning's Omaha Productions is already getting roughly $60M per year from ESPN",
+      "body_text": "Many eyebrows were raised at the news that ESPN is poised to pay Pat McAfee $60 million per year.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T23:44:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Peyton Manning",
+        "Omaha Productions"
+      ],
+      "resolved_player_ids": [
+        "00-0010346"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-are-swapping-speed-for-size",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-are-swapping-speed-for-size",
+      "permalink": "",
+      "title": "Jets are swapping speed for size",
+      "body_text": "The Jets may yet again go home without a playoff berth, but they're nevertheless going big.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T22:45:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-hope-to-weaponize-drake-mayes-mind",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-hope-to-weaponize-drake-mayes-mind",
+      "permalink": "",
+      "title": "Patriots hope to \"weaponize\" Drake Maye's mind",
+      "body_text": "As quarterback Drake Maye prepares for his second season in the Josh McDaniels offense, McDaniels knows Maye is in a much better spot than he was a year ago.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T22:25:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-posts-a-new-video-hinting-that-he-may-soon-be-released",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-posts-a-new-video-hinting-that-he-may-soon-be-released",
+      "permalink": "",
+      "title": "Brandon Aiyuk posts a new video, hinting that he may soon be released",
+      "body_text": "Two days after deleting a pair of Instagram videos that criticized the 49ers for not releasing him, receiver Brandon Aiyuk is back on social media.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T19:02:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-the-patrick-mahomes-deal-which-quarterbacks-are-next-to-get-paid",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-the-patrick-mahomes-deal-which-quarterbacks-are-next-to-get-paid",
+      "permalink": "",
+      "title": "After the Patrick Mahomes deal, which quarterbacks are next to get paid?",
+      "body_text": "The list is led by Lamar Jackson.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T18:22:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dabo-swinneys-recent-complaints-about-college-football-bolster-the-case-for-a-cba",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dabo-swinneys-recent-complaints-about-college-football-bolster-the-case-for-a-cba",
+      "permalink": "",
+      "title": "Dabo Swinney's recent complaints about college football bolster the case for a CBA",
+      "body_text": "The ongoing push for a federal law that restores the NCAA's roar conveniently overlooks a solution that college football (and other revenue sports) should be pursuing on their own.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T16:53:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dabo Swinney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/knicks-nba-title-gives-many-nfl-fan-bases-a-reason-to-keep-dreaming",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/knicks-nba-title-gives-many-nfl-fan-bases-a-reason-to-keep-dreaming",
+      "permalink": "",
+      "title": "Knicks NBA title gives many NFL fan bases a reason to keep dreaming",
+      "body_text": "The New York Knicks are back, baby.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T16:21:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The New",
+        "York Knicks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-could-have-his-hands-full-with-whoever-loses-the-qb-competition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-could-have-his-hands-full-with-whoever-loses-the-qb-competition",
+      "permalink": "",
+      "title": "Kevin O'Connell could have his hands full with whoever loses the QB competition",
+      "body_text": "QB1 will be happy; QB2 could be salty.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T15:43:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aldon-smiths-last-act-was-delivering-pizza-to-a-charity-that-feeds-the-homeless",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aldon-smiths-last-act-was-delivering-pizza-to-a-charity-that-feeds-the-homeless",
+      "permalink": "",
+      "title": "Aldon Smith's last act was delivering pizza to a charity that feeds the homeless",
+      "body_text": "On the last day of his life, the talented but troubled former NFL defensive end Aldon Smith went to a charity for homeless people, and donated food.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-14T13:03:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/leonard-williams-says-seahawks-older-players-are-leading-the-way-in-voluntary-workouts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/leonard-williams-says-seahawks-older-players-are-leading-the-way-in-voluntary-workouts",
+      "permalink": "",
+      "title": "Leonard Williams says Seahawks' older players are leading the way in voluntary workouts",
+      "body_text": "The reality of \"voluntary\" offseason workouts in the NFL is that they're only voluntary for the established players.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-14T12:33:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Leonard Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0031933"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-says-its-a-hell-of-a-lot-more-fun-in-year-2-in-ben-johnsons-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-says-its-a-hell-of-a-lot-more-fun-in-year-2-in-ben-johnsons-offense",
+      "permalink": "",
+      "title": "Caleb Williams says it's \"a hell of a lot more fun\" in Year 2 in Ben Johnson's offense",
+      "body_text": "Williams says last year at this time he felt like he was drowning trying to learn the offense.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-14T08:12:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams",
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0034557"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-debut-in-world-cup-generates-24-886-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-debut-in-world-cup-generates-24-886-million-viewers",
+      "permalink": "",
+      "title": "U.S. debut in World Cup generates 24.886 million viewers",
+      "body_text": "There was a time when soccer was an afterthought in the United States.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T04:13:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "United States"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-mourn-the-passing-of-aldon-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-mourn-the-passing-of-aldon-smith",
+      "permalink": "",
+      "title": "Raiders mourn the passing of Aldon Smith",
+      "body_text": "The late Aldon Smith spent most of his career with the 49ers.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-14T03:55:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-de-aldon-smith-dies-at-36",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-de-aldon-smith-dies-at-36",
+      "permalink": "",
+      "title": "Former NFL DE Aldon Smith dies at 36",
+      "body_text": "Smith was a dominant pass rusher early in his career.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T23:46:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andre-rison-is-jailed-for-second-offense-dui",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andre-rison-is-jailed-for-second-offense-dui",
+      "permalink": "",
+      "title": "Andre Rison is jailed for second offense DUI",
+      "body_text": "Former NFL receiver Andre Rison has been jailed after pleading guilty to second-offense DUI.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T23:32:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Rison"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/louisville-kings-cap-first-ufl-season-with-championship",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/louisville-kings-cap-first-ufl-season-with-championship",
+      "permalink": "",
+      "title": "Louisville Kings cap first UFL season with championship",
+      "body_text": "In his first year of coaching at any level, former NFL QB Chris Redman delivers a title.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T22:50:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Louisville Kings",
+        "Chris Redman"
+      ],
+      "resolved_player_ids": [
+        "00-0019709"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-deletes-recent-videos-criticizing-the-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-deletes-recent-videos-criticizing-the-49ers",
+      "permalink": "",
+      "title": "Brandon Aiyuk deletes recent videos criticizing the 49ers",
+      "body_text": "Aiyuk has possibly extended an olive branch, in the hopes of being released.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T20:55:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrelle-pryor-was-recently-arrested-for-drug-possession",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrelle-pryor-was-recently-arrested-for-drug-possession",
+      "permalink": "",
+      "title": "Terrelle Pryor was recently arrested for drug possession",
+      "body_text": "Former NFL quarterback and receiver Terrelle Pryor's name recently has been mentioned in connection with the Brendan Sorsby's case.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T20:36:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrelle Pryor",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [
+        "00-0028825"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufls-mike-repole-mentions-nfl-is-talking-about-two-more-expansion-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufls-mike-repole-mentions-nfl-is-talking-about-two-more-expansion-teams",
+      "permalink": "",
+      "title": "UFL's Mike Repole mentions NFL is \"talking about two more expansion teams\"",
+      "body_text": "When UFL co-owner Mike Repole speaks, he often generates something newsworthy as to the spring pro football league.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T18:44:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Repole"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/evidence-in-mark-sanchez-criminal-case-includes-more-than-50-video-clips",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/evidence-in-mark-sanchez-criminal-case-includes-more-than-50-video-clips",
+      "permalink": "",
+      "title": "Evidence in Mark Sanchez criminal case includes more than 50 video clips",
+      "body_text": "The criminal trial against former NFL quarterback and former Fox analyst Mark Sanchez is due to begin next month.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-13T18:02:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mark Sanchez"
+      ],
+      "resolved_player_ids": [
+        "00-0026898"
+      ],
+      "team_hint": null
+    }
+  ]
+}
