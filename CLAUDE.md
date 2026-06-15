@@ -171,8 +171,12 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/draft_models.py` | Platform-neutral `PickEvent` / `DraftState` (v8.0 live draft) |
 | `src/sleeper_draft.py` | Sleeper draft parsing + active-draft resolution (v8.0) |
 | `src/sleeper_player_map.py` | Sleeper player_id → projection mapping, cached registry (v8.0) |
-| `src/draft_adapter.py` | `DraftAdapter` protocol + `SleeperAdapter` (v8.0; Yahoo/ESPN plug in here) |
+| `src/draft_adapter.py` | `DraftAdapter` protocol + `SleeperAdapter` (v8.0; Yahoo/ESPN are separate adapter modules) |
 | `src/live_draft_engine.py` | `LiveDraftEngine` — pick diff, board/roster sync, slot math, recs, key moments (v8.0) |
+| `src/yahoo_oauth.py` | Yahoo OAuth2 token manager (stdlib; env creds `YAHOO_CLIENT_ID`/`YAHOO_CLIENT_SECRET`, tokens → `data/yahoo_tokens.json`) |
+| `src/yahoo_draft.py` | Yahoo `draft_results` parsing → neutral models (v8.0 Phase 88) |
+| `src/yahoo_adapter.py` | `YahooAdapter` (v8.0; conforms to `DraftAdapter`) |
+| `src/espn_adapter.py` | `EspnAdapter` stub — ESPN has no live API (NO-GO), gated to `--manual` (v8.0 Phase 89) |
 | `scripts/backtest_projections.py` | Fantasy backtest — MAE/RMSE/bias per position |
 | `scripts/refresh_adp.py` | Fetch ADP from Sleeper API → data/adp_latest.csv |
 | `scripts/check_pipeline_health.py` | S3 freshness + size checks across all layers |
@@ -203,6 +207,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 - **Roster formats**: `standard`, `superflex`, `2qb` (see `ROSTER_CONFIGS` in config.py)
 - **MCPs**: aws-core, aws-s3, aws-docs, github, duckduckgo, duckdb, fetch, sleeper (neo4j configured/disabled)
 - **Credentials**: `.env` file (never commit — already in .gitignore; pre-commit hook blocks key patterns)
+- **Yahoo live draft (v8.0, optional)**: `YAHOO_CLIENT_ID` + `YAHOO_CLIENT_SECRET` in `.env`; one-time OAuth grant seeds `data/yahoo_tokens.json` (gitignored), then auto-refreshes
 - **Deployment**: Frontend https://frontend-jet-seven-33.vercel.app | Backend https://nfldataengineering-production.up.railway.app (Parquet fallback mode)
 
 ## NFL Business Rules

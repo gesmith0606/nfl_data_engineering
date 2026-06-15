@@ -37,11 +37,19 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from src.draft_adapter import SleeperAdapter  # noqa: E402
 from src.draft_models import DraftState, PickEvent  # noqa: E402
+from src.espn_adapter import EspnAdapter  # noqa: E402
 from src.live_draft_engine import LiveDraftEngine, PollResult  # noqa: E402
 from src.nfl_data_integration import NFLDataFetcher  # noqa: E402
 from src.projection_engine import generate_preseason_projections  # noqa: E402
+from src.yahoo_adapter import YahooAdapter  # noqa: E402
 
-_ADAPTERS = {"sleeper": SleeperAdapter}
+# sleeper: live. yahoo: live (requires OAuth env + one-time grant). espn: gated
+# NO-GO (no live API) — resolve/load fail loudly toward --manual (89-SPIKE-FINDINGS).
+_ADAPTERS = {
+    "sleeper": SleeperAdapter,
+    "yahoo": YahooAdapter,
+    "espn": EspnAdapter,
+}
 
 
 # ---------------------------------------------------------------------------

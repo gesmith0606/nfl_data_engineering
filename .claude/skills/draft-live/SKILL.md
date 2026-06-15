@@ -64,9 +64,19 @@ source venv/bin/activate && python scripts/draft_live.py --manual --teams 12 --m
 ```
 Re-run with the full accumulated `--add-pick` list each time a pick is made.
 
+## Platforms
+- **Sleeper** (`--platform sleeper`, default) — full live support, no auth.
+- **Yahoo** (`--platform yahoo`) — full live support via the official Fantasy API.
+  Requires `YAHOO_CLIENT_ID` + `YAHOO_CLIENT_SECRET` in the env and a one-time OAuth
+  grant (seeds `data/yahoo_tokens.json`, then auto-refreshes). If tokens are missing,
+  the tool reports it — fall back to `--manual`.
+- **ESPN** (`--platform espn`) — NO live API (gated NO-GO; see
+  `.planning/phases/89-espn-draft-adapter/89-SPIKE-FINDINGS.md`). Use **`--manual`**:
+  the user tells you each pick and you advise off the same engine.
+
 ## Notes
-- Sleeper is the supported live platform today; Yahoo and ESPN adapters are planned
-  (the engine is adapter-based, so the workflow above won't change when they land).
+- The engine is adapter-based, so the workflow above is identical across platforms;
+  only auth/availability differs.
 - This is **separate from the website chatbot** — it is a personal tool for the
   operator inside Claude Code.
 - For pre-draft prep (projections + ADP + value board), use `/draft-prep` first.
