@@ -13,10 +13,11 @@ import pandas as pd
 import pytest
 
 from src import sleeper_http, sleeper_player_map
+from src.draft_models import DraftState, PickEvent
 from src.sleeper_draft import (
-    DraftState,
-    PickEvent,
+    pick_from_sleeper,
     resolve_active_draft,
+    state_from_sleeper,
 )
 
 _FIXTURE_DIR = os.path.join(os.path.dirname(__file__), "fixtures", "sleeper_draft")
@@ -88,7 +89,7 @@ def test_empty_ids_guarded():
 
 @pytest.mark.unit
 def test_pickevent_parses_known_row(picks_raw):
-    pe = PickEvent.from_sleeper_pick(picks_raw[0])
+    pe = pick_from_sleeper(picks_raw[0])
     assert pe.pick_no == 1
     assert pe.round == 1
     assert pe.position == "QB"
@@ -98,7 +99,7 @@ def test_pickevent_parses_known_row(picks_raw):
 
 @pytest.mark.unit
 def test_pickevent_defensive_on_empty_dict():
-    pe = PickEvent.from_sleeper_pick({})
+    pe = pick_from_sleeper({})
     assert pe.pick_no == 0
     assert pe.is_keeper is False
     assert pe.full_name == ""
@@ -106,7 +107,7 @@ def test_pickevent_defensive_on_empty_dict():
 
 @pytest.mark.unit
 def test_draftstate_maps_scoring_and_settings(draft_raw, picks_raw, traded_raw):
-    ds = DraftState.from_sleeper(draft_raw, picks_raw, traded_raw)
+    ds = state_from_sleeper(draft_raw, picks_raw, traded_raw)
     assert ds.scoring_format == "half_ppr"
     assert ds.roster_format == "standard"
     assert ds.n_teams == 12
@@ -119,11 +120,9 @@ def test_draftstate_maps_scoring_and_settings(draft_raw, picks_raw, traded_raw):
 
 @pytest.mark.unit
 def test_draftstate_scoring_from_rec_value_when_no_label():
-    ds = DraftState.from_sleeper(
-        {"settings": {"rec": 1.0, "teams": 10}, "type": "snake"}
-    )
+    ds = state_from_sleeper({"settings": {"rec": 1.0, "teams": 10}, "type": "snake"})
     assert ds.scoring_format == "ppr"
-    ds2 = DraftState.from_sleeper({"settings": {"rec": 0.0}, "type": "linear"})
+    ds2 = state_from_sleeper({"settings": {"rec": 0.0}, "type": "linear"})
     assert ds2.scoring_format == "standard"
 
 
@@ -254,7 +253,7 @@ def test_build_player_index_shape(players_registry):
 def test_mapping_skill_coverage_and_unmatched(
     draft_raw, picks_raw, players_registry, projections_df
 ):
-    ds = DraftState.from_sleeper(draft_raw, picks_raw)
+    ds = state_from_sleeper(draft_raw, picks_raw)
     index = sleeper_player_map.build_player_index(players_registry)
     matched, unmatched = sleeper_player_map.map_picks_to_projections(
         ds.picks, projections_df, player_index=index
@@ -273,7 +272,7 @@ def test_mapping_uses_metadata_fallback_when_no_index(
     draft_raw, picks_raw, projections_df
 ):
     # No registry index — mapping must fall back to the pick's embedded metadata.
-    ds = DraftState.from_sleeper(draft_raw, picks_raw)
+    ds = state_from_sleeper(draft_raw, picks_raw)
     matched, unmatched = sleeper_player_map.map_picks_to_projections(
         ds.picks, projections_df, player_index={}
     )

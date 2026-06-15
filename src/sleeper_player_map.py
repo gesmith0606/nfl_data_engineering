@@ -31,7 +31,7 @@ import pandas as pd
 
 from src import sleeper_http
 from src.config import SENTIMENT_CONFIG
-from src.sleeper_draft import PickEvent
+from src.draft_models import PickEvent
 
 logger = logging.getLogger(__name__)
 

@@ -1,17 +1,13 @@
-"""Normalized Sleeper draft data layer (v8.0 Live Draft Co-Pilot, Phase 85).
+"""Sleeper-specific draft parsing + resolution (v8.0 Live Draft Co-Pilot, Phase 85).
 
-This module turns raw Sleeper draft JSON (fetched via :mod:`src.sleeper_http`)
-into typed, normalized state the live-draft engine (Phase 86) consumes:
+Turns raw Sleeper draft JSON (fetched via :mod:`src.sleeper_http`) into the
+platform-neutral models in :mod:`src.draft_models` that the live engine consumes:
 
-* :class:`PickEvent` — one draft pick, with the Sleeper player_id plus the
-  metadata identity (name/pos/team) so downstream mapping has a fallback.
-* :class:`DraftState` — a full draft snapshot: status, type, league settings
-  mapped onto our :data:`SCORING_CONFIGS` / :data:`ROSTER_CONFIGS` keys, draft
-  order, and the ordered pick list.
-
-Network access is confined to :func:`load_draft_state` and
-:func:`resolve_active_draft`; the model constructors operate purely on
-already-fetched dicts so they are trivially unit-testable offline.
+* :func:`pick_from_sleeper` — one Sleeper pick dict -> :class:`PickEvent`.
+* :func:`state_from_sleeper` — draft + picks + traded -> :class:`DraftState`,
+  mapping Sleeper settings onto our :data:`SCORING_CONFIGS` / :data:`ROSTER_CONFIGS`.
+* :func:`load_draft_state` — the one network-touching assembler.
+* :func:`resolve_active_draft` — find a user's active/most-recent draft by username.
 
 Everything honours the project-wide D-06 fail-open contract — bad/missing input
 yields empty defaults, never an exception.
@@ -19,11 +15,11 @@ yields empty defaults, never an exception.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 from src import sleeper_http
 from src.config import ROSTER_CONFIGS, SCORING_CONFIGS
+from src.draft_models import DraftState, PickEvent
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -81,131 +77,74 @@ def _roster_format_from_draft(draft: Dict[str, Any]) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Models
+# Sleeper -> neutral model construction
 # ---------------------------------------------------------------------------
 
 
-@dataclass(frozen=True)
-class PickEvent:
-    """A single drafted player, normalized from a Sleeper pick object."""
+def pick_from_sleeper(raw: Dict[str, Any]) -> PickEvent:
+    """Build a :class:`PickEvent` from a raw Sleeper pick dict, defensively.
 
-    pick_no: int
-    round: int
-    draft_slot: int
-    roster_id: Optional[int]
-    picked_by: str
-    sleeper_player_id: str
-    first_name: str
-    last_name: str
-    position: str
-    team: str
-    is_keeper: bool
-
-    @property
-    def full_name(self) -> str:
-        """``"First Last"`` with surrounding whitespace collapsed."""
-        return f"{self.first_name} {self.last_name}".strip()
-
-    @classmethod
-    def from_sleeper_pick(cls, raw: Dict[str, Any]) -> "PickEvent":
-        """Build a PickEvent from a raw Sleeper pick dict, defensively.
-
-        Missing keys default to ``""`` / ``0`` / ``False`` — never raises, so a
-        malformed or empty pick yields a zero-value PickEvent rather than an
-        error.
-        """
-        raw = raw if isinstance(raw, dict) else {}
-        meta = raw.get("metadata") or {}
-        roster_id_raw = raw.get("roster_id")
-        return cls(
-            pick_no=_safe_int(raw.get("pick_no")),
-            round=_safe_int(raw.get("round")),
-            draft_slot=_safe_int(raw.get("draft_slot")),
-            roster_id=None if roster_id_raw is None else _safe_int(roster_id_raw),
-            picked_by=str(raw.get("picked_by") or ""),
-            sleeper_player_id=str(raw.get("player_id") or ""),
-            first_name=str(meta.get("first_name") or ""),
-            last_name=str(meta.get("last_name") or ""),
-            position=str(meta.get("position") or "").upper(),
-            team=str(meta.get("team") or "").upper(),
-            is_keeper=bool(raw.get("is_keeper") or False),
-        )
+    Missing keys default to ``""`` / ``0`` / ``False`` — never raises, so a
+    malformed or empty pick yields a zero-value PickEvent rather than an error.
+    """
+    raw = raw if isinstance(raw, dict) else {}
+    meta = raw.get("metadata") or {}
+    roster_id_raw = raw.get("roster_id")
+    return PickEvent(
+        pick_no=_safe_int(raw.get("pick_no")),
+        round=_safe_int(raw.get("round")),
+        draft_slot=_safe_int(raw.get("draft_slot")),
+        roster_id=None if roster_id_raw is None else _safe_int(roster_id_raw),
+        picked_by=str(raw.get("picked_by") or ""),
+        sleeper_player_id=str(raw.get("player_id") or ""),
+        first_name=str(meta.get("first_name") or ""),
+        last_name=str(meta.get("last_name") or ""),
+        position=str(meta.get("position") or "").upper(),
+        team=str(meta.get("team") or "").upper(),
+        is_keeper=bool(raw.get("is_keeper") or False),
+    )
 
 
-@dataclass(frozen=True)
-class DraftState:
-    """A normalized snapshot of a Sleeper draft."""
+def state_from_sleeper(
+    draft: Dict[str, Any],
+    picks: Optional[List[Dict[str, Any]]] = None,
+    traded: Optional[List[Dict[str, Any]]] = None,
+) -> DraftState:
+    """Assemble a :class:`DraftState` from already-fetched Sleeper dicts/lists.
 
-    draft_id: str
-    status: str
-    draft_type: str
-    season: str
-    n_teams: int
-    rounds: int
-    scoring_format: str
-    roster_format: str
-    draft_order: Dict[str, int]
-    slot_to_roster_id: Dict[str, int]
-    picks: Tuple[PickEvent, ...] = field(default_factory=tuple)
-    traded_picks: Tuple[Dict[str, Any], ...] = field(default_factory=tuple)
+    Performs no network I/O. Maps league settings onto SCORING_CONFIGS /
+    ROSTER_CONFIGS keys and normalizes every pick via :func:`pick_from_sleeper`.
+    """
+    draft = draft if isinstance(draft, dict) else {}
+    picks = picks if isinstance(picks, list) else []
+    traded = traded if isinstance(traded, list) else []
+    settings = draft.get("settings") or {}
 
-    @property
-    def is_active(self) -> bool:
-        """True while the draft is in progress (``drafting`` or ``paused``)."""
-        return self.status in {"drafting", "paused"}
+    scoring = _scoring_format_from_draft(draft)
+    roster = _roster_format_from_draft(draft)
+    if scoring not in SCORING_CONFIGS:
+        scoring = "half_ppr"
+    if roster not in ROSTER_CONFIGS:
+        roster = "standard"
 
-    @property
-    def last_pick_no(self) -> int:
-        """Highest ``pick_no`` seen so far (0 if no picks)."""
-        return max((p.pick_no for p in self.picks), default=0)
+    pick_events = tuple(
+        sorted((pick_from_sleeper(p) for p in picks), key=lambda pe: pe.pick_no)
+    )
 
-    @classmethod
-    def from_sleeper(
-        cls,
-        draft: Dict[str, Any],
-        picks: Optional[List[Dict[str, Any]]] = None,
-        traded: Optional[List[Dict[str, Any]]] = None,
-    ) -> "DraftState":
-        """Assemble a DraftState from already-fetched Sleeper dicts/lists.
-
-        Performs no network I/O. Maps league settings onto SCORING_CONFIGS /
-        ROSTER_CONFIGS keys and normalizes every pick via
-        :meth:`PickEvent.from_sleeper_pick`.
-        """
-        draft = draft if isinstance(draft, dict) else {}
-        picks = picks if isinstance(picks, list) else []
-        traded = traded if isinstance(traded, list) else []
-        settings = draft.get("settings") or {}
-
-        scoring = _scoring_format_from_draft(draft)
-        roster = _roster_format_from_draft(draft)
-        # Defensive: guarantee the mapped keys exist in our config dicts.
-        if scoring not in SCORING_CONFIGS:
-            scoring = "half_ppr"
-        if roster not in ROSTER_CONFIGS:
-            roster = "standard"
-
-        pick_events = tuple(
-            sorted(
-                (PickEvent.from_sleeper_pick(p) for p in picks),
-                key=lambda pe: pe.pick_no,
-            )
-        )
-
-        return cls(
-            draft_id=str(draft.get("draft_id") or ""),
-            status=str(draft.get("status") or ""),
-            draft_type=str(draft.get("type") or ""),
-            season=str(draft.get("season") or ""),
-            n_teams=_safe_int(settings.get("teams")),
-            rounds=_safe_int(settings.get("rounds")),
-            scoring_format=scoring,
-            roster_format=roster,
-            draft_order=dict(draft.get("draft_order") or {}),
-            slot_to_roster_id=dict(draft.get("slot_to_roster_id") or {}),
-            picks=pick_events,
-            traded_picks=tuple(traded),
-        )
+    return DraftState(
+        draft_id=str(draft.get("draft_id") or ""),
+        status=str(draft.get("status") or ""),
+        draft_type=str(draft.get("type") or ""),
+        season=str(draft.get("season") or ""),
+        n_teams=_safe_int(settings.get("teams")),
+        rounds=_safe_int(settings.get("rounds")),
+        scoring_format=scoring,
+        roster_format=roster,
+        draft_order=dict(draft.get("draft_order") or {}),
+        slot_to_roster_id=dict(draft.get("slot_to_roster_id") or {}),
+        picks=pick_events,
+        traded_picks=tuple(traded),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -222,7 +161,7 @@ def load_draft_state(draft_id: str) -> DraftState:
     draft = sleeper_http.get_draft(draft_id)
     picks = sleeper_http.get_draft_picks(draft_id)
     traded = sleeper_http.get_traded_picks(draft_id)
-    return DraftState.from_sleeper(draft, picks, traded)
+    return state_from_sleeper(draft, picks, traded)
 
 
 def _draft_recency_key(draft: Dict[str, Any]) -> int:
@@ -246,16 +185,10 @@ def resolve_active_draft(
     to ``league_id``). Selection rule: prefer a draft with status in
     ``{"drafting", "paused"}``; otherwise the most-recent draft.
 
-    Args:
-        username: Sleeper display username (or user_id).
-        season: Four-digit season string.
-        league_id: If provided, restrict candidates to this league.
-
     Returns:
         ``{found, draft_id, league_id, status, candidates}`` where ``candidates``
-        lists every considered draft (``{draft_id, league_id, status, name}``).
-        ``found`` is False with empty ``candidates`` when nothing resolves.
-        Never raises (D-06 fail-open).
+        lists every considered draft. ``found`` is False with empty ``candidates``
+        when nothing resolves. Never raises (D-06 fail-open).
     """
     empty = {
         "found": False,
