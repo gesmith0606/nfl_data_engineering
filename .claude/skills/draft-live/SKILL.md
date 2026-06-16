@@ -70,6 +70,13 @@ If the user's league is a keeper league (e.g. a rookie-only draft), pass `--leag
 league is marked off the board — recommendations then come only from the true
 draftable pool (rookies + any dropped players), and the user's keepers load as their
 starting roster so "what do I still need" is correct.
+
+**Custom scoring + exact slots are applied automatically (Phase 91).** When
+`--league-id` is set, the tool pulls the league's real `scoring_settings` (full PPR,
+TE premium, 6-pt pass TD, superflex, etc.) and re-scores every projection, and fills
+the league's exact `roster_positions` (e.g. QB/RB/RB/WR/WR/WR/TE/FLEX/FLEX/SUPER_FLEX)
+in the roster report — not a generic preset. It prints which custom rules it could not
+model (first downs, 2-pt, fumbles, K/DST); state that caveat when advising.
 ```bash
 source venv/bin/activate && python scripts/draft_live.py --username USER --league-id LID \
   --my-slot N --watch --json

@@ -177,7 +177,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/yahoo_draft.py` | Yahoo `draft_results` parsing → neutral models (v8.0 Phase 88) |
 | `src/yahoo_adapter.py` | `YahooAdapter` (v8.0; conforms to `DraftAdapter`) |
 | `src/espn_adapter.py` | `EspnAdapter` stub — ESPN has no live API (NO-GO), gated to `--manual` (v8.0 Phase 89) |
-| `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking for keeper leagues (v8.0 Phase 90) |
+| `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking; preset or exact Sleeper `roster_positions` (v8.0 Phase 90-91) |
+| `src/league_scoring.py` | Re-score projections under a league's custom Sleeper `scoring_settings` (full PPR, TE premium, 6pt pass TD, etc.) (v8.0 Phase 91) |
 | `scripts/backtest_projections.py` | Fantasy backtest — MAE/RMSE/bias per position |
 | `scripts/refresh_adp.py` | Fetch ADP from Sleeper API → data/adp_latest.csv |
 | `scripts/check_pipeline_health.py` | S3 freshness + size checks across all layers |

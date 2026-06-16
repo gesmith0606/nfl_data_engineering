@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v8.0
 milestone_name: Live Draft Co-Pilot
 status: active
-stopped_at: Phases 85-90 complete on branch feat/v8-live-draft-copilot (awaiting PR/merge). v7.2 deferred (paused at Phase 79 after production-hotfix detour).
+stopped_at: Phases 85-91 complete on branch feat/v8-live-draft-copilot (awaiting PR/merge). v7.2 deferred (paused at Phase 79 after production-hotfix detour).
 last_updated: "2026-06-15T00:00:00.000Z"
 last_activity: 2026-06-15
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 7
-  completed_plans: 7
+  total_phases: 7
+  completed_phases: 7
+  total_plans: 8
+  completed_plans: 8
   percent: 100
 ---
 

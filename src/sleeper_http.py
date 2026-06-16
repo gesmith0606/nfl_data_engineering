@@ -248,6 +248,26 @@ def get_traded_picks(draft_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
     )
 
 
+def get_league(league_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> dict:
+    """Fetch a league object (settings, ``scoring_settings``, ``roster_positions``).
+
+    Used to apply a league's custom scoring + exact starting slots to advice.
+
+    Args:
+        league_id: Sleeper league_id.
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        The league dict or ``{}`` on any error or empty input.
+    """
+    if not league_id:
+        logger.warning("get_league: empty league_id provided")
+        return {}
+    return _as_dict(
+        fetch_sleeper_json(f"{_BASE_URL}/league/{league_id}", timeout=timeout)
+    )
+
+
 def get_league_rosters(league_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
     """Fetch all rosters in a league (owner_id + kept player_ids per team).
 

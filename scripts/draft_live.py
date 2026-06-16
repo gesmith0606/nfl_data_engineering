@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 import sys
 import time
@@ -35,9 +36,11 @@ import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+from src import sleeper_http  # noqa: E402
 from src.draft_adapter import SleeperAdapter  # noqa: E402
 from src.draft_models import DraftState, PickEvent  # noqa: E402
 from src.espn_adapter import EspnAdapter  # noqa: E402
+from src.league_scoring import score_with_settings, unmodeled_offense_keys  # noqa: E402
 from src.live_draft_engine import LiveDraftEngine, PollResult  # noqa: E402
 from src.nfl_data_integration import NFLDataFetcher  # noqa: E402
 from src.projection_engine import generate_preseason_projections  # noqa: E402
@@ -76,6 +79,32 @@ def load_adp(adp_file: Optional[str]) -> Optional[pd.DataFrame]:
     path = adp_file or os.path.join("data", "adp_latest.csv")
     if os.path.exists(path):
         return pd.read_csv(path)
+    return None
+
+
+def _empty_state(roster_format: str, scoring: str, season: str) -> DraftState:
+    """A pick-less DraftState — lets a roster report build the board with no draft."""
+    return DraftState(
+        draft_id="",
+        status="",
+        draft_type="snake",
+        season=season,
+        n_teams=12,
+        rounds=0,
+        scoring_format=scoring,
+        roster_format=roster_format,
+        draft_order={},
+        slot_to_roster_id={},
+        picks=(),
+    )
+
+
+def _resolve_single_league(user_id: str, season: str) -> Optional[str]:
+    """Return the user's league_id if they have exactly one for the season, else None."""
+    url = f"https://api.sleeper.app/v1/user/{user_id}/leagues/nfl/{season}"
+    leagues = sleeper_http.fetch_sleeper_json(url)
+    if isinstance(leagues, list) and len(leagues) == 1:
+        return str(leagues[0].get("league_id") or "") or None
     return None
 
 
@@ -250,12 +279,17 @@ def _player_points(p: dict):
 
 
 def _render_roster_report(
-    engine: LiveDraftEngine, roster_format: str, as_json: bool
+    engine: LiveDraftEngine,
+    roster_format: str,
+    as_json: bool,
+    roster_positions=None,
 ) -> str:
     """Render optimal starting lineup + drop candidates for the user's roster."""
     roster = engine.my_full_roster()
-    lineup = optimal_lineup(roster, roster_format)
-    drops = drop_candidates(roster, roster_format, top_n=5)
+    lineup = optimal_lineup(roster, roster_format, roster_positions=roster_positions)
+    drops = drop_candidates(
+        roster, roster_format, top_n=5, roster_positions=roster_positions
+    )
 
     if as_json:
         return json.dumps(
@@ -359,6 +393,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Optional[List[str]] = None) -> int:
     args = build_parser().parse_args(argv)
+    # Quiet the per-pick "You drafted" INFO chatter during keeper preload.
+    logging.getLogger("src.draft_optimizer").setLevel(logging.WARNING)
+    logging.getLogger("draft_optimizer").setLevel(logging.WARNING)
 
     projections = load_projections(args.season, args.scoring, args.projections_file)
     if projections is None or projections.empty:
@@ -386,9 +423,18 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     adapter = _ADAPTERS[args.platform]()
 
+    # Resolve user_id (identifies YOUR keepers) from username if not given.
+    my_user_id = args.my_user_id
+    if not my_user_id and args.username and args.platform == "sleeper":
+        my_user_id = (
+            str(sleeper_http.get_user(args.username).get("user_id") or "") or None
+        )
+
     draft_id = args.draft_id
     league_id = args.league_id
-    if not draft_id:
+
+    # Resolve the draft (skipped for a roster report, which only needs the league).
+    if not draft_id and not args.roster_report:
         if not args.username:
             print("ERROR: provide --draft-id or --username.")
             return 1
@@ -404,14 +450,36 @@ def main(argv: Optional[List[str]] = None) -> int:
                 f"{[c['draft_id'] for c in res['candidates']]}"
             )
 
-    # Resolve user_id (needed to identify YOUR keepers) from username if not given.
-    my_user_id = args.my_user_id
-    if not my_user_id and args.username and args.platform == "sleeper":
-        from src import sleeper_http
+    # Roster report with no league id: fall back to the user's single league.
+    if (
+        args.roster_report
+        and not league_id
+        and my_user_id
+        and args.platform == "sleeper"
+    ):
+        league_id = _resolve_single_league(my_user_id, str(args.season))
+    if args.roster_report and not league_id:
+        print("ERROR: roster report needs --league-id (or a username with one league).")
+        return 1
 
-        my_user_id = (
-            str(sleeper_http.get_user(args.username).get("user_id") or "") or None
-        )
+    # Apply the league's custom scoring + exact starting slots (Sleeper).
+    roster_positions = None
+    roster_format = args.roster_format
+    if league_id and args.platform == "sleeper":
+        league = sleeper_http.get_league(league_id)
+        ss = league.get("scoring_settings") or {}
+        roster_positions = league.get("roster_positions") or None
+        if "SUPER_FLEX" in (roster_positions or []):
+            roster_format = "superflex"
+        if ss:
+            projections = score_with_settings(projections, ss)
+            if not args.json:
+                skipped = unmodeled_offense_keys(ss)
+                note = f" (not modeled: {', '.join(skipped)})" if skipped else ""
+                print(
+                    f"(applied {league.get('name', 'league')} custom scoring + "
+                    f"slots{note})"
+                )
 
     engine = LiveDraftEngine(
         adapter, projections, adp_df, my_user_id=my_user_id, my_slot=args.my_slot
@@ -420,15 +488,19 @@ def main(argv: Optional[List[str]] = None) -> int:
     _keepers_loaded = {"done": False}
 
     def _poll_once() -> PollResult:
-        poll = engine.update(adapter.load_state(draft_id))
+        state = (
+            adapter.load_state(draft_id)
+            if draft_id
+            else _empty_state(roster_format, args.scoring, str(args.season))
+        )
+        poll = engine.update(state)
         # Keeper preload (once) — mark every league-rostered player off the board.
         if (
             not _keepers_loaded["done"]
             and league_id
             and hasattr(adapter, "get_keepers")
         ):
-            info = adapter.get_keepers(league_id, my_user_id)
-            n = engine.preload_keepers(info)
+            n = engine.preload_keepers(adapter.get_keepers(league_id, my_user_id))
             _keepers_loaded["done"] = True
             if not args.json:
                 print(f"(keeper league: marked {n} rostered players off the board)")
@@ -436,7 +508,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     if args.roster_report:
         _poll_once()
-        print(_render_roster_report(engine, args.roster_format, args.json))
+        print(_render_roster_report(engine, roster_format, args.json, roster_positions))
         return 0
 
     if not args.watch:

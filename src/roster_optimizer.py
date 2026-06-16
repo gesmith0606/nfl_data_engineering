@@ -21,6 +21,50 @@ _FLEX_ELIGIBLE = {"RB", "WR", "TE"}
 _SFLEX_ELIGIBLE = {"QB", "RB", "WR", "TE"}
 _BASE_SLOTS = ("QB", "RB", "WR", "TE", "K", "DST")
 
+# Sleeper roster-slot name -> set of eligible positions (offense + K/DST only).
+# Slots not listed (BN, IR, TAXI, IDP DL/LB/DB, etc.) are skipped.
+_SLOT_ELIGIBILITY: Dict[str, set] = {
+    "QB": {"QB"},
+    "RB": {"RB"},
+    "WR": {"WR"},
+    "TE": {"TE"},
+    "K": {"K"},
+    "DEF": {"DST", "DEF"},
+    "DST": {"DST", "DEF"},
+    "FLEX": _FLEX_ELIGIBLE,
+    "WRRB_FLEX": {"RB", "WR"},
+    "REC_FLEX": {"WR", "TE"},
+    "WRRB_WRT": {"RB", "WR", "TE"},
+    "SUPER_FLEX": _SFLEX_ELIGIBLE,
+    "SUPERFLEX": _SFLEX_ELIGIBLE,
+    "QB_WR_RB_TE": _SFLEX_ELIGIBLE,
+}
+_SKIP_SLOTS = {"BN", "IR", "TAXI"}
+
+
+def _slots_from_positions(roster_positions):
+    """Build an ordered ``[(display_name, eligible_set)]`` from Sleeper roster_positions.
+
+    Restrictive (single-position) slots are ordered before flex slots so greedy
+    filling does not let a flex steal a player a base slot needs.
+    """
+    slots = []
+    for raw in roster_positions or []:
+        name = str(raw).upper()
+        if name in _SKIP_SLOTS:
+            continue
+        elig = _SLOT_ELIGIBILITY.get(name)
+        if not elig:  # unknown / defensive IDP slot — not modeled
+            continue
+        display = (
+            "FLEX"
+            if name == "FLEX"
+            else ("SFLEX" if name in ("SUPER_FLEX", "SUPERFLEX") else name)
+        )
+        slots.append((display, elig))
+    slots.sort(key=lambda s: len(s[1]))  # fewest-eligible first
+    return slots
+
 
 def _points(player: Dict[str, Any]) -> float:
     """Projected value of a player (season points preferred), 0 if missing/NaN."""
@@ -53,48 +97,51 @@ def _pos(player: Dict[str, Any]) -> str:
     return str(player.get("position", "")).upper()
 
 
+def _slots_from_format(roster_format: str):
+    """Build the ordered slot list from a ROSTER_CONFIGS preset."""
+    cfg = ROSTER_CONFIGS.get(roster_format, ROSTER_CONFIGS["standard"])
+    slots = []
+    for slot in _BASE_SLOTS:
+        for _ in range(cfg.get(slot, 0)):
+            slots.append((slot, {slot} if slot not in ("DST",) else {"DST", "DEF"}))
+    for _ in range(cfg.get("FLEX", 0)):
+        slots.append(("FLEX", _FLEX_ELIGIBLE))
+    for _ in range(cfg.get("SFLEX", 0)):
+        slots.append(("SFLEX", _SFLEX_ELIGIBLE))
+    slots.sort(key=lambda s: len(s[1]))
+    return slots
+
+
 def optimal_lineup(
-    roster: Sequence[Dict[str, Any]], roster_format: str = "standard"
+    roster: Sequence[Dict[str, Any]],
+    roster_format: str = "standard",
+    roster_positions=None,
 ) -> Dict[str, Any]:
     """Compute the best legal starting lineup for a roster.
 
-    Greedy by projected points: fill base position slots, then FLEX (RB/WR/TE),
-    then SFLEX (QB/RB/WR/TE) from what remains. Bench is everyone not started.
+    Greedy by projected points, filling fewest-eligible slots first. When
+    ``roster_positions`` (a raw Sleeper roster_positions list) is given it defines
+    the exact starting slots; otherwise the ``roster_format`` preset is used.
 
     Returns:
         ``{"starters": {slot: [players]}, "bench": [players]}``.
     """
-    cfg = ROSTER_CONFIGS.get(roster_format, ROSTER_CONFIGS["standard"])
+    slots = (
+        _slots_from_positions(roster_positions)
+        if roster_positions
+        else _slots_from_format(roster_format)
+    )
     order = sorted(range(len(roster)), key=lambda i: _points(roster[i]), reverse=True)
     used: set = set()
     starters: Dict[str, List[Dict[str, Any]]] = {}
 
-    for slot in _BASE_SLOTS:
-        need = cfg.get(slot, 0)
-        if not need:
-            continue
-        filled: List[Dict[str, Any]] = []
+    for slot_name, eligible in slots:
         for i in order:
-            if len(filled) >= need:
-                break
-            if i in used or _pos(roster[i]) != slot:
+            if i in used or _pos(roster[i]) not in eligible:
                 continue
-            filled.append(roster[i])
+            starters.setdefault(slot_name, []).append(roster[i])
             used.add(i)
-        if filled:
-            starters[slot] = filled
-
-    def _fill_flex(slot_name: str, eligible: set, count: int) -> None:
-        for _ in range(count):
-            for i in order:
-                if i in used or _pos(roster[i]) not in eligible:
-                    continue
-                starters.setdefault(slot_name, []).append(roster[i])
-                used.add(i)
-                break
-
-    _fill_flex("FLEX", _FLEX_ELIGIBLE, cfg.get("FLEX", 0))
-    _fill_flex("SFLEX", _SFLEX_ELIGIBLE, cfg.get("SFLEX", 0))
+            break
 
     bench = [roster[i] for i in range(len(roster)) if i not in used]
     return {"starters": starters, "bench": bench}
@@ -104,16 +151,18 @@ def drop_candidates(
     roster: Sequence[Dict[str, Any]],
     roster_format: str = "standard",
     top_n: int = 5,
+    roster_positions=None,
 ) -> List[Dict[str, Any]]:
     """Rank the weakest droppable players (who to cut to roster a rookie).
 
     Only bench players (not in the optimal starting lineup) are droppable. They
     are ranked worst-first by VORP (or points), with a short reason noting
-    positional redundancy where relevant.
+    positional redundancy where relevant. Honors league ``roster_positions`` when
+    given (so redundancy reflects the real starting requirements).
 
     Returns a list of ``{player, value, reason}`` dicts, weakest first.
     """
-    lineup = optimal_lineup(roster, roster_format)
+    lineup = optimal_lineup(roster, roster_format, roster_positions=roster_positions)
     bench = lineup["bench"]
 
     # How many of each position the lineup actually starts (for redundancy reason).
