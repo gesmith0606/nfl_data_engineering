@@ -1,0 +1,297 @@
+{
+  "fetch_run_id": "f4a4ad38-8c83-4f14-9549-94f5b0e47680",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-06-17T13:27:28.907717+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 19,
+  "items": [
+    {
+      "external_id": "US-EN-49083979",
+      "url": "https://www.espn.com/nfl/story/_/id/49083979/denver-broncos-russell-wilson-release-dead-money-turnaround-nfl-convention-wisdom-altered",
+      "title": "Did the Broncos' release of Russell Wilson change ...",
+      "body_text": "The Broncos took a then-record $85 million dead money hit by parting with Wilson in 2024, but their quick turnaround has turned heads.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-06-17T12:11:43+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Russell Wilson",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-49083952",
+      "url": "https://www.espn.com/nfl/story/_/id/49083952/sources-cameron-jordan-return-saints-1-year-deal",
+      "title": "Sources: Saints bring back franchise star Jordan",
+      "body_text": "Saints defensive end Cameron Jordan will end his career in New Orleans after signing a one-year deal during the team's minicamp.",
+      "author": "Ian Rapoport and Katherine Terrell",
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jordan Saints",
+        "Cameron Jordan",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0027962"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "US-EN-49088120",
+      "url": "https://www.espn.com/nfl/story/_/id/49088120/broncos-excuse-jonathon-cooper-minicamp-arrests",
+      "title": "Broncos excuse Cooper from minicamp after arrests",
+      "body_text": "The Broncos excused OLB Jonathon Cooper from their mandatory minicamp this week after he was arrested twice in a seven-day span on multiple domestic violence charges, including one felony.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Broncos",
+        "Jonathon Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-49086294",
+      "url": "https://www.espn.com/nfl/story/_/id/49086294/ok-franchise-tag-george-pickens-cowboys-minicamp",
+      "title": "Pickens at Cowboys minicamp, OK with franchise tag...",
+      "body_text": "After skipping the voluntary part of the Cowboys' offseason program, Dallas wide receiver George Pickens worked out with the team Tuesday, the first day of mandatory minicamp, telling reporters he is prepared to play the 2026 season on the franchise tag.",
+      "author": "Todd Archer",
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49087824",
+      "url": "https://www.espn.com/nfl/story/_/id/49087824/broncos-bo-nix-track-training-camp-says-second-ankle-surgery-was-bone-spurs",
+      "title": "Nix on track, says 2nd surgery was for bone spurs",
+      "body_text": "Broncos quarterback Bo Nix made his first appearance in a full offseason practice Tuesday and said he remains on track to be ready for training camp next month.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-49081473",
+      "url": "https://www.espn.com/nfl/story/_/id/49081473/family-aldon-smith-having-brain-checked-cte",
+      "title": "Family to have Smith's brain checked for CTE",
+      "body_text": "The family of Aldon Smith has decided to send his brain to medical experts in Boston to see whether CTE played a role in the former NFL defensive lineman's death.",
+      "author": null,
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49083151",
+      "url": "https://www.espn.com/nfl/story/_/id/49083151/chiefs-rashee-rice-released-jail-dodges-reporters",
+      "title": "Chiefs' Rice released from jail, dodges reporters",
+      "body_text": "Chiefs WR Rashee Rice was released from a Dallas County jail on Tuesday after serving a 30-day sentence for violating the terms of his probation.",
+      "author": null,
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rashee Rice",
+        "Dallas County"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-49083803",
+      "url": "https://www.espn.com/nfl/story/_/id/49083803/bucs-baker-mayfield-pushes-back-durability-talks-contract",
+      "title": "Bucs' Mayfield pushes back on durability concerns",
+      "body_text": "Bucs QB Baker Mayfield pushed back Tuesday at the notion that he needs to better protect himself while adding that he and the team are not close on contract negotiations.",
+      "author": "Jenna Laine",
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49084768",
+      "url": "https://www.espn.com/nfl/story/_/id/49084768/falcons-qb-penix-expects-full-go-training-camp",
+      "title": "Penix expects to practice in full by training camp...",
+      "body_text": "Falcons quarterback Michael Penix Jr. has not yet taken part in full practices, but said on Tuesday he expects to be full go by training camp in July.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Michael Penix Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-49084429",
+      "url": "https://www.espn.com/nfl/story/_/id/49084429/jacksonville-jaguars-trevor-lawrence-wig-auction",
+      "title": "🤣 Jaguars to auction Trevor Lawrence's viral wig",
+      "body_text": "The original haircut video, released May 14 as part of the NFL's annual schedule release, caused a stir -- it has 3.8 million views as of June 16.",
+      "author": "Michael Dirocco",
+      "published_at": "2026-06-17T14:16:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "US-EN-49074719",
+      "url": "https://www.espn.com/nfl/story/_/id/49074719/2026-nfl-supplemental-draft-brendan-sorsby-strengths-weaknesses-quarterback-ranking-team-fits",
+      "title": "Can Brendan Sorsby start for an NFL team? Sizing u...",
+      "body_text": "What are Sorsby's strengths and weaknesses? Which NFL teams should try to land him in the supplemental draft? Let's sort out what he could bring to a pro QB room.",
+      "author": "Ben Solak",
+      "published_at": "2026-06-17T13:59:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49074711",
+      "url": "https://www.espn.com/nfl/story/_/id/49074711/2026-nfl-supplemental-draft-brendan-sorsby-quarterback-gambling-eligibility",
+      "title": "Wait, Brendan Sorsby is now going to the NFL suppl...",
+      "body_text": "How is Sorsby suddenly in the supplemental draft? How does it work, and which teams could be interested?",
+      "author": "Jeremy Fowler, Dan Graziano, Matt Miller, Max Olson, David Purdum, Jordan Reid, Ben Solak and Pete Thamel",
+      "published_at": "2026-06-17T12:12:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49071567",
+      "url": "https://www.espn.com/nfl/story/_/id/49071567/2026-offseason-nfl-execs-favorite-trades-signings-draft-picks-moves-waddle-garrett",
+      "title": "NFL execs pick their 8 favorite offseason moves: W...",
+      "body_text": "We talked to sources around the NFL about their favorite moves of the offseason. The answers ranged from megadeals to a surprise draft pick.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-06-16T23:49:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48950554",
+      "url": "https://www.espn.com/nfl/story/_/id/48950554/2026-nfl-minicamp-live-updates-teams-mandatory-camps-news-notes-depth-charts",
+      "title": "Minicamp daily updates: Lions' Sam LaPorta 'trendi...",
+      "body_text": "null",
+      "author": "NFL Nation",
+      "published_at": "2026-06-16T23:49:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49089145",
+      "url": "https://www.espn.com/nfl/story/_/id/49089145/why-cameron-jordan-chose-new-orleans-saints-again-2026-nfl",
+      "title": "Why Cameron Jordan chose Saints again: 'We love Ne...",
+      "body_text": "Family ties, free agency and one more run fuels the veteran defensive end in his return for his 16th season.",
+      "author": "Katherine Terrell",
+      "published_at": "2026-06-17T12:20:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Cameron"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "US-EN-49030143",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49030143/espn-nfl-fantasy-football-bad-sign-bad-season",
+      "title": "Fantasy football: Was 2025 a bad sign or just a ba...",
+      "body_text": "These players struggled in 2025. Did they have an isolated bad season, or is it a sign of trouble ahead?",
+      "author": "Tristan H. Cockcroft",
+      "published_at": "2026-06-17T13:10:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-FFDraftGuide26-48677635",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFDraftGuide26-48677635/2026-fantasy-football-rankings-mock-draft-cheat-sheets-sleepers",
+      "title": "2026 Fantasy Football Draft Guide: Rankings, mock ...",
+      "body_text": "Your one-stop shop as you prep for draft season, including rankings, projections and analysis.",
+      "author": "Fantasy staff",
+      "published_at": "2026-06-17T13:10:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fantasy Football",
+        "Draft Guide"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49090581",
+      "url": "https://www.espn.com/soccer/story/_/id/49090581/world-cup-daily-nfl-star-winston-dresses-goat-messi-tribute-goat",
+      "title": "Jameis Winston dresses goat as Messi in tribute to...",
+      "body_text": "It has officially been one week of 2026 FIFA World Cup action. Enjoy all the features, news, video analysis and color from around the competition.",
+      "author": "ESPN",
+      "published_at": "2026-06-17T12:25:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jameis Winston",
+        "World Cup"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49041440",
+      "url": "https://www.espn.com/nfl/story/_/id/49041440/las-vegas-raiders-rookie-quarterback-fernando-mendoza-first-impressions-2026-otas",
+      "title": "Raiders players' first impressions of QB Fernando ...",
+      "body_text": "We asked players and coaches about their first impressions of the Raiders' rookie and No. 1 pick during OTAs.",
+      "author": "Ryan McFadden",
+      "published_at": "2026-06-15T19:27:17+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    }
+  ]
+}
