@@ -1,0 +1,497 @@
+{
+  "fetch_run_id": "5aacf2e9-170f-4a83-98eb-2e8e65ae136d",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-06-18T13:22:41.438288+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-lost-ota-after-nfl-made-random-request-for-practice-film",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-lost-ota-after-nfl-made-random-request-for-practice-film",
+      "title": "Bucs lost OTA after NFL made random request for practice film",
+      "body_text": "When the Buccaneers lost an OTA day due to excessive contact during practice, coach Todd Bowles didn't say much about it.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T13:04:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Bowles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinnen-williams-i-know-i-can-be-better-than-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinnen-williams-i-know-i-can-be-better-than-last-year",
+      "title": "Quinnen Williams: I know I can be better than last year",
+      "body_text": "Defensive tackle Quinnen Williams is wrapping up his first offseason with the Cowboys and he said it has \"been fun\" to get a fuller sense of how the organization operates after arriving in a trade with the Jets during the 2025 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-18T11:34:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinnen Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0035718"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-focus-on-justin-herberts-footwork-about-finding-the-margins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-focus-on-justin-herberts-footwork-about-finding-the-margins",
+      "title": "Mike McDaniel: Focus on Justin Herbert's footwork about finding the margins",
+      "body_text": "Chargers quarterback Justin Herbert's preparation for his first season playing for offensive coordinator Mike McDaniel has featured increased focus on his footwork during spring practices.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-18T11:10:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-urlacher-i-dont-like-the-idea-of-the-bears-playing-in-a-dome-anywhere",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-urlacher-i-dont-like-the-idea-of-the-bears-playing-in-a-dome-anywhere",
+      "title": "Brian Urlacher: I don't like the idea of the Bears playing in a dome, anywhere",
+      "body_text": "As the Bears continue to weigh their options between building a dome in Illinois and building a dome in Indiana, Brian Urlacher says his strong preference is neither.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-18T09:44:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Urlacher"
+      ],
+      "resolved_player_ids": [
+        "00-0019456"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-says-hell-be-the-same-player-running-people-over-after-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-says-hell-be-the-same-player-running-people-over-after-injury",
+      "title": "Cam Skattebo says he'll be the same player, running people over, after injury",
+      "body_text": "\"It ain't gonna change who I am,\" Skattebo said of recovering from a serious ankle injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-18T07:59:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-dismissing-his-ncaa-lawsuit-brendan-sorsby-says-texas-tech-told-him-he-wouldnt-play-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-dismissing-his-ncaa-lawsuit-brendan-sorsby-says-texas-tech-told-him-he-wouldnt-play-in-2026",
+      "title": "In dismissing his NCAA lawsuit, Brendan Sorsby says Texas Tech told him he wouldn't play in 2026",
+      "body_text": "On Wednesday morning, agent Ron Slavin suggested that Texas Tech gave quarterback Brendan Sorsby a nudge toward the NFL supplemental draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T03:35:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech",
+        "On Wednesday",
+        "Ron Slavin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-ticket-appeal-ruling-could-come-at-any-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-ticket-appeal-ruling-could-come-at-any-time",
+      "title": "Sunday Ticket appeal ruling could come at any time",
+      "body_text": "The final outcome could be very problematic for the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T02:45:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-changes-tune-on-myles-garrett-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-changes-tune-on-myles-garrett-trade",
+      "title": "Deion Sanders changes tune on Myles Garrett trade",
+      "body_text": "Last month, Deion Sanders rejected the idea of the Browns trading defensive end Myles Garrett.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T01:07:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0014324",
+        "00-0033868"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/agent-brendan-sorsby-has-a-short-window-for-supplemental-draft-but-well-make-it-happen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/agent-brendan-sorsby-has-a-short-window-for-supplemental-draft-but-well-make-it-happen",
+      "title": "Agent: Brendan Sorsby has a \"short window\" for supplemental draft, \"but we'll make it happen\"",
+      "body_text": "With quarterback Brendan Sorsby applying for the supplemental draft (and assuming the NFL lets him in), the clock is already ticking on the various things that need to be done before a team will be sufficiently comfortable to spend a 2027 draft pick early.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T00:13:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-on-shedeur-a-quarterback-needs-help-from-his-team-to-be-successful",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-on-shedeur-a-quarterback-needs-help-from-his-team-to-be-successful",
+      "title": "Deion Sanders on Shedeur: A quarterback needs help from his team to be successful",
+      "body_text": "How far can Browns quarterback Shedeur Sanders go?",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T23:31:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-has-seen-tremendous-growth-from-stetson-bennett",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-has-seen-tremendous-growth-from-stetson-bennett",
+      "title": "Sean McVay has seen \"tremendous growth\" from Stetson Bennett",
+      "body_text": "Jimmy Garoppolo remains a free agent as he contemplates retirement.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-17T23:23:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stetson Bennett",
+        "Jimmy Garoppolo"
+      ],
+      "resolved_player_ids": [
+        "00-0039107",
+        "00-0031345"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-the-ufl-is-helping-develop-nfl-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-the-ufl-is-helping-develop-nfl-players",
+      "title": "Sean Payton: The UFL is helping develop NFL players",
+      "body_text": "The NFL hasn't had its own development league since the plug was pulled on NFL Europe nearly 20 years ago.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T22:56:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fox-calls-story-regarding-frustration-over-espn-world-cup-coverage-simply-not-true",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fox-calls-story-regarding-frustration-over-espn-world-cup-coverage-simply-not-true",
+      "title": "Fox calls story regarding frustration over ESPN World Cup coverage \"simply not true\"",
+      "body_text": "The story about the battle between Fox and ESPN over World Cup coverage has potentially sparked a world media war.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T21:57:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-te-mason-pline",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-te-mason-pline",
+      "title": "Chiefs sign TE Mason Pline",
+      "body_text": "The Chiefs have a new tight end on the roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-17T21:54:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mason Pline",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0039702"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-will-wear-no-19-with-larry-fitzgeralds-no-11-off-limits",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-will-wear-no-19-with-larry-fitzgeralds-no-11-off-limits",
+      "title": "Carson Beck will wear No. 19 with Larry Fitzgerald's No. 11 off-limits",
+      "body_text": "Carson Beck knows Johnny Unitas is in the Pro Football Hall of Fame, but admits he doesn't know much more than that.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-17T21:52:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Beck",
+        "Larry Fitzgerald",
+        "Johnny Unitas",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "BEC122142",
+        "00-0022921"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-ot-gottlieb-ayedze",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-ot-gottlieb-ayedze",
+      "title": "Dolphins sign OT Gottlieb Ayedze",
+      "body_text": "The Dolphins announced a roster move on Wednesday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-17T21:37:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gottlieb Ayedze",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0039262"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cincinnati-denies-agents-claim-that-it-knew-about-brendan-sorsbys-gambling-habits",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cincinnati-denies-agents-claim-that-it-knew-about-brendan-sorsbys-gambling-habits",
+      "title": "Cincinnati denies agent's claim that it knew about Brendan Sorsby's gambling habits",
+      "body_text": "During a Thursday interview with 105.3 The Fan in Dallas, agent Ron Slavin said the University of Cincinnati knew about quarterback Brendan Sorsby's gambling habits.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T21:35:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "The Fan",
+        "Ron Slavin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pat-surtain-ii-jaylen-waddles-speed-adds-a-whole-different-dynamic-to-the-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pat-surtain-ii-jaylen-waddles-speed-adds-a-whole-different-dynamic-to-the-broncos",
+      "title": "Pat Surtain II: Jaylen Waddle's speed adds a whole different dynamic to the Broncos",
+      "body_text": "Broncos cornerback Pat Surtain II says he's lining up against a different Denver offense in offseason practices, thanks to the arrival of wide receiver Jaylen Waddle.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-17T21:35:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pat Surtain II",
+        "Jaylen Waddle",
+        "Broncos Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0036874",
+        "00-0036613"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-to-sign-cb-ameer-speed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-to-sign-cb-ameer-speed",
+      "title": "Cowboys to sign CB Ameer Speed",
+      "body_text": "The Cowboys are signing UFL defensive back Ameer Speed, James Larsen of PFN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-17T21:30:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ameer Speed",
+        "The Cowboys",
+        "James Larsen"
+      ],
+      "resolved_player_ids": [
+        "00-0038624"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-weve-built-offensive-foundation-have-a-lot-more-to-do",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-weve-built-offensive-foundation-have-a-lot-more-to-do",
+      "title": "Jayden Daniels: We've built offensive foundation, have a lot more to do",
+      "body_text": "The Commanders hired David Blough as their offensive coordinator this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-17T21:20:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels",
+        "The Commanders",
+        "David Blough"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0035040"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-de-keshawn-banks-dt-devonnsha-maxwell-wr-antwane-wells",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-de-keshawn-banks-dt-devonnsha-maxwell-wr-antwane-wells",
+      "title": "Falcons sign DE Keshawn Banks, DT Devonnsha Maxwell, WR Antwane Wells",
+      "body_text": "The Falcons announced the addition of three players to their 90-man roster on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-17T20:29:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keshawn Banks",
+        "Devonnsha Maxwell",
+        "Antwane Wells",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0038462",
+        "00-0038893",
+        "00-0040438"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/recent-ufc-event-sparks-cartoonish-viewership-claim-vs-the-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/recent-ufc-event-sparks-cartoonish-viewership-claim-vs-the-super-bowl",
+      "title": "Recent UFC event sparks cartoonish viewership claim vs. the Super Bowl",
+      "body_text": "Yes, Idiocracy was a documentary.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T20:15:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-take-center-stage-in-the-political-fight-over-the-nfls-antitrust-exemption",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-take-center-stage-in-the-political-fight-over-the-nfls-antitrust-exemption",
+      "title": "Packers take center stage in the political fight over the NFL's antitrust exemption",
+      "body_text": "Small-market argument seems to be the NFL's new front-line talking point.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T13:36:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gillette-stadiums-sponsor-redaction-extended-to-every-single-seat",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gillette-stadiums-sponsor-redaction-extended-to-every-single-seat",
+      "title": "Gillette Stadium's sponsor redaction extended to every single seat",
+      "body_text": "FIFA's take-it-or-leave-it specifications for NFL venues hoping to host World Cup matches required, among other things, the changing of the name of the stadiums to ditch any and all sponsors.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T14:33:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gillette Stadium",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-agent-cites-kayshon-boutte-precedent-in-support-of-no-nfl-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-agent-cites-kayshon-boutte-precedent-in-support-of-no-nfl-suspension",
+      "title": "Brendan Sorsby's agent cites Kayshon Boutte precedent in support of no NFL suspension",
+      "body_text": "With quarterback Brendan Sorsby applying for the supplemental draft, the first question is whether the NFL will grant his request.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T19:39:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Kayshon Boutte"
+      ],
+      "resolved_player_ids": [
+        "00-0038608"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-announce-increased-capacity-for-open-training-camp-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-announce-increased-capacity-for-open-training-camp-practices",
+      "title": "Ravens announce increased capacity for open training camp practices",
+      "body_text": "The Ravens will be welcoming more fans to training camp practices this year than they have in past seasons.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-17T19:24:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-promote-willie-schneider-matt-berry-to-assistant-g-m",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-promote-willie-schneider-matt-berry-to-assistant-g-m",
+      "title": "Seahawks promote Willie Schneider, Matt Berry to assistant G.M.",
+      "body_text": "With a couple of recent departures in their front office, the Seahawks are making a pair of promotions.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-17T19:19:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Willie Schneider",
+        "Matt Berry"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-i-thrive-off-pressure-well-find-out-who-else-does",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-i-thrive-off-pressure-well-find-out-who-else-does",
+      "title": "Joe Burrow: I thrive off pressure, we'll find out who else does",
+      "body_text": "Bengals quarterback Joe Burrow hasn't been shy about expressing his high expectations for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-17T18:39:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-agent-says-26-nfl-teams-have-reached-out-since-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-agent-says-26-nfl-teams-have-reached-out-since-monday",
+      "title": "Brendan Sorsby's agent says 26 NFL teams have reached out since Monday",
+      "body_text": "With quarterback Brendan Sorsby applying for the NFL supplemental draft, NFL teams are applying elbow grease in an effort to evaluate Sorsby.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T18:32:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Monday With"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-his-way-out-jared-verse-told-his-rams-teammates-make-sure-you-beat-the-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-his-way-out-jared-verse-told-his-rams-teammates-make-sure-you-beat-the-seahawks",
+      "title": "On his way out, Jared Verse told his Rams teammates: \"Make sure you beat the Seahawks\"",
+      "body_text": "Linebacker Jared Verse has a new NFL team.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T18:14:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jared Verse",
+        "Linebacker Jared"
+      ],
+      "resolved_player_ids": [
+        "00-0039852"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}
