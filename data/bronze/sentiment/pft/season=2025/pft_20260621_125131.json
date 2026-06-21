@@ -1,0 +1,561 @@
+{
+  "fetch_run_id": "f315e34b-871c-42e4-9510-ca005129b56e",
+  "source": "pft",
+  "fetched_at": "2026-06-21T12:51:31.095283+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-getting-more-comfortable-taking-snaps-under-center",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-getting-more-comfortable-taking-snaps-under-center",
+      "permalink": "",
+      "title": "Fernando Mendoza getting more comfortable taking snaps under center",
+      "body_text": "\"It's a great offense. I really believe in coach Kubak's offense,\" Mendoza said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-21T09:10:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/20-68-million-watched-friday-afternoons-u-s-world-cup-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/20-68-million-watched-friday-afternoons-u-s-world-cup-win",
+      "permalink": "",
+      "title": "20.68 million watched Friday afternoon's U.S. World Cup win",
+      "body_text": "Suddenly, soccer sells.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-21T02:52:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-a-fathers-day-weekend-father-of-mine-free-ebook-giveaway",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-a-fathers-day-weekend-father-of-mine-free-ebook-giveaway",
+      "permalink": "",
+      "title": "It's a Father's Day weekend Father of Mine free ebook giveaway",
+      "body_text": "Father's Day is always a bittersweet time for me.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T11:15:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/uar-bernard-sees-untapped-nfl-talent-in-his-home-country-of-nigeria",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/uar-bernard-sees-untapped-nfl-talent-in-his-home-country-of-nigeria",
+      "permalink": "",
+      "title": "Uar Bernard sees untapped NFL talent in his home country of Nigeria",
+      "body_text": "The Eagles found rookie defensive tackle Uar Bernard in Nigeria.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T22:24:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Uar Bernard",
+        "Nigeria The"
+      ],
+      "resolved_player_ids": [
+        "BER237368"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donte-whitner-to-aldon-smiths-family-c-j-spillman-should-have-a-lot-of-answers-for-you",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donte-whitner-to-aldon-smiths-family-c-j-spillman-should-have-a-lot-of-answers-for-you",
+      "permalink": "",
+      "title": "Donte Whitner to Aldon Smith's family: \"C.J. Spillman should have a lot of answers for you\"",
+      "body_text": "Whitner addresses Smith's passing in podcast episode.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T18:01:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Donte Whitner",
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0024223",
+        "00-0027945"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-a-j-brown-gone-jihaad-campbell-takes-no-11-in-philly",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-a-j-brown-gone-jihaad-campbell-takes-no-11-in-philly",
+      "permalink": "",
+      "title": "With A.J. Brown gone, Jihaad Campbell takes No. 11 in Philly",
+      "body_text": "A.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T16:58:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jihaad Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0040708"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-steelers-g-m-kevin-colbert-defends-decision-to-draft-kenny-pickett",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-steelers-g-m-kevin-colbert-defends-decision-to-draft-kenny-pickett",
+      "permalink": "",
+      "title": "Former Steelers G.M. Kevin Colbert defends decision to draft Kenny Pickett",
+      "body_text": "Prior to what became the last year of Terry Bradshaw's career, the Steelers had a chance to select Pitt product Dan Marino with the 21st overall selection in the draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T16:39:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former Steelers",
+        "Kevin Colbert",
+        "Kenny Pickett",
+        "Terry Bradshaw",
+        "Dan Marino"
+      ],
+      "resolved_player_ids": [
+        "00-0038102"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-fox-televising-the-world-cup-is-like-having-two-nfl-seasons-in-a-single-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-fox-televising-the-world-cup-is-like-having-two-nfl-seasons-in-a-single-year",
+      "permalink": "",
+      "title": "For Fox, televising the World Cup is \"like having two NFL seasons in a single year\"",
+      "body_text": "For Fox, the $485 million paid for the English-language World Cup broadcast rights in America may be the best investment the network has ever made.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T15:40:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "For Fox",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-cba-for-officials-emphasizes-competition-creates-a-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-cba-for-officials-emphasizes-competition-creates-a-practice-squad",
+      "permalink": "",
+      "title": "New CBA for officials emphasizes competition, creates a \"practice squad\"",
+      "body_text": "NFL can have up to 12 extra officials, who'll be able to step in based on performance or injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T14:52:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-new-jeffery-simmons-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-new-jeffery-simmons-deal",
+      "permalink": "",
+      "title": "Inside the new Jeffery Simmons deal",
+      "body_text": "The Titans and defensive tackle Jeffery Simmons have worked out a new deal that raises the bar, considerably, for the market at his position.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T13:46:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeffery Simmons",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/family-of-victim-in-darron-lee-murder-case-plans-to-pursue-potential-claim-against-chatgpt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/family-of-victim-in-darron-lee-murder-case-plans-to-pursue-potential-claim-against-chatgpt",
+      "permalink": "",
+      "title": "Family of victim in Darron Lee murder case plans to pursue potential claim against ChatGPT",
+      "body_text": "The murder case against former NFL first-round draft pick Darron Lee includes evidence that he used ChatGPT for advice on how to deal with an \"unresponsive\" person.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T13:15:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darron Lee"
+      ],
+      "resolved_player_ids": [
+        "00-0033147"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-jeffery-simmons-deal-will-drive-up-the-price-for-jalen-carter-in-philadelphia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-jeffery-simmons-deal-will-drive-up-the-price-for-jalen-carter-in-philadelphia",
+      "permalink": "",
+      "title": "New Jeffery Simmons deal will drive up the price for Jalen Carter in Philadelphia",
+      "body_text": "Waiting always makes it more expensive to get a great player signed.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T12:25:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "New Jeffery",
+        "Jalen Carter",
+        "Philadelphia Waiting"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-12-lawsuit-against-texas-tech-over-brendan-sorsby-has-not-yet-been-dismissed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-12-lawsuit-against-texas-tech-over-brendan-sorsby-has-not-yet-been-dismissed",
+      "permalink": "",
+      "title": "Big 12 lawsuit against Texas Tech over Brendan Sorsby has not yet been dismissed",
+      "body_text": "The conference may want legal fees from Tech — and it may be bracing for a lawsuit from Sorsby.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T11:58:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/goodell-on-girls-flag-football-if-you-play-youre-more-likely-to-be-a-lifelong-fan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/goodell-on-girls-flag-football-if-you-play-youre-more-likely-to-be-a-lifelong-fan",
+      "permalink": "",
+      "title": "Goodell on girls' flag football: If you play, you're more likely to be a lifelong fan",
+      "body_text": "NFL Commissioner Roger Goodell says the league's support of girls' flag football is a long-term investment in making football more popular for decades to come.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-20T11:39:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Commissioner Roger"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-wr-demario-douglas-josh-mcdaniels-wants-me-adding-my-swagger-to-his-playbook",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-wr-demario-douglas-josh-mcdaniels-wants-me-adding-my-swagger-to-his-playbook",
+      "permalink": "",
+      "title": "Patriots WR DeMario Douglas: Josh McDaniels wants me adding my swagger to his playbook",
+      "body_text": "\"He believes in me and I appreciate him for that,\" Douglas said of McDaniels.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-20T09:09:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshawn-lynch-is-a-credentialed-photographer-at-world-cup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshawn-lynch-is-a-credentialed-photographer-at-world-cup",
+      "permalink": "",
+      "title": "Marshawn Lynch is a credentialed photographer at World Cup",
+      "body_text": "Marshawn Lynch is a man of many talents.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T23:20:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marshawn Lynch",
+        "World Cup"
+      ],
+      "resolved_player_ids": [
+        "00-0025399"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/youtube-walked-away-from-nfl-package-after-australia-game-went-to-netflix",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/youtube-walked-away-from-nfl-package-after-australia-game-went-to-netflix",
+      "permalink": "",
+      "title": "YouTube walked away from NFL package after Australia game went to Netflix",
+      "body_text": "At one point before Netflix landed a five-game package of NFL regular-season games for 2026, talks with YouTube and the NFL for the same set of games had progressed to a \"long-form contract review.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T22:36:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gronk-knows-the-right-way-for-the-patriots-to-put-distractions-behind-them-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gronk-knows-the-right-way-for-the-patriots-to-put-distractions-behind-them-win",
+      "permalink": "",
+      "title": "Gronk knows the right way for the Patriots to put distractions behind them: \"Win\"",
+      "body_text": "The Mike Vrabel-Dianna Russini situation has simmered.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T21:27:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Mike",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-jeffery-simmons-to-a-three-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-jeffery-simmons-to-a-three-year-extension",
+      "permalink": "",
+      "title": "Titans sign Jeffery Simmons to a three-year extension",
+      "body_text": "Simmons pushes bar for defensive tackle new-money APY to $35.2 million.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T20:25:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alex-freeman-son-of-antonio-scores-goal-for-u-s-vs-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alex-freeman-son-of-antonio-scores-goal-for-u-s-vs-australia",
+      "permalink": "",
+      "title": "Alex Freeman, son of Antonio, scores goal for U.S. vs. Australia",
+      "body_text": "\"He did what?\"",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T19:56:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alex Freeman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-fans-have-been-booing-hydration-breaks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-fans-have-been-booing-hydration-breaks",
+      "permalink": "",
+      "title": "World Cup fans have been booing \"hydration breaks\"",
+      "body_text": "Bobby Boucher may understand.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T19:33:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "Bobby Boucher"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-absolutely-expects-to-see-active-and-retired-nfl-players-in-2028-olympics",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-absolutely-expects-to-see-active-and-retired-nfl-players-in-2028-olympics",
+      "permalink": "",
+      "title": "Roger Goodell \"absolutely\" expects to see active and retired NFL players in 2028 Olympics",
+      "body_text": "In only two years, flag football will make its Olympic debut.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T16:28:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kam-curl-thinks-rams-defense-has-a-chance-to-be-legendary",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kam-curl-thinks-rams-defense-has-a-chance-to-be-legendary",
+      "permalink": "",
+      "title": "Kam Curl thinks Rams defense has a chance to be legendary",
+      "body_text": "Myles Garrett's addition has Curl thinking big in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-19T18:51:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kam Curl",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0036349",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-has-embraced-mma-training",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-has-embraced-mma-training",
+      "permalink": "",
+      "title": "Jahmyr Gibbs has embraced MMA training",
+      "body_text": "As running back Jahmyr Gibbs enters his prime football years, he has enhanced his training with a different sport.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T17:04:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-g-cesar-ruiz-wants-to-change-the-narrative-after-2025-criticism",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-g-cesar-ruiz-wants-to-change-the-narrative-after-2025-criticism",
+      "permalink": "",
+      "title": "Saints G Cesar Ruiz wants to \"change the narrative\" after 2025 criticism",
+      "body_text": "The Saints didn't make the playoffs in 2025, but their play in the second half of head coach Kellen Moore's first season in New Orleans created some positive buzz heading into the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-19T16:38:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cesar Ruiz",
+        "The Saints",
+        "Kellen Moore",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0036408",
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-wr-lawrence-keys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-wr-lawrence-keys",
+      "permalink": "",
+      "title": "Lions sign WR Lawrence Keys",
+      "body_text": "The Lions have signed another wide receiver out of the UFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-19T16:09:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lawrence Keys",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039474"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-will-hold-first-training-camp-practice-on-july-29",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-will-hold-first-training-camp-practice-on-july-29",
+      "permalink": "",
+      "title": "Packers will hold first training camp practice on July 29",
+      "body_text": "The Packers have announced dates for their 2026 training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-19T15:47:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chicago-is-feeling-left-out-of-the-world-cup-frenzy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chicago-is-feeling-left-out-of-the-world-cup-frenzy",
+      "permalink": "",
+      "title": "Chicago is feeling left out of the World Cup frenzy",
+      "body_text": "Chicago is feeling a little left out.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T15:08:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/curt-cignetti-believes-brendan-sorsby-will-be-a-great-pro-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/curt-cignetti-believes-brendan-sorsby-will-be-a-great-pro-quarterback",
+      "permalink": "",
+      "title": "Curt Cignetti believes Brendan Sorsby will be a great pro quarterback",
+      "body_text": "College football's coach of the year has given his endorsement to the former college football player of the moment.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T13:11:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Curt Cignetti",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-mccourty-signs-exclusive-deal-with-espn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-mccourty-signs-exclusive-deal-with-espn",
+      "permalink": "",
+      "title": "Jason McCourty signs exclusive deal with ESPN",
+      "body_text": "Jason McCourty will remain part of the NFL media landscape in 2026, but his role in it will be a little different.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-19T13:03:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
