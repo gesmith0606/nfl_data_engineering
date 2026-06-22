@@ -1,0 +1,301 @@
+{
+  "fetch_run_id": "6d2f882e-fa5f-4a92-95e5-dd625eb76444",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-06-22T14:04:32.345445+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 19,
+  "items": [
+    {
+      "external_id": "US-EN-49108128",
+      "url": "https://www.espn.com/nfl/story/_/id/49108128/nfl-2026-biggest-surprise-players-every-team-offseason",
+      "title": "32 teams, 32 surprises: Which players stood out on...",
+      "body_text": "From rookies to veterans, here are the players who have made an early impression on every NFL team ahead of training camp.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-22T12:27:15+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49119435",
+      "url": "https://www.espn.com/nfl/story/_/id/49119435/titans-dt-simmons-agree-3-year-extension-100m-guaranteed",
+      "title": "Titans, DT Simmons agree to $105M+ extension",
+      "body_text": "The Titans and defensive tackle Jeffery Simmons have agreed to a three-year, $105.8M extension, his agents told ESPN's Adam Schefter and NFL Network's Ian Rapoport and Mike Garafolo.",
+      "author": "Turron Davenport",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Titans",
+        "Jeffery Simmons",
+        "Adam Schefter",
+        "Ian Rapoport",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "US-EN-49121275",
+      "url": "https://www.espn.com/college-football/story/_/id/49121275/big-12-no-rush-pull-lawsuit-vs-texas-tech-brendan-sorsby-eligibility",
+      "title": "Source: Big 12 monitoring Sorsby fallout, options",
+      "body_text": "The Big 12 presidents and chancellors haven't rushed to pull the league's recently filed federal lawsuit because there are still questions about Texas Tech quarterback Brendan Sorsby's NFL future and any possible legal retribution, a source told ESPN.",
+      "author": "Heather Dinich",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Big",
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49112158",
+      "url": "https://www.espn.com/nfl/story/_/id/49112158/colts-sauce-gardner-says-24-not-25-listed-widely",
+      "title": "Fresher than listed: Sauce says he's 24, not 25",
+      "body_text": "Colts cornerback Sauce Gardner says he is 24 years old, not 25 as he is listed in many corners of the internet.",
+      "author": "Stephen Holder",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Sauce Gardner"
+      ],
+      "resolved_player_ids": [
+        "00-0037190"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-49111387",
+      "url": "https://www.espn.com/nfl/story/_/id/49111387/espn-investigation-pennel-knew-woman-body-found-dr",
+      "title": "ESPN: Pennel knew woman whose body found",
+      "body_text": "Michael Pennel Jr. had an ongoing relationship with a young woman whose body was found on a property he owned when she went missing, an ESPN investigation found, contradicting Pennel's claim he did not know her.",
+      "author": "T.J. Quinn and Juan Recio",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Michael Pennel Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49098918",
+      "url": "https://www.espn.com/nfl/story/_/id/49098918/burrow-says-bengals-remind-2019-national-champion-lsu",
+      "title": "Burrow: Bengals have same vibes as LSU title team",
+      "body_text": "Joe Burrow said the vibes on this year's Bengals' team are similar to what they were on the 2019 LSU team he led to a College Football Playoff championship.",
+      "author": "Ben Baby",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Joe Burrow",
+        "College Football"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-49099896",
+      "url": "https://www.espn.com/nfl/story/_/id/49099896/daniels-long-way-go-master-commanders-offense",
+      "title": "Daniels still adjusting to new Washington offense",
+      "body_text": "Commanders quarterback Jayden Daniels, trying to rebound from a tough injury-filled season, said he likes their new offense -- but a lot more work remains.",
+      "author": "John Keim",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-49100833",
+      "url": "https://www.espn.com/nfl/story/_/id/49100833/cardinals-rookie-carson-beck-trying-speed-learning-curve",
+      "title": "Cards QB Beck trying to speed up learning curve",
+      "body_text": "Cardinals quarterback Carson Beck said he's jumped in headfirst into the early days of his NFL career rather than trying to take things slow.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [
+        "BEC122142"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "US-EN-49097816",
+      "url": "https://www.espn.com/nfl/story/_/id/49097816/vita-vea-hold-not-concerning",
+      "title": "Bowles confirms Bucs' Vea a minicamp hold-in",
+      "body_text": "Bucs defensive tackle Vita Vea is entering the final year of his $71 million contract, without guaranteed money, and is not physically participating in practice.",
+      "author": "Jenna Laine",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Vita Vea"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49083979",
+      "url": "https://www.espn.com/nfl/story/_/id/49083979/denver-broncos-russell-wilson-release-dead-money-turnaround-nfl-convention-wisdom-altered",
+      "title": "👀 Broncos may have started a salary cap trend",
+      "body_text": "The Broncos took a then-record $85 million dead money hit by parting with Wilson in 2024, but their quick turnaround has turned heads.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-06-21T12:27:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-49107732",
+      "url": "https://www.espn.com/nfl/story/_/id/49107732/tennessee-titans-robert-saleh-father-dream-nfl-coach",
+      "title": "'Look at my son': How Titans' Robert Saleh is livi...",
+      "body_text": "Tennessee's newest coach is making his father, Sam, proud.",
+      "author": "Turron Davenport",
+      "published_at": "2026-06-22T12:27:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "How Titans",
+        "Robert Saleh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "US-EN-49109026",
+      "url": "https://www.espn.com/nfl/story/_/id/49109026/new-york-jets-brendan-sorsby-supplemental-draft-gm-darren-mougey",
+      "title": "How exactly does Brendan Sorsby and the supplement...",
+      "body_text": "New York traded for Geno Smith this offseason, but could Sorsby be a possible solution long term?",
+      "author": "Rich Cimini",
+      "published_at": "2026-06-22T14:36:16+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "New York",
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49111990",
+      "url": "https://www.espn.com/nfl/story/_/id/49111990/nfl-afc-west-broncos-chargers-chiefs-raiders-questions-coaches-offseason",
+      "title": "AFC West roundtable: Best offseason moves so far? ...",
+      "body_text": "How the Broncos', Chargers', Chiefs' and Raiders' offseason moves might impact the AFC West in 2026.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-21T03:15:08+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-48950554",
+      "url": "https://www.espn.com/nfl/story/_/id/48950554/2026-nfl-minicamp-live-updates-teams-mandatory-camps-news-notes-depth-charts",
+      "title": "NFL minicamp updates: Last practices before summer...",
+      "body_text": "ESPN's NFL Nation shares insights from every minicamp, including Aaron Glenn reflecting on busy offseason.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-21T03:15:08+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aaron Glenn"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49073409",
+      "url": "https://www.espn.com/nfl/story/_/id/49073409/2026-nfl-season-breakouts-nosedives-trends-blips-smith-njigba-stroud",
+      "title": "Let's judge the legitimacy of five NFL players who...",
+      "body_text": "Daniel Jones and George Pickens came out of nowhere in 2025. Brian Thomas Jr. and C.J. Stroud took steps backward. But are these abrupt performance changes real?",
+      "author": "Ben Solak",
+      "published_at": "2026-06-22T14:38:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Daniel Jones",
+        "George Pickens",
+        "Brian Thomas Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0037247",
+        "00-0039893"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49096591",
+      "url": "https://www.espn.com/nfl/story/_/id/49096591/nfl-nflra-officials-referees-cba-super-bowl",
+      "title": "Practice squads, swing refs and skepticism: Will N...",
+      "body_text": "The new agreement creates more competition but could leave officials \"looking over their shoulders.\"",
+      "author": "Kalyn Kahler and Kevin Seifert",
+      "published_at": "2026-06-20T22:17:41+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49074719",
+      "url": "https://www.espn.com/nfl/story/_/id/49074719/2026-nfl-supplemental-draft-brendan-sorsby-strengths-weaknesses-quarterback-ranking-team-fits",
+      "title": "Can Sorsby start for an NFL team? Sizing up his ga...",
+      "body_text": "What are Sorsby's strengths and weaknesses? Which NFL teams should try to land him in the supplemental draft? Let's sort out what he could bring to a pro QB room.",
+      "author": "Ben Solak",
+      "published_at": "2026-06-21T15:45:26+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49109010",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49109010/2026-fantasy-football-draft-rankings-dynasty-league-strategy-trades",
+      "title": "Four players to trade for, four to trade away in d...",
+      "body_text": "Is now the time to trade for TreVeyon Henderson? Should you cash in your chips on a pair of Cowboys?",
+      "author": "Eric Moody",
+      "published_at": "2026-06-22T14:52:07+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-FFDraftGuide26-48677635",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFDraftGuide26-48677635/2026-fantasy-football-rankings-mock-draft-cheat-sheets-sleepers",
+      "title": "2026 Fantasy Football Draft Guide: Rankings, mock ...",
+      "body_text": "Your one-stop shop as you prep for draft season, including rankings, projections and analysis.",
+      "author": "Fantasy staff",
+      "published_at": "2026-06-22T14:52:07+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fantasy Football",
+        "Draft Guide"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
