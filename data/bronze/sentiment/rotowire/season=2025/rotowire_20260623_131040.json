@@ -1,0 +1,31 @@
+{
+  "fetch_run_id": "af4034f2-d099-4605-af32-a198160cdb5c",
+  "source": "rotowire",
+  "fetched_at": "2026-06-23T13:10:40.745474+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 1,
+  "items": [
+    {
+      "external_id": "nfl631499",
+      "url": "https://www.rotowire.com//football/player/harold-fannin-18472",
+      "permalink": "",
+      "title": "Harold Fannin: No hint of serious injury",
+      "body_text": "Fannin (undisclosed) didn't walk with a limp or have any injury wrapped while watching spring practices from the sidelines, Mary Kay Cabot of the Cleveland Plain Dealer reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-22T03:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Harold Fannin",
+        "Mary Kay",
+        "Cleveland Plain"
+      ],
+      "resolved_player_ids": [
+        "00-0040663"
+      ],
+      "team_hint": null
+    }
+  ]
+}
