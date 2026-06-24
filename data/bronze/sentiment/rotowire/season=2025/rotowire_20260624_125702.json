@@ -1,0 +1,109 @@
+{
+  "fetch_run_id": "e3bb2f41-ba0a-4430-a2f1-28a019e532a3",
+  "source": "rotowire",
+  "fetched_at": "2026-06-24T12:57:02.438868+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631508",
+      "url": "https://www.rotowire.com//football/player/kyle-pitts-15265",
+      "permalink": "",
+      "title": "Kyle Pitts: Agrees to three-year extension",
+      "body_text": "Pitts and the Falcons agreed to terms Tuesday on a three-year, $54 million contract extension, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-23T01:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl631507",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Feels on track for Week 1",
+      "body_text": "Kittle (Achilles) said Tuesday that he feels \"definitely on track\" for Week 1 though \"nothing is 100 percent certain,\" David Lombardi of SFStandard.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-23T01:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "David Lombardi"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631506",
+      "url": "https://www.rotowire.com//football/player/brendan-sorsby-20122",
+      "permalink": "",
+      "title": "Brendan Sorsby: Ineligible to enter NFL in 2026",
+      "body_text": "The NFL informed teams Tuesday that a supplemental draft will not be held in 2026, making Sorsby ineligible to enter the NFL during the 2026 season, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-23T10:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631503",
+      "url": "https://www.rotowire.com//football/player/quentin-johnston-16899",
+      "permalink": "",
+      "title": "Quentin Johnston: Expects more YAC in new scheme",
+      "body_text": "Johnston said at mandatory minicamp that he's excited for new offensive coordinator Mike McDaniel's scheme and expects to be \"set up for the yards after catch,\" Omar Navarro of the Chargers' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-23T09:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quentin Johnston",
+        "Omar Navarro"
+      ],
+      "resolved_player_ids": [
+        "00-0038544"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl631499",
+      "url": "https://www.rotowire.com//football/player/harold-fannin-18472",
+      "permalink": "",
+      "title": "Harold Fannin: No hint of serious injury",
+      "body_text": "Fannin (undisclosed) didn't walk with a limp or have any injury wrapped while watching spring practices from the sidelines, Mary Kay Cabot of the Cleveland Plain Dealer reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-22T03:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Harold Fannin",
+        "Mary Kay",
+        "Cleveland Plain"
+      ],
+      "resolved_player_ids": [
+        "00-0040663"
+      ],
+      "team_hint": null
+    }
+  ]
+}
