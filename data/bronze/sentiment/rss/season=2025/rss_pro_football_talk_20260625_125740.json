@@ -1,0 +1,494 @@
+{
+  "fetch_run_id": "d71488ed-95fe-43fc-ac62-72274d2a24d2",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-06-25T12:57:40.771625+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-zabel-throwback-two-way-player-dies-at-78",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-zabel-throwback-two-way-player-dies-at-78",
+      "title": "Steve Zabel, throwback two-way player, dies at 78",
+      "body_text": "Steve Zabel, a tight end and pass rusher who was Oklahoma's last two-way player and then played both positions in the NFL, has died at the age of 78.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-25T12:41:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Zabel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-in-price-for-u-s-vs-turkiye-at-sofi-stadium-is-nearly-1-600",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-in-price-for-u-s-vs-turkiye-at-sofi-stadium-is-nearly-1-600",
+      "title": "Get-in price for U.S. vs. Turkiye at SoFi Stadium is nearly $1,600",
+      "body_text": "The U.S. men's soccer team returns to World Cup action tonight in a match that is ultimately meaningless to their prospects in the knockout round.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T12:39:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/te-mason-taylor-sees-endless-opportunities-in-jets-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/te-mason-taylor-sees-endless-opportunities-in-jets-offense",
+      "title": "TE Mason Taylor sees \"endless opportunities\" in Jets offense",
+      "body_text": "The Jets drafted tight end Mason Taylor in the second round in 2025, so some might wonder how well he took the news that they used a first-round pick on a player at the same position this year.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-25T12:39:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mason Taylor",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0040736"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-dt-deshawn-williams-sues-contractor-over-memorabilia-stolen-after-2024-hurricane",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-dt-deshawn-williams-sues-contractor-over-memorabilia-stolen-after-2024-hurricane",
+      "title": "Former NFL DT DeShawn Williams sues contractor over memorabilia stolen after 2024 hurricane",
+      "body_text": "Former NFL defensive tackle DeShawn Williams has filed a lawsuit over memorabilia that he believes was stolen from his home.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T12:19:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-i-thanked-lamar-jackson-but-told-him-ill-blitz-him-every-third-down",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-i-thanked-lamar-jackson-but-told-him-ill-blitz-him-every-third-down",
+      "title": "Todd Monken: I thanked Lamar Jackson, but told him I'll blitz him every third down",
+      "body_text": "Todd Monken's three seasons as the Ravens' offensive coordinator didn't result in a Super Bowl title, but his work in Baltimore was impressive enough to help land him the Browns' head coaching job this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-25T12:03:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "Lamar Jackson",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nflpa-lawyer-heather-mcphee-settles-lawsuit-against-union",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nflpa-lawyer-heather-mcphee-settles-lawsuit-against-union",
+      "title": "Former NFLPA lawyer Heather McPhee settles lawsuit against union",
+      "body_text": "Long-time in-house counsel to the NFL Players Association Heather McPhee has settled her lawsuit against the union.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T11:50:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sammy-watkins-to-coach-wide-receivers-at-floridas-ocoee-high-school",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sammy-watkins-to-coach-wide-receivers-at-floridas-ocoee-high-school",
+      "title": "Sammy Watkins to coach wide receivers at Florida's Ocoee High School",
+      "body_text": "Former NFL wide receiver Sammy Watkins is coaching high school football.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-25T08:51:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sammy Watkins",
+        "Ocoee High",
+        "School Former"
+      ],
+      "resolved_player_ids": [
+        "00-0031325"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-categorically-denies-the-allegations-against-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-categorically-denies-the-allegations-against-him",
+      "title": "Terrion Arnold \"categorically denies\" the allegations against him",
+      "body_text": "Previously, Lions cornerback Terrion Arnold denied involvement in the alleged robbery and kidnapping arising from an effort to recover property stolen from a house he rented in Florida.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T03:53:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-has-been-arrested-on-robbery-and-kidnapping-charges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-has-been-arrested-on-robbery-and-kidnapping-charges",
+      "title": "Terrion Arnold has been arrested on robbery and kidnapping charges",
+      "body_text": "Arnold faces life in prison, per the state attorney.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T03:01:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/signs-point-to-travis-kelce-taylor-swift-wedding-at-madison-square-garden-on-july-4-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/signs-point-to-travis-kelce-taylor-swift-wedding-at-madison-square-garden-on-july-4-weekend",
+      "title": "Signs point to Travis Kelce-Taylor Swift wedding at Madison Square Garden on July 4 weekend",
+      "body_text": "Chiefs tight end Travis Kelce and megastar Taylor Swift apparently will be tying the knot in New York City.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T01:24:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Kelce",
+        "Taylor Swift",
+        "Madison Square",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/doug-martins-parents-sue-oakland-for-wrongful-death-alleging-police-used-excessive-force",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/doug-martins-parents-sue-oakland-for-wrongful-death-alleging-police-used-excessive-force",
+      "title": "Doug Martin's parents sue Oakland for wrongful death, alleging police used excessive force",
+      "body_text": "Former NFL running back Doug Martin died last October, after becoming unresponsive in the custody of Oakland, California police.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T00:50:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Doug Martin"
+      ],
+      "resolved_player_ids": [
+        "00-0029613"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-case-puts-nflpa-in-an-awkward-spot-since-hes-not-a-union-member",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-case-puts-nflpa-in-an-awkward-spot-since-hes-not-a-union-member",
+      "title": "Brendan Sorsby case puts NFLPA in an awkward spot, since he's not a union member",
+      "body_text": "Letting Sorsby into the supplemental draft would cost a current union member his job.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T23:32:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Letting Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ryan-grigson-returns-to-browns-as-senior-football-advisor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ryan-grigson-returns-to-browns-as-senior-football-advisor",
+      "title": "Report: Ryan Grigson returns to Browns as senior football advisor",
+      "body_text": "A report earlier Wednesday indicated Ryan Grigson was leaving the Vikings to pursue another opportunity in the NFL.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-24T22:40:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Grigson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ryan-grigson-declined-opportunity-to-stay-with-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ryan-grigson-declined-opportunity-to-stay-with-vikings",
+      "title": "Report: Ryan Grigson declined opportunity to stay with Vikings",
+      "body_text": "After new Vikings General Manager Nolan Teasley hired Andrew Healy and Trent Kirchner as assistant General Managers, it was reported that Ryan Grigson was expected to remain in a different role with the team.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-24T20:59:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Grigson",
+        "Vikings After",
+        "Vikings General",
+        "Manager Nolan",
+        "Andrew Healy",
+        "Trent Kirchner",
+        "General Managers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-times-calls-dianna-russini-enlisting-a-coach-to-get-out-of-a-ticket-unacceptable-conduct",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-times-calls-dianna-russini-enlisting-a-coach-to-get-out-of-a-ticket-unacceptable-conduct",
+      "title": "New York Times calls Dianna Russini enlisting a coach to get out of a ticket \"unacceptable conduct\"",
+      "body_text": "Some of the things that The Athletic will learn when investigating its former NFL insider, Dianna Russini, will require work.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T20:48:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New York",
+        "Dianna Russini",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-joey-porter-jr-steelers-arent-close-on-a-long-term-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-joey-porter-jr-steelers-arent-close-on-a-long-term-extension",
+      "title": "Report: Joey Porter Jr., Steelers aren't close on a long-term extension",
+      "body_text": "Steelers cornerback Joey Porter Jr. wants a long-term extension.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-24T20:13:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-posts-another-video-expressing-interest-in-joining-the-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-posts-another-video-expressing-interest-in-joining-the-commanders",
+      "title": "Brandon Aiyuk posts another video expressing interest in joining the Commanders",
+      "body_text": "49ers receiver keeps talking about signing with Washington.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T20:13:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/california-workers-compensation-bill-opposed-by-nflpa-has-been-pulled",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/california-workers-compensation-bill-opposed-by-nflpa-has-been-pulled",
+      "title": "California workers' compensation bill opposed by NFLPA has been pulled",
+      "body_text": "A bill that would have revamped workers' compensation laws in California to the detriment of professional athletes has died.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T19:57:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-joey-bosa-has-more-likely-than-not-played-his-final-nfl-snap",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-joey-bosa-has-more-likely-than-not-played-his-final-nfl-snap",
+      "title": "Report: Joey Bosa has \"more likely than not\" played his final NFL snap",
+      "body_text": "49ers defensive end Nick Bosa cast doubt on his older brother Joey playing in the NFL in 2026 in May when he said that his brother is not \"thinking too much about football\" while working on his golf game.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-24T19:53:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Bosa",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0033156",
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-announce-training-camp-schedule-in-oxnard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-announce-training-camp-schedule-in-oxnard",
+      "title": "Cowboys announce training camp schedule in Oxnard",
+      "body_text": "The Cowboys will return to Oxnard, California, to open their 67th training camp on July 29th.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-24T19:47:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Oxnard The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-has-talked-with-tom-brady-drew-brees-about-playing-into-his-40s",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-has-talked-with-tom-brady-drew-brees-about-playing-into-his-40s",
+      "title": "Matthew Stafford has talked with Tom Brady, Drew Brees about playing into his 40s",
+      "body_text": "Having won his first MVP award in 2025, quarterback Matthew Stafford is coming off a year where he played some of the best football of his career.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-24T19:21:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Tom Brady",
+        "Drew Brees"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0019596",
+        "00-0020531"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-internal-investigation-still-pending-the-new-york-times-publishes-a-lengthy-story-about-dianna-russini",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-internal-investigation-still-pending-the-new-york-times-publishes-a-lengthy-story-about-dianna-russini",
+      "title": "With internal investigation still pending, the New York Times publishes a lengthy story about Dianna Russini",
+      "body_text": "Last week, I said there were two developments that could bring the Mike Vrabel-Dianna Russini story back to the front burner.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T13:56:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New York",
+        "Dianna Russini",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-and-the-athletic-were-discussing-an-extension-to-her-800-000-annual-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-and-the-athletic-were-discussing-an-extension-to-her-800-000-annual-deal",
+      "title": "Dianna Russini and The Athletic were discussing an extension to her $800,000 annual deal",
+      "body_text": "When Dianna Russini left ESPN for The Athletic, Peter King wrote that \"she immediately becomes one of the highest-paid writers in the history of the August New York Times company.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T16:59:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dianna Russini",
+        "The Athletic",
+        "When Dianna",
+        "Peter King",
+        "August New",
+        "York Times"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-new-york-times-article-on-dianna-russini-includes-new-comments-from-her",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-new-york-times-article-on-dianna-russini-includes-new-comments-from-her",
+      "title": "The New York Times article on Dianna Russini includes new comments from her",
+      "body_text": "Dianna Russini had said nothing since abruptly resigning from The Athletic in April, one week after photos first surfaced of Russini and Patriots coach Mike Vrabel at a resort in Sedona, Arizona.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T19:12:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The New",
+        "York Times",
+        "Dianna Russini",
+        "The Athletic",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-tight-end-brenton-strange-to-three-year-contract-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-tight-end-brenton-strange-to-three-year-contract-extension",
+      "title": "Jaguars sign tight end Brenton Strange to three-year contract extension",
+      "body_text": "The Jaguars will be keeping tight end Brenton Strange through what they expect to be the prime years of his career.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-24T19:18:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brenton Strange",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0038935"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-best-play-could-be-to-prepare-for-2027-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-best-play-could-be-to-prepare-for-2027-draft",
+      "title": "Brendan Sorsby's best play could be to prepare for 2027 draft",
+      "body_text": "Right or wrong, a short-term win in court could have longer-term ramifications.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T18:35:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mac-jones-george-kittle-looks-good-is-a-wizard-with-taking-care-of-his-body",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mac-jones-george-kittle-looks-good-is-a-wizard-with-taking-care-of-his-body",
+      "title": "Mac Jones: George Kittle looks good, is \"a wizard\" with taking care of his body",
+      "body_text": "49ers tight end George Kittle is on the mend after suffering a torn Achilles during San Francisco’s postseason victory over Philadelphia in January.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-24T18:04:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mac Jones",
+        "George Kittle",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036972",
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-are-working-on-a-bill-for-an-illinois-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-are-working-on-a-bill-for-an-illinois-stadium",
+      "title": "Bears are working on a bill for an Illinois stadium",
+      "body_text": "Indiana keeps waiting for something that may never happen.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T17:42:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/te-chig-okonkwo-feels-he-can-finally-just-unleash-in-commanders-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/te-chig-okonkwo-feels-he-can-finally-just-unleash-in-commanders-offense",
+      "title": "TE Chig Okonkwo feels he \"can finally just unleash\" in Commanders offense",
+      "body_text": "Tight end Chig Okonkwo signed with the Commanders after posting 162 catches for the Titans the last three seasons and he believes the move is going to be a fruitful one for him.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-24T17:07:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chig Okonkwo"
+      ],
+      "resolved_player_ids": [
+        "00-0037809"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-name-tony-castricone-their-new-radio-play-by-play-announcer",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-name-tony-castricone-their-new-radio-play-by-play-announcer",
+      "title": "Buccaneers name Tony Castricone their new radio play-by-play announcer",
+      "body_text": "For the first time since 1989, the Buccaneers have a new radio voice.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-24T14:13:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Castricone"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    }
+  ]
+}
