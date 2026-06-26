@@ -1,0 +1,563 @@
+{
+  "fetch_run_id": "a06e5e00-14ab-45ae-acba-154a6078912c",
+  "source": "pft",
+  "fetched_at": "2026-06-26T12:54:35.328301+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-ertz-doing-everything-i-can-to-get-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-ertz-doing-everything-i-can-to-get-back",
+      "permalink": "",
+      "title": "Zach Ertz \"doing everything I can\" to get back",
+      "body_text": "Zach Ertz said in April that he does not want last season's torn ACL to be the final act of his NFL career and said he has \"eyes wide open\" to the need to show he's healthy in order to find a place to play in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-26T12:50:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zach Ertz"
+      ],
+      "resolved_player_ids": [
+        "00-0030061"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mlb-players-association-proposes-ban-on-player-prop-bets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mlb-players-association-proposes-ban-on-player-prop-bets",
+      "permalink": "",
+      "title": "MLB Players Association proposes ban on player prop bets",
+      "body_text": "When it comes to sports betting, prop bets are incredibly popular.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-26T12:46:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-gardner-johnson-blames-his-release-in-houston-on-confrontation-with-gms-friend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-gardner-johnson-blames-his-release-in-houston-on-confrontation-with-gms-friend",
+      "permalink": "",
+      "title": "C.J. Gardner-Johnson blames his release in Houston on confrontation with \"GM's friend\"",
+      "body_text": "Before the Texans nearly made it to the AFC Championship for the first time in franchise history, they started the year 0-3.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-26T11:21:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-i-didnt-play-great-in-the-super-bowl-kinda-bummed-to-win-that-way",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-i-didnt-play-great-in-the-super-bowl-kinda-bummed-to-win-that-way",
+      "permalink": "",
+      "title": "Sam Darnold: I didn't play great in the Super Bowl, \"kinda bummed\" to win that way",
+      "body_text": "Winning the Super Bowl was the crowning achievement of Seahawks quarterback Sam Darnold's career, but that doesn't mean he was happy with the way he played.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-26T10:04:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-oc-nick-caley-its-a-new-year-and-c-j-stroud-is-locked-in",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-oc-nick-caley-its-a-new-year-and-c-j-stroud-is-locked-in",
+      "permalink": "",
+      "title": "Texans OC Nick Caley: It's a new year, and C.J. Stroud is locked in",
+      "body_text": "Stroud's disappointing playoff exit aside, Caley is pleased with his quarterback's growth.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-26T07:33:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Caley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-look-less-and-less-likely-that-brendan-sorsby-will-be-suing-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-look-less-and-less-likely-that-brendan-sorsby-will-be-suing-the-nfl",
+      "permalink": "",
+      "title": "It look less and less likely that Brendan Sorsby will be suing the NFL",
+      "body_text": "It's been two days since the NFL told quarterback Brendan Sorsby that it won't be conducting a supplemental draft next month.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-26T00:03:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-will-have-seven-open-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-will-have-seven-open-practices",
+      "permalink": "",
+      "title": "Cardinals will have seven open practices",
+      "body_text": "The Cardinals will open training camp at State Farm Stadium on July 22.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-25T23:59:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cardinals",
+        "State Farm"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/is-anyone-advising-brandon-aiyuk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/is-anyone-advising-brandon-aiyuk",
+      "permalink": "",
+      "title": "Is anyone advising Brandon Aiyuk?",
+      "body_text": "At what point does Aiyuk's agent fire him, if he's defying advice with his stream of videos?",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T23:44:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-flournoy-soars-after-2025-season-i-know-i-belong",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-flournoy-soars-after-2025-season-i-know-i-belong",
+      "permalink": "",
+      "title": "Ryan Flournoy soars after 2025 season: I know I belong",
+      "body_text": "Cowboys wide receiver Ryan Flournoy made two catches for 8 yards and fumbled in his preseason debut after the team made him a sixth-round pick in 2024.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-25T22:19:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Flournoy"
+      ],
+      "resolved_player_ids": [
+        "00-0039410"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-waive-wr-mike-woods-off-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-waive-wr-mike-woods-off-injured-reserve",
+      "permalink": "",
+      "title": "Broncos waive WR Mike Woods off injured reserve",
+      "body_text": "The Broncos have let go of one of their offensive players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-25T21:10:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Woods",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0037300"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-announce-front-office-hirings-promotions-under-new-g-m-nolan-teasley",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-announce-front-office-hirings-promotions-under-new-g-m-nolan-teasley",
+      "permalink": "",
+      "title": "Vikings announce front office hirings, promotions under new G.M. Nolan Teasley",
+      "body_text": "The Vikings have formally announced several moves in their front office, as they gear up for their first season under General Manager Nolan Teasley.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-25T20:45:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nolan Teasley",
+        "The Vikings",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-waited-two-days-after-learning-of-the-sedona-photos-to-inform-her-bosses",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-waited-two-days-after-learning-of-the-sedona-photos-to-inform-her-bosses",
+      "permalink": "",
+      "title": "Dianna Russini waited two days after learning of the Sedona photos to inform her bosses",
+      "body_text": "There's a lot of stuff in the New York Times article about Dianna Russini.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T20:27:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dianna Russini",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenny-moore-wants-to-land-with-a-team-where-he-can-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenny-moore-wants-to-land-with-a-team-where-he-can-win",
+      "permalink": "",
+      "title": "Kenny Moore wants to land with a team where he can win",
+      "body_text": "Cornerback Kenny Moore requested and received his release from the Colts on May 7.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-25T20:06:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenny Moore",
+        "Cornerback Kenny"
+      ],
+      "resolved_player_ids": [
+        "00-0033393"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-posts-yet-another-video-but-this-one-is-more-cryptic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-posts-yet-another-video-but-this-one-is-more-cryptic",
+      "permalink": "",
+      "title": "Brandon Aiyuk posts yet another video (but this one is more cryptic)",
+      "body_text": "Brandon Aiyuk is back at it.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T17:47:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-db-ahmari-harvey-cut-de-k-j-henry",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-db-ahmari-harvey-cut-de-k-j-henry",
+      "permalink": "",
+      "title": "Steelers sign DB Ahmari Harvey, cut DE K.J. Henry",
+      "body_text": "The Steelers signed defensive back Ahmari Harvey, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-25T19:33:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ahmari Harvey",
+        "Henry The"
+      ],
+      "resolved_player_ids": [
+        "HAR767547"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-announce-training-camp-schedule-in-oxnard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-announce-training-camp-schedule-in-oxnard",
+      "permalink": "",
+      "title": "Cowboys announce training camp schedule in Oxnard",
+      "body_text": "The Cowboys will return to Oxnard, California, to open their 67th training camp on July 29th.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-24T19:47:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Oxnard The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ryan-grigson-declined-opportunity-to-stay-with-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ryan-grigson-declined-opportunity-to-stay-with-vikings",
+      "permalink": "",
+      "title": "Report: Ryan Grigson declined opportunity to stay with Vikings",
+      "body_text": "After new Vikings General Manager Nolan Teasley hired Andrew Healy and Trent Kirchner as assistant General Managers, it was reported that Ryan Grigson was expected to remain in a different role with the team.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-24T20:59:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Grigson",
+        "Vikings After",
+        "Vikings General",
+        "Manager Nolan",
+        "Andrew Healy",
+        "Trent Kirchner",
+        "General Managers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-will-hold-open-training-camp-practice-at-university-of-maryland",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-will-hold-open-training-camp-practice-at-university-of-maryland",
+      "permalink": "",
+      "title": "Ravens will hold open training camp practice at University of Maryland",
+      "body_text": "For the first time, the Ravens will hold an open practice at the University of Maryland.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-25T18:50:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Maryland For"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-pasch-signs-exclusive-deal-with-espn-leaves-cardinals-radio-play-by-play-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-pasch-signs-exclusive-deal-with-espn-leaves-cardinals-radio-play-by-play-job",
+      "permalink": "",
+      "title": "Dave Pasch signs exclusive deal with ESPN, leaves Cardinals radio play-by-play job",
+      "body_text": "The Cardinals will have a new radio play-by-play announcer for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-25T18:41:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Pasch",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/one-year-deal-for-portland-coach-micah-nori-could-give-nfl-teams-ideas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/one-year-deal-for-portland-coach-micah-nori-could-give-nfl-teams-ideas",
+      "permalink": "",
+      "title": "One-year deal for Portland coach Micah Nori could give NFL teams ideas",
+      "body_text": "The Portland Trail Blazers have hired a new coach.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T23:12:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Micah Nori",
+        "The Portland",
+        "Trail Blazers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-will-remain-jailed-until-a-june-29-pre-trial-detention-hearing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-will-remain-jailed-until-a-june-29-pre-trial-detention-hearing",
+      "permalink": "",
+      "title": "Terrion Arnold will remain jailed until a June 29 pre-trial detention hearing",
+      "body_text": "Arnold made his first court appearance on Thursday afternoon.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T18:11:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-best-play-could-be-to-prepare-for-2027-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-best-play-could-be-to-prepare-for-2027-draft",
+      "permalink": "",
+      "title": "Brendan Sorsby's best play could be to prepare for 2027 draft",
+      "body_text": "Right or wrong, a short-term win in court could have longer-term ramifications.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T18:35:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-joey-porter-jr-steelers-arent-close-on-a-long-term-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-joey-porter-jr-steelers-arent-close-on-a-long-term-extension",
+      "permalink": "",
+      "title": "Report: Joey Porter Jr., Steelers aren't close on a long-term extension",
+      "body_text": "Steelers cornerback Joey Porter Jr. wants a long-term extension.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-24T20:13:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-categorically-denies-the-allegations-against-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-categorically-denies-the-allegations-against-him",
+      "permalink": "",
+      "title": "Terrion Arnold \"categorically denies\" the allegations against him",
+      "body_text": "Previously, Lions cornerback Terrion Arnold denied involvement in the alleged robbery and kidnapping arising from an effort to recover property stolen from a house he rented in Florida.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T03:53:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-has-been-arrested-on-robbery-and-kidnapping-charges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-has-been-arrested-on-robbery-and-kidnapping-charges",
+      "permalink": "",
+      "title": "Terrion Arnold has been arrested on robbery and kidnapping charges",
+      "body_text": "Arnold faces life in prison, per the state attorney.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T03:01:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/uspto-denies-caleb-williamss-effort-to-trademark-iceman",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/uspto-denies-caleb-williamss-effort-to-trademark-iceman",
+      "permalink": "",
+      "title": "USPTO denies Caleb Williams's effort to trademark \"Iceman\"",
+      "body_text": "For now, Caleb Williams will not officially be known as \"Iceman.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-06-25T17:09:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-partner-with-hallmark-channel-for-annual-nfl-themed-christmas-movie",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-partner-with-hallmark-channel-for-annual-nfl-themed-christmas-movie",
+      "permalink": "",
+      "title": "Bears partner with Hallmark Channel for annual NFL-themed Christmas movie",
+      "body_text": "NFL-themed Christmas movies have become an annual staple for Hallmark Channel, and this year the Bears will be the featured team.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-25T16:45:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hallmark Channel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-2027-nfl-draft-will-be-held-april-29-may-1-in-washington-d-c",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-2027-nfl-draft-will-be-held-april-29-may-1-in-washington-d-c",
+      "permalink": "",
+      "title": "The 2027 NFL Draft will be held April 29-May 1 in Washington D.C.",
+      "body_text": "The dates for the 2027 NFL Draft have been set.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-25T16:42:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-announce-open-practice-schedule-for-2026-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-announce-open-practice-schedule-for-2026-training-camp",
+      "permalink": "",
+      "title": "Jaguars announce open practice schedule for 2026 training camp",
+      "body_text": "The Jaguars will hold their first practice of training camp on July 29 and that will also be the first of their summer sessions open to the general public.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-25T16:28:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-im-here-for-ty-simpson-if-he-needs-help",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-im-here-for-ty-simpson-if-he-needs-help",
+      "permalink": "",
+      "title": "Matthew Stafford: I'm here for Ty Simpson if he needs help",
+      "body_text": "It was a surprise to many when the Rams selected quarterback Ty Simpson at No. 13 overall to be Matthew Stafford’s successor in this year’s draft.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-25T15:42:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "SIM639376"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}

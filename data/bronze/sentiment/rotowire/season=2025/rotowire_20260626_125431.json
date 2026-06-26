@@ -1,0 +1,72 @@
+{
+  "fetch_run_id": "7edb4c2b-cc1a-436e-a201-c89f42064b15",
+  "source": "rotowire",
+  "fetched_at": "2026-06-26T12:54:31.176486+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 3,
+  "items": [
+    {
+      "external_id": "nfl631556",
+      "url": "https://www.rotowire.com//football/player/joe-burrow-14442",
+      "permalink": "",
+      "title": "Joe Burrow: Working under center more",
+      "body_text": "The Bengals are spending more time working on their under-center offense more this offseason, Paul Dehner Jr. of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-25T07:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "The Bengals",
+        "Paul Dehner Jr",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "nfl631543",
+      "url": "https://www.rotowire.com//football/player/brenton-strange-17017",
+      "permalink": "",
+      "title": "Brenton Strange: Agrees to three-year extension",
+      "body_text": "Strange agreed to terms Wednesday on a three-year extension with the Jaguars, Tom Pelissero of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-24T12:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brenton Strange",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0038935"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "nfl631542",
+      "url": "https://www.rotowire.com//football/player/chris-olave-15895",
+      "permalink": "",
+      "title": "Chris Olave: Hopes for contract before camp",
+      "body_text": "Olave (illness) said he hopes to finalize a contract extension with the Saints before training camp, Katherine Terrell of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-24T12:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "Katherine Terrell"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}
