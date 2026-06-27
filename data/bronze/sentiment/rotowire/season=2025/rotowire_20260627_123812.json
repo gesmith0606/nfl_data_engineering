@@ -1,0 +1,32 @@
+{
+  "fetch_run_id": "215fd481-adc8-4d3c-a508-5d06661a3e9b",
+  "source": "rotowire",
+  "fetched_at": "2026-06-27T12:38:12.221204+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 1,
+  "items": [
+    {
+      "external_id": "nfl631556",
+      "url": "https://www.rotowire.com//football/player/joe-burrow-14442",
+      "permalink": "",
+      "title": "Joe Burrow: Working under center more",
+      "body_text": "The Bengals are spending more time working on their under-center offense more this offseason, Paul Dehner Jr. of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-25T07:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "The Bengals",
+        "Paul Dehner Jr",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    }
+  ]
+}
