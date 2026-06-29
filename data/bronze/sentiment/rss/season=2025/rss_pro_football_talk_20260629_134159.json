@@ -1,0 +1,487 @@
+{
+  "fetch_run_id": "64bc13bd-a543-4790-b52e-4f2121c789b8",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-06-29T13:41:59.199755+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-hold-six-open-training-camp-practices-in-west-virginia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-hold-six-open-training-camp-practices-in-west-virginia",
+      "title": "Giants to hold six open training camp practices in West Virginia",
+      "body_text": "The Giants announced in March that they will be holding training camp at The Greenbrier in West Virginia this summer and they have now announced their schedule of sessions open to the public as well.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-29T13:22:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "West Virginia",
+        "The Giants",
+        "The Greenbrier"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-titans-rb-chris-johnson-reveals-that-hes-fighting-als",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-titans-rb-chris-johnson-reveals-that-hes-fighting-als",
+      "title": "Former Titans RB Chris Johnson reveals that he's fighting ALS",
+      "body_text": "Johnson has gone public with the goal of giving hope to other ALS patients and their families.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T13:05:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Titans",
+        "Chris Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0035456"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-to-hold-two-training-camp-practices-in-san-diego",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-to-hold-two-training-camp-practices-in-san-diego",
+      "title": "Chargers to hold two training camp practices in San Diego",
+      "body_text": "The Chargers will be back in San Diego for a couple of days this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-29T13:04:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "San Diego",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/remembering-joe-delaney-43-years-after-he-died",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/remembering-joe-delaney-43-years-after-he-died",
+      "title": "Remembering Joe Delaney, 43 years after he died",
+      "body_text": "24-year-old running back gave his life to try to save three children.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T11:29:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Remembering Joe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-to-hold-13-open-practices-at-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-to-hold-13-open-practices-at-training-camp",
+      "title": "Patriots to hold 13 open practices at training camp",
+      "body_text": "The Patriots will hold their first practice of training camp on July 25 and it will be the first of 13 sessions open to the public.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-29T12:54:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-s-malaki-starks-plans-to-work-with-jon-gruden-ahead-of-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-s-malaki-starks-plans-to-work-with-jon-gruden-ahead-of-training-camp",
+      "title": "Ravens S Malaki Starks plans to work with Jon Gruden ahead of training camp",
+      "body_text": "When Ravens safety Malaki Starks reflected on his rookie season in May, he said it was not up to the standard he set for himself.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-29T12:38:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malaki Starks",
+        "Jon Gruden",
+        "When Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0040688"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-rights-and-nfl-rights-could-be-on-the-market-at-the-same-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-rights-and-nfl-rights-could-be-on-the-market-at-the-same-time",
+      "title": "World Cup rights and NFL rights could be on the market at the same time",
+      "body_text": "The World Cup is racking up huge numbers for Fox.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T12:16:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-demario-davis-spends-nearly-1-million-a-year-staying-in-shape-to-play-at-age-37",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-demario-davis-spends-nearly-1-million-a-year-staying-in-shape-to-play-at-age-37",
+      "title": "Jets' Demario Davis spends nearly $1 million a year staying in shape to play at age 37",
+      "body_text": "Jets linebacker Demario Davis is heading into his 15th NFL season, and he has missed only one game in his NFL career, an impressive run of durability that he attributes to the way he takes care of his body throughout the year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-29T08:50:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Demario Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0029607"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-david-doty-who-presided-over-the-case-that-resulted-in-the-nfls-salary-cap-era-dies-at-96",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-david-doty-who-presided-over-the-case-that-resulted-in-the-nfls-salary-cap-era-dies-at-96",
+      "title": "Judge David Doty, who presided over the case that resulted in the NFL's salary-cap era, dies at 96",
+      "body_text": "David Doty, the federal judge who presided over the lawsuit that created the NFL's current labor model, has died.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T01:07:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Judge David",
+        "David Doty"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-expects-a-massive-improvement-from-the-raiders-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-expects-a-massive-improvement-from-the-raiders-in-2026",
+      "title": "Tom Brady expects a \"massive improvement\" from the Raiders in 2026",
+      "body_text": "\"I would expect daily improvement,\" Brady said, \"and I'd expect hourly improvement.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T23:35:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tom Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-has-complaints-about-the-nflpa-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-has-complaints-about-the-nflpa-too",
+      "title": "Brandon Aiyuk has complaints about the NFLPA, too",
+      "body_text": "In recent days, 49ers receiver Brandon Aiyuk has been posting complaints about his current team and his now-former agent.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T23:13:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/core-special-teams-player-c-j-goodwin-announces-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/core-special-teams-player-c-j-goodwin-announces-retirement",
+      "title": "Core special teams player C.J. Goodwin announces retirement",
+      "body_text": "Core special teams player C.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-28T22:44:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2025-awards-result-in-gold-shields-for-rams-teammates-matthew-stafford-myles-garrett",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2025-awards-result-in-gold-shields-for-rams-teammates-matthew-stafford-myles-garrett",
+      "title": "2025 awards result in gold shields for Rams teammates Matthew Stafford, Myles Garrett",
+      "body_text": "In 2025, the NFL began outfitting the jerseys of the prior year's award winners with gold shields.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T20:32:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-minority-owner-tom-brady-bashes-the-nfls-fine-system-for-on-field-mistakes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-minority-owner-tom-brady-bashes-the-nfls-fine-system-for-on-field-mistakes",
+      "title": "Raiders minority owner Tom Brady bashes the NFL's fine system for on-field \"mistakes\"",
+      "body_text": "Brady's opinions may not be shared by his business partners.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T17:51:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tom Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-terminated-sra-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-terminated-sra-on-saturday",
+      "title": "Brandon Aiyuk terminated SRA on Saturday",
+      "body_text": "In one of his recent social-media videos, 49ers receiver Brandon Aiyuk said he terminated a Standard Representation Agreement with Ryan Williams of Athletes First in November 2025.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T16:38:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "Standard Representation",
+        "Ryan Williams",
+        "Athletes First"
+      ],
+      "resolved_player_ids": [
+        "00-0036261",
+        "00-0027976"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-path-is-set-for-the-u-s-mens-team-in-the-world-cup-knockout-round",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-path-is-set-for-the-u-s-mens-team-in-the-world-cup-knockout-round",
+      "title": "The path is set for the U.S. men's team in the World Cup knockout round",
+      "body_text": "If you're confused by how the World Cup works, join the club.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T15:57:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-possibility-of-a-patriots-game-in-scotland-is-in-the-conversation-phase",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-possibility-of-a-patriots-game-in-scotland-is-in-the-conversation-phase",
+      "title": "The possibility of a Patriots game in Scotland is in the \"conversation\" phase",
+      "body_text": "After the Tartan Army took over Boston for the World Cup, and drank all the beer, Patriots owner Robert Kraft expressed an interest to the NFL in playing a game in Scotland.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T15:26:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tartan Army",
+        "World Cup",
+        "Robert Kraft"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-hires-harvey-steinberg-for-criminal-case-in-florida",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-hires-harvey-steinberg-for-criminal-case-in-florida",
+      "title": "Terrion Arnold hires Harvey Steinberg for criminal case in Florida",
+      "body_text": "Long-time representative of sports figures will represent Lions cornerback.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T14:57:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "Harvey Steinberg",
+        "Florida Long"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/archie-manning-disappointed-that-arch-was-crowned-before-he-ever-played",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/archie-manning-disappointed-that-arch-was-crowned-before-he-ever-played",
+      "title": "Archie Manning \"disappointed\" that Arch was \"crowned\" before he ever played",
+      "body_text": "Last year's college football season began with much anticipation — and high expectations — for the latest member of America's royal family of football.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T13:32:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Archie Manning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-bills-are-lucky-to-have-bo-hardegree-as-new-quarterbacks-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-bills-are-lucky-to-have-bo-hardegree-as-new-quarterbacks-coach",
+      "title": "Josh Allen: Bills are lucky to have Bo Hardegree as new quarterbacks coach",
+      "body_text": "When Joe Brady was promoted from offensive coordinator to head coach in Buffalo this year, he decided to go outside the organization for the key assistant positions on his new offensive staff.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-28T09:47:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen",
+        "Bo Hardegree",
+        "When Joe"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-on-contract-talks-its-a-matter-of-finding-that-middle-ground",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-on-contract-talks-its-a-matter-of-finding-that-middle-ground",
+      "title": "Baker Mayfield on contract talks: \"It's a matter of finding that middle ground\"",
+      "body_text": "The clock keeps ticking on a possible new deal for Mayfield.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T03:14:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-titans-scout-mical-johnson-testifies-in-the-blaise-taylor-murder-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-titans-scout-mical-johnson-testifies-in-the-blaise-taylor-murder-case",
+      "title": "Former Titans scout Mical Johnson testifies in Blaise Taylor murder case",
+      "body_text": "In 2021, Mical Johnson became the NFL's first full-time female scouting assistant, when she was hired by the Titans.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-27T23:28:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Titans",
+        "Mical Johnson",
+        "Blaise Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dexter-lawrence-i-know-my-impact-on-the-game-even-without-sack-numbers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dexter-lawrence-i-know-my-impact-on-the-game-even-without-sack-numbers",
+      "title": "Dexter Lawrence: I know my impact on the game even without sack numbers",
+      "body_text": "Dexter Lawrence made a career-high nine sacks in 2024.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-27T22:26:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dexter Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0035683"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-continues-to-post-videos-regarding-the-49ers-and-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-continues-to-post-videos-regarding-the-49ers-and-commanders",
+      "title": "Brandon Aiyuk continues to post videos regarding the 49ers and Commanders",
+      "body_text": "Aiyuk vows not to return to the 49ers until the Commanders play there in October.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-27T19:34:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "Commanders Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/o-j-simpson-wont-be-in-the-wall-of-fame-at-the-new-bills-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/o-j-simpson-wont-be-in-the-wall-of-fame-at-the-new-bills-stadium",
+      "title": "O.J. Simpson won't be in the Wall of Fame at the new Bills stadium",
+      "body_text": "After Hall of Fame running back O.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-27T19:18:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "After Hall"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-andrews-lamar-jackson-is-evolving-and-getting-better-in-totally-different-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-andrews-lamar-jackson-is-evolving-and-getting-better-in-totally-different-offense",
+      "title": "Mark Andrews: Lamar Jackson is evolving and getting better in \"totally different\" offense",
+      "body_text": "Ravens quarterback Lamar Jackson has been impressed by new offensive coordinator Declan Doyle this offseason and Jackson's immersion into Doyle's offense has impressed one of the quarterback's longtime teammates.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-27T18:20:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Andrews",
+        "Lamar Jackson",
+        "Declan Doyle"
+      ],
+      "resolved_player_ids": [
+        "00-0034753",
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/smaller-shoulder-pads-are-coming-under-closer-scrutiny",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/smaller-shoulder-pads-are-coming-under-closer-scrutiny",
+      "title": "Smaller shoulder pads are coming under closer scrutiny",
+      "body_text": "As football players have gotten larger, their shoulder pads have gotten smaller.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-27T16:31:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-stands-to-lose-millions-if-hes-not-released-on-bond",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-stands-to-lose-millions-if-hes-not-released-on-bond",
+      "title": "Terrion Arnold stands to lose millions if he's not released on bond",
+      "body_text": "Monday's hearing is a critical step in his prosecution for armed robbery and kidnapping.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-27T14:53:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-has-his-tuxedo-for-the-travis-kelce-taylor-swift-wedding",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-has-his-tuxedo-for-the-travis-kelce-taylor-swift-wedding",
+      "title": "Andy Reid has his tuxedo for the Travis Kelce-Taylor Swift wedding",
+      "body_text": "Chiefs coach Andy Reid won't be wearing one of the latest offerings from the Tommy Bahama collection to the Travis Kelce-Taylor Swift wedding.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-27T14:17:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Reid",
+        "Travis Kelce",
+        "Taylor Swift",
+        "Tommy Bahama"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/some-bills-fans-view-ticket-prices-for-new-stadium-as-outrageous",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/some-bills-fans-view-ticket-prices-for-new-stadium-as-outrageous",
+      "title": "Some Bills fans view ticket prices for new stadium as \"outrageous\"",
+      "body_text": "They recently cut the ribbon at the Bills' new stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-27T13:55:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Some Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    }
+  ]
+}
