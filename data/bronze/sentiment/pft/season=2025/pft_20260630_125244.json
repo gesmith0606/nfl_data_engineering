@@ -1,0 +1,579 @@
+{
+  "fetch_run_id": "bb14a01c-e07f-416d-8bc1-dfa77b3c444e",
+  "source": "pft",
+  "fetched_at": "2026-06-30T12:52:44.175244+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-dt-johnny-newton-still-feels-confidence-boost-from-end-of-2025-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-dt-johnny-newton-still-feels-confidence-boost-from-end-of-2025-season",
+      "permalink": "",
+      "title": "Commanders DT Johnny Newton still feels \"confidence boost\" from end of 2025 season",
+      "body_text": "Commanders head coach Dan Quinn said in April that he believes defensive tackle Johnny Newton is \"about to absolutely take off\" in his third season with the team and the close to his 2025 campaign has something to do with that.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-30T12:23:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Newton",
+        "Dan Quinn"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-has-nothing-that-comes-close-to-the-tension-of-a-world-cup-shootout",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-has-nothing-that-comes-close-to-the-tension-of-a-world-cup-shootout",
+      "permalink": "",
+      "title": "The NFL has nothing that comes close to the tension of a World Cup shootout",
+      "body_text": "A high-stakes soccer game decided by penalty kicks is a uniquely memorable experience.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T12:04:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-saban-sent-letter-to-judge-vouching-for-terrion-arnolds-character",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-saban-sent-letter-to-judge-vouching-for-terrion-arnolds-character",
+      "permalink": "",
+      "title": "Nick Saban sent letter to judge vouching for Terrion Arnold's character",
+      "body_text": "Saban's letter technically was irrelevant to the assessment of the evidence, but it couldn't have hurt.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T11:05:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Saban",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/local-police-chief-explains-officers-decision-to-not-ticket-dianna-russini",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/local-police-chief-explains-officers-decision-to-not-ticket-dianna-russini",
+      "permalink": "",
+      "title": "Local police chief explains officer's decision to not ticket Dianna Russini",
+      "body_text": "Now that the bodycam from the infamous traffic stop of former New York Times reporter Dianna Russini has emerged, the local authorities who didn't issue her a ticket have chimed in.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T00:59:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dianna Russini",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-fifth-round-rookie-cornerback-hezekiah-masses-is-in-the-mix-for-a-starting-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-fifth-round-rookie-cornerback-hezekiah-masses-is-in-the-mix-for-a-starting-job",
+      "permalink": "",
+      "title": "Raiders' fifth-round rookie cornerback Hezekiah Masses is in the mix for a starting job",
+      "body_text": "The Raiders knew they needed help in the secondary in the 2026 NFL draft, which is why they selected four defensive backs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-30T08:43:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hezekiah Masses",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "MAS331825"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-dianna-russini-traffic-stop-bodycam-emerges-with-no-facetime-to-any-nfl-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-dianna-russini-traffic-stop-bodycam-emerges-with-no-facetime-to-any-nfl-coach",
+      "permalink": "",
+      "title": "The Dianna Russini traffic stop bodycam emerges, with no FaceTime to any NFL coach",
+      "body_text": "Never let the truth get in the way of a good story.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T00:42:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Dianna"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-pitts-believes-theres-a-lot-more-out-there-for-him-after-signing-new-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-pitts-believes-theres-a-lot-more-out-there-for-him-after-signing-new-deal",
+      "permalink": "",
+      "title": "Kyle Pitts believes \"there's a lot more out there\" for him after signing new deal",
+      "body_text": "When Kyle Pitts signed the franchise tag on April 7, the Falcons tight end figured he was playing 2026 under the one-year, $15.045 million tag.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T00:14:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts",
+        "When Kyle"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donte-jackson-i-have-emerged-as-one-of-the-top-corners-in-the-league",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donte-jackson-i-have-emerged-as-one-of-the-top-corners-in-the-league",
+      "permalink": "",
+      "title": "Donte Jackson: I have emerged as \"one of the top corners in the league\"",
+      "body_text": "Cornerback Donte Jackson has nine interceptions and 20 passes defensed over the past two seasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-29T22:27:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Donte Jackson",
+        "Cornerback Donte"
+      ],
+      "resolved_player_ids": [
+        "00-0034356"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-first-round-of-bids-for-seahawks-were-due-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-first-round-of-bids-for-seahawks-were-due-today",
+      "permalink": "",
+      "title": "Report: First round of bids for Seahawks were due today",
+      "body_text": "The Seahawks are moving closer to having a new owner.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T22:04:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-decision-to-release-terrion-arnold-has-significant-financial-ramifications",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-decision-to-release-terrion-arnold-has-significant-financial-ramifications",
+      "permalink": "",
+      "title": "Lions' decision to release Terrion Arnold has significant financial ramifications",
+      "body_text": "Terrion Arnold's good day took an unexpected turn in the late afternoon.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T21:47:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-release-terrion-arnold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-release-terrion-arnold",
+      "permalink": "",
+      "title": "Lions release Terrion Arnold",
+      "body_text": "Detroit announce move after 2024 first-rounder was released on $1 million bond earlier on Monday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-29T20:15:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ian-cunningham-were-excited-about-who-kyle-pitts-is-today-and-the-trajectory-hes-on",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ian-cunningham-were-excited-about-who-kyle-pitts-is-today-and-the-trajectory-hes-on",
+      "permalink": "",
+      "title": "Ian Cunningham: We're excited about who Kyle Pitts is today and the trajectory he's on",
+      "body_text": "It’s official: Falcons tight end Kyle Pitts has a new deal.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-29T20:21:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ian Cunningham",
+        "Kyle Pitts"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaydon-blue-i-didnt-start-off-like-i-should-have-im-ready-to-go-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaydon-blue-i-didnt-start-off-like-i-should-have-im-ready-to-go-now",
+      "permalink": "",
+      "title": "Jaydon Blue: I didn't start off like I should have, I'm ready to go now",
+      "body_text": "Running back Jaydon Blue had a hard time getting on the field during his rookie season with the Cowboys.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-29T20:10:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaydon Blue"
+      ],
+      "resolved_player_ids": [
+        "00-0040586"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-juszczyk-mike-evans-has-been-unguardable-at-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-juszczyk-mike-evans-has-been-unguardable-at-practice",
+      "permalink": "",
+      "title": "Kyle Juszczyk: Mike Evans has been \"unguardable\" at practice",
+      "body_text": "Mike Evans can still play.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-29T20:02:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Juszczyk",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0029892",
+        "00-0031408"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-to-have-nine-open-training-camp-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-to-have-nine-open-training-camp-practices",
+      "permalink": "",
+      "title": "Browns to have nine open training camp practices",
+      "body_text": "Browns fans will have nine chances to check out the team during training camp this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-29T19:47:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/six-days-later-theres-no-news-on-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/six-days-later-theres-no-news-on-brendan-sorsby",
+      "permalink": "",
+      "title": "Six days later, there's no news on Brendan Sorsby",
+      "body_text": "Last Tuesday, the NFL denied quarterback Brendan Sorsby's application for the supplemental draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T19:02:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Last Tuesday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-announce-ryan-grigsons-return-chris-coopers-promotion-in-front-office",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-announce-ryan-grigsons-return-chris-coopers-promotion-in-front-office",
+      "permalink": "",
+      "title": "Browns announce Ryan Grigson's return, Chris Cooper's promotion in front office",
+      "body_text": "The Browns have officially made two moves in their front office.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-29T18:46:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Grigson",
+        "Chris Cooper",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0034085"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-minority-owner-tom-brady-bashes-the-nfls-fine-system-for-on-field-mistakes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-minority-owner-tom-brady-bashes-the-nfls-fine-system-for-on-field-mistakes",
+      "permalink": "",
+      "title": "Raiders minority owner Tom Brady bashes the NFL's fine system for on-field \"mistakes\"",
+      "body_text": "Brady's opinions may not be shared by his business partners.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T17:51:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-rights-and-nfl-rights-could-be-on-the-market-at-the-same-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-rights-and-nfl-rights-could-be-on-the-market-at-the-same-time",
+      "permalink": "",
+      "title": "World Cup rights and NFL rights could be on the market at the same time",
+      "body_text": "The World Cup is racking up huge numbers for Fox.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T12:16:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mondays-round-of-32-world-cup-ticket-prices-have-fallen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mondays-round-of-32-world-cup-ticket-prices-have-fallen",
+      "permalink": "",
+      "title": "Monday's round of 32 World Cup ticket prices have fallen",
+      "body_text": "The World Cup's knockout phase began on Sunday, with Canada beating South Africa 1-0 on a goal in stoppage time at SoFi Stadium in L.A.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T15:05:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "The World",
+        "South Africa"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/remembering-joe-delaney-43-years-after-he-died",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/remembering-joe-delaney-43-years-after-he-died",
+      "permalink": "",
+      "title": "Remembering Joe Delaney, 43 years after he died",
+      "body_text": "24-year-old running back gave his life to try to save three children.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T11:29:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Remembering Joe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-expects-a-massive-improvement-from-the-raiders-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-expects-a-massive-improvement-from-the-raiders-in-2026",
+      "permalink": "",
+      "title": "Tom Brady expects a \"massive improvement\" from the Raiders in 2026",
+      "body_text": "\"I would expect daily improvement,\" Brady said, \"and I'd expect hourly improvement.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-06-28T23:35:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-owner-amy-adams-strunk-expresses-full-support-for-chris-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-owner-amy-adams-strunk-expresses-full-support-for-chris-johnson",
+      "permalink": "",
+      "title": "Titans owner Amy Adams Strunk expresses full support for Chris Johnson",
+      "body_text": "Former Titans running back Chris Johnson revealed on Monday that he has been fighting ALS for more than a year.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T14:14:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Amy Adams",
+        "Chris Johnson",
+        "Former Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035456"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-travis-kelce-taylor-swift-wedding-is-expected-to-be-attended-by-many-tight-ends",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-travis-kelce-taylor-swift-wedding-is-expected-to-be-attended-by-many-tight-ends",
+      "permalink": "",
+      "title": "The Travis Kelce-Taylor Swift wedding is expected to be attended by \"many\" tight ends",
+      "body_text": "Consider it National Tight Ends Day (Taylor's Version).",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T18:18:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Travis",
+        "Taylor Swift",
+        "National Tight",
+        "Ends Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-terrion-arnold-case-remains-under-review",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-terrion-arnold-case-remains-under-review",
+      "permalink": "",
+      "title": "NFL says Terrion Arnold case \"remains under review\"",
+      "body_text": "A judge has allowed Lions cornerback Terrion Arnold to practice and play pending trial on multiple felony charges arising from an alleged armed robbery and kidnapping that occurred in February 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T17:58:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-is-released-on-1-million-bond-will-be-able-to-practice-with-lions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-is-released-on-1-million-bond-will-be-able-to-practice-with-lions",
+      "permalink": "",
+      "title": "Terrion Arnold is released on $1 million bond, will be able to practice and play for Lions",
+      "body_text": "The next question is whether the NFL will put Arnold on paid leave.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T17:45:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold",
+        "Lions The"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-praises-ryan-flournoys-dirty-work-in-run-blocking-special-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-praises-ryan-flournoys-dirty-work-in-run-blocking-special-teams",
+      "permalink": "",
+      "title": "Brian Schottenheimer praises Ryan Flournoy's \"dirty work\" in run blocking, special teams",
+      "body_text": "Some wide receivers will complain if the ball isn't coming their way.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-29T17:29:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Ryan Flournoy"
+      ],
+      "resolved_player_ids": [
+        "00-0039410"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-thinks-browns-wide-receiver-group-can-be-dangerous",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-thinks-browns-wide-receiver-group-can-be-dangerous",
+      "permalink": "",
+      "title": "KC Concepcion thinks the Browns' wide receiver group can be dangerous",
+      "body_text": "The Browns are still sorting out who their quarterback will be in Week 1, but they have a better sense of who will be catching passes from either Deshaun Watson or Shedeur Sanders.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-29T17:04:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Browns",
+        "Deshaun Watson",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nba-veteran-malik-beasley-has-been-indicted-on-federal-gambling-charges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nba-veteran-malik-beasley-has-been-indicted-on-federal-gambling-charges",
+      "permalink": "",
+      "title": "NBA veteran Malik Beasley has been indicted on federal gambling charges",
+      "body_text": "The NBA has another gambling scandal.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T14:52:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Beasley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-titans-scout-blaise-taylor-stands-trial-on-charges-he-murdered-pregnant-girlfriend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-titans-scout-blaise-taylor-stands-trial-on-charges-he-murdered-pregnant-girlfriend",
+      "permalink": "",
+      "title": "Former Titans scout Blaise Taylor stands trial on charges he murdered pregnant girlfriend",
+      "body_text": "In March 2024, former Titans scout Blaise Taylor was arrested on suspicion that he murdered his pregnant girlfriend.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-27T03:44:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former Titans",
+        "Blaise Taylor",
+        "In March"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    }
+  ]
+}
