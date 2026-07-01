@@ -1,0 +1,487 @@
+{
+  "fetch_run_id": "6ea37599-7b7d-44e0-bb7c-a1be3bb5b6a4",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-01T13:07:05.981837+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-want-jalen-carter-to-be-consistent-with-doing-little-things",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-want-jalen-carter-to-be-consistent-with-doing-little-things",
+      "title": "Eagles want Jalen Carter \"to be consistent with doing little things\"",
+      "body_text": "Eagles defensive tackle Jalen Carter became eligible for a contract extension this offseason and the lack of one may have contributed to his limited participation in the team's practices this spring.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-01T12:22:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-buys-out-stores-stock-of-his-jerseys-leaves-them-for-fans-to-have-for-free",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-buys-out-stores-stock-of-his-jerseys-leaves-them-for-fans-to-have-for-free",
+      "title": "DJ Moore buys out store's stock of his jerseys, leaves them for fans to have for free",
+      "body_text": "New Bills wide receiver DJ Moore hasn't wasted any time in endearing himself to fans in Buffalo.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-01T12:07:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-mcbride-on-playing-the-seahawks-their-defense-is-a-bunch-of-s-t-talkers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-mcbride-on-playing-the-seahawks-their-defense-is-a-bunch-of-s-t-talkers",
+      "title": "Trey McBride on playing the Seahawks: \"Their defense is a bunch of s—t talkers\"",
+      "body_text": "Cardinals tight end Trey McBride respects the Seahawks, but doesn't like them.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-01T10:43:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/calais-campbells-brother-charged-with-murder-in-the-death-of-their-mother",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/calais-campbells-brother-charged-with-murder-in-the-death-of-their-mother",
+      "title": "Calais Campbell's brother charged with murder in the death of their mother",
+      "body_text": "Ciarre Campbell, brother of Calais Campbell, was booked early Wednesday morning in Fulton County Jail on charges of murder, aggravated assault and possession of a firearm or knife.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-01T08:44:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Calais Campbell",
+        "Ciarre Campbell",
+        "Fulton County"
+      ],
+      "resolved_player_ids": [
+        "00-0026190"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-times-reiterates-its-view-that-dianna-russinis-handling-of-traffic-stop-was-unacceptable-conduct",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-times-reiterates-its-view-that-dianna-russinis-handling-of-traffic-stop-was-unacceptable-conduct",
+      "title": "New York Times reiterates its view that Dianna Russini's handling of traffic stop was \"unacceptable conduct\"",
+      "body_text": "The release of the bodycam footage from the Dianna Russini traffic stop put the New York Times in an awkward position.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T03:03:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New York",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demeco-ryans-c-j-stroud-nick-caley-communicating-much-better-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demeco-ryans-c-j-stroud-nick-caley-communicating-much-better-this-year",
+      "title": "DeMeco Ryans: C.J. Stroud, Nick Caley communicating much better this year",
+      "body_text": "Quarterback C.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-30T21:42:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Caley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-will-have-eight-open-training-camp-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-will-have-eight-open-training-camp-practices",
+      "title": "Titans will have eight open training camp practices",
+      "body_text": "The Titans will have eight open training camp practices this summer, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T21:33:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-johnsons-als-fight-has-injected-some-hope-in-tim-shaws-als-fight",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-johnsons-als-fight-has-injected-some-hope-in-tim-shaws-als-fight",
+      "title": "Chris Johnson's ALS fight has \"injected some hope\" in Tim Shaw's ALS fight",
+      "body_text": "Former Titans linebacker Tim Shaw, who was diagnosed with ALS in 2014, was teammates with running back Chris Johnson for three seasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T21:24:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Johnson",
+        "Tim Shaw",
+        "Former Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035456",
+        "00-0025551"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-and-nfl-agree-hell-be-eligible-for-2027-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-and-nfl-agree-hell-be-eligible-for-2027-draft",
+      "title": "Brendan Sorsby and NFL agree he'll be eligible for 2027 draft",
+      "body_text": "Sorsby, NFL, and NFLPA work out a settlement of his potential lawsuit against the league.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T21:10:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-i-will-focus-on-my-recovery-and-preparing-for-the-2027-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-i-will-focus-on-my-recovery-and-preparing-for-the-2027-draft",
+      "title": "Brendan Sorsby: I will focus on my recovery and preparing for the 2027 draft",
+      "body_text": "Sorsby wrote that the NFL's cancellation of the supplemental draft \"changes nothing about my recovery.\"",
+      "author": "Josh Alper",
+      "published_at": "2026-06-30T21:08:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-kyle-pitts-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-kyle-pitts-deal",
+      "title": "Inside the Kyle Pitts deal",
+      "body_text": "When Kyle Pitts was a rookie in 2021, Matt Ryan was his quarterback.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T20:59:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Pitts",
+        "When Kyle",
+        "Matt Ryan"
+      ],
+      "resolved_player_ids": [
+        "00-0036970",
+        "00-0026143"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nik-bonittos-goal-is-simple-be-a-better-player-than-the-previous-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nik-bonittos-goal-is-simple-be-a-better-player-than-the-previous-year",
+      "title": "Nik Bonitto's goal is simple: Be a better player than the previous year",
+      "body_text": "Broncos edge rusher Nik Bonitto was a finalist for Defensive Player of the Year, an award easily won by Myles Garrett.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T20:52:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nik Bonitto",
+        "Defensive Player",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0037249",
+        "00-0033868"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-allar-excited-to-learn-from-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-allar-excited-to-learn-from-aaron-rodgers",
+      "title": "Drew Allar \"excited\" to learn from Aaron Rodgers",
+      "body_text": "Drew Allar has some familiarity with the West Coast offense, but the Steelers rookie quarterback doesn't know nearly as much about Mike McCarthy's offense as Aaron Rodgers.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T20:12:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drew Allar",
+        "Aaron Rodgers",
+        "West Coast"
+      ],
+      "resolved_player_ids": [
+        "ALL015451",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-released-from-jail-after-posting-1-million-bond",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-released-from-jail-after-posting-1-million-bond",
+      "title": "Terrion Arnold released from jail after posting $1 million bond",
+      "body_text": "The Lions released the cornerback on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T19:40:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-announce-promotions-for-shane-waldron-heath-farwell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-announce-promotions-for-shane-waldron-heath-farwell",
+      "title": "Jaguars announce promotions for Shane Waldron, Heath Farwell",
+      "body_text": "The Jaguars have announced a pair of promotions on their coaching staff.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-30T19:40:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shane Waldron",
+        "Heath Farwell",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0023215"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-pitts-believes-theres-a-lot-more-out-there-for-him-after-signing-new-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-pitts-believes-theres-a-lot-more-out-there-for-him-after-signing-new-deal",
+      "title": "Kyle Pitts believes \"there's a lot more out there\" for him after signing new deal",
+      "body_text": "When Kyle Pitts signed the franchise tag on April 7, the Falcons tight end figured he was playing 2026 under the one-year, $15.045 million tag.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T00:14:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Pitts",
+        "When Kyle"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ron-rivera-signs-three-year-deal-to-serve-as-cals-g-m",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ron-rivera-signs-three-year-deal-to-serve-as-cals-g-m",
+      "title": "Ron Rivera signs three-year deal to serve as Cal's G.M.",
+      "body_text": "Ron Rivera, who worked for 13 straight seasons as an NFL head coach (and who won the NFL's coach of the year award twice), will be staying put at his alma mater.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T19:00:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ron Rivera"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-titans-scout-blaise-taylor-elects-not-to-testify-in-murder-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-titans-scout-blaise-taylor-elects-not-to-testify-in-murder-case",
+      "title": "Former Titans scout Blaise Taylor elects not to testify in murder case",
+      "body_text": "The murder case against former Titans scout Blaise Taylor continues.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T18:30:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Titans",
+        "Blaise Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-cb-will-johnson-we-have-a-good-opportunity-to-surprise-people",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-cb-will-johnson-we-have-a-good-opportunity-to-surprise-people",
+      "title": "Cardinals CB Will Johnson: We have a good opportunity to surprise people",
+      "body_text": "The NFC West won more games than any other division in the NFL last season, but the Cardinals didn't do much to contribute to the effort.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-30T18:21:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0040751"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-remains-in-jail-a-day-after-judge-granted-bond-request",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-remains-in-jail-a-day-after-judge-granted-bond-request",
+      "title": "Terrion Arnold remains in jail, a day after judge granted bond request",
+      "body_text": "On Monday, a judge decided to grant Terrion Arnold's request for release from custody pending trial on multiple felony charges arising from an alleged armed robbery and kidnapping.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T18:05:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "On Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-link-between-als-and-football-should-not-be-overlooked-or-downplayed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-link-between-als-and-football-should-not-be-overlooked-or-downplayed",
+      "title": "The link between ALS and football should not be overlooked or downplayed",
+      "body_text": "Chris Johnson's GMA interview didn't mention it, but the connection between ALS and football is real.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T12:57:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0035456"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-bodycam-footage-puts-new-york-times-in-an-awkward-spot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-bodycam-footage-puts-new-york-times-in-an-awkward-spot",
+      "title": "Dianna Russini bodycam footage puts New York Times in an awkward spot",
+      "body_text": "Last week's lengthy article from the New York Times about former New York Times reporter Dianna Russini opened with her story about FaceTiming an NFL coach in an effort to get out of a ticket for texting while driving.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T17:16:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dianna Russini",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-returned-to-browns-facility-to-train-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-returned-to-browns-facility-to-train-this-week",
+      "title": "Deshaun Watson returned to Browns facility to train this week",
+      "body_text": "Watson is reportedly looking to get a leg up in the competition with Shedeur Sanders.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-30T17:56:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-first-round-of-bids-for-seahawks-were-due-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-first-round-of-bids-for-seahawks-were-due-today",
+      "title": "Report: First round of bids for Seahawks were due today",
+      "body_text": "The Seahawks are moving closer to having a new owner.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T22:04:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-has-nothing-that-comes-close-to-the-tension-of-a-world-cup-shootout",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-has-nothing-that-comes-close-to-the-tension-of-a-world-cup-shootout",
+      "title": "The NFL has nothing that comes close to the tension of a World Cup shootout",
+      "body_text": "A high-stakes soccer game decided by penalty kicks is a uniquely memorable experience.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T12:04:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-decision-to-release-terrion-arnold-has-significant-financial-ramifications",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-decision-to-release-terrion-arnold-has-significant-financial-ramifications",
+      "title": "Lions' decision to release Terrion Arnold has significant financial ramifications",
+      "body_text": "Terrion Arnold's good day took an unexpected turn in the late afternoon.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-29T21:47:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-release-terrion-arnold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-release-terrion-arnold",
+      "title": "Lions release Terrion Arnold",
+      "body_text": "Detroit announce move after 2024 first-rounder was released on $1 million bond earlier on Monday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-29T20:15:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-to-hold-14-open-training-camp-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-to-hold-14-open-training-camp-practices",
+      "title": "Broncos to hold 14 open training camp practices",
+      "body_text": "The Broncos will hold their first open practice of training camp on July 31.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-30T17:19:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-on-zay-flowers-next-contract-his-value-is-out-of-this-world",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-on-zay-flowers-next-contract-his-value-is-out-of-this-world",
+      "title": "Lamar Jackson on Zay Flowers' next contract: \"His value is out of this world\"",
+      "body_text": "Ravens wide receiver Zay Flowers has played three years in the NFL, which means he's eligible for a second contract.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-30T17:15:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Zay Flowers"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-dt-johnny-newton-still-feels-confidence-boost-from-end-of-2025-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-dt-johnny-newton-still-feels-confidence-boost-from-end-of-2025-season",
+      "title": "Commanders DT Johnny Newton still feels \"confidence boost\" from end of 2025 season",
+      "body_text": "Commanders head coach Dan Quinn said in April that he believes defensive tackle Johnny Newton is \"about to absolutely take off\" in his third season with the team and the close to his 2025 campaign has something to do with that.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-30T12:23:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Johnny Newton",
+        "Dan Quinn"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    }
+  ]
+}
