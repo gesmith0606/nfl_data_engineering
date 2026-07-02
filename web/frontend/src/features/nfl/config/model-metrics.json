@@ -111,5 +111,52 @@
   "atsAccuracy": {
     "value": 53.0,
     "context": "Against the spread (sealed 2024 holdout, v2.0 ensemble)"
+  },
+  "consensus": {
+    "generatedFrom": "consensus_matched_half_ppr_20260612_141246.csv",
+    "benchmark": "Sleeper expert consensus projections",
+    "seasons": "2022-2024",
+    "scoringFormat": "Half-PPR",
+    "overall": {
+      "ourMae": 4.414,
+      "consensusMae": 4.423,
+      "gap": -0.009,
+      "win": true,
+      "playerWeeks": 10417
+    },
+    "positions": [
+      {
+        "position": "QB",
+        "ourMae": 6.034,
+        "consensusMae": 6.359,
+        "gap": -0.325,
+        "win": true,
+        "playerWeeks": 1265
+      },
+      {
+        "position": "RB",
+        "ourMae": 4.683,
+        "consensusMae": 4.422,
+        "gap": 0.261,
+        "win": false,
+        "playerWeeks": 2814
+      },
+      {
+        "position": "WR",
+        "ourMae": 4.334,
+        "consensusMae": 4.34,
+        "gap": -0.006,
+        "win": true,
+        "playerWeeks": 4349
+      },
+      {
+        "position": "TE",
+        "ourMae": 3.18,
+        "consensusMae": 3.375,
+        "gap": -0.195,
+        "win": true,
+        "playerWeeks": 1989
+      }
+    ]
   }
 }
