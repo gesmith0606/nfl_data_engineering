@@ -110,7 +110,7 @@ jobs:
           Automated 2x-daily odds capture via The Odds API (Phase 1.4)."
 
             for attempt in 1 2 3; do
-              if git push 2>&1; then
+              if git push origin main 2>&1; then
                 echo "Pushed ${COUNT} odds file(s) (attempt ${attempt})"
                 break
               fi
@@ -217,7 +217,7 @@ jobs:
           Automated weekly player-props capture via The Odds API (Phase 1.5)."
 
             for attempt in 1 2 3; do
-              if git push 2>&1; then
+              if git push origin main 2>&1; then
                 echo "Pushed ${COUNT} props file(s) (attempt ${attempt})"
                 break
               fi

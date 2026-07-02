@@ -138,7 +138,7 @@ jobs:
           the model.  Targets RB/WR rank-ordering gap from Tuesday staleness."
 
             for attempt in 1 2 3; do
-              if git push 2>&1; then
+              if git push origin main 2>&1; then
                 echo "Pushed ${COUNT} refreshed projection file(s) (attempt ${attempt})"
                 break
               fi

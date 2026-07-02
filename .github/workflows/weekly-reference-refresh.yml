@@ -144,7 +144,7 @@ jobs:
 
           Automated weekly reference refresh (TD-08/TD-09 paths)."
             for attempt in 1 2 3; do
-              if git push 2>&1; then
+              if git push origin main 2>&1; then
                 echo "Pushed $COUNT reference data files (attempt $attempt)"
                 break
               fi
