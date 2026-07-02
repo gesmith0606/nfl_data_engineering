@@ -28,7 +28,7 @@ export function Heading({ title, description, infoContent, level = 2 }: HeadingP
   return (
     <div className='space-y-[var(--space-1)]'>
       <div className='flex items-center gap-[var(--space-2)]'>
-        <Tag className={`${sizeClass} wc-display font-bold`}>{title}</Tag>
+        <Tag className={`${sizeClass} wc-display font-bold tracking-tight`}>{title}</Tag>
         {infoContent && (
           <div className='pt-[var(--space-1)]'>
             <InfoButton content={infoContent} />

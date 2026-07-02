@@ -61,6 +61,8 @@ export function getReadableTeamColorVars(
   const raw = getTeamColor(team);
   return {
     '--team-color': raw,
-    '--team-color-readable': `color-mix(in oklch, ${raw} 55%, white)`
+    // 45% team / 55% white lifts even #000 (LV) to ~oklch(0.55) — clears
+    // WCAG AA 4.5:1 against the worldcup26 ink background; 55/45 did not.
+    '--team-color-readable': `color-mix(in oklch, ${raw} 45%, white)`
   } as CSSProperties;
 }

@@ -228,11 +228,14 @@
   background: var(--wc-rail, linear-gradient(180deg, var(--primary), var(--chart-2, var(--primary))));
 }
 
-/* Condensed uppercase display treatment for brand/hero titles. */
+/* Condensed uppercase display treatment for brand/hero titles.
+ * Letter-spacing is deliberately NOT set here: call sites pair this with a
+ * Tailwind tracking-* utility (headings tracking-tight, small badges a
+ * positive tracking) — a value here would race those utilities on CSS
+ * source order. */
 .wc-display {
   font-family: var(--wc-font-display, var(--font-sans));
   text-transform: uppercase;
-  letter-spacing: -0.01em;
   font-weight: 700;
 }
 

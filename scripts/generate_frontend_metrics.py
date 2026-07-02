@@ -101,10 +101,15 @@ def build_consensus_section(csv_path: Path) -> dict:
     ``abs_error`` (ours) and ``consensus_proj`` + ``actual_points`` columns.
     """
     df = pd.read_csv(csv_path)
-    required = {"position", "abs_error", "consensus_proj", "actual_points"}
+    required = {"position", "abs_error", "consensus_proj", "actual_points", "season"}
     missing = required - set(df.columns)
     if missing:
         raise ValueError(f"Consensus CSV missing columns: {sorted(missing)}")
+
+    # Restrict to the skill positions reported per-position so the overall
+    # row describes the same population (a kicker-inclusive CSV would
+    # otherwise inflate the headline claim with easy zero-variance weeks).
+    df = df[df["position"].isin(["QB", "RB", "WR", "TE"])].reset_index(drop=True)
 
     con_abs_error = (df["consensus_proj"] - df["actual_points"]).abs()
 
