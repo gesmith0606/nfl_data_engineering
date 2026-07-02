@@ -20,7 +20,7 @@ export default function Dashboard() {
     >
       <FadeIn className='flex flex-1 flex-col gap-[var(--gap-stack)]'>
         {/* Fixed-dark broadcast panel (--surface-scoreboard): stays ink in light mode
-            so the ribbon motif and gold eyebrow keep their contrast. */}
+            so the gold eyebrow keeps its contrast. */}
         <section className='relative flex items-center overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-[var(--surface-scoreboard)] px-[var(--space-5)] py-[var(--space-5)] shadow-sm md:px-[var(--space-6)] md:py-[var(--space-6)]'>
           <div className='relative flex items-center gap-[var(--space-4)]'>
             <div className='wc-rail h-[var(--space-12)] w-[var(--space-1)] shrink-0 rounded-full' />

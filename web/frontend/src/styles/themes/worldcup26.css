@@ -181,8 +181,8 @@
 
 /*
  * Theme-specific extras — scoped to worldcup26 only. These feed the branded
- * chrome (color rails, ribbon motifs, condensed display type). Utilities
- * below (.wc-rail / .wc-display / .wc-ribbon) reference these with fallbacks
+ * chrome (color rails, condensed display type). Utilities
+ * below (.wc-rail / .wc-display) reference these with fallbacks
  * so they degrade gracefully under the other 10 themes.
  */
 [data-theme='worldcup26'] {
