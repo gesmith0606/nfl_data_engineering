@@ -585,7 +585,7 @@ export interface TeamDefenseMetricsResponse {
 // Multi-source rankings comparison (/api/rankings/multi-compare)
 // ---------------------------------------------------------------------------
 
-export type RankingSource = 'sleeper' | 'espn' | 'yahoo';
+export type RankingSource = 'sleeper' | 'espn' | 'yahoo' | 'draftsharks' | 'ftn';
 export type RankingSortBy = 'consensus' | 'ours' | RankingSource;
 export type RankBasis = 'overall' | 'positional';
 
@@ -601,6 +601,8 @@ export interface MultiCompareRow {
   sleeper_rank: number | null;
   espn_rank: number | null;
   yahoo_rank: number | null;
+  draftsharks_rank: number | null;
+  ftn_rank: number | null;
   // Both kinds are always exposed so the UI can resort/relabel client-side.
   our_pos_rank: number | null;
   our_overall_rank: number | null;
@@ -610,10 +612,16 @@ export interface MultiCompareRow {
   espn_overall_rank: number | null;
   yahoo_pos_rank: number | null;
   yahoo_overall_rank: number | null;
+  draftsharks_pos_rank: number | null;
+  draftsharks_overall_rank: number | null;
+  ftn_pos_rank: number | null;
+  ftn_overall_rank: number | null;
   our_projected_points: number | null;
   rank_diff_vs_sleeper: number | null;
   rank_diff_vs_espn: number | null;
   rank_diff_vs_yahoo: number | null;
+  rank_diff_vs_draftsharks: number | null;
+  rank_diff_vs_ftn: number | null;
 }
 
 export interface MultiCompareResponse {

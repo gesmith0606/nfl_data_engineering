@@ -12,7 +12,7 @@ export default function RankingsPage() {
     <PageContainer
       scrollable={false}
       pageTitle='Season Rankings'
-      pageDescription='Our season-long rankings — and how we compare to ESPN, Sleeper, and Yahoo'
+      pageDescription='Our season-long rankings — and how we compare to ESPN, Sleeper, Yahoo, Draft Sharks, and FTN'
     >
       <Suspense>
         <FadeIn>

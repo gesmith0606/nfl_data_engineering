@@ -13,13 +13,21 @@ from ..services import external_rankings_service
 
 router = APIRouter(prefix="/rankings", tags=["rankings"])
 
-VALID_SOURCES = {"sleeper", "fantasypros", "espn", "consensus"}
+VALID_SOURCES = {
+    "sleeper",
+    "fantasypros",
+    "espn",
+    "consensus",
+    "draftsharks",
+    "ftn",
+}
 
 
 @router.get("/external")
 def get_external_rankings(
     source: str = Query(
-        "sleeper", description="sleeper / fantasypros / espn / consensus"
+        "sleeper",
+        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn",
     ),
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
@@ -32,6 +40,8 @@ def get_external_rankings(
     - **sleeper**: Sleeper API search_rank (most reliable)
     - **fantasypros**: FantasyPros ECR consensus
     - **espn**: ESPN fantasy rankings
+    - **draftsharks**: Draft Sharks board (2024 FP draft-accuracy #1+#2 site)
+    - **ftn**: Jeff Ratcliffe / FTN (#1 multi-year FP draft accuracy)
     - **consensus**: Hardcoded expert consensus top-50
     """
     if source not in VALID_SOURCES:
@@ -72,7 +82,8 @@ def get_external_rankings(
 @router.get("/compare")
 def compare_rankings(
     source: str = Query(
-        "sleeper", description="sleeper / fantasypros / espn / consensus"
+        "sleeper",
+        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn",
     ),
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
@@ -112,8 +123,16 @@ def compare_rankings(
     return result
 
 
-_VALID_MULTI_SOURCES = {"sleeper", "espn", "yahoo"}
-_VALID_SORT_BY = {"consensus", "ours", "sleeper", "espn", "yahoo"}
+_VALID_MULTI_SOURCES = {"sleeper", "espn", "yahoo", "draftsharks", "ftn"}
+_VALID_SORT_BY = {
+    "consensus",
+    "ours",
+    "sleeper",
+    "espn",
+    "yahoo",
+    "draftsharks",
+    "ftn",
+}
 
 
 @router.get("/multi-compare")
@@ -123,12 +142,17 @@ def multi_compare_rankings(
     limit: int = Query(50, ge=1, le=300, description="Max rows returned"),
     season: int = Query(2026, ge=2020, le=2030, description="NFL season"),
     sources: str = Query(
-        "sleeper,espn,yahoo",
-        description="Comma-separated subset of sleeper / espn / yahoo",
+        "sleeper,espn,yahoo,draftsharks,ftn",
+        description=(
+            "Comma-separated subset of sleeper / espn / yahoo / draftsharks / ftn"
+        ),
     ),
     sort_by: str = Query(
         "consensus",
-        description="consensus (mean external rank) / ours / sleeper / espn / yahoo",
+        description=(
+            "consensus (mean external rank) / ours / sleeper / espn / yahoo "
+            "/ draftsharks / ftn"
+        ),
     ),
 ) -> dict:
     """Side-by-side ranking table across our projections + 1..N external sources.
@@ -207,6 +231,15 @@ def list_sources() -> dict:
                     "sleeper": "Sleeper API ADP/search rankings (free, reliable)",
                     "fantasypros": "FantasyPros ECR consensus (may be rate-limited)",
                     "espn": "ESPN fantasy rankings (may be rate-limited)",
+                    "draftsharks": (
+                        "Draft Sharks board — analysts took #1 and #2 of 225 "
+                        "in the 2024 FantasyPros draft-accuracy contest"
+                    ),
+                    "ftn": (
+                        "Jeff Ratcliffe (FTN) — #1 on FantasyPros' 2022-2024 "
+                        "multi-year draft-accuracy leaderboard; empty until he "
+                        "submits ranks for the season (typically Jul-Aug)"
+                    ),
                     "consensus": "Hardcoded expert consensus top-50 (always available)",
                 }.get(src, ""),
             }
