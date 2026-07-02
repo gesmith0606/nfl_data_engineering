@@ -266,6 +266,14 @@ data/gold/*
 # defense+SoS parquets. Without these the matchups page returns
 # `{team: null, positional: []}` and the entire matchup-advantage
 # core renders empty. ~13 MB.
+# Historical dimension table (career/combine/draft, ~1 MB, static): the
+# WR/TE residual features include historical columns (bmi, cone). Without
+# this file GHA runners assembled those features as NaN while the models
+# were trained on real values — silent train/inference skew (2026-07-02).
+!data/silver/players/
+!data/silver/players/historical/
+!data/silver/players/historical/**
+!data/silver/players/historical/**/*.parquet
 !data/silver/defense/
 !data/silver/defense/**
 !data/silver/defense/**/*.parquet

@@ -523,7 +523,12 @@ DATA_TYPE_SEASON_RANGES: Dict[str, Tuple[int, Callable[[], int]]] = {
     "player_weekly": (2002, get_max_season),
     "player_seasonal": (2002, get_max_season),
     "snap_counts": (2012, get_max_season),
-    "injuries": (2009, lambda: 2024),  # nflverse discontinued injury data after 2024
+    # Was capped at 2024 ("nflverse discontinued") — disproven 2026-07-02:
+    # import_injuries([2025]) returned 6,068 rows in the GHA smoke test.
+    # Whether 2026 publishes live is unverified until the season nears; the
+    # weekly-pipeline injuries step is fail-open either way, and an empty
+    # future season skips with a warning rather than erroring.
+    "injuries": (2009, get_max_season),
     "rosters": (2002, get_max_season),
     "teams": (1999, get_max_season),
     "ngs": (2016, get_max_season),
