@@ -142,16 +142,16 @@ jobs:
                 echo "Pushed ${COUNT} refreshed projection file(s) (attempt ${attempt})"
                 break
               fi
+              if [ "$attempt" = "3" ]; then
+                echo "::error::Push rejected 3 times — bailing"
+                exit 1
+              fi
               echo "Push attempt ${attempt} rejected; rebasing onto origin/main..."
               git fetch origin main
               git rebase origin/main || {
                 echo "::error::Rebase conflict on projection refresh commit — manual intervention required"
                 exit 1
               }
-              if [ "$attempt" = "3" ]; then
-                echo "::error::Push rejected 3 times after rebase — bailing"
-                exit 1
-              fi
             done
           fi
 

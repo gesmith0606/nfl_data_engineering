@@ -862,3 +862,4 @@ for _alias in ("config", "src.config"):
     _sys.modules.setdefault(_alias, _this_module)
 if "src" in _sys.modules and getattr(_sys.modules["src"], "config", None) is None:
     _sys.modules["src"].config = _this_module
+del _sys, _this_module, _alias  # keep the module namespace clean
