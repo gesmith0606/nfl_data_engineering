@@ -15,6 +15,18 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 BRONZE_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "bronze")
 
+# BRNZ-03 audits the LOCAL data lake. CI checkouts only carry the committed
+# Bronze subset (schedules/rosters/sentiment/madden — see .gitignore
+# allowlists); PBP is never committed, so its presence is the canary for a
+# full local lake. Skip the whole audit in environments without one.
+_FULL_LAKE_PRESENT = os.path.isdir(os.path.join(BRONZE_DIR, "pbp"))
+
+pytestmark = pytest.mark.skipif(
+    not _FULL_LAKE_PRESENT,
+    reason="local Bronze data lake not present (CI carries only the committed "
+    "subset) — BRNZ-03 completeness audit only applies to a full local lake",
+)
+
 
 class TestBronze2025Completeness:
     """BRNZ-03: 2025 season data exists for all available Bronze types."""
