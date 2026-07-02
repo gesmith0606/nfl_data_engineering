@@ -1,0 +1,28 @@
+{
+  "fetch_run_id": "894427a5-b816-4deb-b90a-128a0619415f",
+  "source": "rotowire",
+  "fetched_at": "2026-07-02T12:48:07.009898+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 1,
+  "items": [
+    {
+      "external_id": "nfl631597",
+      "url": "https://www.rotowire.com//football/player/brendan-sorsby-20122",
+      "permalink": "",
+      "title": "Brendan Sorsby: Reaches understanding with NFL",
+      "body_text": "The NFL issued a memo to all 32 teams Tuesday in which the league and Sorsby won't pursue additional litigation regarding the quarterback entering the NFL, and he'll instead turn his focus to the 2027 NFL Draft, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-30T02:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

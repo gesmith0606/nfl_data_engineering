@@ -1,0 +1,569 @@
+{
+  "fetch_run_id": "e9c404cb-de66-4871-8bf3-69aa2a28473a",
+  "source": "pft",
+  "fetched_at": "2026-06-19T13:22:22.147787+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/curt-cignetti-believes-brendan-sorsby-will-be-a-great-pro-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/curt-cignetti-believes-brendan-sorsby-will-be-a-great-pro-quarterback",
+      "permalink": "",
+      "title": "Curt Cignetti believes Brendan Sorsby will be a great pro quarterback",
+      "body_text": "College football's coach of the year has given his endorsement to the former college football player of the moment.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T13:11:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Curt Cignetti",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-mccourty-signs-exclusive-deal-with-espn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-mccourty-signs-exclusive-deal-with-espn",
+      "permalink": "",
+      "title": "Jason McCourty signs exclusive deal with ESPN",
+      "body_text": "Jason McCourty will remain part of the NFL media landscape in 2026, but his role in it will be a little different.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-19T13:03:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/omarion-hampton-mike-mcdaniel-will-be-super-good-for-chargers-rbs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/omarion-hampton-mike-mcdaniel-will-be-super-good-for-chargers-rbs",
+      "permalink": "",
+      "title": "Omarion Hampton: Mike McDaniel will be \"super good\" for Chargers RBs",
+      "body_text": "Chargers quarterback Justin Herbert's bid to change his footwork to better fit into offensive coordinator Mike McDaniel's scheme has been of note this offseason, but McDaniel's arrival effects more than just the quarterback.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-19T12:55:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omarion Hampton",
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0040666",
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/knicks-run-triggers-first-ever-net-loss-for-new-york-sportsbooks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/knicks-run-triggers-first-ever-net-loss-for-new-york-sportsbooks",
+      "permalink": "",
+      "title": "Knicks' run triggers first ever net loss for New York sportsbooks",
+      "body_text": "Usually, it's good for the house when bettors bet with their hearts.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T10:38:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-in-price-for-u-s-world-cup-game-at-lumen-field-is-1-878",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-in-price-for-u-s-world-cup-game-at-lumen-field-is-1-878",
+      "permalink": "",
+      "title": "Get-in price for U.S. World Cup game at Lumen Field is $1,878",
+      "body_text": "Later today, the Field formerly known as Lumen will be a-rockin'.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T12:36:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "Lumen Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zac-taylor-our-defensive-leadership-has-really-expanded",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zac-taylor-our-defensive-leadership-has-really-expanded",
+      "permalink": "",
+      "title": "Zac Taylor: Our defensive leadership has really expanded",
+      "body_text": "The infusion of talent to the Bengals defense has been a major talking point of the offseason in Cincinnati, but the impact of the team's moves isn't only being felt on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-19T12:25:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zac Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawrence-taylor-will-participate-in-annual-sack-summit-for-nfl-pass-rushers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawrence-taylor-will-participate-in-annual-sack-summit-for-nfl-pass-rushers",
+      "permalink": "",
+      "title": "Lawrence Taylor will participate in annual Sack Summit for NFL pass rushers",
+      "body_text": "The annual Sack Summit, a gathering of NFL pass rushers that takes place each summer, has added one of the greatest pass rushers of all time to this year's event.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-19T12:24:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lawrence Taylor",
+        "Sack Summit"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/supplemental-draft-rules-could-get-brendan-sorsby-drafted-higher-than-expected",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/supplemental-draft-rules-could-get-brendan-sorsby-drafted-higher-than-expected",
+      "permalink": "",
+      "title": "Supplemental draft rules could get Brendan Sorsby drafted higher than expected",
+      "body_text": "A team that sits low on the priority list may try to get the jump on everyone else.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T10:19:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-brees-says-he-couldnt-return-to-the-nfl-throws-better-left-handed-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-brees-says-he-couldnt-return-to-the-nfl-throws-better-left-handed-now",
+      "permalink": "",
+      "title": "Drew Brees says he couldn't return to the NFL, throws better left-handed now",
+      "body_text": "A year after Philip Rivers returned to the NFL at the age of 44, could Drew Brees do it at 47?",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-19T10:15:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Brees",
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0020531",
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-should-explore-what-cincinnati-knew-regarding-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-should-explore-what-cincinnati-knew-regarding-brendan-sorsby",
+      "permalink": "",
+      "title": "NCAA should explore what Cincinnati knew regarding Brendan Sorsby",
+      "body_text": "The Brendan Sorsby saga has given rise to an intriguing question about the period of time during which he was actively, and heavily, betting on sports in violation of NCAA rules.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T09:42:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-i-was-broken-when-bills-fired-sean-mcdermott-wasnt-thinking-id-be-head-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-i-was-broken-when-bills-fired-sean-mcdermott-wasnt-thinking-id-be-head-coach",
+      "permalink": "",
+      "title": "Joe Brady: I was broken when Bills fired Sean McDermott, wasn't thinking I'd be head coach",
+      "body_text": "\"I'm only in Buffalo because of Sean and the opportunities that he gave me,\" Brady said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-19T07:44:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-fourth-round-wr-brenen-thompson-complete-draft-class-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-fourth-round-wr-brenen-thompson-complete-draft-class-signings",
+      "permalink": "",
+      "title": "Chargers sign fourth-round WR Brenen Thompson, complete draft class signings",
+      "body_text": "The Chargers completed their draft class, signing fourth-round wide receiver Brenen Thompson, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-19T00:50:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brenen Thompson",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "THO495568"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufc-freedom-250-audience-fell-a-little-short-of-the-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufc-freedom-250-audience-fell-a-little-short-of-the-super-bowl",
+      "permalink": "",
+      "title": "UFC Freedom 250 audience fell a little short of the Super Bowl",
+      "body_text": "Joe Gruters was only off by 117.4 million.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T00:21:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl",
+        "Joe Gruters"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-protect-college-sports-act-wont-pass-before-midterms",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-protect-college-sports-act-wont-pass-before-midterms",
+      "permalink": "",
+      "title": "Report: \"Protect College Sports Act\" won't pass before midterms",
+      "body_text": "The \"Protect College Sports Act\" cleared a key hurdle on Thursday, emerging from the Senate Commerce Committee and setting up a potential floor vote.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-19T00:36:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Protect College",
+        "Sports Act",
+        "Senate Commerce"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-pennel-knew-woman-whose-body-was-found-on-his-property",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-pennel-knew-woman-whose-body-was-found-on-his-property",
+      "permalink": "",
+      "title": "Report: Mike Pennel knew woman whose body was found on his property",
+      "body_text": "In April, ESPN reported that free-agent defensive lineman Mike Pennel is a \"person of interest\" in connection with the death of a woman whose body was found on property Pennel previously owned in the Dominican Republic.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T23:14:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Pennel",
+        "In April",
+        "Dominican Republic"
+      ],
+      "resolved_player_ids": [
+        "00-0030757"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/what-is-the-nfl-supplemental-draft-date-order-rules-history-as-brendan-sorsby-applies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/what-is-the-nfl-supplemental-draft-date-order-rules-history-as-brendan-sorsby-applies",
+      "permalink": "",
+      "title": "What is the NFL Supplemental Draft? Date, order, rules, history as Brendan Sorsby applies",
+      "body_text": "Texas Tech quarterback Brendan Sorsby has officially applied for the NFL supplemental draft. Here we answer some questions about how the supplemental draft works.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-17T14:26:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Supplemental Draft",
+        "Brendan Sorsby",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-season-approaching-nothing-is-imminent-as-to-nfl-new-broadcast-deals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-season-approaching-nothing-is-imminent-as-to-nfl-new-broadcast-deals",
+      "permalink": "",
+      "title": "With season approaching, \"nothing is imminent\" as to new NFL broadcast deals",
+      "body_text": "Not long ago, it seemed inevitable that the NFL would renegotiate most of its current broadcast deals before the start of the 2026 season, with the idea that the existing partners would pay more for NFL games — starting with the 2026 season.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T21:54:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-lions-are-far-ahead-of-where-we-were-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-lions-are-far-ahead-of-where-we-were-last-year",
+      "permalink": "",
+      "title": "Jahmyr Gibbs: Lions are far ahead of where we were last year",
+      "body_text": "Gibbs said new offensive coordinator Drew Petzing is going to put together a big-play offense.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-18T16:10:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "Drew Petzing"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dianna-russini-investigation-by-the-athletic-is-still-ongoing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dianna-russini-investigation-by-the-athletic-is-still-ongoing",
+      "permalink": "",
+      "title": "Report: Dianna Russini investigation by The Athletic is \"still ongoing\"",
+      "body_text": "As the saying goes, no news is no news.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T16:56:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dianna Russini",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-suggests-2025-buccaneers-took-plays-off",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-suggests-2025-buccaneers-took-plays-off",
+      "permalink": "",
+      "title": "Todd Bowles suggests 2025 Buccaneers took plays off",
+      "body_text": "After the Buccaneers blew a big lead on a Thursday night against the Falcons, he let the expletives fly regarding the team's in-game deficiencies.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T21:22:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Bowles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/united-bowl-draws-985-000-viewers-on-abc",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/united-bowl-draws-985-000-viewers-on-abc",
+      "permalink": "",
+      "title": "United Bowl draws 988,000 viewers on ABC",
+      "body_text": "The UFL is generally holding its own.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T14:47:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "United Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-announce-four-roster-moves",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-announce-four-roster-moves",
+      "permalink": "",
+      "title": "Broncos announce four roster moves",
+      "body_text": "The Broncos made four roster moves on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-18T20:35:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-p-matthew-hayball",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-p-matthew-hayball",
+      "permalink": "",
+      "title": "Falcons sign P Matthew Hayball",
+      "body_text": "The Falcons will be bringing a second punter to training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-18T20:28:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Hayball",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0039611"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/protect-college-sports-act-is-on-track-for-a-full-senate-vote",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/protect-college-sports-act-is-on-track-for-a-full-senate-vote",
+      "permalink": "",
+      "title": "Protect College Sports Act is on track for a full Senate vote",
+      "body_text": "The NCAA broke college sports, through decades of rampant antitrust violations.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T20:24:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Protect College",
+        "Sports Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-hunter-dekkers-precedent-also-points-to-no-suspension-for-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-hunter-dekkers-precedent-also-points-to-no-suspension-for-brendan-sorsby",
+      "permalink": "",
+      "title": "The Hunter Dekkers precedent also points to no suspension for Brendan Sorsby",
+      "body_text": "If/when the NFL explores whether a Terrelle Pryor-style suspension should be imposed on quarterback Brendan Sorsby after the supplemental draft, the Kayshon Boutte precedent points to no punishment.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T19:50:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Hunter",
+        "Brendan Sorsby",
+        "Terrelle Pryor",
+        "Kayshon Boutte"
+      ],
+      "resolved_player_ids": [
+        "00-0028825",
+        "00-0038608"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-sign-de-charles-snowden",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-sign-de-charles-snowden",
+      "permalink": "",
+      "title": "Cowboys agree to sign DE Charles Snowden",
+      "body_text": "Dallas is adding a defensive player.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-18T19:29:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Charles Snowden"
+      ],
+      "resolved_player_ids": [
+        "00-0036711"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-on-george-pickens-that-guys-ready",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-on-george-pickens-that-guys-ready",
+      "permalink": "",
+      "title": "Dak Prescott on George Pickens: That guy's ready",
+      "body_text": "Pickens took part in this week's minicamp after missing the voluntary portions of the offseason program.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-18T19:29:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0033077",
+        "00-0037247"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-cb-sauce-gardner-says-he-is-24-not-25",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-cb-sauce-gardner-says-he-is-24-not-25",
+      "permalink": "",
+      "title": "Colts CB Sauce Gardner says he is 24, not 25",
+      "body_text": "Colts cornerback Sauce Gardner corrected his birth year on Thursday, saying he was born in 2001.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-18T19:18:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sauce Gardner"
+      ],
+      "resolved_player_ids": [
+        "00-0037190"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-ufl-rb-ian-wheeler",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-ufl-rb-ian-wheeler",
+      "permalink": "",
+      "title": "Bills sign UFL RB Ian Wheeler",
+      "body_text": "The Bills have added a running back who was most recently starring in the UFL.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-18T19:09:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ian Wheeler",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0039466"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-believes-travis-hunter-should-play-both-ways-all-the-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-believes-travis-hunter-should-play-both-ways-all-the-time",
+      "permalink": "",
+      "title": "Deion Sanders believes Travis Hunter should play both ways, all the time",
+      "body_text": "Last month, Colorado coach Deion Sanders expressed disappointment that the Jaguars never contacted him regarding former Buffaloes superstar Travis Hunter.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-18T17:47:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders",
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0014324",
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    }
+  ]
+}

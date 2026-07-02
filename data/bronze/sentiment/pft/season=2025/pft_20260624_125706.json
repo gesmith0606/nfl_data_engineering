@@ -1,0 +1,583 @@
+{
+  "fetch_run_id": "e4b8e090-0044-4983-930d-1081fa14a440",
+  "source": "pft",
+  "fetched_at": "2026-06-24T12:57:06.495938+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-options-to-play-football-before-the-2027-draft-are-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-options-to-play-football-before-the-2027-draft-are-limited",
+      "permalink": "",
+      "title": "Brendan Sorsby's options to play football before the 2027 draft are limited",
+      "body_text": "The NFL's refusal to hold a supplemental draft has made Brendan Sorsby a man without a team.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-24T12:22:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-have-to-explore-using-joe-burrow-under-center-more-often",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-have-to-explore-using-joe-burrow-under-center-more-often",
+      "permalink": "",
+      "title": "Bengals \"have to explore\" using Joe Burrow under center more often",
+      "body_text": "Offseason stories about the Bengals have centered on the moves they've made to bolster a defense that has struggled too often in recent seasons, but that's not the only way the Bengals are trying to bring an end to their playoff drought.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-24T12:03:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-klint-kubiak-ran-the-most-productive-otas-ive-ever-been-a-part-of",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-klint-kubiak-ran-the-most-productive-otas-ive-ever-been-a-part-of",
+      "permalink": "",
+      "title": "Kirk Cousins: Klint Kubiak ran the most productive OTAs I've ever been a part of",
+      "body_text": "\"He created a sense of urgency from Day One, all the way through the 10-week program, and I thought we got a lot of work done,\" Cousins said of Kubiak.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-24T08:19:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Klint Kubiak",
+        "Day One"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-packers-focused-on-finishing-after-2025-collapse",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-packers-focused-on-finishing-after-2025-collapse",
+      "permalink": "",
+      "title": "Christian Watson: Packers focused on finishing after 2025 collapse",
+      "body_text": "The Packers lost four consecutive games to close out the regular season.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-24T00:03:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Watson",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-are-exploring-relocation-of-their-practice-facililty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-are-exploring-relocation-of-their-practice-facililty",
+      "permalink": "",
+      "title": "49ers are \"exploring\" relocation of their practice facililty",
+      "body_text": "Buried in a feature from Vic Tafur of The Athletic regarding 49ers CEO Al Guido is a comment that could eliminate the lingering electrical substation issue once and for all.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T23:48:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Vic Tafur",
+        "The Athletic",
+        "Al Guido"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-franklin-ready-for-whatever-role-he-has-after-broncos-trade-for-jaylen-waddle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-franklin-ready-for-whatever-role-he-has-after-broncos-trade-for-jaylen-waddle",
+      "permalink": "",
+      "title": "Troy Franklin ready for whatever role he has after Broncos' trade for Jaylen Waddle",
+      "body_text": "Broncos wide receiver Troy Franklin ranked second on the team last season with 104 targets, 65 catches, 709 receiving yards and six touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-23T23:44:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Troy Franklin",
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0039868",
+        "00-0036613"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/one-year-deal-for-portland-coach-micah-nori-could-give-nfl-teams-ideas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/one-year-deal-for-portland-coach-micah-nori-could-give-nfl-teams-ideas",
+      "permalink": "",
+      "title": "One-year deal for Portland coach Micah Nori could give NFL teams ideas",
+      "body_text": "The Portland Trail Blazers have hired a new coach.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T23:12:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Micah Nori",
+        "The Portland",
+        "Trail Blazers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-releases-its-letter-to-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-releases-its-letter-to-brendan-sorsby",
+      "permalink": "",
+      "title": "NFL releases its letter to Brendan Sorsby",
+      "body_text": "In addition to announcing that there will be no supplemental draft in 2026, the NFL released the letter sent to Sorsby by the league office — by handing it to NFL Network.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T18:41:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-has-not-decided-whether-or-how-to-challenge-the-nfls-position-on-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-has-not-decided-whether-or-how-to-challenge-the-nfls-position-on-brendan-sorsby",
+      "permalink": "",
+      "title": "NFLPA has not decided whether (or how) to challenge the NFL's position on Brendan Sorsby",
+      "body_text": "After the NFL decided not to allow quarterback Brendan Sorsby into the supplemental draft, lawyer Jeffrey Kessler said he plans to immediately raise the alleged Collective Bargaining Agreement violation with the NFL Players Association.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T22:43:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Jeffrey Kessler",
+        "Collective Bargaining",
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-announces-six-players-with-nfl-tryouts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-announces-six-players-with-nfl-tryouts",
+      "permalink": "",
+      "title": "UFL announces six players with NFL tryouts",
+      "body_text": "Several UFL players already have found new homes in the NFL.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-23T20:43:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kessler-in-applying-for-supplemental-draft-brendan-sorsby-gave-nfl-everything-it-requested",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kessler-in-applying-for-supplemental-draft-brendan-sorsby-gave-nfl-everything-it-requested",
+      "permalink": "",
+      "title": "Kessler: In applying for supplemental draft, Brendan Sorsby gave NFL everything it requested",
+      "body_text": "Sorsby's lawyer counters the claim that NFL needed more information from Sorsby.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T22:08:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-will-be-only-player-to-play-on-franchise-tag-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-will-be-only-player-to-play-on-franchise-tag-in-2026",
+      "permalink": "",
+      "title": "George Pickens will be only player to play on franchise tag in 2026",
+      "body_text": "Then, there was one. . . .",
+      "author": "Charean Williams",
+      "published_at": "2026-06-23T20:59:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-kyle-pitts-agree-to-three-year-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-kyle-pitts-agree-to-three-year-contract",
+      "permalink": "",
+      "title": "Falcons, Kyle Pitts agree to three-year contract",
+      "body_text": "Pitts is now set to become one of the league's highest-paid tight ends with his new deal.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-23T20:51:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffrey-kessler-exclusion-of-brendan-sorsby-from-supplemental-draft-violates-the-cba",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffrey-kessler-exclusion-of-brendan-sorsby-from-supplemental-draft-violates-the-cba",
+      "permalink": "",
+      "title": "Jeffrey Kessler: Exclusion of Brendan Sorsby from supplemental draft violates the CBA",
+      "body_text": "Sorsby's lawyer is ready to fight the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T17:54:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeffrey Kessler",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfls-position-on-brendan-sorsby-seems-to-conflict-with-the-cba",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfls-position-on-brendan-sorsby-seems-to-conflict-with-the-cba",
+      "permalink": "",
+      "title": "NFL's position on Brendan Sorsby seems to conflict with the CBA",
+      "body_text": "The CBA speaks only to eligibility — not integrity or purity.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T19:38:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-kelly-said-he-feels-good-after-recovering-from-a-recent-stroke",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-kelly-said-he-feels-good-after-recovering-from-a-recent-stroke",
+      "permalink": "",
+      "title": "Jim Kelly said he feels good after recovering from a recent stroke",
+      "body_text": "Hall of Famer Jim Kelly has had a run of bad health luck since retiring from the NFL after the 1996 season.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-23T20:31:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Kelly",
+        "Famer Jim"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-team-goals-are-my-only-goals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-team-goals-are-my-only-goals",
+      "permalink": "",
+      "title": "Jeremiyah Love: Team goals are my only goals",
+      "body_text": "Jeremiyah Love led the nation in rushing yards, rushing touchdowns and overall touchdowns each of the past two seasons at Notre Dame.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-22T22:20:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [
+        "LOV121782"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-announce-12-promotions-in-player-personnel-department",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-announce-12-promotions-in-player-personnel-department",
+      "permalink": "",
+      "title": "Ravens announce 12 promotions in player personnel department",
+      "body_text": "The Ravens promoted 12 members of their player personnel department, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-23T20:12:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-is-aware-of-geno-smith-investigation-but-declines-further-comment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-is-aware-of-geno-smith-investigation-but-declines-further-comment",
+      "permalink": "",
+      "title": "NFL is \"aware\" of Geno Smith investigation but declines further comment",
+      "body_text": "The Jets have had no comment on the assault allegation made against quarterback Geno Smith, or the investigation that the allegation has sparked.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T20:00:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-investigation-continues",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-investigation-continues",
+      "permalink": "",
+      "title": "Geno Smith investigation continues",
+      "body_text": "On Monday, it wasn't clear whether police were investigating an assault allegation against Jet quarterback Geno Smith.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T18:50:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith",
+        "On Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-mims-extension-would-be-sweet-but-you-cant-keep-everybody",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-mims-extension-would-be-sweet-but-you-cant-keep-everybody",
+      "permalink": "",
+      "title": "Marvin Mims: Extension would be sweet, but you can't keep everybody",
+      "body_text": "Broncos wide receiver Marvin Mims was part of Sean Payton's first draft class in Denver, but he doesn't know if this will be his final year playing for the head coach.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-23T18:43:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Mims",
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [
+        "00-0038976"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-theres-no-greater-passer-of-the-football-than-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-theres-no-greater-passer-of-the-football-than-aaron-rodgers",
+      "permalink": "",
+      "title": "Tom Brady: \"There's no greater passer of the football than Aaron Rodgers\"",
+      "body_text": "Who does the GOAT consider to be the GOAT?",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T00:35:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0019596",
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davie-florida-police-will-continue-to-investigate-assault-allegation-against-geno-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davie-florida-police-will-continue-to-investigate-assault-allegation-against-geno-smith",
+      "permalink": "",
+      "title": "Davie, Florida police will continue to investigate assault allegation against Geno Smith",
+      "body_text": "The case, which was previously closed, is now open again.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T01:28:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-assault-allegation-against-geno-smith-is-not-an-active-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-assault-allegation-against-geno-smith-is-not-an-active-case",
+      "permalink": "",
+      "title": "The assault allegation against Geno Smith is \"not an active case\"",
+      "body_text": "Earlier today, there was a question as to whether the assault allegation involving Jets quarterback Geno Smith was, or wasn't, the subject of an open case.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T23:35:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-i-feel-like-i-got-my-phd-in-football-when-i-went-to-san-francisco",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-i-feel-like-i-got-my-phd-in-football-when-i-went-to-san-francisco",
+      "permalink": "",
+      "title": "Sam Darnold: I feel like I got my PhD in football when I went to San Francisco",
+      "body_text": "Before Sam Darnold starred at quarterback for the Vikings and won Super Bowl LX with the Seahawks, he spent a year as the 49ers’ backup to Brock Purdy.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-23T18:19:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold",
+        "San Francisco",
+        "Before Sam",
+        "Super Bowl",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0037834"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-says-world-cup-fields-show-nfl-could-play-all-games-on-grass-if-owners-cared",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-says-world-cup-fields-show-nfl-could-play-all-games-on-grass-if-owners-cared",
+      "permalink": "",
+      "title": "George Kittle says World Cup fields show NFL could play all games on grass if owners cared",
+      "body_text": "NFL stadiums that use artificial turf for football are using grass for soccer, and NFL players are noticing.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-23T08:07:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "World Cup"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-was-reportedly-a-driving-force-in-giannis-antetokounmpo-trade-to-miami",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-was-reportedly-a-driving-force-in-giannis-antetokounmpo-trade-to-miami",
+      "permalink": "",
+      "title": "Jimmy Haslam was reportedly a \"driving force\" in Giannis Antetokounmpo trade to Miami",
+      "body_text": "Browns owner is taking a more active role in the Milwaukee Bucks.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T11:36:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jimmy Haslam",
+        "Giannis Antetokounmpo",
+        "Miami Browns",
+        "Milwaukee Bucks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-keeps-brendan-sorsby-out-of-supplemental-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-keeps-brendan-sorsby-out-of-supplemental-draft",
+      "permalink": "",
+      "title": "NFL keeps Brendan Sorsby out of supplemental draft",
+      "body_text": "League freezes out Sorsby until 2027; is a lawsuit next?",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T17:47:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-2026-third-round-pick-markel-bell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-2026-third-round-pick-markel-bell",
+      "permalink": "",
+      "title": "Eagles sign 2026 third-round pick Markel Bell",
+      "body_text": "The Eagles have gotten another member of their draft class under contract.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-23T16:22:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Markel Bell",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "BEL506870"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-its-my-first-year-in-an-attack-defense-thats-my-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-its-my-first-year-in-an-attack-defense-thats-my-game",
+      "permalink": "",
+      "title": "Jeffery Simmons: It's my first year in an attack defense, that's my game",
+      "body_text": "The Titans made it clear last week that they expect defensive tackle Jeffery Simmons to continue playing at a high level.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-23T15:50:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeffery Simmons",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "TEN"
+    }
+  ]
+}

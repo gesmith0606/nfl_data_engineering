@@ -1,0 +1,68 @@
+{
+  "fetch_run_id": "2b315e80-f6df-4eeb-90ce-1ef6c89866a2",
+  "source": "rotowire",
+  "fetched_at": "2026-06-16T14:01:09.964356+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 3,
+  "items": [
+    {
+      "external_id": "nfl631405",
+      "url": "https://www.rotowire.com//football/player/brendan-sorsby-20122",
+      "permalink": "",
+      "title": "Brendan Sorsby: Set to enter supplemental draft",
+      "body_text": "Sorsby is applying to enter the NFL supplemental draft, Tom Pelissero of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-15T06:19:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631399",
+      "url": "https://www.rotowire.com//football/player/rj-harvey-18522",
+      "permalink": "",
+      "title": "RJ Harvey: Bouncing back from shoulder issue",
+      "body_text": "Harvey reportedly underwent an offseason procedure to repair a torn labrum in his shoulder that he sustained during Denver's season-ending AFC Championship Game loss to New England, according to Luca Evans of The Denver Post. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-15T02:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Championship Game",
+        "New England",
+        "Luca Evans",
+        "The Denver"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631398",
+      "url": "https://www.rotowire.com//football/player/george-pickens-15853",
+      "permalink": "",
+      "title": "George Pickens: Reports for start of minicamp",
+      "body_text": "Pickens was present for his physical Monday prior to the Cowboys' mandatory minicamp, Todd Archer of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-15T10:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Todd Archer"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "707061ce-39d1-4273-bad3-b7efa3a85940",
+  "source": "rotowire",
+  "fetched_at": "2026-06-17T13:27:43.413457+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631433",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Full-go training camp expected",
+      "body_text": "Nix, who returned to individual work during Tuesday's mandatory minicamp practice, suggested that he could be \"full-go right now if they wanted me to,\" Aric DiLalla of the Broncos' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-16T05:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl631422",
+      "url": "https://www.rotowire.com//football/player/ladd-mcconkey-17724",
+      "permalink": "",
+      "title": "Ladd McConkey: Dealing with strained hamstring",
+      "body_text": "McConkey said Tuesday that he's tending to a left hamstring strain, Alex Insdorf of BoltBeat.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-16T02:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alex Insdorf"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631421",
+      "url": "https://www.rotowire.com//football/player/rj-harvey-18522",
+      "permalink": "",
+      "title": "RJ Harvey: Full go at minicamp",
+      "body_text": "Broncos coach Sean Payton said Tuesday that Harvey (shoulder) is a \"full go\" at mandatory minicamp, Zac Stevens of TheDNVR.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-16T12:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "Zac Stevens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl631420",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: On field at minicamp",
+      "body_text": "Nix (ankle) is participating in practice at mandatory minicamp on Tuesday, Aric DiLalla of the Broncos' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-16T12:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl631419",
+      "url": "https://www.rotowire.com//football/player/michael-penix-17700",
+      "permalink": "",
+      "title": "Michael Penix: Still not ready for 11-on-11 drills",
+      "body_text": "Falcons coach Kevin Stefanski said Tuesday that Penix (ACL) has not been cleared to participate in 11-on-11 team drills at mandatory minicamp, Josh Kendall of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-16T12:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix",
+        "Kevin Stefanski",
+        "Josh Kendall",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    }
+  ]
+}

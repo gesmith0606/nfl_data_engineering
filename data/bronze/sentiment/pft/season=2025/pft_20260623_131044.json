@@ -1,0 +1,581 @@
+{
+  "fetch_run_id": "210a2c11-4724-4bdc-99d9-96d13ef85158",
+  "source": "pft",
+  "fetched_at": "2026-06-23T13:10:44.848205+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-scottish-takeover-of-boston-robert-kraft-wants-patriots-to-play-in-scotland",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-scottish-takeover-of-boston-robert-kraft-wants-patriots-to-play-in-scotland",
+      "permalink": "",
+      "title": "After Scottish takeover of Boston, Robert Kraft wants Patriots to play in Scotland",
+      "body_text": "The Tartan Army left an impression on New England.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T12:55:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "After Scottish",
+        "Robert Kraft",
+        "Scotland The",
+        "Tartan Army",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-cb-brandon-stephens-interception-less-season-hard-to-believe-were-taking-it-personally",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-cb-brandon-stephens-interception-less-season-hard-to-believe-were-taking-it-personally",
+      "permalink": "",
+      "title": "Jets CB Brandon Stephens: Interception-less season hard to believe, we're taking it personally",
+      "body_text": "The Jets missing the playoffs in 2025 was nothing new as the team hasn't advanced to the postseason since 2010, but the path they took to 3-14 had at least one unique aspect.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-23T12:46:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Stephens",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0036987"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-relying-on-free-agent-addition-chuck-clark-for-leadership-in-the-secondary",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-relying-on-free-agent-addition-chuck-clark-for-leadership-in-the-secondary",
+      "permalink": "",
+      "title": "Lions relying on free agent addition Chuck Clark for leadership in the secondary",
+      "body_text": "The Lions think they have as good a pair of safeties as any team in the NFL when Kerby Joseph and Brian Branch are both healthy.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-23T12:28:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chuck Clark",
+        "The Lions",
+        "Kerby Joseph",
+        "Brian Branch"
+      ],
+      "resolved_player_ids": [
+        "00-0033294",
+        "00-0037667",
+        "00-0039141"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-on-deforest-buckner-goal-is-week-1-well-see-how-it-goes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-on-deforest-buckner-goal-is-week-1-well-see-how-it-goes",
+      "permalink": "",
+      "title": "Shane Steichen on DeForest Buckner: Goal is Week 1, we'll see how it goes",
+      "body_text": "Quarterback Daniel Jones was able to get on the field during the Colts' spring practices, but another one of the team's veteran players isn't as far along in his recovery from an injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-23T12:26:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shane Steichen",
+        "Quarterback Daniel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ron-slavin-responds-to-notion-that-brendan-sorsby-has-escaped-punishment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ron-slavin-responds-to-notion-that-brendan-sorsby-has-escaped-punishment",
+      "permalink": "",
+      "title": "Ron Slavin responds to notion that Brendan Sorsby has escaped punishment",
+      "body_text": "There's a vague notion percolating in some league circles that, by entering the supplemental draft after losing his NCAA eligibility for 2026, quarterback Brendan Sorsby has somehow avoided punishment for underage gambling and betting on his own team at Indiana.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T12:10:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ron Slavin",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-was-reportedly-a-driving-force-in-giannis-antetokounmpo-trade-to-miami",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-was-reportedly-a-driving-force-in-giannis-antetokounmpo-trade-to-miami",
+      "permalink": "",
+      "title": "Jimmy Haslam was reportedly a \"driving force\" in Giannis Antetokounmpo trade to Miami",
+      "body_text": "Browns owner is taking a more active role in the Milwaukee Bucks.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T11:36:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jimmy Haslam",
+        "Giannis Antetokounmpo",
+        "Miami Browns",
+        "Milwaukee Bucks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-undrafted-rookie-kahlil-benson-will-compete-to-start-at-right-tackle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-undrafted-rookie-kahlil-benson-will-compete-to-start-at-right-tackle",
+      "permalink": "",
+      "title": "Chiefs undrafted rookie Kahlil Benson will compete to start at right tackle",
+      "body_text": "When Chiefs quarterback Patrick Mahomes returns from a torn ACL, an undrafted rookie may be protecting him.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-23T10:14:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kahlil Benson",
+        "When Chiefs",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "BEN593850",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-says-world-cup-fields-show-nfl-could-play-all-games-on-grass-if-owners-cared",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-says-world-cup-fields-show-nfl-could-play-all-games-on-grass-if-owners-cared",
+      "permalink": "",
+      "title": "George Kittle says World Cup fields show NFL could play all games on grass if owners cared",
+      "body_text": "NFL stadiums that use artificial turf for football are using grass for soccer, and NFL players are noticing.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-23T08:07:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "World Cup"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davie-florida-police-will-continue-to-investigate-assault-allegation-against-geno-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davie-florida-police-will-continue-to-investigate-assault-allegation-against-geno-smith",
+      "permalink": "",
+      "title": "Davie, Florida police will continue to investigate assault allegation against Geno Smith",
+      "body_text": "The case, which was previously closed, is now open again.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T01:28:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-theres-no-greater-passer-of-the-football-than-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-theres-no-greater-passer-of-the-football-than-aaron-rodgers",
+      "permalink": "",
+      "title": "Tom Brady: \"There's no greater passer of the football than Aaron Rodgers\"",
+      "body_text": "Who does the GOAT consider to be the GOAT?",
+      "author": "Mike Florio",
+      "published_at": "2026-06-23T00:35:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0019596",
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/france-vs-iraq-and-lincoln-financial-field-experiences-a-lengthy-weather-delay",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/france-vs-iraq-and-lincoln-financial-field-experiences-a-lengthy-weather-delay",
+      "permalink": "",
+      "title": "France vs. Iraq and Lincoln Financial Field experiences a lengthy weather delay",
+      "body_text": "Open-air soccer on a late afternoon in the summer introduces the risk of a delay due to thunderstorms.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T23:48:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lincoln Financial"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-assault-allegation-against-geno-smith-is-not-an-active-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-assault-allegation-against-geno-smith-is-not-an-active-case",
+      "permalink": "",
+      "title": "The assault allegation against Geno Smith is \"not an active case\"",
+      "body_text": "Earlier today, there was a question as to whether the assault allegation involving Jets quarterback Geno Smith was, or wasn't, the subject of an open case.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T23:35:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-agent-on-whether-nfl-will-reject-application-for-supplemental-draft-i-would-hope-not",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-agent-on-whether-nfl-will-reject-application-for-supplemental-draft-i-would-hope-not",
+      "permalink": "",
+      "title": "Brendan Sorsby's agent on whether NFL will reject application for supplemental draft: \"I would hope not\"",
+      "body_text": "NFL has not yet indicated whether Sorsby will be welcomed into the draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T23:21:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-team-goals-are-my-only-goals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-team-goals-are-my-only-goals",
+      "permalink": "",
+      "title": "Jeremiyah Love: Team goals are my only goals",
+      "body_text": "Jeremiyah led the nation in rushing yards, rushing touchdowns and overall touchdowns each of the past two seasons at Notre Dame.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-22T22:20:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [
+        "LOV121782"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-making-the-postseason-in-2026-is-the-minimum",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-making-the-postseason-in-2026-is-the-minimum",
+      "permalink": "",
+      "title": "Dak Prescott: Making the postseason in 2026 is \"the minimum\"",
+      "body_text": "The Cowboys have not made the postseason since 2023.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-22T21:21:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-fourth-rounder-kaleb-proctor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-fourth-rounder-kaleb-proctor",
+      "permalink": "",
+      "title": "Cardinals sign fourth-rounder Kaleb Proctor",
+      "body_text": "Cardinals fourth-round pick Kaleb Proctor became the latest member of this year's draft class to sign with the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-22T21:35:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kaleb Proctor"
+      ],
+      "resolved_player_ids": [
+        "PRO115871"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/golden-knights-owner-bill-foley-wants-to-bring-nba-team-to-las-vegas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/golden-knights-owner-bill-foley-wants-to-bring-nba-team-to-las-vegas",
+      "permalink": "",
+      "title": "Golden Knights' owner Bill Foley wants to bring NBA team to Las Vegas",
+      "body_text": "Matt Foley lived in a van down by the river.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T20:54:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Golden Knights",
+        "Bill Foley",
+        "Las Vegas",
+        "Matt Foley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-to-hold-seven-open-practices-during-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-to-hold-seven-open-practices-during-training-camp",
+      "permalink": "",
+      "title": "Rams to hold seven open practices during training camp",
+      "body_text": "The Rams have announced their open practice schedule for this summer's training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-22T20:12:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-says-hes-running-16-mph-in-his-rehab",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-says-hes-running-16-mph-in-his-rehab",
+      "permalink": "",
+      "title": "George Kittle says he's running 16 mph in his rehab",
+      "body_text": "49ers tight end George Kittle has targeted a Week 1 return since tearing his right Achilles in a Jan. 11 playoff game against the Eagles.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-22T19:41:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-rookie-cb-daylen-everette-says-practicing-against-dk-metcalf-is-making-him-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-rookie-cb-daylen-everette-says-practicing-against-dk-metcalf-is-making-him-better",
+      "permalink": "",
+      "title": "Steelers rookie CB Daylen Everette says practicing against DK Metcalf is making him better",
+      "body_text": "For a third-round rookie cornerback, going up against one of the best wide receivers in the NFL is a tall order.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-22T19:33:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daylen Everette"
+      ],
+      "resolved_player_ids": [
+        "EVE502066"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-thomas-trading-myles-garrett-was-the-right-decision-even-though-it-hurts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-thomas-trading-myles-garrett-was-the-right-decision-even-though-it-hurts",
+      "permalink": "",
+      "title": "Joe Thomas: Trading Myles Garrett was the right decision, even though it hurts",
+      "body_text": "Joe Thomas and Myles Garrett were teammates for one season — Garrett’s rookie year of 2017.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-22T19:16:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Thomas",
+        "Trading Myles",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0030761",
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deadline-for-applying-for-supplemental-draft-is-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deadline-for-applying-for-supplemental-draft-is-today",
+      "permalink": "",
+      "title": "Deadline for applying for supplemental draft is today",
+      "body_text": "League will likely confirm Brendan Sorsby's inclusion after deadline passes.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T11:53:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-on-another-team-acquiring-brandon-aiyuk-have-fun-with-all-that-comes-with-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-on-another-team-acquiring-brandon-aiyuk-have-fun-with-all-that-comes-with-it",
+      "permalink": "",
+      "title": "George Kittle on another team acquiring Brandon Aiyuk: Have fun with all that comes with it",
+      "body_text": "Wide receiver Brandon Aiyuk continued to push for the 49ers to part ways with him by posting a video to social media recently that shows him shouting \"Go Commanders!\"",
+      "author": "Josh Alper",
+      "published_at": "2026-06-22T18:47:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Brandon Aiyuk",
+        "Go Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033288",
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mayock-nfl-network-prioritized-name-recognition-over-knowledge-for-draft-coverage",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mayock-nfl-network-prioritized-name-recognition-over-knowledge-for-draft-coverage",
+      "permalink": "",
+      "title": "Mike Mayock: NFL Network prioritized name recognition over knowledge for draft coverage",
+      "body_text": "Before Mike Mayock became the G.M. of the Raiders, he had served for years as one of NFL Network's primary voices in and around the NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T18:41:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Mayock",
+        "Before Mike"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donte-whitner-to-aldon-smiths-family-c-j-spillman-should-have-a-lot-of-answers-for-you",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/donte-whitner-to-aldon-smiths-family-c-j-spillman-should-have-a-lot-of-answers-for-you",
+      "permalink": "",
+      "title": "Donte Whitner to Aldon Smith's family: \"C.J. Spillman should have a lot of answers for you\"",
+      "body_text": "Whitner addresses Smith's passing in podcast episode.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-20T18:01:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Donte Whitner",
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0024223",
+        "00-0027945"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-downplays-concerns-about-metlife-stadium-grass",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-downplays-concerns-about-metlife-stadium-grass",
+      "permalink": "",
+      "title": "FIFA downplays concerns about MetLife Stadium grass",
+      "body_text": "The more an organization says \"there's nothing to see here,\" the more there usually is to see.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T15:55:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-tretter-is-in-no-rush-to-negotiate-new-cba-with-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-tretter-is-in-no-rush-to-negotiate-new-cba-with-nfl",
+      "permalink": "",
+      "title": "JC Tretter is in no rush to negotiate new CBA with NFL",
+      "body_text": "Everyone knows what the league wants; Tretter wants to know what the players want.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T12:37:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-tretter-world-cup-disproves-past-excuses-for-not-using-grass-indoors",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-tretter-world-cup-disproves-past-excuses-for-not-using-grass-indoors",
+      "permalink": "",
+      "title": "JC Tretter: World Cup disproves past excuses for not using grass indoors",
+      "body_text": "The hosting of the World Cup entails various direct and indirect costs for the 11 NFL stadiums staging matches.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T17:41:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-says-go-commanders-in-latest-instagram-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-says-go-commanders-in-latest-instagram-video",
+      "permalink": "",
+      "title": "Brandon Aiyuk says \"go Commanders\" in latest Instagram video",
+      "body_text": "49ers continue to squat on Aiyuk's rights.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-22T01:17:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-training-camp-report-dates-for-all-32-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-training-camp-report-dates-for-all-32-teams",
+      "permalink": "",
+      "title": "NFL announces 2026 training camp report dates for all 32 teams",
+      "body_text": "The offseason programs around the league have largely wrapped up for 2026, with players and coaches around the league now experiencing some time off.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-22T16:56:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

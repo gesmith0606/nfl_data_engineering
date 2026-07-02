@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "58e1bef9-3bec-4ad8-818a-6f9f06f5c9ef",
+  "source": "rotowire",
+  "fetched_at": "2026-06-25T12:57:53.955751+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631543",
+      "url": "https://www.rotowire.com//football/player/brenton-strange-17017",
+      "permalink": "",
+      "title": "Brenton Strange: Agrees to three-year extension",
+      "body_text": "Strange agreed to terms Wednesday on a three-year extension with the Jaguars, Tom Pelissero of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-24T12:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brenton Strange",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0038935"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "nfl631542",
+      "url": "https://www.rotowire.com//football/player/chris-olave-15895",
+      "permalink": "",
+      "title": "Chris Olave: Hopes for contract before camp",
+      "body_text": "Olave (illness) said he hopes to finalize a contract extension with the Saints before training camp, Katherine Terrell of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-24T12:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "Katherine Terrell"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl631508",
+      "url": "https://www.rotowire.com//football/player/kyle-pitts-15265",
+      "permalink": "",
+      "title": "Kyle Pitts: Agrees to three-year extension",
+      "body_text": "Pitts and the Falcons agreed to terms Tuesday on a three-year, $54 million contract extension, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-23T01:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036970"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl631507",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Feels on track for Week 1",
+      "body_text": "Kittle (Achilles) said Tuesday that he feels \"definitely on track\" for Week 1 though \"nothing is 100 percent certain,\" David Lombardi of SFStandard.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-23T01:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "David Lombardi"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631503",
+      "url": "https://www.rotowire.com//football/player/quentin-johnston-16899",
+      "permalink": "",
+      "title": "Quentin Johnston: Expects more YAC in new scheme",
+      "body_text": "Johnston said at mandatory minicamp that he's excited for new offensive coordinator Mike McDaniel's scheme and expects to be \"set up for the yards after catch,\" Omar Navarro of the Chargers' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-23T09:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quentin Johnston",
+        "Omar Navarro"
+      ],
+      "resolved_player_ids": [
+        "00-0038544"
+      ],
+      "team_hint": "LAC"
+    }
+  ]
+}

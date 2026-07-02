@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "7bb19e16-260d-437e-b332-3862c208d0d7",
+  "source": "rotowire",
+  "fetched_at": "2026-06-19T13:22:18.160583+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631478",
+      "url": "https://www.rotowire.com//football/player/omarion-hampton-18445",
+      "permalink": "",
+      "title": "Omarion Hampton: Excited for McDaniel's system",
+      "body_text": "Hampton said Wednesday that he and the other Chargers running backs are excited to play for offensive coordinator Mike McDaniel, NFL.com's Bobby Kownack reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-18T11:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omarion Hampton",
+        "Bobby Kownack"
+      ],
+      "resolved_player_ids": [
+        "00-0040666"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl631477",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "permalink": "",
+      "title": "Rachaad White: Named as offseason standout",
+      "body_text": "Commanders coach Dan Quinn named White as one of the standout performers from OTAs and minicamp, but Quinn also cautioned that he expects multiple RBs to contribute and isn't sure if there will be a designated starter, Zach Selby of the Commanders' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-18T10:36:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White",
+        "Dan Quinn",
+        "Zach Selby"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl631476",
+      "url": "https://www.rotowire.com//football/player/stefon-diggs-10133",
+      "permalink": "",
+      "title": "Stefon Diggs: Open to playing for Commanders",
+      "body_text": "Diggs recently told FOX 5 Washington DC that he anticipates signing with a team soon and has interest in playing for the Commanders. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-18T06:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs",
+        "Commanders Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl631451",
+      "url": "https://www.rotowire.com//football/player/jacory-croskey-merritt-18811",
+      "permalink": "",
+      "title": "Jacory Croskey-Merritt: Back at practice",
+      "body_text": "Croskey-Merritt (undisclosed) participated in Tuesday's minicamp practice, John Keim of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-17T01:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacory Croskey",
+        "John Keim"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631447",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Takes part in 7-on-7 drills",
+      "body_text": "Nix (ankle) participated in 7-on-7 drills at Wednesday's mandatory minicamp practice, Nick Kosmider of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-17T12:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Nick Kosmider",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": null
+    }
+  ]
+}

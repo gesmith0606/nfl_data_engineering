@@ -1,0 +1,52 @@
+{
+  "fetch_run_id": "cc732d9c-b123-467b-b816-463a8f2a6a6b",
+  "source": "rotowire",
+  "fetched_at": "2026-06-30T12:52:40.248979+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 2,
+  "items": [
+    {
+      "external_id": "nfl631594",
+      "url": "https://www.rotowire.com//football/player/omar-cooper-19314",
+      "permalink": "",
+      "title": "Omar Cooper: Solidifying spot in three-wide sets",
+      "body_text": "Cooper was the Jets' most impressive rookie in spring practices and looks to have solidified his spot in three-receiver sets, Rich Cimini of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-29T07:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omar Cooper",
+        "Rich Cimini"
+      ],
+      "resolved_player_ids": [
+        "COO816508"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl631592",
+      "url": "https://www.rotowire.com//football/player/carnell-tate-19268",
+      "permalink": "",
+      "title": "Carnell Tate: Looked polished at OTAs",
+      "body_text": "Tate impressed with his route running and catching ability at OTAs, and teammate Alontae Taylor described the rookie fourth overall pick as \"polished,\" Turron Davenport of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-29T07:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate",
+        "Alontae Taylor",
+        "Turron Davenport"
+      ],
+      "resolved_player_ids": [
+        "TAT143045",
+        "00-0038121"
+      ],
+      "team_hint": null
+    }
+  ]
+}

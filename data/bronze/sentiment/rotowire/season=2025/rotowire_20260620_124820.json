@@ -1,0 +1,120 @@
+{
+  "fetch_run_id": "3eab6111-0da6-43b1-bab0-283548cc6313",
+  "source": "rotowire",
+  "fetched_at": "2026-06-20T12:48:20.740500+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631487",
+      "url": "https://www.rotowire.com//football/player/jordan-love-14371",
+      "permalink": "",
+      "title": "Jordan Love: Confident in young pass catchers",
+      "body_text": "Love said Thursday that the Packers still \"have some great weapons\" after losing WRs Romeo Doubs and Dontayvion Wicks this offseason, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-19T09:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Love",
+        "Romeo Doubs",
+        "Dontayvion Wicks",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0037816",
+        "00-0038393"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl631486",
+      "url": "https://www.rotowire.com//football/player/jonathan-taylor-14455",
+      "permalink": "",
+      "title": "Jonathan Taylor: Set for another huge workload?",
+      "body_text": "Colts coach Shane Steichen told reporters this offseason that it's a \"fair assessment\" to have concern about Taylor's workload, but Steichen also said it's hard to take his star running back off the field when he's playing so well, Kevin Bowen of 107.5 The Fan reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-19T08:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Shane Steichen",
+        "Kevin Bowen",
+        "The Fan"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0032373"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "nfl631485",
+      "url": "https://www.rotowire.com//football/player/jayden-daniels-17692",
+      "permalink": "",
+      "title": "Jayden Daniels: Still learning new offense",
+      "body_text": "Daniels said Wednesday that he still has a \"long way to go\" to master the schematic changes implemented by new offensive coordinator David Blough, ESPN's John Keim reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-19T07:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "David Blough",
+        "John Keim"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0035040"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631478",
+      "url": "https://www.rotowire.com//football/player/omarion-hampton-18445",
+      "permalink": "",
+      "title": "Omarion Hampton: Excited for McDaniel's system",
+      "body_text": "Hampton said Wednesday that he and the other Chargers running backs are excited to play for offensive coordinator Mike McDaniel, NFL.com's Bobby Kownack reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-18T11:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omarion Hampton",
+        "Bobby Kownack"
+      ],
+      "resolved_player_ids": [
+        "00-0040666"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl631477",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "permalink": "",
+      "title": "Rachaad White: Named as offseason standout",
+      "body_text": "Commanders coach Dan Quinn named White as one of the standout performers from OTAs and minicamp, but Quinn also cautioned that he expects multiple RBs to contribute and isn't sure if there will be a designated starter, Zach Selby of the Commanders' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-06-18T10:36:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White",
+        "Dan Quinn",
+        "Zach Selby"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "WAS"
+    }
+  ]
+}

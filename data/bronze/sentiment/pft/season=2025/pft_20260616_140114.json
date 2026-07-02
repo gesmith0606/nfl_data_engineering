@@ -1,0 +1,572 @@
+{
+  "fetch_run_id": "76db818d-c815-4f21-b9b6-b2933e87299c",
+  "source": "pft",
+  "fetched_at": "2026-06-16T14:01:14.010497+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/georgia-nebraska-launch-a-boycott-of-texas-tech-in-all-sports",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/georgia-nebraska-launch-a-boycott-of-texas-tech-in-all-sports",
+      "permalink": "",
+      "title": "Georgia, Nebraska launch a boycott of Texas Tech in all sports",
+      "body_text": "With folks throughout the college sports landscape plotting ways to punish Texas Tech for trying to ensure that its starting quarterback will be available to play in 2026 (which most college football programs would be doing), two universities have taken action.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-09T17:59:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-appeals-court-justices-in-the-brendan-sorsby-case-all-went-to-texas-tech-law-school",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-appeals-court-justices-in-the-brendan-sorsby-case-all-went-to-texas-tech-law-school",
+      "permalink": "",
+      "title": "The appeals court justices in the Brendan Sorsby case all went to Texas Tech law school",
+      "body_text": "With the NCAA on the losing end of the initial Brendan Sorsby ruling (while scoring a major P.R. win), the next round will happen in the Court of Appeals for the Seventh District of Texas.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-09T17:24:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech",
+        "Seventh District"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-ifeatu-melifonwu-worked-out-with-titans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-ifeatu-melifonwu-worked-out-with-titans",
+      "permalink": "",
+      "title": "S Ifeatu Melifonwu worked out with Titans",
+      "body_text": "The Titans are taking a look at a veteran defensive player.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-16T13:51:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ifeatu Melifonwu",
+        "Titans The"
+      ],
+      "resolved_player_ids": [
+        "00-0036993"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-tries-to-leverage-brendan-sorsby-loss-into-congressional-action",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-tries-to-leverage-brendan-sorsby-loss-into-congressional-action",
+      "permalink": "",
+      "title": "NCAA tries to leverage Brendan Sorsby loss into Congressional action",
+      "body_text": "If the NCAA had embraced collective bargaining, the Sorby case may have been decided differently.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-08T17:36:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-case-has-a-february-8-trial-date",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-case-has-a-february-8-trial-date",
+      "permalink": "",
+      "title": "Brendan Sorsby case has a February 8 trial date",
+      "body_text": "The Brendan Sorsby case will culminate in a trial.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-09T22:02:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-admits-the-brendan-sorsby-case-could-be-the-thunderbolt-moment-it-needed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-admits-the-brendan-sorsby-case-could-be-the-thunderbolt-moment-it-needed",
+      "permalink": "",
+      "title": "NCAA admits the Brendan Sorsby case could be the \"thunderbolt moment\" it needed",
+      "body_text": "The NCAA's ship is sinking.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-10T14:30:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-a-d-issues-lengthy-statement-about-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-a-d-issues-lengthy-statement-about-brendan-sorsby",
+      "permalink": "",
+      "title": "Texas Tech A.D. issues lengthy statement about Brendan Sorsby",
+      "body_text": "On Monday, a judge in Texas restored the eligibility of Texas Tech quarterback Brendan Sorsby, despite numerous violations of the NCAA's gambling rules due to a gambling addiction.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-10T18:27:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby",
+        "On Monday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texas-tech-will-sue-if-big-12-tries-to-impose-sanctions-regarding-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-texas-tech-will-sue-if-big-12-tries-to-impose-sanctions-regarding-brendan-sorsby",
+      "permalink": "",
+      "title": "Report: Texas Tech will sue, if Big 12 tries to impose sanctions regarding Brendan Sorsby",
+      "body_text": "At a time when the Big 12 is considering taking action against Texas Tech, if/when quarterback Brendan Sorsby plays in games this season, Texas Tech has a message for its conference.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-10T20:20:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-booster-cody-campbell-on-brendan-sorsby-backlash-they-dont-want-to-play-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-booster-cody-campbell-on-brendan-sorsby-backlash-they-dont-want-to-play-us",
+      "permalink": "",
+      "title": "Texas Tech booster Cody Campbell on Brendan Sorsby backlash: \"They don't want to play us\"",
+      "body_text": "The Brendan Sorsby saga has put billionaire Texas Tech booster Cody Campbell in a pickle.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T03:15:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Cody Campbell",
+        "Brendan Sorsby",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-a-g-s-office-informs-big-12-that-texas-tech-will-sue-if-sanctioned",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-a-g-s-office-informs-big-12-that-texas-tech-will-sue-if-sanctioned",
+      "permalink": "",
+      "title": "Texas A.G.'s office informs Big 12 that Texas Tech will sue, if sanctioned",
+      "body_text": "Don't mess with Texas.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-11T16:30:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-lawyer-warns-big-12-to-not-circumvent-court-order",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-lawyer-warns-big-12-to-not-circumvent-court-order",
+      "permalink": "",
+      "title": "Brendan Sorsby's lawyer warns Big 12 to not circumvent court order",
+      "body_text": "With plenty of noise coming from the Big 12 and Texas Tech regarding the conference's potential reaction to Monday's court order restoring the eligibility of quarterback Brendan Sorsby, Sorsby has gotten involved.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T00:03:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-techs-clumsy-p-r-effort-continues",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-techs-clumsy-p-r-effort-continues",
+      "permalink": "",
+      "title": "Texas Tech's clumsy P.R. effort continues",
+      "body_text": "The Brendan Sorsby situation, like most high-profile controversies, has two components: the legal side, and the P.R. side.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T16:14:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oklahoma-attorney-general-urges-big-12-to-suspend-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oklahoma-attorney-general-urges-big-12-to-suspend-brendan-sorsby",
+      "permalink": "",
+      "title": "Oklahoma attorney general urges Big 12 to suspend Brendan Sorsby",
+      "body_text": "The Brendan Sorsby case continues to provide a platform for plenty of political theatrics.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T20:33:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-believes-the-protect-college-sports-act-would-trump-brendan-sorsbys-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-believes-the-protect-college-sports-act-would-trump-brendan-sorsbys-case",
+      "permalink": "",
+      "title": "NCAA believes the \"Protect College Sports Act\" would trump Brendan Sorsby's case",
+      "body_text": "The NCAA hopes to convert one specific problem into a far broader solution.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-12T23:42:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Protect College",
+        "Sports Act",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-files-appeal-in-brendan-sorsby-case-seeks-stay-of-injunction",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaa-files-appeal-in-brendan-sorsby-case-seeks-stay-of-injunction",
+      "permalink": "",
+      "title": "NCAA files appeal in Brendan Sorsby case, seeks stay of injunction",
+      "body_text": "The legal situation around Texas Tech quarterback Brendan Sorsby is becoming more complicated.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-15T19:15:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-12-sues-texas-tech-in-federal-court-over-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-12-sues-texas-tech-in-federal-court-over-brendan-sorsby",
+      "permalink": "",
+      "title": "Big 12 sues Texas Tech in federal court over Brendan Sorsby",
+      "body_text": "Sorsby may need to revisit whether to apply for supplemental draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-15T17:13:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aldon-smiths-family-hires-lawyers-to-investigate-his-death",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aldon-smiths-family-hires-lawyers-to-investigate-his-death",
+      "permalink": "",
+      "title": "Aldon Smith's family hires lawyers to investigate his death",
+      "body_text": "In the wake of the untimely passing of former NFL defensive end Aldon Smith, a trio of lawyers has been hired to investigate the situation.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T13:22:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kayshon-boutte-precedent-could-help-brendan-sorsby-avoid-a-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kayshon-boutte-precedent-could-help-brendan-sorsby-avoid-a-suspension",
+      "permalink": "",
+      "title": "Kayshon Boutte precedent could help Brendan Sorsby avoid a suspension",
+      "body_text": "With quarterback Brendan Sorsby intending to apply for the NFL's supplemental draft, some are watching and waiting to see whether the NFL will welcome him to the ranks of professional football.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T13:05:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kayshon Boutte",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [
+        "00-0038608"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-bear-kalif-raymond-is-helping-caleb-williams-grow-as-a-leader",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-bear-kalif-raymond-is-helping-caleb-williams-grow-as-a-leader",
+      "permalink": "",
+      "title": "New Bear Kalif Raymond is helping Caleb Williams grow as a leader",
+      "body_text": "When wide receiver Kalif Raymond signed with the Bears this offseason, he said his decision ultimately came down to wanting to play for Ben Johnson, who previously coached Raymond in Detroit.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-16T12:38:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "New Bear",
+        "Kalif Raymond",
+        "Caleb Williams",
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0032464",
+        "00-0039918",
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-brendan-sorsby-case-makes-the-supplemental-draft-relevant-for-the-first-time-since-2019",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-brendan-sorsby-case-makes-the-supplemental-draft-relevant-for-the-first-time-since-2019",
+      "permalink": "",
+      "title": "The Brendan Sorsby case makes the supplemental draft relevant for the first time since 2019",
+      "body_text": "NFL last held a supplemental draft in 2023, with no one selected.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T12:31:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Brendan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/calvin-johnson-matter-of-time-before-someone-breaks-single-season-receiving-yard-record",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/calvin-johnson-matter-of-time-before-someone-breaks-single-season-receiving-yard-record",
+      "permalink": "",
+      "title": "Calvin Johnson: Matter of time before someone breaks single-season receiving yard record",
+      "body_text": "Calvin Johnson set the NFL's single-season receiving record with 1,964 yards during the 2012 season and he doesn't expect to have that spot in the record books for too much longer.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-16T10:58:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Calvin Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0025389"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-want-baker-mayfield-to-protect-himself-better-to-stay-healthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-want-baker-mayfield-to-protect-himself-better-to-stay-healthy",
+      "permalink": "",
+      "title": "Buccaneers want Baker Mayfield to protect himself better to stay healthy",
+      "body_text": "Bucs coach Todd Bowles would like to see Mayfield do more to avoid taking hits.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-16T08:44:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Todd Bowles"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-lawyer-is-already-working-to-ensure-the-nfl-doesnt-try-to-punish-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-lawyer-is-already-working-to-ensure-the-nfl-doesnt-try-to-punish-him",
+      "permalink": "",
+      "title": "Brendan Sorsby's lawyer is already working to ensure the NFL doesn't try to punish him",
+      "body_text": "When quarterback Brendan Sorsby hired attorney Jeffrey Kessler in May, the move had a dual purpose.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T04:37:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Jeffrey Kessler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-is-due-to-be-released-from-jail-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-is-due-to-be-released-from-jail-on-tuesday",
+      "permalink": "",
+      "title": "Rashee Rice is due to be released from jail on Tuesday",
+      "body_text": "Rice eventually was permitted to rehab his knees while serving 30 days.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T04:20:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice",
+        "Tuesday Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-will-not-attempt-to-recover-nil-money-paid-to-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-will-not-attempt-to-recover-nil-money-paid-to-brendan-sorsby",
+      "permalink": "",
+      "title": "Texas Tech will not attempt to recover NIL money paid to Brendan Sorsby",
+      "body_text": "Cody Campbell issues long statement regarding Sorsby's exit from Texas Tech.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T04:07:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby",
+        "Cody Campbell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-applies-for-the-nfls-supplemental-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-applies-for-the-nfls-supplemental-draft",
+      "permalink": "",
+      "title": "Brendan Sorsby applies for the NFL's supplemental draft",
+      "body_text": "With an uncertain legal picture, Sorsby bails on college football.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T00:51:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-lawsuit-will-be-dismissed-tomorrow-setting-the-stage-for-nfl-eligibility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsbys-lawsuit-will-be-dismissed-tomorrow-setting-the-stage-for-nfl-eligibility",
+      "permalink": "",
+      "title": "Brendan Sorsby's lawsuit will be dismissed tomorrow, setting the stage for NFL eligibility",
+      "body_text": "In the end, quarterback Brendan Sorsby will never play for Texas Tech.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T01:26:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-issues-statement-on-decision-to-apply-for-the-nfls-supplemental-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-issues-statement-on-decision-to-apply-for-the-nfls-supplemental-draft",
+      "permalink": "",
+      "title": "Brendan Sorsby issues statement on decision to apply for the NFL's supplemental draft",
+      "body_text": "Brendan Sorsby's college career is finished after two years at Indiana and two years at Cincinnati.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-16T02:23:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-to-meet-with-saints-on-tuesday-after-progress-in-contract-talks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-to-meet-with-saints-on-tuesday-after-progress-in-contract-talks",
+      "permalink": "",
+      "title": "Cam Jordan to meet with Saints on Tuesday after progress in contract talks",
+      "body_text": "Free agent Cam Jordan is meeting with the Saints on Tuesday to discuss a potential return, his former teammate, Terron Armstead, said on \"The Set.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-06-16T00:46:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Jordan",
+        "Terron Armstead",
+        "The Set"
+      ],
+      "resolved_player_ids": [
+        "00-0030067"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-allar-is-being-mentored-by-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-allar-is-being-mentored-by-aaron-rodgers",
+      "permalink": "",
+      "title": "Drew Allar is being mentored by Aaron Rodgers",
+      "body_text": "The Vikings reportedly shied away from Aaron Rodgers in 2025 due in part to the impact of his freelancing style on the ability of J.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T00:32:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Allar",
+        "Aaron Rodgers",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "ALL015451",
+        "00-0023459"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}

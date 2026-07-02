@@ -1,0 +1,488 @@
+{
+  "fetch_run_id": "7ba70258-4ea2-4628-9b92-ff9fd305e83b",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-02T12:47:55.416619+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-waive-db-ajani-carter-lb-xavier-thomas-off-of-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-waive-db-ajani-carter-lb-xavier-thomas-off-of-ir",
+      "title": "Texans waive DB Ajani Carter, LB Xavier Thomas off of IR",
+      "body_text": "The Texans made a pair of moves involving players on their injured reserve list on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-02T12:23:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ajani Carter",
+        "Xavier Thomas",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0040770",
+        "00-0039367"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/6-foot-9-268-pound-aussie-ben-te-kura-quits-rugby-to-pursue-nfl-career",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/6-foot-9-268-pound-aussie-ben-te-kura-quits-rugby-to-pursue-nfl-career",
+      "title": "6-foot-9, 268-pound Aussie Ben Te Kura quits rugby to pursue NFL career",
+      "body_text": "The tallest player in the history of Australia's National Rugby League is walking away to pursue an NFL career.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-02T11:19:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aussie Ben",
+        "Te Kura",
+        "National Rugby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-comcast-standoff-enters-its-third-month",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-comcast-standoff-enters-its-third-month",
+      "title": "NFL Network-Comcast standoff enters its third month",
+      "body_text": "Xfinity cable viewers still can't watch NFL Network, and won't have NFL RedZone if a deal isn't reached by Week One.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-02T08:51:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Week One"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nbc-could-try-to-get-both-english-and-spanish-rights-to-2030-world-cup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nbc-could-try-to-get-both-english-and-spanish-rights-to-2030-world-cup",
+      "title": "NBC could try to get both English and Spanish rights to 2030 World Cup",
+      "body_text": "The World Cup rights for both the English- and Spanish-language broadcasts in the U.S. will be available in 2030 to the highest bidder.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T01:38:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-millers-serious-car-accident-has-sparked-scrutiny-over-his-business-dealings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-millers-serious-car-accident-has-sparked-scrutiny-over-his-business-dealings",
+      "title": "Matt Miller's serious car accident has sparked scrutiny over his business dealings",
+      "body_text": "Last week's shocking news that ESPN draft analyst Matt Miller was involved in a serious car accident that resulted in the amputation of his left arm, along with other significant injuries, prompted an outpouring of support for him — both with words and, after his family created a GoFundMe effort, money.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T00:32:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/attorney-blaise-taylor-will-appeal-murder-verdict",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/attorney-blaise-taylor-will-appeal-murder-verdict",
+      "title": "Attorney: Blaise Taylor will appeal murder verdict",
+      "body_text": "On Wednesday, a jury convicted former Titans scout Blaise Taylor of murdering his pregnant girlfriend and her unborn child.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T00:46:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Blaise Taylor",
+        "On Wednesday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-johnson-brings-back-the-ice-bucket-challenge-for-als-research",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-johnson-brings-back-the-ice-bucket-challenge-for-als-research",
+      "title": "Chris Johnson brings back the Ice Bucket Challenge for ALS research",
+      "body_text": "Johnson is raising money to help find a cure for a horrible disease.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T00:02:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Johnson",
+        "Ice Bucket"
+      ],
+      "resolved_player_ids": [
+        "00-0035456"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jury-convicts-blaise-taylor-of-murdering-his-pregnant-girlfriend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jury-convicts-blaise-taylor-of-murdering-his-pregnant-girlfriend",
+      "title": "Jury convicts Blaise Taylor of murdering his pregnant girlfriend",
+      "body_text": "Former Titans scout Blaise Taylor has been convicted of killing Jade Benning and her unborn child.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T20:46:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Blaise Taylor",
+        "Former Titans",
+        "Jade Benning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malachi-lawrence-working-to-come-out-of-the-shadows-into-the-spotlight",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malachi-lawrence-working-to-come-out-of-the-shadows-into-the-spotlight",
+      "title": "Malachi Lawrence working to come \"out of the shadows,\" into the spotlight",
+      "body_text": "The Cowboys selected Ohio State safety Caleb Downs with the 11th overall pick.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-01T22:28:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malachi Lawrence",
+        "The Cowboys",
+        "Ohio State",
+        "Caleb Downs"
+      ],
+      "resolved_player_ids": [
+        "LAW442372",
+        "DOW662609"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-officially-waive-terrion-arnold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-officially-waive-terrion-arnold",
+      "title": "Lions officially waive Terrion Arnold",
+      "body_text": "The claiming deadline is Monday, July 6.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T20:59:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jonathan-jones-is-in-advanced-talks-to-leave-cbs-for-the-athletic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jonathan-jones-is-in-advanced-talks-to-leave-cbs-for-the-athletic",
+      "title": "Report: Jonathan Jones is in \"advanced talks\" to leave CBS for The Athletic",
+      "body_text": "In last week's lengthy article from the New York Times about Dianna Russini, the former NFL insider at The Athletic, a Times Company spokesperson said as to the possibility that The Athletic will hire a new NFL insider: “Not something I can confirm at that level of detail at this point.”",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T20:38:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Jones",
+        "The Athletic",
+        "New York",
+        "Dianna Russini",
+        "Times Company"
+      ],
+      "resolved_player_ids": [
+        "00-0032580"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-g-ed-ingram-were-doing-a-complete-180-on-the-offensive-line",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-g-ed-ingram-were-doing-a-complete-180-on-the-offensive-line",
+      "title": "Texans G Ed Ingram: We're doing a complete 180 on the offensive line",
+      "body_text": "There wasn't a lot to like about the Texans' offensive line play in 2025, but right guard Ed Ingram was able to do some good work for the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-01T19:42:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ed Ingram"
+      ],
+      "resolved_player_ids": [
+        "00-0038131"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/javonte-williams-on-new-contract-hard-work-paid-off-now-i-have-more-to-prove",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/javonte-williams-on-new-contract-hard-work-paid-off-now-i-have-more-to-prove",
+      "title": "Javonte Williams on new contract: Hard work paid off, now I have more to prove",
+      "body_text": "After running back Javonte Williams went to Dallas on a one-year, $3.5 million contract last year, he gave the Cowboys more than their money's worth, having the best season of his career with 252 carries for 1,201 yards and 11 touchdowns.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-01T18:37:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Javonte Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0036997"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-well-get-the-completion-percentage-up-make-everyone-feel-warm-and-lovely",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-well-get-the-completion-percentage-up-make-everyone-feel-warm-and-lovely",
+      "title": "Caleb Williams: We'll get the completion percentage up, make everyone feel warm and lovely",
+      "body_text": "Bears quarterback Caleb Williams did well enough in the biggest moments to lead the team to a division title and a thrilling playoff win over the Packers last season, but there are still those who feel Williams doesn't do enough in the more routine moments.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-01T17:27:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-returns-to-world-cup-action-tonight-at-levis-stadium-with-get-in-price-of-1-369",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-returns-to-world-cup-action-tonight-at-levis-stadium-with-get-in-price-of-1-369",
+      "title": "U.S. returns to World Cup action tonight at Levi's Stadium, with get-in price of $1,369",
+      "body_text": "The boys in red, white, and blue will be back in action tonight.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T16:47:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-retracts-its-latest-mike-pennel-story-admits-errors-in-the-reporting",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-retracts-its-latest-mike-pennel-story-admits-errors-in-the-reporting",
+      "title": "ESPN retracts its latest Mike Pennel story, admits \"errors\" in the reporting",
+      "body_text": "ESPN does an about-face regarding its reporting on a murder investigation in the Dominican Republic.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T14:59:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Pennel",
+        "Dominican Republic"
+      ],
+      "resolved_player_ids": [
+        "00-0030757"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-times-says-internal-investigation-of-dianna-russini-is-still-ongoing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-times-says-internal-investigation-of-dianna-russini-is-still-ongoing",
+      "title": "New York Times says internal investigation of Dianna Russini \"is still ongoing\"",
+      "body_text": "Last night's article from the New York Times acknowledging that the bodycam footage from the Dianna Russini traffic stop didn't mesh with the publication's prior characterization of it included a nugget of related news buried near the bottom.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T13:38:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New York",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/calais-campbells-brother-charged-with-murder-in-the-death-of-their-mother",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/calais-campbells-brother-charged-with-murder-in-the-death-of-their-mother",
+      "title": "Calais Campbell's brother charged with murder in the death of their mother",
+      "body_text": "Ciarre Campbell, brother of Calais Campbell, was booked early Wednesday morning in Fulton County Jail on charges of murder, aggravated assault and possession of a firearm or knife.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-01T08:44:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Calais Campbell",
+        "Ciarre Campbell",
+        "Fulton County"
+      ],
+      "resolved_player_ids": [
+        "00-0026190"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pft-has-been-with-nbc-for-17-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pft-has-been-with-nbc-for-17-years",
+      "title": "PFT has been with NBC for 17 years",
+      "body_text": "On July 1, 2009, we flipped the switch on our relationship with NBC.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T13:13:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "On July"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-want-jalen-carter-to-be-consistent-with-doing-little-things",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-want-jalen-carter-to-be-consistent-with-doing-little-things",
+      "title": "Eagles want Jalen Carter \"to be consistent with doing little things\"",
+      "body_text": "Eagles defensive tackle Jalen Carter became eligible for a contract extension this offseason and the lack of one may have contributed to his limited participation in the team's practices this spring.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-01T12:22:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-buys-out-stores-stock-of-his-jerseys-leaves-them-for-fans-to-have-for-free",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-buys-out-stores-stock-of-his-jerseys-leaves-them-for-fans-to-have-for-free",
+      "title": "DJ Moore buys out store's stock of his jerseys, leaves them for fans to have for free",
+      "body_text": "New Bills wide receiver DJ Moore hasn't wasted any time in endearing himself to fans in Buffalo.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-01T12:07:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-mcbride-on-playing-the-seahawks-their-defense-is-a-bunch-of-s-t-talkers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-mcbride-on-playing-the-seahawks-their-defense-is-a-bunch-of-s-t-talkers",
+      "title": "Trey McBride on playing the Seahawks: \"Their defense is a bunch of s—t talkers\"",
+      "body_text": "Cardinals tight end Trey McBride respects the Seahawks, but doesn't like them.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-01T10:43:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-times-reiterates-its-view-that-dianna-russinis-handling-of-traffic-stop-was-unacceptable-conduct",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-york-times-reiterates-its-view-that-dianna-russinis-handling-of-traffic-stop-was-unacceptable-conduct",
+      "title": "New York Times reiterates its view that Dianna Russini's handling of traffic stop was \"unacceptable conduct\"",
+      "body_text": "The release of the bodycam footage from the Dianna Russini traffic stop put the New York Times in an awkward position.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T03:03:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New York",
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demeco-ryans-c-j-stroud-nick-caley-communicating-much-better-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demeco-ryans-c-j-stroud-nick-caley-communicating-much-better-this-year",
+      "title": "DeMeco Ryans: C.J. Stroud, Nick Caley communicating much better this year",
+      "body_text": "Quarterback C.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-30T21:42:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Caley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-will-have-eight-open-training-camp-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-will-have-eight-open-training-camp-practices",
+      "title": "Titans will have eight open training camp practices",
+      "body_text": "The Titans will have eight open training camp practices this summer, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T21:33:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-johnsons-als-fight-has-injected-some-hope-in-tim-shaws-als-fight",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-johnsons-als-fight-has-injected-some-hope-in-tim-shaws-als-fight",
+      "title": "Chris Johnson's ALS fight has \"injected some hope\" in Tim Shaw's ALS fight",
+      "body_text": "Former Titans linebacker Tim Shaw, who was diagnosed with ALS in 2014, was teammates with running back Chris Johnson for three seasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T21:24:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Johnson",
+        "Tim Shaw",
+        "Former Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035456",
+        "00-0025551"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-and-nfl-agree-hell-be-eligible-for-2027-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-and-nfl-agree-hell-be-eligible-for-2027-draft",
+      "title": "Brendan Sorsby and NFL agree he'll be eligible for 2027 draft",
+      "body_text": "Sorsby, NFL, and NFLPA work out a settlement of his potential lawsuit against the league.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T21:10:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-i-will-focus-on-my-recovery-and-preparing-for-the-2027-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-i-will-focus-on-my-recovery-and-preparing-for-the-2027-draft",
+      "title": "Brendan Sorsby: I will focus on my recovery and preparing for the 2027 draft",
+      "body_text": "Sorsby wrote that the NFL's cancellation of the supplemental draft \"changes nothing about my recovery.\"",
+      "author": "Josh Alper",
+      "published_at": "2026-06-30T21:08:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-kyle-pitts-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-kyle-pitts-deal",
+      "title": "Inside the Kyle Pitts deal",
+      "body_text": "When Kyle Pitts was a rookie in 2021, Matt Ryan was his quarterback.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-30T20:59:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Pitts",
+        "When Kyle",
+        "Matt Ryan"
+      ],
+      "resolved_player_ids": [
+        "00-0036970",
+        "00-0026143"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nik-bonittos-goal-is-simple-be-a-better-player-than-the-previous-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nik-bonittos-goal-is-simple-be-a-better-player-than-the-previous-year",
+      "title": "Nik Bonitto's goal is simple: Be a better player than the previous year",
+      "body_text": "Broncos edge rusher Nik Bonitto was a finalist for Defensive Player of the Year, an award easily won by Myles Garrett.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T20:52:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nik Bonitto",
+        "Defensive Player",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0037249",
+        "00-0033868"
+      ],
+      "team_hint": "DEN"
+    }
+  ]
+}

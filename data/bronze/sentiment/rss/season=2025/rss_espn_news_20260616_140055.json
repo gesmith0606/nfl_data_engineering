@@ -1,0 +1,285 @@
+{
+  "fetch_run_id": "71fa27dc-0e19-44af-b844-155118000934",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-06-16T14:00:55.856930+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 18,
+  "items": [
+    {
+      "external_id": "US-EN-49074711",
+      "url": "https://www.espn.com/nfl/story/_/id/49074711/2026-nfl-supplemental-draft-brendan-sorsby-quarterback-gambling-eligibility",
+      "title": "Wait, Brendan Sorsby is now going to the NFL suppl...",
+      "body_text": "How is Sorsby suddenly in the supplemental draft? How does it work, and which teams could be interested? And what is his value after his gambling violations in college?",
+      "author": "Jeremy Fowler, Dan Graziano, Matt Miller, Max Olson, David Purdum, Jordan Reid, Ben Solak and Pete Thamel",
+      "published_at": "2026-06-16T14:26:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49081473",
+      "url": "https://www.espn.com/nfl/story/_/id/49081473/family-aldon-smith-having-brain-checked-cte",
+      "title": "Family to have Smith's brain checked for CTE",
+      "body_text": "The family of Aldon Smith has decided to send his brain to medical experts in Boston to see whether CTE played a role in the former NFL defensive lineman's death.",
+      "author": null,
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49077466",
+      "url": "https://www.espn.com/nfl/story/_/id/49077466/texas-tech-transfer-qb-brendan-sorsby-plans-enter-nfl-supplemental-draft",
+      "title": "Sources: Sorsby set to enter supplemental draft",
+      "body_text": "Amid legal wrangling over his NCAA eligibility, Texas Tech transfer quarterback Brendan Sorsby plans to apply for the NFL's supplemental draft.",
+      "author": "Pete Thamel",
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Texas Tech",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49073469",
+      "url": "https://www.espn.com/nfl/story/_/id/49073469/source-pickens-reports-ahead-cowboys-mandatory-minicamp",
+      "title": "Source: Pickens reports ahead of Cowboys' camp",
+      "body_text": "As a precursor to this week's mandatory minicamp, Dallas Cowboys wide receiver George Pickens took his physical Monday at The Star, according to a source.",
+      "author": "Todd Archer",
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Dallas Cowboys",
+        "George Pickens",
+        "The Star"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49073765",
+      "url": "https://www.espn.com/nfl/story/_/id/49073765/source-james-pearce-falcons-expected-attend-minicamp",
+      "title": "Source: Pearce with Falcons, to attend minicamp",
+      "body_text": "Falcons edge rusher James Pearce Jr. is back with the team and expected to take part in this week's minicamp, ESPN's Adam Schefter reported Monday.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "James Pearce Jr",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-49078087",
+      "url": "https://www.espn.com/nfl/story/_/id/49078087/calvin-johnson-sees-puka-nacua-top-threat-receiving-mark",
+      "title": "Megatron sees record falling, Nacua as top threat",
+      "body_text": "Calvin Johnson doesn't expect his single-season NFL record for receiving yards to last much longer. And if he had to guess, Rams star Puka Nacua will be the one to break it.",
+      "author": null,
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Calvin Johnson",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0025389",
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-49071420",
+      "url": "https://www.espn.com/nfl/story/_/id/49071420/sources-jets-guard-joe-tippmann-reach-4-year-62m-extension",
+      "title": "Sources: Jets, durable Tippmann reach $62M deal",
+      "body_text": "The Jets and right guard Joe Tippmann have agreed to a four-year, $62 million contract extension that includes $31 million in new guarantees, sources told ESPN on Monday.",
+      "author": "Rich Cimini",
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Jets",
+        "Joe Tippmann"
+      ],
+      "resolved_player_ids": [
+        "00-0039145"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-49054479",
+      "url": "https://www.espn.com/nfl/story/_/id/49054479/former-nfl-defensive-lineman-aldon-smith-dies-age-36",
+      "title": "Former defensive lineman Aldon Smith dies at 36",
+      "body_text": "Aldon Smith, who played six seasons in the NFL with the 49ers, Raiders and Cowboys, has died at age 36.",
+      "author": "Nick Wagoner",
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aldon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0027945"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49042034",
+      "url": "https://www.espn.com/nfl/story/_/id/49042034/nfl-closes-personal-conduct-review-wr-stefon-diggs",
+      "title": "NFL closes personal conduct review of WR Diggs",
+      "body_text": "The NFL has closed its review of wide receiver Stefon Diggs after determining there was insufficient evidence of a personal conduct policy violation, a league official told ESPN's Adam Schefter.",
+      "author": null,
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Diggs The",
+        "Stefon Diggs",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49033308",
+      "url": "https://www.espn.com/nfl/story/_/id/49033308/andy-reid-travis-kelce-taylor-swift-wedding-kansas-city-chiefs",
+      "title": "😐 Reid coy on Kelce-Swift wedding attendance",
+      "body_text": "According to Reid, despite being half of one of the most anticipated weddings in recent memory, Kelce is focused on training camp.",
+      "author": "Nate Taylor",
+      "published_at": "2026-06-16T14:18:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49071180",
+      "url": "https://www.espn.com/nfl/story/_/id/49071180/nfl-dallas-cowboys-brian-schottenheimer-jake-ferguson-demarvion-overshown",
+      "title": "'He feels more dangerous': What can Cowboys expect...",
+      "body_text": "After a disappointing 7-9-1 debut as head coach, Schotty is focused on learning from his mistakes to push Dallas to new heights.",
+      "author": "Todd Archer",
+      "published_at": "2026-06-16T12:47:16+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49071567",
+      "url": "https://www.espn.com/nfl/story/_/id/49071567/2026-offseason-nfl-execs-favorite-trades-signings-draft-picks-moves-waddle-garrett",
+      "title": "NFL execs choose their favorite offseason moves: W...",
+      "body_text": "We talked to sources around the NFL about their favorite moves of the offseason. The answers ranged from megadeals to a surprise draft pick.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-06-16T13:49:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-48988004",
+      "url": "https://www.espn.com/nfl/story/_/id/48988004/2026-nfl-minicamps-otas-teams-rookies-qbs-veterans-watching",
+      "title": "From QB battles to rookie progress, here's everyth...",
+      "body_text": "NFL Nation reporters frame minicamp storylines, including those surrounding George Pickens, Bo Nix and the QBs in Atlanta.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-16T13:49:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "George Pickens",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0039732"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-FFDraftGuide26-48677635",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFDraftGuide26-48677635/2026-fantasy-football-rankings-mock-draft-cheat-sheets-sleepers",
+      "title": "2026 Fantasy Football Draft Guide: Rankings, mock drafts and analysis",
+      "body_text": "Your one-stop shop as you prep for draft season, including rankings, projections and analysis.",
+      "author": "Fantasy staff",
+      "published_at": "2026-06-16T13:39:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fantasy Football",
+        "Draft Guide"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49041440",
+      "url": "https://www.espn.com/nfl/story/_/id/49041440/las-vegas-raiders-rookie-quarterback-fernando-mendoza-first-impressions-2026-otas",
+      "title": "Raiders players' first impressions of QB Fernando ...",
+      "body_text": "We asked players and coaches about their first impressions of the Raiders' rookie and No. 1 pick during OTAs.",
+      "author": "Ryan McFadden",
+      "published_at": "2026-06-15T19:27:17+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "US-EN-49030490",
+      "url": "https://www.espn.com/nfl/story/_/id/49030490/fifa-world-cup-grass-nfl-stadiums-debate-field-surface",
+      "title": "World Cup only amplifies NFL players' desire for a...",
+      "body_text": "The World Cup is the latest proof of concept that it's possible to have grass fields in all 30 NFL stadiums, even the domes. But obstacles remain from keeping it full time.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-06-13T21:59:32+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "World Cup",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49009790",
+      "url": "https://www.espn.com/nfl/story/_/id/49009790/nfl-players-world-cup-golden-boot-predictions-france-kylian-mbappe",
+      "title": "Can the U.S. win it all? NFL players make World Cu...",
+      "body_text": "We asked 29 NFL players to weigh in on who would win the Golden Boot and World Cup.",
+      "author": "Rich Cimini",
+      "published_at": "2026-06-13T21:59:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Golden Boot",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49001685",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/49001685/nfl-draft-2027-top-five-every-position-players-watch",
+      "title": "Way-too-early NFL draft rankings for 2027: The top...",
+      "body_text": "The NFL draft is a long way off, but Matt Miller and Jordan Reid ranked the five best prospects at every position. How do the top QBs, OTs, CBs and more stack up?",
+      "author": "Matt Miller and Jordan Reid",
+      "published_at": "2026-06-16T13:49:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Matt Miller",
+        "Jordan Reid"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

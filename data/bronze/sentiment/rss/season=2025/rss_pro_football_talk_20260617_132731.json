@@ -1,0 +1,487 @@
+{
+  "fetch_run_id": "f4a4ad38-8c83-4f14-9549-94f5b0e47680",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-06-17T13:27:31.383690+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-will-hold-10-open-practices-at-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-will-hold-10-open-practices-at-training-camp",
+      "title": "Falcons will hold 10 open practices at training camp",
+      "body_text": "The Falcons have announced their plans for this summer's training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-17T13:17:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/official-tv-audience-for-u-s-world-cup-opener-hits-27-5-million-a-new-record",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/official-tv-audience-for-u-s-world-cup-opener-hits-27-5-million-a-new-record",
+      "title": "Official TV audience for U.S. World Cup opener hits 27.5 million, a new record",
+      "body_text": "When it comes to TV numbers, the official figure usually ends up being higher than the preliminary one.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T12:42:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-rookie-qb-cade-klubnik-missed-another-practice-with-back-soreness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-rookie-qb-cade-klubnik-missed-another-practice-with-back-soreness",
+      "title": "Jets rookie QB Cade Klubnik missed another practice with back soreness",
+      "body_text": "The Jets went into Organized Team Activities wanting to see what rookie quarterback Cade Klubnik could do.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-17T12:30:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cade Klubnik",
+        "The Jets",
+        "Organized Team"
+      ],
+      "resolved_player_ids": [
+        "KLU066027"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-a-couple-of-bumps-with-contract-but-wanted-to-play-whole-career-with-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-a-couple-of-bumps-with-contract-but-wanted-to-play-whole-career-with-saints",
+      "title": "Cam Jordan: A couple of bumps with contract, but wanted to play whole career with Saints",
+      "body_text": "Defensive end Cam Jordan officially returned to the Saints on Tuesday by signing a one-year deal that he indicated will be his final contract as an NFL player.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-17T10:57:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Jordan",
+        "Saints Defensive"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-pushes-back-on-talk-that-he-needs-to-do-more-to-protect-himself-from-hits",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-pushes-back-on-talk-that-he-needs-to-do-more-to-protect-himself-from-hits",
+      "title": "Baker Mayfield pushes back on talk that he needs to do more to protect himself from hits",
+      "body_text": "\"I've started every single game last year — for the three years,\" Mayfield said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-06-17T08:04:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-vita-veas-non-participation-in-minicamp-is-contract-related",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-vita-veas-non-participation-in-minicamp-is-contract-related",
+      "title": "Report: Vita Vea's non-participation in minicamp is \"contract-related\"",
+      "body_text": "Buccaneers defensive tackle Vita Vea is attending the team's mandatory minicamp, avoiding a $107,911 fine for missing all three days.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-17T01:17:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vita Vea"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-nflpa-support-the-protect-college-sports-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-nflpa-support-the-protect-college-sports-act",
+      "title": "NFL, NFLPA support the \"Protect College Sports Act\"",
+      "body_text": "As the \"Protect College Sports Act\" makes its way through the Senate, the NFL has chimed in.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T00:50:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Protect College",
+        "Sports Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-bradshaw-has-no-intention-to-retire",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-bradshaw-has-no-intention-to-retire",
+      "title": "Terry Bradshaw has no intention to retire",
+      "body_text": "Hall of Fame quarterback and Fox analyst Terry Bradshaw is 77.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T00:38:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terry Bradshaw"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathon-coopers-lawyer-has-strong-reaction-to-dropping-of-charges-against-coopers-girlfriend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathon-coopers-lawyer-has-strong-reaction-to-dropping-of-charges-against-coopers-girlfriend",
+      "title": "Jonathon Cooper's lawyer has strong reaction to dropping of charges against Cooper's girlfriend",
+      "body_text": "When Broncos linebacker Jonathan Cooper was recently arrested, his girlfriend was, too.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-17T00:23:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathon Cooper",
+        "When Broncos",
+        "Jonathan Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0036952",
+        "00-0030590"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-better-or-worse-nick-sirianni-is-always-authentic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-better-or-worse-nick-sirianni-is-always-authentic",
+      "title": "For better or worse, Nick Sirianni is always authentic",
+      "body_text": "Every once in a while, Nick Sirianni has the demeanor of a fan who has won a contest to be the head coach for a day.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T23:49:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-extension-jalen-coker-is-hoping-for-eight-more-years-in-carolina",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-extension-jalen-coker-is-hoping-for-eight-more-years-in-carolina",
+      "title": "After extension, Jalen Coker is hoping for eight more years in Carolina",
+      "body_text": "Jalen Coker entered the NFL as an undrafted rookie in 2024 and put together two seasons worthy of a contract extension.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-16T23:45:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Coker",
+        "Carolina Jalen"
+      ],
+      "resolved_player_ids": [
+        "00-0039491"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-is-due-to-be-released-from-jail-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-is-due-to-be-released-from-jail-on-tuesday",
+      "title": "Rashee Rice is due to be released from jail on Tuesday",
+      "body_text": "Rice eventually was permitted to rehab his knees while serving 30 days.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T04:20:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashee Rice",
+        "Tuesday Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-released-from-jail-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-released-from-jail-on-tuesday",
+      "title": "Rashee Rice released from jail on Tuesday",
+      "body_text": "Chiefs receiver Rashee Rice has been released from jail in Texas.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-16T15:21:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashee Rice",
+        "Tuesday Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-officially-applies-for-the-supplemental-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-officially-applies-for-the-supplemental-draft",
+      "title": "Brendan Sorsby officially applies for the supplemental draft",
+      "body_text": "As expected, Sorsby pursues a path to pro football.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T22:57:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-has-positive-jealousy-about-the-knicks-winning-the-nba-title",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-has-positive-jealousy-about-the-knicks-winning-the-nba-title",
+      "title": "Breece Hall has \"positive jealousy\" about the Knicks winning the NBA title",
+      "body_text": "Running back Breece Hall is in New Jersey for the Jets' minicamp this week, but he took some time out of preparing for the 2026 season by taking a trip to San Antonio for Game 5 of the NBA Finals last weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-16T22:28:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Breece Hall",
+        "New Jersey",
+        "San Antonio"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-on-brendan-sorsby-the-most-important-thing-is-what-he-does-from-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-on-brendan-sorsby-the-most-important-thing-is-what-he-does-from-here",
+      "title": "Andrew Berry on Brendan Sorsby: The most important thing is what he does from here",
+      "body_text": "When asked recently about the possibility of adding quarterback Brendan Sorsby in the supplemental draft, Browns head coach Todd Monken was clear on his stance.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-16T14:38:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andrew Berry",
+        "Brendan Sorsby",
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-tentatively-sets-pro-day-for-july-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-tentatively-sets-pro-day-for-july-10",
+      "title": "Brendan Sorsby tentatively sets Pro Day for July 10",
+      "body_text": "Set to apply for the NFL supplemental draft, QB Brendan Sorsby also has a place and time to work out for the league's 32 teams.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-16T18:45:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby",
+        "Pro Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cincinnati-coach-scott-satterfield-has-been-hearing-from-nfl-teams-about-brendan-sorsby",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cincinnati-coach-scott-satterfield-has-been-hearing-from-nfl-teams-about-brendan-sorsby",
+      "title": "Cincinnati coach Scott Satterfield has been hearing from NFL teams about Brendan Sorsby",
+      "body_text": "With quarterback Brendan Sorsby heading to the NFL (if the NFL lets him into the supplemental draft), the question becomes whether he'll be drafted and, if so, the round in which he'll be selected.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T19:57:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Scott Satterfield",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-wont-have-union-protection-until-he-signs-a-contract-or-is-drafted",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brendan-sorsby-wont-have-union-protection-until-he-signs-a-contract-or-is-drafted",
+      "title": "Brendan Sorsby won't have union protection until he signs a contract or is drafted",
+      "body_text": "At the college level, quarterback Brendan Sorsby had no protection from a union.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T20:59:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ladd-mcconkey-dealing-with-hamstring-injury-expects-to-be-ready-for-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ladd-mcconkey-dealing-with-hamstring-injury-expects-to-be-ready-for-camp",
+      "title": "Ladd McConkey dealing with hamstring injury, expects to be ready for camp",
+      "body_text": "Justin Herbert will be throwing passes during all of the Chargers' minicamp practices this week, but wide receiver Ladd McConkey isn't going to be catching many of them.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-16T22:09:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-chris-olave-will-get-off-blood-thinners-on-june-29",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-chris-olave-will-get-off-blood-thinners-on-june-29",
+      "title": "Report: Chris Olave will get off blood thinners on June 29",
+      "body_text": "Saints wide receiver Chris Olave has not played or fully practiced since Week 17 of last season.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-16T22:00:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Olave"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fox-is-frustrated-by-lack-of-world-cup-coverage-by-espn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fox-is-frustrated-by-lack-of-world-cup-coverage-by-espn",
+      "title": "Fox is \"frustrated\" by lack of World Cup coverage by ESPN",
+      "body_text": "The World Cup is up and running, in 11 NFL stadiums.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T21:44:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-place-joe-tryon-shoyinka-on-reserve-retired-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-place-joe-tryon-shoyinka-on-reserve-retired-list",
+      "title": "Eagles place Joe Tryon-Shoyinka on reserve/retired list",
+      "body_text": "A former first-round pick is hanging up his cleats.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-16T21:14:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Tryon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/construction-workers-death-halts-work-on-broncos-training-facility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/construction-workers-death-halts-work-on-broncos-training-facility",
+      "title": "Construction worker's death halts work on Broncos' training facility",
+      "body_text": "Turner Construction has suspended work on the Broncos' new training facility as police investigate the death of a worker.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-16T20:57:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Turner Construction"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-wards-accuracy-isnt-a-concern-every-qb-misses-a-couple",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-wards-accuracy-isnt-a-concern-every-qb-misses-a-couple",
+      "title": "Robert Saleh: Cam Ward's accuracy isn't a concern, every QB misses a couple",
+      "body_text": "Titans quarterback Cam Ward hasn't always been his sharpest at OTA practices while learning the team's new offense this spring, but missed passes aren't a concern for the guys calling the shots on the coaching staff.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-16T20:43:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Saleh",
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-big-10-have-concerns-with-current-version-of-protect-college-sports-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-big-10-have-concerns-with-current-version-of-protect-college-sports-act",
+      "title": "SEC, Big Ten have concerns with current version of \"Protect College Sports Act\"",
+      "body_text": "The NCAA ended up having it both ways in the Brendan Sorsby case.",
+      "author": "Mike Florio",
+      "published_at": "2026-06-16T20:38:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Big Ten",
+        "Protect College",
+        "Sports Act",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-make-official-the-signings-of-ufl-players-kaden-davis-tony-fields-ii",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-make-official-the-signings-of-ufl-players-kaden-davis-tony-fields-ii",
+      "title": "Bears make official the signings of UFL players Kaden Davis, Tony Fields II",
+      "body_text": "The Bears made official the signings of former UFL players Kaden Davis and Tony Fields II.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-16T20:34:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kaden Davis",
+        "Tony Fields II",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0037380",
+        "00-0036634"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-i-could-be-full-go-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-i-could-be-full-go-right-now",
+      "title": "Bo Nix: I could be full go right now",
+      "body_text": "The Broncos targeted this week's minicamp as a moment for quarterback Bo Nix to take on more of a role in practice as he continues to work his way back from a fractured ankle and that came to fruition on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-06-16T20:29:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-on-playing-on-tag-trying-to-win-a-super-bowl-is-most-important-to-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-on-playing-on-tag-trying-to-win-a-super-bowl-is-most-important-to-me",
+      "title": "George Pickens on playing on tag: Trying to win a Super Bowl is most important to me",
+      "body_text": "The Pro Bowl wideout insists he is not disappointed at the absence of a long-term deal.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-16T20:07:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens",
+        "Super Bowl",
+        "The Pro"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-baylor-qb-sawyer-robertson-trying-out-for-broncos-at-minicamp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-baylor-qb-sawyer-robertson-trying-out-for-broncos-at-minicamp",
+      "title": "Former Baylor QB Sawyer Robertson trying out for Broncos at minicamp",
+      "body_text": "The Broncos have brought in several tryout players for their mandatory minicamp, one of whom is an intriguing prospect at quarterback.",
+      "author": "Myles Simmons",
+      "published_at": "2026-06-16T20:07:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Baylor",
+        "Sawyer Robertson",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    }
+  ]
+}

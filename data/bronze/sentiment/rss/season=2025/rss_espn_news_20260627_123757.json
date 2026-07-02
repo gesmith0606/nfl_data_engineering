@@ -1,0 +1,309 @@
+{
+  "fetch_run_id": "653489f9-3f26-41fc-ba6b-77a9260a6171",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-06-27T12:37:57.312918+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 20,
+  "items": [
+    {
+      "external_id": "US-EN-49157628",
+      "url": "https://www.espn.com/nfl/story/_/id/49157628/nfl-nfc-west-49ers-seahawks-rams-cardinals-2026-season",
+      "title": "NFC West roundtable: Which team is the biggest thr...",
+      "body_text": "The Seahawks, Rams, 49ers and Cardinals all had offseasons to remember. Answering five questions ahead of 2026.",
+      "author": "Brady Henderson and Sarah Barshop and Josh Weinfuss and Nick Wagoner",
+      "published_at": "2026-06-27T12:20:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-49188893",
+      "url": "https://www.espn.com/college-football/story/_/id/49188893/cfl-says-brendan-sorsby-allowed-join-league",
+      "title": "CFL won't allow Brendan Sorsby to join league",
+      "body_text": "The CFL says quarterback Brendan Sorsby will not be allowed to join any of its teams for the upcoming season.",
+      "author": null,
+      "published_at": "2026-06-27T12:21:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49180059",
+      "url": "https://www.espn.com/nfl/story/_/id/49180059/parents-allege-excessive-force-death-ex-nfl-player-martin",
+      "title": "Excessive force alleged in death of ex-RB Martin",
+      "body_text": "The parents of former All-Pro NFL running back Doug Martin say excessive force by police and delayed medical care led to his death last year, according to a wrongful death lawsuit.",
+      "author": null,
+      "published_at": "2026-06-27T12:21:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Martin The",
+        "Doug Martin"
+      ],
+      "resolved_player_ids": [
+        "00-0029613"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49178216",
+      "url": "https://www.espn.com/nfl/story/_/id/49178216/prosecutors-argue-lions-arnold-jailed-trial",
+      "title": "Prosecutors want Lions' Arnold jailed until trial",
+      "body_text": "Lions cornerback Terrion Arnold, who is facing felony charges of armed robbery and kidnapping, appeared at a hearing Thursday in Tampa, Florida, and was ordered held without bail until a pretrial detention hearing scheduled for Monday morning.",
+      "author": null,
+      "published_at": "2026-06-27T12:21:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49176534",
+      "url": "https://www.espn.com/nfl/story/_/id/49176534/caleb-williams-attempt-trademark-iceman-initially-refused",
+      "title": "QB Williams' attempt to trademark 'Iceman' denied",
+      "body_text": "The United States Patent and Trademark Office has initially refused Caleb Williams' application for \"Iceman,\" according to USPTO records.",
+      "author": "Michael Rothstein",
+      "published_at": "2026-06-27T12:21:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The United",
+        "States Patent",
+        "Trademark Office",
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49178055",
+      "url": "https://www.espn.com/nfl/story/_/id/49178055/nfl-releases-dates-details-2027-nfl-draft-washington",
+      "title": "2027 NFL draft to be held April 29-May 1 in D.C.",
+      "body_text": "The NFL announced dates and details on Thursday for the 2027 NFL draft to be held in Washington, D.C.",
+      "author": null,
+      "published_at": "2026-06-27T12:21:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49168245",
+      "url": "https://www.espn.com/nfl/story/_/id/49168245/aiyuk-49ers-cut-sign-commanders-tomorrow",
+      "title": "Aiyuk: I'll sign with Commanders if 49ers cut me",
+      "body_text": "Brandon Aiyuk continued his push to become a member of the Commanders, saying in a video posted to Instagram that if the 49ers release him, he will sign with Washington \"tomorrow.\"",
+      "author": null,
+      "published_at": "2026-06-27T12:21:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-49167201",
+      "url": "https://www.espn.com/nfl/story/_/id/49167201/jaguars-brenton-strange-agree-3-year-deal-worth-48m",
+      "title": "Jaguars, TE Strange agree to 3-year extension",
+      "body_text": "The Jaguars and tight end Brenton Strange have agreed to terms on a three-year extension worth up to $48 million and including $25 million guaranteed.",
+      "author": "Michael Dirocco",
+      "published_at": "2026-06-27T12:21:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Jaguars",
+        "Brenton Strange"
+      ],
+      "resolved_player_ids": [
+        "00-0038935"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "US-EN-49154427",
+      "url": "https://www.espn.com/nfl/story/_/id/49154427/cops-investigate-jets-qb-geno-smith-battery-accusation",
+      "title": "Cops look at battery claim against Jets QB Smith",
+      "body_text": "Jets quarterback Geno Smith is being investigated by police for an incident in which a woman accused him of battery.",
+      "author": "Rich Cimini",
+      "published_at": "2026-06-27T12:21:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Smith Jets",
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-49108128",
+      "url": "https://www.espn.com/nfl/story/_/id/49108128/nfl-2026-biggest-surprise-players-every-team-offseason",
+      "title": "🏈 The biggest surprise players on all 32 teams",
+      "body_text": "From rookies to veterans, here are the players who have made an early impression on every NFL team ahead of training camp.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-27T12:21:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49166861",
+      "url": "https://www.espn.com/nfl/story/_/id/49166861/new-nfl-coordinators-offense-defense-questions-2026-season-cowboys-bills-commanders",
+      "title": "New teams, different schemes: 10 new NFL coordinat...",
+      "body_text": "Ben Solak identifies 10 new coordinators with a lot at stake this season, including the man tasked with repairing the Cowboys' defense.",
+      "author": "Ben Solak",
+      "published_at": "2026-06-26T12:47:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ben Solak"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49154825",
+      "url": "https://www.espn.com/nfl/story/_/id/49154825/ranking-nfl-teams-offensive-groups-wr-rb-te-2026-season-best-playmakers",
+      "title": "Barnwell’s annual ranking of 32 NFL playmaker core...",
+      "body_text": "Which teams have the best skill position talent around their QB and offensive line? We stacked all 32 groups of pass catchers and ball carriers from worst to first.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-06-25T15:16:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49177703",
+      "url": "https://www.espn.com/nfl/story/_/id/49177703/three-quotes-sum-joe-burrow-offseason-bengals",
+      "title": "Three quotes that sum up the offseason for Bengals...",
+      "body_text": "The Bengals quarterback is optimistic his team's offseason moves will pay off.",
+      "author": "Ben Baby",
+      "published_at": "2026-06-26T12:44:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-49156810",
+      "url": "https://www.espn.com/nfl/story/_/id/49156810/jacksonville-jaguars-qb-trevor-lawrence-best-spring-career",
+      "title": "Copy of More deep balls from Trevor Lawrence? Why Jaguars ...",
+      "body_text": "Jacksonville's franchise QB picked up right where he left off last season. Here's how he looked this spring.",
+      "author": "Michael DiRocco",
+      "published_at": "2026-06-26T12:51:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Trevor Lawrence",
+        "Why Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Fantasy buzz: Was Trevor Lawrence's late-season su...",
+      "body_text": "Trevor Lawrence played particularly well late last season. Another jump could be coming in 2026.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-06-26T12:51:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Was Trevor",
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49153923",
+      "url": "https://www.espn.com/nfl/story/_/id/49153923/2026-nfl-contract-extensions-signings-negotiations-all-32-teams",
+      "title": "What we're hearing on 32 NFL contract negotiations...",
+      "body_text": "Our reporters have the latest buzz on 32 contract extension candidates -- one from every team -- and their potential new deals.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-25T13:21:16+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49155446",
+      "url": "https://www.espn.com/nfl/story/_/id/49155446/brendan-sorsby-supplemental-nfl-draft-declined",
+      "title": "Sorsby is not going to the NFL? What's next for th...",
+      "body_text": "What's next for Brendan Sorsby with no NFL supplemental draft? Could he return to college? Here's what to know.",
+      "author": "Dan Graziano, Max Olson, David Purdum, Ben Solak",
+      "published_at": "2026-06-24T16:07:41+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49144628",
+      "url": "https://www.espn.com/nfl/story/_/id/49144628/2026-nfl-offseason-judging-overreactions-takeaways-signings-draft-trades",
+      "title": "Now or never for Burrow! Make-or-break year for St...",
+      "body_text": "Do the Bengals have their best shot at a Super Bowl? Could the Texans pass on an extension for C.J. Stroud? We're sizing up five offseason overreactions.",
+      "author": "Dan Graziano",
+      "published_at": "2026-06-24T04:29:14+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-49178691",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49178691/2026-fantasy-football-rankings-projections-more-touchdowns-td",
+      "title": "Burden III among 11 players that will score more T...",
+      "body_text": "Mike Clay gives his annual list of players he expects to find the end zone more often this season.",
+      "author": "Mike Clay",
+      "published_at": "2026-06-26T17:20:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Clay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49179383",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49179383/2026-fantasy-football-rankings-projections-less-touchdowns-td",
+      "title": "Jonathan Taylor among 12 players who will score fe...",
+      "body_text": "Mike Clay gives his annual list of players he expects to reach the end zone less often this season.",
+      "author": "Mike Clay",
+      "published_at": "2026-06-26T17:20:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Mike Clay"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": null
+    }
+  ]
+}
