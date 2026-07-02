@@ -82,15 +82,19 @@ jobs:
       # here is exactly the staleness this workflow exists to prevent.
       # ----------------------------------------------------------------
       - name: Ingest schedules
+        env:
+          SEASON: ${{ steps.season.outputs.season }}
         run: |
           python scripts/bronze_ingestion_simple.py \
-            --season ${{ steps.season.outputs.season }} \
+            --season "$SEASON" \
             --data-type schedules
 
       - name: Ingest depth charts
+        env:
+          SEASON: ${{ steps.season.outputs.season }}
         run: |
           python scripts/bronze_ingestion_simple.py \
-            --season ${{ steps.season.outputs.season }} \
+            --season "$SEASON" \
             --data-type depth_charts
 
       # ----------------------------------------------------------------
@@ -142,16 +146,16 @@ jobs:
                 echo "Pushed $COUNT reference data files (attempt $attempt)"
                 break
               fi
+              if [ "$attempt" = "3" ]; then
+                echo "::error::Push rejected 3 times — bailing"
+                exit 1
+              fi
               echo "Push attempt $attempt rejected; rebasing onto origin/main..."
               git fetch origin main
               git rebase origin/main || {
                 echo "::error::Rebase conflict on reference data commit — manual intervention required"
                 exit 1
               }
-              if [ "$attempt" = "3" ]; then
-                echo "::error::Push rejected 3 times after rebase — bailing"
-                exit 1
-              fi
             done
           fi
 
