@@ -2,9 +2,10 @@
  * Season phase helper — drives the phase-aware module on the home hub.
  *
  * NFL calendar (US):
- *   - Regular season + playoffs run early September through early February.
+ *   - Regular season + playoffs run early September through the Super Bowl
+ *     window (Feb 1-15).
  *   - Draft-prep ramp is July–August (rankings, mocks, preseason projections).
- *   - Everything else (February–June) is quiet offseason.
+ *   - Late February through June is quiet offseason.
  *
  * Deliberately date-only and dependency-free so it can run on the server at
  * request time or on the client without a hydration mismatch.
@@ -16,9 +17,12 @@ export function getSeasonPhase(date: Date = new Date()): SeasonPhase {
   const month = date.getMonth(); // 0 = January
   // September(8)–December(11) and January(0): games are played / graded.
   if (month >= 8 || month === 0) return 'in-season';
+  // Super Bowl lands the first or second Sunday of February — keep the
+  // in-season surface up through mid-month.
+  if (month === 1 && date.getDate() <= 15) return 'in-season';
   // July(6)–August(7): draft season.
   if (month === 6 || month === 7) return 'draft-prep';
-  // February(1)–June(5): quiet.
+  // Late February(1)–June(5): quiet.
   return 'offseason';
 }
 

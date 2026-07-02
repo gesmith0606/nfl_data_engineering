@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import PageContainer from '@/components/layout/page-container';
 import { OverviewStatCards } from '@/features/nfl/components/stat-cards';
 import { MAEByPositionChart } from '@/features/nfl/components/mae-chart';
@@ -53,10 +51,9 @@ export default function Dashboard() {
         </FadeIn>
 
         {/* Model's Picks — top edges from the latest predictions week. Self-
-            collapses (offseason / backend down) so it never breaks the page. */}
-        <Suspense fallback={null}>
-          <ModelsPicks />
-        </Suspense>
+            collapses (offseason / backend down) so it never breaks the page,
+            and renders its own skeleton while loading. */}
+        <ModelsPicks />
 
         {/* Phase-aware "what to do now" tiles (draft-prep in July). */}
         <FadeIn delay={0.12} rise={6}>

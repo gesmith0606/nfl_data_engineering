@@ -142,6 +142,7 @@ export function ModelsPicks() {
   }
 
   const picks = [...(predQuery.data?.predictions ?? [])]
+    .filter((p) => topEdge(p) > 0)
     .sort((a, b) => topEdge(b) - topEdge(a))
     .slice(0, 3);
 

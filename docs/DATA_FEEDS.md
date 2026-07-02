@@ -56,7 +56,7 @@ The core stat refresh, timed after MNF concludes. Week auto-computed (dispatch i
 | ESPN QBR weekly | ESPN via nflverse | season (current + prior) | fail-open (2024+ gap upstream) |
 | PBP + participation | nflverse | season (current + prior) | fail-open, 25-min step timeout |
 
-Downstream in the same run: Silver player/advanced/graph transforms → Gold `generate_projections.py --ml` (v4.3 hybrid) with `check_ml_output.py` validation and heuristic fallback + escalation issue on ML failure → previous-week grading report → `sanity_check_projections.py --all` + `check_pipeline_health.py`. Failure opens a GitHub issue (`pipeline-failure` label).
+Downstream in the same run: Silver player/advanced/graph transforms → Gold `generate_projections.py --ml` (v4.3 hybrid) with `check_ml_output.py` validation and heuristic fallback + escalation issue on ML failure → previous-week grading report (uploaded as a run artifact) → `sanity_check_projections.py --all` (blocking) → **Gold projections committed to main** (local-first since 2026-07-02; Railway/HF serve committed parquet). The S3 health check is a fail-open optional-mirror check — S3 uploads self-reactivate if AWS secrets are restored (`has_aws` guard in the scripts). Failure opens a GitHub issue (`pipeline-failure` label).
 
 ### weekly-external-projections.yml — Tue 14:00 UTC + Sun 12:00 UTC
 
@@ -188,7 +188,7 @@ ESPN live draft: **NO-GO** (Phase 89) — no API exists; `espn_adapter.py` is ga
 
 Open:
 
-- **weekly-pipeline blocked on AWS credentials — NEEDS USER ACTION.** Discovered 2026-07-02: all four June scheduled runs failed at `configure-aws-credentials` ("Could not load credentials from any providers") before any ingestion ran, and the failures were silent because the workflow had no `issues: write` permission (fixed 2026-07-02 — future failures will open issues). Fix requires either setting valid `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` repo secrets or converting the workflow to the local-first + git-commit pattern the other workflows use. Target: August dress rehearsal at the latest.
+- **S3 mirroring inactive** (downgraded from blocker, 2026-07-02): weekly-pipeline was converted to local-first + git-commit after all four June runs died silently at the missing/expired AWS credentials (discovery also fixed the workflow's missing `issues: write` permission — failures now open issues). Gold serves from committed parquet; S3 uploads self-reactivate if valid `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` secrets are ever restored — optional, no workflow change needed.
 - **ESPN QBR 2024+ missing upstream** (nflverse gap) — re-verified 2026-07-01 (`import_qbr` returns 0 rows for 2024 and 2025); nothing actionable on our side, models handle NaN. Re-check occasionally.
 - **FTN rankings empty until Ratcliffe submits 2026 ranks** (~Jul–Aug) — by design, not a defect; auto-populates via the daily refresh the day his board drops.
 

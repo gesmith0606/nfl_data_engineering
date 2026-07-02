@@ -841,3 +841,24 @@ def get_s3_path(
         base_path += f"week={week}/"
 
     return base_path
+
+
+# ---------------------------------------------------------------------------
+# Double-import guard (GH issue #10).
+#
+# This module is imported two ways across the codebase: `from src.config
+# import ...` (scripts/web with the repo root on sys.path) and bare
+# `from config import ...` (src-internal modules, with src/ on sys.path).
+# Without this guard Python executes the file twice and registers two
+# DISTINCT module objects — harmless while config is read-only constants,
+# but any future runtime mutation would silently diverge between them.
+# Registering both names against whichever instance loaded first collapses
+# the two paths to a single module object.
+# ---------------------------------------------------------------------------
+import sys as _sys  # noqa: E402
+
+_this_module = _sys.modules[__name__]
+for _alias in ("config", "src.config"):
+    _sys.modules.setdefault(_alias, _this_module)
+if "src" in _sys.modules and getattr(_sys.modules["src"], "config", None) is None:
+    _sys.modules["src"].config = _this_module
