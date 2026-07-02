@@ -148,8 +148,8 @@ def _available_seasons() -> List[int]:
     return sorted(seasons)
 
 
-def _load_pfr_def(season: int) -> Tuple[Optional[pd.DataFrame], Optional[int]]:
-    """Latest PFR seasonal-def parquet for *season*, walking back when absent."""
+def _resolve_pfr_def_path(season: int) -> Tuple[Optional[Path], Optional[int]]:
+    """Latest PFR seasonal-def parquet path for *season*, walking back when absent."""
     seasons = _available_seasons()
     ordered = [s for s in seasons if s <= season][::-1] + [
         s for s in seasons if s > season
@@ -157,12 +157,8 @@ def _load_pfr_def(season: int) -> Tuple[Optional[pd.DataFrame], Optional[int]]:
     for candidate in ordered:
         pattern = str(_PFR_DEF_ROOT / f"season={candidate}" / "*.parquet")
         matches = sorted(glob.glob(pattern))
-        if not matches:
-            continue
-        df = pd.read_parquet(matches[-1])
-        if df.empty:
-            continue
-        return df, candidate
+        if matches:
+            return Path(matches[-1]), candidate
     return None, None
 
 
@@ -200,22 +196,35 @@ _GROUP_WEIGHTS: Dict[str, Dict[str, float]] = {
 }
 
 
+def _stat(row: pd.Series, col: str, fmt: str = "{:.0f}", scale: float = 1.0) -> str:
+    """NaN-safe stat formatter for tooltip strings — '—' when missing.
+
+    PFR leaves coverage columns (rat, cmp_percent, yds_tgt) null for
+    low-target players; ``"{:.0f}".format(nan)`` renders the literal string
+    'nan' and ``int(nan)`` raises, so every column access must be guarded.
+    """
+    val = row.get(col)
+    if val is None or pd.isna(val):
+        return "—"
+    return fmt.format(float(val) * scale)
+
+
 def _detail_for_row(row: pd.Series, group: str) -> str:
     """Compact human-readable basis for the rating (surfaces in UI tooltips)."""
-    g = int(row["g"]) if pd.notna(row["g"]) else 0
+    g = int(row["g"]) if pd.notna(row.get("g")) else 0
     if group == "RUSH":
         return (
-            f"{row['sk']:.1f} sacks, {int(row['prss'])} pressures, "
-            f"{int(row['comb'])} tackles in {g} games"
+            f"{_stat(row, 'sk', '{:.1f}')} sacks, {_stat(row, 'prss')} pressures, "
+            f"{_stat(row, 'comb')} tackles in {g} games"
         )
     if group == "LB":
         return (
-            f"{int(row['comb'])} tackles, {row['sk']:.1f} sacks, "
-            f"{row['rat']:.0f} rating allowed in {g} games"
+            f"{_stat(row, 'comb')} tackles, {_stat(row, 'sk', '{:.1f}')} sacks, "
+            f"{_stat(row, 'rat')} rating allowed in {g} games"
         )
     return (
-        f"{row['rat']:.0f} rating allowed, {int(row['int'])} INT, "
-        f"{row['cmp_percent'] * 100:.0f}% completions in {g} games"
+        f"{_stat(row, 'rat')} rating allowed, {_stat(row, 'int')} INT, "
+        f"{_stat(row, 'cmp_percent', '{:.0f}%', scale=100)} completions in {g} games"
     )
 
 
@@ -306,7 +315,6 @@ def _compute_ratings(df: pd.DataFrame) -> pd.DataFrame:
     return rated[["name_key", "team", "all_teams", "group", "rating", "rating_detail"]]
 
 
-@lru_cache(maxsize=4)
 def load_defense_ratings(
     season: int,
 ) -> Tuple["DefenseRatingLookup", Optional[int]]:
@@ -316,10 +324,25 @@ def load_defense_ratings(
     with a last-name + team fallback for nickname mismatches (roster "Foye
     Oluokun" vs PFR "Foyesade Oluokun").
     Returns an empty lookup when no PFR defense parquet exists anywhere.
+
+    Cached per (file, mtime) — a fresh PFR ingest is picked up on the next
+    request without a server restart.
     """
-    df, effective_season = _load_pfr_def(season)
-    if df is None:
+    path, effective_season = _resolve_pfr_def_path(season)
+    if path is None:
         logger.warning("No PFR defense parquet under %s", _PFR_DEF_ROOT)
+        return DefenseRatingLookup({}, {}), None
+    return _load_defense_ratings_cached(
+        str(path), path.stat().st_mtime, effective_season, season
+    )
+
+
+@lru_cache(maxsize=8)
+def _load_defense_ratings_cached(
+    path_str: str, _mtime: float, effective_season: Optional[int], season: int
+) -> Tuple["DefenseRatingLookup", Optional[int]]:
+    df = pd.read_parquet(path_str)
+    if df.empty:
         return DefenseRatingLookup({}, {}), None
 
     rated = _compute_ratings(df)
@@ -408,26 +431,28 @@ class DefenseRatingLookup:
 # ---------------------------------------------------------------------------
 
 
-def _load_madden_df() -> Optional[pd.DataFrame]:
-    """Latest Bronze Madden ratings parquet, or None when never ingested."""
-    matches = sorted(glob.glob(str(_MADDEN_ROOT / "madden_ratings_*.parquet")))
-    if not matches:
-        return None
-    df = pd.read_parquet(matches[-1])
-    return df if not df.empty else None
-
-
-@lru_cache(maxsize=1)
 def load_madden_lookup() -> "DefenseRatingLookup":
     """Build a name → EA Madden OVR lookup from the latest Bronze parquet.
 
     Ratings come from ``scripts/refresh_madden_ratings.py`` (EA's live
     ratings hub — re-rated weekly during the season). Empty lookup when no
     parquet exists so callers degrade to the PFR-derived ratings.
+
+    Cached per (file, mtime) — running the refresh script against a live
+    server is picked up on the next request without a restart.
     """
-    df = _load_madden_df()
-    if df is None:
+    matches = sorted(glob.glob(str(_MADDEN_ROOT / "madden_ratings_*.parquet")))
+    if not matches:
         logger.warning("No Madden ratings parquet under %s", _MADDEN_ROOT)
+        return DefenseRatingLookup({}, {})
+    path = Path(matches[-1])
+    return _load_madden_lookup_cached(str(path), path.stat().st_mtime)
+
+
+@lru_cache(maxsize=2)
+def _load_madden_lookup_cached(path_str: str, _mtime: float) -> "DefenseRatingLookup":
+    df = pd.read_parquet(path_str)
+    if df.empty:
         return DefenseRatingLookup({}, {})
 
     by_name: Dict[str, List[dict]] = {}
@@ -486,8 +511,11 @@ class CombinedRatingLookup:
         return p_rating, p_detail
 
 
-@lru_cache(maxsize=4)
 def load_combined_ratings(season: int) -> CombinedRatingLookup:
-    """EA-Madden-first rating lookup with PFR fallback for *season*."""
+    """EA-Madden-first rating lookup with PFR fallback for *season*.
+
+    Not cached itself — composition is cheap and both children are cached
+    per (file, mtime), so fresh ingests are picked up without a restart.
+    """
     pfr_lookup, _ = load_defense_ratings(season)
     return CombinedRatingLookup(load_madden_lookup(), pfr_lookup)

@@ -1606,17 +1606,26 @@ def _load_recent_signal_records(days: int) -> List[Dict[str, Any]]:
     return recent
 
 
-@lru_cache(maxsize=8)
 def _player_id_team_map() -> Dict[str, str]:
-    """player_id → team from the latest Bronze roster parquet (any season)."""
+    """player_id → team from the latest Bronze roster parquet (any season).
+
+    Cached per (file, mtime) so daily roster refreshes are picked up
+    without a server restart.
+    """
     import glob as _glob
 
     roster_root = _BRONZE_SENTIMENT_DIR.parent / "players" / "rosters"
     matches = sorted(_glob.glob(str(roster_root / "season=*" / "rosters_*.parquet")))
     if not matches:
         return {}
+    path = Path(matches[-1])
+    return _player_id_team_map_cached(str(path), path.stat().st_mtime)
+
+
+@lru_cache(maxsize=2)
+def _player_id_team_map_cached(path_str: str, _mtime: float) -> Dict[str, str]:
     try:
-        df = pd.read_parquet(matches[-1], columns=["player_id", "team"])
+        df = pd.read_parquet(path_str, columns=["player_id", "team"])
     except Exception as exc:  # pragma: no cover — corrupted parquet
         logger.warning("Could not read roster parquet for team map: %s", exc)
         return {}

@@ -1,10 +1,10 @@
 'use client';
 
 /**
- * Season Sentiment Pulse — the live, trailing-window view at the top of the
+ * Season Sentiment Pulse — the live, trailing-activeWindow view at the top of the
  * News tab. A Day / Week / Month toggle drives two panels:
  *
- *   1. Top Stories — the most important stories in the window, ranked by
+ *   1. Top Stories — the most important stories in the activeWindow, ranked by
  *      |sentiment| × confidence + event weight with recency decay.
  *   2. Sentiment Rankings — players with the most positive (risers) and
  *      most negative (fallers) confidence-weighted average sentiment.
@@ -210,13 +210,13 @@ function RankingsColumn({
 // ---------------------------------------------------------------------------
 
 export function SentimentPulse() {
-  const [window, setWindow] = useState<SentimentWindow>('week');
+  const [activeWindow, setActiveWindow] = useState<SentimentWindow>('week');
 
   const { data: stories, isLoading: storiesLoading } = useQuery(
-    topStoriesQueryOptions(window)
+    topStoriesQueryOptions(activeWindow)
   );
   const { data: rankings, isLoading: rankingsLoading } = useQuery(
-    sentimentRankingsQueryOptions(window)
+    sentimentRankingsQueryOptions(activeWindow)
   );
 
   const asOf = stories?.as_of ?? rankings?.as_of ?? null;
@@ -241,9 +241,9 @@ export function SentimentPulse() {
               {WINDOWS.map((w) => (
                 <PressScale key={w.id}>
                   <button
-                    onClick={() => setWindow(w.id)}
+                    onClick={() => setActiveWindow(w.id)}
                     className={`rounded-md px-[var(--space-3)] py-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium transition-colors ${
-                      window === w.id
+                      activeWindow === w.id
                         ? 'bg-background shadow-sm'
                         : 'text-muted-foreground hover:text-foreground'
                     }`}
@@ -267,7 +267,7 @@ export function SentimentPulse() {
           <div>
             <h4 className='mb-[var(--space-2)] flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-widest text-muted-foreground'>
               <Icons.news className='h-[var(--space-3)] w-[var(--space-3)]' />
-              Top Stories — past {window}
+              Top Stories — past {activeWindow}
             </h4>
             {storiesLoading ? (
               <div className='space-y-[var(--space-2)]'>
@@ -278,11 +278,11 @@ export function SentimentPulse() {
             ) : !stories || stories.stories.length === 0 ? (
               <EmptyState
                 icon={Icons.news}
-                title='No stories in this window'
-                description='Try a wider window — the pipeline ingests new stories daily.'
+                title='No stories in this activeWindow'
+                description='Try a wider activeWindow — the pipeline ingests new stories daily.'
               />
             ) : (
-              <FadeIn key={window} className='space-y-[var(--space-2)]'>
+              <FadeIn key={activeWindow} className='space-y-[var(--space-2)]'>
                 {stories.stories.map((s) => (
                   <StoryRow key={s.doc_id ?? s.title} story={s} />
                 ))}
@@ -301,20 +301,20 @@ export function SentimentPulse() {
             ) : (
               <>
                 <RankingsColumn
-                  title={`Sentiment Risers — past ${window}`}
+                  title={`Sentiment Risers — past ${activeWindow}`}
                   icon={
                     <Icons.trendingUp className='h-[var(--space-3)] w-[var(--space-3)] text-emerald-500' />
                   }
                   entries={rankings?.risers ?? []}
-                  empty='No positive player signals in this window.'
+                  empty='No positive player signals in this activeWindow.'
                 />
                 <RankingsColumn
-                  title={`Sentiment Fallers — past ${window}`}
+                  title={`Sentiment Fallers — past ${activeWindow}`}
                   icon={
                     <Icons.trendingDown className='h-[var(--space-3)] w-[var(--space-3)] text-red-500' />
                   }
                   entries={rankings?.fallers ?? []}
-                  empty='No negative player signals in this window.'
+                  empty='No negative player signals in this activeWindow.'
                 />
               </>
             )}

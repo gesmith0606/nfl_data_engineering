@@ -45,7 +45,7 @@ OUT_DIR = _PROJECT_ROOT / "data" / "bronze" / "madden_ratings"
 _HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+        "(KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
     ),
     "Accept": "application/json,text/html",
 }
@@ -117,7 +117,15 @@ def fetch_positions(build_id: str) -> List[Tuple[str, str]]:
     """Return [(slug, position_id)] from the main ratings page filters."""
     url = f"{NEXT_DATA_BASE.format(build_id=build_id)}/ratings.json?franchiseSlug=madden-nfl"
     data = json.loads(_get(url))
-    positions = data["pageProps"]["ratingsFilters"]["positions"]
+    # Defensive access — an EA Next.js rebuild can reshape this payload.
+    positions = (
+        data.get("pageProps", {}).get("ratingsFilters", {}).get("positions") or []
+    )
+    if not positions:
+        raise RuntimeError(
+            "No positions in ratings.json — EA payload shape changed? "
+            f"pageProps keys: {sorted(data.get('pageProps', {}).keys())}"
+        )
     return [(_slugify(p["label"]), p["id"]) for p in positions]
 
 

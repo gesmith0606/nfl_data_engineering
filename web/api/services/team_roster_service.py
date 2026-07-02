@@ -772,7 +772,12 @@ def _row_to_player(
             jersey = None
     madden_rating: Optional[int] = None
     rating_detail: Optional[str] = None
-    if rating_lookup:
+    if "_madden_rating" in row.index:
+        # Pre-resolved by _add_rating_column — avoids a second lookup pass.
+        raw_rating = _nan_to_none(row.get("_madden_rating"))
+        madden_rating = int(raw_rating) if raw_rating is not None else None
+        rating_detail = _nan_to_none(row.get("_rating_detail"))
+    elif rating_lookup:
         madden_rating, rating_detail = rating_lookup.rating_for(
             str(row.get("player_name") or ""),
             str(row.get("team") or ""),
@@ -864,16 +869,23 @@ def load_team_roster(
     rating_lookup = player_rating_service.load_combined_ratings(effective_season)
 
     def _add_rating_column(df: pd.DataFrame) -> None:
+        """Resolve (rating, detail) ONCE per player into two columns.
+
+        ``_madden_rating`` drives slot ordering; ``_row_to_player`` reads
+        both columns back instead of re-querying the lookup.
+        """
         if rating_lookup and not df.empty:
-            df["_madden_rating"] = df.apply(
+            resolved = df.apply(
                 lambda r: rating_lookup.rating_for(
                     str(r.get("player_name") or ""),
                     str(r.get("team") or ""),
                     _nan_to_none(r.get("depth_chart_position"))
                     or str(r.get("position") or ""),
-                )[0],
+                ),
                 axis=1,
             )
+            df["_madden_rating"] = [t[0] for t in resolved]
+            df["_rating_detail"] = [t[1] for t in resolved]
 
     if side in {"offense", "all"}:
         off_df = team_df[offense_mask].copy()

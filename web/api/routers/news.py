@@ -7,11 +7,9 @@ empty results gracefully when no sentiment data has been ingested yet.
 """
 
 import logging
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from fastapi import APIRouter, HTTPException, Query
-
-from typing import Literal
 
 from ..models.schemas import (
     Alert,

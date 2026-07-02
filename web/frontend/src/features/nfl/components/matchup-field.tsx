@@ -44,11 +44,16 @@ export interface FieldPlayer {
 
 type RosterMap = Map<string, FieldPlayer | null>;
 
-/** Offense slot ↔ the defensive slot that primarily covers it. */
+/**
+ * Offense slot ↔ the defensive slot that primarily covers it.
+ *
+ * WR3 (slot) is deliberately unpaired: modern slot coverage belongs to the
+ * nickel CB, which the 11-man display doesn't slot — pairing it against the
+ * SS produced misleading attack badges.
+ */
 const MATCHUP_PAIRS: { off: string; def: string }[] = [
   { off: 'WR1', def: 'CB1' },
   { off: 'WR2', def: 'CB2' },
-  { off: 'WR3', def: 'SS' },
   { off: 'TE1', def: 'LB2' },
   { off: 'RB1', def: 'LB1' },
   { off: 'LT', def: 'DE1' },
