@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 export const TEAM_PRIMARY_COLORS: Record<string, string> = {
   ARI: '#97233F',
   ATL: '#A71930',
@@ -41,4 +43,24 @@ export function getTeamColor(team: string | null | undefined): string {
   if (!team) return DEFAULT_COLOR;
   const key = team.toUpperCase();
   return TEAM_PRIMARY_COLORS[key] ?? DEFAULT_COLOR;
+}
+
+/**
+ * Team color as a CSS expression that stays legible on dark surfaces.
+ *
+ * Official primaries include near-black values (LV #000000, GB #203731,
+ * CHI #0B162A) that vanish on dark cards. In dark mode this lifts every
+ * team color toward white in OKLCH — hue survives, lightness clears the
+ * background. Pair with `getTeamColor()` when the surface is theme-aware:
+ * use this for text/icons, the raw color for decorative fills on known
+ * backgrounds.
+ */
+export function getReadableTeamColorVars(
+  team: string | null | undefined
+): CSSProperties {
+  const raw = getTeamColor(team);
+  return {
+    '--team-color': raw,
+    '--team-color-readable': `color-mix(in oklch, ${raw} 55%, white)`
+  } as CSSProperties;
 }

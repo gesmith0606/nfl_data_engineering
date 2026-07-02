@@ -22,11 +22,15 @@ import type {
   PredictionResponse,
   ProjectionResponse,
   ScoringFormat,
+  SentimentRankingsResponse,
   SentimentSummary,
+  SentimentWindow,
   TeamDefenseMetricsResponse,
   TeamEvents,
   TeamLineup,
+  TeamMatchupResponse,
   TeamRosterResponse,
+  TopStoriesResponse,
   TeamSentiment,
 } from "./types";
 
@@ -306,6 +310,26 @@ export async function fetchNewsFeed(
   return request<NewsItem[]>(`/api/news/feed?${params}`);
 }
 
+/** Fetch top stories in a trailing day/week/month window. */
+export async function fetchTopStories(
+  window: SentimentWindow = 'week',
+  limit = 12,
+): Promise<TopStoriesResponse> {
+  const params = new URLSearchParams({ window, limit: String(limit) });
+  return request<TopStoriesResponse>(`/api/news/top-stories?${params}`);
+}
+
+/** Fetch live player sentiment rankings (risers/fallers) for a window. */
+export async function fetchSentimentRankings(
+  window: SentimentWindow = 'week',
+  limit = 10,
+): Promise<SentimentRankingsResponse> {
+  const params = new URLSearchParams({ window, limit: String(limit) });
+  return request<SentimentRankingsResponse>(
+    `/api/news/sentiment-rankings?${params}`,
+  );
+}
+
 /** Fetch sentiment summary for dashboard display. */
 export async function fetchSentimentSummary(
   season: number,
@@ -481,6 +505,25 @@ export async function fetchTeamRoster(
   });
   return request<TeamRosterResponse>(
     `/api/teams/${encodeURIComponent(team)}/roster?${params}`
+  );
+}
+
+/**
+ * Resolve a team's opponent for a week from the Bronze schedule. Works before
+ * model predictions exist; carries the schedule's Vegas lines. ``is_bye=true``
+ * when the team has no game that week.
+ */
+export async function fetchTeamMatchup(
+  team: string,
+  season: number,
+  week: number
+): Promise<TeamMatchupResponse> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week)
+  });
+  return request<TeamMatchupResponse>(
+    `/api/teams/${encodeURIComponent(team)}/matchup?${params}`
   );
 }
 

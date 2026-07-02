@@ -16,15 +16,23 @@ import {
   fetchPlayerSentiment,
   fetchPredictions,
   fetchProjections,
+  fetchSentimentRankings,
   fetchSentimentSummary,
+  fetchTopStories,
   fetchTeamDefenseMetrics,
   fetchTeamEvents,
+  fetchTeamMatchup,
   fetchTeamRoster,
   fetchTeamSentiment,
   searchPlayers,
   fetchMultiCompareRankings,
 } from './service';
-import type { ScoringFormat, RankingSortBy, RankingSource } from './types';
+import type {
+  ScoringFormat,
+  RankingSortBy,
+  RankingSource,
+  SentimentWindow
+} from './types';
 
 export const nflKeys = {
   all: ['nfl'] as const,
@@ -45,6 +53,12 @@ export const nflKeys = {
   currentWeek: () => [...nflKeys.all, 'current-week'] as const,
   teamRoster: (team: string, season: number, week: number, side: string) =>
     [...nflKeys.all, 'team-roster', { team, season, week, side }] as const,
+  teamMatchup: (team: string, season: number, week: number) =>
+    [...nflKeys.all, 'team-matchup', { team, season, week }] as const,
+  topStories: (window: SentimentWindow, limit: number) =>
+    [...nflKeys.all, 'top-stories', { window, limit }] as const,
+  sentimentRankings: (window: SentimentWindow, limit: number) =>
+    [...nflKeys.all, 'sentiment-rankings', { window, limit }] as const,
   teamDefenseMetrics: (team: string, season: number, week: number) =>
     [...nflKeys.all, 'team-defense-metrics', { team, season, week }] as const,
   multiCompare: (
@@ -252,6 +266,43 @@ export const teamRosterQueryOptions = (
     queryKey: nflKeys.teamRoster(team ?? '', season, week, side),
     queryFn: () => fetchTeamRoster(team as string, season, week, side),
     enabled: !!team
+  });
+
+/** Top stories in a trailing day/week/month window. Refetch every 5 min. */
+export const topStoriesQueryOptions = (window: SentimentWindow, limit = 12) =>
+  queryOptions({
+    queryKey: nflKeys.topStories(window, limit),
+    queryFn: () => fetchTopStories(window, limit),
+    staleTime: 5 * 60 * 1000,
+    refetchInterval: 5 * 60 * 1000
+  });
+
+/** Live player sentiment rankings for a window. Refetch every 5 min. */
+export const sentimentRankingsQueryOptions = (
+  window: SentimentWindow,
+  limit = 10
+) =>
+  queryOptions({
+    queryKey: nflKeys.sentimentRankings(window, limit),
+    queryFn: () => fetchSentimentRankings(window, limit),
+    staleTime: 5 * 60 * 1000,
+    refetchInterval: 5 * 60 * 1000
+  });
+
+/**
+ * A team's opponent for a season / week resolved from the schedule.
+ * Disabled until ``team`` is non-null. Schedules are static — cache for 1 hour.
+ */
+export const teamMatchupQueryOptions = (
+  team: string | null,
+  season: number,
+  week: number
+) =>
+  queryOptions({
+    queryKey: nflKeys.teamMatchup(team ?? '', season, week),
+    queryFn: () => fetchTeamMatchup(team as string, season, week),
+    enabled: !!team,
+    staleTime: 60 * 60 * 1000
   });
 
 /**

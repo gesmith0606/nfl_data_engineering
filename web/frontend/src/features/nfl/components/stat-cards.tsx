@@ -19,17 +19,35 @@ interface StatCardProps {
   description: string;
   trend?: string;
   trendDirection?: 'up' | 'down';
+  /**
+   * CSS color expression for the left rail. Pass a wc accent with a chart
+   * fallback (e.g. 'var(--wc-magenta, var(--chart-1))') so the card stays
+   * on-brand in worldcup26 and themed everywhere else.
+   */
+  accent: string;
 }
 
-function StatCard({ title, value, description, trend, trendDirection = 'up' }: StatCardProps) {
+function StatCard({
+  title,
+  value,
+  description,
+  trend,
+  trendDirection = 'up',
+  accent
+}: StatCardProps) {
   const TrendIcon = trendDirection === 'up' ? Icons.trendingUp : Icons.trendingDown;
 
   return (
     <HoverLift lift={3} className='h-full'>
-      <Card className='@container/card h-full'>
+      <Card className='@container/card relative h-full overflow-hidden'>
+        <div
+          aria-hidden
+          className='absolute inset-y-[var(--space-2)] left-0 w-[3px] rounded-full'
+          style={{ background: accent }}
+        />
         <CardHeader>
-          <CardDescription>{title}</CardDescription>
-          <CardTitle className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums @[250px]/card:text-[length:var(--fs-h1)] @[250px]/card:leading-[var(--lh-h1)]'>
+          <CardDescription className='tracking-[0.06em] uppercase'>{title}</CardDescription>
+          <CardTitle className='wc-display text-[length:var(--fs-h1)] leading-[var(--lh-h1)] tabular-nums @[250px]/card:text-[calc(var(--fs-h1)*1.35)] @[250px]/card:leading-[1.05]'>
             {value}
           </CardTitle>
           {trend && (
@@ -61,6 +79,7 @@ export function OverviewStatCards() {
         description={`Fantasy points mean absolute error (${modelMetrics.overall.seasons} backtest)`}
         trend='-3.0% in v4.2'
         trendDirection='down'
+        accent='var(--wc-magenta, var(--chart-1))'
       />
       <StatCard
         title='Tests Passing'
@@ -68,6 +87,7 @@ export function OverviewStatCards() {
         description='Full test suite coverage'
         trend='100%'
         trendDirection='up'
+        accent='var(--wc-lime, var(--chart-3))'
       />
       <StatCard
         title='ATS Accuracy'
@@ -75,11 +95,13 @@ export function OverviewStatCards() {
         description='Against the spread (sealed 2024 holdout)'
         trend='+3.0%'
         trendDirection='up'
+        accent='var(--wc-cyan, var(--chart-2))'
       />
       <StatCard
         title='Players Tracked'
         value='569'
         description='Across all NFL positions'
+        accent='var(--wc-gold, var(--chart-4))'
       />
     </Stagger>
   );

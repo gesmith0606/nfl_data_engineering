@@ -22,13 +22,13 @@ const LEVEL_CLASSES: Record<HeadingLevel, string> = {
 };
 
 export function Heading({ title, description, infoContent, level = 2 }: HeadingProps) {
-  const Tag = (`h${level}` as unknown) as 'h1' | 'h2' | 'h3';
+  const Tag = `h${level}` as unknown as 'h1' | 'h2' | 'h3';
   const sizeClass = LEVEL_CLASSES[level];
 
   return (
     <div className='space-y-[var(--space-1)]'>
       <div className='flex items-center gap-[var(--space-2)]'>
-        <Tag className={`${sizeClass} font-bold tracking-tight`}>{title}</Tag>
+        <Tag className={`${sizeClass} wc-display font-bold`}>{title}</Tag>
         {infoContent && (
           <div className='pt-[var(--space-1)]'>
             <InfoButton content={infoContent} />

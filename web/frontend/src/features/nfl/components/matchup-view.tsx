@@ -6,6 +6,7 @@ import {
   predictionsQueryOptions,
   projectionsQueryOptions,
   teamDefenseMetricsQueryOptions,
+  teamMatchupQueryOptions,
   teamRosterQueryOptions
 } from '../api/queries';
 import { useWeekParams } from '@/hooks/use-week-params';
@@ -16,6 +17,7 @@ import type {
   RosterPlayer,
   ScoringFormat,
   TeamDefenseMetricsResponse,
+  TeamMatchupResponse,
   TeamRosterResponse
 } from '../api/types';
 import { Card, CardContent } from '@/components/ui/card';
@@ -42,6 +44,7 @@ import {
   PressScale,
   Stagger
 } from '@/lib/motion-primitives';
+import MatchupFieldView from './matchup-field';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -55,7 +58,8 @@ const DIVISIONS: { conference: string; division: string; teams: string[] }[] = [
   { conference: 'NFC', division: 'East', teams: ['DAL', 'NYG', 'PHI', 'WAS'] },
   { conference: 'NFC', division: 'North', teams: ['CHI', 'DET', 'GB', 'MIN'] },
   { conference: 'NFC', division: 'South', teams: ['ATL', 'CAR', 'NO', 'TB'] },
-  { conference: 'NFC', division: 'West', teams: ['ARI', 'LAR', 'SEA', 'SF'] }
+  // 'LA' (not 'LAR') — nflverse team code used by rosters/schedules/projections.
+  { conference: 'NFC', division: 'West', teams: ['ARI', 'LA', 'SEA', 'SF'] }
 ];
 
 /** Offensive positions in display order. */
@@ -149,6 +153,8 @@ interface RatedPlayer {
   injury_status: string | null;
   rating: number;
   position_rank: number | null;
+  /** Stat basis behind the rating (PFR-derived, defense only) — tooltip copy. */
+  rating_detail?: string | null;
 }
 
 /**
@@ -193,9 +199,14 @@ function computeRatings(players: PlayerProjection[]): Map<string, RatedPlayer> {
 
 /**
  * Build an offensive roster. Skill positions (QB/RB/WR/TE) are populated from
- * the projections feed (carries per-player ratings). OL slots (LT/LG/C/RG/RT)
- * are populated from the rosterResponse's slot_hint assignments — the backend
- * already resolved LT vs RT by snap-count ordering.
+ * the projections feed; OL slots (LT/LG/C/RG/RT) from the rosterResponse's
+ * slot_hint assignments.
+ *
+ * Ratings: the backend's ``madden_rating`` (EA's live Madden OVR, PFR-stat
+ * fallback) is authoritative when present — joined by player_id, then
+ * normalized name. Players the backend couldn't rate keep the
+ * projection-percentile rating from ``ratingsMap`` (better than nothing,
+ * but inflated — see computeRatings).
  */
 function buildOffensiveRoster(
   projections: PlayerProjection[],
@@ -213,47 +224,98 @@ function buildOffensiveRoster(
     group.sort((a, b) => b.projected_points - a.projected_points);
   }
 
-  // Index OL players by slot_hint from the roster response (LT/LG/C/RG/RT).
+  // Index the roster response for rating joins: by player_id and by name.
+  const rosterById = new Map<string, RosterPlayer>();
+  const rosterByName = new Map<string, RosterPlayer>();
   const olBySlot = new Map<string, RosterPlayer>();
   if (rosterResponse) {
     for (const p of rosterResponse.roster ?? []) {
+      rosterById.set(p.player_id, p);
+      rosterByName.set(p.player_name.toLowerCase(), p);
       if (p.slot_hint && ['LT', 'LG', 'C', 'RG', 'RT'].includes(p.slot_hint)) {
         olBySlot.set(p.slot_hint, p);
       }
     }
   }
 
+  // Skill slots by backend hint (QB1/RB1/RB2/WR1-3/TE1) — the roster is the
+  // authority on WHO is on the team today (Sleeper live corrections, EA-
+  // rating-ordered depth); projections may carry stale team assignments.
+  const skillBySlot = new Map<string, RosterPlayer>();
+  if (rosterResponse) {
+    for (const p of rosterResponse.roster ?? []) {
+      if (p.slot_hint && !olBySlot.has(p.slot_hint)) {
+        skillBySlot.set(p.slot_hint, p);
+      }
+    }
+  }
+
+  // Projections joined back in for the fantasy-points line on each chip.
+  const projById = new Map<string, PlayerProjection>();
+  const projByName = new Map<string, PlayerProjection>();
+  for (const p of projections) {
+    projById.set(p.player_id, p);
+    projByName.set(p.player_name.toLowerCase(), p);
+  }
+
   const used = new Set<string>();
   const roster = new Map<string, RatedPlayer | null>();
 
+  const fromRosterPlayer = (rp: RosterPlayer, pos: string): RatedPlayer => {
+    const proj = projById.get(rp.player_id) ?? projByName.get(rp.player_name.toLowerCase());
+    const pctRating = proj ? ratingsMap.get(proj.player_id)?.rating : undefined;
+    return {
+      player_id: rp.player_id,
+      player_name: rp.player_name,
+      team,
+      position: pos,
+      projected_points: proj?.projected_points ?? null,
+      injury_status: normalizeInjuryStatus(rp.injury_status ?? rp.status),
+      // EA Madden OVR (or PFR fallback) from the backend; projection
+      // percentile only when the backend couldn't rate; snap heuristic last.
+      rating:
+        rp.madden_rating ??
+        pctRating ??
+        ((rp.snap_pct_offense ?? 0) >= 0.8 ? 70 : 65),
+      position_rank: proj?.position_rank ?? null,
+      rating_detail: rp.rating_detail ?? null
+    };
+  };
+
   for (const slot of OFFENSE_SLOTS) {
     if (slot.pos === 'OL') {
-      // OL: map from roster response's slot_hint assignment.
       const olPlayer = olBySlot.get(slot.slot);
-      if (olPlayer) {
-        roster.set(slot.slot, {
-          player_id: olPlayer.player_id,
-          player_name: olPlayer.player_name,
-          team,
-          position: 'OL',
-          projected_points: null,
-          injury_status: normalizeInjuryStatus(olPlayer.injury_status ?? olPlayer.status),
-          // Team-level proxy — per-player OL grades are out-of-scope until PFF
-          // integration. Use snap-share as a rough starter confidence boost.
-          rating: (olPlayer.snap_pct_offense ?? 0) >= 0.8 ? 70 : 65,
-          position_rank: null
-        });
-      } else {
-        roster.set(slot.slot, null);
-      }
+      roster.set(slot.slot, olPlayer ? fromRosterPlayer(olPlayer, 'OL') : null);
       continue;
     }
 
+    // Prefer the roster's slot assignment (current team, EA-rating depth).
+    const hintKey = slot.slot === 'TE1' ? 'TE1' : slot.slot;
+    const rosterPick = skillBySlot.get(hintKey);
+    if (rosterPick) {
+      used.add(rosterPick.player_id);
+      roster.set(slot.slot, fromRosterPlayer(rosterPick, slot.pos));
+      continue;
+    }
+
+    // Fallback: highest-projected remaining player at the position.
     const group = byPos.get(slot.pos) ?? [];
     const next = group.find((p) => !used.has(p.player_id));
     if (next) {
       used.add(next.player_id);
-      roster.set(slot.slot, ratingsMap.get(next.player_id) ?? null);
+      const base = ratingsMap.get(next.player_id) ?? null;
+      const backend =
+        rosterById.get(next.player_id) ??
+        rosterByName.get(next.player_name.toLowerCase());
+      if (base && backend?.madden_rating != null) {
+        roster.set(slot.slot, {
+          ...base,
+          rating: backend.madden_rating,
+          rating_detail: backend.rating_detail ?? null
+        });
+      } else {
+        roster.set(slot.slot, base);
+      }
     } else {
       roster.set(slot.slot, null);
     }
@@ -354,15 +416,22 @@ function buildDefensiveRosterFromApi(
     }
     used.add(picked.player_id);
 
-    // Rating: anchor to the opposing positional rating, add a starter boost
-    // when the player carries a real defensive snap-share.
-    const baseRating = cfg?.anchor ?? overallDisplayRating;
-    const starterBonus = (picked.snap_pct_defense ?? 0) >= 0.6 ? 3 : 0;
-    const depthPenalty = defSlot.slot.endsWith('3') ? -4 : 0;
-    const rating = Math.min(
-      99,
-      Math.max(50, Math.round(baseRating + starterBonus + depthPenalty))
-    );
+    // Rating: prefer the backend's real per-player Madden rating (PFR stat
+    // percentiles). Players without rated production (rookies, special-teams
+    // depth) fall back to the team positional anchor with a starter boost /
+    // depth penalty so every rendered defender still carries a rating.
+    let rating: number;
+    if (picked.madden_rating != null) {
+      rating = picked.madden_rating;
+    } else {
+      const baseRating = cfg?.anchor ?? overallDisplayRating;
+      const starterBonus = (picked.snap_pct_defense ?? 0) >= 0.6 ? 3 : 0;
+      const depthPenalty = defSlot.slot.endsWith('3') ? -4 : 0;
+      rating = Math.min(
+        99,
+        Math.max(50, Math.round(baseRating + starterBonus + depthPenalty))
+      );
+    }
 
     result.set(defSlot.slot, {
       player_id: picked.player_id,
@@ -372,7 +441,8 @@ function buildDefensiveRosterFromApi(
       projected_points: null,
       injury_status: normalizeInjuryStatus(picked.injury_status ?? picked.status),
       rating,
-      position_rank: null
+      position_rank: null,
+      rating_detail: picked.rating_detail ?? null
     });
   }
 
@@ -505,8 +575,25 @@ function PlayerRow({
           {slotLabel}
         </div>
 
-        {/* Rating */}
-        <RatingBadge rating={player.rating} />
+        {/* Rating — tooltip shows the stat basis when the backend provided one */}
+        {player.rating_detail ? (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className='shrink-0 cursor-help'>
+                  <RatingBadge rating={player.rating} />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent side={side === 'offense' ? 'right' : 'left'}>
+                <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                  {player.rating_detail}
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ) : (
+          <RatingBadge rating={player.rating} />
+        )}
 
         {/* Name + info */}
         <div className='min-w-0 flex-1'>
@@ -715,14 +802,21 @@ function TeamPanel({ team, side, roster, opponentDefense }: TeamPanelProps) {
 function MatchupHeaderBar({
   homeTeam,
   awayTeam,
-  prediction
+  prediction,
+  schedule
 }: {
   homeTeam: string;
   awayTeam: string;
   prediction: GamePrediction | null;
+  /** Schedule-based matchup — supplies Vegas lines + kickoff before predictions exist. */
+  schedule: TeamMatchupResponse | null;
 }) {
   const homeColor = getTeamColor(homeTeam);
   const awayColor = getTeamColor(awayTeam);
+  // Prefer the model prediction's lines; fall back to the schedule's Vegas
+  // lines so the header stays informative months before predictions publish.
+  const spread = prediction?.vegas_spread ?? schedule?.spread_line ?? null;
+  const total = prediction?.vegas_total ?? schedule?.total_line ?? null;
 
   return (
     <div className='relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-[var(--space-3)] sm:p-[var(--pad-card)] mb-[var(--space-6)]'>
@@ -763,33 +857,37 @@ function MatchupHeaderBar({
           <div className='text-[length:var(--fs-sm)] sm:text-[length:var(--fs-lg)] leading-none font-black text-white/20 tracking-widest'>
             VS
           </div>
-          {prediction && (
-            <div className='mt-[var(--space-1)] space-y-0.5'>
-              {prediction.vegas_spread !== null && (
-                <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/50'>
-                  Line: <span className='font-mono text-white/70'>
-                    {prediction.vegas_spread > 0 ? '+' : ''}
-                    {prediction.vegas_spread.toFixed(1)}
-                  </span>
-                </div>
-              )}
-              {prediction.vegas_total !== null && (
-                <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/50'>
-                  O/U: <span className='font-mono text-white/70'>
-                    {prediction.vegas_total.toFixed(1)}
-                  </span>
-                </div>
-              )}
-              {prediction.confidence_tier && (
-                <Badge
-                  variant={prediction.confidence_tier === 'high' ? 'default' : 'secondary'}
-                  className='mt-[var(--space-1)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
-                >
-                  {prediction.confidence_tier}
-                </Badge>
-              )}
-            </div>
-          )}
+          <div className='mt-[var(--space-1)] space-y-0.5'>
+            {schedule?.gameday && (
+              <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/50'>
+                {schedule.gameday}
+                {schedule.gametime ? ` · ${schedule.gametime}` : ''}
+              </div>
+            )}
+            {spread !== null && (
+              <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/50'>
+                Line: <span className='font-mono text-white/70'>
+                  {spread > 0 ? '+' : ''}
+                  {spread.toFixed(1)}
+                </span>
+              </div>
+            )}
+            {total !== null && (
+              <div className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-white/50'>
+                O/U: <span className='font-mono text-white/70'>
+                  {total.toFixed(1)}
+                </span>
+              </div>
+            )}
+            {prediction?.confidence_tier && (
+              <Badge
+                variant={prediction.confidence_tier === 'high' ? 'default' : 'secondary'}
+                className='mt-[var(--space-1)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+              >
+                {prediction.confidence_tier}
+              </Badge>
+            )}
+          </div>
         </div>
 
         {/* Home team */}
@@ -1039,7 +1137,13 @@ export function MatchupView() {
   const setWeek = (v: number) => setWeekParam(v);
 
   const [scoring, setScoring] = useState<ScoringFormat>('half_ppr');
-  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
+  const [selectedTeam, setSelectedTeamState] = useState<string | null>(null);
+  // 'sel-off' = selected team's offense vs opponent's defense; 'opp-off' = reverse.
+  const [direction, setDirection] = useState<'sel-off' | 'opp-off'>('sel-off');
+  const setSelectedTeam = (team: string) => {
+    setSelectedTeamState(team);
+    setDirection('sel-off');
+  };
 
   const isOffseason503 = false; // useWeekParams handles offseason gracefully
 
@@ -1056,15 +1160,28 @@ export function MatchupView() {
     enabled: !isResolving
   });
 
-  const isLoading = isResolving || projLoading || predLoading;
   const projections = projData?.projections ?? [];
   const predictions = predData?.predictions ?? [];
 
   // Ratings map (projection-derived — unchanged from prior build)
   const ratingsMap = useMemo(() => computeRatings(projections), [projections]);
 
-  // Find the selected team's matchup
-  const matchup = useMemo<GamePrediction | null>(() => {
+  // Resolve the opponent from the schedule (available months before model
+  // predictions publish). The predictions feed is optional enrichment on top.
+  const {
+    data: matchup,
+    isLoading: matchupLoading,
+    isError: matchupError
+  } = useQuery({
+    ...teamMatchupQueryOptions(selectedTeam, resolvedSeason, resolvedWeek),
+    enabled: !isResolving && !!selectedTeam
+  });
+
+  const isLoading =
+    isResolving || projLoading || predLoading || (!!selectedTeam && matchupLoading);
+
+  // Model prediction for the selected team's game — may not exist yet.
+  const prediction = useMemo<GamePrediction | null>(() => {
     if (!selectedTeam) return null;
     return (
       predictions.find(
@@ -1073,15 +1190,12 @@ export function MatchupView() {
     );
   }, [selectedTeam, predictions]);
 
-  // Opponent team code (null when team or matchup is missing)
-  const opponent = useMemo<string | null>(() => {
-    if (!matchup || !selectedTeam) return null;
-    return matchup.home_team === selectedTeam ? matchup.away_team : matchup.home_team;
-  }, [matchup, selectedTeam]);
+  const opponent = matchup?.opponent ?? null;
+  const isHome = matchup?.is_home ?? false;
 
-  const isHome = matchup?.home_team === selectedTeam;
-
-  // --- Step 3: fetch rosters + defense metrics from the new /teams endpoints ---
+  // --- Step 3: fetch rosters + defense metrics for BOTH directions ---
+  // (selected offense vs opponent defense, and the reverse). React Query
+  // caches per team/side so flipping the direction toggle is instant.
   const { data: offenseRosterData } = useQuery(
     teamRosterQueryOptions(selectedTeam, resolvedSeason, resolvedWeek, 'offense')
   );
@@ -1091,8 +1205,17 @@ export function MatchupView() {
   const { data: defenseMetricsData } = useQuery(
     teamDefenseMetricsQueryOptions(opponent, resolvedSeason, resolvedWeek)
   );
+  const { data: oppOffenseRosterData } = useQuery(
+    teamRosterQueryOptions(opponent, resolvedSeason, resolvedWeek, 'offense')
+  );
+  const { data: selDefenseRosterData } = useQuery(
+    teamRosterQueryOptions(selectedTeam, resolvedSeason, resolvedWeek, 'defense')
+  );
+  const { data: selDefenseMetricsData } = useQuery(
+    teamDefenseMetricsQueryOptions(selectedTeam, resolvedSeason, resolvedWeek)
+  );
 
-  // Build rosters
+  // Build rosters — both directions
   const offenseRoster = useMemo(() => {
     if (!selectedTeam) return new Map<string, RatedPlayer | null>();
     return buildOffensiveRoster(projections, selectedTeam, ratingsMap, offenseRosterData);
@@ -1101,6 +1224,35 @@ export function MatchupView() {
   const defenseRoster = useMemo(() => {
     return buildDefensiveRosterFromApi(defenseRosterData, defenseMetricsData);
   }, [defenseRosterData, defenseMetricsData]);
+
+  const oppOffenseRoster = useMemo(() => {
+    if (!opponent) return new Map<string, RatedPlayer | null>();
+    return buildOffensiveRoster(projections, opponent, ratingsMap, oppOffenseRosterData);
+  }, [opponent, projections, ratingsMap, oppOffenseRosterData]);
+
+  const selDefenseRoster = useMemo(() => {
+    return buildDefensiveRosterFromApi(selDefenseRosterData, selDefenseMetricsData);
+  }, [selDefenseRosterData, selDefenseMetricsData]);
+
+  // Which direction is on screen: selected team's offense (default) or the
+  // opponent's offense. Both field views pair each offensive player with the
+  // defender aligned across from him.
+  const active =
+    direction === 'sel-off'
+      ? {
+          offTeam: selectedTeam ?? '',
+          defTeam: opponent ?? '',
+          offense: offenseRoster,
+          defense: defenseRoster,
+          defMetrics: defenseMetricsData
+        }
+      : {
+          offTeam: opponent ?? '',
+          defTeam: selectedTeam ?? '',
+          offense: oppOffenseRoster,
+          defense: selDefenseRoster,
+          defMetrics: selDefenseMetricsData
+        };
 
   // Fallback banner: any API response had to walk back to a prior season.
   const anyFallback = Boolean(
@@ -1211,41 +1363,88 @@ export function MatchupView() {
       {/* Matchup display */}
       {selectedTeam && (
         <DataLoadReveal loading={isLoading} skeleton={<MatchupSkeleton />}>
-          {!matchup ? (
+          {matchup?.is_bye ? (
+            <EmptyState
+              icon={Icons.calendar}
+              title='Bye week'
+              description={`${getTeamFullName(selectedTeam)} has no game in Week ${resolvedWeek}.`}
+              dataAsOf={dataAsOf}
+            />
+          ) : !matchup || matchupError ? (
             <EmptyState
               icon={Icons.calendar}
               title='No matchup found'
-              description={`${getTeamFullName(selectedTeam)} may be on bye in Week ${resolvedWeek}, or prediction data is not yet available for this slate.`}
+              description={`Schedule data is not available for ${getTeamFullName(selectedTeam)} in Week ${resolvedWeek} of ${resolvedSeason}.`}
               dataAsOf={dataAsOf}
             />
-          ) : !opponent ? null : (
+          ) : !opponent || !matchup.home_team || !matchup.away_team ? null : (
             <div className='space-y-[var(--gap-section)]'>
               {/* Game header bar */}
               <MatchupHeaderBar
                 homeTeam={matchup.home_team}
                 awayTeam={matchup.away_team}
-                prediction={matchup}
+                prediction={prediction}
+                schedule={matchup}
               />
 
-              {/* Split-screen panels */}
-              <div className='grid grid-cols-1 gap-[var(--gap-stack)] lg:grid-cols-2'>
-                <TeamPanel
-                  team={selectedTeam}
-                  side='offense'
-                  roster={offenseRoster}
-                  opponentDefense={defenseMetricsData}
-                />
-                <TeamPanel
-                  team={opponent}
-                  side='defense'
-                  roster={defenseRoster}
+              {/* Direction toggle: which offense is on the field */}
+              <div className='flex flex-wrap gap-[var(--space-2)]'>
+                {(
+                  [
+                    ['sel-off', selectedTeam, opponent],
+                    ['opp-off', opponent, selectedTeam]
+                  ] as const
+                ).map(([dir, offT, defT]) => (
+                  <PressScale key={dir}>
+                    <button
+                      onClick={() => setDirection(dir)}
+                      className={`rounded-lg px-[var(--space-4)] py-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold transition-colors duration-[var(--motion-fast)] ${
+                        direction === dir
+                          ? 'text-white shadow-md'
+                          : 'bg-muted text-muted-foreground hover:opacity-80'
+                      }`}
+                      style={
+                        direction === dir
+                          ? { backgroundColor: getTeamColor(offT) }
+                          : undefined
+                      }
+                    >
+                      {offT} Offense vs {defT} Defense
+                    </button>
+                  </PressScale>
+                ))}
+              </div>
+
+              {/* Field formation (md+): offense lined up across from the
+                  defense, each defender column-aligned to his assignment. */}
+              <div className='hidden md:block'>
+                <MatchupFieldView
+                  offenseTeam={active.offTeam}
+                  defenseTeam={active.defTeam}
+                  offenseRoster={active.offense}
+                  defenseRoster={active.defense}
                 />
               </div>
 
-              {/* Matchup advantages */}
+              {/* Mobile fallback: stacked list panels for the active direction */}
+              <div className='grid grid-cols-1 gap-[var(--gap-stack)] md:hidden'>
+                <TeamPanel
+                  team={active.offTeam}
+                  side='offense'
+                  roster={active.offense}
+                  opponentDefense={active.defMetrics}
+                />
+                <TeamPanel
+                  team={active.defTeam}
+                  side='defense'
+                  roster={active.defense}
+                />
+              </div>
+
+              {/* Matchup advantages (positional defense ranks) */}
               <MatchupAdvantages
-                offenseRoster={offenseRoster}
-                opponentDefense={defenseMetricsData}
+                offenseRoster={active.offense}
+                opponentDefense={active.defMetrics}
               />
 
               {/* Matchup notes */}
@@ -1258,40 +1457,51 @@ export function MatchupView() {
                     {getTeamFullName(selectedTeam)} ({isHome ? 'Home' : 'Away'}) vs{' '}
                     {getTeamFullName(opponent)} ({isHome ? 'Away' : 'Home'})
                   </p>
-                  {matchup.spread_edge !== null && Math.abs(matchup.spread_edge) >= 1.5 && (
-                    <p className='flex items-center gap-[var(--space-2)]'>
-                      <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-emerald-400' />
+                  {!prediction && (
+                    <p className='flex items-center gap-[var(--space-2)] text-white/40'>
+                      <Icons.info className='h-[var(--space-4)] w-[var(--space-4)]' />
                       <span>
-                        Model sees {Math.abs(matchup.spread_edge).toFixed(1)}-point spread edge.{' '}
-                        <span className='text-white/80 font-medium'>{matchup.ats_pick}</span>
+                        Model prediction not yet published for this game — lines
+                        shown are the schedule&apos;s Vegas numbers.
                       </span>
                     </p>
                   )}
-                  {matchup.total_edge !== null && Math.abs(matchup.total_edge) >= 1.5 && (
-                    <p className='flex items-center gap-[var(--space-2)]'>
-                      <Icons.target className='h-[var(--space-4)] w-[var(--space-4)] text-blue-400' />
-                      <span>
-                        {Math.abs(matchup.total_edge).toFixed(1)}-point total edge.{' '}
-                        <span className='text-white/80 font-medium'>{matchup.ou_pick}</span>
-                      </span>
-                    </p>
-                  )}
-                  {defenseMetricsData && (
+                  {prediction?.spread_edge != null &&
+                    Math.abs(prediction.spread_edge) >= 1.5 && (
+                      <p className='flex items-center gap-[var(--space-2)]'>
+                        <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-emerald-400' />
+                        <span>
+                          Model sees {Math.abs(prediction.spread_edge).toFixed(1)}-point spread edge.{' '}
+                          <span className='text-white/80 font-medium'>{prediction.ats_pick}</span>
+                        </span>
+                      </p>
+                    )}
+                  {prediction?.total_edge != null &&
+                    Math.abs(prediction.total_edge) >= 1.5 && (
+                      <p className='flex items-center gap-[var(--space-2)]'>
+                        <Icons.target className='h-[var(--space-4)] w-[var(--space-4)] text-blue-400' />
+                        <span>
+                          {Math.abs(prediction.total_edge).toFixed(1)}-point total edge.{' '}
+                          <span className='text-white/80 font-medium'>{prediction.ou_pick}</span>
+                        </span>
+                      </p>
+                    )}
+                  {active.defMetrics && (
                     <p className='flex items-center gap-[var(--space-2)]'>
                       <Icons.shield className='h-[var(--space-4)] w-[var(--space-4)] text-indigo-300' />
                       <span>
-                        {opponent} defense: SoS rank{' '}
+                        {active.defTeam} defense: SoS rank{' '}
                         <span className='text-white/80 font-medium'>
-                          {defenseMetricsData.def_sos_rank ?? 'N/A'}
+                          {active.defMetrics.def_sos_rank ?? 'N/A'}
                         </span>
-                        , allows WR #{defenseMetricsData.positional.find((p) => p.position === 'WR')?.rank ?? '—'},
-                        {' '}RB #{defenseMetricsData.positional.find((p) => p.position === 'RB')?.rank ?? '—'},
-                        {' '}TE #{defenseMetricsData.positional.find((p) => p.position === 'TE')?.rank ?? '—'}
+                        , allows WR #{active.defMetrics.positional.find((p) => p.position === 'WR')?.rank ?? '—'},
+                        {' '}RB #{active.defMetrics.positional.find((p) => p.position === 'RB')?.rank ?? '—'},
+                        {' '}TE #{active.defMetrics.positional.find((p) => p.position === 'TE')?.rank ?? '—'}
                       </span>
                     </p>
                   )}
                   {/* Low-rated player callouts */}
-                  {Array.from(offenseRoster.values())
+                  {Array.from(active.offense.values())
                     .filter((p) => p && p.rating < 60 && p.position !== 'OL')
                     .map((p) => (
                       <p

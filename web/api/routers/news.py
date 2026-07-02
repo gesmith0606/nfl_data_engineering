@@ -7,7 +7,7 @@ empty results gracefully when no sentiment data has been ingested yet.
 """
 
 import logging
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
@@ -16,14 +16,51 @@ from ..models.schemas import (
     NewsItem,
     PlayerEventBadges,
     PlayerSentiment,
+    SentimentRankingsResponse,
     TeamEvents,
     TeamSentiment,
+    TopStoriesResponse,
 )
 from ..services import news_service
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/news", tags=["news"])
+
+
+@router.get("/top-stories", response_model=TopStoriesResponse)
+def get_top_stories(
+    window: Literal["day", "week", "month"] = Query(
+        "week", description="Trailing time window"
+    ),
+    limit: int = Query(12, ge=1, le=50, description="Max stories to return"),
+) -> TopStoriesResponse:
+    """Top stories in the trailing day/week/month, ranked by importance.
+
+    Importance = |sentiment| × confidence + event-flag weight (ruled out,
+    traded, signed, ...) with a mild recency decay. Scans Silver signals
+    across ALL season partitions and filters on ``published_at``, so
+    offseason stories that straddle season directories are included.
+    """
+    return TopStoriesResponse(**news_service.get_top_stories(window, limit))
+
+
+@router.get("/sentiment-rankings", response_model=SentimentRankingsResponse)
+def get_sentiment_rankings(
+    window: Literal["day", "week", "month"] = Query(
+        "week", description="Trailing time window"
+    ),
+    limit: int = Query(10, ge=1, le=50, description="Max players per list"),
+) -> SentimentRankingsResponse:
+    """Live per-player sentiment rankings over the trailing window.
+
+    ``risers`` = most positive confidence-weighted average sentiment;
+    ``fallers`` = most negative. Each entry carries doc counts, event
+    flags, and the latest headline explaining the ranking.
+    """
+    return SentimentRankingsResponse(
+        **news_service.get_sentiment_rankings(window, limit)
+    )
 
 
 @router.get("/player/{player_id}", response_model=List[NewsItem])

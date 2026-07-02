@@ -3,6 +3,7 @@
 import { parseAsInteger, useQueryStates } from 'nuqs';
 import PageContainer from '@/components/layout/page-container';
 import { NewsFeed } from '@/features/nfl/components/news-feed';
+import { SentimentPulse } from '@/features/nfl/components/sentiment-pulse';
 import { TeamEventDensityGrid } from '@/features/nfl/components/TeamEventDensityGrid';
 import {
   Card,
@@ -36,8 +37,10 @@ export default function NewsPage() {
   // convention). Season defaults to the latest season with sentiment
   // data; week=null means "all weeks" on the feed.
   const [{ season, week: weekParam }, setParams] = useQueryStates({
-    season: parseAsInteger.withDefault(2025),
-    week: parseAsInteger.withDefault(1)
+    // Default to the upcoming season, all weeks — offseason/preseason
+    // articles land under season=2026 week=01 before games are played.
+    season: parseAsInteger.withDefault(2026),
+    week: parseAsInteger.withDefault(0)
   });
   const week = weekParam < 1 ? undefined : weekParam;
 
@@ -49,9 +52,13 @@ export default function NewsPage() {
     <PageContainer
       scrollable
       pageTitle='News & Sentiment'
-      pageDescription='NFL news, rule-extracted event signals, and player/team outlook from all sources'
+      pageDescription='Live sentiment analysis heading into the season — top stories, player sentiment rankings, and event signals from all news sources'
     >
       <FadeIn className='space-y-[var(--gap-stack)]'>
+        {/* Season Sentiment Pulse — live trailing-window top stories +
+            player sentiment rankings (day / week / month). */}
+        <SentimentPulse />
+
         {/* Season / week selectors */}
         <div className='flex flex-wrap items-center gap-[var(--space-3)]'>
           <Select

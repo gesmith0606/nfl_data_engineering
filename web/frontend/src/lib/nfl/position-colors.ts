@@ -26,30 +26,37 @@ export { getPositionColor };
  * by template interpolation at runtime never reaches the bundle. Every badge
  * class string below must therefore stay a full literal. */
 const BADGE_CLASS: Record<string, string> = {
-  QB: 'text-[var(--pos-qb)] border-[color-mix(in_oklch,var(--pos-qb)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-qb)_14%,transparent)]',
-  RB: 'text-[var(--pos-rb)] border-[color-mix(in_oklch,var(--pos-rb)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-rb)_14%,transparent)]',
-  WR: 'text-[var(--pos-wr)] border-[color-mix(in_oklch,var(--pos-wr)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-wr)_14%,transparent)]',
-  TE: 'text-[var(--pos-te)] border-[color-mix(in_oklch,var(--pos-te)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-te)_14%,transparent)]',
-  K: 'text-[var(--pos-k)] border-[color-mix(in_oklch,var(--pos-k)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-k)_14%,transparent)]',
-  OL: 'text-[var(--pos-ol)] border-[color-mix(in_oklch,var(--pos-ol)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-ol)_14%,transparent)]',
-  DE: 'text-[var(--pos-de)] border-[color-mix(in_oklch,var(--pos-de)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-de)_14%,transparent)]',
-  DT: 'text-[var(--pos-dt)] border-[color-mix(in_oklch,var(--pos-dt)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-dt)_14%,transparent)]',
-  LB: 'text-[var(--pos-lb)] border-[color-mix(in_oklch,var(--pos-lb)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-lb)_14%,transparent)]',
-  CB: 'text-[var(--pos-cb)] border-[color-mix(in_oklch,var(--pos-cb)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-cb)_14%,transparent)]',
-  SS: 'text-[var(--pos-ss)] border-[color-mix(in_oklch,var(--pos-ss)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-ss)_14%,transparent)]',
-  FS: 'text-[var(--pos-fs)] border-[color-mix(in_oklch,var(--pos-fs)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-fs)_14%,transparent)]'
+  QB: 'text-[var(--pos-qb)] border-[color-mix(in_oklch,var(--pos-qb)_45%,transparent)] border-l-[3px] border-l-[var(--pos-qb)] bg-[color-mix(in_oklch,var(--pos-qb)_16%,transparent)]',
+  RB: 'text-[var(--pos-rb)] border-[color-mix(in_oklch,var(--pos-rb)_45%,transparent)] border-l-[3px] border-l-[var(--pos-rb)] bg-[color-mix(in_oklch,var(--pos-rb)_16%,transparent)]',
+  WR: 'text-[var(--pos-wr)] border-[color-mix(in_oklch,var(--pos-wr)_45%,transparent)] border-l-[3px] border-l-[var(--pos-wr)] bg-[color-mix(in_oklch,var(--pos-wr)_16%,transparent)]',
+  TE: 'text-[var(--pos-te)] border-[color-mix(in_oklch,var(--pos-te)_45%,transparent)] border-l-[3px] border-l-[var(--pos-te)] bg-[color-mix(in_oklch,var(--pos-te)_16%,transparent)]',
+  K: 'text-[var(--pos-k)] border-[color-mix(in_oklch,var(--pos-k)_45%,transparent)] border-l-[3px] border-l-[var(--pos-k)] bg-[color-mix(in_oklch,var(--pos-k)_16%,transparent)]',
+  OL: 'text-[var(--pos-ol)] border-[color-mix(in_oklch,var(--pos-ol)_45%,transparent)] border-l-[3px] border-l-[var(--pos-ol)] bg-[color-mix(in_oklch,var(--pos-ol)_16%,transparent)]',
+  DE: 'text-[var(--pos-de)] border-[color-mix(in_oklch,var(--pos-de)_45%,transparent)] border-l-[3px] border-l-[var(--pos-de)] bg-[color-mix(in_oklch,var(--pos-de)_16%,transparent)]',
+  DT: 'text-[var(--pos-dt)] border-[color-mix(in_oklch,var(--pos-dt)_45%,transparent)] border-l-[3px] border-l-[var(--pos-dt)] bg-[color-mix(in_oklch,var(--pos-dt)_16%,transparent)]',
+  LB: 'text-[var(--pos-lb)] border-[color-mix(in_oklch,var(--pos-lb)_45%,transparent)] border-l-[3px] border-l-[var(--pos-lb)] bg-[color-mix(in_oklch,var(--pos-lb)_16%,transparent)]',
+  CB: 'text-[var(--pos-cb)] border-[color-mix(in_oklch,var(--pos-cb)_45%,transparent)] border-l-[3px] border-l-[var(--pos-cb)] bg-[color-mix(in_oklch,var(--pos-cb)_16%,transparent)]',
+  SS: 'text-[var(--pos-ss)] border-[color-mix(in_oklch,var(--pos-ss)_45%,transparent)] border-l-[3px] border-l-[var(--pos-ss)] bg-[color-mix(in_oklch,var(--pos-ss)_16%,transparent)]',
+  FS: 'text-[var(--pos-fs)] border-[color-mix(in_oklch,var(--pos-fs)_45%,transparent)] border-l-[3px] border-l-[var(--pos-fs)] bg-[color-mix(in_oklch,var(--pos-fs)_16%,transparent)]'
 };
 
 const BADGE_CLASS_UNKNOWN =
-  'text-[var(--pos-unknown)] border-[color-mix(in_oklch,var(--pos-unknown)_45%,transparent)] bg-[color-mix(in_oklch,var(--pos-unknown)_14%,transparent)]';
+  'text-[var(--pos-unknown)] border-[color-mix(in_oklch,var(--pos-unknown)_45%,transparent)] border-l-[3px] border-l-[var(--pos-unknown)] bg-[color-mix(in_oklch,var(--pos-unknown)_16%,transparent)]';
+
+/* Shared chunky-pill modifiers appended to every position badge: condensed
+ * uppercase display type (falls back to --font-sans off worldcup26) + rounded
+ * pill geometry. Kept as a static literal so Tailwind extracts the classes. */
+const BADGE_SHARED = 'wc-display rounded-md tracking-[0.04em]';
 
 /**
  * Tailwind class string for a position pill/badge.
  *
- * Background is a 14% mix of the position token over the surface (the
- * tinted-chip look); text uses the token directly and the border a 45% mix.
- * Resolves through `var(--pos-*)`, so it re-themes across all themes/modes.
+ * A solid 3px position-color rail runs down the left edge; the remaining
+ * border is a 45% mix and the fill a 16% mix of the same token, with condensed
+ * uppercase display type. Resolves through `var(--pos-*)`, so it re-themes
+ * across all themes/modes.
  */
 export function getPositionBadgeClass(position: string): string {
-  return BADGE_CLASS[position?.toUpperCase()] ?? BADGE_CLASS_UNKNOWN;
+  const base = BADGE_CLASS[position?.toUpperCase()] ?? BADGE_CLASS_UNKNOWN;
+  return `${base} ${BADGE_SHARED}`;
 }

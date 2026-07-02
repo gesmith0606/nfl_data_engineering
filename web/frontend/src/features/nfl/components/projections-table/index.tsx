@@ -23,6 +23,11 @@ import { EmptyState } from '@/components/EmptyState';
 import { useWeekParams } from '@/hooks/use-week-params';
 import { useState } from 'react';
 
+/* Active filter pills use the primary (magenta) fill instead of the muted
+ * default — themes correctly everywhere since --primary is defined per theme. */
+const ACTIVE_TAB =
+  'data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold data-[state=active]:shadow-sm dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground';
+
 const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K'];
 const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
   { value: 'ppr', label: 'PPR' },
@@ -91,7 +96,7 @@ export function ProjectionsTable() {
                 <TabsTrigger
                   key={opt.value}
                   value={opt.value}
-                  className='flex-1 sm:flex-initial'
+                  className={`flex-1 sm:flex-initial ${ACTIVE_TAB}`}
                 >
                   {opt.label}
                 </TabsTrigger>
@@ -106,7 +111,7 @@ export function ProjectionsTable() {
       <Tabs value={position} onValueChange={(v) => setPosition(v as Position)}>
         <TabsList className='w-full sm:w-auto'>
           {POSITIONS.map((pos) => (
-            <TabsTrigger key={pos} value={pos} className='flex-1 sm:flex-initial'>
+            <TabsTrigger key={pos} value={pos} className={`flex-1 sm:flex-initial ${ACTIVE_TAB}`}>
               {pos === 'ALL' ? 'All' : pos}
             </TabsTrigger>
           ))}

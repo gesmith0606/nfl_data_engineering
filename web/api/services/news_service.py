@@ -18,6 +18,7 @@ This is intentional: the pipeline may not have ingested sentiment data yet.
 import json
 import logging
 from collections import Counter
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -1535,4 +1536,242 @@ def get_player_event_badges(player_id: str, season: int, week: int) -> Dict[str,
         "overall_label": _classify_sentiment(negative, positive, neutral),
         "article_count": len(player_records),
         "most_recent_article": most_recent,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Trailing-window sentiment pulse (day / week / month) — season-kickoff view
+# ---------------------------------------------------------------------------
+
+WINDOW_DAYS = {"day": 1, "week": 7, "month": 30}
+
+# Event flags that make a story important regardless of sentiment magnitude.
+_EVENT_STORY_WEIGHTS = {
+    "is_ruled_out": 0.5,
+    "is_suspended": 0.5,
+    "is_traded": 0.45,
+    "is_released": 0.45,
+    "is_signed": 0.4,
+    "is_activated": 0.3,
+    "is_returning": 0.3,
+    "is_questionable": 0.25,
+    "is_usage_boost": 0.2,
+    "is_usage_drop": 0.2,
+}
+
+
+def _parse_published_at(value: Any) -> Optional["datetime"]:
+    """Parse an ISO published_at string to an aware UTC datetime, or None."""
+    from datetime import datetime, timezone
+
+    if not value:
+        return None
+    try:
+        dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
+
+
+def _load_recent_signal_records(days: int) -> List[Dict[str, Any]]:
+    """All Silver signal records (across every season dir) published within
+    the trailing *days* window.
+
+    Offseason stories straddle season partition dirs (June articles live
+    under season=2025 week=18, July+ under season=2026 week=01), so window
+    queries must scan every season and filter on ``published_at``.
+    """
+    from datetime import datetime, timedelta, timezone
+
+    if not _SILVER_SIGNALS_DIR.exists():
+        return []
+    files: List[Path] = []
+    for season_dir in _SILVER_SIGNALS_DIR.iterdir():
+        if season_dir.is_dir() and season_dir.name.startswith("season="):
+            try:
+                season = int(season_dir.name.split("=", 1)[1])
+            except ValueError:
+                continue
+            files.extend(_find_silver_files_all_weeks(season))
+
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    recent: List[Dict[str, Any]] = []
+    for rec in _load_silver_records(files):
+        published = _parse_published_at(rec.get("published_at"))
+        if published is not None and published >= cutoff:
+            rec["_published_dt"] = published
+            recent.append(rec)
+    return recent
+
+
+def _player_id_team_map() -> Dict[str, str]:
+    """player_id → team from the latest Bronze roster parquet (any season).
+
+    Cached per (file, mtime) so daily roster refreshes are picked up
+    without a server restart.
+    """
+    import glob as _glob
+
+    roster_root = _BRONZE_SENTIMENT_DIR.parent / "players" / "rosters"
+    matches = sorted(_glob.glob(str(roster_root / "season=*" / "rosters_*.parquet")))
+    if not matches:
+        return {}
+    path = Path(matches[-1])
+    return _player_id_team_map_cached(str(path), path.stat().st_mtime)
+
+
+@lru_cache(maxsize=2)
+def _player_id_team_map_cached(path_str: str, _mtime: float) -> Dict[str, str]:
+    try:
+        df = pd.read_parquet(path_str, columns=["player_id", "team"])
+    except Exception as exc:  # pragma: no cover — corrupted parquet
+        logger.warning("Could not read roster parquet for team map: %s", exc)
+        return {}
+    df = df.dropna().drop_duplicates(subset=["player_id"], keep="last")
+    return dict(zip(df["player_id"].astype(str), df["team"].astype(str)))
+
+
+def _story_score(rec: Dict[str, Any], now: "datetime") -> float:
+    """Importance score: sentiment magnitude × confidence + event weight,
+    decayed by age so today's stories outrank last week's."""
+    sentiment = abs(float(rec.get("sentiment_score") or 0.0))
+    confidence = float(rec.get("sentiment_confidence") or 0.5)
+    events = rec.get("events") or {}
+    event_weight = max(
+        (_EVENT_STORY_WEIGHTS[k] for k in _EVENT_STORY_WEIGHTS if events.get(k)),
+        default=0.0,
+    )
+    base = sentiment * confidence + event_weight
+    age_days = max(0.0, (now - rec["_published_dt"]).total_seconds() / 86400.0)
+    return base * (0.97**age_days) + 0.001 * (0.97**age_days)
+
+
+def get_top_stories(window: str = "week", limit: int = 12) -> Dict[str, Any]:
+    """Top stories in the trailing day/week/month, ranked by importance.
+
+    Importance = |sentiment| × confidence + event-flag weight, with a mild
+    recency decay. One entry per document (highest-scoring signal wins).
+    """
+    from datetime import datetime, timezone
+
+    days = WINDOW_DAYS.get(window, 7)
+    records = _load_recent_signal_records(days)
+    now = datetime.now(timezone.utc)
+
+    best_per_doc: Dict[str, Tuple[float, Dict[str, Any]]] = {}
+    for rec in records:
+        doc_id = str(rec.get("doc_id") or rec.get("signal_id") or "")
+        if not doc_id:
+            continue
+        score = _story_score(rec, now)
+        existing = best_per_doc.get(doc_id)
+        if existing is None or score > existing[0]:
+            best_per_doc[doc_id] = (score, rec)
+
+    ranked = sorted(best_per_doc.values(), key=lambda t: t[0], reverse=True)[:limit]
+    team_map = _player_id_team_map()
+
+    stories: List[Dict[str, Any]] = []
+    for score, rec in ranked:
+        item = _build_news_item_from_silver(rec)
+        # Silver records carry no title/url — derive both.
+        excerpt = (rec.get("raw_excerpt") or "").strip()
+        if not item.get("title") and excerpt:
+            item["title"] = excerpt.splitlines()[0][:140]
+        doc_id = str(rec.get("doc_id") or "")
+        if doc_id.startswith("http"):
+            item["url"] = doc_id
+        if item.get("player_id") and not item.get("team"):
+            item["team"] = team_map.get(str(item["player_id"]))
+        item["story_score"] = round(score, 3)
+        stories.append(item)
+
+    return {
+        "window": window,
+        "as_of": now.isoformat(),
+        "story_count": len(stories),
+        "stories": stories,
+    }
+
+
+def get_sentiment_rankings(window: str = "week", limit: int = 10) -> Dict[str, Any]:
+    """Per-player aggregated sentiment over the trailing window.
+
+    Returns ``risers`` (most positive average sentiment) and ``fallers``
+    (most negative), each with document counts and the latest headline so
+    the UI can explain WHY a player ranks.
+    """
+    from datetime import datetime, timezone
+
+    days = WINDOW_DAYS.get(window, 7)
+    records = _load_recent_signal_records(days)
+    now = datetime.now(timezone.utc)
+    team_map = _player_id_team_map()
+
+    by_player: Dict[str, Dict[str, Any]] = {}
+    for rec in records:
+        name = rec.get("player_name")
+        # Require a resolved player_id: keeps rule-extractor entity noise
+        # ("The Lions", "Defensive Player", coaches) out of PLAYER rankings.
+        if not name or not rec.get("player_id"):
+            continue
+        key = str(rec.get("player_id"))
+        agg = by_player.setdefault(
+            key,
+            {
+                "player_id": rec.get("player_id"),
+                "player_name": name,
+                "team": team_map.get(str(rec.get("player_id") or "")),
+                "doc_count": 0,
+                "_weighted_sum": 0.0,
+                "_weight": 0.0,
+                "_latest_dt": None,
+                "latest_headline": None,
+                "event_flags": [],
+            },
+        )
+        confidence = float(rec.get("sentiment_confidence") or 0.5)
+        agg["doc_count"] += 1
+        agg["_weighted_sum"] += float(rec.get("sentiment_score") or 0.0) * confidence
+        agg["_weight"] += confidence
+        for flag in _extract_event_flags(rec.get("events") or {}):
+            if flag not in agg["event_flags"]:
+                agg["event_flags"].append(flag)
+        published = rec["_published_dt"]
+        if agg["_latest_dt"] is None or published > agg["_latest_dt"]:
+            agg["_latest_dt"] = published
+            excerpt = (rec.get("raw_excerpt") or "").strip()
+            agg["latest_headline"] = excerpt.splitlines()[0][:140] if excerpt else None
+
+    entries: List[Dict[str, Any]] = []
+    for agg in by_player.values():
+        weight = agg.pop("_weight")
+        weighted_sum = agg.pop("_weighted_sum")
+        latest_dt = agg.pop("_latest_dt")
+        avg = weighted_sum / weight if weight else 0.0
+        agg["avg_sentiment"] = round(avg, 3)
+        agg["label"] = (
+            "bullish" if avg >= 0.1 else "bearish" if avg <= -0.1 else "neutral"
+        )
+        agg["latest_published_at"] = latest_dt.isoformat() if latest_dt else None
+        entries.append(agg)
+
+    risers = sorted(
+        (e for e in entries if e["avg_sentiment"] > 0),
+        key=lambda e: (e["avg_sentiment"], e["doc_count"]),
+        reverse=True,
+    )[:limit]
+    fallers = sorted(
+        (e for e in entries if e["avg_sentiment"] < 0),
+        key=lambda e: (e["avg_sentiment"], -e["doc_count"]),
+    )[:limit]
+
+    return {
+        "window": window,
+        "as_of": now.isoformat(),
+        "player_count": len(entries),
+        "risers": risers,
+        "fallers": fallers,
     }

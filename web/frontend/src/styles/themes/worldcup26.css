@@ -1,0 +1,250 @@
+/*
+ * World Cup 26 theme — a premium, tournament-grade look for a paid NFL
+ * analytics product. Palette/mood inspiration only: vivid saturated accent
+ * family (magenta / cyan / lime / orange / violet) + a gold "trophy" highlight,
+ * on deep cool-ink backgrounds. Dark mode is the hero surface.
+ *
+ * No third-party logos, wordmarks, or brand names are used — colors and mood
+ * only. Contrast notes are documented alongside the tokens below.
+ */
+
+/* Light mode tokens */
+[data-theme='worldcup26'] {
+  --background: oklch(0.99 0.003 250);
+  --foreground: oklch(0.18 0.02 265); /* deep ink, not pure black — ~13:1 on bg */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 265);
+  --primary: oklch(0.48 0.22 350); /* deep electric magenta — white text ~5:1 */
+  --primary-foreground: oklch(0.99 0.002 350);
+  --secondary: oklch(0.95 0.012 265);
+  --secondary-foreground: oklch(0.24 0.02 265);
+  --muted: oklch(0.96 0.008 260);
+  --muted-foreground: oklch(0.45 0.02 265); /* ~5:1 on white card */
+  --accent: oklch(0.93 0.035 320); /* soft violet wash for hover states */
+  --accent-foreground: oklch(0.3 0.08 320);
+  --destructive: oklch(0.55 0.22 25); /* orange-red */
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.9 0.01 260);
+  --input: oklch(0.92 0.008 260);
+  --ring: oklch(0.48 0.22 350);
+  --chart-1: oklch(0.55 0.24 350); /* magenta */
+  --chart-2: oklch(0.55 0.13 200); /* cyan */
+  --chart-3: oklch(0.6 0.17 130); /* lime */
+  --chart-4: oklch(0.6 0.19 40); /* orange */
+  --chart-5: oklch(0.5 0.2 300); /* violet */
+  /* Dark ink sidebar in BOTH modes — dark rail + light content is a signature
+   * premium dashboard move. Every sidebar-* below reads AA on the ink surface. */
+  --sidebar: oklch(0.165 0.02 265);
+  --sidebar-foreground: oklch(0.96 0.004 250); /* ~15:1 on ink */
+  --sidebar-primary: oklch(0.68 0.23 350); /* electric magenta, dark text ~7:1 */
+  --sidebar-primary-foreground: oklch(0.16 0.02 350);
+  --sidebar-accent: oklch(0.28 0.05 300); /* violet-lifted hover surface */
+  --sidebar-accent-foreground: oklch(0.97 0.004 250); /* ~9:1 on accent */
+  --sidebar-border: oklch(0.26 0.025 265);
+  --sidebar-ring: oklch(0.68 0.23 350);
+  --font-sans: var(--font-archivo), sans-serif;
+  --font-serif: var(--font-merriweather), serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --radius: 0.85rem;
+  --shadow-x: 0px;
+  --shadow-y: 2px;
+  --shadow-blur: 8px;
+  --shadow-spread: -2px;
+  --shadow-opacity: 0.12;
+  --shadow-color: oklch(0.18 0.02 265);
+  --shadow-2xs: 0px 1px 2px 0px oklch(0.18 0.02 265 / 0.06);
+  --shadow-xs: 0px 1px 3px 0px oklch(0.18 0.02 265 / 0.08);
+  --shadow-sm: 0px 1px 3px 0px oklch(0.18 0.02 265 / 0.1), 0px 1px 2px -1px oklch(0.18 0.02 265 / 0.1);
+  --shadow: 0px 2px 8px -2px oklch(0.18 0.02 265 / 0.12), 0px 1px 2px -1px oklch(0.18 0.02 265 / 0.1);
+  --shadow-md: 0px 4px 12px -2px oklch(0.18 0.02 265 / 0.12), 0px 2px 4px -1px oklch(0.18 0.02 265 / 0.1);
+  --shadow-lg: 0px 8px 20px -4px oklch(0.18 0.02 265 / 0.14), 0px 4px 6px -1px oklch(0.18 0.02 265 / 0.1);
+  --shadow-xl: 0px 16px 32px -8px oklch(0.18 0.02 265 / 0.16), 0px 8px 10px -1px oklch(0.18 0.02 265 / 0.1);
+  --shadow-2xl: 0px 24px 48px -12px oklch(0.18 0.02 265 / 0.3);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
+
+/* Dark mode tokens — the hero surface */
+[data-theme='worldcup26'].dark {
+  --background: oklch(0.145 0.018 265); /* deep cool ink */
+  --foreground: oklch(0.96 0.004 250); /* ~15:1 on background */
+  --card: oklch(0.185 0.02 265); /* slightly lifted */
+  --card-foreground: oklch(0.96 0.004 250);
+  --popover: oklch(0.2 0.02 265);
+  --popover-foreground: oklch(0.96 0.004 250);
+  --primary: oklch(0.68 0.23 350); /* electric magenta — dark text ~7:1 */
+  --primary-foreground: oklch(0.16 0.02 350);
+  --secondary: oklch(0.28 0.03 265);
+  --secondary-foreground: oklch(0.96 0.004 250);
+  --muted: oklch(0.24 0.025 265);
+  --muted-foreground: oklch(0.72 0.02 255); /* ~6.5:1 on card */
+  --accent: oklch(0.32 0.06 320); /* violet-lifted hover surface */
+  --accent-foreground: oklch(0.97 0.004 250);
+  --destructive: oklch(0.62 0.23 25); /* orange-red */
+  --destructive-foreground: oklch(0.14 0.01 25);
+  --border: oklch(0.28 0.025 265);
+  --input: oklch(0.3 0.025 265);
+  --ring: oklch(0.68 0.23 350);
+  --chart-1: oklch(0.68 0.23 350); /* magenta */
+  --chart-2: oklch(0.75 0.14 200); /* cyan */
+  --chart-3: oklch(0.82 0.19 130); /* lime */
+  --chart-4: oklch(0.7 0.19 40); /* orange */
+  --chart-5: oklch(0.62 0.2 300); /* violet */
+  --sidebar: oklch(0.165 0.02 265);
+  --sidebar-foreground: oklch(0.96 0.004 250);
+  --sidebar-primary: oklch(0.68 0.23 350);
+  --sidebar-primary-foreground: oklch(0.16 0.02 350);
+  --sidebar-accent: oklch(0.28 0.05 300);
+  --sidebar-accent-foreground: oklch(0.97 0.004 250);
+  --sidebar-border: oklch(0.26 0.025 265);
+  --sidebar-ring: oklch(0.68 0.23 350);
+  --font-sans: var(--font-archivo), sans-serif;
+  --font-serif: var(--font-merriweather), serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --radius: 0.85rem;
+  --shadow-x: 0px;
+  --shadow-y: 2px;
+  --shadow-blur: 10px;
+  --shadow-spread: -2px;
+  --shadow-opacity: 0.5;
+  --shadow-color: oklch(0 0 0);
+  --shadow-2xs: 0px 1px 2px 0px oklch(0 0 0 / 0.3);
+  --shadow-xs: 0px 1px 3px 0px oklch(0 0 0 / 0.4);
+  --shadow-sm: 0px 1px 3px 0px oklch(0 0 0 / 0.5), 0px 1px 2px -1px oklch(0 0 0 / 0.5);
+  --shadow: 0px 2px 10px -2px oklch(0 0 0 / 0.5), 0px 1px 2px -1px oklch(0 0 0 / 0.5);
+  --shadow-md: 0px 4px 14px -2px oklch(0 0 0 / 0.55), 0px 2px 4px -1px oklch(0 0 0 / 0.5);
+  --shadow-lg: 0px 8px 24px -4px oklch(0 0 0 / 0.6), 0px 4px 6px -1px oklch(0 0 0 / 0.5);
+  --shadow-xl: 0px 16px 36px -8px oklch(0 0 0 / 0.65), 0px 8px 10px -1px oklch(0 0 0 / 0.5);
+  --shadow-2xl: 0px 24px 52px -12px oklch(0 0 0 / 0.75);
+}
+
+/* Theme inline mappings for Tailwind */
+[data-theme='worldcup26'] {
+  @theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --font-sans: var(--font-sans);
+    --font-mono: var(--font-mono);
+    --font-serif: var(--font-serif);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --shadow-2xs: var(--shadow-2xs);
+    --shadow-xs: var(--shadow-xs);
+    --shadow-sm: var(--shadow-sm);
+    --shadow: var(--shadow);
+    --shadow-md: var(--shadow-md);
+    --shadow-lg: var(--shadow-lg);
+    --shadow-xl: var(--shadow-xl);
+    --shadow-2xl: var(--shadow-2xl);
+    --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
+    --tracking-tight: calc(var(--tracking-normal) - 0.025em);
+    --tracking-normal: var(--tracking-normal);
+    --tracking-wide: calc(var(--tracking-normal) + 0.025em);
+    --tracking-wider: calc(var(--tracking-normal) + 0.05em);
+    --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+  }
+}
+
+/*
+ * Theme-specific extras — scoped to worldcup26 only. These feed the branded
+ * chrome (color rails, ribbon motifs, condensed display type). Utilities
+ * below (.wc-rail / .wc-display / .wc-ribbon) reference these with fallbacks
+ * so they degrade gracefully under the other 10 themes.
+ */
+[data-theme='worldcup26'] {
+  --wc-gold: oklch(0.8 0.14 90); /* trophy gold — premium/highlight moments */
+  --wc-magenta: oklch(0.68 0.23 350);
+  --wc-cyan: oklch(0.75 0.14 200);
+  --wc-lime: oklch(0.82 0.19 130);
+  --wc-orange: oklch(0.7 0.19 40);
+  --wc-violet: oklch(0.62 0.2 300);
+  /* Vertical color rail stacking the accent family (badge left-edge rails). */
+  --wc-rail: linear-gradient(
+    180deg,
+    var(--wc-magenta) 0%,
+    var(--wc-orange) 28%,
+    var(--wc-lime) 52%,
+    var(--wc-cyan) 76%,
+    var(--wc-violet) 100%
+  );
+  /* Horizontal variant of the rail — for thin header/underline accents. */
+  --wc-rail-x: linear-gradient(
+    90deg,
+    var(--wc-magenta) 0%,
+    var(--wc-orange) 28%,
+    var(--wc-lime) 52%,
+    var(--wc-cyan) 76%,
+    var(--wc-violet) 100%
+  );
+  /* Condensed display face for headings/brand. Body stays on --font-sans. */
+  --wc-font-display: var(--font-barlow-condensed), var(--font-archivo), sans-serif;
+}
+
+[data-theme='worldcup26'].dark {
+  --wc-gold: oklch(0.83 0.15 90);
+}
+
+/*
+ * Reusable branded utilities (global classes). Every var() has a token-based
+ * fallback so these are safe to use in components that render under any theme.
+ */
+
+/* Gradient color rail — the pill/badge left-edge accent bar. */
+.wc-rail {
+  background: var(--wc-rail, linear-gradient(180deg, var(--primary), var(--chart-2, var(--primary))));
+}
+
+/* Condensed uppercase display treatment for brand/hero titles. */
+.wc-display {
+  font-family: var(--wc-font-display, var(--font-sans));
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+/* Layered ribbon/stripe motif for hero decoration. Falls back to the active
+ * theme's chart palette so it stays intentional under non-wc themes. */
+.wc-ribbon {
+  background-image: repeating-linear-gradient(
+    115deg,
+    var(--wc-magenta, var(--chart-1)) 0 14px,
+    var(--wc-orange, var(--chart-4)) 14px 28px,
+    var(--wc-lime, var(--chart-3)) 28px 42px,
+    var(--wc-cyan, var(--chart-2)) 42px 56px,
+    var(--wc-violet, var(--chart-5)) 56px 70px
+  );
+}

@@ -594,6 +594,51 @@ class NewsItem(BaseModel):
     )
 
 
+class TopStory(NewsItem):
+    """A NewsItem ranked for the trailing-window Top Stories list.
+
+    ``story_score`` = |sentiment| × confidence + event-flag weight with a
+    mild recency decay (see ``news_service._story_score``).
+    """
+
+    story_score: float = 0.0
+
+
+class TopStoriesResponse(BaseModel):
+    """Response envelope for GET /api/news/top-stories."""
+
+    window: Literal["day", "week", "month"]
+    as_of: str
+    story_count: int
+    stories: List[TopStory]
+
+
+class SentimentRankingEntry(BaseModel):
+    """One player's aggregated sentiment over a trailing window."""
+
+    player_id: Optional[str] = None
+    player_name: str
+    team: Optional[str] = None
+    doc_count: int
+    avg_sentiment: float = Field(
+        ..., description="Confidence-weighted mean sentiment in [-1, 1]"
+    )
+    label: Literal["bullish", "bearish", "neutral"]
+    latest_headline: Optional[str] = None
+    latest_published_at: Optional[str] = None
+    event_flags: List[str] = Field(default_factory=list)
+
+
+class SentimentRankingsResponse(BaseModel):
+    """Response envelope for GET /api/news/sentiment-rankings."""
+
+    window: Literal["day", "week", "month"]
+    as_of: str
+    player_count: int
+    risers: List[SentimentRankingEntry]
+    fallers: List[SentimentRankingEntry]
+
+
 class TeamEvents(BaseModel):
     """Aggregated per-team event counts used by the NEWS-03 density grid.
 
@@ -908,6 +953,20 @@ class RosterPlayer(BaseModel):
     snap_pct_defense: Optional[float] = Field(default=None, ge=0.0, le=1.0)
     injury_status: Optional[str] = None
     slot_hint: Optional[str] = None
+    madden_rating: Optional[int] = Field(
+        default=None,
+        ge=50,
+        le=99,
+        description=(
+            "Per-player Madden-style rating (50-99) from PFR seasonal defense "
+            "stats percentiles (see player_rating_service). None when the "
+            "player has no rated production (rookies, offense, specialists)."
+        ),
+    )
+    rating_detail: Optional[str] = Field(
+        default=None,
+        description="Human-readable stat basis for madden_rating (tooltip copy).",
+    )
 
 
 class TeamRosterResponse(BaseModel):
@@ -937,6 +996,34 @@ class TeamRosterResponse(BaseModel):
             "cron is doing its job (phase 67 / v7.0)."
         ),
     )
+
+
+class TeamMatchupResponse(BaseModel):
+    """Response envelope for GET /api/teams/{team}/matchup.
+
+    Resolves a team's opponent for a week from the Bronze schedule parquet —
+    available as soon as the league publishes the schedule (May), months
+    before model predictions exist. ``spread_line``/``total_line`` are the
+    schedule's Vegas lines (nflverse convention: positive spread = home team
+    favored). ``is_bye=True`` (with ``opponent=None``) when the team has no
+    game that week.
+    """
+
+    team: str
+    season: int
+    week: int
+    opponent: Optional[str] = None
+    is_home: Optional[bool] = None
+    home_team: Optional[str] = None
+    away_team: Optional[str] = None
+    game_id: Optional[str] = None
+    gameday: Optional[str] = None
+    gametime: Optional[str] = None
+    spread_line: Optional[float] = None
+    total_line: Optional[float] = None
+    is_bye: bool = False
+    fallback: bool = False
+    fallback_season: Optional[int] = None
 
 
 # ---------------------------------------------------------------------------

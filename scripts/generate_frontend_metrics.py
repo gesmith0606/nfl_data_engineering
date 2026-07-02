@@ -92,15 +92,64 @@ def build_metrics(csv_path: Path, tests_passing: int) -> dict:
     }
 
 
+def build_consensus_section(csv_path: Path) -> dict:
+    """Compute model-vs-consensus MAE per position from a matched-pairs CSV.
+
+    Expects the ``consensus_matched_*.csv`` artifact from
+    ``backtest_projections.py --vs-consensus``: one row per player-week where
+    BOTH our projection and the Sleeper consensus projection exist, with
+    ``abs_error`` (ours) and ``consensus_proj`` + ``actual_points`` columns.
+    """
+    df = pd.read_csv(csv_path)
+    required = {"position", "abs_error", "consensus_proj", "actual_points"}
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(f"Consensus CSV missing columns: {sorted(missing)}")
+
+    con_abs_error = (df["consensus_proj"] - df["actual_points"]).abs()
+
+    def _row(sub: pd.DataFrame, sub_con: pd.Series) -> dict:
+        our = float(sub["abs_error"].mean())
+        con = float(sub_con.mean())
+        return {
+            "ourMae": round(our, 3),
+            "consensusMae": round(con, 3),
+            "gap": round(our - con, 3),  # negative = we beat consensus
+            "win": bool(our < con),
+            "playerWeeks": int(len(sub)),
+        }
+
+    positions = []
+    for pos in ["QB", "RB", "WR", "TE"]:
+        sub = df[df["position"] == pos]
+        if sub.empty:
+            continue
+        positions.append({"position": pos, **_row(sub, con_abs_error[sub.index])})
+
+    return {
+        "generatedFrom": csv_path.name,
+        "benchmark": "Sleeper expert consensus projections",
+        "seasons": f"{int(df['season'].min())}-{int(df['season'].max())}",
+        "scoringFormat": "Half-PPR",
+        "overall": _row(df, con_abs_error),
+        "positions": positions,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--csv", required=True, type=Path)
+    parser.add_argument("--consensus-csv", type=Path, default=None,
+                        help="Matched-pairs CSV from backtest --vs-consensus; "
+                             "adds a model-vs-consensus section")
     parser.add_argument("--tests", type=int, default=None,
                         help="Passing test count (auto-collected if omitted)")
     args = parser.parse_args()
 
     tests = args.tests if args.tests is not None else count_tests()
     metrics = build_metrics(args.csv, tests)
+    if args.consensus_csv is not None:
+        metrics["consensus"] = build_consensus_section(args.consensus_csv)
     OUTPUT_PATH.write_text(json.dumps(metrics, indent=2) + "\n")
     print(f"Wrote {OUTPUT_PATH}")
     print(f"  overall MAE {metrics['overall']['mae']}, "

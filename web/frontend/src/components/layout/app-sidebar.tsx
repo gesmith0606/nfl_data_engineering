@@ -39,12 +39,17 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton size='lg' asChild>
               <Link href='/dashboard'>
-                <div className='bg-primary text-primary-foreground flex aspect-square size-[var(--space-8)] items-center justify-center rounded-lg'>
-                  <Icons.trendingUp className='size-[var(--space-4)]' />
+                <div className='flex items-center gap-[var(--space-2)]'>
+                  <div className='wc-rail h-[var(--space-8)] w-[3px] shrink-0 rounded-full group-data-[collapsible=icon]:hidden' />
+                  <div className='bg-primary text-primary-foreground flex aspect-square size-[var(--space-8)] shrink-0 items-center justify-center rounded-lg'>
+                    <Icons.trendingUp className='size-[var(--space-4)]' />
+                  </div>
                 </div>
                 <div className='grid flex-1 text-left text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                  <span className='truncate font-semibold'>NFL Analytics</span>
-                  <span className='text-muted-foreground truncate text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                  <span className='wc-display truncate text-[length:var(--fs-lg)] leading-[var(--lh-sm)]'>
+                    NFL Analytics
+                  </span>
+                  <span className='text-sidebar-foreground/70 truncate text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.08em] uppercase'>
                     Dashboard
                   </span>
                 </div>
@@ -122,12 +127,12 @@ export default function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size='lg'>
-              <div className='bg-muted flex aspect-square size-[var(--space-8)] items-center justify-center rounded-lg'>
+              <div className='bg-sidebar-accent text-sidebar-accent-foreground flex aspect-square size-[var(--space-8)] items-center justify-center rounded-lg'>
                 <Icons.settings className='size-[var(--space-4)]' />
               </div>
               <div className='grid flex-1 text-left text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
                 <span className='truncate font-semibold'>Settings</span>
-                <span className='text-muted-foreground truncate text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                <span className='text-sidebar-foreground/70 truncate text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   v3.0
                 </span>
               </div>
