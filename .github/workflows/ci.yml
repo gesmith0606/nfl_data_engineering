@@ -84,11 +84,17 @@ jobs:
         with:
           python-version: '3.11'
           cache: pip
-          cache-dependency-path: requirements.txt
+          cache-dependency-path: |
+            requirements.txt
+            web/requirements.txt
 
       - name: Install dependencies
         if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
-        run: pip install -r requirements.txt
+        # Root requirements lack the web API deps; the suite includes FastAPI
+        # tests (tests/test_api_*.py, tests/web/) which import fastapi at
+        # collection time and need httpx for TestClient. Without these every
+        # backend run fails on ModuleNotFoundError before a single test runs.
+        run: pip install -r requirements.txt -r web/requirements.txt httpx
 
       - name: Run pytest
         if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
