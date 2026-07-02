@@ -110,6 +110,8 @@ def build_consensus_section(csv_path: Path) -> dict:
     # row describes the same population (a kicker-inclusive CSV would
     # otherwise inflate the headline claim with easy zero-variance weeks).
     df = df[df["position"].isin(["QB", "RB", "WR", "TE"])].reset_index(drop=True)
+    if df.empty:
+        raise ValueError(f"No QB/RB/WR/TE rows in consensus CSV: {csv_path}")
 
     con_abs_error = (df["consensus_proj"] - df["actual_points"]).abs()
 

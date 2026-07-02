@@ -2,9 +2,10 @@
  * Season phase helper — drives the phase-aware module on the home hub.
  *
  * NFL calendar (US):
- *   - Regular season + playoffs run early September through early February.
+ *   - Regular season + playoffs run early September through the Super Bowl
+ *     window (Feb 1-15).
  *   - Draft-prep ramp is July–August (rankings, mocks, preseason projections).
- *   - Everything else (February–June) is quiet offseason.
+ *   - Late February through June is quiet offseason.
  *
  * Deliberately date-only and dependency-free so it can run on the server at
  * request time or on the client without a hydration mismatch.
