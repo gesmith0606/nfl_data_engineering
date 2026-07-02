@@ -210,7 +210,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 - **MCPs**: aws-core, aws-s3, aws-docs, github, duckduckgo, duckdb, fetch, sleeper (neo4j configured/disabled)
 - **Credentials**: `.env` file (never commit — already in .gitignore; pre-commit hook blocks key patterns)
 - **Yahoo live draft (v8.0, optional)**: `YAHOO_CLIENT_ID` + `YAHOO_CLIENT_SECRET` in `.env`; one-time OAuth grant seeds `data/yahoo_tokens.json` (gitignored), then auto-refreshes
-- **Deployment**: Frontend https://frontend-jet-seven-33.vercel.app | Backend https://nfldataengineering-production.up.railway.app (Parquet fallback mode)
+- **Deployment**: Frontend https://frontend-jet-seven-33.vercel.app | Backend https://gesmith0606-nfl-data-api.hf.space (HF Spaces bridge, Parquet fallback; Railway app is DEAD since the May 2026 trial expiry — do not point env vars at it)
 
 ## NFL Business Rules
 
