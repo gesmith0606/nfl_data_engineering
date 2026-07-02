@@ -1,0 +1,361 @@
+{
+  "fetch_run_id": "be1c76ab-da69-4b0e-b1a0-16f90ae17ffa",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-07-02T03:57:33.577832+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 23,
+  "items": [
+    {
+      "external_id": "US-EN-49218532",
+      "url": "https://www.espn.com/nfl/story/_/id/49218532/2026-nfl-season-predictions-division-winners-awards-playoffs-trades",
+      "title": "Texans to the Super Bowl? Chiefs come up short aga...",
+      "body_text": "Could Houston take the AFC? Will Myles Garrett hit 20-plus sacks again? Could two big-name players get dealt? Here are 10 early predictions for the season.",
+      "author": "Ben Solak",
+      "published_at": "2026-07-01T14:21:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl",
+        "Could Houston",
+        "Will Myles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-49241315",
+      "url": "https://www.espn.com/nfl/story/_/id/49241315/taylor-swift-travis-kelce-wedding-madison-square-garden-official-confirms",
+      "title": "Report: Chiefs' Kelce, Swift to marry at MSG Fri.",
+      "body_text": "The star couple will have their wedding at Madison Square Garden on Friday night, according to a law enforcement official briefed on the security plans.",
+      "author": "Associated Press",
+      "published_at": "2026-07-02T04:39:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Madison Square"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-49236930",
+      "url": "https://www.espn.com/nfl/story/_/id/49236930/calais-campbell-mother-found-dead-brother-charged-murder",
+      "title": "Calais Cambell's mother dead, brother charged",
+      "body_text": "The brother of Ravens defensive lineman Calais Campbell has been charged with murder after police found their 71-year-old mother dead at a home in Atlanta during a welfare check.",
+      "author": null,
+      "published_at": "2026-07-02T04:39:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Calais Cambell",
+        "Calais Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0026190"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-49241520",
+      "url": "https://www.espn.com/nfl/story/_/id/49241520/ex-titans-scout-arkansas-state-db-taylor-found-guilty-murder",
+      "title": "Former Titans scout Taylor found guilty of murder",
+      "body_text": "Blaise Taylor, a former defensive back at Arkansas State and NFL scout for the Titans, was found guilty of murdering his girlfriend and her unborn child Wednesday in a Nashville courtroom.",
+      "author": null,
+      "published_at": "2026-07-02T04:39:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Titans",
+        "Blaise Taylor",
+        "Arkansas State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "US-EN-49244639",
+      "url": "https://www.espn.com/nfl/story/_/id/49244639/chris-johnson-seeking-revival-ice-bucket-challenge-amid-als-diagnosis",
+      "title": "Chris Johnson aims to revive Ice Bucket Challenge",
+      "body_text": "Former NFL running back Chris Johnson is calling for the revival of the Ice Bucket Challenge to raise awareness of ALS as he fights the progressive nervous system disease.",
+      "author": null,
+      "published_at": "2026-07-02T04:39:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Chris Johnson",
+        "Ice Bucket",
+        "Challenge Former"
+      ],
+      "resolved_player_ids": [
+        "00-0035456"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49229498",
+      "url": "https://www.espn.com/nfl/story/_/id/49229498/brendan-sorsby-sue-nfl-now-prepare-2027-draft",
+      "title": "Sorsby won't sue NFL, will prepare for '27 draft",
+      "body_text": "The NFL Players Association and Brendan Sorsby will not be pursuing litigation after the NFL's decision not to hold a supplemental draft this year, according to a memo sent to all 32 teams.",
+      "author": null,
+      "published_at": "2026-07-02T04:39:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Players Association",
+        "Brendan Sorsby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49218761",
+      "url": "https://www.espn.com/nfl/story/_/id/49218761/lions-release-terrion-arnold-cb-bond-set-1m",
+      "title": "Lions release Arnold after CB's bond set at $1M",
+      "body_text": "The Lions have released Terrion Arnold after he was arrested last week on felony charges of armed robbery and kidnapping, the team announced Monday.",
+      "author": null,
+      "published_at": "2026-07-02T04:39:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Lions",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49219476",
+      "url": "https://www.espn.com/nfl/story/_/id/49219476/judge-david-doty-ruled-many-landmark-nfl-cases-dies-96",
+      "title": "Judge Doty, who ruled on many NFL cases, dies",
+      "body_text": "David Doty, the U.S. District Judge who directed numerous NFL labor matters in his Minneapolis courtroom and made a 1992 ruling that paved the way for modern free agency, has died at age 96.",
+      "author": null,
+      "published_at": "2026-07-02T04:39:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Judge Doty",
+        "David Doty",
+        "District Judge"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49199010",
+      "url": "https://www.espn.com/nfl/story/_/id/49199010/brandon-aiyuk-blames-ex-agent-push-leaves-49ers-continues",
+      "title": "Aiyuk blames ex-agent for causing 49ers issues",
+      "body_text": "Brandon Aiyuk said in a YouTube video that his former agent has influenced the ongoing situation between him and 49ers and that general manager John Lynch recently showed up at his house.",
+      "author": null,
+      "published_at": "2026-07-02T04:39:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "John Lynch"
+      ],
+      "resolved_player_ids": [
+        "00-0036261",
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-49154825",
+      "url": "https://www.espn.com/nfl/story/_/id/49154825/ranking-nfl-teams-offensive-groups-wr-rb-te-2026-season-best-playmakers",
+      "title": "📈 Barnwell ranks the best WR, TE and RB groups",
+      "body_text": "Which teams have the best skill position talent around their QB and offensive line? We stacked all 32 groups of pass catchers and ball carriers from worst to first.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-07-02T04:39:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49226999",
+      "url": "https://www.espn.com/nfl/story/_/id/49226999/healthy-cam-skattebo-full-summer-prepare-new-york-giants-season",
+      "title": "Healthy Skattebo gets full summer to prepare for s...",
+      "body_text": "Skattebo was back practicing before the end of the spring just as new coach John Harbaugh said was possible earlier this year.",
+      "author": "Jordan Raanan",
+      "published_at": "2026-07-01T12:30:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Healthy Skattebo",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49190613",
+      "url": "https://www.espn.com/nfl/story/_/id/49190613/seattle-seahawks-defense-rylie-mills-ready-breakout-2026-season",
+      "title": "'Ran through his face': Seattle has high hopes for...",
+      "body_text": "Now fully healthy, Rylie Mills looks to break out on Seattle's defensive line in 2026.",
+      "author": "Brady Henderson",
+      "published_at": "2026-07-01T12:30:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rylie Mills"
+      ],
+      "resolved_player_ids": [
+        "00-0040647"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49147104",
+      "url": "https://www.espn.com/nfl/story/_/id/49147104/nfl-offseason-grades-2026-free-agency-draft-trades-extensions-coaching-changes",
+      "title": "We assessed the NFL offseason for every team: One ...",
+      "body_text": "We handed out offseason evaluations to every team, factoring in things such as signings, extensions, trades, draft picks and hirings.",
+      "author": "Seth Walder",
+      "published_at": "2026-06-30T16:01:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49167327",
+      "url": "https://www.espn.com/nfl/story/_/id/49167327/nfl-2026-first-round-draft-picks-impression",
+      "title": "Mendoza, Love, Reese and more: Checking in on ever...",
+      "body_text": "Ahead of training camp, our NFL Nation reporters weigh in on how the 2026 draft class has looked.",
+      "author": "NFL Nation",
+      "published_at": "2026-06-30T02:40:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49177626",
+      "url": "https://www.espn.com/nfl/story/_/id/49177626/taking-stock-2026-afc-north-no-myles-garrett-open-division",
+      "title": "Taking stock of the AFC North -- a Myles Garrett-l...",
+      "body_text": "This has been an offseason of change in the usually stable AFC North.",
+      "author": "Ben Baby, Jamison Hensley, Daniel Oyefusi, Brooke Pryor",
+      "published_at": "2026-06-29T19:57:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49157628",
+      "url": "https://www.espn.com/nfl/story/_/id/49157628/nfl-nfc-west-49ers-seahawks-rams-cardinals-2026-season",
+      "title": "NFC West: Which team is the biggest threat?",
+      "body_text": "The Seahawks, Rams, 49ers and Cardinals all had offseasons to remember. We answer five questions.",
+      "author": "Brady Henderson and Sarah Barshop and Josh Weinfuss and Nick Wagoner",
+      "published_at": "2026-06-29T19:57:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-49234023",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49234023/fantasy-football-red-flag-players-draft-anyway",
+      "title": "Jayden Daniels among 'red flag' players that I'll ...",
+      "body_text": "Liz Loza sees the warning signs but is still willing to click on these players in drafts this summer.",
+      "author": "Liz Loza",
+      "published_at": "2026-07-01T17:11:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Liz Loza"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Buzz: Pay attention to Bucs' Godwin as he looks to...",
+      "body_text": "Despite Emeka Egbuka's success, don't overlook Chris Godwin Jr. as he looks to bounce back for the Buccaneers.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-07-01T17:11:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Despite Emeka",
+        "Chris Godwin Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0033921"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "US-EN-49166500",
+      "url": "https://www.espn.com/nfl/story/_/id/49166500/new-york-jets-demario-davis-body-recovery-1-million",
+      "title": "$1M recovery: How the Jets' Demario Davis avoided retirement by investing in his body",
+      "body_text": "After nearly retiring in 2016, Davis was able to prolong his career by investing in recovery and training.",
+      "author": "Rich Cimini",
+      "published_at": "2026-06-28T11:00:07+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Demario Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0029607"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-49166861",
+      "url": "https://www.espn.com/nfl/story/_/id/49166861/new-nfl-coordinators-offense-defense-questions-2026-season-cowboys-bills-commanders",
+      "title": "New teams, different schemes: 10 new NFL coordinat...",
+      "body_text": "Ben Solak identifies 10 new coordinators with a lot at stake this season, including the man tasked with repairing the Cowboys' defense.",
+      "author": "Ben Solak",
+      "published_at": "2026-06-26T12:47:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ben Solak"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49156810",
+      "url": "https://www.espn.com/nfl/story/_/id/49156810/jacksonville-jaguars-qb-trevor-lawrence-best-spring-career",
+      "title": "Copy of More deep balls from Trevor Lawrence? Why Jaguars ...",
+      "body_text": "Jacksonville's franchise QB picked up right where he left off last season. Here's how he looked this spring.",
+      "author": "Michael DiRocco",
+      "published_at": "2026-06-26T12:51:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Trevor Lawrence",
+        "Why Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "US-EN-49144628",
+      "url": "https://www.espn.com/nfl/story/_/id/49144628/2026-nfl-offseason-judging-overreactions-takeaways-signings-draft-trades",
+      "title": "Now or never for Burrow! Make-or-break year for St...",
+      "body_text": "Do the Bengals have their best shot at a Super Bowl? Could the Texans pass on an extension for C.J. Stroud? We're sizing up five offseason overreactions.",
+      "author": "Dan Graziano",
+      "published_at": "2026-06-24T04:29:14+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "US-EN-49108128",
+      "url": "https://www.espn.com/nfl/story/_/id/49108128/nfl-2026-biggest-surprise-players-every-team-offseason",
+      "title": "32 teams, 32 surprises: Which players stood out on...",
+      "body_text": "null",
+      "author": "NFL Nation",
+      "published_at": "2026-06-24T04:29:14+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
