@@ -58,6 +58,13 @@ COPY data/silver/teams/ ./data/silver/teams/
 # COPY the yahoo column is empty on the live site.
 COPY data/bronze/external_projections/ ./data/bronze/external_projections/
 
+# Player Madden ratings (2026-07): /api/teams/{team}/roster attaches a
+# per-player madden_rating — EA live OVRs from madden_ratings with PFR
+# seasonal-defense stat percentiles as fallback (player_rating_service).
+# Without these the matchup tab silently degrades to team-anchor ratings.
+COPY data/bronze/madden_ratings/ ./data/bronze/madden_ratings/
+COPY data/bronze/pfr/seasonal/def/ ./data/bronze/pfr/seasonal/def/
+
 ENV PORT=8000
 EXPOSE 8000
 

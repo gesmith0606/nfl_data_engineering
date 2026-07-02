@@ -42,6 +42,7 @@ from ..models.schemas import (
     RosterPlayer,
     TeamRosterResponse,
 )
+from . import player_rating_service
 
 logger = logging.getLogger(__name__)
 
@@ -60,15 +61,18 @@ _SCHEDULES_ROOT = DATA_DIR / "bronze" / "schedules"
 # postseason weeks 19-22 that we deliberately don't expose through the UI.
 _REG_SEASON_MAX_WEEK = 18
 
+# Depth-chart vocabularies vary by season snapshot: 2024/25 use T/G/C and
+# FS/SS; 2026 uses OT, generic OL, and SAF. Include both generations.
 _OFFENSE_POSITIONS = {"QB", "RB", "WR", "TE", "FB"}
-_OFFENSE_DEPTH = {"QB", "RB", "WR", "TE", "FB", "T", "G", "C"}
-_OL_DEPTH = {"T", "G", "C"}
+_OFFENSE_DEPTH = {"QB", "RB", "WR", "TE", "FB", "T", "OT", "G", "C", "OL"}
+_OL_DEPTH = {"T", "OT", "G", "C", "OL"}
 
 _DEFENSE_POSITIONS = {"DE", "DT", "LB", "CB", "S", "DB", "DL"}
 _DEFENSE_DEPTH = {
     "DE",
     "DT",
     "NT",
+    "DL",
     "OLB",
     "ILB",
     "MLB",
@@ -76,10 +80,29 @@ _DEFENSE_DEPTH = {
     "CB",
     "FS",
     "SS",
+    "S",
+    "SAF",
     "DB",
 }
 
 _ACTIVE_STATUSES = {"ACT", "RES"}
+
+# Alias → nflverse canonical team codes (rosters/schedules/projections all use
+# the nflverse convention, e.g. 'LA' for the Rams).
+_TEAM_ALIASES = {
+    "LAR": "LA",
+    "JAC": "JAX",
+    "WSH": "WAS",
+    "OAK": "LV",
+    "SD": "LAC",
+    "STL": "LA",
+}
+
+
+def canonical_team(team: str) -> str:
+    """Normalize a team code to the nflverse convention used in our parquets."""
+    upper = (team or "").upper()
+    return _TEAM_ALIASES.get(upper, upper)
 
 
 # ---------------------------------------------------------------------------
@@ -442,6 +465,76 @@ def get_current_week(today: Optional[date] = None) -> CurrentWeekResponse:
 
 
 # ---------------------------------------------------------------------------
+# Schedule matchup lookup
+# ---------------------------------------------------------------------------
+
+
+def load_team_matchup(team: str, season: int, week: int) -> "TeamMatchupResponse":
+    """Resolve a team's opponent for (*season*, *week*) from Bronze schedules.
+
+    Walks back to the most recent season with a schedule parquet when the
+    requested season is absent (``fallback``/``fallback_season`` set). A team
+    with no game that week returns ``is_bye=True`` and ``opponent=None``.
+
+    Raises:
+        FileNotFoundError: no schedule parquet exists for any season.
+        ValueError: *team* does not appear anywhere in the schedule.
+    """
+    from ..models.schemas import TeamMatchupResponse
+
+    team_upper = canonical_team(team)
+
+    df = _load_schedule(season)
+    effective_season = season
+    if df is None or df.empty:
+        result = _latest_schedule_any()
+        if result is None:
+            raise FileNotFoundError(
+                f"No schedule parquet found under {_SCHEDULES_ROOT}"
+            )
+        df, effective_season = result
+    fallback = effective_season != season
+
+    home = df["home_team"].astype(str).str.upper()
+    away = df["away_team"].astype(str).str.upper()
+    if team_upper not in set(home) | set(away):
+        raise ValueError(f"team {team_upper!r} not found in schedule")
+
+    week_mask = pd.to_numeric(df["week"], errors="coerce") == week
+    game = df[week_mask & ((home == team_upper) | (away == team_upper))]
+
+    base = dict(
+        team=team_upper,
+        season=season,
+        week=week,
+        fallback=fallback,
+        fallback_season=effective_season if fallback else None,
+    )
+    if game.empty:
+        return TeamMatchupResponse(**base, is_bye=True)
+
+    row = game.iloc[0]
+    home_team = str(row["home_team"]).upper()
+    away_team = str(row["away_team"]).upper()
+    is_home = home_team == team_upper
+    gameday = _nan_to_none(row.get("gameday"))
+    spread = _nan_to_none(row.get("spread_line"))
+    total = _nan_to_none(row.get("total_line"))
+    return TeamMatchupResponse(
+        **base,
+        opponent=away_team if is_home else home_team,
+        is_home=is_home,
+        home_team=home_team,
+        away_team=away_team,
+        game_id=_nan_to_none(row.get("game_id")),
+        gameday=str(gameday) if gameday is not None else None,
+        gametime=_nan_to_none(row.get("gametime")),
+        spread_line=float(spread) if spread is not None else None,
+        total_line=float(total) if total is not None else None,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Roster assembly
 # ---------------------------------------------------------------------------
 
@@ -470,8 +563,15 @@ def _assign_offense_slot_hints(df: pd.DataFrame) -> pd.Series:
     """
     hints = pd.Series([None] * len(df), index=df.index, dtype=object)
 
-    # Sort stable descending by snap_pct_offense (NaN last)
-    order_key = df["snap_pct_offense"].fillna(-1)
+    # Sort stable descending by snap_pct_offense; players without snap data
+    # (preseason) are ordered by their Madden rating when available, so the
+    # QB1/RB1/WR1 slots go to proven starters instead of roster order.
+    rating = (
+        pd.to_numeric(df["_madden_rating"], errors="coerce").fillna(0)
+        if "_madden_rating" in df.columns
+        else pd.Series(0, index=df.index)
+    )
+    order_key = df["snap_pct_offense"].fillna(-1) * 1000 + rating
 
     # Skill positions keyed on depth_chart_position
     def _assign_group(depth_value: str, labels: List[str]) -> None:
@@ -493,9 +593,10 @@ def _assign_offense_slot_hints(df: pd.DataFrame) -> pd.Series:
     # OL — T, G, C
     _assign_group("C", ["C"])
 
-    # Two Ts become LT/RT (LT = highest snap), two Gs → LG/RG
-    for depth_value, slot_pair in (("T", ["LT", "RT"]), ("G", ["LG", "RG"])):
-        mask = df["depth_chart_position"] == depth_value
+    # Two Ts become LT/RT (LT = highest snap), two Gs → LG/RG.
+    # 2026 roster snapshots use 'OT' where earlier seasons used 'T'.
+    for depth_values, slot_pair in ((("T", "OT"), ["LT", "RT"]), (("G",), ["LG", "RG"])):
+        mask = df["depth_chart_position"].isin(depth_values)
         if not mask.any():
             continue
         sub = df[mask].copy()
@@ -504,6 +605,19 @@ def _assign_offense_slot_hints(df: pd.DataFrame) -> pd.Series:
         )
         for lbl, idx in zip(slot_pair, sub.index):
             hints.loc[idx] = lbl
+
+    # Backfill any OL slot still empty from generic-'OL' depth rows (2026
+    # snapshots mark several starters, e.g. rookie tackles, as just 'OL').
+    open_slots = [s for s in ("LT", "RT", "LG", "RG", "C") if s not in set(hints.dropna())]
+    if open_slots:
+        pool_mask = df["depth_chart_position"].isin(_OL_DEPTH) & hints.isna()
+        if pool_mask.any():
+            pool = df[pool_mask].copy()
+            pool = pool.assign(_key=order_key[pool_mask]).sort_values(
+                "_key", ascending=False, kind="stable"
+            )
+            for lbl, idx in zip(open_slots, pool.index):
+                hints.loc[idx] = lbl
 
     return hints
 
@@ -516,9 +630,21 @@ def _assign_defense_slot_hints(df: pd.DataFrame) -> pd.Series:
     ILB/MLB/LB pooled → LB1, LB2, LB3.
     CB → top 2 → CB1, CB2.
     FS → top 1 (or first "DB"), SS → top 1 (or second "DB").
+
+    Ordering: snap share first; players without snap data (preseason — no
+    current-season snaps exist yet) are ordered by their Madden rating
+    (``_madden_rating`` column when present) so proven starters fill the
+    top slots instead of arbitrary roster order.
     """
     hints = pd.Series([None] * len(df), index=df.index, dtype=object)
-    order_key = df["snap_pct_defense"].fillna(-1)
+    # Snap share dominates (scaled to >= 0); no-snap players rank below all
+    # snap-holders, ordered among themselves by rating.
+    rating = (
+        pd.to_numeric(df["_madden_rating"], errors="coerce").fillna(0)
+        if "_madden_rating" in df.columns
+        else pd.Series(0, index=df.index)
+    )
+    order_key = df["snap_pct_defense"].fillna(-1) * 1000 + rating
 
     def _assign_pool(depth_values: List[str], labels: List[str]) -> None:
         mask = df["depth_chart_position"].isin(depth_values)
@@ -532,7 +658,7 @@ def _assign_defense_slot_hints(df: pd.DataFrame) -> pd.Series:
             hints.loc[idx] = lbl
 
     _assign_pool(["DE", "OLB"], ["DE1", "DE2"])
-    _assign_pool(["DT", "NT"], ["DT1", "DT2"])
+    _assign_pool(["DT", "NT", "DL"], ["DT1", "DT2"])
     _assign_pool(["ILB", "MLB", "LB"], ["LB1", "LB2", "LB3"])
     _assign_pool(["CB"], ["CB1", "CB2"])
 
@@ -556,25 +682,24 @@ def _assign_defense_slot_hints(df: pd.DataFrame) -> pd.Series:
         )
         hints.loc[ss.index[0]] = "SS"
 
-    # Generic DB fallback if no FS/SS rows
-    if not fs_mask.any() or not ss_mask.any():
-        db_mask = df["depth_chart_position"] == "DB"
-        if db_mask.any():
-            db = (
-                df[db_mask]
+    # Generic safety fallback — 2026 snapshots use 'SAF' (older ones 'S' or
+    # 'DB') instead of dedicated FS/SS rows.
+    remaining = [
+        lbl for lbl, mask in (("FS", fs_mask), ("SS", ss_mask)) if not mask.any()
+    ]
+    if remaining:
+        # If both missing, put SS first then FS (per API-CONTRACT.md)
+        if len(remaining) == 2:
+            remaining = ["SS", "FS"]
+        pool_mask = df["depth_chart_position"].isin(["SAF", "S", "DB"]) & hints.isna()
+        if pool_mask.any():
+            pool = (
+                df[pool_mask]
                 .copy()
-                .assign(_key=order_key[db_mask])
+                .assign(_key=order_key[pool_mask])
                 .sort_values("_key", ascending=False, kind="stable")
             )
-            remaining = [
-                lbl
-                for lbl, mask in (("FS", fs_mask), ("SS", ss_mask))
-                if not mask.any()
-            ]
-            # If both missing, put SS first then FS (per API-CONTRACT.md)
-            if "FS" in remaining and "SS" in remaining:
-                remaining = ["SS", "FS"]
-            for lbl, idx in zip(remaining, db.index):
+            for lbl, idx in zip(remaining, pool.index):
                 hints.loc[idx] = lbl
 
     return hints
@@ -634,13 +759,25 @@ def _build_roster_players(
     return df
 
 
-def _row_to_player(row: pd.Series, slot_hint: Optional[str]) -> RosterPlayer:
+def _row_to_player(
+    row: pd.Series,
+    slot_hint: Optional[str],
+    rating_lookup: Optional["player_rating_service.CombinedRatingLookup"] = None,
+) -> RosterPlayer:
     jersey = _nan_to_none(row.get("jersey_number"))
     if jersey is not None:
         try:
             jersey = int(jersey)
         except (TypeError, ValueError):
             jersey = None
+    madden_rating: Optional[int] = None
+    rating_detail: Optional[str] = None
+    if rating_lookup:
+        madden_rating, rating_detail = rating_lookup.rating_for(
+            str(row.get("player_name") or ""),
+            str(row.get("team") or ""),
+            _nan_to_none(row.get("depth_chart_position")) or str(row.get("position") or ""),
+        )
     return RosterPlayer(
         player_id=str(row.get("player_id") or ""),
         player_name=str(row.get("player_name") or ""),
@@ -653,6 +790,8 @@ def _row_to_player(row: pd.Series, slot_hint: Optional[str]) -> RosterPlayer:
         snap_pct_defense=_nan_to_none(row.get("snap_pct_defense")),
         injury_status=_nan_to_none(row.get("status_description_abbr")),
         slot_hint=slot_hint,
+        madden_rating=madden_rating,
+        rating_detail=rating_detail,
     )
 
 
@@ -693,7 +832,7 @@ def load_team_roster(
         roster_df, correction_count = _apply_live_corrections(roster_df, live_df)
         live_source = correction_count > 0
 
-    team_upper = team.upper()
+    team_upper = canonical_team(team)
     known_teams = set(roster_df["team"].dropna().astype(str).str.upper().unique())
     if team_upper not in known_teams:
         raise ValueError(f"team {team_upper!r} not found in roster")
@@ -719,12 +858,30 @@ def load_team_roster(
 
     players: List[RosterPlayer] = []
 
+    # Per-player Madden ratings: EA's live OVRs first (weekly in-season
+    # updates), PFR stat percentiles as fallback (walks back to the last
+    # completed season during the preseason).
+    rating_lookup = player_rating_service.load_combined_ratings(effective_season)
+
+    def _add_rating_column(df: pd.DataFrame) -> None:
+        if rating_lookup and not df.empty:
+            df["_madden_rating"] = df.apply(
+                lambda r: rating_lookup.rating_for(
+                    str(r.get("player_name") or ""),
+                    str(r.get("team") or ""),
+                    _nan_to_none(r.get("depth_chart_position"))
+                    or str(r.get("position") or ""),
+                )[0],
+                axis=1,
+            )
+
     if side in {"offense", "all"}:
         off_df = team_df[offense_mask].copy()
         if not off_df.empty:
+            _add_rating_column(off_df)
             off_hints = _assign_offense_slot_hints(off_df)
             for idx, row in off_df.iterrows():
-                players.append(_row_to_player(row, off_hints.get(idx)))
+                players.append(_row_to_player(row, off_hints.get(idx), rating_lookup))
 
     if side in {"defense", "all"}:
         def_df = (
@@ -733,9 +890,12 @@ def load_team_roster(
             else team_df[defense_mask].copy()
         )
         if not def_df.empty:
+            _add_rating_column(def_df)
             def_hints = _assign_defense_slot_hints(def_df)
             for idx, row in def_df.iterrows():
-                players.append(_row_to_player(row, def_hints.get(idx)))
+                players.append(
+                    _row_to_player(row, def_hints.get(idx), rating_lookup)
+                )
 
     # Stable sort: slotted first, then by depth_chart_position alphabetically, then snap pct desc
     def _sort_key(p: RosterPlayer) -> Tuple[int, str, float]:

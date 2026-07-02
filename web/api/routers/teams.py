@@ -12,10 +12,36 @@ from typing import Literal, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
-from ..models.schemas import CurrentWeekResponse, TeamRosterResponse
+from ..models.schemas import (
+    CurrentWeekResponse,
+    TeamMatchupResponse,
+    TeamRosterResponse,
+)
 from ..services import team_roster_service
 
 router = APIRouter(prefix="/teams", tags=["teams"])
+
+
+@router.get("/{team}/matchup", response_model=TeamMatchupResponse)
+def team_matchup(
+    team: str,
+    season: int = Query(..., ge=2016, le=2030, description="NFL season"),
+    week: int = Query(..., ge=1, le=22, description="Week 1-22 incl. postseason"),
+) -> TeamMatchupResponse:
+    """Resolve a team's opponent for a week from the Bronze schedule.
+
+    Works months before model predictions exist (schedules publish in May),
+    so the matchup UI can always find the opponent; the predictions feed is
+    optional enrichment on top. ``is_bye=True`` when the team has no game.
+    Includes the schedule's Vegas ``spread_line``/``total_line`` (positive
+    spread = home team favored, nflverse convention).
+    """
+    try:
+        return team_roster_service.load_team_matchup(team, season, week)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=503, detail=str(exc))
 
 
 @router.get("/current-week", response_model=CurrentWeekResponse)

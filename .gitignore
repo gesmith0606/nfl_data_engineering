@@ -305,6 +305,19 @@ data/gold/*
 !data/bronze/schedules/
 !data/bronze/schedules/**
 !data/bronze/schedules/**/*.parquet
+# Matchup player ratings (2026-07): the roster API's per-player Madden
+# ratings read EA OVRs from madden_ratings and fall back to PFR seasonal
+# defense stat percentiles. Both are COPY'd by web/Dockerfile — without
+# these committed the Railway build breaks (TD-09 class) and the matchup
+# tab silently degrades to team-anchor ratings. ~1 MB total.
+!data/bronze/madden_ratings/
+!data/bronze/madden_ratings/**
+!data/bronze/madden_ratings/**/*.parquet
+!data/bronze/pfr/
+!data/bronze/pfr/seasonal/
+!data/bronze/pfr/seasonal/def/
+!data/bronze/pfr/seasonal/def/**
+!data/bronze/pfr/seasonal/def/**/*.parquet
 # Phase 1.4 (Live Odds Capture): The Odds API snapshots committed so the
 # open/close proxy history accumulates in git (TD-08/09 pattern).
 # Each 2×/daily GHA cron run appends one parquet; the full season history

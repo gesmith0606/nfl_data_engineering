@@ -12,7 +12,8 @@ const DIVISIONS: { conference: string; division: string; teams: string[] }[] = [
   { conference: 'NFC', division: 'East', teams: ['DAL', 'NYG', 'PHI', 'WAS'] },
   { conference: 'NFC', division: 'North', teams: ['CHI', 'DET', 'GB', 'MIN'] },
   { conference: 'NFC', division: 'South', teams: ['ATL', 'CAR', 'NO', 'TB'] },
-  { conference: 'NFC', division: 'West', teams: ['ARI', 'LAR', 'SEA', 'SF'] }
+  // 'LA' (not 'LAR') — nflverse team code used by rosters/schedules/projections.
+  { conference: 'NFC', division: 'West', teams: ['ARI', 'LA', 'SEA', 'SF'] }
 ];
 
 interface TeamSelectorProps {

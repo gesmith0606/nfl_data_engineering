@@ -155,6 +155,45 @@ export interface NewsItem {
 /** Discrete overall sentiment bucket (D-03) — never a continuous score. */
 export type OverallSentimentLabel = 'bullish' | 'bearish' | 'neutral';
 
+/** Trailing time window for the sentiment pulse views. */
+export type SentimentWindow = 'day' | 'week' | 'month';
+
+/** A NewsItem ranked for the trailing-window Top Stories list. */
+export interface TopStory extends NewsItem {
+  /** |sentiment| × confidence + event weight, recency-decayed. */
+  story_score: number;
+}
+
+/** Response envelope for GET /api/news/top-stories. */
+export interface TopStoriesResponse {
+  window: SentimentWindow;
+  as_of: string;
+  story_count: number;
+  stories: TopStory[];
+}
+
+/** One player's aggregated sentiment over a trailing window. */
+export interface SentimentRankingEntry {
+  player_id: string | null;
+  player_name: string;
+  team: string | null;
+  doc_count: number;
+  avg_sentiment: number;
+  label: OverallSentimentLabel;
+  latest_headline: string | null;
+  latest_published_at: string | null;
+  event_flags: string[];
+}
+
+/** Response envelope for GET /api/news/sentiment-rankings. */
+export interface SentimentRankingsResponse {
+  window: SentimentWindow;
+  as_of: string;
+  player_count: number;
+  risers: SentimentRankingEntry[];
+  fallers: SentimentRankingEntry[];
+}
+
 /** Phase 74 SLEEP-01..04: Sleeper user / league / roster types. */
 export interface SleeperUser {
   user_id: string;
@@ -532,6 +571,15 @@ export interface RosterPlayer {
   snap_pct_defense: number | null;
   injury_status: string | null;
   slot_hint: string | null;
+  /**
+   * Per-player Madden-style rating (50-99) computed by the backend from PFR
+   * seasonal defense stat percentiles. ``null`` for players without rated
+   * production (rookies, offense, specialists) — display falls back to the
+   * team positional anchor.
+   */
+  madden_rating: number | null;
+  /** Human-readable stat basis for madden_rating (tooltip copy). */
+  rating_detail: string | null;
 }
 
 /** Team roster response. The array field is named ``roster`` (not ``players``). */
@@ -543,6 +591,33 @@ export interface TeamRosterResponse {
   fallback: boolean;
   fallback_season: number | null;
   roster: RosterPlayer[];
+}
+
+/**
+ * A team's opponent for a given week, resolved from the Bronze schedule.
+ *
+ * Available as soon as the league publishes the schedule (May) — months
+ * before model predictions exist — so the matchup UI can always find the
+ * opponent. ``spread_line``/``total_line`` are the schedule's Vegas lines
+ * (positive spread = home team favored, nflverse convention). ``is_bye``
+ * with ``opponent === null`` means the team has no game that week.
+ */
+export interface TeamMatchupResponse {
+  team: string;
+  season: number;
+  week: number;
+  opponent: string | null;
+  is_home: boolean | null;
+  home_team: string | null;
+  away_team: string | null;
+  game_id: string | null;
+  gameday: string | null;
+  gametime: string | null;
+  spread_line: number | null;
+  total_line: number | null;
+  is_bye: boolean;
+  fallback: boolean;
+  fallback_season: number | null;
 }
 
 /**
