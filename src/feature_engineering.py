@@ -29,20 +29,35 @@ SILVER_TEAM_SOURCES = SILVER_TEAM_LOCAL_DIRS
 
 # Columns that identify a row but are not features
 _IDENTIFIER_COLUMNS = {
-    "game_id", "season", "week", "game_type",
-    "team_home", "team_away", "home_team", "away_team",
-    "team", "is_home",
+    "game_id",
+    "season",
+    "week",
+    "game_type",
+    "team_home",
+    "team_away",
+    "home_team",
+    "away_team",
+    "team",
+    "is_home",
 }
 
 # Columns to exclude from differencing (non-numeric identifiers that may
 # survive as numeric dtype)
 _NON_DIFF_COLS = {
-    "season", "week", "is_home",
+    "season",
+    "week",
+    "is_home",
 }
 
 
 def _read_latest_local(subdir: str, season: int) -> pd.DataFrame:
     """Read the latest Silver parquet file for a given subdirectory and season.
+
+    Weekly transformations nest their output under week=W/ while season-
+    scoped runs write directly under season=Y/ — both layouts are globbed.
+    "Latest" is decided by the filename-embedded YYYYMMDD_HHMMSS timestamp
+    (basename sort), never the path, so a week=9 directory cannot lexically
+    outrank week=18.
 
     Args:
         subdir: Relative path under data/silver/ (e.g. 'teams/pbp_metrics').
@@ -51,11 +66,15 @@ def _read_latest_local(subdir: str, season: int) -> pd.DataFrame:
     Returns:
         DataFrame from latest parquet file, or empty DataFrame if not found.
     """
-    pattern = os.path.join(SILVER_DIR, subdir, f"season={season}", "*.parquet")
-    files = sorted(glob.glob(pattern))
-    if not files:
+    candidates = []
+    for pattern in (
+        os.path.join(SILVER_DIR, subdir, f"season={season}", "*.parquet"),
+        os.path.join(SILVER_DIR, subdir, f"season={season}", "week=*", "*.parquet"),
+    ):
+        candidates.extend(glob.glob(pattern))
+    if not candidates:
         return pd.DataFrame()
-    return pd.read_parquet(files[-1])
+    return pd.read_parquet(max(candidates, key=os.path.basename))
 
 
 def _read_bronze_schedules(season: int) -> pd.DataFrame:
@@ -78,9 +97,17 @@ def _read_bronze_schedules(season: int) -> pd.DataFrame:
     df = df[df["game_type"] == "REG"].copy()
 
     keep_cols = [
-        "game_id", "season", "week", "game_type",
-        "home_team", "away_team", "home_score", "away_score",
-        "result", "spread_line", "total_line",
+        "game_id",
+        "season",
+        "week",
+        "game_type",
+        "home_team",
+        "away_team",
+        "home_score",
+        "away_score",
+        "result",
+        "spread_line",
+        "total_line",
     ]
     # Add div_game if present in schedules
     if "div_game" in df.columns:
@@ -111,13 +138,17 @@ def _compute_momentum_features(season: int) -> pd.DataFrame:
         return pd.DataFrame()
 
     # Reshape to per-team rows: home and away perspectives
-    home = sched[["game_id", "season", "week", "home_team", "result", "spread_line"]].copy()
+    home = sched[
+        ["game_id", "season", "week", "home_team", "result", "spread_line"]
+    ].copy()
     home = home.rename(columns={"home_team": "team"})
     home["won"] = (home["result"] > 0).astype(int)
     home["ats_cover"] = ((home["result"] - home["spread_line"]) > 0).astype(int)
     home["ats_margin"] = home["result"] - home["spread_line"]
 
-    away = sched[["game_id", "season", "week", "away_team", "result", "spread_line"]].copy()
+    away = sched[
+        ["game_id", "season", "week", "away_team", "result", "spread_line"]
+    ].copy()
     away = away.rename(columns={"away_team": "team"})
     away["won"] = (away["result"] < 0).astype(int)  # away wins when result < 0
     away["ats_cover"] = ((-away["result"] + away["spread_line"]) > 0).astype(int)
@@ -139,30 +170,35 @@ def _compute_momentum_features(season: int) -> pd.DataFrame:
             streak.iloc[i] = prev
         return streak
 
-    combined["win_streak_raw"] = (
-        combined.groupby(["team", "season"])["won"]
-        .transform(_streak)
+    combined["win_streak_raw"] = combined.groupby(["team", "season"])["won"].transform(
+        _streak
     )
     # shift(1) AFTER computing streak (Pitfall 6)
-    combined["win_streak"] = (
-        combined.groupby(["team", "season"])["win_streak_raw"]
-        .transform(lambda s: s.shift(1))
-    )
+    combined["win_streak"] = combined.groupby(["team", "season"])[
+        "win_streak_raw"
+    ].transform(lambda s: s.shift(1))
 
     # ATS cover rolling sum (shift(1) inside transform)
-    combined["ats_cover_sum3"] = (
-        combined.groupby(["team", "season"])["ats_cover"]
-        .transform(lambda s: s.shift(1).rolling(3, min_periods=1).sum())
-    )
+    combined["ats_cover_sum3"] = combined.groupby(["team", "season"])[
+        "ats_cover"
+    ].transform(lambda s: s.shift(1).rolling(3, min_periods=1).sum())
 
     # ATS margin rolling mean (shift(1) inside transform)
-    combined["ats_margin_avg3"] = (
-        combined.groupby(["team", "season"])["ats_margin"]
-        .transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())
-    )
+    combined["ats_margin_avg3"] = combined.groupby(["team", "season"])[
+        "ats_margin"
+    ].transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())
 
-    return combined[["game_id", "season", "week", "team",
-                      "win_streak", "ats_cover_sum3", "ats_margin_avg3"]].copy()
+    return combined[
+        [
+            "game_id",
+            "season",
+            "week",
+            "team",
+            "win_streak",
+            "ats_cover_sum3",
+            "ats_margin_avg3",
+        ]
+    ].copy()
 
 
 def _assemble_team_features(season: int) -> pd.DataFrame:
@@ -190,7 +226,9 @@ def _assemble_team_features(season: int) -> pd.DataFrame:
         if df.empty:
             continue
         base = base.merge(
-            df, on=["team", "season", "week"], how="left",
+            df,
+            on=["team", "season", "week"],
+            how="left",
             suffixes=("", f"__{name}"),
         )
         # Drop duplicate columns from join (suffixed copies)
@@ -231,7 +269,9 @@ def assemble_game_features(season: int) -> pd.DataFrame:
     momentum = _compute_momentum_features(season)
     if not momentum.empty:
         team_df = team_df.merge(
-            momentum, on=["team", "season", "week"], how="left",
+            momentum,
+            on=["team", "season", "week"],
+            how="left",
             suffixes=("", "__momentum"),
         )
         # Drop any duplicate columns from merge
@@ -247,7 +287,8 @@ def assemble_game_features(season: int) -> pd.DataFrame:
 
     # Step 3: Join home and away on game_id
     game_df = home.merge(
-        away, on=["game_id", "season", "week"],
+        away,
+        on=["game_id", "season", "week"],
         suffixes=("_home", "_away"),
     )
 
@@ -263,8 +304,12 @@ def assemble_game_features(season: int) -> pd.DataFrame:
     # Compute differentials for numeric columns only
     # Build all diff columns at once to avoid DataFrame fragmentation
     skip_bases = _NON_DIFF_COLS | {
-        "team", "game_type", "is_home", "head_coach",
-        "surface", "coaching_change",
+        "team",
+        "game_type",
+        "is_home",
+        "head_coach",
+        "surface",
+        "coaching_change",
     }
     diff_data = {}
     for col_base in sorted(common_base):
@@ -295,8 +340,14 @@ def assemble_game_features(season: int) -> pd.DataFrame:
     schedules = _read_bronze_schedules(season)
     if not schedules.empty:
         # Keep only label columns from schedules (avoid duplicating existing cols)
-        label_cols_from_sched = ["game_id", "home_score", "away_score",
-                                 "result", "spread_line", "total_line"]
+        label_cols_from_sched = [
+            "game_id",
+            "home_score",
+            "away_score",
+            "result",
+            "spread_line",
+            "total_line",
+        ]
         if "div_game" in schedules.columns:
             label_cols_from_sched.append("div_game")
 
@@ -304,8 +355,9 @@ def assemble_game_features(season: int) -> pd.DataFrame:
         sched_subset = schedules[avail_label_cols].copy()
 
         # Drop any existing label columns from game_df before merge
-        existing_labels = [c for c in sched_subset.columns
-                           if c in game_df.columns and c != "game_id"]
+        existing_labels = [
+            c for c in sched_subset.columns if c in game_df.columns and c != "game_id"
+        ]
         game_df = game_df.drop(columns=existing_labels, errors="ignore")
 
         game_df = game_df.merge(sched_subset, on="game_id", how="inner")
@@ -313,8 +365,12 @@ def assemble_game_features(season: int) -> pd.DataFrame:
     # Step 7: Compute derived labels and game_type in one batch to avoid fragmentation
     derived = {}
     if "home_score" in game_df.columns and "away_score" in game_df.columns:
-        derived["actual_margin"] = game_df["home_score"].values - game_df["away_score"].values
-        derived["actual_total"] = game_df["home_score"].values + game_df["away_score"].values
+        derived["actual_margin"] = (
+            game_df["home_score"].values - game_df["away_score"].values
+        )
+        derived["actual_total"] = (
+            game_df["home_score"].values + game_df["away_score"].values
+        )
 
     if "game_type_home" in game_df.columns:
         derived["game_type"] = game_df["game_type_home"].values
@@ -322,7 +378,9 @@ def assemble_game_features(season: int) -> pd.DataFrame:
         derived["game_type"] = "REG"
 
     if derived:
-        game_df = pd.concat([game_df, pd.DataFrame(derived, index=game_df.index)], axis=1)
+        game_df = pd.concat(
+            [game_df, pd.DataFrame(derived, index=game_df.index)], axis=1
+        )
 
     # Filter to REG only and defragment
     game_df = game_df[game_df["game_type"] == "REG"].copy()
@@ -360,25 +418,43 @@ def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
 
     # Pre-game knowable context columns (not derived from game outcome)
     _PRE_GAME_CONTEXT = {
-        "is_dome", "rest_advantage", "is_short_rest", "is_post_bye",
-        "travel_miles", "tz_diff", "coaching_tenure", "div_game",
-        "temperature", "wind_speed", "is_cold", "is_high_wind",
-        "rest_days", "opponent_rest",
+        "is_dome",
+        "rest_advantage",
+        "is_short_rest",
+        "is_post_bye",
+        "travel_miles",
+        "tz_diff",
+        "coaching_tenure",
+        "div_game",
+        "temperature",
+        "wind_speed",
+        "is_cold",
+        "is_high_wind",
+        "rest_days",
+        "opponent_rest",
         # Market data -- pre-game knowable only (D-05)
         # RETROSPECTIVE features (spread_shift, total_shift, spread_move_abs,
         # total_move_abs, spread_magnitude, total_magnitude, crosses_key_spread,
         # crosses_key_total, closing_spread, closing_total, is_steam_move) are
         # NOT listed here and are automatically excluded by get_feature_columns().
         # See D-06/D-08.
-        "opening_spread", "opening_total",
+        "opening_spread",
+        "opening_total",
     }
 
     # Pre-game knowable cumulative columns (computed before the game)
     _PRE_GAME_CUMULATIVE = {
-        "wins", "losses", "ties", "win_pct", "division_rank",
-        "games_behind_division_leader", "ref_penalties_per_game",
+        "wins",
+        "losses",
+        "ties",
+        "win_pct",
+        "division_rank",
+        "games_behind_division_leader",
+        "ref_penalties_per_game",
         "backup_qb_start",
-        "win_streak", "ats_cover_sum3", "ats_margin_avg3",
+        "win_streak",
+        "ats_cover_sum3",
+        "ats_margin_avg3",
     }
 
     def _is_rolling(col: str) -> bool:
@@ -435,6 +511,7 @@ def assemble_multiyear_features(
     """
     if seasons is None:
         from config import PREDICTION_SEASONS
+
         seasons = PREDICTION_SEASONS
 
     frames = []

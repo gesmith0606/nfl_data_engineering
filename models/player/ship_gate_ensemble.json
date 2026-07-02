@@ -1,0 +1,34 @@
+{
+  "positions": [
+    {
+      "position": "RB",
+      "ml_mae": 4.9684,
+      "heuristic_mae": 4.7227,
+      "holdout_improvement_pct": -5.2,
+      "oof_improvement_pct": -5.2,
+      "safety_violation": false,
+      "verdict": "SKIP"
+    },
+    {
+      "position": "WR",
+      "ml_mae": 4.6568,
+      "heuristic_mae": 4.334,
+      "holdout_improvement_pct": -7.45,
+      "oof_improvement_pct": -7.45,
+      "safety_violation": false,
+      "verdict": "SKIP"
+    },
+    {
+      "position": "TE",
+      "ml_mae": 3.5493,
+      "heuristic_mae": 3.3663,
+      "holdout_improvement_pct": -5.44,
+      "oof_improvement_pct": -5.44,
+      "safety_violation": false,
+      "verdict": "SKIP"
+    }
+  ],
+  "summary": "All positions SKIP",
+  "timestamp": "2026-04-02T17:23:03.103863",
+  "scoring_format": "half_ppr"
+}

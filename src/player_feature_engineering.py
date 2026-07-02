@@ -252,9 +252,7 @@ def _join_def_trailing_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
         if not all(c in trail.columns for c in join_cols):
             continue
         new_cols = [
-            c
-            for c in trail.columns
-            if c not in join_cols and c not in df.columns
+            c for c in trail.columns if c not in join_cols and c not in df.columns
         ]
         if not new_cols:
             continue
@@ -382,6 +380,14 @@ def _is_unlagged_leak(column: str) -> bool:
 def _read_latest_local(subdir: str, season: int) -> pd.DataFrame:
     """Read the latest Silver parquet file for a given subdirectory and season.
 
+    Weekly transformations nest their output under week=W/ while season-
+    scoped runs write directly under season=Y/ — both layouts are globbed.
+    "Latest" is decided by the filename-embedded YYYYMMDD_HHMMSS timestamp
+    (basename sort), never the path, so a week=9 directory cannot lexically
+    outrank week=18. (The season-root-only glob silently missed the week-
+    nested usage file in the first local-first GHA run, 2026-07-02 — the
+    hybrid WR/TE path degraded to heuristic because of it.)
+
     Args:
         subdir: Relative path under data/silver/ (e.g. 'players/usage').
         season: NFL season year.
@@ -389,11 +395,15 @@ def _read_latest_local(subdir: str, season: int) -> pd.DataFrame:
     Returns:
         DataFrame from latest parquet file, or empty DataFrame if not found.
     """
-    pattern = os.path.join(SILVER_DIR, subdir, f"season={season}", "*.parquet")
-    files = sorted(glob.glob(pattern))
-    if not files:
+    candidates = []
+    for pattern in (
+        os.path.join(SILVER_DIR, subdir, f"season={season}", "*.parquet"),
+        os.path.join(SILVER_DIR, subdir, f"season={season}", "week=*", "*.parquet"),
+    ):
+        candidates.extend(glob.glob(pattern))
+    if not candidates:
         return pd.DataFrame()
-    return pd.read_parquet(files[-1])
+    return pd.read_parquet(max(candidates, key=os.path.basename))
 
 
 def _read_bronze_schedules(season: int) -> pd.DataFrame:
