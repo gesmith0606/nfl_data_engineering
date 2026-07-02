@@ -25,19 +25,21 @@ on:
         required: false
         type: string
 
-# Prevent concurrent runs from stepping on each other's S3 writes.
+# Prevent concurrent runs from stepping on each other's writes.
 concurrency:
   group: weekly-pipeline
   cancel-in-progress: false
 
 # ---------------------------------------------------------------------------
 # Permissions — the failure-notification and ML-fallback escalation steps
-# create GitHub issues. Without an explicit issues:write grant the default
+# create GitHub issues (issues: write). Without an explicit grant the default
 # restricted token 403s ("Resource not accessible by integration"), which is
 # how four consecutive weekly failures (June 2026) went unreported.
+# contents: write is needed to commit Gold projections back to main
+# (local-first conversion, 2026-07-02).
 # ---------------------------------------------------------------------------
 permissions:
-  contents: read
+  contents: write
   issues: write
 
 # ---------------------------------------------------------------------------
@@ -203,19 +205,19 @@ jobs:
         run: pip install -r requirements.txt
 
       # ------------------------------------------------------------------
-      # 4. AWS credentials
-      # Configure the AWS SDK via official action. Credentials come from
-      # repository secrets (Settings → Secrets and variables → Actions):
-      #   AWS_ACCESS_KEY_ID
-      #   AWS_SECRET_ACCESS_KEY
-      #   AWS_REGION  (optional — defaults to us-east-2 set in env above)
+      # 4. AWS credentials — REMOVED (local-first conversion, 2026-07-02).
+      #
+      # The repo's AWS secrets went missing/expired and this step hard-
+      # failed every scheduled run June 9-30 before any ingestion ran.
+      # The pipeline is now local-first, matching every other workflow:
+      # scripts write to data/ in the runner and Gold projections are
+      # committed to main below (Railway/HF serve committed parquet).
+      #
+      # S3 mirroring self-reactivates if valid AWS secrets are ever added
+      # back as env credentials — generate_projections.py only uploads
+      # when boto3 finds working credentials (`has_aws` guard) and warns
+      # otherwise, so no workflow change will be needed.
       # ------------------------------------------------------------------
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region:            ${{ secrets.AWS_REGION || env.AWS_REGION }}
 
       # ------------------------------------------------------------------
       # 5. Bronze ingestion — player data for the current week, plus
@@ -533,14 +535,72 @@ jobs:
             --week   "$WEEK"
 
       # ------------------------------------------------------------------
-      # 9. Health check — validates freshness and completeness across layers
+      # 9. Health check — S3 freshness/completeness. Fail-open since the
+      # local-first conversion: without AWS credentials the S3 listings
+      # fail, but S3 is now an optional mirror — the committed local Gold
+      # (step 9b) is the production path and the blocking sanity gate
+      # already ran in step 8. Goes back to meaningful automatically if
+      # AWS secrets are restored.
       # ------------------------------------------------------------------
-      - name: Health check — validate all S3 layers
+      - name: Health check — validate S3 layers (optional mirror)
         id: health_check
+        continue-on-error: true
         run: |
           python scripts/check_pipeline_health.py \
             --season "$SEASON" \
-            --week   "$WEEK"
+            --week   "$WEEK" \
+            || echo "::warning::S3 health check failed — expected while S3 mirroring is inactive (no AWS credentials); local Gold committed to git is the production path"
+
+      # ------------------------------------------------------------------
+      # 9b. Commit Gold projections to main (local-first, 2026-07-02).
+      # Railway/HF serve committed parquet, so this is what actually
+      # publishes the week's projections. Same rebase-retry race guard as
+      # the daily-sentiment and weekly-reference-refresh workflows.
+      # data/gold/projections/**/*.parquet is allowlisted in .gitignore.
+      # ------------------------------------------------------------------
+      - name: Commit Gold projections
+        id: commit_gold
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/gold/projections/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No new Gold projections to commit"
+          else
+            COUNT=$(git diff --cached --name-only | wc -l | tr -d ' ')
+            git commit -m "data(weekly): Gold projections — season $SEASON week $WEEK (${COUNT} files)
+
+          Automated Tuesday pipeline (Bronze→Silver→Gold, hybrid ML path)."
+            for attempt in 1 2 3; do
+              if git push 2>&1; then
+                echo "Pushed $COUNT Gold projection files (attempt $attempt)"
+                break
+              fi
+              if [ "$attempt" = "3" ]; then
+                echo "::error::Push rejected 3 times — bailing"
+                exit 1
+              fi
+              echo "Push attempt $attempt rejected; rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main || {
+                echo "::error::Rebase conflict on Gold projections commit — manual intervention required"
+                exit 1
+              }
+            done
+          fi
+
+      # ------------------------------------------------------------------
+      # 9c. Upload grading report artifact (output/grading/ is gitignored;
+      # the report is a diagnostic, not a serving path).
+      # ------------------------------------------------------------------
+      - name: Upload grading report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grading-report-${{ github.run_id }}
+          path: output/grading/
+          retention-days: 90
+          if-no-files-found: ignore
 
       # ------------------------------------------------------------------
       # 10. Job summary — written to GitHub Actions summary tab
@@ -583,11 +643,12 @@ jobs:
           | Silver — graph features (prior+current season) | attempted — fail-open, see step log |
           | Gold projections (half_ppr, hybrid WR/TE ML) | complete |
           | Sanity check | passed |
-          | Health check | passed |
+          | Gold committed to main | see commit step log |
+          | S3 health check | optional mirror — fail-open, see step log |
 
           > Scoring format: **half_ppr** | Gold path: **hybrid ML (WR/TE Ridge residual)**
-          > S3 region: **us-east-2**
-          > Buckets: `nfl-raw` → `nfl-refined` → `nfl-trusted`
+          > Storage: **local-first** — Gold parquet committed to main (Railway/HF serve committed files).
+          > S3 mirroring (`nfl-raw` → `nfl-refined` → `nfl-trusted`, us-east-2) self-reactivates if AWS secrets are restored.
           """
 
           # Dedent — the heredoc indents with spaces that we strip
@@ -645,8 +706,8 @@ jobs:
               `## Investigation Steps`,
               ``,
               `1. Review the [full run log](${workflowUrl}) for the failing step`,
-              `2. Check AWS credentials are valid (Settings → Secrets → Actions)`,
-              `3. Verify S3 bucket accessibility: \`nfl-raw\`, \`nfl-refined\`, \`nfl-trusted\``,
+              `2. Pipeline is local-first — check the nfl-data-py ingest and Silver/Gold steps first`,
+              `3. If the Gold commit step failed, check for push races / rebase conflicts`,
               `4. Re-run manually: \`gh workflow run weekly-pipeline.yml -f season=${season} -f week=${week}\``,
               ``,
               `## Manual Re-Run Command`,
