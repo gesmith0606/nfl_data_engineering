@@ -426,10 +426,17 @@ def _parse_draftsharks_payload(html: str, limit: int) -> List[Dict[str, Any]]:
             }
         )
 
-    # Rows arrive in board order — fill any unparsable rank from that order.
-    for i, row in enumerate(rows, 1):
+    # Rows with an unparsable rank sink below every parsed rank — guessing
+    # their board position from list order can collide with a real rank,
+    # because non-fantasy rows (DEF) were filtered out above.
+    unranked_offset = max(
+        (r["external_rank"] for r in rows if r["external_rank"] is not None),
+        default=0,
+    )
+    for row in rows:
         if row["external_rank"] is None:
-            row["external_rank"] = i
+            unranked_offset += 1
+            row["external_rank"] = unranked_offset
     rows.sort(key=lambda r: r["external_rank"])
     rows = rows[:limit]
     for i, row in enumerate(rows, 1):

@@ -950,6 +950,41 @@ def test_draftsharks_live_fetch_happy_path(
 
 
 @pytest.mark.unit
+def test_draftsharks_unparseable_rank_sinks_below_parsed_ranks() -> None:
+    """A row with no readable rank must not collide with a real board rank.
+
+    With DEF rows filtered out before the fill, ordinal-position filling
+    could assign an unranked player a rank another player already holds —
+    unranked rows must instead sink below every parsed rank.
+    """
+    html = """
+    <tbody data-player-row data-player-name="Alpha" data-fantasy-position="RB">
+      <tr><td><div class="column-title rank-index"><span>1</span></div></td>
+      <td><span class="player-details-group__team-name">KC</span></td></tr>
+    </tbody>
+    <tbody data-player-row data-player-name="Ravens D" data-fantasy-position="DEF">
+      <tr><td><div class="column-title rank-index"><span>2</span></div></td></tr>
+    </tbody>
+    <tbody data-player-row data-player-name="Beta" data-fantasy-position="WR">
+      <tr><td><div class="column-title rank-index"><span>3</span></div></td>
+      <td><span class="player-details-group__team-name">DAL</span></td></tr>
+    </tbody>
+    <tbody data-player-row data-player-name="Gamma" data-fantasy-position="QB">
+      <tr><td><div class="column-title rank-index"><span>not-a-rank</span></div></td>
+      <td><span class="player-details-group__team-name">BUF</span></td></tr>
+    </tbody>
+    """
+    rows = svc._parse_draftsharks_payload(html, limit=10)
+    ranks = {r["player_name"]: r["external_rank"] for r in rows}
+    assert ranks["Alpha"] == 1
+    assert ranks["Beta"] == 3
+    # Gamma's rank was unparseable: it must land BELOW Beta's 3, not at
+    # ordinal position 3 (which would collide with Beta).
+    assert ranks["Gamma"] == 4
+    assert len(set(ranks.values())) == len(ranks)
+
+
+@pytest.mark.unit
 def test_draftsharks_standard_scoring_maps_to_half_ppr_board(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
