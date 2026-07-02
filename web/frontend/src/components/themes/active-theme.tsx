@@ -4,7 +4,9 @@ import { ReactNode, createContext, useContext, useEffect, useState } from 'react
 
 import { DEFAULT_THEME } from './theme.config';
 
-const COOKIE_NAME = 'active_theme';
+// v2: bumped for the World Cup 26 rebrand so existing visitors with a saved
+// legacy theme get re-defaulted once; their next explicit pick persists again.
+const COOKIE_NAME = 'active_theme_v2';
 
 function setThemeCookie(theme: string) {
   if (typeof window === 'undefined') return;

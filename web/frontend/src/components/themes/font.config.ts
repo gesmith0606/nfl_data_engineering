@@ -1,5 +1,7 @@
 import {
+  Archivo,
   Architects_Daughter,
+  Barlow_Condensed,
   DM_Sans,
   Fira_Code,
   Geist,
@@ -90,6 +92,20 @@ const fontPlayfairDisplay = Playfair_Display({
   variable: '--font-playfair-display'
 });
 
+// World Cup 26 theme — readable grotesque for body copy.
+const fontArchivo = Archivo({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-archivo'
+});
+
+// World Cup 26 theme — chunky condensed display face for brand/hero headings.
+const fontBarlowCondensed = Barlow_Condensed({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  variable: '--font-barlow-condensed'
+});
+
 export const fontVariables = cn(
   fontSans.variable,
   fontMono.variable,
@@ -104,5 +120,7 @@ export const fontVariables = cn(
   fontSpaceMono.variable,
   fontJetBrainsMono.variable,
   fontMerriweather.variable,
-  fontPlayfairDisplay.variable
+  fontPlayfairDisplay.variable,
+  fontArchivo.variable,
+  fontBarlowCondensed.variable
 );

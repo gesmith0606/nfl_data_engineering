@@ -12,7 +12,7 @@ import '../styles/globals.css';
 
 const META_THEME_COLORS = {
   light: '#ffffff',
-  dark: '#09090b'
+  dark: '#0e0f16' // worldcup26 deep-ink background
 };
 
 export const metadata: Metadata = {
@@ -45,7 +45,7 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
-  const activeThemeValue = cookieStore.get('active_theme')?.value;
+  const activeThemeValue = cookieStore.get('active_theme_v2')?.value;
   const isValidTheme = THEMES.some((t) => t.value === activeThemeValue);
   const themeToApply = isValidTheme ? activeThemeValue! : DEFAULT_THEME;
 
@@ -57,7 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             __html: `
               try {
                 // Set meta theme color
-                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                if (localStorage.theme === 'dark' || !('theme' in localStorage) || (localStorage.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '${META_THEME_COLORS.dark}')
                 }
               } catch (_) {}
@@ -75,7 +75,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <NuqsAdapter>
           <ThemeProvider
             attribute='class'
-            defaultTheme='system'
+            defaultTheme='dark'
             enableSystem
             disableTransitionOnChange
             enableColorScheme
