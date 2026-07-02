@@ -49,7 +49,7 @@ The core stat refresh, timed after MNF concludes. Week auto-computed (dispatch i
 |------|----------|-------|--------------|
 | `player_weekly` | nflverse (nfl-data-py) | week | blocking |
 | `snap_counts` | nflverse | week | blocking |
-| `injuries` | nflverse | week | blocking |
+| `injuries` | nflverse | week | fail-open — **feed discontinued upstream after 2024** (see §7) |
 | `rosters` (seasonal) | nflverse | season | continue-on-error |
 | NGS passing/rushing/receiving | NFL Next Gen Stats via nflverse | season (current + prior) | fail-open |
 | PFR weekly pass/rush/rec/def | Pro-Football-Reference via nflverse | season (current + prior) | fail-open |
@@ -189,6 +189,7 @@ ESPN live draft: **NO-GO** (Phase 89) — no API exists; `espn_adapter.py` is ga
 Open:
 
 - **S3 mirroring inactive** (downgraded from blocker, 2026-07-02): weekly-pipeline was converted to local-first + git-commit after all four June runs died silently at the missing/expired AWS credentials (discovery also fixed the workflow's missing `issues: write` permission — failures now open issues). Gold serves from committed parquet; S3 uploads self-reactivate if valid `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` secrets are ever restored — optional, no workflow change needed.
+- **Injuries feed discontinued upstream after 2024** (surfaced by the 2026-07-02 weekly-pipeline smoke test): nflverse stopped publishing injuries, and BOTH consumers use it — the weekly Bronze ingest (now fail-open) and the Sunday refresh's live pull (`import_injuries`, falls back to Bronze which is also empty for 2025+). Net effect: **no weekly injury adjustments for the 2026 season** (Questionable/Doubtful/Out multipliers silently inactive). Candidate replacement: Sleeper's player registry carries `injury_status` per player and is already ingested daily — wiring it into `apply_injury_adjustments()` is the natural fix before Week 1.
 - **ESPN QBR 2024+ missing upstream** (nflverse gap) — re-verified 2026-07-01 (`import_qbr` returns 0 rows for 2024 and 2025); nothing actionable on our side, models handle NaN. Re-check occasionally.
 - **FTN rankings empty until Ratcliffe submits 2026 ranks** (~Jul–Aug) — by design, not a defect; auto-populates via the daily refresh the day his board drops.
 

@@ -260,11 +260,18 @@ jobs:
 
       - name: Bronze — ingest injuries
         id: bronze_injuries
+        # nflverse discontinued the injuries feed after the 2024 season
+        # (config caps the type at 2024), so this ingest ALWAYS fails for
+        # current seasons — caught by the 2026-07-02 smoke test. Fail-open:
+        # apply_injury_adjustments() degrades gracefully without injury
+        # rows and the Sunday refresh re-checks live. Replacement feed
+        # (e.g. Sleeper injury_status) tracked in DATA_FEEDS.md §7.
         run: |
           python scripts/bronze_ingestion_simple.py \
             --season "$SEASON" \
             --week   "$WEEK"   \
-            --data-type injuries
+            --data-type injuries \
+            || echo "::warning::injuries ingest failed (nflverse feed discontinued after 2024) — projections proceed without weekly injury adjustments"
 
       - name: Bronze — ingest rosters
         id: bronze_rosters
