@@ -14,8 +14,12 @@ from datetime import datetime
 import argparse
 from dotenv import load_dotenv
 
-# Add project root to path so `src.*` imports work
+# Add project root to path so `src.*` imports work, and src/ itself so the
+# bare `from config import ...` inside src modules resolves without relying
+# on a PYTHONPATH env var (GHA runners don't set one — this bit the first
+# weekly-reference-refresh run, 2026-07-02).
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from src.nfl_data_adapter import NFLDataAdapter, format_validation_output
 from src.config import validate_season_for_type, DATA_TYPE_SEASON_RANGES
