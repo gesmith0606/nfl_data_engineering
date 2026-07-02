@@ -1,0 +1,44 @@
+{
+  "positions": [
+    {
+      "position": "QB",
+      "ml_mae": 7.034,
+      "heuristic_mae": 6.582,
+      "holdout_improvement_pct": -6.84,
+      "oof_improvement_pct": -6.84,
+      "safety_violation": false,
+      "verdict": "SHIP",
+      "note": "Updated 2026-04-13: XGB MAE (7.03) is worse than post-consolidation heuristic (6.58) on 2022-2024 iteration set, but QB XGB corrects large heuristic bias (-2.47 pts). Kept SHIP for bias control. Net effect: +0.45 MAE but bias near-zero (+0.05) vs -2.47 without it."
+    },
+    {
+      "position": "RB",
+      "ml_mae": 5.568,
+      "heuristic_mae": 4.7227,
+      "holdout_improvement_pct": -17.9,
+      "oof_improvement_pct": -17.9,
+      "safety_violation": false,
+      "verdict": "SKIP"
+    },
+    {
+      "position": "WR",
+      "ml_mae": 4.6157,
+      "heuristic_mae": 4.334,
+      "holdout_improvement_pct": -6.5,
+      "oof_improvement_pct": -6.5,
+      "safety_violation": false,
+      "verdict": "SKIP"
+    },
+    {
+      "position": "TE",
+      "ml_mae": 3.525,
+      "heuristic_mae": 3.3663,
+      "holdout_improvement_pct": -4.71,
+      "oof_improvement_pct": -4.71,
+      "safety_violation": false,
+      "verdict": "SKIP"
+    }
+  ],
+  "summary": "1/4 positions SHIP (QB only for bias control; RB/WR/TE heuristic — updated 2026-04-13)",
+  "timestamp": "2026-04-13T14:30:00.000000",
+  "scoring_format": "half_ppr"
+}
