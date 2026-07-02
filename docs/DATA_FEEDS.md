@@ -188,6 +188,7 @@ ESPN live draft: **NO-GO** (Phase 89) — no API exists; `espn_adapter.py` is ga
 
 Open:
 
+- **weekly-pipeline blocked on AWS credentials — NEEDS USER ACTION.** Discovered 2026-07-02: all four June scheduled runs failed at `configure-aws-credentials` ("Could not load credentials from any providers") before any ingestion ran, and the failures were silent because the workflow had no `issues: write` permission (fixed 2026-07-02 — future failures will open issues). Fix requires either setting valid `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` repo secrets or converting the workflow to the local-first + git-commit pattern the other workflows use. Target: August dress rehearsal at the latest.
 - **ESPN QBR 2024+ missing upstream** (nflverse gap) — re-verified 2026-07-01 (`import_qbr` returns 0 rows for 2024 and 2025); nothing actionable on our side, models handle NaN. Re-check occasionally.
 - **FTN rankings empty until Ratcliffe submits 2026 ranks** (~Jul–Aug) — by design, not a defect; auto-populates via the daily refresh the day his board drops.
 
