@@ -103,10 +103,12 @@ jobs:
           # to RuleExtractor still kicks in if Claude calls error mid-run,
           # so this env var alone never hard-fails the daily cron.
           EXTRACTOR_MODE: ${{ (vars.ENABLE_LLM_ENRICHMENT == 'true') && 'claude_primary' || '' }}
+          INPUT_SEASON: ${{ inputs.season }}
+          INPUT_WEEK: ${{ inputs.week }}
         run: |
           python scripts/daily_sentiment_pipeline.py \
-            ${{ inputs.season && format('--season {0}', inputs.season) || '' }} \
-            ${{ inputs.week && format('--week {0}', inputs.week) || '' }} \
+            ${INPUT_SEASON:+--season "$INPUT_SEASON"} \
+            ${INPUT_WEEK:+--week "$INPUT_WEEK"} \
             --verbose
 
       # ----------------------------------------------------------------

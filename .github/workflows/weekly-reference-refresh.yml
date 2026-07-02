@@ -68,9 +68,11 @@ jobs:
       # ----------------------------------------------------------------
       - name: Resolve season
         id: season
+        env:
+          INPUT_SEASON: ${{ inputs.season }}
         run: |
-          if [ -n "${{ inputs.season }}" ]; then
-            SEASON="${{ inputs.season }}"
+          if [ -n "$INPUT_SEASON" ]; then
+            SEASON="$INPUT_SEASON"
           else
             SEASON=$(python -c "from datetime import date; t = date.today(); print(t.year if t.month >= 3 else t.year - 1)")
           fi
