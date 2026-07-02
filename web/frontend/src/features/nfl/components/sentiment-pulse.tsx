@@ -1,10 +1,10 @@
 'use client';
 
 /**
- * Season Sentiment Pulse — the live, trailing-activeWindow view at the top of the
+ * Season Sentiment Pulse — the live, trailing-window view at the top of the
  * News tab. A Day / Week / Month toggle drives two panels:
  *
- *   1. Top Stories — the most important stories in the activeWindow, ranked by
+ *   1. Top Stories — the most important stories in the window, ranked by
  *      |sentiment| × confidence + event weight with recency decay.
  *   2. Sentiment Rankings — players with the most positive (risers) and
  *      most negative (fallers) confidence-weighted average sentiment.
@@ -278,8 +278,8 @@ export function SentimentPulse() {
             ) : !stories || stories.stories.length === 0 ? (
               <EmptyState
                 icon={Icons.news}
-                title='No stories in this activeWindow'
-                description='Try a wider activeWindow — the pipeline ingests new stories daily.'
+                title='No stories in this window'
+                description='Try a wider window — the pipeline ingests new stories daily.'
               />
             ) : (
               <FadeIn key={activeWindow} className='space-y-[var(--space-2)]'>
@@ -306,7 +306,7 @@ export function SentimentPulse() {
                     <Icons.trendingUp className='h-[var(--space-3)] w-[var(--space-3)] text-emerald-500' />
                   }
                   entries={rankings?.risers ?? []}
-                  empty='No positive player signals in this activeWindow.'
+                  empty='No positive player signals in this window.'
                 />
                 <RankingsColumn
                   title={`Sentiment Fallers — past ${activeWindow}`}
@@ -314,7 +314,7 @@ export function SentimentPulse() {
                     <Icons.trendingDown className='h-[var(--space-3)] w-[var(--space-3)] text-red-500' />
                   }
                   entries={rankings?.fallers ?? []}
-                  empty='No negative player signals in this activeWindow.'
+                  empty='No negative player signals in this window.'
                 />
               </>
             )}
