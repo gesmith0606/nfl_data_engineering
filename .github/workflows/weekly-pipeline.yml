@@ -31,6 +31,16 @@ concurrency:
   cancel-in-progress: false
 
 # ---------------------------------------------------------------------------
+# Permissions — the failure-notification and ML-fallback escalation steps
+# create GitHub issues. Without an explicit issues:write grant the default
+# restricted token 403s ("Resource not accessible by integration"), which is
+# how four consecutive weekly failures (June 2026) went unreported.
+# ---------------------------------------------------------------------------
+permissions:
+  contents: read
+  issues: write
+
+# ---------------------------------------------------------------------------
 # Environment — values that don't change between jobs
 # ---------------------------------------------------------------------------
 env:
