@@ -540,10 +540,19 @@ def main():
         print(f"\nFetching Silver-layer data for season {args.season}...")
         silver_df = pd.DataFrame()
 
-        # Try local Silver first
-        silver_df = _read_local_parquet(
-            SILVER_DIR, f"players/usage/season={args.season}/*.parquet"
-        )
+        # Try local Silver first. The weekly transformation nests its output
+        # under week=W/ (players/usage/season=Y/week=W/usage_*.parquet) while
+        # season-scoped runs write directly under season=Y/ — try the exact
+        # week partition first, then the season root. The season-only glob is
+        # NOT recursive, which is how the first local-first GHA run (2026-07-02)
+        # missed the Silver file written moments earlier in the same runner.
+        for _pattern in (
+            f"players/usage/season={args.season}/week={args.week}/*.parquet",
+            f"players/usage/season={args.season}/*.parquet",
+        ):
+            silver_df = _read_local_parquet(SILVER_DIR, _pattern)
+            if not silver_df.empty:
+                break
         if not silver_df.empty:
             print(f"Loaded {len(silver_df):,} rows from local Silver layer")
 

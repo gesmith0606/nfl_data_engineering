@@ -568,6 +568,13 @@ jobs:
       - name: Commit Gold projections
         id: commit_gold
         run: |
+          # Projections publish from main only (Railway/HF serve committed
+          # parquet from main). A workflow_dispatch from another ref must
+          # not silently "publish" to that branch.
+          if [ "${GITHUB_REF_NAME}" != "main" ]; then
+            echo "::warning::Skipping Gold commit — ref is ${GITHUB_REF_NAME}, not main"
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/gold/projections/ 2>/dev/null || true
@@ -579,7 +586,7 @@ jobs:
 
           Automated Tuesday pipeline (Bronze→Silver→Gold, hybrid ML path)."
             for attempt in 1 2 3; do
-              if git push 2>&1; then
+              if git push origin main 2>&1; then
                 echo "Pushed $COUNT Gold projection files (attempt $attempt)"
                 break
               fi
@@ -633,7 +640,7 @@ jobs:
           |-----------|--------|
           | player_weekly | ingested |
           | snap_counts | ingested |
-          | injuries | ingested |
+          | injuries | attempted — fail-open (nflverse feed discontinued after 2024), see step log |
           | rosters | ingested (non-blocking) |
           | ngs | ingested (non-blocking) |
           | pfr_weekly | attempted — fail-open, see step log |

@@ -96,5 +96,5 @@ wsproto==1.2.0
 xmltodict==0.14.2
 xgboost>=2.1.4,<3.0
 optuna>=4.0
-scikit-learn>=1.5,<1.7  # pinned: sklearn 1.7+ removed _estimator_type, which xgboost <3 requires (12 test failures on 1.9)
+scikit-learn>=1.5,<1.7  # pinned: sklearn 1.7+ dropped the _estimator_type marker (Tags-based now), which xgboost <3 requires (12 test failures on 1.9)
 neo4j>=5.0,<6.0
