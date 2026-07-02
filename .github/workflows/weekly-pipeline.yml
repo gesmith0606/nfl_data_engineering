@@ -180,6 +180,12 @@ jobs:
       WEEK:   ${{ needs.compute-week.outputs.week }}
       # For the gh CLI (deduped ML-fallback escalation issue in step 7).
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # S3 mirroring (optional): the scripts upload only when boto3 finds
+      # working credentials (has_aws guard) and the S3 health check is
+      # fail-open — when these secrets are absent/empty the pipeline stays
+      # purely local-first. Secrets restored 2026-07-02.
+      AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
       # ------------------------------------------------------------------

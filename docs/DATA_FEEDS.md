@@ -188,8 +188,12 @@ ESPN live draft: **NO-GO** (Phase 89) — no API exists; `espn_adapter.py` is ga
 
 Open:
 
-- **S3 mirroring inactive** (downgraded from blocker, 2026-07-02): weekly-pipeline was converted to local-first + git-commit after all four June runs died silently at the missing/expired AWS credentials (discovery also fixed the workflow's missing `issues: write` permission — failures now open issues). Gold serves from committed parquet; S3 uploads self-reactivate if valid `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` secrets are ever restored — optional, no workflow change needed.
-- **Injuries feed status ambiguous for 2026 — re-verify at the August dress rehearsal.** The config caps the Bronze `injuries` type at 2024 ("nflverse discontinued") so the weekly ingest step is fail-open, **but** the smoke test's direct `import_injuries([2025])` fetched 6,068 rows and applied adjustments to 32 players — the 2024 cap looks stale, at least for completed seasons. Action items: (1) test `import_injuries([2026])` once the season nears; if live, raise the config cap to `get_max_season` and the weekly ingest starts working again; (2) if 2026 is genuinely dead upstream, wire Sleeper's `injury_status` (already ingested daily) into `apply_injury_adjustments()` before Week 1. The projection engine's own live-fetch tier already covers seasons the Bronze cap blocks.
+- **Injuries for 2026 unverified until the season nears** — the stale 2024 config cap was raised to `get_max_season` on 2026-07-02 (2025 ingests 6,068 rows; weekly step stays fail-open so an empty future season just warns). If 2026 turns out dead upstream, wire Sleeper's `injury_status` (already ingested daily) into `apply_injury_adjustments()` before Week 1.
+
+Resolved 2026-07-02 (second wave):
+
+- ~~S3 mirroring inactive~~ → working AWS credentials restored as repo secrets and wired into the weekly-pipeline job env; uploads + the S3 health check reactivate via the `has_aws` guard (pipeline remains local-first-safe if secrets ever vanish again).
+- ~~Historical feature layer empty in runners~~ → `data/silver/players/historical/` (1 MB static career/combine/draft dimension) committed; the WR/TE residual features include historical columns (`bmi`, `cone`), and runners were silently assembling them as NaN — measured drift vs local: WR mean |Δ| 0.089 pts, TE 0.047 (max 0.74).
 - **ESPN QBR 2024+ missing upstream** (nflverse gap) — re-verified 2026-07-01 (`import_qbr` returns 0 rows for 2024 and 2025); nothing actionable on our side, models handle NaN. Re-check occasionally.
 - **FTN rankings empty until Ratcliffe submits 2026 ranks** (~Jul–Aug) — by design, not a defect; auto-populates via the daily refresh the day his board drops.
 
