@@ -4,7 +4,14 @@ Supported sources:
   - Sleeper ADP (reliable, free API)
   - FantasyPros ECR (may be rate-limited or blocked)
   - ESPN Rankings (may be rate-limited or blocked)
-  - consensus (average of the above three, skipping sources that returned nothing)
+  - Draft Sharks board (site whose analysts took #1 AND #2 of 225 in the 2024
+    FantasyPros draft-accuracy contest, three analysts in the 2022-2024
+    multi-year top 10; free HTML endpoint)
+  - FTN / Jeff Ratcliffe (#1 on FantasyPros' 2022-2024 multi-year draft-accuracy
+    leaderboard; served via the FantasyPros partners API expert filter — empty
+    until he submits ranks for the season, typically Jul-Aug)
+  - consensus (average of the original three, skipping sources that returned
+    nothing)
 
 Cache-first fallback chain (ADVR-03 contract):
   1. Always attempt a live fetch via ``_fetch_live(source)``. On success, write
@@ -13,8 +20,10 @@ Cache-first fallback chain (ADVR-03 contract):
      ``data/external/{source}_rankings.json``. Return ``stale=True`` and
      populate ``cache_age_hours`` from the cache file's fetched_at timestamp.
   3. (fantasypros only) Fall back to the committed Bronze yahoo_proxy_fp
-     parquet (weekly FantasyPros HTML scrape) — FP's v2 API requires an auth
-     token since ~2026-06, so without an API key the live tier always fails.
+     parquet (weekly FantasyPros HTML scrape). Since 2026-07-01 the live tier
+     uses the auth-free FP partners API (primary) with the public v2 API as a
+     legacy fallback (v2 has required an auth token since ~2026-06), so this
+     Bronze tier should rarely be reached.
   4. When no tier yields data, return ``players=[]`` with
      ``stale=True, cache_age_hours=None``. Never raise HTTPException.
 
@@ -62,10 +71,35 @@ ESPN_API_URL = (
     "https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/{season}"
     "/segments/0/leaguedefaults/3?view=kona_player_info"
 )
+DRAFTSHARKS_RANKINGS_URL = (
+    "https://www.draftsharks.com/rankings/load-rows"
+    "?offset=0&limit={limit}&pprSuperflexSlug={slug}"
+)
+# FantasyPros partners API — no auth required. Without `filters` it returns the
+# full ECR consensus (the public v2 API has required an auth token since
+# ~2026-06, so this is the primary live tier for fantasypros). With
+# `filters=<expert_id>` the consensus collapses to that single expert's board,
+# so rank_ecr = their exact rank.
+FP_PARTNERS_CONSENSUS_URL = (
+    "https://partners.fantasypros.com/api/v1/consensus-rankings.php"
+    "?sport=NFL&year={season}&week=0&position=ALL&type=draft"
+    "&scoring={scoring_type}"
+)
+FP_PARTNERS_RANKINGS_URL = FP_PARTNERS_CONSENSUS_URL + "&filters={expert_id}"
+# Jeff Ratcliffe (FTN) — #1 on FantasyPros' 2022-2024 multi-year draft-accuracy
+# leaderboard. ID verified against expert-groups.php (year=2025).
+FTN_RATCLIFFE_EXPERT_ID = 125
 
 FANTASY_POSITIONS = {"QB", "RB", "WR", "TE", "K"}
 REQUEST_TIMEOUT = 30
-VALID_SOURCES = {"sleeper", "fantasypros", "espn", "consensus"}
+VALID_SOURCES = {
+    "sleeper",
+    "fantasypros",
+    "espn",
+    "consensus",
+    "draftsharks",
+    "ftn",
+}
 
 # User-Agent to avoid basic bot detection. Never includes API keys.
 _HEADERS = {
@@ -82,6 +116,22 @@ _FP_SCORING_MAP = {
     "ppr": "ppr",
     "half_ppr": "half-ppr",
     "standard": "standard",
+}
+
+# Draft Sharks publishes ppr / half-ppr / superflex boards only — standard
+# leagues are served the half-ppr board (closest available; the Sleeper and
+# ESPN columns are likewise scoring-agnostic).
+_DS_SCORING_MAP = {
+    "ppr": "ppr",
+    "half_ppr": "half-ppr",
+    "standard": "half-ppr",
+}
+
+# FantasyPros partners API scoring codes (differ from the public v2 API).
+_FP_PARTNERS_SCORING_MAP = {
+    "ppr": "PPR",
+    "half_ppr": "HALF",
+    "standard": "STD",
 }
 
 
@@ -337,6 +387,96 @@ def _parse_espn_payload(payload: Dict[str, Any], limit: int) -> List[Dict[str, A
     return rows[:limit]
 
 
+def _parse_draftsharks_payload(html: str, limit: int) -> List[Dict[str, Any]]:
+    """Shape Draft Sharks' /rankings/load-rows HTML into our ranking rows.
+
+    Each player is a ``<tbody data-player-row>`` carrying name/position as
+    data attributes; the overall board rank and team abbreviation live in
+    child elements. Tier-divider tbodies (``data-tier-row``) are skipped by
+    the selector.
+    """
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:  # pragma: no cover — bs4 is in the deploy requirements
+        logger.warning("beautifulsoup4 not installed; cannot parse Draft Sharks")
+        return []
+
+    soup = BeautifulSoup(html, "html.parser")
+    rows: List[Dict[str, Any]] = []
+    for tbody in soup.select("tbody[data-player-row]"):
+        name = str(tbody.get("data-player-name") or "").strip()
+        pos = str(tbody.get("data-fantasy-position") or "").strip().upper()
+        if not name or pos not in FANTASY_POSITIONS:
+            continue
+        team_el = tbody.select_one(".player-details-group__team-name")
+        team = team_el.get_text(strip=True) if team_el else ""
+        rank_el = tbody.select_one(".rank-index span")
+        ds_rank: Optional[int] = None
+        if rank_el:
+            try:
+                ds_rank = int(rank_el.get_text(strip=True))
+            except ValueError:
+                ds_rank = None
+        rows.append(
+            {
+                "player_name": name,
+                "position": pos,
+                "team": team,
+                "external_rank": ds_rank,
+            }
+        )
+
+    # Rows arrive in board order — fill any unparsable rank from that order.
+    for i, row in enumerate(rows, 1):
+        if row["external_rank"] is None:
+            row["external_rank"] = i
+    rows.sort(key=lambda r: r["external_rank"])
+    rows = rows[:limit]
+    for i, row in enumerate(rows, 1):
+        row["rank"] = i
+    return rows
+
+
+def _parse_fp_partners_payload(
+    payload: Dict[str, Any], limit: int
+) -> List[Dict[str, Any]]:
+    """Shape a FP partners API response into ranking rows.
+
+    Used for both the full ECR consensus (fantasypros source, no filters) and
+    single-expert boards (ftn source, ``filters=<expert_id>`` — there the
+    "consensus" collapses to that expert, so ``rank_ecr`` is their exact
+    rank). An empty ``players`` list is the normal state for an expert who
+    has not yet submitted ranks for the season (typically Jul-Aug) — callers
+    treat [] as a live-fetch miss and fall back.
+    """
+    players_raw = payload.get("players", []) or []
+    rows: List[Dict[str, Any]] = []
+    for p in players_raw:
+        pos = str(p.get("player_position_id", p.get("position", "")) or "").upper()
+        if pos not in FANTASY_POSITIONS:
+            continue
+        name = p.get("player_name", p.get("name", "")) or ""
+        if not name:
+            continue
+        try:
+            ext_rank = int(p.get("rank_ecr"))
+        except (TypeError, ValueError):
+            continue
+        rows.append(
+            {
+                "player_name": name,
+                "position": pos,
+                "team": p.get("player_team_id", p.get("team", "")) or "",
+                "external_rank": ext_rank,
+            }
+        )
+    rows.sort(key=lambda r: r["external_rank"])
+    rows = rows[:limit]
+    for i, row in enumerate(rows, 1):
+        row["rank"] = i
+    return rows
+
+
 def _fetch_live(
     source: str,
     season: int = 2026,
@@ -359,6 +499,26 @@ def _fetch_live(
             return _parse_sleeper_payload(resp.json(), limit=limit)
 
         if source == "fantasypros":
+            # Primary: partners API (no auth; the public v2 API has required
+            # an auth token since ~2026-06). Inner try so a partners failure
+            # still reaches the legacy v2 attempt below.
+            partners_scoring = _FP_PARTNERS_SCORING_MAP.get(scoring, "HALF")
+            partners_url = FP_PARTNERS_CONSENSUS_URL.format(
+                season=season, scoring_type=partners_scoring
+            )
+            try:
+                resp = requests.get(
+                    partners_url, timeout=REQUEST_TIMEOUT, headers=_HEADERS
+                )
+                resp.raise_for_status()
+                rows = _parse_fp_partners_payload(resp.json(), limit=limit)
+                if rows:
+                    return rows
+            except Exception as exc:  # noqa: BLE001 — fall through to v2
+                logger.warning(
+                    "FP partners consensus fetch failed; trying public v2: %s",
+                    exc,
+                )
             scoring_type = _FP_SCORING_MAP.get(scoring, "half-ppr")
             url = FANTASYPROS_ECR_URL.format(season=season, scoring_type=scoring_type)
             resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
@@ -386,6 +546,28 @@ def _fetch_live(
             resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=headers)
             resp.raise_for_status()
             return _parse_espn_payload(resp.json(), limit=limit)
+
+        if source == "draftsharks":
+            slug = _DS_SCORING_MAP.get(scoring, "half-ppr")
+            url = DRAFTSHARKS_RANKINGS_URL.format(limit=limit, slug=slug)
+            resp = requests.get(
+                url,
+                timeout=REQUEST_TIMEOUT,
+                headers={**_HEADERS, "Accept": "text/html"},
+            )
+            resp.raise_for_status()
+            return _parse_draftsharks_payload(resp.text, limit=limit)
+
+        if source == "ftn":
+            scoring_type = _FP_PARTNERS_SCORING_MAP.get(scoring, "HALF")
+            url = FP_PARTNERS_RANKINGS_URL.format(
+                season=season,
+                scoring_type=scoring_type,
+                expert_id=FTN_RATCLIFFE_EXPERT_ID,
+            )
+            resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
+            resp.raise_for_status()
+            return _parse_fp_partners_payload(resp.json(), limit=limit)
     except Exception as exc:  # noqa: BLE001 — intentionally broad; never raise
         logger.warning("Live fetch failed for %s: %s", source, exc)
         return None
@@ -701,6 +883,7 @@ def _latest_parquet(directory: Path) -> Optional[Path]:
     (e.g. scoring formats), so the timestamp is extracted rather than relying
     on a whole-name sort.
     """
+
     def _key(p: Path) -> Tuple[str, str]:
         m = _FILENAME_TS_RE.search(p.name)
         return (m.group(1) if m else "", p.name)
@@ -966,21 +1149,39 @@ def compare_rankings(
 # consensus already aggregates Yahoo's editorial rankings. Provenance is
 # preserved in `source_labels` on the response. This convention matches
 # `projection_service.py::_to_response_rows` (yahoo_proxy_fp → yahoo).
-_MULTI_SOURCE_KEYS: Tuple[str, ...] = ("sleeper", "espn", "yahoo")
+_MULTI_SOURCE_KEYS: Tuple[str, ...] = (
+    "sleeper",
+    "espn",
+    "yahoo",
+    "draftsharks",
+    "ftn",
+)
 _MULTI_SOURCE_INTERNAL: Dict[str, str] = {
     "sleeper": "sleeper",
     "espn": "espn",
     "yahoo": "fantasypros",
+    "draftsharks": "draftsharks",
+    "ftn": "ftn",
 }
 _MULTI_SOURCE_LABELS: Dict[str, str] = {
     "ours": "Our projections",
     "sleeper": "Sleeper ADP",
     "espn": "ESPN fantasy rankings",
     "yahoo": "Yahoo via FantasyPros consensus",
+    "draftsharks": "Draft Sharks board",
+    "ftn": "Jeff Ratcliffe (FTN) via FantasyPros",
 }
 
 
-_VALID_SORT_KEYS = {"consensus", "ours", "sleeper", "espn", "yahoo"}
+_VALID_SORT_KEYS = {
+    "consensus",
+    "ours",
+    "sleeper",
+    "espn",
+    "yahoo",
+    "draftsharks",
+    "ftn",
+}
 
 
 def multi_compare_rankings(

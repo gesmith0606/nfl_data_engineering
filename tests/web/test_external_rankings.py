@@ -63,9 +63,10 @@ def _fake_sleeper_players_payload(n: int = 25) -> Dict[str, Dict[str, Any]]:
 class _FakeResponse:
     """Minimal stand-in for a `requests.Response` object."""
 
-    def __init__(self, payload: Any, status_code: int = 200) -> None:
+    def __init__(self, payload: Any, status_code: int = 200, text: str = "") -> None:
         self._payload = payload
         self.status_code = status_code
+        self.text = text
 
     def raise_for_status(self) -> None:
         if self.status_code >= 400:
@@ -465,8 +466,14 @@ def test_multi_compare_envelope_shape(
     assert required_top.issubset(
         result.keys()
     ), f"missing top-level keys: {required_top - result.keys()}"
-    assert result["sources"] == ["sleeper", "espn", "yahoo"]
-    assert set(result["stale"].keys()) == {"sleeper", "espn", "yahoo"}
+    assert result["sources"] == ["sleeper", "espn", "yahoo", "draftsharks", "ftn"]
+    assert set(result["stale"].keys()) == {
+        "sleeper",
+        "espn",
+        "yahoo",
+        "draftsharks",
+        "ftn",
+    }
     assert result["sort_by"] == "consensus"
     assert "ours" in result["source_labels"]
 
@@ -492,14 +499,38 @@ def test_multi_compare_joins_on_player_name(
     # apples-to-apples (RB1 vs RB1, WR3 vs WR3) regardless of how each source
     # weights position scarcity.
     sleeper_rows = [
-        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
-        {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 2, "rank": 2},
+        {
+            "player_name": "Alice",
+            "position": "RB",
+            "team": "KC",
+            "external_rank": 1,
+            "rank": 1,
+        },
+        {
+            "player_name": "Bob",
+            "position": "WR",
+            "team": "DAL",
+            "external_rank": 2,
+            "rank": 2,
+        },
     ]
     espn_rows = [
-        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 5, "rank": 5},
+        {
+            "player_name": "Alice",
+            "position": "RB",
+            "team": "KC",
+            "external_rank": 5,
+            "rank": 5,
+        },
     ]
     fp_rows = [  # Yahoo ↔ FantasyPros internal
-        {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 3, "rank": 3},
+        {
+            "player_name": "Bob",
+            "position": "WR",
+            "team": "DAL",
+            "external_rank": 3,
+            "rank": 3,
+        },
     ]
     _seed_cache(tmp_cache_dir, "sleeper", sleeper_rows)
     _seed_cache(tmp_cache_dir, "espn", espn_rows)
@@ -509,8 +540,20 @@ def test_multi_compare_joins_on_player_name(
     # the test seeds the post-computation frame directly. Alice = RB1, Bob = WR1.
     our_df = pd.DataFrame(
         [
-            {"player_name": "Alice", "position": "RB", "team": "KC", "our_rank": 1, "projected_points": 18.0},
-            {"player_name": "Bob", "position": "WR", "team": "DAL", "our_rank": 1, "projected_points": 12.5},
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "our_rank": 1,
+                "projected_points": 18.0,
+            },
+            {
+                "player_name": "Bob",
+                "position": "WR",
+                "team": "DAL",
+                "our_rank": 1,
+                "projected_points": 12.5,
+            },
         ]
     )
     monkeypatch.setattr(svc, "_load_our_projections", lambda **kw: our_df)
@@ -568,18 +611,43 @@ def test_multi_compare_rank_basis_switches_with_position_filter(
     )
 
     sleeper_rows = [
-        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
-        {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 2, "rank": 2},
+        {
+            "player_name": "Alice",
+            "position": "RB",
+            "team": "KC",
+            "external_rank": 1,
+            "rank": 1,
+        },
+        {
+            "player_name": "Bob",
+            "position": "WR",
+            "team": "DAL",
+            "external_rank": 2,
+            "rank": 2,
+        },
     ]
     espn_rows = [
-        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 5, "rank": 5},
+        {
+            "player_name": "Alice",
+            "position": "RB",
+            "team": "KC",
+            "external_rank": 5,
+            "rank": 5,
+        },
     ]
     _seed_cache(tmp_cache_dir, "sleeper", sleeper_rows)
     _seed_cache(tmp_cache_dir, "espn", espn_rows)
 
     our_df = pd.DataFrame(
         [
-            {"player_name": "Alice", "position": "RB", "team": "KC", "our_rank": 1, "our_overall_rank": 7, "projected_points": 18.0},
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "our_rank": 1,
+                "our_overall_rank": 7,
+                "projected_points": 18.0,
+            },
         ]
     )
     monkeypatch.setattr(svc, "_load_our_projections", lambda **kw: our_df)
@@ -625,18 +693,54 @@ def test_multi_compare_sort_by_consensus_uses_external_mean(
         tmp_cache_dir,
         "sleeper",
         [
-            {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 10, "rank": 10},
-            {"player_name": "Bob", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
-            {"player_name": "Carol", "position": "RB", "team": "KC", "external_rank": 2, "rank": 2},
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 10,
+                "rank": 10,
+            },
+            {
+                "player_name": "Bob",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 1,
+                "rank": 1,
+            },
+            {
+                "player_name": "Carol",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 2,
+                "rank": 2,
+            },
         ],
     )
     _seed_cache(
         tmp_cache_dir,
         "espn",
         [
-            {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 10, "rank": 10},
-            {"player_name": "Bob", "position": "RB", "team": "KC", "external_rank": 99, "rank": 99},
-            {"player_name": "Carol", "position": "RB", "team": "KC", "external_rank": 2, "rank": 2},
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 10,
+                "rank": 10,
+            },
+            {
+                "player_name": "Bob",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 99,
+                "rank": 99,
+            },
+            {
+                "player_name": "Carol",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 2,
+                "rank": 2,
+            },
         ],
     )
 
@@ -667,8 +771,20 @@ def test_multi_compare_position_filter_uniform(
     )
 
     rb_and_wr = [
-        {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
-        {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 2, "rank": 2},
+        {
+            "player_name": "Alice",
+            "position": "RB",
+            "team": "KC",
+            "external_rank": 1,
+            "rank": 1,
+        },
+        {
+            "player_name": "Bob",
+            "position": "WR",
+            "team": "DAL",
+            "external_rank": 2,
+            "rank": 2,
+        },
     ]
     _seed_cache(tmp_cache_dir, "sleeper", rb_and_wr)
     _seed_cache(tmp_cache_dir, "espn", rb_and_wr)
@@ -774,3 +890,251 @@ def test_fantasypros_bronze_fallback_serves_when_live_and_cache_fail(
     assert age_hours is not None
     assert [p["player_name"] for p in players] == ["Josh Allen", "Bijan Robinson"]
     assert players[0]["external_rank"] == 1
+
+
+# ---------------------------------------------------------------------------
+# Draft Sharks + FTN (Jeff Ratcliffe) — v8.1 accuracy-researched sources
+# ---------------------------------------------------------------------------
+_DS_FAKE_HTML = """
+<tbody data-tier-row data-tier-type="overall" data-tier-number="1">
+  <tr><td class="rank tier-label">Tier 1</td></tr>
+</tbody>
+<tbody data-player-row data-player-name="Bijan Robinson" data-fantasy-position="RB">
+  <tr class="player-row">
+    <td><div class="column-title rank-index"><span>1</span></div></td>
+    <td><span class="player-details-group__team-name">ATL</span></td>
+  </tr>
+</tbody>
+<tbody data-player-row data-player-name="Ja'Marr Chase" data-fantasy-position="WR">
+  <tr class="player-row">
+    <td><div class="column-title rank-index"><span>2</span></div></td>
+    <td><span class="player-details-group__team-name">CIN</span></td>
+  </tr>
+</tbody>
+<tbody data-player-row data-player-name="Ravens D/ST" data-fantasy-position="DEF">
+  <tr class="player-row">
+    <td><div class="column-title rank-index"><span>3</span></div></td>
+    <td><span class="player-details-group__team-name">BAL</span></td>
+  </tr>
+</tbody>
+"""
+
+
+@pytest.mark.unit
+def test_draftsharks_live_fetch_happy_path(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Draft Sharks HTML parses into ranking rows; DEF rows are dropped."""
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        assert "draftsharks.com" in url
+        return _FakeResponse(None, status_code=200, text=_DS_FAKE_HTML)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="draftsharks", limit=10)
+
+    assert result["source"] == "draftsharks"
+    assert result["stale"] is False
+    names = [p["player_name"] for p in result["players"]]
+    assert names == ["Bijan Robinson", "Ja'Marr Chase"]  # DEF filtered out
+    by_name = {p["player_name"]: p for p in result["players"]}
+    assert by_name["Bijan Robinson"]["position"] == "RB"
+    assert by_name["Bijan Robinson"]["team"] == "ATL"
+    # Overall board rank preserved through the positional conversion.
+    assert by_name["Bijan Robinson"]["external_rank"] == 1
+    # Cache written for the fallback tier.
+    assert (tmp_cache_dir / "draftsharks_rankings.json").exists()
+
+
+@pytest.mark.unit
+def test_draftsharks_standard_scoring_maps_to_half_ppr_board(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Draft Sharks has no standard board — standard is served half-ppr."""
+    seen_urls: List[str] = []
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        seen_urls.append(url)
+        return _FakeResponse(None, status_code=200, text=_DS_FAKE_HTML)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+    svc._fetch_live("draftsharks", scoring="standard", limit=10)
+    assert seen_urls and "pprSuperflexSlug=half-ppr" in seen_urls[0]
+
+
+def _fake_ftn_partners_payload(n: int = 5) -> Dict[str, Any]:
+    """Minimal FP partners consensus-rankings.php single-expert response."""
+    players = []
+    positions = ["WR", "RB", "QB", "TE"]
+    for i in range(n):
+        players.append(
+            {
+                "player_name": f"Player {i}",
+                "player_position_id": positions[i % 4],
+                "player_team_id": "KC",
+                "rank_ecr": i + 1,
+            }
+        )
+    return {"count": n, "players": players}
+
+
+@pytest.mark.unit
+def test_fantasypros_live_via_partners_api(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """FP live tier is served by the auth-free partners API (v2 needs a token).
+
+    The v2 endpoint 403s (its real-world state since ~2026-06); the partners
+    endpoint must carry the live tier on its own — stale=False, no Bronze
+    fallback involved.
+    """
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        if "partners.fantasypros.com" in url:
+            assert "filters=" not in url  # full consensus, not an expert board
+            return _FakeResponse(_fake_ftn_partners_payload(n=12), status_code=200)
+        return _FakeResponse(None, status_code=403)  # public v2 requires token
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="fantasypros", limit=10)
+
+    assert result["stale"] is False
+    assert len(result["players"]) == 10
+    assert result["players"][0]["player_name"] == "Player 0"
+
+
+@pytest.mark.unit
+def test_fantasypros_partners_failure_falls_back_to_v2(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """If partners dies, the legacy public v2 attempt still runs."""
+    v2_payload = {
+        "players": [
+            {
+                "player_name": "Legacy Player",
+                "position": "RB",
+                "player_team_id": "KC",
+                "rank_ecr": 1,
+            }
+        ]
+    }
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        if "partners.fantasypros.com" in url:
+            return _FakeResponse(None, status_code=500)
+        return _FakeResponse(v2_payload, status_code=200)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="fantasypros", limit=10)
+
+    assert result["stale"] is False
+    assert result["players"][0]["player_name"] == "Legacy Player"
+
+
+@pytest.mark.unit
+def test_ftn_live_fetch_happy_path(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """FTN (Ratcliffe via FP partners filter) parses rank_ecr as his rank."""
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        assert "partners.fantasypros.com" in url
+        assert f"filters={svc.FTN_RATCLIFFE_EXPERT_ID}" in url
+        return _FakeResponse(_fake_ftn_partners_payload(n=8), status_code=200)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="ftn", limit=5)
+
+    assert result["source"] == "ftn"
+    assert result["stale"] is False
+    assert len(result["players"]) == 5
+    assert result["players"][0]["player_name"] == "Player 0"
+
+
+@pytest.mark.unit
+def test_ftn_empty_until_expert_submits(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Pre-submission (count=0) is a live miss → empty stale envelope, no crash."""
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        return _FakeResponse({"count": 0, "players": []}, status_code=200)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="ftn", limit=10)
+
+    assert result["players"] == []
+    assert result["stale"] is True
+    # An empty live result must NOT overwrite / create the cache file.
+    assert not (tmp_cache_dir / "ftn_rankings.json").exists()
+
+
+@pytest.mark.unit
+def test_multi_compare_includes_draftsharks_and_ftn_columns(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """New sources join the side-by-side view with their own rank/diff columns."""
+    import requests
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+    monkeypatch.setattr(svc, "_load_bronze_fantasypros", lambda **kw: None)
+
+    _seed_cache(
+        tmp_cache_dir,
+        "draftsharks",
+        [
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 1,
+                "rank": 1,
+            },
+        ],
+    )
+    _seed_cache(
+        tmp_cache_dir,
+        "ftn",
+        [
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 3,
+                "rank": 3,
+            },
+        ],
+    )
+
+    result = svc.multi_compare_rankings(limit=10)
+
+    assert "draftsharks" in result["sources"]
+    assert "ftn" in result["sources"]
+    assert "draftsharks" in result["source_labels"]
+    by_name = {p["player_name"]: p for p in result["players"]}
+    alice = by_name["Alice"]
+    assert alice["draftsharks_rank"] == 1.0
+    assert alice["ftn_rank"] == 3.0
+    assert "rank_diff_vs_draftsharks" in alice
+    assert "rank_diff_vs_ftn" in alice

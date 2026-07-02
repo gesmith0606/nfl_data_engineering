@@ -69,6 +69,7 @@ python -m flake8 src/ tests/ scripts/
 /validate-data 2024 10            # Business rules + DuckDB SQL on Parquet
 /test                             # Full test suite
 /draft-prep 2026 half_ppr 5 12    # Draft workflow (Sleeper + fetch MCPs)
+/draft-live georgesmith 5         # Live draft co-pilot (Sleeper; polls picks, advises in-session)
 /simplify                         # Code quality review of changed files
 ```
 
@@ -166,6 +167,18 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/ablation_market_features.py` | Ablation CLI — P30 baseline vs market features on holdout |
 | `scripts/generate_projections.py` | Gold CLI — `--week` or `--preseason` |
 | `scripts/draft_assistant.py` | Interactive draft CLI — snake, auction, simulation, waiver wire |
+| `scripts/draft_live.py` | Live draft co-pilot CLI (v8.0) — polls a live Sleeper draft, snapshot/`--watch`/`--manual`, drives `LiveDraftEngine` |
+| `src/draft_models.py` | Platform-neutral `PickEvent` / `DraftState` (v8.0 live draft) |
+| `src/sleeper_draft.py` | Sleeper draft parsing + active-draft resolution (v8.0) |
+| `src/sleeper_player_map.py` | Sleeper player_id → projection mapping, cached registry (v8.0) |
+| `src/draft_adapter.py` | `DraftAdapter` protocol + `SleeperAdapter` (v8.0; Yahoo/ESPN are separate adapter modules) |
+| `src/live_draft_engine.py` | `LiveDraftEngine` — pick diff, board/roster sync, slot math, recs, key moments (v8.0) |
+| `src/yahoo_oauth.py` | Yahoo OAuth2 token manager (stdlib; env creds `YAHOO_CLIENT_ID`/`YAHOO_CLIENT_SECRET`, tokens → `data/yahoo_tokens.json`) |
+| `src/yahoo_draft.py` | Yahoo `draft_results` parsing → neutral models (v8.0 Phase 88) |
+| `src/yahoo_adapter.py` | `YahooAdapter` (v8.0; conforms to `DraftAdapter`) |
+| `src/espn_adapter.py` | `EspnAdapter` stub — ESPN has no live API (NO-GO), gated to `--manual` (v8.0 Phase 89) |
+| `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking; preset or exact Sleeper `roster_positions` (v8.0 Phase 90-91) |
+| `src/league_scoring.py` | Re-score projections under a league's custom Sleeper `scoring_settings` (full PPR, TE premium, 6pt pass TD, etc.) (v8.0 Phase 91) |
 | `scripts/backtest_projections.py` | Fantasy backtest — MAE/RMSE/bias per position |
 | `scripts/refresh_adp.py` | Fetch ADP from Sleeper API → data/adp_latest.csv |
 | `scripts/check_pipeline_health.py` | S3 freshness + size checks across all layers |
@@ -196,6 +209,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 - **Roster formats**: `standard`, `superflex`, `2qb` (see `ROSTER_CONFIGS` in config.py)
 - **MCPs**: aws-core, aws-s3, aws-docs, github, duckduckgo, duckdb, fetch, sleeper (neo4j configured/disabled)
 - **Credentials**: `.env` file (never commit — already in .gitignore; pre-commit hook blocks key patterns)
+- **Yahoo live draft (v8.0, optional)**: `YAHOO_CLIENT_ID` + `YAHOO_CLIENT_SECRET` in `.env`; one-time OAuth grant seeds `data/yahoo_tokens.json` (gitignored), then auto-refreshes
 - **Deployment**: Frontend https://frontend-jet-seven-33.vercel.app | Backend https://nfldataengineering-production.up.railway.app (Parquet fallback mode)
 
 ## NFL Business Rules

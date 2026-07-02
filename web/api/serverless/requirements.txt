@@ -11,3 +11,6 @@ pyarrow>=14.0
 nfl_data_py>=0.3.0
 # external_rankings_service.py imports requests (Sleeper/FantasyPros/ESPN clients)
 requests>=2.31.0
+# external_rankings_service.py parses the Draft Sharks rankings HTML
+beautifulsoup4>=4.12
+

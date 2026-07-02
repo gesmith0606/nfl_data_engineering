@@ -1,0 +1,21 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "nfl.l.123456",
+        "league_id": "123456"
+      },
+      {
+        "draft_results": {
+          "0": {"draft_result": {"pick": 1, "round": 1, "team_key": "nfl.l.123456.t.5", "player_key": "nfl.p.30977"}},
+          "1": {"draft_result": {"pick": 2, "round": 1, "team_key": "nfl.l.123456.t.3", "player_key": "nfl.p.31883"}},
+          "2": {"draft_result": {"pick": 3, "round": 1, "team_key": "nfl.l.123456.t.7", "player_key": "nfl.p.32671"}},
+          "3": {"draft_result": {"pick": 4, "round": 1, "team_key": "nfl.l.123456.t.1", "player_key": "nfl.p.40026"}},
+          "4": {"draft_result": {"pick": 5, "round": 1, "team_key": "nfl.l.123456.t.9", "player_key": "nfl.p.100021"}},
+          "5": {"draft_result": {"pick": 6, "round": 1, "team_key": "nfl.l.123456.t.2", "player_key": "nfl.p.100007"}},
+          "count": 6
+        }
+      }
+    ]
+  }
+}

@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 """
-Refresh external fantasy rankings from Sleeper, FantasyPros, and ESPN.
+Refresh external fantasy rankings from Sleeper, FantasyPros, ESPN,
+Draft Sharks, and FTN (Jeff Ratcliffe).
 
-Fetches rankings from all three sources and caches them as JSON files in
+Fetches rankings from all sources and caches them as JSON files in
 data/external/ for the rankings API to consume. Designed to be run daily
 alongside the sentiment pipeline.
+
+Note on FTN: Jeff Ratcliffe's board is served via the FantasyPros partners
+API expert filter and is empty until he submits ranks for the season
+(typically Jul-Aug) — an empty result is normal in the early offseason.
 
 Usage:
     python scripts/refresh_external_rankings.py
     python scripts/refresh_external_rankings.py --season 2026
     python scripts/refresh_external_rankings.py --source sleeper
+    python scripts/refresh_external_rankings.py --source draftsharks
     python scripts/refresh_external_rankings.py --source all --limit 300
 """
 
@@ -19,7 +25,7 @@ import logging
 import os
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -52,6 +58,25 @@ _FP_SCORING_MAP = {
     "half_ppr": "half-ppr",
     "standard": "standard",
 }
+
+# Draft Sharks publishes ppr / half-ppr / superflex boards only — standard
+# leagues are served the half-ppr board (closest available).
+_DS_SCORING_MAP = {
+    "ppr": "ppr",
+    "half_ppr": "half-ppr",
+    "standard": "half-ppr",
+}
+
+# FantasyPros partners API scoring codes (differ from the public v2 API).
+_FP_PARTNERS_SCORING_MAP = {
+    "ppr": "PPR",
+    "half_ppr": "HALF",
+    "standard": "STD",
+}
+
+# Jeff Ratcliffe (FTN) — #1 on FantasyPros' 2022-2024 multi-year draft-accuracy
+# leaderboard. ID verified against partners expert-groups.php (year=2025).
+FTN_RATCLIFFE_EXPERT_ID = 125
 
 
 # ---------------------------------------------------------------------------
@@ -105,24 +130,78 @@ def fetch_sleeper(limit: int = 300) -> List[Dict[str, Any]]:
 
 
 # ---------------------------------------------------------------------------
-# FantasyPros
+# FantasyPros (partners API primary; public v2 legacy fallback)
 # ---------------------------------------------------------------------------
+def _parse_fp_partners_players(
+    data: Dict[str, Any], limit: int
+) -> List[Dict[str, Any]]:
+    """Shape a FP partners consensus-rankings.php response into ranking rows."""
+    players_raw = data.get("players", []) or []
+    rows: List[Dict[str, Any]] = []
+    for p in players_raw:
+        pos = str(p.get("player_position_id", p.get("position", "")) or "").upper()
+        if pos not in FANTASY_POSITIONS:
+            continue
+        name = p.get("player_name", p.get("name", "")) or ""
+        if not name:
+            continue
+        try:
+            ext_rank = int(p.get("rank_ecr"))
+        except (TypeError, ValueError):
+            continue
+        rows.append(
+            {
+                "player_name": name,
+                "position": pos,
+                "team": p.get("player_team_id", p.get("team", "")) or "",
+                "external_rank": ext_rank,
+            }
+        )
+    rows.sort(key=lambda r: r["external_rank"])
+    rows = rows[:limit]
+    for i, row in enumerate(rows, 1):
+        row["rank"] = i
+    return rows
+
+
 def fetch_fantasypros(
     season: int = 2026, scoring: str = "half_ppr", limit: int = 300
 ) -> List[Dict[str, Any]]:
-    """Fetch FantasyPros ECR consensus rankings."""
+    """Fetch FantasyPros ECR consensus rankings.
+
+    Primary: the auth-free partners API. Legacy fallback: the public v2 API
+    (requires an auth token since ~2026-06, kept in case partners goes away).
+    """
+    partners_scoring = _FP_PARTNERS_SCORING_MAP.get(scoring, "HALF")
+    partners_url = (
+        "https://partners.fantasypros.com/api/v1/consensus-rankings.php"
+        f"?sport=NFL&year={season}&week=0&position=ALL&type=draft"
+        f"&scoring={partners_scoring}"
+    )
+    logger.info("Fetching FantasyPros ECR (partners): %s", partners_url)
+    try:
+        resp = requests.get(partners_url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
+        resp.raise_for_status()
+        rows = _parse_fp_partners_players(resp.json(), limit=limit)
+        if rows:
+            logger.info("Parsed %d FantasyPros rankings (partners)", len(rows))
+            return rows
+        logger.warning("FP partners returned no players; trying public v2")
+    except requests.RequestException as exc:
+        logger.warning("FP partners fetch failed (%s); trying public v2", exc)
+
     scoring_type = _FP_SCORING_MAP.get(scoring, "half-ppr")
     url = (
         f"https://api.fantasypros.com/public/v2/json/nfl/{season}"
         f"/consensus-rankings.php?type={scoring_type}"
     )
-    logger.info("Fetching FantasyPros ECR: %s", url)
+    logger.info("Fetching FantasyPros ECR (public v2): %s", url)
     resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
     resp.raise_for_status()
     data = resp.json()
 
     players_raw = data.get("players", [])
-    rows: List[Dict[str, Any]] = []
+    rows = []
     for i, p in enumerate(players_raw[:limit], 1):
         pos = p.get("position", p.get("sport_position", ""))
         if pos not in FANTASY_POSITIONS:
@@ -136,7 +215,7 @@ def fetch_fantasypros(
                 "external_rank": int(p.get("rank_ecr", i)),
             }
         )
-    logger.info("Parsed %d FantasyPros rankings", len(rows))
+    logger.info("Parsed %d FantasyPros rankings (public v2)", len(rows))
     return rows[:limit]
 
 
@@ -198,14 +277,121 @@ def fetch_espn(season: int = 2026, limit: int = 300) -> List[Dict[str, Any]]:
 
 
 # ---------------------------------------------------------------------------
+# Draft Sharks
+# ---------------------------------------------------------------------------
+def fetch_draftsharks(
+    scoring: str = "half_ppr", limit: int = 300
+) -> List[Dict[str, Any]]:
+    """Fetch the Draft Sharks rankings board (free HTML endpoint)."""
+    from bs4 import BeautifulSoup
+
+    slug = _DS_SCORING_MAP.get(scoring, "half-ppr")
+    url = (
+        "https://www.draftsharks.com/rankings/load-rows"
+        f"?offset=0&limit={limit}&pprSuperflexSlug={slug}"
+    )
+    logger.info("Fetching Draft Sharks board: %s", url)
+    resp = requests.get(
+        url, timeout=REQUEST_TIMEOUT, headers={**_HEADERS, "Accept": "text/html"}
+    )
+    resp.raise_for_status()
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    rows: List[Dict[str, Any]] = []
+    for tbody in soup.select("tbody[data-player-row]"):
+        name = str(tbody.get("data-player-name") or "").strip()
+        pos = str(tbody.get("data-fantasy-position") or "").strip().upper()
+        if not name or pos not in FANTASY_POSITIONS:
+            continue
+        team_el = tbody.select_one(".player-details-group__team-name")
+        team = team_el.get_text(strip=True) if team_el else ""
+        rank_el = tbody.select_one(".rank-index span")
+        ds_rank: Optional[int] = None
+        if rank_el:
+            try:
+                ds_rank = int(rank_el.get_text(strip=True))
+            except ValueError:
+                ds_rank = None
+        rows.append(
+            {
+                "player_name": name,
+                "position": pos,
+                "team": team,
+                "external_rank": ds_rank,
+            }
+        )
+
+    for i, row in enumerate(rows, 1):
+        if row["external_rank"] is None:
+            row["external_rank"] = i
+    rows.sort(key=lambda r: r["external_rank"])
+    rows = rows[:limit]
+    for i, row in enumerate(rows, 1):
+        row["rank"] = i
+    logger.info("Parsed %d Draft Sharks rankings", len(rows))
+    return rows
+
+
+# ---------------------------------------------------------------------------
+# FTN (Jeff Ratcliffe) via FantasyPros partners API
+# ---------------------------------------------------------------------------
+def fetch_ftn(
+    season: int = 2026, scoring: str = "half_ppr", limit: int = 300
+) -> List[Dict[str, Any]]:
+    """Fetch Jeff Ratcliffe's draft board via the FP partners expert filter.
+
+    Empty until he submits ranks for the season (typically Jul-Aug).
+    """
+    scoring_type = _FP_PARTNERS_SCORING_MAP.get(scoring, "HALF")
+    url = (
+        "https://partners.fantasypros.com/api/v1/consensus-rankings.php"
+        f"?sport=NFL&year={season}&week=0&position=ALL&type=draft"
+        f"&scoring={scoring_type}&filters={FTN_RATCLIFFE_EXPERT_ID}"
+    )
+    logger.info("Fetching FTN (Ratcliffe) rankings: %s", url)
+    resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
+    resp.raise_for_status()
+    rows = _parse_fp_partners_players(resp.json(), limit=limit)
+    logger.info("Parsed %d FTN (Ratcliffe) rankings", len(rows))
+    return rows
+
+
+# ---------------------------------------------------------------------------
 # Save
 # ---------------------------------------------------------------------------
 def save_rankings(source: str, data: List[Dict[str, Any]]) -> Path:
-    """Save rankings to data/external/<source>_rankings.json."""
+    """Save rankings to data/external/<source>_rankings.json.
+
+    Writes the canonical envelope format the web service reads (source /
+    fetched_at / players) so cache staleness is measured from fetched_at
+    rather than file mtime. Skips the write when the player content is
+    unchanged — the daily workflow commits this directory, and a fetched_at
+    -only diff would produce a meaningless commit every day.
+    """
     EXTERNAL_DIR.mkdir(parents=True, exist_ok=True)
     path = EXTERNAL_DIR / f"{source}_rankings.json"
+
+    if path.exists():
+        try:
+            existing = json.loads(path.read_text())
+            existing_players = (
+                existing.get("players")
+                if isinstance(existing, dict)
+                else existing  # legacy bare-list format
+            )
+            if existing_players == data:
+                logger.info("Rankings unchanged for %s — cache not rewritten", source)
+                return path
+        except (json.JSONDecodeError, OSError):
+            pass  # unreadable cache — overwrite it
+
+    envelope = {
+        "source": source,
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "players": data,
+    }
     with open(path, "w") as f:
-        json.dump(data, f, indent=2)
+        json.dump(envelope, f, indent=2)
     logger.info("Saved %d rankings -> %s", len(data), path)
     return path
 
@@ -215,7 +401,10 @@ def save_rankings(source: str, data: List[Dict[str, Any]]) -> Path:
 # ---------------------------------------------------------------------------
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Refresh external fantasy rankings from Sleeper, FantasyPros, ESPN"
+        description=(
+            "Refresh external fantasy rankings from Sleeper, FantasyPros, "
+            "ESPN, Draft Sharks, and FTN"
+        )
     )
     parser.add_argument(
         "--season", type=int, default=2026, help="NFL season (default: 2026)"
@@ -229,7 +418,7 @@ def main() -> int:
     parser.add_argument(
         "--source",
         default="all",
-        choices=["all", "sleeper", "fantasypros", "espn"],
+        choices=["all", "sleeper", "fantasypros", "espn", "draftsharks", "ftn"],
         help="Which source to refresh (default: all)",
     )
     parser.add_argument(
@@ -245,7 +434,7 @@ def main() -> int:
     print("=" * 60)
 
     sources_to_fetch = (
-        ["sleeper", "fantasypros", "espn"]
+        ["sleeper", "fantasypros", "espn", "draftsharks", "ftn"]
         if args.source == "all"
         else [args.source]
     )
@@ -262,6 +451,12 @@ def main() -> int:
                 )
             elif source == "espn":
                 data = fetch_espn(season=args.season, limit=args.limit)
+            elif source == "draftsharks":
+                data = fetch_draftsharks(scoring=args.scoring, limit=args.limit)
+            elif source == "ftn":
+                data = fetch_ftn(
+                    season=args.season, scoring=args.scoring, limit=args.limit
+                )
             else:
                 continue
 

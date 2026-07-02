@@ -25,12 +25,20 @@ const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
   { value: 'standard', label: 'Standard' }
 ];
 
-const SOURCES: RankingSource[] = ['sleeper', 'espn', 'yahoo'];
+const SOURCES: RankingSource[] = [
+  'sleeper',
+  'espn',
+  'yahoo',
+  'draftsharks',
+  'ftn'
+];
 
 const SOURCE_LABEL: Record<RankingSource, string> = {
   sleeper: 'Sleeper',
   espn: 'ESPN',
-  yahoo: 'Yahoo'
+  yahoo: 'Yahoo',
+  draftsharks: 'Draft Sharks',
+  ftn: 'FTN'
 };
 
 function formatRank(v: number | null): string {
@@ -189,7 +197,7 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
           Sorted by{' '}
           <span className='font-medium'>
             {sortBy === 'consensus'
-              ? 'consensus (mean of Sleeper/ESPN/Yahoo)'
+              ? 'consensus (mean of Sleeper/ESPN/Yahoo/Draft Sharks/FTN)'
               : sortBy === 'ours'
                 ? 'our rank'
                 : SOURCE_LABEL[sortBy as RankingSource]}
@@ -275,11 +283,25 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                       title={`Yahoo ${rankBasisLabel} rank (via FantasyPros consensus) — click to sort`}
                     />
                     <SortHeader
+                      label='Sharks'
+                      sortKey='draftsharks'
+                      activeSort={sortBy}
+                      onClick={setSortBy}
+                      title={`Draft Sharks ${rankBasisLabel} rank (site took #1+#2 of 225 in the 2024 FantasyPros draft-accuracy contest) — click to sort`}
+                    />
+                    <SortHeader
+                      label='FTN'
+                      sortKey='ftn'
+                      activeSort={sortBy}
+                      onClick={setSortBy}
+                      title={`Jeff Ratcliffe (FTN) ${rankBasisLabel} rank (#1 multi-year FantasyPros draft accuracy; empty until his ranks drop, typically Jul-Aug) — click to sort`}
+                    />
+                    <SortHeader
                       label='Consensus'
                       sortKey='consensus'
                       activeSort={sortBy}
                       onClick={setSortBy}
-                      title='Mean of Sleeper / ESPN / Yahoo — click to sort'
+                      title='Mean of Sleeper / ESPN / Yahoo / Draft Sharks / FTN — click to sort'
                     />
                     <th
                       className='py-2 px-2 text-right font-medium text-muted-foreground'
@@ -294,19 +316,35 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                       Δ ESPN
                     </th>
                     <th
-                      className='py-2 pl-2 pr-4 text-right font-medium text-muted-foreground'
+                      className='py-2 px-2 text-right font-medium text-muted-foreground'
                       title='Yahoo rank − our rank'
                     >
                       Δ Yah
+                    </th>
+                    <th
+                      className='py-2 px-2 text-right font-medium text-muted-foreground'
+                      title='Draft Sharks rank − our rank'
+                    >
+                      Δ DS
+                    </th>
+                    <th
+                      className='py-2 pl-2 pr-4 text-right font-medium text-muted-foreground'
+                      title='FTN (Ratcliffe) rank − our rank'
+                    >
+                      Δ FTN
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.players.map((p) => {
                     const teamColor = p.team ? getTeamColor(p.team) : null;
-                    const externalRanks = [p.sleeper_rank, p.espn_rank, p.yahoo_rank].filter(
-                      (v): v is number => v !== null && v !== undefined
-                    );
+                    const externalRanks = [
+                      p.sleeper_rank,
+                      p.espn_rank,
+                      p.yahoo_rank,
+                      p.draftsharks_rank,
+                      p.ftn_rank
+                    ].filter((v): v is number => v !== null && v !== undefined);
                     const consensus =
                       externalRanks.length > 0
                         ? externalRanks.reduce((a, b) => a + b, 0) / externalRanks.length
@@ -364,6 +402,12 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                         <td className='py-2 px-2 text-right font-mono'>
                           {formatRank(p.yahoo_rank)}
                         </td>
+                        <td className='py-2 px-2 text-right font-mono'>
+                          {formatRank(p.draftsharks_rank)}
+                        </td>
+                        <td className='py-2 px-2 text-right font-mono'>
+                          {formatRank(p.ftn_rank)}
+                        </td>
                         <td className='py-2 px-2 text-right font-mono text-muted-foreground'>
                           {formatRank(consensus)}
                         </td>
@@ -378,9 +422,19 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
                           {formatDiff(p.rank_diff_vs_espn)}
                         </td>
                         <td
-                          className={`py-2 pl-2 pr-4 text-right font-mono ${diffClass(p.rank_diff_vs_yahoo)}`}
+                          className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_yahoo)}`}
                         >
                           {formatDiff(p.rank_diff_vs_yahoo)}
+                        </td>
+                        <td
+                          className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_draftsharks)}`}
+                        >
+                          {formatDiff(p.rank_diff_vs_draftsharks)}
+                        </td>
+                        <td
+                          className={`py-2 pl-2 pr-4 text-right font-mono ${diffClass(p.rank_diff_vs_ftn)}`}
+                        >
+                          {formatDiff(p.rank_diff_vs_ftn)}
                         </td>
                       </tr>
                     );
@@ -395,7 +449,10 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
       <p className='text-xs text-muted-foreground'>
         Δ columns show <span className='font-mono'>source rank − our rank</span>.{' '}
         Positive = source ranks the player lower than we do (we’re higher on
-        them). Yahoo* is served via FantasyPros consensus.
+        them). Yahoo* is served via FantasyPros consensus. Draft Sharks and FTN
+        (Jeff Ratcliffe) are the industry’s top-measured preseason rankers by
+        FantasyPros draft-accuracy results; FTN stays empty until Ratcliffe
+        submits ranks for the season (typically Jul–Aug).
       </p>
     </div>
   );

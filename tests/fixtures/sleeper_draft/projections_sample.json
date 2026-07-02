@@ -1,0 +1,20 @@
+[
+  {"player_id": "p_mahomes", "player_name": "Patrick Mahomes", "position": "QB", "team": "KC", "projected_points": 360.0},
+  {"player_id": "p_cmc", "player_name": "Christian McCaffrey", "position": "RB", "team": "SF", "projected_points": 320.0},
+  {"player_id": "p_chase", "player_name": "Ja'Marr Chase", "position": "WR", "team": "CIN", "projected_points": 300.0},
+  {"player_id": "p_kelce", "player_name": "Travis Kelce", "position": "TE", "team": "KC", "projected_points": 240.0},
+  {"player_id": "p_bijan", "player_name": "Bijan Robinson", "position": "RB", "team": "ATL", "projected_points": 290.0},
+  {"player_id": "p_mhj", "player_name": "Marvin Harrison", "position": "WR", "team": "ARI", "projected_points": 270.0},
+  {"player_id": "p_jefferson", "player_name": "Justin Jefferson", "position": "WR", "team": "MIN", "projected_points": 310.0},
+  {"player_id": "p_allen", "player_name": "Josh Allen", "position": "QB", "team": "BUF", "projected_points": 350.0},
+  {"player_id": "p_lamb", "player_name": "CeeDee Lamb", "position": "WR", "team": "DAL", "projected_points": 305.0},
+  {"player_id": "p_saquon", "player_name": "Saquon Barkley", "position": "RB", "team": "PHI", "projected_points": 300.0},
+  {"player_id": "p_amonra", "player_name": "Amon-Ra St. Brown", "position": "WR", "team": "DET", "projected_points": 295.0},
+  {"player_id": "p_gibbs", "player_name": "Jahmyr Gibbs", "position": "RB", "team": "DET", "projected_points": 288.0},
+  {"player_id": "p_hill", "player_name": "Tyreek Hill", "position": "WR", "team": "MIA", "projected_points": 285.0},
+  {"player_id": "p_hall", "player_name": "Breece Hall", "position": "RB", "team": "NYJ", "projected_points": 280.0},
+  {"player_id": "p_laporta", "player_name": "Sam LaPorta", "position": "TE", "team": "DET", "projected_points": 210.0},
+  {"player_id": "p_nacua", "player_name": "Puka Nacua", "position": "WR", "team": "LAR", "projected_points": 275.0},
+  {"player_id": "p_jtaylor", "player_name": "Jonathan Taylor", "position": "RB", "team": "IND", "projected_points": 270.0},
+  {"player_id": "p_gwilson", "player_name": "Garrett Wilson", "position": "WR", "team": "NYJ", "projected_points": 265.0}
+]

@@ -1,0 +1,10 @@
+[
+  {"pick_no": 1, "round": 1, "draft_slot": 1, "roster_id": 1, "picked_by": "u_alpha", "player_id": "4046", "is_keeper": false, "metadata": {"first_name": "Patrick", "last_name": "Mahomes", "position": "QB", "team": "KC"}},
+  {"pick_no": 2, "round": 1, "draft_slot": 2, "roster_id": 2, "picked_by": "u_bravo", "player_id": "4035", "is_keeper": false, "metadata": {"first_name": "Christian", "last_name": "McCaffrey", "position": "RB", "team": "SF"}},
+  {"pick_no": 3, "round": 1, "draft_slot": 3, "roster_id": 3, "picked_by": "u_charlie", "player_id": "6794", "is_keeper": false, "metadata": {"first_name": "Ja'Marr", "last_name": "Chase", "position": "WR", "team": "CIN"}},
+  {"pick_no": 4, "round": 2, "draft_slot": 3, "roster_id": 3, "picked_by": "u_charlie", "player_id": "1234", "is_keeper": true, "metadata": {"first_name": "Travis", "last_name": "Kelce", "position": "TE", "team": "KC"}},
+  {"pick_no": 5, "round": 2, "draft_slot": 2, "roster_id": 2, "picked_by": "u_bravo", "player_id": "5859", "is_keeper": false, "metadata": {"first_name": "Bijan", "last_name": "Robinson", "position": "RB", "team": "ATL"}},
+  {"pick_no": 6, "round": 2, "draft_slot": 1, "roster_id": 1, "picked_by": "u_alpha", "player_id": "8112", "is_keeper": false, "metadata": {"first_name": "Marvin", "last_name": "Harrison Jr.", "position": "WR", "team": "ARI"}},
+  {"pick_no": 7, "round": 3, "draft_slot": 1, "roster_id": 1, "picked_by": "u_alpha", "player_id": "SF", "is_keeper": false, "metadata": {"first_name": "San Francisco", "last_name": "49ers", "position": "DEF", "team": "SF"}},
+  {"pick_no": 8, "round": 3, "draft_slot": 2, "roster_id": 2, "picked_by": "u_bravo", "player_id": "K9001", "is_keeper": false, "metadata": {"first_name": "Harrison", "last_name": "Butker", "position": "K", "team": "KC"}}
+]

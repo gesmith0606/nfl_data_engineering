@@ -7,6 +7,9 @@ allowed-tools: Bash, Read, mcp__sleeper__*, mcp__fetch__fetch
 
 Run the complete pre-season fantasy football draft preparation workflow.
 
+> On draft night, use `/draft-live` for the real-time co-pilot — it polls your live
+> Sleeper draft, tracks the board, and recommends picks as they happen.
+
 ## Arguments
 `$ARGUMENTS` — parsed as: `[season] [scoring] [my-pick] [teams]`
 - Defaults: season=2026, scoring=half_ppr, my-pick=1, teams=12

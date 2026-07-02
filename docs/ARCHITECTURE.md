@@ -3,7 +3,7 @@
 **Version:** 4.2  
 **Last Updated:** April 14, 2026  
 **Status:** Active (v4.2 Website Feature Expansion — AI Advisor, Rankings, Matchups, News, Draft, Sanity Check, Daily Sentiment)  
-**Related:** [NFL_DATA_DICTIONARY.md](./NFL_DATA_DICTIONARY.md) | [CLAUDE.md](../CLAUDE.md)
+**Related:** [NFL_DATA_DICTIONARY.md](./NFL_DATA_DICTIONARY.md) | [DATA_FEEDS.md](./DATA_FEEDS.md) | [CLAUDE.md](../CLAUDE.md)
 
 ---
 
