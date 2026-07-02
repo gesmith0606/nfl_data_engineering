@@ -17,7 +17,7 @@ import {
 import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
 import { formatRelativeTime } from '@/lib/format-relative-time';
-import { getTeamColor } from '@/lib/nfl/team-colors';
+import { getTeamColor, getReadableTeamColorVars } from '@/lib/nfl/team-colors';
 import { TeamSentimentBadge } from './team-sentiment-badge';
 import { ApiError } from '@/lib/nfl/api';
 import { useState } from 'react';
@@ -57,23 +57,34 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
     <HoverLift lift={3} className='h-full'>
       <Card className='h-full overflow-hidden transition-shadow duration-[var(--motion-base)] hover:shadow-[var(--elevation-overlay)]'>
         <div
-          className='flex h-1.5'
-          style={{
-            background: `linear-gradient(to right, ${awayColor} 50%, ${homeColor} 50%)`
-          }}
+          className='flex h-1.5 bg-[linear-gradient(to_right,var(--away-c)_50%,var(--home-c)_50%)] dark:bg-[linear-gradient(to_right,var(--away-r)_50%,var(--home-r)_50%)]'
+          style={
+            {
+              '--away-c': awayColor,
+              '--home-c': homeColor,
+              '--away-r': `color-mix(in oklch, ${awayColor} 60%, white)`,
+              '--home-r': `color-mix(in oklch, ${homeColor} 60%, white)`
+            } as React.CSSProperties
+          }
         />
         <CardHeader className='pb-[var(--space-2)]'>
           <div className='flex items-center justify-between gap-[var(--space-2)]'>
             <CardTitle className='text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
               <span className='inline-flex items-center gap-[var(--space-1)]'>
-                <span style={{ color: awayColor }} className='font-bold'>
+                <span
+                  style={getReadableTeamColorVars(prediction.away_team)}
+                  className='font-bold text-[var(--team-color)] dark:text-[var(--team-color-readable)]'
+                >
                   {prediction.away_team}
                 </span>
                 <TeamSentimentBadge team={prediction.away_team} season={season} week={week} />
               </span>
               <span className='text-muted-foreground mx-[var(--space-2)]'>@</span>
               <span className='inline-flex items-center gap-[var(--space-1)]'>
-                <span style={{ color: homeColor }} className='font-bold'>
+                <span
+                  style={getReadableTeamColorVars(prediction.home_team)}
+                  className='font-bold text-[var(--team-color)] dark:text-[var(--team-color-readable)]'
+                >
                   {prediction.home_team}
                 </span>
                 <TeamSentimentBadge team={prediction.home_team} season={season} week={week} />
