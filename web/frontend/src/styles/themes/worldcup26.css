@@ -181,8 +181,8 @@
 
 /*
  * Theme-specific extras — scoped to worldcup26 only. These feed the branded
- * chrome (color rails, ribbon motifs, condensed display type). Utilities
- * below (.wc-rail / .wc-display / .wc-ribbon) reference these with fallbacks
+ * chrome (color rails, condensed display type). Utilities
+ * below (.wc-rail / .wc-display) reference these with fallbacks
  * so they degrade gracefully under the other 10 themes.
  */
 [data-theme='worldcup26'] {
@@ -192,24 +192,11 @@
   --wc-lime: oklch(0.82 0.19 130);
   --wc-orange: oklch(0.7 0.19 40);
   --wc-violet: oklch(0.62 0.2 300);
-  /* Vertical color rail stacking the accent family (badge left-edge rails). */
-  --wc-rail: linear-gradient(
-    180deg,
-    var(--wc-magenta) 0%,
-    var(--wc-orange) 28%,
-    var(--wc-lime) 52%,
-    var(--wc-cyan) 76%,
-    var(--wc-violet) 100%
-  );
+  /* Accent rail — restrained magenta→violet (adjacent hues, not a rainbow;
+   * per user feedback the full accent-family stack read as one). */
+  --wc-rail: linear-gradient(180deg, var(--wc-magenta), var(--wc-violet));
   /* Horizontal variant of the rail — for thin header/underline accents. */
-  --wc-rail-x: linear-gradient(
-    90deg,
-    var(--wc-magenta) 0%,
-    var(--wc-orange) 28%,
-    var(--wc-lime) 52%,
-    var(--wc-cyan) 76%,
-    var(--wc-violet) 100%
-  );
+  --wc-rail-x: linear-gradient(90deg, var(--wc-magenta), var(--wc-violet));
   /* Condensed display face for headings/brand. Body stays on --font-sans. */
   --wc-font-display: var(--font-barlow-condensed), var(--font-archivo), sans-serif;
 }
@@ -237,17 +224,4 @@
   font-family: var(--wc-font-display, var(--font-sans));
   text-transform: uppercase;
   font-weight: 700;
-}
-
-/* Layered ribbon/stripe motif for hero decoration. Falls back to the active
- * theme's chart palette so it stays intentional under non-wc themes. */
-.wc-ribbon {
-  background-image: repeating-linear-gradient(
-    115deg,
-    var(--wc-magenta, var(--chart-1)) 0 14px,
-    var(--wc-orange, var(--chart-4)) 14px 28px,
-    var(--wc-lime, var(--chart-3)) 28px 42px,
-    var(--wc-cyan, var(--chart-2)) 42px 56px,
-    var(--wc-violet, var(--chart-5)) 56px 70px
-  );
 }

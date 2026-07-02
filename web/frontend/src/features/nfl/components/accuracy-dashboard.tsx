@@ -131,10 +131,6 @@ function ConsensusLeaderboard() {
     <div className='space-y-[var(--gap-stack)]'>
       {/* Headline — fixed-dark broadcast panel so the gold win reads in both modes. */}
       <section className='relative flex flex-col gap-[var(--space-2)] overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-[var(--surface-scoreboard)] px-[var(--space-5)] py-[var(--space-5)] shadow-sm md:px-[var(--space-6)] md:py-[var(--space-6)]'>
-        <div
-          aria-hidden
-          className='wc-ribbon pointer-events-none absolute inset-y-0 right-0 w-1/2 opacity-[0.1] [mask-image:linear-gradient(to_left,black,transparent_85%)]'
-        />
         <div className='text-[var(--wc-gold,var(--chart-4))] relative inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none font-semibold tracking-[0.14em] uppercase'>
           <Icons.sparkles className='size-[var(--space-3)]' />
           {CONSENSUS_WINS} of {positions.length} positions + overall

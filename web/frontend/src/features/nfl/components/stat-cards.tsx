@@ -87,7 +87,7 @@ export function OverviewStatCards() {
         description='Full test suite coverage'
         trend='100%'
         trendDirection='up'
-        accent='var(--wc-lime, var(--chart-3))'
+        accent='var(--wc-magenta, var(--chart-1))'
       />
       <StatCard
         title='ATS Accuracy'
@@ -95,13 +95,13 @@ export function OverviewStatCards() {
         description='Against the spread (sealed 2024 holdout)'
         trend='+3.0%'
         trendDirection='up'
-        accent='var(--wc-cyan, var(--chart-2))'
+        accent='var(--wc-magenta, var(--chart-1))'
       />
       <StatCard
         title='Players Tracked'
         value='569'
         description='Across all NFL positions'
-        accent='var(--wc-gold, var(--chart-4))'
+        accent='var(--wc-magenta, var(--chart-1))'
       />
     </Stagger>
   );
