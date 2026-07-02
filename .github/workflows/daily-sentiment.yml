@@ -195,7 +195,7 @@ jobs:
             # Retries up to 3 times before giving up. Prevents the silent
             # "rejected (fetch first)" failure that bit 2026-04-27 W17/W18 backfill.
             for attempt in 1 2 3; do
-              if git push 2>&1; then
+              if git push origin main 2>&1; then
                 echo "Pushed $COUNT new data files (attempt $attempt)"
                 break
               fi

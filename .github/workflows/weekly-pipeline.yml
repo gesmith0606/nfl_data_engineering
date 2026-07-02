@@ -529,14 +529,20 @@ jobs:
           }
 
       # ------------------------------------------------------------------
-      # 8. Sanity check — validate projections/predictions before deploy
-      # Exits 1 on CRITICAL failures (blocks pipeline), 0 on PASS/WARN.
+      # 8. Sanity check — validate what THIS run produced: the weekly Gold
+      # partition (freshness, duplicates, star ranks, weekly-scale points)
+      # and predictions. Exits 1 on CRITICAL (blocks the Gold commit).
+      # Deliberately NOT --all: that scope also gates on the PRESEASON
+      # vintage for --season, which the weekly cron doesn't produce — it
+      # failed the 2026-07-02 smoke test (season=2025 has no preseason
+      # dir). The preseason gate lives in deploy-web.yml's quality gate.
       # ------------------------------------------------------------------
-      - name: Sanity check — projections & predictions
+      - name: Sanity check — weekly projections & predictions
         id: sanity_check
         run: |
           python scripts/sanity_check_projections.py \
-            --all \
+            --check-weekly \
+            --check-predictions \
             --scoring half_ppr \
             --season "$SEASON" \
             --week   "$WEEK"
