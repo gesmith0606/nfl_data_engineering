@@ -11,10 +11,10 @@ import {
 import modelMetrics from '../config/model-metrics.json';
 
 const maeData = [
-  ...modelMetrics.positions.map((p, i) => ({
+  ...modelMetrics.positions.map((p) => ({
     position: p.position,
     mae: p.mae,
-    fill: `var(--chart-${i + 1})`
+    fill: 'var(--chart-1)'
   })),
   { position: 'Overall', mae: modelMetrics.overall.mae, fill: 'var(--chart-5)' }
 ];

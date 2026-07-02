@@ -22,10 +22,6 @@ export default function Dashboard() {
         {/* Fixed-dark broadcast panel (--surface-scoreboard): stays ink in light mode
             so the ribbon motif and gold eyebrow keep their contrast. */}
         <section className='relative flex items-center overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-[var(--surface-scoreboard)] px-[var(--space-5)] py-[var(--space-5)] shadow-sm md:px-[var(--space-6)] md:py-[var(--space-6)]'>
-          <div
-            aria-hidden
-            className='wc-ribbon pointer-events-none absolute inset-y-0 right-0 w-1/2 opacity-[0.12] [mask-image:linear-gradient(to_left,black,transparent_85%)]'
-          />
           <div className='relative flex items-center gap-[var(--space-4)]'>
             <div className='wc-rail h-[var(--space-12)] w-[var(--space-1)] shrink-0 rounded-full' />
             <div className='flex flex-col gap-[var(--space-2)]'>
