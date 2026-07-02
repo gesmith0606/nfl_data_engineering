@@ -266,18 +266,17 @@ jobs:
 
       - name: Bronze — ingest injuries
         id: bronze_injuries
-        # nflverse discontinued the injuries feed after the 2024 season
-        # (config caps the type at 2024), so this ingest ALWAYS fails for
-        # current seasons — caught by the 2026-07-02 smoke test. Fail-open:
-        # apply_injury_adjustments() degrades gracefully without injury
-        # rows and the Sunday refresh re-checks live. Replacement feed
-        # (e.g. Sleeper injury_status) tracked in DATA_FEEDS.md §7.
+        # Fail-open: an unpublished/empty upstream season (e.g. 2026 before
+        # nflverse posts it) must warn, not block — apply_injury_adjustments()
+        # degrades gracefully without injury rows and the Sunday refresh
+        # re-checks live. (The old hard-coded 2024 season cap was removed
+        # 2026-07-02 after import_injuries([2025]) returned 6,068 rows.)
         run: |
           python scripts/bronze_ingestion_simple.py \
             --season "$SEASON" \
             --week   "$WEEK"   \
             --data-type injuries \
-            || echo "::warning::injuries ingest failed (nflverse feed discontinued after 2024) — projections proceed without weekly injury adjustments"
+            || echo "::warning::injuries ingest returned no data for season $SEASON — projections proceed without weekly injury adjustments"
 
       - name: Bronze — ingest rosters
         id: bronze_rosters
@@ -652,7 +651,7 @@ jobs:
           |-----------|--------|
           | player_weekly | ingested |
           | snap_counts | ingested |
-          | injuries | attempted — fail-open (nflverse feed discontinued after 2024), see step log |
+          | injuries | attempted — fail-open (empty upstream season warns, never blocks), see step log |
           | rosters | ingested (non-blocking) |
           | ngs | ingested (non-blocking) |
           | pfr_weekly | attempted — fail-open, see step log |
