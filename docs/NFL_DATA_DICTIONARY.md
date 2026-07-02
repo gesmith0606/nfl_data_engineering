@@ -3,7 +3,7 @@
 **Version:** 4.2
 **Last Updated:** April 14, 2026
 **Purpose:** Complete schema reference for all Bronze, Silver, and Gold data types in the NFL Data Engineering pipeline
-**Related:** [ARCHITECTURE.md](./ARCHITECTURE.md) | [src/config.py](../src/config.py) | [src/nfl_data_adapter.py](../src/nfl_data_adapter.py) | [scripts/bronze_ingestion_simple.py](../scripts/bronze_ingestion_simple.py)
+**Related:** [ARCHITECTURE.md](./ARCHITECTURE.md) | [DATA_FEEDS.md](./DATA_FEEDS.md) | [src/config.py](../src/config.py) | [src/nfl_data_adapter.py](../src/nfl_data_adapter.py) | [scripts/bronze_ingestion_simple.py](../scripts/bronze_ingestion_simple.py)
 
 This document is the single source of truth for Bronze layer schemas. Column specs for locally available data types are auto-generated from Parquet files. For data types requiring API ingestion, representative columns are documented from test mocks, config constants, and adapter method signatures.
 
