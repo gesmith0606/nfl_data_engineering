@@ -23,8 +23,9 @@ import { EmptyState } from '@/components/EmptyState';
 import { useWeekParams } from '@/hooks/use-week-params';
 import { useState } from 'react';
 
-/* Active filter pills use the primary (magenta) fill instead of the muted
- * default — themes correctly everywhere since --primary is defined per theme. */
+/* Active filter pills use the primary fill (trophy gold in worldcup26) instead
+ * of the muted default — themes correctly everywhere since --primary is defined
+ * per theme, and the dark-ink primary-foreground stays AA on the gold. */
 const ACTIVE_TAB =
   'data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold data-[state=active]:shadow-sm dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground';
 

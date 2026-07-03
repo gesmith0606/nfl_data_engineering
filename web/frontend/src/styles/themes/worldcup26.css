@@ -1,8 +1,9 @@
 /*
  * World Cup 26 theme — a premium, tournament-grade look for a paid NFL
- * analytics product. Palette/mood inspiration only: vivid saturated accent
- * family (magenta / cyan / lime / orange / violet) + a gold "trophy" highlight,
- * on deep cool-ink backgrounds. Dark mode is the hero surface.
+ * analytics product. Mood: trophy gold on deep cool ink (the gold-and-black
+ * poster), with a restrained cool support palette (violet + teal + ice/slate).
+ * Dark mode is the hero surface. No rainbow: accents live on a cool + gold
+ * axis, magenta survives only as a trace token.
  *
  * No third-party logos, wordmarks, or brand names are used — colors and mood
  * only. Contrast notes are documented alongside the tokens below.
@@ -16,34 +17,34 @@
   --card-foreground: oklch(0.18 0.02 265);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.02 265);
-  --primary: oklch(0.48 0.22 350); /* deep electric magenta — white text ~5:1 */
-  --primary-foreground: oklch(0.99 0.002 350);
+  --primary: oklch(0.51 0.12 78); /* deep bronze-gold — white text ~5:1 (see notes) */
+  --primary-foreground: oklch(0.99 0.01 90);
   --secondary: oklch(0.95 0.012 265);
   --secondary-foreground: oklch(0.24 0.02 265);
   --muted: oklch(0.96 0.008 260);
   --muted-foreground: oklch(0.45 0.02 265); /* ~5:1 on white card */
-  --accent: oklch(0.93 0.035 320); /* soft violet wash for hover states */
-  --accent-foreground: oklch(0.3 0.08 320);
-  --destructive: oklch(0.55 0.22 25); /* orange-red */
+  --accent: oklch(0.93 0.03 295); /* soft violet wash for hover states */
+  --accent-foreground: oklch(0.3 0.07 295);
+  --destructive: oklch(0.55 0.22 25); /* orange-red (functional) */
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.9 0.01 260);
   --input: oklch(0.92 0.008 260);
-  --ring: oklch(0.48 0.22 350);
-  --chart-1: oklch(0.55 0.24 350); /* magenta */
-  --chart-2: oklch(0.55 0.13 200); /* cyan */
-  --chart-3: oklch(0.6 0.17 130); /* lime */
-  --chart-4: oklch(0.6 0.19 40); /* orange */
-  --chart-5: oklch(0.5 0.2 300); /* violet */
+  --ring: oklch(0.51 0.12 78); /* bronze-gold focus ring */
+  --chart-1: oklch(0.56 0.12 80); /* bronze-gold (lead) */
+  --chart-2: oklch(0.52 0.11 200); /* teal */
+  --chart-3: oklch(0.5 0.17 296); /* violet */
+  --chart-4: oklch(0.58 0.09 235); /* steel-blue */
+  --chart-5: oklch(0.45 0.1 280); /* indigo */
   /* Dark ink sidebar in BOTH modes — dark rail + light content is a signature
    * premium dashboard move. Every sidebar-* below reads AA on the ink surface. */
-  --sidebar: oklch(0.165 0.02 265);
+  --sidebar: oklch(0.155 0.018 265); /* a touch darker than content cards for a deliberate two-surface split */
   --sidebar-foreground: oklch(0.96 0.004 250); /* ~15:1 on ink */
-  --sidebar-primary: oklch(0.68 0.23 350); /* electric magenta, dark text ~7:1 */
-  --sidebar-primary-foreground: oklch(0.16 0.02 350);
-  --sidebar-accent: oklch(0.28 0.05 300); /* violet-lifted hover surface */
+  --sidebar-primary: oklch(0.8 0.14 90); /* trophy gold, dark ink text ~7:1 */
+  --sidebar-primary-foreground: oklch(0.17 0.03 85);
+  --sidebar-accent: oklch(0.28 0.04 290); /* subtle violet hover surface */
   --sidebar-accent-foreground: oklch(0.97 0.004 250); /* ~9:1 on accent */
-  --sidebar-border: oklch(0.26 0.025 265);
-  --sidebar-ring: oklch(0.68 0.23 350);
+  --sidebar-border: oklch(0.24 0.02 265);
+  --sidebar-ring: oklch(0.8 0.14 90);
   --font-sans: var(--font-archivo), sans-serif;
   --font-serif: var(--font-merriweather), serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
@@ -74,32 +75,32 @@
   --card-foreground: oklch(0.96 0.004 250);
   --popover: oklch(0.2 0.02 265);
   --popover-foreground: oklch(0.96 0.004 250);
-  --primary: oklch(0.68 0.23 350); /* electric magenta — dark text ~7:1 */
-  --primary-foreground: oklch(0.16 0.02 350);
+  --primary: oklch(0.8 0.14 90); /* trophy gold — dark ink text ~7.8:1 (see notes) */
+  --primary-foreground: oklch(0.17 0.03 85);
   --secondary: oklch(0.28 0.03 265);
   --secondary-foreground: oklch(0.96 0.004 250);
   --muted: oklch(0.24 0.025 265);
   --muted-foreground: oklch(0.72 0.02 255); /* ~6.5:1 on card */
-  --accent: oklch(0.32 0.06 320); /* violet-lifted hover surface */
+  --accent: oklch(0.3 0.05 295); /* violet-lifted hover surface */
   --accent-foreground: oklch(0.97 0.004 250);
-  --destructive: oklch(0.62 0.23 25); /* orange-red */
+  --destructive: oklch(0.62 0.23 25); /* orange-red (functional) */
   --destructive-foreground: oklch(0.14 0.01 25);
-  --border: oklch(0.28 0.025 265);
+  --border: oklch(0.27 0.022 265);
   --input: oklch(0.3 0.025 265);
-  --ring: oklch(0.68 0.23 350);
-  --chart-1: oklch(0.68 0.23 350); /* magenta */
-  --chart-2: oklch(0.75 0.14 200); /* cyan */
-  --chart-3: oklch(0.82 0.19 130); /* lime */
-  --chart-4: oklch(0.7 0.19 40); /* orange */
-  --chart-5: oklch(0.62 0.2 300); /* violet */
-  --sidebar: oklch(0.165 0.02 265);
+  --ring: oklch(0.8 0.14 90);
+  --chart-1: oklch(0.8 0.14 90); /* trophy gold (lead) */
+  --chart-2: oklch(0.72 0.11 200); /* teal */
+  --chart-3: oklch(0.63 0.17 296); /* violet */
+  --chart-4: oklch(0.82 0.06 225); /* ice-blue */
+  --chart-5: oklch(0.52 0.12 280); /* indigo */
+  --sidebar: oklch(0.13 0.016 265); /* darkest surface — content cards sit above it */
   --sidebar-foreground: oklch(0.96 0.004 250);
-  --sidebar-primary: oklch(0.68 0.23 350);
-  --sidebar-primary-foreground: oklch(0.16 0.02 350);
-  --sidebar-accent: oklch(0.28 0.05 300);
+  --sidebar-primary: oklch(0.8 0.14 90); /* trophy gold */
+  --sidebar-primary-foreground: oklch(0.17 0.03 85);
+  --sidebar-accent: oklch(0.28 0.04 290);
   --sidebar-accent-foreground: oklch(0.97 0.004 250);
-  --sidebar-border: oklch(0.26 0.025 265);
-  --sidebar-ring: oklch(0.68 0.23 350);
+  --sidebar-border: oklch(0.24 0.02 265);
+  --sidebar-ring: oklch(0.8 0.14 90);
   --font-sans: var(--font-archivo), sans-serif;
   --font-serif: var(--font-merriweather), serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
@@ -181,22 +182,20 @@
 
 /*
  * Theme-specific extras — scoped to worldcup26 only. These feed the branded
- * chrome (color rails, condensed display type). Utilities
- * below (.wc-rail / .wc-display) reference these with fallbacks
- * so they degrade gracefully under the other 10 themes.
+ * chrome (color rails, condensed display type). Utilities below
+ * (.wc-rail / .wc-display) reference these with fallbacks so they degrade
+ * gracefully under the other 10 themes.
  */
 [data-theme='worldcup26'] {
-  --wc-gold: oklch(0.8 0.14 90); /* trophy gold — premium/highlight moments */
-  --wc-magenta: oklch(0.68 0.23 350);
-  --wc-cyan: oklch(0.75 0.14 200);
-  --wc-lime: oklch(0.82 0.19 130);
-  --wc-orange: oklch(0.7 0.19 40);
-  --wc-violet: oklch(0.62 0.2 300);
-  /* Accent rail — restrained magenta→violet (adjacent hues, not a rainbow;
-   * per user feedback the full accent-family stack read as one). */
-  --wc-rail: linear-gradient(180deg, var(--wc-magenta), var(--wc-violet));
+  --wc-gold: oklch(0.8 0.14 90); /* trophy gold — the lead accent */
+  --wc-violet: oklch(0.63 0.18 300); /* cool support accent */
+  --wc-cyan: oklch(0.72 0.12 200); /* teal support accent */
+  --wc-magenta: oklch(0.68 0.23 350); /* trace only — no longer used in charts/primary */
+  /* Signature rail — trophy gold into cool violet. Two adjacent stops read as a
+   * metallic sweep, never a rainbow. */
+  --wc-rail: linear-gradient(180deg, var(--wc-gold), var(--wc-violet));
   /* Horizontal variant of the rail — for thin header/underline accents. */
-  --wc-rail-x: linear-gradient(90deg, var(--wc-magenta), var(--wc-violet));
+  --wc-rail-x: linear-gradient(90deg, var(--wc-gold), var(--wc-violet));
   /* Condensed display face for headings/brand. Body stays on --font-sans. */
   --wc-font-display: var(--font-barlow-condensed), var(--font-archivo), sans-serif;
 }
@@ -206,13 +205,45 @@
 }
 
 /*
+ * De-template chrome — worldcup26 only. Depth on the background and softened,
+ * top-lit cards move the theme away from the flat 1px-border shadcn grid.
+ */
+
+/* Background depth: a quiet fixed tint — lighter ink top-left, deeper toward
+ * the bottom-right. Stays well behind data. */
+[data-theme='worldcup26'] body {
+  background-color: var(--background);
+  background-image: radial-gradient(120% 90% at 12% -6%, oklch(1 0 0 / 0.55) 0%, transparent 55%);
+  background-attachment: fixed;
+}
+
+[data-theme='worldcup26'].dark body {
+  background-image:
+    radial-gradient(120% 80% at 12% -8%, oklch(0.22 0.03 268 / 0.9) 0%, transparent 55%),
+    radial-gradient(110% 90% at 100% 108%, oklch(0.1 0.02 270 / 0.9) 0%, transparent 45%);
+}
+
+/* Cards: near-invisible side borders + a subtle top-edge highlight for a
+ * broadcast-panel read. Scoped to [data-slot='card'] so hover shadows and the
+ * other 10 themes are untouched. */
+[data-theme='worldcup26'] [data-slot='card'] {
+  border-color: color-mix(in oklch, var(--card) 88%, var(--border));
+  border-top-color: color-mix(in oklch, var(--card) 70%, var(--border));
+}
+
+[data-theme='worldcup26'].dark [data-slot='card'] {
+  border-color: color-mix(in oklch, var(--card) 80%, var(--border));
+  border-top-color: oklch(1 0 0 / 0.08);
+}
+
+/*
  * Reusable branded utilities (global classes). Every var() has a token-based
  * fallback so these are safe to use in components that render under any theme.
  */
 
 /* Gradient color rail — the pill/badge left-edge accent bar. */
 .wc-rail {
-  background: var(--wc-rail, linear-gradient(180deg, var(--primary), var(--chart-2, var(--primary))));
+  background: var(--wc-rail, linear-gradient(180deg, var(--primary), var(--chart-3, var(--primary))));
 }
 
 /* Condensed uppercase display treatment for brand/hero titles.

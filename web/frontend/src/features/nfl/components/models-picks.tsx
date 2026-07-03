@@ -10,6 +10,7 @@ import { Icons } from '@/components/icons';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { resolvePredictionsLatestWeek } from '@/lib/week-context';
 import { predictionsQueryOptions } from '../api/queries';
+import { SectionHeading } from './section-heading';
 import type { GamePrediction } from '../api/types';
 
 const EDGE_HIGH_THRESHOLD = 3.0;
@@ -70,25 +71,21 @@ function PickTile({ prediction }: { prediction: GamePrediction }) {
   );
 }
 
-function SectionHeading() {
+function PicksHeading() {
   return (
-    <div className='flex items-baseline justify-between gap-[var(--space-2)]'>
-      <div className='flex items-baseline gap-[var(--space-2)]'>
-        <h2 className='wc-display text-[length:var(--fs-h3)] leading-[var(--lh-h3)]'>
-          Model’s Picks
-        </h2>
-        <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-none'>
-          Biggest edges vs Vegas
-        </span>
-      </div>
-      <Link
-        href='/dashboard/predictions'
-        className='text-muted-foreground hover:text-foreground inline-flex items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none tracking-[0.08em] uppercase transition-colors duration-[var(--motion-base)]'
-      >
-        All games
-        <Icons.arrowRight className='size-[var(--space-3)]' />
-      </Link>
-    </div>
+    <SectionHeading
+      overline='Biggest Edges vs Vegas'
+      title='Model’s Picks'
+      action={
+        <Link
+          href='/dashboard/predictions'
+          className='text-muted-foreground hover:text-foreground inline-flex items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none tracking-[0.08em] uppercase transition-colors duration-[var(--motion-base)]'
+        >
+          All games
+          <Icons.arrowRight className='size-[var(--space-3)]' />
+        </Link>
+      }
+    />
   );
 }
 
@@ -126,7 +123,7 @@ export function ModelsPicks() {
   if (isPending) {
     return (
       <section className='space-y-[var(--space-3)]'>
-        <SectionHeading />
+        <PicksHeading />
         <div className='grid grid-cols-1 gap-[var(--gap-stack)] sm:grid-cols-3'>
           {Array.from({ length: 3 }).map((_, i) => (
             <Card key={i} className='overflow-hidden'>
@@ -151,7 +148,7 @@ export function ModelsPicks() {
 
   return (
     <section className='space-y-[var(--space-3)]'>
-      <SectionHeading />
+      <PicksHeading />
       <div className='grid grid-cols-1 gap-[var(--gap-stack)] sm:grid-cols-3'>
         {picks.map((p) => (
           <PickTile key={p.game_id} prediction={p} />

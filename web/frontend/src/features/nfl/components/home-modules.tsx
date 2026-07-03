@@ -4,6 +4,7 @@ import { Icons } from '@/components/icons';
 import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 import { formatGap } from '@/lib/nfl/consensus';
 import { getSeasonPhase, getInSeasonCadence } from '@/lib/nfl/season-phase';
+import { SectionHeading } from './section-heading';
 import modelMetrics from '../config/model-metrics.json';
 
 const CONSENSUS = modelMetrics.consensus;
@@ -28,7 +29,7 @@ export function ProofStrip() {
         <div className='wc-rail absolute inset-y-[var(--space-2)] left-0 w-[3px] rounded-full' />
 
         <div className='flex items-center gap-[var(--space-2)]'>
-          <Icons.sparkles className='size-[var(--space-4)] text-[var(--wc-gold,var(--chart-4))]' />
+          <Icons.sparkles className='size-[var(--space-4)] text-[var(--wc-gold,var(--chart-1))]' />
           <span className='wc-display text-[length:var(--fs-lg)] leading-none'>
             Beat the Consensus
           </span>
@@ -190,14 +191,7 @@ export function PhaseModule() {
 
   return (
     <section className='space-y-[var(--space-3)]'>
-      <div className='flex items-baseline gap-[var(--space-2)]'>
-        <h2 className='wc-display text-[length:var(--fs-h3)] leading-[var(--lh-h3)]'>
-          {content.heading}
-        </h2>
-        <span className='text-[var(--wc-gold,var(--chart-4))] text-[length:var(--fs-xs)] leading-none font-semibold tracking-[0.12em] uppercase'>
-          {content.eyebrow}
-        </span>
-      </div>
+      <SectionHeading overline={content.eyebrow} title={content.heading} />
 
       <div className='grid grid-cols-1 gap-[var(--gap-stack)] sm:grid-cols-3'>
         {content.tiles.map((tile) => {
