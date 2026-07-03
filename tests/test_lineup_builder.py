@@ -525,6 +525,46 @@ class TestGetTeamLineupWithProjections(unittest.TestCase):
         self.assertIn("projected_points", result.columns)
         self.assertTrue(result["projected_points"].isna().all())
 
+    @patch("lineup_builder._load_projections")
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_explicit_projections_df_bypasses_local_read(
+        self, mock_dc, mock_sc, mock_proj
+    ):
+        """A pre-loaded projections_df is joined and the local read skipped.
+
+        The web API passes the projection service's DataFrame (which carries
+        the preseason fallback) — lineup_builder must use it verbatim.
+        """
+        mock_dc.return_value = _make_depth_chart(include_defense=False)
+        mock_sc.return_value = pd.DataFrame()
+
+        result = get_team_lineup_with_projections(
+            2024, 1, "KC", projections_df=_make_projections()
+        )
+
+        mock_proj.assert_not_called()
+        qb = result[result["position_group"] == "QB"]
+        self.assertAlmostEqual(qb.iloc[0]["projected_points"], 22.4)
+
+    @patch("lineup_builder._load_projections")
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_explicit_empty_projections_df_yields_nan(
+        self, mock_dc, mock_sc, mock_proj
+    ):
+        """An explicitly empty projections_df yields NaN points, no local read."""
+        mock_dc.return_value = _make_depth_chart(include_defense=False)
+        mock_sc.return_value = pd.DataFrame()
+
+        result = get_team_lineup_with_projections(
+            2024, 1, "KC", projections_df=pd.DataFrame()
+        )
+
+        mock_proj.assert_not_called()
+        self.assertIn("projected_points", result.columns)
+        self.assertTrue(result["projected_points"].isna().all())
+
 
 # ---------------------------------------------------------------------------
 # Test: API response schema (unit test without running server)
@@ -654,9 +694,7 @@ class TestNewSchemaStarterSelection(unittest.TestCase):
         wrs = result[result["position_group"] == "WR"]
         self.assertEqual(len(wrs), 3)
         names = set(wrs["player_name"])
-        self.assertEqual(
-            names, {"Rashee Rice", "Xavier Worthy", "Hollywood Brown"}
-        )
+        self.assertEqual(names, {"Rashee Rice", "Xavier Worthy", "Hollywood Brown"})
         self.assertNotIn("Justin Watson", names)  # rank-4 excluded
 
     @patch("lineup_builder._load_snap_counts")
@@ -678,9 +716,7 @@ class TestCommitteeAtDepthOne(unittest.TestCase):
 
     @patch("lineup_builder._load_snap_counts")
     @patch("lineup_builder._load_depth_charts")
-    def test_picks_top_two_by_snap_pct_when_three_at_depth_one(
-        self, mock_dc, mock_sc
-    ):
+    def test_picks_top_two_by_snap_pct_when_three_at_depth_one(self, mock_dc, mock_sc):
         # 3 RBs all at depth_team=1; max_slots=2. Snap counts decide.
         rows = []
         for name, gsis, snap_pct in [
@@ -878,9 +914,7 @@ class TestStaleProjectionGuard(unittest.TestCase):
     @patch("lineup_builder._load_projections")
     @patch("lineup_builder._load_snap_counts")
     @patch("lineup_builder._load_depth_charts")
-    def test_drops_projection_when_team_mismatches(
-        self, mock_dc, mock_sc, mock_proj
-    ):
+    def test_drops_projection_when_team_mismatches(self, mock_dc, mock_sc, mock_proj):
         # Depth chart: Willis listed at MIA.
         dc = pd.DataFrame(
             [

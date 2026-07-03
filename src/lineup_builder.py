@@ -423,9 +423,7 @@ def get_team_starters(
     # below picks lower-string players first (1 before 2 before 3). The
     # legacy nflverse schema stored this as a string; the new ESPN/Sleeper
     # schema stores it as an int. Both coerce cleanly. ---
-    dc["depth_team_ord"] = pd.to_numeric(
-        dc["depth_team"], errors="coerce"
-    ).fillna(99)
+    dc["depth_team_ord"] = pd.to_numeric(dc["depth_team"], errors="coerce").fillna(99)
     # Retain the boolean flag for downstream reporting (the player IS marked
     # starting somewhere on the depth chart). It is no longer used to filter
     # the candidate pool — see comment in the per-group loop below.
@@ -547,6 +545,7 @@ def get_team_lineup_with_projections(
     week: int,
     team: str,
     scoring_format: str = "half_ppr",
+    projections_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """Get starting lineup with fantasy projections for a specific team.
 
@@ -558,6 +557,10 @@ def get_team_lineup_with_projections(
         week: Week number.
         team: Team abbreviation (e.g. ``"KC"``).
         scoring_format: One of ``"ppr"``, ``"half_ppr"``, ``"standard"``.
+        projections_df: Pre-loaded projections to join instead of reading the
+            weekly Gold parquet from local disk. The web API passes the
+            projection service's DataFrame here so lineups inherit its
+            DB/preseason fallback; ``None`` keeps the local-disk read.
 
     Returns:
         DataFrame with columns:
@@ -569,7 +572,11 @@ def get_team_lineup_with_projections(
     if starters.empty:
         return starters
 
-    proj = _load_projections(season, week)
+    proj = (
+        projections_df
+        if projections_df is not None
+        else _load_projections(season, week)
+    )
     if proj.empty:
         starters["projected_points"] = np.nan
         starters["projected_floor"] = np.nan
