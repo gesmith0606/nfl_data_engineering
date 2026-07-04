@@ -1,0 +1,482 @@
+{
+  "fetch_run_id": "7c114f3e-fbf4-4cd2-9327-03d7299fa48a",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-04T12:32:58.467656+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-sandler-officiated-the-travis-kelce-taylor-swift-wedding",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-sandler-officiated-the-travis-kelce-taylor-swift-wedding",
+      "title": "Adam Sandler officiated the Travis Kelce-Taylor Swift wedding",
+      "body_text": "Adam Sandler was back in Madison Square Garden for reasons other than watching a Knicks game.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T12:26:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adam Sandler",
+        "Travis Kelce",
+        "Taylor Swift",
+        "Madison Square"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-the-big-shield-ebook-free-for-fourth-of-july-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-the-big-shield-ebook-free-for-fourth-of-july-weekend",
+      "title": "Get the Big Shield ebook free for Fourth of July weekend",
+      "body_text": "It's Fourth of July weekend.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T03:51:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Big Shield"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/flo-baloguns-suspension-for-mondays-round-of-16-game-is-confirmed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/flo-baloguns-suspension-for-mondays-round-of-16-game-is-confirmed",
+      "title": "Flo Balogun's suspension for Monday's Round of 16 game is confirmed",
+      "body_text": "Yes, we know.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T23:20:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Flo Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/scot-mccloughan-dubs-ty-simpson-a-career-backup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/scot-mccloughan-dubs-ty-simpson-a-career-backup",
+      "title": "Scot McCloughan dubs Ty Simpson a \"career backup\"",
+      "body_text": "Former G.M. compares Simpson to J.J. McCarthy, Mac Jones.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T23:10:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ty Simpson",
+        "Mac Jones"
+      ],
+      "resolved_player_ids": [
+        "SIM639376",
+        "00-0036972"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cups-var-shows-what-nfl-could-do-with-technology",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cups-var-shows-what-nfl-could-do-with-technology",
+      "title": "World Cup's VAR shows what NFL could do with technology",
+      "body_text": "As it turns out, it's not impossible to put a chip in the ball.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T18:21:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-expected-the-travis-kelce-taylor-swift-wedding-is-happening-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-expected-the-travis-kelce-taylor-swift-wedding-is-happening-today",
+      "title": "As expected, the Travis Kelce-Taylor Swift wedding is happening today",
+      "body_text": "It's Fourth of July weekend.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T17:46:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Kelce",
+        "Taylor Swift"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/is-the-nfl-getting-a-little-nervous-about-soccers-tv-success",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/is-the-nfl-getting-a-little-nervous-about-soccers-tv-success",
+      "title": "Is the NFL getting a little nervous about soccer's TV success?",
+      "body_text": "Latest U.S. win drew more on average than the 2026 wild-card round.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T14:13:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-deletes-over-the-top-social-media-attack-on-cleveland-radio-host",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-deletes-over-the-top-social-media-attack-on-cleveland-radio-host",
+      "title": "Johnny Manziel deletes over-the-top social media attack on Cleveland radio host",
+      "body_text": "The only shred of good news regarding a recent social-media tirade from former Browns quarterback Johnny Manziel is that he has deleted it.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T13:43:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Johnny Manziel"
+      ],
+      "resolved_player_ids": [
+        "00-0031409"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-matt-miller-gofundme-campaign-has-been-paused",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-matt-miller-gofundme-campaign-has-been-paused",
+      "title": "The Matt Miller GoFundMe campaign has been \"paused\"",
+      "body_text": "With questions mounting regarding the business dealings of ESPN draft analyst Matt Miller — and with the Missouri Attorney General's Office opening an investigation of those matters — there's been another development.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T12:23:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Matt",
+        "Matt Miller",
+        "Missouri Attorney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-win-in-round-of-32-draws-33-5-million-total-viewers-on-average",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-win-in-round-of-32-draws-33-5-million-total-viewers-on-average",
+      "title": "U.S. win in Round of 32 draws 33.5 million total viewers, on average",
+      "body_text": "As the stakes increase, so will the ratings.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T23:43:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-sanchezs-criminal-trial-remains-on-track-for-july-13",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-sanchezs-criminal-trial-remains-on-track-for-july-13",
+      "title": "Mark Sanchez's criminal trial remains on track for July 13",
+      "body_text": "Final pre-trial conference is set for July 8.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T11:46:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Sanchez"
+      ],
+      "resolved_player_ids": [
+        "00-0026898"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/acrisure-stadium-has-gotten-its-new-grass-surface",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/acrisure-stadium-has-gotten-its-new-grass-surface",
+      "title": "Acrisure Stadium has gotten its new grass surface",
+      "body_text": "Not all grass field are the same.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T00:39:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Acrisure Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-saints-lb-keith-mitchell-dies-at-51",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-saints-lb-keith-mitchell-dies-at-51",
+      "title": "Former Saints LB Keith Mitchell dies at 51",
+      "body_text": "Former NFL linebacker Keith Mitchell has died, Texas A&amp;M athletics announced on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-02T22:50:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Saints",
+        "Keith Mitchell"
+      ],
+      "resolved_player_ids": [
+        "00-0011413"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/austin-schlottmann-focused-on-himself-as-he-competes-for-titans-center-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/austin-schlottmann-focused-on-himself-as-he-competes-for-titans-center-job",
+      "title": "Austin Schlottmann focused on himself as he competes for Titans' center job",
+      "body_text": "Austin Schlottmann followed Brian Daboll and Carmen Bricillo to the Titans, signing a three-year, $7 million deal in the offseason.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-02T21:17:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Austin Schlottmann",
+        "Brian Daboll",
+        "Carmen Bricillo"
+      ],
+      "resolved_player_ids": [
+        "00-0034112"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-posts-another-video-saying-hell-be-a-commander-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-posts-another-video-saying-hell-be-a-commander-soon",
+      "title": "Brandon Aiyuk posts another video saying he'll \"be a Commander soon\"",
+      "body_text": "There's still no indication he has petitioned the league for reinstatement.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T20:48:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nahshon-wright-jets-are-turning-over-a-new-leaf-after-interception-less-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nahshon-wright-jets-are-turning-over-a-new-leaf-after-interception-less-season",
+      "title": "Nahshon Wright: Jets are \"turning over a new leaf\" after interception-less season",
+      "body_text": "Nahshon Wright had only one interception in his first four seasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-02T20:37:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nahshon Wright"
+      ],
+      "resolved_player_ids": [
+        "00-0036986"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/missouri-attorney-general-launches-investigation-of-espns-matt-miller",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/missouri-attorney-general-launches-investigation-of-espns-matt-miller",
+      "title": "Missouri attorney general launches investigation of ESPN's Matt Miller",
+      "body_text": "On Wednesday, the folks at Awful Announcing posted a thorough and detailed look at the scrutiny that has arisen in the days following the revelation that ESPN draft analyst Matt Miller recently was involved in a serious car accident.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T20:35:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Miller",
+        "On Wednesday",
+        "Awful Announcing"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-mcbride-i-dont-know-about-week-1-but-carson-beck-has-a-chance-to-be-a-guy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-mcbride-i-dont-know-about-week-1-but-carson-beck-has-a-chance-to-be-a-guy",
+      "title": "Trey McBride: I don't know about Week 1, but Carson Beck has a chance to be a guy",
+      "body_text": "Cardinals tight end Trey McBride is signed through the 2029 season, so he has good reason to be interested in who will be doing the quarterbacking in Arizona over the coming years.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-02T19:54:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [
+        "BEC122142"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-all-pro-cornerback-and-punt-returner-leroy-irvin-dies-at-68",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-all-pro-cornerback-and-punt-returner-leroy-irvin-dies-at-68",
+      "title": "Rams All-Pro cornerback and punt returner LeRoy Irvin dies at 68",
+      "body_text": "LeRoy Irvin, a first-team All-Pro at both cornerback and punt returner with the Rams in the 1980s, has died at the age of 68.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-02T18:50:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rams All"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/6-foot-9-268-pound-aussie-ben-te-kura-quits-rugby-to-pursue-nfl-career",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/6-foot-9-268-pound-aussie-ben-te-kura-quits-rugby-to-pursue-nfl-career",
+      "title": "6-foot-9, 268-pound Aussie Ben Te Kura quits rugby to pursue NFL career",
+      "body_text": "The tallest player in the history of Australia's National Rugby League is walking away to pursue an NFL career.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-02T11:19:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aussie Ben",
+        "Te Kura",
+        "National Rugby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jonathan-jones-is-in-advanced-talks-to-leave-cbs-for-the-athletic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jonathan-jones-is-in-advanced-talks-to-leave-cbs-for-the-athletic",
+      "title": "Report: Jonathan Jones is in \"advanced talks\" to leave CBS for The Athletic",
+      "body_text": "In last week's lengthy article from the New York Times about Dianna Russini, the former NFL insider at The Athletic, a Times Company spokesperson said as to the possibility that The Athletic will hire a new NFL insider: “Not something I can confirm at that level of detail at this point.”",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T20:38:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Jones",
+        "The Athletic",
+        "New York",
+        "Dianna Russini",
+        "Times Company"
+      ],
+      "resolved_player_ids": [
+        "00-0032580"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-move-to-round-of-16-with-unforgettable-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-move-to-round-of-16-with-unforgettable-win",
+      "title": "U.S. move to Round of 16 with unforgettable win",
+      "body_text": "For those of you with FOMO who aren't watching the World Cup, have no fear.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T13:18:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-will-have-a-consistent-studio-presence-for-all-five-2026-nfl-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-will-have-a-consistent-studio-presence-for-all-five-2026-nfl-games",
+      "title": "Netflix will have a consistent studio presence for all five 2026 NFL games",
+      "body_text": "As Netflix expands its NFL footprint to include a full five toes of NFL games in 2026, it's hoping to enhance its desire to \"eventize\" football with some normalcy.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T17:52:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "As Netflix"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/attorney-blaise-taylor-will-appeal-murder-verdict",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/attorney-blaise-taylor-will-appeal-murder-verdict",
+      "title": "Attorney: Blaise Taylor will appeal murder verdict",
+      "body_text": "On Wednesday, a jury convicted former Titans scout Blaise Taylor of murdering his pregnant girlfriend and her unborn child.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T00:46:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Blaise Taylor",
+        "On Wednesday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-released-from-jail-after-posting-1-million-bond",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-released-from-jail-after-posting-1-million-bond",
+      "title": "Terrion Arnold released from jail after posting $1 million bond",
+      "body_text": "The Lions released the cornerback on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-06-30T19:40:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnolds-lawyer-informs-court-he-has-been-contacted-by-three-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnolds-lawyer-informs-court-he-has-been-contacted-by-three-teams",
+      "title": "Terrion Arnold's lawyer informs court he has been contacted by three teams",
+      "body_text": "Harvey Steinberg claims Arnold expects to join a new team \"within 30 days.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T14:12:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "Harvey Steinberg"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jury-convicts-blaise-taylor-of-murdering-his-pregnant-girlfriend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jury-convicts-blaise-taylor-of-murdering-his-pregnant-girlfriend",
+      "title": "Jury convicts Blaise Taylor of murdering his pregnant girlfriend",
+      "body_text": "Former Titans scout Blaise Taylor has been convicted of killing Jade Benning and her unborn child.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-01T20:46:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Blaise Taylor",
+        "Former Titans",
+        "Jade Benning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-is-closing-in-on-a-new-deal-for-mike-garafolo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-is-closing-in-on-a-new-deal-for-mike-garafolo",
+      "title": "Report: ESPN is closing in on a new deal for Mike Garafolo",
+      "body_text": "When ESPN acquired NFL Network on April 1, all NFLN employees currently under contract made the move.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-02T16:54:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-riley-moss-on-future-with-broncos-trust-myself-rest-will-take-care-of-itself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-riley-moss-on-future-with-broncos-trust-myself-rest-will-take-care-of-itself",
+      "title": "CB Riley Moss on future with Broncos: Trust myself, rest will take care of itself",
+      "body_text": "Pat Surtain II is set at one cornerback spot in Denver for years to come, but the makeup of the rest of the group is uncertain beyond 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-02T16:42:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Riley Moss",
+        "Pat Surtain II"
+      ],
+      "resolved_player_ids": [
+        "00-0038552",
+        "00-0036874"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahan-dotson-thinks-the-falcons-will-showcase-him-like-the-commanders-and-eagles-didnt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahan-dotson-thinks-the-falcons-will-showcase-him-like-the-commanders-and-eagles-didnt",
+      "title": "Jahan Dotson thinks the Falcons will showcase him like the Commanders and Eagles didn't",
+      "body_text": "As the 16th overall pick in the 2022 NFL draft, wide receiver Jahan Dotson has been a disappointment.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-02T15:51:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jahan Dotson"
+      ],
+      "resolved_player_ids": [
+        "00-0037741"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}
