@@ -1,0 +1,574 @@
+{
+  "fetch_run_id": "cabf34c8-62d1-4315-8a2d-6bb64b85190c",
+  "source": "pft",
+  "fetched_at": "2026-07-06T13:24:51.144606+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-cb-azareyeh-thomas-wearing-no-1-creates-a-different-set-of-expectations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-cb-azareyeh-thomas-wearing-no-1-creates-a-different-set-of-expectations",
+      "permalink": "",
+      "title": "Jets CB Azareye'h Thomas: Wearing No. 1 creates a different set of expectations",
+      "body_text": "When the Jets traded Sauce Gardner to the Colts last season, they dealt away both their No. 1 cornerback and the player who wore No. 1 on his jersey.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-06T13:10:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sauce Gardner"
+      ],
+      "resolved_player_ids": [
+        "00-0037190"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-allows-belgium-to-appeal-the-suspension-of-flo-baloguns-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-allows-belgium-to-appeal-the-suspension-of-flo-baloguns-suspension",
+      "permalink": "",
+      "title": "FIFA allows Belgium to appeal the suspension of Flo Balogun's suspension",
+      "body_text": "Before I go any farther with this one, I need to make a quick point or two to the handful who have griped to me via email regarding the coverage of the World Cup by this outlet.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T12:53:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Flo Balogun",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-reid-cam-jordans-return-huge-for-saints-culture",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-reid-cam-jordans-return-huge-for-saints-culture",
+      "permalink": "",
+      "title": "Justin Reid: Cam Jordan's return huge for Saints culture",
+      "body_text": "It took some time, but defensive end Cam Jordan and the Saints agreed on a contract that will keep the veteran in New Orleans for a 16th season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-06T12:40:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Reid",
+        "Cam Jordan",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0034361"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-mike-mccarthys-offense-is-all-about-the-quarterbacks-timing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-mike-mccarthys-offense-is-all-about-the-quarterbacks-timing",
+      "permalink": "",
+      "title": "Aaron Rodgers: Mike McCarthy's offense is all about the quarterback’s timing",
+      "body_text": "Aaron Rodgers and Mike McCarthy are in their first year together in Pittsburgh, but after 13 years together in Green Bay, they know each other as well as any quarterback and head coach in the NFL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-06T10:44:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arik-armstead-ready-to-go-after-hearing-talk-that-the-jaguars-would-cut-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arik-armstead-ready-to-go-after-hearing-talk-that-the-jaguars-would-cut-him",
+      "permalink": "",
+      "title": "Arik Armstead ready to go after hearing talk that the Jaguars would cut him",
+      "body_text": "\"It's impossible to ignore the chatter,\" Armstead said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-06T08:25:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Arik Armstead"
+      ],
+      "resolved_player_ids": [
+        "00-0032164"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wedding-presence-of-amazon-fox-tv-personalities-may-hint-at-travis-kelces-next-move",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wedding-presence-of-amazon-fox-tv-personalities-may-hint-at-travis-kelces-next-move",
+      "permalink": "",
+      "title": "Wedding presence of Amazon, Fox TV personalities may hint at Travis Kelce's next move",
+      "body_text": "I wasn't going to say anything more about the Travis Kelce-Taylor Swift wedding, but an item from Drew Lerner of Awful Announcing got the addled gears of my brain turning.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T21:43:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce",
+        "Taylor Swift",
+        "Drew Lerner",
+        "Awful Announcing"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rule-27-of-fifa-disciplinary-code-was-used-to-overturn-the-flo-balogun-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rule-27-of-fifa-disciplinary-code-was-used-to-overturn-the-flo-balogun-suspension",
+      "permalink": "",
+      "title": "Rule 27 of FIFA Disciplinary Code was used to overturn the Flo Balogun suspension",
+      "body_text": "The suspension of the suspension of U.S. striker Folarin Balogun has prompted an unprecedented uptick in online searches for the relevant provisions of the FIFA Disciplinary Code.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T23:55:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Disciplinary Code",
+        "Flo Balogun",
+        "Folarin Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reversal-of-flo-balogun-suspension-sparks-a-controversy-of-its-own",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reversal-of-flo-balogun-suspension-sparks-a-controversy-of-its-own",
+      "permalink": "",
+      "title": "Reversal of Flo Balogun suspension sparks a controversy of its own",
+      "body_text": "President Trump reportedly called FIFA chief to request a review.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T20:51:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Flo Balogun",
+        "President Trump"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-fifa-rescinds-u-s-striker-flo-baloguns-one-game-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-fifa-rescinds-u-s-striker-flo-baloguns-one-game-suspension",
+      "permalink": "",
+      "title": "Report: FIFA rescinds U.S. striker Flo Balogun's one-game suspension",
+      "body_text": "Balogun will be available for Monday night vs. Belgium",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T16:50:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Flo Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-nights-england-mexico-game-in-mexico-city-figures-to-be-massive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-nights-england-mexico-game-in-mexico-city-figures-to-be-massive",
+      "permalink": "",
+      "title": "Sunday night's England-Mexico game in Mexico City figures to be massive",
+      "body_text": "As most Americans who are interested in the World Cup await Monday night's game between the U.S. team and Belgium in Seattle, an equally intriguing match happens tonight in Mexico City.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T15:39:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mexico City",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-praises-the-work-of-college-roommate-darren-mougey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-praises-the-work-of-college-roommate-darren-mougey",
+      "permalink": "",
+      "title": "Kevin O'Connell praises the work of college roommate Darren Mougey",
+      "body_text": "Vikings coach Kevin O'Connell and Jets G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T14:48:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darren Mougey"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-marcellus-wiley-is-arrested-for-alleged-domestic-battery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-marcellus-wiley-is-arrested-for-alleged-domestic-battery",
+      "permalink": "",
+      "title": "Report: Marcellus Wiley is arrested for alleged domestic battery",
+      "body_text": "When we last mentioned Marcellus Wiley, he was angrily denying allegations of sexual assault, given the potential impact it will have when his son Googles his name.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T14:07:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcellus Wiley"
+      ],
+      "resolved_player_ids": [
+        "00-0017670"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-the-big-shield-ebook-free-for-fourth-of-july-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-the-big-shield-ebook-free-for-fourth-of-july-weekend",
+      "permalink": "",
+      "title": "Get the Big Shield ebook free for Fourth of July weekend",
+      "body_text": "It's Fourth of July weekend.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T13:40:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Big Shield"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/back-with-the-commanders-dyami-brown-vows-its-a-new-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/back-with-the-commanders-dyami-brown-vows-its-a-new-me",
+      "permalink": "",
+      "title": "Back with the Commanders, Dyami Brown vows it's a \"new me\"",
+      "body_text": "Can Brown build on his strong 2024 postseason?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T13:15:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dyami Brown",
+        "Can Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0036626"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-sends-a-signed-jersey-to-chicago-native-pope-leo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-sends-a-signed-jersey-to-chicago-native-pope-leo",
+      "permalink": "",
+      "title": "Caleb Williams sends a signed jersey to Chicago native Pope Leo",
+      "body_text": "Does the Pope wear a Bear jersey?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T13:47:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams",
+        "Pope Leo"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/all-30-mlb-teams-will-play-on-nbc-and-peacock-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/all-30-mlb-teams-will-play-on-nbc-and-peacock-today",
+      "permalink": "",
+      "title": "All 30 MLB teams will play on NBC and Peacock today",
+      "body_text": "This isn't an advertisement, not in the usual sense.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T12:37:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/by-going-after-jayden-daniels-brandon-aiyuk-may-be-burning-his-bridge-to-the-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/by-going-after-jayden-daniels-brandon-aiyuk-may-be-burning-his-bridge-to-the-commanders",
+      "permalink": "",
+      "title": "By going after Jayden Daniels, Brandon Aiyuk may be burning his bridge to the Commanders",
+      "body_text": "Aiyuk, Daniels apparently have some sort of beef now.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T02:21:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "Brandon Aiyuk",
+        "Commanders Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0036261"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-defender-tim-ream-world-cup-team-is-a-true-representation-of-america",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-defender-tim-ream-world-cup-team-is-a-true-representation-of-america",
+      "permalink": "",
+      "title": "U.S. defender Tim Ream: World Cup team is a \"true representation\" of America",
+      "body_text": "In two days in Seattle, they'll try to earn a spot in the quarterfinals.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T21:44:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tim Ream",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-been-17-years-since-steve-mcnairs-murder",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-been-17-years-since-steve-mcnairs-murder",
+      "permalink": "",
+      "title": "It's been 17 years since Steve McNair's murder",
+      "body_text": "The Fourth of July is one of the slowest NFL news days of the year.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T16:53:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Fourth"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-huffs-focus-shifts-from-football-to-battery-fires",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-huffs-focus-shifts-from-football-to-battery-fires",
+      "permalink": "",
+      "title": "Bryce Huff's focus shifts from football to battery fires",
+      "body_text": "Bryce Huff abruptly retired from the NFL in March at the age of 27.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T15:56:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Huff"
+      ],
+      "resolved_player_ids": [
+        "00-0036151"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-fuels-speculation-hell-return-to-the-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-fuels-speculation-hell-return-to-the-rams",
+      "permalink": "",
+      "title": "Aaron Donald fuels speculation he'll return to the Rams",
+      "body_text": "Donald adds an intriguing comment to a social media post.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T13:30:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Rams Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/do-the-commanders-want-to-sign-brandon-aiyuk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/do-the-commanders-want-to-sign-brandon-aiyuk",
+      "permalink": "",
+      "title": "Do the Commanders want to sign Brandon Aiyuk?",
+      "body_text": "There's been no indication they are — or aren't — interested in Aiyuk.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T12:51:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-sandler-officiated-the-travis-kelce-taylor-swift-wedding",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-sandler-officiated-the-travis-kelce-taylor-swift-wedding",
+      "permalink": "",
+      "title": "Adam Sandler officiated the Travis Kelce-Taylor Swift wedding",
+      "body_text": "Adam Sandler was back in Madison Square Garden for reasons other than watching a Knicks game.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T12:26:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Adam Sandler",
+        "Travis Kelce",
+        "Taylor Swift",
+        "Madison Square"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/flo-baloguns-suspension-for-mondays-round-of-16-game-is-confirmed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/flo-baloguns-suspension-for-mondays-round-of-16-game-is-confirmed",
+      "permalink": "",
+      "title": "Flo Balogun's suspension for Monday's Round of 16 game is confirmed",
+      "body_text": "Yes, we know.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T23:20:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Flo Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/scot-mccloughan-dubs-ty-simpson-a-career-backup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/scot-mccloughan-dubs-ty-simpson-a-career-backup",
+      "permalink": "",
+      "title": "Scot McCloughan dubs Ty Simpson a \"career backup\"",
+      "body_text": "Former G.M. compares Simpson to J.J. McCarthy, Mac Jones.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T23:10:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson",
+        "Mac Jones"
+      ],
+      "resolved_player_ids": [
+        "SIM639376",
+        "00-0036972"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cups-var-shows-what-nfl-could-do-with-technology",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cups-var-shows-what-nfl-could-do-with-technology",
+      "permalink": "",
+      "title": "World Cup's VAR shows what NFL could do with technology",
+      "body_text": "As it turns out, it's not impossible to put a chip in the ball.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T18:21:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-expected-the-travis-kelce-taylor-swift-wedding-is-happening-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-expected-the-travis-kelce-taylor-swift-wedding-is-happening-today",
+      "permalink": "",
+      "title": "As expected, the Travis Kelce-Taylor Swift wedding is happening today",
+      "body_text": "It's Fourth of July weekend.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T17:46:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce",
+        "Taylor Swift"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/is-the-nfl-getting-a-little-nervous-about-soccers-tv-success",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/is-the-nfl-getting-a-little-nervous-about-soccers-tv-success",
+      "permalink": "",
+      "title": "Is the NFL getting a little nervous about soccer's TV success?",
+      "body_text": "Latest U.S. win drew more on average than the 2026 wild-card round.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T14:13:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-deletes-over-the-top-social-media-attack-on-cleveland-radio-host",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/johnny-manziel-deletes-over-the-top-social-media-attack-on-cleveland-radio-host",
+      "permalink": "",
+      "title": "Johnny Manziel deletes over-the-top social media attack on Cleveland radio host",
+      "body_text": "The only shred of good news regarding a recent social-media tirade from former Browns quarterback Johnny Manziel is that he has deleted it.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T13:43:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Manziel"
+      ],
+      "resolved_player_ids": [
+        "00-0031409"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-matt-miller-gofundme-campaign-has-been-paused",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-matt-miller-gofundme-campaign-has-been-paused",
+      "permalink": "",
+      "title": "The Matt Miller GoFundMe campaign has been \"paused\"",
+      "body_text": "With questions mounting regarding the business dealings of ESPN draft analyst Matt Miller — and with the Missouri Attorney General's Office opening an investigation of those matters — there's been another development.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-03T12:23:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Matt",
+        "Matt Miller",
+        "Missouri Attorney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
