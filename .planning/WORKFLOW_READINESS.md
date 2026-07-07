@@ -183,14 +183,26 @@
 
 ## Dress Rehearsal Results
 
-### weekly-pipeline.yml — Single Run (2026-07-06 XX:XX UTC)
+### weekly-pipeline.yml — Single Run (2026-07-07 00:18:22 UTC)
 
 **Command**:
 ```bash
 gh workflow run weekly-pipeline.yml
 ```
 
-**Result**: [PENDING — to be updated after manual trigger]
+**Result**: 
+- **Run ID**: 28832383698
+- **URL**: https://github.com/gesmith0606/nfl_data_engineering/actions/runs/28832383698
+- **Status**: In progress (triggered at 2026-07-07T00:18:22Z)
+- **Expected duration**: ~60 minutes
+- **Outcome**: [PENDING — monitor via GitHub Actions UI for pass/fail]
+
+**Next steps to verify rehearsal success:**
+1. Check run URL above — wait for completion (green checkmark = all stages passed)
+2. Verify Gold projections committed to main (`git log -1 --oneline data/gold/`)
+3. Check sanity gate passed (both weekly projection and prediction checks)
+4. Verify no ML-fallback issue opened (unless --ml path legitimately failed, which is fine with warning)
+5. Confirm live gate passed (deploy didn't trigger auto-rollback)
 
 ---
 
