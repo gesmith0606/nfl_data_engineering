@@ -21,6 +21,7 @@ from .models.schemas import HealthResponse, VersionResponse
 from .routers import (
     draft,
     games,
+    health_freshness,
     lineups,
     news,
     players,
@@ -56,7 +57,7 @@ app.add_middleware(
 API_KEY = os.getenv("API_KEY", "")
 
 # Paths that skip authentication
-_AUTH_EXEMPT_PATHS = {"/api/health", "/api/docs", "/api/openapi.json"}
+_AUTH_EXEMPT_PATHS = {"/api/health", "/api/health/freshness", "/api/docs", "/api/openapi.json"}
 
 
 @app.middleware("http")
@@ -123,6 +124,7 @@ app.include_router(rankings.router, prefix="/api")
 app.include_router(sleeper_user.router, prefix="/api")
 app.include_router(teams.router, prefix="/api")
 app.include_router(teams_defense.router, prefix="/api")
+app.include_router(health_freshness.router, prefix="/api")
 
 
 # ---------------------------------------------------------------------------
