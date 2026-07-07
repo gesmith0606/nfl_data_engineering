@@ -558,6 +558,7 @@ import type {
   RankingSource,
   RankingSortBy,
   LeagueOverviewResponse,
+  LeagueDraftPrepResponse,
   RosterReportResponse,
   WaiversResponse,
 } from './types';
@@ -615,6 +616,28 @@ export async function fetchLeagueWaivers(
   if (season) params.set('season', String(season))
   return request<WaiversResponse>(
     `/api/league/${leagueId}/waivers?${params}`,
+  )
+}
+
+/**
+ * Fetch the pre-draft analysis for a league: keeper candidates, draft info,
+ * best-available targets with ADP annotation, and a rookie-specific view.
+ *
+ * Designed for the pre-season view when a connected league has no roster yet
+ * (status='pre_draft' or empty players list). Returns gracefully when the
+ * user has no roster — keeper_candidates will simply be empty.
+ */
+export async function fetchLeagueDraftPrep(
+  leagueId: string,
+  userId?: string,
+  season?: number,
+): Promise<LeagueDraftPrepResponse> {
+  const params = new URLSearchParams()
+  if (userId) params.set('user_id', userId)
+  if (season) params.set('season', String(season))
+  const qs = params.toString()
+  return request<LeagueDraftPrepResponse>(
+    `/api/league/${leagueId}/draft-prep${qs ? `?${qs}` : ''}`,
   )
 }
 

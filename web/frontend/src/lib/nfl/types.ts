@@ -278,6 +278,59 @@ export interface WaiversResponse {
   targets: WaiverTarget[]
 }
 
+// ---------------------------------------------------------------------------
+// Draft-Prep types (/api/league/{league_id}/draft-prep)
+// ---------------------------------------------------------------------------
+
+/** Draft metadata for an upcoming or active Sleeper draft. */
+export interface DraftInfo {
+  draft_id: string
+  status: string
+  type: string
+  rounds: number
+  /** User's draft slot (1-based), or null if draft_order not set by commissioner yet. */
+  user_slot: number | null
+}
+
+/** A player on the user's keeper roster, ranked for keeper-decision analysis. */
+export interface KeeperCandidate {
+  sleeper_player_id: string
+  player_name: string | null
+  position: string | null
+  team: string | null
+  projected_season_points: number | null
+  /** True when years_exp <= taxi_years-1 per league settings. */
+  taxi_eligible: boolean
+}
+
+/** An unrostered skill-position player ranked for draft targeting. */
+export interface BestAvailablePlayer {
+  sleeper_player_id: string
+  player_name: string | null
+  position: string | null
+  team: string | null
+  projected_season_points: number | null
+  /** Consensus ADP rank from adp_latest.csv; null when player has no ADP entry. */
+  adp_rank: number | null
+  /** 1-based rank by projected_season_points among all unrostered players. */
+  projection_rank: number
+  /** adp_rank - projection_rank; positive = market undervalues vs our model. */
+  value: number | null
+  /** Years of NFL experience (0 = rookie). */
+  years_exp: number | null
+}
+
+/** Response for GET /api/league/{league_id}/draft-prep. */
+export interface LeagueDraftPrepResponse {
+  league_id: string
+  user_id: string
+  draft_info: DraftInfo | null
+  keeper_candidates: KeeperCandidate[]
+  best_available: BestAvailablePlayer[]
+  rookies: BestAvailablePlayer[]
+  rookie_note: string
+}
+
 /** A connected Sleeper league persisted in localStorage. */
 export interface ConnectedLeague {
   league_id: string
