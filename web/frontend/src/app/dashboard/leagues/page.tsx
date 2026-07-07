@@ -3,7 +3,7 @@ import { SleeperLeagueView } from '@/features/nfl/components/sleeper-league-view
 import { FadeIn } from '@/lib/motion-primitives';
 
 export const metadata = {
-  title: 'Your Sleeper Leagues',
+  title: 'Your Leagues',
   description:
     'Connect your Sleeper account to import rosters and get personalized AI advisor recommendations.'
 };

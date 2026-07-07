@@ -935,6 +935,7 @@ def league_waivers(
     # _team on every row so we can apply team-aware tiebreaks below.
     player_index = _cached_player_index()
     proj_lookup = build_projection_lookup(projections)
+    adp_lookup = _cached_adp()
 
     # Identify free agents: skill-position players in Sleeper registry that
     # are not rostered in the league and have a matching projection row.
@@ -949,6 +950,8 @@ def league_waivers(
             str(meta.get("full_name") or "")
         )
         if not norm:
+            continue
+        if not _is_relevant_free_agent(meta, norm, adp_lookup):
             continue
         base_row = proj_lookup.get((norm, pos))
         if base_row is None:
@@ -1067,6 +1070,33 @@ def _cached_adp() -> Dict[str, int]:
     adp = _load_adp()
     _cache_set("adp_lookup", adp)
     return adp
+
+
+_FA_MAX_ADP_RANK = 300  # market-relevance ceiling for surfacing free agents
+
+
+def _is_relevant_free_agent(
+    meta: Dict[str, Any], norm: str, adp_lookup: Dict[str, int]
+) -> bool:
+    """Filter for surfacing a free agent as a waiver/draft target.
+
+    The Sleeper registry marks long-retired players as ``Active`` (Philip
+    Rivers included), and the projection engine can emit phantom points from
+    stale seasonal rows. Two guards keep the lists trustworthy:
+
+    - the player must be on an NFL roster (retired/unsigned → ``team`` empty),
+    - when ADP data is loaded, the market must rank them inside the top
+      ``_FA_MAX_ADP_RANK`` — nobody actionable in a fantasy league sits
+      outside it, but stale-projection artifacts (e.g. a QB the market ranks
+      ~494) do.
+    """
+    if not str(meta.get("team") or "").strip():
+        return False
+    if adp_lookup:
+        rank = adp_lookup.get(norm)
+        if rank is None or rank > _FA_MAX_ADP_RANK:
+            return False
+    return True
 
 
 def _build_draft_info(league_id: str, user_id: Optional[str]) -> Optional[DraftInfo]:
@@ -1249,6 +1279,8 @@ def league_draft_prep(
             norm = meta.get("normalized_name") or normalize_name(
                 str(meta.get("full_name") or "")
             )
+            if not norm or not _is_relevant_free_agent(meta, norm, adp_lookup):
+                continue
             proj_row = proj_lookup.get((norm, pos))
             if proj_row is None:
                 continue

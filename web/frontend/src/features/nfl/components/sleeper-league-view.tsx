@@ -145,7 +145,9 @@ function PlayerRowList<
             <div className='flex items-center gap-2.5 min-w-0'>
               {showSlot && getSlot?.(row) && (
                 <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono shrink-0'>
-                  {slotLabel(getSlot(row)!)}
+                  {slotLabel(getSlot(row)!) === (row.position ?? '')
+                    ? ''
+                    : slotLabel(getSlot(row)!)}
                 </span>
               )}
               <PosBadge pos={row.position} />
@@ -191,7 +193,9 @@ function PlayerRowList<
           <div className='flex items-center gap-2.5'>
             {showSlot && getSlot?.(row) && (
               <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono'>
-                {slotLabel(getSlot(row)!)}
+                {slotLabel(getSlot(row)!) === (row.position ?? '')
+                  ? ''
+                  : slotLabel(getSlot(row)!)}
               </span>
             )}
             <PosBadge pos={row.position} />
@@ -263,8 +267,14 @@ export function SleeperLeagueView() {
         }
         setStep({ kind: 'pick_league', user, leagues });
       } catch (err: unknown) {
+        // Raw backend errors carry HTTP plumbing ("Sleeper login failed: 404")
+        // — a missing username gets human copy, everything else a generic one.
         const msg = err instanceof Error ? err.message : String(err);
-        setError(`Could not find user '${username}': ${msg}`);
+        setError(
+          msg.includes('404')
+            ? `That Sleeper username wasn't found. Check the spelling and try again.`
+            : `Couldn't reach Sleeper right now — try again in a moment.`
+        );
       } finally {
         setLoading(false);
       }
@@ -550,6 +560,7 @@ function LeagueHome({
 }) {
   const [report, setReport] = useState<RosterReportResponse | null>(null);
   const [waivers, setWaivers] = useState<WaiversResponse | null>(null);
+  const [prep, setPrep] = useState<LeagueDraftPrepResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tab, setTab] = useState<'report' | 'waivers'>('report');
@@ -565,11 +576,16 @@ function LeagueHome({
     Promise.all([
       fetchLeagueRosterReport(league.league_id, league.user_id, seasonYear),
       fetchLeagueWaivers(league.league_id, league.user_id, seasonYear),
+      // Draft prep is best-effort: its absence must not take down the view.
+      fetchLeagueDraftPrep(league.league_id, league.user_id, seasonYear).catch(
+        () => null
+      ),
     ])
-      .then(([r, w]) => {
+      .then(([r, w, p]) => {
         if (!cancelled) {
           setReport(r);
           setWaivers(w);
+          setPrep(p);
         }
       })
       .catch((err: unknown) => {
@@ -592,7 +608,15 @@ function LeagueHome({
     report !== null &&
     report.roster_size === 0 &&
     report.unmatched_player_ids.length > 0;
-  const isPreDraft = isEmptyRoster && !isMatchFailure;
+  // Draft prep keys off the league's DRAFT status, not roster emptiness —
+  // dynasty rosters carry players year-round, so an empty roster can't be
+  // the pre-draft signal. Empty-roster (redraft) leagues stay covered as a
+  // fallback for when the drafts API returns nothing.
+  const draftStatus = prep?.draft_info?.status ?? null;
+  const showDraftPrep =
+    draftStatus === 'pre_draft' ||
+    draftStatus === 'drafting' ||
+    (isEmptyRoster && !isMatchFailure);
 
   return (
     <div className='space-y-4'>
@@ -622,15 +646,15 @@ function LeagueHome({
         <button
           type='button'
           onClick={onDisconnect}
-          className='rounded-md border px-2.5 py-1 text-xs text-muted-foreground hover:bg-muted'
+          className='min-h-[44px] rounded-md border px-3 py-1 text-xs text-muted-foreground hover:bg-muted'
         >
           Disconnect
         </button>
       </div>
 
-      {/* Tab bar — hidden pre-draft: DraftPrepView owns the whole panel then
-          (roster report is empty and waivers would double-render below it) */}
-      {!isPreDraft && (
+      {/* Tab bar — needs roster content (empty-roster leagues have nothing
+          for either tab; DraftPrepView owns the whole panel then) */}
+      {!isEmptyRoster && (
         <div className='flex gap-1 border-b'>
           {(['report', 'waivers'] as const).map((t) => (
             <button
@@ -676,9 +700,16 @@ function LeagueHome({
         </div>
       )}
 
-      {/* Pre-draft mode: full draft-prep panel */}
-      {!loading && !error && isPreDraft && (
-        <DraftPrepView league={league} />
+      {/* Draft-prep panel — league draft status is pre_draft/drafting
+          (dynasty rosters stay populated, so roster emptiness can't gate this) */}
+      {!loading && !error && showDraftPrep && prep && (
+        <DraftPrepView prep={prep} />
+      )}
+      {!loading && !error && showDraftPrep && !prep && (
+        <div className='rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground'>
+          Pre-Draft Mode — draft board data is unavailable right now; check
+          back shortly.
+        </div>
       )}
 
       {/* Roster report tab */}
@@ -686,8 +717,8 @@ function LeagueHome({
         <RosterReportView report={report} />
       )}
 
-      {/* Waivers tab (in-season only — pre-draft free agents live in DraftPrepView) */}
-      {!loading && !error && !isPreDraft && tab === 'waivers' && waivers && (
+      {/* Waivers tab */}
+      {!loading && !error && !isEmptyRoster && tab === 'waivers' && waivers && (
         <WaiversView waivers={waivers} />
       )}
     </div>
@@ -902,55 +933,8 @@ function BestAvailableRow({
  *   3. Best-available table with ADP rank + value badge (green = undervalued)
  *   4. Rookies tab (subset sorted by ADP — market rank beats our fallback projections)
  */
-function DraftPrepView({ league }: { league: ConnectedLeague }) {
-  const [prep, setPrep] = useState<LeagueDraftPrepResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+function DraftPrepView({ prep }: { prep: LeagueDraftPrepResponse }) {
   const [tab, setTab] = useState<'best_available' | 'rookies'>('best_available');
-
-  const seasonYear = parseInt(league.season, 10) || new Date().getFullYear();
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
-
-    fetchLeagueDraftPrep(league.league_id, league.user_id, seasonYear)
-      .then((data) => {
-        if (!cancelled) setPrep(data);
-      })
-      .catch((err: unknown) => {
-        if (!cancelled) {
-          const msg = err instanceof Error ? err.message : String(err);
-          setError(`Failed to load draft prep: ${msg}`);
-        }
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [league.league_id, league.user_id, seasonYear]);
-
-  if (loading) {
-    return (
-      <div className='py-8 text-center text-sm text-muted-foreground'>
-        Loading draft prep…
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>
-        {error}
-      </div>
-    );
-  }
-
-  if (!prep) return null;
 
   const { draft_info, keeper_candidates, best_available, rookies, rookie_note } = prep;
   const activeList = tab === 'rookies' ? rookies : best_available;
