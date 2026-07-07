@@ -1,0 +1,515 @@
+{
+  "fetch_run_id": "382b5295-523e-4ecc-b436-45201cfb9099",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-07T12:57:50.714228+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bucs-in-no-rush-to-work-out-new-deals-with-baker-mayfield-vita-vea",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bucs-in-no-rush-to-work-out-new-deals-with-baker-mayfield-vita-vea",
+      "title": "Report: Bucs in \"no rush\" to work out new deals with Baker Mayfield, Vita Vea",
+      "body_text": "The Buccaneers open up training camp in three weeks.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-07T12:40:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield",
+        "Vita Vea",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0034855",
+        "00-0034773"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-wileys-wife-files-for-divorce-restraining-order",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-wileys-wife-files-for-divorce-restraining-order",
+      "title": "Marcellus Wiley's wife files for divorce, restraining order",
+      "body_text": "In the wake of Saturday's arrest of former NFL defensive end Marcellus Wiley, his wife has pursued two separate legal avenues.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T12:39:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marcellus Wiley"
+      ],
+      "resolved_player_ids": [
+        "00-0017670"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-im-not-content-just-being-on-a-team-im-trying-to-be-one-of-the-greatest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-im-not-content-just-being-on-a-team-im-trying-to-be-one-of-the-greatest",
+      "title": "Shedeur Sanders: I'm not content just being on a team, I'm trying to be one of the greatest",
+      "body_text": "Sanders wants to win a lot more than just his training camp competition with Deshaun Watson.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-07T08:29:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/belgium-beats-then-trolls-u-s-team-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/belgium-beats-then-trolls-u-s-team-on-monday-night",
+      "title": "Belgium beats, then trolls, U.S. team on Monday night",
+      "body_text": "Even though it was tied, 1-1, after Malik Tillman scored another goal on a free kick just outside the penalty area, it never felt close.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T02:38:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Tillman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nate-thomas-readies-to-compete-for-cowboys-starting-lt-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nate-thomas-readies-to-compete-for-cowboys-starting-lt-job",
+      "title": "Nate Thomas readies to compete for Cowboys' starting LT job",
+      "body_text": "Pro Bowl left guard Tyler Smith is the Cowboys' best left tackle, but he does not want a full-time move.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-07T00:44:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nate Thomas",
+        "Pro Bowl",
+        "Tyler Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0037243"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnolds-hearing-regarding-monitoring-device-was-postponed-until-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnolds-hearing-regarding-monitoring-device-was-postponed-until-friday",
+      "title": "Terrion Arnold's hearing regarding monitoring device was postponed until Friday",
+      "body_text": "A hearing on whether free-agent cornerback Terrion Arnold will be required to wear an ankle monitor while on home confinement pending trial of eight felony charges had been scheduled for Monday.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T22:44:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-willey-completely-and-unequivocally-denies-allegation-of-domestic-battery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-willey-completely-and-unequivocally-denies-allegation-of-domestic-battery",
+      "title": "Marcellus Willey \"completely and unequivocally\" denies allegation of domestic battery",
+      "body_text": "Former NFL defensive end and ESPN/Fox employee Marcellus Wiley has addressed the allegation of domestic battery that resulted in his arrest on July 4.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T22:14:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marcellus Willey",
+        "Marcellus Wiley"
+      ],
+      "resolved_player_ids": [
+        "00-0017670"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-clears-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-clears-waivers",
+      "title": "Terrion Arnold clears waivers",
+      "body_text": "To no surprise, no one claimed the balance of his guaranteed first-round contract.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T21:58:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-mike-evans-is-our-first-veteran-wr-since-emmanuel-sanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-mike-evans-is-our-first-veteran-wr-since-emmanuel-sanders",
+      "title": "George Kittle: Mike Evans is our first veteran WR since Emmanuel Sanders",
+      "body_text": "49ers fullback Kyle Juszczyk called Mike Evans \"unguardable\" during the offseason practices. 49ers tight end George Kittle concurs.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-06T21:26:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Kittle",
+        "Mike Evans",
+        "Emmanuel Sanders",
+        "Kyle Juszczyk"
+      ],
+      "resolved_player_ids": [
+        "00-0033288",
+        "00-0031408",
+        "00-0027685",
+        "00-0029892"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-third-round-pick-romello-height",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-third-round-pick-romello-height",
+      "title": "49ers sign third-round pick Romello Height",
+      "body_text": "The 49ers have executed some important business to start the week.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-06T20:39:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Romello Height"
+      ],
+      "resolved_player_ids": [
+        "HEI137526"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-waive-dl-c-j-ravenell-off-of-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-waive-dl-c-j-ravenell-off-of-injured-reserve",
+      "title": "Titans waive DL C.J. Ravenell off of injured reserve",
+      "body_text": "The Titans cut a player from their injured reserve list on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-06T20:34:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-sandler-officiated-the-travis-kelce-taylor-swift-wedding",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-sandler-officiated-the-travis-kelce-taylor-swift-wedding",
+      "title": "Adam Sandler officiated the Travis Kelce-Taylor Swift wedding",
+      "body_text": "Adam Sandler was back in Madison Square Garden for reasons other than watching a Knicks game.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T12:26:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adam Sandler",
+        "Travis Kelce",
+        "Taylor Swift",
+        "Madison Square"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wedding-presence-of-amazon-fox-tv-personalities-may-hint-at-travis-kelces-next-move",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wedding-presence-of-amazon-fox-tv-personalities-may-hint-at-travis-kelces-next-move",
+      "title": "Wedding presence of Amazon, Fox TV personalities may hint at Travis Kelce's next move",
+      "body_text": "I wasn't going to say anything more about the Travis Kelce-Taylor Swift wedding, but an item from Drew Lerner of Awful Announcing got the addled gears of my brain turning.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T21:43:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Kelce",
+        "Taylor Swift",
+        "Drew Lerner",
+        "Awful Announcing"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-records-show-more-than-88-million-in-browns-cap-credits-for-deshaun-watson-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-records-show-more-than-88-million-in-browns-cap-credits-for-deshaun-watson-injuries",
+      "title": "NFLPA records show more than $88 million in Browns cap credits for Deshaun Watson injuries",
+      "body_text": "Insurance results in massive cap credits from 2024 through 2029",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T15:04:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ran-carthon-plans-to-reach-out-to-brandon-aiyuk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ran-carthon-plans-to-reach-out-to-brandon-aiyuk",
+      "title": "Ran Carthon plans to reach out to Brandon Aiyuk",
+      "body_text": "At a time when it's not clear whether receiver Brandon Aiyuk is getting any advice — or whether he's listening to the advice he's getting — a former NFL G.M. who knows Aiyuk plans to connect with him.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T19:34:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ran Carthon",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0022431",
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/by-going-after-jayden-daniels-brandon-aiyuk-may-be-burning-his-bridge-to-the-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/by-going-after-jayden-daniels-brandon-aiyuk-may-be-burning-his-bridge-to-the-commanders",
+      "title": "By going after Jayden Daniels, Brandon Aiyuk may be burning his bridge to the Commanders",
+      "body_text": "Aiyuk, Daniels apparently have some sort of beef now.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T02:21:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Brandon Aiyuk",
+        "Commanders Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0036261"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-fuels-speculation-hell-return-to-the-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-fuels-speculation-hell-return-to-the-rams",
+      "title": "Aaron Donald fuels speculation he'll return to the Rams",
+      "body_text": "Donald adds an intriguing comment to a social media post.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-04T13:30:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald",
+        "Rams Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-fifa-rescinds-u-s-striker-flo-baloguns-one-game-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-fifa-rescinds-u-s-striker-flo-baloguns-one-game-suspension",
+      "title": "Report: FIFA rescinds U.S. striker Flo Balogun's one-game suspension",
+      "body_text": "Balogun will be available for Monday night vs. Belgium",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T16:50:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Flo Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reversal-of-flo-balogun-suspension-sparks-a-controversy-of-its-own",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reversal-of-flo-balogun-suspension-sparks-a-controversy-of-its-own",
+      "title": "Reversal of Flo Balogun suspension sparks a controversy of its own",
+      "body_text": "President Trump reportedly called FIFA chief to request a review.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T20:51:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Flo Balogun",
+        "President Trump"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rule-27-of-fifa-disciplinary-code-was-used-to-overturn-the-flo-balogun-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rule-27-of-fifa-disciplinary-code-was-used-to-overturn-the-flo-balogun-suspension",
+      "title": "Rule 27 of FIFA Disciplinary Code was used to overturn the Flo Balogun suspension",
+      "body_text": "The suspension of the suspension of U.S. striker Folarin Balogun has prompted an unprecedented uptick in online searches for the relevant provisions of the FIFA Disciplinary Code.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-05T23:55:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Disciplinary Code",
+        "Flo Balogun",
+        "Folarin Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-allows-belgium-to-appeal-the-suspension-of-flo-baloguns-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-allows-belgium-to-appeal-the-suspension-of-flo-baloguns-suspension",
+      "title": "FIFA allows Belgium to appeal the suspension of Flo Balogun's suspension",
+      "body_text": "Before I go any farther with this one, I need to make a quick point or two to the handful who have griped to me via email regarding the coverage of the World Cup by this outlet.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T12:53:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Flo Balogun",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/president-trump-acknowledges-effort-to-overturn-flo-baloguns-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/president-trump-acknowledges-effort-to-overturn-flo-baloguns-suspension",
+      "title": "President Trump acknowledges effort to overturn Flo Balogun's suspension",
+      "body_text": "Yes, the Commander-in-Chief got directly involved in the effort to overturn the suspension of U.S. striker Flo Balogun.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T17:35:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "President Trump",
+        "Flo Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-president-gianni-infantino-fifas-judicial-bodies-are-independent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-president-gianni-infantino-fifas-judicial-bodies-are-independent",
+      "title": "FIFA president Gianni Infantino: \"FIFA's judicial bodies are independent\"",
+      "body_text": "FIFA has heard the criticism of the sudden decision to reinstate U.S. striker Folarin Balogun for Monday night's game against Belgium in the World Cup Round of 16.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T17:53:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gianni Infantino",
+        "Folarin Balogun",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stevie-johnson-keon-coleman-can-be-the-best-were-working-on-how-to-make-it-show",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stevie-johnson-keon-coleman-can-be-the-best-were-working-on-how-to-make-it-show",
+      "title": "Stevie Johnson: Keon Coleman can be the best, we're working on how to make it show",
+      "body_text": "Bills wide receiver Keon Coleman believes he's facing a \"make or break\" 2026 season and his preparation for it has included work with former Bills star Stevie Johnson.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-06T17:55:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stevie Johnson",
+        "Keon Coleman"
+      ],
+      "resolved_player_ids": [
+        "00-0039901"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dr-myron-rolle-joins-nflpa-as-a-strategic-advisor-for-player-health",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dr-myron-rolle-joins-nflpa-as-a-strategic-advisor-for-player-health",
+      "title": "Dr. Myron Rolle joins NFLPA as a strategic advisor for player health",
+      "body_text": "Former NFL safety Myron Rolle went to medical school after he completed his playing career and the pediatric neurosurgeon is now coming back to work with the NFL Players Association.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-06T15:54:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myron Rolle",
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-agree-to-sign-cb-rasul-douglas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-agree-to-sign-cb-rasul-douglas",
+      "title": "Commanders agree to sign CB Rasul Douglas",
+      "body_text": "The Commanders are adding a veteran cornerback.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-06T15:49:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rasul Douglas",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033551"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffrey-simmons-is-jealous-mike-vrabel-got-the-patriots-not-the-titans-to-the-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffrey-simmons-is-jealous-mike-vrabel-got-the-patriots-not-the-titans-to-the-super-bowl",
+      "title": "Jeffrey Simmons is jealous Mike Vrabel got the Patriots, not the Titans, to the Super Bowl",
+      "body_text": "Titans defensive tackle Jeffrey Simmons played his first five NFL seasons with Mike Vrabel as his head coach, and never reached the Super Bowl.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-06T14:57:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeffrey Simmons",
+        "Mike Vrabel",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-cam-skattebo-a-top-tier-back-and-hes-planning-to-play-that-way",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-cam-skattebo-a-top-tier-back-and-hes-planning-to-play-that-way",
+      "title": "John Harbaugh: Cam Skattebo's a top-tier back and he's planning to play that way",
+      "body_text": "The Giants were seen as a potential landing spot for running back Jeremiyah Love in the first round of this year's draft, but they never had a chance to consider him while on the clock because Arizona made Love the third overall choice.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-06T14:21:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Cam Skattebo",
+        "The Giants",
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "LOV121782"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-wiley-was-released-from-custody-sunday-night-on-1-000-bond",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-wiley-was-released-from-custody-sunday-night-on-1-000-bond",
+      "title": "Marcellus Wiley was released from custody Sunday night on $1,000 bond",
+      "body_text": "On Sunday morning, TMZ reported that former NFL defensive end and ESPN and Fox employee Marcellus Wiley was arrested on July 4 for alleged domestic battery.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-06T13:46:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marcellus Wiley",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0017670"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-cb-azareyeh-thomas-wearing-no-1-creates-a-different-set-of-expectations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-cb-azareyeh-thomas-wearing-no-1-creates-a-different-set-of-expectations",
+      "title": "Jets CB Azareye'h Thomas: Wearing No. 1 creates a different set of expectations",
+      "body_text": "When the Jets traded Sauce Gardner to the Colts last season, they dealt away both their No. 1 cornerback and the player who wore No. 1 on his jersey.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-06T13:10:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sauce Gardner"
+      ],
+      "resolved_player_ids": [
+        "00-0037190"
+      ],
+      "team_hint": "NYJ"
+    }
+  ]
+}
