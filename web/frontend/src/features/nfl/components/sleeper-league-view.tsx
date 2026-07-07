@@ -15,6 +15,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import {
+  fetchLeagueDraftPrep,
   fetchLeagueOverview,
   fetchLeagueRosterReport,
   fetchLeagueWaivers,
@@ -23,7 +24,9 @@ import {
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
 import type {
+  BestAvailablePlayer,
   ConnectedLeague,
+  LeagueDraftPrepResponse,
   RosterReportResponse,
   SleeperLeague,
   SleeperUser,
@@ -87,6 +90,133 @@ function slotLabel(slot: string): string {
   if (slot === 'SFLEX' || slot === 'SUPER_FLEX') return 'SF';
   if (slot === 'FLEX') return 'FX';
   return slot;
+}
+
+// ---------------------------------------------------------------------------
+// PlayerRowList component — shared markup for Starters, Bench, Waivers
+// ---------------------------------------------------------------------------
+
+interface PlayerRowListProps<T extends {
+  position: string | null;
+  player_name: string | null;
+  team?: string | null;
+  projected_season_points?: number | null;
+}> {
+  rows: T[];
+  showSlot?: boolean;
+  getSlot?: (row: T) => string | undefined;
+  dimPoints?: boolean;
+  extra?: (row: T, index: number) => React.ReactNode;
+  compact?: boolean; // Use py-2 instead of py-2.5
+}
+
+function PlayerRowList<
+  T extends {
+    position: string | null;
+    player_name: string | null;
+    team?: string | null;
+    projected_season_points?: number | null;
+  },
+>({
+  rows,
+  showSlot,
+  getSlot,
+  dimPoints,
+  extra,
+  compact,
+}: PlayerRowListProps<T>) {
+  if (rows.length === 0) {
+    return (
+      <p className='px-4 py-3 text-sm text-muted-foreground'>
+        No rows available.
+      </p>
+    );
+  }
+
+  if (extra) {
+    // Waiver targets layout with extra content
+    return (
+      <>
+        {rows.map((row, i) => (
+          <div
+            key={i}
+            className='flex items-center justify-between px-4 py-2.5 gap-3'
+          >
+            <div className='flex items-center gap-2.5 min-w-0'>
+              {showSlot && getSlot?.(row) && (
+                <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono shrink-0'>
+                  {slotLabel(getSlot(row)!)}
+                </span>
+              )}
+              <PosBadge pos={row.position} />
+              <div className='min-w-0'>
+                <p className='text-sm font-medium truncate'>
+                  {row.player_name ?? '—'}
+                </p>
+                {row.team && (
+                  <p className='text-[10px] text-muted-foreground'>
+                    {row.team}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className='text-right shrink-0'>
+              <p
+                className={`text-sm font-semibold tabular-nums ${
+                  dimPoints ? 'text-muted-foreground' : SUCCESS_TEXT
+                }`}
+              >
+                {row.projected_season_points != null
+                  ? row.projected_season_points.toFixed(1)
+                  : '—'}
+              </p>
+              {extra(row, i)}
+            </div>
+          </div>
+        ))}
+      </>
+    );
+  }
+
+  // Starters/Bench layout
+  return (
+    <>
+      {rows.map((row, i) => (
+        <div
+          key={i}
+          className={`flex items-center justify-between px-4 ${
+            compact ? 'py-2' : 'py-2.5'
+          }`}
+        >
+          <div className='flex items-center gap-2.5'>
+            {showSlot && getSlot?.(row) && (
+              <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono'>
+                {slotLabel(getSlot(row)!)}
+              </span>
+            )}
+            <PosBadge pos={row.position} />
+            <span className='text-sm font-medium'>
+              {row.player_name ?? '—'}
+            </span>
+            {row.team && (
+              <span className='text-xs text-muted-foreground'>{row.team}</span>
+            )}
+          </div>
+          <span
+            className={`text-sm tabular-nums ${
+              dimPoints
+                ? 'text-muted-foreground'
+                : `font-semibold ${SUCCESS_TEXT}`
+            }`}
+          >
+            {row.projected_season_points != null
+              ? row.projected_season_points.toFixed(1)
+              : '—'}
+          </span>
+        </div>
+      ))}
+    </>
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -349,7 +479,11 @@ export function SleeperLeagueView() {
             </>
           )}
           <form onSubmit={handleConnect} className='flex gap-2'>
+            <label htmlFor='sleeper-username' className='sr-only'>
+              Sleeper username
+            </label>
             <input
+              id='sleeper-username'
               type='text'
               placeholder='Sleeper username'
               value={username}
@@ -494,23 +628,26 @@ function LeagueHome({
         </button>
       </div>
 
-      {/* Tab bar */}
-      <div className='flex gap-1 border-b'>
-        {(['report', 'waivers'] as const).map((t) => (
-          <button
-            key={t}
-            type='button'
-            onClick={() => setTab(t)}
-            className={`px-3 py-1.5 text-sm -mb-px border-b-2 ${
-              tab === t
-                ? 'border-primary font-medium'
-                : 'border-transparent text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            {t === 'report' ? 'Roster Report' : 'Waiver Targets'}
-          </button>
-        ))}
-      </div>
+      {/* Tab bar — hidden pre-draft: DraftPrepView owns the whole panel then
+          (roster report is empty and waivers would double-render below it) */}
+      {!isPreDraft && (
+        <div className='flex gap-1 border-b'>
+          {(['report', 'waivers'] as const).map((t) => (
+            <button
+              key={t}
+              type='button'
+              onClick={() => setTab(t)}
+              className={`px-3 py-1.5 text-sm -mb-px border-b-2 ${
+                tab === t
+                  ? 'border-primary font-medium'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {t === 'report' ? 'Roster Report' : 'Waiver Targets'}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Loading / error states */}
       {loading && (
@@ -539,16 +676,9 @@ function LeagueHome({
         </div>
       )}
 
-      {/* Pre-draft note */}
+      {/* Pre-draft mode: full draft-prep panel */}
       {!loading && !error && isPreDraft && (
-        <div className='rounded-lg border border-dashed p-6 text-center space-y-2'>
-          <p className='font-medium text-sm'>Pre-Draft Mode</p>
-          <p className='text-sm text-muted-foreground'>
-            No roster data found yet — your league is likely in the pre-draft
-            phase. Use the Draft tool to prepare your strategy, or check back
-            after the draft.
-          </p>
-        </div>
+        <DraftPrepView league={league} />
       )}
 
       {/* Roster report tab */}
@@ -556,8 +686,8 @@ function LeagueHome({
         <RosterReportView report={report} />
       )}
 
-      {/* Waivers tab */}
-      {!loading && !error && tab === 'waivers' && waivers && (
+      {/* Waivers tab (in-season only — pre-draft free agents live in DraftPrepView) */}
+      {!loading && !error && !isPreDraft && tab === 'waivers' && waivers && (
         <WaiversView waivers={waivers} />
       )}
     </div>
@@ -588,40 +718,11 @@ function RosterReportView({ report }: { report: RosterReportResponse }) {
           Optimal Starters
         </h3>
         <div className='rounded-lg border divide-y'>
-          {report.starters.length === 0 ? (
-            <p className='px-4 py-3 text-sm text-muted-foreground'>
-              No starters computed.
-            </p>
-          ) : (
-            report.starters.map((s, i) => (
-              <div
-                key={i}
-                className='flex items-center justify-between px-4 py-2.5'
-              >
-                <div className='flex items-center gap-2.5'>
-                  <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono'>
-                    {slotLabel(s.slot)}
-                  </span>
-                  <PosBadge pos={s.position} />
-                  <span className='text-sm font-medium'>
-                    {s.player_name ?? '—'}
-                  </span>
-                  {s.team && (
-                    <span className='text-xs text-muted-foreground'>
-                      {s.team}
-                    </span>
-                  )}
-                </div>
-                <span
-                  className={`text-sm font-semibold tabular-nums ${SUCCESS_TEXT}`}
-                >
-                  {s.projected_season_points != null
-                    ? s.projected_season_points.toFixed(1)
-                    : '—'}
-                </span>
-              </div>
-            ))
-          )}
+          <PlayerRowList
+            rows={report.starters}
+            showSlot
+            getSlot={(s) => s.slot}
+          />
         </div>
       </section>
 
@@ -632,27 +733,7 @@ function RosterReportView({ report }: { report: RosterReportResponse }) {
             Bench ({report.bench.length})
           </h3>
           <div className='rounded-lg border divide-y'>
-            {report.bench.map((p, i) => (
-              <div
-                key={i}
-                className='flex items-center justify-between px-4 py-2'
-              >
-                <div className='flex items-center gap-2.5'>
-                  <PosBadge pos={p.position} />
-                  <span className='text-sm'>{p.player_name ?? '—'}</span>
-                  {p.team && (
-                    <span className='text-xs text-muted-foreground'>
-                      {p.team}
-                    </span>
-                  )}
-                </div>
-                <span className='text-sm tabular-nums text-muted-foreground'>
-                  {p.projected_season_points != null
-                    ? p.projected_season_points.toFixed(1)
-                    : '—'}
-                </span>
-              </div>
-            ))}
+            <PlayerRowList rows={report.bench} compact dimPoints />
           </div>
         </section>
       )}
@@ -711,43 +792,302 @@ function WaiversView({ waivers }: { waivers: WaiversResponse }) {
         league-scored season projection
       </div>
       <div className='rounded-lg border divide-y'>
-        {waivers.targets.map((t, i) => (
-          <div
-            key={i}
-            className='flex items-center justify-between px-4 py-2.5 gap-3'
-          >
-            <div className='flex items-center gap-2.5 min-w-0'>
-              <span className='w-5 text-xs text-muted-foreground tabular-nums shrink-0'>
-                {i + 1}
-              </span>
-              <PosBadge pos={t.position} />
-              <div className='min-w-0'>
-                <p className='text-sm font-medium truncate'>
-                  {t.player_name ?? '—'}
-                </p>
-                {t.team && (
-                  <p className='text-[10px] text-muted-foreground'>{t.team}</p>
-                )}
-              </div>
-            </div>
-            <div className='text-right shrink-0'>
-              <p
-                className={`text-sm font-semibold tabular-nums ${SUCCESS_TEXT}`}
-              >
-                {t.projected_season_points != null
-                  ? t.projected_season_points.toFixed(1)
-                  : '—'}
+        <PlayerRowList
+          rows={waivers.targets}
+          extra={(t) =>
+            t.upgrades_over ? (
+              <p className={`text-[10px] ${WARN_TEXT}`}>
+                upgrades over {t.upgrades_over}
               </p>
-              {t.upgrades_over ? (
-                <p className={`text-[10px] ${WARN_TEXT}`}>
-                  upgrades over {t.upgrades_over}
+            ) : (
+              <p className='text-[10px] text-muted-foreground'>depth</p>
+            )
+          }
+        />
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Draft-Prep view (pre-season / pre_draft league state)
+// ---------------------------------------------------------------------------
+
+/**
+ * Value badge shown next to a player's ADP rank in the best-available table.
+ *
+ * Positive value means our model projects the player higher than the market
+ * does (adp_rank - projection_rank > 0). Green when value >= 10 (strong
+ * undervaluation signal), yellow for 1-9, muted for neutral/negative.
+ */
+function ValueBadge({ value }: { value: number | null }) {
+  if (value == null) return null;
+  let cls: string;
+  let label: string;
+  if (value >= 10) {
+    cls = `${SUCCESS_TEXT} font-semibold`;
+    label = `+${value}`;
+  } else if (value > 0) {
+    cls = `${WARN_TEXT}`;
+    label = `+${value}`;
+  } else if (value === 0) {
+    cls = 'text-muted-foreground';
+    label = '±0';
+  } else {
+    cls = 'text-muted-foreground';
+    label = String(value);
+  }
+  return (
+    <span className={`text-[10px] tabular-nums ${cls}`} title='ADP rank − our projection rank'>
+      {label}
+    </span>
+  );
+}
+
+/** A single player row used in the best-available and rookies tables. */
+function BestAvailableRow({
+  player,
+  rank,
+}: {
+  player: BestAvailablePlayer;
+  rank: number;
+}) {
+  return (
+    <div className='flex items-center justify-between px-4 py-2.5 gap-3'>
+      <div className='flex items-center gap-2.5 min-w-0'>
+        <span className='w-5 text-xs text-muted-foreground tabular-nums shrink-0'>
+          {rank}
+        </span>
+        <PosBadge pos={player.position} />
+        <div className='min-w-0'>
+          <p className='text-sm font-medium truncate'>
+            {player.player_name ?? '—'}
+          </p>
+          {player.team && (
+            <p className='text-[10px] text-muted-foreground'>{player.team}</p>
+          )}
+        </div>
+      </div>
+      <div className='flex items-center gap-3 shrink-0'>
+        {/* ADP column */}
+        <div className='text-right w-16'>
+          {player.adp_rank != null ? (
+            <>
+              <p className='text-xs tabular-nums text-muted-foreground'>
+                ADP {player.adp_rank}
+              </p>
+              <ValueBadge value={player.value} />
+            </>
+          ) : (
+            <p className='text-[10px] text-muted-foreground'>no ADP</p>
+          )}
+        </div>
+        {/* Projected points column */}
+        <p className={`text-sm font-semibold tabular-nums w-12 text-right ${SUCCESS_TEXT}`}>
+          {player.projected_season_points != null
+            ? player.projected_season_points.toFixed(1)
+            : '—'}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * DraftPrepView — shown when the connected league is in pre-draft mode.
+ *
+ * Fetches GET /api/league/{id}/draft-prep and renders four sections:
+ *   1. Draft info header (type, rounds, slot, status)
+ *   2. Keeper candidates card (when the user has a pre-loaded roster)
+ *   3. Best-available table with ADP rank + value badge (green = undervalued)
+ *   4. Rookies tab (subset sorted by ADP — market rank beats our fallback projections)
+ */
+function DraftPrepView({ league }: { league: ConnectedLeague }) {
+  const [prep, setPrep] = useState<LeagueDraftPrepResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [tab, setTab] = useState<'best_available' | 'rookies'>('best_available');
+
+  const seasonYear = parseInt(league.season, 10) || new Date().getFullYear();
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    fetchLeagueDraftPrep(league.league_id, league.user_id, seasonYear)
+      .then((data) => {
+        if (!cancelled) setPrep(data);
+      })
+      .catch((err: unknown) => {
+        if (!cancelled) {
+          const msg = err instanceof Error ? err.message : String(err);
+          setError(`Failed to load draft prep: ${msg}`);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [league.league_id, league.user_id, seasonYear]);
+
+  if (loading) {
+    return (
+      <div className='py-8 text-center text-sm text-muted-foreground'>
+        Loading draft prep…
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>
+        {error}
+      </div>
+    );
+  }
+
+  if (!prep) return null;
+
+  const { draft_info, keeper_candidates, best_available, rookies, rookie_note } = prep;
+  const activeList = tab === 'rookies' ? rookies : best_available;
+
+  return (
+    <div className='space-y-4'>
+      {/* Draft info header */}
+      {draft_info && (
+        <div className='rounded-lg border p-4 space-y-2'>
+          <div className='flex items-center justify-between'>
+            <h3 className='text-sm font-semibold'>Draft</h3>
+            <span className='inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium text-muted-foreground capitalize'>
+              {draft_info.status.replace('_', ' ')}
+            </span>
+          </div>
+          <div className='flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground'>
+            <span>
+              Type:{' '}
+              <span className='font-medium text-foreground capitalize'>
+                {draft_info.type}
+              </span>
+            </span>
+            <span>
+              <span className='font-medium text-foreground'>
+                {draft_info.rounds}
+              </span>{' '}
+              {draft_info.rounds === 1 ? 'round' : 'rounds'}
+            </span>
+            {draft_info.user_slot != null ? (
+              <span>
+                Your slot:{' '}
+                <span className='font-medium text-foreground'>
+                  #{draft_info.user_slot}
+                </span>
+              </span>
+            ) : (
+              <span className='italic'>Draft order not set yet</span>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Keeper candidates — only shown when the user has a roster */}
+      {keeper_candidates.length > 0 && (
+        <section>
+          <h3 className='text-xs font-semibold uppercase text-muted-foreground mb-2'>
+            Your Roster — Keeper Candidates
+          </h3>
+          <div className='rounded-lg border divide-y'>
+            {keeper_candidates.map((k, i) => (
+              <div
+                key={i}
+                className='flex items-center justify-between px-4 py-2.5 gap-3'
+              >
+                <div className='flex items-center gap-2.5 min-w-0'>
+                  <PosBadge pos={k.position} />
+                  <div className='min-w-0'>
+                    <p className='text-sm font-medium truncate'>
+                      {k.player_name ?? '—'}
+                    </p>
+                    {k.team && (
+                      <p className='text-[10px] text-muted-foreground'>
+                        {k.team}
+                      </p>
+                    )}
+                  </div>
+                  {k.taxi_eligible && (
+                    <span className='inline-flex items-center rounded border border-dashed px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground'>
+                      TAXI
+                    </span>
+                  )}
+                </div>
+                <p className={`text-sm font-semibold tabular-nums shrink-0 ${SUCCESS_TEXT}`}>
+                  {k.projected_season_points != null
+                    ? k.projected_season_points.toFixed(1)
+                    : '—'}
                 </p>
-              ) : (
-                <p className='text-[10px] text-muted-foreground'>depth</p>
-              )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Best-available / Rookies tab bar */}
+      <div>
+        <div className='flex gap-1 border-b mb-0'>
+          {(['best_available', 'rookies'] as const).map((t) => (
+            <button
+              key={t}
+              type='button'
+              onClick={() => setTab(t)}
+              className={`px-3 py-1.5 text-sm -mb-px border-b-2 ${
+                tab === t
+                  ? 'border-primary font-medium'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {t === 'best_available'
+                ? `Best Available (${best_available.length})`
+                : `Rookies (${rookies.length})`}
+            </button>
+          ))}
+        </div>
+
+        {/* Rookies tab note */}
+        {tab === 'rookies' && rookie_note && (
+          <p className='text-[10px] text-muted-foreground px-1 pt-2 pb-1 italic'>
+            {rookie_note}
+          </p>
+        )}
+
+        {/* Column headers */}
+        {activeList.length > 0 && (
+          <div className='flex items-center justify-between px-4 py-1.5 text-[10px] font-semibold uppercase text-muted-foreground'>
+            <span>Player</span>
+            <div className='flex gap-3'>
+              <span className='w-16 text-right'>ADP / Value</span>
+              <span className='w-12 text-right'>Proj Pts</span>
             </div>
           </div>
-        ))}
+        )}
+
+        {activeList.length === 0 ? (
+          <p className='rounded-md border p-4 text-sm text-muted-foreground mt-2'>
+            No players found for this view.
+          </p>
+        ) : (
+          <div className='rounded-lg border divide-y'>
+            {activeList.map((player, i) => (
+              <BestAvailableRow
+                key={player.sleeper_player_id || i}
+                player={player}
+                rank={i + 1}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

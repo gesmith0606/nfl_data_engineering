@@ -52,7 +52,7 @@ export function DraftConfigDialog({
         <div className='space-y-[var(--gap-stack)] py-[var(--space-2)]'>
           {/* Teams */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='teams-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
               Teams
             </label>
             <Select
@@ -63,7 +63,7 @@ export function DraftConfigDialog({
                 if (config.user_pick > n) update('user_pick', n)
               }}
             >
-              <SelectTrigger className='w-32'>
+              <SelectTrigger id='teams-select' className='w-32'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -78,14 +78,14 @@ export function DraftConfigDialog({
 
           {/* My Pick */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='mypick-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
               My Pick
             </label>
             <Select
               value={String(config.user_pick)}
               onValueChange={v => update('user_pick', Number(v))}
             >
-              <SelectTrigger className='w-32'>
+              <SelectTrigger id='mypick-select' className='w-32'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -100,14 +100,14 @@ export function DraftConfigDialog({
 
           {/* Scoring */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='scoring-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
               Scoring
             </label>
             <Select
               value={config.scoring}
               onValueChange={v => update('scoring', v as DraftConfig['scoring'])}
             >
-              <SelectTrigger className='w-32'>
+              <SelectTrigger id='scoring-select' className='w-32'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -120,14 +120,14 @@ export function DraftConfigDialog({
 
           {/* Roster Format */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='rosterformat-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
               Roster Format
             </label>
             <Select
               value={config.roster_format}
               onValueChange={v => update('roster_format', v as DraftConfig['roster_format'])}
             >
-              <SelectTrigger className='w-32'>
+              <SelectTrigger id='rosterformat-select' className='w-32'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -140,14 +140,14 @@ export function DraftConfigDialog({
 
           {/* Season */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='season-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
               Season
             </label>
             <Select
               value={String(config.season)}
               onValueChange={v => update('season', Number(v))}
             >
-              <SelectTrigger className='w-32'>
+              <SelectTrigger id='season-select' className='w-32'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

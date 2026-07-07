@@ -134,11 +134,11 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
       <Card>
         <CardContent className='flex flex-wrap items-end gap-4 pt-6'>
           <div className='space-y-2'>
-            <label className='text-muted-foreground text-xs font-medium'>
+            <label htmlFor='position-tabs' className='text-muted-foreground text-xs font-medium'>
               Position
             </label>
             <Tabs value={position} onValueChange={(v) => setPosition(v as Position)}>
-              <TabsList>
+              <TabsList id='position-tabs'>
                 {POSITIONS.map((p) => (
                   <TabsTrigger key={p} value={p}>
                     {p}
@@ -149,11 +149,11 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
           </div>
 
           <div className='space-y-2'>
-            <label className='text-muted-foreground text-xs font-medium'>
+            <label htmlFor='scoring-tabs' className='text-muted-foreground text-xs font-medium'>
               Scoring
             </label>
             <Tabs value={scoring} onValueChange={(v) => setScoring(v as ScoringFormat)}>
-              <TabsList>
+              <TabsList id='scoring-tabs'>
                 {SCORING_OPTIONS.map((opt) => (
                   <TabsTrigger key={opt.value} value={opt.value}>
                     {opt.label}

@@ -111,8 +111,12 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
     <div className='space-y-[var(--space-3)]'>
       {/* Search bar */}
       <div className='relative'>
+        <label htmlFor='player-search' className='sr-only'>
+          Search players
+        </label>
         <Icons.search className='text-muted-foreground absolute left-[var(--space-3)] top-1/2 h-[var(--space-4)] w-[var(--space-4)] -translate-y-1/2' />
         <input
+          id='player-search'
           type='text'
           placeholder='Search players...'
           value={search}
