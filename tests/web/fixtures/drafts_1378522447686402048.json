@@ -1,0 +1,44 @@
+[
+    {
+        "draft_id": "1378522447694794752",
+        "status": "pre_draft",
+        "type": "snake",
+        "league_id": "1378522447686402048",
+        "season": "2026",
+        "sport": "nfl",
+        "settings": {
+            "rounds": 3,
+            "teams": 10,
+            "pick_timer": 120,
+            "reversal_round": 0,
+            "alpha_sort": 0,
+            "cpu_autopick": 1,
+            "nomination_timer": 30,
+            "budget": 200,
+            "autostart": 0
+        },
+        "metadata": {
+            "scoring_type": "dynasty",
+            "name": "MANTIS TOBOGGAN DYNASTY FOOTBALL LEAGUE",
+            "description": ""
+        },
+        "draft_order": {
+            "997016529965223936": 5,
+            "734243310725640192": 1,
+            "646432281308942336": 3
+        },
+        "slot_to_roster_id": null,
+        "creators": null,
+        "created": 1750000000000,
+        "updated": 1750000000000,
+        "start_time": null,
+        "last_picked": 0,
+        "last_message_id": null,
+        "last_author_id": null,
+        "last_author_display_name": null,
+        "last_author_avatar": null,
+        "last_author_is_bot": false,
+        "last_message_attachment": null,
+        "last_message_time": 0
+    }
+]

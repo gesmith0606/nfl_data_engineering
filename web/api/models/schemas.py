@@ -1178,3 +1178,117 @@ class WaiversResponse(BaseModel):
     user_id: str
     roster_positions: List[str] = Field(default_factory=list)
     targets: List[WaiverTarget] = Field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# Draft-Prep models (League Sync pre-draft view)
+# ---------------------------------------------------------------------------
+
+
+class DraftInfo(BaseModel):
+    """Draft metadata fetched from GET /v1/league/{id}/drafts.
+
+    ``user_slot`` is the user's draft position (1-based) when ``draft_order``
+    is set on the draft object — ``None`` when the commissioner hasn't locked
+    picks yet (common before draft day).
+    """
+
+    draft_id: str
+    status: str = Field(
+        ..., description="pre_draft / drafting / complete / paused"
+    )
+    type: str = Field(..., description="snake / linear / auction")
+    rounds: int = Field(..., ge=1)
+    user_slot: Optional[int] = Field(
+        None,
+        description="User's draft slot (1-based), or None if draft_order not set",
+    )
+
+
+class KeeperCandidate(BaseModel):
+    """A rostered player ranked for keeper-decision analysis.
+
+    ``taxi_eligible`` is True when ``years_exp <= (taxi_years - 1)`` from
+    league settings. When ``taxi_years`` is absent or zero, no player is
+    taxi-eligible and the field is always ``False``.
+    """
+
+    sleeper_player_id: str
+    player_name: Optional[str] = None
+    position: Optional[str] = None
+    team: Optional[str] = None
+    projected_season_points: Optional[float] = None
+    taxi_eligible: bool = Field(
+        False,
+        description=(
+            "True when years_exp <= taxi_years-1 per league settings "
+            "(i.e. player can be placed on the taxi squad)"
+        ),
+    )
+
+
+class BestAvailablePlayer(BaseModel):
+    """An unrostered skill-position player ranked for draft-prep targeting.
+
+    ``projection_rank`` is 1-based rank by ``projected_season_points`` among
+    ALL unrostered skill-position players (regardless of ADP availability).
+    ``adp_rank`` is the player's consensus ADP rank from ``data/adp_latest.csv``
+    (joined on normalised name); ``None`` when the player has no ADP entry.
+    ``value`` is ``adp_rank - projection_rank`` — positive means the market
+    undervalues them relative to our model. ``None`` when ``adp_rank`` is absent.
+    """
+
+    sleeper_player_id: str
+    player_name: Optional[str] = None
+    position: Optional[str] = None
+    team: Optional[str] = None
+    projected_season_points: Optional[float] = None
+    adp_rank: Optional[int] = None
+    projection_rank: int = Field(..., ge=1)
+    value: Optional[int] = Field(
+        None,
+        description="adp_rank - projection_rank; positive = market undervalues vs our model",
+    )
+    years_exp: Optional[int] = Field(
+        None, description="Years of NFL experience from Sleeper registry (0 = rookie)"
+    )
+
+
+class LeagueDraftPrepResponse(BaseModel):
+    """Response for GET /api/league/{league_id}/draft-prep.
+
+    The four sections give a pre-draft league member everything they need:
+    keeper decisions, draft info, best available targets, and a rookie-specific
+    view (since our projections for rookies are conservative positional
+    fallbacks — ADP is a better signal for them).
+    """
+
+    league_id: str
+    user_id: str
+    draft_info: Optional[DraftInfo] = Field(
+        None,
+        description="Active/upcoming draft metadata; None if no draft found for league",
+    )
+    keeper_candidates: List[KeeperCandidate] = Field(
+        default_factory=list,
+        description=(
+            "User's current roster sorted by projected_season_points descending "
+            "(empty when pre-draft rosters are blank)"
+        ),
+    )
+    best_available: List[BestAvailablePlayer] = Field(
+        default_factory=list,
+        description="Top-30 unrostered players by league-scored projection + ADP annotation",
+    )
+    rookies: List[BestAvailablePlayer] = Field(
+        default_factory=list,
+        description=(
+            "Subset of best_available where years_exp==0, re-sorted by adp_rank ascending. "
+            "ADP is the right signal for rookies since our projections are positional fallbacks."
+        ),
+    )
+    rookie_note: str = Field(
+        "Rookie projections are conservative positional fallbacks — ADP reflects "
+        "market consensus on playing time and role, which is more reliable for first-year players.",
+        description="Explanation surfaced to the UI explaining why rookies are sorted by ADP",
+    )
