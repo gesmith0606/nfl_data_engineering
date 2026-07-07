@@ -121,6 +121,7 @@ app.include_router(news.router, prefix="/api")
 app.include_router(draft.router, prefix="/api")
 app.include_router(rankings.router, prefix="/api")
 app.include_router(sleeper_user.router, prefix="/api")
+app.include_router(sleeper_user.league_router, prefix="/api")
 app.include_router(teams.router, prefix="/api")
 app.include_router(teams_defense.router, prefix="/api")
 
