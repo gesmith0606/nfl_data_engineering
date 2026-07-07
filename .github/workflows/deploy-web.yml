@@ -195,7 +195,11 @@ jobs:
             exit 0
           fi
 
-          # Clone HF Space repo
+          # Clone HF Space repo (contains only Dockerfile + README.md).
+          # The Dockerfile has ARG CACHE_BUST=YYYY-MM-DD-NN at build time.
+          # Docker's layer cache will skip the git clone RUN step if the ARG
+          # value hasn't changed, so we MUST update the ARG here to force a
+          # cache invalidation and re-clone on the next Space rebuild.
           REPO_URL="https://user:${HF_TOKEN}@huggingface.co/spaces/gesmith0606/nfl-data-api"
           TMP_HF_REPO="/tmp/nfl-data-api"
 
@@ -206,19 +210,17 @@ jobs:
           git clone "$REPO_URL" "$TMP_HF_REPO" 2>&1 | grep -v "credential" || true
           cd "$TMP_HF_REPO"
 
-          # Bump CACHE_BUST in app.py or README (check which exists)
-          CACHE_VAL=$(($(date +%s) % 1000000))
+          # Bump CACHE_BUST ARG in Dockerfile (force Docker layer cache bust).
+          STAMP="$(date -u +%Y-%m-%d)-${GITHUB_RUN_NUMBER}"
 
-          if grep -q "CACHE_BUST" app.py 2>/dev/null; then
-            sed -i "s/CACHE_BUST = .*/CACHE_BUST = $CACHE_VAL/" app.py
-            echo "Bumped CACHE_BUST in app.py to $CACHE_VAL"
-          elif grep -q "CACHE_BUST" README.md 2>/dev/null; then
-            sed -i "s/CACHE_BUST:.*/CACHE_BUST: $CACHE_VAL/" README.md
-            echo "Bumped CACHE_BUST in README.md to $CACHE_VAL"
-          else
-            echo "::warning::CACHE_BUST not found in app.py or README.md — will add to app.py"
-            echo "CACHE_BUST = $CACHE_VAL" >> app.py
+          # Verify the pattern exists before sed (fail loudly if missing).
+          if ! grep -q "^ARG CACHE_BUST=" Dockerfile; then
+            echo "::warning::Dockerfile does not contain 'ARG CACHE_BUST=' pattern — skipping cache bust"
+            exit 0
           fi
+
+          sed -i "s|^ARG CACHE_BUST=.*|ARG CACHE_BUST=${STAMP}|" Dockerfile
+          echo "Bumped CACHE_BUST in Dockerfile to ${STAMP}"
 
           # Commit and push
           git config user.name "github-actions[bot]"
