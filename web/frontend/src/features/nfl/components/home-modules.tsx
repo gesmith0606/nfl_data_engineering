@@ -156,6 +156,13 @@ function inSeasonContent(): PhaseContent {
         description: 'Optimal lineup from your roster and this week’s projections',
         href: '/dashboard/lineups',
         icon: 'shield'
+      },
+      {
+        title: 'League Sync',
+        description:
+          'Your Sleeper roster, scored your league’s way — start/sit and waiver targets',
+        href: '/dashboard/leagues',
+        icon: 'teams'
       }
     ]
   };
