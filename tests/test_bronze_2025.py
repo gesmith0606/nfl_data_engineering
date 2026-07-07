@@ -73,11 +73,12 @@ class TestBronze2025Completeness:
         files = glob.glob(os.path.join(BRONZE_DIR, "teams", "*.parquet"))
         assert len(files) >= 1, "No teams parquet found"
 
-    def test_injuries_unavailable_for_2025(self):
-        """Document known gap: nflverse caps injuries at 2024."""
+    def test_injuries_valid_for_2025(self):
+        """Injuries follow dynamic bounds — the 2024 nflverse cap was disproven
+        2026-07-02 (see DATA_TYPE_SEASON_RANGES comment in src/config.py)."""
         from src.config import validate_season_for_type
-        assert validate_season_for_type("injuries", 2025) is False, \
-            "Injuries should NOT be valid for 2025 (nflverse caps at 2024)"
+        assert validate_season_for_type("injuries", 2025) is True, \
+            "Injuries should be valid for 2025 (dynamic bounds since 2026-07-02)"
 
     def test_all_7_available_types_present(self):
         """Meta-test: all 7 available core types have 2025 data."""
