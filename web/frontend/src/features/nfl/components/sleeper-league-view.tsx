@@ -476,7 +476,11 @@ export function SleeperLeagueView() {
             </>
           )}
           <form onSubmit={handleConnect} className='flex gap-2'>
+            <label htmlFor='sleeper-username' className='sr-only'>
+              Sleeper username
+            </label>
             <input
+              id='sleeper-username'
               type='text'
               placeholder='Sleeper username'
               value={username}
