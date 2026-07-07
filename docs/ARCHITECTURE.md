@@ -156,7 +156,7 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ • Rankings: VORP-based ranking with tier groupings          │
 │ • News: 4-tab dashboard (overview/feed/team/player)         │
 │ • External Rankings: Sleeper ADP, FantasyPros ECR, ESPN    │
-│ • Deploy: Vercel frontend + Railway backend (Parquet mode) │
+│ • Deploy: Vercel frontend + HF Spaces backend (Parquet mode) │
 │ • API Key auth middleware (optional, dev mode bypasses)     │
 └─────────────────────────────────────────────────────────────┘
         ↓
@@ -806,7 +806,7 @@ Daily Sentiment Pipeline (.github/workflows/daily-sentiment.yml):
     ├─ Run: daily_sentiment_pipeline.py (RSS feeds + Sleeper trending)
     │  └─ Falls back to rule-based extraction without ANTHROPIC_API_KEY
     ├─ Refresh rosters: refresh_rosters.py (Sleeper API → Gold updates)
-    ├─ Commit + push new data (auto-deploys via Railway)
+    ├─ Commit + push new data (auto-deploys via deploy-web GHA, refreshes HF Spaces backend)
     ├─ Upload artifacts for debugging (7-day retention)
     └─ On failure: Open GitHub issue with error details
 ```
@@ -1045,7 +1045,7 @@ Daily Cron (12:00 UTC)
     ├─ Gold: Weekly aggregation → data/gold/sentiment/
     │  └─ sentiment_multiplier per player (0.70 - 1.15)
     ├─ Roster refresh: Sleeper API → Gold projections update
-    └─ Commit + push (auto-deploys Railway backend)
+    └─ Commit + push (auto-deploys via deploy-web GHA, refreshes HF Spaces backend)
 ```
 
 **Key Modules:**
