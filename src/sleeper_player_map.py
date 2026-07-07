@@ -234,3 +234,54 @@ def mapping_coverage(
     if total == 0:
         return 1.0
     return matched_n / total
+
+
+def build_projection_lookup(
+    projections: pd.DataFrame,
+) -> Dict[Tuple[str, str], Dict[str, Any]]:
+    """Build a vectorized ``(normalized_name, position_upper)`` → row lookup.
+
+    Vectorizes :func:`normalize_name` across the full DataFrame via ``map()``
+    rather than iterating row-by-row.  The resulting dict is keyed by
+    ``(norm, pos)``; when multiple projection rows share the same key the
+    first row wins.  Each row dict includes ``_norm``, ``_pos``, and
+    ``_team`` helper columns so callers can apply team-based tiebreaks
+    without re-normalizing.
+
+    Designed as a pre-built counterpart to :func:`map_picks_to_projections`:
+    use it when the caller must scan a large registry (e.g. all Sleeper free
+    agents) against a single projections frame, rather than iterating picks
+    one-by-one.
+
+    Args:
+        projections: DataFrame produced by the projection pipeline.
+            Must contain at least ``player_name`` and ``position`` columns.
+
+    Returns:
+        ``Dict[(normalized_name, position_upper), row_dict]``.
+        Returns an empty dict when ``projections`` is ``None`` or empty.
+    """
+    if projections is None or projections.empty:
+        return {}
+    name_col = "player_name" if "player_name" in projections.columns else None
+    if name_col is None:
+        return {}
+
+    df = projections.copy()
+    df["_norm"] = df[name_col].map(normalize_name)
+    df["_pos"] = (
+        df.get("position", pd.Series([""] * len(df))).astype(str).str.upper()
+    )
+    df["_team"] = (
+        df.get("team", pd.Series([""] * len(df))).astype(str).str.upper()
+    )
+
+    # to_dict("records") runs in the pandas C extension — avoids slow
+    # Python-level iterrows while still giving us plain dicts per row.
+    lookup: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    for row in df.to_dict("records"):
+        norm: str = row.get("_norm", "")
+        pos: str = row.get("_pos", "")
+        if norm and pos and (norm, pos) not in lookup:
+            lookup[(norm, pos)] = row
+    return lookup

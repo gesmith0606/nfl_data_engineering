@@ -16,7 +16,7 @@ import math
 import os
 import time
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, NamedTuple, Optional, Tuple
 
 import pandas as pd
 from fastapi import APIRouter, HTTPException, Query, Response
@@ -28,6 +28,7 @@ from src.roster_optimizer import drop_candidates, optimal_lineup
 from src.sleeper_http import fetch_sleeper_json, get_league, get_league_rosters
 from src.sleeper_player_map import (
     build_player_index,
+    build_projection_lookup,
     load_sleeper_players,
     map_picks_to_projections,
     normalize_name,
@@ -583,6 +584,59 @@ def list_league_rosters(
 
 
 # ---------------------------------------------------------------------------
+# Shared league context helper (plan-3 endpoints)
+# ---------------------------------------------------------------------------
+
+
+class _LeagueContext(NamedTuple):
+    """Validated league context shared by all three league_router endpoints."""
+
+    league: Dict[str, Any]
+    use_season: int
+    scoring_settings: Dict[str, Any]
+    roster_positions: List[str]
+    roster_format: str
+
+
+def _build_league_context(league_id: str, season: Optional[int]) -> "_LeagueContext":
+    """Validate, fetch, and assemble shared league context.
+
+    Runs the three-step prologue every league endpoint shares: numeric-ID
+    guard, Sleeper league fetch (15-min TTL cache), and season/scoring/roster
+    extraction.  Raises 400/404 on bad inputs so callers are free of those
+    guard clauses.
+
+    Args:
+        league_id: Numeric Sleeper league ID string.
+        season: Requested NFL season year, or ``None`` to default to current.
+
+    Returns:
+        ``_LeagueContext`` with all fields populated.
+
+    Raises:
+        HTTPException 400: non-numeric ``league_id``.
+        HTTPException 404: league not found on Sleeper.
+    """
+    _validate_numeric_league_id(league_id)
+    league = _require_league(league_id)
+    use_season = season if season is not None else _current_year()
+    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
+    roster_positions: List[str] = league.get("roster_positions") or []
+    roster_format = (
+        "superflex"
+        if "SUPER_FLEX" in roster_positions or "SUPERFLEX" in roster_positions
+        else "standard"
+    )
+    return _LeagueContext(
+        league=league,
+        use_season=use_season,
+        scoring_settings=scoring_settings,
+        roster_positions=roster_positions,
+        roster_format=roster_format,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Plan-3 League Sync endpoints
 # ---------------------------------------------------------------------------
 
@@ -613,15 +667,10 @@ def league_overview(
         HTTPException 400: non-numeric league_id.
         HTTPException 404: league not found on Sleeper.
     """
-    _validate_numeric_league_id(league_id)
-    league = _require_league(league_id)
-
-    use_season = season if season is not None else _current_year()
-    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
-    roster_positions: List[str] = league.get("roster_positions") or []
-    scoring_label = _scoring_format_label(scoring_settings)
-    deltas = _scoring_delta_badges(scoring_settings)
-    unmodeled = unmodeled_offense_keys(scoring_settings)
+    ctx = _build_league_context(league_id, season)
+    scoring_label = _scoring_format_label(ctx.scoring_settings)
+    deltas = _scoring_delta_badges(ctx.scoring_settings)
+    unmodeled = unmodeled_offense_keys(ctx.scoring_settings)
 
     user_roster_rows: List[LeagueRosterPlayer] = []
     if user_id:
@@ -637,7 +686,9 @@ def league_overview(
             player_ids = []
 
         if player_ids:
-            rescored = _league_projections(league_id, use_season, scoring_settings)
+            rescored = _league_projections(
+                league_id, ctx.use_season, ctx.scoring_settings
+            )
             if rescored is not None and not rescored.empty:
                 player_index = _cached_player_index()
                 matched, _ = _map_roster_to_projections(
@@ -661,11 +712,11 @@ def league_overview(
 
     return LeagueOverviewResponse(
         league_id=league_id,
-        league_name=str(league.get("name") or ""),
-        season=str(league.get("season") or use_season),
-        status=league.get("status"),
-        total_rosters=league.get("total_rosters"),
-        roster_positions=roster_positions,
+        league_name=str(ctx.league.get("name") or ""),
+        season=str(ctx.league.get("season") or ctx.use_season),
+        status=ctx.league.get("status"),
+        total_rosters=ctx.league.get("total_rosters"),
+        roster_positions=ctx.roster_positions,
         scoring_format_label=scoring_label,
         scoring_deltas=deltas,
         unmodeled_keys=unmodeled,
@@ -703,14 +754,12 @@ def league_roster_report(
         HTTPException 404: league not found or user not in league.
         HTTPException 503: projections unavailable (no preseason parquet on disk).
     """
-    _validate_numeric_league_id(league_id)
-    league = _require_league(league_id)
-    use_season = season if season is not None else _current_year()
+    ctx = _build_league_context(league_id, season)
 
-    # --- league settings + re-scored projections (cached) --------------------
-    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
-    roster_positions: List[str] = league.get("roster_positions") or []
-    projections = _league_projections(league_id, use_season, scoring_settings)
+    # --- re-scored projections (cached) --------------------------------------
+    projections = _league_projections(
+        league_id, ctx.use_season, ctx.scoring_settings
+    )
     if projections is None or projections.empty:
         raise HTTPException(
             status_code=503,
@@ -719,12 +768,6 @@ def league_roster_report(
                 "Run `generate_projections.py --preseason` first."
             ),
         )
-
-    roster_format = (
-        "superflex"
-        if "SUPER_FLEX" in roster_positions or "SUPERFLEX" in roster_positions
-        else "standard"
-    )
 
     # --- user's roster -------------------------------------------------------
     cache_key = f"rosters:{league_id}"
@@ -746,16 +789,19 @@ def league_roster_report(
             league_id=league_id,
             user_id=user_id,
             roster_size=0,
-            roster_format=roster_format,
+            roster_format=ctx.roster_format,
             unmatched_player_ids=unmatched_ids,
         )
 
     # --- optimal lineup + drop candidates ------------------------------------
     lineup = optimal_lineup(
-        matched, roster_format, roster_positions=roster_positions or None
+        matched, ctx.roster_format, roster_positions=ctx.roster_positions or None
     )
     drops = drop_candidates(
-        matched, roster_format, top_n=5, roster_positions=roster_positions or None
+        matched,
+        ctx.roster_format,
+        top_n=5,
+        roster_positions=ctx.roster_positions or None,
     )
 
     starters: List[StarterSlot] = []
@@ -799,7 +845,7 @@ def league_roster_report(
         league_id=league_id,
         user_id=user_id,
         roster_size=len(matched),
-        roster_format=roster_format,
+        roster_format=ctx.roster_format,
         starters=starters,
         bench=bench_rows,
         drop_candidates=drop_rows,
@@ -835,13 +881,10 @@ def league_waivers(
         HTTPException 404: league not found or user not in league.
         HTTPException 503: projections unavailable.
     """
-    _validate_numeric_league_id(league_id)
-    league = _require_league(league_id)
-    use_season = season if season is not None else _current_year()
-
-    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
-    roster_positions: List[str] = league.get("roster_positions") or []
-    projections = _league_projections(league_id, use_season, scoring_settings)
+    ctx = _build_league_context(league_id, season)
+    projections = _league_projections(
+        league_id, ctx.use_season, ctx.scoring_settings
+    )
     if projections is None or projections.empty:
         raise HTTPException(
             status_code=503,
@@ -850,12 +893,6 @@ def league_waivers(
                 "Run `generate_projections.py --preseason` first."
             ),
         )
-
-    roster_format = (
-        "superflex"
-        if "SUPER_FLEX" in roster_positions or "SUPERFLEX" in roster_positions
-        else "standard"
-    )
 
     # --- all rostered players across entire league ---------------------------
     cache_key = f"rosters:{league_id}"
@@ -884,20 +921,14 @@ def league_waivers(
             detail=f"User {user_id} not found in league {league_id}.",
         )
 
-    # --- build Sleeper player_id → projections mapping -----------------------
+    # --- vectorized projection lookup (no iterrows) --------------------------
+    # build_projection_lookup vectorizes normalize_name via map() and stores
+    # _team on every row so we can apply team-aware tiebreaks below.
     player_index = _cached_player_index()
-
-    # Map all registry entries to projection rows to find free agents.
-    # Build a fast lookup: normalized_name + position → projection row.
-    proj_lookup: Dict[Tuple[str, str], Dict[str, Any]] = {}
-    for _, row in projections.iterrows():
-        name_key = normalize_name(str(row.get("player_name") or ""))
-        pos_key = str(row.get("position") or "").upper()
-        if name_key and pos_key:
-            proj_lookup[(name_key, pos_key)] = row.to_dict()
+    proj_lookup = build_projection_lookup(projections)
 
     # Identify free agents: skill-position players in Sleeper registry that
-    # are not rostered in the league and have a projection row.
+    # are not rostered in the league and have a matching projection row.
     free_agent_rows: List[Dict[str, Any]] = []
     for pid, meta in player_index.items():
         if str(pid) in all_rostered_ids:
@@ -908,10 +939,19 @@ def league_waivers(
         norm = meta.get("normalized_name") or normalize_name(
             str(meta.get("full_name") or "")
         )
-        row = proj_lookup.get((norm, pos))
-        if row is None:
+        if not norm:
             continue
-        row = dict(row)
+        base_row = proj_lookup.get((norm, pos))
+        if base_row is None:
+            continue
+        # Team-aware tiebreak: if both player and stored row have known teams
+        # and they differ, the lookup hit belongs to a same-name player on a
+        # different team — skip to avoid mis-attribution.
+        player_team = str(meta.get("team") or "").upper()
+        stored_team = base_row.get("_team", "")
+        if player_team and stored_team and player_team != stored_team:
+            continue
+        row = dict(base_row)
         row["sleeper_player_id"] = str(pid)
         free_agent_rows.append(row)
 
@@ -928,7 +968,9 @@ def league_waivers(
     )
     user_lineup = (
         optimal_lineup(
-            user_matched, roster_format, roster_positions=roster_positions or None
+            user_matched,
+            ctx.roster_format,
+            roster_positions=ctx.roster_positions or None,
         )
         if user_matched
         else {"starters": {}, "bench": []}
@@ -974,7 +1016,7 @@ def league_waivers(
     return WaiversResponse(
         league_id=league_id,
         user_id=user_id,
-        roster_positions=roster_positions,
+        roster_positions=ctx.roster_positions,
         targets=targets,
     )
 
