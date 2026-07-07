@@ -210,9 +210,13 @@ def _compute_position_nudge(
             logger.debug("Signal column '%s' not in graph_df — skipping", col)
             continue
 
-        # Build lookup: (player_id, season, week) -> signal value
-        gf_sub = graph_df[["player_id", "season", "week", col]].rename(
-            columns={col: "_sig"}
+        # Build lookup: (player_id, season, week) -> signal value.
+        # Dedupe the key — a duplicate row in graph features would fan out the
+        # left merge and break the index restore below with a length mismatch.
+        gf_sub = (
+            graph_df[["player_id", "season", "week", col]]
+            .rename(columns={col: "_sig"})
+            .drop_duplicates(subset=["player_id", "season", "week"], keep="last")
         )
         merged = pos_df.merge(gf_sub, on=["player_id", "season", "week"], how="left")
         merged.index = pos_df.index  # restore original index

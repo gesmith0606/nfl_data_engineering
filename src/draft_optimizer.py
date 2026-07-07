@@ -1003,7 +1003,9 @@ class MockDraftSimulator:
                 draft_grade    - letter grade 'A'-'D'
         """
         pts_col = self._pts_col
-        rounds = rounds if rounds else sum(self.board.roster_config.values())
+        rounds = (
+            rounds if rounds is not None else sum(self.board.roster_config.values())
+        )
         total_picks = self.n_teams * rounds
         picks_log: List[Dict] = []
 

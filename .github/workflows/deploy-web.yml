@@ -182,6 +182,7 @@ jobs:
     needs: quality-gate
     steps:
       - name: Refresh HF Spaces bridge
+        id: hf_refresh
         continue-on-error: true
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
@@ -246,6 +247,17 @@ jobs:
               echo "ANTHROPIC_API_KEY synced to HF Space runtime"
             fi
           fi
+
+      - name: Surface HF refresh failure
+        if: steps.hf_refresh.outcome == 'failure'
+        run: |
+          # continue-on-error above keeps a broken refresh from blocking the
+          # deploy, but the failure must be visible — otherwise the bridge
+          # silently serves stale data forever (and the ANTHROPIC_API_KEY
+          # sync silently stops too).
+          echo "::warning::HF Space refresh FAILED — bridge may serve stale data until refreshed manually (see step 'Refresh HF Spaces bridge' logs)"
+          echo "## ⚠️ HF Space refresh failed" >> "$GITHUB_STEP_SUMMARY"
+          echo "The CACHE_BUST bump / secret sync did not complete. The bridge keeps serving its previous build. Manual fallback: bump CACHE_BUST in https://huggingface.co/spaces/gesmith0606/nfl-data-api" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Probe bridge /api/health
         run: |

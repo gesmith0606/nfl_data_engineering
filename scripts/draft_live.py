@@ -915,7 +915,12 @@ def main(argv: Optional[List[str]] = None) -> int:
                 )
 
     engine = LiveDraftEngine(
-        adapter, projections, adp_df, my_user_id=my_user_id, my_slot=args.my_slot
+        adapter,
+        projections,
+        adp_df,
+        my_user_id=my_user_id,
+        my_slot=args.my_slot,
+        roster_config=roster_config_from_positions(roster_positions),
     )
 
     _keepers_loaded = {"done": False}

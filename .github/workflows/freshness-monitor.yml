@@ -60,18 +60,19 @@ jobs:
             exit 0
           fi
 
-          # Extract overall_stale
+          # Extract overall_stale — the issue step keys off the `stale` output
           OVERALL_STALE=$(jq -r '.overall_stale' /tmp/freshness.json)
-          echo "overall_stale=$OVERALL_STALE" >> "$GITHUB_OUTPUT"
 
           # Log freshness details
           echo "Freshness report:"
           jq '.' /tmp/freshness.json | sed 's/^/  /'
 
           if [ "$OVERALL_STALE" = "true" ]; then
+            echo "stale=true" >> "$GITHUB_OUTPUT"
             echo "::error::Data freshness check failed — at least one blocking dataset is stale"
             exit 1
           else
+            echo "stale=false" >> "$GITHUB_OUTPUT"
             echo "::notice::All datasets within freshness thresholds"
             exit 0
           fi
@@ -119,7 +120,7 @@ jobs:
                 '- Gold data committed but not deployed (check latest commit)',
                 '',
                 '**Diagnose:**',
-                '1. Check the [freshness monitor run](${runUrl}) for detailed freshness report',
+                `1. Check the [freshness monitor run](${runUrl}) for detailed freshness report`,
                 '2. Review recent git commits for Gold data updates',
                 '3. Check weekly-pipeline.yml and deploy-web.yml recent runs',
                 '4. If deploy-web shows "live-gate-blocking" failed, auto-rollback may have reverted fresh data',

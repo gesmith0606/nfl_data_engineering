@@ -20,6 +20,7 @@ import {
   fetchLeagueWaivers,
   sleeperLogin,
 } from '@/lib/nfl/api';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
 import type {
   ConnectedLeague,
@@ -68,19 +69,10 @@ function removeConnected(leagueId: string): ConnectedLeague[] {
 // Position badge colours
 // ---------------------------------------------------------------------------
 
-const POS_COLORS: Record<string, string> = {
-  QB: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300',
-  RB: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
-  WR: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300',
-  TE: 'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300',
-  K: 'bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300',
-};
-
 function PosBadge({ pos }: { pos: string | null }) {
-  const cls = POS_COLORS[pos ?? ''] ?? 'bg-muted text-muted-foreground';
   return (
     <span
-      className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold ${cls}`}
+      className={`inline-flex items-center border px-1.5 py-0.5 text-[10px] font-bold ${getPositionBadgeClass(pos ?? '')}`}
     >
       {pos ?? '?'}
     </span>
@@ -105,7 +97,7 @@ type ConnectStep =
   | { kind: 'idle' }
   | { kind: 'entering_username' }
   | { kind: 'pick_league'; user: SleeperUser; leagues: SleeperLeague[] }
-  | { kind: 'pick_roster'; user: SleeperUser; league: SleeperLeague };
+  | { kind: 'pick_roster'; user: SleeperUser; league: SleeperLeague; leagues: SleeperLeague[] };
 
 // ---------------------------------------------------------------------------
 // Root component
@@ -151,14 +143,14 @@ export function SleeperLeagueView() {
   );
 
   const handlePickLeague = useCallback(
-    (user: SleeperUser, league: SleeperLeague) => {
+    (user: SleeperUser, league: SleeperLeague, leagues: SleeperLeague[]) => {
       if (connected.length >= MAX_LEAGUES) {
         setError(
           `You can connect up to ${MAX_LEAGUES} leagues. Remove one before adding another.`,
         );
         return;
       }
-      setStep({ kind: 'pick_roster', user, league });
+      setStep({ kind: 'pick_roster', user, league, leagues });
     },
     [connected.length],
   );
@@ -231,7 +223,7 @@ export function SleeperLeagueView() {
                 key={league.league_id}
                 type='button'
                 disabled={alreadyConnected}
-                onClick={() => handlePickLeague(step.user, league)}
+                onClick={() => handlePickLeague(step.user, league, step.leagues)}
                 className='w-full rounded-lg border p-4 text-left hover:bg-muted/50 disabled:opacity-50 disabled:cursor-not-allowed'
               >
                 <div className='flex items-center justify-between'>
@@ -293,7 +285,7 @@ export function SleeperLeagueView() {
               setStep({
                 kind: 'pick_league',
                 user: step.user,
-                leagues: [],
+                leagues: step.leagues,
               })
             }
             className='rounded-md border px-3 py-2 text-sm hover:bg-muted'
@@ -461,7 +453,12 @@ function LeagueHome({
     };
   }, [league.league_id, league.user_id, league.season]);
 
-  const isPreDraft = !report || report.roster_size === 0;
+  const isEmptyRoster = !report || report.roster_size === 0;
+  const isMatchFailure =
+    report !== null &&
+    report.roster_size === 0 &&
+    report.unmatched_player_ids.length > 0;
+  const isPreDraft = isEmptyRoster && !isMatchFailure;
 
   return (
     <div className='space-y-4'>
@@ -527,6 +524,21 @@ function LeagueHome({
         </div>
       )}
 
+      {/* Match-failure warning — roster exists but projections couldn't be matched */}
+      {!loading && !error && isMatchFailure && report && (
+        <div className='rounded-lg border p-6 text-center space-y-2'>
+          <p className={`font-medium text-sm ${WARN_TEXT}`}>
+            Roster Found — Projections Pending
+          </p>
+          <p className='text-sm text-muted-foreground'>
+            We found your roster but couldn&apos;t match{' '}
+            {report.unmatched_player_ids.length}{' '}
+            {report.unmatched_player_ids.length === 1 ? 'player' : 'players'} to
+            projections — data may be refreshing, try again shortly.
+          </p>
+        </div>
+      )}
+
       {/* Pre-draft note */}
       {!loading && !error && isPreDraft && (
         <div className='rounded-lg border border-dashed p-6 text-center space-y-2'>
@@ -540,7 +552,7 @@ function LeagueHome({
       )}
 
       {/* Roster report tab */}
-      {!loading && !error && !isPreDraft && tab === 'report' && report && (
+      {!loading && !error && !isEmptyRoster && tab === 'report' && report && (
         <RosterReportView report={report} />
       )}
 

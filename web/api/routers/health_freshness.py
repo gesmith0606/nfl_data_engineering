@@ -38,7 +38,8 @@ def find_newest_file(pattern_dir: Path) -> Optional[Path]:
         pattern_dir: Directory to search recursively.
 
     Returns:
-        Path of the newest file by modification time, or None if no files found.
+        Path of the newest file by generation time (filename timestamp when
+        present, else mtime), or None if no files found.
     """
     if not pattern_dir.exists():
         return None
@@ -47,7 +48,7 @@ def find_newest_file(pattern_dir: Path) -> Optional[Path]:
     if not files:
         return None
 
-    return max(files, key=lambda f: f.stat().st_mtime)
+    return max(files, key=lambda f: artifact_time(f).timestamp())
 
 
 def file_mtime(path: Path) -> datetime:
@@ -55,10 +56,42 @@ def file_mtime(path: Path) -> datetime:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
 
 
+def artifact_time(path: Path) -> datetime:
+    """Return a file's generation time as a UTC datetime.
+
+    Prefers the ``_YYYYMMDD_HHMMSS`` timestamp embedded in pipeline
+    filenames — git checkouts reset mtimes to clone time, so mtime alone
+    reports everything fresh right after any deploy. Falls back to mtime
+    for files without an embedded timestamp.
+    """
+    embedded = extract_timestamp_from_filename(path.name)
+    return embedded if embedded is not None else file_mtime(path)
+
+
+def _rankings_time(path: Path) -> datetime:
+    """Return a rankings JSON's generation time as a UTC datetime.
+
+    External rankings snapshots have stable filenames (no embedded
+    timestamp) but carry a ``fetched_at`` ISO field; prefer it over mtime
+    for the same git-checkout reason as :func:`artifact_time`.
+    """
+    import json
+
+    try:
+        with open(path) as fh:
+            fetched_at = json.load(fh).get("fetched_at")
+        if fetched_at:
+            dt = datetime.fromisoformat(str(fetched_at).replace("Z", "+00:00"))
+            return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+    except (OSError, ValueError, AttributeError):
+        pass
+    return file_mtime(path)
+
+
 def extract_timestamp_from_filename(filename: str) -> Optional[datetime]:
     """Extract YYYYMMDD_HHMMSS timestamp from filename.
 
-    Pattern: *_YYYYMMDD_HHMMSS.parquet
+    Pattern: *_YYYYMMDD_HHMMSS.<ext>
 
     Args:
         filename: The filename to parse.
@@ -68,7 +101,7 @@ def extract_timestamp_from_filename(filename: str) -> Optional[datetime]:
     """
     import re
 
-    match = re.search(r"_(\d{8})_(\d{6})\.parquet$", filename)
+    match = re.search(r"_(\d{8})_(\d{6})\.[A-Za-z0-9]+$", filename)
     if not match:
         return None
 
@@ -143,7 +176,7 @@ def get_freshness() -> FreshnessResponse:
 
     # Scan projections: data/gold/projections/season=*/week=*/*.parquet
     proj_newest = find_newest_file(data_root / "gold" / "projections")
-    proj_age = age_in_hours(file_mtime(proj_newest)) if proj_newest else None
+    proj_age = age_in_hours(artifact_time(proj_newest)) if proj_newest else None
     proj_stale = (
         proj_age is None
         or proj_age > proj_threshold
@@ -153,7 +186,7 @@ def get_freshness() -> FreshnessResponse:
 
     # Scan predictions: data/gold/predictions/season=*/week=*/*.parquet
     pred_newest = find_newest_file(data_root / "gold" / "predictions")
-    pred_age = age_in_hours(file_mtime(pred_newest)) if pred_newest else None
+    pred_age = age_in_hours(artifact_time(pred_newest)) if pred_newest else None
     pred_stale = (
         pred_age is None or pred_age > pred_threshold
         if pred_threshold
@@ -172,14 +205,14 @@ def get_freshness() -> FreshnessResponse:
         if ranking_files:
             rankings_newest = max(ranking_files, key=lambda f: f.stat().st_mtime)
 
-    rankings_age = age_in_hours(file_mtime(rankings_newest)) if rankings_newest else None
+    rankings_age = age_in_hours(_rankings_time(rankings_newest)) if rankings_newest else None
     rankings_stale = rankings_age is None or rankings_age > rankings_threshold
 
     # Scan odds: data/bronze/odds_api/snapshots/odds_*.parquet
     odds_newest = find_newest_file(
         data_root / "bronze" / "odds_api" / "snapshots"
     )
-    odds_age = age_in_hours(file_mtime(odds_newest)) if odds_newest else None
+    odds_age = age_in_hours(artifact_time(odds_newest)) if odds_newest else None
     odds_stale = False
     if odds_threshold is not None:
         odds_stale = odds_age is None or odds_age > odds_threshold
@@ -187,7 +220,7 @@ def get_freshness() -> FreshnessResponse:
     # Scan sentiment: data/gold/sentiment/season=*/week=*/*.parquet
     sentiment_newest = find_newest_file(data_root / "gold" / "sentiment")
     sentiment_age = (
-        age_in_hours(file_mtime(sentiment_newest)) if sentiment_newest else None
+        age_in_hours(artifact_time(sentiment_newest)) if sentiment_newest else None
     )
     sentiment_stale = False
     if sentiment_threshold is not None:

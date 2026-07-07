@@ -127,6 +127,69 @@ def _load_projections(season: int) -> Optional[pd.DataFrame]:
     return None
 
 
+def _cached_player_index() -> Dict[str, Dict[str, str]]:
+    """Return the Sleeper player index, TTL-cached in-process.
+
+    The registry is a ~5 MB JSON parse + ~10k-record index build — far too
+    expensive to repeat per request. An empty registry (Sleeper outage with a
+    cold disk cache) raises 503 rather than silently matching zero players.
+
+    Raises:
+        HTTPException 503: Sleeper player registry unavailable.
+    """
+    cached = _cache_get("player_index")
+    if cached is not None:
+        return cached
+    index = build_player_index(load_sleeper_players())
+    if not index:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "Sleeper player registry unavailable (network fetch failed and "
+                "no disk cache) — retry shortly."
+            ),
+        )
+    _cache_set("player_index", index)
+    return index
+
+
+def _cached_projections(season: int) -> Optional[pd.DataFrame]:
+    """Return the season projections DataFrame, TTL-cached in-process."""
+    key = f"projections:{season}"
+    cached = _cache_get(key)
+    if cached is not None:
+        return cached
+    df = _load_projections(season)
+    if df is not None:
+        _cache_set(key, df)
+    return df
+
+
+def _league_projections(
+    league_id: str, season: int, scoring_settings: Dict[str, Any]
+) -> Optional[pd.DataFrame]:
+    """Return projections re-scored for a league, TTL-cached per (league, season).
+
+    Drops the ``vorp`` column when custom scoring is applied: VORP is computed
+    at generation time under the preset scoring, so it is stale relative to the
+    re-scored points — ``roster_optimizer`` then correctly falls back to
+    league-accurate ``projected_season_points`` for drop ranking.
+    """
+    key = f"league_proj:{league_id}:{season}"
+    cached = _cache_get(key)
+    if cached is not None:
+        return cached
+    projections = _cached_projections(season)
+    if projections is None or projections.empty:
+        return None
+    if scoring_settings:
+        projections = score_with_settings(projections, scoring_settings)
+        if "vorp" in projections.columns:
+            projections = projections.drop(columns=["vorp"])
+    _cache_set(key, projections)
+    return projections
+
+
 # ---------------------------------------------------------------------------
 # Player-id → projection row mapping
 # ---------------------------------------------------------------------------
@@ -475,7 +538,9 @@ def list_league_rosters(
 
     registry: Dict[str, Dict[str, Any]] = {}
     if raw:
-        registry_payload = fetch_sleeper_json(SENTIMENT_CONFIG["sleeper_players_url"])
+        # load_sleeper_players keeps a 7-day disk cache of the ~5 MB registry —
+        # never live-fetch it per request.
+        registry_payload = load_sleeper_players()
         if isinstance(registry_payload, dict):
             registry = registry_payload
 
@@ -572,10 +637,9 @@ def league_overview(
             player_ids = []
 
         if player_ids:
-            projections = _load_projections(use_season)
-            if projections is not None and not projections.empty:
-                rescored = score_with_settings(projections, scoring_settings)
-                player_index = build_player_index(load_sleeper_players())
+            rescored = _league_projections(league_id, use_season, scoring_settings)
+            if rescored is not None and not rescored.empty:
+                player_index = _cached_player_index()
                 matched, _ = _map_roster_to_projections(
                     player_ids, rescored, player_index
                 )
@@ -643,8 +707,10 @@ def league_roster_report(
     league = _require_league(league_id)
     use_season = season if season is not None else _current_year()
 
-    # --- projections ---------------------------------------------------------
-    projections = _load_projections(use_season)
+    # --- league settings + re-scored projections (cached) --------------------
+    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
+    roster_positions: List[str] = league.get("roster_positions") or []
+    projections = _league_projections(league_id, use_season, scoring_settings)
     if projections is None or projections.empty:
         raise HTTPException(
             status_code=503,
@@ -653,12 +719,6 @@ def league_roster_report(
                 "Run `generate_projections.py --preseason` first."
             ),
         )
-
-    # --- league settings + re-score -----------------------------------------
-    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
-    roster_positions: List[str] = league.get("roster_positions") or []
-    if scoring_settings:
-        projections = score_with_settings(projections, scoring_settings)
 
     roster_format = (
         "superflex"
@@ -676,7 +736,7 @@ def league_roster_report(
     _, player_ids = _require_user_roster(rosters, user_id, league_id)
 
     # --- map player_ids → projection rows ------------------------------------
-    player_index = build_player_index(load_sleeper_players())
+    player_index = _cached_player_index()
     matched, unmatched_ids = _map_roster_to_projections(
         player_ids, projections, player_index
     )
@@ -779,7 +839,9 @@ def league_waivers(
     league = _require_league(league_id)
     use_season = season if season is not None else _current_year()
 
-    projections = _load_projections(use_season)
+    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
+    roster_positions: List[str] = league.get("roster_positions") or []
+    projections = _league_projections(league_id, use_season, scoring_settings)
     if projections is None or projections.empty:
         raise HTTPException(
             status_code=503,
@@ -788,11 +850,6 @@ def league_waivers(
                 "Run `generate_projections.py --preseason` first."
             ),
         )
-
-    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
-    roster_positions: List[str] = league.get("roster_positions") or []
-    if scoring_settings:
-        projections = score_with_settings(projections, scoring_settings)
 
     roster_format = (
         "superflex"
@@ -809,22 +866,26 @@ def league_waivers(
 
     all_rostered_ids: set = set()
     user_player_ids: List[str] = []
+    user_found = False
     for r in rosters:
         if not isinstance(r, dict):
             continue
         pids = [str(p) for p in (r.get("players") or []) if p]
         all_rostered_ids.update(pids)
         if str(r.get("owner_id") or "") == user_id:
+            user_found = True
             user_player_ids = pids
 
-    if not user_player_ids:
+    # An empty roster (pre-draft league) is legitimate — only 404 when the
+    # user genuinely isn't a member.
+    if not user_found:
         raise HTTPException(
             status_code=404,
             detail=f"User {user_id} not found in league {league_id}.",
         )
 
     # --- build Sleeper player_id → projections mapping -----------------------
-    player_index = build_player_index(load_sleeper_players())
+    player_index = _cached_player_index()
 
     # Map all registry entries to projection rows to find free agents.
     # Build a fast lookup: normalized_name + position → projection row.
@@ -865,8 +926,12 @@ def league_waivers(
     user_matched, _ = _map_roster_to_projections(
         user_player_ids, projections, player_index
     )
-    user_lineup = optimal_lineup(
-        user_matched, roster_format, roster_positions=roster_positions or None
+    user_lineup = (
+        optimal_lineup(
+            user_matched, roster_format, roster_positions=roster_positions or None
+        )
+        if user_matched
+        else {"starters": {}, "bench": []}
     )
 
     # Weakest starter points per position.
