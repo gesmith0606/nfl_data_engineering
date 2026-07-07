@@ -82,12 +82,13 @@ def test_freshness_no_data(tmp_data_root):
     resp = get_freshness()
 
     assert isinstance(resp, FreshnessResponse)
-    assert resp.overall_stale is True  # No projections, predictions, or rankings
+    assert resp.overall_stale is True  # No projections or rankings
     assert resp.projections.stale is True
     assert resp.projections.age_hours is None
-    assert resp.predictions.stale is True
     assert resp.rankings.stale is True
-    # Odds and sentiment non-blocking -> False when no data in off-season
+    # Predictions, odds, and sentiment are in-season datasets — non-blocking
+    # (stale=False) when missing off-season.
+    assert resp.predictions.stale is False
     assert resp.odds.stale is False
     assert resp.sentiment.stale is False
 

@@ -167,9 +167,11 @@ def get_freshness() -> FreshnessResponse:
     in_season_threshold = 26  # ~1 day + buffer
     in_season = is_in_season()
 
-    # Determine thresholds for each dataset
+    # Determine thresholds for each dataset. Game predictions only exist
+    # in-season (nothing to predict all offseason) — blocking on them
+    # off-season would keep a false alarm open from February to September.
     proj_threshold = in_season_threshold if in_season else preseason_threshold
-    pred_threshold = in_season_threshold if in_season else preseason_threshold
+    pred_threshold = in_season_threshold if in_season else None
     rankings_threshold = preseason_threshold  # Always weekly
     odds_threshold = in_season_threshold if in_season else None  # None = non-blocking
     sentiment_threshold = in_season_threshold if in_season else None  # None = non-blocking
