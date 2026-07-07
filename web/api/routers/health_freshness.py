@@ -31,14 +31,14 @@ def get_data_root() -> Path:
     return Path("data")
 
 
-def find_newest_file(pattern_dir: Path) -> Optional[datetime]:
+def find_newest_file(pattern_dir: Path) -> Optional[Path]:
     """Find the newest file in a directory pattern (e.g. data/gold/projections/**/*.parquet).
 
     Args:
         pattern_dir: Directory to search recursively.
 
     Returns:
-        Modification time of newest file, or None if no files found.
+        Path of the newest file by modification time, or None if no files found.
     """
     if not pattern_dir.exists():
         return None
@@ -47,8 +47,12 @@ def find_newest_file(pattern_dir: Path) -> Optional[datetime]:
     if not files:
         return None
 
-    newest = max(files, key=lambda f: f.stat().st_mtime)
-    return datetime.fromtimestamp(newest.stat().st_mtime, tz=timezone.utc)
+    return max(files, key=lambda f: f.stat().st_mtime)
+
+
+def file_mtime(path: Path) -> datetime:
+    """Return a file's modification time as a UTC datetime."""
+    return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
 
 
 def extract_timestamp_from_filename(filename: str) -> Optional[datetime]:
@@ -115,8 +119,9 @@ def is_in_season() -> bool:
     NFL season runs September 1 - February 15 (roughly).
     """
     now = datetime.now()
-    month = now.month
-    return month >= 9 or month <= 2
+    if now.month >= 9 or now.month == 1:
+        return True
+    return now.month == 2 and now.day <= 15
 
 
 def get_freshness() -> FreshnessResponse:
@@ -138,7 +143,7 @@ def get_freshness() -> FreshnessResponse:
 
     # Scan projections: data/gold/projections/season=*/week=*/*.parquet
     proj_newest = find_newest_file(data_root / "gold" / "projections")
-    proj_age = age_in_hours(proj_newest) if proj_newest else None
+    proj_age = age_in_hours(file_mtime(proj_newest)) if proj_newest else None
     proj_stale = (
         proj_age is None
         or proj_age > proj_threshold
@@ -148,7 +153,7 @@ def get_freshness() -> FreshnessResponse:
 
     # Scan predictions: data/gold/predictions/season=*/week=*/*.parquet
     pred_newest = find_newest_file(data_root / "gold" / "predictions")
-    pred_age = age_in_hours(pred_newest) if pred_newest else None
+    pred_age = age_in_hours(file_mtime(pred_newest)) if pred_newest else None
     pred_stale = (
         pred_age is None or pred_age > pred_threshold
         if pred_threshold
@@ -165,26 +170,25 @@ def get_freshness() -> FreshnessResponse:
             if f.is_file()
         ]
         if ranking_files:
-            newest_path = max(ranking_files, key=lambda f: f.stat().st_mtime)
-            rankings_newest = datetime.fromtimestamp(
-                newest_path.stat().st_mtime, tz=timezone.utc
-            )
+            rankings_newest = max(ranking_files, key=lambda f: f.stat().st_mtime)
 
-    rankings_age = age_in_hours(rankings_newest) if rankings_newest else None
+    rankings_age = age_in_hours(file_mtime(rankings_newest)) if rankings_newest else None
     rankings_stale = rankings_age is None or rankings_age > rankings_threshold
 
     # Scan odds: data/bronze/odds_api/snapshots/odds_*.parquet
     odds_newest = find_newest_file(
         data_root / "bronze" / "odds_api" / "snapshots"
     )
-    odds_age = age_in_hours(odds_newest) if odds_newest else None
+    odds_age = age_in_hours(file_mtime(odds_newest)) if odds_newest else None
     odds_stale = False
     if odds_threshold is not None:
         odds_stale = odds_age is None or odds_age > odds_threshold
 
     # Scan sentiment: data/gold/sentiment/season=*/week=*/*.parquet
     sentiment_newest = find_newest_file(data_root / "gold" / "sentiment")
-    sentiment_age = age_in_hours(sentiment_newest) if sentiment_newest else None
+    sentiment_age = (
+        age_in_hours(file_mtime(sentiment_newest)) if sentiment_newest else None
+    )
     sentiment_stale = False
     if sentiment_threshold is not None:
         sentiment_stale = sentiment_age is None or sentiment_age > sentiment_threshold

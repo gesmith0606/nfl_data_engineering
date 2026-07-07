@@ -239,13 +239,13 @@ def test_freshness_sentiment_non_blocking_in_season(tmp_data_root, monkeypatch):
     )
     pred_file.write_bytes(b"PAR1")
 
-    rank_file = tmp_data_root / "external" / "rankings.json"
+    rank_file = tmp_data_root / "external" / "sleeper_rankings.json"
     rank_file.write_text("{}")
 
     resp = get_freshness()
 
-    # Sentiment missing but non-blocking
-    assert resp.sentiment.stale is False  # Not blocking
+    # Sentiment missing in-season IS stale, but it never blocks overall
+    assert resp.sentiment.stale is True
     # Overall should be False (all blocking datasets present and fresh)
     assert resp.overall_stale is False
 
