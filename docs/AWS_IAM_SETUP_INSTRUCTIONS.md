@@ -26,7 +26,7 @@ If you prefer more granular control:
 1. Click the **"Add permissions"** button
 2. Select **"Create inline policy"**
 3. Click the **"JSON"** tab
-4. Copy and paste the contents from `aws-iam-policy.json` in this project
+4. Copy and paste the contents from `docs/aws/aws-iam-policy.json` in this project
 5. Click **"Review policy"**
 6. Name it: **"NFL-Data-S3-Access"**
 7. Click **"Create policy"**
@@ -35,7 +35,7 @@ If you prefer more granular control:
 After adding permissions, run this command to test:
 
 ```bash
-python test_aws_connectivity.py
+python scripts/experiments/test_aws_connectivity.py
 ```
 
 You should see:
