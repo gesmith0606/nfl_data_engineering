@@ -1,0 +1,41 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListAllBuckets",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListAllMyBuckets",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "NFLDataBucketAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": [
+                "arn:aws:s3:::nfl-raw",
+                "arn:aws:s3:::nfl-refined", 
+                "arn:aws:s3:::nfl-trusted"
+            ]
+        },
+        {
+            "Sid": "NFLDataObjectAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::nfl-raw/*",
+                "arn:aws:s3:::nfl-refined/*",
+                "arn:aws:s3:::nfl-trusted/*"
+            ]
+        }
+    ]
+}
