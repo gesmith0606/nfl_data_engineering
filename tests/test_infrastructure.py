@@ -71,15 +71,18 @@ class TestDynamicSeasonValidation:
                 f"{dtype} should be valid at min year {min_s}"
             )
 
-    def test_injury_season_capped_at_2024(self):
-        """Injuries data was discontinued after 2024 by nflverse."""
+    def test_injury_season_dynamic_bounds(self):
+        """Injuries follow dynamic bounds since 2026-07-02 (2024 cap disproven —
+        nflverse still publishes; see DATA_TYPE_SEASON_RANGES comment)."""
         assert validate_season_for_type("injuries", 2024) is True
-        assert validate_season_for_type("injuries", 2025) is False
+        assert validate_season_for_type("injuries", 2025) is True
+        assert validate_season_for_type("injuries", get_max_season()) is True
         assert validate_season_for_type("injuries", 2009) is True  # min bound
+        assert validate_season_for_type("injuries", 2008) is False  # below min
 
     def test_validate_edge_max_year(self):
         """Max year (get_max_season()) should be valid for types with dynamic bounds."""
-        static_cap_types = {"injuries", "odds"}
+        static_cap_types = {"odds"}
         max_s = get_max_season()
         for dtype in DATA_TYPE_SEASON_RANGES:
             if dtype in static_cap_types:
