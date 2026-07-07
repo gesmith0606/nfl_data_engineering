@@ -80,6 +80,7 @@ interface HubTile {
   description: string;
   href: string;
   icon: keyof typeof Icons;
+  badge?: string;
 }
 
 interface PhaseContent {
@@ -110,6 +111,13 @@ function draftPrepContent(): PhaseContent {
         description: 'Live VORP board, tiers and mock-draft simulator',
         href: '/dashboard/draft',
         icon: 'football'
+      },
+      {
+        title: 'League Sync',
+        description: 'Connect your Sleeper league for keeper decisions, custom scoring & rookie board',
+        href: '/dashboard/leagues',
+        icon: 'teams',
+        badge: 'NEW'
       }
     ]
   };
@@ -148,6 +156,13 @@ function inSeasonContent(): PhaseContent {
         description: 'Optimal lineup from your roster and this week’s projections',
         href: '/dashboard/lineups',
         icon: 'shield'
+      },
+      {
+        title: 'League Sync',
+        description:
+          'Your Sleeper roster, scored your league’s way — start/sit and waiver targets',
+        href: '/dashboard/leagues',
+        icon: 'teams'
       }
     ]
   };
@@ -193,7 +208,7 @@ export function PhaseModule() {
     <section className='space-y-[var(--space-3)]'>
       <SectionHeading overline={content.eyebrow} title={content.heading} />
 
-      <div className='grid grid-cols-1 gap-[var(--gap-stack)] sm:grid-cols-3'>
+      <div className='grid grid-cols-1 gap-[var(--gap-stack)] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {content.tiles.map((tile) => {
           const Icon = Icons[tile.icon];
           return (
@@ -203,6 +218,11 @@ export function PhaseModule() {
               className='group bg-card hover:border-primary/50 focus-visible:ring-ring/50 relative flex items-start gap-[var(--space-3)] overflow-hidden rounded-[var(--radius-lg)] border py-[var(--space-4)] pr-[var(--space-3)] pl-[var(--space-4)] shadow-sm transition-colors duration-[var(--motion-base)] focus-visible:ring-[3px] focus-visible:outline-none'
             >
               <div className='wc-rail absolute inset-y-[var(--space-3)] left-0 w-[3px] rounded-full' />
+              {tile.badge && (
+                <div className='absolute top-[var(--space-3)] right-[var(--space-3)] inline-flex items-center rounded-full bg-amber-500/20 px-[var(--space-2)] py-[var(--space-1)] text-[length:var(--fs-xs)] font-semibold leading-none text-amber-600 dark:text-amber-400'>
+                  {tile.badge}
+                </div>
+              )}
               <div className='bg-primary/10 text-primary flex size-[var(--space-8)] shrink-0 items-center justify-center rounded-[var(--radius-md)]'>
                 <Icon className='size-[var(--space-4)]' />
               </div>

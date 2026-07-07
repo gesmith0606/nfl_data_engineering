@@ -152,12 +152,15 @@ Then create an ECS Fargate service pointing to this image with environment varia
 - `DATABASE_URL` = Supabase connection string
 - `CORS_ORIGINS` = Vercel frontend URL
 
-#### Option C: Railway / Render (Simplest)
+#### Option C: HF Spaces (Production) or Render (Deprecated: Railway trial expired May 2026)
 
-1. Connect your GitHub repository
+**Current production:** HF Spaces via CACHE_BUST-triggered Dockerfile rebuilds.
+**Legacy option:** Render
+
+1. Connect your GitHub repository to Render
 2. Set the Dockerfile path to `web/Dockerfile`
 3. Add `DATABASE_URL` and `CORS_ORIGINS` environment variables
-4. Deploy
+4. Deploy (Note: Railway no longer available — use HF Spaces or Render)
 
 #### GitHub Actions CI/CD
 
@@ -184,7 +187,7 @@ export DATABASE_URL="postgresql://postgres:[password]@db.[ref].supabase.co:5432/
 python web/db/load_data.py --season 2024 --week 17
 ```
 
-5. Set `DATABASE_URL` in your backend environment (SAM parameter, ECS env var, or Railway/Render dashboard)
+5. Set `DATABASE_URL` in your backend environment (SAM parameter, ECS env var, HF Spaces secrets, or Render dashboard)
 
 ## Environment Variables Reference
 

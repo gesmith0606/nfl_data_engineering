@@ -56,7 +56,7 @@ The core stat refresh, timed after MNF concludes. Week auto-computed (dispatch i
 | ESPN QBR weekly | ESPN via nflverse | season (current + prior) | fail-open (2024+ gap upstream) |
 | PBP + participation | nflverse | season (current + prior) | fail-open, 25-min step timeout |
 
-Downstream in the same run: Silver player/advanced/graph transforms → Gold `generate_projections.py --ml` (v4.3 hybrid) with `check_ml_output.py` validation and heuristic fallback + escalation issue on ML failure → previous-week grading report (uploaded as a run artifact) → `sanity_check_projections.py --all` (blocking) → **Gold projections committed to main** (local-first since 2026-07-02; Railway/HF serve committed parquet). The S3 health check is a fail-open optional-mirror check — S3 uploads self-reactivate if AWS secrets are restored (`has_aws` guard in the scripts). Failure opens a GitHub issue (`pipeline-failure` label).
+Downstream in the same run: Silver player/advanced/graph transforms → Gold `generate_projections.py --ml` (v4.3 hybrid) with `check_ml_output.py` validation and heuristic fallback + escalation issue on ML failure → previous-week grading report (uploaded as a run artifact) → `sanity_check_projections.py --all` (blocking) → **Gold projections committed to main** (local-first since 2026-07-02; HF Spaces backend serves committed parquet). The S3 health check is a fail-open optional-mirror check — S3 uploads self-reactivate if AWS secrets are restored (`has_aws` guard in the scripts). Failure opens a GitHub issue (`pipeline-failure` label).
 
 ### weekly-external-projections.yml — Tue 14:00 UTC + Sun 12:00 UTC
 
@@ -179,7 +179,7 @@ ESPN live draft: **NO-GO** (Phase 89) — no API exists; `espn_adapter.py` is ga
 |---------|-----------|-----------|
 | `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` / `AWS_REGION` | S3 mirrors (weekly pipeline) | GHA secrets (local creds expired 2026-03 — local-first) |
 | `ODDS_API_KEY` | odds + props capture | GHA secret (free tier) |
-| `ANTHROPIC_API_KEY` | Claude sentiment extraction | GHA secret; **not set in Railway** (website sentiment blocked) |
+| `ANTHROPIC_API_KEY` | Claude sentiment extraction | GHA secret; set in HF Spaces backend (sentiment pipeline ACTIVE) |
 | `CFBD_API_KEY` | college ingestion | `.env` (local) |
 | `YAHOO_CLIENT_ID` / `YAHOO_CLIENT_SECRET` | Yahoo live draft | `.env` + `data/yahoo_tokens.json` (gitignored) |
 | — (no auth) | nflverse, Sleeper, ESPN, FantasyPros public/partners, Draft Sharks, RSS, Reddit | n/a |
