@@ -25,7 +25,7 @@ export default function Dashboard() {
           <div className='relative flex items-center gap-[var(--space-4)]'>
             <div className='wc-rail h-[var(--space-12)] w-[var(--space-1)] shrink-0 rounded-full' />
             <div className='flex flex-col gap-[var(--space-2)]'>
-              <div className='text-[var(--wc-gold,var(--chart-4))] inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold tracking-[0.14em] uppercase'>
+              <div className='text-[var(--wc-gold,var(--chart-1))] inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold tracking-[0.14em] uppercase'>
                 <Icons.sparkles className='size-[var(--space-3)]' />
                 Premium Models
               </div>

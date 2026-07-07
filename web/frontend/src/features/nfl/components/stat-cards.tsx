@@ -21,7 +21,7 @@ interface StatCardProps {
   trendDirection?: 'up' | 'down';
   /**
    * CSS color expression for the left rail. Pass a wc accent with a chart
-   * fallback (e.g. 'var(--wc-magenta, var(--chart-1))') so the card stays
+   * fallback (e.g. 'var(--wc-gold, var(--chart-1))') so the card stays
    * on-brand in worldcup26 and themed everywhere else.
    */
   accent: string;
@@ -79,7 +79,7 @@ export function OverviewStatCards() {
         description={`Fantasy points mean absolute error (${modelMetrics.overall.seasons} backtest)`}
         trend='-3.0% in v4.2'
         trendDirection='down'
-        accent='var(--wc-magenta, var(--chart-1))'
+        accent='var(--wc-gold, var(--chart-1))'
       />
       <StatCard
         title='Tests Passing'
@@ -87,7 +87,7 @@ export function OverviewStatCards() {
         description='Full test suite coverage'
         trend='100%'
         trendDirection='up'
-        accent='var(--wc-magenta, var(--chart-1))'
+        accent='var(--wc-cyan, var(--chart-2))'
       />
       <StatCard
         title='ATS Accuracy'
@@ -95,13 +95,13 @@ export function OverviewStatCards() {
         description='Against the spread (sealed 2024 holdout)'
         trend='+3.0%'
         trendDirection='up'
-        accent='var(--wc-magenta, var(--chart-1))'
+        accent='var(--wc-violet, var(--chart-3))'
       />
       <StatCard
         title='Players Tracked'
         value='569'
         description='Across all NFL positions'
-        accent='var(--wc-magenta, var(--chart-1))'
+        accent='var(--wc-gold, var(--chart-1))'
       />
     </Stagger>
   );

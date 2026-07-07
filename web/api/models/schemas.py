@@ -1066,3 +1066,115 @@ class TeamDefenseMetricsResponse(BaseModel):
     def_sos_rank: Optional[int] = Field(default=None, ge=1, le=32)
     adj_def_epa: Optional[float] = None
     positional: List[PositionalDefenseRank]
+
+
+# ---------------------------------------------------------------------------
+# League Sync models (Plan-3 League Sync)
+# ---------------------------------------------------------------------------
+
+
+class LeagueRosterPlayer(BaseModel):
+    """A single player on a user's Sleeper roster with projection data."""
+
+    sleeper_player_id: str
+    player_name: Optional[str] = None
+    position: Optional[str] = None
+    team: Optional[str] = None
+    projected_season_points: Optional[float] = None
+    vorp: Optional[float] = None
+
+
+class ScoringDeltaBadge(BaseModel):
+    """Human-readable description of how a league's scoring differs from standard PPR.
+
+    Lets the UI show chips like '+1 TE premium' without parsing raw
+    ``scoring_settings`` dicts.
+    """
+
+    key: str = Field(..., description="Sleeper scoring key, e.g. bonus_rec_te")
+    label: str = Field(..., description="Human-readable label, e.g. 'TE +1.0 premium'")
+    value: float
+
+
+class LeagueOverviewResponse(BaseModel):
+    """Response for GET /api/league/{league_id}/overview."""
+
+    league_id: str
+    league_name: str
+    season: str
+    status: Optional[str] = None
+    total_rosters: Optional[int] = None
+    roster_positions: List[str] = Field(default_factory=list)
+    scoring_format_label: str = Field(
+        ..., description="Human-readable scoring label, e.g. 'Full PPR (league)'"
+    )
+    scoring_deltas: List[ScoringDeltaBadge] = Field(
+        default_factory=list,
+        description="Key ways this league's scoring differs from standard half-PPR",
+    )
+    unmodeled_keys: List[str] = Field(
+        default_factory=list,
+        description="Scoring rules present but not modeled (first downs, fumbles, etc.)",
+    )
+    user_roster: List[LeagueRosterPlayer] = Field(default_factory=list)
+
+
+class StarterSlot(BaseModel):
+    """A single starting slot in the optimal lineup."""
+
+    slot: str = Field(
+        ..., description="Slot label, e.g. QB / RB / WR / TE / FLEX / SFLEX"
+    )
+    player_name: Optional[str] = None
+    position: Optional[str] = None
+    team: Optional[str] = None
+    projected_season_points: Optional[float] = None
+
+
+class RosterReportResponse(BaseModel):
+    """Response for GET /api/league/{league_id}/roster-report."""
+
+    league_id: str
+    user_id: str
+    roster_size: int
+    roster_format: str
+    starters: List[StarterSlot] = Field(default_factory=list)
+    bench: List[LeagueRosterPlayer] = Field(default_factory=list)
+    drop_candidates: List[dict] = Field(
+        default_factory=list,
+        description="Top-5 weakest bench players with player_name, value, and reason",
+    )
+    unmatched_player_ids: List[str] = Field(
+        default_factory=list,
+        description="Sleeper player_ids that had no matching projection row",
+    )
+
+
+class WaiverTarget(BaseModel):
+    """A single free-agent waiver target ranked by league-scored projection."""
+
+    sleeper_player_id: str
+    player_name: Optional[str] = None
+    position: Optional[str] = None
+    team: Optional[str] = None
+    projected_season_points: Optional[float] = None
+    vorp: Optional[float] = None
+    upgrades_over: Optional[str] = Field(
+        None,
+        description=(
+            "Name of the starter this player beats at their position, "
+            "or None when they add depth only"
+        ),
+    )
+    upgrade_slot: Optional[str] = Field(
+        None, description="Starting slot the upgrade applies to"
+    )
+
+
+class WaiversResponse(BaseModel):
+    """Response for GET /api/league/{league_id}/waivers."""
+
+    league_id: str
+    user_id: str
+    roster_positions: List[str] = Field(default_factory=list)
+    targets: List[WaiverTarget] = Field(default_factory=list)

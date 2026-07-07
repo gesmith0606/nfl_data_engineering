@@ -1,85 +1,354 @@
 'use client';
 
 /**
- * Phase 74 SLEEP-01..03: Sleeper league connection + roster view.
+ * League Sync — Plan-3 implementation.
  *
- * Username-only auth (no OAuth). On successful login, the backend sets an
- * HttpOnly cookie; client-side state retains user/leagues for the session.
+ * Connect flow: enter Sleeper username → GET leagues → pick one → confirm
+ * roster → save up to 3 leagues in localStorage (key: nfl.connectedLeagues).
+ *
+ * League home: roster report card (optimal lineup + bench + drop candidates),
+ * waiver targets table, and a scoring badge showing how the league's custom
+ * settings differ from standard half-PPR.
+ *
+ * No auth / gating — open for all users. Plan 2 (Clerk/Stripe) deferred.
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
-  fetchSleeperRosters,
+  fetchLeagueOverview,
+  fetchLeagueRosterReport,
+  fetchLeagueWaivers,
   sleeperLogin,
 } from '@/lib/nfl/api';
-import { DANGER_TEXT } from '@/lib/nfl/semantic-colors';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
+import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
 import type {
+  ConnectedLeague,
+  RosterReportResponse,
   SleeperLeague,
-  SleeperRoster,
-  SleeperUser
+  SleeperUser,
+  WaiversResponse,
 } from '@/lib/nfl/types';
 
-interface AuthState {
-  user: SleeperUser;
-  leagues: SleeperLeague[];
+// ---------------------------------------------------------------------------
+// localStorage helpers (cap 3 leagues)
+// ---------------------------------------------------------------------------
+
+const LS_KEY = 'nfl.connectedLeagues';
+const MAX_LEAGUES = 3;
+
+function loadConnected(): ConnectedLeague[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return [];
+    return JSON.parse(raw) as ConnectedLeague[];
+  } catch {
+    return [];
+  }
 }
 
+function saveConnected(leagues: ConnectedLeague[]): void {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(LS_KEY, JSON.stringify(leagues.slice(0, MAX_LEAGUES)));
+}
+
+function upsertConnected(league: ConnectedLeague): ConnectedLeague[] {
+  const existing = loadConnected();
+  const filtered = existing.filter((l) => l.league_id !== league.league_id);
+  return [league, ...filtered].slice(0, MAX_LEAGUES);
+}
+
+function removeConnected(leagueId: string): ConnectedLeague[] {
+  const updated = loadConnected().filter((l) => l.league_id !== leagueId);
+  saveConnected(updated);
+  return updated;
+}
+
+// ---------------------------------------------------------------------------
+// Position badge colours
+// ---------------------------------------------------------------------------
+
+function PosBadge({ pos }: { pos: string | null }) {
+  return (
+    <span
+      className={`inline-flex items-center border px-1.5 py-0.5 text-[10px] font-bold ${getPositionBadgeClass(pos ?? '')}`}
+    >
+      {pos ?? '?'}
+    </span>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Slot label normalisation (SUPER_FLEX → SF, etc.)
+// ---------------------------------------------------------------------------
+
+function slotLabel(slot: string): string {
+  if (slot === 'SFLEX' || slot === 'SUPER_FLEX') return 'SF';
+  if (slot === 'FLEX') return 'FX';
+  return slot;
+}
+
+// ---------------------------------------------------------------------------
+// Connect wizard state machine
+// ---------------------------------------------------------------------------
+
+type ConnectStep =
+  | { kind: 'idle' }
+  | { kind: 'entering_username' }
+  | { kind: 'pick_league'; user: SleeperUser; leagues: SleeperLeague[] }
+  | { kind: 'pick_roster'; user: SleeperUser; league: SleeperLeague; leagues: SleeperLeague[] };
+
+// ---------------------------------------------------------------------------
+// Root component
+// ---------------------------------------------------------------------------
+
 export function SleeperLeagueView() {
+  const [connected, setConnected] = useState<ConnectedLeague[]>([]);
+  const [activeLeagueId, setActiveLeagueId] = useState<string | null>(null);
+  const [step, setStep] = useState<ConnectStep>({ kind: 'idle' });
   const [username, setUsername] = useState('');
-  const [auth, setAuth] = useState<AuthState | null>(null);
-  const [selectedLeagueId, setSelectedLeagueId] = useState<string | null>(null);
-  const [rosters, setRosters] = useState<SleeperRoster[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleLogin(e: React.FormEvent) {
-    e.preventDefault();
-    if (!username.trim()) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const resp = await sleeperLogin(username.trim());
-      setAuth(resp);
-      if (resp.leagues.length > 0) {
-        setSelectedLeagueId(resp.leagues[0].league_id);
-      }
-    } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : String(e);
-      setError(`Login failed: ${msg}`);
-    } finally {
-      setLoading(false);
-    }
-  }
-
+  // Hydrate from localStorage once on mount
   useEffect(() => {
-    if (!selectedLeagueId || !auth) return;
-    let cancelled = false;
-    setLoading(true);
-    fetchSleeperRosters(selectedLeagueId, auth.user.user_id)
-      .then((r) => {
-        if (!cancelled) setRosters(r);
-      })
-      .catch((e) => {
-        if (!cancelled) setError(`Failed to load rosters: ${e?.message ?? e}`);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedLeagueId, auth]);
+    const stored = loadConnected();
+    setConnected(stored);
+    if (stored.length > 0) setActiveLeagueId(stored[0].league_id);
+  }, []);
 
-  if (!auth) {
+  const handleConnect = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!username.trim()) return;
+      setLoading(true);
+      setError(null);
+      try {
+        const resp = await sleeperLogin(username.trim());
+        const { user, leagues } = resp;
+        if (leagues.length === 0) {
+          setError(`No NFL leagues found for '${username}' this season.`);
+          return;
+        }
+        setStep({ kind: 'pick_league', user, leagues });
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        setError(`Could not find user '${username}': ${msg}`);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [username],
+  );
+
+  const handlePickLeague = useCallback(
+    (user: SleeperUser, league: SleeperLeague, leagues: SleeperLeague[]) => {
+      if (connected.length >= MAX_LEAGUES) {
+        setError(
+          `You can connect up to ${MAX_LEAGUES} leagues. Remove one before adding another.`,
+        );
+        return;
+      }
+      setStep({ kind: 'pick_roster', user, league, leagues });
+    },
+    [connected.length],
+  );
+
+  const handleConfirmRoster = useCallback(
+    async (user: SleeperUser, league: SleeperLeague) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const overview = await fetchLeagueOverview(league.league_id, user.user_id);
+        const entry: ConnectedLeague = {
+          league_id: league.league_id,
+          league_name: league.name,
+          season: league.season,
+          user_id: user.user_id,
+          username: user.username,
+          roster_positions: overview.roster_positions,
+          scoring_format_label: overview.scoring_format_label,
+          connected_at: new Date().toISOString(),
+        };
+        const updated = upsertConnected(entry);
+        saveConnected(updated);
+        setConnected(updated);
+        setActiveLeagueId(league.league_id);
+        setStep({ kind: 'idle' });
+        setUsername('');
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        setError(`Failed to load league: ${msg}`);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [],
+  );
+
+  const handleDisconnect = useCallback(
+    (leagueId: string) => {
+      const updated = removeConnected(leagueId);
+      setConnected(updated);
+      if (activeLeagueId === leagueId) {
+        setActiveLeagueId(updated.length > 0 ? updated[0].league_id : null);
+      }
+    },
+    [activeLeagueId],
+  );
+
+  // ----- wizard: pick league -----
+  if (step.kind === 'pick_league') {
     return (
       <div className='space-y-4'>
-        <div className='rounded-lg border p-6'>
-          <h3 className='text-lg font-semibold'>Connect your Sleeper league</h3>
-          <p className='mt-1 text-sm text-muted-foreground'>
-            Enter your Sleeper username. We'll fetch your leagues and rosters
-            so the AI advisor can give personalized advice.
+        <div className='rounded-lg border bg-muted/30 p-4'>
+          <p className='text-sm font-medium'>
+            Connected as{' '}
+            <span className='font-bold'>
+              {step.user.display_name ?? step.user.username}
+            </span>
           </p>
-          <form onSubmit={handleLogin} className='mt-4 flex gap-2'>
+          <p className='text-xs text-muted-foreground mt-0.5'>
+            Pick a league to sync (max {MAX_LEAGUES})
+          </p>
+        </div>
+        <div className='space-y-2'>
+          {step.leagues.map((league) => {
+            const alreadyConnected = connected.some(
+              (c) => c.league_id === league.league_id,
+            );
+            return (
+              <button
+                key={league.league_id}
+                type='button'
+                disabled={alreadyConnected}
+                onClick={() => handlePickLeague(step.user, league, step.leagues)}
+                className='w-full rounded-lg border p-4 text-left hover:bg-muted/50 disabled:opacity-50 disabled:cursor-not-allowed'
+              >
+                <div className='flex items-center justify-between'>
+                  <span className='font-medium text-sm'>{league.name}</span>
+                  {alreadyConnected && (
+                    <span className='text-xs text-muted-foreground'>
+                      Already connected
+                    </span>
+                  )}
+                </div>
+                <p className='text-xs text-muted-foreground mt-0.5'>
+                  {league.total_rosters} teams · Season {league.season}
+                </p>
+              </button>
+            );
+          })}
+        </div>
+        <button
+          type='button'
+          onClick={() => {
+            setStep({ kind: 'idle' });
+            setError(null);
+          }}
+          className='rounded-md border px-3 py-1.5 text-sm hover:bg-muted'
+        >
+          Cancel
+        </button>
+        {error && <p className={`text-sm ${DANGER_TEXT}`}>{error}</p>}
+      </div>
+    );
+  }
+
+  // ----- wizard: confirm roster -----
+  if (step.kind === 'pick_roster') {
+    return (
+      <div className='space-y-4'>
+        <div className='rounded-lg border bg-muted/30 p-4'>
+          <p className='text-sm'>
+            Confirm your team in{' '}
+            <span className='font-bold'>{step.league.name}</span>
+          </p>
+          <p className='text-xs text-muted-foreground mt-0.5'>
+            We'll fetch your roster and re-score it under the league's custom
+            settings.
+          </p>
+        </div>
+        <div className='flex gap-2'>
+          <button
+            type='button'
+            disabled={loading}
+            onClick={() => handleConfirmRoster(step.user, step.league)}
+            className='rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50'
+          >
+            {loading ? 'Connecting…' : 'Confirm & Sync'}
+          </button>
+          <button
+            type='button'
+            onClick={() =>
+              setStep({
+                kind: 'pick_league',
+                user: step.user,
+                leagues: step.leagues,
+              })
+            }
+            className='rounded-md border px-3 py-2 text-sm hover:bg-muted'
+          >
+            Back
+          </button>
+        </div>
+        {error && <p className={`text-sm ${DANGER_TEXT}`}>{error}</p>}
+      </div>
+    );
+  }
+
+  // ----- main view -----
+  return (
+    <div className='space-y-6'>
+      {/* League tab switcher */}
+      {connected.length > 0 && (
+        <div className='flex items-center gap-2 flex-wrap'>
+          {connected.map((l) => (
+            <button
+              key={l.league_id}
+              type='button'
+              onClick={() => setActiveLeagueId(l.league_id)}
+              className={`rounded-md border px-3 py-1.5 text-sm ${
+                activeLeagueId === l.league_id
+                  ? 'bg-primary text-primary-foreground'
+                  : 'hover:bg-muted'
+              }`}
+            >
+              {l.league_name}
+            </button>
+          ))}
+          {connected.length < MAX_LEAGUES && (
+            <button
+              type='button'
+              onClick={() => {
+                setStep({ kind: 'entering_username' });
+                setError(null);
+              }}
+              className='rounded-md border border-dashed px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted'
+            >
+              + Connect another
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Connect form */}
+      {(connected.length === 0 || step.kind === 'entering_username') && (
+        <div className='rounded-lg border p-6 space-y-3'>
+          {connected.length === 0 && (
+            <>
+              <h3 className='text-lg font-semibold'>
+                Connect your Sleeper league
+              </h3>
+              <p className='text-sm text-muted-foreground'>
+                Enter your Sleeper username to get roster advice under your
+                league's exact scoring. Your leagues are saved locally — no
+                account required.
+              </p>
+            </>
+          )}
+          <form onSubmit={handleConnect} className='flex gap-2'>
             <input
               type='text'
               placeholder='Sleeper username'
@@ -94,147 +363,391 @@ export function SleeperLeagueView() {
               disabled={loading || !username.trim()}
               className='rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50'
             >
-              {loading ? 'Connecting…' : 'Connect'}
+              {loading ? 'Looking up…' : 'Connect'}
             </button>
-          </form>
-          {error && (
-            <p className={`mt-2 text-sm ${DANGER_TEXT}`}>{error}</p>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  const userRoster = rosters.find((r) => r.is_user_roster);
-
-  return (
-    <div className='space-y-6'>
-      <div className='flex items-center justify-between rounded-lg border p-4'>
-        <div>
-          <p className='text-sm text-muted-foreground'>Connected as</p>
-          <p className='font-medium'>
-            {auth.user.display_name || auth.user.username}
-          </p>
-        </div>
-        <button
-          type='button'
-          onClick={() => {
-            setAuth(null);
-            setRosters([]);
-            setSelectedLeagueId(null);
-            setUsername('');
-          }}
-          className='rounded-md border px-3 py-1.5 text-sm hover:bg-muted'
-        >
-          Disconnect
-        </button>
-      </div>
-
-      <div className='space-y-2'>
-        <h3 className='text-sm font-semibold uppercase text-muted-foreground'>
-          Leagues ({auth.leagues.length})
-        </h3>
-        {auth.leagues.length === 0 ? (
-          <p className='rounded-md border p-4 text-sm text-muted-foreground'>
-            No leagues found for your account this season.
-          </p>
-        ) : (
-          <div className='flex flex-wrap gap-2'>
-            {auth.leagues.map((league) => (
+            {step.kind === 'entering_username' && (
               <button
-                key={league.league_id}
                 type='button'
-                onClick={() => setSelectedLeagueId(league.league_id)}
-                className={`rounded-md border px-3 py-1.5 text-sm ${
-                  selectedLeagueId === league.league_id
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
-                }`}
+                onClick={() => {
+                  setStep({ kind: 'idle' });
+                  setError(null);
+                  setUsername('');
+                }}
+                className='rounded-md border px-3 py-2 text-sm hover:bg-muted'
               >
-                {league.name}
+                Cancel
               </button>
-            ))}
-          </div>
-        )}
-      </div>
+            )}
+          </form>
+          {error && <p className={`text-sm ${DANGER_TEXT}`}>{error}</p>}
+        </div>
+      )}
 
-      {selectedLeagueId && (
-        <RosterPanel
-          loading={loading}
-          rosters={rosters}
-          userRoster={userRoster}
+      {/* Active league home */}
+      {activeLeague(connected, activeLeagueId) && step.kind === 'idle' && (
+        <LeagueHome
+          league={activeLeague(connected, activeLeagueId)!}
+          onDisconnect={() =>
+            handleDisconnect(activeLeague(connected, activeLeagueId)!.league_id)
+          }
         />
       )}
     </div>
   );
 }
 
-function RosterPanel({
-  loading,
-  rosters,
-  userRoster
+function activeLeague(
+  connected: ConnectedLeague[],
+  id: string | null,
+): ConnectedLeague | null {
+  return connected.find((l) => l.league_id === id) ?? null;
+}
+
+// ---------------------------------------------------------------------------
+// League home: roster report + waivers tabs
+// ---------------------------------------------------------------------------
+
+function LeagueHome({
+  league,
+  onDisconnect,
 }: {
-  loading: boolean;
-  rosters: SleeperRoster[];
-  userRoster: SleeperRoster | undefined;
+  league: ConnectedLeague;
+  onDisconnect: () => void;
 }) {
-  if (loading) {
-    return <p className='text-sm text-muted-foreground'>Loading rosters…</p>;
-  }
-  if (rosters.length === 0) {
+  const [report, setReport] = useState<RosterReportResponse | null>(null);
+  const [waivers, setWaivers] = useState<WaiversResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [tab, setTab] = useState<'report' | 'waivers'>('report');
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    const seasonYear =
+      parseInt(league.season, 10) || new Date().getFullYear();
+
+    Promise.all([
+      fetchLeagueRosterReport(league.league_id, league.user_id, seasonYear),
+      fetchLeagueWaivers(league.league_id, league.user_id, seasonYear),
+    ])
+      .then(([r, w]) => {
+        if (!cancelled) {
+          setReport(r);
+          setWaivers(w);
+        }
+      })
+      .catch((err: unknown) => {
+        if (!cancelled) {
+          const msg = err instanceof Error ? err.message : String(err);
+          setError(`Failed to load league data: ${msg}`);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [league.league_id, league.user_id, league.season]);
+
+  const isEmptyRoster = !report || report.roster_size === 0;
+  const isMatchFailure =
+    report !== null &&
+    report.roster_size === 0 &&
+    report.unmatched_player_ids.length > 0;
+  const isPreDraft = isEmptyRoster && !isMatchFailure;
+
+  return (
+    <div className='space-y-4'>
+      {/* League header */}
+      <div className='flex items-start justify-between rounded-lg border p-4'>
+        <div className='space-y-1'>
+          <h2 className='font-semibold'>{league.league_name}</h2>
+          <p className='text-xs text-muted-foreground'>
+            {league.username} · Season {league.season}
+          </p>
+          <div className='flex flex-wrap gap-1 mt-1'>
+            <span className='inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium text-muted-foreground'>
+              {league.scoring_format_label}
+            </span>
+            {league.roster_positions
+              .filter((p) => !['BN', 'IR', 'TAXI'].includes(p))
+              .map((p, i) => (
+                <span
+                  key={i}
+                  className='inline-flex items-center rounded bg-muted px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground'
+                >
+                  {p}
+                </span>
+              ))}
+          </div>
+        </div>
+        <button
+          type='button'
+          onClick={onDisconnect}
+          className='rounded-md border px-2.5 py-1 text-xs text-muted-foreground hover:bg-muted'
+        >
+          Disconnect
+        </button>
+      </div>
+
+      {/* Tab bar */}
+      <div className='flex gap-1 border-b'>
+        {(['report', 'waivers'] as const).map((t) => (
+          <button
+            key={t}
+            type='button'
+            onClick={() => setTab(t)}
+            className={`px-3 py-1.5 text-sm -mb-px border-b-2 ${
+              tab === t
+                ? 'border-primary font-medium'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {t === 'report' ? 'Roster Report' : 'Waiver Targets'}
+          </button>
+        ))}
+      </div>
+
+      {/* Loading / error states */}
+      {loading && (
+        <div className='py-8 text-center text-sm text-muted-foreground'>
+          Loading league data…
+        </div>
+      )}
+      {!loading && error && (
+        <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>
+          {error}
+        </div>
+      )}
+
+      {/* Match-failure warning — roster exists but projections couldn't be matched */}
+      {!loading && !error && isMatchFailure && report && (
+        <div className='rounded-lg border p-6 text-center space-y-2'>
+          <p className={`font-medium text-sm ${WARN_TEXT}`}>
+            Roster Found — Projections Pending
+          </p>
+          <p className='text-sm text-muted-foreground'>
+            We found your roster but couldn&apos;t match{' '}
+            {report.unmatched_player_ids.length}{' '}
+            {report.unmatched_player_ids.length === 1 ? 'player' : 'players'} to
+            projections — data may be refreshing, try again shortly.
+          </p>
+        </div>
+      )}
+
+      {/* Pre-draft note */}
+      {!loading && !error && isPreDraft && (
+        <div className='rounded-lg border border-dashed p-6 text-center space-y-2'>
+          <p className='font-medium text-sm'>Pre-Draft Mode</p>
+          <p className='text-sm text-muted-foreground'>
+            No roster data found yet — your league is likely in the pre-draft
+            phase. Use the Draft tool to prepare your strategy, or check back
+            after the draft.
+          </p>
+        </div>
+      )}
+
+      {/* Roster report tab */}
+      {!loading && !error && !isEmptyRoster && tab === 'report' && report && (
+        <RosterReportView report={report} />
+      )}
+
+      {/* Waivers tab */}
+      {!loading && !error && tab === 'waivers' && waivers && (
+        <WaiversView waivers={waivers} />
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Roster report view
+// ---------------------------------------------------------------------------
+
+function RosterReportView({ report }: { report: RosterReportResponse }) {
+  return (
+    <div className='space-y-5'>
+      {/* Scoring context badge */}
+      <div className='flex items-center gap-1.5 text-xs text-muted-foreground'>
+        <span className='rounded-full bg-muted px-2 py-0.5 font-medium'>
+          Re-scored under league settings
+        </span>
+        <span>·</span>
+        <span>
+          {report.roster_format} format · {report.roster_size} players
+        </span>
+      </div>
+
+      {/* Optimal starters */}
+      <section>
+        <h3 className='text-xs font-semibold uppercase text-muted-foreground mb-2'>
+          Optimal Starters
+        </h3>
+        <div className='rounded-lg border divide-y'>
+          {report.starters.length === 0 ? (
+            <p className='px-4 py-3 text-sm text-muted-foreground'>
+              No starters computed.
+            </p>
+          ) : (
+            report.starters.map((s, i) => (
+              <div
+                key={i}
+                className='flex items-center justify-between px-4 py-2.5'
+              >
+                <div className='flex items-center gap-2.5'>
+                  <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono'>
+                    {slotLabel(s.slot)}
+                  </span>
+                  <PosBadge pos={s.position} />
+                  <span className='text-sm font-medium'>
+                    {s.player_name ?? '—'}
+                  </span>
+                  {s.team && (
+                    <span className='text-xs text-muted-foreground'>
+                      {s.team}
+                    </span>
+                  )}
+                </div>
+                <span
+                  className={`text-sm font-semibold tabular-nums ${SUCCESS_TEXT}`}
+                >
+                  {s.projected_season_points != null
+                    ? s.projected_season_points.toFixed(1)
+                    : '—'}
+                </span>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
+      {/* Bench */}
+      {report.bench.length > 0 && (
+        <section>
+          <h3 className='text-xs font-semibold uppercase text-muted-foreground mb-2'>
+            Bench ({report.bench.length})
+          </h3>
+          <div className='rounded-lg border divide-y'>
+            {report.bench.map((p, i) => (
+              <div
+                key={i}
+                className='flex items-center justify-between px-4 py-2'
+              >
+                <div className='flex items-center gap-2.5'>
+                  <PosBadge pos={p.position} />
+                  <span className='text-sm'>{p.player_name ?? '—'}</span>
+                  {p.team && (
+                    <span className='text-xs text-muted-foreground'>
+                      {p.team}
+                    </span>
+                  )}
+                </div>
+                <span className='text-sm tabular-nums text-muted-foreground'>
+                  {p.projected_season_points != null
+                    ? p.projected_season_points.toFixed(1)
+                    : '—'}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Drop candidates */}
+      {report.drop_candidates.length > 0 && (
+        <section>
+          <h3 className='text-xs font-semibold uppercase text-muted-foreground mb-2'>
+            Drop Candidates
+          </h3>
+          <div className='rounded-lg border divide-y'>
+            {report.drop_candidates.map((d, i) => (
+              <div
+                key={i}
+                className='flex items-start justify-between px-4 py-2.5 gap-3'
+              >
+                <div className='flex items-center gap-2.5 min-w-0'>
+                  <PosBadge pos={d.position ?? null} />
+                  <span className='text-sm font-medium truncate'>
+                    {d.player_name ?? '—'}
+                  </span>
+                </div>
+                <div className='text-right shrink-0'>
+                  <p className={`text-xs ${DANGER_TEXT}`}>{d.reason}</p>
+                  <p className='text-[10px] text-muted-foreground tabular-nums'>
+                    val {Number(d.value).toFixed(1)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Waivers view
+// ---------------------------------------------------------------------------
+
+function WaiversView({ waivers }: { waivers: WaiversResponse }) {
+  if (waivers.targets.length === 0) {
     return (
       <p className='rounded-md border p-4 text-sm text-muted-foreground'>
-        No rosters available.
-      </p>
-    );
-  }
-  if (!userRoster) {
-    return (
-      <p className='rounded-md border p-4 text-sm text-muted-foreground'>
-        We couldn't find your roster in this league. Check that your username
-        matches your Sleeper account.
+        No waiver targets available. All projected players may already be
+        rostered.
       </p>
     );
   }
 
   return (
-    <div className='space-y-4'>
-      <div>
-        <h3 className='text-sm font-semibold uppercase text-muted-foreground'>
-          Your Lineup ({userRoster.starters.length})
-        </h3>
-        <ul className='mt-2 divide-y rounded-md border'>
-          {userRoster.starters.map((p) => (
-            <li
-              key={p.player_id}
-              className='flex items-center justify-between px-4 py-2 text-sm'
-            >
-              <span className='font-medium'>{p.player_name ?? p.player_id}</span>
-              <span className='text-xs text-muted-foreground'>
-                {p.position ?? '—'} · {p.team ?? '—'}
-              </span>
-            </li>
-          ))}
-        </ul>
+    <div className='space-y-2'>
+      <div className='text-xs text-muted-foreground'>
+        Top {waivers.targets.length} available free agents ranked by
+        league-scored season projection
       </div>
-
-      <div>
-        <h3 className='text-sm font-semibold uppercase text-muted-foreground'>
-          Bench ({userRoster.bench.length})
-        </h3>
-        <ul className='mt-2 divide-y rounded-md border'>
-          {userRoster.bench.map((p) => (
-            <li
-              key={p.player_id}
-              className='flex items-center justify-between px-4 py-2 text-sm'
-            >
-              <span>{p.player_name ?? p.player_id}</span>
-              <span className='text-xs text-muted-foreground'>
-                {p.position ?? '—'} · {p.team ?? '—'}
+      <div className='rounded-lg border divide-y'>
+        {waivers.targets.map((t, i) => (
+          <div
+            key={i}
+            className='flex items-center justify-between px-4 py-2.5 gap-3'
+          >
+            <div className='flex items-center gap-2.5 min-w-0'>
+              <span className='w-5 text-xs text-muted-foreground tabular-nums shrink-0'>
+                {i + 1}
               </span>
-            </li>
-          ))}
-        </ul>
+              <PosBadge pos={t.position} />
+              <div className='min-w-0'>
+                <p className='text-sm font-medium truncate'>
+                  {t.player_name ?? '—'}
+                </p>
+                {t.team && (
+                  <p className='text-[10px] text-muted-foreground'>{t.team}</p>
+                )}
+              </div>
+            </div>
+            <div className='text-right shrink-0'>
+              <p
+                className={`text-sm font-semibold tabular-nums ${SUCCESS_TEXT}`}
+              >
+                {t.projected_season_points != null
+                  ? t.projected_season_points.toFixed(1)
+                  : '—'}
+              </p>
+              {t.upgrades_over ? (
+                <p className={`text-[10px] ${WARN_TEXT}`}>
+                  upgrades over {t.upgrades_over}
+                </p>
+              ) : (
+                <p className='text-[10px] text-muted-foreground'>depth</p>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

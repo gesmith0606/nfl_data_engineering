@@ -1,0 +1,164 @@
+name: Data Freshness Monitor
+
+# ---------------------------------------------------------------------------
+# Triggers
+# ---------------------------------------------------------------------------
+# Cron: Every 6 hours to catch staleness quickly
+# workflow_dispatch: Manual trigger for testing
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+# ---------------------------------------------------------------------------
+# Permissions
+# ---------------------------------------------------------------------------
+permissions:
+  issues: write
+
+# ---------------------------------------------------------------------------
+# Jobs
+# ---------------------------------------------------------------------------
+
+jobs:
+  check-freshness:
+    name: Check Data Freshness
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check freshness endpoint
+        id: freshness
+        continue-on-error: true
+        run: |
+          set -uo pipefail
+
+          BACKEND_URL="https://gesmith0606-nfl-data-api.hf.space"
+          ENDPOINT="${BACKEND_URL}/api/health/freshness"
+
+          echo "Probing freshness endpoint: $ENDPOINT"
+
+          # Probe the endpoint
+          HTTP_CODE=$(curl -s -o /tmp/freshness.json -w "%{http_code}" -m 30 "$ENDPOINT" || echo "000")
+          echo "HTTP Status: $HTTP_CODE"
+
+          if [ "$HTTP_CODE" = "404" ]; then
+            echo "::notice::Freshness endpoint not yet deployed (404) — will retry later"
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Freshness endpoint returned HTTP $HTTP_CODE (not 404, not 200)"
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Parse response
+          if [ ! -f /tmp/freshness.json ] || [ ! -s /tmp/freshness.json ]; then
+            echo "::error::Freshness endpoint returned empty body (HTTP 200)"
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Extract overall_stale — the issue step keys off the `stale` output
+          OVERALL_STALE=$(jq -r '.overall_stale' /tmp/freshness.json)
+
+          # Log freshness details
+          echo "Freshness report:"
+          jq '.' /tmp/freshness.json | sed 's/^/  /'
+
+          if [ "$OVERALL_STALE" = "true" ]; then
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+            echo "::error::Data freshness check failed — at least one blocking dataset is stale"
+            exit 1
+          else
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::All datasets within freshness thresholds"
+            exit 0
+          fi
+
+      - name: Open issue if stale (deduped)
+        if: steps.freshness.outputs.stale == 'true' || failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const now = new Date().toISOString().split('T')[0];
+            const titlePrefix = "Data freshness alert";
+            const title = `${titlePrefix} (since ${now})`;
+
+            // Dedupe: check for existing open issue with this prefix
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'pipeline-failure',
+            });
+
+            if (open.data.some(i => i.title.startsWith(titlePrefix))) {
+              core.info("Freshness alert already open — not duplicating.");
+              return;
+            }
+
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body: [
+                '## Data Freshness Alert',
+                '',
+                'The `/api/health/freshness` endpoint on the live backend detected stale data.',
+                '',
+                '**Check the monitor run for details:**',
+                `- Run: [${context.runId}](${runUrl})`,
+                '',
+                '**Likely causes:**',
+                '- Weekly pipeline failed silently (check weekly-pipeline.yml logs)',
+                '- Deploy succeeded but stale build was served (Vercel/HF webhook issue)',
+                '- Gold data committed but not deployed (check latest commit)',
+                '',
+                '**Diagnose:**',
+                `1. Check the [freshness monitor run](${runUrl}) for detailed freshness report`,
+                '2. Review recent git commits for Gold data updates',
+                '3. Check weekly-pipeline.yml and deploy-web.yml recent runs',
+                '4. If deploy-web shows "live-gate-blocking" failed, auto-rollback may have reverted fresh data',
+                '',
+                '**Manual refresh (if needed):**',
+                '```bash',
+                'gh workflow run weekly-pipeline.yml',
+                '```',
+                '',
+                '_Auto-generated by the 6-hourly freshness monitor._',
+              ].join('\n'),
+              labels: ['pipeline-failure', 'automated'],
+            });
+
+      - name: Close issue if recovered
+        if: success() && steps.freshness.outputs.stale != 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const titlePrefix = "Data freshness alert";
+
+            // Find and close the open alert (if any)
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'pipeline-failure',
+            });
+
+            for (const issue of open.data) {
+              if (issue.title.startsWith(titlePrefix)) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  state: 'closed',
+                });
+                core.info(`Closed recovered freshness alert #${issue.number}`);
+              }
+            }

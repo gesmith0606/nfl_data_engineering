@@ -194,6 +194,102 @@ export interface SentimentRankingsResponse {
   fallers: SentimentRankingEntry[];
 }
 
+// ---------------------------------------------------------------------------
+// League Sync types (/api/league/{league_id}/...)
+// ---------------------------------------------------------------------------
+
+/** A player on a user's Sleeper roster with league-re-scored projection data. */
+export interface LeagueRosterPlayer {
+  sleeper_player_id: string
+  player_name: string | null
+  position: string | null
+  team: string | null
+  projected_season_points: number | null
+  vorp: number | null
+}
+
+/** A scoring delta badge (e.g. 'TE +1.0 rec premium'). */
+export interface ScoringDeltaBadge {
+  key: string
+  label: string
+  value: number
+}
+
+/** Response for GET /api/league/{league_id}/overview. */
+export interface LeagueOverviewResponse {
+  league_id: string
+  league_name: string
+  season: string
+  status: string | null
+  total_rosters: number | null
+  roster_positions: string[]
+  scoring_format_label: string
+  scoring_deltas: ScoringDeltaBadge[]
+  unmodeled_keys: string[]
+  user_roster: LeagueRosterPlayer[]
+}
+
+/** A starter slot in the optimal lineup report. */
+export interface StarterSlot {
+  slot: string
+  player_name: string | null
+  position: string | null
+  team: string | null
+  projected_season_points: number | null
+}
+
+/** A drop candidate from the roster optimizer. */
+export interface DropCandidate {
+  player_name: string | null
+  position: string | null
+  value: number
+  reason: string
+}
+
+/** Response for GET /api/league/{league_id}/roster-report. */
+export interface RosterReportResponse {
+  league_id: string
+  user_id: string
+  roster_size: number
+  roster_format: string
+  starters: StarterSlot[]
+  bench: LeagueRosterPlayer[]
+  drop_candidates: DropCandidate[]
+  unmatched_player_ids: string[]
+}
+
+/** A single free-agent waiver target. */
+export interface WaiverTarget {
+  sleeper_player_id: string
+  player_name: string | null
+  position: string | null
+  team: string | null
+  projected_season_points: number | null
+  vorp: number | null
+  upgrades_over: string | null
+  upgrade_slot: string | null
+}
+
+/** Response for GET /api/league/{league_id}/waivers. */
+export interface WaiversResponse {
+  league_id: string
+  user_id: string
+  roster_positions: string[]
+  targets: WaiverTarget[]
+}
+
+/** A connected Sleeper league persisted in localStorage. */
+export interface ConnectedLeague {
+  league_id: string
+  league_name: string
+  season: string
+  user_id: string
+  username: string
+  roster_positions: string[]
+  scoring_format_label: string
+  connected_at: string
+}
+
 /** Phase 74 SLEEP-01..04: Sleeper user / league / roster types. */
 export interface SleeperUser {
   user_id: string;

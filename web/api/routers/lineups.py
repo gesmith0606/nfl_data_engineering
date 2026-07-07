@@ -118,8 +118,40 @@ def get_lineups(
     assert season is not None and week is not None  # narrowed by logic above
 
     if team:
+        # Load projections through the projection service so lineups inherit
+        # its DB->Parquet dispatch and preseason/staleness fallback. Reading
+        # the weekly Gold parquet directly (lineup_builder's default) returns
+        # nothing in deployments where only the preseason parquet is present
+        # (e.g. the HF Spaces bridge), leaving every projected_points null.
+        projections_df = None
+        try:
+            projections_df = projection_service.get_projections(
+                season=season,
+                week=week,
+                scoring_format=scoring,
+                limit=100_000,
+            )
+        except FileNotFoundError:
+            logger.info(
+                "No projections for season=%d week=%d — lineup served "
+                "without points",
+                season,
+                week,
+            )
+        except Exception:
+            logger.exception(
+                "Projection load failed for season=%d week=%d — lineup "
+                "served without points",
+                season,
+                week,
+            )
+
         df = get_team_lineup_with_projections(
-            season=season, week=week, team=team.upper(), scoring_format=scoring
+            season=season,
+            week=week,
+            team=team.upper(),
+            scoring_format=scoring,
+            projections_df=projections_df,
         )
     else:
         df = get_team_starters(season=season, week=week)

@@ -220,6 +220,8 @@ cython_debug/
 # Holdout-use ledger must be durable in git — it records sealed-gate
 # evaluations so holdout erosion is visible across clones/reviewers.
 !.planning/holdout_ledger.json
+# Test fixtures must be tracked so CI never needs network access to Sleeper.
+!tests/web/fixtures/*.json
 # Model artifacts must be durable in git: the broad *.json/*.parquet rules
 # silently blocked xgb_*.json + metadata.json + OOF parquets when the
 # ensemble was "restored" (TD-09 class — load_ensemble() crashes on a

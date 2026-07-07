@@ -161,6 +161,11 @@ class TestListLeagueRosters:
         with patch(
             "web.api.routers.sleeper_user.fetch_sleeper_json",
             side_effect=_fetch_side_effect,
+        ), patch(
+            # The registry now comes from the 7-day disk cache path, not a
+            # live per-request fetch.
+            "web.api.routers.sleeper_user.load_sleeper_players",
+            return_value=_REGISTRY_PAYLOAD,
         ):
             resp = client.get("/api/sleeper/rosters/L1?user_id=12345")
         data = resp.json()

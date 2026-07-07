@@ -557,7 +557,66 @@ import type {
   MultiCompareResponse,
   RankingSource,
   RankingSortBy,
+  LeagueOverviewResponse,
+  RosterReportResponse,
+  WaiversResponse,
 } from './types';
+
+// ---------------------------------------------------------------------------
+// League Sync API functions (/api/league/{league_id}/...)
+// ---------------------------------------------------------------------------
+
+/**
+ * Fetch league overview: settings, scoring summary, and (when user_id is
+ * supplied) the user's roster re-scored under the league's custom settings.
+ */
+export async function fetchLeagueOverview(
+  leagueId: string,
+  userId?: string,
+  season?: number,
+): Promise<LeagueOverviewResponse> {
+  const params = new URLSearchParams()
+  if (userId) params.set('user_id', userId)
+  if (season) params.set('season', String(season))
+  const qs = params.toString()
+  return request<LeagueOverviewResponse>(
+    `/api/league/${leagueId}/overview${qs ? `?${qs}` : ''}`,
+  )
+}
+
+/**
+ * Fetch the optimal starting lineup, bench, and drop candidates for the
+ * user's roster in a league, re-scored under the league's exact settings.
+ *
+ * Mirrors the output of `scripts/draft_live.py --roster-report`.
+ */
+export async function fetchLeagueRosterReport(
+  leagueId: string,
+  userId: string,
+  season?: number,
+): Promise<RosterReportResponse> {
+  const params = new URLSearchParams({ user_id: userId })
+  if (season) params.set('season', String(season))
+  return request<RosterReportResponse>(
+    `/api/league/${leagueId}/roster-report?${params}`,
+  )
+}
+
+/**
+ * Fetch top-20 free-agent waiver targets for a league, ranked by league-
+ * scored projection, annotated with which starter they'd upgrade over.
+ */
+export async function fetchLeagueWaivers(
+  leagueId: string,
+  userId: string,
+  season?: number,
+): Promise<WaiversResponse> {
+  const params = new URLSearchParams({ user_id: userId })
+  if (season) params.set('season', String(season))
+  return request<WaiversResponse>(
+    `/api/league/${leagueId}/waivers?${params}`,
+  )
+}
 
 /**
  * Fetch our projections + external rankings (Sleeper/ESPN/Yahoo) joined on

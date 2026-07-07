@@ -592,6 +592,36 @@ def run_backtest(
     else:
         print("No route participation data found — WR slope-collapse signal will be skipped")
 
+    # Load graph_all_features for ranking score nudges (latest file per season).
+    # All columns in graph_all_features are shift(1)-lagged in source modules —
+    # no additional slicing needed here; apply_ranking_scores reads (season, week)
+    # from the projections DataFrame.
+    _graph_all_parts = []
+    for s in sorted(all_seasons):
+        _ga_pattern = os.path.join(
+            silver_dir,
+            f"graph_features/season={s}/graph_all_features_*.parquet",
+        )
+        _ga_files = sorted(globmod.glob(_ga_pattern))
+        if _ga_files:
+            _graph_all_parts.append(pd.read_parquet(_ga_files[-1]))
+    graph_all_df: Optional[pd.DataFrame] = (
+        pd.concat(_graph_all_parts, ignore_index=True) if _graph_all_parts else None
+    )
+    _HAS_RANKING_SCORE = False
+    try:
+        from ranking_score import USE_RANKING_SCORE, apply_ranking_scores  # type: ignore
+
+        _HAS_RANKING_SCORE = True
+    except ImportError:
+        pass
+    if graph_all_df is not None:
+        print(
+            f"Loaded {len(graph_all_df):,} graph_all_features rows for ranking score nudges"
+        )
+    else:
+        print("No graph_all_features found — ranking_score will equal projected_points")
+
     # Load weekly injury reports (Bronze) — PRODUCTION-FAITHFULNESS FIX
     # (2026-06-12): generate_projections.py has always applied
     # apply_injury_adjustments (Questionable 0.85 / Doubtful 0.50 / Out 0.0)
@@ -744,6 +774,23 @@ def run_backtest(
                 ]
                 if not inj_week.empty:
                     projections = apply_injury_adjustments(projections, inj_week)
+
+            # Apply ranking score nudges (additive, capped at ±1.5 pts).
+            # ranking_score is used for position ordering only; projected_points
+            # is unchanged so the backtest MAE numbers remain correct.
+            if _HAS_RANKING_SCORE:
+                projections = apply_ranking_scores(
+                    projections,
+                    graph_all_df,
+                    season=season,
+                    week=week,
+                )
+                if "ranking_score" in projections.columns:
+                    projections["position_rank"] = (
+                        projections.groupby("position")["ranking_score"]
+                        .rank(ascending=False, method="first")
+                        .astype(int)
+                    )
 
             # Compute actuals
             actuals = compute_actuals(weekly_df, season, week, scoring_format)

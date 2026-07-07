@@ -30,6 +30,7 @@ import {
 } from '@/lib/nfl/semantic-colors';
 import { formatGap } from '@/lib/nfl/consensus';
 import { cn } from '@/lib/utils';
+import { SectionOverline } from './section-heading';
 import modelMetrics from '../config/model-metrics.json';
 
 /** Overall backtest metrics generated from the v4.2 production backtest artifact. */
@@ -131,7 +132,7 @@ function ConsensusLeaderboard() {
     <div className='space-y-[var(--gap-stack)]'>
       {/* Headline — fixed-dark broadcast panel so the gold win reads in both modes. */}
       <section className='relative flex flex-col gap-[var(--space-2)] overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-[var(--surface-scoreboard)] px-[var(--space-5)] py-[var(--space-5)] shadow-sm md:px-[var(--space-6)] md:py-[var(--space-6)]'>
-        <div className='text-[var(--wc-gold,var(--chart-4))] relative inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none font-semibold tracking-[0.14em] uppercase'>
+        <div className='text-[var(--wc-gold,var(--chart-1))] relative inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none font-semibold tracking-[0.14em] uppercase'>
           <Icons.sparkles className='size-[var(--space-3)]' />
           {CONSENSUS_WINS} of {positions.length} positions + overall
         </div>
@@ -156,7 +157,8 @@ function ConsensusLeaderboard() {
       {/* Leaderboard table */}
       <Card>
         <CardHeader>
-          <CardTitle>Consensus Leaderboard</CardTitle>
+          <SectionOverline>Head to Head</SectionOverline>
+          <CardTitle className='wc-display'>Consensus Leaderboard</CardTitle>
           <CardDescription>
             Lower MAE is better. A negative gap means we beat the consensus.
           </CardDescription>
@@ -242,7 +244,8 @@ function ConsensusMethodology() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>How this is measured</CardTitle>
+        <SectionOverline>Methodology</SectionOverline>
+        <CardTitle className='wc-display'>How this is measured</CardTitle>
         <CardDescription>Matched-pairs evaluation — no cherry-picking</CardDescription>
       </CardHeader>
       <CardContent className='grid gap-[var(--gap-stack)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] sm:grid-cols-2'>
@@ -304,8 +307,9 @@ function WeeklyGradingTeaser() {
     <Card className='relative overflow-hidden'>
       <div className='wc-rail absolute inset-y-[var(--space-4)] left-0 w-[3px] rounded-full' />
       <CardHeader>
-        <CardTitle className='flex items-center gap-[var(--space-2)]'>
-          <Icons.clock className='text-[var(--wc-gold,var(--chart-4))] size-[var(--space-4)]' />
+        <SectionOverline>Live In-Season</SectionOverline>
+        <CardTitle className='wc-display flex items-center gap-[var(--space-2)]'>
+          <Icons.clock className='text-[var(--wc-gold,var(--chart-1))] size-[var(--space-4)]' />
           Graded every Tuesday in-season
         </CardTitle>
         <CardDescription>Live accountability once the games start</CardDescription>

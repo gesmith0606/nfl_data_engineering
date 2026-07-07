@@ -181,6 +181,84 @@ jobs:
     runs-on: ubuntu-latest
     needs: quality-gate
     steps:
+      - name: Refresh HF Spaces bridge
+        id: hf_refresh
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set -uo pipefail
+
+          if [ -z "$HF_TOKEN" ]; then
+            echo "::warning::HF_TOKEN not set — skipping HF Space refresh"
+            exit 0
+          fi
+
+          # Clone HF Space repo
+          REPO_URL="https://user:${HF_TOKEN}@huggingface.co/spaces/gesmith0606/nfl-data-api"
+          TMP_HF_REPO="/tmp/nfl-data-api"
+
+          if [ -d "$TMP_HF_REPO" ]; then
+            rm -rf "$TMP_HF_REPO"
+          fi
+
+          git clone "$REPO_URL" "$TMP_HF_REPO" 2>&1 | grep -v "credential" || true
+          cd "$TMP_HF_REPO"
+
+          # Bump CACHE_BUST in app.py or README (check which exists)
+          CACHE_VAL=$(($(date +%s) % 1000000))
+
+          if grep -q "CACHE_BUST" app.py 2>/dev/null; then
+            sed -i "s/CACHE_BUST = .*/CACHE_BUST = $CACHE_VAL/" app.py
+            echo "Bumped CACHE_BUST in app.py to $CACHE_VAL"
+          elif grep -q "CACHE_BUST" README.md 2>/dev/null; then
+            sed -i "s/CACHE_BUST:.*/CACHE_BUST: $CACHE_VAL/" README.md
+            echo "Bumped CACHE_BUST in README.md to $CACHE_VAL"
+          else
+            echo "::warning::CACHE_BUST not found in app.py or README.md — will add to app.py"
+            echo "CACHE_BUST = $CACHE_VAL" >> app.py
+          fi
+
+          # Commit and push
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(cache): bump CACHE_BUST for frontend refresh"
+            git push origin main 2>&1 | grep -v "credential" || true
+            echo "HF Space refresh committed and pushed"
+          else
+            echo "No CACHE_BUST change needed"
+          fi
+
+          # Sync ANTHROPIC_API_KEY to HF runtime secrets (if set)
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            RESPONSE=$(curl -s -X POST \
+              "https://huggingface.co/api/spaces/gesmith0606/nfl-data-api/secrets" \
+              -H "Authorization: Bearer $HF_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"key\":\"ANTHROPIC_API_KEY\",\"value\":\"${ANTHROPIC_API_KEY}\"}" \
+              2>&1 || echo "error")
+
+            if echo "$RESPONSE" | grep -q "error"; then
+              echo "::warning::Could not sync ANTHROPIC_API_KEY to HF — may already be set or permission issue"
+            else
+              echo "ANTHROPIC_API_KEY synced to HF Space runtime"
+            fi
+          fi
+
+      - name: Surface HF refresh failure
+        if: steps.hf_refresh.outcome == 'failure'
+        run: |
+          # continue-on-error above keeps a broken refresh from blocking the
+          # deploy, but the failure must be visible — otherwise the bridge
+          # silently serves stale data forever (and the ANTHROPIC_API_KEY
+          # sync silently stops too).
+          echo "::warning::HF Space refresh FAILED — bridge may serve stale data until refreshed manually (see step 'Refresh HF Spaces bridge' logs)"
+          echo "## ⚠️ HF Space refresh failed" >> "$GITHUB_STEP_SUMMARY"
+          echo "The CACHE_BUST bump / secret sync did not complete. The bridge keeps serving its previous build. Manual fallback: bump CACHE_BUST in https://huggingface.co/spaces/gesmith0606/nfl-data-api" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Probe bridge /api/health
         run: |
           set -uo pipefail
