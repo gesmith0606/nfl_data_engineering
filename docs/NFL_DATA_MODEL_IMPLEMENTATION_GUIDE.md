@@ -23,7 +23,7 @@
 | Frontend | Next.js 16, shadcn/ui, Tailwind CSS, TypeScript | Active |
 | Backend API | FastAPI, Parquet fallback mode | Active |
 | AI Advisor | Gemini 2.5 Flash (primary), Groq Llama 3.1 (fallback) | Active |
-| Deployment | Vercel (frontend), Railway (backend) | Active |
+| Deployment | Vercel (frontend), HF Spaces bridge (backend) | Active |
 | Sentiment | RSS feeds, Sleeper API, rule-based + Claude Haiku extraction | Active |
 | External Rankings | Sleeper ADP, FantasyPros ECR, ESPN rankings | Active |
 
@@ -45,7 +45,7 @@ Gold   (s3://nfl-trusted/) -- fantasy projections (PPR/Half-PPR/Standard) + game
         |
 Draft Tool                 -- ADP comparison, VORP, mock draft, auction, waiver wire
         |
-Web Platform               -- Next.js frontend (Vercel) + FastAPI backend (Railway)
+Web Platform               -- Next.js frontend (Vercel) + FastAPI backend (HF Spaces bridge)
                               AI Advisor (Gemini 2.5 Flash), 11 dashboard pages
                               External rankings (Sleeper/FantasyPros/ESPN)
                               Sanity check pre-deploy gate, daily sentiment pipeline
@@ -438,10 +438,10 @@ Assembled the full prediction feature vector from 8 Silver sources and validated
 - Kicker projections (MAE 4.14), FastAPI backend (7 endpoints)
 - College data integration (CFBD API), prospect features
 
-### v3.1-3.2 Hybrid Residual + Website MVP (Phases 50-53, W1-W2, completed 2026-04-03)
+### v3.1-3.2 Hybrid Residual + Website MVP (Phases 50-53, W1-W2, completed 2026-04-03, backend replaced 2026-07-07)
 - Graph features research, Ridge/ElasticNet ablation, 2016-2025 data expansion
 - Hybrid heuristic+ML approach adopted (4.91 MAE)
-- Next.js frontend on Vercel, Railway backend deployment
+- Next.js frontend on Vercel, initially Railway backend (now HF Spaces bridge post-trial expiry)
 
 ### v4.0-4.1 Residual Research + Production (Phases 54-57, completed 2026-04-08)
 - Unified evaluation pipeline: 466-feature residual degrades all positions
@@ -468,7 +468,7 @@ Assembled the full prediction feature vector from 8 Silver sources and validated
 ## Upcoming Work
 
 ### Phase 58: Sentiment Multiplier Wiring
-- Integrate ANTHROPIC_API_KEY in Railway
+- Integrate ANTHROPIC_API_KEY in HF Spaces backend environment
 - Activate Claude Haiku extraction (currently rule-based fallback)
 - Wire sentiment_multiplier into production projection pipeline
 
@@ -627,7 +627,7 @@ Migrate from nfl-data-py to nflreadpy when feature parity is confirmed. Impact i
 
 ### Phase 58: Sentiment Multiplier Wiring
 
-- Integrate ANTHROPIC_API_KEY in Railway environment
+- Integrate ANTHROPIC_API_KEY in HF Spaces backend environment
 - Activate Claude Haiku extraction (currently rule-based fallback)
 - Wire sentiment_multiplier into production projection pipeline
 

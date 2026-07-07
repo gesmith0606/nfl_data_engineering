@@ -87,16 +87,17 @@ Per-position recency weights (v4.2); weights were previously 50%/30%/20%.
 - Rookie fallback: starter/backup/unknown baselines at 100%/40%/25% of positional average
 - Floor/ceiling: position-specific variance bands (QB: 45%, RB: 40%, WR: 38%, TE: 35%)
 
-**v4.2 ML routing:**
-- QB: heuristic only (bias correction +2.3 pts replaces XGB path)
+**v4.3 ML routing (current — 2026-07-07):**
+- QB: heuristic only (Vegas beta 0.25, bias correction +2.3 pts)
 - RB: heuristic only
-- WR: heuristic only (residuals non-stationary post leak-fix; FAIL on sealed 2025)
-- TE: hybrid — heuristic + Ridge residual with 60 SHAP features including graph features (sealed 2025: 3.52 → 3.36 MAE)
+- WR: heuristic only
+- TE: hybrid — heuristic + Ridge residual with 60 SHAP features including graph features
 
-**Backtesting results (v4.2):**
+**Backtesting results (v4.3):**
 
-- Heuristic (2022-2024, Weeks 3-18, Half-PPR, 11,183 player-weeks): overall MAE 4.71, improved from 4.78 via matchup factor revival, TD regression, and per-position recency weights; sealed-2025 confirmed.
-- TE hybrid (sealed 2025 holdout): MAE 3.52 → 3.36 with the Ridge residual correction.
+- Heuristic (2022-2024, Weeks 3-18, Half-PPR): overall MAE 4.71
+- Game ensemble (v3.0, sealed 2024 holdout): 52.9% OOF ATS, calibrated cover/over probabilities
+- **Overall consensus performance**: matched gap −0.086 vs Sleeper projections (we beat Sleeper on QB/WR/TE; RB +0.26 deficit)
 
 ### Draft Tool
 
@@ -106,6 +107,18 @@ Interactive CLI (`scripts/draft_assistant.py`) supporting:
 - Mock simulation against AI opponents (`--simulate`)
 - Waiver wire with position-filtered rankings (`waiver [pos]` in CLI)
 - ADP refresh from Sleeper API (`scripts/refresh_adp.py`)
+
+### Website & Live Features (Production 2026-07-07)
+
+Live at https://frontend-jet-seven-33.vercel.app (Vercel frontend) + https://gesmith0606-nfl-data-api.hf.space (HF Spaces API):
+
+- **League Sync**: Connect Sleeper leagues, view rosters, roster report, and waiver wire targets under exact league scoring
+- **Draft Prep**: Pre-draft mode with keeper candidates, taxi eligibility, best-available with ADP value, and rookie board
+- **Projections**: Weekly and preseason fantasy projections (PPR/Half-PPR/Standard) with floor/ceiling ranges
+- **Game Predictions**: Weekly matchup cards with edge detection vs Vegas lines, ensemble confidence scores
+- **Player Matchups**: Historical data lookup, stat breakdowns, trending players with sentiment signals
+- **Sentiment Pipeline**: Active 5-source news ingestion (PFT, Sleeper, RSS feeds) with Claude AI extraction
+- **Freshness Monitoring**: 6-hourly data freshness checks with automated health alerts via GitHub workflow
 
 ### Pipeline Monitoring
 
@@ -288,7 +301,7 @@ source venv/bin/activate
 python -m pytest tests/ -v
 ```
 
-2,120 tests pass across scoring, projections, player analytics, team analytics, advanced profiles, draft optimization, ingestion, web API, and utilities.
+2,869 tests pass across scoring, projections, player analytics, team analytics, advanced profiles, draft optimization, ingestion, web API, and utilities.
 
 Code quality:
 
