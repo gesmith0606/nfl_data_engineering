@@ -628,23 +628,26 @@ function LeagueHome({
         </button>
       </div>
 
-      {/* Tab bar */}
-      <div className='flex gap-1 border-b'>
-        {(['report', 'waivers'] as const).map((t) => (
-          <button
-            key={t}
-            type='button'
-            onClick={() => setTab(t)}
-            className={`px-3 py-1.5 text-sm -mb-px border-b-2 ${
-              tab === t
-                ? 'border-primary font-medium'
-                : 'border-transparent text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            {t === 'report' ? 'Roster Report' : 'Waiver Targets'}
-          </button>
-        ))}
-      </div>
+      {/* Tab bar — hidden pre-draft: DraftPrepView owns the whole panel then
+          (roster report is empty and waivers would double-render below it) */}
+      {!isPreDraft && (
+        <div className='flex gap-1 border-b'>
+          {(['report', 'waivers'] as const).map((t) => (
+            <button
+              key={t}
+              type='button'
+              onClick={() => setTab(t)}
+              className={`px-3 py-1.5 text-sm -mb-px border-b-2 ${
+                tab === t
+                  ? 'border-primary font-medium'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {t === 'report' ? 'Roster Report' : 'Waiver Targets'}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Loading / error states */}
       {loading && (
@@ -683,8 +686,8 @@ function LeagueHome({
         <RosterReportView report={report} />
       )}
 
-      {/* Waivers tab */}
-      {!loading && !error && tab === 'waivers' && waivers && (
+      {/* Waivers tab (in-season only — pre-draft free agents live in DraftPrepView) */}
+      {!loading && !error && !isPreDraft && tab === 'waivers' && waivers && (
         <WaiversView waivers={waivers} />
       )}
     </div>

@@ -148,6 +148,17 @@ def _cached_raw_registry() -> Dict[str, Any]:
     if cached is not None:
         return cached  # type: ignore[return-value]
     registry = load_sleeper_players()
+    if not registry:
+        # Same failure mode as _cached_player_index: cold disk cache + Sleeper
+        # unreachable. Without this guard every keeper would silently get
+        # years_exp=0 (all flagged taxi-eligible) on a 200 response.
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "Sleeper player registry unavailable (network fetch failed and "
+                "no disk cache) — retry shortly."
+            ),
+        )
     _cache_set("raw_registry", registry)
     return registry
 
@@ -1145,14 +1156,16 @@ def league_draft_prep(
         HTTPException 400: non-numeric league_id.
         HTTPException 404: league not found on Sleeper.
     """
-    _validate_numeric_league_id(league_id)
-    league = _require_league(league_id)
-    use_season = season if season is not None else _current_year()
-
-    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
+    ctx = _build_league_context(league_id, season)
+    league = ctx.league
+    use_season = ctx.use_season
+    scoring_settings = ctx.scoring_settings
     league_settings: Dict[str, Any] = league.get("settings") or {}
 
-    # taxi_years=2 → players with years_exp <= 1 are taxi-eligible (2-1=1).
+    # Sleeper's taxi_years counts eligible SEASONS: taxi_years=2 → players with
+    # years_exp <= 1 (rookies + second-years) may occupy taxi slots; taxi_years=1
+    # → rookies only. (Matches Sleeper app behavior; verified against a live
+    # taxi_years=2 / taxi_allow_vets=0 league.)
     taxi_years_raw = league_settings.get("taxi_years")
     try:
         taxi_years = int(taxi_years_raw) if taxi_years_raw is not None else 0
@@ -1221,12 +1234,9 @@ def league_draft_prep(
     rookies: List[BestAvailablePlayer] = []
 
     if projections is not None and not projections.empty:
-        proj_lookup: Dict[Tuple[str, str], Dict[str, Any]] = {}
-        for _, row in projections.iterrows():
-            name_key = normalize_name(str(row.get("player_name") or ""))
-            pos_key = str(row.get("position") or "").upper()
-            if name_key and pos_key:
-                proj_lookup[(name_key, pos_key)] = row.to_dict()
+        # Same vectorized (norm, pos) → row lookup league_waivers uses —
+        # includes the _team tiebreak for same-name/same-position collisions.
+        proj_lookup = build_projection_lookup(projections)
 
         # Scan registry for unrostered skill-position players with projections.
         free_agent_rows: List[Dict[str, Any]] = []
