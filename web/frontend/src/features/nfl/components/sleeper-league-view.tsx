@@ -90,6 +90,133 @@ function slotLabel(slot: string): string {
 }
 
 // ---------------------------------------------------------------------------
+// PlayerRowList component — shared markup for Starters, Bench, Waivers
+// ---------------------------------------------------------------------------
+
+interface PlayerRowListProps<T extends {
+  position: string | null;
+  player_name: string | null;
+  team?: string | null;
+  projected_season_points?: number | null;
+}> {
+  rows: T[];
+  showSlot?: boolean;
+  getSlot?: (row: T) => string | undefined;
+  dimPoints?: boolean;
+  extra?: (row: T, index: number) => React.ReactNode;
+  compact?: boolean; // Use py-2 instead of py-2.5
+}
+
+function PlayerRowList<
+  T extends {
+    position: string | null;
+    player_name: string | null;
+    team?: string | null;
+    projected_season_points?: number | null;
+  },
+>({
+  rows,
+  showSlot,
+  getSlot,
+  dimPoints,
+  extra,
+  compact,
+}: PlayerRowListProps<T>) {
+  if (rows.length === 0) {
+    return (
+      <p className='px-4 py-3 text-sm text-muted-foreground'>
+        No rows available.
+      </p>
+    );
+  }
+
+  if (extra) {
+    // Waiver targets layout with extra content
+    return (
+      <>
+        {rows.map((row, i) => (
+          <div
+            key={i}
+            className='flex items-center justify-between px-4 py-2.5 gap-3'
+          >
+            <div className='flex items-center gap-2.5 min-w-0'>
+              {showSlot && getSlot?.(row) && (
+                <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono shrink-0'>
+                  {slotLabel(getSlot(row)!)}
+                </span>
+              )}
+              <PosBadge pos={row.position} />
+              <div className='min-w-0'>
+                <p className='text-sm font-medium truncate'>
+                  {row.player_name ?? '—'}
+                </p>
+                {row.team && (
+                  <p className='text-[10px] text-muted-foreground'>
+                    {row.team}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className='text-right shrink-0'>
+              <p
+                className={`text-sm font-semibold tabular-nums ${
+                  dimPoints ? 'text-muted-foreground' : SUCCESS_TEXT
+                }`}
+              >
+                {row.projected_season_points != null
+                  ? row.projected_season_points.toFixed(1)
+                  : '—'}
+              </p>
+              {extra(row, i)}
+            </div>
+          </div>
+        ))}
+      </>
+    );
+  }
+
+  // Starters/Bench layout
+  return (
+    <>
+      {rows.map((row, i) => (
+        <div
+          key={i}
+          className={`flex items-center justify-between px-4 ${
+            compact ? 'py-2' : 'py-2.5'
+          }`}
+        >
+          <div className='flex items-center gap-2.5'>
+            {showSlot && getSlot?.(row) && (
+              <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono'>
+                {slotLabel(getSlot(row)!)}
+              </span>
+            )}
+            <PosBadge pos={row.position} />
+            <span className='text-sm font-medium'>
+              {row.player_name ?? '—'}
+            </span>
+            {row.team && (
+              <span className='text-xs text-muted-foreground'>{row.team}</span>
+            )}
+          </div>
+          <span
+            className={`text-sm tabular-nums ${
+              dimPoints
+                ? 'text-muted-foreground'
+                : `font-semibold ${SUCCESS_TEXT}`
+            }`}
+          >
+            {row.projected_season_points != null
+              ? row.projected_season_points.toFixed(1)
+              : '—'}
+          </span>
+        </div>
+      ))}
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Connect wizard state machine
 // ---------------------------------------------------------------------------
 
@@ -588,40 +715,11 @@ function RosterReportView({ report }: { report: RosterReportResponse }) {
           Optimal Starters
         </h3>
         <div className='rounded-lg border divide-y'>
-          {report.starters.length === 0 ? (
-            <p className='px-4 py-3 text-sm text-muted-foreground'>
-              No starters computed.
-            </p>
-          ) : (
-            report.starters.map((s, i) => (
-              <div
-                key={i}
-                className='flex items-center justify-between px-4 py-2.5'
-              >
-                <div className='flex items-center gap-2.5'>
-                  <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono'>
-                    {slotLabel(s.slot)}
-                  </span>
-                  <PosBadge pos={s.position} />
-                  <span className='text-sm font-medium'>
-                    {s.player_name ?? '—'}
-                  </span>
-                  {s.team && (
-                    <span className='text-xs text-muted-foreground'>
-                      {s.team}
-                    </span>
-                  )}
-                </div>
-                <span
-                  className={`text-sm font-semibold tabular-nums ${SUCCESS_TEXT}`}
-                >
-                  {s.projected_season_points != null
-                    ? s.projected_season_points.toFixed(1)
-                    : '—'}
-                </span>
-              </div>
-            ))
-          )}
+          <PlayerRowList
+            rows={report.starters}
+            showSlot
+            getSlot={(s) => s.slot}
+          />
         </div>
       </section>
 
@@ -632,27 +730,7 @@ function RosterReportView({ report }: { report: RosterReportResponse }) {
             Bench ({report.bench.length})
           </h3>
           <div className='rounded-lg border divide-y'>
-            {report.bench.map((p, i) => (
-              <div
-                key={i}
-                className='flex items-center justify-between px-4 py-2'
-              >
-                <div className='flex items-center gap-2.5'>
-                  <PosBadge pos={p.position} />
-                  <span className='text-sm'>{p.player_name ?? '—'}</span>
-                  {p.team && (
-                    <span className='text-xs text-muted-foreground'>
-                      {p.team}
-                    </span>
-                  )}
-                </div>
-                <span className='text-sm tabular-nums text-muted-foreground'>
-                  {p.projected_season_points != null
-                    ? p.projected_season_points.toFixed(1)
-                    : '—'}
-                </span>
-              </div>
-            ))}
+            <PlayerRowList rows={report.bench} compact dimPoints />
           </div>
         </section>
       )}
@@ -711,43 +789,18 @@ function WaiversView({ waivers }: { waivers: WaiversResponse }) {
         league-scored season projection
       </div>
       <div className='rounded-lg border divide-y'>
-        {waivers.targets.map((t, i) => (
-          <div
-            key={i}
-            className='flex items-center justify-between px-4 py-2.5 gap-3'
-          >
-            <div className='flex items-center gap-2.5 min-w-0'>
-              <span className='w-5 text-xs text-muted-foreground tabular-nums shrink-0'>
-                {i + 1}
-              </span>
-              <PosBadge pos={t.position} />
-              <div className='min-w-0'>
-                <p className='text-sm font-medium truncate'>
-                  {t.player_name ?? '—'}
-                </p>
-                {t.team && (
-                  <p className='text-[10px] text-muted-foreground'>{t.team}</p>
-                )}
-              </div>
-            </div>
-            <div className='text-right shrink-0'>
-              <p
-                className={`text-sm font-semibold tabular-nums ${SUCCESS_TEXT}`}
-              >
-                {t.projected_season_points != null
-                  ? t.projected_season_points.toFixed(1)
-                  : '—'}
+        <PlayerRowList
+          rows={waivers.targets}
+          extra={(t) =>
+            t.upgrades_over ? (
+              <p className={`text-[10px] ${WARN_TEXT}`}>
+                upgrades over {t.upgrades_over}
               </p>
-              {t.upgrades_over ? (
-                <p className={`text-[10px] ${WARN_TEXT}`}>
-                  upgrades over {t.upgrades_over}
-                </p>
-              ) : (
-                <p className='text-[10px] text-muted-foreground'>depth</p>
-              )}
-            </div>
-          </div>
-        ))}
+            ) : (
+              <p className='text-[10px] text-muted-foreground'>depth</p>
+            )
+          }
+        />
       </div>
     </div>
   );
