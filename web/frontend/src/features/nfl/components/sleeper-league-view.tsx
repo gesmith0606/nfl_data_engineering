@@ -15,6 +15,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import {
+  fetchLeagueDraftPrep,
   fetchLeagueOverview,
   fetchLeagueRosterReport,
   fetchLeagueWaivers,
@@ -23,7 +24,9 @@ import {
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
 import type {
+  BestAvailablePlayer,
   ConnectedLeague,
+  LeagueDraftPrepResponse,
   RosterReportResponse,
   SleeperLeague,
   SleeperUser,
@@ -539,16 +542,9 @@ function LeagueHome({
         </div>
       )}
 
-      {/* Pre-draft note */}
+      {/* Pre-draft mode: full draft-prep panel */}
       {!loading && !error && isPreDraft && (
-        <div className='rounded-lg border border-dashed p-6 text-center space-y-2'>
-          <p className='font-medium text-sm'>Pre-Draft Mode</p>
-          <p className='text-sm text-muted-foreground'>
-            No roster data found yet — your league is likely in the pre-draft
-            phase. Use the Draft tool to prepare your strategy, or check back
-            after the draft.
-          </p>
-        </div>
+        <DraftPrepView league={league} />
       )}
 
       {/* Roster report tab */}
@@ -748,6 +744,290 @@ function WaiversView({ waivers }: { waivers: WaiversResponse }) {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Draft-Prep view (pre-season / pre_draft league state)
+// ---------------------------------------------------------------------------
+
+/**
+ * Value badge shown next to a player's ADP rank in the best-available table.
+ *
+ * Positive value means our model projects the player higher than the market
+ * does (adp_rank - projection_rank > 0). Green when value >= 10 (strong
+ * undervaluation signal), yellow for 1-9, muted for neutral/negative.
+ */
+function ValueBadge({ value }: { value: number | null }) {
+  if (value == null) return null;
+  let cls: string;
+  let label: string;
+  if (value >= 10) {
+    cls = `${SUCCESS_TEXT} font-semibold`;
+    label = `+${value}`;
+  } else if (value > 0) {
+    cls = `${WARN_TEXT}`;
+    label = `+${value}`;
+  } else if (value === 0) {
+    cls = 'text-muted-foreground';
+    label = '±0';
+  } else {
+    cls = 'text-muted-foreground';
+    label = String(value);
+  }
+  return (
+    <span className={`text-[10px] tabular-nums ${cls}`} title='ADP rank − our projection rank'>
+      {label}
+    </span>
+  );
+}
+
+/** A single player row used in the best-available and rookies tables. */
+function BestAvailableRow({
+  player,
+  rank,
+}: {
+  player: BestAvailablePlayer;
+  rank: number;
+}) {
+  return (
+    <div className='flex items-center justify-between px-4 py-2.5 gap-3'>
+      <div className='flex items-center gap-2.5 min-w-0'>
+        <span className='w-5 text-xs text-muted-foreground tabular-nums shrink-0'>
+          {rank}
+        </span>
+        <PosBadge pos={player.position} />
+        <div className='min-w-0'>
+          <p className='text-sm font-medium truncate'>
+            {player.player_name ?? '—'}
+          </p>
+          {player.team && (
+            <p className='text-[10px] text-muted-foreground'>{player.team}</p>
+          )}
+        </div>
+      </div>
+      <div className='flex items-center gap-3 shrink-0'>
+        {/* ADP column */}
+        <div className='text-right w-16'>
+          {player.adp_rank != null ? (
+            <>
+              <p className='text-xs tabular-nums text-muted-foreground'>
+                ADP {player.adp_rank}
+              </p>
+              <ValueBadge value={player.value} />
+            </>
+          ) : (
+            <p className='text-[10px] text-muted-foreground'>no ADP</p>
+          )}
+        </div>
+        {/* Projected points column */}
+        <p className={`text-sm font-semibold tabular-nums w-12 text-right ${SUCCESS_TEXT}`}>
+          {player.projected_season_points != null
+            ? player.projected_season_points.toFixed(1)
+            : '—'}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * DraftPrepView — shown when the connected league is in pre-draft mode.
+ *
+ * Fetches GET /api/league/{id}/draft-prep and renders four sections:
+ *   1. Draft info header (type, rounds, slot, status)
+ *   2. Keeper candidates card (when the user has a pre-loaded roster)
+ *   3. Best-available table with ADP rank + value badge (green = undervalued)
+ *   4. Rookies tab (subset sorted by ADP — market rank beats our fallback projections)
+ */
+function DraftPrepView({ league }: { league: ConnectedLeague }) {
+  const [prep, setPrep] = useState<LeagueDraftPrepResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [tab, setTab] = useState<'best_available' | 'rookies'>('best_available');
+
+  const seasonYear = parseInt(league.season, 10) || new Date().getFullYear();
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    fetchLeagueDraftPrep(league.league_id, league.user_id, seasonYear)
+      .then((data) => {
+        if (!cancelled) setPrep(data);
+      })
+      .catch((err: unknown) => {
+        if (!cancelled) {
+          const msg = err instanceof Error ? err.message : String(err);
+          setError(`Failed to load draft prep: ${msg}`);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [league.league_id, league.user_id, seasonYear]);
+
+  if (loading) {
+    return (
+      <div className='py-8 text-center text-sm text-muted-foreground'>
+        Loading draft prep…
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>
+        {error}
+      </div>
+    );
+  }
+
+  if (!prep) return null;
+
+  const { draft_info, keeper_candidates, best_available, rookies, rookie_note } = prep;
+  const activeList = tab === 'rookies' ? rookies : best_available;
+
+  return (
+    <div className='space-y-4'>
+      {/* Draft info header */}
+      {draft_info && (
+        <div className='rounded-lg border p-4 space-y-2'>
+          <div className='flex items-center justify-between'>
+            <h3 className='text-sm font-semibold'>Draft</h3>
+            <span className='inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium text-muted-foreground capitalize'>
+              {draft_info.status.replace('_', ' ')}
+            </span>
+          </div>
+          <div className='flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground'>
+            <span>
+              Type:{' '}
+              <span className='font-medium text-foreground capitalize'>
+                {draft_info.type}
+              </span>
+            </span>
+            <span>
+              <span className='font-medium text-foreground'>
+                {draft_info.rounds}
+              </span>{' '}
+              {draft_info.rounds === 1 ? 'round' : 'rounds'}
+            </span>
+            {draft_info.user_slot != null ? (
+              <span>
+                Your slot:{' '}
+                <span className='font-medium text-foreground'>
+                  #{draft_info.user_slot}
+                </span>
+              </span>
+            ) : (
+              <span className='italic'>Draft order not set yet</span>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Keeper candidates — only shown when the user has a roster */}
+      {keeper_candidates.length > 0 && (
+        <section>
+          <h3 className='text-xs font-semibold uppercase text-muted-foreground mb-2'>
+            Your Roster — Keeper Candidates
+          </h3>
+          <div className='rounded-lg border divide-y'>
+            {keeper_candidates.map((k, i) => (
+              <div
+                key={i}
+                className='flex items-center justify-between px-4 py-2.5 gap-3'
+              >
+                <div className='flex items-center gap-2.5 min-w-0'>
+                  <PosBadge pos={k.position} />
+                  <div className='min-w-0'>
+                    <p className='text-sm font-medium truncate'>
+                      {k.player_name ?? '—'}
+                    </p>
+                    {k.team && (
+                      <p className='text-[10px] text-muted-foreground'>
+                        {k.team}
+                      </p>
+                    )}
+                  </div>
+                  {k.taxi_eligible && (
+                    <span className='inline-flex items-center rounded border border-dashed px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground'>
+                      TAXI
+                    </span>
+                  )}
+                </div>
+                <p className={`text-sm font-semibold tabular-nums shrink-0 ${SUCCESS_TEXT}`}>
+                  {k.projected_season_points != null
+                    ? k.projected_season_points.toFixed(1)
+                    : '—'}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Best-available / Rookies tab bar */}
+      <div>
+        <div className='flex gap-1 border-b mb-0'>
+          {(['best_available', 'rookies'] as const).map((t) => (
+            <button
+              key={t}
+              type='button'
+              onClick={() => setTab(t)}
+              className={`px-3 py-1.5 text-sm -mb-px border-b-2 ${
+                tab === t
+                  ? 'border-primary font-medium'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {t === 'best_available'
+                ? `Best Available (${best_available.length})`
+                : `Rookies (${rookies.length})`}
+            </button>
+          ))}
+        </div>
+
+        {/* Rookies tab note */}
+        {tab === 'rookies' && rookie_note && (
+          <p className='text-[10px] text-muted-foreground px-1 pt-2 pb-1 italic'>
+            {rookie_note}
+          </p>
+        )}
+
+        {/* Column headers */}
+        {activeList.length > 0 && (
+          <div className='flex items-center justify-between px-4 py-1.5 text-[10px] font-semibold uppercase text-muted-foreground'>
+            <span>Player</span>
+            <div className='flex gap-3'>
+              <span className='w-16 text-right'>ADP / Value</span>
+              <span className='w-12 text-right'>Proj Pts</span>
+            </div>
+          </div>
+        )}
+
+        {activeList.length === 0 ? (
+          <p className='rounded-md border p-4 text-sm text-muted-foreground mt-2'>
+            No players found for this view.
+          </p>
+        ) : (
+          <div className='rounded-lg border divide-y'>
+            {activeList.map((player, i) => (
+              <BestAvailableRow
+                key={player.sleeper_player_id || i}
+                player={player}
+                rank={i + 1}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

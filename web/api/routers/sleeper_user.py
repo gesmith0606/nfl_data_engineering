@@ -24,7 +24,12 @@ from src.draft_models import PickEvent
 from src.projection_store import load_latest_preseason
 from src.league_scoring import score_with_settings, unmodeled_offense_keys
 from src.roster_optimizer import drop_candidates, optimal_lineup
-from src.sleeper_http import fetch_sleeper_json, get_league, get_league_rosters
+from src.sleeper_http import (
+    fetch_sleeper_json,
+    get_drafts_for_league,
+    get_league,
+    get_league_rosters,
+)
 from src.sleeper_player_map import (
     build_player_index,
     build_projection_lookup,
@@ -34,6 +39,10 @@ from src.sleeper_player_map import (
 )
 
 from ..models.schemas import (
+    BestAvailablePlayer,
+    DraftInfo,
+    KeeperCandidate,
+    LeagueDraftPrepResponse,
     LeagueOverviewResponse,
     LeagueRosterPlayer,
     RosterReportResponse,
@@ -125,6 +134,21 @@ def _cached_player_index() -> Dict[str, Dict[str, str]]:
         )
     _cache_set("player_index", index)
     return index
+
+
+def _cached_raw_registry() -> Dict[str, Any]:
+    """Return the raw Sleeper player registry (all fields), TTL-cached in-process.
+
+    Unlike ``_cached_player_index`` (which only keeps name/pos/team), the raw
+    registry preserves ``years_exp`` and other per-player attributes needed for
+    taxi eligibility and rookie detection.
+    """
+    cached = _cache_get("raw_registry")
+    if cached is not None:
+        return cached  # type: ignore[return-value]
+    registry = load_sleeper_players()
+    _cache_set("raw_registry", registry)
+    return registry
 
 
 def _cached_projections(season: int) -> Optional[pd.DataFrame]:
@@ -991,6 +1015,281 @@ def league_waivers(
         user_id=user_id,
         roster_positions=ctx.roster_positions,
         targets=targets,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Draft-prep helpers
+# ---------------------------------------------------------------------------
+
+
+def _load_adp() -> Dict[str, int]:
+    """Load ADP data from the committed CSV, keyed by normalized player name.
+
+    Returns:
+        Mapping of ``normalize_name(player_name)`` → ``adp_rank`` (int).
+        Empty dict when the file is absent or unreadable.
+    """
+    adp_path = os.path.join("data", "adp_latest.csv")
+    if not os.path.exists(adp_path):
+        logger.debug("ADP file not found at %s — adp_rank will be None", adp_path)
+        return {}
+    try:
+        df = pd.read_csv(adp_path, usecols=["player_name", "adp_rank"])
+        result: Dict[str, int] = {}
+        for _, row in df.iterrows():
+            key = normalize_name(str(row["player_name"]))
+            if key:
+                result[key] = int(row["adp_rank"])
+        return result
+    except Exception as exc:
+        logger.warning("Could not load ADP from %s: %s", adp_path, exc)
+        return {}
+
+
+def _cached_adp() -> Dict[str, int]:
+    """Return ADP lookup, TTL-cached in-process."""
+    cached = _cache_get("adp_lookup")
+    if cached is not None:
+        return cached  # type: ignore[return-value]
+    adp = _load_adp()
+    _cache_set("adp_lookup", adp)
+    return adp
+
+
+def _build_draft_info(league_id: str, user_id: Optional[str]) -> Optional[DraftInfo]:
+    """Fetch the first upcoming/active draft for a league and return a DraftInfo.
+
+    Calls ``GET /v1/league/{league_id}/drafts`` via ``get_drafts_for_league``.
+
+    Args:
+        league_id: Sleeper league ID.
+        user_id: Calling user's ID; used to look up their slot in ``draft_order``.
+
+    Returns:
+        ``DraftInfo`` for the first non-complete draft found, or ``None`` when
+        no draft exists or the Sleeper call fails.
+    """
+    cache_key = f"drafts:{league_id}"
+    drafts = _cache_get(cache_key)
+    if drafts is None:
+        drafts = get_drafts_for_league(league_id, timeout=_SLEEPER_TIMEOUT_S)
+        _cache_set(cache_key, drafts)
+
+    if not drafts:
+        return None
+
+    # Prefer the first non-complete draft; fall back to the first one.
+    target = next(
+        (d for d in drafts if isinstance(d, dict) and d.get("status") != "complete"),
+        drafts[0] if isinstance(drafts[0], dict) else None,
+    )
+    if not target:
+        return None
+
+    settings = target.get("settings") or {}
+    rounds = int(settings.get("rounds") or settings.get("draft_rounds") or 0) or None
+
+    # draft_order maps user_id → slot (1-based) when set by commissioner.
+    draft_order = target.get("draft_order") or {}
+    user_slot: Optional[int] = None
+    if user_id and isinstance(draft_order, dict):
+        raw_slot = draft_order.get(user_id) or draft_order.get(str(user_id))
+        if raw_slot is not None:
+            try:
+                user_slot = int(raw_slot)
+            except (TypeError, ValueError):
+                pass
+
+    return DraftInfo(
+        draft_id=str(target.get("draft_id") or ""),
+        status=str(target.get("status") or "pre_draft"),
+        type=str(target.get("type") or "snake"),
+        rounds=rounds if rounds and rounds > 0 else 1,
+        user_slot=user_slot,
+    )
+
+
+@league_router.get("/{league_id}/draft-prep", response_model=LeagueDraftPrepResponse)
+def league_draft_prep(
+    league_id: str,
+    user_id: Optional[str] = Query(None, description="Sleeper user_id"),
+    season: Optional[int] = Query(None, description="Season year (defaults to current)"),
+) -> LeagueDraftPrepResponse:
+    """Return pre-draft analysis for a league: keeper candidates, draft info, best available, and rookies.
+
+    Designed for the flagship pre-season view shown when a connected league has
+    ``status='pre_draft'`` or an empty roster. Four sections are returned:
+
+    1. **keeper_candidates** — user's current roster (if any) sorted by
+       league-scored ``projected_season_points`` descending, with a
+       ``taxi_eligible`` flag derived from ``league.settings.taxi_years``.
+    2. **draft_info** — draft type, rounds, and the user's draft slot when set.
+    3. **best_available** — top-30 unrostered skill-position players by
+       league-scored projection, each annotated with ``adp_rank`` (from
+       ``data/adp_latest.csv``) and ``value = adp_rank - projection_rank``.
+    4. **rookies** — subset of best_available where ``years_exp == 0``,
+       re-sorted by ``adp_rank`` ascending since our rookie projections are
+       conservative positional fallbacks.
+
+    Args:
+        league_id: Numeric Sleeper league ID.
+        user_id: Sleeper user_id (optional; keeper_candidates empty when absent).
+        season: NFL season year (default: current UTC year).
+
+    Returns:
+        ``LeagueDraftPrepResponse`` with all four sections populated.
+
+    Raises:
+        HTTPException 400: non-numeric league_id.
+        HTTPException 404: league not found on Sleeper.
+    """
+    _validate_numeric_league_id(league_id)
+    league = _require_league(league_id)
+    use_season = season if season is not None else _current_year()
+
+    scoring_settings: Dict[str, Any] = league.get("scoring_settings") or {}
+    league_settings: Dict[str, Any] = league.get("settings") or {}
+
+    # taxi_years=2 → players with years_exp <= 1 are taxi-eligible (2-1=1).
+    taxi_years_raw = league_settings.get("taxi_years")
+    try:
+        taxi_years = int(taxi_years_raw) if taxi_years_raw is not None else 0
+    except (TypeError, ValueError):
+        taxi_years = 0
+    taxi_threshold = max(0, taxi_years - 1) if taxi_years > 0 else -1
+
+    # --- load projections, registry, ADP (all TTL-cached) -------------------
+    projections = _league_projections(league_id, use_season, scoring_settings)
+    player_index = _cached_player_index()
+    raw_registry = _cached_raw_registry()
+    adp_lookup = _cached_adp()
+
+    # --- rosters: all league members + user's own players -------------------
+    cache_key = f"rosters:{league_id}"
+    rosters = _cache_get(cache_key)
+    if rosters is None:
+        rosters = get_league_rosters(league_id, timeout=_SLEEPER_TIMEOUT_S)
+        _cache_set(cache_key, rosters)
+
+    all_rostered_ids: set = set()
+    user_player_ids: List[str] = []
+    for r in rosters:
+        if not isinstance(r, dict):
+            continue
+        pids = [str(p) for p in (r.get("players") or []) if p]
+        all_rostered_ids.update(pids)
+        if user_id and str(r.get("owner_id") or "") == user_id:
+            user_player_ids = pids
+
+    # --- draft info ----------------------------------------------------------
+    draft_info = _build_draft_info(league_id, user_id)
+
+    # --- keeper candidates ---------------------------------------------------
+    keeper_candidates: List[KeeperCandidate] = []
+    if user_player_ids and projections is not None and not projections.empty:
+        matched, _ = _map_roster_to_projections(user_player_ids, projections, player_index)
+        # Sort descending by projected_season_points.
+        matched.sort(
+            key=lambda r: _safe_float(r.get("projected_season_points")) or 0,
+            reverse=True,
+        )
+        for row in matched:
+            pid = str(row.get("sleeper_player_id") or "")
+            # Use raw_registry (not the processed player_index) to preserve years_exp.
+            raw_rec = raw_registry.get(pid, {})
+            try:
+                yrs = int(raw_rec.get("years_exp") or 0)
+            except (TypeError, ValueError):
+                yrs = 0
+            taxi_eligible = (taxi_threshold >= 0) and (yrs <= taxi_threshold)
+            keeper_candidates.append(
+                KeeperCandidate(
+                    sleeper_player_id=pid,
+                    player_name=row.get("player_name"),
+                    position=str(row.get("position") or "").upper() or None,
+                    team=row.get("team") or row.get("recent_team"),
+                    projected_season_points=_safe_float(row.get("projected_season_points")),
+                    taxi_eligible=taxi_eligible,
+                )
+            )
+
+    # --- best available ------------------------------------------------------
+    # Build a projection lookup keyed by (normalized_name, position).
+    best_available: List[BestAvailablePlayer] = []
+    rookies: List[BestAvailablePlayer] = []
+
+    if projections is not None and not projections.empty:
+        proj_lookup: Dict[Tuple[str, str], Dict[str, Any]] = {}
+        for _, row in projections.iterrows():
+            name_key = normalize_name(str(row.get("player_name") or ""))
+            pos_key = str(row.get("position") or "").upper()
+            if name_key and pos_key:
+                proj_lookup[(name_key, pos_key)] = row.to_dict()
+
+        # Scan registry for unrostered skill-position players with projections.
+        free_agent_rows: List[Dict[str, Any]] = []
+        for pid, meta in player_index.items():
+            if str(pid) in all_rostered_ids:
+                continue
+            pos = str(meta.get("position") or "").upper()
+            if pos not in _SKILL_POSITIONS:
+                continue
+            norm = meta.get("normalized_name") or normalize_name(
+                str(meta.get("full_name") or "")
+            )
+            proj_row = proj_lookup.get((norm, pos))
+            if proj_row is None:
+                continue
+            enriched = dict(proj_row)
+            enriched["sleeper_player_id"] = str(pid)
+            # Use raw_registry to get years_exp (build_player_index strips it).
+            raw_rec = raw_registry.get(str(pid), {})
+            try:
+                enriched["years_exp"] = int(raw_rec.get("years_exp") or 0)
+            except (TypeError, ValueError):
+                enriched["years_exp"] = 0
+            free_agent_rows.append(enriched)
+
+        # Sort by projected_season_points descending; take top 30.
+        free_agent_rows.sort(
+            key=lambda r: _safe_float(r.get("projected_season_points")) or 0,
+            reverse=True,
+        )
+        top_30 = free_agent_rows[:30]
+
+        for proj_rank, row in enumerate(top_30, start=1):
+            norm_name = normalize_name(str(row.get("player_name") or ""))
+            adp_rank_val = adp_lookup.get(norm_name)
+            value: Optional[int] = None
+            if adp_rank_val is not None:
+                value = adp_rank_val - proj_rank
+            entry = BestAvailablePlayer(
+                sleeper_player_id=str(row.get("sleeper_player_id") or ""),
+                player_name=row.get("player_name"),
+                position=str(row.get("position") or "").upper() or None,
+                team=row.get("team") or row.get("recent_team"),
+                projected_season_points=_safe_float(row.get("projected_season_points")),
+                adp_rank=adp_rank_val,
+                projection_rank=proj_rank,
+                value=value,
+                years_exp=row.get("years_exp"),
+            )
+            best_available.append(entry)
+
+        # Rookies: years_exp==0, sorted by adp_rank ascending (None → end).
+        rookies = sorted(
+            [p for p in best_available if p.years_exp == 0],
+            key=lambda p: (p.adp_rank is None, p.adp_rank or 9999),
+        )
+
+    return LeagueDraftPrepResponse(
+        league_id=league_id,
+        user_id=user_id or "",
+        draft_info=draft_info,
+        keeper_candidates=keeper_candidates,
+        best_available=best_available,
+        rookies=rookies,
     )
 
 
