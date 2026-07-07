@@ -53,6 +53,7 @@ from src.league_scoring import score_with_settings, unmodeled_offense_keys  # no
 from src.live_draft_engine import LiveDraftEngine, PollResult  # noqa: E402
 from src.nfl_data_integration import NFLDataFetcher  # noqa: E402
 from src.projection_engine import generate_preseason_projections  # noqa: E402
+from src.projection_store import load_latest_preseason  # noqa: E402
 from src.roster_optimizer import drop_candidates, optimal_lineup  # noqa: E402
 from src.yahoo_adapter import YahooAdapter  # noqa: E402
 
@@ -71,24 +72,12 @@ _ADAPTERS = {
 
 
 def _latest_preseason_parquet(season: int) -> Optional[pd.DataFrame]:
-    """Load the newest committed preseason projections parquet for ``season``.
+    """Thin wrapper around :func:`src.projection_store.load_latest_preseason`.
 
-    This is the same Gold artifact the website serves, so it is the reliable
-    draft-day source. Returns ``None`` when none exists or it can't be read.
+    Preserved for backward compatibility with callers and tests that reference
+    this function by name.  All logic lives in the canonical loader.
     """
-    import glob
-
-    pattern = os.path.join(
-        "data", "gold", "projections", "preseason", f"season={season}", "*.parquet"
-    )
-    files = sorted(glob.glob(pattern))
-    if not files:
-        return None
-    try:
-        return pd.read_parquet(files[-1])
-    except Exception as exc:  # pragma: no cover - corrupt/locked file
-        logging.warning("Could not read preseason parquet %s: %s", files[-1], exc)
-        return None
+    return load_latest_preseason(season)
 
 
 def load_projections(
@@ -97,13 +86,13 @@ def load_projections(
     """Load projections for the draft, most-reliable source first.
 
     Order: an explicit ``--projections-file`` CSV, then the latest committed
-    preseason projections parquet (draft-day robust — upstream seasonal data is
-    routinely unavailable pre-season and 404s a fresh generate), then a live
-    generate as a last resort.
+    preseason projections parquet via :func:`src.projection_store.load_latest_preseason`
+    (draft-day robust — upstream seasonal data is routinely unavailable
+    pre-season and 404s a fresh generate), then a live generate as a last resort.
     """
     if projections_file and os.path.exists(projections_file):
         return pd.read_csv(projections_file)
-    preseason = _latest_preseason_parquet(season)
+    preseason = load_latest_preseason(season)
     if preseason is not None and not preseason.empty:
         return preseason
     fetcher = NFLDataFetcher()

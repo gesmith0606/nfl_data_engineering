@@ -7,7 +7,7 @@ Supports pytest fixture override for testability.
 import os
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional, Tuple
 
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
@@ -157,127 +157,173 @@ def is_in_season() -> bool:
     return now.month == 2 and now.day <= 15
 
 
+# ---------------------------------------------------------------------------
+# Config-table driven freshness logic
+# ---------------------------------------------------------------------------
+
+_PRESEASON_H: float = 168.0  # 7 days
+_IN_SEASON_H: float = 26.0   # ~1 day + buffer
+
+
+class _DatasetConfig:
+    """Descriptor for a single dataset's scan path and staleness rules.
+
+    Args:
+        name: Dataset name (matches FreshnessResponse field).
+        rel_path: Path components relative to data root.
+        kind: ``"parquet"`` (recursive parquet scan) or ``"rankings_json"``
+            (glob ``*_rankings.json``, prefer ``fetched_at`` for age).
+        in_season_threshold: Staleness threshold in hours during NFL season;
+            ``None`` means non-blocking in-season.
+        preseason_threshold: Staleness threshold in hours off-season;
+            ``None`` means non-blocking off-season.
+        blocking: When ``True`` this dataset's stale flag is included in
+            ``overall_stale``.
+    """
+
+    __slots__ = (
+        "name",
+        "rel_path",
+        "kind",
+        "in_season_threshold",
+        "preseason_threshold",
+        "blocking",
+    )
+
+    def __init__(
+        self,
+        name: str,
+        rel_path: Tuple[str, ...],
+        kind: str,
+        in_season_threshold: Optional[float],
+        preseason_threshold: Optional[float],
+        blocking: bool,
+    ) -> None:
+        self.name = name
+        self.rel_path = rel_path
+        self.kind = kind
+        self.in_season_threshold = in_season_threshold
+        self.preseason_threshold = preseason_threshold
+        self.blocking = blocking
+
+
+#: Ordered list of datasets to scan. Order matches FreshnessResponse fields.
+_DATASET_CONFIGS: List[_DatasetConfig] = [
+    _DatasetConfig(
+        "projections",
+        ("gold", "projections"),
+        "parquet",
+        _IN_SEASON_H,
+        _PRESEASON_H,
+        True,
+    ),
+    _DatasetConfig(
+        "predictions",
+        ("gold", "predictions"),
+        "parquet",
+        _IN_SEASON_H,
+        None,  # non-blocking off-season
+        True,
+    ),
+    _DatasetConfig(
+        "rankings",
+        ("external",),
+        "rankings_json",
+        _PRESEASON_H,  # always 7-day threshold (weekly cadence)
+        _PRESEASON_H,
+        True,
+    ),
+    _DatasetConfig(
+        "odds",
+        ("bronze", "odds_api", "snapshots"),
+        "parquet",
+        _IN_SEASON_H,
+        None,  # non-blocking off-season
+        False,
+    ),
+    _DatasetConfig(
+        "sentiment",
+        ("gold", "sentiment"),
+        "parquet",
+        _IN_SEASON_H,
+        None,  # non-blocking off-season
+        False,
+    ),
+]
+
+
+def _is_stale(age: Optional[float], threshold: Optional[float]) -> bool:
+    """Return True if the dataset is stale or absent.
+
+    A ``None`` threshold means non-blocking — always returns ``False``
+    regardless of age.
+
+    Args:
+        age: Age in hours of the newest artifact, or ``None`` when no data.
+        threshold: Staleness threshold in hours, or ``None`` for non-blocking.
+
+    Returns:
+        ``True`` when stale or missing; ``False`` when fresh or non-blocking.
+    """
+    if threshold is None:
+        return False
+    return age is None or age > threshold
+
+
+def _check_dataset(config: _DatasetConfig, data_root: Path, in_season: bool) -> FreshDataset:
+    """Compute freshness for a single dataset from its config.
+
+    Args:
+        config: Dataset descriptor (path, kind, thresholds).
+        data_root: Root of the local data directory tree.
+        in_season: Whether the NFL season is currently active.
+
+    Returns:
+        ``FreshDataset`` with age, stale flag, and newest-file name.
+    """
+    threshold = config.in_season_threshold if in_season else config.preseason_threshold
+
+    if config.kind == "rankings_json":
+        rankings_dir = data_root.joinpath(*config.rel_path)
+        newest: Optional[Path] = None
+        if rankings_dir.exists():
+            files = [f for f in rankings_dir.glob("*_rankings.json") if f.is_file()]
+            if files:
+                newest = max(files, key=lambda f: f.stat().st_mtime)
+        age: Optional[float] = age_in_hours(_rankings_time(newest)) if newest else None
+    else:
+        path = data_root.joinpath(*config.rel_path)
+        newest = find_newest_file(path)
+        age = age_in_hours(artifact_time(newest)) if newest else None
+
+    return FreshDataset(
+        age_hours=age,
+        stale=_is_stale(age, threshold),
+        newest_file=newest.name if newest else None,
+    )
+
+
 def get_freshness() -> FreshnessResponse:
     """Scan data/ and return freshness status."""
     data_root = get_data_root()
     now = datetime.now(tz=timezone.utc)
-
-    # Thresholds (hours)
-    preseason_threshold = 168  # 7 days
-    in_season_threshold = 26  # ~1 day + buffer
     in_season = is_in_season()
 
-    # Determine thresholds for each dataset. Game predictions only exist
-    # in-season (nothing to predict all offseason) — blocking on them
-    # off-season would keep a false alarm open from February to September.
-    proj_threshold = in_season_threshold if in_season else preseason_threshold
-    pred_threshold = in_season_threshold if in_season else None
-    rankings_threshold = preseason_threshold  # Always weekly
-    odds_threshold = in_season_threshold if in_season else None  # None = non-blocking
-    sentiment_threshold = in_season_threshold if in_season else None  # None = non-blocking
+    results = {
+        cfg.name: _check_dataset(cfg, data_root, in_season)
+        for cfg in _DATASET_CONFIGS
+    }
 
-    # Scan projections: data/gold/projections/season=*/week=*/*.parquet
-    proj_newest = find_newest_file(data_root / "gold" / "projections")
-    proj_age = age_in_hours(artifact_time(proj_newest)) if proj_newest else None
-    proj_stale = (
-        proj_age is None
-        or proj_age > proj_threshold
-        if proj_threshold
-        else False
+    overall_stale = any(
+        results[cfg.name].stale for cfg in _DATASET_CONFIGS if cfg.blocking
     )
-
-    # Scan predictions: data/gold/predictions/season=*/week=*/*.parquet
-    pred_newest = find_newest_file(data_root / "gold" / "predictions")
-    pred_age = age_in_hours(artifact_time(pred_newest)) if pred_newest else None
-    pred_stale = (
-        pred_age is None or pred_age > pred_threshold
-        if pred_threshold
-        else False
-    )
-
-    # Scan rankings: data/external/*_rankings.json
-    rankings_dir = data_root / "external"
-    rankings_newest = None
-    if rankings_dir.exists():
-        ranking_files = [
-            f
-            for f in rankings_dir.glob("*_rankings.json")
-            if f.is_file()
-        ]
-        if ranking_files:
-            rankings_newest = max(ranking_files, key=lambda f: f.stat().st_mtime)
-
-    rankings_age = age_in_hours(_rankings_time(rankings_newest)) if rankings_newest else None
-    rankings_stale = rankings_age is None or rankings_age > rankings_threshold
-
-    # Scan odds: data/bronze/odds_api/snapshots/odds_*.parquet
-    odds_newest = find_newest_file(
-        data_root / "bronze" / "odds_api" / "snapshots"
-    )
-    odds_age = age_in_hours(artifact_time(odds_newest)) if odds_newest else None
-    odds_stale = False
-    if odds_threshold is not None:
-        odds_stale = odds_age is None or odds_age > odds_threshold
-
-    # Scan sentiment: data/gold/sentiment/season=*/week=*/*.parquet
-    sentiment_newest = find_newest_file(data_root / "gold" / "sentiment")
-    sentiment_age = (
-        age_in_hours(artifact_time(sentiment_newest)) if sentiment_newest else None
-    )
-    sentiment_stale = False
-    if sentiment_threshold is not None:
-        sentiment_stale = sentiment_age is None or sentiment_age > sentiment_threshold
-
-    # Overall stale = any BLOCKING dataset stale
-    # Non-blocking (None threshold) = always False
-    overall_stale = proj_stale or pred_stale or rankings_stale
 
     return FreshnessResponse(
-        projections=FreshDataset(
-            age_hours=proj_age,
-            stale=proj_stale,
-            newest_file=(
-                proj_newest.name
-                if proj_newest
-                else None
-            ),
-        ),
-        predictions=FreshDataset(
-            age_hours=pred_age,
-            stale=pred_stale,
-            newest_file=(
-                pred_newest.name
-                if pred_newest
-                else None
-            ),
-        ),
-        rankings=FreshDataset(
-            age_hours=rankings_age,
-            stale=rankings_stale,
-            newest_file=(
-                rankings_newest.name
-                if rankings_newest
-                else None
-            ),
-        ),
-        odds=FreshDataset(
-            age_hours=odds_age,
-            stale=odds_stale,
-            newest_file=(
-                odds_newest.name
-                if odds_newest
-                else None
-            ),
-        ),
-        sentiment=FreshDataset(
-            age_hours=sentiment_age,
-            stale=sentiment_stale,
-            newest_file=(
-                sentiment_newest.name
-                if sentiment_newest
-                else None
-            ),
-        ),
+        projections=results["projections"],
+        predictions=results["predictions"],
+        rankings=results["rankings"],
+        odds=results["odds"],
+        sentiment=results["sentiment"],
         overall_stale=overall_stale,
         generated_at=now.isoformat(),
     )
