@@ -10,10 +10,8 @@ and projection re-scoring via ``src/league_scoring.py``.
 
 from __future__ import annotations
 
-import glob
 import logging
 import math
-import os
 import time
 from datetime import datetime, timezone
 from typing import Any, Dict, List, NamedTuple, Optional, Tuple
@@ -23,6 +21,7 @@ from fastapi import APIRouter, HTTPException, Query, Response
 
 from src.config import SENTIMENT_CONFIG
 from src.draft_models import PickEvent
+from src.projection_store import load_latest_preseason
 from src.league_scoring import score_with_settings, unmodeled_offense_keys
 from src.roster_optimizer import drop_candidates, optimal_lineup
 from src.sleeper_http import fetch_sleeper_json, get_league, get_league_rosters
@@ -85,43 +84,17 @@ def _cache_set(key: str, value: Any) -> None:
 # ---------------------------------------------------------------------------
 
 
-def _latest_preseason_parquet(season: int) -> Optional[pd.DataFrame]:
-    """Load the newest committed preseason projections parquet for ``season``.
-
-    Uses the same glob pattern as ``scripts/draft_live.py`` so the API always
-    serves the same Gold artifact that the CLI draft co-pilot uses.
-
-    Returns:
-        DataFrame if found, else ``None``.
-    """
-    pattern = os.path.join(
-        "data", "gold", "projections", "preseason", f"season={season}", "*.parquet"
-    )
-    files = sorted(glob.glob(pattern))
-    if not files:
-        return None
-    try:
-        df = pd.read_parquet(files[-1])
-        # Alias recent_team → team so downstream functions have a consistent
-        # ``team`` column for tiebreaking during name matching.
-        if "recent_team" in df.columns and "team" not in df.columns:
-            df = df.rename(columns={"recent_team": "team"})
-        return df
-    except Exception as exc:
-        logger.warning("Could not read preseason parquet %s: %s", files[-1], exc)
-        return None
-
-
 def _load_projections(season: int) -> Optional[pd.DataFrame]:
-    """Load season projections, trying preseason parquet first.
+    """Load season projections from the canonical preseason parquet.
 
-    Mirrors the priority in ``scripts/draft_live.py::load_projections`` so the
-    web API returns the same values as the CLI tool for the same inputs.
+    Delegates to :func:`src.projection_store.load_latest_preseason` so the
+    web API always serves the same Gold artifact as the CLI draft co-pilot,
+    with identical ``recent_team → team`` column normalisation.
 
     Returns:
         DataFrame (never empty) or ``None`` when no source is available.
     """
-    df = _latest_preseason_parquet(season)
+    df = load_latest_preseason(season)
     if df is not None and not df.empty:
         return df
     logger.warning("No preseason parquet for season=%d; projections unavailable", season)
