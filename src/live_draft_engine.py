@@ -75,11 +75,13 @@ class LiveDraftEngine:
         adp_df: Optional[pd.DataFrame] = None,
         my_user_id: Optional[str] = None,
         my_slot: Optional[int] = None,
+        roster_config: Optional[Dict[str, int]] = None,
     ) -> None:
         self.adapter = adapter
         self.enriched = compute_value_scores(projections_df, adp_df)
         self.my_user_id = my_user_id
         self.my_slot = my_slot
+        self.roster_config = roster_config
         self.board: Optional[DraftBoard] = None
         self.advisor: Optional[DraftAdvisor] = None
         self.rosters: Dict[int, List[Dict[str, Any]]] = {}
@@ -100,6 +102,7 @@ class LiveDraftEngine:
                 self.enriched,
                 roster_format=state.roster_format or "standard",
                 n_teams=state.n_teams or 12,
+                roster_config=self.roster_config,
             )
             self.advisor = DraftAdvisor(self.board, scoring_format=state.scoring_format)
             if self.my_slot is None and self.my_user_id:

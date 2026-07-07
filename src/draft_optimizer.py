@@ -13,6 +13,7 @@ from __future__ import annotations
 import pandas as pd
 import numpy as np
 from typing import Dict, List, Optional, Tuple
+from collections import Counter
 import logging
 import random
 
@@ -61,6 +62,11 @@ def compute_value_scores(
     """
     df = projections.copy()
 
+    # Normalize positions to uppercase so VORP, needs, saturation, and draftable
+    # filtering are robust to lowercase input (e.g. a hand-rolled CSV).
+    if "position" in df.columns:
+        df["position"] = df["position"].astype(str).str.upper()
+
     # Model rank (overall)
     pts_col = (
         "projected_season_points"
@@ -101,6 +107,107 @@ def compute_value_scores(
     return df.sort_values("model_rank").reset_index(drop=True)
 
 
+# Sleeper roster-slot name -> DraftBoard roster_config key. Flex variants collapse
+# to FLEX, superflex to SFLEX, defense to DST; bench/IR/taxi are not starters.
+_SLOT_TO_CONFIG_KEY = {
+    "QB": "QB",
+    "RB": "RB",
+    "WR": "WR",
+    "TE": "TE",
+    "K": "K",
+    "DEF": "DST",
+    "DST": "DST",
+    "FLEX": "FLEX",
+    "WRRB_FLEX": "FLEX",
+    "REC_FLEX": "FLEX",
+    "WRRB_WRT": "FLEX",
+    "SUPER_FLEX": "SFLEX",
+    "SUPERFLEX": "SFLEX",
+}
+_NON_STARTER_SLOTS = {"BN", "IR", "TAXI"}
+
+
+def roster_config_from_positions(
+    roster_positions: Optional[List[str]],
+) -> Optional[Dict[str, int]]:
+    """Build a DraftBoard ``roster_config`` from a Sleeper ``roster_positions`` list.
+
+    Counts each starting slot into the keys ``DraftBoard`` understands
+    (QB/RB/WR/TE/K/DST/FLEX/SFLEX), dropping bench/IR/taxi and unknown IDP slots.
+    Lets remaining-needs reflect a league's true lineup (e.g. 3×FLEX and no K/DST
+    for "12 Mahomo's") instead of the generic ``standard`` preset.
+
+    Returns ``None`` for empty input so callers fall back to ``roster_format``.
+    """
+    if not roster_positions:
+        return None
+    counts: Dict[str, int] = {}
+    for raw in roster_positions:
+        name = str(raw).upper()
+        if name in _NON_STARTER_SLOTS:
+            continue
+        key = _SLOT_TO_CONFIG_KEY.get(name)
+        if key is None:  # unknown / IDP slot — not modeled
+            continue
+        counts[key] = counts.get(key, 0) + 1
+    return counts or None
+
+
+def draftable_positions(roster_config: Optional[Dict[str, int]]) -> set:
+    """Positions a league can actually roster — used to filter the player pool.
+
+    A league with no K or DST starting slot should never be advised to draft a
+    kicker/defense (their VORP ≈ 0 otherwise out-ranks deep negative-VORP skill
+    players late). FLEX contributes RB/WR/TE; SFLEX adds QB. Falls back to the
+    full skill set when no config is given.
+    """
+    default = {"QB", "RB", "WR", "TE", "K", "DST"}
+    if not roster_config:
+        return default
+    elig: set = set()
+    for slot in roster_config:
+        if slot == "FLEX":
+            elig |= FLEX_ELIGIBLE
+        elif slot == "SFLEX":
+            elig |= SFLEX_ELIGIBLE
+        elif slot in ("QB", "RB", "WR", "TE", "K", "DST"):
+            elig.add(slot)
+    return elig or {"QB", "RB", "WR", "TE"}
+
+
+# Sleeper draft `settings` slot keys -> roster_config key (mock draftboards expose
+# starting slots this way instead of as a roster_positions list).
+_SLOT_SETTING_KEY = {
+    "slots_qb": "QB",
+    "slots_rb": "RB",
+    "slots_wr": "WR",
+    "slots_te": "TE",
+    "slots_k": "K",
+    "slots_def": "DST",
+    "slots_flex": "FLEX",
+    "slots_wrrb_flex": "FLEX",
+    "slots_rec_flex": "FLEX",
+    "slots_super_flex": "SFLEX",
+}
+
+
+def roster_config_from_slots(settings: Optional[Dict]) -> Optional[Dict[str, int]]:
+    """Build a roster_config from a Sleeper draft's ``settings`` slots_* counts.
+
+    Mock draftboards (and league drafts) expose starting slots as ``slots_qb`` /
+    ``slots_flex`` / ``slots_super_flex`` integers rather than a ``roster_positions``
+    list. Maps them to the same keys :class:`DraftBoard` understands.
+    """
+    if not settings:
+        return None
+    rc: Dict[str, int] = {}
+    for k, key in _SLOT_SETTING_KEY.items():
+        n = int(settings.get(k) or 0)
+        if n:
+            rc[key] = rc.get(key, 0) + n
+    return rc or None
+
+
 # ---------------------------------------------------------------------------
 # Draft Board
 # ---------------------------------------------------------------------------
@@ -118,15 +225,21 @@ class DraftBoard:
         players: pd.DataFrame,
         roster_format: str = "standard",
         n_teams: int = 12,
+        roster_config: Optional[Dict[str, int]] = None,
     ):
         """
         Args:
             players:       Enriched projection DataFrame (from compute_value_scores).
             roster_format: One of the keys in config.ROSTER_CONFIGS.
             n_teams:       Number of teams in the league.
+            roster_config: Explicit starting-slot counts (e.g. built from a league's
+                           real Sleeper ``roster_positions`` via
+                           :func:`roster_config_from_positions`). When given it
+                           overrides ``roster_format`` so remaining-needs reflect the
+                           actual league lineup (e.g. 3×FLEX, no K/DST).
         """
         self.n_teams = n_teams
-        self.roster_config = ROSTER_CONFIGS.get(
+        self.roster_config = roster_config or ROSTER_CONFIGS.get(
             roster_format, ROSTER_CONFIGS["standard"]
         )
         self.scoring_format = "half_ppr"  # informational only on the board
@@ -210,7 +323,7 @@ class DraftBoard:
         """Count how many of each starter slot have been filled."""
         counts: Dict[str, int] = {slot: 0 for slot in self.roster_config}
         for player in self.my_roster:
-            pos = player.get("position", "UNK")
+            pos = str(player.get("position", "UNK")).upper()
             if pos in counts:
                 counts[pos] += 1
         return counts
@@ -316,29 +429,61 @@ class DraftAdvisor:
         scarcity = self._scarcity_alerts(avail)
         reasoning_parts.extend(scarcity)
 
-        # Score each available player
+        # Score each available player by VORP — value over replacement, not raw
+        # points. Raw points over-value QBs in PPR (a QB's 350 pts dwarf a WR's
+        # 300, yet the QB's marginal value over a streamer is tiny). VORP already
+        # encodes positional scarcity, so it is the correct draft-day signal.
         pts_col = (
             "projected_season_points"
             if "projected_season_points" in avail.columns
             else "projected_points"
         )
-        avail["recommendation_score"] = avail[pts_col].fillna(0)
+        score_col = "vorp" if "vorp" in avail.columns else pts_col
+        avail["recommendation_score"] = avail[score_col].fillna(0).astype(float)
 
-        # Boost score for positions still needed
+        # Nudge toward unfilled STARTING slots so the board builds a legal lineup
+        # rather than pure best-available. Modest vs VORP's spread (~200) — a
+        # tiebreaker that gets you your QB/TE on time, never an override.
         for pos, count_needed in needs.items():
-            if count_needed > 0 and pos in ["QB", "RB", "WR", "TE"]:
-                boost = min(count_needed * 15, 40)
+            if count_needed > 0 and pos in ("QB", "RB", "WR", "TE"):
+                boost = min(count_needed * 8, 16)
                 avail.loc[avail["position"] == pos, "recommendation_score"] += boost
 
-        # Boost undervalued players slightly
-        if "value_tier" in avail.columns:
+        # FLEX slots still open → gently favor flex-eligible (RB/WR/TE).
+        flex_need = needs.get("FLEX", 0)
+        if flex_need > 0:
             avail.loc[
-                avail["value_tier"] == "undervalued", "recommendation_score"
-            ] += 10
+                avail["position"].isin(FLEX_ELIGIBLE), "recommendation_score"
+            ] += min(flex_need * 3, 9)
 
-        # Penalize overvalued
+        # ADP value tiers: reward fallers, fade reaches.
         if "value_tier" in avail.columns:
-            avail.loc[avail["value_tier"] == "overvalued", "recommendation_score"] -= 8
+            avail.loc[avail["value_tier"] == "undervalued", "recommendation_score"] += 6
+            avail.loc[avail["value_tier"] == "overvalued", "recommendation_score"] -= 6
+
+        # Positional saturation: VORP alone hoards a deep position (e.g. 6 TEs) — it
+        # has no roster sense. Past a sane per-position roster cap, extra depth is
+        # unstartable, so escalate a penalty. QB/TE depth (you start one) is devalued
+        # hardest; RB/WR carry flex + bye/injury depth. Soft, not a wall — a massive
+        # faller can still overcome it.
+        rc = self.board.roster_config
+        base = {p: int(rc.get(p, 0)) for p in ("QB", "RB", "WR", "TE")}
+        flex_total = int(rc.get("FLEX", 0))
+        sflex_total = int(rc.get("SFLEX", 0))
+        pos_cap = {
+            "QB": base["QB"] + sflex_total + 1,
+            "TE": base["TE"] + 1,
+            "RB": base["RB"] + flex_total + 2,
+            "WR": base["WR"] + flex_total + 2,
+        }
+        have = Counter(str(p.get("position", "")).upper() for p in self.board.my_roster)
+        for pos in ("QB", "RB", "WR", "TE"):
+            over = have.get(pos, 0) - pos_cap[pos]
+            if over >= 0:
+                unit = 40 if pos in ("QB", "TE") else 25
+                avail.loc[avail["position"] == pos, "recommendation_score"] -= unit * (
+                    over + 1
+                )
 
         recs = avail.sort_values("recommendation_score", ascending=False).head(top_n)
 
@@ -350,6 +495,46 @@ class DraftAdvisor:
         reasoning = " | ".join(reasoning_parts)
 
         return recs.reset_index(drop=True), reasoning
+
+    def build_queue(self, depth: int = 12) -> List[Dict]:
+        """Need-aware ranked draft queue via simulate-and-fill.
+
+        Repeatedly takes the top recommendation and *tentatively* rosters it so
+        roster needs + positional saturation update between entries — yielding an
+        ordered queue that fills the starting lineup in priority order rather than
+        a flat best-available list (which would stack one position). The board is
+        restored before returning, so this is side-effect free and safe to call on
+        every poll of a live draft.
+
+        Returns a list of ``{player_name, position, team, projected_season_points,
+        vorp}`` dicts, highest priority first. Paste into a Sleeper queue so the
+        platform auto-drafts the best *available* entry on the user's clock.
+        """
+        board = self.board
+        saved_roster = list(board.my_roster)
+        saved_available = board.available.copy()
+        queue: List[Dict] = []
+        try:
+            for _ in range(max(0, depth)):
+                recs, _ = self.recommend(top_n=1)
+                if recs.empty:
+                    break
+                row = recs.iloc[0]
+                queue.append(
+                    {
+                        "player_name": row.get("player_name"),
+                        "position": row.get("position"),
+                        "team": row.get("team", row.get("recent_team")),
+                        "projected_season_points": row.get("projected_season_points"),
+                        "vorp": row.get("vorp"),
+                    }
+                )
+                key = row.get("player_id") or row.get("player_name")
+                board.draft_player(str(key), by_me=True)
+        finally:
+            board.my_roster = saved_roster
+            board.available = saved_available
+        return queue
 
     def _scarcity_alerts(self, avail: pd.DataFrame) -> List[str]:
         """Detect positions with low remaining top-tier talent."""
@@ -699,6 +884,7 @@ class MockDraftSimulator:
         user_pick: int,
         n_teams: int,
         randomness: int = 3,
+        draft_type: str = "snake",
     ):
         """
         Args:
@@ -708,6 +894,9 @@ class MockDraftSimulator:
             randomness: Max random offset applied to opponent ADP rank selection.
                         An offset in [-randomness, +randomness] is added to the
                         ideal ADP pick index, simulating reach/value picks.
+            draft_type: ``"snake"`` (serpentine, default) or ``"linear"`` (same
+                        slot order every round, as Sleeper dynasty/rookie drafts
+                        use). Controls which overall picks belong to the user.
         """
         if user_pick < 1 or user_pick > n_teams:
             raise ValueError(
@@ -718,6 +907,7 @@ class MockDraftSimulator:
         self.user_pick = user_pick
         self.n_teams = n_teams
         self.randomness = max(0, randomness)
+        self.draft_type = "linear" if str(draft_type).lower() == "linear" else "snake"
 
         pts_col = (
             "projected_season_points"
@@ -731,13 +921,18 @@ class MockDraftSimulator:
     # -----------------------------------------------------------------------
 
     def _is_user_turn(self, pick_number: int) -> bool:
-        """Return True when pick_number corresponds to the user's slot in snake order."""
-        round_number = (pick_number - 1) // self.n_teams + 1
+        """Return True when ``pick_number`` is the user's slot for this draft type.
+
+        Linear: the user's slot picks at the same position every round. Snake:
+        the order reverses on even rounds (serpentine).
+        """
         pick_in_round = (pick_number - 1) % self.n_teams + 1
+        if self.draft_type == "linear":
+            return pick_in_round == self.user_pick
+        round_number = (pick_number - 1) // self.n_teams + 1
         if round_number % 2 == 1:
             return pick_in_round == self.user_pick
-        else:
-            return (self.n_teams - pick_in_round + 1) == self.user_pick
+        return (self.n_teams - pick_in_round + 1) == self.user_pick
 
     # -----------------------------------------------------------------------
     # Simulation actions
@@ -781,16 +976,22 @@ class MockDraftSimulator:
 
         return str(player_row.get("player_name", player_id))
 
-    def run_full_simulation(self, advisor: DraftAdvisor) -> Dict:
+    def run_full_simulation(
+        self, advisor: DraftAdvisor, rounds: Optional[int] = None
+    ) -> Dict:
         """
         Run all rounds of the draft to completion.
 
         On the user's turns, the top recommendation from ``advisor.recommend()``
-        is drafted automatically. Opponents use ADP-based selection with
+        is drafted automatically and the reasoning + runner-up alternatives are
+        captured on the pick log. Opponents use ADP-based selection with
         configurable randomness.
 
         Args:
             advisor: A DraftAdvisor wrapping the same DraftBoard as this simulator.
+            rounds:  Number of rounds to run. Defaults to the full roster size
+                     (``sum(roster_config.values())``); pass e.g. 4 for a Sleeper
+                     dynasty rookie draft.
 
         Returns:
             Summary dict with keys:
@@ -802,7 +1003,8 @@ class MockDraftSimulator:
                 draft_grade    - letter grade 'A'-'D'
         """
         pts_col = self._pts_col
-        total_picks = self.n_teams * sum(self.board.roster_config.values())
+        rounds = rounds if rounds else sum(self.board.roster_config.values())
+        total_picks = self.n_teams * rounds
         picks_log: List[Dict] = []
 
         # Snapshot expected VORP: what an ADP-optimal drafter would accumulate
@@ -816,13 +1018,22 @@ class MockDraftSimulator:
             round_number = (pick_number - 1) // self.n_teams + 1
 
             if self._is_user_turn(pick_number):
-                recs, _reasoning = advisor.recommend(top_n=1)
+                recs, reasoning = advisor.recommend(top_n=5)
                 if recs.empty:
                     logger.warning(
                         f"Advisor returned no recommendations at pick {pick_number}"
                     )
                     continue
 
+                # Runner-up alternatives the co-pilot considered (for the report).
+                alternatives = [
+                    {
+                        "player_name": r.get("player_name"),
+                        "position": r.get("position"),
+                        "vorp": r.get("vorp"),
+                    }
+                    for _, r in recs.iloc[1:].iterrows()
+                ]
                 top_pick = recs.iloc[0]
                 player_id = top_pick.get("player_id", top_pick.get("player_name", ""))
                 player_result = self.board.draft_player(str(player_id), by_me=True)
@@ -839,6 +1050,9 @@ class MockDraftSimulator:
                         "position": player_result.get("position", "?"),
                         "adp": player_result.get("adp_rank", "N/A"),
                         "pts": round(float(player_result.get(pts_col, 0) or 0), 1),
+                        "vorp": player_result.get("vorp", "N/A"),
+                        "reasoning": reasoning,
+                        "alternatives": alternatives,
                     }
                 )
             else:
