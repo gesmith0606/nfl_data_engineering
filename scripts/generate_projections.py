@@ -931,6 +931,70 @@ def main():
             projections, use_conformal=args.conformal_bands
         )
 
+    # Apply ranking scores (ordering nudges from graph features). This step
+    # adds a 'ranking_score' column used ONLY for position_rank / overall_rank
+    # ordering; projected_points, floor, ceiling, and VORP are not modified.
+    # The projection_engine's position_rank assignment already uses
+    # ranking_score when the column is present — but floor/ceiling was added
+    # after that point, so we recompute position_rank here from ranking_score.
+    if not args.preseason:
+        try:
+            from ranking_score import (  # type: ignore
+                USE_RANKING_SCORE,
+                apply_ranking_scores,
+            )
+
+            # Load graph_all_features for ranking nudges (same pattern as route_df).
+            # Multi-season concatenation not needed — weekly projections target one
+            # season; include prior season for cross-season continuity at week 1-2.
+            _graph_parts = []
+            for _gs in (args.season - 1, args.season):
+                _gp = os.path.join(
+                    PROJECT_ROOT,
+                    "data",
+                    "silver",
+                    "graph_features",
+                    f"season={_gs}",
+                )
+                _gf = sorted(
+                    globmod.glob(os.path.join(_gp, "graph_all_features_*.parquet"))
+                )
+                if _gf:
+                    _graph_parts.append(pd.read_parquet(_gf[-1]))
+            graph_df_for_ranking = (
+                pd.concat(_graph_parts, ignore_index=True)
+                if _graph_parts
+                else pd.DataFrame()
+            )
+            if not graph_df_for_ranking.empty:
+                print(
+                    f"Loaded {len(graph_df_for_ranking):,} graph feature rows "
+                    f"(ranking score nudges)"
+                )
+            elif USE_RANKING_SCORE:
+                print(
+                    "WARN: No graph_all_features found — ranking_score will "
+                    "equal projected_points (no reordering)"
+                )
+
+            projections = apply_ranking_scores(
+                projections,
+                graph_df_for_ranking if not graph_df_for_ranking.empty else None,
+                season=args.season,
+                week=args.week if not args.preseason else 0,
+            )
+
+            # Recompute position_rank from ranking_score now that floor/ceiling
+            # is applied and ranking_score is present.
+            if "ranking_score" in projections.columns:
+                projections["position_rank"] = (
+                    projections.groupby("position")["ranking_score"]
+                    .rank(ascending=False, method="first")
+                    .astype(int)
+                )
+        except ImportError as _e:
+            print(f"WARN: ranking_score module not available: {_e}")
+
     print(f"\nProjections generated: {len(projections):,} players")
 
     # -----------------------------------------------------------------------

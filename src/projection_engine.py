@@ -2085,8 +2085,11 @@ def generate_weekly_projections(
         .sort_values("projected_points", ascending=False)
         .reset_index(drop=True)
     )
+    _rank_col = (
+        "ranking_score" if "ranking_score" in result.columns else "projected_points"
+    )
     result["position_rank"] = (
-        result.groupby("position")["projected_points"]
+        result.groupby("position")[_rank_col]
         .rank(ascending=False, method="first")
         .astype(int)
     )
@@ -3262,8 +3265,11 @@ def generate_preseason_projections(
     proj["overall_rank"] = (
         proj["vorp"].rank(ascending=False, method="first").astype(int)
     )
+    _rank_col_pre = (
+        "ranking_score" if "ranking_score" in proj.columns else pts_col
+    )
     proj["position_rank"] = (
-        proj.groupby("position")[pts_col]
+        proj.groupby("position")[_rank_col_pre]
         .rank(ascending=False, method="first")
         .astype(int)
     )

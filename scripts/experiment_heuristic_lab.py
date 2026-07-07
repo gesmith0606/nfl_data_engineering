@@ -2833,6 +2833,538 @@ def cmd_sweep_spread_gamescript() -> None:
                 )
 
 
+def _load_graph_all_features_lab(seasons: List[int]) -> pd.DataFrame:
+    """Load the most-recent graph_all_features parquet for each season.
+
+    All 83+ columns including red-zone, QB-WR chemistry, game-script, and
+    route features are included.  All are shift(1)-lagged in source modules.
+
+    Ported from worktree-agent-a2e05852c20b3a13d so the sweep-ranking-score
+    command can run on main's codebase without a cherry-pick.
+
+    Args:
+        seasons: Evaluation seasons (e.g. [2022, 2023, 2024]).
+
+    Returns:
+        Concatenated DataFrame, or empty DataFrame when no files found.
+    """
+    import glob as globmod
+
+    frames = []
+    for season in seasons:
+        files = sorted(
+            globmod.glob(
+                os.path.join(
+                    PROJECT_ROOT,
+                    "data",
+                    "silver",
+                    "graph_features",
+                    f"season={season}",
+                    "graph_all_features_*.parquet",
+                )
+            )
+        )
+        if files:
+            frames.append(pd.read_parquet(files[-1]))
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+
+
+def _compute_band_spearman_lab(
+    results: pd.DataFrame,
+    consensus: pd.DataFrame,
+    pos: str,
+    band_lo: int,
+    band_hi: int,
+) -> float:
+    """Compute mean within-week Spearman in a consensus-rank band.
+
+    Band membership is determined by consensus rank within each
+    (season, week) group.  Rank 1 = highest consensus projection.
+    Only weeks with >= 5 players in the band are included.
+
+    Ported from worktree-agent-a2e05852c20b3a13d.
+
+    Args:
+        results: Eval results with player_id, season, week,
+            projected_points (or ranking_score), actual_points, position.
+        consensus: Consensus DataFrame with player_id, season, week,
+            consensus_proj columns.
+        pos: Position string ('RB' or 'WR').
+        band_lo: Lowest rank in the band (1-indexed, inclusive).
+        band_hi: Highest rank in band (inclusive); use 999 for 25+.
+
+    Returns:
+        Mean within-week Spearman over qualifying weeks.  NaN when none.
+    """
+    from scipy.stats import spearmanr  # type: ignore
+
+    pos_res = results[results["position"] == pos]
+    if pos_res.empty or "player_id" not in pos_res.columns:
+        return float("nan")
+
+    score_col = "ranking_score" if "ranking_score" in pos_res.columns else "projected_points"
+
+    merged = pos_res.merge(
+        consensus[["player_id", "season", "week", "consensus_proj"]],
+        on=["player_id", "season", "week"],
+        how="inner",
+    )
+    if merged.empty:
+        return float("nan")
+
+    merged["cons_rank"] = merged.groupby(["season", "week"])["consensus_proj"].rank(
+        ascending=False, method="average"
+    )
+    band = merged[(merged["cons_rank"] >= band_lo) & (merged["cons_rank"] <= band_hi)]
+
+    week_corrs = []
+    for (_s, _w), grp in band.groupby(["season", "week"]):
+        if len(grp) < 5:
+            continue
+        rho, _ = spearmanr(grp[score_col], grp["actual_points"])
+        if np.isfinite(rho):
+            week_corrs.append(float(rho))
+    return float(np.mean(week_corrs)) if week_corrs else float("nan")
+
+
+def _summarize_with_band_spearman_lab(
+    results: pd.DataFrame,
+    consensus: pd.DataFrame,
+) -> Dict:
+    """Extend _summarize_with_spearman with RB/WR band-level Spearman.
+
+    Adds keys RB_band12_spearman, RB_band1324_spearman,
+    WR_band12_spearman, WR_band1324_spearman.
+
+    Args:
+        results: Eval results from evaluate_config (may include ranking_score).
+        consensus: Consensus data (player_id, season, week, consensus_proj).
+
+    Returns:
+        Summary dict with standard MAE/Spearman keys plus band entries.
+    """
+    s = _summarize_with_spearman(results)
+    for pos in ["RB", "WR"]:
+        s[f"{pos}_band12_spearman"] = _compute_band_spearman_lab(
+            results, consensus, pos, 1, 12
+        )
+        s[f"{pos}_band1324_spearman"] = _compute_band_spearman_lab(
+            results, consensus, pos, 13, 24
+        )
+    return s
+
+
+def _load_consensus_for_seasons_lab(seasons: List[int]) -> pd.DataFrame:
+    """Load Sleeper consensus projections for the given seasons (half-PPR).
+
+    Args:
+        seasons: Evaluation seasons.
+
+    Returns:
+        Deduplicated DataFrame with player_id, season, week, consensus_proj.
+    """
+    import glob as globmod
+
+    silver_root = os.path.join(PROJECT_ROOT, "data", "silver", "external_projections")
+    rows = []
+    for season in seasons:
+        for week in range(3, 19):
+            week_dir = os.path.join(silver_root, f"season={season}", f"week={week:02d}")
+            files = sorted(globmod.glob(os.path.join(week_dir, "*.parquet")))
+            if not files:
+                continue
+            df = pd.read_parquet(files[-1])
+            df = df[(df["source"] == "sleeper") & (df["scoring_format"] == SCORING)]
+            df = df[df["position"].isin(POSITIONS)]
+            if df.empty:
+                continue
+            df = df.rename(columns={"projected_points": "consensus_proj"})
+            df["season"] = season
+            df["week"] = week
+            rows.append(df[["player_id", "season", "week", "consensus_proj"]])
+    if not rows:
+        return pd.DataFrame()
+    return pd.concat(rows, ignore_index=True).drop_duplicates(
+        subset=["player_id", "season", "week"]
+    )
+
+
+def _compute_inversion_rate(
+    results: pd.DataFrame,
+    pts_gap_threshold: float = 1.5,
+) -> float:
+    """Compute the fraction of within-(position, week) player pairs whose
+    ranking_score order inverts relative to projected_points order, for pairs
+    where the projected_points gap exceeds ``pts_gap_threshold``.
+
+    A rank inversion happens when player A has a higher projected_points than
+    player B by more than ``pts_gap_threshold``, but a lower ranking_score.
+    This guardrail keeps the ranking_score from aggressively reordering pairs
+    that the heuristic clearly separated on volume alone.
+
+    Args:
+        results: Eval results with projected_points, ranking_score, position,
+            season, week columns.
+        pts_gap_threshold: Minimum projected_points gap for a pair to count.
+
+    Returns:
+        Fraction of qualifying pairs that are inverted.  0.0 when no
+        qualifying pairs exist.
+    """
+    if "ranking_score" not in results.columns:
+        return 0.0
+
+    total_pairs = 0
+    inverted_pairs = 0
+
+    for (pos, _s, _w), grp in results.groupby(["position", "season", "week"]):
+        if pos not in ("RB", "WR"):
+            continue
+        n = len(grp)
+        if n < 2:
+            continue
+        pts = grp["projected_points"].values
+        rs = grp["ranking_score"].values
+        for i in range(n):
+            for j in range(i + 1, n):
+                diff = pts[i] - pts[j]
+                if abs(diff) > pts_gap_threshold:
+                    total_pairs += 1
+                    # Inversion: higher pts but lower ranking_score
+                    if diff > 0 and rs[i] < rs[j]:
+                        inverted_pairs += 1
+                    elif diff < 0 and rs[j] < rs[i]:
+                        inverted_pairs += 1
+
+    if total_pairs == 0:
+        return 0.0
+    return inverted_pairs / total_pairs
+
+
+def cmd_sweep_ranking_score() -> None:
+    """Experiment: ranking_score nudge parameter selection.
+
+    Concept (from WR_RB_CONSENSUS_PLAN.md "NEXT FRONTIER"):
+    ``ranking_score = projected_points + small capped nudges`` — used ONLY
+    for position ordering.  MAE is irrelevant by construction; the optimisation
+    target is band-level Spearman in the broken bands:
+        WR top-12 (baseline +0.072)
+        WR 13-24  (baseline −0.001)
+        RB top-12 (baseline +0.140)
+        RB 13-24  (baseline +0.015)
+
+    Primary metric: band Spearman (not MAE).
+    Gate (ship): WR12 >= baseline + 0.025; no band degrades > 0.005.
+    Inversion guardrail: inversion_rate_1_5 <= 2 %.
+
+    Grid:
+      Single WR signals: W2 (qb_wr_chemistry_epa_roll3) at alphas 0.10–0.40;
+                         W1 (rz_target_share_roll3) at alphas 0.05–0.20.
+      Single RB signals: R4 (predicted_script_boost) at alphas 0.05–0.25;
+                         R1 (rz_carry_share_roll3) at alphas 0.05–0.20;
+                         R5 (rz_td_regression) at alphas 0.05–0.20.
+      Joint WR: W2+W1 at several alpha combos.
+      Joint RB: R4+R1, R4+R5 at several alpha combos.
+
+    The sweep applies nudges additively (z-score * alpha per signal, summed
+    then capped at ±RANKING_NUDGE_CAP) using src/ranking_score.py.
+
+    Output:
+        output/heuristic_lab_cache/sweep_ranking_score.csv
+        Console gate verdict per signal.
+    """
+    import sys as _sys
+
+    _src = os.path.join(PROJECT_ROOT, "src")
+    if _src not in _sys.path:
+        _sys.path.insert(0, _src)
+
+    from ranking_score import (  # type: ignore
+        RANKING_NUDGE_CAP,
+        _compute_position_nudge,
+    )
+
+    manifest = _load_manifest()
+    weekly = pd.read_parquet(os.path.join(CACHE_DIR, "weekly.parquet"))
+    sched = pd.read_parquet(os.path.join(CACHE_DIR, "schedules.parquet"))
+    strength = build_defense_strength(weekly, sched, window=8)
+    omap = build_upcoming_opponent_map(sched)
+    matchup = _make_matchup_patch(strength, omap, dict(projection_engine.MATCHUP_BETA))
+    prior_blend = _build_production_blend_fn(weekly, manifest)
+
+    seasons = sorted({e["season"] for e in manifest})
+    gf = _load_graph_all_features_lab(seasons)
+    if gf.empty:
+        print("No graph_all_features data found — aborting sweep-ranking-score")
+        return
+
+    consensus = _load_consensus_for_seasons_lab(seasons)
+    if consensus.empty:
+        print("No consensus data found — aborting sweep-ranking-score")
+        return
+
+    print(f"Graph feature rows: {len(gf)} over seasons {sorted(gf['season'].unique())}")
+    print(f"Consensus rows: {len(consensus)}")
+
+    # Base results (projected_points) evaluated once, reused for all configs.
+    print("\nBuilding baseline (production config)...")
+    base_results = evaluate_config(
+        manifest,
+        matchup_patch=matchup,
+        prior_blend_fn=prior_blend,
+    )
+    if base_results.empty:
+        print("evaluate_config returned empty — aborting")
+        return
+
+    base_s = _summarize_with_band_spearman_lab(base_results, consensus)
+    base_s["label"] = "baseline_production"
+    base_s["inversion_rate_1_5"] = 0.0  # no nudge → no inversions by definition
+
+    base_rb12 = base_s["RB_band12_spearman"]
+    base_rb1324 = base_s["RB_band1324_spearman"]
+    base_wr12 = base_s["WR_band12_spearman"]
+    base_wr1324 = base_s["WR_band1324_spearman"]
+
+    print(
+        f"\nBaseline band Spearman: "
+        f"RB12={base_rb12:.4f}  RB1324={base_rb1324:.4f}  "
+        f"WR12={base_wr12:.4f}  WR1324={base_wr1324:.4f}"
+    )
+    print(
+        "Gate: WR12 >= baseline+0.025; no band degrades >0.005; "
+        "inversion_rate_1_5 <= 2%\n"
+    )
+
+    rows: List[Dict] = [base_s]
+
+    def _apply_nudge_config(
+        results: pd.DataFrame,
+        signal_params: Dict[str, Dict[str, float]],
+    ) -> pd.DataFrame:
+        """Apply additive z-score nudges to a copy of results, returning it
+        with a ranking_score column.
+
+        Args:
+            results: Base eval results with player_id, position, season,
+                week, projected_points.
+            signal_params: Per-position {signal_col: alpha} mapping.
+
+        Returns:
+            Copy of results with ranking_score column added.
+        """
+        out = results.copy()
+        total_nudge = pd.Series(0.0, index=out.index, dtype=float)
+        for pos, sig_map in signal_params.items():
+            if not sig_map:
+                continue
+            total_nudge += _compute_position_nudge(out, gf, pos, sig_map)
+        total_nudge = total_nudge.clip(-RANKING_NUDGE_CAP, RANKING_NUDGE_CAP)
+        out["ranking_score"] = (out["projected_points"] + total_nudge).clip(lower=0.0)
+        return out
+
+    def _eval_config(label: str, signal_params: Dict[str, Dict[str, float]]) -> Dict:
+        """Apply nudge, compute band Spearman + inversion rate, record row.
+
+        Args:
+            label: Human-readable config label.
+            signal_params: Per-position {signal_col: alpha} mapping.
+
+        Returns:
+            Summary dict with band Spearman, MAE, inversion_rate_1_5, label.
+        """
+        patched = _apply_nudge_config(base_results, signal_params)
+        # Summarize using ranking_score for Spearman; MAE still from projected_points
+        patched_for_spearman = patched.rename(
+            columns={"projected_points": "_pts_orig", "ranking_score": "projected_points"}
+        )
+        s = _summarize_with_band_spearman_lab(patched_for_spearman, consensus)
+        # Restore projected_points label for MAE (already computed from _pts_orig)
+        s["label"] = label
+        s["inversion_rate_1_5"] = _compute_inversion_rate(patched, 1.5)
+        rows.append(s)
+
+        rb12 = s.get("RB_band12_spearman", float("nan"))
+        rb1324 = s.get("RB_band1324_spearman", float("nan"))
+        wr12 = s.get("WR_band12_spearman", float("nan"))
+        wr1324 = s.get("WR_band1324_spearman", float("nan"))
+        inv = s.get("inversion_rate_1_5", float("nan"))
+        wr12_delta = wr12 - base_wr12
+        rb12_delta = rb12 - base_rb12
+        print(
+            f"  {label:<70} "
+            f"WR12={wr12:+.4f}(Δ{wr12_delta:+.4f}) "
+            f"WR1324={wr1324:+.4f} "
+            f"RB12={rb12:+.4f}(Δ{rb12_delta:+.4f}) "
+            f"RB1324={rb1324:+.4f} "
+            f"inv={inv:.2%}"
+        )
+        return s
+
+    # ------------------------------------------------------------------
+    # Single-signal sweeps
+    # ------------------------------------------------------------------
+    print("=== WR single-signal sweeps ===")
+
+    WR_W2_ALPHAS = [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40]
+    for a in WR_W2_ALPHAS:
+        _eval_config(
+            f"WR_W2_qb_wr_chemistry_epa_a={a}",
+            {"WR": {"qb_wr_chemistry_epa_roll3": a}},
+        )
+
+    WR_W1_ALPHAS = [0.05, 0.08, 0.10, 0.12, 0.15, 0.18, 0.20]
+    for a in WR_W1_ALPHAS:
+        _eval_config(
+            f"WR_W1_rz_target_share_a={a}",
+            {"WR": {"rz_target_share_roll3": a}},
+        )
+
+    print("\n=== RB single-signal sweeps ===")
+
+    RB_R4_ALPHAS = [0.05, 0.08, 0.10, 0.12, 0.15, 0.18, 0.20, 0.25]
+    for a in RB_R4_ALPHAS:
+        _eval_config(
+            f"RB_R4_predicted_script_boost_a={a}",
+            {"RB": {"predicted_script_boost": a}},
+        )
+
+    RB_R1_ALPHAS = [0.05, 0.08, 0.10, 0.12, 0.15, 0.18, 0.20]
+    for a in RB_R1_ALPHAS:
+        _eval_config(
+            f"RB_R1_rz_carry_share_a={a}",
+            {"RB": {"rz_carry_share_roll3": a}},
+        )
+
+    RB_R5_ALPHAS = [0.05, 0.08, 0.10, 0.12, 0.15]
+    for a in RB_R5_ALPHAS:
+        _eval_config(
+            f"RB_R5_rz_td_regression_a={a}",
+            {"RB": {"rz_td_regression": a}},
+        )
+
+    # ------------------------------------------------------------------
+    # Joint WR sweeps: W2 + W1
+    # ------------------------------------------------------------------
+    print("\n=== Joint WR sweeps: W2+W1 ===")
+    for a2, a1 in [
+        (0.20, 0.08),
+        (0.25, 0.08),
+        (0.30, 0.08),
+        (0.30, 0.10),
+        (0.30, 0.12),
+        (0.35, 0.10),
+        (0.25, 0.10),
+        (0.20, 0.10),
+    ]:
+        _eval_config(
+            f"WR_joint_W2_a{a2}+W1_a{a1}",
+            {"WR": {"qb_wr_chemistry_epa_roll3": a2, "rz_target_share_roll3": a1}},
+        )
+
+    # ------------------------------------------------------------------
+    # Joint RB sweeps: R4 + R1
+    # ------------------------------------------------------------------
+    print("\n=== Joint RB sweeps: R4+R1, R4+R5 ===")
+    for a4, a1 in [
+        (0.12, 0.08),
+        (0.15, 0.08),
+        (0.15, 0.10),
+        (0.18, 0.08),
+        (0.20, 0.08),
+    ]:
+        _eval_config(
+            f"RB_joint_R4_a{a4}+R1_a{a1}",
+            {"RB": {"predicted_script_boost": a4, "rz_carry_share_roll3": a1}},
+        )
+
+    for a4, a5 in [(0.15, 0.08), (0.15, 0.10), (0.18, 0.08)]:
+        _eval_config(
+            f"RB_joint_R4_a{a4}+R5_a{a5}",
+            {"RB": {"predicted_script_boost": a4, "rz_td_regression": a5}},
+        )
+
+    # ------------------------------------------------------------------
+    # Save results
+    # ------------------------------------------------------------------
+    df_out = pd.DataFrame(rows)
+    out_path = os.path.join(CACHE_DIR, "sweep_ranking_score.csv")
+    df_out.to_csv(out_path, index=False)
+    print(f"\nSaved sweep results -> {out_path}")
+
+    # ------------------------------------------------------------------
+    # Gate verdict
+    # ------------------------------------------------------------------
+    non_base = df_out[df_out["label"] != "baseline_production"].copy()
+    print(
+        "\n=== GATE VERDICT (sweep-ranking-score) ===\n"
+        f"  Baseline: WR12={base_wr12:.4f}  WR1324={base_wr1324:.4f}  "
+        f"RB12={base_rb12:.4f}  RB1324={base_rb1324:.4f}\n"
+        f"  Gate (WR): WR12 >= {base_wr12 + 0.025:.4f} (+0.025); "
+        f"no band degrades >0.005; inv_rate_1_5 <= 2%"
+    )
+
+    # Best WR-only configs
+    wr_gate = non_base[
+        (non_base["WR_band12_spearman"] >= base_wr12 + 0.025)
+        & (non_base["WR_band1324_spearman"] >= base_wr1324 - 0.005)
+        & (non_base["RB_band12_spearman"] >= base_rb12 - 0.005)
+        & (non_base["RB_band1324_spearman"] >= base_rb1324 - 0.005)
+        & (non_base.get("inversion_rate_1_5", pd.Series(1.0, index=non_base.index)) <= 0.02)
+    ]
+    if not wr_gate.empty:
+        best = wr_gate.loc[wr_gate["WR_band12_spearman"].idxmax()]
+        print(
+            f"  PASS (WR12 gate): {best['label']}  "
+            f"WR12={best['WR_band12_spearman']:.4f} "
+            f"(Δ{best['WR_band12_spearman'] - base_wr12:+.4f})  "
+            f"inv={best.get('inversion_rate_1_5', float('nan')):.2%}"
+        )
+    else:
+        best_wr12 = float(non_base["WR_band12_spearman"].max()) if len(non_base) else float("nan")
+        print(
+            f"  KILL (WR12 gate): no config cleared gate "
+            f"(best WR12={best_wr12:.4f}, need >={base_wr12 + 0.025:.4f})"
+        )
+
+    # Best RB configs (decoupled from WR gate)
+    rb_gate = non_base[
+        (non_base.get("inversion_rate_1_5", pd.Series(1.0, index=non_base.index)) <= 0.02)
+    ].copy() if "inversion_rate_1_5" in non_base.columns else non_base.copy()
+    rb_non_degrading = rb_gate[
+        (rb_gate["RB_band12_spearman"] >= base_rb12 - 0.005)
+        & (rb_gate["RB_band1324_spearman"] >= base_rb1324 - 0.005)
+    ]
+    if not rb_non_degrading.empty:
+        rb_best = rb_non_degrading.loc[rb_non_degrading["RB_band12_spearman"].idxmax()]
+        rb12_delta = rb_best["RB_band12_spearman"] - base_rb12
+        print(
+            f"  RB best non-degrading: {rb_best['label']}  "
+            f"RB12={rb_best['RB_band12_spearman']:.4f} "
+            f"(Δ{rb12_delta:+.4f})  "
+            f"RB1324={rb_best['RB_band1324_spearman']:.4f}"
+        )
+        if rb12_delta >= 0.03:
+            print(f"  RB12 gate PASS (>= +0.030)!")
+        else:
+            print(
+                f"  RB12 gate MISS (< +0.030) — best delta {rb12_delta:+.4f}; "
+                f"decoupled nudges are free, shipping best non-degrading"
+            )
+    else:
+        print("  RB: no non-degrading configs found")
+
+    print(f"\nTop-5 configs by WR12 Spearman:")
+    top5 = non_base.nlargest(5, "WR_band12_spearman")
+    for _, r in top5.iterrows():
+        print(
+            f"  {str(r['label']):<70} "
+            f"WR12={r['WR_band12_spearman']:.4f} "
+            f"RB12={r['RB_band12_spearman']:.4f} "
+            f"inv={r.get('inversion_rate_1_5', float('nan')):.2%}"
+        )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -2852,6 +3384,7 @@ def main() -> int:
             "consensus-gap-wr-route",
             "sweep-tprr",
             "sweep-spread-gamescript",
+            "sweep-ranking-score",
         ],
     )
     parser.add_argument("--seasons", type=str, default="2022,2023,2024")
@@ -2887,6 +3420,8 @@ def main() -> int:
         cmd_sweep_tprr()
     elif args.command == "sweep-spread-gamescript":
         cmd_sweep_spread_gamescript()
+    elif args.command == "sweep-ranking-score":
+        cmd_sweep_ranking_score()
     return 0
 
 
