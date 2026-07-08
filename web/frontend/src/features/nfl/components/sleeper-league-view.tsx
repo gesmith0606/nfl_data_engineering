@@ -23,6 +23,8 @@ import {
 } from '@/lib/nfl/api';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
+import { Icons } from '@/components/icons';
+import { useInfobar, type InfobarContent } from '@/components/ui/infobar';
 import type {
   BestAvailablePlayer,
   ConnectedLeague,
@@ -244,6 +246,7 @@ export function SleeperLeagueView() {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { setContent } = useInfobar();
 
   // Hydrate from localStorage once on mount
   useEffect(() => {
@@ -251,6 +254,28 @@ export function SleeperLeagueView() {
     setConnected(stored);
     if (stored.length > 0) setActiveLeagueId(stored[0].league_id);
   }, []);
+
+  // Set custom sidebar content for leagues page
+  useEffect(() => {
+    const leaguesFaqContent: InfobarContent = {
+      title: 'League Sync FAQ',
+      sections: [
+        {
+          title: 'What is re-scoring?',
+          description: 'Projections are recomputed under your league\'s exact scoring settings, factoring in custom point values for PPR, pass TD, position multipliers, and more.',
+        },
+        {
+          title: 'Why don\'t I see my roster?',
+          description: 'Make sure you\'re using your Sleeper username (not display name). Pre-draft leagues show the draft board; once rosters are set, your players will appear here.',
+        },
+        {
+          title: 'Is my data stored?',
+          description: 'Your connected leagues are stored locally in your browser only — no account or cloud storage required. Disconnect anytime without losing access.',
+        },
+      ],
+    };
+    setContent(leaguesFaqContent);
+  }, [setContent]);
 
   const handleConnect = useCallback(
     async (e: React.FormEvent) => {
@@ -343,6 +368,9 @@ export function SleeperLeagueView() {
     return (
       <div className='space-y-4'>
         <div className='rounded-lg border bg-muted/30 p-4'>
+          <div className='flex items-center justify-between mb-2'>
+            <span className='text-xs font-medium text-muted-foreground'>Step 2 of 3</span>
+          </div>
           <p className='text-sm font-medium'>
             Connected as{' '}
             <span className='font-bold'>
@@ -401,11 +429,20 @@ export function SleeperLeagueView() {
     return (
       <div className='space-y-4'>
         <div className='rounded-lg border bg-muted/30 p-4'>
-          <p className='text-sm'>
-            Confirm your team in{' '}
-            <span className='font-bold'>{step.league.name}</span>
+          <div className='flex items-center justify-between mb-2'>
+            <span className='text-xs font-medium text-muted-foreground'>Step 3 of 3</span>
+          </div>
+          <p className='text-sm font-medium'>
+            Connecting as{' '}
+            <span className='font-bold'>
+              {step.user.display_name ?? step.user.username}
+            </span>
           </p>
-          <p className='text-xs text-muted-foreground mt-0.5'>
+          <p className='text-sm text-muted-foreground mt-1'>
+            Joining <span className='font-medium'>{step.league.name}</span> — one of{' '}
+            <span className='font-medium'>{step.league.total_rosters}</span> teams
+          </p>
+          <p className='text-xs text-muted-foreground mt-2'>
             We'll fetch your roster and re-score it under the league's custom
             settings.
           </p>
@@ -443,32 +480,43 @@ export function SleeperLeagueView() {
     <div className='space-y-6'>
       {/* League tab switcher */}
       {connected.length > 0 && (
-        <div className='flex items-center gap-2 flex-wrap'>
-          {connected.map((l) => (
-            <button
-              key={l.league_id}
-              type='button'
-              onClick={() => setActiveLeagueId(l.league_id)}
-              className={`rounded-md border px-3 py-1.5 text-sm ${
-                activeLeagueId === l.league_id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'hover:bg-muted'
-              }`}
-            >
-              {l.league_name}
-            </button>
-          ))}
-          {connected.length < MAX_LEAGUES && (
-            <button
-              type='button'
-              onClick={() => {
-                setStep({ kind: 'entering_username' });
-                setError(null);
-              }}
-              className='rounded-md border border-dashed px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted'
-            >
-              + Connect another
-            </button>
+        <div className='space-y-2'>
+          <div className='flex items-center gap-2 flex-wrap'>
+            {connected.map((l) => (
+              <button
+                key={l.league_id}
+                type='button'
+                onClick={() => setActiveLeagueId(l.league_id)}
+                className={`rounded-md border px-3 py-1.5 text-sm min-h-[44px] flex items-center justify-center ${
+                  activeLeagueId === l.league_id
+                    ? 'bg-primary text-primary-foreground'
+                    : 'hover:bg-muted'
+                }`}
+              >
+                {l.league_name}
+              </button>
+            ))}
+            {connected.length < MAX_LEAGUES ? (
+              <button
+                type='button'
+                onClick={() => {
+                  setStep({ kind: 'entering_username' });
+                  setError(null);
+                }}
+                className='rounded-md border border-dashed px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted min-h-[44px] flex items-center justify-center'
+              >
+                + Connect another
+              </button>
+            ) : (
+              <span className='text-xs text-muted-foreground px-3 py-2 flex items-center'>
+                Remove a league to add another
+              </span>
+            )}
+          </div>
+          {connected.length >= 2 && (
+            <p className='text-xs text-muted-foreground'>
+              {connected.length} of {MAX_LEAGUES} league slots used
+            </p>
           )}
         </div>
       )}
@@ -478,15 +526,26 @@ export function SleeperLeagueView() {
         <div className='rounded-lg border p-6 space-y-3'>
           {connected.length === 0 && (
             <>
-              <h3 className='text-lg font-semibold'>
-                Connect your Sleeper league
-              </h3>
+              <div className='flex items-center justify-between'>
+                <h3 className='text-lg font-semibold'>
+                  Connect your Sleeper league
+                </h3>
+                <span className='text-xs font-medium text-muted-foreground'>Step 1 of 3</span>
+              </div>
               <p className='text-sm text-muted-foreground'>
                 Enter your Sleeper username to get roster advice under your
                 league's exact scoring. Your leagues are saved locally — no
                 account required.
               </p>
             </>
+          )}
+          {step.kind === 'entering_username' && connected.length > 0 && (
+            <div className='flex items-center justify-between'>
+              <h3 className='text-lg font-semibold'>
+                Connect another league
+              </h3>
+              <span className='text-xs font-medium text-muted-foreground'>Step 1 of 3</span>
+            </div>
           )}
           <form onSubmit={handleConnect} className='flex gap-2'>
             <label htmlFor='sleeper-username' className='sr-only'>
@@ -505,8 +564,9 @@ export function SleeperLeagueView() {
             <button
               type='submit'
               disabled={loading || !username.trim()}
-              className='rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50'
+              className='rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50 flex items-center gap-2'
             >
+              {loading && <Icons.spinner className='h-4 w-4 animate-spin' />}
               {loading ? 'Looking up…' : 'Connect'}
             </button>
             {step.kind === 'entering_username' && (
@@ -655,7 +715,7 @@ function LeagueHome({
       {/* Tab bar — needs roster content (empty-roster leagues have nothing
           for either tab; DraftPrepView owns the whole panel then) */}
       {!isEmptyRoster && (
-        <div className='flex gap-1 border-b'>
+        <div className='sticky top-0 z-10 bg-background flex gap-1 border-b'>
           {(['report', 'waivers'] as const).map((t) => (
             <button
               key={t}
@@ -1020,7 +1080,7 @@ function DraftPrepView({ prep }: { prep: LeagueDraftPrepResponse }) {
 
       {/* Best-available / Rookies tab bar */}
       <div>
-        <div className='flex gap-1 border-b mb-0'>
+        <div className='sticky top-0 z-10 bg-background flex gap-1 border-b mb-0'>
           {(['best_available', 'rookies'] as const).map((t) => (
             <button
               key={t}
