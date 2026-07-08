@@ -11,21 +11,13 @@ aws-credentials.json
 *.pem
 *.key
 
-# Data files (large datasets)
-data/*
-# ADP feeds the waiver/draft-prep market-relevance filter at runtime — the
-# HF Space clones this repo, so the file must be committed (TD-09 class:
-# runtime-needed data absent from the image silently no-ops the filter).
-!data/adp_latest.csv
-!data/gold/
-*.parquet
-*.csv
-*.json
-# TD-02 (Phase 75): allow web/frontend JSON config files (package.json, tsconfig.json,
-# package-lock.json, vitest.config files written as JSON, etc.) to ship via git so
-# CI + fresh clones get vitest deps.
-!web/frontend/**/*.json
-logs/
+# Data & artifact policy: ALL data/parquet/csv/json rules live in the single
+# "Data files" section further down (search "# Data files"). That section is
+# an explicit deny-then-allowlist: generated data is ignored by default, and
+# every negation (!) entry is a DEPLOY-CRITICAL path consumed by
+# web/Dockerfile, a GHA workflow, or the HF Space — each carries a comment
+# saying who needs it (TD-08/TD-09 lessons). Before deleting a tracked data
+# path or adding a Dockerfile COPY, update that section accordingly.
 temp/
 
 # System files
@@ -165,8 +157,7 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-# Environments
-.env
+# Environments (.env itself is ignored in "Environment and Secrets" at top)
 .venv
 env/
 venv/
@@ -210,8 +201,7 @@ cython_debug/
 # AWS credentials
 .aws/
 
-# Environment variables
-.env
+# Environment variables (.env covered at top; these add the .local variants)
 .env.local
 .env.*.local
 

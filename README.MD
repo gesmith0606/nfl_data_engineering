@@ -326,7 +326,7 @@ python -m flake8 src/ tests/ scripts/
 | 81 — Dashboard Feature Audit | Not started | Audit dashboard features vs data availability |
 | 82 — Sleeper OAuth + Multi-User | Not started | Sleeper account linking, per-user leagues |
 | 83 — Advisor Tool Expansion | Not started | Expand AI advisor tool coverage |
-| 84 — Deploy Hardening | Not started | Slim Docker image, reduce Railway build fragility |
+| 84 — Deploy Hardening | Not started | Slim Docker image, reduce HF Spaces build fragility |
 
 ### Next: ELITE_MODELS_PLAN (post-v7.2)
 
