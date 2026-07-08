@@ -178,8 +178,53 @@ def test_synthesizer_udfa_cap_demotes_undrafted_alone_on_roster() -> None:
         depth_charts_df=pd.DataFrame(),  # no depth_charts → fallback path
     )
     row = out[out["player_id"] == "henigan-ind"].iloc[0]
-    # UDFA cap demotes from fallback-starter to backup.
-    assert row["low_sample_role"] == "backup"
+    # UDFA cap demotes from fallback-starter to unknown (0.25x baseline).
+    assert row["low_sample_role"] == "unknown"
+
+
+@pytest.mark.unit
+def test_udfa_wr_on_veteran_roster_stays_unknown_after_veterans_filtered() -> None:
+    """UDFA WR with veterans above them gets 'unknown' — not 'starter'.
+
+    Regression for the Stribling artifact: a UDFA WR (Sleeper-sourced
+    player_id, no draft capital, years_exp=0) on a team with multiple
+    established WRs who are already in the upstream projection.  Role
+    assignment must evaluate the full roster context (with all veterans
+    present) *before* the already_projected filter removes them — so the UDFA
+    is correctly ranked below veterans and cannot inherit a "starter" label
+    just because it ends up alone in the synthesized subset.
+    """
+    vet_ids = [f"sf-wr-vet-{i}" for i in range(5)]
+    veterans = [
+        _roster_row(
+            vid, f"SF WR Veteran {i}", "SF", "WR",
+            status="ACT", years_exp=i + 2, draft_number=30 + i,
+            depth="WR",
+        )
+        for i, vid in enumerate(vet_ids)
+    ]
+    udfa = _roster_row(
+        "SLP-99999", "UDFA WR Prospect", "SF", "WR",
+        status="ACT", years_exp=0, draft_number=None,
+        depth="WR",
+    )
+    roster = pd.DataFrame(veterans + [udfa])
+
+    out = project_low_sample_players(
+        roster_df=roster,
+        weekly_df=None,
+        # veterans already covered upstream; only UDFA needs synthesis
+        already_projected_player_ids=set(vet_ids),
+        target_season=2026,
+        depth_charts_df=pd.DataFrame(),  # no depth_charts → fallback path
+    )
+
+    rows = out[out["player_id"] == "SLP-99999"]
+    assert len(rows) == 1, "UDFA WR must appear exactly once in synthesized output"
+    assert rows.iloc[0]["low_sample_role"] == "unknown", (
+        "UDFA WR without depth-chart validation must not project above 'unknown'; "
+        f"got {rows.iloc[0]['low_sample_role']!r}"
+    )
 
 
 @pytest.mark.unit

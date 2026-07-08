@@ -516,9 +516,12 @@ def project_low_sample_players(
 
     # Step 3: UDFA cap — if depth_charts didn't cover a player AND the roster
     # fallback labeled them "starter" because they were the only ACT player
-    # at their (team, position), demote to "backup" unless they have draft
-    # capital. This stops UDFAs (e.g. Seth Henigan) from inheriting starter
-    # weight just because the previous-season roster snapshot was thin.
+    # at their (team, position), demote to "unknown" unless they have draft
+    # capital. This stops UDFAs from inheriting starter weight just because
+    # the previous-season roster snapshot was thin (e.g. Stribling appeared as
+    # SF WR1 in sparse early-offseason snapshots → full 1020-yard projection).
+    # Demoting to "unknown" (0.25x) rather than "backup" (0.40x) keeps
+    # undrafted players with zero depth-chart validation near the floor.
     if "draft_number" in sub.columns:
         not_in_depth = ~sub["player_id"].astype(str).isin(depth_role_map.keys())
         no_capital = sub["draft_number"].isna() | sub["draft_number"].gt(150)
@@ -530,10 +533,10 @@ def project_low_sample_players(
             & sub["_role"].eq("starter")
         )
         if cap_mask.any():
-            sub.loc[cap_mask, "_role"] = "backup"
+            sub.loc[cap_mask, "_role"] = "unknown"
             logger.info(
                 "UDFA cap: demoted %d undrafted-or-late-pick rookies from "
-                "fallback-starter to backup",
+                "fallback-starter to unknown (no depth-chart backing)",
                 int(cap_mask.sum()),
             )
 
