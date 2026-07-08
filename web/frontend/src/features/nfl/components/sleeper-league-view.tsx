@@ -456,32 +456,43 @@ export function SleeperLeagueView() {
     <div className='space-y-6'>
       {/* League tab switcher */}
       {connected.length > 0 && (
-        <div className='flex items-center gap-2 flex-wrap'>
-          {connected.map((l) => (
-            <button
-              key={l.league_id}
-              type='button'
-              onClick={() => setActiveLeagueId(l.league_id)}
-              className={`rounded-md border px-3 py-1.5 text-sm ${
-                activeLeagueId === l.league_id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'hover:bg-muted'
-              }`}
-            >
-              {l.league_name}
-            </button>
-          ))}
-          {connected.length < MAX_LEAGUES && (
-            <button
-              type='button'
-              onClick={() => {
-                setStep({ kind: 'entering_username' });
-                setError(null);
-              }}
-              className='rounded-md border border-dashed px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted'
-            >
-              + Connect another
-            </button>
+        <div className='space-y-2'>
+          <div className='flex items-center gap-2 flex-wrap'>
+            {connected.map((l) => (
+              <button
+                key={l.league_id}
+                type='button'
+                onClick={() => setActiveLeagueId(l.league_id)}
+                className={`rounded-md border px-3 py-1.5 text-sm min-h-[44px] flex items-center justify-center ${
+                  activeLeagueId === l.league_id
+                    ? 'bg-primary text-primary-foreground'
+                    : 'hover:bg-muted'
+                }`}
+              >
+                {l.league_name}
+              </button>
+            ))}
+            {connected.length < MAX_LEAGUES ? (
+              <button
+                type='button'
+                onClick={() => {
+                  setStep({ kind: 'entering_username' });
+                  setError(null);
+                }}
+                className='rounded-md border border-dashed px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted min-h-[44px] flex items-center justify-center'
+              >
+                + Connect another
+              </button>
+            ) : (
+              <span className='text-xs text-muted-foreground px-3 py-2 flex items-center'>
+                Remove a league to add another
+              </span>
+            )}
+          </div>
+          {connected.length >= 2 && (
+            <p className='text-xs text-muted-foreground'>
+              {connected.length} of {MAX_LEAGUES} league slots used
+            </p>
           )}
         </div>
       )}
