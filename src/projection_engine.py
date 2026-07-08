@@ -16,6 +16,7 @@ Designed to work entirely from DataFrames — no direct S3 calls here.
 
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 import logging
 
@@ -2891,6 +2892,8 @@ def generate_preseason_projections(
     roster_df: Optional[pd.DataFrame] = None,
     weekly_df: Optional[pd.DataFrame] = None,
     depth_charts_df: Optional[pd.DataFrame] = None,
+    external_rankings_dir: Optional[Path] = None,
+    consensus_weights: Optional[Dict[str, float]] = None,
 ) -> pd.DataFrame:
     """
     Generate pre-season projections based on historical seasonal averages.
@@ -2912,6 +2915,12 @@ def generate_preseason_projections(
                         Expected columns: player_id or player_name, position,
                         prospect_comp_median, prospect_comp_floor,
                         prospect_comp_ceiling, scheme_familiarity_score.
+        external_rankings_dir: Optional directory holding the
+                        ``{source}_rankings.json`` external ranking caches.
+                        When provided, projected points are blended toward
+                        market consensus via ``apply_consensus_anchor``.
+        consensus_weights: Optional per-position blend weights overriding
+                        ``consensus_anchor.DEFAULT_CONSENSUS_WEIGHTS``.
 
     Returns:
         DataFrame ranked by projected_season_points descending.
@@ -3246,6 +3255,30 @@ def generate_preseason_projections(
                 "Added %d low-sample / silent-drop fix projections",
                 len(low_sample_proj),
             )
+
+    # ------------------------------------------------------------------
+    # Consensus anchor: blend model points toward external market rankings
+    # (Sleeper/FantasyPros/ESPN/DraftSharks) before VORP so draft value and
+    # position ranks reflect the anchored points. The raw 2-season heuristic
+    # can't see upcoming-season context (depth-chart moves, sophomore leaps,
+    # age cliffs); anchoring to consensus is the same philosophy that made
+    # the weekly projections beat Sleeper (v4.3). Applied after the
+    # low-sample synthesizer so rookies get anchored too.
+    # ------------------------------------------------------------------
+    if external_rankings_dir is not None:
+        try:
+            from src.consensus_anchor import apply_consensus_anchor
+        except ImportError:
+            from consensus_anchor import apply_consensus_anchor
+
+        try:
+            proj = apply_consensus_anchor(
+                proj,
+                external_dir=external_rankings_dir,
+                weights=consensus_weights,
+            )
+        except Exception as exc:
+            logger.warning("Consensus anchor failed — using raw model: %s", exc)
 
     # Rank overall and by position using VORP (Value Over Replacement Player).
     # Raw points ranking puts QBs in 8 of the top 10 because they naturally

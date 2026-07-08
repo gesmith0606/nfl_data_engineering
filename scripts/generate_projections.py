@@ -16,6 +16,7 @@ import os
 import argparse
 import logging
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, Optional
 
 logging.basicConfig(level=logging.INFO)
@@ -197,6 +198,18 @@ def main():
             "Apply Gold-layer sentiment multipliers after injury adjustments. "
             "Requires data/gold/sentiment/ output from the sentiment pipeline. "
             "Default: False (opt-in to preserve backward compatibility)."
+        ),
+    )
+    parser.add_argument(
+        "--no-consensus-anchor",
+        action="store_true",
+        default=False,
+        help=(
+            "Preseason mode only: skip blending projected points toward "
+            "external consensus rankings (Sleeper/FantasyPros/ESPN/"
+            "DraftSharks caches in data/external/). Anchoring is ON by "
+            "default because the raw 2-season heuristic lags market context "
+            "at QB (2026 audit: Spearman 0.73 vs consensus top-24)."
         ),
     )
     parser.add_argument(
@@ -526,6 +539,17 @@ def main():
                 f"(latest dt: {depth_charts_df['dt'].max()}) for canonical role assignment"
             )
 
+        external_rankings_dir = (
+            None
+            if args.no_consensus_anchor
+            else Path(PROJECT_ROOT) / "data" / "external"
+        )
+        if external_rankings_dir is not None:
+            print(
+                "Consensus anchor: ON (external rankings from "
+                f"{external_rankings_dir})"
+            )
+
         print("Running pre-season projection model...")
         projections = generate_preseason_projections(
             seasonal_df,
@@ -535,6 +559,7 @@ def main():
             roster_df=roster_df if not roster_df.empty else None,
             weekly_df=weekly_df if not weekly_df.empty else None,
             depth_charts_df=depth_charts_df if not depth_charts_df.empty else None,
+            external_rankings_dir=external_rankings_dir,
         )
         s3_key = f"projections/preseason/season={args.season}/season_proj_{ts}.parquet"
         local_name = f"preseason_{args.season}_{args.scoring}_{ts}.csv"
