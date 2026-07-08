@@ -686,3 +686,63 @@ class TestKickerConfig:
 
         assert "K" in _FLOOR_CEILING_MULT
         assert _FLOOR_CEILING_MULT["K"] == 0.40
+
+
+class TestMergeKickerProjections:
+    """Dedup of seasonal-path K rows vs the dedicated kicker model.
+
+    Before _merge_kicker_projections existed, both paths' rows reached the
+    gold parquet — 42 duplicate kickers in the 2026-07-07 production file.
+    """
+
+    @staticmethod
+    def _frames():
+        proj = pd.DataFrame(
+            {
+                "player_id": ["K1", "K2", "RB1"],
+                "player_name": ["Dup Kicker", "Seasonal Only", "Some Back"],
+                "position": ["K", "K", "RB"],
+                "recent_team": ["ATL", "DEN", "DAL"],  # ATL = fresh (Sleeper)
+                "projected_season_points": [0.0, 0.0, 200.0],
+            }
+        )
+        kicker_proj = pd.DataFrame(
+            {
+                "player_id": ["K1", "K3"],
+                "player_name": ["Dup Kicker", "Model Only"],
+                "position": ["K", "K"],
+                "recent_team": ["NYJ", "KC"],  # NYJ = stale (prior season)
+                "projected_season_points": [114.7, 100.0],
+            }
+        )
+        return proj, kicker_proj
+
+    def test_duplicate_kicker_resolved_to_single_row(self):
+        from projection_engine import _merge_kicker_projections
+
+        proj, kicker_proj = self._frames()
+        out = _merge_kicker_projections(proj, kicker_proj)
+        dup = out[out["player_id"] == "K1"]
+        assert len(dup) == 1
+        # points from the kicker model
+        assert dup.iloc[0]["projected_season_points"] == 114.7
+        # team from the seasonal row (Sleeper-overridden, fresher)
+        assert dup.iloc[0]["recent_team"] == "ATL"
+
+    def test_seasonal_only_and_model_only_kickers_kept(self):
+        from projection_engine import _merge_kicker_projections
+
+        proj, kicker_proj = self._frames()
+        out = _merge_kicker_projections(proj, kicker_proj)
+        assert (out["player_id"] == "K2").sum() == 1  # seasonal-only kept
+        assert (out["player_id"] == "K3").sum() == 1  # model-only appended
+        assert (out["player_id"] == "RB1").sum() == 1  # non-K untouched
+        k3 = out[out["player_id"] == "K3"].iloc[0]
+        assert k3["recent_team"] == "KC"  # no seasonal row -> model team kept
+
+    def test_empty_kicker_proj_is_noop(self):
+        from projection_engine import _merge_kicker_projections
+
+        proj, _ = self._frames()
+        out = _merge_kicker_projections(proj, pd.DataFrame())
+        pd.testing.assert_frame_equal(out, proj)
