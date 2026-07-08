@@ -6,17 +6,11 @@ suitable for Pydantic response models.
 """
 
 import logging
-import sys
-from pathlib import Path
 from typing import Dict, List, Optional
 
 import numpy as np
 
-# Ensure project src/ is importable
-_SRC = str(Path(__file__).resolve().parent.parent.parent.parent / "src")
-if _SRC not in sys.path:
-    sys.path.insert(0, _SRC)
-
+# src/ is importable via the web.api package bootstrap (web/api/__init__.py)
 from game_archive import (
     get_available_seasons,
     get_game_detail,

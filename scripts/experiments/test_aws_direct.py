@@ -35,7 +35,8 @@ def test_aws_direct():
         
     except Exception as e:
         print(f"❌ AWS Connection Failed: {str(e)}")
-        print(f"Access Key: {access_key}")
+        masked = f"...{access_key[-4:]}" if access_key else "(not set)"
+        print(f"Access Key: {masked}")
         print(f"Region: {region}")
         return False
 

@@ -2,6 +2,11 @@
 """
 NFL Data Integration Functions
 Core functions for fetching and processing NFL data from nfl-data-py
+
+LEGACY: new code should use ``src/nfl_data_adapter.py`` (NFLDataAdapter)
+for data fetching. This module remains for its existing callers and for
+``validate_data()``; its fetch methods are scheduled for consolidation
+into the adapter. Do not add new fetch callers here.
 """
 
 import nfl_data_py as nfl
@@ -11,8 +16,7 @@ from datetime import datetime
 import logging
 from config import get_max_season
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
+# Library module: logging configuration belongs to entrypoints, not here.
 logger = logging.getLogger(__name__)
 
 class NFLDataFetcher:

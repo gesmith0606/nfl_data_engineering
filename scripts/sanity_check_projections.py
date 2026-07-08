@@ -30,6 +30,7 @@ import logging
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")

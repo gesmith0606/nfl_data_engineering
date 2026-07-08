@@ -36,6 +36,7 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "src"))
 
 from team_analytics import apply_team_rolling
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 BRONZE_DIR = os.path.join(PROJECT_ROOT, "data", "bronze")

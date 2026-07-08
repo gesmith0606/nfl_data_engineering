@@ -3,6 +3,11 @@ Adapter module isolating all nfl-data-py import_* calls.
 
 This is the ONLY module in the project that should ``import nfl_data_py``.
 All other code fetches NFL data through :class:`NFLDataAdapter`.
+
+Known exception: ``src/nfl_data_integration.py`` (the legacy
+``NFLDataFetcher``) still imports nfl_data_py directly. It is scheduled
+for consolidation into this adapter (offseason work) — do NOT add new
+callers to it; use :class:`NFLDataAdapter` instead.
 """
 
 import io
@@ -733,3 +738,26 @@ class NFLDataAdapter:
                 "off_pos": "official_position",
             })
         return df
+
+    def fetch_ids(self) -> pd.DataFrame:
+        """Fetch the cross-platform player ID crosswalk (gsis/sleeper/espn/...).
+
+        Returns:
+            DataFrame of ID mappings (one row per player), empty on error.
+        """
+        nfl = self._import_nfl()
+        return self._safe_call("fetch_ids", nfl.import_ids)
+
+    def fetch_ftn(self, seasons: List[int]) -> pd.DataFrame:
+        """Fetch FTN charting data (2022+ only upstream).
+
+        Args:
+            seasons: List of season years.
+
+        Returns:
+            DataFrame of FTN charting data, empty on error.
+        """
+        if not seasons:
+            return pd.DataFrame()
+        nfl = self._import_nfl()
+        return self._safe_call("fetch_ftn", nfl.import_ftn_data, seasons)

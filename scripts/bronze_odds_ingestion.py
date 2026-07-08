@@ -15,13 +15,28 @@ import os
 import sys
 from datetime import datetime
 
-import nfl_data_py as nfl
 import pandas as pd
 import requests
 from scipy.stats import pearsonr
 
 # Add project root to path so src.* imports work
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+
+from src.nfl_data_adapter import NFLDataAdapter  # noqa: E402
+
+
+def _load_schedules(season: int) -> pd.DataFrame:
+    """Fetch nflverse schedules for one season via the unified adapter.
+
+    The adapter returns an empty DataFrame on fetch errors; this helper
+    converts that into a hard failure so ingestion doesn't silently
+    proceed without schedule data.
+    """
+    sched = NFLDataAdapter().fetch_schedules([season])
+    if sched.empty:
+        raise RuntimeError(f"No schedule data returned for season {season}")
+    return sched
+
 
 try:
     from src.config import validate_season_for_type
@@ -399,7 +414,7 @@ def join_to_nflverse(odds_df: pd.DataFrame, season: int) -> pd.DataFrame:
     Returns:
         Merged DataFrame with game_id, week, game_type, and nflverse lines.
     """
-    sched = nfl.import_schedules([season])
+    sched = _load_schedules(season)
     sched["gameday_date"] = pd.to_datetime(sched["gameday"]).dt.date
 
     merged = odds_df.merge(
@@ -637,7 +652,7 @@ def derive_odds_from_nflverse(season: int, dry_run: bool = False) -> str:
             f"nflverse bridge only valid for seasons 2022+, got {season}"
         )
     print(f"Deriving odds from nflverse schedules for season {season}...")
-    sched = nfl.import_schedules([season])
+    sched = _load_schedules(season)
     df = pd.DataFrame(
         {
             "game_id": sched["game_id"],
@@ -807,7 +822,7 @@ def main():
     nflverse_schedules = {}
     for s in seasons:
         try:
-            nflverse_schedules[s] = nfl.import_schedules([s])
+            nflverse_schedules[s] = _load_schedules(s)
         except Exception as e:
             print(f"  WARNING: Could not load schedule for {s}: {e}")
 

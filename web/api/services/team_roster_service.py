@@ -23,7 +23,6 @@ from __future__ import annotations
 
 import glob
 import logging
-import sys
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -31,11 +30,7 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
-# Ensure project src/ is importable for utilities that may be reused later
-_SRC = str(Path(__file__).resolve().parent.parent.parent.parent / "src")
-if _SRC not in sys.path:
-    sys.path.insert(0, _SRC)
-
+# src/ is importable via the web.api package bootstrap (web/api/__init__.py)
 from ..config import DATA_DIR
 from ..models.schemas import (
     CurrentWeekResponse,

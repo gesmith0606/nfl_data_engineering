@@ -79,13 +79,10 @@ async def api_key_auth(request: Request, call_next):  # type: ignore[no-untyped-
 
 
 # ---------------------------------------------------------------------------
-# Global exception handler -- surface the exception class + first message in
-# the JSON 500 response so opaque "Internal Server Error" failures on Railway
-# don't require dashboard access to diagnose. The full traceback is logged
-# to stderr (Railway captures it in the logs panel). We do NOT include the
-# full traceback in the response — the class and message are enough to
-# pinpoint nearly all failures, and the response stays free of internal
-# paths / line numbers that could leak codebase structure.
+# Global exception handler -- the response body stays generic: exception
+# class names and messages can leak internal paths, query structure, and
+# service names to clients. The full traceback (class, message, stack) is
+# logged server-side; diagnose via the deployment's logs panel.
 # ---------------------------------------------------------------------------
 @app.exception_handler(Exception)
 async def unhandled_exception_handler(  # type: ignore[no-untyped-def]
@@ -103,8 +100,6 @@ async def unhandled_exception_handler(  # type: ignore[no-untyped-def]
         status_code=500,
         content={
             "detail": "Internal Server Error",
-            "exception_type": type(exc).__name__,
-            "message": str(exc)[:500],  # Truncate to avoid leaking large objects
             "path": request.url.path,
         },
     )

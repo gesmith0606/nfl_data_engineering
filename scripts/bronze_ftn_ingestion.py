@@ -98,18 +98,12 @@ def ingest_ftn_season(season: int) -> pd.DataFrame:
     Returns:
         FTN charting DataFrame, or empty DataFrame on failure.
     """
-    try:
-        import nfl_data_py as nfl
-    except ImportError:
-        logger.error("nfl_data_py is not installed")
-        return pd.DataFrame()
+    from nfl_data_adapter import NFLDataAdapter
 
     print(f"  Fetching FTN data for season {season} ...")
-    try:
-        df = nfl.import_ftn_data([season])
-    except Exception as exc:
-        logger.warning("FTN fetch failed for season %d: %s", season, exc)
-        return pd.DataFrame()
+    # The adapter logs fetch errors and returns an empty DataFrame, which the
+    # empty check below already handles.
+    df = NFLDataAdapter().fetch_ftn([season])
 
     if df is None or df.empty:
         logger.warning("FTN returned empty DataFrame for season %d", season)
