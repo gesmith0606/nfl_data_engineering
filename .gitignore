@@ -13,6 +13,10 @@ aws-credentials.json
 
 # Data files (large datasets)
 data/*
+# ADP feeds the waiver/draft-prep market-relevance filter at runtime — the
+# HF Space clones this repo, so the file must be committed (TD-09 class:
+# runtime-needed data absent from the image silently no-ops the filter).
+!data/adp_latest.csv
 !data/gold/
 *.parquet
 *.csv
@@ -245,6 +249,7 @@ models/quantile/_backup_leaky/
 # GHA `Setup Node.js` step fails to resolve cache-dependency-path.
 !web/frontend/**/*.json
 data/*
+!data/adp_latest.csv
 !data/gold/
 data/gold/*
 !data/gold/projections/
