@@ -850,7 +850,7 @@ function RosterReportView({ report }: { report: RosterReportResponse }) {
                 <div className='text-right shrink-0'>
                   <p className={`text-xs ${DANGER_TEXT}`}>{d.reason}</p>
                   <p className='text-[10px] text-muted-foreground tabular-nums'>
-                    val {Number(d.value).toFixed(1)}
+                    {Number(d.value).toFixed(1)} proj pts
                   </p>
                 </div>
               </div>

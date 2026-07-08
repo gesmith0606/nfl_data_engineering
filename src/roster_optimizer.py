@@ -181,10 +181,14 @@ def drop_candidates(
         depth = roster_by_pos.get(pos, 0)
         starts = started_by_pos.get(pos, 0)
         if pos in ("K", "DST"):
-            reason = f"streamable {pos}"
+            reason = f"Streamable — swap weekly for best available {pos}"
         elif depth - starts >= 2:
-            reason = f"redundant — {depth} {pos} rostered, {starts} start"
+            start_word = "start" if starts == 1 else "starts"
+            reason = (
+                f"You roster {depth} {pos}s but only {starts} can {start_word}"
+                f" — lowest projected value of the group"
+            )
         else:
-            reason = "lowest projected value on bench"
+            reason = "Lowest projected value on your bench"
         out.append({"player": p, "value": round(_drop_value(p), 1), "reason": reason})
     return out
