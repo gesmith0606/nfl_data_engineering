@@ -209,7 +209,8 @@ def main():
             "external consensus rankings (Sleeper/FantasyPros/ESPN/"
             "DraftSharks caches in data/external/). Anchoring is ON by "
             "default because the raw 2-season heuristic lags market context "
-            "at QB (2026 audit: Spearman 0.73 vs consensus top-24)."
+            "(2026 audit Spearman vs consensus: QB 0.73, WR 0.79, RB 0.83, "
+            "TE 0.89); weights per position in consensus_anchor.py."
         ),
     )
     parser.add_argument(

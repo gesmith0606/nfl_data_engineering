@@ -41,15 +41,29 @@ logger = logging.getLogger(__name__)
 CONSENSUS_SOURCES = ["sleeper", "fantasypros", "espn", "draftsharks"]
 
 # Blend weight per position: 0 = pure model, 1 = pure consensus.
-# QB is anchored at 0.7 — the raw heuristic demonstrably lags market context
-# at QB (2026 audit above) and we have no evidence of season-long QB alpha.
-# Other positions stay at 0 until validated the same way.
+# Weights are inversely proportional to how well the raw heuristic tracked
+# the market in the 2026 preseason audit (Spearman vs consensus) and to the
+# model's demonstrated skill at the position:
+#   QB 0.70 — worst raw alignment (0.733), no season-long alpha evidence
+#   RB 0.60 — 0.827 raw; RB is also our one weekly deficit vs Sleeper
+#   WR 0.60 — 0.787 raw; misses dominated by rookies and situation changes
+#   TE 0.50 — 0.889 raw, and TE is our strongest position vs consensus
+#   K  0.80 — kicker projections are thin (several established kickers
+#             project 0.0); the market is nearly all the signal we have
 DEFAULT_CONSENSUS_WEIGHTS: Dict[str, float] = {
     "QB": 0.7,
-    "RB": 0.0,
-    "WR": 0.0,
-    "TE": 0.0,
+    "RB": 0.6,
+    "WR": 0.6,
+    "TE": 0.5,
+    "K": 0.8,
 }
+
+# Rows flagged is_low_sample_projection (rookies / thin NFL sample) get at
+# least this much consensus weight regardless of position: the synthesizer's
+# positional baselines are explicitly not market-grade, so when the market
+# ranks such a player, trust it. This is what pulls 2026 rookies like
+# Jeremiyah Love (consensus RB13, raw model RB73) onto the draftable board.
+LOW_SAMPLE_WEIGHT = 0.85
 
 # A player must appear in at least this many sources to be anchored;
 # single-source ranks are too noisy to pull a projection.
@@ -203,6 +217,15 @@ def apply_consensus_anchor(
             .sort_values(ascending=False)
             .to_numpy()
         )
+        # Enforce a strictly decreasing curve. Flat segments (e.g. dozens of
+        # kickers tied at an identical synthesized value) would otherwise map
+        # every consensus rank to the same implied points, collapsing the
+        # blend into one big tie with arbitrary order. A 0.5-pt forced
+        # descent is a no-op where the curve has real spread and creates a
+        # consensus-ordered ramp where it doesn't. 0.5 survives the 1-decimal
+        # rounding below at every blend weight >= 0.2.
+        for i in range(1, len(curve)):
+            curve[i] = min(curve[i], curve[i - 1] - 0.5)
         curve_ranks = np.arange(1, len(curve) + 1)
 
         implied = np.interp(
@@ -211,7 +234,55 @@ def apply_consensus_anchor(
             curve,
         )
         model_pts = proj.loc[anchored, points_col].fillna(0.0).to_numpy()
-        blended = (1.0 - weight) * model_pts + weight * implied
+
+        # Per-row weight: low-sample rows (rookies / thin NFL sample) lean
+        # harder on the market because the model has little real signal.
+        row_weight = np.full(len(model_pts), weight)
+        if "is_low_sample_projection" in proj.columns:
+            low_sample = (
+                proj.loc[anchored, "is_low_sample_projection"]
+                .eq(True)
+                .to_numpy()
+            )
+            row_weight[low_sample] = np.maximum(
+                row_weight[low_sample], LOW_SAMPLE_WEIGHT
+            )
+
+        blended = (1.0 - row_weight) * model_pts + row_weight * implied
+        # DQAL invariant: projected points >= 0. The forced descent above can
+        # push a long flat zero-tail slightly negative.
+        blended = np.clip(blended, 0.0, None)
+
+        # Degenerate-tie demotion: when the model assigns one identical value
+        # to a large group (the kicker synthesizer hands ~40 kickers exactly
+        # the same starter value), that value carries no ordering signal.
+        # Un-anchored members of such a group would otherwise sit above every
+        # consensus-ranked player at the position; slot them just below the
+        # anchored range instead.
+        raw_vals = proj.loc[pos_mask, points_col].fillna(0.0).round(1)
+        tie_counts = raw_vals.value_counts()
+        degenerate_vals = set(tie_counts[tie_counts >= 5].index)
+        anchor_floor = float(blended.min())
+        unanchored_tied = (
+            pos_mask
+            & ~anchored
+            & proj[points_col].fillna(0.0).round(1).isin(degenerate_vals)
+            & (proj[points_col].fillna(0.0) >= anchor_floor)
+        )
+        if unanchored_tied.any():
+            n_demoted = int(unanchored_tied.sum())
+            demoted = np.clip(
+                anchor_floor - 0.5 * np.arange(1, n_demoted + 1), 0.0, None
+            )
+            proj.loc[unanchored_tied, "pre_anchor_points"] = proj.loc[
+                unanchored_tied, points_col
+            ]
+            proj.loc[unanchored_tied, points_col] = np.round(demoted, 1)
+            logger.info(
+                "Demoted %d un-anchored %s rows from a degenerate tie group",
+                n_demoted,
+                pos,
+            )
 
         proj.loc[anchored, "pre_anchor_points"] = model_pts
         proj.loc[anchored, points_col] = np.round(blended, 1)

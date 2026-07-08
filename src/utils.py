@@ -465,6 +465,24 @@ def apply_sleeper_team_overrides(
     )
     dedup_keys = ["name_key", "position"] if use_position else ["name_key"]
 
+    # Suffix-aware name normalization on BOTH sides. Sleeper's name_key is
+    # plain lowercase ("kenneth walker") while nflverse names carry
+    # generational suffixes ("Kenneth Walker III"); a raw-lowercase join
+    # silently misses those players and leaves their team stale (the
+    # 2026-07-08 Kenneth Walker SEA→KC sanity-gate failure).
+    try:
+        from src.consensus_anchor import normalize_player_name
+    except ImportError:
+        from consensus_anchor import normalize_player_name
+
+    sleeper_rosters = sleeper_rosters.copy()
+    sleeper_rosters["name_key"] = (
+        sleeper_rosters["name_key"]
+        .fillna("")
+        .astype(str)
+        .map(normalize_player_name)
+    )
+
     sort_col = (
         "refreshed_at" if "refreshed_at" in sleeper_rosters.columns else "season"
     )
@@ -478,7 +496,7 @@ def apply_sleeper_team_overrides(
     rostered = latest[~latest["is_free_agent"].astype(bool)]
     lookup = rostered.set_index(dedup_keys)["team"]
 
-    name_keys = df[name_col].fillna("").astype(str).str.lower()
+    name_keys = df[name_col].fillna("").astype(str).map(normalize_player_name)
     if use_position:
         # Rows with empty-string position values (e.g. malformed entries or
         # defensive players accidentally in a fantasy frame) intentionally

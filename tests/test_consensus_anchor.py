@@ -212,10 +212,100 @@ class TestApplyConsensusAnchor(unittest.TestCase):
         # implied(rank 5) clamps to the curve's last value (250)
         self.assertAlmostEqual(out.loc["Backup", "projected_season_points"], 250.0)
 
-    def test_default_weights_anchor_qb_only(self):
-        self.assertGreater(DEFAULT_CONSENSUS_WEIGHTS["QB"], 0.0)
-        for pos in ("RB", "WR", "TE"):
-            self.assertEqual(DEFAULT_CONSENSUS_WEIGHTS[pos], 0.0)
+    def test_flat_curve_orders_by_consensus(self):
+        # All model points tied (the 2026 kicker failure mode): the blend
+        # must still produce a strict consensus-ordered ranking, not a tie.
+        flat = pd.DataFrame(
+            {
+                "player_name": ["K One", "K Two", "K Three", "K Four"],
+                "position": ["K"] * 4,
+                "projected_season_points": [110.0] * 4,
+            }
+        )
+        self._write_two_sources_pos(
+            ["K Three", "K One", "K Four", "K Two"], "K"
+        )
+        out = apply_consensus_anchor(flat, self.dir, weights={"K": 0.8})
+        ordered = out.sort_values(
+            "projected_season_points", ascending=False
+        )["player_name"].tolist()
+        self.assertEqual(ordered, ["K Three", "K One", "K Four", "K Two"])
+        # No ties survive
+        self.assertEqual(out["projected_season_points"].nunique(), 4)
+
+    def test_unanchored_tie_group_demoted_below_consensus(self):
+        # 6 kickers all tied at 110 (degenerate group), only 2 in consensus:
+        # the consensus pair must outrank all un-anchored tie members.
+        names = ["Alpha", "Bravo", "Carlos", "Delta", "Echo", "Foxtrot"]
+        flat = pd.DataFrame(
+            {
+                "player_name": names,
+                "position": ["K"] * 6,
+                "projected_season_points": [110.0] * 6,
+            }
+        )
+        self._write_two_sources_pos(["Echo", "Bravo"], "K")
+        out = apply_consensus_anchor(flat, self.dir, weights={"K": 0.8})
+        ordered = out.sort_values(
+            "projected_season_points", ascending=False
+        )["player_name"].tolist()
+        self.assertEqual(ordered[:2], ["Echo", "Bravo"])
+
+    def test_blended_points_never_negative(self):
+        names = [f"Kicker {chr(65 + i)}{chr(65 + j)}" for i in range(5) for j in range(6)]
+        zeros = pd.DataFrame(
+            {
+                "player_name": names,
+                "position": ["K"] * 30,
+                "projected_season_points": [0.0] * 30,
+            }
+        )
+        self._write_two_sources_pos(names, "K")
+        out = apply_consensus_anchor(zeros, self.dir, weights={"K": 1.0})
+        self.assertTrue((out["projected_season_points"] >= 0).all())
+
+    def _write_two_sources_pos(self, order, pos):
+        for source in ["sleeper", "fantasypros"]:
+            _write_cache(
+                self.dir,
+                source,
+                [{"player_name": n, "position": pos} for n in order],
+            )
+
+    def test_default_weights_anchor_all_positions(self):
+        for pos in ("QB", "RB", "WR", "TE", "K"):
+            self.assertGreater(DEFAULT_CONSENSUS_WEIGHTS[pos], 0.0)
+            self.assertLessEqual(DEFAULT_CONSENSUS_WEIGHTS[pos], 1.0)
+
+    def test_low_sample_rows_lean_harder_on_consensus(self):
+        # Same consensus rank shift for two players; the low-sample one
+        # must move further toward consensus than the veteran.
+        self.proj["is_low_sample_projection"] = [None, None, None, True]
+        # Consensus: Backup (low-sample) is QB1, everyone else shifts down
+        self._write_two_sources(["Backup", "Vet Passer", "Young Star", "Mid Guy"])
+        out = apply_consensus_anchor(
+            self.proj, self.dir, weights={"QB": 0.5}
+        ).set_index("player_name")
+        # Backup: implied(rank1)=400, weight max(0.5, LOW_SAMPLE_WEIGHT=0.85)
+        # -> 0.15*250 + 0.85*400 = 377.5
+        self.assertAlmostEqual(
+            out.loc["Backup", "projected_season_points"], 377.5
+        )
+        # Vet Passer keeps the base 0.5 weight: 0.5*400 + 0.5*implied(rank2=350)
+        self.assertAlmostEqual(
+            out.loc["Vet Passer", "projected_season_points"], 375.0
+        )
+
+    def test_low_sample_weight_never_lowers_base_weight(self):
+        self.proj["is_low_sample_projection"] = [True, None, None, None]
+        self._write_two_sources(["Vet Passer", "Young Star", "Mid Guy", "Backup"])
+        # Base weight 1.0 > LOW_SAMPLE_WEIGHT; low-sample row must stay at 1.0
+        out = apply_consensus_anchor(
+            self.proj, self.dir, weights={"QB": 1.0}
+        ).set_index("player_name")
+        self.assertAlmostEqual(
+            out.loc["Vet Passer", "projected_season_points"], 400.0
+        )
 
 
 if __name__ == "__main__":

@@ -98,6 +98,21 @@ class TestApplySleeperTeamOverrides(unittest.TestCase):
         result = apply_sleeper_team_overrides(proj, sleeper)
         self.assertEqual(result.iloc[0]["team"], "MIA")
 
+    def test_overrides_team_despite_generational_suffix(self):
+        """nflverse names carry Jr/III suffixes that Sleeper's name_key
+        lacks; the join must still match (2026-07-08 Kenneth Walker
+        SEA→KC sanity-gate regression)."""
+        from utils import apply_sleeper_team_overrides
+
+        proj = pd.DataFrame(
+            [{"player_name": "Kenneth Walker III", "team": "SEA", "position": "RB"}]
+        )
+        sleeper = self._make_sleeper_frame(
+            [("kenneth walker", "KC", "RB", False)]
+        )
+        result = apply_sleeper_team_overrides(proj, sleeper)
+        self.assertEqual(result.iloc[0]["team"], "KC")
+
     def test_empty_sleeper_is_noop(self):
         from utils import apply_sleeper_team_overrides
 
