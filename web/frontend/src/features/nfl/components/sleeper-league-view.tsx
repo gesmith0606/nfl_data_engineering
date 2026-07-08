@@ -23,6 +23,7 @@ import {
 } from '@/lib/nfl/api';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
+import { Icons } from '@/components/icons';
 import type {
   BestAvailablePlayer,
   ConnectedLeague,
@@ -343,6 +344,9 @@ export function SleeperLeagueView() {
     return (
       <div className='space-y-4'>
         <div className='rounded-lg border bg-muted/30 p-4'>
+          <div className='flex items-center justify-between mb-2'>
+            <span className='text-xs font-medium text-muted-foreground'>Step 2 of 3</span>
+          </div>
           <p className='text-sm font-medium'>
             Connected as{' '}
             <span className='font-bold'>
@@ -401,11 +405,20 @@ export function SleeperLeagueView() {
     return (
       <div className='space-y-4'>
         <div className='rounded-lg border bg-muted/30 p-4'>
-          <p className='text-sm'>
-            Confirm your team in{' '}
-            <span className='font-bold'>{step.league.name}</span>
+          <div className='flex items-center justify-between mb-2'>
+            <span className='text-xs font-medium text-muted-foreground'>Step 3 of 3</span>
+          </div>
+          <p className='text-sm font-medium'>
+            Connecting as{' '}
+            <span className='font-bold'>
+              {step.user.display_name ?? step.user.username}
+            </span>
           </p>
-          <p className='text-xs text-muted-foreground mt-0.5'>
+          <p className='text-sm text-muted-foreground mt-1'>
+            Joining <span className='font-medium'>{step.league.name}</span> — one of{' '}
+            <span className='font-medium'>{step.league.total_rosters}</span> teams
+          </p>
+          <p className='text-xs text-muted-foreground mt-2'>
             We'll fetch your roster and re-score it under the league's custom
             settings.
           </p>
@@ -478,15 +491,26 @@ export function SleeperLeagueView() {
         <div className='rounded-lg border p-6 space-y-3'>
           {connected.length === 0 && (
             <>
-              <h3 className='text-lg font-semibold'>
-                Connect your Sleeper league
-              </h3>
+              <div className='flex items-center justify-between'>
+                <h3 className='text-lg font-semibold'>
+                  Connect your Sleeper league
+                </h3>
+                <span className='text-xs font-medium text-muted-foreground'>Step 1 of 3</span>
+              </div>
               <p className='text-sm text-muted-foreground'>
                 Enter your Sleeper username to get roster advice under your
                 league's exact scoring. Your leagues are saved locally — no
                 account required.
               </p>
             </>
+          )}
+          {step.kind === 'entering_username' && connected.length > 0 && (
+            <div className='flex items-center justify-between'>
+              <h3 className='text-lg font-semibold'>
+                Connect another league
+              </h3>
+              <span className='text-xs font-medium text-muted-foreground'>Step 1 of 3</span>
+            </div>
           )}
           <form onSubmit={handleConnect} className='flex gap-2'>
             <label htmlFor='sleeper-username' className='sr-only'>
@@ -505,8 +529,9 @@ export function SleeperLeagueView() {
             <button
               type='submit'
               disabled={loading || !username.trim()}
-              className='rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50'
+              className='rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50 flex items-center gap-2'
             >
+              {loading && <Icons.spinner className='h-4 w-4 animate-spin' />}
               {loading ? 'Looking up…' : 'Connect'}
             </button>
             {step.kind === 'entering_username' && (
