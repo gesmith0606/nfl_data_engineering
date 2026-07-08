@@ -426,18 +426,36 @@ def _load_enriched_summary_index_all() -> Dict[str, Dict[str, Any]]:
     and season boundaries — offseason docs are enriched under the last
     completed week (e.g. season=2025/week=18) while the API's notion of
     the current season is 2026 — so a single (season, week) lookup misses
-    everything. The sidecar tree is small (a few JSON files per enriched
-    week), so a full scan is cheap. Newer season/week directories win on
-    doc_id collisions.
+    everything. Newer season/week directories win on doc_id collisions.
+
+    This sits on the homepage hot path, so the JSON-parsing scan is cached
+    behind an mtime token (same pattern as ``_player_id_team_map_cached``):
+    the token is the max mtime across the week directories, which changes
+    whenever a new sidecar file lands, so the cache self-invalidates after
+    each enrichment run at the cost of a handful of ``stat`` calls.
 
     Returns:
         Dict keyed by Silver ``doc_id`` with enrichment fields attached;
         empty when no sidecar tree exists.
     """
-    index: Dict[str, Dict[str, Any]] = {}
     if not _SILVER_ENRICHED_DIR.exists():
-        return index
-    for season_dir in sorted(_SILVER_ENRICHED_DIR.glob("season=*"), reverse=True):
+        return {}
+    week_dirs = sorted(_SILVER_ENRICHED_DIR.glob("season=*/week=*"))
+    if not week_dirs:
+        return {}
+    token = max(p.stat().st_mtime for p in week_dirs)
+    return _load_enriched_summary_index_all_cached(
+        str(_SILVER_ENRICHED_DIR), token
+    )
+
+
+@lru_cache(maxsize=2)
+def _load_enriched_summary_index_all_cached(
+    root_str: str, _mtime_token: float
+) -> Dict[str, Dict[str, Any]]:
+    index: Dict[str, Dict[str, Any]] = {}
+    root = Path(root_str)
+    for season_dir in sorted(root.glob("season=*"), reverse=True):
         try:
             season = int(season_dir.name.split("=", 1)[1])
         except ValueError:
