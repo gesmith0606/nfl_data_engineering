@@ -172,3 +172,66 @@ class TestPulseEndpoints:
     def test_invalid_window_422(self):
         r = client.get("/api/news/top-stories", params={"window": "year"})
         assert r.status_code == 422
+
+
+class TestTopStoriesEnrichment:
+    """Top stories must surface LLM sidecar summaries across season/week
+    boundaries — offseason docs are enriched under the prior season's last
+    week while the current season is one ahead (2026-07-08 gap: enrichment
+    ran daily but every top-story summary served as None)."""
+
+    def test_summary_attached_from_cross_season_sidecar(
+        self, monkeypatch, tmp_path
+    ):
+        import json as _json
+
+        doc_id = "https://x.com/enriched-story"
+        _patch_records(
+            monkeypatch, [_rec("Enriched Guy", -0.8, hours_ago=2, doc_id=doc_id)]
+        )
+        # Sidecar lives under LAST season's final week, not the current one.
+        week_dir = tmp_path / "season=2025" / "week=18"
+        week_dir.mkdir(parents=True)
+        (week_dir / "enriched_test_20260708_000000.json").write_text(
+            _json.dumps(
+                {
+                    "records": [
+                        {
+                            "doc_id": doc_id,
+                            "summary": "Enriched Guy is dealing with a setback.",
+                            "refined_category": "injury",
+                        }
+                    ]
+                }
+            )
+        )
+        monkeypatch.setattr(news_service, "_SILVER_ENRICHED_DIR", tmp_path)
+
+        out = news_service.get_top_stories("day", limit=5)
+        story = out["stories"][0]
+        assert story["summary"] == "Enriched Guy is dealing with a setback."
+        assert story["category"] == "injury"
+
+    def test_no_sidecar_tree_degrades_gracefully(self, monkeypatch, tmp_path):
+        _patch_records(monkeypatch, [_rec("Plain Guy", 0.5, hours_ago=1)])
+        monkeypatch.setattr(
+            news_service, "_SILVER_ENRICHED_DIR", tmp_path / "does-not-exist"
+        )
+        out = news_service.get_top_stories("day", limit=5)
+        assert out["stories"][0]["summary"] is None
+
+    def test_inline_claude_primary_summary_surfaces(self, monkeypatch, tmp_path):
+        # claude_primary extraction writes the summary inline on the Silver
+        # record (sidecar enrichment is skipped for those envelopes); the
+        # news item builder must honor it instead of hardcoding None.
+        rec = _rec("Primary Guy", -0.6, hours_ago=1)
+        rec["summary"] = "Primary Guy summary from claude_primary extraction."
+        _patch_records(monkeypatch, [rec])
+        monkeypatch.setattr(
+            news_service, "_SILVER_ENRICHED_DIR", tmp_path / "no-sidecars"
+        )
+        out = news_service.get_top_stories("day", limit=5)
+        assert (
+            out["stories"][0]["summary"]
+            == "Primary Guy summary from claude_primary extraction."
+        )
