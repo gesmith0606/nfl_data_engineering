@@ -60,7 +60,7 @@ def test_drop_flags_positional_redundancy():
     ]
     drops = drop_candidates(roster, "standard", top_n=3)
     reasons = " ".join(d["reason"] for d in drops)
-    assert "redundant" in reasons  # 5 RB rostered, 2 start
+    assert "You roster" in reasons and "can start" in reasons  # 5 RB rostered, 2 start
 
 
 @pytest.mark.unit
