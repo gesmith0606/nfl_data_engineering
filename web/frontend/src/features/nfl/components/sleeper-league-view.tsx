@@ -680,7 +680,7 @@ function LeagueHome({
       {/* Tab bar — needs roster content (empty-roster leagues have nothing
           for either tab; DraftPrepView owns the whole panel then) */}
       {!isEmptyRoster && (
-        <div className='flex gap-1 border-b'>
+        <div className='sticky top-0 z-10 bg-background flex gap-1 border-b'>
           {(['report', 'waivers'] as const).map((t) => (
             <button
               key={t}
@@ -1045,7 +1045,7 @@ function DraftPrepView({ prep }: { prep: LeagueDraftPrepResponse }) {
 
       {/* Best-available / Rookies tab bar */}
       <div>
-        <div className='flex gap-1 border-b mb-0'>
+        <div className='sticky top-0 z-10 bg-background flex gap-1 border-b mb-0'>
           {(['best_available', 'rookies'] as const).map((t) => (
             <button
               key={t}
