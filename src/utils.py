@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -96,6 +97,33 @@ def pandas_to_spark(spark: SparkSession, df: pd.DataFrame, schema: Optional[Stru
     if schema:
         return spark.createDataFrame(df, schema)
     return spark.createDataFrame(df)
+
+_NAME_SUFFIX_RE = re.compile(r"\b(jr|sr|ii|iii|iv|v)\b\.?", re.IGNORECASE)
+
+
+def normalize_player_name(name: str) -> str:
+    """Normalize a player name for cross-source matching.
+
+    Lowercases, strips generational suffixes (Jr/Sr/II-V), turns hyphens
+    into spaces, and drops all remaining punctuation so "Kenneth Walker III"
+    (nflverse), "kenneth walker" (Sleeper) and "Amon-Ra St. Brown" match
+    their spellings in every source.
+
+    Suffix tokens are only stripped as standalone words, so names like
+    "Vita Vea" are safe; a hypothetical surname that IS a suffix token
+    ("Julius Jr") would lose it — no current NFL name triggers this.
+
+    Args:
+        name: Raw player name from any source.
+
+    Returns:
+        Normalized matching key.
+    """
+    n = _NAME_SUFFIX_RE.sub("", str(name).lower())
+    n = n.replace("-", " ")
+    n = re.sub(r"[^a-z ]", "", n)
+    return re.sub(r"\s+", " ", n).strip()
+
 
 def validate_s3_path(s3_path: str) -> bool:
     """
@@ -465,6 +493,19 @@ def apply_sleeper_team_overrides(
     )
     dedup_keys = ["name_key", "position"] if use_position else ["name_key"]
 
+    # Suffix-aware name normalization on BOTH sides. Sleeper's name_key is
+    # plain lowercase ("kenneth walker") while nflverse names carry
+    # generational suffixes ("Kenneth Walker III"); a raw-lowercase join
+    # silently misses those players and leaves their team stale (the
+    # 2026-07-08 Kenneth Walker SEA→KC sanity-gate failure).
+    sleeper_rosters = sleeper_rosters.copy()
+    sleeper_rosters["name_key"] = (
+        sleeper_rosters["name_key"]
+        .fillna("")
+        .astype(str)
+        .map(normalize_player_name)
+    )
+
     sort_col = (
         "refreshed_at" if "refreshed_at" in sleeper_rosters.columns else "season"
     )
@@ -478,7 +519,7 @@ def apply_sleeper_team_overrides(
     rostered = latest[~latest["is_free_agent"].astype(bool)]
     lookup = rostered.set_index(dedup_keys)["team"]
 
-    name_keys = df[name_col].fillna("").astype(str).str.lower()
+    name_keys = df[name_col].fillna("").astype(str).map(normalize_player_name)
     if use_position:
         # Rows with empty-string position values (e.g. malformed entries or
         # defensive players accidentally in a fantasy frame) intentionally

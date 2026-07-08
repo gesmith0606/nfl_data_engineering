@@ -143,8 +143,19 @@ def train_quantile_models(
             if len(train_data) < 50 or len(val_data) < 10:
                 continue
 
-            X_train = imputer.transform(train_data[valid_features])
-            X_val = imputer.transform(val_data[valid_features])
+            # Keep DataFrames through fit/predict — the imputer's bare
+            # ndarray output makes LGBM emit a feature-names UserWarning on
+            # every predict call.
+            X_train = pd.DataFrame(
+                imputer.transform(train_data[valid_features]),
+                columns=valid_features,
+                index=train_data.index,
+            )
+            X_val = pd.DataFrame(
+                imputer.transform(val_data[valid_features]),
+                columns=valid_features,
+                index=val_data.index,
+            )
             y_train = train_data[target_col].values
             y_val = val_data[target_col].values
 
@@ -168,7 +179,11 @@ def train_quantile_models(
             oof_rows.append(pos_oof)
 
         # Train final models on ALL data for each quantile
-        X_all = imputer.transform(pos_df[valid_features])
+        X_all = pd.DataFrame(
+            imputer.transform(pos_df[valid_features]),
+            columns=valid_features,
+            index=pos_df.index,
+        )
         y_all = pos_df[target_col].values
 
         for alpha in quantiles:
@@ -476,9 +491,14 @@ def predict_quantiles(
 
     X = features_df[valid_features].copy()
     if imputer is not None:
-        X_imp = imputer.transform(X)
+        # Re-wrap as DataFrame: the imputer returns a bare ndarray, and
+        # predicting without feature names on a name-fitted LGBM emits a
+        # UserWarning per call (and skips name-order validation).
+        X_imp = pd.DataFrame(
+            imputer.transform(X), columns=valid_features, index=X.index
+        )
     else:
-        X_imp = X.values
+        X_imp = X
 
     result = pd.DataFrame(index=features_df.index)
 

@@ -98,13 +98,16 @@ class GraphDB:
             logger.info("Connected to Neo4j at %s", self._uri)
         except (ServiceUnavailable, AuthError, OSError) as exc:
             logger.warning("Neo4j unavailable (%s) — graph features disabled", exc)
-            self._connected = False
+            # The driver object was created before connectivity failed —
+            # close it explicitly or the GC destructor emits a
+            # DeprecationWarning about unclosed drivers.
+            self.close()
         except Exception as exc:
             logger.warning(
                 "Unexpected error connecting to Neo4j (%s) — graph features disabled",
                 exc,
             )
-            self._connected = False
+            self.close()
 
     def close(self) -> None:
         """Close the driver connection if open."""

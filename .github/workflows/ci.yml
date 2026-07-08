@@ -98,7 +98,24 @@ jobs:
 
       - name: Run pytest
         if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
-        run: python -m pytest tests/ -q --tb=short
+        run: |
+          set -o pipefail
+          python -m pytest tests/ -q --tb=short 2>&1 | tee pytest_output.txt
+
+      - name: Enforce warning budget
+        if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
+        # The suite once accumulated 12k warnings, which made new ones
+        # invisible. Budget only ratchets DOWN: if the count drops, lower the
+        # budget; only raise it for unavoidable third-party noise (prefer a
+        # targeted filterwarnings entry in pytest.ini instead).
+        run: |
+          WARNINGS=$(grep -oE '[0-9]+ warnings' pytest_output.txt | tail -1 | grep -oE '[0-9]+' || echo 0)
+          BUDGET=50
+          echo "Suite emitted ${WARNINGS} warnings (budget: ${BUDGET})"
+          if [ "${WARNINGS}" -gt "${BUDGET}" ]; then
+            echo "::error::Warning count ${WARNINGS} exceeds budget ${BUDGET} — fix the new warnings (see pytest_output.txt) rather than raising the budget."
+            exit 1
+          fi
 
   # ------------------------------------------------------------------
   # Unpushed-commit drift detector — opens an alert if main has drifted

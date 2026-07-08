@@ -2,12 +2,9 @@
 Adapter module isolating all nfl-data-py import_* calls.
 
 This is the ONLY module in the project that should ``import nfl_data_py``.
-All other code fetches NFL data through :class:`NFLDataAdapter`.
-
-Known exception: ``src/nfl_data_integration.py`` (the legacy
-``NFLDataFetcher``) still imports nfl_data_py directly. It is scheduled
-for consolidation into this adapter (offseason work) — do NOT add new
-callers to it; use :class:`NFLDataAdapter` instead.
+All other code fetches NFL data through :class:`NFLDataAdapter` (the legacy
+``NFLDataFetcher`` in ``src/nfl_data_integration.py`` is now a thin facade
+that delegates here).
 """
 
 import io
