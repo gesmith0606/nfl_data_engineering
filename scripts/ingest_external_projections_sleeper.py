@@ -91,9 +91,11 @@ def _build_gsis_map() -> Dict[str, str]:
         Dict mapping Sleeper player ID string to GSIS player ID string.
     """
     try:
-        import nfl_data_py as nfl  # type: ignore[import]
+        from src.nfl_data_adapter import NFLDataAdapter
 
-        ids = nfl.import_ids()
+        ids = NFLDataAdapter().fetch_ids()
+        if ids.empty:
+            raise ValueError("adapter returned no ID crosswalk data")
         # sleeper_id may be float in the DataFrame; convert to int-string.
         clean = ids.dropna(subset=["sleeper_id", "gsis_id"])
         mapping: Dict[str, str] = {}

@@ -8,7 +8,6 @@ in-memory session storage keyed by UUID.
 
 import glob
 import logging
-import sys
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -34,11 +33,9 @@ from ..models.schemas import (
     MockDraftStartResponse,
 )
 
-# ---------------------------------------------------------------------------
-# Path setup -- same pattern as lineups.py
-# ---------------------------------------------------------------------------
+# src/ is importable via the web.api package bootstrap (web/api/__init__.py).
+# _PROJECT_ROOT is still used below for data-file paths (ADP csv).
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-sys.path.insert(0, str(_PROJECT_ROOT / "src"))
 
 from draft_optimizer import (  # noqa: E402
     DraftAdvisor,

@@ -2813,11 +2813,16 @@ def _generate_preseason_kicker_projections(target_season: int) -> pd.DataFrame:
         proj_season, plus stat columns zeroed out.
     """
     try:
-        import nfl_data_py as nfl
+        from nfl_data_adapter import NFLDataAdapter
 
         # Get most recent roster to find active kickers
         roster_season = target_season - 1
-        rosters = nfl.import_seasonal_rosters([roster_season])
+        rosters = NFLDataAdapter().fetch_rosters([roster_season])
+        if rosters.empty:
+            logger.warning(
+                "No roster data available for season %d", roster_season
+            )
+            return pd.DataFrame()
         kickers = rosters[rosters["position"] == "K"].copy()
         if kickers.empty:
             logger.warning(
@@ -2936,10 +2941,14 @@ def generate_preseason_projections(
     missing_cols = [c for c in metadata_cols if c not in df.columns]
     if missing_cols and "player_id" in df.columns:
         try:
-            import nfl_data_py as nfl
+            from nfl_data_adapter import NFLDataAdapter
 
             roster_seasons = [int(s) for s in recent_seasons]
-            rosters = nfl.import_seasonal_rosters(roster_seasons)
+            rosters = NFLDataAdapter().fetch_rosters(roster_seasons)
+            if rosters.empty:
+                raise ValueError(
+                    f"no roster data returned for seasons {roster_seasons}"
+                )
             roster_latest = rosters.sort_values("season").drop_duplicates(
                 subset=["player_id"], keep="last"
             )

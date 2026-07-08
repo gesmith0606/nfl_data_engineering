@@ -400,8 +400,8 @@ class TestZeroOrphans:
             }
         )
 
-        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
-            mock_nfl.import_schedules.return_value = mock_nflverse_schedule
+        with patch("scripts.bronze_odds_ingestion._load_schedules") as mock_nfl:
+            mock_nfl.return_value = mock_nflverse_schedule
             result = join_to_nflverse(odds_df, 2020)
 
         assert (
@@ -437,17 +437,17 @@ class TestNflverseBridgeSchema:
 
     def test_bridge_output_has_15_columns(self, mock_nflverse_sched_for_bridge):
         """derive_odds_from_nflverse produces DataFrame with exactly 15 columns matching FINAL_COLUMNS."""
-        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
-            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+        with patch("scripts.bronze_odds_ingestion._load_schedules") as mock_nfl:
+            mock_nfl.return_value = mock_nflverse_sched_for_bridge
             result_path = derive_odds_from_nflverse(2023, dry_run=True)
 
         # Verify the function was called with correct season
-        mock_nfl.import_schedules.assert_called_once_with([2023])
+        mock_nfl.assert_called_once_with(2023)
 
     def test_bridge_schema_matches_final_columns(self, mock_nflverse_sched_for_bridge):
         """Bridge output columns match FINAL_COLUMNS exactly."""
-        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
-            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+        with patch("scripts.bronze_odds_ingestion._load_schedules") as mock_nfl:
+            mock_nfl.return_value = mock_nflverse_sched_for_bridge
             # We need to intercept the DataFrame before write_parquet
             with patch("scripts.bronze_odds_ingestion.write_parquet") as mock_write:
                 mock_write.return_value = "/fake/path.parquet"
@@ -462,8 +462,8 @@ class TestNflverseBridgeSchema:
 
     def test_bridge_line_source_is_nflverse(self, mock_nflverse_sched_for_bridge):
         """All rows have line_source == 'nflverse'."""
-        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
-            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+        with patch("scripts.bronze_odds_ingestion._load_schedules") as mock_nfl:
+            mock_nfl.return_value = mock_nflverse_sched_for_bridge
             with patch("scripts.bronze_odds_ingestion.write_parquet") as mock_write:
                 mock_write.return_value = "/fake/path.parquet"
                 derive_odds_from_nflverse(2023, dry_run=True)
@@ -553,8 +553,8 @@ class TestLineSourceColumn:
 
     def test_nflverse_line_source(self, mock_nflverse_sched_for_bridge):
         """nflverse bridge output includes line_source='nflverse'."""
-        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
-            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+        with patch("scripts.bronze_odds_ingestion._load_schedules") as mock_nfl:
+            mock_nfl.return_value = mock_nflverse_sched_for_bridge
             with patch("scripts.bronze_odds_ingestion.write_parquet") as mock_write:
                 mock_write.return_value = "/fake/path.parquet"
                 derive_odds_from_nflverse(2023, dry_run=True)
@@ -568,8 +568,8 @@ class TestNflverseOpeningEqualsClosing:
 
     def test_opening_equals_closing(self, mock_nflverse_sched_for_bridge):
         """For nflverse bridge, opening_spread == closing_spread and opening_total == closing_total."""
-        with patch("scripts.bronze_odds_ingestion.nfl") as mock_nfl:
-            mock_nfl.import_schedules.return_value = mock_nflverse_sched_for_bridge
+        with patch("scripts.bronze_odds_ingestion._load_schedules") as mock_nfl:
+            mock_nfl.return_value = mock_nflverse_sched_for_bridge
             with patch("scripts.bronze_odds_ingestion.write_parquet") as mock_write:
                 mock_write.return_value = "/fake/path.parquet"
                 derive_odds_from_nflverse(2023, dry_run=True)

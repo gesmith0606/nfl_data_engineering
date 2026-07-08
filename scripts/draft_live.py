@@ -57,6 +57,8 @@ from src.projection_store import load_latest_preseason  # noqa: E402
 from src.roster_optimizer import drop_candidates, optimal_lineup  # noqa: E402
 from src.yahoo_adapter import YahooAdapter  # noqa: E402
 
+logging.basicConfig(level=logging.INFO)
+
 # sleeper: live. yahoo: live (requires OAuth env + one-time grant). espn: gated
 # NO-GO (no live API) — resolve/load fail loudly toward --manual (89-SPIKE-FINDINGS).
 _ADAPTERS = {

@@ -18,6 +18,8 @@ import logging
 from datetime import datetime
 from typing import Dict, Optional
 
+logging.basicConfig(level=logging.INFO)
+
 import boto3
 import pandas as pd
 from dotenv import load_dotenv
@@ -355,11 +357,15 @@ def main():
             or "recent_team" not in seasonal_df.columns
         )
         if needs_enrich:
-            import nfl_data_py as nfl
+            from nfl_data_adapter import NFLDataAdapter  # noqa: E402
 
             roster_seasons = past_seasons
             try:
-                rosters = nfl.import_seasonal_rosters(roster_seasons)
+                rosters = NFLDataAdapter().fetch_rosters(roster_seasons)
+                if rosters.empty:
+                    raise ValueError(
+                        f"no roster data returned for seasons {roster_seasons}"
+                    )
                 # Take the most-recent roster entry per player_id for stable values
                 roster_latest = rosters.sort_values("season").drop_duplicates(
                     subset=["player_id"], keep="last"

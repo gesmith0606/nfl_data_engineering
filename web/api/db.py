@@ -14,6 +14,7 @@ Usage in services:
 
 import logging
 import os
+import time
 from contextlib import contextmanager
 from typing import Generator, Optional
 
@@ -22,7 +23,20 @@ logger = logging.getLogger(__name__)
 DATABASE_URL: Optional[str] = os.getenv("DATABASE_URL")
 
 _pool = None
-_pool_failed: bool = False  # Set True when pool creation fails; prevents retry storms
+# Timestamp (time.monotonic) of the last failed pool creation. Failures back
+# off for _POOL_RETRY_SECONDS to prevent retry storms, then creation is
+# re-attempted — a transient DB outage must not permanently pin a worker to
+# the Parquet fallback while other workers serve Postgres-backed responses.
+_pool_failed_at: Optional[float] = None
+_POOL_RETRY_SECONDS: float = 300.0
+
+
+def _in_failure_backoff() -> bool:
+    """Return True while pool creation is suppressed after a recent failure."""
+    return (
+        _pool_failed_at is not None
+        and time.monotonic() - _pool_failed_at < _POOL_RETRY_SECONDS
+    )
 
 
 def _get_pool():
@@ -31,13 +45,16 @@ def _get_pool():
     Raises RuntimeError if the pool cannot be created, so callers can
     fall back to Parquet reads rather than surfacing a 500 to the client.
     """
-    global _pool, _pool_failed
+    global _pool, _pool_failed_at
 
     if _pool is not None:
         return _pool
 
-    if _pool_failed:
-        raise RuntimeError("PostgreSQL pool previously failed — using Parquet fallback")
+    if _in_failure_backoff():
+        raise RuntimeError(
+            "PostgreSQL pool creation recently failed — using Parquet fallback "
+            f"(retrying after {_POOL_RETRY_SECONDS:.0f}s)"
+        )
 
     if DATABASE_URL is None:
         raise RuntimeError("DATABASE_URL is not set -- cannot create pool")
@@ -50,12 +67,15 @@ def _get_pool():
             maxconn=10,
             dsn=DATABASE_URL,
         )
+        _pool_failed_at = None
         logger.info("PostgreSQL connection pool created")
         return _pool
     except Exception:
-        _pool_failed = True
+        _pool_failed_at = time.monotonic()
         logger.exception(
-            "Failed to create PostgreSQL connection pool — endpoints will use Parquet fallback"
+            "Failed to create PostgreSQL connection pool — endpoints will use "
+            "Parquet fallback for %.0fs before retrying",
+            _POOL_RETRY_SECONDS,
         )
         raise
 
@@ -63,14 +83,15 @@ def _get_pool():
 def is_db_enabled() -> bool:
     """Return True when DATABASE_URL is configured AND the pool is reachable.
 
-    Returns False if DATABASE_URL is absent or if a previous pool-creation
-    attempt failed.  Services should ALSO wrap DB calls in try/except and fall
-    back to Parquet, because pool state is per-process and multiple uvicorn
-    workers each maintain their own copy of this flag.
+    Returns False if DATABASE_URL is absent or if pool creation failed within
+    the last _POOL_RETRY_SECONDS (after which creation is retried).  Services
+    should ALSO wrap DB calls in try/except and fall back to Parquet, because
+    pool state is per-process and multiple uvicorn workers each maintain their
+    own copy of this state.
     """
     if DATABASE_URL is None:
         return False
-    if _pool_failed:
+    if _in_failure_backoff():
         return False
     # If pool already exists, DB is available
     if _pool is not None:

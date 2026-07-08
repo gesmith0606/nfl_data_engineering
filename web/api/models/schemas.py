@@ -333,6 +333,15 @@ class LineupResponse(BaseModel):
             "from Gold storage."
         ),
     )
+    degraded: bool = Field(
+        default=False,
+        description=(
+            "True when a backing data load FAILED (not merely absent) and the "
+            "response was served with reduced content, e.g. a lineup without "
+            "projected points. Distinguishes system failure from no-data-exists "
+            "for monitoring and clients."
+        ),
+    )
 
 
 class HealthResponse(BaseModel):

@@ -62,11 +62,11 @@ def load_ngs_data(
         )
         return result
 
-    # Fallback: nfl-data-py
+    # Fallback: nfl-data-py via the unified adapter
     try:
-        import nfl_data_py as nfl
+        from nfl_data_adapter import NFLDataAdapter
 
-        result = nfl.import_ngs_data(stat_type, seasons)
+        result = NFLDataAdapter().fetch_ngs(seasons, stat_type)
         logger.info(
             "Loaded %d NGS %s rows from nfl-data-py", len(result), stat_type
         )

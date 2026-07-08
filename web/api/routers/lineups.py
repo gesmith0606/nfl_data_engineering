@@ -2,9 +2,7 @@
 /api/lineups endpoints -- team starting lineup identification.
 """
 
-import sys
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, Query
@@ -17,9 +15,7 @@ from ..models.schemas import (
 )
 from ..services import projection_service
 
-# Ensure src/ is importable for lineup_builder
-_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-sys.path.insert(0, str(_PROJECT_ROOT / "src"))
+# src/ is importable via the web.api package bootstrap (web/api/__init__.py)
 
 router = APIRouter(prefix="/lineups", tags=["lineups"])
 
@@ -117,6 +113,7 @@ def get_lineups(
 
     assert season is not None and week is not None  # narrowed by logic above
 
+    degraded = False
     if team:
         # Load projections through the projection service so lineups inherit
         # its DB->Parquet dispatch and preseason/staleness fallback. Reading
@@ -139,6 +136,9 @@ def get_lineups(
                 week,
             )
         except Exception:
+            # A load FAILURE (unlike FileNotFoundError above, which means the
+            # data legitimately doesn't exist) is surfaced via degraded=True.
+            degraded = True
             logger.exception(
                 "Projection load failed for season=%d week=%d — lineup "
                 "served without points",
@@ -174,6 +174,7 @@ def get_lineups(
             generated_at=datetime.now(timezone.utc).isoformat(),
             data_as_of=data_as_of,
             defaulted=defaulted,
+            degraded=degraded,
         )
 
     lineups: List[TeamLineup] = []
@@ -231,4 +232,5 @@ def get_lineups(
         generated_at=datetime.now(timezone.utc).isoformat(),
         data_as_of=data_as_of,
         defaulted=defaulted,
+        degraded=degraded,
     )

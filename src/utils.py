@@ -59,8 +59,7 @@ def _require_boto3():
             "absent from web/api/serverless/requirements.txt by design)."
         )
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Library module: logging configuration belongs to entrypoints, not here.
 logger = logging.getLogger(__name__)
 
 def get_spark_session(app_name: str = "NFL-Data-Pipeline") -> SparkSession:
