@@ -419,6 +419,57 @@ def _load_enriched_summary_index(season: int, week: int) -> Dict[str, Dict[str, 
     return index
 
 
+def _load_enriched_summary_index_all() -> Dict[str, Dict[str, Any]]:
+    """Build the doc_id -> enrichment lookup across every sidecar directory.
+
+    The trailing-window feeds (top stories, sentiment rankings) span week
+    and season boundaries — offseason docs are enriched under the last
+    completed week (e.g. season=2025/week=18) while the API's notion of
+    the current season is 2026 — so a single (season, week) lookup misses
+    everything. Newer season/week directories win on doc_id collisions.
+
+    This sits on the homepage hot path, so the JSON-parsing scan is cached
+    behind an mtime token (same pattern as ``_player_id_team_map_cached``):
+    the token is the max mtime across the week directories, which changes
+    whenever a new sidecar file lands, so the cache self-invalidates after
+    each enrichment run at the cost of a handful of ``stat`` calls.
+
+    Returns:
+        Dict keyed by Silver ``doc_id`` with enrichment fields attached;
+        empty when no sidecar tree exists.
+    """
+    if not _SILVER_ENRICHED_DIR.exists():
+        return {}
+    week_dirs = sorted(_SILVER_ENRICHED_DIR.glob("season=*/week=*"))
+    if not week_dirs:
+        return {}
+    token = max(p.stat().st_mtime for p in week_dirs)
+    return _load_enriched_summary_index_all_cached(
+        str(_SILVER_ENRICHED_DIR), token
+    )
+
+
+@lru_cache(maxsize=2)
+def _load_enriched_summary_index_all_cached(
+    root_str: str, _mtime_token: float
+) -> Dict[str, Dict[str, Any]]:
+    index: Dict[str, Dict[str, Any]] = {}
+    root = Path(root_str)
+    for season_dir in sorted(root.glob("season=*"), reverse=True):
+        try:
+            season = int(season_dir.name.split("=", 1)[1])
+        except ValueError:
+            continue
+        for week_dir in sorted(season_dir.glob("week=*"), reverse=True):
+            try:
+                week = int(week_dir.name.split("=", 1)[1])
+            except ValueError:
+                continue
+            for key, entry in _load_enriched_summary_index(season, week).items():
+                index.setdefault(key, entry)
+    return index
+
+
 def _apply_enrichment(
     items: List[Dict[str, Any]],
     enriched_index: Dict[str, Dict[str, Any]],
@@ -636,7 +687,11 @@ def _build_news_item_from_bronze(
         "is_returning": bool(events.get("is_returning", False)),
         "body_snippet": body_snippet,
         "event_flags": _extract_event_flags(events),
-        "summary": None,
+        # claude_primary extraction (Plan 71) writes the summary inline on
+        # the Silver record (sidecar enrichment is skipped for those
+        # envelopes), so honor it here; legacy records fall back to the
+        # sidecar merge in _apply_enrichment.
+        "summary": (silver_rec or {}).get("summary") or None,
         # Phase 72 EVT-02: subject attribution surface (defaults to "player").
         "subject_type": (silver_rec or {}).get("subject_type", "player"),
         "team_abbr": (silver_rec or {}).get("team_abbr"),
@@ -678,7 +733,10 @@ def _build_news_item_from_silver(
         "is_returning": bool(events.get("is_returning", False)),
         "body_snippet": raw_excerpt[:200] if raw_excerpt else None,
         "event_flags": _extract_event_flags(events),
-        "summary": None,
+        # claude_primary extraction (Plan 71) writes the summary inline on
+        # the Silver record (sidecar enrichment is skipped for those
+        # envelopes); legacy records get it from the sidecar merge instead.
+        "summary": silver_rec.get("summary") or None,
         # Phase 72 EVT-02: subject attribution surface (defaults to "player").
         "subject_type": silver_rec.get("subject_type", "player"),
         "team_abbr": silver_rec.get("team_abbr"),
@@ -1687,6 +1745,12 @@ def get_top_stories(window: str = "week", limit: int = 12) -> Dict[str, Any]:
             item["team"] = team_map.get(str(item["player_id"]))
         item["story_score"] = round(score, 3)
         stories.append(item)
+
+    # LLM-enrichment merge (Plan 61-06). The window spans season/week
+    # boundaries, so use the all-directories index — a per-week lookup
+    # misses offseason docs enriched under the prior season's last week.
+    applied = _apply_enrichment(stories, _load_enriched_summary_index_all())
+    logger.info("get_top_stories: enrichment applied to %d stories", applied)
 
     return {
         "window": window,
