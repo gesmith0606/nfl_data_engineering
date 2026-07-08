@@ -236,11 +236,17 @@ def test_synthesizer_starter_conflict_demote() -> None:
     MIA QB; depth_charts has a feed hole that puts Ewers at MIA QB1
     (after ghost-row filtering); without this guard Ewers would mint a
     second starter at MIA.
+
+    Note: the player is given a first-round pick number (draft_number=1)
+    so the UDFA cap (which only fires for undrafted/pick>150 players) does
+    NOT pre-empt this test.  The starter-conflict demote applies to any
+    synthesized "starter" at a position already covered upstream, regardless
+    of draft capital.
     """
     roster = pd.DataFrame([
         _roster_row(
             "ewers-mia", "Quinn Ewers", "MIA", "QB",
-            years_exp=0, draft_number=164,
+            years_exp=0, draft_number=1,  # high-cap pick → UDFA cap skips him
         ),
     ])
     depth = pd.DataFrame([
@@ -258,6 +264,51 @@ def test_synthesizer_starter_conflict_demote() -> None:
     )
     row = out[out["player_id"] == "ewers-mia"].iloc[0]
     assert row["low_sample_role"] == "backup"
+
+
+@pytest.mark.unit
+def test_udfa_cap_fires_even_when_depth_charts_grants_starter() -> None:
+    """UDFA cap applies regardless of role source — depth_charts path included.
+
+    Regression for the Stribling 181-pt artifact: the July 2026 depth_charts
+    Bronze is ingested at daily formation-grain.  A UDFA whose gsis_id
+    survives roster-validation can receive effective_rank=1 (pos_rank=1 in
+    the latest snapshot) via the depth-chart path, bypassing the old
+    ``not_in_depth`` guard that only fired for the roster-fallback path.
+
+    With the source-agnostic cap, ANY undrafted/late-pick rookie who lands on
+    'starter' — regardless of HOW they got there — is demoted to 'unknown'.
+    """
+    # UDFA WR whose player_id MATCHES the depth_charts gsis (as happens when
+    # the Sleeper supplement resolves gsis_id via draft_picks and uses the
+    # gsis as player_id).  The depth chart claims pos_rank=1 (starter).
+    roster = pd.DataFrame([
+        _roster_row(
+            "STR-FAKE", "UDFA WR (depth-chart starter)", "SF", "WR",
+            status="ACT", years_exp=0, draft_number=None,
+            depth="WR",
+        ),
+    ])
+    # Supply a depth_charts row that claims this UDFA is the SF WR1.
+    depth = pd.DataFrame([
+        _depth_row("STR-FAKE", "UDFA WR (depth-chart starter)", "SF", "WR", 1),
+    ])
+
+    out = project_low_sample_players(
+        roster_df=roster,
+        weekly_df=None,
+        already_projected_player_ids=set(),
+        target_season=2026,
+        depth_charts_df=depth,
+    )
+
+    rows = out[out["player_id"] == "STR-FAKE"]
+    assert len(rows) == 1, "UDFA should appear in synthesized output"
+    assert rows.iloc[0]["low_sample_role"] == "unknown", (
+        "UDFA cap must fire even when depth_charts grants 'starter'; "
+        f"got {rows.iloc[0]['low_sample_role']!r} (would project "
+        "at full 1.0x WR-starter baseline without the cap)"
+    )
 
 
 @pytest.mark.unit

@@ -514,30 +514,48 @@ def project_low_sample_players(
 
     sub["_role"] = sub["player_id"].apply(_resolve_role)
 
-    # Step 3: UDFA cap — if depth_charts didn't cover a player AND the roster
-    # fallback labeled them "starter" because they were the only ACT player
-    # at their (team, position), demote to "unknown" unless they have draft
-    # capital. This stops UDFAs from inheriting starter weight just because
-    # the previous-season roster snapshot was thin (e.g. Stribling appeared as
-    # SF WR1 in sparse early-offseason snapshots → full 1020-yard projection).
-    # Demoting to "unknown" (0.25x) rather than "backup" (0.40x) keeps
-    # undrafted players with zero depth-chart validation near the floor.
+    # Step 3: UDFA cap — any undrafted/late-pick (no draft capital or pick
+    # number > 150) rookie who ends up with "starter" role is demoted to
+    # "unknown" (0.25x baseline), regardless of whether the role came from
+    # depth_charts or the roster fallback.
+    #
+    # This guard is intentionally SOURCE-AGNOSTIC. The depth_charts Bronze is
+    # ingested at daily formation-grain: each snapshot contains one row per
+    # WR per formation type (pos_slot=1 = inside slot, pos_slot=2 = wide,
+    # etc.), so several WRs can show pos_slot=1 simultaneously in the same
+    # date snapshot. After the ghost-row filter and latest-dt selection, the
+    # cumcount-based effective_rank can place a UDFA at rank=1 if their
+    # gsis_id survives the roster-validation filter while the genuine WR1
+    # (e.g. listed on a prior team) is dropped. Without a source-agnostic
+    # cap, that data-quality artifact produces an uncapped 1.00× projection
+    # (1020 rec yards, 181 pts half-PPR) for a player who is genuinely a
+    # 4th-string WR on the roster depth chart.
+    #
+    # High-pick rookies (draft_number ≤ 150) are intentionally excluded: they
+    # have real draft capital validating a starter projection, and the
+    # draft-capital override (Step 4) may legitimately promote them to starter.
     if "draft_number" in sub.columns:
-        not_in_depth = ~sub["player_id"].astype(str).isin(depth_role_map.keys())
         no_capital = sub["draft_number"].isna() | sub["draft_number"].gt(150)
         rookie = sub["years_exp"].fillna(99).le(1)
         cap_mask = (
-            not_in_depth
-            & no_capital
+            no_capital
             & rookie
             & sub["_role"].eq("starter")
         )
         if cap_mask.any():
+            in_depth_count = (
+                sub.loc[cap_mask, "player_id"]
+                .astype(str)
+                .isin(depth_role_map.keys())
+                .sum()
+            )
             sub.loc[cap_mask, "_role"] = "unknown"
             logger.info(
-                "UDFA cap: demoted %d undrafted-or-late-pick rookies from "
-                "fallback-starter to unknown (no depth-chart backing)",
+                "UDFA cap: demoted %d undrafted-or-late-pick rookies "
+                "starter→unknown (%d via depth_charts path, %d via roster fallback)",
                 int(cap_mask.sum()),
+                int(in_depth_count),
+                int(cap_mask.sum()) - int(in_depth_count),
             )
 
     # Step 3.5: starter-conflict demote — if the upstream projections already
