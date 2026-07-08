@@ -24,6 +24,7 @@ import {
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
 import { Icons } from '@/components/icons';
+import { useInfobar, type InfobarContent } from '@/components/ui/infobar';
 import type {
   BestAvailablePlayer,
   ConnectedLeague,
@@ -245,6 +246,7 @@ export function SleeperLeagueView() {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { setContent } = useInfobar();
 
   // Hydrate from localStorage once on mount
   useEffect(() => {
@@ -252,6 +254,28 @@ export function SleeperLeagueView() {
     setConnected(stored);
     if (stored.length > 0) setActiveLeagueId(stored[0].league_id);
   }, []);
+
+  // Set custom sidebar content for leagues page
+  useEffect(() => {
+    const leaguesFaqContent: InfobarContent = {
+      title: 'League Sync FAQ',
+      sections: [
+        {
+          title: 'What is re-scoring?',
+          description: 'Projections are recomputed under your league\'s exact scoring settings, factoring in custom point values for PPR, pass TD, position multipliers, and more.',
+        },
+        {
+          title: 'Why don\'t I see my roster?',
+          description: 'Make sure you\'re using your Sleeper username (not display name). Pre-draft leagues show the draft board; once rosters are set, your players will appear here.',
+        },
+        {
+          title: 'Is my data stored?',
+          description: 'Your connected leagues are stored locally in your browser only — no account or cloud storage required. Disconnect anytime without losing access.',
+        },
+      ],
+    };
+    setContent(leaguesFaqContent);
+  }, [setContent]);
 
   const handleConnect = useCallback(
     async (e: React.FormEvent) => {
