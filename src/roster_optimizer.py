@@ -183,9 +183,8 @@ def drop_candidates(
         if pos in ("K", "DST"):
             reason = f"Streamable — swap weekly for best available {pos}"
         elif depth - starts >= 2:
-            start_word = "start" if starts == 1 else "starts"
             reason = (
-                f"You roster {depth} {pos}s but only {starts} can {start_word}"
+                f"You roster {depth} {pos}s but only {starts} can start"
                 f" — lowest projected value of the group"
             )
         else:
