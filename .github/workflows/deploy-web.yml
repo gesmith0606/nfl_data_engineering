@@ -230,6 +230,14 @@ jobs:
             git commit -m "chore(cache): bump CACHE_BUST for frontend refresh"
             git push origin main 2>&1 | grep -v "credential" || true
             echo "HF Space refresh committed and pushed"
+            # Belt and suspenders: HF does not reliably rebuild on push
+            # (observed 2026-07-07 — the 21:42 bump rebuilt, the 22:42 bump
+            # was silently ignored). Force the rebuild explicitly.
+            RESTART=$(curl -s -X POST \
+              "https://huggingface.co/api/spaces/gesmith0606/nfl-data-api/restart?factory=true" \
+              -H "Authorization: Bearer $HF_TOKEN" \
+              -o /dev/null -w "%{http_code}" || echo "000")
+            echo "Factory rebuild trigger: HTTP ${RESTART}"
           else
             echo "No CACHE_BUST change needed"
           fi
