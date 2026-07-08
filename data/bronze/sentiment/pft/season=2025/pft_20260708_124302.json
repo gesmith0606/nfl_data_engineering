@@ -1,0 +1,578 @@
+{
+  "fetch_run_id": "fa2a328a-3c81-4937-86ca-dfbd60a018ed",
+  "source": "pft",
+  "fetched_at": "2026-07-08T12:43:02.859375+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/egypt-coach-suggests-fifa-wants-to-keep-argentina-alive-in-world-cup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/egypt-coach-suggests-fifa-wants-to-keep-argentina-alive-in-world-cup",
+      "permalink": "",
+      "title": "Egypt coach suggests FIFA wants to keep Argentina alive in World Cup",
+      "body_text": "A call from Egyptian president Abdel Fattah El-Sisi to FIFA president Gianni Infantino probably would lack the same punch as a call from the leader of the free world.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-08T12:19:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "Abdel Fattah",
+        "Gianni Infantino"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charles-barkley-declined-invitation-to-attend-travis-kelce-taylor-swift-wedding",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charles-barkley-declined-invitation-to-attend-travis-kelce-taylor-swift-wedding",
+      "permalink": "",
+      "title": "Charles Barkley declined invitation to attend Travis Kelce-Taylor Swift wedding",
+      "body_text": "Who would say no to an invitation to the Travis Kelce-Taylor Swift wedding?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-08T11:49:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Charles Barkley",
+        "Travis Kelce",
+        "Taylor Swift"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-called-a-fake-punt-on-fourth-and-11-in-ot-vs-bills-players-didnt-run-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-called-a-fake-punt-on-fourth-and-11-in-ot-vs-bills-players-didnt-run-it",
+      "permalink": "",
+      "title": "Sean Payton called a fake punt on fourth-and-11 in OT vs. Bills, players didn't run it",
+      "body_text": "Josh Allen threw an interception on the subsequent drive, setting up the Broncos' win.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-08T08:53:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-2030-world-cup-rights-could-hit-2-billion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-2030-world-cup-rights-could-hit-2-billion",
+      "permalink": "",
+      "title": "Report: 2030 World Cup rights could hit $2 billion",
+      "body_text": "Lionel Messi is scoring at will in the 2026 World Cup.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-08T02:38:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup",
+        "Lionel Messi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-wileys-wife-files-for-divorce-restraining-order",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-wileys-wife-files-for-divorce-restraining-order",
+      "permalink": "",
+      "title": "Marcellus Wiley's wife files for divorce, restraining order",
+      "body_text": "In the wake of Saturday's arrest of former NFL defensive end Marcellus Wiley, his wife has pursued two separate legal avenues.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T12:39:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcellus Wiley"
+      ],
+      "resolved_player_ids": [
+        "00-0017670"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-wiley-responds-to-divorce-allegations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcellus-wiley-responds-to-divorce-allegations",
+      "permalink": "",
+      "title": "Marcellus Wiley responds to divorce allegations",
+      "body_text": "Former NFL defensive end and ESPN/Fox personality Marcellus Wiley has found himself in a very public, and very ugly, divorce.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-08T02:21:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcellus Wiley"
+      ],
+      "resolved_player_ids": [
+        "00-0017670"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-mused-about-stepping-down-for-bill-belichick-until-he-broke-wins-record",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-mused-about-stepping-down-for-bill-belichick-until-he-broke-wins-record",
+      "permalink": "",
+      "title": "Sean Payton mused about stepping down for Bill Belichick, until he broke wins record",
+      "body_text": "A new article from Seth Wickersham of ESPN takes a look at Broncos coach Sean Payton's hectic week before the AFC Championship.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-08T01:17:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "Bill Belichick",
+        "Seth Wickersham"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-vs-belgium-had-a-total-american-audience-of-42-million",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/u-s-vs-belgium-had-a-total-american-audience-of-42-million",
+      "permalink": "",
+      "title": "U.S. vs. Belgium had a total American audience of 42 million",
+      "body_text": "The good news?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T23:21:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-commanders-hire-demitrius-washington-as-a-senior-personnel-executive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-commanders-hire-demitrius-washington-as-a-senior-personnel-executive",
+      "permalink": "",
+      "title": "Report: Commanders hire Demitrius Washington as a senior personnel executive",
+      "body_text": "The Commanders have hired Demitrius Washington as a senior personnel executive, Jori Epstein of Yahoo Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-07T23:14:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Demitrius Washington",
+        "The Commanders",
+        "Jori Epstein",
+        "Yahoo Sports"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-passed-on-mac-jones-in-2021-but-hes-happy-to-be-there-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-passed-on-mac-jones-in-2021-but-hes-happy-to-be-there-now",
+      "permalink": "",
+      "title": "49ers passed on Mac Jones in 2021, but he's happy to be there now",
+      "body_text": "In 2021, Trey Lance went third overall to the 49ers, and Mac Jones followed 12 picks later to the Patriots.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-07T22:05:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mac Jones",
+        "Trey Lance"
+      ],
+      "resolved_player_ids": [
+        "00-0036972",
+        "00-0037012"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-claim-dl-c-j-ravenell-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-claim-dl-c-j-ravenell-off-waivers",
+      "permalink": "",
+      "title": "Giants claim DL C.J. Ravenell off waivers",
+      "body_text": "The Giants added a player to their defensive line on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-07T20:45:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-now-regrets-choosing-commanders-over-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-now-regrets-choosing-commanders-over-seahawks",
+      "permalink": "",
+      "title": "Von Miller now regrets choosing Commanders over Seahawks",
+      "body_text": "In November, he said he'd make the same decision \"10 times out of 10.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T20:20:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Miller",
+        "In November"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-ol-brady-christensen-says-hes-cleared-to-return-after-torn-achilles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-ol-brady-christensen-says-hes-cleared-to-return-after-torn-achilles",
+      "permalink": "",
+      "title": "Free agent OL Brady Christensen says he's cleared to return after torn Achilles",
+      "body_text": "Veteran offensive lineman Brady Christensen says that he is ready to get back on the football field.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-07T19:54:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brady Christensen",
+        "Achilles Veteran"
+      ],
+      "resolved_player_ids": [
+        "00-0036968"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-on-absence-from-ea-college-sports-game-theyre-probably-not-paying-enough",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-on-absence-from-ea-college-sports-game-theyre-probably-not-paying-enough",
+      "permalink": "",
+      "title": "Deion Sanders on absence from EA College Sports game: \"They're probably not paying enough\"",
+      "body_text": "EA Sports used to market its various offerings with this slogan: \"If it's in the game, it's in the game.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T19:45:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders",
+        "College Sports"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-makes-it-clear-broncos-want-to-keep-jaquan-mcmillian-long-term",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-makes-it-clear-broncos-want-to-keep-jaquan-mcmillian-long-term",
+      "permalink": "",
+      "title": "Sean Payton makes it clear Broncos want to keep Ja'Quan McMillian long term",
+      "body_text": "The Broncos showed how much they think of cornerback Ja'Quan McMillian by using a second-round tender on him as a restricted free agent.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-07T19:33:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-fourth-round-pick-gracen-halton",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-fourth-round-pick-gracen-halton",
+      "permalink": "",
+      "title": "49ers sign fourth-round pick Gracen Halton",
+      "body_text": "The 49ers have gotten another draft pick under contract.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-07T19:19:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gracen Halton"
+      ],
+      "resolved_player_ids": [
+        "HAL773343"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derek-stingley-i-feel-like-i-am-quicker-now-than-last-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derek-stingley-i-feel-like-i-am-quicker-now-than-last-season",
+      "permalink": "",
+      "title": "Derek Stingley: I feel like I am quicker now than last season",
+      "body_text": "Derek Stingley became the first cornerback in Texans history to earn first-team All-Pro in 2024.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-07T18:35:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derek Stingley"
+      ],
+      "resolved_player_ids": [
+        "00-0037237"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/belgium-beats-then-trolls-u-s-team-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/belgium-beats-then-trolls-u-s-team-on-monday-night",
+      "permalink": "",
+      "title": "Belgium beats, then trolls, U.S. team on Monday night",
+      "body_text": "Even though it was tied, 1-1, after Malik Tillman scored another goal on a free kick just outside the penalty area, it never felt close.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T02:38:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Tillman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/belgium-players-mocked-president-trump-after-scoring-final-goal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/belgium-players-mocked-president-trump-after-scoring-final-goal",
+      "permalink": "",
+      "title": "Belgium players mocked President Trump after scoring final goal",
+      "body_text": "When sports figures delve into politics, those who disagree with their views often tell them to \"stick to sports.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T13:09:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "President Trump"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshawn-kneeland-had-stage-1-cte",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshawn-kneeland-had-stage-1-cte",
+      "permalink": "",
+      "title": "Marshawn Kneeland had stage 1 CTE",
+      "body_text": "Cowboys defensive lineman Marshawn Kneeland died by suicide in November 2025 at age 24.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T13:33:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marshawn Kneeland"
+      ],
+      "resolved_player_ids": [
+        "00-0039900"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-athletic-takes-a-close-look-at-the-events-that-led-to-terrion-arnolds-arrest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-athletic-takes-a-close-look-at-the-events-that-led-to-terrion-arnolds-arrest",
+      "permalink": "",
+      "title": "The Athletic takes a close look at the events that led to Terrion Arnold's arrest",
+      "body_text": "As cornerback Terrion Arnold waits for a new team to sign him — and for a judge to decide whether he'll be required to wear a GPS monitor while on house arrest pending trial — it's worth taking a look at how he landed in his current legal predicament.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T17:08:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Athletic",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bucs-in-no-rush-to-work-out-new-deals-with-baker-mayfield-vita-vea",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bucs-in-no-rush-to-work-out-new-deals-with-baker-mayfield-vita-vea",
+      "permalink": "",
+      "title": "Report: Bucs in \"no rush\" to work out new deals with Baker Mayfield, Vita Vea",
+      "body_text": "The Buccaneers open up training camp in three weeks.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-07T12:40:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Vita Vea",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0034855",
+        "00-0034773"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2027-free-agent-negotiating-window-will-open-a-day-after-the-combine-ends",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2027-free-agent-negotiating-window-will-open-a-day-after-the-combine-ends",
+      "permalink": "",
+      "title": "2027 free agent negotiating window will open a day after the Combine ends",
+      "body_text": "Free agent negotiations will begin on March 9 next year.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-07T16:38:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/scott-fitterer-departing-commanders-to-join-athletes-first",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/scott-fitterer-departing-commanders-to-join-athletes-first",
+      "permalink": "",
+      "title": "Scott Fitterer departing Commanders to join Athletes First",
+      "body_text": "One member of Washington's front office is departing the organization.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-07T16:30:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Scott Fitterer",
+        "Athletes First"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-c-erik-mccoy-injuries-luck-of-the-draw-cant-change-how-i-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-c-erik-mccoy-injuries-luck-of-the-draw-cant-change-how-i-play",
+      "permalink": "",
+      "title": "Saints C Erik McCoy: Injuries \"luck of the draw,\" can't change how I play",
+      "body_text": "Saints center Erik McCoy has missed more games than he's played over the last two seasons.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-07T16:09:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-says-he-wont-be-reinstating-with-the-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-says-he-wont-be-reinstating-with-the-49ers",
+      "permalink": "",
+      "title": "Brandon Aiyuk says he won't be \"reinstating\" with the 49ers",
+      "body_text": "Receiver Brandon Aiyuk's path to free agency, as we've said before (more than a few times) is simple.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-07T15:59:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "Receiver Brandon"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-cowboys-were-nervous-about-missing-out-on-caleb-downs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-cowboys-were-nervous-about-missing-out-on-caleb-downs",
+      "permalink": "",
+      "title": "Brian Schottenheimer: Cowboys were nervous about missing out on Caleb Downs",
+      "body_text": "The Cowboys traded up from No. 12 to No. 11 in the 2026 NFL draft to select Ohio State safety Caleb Downs, but they would have gladly traded higher than that.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-07T15:20:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Caleb Downs",
+        "The Cowboys",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [
+        "DOW662609"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-open-one-training-camp-practice-to-general-public-six-more-for-season-ticket-holders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-open-one-training-camp-practice-to-general-public-six-more-for-season-ticket-holders",
+      "permalink": "",
+      "title": "Jets to open one training camp practice to general public, six more for season ticket holders",
+      "body_text": "The Jets will welcome fans to seven training camp practices this summer, but only one of those sessions will be open to the general public.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-07T15:30:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-im-not-content-just-being-on-a-team-im-trying-to-be-one-of-the-greatest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-im-not-content-just-being-on-a-team-im-trying-to-be-one-of-the-greatest",
+      "permalink": "",
+      "title": "Shedeur Sanders: I'm not content just being on a team, I'm trying to be one of the greatest",
+      "body_text": "Sanders wants to win a lot more than just his training camp competition with Deshaun Watson.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-07T08:29:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nate-thomas-readies-to-compete-for-cowboys-starting-lt-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nate-thomas-readies-to-compete-for-cowboys-starting-lt-job",
+      "permalink": "",
+      "title": "Nate Thomas readies to compete for Cowboys' starting LT job",
+      "body_text": "Pro Bowl left guard Tyler Smith is the Cowboys' best left tackle, but he does not want a full-time move.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-07T00:44:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nate Thomas",
+        "Pro Bowl",
+        "Tyler Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0037243"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
