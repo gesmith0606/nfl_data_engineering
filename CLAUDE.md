@@ -107,7 +107,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 |------|---------|
 | `src/config.py` | S3 paths, SCORING_CONFIGS, ROSTER_CONFIGS, PLAYER_DATA_SEASONS, SILVER paths |
 | `src/nfl_data_adapter.py` | NFLDataAdapter — unified data fetching with local-first reads |
-| `src/nfl_data_integration.py` | NFLDataFetcher — legacy fetcher (see nfl_data_adapter.py) + validate_data() |
+| `src/nfl_data_integration.py` | NFLDataFetcher — legacy facade delegating to NFLDataAdapter + canonical validate_data() |
 | `src/player_analytics.py` | Usage metrics, opp rankings, rolling avgs, Vegas implied totals |
 | `src/team_analytics.py` | Team PBP metrics, tendencies, SOS, situational splits (1834 lines) |
 | `src/player_advanced_analytics.py` | Advanced player profiles, target shares, efficiency metrics |
@@ -225,7 +225,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 - Validate at layer boundaries with `NFLDataFetcher.validate_data()`
 - Error handling required for: NFL API timeouts, S3 operations, missing columns
 - Type hints + Google-style docstrings on all functions
-- Follow patterns in `src/nfl_data_integration.py`
+- Fetch data via `NFLDataAdapter` (`src/nfl_data_adapter.py`) — the only module allowed to import nfl_data_py
 - Agent workflow for significant changes: see `.claude/AGENT_FRAMEWORK.md`
 
 ## Status
