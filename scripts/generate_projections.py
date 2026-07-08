@@ -255,6 +255,11 @@ def main():
             )
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
+        if args.no_consensus_anchor:
+            print(
+                "Note: --no-consensus-anchor has no effect in --week mode "
+                "(the consensus anchor only applies to preseason projections)"
+            )
     print("=" * 60)
 
     # -----------------------------------------------------------------------

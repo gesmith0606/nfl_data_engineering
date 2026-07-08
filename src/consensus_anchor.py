@@ -34,6 +34,22 @@ from typing import Dict, Optional
 import numpy as np
 import pandas as pd
 
+try:
+    from src.utils import normalize_player_name
+except ImportError:
+    from utils import normalize_player_name
+
+__all__ = [
+    "CONSENSUS_SOURCES",
+    "DEFAULT_CONSENSUS_WEIGHTS",
+    "LOW_SAMPLE_WEIGHT",
+    "MIN_SOURCES",
+    "DEGENERATE_TIE_MIN_GROUP",
+    "normalize_player_name",  # re-exported from utils for convenience
+    "load_consensus_ranks",
+    "apply_consensus_anchor",
+]
+
 logger = logging.getLogger(__name__)
 
 # Sources read from data/external/. Matches VALID_SOURCES in
@@ -69,26 +85,11 @@ LOW_SAMPLE_WEIGHT = 0.85
 # single-source ranks are too noisy to pull a projection.
 MIN_SOURCES = 2
 
-_SUFFIX_RE = re.compile(r"\b(jr|sr|ii|iii|iv|v)\b\.?", re.IGNORECASE)
-
-
-def normalize_player_name(name: str) -> str:
-    """Normalize a player name for cross-source matching.
-
-    Lowercases, strips generational suffixes (Jr/Sr/II-V) and all
-    punctuation so "Patrick Mahomes II" and "Amon-Ra St. Brown" match
-    their spellings in every source.
-
-    Args:
-        name: Raw player name from any source.
-
-    Returns:
-        Normalized matching key.
-    """
-    n = _SUFFIX_RE.sub("", str(name).lower())
-    n = n.replace("-", " ")
-    n = re.sub(r"[^a-z ]", "", n)
-    return re.sub(r"\s+", " ", n).strip()
+# A model point value shared by at least this many players at one position is
+# treated as a synthesized baseline with no ordering signal (the kicker
+# synthesizer hands ~40 kickers the identical starter value). Legitimate
+# skill-position projections almost never tie beyond 2-3 players.
+DEGENERATE_TIE_MIN_GROUP = 5
 
 
 def load_consensus_ranks(
@@ -135,7 +136,19 @@ def load_consensus_ranks(
                 continue
             pos_counter[pos] = pos_counter.get(pos, 0) + 1
             key = (normalize_player_name(name), pos)
-            ranks.setdefault(key, {})[source] = pos_counter[pos]
+            by_source = ranks.setdefault(key, {})
+            if source in by_source:
+                # Duplicate entry within one source (external cache quality
+                # issue): keep the first (best) rank rather than silently
+                # letting the later, worse rank overwrite it.
+                logger.warning(
+                    "Duplicate %s entry in %s rankings — keeping rank %d",
+                    name,
+                    source,
+                    by_source[source],
+                )
+                continue
+            by_source[source] = pos_counter[pos]
 
     rows = [
         {
@@ -185,16 +198,22 @@ def apply_consensus_anchor(
         return proj
 
     consensus = load_consensus_ranks(external_dir)
+    if not consensus.empty:
+        consensus = consensus[consensus["consensus_sources"] >= min_sources]
     if consensus.empty:
         logger.warning(
-            "No external ranking caches found in %s — consensus anchor skipped",
+            "No usable external rankings in %s (missing caches or every "
+            "player below %d sources) — consensus anchor skipped",
             external_dir,
+            min_sources,
         )
         return proj
 
-    consensus = consensus[consensus["consensus_sources"] >= min_sources]
-
-    proj = proj.copy()
+    # Idempotency: drop provenance columns from any prior anchoring pass so
+    # the merge below never suffixes them into _x/_y and breaks lookups.
+    proj = proj.drop(
+        columns=["consensus_pos_rank", "consensus_sources"], errors="ignore"
+    ).copy()
     proj["_name_key"] = proj["player_name"].map(normalize_player_name)
     proj = proj.merge(
         consensus.rename(columns={"name_key": "_name_key"}),
@@ -239,9 +258,13 @@ def apply_consensus_anchor(
         # harder on the market because the model has little real signal.
         row_weight = np.full(len(model_pts), weight)
         if "is_low_sample_projection" in proj.columns:
+            # fillna+astype(bool) rather than .eq(True): Parquet round-trips
+            # can coerce this column to int/object, and 1 != True under
+            # pandas strict equality.
             low_sample = (
                 proj.loc[anchored, "is_low_sample_projection"]
-                .eq(True)
+                .fillna(False)
+                .astype(bool)
                 .to_numpy()
             )
             row_weight[low_sample] = np.maximum(
@@ -261,7 +284,9 @@ def apply_consensus_anchor(
         # anchored range instead.
         raw_vals = proj.loc[pos_mask, points_col].fillna(0.0).round(1)
         tie_counts = raw_vals.value_counts()
-        degenerate_vals = set(tie_counts[tie_counts >= 5].index)
+        degenerate_vals = set(
+            tie_counts[tie_counts >= DEGENERATE_TIE_MIN_GROUP].index
+        )
         anchor_floor = float(blended.min())
         unanchored_tied = (
             pos_mask
@@ -270,14 +295,21 @@ def apply_consensus_anchor(
             & (proj[points_col].fillna(0.0) >= anchor_floor)
         )
         if unanchored_tied.any():
-            n_demoted = int(unanchored_tied.sum())
+            # Members of a degenerate tie group are indistinguishable by
+            # definition; order them alphabetically by name key so the
+            # demoted ramp is deterministic across runs rather than an
+            # artifact of DataFrame row order.
+            demote_idx = (
+                proj.loc[unanchored_tied, "_name_key"].sort_values().index
+            )
+            n_demoted = len(demote_idx)
             demoted = np.clip(
                 anchor_floor - 0.5 * np.arange(1, n_demoted + 1), 0.0, None
             )
-            proj.loc[unanchored_tied, "pre_anchor_points"] = proj.loc[
-                unanchored_tied, points_col
+            proj.loc[demote_idx, "pre_anchor_points"] = proj.loc[
+                demote_idx, points_col
             ]
-            proj.loc[unanchored_tied, points_col] = np.round(demoted, 1)
+            proj.loc[demote_idx, points_col] = np.round(demoted, 1)
             logger.info(
                 "Demoted %d un-anchored %s rows from a degenerate tie group",
                 n_demoted,
@@ -293,5 +325,4 @@ def apply_consensus_anchor(
             weight,
         )
 
-    proj.drop(columns=["_name_key"], inplace=True)
-    return proj
+    return proj.drop(columns=["_name_key"])

@@ -97,6 +97,20 @@ class TestLoadConsensusRanks(unittest.TestCase):
     def test_missing_files_return_empty(self):
         self.assertTrue(load_consensus_ranks(self.dir).empty)
 
+    def test_duplicate_entry_within_source_keeps_first_rank(self):
+        _write_cache(
+            self.dir,
+            "sleeper",
+            [
+                {"player_name": "Dup Guy", "position": "QB"},
+                {"player_name": "Other Guy", "position": "QB"},
+                {"player_name": "Dup Guy", "position": "QB"},  # duplicate
+            ],
+        )
+        ranks = load_consensus_ranks(self.dir, sources=["sleeper"])
+        by_name = ranks.set_index("name_key")
+        self.assertEqual(by_name.loc["dup guy", "consensus_pos_rank"], 1.0)
+
     def test_position_label_with_digits_normalized(self):
         _write_cache(
             self.dir, "sleeper", [{"player_name": "QB One", "position": "QB1"}]
@@ -211,6 +225,27 @@ class TestApplyConsensusAnchor(unittest.TestCase):
         ).set_index("player_name")
         # implied(rank 5) clamps to the curve's last value (250)
         self.assertAlmostEqual(out.loc["Backup", "projected_season_points"], 250.0)
+
+    def test_idempotent_on_reanchored_frame(self):
+        # Applying the anchor to a frame that already carries provenance
+        # columns must not raise or corrupt (KeyError via merge suffixing).
+        self._write_two_sources(["Young Star", "Mid Guy", "Backup", "Vet Passer"])
+        once = apply_consensus_anchor(self.proj, self.dir, weights={"QB": 0.5})
+        twice = apply_consensus_anchor(once, self.dir, weights={"QB": 0.0})
+        self.assertIn("consensus_pos_rank", twice.columns)
+        self.assertNotIn("consensus_pos_rank_x", twice.columns)
+
+    def test_low_sample_flag_int_coded(self):
+        # Parquet round-trips can coerce the flag to int; 1 must count as True.
+        self.proj["is_low_sample_projection"] = [0, 0, 0, 1]
+        self._write_two_sources(["Backup", "Vet Passer", "Young Star", "Mid Guy"])
+        out = apply_consensus_anchor(
+            self.proj, self.dir, weights={"QB": 0.5}
+        ).set_index("player_name")
+        # Backup (int-flagged low-sample): 0.15*250 + 0.85*implied(rank1=400)
+        self.assertAlmostEqual(
+            out.loc["Backup", "projected_season_points"], 377.5
+        )
 
     def test_flat_curve_orders_by_consensus(self):
         # All model points tied (the 2026 kicker failure mode): the blend
