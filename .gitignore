@@ -342,6 +342,13 @@ data/gold/*
 # so compareExternalRankings never returns empty on first deploy.
 !data/external/
 !data/external/*.json
+# Dated rankings snapshots (2026-07-08): the live caches above are
+# overwritten in place on every refresh, which made it impossible to
+# backtest the preseason consensus-anchor weights (no history existed).
+# The daily cron gzips a snapshot only on days the content changed.
+!data/external/archive/
+!data/external/archive/**
+!data/external/archive/**/*.json.gz
 
 # Test fixtures (Plan 71-02): allow recorded Bronze + Claude JSON so the
 # FakeClaudeClient replay harness and LLM-03 benchmark can read them in CI.

@@ -235,5 +235,72 @@ class TestApplyInjuryAdjustments(unittest.TestCase):
         self.assertTrue((result['injury_multiplier'] == 1.0).all())
 
 
+
+class TestPreseasonMetadataUnification(unittest.TestCase):
+    """Conflicting cross-season metadata must not split the seasonal groupby.
+
+    A player whose two seasonal rows carry different non-null recent_team
+    values (nflverse recorded a team change) previously produced TWO
+    projection rows — the Jaelan Phillips / Jerrick Reed II duplicates the
+    gold-layer guard caught on 2026-07-08. Metadata now unifies to the most
+    recent season's value before grouping.
+    """
+
+    @staticmethod
+    def _seasonal_two_rows(team_2024, team_2025, name_2024="Jaelan Phillips",
+                           name_2025="Jaelan Phillips"):
+        return pd.DataFrame({
+            "player_id": ["X1", "X1"],
+            "season": [2024, 2025],
+            "player_name": [name_2024, name_2025],
+            "position": ["RB", "RB"],
+            "recent_team": [team_2024, team_2025],
+            "games": [17, 17],
+            "rushing_yards": [850.0, 900.0],
+            "rushing_tds": [6.0, 7.0],
+            "carries": [200.0, 210.0],
+            "receiving_yards": [200.0, 220.0],
+            "receiving_tds": [1.0, 1.0],
+            "receptions": [25.0, 28.0],
+            "targets": [30.0, 33.0],
+            "passing_yards": [0.0, 0.0],
+            "passing_tds": [0.0, 0.0],
+            "interceptions": [0.0, 0.0],
+        })
+
+    def _run(self, seasonal):
+        from unittest.mock import patch
+        import projection_engine as pe
+
+        with patch.object(
+            pe, "_generate_preseason_kicker_projections",
+            return_value=pd.DataFrame(),
+        ):
+            return pe.generate_preseason_projections(
+                seasonal, scoring_format="half_ppr", target_season=2026
+            )
+
+    def test_conflicting_team_yields_single_row_with_latest_team(self):
+        proj = self._run(self._seasonal_two_rows("MIA", "PHI"))
+        rows = proj[proj["player_id"] == "X1"]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows.iloc[0]["recent_team"], "PHI")
+
+    def test_conflicting_name_spelling_yields_single_row(self):
+        proj = self._run(self._seasonal_two_rows(
+            "MIA", "MIA", name_2024="Jerrick Reed", name_2025="Jerrick Reed II"
+        ))
+        rows = proj[proj["player_id"] == "X1"]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows.iloc[0]["player_name"], "Jerrick Reed II")
+
+    def test_consistent_metadata_unchanged(self):
+        proj = self._run(self._seasonal_two_rows("MIA", "MIA"))
+        rows = proj[proj["player_id"] == "X1"]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows.iloc[0]["recent_team"], "MIA")
+
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -20,6 +20,7 @@ Usage:
 """
 
 import argparse
+import gzip
 import json
 import logging
 import os
@@ -27,7 +28,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 
@@ -40,6 +41,7 @@ logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 EXTERNAL_DIR = PROJECT_ROOT / "data" / "external"
+ARCHIVE_DIR = EXTERNAL_DIR / "archive"
 
 REQUEST_TIMEOUT = 60
 FANTASY_POSITIONS = {"QB", "RB", "WR", "TE", "K"}
@@ -367,7 +369,7 @@ def fetch_ftn(
 # ---------------------------------------------------------------------------
 # Save
 # ---------------------------------------------------------------------------
-def save_rankings(source: str, data: List[Dict[str, Any]]) -> Path:
+def save_rankings(source: str, data: List[Dict[str, Any]]) -> Tuple[Path, bool]:
     """Save rankings to data/external/<source>_rankings.json.
 
     Writes the canonical envelope format the web service reads (source /
@@ -375,6 +377,11 @@ def save_rankings(source: str, data: List[Dict[str, Any]]) -> Path:
     rather than file mtime. Skips the write when the player content is
     unchanged — the daily workflow commits this directory, and a fetched_at
     -only diff would produce a meaningless commit every day.
+
+    Returns:
+        ``(path, changed)`` — ``changed`` is False when the cache content
+        was identical and the write was skipped. Callers use it to decide
+        whether a dated archive snapshot is warranted.
     """
     EXTERNAL_DIR.mkdir(parents=True, exist_ok=True)
     path = EXTERNAL_DIR / f"{source}_rankings.json"
@@ -389,7 +396,7 @@ def save_rankings(source: str, data: List[Dict[str, Any]]) -> Path:
             )
             if existing_players == data:
                 logger.info("Rankings unchanged for %s — cache not rewritten", source)
-                return path
+                return path, False
         except (json.JSONDecodeError, OSError):
             pass  # unreadable cache — overwrite it
 
@@ -401,7 +408,45 @@ def save_rankings(source: str, data: List[Dict[str, Any]]) -> Path:
     with open(path, "w") as f:
         json.dump(envelope, f, indent=2)
     logger.info("Saved %d rankings -> %s", len(data), path)
-    return path
+    return path, True
+
+
+def archive_rankings_snapshot(sources: List[str]) -> List[Path]:
+    """Write dated, gzipped snapshots of the given source caches.
+
+    The live ``data/external/*.json`` caches are overwritten in place on
+    every refresh, so no rankings history exists — which made it impossible
+    to backtest the preseason consensus-anchor weights (2026-07-08 finding)
+    or evaluate anchoring weekly in-season projections. Snapshots land in
+    ``data/external/archive/YYYY-MM-DD/<source>_rankings.json.gz`` and are
+    committed by the daily cron alongside the live caches.
+
+    Only sources whose content actually changed this run should be passed
+    in (a source absent from a date's directory is covered by its most
+    recent prior snapshot). Gzip keeps each snapshot to a few KB, so a
+    full season of history costs single-digit MB in git.
+
+    Args:
+        sources: Source names whose caches changed this run.
+
+    Returns:
+        Paths of the snapshot files written.
+    """
+    written: List[Path] = []
+    if not sources:
+        return written
+    day_dir = ARCHIVE_DIR / datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    day_dir.mkdir(parents=True, exist_ok=True)
+    for source in sources:
+        src_path = EXTERNAL_DIR / f"{source}_rankings.json"
+        if not src_path.exists():
+            continue
+        dest = day_dir / f"{source}_rankings.json.gz"
+        with gzip.open(dest, "wt", encoding="utf-8") as f:
+            f.write(src_path.read_text(encoding="utf-8"))
+        written.append(dest)
+        logger.info("Archived %s snapshot -> %s", source, dest)
+    return written
 
 
 # ---------------------------------------------------------------------------
@@ -448,6 +493,7 @@ def main() -> int:
     )
 
     results: Dict[str, str] = {}
+    changed_sources: List[str] = []
     for source in sources_to_fetch:
         print(f"\n--- {source.upper()} ---")
         try:
@@ -469,7 +515,9 @@ def main() -> int:
                 continue
 
             if data:
-                path = save_rankings(source, data)
+                path, changed = save_rankings(source, data)
+                if changed:
+                    changed_sources.append(source)
                 results[source] = f"OK ({len(data)} players -> {path})"
 
                 # Show top 10
@@ -501,11 +549,21 @@ def main() -> int:
         if source != sources_to_fetch[-1]:
             time.sleep(1)
 
+    # Dated snapshot of every cache that actually changed this run —
+    # the anchor-weight backtest history (see archive_rankings_snapshot).
+    try:
+        archived = archive_rankings_snapshot(changed_sources)
+    except OSError as exc:
+        archived = []
+        logger.warning("Rankings snapshot archive failed: %s", exc)
+
     # Summary
     print(f"\n{'=' * 60}")
     print("Summary:")
     for source, status in results.items():
         print(f"  {source:<15} {status}")
+    if archived:
+        print(f"  archived {len(archived)} snapshot(s) -> {ARCHIVE_DIR}")
 
     failed = sum(1 for s in results.values() if s.startswith("FAILED"))
     return 1 if failed == len(results) else 0

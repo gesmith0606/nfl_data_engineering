@@ -357,6 +357,34 @@ def _run_extraction(season: int, week: int, dry_run: bool, verbose: bool) -> Ste
             f"{result.signal_count} signals [extractor={extractor_type}]"
         )
         step.success = True
+
+        # Sentinel: claude_primary requested but every Claude call failed
+        # (per-doc soft fallback to RuleExtractor). The pipeline is
+        # deliberately fail-open, which let an exhausted API credit
+        # balance hide for weeks behind green runs (found 2026-07-08 —
+        # every call 400'd "credit balance too low" while daily crons
+        # stayed silent). Shout loudly: an ERROR log line plus a GitHub
+        # Actions warning annotation (the ::warning:: prefix is inert
+        # when run locally).
+        # getattr defaults keep duck-typed results (test fakes, older
+        # PipelineResult shapes) from breaking the fail-open contract.
+        _processed = getattr(result, "processed_count", 0)
+        if (
+            getattr(result, "is_claude_primary", False)
+            and _processed > 0
+            and getattr(result, "claude_failed_count", 0) >= _processed
+        ):
+            sentinel_msg = (
+                "claude_primary extraction produced ZERO successful Claude "
+                f"calls ({result.claude_failed_count}/{result.processed_count} "
+                "docs fell back to rules). Check ANTHROPIC_API_KEY validity "
+                "and the Anthropic account credit balance — the pipeline is "
+                "fail-open and will keep reporting success without this "
+                "warning."
+            )
+            logger.error("SENTINEL: %s", sentinel_msg)
+            print(f"::warning title=LLM extraction silently down::{sentinel_msg}")
+            step.detail += " [SENTINEL: all Claude calls failed]"
     except Exception as exc:
         step.success = False
         step.error = str(exc)

@@ -3059,9 +3059,15 @@ def generate_preseason_projections(
         )
         if lookup.empty:
             continue
-        # Fill NaN values using the lookup
-        mask = df[col].isna()
-        df.loc[mask, col] = df.loc[mask, "player_id"].map(lookup)
+        # Unify EVERY row to the canonical (most recent season) value — not
+        # just NaN rows. Conflicting non-null values across seasons (a team
+        # change nflverse recorded, or a name-spelling drift) split the
+        # weighted groupby below into two rows per player; that was the
+        # source of the Jaelan Phillips / Jerrick Reed II duplicate
+        # projections the gold-layer guard caught on 2026-07-08. Rows with
+        # no lookup entry keep their original value.
+        mapped = df["player_id"].map(lookup)
+        df[col] = mapped.where(mapped.notna(), df[col])
 
     # Drop rows that still have no position (cannot project without it)
     if "position" in df.columns:
