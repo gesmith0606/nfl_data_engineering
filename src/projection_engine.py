@@ -2797,6 +2797,67 @@ def draft_capital_boost(draft_ovr: float, position: str) -> float:
     return round(max(1.0, boost), 3)
 
 
+def _merge_kicker_projections(
+    proj: pd.DataFrame, kicker_proj: pd.DataFrame
+) -> pd.DataFrame:
+    """Merge dedicated kicker-model rows into the main projection frame
+    without duplicating kickers.
+
+    The seasonal aggregation path also emits K rows, but seasonal data has
+    no field-goal stats, so those rows always project 0.0 points. Before
+    this merge existed, both rows survived to the gold parquet — 42
+    duplicate kickers in the 2026-07-07 production file. Resolution for a
+    kicker present on both sides:
+
+    - points / stat line come from the kicker model (the only real signal)
+    - ``recent_team`` comes from the seasonal row, which passed through the
+      Sleeper rosters_live team override upstream; kicker-model teams are
+      derived from prior-season data and go stale (Nick Folk NYJ vs ATL)
+
+    Seasonal-only kickers are kept as-is (the consensus anchor can still
+    rank them); kicker-model-only rows are appended.
+
+    Args:
+        proj:        Main preseason projection frame (may contain
+                     zero-point seasonal K rows).
+        kicker_proj: Output of ``_generate_preseason_kicker_projections``.
+
+    Returns:
+        The merged frame with at most one row per kicker.
+    """
+    if kicker_proj.empty:
+        return proj
+
+    kicker_proj = kicker_proj.copy()
+    if "player_id" in kicker_proj.columns and "player_id" in proj.columns:
+        seasonal_k = proj[
+            (proj["position"] == "K") & proj["player_id"].notna()
+        ]
+        if "recent_team" in seasonal_k.columns:
+            fresh_team = seasonal_k.drop_duplicates("player_id").set_index(
+                "player_id"
+            )["recent_team"]
+            mapped = kicker_proj["player_id"].map(fresh_team)
+            kicker_proj.loc[mapped.notna(), "recent_team"] = mapped[
+                mapped.notna()
+            ]
+
+        superseded = (proj["position"] == "K") & proj["player_id"].isin(
+            set(kicker_proj["player_id"].dropna())
+        )
+        if superseded.any():
+            logger.info(
+                "Dropped %d seasonal kicker rows superseded by the "
+                "kicker model",
+                int(superseded.sum()),
+            )
+            proj = proj[~superseded]
+
+    proj = pd.concat([proj, kicker_proj], ignore_index=True)
+    logger.info("Appended %d kicker projections", len(kicker_proj))
+    return proj
+
+
 def _generate_preseason_kicker_projections(target_season: int) -> pd.DataFrame:
     """Generate preseason kicker projections using league-average baselines.
 
@@ -3204,9 +3265,7 @@ def generate_preseason_projections(
     # Append preseason kicker projections (league-average baselines)
     # ------------------------------------------------------------------
     kicker_proj = _generate_preseason_kicker_projections(target_season)
-    if not kicker_proj.empty:
-        proj = pd.concat([proj, kicker_proj], ignore_index=True)
-        logger.info("Appended %d kicker projections", len(kicker_proj))
+    proj = _merge_kicker_projections(proj, kicker_proj)
 
     # ------------------------------------------------------------------
     # Low-sample / silent-drop fix: synthesize projections for any rostered
@@ -3255,6 +3314,40 @@ def generate_preseason_projections(
                 "Added %d low-sample / silent-drop fix projections",
                 len(low_sample_proj),
             )
+
+    # ------------------------------------------------------------------
+    # Gold-layer invariant: at most one row per (player_id, position).
+    # Duplicates mean two pipeline paths projected the same player — a bug
+    # upstream (the pre-2026-07-08 kicker duplication was exactly this).
+    # Keep the highest-point row and warn loudly so the upstream cause
+    # doesn't hide behind the safety net.
+    # ------------------------------------------------------------------
+    dup_mask = proj["player_id"].notna() & proj.duplicated(
+        subset=["player_id", "position"], keep=False
+    )
+    if dup_mask.any():
+        n_players = proj.loc[dup_mask, "player_id"].nunique()
+        sample_col = (
+            "player_name" if "player_name" in proj.columns else "player_id"
+        )
+        sample = (
+            proj.loc[dup_mask, sample_col].dropna().unique()[:5].tolist()
+        )
+        logger.warning(
+            "Found %d duplicate projection rows across %d players (e.g. %s)"
+            " — keeping the highest-point row per player. Fix the upstream"
+            " path that produced the duplicates.",
+            int(dup_mask.sum()),
+            n_players,
+            sample,
+        )
+        proj = proj.sort_values(
+            "projected_season_points", ascending=False, kind="mergesort"
+        )
+        drop = proj["player_id"].notna() & proj.duplicated(
+            subset=["player_id", "position"], keep="first"
+        )
+        proj = proj[~drop].reset_index(drop=True)
 
     # ------------------------------------------------------------------
     # Consensus anchor: blend model points toward external market rankings
