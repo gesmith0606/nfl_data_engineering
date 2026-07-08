@@ -178,8 +178,53 @@ def test_synthesizer_udfa_cap_demotes_undrafted_alone_on_roster() -> None:
         depth_charts_df=pd.DataFrame(),  # no depth_charts → fallback path
     )
     row = out[out["player_id"] == "henigan-ind"].iloc[0]
-    # UDFA cap demotes from fallback-starter to backup.
-    assert row["low_sample_role"] == "backup"
+    # UDFA cap demotes from fallback-starter to unknown (0.25x baseline).
+    assert row["low_sample_role"] == "unknown"
+
+
+@pytest.mark.unit
+def test_udfa_wr_on_veteran_roster_stays_unknown_after_veterans_filtered() -> None:
+    """UDFA WR with veterans above them gets 'unknown' — not 'starter'.
+
+    Regression for the Stribling artifact: a UDFA WR (Sleeper-sourced
+    player_id, no draft capital, years_exp=0) on a team with multiple
+    established WRs who are already in the upstream projection.  Role
+    assignment must evaluate the full roster context (with all veterans
+    present) *before* the already_projected filter removes them — so the UDFA
+    is correctly ranked below veterans and cannot inherit a "starter" label
+    just because it ends up alone in the synthesized subset.
+    """
+    vet_ids = [f"sf-wr-vet-{i}" for i in range(5)]
+    veterans = [
+        _roster_row(
+            vid, f"SF WR Veteran {i}", "SF", "WR",
+            status="ACT", years_exp=i + 2, draft_number=30 + i,
+            depth="WR",
+        )
+        for i, vid in enumerate(vet_ids)
+    ]
+    udfa = _roster_row(
+        "SLP-99999", "UDFA WR Prospect", "SF", "WR",
+        status="ACT", years_exp=0, draft_number=None,
+        depth="WR",
+    )
+    roster = pd.DataFrame(veterans + [udfa])
+
+    out = project_low_sample_players(
+        roster_df=roster,
+        weekly_df=None,
+        # veterans already covered upstream; only UDFA needs synthesis
+        already_projected_player_ids=set(vet_ids),
+        target_season=2026,
+        depth_charts_df=pd.DataFrame(),  # no depth_charts → fallback path
+    )
+
+    rows = out[out["player_id"] == "SLP-99999"]
+    assert len(rows) == 1, "UDFA WR must appear exactly once in synthesized output"
+    assert rows.iloc[0]["low_sample_role"] == "unknown", (
+        "UDFA WR without depth-chart validation must not project above 'unknown'; "
+        f"got {rows.iloc[0]['low_sample_role']!r}"
+    )
 
 
 @pytest.mark.unit
@@ -191,11 +236,17 @@ def test_synthesizer_starter_conflict_demote() -> None:
     MIA QB; depth_charts has a feed hole that puts Ewers at MIA QB1
     (after ghost-row filtering); without this guard Ewers would mint a
     second starter at MIA.
+
+    Note: the player is given a first-round pick number (draft_number=1)
+    so the UDFA cap (which only fires for undrafted/pick>150 players) does
+    NOT pre-empt this test.  The starter-conflict demote applies to any
+    synthesized "starter" at a position already covered upstream, regardless
+    of draft capital.
     """
     roster = pd.DataFrame([
         _roster_row(
             "ewers-mia", "Quinn Ewers", "MIA", "QB",
-            years_exp=0, draft_number=164,
+            years_exp=0, draft_number=1,  # high-cap pick → UDFA cap skips him
         ),
     ])
     depth = pd.DataFrame([
@@ -213,6 +264,51 @@ def test_synthesizer_starter_conflict_demote() -> None:
     )
     row = out[out["player_id"] == "ewers-mia"].iloc[0]
     assert row["low_sample_role"] == "backup"
+
+
+@pytest.mark.unit
+def test_udfa_cap_fires_even_when_depth_charts_grants_starter() -> None:
+    """UDFA cap applies regardless of role source — depth_charts path included.
+
+    Regression for the Stribling 181-pt artifact: the July 2026 depth_charts
+    Bronze is ingested at daily formation-grain.  A UDFA whose gsis_id
+    survives roster-validation can receive effective_rank=1 (pos_rank=1 in
+    the latest snapshot) via the depth-chart path, bypassing the old
+    ``not_in_depth`` guard that only fired for the roster-fallback path.
+
+    With the source-agnostic cap, ANY undrafted/late-pick rookie who lands on
+    'starter' — regardless of HOW they got there — is demoted to 'unknown'.
+    """
+    # UDFA WR whose player_id MATCHES the depth_charts gsis (as happens when
+    # the Sleeper supplement resolves gsis_id via draft_picks and uses the
+    # gsis as player_id).  The depth chart claims pos_rank=1 (starter).
+    roster = pd.DataFrame([
+        _roster_row(
+            "STR-FAKE", "UDFA WR (depth-chart starter)", "SF", "WR",
+            status="ACT", years_exp=0, draft_number=None,
+            depth="WR",
+        ),
+    ])
+    # Supply a depth_charts row that claims this UDFA is the SF WR1.
+    depth = pd.DataFrame([
+        _depth_row("STR-FAKE", "UDFA WR (depth-chart starter)", "SF", "WR", 1),
+    ])
+
+    out = project_low_sample_players(
+        roster_df=roster,
+        weekly_df=None,
+        already_projected_player_ids=set(),
+        target_season=2026,
+        depth_charts_df=depth,
+    )
+
+    rows = out[out["player_id"] == "STR-FAKE"]
+    assert len(rows) == 1, "UDFA should appear in synthesized output"
+    assert rows.iloc[0]["low_sample_role"] == "unknown", (
+        "UDFA cap must fire even when depth_charts grants 'starter'; "
+        f"got {rows.iloc[0]['low_sample_role']!r} (would project "
+        "at full 1.0x WR-starter baseline without the cap)"
+    )
 
 
 @pytest.mark.unit
