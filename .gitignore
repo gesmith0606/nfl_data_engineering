@@ -338,6 +338,12 @@ data/gold/*
 !data/bronze/odds_api/**
 !data/bronze/odds_api/**/*.parquet
 
+# Ops dashboard snapshot (2026-07-09): built + committed 6-hourly by the
+# freshness-monitor workflow; served by /api/ops/pipeline-status (TD-09
+# class — the Space reads the committed file).
+!data/ops/
+!data/ops/pipeline_status.json
+
 # External rankings cache (ADVR-03): commit the Sleeper/FantasyPros/ESPN JSON
 # so compareExternalRankings never returns empty on first deploy.
 !data/external/

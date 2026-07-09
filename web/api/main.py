@@ -24,6 +24,7 @@ from .routers import (
     health_freshness,
     lineups,
     news,
+    ops,
     players,
     predictions,
     projections,
@@ -121,6 +122,7 @@ app.include_router(sleeper_user.league_router, prefix="/api")
 app.include_router(teams.router, prefix="/api")
 app.include_router(teams_defense.router, prefix="/api")
 app.include_router(health_freshness.router, prefix="/api")
+app.include_router(ops.router, prefix="/api")
 
 
 # ---------------------------------------------------------------------------
