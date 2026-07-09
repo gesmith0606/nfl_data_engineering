@@ -303,3 +303,54 @@ class TestMain:
         _, kwargs = mock_run.call_args
         assert isinstance(kwargs["season"], int)
         assert isinstance(kwargs["week"], int)
+
+
+class TestClaudeFailureSentinel:
+    """The fail-open design let an exhausted credit balance hide for weeks
+    (2026-07-08): claude_primary 400'd on every call, per-doc fallback kept
+    runs green. _run_extraction must now shout when ALL Claude calls fail."""
+
+    @staticmethod
+    def _result(processed, claude_failed, is_primary=True):
+        r = MagicMock()
+        r.processed_count = processed
+        r.skipped_count = 0
+        r.signal_count = 5
+        r.claude_failed_count = claude_failed
+        r.is_claude_primary = is_primary
+        return r
+
+    def _run(self, result, capsys):
+        from scripts.daily_sentiment_pipeline import _run_extraction
+
+        fake_pipeline = MagicMock()
+        fake_pipeline.run.return_value = result
+        with patch(
+            "src.sentiment.processing.pipeline.SentimentPipeline",
+            return_value=fake_pipeline,
+        ):
+            step = _run_extraction(season=2026, week=1, dry_run=True, verbose=False)
+        return step, capsys.readouterr().out
+
+    def test_all_claude_calls_failed_emits_sentinel(self, capsys):
+        step, out = self._run(self._result(processed=10, claude_failed=10), capsys)
+        assert step.success  # fail-open behavior preserved
+        assert "SENTINEL" in step.detail
+        assert "::warning" in out
+        assert "credit balance" in out
+
+    def test_partial_failures_do_not_trip_sentinel(self, capsys):
+        step, out = self._run(self._result(processed=10, claude_failed=3), capsys)
+        assert "SENTINEL" not in step.detail
+        assert "::warning" not in out
+
+    def test_rule_extractor_mode_does_not_trip_sentinel(self, capsys):
+        step, out = self._run(
+            self._result(processed=10, claude_failed=0, is_primary=False), capsys
+        )
+        assert "SENTINEL" not in step.detail
+        assert "::warning" not in out
+
+    def test_zero_docs_does_not_trip_sentinel(self, capsys):
+        step, out = self._run(self._result(processed=0, claude_failed=0), capsys)
+        assert "SENTINEL" not in step.detail
