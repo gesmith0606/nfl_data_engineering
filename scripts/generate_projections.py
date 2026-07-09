@@ -214,6 +214,17 @@ def main():
         ),
     )
     parser.add_argument(
+        "--props-blend",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: blend projections toward prop-implied points "
+            "from the latest Bronze props snapshot (RB-first per "
+            ".planning/PROP_IMPLIED_DECISION.md). OPT-IN and provisional "
+            "until the pre-registered backtest gate passes (Sept+)."
+        ),
+    )
+    parser.add_argument(
         "--use-events",
         action="store_true",
         default=False,
@@ -877,6 +888,57 @@ def main():
                     f"Event adjustments applied: {affected} players affected; "
                     f"total projected points {before_total:.1f} → "
                     f"{after_total:.1f} ({delta:+.1f})"
+                )
+
+        # --- Prop-implied blend (opt-in via --props-blend) ---
+        # Per .planning/PROP_IMPLIED_DECISION.md: blend projections toward
+        # the market's prop-implied points, RB first (the one position still
+        # losing to consensus). Lambdas are PROVISIONAL pending the
+        # pre-registered backtest gate — this flag stays opt-in until then.
+        # Applied after injury adjustments: books price injury/role news
+        # into props, and players ruled out have their lines pulled (no
+        # props -> no blend -> the zeroed projection stands).
+        # CAUTION: do not combine with --use-sentiment — props already
+        # price public news, so a sentiment multiplier on top of the
+        # blended value double-counts the same signal.
+        if args.props_blend and not projections.empty:
+            import glob as _glob
+
+            from prop_implied import (  # noqa: E402
+                apply_props_blend,
+                compute_prop_implied_points,
+            )
+
+            props_files = sorted(
+                _glob.glob(
+                    os.path.join(
+                        PROJECT_ROOT,
+                        "data",
+                        "bronze",
+                        "odds_api",
+                        "props",
+                        f"season={args.season}",
+                        "props_*.parquet",
+                    )
+                )
+            )
+            if not props_files:
+                print(
+                    "WARN: --props-blend requested but no props snapshots "
+                    f"exist for season {args.season}; skipping blend"
+                )
+            else:
+                props_df = pd.read_parquet(props_files[-1])
+                implied = compute_prop_implied_points(
+                    props_df, scoring_format=args.scoring
+                )
+                before_total = float(projections["projected_points"].sum())
+                projections = apply_props_blend(projections, implied)
+                after_total = float(projections["projected_points"].sum())
+                print(
+                    f"Props blend: {len(implied)} players with implied points "
+                    f"from {os.path.basename(props_files[-1])}; total "
+                    f"projected points {before_total:.1f} → {after_total:.1f}"
                 )
 
         # --- Sentiment adjustments (opt-in via --use-sentiment) ---
