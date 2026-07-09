@@ -1,0 +1,357 @@
+{
+  "fetch_run_id": "5dc4a7cb-b96e-46da-93cf-f236bd09fa07",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-07-09T13:12:35.607443+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 21,
+  "items": [
+    {
+      "external_id": "US-EN-49309306",
+      "url": "https://www.espn.com/nfl/story/_/id/49309306/2026-nfl-season-super-bowl-roster-building-positions-draft-signings-trades",
+      "title": "How are Super Bowl rosters built? Barnwell went po...",
+      "body_text": "Do teams need first-round QBs to reach the Super Bowl? Is it crucial to spend big on No. 1 receivers and top-tier edge rushers? Let's sort through rosters from the past 15 Super Bowls.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-07-09T12:16:36+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49308565",
+      "url": "https://www.espn.com/nfl/story/_/id/49308565/colts-add-kicker-adam-vinatieri-team-ring-honor",
+      "title": "Clutch Vinatieri to enter Colts' Ring of Honor",
+      "body_text": "Kicker Adam Vinatieri, who will enter the Pro Football Hall of Fame next month, will enter the Colts' Ring of Honor during a ceremony Oct. 18.",
+      "author": "Stephen Holder",
+      "published_at": "2026-07-09T12:16:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Clutch Vinatieri",
+        "Honor Kicker",
+        "Adam Vinatieri",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-49296262",
+      "url": "https://www.espn.com/nfl/story/_/id/49296262/late-cowboys-player-marshawn-kneeland-diagnosed-cte",
+      "title": "Late Cowboys' player Kneeland diagnosed with CTE",
+      "body_text": "Former Cowboys defensive end Marshawn Kneeland has been posthumously diagnosed with CTE.",
+      "author": null,
+      "published_at": "2026-07-09T12:16:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Late Cowboys",
+        "Former Cowboys",
+        "Marshawn Kneeland"
+      ],
+      "resolved_player_ids": [
+        "00-0039900"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49289733",
+      "url": "https://www.espn.com/nfl/story/_/id/49289733/arnold-clears-waivers-becomes-free-agent-amid-court-case",
+      "title": "Amid case, Arnold clears waivers, now a free agent...",
+      "body_text": "Former Lions cornerback Terrion Arnold, 23, facing legal issues in Florida after he was arrested on felony charges of armed robbery and kidnapping in Tampa, cleared waivers Monday afternoon and has become a free agent after two seasons with Detroit.",
+      "author": null,
+      "published_at": "2026-07-09T12:16:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Lions",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49286897",
+      "url": "https://www.espn.com/nba/story/_/id/49286897/sources-cb-rasul-douglas-sign-1-year-deal-commanders",
+      "title": "Sources: CB Douglas to sign with Commanders",
+      "body_text": "Free agent CB Rasul Douglas is planning to sign a one-year deal with the Washington Commanders worth up to $3.8 million, sources told ESPN's Adam Schefter.",
+      "author": null,
+      "published_at": "2026-07-09T12:16:50+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Commanders Free",
+        "Rasul Douglas",
+        "Washington Commanders",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0033551"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-49279425",
+      "url": "https://www.espn.com/nfl/story/_/id/49279425/bears-qb-caleb-williams-gifts-pope-leo-xiv-autographed-jersey",
+      "title": "Bears QB Williams gifts Pope autographed jersey",
+      "body_text": "Bears quarterback Caleb Williams sent an autographed jersey to Pope Leo XIV, a Chicago native and the first American-born pope in the history of the Catholic Church.",
+      "author": "Courtney Cronin",
+      "published_at": "2026-07-09T12:16:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Caleb Williams",
+        "Pope Leo",
+        "Catholic Church"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "US-EN-49188085",
+      "url": "https://www.espn.com/nfl/story/_/id/49188085/taylor-swift-travis-kelce-wedding-marriage-kansas-city-chiefs",
+      "title": "Chiefs' Kelce, Swift marry in ceremony at MSG",
+      "body_text": "The pop superstar and Kansas City Chiefs tight end said \"I do\" in front of a celebrity-filled guest list at Madison Square Garden on Friday.",
+      "author": "Tory Barron",
+      "published_at": "2026-07-09T12:16:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Kansas City",
+        "Madison Square"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-49236930",
+      "url": "https://www.espn.com/nfl/story/_/id/49236930/calais-campbell-mother-found-dead-brother-charged-murder",
+      "title": "Calais Cambell's mother dead, brother charged",
+      "body_text": "The brother of Ravens defensive lineman Calais Campbell has been charged with murder after police found their 71-year-old mother dead at a home in Atlanta during a welfare check.",
+      "author": null,
+      "published_at": "2026-07-09T12:16:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Calais Cambell",
+        "Calais Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0026190"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-49241520",
+      "url": "https://www.espn.com/nfl/story/_/id/49241520/ex-titans-scout-arkansas-state-db-taylor-found-guilty-murder",
+      "title": "Former Titans scout Taylor found guilty of murder",
+      "body_text": "Blaise Taylor, a former defensive back at Arkansas State and NFL scout for the Titans, was found guilty of murdering his girlfriend and her unborn child Wednesday in a Nashville courtroom.",
+      "author": null,
+      "published_at": "2026-07-09T12:16:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Titans",
+        "Blaise Taylor",
+        "Arkansas State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "US-EN-49249787",
+      "url": "https://www.espn.com/nfl/story/_/id/49249787/sean-payton-denver-broncos-fake-punt-fourth-buffalo-bills",
+      "title": "👀 Payton called fourth-down fake punt vs. Bills",
+      "body_text": "As the Denver Broncos made their run to the AFC Championship earlier this year, ESPN's Seth Wickersham spent all two weeks of the playoffs with coach Sean Payton.",
+      "author": "ESPN News Services",
+      "published_at": "2026-07-09T12:16:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Denver Broncos",
+        "Seth Wickersham",
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "US-EN-49239989",
+      "url": "https://www.espn.com/nfl/story/_/id/49239989/ranking-nfl-top-10-defensive-tackles-2026-execs-coaches-scouts",
+      "title": "NFL execs, coaches and scouts rank the best defens...",
+      "body_text": "Who are the best DTs in the NFL? Evaluators around the league ranked the top 10, starting with an impact interior defender from the Super Bowl champion Seahawks.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-09T12:24:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-49237026",
+      "url": "https://www.espn.com/nfl/story/_/id/49237026/ranking-nfl-top-10-edge-rushers-2026-execs-coaches-scouts",
+      "title": "Ranking the top edge rushers: Execs, coaches and s...",
+      "body_text": "Who are the best edge rushers in the NFL right now? Evaluators around the league ranked the top 10.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-09T12:24:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49306666",
+      "url": "https://www.espn.com/nfl/story/_/id/49306666/why-year-2-ben-johnson-different-vibe-bears",
+      "title": "Why Year 2 of Ben Johnson has a different vibe wit...",
+      "body_text": "Ben Johnson established himself in Year 1, but success established expectations. What can the Bears do for an encore?",
+      "author": "Courtney Cronin",
+      "published_at": "2026-07-09T12:26:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Year",
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "US-EN-49295229",
+      "url": "https://www.espn.com/nfl/story/_/id/49295229/2026-nfl-season-breakout-candidates-burden-bullock-mclaurin",
+      "title": "Which NFL players could break out in 2026? Solak p...",
+      "body_text": "Big year for Luther Burden III? Step forward for Calen Bullock? Opportunity for Nic Scourton to step up? And Ashton Jeanty delivering on expectations in Year 2?",
+      "author": "Ben Solak",
+      "published_at": "2026-07-08T12:36:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Luther Burden III",
+        "Calen Bullock",
+        "Nic Scourton",
+        "And Ashton"
+      ],
+      "resolved_player_ids": [
+        "00-0040735",
+        "00-0039838",
+        "00-0040746"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49225969",
+      "url": "https://www.espn.com/nfl/story/_/id/49225969/inside-denver-broncos-coach-sean-payton-playoffs",
+      "title": "Inside the Broncos' playoff run: Fifteen days with Sean Payton",
+      "body_text": "Senior writer Seth Wickersham spent two weeks with NFL football coach Sean Payton ahead of the Denver Broncos-New England Patriots AFC Championship Game.",
+      "author": "Seth Wickersham",
+      "published_at": "2026-07-07T11:38:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Sean Payton",
+        "Seth Wickersham",
+        "Denver Broncos",
+        "New England",
+        "Championship Game"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-49231555",
+      "url": "https://www.espn.com/nfl/story/_/id/49231555/2026-nfl-roster-ranking-starting-lineups-projection-32-teams",
+      "title": "Which NFL teams have the best -- and worst -- rost...",
+      "body_text": "Here's how every NFL roster stacks up ahead of the season, plus strengths, weaknesses, and X factors.",
+      "author": "Mike Clay, Aaron Schatz and Seth Walder",
+      "published_at": "2026-07-08T12:20:41+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49280645",
+      "url": "https://www.espn.com/nfl/story/_/id/49280645/before-taylor-swift-travis-kelce-there-was-jane-russell-bob-waterfield",
+      "title": "Before Taylor Swift and Travis Kelce, football met Hollywood in RussField",
+      "body_text": "Decades before Taylor Swift met Travis Kelce, RussField was the first power couple.",
+      "author": "Seth Wickersham",
+      "published_at": "2026-07-06T17:28:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Before Taylor",
+        "Travis Kelce",
+        "Taylor Swift"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49307744",
+      "url": "https://www.espn.com/nfl/story/_/id/49307744/drake-maye-new-england-patriots-noah-kahan-great-divide-tour",
+      "title": "'Wrong Drake': Noah Kahan summons Drake Maye in 'T...",
+      "body_text": "The New England Patriots quarterback was the singer's surprise guest during one of Kahan's tour stops in Boston.",
+      "author": "Kalan Hooks",
+      "published_at": "2026-07-09T12:53:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Wrong Drake",
+        "Noah Kahan",
+        "Drake Maye",
+        "The New",
+        "England Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-49190671",
+      "url": "https://www.espn.com/nfl/story/_/id/49190671/amon-ra-st-brown-brooklyn-adams-engagement-announcement",
+      "title": "'Hard launch': Lions WR Amon-Ra St. Brown announce...",
+      "body_text": "St. Brown proposed aboard a flower-lined yacht, with the couple sharing the news on social media.",
+      "author": "Brianna Williams",
+      "published_at": "2026-07-09T12:53:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49290760",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49290760/fantasy-football-players-bounce-back-season",
+      "title": "Mike Evans and 11 others who will bounce back this...",
+      "body_text": "Eric Karabell highlights players who disappointed in 2025, but are poised for a better 2026.",
+      "author": "Eric Karabell",
+      "published_at": "2026-07-08T16:35:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Evans",
+        "Eric Karabell"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Buzz: Don't sleep on 49ers' Ricky Pearsall late in...",
+      "body_text": "Ricky Pearsall has yet to play a full season, but he offers breakout potential in Year 3 and can be had late in drafts.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-07-08T16:35:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Ricky Pearsall"
+      ],
+      "resolved_player_ids": [
+        "00-0039916"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}
