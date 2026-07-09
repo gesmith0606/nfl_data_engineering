@@ -89,7 +89,8 @@ def fetch_workflow_runs(
         workflow_file: Workflow filename (e.g. ``weekly-pipeline.yml``).
         token:         GitHub token (the Actions-provided ``GITHUB_TOKEN``
                        is sufficient — read access to the same repo).
-        per_page:      Number of recent runs to fetch.
+        per_page:      Number of recent runs to fetch (dashboard uses the
+                       default 10 everywhere; the knob exists for ad-hoc use).
 
     Returns:
         List of raw run dicts (may be empty).
@@ -115,7 +116,13 @@ def fetch_workflow_runs(
 
 
 def _duration_seconds(run: Dict[str, Any]) -> Optional[int]:
-    """Wall-clock duration of a run, or None while in progress."""
+    """Approximate wall-clock duration of a run, or None while in progress.
+
+    Uses ``updated_at`` as the end timestamp — the /runs list endpoint has
+    no true completion field (that lives on per-job records). For runs that
+    queued a while before a runner picked them up, this overstates duration
+    by the queue time. Good enough for a dashboard; not billing-grade.
+    """
     started = run.get("run_started_at")
     updated = run.get("updated_at")
     if not started or not updated or run.get("status") != "completed":

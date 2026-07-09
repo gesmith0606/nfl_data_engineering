@@ -200,11 +200,17 @@ jobs:
             echo "No status change to commit"
           else
             git commit -m "data(ops): pipeline status snapshot"
+            pushed=0
             for attempt in 1 2 3; do
               if git push origin main 2>&1; then
                 echo "Pushed status snapshot (attempt $attempt)"
+                pushed=1
                 break
               fi
               git pull --rebase origin main || true
             done
+            if [ "$pushed" != "1" ]; then
+              echo "::error::Snapshot push failed after 3 attempts"
+              exit 1
+            fi
           fi

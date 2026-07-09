@@ -25,6 +25,11 @@ router = APIRouter(prefix="/ops", tags=["ops"])
 _DATA_ROOT = Path(__file__).resolve().parents[3] / "data"
 STATUS_PATH = _DATA_ROOT / "ops" / "pipeline_status.json"
 
+# Builder cadence is every 6 hours (freshness-monitor cron); >13h means two
+# consecutive builder runs were missed — itself an ops signal. Keep in sync
+# with the freshness-monitor schedule.
+_STALE_HOURS = 13
+
 
 def _load_status() -> Dict[str, Any]:
     if not STATUS_PATH.exists():
@@ -40,13 +45,11 @@ def _load_status() -> Dict[str, Any]:
     except (json.JSONDecodeError, OSError) as exc:
         raise HTTPException(status_code=500, detail=f"unreadable status file: {exc}")
 
-    # Staleness flag: the builder runs every 6 hours; >13h means two
-    # consecutive builder runs were missed — itself an ops signal.
     try:
         generated = datetime.fromisoformat(payload.get("generated_at", ""))
         age_h = (datetime.now(timezone.utc) - generated).total_seconds() / 3600
         payload["age_hours"] = round(age_h, 1)
-        payload["is_stale"] = age_h > 13
+        payload["is_stale"] = age_h > _STALE_HOURS
     except ValueError:
         payload["age_hours"] = None
         payload["is_stale"] = True

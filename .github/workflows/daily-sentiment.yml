@@ -211,6 +211,9 @@ jobs:
                 # newest generation wins (2026-07-09 failure: odds-capture
                 # push landed mid-run and the hard-fail here killed the run).
                 # During rebase, --theirs = the commit being replayed (ours).
+                # git add -A is safe here: GHA runners start from a clean
+                # checkout, so the only working-tree changes are this run's
+                # generated data files.
                 echo "Rebase conflict on generated data — keeping this run's files"
                 git checkout --theirs -- . && git add -A && \
                   GIT_EDITOR=true git rebase --continue || {
