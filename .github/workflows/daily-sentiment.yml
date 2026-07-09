@@ -206,8 +206,17 @@ jobs:
               echo "Push attempt $attempt rejected; rebasing onto origin/main..."
               git fetch origin main
               git rebase origin/main || {
-                echo "::error::Rebase conflict on data commit — manual intervention required"
-                exit 1
+                # Every path in this commit is machine-generated data, so a
+                # conflict means two crons raced on the same snapshot file —
+                # newest generation wins (2026-07-09 failure: odds-capture
+                # push landed mid-run and the hard-fail here killed the run).
+                # During rebase, --theirs = the commit being replayed (ours).
+                echo "Rebase conflict on generated data — keeping this run's files"
+                git checkout --theirs -- . && git add -A && \
+                  GIT_EDITOR=true git rebase --continue || {
+                    echo "::error::Rebase auto-resolution failed — manual intervention required"
+                    exit 1
+                  }
               }
             done
           fi

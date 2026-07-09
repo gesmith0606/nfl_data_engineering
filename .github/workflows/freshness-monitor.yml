@@ -162,3 +162,49 @@ jobs:
                 core.info(`Closed recovered freshness alert #${issue.number}`);
               }
             }
+
+  # -------------------------------------------------------------------
+  # Pipeline-status snapshot for the ops dashboard (2026-07-09).
+  # Fetches recent run history for every scheduled workflow via the
+  # Actions API (GITHUB_TOKEN has read access here; the HF Space has no
+  # GitHub credentials) and commits data/ops/pipeline_status.json, which
+  # /api/ops/pipeline-status and /api/ops/dashboard serve.
+  # -------------------------------------------------------------------
+  build-pipeline-status:
+    name: Build Pipeline Status Snapshot
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install --quiet requests
+          python scripts/build_pipeline_status.py
+
+      - name: Commit snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ops/pipeline_status.json
+          if git diff --cached --quiet; then
+            echo "No status change to commit"
+          else
+            git commit -m "data(ops): pipeline status snapshot"
+            for attempt in 1 2 3; do
+              if git push origin main 2>&1; then
+                echo "Pushed status snapshot (attempt $attempt)"
+                break
+              fi
+              git pull --rebase origin main || true
+            done
+          fi

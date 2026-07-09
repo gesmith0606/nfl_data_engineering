@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-07-09T22:28:51.393418+00:00",
+  "repo": "gesmith0606/nfl_data_engineering",
+  "workflows": [
+    {
+      "file": "weekly-pipeline.yml",
+      "name": "Weekly Pipeline",
+      "schedule": "Tuesdays 09:00 UTC",
+      "purpose": "Bronze \u2192 Silver \u2192 Gold projections (--ml hybrids)",
+      "last_run": {
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-07T10:13:05Z",
+        "duration_seconds": 338,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/28858581306",
+        "event": "schedule"
+      },
+      "recent": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "failure",
+        "failure",
+        "failure",
+        "failure",
+        "failure"
+      ],
+      "success_rate": 0.5
+    },
+    {
+      "file": "daily-sentiment.yml",
+      "name": "Daily Sentiment",
+      "schedule": "Daily 12:00 UTC",
+      "purpose": "News ingestion + rankings refresh + archive",
+      "last_run": {
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-07-09T13:12:12Z",
+        "duration_seconds": 693,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29020527933",
+        "event": "schedule"
+      },
+      "recent": [
+        "failure",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "success_rate": 0.9
+    },
+    {
+      "file": "odds-capture.yml",
+      "name": "Odds Capture",
+      "schedule": "Daily 13:00 & 21:00 UTC \u00b7 props Sun/Thu",
+      "purpose": "Spread snapshots + player props",
+      "last_run": {
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-09T21:32:39Z",
+        "duration_seconds": 78,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29051724345",
+        "event": "schedule"
+      },
+      "recent": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "success_rate": 1.0
+    },
+    {
+      "file": "sunday-refresh.yml",
+      "name": "Sunday Refresh",
+      "schedule": "Sundays 15:35 & 16:45 UTC (in-season)",
+      "purpose": "Post-inactives projection refresh",
+      "last_run": {
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-05T17:10:46Z",
+        "duration_seconds": 86,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/28748496535",
+        "event": "schedule"
+      },
+      "recent": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "success_rate": 1.0
+    },
+    {
+      "file": "weekly-external-projections.yml",
+      "name": "External Projections",
+      "schedule": "Tue 14:00 & Sun 12:00 UTC",
+      "purpose": "Sleeper/FantasyPros ingestion + grading",
+      "last_run": {
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-07T15:04:33Z",
+        "duration_seconds": 210,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/28876550145",
+        "event": "schedule"
+      },
+      "recent": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "success_rate": 1.0
+    },
+    {
+      "file": "freshness-monitor.yml",
+      "name": "Freshness Monitor",
+      "schedule": "Every 6 hours",
+      "purpose": "Data staleness probe (builds this dashboard)",
+      "last_run": {
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-09T18:42:07Z",
+        "duration_seconds": 10,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29041620839",
+        "event": "schedule"
+      },
+      "recent": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "success_rate": 1.0
+    },
+    {
+      "file": "deploy-web.yml",
+      "name": "Deploy Web",
+      "schedule": "On push to main",
+      "purpose": "Sanity gates + HF/Vercel deploy verification",
+      "last_run": {
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-09T00:33:27Z",
+        "duration_seconds": 320,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/28985507995",
+        "event": "push"
+      },
+      "recent": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "success_rate": 1.0
+    }
+  ]
+}
