@@ -898,6 +898,9 @@ def main():
         # Applied after injury adjustments: books price injury/role news
         # into props, and players ruled out have their lines pulled (no
         # props -> no blend -> the zeroed projection stands).
+        # CAUTION: do not combine with --use-sentiment — props already
+        # price public news, so a sentiment multiplier on top of the
+        # blended value double-counts the same signal.
         if args.props_blend and not projections.empty:
             import glob as _glob
 

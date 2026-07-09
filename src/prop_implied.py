@@ -143,8 +143,10 @@ def implied_mean_from_line(line: float, p_over: float, cv: float) -> float:
 
     with z = Φ⁻¹(p_over). With balanced juice (p_over = 0.5, z = 0) the
     implied mean is exactly the line; shading toward the Over raises it.
-    z is clamped so the denominator stays comfortably positive — extreme
-    one-sided juice on an over/under market is a data problem, not signal.
+    z is clamped to [−1, 1] so the denominator stays comfortably positive
+    (≥ 0.4 at every MARKET_CV) — extreme one-sided juice on an over/under
+    market is a data problem, not signal. The 0.1 floor below is a
+    defensive backstop for out-of-range CV values, unreachable today.
 
     Args:
         line:   The posted over/under line.
@@ -278,12 +280,32 @@ def compute_prop_implied_points(
         return pd.DataFrame(columns=empty_cols)
 
     long = pd.DataFrame(rows)
+
+    # Invariant guard: each (player, stat) must appear once — two markets
+    # mapping to the same stat column would otherwise double-count. Not
+    # currently possible with MARKET_TO_STAT, but fail loudly rather than
+    # silently sum if the mapping ever grows a collision.
+    dup_stats = long.duplicated(subset=["name_key", "stat"])
+    if dup_stats.any():
+        logger.warning(
+            "Duplicate (player, stat) implied entries from markets %s — "
+            "keeping first per player",
+            sorted(long.loc[dup_stats, "market"].unique()),
+        )
+        long = long[~dup_stats]
+
+    # Pivot on name_key ONLY. Books spell the same player differently
+    # ("AJ Brown" vs "A.J. Brown"); indexing on the raw player_name split
+    # one player into per-spelling rows, and the blend join then silently
+    # used whichever partial row drop_duplicates kept.
     wide = long.pivot_table(
-        index=["name_key", "player_name"],
+        index="name_key",
         columns="stat",
         values="implied",
-        aggfunc="sum",  # rushing_tds may receive only the anytime-TD row
+        aggfunc="first",
     ).reset_index()
+    name_lookup = long.groupby("name_key")["player_name"].first()
+    wide.insert(1, "player_name", wide["name_key"].map(name_lookup))
     markets_per_player = long.groupby("name_key")["market"].agg(set)
     wide["prop_markets"] = wide["name_key"].map(markets_per_player)
     wide["prop_market_count"] = wide["prop_markets"].map(len)

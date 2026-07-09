@@ -20,6 +20,7 @@ from prop_implied import (  # noqa: E402
     implied_mean_from_line,
     implied_td_mean,
 )
+from utils import normalize_player_name  # noqa: E402
 
 
 def _prop_row(
@@ -143,6 +144,37 @@ class TestComputePropImpliedPoints(unittest.TestCase):
         out = compute_prop_implied_points(props)
         self.assertAlmostEqual(out.iloc[0]["prop_implied_points"], 3.0, places=1)
 
+    def test_cross_book_name_spellings_collapse_to_one_row(self):
+        # Books spell players differently; both markets must land on ONE
+        # row keyed by the normalized name (review finding M1: per-spelling
+        # rows silently dropped markets from the blend).
+        props = pd.DataFrame(
+            [
+                _prop_row(
+                    "AJ Brown",
+                    "player_reception_yds",
+                    70.5,
+                    -110,
+                    -110,
+                    book="fanduel",
+                ),
+                _prop_row(
+                    "A.J. Brown",
+                    "player_receptions",
+                    5.5,
+                    -110,
+                    -110,
+                    book="dk",
+                ),
+            ]
+        )
+        out = compute_prop_implied_points(props, scoring_format="half_ppr")
+        self.assertEqual(len(out), 1)
+        row = out.iloc[0]
+        # 70.5*0.1 + 5.5*0.5 = 7.05 + 2.75 = 9.80
+        self.assertAlmostEqual(row["prop_implied_points"], 9.8, places=2)
+        self.assertEqual(row["prop_market_count"], 2)
+
     def test_empty_and_missing_columns_return_empty(self):
         self.assertTrue(compute_prop_implied_points(pd.DataFrame()).empty)
         self.assertTrue(compute_prop_implied_points(pd.DataFrame([{"foo": 1}])).empty)
@@ -154,9 +186,7 @@ class TestApplyPropsBlend(unittest.TestCase):
         return pd.DataFrame(
             [
                 {
-                    "name_key": (
-                        "jonathan taylor" if name == "Jonathan Taylor" else name.lower()
-                    ),
+                    "name_key": normalize_player_name(name),
                     "player_name": name,
                     "prop_markets": (
                         markets if markets is not None else {"player_rush_yds"}
