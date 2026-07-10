@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09T22:28:51.393418+00:00",
+  "generated_at": "2026-07-10T00:52:33.137046+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-07-09T21:32:39Z",
-        "duration_seconds": 78,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29051724345",
+        "started_at": "2026-07-09T22:29:10Z",
+        "duration_seconds": 95,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29054650865",
         "event": "schedule"
       },
       "recent": [
@@ -141,15 +141,15 @@
       "schedule": "Every 6 hours",
       "purpose": "Data staleness probe (builds this dashboard)",
       "last_run": {
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-07-09T18:42:07Z",
-        "duration_seconds": 10,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29041620839",
+        "status": "in_progress",
+        "conclusion": null,
+        "started_at": "2026-07-10T00:52:20Z",
+        "duration_seconds": null,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29061028598",
         "event": "schedule"
       },
       "recent": [
-        "success",
+        "in_progress",
         "success",
         "success",
         "success",
@@ -170,9 +170,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-07-09T00:33:27Z",
-        "duration_seconds": 320,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/28985507995",
+        "started_at": "2026-07-09T23:02:45Z",
+        "duration_seconds": 315,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29056277636",
         "event": "push"
       },
       "recent": [
