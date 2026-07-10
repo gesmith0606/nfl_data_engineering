@@ -103,6 +103,35 @@ already ship in the Ridge 60f+graph set) + weekly heuristic early-season weeks
 WR/TE hybrid candidate set, gate on sealed-2025 MAE like the v4.2/v4.3 ships.
 Keep the feature count small (research finding: 42–60 feature hybrids best).
 
+**VERDICT (2026-07-09): HOLD — infrastructure merged, ship models unchanged.**
+Built as `src/graph_familiarity.py` (17 tests): lagged expected-QB map,
+cross-team pair histories, cold-start flag, continuity features; Silver
+`graph_familiarity_*.parquet` materialized 2016–2025 (200–480 cold starts
+per season); features wired into the hybrid candidate pool (87 graph
+features) and per-stat feature assembly.
+
+Evidence (production_eval, WR/TE Ridge-60 residual retrain with familiarity
+in the SHAP pool — WR selected `qb_familiarity_games` + `weapons_new_pct`,
+TE selected `reunion_epa_prior`):
+
+| Window | WR Δ MAE | TE Δ MAE | Ship bar (−0.10) |
+|--------|----------|----------|------------------|
+| 2024 weeks 3–18 | −0.06 (4.41→4.35) | −0.01 | not met |
+| 2024 weeks 3–6  | −0.02 (4.58→4.56) | −0.01 | not met |
+
+The mechanism check failed: the cold-start hypothesis predicts gains
+CONCENTRATED early-season, but the weeks 3–6 delta is smaller than
+full-season — the −0.06 is diffuse retrain noise, not familiarity signal.
+Per the Phase 54/55 lesson, the sealed-2025 holdout (already AMBER) was
+NOT used. Ship residual models restored from backup byte-identical.
+
+**Caveats / future re-tests:**
+- Weeks 1–2 are outside all eval coverage (backtests start week 3) — the
+  strongest cold-start window is unmeasured. If week-1/2 eval coverage is
+  ever added, re-test UC2 there first.
+- Features remain in the candidate pool; any future WR/TE retrain will
+  reconsider them at zero cost.
+
 ---
 
 ## UC3 — Player Correlation Network (stacking & lineup covariance)
