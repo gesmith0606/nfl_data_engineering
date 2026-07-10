@@ -131,6 +131,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/graph_college_networks.py` | College teammate detection, coaching tree lineage, prospect comparison networks |
 | `src/graph_vacated_opportunity.py` | Offseason roster churn (UC1) — vacated target/carry share, depth-chart claims, preseason boost via `--vacated-opportunity` |
 | `src/graph_familiarity.py` | Cross-team familiarity (UC2) — lagged expected-QB map, cold-start flag, reunion pair histories; in hybrid candidate pool (gate verdict: HOLD, ship models unchanged) |
+| `src/graph_correlation.py` | Player correlation network (UC3) — stability-gated CORRELATES edges (QB stacks, game stacks), lineup stack insights, `/api/players/{id}/correlations` |
 | `src/game_archive.py` | Historical game results + player fantasy stats aggregation and querying |
 | `src/lineup_builder.py` | Field lineup builder with starter identification and optimal allocation |
 | `src/feature_engineering.py` | 310+ col feature vector assembly from 10 Silver sources |

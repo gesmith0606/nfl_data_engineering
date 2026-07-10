@@ -250,6 +250,11 @@ data/gold/*
 !data/gold/predictions/**
 # Allow parquet files specifically inside data/gold/predictions
 !data/gold/predictions/**/*.parquet
+# UC3 correlation edges: served by /api/players/{id}/correlations and the
+# lineups stacks block — deployment reads local parquet (TD-09 pattern)
+!data/gold/correlations/
+!data/gold/correlations/**
+!data/gold/correlations/**/*.parquet
 # Sentiment pipeline: allow Gold parquet + Silver/Bronze JSON so Railway
 # can serve news/team-events without a live cron run
 !data/gold/sentiment/

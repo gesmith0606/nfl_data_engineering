@@ -8,10 +8,66 @@ from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query
 
 from ..config import VALID_SCORING_FORMATS
-from ..models.schemas import PlayerProjection, PlayerSearchResult
+from ..models.schemas import (
+    PlayerCorrelation,
+    PlayerCorrelationsResponse,
+    PlayerProjection,
+    PlayerSearchResult,
+)
 from ..services import projection_service
 
 router = APIRouter(prefix="/players", tags=["players"])
+
+
+@router.get("/{player_id}/correlations", response_model=PlayerCorrelationsResponse)
+def get_player_correlations(
+    player_id: str,
+    min_rho: float = Query(
+        0.1, ge=0.0, le=1.0, description="Minimum |rho| for an edge to be returned"
+    ),
+    limit: int = Query(20, ge=1, le=100),
+) -> PlayerCorrelationsResponse:
+    """Stability-gated correlation edges for one player (UC3).
+
+    Edges come from the Gold correlations parquet built by
+    ``scripts/build_correlations.py``. Positive rho = the pair's big games
+    coincide (stack); negative = they trade off. Returns an empty list
+    (HTTP 200) when no correlation data has been built — the surface is
+    additive and must not break player pages.
+    """
+    from graph_correlation import load_latest_correlations
+
+    edges = load_latest_correlations()
+    correlations = []
+    if not edges.empty:
+        pairs = edges[edges["level"] == "pair"]
+        mine = pairs[
+            ((pairs["player_id_a"] == player_id) | (pairs["player_id_b"] == player_id))
+            & (pairs["rho"].abs() >= min_rho)
+        ].copy()
+        mine["abs_rho"] = mine["rho"].abs()
+        mine = mine.sort_values("abs_rho", ascending=False).head(limit)
+        for _, row in mine.iterrows():
+            is_a = row["player_id_a"] == player_id
+            correlations.append(
+                PlayerCorrelation(
+                    other_player_id=str(
+                        row["player_id_b"] if is_a else row["player_id_a"]
+                    ),
+                    other_player_name=str(
+                        row["player_name_b"] if is_a else row["player_name_a"]
+                    ),
+                    relation=str(row["relation"]),
+                    rho=float(row["rho"]),
+                    n_games=int(row["n_games"]),
+                )
+            )
+
+    return PlayerCorrelationsResponse(
+        player_id=player_id,
+        correlations=correlations,
+        generated_at=datetime.now(timezone.utc).isoformat(),
+    )
 
 
 @router.get("/search", response_model=List[PlayerSearchResult])
@@ -70,6 +126,7 @@ def get_player_detail(
     def _scalar(val):
         """Coerce pandas Series (from duplicate column names) to its first element."""
         import pandas as _pd
+
         if isinstance(val, _pd.Series):
             return val.iloc[0] if len(val) > 0 else None
         return val

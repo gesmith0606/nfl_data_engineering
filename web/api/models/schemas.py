@@ -270,6 +270,42 @@ class LineupPlayer(BaseModel):
     starter_confidence: float
 
 
+class StackInsight(BaseModel):
+    """A correlated player pair inside a lineup or roster (UC3).
+
+    ``insight`` is ``stack_bonus`` for positively correlated pairs (their
+    ceilings hit together) or ``shared_ceiling_warning`` for negatively
+    correlated pairs (one's spike is the other's dud).
+    """
+
+    player_id_a: str
+    player_id_b: str
+    player_name_a: str
+    player_name_b: str
+    relation: str
+    rho: float
+    n_games: int
+    insight: str
+
+
+class PlayerCorrelation(BaseModel):
+    """One stable correlation edge from a player's perspective (UC3)."""
+
+    other_player_id: str
+    other_player_name: str
+    relation: str
+    rho: float
+    n_games: int
+
+
+class PlayerCorrelationsResponse(BaseModel):
+    """Envelope for /players/{id}/correlations."""
+
+    player_id: str
+    correlations: List[PlayerCorrelation]
+    generated_at: str
+
+
 class TeamLineup(BaseModel):
     """Starting lineup for a single team-week."""
 
@@ -280,6 +316,7 @@ class TeamLineup(BaseModel):
     defense: List[LineupPlayer]
     implied_total: Optional[float] = None
     team_projected_total: Optional[float] = None
+    stacks: List[StackInsight] = Field(default_factory=list)
 
 
 class FlatLineupPlayer(BaseModel):
@@ -1203,9 +1240,7 @@ class DraftInfo(BaseModel):
     """
 
     draft_id: str
-    status: str = Field(
-        ..., description="pre_draft / drafting / complete / paused"
-    )
+    status: str = Field(..., description="pre_draft / drafting / complete / paused")
     type: str = Field(..., description="snake / linear / auction")
     rounds: int = Field(..., ge=1)
     user_slot: Optional[int] = Field(
