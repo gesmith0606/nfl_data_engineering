@@ -236,4 +236,33 @@ gh workflow run weekly-pipeline.yml
 2. Verify HF Space auto-refresh on next deploy-web trigger  
 3. Schedule freshness monitor to run on 6h cron (verify deduped issues)  
 4. Document CACHE_BUST mechanics in web/DEPLOYMENT.md  
-5. Plan Plan 2 (Clerk + Stripe auth layer) once freshness is stable  
+5. Plan Plan 2 (Clerk + Stripe auth layer) once freshness is stable
+
+---
+
+## August Full Dress Rehearsal — Runbook (added 2026-07-10)
+
+Dispatch each workflow once during preseason (early August, after HOF
+weekend so live odds/injury data exists) and verify end-to-end. One per
+day is fine; deploy-web last so it publishes everything.
+
+| Order | Workflow | Dispatch | Verify |
+|-------|----------|----------|--------|
+| 1 | weekly-reference-refresh | `gh workflow run weekly-reference-refresh.yml` | Bronze schedules/depth_charts commit lands |
+| 2 | weekly-pipeline | `gh workflow run weekly-pipeline.yml` | --ml hybrid Gold publish + grading + sanity gate green (re-verify — last single-run rehearsal was 2026-07-07) |
+| 3 | odds-capture | `gh workflow run odds-capture.yml` | Spreads + props snapshots in Bronze; no issue opened |
+| 4 | weekly-external-projections | `gh workflow run weekly-external-projections.yml` | External rankings caches refresh (anchor inputs) |
+| 5 | daily-sentiment | `gh workflow run daily-sentiment.yml` | Sentiment pipeline + odds watchdog both green |
+| 6 | sunday-refresh | `gh workflow run sunday-refresh.yml` | Injury re-apply path runs (no-ops cleanly if no games yet) |
+| 7 | deploy-web | `gh workflow run deploy-web.yml` | Sanity gate → Vercel + HF refresh → live v2 gate, no rollback |
+
+**deploy-web verification additions (UC3, merged 2026-07-10):**
+- `GET /api/players/00-0036212/correlations` on the HF bridge returns
+  Tua's stacks (T.Hill qb_stack ≈ +0.60) — confirms
+  data/gold/correlations/ shipped and the endpoint is live
+- `GET /api/lineups?team=MIA` includes a non-empty `stacks` block
+
+**UC1 note for draft-prep season:** `--vacated-opportunity` stays OPT-IN
+(anchor-ON trial 2026-07-10: no top-40 effect, deep-bench sleepers only —
+see .planning/GRAPH_USECASES_2026_07.md). Use it when generating
+sleeper/deep-league boards, not the default published projections.  

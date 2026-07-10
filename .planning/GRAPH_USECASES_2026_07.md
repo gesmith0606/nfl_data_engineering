@@ -71,6 +71,20 @@ the consensus anchor re-centers absolute points in production. Multiplier:
 projection_engine.py). Live 2026 check: 763 player features, top absorbers
 all RBs (CAR/JAX/GB backfields) — behaving as designed.
 
+**Anchor-ON production trial (2026-07-10): KEEP OPT-IN, do not default.**
+Ran the real 2026 preseason twice (consensus anchor ON, half-PPR):
+baseline vs `--vacated-opportunity`. In the fantasy-relevant range the
+anchor dominates — top-40 RB Spearman vs consensus 0.969 → 0.965, mean
+rank gap 2.24 → 2.26 (no meaningful change). All large movers (+40 to
++78 rank spots) are deep-bench RBs with NO consensus rank — backups
+stepping into vacated carries in the RB110-200 range, where the anchor
+has no coverage. For the 12 movers that do have a consensus rank, the
+boost widened the gap slightly (36.8 → 41.3). Conclusion: the boost's
+production value is late-round/waiver sleeper surfacing, not top-of-board
+accuracy; the sealed backtest gain came from the anchor-OFF raw model.
+Revisit as a default only if anchor weights drop or for a dedicated
+sleepers/deep-league surface.
+
 ---
 
 ## UC2 — Cross-Team Familiarity Network (QB changes & reunions)
