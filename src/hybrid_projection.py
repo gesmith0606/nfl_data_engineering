@@ -211,7 +211,17 @@ _RB_MATCHUP_FEATURES = [
     "rb_matchup_short_yardage_conv",
 ]
 
-# All 82 graph features combined (71 original + 11 ELITE-2.3 defense trailing)
+# Cross-team familiarity features (5, lagged) — from graph_familiarity (UC2)
+_FAMILIARITY_FEATURES = [
+    "qb_is_new",
+    "qb_familiarity_games",
+    "reunion_epa_prior",
+    "offense_continuity_pct",
+    "weapons_new_pct",
+]
+
+# All 87 graph features combined (71 original + 11 ELITE-2.3 defense
+# trailing + 5 UC2 familiarity)
 GRAPH_FEATURE_SET: List[str] = (
     _WR_MATCHUP_FEATURES
     + _WR_ADVANCED_FEATURES
@@ -227,6 +237,7 @@ GRAPH_FEATURE_SET: List[str] = (
     + _SCHEME_FEATURES
     + _RB_MATCHUP_FEATURES
     + _ROUTE_PARTICIPATION_FEATURES
+    + _FAMILIARITY_FEATURES
 )
 
 # Position-specific graph feature subsets for targeted enrichment
@@ -240,6 +251,7 @@ GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
         + _RED_ZONE_FEATURES
         + _INJURY_CASCADE_FEATURES
         + _ROUTE_PARTICIPATION_FEATURES
+        + _FAMILIARITY_FEATURES
     ),
     "TE": (
         _TE_MATCHUP_FEATURES
@@ -250,6 +262,7 @@ GRAPH_FEATURES_BY_POSITION: Dict[str, List[str]] = {
         + _QB_WR_CHEMISTRY_FEATURES
         + _INJURY_CASCADE_FEATURES
         + _ROUTE_PARTICIPATION_FEATURES
+        + _FAMILIARITY_FEATURES
     ),
     "RB": (
         _OL_RB_FEATURES
@@ -343,6 +356,7 @@ def load_graph_features(
         ("graph_te_def_trailing", _TE_DEF_TRAILING_FEATURES),
         ("graph_injury_cascade", _INJURY_CASCADE_FEATURES),
         ("graph_ol_rb", _OL_RB_FEATURES),
+        ("graph_familiarity", _FAMILIARITY_FEATURES),
     ]
 
     all_season_dfs: List[pd.DataFrame] = []
@@ -351,6 +365,18 @@ def load_graph_features(
         # Attempt consolidated file first for efficiency
         consolidated = _read_latest_graph_parquet(season, "graph_all_features")
         if not consolidated.empty and all(k in consolidated.columns for k in join_keys):
+            # Consolidated files written before UC2 lack the familiarity
+            # columns — top them up from the individual table so callers
+            # don't need a full graph-feature regeneration.
+            if not any(c in consolidated.columns for c in _FAMILIARITY_FEATURES):
+                fam = _read_latest_graph_parquet(season, "graph_familiarity")
+                if not fam.empty and all(k in fam.columns for k in join_keys):
+                    fam_cols = [c for c in _FAMILIARITY_FEATURES if c in fam.columns]
+                    consolidated = consolidated.merge(
+                        fam[join_keys + fam_cols],
+                        on=join_keys,
+                        how="left",
+                    )
             all_season_dfs.append(consolidated)
             logger.debug(
                 "Season %d: loaded consolidated graph features (%d rows)",
@@ -986,8 +1012,13 @@ def train_and_save_residual_models(
         )
         for s in load_seasons_for_weekly:
             pattern = os.path.join(
-                _BASE_DIR, "data", "bronze", "players", "weekly",
-                f"season={s}", "*.parquet"
+                _BASE_DIR,
+                "data",
+                "bronze",
+                "players",
+                "weekly",
+                f"season={s}",
+                "*.parquet",
             )
             files = sorted(glob.glob(pattern))
             if files:
@@ -1113,9 +1144,7 @@ def train_and_save_residual_models(
             joblib.dump(lgb_model, model_path)
             joblib.dump(imputer, imputer_path)
 
-            _heuristic_ver = (
-                "v4.2+blend" if training_weekly_df is not None else "v4.2"
-            )
+            _heuristic_ver = "v4.2+blend" if training_weekly_df is not None else "v4.2"
             meta = {
                 "position": position,
                 "model_type": "lgb",
@@ -1166,9 +1195,7 @@ def train_and_save_residual_models(
             )
 
             joblib.dump(model, model_path)
-            _heuristic_ver = (
-                "v4.2+blend" if training_weekly_df is not None else "v4.2"
-            )
+            _heuristic_ver = "v4.2+blend" if training_weekly_df is not None else "v4.2"
             meta = {
                 "position": position,
                 "model_type": "ridge",

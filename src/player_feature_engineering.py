@@ -1188,6 +1188,55 @@ def _join_chemistry_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     return df
 
 
+def _join_familiarity_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join cross-team familiarity features (UC2) if available.
+
+    Silver-cached only (graph_familiarity_*.parquet, written by
+    compute_graph_features.py). Missing columns are NaN-filled for schema
+    consistency; only WR/TE positions receive values (matching the
+    module's output).
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with FAMILIARITY_FEATURE_COLUMNS joined.
+    """
+    from graph_familiarity import FAMILIARITY_FEATURE_COLUMNS
+
+    fam_dir = os.path.join(SILVER_DIR, "graph_features", f"season={season}")
+    fam_files = sorted(glob.glob(os.path.join(fam_dir, "graph_familiarity_*.parquet")))
+
+    fam_df = pd.DataFrame()
+    if fam_files:
+        try:
+            fam_df = pd.read_parquet(fam_files[-1])
+            logger.info("Loaded cached familiarity features from %s", fam_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read cached familiarity features: %s", exc)
+
+    join_cols = ["player_id", "season", "week"]
+    if not fam_df.empty:
+        avail = [c for c in join_cols if c in fam_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in FAMILIARITY_FEATURE_COLUMNS if c in fam_df.columns]
+            df = df.merge(
+                fam_df[avail + feat_cols],
+                on=avail,
+                how="left",
+                suffixes=("", "__fam"),
+            )
+            dup = [c for c in df.columns if c.endswith("__fam")]
+            df = df.drop(columns=dup, errors="ignore")
+
+    for col in FAMILIARITY_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df
+
+
 def _join_red_zone_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     """Left-join red zone target network features if available.
 
@@ -1732,6 +1781,9 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 15. Optional: join QB-WR chemistry features (WR/TE only)
     base = _join_chemistry_features(base, season)
+
+    # 15b. Optional: join cross-team familiarity features (UC2, WR/TE only)
+    base = _join_familiarity_features(base, season)
 
     # 16. Optional: join red zone target network features
     base = _join_red_zone_features(base, season)

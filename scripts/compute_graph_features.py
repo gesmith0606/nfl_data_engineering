@@ -71,6 +71,7 @@ from graph_te_matchup import (
     build_te_advanced_matchup_features,
     compute_te_def_trailing_features,
 )
+from graph_familiarity import build_familiarity_data
 from graph_vacated_opportunity import build_vacated_opportunity_data
 
 logging.basicConfig(
@@ -312,6 +313,7 @@ def compute_season_features(
     # --- 6. QB-WR chemistry features ---
     logger.info("Computing QB-WR chemistry features...")
     chem_df = pd.DataFrame()
+    pair_stats = pd.DataFrame()
     if not pbp_multi.empty and not pw_multi.empty:
         pair_stats = build_qb_wr_chemistry(pbp_multi)
         if not pair_stats.empty:
@@ -321,6 +323,16 @@ def compute_season_features(
                 chem_df = chem_df[chem_df["season"] == season].copy()
     results["qb_wr_chemistry"] = chem_df
     logger.info("QB-WR chemistry: %d rows", len(results["qb_wr_chemistry"]))
+
+    # --- 6b. Cross-team familiarity features (UC2) ---
+    # Reuses the multi-season pair stats: cold-start QB flags, cross-team
+    # reunion histories, offense continuity. Strictly lagged QB assignment.
+    logger.info("Computing familiarity features (UC2)...")
+    fam_df = pd.DataFrame()
+    if not pair_stats.empty and not pw_multi.empty:
+        fam_df = build_familiarity_data(season, pair_stats, pw_multi)
+    results["familiarity"] = fam_df
+    logger.info("Familiarity: %d rows", len(results["familiarity"]))
 
     # --- 7. Red zone target network features ---
     logger.info("Computing red zone target network features...")
@@ -509,6 +521,7 @@ def save_features(
         # Season-level (no week col) — excluded from the combined
         # player-week file by the join_cols check below.
         "vacated_opportunity": f"graph_vacated_opportunity_{ts}.parquet",
+        "familiarity": f"graph_familiarity_{ts}.parquet",
     }
 
     for key, filename in file_map.items():
@@ -540,6 +553,7 @@ def save_features(
         "route_participation",
         "wr_def_trailing",
         "te_def_trailing",
+        "familiarity",
     ]:
         df = results.get(key, pd.DataFrame())
         if not df.empty and all(c in df.columns for c in join_cols):
