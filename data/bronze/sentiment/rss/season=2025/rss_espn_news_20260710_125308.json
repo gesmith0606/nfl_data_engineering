@@ -1,0 +1,354 @@
+{
+  "fetch_run_id": "9a066613-f3f4-4f20-a9f6-ddc2552228ff",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-07-10T12:53:08.875921+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 21,
+  "items": [
+    {
+      "external_id": "US-EN-49309306",
+      "url": "https://www.espn.com/nfl/story/_/id/49309306/2026-nfl-season-super-bowl-roster-building-positions-draft-signings-trades",
+      "title": "Barnwell's guide to building a Super Bowl team: Wh...",
+      "body_text": "Do teams need first-round QBs to reach the Super Bowl? Is it crucial to spend big on No. 1 receivers and top-tier edge rushers? Let's sort through rosters from the past 15 Super Bowls.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-07-10T03:06:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49317702",
+      "url": "https://www.espn.com/nfl/story/_/id/49317702/study-nfl-players-4-s-more-likely-die-neurodegenerative-disease",
+      "title": "Study: NFLers die from dementia at higher rate",
+      "body_text": "NFL players are four times more likely than the general population to die of neurodegenerative diseases such as dementia and Parkinson's, according to a study released Wednesday.",
+      "author": "Robert Klemko",
+      "published_at": "2026-07-09T23:03:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49315574",
+      "url": "https://www.espn.com/nfl/story/_/id/49315574/commanders-retire-no-44-worn-hall-famer-john-riggins",
+      "title": "Commanders to retire No. 44 of HOF RB Riggins",
+      "body_text": "The Commanders are retiring the No. 44 worn by Hall of Famer and franchise rushing leader John Riggins -- more than 40 years after one of the most famous runs in Super Bowl history.",
+      "author": "John Keim",
+      "published_at": "2026-07-09T23:03:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Riggins The",
+        "John Riggins",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-49308565",
+      "url": "https://www.espn.com/nfl/story/_/id/49308565/colts-add-kicker-adam-vinatieri-team-ring-honor",
+      "title": "Clutch Vinatieri to enter Colts' Ring of Honor",
+      "body_text": "Kicker Adam Vinatieri, who will enter the Pro Football Hall of Fame next month, will enter the Colts' Ring of Honor during a ceremony Oct. 18.",
+      "author": "Stephen Holder",
+      "published_at": "2026-07-09T23:03:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Clutch Vinatieri",
+        "Honor Kicker",
+        "Adam Vinatieri",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-49296262",
+      "url": "https://www.espn.com/nfl/story/_/id/49296262/late-cowboys-player-marshawn-kneeland-diagnosed-cte",
+      "title": "Late Cowboys' player Kneeland diagnosed with CTE",
+      "body_text": "Former Cowboys defensive end Marshawn Kneeland has been posthumously diagnosed with CTE.",
+      "author": null,
+      "published_at": "2026-07-09T23:03:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Late Cowboys",
+        "Former Cowboys",
+        "Marshawn Kneeland"
+      ],
+      "resolved_player_ids": [
+        "00-0039900"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49289733",
+      "url": "https://www.espn.com/nfl/story/_/id/49289733/arnold-clears-waivers-becomes-free-agent-amid-court-case",
+      "title": "Amid case, Arnold clears waivers, now a free agent...",
+      "body_text": "Former Lions cornerback Terrion Arnold, 23, facing legal issues in Florida after he was arrested on felony charges of armed robbery and kidnapping in Tampa, cleared waivers Monday afternoon and has become a free agent after two seasons with Detroit.",
+      "author": null,
+      "published_at": "2026-07-09T23:03:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Lions",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49286897",
+      "url": "https://www.espn.com/nba/story/_/id/49286897/sources-cb-rasul-douglas-sign-1-year-deal-commanders",
+      "title": "Sources: CB Douglas to sign with Commanders",
+      "body_text": "Free agent CB Rasul Douglas is planning to sign a one-year deal with the Washington Commanders worth up to $3.8 million, sources told ESPN's Adam Schefter.",
+      "author": null,
+      "published_at": "2026-07-09T23:03:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Commanders Free",
+        "Rasul Douglas",
+        "Washington Commanders",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0033551"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-49279425",
+      "url": "https://www.espn.com/nfl/story/_/id/49279425/bears-qb-caleb-williams-gifts-pope-leo-xiv-autographed-jersey",
+      "title": "Bears QB Williams gifts Pope autographed jersey",
+      "body_text": "Bears quarterback Caleb Williams sent an autographed jersey to Pope Leo XIV, a Chicago native and the first American-born pope in the history of the Catholic Church.",
+      "author": "Courtney Cronin",
+      "published_at": "2026-07-09T23:03:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Caleb Williams",
+        "Pope Leo",
+        "Catholic Church"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "US-EN-49188085",
+      "url": "https://www.espn.com/nfl/story/_/id/49188085/taylor-swift-travis-kelce-wedding-marriage-kansas-city-chiefs",
+      "title": "Chiefs' Kelce, Swift marry in ceremony at MSG",
+      "body_text": "The pop superstar and Kansas City Chiefs tight end said \"I do\" in front of a celebrity-filled guest list at Madison Square Garden on Friday.",
+      "author": "Tory Barron",
+      "published_at": "2026-07-09T23:03:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Kansas City",
+        "Madison Square"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-49225969",
+      "url": "https://www.espn.com/nfl/story/_/id/49225969/inside-denver-broncos-coach-sean-payton-playoffs",
+      "title": "👀 Exclusive access with Sean Payton for 15 days",
+      "body_text": "Senior writer Seth Wickersham spent two weeks with NFL football coach Sean Payton ahead of the Denver Broncos-New England Patriots AFC Championship Game.",
+      "author": "Seth Wickersham",
+      "published_at": "2026-07-09T23:03:18+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Sean Payton",
+        "Seth Wickersham",
+        "Denver Broncos",
+        "New England",
+        "Championship Game"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-49267903",
+      "url": "https://www.espn.com/nfl/story/_/id/49267903/ranking-nfl-top-10-tight-ends-2026-execs-coaches-scouts",
+      "title": "Who are the NFL's best tight ends? Execs, coaches ...",
+      "body_text": "Brock Bowers vs. George Kittle vs. Trey McBride at No. 1? We tasked evaluators around the NFL to help rank the top 10 tight ends -- a position that's trending younger.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-10T13:21:53+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brock Bowers",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0039338",
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49239989",
+      "url": "https://www.espn.com/nfl/story/_/id/49239989/ranking-nfl-top-10-defensive-tackles-2026-execs-coaches-scouts",
+      "title": "Ranking the best DTs in the league: Who makes the ...",
+      "body_text": "Who are the best DTs in the NFL? Evaluators around the league ranked the top 10, starting with an impact interior defender from the Super Bowl champion Seahawks.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-10T13:21:53+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-49308013",
+      "url": "https://www.espn.com/nfl/story/_/id/49308013/why-colts-walk-tightrope-jonathan-taylor-usage",
+      "title": "Why Colts walk tightrope with Jonathan Taylor's us...",
+      "body_text": "Indy needs to keep Taylor healthy, but it also needs his production. Can the Colts afford to rest him?",
+      "author": "Stephen Holder",
+      "published_at": "2026-07-10T13:30:03+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Colts",
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-49286915",
+      "url": "https://www.espn.com/nfl/story/_/id/49286915/nfl-afc-east-bills-jets-dolphins-patriots-josh-allen-drake-maye-aj-brown-geno-smith-malik-willis",
+      "title": "AFC East: Can Bills, Jets or Dolphins unseat the P...",
+      "body_text": "Four big questions for our AFC East reporters, including biggest concerns and how the offseason impacted the QBs.",
+      "author": "NFL Nation",
+      "published_at": "2026-07-10T13:38:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "US-EN-49295229",
+      "url": "https://www.espn.com/nfl/story/_/id/49295229/2026-nfl-season-breakout-candidates-burden-bullock-mclaurin",
+      "title": "Which NFL players could break out in 2026? Solak p...",
+      "body_text": "Big year for Luther Burden III? Step forward for Calen Bullock? Opportunity for Nic Scourton to step up? And Ashton Jeanty delivering on expectations in Year 2?",
+      "author": "Ben Solak",
+      "published_at": "2026-07-08T12:36:19+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Luther Burden III",
+        "Calen Bullock",
+        "Nic Scourton",
+        "And Ashton"
+      ],
+      "resolved_player_ids": [
+        "00-0040735",
+        "00-0039838",
+        "00-0040746"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49231555",
+      "url": "https://www.espn.com/nfl/story/_/id/49231555/2026-nfl-roster-ranking-starting-lineups-projection-32-teams",
+      "title": "Which NFL teams have the best -- and worst -- rost...",
+      "body_text": "Here's how every NFL roster stacks up ahead of the season, plus strengths, weaknesses, and X factors.",
+      "author": "Mike Clay, Aaron Schatz and Seth Walder",
+      "published_at": "2026-07-08T12:20:41+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49307744",
+      "url": "https://www.espn.com/nfl/story/_/id/49307744/drake-maye-new-england-patriots-noah-kahan-great-divide-tour",
+      "title": "'Wrong Drake': Noah Kahan summons Drake Maye in 'T...",
+      "body_text": "The New England Patriots quarterback was the singer's surprise guest during one of Kahan's tour stops in Boston.",
+      "author": "Kalan Hooks",
+      "published_at": "2026-07-10T00:24:14+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Wrong Drake",
+        "Noah Kahan",
+        "Drake Maye",
+        "The New",
+        "England Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-49190671",
+      "url": "https://www.espn.com/nfl/story/_/id/49190671/amon-ra-st-brown-brooklyn-adams-engagement-announcement",
+      "title": "'Hard launch': Lions WR Amon-Ra St. Brown announce...",
+      "body_text": "St. Brown proposed aboard a flower-lined yacht, with the couple sharing the news on social media.",
+      "author": "Brianna Williams",
+      "published_at": "2026-07-10T00:24:14+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49280645",
+      "url": "https://www.espn.com/nfl/story/_/id/49280645/before-taylor-swift-travis-kelce-there-was-jane-russell-bob-waterfield",
+      "title": "Before Taylor Swift and Travis Kelce, football met Hollywood in RussField",
+      "body_text": "Decades before Taylor Swift met Travis Kelce, RussField was the first power couple.",
+      "author": "Seth Wickersham",
+      "published_at": "2026-07-06T17:28:34+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Before Taylor",
+        "Travis Kelce",
+        "Taylor Swift"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49316529",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49316529/fantasy-football-players-upgrade-downgrade-due-offensive-line-play",
+      "title": "Fantasy football: Players to upgrade, downgrade du...",
+      "body_text": "Eric Moody looks at running backs who benefit from, or are hurt by, the performance of their offensive line.",
+      "author": "Eric Moody",
+      "published_at": "2026-07-10T13:28:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Eric Moody"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-40699880",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "title": "Why David Montgomery can be a fantasy surprise in ...",
+      "body_text": "With a retooled offensive line and a path to a lead role, here's how David Montgomery could surprise this season.",
+      "author": "ESPN Fantasy",
+      "published_at": "2026-07-10T13:28:44+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why David",
+        "David Montgomery"
+      ],
+      "resolved_player_ids": [
+        "00-0035685"
+      ],
+      "team_hint": null
+    }
+  ]
+}

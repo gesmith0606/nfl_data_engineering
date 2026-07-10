@@ -1,0 +1,456 @@
+{
+  "fetch_run_id": "9a066613-f3f4-4f20-a9f6-ddc2552228ff",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-10T12:53:11.657498+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-age-36-cam-heyward-led-the-nfl-in-snaps-at-defensive-tackle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-age-36-cam-heyward-led-the-nfl-in-snaps-at-defensive-tackle",
+      "title": "At age 36, Cam Heyward led the NFL in snaps at defensive tackle",
+      "body_text": "It's not unusual for older players to get a reduced workload, but Steelers defensive tackle Cam Heyward accomplished something extremely impressive in 2025: He was both the NFL's oldest defensive tackle, and the defensive tackle who played the most snaps.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-10T12:48:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Heyward"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-d-line-rotation-designed-to-keep-jeffery-simmons-fresh",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-d-line-rotation-designed-to-keep-jeffery-simmons-fresh",
+      "title": "Robert Saleh: D-line rotation designed to keep Jeffery Simmons fresh",
+      "body_text": "Titans defensive tackle Jeffery Simmons has played more than 80 percent of the team's defensive snaps in each of the last six seasons and his performance was good enough for the team to sign him to a three-year contract extension this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-10T12:41:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Saleh",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/indiana-governor-remains-optimistic-about-a-bears-border-crossing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/indiana-governor-remains-optimistic-about-a-bears-border-crossing",
+      "title": "Indiana governor remains optimistic about a Bears border crossing",
+      "body_text": "Politicians have a bad habit (in fairness, they have many) when it comes to cramming puns into sports-related topics.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T12:27:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-american-audience-number-for-u-s-vs-belgium-cracks-50-million",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-american-audience-number-for-u-s-vs-belgium-cracks-50-million",
+      "title": "Final American audience number for U.S. vs. Belgium cracks 50 million",
+      "body_text": "Monday night's Round of 16 World Cup match between the U.S. and Belgium didn't go well for the home team.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T11:57:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Final American",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/notre-dame-will-wear-a-packers-inspired-uniform-for-week-1-game-at-lambeau-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/notre-dame-will-wear-a-packers-inspired-uniform-for-week-1-game-at-lambeau-field",
+      "title": "Notre Dame will wear a Packers-inspired uniform for Week 1 game at Lambeau Field",
+      "body_text": "Decades before football became Nikefied, with teams having nearly as many different uniforms as they have games, it was rare — and thus special — when a team showed up for a game with a different look.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T11:38:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Notre Dame",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-linebackers-coach-kj-wright-has-his-sights-set-on-becoming-a-defensive-coordinator",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-linebackers-coach-kj-wright-has-his-sights-set-on-becoming-a-defensive-coordinator",
+      "title": "49ers linebackers coach KJ Wright has his sights set on becoming a defensive coordinator",
+      "body_text": "The 49ers have promoted K.J.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-10T08:07:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-will-give-replica-super-bowl-lxvi-rings-to-fans-who-attend-week-6-game-vs-cardinals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-will-give-replica-super-bowl-lxvi-rings-to-fans-who-attend-week-6-game-vs-cardinals",
+      "title": "Rams will give replica Super Bowl LXVI rings to fans who attend Week 6 game vs. Cardinals",
+      "body_text": "It's the five-year anniversary of the first championship the Rams have won while based in L.A.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T03:34:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-would-have-remained-with-cowboys-if-not-hired-as-head-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-would-have-remained-with-cowboys-if-not-hired-as-head-coach",
+      "title": "Brian Schottenheimer would have remained with Cowboys if not hired as head coach",
+      "body_text": "Cowboys owner Jerry Jones has long forced assistant coaches on his head coach.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-10T01:27:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-got-super-bowl-advice-from-someone-with-a-conflict-of-interest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-got-super-bowl-advice-from-someone-with-a-conflict-of-interest",
+      "title": "Mike Macdonald got Super Bowl advice from someone with a \"conflict of interest\"",
+      "body_text": "Remember when Tom Brady said before the Patriots-Seahawks Super Bowl that he didn't have a \"dog in the fight\"?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T23:58:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Super Bowl",
+        "Tom Brady",
+        "Seahawks Super"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-owner-mark-davis-is-committed-to-grass-for-safety-purposes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-owner-mark-davis-is-committed-to-grass-for-safety-purposes",
+      "title": "Raiders owner Mark Davis is committed to grass \"for safety purposes\"",
+      "body_text": "Davis is willing to spend the money to give his players a better surface.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T23:29:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Davis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-allen-broncos-expect-to-break-the-nfl-record-for-sacks-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-allen-broncos-expect-to-break-the-nfl-record-for-sacks-this-season",
+      "title": "Zach Allen: Broncos expect to break the NFL record for sacks this season",
+      "body_text": "Last year, the Broncos were on pace to break the NFL record for sacks for much of the season, before falling short late in the year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-09T21:18:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0035248"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-is-working-with-his-teammates-in-california",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-is-working-with-his-teammates-in-california",
+      "title": "Jayden Daniels is working with his teammates in California",
+      "body_text": "Jayden Daniels has a social media feud with Brandon Aiyuk, who has expressed interest in playing in Washington.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-09T20:49:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels",
+        "California Jayden",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-groups-emerge-from-pack-in-effort-to-buy-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-groups-emerge-from-pack-in-effort-to-buy-seahawks",
+      "title": "Two groups emerge from pack in effort to buy Seahawks",
+      "body_text": "An unnamed (for now) former Seahawks player is attached to one of the two groups.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T20:33:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-competition-is-best-way-to-reach-qb-standard-we-need",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-competition-is-best-way-to-reach-qb-standard-we-need",
+      "title": "Kevin O'Connell: Competition is best way to reach QB standard we need",
+      "body_text": "Kyler Murray and J.J. McCarthy will resume their battle for the job in training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-09T20:32:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-will-have-11-open-training-camp-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-will-have-11-open-training-camp-practices",
+      "title": "49ers will have 11 open training camp practices",
+      "body_text": "The 49ers will have 11 open practices during training camp, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-09T20:22:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-round-of-32-averaged-16-9-million-viewers-per-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/world-cup-round-of-32-averaged-16-9-million-viewers-per-game",
+      "title": "World Cup Round of 32 averaged 16.9 million viewers per game",
+      "body_text": "Yes, soccer is a mainstream American sport.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T18:27:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eight-texans-training-camp-practices-will-be-open-to-the-public",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eight-texans-training-camp-practices-will-be-open-to-the-public",
+      "title": "Eight Texans training camp practices will be open to the public",
+      "body_text": "The Texans have announced their open practice schedule for this summer's training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-09T18:23:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eight Texans",
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darron-lee-hires-a-lawyer-to-handle-first-degree-murder-charges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darron-lee-hires-a-lawyer-to-handle-first-degree-murder-charges",
+      "title": "Darron Lee hires a lawyer to handle first-degree murder charges",
+      "body_text": "Former NFL linebacker Darron Lee, a first-round pick in the 2016 draft, has hired a lawyer to represent Lee on first-degree murder charges in Hamilton County, Tennessee.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T18:12:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darron Lee",
+        "Hamilton County"
+      ],
+      "resolved_player_ids": [
+        "00-0033147"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/first-images-of-nfls-modular-flag-football-arena-emerge",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/first-images-of-nfls-modular-flag-football-arena-emerge",
+      "title": "First images of NFL's modular flag football arena emerge",
+      "body_text": "The NFL's global flag-football initiative includes an effort to make the sport more popular domestically.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T17:54:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-adam-schefter-are-closing-in-on-a-long-term-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-adam-schefter-are-closing-in-on-a-long-term-extension",
+      "title": "Report: ESPN, Adam Schefter are closing in on a \"long-term extension\"",
+      "body_text": "Adam Schefter has spent nearly 17 years at ESPN.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T17:23:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-study-finds-nfl-players-nearly-four-times-more-likely-to-die-of-neurodegenerative-disease",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-study-finds-nfl-players-nearly-four-times-more-likely-to-die-of-neurodegenerative-disease",
+      "title": "New study finds NFL players nearly four times more likely to die of neurodegenerative disease",
+      "body_text": "\"A fourfold increase in dementia rates from a presumed environmental cause is immense.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-08T17:08:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/woody-marks-learning-the-route-tree-in-anticipation-of-a-new-role",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/woody-marks-learning-the-route-tree-in-anticipation-of-a-new-role",
+      "title": "Woody Marks \"learning the route tree\" in anticipation of a new role",
+      "body_text": "As a rookie, Woody Marks led the Texans in rushing attempts (196) and rushing yards (703).",
+      "author": "Charean Williams",
+      "published_at": "2026-07-08T23:24:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Woody Marks"
+      ],
+      "resolved_player_ids": [
+        "00-0040583"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-posts-photo-of-himself-in-a-cowboys-jersey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-posts-photo-of-himself-in-a-cowboys-jersey",
+      "title": "Von Miller posts photo of himself in a Cowboys jersey",
+      "body_text": "Von Miller recently said he regretted choosing the Commanders over the Seahawks almost exactly a year ago.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-08T22:11:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Von Miller"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nearly-45-million-watched-england-vs-mexico-on-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nearly-45-million-watched-england-vs-mexico-on-sunday-night",
+      "title": "Nearly 45 million watched England vs. Mexico on Sunday night",
+      "body_text": "Total audience approaches conference championship numbers.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T00:21:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-receiver-drama-is-like-real-housewives-of-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-receiver-drama-is-like-real-housewives-of-the-nfl",
+      "title": "Tom Brady: Receiver drama is like Real Housewives of the NFL",
+      "body_text": "\"I've been seeing the same shit since 2000 when I came into the league.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T03:31:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tom Brady",
+        "Real Housewives"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-boss-gianni-infantino-remains-under-fire-for-u-s-red-card-shenanigans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-boss-gianni-infantino-remains-under-fire-for-u-s-red-card-shenanigans",
+      "title": "FIFA boss Gianni Infantino remains under fire for U.S. red-card shenanigans",
+      "body_text": "FIFA president Gianni Infantino, who has been hopscotching around North America for most of the last month to attend as many World Cup matches as humanly possible (we've wondered at times whether he has a teleportation device and/or a body double), can't outrun the biggest controversy of the tournament.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T13:20:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gianni Infantino",
+        "North America",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-keeps-talking-but-its-just-noise-at-this-point",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-keeps-talking-but-its-just-noise-at-this-point",
+      "title": "Brandon Aiyuk keeps talking, but it's just noise at this point",
+      "body_text": "It's hard to miss the ongoing developments in the Brandon Aiyuk saga, especially since some of you send an email whenever he posts a new video on Instagram.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T12:33:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-to-retire-no-44-for-john-riggins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-to-retire-no-44-for-john-riggins",
+      "title": "Commanders to retire No. 44 for John Riggins",
+      "body_text": "John Riggins won a Super Bowl while wearing No. 44 in Washington and no other players will be wearing that number in the future.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-09T16:23:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Riggins",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandin-cooks-expects-to-sign-with-some-team-before-training-camp-hopes-its-the-bills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandin-cooks-expects-to-sign-with-some-team-before-training-camp-hopes-its-the-bills",
+      "title": "Brandin Cooks expects to sign with some team before training camp, hopes it's the Bills",
+      "body_text": "\"Both sides are figuring things out. We’ll see, but hopefully something transpires because I love going to training camp,\" Cooks said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-09T16:00:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandin Cooks"
+      ],
+      "resolved_player_ids": [
+        "00-0031236"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandin-cooks-i-still-feel-like-it-was-a-catch",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandin-cooks-i-still-feel-like-it-was-a-catch",
+      "title": "Brandin Cooks: I still feel like it was a catch",
+      "body_text": "Denver's Ja’Quan McMillian ripped the ball out of Cooks' arms for an interception, and Cooks still can't believe it.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-09T13:31:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandin Cooks"
+      ],
+      "resolved_player_ids": [
+        "00-0031236"
+      ],
+      "team_hint": null
+    }
+  ]
+}
