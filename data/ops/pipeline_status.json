@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T07:21:02.164380+00:00",
+  "generated_at": "2026-07-10T12:53:14.322809+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -35,16 +35,16 @@
       "schedule": "Daily 12:00 UTC",
       "purpose": "News ingestion + rankings refresh + archive",
       "last_run": {
-        "status": "completed",
-        "conclusion": "failure",
-        "started_at": "2026-07-09T13:12:12Z",
-        "duration_seconds": 693,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29020527933",
+        "status": "in_progress",
+        "conclusion": null,
+        "started_at": "2026-07-10T12:51:32Z",
+        "duration_seconds": null,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29093964815",
         "event": "schedule"
       },
       "recent": [
+        "in_progress",
         "failure",
-        "success",
         "success",
         "success",
         "success",
@@ -54,7 +54,7 @@
         "success",
         "success"
       ],
-      "success_rate": 0.9
+      "success_rate": 0.889
     },
     {
       "file": "odds-capture.yml",
@@ -143,9 +143,9 @@
       "last_run": {
         "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-07-10T07:20:46Z",
+        "started_at": "2026-07-10T12:52:59Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29076394795",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/29094048153",
         "event": "schedule"
       },
       "recent": [
