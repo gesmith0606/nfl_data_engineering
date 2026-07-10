@@ -2,9 +2,11 @@
 /api/players endpoints -- search and player detail.
 """
 
+import logging
 from datetime import datetime, timezone
 from typing import List, Optional
 
+import pandas as pd
 from fastapi import APIRouter, HTTPException, Query
 
 from ..config import VALID_SCORING_FORMATS
@@ -35,10 +37,6 @@ def get_player_correlations(
     (HTTP 200) when no correlation data has been built — the surface is
     additive and must not break player pages.
     """
-    import logging
-
-    import pandas as pd
-
     logger = logging.getLogger(__name__)
 
     # Guarded like lineups.py: any import/load failure serves an empty
