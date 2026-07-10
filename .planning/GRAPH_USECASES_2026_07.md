@@ -51,9 +51,15 @@ improves) without degrading other positions.
 | Pos | Spearman base → treated (Δ) | MAE Δ |
 |-----|------------------------------|-------|
 | QB  | 0.451 → 0.451 (0.000)        | +0.00 |
-| RB  | 0.614 → 0.631 (**+0.016**)   | +1.12 |
-| WR  | 0.596 → 0.596 (+0.000)       | +0.40 |
-| TE  | 0.401 → 0.406 (+0.004)       | +0.32 |
+| RB  | 0.614 → 0.630 (**+0.016**)   | +0.78 |
+| WR  | 0.596 → 0.596 (+0.000)       | +0.37 |
+| TE  | 0.401 → 0.405 (+0.004)       | +0.29 |
+
+(Numbers are post-review-hardening: position-scoped vacancy pools — QB
+scramble targets and WR jet-sweep carries excluded — plus a 2%
+transaction-noise threshold and a 1.0 cap on absorbed share. The
+hardening kept the RB Spearman gain and reduced the MAE penalty
++1.12 → +0.78.)
 
 RB rank ordering (the metric VORP/draft value uses) improves in 2 of 3
 seasons, flat in the third; no position's Spearman degrades. MAE ticks up

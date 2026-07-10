@@ -474,6 +474,125 @@ class TestVacatedOpportunityFeatures:
 
 
 # ---------------------------------------------------------------------------
+# Position scoping + noise threshold (post-review hardening)
+# ---------------------------------------------------------------------------
+
+
+class TestVacancyPoolScoping:
+    def test_qb_departure_does_not_create_target_vacancy(self):
+        """A departing QB's scramble targets must not inflate the WR pool."""
+        weekly = pd.DataFrame(
+            [
+                dict(
+                    player_id="QB1",
+                    recent_team="KC",
+                    position="QB",
+                    week=1,
+                    targets=5,
+                    carries=30,
+                ),
+                dict(
+                    player_id="WR1",
+                    recent_team="KC",
+                    position="WR",
+                    week=1,
+                    targets=45,
+                    carries=0,
+                ),
+            ]
+        )
+        roster = pd.DataFrame(
+            [dict(player_id="WR1", team="KC", position="WR")]  # QB1 departed
+        )
+        feats = compute_vacated_opportunity_features(
+            prior_weekly_df=weekly, current_roster_df=roster, season=2024
+        )
+        kc = feats[feats["team"] == "KC"].iloc[0]
+        assert kc["vacated_target_share_abs"] == pytest.approx(0.0)
+        # QB carries also excluded from the RB carry pool
+        assert kc["vacated_carry_share_abs"] == pytest.approx(0.0)
+
+    def test_wr_carry_departure_not_in_rb_pool(self):
+        """WR jet-sweep carries must not create RB carry vacancy."""
+        weekly = pd.DataFrame(
+            [
+                dict(
+                    player_id="WR1",
+                    recent_team="KC",
+                    position="WR",
+                    week=1,
+                    targets=40,
+                    carries=8,
+                ),
+                dict(
+                    player_id="RB1",
+                    recent_team="KC",
+                    position="RB",
+                    week=1,
+                    targets=10,
+                    carries=72,
+                ),
+            ]
+        )
+        roster = pd.DataFrame(
+            [dict(player_id="RB1", team="KC", position="RB")]  # WR1 departed
+        )
+        feats = compute_vacated_opportunity_features(
+            prior_weekly_df=weekly, current_roster_df=roster, season=2024
+        )
+        kc = feats[feats["team"] == "KC"].iloc[0]
+        # WR1's 80% target share vacates; his 10% carry share does not
+        assert kc["vacated_target_share_abs"] == pytest.approx(0.80)
+        assert kc["vacated_carry_share_abs"] == pytest.approx(0.0)
+
+    def test_subthreshold_departures_ignored(self):
+        """Practice-squad churn (sub-2% shares) must not sum into vacancy."""
+        rows = [
+            dict(
+                player_id="WR_STAR",
+                recent_team="KC",
+                position="WR",
+                week=1,
+                targets=90,
+                carries=0,
+            )
+        ]
+        # 10 fringe WRs at 1 target each (1% share) all departing
+        for i in range(10):
+            rows.append(
+                dict(
+                    player_id=f"WR_FRINGE{i}",
+                    recent_team="KC",
+                    position="WR",
+                    week=1,
+                    targets=1,
+                    carries=0,
+                )
+            )
+        weekly = pd.DataFrame(rows)
+        roster = pd.DataFrame([dict(player_id="WR_STAR", team="KC", position="WR")])
+        feats = compute_vacated_opportunity_features(
+            prior_weekly_df=weekly, current_roster_df=roster, season=2024
+        )
+        kc = feats[feats["team"] == "KC"].iloc[0]
+        assert kc["vacated_target_share_abs"] == pytest.approx(0.0)
+
+    def test_absorbed_share_capped_at_one(
+        self, prior_weekly, current_roster, depth_chart_old_schema, draft_picks
+    ):
+        feats = compute_vacated_opportunity_features(
+            prior_weekly_df=prior_weekly,
+            current_roster_df=current_roster,
+            season=2024,
+            depth_charts_df=depth_chart_old_schema,
+            draft_picks_df=draft_picks,
+        )
+        assert (feats["vacancy_absorbed_share"] <= 1.0).all()
+        assert (feats["net_target_vacancy"] <= 1.0).all()
+        assert (feats["net_carry_vacancy"] <= 1.0).all()
+
+
+# ---------------------------------------------------------------------------
 # Preseason engine integration
 # ---------------------------------------------------------------------------
 

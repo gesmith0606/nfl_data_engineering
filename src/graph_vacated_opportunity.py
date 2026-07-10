@@ -9,6 +9,18 @@ For a target season N, only season N-1 usage plus season N roster /
 depth-chart / draft data are used — every feature is knowable before
 week 1 of season N, so there is no leakage into preseason projections.
 
+Feature semantics:
+    - ``vacated_target_share_abs``, ``vacated_carry_share_abs``,
+      ``rz_vacancy_share``, ``net_target_vacancy``, ``net_carry_vacancy``
+      are TEAM-level quantities stamped on every player row of that team.
+    - ``vacancy_competition_n``, ``arrival_displacement``, and
+      ``vacancy_absorbed_share`` are player-level. Only
+      ``vacancy_absorbed_share`` drives the projection-engine multiplier.
+    - Vacancy pools are position-scoped: target vacancy counts departed
+      WR/TE/RB target share (QB scramble targets are excluded — no
+      skill player absorbs a QB's share); carry vacancy counts departed
+      RB carry share only (WR jet sweeps don't flow to RBs).
+
 Graph model (Neo4j optional, pure-pandas primary):
     (:Player)-[:VACATED {target_share, carry_share}]->(:Team)
     (:Player)-[:COMPETES_FOR {claim_weight, absorbed_share}]->(:Team)
@@ -37,6 +49,15 @@ SILVER_DIR = os.path.join(BASE_DIR, "data", "silver")
 
 FANTASY_POSITIONS = {"QB", "RB", "WR", "TE"}
 
+# Positions whose departed share counts toward each vacancy pool.
+TARGET_VACANCY_POSITIONS = {"WR", "TE", "RB"}
+CARRY_VACANCY_POSITIONS = {"RB"}
+
+# Departures/arrivals below this relevant share are roster churn noise
+# (practice-squad cuts, camp bodies) — a team cutting 15 fringe players at
+# ~0.5% share each must not manufacture 7.5% phantom vacancy.
+MIN_TRANSACTION_SHARE = 0.02
+
 # Minimum prior-season relevant share for a returning player to count as
 # a competitor when no depth chart entry exists.
 MIN_SHARE_COMPETITOR = 0.05
@@ -46,7 +67,9 @@ MIN_SHARE_COMPETITOR = 0.05
 RANK_WEIGHTS = {1: 1.0, 2: 0.45, 3: 0.20}
 DEFAULT_RANK_WEIGHT = 0.10
 
-# Drafted rookies without a depth-chart entry claim by draft round.
+# Drafted rookies without a depth-chart entry claim by draft round. Rounds
+# 2 and 3 are intentionally equal — day-2 hit rates are similar and the
+# depth chart (which usually exists by August) overrides this anyway.
 ROOKIE_ROUND_WEIGHTS = {1: 0.45, 2: 0.25, 3: 0.25, 4: 0.10}
 LATE_ROUND_WEIGHT = 0.05
 
@@ -108,6 +131,38 @@ def _read_silver_red_zone(season: int) -> pd.DataFrame:
     )
     files = sorted(glob.glob(pattern))
     return pd.read_parquet(files[-1]) if files else pd.DataFrame()
+
+
+def _load_transition_inputs(
+    target_season: int,
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Load prior-season weekly usage and the target-season roster ONCE.
+
+    Single read point so departure detection and feature computation can
+    never diverge (the pipeline may append new parquet files mid-run).
+
+    Args:
+        target_season: The season being projected.
+
+    Returns:
+        Tuple of (prior_weekly, roster). Roster is deduplicated to the
+        latest week per player and reduced to player_id/team/position.
+        Either frame may be empty when Bronze data is missing.
+    """
+    prior = target_season - 1
+    weekly = _read_bronze_parquet("players/weekly", prior)
+    rosters = _read_bronze_parquet("players/rosters", target_season)
+
+    if rosters.empty:
+        return weekly, rosters
+
+    roster = rosters.copy()
+    if "week" in roster.columns:
+        roster = roster.sort_values("week").drop_duplicates(
+            subset=["player_id"], keep="last"
+        )
+    roster = roster[["player_id", "team", "position"]].dropna(subset=["player_id"])
+    return weekly, roster
 
 
 # ---------------------------------------------------------------------------
@@ -179,7 +234,8 @@ def normalize_depth_chart(depth_charts_df: pd.DataFrame) -> pd.DataFrame:
     Handles both nflverse schemas:
     - Pre-2025: club_code, gsis_id, position, depth_team (rank), week,
       formation. Uses the earliest week (preseason snapshot).
-    - 2025+: team, gsis_id, pos_abb, pos_rank, dt. Uses the earliest dt.
+    - 2025+: team, gsis_id, pos_abb, pos_rank, dt. Uses the earliest dt
+      (coerced to datetime — string formats must not decide ordering).
 
     Args:
         depth_charts_df: Bronze depth chart DataFrame for one season.
@@ -196,6 +252,7 @@ def normalize_depth_chart(depth_charts_df: pd.DataFrame) -> pd.DataFrame:
 
     if "pos_rank" in dc.columns:  # 2025+ schema
         if "dt" in dc.columns:
+            dc["dt"] = pd.to_datetime(dc["dt"], errors="coerce")
             dc = dc[dc["dt"] == dc["dt"].min()]
         dc = dc.rename(columns={"gsis_id": "player_id", "pos_abb": "position"})
     else:  # pre-2025 schema
@@ -306,14 +363,37 @@ def identify_departures_arrivals(
     )
 
 
+def _pool_sums(df: pd.DataFrame, share_col: str, positions: set) -> Dict[str, float]:
+    """Sum a share column per team, scoped to positions and above the
+    transaction-noise threshold.
+
+    Args:
+        df: Departures or arrivals DataFrame with team/position/share cols.
+        share_col: 'target_share' or 'carry_share'.
+        positions: Positions whose share counts toward this pool.
+
+    Returns:
+        Dict of team -> summed share (missing teams mean 0.0).
+    """
+    if df.empty:
+        return {}
+    scoped = df[
+        df["position"].isin(positions) & (df[share_col] >= MIN_TRANSACTION_SHARE)
+    ]
+    return scoped.groupby("team")[share_col].sum().to_dict()
+
+
 def _compute_rz_vacancy(
     departures: pd.DataFrame, rz_features_df: pd.DataFrame
 ) -> pd.Series:
     """Sum departed players' red-zone usage share per team.
 
-    Uses each departed player's season-mean rz_target_share_roll3 +
-    rz_carry_share_roll3 from the Silver red-zone graph features. Returns
-    0.0 per team when red-zone data is unavailable.
+    Uses each departed player's LAST available weekly snapshot of
+    rz_target_share_roll3 + rz_carry_share_roll3 from the Silver red-zone
+    graph features (the season-final rolling window — averaging every
+    weekly snapshot would double-count the sliding window and over-weight
+    the early season). Returns 0.0 per team when red-zone data is
+    unavailable.
 
     Args:
         departures: Departures DataFrame from identify_departures_arrivals.
@@ -326,7 +406,7 @@ def _compute_rz_vacancy(
         return pd.Series(dtype=float)
     zero = pd.Series(0.0, index=departures["team"].unique())
 
-    rz_cols = {"rz_target_share_roll3", "rz_carry_share_roll3", "player_id"}
+    rz_cols = {"rz_target_share_roll3", "rz_carry_share_roll3", "player_id", "week"}
     if rz_features_df.empty or not rz_cols.issubset(rz_features_df.columns):
         return zero
 
@@ -334,7 +414,11 @@ def _compute_rz_vacancy(
     rz["_rz_usage"] = rz["rz_target_share_roll3"].fillna(0.0) + rz[
         "rz_carry_share_roll3"
     ].fillna(0.0)
-    player_rz = rz.groupby("player_id")["_rz_usage"].mean()
+    player_rz = (
+        rz.sort_values("week")
+        .drop_duplicates(subset=["player_id"], keep="last")
+        .set_index("player_id")["_rz_usage"]
+    )
 
     dep = departures.copy()
     dep["_rz"] = dep["player_id"].map(player_rz).fillna(0.0)
@@ -350,7 +434,12 @@ def _claim_weights(
 
     Priority: depth-chart rank -> rookie draft round -> prior-season share
     above MIN_SHARE_COMPETITOR (default weight). Players with none of the
-    three get weight 0 and do not compete.
+    three get weight 0 and do not compete. Vectorized (no per-row loops).
+
+    ``draft_picks`` is intentionally NOT filtered by team: Bronze records
+    the drafting team, and a rookie traded before week 1 still deserves a
+    round-based claim on his actual roster (``players`` is already scoped
+    to one team, so no phantom cross-team claims are possible).
 
     Args:
         players: One team-position group with player_id, prior_share columns.
@@ -360,30 +449,37 @@ def _claim_weights(
     Returns:
         Series of claim weights aligned to players.index.
     """
+    if players.empty:
+        return pd.Series(dtype=float, index=players.index)
+
     dc_rank = (
         depth_chart.set_index("player_id")["pos_rank"]
         if not depth_chart.empty
         else pd.Series(dtype=float)
     )
     rookie_round = (
-        draft_picks.dropna(subset=["gsis_id"]).set_index("gsis_id")["round"]
+        draft_picks.dropna(subset=["gsis_id"])
+        .drop_duplicates(subset=["gsis_id"])
+        .set_index("gsis_id")["round"]
         if not draft_picks.empty and "gsis_id" in draft_picks.columns
         else pd.Series(dtype=float)
     )
 
-    weights = []
-    for _, row in players.iterrows():
-        pid = row["player_id"]
-        if pid in dc_rank.index:
-            rank = int(dc_rank.loc[pid])
-            weights.append(RANK_WEIGHTS.get(rank, DEFAULT_RANK_WEIGHT))
-        elif pid in rookie_round.index:
-            rnd = int(rookie_round.loc[pid])
-            weights.append(ROOKIE_ROUND_WEIGHTS.get(rnd, LATE_ROUND_WEIGHT))
-        elif row["prior_share"] >= MIN_SHARE_COMPETITOR:
-            weights.append(DEFAULT_RANK_WEIGHT)
-        else:
-            weights.append(0.0)
+    ranks = players["player_id"].map(dc_rank)
+    rounds = players["player_id"].map(rookie_round)
+
+    rank_w = ranks.map(RANK_WEIGHTS).fillna(DEFAULT_RANK_WEIGHT)
+    round_w = rounds.map(ROOKIE_ROUND_WEIGHTS).fillna(LATE_ROUND_WEIGHT)
+
+    weights = np.select(
+        [
+            ranks.notna(),
+            rounds.notna(),
+            players["prior_share"] >= MIN_SHARE_COMPETITOR,
+        ],
+        [rank_w, round_w, DEFAULT_RANK_WEIGHT],
+        default=0.0,
+    )
     return pd.Series(weights, index=players.index)
 
 
@@ -397,9 +493,10 @@ def compute_vacated_opportunity_features(
 ) -> pd.DataFrame:
     """Compute vacated-opportunity features for every rostered fantasy player.
 
-    Per team: gross vacancy = sum of departed players' season N-1 shares;
-    arrivals import the share they held elsewhere; net vacancy = gross -
-    imported (floored at 0) is then distributed across the roster by
+    Per team: gross vacancy = sum of departed players' season N-1 shares
+    (position-scoped, above the transaction-noise threshold); arrivals
+    import the share they held elsewhere; net vacancy = gross - imported
+    (bounded to [0, 1]) is then distributed across the roster by
     depth-chart claim weights.
 
     Args:
@@ -435,16 +532,12 @@ def compute_vacated_opportunity_features(
         rz_features_df if rz_features_df is not None else pd.DataFrame(),
     )
 
-    # Team-level gross vacated shares.
-    gross = departures.groupby("team").agg(
-        vacated_target_share_abs=("target_share", "sum"),
-        vacated_carry_share_abs=("carry_share", "sum"),
-    )
-    # Team-level imported shares from arrivals.
-    imported = arrivals.groupby("team").agg(
-        imported_target=("target_share", "sum"),
-        imported_carry=("carry_share", "sum"),
-    )
+    # Team-level pools, position-scoped: QB scramble targets and WR jet
+    # sweeps must not create vacancy that the wrong position pool absorbs.
+    gross_target = _pool_sums(departures, "target_share", TARGET_VACANCY_POSITIONS)
+    gross_carry = _pool_sums(departures, "carry_share", CARRY_VACANCY_POSITIONS)
+    imported_target = _pool_sums(arrivals, "target_share", TARGET_VACANCY_POSITIONS)
+    imported_carry = _pool_sums(arrivals, "carry_share", CARRY_VACANCY_POSITIONS)
 
     # Prior-season share per rostered player (from any team) for competitor
     # detection and arrival displacement.
@@ -458,12 +551,12 @@ def compute_vacated_opportunity_features(
 
     rows: List[Dict[str, object]] = []
     for team, team_roster in roster.groupby("team"):
-        g_target = float(gross["vacated_target_share_abs"].get(team, 0.0))
-        g_carry = float(gross["vacated_carry_share_abs"].get(team, 0.0))
-        net_target = max(
-            0.0, g_target - float(imported["imported_target"].get(team, 0.0))
-        )
-        net_carry = max(0.0, g_carry - float(imported["imported_carry"].get(team, 0.0)))
+        g_target = float(gross_target.get(team, 0.0))
+        g_carry = float(gross_carry.get(team, 0.0))
+        # Shares are fractions of team volume — a pool can never exceed 1.0;
+        # clip guards against double-counted Bronze rows.
+        net_target = float(np.clip(g_target - imported_target.get(team, 0.0), 0.0, 1.0))
+        net_carry = float(np.clip(g_carry - imported_carry.get(team, 0.0), 0.0, 1.0))
         team_rz = float(rz_vacancy.get(team, 0.0))
         team_dc = depth_chart[depth_chart["team"] == team]
 
@@ -505,30 +598,37 @@ def compute_vacated_opportunity_features(
             w = _claim_weights(pos_players, team_dc, draft_picks)
             claims_by_pos[pos] = int((w > 0).sum())
 
-        for idx, row in team_players.iterrows():
-            pid = row["player_id"]
-            pos = row["position"]
-            a_target = float(absorbed_target.get(idx, 0.0))
-            a_carry = float(absorbed_carry.get(idx, 0.0))
-            displacement = 0.0
-            if pid in arrival_ids:
-                rel = "prior_carry_share" if pos == "RB" else "prior_target_share"
-                displacement = float(row[rel])
+        # Vectorized row assembly for this team.
+        absorbed = (
+            absorbed_target.reindex(team_players.index, fill_value=0.0)
+            + absorbed_carry.reindex(team_players.index, fill_value=0.0)
+        ).clip(upper=1.0)
+        is_arrival = team_players["player_id"].isin(arrival_ids)
+        rel_share = np.where(
+            team_players["position"] == "RB",
+            team_players["prior_carry_share"],
+            team_players["prior_target_share"],
+        )
+        displacement = np.where(is_arrival, rel_share, 0.0)
+        competition = (
+            team_players["position"].map(claims_by_pos).fillna(0).astype(int) - 1
+        ).clip(lower=0)
 
+        for i, (idx, row) in enumerate(team_players.iterrows()):
             rows.append(
                 {
-                    "player_id": pid,
+                    "player_id": row["player_id"],
                     "team": team,
-                    "position": pos,
+                    "position": row["position"],
                     "season": season,
                     "vacated_target_share_abs": round(g_target, 4),
                     "vacated_carry_share_abs": round(g_carry, 4),
                     "rz_vacancy_share": round(team_rz, 4),
                     "net_target_vacancy": round(net_target, 4),
                     "net_carry_vacancy": round(net_carry, 4),
-                    "vacancy_competition_n": max(0, claims_by_pos.get(pos, 0) - 1),
-                    "arrival_displacement": round(displacement, 4),
-                    "vacancy_absorbed_share": round(a_target + a_carry, 4),
+                    "vacancy_competition_n": int(competition.iloc[i]),
+                    "arrival_displacement": round(float(displacement[i]), 4),
+                    "vacancy_absorbed_share": round(float(absorbed.iloc[i]), 4),
                 }
             )
 
@@ -560,26 +660,15 @@ def build_vacated_opportunity_data(target_season: int) -> pd.DataFrame:
     Returns:
         Feature DataFrame from compute_vacated_opportunity_features.
     """
-    prior = target_season - 1
-    weekly = _read_bronze_parquet("players/weekly", prior)
-    rosters = _read_bronze_parquet("players/rosters", target_season)
-
-    if weekly.empty or rosters.empty:
+    weekly, roster = _load_transition_inputs(target_season)
+    if weekly.empty or roster.empty:
         logger.warning(
             "Missing weekly (season %d) or roster (season %d) data — "
             "skipping vacated opportunity features",
-            prior,
+            target_season - 1,
             target_season,
         )
         return pd.DataFrame()
-
-    # Deduplicate roster: latest week per player, fantasy positions only.
-    roster = rosters.copy()
-    if "week" in roster.columns:
-        roster = roster.sort_values("week").drop_duplicates(
-            subset=["player_id"], keep="last"
-        )
-    roster = roster[["player_id", "team", "position"]].dropna(subset=["player_id"])
 
     return compute_vacated_opportunity_features(
         prior_weekly_df=weekly,
@@ -587,7 +676,7 @@ def build_vacated_opportunity_data(target_season: int) -> pd.DataFrame:
         season=target_season,
         depth_charts_df=_read_bronze_parquet("depth_charts", target_season),
         draft_picks_df=_read_bronze_parquet("draft_picks", target_season),
-        rz_features_df=_read_silver_red_zone(prior),
+        rz_features_df=_read_silver_red_zone(target_season - 1),
     )
 
 
@@ -596,6 +685,10 @@ def build_vacated_opportunity_graph(
     target_season: int,
 ) -> Tuple[int, int]:
     """Ingest VACATED and COMPETES_FOR edges into Neo4j (optional path).
+
+    Loads inputs exactly once so the departure edges and the absorbed-share
+    edges are computed from the same data snapshot (a concurrent pipeline
+    run appending new parquet files cannot make them diverge).
 
     Args:
         gdb: Connected GraphDB instance.
@@ -609,23 +702,21 @@ def build_vacated_opportunity_graph(
         logger.warning("Neo4j not connected — skipping vacated opportunity graph")
         return 0, 0
 
-    prior = target_season - 1
-    weekly = _read_bronze_parquet("players/weekly", prior)
-    rosters = _read_bronze_parquet("players/rosters", target_season)
-    if weekly.empty or rosters.empty:
+    weekly, roster = _load_transition_inputs(target_season)
+    if weekly.empty or roster.empty:
         return 0, 0
-
-    roster = rosters.copy()
-    if "week" in roster.columns:
-        roster = roster.sort_values("week").drop_duplicates(
-            subset=["player_id"], keep="last"
-        )
-    roster = roster[["player_id", "team", "position"]].dropna(subset=["player_id"])
     roster = roster[roster["position"].isin(FANTASY_POSITIONS)]
 
     prior_usage = compute_season_usage_shares(weekly)
     departures, _ = identify_departures_arrivals(prior_usage, roster)
-    features = build_vacated_opportunity_data(target_season)
+    features = compute_vacated_opportunity_features(
+        prior_weekly_df=weekly,
+        current_roster_df=roster,
+        season=target_season,
+        depth_charts_df=_read_bronze_parquet("depth_charts", target_season),
+        draft_picks_df=_read_bronze_parquet("draft_picks", target_season),
+        rz_features_df=_read_silver_red_zone(target_season - 1),
+    )
 
     batch_size = 500
     n_vacated = 0
