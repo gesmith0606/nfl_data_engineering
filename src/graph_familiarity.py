@@ -306,12 +306,10 @@ def _continuity_by_team(
             {
                 "team": team,
                 "offense_continuity_pct": (
-                    round(float(continuity), 4) if continuity == continuity else np.nan
+                    np.nan if pd.isna(continuity) else round(float(continuity), 4)
                 ),
                 "weapons_new_pct": (
-                    round(float(weapons_new), 4)
-                    if weapons_new == weapons_new
-                    else np.nan
+                    np.nan if pd.isna(weapons_new) else round(float(weapons_new), 4)
                 ),
             }
         )
@@ -416,6 +414,11 @@ def compute_familiarity_features(
     receivers["qb_familiarity_games"] = (
         receivers["qb_familiarity_games"].fillna(0).astype(int)
     )
+    # Disambiguation: (qb_is_new=0, qb_familiarity_games=0) means the
+    # expected QB is UNKNOWN (NaN — e.g. rookie starter with no prior data);
+    # (qb_is_new=1, games=0) is a genuine cold start with a known new QB;
+    # (qb_is_new=0, games>0) is a familiar pair. Models using both features
+    # can separate all three states.
     receivers["qb_is_new"] = np.where(
         receivers["expected_qb_id"].notna() & (receivers["qb_familiarity_games"] == 0),
         1,
@@ -424,10 +427,12 @@ def compute_familiarity_features(
 
     # Team-level continuity features (constant per team-season).
     prior_weekly = pw[pw["season"] == season - 1]
+    # Per-team earliest week (not the global minimum — a team missing the
+    # league's first data week must still get its own first-week QB).
     week1_qb = (
-        qb_map[qb_map["week"] == qb_map["week"].min()].set_index("team")[
-            "expected_qb_id"
-        ]
+        qb_map.sort_values("week")
+        .drop_duplicates(subset=["team"], keep="first")
+        .set_index("team")["expected_qb_id"]
         if not qb_map.empty
         else pd.Series(dtype=object)
     )

@@ -347,6 +347,137 @@ class TestFamiliarityFeatures:
 
 
 # ---------------------------------------------------------------------------
+# Post-review regression coverage
+# ---------------------------------------------------------------------------
+
+
+class TestReviewRegressions:
+    def test_history_scoped_to_current_expected_qb(self):
+        """A receiver's history with a DIFFERENT past QB must not leak in.
+
+        R played 10 games with Q_OLD (chronologically later) and 1 game
+        with Q_NEW. Current expected QB is Q_NEW — familiarity must be 1
+        game at Q_NEW's EPA, not Q_OLD's record.
+        """
+        pairs = pd.DataFrame(
+            [
+                dict(
+                    passer_id="Q_NEW",
+                    receiver_id="R",
+                    season=2022,
+                    week=1,
+                    targets=5,
+                    epa_sum=1.0,
+                )
+            ]
+            + [
+                dict(
+                    passer_id="Q_OLD",
+                    receiver_id="R",
+                    season=2023,
+                    week=w,
+                    targets=8,
+                    epa_sum=8.0,
+                )
+                for w in range(1, 11)
+            ]
+        )
+        pw = pd.DataFrame(
+            [
+                dict(
+                    player_id="Q_NEW",
+                    recent_team="KC",
+                    position="QB",
+                    season=2024,
+                    week=1,
+                    attempts=30,
+                    targets=0,
+                ),
+                dict(
+                    player_id="Q_NEW",
+                    recent_team="KC",
+                    position="QB",
+                    season=2024,
+                    week=2,
+                    attempts=30,
+                    targets=0,
+                ),
+                dict(
+                    player_id="R",
+                    recent_team="KC",
+                    position="WR",
+                    season=2024,
+                    week=2,
+                    attempts=0,
+                    targets=8,
+                ),
+            ]
+        )
+        feats = compute_familiarity_features(pairs, pw, 2024, None)
+        r = feats[(feats["player_id"] == "R") & (feats["week"] == 2)].iloc[0]
+        assert r["qb_familiarity_games"] == 1
+        assert r["reunion_epa_prior"] == pytest.approx(0.2)
+
+    def test_week1_qb_uses_per_team_earliest_week(self):
+        """A team whose first data week is later than the league minimum
+        must still resolve its own first-week expected QB (global-min bug)."""
+        pw = pd.DataFrame(
+            [
+                # KC has week 1; DEN's first data week is 2.
+                dict(
+                    player_id="QB_KC",
+                    recent_team="KC",
+                    position="QB",
+                    season=2023,
+                    week=18,
+                    attempts=30,
+                    targets=0,
+                ),
+                dict(
+                    player_id="QB_DEN",
+                    recent_team="DEN",
+                    position="QB",
+                    season=2023,
+                    week=18,
+                    attempts=30,
+                    targets=0,
+                ),
+                dict(
+                    player_id="QB_KC",
+                    recent_team="KC",
+                    position="QB",
+                    season=2024,
+                    week=1,
+                    attempts=30,
+                    targets=0,
+                ),
+                dict(
+                    player_id="QB_DEN",
+                    recent_team="DEN",
+                    position="QB",
+                    season=2024,
+                    week=2,
+                    attempts=30,
+                    targets=0,
+                ),
+                dict(
+                    player_id="WR_DEN",
+                    recent_team="DEN",
+                    position="WR",
+                    season=2024,
+                    week=2,
+                    attempts=0,
+                    targets=8,
+                ),
+            ]
+        )
+        qb_map = build_expected_qb_map(pw, season=2024)
+        den_first = qb_map[(qb_map["team"] == "DEN")].sort_values("week").iloc[0]
+        # DEN's first observed week falls back to the 2023 QB, not NaN.
+        assert den_first["expected_qb_id"] == "QB_DEN"
+
+
+# ---------------------------------------------------------------------------
 # Integration smoke test on real local data
 # ---------------------------------------------------------------------------
 
