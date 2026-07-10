@@ -483,12 +483,14 @@ class TestVacancyPoolScoping:
         """A departing QB's scramble targets must not inflate the WR pool."""
         weekly = pd.DataFrame(
             [
+                # Share well above MIN_TRANSACTION_SHARE so the assertion
+                # isolates position scoping, not the noise threshold.
                 dict(
                     player_id="QB1",
                     recent_team="KC",
                     position="QB",
                     week=1,
-                    targets=5,
+                    targets=30,
                     carries=30,
                 ),
                 dict(
