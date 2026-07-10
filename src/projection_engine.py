@@ -146,6 +146,21 @@ WR_TPRR_SLOPE_THRESHOLD: float = -0.02
 WR_TPRR_COLLAPSE_MULT: float = 0.85
 
 # ---------------------------------------------------------------------------
+# Vacated opportunity multiplier (UC1, preseason only, opt-in).
+#
+# Players stepping into offseason-vacated volume (departed teammates'
+# target/carry share, distributed by depth-chart claim) get a bounded boost:
+#   mult = 1 + VACATED_OPPORTUNITY_BETA * vacancy_absorbed_share
+# A player absorbing 20% of team targets at beta 0.5 gets +10%.
+# See src/graph_vacated_opportunity.py and .planning/GRAPH_USECASES_2026_07.md.
+# ---------------------------------------------------------------------------
+VACATED_OPPORTUNITY_BETA: float = 0.5
+
+#: Upper clamp on the vacated-opportunity multiplier (lower bound is 1.0 —
+#: the adjustment only adds upside for vacancy absorption, never penalizes).
+VACATED_OPPORTUNITY_MULT_MAX: float = 1.20
+
+# ---------------------------------------------------------------------------
 # Identity-keyed caches for per-call-invariant derived inputs.
 #
 # The backtest calls generate_weekly_projections() once per week with the
@@ -312,9 +327,9 @@ def _apply_rb_snap_collapse(
         return 0
 
     collapse_ids = set(collapse_rows["player_id"].astype(str))
-    rb_mask = (combined["position"] == "RB") & combined["player_id"].astype(
-        str
-    ).isin(collapse_ids)
+    rb_mask = (combined["position"] == "RB") & combined["player_id"].astype(str).isin(
+        collapse_ids
+    )
     if not rb_mask.any():
         return 0
 
@@ -372,9 +387,9 @@ def _apply_wr_route_slope_collapse(
 
     # Use the slope row keyed at (season, week) — this is the lagged signal
     # for week ``week`` (slopes are built on prior-week data by shift-1).
-    slope_rows = route_df[
-        (route_df["season"] == season) & (route_df["week"] == week)
-    ][["player_id", "route_rate_slope"]].dropna(subset=["route_rate_slope"])
+    slope_rows = route_df[(route_df["season"] == season) & (route_df["week"] == week)][
+        ["player_id", "route_rate_slope"]
+    ].dropna(subset=["route_rate_slope"])
 
     if slope_rows.empty:
         return 0
@@ -387,9 +402,9 @@ def _apply_wr_route_slope_collapse(
     if not collapsing_ids:
         return 0
 
-    wr_mask = (combined["position"] == "WR") & combined["player_id"].astype(
-        str
-    ).isin(collapsing_ids)
+    wr_mask = (combined["position"] == "WR") & combined["player_id"].astype(str).isin(
+        collapsing_ids
+    )
     if not wr_mask.any():
         return 0
 
@@ -450,9 +465,9 @@ def _apply_wr_tprr_collapse(
     if tprr_df.empty or "tprr_trail4_slope" not in tprr_df.columns:
         return 0
 
-    slope_rows = tprr_df[
-        (tprr_df["season"] == season) & (tprr_df["week"] == week)
-    ][["player_id", "tprr_trail4_slope"]].dropna(subset=["tprr_trail4_slope"])
+    slope_rows = tprr_df[(tprr_df["season"] == season) & (tprr_df["week"] == week)][
+        ["player_id", "tprr_trail4_slope"]
+    ].dropna(subset=["tprr_trail4_slope"])
     if slope_rows.empty:
         return 0
 
@@ -464,9 +479,9 @@ def _apply_wr_tprr_collapse(
     if not collapsing_ids:
         return 0
 
-    wr_mask = (combined["position"] == "WR") & combined["player_id"].astype(
-        str
-    ).isin(collapsing_ids)
+    wr_mask = (combined["position"] == "WR") & combined["player_id"].astype(str).isin(
+        collapsing_ids
+    )
     if not wr_mask.any():
         return 0
 
@@ -1778,7 +1793,9 @@ def generate_weekly_projections(
                         blended_parts.append(blended_pos)
                         blended_positions.add(_pos)
                 if blended_parts:
-                    other_rows = target_df[~target_df["position"].isin(blended_positions)]
+                    other_rows = target_df[
+                        ~target_df["position"].isin(blended_positions)
+                    ]
                     target_df = pd.concat(
                         [other_rows] + blended_parts, ignore_index=True
                     )
@@ -2830,25 +2847,20 @@ def _merge_kicker_projections(
 
     kicker_proj = kicker_proj.copy()
     if "player_id" in kicker_proj.columns and "player_id" in proj.columns:
-        seasonal_k = proj[
-            (proj["position"] == "K") & proj["player_id"].notna()
-        ]
+        seasonal_k = proj[(proj["position"] == "K") & proj["player_id"].notna()]
         if "recent_team" in seasonal_k.columns:
-            fresh_team = seasonal_k.drop_duplicates("player_id").set_index(
-                "player_id"
-            )["recent_team"]
-            mapped = kicker_proj["player_id"].map(fresh_team)
-            kicker_proj.loc[mapped.notna(), "recent_team"] = mapped[
-                mapped.notna()
+            fresh_team = seasonal_k.drop_duplicates("player_id").set_index("player_id")[
+                "recent_team"
             ]
+            mapped = kicker_proj["player_id"].map(fresh_team)
+            kicker_proj.loc[mapped.notna(), "recent_team"] = mapped[mapped.notna()]
 
         superseded = (proj["position"] == "K") & proj["player_id"].isin(
             set(kicker_proj["player_id"].dropna())
         )
         if superseded.any():
             logger.info(
-                "Dropped %d seasonal kicker rows superseded by the "
-                "kicker model",
+                "Dropped %d seasonal kicker rows superseded by the " "kicker model",
                 int(superseded.sum()),
             )
             proj = proj[~superseded]
@@ -2881,9 +2893,7 @@ def _generate_preseason_kicker_projections(target_season: int) -> pd.DataFrame:
         roster_season = target_season - 1
         rosters = NFLDataAdapter().fetch_rosters([roster_season])
         if rosters.empty:
-            logger.warning(
-                "No roster data available for season %d", roster_season
-            )
+            logger.warning("No roster data available for season %d", roster_season)
             return pd.DataFrame()
         kickers = rosters[rosters["position"] == "K"].copy()
         if kickers.empty:
@@ -2955,6 +2965,7 @@ def generate_preseason_projections(
     depth_charts_df: Optional[pd.DataFrame] = None,
     external_rankings_dir: Optional[Path] = None,
     consensus_weights: Optional[Dict[str, float]] = None,
+    vacated_features_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """
     Generate pre-season projections based on historical seasonal averages.
@@ -2982,6 +2993,11 @@ def generate_preseason_projections(
                         market consensus via ``apply_consensus_anchor``.
         consensus_weights: Optional per-position blend weights overriding
                         ``consensus_anchor.DEFAULT_CONSENSUS_WEIGHTS``.
+        vacated_features_df: Optional UC1 vacated-opportunity features from
+                        ``graph_vacated_opportunity.build_vacated_opportunity_data``.
+                        When provided, players absorbing offseason-vacated
+                        target/carry share get a bounded boost (see
+                        VACATED_OPPORTUNITY_BETA).
 
     Returns:
         DataFrame ranked by projected_season_points descending.
@@ -3333,12 +3349,8 @@ def generate_preseason_projections(
     )
     if dup_mask.any():
         n_players = proj.loc[dup_mask, "player_id"].nunique()
-        sample_col = (
-            "player_name" if "player_name" in proj.columns else "player_id"
-        )
-        sample = (
-            proj.loc[dup_mask, sample_col].dropna().unique()[:5].tolist()
-        )
+        sample_col = "player_name" if "player_name" in proj.columns else "player_id"
+        sample = proj.loc[dup_mask, sample_col].dropna().unique()[:5].tolist()
         logger.warning(
             "Found %d duplicate projection rows across %d players (e.g. %s)"
             " — keeping the highest-point row per player. Fix the upstream"
@@ -3354,6 +3366,37 @@ def generate_preseason_projections(
             subset=["player_id", "position"], keep="first"
         )
         proj = proj[~drop].reset_index(drop=True)
+
+    # ------------------------------------------------------------------
+    # Vacated opportunity boost (UC1, opt-in): players stepping into
+    # offseason-vacated volume get a bounded multiplier. Applied before
+    # the consensus anchor so the anchor blends the adjusted points.
+    # ------------------------------------------------------------------
+    if vacated_features_df is not None and not vacated_features_df.empty:
+        vac_cols = {"player_id", "vacancy_absorbed_share"}
+        if vac_cols.issubset(vacated_features_df.columns):
+            vac = vacated_features_df[["player_id", "vacancy_absorbed_share"]]
+            vac = vac.drop_duplicates(subset=["player_id"])
+            proj = proj.merge(vac, on="player_id", how="left")
+            absorbed = proj["vacancy_absorbed_share"].fillna(0.0).clip(lower=0.0)
+            mult = (1.0 + VACATED_OPPORTUNITY_BETA * absorbed).clip(
+                upper=VACATED_OPPORTUNITY_MULT_MAX
+            )
+            n_boosted = int((mult > 1.0).sum())
+            proj["projected_season_points"] = (
+                proj["projected_season_points"] * mult
+            ).round(1)
+            proj = proj.drop(columns=["vacancy_absorbed_share"])
+            logger.info(
+                "Vacated opportunity boost applied to %d players " "(max mult %.3f)",
+                n_boosted,
+                float(mult.max()) if len(mult) else 1.0,
+            )
+        else:
+            logger.warning(
+                "vacated_features_df missing required columns %s — skipping",
+                vac_cols - set(vacated_features_df.columns),
+            )
 
     # ------------------------------------------------------------------
     # Consensus anchor: blend model points toward external market rankings
@@ -3406,9 +3449,7 @@ def generate_preseason_projections(
     proj["overall_rank"] = (
         proj["vorp"].rank(ascending=False, method="first").astype(int)
     )
-    _rank_col_pre = (
-        "ranking_score" if "ranking_score" in proj.columns else pts_col
-    )
+    _rank_col_pre = "ranking_score" if "ranking_score" in proj.columns else pts_col
     proj["position_rank"] = (
         proj.groupby("position")[_rank_col_pre]
         .rank(ascending=False, method="first")

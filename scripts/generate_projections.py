@@ -225,6 +225,18 @@ def main():
         ),
     )
     parser.add_argument(
+        "--vacated-opportunity",
+        action="store_true",
+        default=False,
+        help=(
+            "Preseason mode only: boost players absorbing offseason-vacated "
+            "target/carry share (UC1 graph feature — departures diffed from "
+            "prior-season usage, distributed by depth-chart claim). OPT-IN "
+            "until the preseason backtest gate passes "
+            "(.planning/GRAPH_USECASES_2026_07.md)."
+        ),
+    )
+    parser.add_argument(
         "--use-events",
         action="store_true",
         default=False,
@@ -567,6 +579,23 @@ def main():
                 f"{external_rankings_dir})"
             )
 
+        vacated_features_df = None
+        if args.vacated_opportunity:
+            from graph_vacated_opportunity import build_vacated_opportunity_data
+
+            vacated_features_df = build_vacated_opportunity_data(args.season)
+            if vacated_features_df.empty:
+                print(
+                    "Vacated opportunity: no features available for "
+                    f"{args.season} — skipping"
+                )
+                vacated_features_df = None
+            else:
+                print(
+                    f"Vacated opportunity: ON ({len(vacated_features_df):,} "
+                    f"player features for {args.season})"
+                )
+
         print("Running pre-season projection model...")
         projections = generate_preseason_projections(
             seasonal_df,
@@ -577,6 +606,7 @@ def main():
             weekly_df=weekly_df if not weekly_df.empty else None,
             depth_charts_df=depth_charts_df if not depth_charts_df.empty else None,
             external_rankings_dir=external_rankings_dir,
+            vacated_features_df=vacated_features_df,
         )
         s3_key = f"projections/preseason/season={args.season}/season_proj_{ts}.parquet"
         local_name = f"preseason_{args.season}_{args.scoring}_{ts}.csv"
@@ -1026,9 +1056,7 @@ def main():
     # Preseason mode uses projected_season_points (full-season totals), not
     # projected_points (weekly), so floor/ceiling is not applicable there.
     if not args.ml and not args.preseason:
-        projections = add_floor_ceiling(
-            projections, use_conformal=args.conformal_bands
-        )
+        projections = add_floor_ceiling(projections, use_conformal=args.conformal_bands)
 
     # Apply ranking scores (ordering nudges from graph features). This step
     # adds a 'ranking_score' column used ONLY for position_rank / overall_rank
