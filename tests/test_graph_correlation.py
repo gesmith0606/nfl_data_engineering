@@ -387,6 +387,18 @@ class TestCorrelationsApi:
         assert resp.status_code == 200
         assert resp.json()["correlations"] == []
 
+    def test_load_failure_returns_empty_200(self, client):
+        """An import/load crash must serve empty, never a 500."""
+        from unittest.mock import patch
+
+        with patch(
+            "graph_correlation.load_latest_correlations",
+            side_effect=RuntimeError("parquet corrupted"),
+        ):
+            resp = client.get("/api/players/00-QB/correlations")
+        assert resp.status_code == 200
+        assert resp.json()["correlations"] == []
+
 
 # ---------------------------------------------------------------------------
 # Integration smoke test on real local data

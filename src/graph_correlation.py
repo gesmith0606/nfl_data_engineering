@@ -166,6 +166,9 @@ def compute_weekly_points(
     )
 
     df = df.rename(columns={"recent_team": "team", "opponent_team": "opponent"})
+    if "team" not in df.columns:
+        logger.warning("Weekly data missing recent_team/team — no pairs possible")
+        return pd.DataFrame(columns=out_cols)
     if "opponent" not in df.columns:
         df["opponent"] = np.nan
     if "player_name" not in df.columns:
@@ -310,7 +313,10 @@ def _pair_rho(obs: pd.DataFrame) -> pd.DataFrame:
     Returns:
         DataFrame keyed (player_id_a, player_id_b, relation) with rho and
         n_games. Pairs with < 3 games or zero variance are dropped (rho
-        undefined).
+        undefined). The 3-game floor is only a numerical-validity minimum
+        (a 2-point correlation is always ±1); the real serving thresholds
+        are MIN_GAMES_TRAIN / MIN_GAMES_HOLDOUT, applied by the gate in
+        compute_correlation_edges.
     """
     keys = ["player_id_a", "player_id_b", "relation"]
     if obs.empty:

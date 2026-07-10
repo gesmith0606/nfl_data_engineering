@@ -35,9 +35,22 @@ def get_player_correlations(
     (HTTP 200) when no correlation data has been built — the surface is
     additive and must not break player pages.
     """
-    from graph_correlation import load_latest_correlations
+    import logging
 
-    edges = load_latest_correlations()
+    import pandas as pd
+
+    logger = logging.getLogger(__name__)
+
+    # Guarded like lineups.py: any import/load failure serves an empty
+    # list instead of a 500 — this surface must never break player pages.
+    try:
+        from graph_correlation import load_latest_correlations
+
+        edges = load_latest_correlations()
+    except Exception:
+        logger.exception("Correlation edges unavailable — serving empty list")
+        edges = pd.DataFrame()
+
     correlations = []
     if not edges.empty:
         pairs = edges[edges["level"] == "pair"]
