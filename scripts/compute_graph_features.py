@@ -71,6 +71,7 @@ from graph_te_matchup import (
     build_te_advanced_matchup_features,
     compute_te_def_trailing_features,
 )
+from graph_vacated_opportunity import build_vacated_opportunity_data
 
 logging.basicConfig(
     level=logging.INFO,
@@ -447,6 +448,14 @@ def compute_season_features(
     results["te_def_trailing"] = te_def_trail_df
     logger.info("TE def trailing: %d rows", len(results["te_def_trailing"]))
 
+    # --- 15. Vacated opportunity features (UC1) ---
+    # Season-level (no week column): offseason roster churn — vacated
+    # target/carry share from departures, distributed across the current
+    # depth chart. Uses season-1 usage + current-season rosters only.
+    logger.info("Computing vacated opportunity features (UC1)...")
+    results["vacated_opportunity"] = build_vacated_opportunity_data(season)
+    logger.info("Vacated opportunity: %d rows", len(results["vacated_opportunity"]))
+
     return results
 
 
@@ -497,6 +506,9 @@ def save_features(
         "route_participation": f"graph_route_participation_{ts}.parquet",
         "wr_def_trailing": f"graph_wr_def_trailing_{ts}.parquet",
         "te_def_trailing": f"graph_te_def_trailing_{ts}.parquet",
+        # Season-level (no week col) — excluded from the combined
+        # player-week file by the join_cols check below.
+        "vacated_opportunity": f"graph_vacated_opportunity_{ts}.parquet",
     }
 
     for key, filename in file_map.items():
