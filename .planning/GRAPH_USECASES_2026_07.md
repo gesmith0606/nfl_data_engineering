@@ -163,6 +163,34 @@ so it dodges the residual-model WFCV trap entirely.
 is served; product surface reviewed via existing sanity-check gate before
 deploy.
 
+**VERDICT (2026-07-10): SHIPPED — gate passed with an instructive twist.**
+Built as `src/graph_correlation.py` (21 tests incl. TestClient API tests).
+From 7,559 candidate structural pairs (2016–2025 half-PPR weekly points),
+the stability gate served **121 pair edges + 2 relation priors**:
+
+| Relation | Train rho (2016–22) | Holdout rho (2023–25) | Served? |
+|----------|---------------------|-----------------------|---------|
+| qb_stack | +0.217 | +0.210 | ✅ prior + 73 pairs |
+| game_stack (opp QBs) | +0.238 | +0.371 | ✅ prior |
+| same_backfield | −0.025 | +0.014 | ❌ prior gated (sign-unstable ~0) |
+| wr_teammates | −0.005 | +0.019 | ❌ prior gated (sign-unstable ~0) |
+
+The twist: the folk-wisdom "zero-sum backfield" and "target competition"
+negative correlations DO NOT EXIST at the relation level in points space —
+team quality lifts teammates together and cancels the split effect. The
+gate correctly refused to serve them; only specific pairs with genuinely
+stable signal survive (e.g. Breida–Barkley −0.42). Top served stacks pass
+the smell test: Tua↔Hill +0.60, Fields↔Kmet +0.71, Tua↔Waddle +0.52.
+
+Surfaces shipped:
+- `scripts/build_correlations.py` → `data/gold/correlations/` (committed
+  via .gitignore allowlist, TD-09 pattern, so the HF bridge can serve it)
+- `GET /api/players/{id}/correlations` (min_rho/limit params, empty-200
+  when no data)
+- `stacks` block on each TeamLineup in `GET /api/lineups` (stack_bonus /
+  shared_ceiling_warning insights, additive + exception-guarded)
+- `compute_stack_insights()` reusable for draft/roster tools
+
 ---
 
 ## Suggested order

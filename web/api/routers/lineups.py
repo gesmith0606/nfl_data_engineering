@@ -11,6 +11,7 @@ from ..models.schemas import (
     FlatLineupPlayer,
     LineupPlayer,
     LineupResponse,
+    StackInsight,
     TeamLineup,
 )
 from ..services import projection_service
@@ -177,12 +178,37 @@ def get_lineups(
             degraded=degraded,
         )
 
+    # UC3: correlation edges load once per request; per-team stack insights
+    # are additive and must never fail the lineup response.
+    correlation_edges = None
+    try:
+        from graph_correlation import compute_stack_insights, load_latest_correlations
+
+        correlation_edges = load_latest_correlations()
+    except Exception:
+        logger.exception(
+            "Correlation edges unavailable — lineups served without stacks"
+        )
+
     lineups: List[TeamLineup] = []
     flat_lineup: List[FlatLineupPlayer] = []
     for team_code in sorted(df["team"].unique()):
         team_df = df[df["team"] == team_code]
         offense_df = team_df[team_df["side"] == "offense"]
         defense_df = team_df[team_df["side"] == "defense"]
+
+        stacks: List[StackInsight] = []
+        if correlation_edges is not None and not correlation_edges.empty:
+            try:
+                offense_ids = offense_df["player_id"].dropna().astype(str).tolist()
+                stacks = [
+                    StackInsight(**insight)
+                    for insight in compute_stack_insights(
+                        offense_ids, correlation_edges
+                    )
+                ]
+            except Exception:
+                logger.exception("Stack insights failed for team %s", team_code)
 
         # Compute team projected total from offense projections
         proj_total = None
@@ -200,6 +226,7 @@ def get_lineups(
                 defense=_df_to_lineup_players(defense_df),
                 implied_total=None,  # Would come from Vegas data
                 team_projected_total=proj_total,
+                stacks=stacks,
             )
         )
 
