@@ -667,7 +667,7 @@ Player Feature Engineering (player_feature_engineering.py)
 
 Per-Position Per-Stat Models (WalkForward CV) — research history
     ├─ QB XGB: 14% improvement with expanded data (research finding; SHIP path removed v4.2)
-    ├─ RB/WR/TE: XGBoost on residuals (hybrid approach researched; WR/RB now heuristic-only)
+    ├─ RB/WR/TE: XGBoost on residuals (hybrid approach researched; RB heuristic-only, WR/TE hybrid shipped)
     ├─ TE: Ridge 60f+graph residual SHIPPED at v4.2 (3.36 MAE sealed 2025)
     │
     ├─ Training: 2016-2025 (expanded from 2020-2025, +66% data)
