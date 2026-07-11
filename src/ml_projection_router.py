@@ -127,7 +127,8 @@ def _load_ship_gate(model_dir: str = "models/player") -> Dict[str, str]:
         verdicts[entry["position"]] = entry["verdict"]
 
     # v4.1-p5: QB XGB SHIP path disabled — bias now corrected at the heuristic
-    # level via POSITION_BIAS_CORRECTION in projection_engine.py (+2.5 pts).
+    # level via POSITION_BIAS_CORRECTION in projection_engine.py (+2.3 pts
+    # since v4.2; originally +2.5).
     # The heuristic-only QB MAE (6.58) is better than XGB SHIP (7.03) once
     # the -2.47 bias is removed. Forcing SKIP regardless of model files on disk.
     verdicts["QB"] = "SKIP"
