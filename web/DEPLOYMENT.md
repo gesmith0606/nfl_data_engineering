@@ -110,7 +110,7 @@ After deploying, verify each component:
 ```bash
 # Backend health
 curl https://gesmith0606-nfl-data-api.hf.space/api/health
-# Expected: {"status":"ok","version":"0.1.0","db_status":"parquet_fallback"}
+# Expected: {"status":"ok","version":"0.1.0","db_status":"parquet_fallback","llm_enrichment_ready":true}
 
 # Backend version
 curl https://gesmith0606-nfl-data-api.hf.space/api/version
