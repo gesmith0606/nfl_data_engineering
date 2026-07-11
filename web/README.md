@@ -130,7 +130,7 @@ Data refresh is triggered automatically by `.github/workflows/deploy-web.yml` (`
 | GET | `/api/teams/{team}/defense-metrics` | Team positional defense strength |
 | GET | `/api/draft/board` | Draft board with VORP + ADP |
 
-Routers: projections, predictions, players, lineups, games, news, draft, rankings, sleeper_user, teams, teams_defense, health_freshness, ops.
+Routers: projections, predictions, players, lineups, games, news, draft, rankings, sleeper_user (+ its league router), teams, teams_defense, health_freshness, ops.
 
 Unhandled errors return a generic HTTP 500 with no exception details; diagnose via server logs.
 

@@ -1,8 +1,8 @@
 # NFL Data Engineering Architecture
 
-**Version:** 4.2  
-**Last Updated:** April 14, 2026  
-**Status:** Active (v4.2 Website Feature Expansion — AI Advisor, Rankings, Matchups, News, Draft, Sanity Check, Daily Sentiment)  
+**Version:** 5.0 (project v8.2)  
+**Last Updated:** July 10, 2026  
+**Status:** Active (v8.2 Model Enrichment + Repo Hardening — consensus anchor, props blend, graph UC1-UC3, ops dashboard)  
 **Related:** [NFL_DATA_DICTIONARY.md](./NFL_DATA_DICTIONARY.md) | [DATA_FEEDS.md](./DATA_FEEDS.md) | [CLAUDE.md](../CLAUDE.md)
 
 ---
@@ -94,9 +94,10 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ ┌─ Fantasy Projections ────────────────────────────────┐   │
 │ │ • Weekly projections (optimized heuristics)          │   │
 │ │ • Preseason projections (rookie fallback)            │   │
-│ │ • QB: Heuristic + bias correction (+2.3 pts, v4.2)   │   │
-│ │ • RB/WR: Heuristic only (v4.2)                       │   │
-│ │ • TE: Heuristic + Ridge 60f+graph hybrid (v4.2 SHIP) │   │
+│ │ • QB: Heuristic + bias correction (+2.3 pts)         │   │
+│ │ • RB: Heuristic only (v4.3 routing)                  │   │
+│ │ • WR: Heuristic + residual hybrid (v4.3 SHIP)        │   │
+│ │ • TE: Heuristic + Ridge 60f+graph hybrid (SHIP)      │   │
 │ │ • Weights: roll3=0.30, roll6=0.15, std=0.55         │   │
 │ │ • Ceiling: 12/18/23 pt shrinkage + WR/TE 12% extra  │   │
 │ │ • VORP ranking + position_rank per scoring format    │   │
@@ -110,7 +111,8 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ │ • OOF ATS: 52.92% (up from 51.96%); 53.0% sealed 2024│ │
 │ │                                                       │   │
 │ ├─ Player ML Predictions ─────────────────────────────┤   │
-│ │ • QB/RB/WR: heuristic-only (SKIP; v4.2 routing)      │   │
+│ │ • QB/RB: heuristic-only (SKIP; v4.3 routing)         │   │
+│ │ • WR: residual hybrid (SHIP; v4.3 retrain)           │   │
 │ │ • TE: Ridge 60f+graph hybrid (SHIP; 3.36 sealed-2025)│   │
 │ │ • Feature input: player_feature_engineering.py       │   │
 │ │ • Router: ml_projection_router.py selects per-pos    │   │
@@ -146,7 +148,7 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │   ├─ Projections, Predictions, Players, Lineups, Games      │
 │   ├─ News, Draft, Rankings, Sleeper User + League, Teams    │
 │   ├─ Teams Defense, Health Freshness, Ops (+health/version) │
-│ • Next.js Frontend (web/frontend/): 11 pages               │
+│ • Next.js Frontend (web/frontend/): 15 pages               │
 │   ├─ Dashboard, Rankings, Projections, Predictions          │
 │   ├─ Lineups, Matchups, Players, News, Draft Tool          │
 │   ├─ Model Accuracy, AI Advisor                             │
@@ -1341,7 +1343,7 @@ WHERE position = 'WR' AND season = 2024;
 
 ### Testing Suite
 
-**Location:** `tests/` (2,120 tests collected as of 2026-06-10)
+**Location:** `tests/` (3,009 tests collected as of 2026-07-10)
 
 Coverage spans fantasy scoring/projections, game predictions, ensemble training, market features, player/team analytics, sentiment pipeline, web API routers, and infrastructure utilities.
 
@@ -1396,5 +1398,6 @@ python -m flake8 src/ tests/ scripts/
 - **v2.0 (2026-04-02):** Updated with v3.0 Graph Layer (Neo4j + pandas dual-path, 22 features, 6 modules, participation data) and v4.0 Web Services (FastAPI 7 endpoints + Next.js frontend + Vercel deployment). Added kicker projections. Updated medallion diagram. Added 858 tests status.
 - **v3.0 (2026-04-03):** Added v4.1 College Integration (CFBD API, prospect features, college teammate networks, coaching trees, 27 new college features, 49 total graph features). Added Game Archive (game_results, game_player_stats tables, historical lookup endpoints). Updated Web Services to 14 endpoints + PostgreSQL. Updated test count to 1154.
 - **v4.0 (2026-06-10):** Updated for v4.2 Model Upgrade. Routing: QB/RB/WR heuristic-only, TE hybrid SHIP (3.36 MAE sealed 2025). QB bias correction +2.5 → +2.3. Game ensemble v3.0 (CV meta-learner, 52.92% OOF ATS, calibrated cover/over probabilities). Feature leakage audit: same-week NGS/team/graph features excluded; `wr_matchup_*`/`te_matchup_*` excluded as same-game leaks. Heuristic MAE 4.78 → 4.71. Test count updated to 2,120.
+- **v5.0 (2026-07-10):** Updated for project v8.2. Routing synced to v4.3 (WR hybrid SHIP via blend-consistent retrain; QB/RB heuristic). Web services summary now lists all 14 routers (backend on HF Spaces, frontend on Vercel; Railway dead since May 2026). Frontend page count 11 → 15. Test count 2,120 → 3,009. New since v4.0: preseason consensus anchor, prop-implied blend (opt-in), graph use cases UC1-UC3, ops pipeline-status dashboard, NFLDataAdapter as single nfl_data_py ingress.
 
-**Last Reviewed:** 2026-06-10
+**Last Reviewed:** 2026-07-10

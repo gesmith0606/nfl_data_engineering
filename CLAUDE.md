@@ -28,7 +28,7 @@ python scripts/bronze_college_ingestion.py --season 2025                        
 python scripts/generate_projections.py --preseason --season 2026 --scoring half_ppr
 python scripts/generate_projections.py --week 1 --season 2026 --scoring ppr
 python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr --include-kickers
-python scripts/generate_projections.py --week 1 --season 2026 --projection-type hybrid  # Hybrid heuristic+ML (Phase 53)
+python scripts/generate_projections.py --week 1 --season 2026 --ml                      # Hybrid heuristic+ML routing (weekly only; no-op in preseason)
 python scripts/generate_projections.py --week 1 --season 2026 --props-blend             # Blend toward prop-implied points (opt-in, RB-first)
 python scripts/generate_projections.py --preseason --season 2026 --vacated-opportunity  # Offseason churn boost (graph UC1, opt-in)
 # Preseason consensus anchor is ON by default; --no-consensus-anchor disables it
