@@ -679,15 +679,16 @@ Model Variants Available (--model-type CLI flag):
     ├─ ridge: Ridge regression with 21 interaction features
     └─ elasticnet: ElasticNet for sparse feature selection
 
-Ship/Skip Gates (per position, v4.2):
+Ship/Skip Gates (per position, v4.3):
     ├─ QB: SKIP (heuristic with +2.3 pt bias correction; XGB path removed)
     ├─ RB: SKIP (residuals degrade even leak-free)
-    ├─ WR: SKIP (non-stationary residuals; bias +0.73 on sealed 2025 — FAIL)
+    ├─ WR: HYBRID SHIP (v4.3 blend-consistent retrain; earlier v4.2 gate had
+    │      FAILED on non-stationary residuals, bias +0.73 sealed 2025)
     ├─ TE: HYBRID SHIP (sealed 2025: 3.52 → 3.36 MAE after leakage fix)
     └─ Fallback: Always revert to projection_engine heuristic if model absent
 ```
 
-#### Hybrid Projection (in testing)
+#### Hybrid Projection (production WR/TE path)
 
 ```python
 # src/hybrid_projection.py
