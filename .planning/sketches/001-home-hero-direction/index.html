@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sketch 001 — Home Hero Direction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../themes/default.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); padding-top: 46px; }
+  .variant { display:none; }
+  .variant.active { display:block; }
+
+  /* ---------- variant tab bar (sketch chrome, not the design) ---------- */
+  #variant-nav { position:fixed; top:0; left:0; right:0; z-index:9998; background:#fff;
+    border-bottom:1px solid #e5e5e5; padding:8px 16px; display:flex; gap:8px; font-family:system-ui; }
+  .variant-tab { border:1px solid #d5d5da; background:#fff; padding:6px 14px; border-radius:8px;
+    font-size:13px; cursor:pointer; transition: all .15s ease; }
+  .variant-tab:hover { background:#f0f0f3; }
+  .variant-tab.active { background:#0b1120; color:#fff; border-color:#0b1120; }
+
+  /* ---------- shared: scorebug ---------- */
+  .bug { font-family: var(--font-bug); box-shadow: var(--shadow-bug); border-radius: 8px;
+    background: linear-gradient(180deg, #10182e 0%, var(--navy) 55%, #080d1b 100%);
+    color:#fff; display:inline-block; position:relative; }
+  .bug-clock { position:absolute; top:-24px; left:50%; transform:translateX(-50%);
+    background:#080d1b; color:#fff; font-size:14px; letter-spacing:.08em; padding:3px 14px;
+    border-radius:6px 6px 0 0; font-weight:600; }
+  .bug-row { display:flex; align-items:center; gap:0; padding:10px 22px; }
+  .bug-team { display:flex; align-items:center; gap:12px; min-width:190px; }
+  .bug-team.away { justify-content:flex-end; }
+  .bug-name { font-size:30px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  .bug-chip { width:34px; height:22px; border-radius:3px; display:inline-block; box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
+  .bug-score { font-size:40px; font-weight:800; width:64px; text-align:center; }
+  .bug-sep { width:34px; height:44px; margin:0 6px; display:flex; align-items:center; justify-content:center; }
+  .trophy { width:22px; height:38px; background:linear-gradient(180deg,#f0d878,var(--gold) 45%,#8f7220);
+    clip-path: polygon(50% 0%, 92% 10%, 72% 46%, 62% 58%, 66% 84%, 84% 100%, 16% 100%, 34% 84%, 38% 58%, 28% 46%, 8% 10%);
+    filter: drop-shadow(0 0 6px rgba(212,175,55,.55)); }
+  .bug-detail { font-size:13px; letter-spacing:.06em; color:#cfd6e4; text-transform:uppercase; padding-left:18px;
+    border-left:1px solid rgba(212,175,55,.5); margin-left:16px; }
+  .bug-ribbon { position:absolute; bottom:-22px; left:50%; transform:translateX(-50%);
+    background:var(--gold); color:#0b1120; font-size:12px; font-weight:700; letter-spacing:.1em;
+    padding:3px 16px; border-radius:0 0 6px 6px; text-transform:uppercase; cursor:pointer; transition:all .15s ease; }
+  .bug-ribbon:hover { background:#e5c554; }
+  .bug.compact .bug-name { font-size:18px; }
+  .bug.compact .bug-score { font-size:22px; width:36px; }
+  .bug.compact .bug-row { padding:6px 12px; }
+  .bug.compact .bug-team { min-width:auto; }
+  .bug.compact .bug-chip { width:24px; height:16px; }
+  .bug.compact .bug-sep { height:26px; width:22px; }
+  .bug.compact .trophy { width:14px; height:24px; }
+
+  /* team chip colors */
+  .chip-kc { background:linear-gradient(135deg,#E31837 60%,#FFB81C); }
+  .chip-buf { background:linear-gradient(135deg,#00338D 60%,#C60C30); }
+  .chip-mia { background:linear-gradient(135deg,#008E97 60%,#FC4C02); }
+  .chip-phi { background:linear-gradient(135deg,#004C54 60%,#A5ACAF); }
+
+  /* ---------- shared: mecha assistant ---------- */
+  #mecha { position:fixed; bottom:24px; right:24px; z-index:9000; cursor:pointer; width:74px; height:84px;
+    transition: transform .2s ease; }
+  #mecha:hover { transform: translateY(-3px) scale(1.04); }
+  .mecha-head { position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:64px; height:58px;
+    background: linear-gradient(160deg,#1d2947 0%, var(--navy) 45%, #060a14 100%);
+    clip-path: polygon(50% 0%, 88% 18%, 100% 55%, 82% 100%, 62% 88%, 38% 88%, 18% 100%, 0% 55%, 12% 18%);
+    box-shadow: var(--shadow-bug); }
+  .mecha-head::after { content:''; position:absolute; left:50%; top:56%; transform:translateX(-50%);
+    width:2px; height:36%; background:rgba(212,175,55,.5); }  /* face panel line */
+  .mecha-fin-l, .mecha-fin-r { position:absolute; top:2px; width:26px; height:26px;
+    background:linear-gradient(180deg,#f0d878,var(--gold)); filter:drop-shadow(0 0 5px rgba(212,175,55,.7)); }
+  .mecha-fin-l { left:6px;  clip-path: polygon(100% 100%, 0% 0%, 55% 100%); }
+  .mecha-fin-r { right:6px; clip-path: polygon(0% 100%, 100% 0%, 45% 100%); }
+  .mecha-eye { position:absolute; top:26px; width:13px; height:5px; background:var(--cyan);
+    box-shadow: var(--shadow-glow-cyan); border-radius:1px; animation: eye-pulse 3.2s ease-in-out infinite; }
+  .mecha-eye.l { left:15px; transform: skewX(-14deg); }
+  .mecha-eye.r { right:15px; transform: skewX(14deg); }
+  @keyframes eye-pulse { 0%,100% {opacity:1;} 50% {opacity:.55;} }
+  #mecha-label { position:absolute; bottom:-16px; left:50%; transform:translateX(-50%); font-family:var(--font-bug);
+    font-size:10px; letter-spacing:.14em; color:var(--gold); white-space:nowrap; text-transform:uppercase; }
+  #mecha-chat { position:fixed; bottom:120px; right:24px; z-index:9000; width:300px; background:var(--navy);
+    color:#fff; border-radius:14px; box-shadow:var(--shadow-bug); padding:16px; display:none;
+    border:1px solid rgba(212,175,55,.35); font-size:14px; }
+  #mecha-chat.open { display:block; animation: chat-in .18s ease; }
+  @keyframes chat-in { from { opacity:0; transform:translateY(8px);} to {opacity:1; transform:none;} }
+  #mecha-chat .hdr { font-family:var(--font-bug); letter-spacing:.12em; color:var(--gold); font-size:12px;
+    text-transform:uppercase; margin-bottom:8px; display:flex; justify-content:space-between; }
+  #mecha-chat input { width:100%; margin-top:10px; background:#141c33; border:1px solid #2a3350;
+    color:#fff; border-radius:8px; padding:8px 10px; font-size:13px; outline:none; }
+  #mecha-chat input:focus { border-color: var(--cyan); }
+  #mecha-reply { color:#cfd6e4; line-height:1.45; }
+
+  /* ---------- shared bits ---------- */
+  .stat-pos { color: var(--pos); } .stat-neg { color: var(--neg); }
+  .cta { display:inline-block; border-radius: var(--radius-full); padding:12px 28px; font-size:16px;
+    font-weight:600; cursor:pointer; border:none; transition:all .15s ease; }
+  .corr-chip { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-bug); font-size:16px;
+    letter-spacing:.05em; padding:7px 16px; border-radius:var(--radius-full); transition: all .15s ease; cursor:default; }
+  .corr-chip:hover { transform: translateY(-2px); }
+
+  /* =========================================================
+     VARIANT A — Apple Minimalism (light, restrained)
+     ========================================================= */
+  #variant-a { background:#fff; }
+  .a-nav { position:sticky; top:46px; z-index:100; display:flex; justify-content:center; gap:34px;
+    padding:14px 0; background:rgba(255,255,255,.72); backdrop-filter:blur(18px) saturate(1.6);
+    border-bottom:1px solid rgba(0,0,0,.06); font-size:13.5px; }
+  .a-nav a { color:#1d1d1f; text-decoration:none; opacity:.82; transition:opacity .15s; }
+  .a-nav a:hover { opacity:1; }
+  .a-nav .brand { font-weight:700; letter-spacing:.02em; }
+  .a-hero { text-align:center; padding: var(--space-32) 24px 72px; }
+  .a-hero h1 { font-size: clamp(44px, 6.5vw, 84px); line-height:1.03; font-weight:700; letter-spacing:-0.015em; }
+  .a-hero h1 .gold { color: var(--gold-deep); }
+  .a-hero .sub { font-size:21px; color:var(--color-text-muted); margin-top:22px; font-weight:400; }
+  .a-stats { display:flex; justify-content:center; gap:56px; margin-top:56px; flex-wrap:wrap; }
+  .a-stat .num { font-size:44px; font-weight:700; letter-spacing:-.02em; }
+  .a-stat .lbl { font-size:13px; color:var(--color-text-muted); margin-top:4px; letter-spacing:.02em; }
+  .a-ctas { margin-top:52px; display:flex; gap:14px; justify-content:center; }
+  .a-cta-dark { background:#0b1120; color:#fff; } .a-cta-dark:hover { background:#1d2947; }
+  .a-cta-ghost { background:transparent; color:#0b1120; border:1px solid #c8c8cd !important; border-style:solid; }
+  .a-cta-ghost:hover { border-color:#0b1120 !important; }
+  .a-bugwrap { display:flex; justify-content:center; padding: 20px 24px 110px; }
+  .a-feature { background:#f5f5f7; text-align:center; padding: var(--space-32) 24px; }
+  .a-feature h2 { font-size: clamp(30px,4vw,48px); font-weight:700; letter-spacing:-.01em; }
+  .a-feature .sub { font-size:19px; color:var(--color-text-muted); margin-top:14px; max-width:640px; margin-left:auto; margin-right:auto; line-height:1.5; }
+  .a-corrs { margin-top:40px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .a-corrs .corr-chip { background:#fff; box-shadow: var(--shadow-soft); color:#0b1120; }
+  .a-corrs .rho { color: var(--pos); font-weight:700; }
+  .a-fineprint { margin-top:28px; font-size:13px; color:var(--color-text-muted); }
+
+  /* =========================================================
+     VARIANT B — Broadcast Overlay (the scorebug IS the hero)
+     ========================================================= */
+  #variant-b { background: var(--navy-deep); }
+  .b-nav { position:sticky; top:46px; z-index:100; display:flex; align-items:center; gap:26px; padding:0 28px;
+    height:52px; background:linear-gradient(180deg,#10182e,var(--navy)); color:#fff;
+    font-family:var(--font-bug); letter-spacing:.1em; font-size:15px; text-transform:uppercase;
+    border-bottom:2px solid var(--gold); }
+  .b-nav a { color:#cfd6e4; text-decoration:none; transition:color .15s; }
+  .b-nav a:hover { color:var(--gold); }
+  .b-nav .brand { color:#fff; font-weight:800; font-size:18px; margin-right:12px; }
+  .b-nav .brand .g { color: var(--gold); }
+  .b-hero { position:relative; min-height:78vh; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; overflow:hidden;
+    background: linear-gradient(180deg, #10182e 0%, #16321c 30%, var(--pitch-a) 55%, var(--pitch-b) 100%); }
+  .b-hero .yard { position:absolute; left:6%; right:6%; height:2px; background:rgba(255,255,255,.13); }
+  .b-hero h1 { position:relative; z-index:2; color:#fff; font-family:var(--font-bug); text-transform:uppercase;
+    font-weight:800; font-size: clamp(38px, 5.5vw, 72px); letter-spacing:.03em; text-align:center;
+    text-shadow: 0 4px 24px rgba(0,0,0,.5); }
+  .b-hero h1 .gold { color: var(--gold); }
+  .b-hero .sub { position:relative; z-index:2; color:#e6eaf2; font-size:18px; margin-top:12px; text-align:center; }
+  .b-bugwrap { position:relative; z-index:2; margin-top:72px; }
+  .b-stats { position:relative; z-index:2; display:flex; gap:12px; margin-top:64px; flex-wrap:wrap; justify-content:center; }
+  .b-stat { font-family:var(--font-bug); background:rgba(7,11,22,.82); border:1px solid rgba(212,175,55,.4);
+    color:#fff; padding:10px 20px; border-radius:8px; text-align:center; min-width:118px; }
+  .b-stat .num { font-size:26px; font-weight:800; letter-spacing:.02em; }
+  .b-stat .lbl { font-size:12px; letter-spacing:.12em; color:#cfd6e4; text-transform:uppercase; margin-top:2px; }
+  .b-feature { background: var(--navy); color:#fff; padding: 90px 24px; text-align:center; border-top:2px solid var(--gold); }
+  .b-feature h2 { font-family:var(--font-bug); text-transform:uppercase; font-size: clamp(28px,3.6vw,44px);
+    letter-spacing:.04em; font-weight:800; }
+  .b-feature .sub { color:#cfd6e4; font-size:17px; margin-top:12px; max-width:620px; margin-left:auto; margin-right:auto; line-height:1.55; }
+  .b-corrs { margin-top:36px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .b-corrs .corr-chip { background:#141c33; border:1px solid rgba(212,175,55,.35); color:#fff; }
+  .b-corrs .rho { color:var(--gold); font-weight:800; }
+
+  /* =========================================================
+     VARIANT C — Dark Stadium Hybrid (apple restraint, night mode)
+     ========================================================= */
+  #variant-c { background: radial-gradient(1200px 500px at 50% -80px, #1b2440 0%, transparent 60%), var(--navy-deep); background-color: var(--navy-deep); }
+  .c-nav { position:sticky; top:46px; z-index:100; display:flex; justify-content:center; gap:34px; padding:15px 0;
+    background:rgba(7,11,22,.65); backdrop-filter:blur(18px); border-bottom:1px solid rgba(255,255,255,.08);
+    font-size:13.5px; }
+  .c-nav a { color:#e6eaf2; opacity:.75; text-decoration:none; transition:opacity .15s; }
+  .c-nav a:hover { opacity:1; }
+  .c-nav .brand { font-weight:700; opacity:1; color:#fff; }
+  .c-nav .brand .g { color:var(--gold); }
+  .c-hero { text-align:center; padding: 128px 24px 80px; position:relative;
+    background: radial-gradient(900px 420px at 50% 0%, rgba(33,46,84,.55) 0%, transparent 70%); }
+  .c-hero h1 { color:#fff; font-size: clamp(42px,6vw,78px); font-weight:700; letter-spacing:-.015em; line-height:1.05; }
+  .c-hero h1 .gold { background:linear-gradient(90deg,#f0d878,var(--gold)); -webkit-background-clip:text;
+    background-clip:text; color:transparent; }
+  .c-hero .sub { color:#9aa3b8; font-size:20px; margin-top:20px; }
+  .c-receipt { margin:64px auto 0; display:inline-block; text-align:left; background:rgba(20,28,51,.6);
+    border:1px solid rgba(212,175,55,.3); border-radius:14px; padding:26px 34px; backdrop-filter: blur(8px); }
+  .c-receipt .hdr { font-family:var(--font-bug); text-transform:uppercase; letter-spacing:.14em; font-size:13px;
+    color:var(--gold); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+  .c-receipt .hdr::after { content:''; flex:1; height:1px; background:rgba(212,175,55,.35); min-width:60px; }
+  .c-row { display:flex; justify-content:space-between; gap:46px; color:#fff; font-size:16px; padding:7px 0;
+    border-bottom:1px solid rgba(255,255,255,.06); }
+  .c-row:last-child { border-bottom:none; }
+  .c-row .pos-lbl { color:#9aa3b8; font-family:var(--font-bug); letter-spacing:.1em; text-transform:uppercase; }
+  .c-row .val { font-weight:700; font-variant-numeric: tabular-nums; }
+  .c-ctas { margin-top:56px; display:flex; gap:14px; justify-content:center; }
+  .c-cta-gold { background:linear-gradient(90deg,#e5c554,var(--gold)); color:#0b1120; box-shadow: var(--shadow-glow-gold); }
+  .c-cta-gold:hover { filter:brightness(1.08); }
+  .c-cta-ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.3) !important; border-style:solid; }
+  .c-cta-ghost:hover { border-color:#fff !important; }
+  .c-bugwrap { display:flex; justify-content:center; padding:40px 24px 110px; }
+  .c-feature { padding: 100px 24px; text-align:center; border-top:1px solid rgba(255,255,255,.07); }
+  .c-feature h2 { color:#fff; font-size:clamp(30px,4vw,46px); font-weight:700; letter-spacing:-.01em; }
+  .c-feature .sub { color:#9aa3b8; font-size:18px; margin-top:14px; max-width:640px; margin:14px auto 0; line-height:1.55; }
+  .c-corrs { margin-top:40px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .c-corrs .corr-chip { background:rgba(20,28,51,.8); border:1px solid rgba(34,211,238,.3); color:#fff; }
+  .c-corrs .rho { color:var(--cyan); font-weight:700; }
+
+  /* sketch toolbar bottom-LEFT so it never fights the mecha */
+  #sketch-tools { position:fixed; bottom:12px; left:12px; z-index:9999; font-family:system-ui; font-size:12px;
+    background:rgba(0,0,0,0.72); color:white; padding:8px 12px; border-radius:8px; opacity:.35;
+    transition:opacity .2s; display:flex; gap:8px; align-items:center; }
+  #sketch-tools:hover { opacity:1; }
+  #sketch-tools select, #sketch-tools button { font-size:12px; border-radius:5px; border:none; padding:3px 7px; cursor:pointer; }
+  #viewport-frame { margin:0 auto; transition:max-width .25s ease; }
+</style>
+</head>
+<body>
+
+<div id="variant-nav">
+  <button class="variant-tab active" onclick="showVariant('a', event)">A: Apple Minimal</button>
+  <button class="variant-tab" onclick="showVariant('b', event)">B: Broadcast Overlay</button>
+  <button class="variant-tab" onclick="showVariant('c', event)">C: Dark Stadium Hybrid</button>
+</div>
+
+<div id="viewport-frame">
+
+<!-- ============================ VARIANT A ============================ -->
+<div id="variant-a" class="variant active">
+  <nav class="a-nav">
+    <a href="#" class="brand">GRIDIRON&nbsp;IQ</a>
+    <a href="#">Draft Room</a><a href="#">Rankings</a><a href="#">Scores</a>
+    <a href="#">News</a><a href="#">Matchups</a><a href="#">My League</a>
+  </nav>
+
+  <section class="a-hero">
+    <h1>We beat the industry's<br>consensus projections.<br><span class="gold">Here's the receipt.</span></h1>
+    <p class="sub">Player projections graded against Sleeper's consensus across 11,000+ player-weeks. Misses published too.</p>
+    <div class="a-stats">
+      <div class="a-stat"><div class="num stat-pos" data-count="-0.39">−0.39</div><div class="lbl">QB · MAE vs consensus</div></div>
+      <div class="a-stat"><div class="num stat-pos" data-count="-0.075">−0.075</div><div class="lbl">WR · MAE vs consensus</div></div>
+      <div class="a-stat"><div class="num stat-pos" data-count="-0.43">−0.43</div><div class="lbl">TE · MAE vs consensus</div></div>
+      <div class="a-stat"><div class="num" style="color:var(--color-text-muted)" data-count="+0.26">+0.26</div><div class="lbl">RB · we're working on it</div></div>
+    </div>
+    <div class="a-ctas">
+      <button class="cta a-cta-dark" onclick="ctaPress(this,'Opening rankings…')">See the rankings</button>
+      <button class="cta a-cta-ghost" onclick="ctaPress(this,'Loading proof page…')">Read the methodology</button>
+    </div>
+  </section>
+
+  <div class="a-bugwrap">
+    <div class="bug" title="Predicted line — the scorebug as a restrained accent">
+      <div class="bug-clock">OUR LINE&nbsp;&nbsp;KC −2.5</div>
+      <div class="bug-row">
+        <div class="bug-team away"><span class="bug-name">Chiefs</span><span class="bug-chip chip-kc"></span></div>
+        <div class="bug-score">27</div>
+        <div class="bug-sep"><div class="trophy"></div></div>
+        <div class="bug-score">24</div>
+        <div class="bug-team"><span class="bug-chip chip-buf"></span><span class="bug-name">Bills</span></div>
+        <div class="bug-detail">Wk 1 · SNF<br>Edge: HIGH</div>
+      </div>
+      <div class="bug-ribbon" onclick="ctaPress(this,'→ scores')">Every game, every week →</div>
+    </div>
+  </div>
+
+  <section class="a-feature">
+    <h2>Graph intelligence.<br>Not just projections.</h2>
+    <p class="sub">We model the connections between players — 121 stability-gated correlations mined from a decade of games. Know whose big games arrive together before you draft or stack them.</p>
+    <div class="a-corrs">
+      <span class="corr-chip">TUA ↔ HILL <span class="rho">+0.60</span></span>
+      <span class="corr-chip">FIELDS ↔ KMET <span class="rho">+0.71</span></span>
+      <span class="corr-chip">TUA ↔ WADDLE <span class="rho">+0.52</span></span>
+      <span class="corr-chip">BREIDA ↔ BARKLEY <span class="rho" style="color:var(--neg)">−0.42</span></span>
+    </div>
+    <p class="a-fineprint">Every edge sign-stable across a 2016–22 train window and a 2023–25 holdout. 7,559 candidates in, 121 served.</p>
+  </section>
+</div>
+
+<!-- ============================ VARIANT B ============================ -->
+<div id="variant-b" class="variant">
+  <nav class="b-nav">
+    <span class="brand">GRIDIRON<span class="g">IQ</span></span>
+    <a href="#">Draft Room</a><a href="#">Rankings</a><a href="#">Scores</a>
+    <a href="#">News</a><a href="#">Matchups</a><a href="#">My League</a>
+  </nav>
+
+  <section class="b-hero">
+    <div class="yard" style="top:18%"></div><div class="yard" style="top:33%"></div>
+    <div class="yard" style="top:48%"></div><div class="yard" style="top:63%"></div>
+    <div class="yard" style="top:78%"></div><div class="yard" style="top:93%"></div>
+    <h1>We beat the consensus.<br><span class="gold">Here's the receipt.</span></h1>
+    <p class="sub">Graded against Sleeper across 11,000+ player-weeks — misses published too.</p>
+    <div class="b-bugwrap">
+      <div class="bug">
+        <div class="bug-clock">OUR LINE&nbsp;&nbsp;KC −2.5</div>
+        <div class="bug-row">
+          <div class="bug-team away"><span class="bug-name">Chiefs</span><span class="bug-chip chip-kc"></span></div>
+          <div class="bug-score">27</div>
+          <div class="bug-sep"><div class="trophy"></div></div>
+          <div class="bug-score">24</div>
+          <div class="bug-team"><span class="bug-chip chip-buf"></span><span class="bug-name">Bills</span></div>
+          <div class="bug-detail">Wk 1 · SNF<br>Edge: HIGH</div>
+        </div>
+        <div class="bug-ribbon" onclick="ctaPress(this,'→ scores')">See every prediction →</div>
+      </div>
+    </div>
+    <div class="b-stats">
+      <div class="b-stat"><div class="num stat-pos">−0.39</div><div class="lbl">QB</div></div>
+      <div class="b-stat"><div class="num stat-pos">−0.075</div><div class="lbl">WR</div></div>
+      <div class="b-stat"><div class="num stat-pos">−0.43</div><div class="lbl">TE</div></div>
+      <div class="b-stat"><div class="num" style="color:#9aa3b8">+0.26</div><div class="lbl">RB · WIP</div></div>
+    </div>
+  </section>
+
+  <section class="b-feature">
+    <h2>Graph Intelligence</h2>
+    <p class="sub">121 stability-gated player correlations from a decade of games. Stack the pairs whose ceilings arrive together — fade the ones that trade off.</p>
+    <div class="b-corrs">
+      <span class="corr-chip">TUA ↔ HILL <span class="rho">+0.60</span></span>
+      <span class="corr-chip">FIELDS ↔ KMET <span class="rho">+0.71</span></span>
+      <span class="corr-chip">TUA ↔ WADDLE <span class="rho">+0.52</span></span>
+      <span class="corr-chip">BREIDA ↔ BARKLEY <span class="rho" style="color:var(--neg)">−0.42</span></span>
+    </div>
+  </section>
+</div>
+
+<!-- ============================ VARIANT C ============================ -->
+<div id="variant-c" class="variant">
+  <nav class="c-nav">
+    <a href="#" class="brand">GRIDIRON&nbsp;<span class="g">IQ</span></a>
+    <a href="#">Draft Room</a><a href="#">Rankings</a><a href="#">Scores</a>
+    <a href="#">News</a><a href="#">Matchups</a><a href="#">My League</a>
+  </nav>
+
+  <section class="c-hero">
+    <h1>We beat the industry's<br>consensus projections.<br><span class="gold">Here's the receipt.</span></h1>
+    <p class="sub">Graded against Sleeper's consensus across 11,000+ player-weeks. Misses published too.</p>
+    <div class="c-receipt">
+      <div class="hdr">2025 Season · vs Sleeper Consensus</div>
+      <div class="c-row"><span class="pos-lbl">Quarterbacks</span><span class="val stat-pos">−0.39 MAE</span></div>
+      <div class="c-row"><span class="pos-lbl">Wide Receivers</span><span class="val stat-pos">−0.075 MAE</span></div>
+      <div class="c-row"><span class="pos-lbl">Tight Ends</span><span class="val stat-pos">−0.43 MAE</span></div>
+      <div class="c-row"><span class="pos-lbl">Running Backs</span><span class="val" style="color:#9aa3b8">+0.26 · working on it</span></div>
+    </div>
+    <div class="c-ctas">
+      <button class="cta c-cta-gold" onclick="ctaPress(this,'Opening rankings…')">See the rankings</button>
+      <button class="cta c-cta-ghost" onclick="ctaPress(this,'Loading proof page…')">Methodology</button>
+    </div>
+  </section>
+
+  <div class="c-bugwrap">
+    <div class="bug">
+      <div class="bug-clock">OUR LINE&nbsp;&nbsp;KC −2.5</div>
+      <div class="bug-row">
+        <div class="bug-team away"><span class="bug-name">Chiefs</span><span class="bug-chip chip-kc"></span></div>
+        <div class="bug-score">27</div>
+        <div class="bug-sep"><div class="trophy"></div></div>
+        <div class="bug-score">24</div>
+        <div class="bug-team"><span class="bug-chip chip-buf"></span><span class="bug-name">Bills</span></div>
+        <div class="bug-detail">Wk 1 · SNF<br>Edge: HIGH</div>
+      </div>
+      <div class="bug-ribbon" onclick="ctaPress(this,'→ scores')">Every game, every week →</div>
+    </div>
+  </div>
+
+  <section class="c-feature">
+    <h2>Graph intelligence. Not just projections.</h2>
+    <p class="sub">121 stability-gated player correlations mined from a decade of games. Know whose big games arrive together before you draft or stack them.</p>
+    <div class="c-corrs">
+      <span class="corr-chip">TUA ↔ HILL <span class="rho">+0.60</span></span>
+      <span class="corr-chip">FIELDS ↔ KMET <span class="rho">+0.71</span></span>
+      <span class="corr-chip">TUA ↔ WADDLE <span class="rho">+0.52</span></span>
+      <span class="corr-chip">BREIDA ↔ BARKLEY <span class="rho" style="color:var(--neg)">−0.42</span></span>
+    </div>
+  </section>
+</div>
+
+</div><!-- /viewport-frame -->
+
+<!-- Mecha assistant (shared across variants) -->
+<div id="mecha" onclick="toggleMecha()" title="GX-01 — your AI advisor">
+  <div class="mecha-fin-l"></div><div class="mecha-fin-r"></div>
+  <div class="mecha-head"><div class="mecha-eye l"></div><div class="mecha-eye r"></div></div>
+  <div id="mecha-label">GX-01</div>
+</div>
+<div id="mecha-chat">
+  <div class="hdr"><span>ADVISOR // GX-01</span><span style="cursor:pointer" onclick="toggleMecha()">✕</span></div>
+  <div id="mecha-reply">GX-01 online. Ask me anything — start/sit, trade value, or why we're fading a player this week.</div>
+  <input placeholder="Ask about your matchup…" onkeydown="if(event.key==='Enter'){mechaReply(this)}">
+</div>
+
+<div id="sketch-tools">
+  <select onchange="document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css'">
+    <option value="default">WC26 Broadcast</option>
+  </select>
+  <button onclick="setViewport(375)">📱</button>
+  <button onclick="setViewport(768)">💊</button>
+  <button onclick="setViewport(0)">🖥</button>
+</div>
+
+<script>
+function showVariant(id, ev) {
+  document.querySelectorAll('.variant').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.variant-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('variant-' + id).classList.add('active');
+  ev.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+function setViewport(w) {
+  document.getElementById('viewport-frame').style.maxWidth = w ? w + 'px' : 'none';
+}
+function toggleMecha() {
+  document.getElementById('mecha-chat').classList.toggle('open');
+}
+function mechaReply(input) {
+  const q = input.value.trim(); if (!q) return;
+  const r = document.getElementById('mecha-reply');
+  r.innerHTML = '<em style="color:#8892ad">Analyzing…</em>';
+  setTimeout(() => {
+    r.innerHTML = '<strong style="color:var(--cyan)">GX-01:</strong> Start Waddle. Tua↔Waddle carry a +0.52 stack correlation and the matchup grades soft — 8.2 targets projected.';
+  }, 700);
+  input.value = '';
+}
+function ctaPress(el, msg) {
+  const old = el.textContent; el.textContent = msg; el.style.opacity = .7;
+  setTimeout(() => { el.textContent = old; el.style.opacity = 1; }, 900);
+}
+</script>
+</body>
+</html>

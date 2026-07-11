@@ -1,0 +1,43 @@
+/* WC26 Broadcast × Apple — shared sketch theme
+   Vocabulary from .planning/design-refs/wc26-broadcast-scorebug.webp:
+   near-black navy overlays, trophy gold, condensed white caps, flag chips.
+   Body typography stays system-ui (= SF Pro on Mac, the actual Apple feel). */
+:root {
+  /* Colors — WC26 broadcast */
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+  --color-border: #e8e8ed;
+  --color-text: #0b0f19;
+  --color-text-muted: #6e6e73;
+
+  --navy: #0b1120;          /* scorebug bar */
+  --navy-deep: #070b16;     /* stadium dark */
+  --navy-soft: #141c33;     /* raised panels on dark */
+  --gold: #d4af37;          /* trophy gold */
+  --gold-deep: #b8952e;
+  --cyan: #22d3ee;          /* mecha eyes / live accents */
+  --pitch-a: #2d5a27;       /* field gradient (from reference frame) */
+  --pitch-b: #1a3a17;
+
+  --pos: #10b981;           /* we win the stat */
+  --neg: #ef4444;           /* we lose the stat (shown honestly) */
+
+  /* Typography */
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --font-bug: 'Barlow Condensed', 'Arial Narrow', sans-serif;   /* broadcast caps */
+  --font-mono: 'SF Mono', ui-monospace, monospace;
+
+  /* Spacing (apple-generous) */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-20: 80px;
+  --space-32: 128px;
+
+  /* Shapes */
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 18px; --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-bug: 0 10px 30px rgba(7, 11, 22, 0.45);
+  --shadow-soft: 0 2px 12px rgba(11, 17, 32, 0.08);
+  --shadow-glow-gold: 0 0 18px rgba(212, 175, 55, 0.45);
+  --shadow-glow-cyan: 0 0 10px rgba(34, 211, 238, 0.9);
+}
