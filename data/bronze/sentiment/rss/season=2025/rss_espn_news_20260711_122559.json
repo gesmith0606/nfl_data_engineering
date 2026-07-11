@@ -1,0 +1,247 @@
+{
+  "fetch_run_id": "f1b1392a-6c68-450d-9506-a12da859f60f",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-07-11T12:25:59.739402+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 15,
+  "items": [
+    {
+      "external_id": "US-EN-49248530",
+      "url": "https://www.espn.com/nfl/story/_/id/49248530/ranking-nfl-top-10-offensive-tackles-2026-execs-coaches-scouts",
+      "title": "The best offensive tackles in the NFL: We asked ex...",
+      "body_text": "A new No. 1 OT in the league? Two blockers from the same team in the top 10? We canvassed NFL decision-makers to rank the NFL's best tackles for 2026.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-11T13:15:24+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49267903",
+      "url": "https://www.espn.com/nfl/story/_/id/49267903/ranking-nfl-top-10-tight-ends-2026-execs-coaches-scouts",
+      "title": "Who are the NFL's best tight ends? Execs, coaches ...",
+      "body_text": "Brock Bowers vs. George Kittle vs. Trey McBride for No. 1? We tasked evaluators to help rank the best.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-11T13:15:24+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Brock Bowers",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0039338",
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49325177",
+      "url": "https://www.espn.com/nfl/story/_/id/49325177/no-gps-tracker-terrion-arnold-work-nfl-teams",
+      "title": "No GPS tracker for Arnold, can work out for teams",
+      "body_text": "Former Lions cornerback Terrion Arnold does not need to wear a GPS tracker as a condition of his release, a Florida judge ruled Friday, allowing him to continue to work out with NFL teams in an effort to get re-signed after being cut.",
+      "author": "Xuan Thai",
+      "published_at": "2026-07-11T13:18:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Lions",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49317702",
+      "url": "https://www.espn.com/nfl/story/_/id/49317702/study-nfl-players-4-s-more-likely-die-neurodegenerative-disease",
+      "title": "Study: NFLers die from dementia at higher rate",
+      "body_text": "NFL players are four times more likely than the general population to die of neurodegenerative diseases such as dementia and Parkinson's, according to a study released Wednesday.",
+      "author": "Robert Klemko",
+      "published_at": "2026-07-11T13:18:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49315574",
+      "url": "https://www.espn.com/nfl/story/_/id/49315574/commanders-retire-no-44-worn-hall-famer-john-riggins",
+      "title": "Commanders to retire No. 44 of HOF RB Riggins",
+      "body_text": "The Commanders are retiring the No. 44 worn by Hall of Famer and franchise rushing leader John Riggins -- more than 40 years after one of the most famous runs in Super Bowl history.",
+      "author": "John Keim",
+      "published_at": "2026-07-11T13:18:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Riggins The",
+        "John Riggins",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-49308565",
+      "url": "https://www.espn.com/nfl/story/_/id/49308565/colts-add-kicker-adam-vinatieri-team-ring-honor",
+      "title": "Clutch Vinatieri to enter Colts' Ring of Honor",
+      "body_text": "Kicker Adam Vinatieri, who will enter the Pro Football Hall of Fame next month, will enter the Colts' Ring of Honor during a ceremony Oct. 18.",
+      "author": "Stephen Holder",
+      "published_at": "2026-07-11T13:18:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Clutch Vinatieri",
+        "Honor Kicker",
+        "Adam Vinatieri",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-49296262",
+      "url": "https://www.espn.com/nfl/story/_/id/49296262/late-cowboys-player-marshawn-kneeland-diagnosed-cte",
+      "title": "Late Cowboys' player Kneeland diagnosed with CTE",
+      "body_text": "Former Cowboys defensive end Marshawn Kneeland has been posthumously diagnosed with CTE.",
+      "author": null,
+      "published_at": "2026-07-11T13:18:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Late Cowboys",
+        "Former Cowboys",
+        "Marshawn Kneeland"
+      ],
+      "resolved_player_ids": [
+        "00-0039900"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49286897",
+      "url": "https://www.espn.com/nba/story/_/id/49286897/sources-cb-rasul-douglas-sign-1-year-deal-commanders",
+      "title": "Sources: CB Douglas to sign with Commanders",
+      "body_text": "Free agent CB Rasul Douglas is planning to sign a one-year deal with the Washington Commanders worth up to $3.8 million, sources told ESPN's Adam Schefter.",
+      "author": null,
+      "published_at": "2026-07-11T13:18:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Commanders Free",
+        "Rasul Douglas",
+        "Washington Commanders",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0033551"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-49279425",
+      "url": "https://www.espn.com/nfl/story/_/id/49279425/bears-qb-caleb-williams-gifts-pope-leo-xiv-autographed-jersey",
+      "title": "Bears QB Williams gifts Pope autographed jersey",
+      "body_text": "Bears quarterback Caleb Williams sent an autographed jersey to Pope Leo XIV, a Chicago native and the first American-born pope in the history of the Catholic Church.",
+      "author": "Courtney Cronin",
+      "published_at": "2026-07-11T13:18:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Caleb Williams",
+        "Pope Leo",
+        "Catholic Church"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "US-EN-49309306",
+      "url": "https://www.espn.com/nfl/story/_/id/49309306/2026-nfl-season-super-bowl-roster-building-positions-draft-signings-trades",
+      "title": "🏈 Barnwell's guide to building a Super Bowl roste...",
+      "body_text": "Do teams need first-round QBs to reach the Super Bowl? Is it crucial to spend big on No. 1 receivers and top-tier edge rushers? Let's sort through rosters from the past 15 Super Bowls.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-07-11T13:18:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49318373",
+      "url": "https://www.espn.com/nfl/story/_/id/49318373/seattle-seahawks-2026-depth-chart-better-worse-same",
+      "title": "Better, worse or the same? Examining the Seahawks'...",
+      "body_text": "After some notable departures, let's look at key positions ahead of the 2026 season.",
+      "author": "Brady Henderson",
+      "published_at": "2026-07-11T13:13:45+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-49286915",
+      "url": "https://www.espn.com/nfl/story/_/id/49286915/nfl-afc-east-bills-jets-dolphins-patriots-josh-allen-drake-maye-aj-brown-geno-smith-malik-willis",
+      "title": "AFC East: Can Bills, Jets or Dolphins unseat the Patriots in 2026?",
+      "body_text": "Four big questions for our AFC East reporters, including biggest concerns and how the offseason impacted the QBs.",
+      "author": "NFL Nation",
+      "published_at": "2026-07-10T18:00:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "US-EN-49225969",
+      "url": "https://www.espn.com/nfl/story/_/id/49225969/inside-denver-broncos-coach-sean-payton-playoffs",
+      "title": "Inside the Broncos' playoff run: Fifteen days with Sean Payton",
+      "body_text": "Senior writer Seth Wickersham spent two weeks with NFL football coach Sean Payton ahead of the Denver Broncos-New England Patriots AFC Championship Game.",
+      "author": "Seth Wickersham",
+      "published_at": "2026-07-07T11:38:39+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Sean Payton",
+        "Seth Wickersham",
+        "Denver Broncos",
+        "New England",
+        "Championship Game"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-FFDraftGuide26-48677635",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFDraftGuide26-48677635/2026-fantasy-football-rankings-mock-draft-cheat-sheets-sleepers",
+      "title": "Copy of 2026 Fantasy Football Draft Guide: Rankings, mock ...",
+      "body_text": "Your one-stop shop as you prep for draft season, including rankings, projections and analysis.",
+      "author": "Fantasy staff",
+      "published_at": "2026-07-11T13:22:05+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fantasy Football",
+        "Draft Guide"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49316529",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49316529/fantasy-football-players-upgrade-downgrade-due-offensive-line-play",
+      "title": "Players to upgrade, downgrade due to O-line play",
+      "body_text": "Eric Moody looks at running backs who benefit from, or are hurt by, the performance of their offensive line.",
+      "author": "Eric Moody",
+      "published_at": "2026-07-11T13:22:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Eric Moody"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

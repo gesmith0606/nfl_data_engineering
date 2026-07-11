@@ -1,0 +1,474 @@
+{
+  "fetch_run_id": "f1b1392a-6c68-450d-9506-a12da859f60f",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-11T12:26:02.263441+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-will-address-the-online-complaints-about-matt-miller-later",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-will-address-the-online-complaints-about-matt-miller-later",
+      "title": "Report: ESPN will address the online complaints about Matt Miller later",
+      "body_text": "ESPN NFL draft analyst Matt Miller announced on Friday that he'll be placed on leave as he recovers from serious injuries suffered last month in an automobile accident.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T12:08:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-world-cup-games-over-the-stickers-can-be-removed-from-64-000-seats-at-gillette-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-world-cup-games-over-the-stickers-can-be-removed-from-64-000-seats-at-gillette-stadium",
+      "title": "With World Cup games over, the stickers can be removed from 64,000 seats at Gillette Stadium",
+      "body_text": "France's 2-0 win over Morocco in the quarterfinal round of the World Cup was the seventh, and last, game of the tournament played at Gillette Stadium in Foxborough.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T11:54:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With World",
+        "Gillette Stadium",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-urges-lebron-james-to-sign-in-philadelphia-be-remembered-forever",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-urges-lebron-james-to-sign-in-philadelphia-be-remembered-forever",
+      "title": "Saquon Barkley urges LeBron James to sign in Philadelphia, \"be remembered forever\"",
+      "body_text": "Two years ago, Saquon Barkley signed as a free agent in Philadelphia, won a championship in his first season there, and became one of the city's most beloved athletes.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-11T07:45:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-donald-works-out-at-rams-facility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-donald-works-out-at-rams-facility",
+      "title": "Report: Aaron Donald works out at Rams' facility",
+      "body_text": "More signs are pointing to a potential unretirement.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T01:48:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-te-gunnar-helm-eyes-an-even-bigger-second-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-te-gunnar-helm-eyes-an-even-bigger-second-season",
+      "title": "Titans TE Gunnar Helm eyes an even bigger second season",
+      "body_text": "Titans tight end Gunnar Helm, a fourth-round pick in 2025, appeared in 16 games, with 10 starts, as a rookie.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-10T22:00:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gunnar Helm"
+      ],
+      "resolved_player_ids": [
+        "00-0040584"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-is-cleared-to-do-everything-and-feeling-good",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-is-cleared-to-do-everything-and-feeling-good",
+      "title": "Daniel Jones is \"cleared to do everything\" and \"feeling good\"",
+      "body_text": "Daniel Jones progressed to 7-on-7 work during the team's offseason program, and the Colts quarterback expects to do everything at camp.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-10T21:44:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-places-matt-miller-on-leave",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-places-matt-miller-on-leave",
+      "title": "ESPN places Matt Miller on leave",
+      "body_text": "ESPN NFL draft analyst Matt Miller, whose serious car accident last month was followed by multiple online complaints about Miller’s handling of fantasy football leagues, paid scouting lessons, and charitable efforts, will be placed on leave.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T21:43:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-should-by-looking-at-fifas-referee-view",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-should-by-looking-at-fifas-referee-view",
+      "title": "NFL should be looking at FIFA's \"Referee View\"",
+      "body_text": "The AI-stabilized images would enhance football broadcasts.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T18:25:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Referee View"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-harper-video-is-one-example-of-what-sportsbooks-will-do-to-keep-losers-losing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-harper-video-is-one-example-of-what-sportsbooks-will-do-to-keep-losers-losing",
+      "title": "Bryce Harper video is one example of what sportsbooks will do to keep losers losing",
+      "body_text": "Sportsbooks, like insurance companies, have one commodity.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T21:26:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Harper"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-second-round-te-sam-roush-to-complete-draft-class-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-second-round-te-sam-roush-to-complete-draft-class-signings",
+      "title": "Bears sign third-round TE Sam Roush to complete draft class signings",
+      "body_text": "The Bears signed third-round tight end Sam Roush, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-10T20:16:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Roush",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "ROU550040"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-young-expresses-concern-for-brandon-aiyuk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-young-expresses-concern-for-brandon-aiyuk",
+      "title": "Steve Young expresses concern for Brandon Aiyuk",
+      "body_text": "The football world has noticed the social-media antics of 49ers receiver Brandon Aiyuk in recent weeks.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T19:00:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Young",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-groups-emerge-from-pack-in-effort-to-buy-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-groups-emerge-from-pack-in-effort-to-buy-seahawks",
+      "title": "Two groups emerge from pack in effort to buy Seahawks",
+      "body_text": "An unnamed (for now) former Seahawks player is attached to one of the two groups.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T20:33:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-owner-mark-davis-is-committed-to-grass-for-safety-purposes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-owner-mark-davis-is-committed-to-grass-for-safety-purposes",
+      "title": "Raiders owner Mark Davis is committed to grass \"for safety purposes\"",
+      "body_text": "Davis is willing to spend the money to give his players a better surface.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T23:29:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Davis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-got-super-bowl-advice-from-someone-with-a-conflict-of-interest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-got-super-bowl-advice-from-someone-with-a-conflict-of-interest",
+      "title": "Mike Macdonald got Super Bowl advice from someone with a \"conflict of interest\"",
+      "body_text": "Remember when Tom Brady said before the Patriots-Seahawks Super Bowl that he didn't have a \"dog in the fight\"?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T23:58:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Super Bowl",
+        "Tom Brady",
+        "Seahawks Super"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/agent-testifies-that-colts-jets-seahawks-and-texans-have-inquired-about-terrion-arnold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/agent-testifies-that-colts-jets-seahawks-and-texans-have-inquired-about-terrion-arnold",
+      "title": "Agent testifies that Colts, Jets, Seahawks, and Texans have inquired about Terrion Arnold",
+      "body_text": "Nicole Lynn said Arnold recently worked out for the Texans.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T14:18:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "Nicole Lynn"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-george-pickens-among-teammates-working-with-dak-prescott-in-utah",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-george-pickens-among-teammates-working-with-dak-prescott-in-utah",
+      "title": "Report: George Pickens among teammates working with Dak Prescott in Utah",
+      "body_text": "Cowboys wide receiver George Pickens skipped most of the team's offseason program, but he reportedly opted to get some more work in with his teammates this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-10T16:32:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens",
+        "Dak Prescott",
+        "Utah Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-want-to-find-ways-to-take-some-of-that-workload-off-jonathan-taylor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-want-to-find-ways-to-take-some-of-that-workload-off-jonathan-taylor",
+      "title": "Colts want to \"find ways to take some of that workload\" off Jonathan Taylor",
+      "body_text": "Only two running backs in the NFL have carried the ball more than 300 times in each of the last two seasons, but it sounds like the Colts wouldn't mind if Jonathan Taylor's streak ends there.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-10T16:14:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derek-carr-multiple-teams-have-reached-out-but-i-probably-wont-come-out-of-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derek-carr-multiple-teams-have-reached-out-but-i-probably-wont-come-out-of-retirement",
+      "title": "Derek Carr: Multiple teams have reached out, but I probably won't come out of retirement",
+      "body_text": "\"I never say never,\" Carr said. \"It would take a special situation.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-10T14:47:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derek Carr"
+      ],
+      "resolved_player_ids": [
+        "00-0031280"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tampering-will-be-more-rampant-than-usual-at-2027-scouting-combine",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tampering-will-be-more-rampant-than-usual-at-2027-scouting-combine",
+      "title": "Tampering will be more rampant than usual at 2027 Scouting Combine",
+      "body_text": "For years, the Scouting Combine has also been Tampering Central.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T13:41:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Scouting Combine",
+        "Tampering Central"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-d-line-rotation-designed-to-keep-jeffery-simmons-fresh",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-d-line-rotation-designed-to-keep-jeffery-simmons-fresh",
+      "title": "Robert Saleh: D-line rotation designed to keep Jeffery Simmons fresh",
+      "body_text": "The Titans plan to play Simmons less often after signing him to a three-year extension.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-10T12:41:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Saleh",
+        "Jeffery Simmons",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-american-audience-number-for-u-s-vs-belgium-cracks-50-million",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/final-american-audience-number-for-u-s-vs-belgium-cracks-50-million",
+      "title": "Final American audience number for U.S. vs. Belgium cracks 50 million",
+      "body_text": "Monday night's Round of 16 World Cup match between the U.S. and Belgium didn't go well for the home team.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T11:57:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Final American",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-age-36-cam-heyward-led-the-nfl-in-snaps-at-defensive-tackle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-age-36-cam-heyward-led-the-nfl-in-snaps-at-defensive-tackle",
+      "title": "At age 36, Cam Heyward led the NFL in snaps at defensive tackle",
+      "body_text": "It's not unusual for older players to get a reduced workload, but Steelers defensive tackle Cam Heyward accomplished something extremely impressive in 2025: He was both the NFL's oldest defensive tackle, and the defensive tackle who played the most snaps.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-10T12:48:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Heyward"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/indiana-governor-remains-optimistic-about-a-bears-border-crossing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/indiana-governor-remains-optimistic-about-a-bears-border-crossing",
+      "title": "Indiana governor remains optimistic about a Bears border crossing",
+      "body_text": "Politicians have a bad habit (in fairness, they have many) when it comes to cramming puns into sports-related topics.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T12:27:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/notre-dame-will-wear-a-packers-inspired-uniform-for-week-1-game-at-lambeau-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/notre-dame-will-wear-a-packers-inspired-uniform-for-week-1-game-at-lambeau-field",
+      "title": "Notre Dame will wear a Packers-inspired uniform for Week 1 game at Lambeau Field",
+      "body_text": "Decades before football became Nikefied, with teams having nearly as many different uniforms as they have games, it was rare — and thus special — when a team showed up for a game with a different look.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T11:38:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Notre Dame",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-linebackers-coach-kj-wright-has-his-sights-set-on-becoming-a-defensive-coordinator",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-linebackers-coach-kj-wright-has-his-sights-set-on-becoming-a-defensive-coordinator",
+      "title": "49ers linebackers coach KJ Wright has his sights set on becoming a defensive coordinator",
+      "body_text": "The 49ers have promoted K.J.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-10T08:07:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-will-give-replica-super-bowl-lxvi-rings-to-fans-who-attend-week-6-game-vs-cardinals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-will-give-replica-super-bowl-lxvi-rings-to-fans-who-attend-week-6-game-vs-cardinals",
+      "title": "Rams will give replica Super Bowl LXVI rings to fans who attend Week 6 game vs. Cardinals",
+      "body_text": "It's the five-year anniversary of the first championship the Rams have won while based in L.A.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T03:34:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-would-have-remained-with-cowboys-if-not-hired-as-head-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-would-have-remained-with-cowboys-if-not-hired-as-head-coach",
+      "title": "Brian Schottenheimer would have remained with Cowboys if not hired as head coach",
+      "body_text": "Cowboys owner Jerry Jones has long forced assistant coaches on his head coach.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-10T01:27:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-allen-broncos-expect-to-break-the-nfl-record-for-sacks-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-allen-broncos-expect-to-break-the-nfl-record-for-sacks-this-season",
+      "title": "Zach Allen: Broncos expect to break the NFL record for sacks this season",
+      "body_text": "Last year, the Broncos were on pace to break the NFL record for sacks for much of the season, before falling short late in the year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-09T21:18:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0035248"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-is-working-with-his-teammates-in-california",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-is-working-with-his-teammates-in-california",
+      "title": "Jayden Daniels is working with his teammates in California",
+      "body_text": "Jayden Daniels has a social media feud with Brandon Aiyuk, who has expressed interest in playing in Washington.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-09T20:49:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels",
+        "California Jayden",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-competition-is-best-way-to-reach-qb-standard-we-need",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-competition-is-best-way-to-reach-qb-standard-we-need",
+      "title": "Kevin O'Connell: Competition is best way to reach QB standard we need",
+      "body_text": "Kyler Murray and J.J. McCarthy will resume their battle for the job in training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-09T20:32:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": null
+    }
+  ]
+}
