@@ -10,6 +10,8 @@ export type {
   LineupPlayer,
   NewsItem,
   OverallSentimentLabel,
+  PlayerCorrelation,
+  PlayerCorrelationsResponse,
   PlayerEventBadges,
   PlayerProjection,
   PlayerSearchResult,

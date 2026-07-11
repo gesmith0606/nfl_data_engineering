@@ -141,11 +141,11 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 └─────────────────────────────────────────────────────────────┘
         ↓
 ┌─────────────────────────────────────────────────────────────┐
-│ WEB SERVICES — v4.2                                         │
-│ • FastAPI Backend (web/api/): 8 routers, Parquet reads     │
-│   ├─ Projections (3), Predictions (2), Players (2)          │
-│   ├─ Lineups (1), Games (3), News (3)                       │
-│   ├─ Draft (5), Rankings (2)                                │
+│ WEB SERVICES — v8.2                                         │
+│ • FastAPI Backend (web/api/): 14 routers, Parquet reads    │
+│   ├─ Projections, Predictions, Players, Lineups, Games      │
+│   ├─ News, Draft, Rankings, Sleeper User + League, Teams    │
+│   ├─ Teams Defense, Health Freshness, Ops (+health/version) │
 │ • Next.js Frontend (web/frontend/): 11 pages               │
 │   ├─ Dashboard, Rankings, Projections, Predictions          │
 │   ├─ Lineups, Matchups, Players, News, Draft Tool          │
@@ -1168,7 +1168,7 @@ Graph features are read in `src/projection_engine.py` during weekly projection g
 
 ---
 
-## Web Services — v4.0 (FastAPI + Next.js + Vercel)
+## Web Services (FastAPI + Next.js; backend on HF Spaces, frontend on Vercel)
 
 ### FastAPI Backend
 

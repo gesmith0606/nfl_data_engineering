@@ -93,6 +93,39 @@ export interface LineupPlayer {
   is_starter: boolean;
 }
 
+/**
+ * A correlated player pair inside a lineup (UC3).
+ * `insight` is 'stack_bonus' (positive rho — ceilings hit together) or
+ * 'shared_ceiling_warning' (negative rho — one's spike is the other's dud).
+ * Mirrors `web/api/models/schemas.py::StackInsight`.
+ */
+export interface StackInsight {
+  player_id_a: string;
+  player_id_b: string;
+  player_name_a: string;
+  player_name_b: string;
+  relation: string;
+  rho: number;
+  n_games: number;
+  insight: 'stack_bonus' | 'shared_ceiling_warning';
+}
+
+/** One stability-gated correlation edge from a player's perspective (UC3). */
+export interface PlayerCorrelation {
+  other_player_id: string;
+  other_player_name: string;
+  relation: string;
+  rho: number;
+  n_games: number;
+}
+
+/** Envelope for `/api/players/{id}/correlations`. */
+export interface PlayerCorrelationsResponse {
+  player_id: string;
+  correlations: PlayerCorrelation[];
+  generated_at: string;
+}
+
 /** Full team lineup for a given week. */
 export interface TeamLineup {
   team: string;
@@ -102,6 +135,8 @@ export interface TeamLineup {
   defense: LineupPlayer[];
   implied_total: number | null;
   team_projected_total: number | null;
+  /** Correlated pairs among the offense (optional — older API responses omit it). */
+  stacks?: StackInsight[];
 }
 
 /**

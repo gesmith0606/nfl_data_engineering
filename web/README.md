@@ -3,15 +3,15 @@
 ## Architecture
 
 ```
-Next.js (Vercel)  -->  FastAPI (Railway Docker)  -->  Parquet files (primary)
-                                                  \-> PostgreSQL (local dev, optional)
+Next.js (Vercel)  -->  FastAPI (HF Spaces)  -->  Parquet files (data/ in repo clone)
 ```
 
 - **Frontend**: Next.js app at `web/frontend/`, deployed to Vercel — https://frontend-jet-seven-33.vercel.app
-- **Backend**: FastAPI app at `web/api/`, deployed to Railway (Docker) — https://nfldataengineering-production.up.railway.app
-- **Data**: Parquet files baked into the Docker image from `data/` (Bronze schedules, Silver layers, Gold projections)
-- **Database**: PostgreSQL optional for local dev via Docker Compose; production runs in Parquet fallback mode
-- **Fallback**: When `DATABASE_URL` is not set, the API reads directly from Parquet files
+- **Backend**: FastAPI app at `web/api/`, hosted on Hugging Face Spaces — https://gesmith0606-nfl-data-api.hf.space
+- **Data**: Parquet files read from a shallow clone of this repo baked into the HF Space image at build time. No live database.
+- **Fallback**: `DATABASE_URL` is not set in production; the API reads directly from committed Parquet under `data/`.
+
+> **Railway is no longer in use.** The Railway trial expired in May 2026. All backend traffic goes to HF Spaces.
 
 ## Local Development
 
@@ -20,10 +20,13 @@ Next.js (Vercel)  -->  FastAPI (Railway Docker)  -->  Parquet files (primary)
 ```bash
 # Terminal 1 -- API
 source venv/bin/activate
-uvicorn web.api.main:app --reload --host 0.0.0.0 --port 8000
+./web/run_dev.sh
+# Or directly:
+uvicorn web.api.main:app --reload --port 8000
 
 # Terminal 2 -- Frontend
-cd web/frontend && npm run dev
+cd web/frontend
+NEXT_PUBLIC_API_URL=http://localhost:8000 npm run dev
 ```
 
 The API reads from `data/gold/projections/` and `data/gold/predictions/` by default.
@@ -55,12 +58,6 @@ cd web/frontend && npm run dev   # frontend runs separately
 
 Docker Compose auto-applies `web/db/schema.sql` on first start. No manual setup needed.
 
-### Supabase (Production)
-
-1. Create a new Supabase project
-2. Run `web/db/schema.sql` in the SQL editor
-3. Copy the connection string to `DATABASE_URL`
-
 ### Loading Data
 
 ```bash
@@ -80,21 +77,22 @@ The loader uses upsert (INSERT ON CONFLICT UPDATE) so it is safe to run repeated
 
 ### Frontend (Vercel)
 
-1. Connect the repo to Vercel, set root directory to `web/frontend`
-2. Add environment variable: `NEXT_PUBLIC_API_URL` = your API URL
-3. Pushes to `main` auto-deploy via `.github/workflows/deploy-web.yml`
+Connected via Vercel git integration with **Root Directory** = `web/frontend`. Every push to `main` auto-deploys — no manual step needed.
 
-### Backend (Railway)
+Set `NEXT_PUBLIC_API_URL` in Vercel project settings (Environment Variables) to the backend URL:
+`https://gesmith0606-nfl-data-api.hf.space`
 
-Railway deploys automatically on push to `main` via the `web/Dockerfile`. The daily data cron commits new parquet files which trigger Railway to rebuild and redeploy.
+### Backend (HF Spaces)
 
-```bash
-# Build and run locally
-docker build -f web/Dockerfile -t nfl-data-api .
-docker run -p 8000:8000 nfl-data-api
-```
+The HF Space shallow-clones this repo at build time and runs in Parquet-fallback mode. See `deploy/huggingface/README.md` for the data-refresh (CACHE_BUST) pattern and manual rebuild procedure — that file is the source of truth for HF Spaces operations; do not duplicate it here.
 
-**Important (TD-09):** Any path the Dockerfile COPYs must have a matching `!data/.../**/*.parquet` allowlist in `.gitignore` and be committed to git, or the Railway build silently uses a stale image. See CLAUDE.md TD-09 for details.
+Data refresh is triggered automatically by `.github/workflows/deploy-web.yml` (`deploy-backend` job): it bumps `CACHE_BUST` in the Space Dockerfile and calls the HF factory-rebuild API.
+
+**Note (TD-09):** Any `data/` path the Dockerfile COPYs must have a matching `!data/.../**/*.parquet` allowlist in `.gitignore` and be committed to git. An uncommitted path causes builds to silently use a stale image. See CLAUDE.md TD-09 for the full list.
+
+### Deploy gate (SANITY-M6)
+
+`.github/workflows/deploy-web.yml` runs `scripts/sanity_check_projections.py` before any deploy. A CRITICAL exit blocks both the frontend and backend jobs. A present-but-stale or garbage weekly partition also blocks deploy; a missing partition is a SKIP (the API falls back to preseason data). After deploy, a live gate probes the backend and frontend; failure triggers auto-rollback within a 5-minute window.
 
 ## Environment Variables
 
@@ -103,14 +101,16 @@ docker run -p 8000:8000 nfl-data-api
 | `DATABASE_URL` | No | (none) | PostgreSQL connection string; omit for Parquet fallback |
 | `CORS_ORIGINS` | No | `localhost:3000,localhost:8000` | Comma-separated allowed origins |
 | `NFL_DATA_DIR` | No | `<project_root>/data` | Base data directory for Parquet reads |
+| `API_KEY` | No | (none) | When set, enables X-API-Key auth middleware; health/docs/openapi paths are exempt |
 | `NEXT_PUBLIC_API_URL` | Yes (frontend) | `http://localhost:8000` | API base URL for the Next.js client |
 
 ## API Endpoints (selected)
 
 | Method | Path | Description |
 |--------|------|-------------|
-| GET | `/api/health` | Health check with DB status |
-| GET | `/api/version` | Deployed script SHAs + version probe |
+| GET | `/api/health` | Health check |
+| GET | `/api/version` | Deployed commit SHA + version info |
+| GET | `/api/ops/dashboard` | Ops dashboard |
 | GET | `/api/projections?season=&week=&scoring=&position=` | Weekly projections |
 | GET | `/api/projections/latest-week` | Most recent week with projection data |
 | GET | `/api/projections/top` | Top projections by position |
@@ -129,5 +129,9 @@ docker run -p 8000:8000 nfl-data-api
 | GET | `/api/rankings/multi-compare` | Multi-source ranking comparison |
 | GET | `/api/teams/{team}/defense-metrics` | Team positional defense strength |
 | GET | `/api/draft/board` | Draft board with VORP + ADP |
+
+Routers: projections, predictions, players, lineups, games, news, draft, rankings, sleeper_user, teams, teams_defense, health_freshness, ops.
+
+Unhandled errors return a generic HTTP 500 with no exception details; diagnose via server logs.
 
 Full OpenAPI docs at `/api/docs` when running locally.

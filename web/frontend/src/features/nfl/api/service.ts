@@ -6,6 +6,7 @@ export {
   fetchNewsFeed,
   fetchPlayer,
   fetchPlayerBadges,
+  fetchPlayerCorrelations,
   fetchPlayerNews,
   fetchPlayerSentiment,
   fetchPredictions,

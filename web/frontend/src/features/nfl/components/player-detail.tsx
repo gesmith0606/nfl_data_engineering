@@ -1,8 +1,12 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { playerBadgesQueryOptions, playerDetailQueryOptions } from '../api/queries';
-import type { ScoringFormat } from '../api/types';
+import {
+  playerBadgesQueryOptions,
+  playerCorrelationsQueryOptions,
+  playerDetailQueryOptions
+} from '../api/queries';
+import type { PlayerCorrelation, ScoringFormat } from '../api/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -217,9 +221,88 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
       {/* Stat Breakdown — grouped by category */}
       <StatBreakdown player={player} />
 
+      {/* Correlations — who this player's big games coincide with (UC3) */}
+      <PlayerCorrelationsCard playerId={playerId} />
+
       {/* News Panel — recent news and sentiment signals */}
       <PlayerNewsPanel playerId={playerId} season={season} week={week} />
     </FadeIn>
+  );
+}
+
+/** Human labels for the structural correlation relation types. */
+const RELATION_LABELS: Record<string, string> = {
+  qb_stack: 'QB Stack',
+  same_backfield: 'Same Backfield',
+  wr_teammates: 'WR Teammates',
+  game_stack: 'Game Stack'
+};
+
+/**
+ * Stability-gated correlation edges for this player (UC3). Positive rho =
+ * their big games coincide (stacking value); negative = they trade off.
+ * Renders nothing when the player has no served edges — most deep-roster
+ * players won't, and an empty card is noise.
+ */
+function PlayerCorrelationsCard({ playerId }: { playerId: string }) {
+  const { data } = useQuery(playerCorrelationsQueryOptions(playerId));
+
+  const correlations = data?.correlations ?? [];
+  if (correlations.length === 0) return null;
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Correlated Players</CardTitle>
+        <CardDescription>
+          Historical fantasy-point correlation over shared games — stable
+          across seasons (2016–2025). Positive pairs spike together; negative
+          pairs trade off.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Player</TableHead>
+              <TableHead>Relation</TableHead>
+              <TableHead className='text-right'>Correlation</TableHead>
+              <TableHead className='text-right'>Games</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {correlations.map((edge: PlayerCorrelation) => (
+              <TableRow key={edge.other_player_id}>
+                <TableCell>
+                  <Link
+                    href={`/dashboard/players/${edge.other_player_id}`}
+                    className='font-medium hover:underline'
+                  >
+                    {edge.other_player_name}
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Badge variant='outline'>
+                    {RELATION_LABELS[edge.relation] ?? edge.relation}
+                  </Badge>
+                </TableCell>
+                <TableCell
+                  className={`text-right tabular-nums font-medium ${
+                    edge.rho >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'
+                  }`}
+                >
+                  {edge.rho >= 0 ? '+' : ''}
+                  {edge.rho.toFixed(2)}
+                </TableCell>
+                <TableCell className='text-right tabular-nums text-muted-foreground'>
+                  {edge.n_games}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
 }
 

@@ -15,6 +15,7 @@ import type {
   MockDraftStartRequest,
   MockDraftStartResponse,
   NewsItem,
+  PlayerCorrelationsResponse,
   PlayerEventBadges,
   PlayerProjection,
   PlayerSearchResult,
@@ -219,6 +220,24 @@ export async function fetchPlayer(
     scoring,
   });
   return request<PlayerProjection>(`/api/players/${playerId}?${params}`);
+}
+
+/**
+ * Fetch a player's stability-gated correlation edges (UC3).
+ * Returns an empty list (HTTP 200) when no correlation data exists.
+ */
+export async function fetchPlayerCorrelations(
+  playerId: string,
+  minRho = 0.1,
+  limit = 10,
+): Promise<PlayerCorrelationsResponse> {
+  const params = new URLSearchParams({
+    min_rho: String(minRho),
+    limit: String(limit),
+  });
+  return request<PlayerCorrelationsResponse>(
+    `/api/players/${playerId}/correlations?${params}`,
+  );
 }
 
 /** Health check. */

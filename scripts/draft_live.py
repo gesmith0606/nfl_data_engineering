@@ -223,6 +223,7 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             "vorp",
             "value_tier",
             "adp_rank",
+            "stack_note",
         ]
         if c in recs.columns
     ]
@@ -287,10 +288,11 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
     if rec_records:
         lines.append(f"\nTOP {len(rec_records)} RECOMMENDATIONS  ({reasoning})")
         for r in rec_records:
+            stack = f"  [{r['stack_note']}]" if r.get("stack_note") else ""
             lines.append(
                 f"  {str(r.get('player_name','')):<24} "
                 f"{str(r.get('position','')):<3} {str(r.get('team','')):<3} "
-                f"vorp={r.get('vorp','')}  tier={r.get('value_tier','')}"
+                f"vorp={r.get('vorp','')}  tier={r.get('value_tier','')}{stack}"
             )
     if roster_view:
         lines.append("\nYOUR ROSTER:")

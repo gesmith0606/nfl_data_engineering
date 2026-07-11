@@ -1,10 +1,48 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import type { TeamLineup, LineupPlayer } from '@/lib/nfl/types';
+import type { TeamLineup, LineupPlayer, StackInsight } from '@/lib/nfl/types';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { getPositionColor } from '@/lib/design-tokens';
 import { HoverLift, Stagger } from '@/lib/motion-primitives';
+
+/**
+ * Correlated-pair chips for a lineup (UC3). Positive pairs (stack_bonus)
+ * spike together; negative pairs (shared_ceiling_warning) trade off.
+ * Renders nothing when the lineup has no served stack edges.
+ */
+function StackChips({ stacks }: { stacks?: StackInsight[] }) {
+  if (!stacks || stacks.length === 0) return null;
+
+  return (
+    <div className='flex flex-wrap items-center gap-[var(--space-2)] px-[var(--space-4)] py-[var(--space-2)]'>
+      <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium uppercase tracking-widest text-muted-foreground'>
+        Correlated
+      </span>
+      {stacks.map((s) => (
+        <span
+          key={`${s.player_id_a}-${s.player_id_b}`}
+          title={`${s.player_name_a} & ${s.player_name_b}: ${
+            s.insight === 'stack_bonus'
+              ? 'big games historically coincide'
+              : 'big games historically trade off'
+          } (${s.n_games} shared games)`}
+          className={`inline-flex items-center gap-[var(--space-1)] rounded-full border px-[var(--space-2)] py-px text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tabular-nums ${
+            s.insight === 'stack_bonus'
+              ? 'border-emerald-600/40 text-emerald-700 dark:text-emerald-400'
+              : 'border-amber-600/40 text-amber-700 dark:text-amber-400'
+          }`}
+        >
+          {s.player_name_a} ↔ {s.player_name_b}
+          <span className='font-semibold'>
+            {s.rho >= 0 ? '+' : ''}
+            {s.rho.toFixed(2)}
+          </span>
+        </span>
+      ))}
+    </div>
+  );
+}
 
 interface PlayerCardProps {
   player: LineupPlayer;
@@ -213,6 +251,9 @@ export default function FieldView({ lineup }: FieldViewProps) {
           {/* End zone accent */}
           <div className='h-[var(--space-2)] w-full' style={{ backgroundColor: teamColor }} />
         </div>
+
+        {/* Correlated pairs among this lineup (UC3) */}
+        <StackChips stacks={lineup.stacks} />
       </div>
 
       {/* Mobile list view */}
@@ -246,6 +287,9 @@ export default function FieldView({ lineup }: FieldViewProps) {
             ))}
           </Stagger>
         </div>
+
+        {/* Correlated pairs among this lineup (UC3) */}
+        <StackChips stacks={lineup.stacks} />
       </div>
     </div>
   );
