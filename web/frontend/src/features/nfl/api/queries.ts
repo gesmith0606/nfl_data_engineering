@@ -12,6 +12,7 @@ import {
   fetchNewsFeed,
   fetchPlayer,
   fetchPlayerBadges,
+  fetchPlayerCorrelations,
   fetchPlayerNews,
   fetchPlayerSentiment,
   fetchPredictions,
@@ -117,6 +118,15 @@ export const playerDetailQueryOptions = (
   queryOptions({
     queryKey: nflKeys.playerDetail(id, season, week, scoring),
     queryFn: () => fetchPlayer(id, season, week, scoring)
+  });
+
+export const playerCorrelationsQueryOptions = (playerId: string) =>
+  queryOptions({
+    queryKey: [...nflKeys.all, 'player-correlations', playerId] as const,
+    queryFn: () => fetchPlayerCorrelations(playerId),
+    enabled: !!playerId,
+    // Correlation edges are rebuilt at most a few times a season.
+    staleTime: 24 * 60 * 60 * 1000
   });
 
 export const lineupQueryOptions = (season: number, week: number, team: string) =>

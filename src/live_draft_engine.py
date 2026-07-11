@@ -92,6 +92,19 @@ class LiveDraftEngine:
         self._vorp_by_rank = dict(
             zip(self.enriched.get("model_rank", []), self.enriched.get("vorp", []))
         )
+        # UC3 correlation edges for stack-aware recommendations. Optional —
+        # a missing/broken Gold parquet must never break the draft co-pilot.
+        try:
+            from src.graph_correlation import load_latest_correlations
+        except ImportError:  # pragma: no cover
+            from graph_correlation import load_latest_correlations
+        try:
+            edges = load_latest_correlations()
+            self._corr_pairs = (
+                edges[edges["level"] == "pair"] if not edges.empty else pd.DataFrame()
+            )
+        except Exception:
+            self._corr_pairs = pd.DataFrame()
 
     # -- public --------------------------------------------------------------
 
@@ -187,11 +200,54 @@ class LiveDraftEngine:
     def recommendations(self, top_n: int = 5):
         """DraftAdvisor recommendations given current board state.
 
-        Returns ``(DataFrame, reasoning)``; empty frame if the board is not built.
+        Returns ``(DataFrame, reasoning)``; empty frame if the board is not
+        built. When correlation edges are available (UC3), a ``stack_note``
+        column flags candidates correlated with players already on your
+        roster ("stacks with T.Hill (+0.60)" / "shares ceiling with ...").
         """
         if self.advisor is None:
             return pd.DataFrame(), "Draft not started."
-        return self.advisor.recommend(top_n=top_n)
+        recs, reasoning = self.advisor.recommend(top_n=top_n)
+        if not recs.empty and "player_id" in recs.columns:
+            recs = recs.copy()
+            recs["stack_note"] = recs["player_id"].map(self.stack_note)
+        return recs, reasoning
+
+    def stack_note(self, player_id: str) -> str:
+        """Strongest correlation between a candidate and your current roster.
+
+        Args:
+            player_id: Candidate player's gsis id.
+
+        Returns:
+            Human-readable note (e.g. ``"stacks with T.Hill (+0.60)"``,
+            ``"shares ceiling with S.Barkley (-0.42)"``) or ``""`` when no
+            served edge connects the candidate to your roster.
+        """
+        if self._corr_pairs.empty:
+            return ""
+        roster_ids = {
+            str(r.get("player_id")) for r in self.my_full_roster() if r.get("player_id")
+        }
+        if not roster_ids:
+            return ""
+        pid = str(player_id)
+        pairs = self._corr_pairs
+        mine = pairs[
+            ((pairs["player_id_a"] == pid) & pairs["player_id_b"].isin(roster_ids))
+            | ((pairs["player_id_b"] == pid) & pairs["player_id_a"].isin(roster_ids))
+        ]
+        if mine.empty:
+            return ""
+        best = mine.loc[mine["rho"].abs().idxmax()]
+        other = (
+            best["player_name_b"]
+            if str(best["player_id_a"]) == pid
+            else best["player_name_a"]
+        )
+        rho = float(best["rho"])
+        verb = "stacks with" if rho > 0 else "shares ceiling with"
+        return f"{verb} {other} ({rho:+.2f})"
 
     def best_available(self, positions: Optional[List[str]] = None, top_n: int = 10):
         if self.advisor is None:

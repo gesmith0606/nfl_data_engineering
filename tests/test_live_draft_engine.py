@@ -219,3 +219,89 @@ def test_value_drop_detected(adapter, draft_raw, projections_df):
     res = engine.update(state_from_sleeper(draft_raw, filler))
     # Rank-1 projection player is still available at pick 21 → value drop.
     assert any(m.kind == "value_drop" for m in res.key_moments)
+
+
+# ---------------------------------------------------------------------------
+# UC3: stack-aware recommendations
+# ---------------------------------------------------------------------------
+
+
+def _corr_pairs_fixture():
+    return pd.DataFrame(
+        [
+            {
+                "level": "pair",
+                "relation": "qb_stack",
+                "player_id_a": "p_chase",
+                "player_id_b": "p_mahomes",
+                "player_name_a": "Ja'Marr Chase",
+                "player_name_b": "Patrick Mahomes",
+                "rho": 0.55,
+                "n_games": 40,
+            },
+            {
+                "level": "pair",
+                "relation": "same_backfield",
+                "player_id_a": "p_cmc",
+                "player_id_b": "p_chase",
+                "player_name_a": "Christian McCaffrey",
+                "player_name_b": "Ja'Marr Chase",
+                "rho": -0.30,
+                "n_games": 25,
+            },
+        ]
+    )
+
+
+@pytest.mark.unit
+def test_stack_note_positive_edge_vs_roster(adapter, draft_raw, projections_df):
+    engine = LiveDraftEngine(adapter, projections_df, my_slot=1)
+    engine._corr_pairs = _corr_pairs_fixture()
+    engine.rosters[1] = [{"player_id": "p_mahomes", "player_name": "Patrick Mahomes"}]
+    note = engine.stack_note("p_chase")
+    assert "stacks with Patrick Mahomes" in note
+    assert "+0.55" in note
+
+
+@pytest.mark.unit
+def test_stack_note_negative_edge_wording(adapter, draft_raw, projections_df):
+    engine = LiveDraftEngine(adapter, projections_df, my_slot=1)
+    engine._corr_pairs = _corr_pairs_fixture()
+    engine.rosters[1] = [{"player_id": "p_cmc", "player_name": "Christian McCaffrey"}]
+    note = engine.stack_note("p_chase")
+    assert "shares ceiling with Christian McCaffrey" in note
+    assert "-0.30" in note
+
+
+@pytest.mark.unit
+def test_stack_note_strongest_edge_wins(adapter, draft_raw, projections_df):
+    engine = LiveDraftEngine(adapter, projections_df, my_slot=1)
+    engine._corr_pairs = _corr_pairs_fixture()
+    engine.rosters[1] = [
+        {"player_id": "p_mahomes", "player_name": "Patrick Mahomes"},
+        {"player_id": "p_cmc", "player_name": "Christian McCaffrey"},
+    ]
+    # |+0.55| > |-0.30| -> Mahomes edge wins
+    assert "Patrick Mahomes" in engine.stack_note("p_chase")
+
+
+@pytest.mark.unit
+def test_stack_note_empty_without_edges_or_roster(adapter, draft_raw, projections_df):
+    engine = LiveDraftEngine(adapter, projections_df, my_slot=1)
+    engine._corr_pairs = pd.DataFrame()
+    assert engine.stack_note("p_chase") == ""
+    engine._corr_pairs = _corr_pairs_fixture()
+    engine.rosters[1] = []
+    assert engine.stack_note("p_chase") == ""
+
+
+@pytest.mark.unit
+def test_recommendations_carry_stack_note_column(
+    adapter, draft_raw, picks_raw, projections_df
+):
+    engine = LiveDraftEngine(adapter, projections_df, my_slot=3)
+    engine._corr_pairs = _corr_pairs_fixture()
+    engine.update(_state(draft_raw, picks_raw))
+    recs, _ = engine.recommendations(top_n=5)
+    if not recs.empty and "player_id" in recs.columns:
+        assert "stack_note" in recs.columns
