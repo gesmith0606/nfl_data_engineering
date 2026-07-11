@@ -1,30 +1,38 @@
-/* WC26 Broadcast × Apple — shared sketch theme
-   Vocabulary from .planning/design-refs/wc26-broadcast-scorebug.webp:
-   near-black navy overlays, trophy gold, condensed white caps, flag chips.
+/* WC26 Broadcast × Apple — shared sketch theme (v2, color-corrected)
+   Palette sampled from the actual reference frame
+   (.planning/design-refs/wc26-broadcast-scorebug.webp):
+   - score panels are MINT (#91EDD0) with near-black digits
+   - the bar itself is near-BLACK (not navy-blue)
+   - scorer/accent text is VIBRANT YELLOW (not muted gold)
+   - the ribbon below the bug is PERIWINKLE BLUE
    Body typography stays system-ui (= SF Pro on Mac, the actual Apple feel). */
 :root {
-  /* Colors — WC26 broadcast */
+  /* Colors — WC26 broadcast (sampled) */
   --color-bg: #fafafa;
   --color-surface: #ffffff;
   --color-border: #e8e8ed;
   --color-text: #0b0f19;
   --color-text-muted: #6e6e73;
 
-  --navy: #0b1120;          /* scorebug bar */
-  --navy-deep: #070b16;     /* stadium dark */
-  --navy-soft: #141c33;     /* raised panels on dark */
-  --gold: #d4af37;          /* trophy gold */
-  --gold-deep: #b8952e;
-  --cyan: #22d3ee;          /* mecha eyes / live accents */
-  --pitch-a: #2d5a27;       /* field gradient (from reference frame) */
+  --bar: #05070d;            /* scorebug bar — near black */
+  --bar-hi: #131722;         /* raised panels on dark */
+  --stadium: #070a12;        /* dark canvas */
+  --mint: #91edd0;           /* score panels (sampled #91EDD0) */
+  --mint-deep: #5cc9a7;
+  --yellow: #ffd84d;         /* vibrant yellow — scorer lines, accents */
+  --yellow-deep: #e8b820;
+  --peri: #5b67c7;           /* periwinkle ribbon (sampled #5A65BA) */
+  --peri-bright: #6e7ce0;
+  --cyan: #22d3ee;           /* gundam eyes */
+  --pitch-a: #2d5a27;        /* field gradient (from reference frame) */
   --pitch-b: #1a3a17;
 
-  --pos: #10b981;           /* we win the stat */
-  --neg: #ef4444;           /* we lose the stat (shown honestly) */
+  --pos: #0eaf7d;            /* we win the stat (mint-family green) */
+  --neg: #ef4444;
 
   /* Typography */
   --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
-  --font-bug: 'Barlow Condensed', 'Arial Narrow', sans-serif;   /* broadcast caps */
+  --font-bug: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --font-mono: 'SF Mono', ui-monospace, monospace;
 
   /* Spacing (apple-generous) */
@@ -36,8 +44,8 @@
   --radius-sm: 6px; --radius-md: 10px; --radius-lg: 18px; --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-bug: 0 10px 30px rgba(7, 11, 22, 0.45);
+  --shadow-bug: 0 10px 30px rgba(3, 5, 10, 0.5);
   --shadow-soft: 0 2px 12px rgba(11, 17, 32, 0.08);
-  --shadow-glow-gold: 0 0 18px rgba(212, 175, 55, 0.45);
+  --shadow-glow-yellow: 0 0 18px rgba(255, 216, 77, 0.5);
   --shadow-glow-cyan: 0 0 10px rgba(34, 211, 238, 0.9);
 }
