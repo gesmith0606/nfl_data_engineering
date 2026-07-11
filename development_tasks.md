@@ -1,6 +1,9 @@
 # NFL Data Engineering — Development Task List
 
-### Current Metrics
+> **Historical record** — this file is a development milestone archive, last maintained March 2026.
+> For current status see [CLAUDE.md](CLAUDE.md) (Status section) and [README.MD](README.MD).
+
+### Metrics as of March 2026 (historical — current suite is 3,000+ tests)
 - **Files Created**: 30+ Python scripts, notebooks, and docs
 - **Data Ingested**: 208,000+ rows across 6 data types (7 MB local Bronze, 4.2 MB Silver, Gold active)
 - **Test Coverage**: 71 tests passing (scoring, projections, analytics, draft optimizer, utils)

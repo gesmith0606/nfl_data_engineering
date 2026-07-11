@@ -20,10 +20,16 @@ Silver  (data/silver/ + s3://nfl-refined/)
         |
 Gold    (data/gold/ + s3://nfl-trusted/)
         weekly + preseason projections (PPR / Half-PPR / Standard)
-        floor/ceiling ranges, injury adjustments, Vegas multipliers
+        floor/ceiling ranges, injury adjustments, Vegas multipliers,
+        game predictions (XGB+LGB+CB+Ridge ensemble), sentiment signals
         |
-Draft Tool
-        ADP comparison, VORP, snake/auction/mock drafts, waiver wire
+Draft Tool + Live Draft Co-Pilot
+        ADP comparison, VORP, snake/auction/mock drafts, waiver wire,
+        live Sleeper/Yahoo draft polling with in-session recommendations
+        |
+Web (FastAPI on HF Spaces + Next.js on Vercel)
+        projections, predictions, lineups, matchups, news/sentiment,
+        league sync, ops dashboard
 ```
 
 Storage uses a local-first approach. S3 is optional — all scripts work without AWS credentials. When S3 is enabled, the key pattern is `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`.
@@ -87,11 +93,23 @@ Per-position recency weights (v4.2); weights were previously 50%/30%/20%.
 - Rookie fallback: starter/backup/unknown baselines at 100%/40%/25% of positional average
 - Floor/ceiling: position-specific variance bands (QB: 45%, RB: 40%, WR: 38%, TE: 35%)
 
-**v4.3 ML routing (current — 2026-07-07):**
-- QB: heuristic only (Vegas beta 0.25, bias correction +2.3 pts)
+**v4.3 ML routing (current):**
+- QB: heuristic only (Vegas beta 0.25, bias correction)
 - RB: heuristic only
-- WR: heuristic only
+- WR: hybrid — heuristic + residual model (blend-consistent retrain, shipped v4.3)
 - TE: hybrid — heuristic + Ridge residual with 60 SHAP features including graph features
+
+**Opt-in / preseason enhancements (July 2026):**
+- **Consensus anchor** (on by default for preseason; `--no-consensus-anchor` to disable): preseason projections anchored to external consensus rankings per position — Spearman vs consensus ≥0.95 across QB/RB/WR/TE/K
+- `--props-blend`: weekly projections blended toward prop-implied points from the latest Bronze props snapshot (RB-first provisional weighting; formal gate evaluation begins in-season)
+- `--vacated-opportunity`: preseason boost from the offseason roster-churn graph (vacated target/carry share claimed via depth charts) — graph use case UC1
+- `--conformal-bands`: conformal-widened quantile floor/ceiling bands (~80% empirical coverage)
+- `--use-sentiment`: Gold-layer sentiment multipliers applied after injury adjustments
+
+**Graph use cases (all three complete, July 2026):**
+- UC1 vacated opportunity — offseason churn → preseason boost (opt-in flag above)
+- UC2 cross-team familiarity — QB-receiver reunion features (gate verdict HOLD; in hybrid candidate pool only)
+- UC3 player correlation network — stability-gated correlation edges powering `/api/players/{id}/correlations` and lineup stack insights
 
 **Backtesting results (v4.3):**
 
@@ -118,13 +136,19 @@ Live at https://frontend-jet-seven-33.vercel.app (Vercel frontend) + https://ges
 - **Game Predictions**: Weekly matchup cards with edge detection vs Vegas lines, ensemble confidence scores
 - **Player Matchups**: Historical data lookup, stat breakdowns, trending players with sentiment signals
 - **Sentiment Pipeline**: Active 5-source news ingestion (PFT, Sleeper, RSS feeds) with Claude AI extraction
+- **Player Correlations & Stacks**: `/api/players/{id}/correlations` plus per-team stack insights on the lineups endpoint (graph UC3)
 - **Freshness Monitoring**: 6-hourly data freshness checks with automated health alerts via GitHub workflow
+- **Ops Dashboard**: live pipeline status at `/api/ops/dashboard` — all workflow schedules, run history, and success rates (snapshot rebuilt 6-hourly)
+
+The API serves 14 routers (projections, predictions, players, lineups, games, news, draft, rankings, sleeper_user + league, teams, teams_defense, health_freshness, ops) plus `/api/health` and `/api/version`, with optional X-API-Key authentication when the `API_KEY` env var is set.
 
 ### Pipeline Monitoring
 
 - GitHub Actions workflow runs Tuesdays 9am UTC, auto-detects current NFL week
 - On failure: auto-opens GitHub issue with error details
 - Health check: `scripts/check_pipeline_health.py` reports S3 freshness and file size across all three layers
+- Ops dashboard: `https://gesmith0606-nfl-data-api.hf.space/api/ops/dashboard` (schedules + run history for all cron workflows)
+- Feed calendar and credentials-by-feed reference: `docs/DATA_FEEDS.md`
 
 ---
 
@@ -173,6 +197,18 @@ python scripts/generate_projections.py --preseason --season 2026 --scoring half_
 # Weekly
 python scripts/generate_projections.py --week 1 --season 2026 --scoring ppr
 # Scoring options: ppr, half_ppr, standard
+
+# Opt-in enhancements
+python scripts/generate_projections.py --week 1 --season 2026 --props-blend       # blend toward prop-implied points
+python scripts/generate_projections.py --preseason --season 2026 --vacated-opportunity  # offseason churn boost (UC1)
+python scripts/generate_projections.py --week 1 --season 2026 --conformal-bands   # calibrated floor/ceiling bands
+```
+
+### Web API (local dev)
+
+```bash
+./web/run_dev.sh                                # FastAPI dev server on :8000
+uvicorn web.api.main:app --reload --port 8000   # equivalent direct invocation
 ```
 
 ### Draft tool
@@ -222,8 +258,8 @@ S3 buckets: `nfl-raw` (Bronze), `nfl-refined` (Silver), `nfl-trusted` (Gold).
 nfl_data_engineering/
 ├── src/
 │   ├── config.py                      # S3 paths, SCORING_CONFIGS, ROSTER_CONFIGS, season ranges
-│   ├── nfl_data_integration.py        # NFLDataFetcher — 8 fetch methods + validate_data()
-│   ├── nfl_data_adapter.py            # Isolates all nfl.import_* calls; single migration point
+│   ├── nfl_data_adapter.py            # NFLDataAdapter — the ONLY module importing nfl_data_py
+│   ├── nfl_data_integration.py        # NFLDataFetcher — legacy facade over the adapter + validate_data()
 │   ├── player_analytics.py            # Usage metrics, opponent rankings, rolling averages, Vegas totals
 │   ├── player_advanced_analytics.py   # NGS separation/RYOE, PFR pressure/blitz, QBR rolling windows
 │   ├── team_analytics.py              # Team EPA, CPOE, success rate, SOS, situational splits
@@ -245,15 +281,9 @@ nfl_data_engineering/
 │   ├── generate_inventory.py          # Scans local data/, outputs markdown inventory
 │   └── validate_project.py            # Environment and dependency validation
 │
-├── tests/
-│   ├── test_scoring_calculator.py     # 14 tests — PPR/Half/Standard, DataFrame, edge cases
-│   ├── test_projection_engine.py      # 19 tests — bye, rookie, Vegas, usage, injury
-│   ├── test_player_analytics.py       # 7 tests — usage metrics, rolling averages, implied totals
-│   ├── test_draft_optimizer.py        # 13 tests — board, advisor, waiver, value scores
-│   ├── test_team_analytics.py         # Team metrics tests
-│   ├── test_player_advanced_analytics.py # Advanced profile tests
-│   ├── test_advanced_ingestion.py     # Bronze ingestion for advanced data types
-│   └── test_utils.py                  # 5 tests — S3 paths, validation
+├── tests/                             # 3,000+ tests: scoring, projections, analytics,
+│   │                                  # draft tools, graph features, sentiment, web API
+│   └── web/                           # FastAPI endpoint + contract tests
 │
 ├── data/                              # Local data store (gitignored)
 │   ├── bronze/                        # 93 MB across 25+ data types
@@ -286,7 +316,7 @@ nfl_data_engineering/
 | Silver bucket | nfl-refined |
 | Gold bucket | nfl-trusted |
 | Valid seasons | 1999-2026 |
-| Player training data | 2020-2025 (`PLAYER_DATA_SEASONS`) |
+| Player training data | 2016-2025 (`PLAYER_DATA_SEASONS`) |
 | Scoring formats | PPR (1.0/rec), Half-PPR (0.5/rec), Standard (0.0/rec) |
 | Roster formats | standard, superflex, 2qb |
 
@@ -301,7 +331,7 @@ source venv/bin/activate
 python -m pytest tests/ -v
 ```
 
-2,869 tests pass across scoring, projections, player analytics, team analytics, advanced profiles, draft optimization, ingestion, web API, and utilities.
+3,009 tests pass across scoring, projections, player analytics, team analytics, advanced profiles, graph features, sentiment, draft optimization, ingestion, web API, and utilities. The suite emits fewer than 10 warnings, and CI enforces a warning-count budget (50) so new warnings fail the build. Live-infrastructure probes live in `scripts/experiments/` and are excluded from default collection (`testpaths = tests`).
 
 Code quality:
 
@@ -314,26 +344,24 @@ python -m flake8 src/ tests/ scripts/
 
 ## Roadmap
 
-### Current: v7.2 Data + Site Polish (Phases 76-84, in flight)
+### Current (July 2026): season readiness
 
-| Phase | Status | Description |
-|-------|--------|-------------|
-| 76 — AWS Refresh + S3 Sync | Not started | Refresh expired credentials, sync local data to S3 |
-| 77 — Sentiment Source Expansion | Not started | Additional RSS/API sentiment sources |
-| 78 — Heuristic Consolidation | Not started | Unify 3 duplicate heuristic functions |
-| 79 — Audit Provenance | Complete | Script-SHA helper, version probe endpoint |
-| 80 — Sanity Warning Triage | Not started | Triage remaining sanity-check warnings |
-| 81 — Dashboard Feature Audit | Not started | Audit dashboard features vs data availability |
-| 82 — Sleeper OAuth + Multi-User | Not started | Sleeper account linking, per-user leagues |
-| 83 — Advisor Tool Expansion | Not started | Expand AI advisor tool coverage |
-| 84 — Deploy Hardening | Not started | Slim Docker image, reduce HF Spaces build fragility |
+- **August dress rehearsal**: manually dispatch all six GitHub workflows once during preseason and verify end-to-end (weekly pipeline, odds capture, Sunday refresh, daily sentiment, deploy, external projections)
+- **In-season gates (Sept+)**: line-capture verdict by week 10; prop-implied blend evaluation once Sunday snapshots accumulate; UC1 vacated-opportunity anchor-ON trial
+- **RB consensus gap (+0.26)**: levers are the props blend and live-season learnings; PFF data decision ~November
 
-### Next: ELITE_MODELS_PLAN (post-v7.2)
+### Backlog (carried from v7.2 phase list)
 
-- **Beat-the-consensus harness**: Backfill Sleeper historical projections (2022-2025) and benchmark our projections head-to-head
-- **Lagged WR/TE matchup features**: Rebuild `wr_matchup_*`/`te_matchup_*` graph features as lagged trailing versions (currently excluded as same-game leaks)
-- **Game totals diagnosis**: One-shot diagnostic on whether predicted totals carry signal beyond closing line
-- **Live 2026 odds capture**: The Odds API for opener capture before the 2026 season
+| Item | Status |
+|------|--------|
+| S3 sync of local data | Pending (AWS credentials refreshed and verified July 2026) |
+| Sentiment source expansion | Not started |
+| Heuristic consolidation (3 duplicate functions) | Not started |
+| Sanity warning triage | Not started |
+| Sleeper OAuth + multi-user | Not started |
+| Advisor tool expansion | Not started |
+| Deploy hardening (slim Docker image for HF Spaces) | Not started |
+| Packaging normalization + god-module splits (offseason) | Deferred to post-season |
 
 ### Long-term
 
