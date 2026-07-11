@@ -402,19 +402,20 @@ position_bias_correction = {
 }
 ```
 
-#### ML Router (v4.2)
+#### ML Router (v4.3)
 
 **Module:** `src/ml_projection_router.py`
 
 ```
-v4.2 routing (2026-06-10):
+v4.3 routing (2026-06-12):
     QB  → Heuristic only (SKIP; bias corrected via POSITION_BIAS_CORRECTION +2.3 pts)
     RB  → Heuristic only (SKIP; residuals degrade even after leakage fix)
-    WR  → Heuristic only (SKIP; non-stationary residuals failed sealed 2025 gate)
+    WR  → HYBRID (heuristic + residual; SHIPPED v4.3 via blend-consistent retrain,
+          sealed-2025 gap −0.148 vs Sleeper)
     TE  → HYBRID (heuristic + Ridge residual; sealed 2025: 3.52 → 3.36 MAE)
 ```
 
-**HYBRID_POSITIONS = {"TE"}** — only TE applies residual correction.
+**HYBRID_POSITIONS = {"TE", "WR"}** — WR and TE apply residual correction.
 
 **Player Model** (`src/player_model_training.py`):
 - Per-position per-stat models trained via walk-forward CV
@@ -598,7 +599,7 @@ vs v1.4 Single Model:
 
 ### Track 3: Player ML Predictions — Hybrid Residual Strategy
 
-**Status:** v4.2 production — TE HYBRID SHIP (3.36 MAE sealed 2025); QB/RB/WR heuristic-only. Feature leakage audit complete; same-week NGS/team/graph leaks removed.
+**Status:** v4.3 production — WR + TE HYBRID SHIP (TE 3.36 MAE sealed 2025; WR shipped via blend-consistent retrain); QB/RB heuristic-only. Feature leakage audit complete; same-week NGS/team/graph leaks removed.
 **Modules:** `src/player_model_training.py`, `src/hybrid_projection.py`, `src/ml_projection_router.py`
 
 #### Research Summary (Phases 51-53)
@@ -700,17 +701,17 @@ def get_hybrid_projection(player_row, heuristic_projection, ml_model):
     return final_projection
 ```
 
-#### ML Routing in Projections (v4.2)
+#### ML Routing in Projections (v4.3)
 
 ```python
 # src/ml_projection_router.py
-# HYBRID_POSITIONS = {"TE"}  — only TE applies residual correction
+# HYBRID_POSITIONS = {"TE", "WR"}  — WR and TE apply residual correction
 #
 # Routing:
 #   QB  → heuristic (SKIP; QB forced SKIP in _load_ship_gate regardless of model files)
 #   RB  → heuristic (SKIP; production backtest shows degradation)
-#   WR  → heuristic (SKIP; non-stationary residuals failed sealed 2025 gate)
-#   TE  → HYBRID (heuristic + Ridge residual when v4.2-stamped model present)
+#   WR  → HYBRID (heuristic + residual; shipped v4.3 via blend-consistent retrain)
+#   TE  → HYBRID (heuristic + Ridge residual when SHIP-stamped model present)
 #
 # HYBRID path:
 #   1. generate_weekly_projections() produces heuristic baseline
