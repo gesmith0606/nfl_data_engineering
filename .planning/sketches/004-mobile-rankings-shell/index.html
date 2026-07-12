@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sketch 004 — Mobile Rankings Shell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../themes/default.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font-body); background:#1a1d26; padding-top:46px; min-height:100vh; }
+  .variant { display:none; padding:28px 0 60px; }
+  .variant.active { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; }
+
+  #variant-nav { position:fixed; top:0; left:0; right:0; z-index:9998; background:#fff;
+    border-bottom:1px solid #e5e5e5; padding:8px 16px; display:flex; gap:8px; font-family:system-ui; }
+  .variant-tab { border:1px solid #d5d5da; background:#fff; padding:6px 14px; border-radius:8px;
+    font-size:13px; cursor:pointer; transition:all .15s ease; }
+  .variant-tab:hover { background:#f0f0f3; }
+  .variant-tab.active { background:var(--bar); color:#fff; border-color:var(--bar); }
+
+  .phone { width:375px; height:760px; background:#0b0e18; border-radius:44px;
+    border:10px solid #05070d; box-shadow:0 24px 60px rgba(0,0,0,.55); overflow:hidden;
+    position:relative; flex-shrink:0; color:#fff; }
+  .phone .screen { position:absolute; inset:0; overflow-y:auto; overflow-x:hidden;
+    scrollbar-width:none; padding-bottom:76px; }
+  .phone .screen::-webkit-scrollbar { display:none; }
+  .phone-label { position:absolute; top:0; left:50%; transform:translate(-50%,-140%);
+    color:#9aa3b8; font-family:system-ui; font-size:12px; letter-spacing:.05em; white-space:nowrap; }
+
+  /* shared top bar + page head */
+  .m-top { position:sticky; top:0; z-index:50; height:44px; background:#05070d; display:flex;
+    align-items:center; justify-content:center; border-bottom:2px solid var(--mint); }
+  .m-top .brand { font-family:var(--font-bug); color:#fff; font-weight:800; font-size:16px;
+    letter-spacing:.08em; text-transform:uppercase; }
+  .m-top .brand .g { color:var(--mint); }
+  .m-head { padding:18px 16px 10px; }
+  .m-head h1 { font-family:var(--font-bug); text-transform:uppercase; font-weight:800; font-size:26px; letter-spacing:.03em; }
+  .m-head h1 .wk { color:var(--yellow); }
+
+  /* compact control bar */
+  .m-ctrls { display:flex; gap:8px; overflow-x:auto; padding:4px 16px 12px; scrollbar-width:none; align-items:center; }
+  .m-ctrls::-webkit-scrollbar { display:none; }
+  .pos-tab { flex:0 0 auto; font-family:var(--font-bug); font-size:13.5px; letter-spacing:.08em;
+    text-transform:uppercase; color:#cfd6e4; background:#131722; border:1px solid rgba(255,255,255,.12);
+    padding:5px 13px; border-radius:999px; cursor:pointer; transition:all .15s ease; }
+  .pos-tab.on { background:var(--mint); color:#04140e; border-color:var(--mint); font-weight:700; }
+  .fbtn { flex:0 0 auto; font-size:13px; color:#cfd6e4; background:#131722;
+    border:1px solid rgba(255,255,255,.12); padding:5px 12px; border-radius:999px; cursor:pointer; }
+  .fbtn:hover { border-color:var(--mint); }
+
+  .delta { font-variant-numeric:tabular-nums; font-weight:700; font-size:13px; }
+  .delta.up { color:var(--pos); } .delta.dn { color:var(--neg); }
+  .chip { width:22px; height:14px; border-radius:2.5px; display:inline-block; flex-shrink:0;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
+  .postag { font-family:var(--font-bug); font-size:10px; letter-spacing:.1em; padding:1.5px 6px;
+    border-radius:3px; font-weight:700; }
+  .postag.QB { background:rgba(91,103,199,.25); color:#aab4f5; }
+  .postag.RB { background:rgba(145,237,208,.16); color:var(--mint); }
+  .postag.WR { background:rgba(255,216,77,.16); color:var(--yellow); }
+  .postag.TE { background:rgba(230,69,69,.18); color:#ff9d9d; }
+
+  /* tab bar + GX-01 puck (winner pattern from 002) */
+  .tabbar { position:absolute; bottom:0; left:0; right:0; z-index:65; height:64px; background:#05070d;
+    border-top:1px solid rgba(255,255,255,.1); display:flex; align-items:stretch; }
+  .tab { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+    color:#8892ad; font-family:var(--font-bug); font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; cursor:pointer; transition:color .15s; }
+  .tab .ic { font-size:17px; line-height:1; }
+  .tab.active, .tab:hover { color:var(--mint); }
+  .tab.gx-tab { position:relative; }
+  .tab.gx-tab .puck { position:absolute; top:-22px; width:54px; height:54px; border-radius:50%;
+    background:var(--bar); border:1.5px solid rgba(255,216,77,.55); display:flex; align-items:center;
+    justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,.55); transition:transform .15s ease; }
+  .tab.gx-tab:hover .puck { transform:translateY(-3px); }
+  .tab.gx-tab .lbl { margin-top:30px; color:var(--yellow); }
+  .gxh { position:relative; width:44px; height:40px; transform:scale(.82); }
+  .gxh div { position:absolute; }
+  .gxh .fin-l, .gxh .fin-r { top:0; width:15px; height:13px;
+    background:linear-gradient(180deg,#ffe98a,var(--yellow)); filter:drop-shadow(0 0 4px rgba(255,216,77,.7)); z-index:3; }
+  .gxh .fin-l { left:4px; clip-path:polygon(100% 100%, 0% 0%, 60% 100%); }
+  .gxh .fin-r { right:4px; clip-path:polygon(0% 100%, 100% 0%, 40% 100%); }
+  .gxh .head { top:5px; left:50%; transform:translateX(-50%); width:32px; height:28px; z-index:2;
+    background:linear-gradient(160deg,#f4f6fb 0%,#c9cfdd 55%,#8f97ab 100%);
+    clip-path:polygon(50% 0%, 88% 20%, 100% 58%, 80% 100%, 20% 100%, 0% 58%, 12% 20%); }
+  .gxh .visor { top:15px; left:50%; transform:translateX(-50%); width:23px; height:7px; z-index:3;
+    background:#05070d; clip-path:polygon(0 20%, 100% 20%, 90% 100%, 10% 100%); }
+  .gxh .eye { top:16.5px; width:6px; height:3px; background:var(--cyan); z-index:4;
+    box-shadow:var(--shadow-glow-cyan); animation:eye-pulse 3.2s ease-in-out infinite; }
+  .gxh .eye.l { left:12px; transform:skewX(-12deg); } .gxh .eye.r { right:12px; transform:skewX(12deg); }
+  .gxh .chin { top:26px; left:50%; transform:translateX(-50%); width:9px; height:6px; background:#e64545; z-index:3;
+    clip-path:polygon(0 0, 100% 0, 50% 100%); }
+  @keyframes eye-pulse { 0%,100% {opacity:1;} 50% {opacity:.55;} }
+
+  /* "More" sheet (variant A) + filter sheet (shared) */
+  .sheet { position:absolute; left:0; right:0; bottom:64px; z-index:64; background:var(--bar);
+    border-radius:18px 18px 0 0; border-top:1px solid rgba(255,216,77,.4); padding:14px 16px 18px;
+    transform:translateY(110%); transition:transform .22s ease; }
+  .sheet.open { transform:none; }
+  .sheet .grab { width:36px; height:4px; border-radius:2px; background:rgba(255,255,255,.25); margin:0 auto 10px; }
+  .sheet .hdr { font-family:var(--font-bug); letter-spacing:.12em; color:var(--yellow); font-size:11px;
+    text-transform:uppercase; margin-bottom:10px; display:flex; justify-content:space-between; }
+  .more-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .more-item { display:flex; align-items:center; gap:10px; background:#131722; border:1px solid rgba(255,255,255,.09);
+    border-radius:12px; padding:13px 14px; font-family:var(--font-bug); font-size:15px; letter-spacing:.08em;
+    text-transform:uppercase; color:#cfd6e4; cursor:pointer; transition:all .15s; }
+  .more-item:hover { border-color:var(--mint); color:#fff; }
+  .seg { display:flex; background:#131722; border:1px solid rgba(255,255,255,.12); border-radius:999px; overflow:hidden; width:max-content; }
+  .seg button { font-family:var(--font-bug); font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+    background:none; border:none; color:#8892ad; padding:6px 13px; cursor:pointer; }
+  .seg button.on { background:var(--peri); color:#fff; }
+
+  /* ---------- VARIANT A: essential columns ---------- */
+  .a-row { display:flex; align-items:center; gap:9px; padding:11px 16px; border-bottom:1px solid rgba(255,255,255,.05);
+    cursor:pointer; transition:background .12s; }
+  .a-row:hover { background:rgba(145,237,208,.06); }
+  .a-row .rkn { font-family:var(--font-bug); font-size:15px; font-weight:700; color:#8892ad; width:24px; }
+  .a-row .nm { font-size:14.5px; font-weight:600; }
+  .a-row .grow { flex:1; }
+  .a-row .proj { font-family:var(--font-bug); font-size:18px; font-weight:800; color:var(--mint); }
+  .a-det { padding:12px 16px 14px 49px; background:#0d1120; border-bottom:1px solid rgba(145,237,208,.25); font-size:12.5px; }
+  .a-det .l { font-family:var(--font-bug); font-size:10.5px; letter-spacing:.12em; color:var(--yellow);
+    text-transform:uppercase; margin-bottom:6px; }
+  .rangebar { position:relative; height:8px; background:#1c2333; border-radius:4px; margin:4px 0; }
+  .rangebar .fill { position:absolute; top:0; bottom:0; background:linear-gradient(90deg,var(--mint-deep),var(--mint));
+    border-radius:4px; opacity:.55; }
+  .rangebar .tick { position:absolute; top:-3px; width:2.5px; height:14px; background:var(--yellow); border-radius:2px; }
+  .rangebar-l { display:flex; justify-content:space-between; color:#8892ad; font-size:11px; font-variant-numeric:tabular-nums; }
+  .a-det .stack { margin-top:8px; color:#cfd6e4; }
+  .a-det .stack b { color:var(--pos); }
+
+  /* ---------- VARIANT B: two-line rows ---------- */
+  .b-row { display:flex; align-items:center; gap:10px; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,.05); }
+  .b-row .rkn { font-family:var(--font-bug); font-size:16px; font-weight:700; color:#8892ad; width:24px; }
+  .b-row .mid { flex:1; min-width:0; }
+  .b-row .l1 { display:flex; align-items:center; gap:7px; }
+  .b-row .nm { font-size:14.5px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .b-row .l2 { display:flex; align-items:center; gap:10px; margin-top:3px; color:#8892ad; font-size:11.5px;
+    font-variant-numeric:tabular-nums; }
+  .b-row .l2 .tier { color:var(--yellow); font-family:var(--font-bug); letter-spacing:.06em; }
+  .b-row .projpanel { font-family:var(--font-bug); background:var(--mint); color:#04140e; font-size:16px;
+    font-weight:800; border-radius:8px; padding:4px 10px; min-width:52px; text-align:center; }
+
+  /* ---------- VARIANT C: pan table ---------- */
+  .c-scroller { overflow-x:auto; scrollbar-width:thin; }
+  table.crk { border-collapse:collapse; min-width:560px; width:100%; }
+  .crk thead th { font-family:var(--font-bug); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--yellow); text-align:left; padding:8px 10px; border-bottom:2px solid var(--mint); white-space:nowrap;
+    background:#0b0e18; }
+  .crk td { padding:8px 10px; border-bottom:1px solid rgba(255,255,255,.05); font-size:13px; white-space:nowrap; }
+  .crk .sticky { position:sticky; left:0; background:#0b0e18; z-index:2; }
+  .crk td.sticky { box-shadow:2px 0 6px rgba(0,0,0,.4); }
+  .crk .proj { font-family:var(--font-bug); font-size:16px; font-weight:800; color:var(--mint); }
+  .crk .rkn { font-family:var(--font-bug); color:#8892ad; font-weight:700; }
+  .crk .band { color:#8892ad; font-variant-numeric:tabular-nums; }
+  .pan-hint { text-align:center; color:#5c6478; font-size:11px; padding:6px 0 2px; }
+
+  #sketch-tools { position:fixed; bottom:12px; left:12px; z-index:9999; font-family:system-ui; font-size:12px;
+    background:rgba(0,0,0,0.72); color:white; padding:8px 12px; border-radius:8px; opacity:.35;
+    transition:opacity .2s; display:flex; gap:8px; align-items:center; }
+  #sketch-tools:hover { opacity:1; }
+  #sketch-tools select { font-size:12px; border-radius:5px; border:none; padding:3px 7px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div id="variant-nav">
+  <button class="variant-tab active" onclick="showVariant('a', event)">A: Essential Columns + "More" Tab</button>
+  <button class="variant-tab" onclick="showVariant('b', event)">B: Two-Line Rows + League Priority</button>
+  <button class="variant-tab" onclick="showVariant('c', event)">C: Pan Table + Seasonal Tabs ★ Selected</button>
+</div>
+
+<!-- ============ VARIANT A ============ -->
+<div id="variant-a" class="variant active">
+  <div class="phone"><div class="phone-label">RK/Player/Proj/Δ only — depth in expandable row · 5th tab = More sheet</div>
+    <div class="screen">
+      <div class="m-top"><span class="brand">GRIDIRON<span class="g">IQ</span></span></div>
+      <div class="m-head"><h1>Rankings <span class="wk">· 2026 Pre</span></h1></div>
+      <div class="m-ctrls" data-list="a">
+        <button class="pos-tab on" data-pos="ALL">All</button>
+        <button class="pos-tab" data-pos="QB">QB</button>
+        <button class="pos-tab" data-pos="RB">RB</button>
+        <button class="pos-tab" data-pos="WR">WR</button>
+        <button class="pos-tab" data-pos="TE">TE</button>
+        <button class="fbtn" onclick="toggleSheet('filt-a')">⚙︎ Half-PPR</button>
+      </div>
+      <div id="list-a"></div>
+      <div style="height:20px"></div>
+    </div>
+    <div class="tabbar">
+      <div class="tab"><span class="ic">🏠</span>Home</div>
+      <div class="tab active"><span class="ic">📊</span>Ranks</div>
+      <div class="tab gx-tab"><div class="puck"><div class="gxh">
+        <div class="fin-l"></div><div class="fin-r"></div><div class="head"></div>
+        <div class="visor"></div><div class="eye l"></div><div class="eye r"></div><div class="chin"></div>
+      </div></div><span class="lbl">GX-01</span></div>
+      <div class="tab"><span class="ic">🏈</span>Scores</div>
+      <div class="tab" onclick="toggleSheet('more-a')"><span class="ic">⋯</span>More</div>
+    </div>
+    <div class="sheet" id="more-a">
+      <div class="grab"></div>
+      <div class="hdr"><span>More</span><span style="cursor:pointer" onclick="toggleSheet('more-a')">✕</span></div>
+      <div class="more-grid">
+        <div class="more-item">🏆 Draft Room</div>
+        <div class="more-item">👥 My League</div>
+        <div class="more-item">📰 News</div>
+        <div class="more-item">🏟 Matchups</div>
+      </div>
+    </div>
+    <div class="sheet" id="filt-a">
+      <div class="grab"></div>
+      <div class="hdr"><span>Scoring</span><span style="cursor:pointer" onclick="toggleSheet('filt-a')">✕</span></div>
+      <div class="seg" data-list="a">
+        <button data-s="ppr">PPR</button><button data-s="half" class="on">Half</button><button data-s="std">Std</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VARIANT B ============ -->
+<div id="variant-b" class="variant">
+  <div class="phone"><div class="phone-label">Two-line rows keep band+tier visible · League replaces Scores in tabs</div>
+    <div class="screen">
+      <div class="m-top"><span class="brand">GRIDIRON<span class="g">IQ</span></span></div>
+      <div class="m-head"><h1>Rankings <span class="wk">· 2026 Pre</span></h1></div>
+      <div class="m-ctrls" data-list="b">
+        <button class="pos-tab on" data-pos="ALL">All</button>
+        <button class="pos-tab" data-pos="QB">QB</button>
+        <button class="pos-tab" data-pos="RB">RB</button>
+        <button class="pos-tab" data-pos="WR">WR</button>
+        <button class="pos-tab" data-pos="TE">TE</button>
+        <button class="fbtn" onclick="toggleSheet('filt-b')">⚙︎ Half-PPR</button>
+      </div>
+      <div id="list-b"></div>
+      <div style="height:20px"></div>
+    </div>
+    <div class="tabbar">
+      <div class="tab"><span class="ic">🏠</span>Home</div>
+      <div class="tab active"><span class="ic">📊</span>Ranks</div>
+      <div class="tab gx-tab"><div class="puck"><div class="gxh">
+        <div class="fin-l"></div><div class="fin-r"></div><div class="head"></div>
+        <div class="visor"></div><div class="eye l"></div><div class="eye r"></div><div class="chin"></div>
+      </div></div><span class="lbl">GX-01</span></div>
+      <div class="tab"><span class="ic">👥</span>League</div>
+      <div class="tab" onclick="toggleSheet('more-b')"><span class="ic">⋯</span>More</div>
+    </div>
+    <div class="sheet" id="more-b">
+      <div class="grab"></div>
+      <div class="hdr"><span>More</span><span style="cursor:pointer" onclick="toggleSheet('more-b')">✕</span></div>
+      <div class="more-grid">
+        <div class="more-item">🏈 Scores</div>
+        <div class="more-item">🏆 Draft Room</div>
+        <div class="more-item">📰 News</div>
+        <div class="more-item">🏟 Matchups</div>
+      </div>
+    </div>
+    <div class="sheet" id="filt-b">
+      <div class="grab"></div>
+      <div class="hdr"><span>Scoring</span><span style="cursor:pointer" onclick="toggleSheet('filt-b')">✕</span></div>
+      <div class="seg" data-list="b">
+        <button data-s="ppr">PPR</button><button data-s="half" class="on">Half</button><button data-s="std">Std</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VARIANT C ============ -->
+<div id="variant-c" class="variant">
+  <div class="phone"><div class="phone-label">Full table pans sideways, player column sticky · Draft tab in-season swaps</div>
+    <div class="screen">
+      <div class="m-top"><span class="brand">GRIDIRON<span class="g">IQ</span></span></div>
+      <div class="m-head"><h1>Rankings <span class="wk">· 2026 Pre</span></h1></div>
+      <div class="m-ctrls" data-list="c">
+        <button class="pos-tab on" data-pos="ALL">All</button>
+        <button class="pos-tab" data-pos="QB">QB</button>
+        <button class="pos-tab" data-pos="RB">RB</button>
+        <button class="pos-tab" data-pos="WR">WR</button>
+        <button class="pos-tab" data-pos="TE">TE</button>
+      </div>
+      <div class="pan-hint">◂ drag the table sideways ▸</div>
+      <div class="c-scroller">
+        <table class="crk">
+          <thead><tr>
+            <th class="sticky">Player</th><th>Proj</th><th>Floor · Ceil</th><th>vs ECR</th><th>Tier</th><th>Stack</th>
+          </tr></thead>
+          <tbody id="list-c"></tbody>
+        </table>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+    <div class="tabbar">
+      <div class="tab"><span class="ic">🏠</span>Home</div>
+      <div class="tab active"><span class="ic">📊</span>Ranks</div>
+      <div class="tab gx-tab"><div class="puck"><div class="gxh">
+        <div class="fin-l"></div><div class="fin-r"></div><div class="head"></div>
+        <div class="visor"></div><div class="eye l"></div><div class="eye r"></div><div class="chin"></div>
+      </div></div><span class="lbl">GX-01</span></div>
+      <div class="tab"><span class="ic">🏆</span>Draft</div>
+      <div class="tab"><span class="ic">👥</span>League</div>
+    </div>
+  </div>
+</div>
+
+<div id="sketch-tools">
+  <select onchange="document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css'">
+    <option value="default">WC26 Broadcast v2</option>
+  </select>
+  <span>C's tab set is seasonal: Draft appears Jul–Sep, Scores replaces it in-season</span>
+</div>
+
+<script>
+const DATA = [
+  {nm:"Josh Allen",        tm:"BUF", pos:"QB", base:23.4, rec:0.0, fl:18.1, cl:29.2, d:+0.6, tier:1, stack:"—"},
+  {nm:"Lamar Jackson",     tm:"BAL", pos:"QB", base:22.8, rec:0.0, fl:17.4, cl:28.8, d:+0.3, tier:1, stack:"Andrews +0.41"},
+  {nm:"Jalen Hurts",       tm:"PHI", pos:"QB", base:21.7, rec:0.0, fl:16.8, cl:27.1, d:-0.2, tier:1, stack:"Smith +0.34"},
+  {nm:"Bijan Robinson",    tm:"ATL", pos:"RB", base:17.9, rec:3.8, fl:11.2, cl:25.4, d:-0.3, tier:1, stack:"—"},
+  {nm:"Ja'Marr Chase",     tm:"CIN", pos:"WR", base:17.6, rec:6.9, fl:9.8,  cl:27.3, d:+0.5, tier:1, stack:"Burrow +0.46"},
+  {nm:"Jahmyr Gibbs",      tm:"DET", pos:"RB", base:17.2, rec:4.4, fl:10.6, cl:24.9, d:+0.4, tier:1, stack:"Goff +0.22"},
+  {nm:"Justin Jefferson",  tm:"MIN", pos:"WR", base:17.1, rec:6.6, fl:9.5,  cl:26.6, d:+0.1, tier:1, stack:"—"},
+  {nm:"Amon-Ra St. Brown", tm:"DET", pos:"WR", base:16.5, rec:7.4, fl:9.9,  cl:24.8, d:+0.8, tier:1, stack:"Goff +0.51"},
+  {nm:"CeeDee Lamb",       tm:"DAL", pos:"WR", base:15.8, rec:6.8, fl:8.9,  cl:24.1, d:-0.4, tier:2, stack:"—"},
+  {nm:"Brock Bowers",      tm:"LV",  pos:"TE", base:12.9, rec:6.2, fl:7.1,  cl:19.8, d:+0.4, tier:1, stack:"—"},
+  {nm:"Trey McBride",      tm:"ARI", pos:"TE", base:12.2, rec:6.0, fl:6.8,  cl:18.9, d:+0.5, tier:1, stack:"Murray +0.38"},
+  {nm:"Sam LaPorta",       tm:"DET", pos:"TE", base:11.4, rec:5.3, fl:6.2,  cl:17.7, d:+0.9, tier:2, stack:"Goff +0.36"},
+];
+const CHIPS = {
+  BUF:"linear-gradient(135deg,#00338D 60%,#C60C30)", BAL:"linear-gradient(135deg,#241773 60%,#9E7C0C)",
+  PHI:"linear-gradient(135deg,#004C54 60%,#A5ACAF)", ATL:"linear-gradient(135deg,#A71930 60%,#000)",
+  CIN:"linear-gradient(135deg,#FB4F14 60%,#000)",    DET:"linear-gradient(135deg,#0076B6 60%,#B0B7BC)",
+  MIN:"linear-gradient(135deg,#4F2683 60%,#FFC62F)", DAL:"linear-gradient(135deg,#003594 60%,#869397)",
+  LV:"linear-gradient(135deg,#000 60%,#A5ACAF)",     ARI:"linear-gradient(135deg,#97233F 60%,#FFB612)",
+};
+let state = { a:{pos:"ALL",s:"half",open:null}, b:{pos:"ALL",s:"half"}, c:{pos:"ALL",s:"half"} };
+const proj = (p,s) => p.base + (s==="ppr" ? p.rec*0.5 : s==="std" ? -p.rec*0.5 : 0);
+const shift = (p,s) => s==="ppr" ? p.rec*0.5 : s==="std" ? -p.rec*0.5 : 0;
+const fmt = n => n.toFixed(1);
+const chip = t => `<span class="chip" style="background:${CHIPS[t]}"></span>`;
+const dH = p => `<span class="delta ${p.d>=0?'up':'dn'}">${p.d>=0?'+':''}${p.d.toFixed(1)}</span>`;
+const rows = k => DATA.filter(p => state[k].pos==="ALL" || p.pos===state[k].pos)
+  .sort((a,b) => proj(b,state[k].s)-proj(a,state[k].s));
+
+function renderA() {
+  const s = state.a.s;
+  document.getElementById('list-a').innerHTML = rows('a').map((p,i) => {
+    let h = `<div class="a-row" onclick="state.a.open=state.a.open===${DATA.indexOf(p)}?null:${DATA.indexOf(p)};renderA()">
+      <span class="rkn">${i+1}</span>${chip(p.tm)}
+      <span class="nm">${p.nm}</span><span class="postag ${p.pos}">${p.pos}</span>
+      <span class="grow"></span>${dH(p)}<span class="proj">${fmt(proj(p,s))}</span></div>`;
+    if (state.a.open === DATA.indexOf(p)) {
+      const lo=p.fl+shift(p,s), hi=p.cl+shift(p,s), pr=proj(p,s), min=lo-2, max=hi+2,
+        pct=v=>((v-min)/(max-min)*100).toFixed(1);
+      h += `<div class="a-det"><div class="l">Conformal band · Tier ${p.tier}</div>
+        <div class="rangebar"><div class="fill" style="left:${pct(lo)}%;right:${(100-pct(hi)).toFixed(1)}%"></div>
+        <div class="tick" style="left:${pct(pr)}%"></div></div>
+        <div class="rangebar-l"><span>fl ${fmt(lo)}</span><span>proj ${fmt(pr)}</span><span>ceil ${fmt(hi)}</span></div>
+        <div class="stack">${p.stack==="—" ? "No gated stack edges" : "Stack: "+p.stack.split(" ")[0]+" <b>"+p.stack.split(" ")[1]+"</b>"}</div></div>`;
+    }
+    return h;
+  }).join('');
+}
+function renderB() {
+  const s = state.b.s;
+  document.getElementById('list-b').innerHTML = rows('b').map((p,i) =>
+    `<div class="b-row"><span class="rkn">${i+1}</span>
+      <div class="mid"><div class="l1">${chip(p.tm)}<span class="nm">${p.nm}</span>
+        <span class="postag ${p.pos}">${p.pos}</span></div>
+      <div class="l2"><span>${fmt(p.fl+shift(p,s))} · ${fmt(p.cl+shift(p,s))}</span>
+        <span class="tier">T${p.tier}</span>${dH(p)}</div></div>
+      <span class="projpanel">${fmt(proj(p,s))}</span></div>`
+  ).join('');
+}
+function renderC() {
+  const s = state.c.s;
+  document.getElementById('list-c').innerHTML = rows('c').map((p,i) =>
+    `<tr><td class="sticky"><span class="rkn">${i+1}</span>&nbsp; ${chip(p.tm)}
+      <b>${p.nm}</b> <span class="postag ${p.pos}">${p.pos}</span></td>
+      <td class="proj">${fmt(proj(p,s))}</td>
+      <td class="band">${fmt(p.fl+shift(p,s))} · ${fmt(p.cl+shift(p,s))}</td>
+      <td>${dH(p)}</td><td style="color:var(--yellow);font-family:var(--font-bug)">T${p.tier}</td>
+      <td style="color:#8892ad">${p.stack}</td></tr>`
+  ).join('');
+}
+function renderAll() { renderA(); renderB(); renderC(); }
+
+document.querySelectorAll('.m-ctrls').forEach(bar => {
+  bar.addEventListener('click', e => {
+    if (!e.target.dataset.pos) return;
+    const k = bar.dataset.list;
+    bar.querySelectorAll('.pos-tab').forEach(t => t.classList.remove('on'));
+    e.target.classList.add('on'); state[k].pos = e.target.dataset.pos;
+    if (k==='a') state.a.open = null;
+    renderAll();
+  });
+});
+document.querySelectorAll('.seg').forEach(seg => {
+  seg.addEventListener('click', e => {
+    if (!e.target.dataset.s) return;
+    const k = seg.dataset.list;
+    seg.querySelectorAll('button').forEach(t => t.classList.remove('on'));
+    e.target.classList.add('on'); state[k].s = e.target.dataset.s;
+    document.querySelectorAll(`#variant-${k} .fbtn`).forEach(b =>
+      b.textContent = '⚙︎ ' + (e.target.dataset.s==='ppr'?'PPR':e.target.dataset.s==='std'?'Standard':'Half-PPR'));
+    renderAll();
+  });
+});
+function toggleSheet(id) { document.getElementById(id).classList.toggle('open'); }
+function showVariant(id, ev) {
+  document.querySelectorAll('.variant').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.variant-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('variant-' + id).classList.add('active');
+  ev.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+renderAll();
+</script>
+</body>
+</html>
