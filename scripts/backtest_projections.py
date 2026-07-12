@@ -348,6 +348,7 @@ from consensus_metrics import (  # noqa: E402
 def print_consensus_report(
     matched_df: pd.DataFrame,
     scoring_format: str,
+    source_label: str = "Sleeper",
 ) -> None:
     """Print the head-to-head consensus benchmark report.
 
@@ -452,7 +453,7 @@ def print_consensus_report(
         topn_str_c = f"{con_topn:.3f}" if not np.isnan(con_topn) else "  N/A"
         mae_delta_str = f"{mae_delta:+.2f}"
         print(
-            f"{'':<8} {'Sleeper':<10} {con_mae:>7.2f} {mae_delta_str:>9} "
+            f"{'':<8} {source_label[:10]:<10} {con_mae:>7.2f} {mae_delta_str:>9} "
             f"{spearman_str_c:>10} {topn_str_c:>9} {n:>7,}"
         )
 
@@ -987,6 +988,16 @@ def main():
         ),
     )
     parser.add_argument(
+        "--consensus-source",
+        choices=["sleeper", "espn", "yahoo_proxy_fp"],
+        default=_CONSENSUS_SOURCE,
+        help=(
+            "Which external-projections source to benchmark against "
+            "(default: sleeper). ESPN 2022-2024 is backfilled from ESPN's "
+            "archived weekly projections scored under our SCORING_CONFIGS."
+        ),
+    )
+    parser.add_argument(
         "--no-injuries",
         action="store_true",
         help=(
@@ -1065,13 +1076,15 @@ def main():
             project_root, "data", "silver", "external_projections"
         )
 
-        print(f"\nLoading Sleeper consensus from Silver: {silver_root}")
+        print(
+            f"\nLoading {args.consensus_source} consensus from Silver: {silver_root}"
+        )
         consensus_df = load_consensus_for_seasons(
             seasons=seasons,
             weeks=backtest_weeks,
             scoring_format=args.scoring,
             silver_root=silver_root,
-            source=_CONSENSUS_SOURCE,
+            source=args.consensus_source,
         )
 
         if consensus_df.empty:
@@ -1101,12 +1114,21 @@ def main():
                     "Sleeper consensus. Check that player_id formats align."
                 )
             else:
-                print_consensus_report(matched, args.scoring)
+                print_consensus_report(
+                    matched,
+                    args.scoring,
+                    source_label=args.consensus_source.capitalize(),
+                )
 
                 # Save the matched frame too
+                src_tag = (
+                    ""
+                    if args.consensus_source == _CONSENSUS_SOURCE
+                    else f"{args.consensus_source}_"
+                )
                 cons_csv = os.path.join(
                     args.output_dir,
-                    f"consensus_matched_{args.scoring}_{ts}.csv",
+                    f"consensus_matched_{src_tag}{args.scoring}_{ts}.csv",
                 )
                 matched.to_csv(cons_csv, index=False)
                 print(f"\nConsensus-matched results saved to: {cons_csv}")

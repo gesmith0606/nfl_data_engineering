@@ -26,6 +26,18 @@ CLI
     python scripts/ingest_external_projections_espn.py --season 2025 --week 1
     python scripts/ingest_external_projections_espn.py --season 2025 --week 1 \\
         --scoring ppr --out-root data/bronze/external_projections
+
+Historical backfill
+-------------------
+ESPN's ``league=0`` endpoint only serves the current season, but the
+league-less ``/seasons/{season}/players`` collection endpoint archives the
+raw per-week PROJECTED stat lines (statSourceId=1) for past seasons. Those
+raw stats carry no league scoring (``appliedTotal`` is 0), so this mode
+scores them with our own ``SCORING_CONFIGS`` via ``calculate_fantasy_points``
+— which also makes the consensus comparison scoring-identical on both sides.
+
+    python scripts/ingest_external_projections_espn.py --historical \\
+        --season 2023 --weeks 1-18 --scoring half_ppr
 """
 
 from __future__ import annotations
@@ -49,6 +61,7 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from src.player_name_resolver import PlayerNameResolver  # noqa: E402
+from src.scoring_calculator import calculate_fantasy_points  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -342,13 +355,247 @@ def _write_bronze(
     Returns:
         Path to the written Parquet file.
     """
-    partition = out_root / _SOURCE_LABEL / f"season={season}" / f"week={week}"
+    # Zero-padded week to match the Silver consolidator's read path
+    # (week={week:02d}) — Sleeper/Yahoo ingesters already pad.
+    partition = out_root / _SOURCE_LABEL / f"season={season}" / f"week={week:02d}"
     partition.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     out_path = partition / f"{_SOURCE_LABEL}_{timestamp}.parquet"
     df.to_parquet(out_path, index=False)
     logger.info("Wrote %d rows → %s", len(df), out_path)
     return out_path
+
+
+# ---------------------------------------------------------------------------
+# Historical backfill (league-less players endpoint, raw projected stats)
+# ---------------------------------------------------------------------------
+
+# Past seasons 404 on the league=0 endpoint; the players collection endpoint
+# archives per-week projected stat lines (statSourceId=1) back to ~2018.
+_ESPN_PLAYERS_URL_TEMPLATE: str = (
+    "https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/{season}/"
+    "players?view=kona_player_info&scoringPeriodId={week}"
+)
+
+_ESPN_HIST_FILTER_TEMPLATE: str = (
+    '{{"filterStatsForSourceIds":{{"value":[1]}},'
+    '"filterStatsForSplitTypeIds":{{"value":[1]}},'
+    '"filterStatsForCurrentSeasonScoringPeriodId":{{"value":[{week}]}},'
+    '"limit":1500,"sortPercOwned":{{"sortAsc":false,"sortPriority":1}}}}'
+)
+
+# ESPN raw stat id → canonical stat key accepted by calculate_fantasy_points.
+# Community-documented ids, spot-verified against 2022-2024 archived weeks.
+_ESPN_STAT_ID_MAP: Dict[str, str] = {
+    "3": "passing_yards",
+    "4": "passing_tds",
+    "20": "interceptions",
+    "24": "rushing_yards",
+    "25": "rushing_tds",
+    "42": "receiving_yards",
+    "43": "receiving_tds",
+    "53": "receptions",
+    "72": "fumbles_lost",
+}
+# 2-pt conversions are split across pass/rush/rec ids; summed into one key.
+_ESPN_TWO_PT_IDS = ("19", "26", "44")
+
+
+def fetch_espn_projections_historical(
+    season: int, week: int, scoring: str = "half_ppr"
+) -> pd.DataFrame:
+    """Fetch archived ESPN projections for a past (season, week).
+
+    The archived stat lines carry raw stat quantities only (appliedTotal is
+    zero without a league context), so fantasy points are computed here with
+    OUR scoring config — identical scoring on both sides of the comparison.
+
+    Args:
+        season: Past NFL season year (e.g. 2023).
+        week: Regular-season week number (1-18).
+        scoring: One of "ppr", "half_ppr", "standard".
+
+    Returns:
+        Bronze-schema DataFrame (same columns as the live-path parser).
+        Empty DataFrame on any HTTP/JSON error (D-06 fail-open at callers).
+    """
+    url = _ESPN_PLAYERS_URL_TEMPLATE.format(season=season, week=week)
+    headers = {
+        "User-Agent": _USER_AGENT,
+        "Accept": "application/json",
+        "X-Fantasy-Filter": _ESPN_HIST_FILTER_TEMPLATE.format(week=week),
+        "X-Fantasy-Source": "kona",
+        "X-Fantasy-Platform": "kona-PROD",
+    }
+    logger.info("Fetching ESPN HISTORICAL projections: season=%d week=%d", season, week)
+    resp = requests.get(url, headers=headers, timeout=_REQUEST_TIMEOUT_S)
+    resp.raise_for_status()
+    return _parse_historical_payload(resp.json(), season=season, week=week, scoring=scoring)
+
+
+def _parse_historical_payload(
+    payload: object, season: int, week: int, scoring: str
+) -> pd.DataFrame:
+    """Convert the players-endpoint JSON into a Bronze-schema DataFrame.
+
+    Pure function (no I/O) so the stat-id mapping and our-scoring conversion
+    are unit-testable against synthetic payloads.
+    """
+    entries = payload if isinstance(payload, list) else payload.get("players", [])
+    projected_at = datetime.now(timezone.utc).isoformat()
+    rows: List[Dict[str, object]] = []
+
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        player = entry.get("player", entry)
+        if not isinstance(player, dict):
+            continue
+        full_name = str(player.get("fullName", "")).strip()
+        if not full_name:
+            continue
+
+        pos_id = player.get("defaultPositionId")
+        team_id = player.get("proTeamId")
+        position = _POSITION_ID_TO_ABBR.get(int(pos_id), "") if pos_id is not None else ""
+        team = _TEAM_ID_TO_ABBR.get(int(team_id), "") if team_id is not None else ""
+        if not position:
+            continue  # D/ST and unmapped slots are out of eval scope
+
+        raw_stats: Optional[Dict[str, float]] = None
+        for stat in player.get("stats", []) or []:
+            if not isinstance(stat, dict):
+                continue
+            if (
+                stat.get("statSourceId") == 1
+                and int(stat.get("scoringPeriodId", -1)) == int(week)
+                and stat.get("statSplitTypeId") == 1
+            ):
+                raw_stats = stat.get("stats") or {}
+                break
+        if not raw_stats:
+            continue
+
+        stat_line: Dict[str, float] = {}
+        for espn_id, key in _ESPN_STAT_ID_MAP.items():
+            val = raw_stats.get(espn_id)
+            if val is not None:
+                stat_line[key] = float(val)
+        two_pt = sum(float(raw_stats.get(i, 0.0) or 0.0) for i in _ESPN_TWO_PT_IDS)
+        if two_pt:
+            stat_line["two_pt_conversions"] = two_pt
+        if not stat_line:
+            continue
+
+        proj_points = calculate_fantasy_points(stat_line, scoring_format=scoring)
+        if proj_points < 0:
+            proj_points = 0.0
+
+        rows.append(
+            {
+                "player_name": full_name,
+                "player_id": "",  # filled in by _resolve_player_ids
+                "team": team or None,
+                "position": position or None,
+                "projected_points": round(float(proj_points), 2),
+                "scoring_format": scoring,
+                "source": _SOURCE_LABEL,
+                "season": int(season),
+                "week": int(week),
+                "projected_at": projected_at,
+                "raw_payload": json.dumps(
+                    {"espnPlayerId": player.get("id"), "stats": raw_stats},
+                    ensure_ascii=False,
+                ),
+            }
+        )
+
+    df = pd.DataFrame(rows)
+    if df.empty:
+        logger.warning(
+            "ESPN historical parser produced 0 rows for season=%d week=%d",
+            season,
+            week,
+        )
+    else:
+        logger.info(
+            "ESPN historical parsed %d player rows for season=%d week=%d",
+            len(df),
+            season,
+            week,
+        )
+    return df
+
+
+def _parse_weeks_arg(weeks_arg: str) -> List[int]:
+    """Parse a weeks CLI value like ``1-18`` or ``3,5,7`` into a sorted list."""
+    weeks: set = set()
+    for part in weeks_arg.split(","):
+        part = part.strip()
+        if "-" in part:
+            lo, hi = part.split("-", 1)
+            weeks.update(range(int(lo), int(hi) + 1))
+        elif part:
+            weeks.add(int(part))
+    return sorted(w for w in weeks if 1 <= w <= 18)
+
+
+def run_historical_backfill(args: argparse.Namespace) -> int:
+    """Backfill archived ESPN projections for one season across many weeks.
+
+    Skips weeks whose Bronze partition already has an espn parquet unless
+    ``--overwrite`` is passed. Sleeps between calls out of politeness.
+
+    Returns:
+        Process exit code (0 under the D-06 fail-open contract).
+    """
+    import time as _time
+
+    weeks = _parse_weeks_arg(args.weeks)
+    if not weeks:
+        logger.warning("No valid weeks parsed from %r — nothing to do.", args.weeks)
+        return 0
+
+    resolver = PlayerNameResolver(bronze_root=_PROJECT_ROOT / "data/bronze")
+    written = 0
+    for week in weeks:
+        partition = (
+            args.out_root / _SOURCE_LABEL / f"season={args.season}" / f"week={week:02d}"
+        )
+        if not args.overwrite and partition.is_dir() and any(partition.glob("*.parquet")):
+            logger.info("season=%d week=%d already ingested — skipping", args.season, week)
+            continue
+        try:
+            df = fetch_espn_projections_historical(
+                season=args.season, week=week, scoring=args.scoring
+            )
+        except (
+            requests.RequestException,
+            ValueError,
+            KeyError,
+            json.JSONDecodeError,
+        ) as exc:
+            logger.warning(
+                "[%s] historical fetch failed for week %d (fail-open): %s",
+                _SOURCE_LABEL,
+                week,
+                exc,
+            )
+            continue
+        if df.empty:
+            continue
+        df = _resolve_player_ids(df, resolver)
+        _write_bronze(df, out_root=args.out_root, season=args.season, week=week)
+        written += 1
+        _time.sleep(0.6)
+
+    logger.info(
+        "Historical backfill complete: season=%d, %d/%d weeks written.",
+        args.season,
+        written,
+        len(weeks),
+    )
+    return 0
 
 
 # ---------------------------------------------------------------------------
@@ -363,7 +610,32 @@ def _build_arg_parser() -> argparse.ArgumentParser:
         epilog=__doc__,
     )
     parser.add_argument("--season", type=int, required=True, help="NFL season (e.g. 2025).")
-    parser.add_argument("--week", type=int, required=True, help="Regular-season week (1-18).")
+    parser.add_argument(
+        "--week",
+        type=int,
+        default=None,
+        help="Regular-season week (1-18). Required unless --historical.",
+    )
+    parser.add_argument(
+        "--historical",
+        action="store_true",
+        help=(
+            "Backfill a PAST season from ESPN's archived per-week projected "
+            "stat lines (league-less players endpoint), scoring them with our "
+            "own SCORING_CONFIGS. Use with --weeks."
+        ),
+    )
+    parser.add_argument(
+        "--weeks",
+        type=str,
+        default="1-18",
+        help="Weeks to backfill in --historical mode (e.g. '1-18' or '3,5,7').",
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Re-fetch weeks whose Bronze partition already exists (--historical).",
+    )
     parser.add_argument(
         "--scoring",
         choices=_VALID_SCORINGS,
@@ -388,6 +660,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     """
     parser = _build_arg_parser()
     args = parser.parse_args(argv)
+
+    if args.historical:
+        return run_historical_backfill(args)
+
+    if args.week is None:
+        parser.error("--week is required unless --historical is passed")
 
     try:
         df = fetch_espn_projections(
