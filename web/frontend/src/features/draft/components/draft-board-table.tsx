@@ -20,7 +20,7 @@ import type { DraftPlayer, Position, SortDirection } from '@/lib/nfl/types'
 interface DraftBoardTableProps {
   players: DraftPlayer[]
   positionFilter: Position
-  onDraft: (playerId: string) => void
+  onDraft: (playerId: string, byMe?: boolean) => void
   isPicking: boolean
 }
 
@@ -240,16 +240,29 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
                     </span>
                   </TableCell>
                   <TableCell>
-                    <PressScale>
-                      <Button
-                        variant='outline'
-                        size='sm'
-                        onClick={() => onDraft(player.player_id)}
-                        disabled={isPicking}
-                      >
-                        Draft
-                      </Button>
-                    </PressScale>
+                    <span className='flex items-center gap-[var(--space-1)]'>
+                      <PressScale>
+                        <Button
+                          variant='outline'
+                          size='sm'
+                          onClick={() => onDraft(player.player_id)}
+                          disabled={isPicking}
+                        >
+                          Draft
+                        </Button>
+                      </PressScale>
+                      <PressScale>
+                        <Button
+                          variant='ghost'
+                          size='sm'
+                          title='Mark as drafted by another team'
+                          onClick={() => onDraft(player.player_id, false)}
+                          disabled={isPicking}
+                        >
+                          Taken
+                        </Button>
+                      </PressScale>
+                    </span>
                   </TableCell>
                 </TableRow>
               ))

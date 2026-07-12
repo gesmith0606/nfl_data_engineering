@@ -142,11 +142,12 @@ def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame
 
 
 def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
-    """Generate projections, load ADP (if available), and compute value scores.
+    """Load projections, load ADP (if available), and compute value scores.
 
-    Attempts live data fetch first.  When the upstream NFL data API is
-    unavailable (common during the offseason), falls back to cached Gold
-    preseason projections stored as local Parquet files.
+    Prefers the cached Gold preseason artifact so the web API serves the same
+    consensus-anchored projections (with full player names, which the ADP merge
+    depends on) as the CLI draft co-pilot.  Falls back to a live fetch +
+    on-the-fly projection generation only when no cached artifact exists.
 
     Args:
         scoring: Scoring format key (e.g. ``"half_ppr"``).
@@ -155,24 +156,23 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
     Returns:
         Enriched projection DataFrame ready for ``DraftBoard``.
     """
-    projections: Optional[pd.DataFrame] = None
+    # --- Strategy 1: cached Gold preseason projections ---
+    projections: Optional[pd.DataFrame] = _load_cached_projections(scoring, season)
 
-    # --- Strategy 1: live fetch + projection generation ---
-    try:
-        fetcher = NFLDataFetcher()
-        past_seasons = [season - 2, season - 1]
-        seasonal_df = fetcher.fetch_player_seasonal(past_seasons)
-        projections = generate_preseason_projections(
-            seasonal_df, scoring_format=scoring, target_season=season
-        )
-        if projections.empty:
+    # --- Strategy 2: live fetch + projection generation ---
+    if projections is None or projections.empty:
+        try:
+            fetcher = NFLDataFetcher()
+            past_seasons = [season - 2, season - 1]
+            seasonal_df = fetcher.fetch_player_seasonal(past_seasons)
+            projections = generate_preseason_projections(
+                seasonal_df, scoring_format=scoring, target_season=season
+            )
+            if projections.empty:
+                projections = None
+        except Exception as exc:
+            logger.warning("Live projection generation failed: %s", exc)
             projections = None
-    except Exception as exc:
-        logger.warning("Live data fetch failed, will try cached projections: %s", exc)
-
-    # --- Strategy 2: cached Gold preseason projections ---
-    if projections is None:
-        projections = _load_cached_projections(scoring, season)
 
     if projections is None or projections.empty:
         raise ValueError(
