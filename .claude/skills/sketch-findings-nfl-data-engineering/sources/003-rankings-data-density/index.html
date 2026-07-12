@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sketch 003 — Rankings Data Density</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../themes/default.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font-body); background:#0b0e18; color:#fff; padding-top:46px; }
+  .variant { display:none; min-height:100vh; }
+  .variant.active { display:block; }
+
+  #variant-nav { position:fixed; top:0; left:0; right:0; z-index:9998; background:#fff;
+    border-bottom:1px solid #e5e5e5; padding:8px 16px; display:flex; gap:8px; font-family:system-ui; }
+  .variant-tab { border:1px solid #d5d5da; background:#fff; padding:6px 14px; border-radius:8px;
+    font-size:13px; cursor:pointer; transition:all .15s ease; color:#111; }
+  .variant-tab:hover { background:#f0f0f3; }
+  .variant-tab.active { background:var(--bar); color:#fff; border-color:var(--bar); }
+
+  /* broadcast nav (from sketch 001 winner) */
+  .b-nav { position:sticky; top:46px; z-index:100; display:flex; align-items:center; gap:22px; padding:0 24px;
+    height:52px; background:#05070d; font-family:var(--font-bug); letter-spacing:.1em;
+    font-size:15px; text-transform:uppercase; border-bottom:2px solid var(--mint); }
+  .b-nav a { color:#cfd6e4; text-decoration:none; transition:color .15s; }
+  .b-nav a:hover, .b-nav a.on { color:var(--mint); }
+  .b-nav .brand { color:#fff; font-weight:800; font-size:18px; margin-right:10px; }
+  .b-nav .brand .g { color:var(--mint); }
+
+  /* page header + controls (shared) */
+  .pg-head { max-width:1060px; margin:0 auto; padding:40px 24px 18px; }
+  .pg-head h1 { font-family:var(--font-bug); text-transform:uppercase; font-weight:800;
+    font-size:clamp(30px,4vw,46px); letter-spacing:.03em; }
+  .pg-head h1 .wk { color:var(--yellow); }
+  .pg-head .meta { color:#9aa3b8; font-size:14px; margin-top:6px; }
+  .pg-head .meta b { color:var(--mint); font-weight:600; }
+  .ctrls { max-width:1060px; margin:0 auto; padding:0 24px 20px; display:flex; gap:14px;
+    flex-wrap:wrap; align-items:center; }
+  .posbar { display:flex; gap:6px; }
+  .pos-tab { font-family:var(--font-bug); font-size:15px; letter-spacing:.08em; text-transform:uppercase;
+    color:#cfd6e4; background:#131722; border:1px solid rgba(255,255,255,.12); padding:6px 16px;
+    border-radius:999px; cursor:pointer; transition:all .15s ease; }
+  .pos-tab:hover { border-color:var(--mint); color:#fff; }
+  .pos-tab.on { background:var(--mint); color:#04140e; border-color:var(--mint); font-weight:700; }
+  .scoring { display:flex; background:#131722; border:1px solid rgba(255,255,255,.12); border-radius:999px; overflow:hidden; }
+  .scoring button { font-family:var(--font-bug); font-size:13px; letter-spacing:.06em; text-transform:uppercase;
+    background:none; border:none; color:#8892ad; padding:7px 14px; cursor:pointer; transition:all .15s; }
+  .scoring button.on { background:var(--peri); color:#fff; }
+  .search { flex:1; min-width:160px; max-width:260px; background:#131722; border:1px solid rgba(255,255,255,.12);
+    border-radius:999px; color:#fff; padding:8px 16px; font-size:13.5px; outline:none; transition:border-color .15s; }
+  .search:focus { border-color:var(--mint); }
+  .search::placeholder { color:#5c6478; }
+
+  .chip { width:26px; height:17px; border-radius:3px; display:inline-block; flex-shrink:0;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
+  .postag { font-family:var(--font-bug); font-size:11.5px; letter-spacing:.1em; padding:2px 8px;
+    border-radius:4px; font-weight:700; }
+  .postag.QB { background:rgba(91,103,199,.25); color:#aab4f5; }
+  .postag.RB { background:rgba(145,237,208,.16); color:var(--mint); }
+  .postag.WR { background:rgba(255,216,77,.16); color:var(--yellow); }
+  .postag.TE { background:rgba(230,69,69,.18); color:#ff9d9d; }
+  .delta { font-variant-numeric:tabular-nums; font-weight:700; }
+  .delta.up { color:var(--pos); } .delta.dn { color:var(--neg); }
+  .empty { text-align:center; color:#5c6478; padding:60px 0; font-size:15px; }
+
+  /* ============ VARIANT A: BROADCAST TABLE ============ */
+  .tblwrap { max-width:1060px; margin:0 auto 90px; padding:0 24px; }
+  table.rk { width:100%; border-collapse:collapse; }
+  .rk thead th { font-family:var(--font-bug); font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--yellow); text-align:left; padding:10px 12px; border-bottom:2px solid var(--mint);
+    white-space:nowrap; user-select:none; }
+  .rk thead th.sortable { cursor:pointer; }
+  .rk thead th.sortable:hover { color:#fff; }
+  .rk thead th.num, .rk td.num { text-align:right; }
+  .rk tbody tr.player { cursor:pointer; transition:background .12s ease; }
+  .rk tbody tr.player:nth-child(4n+3) { background:rgba(255,255,255,.025); }
+  .rk tbody tr.player:hover { background:rgba(145,237,208,.07); }
+  .rk td { padding:9px 12px; border-bottom:1px solid rgba(255,255,255,.05); font-size:14.5px; }
+  .rk .rkn { font-family:var(--font-bug); font-size:17px; font-weight:700; color:#8892ad; width:44px; }
+  .rk .pl { display:flex; align-items:center; gap:10px; }
+  .rk .pl .nm { font-weight:600; }
+  .rk .pl .tm { color:#8892ad; font-size:12.5px; }
+  .rk .proj { font-family:var(--font-bug); font-size:19px; font-weight:800; color:var(--mint); }
+  .rk .band { color:#8892ad; font-size:13px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .rk .tier-pill { font-family:var(--font-bug); font-size:12px; letter-spacing:.08em; padding:2px 10px;
+    border-radius:999px; border:1px solid rgba(255,216,77,.4); color:var(--yellow); }
+  tr.detail td { background:#0d1120; padding:16px 20px 18px; border-bottom:1px solid rgba(145,237,208,.25); }
+  .det-grid { display:flex; gap:36px; align-items:center; flex-wrap:wrap; }
+  .det-band { flex:1; min-width:260px; }
+  .det-band .lbl { font-family:var(--font-bug); font-size:12px; letter-spacing:.12em; color:var(--yellow);
+    text-transform:uppercase; margin-bottom:8px; }
+  .rangebar { position:relative; height:10px; background:#1c2333; border-radius:5px; }
+  .rangebar .fill { position:absolute; top:0; bottom:0; background:linear-gradient(90deg,var(--mint-deep),var(--mint)); border-radius:5px; opacity:.55; }
+  .rangebar .tick { position:absolute; top:-4px; width:3px; height:18px; background:var(--yellow); border-radius:2px; }
+  .rangebar-l { display:flex; justify-content:space-between; color:#8892ad; font-size:12px; margin-top:6px; font-variant-numeric:tabular-nums; }
+  .det-stack .corr-chip { display:inline-flex; align-items:center; gap:6px; font-family:var(--font-bug);
+    font-size:14px; padding:5px 13px; border-radius:999px; background:#131722;
+    border:1px solid rgba(255,255,255,.12); }
+  .det-stack .corr-chip b { color:var(--pos); }
+
+  /* ============ VARIANT B: TIER BOARD ============ */
+  .tierwrap { max-width:860px; margin:0 auto 90px; padding:0 24px; }
+  .tier-h { display:flex; align-items:center; gap:14px; margin:40px 0 14px; }
+  .tier-h .t { font-family:var(--font-bug); text-transform:uppercase; font-weight:800; font-size:21px;
+    letter-spacing:.06em; color:var(--yellow); white-space:nowrap; }
+  .tier-h .rule { flex:1; height:1px; background:linear-gradient(90deg,rgba(255,216,77,.5),transparent); }
+  .trow { display:flex; align-items:center; gap:14px; padding:13px 18px; border-radius:12px;
+    transition:background .12s ease; cursor:pointer; }
+  .trow:hover { background:rgba(255,255,255,.04); }
+  .trow .rkn { font-family:var(--font-bug); font-size:19px; font-weight:700; color:#5c6478; width:34px; }
+  .trow .nm { font-size:16.5px; font-weight:600; }
+  .trow .tm { color:#8892ad; font-size:13px; margin-left:2px; }
+  .trow .grow { flex:1; }
+  .trow .proj { font-family:var(--font-bug); font-size:23px; font-weight:800; color:var(--mint); min-width:64px; text-align:right; }
+  .trow .band { color:#8892ad; font-size:12.5px; min-width:96px; text-align:right; font-variant-numeric:tabular-nums; }
+  .trow .delta { min-width:56px; text-align:right; font-size:14px; }
+
+  /* ============ VARIANT C: PILL ROWS ============ */
+  .pillwrap { max-width:760px; margin:0 auto 90px; padding:0 24px; display:flex; flex-direction:column; gap:10px; }
+  .prow { font-family:var(--font-bug); display:flex; align-items:center; gap:14px; background:var(--bar);
+    border-radius:999px; padding:8px 10px 8px 20px; border:2px solid transparent; cursor:pointer;
+    transition:transform .12s ease; }
+  .prow:hover { transform:translateX(4px); }
+  .prow.t1 { background-image:linear-gradient(var(--bar),var(--bar)),
+      linear-gradient(90deg,var(--peri),var(--mint) 40%,var(--yellow) 75%,var(--peri));
+    background-origin:border-box; background-clip:padding-box,border-box; }
+  .prow:not(.t1) { border-color:rgba(255,255,255,.1); }
+  .prow .rkn { font-size:19px; font-weight:700; color:#8892ad; width:32px; }
+  .prow .nm { font-size:21px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; }
+  .prow .tm { color:#8892ad; font-size:14px; letter-spacing:.06em; }
+  .prow .grow { flex:1; }
+  .prow .delta { font-size:15px; letter-spacing:.03em; }
+  .prow .projpanel { background:var(--mint); color:#04140e; font-size:21px; font-weight:800;
+    border-radius:999px; padding:5px 18px; min-width:74px; text-align:center; }
+
+  #sketch-tools { position:fixed; bottom:12px; left:12px; z-index:9999; font-family:system-ui; font-size:12px;
+    background:rgba(0,0,0,0.72); color:white; padding:8px 12px; border-radius:8px; opacity:.35;
+    transition:opacity .2s; display:flex; gap:8px; align-items:center; }
+  #sketch-tools:hover { opacity:1; }
+  #sketch-tools select, #sketch-tools button { font-size:12px; border-radius:5px; border:none; padding:3px 7px; cursor:pointer; }
+  #viewport-frame { margin:0 auto; transition:max-width .25s ease; }
+</style>
+</head>
+<body>
+
+<div id="variant-nav">
+  <button class="variant-tab active" onclick="showVariant('a', event)">A: Broadcast Table ★ Selected</button>
+  <button class="variant-tab" onclick="showVariant('b', event)">B: Tier Board</button>
+  <button class="variant-tab" onclick="showVariant('c', event)">C: Pill Rows</button>
+</div>
+
+<div id="viewport-frame">
+
+<nav class="b-nav">
+  <span class="brand">GRIDIRON<span class="g">IQ</span></span>
+  <a href="#">Draft Room</a><a href="#" class="on">Rankings</a><a href="#">Scores</a>
+  <a href="#">News</a><a href="#">Matchups</a><a href="#">My League</a>
+</nav>
+
+<div class="pg-head">
+  <h1>Rankings <span class="wk">· 2026 Preseason</span></h1>
+  <div class="meta">Our projections vs expert consensus — <b>anchored, graded, receipts published.</b> Click a row for floor/ceiling and stacks.</div>
+</div>
+
+<div class="ctrls">
+  <div class="posbar" id="posbar">
+    <button class="pos-tab on" data-pos="ALL">All</button>
+    <button class="pos-tab" data-pos="QB">QB</button>
+    <button class="pos-tab" data-pos="RB">RB</button>
+    <button class="pos-tab" data-pos="WR">WR</button>
+    <button class="pos-tab" data-pos="TE">TE</button>
+  </div>
+  <div class="scoring" id="scoring">
+    <button data-s="ppr">PPR</button>
+    <button data-s="half" class="on">Half</button>
+    <button data-s="std">Std</button>
+  </div>
+  <input class="search" id="search" placeholder="Search player or team…">
+</div>
+
+<!-- VARIANT A -->
+<div id="variant-a" class="variant active">
+  <div class="tblwrap">
+    <table class="rk">
+      <thead><tr>
+        <th>RK</th><th>Player</th><th class="num sortable" id="sort-proj">Proj ▾</th>
+        <th class="num">Floor · Ceil</th><th class="num">vs ECR</th><th>Tier</th>
+      </tr></thead>
+      <tbody id="tbody-a"></tbody>
+    </table>
+    <div class="empty" id="empty-a" style="display:none">No players match.</div>
+  </div>
+</div>
+
+<!-- VARIANT B -->
+<div id="variant-b" class="variant">
+  <div class="tierwrap" id="tiers-b"></div>
+</div>
+
+<!-- VARIANT C -->
+<div id="variant-c" class="variant">
+  <div class="pillwrap" id="pills-c"></div>
+</div>
+
+</div><!-- /viewport-frame -->
+
+<div id="sketch-tools">
+  <select onchange="document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css'">
+    <option value="default">WC26 Broadcast v2</option>
+  </select>
+  <button onclick="setViewport(375)">📱</button>
+  <button onclick="setViewport(768)">💊</button>
+  <button onclick="setViewport(0)">🖥</button>
+</div>
+
+<script>
+/* half-PPR base proj; ppr = base + rec*0.5, std = base - rec*0.5 */
+const DATA = [
+  {nm:"Josh Allen",        tm:"BUF", pos:"QB", base:23.4, rec:0.0, fl:18.1, cl:29.2, d:+0.6, tier:1, stack:"Coleman +0.29"},
+  {nm:"Lamar Jackson",     tm:"BAL", pos:"QB", base:22.8, rec:0.0, fl:17.4, cl:28.8, d:+0.3, tier:1, stack:"Andrews +0.41"},
+  {nm:"Jalen Hurts",       tm:"PHI", pos:"QB", base:21.7, rec:0.0, fl:16.8, cl:27.1, d:-0.2, tier:1, stack:"Smith +0.34"},
+  {nm:"Patrick Mahomes",   tm:"KC",  pos:"QB", base:20.9, rec:0.0, fl:15.9, cl:26.6, d:+0.9, tier:2, stack:"Kelce +0.50"},
+  {nm:"Bijan Robinson",    tm:"ATL", pos:"RB", base:17.9, rec:3.8, fl:11.2, cl:25.4, d:-0.3, tier:1, stack:"—"},
+  {nm:"Jahmyr Gibbs",      tm:"DET", pos:"RB", base:17.2, rec:4.4, fl:10.6, cl:24.9, d:+0.4, tier:1, stack:"Goff +0.22"},
+  {nm:"Saquon Barkley",    tm:"PHI", pos:"RB", base:16.6, rec:2.9, fl:10.1, cl:24.2, d:-0.5, tier:1, stack:"—"},
+  {nm:"De'Von Achane",     tm:"MIA", pos:"RB", base:15.3, rec:4.6, fl:8.8,  cl:23.5, d:+0.7, tier:2, stack:"Tua +0.31"},
+  {nm:"Ja'Marr Chase",     tm:"CIN", pos:"WR", base:17.6, rec:6.9, fl:9.8,  cl:27.3, d:+0.5, tier:1, stack:"Burrow +0.46"},
+  {nm:"Justin Jefferson",  tm:"MIN", pos:"WR", base:17.1, rec:6.6, fl:9.5,  cl:26.6, d:+0.1, tier:1, stack:"—"},
+  {nm:"Amon-Ra St. Brown", tm:"DET", pos:"WR", base:16.5, rec:7.4, fl:9.9,  cl:24.8, d:+0.8, tier:1, stack:"Goff +0.51"},
+  {nm:"CeeDee Lamb",       tm:"DAL", pos:"WR", base:15.8, rec:6.8, fl:8.9,  cl:24.1, d:-0.4, tier:2, stack:"—"},
+  {nm:"Malik Nabers",      tm:"NYG", pos:"WR", base:15.2, rec:7.1, fl:8.2,  cl:23.6, d:+0.6, tier:2, stack:"—"},
+  {nm:"Brock Bowers",      tm:"LV",  pos:"TE", base:12.9, rec:6.2, fl:7.1,  cl:19.8, d:+0.4, tier:1, stack:"—"},
+  {nm:"Trey McBride",      tm:"ARI", pos:"TE", base:12.2, rec:6.0, fl:6.8,  cl:18.9, d:+0.5, tier:1, stack:"Murray +0.38"},
+  {nm:"Sam LaPorta",       tm:"DET", pos:"TE", base:11.4, rec:5.3, fl:6.2,  cl:17.7, d:+0.9, tier:2, stack:"Goff +0.36"},
+];
+const CHIPS = {
+  BUF:"linear-gradient(135deg,#00338D 60%,#C60C30)", BAL:"linear-gradient(135deg,#241773 60%,#9E7C0C)",
+  PHI:"linear-gradient(135deg,#004C54 60%,#A5ACAF)", KC:"linear-gradient(135deg,#E31837 60%,#FFB81C)",
+  ATL:"linear-gradient(135deg,#A71930 60%,#000)",    DET:"linear-gradient(135deg,#0076B6 60%,#B0B7BC)",
+  MIA:"linear-gradient(135deg,#008E97 60%,#FC4C02)", CIN:"linear-gradient(135deg,#FB4F14 60%,#000)",
+  MIN:"linear-gradient(135deg,#4F2683 60%,#FFC62F)", DAL:"linear-gradient(135deg,#003594 60%,#869397)",
+  NYG:"linear-gradient(135deg,#0B2265 60%,#A71930)", LV:"linear-gradient(135deg,#000 60%,#A5ACAF)",
+  ARI:"linear-gradient(135deg,#97233F 60%,#FFB612)",
+};
+const TIER_NAMES = {1:"Tier 1 — The Elite", 2:"Tier 2 — Weekly Starters"};
+let state = { pos:"ALL", scoring:"half", q:"", sortDesc:true, openRow:null };
+
+const proj = p => p.base + (state.scoring==="ppr" ? p.rec*0.5 : state.scoring==="std" ? -p.rec*0.5 : 0);
+const fmt = n => n.toFixed(1);
+const dHtml = p => `<span class="delta ${p.d>=0?'up':'dn'}">${p.d>=0?'+':''}${p.d.toFixed(1)}</span>`;
+const chip = t => `<span class="chip" style="background:${CHIPS[t]}"></span>`;
+
+function filtered() {
+  let rows = DATA.filter(p =>
+    (state.pos==="ALL" || p.pos===state.pos) &&
+    (p.nm.toLowerCase().includes(state.q) || p.tm.toLowerCase().includes(state.q)));
+  rows.sort((a,b) => state.sortDesc ? proj(b)-proj(a) : proj(a)-proj(b));
+  return rows;
+}
+
+function render() {
+  const rows = filtered();
+  /* A: table */
+  const ta = document.getElementById('tbody-a');
+  ta.innerHTML = rows.map((p,i) => {
+    const shift = state.scoring==="ppr" ? p.rec*0.5 : state.scoring==="std" ? -p.rec*0.5 : 0;
+    let html = `<tr class="player" onclick="toggleRow(${DATA.indexOf(p)})">
+      <td class="rkn">${i+1}</td>
+      <td><div class="pl">${chip(p.tm)}<span class="nm">${p.nm}</span>
+        <span class="tm">${p.tm}</span><span class="postag ${p.pos}">${p.pos}</span></div></td>
+      <td class="num proj">${fmt(proj(p))}</td>
+      <td class="num band">${fmt(p.fl+shift)} · ${fmt(p.cl+shift)}</td>
+      <td class="num">${dHtml(p)}</td>
+      <td><span class="tier-pill">T${p.tier}</span></td></tr>`;
+    if (state.openRow === DATA.indexOf(p)) {
+      const lo=p.fl+shift, hi=p.cl+shift, pr=proj(p);
+      const min=lo-2, max=hi+2, pct=v=>((v-min)/(max-min)*100).toFixed(1);
+      html += `<tr class="detail"><td colspan="6"><div class="det-grid">
+        <div class="det-band"><div class="lbl">Conformal band · ~80% coverage</div>
+          <div class="rangebar"><div class="fill" style="left:${pct(lo)}%;right:${(100-pct(hi)).toFixed(1)}%"></div>
+          <div class="tick" style="left:${pct(pr)}%"></div></div>
+          <div class="rangebar-l"><span>floor ${fmt(lo)}</span><span>proj ${fmt(pr)}</span><span>ceiling ${fmt(hi)}</span></div></div>
+        <div class="det-stack"><div class="lbl" style="font-family:var(--font-bug);font-size:12px;letter-spacing:.12em;color:var(--yellow);text-transform:uppercase;margin-bottom:8px;">Stack signal</div>
+          ${p.stack==="—" ? '<span style="color:#5c6478;font-size:13.5px">No gated correlation edges</span>'
+            : `<span class="corr-chip">${p.nm.split(' ').pop().toUpperCase()} ↔ ${p.stack.split(' ')[0].toUpperCase()} <b>${p.stack.split(' ')[1]}</b></span>`}
+        </div></div></td></tr>`;
+    }
+    return html;
+  }).join('');
+  document.getElementById('empty-a').style.display = rows.length ? 'none' : 'block';
+  document.getElementById('sort-proj').textContent = 'Proj ' + (state.sortDesc ? '▾' : '▴');
+
+  /* B: tier board */
+  const tb = document.getElementById('tiers-b');
+  let html = '', lastTier = null, rk = 0;
+  const byTier = [...rows].sort((a,b) => a.tier-b.tier || proj(b)-proj(a));
+  byTier.forEach(p => {
+    rk++;
+    if (p.tier !== lastTier) {
+      html += `<div class="tier-h"><span class="t">${TIER_NAMES[p.tier]||('Tier '+p.tier)}</span><span class="rule"></span></div>`;
+      lastTier = p.tier;
+    }
+    const shift = state.scoring==="ppr" ? p.rec*0.5 : state.scoring==="std" ? -p.rec*0.5 : 0;
+    html += `<div class="trow"><span class="rkn">${rk}</span>${chip(p.tm)}
+      <span class="nm">${p.nm}</span><span class="tm">${p.tm}</span>
+      <span class="postag ${p.pos}">${p.pos}</span><span class="grow"></span>
+      ${dHtml(p)}<span class="band">${fmt(p.fl+shift)} · ${fmt(p.cl+shift)}</span>
+      <span class="proj">${fmt(proj(p))}</span></div>`;
+  });
+  tb.innerHTML = html || '<div class="empty">No players match.</div>';
+
+  /* C: pill rows */
+  document.getElementById('pills-c').innerHTML = rows.map((p,i) =>
+    `<div class="prow ${p.tier===1?'t1':''}"><span class="rkn">${i+1}</span>${chip(p.tm)}
+      <span class="nm">${p.nm}</span><span class="tm">${p.tm} · ${p.pos}</span>
+      <span class="grow"></span>${dHtml(p)}
+      <span class="projpanel">${fmt(proj(p))}</span></div>`
+  ).join('') || '<div class="empty">No players match.</div>';
+}
+
+function toggleRow(idx) { state.openRow = state.openRow===idx ? null : idx; render(); }
+document.getElementById('posbar').addEventListener('click', e => {
+  if (!e.target.dataset.pos) return;
+  document.querySelectorAll('.pos-tab').forEach(t => t.classList.remove('on'));
+  e.target.classList.add('on'); state.pos = e.target.dataset.pos; state.openRow=null; render();
+});
+document.getElementById('scoring').addEventListener('click', e => {
+  if (!e.target.dataset.s) return;
+  document.querySelectorAll('.scoring button').forEach(t => t.classList.remove('on'));
+  e.target.classList.add('on'); state.scoring = e.target.dataset.s; render();
+});
+document.getElementById('search').addEventListener('input', e => {
+  state.q = e.target.value.toLowerCase(); render();
+});
+document.getElementById('sort-proj').addEventListener('click', () => {
+  state.sortDesc = !state.sortDesc; render();
+});
+
+function showVariant(id, ev) {
+  document.querySelectorAll('.variant').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.variant-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('variant-' + id).classList.add('active');
+  ev.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+function setViewport(w) {
+  document.getElementById('viewport-frame').style.maxWidth = w ? w + 'px' : 'none';
+}
+render();
+</script>
+</body>
+</html>

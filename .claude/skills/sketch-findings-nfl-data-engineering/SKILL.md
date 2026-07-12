@@ -19,7 +19,7 @@ Reference points: apple.com (layout grammar, typography restraint, translucent n
 FIFA26 broadcast scorebug (CCTV5 frame in design-refs), existing WC26 OKLCH tokens in
 web/frontend (`--wc-*`).
 
-Sketch sessions wrapped: 2026-07-12
+Sketch sessions wrapped: 2026-07-12 (sketches 001–003)
 </context>
 
 <design_direction>
@@ -47,6 +47,11 @@ scroll structure below the fold.
   pulsing glow animations on the mecha; CTA press feedback.
 - Site IA: Draft Room / Rankings / Scores / News / Matchups / My League. First tab is
   NOT a dashboard.
+- **Mobile (≤~430px):** app shell, not shrunken website — bottom tab bar with GX-01 as
+  the raised center tab, one-liner scorebug, bottom-sheet chat.
+- **Interior data pages:** dense broadcast tables — yellow condensed headers over a
+  2px mint rule, mint hero numerals, shared control bar (position pills / scoring
+  segment / search), expandable rows for depth.
 </design_direction>
 
 <findings_index>
@@ -57,6 +62,8 @@ scroll structure below the fold.
 | Layout & Marketing Home | references/layout-and-marketing-home.md | Broadcast-forward dark home: field-gradient hero, broadcast nav w/ mint rule, honest stat pills, `--sec-*` themed apple-scroll feature sections |
 | Scorebug Component | references/scorebug-component.md | Near-black pill w/ multicolor gradient outline, mint score panels + near-black digits, trophy emblem separator, clock tab = our line, periwinkle ribbon CTA, compact grid variant |
 | Mecha Assistant | references/mecha-assistant.md | GX-01 full-body CSS mecha (clip-path divs, no images), fixed bottom-right, pulsing cyan eyes + mint chest core, near-black chat panel w/ yellow condensed header |
+| Mobile Shell | references/mobile-shell.md | App shell at 375px: bottom tab bar w/ GX-01 raised center tab, horizontal one-liner scorebug, bottom-sheet chat, horizontal stat scroller (tab-overflow TBD) |
+| Data Tables & Interior Pages | references/data-tables-interior-pages.md | Dense broadcast table: yellow condensed headers over mint rule, mint proj numerals, position/scoring/search control bar, expandable conformal-band rows |
 
 ## Theme
 
@@ -72,4 +79,6 @@ Original sketch HTML files are preserved in `sources/` for complete reference.
 ## Processed Sketches
 
 - 001-home-hero-direction
+- 002-mobile-broadcast-hero
+- 003-rankings-data-density
 </metadata>
