@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sketch 005 — Scores Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../themes/default.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font-body); background:#0b0e18; color:#fff; padding-top:46px; }
+  .variant { display:none; min-height:100vh; }
+  .variant.active { display:block; }
+
+  #variant-nav { position:fixed; top:0; left:0; right:0; z-index:9998; background:#fff;
+    border-bottom:1px solid #e5e5e5; padding:8px 16px; display:flex; gap:8px; font-family:system-ui; }
+  .variant-tab { border:1px solid #d5d5da; background:#fff; padding:6px 14px; border-radius:8px;
+    font-size:13px; cursor:pointer; transition:all .15s ease; color:#111; }
+  .variant-tab:hover { background:#f0f0f3; }
+  .variant-tab.active { background:var(--bar); color:#fff; border-color:var(--bar); }
+
+  .b-nav { position:sticky; top:46px; z-index:100; display:flex; align-items:center; gap:22px; padding:0 24px;
+    height:52px; background:#05070d; font-family:var(--font-bug); letter-spacing:.1em;
+    font-size:15px; text-transform:uppercase; border-bottom:2px solid var(--mint); }
+  .b-nav a { color:#cfd6e4; text-decoration:none; transition:color .15s; }
+  .b-nav a:hover, .b-nav a.on { color:var(--mint); }
+  .b-nav .brand { color:#fff; font-weight:800; font-size:18px; margin-right:10px; }
+  .b-nav .brand .g { color:var(--mint); }
+
+  .pg-head { max-width:1100px; margin:0 auto; padding:36px 24px 10px; display:flex;
+    align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  .pg-head h1 { font-family:var(--font-bug); text-transform:uppercase; font-weight:800;
+    font-size:clamp(30px,4vw,44px); letter-spacing:.03em; }
+  .pg-head h1 .wk { color:var(--yellow); }
+  .weekbar { display:flex; gap:8px; align-items:center; }
+  .wk-chip { font-family:var(--font-bug); font-size:14px; letter-spacing:.08em; text-transform:uppercase;
+    color:#cfd6e4; background:#131722; border:1px solid rgba(255,255,255,.12); padding:6px 15px;
+    border-radius:999px; cursor:pointer; transition:all .15s ease; }
+  .wk-chip:hover { border-color:var(--mint); color:#fff; }
+  .wk-chip.on { background:var(--mint); color:#04140e; border-color:var(--mint); font-weight:700; }
+
+  /* graded record banner */
+  .recbar { max-width:1100px; margin:10px auto 0; padding:0 24px; display:none; }
+  .recbar.show { display:block; }
+  .recbar .inner { display:flex; gap:26px; align-items:center; background:rgba(19,23,34,.8);
+    border:1px solid rgba(145,237,208,.35); border-radius:12px; padding:12px 20px;
+    font-family:var(--font-bug); }
+  .recbar .big { font-size:24px; font-weight:800; color:var(--mint); }
+  .recbar .lbl { font-size:12px; letter-spacing:.12em; color:#9aa3b8; text-transform:uppercase; }
+  .recbar .sep { width:1px; height:30px; background:rgba(255,255,255,.12); }
+
+  /* compact bug (system component) */
+  .bug { font-family:var(--font-bug); box-shadow:var(--shadow-bug); border-radius:12px;
+    background:var(--bar); color:#fff; display:inline-block; position:relative; padding:2px;
+    background-image:linear-gradient(var(--bar),var(--bar)),
+      linear-gradient(90deg,var(--peri) 0%,var(--mint) 35%,var(--yellow) 70%,var(--peri) 100%);
+    background-origin:border-box; background-clip:padding-box,border-box; border:2px solid transparent;
+    transition:transform .15s ease; cursor:pointer; }
+  .bug:hover { transform:translateY(-3px); }
+  .bug-row { display:flex; align-items:center; padding:6px 14px; }
+  .bug-team { display:flex; align-items:center; gap:8px; }
+  .bug-team.away { justify-content:flex-end; }
+  .bug-name { font-size:17px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  .bug-chip { width:24px; height:16px; border-radius:2.5px; display:inline-block;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
+  .bug-scorepanel { display:flex; align-items:stretch; margin:0 10px; border-radius:6px; overflow:hidden; }
+  .bug-score { font-size:20px; font-weight:800; width:34px; text-align:center; background:var(--mint);
+    color:#04140e; display:flex; align-items:center; justify-content:center; padding:2px 0; }
+  .bug-sep { width:20px; background:var(--mint); display:flex; align-items:center; justify-content:center; }
+  .emblem { width:12px; height:20px; background:linear-gradient(180deg,#ffe98a,var(--yellow) 45%,var(--yellow-deep));
+    clip-path:polygon(50% 0%, 88% 12%, 70% 44%, 62% 56%, 66% 82%, 82% 100%, 18% 100%, 34% 82%, 38% 56%, 30% 44%, 12% 12%); }
+  .bug-detail { font-size:11px; letter-spacing:.06em; color:var(--yellow); text-transform:uppercase;
+    padding-left:10px; margin-left:8px; border-left:1px solid rgba(255,216,77,.4); line-height:1.25; }
+  /* graded result treatments */
+  .bug.hit  { background-image:linear-gradient(var(--bar),var(--bar)),
+    linear-gradient(90deg,var(--mint),var(--mint)); }
+  .bug.miss { background-image:linear-gradient(var(--bar),var(--bar)),
+    linear-gradient(90deg,#3a4157,#3a4157); opacity:.82; }
+  .verdict { position:absolute; top:-11px; right:10px; font-size:11px; font-weight:800; letter-spacing:.1em;
+    padding:2px 10px; border-radius:999px; }
+  .verdict.hit  { background:var(--mint); color:#04140e; }
+  .verdict.miss { background:#3a4157; color:#c3c9d8; }
+
+  /* edge tag (corner) */
+  .edge-tag { position:absolute; top:-11px; left:10px; font-size:11px; font-weight:800; letter-spacing:.1em;
+    padding:2px 10px; border-radius:999px; background:var(--yellow); color:#221b00; }
+  .edge-tag.med { background:rgba(255,216,77,.25); color:var(--yellow); border:1px solid rgba(255,216,77,.5); }
+
+  /* ============ VARIANT A: EDGE BOARD ============ */
+  .edge-sec { max-width:1100px; margin:26px auto 0; padding:0 24px; }
+  .sec-kick { font-family:var(--font-bug); text-transform:uppercase; letter-spacing:.2em; font-size:13px;
+    color:var(--yellow); margin-bottom:14px; display:flex; align-items:center; gap:12px; }
+  .sec-kick::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,rgba(255,216,77,.45),transparent); }
+  .hero-bugs { display:flex; gap:34px; flex-wrap:wrap; margin-bottom:10px; }
+  .hero-bugs .bug { transform:scale(1.18); transform-origin:top left; margin-right:40px; margin-bottom:16px; }
+  .hero-bugs .bug:hover { transform:scale(1.18) translateY(-3px); }
+  .rest-grid { display:flex; gap:22px 18px; flex-wrap:wrap; padding:16px 0 80px; }
+
+  /* ============ VARIANT B: SLATE ============ */
+  .slate { max-width:1100px; margin:20px auto 80px; padding:0 24px; }
+  .slot-h { font-family:var(--font-bug); text-transform:uppercase; font-weight:800; font-size:19px;
+    letter-spacing:.06em; color:#fff; margin:30px 0 14px; display:flex; align-items:center; gap:12px; }
+  .slot-h .t { color:var(--mint); }
+  .slot-h::after { content:''; flex:1; height:1px; background:rgba(255,255,255,.1); }
+  .slot-grid { display:flex; gap:22px 18px; flex-wrap:wrap; }
+
+  /* ============ VARIANT C: LEDGER ============ */
+  .ledwrap { max-width:1100px; margin:20px auto 90px; padding:0 24px; }
+  table.led { width:100%; border-collapse:collapse; }
+  .led thead th { font-family:var(--font-bug); font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--yellow); text-align:left; padding:10px 12px; border-bottom:2px solid var(--mint); white-space:nowrap; }
+  .led th.num, .led td.num { text-align:right; }
+  .led td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.05); font-size:14.5px;
+    font-variant-numeric:tabular-nums; }
+  .led tbody tr { transition:background .12s ease; cursor:pointer; }
+  .led tbody tr:nth-child(even) { background:rgba(255,255,255,.025); }
+  .led tbody tr:hover { background:rgba(145,237,208,.07); }
+  .led .game { display:flex; align-items:center; gap:8px; font-weight:600; }
+  .led .at { color:#5c6478; font-size:12px; }
+  .led .ourline { font-family:var(--font-bug); font-size:17px; font-weight:800; color:var(--mint); }
+  .led .mkt { color:#9aa3b8; }
+  .led .edge-cell { font-family:var(--font-bug); letter-spacing:.08em; font-weight:700; }
+  .led .edge-cell.high { color:var(--yellow); }
+  .led .edge-cell.med { color:rgba(255,216,77,.6); }
+  .led .edge-cell.low { color:#5c6478; }
+  .led .res.hit { color:var(--pos); font-weight:700; }
+  .led .res.miss { color:#8892ad; }
+  .led .proj-cell { color:#cfd6e4; }
+
+  /* GX-01 floating (site-wide) */
+  #gx-mini { position:fixed; bottom:16px; right:20px; z-index:9000; cursor:pointer; width:58px; height:58px;
+    border-radius:50%; background:var(--bar); border:1.5px solid rgba(255,216,77,.5); display:flex;
+    align-items:center; justify-content:center; box-shadow:0 8px 22px rgba(0,0,0,.5); transition:transform .15s ease; }
+  #gx-mini:hover { transform:translateY(-3px); }
+  .gxh { position:relative; width:44px; height:40px; transform:scale(.82); }
+  .gxh div { position:absolute; }
+  .gxh .fin-l, .gxh .fin-r { top:0; width:15px; height:13px;
+    background:linear-gradient(180deg,#ffe98a,var(--yellow)); filter:drop-shadow(0 0 4px rgba(255,216,77,.7)); z-index:3; }
+  .gxh .fin-l { left:4px; clip-path:polygon(100% 100%, 0% 0%, 60% 100%); }
+  .gxh .fin-r { right:4px; clip-path:polygon(0% 100%, 100% 0%, 40% 100%); }
+  .gxh .head { top:5px; left:50%; transform:translateX(-50%); width:32px; height:28px; z-index:2;
+    background:linear-gradient(160deg,#f4f6fb 0%,#c9cfdd 55%,#8f97ab 100%);
+    clip-path:polygon(50% 0%, 88% 20%, 100% 58%, 80% 100%, 20% 100%, 0% 58%, 12% 20%); }
+  .gxh .visor { top:15px; left:50%; transform:translateX(-50%); width:23px; height:7px; z-index:3;
+    background:#05070d; clip-path:polygon(0 20%, 100% 20%, 90% 100%, 10% 100%); }
+  .gxh .eye { top:16.5px; width:6px; height:3px; background:var(--cyan); z-index:4;
+    box-shadow:var(--shadow-glow-cyan); animation:eye-pulse 3.2s ease-in-out infinite; }
+  .gxh .eye.l { left:12px; transform:skewX(-12deg); } .gxh .eye.r { right:12px; transform:skewX(12deg); }
+  .gxh .chin { top:26px; left:50%; transform:translateX(-50%); width:9px; height:6px; background:#e64545; z-index:3;
+    clip-path:polygon(0 0, 100% 0, 50% 100%); }
+  @keyframes eye-pulse { 0%,100% {opacity:1;} 50% {opacity:.55;} }
+
+  #sketch-tools { position:fixed; bottom:12px; left:12px; z-index:9999; font-family:system-ui; font-size:12px;
+    background:rgba(0,0,0,0.72); color:white; padding:8px 12px; border-radius:8px; opacity:.35;
+    transition:opacity .2s; display:flex; gap:8px; align-items:center; }
+  #sketch-tools:hover { opacity:1; }
+  #sketch-tools select, #sketch-tools button { font-size:12px; border-radius:5px; border:none; padding:3px 7px; cursor:pointer; }
+  #viewport-frame { margin:0 auto; transition:max-width .25s ease; }
+</style>
+</head>
+<body>
+
+<div id="variant-nav">
+  <button class="variant-tab active" onclick="showVariant('a', event)">A: Edge Board</button>
+  <button class="variant-tab" onclick="showVariant('b', event)">B: Broadcast Slate</button>
+  <button class="variant-tab" onclick="showVariant('c', event)">C: Ledger ★ Selected</button>
+</div>
+
+<div id="viewport-frame">
+
+<nav class="b-nav">
+  <span class="brand">GRIDIRON<span class="g">IQ</span></span>
+  <a href="#">Draft Room</a><a href="#">Rankings</a><a href="#" class="on">Scores</a>
+  <a href="#">News</a><a href="#">Matchups</a><a href="#">My League</a>
+</nav>
+
+<div class="pg-head">
+  <h1>Scores <span class="wk" id="wk-label">· 2026 Week 1</span></h1>
+  <div class="weekbar">
+    <button class="wk-chip on" data-w="upcoming" onclick="setWeek('upcoming', event)">2026 · WK 1</button>
+    <button class="wk-chip" data-w="graded" onclick="setWeek('graded', event)">2025 · WK 18 ✓ graded</button>
+  </div>
+</div>
+<div class="recbar" id="recbar">
+  <div class="inner">
+    <div><div class="big">10–5–1</div><div class="lbl">ATS record · WK 18</div></div>
+    <div class="sep"></div>
+    <div><div class="big">+4.2u</div><div class="lbl">Flat-stake units</div></div>
+    <div class="sep"></div>
+    <div><div class="big">3/4</div><div class="lbl">High-edge hits</div></div>
+    <div class="sep"></div>
+    <div class="lbl" style="max-width:340px; line-height:1.5;">Every pick graded against the closing line. Misses stay on the board — that's the point.</div>
+  </div>
+</div>
+
+<!-- VARIANT A -->
+<div id="variant-a" class="variant active">
+  <div class="edge-sec">
+    <div class="sec-kick" id="a-kick-hi">High edge — we disagree with the market</div>
+    <div class="hero-bugs" id="a-hi"></div>
+    <div class="sec-kick">The rest of the slate</div>
+    <div class="rest-grid" id="a-rest"></div>
+  </div>
+</div>
+
+<!-- VARIANT B -->
+<div id="variant-b" class="variant">
+  <div class="slate" id="b-slate"></div>
+</div>
+
+<!-- VARIANT C -->
+<div id="variant-c" class="variant">
+  <div class="ledwrap">
+    <table class="led">
+      <thead><tr>
+        <th>Game</th><th>Slot</th><th class="num">Our Proj</th><th class="num">Our Line</th>
+        <th class="num">Market</th><th>Edge</th><th id="c-last-th">Cover Prob</th>
+      </tr></thead>
+      <tbody id="c-body"></tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /viewport-frame -->
+
+<div id="gx-mini" title="GX-01"><div class="gxh">
+  <div class="fin-l"></div><div class="fin-r"></div><div class="head"></div>
+  <div class="visor"></div><div class="eye l"></div><div class="eye r"></div><div class="chin"></div>
+</div></div>
+
+<div id="sketch-tools">
+  <select onchange="document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css'">
+    <option value="default">WC26 Broadcast v2</option>
+  </select>
+  <button onclick="setViewport(768)">💊</button>
+  <button onclick="setViewport(0)">🖥</button>
+  <span>toggle the week chips — graded week shows the receipts</span>
+</div>
+
+<script>
+const CHIPS = {
+  KC:"linear-gradient(135deg,#E31837 60%,#FFB81C)",  BUF:"linear-gradient(135deg,#00338D 60%,#C60C30)",
+  DET:"linear-gradient(135deg,#0076B6 60%,#B0B7BC)", CIN:"linear-gradient(135deg,#FB4F14 60%,#000)",
+  PHI:"linear-gradient(135deg,#004C54 60%,#A5ACAF)", DAL:"linear-gradient(135deg,#003594 60%,#869397)",
+  BAL:"linear-gradient(135deg,#241773 60%,#9E7C0C)", SF:"linear-gradient(135deg,#AA0000 60%,#B3995D)",
+  GB:"linear-gradient(135deg,#203731 60%,#FFB612)",  MIN:"linear-gradient(135deg,#4F2683 60%,#FFC62F)",
+  MIA:"linear-gradient(135deg,#008E97 60%,#FC4C02)", NYJ:"linear-gradient(135deg,#125740 60%,#fff)",
+  LAR:"linear-gradient(135deg,#003594 60%,#FFA300)", SEA:"linear-gradient(135deg,#002244 60%,#69BE28)",
+  HOU:"linear-gradient(135deg,#03202F 60%,#A71930)", TEN:"linear-gradient(135deg,#0C2340 60%,#4B92DB)",
+};
+/* our line = our predicted spread (away perspective); mkt = market line; edge = |diff| bucket */
+const GAMES = [
+  {a:"KC", h:"BUF", as:27, hs:24, slot:"SNF",      our:"KC −2.5",  mkt:"KC −1",    edge:"high", prob:.61, fa:31, fh:20, res:"hit"},
+  {a:"DET",h:"KC",  as:31, hs:27, slot:"SUN 4:25", our:"DET −4",   mkt:"DET −1.5", edge:"high", prob:.63, fa:24, fh:27, res:"miss"},
+  {a:"PHI",h:"DAL", as:28, hs:20, slot:"SUN 4:25", our:"PHI −7.5", mkt:"PHI −4",   edge:"high", prob:.60, fa:33, fh:13, res:"hit"},
+  {a:"CIN",h:"BUF", as:24, hs:21, slot:"SUN 1:00", our:"CIN +1.5", mkt:"BUF −4",   edge:"high", prob:.58, fa:27, fh:24, res:"hit"},
+  {a:"BAL",h:"MIA", as:30, hs:23, slot:"SUN 1:00", our:"BAL −6.5", mkt:"BAL −5",   edge:"med",  prob:.55, fa:34, fh:28, res:"hit"},
+  {a:"SF", h:"SEA", as:26, hs:22, slot:"SUN 4:25", our:"SF −3.5",  mkt:"SF −2.5",  edge:"med",  prob:.54, fa:20, fh:24, res:"miss"},
+  {a:"GB", h:"MIN", as:24, hs:23, slot:"SUN 1:00", our:"GB −1",    mkt:"GB −1.5",  edge:"low",  prob:.51, fa:28, fh:17, res:"hit"},
+  {a:"NYJ",h:"MIA", as:20, hs:21, slot:"SUN 1:00", our:"MIA −1.5", mkt:"MIA −2",   edge:"low",  prob:.51, fa:13, fh:24, res:"hit"},
+  {a:"LAR",h:"SEA", as:23, hs:21, slot:"SUN 4:05", our:"LAR −2",   mkt:"LAR −2.5", edge:"low",  prob:.50, fa:21, fh:27, res:"miss"},
+  {a:"HOU",h:"TEN", as:25, hs:18, slot:"MNF",      our:"HOU −6",   mkt:"HOU −5.5", edge:"low",  prob:.52, fa:30, fh:16, res:"hit"},
+];
+let week = "upcoming";
+const chip = t => `<span class="bug-chip" style="background:${CHIPS[t]}"></span>`;
+
+function bugHtml(g, graded) {
+  const as = graded ? g.fa : g.as, hs = graded ? g.fh : g.hs;
+  const cls = graded ? (g.res==="hit" ? "bug hit" : "bug miss") : "bug";
+  const tag = graded
+    ? `<span class="verdict ${g.res}">${g.res==="hit" ? "✓ COVER" : "✗ MISS"}</span>`
+    : (g.edge==="high" ? `<span class="edge-tag">EDGE</span>`
+      : g.edge==="med" ? `<span class="edge-tag med">LEAN</span>` : "");
+  const det = graded ? `${g.our}<br>FINAL` : `${g.our}<br>${g.slot}`;
+  return `<div class="${cls}">${tag}<div class="bug-row">
+    <div class="bug-team away"><span class="bug-name">${g.a}</span>${chip(g.a)}</div>
+    <div class="bug-scorepanel"><div class="bug-score">${as}</div>
+      <div class="bug-sep"><div class="emblem"></div></div><div class="bug-score">${hs}</div></div>
+    <div class="bug-team">${chip(g.h)}<span class="bug-name">${g.h}</span></div>
+    <div class="bug-detail">${det}</div></div></div>`;
+}
+
+function render() {
+  const graded = week === "graded";
+  document.getElementById('wk-label').textContent = graded ? "· 2025 Week 18 — graded" : "· 2026 Week 1";
+  document.getElementById('recbar').classList.toggle('show', graded);
+  /* A: edge board */
+  const hi = GAMES.filter(g => g.edge==="high"), rest = GAMES.filter(g => g.edge!=="high");
+  document.getElementById('a-kick-hi').textContent = graded
+    ? "High edge — how our loudest calls landed" : "High edge — we disagree with the market";
+  document.getElementById('a-hi').innerHTML = hi.map(g => bugHtml(g, graded)).join('');
+  document.getElementById('a-rest').innerHTML = rest.map(g => bugHtml(g, graded)).join('');
+  /* B: slate by slot */
+  const slots = ["SUN 1:00","SUN 4:05","SUN 4:25","SNF","MNF"];
+  document.getElementById('b-slate').innerHTML = slots.map(s => {
+    const gs = GAMES.filter(g => g.slot===s);
+    if (!gs.length) return "";
+    return `<div class="slot-h"><span class="t">${s}</span></div>
+      <div class="slot-grid">${gs.map(g => bugHtml(g, graded)).join('')}</div>`;
+  }).join('');
+  /* C: ledger */
+  document.getElementById('c-last-th').textContent = graded ? "Result" : "Cover Prob";
+  document.getElementById('c-body').innerHTML = GAMES.map(g => {
+    const last = graded
+      ? `<span class="res ${g.res}">${g.res==="hit" ? "✓ COVER" : "✗ MISS"} (${g.fa}–${g.fh})</span>`
+      : `<span class="proj-cell">${Math.round(g.prob*100)}%</span>`;
+    return `<tr>
+      <td><span class="game">${chip(g.a)}${g.a} <span class="at">@</span> ${chip(g.h)}${g.h}</span></td>
+      <td style="color:#8892ad">${g.slot}</td>
+      <td class="num proj-cell">${g.as}–${g.hs}</td>
+      <td class="num ourline">${g.our}</td>
+      <td class="num mkt">${g.mkt}</td>
+      <td><span class="edge-cell ${g.edge}">${g.edge==="high"?"● HIGH":g.edge==="med"?"◐ MED":"○ LOW"}</span></td>
+      <td>${last}</td></tr>`;
+  }).join('');
+}
+function setWeek(w, ev) {
+  week = w;
+  document.querySelectorAll('.wk-chip').forEach(c => c.classList.remove('on'));
+  ev.target.classList.add('on');
+  render();
+}
+function showVariant(id, ev) {
+  document.querySelectorAll('.variant').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.variant-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('variant-' + id).classList.add('active');
+  ev.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+function setViewport(w) {
+  document.getElementById('viewport-frame').style.maxWidth = w ? w + 'px' : 'none';
+}
+render();
+</script>
+</body>
+</html>
