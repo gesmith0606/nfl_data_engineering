@@ -245,6 +245,10 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 **Planned**: RB gap +0.26 vs consensus — levers: --props-blend in-season gate (machinery BUILT 2026-07-08, eval once Sunday snapshots accumulate) + live-season learnings (matchup features HOLD per re-gate; PFF decision ~Nov, must beat free ceiling ~+0.01 WR MAE by ≥3x) | v5.0 Sentiment multiplier wiring | v5.1 Perfect implementation (Neo4j Aura, PFF subscription) | v5.2 Live data sync | Offseason: packaging normalization (installable package, delete config alias guard) + projection_engine/god-module splits
 
+## Design Findings
+
+- **Sketch findings for nfl_data_engineering** (design decisions, CSS patterns, visual direction — website redesign, broadcast overlay direction) → `Skill("sketch-findings-nfl-data-engineering")`
+
 ## ECC Plugin (Everything Claude Code)
 
 Installed via `/plugin install everything-claude-code@everything-claude-code`.

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sketch 001 — Home Hero Direction (round 2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../themes/default.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); padding-top: 46px; }
+  .variant { display:none; }
+  .variant.active { display:block; }
+
+  /* ---------- variant tab bar (sketch chrome) ---------- */
+  #variant-nav { position:fixed; top:0; left:0; right:0; z-index:9998; background:#fff;
+    border-bottom:1px solid #e5e5e5; padding:8px 16px; display:flex; gap:8px; font-family:system-ui; }
+  .variant-tab { border:1px solid #d5d5da; background:#fff; padding:6px 14px; border-radius:8px;
+    font-size:13px; cursor:pointer; transition: all .15s ease; }
+  .variant-tab:hover { background:#f0f0f3; }
+  .variant-tab.active { background:var(--bar); color:#fff; border-color:var(--bar); }
+
+  /* =========================================================
+     SCOREBUG v2 — color-corrected to the reference frame
+     ========================================================= */
+  .bug { font-family: var(--font-bug); box-shadow: var(--shadow-bug); border-radius: 999px;
+    background: var(--bar); color:#fff; display:inline-block; position:relative; padding:3px;
+    /* multicolor gradient outline like the broadcast pill */
+    background-image: linear-gradient(var(--bar), var(--bar)),
+      linear-gradient(90deg, var(--peri) 0%, var(--mint) 35%, var(--yellow) 70%, var(--peri) 100%);
+    background-origin: border-box; background-clip: padding-box, border-box;
+    border: 2px solid transparent; }
+  .bug-clock { position:absolute; top:-26px; left:50%; transform:translateX(-50%);
+    background:#000; color:#fff; font-size:14px; letter-spacing:.08em; padding:3px 16px;
+    border-radius:7px 7px 0 0; font-weight:600; white-space:nowrap; }
+  .bug-row { display:flex; align-items:center; gap:0; padding:8px 26px; }
+  .bug-team { display:flex; align-items:center; gap:12px; min-width:180px; }
+  .bug-team.away { justify-content:flex-end; }
+  .bug-name { font-size:29px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  .bug-chip { width:34px; height:22px; border-radius:3px; display:inline-block; box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
+  /* mint score panels with near-black digits — the corrected signature */
+  .bug-scorepanel { display:flex; align-items:stretch; margin:0 14px; border-radius:8px; overflow:hidden; }
+  .bug-score { font-size:36px; font-weight:800; width:56px; text-align:center; background:var(--mint);
+    color:#04140e; display:flex; align-items:center; justify-content:center; line-height:1; padding:4px 0; }
+  .bug-sep { width:34px; background:var(--mint); display:flex; align-items:center; justify-content:center; }
+  .emblem { width:20px; height:32px; background:linear-gradient(180deg,#ffe98a,var(--yellow) 45%,var(--yellow-deep));
+    clip-path: polygon(50% 0%, 88% 12%, 70% 44%, 62% 56%, 66% 82%, 82% 100%, 18% 100%, 34% 82%, 38% 56%, 30% 44%, 12% 12%);
+    filter: drop-shadow(0 0 5px rgba(255,216,77,.6)); }
+  .bug-detail { font-size:14px; letter-spacing:.06em; color:var(--yellow); text-transform:uppercase;
+    padding-left:18px; margin-left:14px; border-left:1px solid rgba(255,216,77,.4); line-height:1.25; }
+  .bug-ribbon { position:absolute; bottom:-24px; left:50%; transform:translateX(-50%);
+    background:var(--peri); color:#fff; font-size:12.5px; font-weight:700; letter-spacing:.08em;
+    padding:4px 18px; border-radius:8px; text-transform:none; cursor:pointer; transition:all .15s ease;
+    white-space:nowrap; box-shadow:0 4px 12px rgba(91,103,199,.45); }
+  .bug-ribbon:hover { background:var(--peri-bright); }
+  .bug.compact { border-radius:12px; }
+  .bug.compact .bug-name { font-size:17px; }
+  .bug.compact .bug-score { font-size:20px; width:32px; padding:2px 0; }
+  .bug.compact .bug-row { padding:5px 14px; }
+  .bug.compact .bug-team { min-width:auto; }
+  .bug.compact .bug-chip { width:24px; height:16px; }
+  .bug.compact .bug-scorepanel { margin:0 10px; border-radius:6px; }
+  .bug.compact .bug-sep { width:20px; }
+  .bug.compact .emblem { width:12px; height:20px; }
+  .bug.compact .bug-detail { font-size:11px; padding-left:10px; margin-left:8px; }
+
+  .chip-kc { background:linear-gradient(135deg,#E31837 60%,#FFB81C); }
+  .chip-buf { background:linear-gradient(135deg,#00338D 60%,#C60C30); }
+  .chip-det { background:linear-gradient(135deg,#0076B6 60%,#B0B7BC); }
+  .chip-cin { background:linear-gradient(135deg,#FB4F14 60%,#000); }
+  .chip-phi { background:linear-gradient(135deg,#004C54 60%,#A5ACAF); }
+  .chip-dal { background:linear-gradient(135deg,#003594 60%,#869397); }
+
+  /* =========================================================
+     GX-01 — FULL-BODY mecha (CSS, inspired-by, not literal)
+     white/near-black armor · yellow V-fin · mint chest core · cyan eyes
+     ========================================================= */
+  .gx { position:relative; width:120px; height:200px; filter: drop-shadow(0 12px 22px rgba(0,0,0,.4)); }
+  .gx div { position:absolute; }
+  .gx .fin-l, .gx .fin-r { top:0; width:30px; height:26px;
+    background:linear-gradient(180deg,#ffe98a,var(--yellow)); filter:drop-shadow(0 0 6px rgba(255,216,77,.7)); z-index:6; }
+  .gx .fin-l { left:26px; clip-path:polygon(100% 100%, 0% 0%, 60% 100%); }
+  .gx .fin-r { right:26px; clip-path:polygon(0% 100%, 100% 0%, 40% 100%); }
+  .gx .head { top:8px; left:50%; transform:translateX(-50%); width:44px; height:38px; z-index:5;
+    background:linear-gradient(160deg,#f4f6fb 0%,#c9cfdd 55%,#8f97ab 100%);
+    clip-path:polygon(50% 0%, 88% 20%, 100% 58%, 80% 100%, 20% 100%, 0% 58%, 12% 20%); }
+  .gx .visor { top:22px; left:50%; transform:translateX(-50%); width:32px; height:10px; z-index:6;
+    background:#05070d; clip-path:polygon(0 20%, 100% 20%, 90% 100%, 10% 100%); }
+  .gx .eye { top:24px; width:9px; height:4px; background:var(--cyan); z-index:7;
+    box-shadow:var(--shadow-glow-cyan); animation:eye-pulse 3.2s ease-in-out infinite; }
+  .gx .eye.l { left:42px; transform:skewX(-12deg); } .gx .eye.r { right:42px; transform:skewX(12deg); }
+  .gx .chin { top:38px; left:50%; transform:translateX(-50%); width:12px; height:8px; background:#e64545; z-index:6;
+    clip-path:polygon(0 0, 100% 0, 50% 100%); }
+  .gx .neck { top:44px; left:50%; transform:translateX(-50%); width:16px; height:10px; background:#1c2333; }
+  .gx .torso { top:52px; left:50%; transform:translateX(-50%); width:64px; height:52px; z-index:4;
+    background:linear-gradient(160deg,#f4f6fb 0%,#c9cfdd 60%,#9aa2b5 100%);
+    clip-path:polygon(18% 0%, 82% 0%, 100% 30%, 88% 100%, 12% 100%, 0% 30%); }
+  .gx .core { top:66px; left:50%; transform:translateX(-50%); width:14px; height:14px; z-index:5;
+    background:radial-gradient(circle at 35% 30%, #d8fff1, var(--mint) 60%, var(--mint-deep));
+    clip-path:polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%);
+    box-shadow:0 0 10px rgba(145,237,208,.8); animation:eye-pulse 2.6s ease-in-out infinite; }
+  .gx .vent-l, .gx .vent-r { top:58px; width:14px; height:10px; background:var(--yellow); z-index:5;
+    clip-path:polygon(0 0, 100% 0, 85% 100%, 0 100%); }
+  .gx .vent-l { left:32px; } .gx .vent-r { right:32px; transform:scaleX(-1); }
+  .gx .pauldron-l, .gx .pauldron-r { top:50px; width:26px; height:24px; z-index:5;
+    background:linear-gradient(160deg,#fff,#b9c0d2); clip-path:polygon(0 30%, 30% 0, 100% 0, 100% 100%, 20% 100%); }
+  .gx .pauldron-l { left:8px; } .gx .pauldron-r { right:8px; transform:scaleX(-1); }
+  .gx .arm-l, .gx .arm-r { top:74px; width:14px; height:38px; background:linear-gradient(180deg,#d7dce8,#8f97ab); z-index:3; }
+  .gx .arm-l { left:12px; } .gx .arm-r { right:12px; }
+  .gx .fist-l, .gx .fist-r { top:112px; width:16px; height:14px; background:#1c2333; border-radius:3px; z-index:3; }
+  .gx .fist-l { left:11px; } .gx .fist-r { right:11px; }
+  .gx .waist { top:104px; left:50%; transform:translateX(-50%); width:44px; height:12px; background:#1c2333; z-index:4; }
+  .gx .belt { top:106px; left:50%; transform:translateX(-50%); width:12px; height:8px; background:var(--yellow); z-index:5;
+    clip-path:polygon(0 0, 100% 0, 50% 100%); }
+  .gx .skirt { top:114px; left:50%; transform:translateX(-50%); width:58px; height:20px; z-index:4;
+    background:linear-gradient(160deg,#e8ecf5,#a9b1c4); clip-path:polygon(8% 0, 92% 0, 100% 100%, 0 100%); }
+  .gx .leg-l, .gx .leg-r { top:132px; width:20px; height:44px; z-index:3;
+    background:linear-gradient(180deg,#eef1f8 0%,#c1c8d8 55%,#8f97ab 100%);
+    clip-path:polygon(10% 0, 90% 0, 100% 100%, 0 100%); }
+  .gx .leg-l { left:26px; } .gx .leg-r { right:26px; }
+  .gx .knee-l, .gx .knee-r { top:148px; width:14px; height:7px; background:var(--peri); z-index:4; }
+  .gx .knee-l { left:29px; } .gx .knee-r { right:29px; }
+  .gx .foot-l, .gx .foot-r { top:174px; width:28px; height:12px; background:#1c2333; z-index:3;
+    clip-path:polygon(0 40%, 55% 0, 100% 0, 100% 100%, 0 100%); }
+  .gx .foot-l { left:20px; transform:scaleX(-1); } .gx .foot-r { right:20px; }
+  @keyframes eye-pulse { 0%,100% {opacity:1;} 50% {opacity:.55;} }
+
+  /* floating assistant = small full-body GX-01 */
+  #mecha { position:fixed; bottom:16px; right:20px; z-index:9000; cursor:pointer;
+    transition:transform .2s ease; transform:scale(.62); transform-origin:bottom right; }
+  #mecha:hover { transform:scale(.68) translateY(-4px); }
+  #mecha-label { position:absolute; bottom:-20px; left:50%; transform:translateX(-50%); font-family:var(--font-bug);
+    font-size:15px; letter-spacing:.16em; color:var(--yellow); white-space:nowrap; text-transform:uppercase;
+    text-shadow:0 1px 6px rgba(0,0,0,.6); }
+  #mecha-chat { position:fixed; bottom:170px; right:24px; z-index:9001; width:310px; background:var(--bar);
+    color:#fff; border-radius:14px; box-shadow:var(--shadow-bug); padding:16px; display:none;
+    border:1px solid rgba(255,216,77,.4); font-size:14px; }
+  #mecha-chat.open { display:block; animation:chat-in .18s ease; }
+  @keyframes chat-in { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:none;} }
+  #mecha-chat .hdr { font-family:var(--font-bug); letter-spacing:.12em; color:var(--yellow); font-size:12px;
+    text-transform:uppercase; margin-bottom:8px; display:flex; justify-content:space-between; }
+  #mecha-chat input { width:100%; margin-top:10px; background:#131722; border:1px solid #2a3350;
+    color:#fff; border-radius:8px; padding:8px 10px; font-size:13px; outline:none; }
+  #mecha-chat input:focus { border-color:var(--mint); }
+  #mecha-reply { color:#cfd6e4; line-height:1.45; }
+
+  /* ---------- shared bits ---------- */
+  .stat-pos { color:var(--pos); } .stat-neg { color:var(--neg); }
+  .cta { display:inline-block; border-radius:var(--radius-full); padding:12px 28px; font-size:16px;
+    font-weight:600; cursor:pointer; border:none; transition:all .15s ease; }
+  .corr-chip { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-bug); font-size:16.5px;
+    letter-spacing:.05em; padding:7px 16px; border-radius:var(--radius-full); transition:all .15s ease; cursor:default; }
+  .corr-chip:hover { transform:translateY(-2px); }
+  .corr-chip .n { font-size:12px; opacity:.6; }
+
+  /* =========================================================
+     SHARED FEATURE STORY — injected into every variant; themed
+     by per-variant CSS custom properties (--sec-*)
+     ========================================================= */
+  .fsec { padding:96px 24px; text-align:center; background:var(--sec-bg); color:var(--sec-fg);
+    border-top:1px solid var(--sec-line); }
+  .fsec.alt { background:var(--sec-bg-alt); }
+  .fsec .kicker { font-family:var(--font-bug); text-transform:uppercase; letter-spacing:.2em; font-size:14px;
+    color:var(--sec-accent); margin-bottom:14px; }
+  .fsec h2 { font-size:clamp(28px,3.8vw,46px); font-weight:700; letter-spacing:-.01em; line-height:1.1; }
+  .fsec .sub { color:var(--sec-muted); font-size:18px; margin:16px auto 0; max-width:640px; line-height:1.55; }
+  .fsec .body { margin-top:40px; }
+  .fcard { background:var(--sec-card); border:1px solid var(--sec-line); border-radius:14px;
+    box-shadow:var(--sec-card-shadow); }
+  /* corr chips inherit section theme */
+  .fsec .corr-chip { background:var(--sec-card); border:1px solid var(--sec-line); color:var(--sec-fg); }
+  .fsec .corr-chip .rho-pos { color:var(--pos); font-weight:800; }
+  .fsec .corr-chip .rho-neg { color:var(--neg); font-weight:800; }
+  .fsec .fine { margin-top:26px; font-size:13px; color:var(--sec-muted); }
+  /* draft room */
+  .draft-grid { display:flex; gap:22px; justify-content:center; flex-wrap:wrap; }
+  .draft-card { text-align:left; padding:20px 22px; width:330px; }
+  .draft-card .t { font-family:var(--font-bug); text-transform:uppercase; letter-spacing:.14em; font-size:13px;
+    color:var(--sec-accent); margin-bottom:12px; }
+  .rec-row { display:flex; justify-content:space-between; font-size:14.5px; padding:7px 0;
+    border-bottom:1px solid var(--sec-line); }
+  .rec-row:last-child { border-bottom:none; }
+  .rec-row .nm { font-weight:600; }
+  .rec-row .note { color:var(--sec-accent); font-size:12.5px; }
+  .rec-row .meta { color:var(--sec-muted); font-variant-numeric:tabular-nums; }
+  /* madden mini-field */
+  .mini-field { position:relative; width:min(520px,92%); height:230px; margin:0 auto; border-radius:16px;
+    background:linear-gradient(180deg,var(--pitch-a),var(--pitch-b)); overflow:hidden;
+    box-shadow:var(--shadow-bug); }
+  .mini-field .yd { position:absolute; left:6%; right:6%; height:1.5px; background:rgba(255,255,255,.14); }
+  .fp { position:absolute; transform:translate(-50%,-50%); font-family:var(--font-bug); text-transform:uppercase;
+    background:rgba(0,0,0,.72); color:#fff; font-size:12.5px; letter-spacing:.05em; padding:4px 10px;
+    border-radius:6px; border-top:2.5px solid var(--mint); white-space:nowrap; transition:transform .15s ease; }
+  .fp:hover { transform:translate(-50%,-50%) scale(1.08); }
+  .fp .pt { color:var(--mint); font-weight:700; margin-left:6px; }
+  /* predictions row */
+  .pred-row { display:flex; gap:38px; justify-content:center; flex-wrap:wrap; padding-top:8px; }
+  /* news */
+  .news-grid { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+  .news-card { text-align:left; width:280px; padding:18px 20px; }
+  .news-card .tag { display:inline-block; font-family:var(--font-bug); text-transform:uppercase; font-size:12px;
+    letter-spacing:.12em; padding:2px 10px; border-radius:999px; margin-bottom:10px; }
+  .tag.up { background:rgba(14,175,125,.15); color:var(--pos); }
+  .tag.dn { background:rgba(239,68,68,.14); color:var(--neg); }
+  .tag.watch { background:rgba(255,216,77,.16); color:var(--yellow-deep); }
+  .news-card .h { font-size:15.5px; font-weight:650; line-height:1.35; }
+  .news-card .s { color:var(--sec-muted); font-size:13px; margin-top:8px; line-height:1.45; }
+  /* advisor section */
+  .adv-wrap { display:flex; gap:44px; justify-content:center; align-items:center; flex-wrap:wrap; }
+  .adv-chat { text-align:left; width:340px; padding:18px 20px; font-size:14.5px; }
+  .adv-chat .q { color:var(--sec-muted); margin-bottom:10px; }
+  .adv-chat .a { line-height:1.5; }
+  .adv-chat .a b { color:var(--sec-accent); }
+  /* league sync band */
+  .sync-band { display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:8px; }
+  .cta-peri { background:var(--peri); color:#fff; } .cta-peri:hover { background:var(--peri-bright); }
+
+  /* =========================================================
+     VARIANT A — Apple Minimal (light)
+     ========================================================= */
+  #variant-a { background:#fff;
+    --sec-bg:#fff; --sec-bg-alt:#f5f5f7; --sec-fg:#0b0f19; --sec-muted:#6e6e73;
+    --sec-line:rgba(0,0,0,.08); --sec-card:#fff; --sec-accent:var(--peri);
+    --sec-card-shadow:var(--shadow-soft); }
+  .a-nav { position:sticky; top:46px; z-index:100; display:flex; justify-content:center; gap:34px;
+    padding:14px 0; background:rgba(255,255,255,.72); backdrop-filter:blur(18px) saturate(1.6);
+    border-bottom:1px solid rgba(0,0,0,.06); font-size:13.5px; }
+  .a-nav a { color:#1d1d1f; text-decoration:none; opacity:.82; transition:opacity .15s; }
+  .a-nav a:hover { opacity:1; }
+  .a-nav .brand { font-weight:700; letter-spacing:.02em; }
+  .a-hero { text-align:center; padding:120px 24px 72px; }
+  .a-hero h1 { font-size:clamp(44px,6.5vw,84px); line-height:1.03; font-weight:700; letter-spacing:-.015em; }
+  .a-hero h1 .hl { color:var(--peri); }
+  .a-hero .sub { font-size:21px; color:var(--color-text-muted); margin-top:22px; }
+  .a-stats { display:flex; justify-content:center; gap:56px; margin-top:52px; flex-wrap:wrap; }
+  .a-stat .num { font-size:44px; font-weight:700; letter-spacing:-.02em; }
+  .a-stat .lbl { font-size:13px; color:var(--color-text-muted); margin-top:4px; }
+  .a-ctas { margin-top:48px; display:flex; gap:14px; justify-content:center; }
+  .a-cta-dark { background:var(--bar); color:#fff; } .a-cta-dark:hover { background:#1c2333; }
+  .a-cta-ghost { background:transparent; color:var(--bar); box-shadow:inset 0 0 0 1px #c8c8cd; }
+  .a-cta-ghost:hover { box-shadow:inset 0 0 0 1px var(--bar); }
+  .a-bugwrap { display:flex; justify-content:center; padding:36px 24px 96px; }
+
+  /* =========================================================
+     VARIANT B — Broadcast Overlay
+     ========================================================= */
+  #variant-b { background:var(--stadium);
+    --sec-bg:#0b0e18; --sec-bg-alt:#070a12; --sec-fg:#fff; --sec-muted:#9aa3b8;
+    --sec-line:rgba(255,255,255,.09); --sec-card:#131722; --sec-accent:var(--yellow);
+    --sec-card-shadow:none; }
+  .b-nav { position:sticky; top:46px; z-index:100; display:flex; align-items:center; gap:26px; padding:0 28px;
+    height:52px; background:#05070d; color:#fff; font-family:var(--font-bug); letter-spacing:.1em;
+    font-size:15px; text-transform:uppercase; border-bottom:2px solid var(--mint); }
+  .b-nav a { color:#cfd6e4; text-decoration:none; transition:color .15s; }
+  .b-nav a:hover { color:var(--mint); }
+  .b-nav .brand { color:#fff; font-weight:800; font-size:18px; margin-right:12px; }
+  .b-nav .brand .g { color:var(--mint); }
+  .b-hero { position:relative; min-height:74vh; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; overflow:hidden; padding:60px 20px;
+    background:linear-gradient(180deg,#0b0e18 0%, #14301a 30%, var(--pitch-a) 55%, var(--pitch-b) 100%); }
+  .b-hero .yard { position:absolute; left:6%; right:6%; height:2px; background:rgba(255,255,255,.13); }
+  .b-hero h1 { position:relative; z-index:2; color:#fff; font-family:var(--font-bug); text-transform:uppercase;
+    font-weight:800; font-size:clamp(38px,5.5vw,72px); letter-spacing:.03em; text-align:center;
+    text-shadow:0 4px 24px rgba(0,0,0,.5); }
+  .b-hero h1 .hl { color:var(--yellow); }
+  .b-hero .sub { position:relative; z-index:2; color:#e6eaf2; font-size:18px; margin-top:12px; text-align:center; }
+  .b-bugwrap { position:relative; z-index:2; margin-top:66px; }
+  .b-stats { position:relative; z-index:2; display:flex; gap:12px; margin-top:64px; flex-wrap:wrap; justify-content:center; }
+  .b-stat { font-family:var(--font-bug); background:rgba(5,7,13,.85); border:1px solid rgba(145,237,208,.45);
+    color:#fff; padding:10px 20px; border-radius:10px; text-align:center; min-width:118px; }
+  .b-stat .num { font-size:26px; font-weight:800; }
+  .b-stat .lbl { font-size:12px; letter-spacing:.12em; color:#cfd6e4; text-transform:uppercase; margin-top:2px; }
+  .b-stat .num.pos { color:var(--mint); }
+  #variant-b .fsec h2 { font-family:var(--font-bug); text-transform:uppercase; letter-spacing:.04em; font-weight:800; }
+
+  /* =========================================================
+     VARIANT C — Dark Stadium Hybrid
+     ========================================================= */
+  #variant-c { background:var(--stadium);
+    --sec-bg:#0a0d16; --sec-bg-alt:#070a12; --sec-fg:#fff; --sec-muted:#9aa3b8;
+    --sec-line:rgba(255,255,255,.08); --sec-card:rgba(19,23,34,.85); --sec-accent:var(--mint);
+    --sec-card-shadow:none; }
+  .c-nav { position:sticky; top:46px; z-index:100; display:flex; justify-content:center; gap:34px; padding:15px 0;
+    background:rgba(5,7,13,.65); backdrop-filter:blur(18px); border-bottom:1px solid rgba(255,255,255,.08);
+    font-size:13.5px; }
+  .c-nav a { color:#e6eaf2; opacity:.75; text-decoration:none; transition:opacity .15s; }
+  .c-nav a:hover { opacity:1; }
+  .c-nav .brand { font-weight:700; opacity:1; color:#fff; }
+  .c-nav .brand .g { color:var(--mint); }
+  .c-hero { text-align:center; padding:120px 24px 80px; position:relative;
+    background:radial-gradient(900px 420px at 50% 0%, rgba(38,54,88,.5) 0%, transparent 70%); }
+  .c-hero h1 { color:#fff; font-size:clamp(42px,6vw,78px); font-weight:700; letter-spacing:-.015em; line-height:1.05; }
+  .c-hero h1 .hl { background:linear-gradient(90deg,#c8ffe9,var(--mint) 60%,var(--mint-deep));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .c-hero .sub { color:#9aa3b8; font-size:20px; margin-top:20px; }
+  .c-receipt { margin:60px auto 0; display:inline-block; text-align:left; background:rgba(19,23,34,.7);
+    border:1px solid rgba(145,237,208,.35); border-radius:14px; padding:26px 34px; backdrop-filter:blur(8px); }
+  .c-receipt .hdr { font-family:var(--font-bug); text-transform:uppercase; letter-spacing:.14em; font-size:13px;
+    color:var(--mint); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+  .c-receipt .hdr::after { content:''; flex:1; height:1px; background:rgba(145,237,208,.35); min-width:60px; }
+  .c-row { display:flex; justify-content:space-between; gap:46px; color:#fff; font-size:16px; padding:7px 0;
+    border-bottom:1px solid rgba(255,255,255,.06); }
+  .c-row:last-child { border-bottom:none; }
+  .c-row .pos-lbl { color:#9aa3b8; font-family:var(--font-bug); letter-spacing:.1em; text-transform:uppercase; }
+  .c-row .val { font-weight:700; font-variant-numeric:tabular-nums; }
+  .c-row .val.pos { color:var(--mint); }
+  .c-ctas { margin-top:52px; display:flex; gap:14px; justify-content:center; }
+  .c-cta-mint { background:linear-gradient(90deg,#aef3dc,var(--mint)); color:#04140e;
+    box-shadow:0 0 22px rgba(145,237,208,.35); }
+  .c-cta-mint:hover { filter:brightness(1.06); }
+  .c-cta-ghost { background:transparent; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.3); }
+  .c-cta-ghost:hover { box-shadow:inset 0 0 0 1px #fff; }
+  .c-bugwrap { display:flex; justify-content:center; padding:40px 24px 100px; }
+
+  /* sketch toolbar bottom-LEFT */
+  #sketch-tools { position:fixed; bottom:12px; left:12px; z-index:9999; font-family:system-ui; font-size:12px;
+    background:rgba(0,0,0,0.72); color:white; padding:8px 12px; border-radius:8px; opacity:.35;
+    transition:opacity .2s; display:flex; gap:8px; align-items:center; }
+  #sketch-tools:hover { opacity:1; }
+  #sketch-tools select, #sketch-tools button { font-size:12px; border-radius:5px; border:none; padding:3px 7px; cursor:pointer; }
+  #viewport-frame { margin:0 auto; transition:max-width .25s ease; }
+</style>
+</head>
+<body>
+
+<div id="variant-nav">
+  <button class="variant-tab active" onclick="showVariant('a', event)">A: Apple Minimal</button>
+  <button class="variant-tab" onclick="showVariant('b', event)">B: Broadcast Overlay ★ Selected</button>
+  <button class="variant-tab" onclick="showVariant('c', event)">C: Dark Stadium Hybrid</button>
+</div>
+
+<div id="viewport-frame">
+
+<!-- ============================ VARIANT A ============================ -->
+<div id="variant-a" class="variant active">
+  <nav class="a-nav">
+    <a href="#" class="brand">GRIDIRON&nbsp;IQ</a>
+    <a href="#">Draft Room</a><a href="#">Rankings</a><a href="#">Scores</a>
+    <a href="#">News</a><a href="#">Matchups</a><a href="#">My League</a>
+  </nav>
+  <section class="a-hero">
+    <h1>We beat the industry's<br>consensus projections.<br><span class="hl">Here's the receipt.</span></h1>
+    <p class="sub">Player projections graded against Sleeper's consensus across 11,000+ player-weeks. Misses published too.</p>
+    <div class="a-stats">
+      <div class="a-stat"><div class="num stat-pos">−0.39</div><div class="lbl">QB · MAE vs consensus</div></div>
+      <div class="a-stat"><div class="num stat-pos">−0.075</div><div class="lbl">WR · MAE vs consensus</div></div>
+      <div class="a-stat"><div class="num stat-pos">−0.43</div><div class="lbl">TE · MAE vs consensus</div></div>
+      <div class="a-stat"><div class="num" style="color:var(--color-text-muted)">+0.26</div><div class="lbl">RB · we're working on it</div></div>
+    </div>
+    <div class="a-ctas">
+      <button class="cta a-cta-dark" onclick="ctaPress(this,'Opening rankings…')">See the rankings</button>
+      <button class="cta a-cta-ghost" onclick="ctaPress(this,'Loading proof page…')">Read the methodology</button>
+    </div>
+  </section>
+  <div class="a-bugwrap">
+    <div class="bug">
+      <div class="bug-clock">OUR LINE&nbsp;&nbsp;KC −2.5</div>
+      <div class="bug-row">
+        <div class="bug-team away"><span class="bug-name">Chiefs</span><span class="bug-chip chip-kc"></span></div>
+        <div class="bug-scorepanel"><div class="bug-score">27</div><div class="bug-sep"><div class="emblem"></div></div><div class="bug-score">24</div></div>
+        <div class="bug-team"><span class="bug-chip chip-buf"></span><span class="bug-name">Bills</span></div>
+        <div class="bug-detail">Wk 1 · SNF<br>Edge: High</div>
+      </div>
+      <div class="bug-ribbon" onclick="ctaPress(this,'→ scores')">every game, every week →</div>
+    </div>
+  </div>
+  <div class="feature-mount"></div>
+</div>
+
+<!-- ============================ VARIANT B ============================ -->
+<div id="variant-b" class="variant">
+  <nav class="b-nav">
+    <span class="brand">GRIDIRON<span class="g">IQ</span></span>
+    <a href="#">Draft Room</a><a href="#">Rankings</a><a href="#">Scores</a>
+    <a href="#">News</a><a href="#">Matchups</a><a href="#">My League</a>
+  </nav>
+  <section class="b-hero">
+    <div class="yard" style="top:18%"></div><div class="yard" style="top:33%"></div>
+    <div class="yard" style="top:48%"></div><div class="yard" style="top:63%"></div>
+    <div class="yard" style="top:78%"></div><div class="yard" style="top:93%"></div>
+    <h1>We beat the consensus.<br><span class="hl">Here's the receipt.</span></h1>
+    <p class="sub">Graded against Sleeper across 11,000+ player-weeks — misses published too.</p>
+    <div class="b-bugwrap">
+      <div class="bug">
+        <div class="bug-clock">OUR LINE&nbsp;&nbsp;KC −2.5</div>
+        <div class="bug-row">
+          <div class="bug-team away"><span class="bug-name">Chiefs</span><span class="bug-chip chip-kc"></span></div>
+          <div class="bug-scorepanel"><div class="bug-score">27</div><div class="bug-sep"><div class="emblem"></div></div><div class="bug-score">24</div></div>
+          <div class="bug-team"><span class="bug-chip chip-buf"></span><span class="bug-name">Bills</span></div>
+          <div class="bug-detail">Wk 1 · SNF<br>Edge: High</div>
+        </div>
+        <div class="bug-ribbon" onclick="ctaPress(this,'→ scores')">see every prediction →</div>
+      </div>
+    </div>
+    <div class="b-stats">
+      <div class="b-stat"><div class="num pos">−0.39</div><div class="lbl">QB</div></div>
+      <div class="b-stat"><div class="num pos">−0.075</div><div class="lbl">WR</div></div>
+      <div class="b-stat"><div class="num pos">−0.43</div><div class="lbl">TE</div></div>
+      <div class="b-stat"><div class="num" style="color:#9aa3b8">+0.26</div><div class="lbl">RB · WIP</div></div>
+    </div>
+  </section>
+  <div class="feature-mount"></div>
+</div>
+
+<!-- ============================ VARIANT C ============================ -->
+<div id="variant-c" class="variant">
+  <nav class="c-nav">
+    <a href="#" class="brand">GRIDIRON&nbsp;<span class="g">IQ</span></a>
+    <a href="#">Draft Room</a><a href="#">Rankings</a><a href="#">Scores</a>
+    <a href="#">News</a><a href="#">Matchups</a><a href="#">My League</a>
+  </nav>
+  <section class="c-hero">
+    <h1>We beat the industry's<br>consensus projections.<br><span class="hl">Here's the receipt.</span></h1>
+    <p class="sub">Graded against Sleeper's consensus across 11,000+ player-weeks. Misses published too.</p>
+    <div class="c-receipt">
+      <div class="hdr">2025 Season · vs Sleeper Consensus</div>
+      <div class="c-row"><span class="pos-lbl">Quarterbacks</span><span class="val pos">−0.39 MAE</span></div>
+      <div class="c-row"><span class="pos-lbl">Wide Receivers</span><span class="val pos">−0.075 MAE</span></div>
+      <div class="c-row"><span class="pos-lbl">Tight Ends</span><span class="val pos">−0.43 MAE</span></div>
+      <div class="c-row"><span class="pos-lbl">Running Backs</span><span class="val" style="color:#9aa3b8">+0.26 · working on it</span></div>
+    </div>
+    <div class="c-ctas">
+      <button class="cta c-cta-mint" onclick="ctaPress(this,'Opening rankings…')">See the rankings</button>
+      <button class="cta c-cta-ghost" onclick="ctaPress(this,'Loading proof page…')">Methodology</button>
+    </div>
+  </section>
+  <div class="c-bugwrap">
+    <div class="bug">
+      <div class="bug-clock">OUR LINE&nbsp;&nbsp;KC −2.5</div>
+      <div class="bug-row">
+        <div class="bug-team away"><span class="bug-name">Chiefs</span><span class="bug-chip chip-kc"></span></div>
+        <div class="bug-scorepanel"><div class="bug-score">27</div><div class="bug-sep"><div class="emblem"></div></div><div class="bug-score">24</div></div>
+        <div class="bug-team"><span class="bug-chip chip-buf"></span><span class="bug-name">Bills</span></div>
+        <div class="bug-detail">Wk 1 · SNF<br>Edge: High</div>
+      </div>
+      <div class="bug-ribbon" onclick="ctaPress(this,'→ scores')">every game, every week →</div>
+    </div>
+  </div>
+  <div class="feature-mount"></div>
+</div>
+
+</div><!-- /viewport-frame -->
+
+<!-- GX-01 floating assistant: FULL BODY -->
+<div id="mecha" onclick="toggleMecha()" title="GX-01 — your AI advisor">
+  <div class="gx">
+    <div class="fin-l"></div><div class="fin-r"></div>
+    <div class="head"></div><div class="visor"></div>
+    <div class="eye l"></div><div class="eye r"></div><div class="chin"></div>
+    <div class="neck"></div>
+    <div class="pauldron-l"></div><div class="pauldron-r"></div>
+    <div class="torso"></div><div class="vent-l"></div><div class="vent-r"></div><div class="core"></div>
+    <div class="arm-l"></div><div class="arm-r"></div>
+    <div class="fist-l"></div><div class="fist-r"></div>
+    <div class="waist"></div><div class="belt"></div><div class="skirt"></div>
+    <div class="leg-l"></div><div class="leg-r"></div>
+    <div class="knee-l"></div><div class="knee-r"></div>
+    <div class="foot-l"></div><div class="foot-r"></div>
+    <div id="mecha-label">GX-01</div>
+  </div>
+</div>
+<div id="mecha-chat">
+  <div class="hdr"><span>ADVISOR // GX-01</span><span style="cursor:pointer" onclick="toggleMecha()">✕</span></div>
+  <div id="mecha-reply">GX-01 online. Ask me anything — start/sit, trade value, or why we're fading a player this week.</div>
+  <input placeholder="Ask about your matchup…" onkeydown="if(event.key==='Enter'){mechaReply(this)}">
+</div>
+
+<div id="sketch-tools">
+  <select onchange="document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css'">
+    <option value="default">WC26 Broadcast v2</option>
+  </select>
+  <button onclick="setViewport(375)">📱</button>
+  <button onclick="setViewport(768)">💊</button>
+  <button onclick="setViewport(0)">🖥</button>
+</div>
+
+<script>
+/* ---------- shared feature story (all 2026-current players) ---------- */
+const FEATURES_HTML = `
+<section class="fsec">
+  <div class="kicker">Graph Intelligence</div>
+  <h2>We model the connections<br>between players.</h2>
+  <p class="sub">121 stability-gated correlations mined from a decade of games — every edge held its sign
+  across a 2016–22 training window AND a 2023–25 holdout. Know whose big games arrive together.</p>
+  <div class="body" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+    <span class="corr-chip">MAHOMES ↔ KELCE <span class="rho-pos">+0.50</span> <span class="n">123 gms</span></span>
+    <span class="corr-chip">GOFF ↔ ST. BROWN <span class="rho-pos">+0.51</span> <span class="n">79 gms</span></span>
+    <span class="corr-chip">BURROW ↔ CHASE <span class="rho-pos">+0.46</span> <span class="n">63 gms</span></span>
+    <span class="corr-chip">HURTS ↔ SMITH <span class="rho-pos">+0.34</span> <span class="n">74 gms</span></span>
+  </div>
+  <p class="fine">7,559 candidate pairs in. 121 served. The rest didn't survive the stability gate.</p>
+</section>
+
+<section class="fsec alt">
+  <div class="kicker">Draft Room</div>
+  <h2>A co-pilot on the clock.</h2>
+  <p class="sub">Live Sleeper draft sync, stack-aware recommendations, and a sleeper board built from
+  vacated-opportunity graph signal — players the consensus doesn't even rank.</p>
+  <div class="body draft-grid">
+    <div class="fcard draft-card">
+      <div class="t">Live pick · your turn (2:04)</div>
+      <div class="rec-row"><span><span class="nm">Ja'Marr Chase</span><br><span class="note">stacks with Burrow (+0.46)</span></span><span class="meta">VORP 88.2</span></div>
+      <div class="rec-row"><span><span class="nm">Amon-Ra St. Brown</span><br><span class="note">stacks with Goff (+0.51)</span></span><span class="meta">VORP 84.7</span></div>
+      <div class="rec-row"><span><span class="nm">Bijan Robinson</span></span><span class="meta">VORP 82.1</span></div>
+    </div>
+    <div class="fcard draft-card">
+      <div class="t">Sleeper board · consensus-unranked</div>
+      <div class="rec-row"><span class="nm">CAR backfield absorber</span><span class="meta">48.7% carries vacated</span></div>
+      <div class="rec-row"><span class="nm">ATL committee RB</span><span class="meta">21.8% targets vacated</span></div>
+      <div class="rec-row"><span class="nm">+ 28 more deep flags</span><span class="meta">updated daily</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fsec">
+  <div class="kicker">AI Advisor</div>
+  <h2>Meet GX-01.</h2>
+  <p class="sub">Your always-on analyst — every projection, correlation, injury report and betting edge,
+  one question away, on every page.</p>
+  <div class="body adv-wrap">
+    <div class="gx" style="transform:scale(1.15)"><div class="fin-l"></div><div class="fin-r"></div>
+      <div class="head"></div><div class="visor"></div><div class="eye l"></div><div class="eye r"></div>
+      <div class="chin"></div><div class="neck"></div><div class="pauldron-l"></div><div class="pauldron-r"></div>
+      <div class="torso"></div><div class="vent-l"></div><div class="vent-r"></div><div class="core"></div>
+      <div class="arm-l"></div><div class="arm-r"></div><div class="fist-l"></div><div class="fist-r"></div>
+      <div class="waist"></div><div class="belt"></div><div class="skirt"></div>
+      <div class="leg-l"></div><div class="leg-r"></div><div class="knee-l"></div><div class="knee-r"></div>
+      <div class="foot-l"></div><div class="foot-r"></div></div>
+    <div class="fcard adv-chat">
+      <div class="q">"Start St. Brown or Chase this week?"</div>
+      <div class="a"><b>GX-01:</b> St. Brown. Detroit's implied total is 3.5 higher, his target share is
+      trending up 4 straight weeks, and the Goff stack correlation (+0.51) raises his ceiling in a
+      projected shootout.</div>
+    </div>
+  </div>
+</section>
+
+<section class="fsec alt">
+  <div class="kicker">Madden View</div>
+  <h2>See the matchup, don't read it.</h2>
+  <p class="sub">Every lineup on a live field view — starters, projections, and correlated stacks flagged
+  where they line up.</p>
+  <div class="body">
+    <div class="mini-field">
+      <div class="yd" style="top:22%"></div><div class="yd" style="top:42%"></div>
+      <div class="yd" style="top:62%"></div><div class="yd" style="top:82%"></div>
+      <div class="fp" style="left:16%;top:30%">St. Brown<span class="pt">17.8</span></div>
+      <div class="fp" style="left:50%;top:24%">LaPorta<span class="pt">11.2</span></div>
+      <div class="fp" style="left:84%;top:30%">Williams<span class="pt">12.4</span></div>
+      <div class="fp" style="left:50%;top:56%">Goff<span class="pt">18.9</span></div>
+      <div class="fp" style="left:36%;top:78%">Gibbs<span class="pt">16.6</span></div>
+      <div class="fp" style="left:64%;top:78%">Montgomery<span class="pt">11.1</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fsec">
+  <div class="kicker">Game Predictions</div>
+  <h2>Our line vs their line.<br>Every game, graded.</h2>
+  <p class="sub">An ensemble model with calibrated cover probabilities — edges flagged when we disagree
+  with the market, closing-line value tracked all season.</p>
+  <div class="body pred-row">
+    <div class="bug compact"><div class="bug-row">
+      <div class="bug-team away"><span class="bug-name">Lions</span><span class="bug-chip chip-det"></span></div>
+      <div class="bug-scorepanel"><div class="bug-score">31</div><div class="bug-sep"><div class="emblem"></div></div><div class="bug-score">27</div></div>
+      <div class="bug-team"><span class="bug-chip chip-kc"></span><span class="bug-name">Chiefs</span></div>
+      <div class="bug-detail">Edge<br>High</div>
+    </div></div>
+    <div class="bug compact"><div class="bug-row">
+      <div class="bug-team away"><span class="bug-name">Bengals</span><span class="bug-chip chip-cin"></span></div>
+      <div class="bug-scorepanel"><div class="bug-score">24</div><div class="bug-sep"><div class="emblem"></div></div><div class="bug-score">21</div></div>
+      <div class="bug-team"><span class="bug-chip chip-buf"></span><span class="bug-name">Bills</span></div>
+      <div class="bug-detail">Edge<br>Med</div>
+    </div></div>
+    <div class="bug compact"><div class="bug-row">
+      <div class="bug-team away"><span class="bug-name">Eagles</span><span class="bug-chip chip-phi"></span></div>
+      <div class="bug-scorepanel"><div class="bug-score">28</div><div class="bug-sep"><div class="emblem"></div></div><div class="bug-score">20</div></div>
+      <div class="bug-team"><span class="bug-chip chip-dal"></span><span class="bug-name">Cowboys</span></div>
+      <div class="bug-detail">Edge<br>High</div>
+    </div></div>
+  </div>
+</section>
+
+<section class="fsec alt">
+  <div class="kicker">News & Sentiment</div>
+  <h2>Every beat writer, read for you.</h2>
+  <p class="sub">Five feeds and trending data distilled into player-level signals — practice reports,
+  role changes, and momentum shifts before they hit your league chat.</p>
+  <div class="body news-grid">
+    <div class="fcard news-card"><span class="tag up">Trending up</span>
+      <div class="h">Rookie WR drawing first-team reps for a third straight practice</div>
+      <div class="s">Target-share signal crossed our alert threshold this morning.</div></div>
+    <div class="fcard news-card"><span class="tag watch">Watch</span>
+      <div class="h">Backfield timeshare tilting after preseason week 1 snap counts</div>
+      <div class="s">Vacated-carry model moved him up 14 spots on the sleeper board.</div></div>
+    <div class="fcard news-card"><span class="tag dn">Fading</span>
+      <div class="h">Veteran TE losing red-zone routes to the second-year man</div>
+      <div class="s">RZ target share down 3 weeks running — sell-high window open.</div></div>
+  </div>
+</section>
+
+<section class="fsec">
+  <div class="kicker">My League</div>
+  <h2>Synced to your league<br>in one click.</h2>
+  <p class="sub">Connect Sleeper and every ranking, projection and alert re-scores to YOUR scoring
+  settings — optimal lineups, drop candidates, and waiver targets for your exact roster.</p>
+  <div class="body sync-band">
+    <button class="cta cta-peri" onclick="ctaPress(this,'Connecting…')">Connect your league</button>
+  </div>
+  <p class="fine">Free this season. Premium tiers arrive later — early users keep the good stuff.</p>
+</section>`;
+
+document.querySelectorAll('.feature-mount').forEach(m => { m.innerHTML = FEATURES_HTML; });
+
+function showVariant(id, ev) {
+  document.querySelectorAll('.variant').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.variant-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('variant-' + id).classList.add('active');
+  ev.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+function setViewport(w) {
+  document.getElementById('viewport-frame').style.maxWidth = w ? w + 'px' : 'none';
+}
+function toggleMecha() { document.getElementById('mecha-chat').classList.toggle('open'); }
+function mechaReply(input) {
+  const q = input.value.trim(); if (!q) return;
+  const r = document.getElementById('mecha-reply');
+  r.innerHTML = '<em style="color:#8892ad">Analyzing…</em>';
+  setTimeout(() => {
+    r.innerHTML = "<strong style='color:var(--mint)'>GX-01:</strong> Start St. Brown. The Goff stack carries a +0.51 correlation, Detroit's implied total is up 3.5, and his target share has climbed four straight weeks.";
+  }, 700);
+  input.value = '';
+}
+function ctaPress(el, msg) {
+  const old = el.textContent; el.textContent = msg; el.style.opacity = .7;
+  setTimeout(() => { el.textContent = old; el.style.opacity = 1; }, 900);
+}
+</script>
+</body>
+</html>

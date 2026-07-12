@@ -1,0 +1,75 @@
+---
+name: sketch-findings-nfl-data-engineering
+description: Validated design decisions, CSS patterns, and visual direction from sketch experiments. Auto-loaded during UI implementation on nfl_data_engineering (website redesign — broadcast overlay direction).
+---
+
+<context>
+## Project: nfl_data_engineering
+
+Apple.com layout grammar (one idea per full-bleed screen, huge restrained typography,
+generous whitespace, scroll storytelling) fused with the FIFA World Cup 26 broadcast
+scorebug identity (reference: `.planning/design-refs/wc26-broadcast-scorebug.webp` —
+near-black bars, mint score panels, vibrant yellow accents, periwinkle ribbon, gold
+trophy emblem separator, bold condensed white caps, team chips). Persistent floating AI
+assistant styled as a full-body mecha (angular armor, yellow V-fin, glowing cyan eyes —
+inspired-by, never literal Gundam). The marketing home leads with the provable claim:
+we beat the industry consensus, receipts shown, misses included.
+
+Reference points: apple.com (layout grammar, typography restraint, translucent nav),
+FIFA26 broadcast scorebug (CCTV5 frame in design-refs), existing WC26 OKLCH tokens in
+web/frontend (`--wc-*`).
+
+Sketch sessions wrapped: 2026-07-12
+</context>
+
+<design_direction>
+## Overall Direction
+
+**Winner: "Broadcast Overlay" (Sketch 001, Variant B)** — the dial sits closer to the
+broadcast pole than the apple pole. The scorebug IS the hero; apple grammar governs the
+scroll structure below the fold.
+
+- **Palette (sampled from reference frame):** bar/near-black `#05070d`, dark canvas
+  `#070a12`, mint `#91edd0` (score panels, nav rule, focus states), vibrant yellow
+  `#ffd84d` (accents, headline highlights — NOT antique gold), periwinkle `#5b67c7`
+  (ribbons/CTAs), cyan `#22d3ee` (mecha eyes), pitch greens `#2d5a27→#1a3a17`
+  (hero field gradient), positive-stat green `#0eaf7d`.
+- **Typography:** body = system-ui/SF Pro (the apple feel); display/identity =
+  Barlow Condensed 500–800, uppercase, tracked (`--font-bug`). Condensed caps are the
+  brand voice for nav, headlines, stats, and component chrome.
+- **Layout:** broadcast nav bar (52px, near-black, 2px mint rule) → full-viewport hero
+  (field gradient, yard lines, scorebug hero, honest stat pills) → apple-style `.fsec`
+  feature story sections (96px padding, kicker/h2/sub, alternating dark backgrounds),
+  themed via `--sec-*` custom-property contract.
+- **Honesty as design principle:** real accuracy numbers everywhere, misses (RB +0.26)
+  shown in muted gray labeled WIP — never hidden.
+- **Interaction:** 0.15s ease transitions baseline; hover lifts on chips/ribbons;
+  pulsing glow animations on the mecha; CTA press feedback.
+- Site IA: Draft Room / Rankings / Scores / News / Matchups / My League. First tab is
+  NOT a dashboard.
+</design_direction>
+
+<findings_index>
+## Design Areas
+
+| Area | Reference | Key Decision |
+|------|-----------|--------------|
+| Layout & Marketing Home | references/layout-and-marketing-home.md | Broadcast-forward dark home: field-gradient hero, broadcast nav w/ mint rule, honest stat pills, `--sec-*` themed apple-scroll feature sections |
+| Scorebug Component | references/scorebug-component.md | Near-black pill w/ multicolor gradient outline, mint score panels + near-black digits, trophy emblem separator, clock tab = our line, periwinkle ribbon CTA, compact grid variant |
+| Mecha Assistant | references/mecha-assistant.md | GX-01 full-body CSS mecha (clip-path divs, no images), fixed bottom-right, pulsing cyan eyes + mint chest core, near-black chat panel w/ yellow condensed header |
+
+## Theme
+
+The winning theme file is at `sources/themes/default.css` (WC26 Broadcast v2,
+color-corrected to the reference frame).
+
+## Source Files
+
+Original sketch HTML files are preserved in `sources/` for complete reference.
+</findings_index>
+
+<metadata>
+## Processed Sketches
+
+- 001-home-hero-direction
+</metadata>
