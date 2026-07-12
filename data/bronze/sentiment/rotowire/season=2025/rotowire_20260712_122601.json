@@ -1,0 +1,71 @@
+{
+  "fetch_run_id": "fa2536fd-9551-4f13-9df9-57610942a828",
+  "source": "rotowire",
+  "fetched_at": "2026-07-12T12:26:01.741608+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 3,
+  "items": [
+    {
+      "external_id": "nfl631654",
+      "url": "https://www.rotowire.com//football/player/brock-bowers-17693",
+      "permalink": "",
+      "title": "Brock Bowers: Fully healthy ahead of camp",
+      "body_text": "Bowers (knee) practiced \"at full speed\" during OTAs and minicamp, Ryan McFadden of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-11T08:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631653",
+      "url": "https://www.rotowire.com//football/player/derek-carr-9317",
+      "permalink": "",
+      "title": "Derek Carr: Draws interest from multiple clubs",
+      "body_text": "Carr has been contacted by \"multiple\" NFL teams about a potential comeback, but he's unlikely to come out of retirement, Kevin Patra of NFL.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-11T03:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derek Carr",
+        "Kevin Patra"
+      ],
+      "resolved_player_ids": [
+        "00-0031280"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631649",
+      "url": "https://www.rotowire.com//football/player/courtland-sutton-12586",
+      "permalink": "",
+      "title": "Courtland Sutton: Could draw more 1-on-1 matchups",
+      "body_text": "Sutton could benefit from more one-on-one matchups during the upcoming season following Denver's acquisition of Jaylen Waddle, Susanna Weir of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-10T04:23:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtland Sutton",
+        "Jaylen Waddle",
+        "Susanna Weir"
+      ],
+      "resolved_player_ids": [
+        "00-0034348",
+        "00-0036613"
+      ],
+      "team_hint": null
+    }
+  ]
+}
