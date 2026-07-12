@@ -2,7 +2,7 @@
 sketch: 001
 name: home-hero-direction
 question: "Which visual direction for the marketing home: apple minimalism, broadcast-forward, or dark stadium hybrid?"
-winner: null
+winner: "B"
 tags: [layout, marketing-home, scorebug, wc26, mecha-assistant]
 ---
 

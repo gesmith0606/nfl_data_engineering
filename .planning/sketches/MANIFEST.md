@@ -21,4 +21,4 @@ shown, misses included.
 
 | # | Name | Design Question | Winner | Tags |
 |---|------|----------------|--------|------|
-| 001 | home-hero-direction | Apple minimal vs broadcast-forward vs dark stadium hybrid for the marketing home? | — | layout, marketing-home, scorebug, wc26, mecha-assistant |
+| 001 | home-hero-direction | Apple minimal vs broadcast-forward vs dark stadium hybrid for the marketing home? | B: Broadcast Overlay | layout, marketing-home, scorebug, wc26, mecha-assistant |
