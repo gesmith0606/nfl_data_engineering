@@ -136,8 +136,8 @@ def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame
             "Loaded %d cached preseason projections from %s", len(df), files[-1]
         )
         return df
-    except Exception:
-        logger.warning("Failed to read cached projection file %s", files[-1])
+    except Exception as exc:
+        logger.warning("Failed to read cached projection file %s: %s", files[-1], exc)
         return None
 
 
@@ -148,6 +148,10 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
     consensus-anchored projections (with full player names, which the ADP merge
     depends on) as the CLI draft co-pilot.  Falls back to a live fetch +
     on-the-fly projection generation only when no cached artifact exists.
+
+    ``compute_value_scores`` is always applied afterwards: the Gold artifact
+    carries raw projections only (no vorp/model_rank/adp_rank columns), and
+    merging ADP at request time keeps value tiers fresh with ``adp_latest.csv``.
 
     Args:
         scoring: Scoring format key (e.g. ``"half_ppr"``).

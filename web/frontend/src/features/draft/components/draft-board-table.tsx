@@ -175,7 +175,7 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
                 onSort={handleSort}
               />
               <TableHead>Tier</TableHead>
-              <TableHead className='w-20' />
+              <TableHead className='w-32' />
             </TableRow>
           </TableHeader>
           <TableBody>

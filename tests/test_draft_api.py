@@ -15,6 +15,10 @@ from fastapi.testclient import TestClient
 
 from web.api.main import app
 
+# Captured at import time, before the autouse fixture patches the module
+# attribute — lets the strategy-order tests exercise the real logic.
+from web.api.routers.draft import _load_draft_data as _real_load_draft_data
+
 # Ensure src/ is importable
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_PROJECT_ROOT / "src"))
@@ -357,13 +361,6 @@ class TestAdp:
 # ---------------------------------------------------------------------------
 
 
-# Captured at import time, before the autouse fixture patches the module
-# attribute — lets these tests exercise the real strategy-order logic.
-from web.api.routers.draft import (
-    _load_draft_data as _real_load_draft_data,
-)  # noqa: E402
-
-
 class TestLoadDraftDataStrategyOrder:
     """The Gold cached artifact must be preferred over live regeneration.
 
@@ -402,3 +399,4 @@ class TestLoadDraftDataStrategyOrder:
 
         mock_fetcher.assert_called_once()
         assert len(result) == len(live)
+        assert "vorp" in result.columns
