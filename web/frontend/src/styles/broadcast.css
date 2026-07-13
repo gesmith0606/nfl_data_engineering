@@ -1,0 +1,718 @@
+/* =============================================================================
+ * Broadcast UI system — scorebug, GX-01 mecha, broadcast tables, mobile tabbar.
+ * Source of truth: .claude/skills/sketch-findings-nfl-data-engineering
+ * (sketches 001-005). Every var() carries a hex fallback so these render
+ * correctly under any theme; they are designed for worldcup26 dark.
+ * =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+ * Scorebug (sketch 001/005) — near-black pill, multicolor gradient outline,
+ * mint score panels with near-black digits, trophy emblem separator.
+ * ------------------------------------------------------------------------- */
+.bug {
+  font-family: var(--wc-font-display, var(--font-barlow-condensed), sans-serif);
+  box-shadow: 0 10px 30px rgba(3, 5, 10, 0.5);
+  border-radius: 999px;
+  background: var(--wc-bar, #05070d);
+  color: #fff;
+  display: inline-block;
+  position: relative;
+  padding: 3px;
+  background-image:
+    linear-gradient(var(--wc-bar, #05070d), var(--wc-bar, #05070d)),
+    var(
+      --wc-bug-rail,
+      linear-gradient(90deg, #5b67c7 0%, #91edd0 35%, #ffd84d 70%, #5b67c7 100%)
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border: 2px solid transparent;
+}
+.bug-clock {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  padding: 3px 16px;
+  border-radius: 7px 7px 0 0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.bug-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 26px;
+}
+.bug-team {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+}
+.bug-team.away {
+  justify-content: flex-end;
+}
+.bug-name {
+  font-size: 29px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.bug-chip {
+  width: 34px;
+  height: 22px;
+  border-radius: 3px;
+  display: inline-block;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+.bug-scorepanel {
+  display: flex;
+  align-items: stretch;
+  margin: 0 14px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.bug-score {
+  font-size: 36px;
+  font-weight: 800;
+  width: 56px;
+  text-align: center;
+  background: var(--wc-mint, #91edd0);
+  color: var(--wc-mint-ink, #04140e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 4px 0;
+}
+.bug-sep {
+  width: 34px;
+  background: var(--wc-mint, #91edd0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bug-emblem {
+  width: 20px;
+  height: 32px;
+  background: linear-gradient(
+    180deg,
+    #ffe98a,
+    var(--wc-yellow, #ffd84d) 45%,
+    var(--wc-yellow-deep, #e8b820)
+  );
+  clip-path: polygon(
+    50% 0%,
+    88% 12%,
+    70% 44%,
+    62% 56%,
+    66% 82%,
+    82% 100%,
+    18% 100%,
+    34% 82%,
+    38% 56%,
+    30% 44%,
+    12% 12%
+  );
+  filter: drop-shadow(0 0 5px rgba(255, 216, 77, 0.6));
+}
+.bug-detail {
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--wc-yellow, #ffd84d);
+  text-transform: uppercase;
+  padding-left: 18px;
+  margin-left: 14px;
+  border-left: 1px solid rgba(255, 216, 77, 0.4);
+  line-height: 1.25;
+}
+.bug-ribbon {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--wc-peri, #5b67c7);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(91, 103, 199, 0.45);
+}
+.bug-ribbon:hover {
+  background: var(--wc-peri-bright, #6e7ce0);
+}
+
+/* Compact variant for grids (sketch 001/005). */
+.bug.compact {
+  border-radius: 12px;
+}
+.bug.compact .bug-name {
+  font-size: 17px;
+}
+.bug.compact .bug-score {
+  font-size: 20px;
+  width: 32px;
+  padding: 2px 0;
+}
+.bug.compact .bug-row {
+  padding: 5px 14px;
+}
+.bug.compact .bug-team {
+  min-width: auto;
+}
+.bug.compact .bug-chip {
+  width: 24px;
+  height: 16px;
+}
+.bug.compact .bug-scorepanel {
+  margin: 0 10px;
+  border-radius: 6px;
+}
+.bug.compact .bug-sep {
+  width: 20px;
+}
+.bug.compact .bug-emblem {
+  width: 12px;
+  height: 20px;
+}
+.bug.compact .bug-detail {
+  font-size: 11px;
+  padding-left: 10px;
+  margin-left: 8px;
+}
+
+/* Graded receipts treatment (sketch 005): hits hold the mint outline, misses
+ * go flat gray but STAY VISIBLE. */
+.bug.hit {
+  background-image:
+    linear-gradient(var(--wc-bar, #05070d), var(--wc-bar, #05070d)),
+    linear-gradient(90deg, var(--wc-mint, #91edd0), var(--wc-mint, #91edd0));
+}
+.bug.miss {
+  background-image:
+    linear-gradient(var(--wc-bar, #05070d), var(--wc-bar, #05070d)),
+    linear-gradient(90deg, #3a4157, #3a4157);
+  opacity: 0.82;
+}
+.bug-verdict {
+  position: absolute;
+  top: -11px;
+  right: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+.bug-verdict.hit {
+  background: var(--wc-mint, #91edd0);
+  color: var(--wc-mint-ink, #04140e);
+}
+.bug-verdict.miss {
+  background: #3a4157;
+  color: #c3c9d8;
+}
+.bug-edge-tag {
+  position: absolute;
+  top: -11px;
+  left: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--wc-yellow, #ffd84d);
+  color: #221b00;
+}
+.bug-edge-tag.med {
+  background: rgba(255, 216, 77, 0.25);
+  color: var(--wc-yellow, #ffd84d);
+  border: 1px solid rgba(255, 216, 77, 0.5);
+}
+
+/* ---------------------------------------------------------------------------
+ * GX-01 mecha (sketch 001/002) — pure CSS clip-path figure. .gx = full body
+ * (120x200), .gxh = head-only (44x40) for the mobile puck / launcher.
+ * Inspired-by, never literal Gundam.
+ * ------------------------------------------------------------------------- */
+@keyframes gx-eye-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.gx {
+  position: relative;
+  width: 120px;
+  height: 200px;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.4));
+}
+.gx > div {
+  position: absolute;
+}
+.gx .fin-l,
+.gx .fin-r {
+  top: 0;
+  width: 30px;
+  height: 26px;
+  background: linear-gradient(180deg, #ffe98a, var(--wc-yellow, #ffd84d));
+  filter: drop-shadow(0 0 6px rgba(255, 216, 77, 0.7));
+  z-index: 6;
+}
+.gx .fin-l {
+  left: 26px;
+  clip-path: polygon(100% 100%, 0% 0%, 60% 100%);
+}
+.gx .fin-r {
+  right: 26px;
+  clip-path: polygon(0% 100%, 100% 0%, 40% 100%);
+}
+.gx .head {
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 38px;
+  z-index: 5;
+  background: linear-gradient(160deg, #f4f6fb 0%, #c9cfdd 55%, #8f97ab 100%);
+  clip-path: polygon(50% 0%, 88% 20%, 100% 58%, 80% 100%, 20% 100%, 0% 58%, 12% 20%);
+}
+.gx .visor {
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 10px;
+  z-index: 6;
+  background: #05070d;
+  clip-path: polygon(0 20%, 100% 20%, 90% 100%, 10% 100%);
+}
+.gx .eye {
+  top: 24px;
+  width: 9px;
+  height: 4px;
+  background: var(--wc-eye, #22d3ee);
+  z-index: 7;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.9);
+  animation: gx-eye-pulse 3.2s ease-in-out infinite;
+}
+.gx .eye.l {
+  left: 42px;
+  transform: skewX(-12deg);
+}
+.gx .eye.r {
+  right: 42px;
+  transform: skewX(12deg);
+}
+.gx .chin {
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 8px;
+  background: #e64545;
+  z-index: 6;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.gx .neck {
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 10px;
+  background: #1c2333;
+}
+.gx .torso {
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 52px;
+  z-index: 4;
+  background: linear-gradient(160deg, #f4f6fb 0%, #c9cfdd 60%, #9aa2b5 100%);
+  clip-path: polygon(18% 0%, 82% 0%, 100% 30%, 88% 100%, 12% 100%, 0% 30%);
+}
+.gx .core {
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  z-index: 5;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #d8fff1,
+    var(--wc-mint, #91edd0) 60%,
+    var(--wc-mint-deep, #5cc9a7)
+  );
+  clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%);
+  box-shadow: 0 0 10px rgba(145, 237, 208, 0.8);
+  animation: gx-eye-pulse 2.6s ease-in-out infinite;
+}
+.gx .vent-l,
+.gx .vent-r {
+  top: 58px;
+  width: 14px;
+  height: 10px;
+  background: var(--wc-yellow, #ffd84d);
+  z-index: 5;
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+}
+.gx .vent-l {
+  left: 32px;
+}
+.gx .vent-r {
+  right: 32px;
+  transform: scaleX(-1);
+}
+.gx .pauldron-l,
+.gx .pauldron-r {
+  top: 50px;
+  width: 26px;
+  height: 24px;
+  z-index: 5;
+  background: linear-gradient(160deg, #fff, #b9c0d2);
+  clip-path: polygon(0 30%, 30% 0, 100% 0, 100% 100%, 20% 100%);
+}
+.gx .pauldron-l {
+  left: 8px;
+}
+.gx .pauldron-r {
+  right: 8px;
+  transform: scaleX(-1);
+}
+.gx .arm-l,
+.gx .arm-r {
+  top: 74px;
+  width: 14px;
+  height: 38px;
+  background: linear-gradient(180deg, #d7dce8, #8f97ab);
+  z-index: 3;
+}
+.gx .arm-l {
+  left: 12px;
+}
+.gx .arm-r {
+  right: 12px;
+}
+.gx .fist-l,
+.gx .fist-r {
+  top: 112px;
+  width: 16px;
+  height: 14px;
+  background: #1c2333;
+  border-radius: 3px;
+  z-index: 3;
+}
+.gx .fist-l {
+  left: 11px;
+}
+.gx .fist-r {
+  right: 11px;
+}
+.gx .waist {
+  top: 104px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 12px;
+  background: #1c2333;
+  z-index: 4;
+}
+.gx .belt {
+  top: 106px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 8px;
+  background: var(--wc-yellow, #ffd84d);
+  z-index: 5;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.gx .skirt {
+  top: 114px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 58px;
+  height: 20px;
+  z-index: 4;
+  background: linear-gradient(160deg, #e8ecf5, #a9b1c4);
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+}
+.gx .leg-l,
+.gx .leg-r {
+  top: 132px;
+  width: 20px;
+  height: 44px;
+  z-index: 3;
+  background: linear-gradient(180deg, #eef1f8 0%, #c1c8d8 55%, #8f97ab 100%);
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+}
+.gx .leg-l {
+  left: 26px;
+}
+.gx .leg-r {
+  right: 26px;
+}
+.gx .knee-l,
+.gx .knee-r {
+  top: 148px;
+  width: 14px;
+  height: 7px;
+  background: var(--wc-peri, #5b67c7);
+  z-index: 4;
+}
+.gx .knee-l {
+  left: 29px;
+}
+.gx .knee-r {
+  right: 29px;
+}
+.gx .foot-l,
+.gx .foot-r {
+  top: 174px;
+  width: 28px;
+  height: 12px;
+  background: #1c2333;
+  z-index: 3;
+  clip-path: polygon(0 40%, 55% 0, 100% 0, 100% 100%, 0 100%);
+}
+.gx .foot-l {
+  left: 20px;
+  transform: scaleX(-1);
+}
+.gx .foot-r {
+  right: 20px;
+}
+
+/* Head-only (mobile puck / launcher). */
+.gxh {
+  position: relative;
+  width: 44px;
+  height: 40px;
+}
+.gxh > div {
+  position: absolute;
+}
+.gxh .fin-l,
+.gxh .fin-r {
+  top: 0;
+  width: 15px;
+  height: 13px;
+  background: linear-gradient(180deg, #ffe98a, var(--wc-yellow, #ffd84d));
+  filter: drop-shadow(0 0 4px rgba(255, 216, 77, 0.7));
+  z-index: 3;
+}
+.gxh .fin-l {
+  left: 4px;
+  clip-path: polygon(100% 100%, 0% 0%, 60% 100%);
+}
+.gxh .fin-r {
+  right: 4px;
+  clip-path: polygon(0% 100%, 100% 0%, 40% 100%);
+}
+.gxh .head {
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 28px;
+  z-index: 2;
+  background: linear-gradient(160deg, #f4f6fb 0%, #c9cfdd 55%, #8f97ab 100%);
+  clip-path: polygon(50% 0%, 88% 20%, 100% 58%, 80% 100%, 20% 100%, 0% 58%, 12% 20%);
+}
+.gxh .visor {
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 23px;
+  height: 7px;
+  z-index: 3;
+  background: #05070d;
+  clip-path: polygon(0 20%, 100% 20%, 90% 100%, 10% 100%);
+}
+.gxh .eye {
+  top: 16.5px;
+  width: 6px;
+  height: 3px;
+  background: var(--wc-eye, #22d3ee);
+  z-index: 4;
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.9);
+  animation: gx-eye-pulse 3.2s ease-in-out infinite;
+}
+.gxh .eye.l {
+  left: 12px;
+  transform: skewX(-12deg);
+}
+.gxh .eye.r {
+  right: 12px;
+  transform: skewX(12deg);
+}
+.gxh .chin {
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 6px;
+  background: #e64545;
+  z-index: 3;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gx .eye,
+  .gx .core,
+  .gxh .eye {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Broadcast table chrome (sketch 003/005) — apply .wc-broadcast-table to a
+ * wrapper around a <table>. Yellow condensed uppercase headers over a 2px mint
+ * rule, zebra rows, mint-wash hover, tabular numerals.
+ * ------------------------------------------------------------------------- */
+.wc-broadcast-table table {
+  font-variant-numeric: tabular-nums;
+}
+.wc-broadcast-table thead th {
+  font-family: var(--wc-font-display, var(--font-barlow-condensed), sans-serif);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wc-yellow, #ffd84d);
+  border-bottom: 2px solid var(--wc-mint, #91edd0);
+  white-space: nowrap;
+}
+.wc-broadcast-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.025);
+}
+.wc-broadcast-table tbody tr:hover {
+  background: rgba(145, 237, 208, 0.07);
+}
+.wc-num-hero {
+  font-family: var(--wc-font-display, var(--font-barlow-condensed), sans-serif);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--wc-mint-deep, #5cc9a7);
+}
+.dark .wc-num-hero {
+  color: var(--wc-mint, #91edd0);
+}
+.wc-edge-glyph {
+  font-family: var(--wc-font-display, var(--font-barlow-condensed), sans-serif);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.wc-edge-glyph.high {
+  color: var(--wc-yellow-deep, #e8b820);
+}
+.dark .wc-edge-glyph.high {
+  color: var(--wc-yellow, #ffd84d);
+}
+.wc-edge-glyph.med {
+  color: color-mix(in srgb, var(--wc-yellow-deep, #e8b820) 60%, transparent);
+}
+.dark .wc-edge-glyph.med {
+  color: rgba(255, 216, 77, 0.6);
+}
+.wc-edge-glyph.low {
+  color: #8892ad;
+}
+
+/* ---------------------------------------------------------------------------
+ * Marketing home helpers (sketch 001-B).
+ * ------------------------------------------------------------------------- */
+.wc-hero-field {
+  background: linear-gradient(
+    180deg,
+    #0b0e18 0%,
+    #14301a 30%,
+    var(--wc-pitch-a, #2d5a27) 55%,
+    var(--wc-pitch-b, #1a3a17) 100%
+  );
+}
+.wc-yard-line {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.13);
+}
+
+/* ---------------------------------------------------------------------------
+ * Mobile bottom tab bar (sketch 002-B) — GX-01 raised center puck.
+ * ------------------------------------------------------------------------- */
+.wc-tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  height: calc(64px + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--wc-bar, #05070d);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: stretch;
+}
+/* Mobile-only. This unlayered rule would beat Tailwind's layered `md:hidden`
+ * utility, so the breakpoint lives here instead of on the component. */
+@media (min-width: 768px) {
+  .wc-tabbar {
+    display: none;
+  }
+}
+.wc-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #8892ad;
+  font-family: var(--wc-font-display, var(--font-barlow-condensed), sans-serif);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s;
+  text-decoration: none;
+}
+.wc-tab.active,
+.wc-tab:hover {
+  color: var(--wc-mint, #91edd0);
+}
+.wc-tab-puck {
+  position: absolute;
+  top: -22px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--wc-bar, #05070d);
+  border: 1.5px solid rgba(255, 216, 77, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+  transition: transform 0.15s ease;
+}
+.wc-tab:hover .wc-tab-puck {
+  transform: translateY(-3px);
+}

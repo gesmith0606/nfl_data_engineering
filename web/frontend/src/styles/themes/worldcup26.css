@@ -198,6 +198,38 @@
   --wc-rail-x: linear-gradient(90deg, var(--wc-gold), var(--wc-violet));
   /* Condensed display face for headings/brand. Body stays on --font-sans. */
   --wc-font-display: var(--font-barlow-condensed), var(--font-archivo), sans-serif;
+
+  /* -----------------------------------------------------------------------
+   * Broadcast palette (sketch 001-B winner) — sampled from the WC26 broadcast
+   * scorebug reference frame (.planning/design-refs/wc26-broadcast-scorebug.webp).
+   * Mint score panels + near-black digits, VIBRANT yellow (not antique gold),
+   * periwinkle ribbon, near-black overlay bars, pitch-green field gradient.
+   * These drive the scorebug, GX-01 assistant, broadcast tables, and the
+   * marketing home (see .claude/skills/sketch-findings-nfl-data-engineering).
+   * --------------------------------------------------------------------- */
+  --wc-bar: #05070d; /* scorebug/nav bar — near black */
+  --wc-bar-hi: #131722; /* raised panels on dark */
+  --wc-stadium: #070a12; /* dark page canvas */
+  --wc-mint: #91edd0; /* score panels, nav rule, focus */
+  --wc-mint-deep: #5cc9a7;
+  --wc-mint-ink: #04140e; /* digits on mint */
+  --wc-yellow: #ffd84d; /* vibrant yellow — accents, headline highlights */
+  --wc-yellow-deep: #e8b820;
+  --wc-peri: #5b67c7; /* periwinkle ribbon / CTA */
+  --wc-peri-bright: #6e7ce0;
+  --wc-eye: #22d3ee; /* GX-01 eye glow */
+  --wc-pitch-a: #2d5a27; /* field gradient */
+  --wc-pitch-b: #1a3a17;
+  --wc-pos: #0eaf7d; /* we-win-the-stat green */
+  --wc-neg: #ef4444;
+  /* Multicolor broadcast outline — peri → mint → yellow → peri. */
+  --wc-bug-rail: linear-gradient(
+    90deg,
+    var(--wc-peri) 0%,
+    var(--wc-mint) 35%,
+    var(--wc-yellow) 70%,
+    var(--wc-peri) 100%
+  );
 }
 
 [data-theme='worldcup26'].dark {
