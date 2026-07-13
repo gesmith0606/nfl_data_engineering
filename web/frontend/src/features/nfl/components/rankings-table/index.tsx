@@ -249,36 +249,37 @@ export function RankingsTable() {
         </Card>
       ) : (
         <Card className='overflow-hidden'>
-          {/* Mobile-first strategy: keep scroll wrapper but hide the 3 least-
-           *  critical columns (#, Team, Pos Rk) under sm: and the Range bar +
-           *  Tier under md:. Player name stays sticky-left so horizontal
-           *  scrolling doesn't orphan rows. */}
-          <div className='overflow-x-auto'>
-            <table className='w-full text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+          {/* Broadcast table (sketch 003-A) + mobile full-column pan (004-C):
+           *  every column stays visible at every width — the table pans
+           *  horizontally with the Player column sticky-left, and the mint
+           *  projection is merged into the sticky cell on mobile so the hero
+           *  number never scrolls out of view. */}
+          <div className='wc-broadcast-table overflow-x-auto'>
+            <table className='w-full min-w-[760px] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               <thead className='bg-muted/50 sticky top-0 z-10'>
-                <tr className='border-b'>
-                  <th className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-14'>
+                <tr>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left w-14'>
                     #
                   </th>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground min-w-[140px] md:min-w-[180px] sticky left-0 bg-muted/50 z-10'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left min-w-[140px] md:min-w-[180px] sticky left-0 bg-muted/50 z-10'>
                     Player
                   </th>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-14'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left w-14'>
                     Pos
                   </th>
-                  <th className='hidden sm:table-cell px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-16'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left w-16'>
                     Team
                   </th>
-                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-right font-semibold text-muted-foreground w-20'>
-                    Pts
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-right w-20'>
+                    Proj
                   </th>
-                  <th className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)] text-center font-semibold text-muted-foreground w-[140px]'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-center w-[140px]'>
                     Range
                   </th>
-                  <th className='hidden sm:table-cell px-[var(--space-3)] py-[var(--space-3)] text-left font-semibold text-muted-foreground w-20'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-left w-20'>
                     Tier
                   </th>
-                  <th className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)] text-right font-semibold text-muted-foreground w-16'>
+                  <th className='px-[var(--space-3)] py-[var(--space-3)] text-right w-16'>
                     Pos Rk
                   </th>
                 </tr>
@@ -359,15 +360,15 @@ function PlayerRow({
     <tr
       className={`border-b border-border/50 hover:bg-muted/30 transition-colors duration-[var(--motion-base)] ease-[var(--ease-out-standard)] ${tierBg}`}
     >
-      {/* Overall rank — desktop only */}
-      <td className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)]'>
+      {/* Overall rank */}
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
         <span className='text-muted-foreground tabular-nums font-medium text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {position === 'ALL' ? player.overall_rank : (player.position_rank ?? '-')}
         </span>
       </td>
 
-      {/* Player name — sticky-left on mobile so horizontal scroll doesn't
-       *  orphan rows when the narrower layout still overflows. */}
+      {/* Player name — sticky-left; on mobile the mint projection rides along
+       *  in this cell so the hero number never pans out of view (004-C). */}
       <td
         className={`px-[var(--space-3)] min-h-[var(--tap-min)] py-[var(--space-3)] sticky left-0 z-[1] ${tierBg || 'bg-background'}`}
       >
@@ -378,6 +379,7 @@ function PlayerRow({
           >
             {player.player_name}
           </Link>
+          <span className='wc-num-hero !text-sm md:hidden'>{pts.toFixed(1)}</span>
           {player.injury_status && player.injury_status !== 'Active' && (
             <Badge
               variant='destructive'
@@ -399,8 +401,8 @@ function PlayerRow({
         </Badge>
       </td>
 
-      {/* Team — hidden below sm: */}
-      <td className='hidden sm:table-cell px-[var(--space-3)] py-[var(--space-3)]'>
+      {/* Team */}
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
         <div className='flex items-center gap-[var(--space-2)]'>
           <span
             className='inline-block h-[var(--space-2)] w-[var(--space-2)] shrink-0 rounded-full'
@@ -412,15 +414,13 @@ function PlayerRow({
         </div>
       </td>
 
-      {/* Projected points — always visible */}
+      {/* Projected points — the hero number (mint condensed, sketch 003-A) */}
       <td className='px-[var(--space-3)] py-[var(--space-3)] text-right'>
-        <span className='font-bold tabular-nums text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
-          {pts.toFixed(1)}
-        </span>
+        <span className='wc-num-hero'>{pts.toFixed(1)}</span>
       </td>
 
-      {/* Floor/ceiling range bar — desktop only */}
-      <td className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)]'>
+      {/* Floor/ceiling range bar */}
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
         <div className='flex items-center gap-[var(--space-2)]'>
           <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground tabular-nums w-[var(--space-8)] text-right shrink-0'>
             {floor.toFixed(0)}
@@ -445,8 +445,8 @@ function PlayerRow({
         </div>
       </td>
 
-      {/* Tier badge — hidden below sm: */}
-      <td className='hidden sm:table-cell px-[var(--space-3)] py-[var(--space-3)]'>
+      {/* Tier badge */}
+      <td className='px-[var(--space-3)] py-[var(--space-3)]'>
         <Badge
           variant='outline'
           className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] px-[var(--space-2)] py-0 ${TIER_CONFIG[player.tier]?.badge ?? ''}`}
@@ -455,8 +455,8 @@ function PlayerRow({
         </Badge>
       </td>
 
-      {/* Position rank — desktop only */}
-      <td className='hidden md:table-cell px-[var(--space-3)] py-[var(--space-3)] text-right'>
+      {/* Position rank */}
+      <td className='px-[var(--space-3)] py-[var(--space-3)] text-right'>
         <span className='text-muted-foreground tabular-nums text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {player.position}{player.position_rank ?? '-'}
         </span>
