@@ -19,7 +19,7 @@ Reference points: apple.com (layout grammar, typography restraint, translucent n
 FIFA26 broadcast scorebug (CCTV5 frame in design-refs), existing WC26 OKLCH tokens in
 web/frontend (`--wc-*`).
 
-Sketch sessions wrapped: 2026-07-12 (sketches 001–003)
+Sketch sessions wrapped: 2026-07-12 (001–003), 2026-07-13 (004–005)
 </context>
 
 <design_direction>
@@ -48,10 +48,15 @@ scroll structure below the fold.
 - Site IA: Draft Room / Rankings / Scores / News / Matchups / My League. First tab is
   NOT a dashboard.
 - **Mobile (≤~430px):** app shell, not shrunken website — bottom tab bar with GX-01 as
-  the raised center tab, one-liner scorebug, bottom-sheet chat.
+  the raised center tab, one-liner scorebug, bottom-sheet chat. Data tables keep FULL
+  column parity and pan horizontally (sticky player column); tab overflow resolves via
+  seasonal swap (Draft Jul–Sep ↔ Scores in-season), no "More" tab.
 - **Interior data pages:** dense broadcast tables — yellow condensed headers over a
   2px mint rule, mint hero numerals, shared control bar (position pills / scoring
   segment / search), expandable rows for depth.
+- **Meta-pattern (confirmed across 003/004/005):** dense broadcast tables are the
+  working surface everywhere — desktop rankings, mobile rankings, scores ledger.
+  Scorebugs are hero/marketing components, not working surfaces.
 </design_direction>
 
 <findings_index>
@@ -62,8 +67,9 @@ scroll structure below the fold.
 | Layout & Marketing Home | references/layout-and-marketing-home.md | Broadcast-forward dark home: field-gradient hero, broadcast nav w/ mint rule, honest stat pills, `--sec-*` themed apple-scroll feature sections |
 | Scorebug Component | references/scorebug-component.md | Near-black pill w/ multicolor gradient outline, mint score panels + near-black digits, trophy emblem separator, clock tab = our line, periwinkle ribbon CTA, compact grid variant |
 | Mecha Assistant | references/mecha-assistant.md | GX-01 full-body CSS mecha (clip-path divs, no images), fixed bottom-right, pulsing cyan eyes + mint chest core, near-black chat panel w/ yellow condensed header |
-| Mobile Shell | references/mobile-shell.md | App shell at 375px: bottom tab bar w/ GX-01 raised center tab, horizontal one-liner scorebug, bottom-sheet chat, horizontal stat scroller (tab-overflow TBD) |
+| Mobile Shell | references/mobile-shell.md | App shell at 375px: bottom tab bar w/ GX-01 raised center tab, one-liner scorebug, bottom-sheet chat; tables pan w/ sticky player column (full column parity); tab overflow = seasonal Draft↔Scores swap |
 | Data Tables & Interior Pages | references/data-tables-interior-pages.md | Dense broadcast table: yellow condensed headers over mint rule, mint proj numerals, position/scoring/search control bar, expandable conformal-band rows |
+| Scores & Graded Receipts | references/scores-graded-receipts.md | Scores = audit ledger: our line (mint) vs market side-by-side, ●/◐/○ edge glyphs, week chips toggle upcoming↔graded, ✓ COVER / ✗ MISS column + ATS record banner — misses stay visible |
 
 ## Theme
 
@@ -81,4 +87,6 @@ Original sketch HTML files are preserved in `sources/` for complete reference.
 - 001-home-hero-direction
 - 002-mobile-broadcast-hero
 - 003-rankings-data-density
+- 004-mobile-rankings-shell
+- 005-scores-grid
 </metadata>
