@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Icons } from '@/components/icons';
+import { Gx01Head } from '@/components/gx01';
 import { cn } from '@/lib/utils';
 import { usePersistentChat } from '@/hooks/use-persistent-chat';
 import { MOTION, EASE } from '@/lib/design-tokens';
@@ -454,6 +455,14 @@ export function ChatWidget() {
     }
   }, [messages, isOpen]);
 
+  // The mobile tab bar's GX-01 center tab toggles the widget via this event
+  // (see mobile-tabbar.tsx) — keeps chat state owned here without a context.
+  useEffect(() => {
+    const toggle = () => setIsOpen((prev) => !prev);
+    window.addEventListener('gx01:toggle', toggle);
+    return () => window.removeEventListener('gx01:toggle', toggle);
+  }, []);
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const text = input.trim();
@@ -480,20 +489,22 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Floating action button — already 56×56px, clears the 44px tap rule. */}
+      {/* GX-01 launcher puck (sketch 001/002) — near-black circle, yellow
+          border, pulsing-eye mecha head. Hidden below md where the mobile tab
+          bar's center GX-01 tab takes over (see mobile-tabbar.tsx). */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
-          'fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-[max(1.25rem,env(safe-area-inset-right))] z-50 flex h-14 w-14 items-center justify-center',
-          'rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25',
-          'transition-all duration-200 hover:scale-110 hover:shadow-xl hover:shadow-primary/40',
-          'animate-pulse [animation-duration:3s]',
-          'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+          'fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-[max(1.25rem,env(safe-area-inset-right))] z-50 hidden md:flex h-14 w-14 items-center justify-center',
+          'rounded-full bg-[var(--wc-bar,#05070d)] border-[1.5px] border-[rgba(255,216,77,0.55)]',
+          'shadow-[0_6px_18px_rgba(0,0,0,0.55)]',
+          'transition-all duration-200 hover:scale-110 hover:-translate-y-0.5',
+          'focus:outline-none focus:ring-2 focus:ring-[var(--wc-mint,#91edd0)] focus:ring-offset-2',
           isOpen && 'scale-0 opacity-0 pointer-events-none'
         )}
-        aria-label='Open AI Advisor chat'
+        aria-label='Open GX-01 advisor chat'
       >
-        <Icons.robot className='h-6 w-6' />
+        <Gx01Head className='scale-[0.82]' />
         {/* Unread dot when there are messages and widget is closed */}
         {messages.length > 0 && !isOpen && (
           <span className='absolute -top-0.5 -right-0.5 h-3 w-3 rounded-full bg-destructive border-2 border-background' />
@@ -519,11 +530,13 @@ export function ChatWidget() {
         {/* Header — action buttons bump to 44px on mobile, stay 28px on sm+. */}
         <div className='flex items-center justify-between border-b px-4 py-3 shrink-0'>
           <div className='flex items-center gap-2'>
-            <div className='flex h-7 w-7 items-center justify-center rounded-full bg-primary/10'>
-              <Icons.robot className='h-4 w-4 text-primary' />
+            <div className='flex h-8 w-8 items-center justify-center rounded-full bg-[var(--wc-bar,#05070d)] border border-[rgba(255,216,77,0.4)]'>
+              <Gx01Head className='scale-[0.55]' />
             </div>
             <div>
-              <h3 className='text-sm font-semibold leading-none'>AI Advisor</h3>
+              <h3 className='wc-display text-sm leading-none tracking-[0.12em] text-[var(--wc-yellow,#ffd84d)]'>
+                Advisor // GX-01
+              </h3>
               <p className='text-[10px] text-muted-foreground mt-0.5'>
                 Fantasy football assistant
               </p>
