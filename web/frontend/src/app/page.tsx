@@ -4,7 +4,7 @@ import { Gx01Body } from '@/components/gx01';
 import { Scorebug } from '@/components/nfl/scorebug';
 
 export const metadata: Metadata = {
-  title: 'Gridiron IQ — We beat the consensus. Here’s the receipt.',
+  title: 'GIQ — We beat the consensus. Here’s the receipt.',
   description:
     'NFL fantasy projections and game predictions graded against the industry consensus across 11,000+ player-weeks — misses published too.'
 };
@@ -73,9 +73,9 @@ export default function MarketingHome() {
       <nav className='sticky top-0 z-50 flex h-[52px] items-center gap-6 overflow-x-auto border-b-2 border-[var(--wc-mint,#91edd0)] bg-[var(--wc-bar,#05070d)] px-7'>
         <Link
           href='/'
-          className='wc-display mr-3 whitespace-nowrap text-lg font-extrabold tracking-[0.08em] text-white'
+          className='wc-display mr-3 whitespace-nowrap text-2xl font-extrabold tracking-[0.14em] text-white'
         >
-          GRIDIRON<span className='text-[var(--wc-mint,#91edd0)]'>IQ</span>
+          G<span className='text-[var(--wc-mint,#91edd0)]'>IQ</span>
         </Link>
         {NAV_ITEMS.map((item) => (
           <Link
@@ -280,8 +280,8 @@ export default function MarketingHome() {
       </section>
 
       <footer className='border-t border-white/10 bg-[var(--wc-bar,#05070d)] px-6 py-10 text-center'>
-        <div className='wc-display text-base font-extrabold tracking-[0.08em] text-white'>
-          GRIDIRON<span className='text-[var(--wc-mint,#91edd0)]'>IQ</span>
+        <div className='wc-display text-xl font-extrabold tracking-[0.14em] text-white'>
+          G<span className='text-[var(--wc-mint,#91edd0)]'>IQ</span>
         </div>
         <p className='mt-2 text-xs text-[#8892ad]'>
           Every pick graded against the closing line. Misses stay on the board — that’s

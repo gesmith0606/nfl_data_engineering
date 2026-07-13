@@ -99,19 +99,25 @@ export function Scorebug({
           </div>
         )}
       </div>
-      {ribbon && !compact && (
-        <div
-          className='bug-ribbon'
-          onClick={onRibbonClick}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') onRibbonClick?.();
-          }}
-          role='button'
-          tabIndex={0}
-        >
-          {ribbon}
-        </div>
-      )}
+      {ribbon &&
+        !compact &&
+        (onRibbonClick ? (
+          <div
+            className='bug-ribbon'
+            onClick={onRibbonClick}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') onRibbonClick();
+            }}
+            role='button'
+            tabIndex={0}
+          >
+            {ribbon}
+          </div>
+        ) : (
+          // No handler → decorative label; keeps the component usable from
+          // Server Components (functions can't cross the RSC boundary).
+          <div className='bug-ribbon'>{ribbon}</div>
+        ))}
     </div>
   );
 }
