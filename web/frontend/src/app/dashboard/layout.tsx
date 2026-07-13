@@ -2,6 +2,7 @@ import KBar from '@/components/kbar';
 import { ChatWidget } from '@/components/chat-widget';
 import AppSidebar from '@/components/layout/app-sidebar';
 import Header from '@/components/layout/header';
+import { MobileTabbar } from '@/components/layout/mobile-tabbar';
 import { InfoSidebar } from '@/components/layout/info-sidebar';
 import { InfobarProvider } from '@/components/ui/infobar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
@@ -28,12 +29,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <AppSidebar />
           <SidebarInset>
             <Header />
-            {/* page main content */}
-            {children}
+            {/* page main content — bottom padding clears the mobile tab bar */}
+            <div className='pb-16 md:pb-0'>{children}</div>
             {/* page main content ends */}
           </SidebarInset>
           <InfoSidebar side='right' />
           <ChatWidget />
+          <MobileTabbar />
         </InfobarProvider>
       </SidebarProvider>
     </KBar>
