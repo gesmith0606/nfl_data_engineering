@@ -1,0 +1,49 @@
+{
+  "fetch_run_id": "2d354ca9-0919-4c8d-ba79-a41116cea961",
+  "source": "rotowire",
+  "fetched_at": "2026-07-13T12:57:34.334492+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 2,
+  "items": [
+    {
+      "external_id": "nfl631654",
+      "url": "https://www.rotowire.com//football/player/brock-bowers-17693",
+      "permalink": "",
+      "title": "Brock Bowers: Fully healthy ahead of camp",
+      "body_text": "Bowers (knee) practiced \"at full speed\" during OTAs and minicamp, Ryan McFadden of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-11T08:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631653",
+      "url": "https://www.rotowire.com//football/player/derek-carr-9317",
+      "permalink": "",
+      "title": "Derek Carr: Draws interest from multiple clubs",
+      "body_text": "Carr has been contacted by \"multiple\" NFL teams about a potential comeback, but he's unlikely to come out of retirement, Kevin Patra of NFL.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-11T03:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derek Carr",
+        "Kevin Patra"
+      ],
+      "resolved_player_ids": [
+        "00-0031280"
+      ],
+      "team_hint": null
+    }
+  ]
+}

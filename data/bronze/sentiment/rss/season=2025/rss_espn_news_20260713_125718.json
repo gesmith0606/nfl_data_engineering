@@ -1,0 +1,251 @@
+{
+  "fetch_run_id": "8017e814-aa5a-455c-812c-e52b8db434e0",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-07-13T12:57:18.224298+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 16,
+  "items": [
+    {
+      "external_id": "US-EN-49315416",
+      "url": "https://www.espn.com/nfl/story/_/id/49315416/ranking-nfl-top-10-quarterbacks-2026-execs-coaches-scouts",
+      "title": "Ranking the best NFL quarterbacks for 2026: We ask...",
+      "body_text": "Who are the elite QBs in the NFL right now? Which passer ranks No. 1? And where do multiple top names from the 2024 draft class land on our top-10 list?",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-13T12:11:57+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49188011",
+      "url": "https://www.espn.com/nfl/story/_/id/49188011/3-lingering-questions-ahead-cleveland-browns-2026-nfl-training-camp",
+      "title": "QBs among the lingering questions ahead of Browns ...",
+      "body_text": "The status of Cleveland's signal-callers looms large as we look at what's still up in the air this offseason.",
+      "author": "Daniel Oyefusi",
+      "published_at": "2026-07-13T12:11:57+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "US-EN-49343916",
+      "url": "https://www.espn.com/nfl/story/_/id/49343916/stefon-diggs-says-there-no-wr2-nfl-better-me",
+      "title": "Free agent Diggs: No WR2 in NFL better than me",
+      "body_text": "Free agent Stefon Diggs says he is better than any No. 2 wide receiver currently on an NFL roster.",
+      "author": null,
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49337716",
+      "url": "https://www.espn.com/nfl/story/_/id/49337716/khosla-led-group-agrees-buy-seahawks-sources-say-96-billion",
+      "title": "Niners part owner agrees to purchase Seahawks",
+      "body_text": "A group led by Niners limited partner Vinod Khosla has agreed to purchase the Seahawks, with sources telling ESPN the selling price will be a record $9.612 billion. The Khosla family will be required to divest its interest in the 49ers.",
+      "author": "Seth Wickersham and Adam Schefter",
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Vinod Khosla",
+        "The Khosla"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-49325177",
+      "url": "https://www.espn.com/nfl/story/_/id/49325177/no-gps-tracker-terrion-arnold-work-nfl-teams",
+      "title": "No GPS tracker for Arnold, can work out for teams",
+      "body_text": "Former Lions cornerback Terrion Arnold does not need to wear a GPS tracker as a condition of his release, a Florida judge ruled Friday, allowing him to continue to work out with NFL teams in an effort to get re-signed after being cut.",
+      "author": "Xuan Thai",
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Lions",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49317702",
+      "url": "https://www.espn.com/nfl/story/_/id/49317702/study-nfl-players-4-s-more-likely-die-neurodegenerative-disease",
+      "title": "Study: NFLers die from dementia at higher rate",
+      "body_text": "NFL players are four times more likely than the general population to die of neurodegenerative diseases such as dementia and Parkinson's, according to a study released Wednesday.",
+      "author": "Robert Klemko",
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49315574",
+      "url": "https://www.espn.com/nfl/story/_/id/49315574/commanders-retire-no-44-worn-hall-famer-john-riggins",
+      "title": "Commanders to retire No. 44 of HOF RB Riggins",
+      "body_text": "The Commanders are retiring the No. 44 worn by Hall of Famer and franchise rushing leader John Riggins -- more than 40 years after one of the most famous runs in Super Bowl history.",
+      "author": "John Keim",
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Riggins The",
+        "John Riggins",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-49308565",
+      "url": "https://www.espn.com/nfl/story/_/id/49308565/colts-add-kicker-adam-vinatieri-team-ring-honor",
+      "title": "Clutch Vinatieri to enter Colts' Ring of Honor",
+      "body_text": "Kicker Adam Vinatieri, who will enter the Pro Football Hall of Fame next month, will enter the Colts' Ring of Honor during a ceremony Oct. 18.",
+      "author": "Stephen Holder",
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Clutch Vinatieri",
+        "Honor Kicker",
+        "Adam Vinatieri",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "US-EN-49296262",
+      "url": "https://www.espn.com/nfl/story/_/id/49296262/late-cowboys-player-marshawn-kneeland-diagnosed-cte",
+      "title": "Late Cowboys' player Kneeland diagnosed with CTE",
+      "body_text": "Former Cowboys defensive end Marshawn Kneeland has been posthumously diagnosed with CTE.",
+      "author": null,
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Late Cowboys",
+        "Former Cowboys",
+        "Marshawn Kneeland"
+      ],
+      "resolved_player_ids": [
+        "00-0039900"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49286897",
+      "url": "https://www.espn.com/nba/story/_/id/49286897/sources-cb-rasul-douglas-sign-1-year-deal-commanders",
+      "title": "Sources: CB Douglas to sign with Commanders",
+      "body_text": "Free agent CB Rasul Douglas is planning to sign a one-year deal with the Washington Commanders worth up to $3.8 million, sources told ESPN's Adam Schefter.",
+      "author": null,
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Commanders Free",
+        "Rasul Douglas",
+        "Washington Commanders",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0033551"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-49309306",
+      "url": "https://www.espn.com/nfl/story/_/id/49309306/2026-nfl-season-super-bowl-roster-building-positions-draft-signings-trades",
+      "title": "🏈 Barnwell's guide to building a Super Bowl roste...",
+      "body_text": "Do teams need first-round QBs to reach the Super Bowl? Is it crucial to spend big on No. 1 receivers and top-tier edge rushers? Let's sort through rosters from the past 15 Super Bowls.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-07-13T12:12:20+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49285849",
+      "url": "https://www.espn.com/nfl/story/_/id/49285849/ranking-nfl-top-10-guards-centers-interior-offensive-linemen-2026-execs-coaches-scouts",
+      "title": "Copy of NFL evaluators pick the top 10 interior O-linemen ...",
+      "body_text": "Execs, coaches and scouts from around the NFL ranked their top 10 interior offensive linemen, starting with the league's highest-paid guard.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-13T07:26:21+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49306202",
+      "url": "https://www.espn.com/nfl/story/_/id/49306202/top-10-nfl-players-every-position-2026-jeremy-fowler-best-quarterbacks-running-backs-wide-receivers",
+      "title": "Ranking the NFL's best players at every position",
+      "body_text": "We asked execs, coaches and scouts to name their top 10 players at each position.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-13T07:26:21+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49317308",
+      "url": "https://www.espn.com/nfl/story/_/id/49317308/buffalo-bills-keon-coleman-preparing-make-break-2026-season",
+      "title": "How Bills WR Keon Coleman is preparing for his 'ma...",
+      "body_text": "Coleman's first two seasons in the NFL have not gone smoothly.",
+      "author": "Alaina Getzenberg",
+      "published_at": "2026-07-13T12:13:49+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "How Bills",
+        "Keon Coleman"
+      ],
+      "resolved_player_ids": [
+        "00-0039901"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "US-EN-49286915",
+      "url": "https://www.espn.com/nfl/story/_/id/49286915/nfl-afc-east-bills-jets-dolphins-patriots-josh-allen-drake-maye-aj-brown-geno-smith-malik-willis",
+      "title": "AFC East: Can Bills, Jets or Dolphins unseat the Patriots in 2026?",
+      "body_text": "Four big questions for our AFC East reporters, including biggest concerns and how the offseason impacted the QBs.",
+      "author": "NFL Nation",
+      "published_at": "2026-07-10T18:00:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "US-EN-FFDraftGuide26-48677635",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFDraftGuide26-48677635/2026-fantasy-football-rankings-mock-draft-cheat-sheets-sleepers",
+      "title": "Copy of 2026 Fantasy Football Draft Guide: Rankings, mock ...",
+      "body_text": "Your one-stop shop as you prep for draft season, including rankings, projections and analysis.",
+      "author": "Fantasy staff",
+      "published_at": "2026-07-13T03:57:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fantasy Football",
+        "Draft Guide"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,471 @@
+{
+  "fetch_run_id": "8017e814-aa5a-455c-812c-e52b8db434e0",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-13T12:57:21.211252+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-one-person-not-a-committee-made-the-flo-balogun-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-one-person-not-a-committee-made-the-flo-balogun-decision",
+      "title": "Report: One person, not a committee, made the Flo Balogun decision",
+      "body_text": "Although it feels more like a year, it's been only one week since it became crystal clear that President Trump called FIFA president Gianni Infantino regarding the one-game suspension that U.S. striker Folarin Balogun was due to serve for the Round of 16 match against Belgium.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T12:17:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Flo Balogun",
+        "President Trump",
+        "Gianni Infantino",
+        "Folarin Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-trent-taylor-announces-his-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-trent-taylor-announces-his-retirement",
+      "title": "WR Trent Taylor announces his retirement",
+      "body_text": "Veteran wide receiver Trent Taylor has announced his retirement.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-13T12:09:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0033292"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-gathers-six-teammates-for-bonding-week-before-last-rodeo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-gathers-six-teammates-for-bonding-week-before-last-rodeo",
+      "title": "Aaron Rodgers gathers six teammates for \"bonding week\" before \"last rodeo\"",
+      "body_text": "An invitation to the Travis Kelce-Taylor Swift wedding was one kind of exclusive.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T10:49:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Travis Kelce",
+        "Taylor Swift"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyjae-spears-vows-titans-are-going-to-have-a-winning-record-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyjae-spears-vows-titans-are-going-to-have-a-winning-record-this-year",
+      "title": "Tyjae Spears vows Titans \"are going to have a winning record this year\"",
+      "body_text": "In Tyjae Spears' three seasons, the Titans have gone 6-11, 3-14 and 3-14.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-13T10:40:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyjae Spears",
+        "In Tyjae"
+      ],
+      "resolved_player_ids": [
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-assistant-thomas-brown-says-its-frustrating-nfl-hired-no-new-black-head-coaches",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-assistant-thomas-brown-says-its-frustrating-nfl-hired-no-new-black-head-coaches",
+      "title": "Patriots assistant Thomas Brown says it's frustrating NFL hired no new Black head coaches",
+      "body_text": "There are 10 teams with new head coaches in 2026, and none of those coaches are Black.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-13T08:28:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thomas Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-stefon-diggs-says-no-wr2-is-better-than-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-stefon-diggs-says-no-wr2-is-better-than-him",
+      "title": "Free agent Stefon Diggs says no WR2 is better than him",
+      "body_text": "With training camp right around the corner, wide receiver Stefon Diggs is among several big-name players who remain without a home.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-12T18:18:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khosla-excited-to-see-all-money-from-his-seahawks-purchase-go-to-a-non-profit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khosla-excited-to-see-all-money-from-his-seahawks-purchase-go-to-a-non-profit",
+      "title": "Vinod Khosla \"excited\" to see all money from his Seahawks purchase \"go to a non-profit\"",
+      "body_text": "New owner, an Indian immigrant, has a long history of successful business ventures.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-12T17:36:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vinod Khosla"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-needs-to-put-some-thought-into-possibly-becoming-a-broadcaster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-needs-to-put-some-thought-into-possibly-becoming-a-broadcaster",
+      "title": "Josh Allen needs to \"put some thought\" into possibly becoming a broadcaster",
+      "body_text": "Eight years into his NFL career, Bills quarterback Josh Allen remains in his prime.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-12T13:40:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-finds-no-evidence-that-ball-hit-wire-in-key-moment-of-england-vs-norway-quarterfinal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-finds-no-evidence-that-ball-hit-wire-in-key-moment-of-england-vs-norway-quarterfinal",
+      "title": "FIFA finds \"no evidence\" that ball hit wire in key moment of England vs. Norway quarterfinal",
+      "body_text": "Strange moment sparks memories of Will Reichard's field-goal try in England.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-12T12:44:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Reichard"
+      ],
+      "resolved_player_ids": [
+        "00-0039404"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/flexwork-sports-fumbled-tetairoa-mcmillan-youth-football-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/flexwork-sports-fumbled-tetairoa-mcmillan-youth-football-camp",
+      "title": "FlexWork Sports fumbled Tetairoa McMillan youth football camp",
+      "body_text": "The far more clickable headline would be that Panthers receiver and 2025 NFL offensive rookie of the year Tetairoa McMillan was a no-show for a youth football camp on Wednesday, July 1.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-12T12:25:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-can-become-the-fifth-quarterback-in-nfl-history-with-70-000-passing-yards",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-can-become-the-fifth-quarterback-in-nfl-history-with-70-000-passing-yards",
+      "title": "Aaron Rodgers can become the fifth quarterback in NFL history with 70,000 passing yards",
+      "body_text": "In what he says will be his final NFL season, Steelers quarterback Aaron Rodgers is in pursuit of a statistical milestone reached by only four other quarterbacks in NFL history.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-12T09:06:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khoslas-wife-neeru-will-be-controlling-owner-of-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khoslas-wife-neeru-will-be-controlling-owner-of-seahawks",
+      "title": "Vinod Khosla's wife, Neeru, will be controlling owner of Seahawks",
+      "body_text": "Their son, Neal, is expected to have a significant role in the organization.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-12T00:38:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vinod Khosla",
+        "Seahawks Their"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-steelers-first-rounder-greg-hawthorne-dies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-steelers-first-rounder-greg-hawthorne-dies",
+      "title": "Former Steelers first-rounder Greg Hawthorne dies",
+      "body_text": "Greg Hawthorne, the Steelers' first-round pick in 1979, has died.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-12T00:14:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Steelers",
+        "Greg Hawthorne"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khosla-led-group-agrees-to-buy-the-seahawks-for-a-reported-9-612-billion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khosla-led-group-agrees-to-buy-the-seahawks-for-a-reported-9-612-billion",
+      "title": "Vinod Khosla-led group agrees to buy the Seahawks for a reported $9.612 billion",
+      "body_text": "Khosla ia a 49ers limited partner and will have to sell his stake as part of the transaction.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-11T23:49:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vinod Khosla"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nearly-18-000-more-seats-will-be-replaced-at-acrisure-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nearly-18-000-more-seats-will-be-replaced-at-acrisure-stadium",
+      "title": "Nearly 18,000 more seats will be replaced at Acrisure Stadium",
+      "body_text": "With 22,000 seats replaced at Acrisure Stadium, more new ones are coming.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T18:53:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Acrisure Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pennsylvania-gaming-control-board-will-review-the-bryce-harper-fanduel-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pennsylvania-gaming-control-board-will-review-the-bryce-harper-fanduel-video",
+      "title": "Pennsylvania Gaming Control Board will review the Bryce Harper FanDuel video",
+      "body_text": "As gambling controversies emerge in American pro sports, the NFL continues to avoid landing in any significant jackpots.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T16:24:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pennsylvania Gaming",
+        "Control Board",
+        "Bryce Harper"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-predicts-there-will-be-more-grass-fields-where-its-possible",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-predicts-there-will-be-more-grass-fields-where-its-possible",
+      "title": "Sean Payton predicts there will be more grass fields \"where it's possible\"",
+      "body_text": "16 teams currently play on turf, and 16 play on artificial turf.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T18:20:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-macdonald-wasnt-referring-to-tom-brady-as-the-person-who-provided-super-bowl-help",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-macdonald-wasnt-referring-to-tom-brady-as-the-person-who-provided-super-bowl-help",
+      "title": "Report: Mike Macdonald wasn't referring to Tom Brady as the person who provided Super Bowl help",
+      "body_text": "If it wasn't Brady, who was it?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T13:17:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Tom Brady",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-will-address-the-online-complaints-about-matt-miller-later",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-will-address-the-online-complaints-about-matt-miller-later",
+      "title": "Report: ESPN will address the online complaints about Matt Miller later",
+      "body_text": "ESPN NFL draft analyst Matt Miller announced on Friday that he'll be placed on leave as he recovers from serious injuries suffered last month in an automobile accident.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T12:08:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-world-cup-games-over-the-stickers-can-be-removed-from-64-000-seats-at-gillette-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-world-cup-games-over-the-stickers-can-be-removed-from-64-000-seats-at-gillette-stadium",
+      "title": "With World Cup games over, the stickers can be removed from 64,000 seats at Gillette Stadium",
+      "body_text": "France's 2-0 win over Morocco in the quarterfinal round of the World Cup was the seventh, and last, game of the tournament played at Gillette Stadium in Foxborough.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T11:54:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With World",
+        "Gillette Stadium",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-urges-lebron-james-to-sign-in-philadelphia-be-remembered-forever",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-urges-lebron-james-to-sign-in-philadelphia-be-remembered-forever",
+      "title": "Saquon Barkley urges LeBron James to sign in Philadelphia, \"be remembered forever\"",
+      "body_text": "Two years ago, Saquon Barkley signed as a free agent in Philadelphia, won a championship in his first season there, and became one of the city's most beloved athletes.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-11T07:45:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-donald-works-out-at-rams-facility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-donald-works-out-at-rams-facility",
+      "title": "Report: Aaron Donald works out at Rams' facility",
+      "body_text": "More signs are pointing to a potential unretirement.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-11T01:48:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-te-gunnar-helm-eyes-an-even-bigger-second-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-te-gunnar-helm-eyes-an-even-bigger-second-season",
+      "title": "Titans TE Gunnar Helm eyes an even bigger second season",
+      "body_text": "Titans tight end Gunnar Helm, a fourth-round pick in 2025, appeared in 16 games, with 10 starts, as a rookie.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-10T22:00:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gunnar Helm"
+      ],
+      "resolved_player_ids": [
+        "00-0040584"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-is-cleared-to-do-everything-and-feeling-good",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-is-cleared-to-do-everything-and-feeling-good",
+      "title": "Daniel Jones is \"cleared to do everything\" and \"feeling good\"",
+      "body_text": "Daniel Jones progressed to 7-on-7 work during the team's offseason program, and the Colts quarterback expects to do everything at camp.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-10T21:44:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-places-matt-miller-on-leave",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-places-matt-miller-on-leave",
+      "title": "ESPN places Matt Miller on leave",
+      "body_text": "ESPN NFL draft analyst Matt Miller, whose serious car accident last month was followed by multiple online complaints about Miller’s handling of fantasy football leagues, paid scouting lessons, and charitable efforts, will be placed on leave.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T21:43:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-should-by-looking-at-fifas-referee-view",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-should-by-looking-at-fifas-referee-view",
+      "title": "NFL should be looking at FIFA's \"Referee View\"",
+      "body_text": "The AI-stabilized images would enhance football broadcasts.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T18:25:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Referee View"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-harper-video-is-one-example-of-what-sportsbooks-will-do-to-keep-losers-losing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-harper-video-is-one-example-of-what-sportsbooks-will-do-to-keep-losers-losing",
+      "title": "Bryce Harper video is one example of what sportsbooks will do to keep losers losing",
+      "body_text": "Sportsbooks, like insurance companies, have one commodity.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T21:26:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Harper"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-second-round-te-sam-roush-to-complete-draft-class-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-second-round-te-sam-roush-to-complete-draft-class-signings",
+      "title": "Bears sign third-round TE Sam Roush to complete draft class signings",
+      "body_text": "The Bears signed third-round tight end Sam Roush, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-10T20:16:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Roush",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "ROU550040"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-young-expresses-concern-for-brandon-aiyuk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-young-expresses-concern-for-brandon-aiyuk",
+      "title": "Steve Young expresses concern for Brandon Aiyuk",
+      "body_text": "The football world has noticed the social-media antics of 49ers receiver Brandon Aiyuk in recent weeks.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-10T19:00:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Young",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-groups-emerge-from-pack-in-effort-to-buy-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-groups-emerge-from-pack-in-effort-to-buy-seahawks",
+      "title": "Two groups emerge from pack in effort to buy Seahawks",
+      "body_text": "An unnamed (for now) former Seahawks player is attached to one of the two groups.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-09T20:33:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    }
+  ]
+}
