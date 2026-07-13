@@ -162,7 +162,9 @@ export function DraftToolView() {
       {data && (
         <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
           {data.scoring_format} · {data.roster_format} · {data.n_teams} teams ·{' '}
-          {data.picks_taken} picks made
+          {data.picks_taken} picks made · Follow along with your live draft on
+          Sleeper, ESPN, or Yahoo — hit Draft for your picks and Taken for
+          everyone else&apos;s
         </p>
       )}
 

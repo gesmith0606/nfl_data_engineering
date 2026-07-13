@@ -15,6 +15,10 @@ from fastapi.testclient import TestClient
 
 from web.api.main import app
 
+# Captured at import time, before the autouse fixture patches the module
+# attribute — lets the strategy-order tests exercise the real logic.
+from web.api.routers.draft import _load_draft_data as _real_load_draft_data
+
 # Ensure src/ is importable
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_PROJECT_ROOT / "src"))
@@ -25,6 +29,7 @@ client = TestClient(app)
 # ---------------------------------------------------------------------------
 # Synthetic data for mocking
 # ---------------------------------------------------------------------------
+
 
 def _make_mock_projections() -> pd.DataFrame:
     """Create a small synthetic projection DataFrame."""
@@ -50,13 +55,23 @@ def _make_mock_projections() -> pd.DataFrame:
         ("P019", "George Kittle", "TE", "SF", 195.0),
         ("P020", "Kyren Williams", "RB", "LAR", 255.0),
     ]
-    df = pd.DataFrame(players, columns=["player_id", "player_name", "position", "recent_team", "projected_season_points"])
+    df = pd.DataFrame(
+        players,
+        columns=[
+            "player_id",
+            "player_name",
+            "position",
+            "recent_team",
+            "projected_season_points",
+        ],
+    )
     return df
 
 
 def _mock_load_draft_data(scoring: str, season: int) -> pd.DataFrame:
     """Mock replacement for _load_draft_data that returns synthetic data."""
     from draft_optimizer import compute_value_scores
+
     return compute_value_scores(_make_mock_projections())
 
 
@@ -68,7 +83,9 @@ def _mock_load_draft_data(scoring: str, season: int) -> pd.DataFrame:
 @pytest.fixture(autouse=True)
 def _patch_load_draft_data():
     """Patch _load_draft_data to avoid network calls."""
-    with patch("web.api.routers.draft._load_draft_data", side_effect=_mock_load_draft_data):
+    with patch(
+        "web.api.routers.draft._load_draft_data", side_effect=_mock_load_draft_data
+    ):
         yield
 
 
@@ -77,11 +94,17 @@ def draft_session(_patch_load_draft_data):
     """Create a draft session. Returns the full JSON response."""
     # Clear sessions between tests
     from web.api.routers import draft as draft_module
+
     draft_module._sessions.clear()
 
     resp = client.get(
         "/api/draft/board",
-        params={"scoring": "half_ppr", "roster_format": "standard", "n_teams": 12, "season": 2026},
+        params={
+            "scoring": "half_ppr",
+            "roster_format": "standard",
+            "n_teams": 12,
+            "season": 2026,
+        },
     )
     assert resp.status_code == 200, f"Board creation failed: {resp.text}"
     return resp.json()
@@ -172,7 +195,11 @@ class TestDraftPick:
         """POST /api/draft/pick with fake session_id returns 404."""
         resp = client.post(
             "/api/draft/pick",
-            json={"session_id": "nonexistent_session_id", "player_id": "X", "by_me": True},
+            json={
+                "session_id": "nonexistent_session_id",
+                "player_id": "X",
+                "by_me": True,
+            },
         )
         assert resp.status_code == 404
 
@@ -327,3 +354,49 @@ class TestAdp:
             data = resp.json()
             assert isinstance(data["players"], list)
             assert data["source"] == "adp_latest.csv"
+
+
+# ---------------------------------------------------------------------------
+# Test: _load_draft_data strategy order (cache-first)
+# ---------------------------------------------------------------------------
+
+
+class TestLoadDraftDataStrategyOrder:
+    """The Gold cached artifact must be preferred over live regeneration.
+
+    Live regeneration produces abbreviated player names (e.g. ``J.Allen``)
+    from nfl-data-py seasonal data, which silently breaks the ADP name merge
+    and skips the consensus anchor. See 2026-07-12 live-draft verification.
+    """
+
+    def test_cached_projections_preferred_over_live_fetch(self):
+        """When a cached artifact exists, no live fetch is attempted."""
+        from web.api.routers import draft as draft_module
+
+        cached = _make_mock_projections()
+        with patch.object(
+            draft_module, "_load_cached_projections", return_value=cached
+        ) as mock_cache, patch.object(draft_module, "NFLDataFetcher") as mock_fetcher:
+            result = _real_load_draft_data("half_ppr", 2026)
+
+        mock_cache.assert_called_once()
+        mock_fetcher.assert_not_called()
+        assert len(result) == len(cached)
+        assert "vorp" in result.columns
+
+    def test_live_fetch_used_when_no_cache(self):
+        """When no cached artifact exists, fall back to live generation."""
+        from web.api.routers import draft as draft_module
+
+        live = _make_mock_projections()
+        with patch.object(
+            draft_module, "_load_cached_projections", return_value=None
+        ), patch.object(draft_module, "NFLDataFetcher") as mock_fetcher, patch.object(
+            draft_module, "generate_preseason_projections", return_value=live
+        ):
+            mock_fetcher.return_value.fetch_player_seasonal.return_value = live
+            result = _real_load_draft_data("half_ppr", 2026)
+
+        mock_fetcher.assert_called_once()
+        assert len(result) == len(live)
+        assert "vorp" in result.columns
