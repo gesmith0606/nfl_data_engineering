@@ -1,0 +1,495 @@
+{
+  "fetch_run_id": "de393fb9-0dd9-474c-a0dd-02c512188aaa",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-14T12:35:32.957363+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-use-viral-bison-flip-video-for-social-media-post",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-use-viral-bison-flip-video-for-social-media-post",
+      "title": "Buccaneers use viral bison flip video for social-media post",
+      "body_text": "It was inevitable.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T12:23:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chad-kelly-blames-toronto-argonauts-struggles-on-world-cup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chad-kelly-blames-toronto-argonauts-struggles-on-world-cup",
+      "title": "Chad Kelly blames Toronto Argonauts struggles on World Cup",
+      "body_text": "FIFA's takeover of 11 NFL stadiums (in which 13 teams play) has created various complications and annoyances, including the displacement of the New York Giants to West Virginia for training camp.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T11:55:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chad Kelly",
+        "Toronto Argonauts",
+        "World Cup",
+        "New York",
+        "West Virginia"
+      ],
+      "resolved_player_ids": [
+        "00-0033597"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diversion-program-for-alaric-jackson-would-likely-result-in-another-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diversion-program-for-alaric-jackson-would-likely-result-in-another-suspension",
+      "title": "Diversion program for Alaric Jackson would likely result in another suspension",
+      "body_text": "Personal Conduct Policy makes entry into diversion program an automatic violation.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T11:30:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alaric Jackson",
+        "Personal Conduct"
+      ],
+      "resolved_player_ids": [
+        "00-0036603"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-ward-on-his-we-ass-comment-i-was-raised-to-be-honest-when-i-said-that-i-meant-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-ward-on-his-we-ass-comment-i-was-raised-to-be-honest-when-i-said-that-i-meant-it",
+      "title": "Cam Ward on his \"We ass\" comment: I was raised to be honest, when I said that, I meant it",
+      "body_text": "\"That's how I've been my whole life,\" Ward said when reflecting on his harsh assessment of his own team.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-14T08:25:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alshon-jeffery-reaches-deal-to-resolve-insurance-fraud-charges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alshon-jeffery-reaches-deal-to-resolve-insurance-fraud-charges",
+      "title": "Report: Alshon Jeffery reaches deal to resolve insurance fraud charges",
+      "body_text": "Former NFL receiver Alshon Jeffery's case of felony insurance fraud is on track to be resolved with something far less than the maximum potential sentence of five years in prison.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T03:13:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alshon Jeffery"
+      ],
+      "resolved_player_ids": [
+        "00-0029137"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-says-he-played-with-sprained-mcl-pcl-from-week-2-on",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-says-he-played-with-sprained-mcl-pcl-from-week-2-on",
+      "title": "Baker Mayfield says he played with sprained MCL, PCL from Week 2 on",
+      "body_text": "Buccaneers quarterback Baker Mayfield is tough.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T18:09:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/proposed-seahawks-owner-vinod-khosla-has-battled-on-social-media-with-elon-musk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/proposed-seahawks-owner-vinod-khosla-has-battled-on-social-media-with-elon-musk",
+      "title": "Proposed Seahawks owner Vinod Khosla has battled on social media with Elon Musk",
+      "body_text": "Any future fracas will generate plenty of attention from those who cover the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T00:21:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Proposed Seahawks",
+        "Vinod Khosla",
+        "Elon Musk"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romos-only-regret-is-not-winning-the-cowboys-a-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romos-only-regret-is-not-winning-the-cowboys-a-super-bowl",
+      "title": "Tony Romo's only regret is not winning the Cowboys a Super Bowl",
+      "body_text": "Tony Romo has a Cowboys' team-record 248 touchdown passes and ranks second in franchise history with 34,183 passing yards.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-13T22:23:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Romo",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-harper-addresses-fanduel-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-harper-addresses-fanduel-video",
+      "title": "Bryce Harper addresses FanDuel video",
+      "body_text": "Usually, a summer weekend will reset the sports news cycle, allowing a goldfish-brained collective consciousness to move on to something new.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T21:42:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Harper"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-not-happy-that-jordan-love-was-ranked-as-the-no-72-player-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-not-happy-that-jordan-love-was-ranked-as-the-no-72-player-in-the-nfl",
+      "title": "Micah Parsons not happy that Jordan Love was ranked as the No. 72 player in the NFL",
+      "body_text": "The NFL is currently unveiling the result of its annual Top 100 players survey, and Packers linebacker Micah Parsons is not happy with where his fellow players ranked his quarterback.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-13T21:25:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Micah Parsons",
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0036932",
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-waive-quentin-skinner-off-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-waive-quentin-skinner-off-injured-reserve",
+      "title": "Jets waive Quentin Skinner off injured reserve",
+      "body_text": "The Jets have made a roster move on Monday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-13T20:59:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quentin Skinner",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0040406"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-to-host-five-open-training-camp-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-to-host-five-open-training-camp-practices",
+      "title": "Raiders to host five open training camp practices",
+      "body_text": "The Raiders will have five open training camp practices next month, the team announced Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-13T20:58:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-juszczyk-feeling-good-about-having-george-kittle-back-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-juszczyk-feeling-good-about-having-george-kittle-back-week-1",
+      "title": "Kyle Juszczyk \"feeling good\" about having George Kittle back Week 1",
+      "body_text": "49ers tight end George Kittle has targeted Week 1 for his return since tearing his right Achilles in a Jan. 11 playoff game against the Eagles.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-13T20:25:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Juszczyk",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0029892",
+        "00-0033288"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-donald-wanted-to-see-how-he-reacted-to-working-out-in-pads",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-donald-wanted-to-see-how-he-reacted-to-working-out-in-pads",
+      "title": "Report: Aaron Donald wanted to see how he reacted to working out in pads",
+      "body_text": "The reported reason for Aaron Donald's workout at the Rams facility last week won't do anything to quiet speculation that he will come out of retirement to play for the team again in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-13T19:56:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vote-on-seahawks-ownership-change-will-happen-in-august",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vote-on-seahawks-ownership-change-will-happen-in-august",
+      "title": "Vote on Seahawks ownership change will happen in August",
+      "body_text": "When the 2026 regular season starts in fewer than two months, the Seahawks will either have a new owner or the process will be plunged into chaos.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T17:50:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "August When"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-gathers-six-teammates-for-bonding-week-before-last-rodeo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-gathers-six-teammates-for-bonding-week-before-last-rodeo",
+      "title": "Aaron Rodgers gathers six teammates for \"bonding week\" before \"last rodeo\"",
+      "body_text": "An invitation to the Travis Kelce-Taylor Swift wedding was one kind of exclusive.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T10:49:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Travis Kelce",
+        "Taylor Swift"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0030506"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-predicts-ufl-style-officiating-transparency-within-two-or-three-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-predicts-ufl-style-officiating-transparency-within-two-or-three-years",
+      "title": "Sean Payton predicts UFL-style officiating transparency within \"two or three years\"",
+      "body_text": "Letting fans see the review process will minimize the conspiracy theories.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T14:36:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-one-person-not-a-committee-made-the-flo-balogun-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-one-person-not-a-committee-made-the-flo-balogun-decision",
+      "title": "Report: One person, not a committee, made the Flo Balogun decision",
+      "body_text": "Although it feels more like a year, it's been only one week since it became crystal clear that President Trump called FIFA president Gianni Infantino regarding the one-game suspension that U.S. striker Folarin Balogun was due to serve for the Round of 16 match against Belgium.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T12:17:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Flo Balogun",
+        "President Trump",
+        "Gianni Infantino",
+        "Folarin Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-finds-no-evidence-that-ball-hit-wire-in-key-moment-of-england-vs-norway-quarterfinal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifa-finds-no-evidence-that-ball-hit-wire-in-key-moment-of-england-vs-norway-quarterfinal",
+      "title": "FIFA finds \"no evidence\" that ball hit wire in key moment of England vs. Norway quarterfinal",
+      "body_text": "Strange moment sparks memories of Will Reichard's field-goal try in England.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-12T12:44:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Reichard"
+      ],
+      "resolved_player_ids": [
+        "00-0039404"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-lb-isaiah-mcduffie-to-contract-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-lb-isaiah-mcduffie-to-contract-extension",
+      "title": "Packers sign LB Isaiah McDuffie to contract extension",
+      "body_text": "The Packers have reached a new deal with one of their key defensive and special teams players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-13T17:53:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-will-end-syndicated-version-of-good-morning-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-will-end-syndicated-version-of-good-morning-football",
+      "title": "ESPN will end syndicated version of Good Morning Football",
+      "body_text": "ESPN is saying goodnight to the syndicated version of Good Morning Football.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T17:23:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Good Morning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-falls-67-spots-on-the-nfln-list-of-top-100-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-falls-67-spots-on-the-nfln-list-of-top-100-players",
+      "title": "Lamar Jackson falls 67 spots on the NFLN list of top 100 players",
+      "body_text": "From time to time, players will claim that they are uniquely positioned to assess the skills of other players.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T17:04:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demario-davis-wants-to-be-an-example-of-what-winning-culture-looks-like-for-jets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demario-davis-wants-to-be-an-example-of-what-winning-culture-looks-like-for-jets",
+      "title": "Demario Davis wants to be \"an example of what winning culture looks like\" for Jets",
+      "body_text": "After linebacker Demario Davis agreed to sign with the Jets in March, he shared that he was eager to be a part of what head coach Aaron Glenn is building as he moves into his second season on the job.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-13T16:44:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Demario Davis",
+        "Jets After",
+        "Aaron Glenn"
+      ],
+      "resolved_player_ids": [
+        "00-0029607",
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-i-didnt-have-to-do-anything-after-abdul-carter-jaxson-dart-dustup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-i-didnt-have-to-do-anything-after-abdul-carter-jaxson-dart-dustup",
+      "title": "John Harbaugh: \"I didn’t have to do anything\" after Abdul Carter-Jaxson Dart dustup",
+      "body_text": "Back in May, the Giants navigated through a murky situation after edge rusher Abdul Carter publicly rebuked quarterback Jaxson Dart for introducing President Donald Trump at a rally.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-13T15:15:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Abdul Carter",
+        "Jaxson Dart",
+        "President Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0040677",
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-re-signs-adam-schefter-to-multi-year-agreement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-re-signs-adam-schefter-to-multi-year-agreement",
+      "title": "ESPN re-signs Adam Schefter to \"multi-year agreement\"",
+      "body_text": "Four days after the first report emerged that a deal was close, the deal is done.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T14:55:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lavonte-david-maybe-i-should-have-stayed-to-play-with-rueben-bain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lavonte-david-maybe-i-should-have-stayed-to-play-with-rueben-bain",
+      "title": "Lavonte David: Maybe I should have stayed to play with Rueben Bain",
+      "body_text": "Lavonte David announced his retirement in March, but a move the Bucs made the next month gave their longtime linebacker cause to wonder if he should have stuck around for a 15th season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-13T13:00:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lavonte David",
+        "Rueben Bain"
+      ],
+      "resolved_player_ids": [
+        "00-0029562",
+        "BAI741257"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-trent-taylor-announces-his-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-trent-taylor-announces-his-retirement",
+      "title": "WR Trent Taylor announces his retirement",
+      "body_text": "Veteran wide receiver Trent Taylor has announced his retirement.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-13T12:09:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0033292"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyjae-spears-vows-titans-are-going-to-have-a-winning-record-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyjae-spears-vows-titans-are-going-to-have-a-winning-record-this-year",
+      "title": "Tyjae Spears vows Titans \"are going to have a winning record this year\"",
+      "body_text": "In Tyjae Spears' three seasons, the Titans have gone 6-11, 3-14 and 3-14.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-13T10:40:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyjae Spears",
+        "In Tyjae"
+      ],
+      "resolved_player_ids": [
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-assistant-thomas-brown-says-its-frustrating-nfl-hired-no-new-black-head-coaches",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-assistant-thomas-brown-says-its-frustrating-nfl-hired-no-new-black-head-coaches",
+      "title": "Patriots assistant Thomas Brown says it's frustrating NFL hired no new Black head coaches",
+      "body_text": "There are 10 teams with new head coaches in 2026, and none of those coaches are Black.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-13T08:28:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thomas Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-stefon-diggs-says-no-wr2-is-better-than-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-stefon-diggs-says-no-wr2-is-better-than-him",
+      "title": "Free agent Stefon Diggs says no WR2 is better than him",
+      "body_text": "With training camp right around the corner, wide receiver Stefon Diggs is among several big-name players who remain without a home.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-12T18:18:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    }
+  ]
+}

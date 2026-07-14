@@ -1,0 +1,94 @@
+{
+  "fetch_run_id": "5b150a19-d5db-4659-b3cc-aa995a426cb8",
+  "source": "rotowire",
+  "fetched_at": "2026-07-14T12:35:45.911259+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 4,
+  "items": [
+    {
+      "external_id": "nfl631669",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Making progress, per coach",
+      "body_text": "Nabers (knee) is expected to work his \"way into practice as [training] camp gets started in one way or another,\" according to coach John Harbaugh, NFL.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-13T03:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631668",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Expected for early camp work",
+      "body_text": "Skattebo (ankle) is expected to be ready be a participant early on in training camp, according to coach John Harbaugh, NFL.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-13T02:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631659",
+      "url": "https://www.rotowire.com//football/player/tua-tagovailoa-14465",
+      "permalink": "",
+      "title": "Tua Tagovailoa: Competing for starting role",
+      "body_text": "Tagovailoa's former Dolphins teammate Patrick Paul believes Tagovailoa will win Atlanta's quarterback competition against Michael Penix (knee), Grant Gordon of NFL.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-13T07:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Patrick Paul",
+        "Michael Penix",
+        "Grant Gordon"
+      ],
+      "resolved_player_ids": [
+        "00-0036212",
+        "00-0039899",
+        "00-0039917"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl631657",
+      "url": "https://www.rotowire.com//football/player/jonathan-taylor-14455",
+      "permalink": "",
+      "title": "Jonathan Taylor: Coaching staff split on workload",
+      "body_text": "Taylor is prepared to handle another massive workload in 2026, though the Colts are hoping to ease the load on their star running back, Stephen Holder of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-13T07:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Stephen Holder"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    }
+  ]
+}
