@@ -143,13 +143,21 @@
   letter-spacing: 0.08em;
   padding: 4px 18px;
   border-radius: 8px;
-  cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
+  text-decoration: none;
   box-shadow: 0 4px 12px rgba(91, 103, 199, 0.45);
 }
-.bug-ribbon:hover {
+/* Only interactive ribbons (links / role=button) advertise clickability. */
+.bug-ribbon:is(a, [role='button']) {
+  cursor: pointer;
+}
+.bug-ribbon:is(a, [role='button']):hover {
   background: var(--wc-peri-bright, #6e7ce0);
+}
+.bug-ribbon:focus-visible {
+  outline: 2px solid var(--wc-mint, #91edd0);
+  outline-offset: 2px;
 }
 
 /* Compact variant for grids (sketch 001/005). */

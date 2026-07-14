@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
 import { cn } from '@/lib/utils';
@@ -24,6 +25,8 @@ export interface ScorebugProps {
   detail?: string[];
   /** Ribbon CTA under the pill (full size only). */
   ribbon?: string;
+  /** Navigation target for the ribbon — renders a real link (RSC-safe). */
+  ribbonHref?: string;
   onRibbonClick?: () => void;
   compact?: boolean;
   /** Graded receipts state — 'hit' | 'miss'. Misses stay visible (gray). */
@@ -53,6 +56,7 @@ export function Scorebug({
   clockTab,
   detail,
   ribbon,
+  ribbonHref,
   onRibbonClick,
   compact = false,
   verdict,
@@ -101,7 +105,11 @@ export function Scorebug({
       </div>
       {ribbon &&
         !compact &&
-        (onRibbonClick ? (
+        (ribbonHref ? (
+          <Link href={ribbonHref} className='bug-ribbon'>
+            {ribbon}
+          </Link>
+        ) : onRibbonClick ? (
           <div
             className='bug-ribbon'
             onClick={onRibbonClick}
@@ -114,7 +122,7 @@ export function Scorebug({
             {ribbon}
           </div>
         ) : (
-          // No handler → decorative label; keeps the component usable from
+          // No target → decorative label; keeps the component usable from
           // Server Components (functions can't cross the RSC boundary).
           <div className='bug-ribbon'>{ribbon}</div>
         ))}

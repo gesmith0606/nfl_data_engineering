@@ -95,6 +95,7 @@ export default function MarketingHome() {
         </Link>
       </nav>
 
+      <main>
       {/* Hero — field gradient, yard lines, scorebug as the hero object. */}
       <section className='wc-hero-field relative flex min-h-[74vh] flex-col items-center justify-center overflow-hidden px-5 py-16'>
         {['18%', '33%', '48%', '63%', '78%', '93%'].map((top) => (
@@ -118,6 +119,7 @@ export default function MarketingHome() {
             clockTab={'OUR LINE  KC −2.5'}
             detail={['Wk 1 · SNF', 'Edge: High']}
             ribbon='see every prediction →'
+            ribbonHref='/dashboard/predictions'
           />
         </div>
         <div className='relative z-[2] mt-10 md:hidden'>
@@ -278,6 +280,8 @@ export default function MarketingHome() {
           Free this season. Premium tiers arrive later — early users keep the good stuff.
         </p>
       </section>
+
+      </main>
 
       <footer className='border-t border-white/10 bg-[var(--wc-bar,#05070d)] px-6 py-10 text-center'>
         <div className='wc-display text-xl font-extrabold tracking-[0.14em] text-white'>

@@ -21,7 +21,7 @@ export function MobileTabbar() {
 
   const seasonal = inSeason
     ? { href: '/dashboard/predictions', label: 'Scores', icon: Icons.football }
-    : { href: '/dashboard/draft', label: 'Draft', icon: Icons.football };
+    : { href: '/dashboard/draft', label: 'Draft', icon: Icons.kanban };
 
   const tabs = [
     { href: '/dashboard', label: 'Home', icon: Icons.dashboard, exact: true },
@@ -33,7 +33,7 @@ export function MobileTabbar() {
 
   return (
     <nav className='wc-tabbar' aria-label='Primary mobile navigation'>
-      {tabs.map((tab, i) => {
+      {tabs.map((tab) => {
         if (tab === null) {
           return (
             <button
@@ -56,7 +56,7 @@ export function MobileTabbar() {
             : pathname.startsWith(tab.href);
         const Icon = tab.icon;
         return (
-          <Link key={i} href={tab.href} className={cn('wc-tab', active && 'active')}>
+          <Link key={tab.href} href={tab.href} className={cn('wc-tab', active && 'active')}>
             <Icon className='h-[17px] w-[17px]' />
             {tab.label}
           </Link>
