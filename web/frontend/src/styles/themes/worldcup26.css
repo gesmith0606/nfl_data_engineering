@@ -75,8 +75,11 @@
   --card-foreground: oklch(0.96 0.004 250);
   --popover: oklch(0.2 0.02 265);
   --popover-foreground: oklch(0.96 0.004 250);
-  --primary: oklch(0.8 0.14 90); /* trophy gold — dark ink text ~7.8:1 (see notes) */
-  --primary-foreground: oklch(0.17 0.03 85);
+  /* Broadcast identity (sketch 001-B): the lead accent in dark mode is the
+   * scorebug MINT, not gold — near-black-mint text clears ~11:1 on it. Gold
+   * survives as --wc-gold/--wc-yellow accents. */
+  --primary: oklch(0.87 0.1 168); /* broadcast mint */
+  --primary-foreground: oklch(0.18 0.03 170);
   --secondary: oklch(0.28 0.03 265);
   --secondary-foreground: oklch(0.96 0.004 250);
   --muted: oklch(0.24 0.025 265);
@@ -87,20 +90,20 @@
   --destructive-foreground: oklch(0.14 0.01 25);
   --border: oklch(0.27 0.022 265);
   --input: oklch(0.3 0.025 265);
-  --ring: oklch(0.8 0.14 90);
-  --chart-1: oklch(0.8 0.14 90); /* trophy gold (lead) */
-  --chart-2: oklch(0.72 0.11 200); /* teal */
+  --ring: oklch(0.87 0.1 168);
+  --chart-1: oklch(0.87 0.1 168); /* broadcast mint (lead) */
+  --chart-2: oklch(0.8 0.14 90); /* trophy gold */
   --chart-3: oklch(0.63 0.17 296); /* violet */
   --chart-4: oklch(0.82 0.06 225); /* ice-blue */
   --chart-5: oklch(0.52 0.12 280); /* indigo */
-  --sidebar: oklch(0.13 0.016 265); /* darkest surface — content cards sit above it */
+  --sidebar: oklch(0.115 0.012 265); /* near-black broadcast bar */
   --sidebar-foreground: oklch(0.96 0.004 250);
-  --sidebar-primary: oklch(0.8 0.14 90); /* trophy gold */
-  --sidebar-primary-foreground: oklch(0.17 0.03 85);
-  --sidebar-accent: oklch(0.28 0.04 290);
+  --sidebar-primary: oklch(0.87 0.1 168); /* broadcast mint */
+  --sidebar-primary-foreground: oklch(0.18 0.03 170);
+  --sidebar-accent: oklch(0.24 0.03 200); /* mint-tinted hover surface */
   --sidebar-accent-foreground: oklch(0.97 0.004 250);
-  --sidebar-border: oklch(0.24 0.02 265);
-  --sidebar-ring: oklch(0.8 0.14 90);
+  --sidebar-border: oklch(0.22 0.02 265);
+  --sidebar-ring: oklch(0.87 0.1 168);
   --font-sans: var(--font-archivo), sans-serif;
   --font-serif: var(--font-merriweather), serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
@@ -191,13 +194,45 @@
   --wc-violet: oklch(0.63 0.18 300); /* cool support accent */
   --wc-cyan: oklch(0.72 0.12 200); /* teal support accent */
   --wc-magenta: oklch(0.68 0.23 350); /* trace only — no longer used in charts/primary */
-  /* Signature rail — trophy gold into cool violet. Two adjacent stops read as a
-   * metallic sweep, never a rainbow. */
-  --wc-rail: linear-gradient(180deg, var(--wc-gold), var(--wc-violet));
-  /* Horizontal variant of the rail — for thin header/underline accents. */
-  --wc-rail-x: linear-gradient(90deg, var(--wc-gold), var(--wc-violet));
+  /* Signature rail — broadcast mint into periwinkle (sketch 001-B); the
+   * horizontal variant is the solid mint rule that underlines every
+   * broadcast bar (home nav, dashboard header, table heads). */
+  --wc-rail: linear-gradient(180deg, var(--wc-mint), var(--wc-peri));
+  --wc-rail-x: linear-gradient(90deg, var(--wc-mint), var(--wc-mint));
   /* Condensed display face for headings/brand. Body stays on --font-sans. */
   --wc-font-display: var(--font-barlow-condensed), var(--font-archivo), sans-serif;
+
+  /* -----------------------------------------------------------------------
+   * Broadcast palette (sketch 001-B winner) — sampled from the WC26 broadcast
+   * scorebug reference frame (.planning/design-refs/wc26-broadcast-scorebug.webp).
+   * Mint score panels + near-black digits, VIBRANT yellow (not antique gold),
+   * periwinkle ribbon, near-black overlay bars, pitch-green field gradient.
+   * These drive the scorebug, GX-01 assistant, broadcast tables, and the
+   * marketing home (see .claude/skills/sketch-findings-nfl-data-engineering).
+   * --------------------------------------------------------------------- */
+  --wc-bar: #05070d; /* scorebug/nav bar — near black */
+  --wc-bar-hi: #131722; /* raised panels on dark */
+  --wc-stadium: #070a12; /* dark page canvas */
+  --wc-mint: #91edd0; /* score panels, nav rule, focus */
+  --wc-mint-deep: #5cc9a7;
+  --wc-mint-ink: #04140e; /* digits on mint */
+  --wc-yellow: #ffd84d; /* vibrant yellow — accents, headline highlights */
+  --wc-yellow-deep: #e8b820;
+  --wc-peri: #5b67c7; /* periwinkle ribbon / CTA */
+  --wc-peri-bright: #6e7ce0;
+  --wc-eye: #22d3ee; /* GX-01 eye glow */
+  --wc-pitch-a: #2d5a27; /* field gradient */
+  --wc-pitch-b: #1a3a17;
+  --wc-pos: #0eaf7d; /* we-win-the-stat green */
+  --wc-neg: #ef4444;
+  /* Multicolor broadcast outline — peri → mint → yellow → peri. */
+  --wc-bug-rail: linear-gradient(
+    90deg,
+    var(--wc-peri) 0%,
+    var(--wc-mint) 35%,
+    var(--wc-yellow) 70%,
+    var(--wc-peri) 100%
+  );
 }
 
 [data-theme='worldcup26'].dark {
@@ -244,6 +279,21 @@
 /* Gradient color rail — the pill/badge left-edge accent bar. */
 .wc-rail {
   background: var(--wc-rail, linear-gradient(180deg, var(--primary), var(--chart-3, var(--primary))));
+}
+
+/* Broadcast shell chrome — condensed-caps nav labels and yellow group
+ * kickers so interior pages read as the same design language as the
+ * marketing home (sketch 003/005 interior direction). */
+[data-theme='worldcup26'] [data-sidebar='menu-button'] {
+  font-family: var(--wc-font-display, var(--font-sans));
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+[data-theme='worldcup26'] [data-sidebar='group-label'] {
+  font-family: var(--wc-font-display, var(--font-sans));
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--wc-yellow, var(--primary));
 }
 
 /* Condensed uppercase display treatment for brand/hero titles.

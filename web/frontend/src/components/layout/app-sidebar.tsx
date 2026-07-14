@@ -22,6 +22,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from '../icons';
+import { Gx01Head } from '../gx01';
 
 export default function AppSidebar() {
   const pathname = usePathname();
@@ -41,16 +42,16 @@ export default function AppSidebar() {
               <Link href='/dashboard'>
                 <div className='flex items-center gap-[var(--space-2)]'>
                   <div className='wc-rail h-[var(--space-8)] w-[3px] shrink-0 rounded-full group-data-[collapsible=icon]:hidden' />
-                  <div className='bg-primary text-primary-foreground flex aspect-square size-[var(--space-8)] shrink-0 items-center justify-center rounded-lg'>
-                    <Icons.trendingUp className='size-[var(--space-4)]' />
+                  <div className='flex aspect-square size-[var(--space-8)] shrink-0 items-center justify-center rounded-lg bg-[var(--wc-bar,#05070d)] border border-[rgba(255,216,77,0.4)]'>
+                    <Gx01Head className='scale-[0.55]' />
                   </div>
                 </div>
                 <div className='grid flex-1 text-left text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                  <span className='wc-display truncate text-[length:var(--fs-lg)] leading-[var(--lh-sm)]'>
-                    NFL Analytics
+                  <span className='wc-display truncate text-[length:var(--fs-lg)] leading-[var(--lh-sm)] tracking-[0.14em]'>
+                    G<span className='text-[var(--wc-mint,#91edd0)]'>IQ</span>
                   </span>
                   <span className='text-sidebar-foreground/70 truncate text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.08em] uppercase'>
-                    Dashboard
+                    NFL Analytics
                   </span>
                 </div>
               </Link>

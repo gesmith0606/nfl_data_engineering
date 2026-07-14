@@ -14,8 +14,10 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
+import { PredictionLedger } from './prediction-ledger';
 import { formatRelativeTime } from '@/lib/format-relative-time';
 import { getTeamColor, getReadableTeamColorVars } from '@/lib/nfl/team-colors';
 import { TeamSentimentBadge } from './team-sentiment-badge';
@@ -190,6 +192,7 @@ export function PredictionCardGrid() {
   const { season, week, setSeason, setWeek, isResolving, dataAsOf } =
     useWeekParams({ dataSource: 'predictions' });
   const [sortBy, setSortBy] = useState<SortKey>('confidence');
+  const [view, setView] = useState<'cards' | 'ledger'>('cards');
 
   const { data, isLoading, isError, error } = useQuery({
     ...predictionsQueryOptions(season, week),
@@ -254,6 +257,19 @@ export function PredictionCardGrid() {
           </SelectContent>
         </Select>
 
+        {/* Cards ↔ Ledger view toggle — the ledger is the 005-C audit table
+         *  (our line vs market side-by-side with edge glyphs). */}
+        <Tabs value={view} onValueChange={(v) => setView(v as 'cards' | 'ledger')}>
+          <TabsList className='h-[var(--tap-min)] w-full sm:h-9 sm:w-auto'>
+            <TabsTrigger value='cards' className='flex-1 sm:flex-initial'>
+              Cards
+            </TabsTrigger>
+            <TabsTrigger value='ledger' className='flex-1 sm:flex-initial'>
+              Ledger
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+
         {/* Freshness chip (phase 70-01). Only renders when the /projections
          *  /latest-week probe surfaced a data_as_of timestamp; silent
          *  otherwise (no "Unknown" placeholder). */}
@@ -312,6 +328,8 @@ export function PredictionCardGrid() {
           description={`Predictions for ${season} Week ${week} are not available. Check back when games are scheduled.`}
           dataAsOf={dataAsOf}
         />
+      ) : view === 'ledger' ? (
+        <PredictionLedger predictions={predictions} />
       ) : (
         <Stagger
           step={0.04}
