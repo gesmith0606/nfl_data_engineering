@@ -660,6 +660,40 @@ export interface DraftRecommendationsResponse {
   remaining_needs: Record<string, number>
 }
 
+/** A recommendation during a live draft, with roster-fit + stack context. */
+export interface LiveDraftRecommendation extends DraftRecommendation {
+  fills_need: boolean
+  stack_note: string
+}
+
+/** Live-synced draft state driven by our roster-aware recommendation engine. */
+export interface LiveDraftResponse {
+  draft_id: string
+  status: string
+  n_teams: number
+  picks_made: number
+  my_slot: number | null
+  on_the_clock_slot: number | null
+  is_my_turn: boolean
+  picks_until_my_turn: number | null
+  my_roster: DraftPlayer[]
+  remaining_needs: Record<string, number>
+  recommendations: LiveDraftRecommendation[]
+  reasoning: string
+  unmatched_count: number
+}
+
+/** Connection params for live draft sync. */
+export interface LiveDraftParams {
+  draftId?: string
+  username?: string
+  leagueId?: string
+  mySlot?: number
+  season?: number
+  scoring?: ScoringFormat
+  topN?: number
+}
+
 /** Request to start a mock draft. */
 export interface MockDraftStartRequest {
   scoring: string

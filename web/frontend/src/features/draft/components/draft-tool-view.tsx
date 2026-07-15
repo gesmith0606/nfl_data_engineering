@@ -12,12 +12,17 @@ import { DraftConfigDialog } from './draft-config-dialog'
 import { MyRosterPanel } from './my-roster-panel'
 import { RecommendationsPanel } from './recommendations-panel'
 import { MockDraftView } from './mock-draft-view'
+import { LiveDraftPanel } from './live-draft-panel'
 import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
 import type { Position } from '@/lib/nfl/types'
 
 const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K']
 
 export function DraftToolView() {
+  // Live co-pilot is a distinct surface from the manual board: it reads a real
+  // Sleeper draft and drives our recommendation engine. Kept as local UI state
+  // so it overlays the existing board/mock flow without touching that logic.
+  const [liveMode, setLiveMode] = useState(false)
   const {
     sessionId,
     setSessionId,
@@ -98,6 +103,31 @@ export function DraftToolView() {
   }
 
   // -------------------------------------------------------------------------
+  // Live draft co-pilot (reads a real Sleeper draft, our engine drives picks)
+  // -------------------------------------------------------------------------
+  if (liveMode) {
+    return (
+      <FadeIn className='space-y-[var(--gap-stack)]'>
+        <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
+          <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+            Drafting live on Sleeper? Connect it and we&apos;ll call every pick
+            off our board.
+          </span>
+          <div className='ml-auto'>
+            <PressScale>
+              <Button variant='outline' size='sm' onClick={() => setLiveMode(false)}>
+                <Icons.arrowRight className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)] rotate-180' />
+                Back to Board
+              </Button>
+            </PressScale>
+          </div>
+        </div>
+        <LiveDraftPanel />
+      </FadeIn>
+    )
+  }
+
+  // -------------------------------------------------------------------------
   // Normal draft board view
   // -------------------------------------------------------------------------
   return (
@@ -123,6 +153,16 @@ export function DraftToolView() {
         </Tabs>
 
         <div className='ml-auto flex items-center gap-[var(--space-2)]'>
+          <PressScale>
+            <Button
+              variant='default'
+              size='sm'
+              onClick={() => setLiveMode(true)}
+            >
+              <Icons.target className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
+              Live Draft
+            </Button>
+          </PressScale>
           <PressScale>
             <Button
               variant='outline'

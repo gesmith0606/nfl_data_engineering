@@ -400,3 +400,68 @@ class TestLoadDraftDataStrategyOrder:
         mock_fetcher.assert_called_once()
         assert len(result) == len(live)
         assert "vorp" in result.columns
+
+
+# ---------------------------------------------------------------------------
+# Test: GET /api/draft/live  (live Sleeper draft sync — our engine drives recs)
+# ---------------------------------------------------------------------------
+
+from src.draft_models import DraftState, PickEvent  # noqa: E402
+
+
+def _fake_live_state(picks=()):
+    """Build a minimal DraftState mimicking a live Sleeper draft."""
+    return DraftState(
+        draft_id="D123",
+        status="drafting",
+        draft_type="snake",
+        season="2026",
+        n_teams=10,
+        rounds=15,
+        scoring_format="half_ppr",
+        roster_format="standard",
+        draft_order={},
+        slot_to_roster_id={},
+        picks=tuple(picks),
+    )
+
+
+class TestLiveDraftSync:
+    """The /live endpoint reads live picks and returns OUR recommendations."""
+
+    def test_requires_draft_id_or_username(self):
+        resp = client.get("/api/draft/live", params={"season": 2026})
+        assert resp.status_code == 400
+
+    def test_live_sync_returns_our_recommendations(self):
+        """Given a live draft with 2 picks, our engine recommends the next pick."""
+        from web.api.routers import draft as draft_module
+
+        p1 = PickEvent(
+            1, 1, 1, 1, "u1", "4034", "Bijan", "Robinson", "RB", "ATL", False
+        )
+        p2 = PickEvent(2, 1, 2, 2, "u2", "9999", "Jahmyr", "Gibbs", "RB", "DET", False)
+        state = _fake_live_state([p1, p2])
+
+        with patch.object(
+            draft_module,
+            "_load_cached_projections",
+            return_value=_make_mock_projections(),
+        ), patch.object(draft_module, "load_draft_state", return_value=state):
+            resp = client.get(
+                "/api/draft/live",
+                params={"draft_id": "D123", "my_slot": 5, "season": 2026},
+            )
+
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert data["draft_id"] == "D123"
+        assert data["status"] == "drafting"
+        assert data["picks_made"] == 2
+        assert data["my_slot"] == 5
+        # Our engine returns real, roster-aware recommendations.
+        assert len(data["recommendations"]) > 0
+        top = data["recommendations"][0]
+        assert top["player_name"]
+        assert "fills_need" in top
+        assert isinstance(data["remaining_needs"], dict)

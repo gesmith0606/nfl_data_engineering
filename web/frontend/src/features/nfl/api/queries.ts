@@ -4,6 +4,7 @@ import {
   fetchAlerts,
   fetchCurrentWeek,
   fetchDraftBoard,
+  fetchLiveDraft,
   fetchDraftRecommendations,
   fetchGameSeasons,
   fetchGames,
@@ -32,7 +33,8 @@ import type {
   ScoringFormat,
   RankingSortBy,
   RankingSource,
-  SentimentWindow
+  SentimentWindow,
+  LiveDraftParams
 } from './types';
 
 export const nflKeys = {
@@ -50,6 +52,7 @@ export const nflKeys = {
   draftBoard: (sessionId?: string) => [...nflKeys.all, 'draft-board', sessionId] as const,
   draftRecommendations: (sessionId: string, position?: string) =>
     [...nflKeys.all, 'draft-recs', { sessionId, position }] as const,
+  liveDraft: (key: string) => [...nflKeys.all, 'live-draft', key] as const,
   adp: () => [...nflKeys.all, 'adp'] as const,
   currentWeek: () => [...nflKeys.all, 'current-week'] as const,
   teamRoster: (team: string, season: number, week: number, side: string) =>
@@ -241,6 +244,25 @@ export const draftRecommendationsQueryOptions = (
     queryKey: nflKeys.draftRecommendations(sessionId, position),
     queryFn: () => fetchDraftRecommendations(sessionId, topN, position),
     enabled: !!sessionId
+  });
+
+/**
+ * Poll a live Sleeper draft every few seconds. Picks come from the platform;
+ * the recommendation comes from our roster-aware engine. `enabled` gates on a
+ * connection (draftId or username) so we never poll an empty form.
+ */
+export const liveDraftQueryOptions = (
+  params: LiveDraftParams,
+  connected: boolean
+) =>
+  queryOptions({
+    queryKey: nflKeys.liveDraft(
+      JSON.stringify([params.draftId, params.username, params.leagueId, params.mySlot])
+    ),
+    queryFn: () => fetchLiveDraft(params),
+    enabled: connected && !!(params.draftId || params.username),
+    refetchInterval: 5000,
+    staleTime: 0
   });
 
 export const adpQueryOptions = () =>
