@@ -901,6 +901,41 @@ class DraftRecommendationsResponse(BaseModel):
     remaining_needs: dict
 
 
+class LiveDraftRecommendation(DraftRecommendation):
+    """A recommendation during a live draft, with roster-fit + stack context.
+
+    Extends :class:`DraftRecommendation` with the "why" a live draft needs:
+    the positional need it fills and any correlation-stack note (UC3).
+    """
+
+    fills_need: bool = False
+    stack_note: str = ""
+
+
+class LiveDraftResponse(BaseModel):
+    """Live-synced draft state driven by our roster-aware recommendation engine.
+
+    Everything the draft tool needs to render a live draft without the user
+    manually mirroring picks: the picks read straight from the platform, the
+    user's drafted roster, remaining positional needs, and *our* engine's
+    recommendation for the user's next pick.
+    """
+
+    draft_id: str
+    status: str
+    n_teams: int
+    picks_made: int
+    my_slot: Optional[int] = None
+    on_the_clock_slot: Optional[int] = None
+    is_my_turn: bool = False
+    picks_until_my_turn: Optional[int] = None
+    my_roster: List[DraftPlayer]
+    remaining_needs: dict
+    recommendations: List[LiveDraftRecommendation]
+    reasoning: str
+    unmatched_count: int = 0
+
+
 class MockDraftStartRequest(BaseModel):
     """Request to start a mock draft."""
 

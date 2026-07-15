@@ -10,6 +10,7 @@ import glob
 import logging
 import uuid
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -27,6 +28,8 @@ from ..models.schemas import (
     DraftPlayer,
     DraftRecommendation,
     DraftRecommendationsResponse,
+    LiveDraftRecommendation,
+    LiveDraftResponse,
     MockDraftPickRequest,
     MockDraftPickResponse,
     MockDraftStartRequest,
@@ -45,6 +48,13 @@ from draft_optimizer import (  # noqa: E402
 )
 from nfl_data_integration import NFLDataFetcher  # noqa: E402
 from projection_engine import generate_preseason_projections  # noqa: E402
+
+# Live-draft co-pilot wiring (v8.0): read a live Sleeper draft and drive our
+# roster-aware recommendation engine. Imported lazily-safe at module load so a
+# missing optional dep never breaks the mock-draft endpoints above.
+from draft_adapter import SleeperAdapter  # noqa: E402
+from live_draft_engine import LiveDraftEngine  # noqa: E402
+from sleeper_draft import load_draft_state, resolve_active_draft  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
@@ -107,6 +117,19 @@ def _safe_int(val: object, default: int = 0) -> int:
         return default
 
 
+@lru_cache(maxsize=8)
+def _read_projection_parquet(file_path: str) -> pd.DataFrame:
+    """Read (and cache) a projection Parquet by path.
+
+    The live-draft endpoint polls every ~5s; without this cache each poll would
+    re-read the same Gold artifact from disk. Keyed on the resolved file path so
+    a newer artifact (new timestamp in the filename) naturally busts the cache.
+    Callers must NOT mutate the returned frame — the only consumer
+    (``compute_value_scores``) copies before writing.
+    """
+    return pd.read_parquet(file_path)
+
+
 def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame]:
     """Attempt to load cached Gold preseason projections from local Parquet files.
 
@@ -117,6 +140,7 @@ def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame
 
     Returns:
         DataFrame of cached projections, or ``None`` if no cache is available.
+        The frame is a shared, cached read — treat it as read-only.
     """
     cache_dir = (
         _PROJECT_ROOT
@@ -131,11 +155,7 @@ def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame
     if not files:
         return None
     try:
-        df = pd.read_parquet(files[-1])  # latest by filename timestamp
-        logger.info(
-            "Loaded %d cached preseason projections from %s", len(df), files[-1]
-        )
-        return df
+        return _read_projection_parquet(files[-1])  # latest by filename timestamp
     except Exception as exc:
         logger.warning("Failed to read cached projection file %s: %s", files[-1], exc)
         return None
@@ -186,16 +206,7 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
             f"--season {season}' when the API is reachable to populate the cache."
         )
 
-    # Try loading ADP data
-    adp_path = _PROJECT_ROOT / "data" / "adp_latest.csv"
-    adp_df: Optional[pd.DataFrame] = None
-    if adp_path.exists():
-        try:
-            adp_df = pd.read_csv(str(adp_path))
-        except Exception:
-            logger.warning("Failed to read ADP file at %s", adp_path)
-
-    return compute_value_scores(projections, adp_df)
+    return compute_value_scores(projections, _load_adp_df())
 
 
 def _df_row_to_draft_player(row: pd.Series) -> DraftPlayer:
@@ -649,4 +660,163 @@ def get_adp() -> AdpResponse:
         players=players,
         source="adp_latest.csv",
         updated_at=updated_at,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Live draft sync (v8.0 co-pilot on the web)
+# ---------------------------------------------------------------------------
+
+
+def _load_adp_df() -> Optional[pd.DataFrame]:
+    """Load ``data/adp_latest.csv`` as a DataFrame, or None if unavailable."""
+    adp_path = _PROJECT_ROOT / "data" / "adp_latest.csv"
+    if not adp_path.exists():
+        return None
+    try:
+        return pd.read_csv(str(adp_path))
+    except Exception:
+        logger.warning("Failed to read ADP file at %s", adp_path)
+        return None
+
+
+@router.get("/live", response_model=LiveDraftResponse)
+def live_draft_sync(
+    draft_id: Optional[str] = Query(
+        None,
+        pattern=r"^\d{1,20}$",
+        description="Sleeper draft_id (or provide username to resolve it)",
+    ),
+    username: Optional[str] = Query(
+        None,
+        pattern=r"^[A-Za-z0-9_]{1,40}$",
+        description="Sleeper username — resolves the active draft",
+    ),
+    league_id: Optional[str] = Query(
+        None,
+        pattern=r"^\d{1,20}$",
+        description="Optional Sleeper league_id to disambiguate the draft",
+    ),
+    my_slot: Optional[int] = Query(
+        None, ge=1, le=20, description="Your draft slot (1-based)"
+    ),
+    my_user_id: Optional[str] = Query(
+        None, description="Your Sleeper user_id (infers slot from draft_order)"
+    ),
+    season: int = Query(2026, ge=2020, le=2030, description="NFL season"),
+    scoring: str = Query(
+        "half_ppr", pattern="^(ppr|half_ppr|standard)$", description="Scoring format"
+    ),
+    top_n: int = Query(5, ge=1, le=15, description="Number of recommendations"),
+) -> LiveDraftResponse:
+    """Sync a live Sleeper draft and return *our* roster-aware recommendation.
+
+    This is the fix for "autopick just uses the platform's board": picks are
+    read straight from the live Sleeper draft, and the recommendation for the
+    user's next pick comes from :class:`LiveDraftEngine` — VORP + remaining
+    positional needs + correlation stacks — not the platform's consensus order.
+
+    Provide either ``draft_id`` or ``username`` (optionally with ``league_id``).
+    Provide ``my_slot`` or ``my_user_id`` so recommendations are tailored to the
+    user's own drafted roster and remaining needs.
+    """
+    # Resolve the draft to poll.
+    resolve_failed = False
+    if not draft_id and username:
+        try:
+            res = resolve_active_draft(username, str(season), league_id=league_id)
+            draft_id = res.get("draft_id") or None
+        except Exception as exc:
+            resolve_failed = True
+            logger.warning("resolve_active_draft failed for %s: %s", username, exc)
+    if not draft_id:
+        if username:
+            detail = (
+                f"Could not resolve an active NFL draft for username "
+                f"'{username}'"
+                + (" (Sleeper was unreachable)." if resolve_failed else ".")
+            )
+        else:
+            detail = "Provide a draft_id, or a username with an active NFL draft."
+        raise HTTPException(status_code=400, detail=detail)
+
+    # Raw projections (LiveDraftEngine adds VORP/model_rank itself).
+    projections = _load_cached_projections(scoring, season)
+    if projections is None or projections.empty:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                f"No projections available for {season}. Generate preseason "
+                "projections to enable live draft sync."
+            ),
+        )
+
+    try:
+        engine = LiveDraftEngine(
+            SleeperAdapter(),
+            projections,
+            adp_df=_load_adp_df(),
+            my_slot=my_slot,
+            my_user_id=my_user_id,
+        )
+        state = load_draft_state(draft_id)
+        result = engine.update(state)
+    except Exception as exc:
+        logger.exception("Live draft sync failed for draft %s", draft_id)
+        raise HTTPException(
+            status_code=502, detail=f"Live draft sync failed: {exc}"
+        ) from exc
+
+    # Our recommendations for the user's next pick.
+    recs_df, reasoning = engine.recommendations(top_n)
+    pts_col = (
+        "projected_season_points"
+        if "projected_season_points" in recs_df.columns
+        else "projected_points"
+    )
+    needs = engine.board.remaining_needs() if engine.board else {}
+    recommendations: List[LiveDraftRecommendation] = []
+    for _, row in recs_df.iterrows():
+        pos = str(row.get("position", ""))
+        recommendations.append(
+            LiveDraftRecommendation(
+                player_id=str(row.get("player_id", "")),
+                player_name=str(row.get("player_name", "")),
+                position=pos,
+                team=str(row.get("recent_team", row.get("team", ""))) or None,
+                projected_points=round(float(row.get(pts_col, 0) or 0), 1),
+                model_rank=_safe_int(row.get("model_rank"), 999),
+                vorp=round(float(row.get("vorp", 0) or 0), 1),
+                recommendation_score=round(
+                    float(row.get("recommendation_score", row.get(pts_col, 0)) or 0), 1
+                ),
+                fills_need=bool(needs.get(pos, 0) > 0),
+                stack_note=str(row.get("stack_note", "") or ""),
+            )
+        )
+
+    # The user's drafted roster so far.
+    my_roster: List[DraftPlayer] = [
+        _dict_to_draft_player(p) for p in engine.my_full_roster()
+    ]
+
+    turn = engine.turn_info()
+    picks_until = None
+    if turn and turn.my_next_pick_no is not None:
+        picks_until = max(0, turn.my_next_pick_no - turn.on_clock_pick_no)
+
+    return LiveDraftResponse(
+        draft_id=draft_id,
+        status=state.status,
+        n_teams=state.n_teams,
+        picks_made=len(state.picks),
+        my_slot=engine.my_slot,
+        on_the_clock_slot=turn.on_clock_slot if turn else None,
+        is_my_turn=bool(turn.is_my_turn) if turn else False,
+        picks_until_my_turn=picks_until,
+        my_roster=my_roster,
+        remaining_needs=needs,
+        recommendations=recommendations,
+        reasoning=reasoning,
+        unmatched_count=len(result.unmatched),
     )

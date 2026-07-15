@@ -10,6 +10,8 @@ import type {
   GamesResponse,
   HealthResponse,
   LineupResponse,
+  LiveDraftParams,
+  LiveDraftResponse,
   MockDraftPickRequest,
   MockDraftPickResponse,
   MockDraftStartRequest,
@@ -471,6 +473,25 @@ export async function fetchDraftRecommendations(
   const params = new URLSearchParams({ session_id: sessionId, top_n: String(topN) })
   if (position && position !== 'ALL') params.set('position', position)
   return request<DraftRecommendationsResponse>(`/api/draft/recommendations?${params}`)
+}
+
+/**
+ * Sync a live Sleeper draft. Picks are read straight from the platform and the
+ * recommendation comes from our roster-aware engine (VORP + positional need +
+ * stacks) — not the platform's autopick order. Poll this on an interval.
+ */
+export async function fetchLiveDraft(
+  params: LiveDraftParams
+): Promise<LiveDraftResponse> {
+  const q = new URLSearchParams()
+  if (params.draftId) q.set('draft_id', params.draftId)
+  if (params.username) q.set('username', params.username)
+  if (params.leagueId) q.set('league_id', params.leagueId)
+  if (params.mySlot != null) q.set('my_slot', String(params.mySlot))
+  if (params.season != null) q.set('season', String(params.season))
+  if (params.scoring) q.set('scoring', params.scoring)
+  if (params.topN != null) q.set('top_n', String(params.topN))
+  return request<LiveDraftResponse>(`/api/draft/live?${q}`)
 }
 
 /** Start a mock draft simulation session. */
