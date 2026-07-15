@@ -464,11 +464,11 @@ class GameResult(BaseModel):
     week: int
     home_team: str
     away_team: str
-    home_score: int
-    away_score: int
-    winner: str
-    point_spread_result: int
-    total_points: int
+    home_score: Optional[int] = None
+    away_score: Optional[int] = None
+    winner: Optional[str] = None
+    point_spread_result: Optional[int] = None
+    total_points: Optional[int] = None
     game_date: Optional[str] = None
     game_time: Optional[str] = None
 

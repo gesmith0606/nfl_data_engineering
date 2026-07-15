@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { predictionsQueryOptions } from '../api/queries';
+import { predictionsQueryOptions, gamesQueryOptions } from '../api/queries';
 import type { GamePrediction } from '../api/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -199,6 +199,14 @@ export function PredictionCardGrid() {
     enabled: !isResolving
   });
 
+  // Final scores for the same week — feeds the ledger's graded ✓/✗ receipts.
+  // Fails soft: future weeks 404 and the ledger simply shows picks.
+  const { data: gamesData } = useQuery({
+    ...gamesQueryOptions(season, week),
+    enabled: !isResolving && view === 'ledger',
+    retry: false
+  });
+
   const isNotFound = isError && error instanceof ApiError && error.status === 404;
 
   const predictions = [...(data?.predictions ?? [])].sort((a, b) => {
@@ -329,7 +337,7 @@ export function PredictionCardGrid() {
           dataAsOf={dataAsOf}
         />
       ) : view === 'ledger' ? (
-        <PredictionLedger predictions={predictions} />
+        <PredictionLedger predictions={predictions} games={gamesData?.games ?? []} />
       ) : (
         <Stagger
           step={0.04}
