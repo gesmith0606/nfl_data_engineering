@@ -38,8 +38,10 @@ export default function AppSidebar() {
       <SidebarHeader className='group-data-[collapsible=icon]:pt-[var(--space-4)]'>
         <SidebarMenu>
           <SidebarMenuItem>
+            {/* Brand → marketing home (web convention: logo goes to /). The
+             * dashboard itself stays one click away via the Dashboard nav item. */}
             <SidebarMenuButton size='lg' asChild>
-              <Link href='/dashboard'>
+              <Link href='/'>
                 <div className='flex items-center gap-[var(--space-2)]'>
                   <div className='wc-rail h-[var(--space-8)] w-[3px] shrink-0 rounded-full group-data-[collapsible=icon]:hidden' />
                   <div className='flex aspect-square size-[var(--space-8)] shrink-0 items-center justify-center rounded-lg bg-[var(--wc-bar,#05070d)] border border-[rgba(255,216,77,0.4)]'>
