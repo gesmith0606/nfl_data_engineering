@@ -1,0 +1,273 @@
+{
+  "fetch_run_id": "965356a3-c6cb-4823-b507-0a6620a2e044",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-07-15T12:36:47.623365+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 17,
+  "items": [
+    {
+      "external_id": "US-EN-49252915",
+      "url": "https://www.espn.com/nfl/story/_/id/49252915/ranking-nfl-top-10-wide-receivers-2026-execs-coaches-scouts",
+      "title": "Who are the best wide receivers in the NFL? We ask...",
+      "body_text": "Ja'Marr Chase or Justin Jefferson or someone else at No. 1? Which teams' WR1 and WR2 both made the top 10? See how NFL decision-makers stacked the position.",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-15T12:14:15+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Marr Chase",
+        "Justin Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49295327",
+      "url": "https://www.espn.com/nfl/story/_/id/49295327/ranking-nfl-top-10-linebackers-2026-execs-coaches-scouts",
+      "title": "Ranking the best linebackers: Our exec poll has a ...",
+      "body_text": "Evaluators around the league ranked their top 10 off-ball linebackers. Which young standout is high on the list?",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-15T12:14:15+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49361687",
+      "url": "https://www.espn.com/nfl/story/_/id/49361687/texans-co-founder-senior-chair-janice-mcnair-dies-89",
+      "title": "Texans co-founder Janice McNair dies at age 89",
+      "body_text": "Texans co-founder and senior chair Janice S. McNair died Tuesday in Houston at age 89, the team said.",
+      "author": "DJ Bien-Aime",
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "US-EN-49361039",
+      "url": "https://www.espn.com/nfl/story/_/id/49361039/investigation-alleged-battery-jets-smith-no-longer-active",
+      "title": "Police investigation of Jets' Smith no longer acti...",
+      "body_text": "An investigation of Geno Smith for an incident in which a woman accused him of battery last month is no longer active, and the New York Jets quarterback will not be charged.",
+      "author": null,
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Geno Smith",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "US-EN-49361698",
+      "url": "https://www.espn.com/nfl/story/_/id/49361698/cowboys-pass-rusher-charles-snowden-suspended-3-games-nfl",
+      "title": "Cowboys' Snowden suspended 3 games by NFL",
+      "body_text": "Cowboys outside linebacker Charles Snowden has been suspended for the first three games of the 2026 season, according to the NFL's transactions wire.",
+      "author": null,
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Charles Snowden"
+      ],
+      "resolved_player_ids": [
+        "00-0036711"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-49351981",
+      "url": "https://www.espn.com/nfl/story/_/id/49351981/rams-alaric-jackson-face-felony-charge-june-arrest",
+      "title": "Rams' Jackson won't face felony charge for arrest",
+      "body_text": "The Rams' Alaric Jackson will not face a felony charge after he was arrested on a domestic violence charge in June, the Los Angeles County District Attorney's Office confirmed to ESPN.",
+      "author": "Sarah Barshop",
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Rams",
+        "Alaric Jackson",
+        "Los Angeles",
+        "County District"
+      ],
+      "resolved_player_ids": [
+        "00-0036603"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-49352279",
+      "url": "https://www.espn.com/nfl/story/_/id/49352279/packers-sign-lb-isaiah-mcduffie-one-year-contract-extension",
+      "title": "Packers sign LB McDuffie to one-year extension",
+      "body_text": "The Packers signed veteran linebacker Isaiah McDuffie to a contract extension Monday.",
+      "author": null,
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-49343916",
+      "url": "https://www.espn.com/nfl/story/_/id/49343916/stefon-diggs-says-there-no-wr2-nfl-better-me",
+      "title": "Free agent Diggs: No WR2 in NFL better than me",
+      "body_text": "Free agent Stefon Diggs says he is better than any No. 2 wide receiver currently on an NFL roster.",
+      "author": null,
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49337716",
+      "url": "https://www.espn.com/nfl/story/_/id/49337716/khosla-led-group-agrees-buy-seahawks-sources-say-96-billion",
+      "title": "Niners part owner agrees to purchase Seahawks",
+      "body_text": "A group led by Niners limited partner Vinod Khosla has agreed to purchase the Seahawks, with sources telling ESPN the selling price will be a record $9.612 billion. The Khosla family will be required to divest its interest in the 49ers.",
+      "author": "Seth Wickersham and Adam Schefter",
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Vinod Khosla",
+        "The Khosla"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-49325177",
+      "url": "https://www.espn.com/nfl/story/_/id/49325177/no-gps-tracker-terrion-arnold-work-nfl-teams",
+      "title": "No GPS tracker for Arnold, can work out for teams",
+      "body_text": "Former Lions cornerback Terrion Arnold does not need to wear a GPS tracker as a condition of his release, a Florida judge ruled Friday, allowing him to continue to work out with NFL teams in an effort to get re-signed after being cut.",
+      "author": "Xuan Thai",
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Former Lions",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-49358800",
+      "url": "https://www.espn.com/nfl/story/_/id/49358800/khosla-family-vinod-neeru-neal-san-francisco-49ers-seattle-seahawks",
+      "title": "🏈 Meet the family set to buy the Seahawks",
+      "body_text": "Vinod Khosla is a prominent venture capitalist, and his wife, Neeru, is an education philanthropist.",
+      "author": "Ben Strauss",
+      "published_at": "2026-07-15T04:55:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Seahawks Vinod"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-49351307",
+      "url": "https://www.espn.com/nfl/story/_/id/49351307/2026-nfl-season-coach-coordinator-playcaller-player-matches-scheme-solak",
+      "title": "Eight new NFL coach-player pairings Solak can't wa...",
+      "body_text": "Can Brian Daboll take Cam Ward's game to another level? How will Sean Payton scheme up Jaylen Waddle? Is the Chris Shula-Myles Garrett combo unstoppable?",
+      "author": "Ben Solak",
+      "published_at": "2026-07-15T12:10:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Brian",
+        "Cam Ward",
+        "Sean Payton",
+        "Jaylen Waddle",
+        "Chris Shula",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0040676",
+        "00-0036613",
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49356848",
+      "url": "https://www.espn.com/nfl/story/_/id/49356848/pittsburgh-steelers-2026-nfl-revamp-wide-receiver-unit-not-shorthanded-pass-catchers",
+      "title": "Steelers revamp wide receiver unit: 'Not short-han...",
+      "body_text": "Pittsburgh enters training camp with a WR corps that coach Mike McCarthy called interchangeable and dynamic.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-07-15T12:11:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-49315416",
+      "url": "https://www.espn.com/nfl/story/_/id/49315416/ranking-nfl-top-10-quarterbacks-2026-execs-coaches-scouts",
+      "title": "Let's rank the top 10 quarterbacks in the NFL: Jos...",
+      "body_text": "Who are the elite QBs in the NFL right now? Which passer ranks No. 1? And where do multiple top names from the 2024 draft class land on our top-10 list?",
+      "author": "Jeremy Fowler",
+      "published_at": "2026-07-14T16:23:51+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49286915",
+      "url": "https://www.espn.com/nfl/story/_/id/49286915/nfl-afc-east-bills-jets-dolphins-patriots-josh-allen-drake-maye-aj-brown-geno-smith-malik-willis",
+      "title": "AFC East: Can Bills, Jets or Dolphins unseat the Patriots in 2026?",
+      "body_text": "Four big questions for our AFC East reporters, including biggest concerns and how the offseason impacted the QBs.",
+      "author": "NFL Nation",
+      "published_at": "2026-07-10T18:00:27+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "US-EN-49347450",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/49347450/fantasy-football-rankings-top-players-avoid-2026-drafts",
+      "title": "Copy of Brand-name players I'm letting my leaguemates draf...",
+      "body_text": "Joe Burrow? De'Von Achane? Liz Loza lists some bigger names that she's not overly keen on drafting this season.",
+      "author": "Liz Loza",
+      "published_at": "2026-07-15T12:10:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Joe Burrow",
+        "Von Achane",
+        "Liz Loza"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-FFDraftGuide26-48677635",
+      "url": "https://www.espn.com/fantasy/football/story/_/page/FFDraftGuide26-48677635/2026-fantasy-football-rankings-mock-draft-cheat-sheets-sleepers",
+      "title": "Copy of 2026 Fantasy Football Draft Guide: Rankings, mock ...",
+      "body_text": "Your one-stop shop as you prep for draft season, including rankings, projections and analysis.",
+      "author": "Fantasy staff",
+      "published_at": "2026-07-15T12:10:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Fantasy Football",
+        "Draft Guide"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

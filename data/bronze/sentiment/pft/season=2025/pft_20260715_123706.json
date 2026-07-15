@@ -1,0 +1,580 @@
+{
+  "fetch_run_id": "d4f2630c-b823-4cb0-853f-cd9a8afd660d",
+  "source": "pft",
+  "fetched_at": "2026-07-15T12:37:06.861493+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-on-roman-wilson-theres-a-lot-there-to-work-with",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-on-roman-wilson-theres-a-lot-there-to-work-with",
+      "permalink": "",
+      "title": "Mike McCarthy on Roman Wilson: There's a lot there to work with",
+      "body_text": "The Steelers head into the 2026 season with higher hopes for their receiving corps.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-15T12:23:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roman Wilson",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0039739"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hydration-breaks-can-help-the-beautiful-game-become-a-beautiful-business",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hydration-breaks-can-help-the-beautiful-game-become-a-beautiful-business",
+      "permalink": "",
+      "title": "\"Hydration breaks\" can help the \"beautiful game\" become a beautiful business",
+      "body_text": "The 2026 World Cup has seen the \"hydration break\" become a point of contention, with in-stadium fans repeatedly booing (and the FIFA-fearful broadcasters not inclined to mention it) and Fox laughing all the way to the bank.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-15T12:08:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-janice-mcnairs-impact-on-houston-and-the-nfl-will-be-felt-for-generations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-janice-mcnairs-impact-on-houston-and-the-nfl-will-be-felt-for-generations",
+      "permalink": "",
+      "title": "Roger Goodell: Janice McNair's impact on Houston and the NFL will be felt for generations",
+      "body_text": "NFL Commissioner Roger Goodell is remembering Texans co-founder Janice McNair for her role in brining pro football back to Houston and her leadership during the quarter-century since the Texans joined the NFL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-15T08:23:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell",
+        "Commissioner Roger"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-delete-bison-flip-video-from-social-media",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-delete-bison-flip-video-from-social-media",
+      "permalink": "",
+      "title": "Buccaneers delete bison-flip video from social media",
+      "body_text": "The Buccaneers giveth.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-15T00:27:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diversion-program-for-alaric-jackson-would-likely-result-in-another-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diversion-program-for-alaric-jackson-would-likely-result-in-another-suspension",
+      "permalink": "",
+      "title": "Diversion program for Alaric Jackson would likely result in another suspension",
+      "body_text": "Personal Conduct Policy makes entry into diversion program an automatic violation.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T11:30:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alaric Jackson",
+        "Personal Conduct"
+      ],
+      "resolved_player_ids": [
+        "00-0036603"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-gruden-wants-to-become-a-play-by-play-announcer",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-gruden-wants-to-become-a-play-by-play-announcer",
+      "permalink": "",
+      "title": "Jon Gruden wants to become a play-by-play announcer",
+      "body_text": "Between his stints with the Buccaneers and a second run as Raiders coach, Jon Gruden served as the analyst on Monday Night Football for nine years.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T12:49:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jon Gruden",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-gruden-will-handle-play-by-play-for-an-nfl-preseason-game-next-month",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-gruden-will-handle-play-by-play-for-an-nfl-preseason-game-next-month",
+      "permalink": "",
+      "title": "Jon Gruden will handle play-by-play for an NFL preseason game next month",
+      "body_text": "Jon Gruden wants to work play-by-play on an NFL broadcast.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T20:38:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jon Gruden"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/flo-balogun-outside-noise-gave-teammates-a-bit-of-nerves-vs-belgium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/flo-balogun-outside-noise-gave-teammates-a-bit-of-nerves-vs-belgium",
+      "permalink": "",
+      "title": "Flo Balogun: \"Outside noise\" gave teammates \"a bit of nerves\" vs. Belgium",
+      "body_text": "It was obvious to anyone watching last Monday night's World Cup Round of 16 game between the U.S. and Belgium that the Folarin Balogun red-card suspension controversy helped one team — and hurt the other.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T23:54:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Flo Balogun",
+        "World Cup",
+        "Folarin Balogun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-draws-boos-during-world-cup-semifinal-at-at-t-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-draws-boos-during-world-cup-semifinal-at-at-t-stadium",
+      "permalink": "",
+      "title": "Jerry Jones draws boos during World Cup semifinal at AT&T Stadium",
+      "body_text": "Jerry Lewis was big among the French.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T21:19:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "World Cup",
+        "Stadium Jerry"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-the-super-bowl-is-feb-14-and-we-plan-on-being-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-the-super-bowl-is-feb-14-and-we-plan-on-being-there",
+      "permalink": "",
+      "title": "Brian Schottenheimer: The Super Bowl is Feb. 14, and we plan on being there",
+      "body_text": "Marty Schottenheimer was a head coach for 21 years.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-14T21:15:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "The Super",
+        "Marty Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-flacco-says-his-super-bowl-ring-and-mvp-trophy-dont-matter-much-to-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-flacco-says-his-super-bowl-ring-and-mvp-trophy-dont-matter-much-to-him",
+      "permalink": "",
+      "title": "Joe Flacco says his Super Bowl ring and MVP trophy don't matter much to him",
+      "body_text": "The crowning achievement of Joe Flacco's NFL career came at Super Bowl XLVII, when his Ravens won the championship and he was named Super Bowl Most Valuable Player.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-14T21:04:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Flacco",
+        "Super Bowl",
+        "Most Valuable"
+      ],
+      "resolved_player_ids": [
+        "00-0026158"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-claim-wr-quentin-skinner-off-waivers-release-wr-deven-thompkins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-claim-wr-quentin-skinner-off-waivers-release-wr-deven-thompkins",
+      "permalink": "",
+      "title": "Bills claim WR Quentin Skinner off waivers, release WR Deven Thompkins",
+      "body_text": "The Bills have made a pair of roster moves on Tuesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-14T20:56:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quentin Skinner",
+        "Deven Thompkins",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0040406",
+        "00-0037487"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-de-charles-snowden-suspended-three-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-de-charles-snowden-suspended-three-games",
+      "permalink": "",
+      "title": "Cowboys DE Charles Snowden suspended three games",
+      "body_text": "Defensive end Charles Snowden won't be available for the Cowboys to open the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-14T20:52:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Charles Snowden"
+      ],
+      "resolved_player_ids": [
+        "00-0036711"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-co-founder-janice-mcnair-dies-at-89",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-co-founder-janice-mcnair-dies-at-89",
+      "permalink": "",
+      "title": "Texans co-founder Janice McNair dies at 89",
+      "body_text": "Janice McNair, the co-founder and Senior Chair of the Houston Texans, has died.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T20:20:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Senior Chair",
+        "Houston Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-expect-cam-skattebo-early-in-camp-malik-nabers-not-far-behind",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-expect-cam-skattebo-early-in-camp-malik-nabers-not-far-behind",
+      "permalink": "",
+      "title": "Giants expect Cam Skattebo to be ready \"early in camp,\" Malik Nabers \"not far behind\"",
+      "body_text": "Giants head coach John Harbaugh provided updates on a couple of players returning from injuries this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-14T20:16:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Malik Nabers",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/video-emerges-of-espn-draft-analyst-matt-millers-car-crash",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/video-emerges-of-espn-draft-analyst-matt-millers-car-crash",
+      "permalink": "",
+      "title": "Video emerges of ESPN draft analyst Matt Miller's car crash",
+      "body_text": "Last month, ESPN NFL draft analyst Matt Miller was involved in a serious car accident in Missouri.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T20:09:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-byard-a-j-brown-shifts-your-philosophy-on-how-you-play-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-byard-a-j-brown-shifts-your-philosophy-on-how-you-play-defense",
+      "permalink": "",
+      "title": "Kevin Byard: A.J. Brown shifts your philosophy on how you play defense",
+      "body_text": "Stefon Diggs was the Patriots' top wideout last season.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-14T20:03:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kevin Byard",
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0033132",
+        "00-0031588"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-wont-be-charged-in-florida-domestic-incident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-wont-be-charged-in-florida-domestic-incident",
+      "permalink": "",
+      "title": "Geno Smith won't be charged in Florida domestic incident",
+      "body_text": "Davie police declare case inactive.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T19:45:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-vote-on-seahawks-sale-is-expected-at-one-day-league-meeting-on-aug-26",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-vote-on-seahawks-sale-is-expected-at-one-day-league-meeting-on-aug-26",
+      "permalink": "",
+      "title": "Report: Vote on Seahawks sale is expected at one-day league meeting on Aug. 26",
+      "body_text": "We already know who is set to buy the Seahawks for a record $9.612 billion.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-14T18:40:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-at-least-five-teams-have-checked-in-on-stefon-diggs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-at-least-five-teams-have-checked-in-on-stefon-diggs",
+      "permalink": "",
+      "title": "Report: At least five teams have checked in on Stefon Diggs",
+      "body_text": "Diggs recently said that \"you can’t name\" a No. 2 receiver that is better than him.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-14T17:29:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-falls-67-spots-on-the-nfln-list-of-top-100-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-falls-67-spots-on-the-nfln-list-of-top-100-players",
+      "permalink": "",
+      "title": "Lamar Jackson falls 67 spots on the NFLN list of top 100 players",
+      "body_text": "From time to time, players will claim that they are uniquely positioned to assess the skills of other players.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T17:04:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-harper-addresses-fanduel-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-harper-addresses-fanduel-video",
+      "permalink": "",
+      "title": "Bryce Harper addresses FanDuel video",
+      "body_text": "Usually, a summer weekend will reset the sports news cycle, allowing a goldfish-brained collective consciousness to move on to something new.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T21:42:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Harper"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-donald-wanted-to-see-how-he-reacted-to-working-out-in-pads",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-donald-wanted-to-see-how-he-reacted-to-working-out-in-pads",
+      "permalink": "",
+      "title": "Report: Aaron Donald wanted to see how he reacted to working out in pads",
+      "body_text": "The reported reason for Aaron Donald's workout at the Rams facility last week won't do anything to quiet speculation that he will come out of retirement to play for the team again in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-13T19:56:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-says-he-played-with-sprained-mcl-pcl-from-week-2-on",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-says-he-played-with-sprained-mcl-pcl-from-week-2-on",
+      "permalink": "",
+      "title": "Baker Mayfield says he played with sprained MCL, PCL from Week 2 on",
+      "body_text": "Buccaneers quarterback Baker Mayfield is tough.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-13T18:09:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-cook-theres-a-new-energy-in-the-building-with-joe-brady-as-head-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-cook-theres-a-new-energy-in-the-building-with-joe-brady-as-head-coach",
+      "permalink": "",
+      "title": "James Cook: There's \"a new energy in the building\" with Joe Brady as head coach",
+      "body_text": "Joe Brady has been in the Bills' building since 2022, working his way up from quarterbacks coach, to offensive coordinator, and now to head coach in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-14T14:52:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Cook",
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0037248"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/orlando-brown-jr-i-feel-bengals-have-the-best-pass-protection-unit-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/orlando-brown-jr-i-feel-bengals-have-the-best-pass-protection-unit-in-the-nfl",
+      "permalink": "",
+      "title": "Orlando Brown Jr.: I feel Bengals have the best pass protection unit in the NFL",
+      "body_text": "Defensive upgrades have been the main focus of the Bengals offseason, but they'll need to remain a potent offensive team as well if they are going to make it back to the playoffs for the first time since 2022.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-14T14:20:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Orlando Brown Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0034752"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/study-finds-former-nfl-players-die-from-als-before-age-50-at-alarmingly-high-rates",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/study-finds-former-nfl-players-die-from-als-before-age-50-at-alarmingly-high-rates",
+      "permalink": "",
+      "title": "Study finds former NFL players die from ALS before age 50 at alarmingly high rates",
+      "body_text": "The news that 39-year-old former NFL running back Chris Johnson has ALS has reignited the discussion about the risks of playing football, and recent research puts into focus just how significant the link between playing in the NFL and developing ALS at a young age appears to be.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-14T13:40:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0035456"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-jaxson-dart-can-live-in-a-lot-of-different-worlds-offensively",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-jaxson-dart-can-live-in-a-lot-of-different-worlds-offensively",
+      "permalink": "",
+      "title": "John Harbaugh: Jaxson Dart can live in a lot of different worlds offensively",
+      "body_text": "John Harbaugh coached Lamar Jackson to a pair of MVPs in Baltimore, but the duo couldn't find a way to navigate through the playoffs to a Super Bowl before Harbaugh was dismissed after the 2025 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-14T12:31:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Jaxson Dart",
+        "Lamar Jackson",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0040691",
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-use-viral-bison-flip-video-for-social-media-post",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-use-viral-bison-flip-video-for-social-media-post",
+      "permalink": "",
+      "title": "Buccaneers use viral bison flip video for social-media post",
+      "body_text": "It was inevitable.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T12:23:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chad-kelly-blames-toronto-argonauts-struggles-on-world-cup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chad-kelly-blames-toronto-argonauts-struggles-on-world-cup",
+      "permalink": "",
+      "title": "Chad Kelly blames Toronto Argonauts struggles on World Cup",
+      "body_text": "FIFA's takeover of 11 NFL stadiums (in which 13 teams play) has created various complications and annoyances, including the displacement of the New York Giants to West Virginia for training camp.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T11:55:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chad Kelly",
+        "Toronto Argonauts",
+        "World Cup",
+        "New York",
+        "West Virginia"
+      ],
+      "resolved_player_ids": [
+        "00-0033597"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
