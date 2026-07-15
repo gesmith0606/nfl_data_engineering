@@ -10,6 +10,7 @@ import glob
 import logging
 import uuid
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -116,6 +117,19 @@ def _safe_int(val: object, default: int = 0) -> int:
         return default
 
 
+@lru_cache(maxsize=8)
+def _read_projection_parquet(file_path: str) -> pd.DataFrame:
+    """Read (and cache) a projection Parquet by path.
+
+    The live-draft endpoint polls every ~5s; without this cache each poll would
+    re-read the same Gold artifact from disk. Keyed on the resolved file path so
+    a newer artifact (new timestamp in the filename) naturally busts the cache.
+    Callers must NOT mutate the returned frame — the only consumer
+    (``compute_value_scores``) copies before writing.
+    """
+    return pd.read_parquet(file_path)
+
+
 def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame]:
     """Attempt to load cached Gold preseason projections from local Parquet files.
 
@@ -126,6 +140,7 @@ def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame
 
     Returns:
         DataFrame of cached projections, or ``None`` if no cache is available.
+        The frame is a shared, cached read — treat it as read-only.
     """
     cache_dir = (
         _PROJECT_ROOT
@@ -140,11 +155,7 @@ def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame
     if not files:
         return None
     try:
-        df = pd.read_parquet(files[-1])  # latest by filename timestamp
-        logger.info(
-            "Loaded %d cached preseason projections from %s", len(df), files[-1]
-        )
-        return df
+        return _read_projection_parquet(files[-1])  # latest by filename timestamp
     except Exception as exc:
         logger.warning("Failed to read cached projection file %s: %s", files[-1], exc)
         return None
@@ -195,16 +206,7 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
             f"--season {season}' when the API is reachable to populate the cache."
         )
 
-    # Try loading ADP data
-    adp_path = _PROJECT_ROOT / "data" / "adp_latest.csv"
-    adp_df: Optional[pd.DataFrame] = None
-    if adp_path.exists():
-        try:
-            adp_df = pd.read_csv(str(adp_path))
-        except Exception:
-            logger.warning("Failed to read ADP file at %s", adp_path)
-
-    return compute_value_scores(projections, adp_df)
+    return compute_value_scores(projections, _load_adp_df())
 
 
 def _df_row_to_draft_player(row: pd.Series) -> DraftPlayer:
@@ -681,13 +683,19 @@ def _load_adp_df() -> Optional[pd.DataFrame]:
 @router.get("/live", response_model=LiveDraftResponse)
 def live_draft_sync(
     draft_id: Optional[str] = Query(
-        None, description="Sleeper draft_id (or provide username to resolve it)"
+        None,
+        pattern=r"^\d{1,20}$",
+        description="Sleeper draft_id (or provide username to resolve it)",
     ),
     username: Optional[str] = Query(
-        None, description="Sleeper username — resolves the active draft"
+        None,
+        pattern=r"^[A-Za-z0-9_]{1,40}$",
+        description="Sleeper username — resolves the active draft",
     ),
     league_id: Optional[str] = Query(
-        None, description="Optional Sleeper league_id to disambiguate the draft"
+        None,
+        pattern=r"^\d{1,20}$",
+        description="Optional Sleeper league_id to disambiguate the draft",
     ),
     my_slot: Optional[int] = Query(
         None, ge=1, le=20, description="Your draft slot (1-based)"
@@ -713,17 +721,24 @@ def live_draft_sync(
     user's own drafted roster and remaining needs.
     """
     # Resolve the draft to poll.
+    resolve_failed = False
     if not draft_id and username:
         try:
             res = resolve_active_draft(username, str(season), league_id=league_id)
             draft_id = res.get("draft_id") or None
         except Exception as exc:
+            resolve_failed = True
             logger.warning("resolve_active_draft failed for %s: %s", username, exc)
     if not draft_id:
-        raise HTTPException(
-            status_code=400,
-            detail="Provide a draft_id, or a username with an active NFL draft.",
-        )
+        if username:
+            detail = (
+                f"Could not resolve an active NFL draft for username "
+                f"'{username}'"
+                + (" (Sleeper was unreachable)." if resolve_failed else ".")
+            )
+        else:
+            detail = "Provide a draft_id, or a username with an active NFL draft."
+        raise HTTPException(status_code=400, detail=detail)
 
     # Raw projections (LiveDraftEngine adds VORP/model_rank itself).
     projections = _load_cached_projections(scoring, season)
@@ -787,7 +802,7 @@ def live_draft_sync(
 
     turn = engine.turn_info()
     picks_until = None
-    if turn and turn.my_next_pick_no and turn.on_clock_pick_no:
+    if turn and turn.my_next_pick_no is not None:
         picks_until = max(0, turn.my_next_pick_no - turn.on_clock_pick_no)
 
     return LiveDraftResponse(

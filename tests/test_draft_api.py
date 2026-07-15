@@ -412,7 +412,7 @@ from src.draft_models import DraftState, PickEvent  # noqa: E402
 def _fake_live_state(picks=()):
     """Build a minimal DraftState mimicking a live Sleeper draft."""
     return DraftState(
-        draft_id="D123",
+        draft_id="123456789",
         status="drafting",
         draft_type="snake",
         season="2026",
@@ -450,12 +450,12 @@ class TestLiveDraftSync:
         ), patch.object(draft_module, "load_draft_state", return_value=state):
             resp = client.get(
                 "/api/draft/live",
-                params={"draft_id": "D123", "my_slot": 5, "season": 2026},
+                params={"draft_id": "123456789", "my_slot": 5, "season": 2026},
             )
 
         assert resp.status_code == 200, resp.text
         data = resp.json()
-        assert data["draft_id"] == "D123"
+        assert data["draft_id"] == "123456789"
         assert data["status"] == "drafting"
         assert data["picks_made"] == 2
         assert data["my_slot"] == 5

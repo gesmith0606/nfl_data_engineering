@@ -912,18 +912,6 @@ class LiveDraftRecommendation(DraftRecommendation):
     stack_note: str = ""
 
 
-class LivePick(BaseModel):
-    """A single pick already made in a live draft, mapped to our player."""
-
-    pick_no: int
-    round: int
-    draft_slot: int
-    player_name: str
-    position: str
-    team: Optional[str] = None
-    by_me: bool = False
-
-
 class LiveDraftResponse(BaseModel):
     """Live-synced draft state driven by our roster-aware recommendation engine.
 

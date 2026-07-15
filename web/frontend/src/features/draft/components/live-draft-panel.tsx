@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Icons } from '@/components/icons'
 import { liveDraftQueryOptions } from '@/features/nfl/api/queries'
 import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
@@ -64,8 +65,8 @@ export function LiveDraftPanel() {
         <div className='flex flex-wrap items-end gap-[var(--space-2)]'>
           <label className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             <span className='text-muted-foreground'>Sleeper draft ID</span>
-            <input
-              className='border-input bg-background h-9 w-48 rounded-md border px-[var(--space-2)] text-[length:var(--fs-sm)]'
+            <Input
+              className='w-48'
               placeholder='e.g. 1382528971035406336'
               value={form.draftId}
               onChange={e => setForm(f => ({ ...f, draftId: e.target.value }))}
@@ -74,8 +75,8 @@ export function LiveDraftPanel() {
           <span className='text-muted-foreground pb-2 text-[length:var(--fs-xs)]'>or</span>
           <label className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             <span className='text-muted-foreground'>Sleeper username</span>
-            <input
-              className='border-input bg-background h-9 w-40 rounded-md border px-[var(--space-2)] text-[length:var(--fs-sm)]'
+            <Input
+              className='w-40'
               placeholder='Gforceee'
               value={form.username}
               onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
@@ -83,8 +84,8 @@ export function LiveDraftPanel() {
           </label>
           <label className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             <span className='text-muted-foreground'>Your slot</span>
-            <input
-              className='border-input bg-background h-9 w-20 rounded-md border px-[var(--space-2)] text-[length:var(--fs-sm)]'
+            <Input
+              className='w-20'
               placeholder='5'
               inputMode='numeric'
               value={form.mySlot}
