@@ -69,9 +69,9 @@
 
 /* Dark mode tokens — the hero surface */
 [data-theme='worldcup26'].dark {
-  --background: oklch(0.145 0.018 265); /* deep cool ink */
+  --background: oklch(0.13 0.02 266); /* stadium ink — matches the marketing home canvas (#0b0e18) */
   --foreground: oklch(0.96 0.004 250); /* ~15:1 on background */
-  --card: oklch(0.185 0.02 265); /* slightly lifted */
+  --card: oklch(0.175 0.02 266); /* raised panel (#131722 family) */
   --card-foreground: oklch(0.96 0.004 250);
   --popover: oklch(0.2 0.02 265);
   --popover-foreground: oklch(0.96 0.004 250);
