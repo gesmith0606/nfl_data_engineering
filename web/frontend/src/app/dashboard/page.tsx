@@ -4,44 +4,68 @@ import { MAEByPositionChart } from '@/features/nfl/components/mae-chart';
 import { WeeklyAccuracyChart } from '@/features/nfl/components/accuracy-chart';
 import { ProofStrip, PhaseModule } from '@/features/nfl/components/home-modules';
 import { ModelsPicks } from '@/features/nfl/components/models-picks';
-import { Icons } from '@/components/icons';
 import { FadeIn } from '@/lib/motion-primitives';
+import { getSeasonPhase } from '@/lib/nfl/season-phase';
 
 export const metadata = {
-  title: 'NFL Analytics Dashboard'
+  title: 'GIQ — Home Hub'
 };
+
+/** Derive the context segment label from the current season phase. */
+function hubContextLabel(): string {
+  const phase = getSeasonPhase();
+  if (phase === 'draft-prep') return '2026 PRESEASON';
+  if (phase === 'in-season') return '2026 SEASON';
+  return 'OFFSEASON';
+}
+
+/**
+ * Broadcast page header — condensed-caps display title + yellow context
+ * segment (matches the "RANKINGS · 2026 PRESEASON" pattern used on interior
+ * data pages). Replaces the generic PageContainer title for the hub only.
+ *
+ * The 2px mint bottom rule echoes the broadcast nav bar signature, binding
+ * the header to the broadcast identity without duplicating the nav.
+ */
+function HubPageHeader() {
+  return (
+    <header className='relative overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-[var(--wc-bar,#05070d)] px-[var(--space-5)] py-[var(--space-5)] md:px-[var(--space-6)]'>
+      {/* 2px mint bottom rule — broadcast nav signature */}
+      <div
+        aria-hidden
+        className='absolute right-0 bottom-0 left-0 h-[2px] rounded-b-[var(--radius-lg)]'
+        style={{ background: 'var(--wc-mint,#91edd0)' }}
+      />
+      <div className='flex flex-col gap-[var(--space-1)]'>
+        {/* Yellow condensed eyebrow — e.g. "HOME HUB · 2026 PRESEASON" */}
+        <div
+          className='wc-display text-[length:var(--fs-xs)] font-semibold tracking-[0.18em] uppercase'
+          style={{ color: 'var(--wc-yellow,#ffd84d)' }}
+        >
+          HOME HUB · {hubContextLabel()}
+        </div>
+        {/* Condensed-caps display title */}
+        <h1 className='wc-display text-[length:var(--fs-h1)] font-extrabold leading-[var(--lh-h1)] tracking-[0.04em] text-white'>
+          NFL Analytics
+        </h1>
+        <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/60'>
+          Ensemble models, market edges, and player projections — measured against the
+          consensus every week.
+        </p>
+      </div>
+    </header>
+  );
+}
 
 export default function Dashboard() {
   return (
-    <PageContainer
-      scrollable={false}
-      pageTitle='NFL Analytics Dashboard'
-      pageDescription='Model accuracy, tests passing, ATS performance, and player coverage at a glance'
-    >
+    <PageContainer scrollable={false}>
       <FadeIn className='flex flex-1 flex-col gap-[var(--gap-stack)]'>
-        {/* Fixed-dark broadcast panel (--surface-scoreboard): stays ink in light mode
-            so the gold eyebrow keeps its contrast. */}
-        <section className='relative flex items-center overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-[var(--surface-scoreboard)] px-[var(--space-5)] py-[var(--space-5)] shadow-sm md:px-[var(--space-6)] md:py-[var(--space-6)]'>
-          <div className='relative flex items-center gap-[var(--space-4)]'>
-            <div className='wc-rail h-[var(--space-12)] w-[var(--space-1)] shrink-0 rounded-full' />
-            <div className='flex flex-col gap-[var(--space-2)]'>
-              <div className='text-[var(--wc-gold,var(--chart-1))] inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold tracking-[0.14em] uppercase'>
-                <Icons.sparkles className='size-[var(--space-3)]' />
-                Premium Models
-              </div>
-              <h2 className='wc-display text-[length:var(--fs-h1)] leading-[var(--lh-h1)] text-white'>
-                State-of-the-art NFL projections &amp; predictions
-              </h2>
-              <p className='max-w-2xl text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/70'>
-                Ensemble models, market edges, and player projections — measured against the
-                consensus every week.
-              </p>
-            </div>
-          </div>
-        </section>
+        {/* Broadcast page header: condensed-caps title + yellow context segment. */}
+        <HubPageHeader />
 
         {/* Proof strip — real model-vs-consensus credibility, links to the
-            full track record. */}
+            full track record. Broadcast stat-pill treatment. */}
         <FadeIn delay={0.08} rise={6}>
           <ProofStrip />
         </FadeIn>
@@ -56,7 +80,7 @@ export default function Dashboard() {
           <PhaseModule />
         </FadeIn>
 
-        {/* Demoted: at-a-glance metrics + trend charts. */}
+        {/* At-a-glance model metrics — broadcast stat-pill cards. */}
         <OverviewStatCards />
 
         <div className='grid grid-cols-1 gap-[var(--gap-stack)] md:grid-cols-2'>

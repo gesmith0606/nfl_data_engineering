@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { Icons } from '@/components/icons';
-import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 import { formatGap } from '@/lib/nfl/consensus';
 import { getSeasonPhase, getInSeasonCadence } from '@/lib/nfl/season-phase';
 import { SectionHeading } from './section-heading';
@@ -10,7 +9,9 @@ import modelMetrics from '../config/model-metrics.json';
 const CONSENSUS = modelMetrics.consensus;
 
 /* -------------------------------------------------------------------------- */
-/* Proof strip — "we beat the consensus" credibility band under the hero.     */
+/* Proof strip — "we beat the consensus" credibility band under the header.   */
+/* Broadcast stat-pill treatment: near-black pill, mint-tinted border,        */
+/* condensed 800 numerals — wins mint, losses muted gray (honest receipts).   */
 /* Whole strip links to the full track record on /dashboard/accuracy.         */
 /* -------------------------------------------------------------------------- */
 
@@ -25,44 +26,81 @@ export function ProofStrip() {
       )} MAE — open the full track record`}
       className='group focus-visible:ring-ring/50 block rounded-[var(--radius-lg)] focus-visible:ring-[3px] focus-visible:outline-none'
     >
-      <section className='bg-card hover:border-primary/50 relative flex flex-wrap items-center gap-x-[var(--space-4)] gap-y-[var(--space-2)] overflow-hidden rounded-[var(--radius-lg)] border py-[var(--space-3)] pr-[var(--space-4)] pl-[var(--space-4)] shadow-sm transition-colors duration-[var(--motion-base)] md:pr-[var(--space-5)]'>
-        <div className='wc-rail absolute inset-y-[var(--space-2)] left-0 w-[3px] rounded-full' />
+      {/* Broadcast stat-pill container: near-black bg, mint-tinted border */}
+      <section
+        className='relative flex flex-wrap items-center gap-x-[var(--space-4)] gap-y-[var(--space-2)] overflow-hidden rounded-[var(--radius-lg)] border py-[var(--space-3)] pr-[var(--space-4)] pl-[var(--space-4)] shadow-sm transition-colors duration-[var(--motion-base)] md:pr-[var(--space-5)]'
+        style={{
+          background: 'rgba(5,7,13,0.85)',
+          borderColor: 'rgba(145,237,208,0.35)'
+        }}
+      >
+        {/* Mint left rail */}
+        <div
+          aria-hidden
+          className='absolute inset-y-[var(--space-2)] left-0 w-[3px] rounded-full'
+          style={{ background: 'var(--wc-mint,#91edd0)' }}
+        />
 
         <div className='flex items-center gap-[var(--space-2)]'>
-          <Icons.sparkles className='size-[var(--space-4)] text-[var(--wc-gold,var(--chart-1))]' />
-          <span className='wc-display text-[length:var(--fs-lg)] leading-none'>
+          <Icons.sparkles
+            className='size-[var(--space-4)]'
+            style={{ color: 'var(--wc-yellow,#ffd84d)' }}
+          />
+          <span
+            className='wc-display text-[length:var(--fs-lg)] leading-none text-white'
+          >
             Beat the Consensus
           </span>
         </div>
 
-        <span className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+        {/* Overall gap — condensed 800, mint for wins */}
+        <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/60'>
           Overall MAE gap{' '}
-          <span className={`font-bold tabular-nums ${overall.win ? SUCCESS_TEXT : DANGER_TEXT}`}>
+          <span
+            className='wc-display text-[26px] font-extrabold tabular-nums'
+            style={{ color: overall.win ? 'var(--wc-mint,#91edd0)' : '#9aa3b8' }}
+          >
             {formatGap(overall.gap)}
           </span>{' '}
           vs experts
         </span>
 
+        {/* Per-position broadcast pills */}
         <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
           {positions.map((p) => (
             <span
               key={p.position}
-              className='border-border bg-background/60 inline-flex items-center gap-[var(--space-1)] rounded-full border py-[var(--space-1)] pr-[var(--space-2)] pl-[var(--space-2)] text-[length:var(--fs-xs)] leading-none'
+              className='inline-flex items-center gap-[var(--space-1)] rounded-full border py-[var(--space-1)] pr-[var(--space-2)] pl-[var(--space-2)] text-[length:var(--fs-xs)] leading-none'
+              style={{
+                background: 'rgba(5,7,13,0.85)',
+                borderColor: p.win
+                  ? 'rgba(145,237,208,0.45)'
+                  : 'rgba(58,65,87,0.8)'
+              }}
             >
-              <span className='wc-display'>{p.position}</span>
-              <span className={`tabular-nums font-semibold ${p.win ? SUCCESS_TEXT : DANGER_TEXT}`}>
+              <span className='wc-display text-white/80'>{p.position}</span>
+              <span
+                className='wc-display font-extrabold tabular-nums'
+                style={{ color: p.win ? 'var(--wc-mint,#91edd0)' : '#9aa3b8' }}
+              >
                 {formatGap(p.gap)}
               </span>
               {p.win ? (
-                <Icons.check className={`size-[var(--space-3)] ${SUCCESS_TEXT}`} />
+                <Icons.check
+                  className='size-[var(--space-3)]'
+                  style={{ color: 'var(--wc-mint,#91edd0)' }}
+                />
               ) : (
-                <Icons.close className={`size-[var(--space-3)] ${DANGER_TEXT}`} />
+                <Icons.close className='size-[var(--space-3)] text-[#9aa3b8]' />
               )}
             </span>
           ))}
         </div>
 
-        <span className='text-muted-foreground ml-auto hidden items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none tracking-[0.08em] uppercase md:inline-flex'>
+        <span
+          className='ml-auto hidden items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none tracking-[0.08em] uppercase md:inline-flex'
+          style={{ color: 'var(--wc-mint,#91edd0)' }}
+        >
           Track record
           <Icons.arrowRight className='size-[var(--space-3)] transition-transform duration-[var(--motion-base)] group-hover:translate-x-[var(--space-1)]' />
         </span>
@@ -73,6 +111,8 @@ export function ProofStrip() {
 
 /* -------------------------------------------------------------------------- */
 /* Phase-aware module — date-driven "what to do now" tile row.                */
+/* Broadcast treatment: yellow condensed kicker over white condensed title;   */
+/* tiles use near-black pill cards with mint left rail on hover.              */
 /* -------------------------------------------------------------------------- */
 
 interface HubTile {
@@ -206,7 +246,8 @@ export function PhaseModule() {
 
   return (
     <section className='space-y-[var(--space-3)]'>
-      <SectionHeading overline={content.eyebrow} title={content.heading} />
+      {/* Yellow condensed kicker + condensed white title (broadcast pattern) */}
+      <SectionHeading overline={content.eyebrow} title={content.heading} broadcast />
 
       <div className='grid grid-cols-1 gap-[var(--gap-stack)] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {content.tiles.map((tile) => {
@@ -215,25 +256,52 @@ export function PhaseModule() {
             <Link
               key={tile.href}
               href={tile.href}
-              className='group bg-card hover:border-primary/50 focus-visible:ring-ring/50 relative flex items-start gap-[var(--space-3)] overflow-hidden rounded-[var(--radius-lg)] border py-[var(--space-4)] pr-[var(--space-3)] pl-[var(--space-4)] shadow-sm transition-colors duration-[var(--motion-base)] focus-visible:ring-[3px] focus-visible:outline-none'
+              className='group focus-visible:ring-ring/50 relative flex items-start gap-[var(--space-3)] overflow-hidden rounded-[var(--radius-lg)] border py-[var(--space-4)] pr-[var(--space-3)] pl-[var(--space-4)] shadow-sm transition-all duration-[var(--motion-base)] focus-visible:ring-[3px] focus-visible:outline-none hover:-translate-y-px'
+              style={{
+                background: 'rgba(5,7,13,0.85)',
+                borderColor: 'rgba(145,237,208,0.2)'
+              }}
             >
-              <div className='wc-rail absolute inset-y-[var(--space-3)] left-0 w-[3px] rounded-full' />
+              {/* Mint left rail */}
+              <div
+                aria-hidden
+                className='absolute inset-y-[var(--space-3)] left-0 w-[3px] rounded-full transition-opacity duration-[var(--motion-base)] group-hover:opacity-100'
+                style={{
+                  background: 'var(--wc-mint,#91edd0)',
+                  opacity: 0.5
+                }}
+              />
               {tile.badge && (
-                <div className='absolute top-[var(--space-3)] right-[var(--space-3)] inline-flex items-center rounded-full bg-amber-500/20 px-[var(--space-2)] py-[var(--space-1)] text-[length:var(--fs-xs)] font-semibold leading-none text-amber-600 dark:text-amber-400'>
+                <div
+                  className='absolute top-[var(--space-3)] right-[var(--space-3)] inline-flex items-center rounded-full px-[var(--space-2)] py-[var(--space-1)] text-[length:var(--fs-xs)] font-semibold leading-none'
+                  style={{
+                    background: 'rgba(255,216,77,0.18)',
+                    color: 'var(--wc-yellow,#ffd84d)'
+                  }}
+                >
                   {tile.badge}
                 </div>
               )}
-              <div className='bg-primary/10 text-primary flex size-[var(--space-8)] shrink-0 items-center justify-center rounded-[var(--radius-md)]'>
+              <div
+                className='flex size-[var(--space-8)] shrink-0 items-center justify-center rounded-[var(--radius-md)]'
+                style={{
+                  background: 'rgba(145,237,208,0.12)',
+                  color: 'var(--wc-mint,#91edd0)'
+                }}
+              >
                 <Icon className='size-[var(--space-4)]' />
               </div>
               <div className='min-w-0 flex-1'>
                 <div className='flex items-center gap-[var(--space-1)]'>
-                  <span className='wc-display text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                  <span className='wc-display text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white'>
                     {tile.title}
                   </span>
-                  <Icons.arrowRight className='text-muted-foreground size-[var(--space-3)] transition-transform duration-[var(--motion-base)] group-hover:translate-x-[var(--space-1)]' />
+                  <Icons.arrowRight
+                    className='size-[var(--space-3)] transition-transform duration-[var(--motion-base)] group-hover:translate-x-[var(--space-1)]'
+                    style={{ color: 'var(--wc-mint,#91edd0)' }}
+                  />
                 </div>
-                <p className='text-muted-foreground mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                <p className='mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>
                   {tile.description}
                 </p>
               </div>
