@@ -1,16 +1,19 @@
 import KBar from '@/components/kbar';
 import { ChatWidget } from '@/components/chat-widget';
-import AppSidebar from '@/components/layout/app-sidebar';
-import Header from '@/components/layout/header';
+import { BroadcastNav } from '@/components/layout/broadcast-nav';
 import { MobileTabbar } from '@/components/layout/mobile-tabbar';
 import { InfoSidebar } from '@/components/layout/info-sidebar';
 import { InfobarProvider } from '@/components/ui/infobar';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
+
+/* The previous layout awaited cookies(), which made every dashboard route
+ * render dynamically. Keep that behavior: several pages read search params
+ * via nuqs at the top level and are not written for static prerender
+ * (/dashboard/news fails the CSR-bailout check without this). */
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'NFL Analytics Dashboard',
+  title: 'GIQ — NFL Analytics',
   description: 'Fantasy projections, game predictions, and player analytics',
   robots: {
     index: false,
@@ -18,26 +21,25 @@ export const metadata: Metadata = {
   }
 };
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  // Persisting the sidebar state in the cookie.
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
+/**
+ * App shell = the broadcast site shell (sketches 001-B/003/005): the same
+ * near-black top nav with the mint rule as the marketing home, dark stadium
+ * canvas, GX-01 launcher, and the mobile tab bar. The previous sidebar-admin
+ * chrome is gone — GIQ is one design end to end.
+ */
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <KBar>
-      <SidebarProvider defaultOpen={defaultOpen}>
-        <InfobarProvider defaultOpen={false}>
-          <AppSidebar />
-          <SidebarInset>
-            <Header />
-            {/* page main content — bottom padding clears the mobile tab bar */}
-            <div className='pb-16 md:pb-0'>{children}</div>
-            {/* page main content ends */}
-          </SidebarInset>
-          <InfoSidebar side='right' />
-          <ChatWidget />
-          <MobileTabbar />
-        </InfobarProvider>
-      </SidebarProvider>
+      <InfobarProvider defaultOpen={false}>
+        <div className='flex min-h-svh w-full flex-col'>
+          <BroadcastNav />
+          {/* page main content — bottom padding clears the mobile tab bar */}
+          <main className='flex-1 pb-16 md:pb-0'>{children}</main>
+        </div>
+        <InfoSidebar side='right' />
+        <ChatWidget />
+        <MobileTabbar />
+      </InfobarProvider>
     </KBar>
   );
 }

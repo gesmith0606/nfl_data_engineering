@@ -1,11 +1,10 @@
 import Providers from '@/components/layout/providers';
 import { Toaster } from '@/components/ui/sonner';
 import { fontVariables } from '@/components/themes/font.config';
-import { DEFAULT_THEME, THEMES } from '@/components/themes/theme.config';
+import { DEFAULT_THEME } from '@/components/themes/theme.config';
 import ThemeProvider from '@/components/themes/theme-provider';
 import { cn } from '@/lib/utils';
 import type { Metadata, Viewport } from 'next';
-import { cookies } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import '../styles/globals.css';
@@ -17,8 +16,8 @@ const META_THEME_COLORS = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'NFL Analytics',
-    template: '%s | NFL Analytics'
+    default: 'GIQ — NFL Analytics',
+    template: '%s | GIQ'
   },
   description:
     'NFL fantasy football projections, game predictions, and player analytics powered by machine learning.',
@@ -40,14 +39,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: META_THEME_COLORS.light
+  themeColor: META_THEME_COLORS.dark
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
-  const activeThemeValue = cookieStore.get('active_theme_v2')?.value;
-  const isValidTheme = THEMES.some((t) => t.value === activeThemeValue);
-  const themeToApply = isValidTheme ? activeThemeValue! : DEFAULT_THEME;
+  // GIQ is one design: the worldcup26 broadcast theme, dark, for every
+  // visitor. The previous per-browser theme cookie and light/system modes
+  // are ignored — they exposed un-designed surfaces (old template themes,
+  // white light mode) to anyone with stale preferences.
+  const themeToApply = DEFAULT_THEME;
 
   return (
     <html lang='en' suppressHydrationWarning data-theme={themeToApply}>
@@ -76,7 +76,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <ThemeProvider
             attribute='class'
             defaultTheme='dark'
-            enableSystem
+            forcedTheme='dark'
             disableTransitionOnChange
             enableColorScheme
           >
