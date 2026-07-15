@@ -85,8 +85,10 @@
   --pad-card-sm: var(--space-3);   /* compact card (advisor suggestion chip) */
 
   /* Fixed chrome sizes — named so layout code documents intent rather than
-   * carrying magic heights. Consumed by layout/header.tsx. */
-  --size-header: var(--space-16); /* 64px header bar */
+   * carrying magic heights. --size-header is the BroadcastNav bar height
+   * (52px, matches the marketing home nav) — consumed by pages that size
+   * against the fixed chrome (e.g. the advisor chat panel). */
+  --size-header: 52px;
 
   /* Mobile tap target — 44×44 iOS minimum (WCAG 2.5.5, iOS HIG). Added in
    * Phase 62-05 (DSGN-04) so interactive elements on a 375px viewport

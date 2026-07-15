@@ -4,7 +4,6 @@ import { KBarAnimator, KBarPortal, KBarPositioner, KBarProvider, KBarSearch } fr
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import RenderResults from './render-result';
-import useThemeSwitching from './use-theme-switching';
 import { useFilteredNavGroups } from '@/hooks/use-nav';
 
 export default function KBar({ children }: { children: React.ReactNode }) {
@@ -59,8 +58,8 @@ export default function KBar({ children }: { children: React.ReactNode }) {
   );
 }
 const KBarComponent = ({ children }: { children: React.ReactNode }) => {
-  useThemeSwitching();
-
+  // Theme-switching kbar actions removed: GIQ pins one theme (worldcup26,
+  // dark-forced), so the palette shortcuts would silently do nothing.
   return (
     <>
       <KBarPortal>

@@ -6,6 +6,12 @@ import { InfoSidebar } from '@/components/layout/info-sidebar';
 import { InfobarProvider } from '@/components/ui/infobar';
 import type { Metadata } from 'next';
 
+/* The previous layout awaited cookies(), which made every dashboard route
+ * render dynamically. Keep that behavior: several pages read search params
+ * via nuqs at the top level and are not written for static prerender
+ * (/dashboard/news fails the CSR-bailout check without this). */
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'GIQ — NFL Analytics',
   description: 'Fantasy projections, game predictions, and player analytics',

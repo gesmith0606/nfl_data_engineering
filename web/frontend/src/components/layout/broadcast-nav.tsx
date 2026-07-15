@@ -46,7 +46,7 @@ function SearchButton() {
       type='button'
       onClick={() => query.toggle()}
       aria-label='Search (⌘K)'
-      className='flex h-9 w-9 items-center justify-center rounded-full text-[#cfd6e4] transition-colors hover:text-[var(--wc-mint,#91edd0)] focus-visible:outline-2 focus-visible:outline-[var(--wc-mint,#91edd0)]'
+      className='flex h-9 w-9 items-center justify-center rounded-full text-[#cfd6e4] transition-colors hover:text-[var(--wc-mint,#91edd0)] focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-[var(--wc-mint,#91edd0)]'
     >
       <Icons.search className='h-[18px] w-[18px]' />
     </button>
@@ -94,7 +94,7 @@ export function BroadcastNav() {
         <DropdownMenu>
           <DropdownMenuTrigger
             className={cn(
-              'wc-display flex items-center gap-1 whitespace-nowrap text-[15px] tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--wc-mint,#91edd0)]',
+              'wc-display flex items-center gap-1 whitespace-nowrap text-[15px] tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-[var(--wc-mint,#91edd0)]',
               moreActive
                 ? 'text-[var(--wc-mint,#91edd0)]'
                 : 'text-[#cfd6e4] hover:text-[var(--wc-mint,#91edd0)]'
