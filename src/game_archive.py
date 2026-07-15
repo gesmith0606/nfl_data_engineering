@@ -171,16 +171,16 @@ def get_game_results(season: int, week: Optional[int] = None) -> pd.DataFrame:
         df["game_id"] = df.apply(_build_game_id, axis=1)
 
     # Compute derived columns
-    df["home_score"] = (
-        pd.to_numeric(df.get("home_score"), errors="coerce").fillna(0).astype(int)
-    )
-    df["away_score"] = (
-        pd.to_numeric(df.get("away_score"), errors="coerce").fillna(0).astype(int)
-    )
+    # Unplayed games keep NaN scores (previously fillna(0) — which made
+    # future games look like 0-0 finals and let the ledger grade them).
+    df["home_score"] = pd.to_numeric(df.get("home_score"), errors="coerce")
+    df["away_score"] = pd.to_numeric(df.get("away_score"), errors="coerce")
     df["total_points"] = df["home_score"] + df["away_score"]
     df["point_spread_result"] = df["home_score"] - df["away_score"]
 
-    def _winner(row: pd.Series) -> str:
+    def _winner(row: pd.Series):
+        if pd.isna(row["home_score"]) or pd.isna(row["away_score"]):
+            return None
         if row["home_score"] > row["away_score"]:
             return row["home_team"]
         elif row["away_score"] > row["home_score"]:

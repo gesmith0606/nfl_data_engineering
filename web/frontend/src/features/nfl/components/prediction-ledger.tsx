@@ -40,6 +40,10 @@ interface Verdict {
 
 function gradeGame(p: GamePrediction, g: GameResult | undefined): Verdict | null {
   if (!g || g.home_score === null || g.away_score === null) return null;
+  // Older backends coerce unplayed games to 0-0 — never grade those (a real
+  // 0-0 final hasn't happened since 1943; a fake MISS verdict is worse than
+  // showing the pick).
+  if (g.home_score === 0 && g.away_score === 0) return null;
   const margin = g.home_score - g.away_score;
   const total = g.home_score + g.away_score;
 
