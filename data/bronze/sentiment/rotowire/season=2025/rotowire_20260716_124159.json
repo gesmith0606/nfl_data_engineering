@@ -1,0 +1,119 @@
+{
+  "fetch_run_id": "4c5a2496-738e-4445-8d3e-c30c9ce11f43",
+  "source": "rotowire",
+  "fetched_at": "2026-07-16T12:41:59.449851+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631701",
+      "url": "https://www.rotowire.com//football/player/george-pickens-15853",
+      "permalink": "",
+      "title": "George Pickens: Tag deadline passes",
+      "body_text": "Pickens is set to play the 2026 season on the one-year, $27.3 million franchise tag after he and the Cowboys did not reach a long-term extension before Wednesday's deadline, Todd Archer of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-15T02:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Todd Archer"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl631700",
+      "url": "https://www.rotowire.com//football/player/travis-etienne-15385",
+      "permalink": "",
+      "title": "Travis Etienne: Set to combine with Kamara",
+      "body_text": "Etienne's teammate, Alvin Kamara, has reportedly agreed to remain with the Saints this season on a reworked contract, Arye Pulli of USA Today reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-15T01:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Etienne",
+        "Kamara Etienne",
+        "Alvin Kamara",
+        "Arye Pulli"
+      ],
+      "resolved_player_ids": [
+        "00-0036973",
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl631699",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Finalizing new deal with Saints",
+      "body_text": "Kamara and New Orleans are finalizing terms on a new contract, Nick Underhill of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-15T01:17:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Saints Kamara",
+        "New Orleans",
+        "Nick Underhill"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl631698",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Aims to play Week 1",
+      "body_text": "Mahomes (knee) continues to aim to be ready for the Chiefs' regular-season opener against the Broncos on Monday, Sept. 14, Kevin Patra of NFL.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-15T12:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Kevin Patra"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl631688",
+      "url": "https://www.rotowire.com//football/player/bhayshul-tuten-18524",
+      "permalink": "",
+      "title": "Bhayshul Tuten: Backfield timeshare likely",
+      "body_text": "In the wake of the offseason departure of Travis Etienne, John Shipley of SI.com notes that \"all signs point\" to the Jaguars employing a timeshare backfield led by Tuten and Chris Rodriguez (foot). Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-15T07:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bhayshul Tuten",
+        "Travis Etienne",
+        "John Shipley",
+        "Chris Rodriguez"
+      ],
+      "resolved_player_ids": [
+        "00-0040719",
+        "00-0036973",
+        "00-0038611"
+      ],
+      "team_hint": "JAX"
+    }
+  ]
+}
