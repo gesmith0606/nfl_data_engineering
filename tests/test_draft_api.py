@@ -465,3 +465,10 @@ class TestLiveDraftSync:
         assert top["player_name"]
         assert "fills_need" in top
         assert isinstance(data["remaining_needs"], dict)
+        # Premium context: ADP steal gap, key-moments ticker, next pick number.
+        assert "adp_rank" in top and "adp_diff" in top
+        assert isinstance(data["key_moments"], list)
+        for moment in data["key_moments"]:
+            assert {"kind", "pick_no", "player", "detail"} <= set(moment)
+        # Slot 5 in a 10-team snake with 2 picks made → next pick is #5.
+        assert data["my_next_pick_no"] == 5

@@ -664,6 +664,18 @@ export interface DraftRecommendationsResponse {
 export interface LiveDraftRecommendation extends DraftRecommendation {
   fills_need: boolean
   stack_note: string
+  /** Consensus ADP rank, when the ADP join matched. */
+  adp_rank: number | null
+  /** adp_rank - model_rank; positive = falling to you / undervalued. */
+  adp_diff: number | null
+}
+
+/** A noteworthy draft event (steal, reach, positional run, value drop). */
+export interface LiveDraftKeyMoment {
+  kind: string
+  pick_no: number
+  player: string
+  detail: string
 }
 
 /** Live-synced draft state driven by our roster-aware recommendation engine. */
@@ -676,12 +688,17 @@ export interface LiveDraftResponse {
   on_the_clock_slot: number | null
   is_my_turn: boolean
   picks_until_my_turn: number | null
+  my_next_pick_no: number | null
   my_roster: DraftPlayer[]
   remaining_needs: Record<string, number>
   recommendations: LiveDraftRecommendation[]
   reasoning: string
+  key_moments: LiveDraftKeyMoment[]
   unmatched_count: number
 }
+
+/** Platforms the live co-pilot supports (Sleeper auto-sync; others mirror). */
+export type DraftPlatform = 'sleeper' | 'espn' | 'yahoo'
 
 /** Connection params for live draft sync. */
 export interface LiveDraftParams {
