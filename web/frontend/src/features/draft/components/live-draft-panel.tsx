@@ -210,7 +210,9 @@ export function LiveDraftPanel() {
                             fills need
                           </span>
                         )}
-                        {r.adp_diff != null && r.adp_diff >= 3 && (
+                        {/* 10+ spots past market ADP = a real steal (matches
+                            the engine's _STEAL_GAP), not everyday ADP noise */}
+                        {r.adp_diff != null && r.adp_diff >= 10 && (
                           <span
                             className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] font-semibold ${SUCCESS_BADGE}`}
                             title={`ADP ${r.adp_rank} — the market drafts them ${r.adp_diff} spots later than our board`}

@@ -10,16 +10,21 @@ export function slotOnClock(pickNo: number, nTeams: number): number {
   return round % 2 === 1 ? idx + 1 : nTeams - idx
 }
 
-/** The next overall pick number belonging to `slot`, starting at `fromPickNo`. */
+/**
+ * The next overall pick number belonging to `slot`, starting at `fromPickNo`.
+ * Returns null when `slot` never comes up (out-of-range slot) — matching the
+ * Python engine's None convention so callers hide the countdown instead of
+ * showing "your pick in 0".
+ */
 export function nextPickForSlot(
   fromPickNo: number,
   slot: number,
   nTeams: number
-): number {
+): number | null {
   for (let p = fromPickNo; p < fromPickNo + nTeams * 2; p++) {
     if (slotOnClock(p, nTeams) === slot) return p
   }
-  return fromPickNo
+  return null
 }
 
 /** Human-readable round.pick label for an overall pick number, e.g. "3.07". */
