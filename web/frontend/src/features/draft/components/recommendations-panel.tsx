@@ -6,6 +6,7 @@ import { Icons } from '@/components/icons'
 import { DataLoadReveal, HoverLift, Stagger } from '@/lib/motion-primitives'
 import { draftRecommendationsQueryOptions } from '@/features/nfl/api/queries'
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
+import { CopyQueueButton } from './copy-queue-button'
 import type { Position } from '@/lib/nfl/types'
 
 interface RecommendationsPanelProps {
@@ -26,9 +27,12 @@ export function RecommendationsPanel({ sessionId, positionFilter }: Recommendati
   return (
     <Card>
       <CardHeader className='pb-[var(--space-2)]'>
-        <CardTitle className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
-          Recommendations
-        </CardTitle>
+        <div className='flex items-center justify-between gap-[var(--space-2)]'>
+          <CardTitle className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
+            Recommendations
+          </CardTitle>
+          <CopyQueueButton players={data?.recommendations ?? []} />
+        </div>
       </CardHeader>
       <CardContent className='space-y-[var(--space-2)] pt-0'>
         {!sessionId ? (

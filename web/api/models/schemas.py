@@ -905,11 +905,35 @@ class LiveDraftRecommendation(DraftRecommendation):
     """A recommendation during a live draft, with roster-fit + stack context.
 
     Extends :class:`DraftRecommendation` with the "why" a live draft needs:
-    the positional need it fills and any correlation-stack note (UC3).
+    the positional need it fills, any correlation-stack note (UC3), and the
+    ADP context ("falling to you") that makes a pick feel like a steal.
     """
 
     fills_need: bool = False
     stack_note: str = ""
+    adp_rank: Optional[int] = Field(
+        None, description="Consensus ADP rank, when the ADP join matched"
+    )
+    adp_diff: Optional[int] = Field(
+        None,
+        description=(
+            "adp_rank - model_rank; positive = our board likes this player "
+            "more than the market (undervalued / falling)"
+        ),
+    )
+
+
+class LiveDraftKeyMoment(BaseModel):
+    """A noteworthy draft event the co-pilot surfaces in the ticker.
+
+    Mirrors :class:`live_draft_engine.KeyMoment` — steals, reaches,
+    positional runs, value drops, and pick grades.
+    """
+
+    kind: str
+    pick_no: int
+    player: str
+    detail: str
 
 
 class LiveDraftResponse(BaseModel):
@@ -929,10 +953,17 @@ class LiveDraftResponse(BaseModel):
     on_the_clock_slot: Optional[int] = None
     is_my_turn: bool = False
     picks_until_my_turn: Optional[int] = None
+    my_next_pick_no: Optional[int] = Field(
+        None, description="Overall pick number of the user's next selection"
+    )
     my_roster: List[DraftPlayer]
     remaining_needs: dict
     recommendations: List[LiveDraftRecommendation]
     reasoning: str
+    key_moments: List[LiveDraftKeyMoment] = Field(
+        default_factory=list,
+        description="Recent steals / reaches / positional runs, newest first",
+    )
     unmatched_count: int = 0
 
 

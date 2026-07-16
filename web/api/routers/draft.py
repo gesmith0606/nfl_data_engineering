@@ -28,6 +28,7 @@ from ..models.schemas import (
     DraftPlayer,
     DraftRecommendation,
     DraftRecommendationsResponse,
+    LiveDraftKeyMoment,
     LiveDraftRecommendation,
     LiveDraftResponse,
     MockDraftPickRequest,
@@ -778,6 +779,8 @@ def live_draft_sync(
     recommendations: List[LiveDraftRecommendation] = []
     for _, row in recs_df.iterrows():
         pos = str(row.get("position", ""))
+        adp_rank = _safe_float(row.get("adp_rank"))
+        adp_diff = _safe_float(row.get("adp_diff"))
         recommendations.append(
             LiveDraftRecommendation(
                 player_id=str(row.get("player_id", "")),
@@ -792,8 +795,20 @@ def live_draft_sync(
                 ),
                 fills_need=bool(needs.get(pos, 0) > 0),
                 stack_note=str(row.get("stack_note", "") or ""),
+                adp_rank=int(adp_rank) if adp_rank is not None else None,
+                adp_diff=int(adp_diff) if adp_diff is not None else None,
             )
         )
+
+    # Ticker of noteworthy events (steals, reaches, positional runs). The
+    # engine is rebuilt per request, so result.key_moments covers the whole
+    # draft so far — keep the most recent few, newest first.
+    key_moments = [
+        LiveDraftKeyMoment(
+            kind=m.kind, pick_no=m.pick_no, player=m.player, detail=m.detail
+        )
+        for m in reversed(result.key_moments[-8:])
+    ]
 
     # The user's drafted roster so far.
     my_roster: List[DraftPlayer] = [
@@ -814,9 +829,11 @@ def live_draft_sync(
         on_the_clock_slot=turn.on_clock_slot if turn else None,
         is_my_turn=bool(turn.is_my_turn) if turn else False,
         picks_until_my_turn=picks_until,
+        my_next_pick_no=turn.my_next_pick_no if turn else None,
         my_roster=my_roster,
         remaining_needs=needs,
         recommendations=recommendations,
         reasoning=reasoning,
+        key_moments=key_moments,
         unmatched_count=len(result.unmatched),
     )

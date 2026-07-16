@@ -9,7 +9,18 @@ import { liveDraftQueryOptions } from '@/features/nfl/api/queries'
 import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
 import { SUCCESS_BADGE } from '@/lib/nfl/semantic-colors'
+import { pickLabel } from '@/lib/nfl/draft-math'
+import { useTurnAlert, requestTurnNotificationPermission } from '../hooks/use-turn-alert'
+import { CopyQueueButton } from './copy-queue-button'
 import type { LiveDraftParams } from '@/lib/nfl/types'
+
+const MOMENT_BADGE: Record<string, string> = {
+  steal: 'text-emerald-500',
+  value_drop: 'text-emerald-500',
+  reach: 'text-amber-500',
+  positional_run: 'text-sky-500',
+  grade: 'text-muted-foreground'
+}
 
 /**
  * Live draft co-pilot. Connect to a live Sleeper draft (by draft ID or
@@ -41,6 +52,16 @@ export function LiveDraftPanel() {
 
   const canConnect = !!(params.draftId || params.username)
 
+  // Chime + browser notification + tab flash the moment it's your pick — the
+  // silent-border-only version is how drafts get autodrafted away.
+  useTurnAlert(
+    !!data?.is_my_turn,
+    connected,
+    data?.recommendations[0]
+      ? `Our board says ${data.recommendations[0].player_name} (${data.recommendations[0].position}).`
+      : 'Check the GIQ board for your pick.'
+  )
+
   return (
     <FadeIn className='space-y-[var(--gap-stack)]'>
       {/* Connection form */}
@@ -63,9 +84,13 @@ export function LiveDraftPanel() {
           not the platform&apos;s rankings.
         </p>
         <div className='flex flex-wrap items-end gap-[var(--space-2)]'>
-          <label className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+          <label
+            htmlFor='live-draft-id'
+            className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+          >
             <span className='text-muted-foreground'>Sleeper draft ID</span>
             <Input
+              id='live-draft-id'
               className='w-48'
               placeholder='e.g. 1382528971035406336'
               value={form.draftId}
@@ -73,18 +98,26 @@ export function LiveDraftPanel() {
             />
           </label>
           <span className='text-muted-foreground pb-2 text-[length:var(--fs-xs)]'>or</span>
-          <label className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+          <label
+            htmlFor='live-draft-username'
+            className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+          >
             <span className='text-muted-foreground'>Sleeper username</span>
             <Input
+              id='live-draft-username'
               className='w-40'
               placeholder='Gforceee'
               value={form.username}
               onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
             />
           </label>
-          <label className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+          <label
+            htmlFor='live-draft-slot'
+            className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+          >
             <span className='text-muted-foreground'>Your slot</span>
             <Input
+              id='live-draft-slot'
               className='w-20'
               placeholder='5'
               inputMode='numeric'
@@ -96,7 +129,10 @@ export function LiveDraftPanel() {
             <Button
               size='sm'
               disabled={!canConnect}
-              onClick={() => setConnected(c => (canConnect ? !c : c))}
+              onClick={() => {
+                if (!connected && canConnect) requestTurnNotificationPermission()
+                setConnected(c => (canConnect ? !c : c))
+              }}
             >
               {connected ? 'Disconnect' : 'Connect'}
             </Button>
@@ -131,13 +167,20 @@ export function LiveDraftPanel() {
                     data.is_my_turn ? 'border-emerald-500 bg-emerald-500/5' : ''
                   }`}
                 >
-                  <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold'>
-                    {data.is_my_turn
-                      ? "🟢 YOU'RE ON THE CLOCK — take:"
-                      : data.picks_until_my_turn != null
-                        ? `Your pick in ${data.picks_until_my_turn} — our board says:`
-                        : 'Our recommendation:'}
-                  </p>
+                  <div className='flex items-start justify-between gap-[var(--space-2)]'>
+                    <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold'>
+                      {data.is_my_turn
+                        ? "🟢 YOU'RE ON THE CLOCK — take:"
+                        : data.picks_until_my_turn != null
+                          ? `Your pick in ${data.picks_until_my_turn}${
+                              data.my_next_pick_no != null
+                                ? ` (${pickLabel(data.my_next_pick_no, data.n_teams)})`
+                                : ''
+                            } — our board says:`
+                          : 'Our recommendation:'}
+                    </p>
+                    <CopyQueueButton players={data.recommendations} />
+                  </div>
                   <p className='text-muted-foreground mt-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
                     {data.reasoning}
                   </p>
@@ -167,8 +210,17 @@ export function LiveDraftPanel() {
                             fills need
                           </span>
                         )}
+                        {r.adp_diff != null && r.adp_diff >= 3 && (
+                          <span
+                            className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] font-semibold ${SUCCESS_BADGE}`}
+                            title={`ADP ${r.adp_rank} — the market drafts them ${r.adp_diff} spots later than our board`}
+                          >
+                            steal +{r.adp_diff}
+                          </span>
+                        )}
                         <span className='text-muted-foreground ml-auto text-[length:var(--fs-micro)] tabular-nums'>
                           VORP {r.vorp} · {r.projected_points}pt
+                          {r.adp_rank != null ? ` · ADP ${r.adp_rank}` : ''}
                         </span>
                       </li>
                     ))}
@@ -178,7 +230,41 @@ export function LiveDraftPanel() {
                       {data.recommendations.find(r => r.stack_note)?.stack_note}
                     </p>
                   )}
+                  <p className='text-muted-foreground mt-[var(--space-2)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
+                    Tip: Copy queue and preload it as your Sleeper queue — if
+                    the pick timer ever expires, autopick drafts from our
+                    board instead of the platform&apos;s.
+                  </p>
                 </div>
+
+                {/* Key moments ticker — steals, reaches, positional runs */}
+                {data.key_moments.length > 0 && (
+                  <div className='rounded-md border p-[var(--space-3)]'>
+                    <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold'>
+                      Key Moments
+                    </p>
+                    <ul className='mt-[var(--space-2)] space-y-1'>
+                      {data.key_moments.map(m => (
+                        <li
+                          key={`${m.kind}-${m.pick_no}-${m.player}`}
+                          className='flex items-baseline gap-[var(--space-2)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+                        >
+                          <span
+                            className={`w-20 shrink-0 font-semibold uppercase ${MOMENT_BADGE[m.kind] ?? 'text-muted-foreground'}`}
+                          >
+                            {m.kind.replace('_', ' ')}
+                          </span>
+                          <span className='text-muted-foreground font-mono tabular-nums'>
+                            #{m.pick_no}
+                          </span>
+                          <span className='font-medium'>{m.player}</span>
+                          <span className='text-muted-foreground'>{m.detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 <p className='text-muted-foreground text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
                   {data.status} · {data.picks_made} picks made · {data.n_teams} teams
                   {dataUpdatedAt
