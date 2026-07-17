@@ -1003,7 +1003,11 @@ class DraftSyncLogResponse(BaseModel):
         0, description="Applied picks attributed to the user's slot"
     )
     unmatched_lines: List[str] = Field(
-        default_factory=list, description="Lines no known player matched"
+        default_factory=list,
+        description="Sample of lines no known player matched (truncated)",
+    )
+    unmatched_count: int = Field(
+        0, description="True total of unmatched lines, before truncation"
     )
     picks_taken: int = Field(0, description="Total picks on the board after sync")
 

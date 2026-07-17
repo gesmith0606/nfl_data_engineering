@@ -510,6 +510,25 @@ class TestLiveDraftYahoo:
         assert resp.status_code == 503
         assert "mirror mode" in resp.json()["detail"].lower()
 
+    def test_yahoo_503_when_credentials_but_refresh_fails(self):
+        """Creds present but no usable token (failed refresh) also gates 503."""
+        from web.api.routers import draft as draft_module
+
+        class _FakeOAuthCredsNoToken:
+            def has_credentials(self):
+                return True
+
+            def get_access_token(self):
+                return None
+
+        with patch.object(draft_module, "YahooOAuth", _FakeOAuthCredsNoToken):
+            resp = client.get(
+                "/api/draft/live",
+                params={"draft_id": "nfl.l.12345", "platform": "yahoo"},
+            )
+        assert resp.status_code == 503
+        assert "mirror mode" in resp.json()["detail"].lower()
+
     def test_yahoo_live_sync_returns_recommendations(self):
         """With a granted token, Yahoo drafts flow through the same engine."""
         from web.api.routers import draft as draft_module
@@ -520,8 +539,10 @@ class TestLiveDraftYahoo:
         state = _fake_live_state([p1, p2])
 
         class _FakeYahooAdapter(RealYahooAdapter):
-            def __init__(self):
-                super().__init__(oauth=None)
+            # The endpoint passes its shared oauth instance (token-rotation
+            # safety) — accept and forward it like the real adapter.
+            def __init__(self, oauth=None):
+                super().__init__(oauth=oauth)
 
             def load_state(self, draft_id):
                 return state

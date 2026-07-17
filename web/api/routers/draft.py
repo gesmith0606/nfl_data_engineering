@@ -740,7 +740,9 @@ def live_draft_sync(
     user's own drafted roster and remaining needs.
     """
     if platform == "yahoo":
-        adapter: Any = YahooAdapter()
+        # One shared OAuth instance: the credential check below may rotate the
+        # refresh token, and a second instance would re-hit Yahoo's token
+        # endpoint (HTTP 999 throttling risk) mid-draft.
         oauth = YahooOAuth()
         if not oauth.has_credentials() or oauth.get_access_token() is None:
             raise HTTPException(
@@ -751,6 +753,7 @@ def live_draft_sync(
                     "YAHOO_CLIENT_ID/YAHOO_CLIENT_SECRET/YAHOO_REFRESH_TOKEN."
                 ),
             )
+        adapter: Any = YahooAdapter(oauth=oauth)
     else:
         adapter = SleeperAdapter()
 
@@ -810,8 +813,10 @@ def live_draft_sync(
         result = engine.update(state)
     except Exception as exc:
         logger.exception("Live draft sync failed for %s draft %s", platform, draft_id)
+        # Fixed message — exception text could carry platform response bodies
+        # (OAuth headers, API payloads); the cause is in the log line above.
         raise HTTPException(
-            status_code=502, detail=f"Live draft sync failed: {exc}"
+            status_code=502, detail="Live draft sync failed — see server logs."
         ) from exc
 
     # Our recommendations for the user's next pick.
@@ -944,5 +949,6 @@ def sync_pick_log(req: DraftSyncLogRequest) -> DraftSyncLogResponse:
         already_drafted=already,
         my_picks_applied=my_picks,
         unmatched_lines=parsed.unmatched_lines[:20],
+        unmatched_count=len(parsed.unmatched_lines),
         picks_taken=board.picks_taken(),
     )

@@ -84,8 +84,8 @@ export function PasteSyncPanel({ sessionId, mySlot }: PasteSyncPanelProps) {
             {result.applied} applied
             {result.my_picks_applied > 0 ? ` (${result.my_picks_applied} yours)` : ''}
             {result.already_drafted > 0 ? ` · ${result.already_drafted} already on board` : ''}
-            {result.unmatched_lines.length > 0
-              ? ` · ${result.unmatched_lines.length} lines unrecognized`
+            {result.unmatched_count > 0
+              ? ` · ${result.unmatched_count} lines unrecognized`
               : ''}
             {' · '}
             {result.picks_taken} total picks

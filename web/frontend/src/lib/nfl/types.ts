@@ -726,7 +726,9 @@ export interface DraftSyncLogResponse {
   applied: number
   already_drafted: number
   my_picks_applied: number
+  /** Sample of unmatched lines (truncated); unmatched_count is the true total. */
   unmatched_lines: string[]
+  unmatched_count: number
   picks_taken: number
 }
 
