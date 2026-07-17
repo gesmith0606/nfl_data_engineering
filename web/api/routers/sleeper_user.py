@@ -15,7 +15,7 @@ import math
 import os
 import time
 from datetime import datetime, timezone
-from typing import Any, Dict, List, NamedTuple, Optional, Tuple
+from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
 
 import pandas as pd
 from fastapi import APIRouter, HTTPException, Query, Response
@@ -107,7 +107,9 @@ def _load_projections(season: int) -> Optional[pd.DataFrame]:
     df = load_latest_preseason(season)
     if df is not None and not df.empty:
         return df
-    logger.warning("No preseason parquet for season=%d; projections unavailable", season)
+    logger.warning(
+        "No preseason parquet for season=%d; projections unavailable", season
+    )
     return None
 
 
@@ -388,6 +390,52 @@ def _require_league(league_id: str) -> Dict[str, Any]:
     return league
 
 
+def _cached_rosters(league_id: str) -> List[Dict[str, Any]]:
+    """Return all rosters for a league from Sleeper, TTL-cached in-process.
+
+    Args:
+        league_id: Numeric Sleeper league ID.
+
+    Returns:
+        Raw roster dicts as returned by the Sleeper API (possibly empty on
+        Sleeper outage — D-06 fail-open).
+    """
+    cache_key = f"rosters:{league_id}"
+    rosters = _cache_get(cache_key)
+    if rosters is None:
+        rosters = get_league_rosters(league_id, timeout=_SLEEPER_TIMEOUT_S)
+        _cache_set(cache_key, rosters)
+    return rosters
+
+
+def _require_league_projections(
+    league_id: str, season: int, scoring_settings: Dict[str, Any]
+) -> pd.DataFrame:
+    """Return league-re-scored projections, raising 503 when unavailable.
+
+    Args:
+        league_id: Numeric Sleeper league ID (cache key component).
+        season: NFL season year.
+        scoring_settings: Sleeper ``scoring_settings`` dict for re-scoring.
+
+    Returns:
+        Non-empty projections DataFrame re-scored for the league.
+
+    Raises:
+        HTTPException 503: no preseason parquet is available on disk.
+    """
+    projections = _league_projections(league_id, season, scoring_settings)
+    if projections is None or projections.empty:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "Projections unavailable — preseason parquet not found. "
+                "Run `generate_projections.py --preseason` first."
+            ),
+        )
+    return projections
+
+
 def _require_user_roster(
     rosters: List[Dict[str, Any]], user_id: str, league_id: str
 ) -> Tuple[Dict[str, Any], List[str]]:
@@ -446,9 +494,11 @@ def _to_leagues(payload: Any) -> List[SleeperLeague]:
                 total_rosters=item.get("total_rosters"),
                 sport=item.get("sport") or "nfl",
                 status=item.get("status"),
-                settings=item.get("settings")
-                if isinstance(item.get("settings"), dict)
-                else None,
+                settings=(
+                    item.get("settings")
+                    if isinstance(item.get("settings"), dict)
+                    else None
+                ),
             )
         )
     return out
@@ -654,7 +704,9 @@ def _build_league_context(league_id: str, season: Optional[int]) -> "_LeagueCont
 def league_overview(
     league_id: str,
     user_id: Optional[str] = Query(None, description="Sleeper user_id to load roster"),
-    season: Optional[int] = Query(None, description="Season year (defaults to current)"),
+    season: Optional[int] = Query(
+        None, description="Season year (defaults to current)"
+    ),
 ) -> LeagueOverviewResponse:
     """Return league settings + scoring summary + user's re-scored roster.
 
@@ -683,12 +735,7 @@ def league_overview(
 
     user_roster_rows: List[LeagueRosterPlayer] = []
     if user_id:
-        cache_key = f"rosters:{league_id}"
-        rosters = _cache_get(cache_key)
-        if rosters is None:
-            rosters = get_league_rosters(league_id, timeout=_SLEEPER_TIMEOUT_S)
-            _cache_set(cache_key, rosters)
-
+        rosters = _cached_rosters(league_id)
         try:
             _, player_ids = _require_user_roster(rosters, user_id, league_id)
         except HTTPException:
@@ -706,9 +753,7 @@ def league_overview(
                 for row in matched:
                     user_roster_rows.append(
                         LeagueRosterPlayer(
-                            sleeper_player_id=str(
-                                row.get("sleeper_player_id") or ""
-                            ),
+                            sleeper_player_id=str(row.get("sleeper_player_id") or ""),
                             player_name=row.get("player_name"),
                             position=str(row.get("position") or "").upper() or None,
                             team=row.get("team") or row.get("recent_team"),
@@ -737,7 +782,9 @@ def league_overview(
 def league_roster_report(
     league_id: str,
     user_id: str = Query(..., description="Sleeper user_id"),
-    season: Optional[int] = Query(None, description="Season year (defaults to current)"),
+    season: Optional[int] = Query(
+        None, description="Season year (defaults to current)"
+    ),
 ) -> RosterReportResponse:
     """Return optimal starting lineup, bench, and drop candidates for the user's roster.
 
@@ -766,25 +813,12 @@ def league_roster_report(
     ctx = _build_league_context(league_id, season)
 
     # --- re-scored projections (cached) --------------------------------------
-    projections = _league_projections(
+    projections = _require_league_projections(
         league_id, ctx.use_season, ctx.scoring_settings
     )
-    if projections is None or projections.empty:
-        raise HTTPException(
-            status_code=503,
-            detail=(
-                "Projections unavailable — preseason parquet not found. "
-                "Run `generate_projections.py --preseason` first."
-            ),
-        )
 
     # --- user's roster -------------------------------------------------------
-    cache_key = f"rosters:{league_id}"
-    rosters = _cache_get(cache_key)
-    if rosters is None:
-        rosters = get_league_rosters(league_id, timeout=_SLEEPER_TIMEOUT_S)
-        _cache_set(cache_key, rosters)
-
+    rosters = _cached_rosters(league_id)
     _, player_ids = _require_user_roster(rosters, user_id, league_id)
 
     # --- map player_ids → projection rows ------------------------------------
@@ -866,7 +900,9 @@ def league_roster_report(
 def league_waivers(
     league_id: str,
     user_id: str = Query(..., description="Sleeper user_id"),
-    season: Optional[int] = Query(None, description="Season year (defaults to current)"),
+    season: Optional[int] = Query(
+        None, description="Season year (defaults to current)"
+    ),
 ) -> WaiversResponse:
     """Return top-20 unrostered free agents ranked by league-scored season projection.
 
@@ -891,24 +927,12 @@ def league_waivers(
         HTTPException 503: projections unavailable.
     """
     ctx = _build_league_context(league_id, season)
-    projections = _league_projections(
+    projections = _require_league_projections(
         league_id, ctx.use_season, ctx.scoring_settings
     )
-    if projections is None or projections.empty:
-        raise HTTPException(
-            status_code=503,
-            detail=(
-                "Projections unavailable — preseason parquet not found. "
-                "Run `generate_projections.py --preseason` first."
-            ),
-        )
 
     # --- all rostered players across entire league ---------------------------
-    cache_key = f"rosters:{league_id}"
-    rosters = _cache_get(cache_key)
-    if rosters is None:
-        rosters = get_league_rosters(league_id, timeout=_SLEEPER_TIMEOUT_S)
-        _cache_set(cache_key, rosters)
+    rosters = _cached_rosters(league_id)
 
     all_rostered_ids: set = set()
     user_player_ids: List[str] = []
@@ -940,22 +964,9 @@ def league_waivers(
     # Identify free agents: skill-position players in Sleeper registry that
     # are not rostered in the league and have a matching projection row.
     free_agent_rows: List[Dict[str, Any]] = []
-    for pid, meta in player_index.items():
-        if str(pid) in all_rostered_ids:
-            continue
-        pos = str(meta.get("position") or "").upper()
-        if pos not in _SKILL_POSITIONS:
-            continue
-        norm = meta.get("normalized_name") or normalize_name(
-            str(meta.get("full_name") or "")
-        )
-        if not norm:
-            continue
-        if not _is_relevant_free_agent(meta, norm, adp_lookup):
-            continue
-        base_row = proj_lookup.get((norm, pos))
-        if base_row is None:
-            continue
+    for pid, meta, base_row in _iter_projected_free_agents(
+        player_index, proj_lookup, all_rostered_ids, adp_lookup
+    ):
         # Team-aware tiebreak: if both player and stored row have known teams
         # and they differ, the lookup hit belongs to a same-name player on a
         # different team — skip to avoid mis-attribution.
@@ -964,7 +975,7 @@ def league_waivers(
         if player_team and stored_team and player_team != stored_team:
             continue
         row = dict(base_row)
-        row["sleeper_player_id"] = str(pid)
+        row["sleeper_player_id"] = pid
         free_agent_rows.append(row)
 
     # Sort by projected_season_points descending.
@@ -1099,6 +1110,54 @@ def _is_relevant_free_agent(
     return True
 
 
+def _iter_projected_free_agents(
+    player_index: Dict[str, Dict[str, str]],
+    proj_lookup: Dict[Tuple[str, str], Dict[str, Any]],
+    all_rostered_ids: set,
+    adp_lookup: Dict[str, int],
+) -> Iterator[Tuple[str, Dict[str, Any], Dict[str, Any]]]:
+    """Yield ``(player_id, registry_meta, projection_row)`` for matchable free agents.
+
+    Shared registry scan behind ``league_waivers`` and ``league_draft_prep``:
+    iterates the Sleeper player registry and yields unrostered skill-position
+    players that pass the market-relevance filter and have a projection row
+    keyed by ``(normalized_name, position)``.  Callers apply endpoint-specific
+    enrichment (team-aware tiebreak, ``years_exp``) on the yielded rows.
+
+    This intentionally does NOT reuse ``map_picks_to_projections``: that path
+    fuzzy-resolves a short, known pick list into projections, while this scans
+    the full ~10k-player registry against a vectorized ``(norm, pos)`` lookup.
+    Funnelling the registry through synthesized ``PickEvent`` objects would be
+    far slower and would change match semantics (fuzzy fallbacks vs exact
+    normalized keys).
+
+    Args:
+        player_index: Sleeper player_id → name/pos/team index.
+        proj_lookup: ``(normalized_name, POSITION)`` → projection-row dict.
+        all_rostered_ids: Sleeper player_ids rostered anywhere in the league.
+        adp_lookup: normalized name → ADP rank (market-relevance filter).
+
+    Yields:
+        ``(player_id, meta, projection_row)`` tuples; ``projection_row`` is the
+        shared lookup dict — callers must copy before mutating.
+    """
+    for pid, meta in player_index.items():
+        if str(pid) in all_rostered_ids:
+            continue
+        pos = str(meta.get("position") or "").upper()
+        if pos not in _SKILL_POSITIONS:
+            continue
+        norm = meta.get("normalized_name") or normalize_name(
+            str(meta.get("full_name") or "")
+        )
+        if not norm or not _is_relevant_free_agent(meta, norm, adp_lookup):
+            continue
+        base_row = proj_lookup.get((norm, pos))
+        if base_row is None:
+            continue
+        yield str(pid), meta, base_row
+
+
 def _build_draft_info(league_id: str, user_id: Optional[str]) -> Optional[DraftInfo]:
     """Fetch the first upcoming/active draft for a league and return a DraftInfo.
 
@@ -1156,7 +1215,9 @@ def _build_draft_info(league_id: str, user_id: Optional[str]) -> Optional[DraftI
 def league_draft_prep(
     league_id: str,
     user_id: Optional[str] = Query(None, description="Sleeper user_id"),
-    season: Optional[int] = Query(None, description="Season year (defaults to current)"),
+    season: Optional[int] = Query(
+        None, description="Season year (defaults to current)"
+    ),
 ) -> LeagueDraftPrepResponse:
     """Return pre-draft analysis for a league: keeper candidates, draft info, best available, and rookies.
 
@@ -1210,11 +1271,7 @@ def league_draft_prep(
     adp_lookup = _cached_adp()
 
     # --- rosters: all league members + user's own players -------------------
-    cache_key = f"rosters:{league_id}"
-    rosters = _cache_get(cache_key)
-    if rosters is None:
-        rosters = get_league_rosters(league_id, timeout=_SLEEPER_TIMEOUT_S)
-        _cache_set(cache_key, rosters)
+    rosters = _cached_rosters(league_id)
 
     all_rostered_ids: set = set()
     user_player_ids: List[str] = []
@@ -1232,7 +1289,9 @@ def league_draft_prep(
     # --- keeper candidates ---------------------------------------------------
     keeper_candidates: List[KeeperCandidate] = []
     if user_player_ids and projections is not None and not projections.empty:
-        matched, _ = _map_roster_to_projections(user_player_ids, projections, player_index)
+        matched, _ = _map_roster_to_projections(
+            user_player_ids, projections, player_index
+        )
         # Sort descending by projected_season_points.
         matched.sort(
             key=lambda r: _safe_float(r.get("projected_season_points")) or 0,
@@ -1253,7 +1312,9 @@ def league_draft_prep(
                     player_name=row.get("player_name"),
                     position=str(row.get("position") or "").upper() or None,
                     team=row.get("team") or row.get("recent_team"),
-                    projected_season_points=_safe_float(row.get("projected_season_points")),
+                    projected_season_points=_safe_float(
+                        row.get("projected_season_points")
+                    ),
                     taxi_eligible=taxi_eligible,
                 )
             )
@@ -1270,24 +1331,13 @@ def league_draft_prep(
 
         # Scan registry for unrostered skill-position players with projections.
         free_agent_rows: List[Dict[str, Any]] = []
-        for pid, meta in player_index.items():
-            if str(pid) in all_rostered_ids:
-                continue
-            pos = str(meta.get("position") or "").upper()
-            if pos not in _SKILL_POSITIONS:
-                continue
-            norm = meta.get("normalized_name") or normalize_name(
-                str(meta.get("full_name") or "")
-            )
-            if not norm or not _is_relevant_free_agent(meta, norm, adp_lookup):
-                continue
-            proj_row = proj_lookup.get((norm, pos))
-            if proj_row is None:
-                continue
+        for pid, _meta, proj_row in _iter_projected_free_agents(
+            player_index, proj_lookup, all_rostered_ids, adp_lookup
+        ):
             enriched = dict(proj_row)
-            enriched["sleeper_player_id"] = str(pid)
+            enriched["sleeper_player_id"] = pid
             # Use raw_registry to get years_exp (build_player_index strips it).
-            raw_rec = raw_registry.get(str(pid), {})
+            raw_rec = raw_registry.get(pid, {})
             try:
                 enriched["years_exp"] = int(raw_rec.get("years_exp") or 0)
             except (TypeError, ValueError):
