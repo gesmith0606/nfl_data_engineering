@@ -6,11 +6,9 @@ MockDraftSimulator, compute_value_scores) in stateful HTTP endpoints using
 in-memory session storage keyed by UUID.
 """
 
-import glob
 import logging
 import uuid
 from datetime import datetime, timezone
-from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -51,6 +49,11 @@ from draft_optimizer import (  # noqa: E402
 )
 from nfl_data_integration import NFLDataFetcher  # noqa: E402
 from projection_engine import generate_preseason_projections  # noqa: E402
+
+# Canonical preseason loader (src/projection_store.py) — imported via the
+# ``src.`` package path so this router shares one module instance (and thus
+# one lru read-cache) with the league router and the CLI co-pilot.
+from src.projection_store import load_latest_preseason  # noqa: E402
 
 # Live-draft co-pilot wiring (v8.0): read a live Sleeper draft and drive our
 # roster-aware recommendation engine. Imported lazily-safe at module load so a
@@ -123,48 +126,26 @@ def _safe_int(val: object, default: int = 0) -> int:
         return default
 
 
-@lru_cache(maxsize=8)
-def _read_projection_parquet(file_path: str) -> pd.DataFrame:
-    """Read (and cache) a projection Parquet by path.
-
-    The live-draft endpoint polls every ~5s; without this cache each poll would
-    re-read the same Gold artifact from disk. Keyed on the resolved file path so
-    a newer artifact (new timestamp in the filename) naturally busts the cache.
-    Callers must NOT mutate the returned frame — the only consumer
-    (``compute_value_scores``) copies before writing.
-    """
-    return pd.read_parquet(file_path)
-
-
 def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame]:
     """Attempt to load cached Gold preseason projections from local Parquet files.
 
+    Thin wrapper over :func:`src.projection_store.load_latest_preseason` —
+    the canonical loader shared with the league router and the CLI draft
+    co-pilot.  The loader lru-caches the parquet read keyed on file path
+    (the live-draft endpoint polls every ~5s), so a newer artifact with a
+    fresh filename timestamp naturally busts the cache.
+
     Args:
-        scoring: Scoring format key (used for logging only; cached files are
-                 format-agnostic since points are already computed).
+        scoring: Scoring format key (unused; cached files are format-agnostic
+                 since points are already computed — kept for signature
+                 stability with callers and tests).
         season:  NFL season year.
 
     Returns:
         DataFrame of cached projections, or ``None`` if no cache is available.
         The frame is a shared, cached read — treat it as read-only.
     """
-    cache_dir = (
-        _PROJECT_ROOT
-        / "data"
-        / "gold"
-        / "projections"
-        / "preseason"
-        / f"season={season}"
-    )
-    pattern = str(cache_dir / "*.parquet")
-    files = sorted(glob.glob(pattern))
-    if not files:
-        return None
-    try:
-        return _read_projection_parquet(files[-1])  # latest by filename timestamp
-    except Exception as exc:
-        logger.warning("Failed to read cached projection file %s: %s", files[-1], exc)
-        return None
+    return load_latest_preseason(season)
 
 
 def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
