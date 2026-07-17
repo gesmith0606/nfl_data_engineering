@@ -45,10 +45,22 @@ describe('parseAdvisorLeagues', () => {
     expect(parsed).toHaveLength(1);
   });
 
+  it('rejects IDs containing path or query characters', () => {
+    const parsed = parseAdvisorLeagues([
+      { ...validLeague, league_id: '../../admin' },
+      { ...validLeague, league_id: '123/waivers' },
+      { ...validLeague, user_id: '1?admin=true' },
+      { ...validLeague, league_id: 'x y' },
+      validLeague
+    ]);
+    expect(parsed).toHaveLength(1);
+    expect(parsed[0].league_id).toBe(validLeague.league_id);
+  });
+
   it('caps at 3 leagues', () => {
     const many = Array.from({ length: 5 }, (_, i) => ({
       ...validLeague,
-      league_id: `league-${i}`
+      league_id: `league${i}`
     }));
     expect(parseAdvisorLeagues(many)).toHaveLength(3);
   });

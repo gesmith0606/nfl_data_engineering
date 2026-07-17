@@ -972,7 +972,7 @@ export async function POST(req: Request) {
           }>;
           const params = new URLSearchParams({ user_id: league.user_id });
           const result = await fastapiGet<RosterPayload>(
-            `/api/sleeper/rosters/${league.league_id}?${params}`
+            `/api/sleeper/rosters/${encodeURIComponent(league.league_id)}?${params}`
           );
           if (!result.ok) {
             return { found: false, message: result.message };
@@ -1047,7 +1047,7 @@ export async function POST(req: Request) {
           const params = new URLSearchParams({ user_id: league.user_id });
           if (league.season) params.set('season', league.season);
           const result = await fastapiGet<ReportPayload>(
-            `/api/league/${league.league_id}/roster-report?${params}`
+            `/api/league/${encodeURIComponent(league.league_id)}/roster-report?${params}`
           );
           if (!result.ok) {
             return { found: false, message: result.message };
@@ -1100,7 +1100,7 @@ export async function POST(req: Request) {
           const params = new URLSearchParams({ user_id: league.user_id });
           if (league.season) params.set('season', league.season);
           const result = await fastapiGet<WaiversPayload>(
-            `/api/league/${league.league_id}/waivers?${params}`
+            `/api/league/${encodeURIComponent(league.league_id)}/waivers?${params}`
           );
           if (!result.ok) {
             return { found: false, message: result.message };

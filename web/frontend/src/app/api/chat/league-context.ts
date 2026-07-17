@@ -18,6 +18,10 @@ export interface AdvisorLeague {
 
 const MAX_LEAGUES = 3;
 
+// Sleeper IDs are numeric strings; allow word chars only so untrusted client
+// payloads can never smuggle path segments into backend URLs.
+const SAFE_ID = /^\w+$/;
+
 function asString(value: unknown, fallback = ''): string {
   return typeof value === 'string' ? value : fallback;
 }
@@ -35,7 +39,7 @@ export function parseAdvisorLeagues(raw: unknown): AdvisorLeague[] {
     const e = entry as Record<string, unknown>;
     const leagueId = asString(e.league_id);
     const userId = asString(e.user_id);
-    if (!leagueId || !userId) continue;
+    if (!SAFE_ID.test(leagueId) || !SAFE_ID.test(userId)) continue;
     leagues.push({
       league_id: leagueId,
       user_id: userId,
