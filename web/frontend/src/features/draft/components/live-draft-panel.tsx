@@ -10,6 +10,7 @@ import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
 import { SUCCESS_BADGE } from '@/lib/nfl/semantic-colors'
 import { pickLabel } from '@/lib/nfl/draft-math'
+import { isServiceUnavailable } from '@/features/nfl/api/service'
 import { useTurnAlert, requestTurnNotificationPermission } from '../hooks/use-turn-alert'
 import { CopyQueueButton } from './copy-queue-button'
 import type { LiveDraftParams } from '@/lib/nfl/types'
@@ -22,14 +23,22 @@ const MOMENT_BADGE: Record<string, string> = {
   grade: 'text-muted-foreground'
 }
 
+interface LiveDraftPanelProps {
+  /** Auto-sync platform. Sleeper is public; Yahoo needs a server OAuth grant. */
+  platform?: 'sleeper' | 'yahoo'
+  /** Offered when Yahoo auto-sync is unavailable (server not connected). */
+  onUseMirror?: () => void
+}
+
 /**
- * Live draft co-pilot. Connect to a live Sleeper draft (by draft ID or
- * username) and the panel polls every ~5s: picks are read straight from the
- * platform, and the recommendation for your next pick comes from OUR
- * roster-aware engine (VORP + positional need + stacks) — not the platform's
- * autopick order. This is the answer to "autopick doesn't represent our board".
+ * Live draft co-pilot. Connect to a live Sleeper or Yahoo draft and the panel
+ * polls every ~5s: picks are read straight from the platform, and the
+ * recommendation for your next pick comes from OUR roster-aware engine (VORP +
+ * positional need + stacks) — not the platform's autopick order. This is the
+ * answer to "autopick doesn't represent our board".
  */
-export function LiveDraftPanel() {
+export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftPanelProps) {
+  const isYahoo = platform === 'yahoo'
   const [form, setForm] = useState<{ draftId: string; username: string; mySlot: string }>({
     draftId: '',
     username: '',
@@ -39,16 +48,18 @@ export function LiveDraftPanel() {
 
   const params: LiveDraftParams = {
     draftId: form.draftId.trim() || undefined,
-    username: form.username.trim() || undefined,
+    username: isYahoo ? undefined : form.username.trim() || undefined,
     mySlot: form.mySlot ? Number(form.mySlot) : undefined,
     season: 2026,
     scoring: 'half_ppr',
-    topN: 6
+    topN: 6,
+    platform
   }
 
-  const { data, isLoading, isError, dataUpdatedAt } = useQuery(
+  const { data, isLoading, isError, error, dataUpdatedAt } = useQuery(
     liveDraftQueryOptions(params, connected)
   )
+  const notConnectedOnServer = isError && isServiceUnavailable(error)
 
   const canConnect = !!(params.draftId || params.username)
 
@@ -79,38 +90,46 @@ export function LiveDraftPanel() {
           )}
         </div>
         <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-          Connect your live Sleeper draft. We read every pick as it happens and
-          recommend your pick from our board — VORP, roster need, and stacks —
-          not the platform&apos;s rankings.
+          Connect your live {isYahoo ? 'Yahoo' : 'Sleeper'} draft. We read every
+          pick as it happens and recommend your pick from our board — VORP,
+          roster need, and stacks — not the platform&apos;s rankings.
         </p>
         <div className='flex flex-wrap items-end gap-[var(--space-2)]'>
           <label
             htmlFor='live-draft-id'
             className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
           >
-            <span className='text-muted-foreground'>Sleeper draft ID</span>
+            <span className='text-muted-foreground'>
+              {isYahoo ? 'Yahoo league ID' : 'Sleeper draft ID'}
+            </span>
             <Input
               id='live-draft-id'
               className='w-48'
-              placeholder='e.g. 1382528971035406336'
+              placeholder={isYahoo ? 'e.g. nfl.l.12345' : 'e.g. 1382528971035406336'}
               value={form.draftId}
               onChange={e => setForm(f => ({ ...f, draftId: e.target.value }))}
             />
           </label>
-          <span className='text-muted-foreground pb-2 text-[length:var(--fs-xs)]'>or</span>
-          <label
-            htmlFor='live-draft-username'
-            className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
-          >
-            <span className='text-muted-foreground'>Sleeper username</span>
-            <Input
-              id='live-draft-username'
-              className='w-40'
-              placeholder='Gforceee'
-              value={form.username}
-              onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
-            />
-          </label>
+          {!isYahoo && (
+            <>
+              <span className='text-muted-foreground pb-2 text-[length:var(--fs-xs)]'>
+                or
+              </span>
+              <label
+                htmlFor='live-draft-username'
+                className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+              >
+                <span className='text-muted-foreground'>Sleeper username</span>
+                <Input
+                  id='live-draft-username'
+                  className='w-40'
+                  placeholder='Gforceee'
+                  value={form.username}
+                  onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
+                />
+              </label>
+            </>
+          )}
           <label
             htmlFor='live-draft-slot'
             className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
@@ -154,10 +173,28 @@ export function LiveDraftPanel() {
           }
         >
           {isError ? (
-            <p className='text-muted-foreground text-[length:var(--fs-sm)] py-[var(--space-4)]'>
-              Couldn&apos;t reach that draft. Check the draft ID / username (the
-              draft must be active on Sleeper).
-            </p>
+            notConnectedOnServer ? (
+              <div className='space-y-[var(--space-2)] py-[var(--space-4)]'>
+                <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                  Yahoo auto-sync isn&apos;t connected on this server (it needs a
+                  one-time Yahoo OAuth grant). You can still get the full
+                  co-pilot with mirror mode — same board, same alerts.
+                </p>
+                {onUseMirror && (
+                  <PressScale>
+                    <Button size='sm' onClick={onUseMirror}>
+                      Use Mirror Mode instead
+                    </Button>
+                  </PressScale>
+                )}
+              </div>
+            ) : (
+              <p className='text-muted-foreground text-[length:var(--fs-sm)] py-[var(--space-4)]'>
+                Couldn&apos;t reach that draft. Check the{' '}
+                {isYahoo ? 'league ID' : 'draft ID / username'} (the draft must
+                be active on {isYahoo ? 'Yahoo' : 'Sleeper'}).
+              </p>
+            )
           ) : data ? (
             <div className='flex flex-col gap-[var(--gap-stack)] lg:flex-row'>
               {/* Recommendation (our board) */}
@@ -233,9 +270,10 @@ export function LiveDraftPanel() {
                     </p>
                   )}
                   <p className='text-muted-foreground mt-[var(--space-2)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
-                    Tip: Copy queue and preload it as your Sleeper queue — if
-                    the pick timer ever expires, autopick drafts from our
-                    board instead of the platform&apos;s.
+                    Tip: Copy queue and preload it as your{' '}
+                    {isYahoo ? 'Yahoo' : 'Sleeper'} queue — if the pick timer
+                    ever expires, autopick drafts from our board instead of the
+                    platform&apos;s.
                   </p>
                 </div>
 

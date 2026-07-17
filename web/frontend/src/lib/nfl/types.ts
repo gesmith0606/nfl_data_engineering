@@ -695,9 +695,10 @@ export interface LiveDraftResponse {
   reasoning: string
   key_moments: LiveDraftKeyMoment[]
   unmatched_count: number
+  platform: string
 }
 
-/** Platforms the live co-pilot supports (Sleeper auto-sync; others mirror). */
+/** Platforms the live co-pilot supports (Sleeper/Yahoo auto-sync; ESPN paste/mirror). */
 export type DraftPlatform = 'sleeper' | 'espn' | 'yahoo'
 
 /** Connection params for live draft sync. */
@@ -709,6 +710,24 @@ export interface LiveDraftParams {
   season?: number
   scoring?: ScoringFormat
   topN?: number
+  platform?: DraftPlatform
+}
+
+/** Request to apply a pasted draft-room pick log to a board session. */
+export interface DraftSyncLogRequest {
+  session_id: string
+  text: string
+  my_slot?: number
+}
+
+/** Result of a paste-sync application. */
+export interface DraftSyncLogResponse {
+  matched: number
+  applied: number
+  already_drafted: number
+  my_picks_applied: number
+  unmatched_lines: string[]
+  picks_taken: number
 }
 
 /** Request to start a mock draft. */

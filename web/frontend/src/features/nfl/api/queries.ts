@@ -26,6 +26,7 @@ import {
   fetchTeamMatchup,
   fetchTeamRoster,
   fetchTeamSentiment,
+  isServiceUnavailable,
   searchPlayers,
   fetchMultiCompareRankings,
 } from './service';
@@ -247,9 +248,11 @@ export const draftRecommendationsQueryOptions = (
   });
 
 /**
- * Poll a live Sleeper draft every few seconds. Picks come from the platform;
- * the recommendation comes from our roster-aware engine. `enabled` gates on a
- * connection (draftId or username) so we never poll an empty form.
+ * Poll a live draft (Sleeper or Yahoo) every few seconds. Picks come from the
+ * platform; the recommendation comes from our roster-aware engine. `enabled`
+ * gates on a connection (draftId or username) so we never poll an empty form.
+ * Yahoo-not-connected (503) is terminal — retrying can't fix a missing OAuth
+ * grant, so we stop polling and let the UI offer mirror mode.
  */
 export const liveDraftQueryOptions = (
   params: LiveDraftParams,
@@ -257,11 +260,20 @@ export const liveDraftQueryOptions = (
 ) =>
   queryOptions({
     queryKey: nflKeys.liveDraft(
-      JSON.stringify([params.draftId, params.username, params.leagueId, params.mySlot])
+      JSON.stringify([
+        params.platform ?? 'sleeper',
+        params.draftId,
+        params.username,
+        params.leagueId,
+        params.mySlot
+      ])
     ),
     queryFn: () => fetchLiveDraft(params),
     enabled: connected && !!(params.draftId || params.username),
-    refetchInterval: 5000,
+    refetchInterval: (query) =>
+      isServiceUnavailable(query.state.error) ? false : 5000,
+    retry: (failureCount, error) =>
+      !isServiceUnavailable(error) && failureCount < 3,
     staleTime: 0
   });
 

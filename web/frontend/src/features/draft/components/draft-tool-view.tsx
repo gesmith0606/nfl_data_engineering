@@ -15,6 +15,7 @@ import { RecommendationsPanel } from './recommendations-panel'
 import { MockDraftView } from './mock-draft-view'
 import { LiveDraftPanel } from './live-draft-panel'
 import { MirrorTurnTracker } from './mirror-turn-tracker'
+import { PasteSyncPanel } from './paste-sync-panel'
 import { requestTurnNotificationPermission } from '../hooks/use-turn-alert'
 import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
 import type { DraftPlatform, Position } from '@/lib/nfl/types'
@@ -22,18 +23,20 @@ import type { DraftPlatform, Position } from '@/lib/nfl/types'
 const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K']
 
 const MIRROR_COPY: Record<Exclude<DraftPlatform, 'sleeper'>, string> = {
-  espn: 'ESPN has no public draft API, so picks can’t auto-sync. Mirror mode gives you the same co-pilot: record every pick with Draft / Taken and we track the clock, alert your turn, and call your pick from our board.',
-  yahoo: 'Yahoo live sync needs an OAuth grant (supported in the CLI co-pilot). On the web, mirror mode gives you the same experience: record every pick with Draft / Taken and we track the clock, alert your turn, and call your pick from our board.'
+  espn: 'ESPN has no public draft API, so picks can’t stream automatically. Mirror mode is still a co-pilot, not a chore: paste the draft room’s pick history any time and the whole board catches up in one shot (no per-pick clicking), while we track the clock, alert your turn, and call your pick from our board.',
+  yahoo: 'Yahoo auto-sync isn’t connected on this server. Mirror mode gives you the same co-pilot: paste-sync or Draft/Taken to record picks — we track the clock, alert your turn, and call your pick from our board.'
 }
 
 export function DraftToolView() {
   // Live co-pilot is a distinct surface from the manual board: it reads a real
-  // Sleeper draft and drives our recommendation engine. Kept as local UI state
-  // so it overlays the existing board/mock flow without touching that logic.
+  // Sleeper/Yahoo draft and drives our recommendation engine. Kept as local UI
+  // state so it overlays the existing board/mock flow without touching it.
   const [liveMode, setLiveMode] = useState(false)
   const [livePlatform, setLivePlatform] = useState<DraftPlatform>('sleeper')
+  // Yahoo tries true auto-sync first; mirror is the unauthenticated fallback.
+  const [yahooMode, setYahooMode] = useState<'live' | 'mirror'>('live')
   // Mirror mode: ESPN/Yahoo drafts tracked on the manual board with snake-math
-  // turn alerts. null = not mirroring.
+  // turn alerts + paste-sync. null = not mirroring.
   const [mirror, setMirror] = useState<{ platform: DraftPlatform; slot: number } | null>(null)
   const [mirrorSlotInput, setMirrorSlotInput] = useState('')
   const {
@@ -149,6 +152,11 @@ export function DraftToolView() {
         </div>
         {livePlatform === 'sleeper' ? (
           <LiveDraftPanel />
+        ) : livePlatform === 'yahoo' && yahooMode === 'live' ? (
+          <LiveDraftPanel
+            platform='yahoo'
+            onUseMirror={() => setYahooMode('mirror')}
+          />
         ) : (
           <div className='rounded-md border p-[var(--space-4)] space-y-[var(--space-3)]'>
             <div className='flex items-center gap-[var(--space-2)]'>
@@ -156,6 +164,16 @@ export function DraftToolView() {
               <h2 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold capitalize'>
                 {livePlatform} Draft — Mirror Mode
               </h2>
+              {livePlatform === 'yahoo' && (
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  className='ml-auto'
+                  onClick={() => setYahooMode('live')}
+                >
+                  Try auto-sync
+                </Button>
+              )}
             </div>
             <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
               {MIRROR_COPY[livePlatform]}
@@ -271,16 +289,19 @@ export function DraftToolView() {
         </div>
       </div>
 
-      {/* Mirror-mode turn tracker (ESPN / Yahoo) */}
+      {/* Mirror-mode turn tracker + paste-sync (ESPN / Yahoo) */}
       {mirror && data && (
-        <MirrorTurnTracker
-          platform={mirror.platform}
-          picksTaken={data.picks_taken}
-          nTeams={data.n_teams}
-          mySlot={mirror.slot}
-          onSlotChange={slot => setMirror(m => (m ? { ...m, slot } : m))}
-          onExit={() => setMirror(null)}
-        />
+        <>
+          <MirrorTurnTracker
+            platform={mirror.platform}
+            picksTaken={data.picks_taken}
+            nTeams={data.n_teams}
+            mySlot={mirror.slot}
+            onSlotChange={slot => setMirror(m => (m ? { ...m, slot } : m))}
+            onExit={() => setMirror(null)}
+          />
+          <PasteSyncPanel sessionId={sessionId} mySlot={mirror.slot} />
+        </>
       )}
 
       {/* Session info badge */}

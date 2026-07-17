@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -28,6 +28,8 @@ from ..models.schemas import (
     DraftPlayer,
     DraftRecommendation,
     DraftRecommendationsResponse,
+    DraftSyncLogRequest,
+    DraftSyncLogResponse,
     LiveDraftKeyMoment,
     LiveDraftRecommendation,
     LiveDraftResponse,
@@ -54,8 +56,11 @@ from projection_engine import generate_preseason_projections  # noqa: E402
 # roster-aware recommendation engine. Imported lazily-safe at module load so a
 # missing optional dep never breaks the mock-draft endpoints above.
 from draft_adapter import SleeperAdapter  # noqa: E402
+from draft_paste_sync import build_name_lookup, parse_pick_log  # noqa: E402
 from live_draft_engine import LiveDraftEngine  # noqa: E402
 from sleeper_draft import load_draft_state, resolve_active_draft  # noqa: E402
+from yahoo_adapter import YahooAdapter  # noqa: E402
+from yahoo_oauth import YahooOAuth  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
@@ -685,8 +690,11 @@ def _load_adp_df() -> Optional[pd.DataFrame]:
 def live_draft_sync(
     draft_id: Optional[str] = Query(
         None,
-        pattern=r"^\d{1,20}$",
-        description="Sleeper draft_id (or provide username to resolve it)",
+        pattern=r"^[A-Za-z0-9.]{1,30}$",
+        description=(
+            "Sleeper draft_id, or Yahoo league key (nfl.l.<id>) / bare league "
+            "id when platform=yahoo"
+        ),
     ),
     username: Optional[str] = Query(
         None,
@@ -695,8 +703,8 @@ def live_draft_sync(
     ),
     league_id: Optional[str] = Query(
         None,
-        pattern=r"^\d{1,20}$",
-        description="Optional Sleeper league_id to disambiguate the draft",
+        pattern=r"^[A-Za-z0-9.]{1,30}$",
+        description="Optional league id to disambiguate the draft",
     ),
     my_slot: Optional[int] = Query(
         None, ge=1, le=20, description="Your draft slot (1-based)"
@@ -709,33 +717,67 @@ def live_draft_sync(
         "half_ppr", pattern="^(ppr|half_ppr|standard)$", description="Scoring format"
     ),
     top_n: int = Query(5, ge=1, le=15, description="Number of recommendations"),
+    platform: str = Query(
+        "sleeper",
+        pattern="^(sleeper|yahoo)$",
+        description="Draft platform (Sleeper public API, or Yahoo via OAuth)",
+    ),
 ) -> LiveDraftResponse:
-    """Sync a live Sleeper draft and return *our* roster-aware recommendation.
+    """Sync a live draft and return *our* roster-aware recommendation.
 
     This is the fix for "autopick just uses the platform's board": picks are
-    read straight from the live Sleeper draft, and the recommendation for the
+    read straight from the live platform draft, and the recommendation for the
     user's next pick comes from :class:`LiveDraftEngine` — VORP + remaining
     positional needs + correlation stacks — not the platform's consensus order.
+
+    Sleeper needs no auth. Yahoo requires server-side OAuth (``YAHOO_CLIENT_ID``
+    / ``YAHOO_CLIENT_SECRET`` plus a granted token — seedable headlessly via
+    ``YAHOO_REFRESH_TOKEN``); without it this returns 503 and the UI falls back
+    to mirror mode. For Yahoo, pass the league id/key as ``draft_id``.
 
     Provide either ``draft_id`` or ``username`` (optionally with ``league_id``).
     Provide ``my_slot`` or ``my_user_id`` so recommendations are tailored to the
     user's own drafted roster and remaining needs.
     """
+    if platform == "yahoo":
+        adapter: Any = YahooAdapter()
+        oauth = YahooOAuth()
+        if not oauth.has_credentials() or oauth.get_access_token() is None:
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "Yahoo live sync is not connected on this server (OAuth "
+                    "grant missing). Use mirror mode, or connect Yahoo via "
+                    "YAHOO_CLIENT_ID/YAHOO_CLIENT_SECRET/YAHOO_REFRESH_TOKEN."
+                ),
+            )
+    else:
+        adapter = SleeperAdapter()
+
     # Resolve the draft to poll.
     resolve_failed = False
-    if not draft_id and username:
+    if not draft_id and (username or league_id):
         try:
-            res = resolve_active_draft(username, str(season), league_id=league_id)
+            if platform == "yahoo":
+                res = adapter.resolve_draft(
+                    username or league_id or "", str(season), league_id=league_id
+                )
+            else:
+                res = resolve_active_draft(
+                    username or "", str(season), league_id=league_id
+                )
             draft_id = res.get("draft_id") or None
         except Exception as exc:
             resolve_failed = True
-            logger.warning("resolve_active_draft failed for %s: %s", username, exc)
+            logger.warning(
+                "resolve draft failed on %s for %s: %s", platform, username, exc
+            )
     if not draft_id:
-        if username:
+        if username or league_id:
             detail = (
-                f"Could not resolve an active NFL draft for username "
-                f"'{username}'"
-                + (" (Sleeper was unreachable)." if resolve_failed else ".")
+                f"Could not resolve an active NFL draft on {platform} for "
+                f"'{username or league_id}'"
+                + (" (platform was unreachable)." if resolve_failed else ".")
             )
         else:
             detail = "Provide a draft_id, or a username with an active NFL draft."
@@ -754,16 +796,20 @@ def live_draft_sync(
 
     try:
         engine = LiveDraftEngine(
-            SleeperAdapter(),
+            adapter,
             projections,
             adp_df=_load_adp_df(),
             my_slot=my_slot,
             my_user_id=my_user_id,
         )
-        state = load_draft_state(draft_id)
+        state = (
+            adapter.load_state(draft_id)
+            if platform == "yahoo"
+            else load_draft_state(draft_id)
+        )
         result = engine.update(state)
     except Exception as exc:
-        logger.exception("Live draft sync failed for draft %s", draft_id)
+        logger.exception("Live draft sync failed for %s draft %s", platform, draft_id)
         raise HTTPException(
             status_code=502, detail=f"Live draft sync failed: {exc}"
         ) from exc
@@ -836,4 +882,67 @@ def live_draft_sync(
         reasoning=reasoning,
         key_moments=key_moments,
         unmatched_count=len(result.unmatched),
+        platform=platform,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Paste-sync (ESPN's better-than-mirror-mode path)
+# ---------------------------------------------------------------------------
+
+
+@router.post("/sync-log", response_model=DraftSyncLogResponse)
+def sync_pick_log(req: DraftSyncLogRequest) -> DraftSyncLogResponse:
+    """Apply a pasted draft-room pick log to a board session in one shot.
+
+    ESPN has no live draft API (Phase 89 NO-GO), but its draft room shows a
+    copyable pick-history panel. Paste that text here and every recognized
+    player is drafted off the session board in paste order — one paste catches
+    the whole room up, instead of one "Taken" click per pick. Re-pasting the
+    full history is safe: players already off the board are skipped.
+
+    When ``my_slot`` is given, each newly applied pick's overall number is run
+    through snake math so picks landing on the user's slot build their roster.
+    """
+    session = _get_session(req.session_id)
+    board: DraftBoard = session["board"]
+
+    pool = board.all_players
+    if "player_name" not in pool.columns or "player_id" not in pool.columns:
+        raise HTTPException(
+            status_code=500, detail="Session board is missing player columns"
+        )
+    lookup = build_name_lookup(
+        zip(pool["player_name"].astype(str), pool["player_id"].astype(str))
+    )
+    parsed = parse_pick_log(req.text, lookup)
+
+    available_ids = set(board.available["player_id"].astype(str))
+    applied = 0
+    my_picks = 0
+    already = 0
+    for pick in parsed.picks:
+        if pick.player_id not in available_ids:
+            already += 1
+            continue
+        pick_no = board.picks_taken() + 1
+        by_me = bool(
+            req.my_slot is not None
+            and LiveDraftEngine._slot_on_clock(pick_no, board.n_teams, "snake")
+            == req.my_slot
+        )
+        result = board.draft_player(pick.player_id, by_me=by_me)
+        if result:
+            available_ids.discard(pick.player_id)
+            applied += 1
+            if by_me:
+                my_picks += 1
+
+    return DraftSyncLogResponse(
+        matched=len(parsed.picks),
+        applied=applied,
+        already_drafted=already,
+        my_picks_applied=my_picks,
+        unmatched_lines=parsed.unmatched_lines[:20],
+        picks_taken=board.picks_taken(),
     )

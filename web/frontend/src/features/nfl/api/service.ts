@@ -29,6 +29,8 @@ export {
   startMockDraft,
   advanceMockDraft,
   fetchAdp,
+  syncPickLog,
+  isServiceUnavailable,
   // Multi-source rankings
   fetchMultiCompareRankings,
   // Game archive
