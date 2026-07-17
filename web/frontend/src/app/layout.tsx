@@ -1,4 +1,7 @@
 import Providers from '@/components/layout/providers';
+import { ClerkProvider } from '@clerk/nextjs';
+import { dark } from '@clerk/themes';
+import { isClerkEnabled } from '@/lib/billing/flags';
 import { Toaster } from '@/components/ui/sonner';
 import { fontVariables } from '@/components/themes/font.config';
 import { DEFAULT_THEME } from '@/components/themes/theme.config';
@@ -49,7 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // white light mode) to anyone with stale preferences.
   const themeToApply = DEFAULT_THEME;
 
-  return (
+  const app = (
     <html lang='en' suppressHydrationWarning data-theme={themeToApply}>
       <head>
         <script
@@ -89,4 +92,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </body>
     </html>
   );
+
+  // PLAN 2 feature flag: Clerk only mounts when the publishable key exists.
+  // Without keys the tree is byte-identical to the pre-auth site.
+  if (!isClerkEnabled()) return app;
+
+  return <ClerkProvider appearance={{ baseTheme: dark }}>{app}</ClerkProvider>;
 }

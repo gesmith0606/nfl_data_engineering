@@ -1,6 +1,8 @@
 import PageContainer from '@/components/layout/page-container';
+import { PremiumUpsell } from '@/features/billing/components/premium-upsell';
 import { ProjectionsTable } from '@/features/nfl/components/projections-table';
 import { ProjectionComparisonTable } from '@/features/nfl/components/projection-comparison-table';
+import { getSubscriptionStatus } from '@/lib/billing/subscription';
 import { FadeIn } from '@/lib/motion-primitives';
 import { Suspense } from 'react';
 
@@ -21,7 +23,13 @@ export const metadata = {
   }
 };
 
-export default function ProjectionsPage() {
+export default async function ProjectionsPage() {
+  // PLAN 2 tier split: projections stay free up to the top 50 per position;
+  // full lists + floor/ceiling bands + multi-source compare are premium.
+  // Keys absent → hasAccess is true and the page renders exactly as before.
+  const status = await getSubscriptionStatus();
+  const freeTier = !status.hasAccess;
+
   return (
     <PageContainer
       scrollable={false}
@@ -30,7 +38,7 @@ export default function ProjectionsPage() {
     >
       <Suspense>
         <FadeIn>
-          <ProjectionsTable />
+          <ProjectionsTable freeTier={freeTier} />
         </FadeIn>
       </Suspense>
 
@@ -44,9 +52,13 @@ export default function ProjectionsPage() {
               FantasyPros consensus). Δ shows externals avg minus ours.
             </p>
           </div>
-          <Suspense>
-            <ProjectionComparisonTable season={2025} week={1} scoring='half_ppr' />
-          </Suspense>
+          {freeTier ? (
+            <PremiumUpsell surface='multi-compare' signedIn={status.signedIn} />
+          ) : (
+            <Suspense>
+              <ProjectionComparisonTable season={2025} week={1} scoring='half_ppr' />
+            </Suspense>
+          )}
         </section>
       </FadeIn>
     </PageContainer>
