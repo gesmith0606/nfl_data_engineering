@@ -3,6 +3,11 @@ import { google } from '@ai-sdk/google';
 import { createGroq } from '@ai-sdk/groq';
 import { z } from 'zod';
 import { resolveDefaultWeek } from '@/lib/week-context';
+import {
+  buildLeagueContextPrompt,
+  parseAdvisorLeagues,
+  type AdvisorLeague
+} from './league-context';
 
 export const maxDuration = 30;
 
@@ -34,6 +39,9 @@ AVAILABLE CAPABILITIES:
 - Get player-specific news and injury updates.
 - Get draft board with ADP, VORP, and value tiers.
 - Get overall sentiment summary with bullish/bearish players.
+- When the user has connected a Sleeper league: fetch their actual roster, their
+  optimal lineup with drop candidates, and waiver targets scored under their
+  league's exact scoring settings.
 
 POSITION-SPECIFIC GUIDANCE:
 - QB: Prioritize passing volume, rushing upside, and favorable matchup vs weak pass defenses.
@@ -125,13 +133,23 @@ async function fastapiGet<T>(path: string): Promise<FetchResult<T>> {
 }
 
 export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json();
+  const body = (await req.json()) as { messages: UIMessage[]; leagues?: unknown };
+  const messages = body.messages;
+  // Connected Sleeper leagues sent by the client (see use-persistent-chat).
+  // Sanitized server-side; the first entry is the primary league.
+  const leagues = parseAdvisorLeagues(body.leagues);
+  const resolveLeague = (leagueId?: string): AdvisorLeague | null =>
+    (leagueId
+      ? leagues.find((l) => l.league_id === leagueId)
+      : undefined) ?? leagues[0] ?? null;
+  const noLeagueMessage =
+    'No Sleeper league is connected. Ask the user to connect their league at /dashboard/leagues, then try again.';
 
   const model = getModel();
 
   const result = streamText({
     model,
-    system: SYSTEM_PROMPT,
+    system: SYSTEM_PROMPT + buildLeagueContextPrompt(leagues),
     messages: await convertToModelMessages(messages),
     stopWhen: stepCountIs(5),
     tools: {
@@ -922,20 +940,22 @@ export async function POST(req: Request) {
         }
       }),
       // Phase 74 SLEEP-03: User-roster context for personalized advice.
-      getUserRoster: tool({
+      getMyRoster: tool({
         description:
-          "Fetch the authenticated user's Sleeper roster (starters + bench) for a specific league. Use when the user asks 'who should I start' or 'check my lineup' style questions — call this FIRST so the answer is grounded in their actual lineup, not a hypothetical league. Requires the user to have connected their Sleeper account at /dashboard/leagues.",
+          "Fetch the user's own Sleeper roster (current starters + bench) from their connected league. Use when the user asks 'who should I start', 'check my lineup', or anything about 'my team' — call this FIRST so the answer is grounded in their actual lineup. Defaults to the primary connected league; only pass leagueId to target a different connected league.",
         inputSchema: z.object({
           leagueId: z
             .string()
-            .describe('Sleeper league_id from /dashboard/leagues'),
-          userId: z
-            .string()
+            .optional()
             .describe(
-              "Authenticated user's Sleeper user_id (read from sleeper_user_id cookie)"
+              'Sleeper league_id — omit to use the primary connected league'
             )
         }),
-        execute: async ({ leagueId, userId }) => {
+        execute: async ({ leagueId }) => {
+          const league = resolveLeague(leagueId);
+          if (!league) {
+            return { found: false, message: noLeagueMessage };
+          }
           type RosterPlayer = {
             player_id: string;
             player_name: string | null;
@@ -950,9 +970,9 @@ export async function POST(req: Request) {
             starters: RosterPlayer[];
             bench: RosterPlayer[];
           }>;
-          const params = new URLSearchParams({ user_id: userId });
+          const params = new URLSearchParams({ user_id: league.user_id });
           const result = await fastapiGet<RosterPayload>(
-            `/api/sleeper/rosters/${leagueId}?${params}`
+            `/api/sleeper/rosters/${league.league_id}?${params}`
           );
           if (!result.ok) {
             return { found: false, message: result.message };
@@ -967,7 +987,9 @@ export async function POST(req: Request) {
           }
           return {
             found: true,
-            league_id: leagueId,
+            league_id: league.league_id,
+            league_name: league.league_name,
+            scoring_format: league.scoring_format_label,
             roster_id: userRoster.roster_id,
             starters: userRoster.starters.map((p) => ({
               player_id: p.player_id,
@@ -983,6 +1005,116 @@ export async function POST(req: Request) {
             })),
             starter_count: userRoster.starters.length,
             bench_count: userRoster.bench.length
+          };
+        }
+      }),
+
+      getMyLineup: tool({
+        description:
+          "Compute the user's OPTIMAL lineup for their connected league: best starter for every slot (including FLEX/SFLEX), bench ranked by value, and the weakest droppable players. Projections are re-scored under the league's exact scoring settings. Use for 'is my lineup right', 'who should I bench', or 'who can I drop' questions.",
+        inputSchema: z.object({
+          leagueId: z
+            .string()
+            .optional()
+            .describe(
+              'Sleeper league_id — omit to use the primary connected league'
+            )
+        }),
+        execute: async ({ leagueId }) => {
+          const league = resolveLeague(leagueId);
+          if (!league) {
+            return { found: false, message: noLeagueMessage };
+          }
+          type ReportPayload = {
+            roster_size: number;
+            roster_format: string;
+            starters: Array<{
+              slot: string;
+              player_name: string | null;
+              position: string | null;
+              team: string | null;
+              projected_season_points: number | null;
+            }>;
+            bench: Array<{
+              player_name: string | null;
+              position: string | null;
+              team: string | null;
+              projected_season_points: number | null;
+              vorp: number | null;
+            }>;
+            drop_candidates: Array<Record<string, unknown>>;
+          };
+          const params = new URLSearchParams({ user_id: league.user_id });
+          if (league.season) params.set('season', league.season);
+          const result = await fastapiGet<ReportPayload>(
+            `/api/league/${league.league_id}/roster-report?${params}`
+          );
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          return {
+            found: true,
+            league_id: league.league_id,
+            league_name: league.league_name,
+            scoring_format: league.scoring_format_label,
+            roster_format: result.data.roster_format,
+            optimal_starters: result.data.starters,
+            bench: result.data.bench,
+            drop_candidates: result.data.drop_candidates,
+            note: 'projected_season_points are season totals re-scored under this league’s scoring settings.'
+          };
+        }
+      }),
+
+      getMyWaiverTargets: tool({
+        description:
+          "Get the best available free agents in the user's connected league, ranked by projection under the league's exact scoring. Each target notes which current starter they would upgrade over, or 'depth' otherwise. Use for waiver-wire and 'who should I pick up' questions — unlike generic rankings, these players are confirmed unrostered in their league.",
+        inputSchema: z.object({
+          leagueId: z
+            .string()
+            .optional()
+            .describe(
+              'Sleeper league_id — omit to use the primary connected league'
+            ),
+          position: z
+            .enum(['QB', 'RB', 'WR', 'TE', 'K'])
+            .optional()
+            .describe('Filter targets to one position')
+        }),
+        execute: async ({ leagueId, position }) => {
+          const league = resolveLeague(leagueId);
+          if (!league) {
+            return { found: false, message: noLeagueMessage };
+          }
+          type WaiversPayload = {
+            targets: Array<{
+              player_name: string | null;
+              position: string | null;
+              team: string | null;
+              projected_season_points: number | null;
+              vorp: number | null;
+              upgrades_over: string | null;
+              upgrade_slot: string | null;
+            }>;
+          };
+          const params = new URLSearchParams({ user_id: league.user_id });
+          if (league.season) params.set('season', league.season);
+          const result = await fastapiGet<WaiversPayload>(
+            `/api/league/${league.league_id}/waivers?${params}`
+          );
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          const targets = position
+            ? result.data.targets.filter((t) => t.position === position)
+            : result.data.targets;
+          return {
+            found: true,
+            league_id: league.league_id,
+            league_name: league.league_name,
+            scoring_format: league.scoring_format_label,
+            targets,
+            target_count: targets.length
           };
         }
       })
