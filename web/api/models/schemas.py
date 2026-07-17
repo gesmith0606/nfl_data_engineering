@@ -965,6 +965,51 @@ class LiveDraftResponse(BaseModel):
         description="Recent steals / reaches / positional runs, newest first",
     )
     unmatched_count: int = 0
+    platform: str = Field(
+        "sleeper", description="Draft platform serving the live state"
+    )
+
+
+class DraftSyncLogRequest(BaseModel):
+    """Paste-sync: apply a pasted draft-room pick log to a board session.
+
+    The better-than-mirror-mode path for ESPN (no live API): the user copies
+    the draft room's pick-history text and pastes it here; every recognized
+    pick is applied to the session board in paste order.
+    """
+
+    session_id: str
+    text: str = Field(..., max_length=100_000, description="Pasted pick log")
+    my_slot: Optional[int] = Field(
+        None,
+        ge=1,
+        le=20,
+        description=(
+            "User's snake-draft slot; when given, applied picks landing on "
+            "this slot are recorded as the user's own"
+        ),
+    )
+
+
+class DraftSyncLogResponse(BaseModel):
+    """Result of a paste-sync application."""
+
+    matched: int = Field(0, description="Lines that resolved to a known player")
+    applied: int = Field(0, description="Picks newly applied to the board")
+    already_drafted: int = Field(
+        0, description="Recognized players that were already off the board"
+    )
+    my_picks_applied: int = Field(
+        0, description="Applied picks attributed to the user's slot"
+    )
+    unmatched_lines: List[str] = Field(
+        default_factory=list,
+        description="Sample of lines no known player matched (truncated)",
+    )
+    unmatched_count: int = Field(
+        0, description="True total of unmatched lines, before truncation"
+    )
+    picks_taken: int = Field(0, description="Total picks on the board after sync")
 
 
 class MockDraftStartRequest(BaseModel):

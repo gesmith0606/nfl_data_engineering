@@ -6,6 +6,8 @@ import type {
   DraftPickRequest,
   DraftPickResponse,
   DraftRecommendationsResponse,
+  DraftSyncLogRequest,
+  DraftSyncLogResponse,
   GameSeasonsResponse,
   GamesResponse,
   HealthResponse,
@@ -476,9 +478,11 @@ export async function fetchDraftRecommendations(
 }
 
 /**
- * Sync a live Sleeper draft. Picks are read straight from the platform and the
- * recommendation comes from our roster-aware engine (VORP + positional need +
- * stacks) — not the platform's autopick order. Poll this on an interval.
+ * Sync a live draft (Sleeper public API, or Yahoo via server-side OAuth).
+ * Picks are read straight from the platform and the recommendation comes from
+ * our roster-aware engine (VORP + positional need + stacks) — not the
+ * platform's autopick order. Poll this on an interval. Yahoo returns 503 when
+ * the server has no OAuth grant — callers fall back to mirror mode.
  */
 export async function fetchLiveDraft(
   params: LiveDraftParams
@@ -491,7 +495,26 @@ export async function fetchLiveDraft(
   if (params.season != null) q.set('season', String(params.season))
   if (params.scoring) q.set('scoring', params.scoring)
   if (params.topN != null) q.set('top_n', String(params.topN))
+  if (params.platform) q.set('platform', params.platform)
   return request<LiveDraftResponse>(`/api/draft/live?${q}`)
+}
+
+/**
+ * Paste-sync: apply a pasted draft-room pick log to the board session.
+ * ESPN's better-than-mirror-mode path — one paste catches the board up.
+ */
+export async function syncPickLog(
+  body: DraftSyncLogRequest
+): Promise<DraftSyncLogResponse> {
+  return request<DraftSyncLogResponse>('/api/draft/sync-log', {
+    method: 'POST',
+    body: JSON.stringify(body)
+  })
+}
+
+/** Detect the Yahoo-not-connected case so the UI can offer mirror mode. */
+export function isServiceUnavailable(err: unknown): boolean {
+  return err instanceof ApiError && err.status === 503
 }
 
 /** Start a mock draft simulation session. */

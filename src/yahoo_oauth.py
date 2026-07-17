@@ -318,16 +318,31 @@ class YahooOAuth:
 
     def _load_tokens(self) -> Dict[str, Any]:
         if not os.path.exists(self.token_path):
-            return {}
+            return self._seed_from_env()
         try:
             with open(self.token_path, "r", encoding="utf-8") as fh:
                 data = json.load(fh)
-            return data if isinstance(data, dict) else {}
+            return data if isinstance(data, dict) else self._seed_from_env()
         except (OSError, json.JSONDecodeError) as exc:
             logger.warning(
                 "Could not read Yahoo token file %s: %s", self.token_path, exc
             )
+            return self._seed_from_env()
+
+    @staticmethod
+    def _seed_from_env() -> Dict[str, Any]:
+        """Bootstrap from ``$YAHOO_REFRESH_TOKEN`` when no token file exists.
+
+        Deployed backends (HF Spaces) have no interactive browser and no
+        persisted ``data/yahoo_tokens.json`` — a refresh token minted once
+        locally and set as an env secret is enough: ``get_access_token``
+        treats the seeded state as expired and refreshes on first use.
+        """
+        refresh = os.environ.get("YAHOO_REFRESH_TOKEN", "").strip()
+        if not refresh:
             return {}
+        logger.info("Seeding Yahoo tokens from YAHOO_REFRESH_TOKEN env")
+        return {"refresh_token": refresh}
 
     def _save_tokens(self, tokens: Dict[str, Any]) -> None:
         try:

@@ -472,3 +472,159 @@ class TestLiveDraftSync:
             assert {"kind", "pick_no", "player", "detail"} <= set(moment)
         # Slot 5 in a 10-team snake with 2 picks made → next pick is #5.
         assert data["my_next_pick_no"] == 5
+
+
+# ---------------------------------------------------------------------------
+# Test: GET /api/draft/live?platform=yahoo  (server-side OAuth auto-sync)
+# ---------------------------------------------------------------------------
+
+
+class _FakeOAuthDisconnected:
+    def has_credentials(self):
+        return False
+
+    def get_access_token(self):
+        return None
+
+
+class _FakeOAuthConnected:
+    def has_credentials(self):
+        return True
+
+    def get_access_token(self):
+        return "tok"
+
+
+class TestLiveDraftYahoo:
+    """Yahoo auto-sync on the web: OAuth-gated, mirror mode as fallback."""
+
+    def test_yahoo_503_when_not_connected(self):
+        """Without a server-side OAuth grant, Yahoo returns 503 with guidance."""
+        from web.api.routers import draft as draft_module
+
+        with patch.object(draft_module, "YahooOAuth", _FakeOAuthDisconnected):
+            resp = client.get(
+                "/api/draft/live",
+                params={"draft_id": "nfl.l.12345", "platform": "yahoo"},
+            )
+        assert resp.status_code == 503
+        assert "mirror mode" in resp.json()["detail"].lower()
+
+    def test_yahoo_503_when_credentials_but_refresh_fails(self):
+        """Creds present but no usable token (failed refresh) also gates 503."""
+        from web.api.routers import draft as draft_module
+
+        class _FakeOAuthCredsNoToken:
+            def has_credentials(self):
+                return True
+
+            def get_access_token(self):
+                return None
+
+        with patch.object(draft_module, "YahooOAuth", _FakeOAuthCredsNoToken):
+            resp = client.get(
+                "/api/draft/live",
+                params={"draft_id": "nfl.l.12345", "platform": "yahoo"},
+            )
+        assert resp.status_code == 503
+        assert "mirror mode" in resp.json()["detail"].lower()
+
+    def test_yahoo_live_sync_returns_recommendations(self):
+        """With a granted token, Yahoo drafts flow through the same engine."""
+        from web.api.routers import draft as draft_module
+        from src.yahoo_adapter import YahooAdapter as RealYahooAdapter
+
+        p1 = PickEvent(1, 1, 1, 1, "u1", "y1", "Bijan", "Robinson", "RB", "ATL", False)
+        p2 = PickEvent(2, 1, 2, 2, "u2", "y2", "Jahmyr", "Gibbs", "RB", "DET", False)
+        state = _fake_live_state([p1, p2])
+
+        class _FakeYahooAdapter(RealYahooAdapter):
+            # The endpoint passes its shared oauth instance (token-rotation
+            # safety) — accept and forward it like the real adapter.
+            def __init__(self, oauth=None):
+                super().__init__(oauth=oauth)
+
+            def load_state(self, draft_id):
+                return state
+
+        with patch.object(
+            draft_module, "YahooOAuth", _FakeOAuthConnected
+        ), patch.object(draft_module, "YahooAdapter", _FakeYahooAdapter), patch.object(
+            draft_module,
+            "_load_cached_projections",
+            return_value=_make_mock_projections(),
+        ):
+            resp = client.get(
+                "/api/draft/live",
+                params={
+                    "draft_id": "nfl.l.12345",
+                    "platform": "yahoo",
+                    "my_slot": 5,
+                    "season": 2026,
+                },
+            )
+
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert data["platform"] == "yahoo"
+        assert data["picks_made"] == 2
+        assert len(data["recommendations"]) > 0
+        # Slot 5 in a 10-team snake with 2 picks made → next pick is #5.
+        assert data["my_next_pick_no"] == 5
+
+    def test_sleeper_default_platform_unchanged(self):
+        """Omitting platform keeps the Sleeper behavior (regression guard)."""
+        resp = client.get("/api/draft/live", params={"season": 2026})
+        assert resp.status_code == 400  # missing draft_id/username, not 503
+
+
+# ---------------------------------------------------------------------------
+# Test: POST /api/draft/sync-log  (ESPN paste-sync)
+# ---------------------------------------------------------------------------
+
+
+class TestSyncLog:
+    """Paste a pick log once; the whole board catches up."""
+
+    def test_applies_picks_in_order_with_slot_attribution(self, draft_session):
+        sid = draft_session["session_id"]
+        text = (
+            "R1, P1  Bijan Robinson, RB  ATL\n"
+            "R1, P2  Jahmyr Gibbs, RB  DET\n"
+            "On the Clock: Team Three\n"
+        )
+        resp = client.post(
+            "/api/draft/sync-log",
+            json={"session_id": sid, "text": text, "my_slot": 2},
+        )
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert data["matched"] == 2
+        assert data["applied"] == 2
+        assert data["already_drafted"] == 0
+        # 12-team snake: pick 2 belongs to slot 2 → it's the user's pick.
+        assert data["my_picks_applied"] == 1
+        assert data["picks_taken"] == 2
+        assert data["unmatched_lines"] == ["On the Clock: Team Three"]
+
+    def test_full_history_repaste_is_idempotent(self, draft_session):
+        sid = draft_session["session_id"]
+        text = "Bijan Robinson\nJahmyr Gibbs\n"
+        first = client.post(
+            "/api/draft/sync-log", json={"session_id": sid, "text": text}
+        )
+        assert first.json()["applied"] == 2
+        second = client.post(
+            "/api/draft/sync-log", json={"session_id": sid, "text": text}
+        )
+        data = second.json()
+        assert data["applied"] == 0
+        assert data["already_drafted"] == 2
+        assert data["picks_taken"] == 2
+
+    def test_unknown_session_404(self):
+        resp = client.post(
+            "/api/draft/sync-log",
+            json={"session_id": "nope", "text": "Bijan Robinson"},
+        )
+        assert resp.status_code == 404
