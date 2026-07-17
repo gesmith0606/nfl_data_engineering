@@ -39,17 +39,65 @@ _CACHE_PATH: str = os.path.join("data", "bronze", "players", "sleeper_players.js
 _SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
 _SKILL_POSITIONS = ("QB", "RB", "WR", "TE")
 
+# First-name nickname canonicalization (short form → long form). Sources
+# disagree on registered names — Sleeper says "Kenny Gainwell", projections
+# say "Kenneth Gainwell" — which broke roster joins repeatedly during the
+# 2026-07-11 MANTIS draft. Both sides of every join pass through
+# normalize_name, so mapping the SHORT form to the long form is
+# consistency-preserving even when a player is registered under the short
+# form everywhere ("Mike Evans" → "michael evans" on both sides). Collisions
+# (a distinct "Kenny X" AND "Kenneth X" both active) would merge — accepted:
+# same behavior as exact duplicate names today, and rank-order lookup keeps
+# the more relevant player.
+_FIRST_NAME_ALIASES = {
+    "kenny": "kenneth",
+    "ken": "kenneth",
+    "mike": "michael",
+    "matt": "matthew",
+    "chris": "christopher",
+    "josh": "joshua",
+    "zach": "zachary",
+    "zack": "zachary",
+    "alex": "alexander",
+    "cam": "cameron",
+    "rob": "robert",
+    "bob": "robert",
+    "will": "william",
+    "bill": "william",
+    "dan": "daniel",
+    "danny": "daniel",
+    "jeff": "jeffrey",
+    "tim": "timothy",
+    "tony": "anthony",
+    "nick": "nicholas",
+    "ben": "benjamin",
+    "sam": "samuel",
+    "jim": "james",
+    "jimmy": "james",
+    "joe": "joseph",
+    "joey": "joseph",
+    "dave": "david",
+    "steve": "steven",
+    "gabe": "gabriel",
+    "jake": "jacob",
+}
+
 
 def normalize_name(name: str) -> str:
-    """Lowercase, strip punctuation, and drop generational suffixes.
+    """Lowercase, strip punctuation/suffixes, and canonicalize nicknames.
 
     ``"Marvin Harrison Jr."`` and ``"marvin harrison"`` both normalize to
-    ``"marvin harrison"`` so registry and projection names align.
+    ``"marvin harrison"``; ``"Kenny Gainwell"`` and ``"Kenneth Gainwell"``
+    both normalize to ``"kenneth gainwell"`` — so registry, projection, and
+    pasted-text names align across sources that disagree on the registered
+    first name.
     """
     if not name:
         return ""
     cleaned = re.sub(r"[^a-z0-9\s]", "", str(name).lower())
     tokens = [t for t in cleaned.split() if t and t not in _SUFFIXES]
+    if tokens:
+        tokens[0] = _FIRST_NAME_ALIASES.get(tokens[0], tokens[0])
     return " ".join(tokens)
 
 
@@ -269,12 +317,8 @@ def build_projection_lookup(
 
     df = projections.copy()
     df["_norm"] = df[name_col].map(normalize_name)
-    df["_pos"] = (
-        df.get("position", pd.Series([""] * len(df))).astype(str).str.upper()
-    )
-    df["_team"] = (
-        df.get("team", pd.Series([""] * len(df))).astype(str).str.upper()
-    )
+    df["_pos"] = df.get("position", pd.Series([""] * len(df))).astype(str).str.upper()
+    df["_team"] = df.get("team", pd.Series([""] * len(df))).astype(str).str.upper()
 
     # to_dict("records") runs in the pandas C extension — avoids slow
     # Python-level iterrows while still giving us plain dicts per row.

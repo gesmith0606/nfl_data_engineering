@@ -13,7 +13,7 @@ the primary drop-ranking signal when present.
 from __future__ import annotations
 
 import math
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List, Optional, Sequence
 
 from src.config import ROSTER_CONFIGS
 
@@ -147,11 +147,37 @@ def optimal_lineup(
     return {"starters": starters, "bench": bench}
 
 
+def _is_dynasty_stash(p: Dict[str, Any]) -> bool:
+    """True for players whose value the projection model can't see.
+
+    Rookies / near-rookies and low-sample projections carry dynasty value the
+    current-season projection doesn't capture — ranking them by projected
+    points alone flagged just-drafted rookies as drops the night they were
+    drafted (MANTIS 2026-07-11, RR-1).
+    """
+    years = p.get("years_exp")
+    try:
+        if years is not None:
+            y = float(years)
+            if not math.isnan(y) and y <= 1:
+                return True
+    except (TypeError, ValueError):
+        pass
+    val = p.get("is_low_sample_projection")
+    try:
+        if val is not None and not (isinstance(val, float) and math.isnan(val)):
+            return bool(val)
+    except TypeError:
+        pass
+    return False
+
+
 def drop_candidates(
     roster: Sequence[Dict[str, Any]],
     roster_format: str = "standard",
     top_n: int = 5,
     roster_positions=None,
+    protected_names: Optional[Sequence[str]] = None,
 ) -> List[Dict[str, Any]]:
     """Rank the weakest droppable players (who to cut to roster a rookie).
 
@@ -160,10 +186,36 @@ def drop_candidates(
     positional redundancy where relevant. Honors league ``roster_positions`` when
     given (so redundancy reflects the real starting requirements).
 
-    Returns a list of ``{player, value, reason}`` dicts, weakest first.
+    Dynasty guards (RR-1): players named in ``protected_names`` (taxi squad)
+    are never suggested, and rookies / low-sample players rank AFTER veterans
+    with an explicit caveat — their dynasty value is not in the projection.
+
+    Args:
+        roster: Player dicts (projection-mapped).
+        roster_format: ROSTER_CONFIGS key when ``roster_positions`` absent.
+        top_n: Number of candidates to return.
+        roster_positions: League's real Sleeper slot list, when available.
+        protected_names: Names to exclude entirely (e.g. taxi squad).
+
+    Returns:
+        A list of ``{player, value, reason}`` dicts, weakest first.
     """
     lineup = optimal_lineup(roster, roster_format, roster_positions=roster_positions)
     bench = lineup["bench"]
+
+    if protected_names:
+        try:
+            from src.sleeper_player_map import normalize_name
+        except ImportError:  # pragma: no cover
+            from sleeper_player_map import normalize_name
+
+        protected = {normalize_name(str(n)) for n in protected_names}
+        protected.discard("")
+        bench = [
+            p
+            for p in bench
+            if normalize_name(str(p.get("player_name", ""))) not in protected
+        ]
 
     # How many of each position the lineup actually starts (for redundancy reason).
     started_by_pos: Dict[str, int] = {}
@@ -174,7 +226,8 @@ def drop_candidates(
     for p in roster:
         roster_by_pos[_pos(p)] = roster_by_pos.get(_pos(p), 0) + 1
 
-    ranked = sorted(bench, key=_drop_value)
+    # Veterans rank first; dynasty stashes only fill remaining slots, flagged.
+    ranked = sorted(bench, key=lambda p: (_is_dynasty_stash(p), _drop_value(p)))
     out: List[Dict[str, Any]] = []
     for p in ranked[:top_n]:
         pos = _pos(p)
@@ -189,5 +242,10 @@ def drop_candidates(
             )
         else:
             reason = "Lowest projected value on your bench"
+        if _is_dynasty_stash(p):
+            reason = (
+                "CAUTION rookie/low-sample — dynasty value not modeled; "
+                "verify before dropping. " + reason
+            )
         out.append({"player": p, "value": round(_drop_value(p), 1), "reason": reason})
     return out

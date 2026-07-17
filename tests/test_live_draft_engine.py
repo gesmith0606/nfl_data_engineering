@@ -305,3 +305,137 @@ def test_recommendations_carry_stack_note_column(
     recs, _ = engine.recommendations(top_n=5)
     if not recs.empty and "player_id" in recs.columns:
         assert "stack_note" in recs.columns
+
+
+# ---------------------------------------------------------------------------
+# MANTIS 2026-07-11 fixes: KM-1 phantom availability, KM-2 rookie-draft ADP
+# noise, low-sample market filter
+# ---------------------------------------------------------------------------
+
+
+class _NoMapAdapter:
+    """Adapter stub whose mapping always fails — exercises the KM-1 path."""
+
+    platform = "sleeper"
+
+    def map_picks(self, picks, projections_df):
+        return [], list(picks)
+
+
+def _mini_proj(with_flags=False):
+    rows = [
+        {
+            "player_id": "P1",
+            "player_name": "Trey McBride",
+            "position": "TE",
+            "recent_team": "ARI",
+            "projected_season_points": 280.0,
+        },
+        {
+            "player_id": "P2",
+            "player_name": "Kenneth Gainwell",
+            "position": "RB",
+            "recent_team": "TB",
+            "projected_season_points": 150.0,
+        },
+        {
+            "player_id": "P3",
+            "player_name": "Two Game Vet",
+            "position": "WR",
+            "recent_team": "KC",
+            "projected_season_points": 260.0,
+        },
+        {
+            "player_id": "P4",
+            "player_name": "Solid Veteran",
+            "position": "WR",
+            "recent_team": "PHI",
+            "projected_season_points": 200.0,
+        },
+    ]
+    df = pd.DataFrame(rows)
+    if with_flags:
+        df["is_low_sample_projection"] = [False, False, True, False]
+        df["consensus_pos_rank"] = [1.0, 20.0, float("nan"), 5.0]
+    return df
+
+
+def _bare_state(rounds=15, picks=()):
+    return DraftState(
+        draft_id="d1",
+        status="drafting",
+        draft_type="snake",
+        season="2026",
+        n_teams=3,
+        rounds=rounds,
+        scoring_format="half_ppr",
+        roster_format="standard",
+        draft_order={},
+        slot_to_roster_id={},
+        picks=tuple(picks),
+    )
+
+
+@pytest.mark.unit
+def test_km1_unmatched_keepers_leave_the_board():
+    """Rostered players whose mapping fails must still exit the pool (KM-1)."""
+    engine = LiveDraftEngine(_NoMapAdapter(), _mini_proj(), my_slot=1)
+    engine.update(_bare_state())
+    keeper = PickEvent(
+        0, 0, 2, 2, "owner", "sid1", "Trey", "McBride", "TE", "ARI", True
+    )
+    n = engine.preload_keepers({"all": [keeper], "mine": []})
+    assert n == 1
+    names = set(engine.board.available["player_name"])
+    assert "Trey McBride" not in names
+    # No phantom pick recorded — snake math untouched.
+    assert engine.board.picks_taken() == 0
+
+
+@pytest.mark.unit
+def test_km1_keeper_removal_is_nickname_tolerant():
+    """'Kenny' keeper removes 'Kenneth' from the board (name-join fix)."""
+    engine = LiveDraftEngine(_NoMapAdapter(), _mini_proj(), my_slot=1)
+    engine.update(_bare_state())
+    keeper = PickEvent(
+        0, 0, 2, 2, "owner", "sid2", "Kenny", "Gainwell", "RB", "TB", True
+    )
+    assert engine.preload_keepers({"all": [keeper], "mine": []}) == 1
+    assert "Kenneth Gainwell" not in set(engine.board.available["player_name"])
+
+
+@pytest.mark.unit
+def test_km2_rookie_draft_suppresses_adp_moments():
+    """A 3-round draft is a rookie draft — no redraft-ADP steals/grades (KM-2)."""
+    engine = LiveDraftEngine(_NoMapAdapter(), _mini_proj(), my_slot=1)
+    engine.update(_bare_state(rounds=3))
+    assert engine.adp_moments is False
+    pe = PickEvent(15, 2, 1, 1, "u", "x", "Some", "Player", "WR", "BUF", False)
+    assert engine._pick_moments(pe, {"adp_rank": 3, "vorp": 40.0, "pick_no": 15}) == []
+
+
+@pytest.mark.unit
+def test_km2_redraft_keeps_adp_moments_and_override_wins():
+    """15 rounds → moments on; explicit adp_moments=True beats the auto-off."""
+    engine = LiveDraftEngine(_NoMapAdapter(), _mini_proj(), my_slot=1)
+    engine.update(_bare_state(rounds=15))
+    assert engine.adp_moments is True
+
+    forced = LiveDraftEngine(_NoMapAdapter(), _mini_proj(), my_slot=1, adp_moments=True)
+    forced.update(_bare_state(rounds=3))
+    pe = PickEvent(15, 2, 1, 1, "u", "x", "Some", "Player", "WR", "BUF", False)
+    kinds = {m.kind for m in forced._pick_moments(pe, {"adp_rank": 3, "vorp": 40.0})}
+    assert "steal" in kinds
+
+
+@pytest.mark.unit
+def test_low_sample_unranked_players_hidden_from_surfaces():
+    """A low-sample vet the market doesn't rank never occupies a rec slot."""
+    engine = LiveDraftEngine(_NoMapAdapter(), _mini_proj(with_flags=True), my_slot=1)
+    engine.update(_bare_state())
+    recs, _ = engine.recommendations(top_n=4)
+    assert "Two Game Vet" not in set(recs["player_name"])
+    # Still draftable — only hidden from recommendation surfaces.
+    assert "Two Game Vet" in set(engine.board.available["player_name"])
+    avail = engine.best_available(top_n=4)
+    assert "Two Game Vet" not in set(avail["player_name"])

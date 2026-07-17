@@ -30,8 +30,9 @@ class TestBuildNameLookup:
         assert lookup["amonra st brown"] == ("p3", "Amon-Ra St. Brown")
 
     def test_first_duplicate_wins(self):
+        # "Josh" canonicalizes to "joshua" via the nickname alias table.
         dup = build_name_lookup([("Josh Allen", "qb"), ("Josh Allen", "wr")])
-        assert dup["josh allen"] == ("qb", "Josh Allen")
+        assert dup["joshua allen"] == ("qb", "Josh Allen")
 
 
 class TestParsePickLog:
@@ -52,11 +53,12 @@ class TestParsePickLog:
         result = parse_pick_log(text, lookup)
         assert [p.player_id for p in result.picks] == ["p1", "p4"]
 
-    def test_hand_typed_names(self, lookup):
-        result = parse_pick_log("bijan robinson\nkenny gainwell\n", lookup)
-        # Exact-normalized names match; nicknames ("Kenny") are reported, not guessed.
-        assert [p.player_id for p in result.picks] == ["p1"]
-        assert result.unmatched_lines == ["kenny gainwell"]
+    def test_hand_typed_names_and_nicknames(self, lookup):
+        # "Kenny" ↔ "Kenneth" resolve via the normalize_name alias table
+        # (the MANTIS name-join fix); truly unknown names are still reported.
+        result = parse_pick_log("bijan robinson\nkenny gainwell\nzz unknown\n", lookup)
+        assert [p.player_id for p in result.picks] == ["p1", "p6"]
+        assert result.unmatched_lines == ["zz unknown"]
 
     def test_suffix_variants_match(self, lookup):
         result = parse_pick_log(

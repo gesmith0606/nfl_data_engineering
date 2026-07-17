@@ -69,3 +69,90 @@ def test_optimal_lineup_handles_missing_points_and_empty():
     weird = [{"player_name": "X", "position": "RB"}]  # no points key
     lu = optimal_lineup(weird, "standard")
     assert lu["starters"]["RB"][0]["player_name"] == "X"
+
+
+# ---------------------------------------------------------------------------
+# RR-1 (MANTIS 2026-07-11): taxi protection + rookie deprioritization
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.unit
+def test_drop_excludes_protected_taxi_names():
+    roster = _ROSTER + [
+        {
+            "player_name": "Taxi Stash",
+            "position": "RB",
+            "projected_points": 5,
+            "vorp": -20,
+        },
+        {
+            "player_name": "Weak Vet",
+            "position": "RB",
+            "projected_points": 8,
+            "vorp": -15,
+        },
+    ]
+    drops = drop_candidates(roster, "standard", top_n=5, protected_names=["Taxi Stash"])
+    names = [d["player"]["player_name"] for d in drops]
+    assert "Taxi Stash" not in names
+    assert "Weak Vet" in names
+
+
+@pytest.mark.unit
+def test_drop_protected_names_are_nickname_tolerant():
+    roster = _ROSTER + [
+        {
+            "player_name": "Kenneth Gainwell",
+            "position": "RB",
+            "projected_points": 5,
+            "vorp": -20,
+        },
+    ]
+    drops = drop_candidates(
+        roster, "standard", top_n=5, protected_names=["Kenny Gainwell"]
+    )
+    names = [d["player"]["player_name"] for d in drops]
+    assert "Kenneth Gainwell" not in names
+
+
+@pytest.mark.unit
+def test_drop_deprioritizes_rookies_with_caution():
+    roster = _ROSTER + [
+        # Rookie with the WORST value — old behavior ranked him drop #1.
+        {
+            "player_name": "Rookie Stash",
+            "position": "RB",
+            "projected_points": 2,
+            "vorp": -30,
+            "years_exp": 0,
+        },
+        {
+            "player_name": "Weak Vet",
+            "position": "RB",
+            "projected_points": 8,
+            "vorp": -15,
+            "years_exp": 6,
+        },
+    ]
+    drops = drop_candidates(roster, "standard", top_n=5)
+    names = [d["player"]["player_name"] for d in drops]
+    # Veteran ranks ahead of the rookie despite better value.
+    assert names.index("Weak Vet") < names.index("Rookie Stash")
+    rookie = next(d for d in drops if d["player"]["player_name"] == "Rookie Stash")
+    assert "CAUTION" in rookie["reason"]
+
+
+@pytest.mark.unit
+def test_drop_flags_low_sample_projection():
+    roster = _ROSTER + [
+        {
+            "player_name": "Two Game Vet",
+            "position": "TE",
+            "projected_points": 3,
+            "vorp": -25,
+            "is_low_sample_projection": True,
+        },
+    ]
+    drops = drop_candidates(roster, "standard", top_n=5)
+    flagged = next(d for d in drops if d["player"]["player_name"] == "Two Game Vet")
+    assert "CAUTION" in flagged["reason"]

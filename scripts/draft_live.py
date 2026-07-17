@@ -310,17 +310,59 @@ def _player_points(p: dict):
     return p.get("projected_points") or p.get("projected_season_points")
 
 
+def _taxi_names(league_id: Optional[str], my_user_id: Optional[str]) -> List[str]:
+    """The user's taxi-squad player names — protected from drop suggestions.
+
+    RR-1 (MANTIS 2026-07-11): taxi players were suggested as drops. Fail-open:
+    any Sleeper hiccup returns an empty list rather than blocking the report.
+    """
+    if not league_id or not my_user_id:
+        return []
+    try:
+        from src.sleeper_player_map import load_sleeper_players
+
+        rosters = sleeper_http.get_league_rosters(league_id)
+        mine = next(
+            (
+                r
+                for r in rosters
+                if isinstance(r, dict) and str(r.get("owner_id")) == str(my_user_id)
+            ),
+            None,
+        )
+        taxi_ids = [str(pid) for pid in (mine or {}).get("taxi") or []]
+        if not taxi_ids:
+            return []
+        registry = load_sleeper_players()
+        names = []
+        for pid in taxi_ids:
+            p = registry.get(pid) or {}
+            name = p.get("full_name") or (
+                f"{p.get('first_name', '')} {p.get('last_name', '')}".strip()
+            )
+            if name:
+                names.append(name)
+        return names
+    except Exception:
+        return []
+
+
 def _render_roster_report(
     engine: LiveDraftEngine,
     roster_format: str,
     as_json: bool,
     roster_positions=None,
+    protected_names: Optional[List[str]] = None,
 ) -> str:
     """Render optimal starting lineup + drop candidates for the user's roster."""
     roster = engine.my_full_roster()
     lineup = optimal_lineup(roster, roster_format, roster_positions=roster_positions)
     drops = drop_candidates(
-        roster, roster_format, top_n=5, roster_positions=roster_positions
+        roster,
+        roster_format,
+        top_n=5,
+        roster_positions=roster_positions,
+        protected_names=protected_names,
     )
 
     if as_json:
@@ -977,7 +1019,15 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     if args.roster_report:
         _poll_once()
-        print(_render_roster_report(engine, roster_format, args.json, roster_positions))
+        print(
+            _render_roster_report(
+                engine,
+                roster_format,
+                args.json,
+                roster_positions,
+                protected_names=_taxi_names(league_id, my_user_id),
+            )
+        )
         return 0
 
     if not args.watch:

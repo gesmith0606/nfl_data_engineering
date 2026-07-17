@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 from collections import Counter
 import logging
 import random
@@ -291,6 +291,51 @@ class DraftBoard:
             self.drafted_by_others.append(player_id)
 
         return player_row
+
+    def remove_players(self, names_or_ids: Sequence[str]) -> int:
+        """Silently remove players from the available pool (no pick recorded).
+
+        For league-rostered players who were never drafted in THIS draft
+        (dynasty/keeper leagues): they must leave the pool so availability,
+        recommendations, and value-drop alerts reflect reality — but they are
+        NOT picks, so ``picks_taken()`` and roster state stay untouched
+        (drafting them via :meth:`draft_player` would corrupt snake math).
+
+        Matches by ``player_id`` first, then by normalized full name
+        (suffix/nickname tolerant), so players whose id mapping failed are
+        still removed.
+
+        Args:
+            names_or_ids: Player ids and/or full names to remove.
+
+        Returns:
+            Number of players actually removed.
+        """
+        if self.available.empty or not names_or_ids:
+            return 0
+        try:
+            from src.sleeper_player_map import normalize_name
+        except ImportError:  # pragma: no cover
+            from sleeper_player_map import normalize_name
+
+        keys = {str(k) for k in names_or_ids if k}
+        norm_keys = {normalize_name(k) for k in keys}
+        norm_keys.discard("")
+
+        mask = pd.Series(False, index=self.available.index)
+        if "player_id" in self.available.columns:
+            mask |= self.available["player_id"].astype(str).isin(keys)
+        if "player_name" in self.available.columns:
+            mask |= (
+                self.available["player_name"]
+                .astype(str)
+                .map(normalize_name)
+                .isin(norm_keys)
+            )
+        removed = int(mask.sum())
+        if removed:
+            self.available = self.available[~mask].reset_index(drop=True)
+        return removed
 
     def draft_by_name(self, name: str, by_me: bool = False) -> Dict:
         """Draft a player by (partial) name match."""
