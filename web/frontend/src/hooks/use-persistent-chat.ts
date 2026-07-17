@@ -8,6 +8,8 @@ import {
 } from 'ai';
 import * as React from 'react';
 
+import { loadConnectedLeagues } from '@/lib/nfl/connected-leagues';
+
 // ---------------------------------------------------------------------------
 // Public types
 // ---------------------------------------------------------------------------
@@ -115,7 +117,13 @@ export function usePersistentChat(
 
   const transportRef = React.useRef<DefaultChatTransport<UIMessage> | null>(null);
   if (transportRef.current === null) {
-    transportRef.current = new DefaultChatTransport({ api: '/api/chat' });
+    transportRef.current = new DefaultChatTransport({
+      api: '/api/chat',
+      // Resolved per request so the advisor always sees the user's current
+      // connected Sleeper leagues (roster, scoring, identity) — see
+      // /api/chat/route.ts, which injects these into the system prompt.
+      body: () => ({ leagues: loadConnectedLeagues() })
+    });
   }
 
   const chat = useChat({

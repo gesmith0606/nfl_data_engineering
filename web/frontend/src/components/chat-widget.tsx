@@ -422,6 +422,22 @@ function MessagePart({
       }
       return null;
 
+    case 'tool-getMyRoster':
+    case 'tool-getMyLineup':
+    case 'tool-getMyWaiverTargets':
+      if (part.state === 'input-streaming' || part.state === 'input-available') {
+        return (
+          <div
+            key={partIndex}
+            className='text-muted-foreground flex items-center gap-1 text-[10px]'
+          >
+            <Icons.spinner className='h-3 w-3 animate-spin' />
+            Checking your league...
+          </div>
+        );
+      }
+      return null;
+
     default:
       return null;
   }

@@ -21,6 +21,13 @@ import {
   fetchLeagueWaivers,
   sleeperLogin,
 } from '@/lib/nfl/api';
+import {
+  MAX_CONNECTED_LEAGUES as MAX_LEAGUES,
+  loadConnectedLeagues as loadConnected,
+  saveConnectedLeagues as saveConnected,
+  upsertConnectedLeague as upsertConnected,
+  removeConnectedLeague as removeConnected,
+} from '@/lib/nfl/connected-leagues';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
 import { Icons } from '@/components/icons';
@@ -35,40 +42,9 @@ import type {
   WaiversResponse,
 } from '@/lib/nfl/types';
 
-// ---------------------------------------------------------------------------
-// localStorage helpers (cap 3 leagues)
-// ---------------------------------------------------------------------------
-
-const LS_KEY = 'nfl.connectedLeagues';
-const MAX_LEAGUES = 3;
-
-function loadConnected(): ConnectedLeague[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw) as ConnectedLeague[];
-  } catch {
-    return [];
-  }
-}
-
-function saveConnected(leagues: ConnectedLeague[]): void {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem(LS_KEY, JSON.stringify(leagues.slice(0, MAX_LEAGUES)));
-}
-
-function upsertConnected(league: ConnectedLeague): ConnectedLeague[] {
-  const existing = loadConnected();
-  const filtered = existing.filter((l) => l.league_id !== league.league_id);
-  return [league, ...filtered].slice(0, MAX_LEAGUES);
-}
-
-function removeConnected(leagueId: string): ConnectedLeague[] {
-  const updated = loadConnected().filter((l) => l.league_id !== leagueId);
-  saveConnected(updated);
-  return updated;
-}
+// localStorage helpers (cap 3 leagues) live in @/lib/nfl/connected-leagues —
+// shared with the AI advisor, which reads the same key to attach league
+// context to chat requests.
 
 // ---------------------------------------------------------------------------
 // Position badge colours
