@@ -18,9 +18,17 @@ export interface AdvisorLeague {
 
 const MAX_LEAGUES = 3;
 
-// Sleeper IDs are numeric strings; allow word chars only so untrusted client
-// payloads can never smuggle path segments into backend URLs.
-const SAFE_ID = /^\w+$/;
+// Sleeper IDs are numeric snowflakes (18-19 digits); allow word chars only,
+// length-capped, so untrusted client payloads can never smuggle path segments
+// into backend URLs.
+const SAFE_ID = /^\w{1,30}$/;
+
+// Free-text fields flow into the system prompt: strip newlines and cap length
+// so a crafted value can't open a fake system-prompt block.
+function asLabel(value: unknown, fallback: string, maxLen: number): string {
+  const s = typeof value === 'string' && value.length > 0 ? value : fallback;
+  return s.replace(/\s+/g, ' ').trim().slice(0, maxLen);
+}
 
 function asString(value: unknown, fallback = ''): string {
   return typeof value === 'string' ? value : fallback;
@@ -43,13 +51,16 @@ export function parseAdvisorLeagues(raw: unknown): AdvisorLeague[] {
     leagues.push({
       league_id: leagueId,
       user_id: userId,
-      league_name: asString(e.league_name, 'Unnamed league'),
-      season: asString(e.season),
-      username: asString(e.username),
+      league_name: asLabel(e.league_name, 'Unnamed league', 100),
+      season: asLabel(e.season, '', 10),
+      username: asLabel(e.username, '', 40),
       roster_positions: Array.isArray(e.roster_positions)
-        ? e.roster_positions.filter((p): p is string => typeof p === 'string')
+        ? e.roster_positions
+            .filter((p): p is string => typeof p === 'string')
+            .slice(0, 25)
+            .map((p) => asLabel(p, '', 12))
         : [],
-      scoring_format_label: asString(e.scoring_format_label, 'Half PPR')
+      scoring_format_label: asLabel(e.scoring_format_label, 'Half PPR', 60)
     });
   }
   return leagues;

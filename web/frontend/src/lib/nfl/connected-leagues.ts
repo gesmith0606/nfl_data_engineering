@@ -38,6 +38,10 @@ export function saveConnectedLeagues(leagues: ConnectedLeague[]): void {
   );
 }
 
+/**
+ * Returns the updated list with `league` first, deduped by id and capped.
+ * Does NOT persist — call saveConnectedLeagues with the result.
+ */
 export function upsertConnectedLeague(league: ConnectedLeague): ConnectedLeague[] {
   const existing = loadConnectedLeagues();
   const filtered = existing.filter((l) => l.league_id !== league.league_id);

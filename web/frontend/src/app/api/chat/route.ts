@@ -138,10 +138,12 @@ export async function POST(req: Request) {
   // Connected Sleeper leagues sent by the client (see use-persistent-chat).
   // Sanitized server-side; the first entry is the primary league.
   const leagues = parseAdvisorLeagues(body.leagues);
-  const resolveLeague = (leagueId?: string): AdvisorLeague | null =>
-    (leagueId
-      ? leagues.find((l) => l.league_id === leagueId)
-      : undefined) ?? leagues[0] ?? null;
+  // An explicit-but-unknown leagueId returns null (surfaced as noLeagueMessage)
+  // rather than silently substituting the primary league.
+  const resolveLeague = (leagueId?: string): AdvisorLeague | null => {
+    if (leagueId) return leagues.find((l) => l.league_id === leagueId) ?? null;
+    return leagues[0] ?? null;
+  };
   const noLeagueMessage =
     'No Sleeper league is connected. Ask the user to connect their league at /dashboard/leagues, then try again.';
 
