@@ -1,0 +1,117 @@
+{
+  "fetch_run_id": "480249f2-e098-482b-9306-e884f119610e",
+  "source": "rotowire",
+  "fetched_at": "2026-07-17T12:34:16.664019+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631712",
+      "url": "https://www.rotowire.com//football/player/hunter-henry-10735",
+      "permalink": "",
+      "title": "Hunter Henry: Remains top tight end",
+      "body_text": "While Henry returns as the Patriots' top tight end, slotting behind him on the team's depth chart has yet to be solidified following Julian Hill's season-ending knee injury, Evan Lazar of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-16T12:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hunter Henry",
+        "While Henry",
+        "Julian Hill",
+        "Evan Lazar"
+      ],
+      "resolved_player_ids": [
+        "00-0033090",
+        "00-0038720"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl631711",
+      "url": "https://www.rotowire.com//football/player/trevor-lawrence-15357",
+      "permalink": "",
+      "title": "Trevor Lawrence: Draws praise for offseason work",
+      "body_text": "Lawrence has thrived in the early stages of his second offseason in head coach Liam Coen's system, John Shipley of SI.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-16T10:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trevor Lawrence",
+        "Liam Coen",
+        "John Shipley"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631708",
+      "url": "https://www.rotowire.com//football/player/christian-mccaffrey-11690",
+      "permalink": "",
+      "title": "Christian McCaffrey: Wins Best Comeback Athlete",
+      "body_text": "McCaffrey was named the Best Comeback Athlete at the 2026 ESPYS, Briana Jeannel of the 49ers' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-16T10:19:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Wins Best",
+        "Comeback Athlete",
+        "Best Comeback",
+        "Briana Jeannel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl631706",
+      "url": "https://www.rotowire.com//football/player/zay-flowers-16919",
+      "permalink": "",
+      "title": "Zay Flowers: Ravens keen on extension",
+      "body_text": "Ravens general manager Eric DeCosta said Thursday on 105.7 The Fan that Baltimore \"definitely\" wants to ink Flowers to a contract extension before the start of the 2026 regular season, Cordell Woodland of 105.7 The Fan Baltimore reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-16T09:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "The Fan",
+        "Cordell Woodland"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "nfl631705",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Agrees to new contract with Saints",
+      "body_text": "Kamara and New Orleans agreed to terms Thursday on a restructured contract that gives him a $6 million base salary for the 2026 season, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-16T07:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Saints Kamara",
+        "New Orleans",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}

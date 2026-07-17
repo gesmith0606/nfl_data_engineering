@@ -1,0 +1,587 @@
+{
+  "fetch_run_id": "e4005464-bf3a-47fd-bf03-90c103b017e0",
+  "source": "pft",
+  "fetched_at": "2026-07-17T12:34:20.854036+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-hates-the-nfls-uniform-policies-weve-got-to-have-more-fun-roger",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-hates-the-nfls-uniform-policies-weve-got-to-have-more-fun-roger",
+      "permalink": "",
+      "title": "Maxx Crosby hates the NFL's uniform policies: \"We've got to have more fun, Roger\"",
+      "body_text": "Crosby said that if he could change one rule, it would be to ease off on the restrictions on players' shoes.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-17T08:05:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-has-about-10-more-countries-in-mind-for-games-including-japan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-has-about-10-more-countries-in-mind-for-games-including-japan",
+      "permalink": "",
+      "title": "Roger Goodell has \"about 10\" more countries in mind for games, including Japan",
+      "body_text": "The intentional push continues.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T04:36:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell",
+        "Japan The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nate-burleson-wants-to-host-the-nfl-today-but-will-wait-for-james-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nate-burleson-wants-to-host-the-nfl-today-but-will-wait-for-james-brown",
+      "permalink": "",
+      "title": "Nate Burleson wants to host The NFL Today, but will wait for James Brown",
+      "body_text": "James Brown, the long-time host of The NFL Today on CBS, has no plans to retire.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T00:54:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nate Burleson",
+        "James Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0021999",
+        "00-0029332"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dion-dawkins-josh-is-josh-but-everybody-else-has-to-be-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dion-dawkins-josh-is-josh-but-everybody-else-has-to-be-better",
+      "permalink": "",
+      "title": "Dion Dawkins: Josh is Josh, but everybody else has to be better",
+      "body_text": "In eight seasons, Josh Allen has won the MVP award once, finished second once and finished third twice.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-16T20:37:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dion Dawkins",
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0033904",
+        "00-0034857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-fourth-round-pick-febechi-nwaiwu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-fourth-round-pick-febechi-nwaiwu",
+      "permalink": "",
+      "title": "Texans sign fourth-round pick Febechi Nwaiwu",
+      "body_text": "The Texans have wrapped up their 2026 draft class.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-16T20:34:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Febechi Nwaiwu",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "NWA332675"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dl-pat-oconnor-announces-his-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dl-pat-oconnor-announces-his-retirement",
+      "permalink": "",
+      "title": "DL Pat O'Connor announces his retirement",
+      "body_text": "Defensive lineman Pat O'Connor will not be playing any more football.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-16T20:08:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-everything-pointed-in-right-direction-with-nnamdi-madubuike",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-everything-pointed-in-right-direction-with-nnamdi-madubuike",
+      "permalink": "",
+      "title": "Eric DeCosta: Everything pointed in right direction with Nnamdi Madubuike",
+      "body_text": "Madubuike missed 15 games last season and is returning from neck surgery.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-16T19:41:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nnamdi Madubuike"
+      ],
+      "resolved_player_ids": [
+        "00-0036130"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/argentina-faces-fifa-discipline-after-players-display-falkland-islands-banner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/argentina-faces-fifa-discipline-after-players-display-falkland-islands-banner",
+      "permalink": "",
+      "title": "Argentina faces FIFA discipline after players display Falkland Islands banner",
+      "body_text": "The World Cup semifinal match between Argentina and England had storylines extending beyond Atlanta, all the way to the Falkland Islands.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-16T18:11:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Falkland Islands",
+        "The World"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/federal-court-rejects-yet-another-attempt-by-nfl-to-send-brian-flores-case-to-arbitration",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/federal-court-rejects-yet-another-attempt-by-nfl-to-send-brian-flores-case-to-arbitration",
+      "permalink": "",
+      "title": "Federal court rejects yet another attempt by NFL to send Brian Flores case to arbitration",
+      "body_text": "The judge chides the NFL for continuing to delay the litigation.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-15T23:06:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-gruden-wants-to-become-a-play-by-play-announcer",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-gruden-wants-to-become-a-play-by-play-announcer",
+      "permalink": "",
+      "title": "Jon Gruden wants to become a play-by-play announcer",
+      "body_text": "Between his stints with the Buccaneers and a second run as Raiders coach, Jon Gruden served as the analyst on Monday Night Football for nine years.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-14T12:49:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jon Gruden",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/england-vs-argentina-is-deemed-the-highest-risk-game-of-the-entire-world-cup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/england-vs-argentina-is-deemed-the-highest-risk-game-of-the-entire-world-cup",
+      "permalink": "",
+      "title": "England vs. Argentina is deemed the \"highest risk\" game of the entire World Cup",
+      "body_text": "Wednesday's World Cup semifinal game between England and Argentina carries plenty of drama.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-15T17:05:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-aaron-donald-returns-he-wont-recognize-many-of-his-teammates",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-aaron-donald-returns-he-wont-recognize-many-of-his-teammates",
+      "permalink": "",
+      "title": "If Aaron Donald returns, he won't recognize many of his teammates",
+      "body_text": "If/when future Hall of Fame defensive tackle Aaron Donald resets the five-year clock on his induction to zero, he'll join a team that has nearly zero defensive starters from the last time he played.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-16T17:25:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "If Aaron",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-practical-window-for-trading-george-pickens-has-closed-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-practical-window-for-trading-george-pickens-has-closed-too",
+      "permalink": "",
+      "title": "The practical window for trading George Pickens has closed, too",
+      "body_text": "The deadline for the Cowboys and receiver George Pickens to finalize a long-term deal passed without a failed game of beat the clock.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-16T09:51:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dion-dawkins-says-its-kill-or-be-killed-for-the-bills-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dion-dawkins-says-its-kill-or-be-killed-for-the-bills-in-2026",
+      "permalink": "",
+      "title": "Dion Dawkins says it's \"kill or be killed\" for the Bills in 2026",
+      "body_text": "Left tackle Dion Dawkins has been with the Bills since 2017, so he has never played a game in the NFL for a head coach other than Sean McDermott.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-16T16:09:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dion Dawkins"
+      ],
+      "resolved_player_ids": [
+        "00-0033904"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-to-wear-alternate-uniforms-twice-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-to-wear-alternate-uniforms-twice-in-2026",
+      "permalink": "",
+      "title": "Commanders to wear alternate uniforms twice in 2026",
+      "body_text": "The Commanders unveiled new uniforms for the 2026 season earlier this year and they've now announced the schedule of what duds they'll be wearing each week of the year.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-16T15:37:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/missouri-attorney-general-says-matt-miller-investigation-will-be-kind-of-lengthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/missouri-attorney-general-says-matt-miller-investigation-will-be-kind-of-lengthy",
+      "permalink": "",
+      "title": "Missouri attorney general says Matt Miller investigation will be \"kind of lengthy\"",
+      "body_text": "Two weeks ago, the Missouri Attorney General's Office opened an investigation of ESPN NFL draft analyst Matt Miller.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-16T15:11:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matt Miller",
+        "Missouri Attorney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alvin-kamara-set-to-make-6-million-in-base-salary-on-new-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alvin-kamara-set-to-make-6-million-in-base-salary-on-new-deal",
+      "permalink": "",
+      "title": "Report: Alvin Kamara set to make $6 million in base salary on new deal",
+      "body_text": "On Wednesday, news emerged that running back Alvin Kamara had agreed to a new deal to stick with the Saints.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-16T14:55:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "On Wednesday"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-lb-jamien-sherwood-demario-daviss-presence-benefits-the-whole-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-lb-jamien-sherwood-demario-daviss-presence-benefits-the-whole-team",
+      "permalink": "",
+      "title": "Jets LB Jamien Sherwood: Demario Davis's presence benefits the whole team",
+      "body_text": "Veteran linebacker Demario Davis said that he believes the Jets signed him as a free agent to be a model of what \"winning culture looks like\" and that process appears to be off to a good start.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-16T12:59:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jamien Sherwood",
+        "Demario Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0036500",
+        "00-0029607"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-gave-jared-verse-his-welcome-to-the-nfl-moment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-gave-jared-verse-his-welcome-to-the-nfl-moment",
+      "permalink": "",
+      "title": "Trent Williams gave Jared Verse his \"Welcome to the NFL\" moment",
+      "body_text": "Jared Verse burst onto the scene as the Rams' first-round draft pick in 2024, winning the NFL's Defensive Rookie of the Year award.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-16T12:47:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trent Williams",
+        "Jared Verse",
+        "Defensive Rookie"
+      ],
+      "resolved_player_ids": [
+        "00-0027857",
+        "00-0039852"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quarterback-series-includes-jayden-daniels-working-with-vr-headset",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quarterback-series-includes-jayden-daniels-working-with-vr-headset",
+      "permalink": "",
+      "title": "Quarterback series includes Jayden Daniels working with VR headset",
+      "body_text": "Ten years ago (or thereabouts), stories began to emerge about NFL quarterbacks using virtual reality to augment their training.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-16T11:46:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-is-dealing-with-multiple-civil-lawsuits",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-is-dealing-with-multiple-civil-lawsuits",
+      "permalink": "",
+      "title": "Stefon Diggs is dealing with multiple civil lawsuits",
+      "body_text": "In 2026, the only practice receiver Stefon Diggs has experienced is legal.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-16T10:40:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-invade-jets-and-giants-radio-market-and-dolphins-sort-of",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-invade-jets-and-giants-radio-market-and-dolphins-sort-of",
+      "permalink": "",
+      "title": "Bills invade Jets' and Giants' radio market (and Dolphins', sort of)",
+      "body_text": "As Buddy Ryan said when he became the head coach of the Arizona Cardinals in 1994, \"You've got a winner in town.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-16T09:23:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "As Buddy",
+        "Arizona Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-i-wasnt-me-last-year-during-my-cancer-battle-this-year-im-all-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-i-wasnt-me-last-year-during-my-cancer-battle-this-year-im-all-me",
+      "permalink": "",
+      "title": "Deion Sanders: I wasn't me last year during my cancer battle, this year I'm all me",
+      "body_text": "“I got that thang back, I got that swagger back, I got that dog back, I got that charisma back,” Sanders said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-16T08:07:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-can-win-the-browns-job-if-he-puts-in-all-the-work",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-can-win-the-browns-job-if-he-puts-in-all-the-work",
+      "permalink": "",
+      "title": "Shedeur Sanders can win the Browns' job, if he puts in all the work",
+      "body_text": "I've got a theory about the Browns' quarterback competition.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-15T22:33:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-working-out-with-teammates-in-san-diego",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-working-out-with-teammates-in-san-diego",
+      "permalink": "",
+      "title": "Tyler Shough working out with teammates in San Diego",
+      "body_text": "Tyler Shough is the Saints' unquestioned starter heading into 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-15T21:51:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Shough",
+        "San Diego"
+      ],
+      "resolved_player_ids": [
+        "00-0040743"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deadline-passes-for-george-pickens-to-get-a-long-term-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deadline-passes-for-george-pickens-to-get-a-long-term-deal",
+      "permalink": "",
+      "title": "Deadline passes for George Pickens to get a long-term deal",
+      "body_text": "The Cowboys had already announced they weren't going to extend George Pickens' contract, but it became official Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-15T21:19:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-qb-will-grier-retires",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-qb-will-grier-retires",
+      "permalink": "",
+      "title": "Panthers QB Will Grier retires",
+      "body_text": "Panthers quarterback Will Grier has chosen to retire, the team announced on Wednesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-15T19:42:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Grier"
+      ],
+      "resolved_player_ids": [
+        "00-0035251"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alvin-kamara-finalizing-a-deal-to-keep-him-in-new-orleans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alvin-kamara-finalizing-a-deal-to-keep-him-in-new-orleans",
+      "permalink": "",
+      "title": "Report: Alvin Kamara finalizing a deal to keep him in New Orleans",
+      "body_text": "The running back's future with the team had been uncertain after the Saints signed Travis Etienne in free agency.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-15T20:31:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "New Orleans",
+        "Travis Etienne"
+      ],
+      "resolved_player_ids": [
+        "00-0033906",
+        "00-0036973"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-thinks-giants-can-create-organized-chaos-on-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-thinks-giants-can-create-organized-chaos-on-defense",
+      "permalink": "",
+      "title": "Brian Burns thinks Giants can create \"organized chaos\" on defense",
+      "body_text": "When the Giants drafted Arvell Reese with the fifth overall pick in April, there were questions about where Reese will line up after playing on the edge and at off-ball linebacker while at Ohio State.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-15T19:33:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Burns",
+        "Arvell Reese",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [
+        "00-0035713",
+        "REE496321"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxwell-hairston-says-he-has-something-to-prove-to-himself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxwell-hairston-says-he-has-something-to-prove-to-himself",
+      "permalink": "",
+      "title": "Maxwell Hairston says he has something to prove to himself",
+      "body_text": "Entering the offseason, Bills General Manager Brandon Beane named cornerback as an area of need.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-15T18:17:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Maxwell Hairston",
+        "Bills General",
+        "Manager Brandon"
+      ],
+      "resolved_player_ids": [
+        "00-0040709"
+      ],
+      "team_hint": "BUF"
+    }
+  ]
+}
