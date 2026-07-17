@@ -32,6 +32,7 @@ _STEAL_GAP = 10  # taken >= this many spots AFTER ADP → steal/value
 _VALUE_DROP_GAP = 12  # elite player sliding this far past their model rank
 _RUN_WINDOW = 4  # look-back window for a positional run
 _RUN_COUNT = 3  # this many of one position within the window → run
+_ROOKIE_DRAFT_MAX_ROUNDS = 5  # <= this many rounds → rookie draft (no ADP moments)
 
 
 @dataclass(frozen=True)
@@ -76,12 +77,19 @@ class LiveDraftEngine:
         my_user_id: Optional[str] = None,
         my_slot: Optional[int] = None,
         roster_config: Optional[Dict[str, int]] = None,
+        adp_moments: Optional[bool] = None,
     ) -> None:
         self.adapter = adapter
         self.enriched = compute_value_scores(projections_df, adp_df)
         self.my_user_id = my_user_id
         self.my_slot = my_slot
         self.roster_config = roster_config
+        # ADP-based key moments (steal/reach) and vorp-par pick grades use
+        # overall REDRAFT rank — meaningless in rookie/dynasty drafts, where
+        # they graded every chalk rookie pick a D (2026-07-11 MANTIS lesson).
+        # None = auto: disabled when the draft is short enough to be a rookie
+        # draft (rounds <= _ROOKIE_DRAFT_MAX_ROUNDS), enabled otherwise.
+        self.adp_moments = adp_moments
         self.board: Optional[DraftBoard] = None
         self.advisor: Optional[DraftAdvisor] = None
         self.rosters: Dict[int, List[Dict[str, Any]]] = {}
@@ -121,6 +129,9 @@ class LiveDraftEngine:
             if self.my_slot is None and self.my_user_id:
                 slot = state.draft_order.get(self.my_user_id)
                 self.my_slot = int(slot) if slot is not None else None
+            if self.adp_moments is None:
+                rounds = state.rounds or 15
+                self.adp_moments = rounds > _ROOKIE_DRAFT_MAX_ROUNDS
         self.state = state
 
         new_picks = [p for p in state.picks if p.pick_no > self._seen_pick_no]
@@ -166,7 +177,7 @@ class LiveDraftEngine:
             return 0
         all_kept = keeper_info.get("all", [])
         mine = keeper_info.get("mine", [])
-        matched_all, _ = self.adapter.map_picks(all_kept, self.enriched)
+        matched_all, unmatched_all = self.adapter.map_picks(all_kept, self.enriched)
         matched_mine, _ = self.adapter.map_picks(mine, self.enriched)
         my_ids = {m.get("player_id") for m in matched_mine}
         self.my_keepers = matched_mine
@@ -174,7 +185,14 @@ class LiveDraftEngine:
             pid = str(m.get("player_id") or "")
             if pid:
                 self.board.draft_player(pid, by_me=(m.get("player_id") in my_ids))
-        return len(matched_all)
+        # KM-1: keepers whose projection mapping failed must STILL leave the
+        # pool — otherwise they linger as phantom availability and trigger
+        # false "value drop" alerts (Trey McBride, MANTIS 2026-07-11). Name
+        # removal is nickname/suffix tolerant and records no pick.
+        removed = self.board.remove_players(
+            [pe.full_name for pe in unmatched_all if pe.full_name]
+        )
+        return len(matched_all) + removed
 
     def my_full_roster(self) -> List[Dict[str, Any]]:
         """Your complete roster: keepers + players you've drafted live."""
@@ -207,7 +225,11 @@ class LiveDraftEngine:
         """
         if self.advisor is None:
             return pd.DataFrame(), "Draft not started."
-        recs, reasoning = self.advisor.recommend(top_n=top_n)
+        # Over-fetch then apply the market-belief filter so low-sample
+        # artifacts never occupy a recommendation slot.
+        recs, reasoning = self.advisor.recommend(top_n=top_n * 2)
+        if not recs.empty:
+            recs = self._market_believed(recs).head(top_n)
         if not recs.empty and "player_id" in recs.columns:
             recs = recs.copy()
             recs["stack_note"] = recs["player_id"].map(self.stack_note)
@@ -252,7 +274,10 @@ class LiveDraftEngine:
     def best_available(self, positions: Optional[List[str]] = None, top_n: int = 10):
         if self.advisor is None:
             return pd.DataFrame()
-        return self.advisor.best_available(positions=positions, top_n=top_n)
+        avail = self.advisor.best_available(positions=positions, top_n=top_n * 2)
+        if isinstance(avail, pd.DataFrame) and not avail.empty:
+            avail = self._market_believed(avail).head(top_n)
+        return avail
 
     # -- slot math -----------------------------------------------------------
 
@@ -283,6 +308,11 @@ class LiveDraftEngine:
     ) -> List[KeyMoment]:
         moments: List[KeyMoment] = []
         if not matched:
+            return moments
+        # Redraft-ADP steals/reaches and vorp-par grades are noise in rookie
+        # drafts (KM-2) — suppressed when adp_moments resolved False. None
+        # (not yet resolved by update()) keeps the redraft default: enabled.
+        if self.adp_moments is False:
             return moments
         adp_rank = matched.get("adp_rank")
         if adp_rank is not None and pd.notna(adp_rank):
@@ -340,11 +370,37 @@ class LiveDraftEngine:
                 ]
         return []
 
+    @staticmethod
+    def _market_believed(df: pd.DataFrame) -> pd.DataFrame:
+        """Drop low-sample projections the market doesn't rank.
+
+        A vet with 2 career games can carry an inflated model projection
+        (Okwuegbunam 85-rec artifact, MANTIS 2026-07-11). When the frame
+        carries the Gold flags, hide rows that are BOTH low-sample AND absent
+        from external consensus — they stay draftable/mappable, just not
+        surfaced in recommendations, best-available, or value-drop alerts.
+        """
+        if (
+            "is_low_sample_projection" not in df.columns
+            or "consensus_pos_rank" not in df.columns
+            or df.empty
+        ):
+            return df
+        suspect = (
+            df["is_low_sample_projection"].fillna(False).astype(bool)
+            & df["consensus_pos_rank"].isna()
+        )
+        return df[~suspect]
+
     def _value_drop_moment(self, state: DraftState) -> List[KeyMoment]:
         if self.board is None or self.board.available.empty:
             return []
-        avail = self.board.available
-        if "vorp" not in avail.columns or "model_rank" not in avail.columns:
+        avail = self._market_believed(self.board.available)
+        if (
+            avail.empty
+            or "vorp" not in avail.columns
+            or "model_rank" not in avail.columns
+        ):
             return []
         top = avail.sort_values("vorp", ascending=False).iloc[0]
         on_clock_pick = self._seen_pick_no + 1
