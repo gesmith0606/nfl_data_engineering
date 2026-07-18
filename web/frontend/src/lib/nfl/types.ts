@@ -314,6 +314,65 @@ export interface WaiversResponse {
 }
 
 // ---------------------------------------------------------------------------
+// My Week types (/api/league/{league_id}/my-week)
+// ---------------------------------------------------------------------------
+
+/** A player scored for a single NFL week under league scoring. */
+export interface MyWeekPlayer {
+  sleeper_player_id: string
+  player_name: string | null
+  position: string | null
+  team: string | null
+  /** League-scored projected points for the requested week. */
+  projected_points: number | null
+  floor: number | null
+  ceiling: number | null
+  injury_status: string | null
+  is_bye_week: boolean
+  /** True for Out-tier designations (Out / IR / PUP / NFI). */
+  is_out: boolean
+}
+
+/** A starting-lineup slot filled by the weekly optimal lineup. */
+export interface MyWeekSlot extends MyWeekPlayer {
+  slot: string
+}
+
+/** A free agent ranked by league-scored weekly projection. */
+export interface MyWeekWaiverTarget extends MyWeekPlayer {
+  upgrades_over: string | null
+  upgrade_slot: string | null
+}
+
+/** Current-vs-optimal lineup delta for the week. */
+export interface LineupChanges {
+  to_start: MyWeekSlot[]
+  to_bench: MyWeekPlayer[]
+  current_points: number
+  optimal_points: number
+  /** optimal_points - current_points (0 when the set lineup is optimal). */
+  net_gain: number
+}
+
+/** Response for GET /api/league/{league_id}/my-week. */
+export interface MyWeekResponse {
+  league_id: string
+  user_id: string
+  season: number
+  week: number | null
+  /** 'weekly' when weekly projections exist; 'preseason' otherwise. */
+  mode: 'weekly' | 'preseason'
+  message: string | null
+  scoring_format_label: string
+  roster_positions: string[]
+  optimal_starters: MyWeekSlot[]
+  bench: MyWeekPlayer[]
+  changes: LineupChanges | null
+  waiver_targets: MyWeekWaiverTarget[]
+  unmatched_player_ids: string[]
+}
+
+// ---------------------------------------------------------------------------
 // Draft-Prep types (/api/league/{league_id}/draft-prep)
 // ---------------------------------------------------------------------------
 

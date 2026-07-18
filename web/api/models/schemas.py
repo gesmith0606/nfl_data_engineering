@@ -1338,6 +1338,117 @@ class WaiversResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# My Week models (weekly league command center)
+# ---------------------------------------------------------------------------
+
+
+class MyWeekPlayer(BaseModel):
+    """A roster/waiver player scored for a single NFL week under league scoring."""
+
+    sleeper_player_id: str
+    player_name: Optional[str] = None
+    position: Optional[str] = None
+    team: Optional[str] = None
+    projected_points: Optional[float] = Field(
+        None, description="League-scored projected points for the requested week"
+    )
+    floor: Optional[float] = Field(
+        None, description="Projected floor for the week (scaled to league scoring)"
+    )
+    ceiling: Optional[float] = Field(
+        None, description="Projected ceiling for the week (scaled to league scoring)"
+    )
+    injury_status: Optional[str] = Field(
+        None, description="Injury designation, e.g. Active / Questionable / Out"
+    )
+    is_bye_week: bool = Field(False, description="True when the player is on bye")
+    is_out: bool = Field(
+        False, description="True for Out-tier designations (Out / IR / PUP / NFI)"
+    )
+
+
+class MyWeekSlot(MyWeekPlayer):
+    """A starting-lineup slot filled by the weekly optimal lineup."""
+
+    slot: str = Field(
+        ..., description="Slot label, e.g. QB / RB / WR / TE / FLEX / SFLEX"
+    )
+
+
+class MyWeekWaiverTarget(MyWeekPlayer):
+    """A free agent ranked by league-scored weekly projection."""
+
+    upgrades_over: Optional[str] = Field(
+        None,
+        description=(
+            "Name of the weakest optimal starter this player out-projects at "
+            "their position this week, or None when they add depth only"
+        ),
+    )
+    upgrade_slot: Optional[str] = Field(
+        None, description="Starting slot the upgrade applies to"
+    )
+
+
+class LineupChanges(BaseModel):
+    """Current-vs-optimal lineup delta for the week."""
+
+    to_start: List[MyWeekSlot] = Field(
+        default_factory=list,
+        description="Players in the optimal lineup not currently started",
+    )
+    to_bench: List[MyWeekPlayer] = Field(
+        default_factory=list,
+        description="Currently-started players who should be benched",
+    )
+    current_points: float = Field(
+        ..., description="Projected points of the currently-set Sleeper lineup"
+    )
+    optimal_points: float = Field(
+        ..., description="Projected points of the optimal lineup"
+    )
+    net_gain: float = Field(
+        ..., description="optimal_points - current_points (0 when lineup is optimal)"
+    )
+
+
+class MyWeekResponse(BaseModel):
+    """Response for GET /api/league/{league_id}/my-week.
+
+    ``mode`` is ``"weekly"`` when weekly Gold projections exist for the
+    resolved (season, week); ``"preseason"`` when they don't (offseason /
+    pre-season), in which case ``message`` explains why and all lists are
+    empty — the UI should point users at the season-long Roster Report.
+    """
+
+    league_id: str
+    user_id: str
+    season: int
+    week: Optional[int] = Field(
+        None, description="Resolved NFL week; None when no week could be resolved"
+    )
+    mode: str = Field(..., description="'weekly' or 'preseason'")
+    message: Optional[str] = Field(
+        None, description="Human-readable explanation when mode != 'weekly'"
+    )
+    scoring_format_label: str = ""
+    roster_positions: List[str] = Field(default_factory=list)
+    optimal_starters: List[MyWeekSlot] = Field(default_factory=list)
+    bench: List[MyWeekPlayer] = Field(default_factory=list)
+    changes: Optional[LineupChanges] = Field(
+        None, description="Start/sit deltas vs the currently-set Sleeper lineup"
+    )
+    waiver_targets: List[MyWeekWaiverTarget] = Field(
+        default_factory=list,
+        description="Top unrostered players by league-scored weekly projection",
+    )
+    unmatched_player_ids: List[str] = Field(
+        default_factory=list,
+        description="Sleeper player_ids with no matching weekly projection row",
+    )
+
+
+# ---------------------------------------------------------------------------
 # Draft-Prep models (League Sync pre-draft view)
 # ---------------------------------------------------------------------------
 

@@ -39,6 +39,7 @@ from src.sleeper_player_map import (
     normalize_name,
 )
 
+from ..config import GOLD_PROJECTIONS_DIR
 from ..models.schemas import (
     BestAvailablePlayer,
     DraftInfo,
@@ -46,6 +47,11 @@ from ..models.schemas import (
     LeagueDraftPrepResponse,
     LeagueOverviewResponse,
     LeagueRosterPlayer,
+    LineupChanges,
+    MyWeekPlayer,
+    MyWeekResponse,
+    MyWeekSlot,
+    MyWeekWaiverTarget,
     RosterReportResponse,
     ScoringDeltaBadge,
     SleeperLeague,
@@ -57,6 +63,8 @@ from ..models.schemas import (
     WaiverTarget,
     WaiversResponse,
 )
+from ..services.projection_service import _latest_parquet
+from ..services.team_roster_service import get_current_week as _get_current_week
 
 logger = logging.getLogger(__name__)
 
@@ -1041,6 +1049,425 @@ def league_waivers(
         user_id=user_id,
         roster_positions=ctx.roster_positions,
         targets=targets,
+    )
+
+
+# ---------------------------------------------------------------------------
+# My Week — weekly league command center
+# ---------------------------------------------------------------------------
+
+#: Weekly Gold parquets prefix per-stat columns with ``proj_``; league_scoring
+#: expects the unprefixed names, so strip the prefix on load.
+_WEEKLY_STAT_RENAMES: Dict[str, str] = {
+    f"proj_{col}": col
+    for col in (
+        "passing_yards",
+        "passing_tds",
+        "interceptions",
+        "rushing_yards",
+        "rushing_tds",
+        "receptions",
+        "receiving_yards",
+        "receiving_tds",
+    )
+}
+
+#: Injury designations that mean the player cannot play this week.
+_OUT_STATUSES = frozenset({"OUT", "IR", "PUP", "NFI", "SUSPENDED"})
+
+
+def _load_weekly_projections(season: int, week: int) -> Optional[pd.DataFrame]:
+    """Load the weekly Gold projections parquet for ``(season, week)``.
+
+    Reads ``data/gold/projections/season=S/week=W/`` directly (same Gold
+    artifact ``/api/projections`` serves in its Parquet path), preferring the
+    half-PPR file — the per-stat columns are format-independent and points are
+    re-scored under league settings anyway. Deliberately does NOT apply the
+    preseason fallback ``projection_service`` uses: a season-long projection
+    rebadged as a week would make start/sit deltas meaningless, so the caller
+    surfaces an explicit preseason mode instead.
+
+    Returns:
+        DataFrame with unprefixed stat columns and a ``team`` column, or
+        ``None`` when no weekly parquet exists for the slice.
+    """
+    week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
+    if not week_dir.exists():
+        return None
+    parquet_path = _latest_parquet(
+        week_dir, "projections_half_ppr_*.parquet"
+    ) or _latest_parquet(week_dir)
+    if parquet_path is None:
+        return None
+    df = pd.read_parquet(parquet_path)
+    df = df.rename(
+        columns={k: v for k, v in _WEEKLY_STAT_RENAMES.items() if k in df.columns}
+    )
+    if "recent_team" in df.columns and "team" not in df.columns:
+        df = df.rename(columns={"recent_team": "team"})
+    return df
+
+
+def _league_weekly_projections(
+    league_id: str, season: int, week: int, scoring_settings: Dict[str, Any]
+) -> Optional[pd.DataFrame]:
+    """Return weekly projections re-scored for a league, TTL-cached.
+
+    Re-scores ``projected_points`` under the league's ``scoring_settings`` and
+    scales ``projected_floor`` / ``projected_ceiling`` by the same per-player
+    ratio so the bands stay consistent with the re-scored point estimate.
+    K/DST rows (no modeled stat columns) keep their preset points rather than
+    being zeroed by the re-score.
+    """
+    key = f"league_weekly:{league_id}:{season}:{week}"
+    cached = _cache_get(key)
+    if cached is not None:
+        return cached
+    df = _load_weekly_projections(season, week)
+    if df is None or df.empty:
+        return None
+    if scoring_settings and "projected_points" in df.columns:
+        base = df["projected_points"].astype(float).copy()
+        df = score_with_settings(df, scoring_settings)
+        if "position" in df.columns:
+            unmodeled = df["position"].astype(str).str.upper().isin(("K", "DST", "DEF"))
+            df.loc[unmodeled, "projected_points"] = base[unmodeled]
+        rescored = df["projected_points"].astype(float)
+        ratio = pd.Series(1.0, index=df.index)
+        nonzero = base > 0
+        ratio[nonzero] = rescored[nonzero] / base[nonzero]
+        for col in ("projected_floor", "projected_ceiling"):
+            if col in df.columns:
+                df[col] = (df[col].astype(float) * ratio).round(1)
+    _cache_set(key, df)
+    return df
+
+
+def _abbrev_name_key(full_name: str) -> str:
+    """Collapse a registry full name to the weekly-Gold abbreviated form.
+
+    Registry ``"Josh Allen"`` → ``"jallen"``; multi-token surnames also
+    collapse: ``"Amon-Ra St. Brown"`` → ``"astbrown"``. The weekly-side key
+    (see :func:`_weekly_abbrev_key`) collapses ``"J.Allen"`` / ``"A.St.
+    Brown"`` to the same strings.
+    """
+    tokens = normalize_name(full_name).split()
+    if len(tokens) >= 2:
+        return tokens[0][0] + "".join(tokens[1:])
+    return tokens[0] if tokens else ""
+
+
+def _weekly_abbrev_key(weekly_name: str) -> str:
+    """Collapse a weekly-Gold short name (``"A.St. Brown"``) to its join key."""
+    return normalize_name(weekly_name).replace(" ", "")
+
+
+def _weekly_row_lookups(
+    weekly: pd.DataFrame,
+) -> Tuple[Dict[str, Dict[str, Any]], Dict[Tuple[str, str], Dict[str, Any]]]:
+    """Build ``gsis_id → row`` and ``(abbrev_key, position) → row`` lookups.
+
+    Weekly Gold rows key on GSIS ``player_id`` and abbreviated names, so the
+    full-name join used for preseason data cannot work here. The primary join
+    is Sleeper's ``gsis_id`` (present for effectively all fantasy-relevant
+    players); the abbreviated-name key is the fallback.
+    """
+    by_gsis: Dict[str, Dict[str, Any]] = {}
+    by_abbrev: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    for row in weekly.to_dict("records"):
+        gsis = str(row.get("player_id") or "").strip()
+        if gsis:
+            by_gsis.setdefault(gsis, row)
+        key = _weekly_abbrev_key(str(row.get("player_name") or ""))
+        pos = str(row.get("position") or "").upper()
+        if key and pos:
+            by_abbrev.setdefault((key, pos), row)
+    return by_gsis, by_abbrev
+
+
+def _find_weekly_row(
+    pid: str,
+    meta: Dict[str, Any],
+    raw_registry: Dict[str, Any],
+    by_gsis: Dict[str, Dict[str, Any]],
+    by_abbrev: Dict[Tuple[str, str], Dict[str, Any]],
+) -> Optional[Dict[str, Any]]:
+    """Resolve a Sleeper player_id to its weekly projection row (or None)."""
+    raw = raw_registry.get(pid) or {}
+    gsis = str(raw.get("gsis_id") or "").strip()
+    if gsis:
+        row = by_gsis.get(gsis)
+        if row is not None:
+            return row
+    pos = str(meta.get("position") or "").upper()
+    key = _abbrev_name_key(str(meta.get("full_name") or ""))
+    if key and pos:
+        return by_abbrev.get((key, pos))
+    return None
+
+
+def _to_my_week_player(row: Dict[str, Any]) -> MyWeekPlayer:
+    """Convert a weekly projection row dict to a ``MyWeekPlayer``."""
+    status = row.get("injury_status")
+    status_str = str(status) if status is not None and not pd.isna(status) else None
+    is_bye = bool(row.get("is_bye_week") or False)
+    return MyWeekPlayer(
+        sleeper_player_id=str(row.get("sleeper_player_id") or ""),
+        player_name=row.get("player_name"),
+        position=str(row.get("position") or "").upper() or None,
+        team=row.get("team") or row.get("recent_team"),
+        projected_points=_safe_float(row.get("projected_points")),
+        floor=_safe_float(row.get("projected_floor")),
+        ceiling=_safe_float(row.get("projected_ceiling")),
+        injury_status=status_str,
+        is_bye_week=is_bye,
+        is_out=bool(status_str and status_str.upper() in _OUT_STATUSES),
+    )
+
+
+def _weekly_points(row: Dict[str, Any]) -> float:
+    """League-scored weekly points for a row, 0.0 when missing."""
+    return _safe_float(row.get("projected_points")) or 0.0
+
+
+def _preseason_my_week(
+    league_id: str,
+    user_id: str,
+    ctx: "_LeagueContext",
+    week: Optional[int],
+) -> MyWeekResponse:
+    """Empty-payload preseason response with an explicit explanation."""
+    return MyWeekResponse(
+        league_id=league_id,
+        user_id=user_id,
+        season=ctx.use_season,
+        week=week,
+        mode="preseason",
+        message=(
+            f"Weekly projections for the {ctx.use_season} season aren't "
+            "published yet — My Week goes live once the regular season starts. "
+            "Until then, use the Roster Report for season-long lineup advice."
+        ),
+        scoring_format_label=_scoring_format_label(ctx.scoring_settings),
+        roster_positions=ctx.roster_positions,
+    )
+
+
+@league_router.get("/{league_id}/my-week", response_model=MyWeekResponse)
+def league_my_week(
+    league_id: str,
+    user_id: str = Query(..., description="Sleeper user_id"),
+    season: Optional[int] = Query(
+        None, description="Season year (defaults to current)"
+    ),
+    week: Optional[int] = Query(
+        None, ge=1, le=18, description="NFL week (defaults to current week)"
+    ),
+) -> MyWeekResponse:
+    """Return the weekly command center for the user's roster in a league.
+
+    Loads the WEEKLY Gold projections for the resolved (season, week) —
+    the same artifact ``/api/projections`` serves — re-scored under the
+    league's exact ``scoring_settings``, then computes:
+
+    - the optimal weekly lineup for the league's real ``roster_positions``
+      (with floor/ceiling bands and injury/bye flags per player),
+    - start/sit deltas vs the lineup currently set in Sleeper (players to
+      start, players to bench, net projected gain),
+    - the bench with weekly points,
+    - the top-10 unrostered free agents by league-scored WEEKLY projection,
+      annotated with the starter they would upgrade over.
+
+    When ``week`` is omitted the current NFL week is resolved from the
+    schedule; if it doesn't fall inside the requested season (offseason), or
+    no weekly parquet exists for the slice, the endpoint returns 200 with
+    ``mode="preseason"``, a human-readable ``message``, and empty lists —
+    it never silently substitutes season-long numbers for weekly ones.
+
+    Raises:
+        HTTPException 400: non-numeric league_id.
+        HTTPException 404: league not found or user not in league.
+    """
+    ctx = _build_league_context(league_id, season)
+
+    # --- resolve week --------------------------------------------------------
+    resolved_week = week
+    if resolved_week is None:
+        try:
+            cw = _get_current_week()
+            if int(cw.season) == ctx.use_season and cw.week is not None:
+                resolved_week = int(cw.week)
+        except Exception:  # pragma: no cover — schedule data unavailable
+            logger.warning("Current-week resolution failed", exc_info=True)
+
+    if resolved_week is None:
+        return _preseason_my_week(league_id, user_id, ctx, None)
+
+    # --- weekly projections re-scored for the league -------------------------
+    weekly = _league_weekly_projections(
+        league_id, ctx.use_season, resolved_week, ctx.scoring_settings
+    )
+    if weekly is None or weekly.empty:
+        return _preseason_my_week(league_id, user_id, ctx, resolved_week)
+
+    # --- user roster + current starters --------------------------------------
+    rosters = _cached_rosters(league_id)
+    roster, player_ids = _require_user_roster(rosters, user_id, league_id)
+    current_starter_ids = [
+        str(p) for p in (roster.get("starters") or []) if p and str(p) != "0"
+    ]
+
+    player_index = _cached_player_index()
+    raw_registry = _cached_raw_registry()
+    by_gsis, by_abbrev = _weekly_row_lookups(weekly)
+
+    matched: List[Dict[str, Any]] = []
+    unmatched_ids: List[str] = []
+    for pid in player_ids:
+        meta = player_index.get(pid) or {}
+        row = _find_weekly_row(pid, meta, raw_registry, by_gsis, by_abbrev)
+        if row is None:
+            unmatched_ids.append(pid)
+            continue
+        enriched = dict(row)
+        enriched["sleeper_player_id"] = pid
+        # Weekly Gold names are abbreviated ("J.Allen") — display the
+        # registry full name instead.
+        if meta.get("full_name"):
+            enriched["player_name"] = meta["full_name"]
+        matched.append(enriched)
+
+    # --- optimal lineup + deltas ---------------------------------------------
+    lineup = optimal_lineup(
+        matched, ctx.roster_format, roster_positions=ctx.roster_positions or None
+    )
+
+    optimal_starters: List[MyWeekSlot] = []
+    optimal_ids: set = set()
+    slot_by_id: Dict[str, str] = {}
+    for slot, players in lineup["starters"].items():
+        for p in players:
+            pid = str(p.get("sleeper_player_id") or "")
+            optimal_ids.add(pid)
+            slot_by_id[pid] = slot
+            optimal_starters.append(
+                MyWeekSlot(slot=slot, **_to_my_week_player(p).model_dump())
+            )
+
+    matched_by_id = {str(p.get("sleeper_player_id") or ""): p for p in matched}
+    optimal_points = sum(
+        _weekly_points(p)
+        for p in matched
+        if str(p.get("sleeper_player_id") or "") in optimal_ids
+    )
+    current_points = sum(
+        _weekly_points(matched_by_id[pid])
+        for pid in current_starter_ids
+        if pid in matched_by_id
+    )
+
+    to_start = [
+        MyWeekSlot(
+            slot=slot_by_id.get(pid, ""),
+            **_to_my_week_player(matched_by_id[pid]).model_dump(),
+        )
+        for pid in sorted(
+            optimal_ids - set(current_starter_ids),
+            key=lambda i: -_weekly_points(matched_by_id.get(i, {})),
+        )
+        if pid in matched_by_id
+    ]
+    to_bench = [
+        _to_my_week_player(matched_by_id[pid])
+        for pid in current_starter_ids
+        if pid not in optimal_ids and pid in matched_by_id
+    ]
+    changes = LineupChanges(
+        to_start=to_start,
+        to_bench=to_bench,
+        current_points=round(current_points, 1),
+        optimal_points=round(optimal_points, 1),
+        net_gain=round(optimal_points - current_points, 1),
+    )
+
+    bench_players = [_to_my_week_player(p) for p in lineup["bench"]]
+
+    # --- weekly waiver targets ------------------------------------------------
+    all_rostered_ids: set = set()
+    for r in rosters:
+        if isinstance(r, dict):
+            all_rostered_ids.update(str(p) for p in (r.get("players") or []) if p)
+
+    adp_lookup = _cached_adp()
+    fa_rows: List[Dict[str, Any]] = []
+    for pid, meta in player_index.items():
+        if str(pid) in all_rostered_ids:
+            continue
+        pos = str(meta.get("position") or "").upper()
+        if pos not in _SKILL_POSITIONS:
+            continue
+        norm = meta.get("normalized_name") or normalize_name(
+            str(meta.get("full_name") or "")
+        )
+        if not norm or not _is_relevant_free_agent(meta, norm, adp_lookup):
+            continue
+        row = _find_weekly_row(str(pid), meta, raw_registry, by_gsis, by_abbrev)
+        if row is None:
+            continue
+        # Team-aware tiebreak — same-name/same-position collisions on other teams.
+        player_team = str(meta.get("team") or "").upper()
+        row_team = str(row.get("team") or "").upper()
+        if player_team and row_team and player_team != row_team:
+            continue
+        enriched = dict(row)
+        enriched["sleeper_player_id"] = str(pid)
+        if meta.get("full_name"):
+            enriched["player_name"] = meta["full_name"]
+        fa_rows.append(enriched)
+
+    fa_rows.sort(key=_weekly_points, reverse=True)
+
+    # Weakest optimal starter per position for upgrade annotations.
+    weakest_starter: Dict[str, Tuple[float, str, str]] = {}
+    for slot, players in lineup["starters"].items():
+        for p in players:
+            pos = str(p.get("position") or "").upper()
+            pts = _weekly_points(p)
+            if pos not in weakest_starter or pts < weakest_starter[pos][0]:
+                weakest_starter[pos] = (pts, str(p.get("player_name") or ""), slot)
+
+    waiver_targets: List[MyWeekWaiverTarget] = []
+    for row in fa_rows[:10]:
+        pos = str(row.get("position") or "").upper()
+        pts = _weekly_points(row)
+        upgrades_over: Optional[str] = None
+        upgrade_slot: Optional[str] = None
+        if pos in weakest_starter:
+            starter_pts, starter_name, slot = weakest_starter[pos]
+            if pts > starter_pts:
+                upgrades_over = starter_name
+                upgrade_slot = slot
+        waiver_targets.append(
+            MyWeekWaiverTarget(
+                upgrades_over=upgrades_over,
+                upgrade_slot=upgrade_slot,
+                **_to_my_week_player(row).model_dump(),
+            )
+        )
+
+    return MyWeekResponse(
+        league_id=league_id,
+        user_id=user_id,
+        season=ctx.use_season,
+        week=resolved_week,
+        mode="weekly",
+        scoring_format_label=_scoring_format_label(ctx.scoring_settings),
+        roster_positions=ctx.roster_positions,
+        optimal_starters=optimal_starters,
+        bench=bench_players,
+        changes=changes,
+        waiver_targets=waiver_targets,
+        unmatched_player_ids=unmatched_ids,
     )
 
 
