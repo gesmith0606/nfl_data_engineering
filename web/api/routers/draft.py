@@ -47,6 +47,8 @@ from draft_optimizer import (  # noqa: E402
     MockDraftSimulator,
     compute_value_scores,
 )
+from draft_availability import prob_gone_before_vectorized  # noqa: E402
+from draft_tiers import compute_tiers  # noqa: E402
 from nfl_data_integration import NFLDataFetcher  # noqa: E402
 from projection_engine import generate_preseason_projections  # noqa: E402
 
@@ -126,6 +128,24 @@ def _safe_int(val: object, default: int = 0) -> int:
         return default
 
 
+def _safe_tier(val: object) -> Optional[int]:
+    """Convert a tier value to int, returning None for NaN / missing.
+
+    Distinct from :func:`_safe_int` (which has a numeric default) because a
+    missing tier is a meaningful ``None`` (e.g. DST has no points to tier),
+    not a sentinel default.
+    """
+    if val is None:
+        return None
+    try:
+        f = float(val)
+        if f != f:  # NaN check
+            return None
+        return int(f)
+    except (ValueError, TypeError):
+        return None
+
+
 def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame]:
     """Attempt to load cached Gold preseason projections from local Parquet files.
 
@@ -193,7 +213,12 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
             f"--season {season}' when the API is reachable to populate the cache."
         )
 
-    return compute_value_scores(projections, _load_adp_df())
+    enriched = compute_value_scores(projections, _load_adp_df())
+    # Positional tiers computed once on the full pre-draft pool so tier
+    # numbers stay stable as players come off the board (recomputing per
+    # available-only slice would renumber tiers mid-draft).
+    enriched["tier"] = compute_tiers(enriched)
+    return enriched
 
 
 def _df_row_to_draft_player(row: pd.Series) -> DraftPlayer:
@@ -214,6 +239,7 @@ def _df_row_to_draft_player(row: pd.Series) -> DraftPlayer:
         adp_diff=_safe_float(row.get("adp_diff")),
         value_tier=str(row.get("value_tier", "fair_value")),
         vorp=round(float(row.get("vorp", 0) or 0), 1),
+        tier=_safe_tier(row.get("tier")),
     )
 
 
@@ -244,6 +270,7 @@ def _df_row_to_board_entry(row: pd.Series) -> DraftBoardEntry:
         vorp=round(float(row.get("vorp", 0) or 0), 1),
         value_tier=str(row.get("value_tier", "fair_value")),
         bye_week=bye_week,
+        tier=_safe_tier(row.get("tier")),
     )
 
 
@@ -265,7 +292,43 @@ def _dict_to_draft_player(d: Dict) -> DraftPlayer:
         adp_diff=_safe_float(d.get("adp_diff")),
         value_tier=str(d.get("value_tier", "fair_value")),
         vorp=round(float(d.get("vorp", 0) or 0), 1),
+        tier=_safe_tier(d.get("tier")),
     )
+
+
+def _user_next_pick_number(
+    session: Dict, board: DraftBoard, user_pick: Optional[int]
+) -> Optional[int]:
+    """Overall pick number of the user's next pick, via snake/linear math.
+
+    Prefers the session's own mock-draft ``user_pick`` (set by
+    ``/draft/mock/start``) so gone-probability works for a mock draft in
+    progress without any extra query params; falls back to an explicit
+    ``user_pick`` query param for plain board sessions that have no
+    simulator. Returns ``None`` (caller degrades to no gone_probability)
+    when neither is available.
+    """
+    slot = session.get("user_pick") or user_pick
+    if not slot:
+        return None
+    simulator: Optional[MockDraftSimulator] = session.get("simulator")
+    draft_type = getattr(simulator, "draft_type", "snake") if simulator else "snake"
+    n_teams = board.n_teams
+    if n_teams <= 0:
+        return None
+    start_pick = board.picks_taken() + 1
+    for pick_no in range(start_pick, start_pick + n_teams * 2 + 1):
+        pick_in_round = (pick_no - 1) % n_teams + 1
+        if draft_type == "linear":
+            slot_on_clock = pick_in_round
+        else:
+            round_number = (pick_no - 1) // n_teams + 1
+            slot_on_clock = (
+                pick_in_round if round_number % 2 == 1 else n_teams - pick_in_round + 1
+            )
+        if slot_on_clock == slot:
+            return pick_no
+    return None
 
 
 def _board_to_response(session_id: str, session: Dict) -> DraftBoardResponse:
@@ -393,10 +456,21 @@ def get_recommendations(
     position: Optional[str] = Query(
         None, description="Filter by position (QB/RB/WR/TE)"
     ),
+    user_pick: Optional[int] = Query(
+        None,
+        ge=1,
+        le=20,
+        description=(
+            "Your draft slot, used to compute gone_probability at your next "
+            "pick. Not needed for a mock-draft session (uses the slot set at "
+            "/draft/mock/start); required for a plain board session."
+        ),
+    ),
 ) -> DraftRecommendationsResponse:
     """Return ranked pick recommendations for the current board state."""
     session = _get_session(session_id)
     advisor: DraftAdvisor = session["advisor"]
+    board: DraftBoard = session["board"]
 
     if position:
         positions = [position.upper()]
@@ -411,8 +485,19 @@ def get_recommendations(
         else "projected_points"
     )
 
+    # gone_probability: chance each candidate is drafted before the user's
+    # next pick. Computed once, vectorized, over the whole recs frame.
+    gone_prob: Optional[pd.Series] = None
+    next_pick_no = _user_next_pick_number(session, board, user_pick)
+    if next_pick_no is not None and not recs_df.empty and "adp_rank" in recs_df.columns:
+        gone_prob = prob_gone_before_vectorized(recs_df, next_pick_no)
+
     recommendations: List[DraftRecommendation] = []
     for _, row in recs_df.iterrows():
+        gp = None
+        if gone_prob is not None:
+            gp_val = gone_prob.get(row.name)
+            gp = float(gp_val) if gp_val is not None and pd.notna(gp_val) else None
         recommendations.append(
             DraftRecommendation(
                 player_id=str(row.get("player_id", "")),
@@ -425,10 +510,10 @@ def get_recommendations(
                 recommendation_score=round(
                     float(row.get("recommendation_score", row.get(pts_col, 0)) or 0), 1
                 ),
+                gone_probability=round(gp, 3) if gp is not None else None,
             )
         )
 
-    board: DraftBoard = session["board"]
     return DraftRecommendationsResponse(
         recommendations=recommendations,
         reasoning=reasoning,
@@ -537,6 +622,7 @@ def advance_mock_pick(req: MockDraftPickRequest) -> MockDraftPickResponse:
                 player_name = result.get("player_name")
                 position = result.get("position")
                 team = result.get("recent_team", result.get("team"))
+                simulator.record_pick(position)  # keep positional-run tracking in sync
     else:
         player_name = simulator.simulate_opponent_pick(pick_number)
         if player_name and "player_name" in board.all_players.columns:

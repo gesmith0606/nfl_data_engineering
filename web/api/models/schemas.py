@@ -816,6 +816,14 @@ class DraftPlayer(BaseModel):
     adp_diff: Optional[float] = None
     value_tier: str = "fair_value"
     vorp: float = 0.0
+    tier: Optional[int] = Field(
+        None,
+        description=(
+            "Positional tier (1 = best), split at natural point-value gaps "
+            "within the player's position. None when points are unavailable "
+            "(e.g. DST) or the board hasn't computed tiers."
+        ),
+    )
 
 
 class DraftBoardEntry(BaseModel):
@@ -835,6 +843,7 @@ class DraftBoardEntry(BaseModel):
     vorp: float = 0.0
     value_tier: str = "fair_value"
     bye_week: Optional[int] = None
+    tier: Optional[int] = None
 
 
 class DraftBoardResponse(BaseModel):
@@ -891,6 +900,14 @@ class DraftRecommendation(BaseModel):
     model_rank: int
     vorp: float
     recommendation_score: float
+    gone_probability: Optional[float] = Field(
+        None,
+        description=(
+            "Probability this player is drafted before the user's next pick "
+            "(Phi((next_pick - adp) / sigma)). None when the player has no "
+            "ADP or the user's next pick number can't be determined."
+        ),
+    )
 
 
 class DraftRecommendationsResponse(BaseModel):
