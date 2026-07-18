@@ -261,6 +261,85 @@ ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
         "DST": 1,
         "BN": 6,
     },
+    # Platform-faithful roster shapes (v8.3 draft-tool upgrade). Bench counts
+    # fold in any platform-specific reserve slots our schema can't express
+    # separately (see PLATFORM_PRESETS note below re: Yahoo's 2 IR).
+    "espn_default": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 1,
+        "K": 1,
+        "DST": 1,
+        "BN": 7,
+    },
+    "sleeper_default": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 2,
+        "K": 1,
+        "DST": 1,
+        "BN": 5,
+    },
+    "yahoo_default": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 1,
+        "K": 1,
+        "DST": 1,
+        # 9 starters + 6 BN = 15 == PLATFORM_PRESETS["yahoo"]["rounds"].
+        # Yahoo's real bench also carries 2 IR slots; ROSTER_CONFIGS has no
+        # dedicated IR slot key (DraftBoard's remaining_needs()/
+        # filled_slots() only understand starter slots + BN), and IR spots
+        # aren't part of the initial snake draft's round count anyway, so
+        # they are intentionally left unmodeled here rather than folded into
+        # BN (which would desync this total from `rounds`). Revisit if/when
+        # IR-aware roster tracking ships.
+        "BN": 6,
+    },
+}
+
+# Platform-faithful draft-session defaults (v8.3 draft-tool upgrade).
+# ``adp_source`` names a key the /draft/adp endpoint and refresh_adp.py
+# understand (ffc/espn/sleeper); ``roster`` is a ROSTER_CONFIGS key.
+# ``custom`` leaves every field None so callers must supply their own.
+PLATFORM_PRESETS: Dict[str, Dict[str, Any]] = {
+    "espn": {
+        "scoring_format": "half_ppr",
+        "roster": "espn_default",
+        "rounds": 16,
+        "timer_seconds": 30,
+        "adp_source": "espn",
+    },
+    "sleeper": {
+        "scoring_format": "ppr",
+        "roster": "sleeper_default",
+        "rounds": 15,
+        "timer_seconds": 60,
+        # No real Sleeper ADP source exists yet (Sleeper only exposes
+        # search_rank, a popularity index) — FFC is the best available real
+        # ADP until one ships. Revisit once Sleeper ADP is real.
+        "adp_source": "ffc",
+    },
+    "yahoo": {
+        "scoring_format": "half_ppr",
+        "roster": "yahoo_default",
+        "rounds": 15,
+        "timer_seconds": 60,
+        "adp_source": "ffc",
+    },
+    "custom": {
+        "scoring_format": None,
+        "roster": None,
+        "rounds": None,
+        "timer_seconds": None,
+        "adp_source": None,
+    },
 }
 
 # Player positions tracked for fantasy

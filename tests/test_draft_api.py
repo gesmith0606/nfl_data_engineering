@@ -355,6 +355,198 @@ class TestAdp:
             assert isinstance(data["players"], list)
             assert data["source"] == "adp_latest.csv"
 
+    def test_source_param_reads_per_source_file(self, tmp_path):
+        """source=ffc reads data/adp/adp_ffc_half_ppr.csv, not adp_latest.csv."""
+        from web.api.routers import draft as draft_module
+
+        adp_dir = tmp_path / "data" / "adp"
+        adp_dir.mkdir(parents=True)
+        (adp_dir / "adp_ffc_half_ppr.csv").write_text(
+            "adp_rank,player_name,position,team,adp,stdev,source,scoring_format\n"
+            "1,Bijan Robinson,RB,ATL,1.5,0.4,ffc,half_ppr\n"
+        )
+        with patch.object(draft_module, "_PROJECT_ROOT", tmp_path):
+            resp = client.get(
+                "/api/draft/adp", params={"source": "ffc", "scoring": "half_ppr"}
+            )
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert data["source"] == "adp_ffc_half_ppr.csv"
+        assert data["players"][0]["player_name"] == "Bijan Robinson"
+        assert data["players"][0]["stdev"] == pytest.approx(0.4)
+
+    def test_source_param_falls_back_to_adp_latest_when_missing(self, tmp_path):
+        """A requested source file that doesn't exist falls back to adp_latest.csv."""
+        from web.api.routers import draft as draft_module
+
+        (tmp_path / "data").mkdir(parents=True)
+        (tmp_path / "data" / "adp_latest.csv").write_text(
+            "adp_rank,player_name,position,team\n1,Fallback Guy,WR,KC\n"
+        )
+        with patch.object(draft_module, "_PROJECT_ROOT", tmp_path):
+            resp = client.get("/api/draft/adp", params={"source": "espn"})
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert data["source"] == "adp_latest.csv"
+        assert data["players"][0]["player_name"] == "Fallback Guy"
+
+    def test_no_file_anywhere_returns_404(self, tmp_path):
+        from web.api.routers import draft as draft_module
+
+        (tmp_path / "data").mkdir(parents=True)
+        with patch.object(draft_module, "_PROJECT_ROOT", tmp_path):
+            resp = client.get("/api/draft/adp", params={"source": "ffc"})
+        assert resp.status_code == 404
+
+
+# ---------------------------------------------------------------------------
+# Test: GET /api/draft/platforms
+# ---------------------------------------------------------------------------
+
+
+class TestPlatformPresets:
+    """Tests for GET /api/draft/platforms."""
+
+    def test_returns_all_platform_keys(self):
+        resp = client.get("/api/draft/platforms")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert set(data["platforms"].keys()) == {"espn", "sleeper", "yahoo", "custom"}
+
+    def test_espn_preset_fields_and_roster_slots(self):
+        resp = client.get("/api/draft/platforms")
+        espn = resp.json()["platforms"]["espn"]
+        assert espn["scoring_format"] == "half_ppr"
+        assert espn["roster_format"] == "espn_default"
+        assert espn["rounds"] == 16
+        assert espn["timer_seconds"] == 30
+        assert espn["adp_source"] == "espn"
+        assert espn["roster_slots"]["QB"] == 1
+        assert espn["roster_slots"]["FLEX"] == 1
+        assert sum(espn["roster_slots"].values()) > 0
+
+    def test_sleeper_preset_uses_ffc_adp_source(self):
+        """No real Sleeper ADP exists yet -- preset falls back to FFC."""
+        resp = client.get("/api/draft/platforms")
+        sleeper = resp.json()["platforms"]["sleeper"]
+        assert sleeper["adp_source"] == "ffc"
+        assert sleeper["roster_format"] == "sleeper_default"
+        assert sleeper["rounds"] == 15
+        assert sleeper["timer_seconds"] == 60
+
+    def test_yahoo_preset(self):
+        resp = client.get("/api/draft/platforms")
+        yahoo = resp.json()["platforms"]["yahoo"]
+        assert yahoo["scoring_format"] == "half_ppr"
+        assert yahoo["roster_format"] == "yahoo_default"
+        assert yahoo["adp_source"] == "ffc"
+
+    def test_custom_preset_is_all_none(self):
+        resp = client.get("/api/draft/platforms")
+        custom = resp.json()["platforms"]["custom"]
+        assert custom["scoring_format"] is None
+        assert custom["roster_format"] is None
+        assert custom["rounds"] is None
+        assert custom["timer_seconds"] is None
+        assert custom["adp_source"] is None
+        assert custom["roster_slots"] == {}
+
+
+# ---------------------------------------------------------------------------
+# Test: GET /api/draft/board?platform=... defaults scoring/roster_format
+# ---------------------------------------------------------------------------
+
+
+class TestBoardPlatformDefaulting:
+    def test_platform_defaults_scoring_and_roster_format(self, _patch_load_draft_data):
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        resp = client.get("/api/draft/board", params={"platform": "espn"})
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert data["scoring_format"] == "half_ppr"
+        assert data["roster_format"] == "espn_default"
+
+    def test_explicit_scoring_overrides_platform_preset(self, _patch_load_draft_data):
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        resp = client.get(
+            "/api/draft/board",
+            # sleeper preset defaults to ppr; explicit standard should win.
+            params={"platform": "sleeper", "scoring": "standard"},
+        )
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert data["scoring_format"] == "standard"
+        assert data["roster_format"] == "sleeper_default"
+
+    def test_no_platform_keeps_legacy_defaults(self, _patch_load_draft_data):
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        resp = client.get("/api/draft/board")
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert data["scoring_format"] == "half_ppr"
+        assert data["roster_format"] == "standard"
+
+
+# ---------------------------------------------------------------------------
+# Test: DST NaN-safety on the live board endpoint
+# ---------------------------------------------------------------------------
+
+
+class TestDstNanSafetyOnBoard:
+    """A DST row with no projection (ADP-only) must appear on the board and
+    never crash JSON serialization -- projected_points/vorp come back null."""
+
+    def test_dst_without_projection_appears_with_null_points_and_vorp(self):
+        from draft_optimizer import compute_value_scores
+        from web.api.routers import draft as draft_module
+
+        proj = _make_mock_projections()
+        dst_row = pd.DataFrame(
+            [
+                {
+                    "player_id": "DST1",
+                    "player_name": "San Francisco",
+                    "position": "DST",
+                    "recent_team": "SF",
+                    "projected_season_points": np.nan,
+                }
+            ]
+        )
+        proj_with_dst = pd.concat([proj, dst_row], ignore_index=True)
+
+        def _mock_with_dst(scoring, season):
+            return compute_value_scores(proj_with_dst)
+
+        draft_module._sessions.clear()
+        with patch.object(draft_module, "_load_draft_data", side_effect=_mock_with_dst):
+            resp = client.get("/api/draft/board")
+
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        dst_players = [p for p in data["players"] if p["position"] == "DST"]
+        assert len(dst_players) == 1
+        assert dst_players[0]["projected_points"] is None
+        assert dst_players[0]["vorp"] is None
+        assert dst_players[0]["player_name"] == "San Francisco"
+
+        # Advisor recommendations must not crash either, even filtered to DST.
+        sid = data["session_id"]
+        recs_resp = client.get(
+            "/api/draft/recommendations",
+            params={"session_id": sid, "top_n": 5, "position": "DST"},
+        )
+        assert recs_resp.status_code == 200, recs_resp.text
+        recs = recs_resp.json()["recommendations"]
+        assert len(recs) == 1
+        assert recs[0]["projected_points"] is None
+        assert recs[0]["vorp"] is None
+
 
 # ---------------------------------------------------------------------------
 # Test: _load_draft_data strategy order (cache-first)

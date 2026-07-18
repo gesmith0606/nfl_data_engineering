@@ -73,18 +73,31 @@ def compute_value_scores(
         if "projected_season_points" in df.columns
         else "projected_points"
     )
-    df["model_rank"] = df[pts_col].rank(ascending=False, method="first").astype(int)
+    raw_rank = df[pts_col].rank(ascending=False, method="first")
+    # DST is not projected by our model (see REPLACEMENT_RANKS note below), so
+    # its pts_col is NaN and .rank() leaves it NaN too — .astype(int) on that
+    # raises. Push unranked (NaN-points) rows to the back of the board rather
+    # than crashing; they still surface, just sorted last by model_rank.
+    unranked_fill = int(raw_rank.max()) + 1 if raw_rank.notna().any() else 1
+    df["model_rank"] = raw_rank.fillna(unranked_fill).astype(int)
 
-    # VORP: projected points minus replacement-level player at that position
-    # Replacement level = 13th QB, 25th RB, 30th WR, 13th TE (typical starter counts × 12 teams)
-    REPLACEMENT_RANKS = {"QB": 13, "RB": 25, "WR": 30, "TE": 13, "K": 13}
+    # VORP: projected points minus replacement-level player at that position.
+    # Replacement level = 13th QB, 25th RB, 30th WR, 13th TE, 13th K, 13th DST
+    # (typical starter counts × 12 teams). DST has no projected_points in our
+    # model (ADP-only board row) — replacement_level stays NaN for it, so
+    # vorp is NaN (never a crash) rather than a fabricated number.
+    REPLACEMENT_RANKS = {"QB": 13, "RB": 25, "WR": 30, "TE": 13, "K": 13, "DST": 13}
     for pos, rep_rank in REPLACEMENT_RANKS.items():
         pos_mask = df["position"] == pos
-        pos_sorted = df[pos_mask][pts_col].sort_values(ascending=False)
+        pos_sorted = df[pos_mask][pts_col].dropna().sort_values(ascending=False)
         if len(pos_sorted) >= rep_rank:
             replacement_pts = pos_sorted.iloc[rep_rank - 1]
+        elif len(pos_sorted) > 0:
+            replacement_pts = pos_sorted.iloc[-1]
         else:
-            replacement_pts = pos_sorted.iloc[-1] if len(pos_sorted) > 0 else 0
+            # No player at this position has a projection at all (e.g. DST) —
+            # leave replacement level (and therefore vorp) as NaN.
+            replacement_pts = np.nan
         df.loc[pos_mask, "replacement_level"] = replacement_pts
 
     df["vorp"] = (df[pts_col] - df["replacement_level"]).round(1)
@@ -93,7 +106,16 @@ def compute_value_scores(
     # Merge ADP if provided
     if adp_df is not None and not adp_df.empty:
         join_col = "player_id" if "player_id" in adp_df.columns else "player_name"
-        adp_subset = adp_df[[join_col, "adp_rank"]].copy()
+        merge_cols = [join_col, "adp_rank"]
+        # Carry real-ADP stdev through when the source CSV has it (FFC/ESPN
+        # via src/adp_sources.py) — Lane 2's availability probability reads
+        # this as adp_stdev; absent for the legacy sleeper_rank source.
+        has_stdev = "stdev" in adp_df.columns
+        if has_stdev:
+            merge_cols.append("stdev")
+        adp_subset = adp_df[merge_cols].copy()
+        if has_stdev:
+            adp_subset = adp_subset.rename(columns={"stdev": "adp_stdev"})
         df = df.merge(adp_subset, on=join_col, how="left")
         df["adp_diff"] = df["adp_rank"] - df["model_rank"]
         df["value_tier"] = "fair_value"
@@ -103,6 +125,9 @@ def compute_value_scores(
         df["adp_rank"] = np.nan
         df["adp_diff"] = np.nan
         df["value_tier"] = "fair_value"
+
+    if "adp_stdev" not in df.columns:
+        df["adp_stdev"] = np.nan
 
     return df.sort_values("model_rank").reset_index(drop=True)
 

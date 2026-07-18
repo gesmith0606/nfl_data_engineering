@@ -804,18 +804,30 @@ class TeamSentiment(BaseModel):
 
 
 class DraftPlayer(BaseModel):
-    """A player on the draft board."""
+    """A player on the draft board.
+
+    ``projected_points``/``vorp`` are ``None`` (never NaN) for positions our
+    model doesn't project — DST is ADP-only today — so the row still appears
+    on the board, ranked by ADP, without crashing JSON serialization.
+    """
 
     player_id: str
     player_name: str
     position: str
     team: Optional[str] = None
-    projected_points: float
+    projected_points: Optional[float] = None
     model_rank: int
     adp_rank: Optional[float] = None
     adp_diff: Optional[float] = None
+    adp_stdev: Optional[float] = Field(
+        None,
+        description=(
+            "Real-ADP standard deviation from the FFC/ESPN source CSV "
+            "(src/adp_sources.py); None for the legacy sleeper_rank source"
+        ),
+    )
     value_tier: str = "fair_value"
-    vorp: float = 0.0
+    vorp: Optional[float] = None
 
 
 class DraftBoardEntry(BaseModel):
@@ -824,15 +836,22 @@ class DraftBoardEntry(BaseModel):
     Simplified view used by the AI chat tool ``getDraftBoard`` (see
     ``web/frontend/src/app/api/chat/route.ts``). Mirrors :class:`DraftPlayer`
     but exposes the advisor-friendly ``adp`` / ``bye_week`` field names.
+
+    ``projected_points``/``vorp`` are ``None`` for positions our model
+    doesn't project (e.g. DST) — see :class:`DraftPlayer`.
     """
 
     player_id: str
     player_name: str
     position: str
     team: Optional[str] = None
-    projected_points: float
+    projected_points: Optional[float] = None
     adp: Optional[float] = None
-    vorp: float = 0.0
+    adp_stdev: Optional[float] = Field(
+        None,
+        description="Real-ADP standard deviation, when the source CSV carries it",
+    )
+    vorp: Optional[float] = None
     value_tier: str = "fair_value"
     bye_week: Optional[int] = None
 
@@ -881,15 +900,19 @@ class DraftPickResponse(BaseModel):
 
 
 class DraftRecommendation(BaseModel):
-    """A recommended draft pick."""
+    """A recommended draft pick.
+
+    ``projected_points``/``vorp`` are ``None`` for positions our model
+    doesn't project (e.g. DST) — see :class:`DraftPlayer`.
+    """
 
     player_id: str
     player_name: str
     position: str
     team: Optional[str] = None
-    projected_points: float
+    projected_points: Optional[float] = None
     model_rank: int
-    vorp: float
+    vorp: Optional[float] = None
     recommendation_score: float
 
 
@@ -1013,13 +1036,22 @@ class DraftSyncLogResponse(BaseModel):
 
 
 class MockDraftStartRequest(BaseModel):
-    """Request to start a mock draft."""
+    """Request to start a mock draft.
 
-    scoring: str = "half_ppr"
-    roster_format: str = "standard"
+    ``platform`` (espn/sleeper/yahoo/custom, see ``PLATFORM_PRESETS`` in
+    ``src/config.py``) supplies defaults for any of ``scoring``/
+    ``roster_format`` the caller leaves at their own field default — pass
+    the platform's own values explicitly to opt out per-field.
+    """
+
+    scoring: Optional[str] = None
+    roster_format: Optional[str] = None
     n_teams: int = 12
     user_pick: int = 1
     season: int = 2026
+    platform: Optional[str] = Field(
+        None, description="espn / sleeper / yahoo / custom — see /draft/platforms"
+    )
 
 
 class MockDraftStartResponse(BaseModel):
@@ -1057,6 +1089,13 @@ class AdpPlayer(BaseModel):
     position: str
     team: Optional[str] = None
     adp_rank: float
+    stdev: Optional[float] = Field(
+        None,
+        description=(
+            "ADP standard deviation, when the source CSV carries it "
+            "(FFC/ESPN real-ADP sources; absent for legacy sleeper_rank)"
+        ),
+    )
 
 
 class AdpResponse(BaseModel):
@@ -1065,6 +1104,34 @@ class AdpResponse(BaseModel):
     players: List[AdpPlayer]
     source: str
     updated_at: Optional[str] = None
+
+
+# ---------------------------------------------------------------------------
+# Platform presets (v8.3 draft-tool upgrade)
+# ---------------------------------------------------------------------------
+
+
+class PlatformPreset(BaseModel):
+    """Platform-faithful draft-session defaults for one platform.
+
+    Mirrors one entry of ``src/config.py::PLATFORM_PRESETS``, with
+    ``roster_format`` resolved to its ``ROSTER_CONFIGS`` key and
+    ``roster_slots`` expanded to the actual slot-count dict so callers don't
+    need a second lookup.
+    """
+
+    scoring_format: Optional[str] = None
+    roster_format: Optional[str] = None
+    rounds: Optional[int] = None
+    timer_seconds: Optional[int] = None
+    adp_source: Optional[str] = None
+    roster_slots: Dict[str, int] = Field(default_factory=dict)
+
+
+class PlatformPresetsResponse(BaseModel):
+    """Response for GET /api/draft/platforms."""
+
+    platforms: Dict[str, PlatformPreset]
 
 
 # ---------------------------------------------------------------------------

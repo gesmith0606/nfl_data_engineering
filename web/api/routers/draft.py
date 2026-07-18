@@ -35,6 +35,8 @@ from ..models.schemas import (
     MockDraftPickResponse,
     MockDraftStartRequest,
     MockDraftStartResponse,
+    PlatformPreset,
+    PlatformPresetsResponse,
 )
 
 # src/ is importable via the web.api package bootstrap (web/api/__init__.py).
@@ -54,6 +56,9 @@ from projection_engine import generate_preseason_projections  # noqa: E402
 # ``src.`` package path so this router shares one module instance (and thus
 # one lru read-cache) with the league router and the CLI co-pilot.
 from src.projection_store import load_latest_preseason  # noqa: E402
+
+# Platform-faithful draft presets (v8.3 draft-tool upgrade).
+from src.config import PLATFORM_PRESETS, ROSTER_CONFIGS  # noqa: E402
 
 # Live-draft co-pilot wiring (v8.0): read a live Sleeper draft and drive our
 # roster-aware recommendation engine. Imported lazily-safe at module load so a
@@ -111,6 +116,28 @@ def _safe_float(val: object) -> Optional[float]:
         return f
     except (ValueError, TypeError):
         return None
+
+
+def _finite_or_zero(val: object) -> float:
+    """Like ``_safe_float`` but for summation contexts: NaN/missing -> 0.0.
+
+    Used when aggregating projected points/VORP across a roster that may
+    include a DST row (ADP-only, no projection) — treating its unprojected
+    contribution as 0 keeps roster totals finite instead of NaN-poisoned.
+    """
+    f = _safe_float(val)
+    return f if f is not None else 0.0
+
+
+def _safe_round(val: object, ndigits: int = 1) -> Optional[float]:
+    """Round a value to *ndigits*, returning ``None`` for NaN/missing.
+
+    Positions our model doesn't project (DST is ADP-only) carry NaN
+    projected_points/vorp — this keeps them as JSON ``null`` rather than the
+    non-standard ``NaN`` token or a fabricated ``0.0``.
+    """
+    f = _safe_float(val)
+    return round(f, ndigits) if f is not None else None
 
 
 def _safe_int(val: object, default: int = 0) -> int:
@@ -208,12 +235,13 @@ def _df_row_to_draft_player(row: pd.Series) -> DraftPlayer:
         player_name=str(row.get("player_name", "")),
         position=str(row.get("position", "")),
         team=str(row.get("recent_team", row.get("team", ""))) or None,
-        projected_points=round(float(row.get(pts_col, 0) or 0), 1),
+        projected_points=_safe_round(row.get(pts_col)),
         model_rank=_safe_int(row.get("model_rank"), 999),
         adp_rank=_safe_float(row.get("adp_rank")),
         adp_diff=_safe_float(row.get("adp_diff")),
+        adp_stdev=_safe_float(row.get("adp_stdev")),
         value_tier=str(row.get("value_tier", "fair_value")),
-        vorp=round(float(row.get("vorp", 0) or 0), 1),
+        vorp=_safe_round(row.get("vorp")),
     )
 
 
@@ -239,9 +267,10 @@ def _df_row_to_board_entry(row: pd.Series) -> DraftBoardEntry:
         player_name=str(row.get("player_name", "")),
         position=str(row.get("position", "")),
         team=str(row.get("recent_team", row.get("team", ""))) or None,
-        projected_points=round(float(row.get(pts_col, 0) or 0), 1),
+        projected_points=_safe_round(row.get(pts_col)),
         adp=_safe_float(row.get("adp_rank")),
-        vorp=round(float(row.get("vorp", 0) or 0), 1),
+        adp_stdev=_safe_float(row.get("adp_stdev")),
+        vorp=_safe_round(row.get("vorp")),
         value_tier=str(row.get("value_tier", "fair_value")),
         bye_week=bye_week,
     )
@@ -259,12 +288,13 @@ def _dict_to_draft_player(d: Dict) -> DraftPlayer:
         player_name=str(d.get("player_name", "")),
         position=str(d.get("position", "")),
         team=str(d.get("recent_team", d.get("team", ""))) or None,
-        projected_points=round(float(d.get(pts_col, 0) or 0), 1),
+        projected_points=_safe_round(d.get(pts_col)),
         model_rank=_safe_int(d.get("model_rank"), 999),
         adp_rank=_safe_float(d.get("adp_rank")),
         adp_diff=_safe_float(d.get("adp_diff")),
+        adp_stdev=_safe_float(d.get("adp_stdev")),
         value_tier=str(d.get("value_tier", "fair_value")),
-        vorp=round(float(d.get("vorp", 0) or 0), 1),
+        vorp=_safe_round(d.get("vorp")),
     )
 
 
@@ -309,49 +339,66 @@ def _board_to_response(session_id: str, session: Dict) -> DraftBoardResponse:
 
 @router.get("/board", response_model=DraftBoardResponse)
 def get_draft_board(
-    scoring: str = Query(
-        "half_ppr",
-        description="Scoring format",
+    scoring: Optional[str] = Query(
+        None,
+        description="Scoring format; defaults from platform preset, else half_ppr",
         pattern="^(ppr|half_ppr|standard)$",
     ),
-    roster_format: str = Query(
-        "standard",
-        description="Roster format",
-        pattern="^(standard|superflex|2qb)$",
+    roster_format: Optional[str] = Query(
+        None,
+        description="Roster format; defaults from platform preset, else standard",
+        pattern="^(standard|superflex|2qb|espn_default|sleeper_default|yahoo_default)$",
     ),
     n_teams: int = Query(12, ge=4, le=20, description="Number of teams"),
     season: int = Query(2026, ge=2020, le=2030, description="NFL season"),
     session_id: Optional[str] = Query(None, description="Reuse an existing session"),
+    platform: Optional[str] = Query(
+        None,
+        description=(
+            "Platform preset (espn/sleeper/yahoo/custom, see GET /draft/"
+            "platforms) — fills in scoring/roster_format when omitted"
+        ),
+        pattern="^(espn|sleeper|yahoo|custom)$",
+    ),
 ) -> DraftBoardResponse:
     """Return the current draft board.
 
     If ``session_id`` is provided and valid, the existing session is returned.
-    Otherwise a new session is created with fresh projections.
+    Otherwise a new session is created with fresh projections. When
+    ``platform`` is given, any of ``scoring``/``roster_format`` left unset
+    default from that platform's preset (``PLATFORM_PRESETS`` in
+    ``src/config.py``); an explicit value always wins over the preset.
     """
     if session_id and session_id in _sessions:
         return _board_to_response(session_id, _sessions[session_id])
 
+    preset = PLATFORM_PRESETS.get(platform) if platform else None
+    resolved_scoring = scoring or (preset or {}).get("scoring_format") or "half_ppr"
+    resolved_roster_format = (
+        roster_format or (preset or {}).get("roster") or "standard"
+    )
+
     # Create a new session
     _evict_oldest()
     try:
-        players_df = _load_draft_data(scoring, season)
+        players_df = _load_draft_data(resolved_scoring, season)
     except Exception as exc:
         logger.exception("Failed to generate draft data")
         raise HTTPException(
             status_code=500, detail=f"Draft data generation failed: {exc}"
         ) from exc
 
-    board = DraftBoard(players_df, roster_format=roster_format, n_teams=n_teams)
-    board.scoring_format = scoring
-    advisor = DraftAdvisor(board, scoring_format=scoring)
+    board = DraftBoard(players_df, roster_format=resolved_roster_format, n_teams=n_teams)
+    board.scoring_format = resolved_scoring
+    advisor = DraftAdvisor(board, scoring_format=resolved_scoring)
 
     new_id = uuid.uuid4().hex
     _sessions[new_id] = {
         "board": board,
         "advisor": advisor,
         "simulator": None,
-        "scoring_format": scoring,
-        "roster_format": roster_format,
+        "scoring_format": resolved_scoring,
+        "roster_format": resolved_roster_format,
         "pick_number": 0,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
@@ -419,11 +466,12 @@ def get_recommendations(
                 player_name=str(row.get("player_name", "")),
                 position=str(row.get("position", "")),
                 team=str(row.get("recent_team", row.get("team", ""))) or None,
-                projected_points=round(float(row.get(pts_col, 0) or 0), 1),
+                projected_points=_safe_round(row.get(pts_col)),
                 model_rank=_safe_int(row.get("model_rank"), 999),
-                vorp=round(float(row.get("vorp", 0) or 0), 1),
+                vorp=_safe_round(row.get("vorp")),
                 recommendation_score=round(
-                    float(row.get("recommendation_score", row.get(pts_col, 0)) or 0), 1
+                    _finite_or_zero(row.get("recommendation_score", row.get(pts_col))),
+                    1,
                 ),
             )
         )
@@ -438,25 +486,34 @@ def get_recommendations(
 
 @router.post("/mock/start", response_model=MockDraftStartResponse)
 def start_mock_draft(req: MockDraftStartRequest) -> MockDraftStartResponse:
-    """Initialize a new mock draft simulation session."""
+    """Initialize a new mock draft simulation session.
+
+    When ``req.platform`` is set, any of ``scoring``/``roster_format`` left
+    unset (``None``) default from that platform's preset
+    (``PLATFORM_PRESETS`` in ``src/config.py``).
+    """
     if req.user_pick < 1 or req.user_pick > req.n_teams:
         raise HTTPException(
             status_code=400,
             detail=f"user_pick must be between 1 and {req.n_teams}",
         )
 
+    preset = PLATFORM_PRESETS.get(req.platform) if req.platform else None
+    scoring = req.scoring or (preset or {}).get("scoring_format") or "half_ppr"
+    roster_format = req.roster_format or (preset or {}).get("roster") or "standard"
+
     _evict_oldest()
     try:
-        players_df = _load_draft_data(req.scoring, req.season)
+        players_df = _load_draft_data(scoring, req.season)
     except Exception as exc:
         logger.exception("Failed to generate mock draft data")
         raise HTTPException(
             status_code=500, detail=f"Draft data generation failed: {exc}"
         ) from exc
 
-    board = DraftBoard(players_df, roster_format=req.roster_format, n_teams=req.n_teams)
-    board.scoring_format = req.scoring
-    advisor = DraftAdvisor(board, scoring_format=req.scoring)
+    board = DraftBoard(players_df, roster_format=roster_format, n_teams=req.n_teams)
+    board.scoring_format = scoring
+    advisor = DraftAdvisor(board, scoring_format=scoring)
     simulator = MockDraftSimulator(
         board=board, user_pick=req.user_pick, n_teams=req.n_teams
     )
@@ -466,8 +523,8 @@ def start_mock_draft(req: MockDraftStartRequest) -> MockDraftStartResponse:
         "board": board,
         "advisor": advisor,
         "simulator": simulator,
-        "scoring_format": req.scoring,
-        "roster_format": req.roster_format,
+        "scoring_format": scoring,
+        "roster_format": roster_format,
         "pick_number": 0,
         "user_pick": req.user_pick,
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -475,7 +532,7 @@ def start_mock_draft(req: MockDraftStartRequest) -> MockDraftStartResponse:
 
     return MockDraftStartResponse(
         session_id=new_id,
-        message=f"Mock draft started: {req.n_teams} teams, pick #{req.user_pick}, {req.scoring}",
+        message=f"Mock draft started: {req.n_teams} teams, pick #{req.user_pick}, {scoring}",
     )
 
 
@@ -507,8 +564,8 @@ def advance_mock_pick(req: MockDraftPickRequest) -> MockDraftPickResponse:
             if "projected_season_points" in board.all_players.columns
             else "projected_points"
         )
-        total_pts = sum(float(p.get(pts_col, 0) or 0) for p in board.my_roster)
-        total_vorp = sum(float(p.get("vorp", 0) or 0) for p in board.my_roster)
+        total_pts = sum(_finite_or_zero(p.get(pts_col)) for p in board.my_roster)
+        total_vorp = sum(_finite_or_zero(p.get("vorp")) for p in board.my_roster)
         return MockDraftPickResponse(
             pick_number=pick_number - 1,
             round_number=(pick_number - 2) // board.n_teams + 1,
@@ -561,10 +618,10 @@ def advance_mock_pick(req: MockDraftPickRequest) -> MockDraftPickResponse:
             else "projected_points"
         )
         total_pts = round(
-            sum(float(p.get(pts_col, 0) or 0) for p in board.my_roster), 1
+            sum(_finite_or_zero(p.get(pts_col)) for p in board.my_roster), 1
         )
         total_vorp = round(
-            sum(float(p.get("vorp", 0) or 0) for p in board.my_roster), 1
+            sum(_finite_or_zero(p.get("vorp")) for p in board.my_roster), 1
         )
         expected_vorp = simulator._estimate_expected_vorp(total_picks)
         from draft_optimizer import _pick_grade
@@ -586,12 +643,35 @@ def advance_mock_pick(req: MockDraftPickRequest) -> MockDraftPickResponse:
 
 
 @router.get("/adp", response_model=AdpResponse)
-def get_adp() -> AdpResponse:
-    """Return the latest ADP data from ``data/adp_latest.csv``.
+def get_adp(
+    source: Optional[str] = Query(
+        None,
+        pattern="^(ffc|espn|sleeper)$",
+        description=(
+            "Real-ADP source (ffc/espn) or the legacy sleeper_rank path; "
+            "reads data/adp/adp_{source}_{scoring}.csv, falling back to "
+            "data/adp_latest.csv when that file doesn't exist. Omit for the "
+            "legacy data/adp_latest.csv pointer directly."
+        ),
+    ),
+    scoring: str = Query(
+        "half_ppr",
+        pattern="^(ppr|half_ppr|standard)$",
+        description="Scoring format; only used to locate the per-source file",
+    ),
+) -> AdpResponse:
+    """Return ADP data, optionally from a specific real-ADP source.
 
-    Returns 404 if the ADP file does not exist.
+    Returns 404 if no ADP file could be found (neither the per-source file
+    nor the ``adp_latest.csv`` fallback exists).
     """
-    adp_path = _PROJECT_ROOT / "data" / "adp_latest.csv"
+    adp_path = None
+    if source:
+        candidate = _PROJECT_ROOT / "data" / "adp" / f"adp_{source}_{scoring}.csv"
+        if candidate.exists():
+            adp_path = candidate
+    if adp_path is None:
+        adp_path = _PROJECT_ROOT / "data" / "adp_latest.csv"
     if not adp_path.exists():
         raise HTTPException(status_code=404, detail="ADP data file not found")
 
@@ -619,6 +699,7 @@ def get_adp() -> AdpResponse:
         (c for c in df.columns if c.lower() in ("adp_rank", "adp", "rank")),
         None,
     )
+    stdev_col = next((c for c in df.columns if c.lower() == "stdev"), None)
 
     players: List[AdpPlayer] = []
     for _, row in df.iterrows():
@@ -634,6 +715,11 @@ def get_adp() -> AdpResponse:
                     if rank_col and pd.notna(row[rank_col])
                     else 0.0
                 ),
+                stdev=(
+                    float(row[stdev_col])
+                    if stdev_col and pd.notna(row[stdev_col])
+                    else None
+                ),
             )
         )
 
@@ -645,9 +731,33 @@ def get_adp() -> AdpResponse:
 
     return AdpResponse(
         players=players,
-        source="adp_latest.csv",
+        source=adp_path.name,
         updated_at=updated_at,
     )
+
+
+@router.get("/platforms", response_model=PlatformPresetsResponse)
+def get_platform_presets() -> PlatformPresetsResponse:
+    """Return platform-faithful draft-session presets.
+
+    One entry per ``PLATFORM_PRESETS`` key (espn/sleeper/yahoo/custom, see
+    ``src/config.py``), with ``roster_format`` resolved to its
+    ``ROSTER_CONFIGS`` slot-count dict as ``roster_slots`` so callers don't
+    need a second lookup to render a roster grid.
+    """
+    platforms: Dict[str, PlatformPreset] = {}
+    for key, preset in PLATFORM_PRESETS.items():
+        roster_key = preset.get("roster")
+        roster_slots = ROSTER_CONFIGS.get(roster_key, {}) if roster_key else {}
+        platforms[key] = PlatformPreset(
+            scoring_format=preset.get("scoring_format"),
+            roster_format=roster_key,
+            rounds=preset.get("rounds"),
+            timer_seconds=preset.get("timer_seconds"),
+            adp_source=preset.get("adp_source"),
+            roster_slots=dict(roster_slots),
+        )
+    return PlatformPresetsResponse(platforms=platforms)
 
 
 # ---------------------------------------------------------------------------
@@ -819,11 +929,12 @@ def live_draft_sync(
                 player_name=str(row.get("player_name", "")),
                 position=pos,
                 team=str(row.get("recent_team", row.get("team", ""))) or None,
-                projected_points=round(float(row.get(pts_col, 0) or 0), 1),
+                projected_points=_safe_round(row.get(pts_col)),
                 model_rank=_safe_int(row.get("model_rank"), 999),
-                vorp=round(float(row.get("vorp", 0) or 0), 1),
+                vorp=_safe_round(row.get("vorp")),
                 recommendation_score=round(
-                    float(row.get("recommendation_score", row.get(pts_col, 0)) or 0), 1
+                    _finite_or_zero(row.get("recommendation_score", row.get(pts_col))),
+                    1,
                 ),
                 fills_need=bool(needs.get(pos, 0) > 0),
                 stack_note=str(row.get("stack_note", "") or ""),
