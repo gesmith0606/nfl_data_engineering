@@ -68,7 +68,7 @@ function AlertRow({
           {meta.label}
         </span>
       </div>
-      {(leagues?.length || badges?.length) && (
+      {((leagues?.length ?? 0) > 0 || (badges?.length ?? 0) > 0) && (
         <div className='mt-1.5 flex flex-wrap items-center gap-1.5'>
           {leagues?.map((league) => (
             <span
