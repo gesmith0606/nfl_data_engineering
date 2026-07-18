@@ -6,15 +6,19 @@ import { Scorebug } from '@/components/nfl/scorebug';
 export const metadata: Metadata = {
   title: 'GIQ — We beat the consensus. Here’s the receipt.',
   description:
-    'NFL fantasy projections and game predictions graded against the industry consensus across 11,000+ player-weeks — misses published too.'
+    'NFL fantasy projections graded head-to-head against the Sleeper and ESPN consensus on three seasons of matched player-weeks — we beat both overall, and the misses are published too.'
 };
 
 /**
  * Marketing home — sketch 001-B "Broadcast Overlay" winner. The scorebug IS
  * the hero on a pitch-green field gradient; apple-style one-idea-per-screen
- * sections follow. Accuracy claims are the REAL 2025 numbers (v4.3 audit:
- * QB −0.39 / WR −0.075 / TE −0.43 vs Sleeper consensus; RB +0.26 shown
- * honestly as WIP). Static-first: no backend calls on this page.
+ * sections follow. Accuracy claims are the multi-source benchmark numbers
+ * (.planning/CONSENSUS_BENCHMARK_MULTI_SOURCE.md, 2026-07-11: overall MAE gap
+ * −0.090 vs Sleeper n=7,009 / −0.027 vs ESPN n=6,721; TE −0.42 vs both;
+ * QB −0.39 vs Sleeper only — ESPN wins QB/RB head-to-head, so no per-position
+ * sweep is claimed; RB +0.26 shown honestly as WIP). Yahoo publishes no
+ * historical projections, so no Yahoo claim — live 2026 capture is running.
+ * Static-first: no backend calls on this page.
  */
 
 const NAV_ITEMS = [
@@ -27,9 +31,10 @@ const NAV_ITEMS = [
 ] as const;
 
 const RECEIPTS = [
-  { num: '−0.39', label: 'QB · MAE vs consensus', win: true },
-  { num: '−0.075', label: 'WR · MAE vs consensus', win: true },
-  { num: '−0.43', label: 'TE · MAE vs consensus', win: true },
+  { num: '−0.090', label: 'OVERALL vs Sleeper · 7,009 wks', win: true },
+  { num: '−0.027', label: 'OVERALL vs ESPN · 6,721 wks', win: true },
+  { num: '−0.42', label: 'TE · beats both', win: true },
+  { num: '−0.39', label: 'QB · vs Sleeper', win: true },
   { num: '+0.26', label: 'RB · we’re working on it', win: false }
 ] as const;
 
@@ -106,8 +111,10 @@ export default function MarketingHome() {
           <br />
           <span className='text-[var(--wc-yellow,#ffd84d)]'>Here’s the receipt.</span>
         </h1>
-        <p className='relative z-[2] mt-3 text-center text-lg text-[#e6eaf2]'>
-          Graded against Sleeper across 11,000+ player-weeks — misses published too.
+        <p className='relative z-[2] mt-3 max-w-[680px] text-center text-lg text-[#e6eaf2]'>
+          Graded head-to-head against the Sleeper and ESPN expert consensus on three
+          seasons of matched player-weeks — identical scoring, identical rows, sealed
+          holdouts. We beat both overall, and the misses stay published.
         </p>
 
         <div className='relative z-[2] mt-16 hidden md:block'>
@@ -150,6 +157,48 @@ export default function MarketingHome() {
                 {r.label}
               </div>
             </div>
+          ))}
+        </div>
+        <p className='relative z-[2] mt-6 max-w-[620px] text-center text-sm text-[#9aa3b8]'>
+          MAE gap, 2022–2024, weeks 3–18, half-PPR, both sides scored under identical
+          rules. Yahoo publishes no historical projections to grade against — we’re
+          capturing their live 2026 numbers every week and will post that receipt too.
+        </p>
+      </section>
+
+      {/* The method — raw data vs film study. Claims trace to the repo:
+       * 337-col feature vectors (v1.3), walk-forward CV + sealed holdouts
+       * (v2.0/v4.x audits), EPA/CPOE/NGS Silver layers, conformal bands. */}
+      <section className='border-t border-white/10 bg-[#070a12] px-6 py-24 text-center'>
+        <SectionKicker>The Method</SectionKicker>
+        <SectionTitle>
+          They watch film.
+          <br />
+          We compute.
+        </SectionTitle>
+        <SectionSub>
+          This isn’t a pundit picking favorites — it’s a data-engineering pipeline. A
+          decade of play-by-play distilled into 337-column feature vectors: EPA, CPOE,
+          target shares, snap rates, line movement. Models are walk-forward
+          cross-validated and scored on sealed holdout seasons they never trained on
+          — the same discipline that catches overfit quants, applied to football.
+          Experts have opinions. We have out-of-sample error rates.
+        </SectionSub>
+        <div className='mt-10 flex flex-wrap justify-center gap-3.5'>
+          {[
+            '337-col feature vectors',
+            'walk-forward CV',
+            'sealed holdouts',
+            'EPA · CPOE · NGS',
+            'conformal ~80% bands',
+            'graded vs closing line'
+          ].map((chip) => (
+            <span
+              key={chip}
+              className='wc-display inline-flex items-center rounded-full border border-white/10 bg-[#131722] px-4 py-2 text-[14px] tracking-[0.08em] text-[#cfd6e4]'
+            >
+              {chip}
+            </span>
           ))}
         </div>
       </section>
