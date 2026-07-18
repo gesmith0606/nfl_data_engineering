@@ -16,11 +16,14 @@ import { MockDraftView } from './mock-draft-view'
 import { LiveDraftPanel } from './live-draft-panel'
 import { MirrorTurnTracker } from './mirror-turn-tracker'
 import { PasteSyncPanel } from './paste-sync-panel'
+import { PickClock } from './pick-clock'
 import { requestTurnNotificationPermission } from '../hooks/use-turn-alert'
+import { usePlatformPresets } from '../hooks/use-platform-presets'
+import { PLATFORM_LABELS, isRoomPlatform, scoringLabel, PLATFORM_ACCENT } from '../utils/platform-presets'
 import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
 import type { DraftPlatform, Position } from '@/lib/nfl/types'
 
-const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K']
+const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K', 'DST']
 
 const MIRROR_COPY: Record<Exclude<DraftPlatform, 'sleeper'>, string> = {
   espn: 'ESPN has no public draft API, so picks can’t stream automatically. Mirror mode is still a co-pilot, not a chore: paste the draft room’s pick history any time and the whole board catches up in one shot (no per-pick clicking), while we track the clock, alert your turn, and call your pick from our board.',
@@ -54,6 +57,10 @@ export function DraftToolView() {
   } = useDraftState()
 
   const [configOpen, setConfigOpen] = useState(false)
+
+  const presets = usePlatformPresets()
+  const activePlatform = isRoomPlatform(config.platform) ? config.platform : 'custom'
+  const activePreset = presets[activePlatform]
 
   // Fetch the draft board (creates a new session on first call)
   const { data, isLoading, isError, refetch } = useQuery({
@@ -113,7 +120,13 @@ export function DraftToolView() {
             {config.n_teams} teams · Pick #{config.user_pick} · {config.scoring}
           </span>
         </div>
-        <MockDraftView sessionId={sessionId} config={config} onReset={handleReset} />
+        <MockDraftView
+          sessionId={sessionId}
+          config={config}
+          onReset={handleReset}
+          timerSeconds={activePreset.timer_seconds}
+          accentColor={PLATFORM_ACCENT[activePlatform]}
+        />
       </FadeIn>
     )
   }
@@ -289,6 +302,24 @@ export function DraftToolView() {
         </div>
       </div>
 
+      {/* Draft-room chip + pick clock (light platform-flavored accent) */}
+      {data && (
+        <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
+          <span
+            className='inline-flex items-center gap-1 rounded-full border px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold'
+            style={{ color: PLATFORM_ACCENT[activePlatform], borderColor: PLATFORM_ACCENT[activePlatform] }}
+          >
+            {PLATFORM_LABELS[activePlatform]}-style room · {scoringLabel(config.scoring)} ·{' '}
+            {activePreset.timer_seconds}s clock
+          </span>
+          <PickClock
+            pickNumber={data.picks_taken + 1}
+            timerSeconds={activePreset.timer_seconds}
+            accentColor={PLATFORM_ACCENT[activePlatform]}
+          />
+        </div>
+      )}
+
       {/* Mirror-mode turn tracker + paste-sync (ESPN / Yahoo) */}
       {mirror && data && (
         <>
@@ -367,6 +398,7 @@ export function DraftToolView() {
               <RecommendationsPanel
                 sessionId={sessionId}
                 positionFilter={positionFilter}
+                players={players}
               />
             </div>
           </div>

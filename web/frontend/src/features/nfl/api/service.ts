@@ -29,6 +29,7 @@ export {
   startMockDraft,
   advanceMockDraft,
   fetchAdp,
+  fetchDraftPlatforms,
   syncPickLog,
   isServiceUnavailable,
   // Multi-source rankings

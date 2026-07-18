@@ -14,8 +14,19 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Button } from '@/components/ui/button'
 import { PressScale } from '@/lib/motion-primitives'
+import { usePlatformPresets } from '../hooks/use-platform-presets'
+import {
+  ROOM_PLATFORMS,
+  PLATFORM_LABELS,
+  PLATFORM_ACCENT,
+  asScoringFormat,
+  asRosterFormat,
+  isRoomPlatform,
+  type RoomPlatform
+} from '../utils/platform-presets'
 import type { DraftConfig } from '@/lib/nfl/types'
 
 interface DraftConfigDialogProps {
@@ -35,8 +46,31 @@ export function DraftConfigDialog({
   onOpenChange,
   onNewDraft
 }: DraftConfigDialogProps) {
+  const presets = usePlatformPresets()
+
   function update<K extends keyof DraftConfig>(key: K, value: DraftConfig[K]) {
     onConfigChange({ ...config, [key]: value })
+  }
+
+  const activePlatform: RoomPlatform = isRoomPlatform(config.platform) ? config.platform : 'custom'
+  const isLocked = activePlatform !== 'custom'
+  const activePreset = presets[activePlatform]
+
+  function handlePlatformChange(next: string) {
+    if (!next || !isRoomPlatform(next)) return
+    if (next === 'custom') {
+      onConfigChange({ ...config, platform: 'custom' })
+      return
+    }
+    const preset = presets[next]
+    const scoring = asScoringFormat(preset.scoring_format)
+    const rosterFormat = asRosterFormat(preset.roster_format)
+    onConfigChange({
+      ...config,
+      platform: next,
+      ...(scoring ? { scoring } : {}),
+      ...(rosterFormat ? { roster_format: rosterFormat } : {})
+    })
   }
 
   const teamCounts = [8, 10, 12, 14]
@@ -50,6 +84,49 @@ export function DraftConfigDialog({
         </DialogHeader>
 
         <div className='space-y-[var(--gap-stack)] py-[var(--space-2)]'>
+          {/* Draft room style */}
+          <div className='space-y-[var(--space-2)]'>
+            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+              Draft room style
+            </label>
+            <ToggleGroup
+              type='single'
+              variant='outline'
+              value={activePlatform}
+              onValueChange={handlePlatformChange}
+              className='w-full'
+            >
+              {ROOM_PLATFORMS.map(p => (
+                <ToggleGroupItem
+                  key={p}
+                  value={p}
+                  aria-label={`${PLATFORM_LABELS[p]} draft room style`}
+                  style={activePlatform === p ? { color: PLATFORM_ACCENT[p], borderColor: PLATFORM_ACCENT[p] } : undefined}
+                >
+                  {PLATFORM_LABELS[p]}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+            {isLocked ? (
+              <div className='flex items-center justify-between gap-[var(--space-2)]'>
+                <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                  Locked to {PLATFORM_LABELS[activePlatform]} style — scoring and roster
+                  format are pre-filled to match.
+                </p>
+                <Button variant='ghost' size='sm' onClick={() => handlePlatformChange('custom')}>
+                  Unlock to customize
+                </Button>
+              </div>
+            ) : (
+              <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                Custom — scoring and roster format are yours to set.
+              </p>
+            )}
+            <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+              {activePreset.rounds} rounds · {activePreset.timer_seconds}s pick clock
+            </p>
+          </div>
+
           {/* Teams */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
             <label htmlFor='teams-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
@@ -106,6 +183,7 @@ export function DraftConfigDialog({
             <Select
               value={config.scoring}
               onValueChange={v => update('scoring', v as DraftConfig['scoring'])}
+              disabled={isLocked}
             >
               <SelectTrigger id='scoring-select' className='w-32'>
                 <SelectValue />
@@ -126,6 +204,7 @@ export function DraftConfigDialog({
             <Select
               value={config.roster_format}
               onValueChange={v => update('roster_format', v as DraftConfig['roster_format'])}
+              disabled={isLocked}
             >
               <SelectTrigger id='rosterformat-select' className='w-32'>
                 <SelectValue />

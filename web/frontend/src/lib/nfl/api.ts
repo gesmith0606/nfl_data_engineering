@@ -5,6 +5,7 @@ import type {
   DraftBoardResponse,
   DraftPickRequest,
   DraftPickResponse,
+  DraftPlatformsResponse,
   DraftRecommendationsResponse,
   DraftSyncLogRequest,
   DraftSyncLogResponse,
@@ -536,6 +537,15 @@ export async function advanceMockDraft(body: MockDraftPickRequest): Promise<Mock
 /** Fetch latest ADP data. */
 export async function fetchAdp(): Promise<AdpResponse> {
   return request<AdpResponse>('/api/draft/adp')
+}
+
+/**
+ * Fetch per-platform draft-room presets (scoring/roster format/rounds/timer/
+ * ADP source). Callers should fall back to hardcoded defaults on failure —
+ * this endpoint is a parallel backend lane and may 404 until it ships.
+ */
+export async function fetchDraftPlatforms(): Promise<DraftPlatformsResponse> {
+  return request<DraftPlatformsResponse>('/api/draft/platforms')
 }
 
 // ---------------------------------------------------------------------------

@@ -1,20 +1,32 @@
 'use client'
 
+import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Icons } from '@/components/icons'
 import { DataLoadReveal, HoverLift, Stagger } from '@/lib/motion-primitives'
 import { draftRecommendationsQueryOptions } from '@/features/nfl/api/queries'
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
+import { DANGER_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors'
+import { computeTierExhaustion } from '../utils/tier-exhaustion'
 import { CopyQueueButton } from './copy-queue-button'
-import type { Position } from '@/lib/nfl/types'
+import type { DraftPlayer, Position } from '@/lib/nfl/types'
 
 interface RecommendationsPanelProps {
   sessionId: string | null
   positionFilter: Position
+  /** Current board pool (undrafted players) — powers the tier-exhaustion cue. */
+  players?: DraftPlayer[]
 }
 
-export function RecommendationsPanel({ sessionId, positionFilter }: RecommendationsPanelProps) {
+/** >70% gone reads urgent, <30% reads safe; the middle band stays neutral. */
+function goneProbabilityColor(p: number): string {
+  if (p > 0.7) return DANGER_TEXT
+  if (p < 0.3) return 'text-muted-foreground'
+  return ''
+}
+
+export function RecommendationsPanel({ sessionId, positionFilter, players = [] }: RecommendationsPanelProps) {
   const { data, isLoading, isError } = useQuery({
     ...draftRecommendationsQueryOptions(
       sessionId ?? '',
@@ -23,6 +35,8 @@ export function RecommendationsPanel({ sessionId, positionFilter }: Recommendati
     ),
     enabled: !!sessionId
   })
+
+  const tierWarnings = useMemo(() => computeTierExhaustion(players), [players])
 
   return (
     <Card>
@@ -35,6 +49,18 @@ export function RecommendationsPanel({ sessionId, positionFilter }: Recommendati
         </div>
       </CardHeader>
       <CardContent className='space-y-[var(--space-2)] pt-0'>
+        {tierWarnings.length > 0 && (
+          <div className='space-y-0.5 border-b pb-[var(--space-2)]'>
+            {tierWarnings.map(w => (
+              <p
+                key={w.position}
+                className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium ${w.count === 1 ? WARN_TEXT : 'text-muted-foreground'}`}
+              >
+                {w.position} Tier {w.tier}: {w.count} left
+              </p>
+            ))}
+          </div>
+        )}
         {!sessionId ? (
           <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             Initialize a draft to see recommendations.
@@ -77,6 +103,11 @@ export function RecommendationsPanel({ sessionId, positionFilter }: Recommendati
                               {rec.team ?? 'FA'} · {rec.projected_points.toFixed(0)}pt · VORP{' '}
                               {rec.vorp.toFixed(1)}
                             </p>
+                            {rec.gone_probability != null && (
+                              <p className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${goneProbabilityColor(rec.gone_probability)}`}>
+                                {Math.round(rec.gone_probability * 100)}% gone by your next pick
+                              </p>
+                            )}
                           </div>
                         </div>
                         <span

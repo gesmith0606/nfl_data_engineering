@@ -66,7 +66,7 @@ export function MyRosterPanel({ roster, remainingNeeds, picksCount }: MyRosterPa
                           </span>
                         )}
                         <span className='text-muted-foreground font-mono text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tabular-nums'>
-                          {player.projected_points.toFixed(0)}pt
+                          {player.projected_points != null ? `${player.projected_points.toFixed(0)}pt` : '—'}
                         </span>
                       </div>
                     </div>

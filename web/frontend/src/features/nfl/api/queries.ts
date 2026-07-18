@@ -4,6 +4,7 @@ import {
   fetchAlerts,
   fetchCurrentWeek,
   fetchDraftBoard,
+  fetchDraftPlatforms,
   fetchLiveDraft,
   fetchDraftRecommendations,
   fetchGameSeasons,
@@ -55,6 +56,7 @@ export const nflKeys = {
     [...nflKeys.all, 'draft-recs', { sessionId, position }] as const,
   liveDraft: (key: string) => [...nflKeys.all, 'live-draft', key] as const,
   adp: () => [...nflKeys.all, 'adp'] as const,
+  draftPlatforms: () => [...nflKeys.all, 'draft-platforms'] as const,
   currentWeek: () => [...nflKeys.all, 'current-week'] as const,
   teamRoster: (team: string, season: number, week: number, side: string) =>
     [...nflKeys.all, 'team-roster', { team, season, week, side }] as const,
@@ -282,6 +284,20 @@ export const adpQueryOptions = () =>
     queryKey: nflKeys.adp(),
     queryFn: () => fetchAdp(),
     staleTime: 60 * 60 * 1000
+  });
+
+/**
+ * Per-platform draft-room presets. Backed by a parallel backend lane
+ * (currently 404s) — `retry: false` so a 404 resolves to an error fast and
+ * callers (`usePlatformPresets`) fall back to hardcoded defaults instead of
+ * retrying a route that doesn't exist yet.
+ */
+export const draftPlatformsQueryOptions = () =>
+  queryOptions({
+    queryKey: nflKeys.draftPlatforms(),
+    queryFn: () => fetchDraftPlatforms(),
+    staleTime: 60 * 60 * 1000,
+    retry: false
   });
 
 // ---------------------------------------------------------------------------
