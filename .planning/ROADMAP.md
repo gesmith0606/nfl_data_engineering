@@ -19,8 +19,11 @@
 - ✅ **v6.0 Website Production Ready + Agent Ecosystem** — Phases 60-65 (shipped 2026-04-20)
 - ✅ **v7.0 Production Stabilization** — Phases 66-70 (shipped 2026-04-24; 4 human_needed + 1 passed — see `.planning/milestones/v7.0-ROADMAP.md`)
 - ✅ **v7.1 Draft Season Readiness** — Phases 71-75 (shipped 2026-04-26; LLM-primary extraction, external projections comparison, Sleeper league integration, tech debt cleanup — see `.planning/milestones/v7.1-ROADMAP.md`)
-- 📋 **v7.2 Data + Site Polish** — Phases 76-84 (in flight; see `.planning/milestones/v7.2-ROADMAP.md`)
-- 🚧 **v8.0 Live Draft Co-Pilot** — Phases 85-90 (active — code complete on branch `feat/v8-live-draft-copilot`, awaiting PR/merge; Claude Code-native live draft assistant across Sleeper→Yahoo→ESPN + keeper-league support, adapter-based, separate from website chatbot; see `.planning/milestones/v8.0-ROADMAP.md`)
+- 🗃️ **v7.2 Data + Site Polish** — Phases 76-84 (superseded: paused at 1/9 phases during the Railway outage; surviving items absorbed into v8.x work or the STATE.md deferred table — see `.planning/milestones/v7.2-ROADMAP.md`)
+- ✅ **v8.0 Live Draft Co-Pilot** — Phases 85-91 (shipped 2026-07-02; Sleeper live draft assistant + Yahoo/ESPN adapters, keeper support; see `.planning/milestones/v8.0-ROADMAP.md`)
+- ✅ **v8.1 Production Launch** — shipped 2026-07-07 (league sync + draft prep on the website, 6-hourly freshness monitor, sentiment enrichment in prod, HF Spaces backend stable; Railway declared dead)
+- ✅ **v8.2 Model Enrichment + Repo Hardening** — shipped 2026-07-08→10 (preseason consensus anchor all positions, prop-implied `--props-blend` machinery + Sept gate, graph UC1–UC3, ops dashboard, warning debt →8, 3,009 tests)
+- 🚧 **launch-2026 Pre-August Paid Launch** — active (Clerk+Stripe billing shipped env-flagged PRs #58/#60, PWA #61, my-week #62, UX audit closed #63; remaining: user-owned billing go-live per `docs/BILLING_LAUNCH.md`, dress rehearsal ~Aug 3–7 per `WORKFLOW_READINESS.md`; see `STATE.md`)
 
 ## Phases
 
