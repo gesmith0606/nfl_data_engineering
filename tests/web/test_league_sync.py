@@ -88,6 +88,23 @@ _SYNTHETIC_ROSTERS: List[Dict[str, Any]] = [
 ]
 
 # ---------------------------------------------------------------------------
+# Synthetic league users — team_name lives in Sleeper user metadata
+# ---------------------------------------------------------------------------
+
+_SYNTHETIC_LEAGUE_USERS: List[Dict[str, Any]] = [
+    {
+        "user_id": USER_ID,
+        "display_name": "mantis_owner",
+        "metadata": {"team_name": "Waffle Stompers"},
+    },
+    {
+        "user_id": "OTHER_OWNER",
+        "display_name": "rival",
+        "metadata": {},
+    },
+]
+
+# ---------------------------------------------------------------------------
 # Synthetic projections DataFrame
 # All projection stat columns needed by score_with_settings and optimal_lineup.
 # ---------------------------------------------------------------------------
@@ -270,6 +287,7 @@ def _patch_all(proj_df: pd.DataFrame = None):  # type: ignore[assignment]
     return (
         patch("web.api.routers.sleeper_user.get_league", return_value=dict(_LEAGUE_FIXTURE)),
         patch("web.api.routers.sleeper_user.get_league_rosters", return_value=list(_SYNTHETIC_ROSTERS)),
+        patch("web.api.routers.sleeper_user.get_league_users", return_value=list(_SYNTHETIC_LEAGUE_USERS)),
         patch("web.api.routers.sleeper_user.load_sleeper_players", return_value=dict(_PLAYER_REGISTRY)),
         patch("web.api.routers.sleeper_user._load_projections", return_value=proj_df),
     )
@@ -343,6 +361,47 @@ class TestLeagueOverviewEndpoint:
         assert len(positions) > 0
         assert "QB" in positions
         assert "SUPER_FLEX" in positions
+
+    def test_overview_team_name_for_user(self):
+        """H-4: overview?user_id= exposes the user's team name + roster preview."""
+        cms = _patch_all()
+        with ExitStack() as stack:
+            for cm in cms:
+                stack.enter_context(cm)
+            resp = client.get(
+                f"/api/league/{LEAGUE_ID}/overview", params={"user_id": USER_ID}
+            )
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["team_name"] == "Waffle Stompers"
+        assert len(data["user_roster"]) > 0
+
+    def test_overview_team_name_none_without_user_id(self):
+        cms = _patch_all()
+        with ExitStack() as stack:
+            for cm in cms:
+                stack.enter_context(cm)
+            resp = client.get(f"/api/league/{LEAGUE_ID}/overview")
+        assert resp.status_code == 200
+        assert resp.json()["team_name"] is None
+
+    def test_overview_team_name_none_when_metadata_missing(self):
+        """A user who never set a team name yields team_name=None, not an error."""
+        cms = _patch_all()
+        with ExitStack() as stack:
+            for cm in cms:
+                stack.enter_context(cm)
+            stack.enter_context(
+                patch(
+                    "web.api.routers.sleeper_user.get_league_users",
+                    return_value=[{"user_id": USER_ID, "display_name": "mantis_owner"}],
+                )
+            )
+            resp = client.get(
+                f"/api/league/{LEAGUE_ID}/overview", params={"user_id": USER_ID}
+            )
+        assert resp.status_code == 200
+        assert resp.json()["team_name"] is None
 
     def test_overview_400_non_numeric_league_id(self):
         resp = client.get("/api/league/not-a-number/overview")

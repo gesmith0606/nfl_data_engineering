@@ -262,6 +262,8 @@ export interface LeagueOverviewResponse {
   scoring_deltas: ScoringDeltaBadge[]
   unmodeled_keys: string[]
   user_roster: LeagueRosterPlayer[]
+  /** User's team name in this league (null when unset or no user_id given). */
+  team_name?: string | null
 }
 
 /** A starter slot in the optimal lineup report. */

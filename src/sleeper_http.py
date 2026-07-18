@@ -268,6 +268,28 @@ def get_league(league_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> dict:
     )
 
 
+def get_league_users(league_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
+    """Fetch all member users of a league (display_name + metadata.team_name).
+
+    Sleeper stores each owner's chosen team name in ``metadata.team_name`` on
+    the league-users resource — it is NOT present on the rosters resource.
+
+    Args:
+        league_id: Sleeper league_id.
+        timeout: Socket timeout in seconds.
+
+    Returns:
+        List of user dicts (``user_id``, ``display_name``, ``metadata``, ...);
+        ``[]`` on any error or empty input.
+    """
+    if not league_id:
+        logger.warning("get_league_users: empty league_id provided")
+        return []
+    return _as_list(
+        fetch_sleeper_json(f"{_BASE_URL}/league/{league_id}/users", timeout=timeout)
+    )
+
+
 def get_league_rosters(league_id: str, timeout: int = _DEFAULT_TIMEOUT_S) -> list:
     """Fetch all rosters in a league (owner_id + kept player_ids per team).
 

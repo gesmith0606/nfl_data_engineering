@@ -30,6 +30,7 @@ from src.sleeper_http import (
     get_drafts_for_league,
     get_league,
     get_league_rosters,
+    get_league_users,
 )
 from src.sleeper_player_map import (
     build_player_index,
@@ -416,6 +417,26 @@ def _cached_rosters(league_id: str) -> List[Dict[str, Any]]:
     return rosters
 
 
+def _user_team_name(league_id: str, user_id: str) -> Optional[str]:
+    """Return the user's team name in a league, TTL-cached in-process.
+
+    Sleeper keeps team names on the league-users resource under
+    ``metadata.team_name``. Fail-open: any Sleeper outage or a user who never
+    set a team name yields ``None`` (the frontend falls back to display name).
+    """
+    cache_key = f"league_users:{league_id}"
+    users = _cache_get(cache_key)
+    if users is None:
+        users = get_league_users(league_id, timeout=_SLEEPER_TIMEOUT_S)
+        _cache_set(cache_key, users)
+    for u in users:
+        if isinstance(u, dict) and str(u.get("user_id") or "") == user_id:
+            metadata = u.get("metadata") or {}
+            team_name = metadata.get("team_name") if isinstance(metadata, dict) else None
+            return str(team_name) if team_name else None
+    return None
+
+
 def _require_league_projections(
     league_id: str, season: int, scoring_settings: Dict[str, Any]
 ) -> pd.DataFrame:
@@ -742,7 +763,9 @@ def league_overview(
     unmodeled = unmodeled_offense_keys(ctx.scoring_settings)
 
     user_roster_rows: List[LeagueRosterPlayer] = []
+    team_name: Optional[str] = None
     if user_id:
+        team_name = _user_team_name(league_id, user_id)
         rosters = _cached_rosters(league_id)
         try:
             _, player_ids = _require_user_roster(rosters, user_id, league_id)
@@ -783,6 +806,7 @@ def league_overview(
         scoring_deltas=deltas,
         unmodeled_keys=unmodeled,
         user_roster=user_roster_rows,
+        team_name=team_name,
     )
 
 
