@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { fontVariables } from '@/components/themes/font.config';
 import { DEFAULT_THEME } from '@/components/themes/theme.config';
 import ThemeProvider from '@/components/themes/theme-provider';
+import { ServiceWorkerRegister } from '@/components/pwa/sw-register';
 import { cn } from '@/lib/utils';
 import type { Metadata, Viewport } from 'next';
 import NextTopLoader from 'nextjs-toploader';
@@ -25,6 +26,19 @@ export const metadata: Metadata = {
   description:
     'NFL fantasy football projections, game predictions, and player analytics powered by machine learning.',
   keywords: ['NFL', 'fantasy football', 'projections', 'game predictions', 'player analytics'],
+  manifest: '/manifest.webmanifest',
+  icons: {
+    icon: [
+      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' }
+    ],
+    apple: '/icons/icon-192.png'
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'GIQ'
+  },
   openGraph: {
     type: 'website',
     siteName: 'NFL Analytics',
@@ -74,6 +88,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           fontVariables
         )}
       >
+        <ServiceWorkerRegister />
         <NextTopLoader color='var(--primary)' showSpinner={false} />
         <NuqsAdapter>
           <ThemeProvider

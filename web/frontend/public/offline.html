@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0e0f16" />
+    <title>Offline — GIQ</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0e0f16;
+        color: #cfd6e4;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        text-align: center;
+      }
+      .brand {
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #ffffff;
+      }
+      .brand span { color: #91edd0; }
+      .rule {
+        width: 72px;
+        height: 2px;
+        background: #91edd0;
+        margin: 16px auto 20px;
+      }
+      p { margin: 0 0 20px; font-size: 15px; }
+      button {
+        border: 1px solid #91edd0;
+        background: transparent;
+        color: #91edd0;
+        padding: 10px 22px;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        border-radius: 999px;
+      }
+      button:hover { background: rgba(145, 237, 208, 0.1); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="brand">G<span>IQ</span></div>
+      <div class="rule"></div>
+      <p>You&rsquo;re offline. GIQ needs a connection for live projections.</p>
+      <button onclick="location.reload()">Retry</button>
+    </main>
+  </body>
+</html>
