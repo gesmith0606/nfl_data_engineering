@@ -16,12 +16,17 @@ import {
 } from '@/components/ui/table'
 import { PressScale } from '@/lib/motion-primitives'
 import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors'
+import { PickClock } from './pick-clock'
 import type { DraftConfig, MockDraftPickResponse } from '@/lib/nfl/types'
 
 interface MockDraftViewProps {
   sessionId: string
   config: DraftConfig
   onReset: () => void
+  /** Room's pick clock length; null hides the clock. */
+  timerSeconds?: number | null
+  /** Platform accent for the clock ring/bar. */
+  accentColor?: string
 }
 
 const GRADE_COLORS: Record<string, string> = {
@@ -31,7 +36,13 @@ const GRADE_COLORS: Record<string, string> = {
   D: DANGER_TEXT
 }
 
-export function MockDraftView({ sessionId, config, onReset }: MockDraftViewProps) {
+export function MockDraftView({
+  sessionId,
+  config,
+  onReset,
+  timerSeconds = null,
+  accentColor
+}: MockDraftViewProps) {
   const [picks, setPicks] = useState<MockDraftPickResponse[]>([])
   const [isRunning, setIsRunning] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
@@ -146,6 +157,13 @@ export function MockDraftView({ sessionId, config, onReset }: MockDraftViewProps
         <span className='text-muted-foreground ml-auto text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
           Pick {currentPick} of ~{totalPicks}
         </span>
+        {!isComplete && (
+          <PickClock
+            pickNumber={currentPick + 1}
+            timerSeconds={timerSeconds}
+            accentColor={accentColor}
+          />
+        )}
       </div>
 
       {/* Results card when complete */}

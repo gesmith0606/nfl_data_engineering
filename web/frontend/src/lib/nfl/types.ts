@@ -646,7 +646,7 @@ export interface GameSeasonsResponse {
 export type ScoringFormat = "ppr" | "half_ppr" | "standard";
 
 /** Position filter options. */
-export type Position = "ALL" | "QB" | "RB" | "WR" | "TE" | "K";
+export type Position = "ALL" | "QB" | "RB" | "WR" | "TE" | "K" | "DST";
 
 /** Sort direction. */
 export type SortDirection = "asc" | "desc";
@@ -667,12 +667,18 @@ export interface DraftPlayer {
   player_name: string
   position: string
   team: string | null
-  projected_points: number
+  /** Null for positions without a points model yet (e.g. DST). */
+  projected_points: number | null
   model_rank: number
   adp_rank: number | null
   adp_diff: number | null
   value_tier: 'undervalued' | 'fair_value' | 'overvalued'
-  vorp: number
+  /** Null for positions without a points model yet (e.g. DST). */
+  vorp: number | null
+  /** Draft-worthy tier grouping (1 = top tier); null when not yet computed. */
+  tier?: number | null
+  /** Standard deviation of ADP across sources/drafts; null when unavailable. */
+  adp_stdev?: number | null
 }
 
 /** Full draft board state from the API. */
@@ -712,6 +718,8 @@ export interface DraftRecommendation {
   model_rank: number
   vorp: number
   recommendation_score: number
+  /** Probability (0-1) the player is gone before your next pick; null when not modeled. */
+  gone_probability?: number | null
 }
 
 /** Recommendations response. */
@@ -849,7 +857,22 @@ export interface DraftConfig {
   n_teams: number
   user_pick: number
   season: number
+  /** Draft-room style the config was pre-filled from ('espn'/'sleeper'/'yahoo'/'custom'). */
+  platform?: string
 }
+
+/** One platform's draft-room defaults from GET /api/draft/platforms. */
+export interface DraftPlatformPreset {
+  scoring_format: string
+  roster_format: string
+  rounds: number
+  timer_seconds: number
+  adp_source: string
+  roster_slots: Record<string, number>
+}
+
+/** Response for GET /api/draft/platforms — one preset per supported room style. */
+export type DraftPlatformsResponse = Record<string, DraftPlatformPreset>
 
 // ---------------------------------------------------------------------------
 // Teams / Roster / Defense-metrics types (Phase 64)

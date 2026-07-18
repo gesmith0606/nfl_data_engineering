@@ -11,7 +11,8 @@ const DEFAULT_CONFIG: DraftConfig = {
   roster_format: 'standard',
   n_teams: 12,
   user_pick: 1,
-  season: 2026
+  season: 2026,
+  platform: 'sleeper'
 }
 
 export function useDraftState() {

@@ -189,83 +189,103 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
                 </TableCell>
               </TableRow>
             ) : (
-              displayed.map(player => (
-                <TableRow
-                  key={player.player_id}
-                  className='hover:bg-muted/40 transition-colors duration-[var(--motion-fast)]'
-                >
-                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
-                    {player.model_rank}
-                  </TableCell>
-                  <TableCell>
-                    <div className='flex items-center gap-[var(--space-2)]'>
-                      <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
-                        {player.player_name}
-                      </span>
-                      <span
-                        className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${getPositionBadgeClass(player.position)}`}
-                      >
-                        {player.position}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                    {player.team ?? '—'}
-                  </TableCell>
-                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
-                    {player.projected_points.toFixed(1)}
-                  </TableCell>
-                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
-                    {player.adp_rank !== null ? player.adp_rank.toFixed(0) : '—'}
-                  </TableCell>
-                  <TableCell
-                    className={`font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums ${adpDiffColor(player.adp_diff)}`}
+              displayed.map((player, i) => {
+                // Subtle divider between draft tiers — only meaningful while
+                // sorted by rank, where tiers group into contiguous runs.
+                const prevTier = i > 0 ? displayed[i - 1].tier : undefined
+                const isTierBoundary =
+                  sortKey === 'model_rank' &&
+                  player.tier != null &&
+                  prevTier != null &&
+                  player.tier !== prevTier
+                return (
+                  <TableRow
+                    key={player.player_id}
+                    className={`hover:bg-muted/40 transition-colors duration-[var(--motion-fast)] ${isTierBoundary ? 'border-t-2' : ''}`}
                   >
-                    {player.adp_diff !== null
-                      ? (player.adp_diff > 0 ? '+' : '') + player.adp_diff.toFixed(1)
-                      : '—'}
-                  </TableCell>
-                  <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
-                    {player.vorp.toFixed(1)}
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${VALUE_TIER_COLORS[player.value_tier] ?? VALUE_TIER_COLORS['fair_value']}`}
+                    <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
+                      {player.model_rank}
+                    </TableCell>
+                    <TableCell>
+                      <div className='flex items-center gap-[var(--space-2)]'>
+                        <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                          {player.player_name}
+                        </span>
+                        <span
+                          className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${getPositionBadgeClass(player.position)}`}
+                        >
+                          {player.position}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+                      {player.team ?? '—'}
+                    </TableCell>
+                    <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
+                      {player.projected_points != null ? player.projected_points.toFixed(1) : '—'}
+                    </TableCell>
+                    <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
+                      {player.adp_rank !== null ? player.adp_rank.toFixed(0) : '—'}
+                    </TableCell>
+                    <TableCell
+                      className={`font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums ${adpDiffColor(player.adp_diff)}`}
                     >
-                      {player.value_tier === 'undervalued'
-                        ? 'Value'
-                        : player.value_tier === 'overvalued'
-                          ? 'Reach'
-                          : 'Fair'}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className='flex items-center gap-[var(--space-1)]'>
-                      <PressScale>
-                        <Button
-                          variant='outline'
-                          size='sm'
-                          onClick={() => onDraft(player.player_id)}
-                          disabled={isPicking}
+                      {player.adp_diff !== null
+                        ? (player.adp_diff > 0 ? '+' : '') + player.adp_diff.toFixed(1)
+                        : '—'}
+                    </TableCell>
+                    <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
+                      {player.vorp != null ? player.vorp.toFixed(1) : '—'}
+                    </TableCell>
+                    <TableCell>
+                      <div className='flex items-center gap-[var(--space-1)]'>
+                        {player.tier != null && (
+                          <span
+                            className='bg-muted text-foreground inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold'
+                            title={`Tier ${player.tier}`}
+                          >
+                            {`T${player.tier}`}
+                          </span>
+                        )}
+                        <span
+                          className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${VALUE_TIER_COLORS[player.value_tier] ?? VALUE_TIER_COLORS['fair_value']}`}
                         >
-                          Draft
-                        </Button>
-                      </PressScale>
-                      <PressScale>
-                        <Button
-                          variant='ghost'
-                          size='sm'
-                          title='Mark as drafted by another team'
-                          onClick={() => onDraft(player.player_id, false)}
-                          disabled={isPicking}
-                        >
-                          Taken
-                        </Button>
-                      </PressScale>
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))
+                          {player.value_tier === 'undervalued'
+                            ? 'Value'
+                            : player.value_tier === 'overvalued'
+                              ? 'Reach'
+                              : 'Fair'}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className='flex items-center gap-[var(--space-1)]'>
+                        <PressScale>
+                          <Button
+                            variant='outline'
+                            size='sm'
+                            onClick={() => onDraft(player.player_id)}
+                            disabled={isPicking}
+                          >
+                            Draft
+                          </Button>
+                        </PressScale>
+                        <PressScale>
+                          <Button
+                            variant='ghost'
+                            size='sm'
+                            title='Mark as drafted by another team'
+                            onClick={() => onDraft(player.player_id, false)}
+                            disabled={isPicking}
+                          >
+                            Taken
+                          </Button>
+                        </PressScale>
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                )
+              })
             )}
           </TableBody>
         </Table>
