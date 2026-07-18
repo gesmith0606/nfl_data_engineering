@@ -1,135 +1,67 @@
 ---
 gsd_state_version: 1.0
-milestone: v8.0
-milestone_name: Live Draft Co-Pilot
+milestone: launch-2026
+milestone_name: Pre-August Paid Launch
 status: active
-stopped_at: Phases 85-91 complete on branch feat/v8-live-draft-copilot (awaiting PR/merge). v7.2 deferred (paused at Phase 79 after production-hotfix detour).
-last_updated: "2026-06-15T00:00:00.000Z"
-last_activity: 2026-06-15
-progress:
-  total_phases: 7
-  completed_phases: 7
-  total_plans: 8
-  completed_plans: 8
-  percent: 100
+stopped_at: WS1 pipeline-reliability + WS3 UX polish complete (PR #63); WS2 billing go-live is user-owned; dress rehearsal scheduled ~Aug 3-7.
+last_updated: "2026-07-18T00:00:00.000Z"
+last_activity: 2026-07-18
 ---
 
 # Project State
 
+> **Source of truth is `CLAUDE.md` (Status section) + git log.** This file is a
+> thin launch-window snapshot; it went stale twice (2026-05-15, 2026-07-18
+> reconciliations) when kept detailed — keep it thin.
+
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-24 after v7.1 Draft Season Readiness started)
+**Core value:** A rich, well-modeled NFL data lake powering fantasy projections
+(beats Sleeper consensus overall), game predictions, and a production website +
+AI advisor ecosystem — monetized at $7.99/mo (7-day trial) from August draft
+season.
 
-**Core value:** A rich, well-modeled NFL data lake that serves as the foundation for both fantasy football decision-making and game prediction models — now with a production website + AI advisor ecosystem.
-**Current focus:** v7.2 paused at 1/9 phases. Awaiting decision on which phase to resume (78 / 84 / 76 are the strongest starts).
+**Current focus:** Pre-August paid launch. Plan of record: launch-ready + paid
+by **Aug 1**; full workflow dress rehearsal **~Aug 3–7** (post-HOF weekend,
+runbook in `WORKFLOW_READINESS.md`).
 
-## Current Position
+## Current Position (2026-07-18)
 
-Phase: 79 (complete) — v7.2 between phases
-Plan: —
-Status: Milestone paused; 1/9 phases done (79). 8 not started: 76, 77, 78, 80, 81, 82, 83, 84.
-Last activity: 2026-05-15
+- **Shipped:** v8.0 live draft co-pilot → v8.1 production launch (league sync,
+  freshness monitor, sentiment in prod) → v8.2 model enrichment + repo
+  hardening (consensus anchor, props-blend machinery, UC1–UC3, ops dashboard,
+  3,009 tests). Clerk+Stripe billing code landed (PRs #58/#60), env-flagged
+  OFF. PWA + roster alerts (#61), my-week hub (#62), H-4 roster-confirm
+  identity + doc reconciliation (#63).
+- **Deployment:** Vercel frontend + **HF Spaces** backend
+  (`gesmith0606-nfl-data-api.hf.space`). **Railway is DEAD** (trial expired
+  May 2026) — never point env vars at it. ANTHROPIC_API_KEY auto-syncs to HF
+  runtime via deploy-web.
+- **Workflows:** 9 GitHub Actions, all healthy as of 2026-07-18. June/early-July
+  failures fully diagnosed: AWS-creds outage (fixed, plus `issues: write` so
+  failure-notify works), injuries season-range bug (fixed 07-02), one Anthropic
+  credit-exhaustion + data-commit rebase race (07-09, recovered).
 
-**🔴 P0 — PRODUCTION BACKEND DOWN ~9 DAYS; ROOT CAUSE CONFIRMED = RAILWAY TRIAL EXHAUSTED (diagnosed 2026-05-15):** Railway `nfl_data_engineering` (project `nfl-api`, **trial plan**) — `railway deployment list` = **20/20 deployments `REMOVED`, zero `SUCCESS`/`SLEEPING`/active**, `activeDeployments: []`, no serving URL. Domain returns edge `{"code":404,"message":"Application not found"}`. Frontend (Vercel) UP but data-blind (`next.config.ts` proxies `/api/*` → dead host).
-- **Confirmed timeline:** (1) 2026-04-27 deploy `861d2956` FAILED on the TD-09 Docker bug. (2) Code fixed `50fb805`+; daily-cron auto-deploys then ran fine 04-28→05-06. (3) **Last deployment `0162874f` 2026-05-06 12:52Z BUILT + PASSED `/api/health` healthcheck** — proving the image + app are deploy-ready. (4) **Nothing deployed after 2026-05-06** despite daily cron commits through 05-15 → Railway halted auto-deploy + tore down the running deploy (all `REMOVED`). Signature is unambiguous trial credit/term exhaustion ~2026-05-06. (5) Every `fix(matchups|projections|api|chat)` commit 05-06→05-15 never deployed — unverified in prod.
-- **Recovery is purely a billing action — code is PROVEN deploy-ready** by the 2026-05-06 successful build+healthcheck. Path: user upgrades Railway off trial (dashboard, ~$5 Hobby + usage — only they can do it) → `railway redeploy` (high confidence; 05-06 proved it works) → full sanity-gate verification of the ~9d stacked fixes. No code work needed to restore. **Pending user billing action.**
-- **Follow-up (queue, not blocking restore):** `web/Dockerfile` bakes large `data/` parquet trees into the image — the recurring deploy-fragility root smell (TD-09 + slow/credit-hungry builds). Slim it (runtime fetch / volume) under Phase 84 Deploy Hardening so this class of outage stops recurring on any host.
+## Open threads
 
-**Reconciled 2026-05-15:** STATE was stale ("Phase 79 context gathered", last_updated 2026-04-28). Reality: Phase 79 completed 2026-04-28 (4/4 plans, per ROADMAP). From 2026-04-28 → 2026-05-15 **no v7.2 roadmap execution happened** — work was out-of-band production firefighting (commits `ed3b047`→`a7ebaf4`) on a backend that was already down (see P0 above). Local was 13 commits behind origin (daily data cron only) — pulled. GSD upgraded 1.31.0→1.42.2 and committed; external rankings refresh committed; stray `web/frontend/` tooling scaffolding gitignored (Dockerfile-verified safe).
+1. **Billing go-live (user-owned):** execute `docs/BILLING_LAUNCH.md` — Clerk
+   prod app, Stripe $7.99/mo product, 7 Vercel env vars, §5 QA, §4 launch order.
+2. **Dress rehearsal ~Aug 3–7:** dispatch all workflows once, verify end-to-end
+   (runbook: `WORKFLOW_READINESS.md`).
+3. **Ops risks to watch:** Anthropic API credit balance (ran dry 07-09 — set
+   billing alerts/auto-reload); concurrent data-commit rebase races.
+4. **In-season gates (Sept+):** line-capture verdict by w10 (mean >+0.3,
+   n≥150); prop-implied `--props-blend` eval once Sunday snapshots accumulate;
+   RB +0.26 consensus gap levers; PFF decision ~Nov.
 
-**Mode:** "Tighten each theme" — every requirement cut to its smallest defensible scope. Critical path is 79→84 (deploy hardening) and 82→83 (advisor auth-aware tool); everything else parallelizes.
+## Deferred (unchanged)
 
-## Milestone Goal
-
-Tighten what's already shipped — close half-done flows, kill tech debt, and lock in production reliability so v8.0 (PFF) can build on a clean foundation.
-
-## Phase Breakdown (v7.2)
-
-| Phase | Name | Requirements | Success Criteria | Depends on |
-|-------|------|--------------|------------------|------------|
-| 76 | AWS Refresh + S3 Sync | 3 (AWS-01..03) | 3 | — |
-| 77 | Sentiment Source Expansion | 3 (INGEST-01..03) | 3 | — |
-| 78 | Heuristic Consolidation | 3 (HEUR-01..03) | 3 | — |
-| 79 | Audit Provenance + Live Version Probe | 2 (DQ-01, DQ-02) | 3 | — |
-| 80 | Sanity Warning Triage | 1 (DQ-03) | 4 | — |
-| 81 | Dashboard Feature Audit | 2 (UX-01, UX-02) | 3 | — |
-| 82 | Sleeper OAuth + Multi-User | 3 (AUTH-01..03) | 3 | — |
-| 83 | Advisor Tool Expansion | 3 (TOOL-01..03) | 3 | 82 |
-| 84 | Deploy Hardening | 4 (DEPLOY-01..04) | 4 | 79 |
-
-**Coverage:** 23/23 v7.2 requirements mapped, 0 orphans.
-
-**Execution order:**
-
-- Phases 76, 77, 78, 79, 80, 81, 82 can run in parallel.
-- Phase 83 starts after Phase 82 (TOOL-03 needs auth-aware session).
-- Phase 84 starts after Phase 79 (DEPLOY-02 + DEPLOY-04 consume `/api/version` + `script_sha`).
-
-## Accumulated Context
-
-Carried forward from v7.1 (shipped 2026-04-26):
-
-- Frontend LIVE: https://frontend-jet-seven-33.vercel.app
-- Backend LIVE: https://nfldataengineering-production.up.railway.app
-- Daily cron: `0 12 * * *` UTC; LLM-primary extraction active when `ENABLE_LLM_ENRICHMENT=true`
-- New cron: `weekly-external-projections.yml` Tuesdays 14:00 UTC + Sundays 12:00 UTC
-- Sleeper integration: `/dashboard/leagues` username connect + `getUserRoster` advisor tool
-- Tests: ~1634 passing
-- 3-week deploy freeze closed 2026-04-27 with 6 root-cause fixes; gate now end-to-end green
-
-### Decisions (v7.2 provisional)
-
-- [v7.2]: Milestone themed "Data + Site Polish" — pre-v8.0 foundation tightening, not feature expansion
-- [v7.2]: 9 phases (76-84) chosen over 10 because most categories are single-PR; only DQ split into two (DQ-01/02 critical-path vs DQ-03 triage)
-- [v7.2]: UX-01 + UX-02 kept as one phase (Phase 81) — same per-route walk methodology, share screenshot setup
-- [v7.2]: Critical path 79→84 (deploy hardening consumes Phase 79 outputs) and 82→83 (advisor auth-aware tool consumes Phase 82 session)
-- [v7.2]: Marketing & Content (Remotion/NotebookLM) deferred to a separate post-v7.2 milestone — production hardening takes priority
-- [79-01]: get_script_sha helper returns plain Dict (not dataclass) so audit-script JSON dumps stay trivial; matches CONTEXT D-03
-- [79-01]: Project-wide subprocess pattern — any future git callers MUST use shell=False, list argv, and `--` separator before path tokens (T-79-01 mitigation, defence-in-depth)
-- [79-01]: Diff probe is skipped when sha='unknown' so the contract `unknown ⇒ dirty=False` stays clean for Phase 84 DEPLOY-04 to reason about
-
-### Pending Todos
-
-- Plan Phase 76 (or any of 76, 77, 78, 79, 80, 81, 82 — all independent starts)
-- Phase 73 EXTP-05 first cron observation (Tuesday 14:00 UTC + Sunday 12:00 UTC) — closes naturally during v7.2
-
-### Blockers/Concerns
-
-- **🔴 P0: Production backend down ~9 days — Railway trial exhausted ~2026-05-06 (CONFIRMED).** 20/20 deployments REMOVED; last build (05-06) passed healthcheck so code IS deploy-ready. Restore = user upgrades Railway off trial (~$5) → redeploy → verify. No code blocker. ~9d of unverified fix commits stacked behind it.
-- AWS credentials still expired (Phase 76 unblocks)
-- ANTHROPIC_API_KEY GitHub Secret + ENABLE_LLM_ENRICHMENT GitHub Variable assumed live (set during v7.0/v7.1 close-out)
-- W1-2026 sanity-threshold restore (`_NEWS_CONTENT_MIN_TEAMS_OK 10→20`) is a pre-season-kickoff checklist item, not a phase
-
-## Deferred Items
-
-| Category | Item | Status | Deferred At |
-|----------|------|--------|-------------|
-| Data     | PFF paid data integration | v8.0 | v4.1 |
-| Data     | Neo4j Aura cloud graph setup | v8.0 | v4.1 |
-| Content  | Marketing (Remotion, NotebookLM, social video) | post-v7.2 separate milestone | v7.2 (2026-04-27) |
-| Models   | Heuristic consolidation (3 duplicate functions) | v7.2 Phase 78 | v6.0 |
-| Models   | Unified evaluation pipeline (466-feature residual) | v7.3+ | v4.1 |
-| Models   | QB heuristic -2.47 bias fix | v7.2 Phase 78 (HEUR-03 regression test) | v4.1 |
-| Data     | Refresh AWS credentials + S3 sync | v7.2 Phase 76 | v4.0 |
-| Auth     | Multi-user persistence (beyond session) | v7.2 Phase 82 | 2026-04-24 |
-| Auth     | Cookie-based `sleeper_user_id` phase-out + deletion | v7.3 | v7.2 (2026-04-27) |
-| Sentiment| Twitter/X sentiment ingestion | v7.3+ | v7.2 (2026-04-27) |
-| Sentiment| ESPN Insider/CBS HQ paid sentiment sources | TBD (subscription cost evaluation) | v7.2 (2026-04-27) |
-
-## Session Continuity
-
-Last session: 2026-05-15 (state reconciliation — no phase execution)
-Stopped at: Phase 79 complete; v7.2 paused, awaiting resume decision
-Resume with: `/gsd:plan-phase 78` (heuristic-consolidation debt) or `/gsd:plan-phase 84` (deploy hardening — directly addresses the 2.5wk firefighting, unblocked since 79 done) or `/gsd:plan-phase 76` (AWS refresh — unblocks S3 sync). 77/80/81/82 also independent.
-Prior context: .planning/milestones/v7.2-phases/79-audit-provenance-version-probe/79-CONTEXT.md
-Open tree decision: stray `web/frontend/.claude/` nested GSD install + oxlint/oxfmt/shadcn scaffolding — untracked, NOT auto-resolved (web/ gitignore is Dockerfile-coupled per TD-09; needs explicit call).
-
-### Deferred follow-ups (post-v7.2)
-
-- Cookie-based `sleeper_user_id` phase-out + deletion (deferred from AUTH-03 backwards-compat path)
-- Twitter/X sentiment ingestion (rate-limit complexity)
-- ESPN Insider/CBS HQ paid sentiment sources (subscription cost evaluation)
-- Full UX redesign of any individual dashboard page (Phase 81 is gap closure only, not redesign)
-- Per-user advisor history persistence beyond current `usePersistentChat` localStorage
-- Cloud-side audit running on S3-backed Silver instead of local-FS-backed (deferred until AWS sync stabilizes — Phase 76)
-- Marketing & content automation (Remotion, NotebookLM, social distribution) — separate post-v7.2 milestone
+| Category | Item | Status |
+|----------|------|--------|
+| Data     | PFF paid data | decision ~Nov (must beat free ceiling ≥3×) |
+| Data     | Neo4j Aura cloud graph | post-season |
+| Data     | S3 sync of local data | backlog |
+| Sentiment| Twitter/X + ESPN/CBS paid sources | backlog |
+| Auth     | Sleeper OAuth / multi-user persistence | backlog |
+| Repo     | Packaging normalization + god-module splits | offseason |
+| Deploy   | Slim HF Docker image (data baked into image) | backlog |
