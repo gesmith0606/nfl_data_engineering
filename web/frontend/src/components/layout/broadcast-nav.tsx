@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Icons } from '@/components/icons';
+import { AlertsBell } from '@/features/alerts/components/alerts-bell';
 import { NavAuth } from '@/features/billing/components/nav-auth';
 import { cn } from '@/lib/utils';
 
@@ -124,6 +125,7 @@ export function BroadcastNav() {
 
       <span className='flex-1' />
       <NavAuth />
+      <AlertsBell />
       <SearchButton />
     </nav>
   );
