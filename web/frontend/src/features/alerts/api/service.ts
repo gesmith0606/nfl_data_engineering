@@ -39,7 +39,11 @@ export interface AlertsBundle {
 /** Flatten each connected league's user roster into match entries. */
 async function fetchRosterEntries(leagues: ConnectedLeague[]): Promise<RosterEntry[]> {
   const results = await Promise.allSettled(
-    leagues.map((league) => fetchLeagueOverview(league.league_id, league.user_id))
+    // Older stored leagues may predate user_id; pass undefined so the
+    // overview call fails-open for that league instead of sending ''.
+    leagues.map((league) =>
+      fetchLeagueOverview(league.league_id, league.user_id || undefined)
+    )
   );
   const entries: RosterEntry[] = [];
   results.forEach((result, i) => {

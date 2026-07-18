@@ -149,7 +149,8 @@ export function assembleAlerts(alerts: Alert[], index: RosterIndex): AssembledAl
   }
 
   const bySeverityThenName = (a: Alert, b: Alert) =>
-    severityOf(a) - severityOf(b) || a.player_name.localeCompare(b.player_name);
+    severityOf(a) - severityOf(b) ||
+    (a.player_name || '').localeCompare(b.player_name || '');
   yourPlayers.sort(bySeverityThenName);
   leagueNews.sort(bySeverityThenName);
 
