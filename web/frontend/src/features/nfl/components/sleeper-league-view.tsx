@@ -16,6 +16,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   fetchLeagueDraftPrep,
+  fetchLeagueMyWeek,
   fetchLeagueOverview,
   fetchLeagueRosterReport,
   fetchLeagueWaivers,
@@ -36,6 +37,9 @@ import type {
   BestAvailablePlayer,
   ConnectedLeague,
   LeagueDraftPrepResponse,
+  MyWeekPlayer,
+  MyWeekResponse,
+  MyWeekSlot,
   RosterReportResponse,
   SleeperLeague,
   SleeperUser,
@@ -599,7 +603,7 @@ function LeagueHome({
   const [prep, setPrep] = useState<LeagueDraftPrepResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [tab, setTab] = useState<'report' | 'waivers'>('report');
+  const [tab, setTab] = useState<'myweek' | 'report' | 'waivers'>('myweek');
 
   useEffect(() => {
     let cancelled = false;
@@ -692,7 +696,7 @@ function LeagueHome({
           for either tab; DraftPrepView owns the whole panel then) */}
       {!isEmptyRoster && (
         <div className='sticky top-0 z-10 bg-background flex gap-1 border-b'>
-          {(['report', 'waivers'] as const).map((t) => (
+          {(['myweek', 'report', 'waivers'] as const).map((t) => (
             <button
               key={t}
               type='button'
@@ -703,7 +707,11 @@ function LeagueHome({
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
-              {t === 'report' ? 'Roster Report' : 'Waiver Targets'}
+              {t === 'myweek'
+                ? 'My Week'
+                : t === 'report'
+                  ? 'Roster Report'
+                  : 'Waiver Targets'}
             </button>
           ))}
         </div>
@@ -748,6 +756,12 @@ function LeagueHome({
         </div>
       )}
 
+      {/* My Week tab — weekly command center; owns its own fetch so the
+          week selector can refetch without reloading the whole view */}
+      {!loading && !error && !isEmptyRoster && tab === 'myweek' && (
+        <MyWeekView league={league} onShowReport={() => setTab('report')} />
+      )}
+
       {/* Roster report tab */}
       {!loading && !error && !isEmptyRoster && tab === 'report' && report && (
         <RosterReportView report={report} />
@@ -756,6 +770,303 @@ function LeagueHome({
       {/* Waivers tab */}
       {!loading && !error && !isEmptyRoster && tab === 'waivers' && waivers && (
         <WaiversView waivers={waivers} />
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// My Week view — weekly command center
+// ---------------------------------------------------------------------------
+
+function fmtWeekPts(v: number | null): string {
+  return v === null ? '—' : v.toFixed(1);
+}
+
+function MyWeekStatusBadges({ p }: { p: MyWeekPlayer }) {
+  return (
+    <>
+      {p.is_bye_week && (
+        <span className='rounded bg-muted px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground'>
+          BYE
+        </span>
+      )}
+      {p.is_out && (
+        <span className={`rounded border px-1.5 py-0.5 text-[10px] font-bold ${DANGER_TEXT}`}>
+          {p.injury_status?.toUpperCase() ?? 'OUT'}
+        </span>
+      )}
+      {!p.is_out && p.injury_status && p.injury_status !== 'Active' && (
+        <span className={`rounded border px-1.5 py-0.5 text-[10px] font-bold ${WARN_TEXT}`}>
+          {p.injury_status.toUpperCase()}
+        </span>
+      )}
+    </>
+  );
+}
+
+function MyWeekRow({
+  p,
+  slot,
+}: {
+  p: MyWeekPlayer;
+  slot?: string;
+}) {
+  return (
+    <div className='flex items-center justify-between px-4 py-2.5 gap-3'>
+      <div className='flex items-center gap-2.5 min-w-0'>
+        {slot && (
+          <span className='w-10 text-[10px] font-bold text-muted-foreground font-mono shrink-0'>
+            {slot}
+          </span>
+        )}
+        <PosBadge pos={p.position} />
+        <div className='min-w-0'>
+          <div className='flex items-center gap-1.5'>
+            <p className='text-sm font-medium truncate'>
+              {p.player_name ?? '—'}
+            </p>
+            <MyWeekStatusBadges p={p} />
+          </div>
+          {p.team && (
+            <p className='text-[11px] text-muted-foreground'>{p.team}</p>
+          )}
+        </div>
+      </div>
+      <div className='text-right shrink-0'>
+        <p className='text-sm font-semibold tabular-nums'>
+          {fmtWeekPts(p.projected_points)}
+        </p>
+        {p.floor !== null && p.ceiling !== null && (
+          <p className='text-[10px] text-muted-foreground tabular-nums'>
+            {p.floor.toFixed(1)}–{p.ceiling.toFixed(1)}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function MyWeekView({
+  league,
+  onShowReport,
+}: {
+  league: ConnectedLeague;
+  onShowReport: () => void;
+}) {
+  const [data, setData] = useState<MyWeekResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  // undefined = let the backend resolve the current week
+  const [week, setWeek] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+    const seasonYear =
+      parseInt(league.season, 10) || new Date().getFullYear();
+    fetchLeagueMyWeek(league.league_id, league.user_id, seasonYear, week)
+      .then((d) => {
+        if (!cancelled) setData(d);
+      })
+      .catch((err: unknown) => {
+        if (!cancelled) {
+          const msg = err instanceof Error ? err.message : String(err);
+          setError(`Failed to load My Week: ${msg}`);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [league.league_id, league.user_id, league.season, week]);
+
+  const askGx01 = () => window.dispatchEvent(new Event('gx01:toggle'));
+
+  if (loading) {
+    return (
+      <div className='py-8 text-center text-sm text-muted-foreground'>
+        Loading your week…
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>
+        {error}
+      </div>
+    );
+  }
+  if (!data) return null;
+
+  // Preseason / no weekly data: explain, point at the season-long report.
+  if (data.mode !== 'weekly') {
+    return (
+      <div className='rounded-lg border border-dashed p-6 text-center space-y-3'>
+        <p className='text-sm font-medium'>My Week starts with the season</p>
+        <p className='text-sm text-muted-foreground'>
+          {data.message ??
+            'Weekly projections are not available yet for this week.'}
+        </p>
+        <button
+          type='button'
+          onClick={onShowReport}
+          className='min-h-[44px] rounded-md border px-3 py-1 text-xs hover:bg-muted'
+        >
+          View season-long Roster Report
+        </button>
+      </div>
+    );
+  }
+
+  const changes = data.changes;
+  const isOptimal = !changes || changes.net_gain <= 0.05;
+
+  return (
+    <div className='space-y-5'>
+      {/* Week header: selector + scoring context + GX-01 handoff */}
+      <div className='flex flex-wrap items-center justify-between gap-2'>
+        <div className='flex items-center gap-2'>
+          <label
+            htmlFor='myweek-week'
+            className='text-xs font-semibold uppercase text-muted-foreground'
+          >
+            Week
+          </label>
+          <select
+            id='myweek-week'
+            value={week ?? data.week ?? ''}
+            onChange={(e) =>
+              setWeek(e.target.value ? parseInt(e.target.value, 10) : undefined)
+            }
+            className='rounded-md border bg-background px-2 py-1 text-sm'
+          >
+            {Array.from({ length: 18 }, (_, i) => i + 1).map((w) => (
+              <option key={w} value={w}>
+                {w}
+              </option>
+            ))}
+          </select>
+          <span className='rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground'>
+            {data.scoring_format_label || league.scoring_format_label}
+          </span>
+        </div>
+        <button
+          type='button'
+          onClick={askGx01}
+          className='min-h-[44px] rounded-md border px-3 py-1 text-xs font-medium hover:bg-muted'
+        >
+          Ask GX-01 about this week
+        </button>
+      </div>
+
+      {/* Start/Sit callout */}
+      {isOptimal ? (
+        <div className={`rounded-lg border p-4 text-sm ${SUCCESS_TEXT}`}>
+          Your lineup is optimal for week {data.week} — projected{' '}
+          {changes ? changes.optimal_points.toFixed(1) : '—'} pts.
+        </div>
+      ) : (
+        <div className='rounded-lg border p-4 space-y-2'>
+          <div className='flex items-center justify-between'>
+            <p className='text-sm font-semibold'>Start/Sit changes</p>
+            <span className={`text-sm font-bold tabular-nums ${SUCCESS_TEXT}`}>
+              +{changes.net_gain.toFixed(1)} pts
+            </span>
+          </div>
+          <div className='grid gap-3 sm:grid-cols-2'>
+            <div>
+              <p className='text-[10px] font-semibold uppercase text-muted-foreground mb-1'>
+                Start
+              </p>
+              <div className='rounded-md border divide-y'>
+                {changes.to_start.map((p, i) => (
+                  <MyWeekRow key={i} p={p} slot={p.slot} />
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className='text-[10px] font-semibold uppercase text-muted-foreground mb-1'>
+                Bench
+              </p>
+              <div className='rounded-md border divide-y'>
+                {changes.to_bench.map((p, i) => (
+                  <MyWeekRow key={i} p={p} />
+                ))}
+              </div>
+            </div>
+          </div>
+          <p className='text-[11px] text-muted-foreground'>
+            Current lineup {changes.current_points.toFixed(1)} pts → optimal{' '}
+            {changes.optimal_points.toFixed(1)} pts.
+          </p>
+        </div>
+      )}
+
+      {/* Optimal lineup */}
+      <section>
+        <h3 className='text-xs font-semibold uppercase text-muted-foreground mb-2'>
+          Optimal Lineup — Week {data.week}
+        </h3>
+        <div className='rounded-lg border divide-y'>
+          {data.optimal_starters.length === 0 ? (
+            <p className='px-4 py-3 text-sm text-muted-foreground'>
+              No rows available.
+            </p>
+          ) : (
+            data.optimal_starters.map((s: MyWeekSlot, i: number) => (
+              <MyWeekRow key={i} p={s} slot={s.slot} />
+            ))
+          )}
+        </div>
+      </section>
+
+      {/* Bench */}
+      {data.bench.length > 0 && (
+        <section>
+          <h3 className='text-xs font-semibold uppercase text-muted-foreground mb-2'>
+            Bench ({data.bench.length})
+          </h3>
+          <div className='rounded-lg border divide-y'>
+            {data.bench.map((p, i) => (
+              <MyWeekRow key={i} p={p} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Weekly waiver targets */}
+      {data.waiver_targets.length > 0 && (
+        <section>
+          <h3 className='text-xs font-semibold uppercase text-muted-foreground mb-2'>
+            Waiver Targets This Week
+          </h3>
+          <div className='rounded-lg border divide-y'>
+            {data.waiver_targets.map((t, i) => (
+              <div key={i}>
+                <MyWeekRow p={t} />
+                {t.upgrades_over && (
+                  <p className={`px-4 pb-2 -mt-1 text-[11px] ${SUCCESS_TEXT}`}>
+                    Upgrades over {t.upgrades_over}
+                    {t.upgrade_slot ? ` (${t.upgrade_slot})` : ''}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {data.unmatched_player_ids.length > 0 && (
+        <p className='text-[11px] text-muted-foreground'>
+          {data.unmatched_player_ids.length}{' '}
+          {data.unmatched_player_ids.length === 1 ? 'player' : 'players'} had no
+          weekly projection and {data.unmatched_player_ids.length === 1 ? 'is' : 'are'}{' '}
+          excluded.
+        </p>
       )}
     </div>
   );
