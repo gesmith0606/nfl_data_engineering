@@ -808,6 +808,8 @@ export interface MockDraftStartRequest {
   n_teams: number
   user_pick: number
   season: number
+  /** Platform room preset (espn|sleeper|yahoo); backend fills unset fields. */
+  platform?: string
 }
 
 /** Response after starting a mock draft. */

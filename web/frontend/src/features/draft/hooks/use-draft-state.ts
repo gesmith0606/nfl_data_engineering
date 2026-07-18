@@ -51,7 +51,10 @@ export function useDraftState() {
       roster_format: config.roster_format,
       n_teams: config.n_teams,
       user_pick: config.user_pick,
-      season: config.season
+      season: config.season,
+      ...(config.platform && config.platform !== 'custom'
+        ? { platform: config.platform }
+        : {})
     })
   }, [config, mockStartMutation])
 
