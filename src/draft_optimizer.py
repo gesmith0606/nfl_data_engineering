@@ -106,13 +106,12 @@ def compute_value_scores(
     # Merge ADP if provided
     if adp_df is not None and not adp_df.empty:
         join_col = "player_id" if "player_id" in adp_df.columns else "player_name"
-        merge_cols = [join_col, "adp_rank"]
-        # Carry real-ADP stdev through when the source CSV has it (FFC/ESPN
-        # via src/adp_sources.py) — Lane 2's availability probability reads
-        # this as adp_stdev; absent for the legacy sleeper_rank source.
+        # Carry real-ADP stdev through as adp_stdev when the source CSV has
+        # it (FFC/ESPN via src/adp_sources.py) — availability probability
+        # reads it; absent for the legacy sleeper_rank source, and callers
+        # fall back to their own sigma.
         has_stdev = "stdev" in adp_df.columns
-        if has_stdev:
-            merge_cols.append("stdev")
+        merge_cols = [join_col, "adp_rank"] + (["stdev"] if has_stdev else [])
         adp_subset = adp_df[merge_cols].copy()
         if has_stdev:
             adp_subset = adp_subset.rename(columns={"stdev": "adp_stdev"})
@@ -948,6 +947,11 @@ class MockDraftSimulator:
     the DraftAdvisor's top recommendation is used.
     """
 
+    # A bot never drafts a 3rd QB (starters + sflex + 1 bench stash) before
+    # this round -- streaming a late-round QB2 is realistic, hoarding QBs in
+    # round 4 is not.
+    _QB_DEPTH_ROUND = 10
+
     def __init__(
         self,
         board: DraftBoard,
@@ -955,18 +959,29 @@ class MockDraftSimulator:
         n_teams: int,
         randomness: int = 3,
         draft_type: str = "snake",
+        behavior: Optional[Dict] = None,
     ):
         """
         Args:
             board:      A fresh DraftBoard instance (will be mutated in-place).
             user_pick:  The user's draft position (1-based).
             n_teams:    Total number of teams in the league.
-            randomness: Max random offset applied to opponent ADP rank selection.
-                        An offset in [-randomness, +randomness] is added to the
-                        ideal ADP pick index, simulating reach/value picks.
+            randomness: Widens the pool of candidates a bot draws from near the
+                        top of the ADP/model-rank-sorted board (``2*randomness+1``
+                        candidates, floor 8). The actual pick within that pool is
+                        an ADP-noise weighted draw (see ``behavior``), not a flat
+                        random offset -- kept as a tuning knob for backward
+                        compatibility with existing callers.
             draft_type: ``"snake"`` (serpentine, default) or ``"linear"`` (same
                         slot order every round, as Sleeper dynasty/rookie drafts
                         use). Controls which overall picks belong to the user.
+            behavior:   Optional tuning dict for opponent pick realism:
+                        ``run_factor`` (default 1.5) -- weight multiplier applied
+                        to a position when >=2 of the last 4 picks (any team)
+                        shared it, simulating a positional run feeding on itself.
+                        ``temperature`` (default 3.0) -- softmax-style temperature
+                        for the ADP-noise draw; lower = closer to strict ADP,
+                        higher = more reaches/slides.
         """
         if user_pick < 1 or user_pick > n_teams:
             raise ValueError(
@@ -978,6 +993,17 @@ class MockDraftSimulator:
         self.n_teams = n_teams
         self.randomness = max(0, randomness)
         self.draft_type = "linear" if str(draft_type).lower() == "linear" else "snake"
+
+        self.behavior: Dict[str, float] = {"run_factor": 1.5, "temperature": 3.0}
+        if behavior:
+            self.behavior.update(behavior)
+
+        # Per-opponent-slot roster tracking (position strings only -- enough
+        # to enforce depth caps) and a chronological log of recent pick
+        # positions (any team) for positional-run detection.
+        self._opp_rosters: Dict[int, List[str]] = {}
+        self._recent_positions: List[str] = []
+        self._total_rounds: int = max(1, sum(self.board.roster_config.values()))
 
         pts_col = (
             "projected_season_points"
@@ -1004,20 +1030,89 @@ class MockDraftSimulator:
             return pick_in_round == self.user_pick
         return (self.n_teams - pick_in_round + 1) == self.user_pick
 
+    def _slot_for_pick(self, pick_number: int) -> int:
+        """1-based team slot on the clock for ``pick_number`` (any team, not just
+        the user) -- same snake/linear math as :meth:`_is_user_turn`."""
+        pick_in_round = (pick_number - 1) % self.n_teams + 1
+        if self.draft_type == "linear":
+            return pick_in_round
+        round_number = (pick_number - 1) // self.n_teams + 1
+        if round_number % 2 == 1:
+            return pick_in_round
+        return self.n_teams - pick_in_round + 1
+
+    def _bot_max_for_position(self, position: str, round_number: int) -> int:
+        """Roster depth cap a bot will draft to at ``position`` this round.
+
+        Mirrors :meth:`DraftAdvisor.recommend`'s own positional-saturation
+        cap so opponents behave like a plausible human roster builder:
+        starters + a modest bench, K/DST capped at one apiece, and a 3rd QB
+        withheld until the streaming rounds (see ``_QB_DEPTH_ROUND``).
+        """
+        rc = self.board.roster_config
+        base = {p: int(rc.get(p, 0)) for p in ("QB", "RB", "WR", "TE")}
+        flex = int(rc.get("FLEX", 0))
+        sflex = int(rc.get("SFLEX", 0))
+        if position == "QB":
+            cap = base["QB"] + sflex + 1
+            return cap + 1 if round_number > self._QB_DEPTH_ROUND else cap
+        if position == "TE":
+            return base["TE"] + 2
+        if position == "RB":
+            return base["RB"] + flex + 3
+        if position == "WR":
+            return base["WR"] + flex + 3
+        if position == "K":
+            return max(1, int(rc.get("K", 0)))
+        if position == "DST":
+            return max(1, int(rc.get("DST", 0)))
+        return 99
+
+    def _run_position(self) -> Optional[str]:
+        """Position driving a positional run: >=2 of the last 4 picks (any
+        team) sharing a position, returned uppercase, or ``None``."""
+        recent = self._recent_positions[-4:]
+        if len(recent) < 2:
+            return None
+        pos, count = Counter(recent).most_common(1)[0]
+        return pos if count >= 2 else None
+
+    def record_pick(self, position: Optional[str]) -> None:
+        """Record a drafted player's position for positional-run tracking.
+
+        Opponent picks record themselves inside :meth:`simulate_opponent_pick`.
+        Callers that draft the user's pick directly (:meth:`run_full_simulation`,
+        the ``/draft/mock/pick`` endpoint) should call this too so runs are
+        detected across the whole draft, not just bot picks.
+        """
+        if position:
+            self._recent_positions.append(str(position).upper())
+
     # -----------------------------------------------------------------------
     # Simulation actions
     # -----------------------------------------------------------------------
 
     def simulate_opponent_pick(self, pick_number: int) -> Optional[str]:
         """
-        Select the best available player by ADP rank with a random offset.
+        Select an opponent's pick: roster-need aware, run-amplified, ADP-noise
+        weighted.
 
-        The randomness offset simulates realistic opponent behaviour: opponents
-        occasionally reach for a player (lower index than optimal) or let value
-        fall (higher index).
+        Replaces naive "closest-to-ADP-rank +/- randomness" selection with a
+        behavior model closer to a real draft room:
+
+        - Roster limits: a bot never exceeds a sane depth cap per position
+          (:meth:`_bot_max_for_position`) and is nudged to fill K/DST in the
+          closing rounds instead of hoarding skill-position depth forever.
+        - Positional runs: if 2+ of the last 4 picks (any team) shared a
+          position, that position's weight is multiplied by
+          ``behavior["run_factor"]`` for this pick -- runs feed on themselves.
+        - ADP noise: rather than a hard rank offset, the pick is drawn from
+          the top of the ADP/model-rank-sorted board with probability
+          ``exp(-rank_gap / behavior["temperature"])`` -- most picks track
+          ADP closely, with occasional reaches/slides.
 
         Args:
-            pick_number: Current overall pick number (1-based, informational).
+            pick_number: Current overall pick number (1-based).
 
         Returns:
             Player name string if a pick was made, or None if the board is empty.
@@ -1032,17 +1127,63 @@ class MockDraftSimulator:
             if ("adp_rank" in avail.columns and avail["adp_rank"].notna().any())
             else "model_rank"
         )
-        sorted_avail = avail.sort_values(sort_col, na_position="last").reset_index(
-            drop=True
-        )
+        pool = avail.sort_values(sort_col, na_position="last").reset_index(drop=True)
 
-        # Apply randomness offset clamped within pool bounds
-        offset = random.randint(-self.randomness, self.randomness)
-        target_idx = max(0, min(offset, len(sorted_avail) - 1))
-        player_row = sorted_avail.iloc[target_idx]
+        slot = self._slot_for_pick(pick_number)
+        round_number = (pick_number - 1) // self.n_teams + 1
+        roster = self._opp_rosters.setdefault(slot, [])
+        pos_counts = Counter(roster)
+
+        positions_upper = pool["position"].astype(str).str.upper()
+        legal = positions_upper.map(
+            lambda pos: pos_counts.get(pos, 0)
+            < self._bot_max_for_position(pos, round_number)
+        )
+        candidates = pool[legal.to_numpy()]
+        if candidates.empty:
+            candidates = pool  # every position capped out -- don't stall the draft
+
+        # Nudge K/DST onto the board in the closing rounds if still unfilled,
+        # like a real human finally grabbing their kicker/defense.
+        rc = self.board.roster_config
+        rounds_left = self._total_rounds - round_number
+        forced_pos: Optional[str] = None
+        if rc.get("K", 0) > 0 and pos_counts.get("K", 0) == 0 and rounds_left <= 1:
+            forced_pos = "K"
+        elif rc.get("DST", 0) > 0 and pos_counts.get("DST", 0) == 0 and rounds_left <= 2:
+            forced_pos = "DST"
+        if forced_pos:
+            forced = candidates[
+                candidates["position"].astype(str).str.upper() == forced_pos
+            ]
+            if not forced.empty:
+                candidates = forced
+
+        top_k = min(len(candidates), max(self.randomness * 2 + 1, 8))
+        top_candidates = candidates.head(top_k).reset_index(drop=True)
+        if top_candidates.empty:
+            return None
+
+        temperature = max(float(self.behavior.get("temperature", 3.0)), 0.1)
+        weights = [float(np.exp(-i / temperature)) for i in range(len(top_candidates))]
+
+        run_pos = self._run_position()
+        if run_pos:
+            run_factor = float(self.behavior.get("run_factor", 1.5))
+            weights = [
+                w * run_factor if str(p).upper() == run_pos else w
+                for w, p in zip(weights, top_candidates["position"])
+            ]
+
+        idx = random.choices(range(len(top_candidates)), weights=weights, k=1)[0]
+        player_row = top_candidates.iloc[idx]
 
         player_id = player_row.get("player_id", player_row.get("player_name", ""))
         self.board.draft_player(str(player_id), by_me=False)
+
+        pos = str(player_row.get("position", "")).upper()
+        roster.append(pos)
+        self._recent_positions.append(pos)
 
         return str(player_row.get("player_name", player_id))
 
@@ -1076,6 +1217,10 @@ class MockDraftSimulator:
         rounds = (
             rounds if rounds is not None else sum(self.board.roster_config.values())
         )
+        # Keep the bots' late-round K/DST nudge in sync with the actual
+        # length of this run (may differ from the __init__-time estimate,
+        # e.g. a 4-round rookie draft).
+        self._total_rounds = max(1, rounds)
         total_picks = self.n_teams * rounds
         picks_log: List[Dict] = []
 
@@ -1113,6 +1258,7 @@ class MockDraftSimulator:
                     continue
 
                 player_name = player_result.get("player_name", str(player_id))
+                self.record_pick(player_result.get("position"))
                 picks_log.append(
                     {
                         "round": round_number,
