@@ -622,6 +622,7 @@ import type {
   RankingSortBy,
   LeagueOverviewResponse,
   LeagueDraftPrepResponse,
+  MyWeekResponse,
   RosterReportResponse,
   WaiversResponse,
 } from './types';
@@ -679,6 +680,29 @@ export async function fetchLeagueWaivers(
   if (season) params.set('season', String(season))
   return request<WaiversResponse>(
     `/api/league/${leagueId}/waivers?${params}`,
+  )
+}
+
+/**
+ * Fetch the weekly "My Week" command center for the user's roster in a
+ * league: optimal weekly lineup under league scoring, start/sit deltas vs
+ * the currently-set lineup, and weekly-scored waiver targets.
+ *
+ * Returns mode='preseason' with a message when no weekly projection data
+ * exists for the resolved (season, week) — the UI should surface the
+ * message and point at the season-long Roster Report instead.
+ */
+export async function fetchLeagueMyWeek(
+  leagueId: string,
+  userId: string,
+  season?: number,
+  week?: number,
+): Promise<MyWeekResponse> {
+  const params = new URLSearchParams({ user_id: userId })
+  if (season) params.set('season', String(season))
+  if (week) params.set('week', String(week))
+  return request<MyWeekResponse>(
+    `/api/league/${leagueId}/my-week?${params}`,
   )
 }
 
