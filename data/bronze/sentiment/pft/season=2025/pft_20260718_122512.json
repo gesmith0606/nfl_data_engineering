@@ -1,0 +1,584 @@
+{
+  "fetch_run_id": "a924d137-2682-4a85-a34d-0080ad7a8e53",
+  "source": "pft",
+  "fetched_at": "2026-07-18T12:25:12.299354+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-last-year-was-a-lost-season-for-rashod-bateman-this-year-were-excited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-last-year-was-a-lost-season-for-rashod-bateman-this-year-were-excited",
+      "permalink": "",
+      "title": "Eric DeCosta: Last year was a \"lost season\" for Rashod Bateman, this year we're excited",
+      "body_text": "\"He's a phenomenal athlete. Great route-runner. Rashod, it's right there in front of him. He's shown flashes of being a real problem for other teams,\" DeCosta said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-18T08:39:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashod Bateman"
+      ],
+      "resolved_player_ids": [
+        "00-0036550"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-hints-at-a-netflix-documentary-on-the-day-he-tore-his-acl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-hints-at-a-netflix-documentary-on-the-day-he-tore-his-acl",
+      "permalink": "",
+      "title": "Robert Griffin III hints at a Netflix documentary on the day he tore his ACL",
+      "body_text": "Five years after former Washington quarterback Robert Griffin III announced, then scrapped, a tell-all book about his time with an inherently dysfunctional franchise, Griffin is apparently ready to tell his story.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-18T00:17:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Griffin III"
+      ],
+      "resolved_player_ids": [
+        "00-0029665"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-exec-paraag-marathe-is-a-finalist-for-mls-commissioner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-exec-paraag-marathe-is-a-finalist-for-mls-commissioner",
+      "permalink": "",
+      "title": "49ers exec Paraag Marathe is a finalist for MLS Commissioner",
+      "body_text": "Long-time 49ers executive Paraag Marathe, a key figure in the sustained success of the franchise, could be leaving.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T23:48:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Paraag Marathe",
+        "Commissioner Long"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-angling-for-yet-another-paycheck-moves-toward-a-wwe-match",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-angling-for-yet-another-paycheck-moves-toward-a-wwe-match",
+      "permalink": "",
+      "title": "Tom Brady, angling for yet another paycheck, moves toward a WWE match",
+      "body_text": "As noted English poet William Michael Albert Broad once said, \"Too much is never enough.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-18T00:34:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady",
+        "William Michael",
+        "Albert Broad"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-kraft-on-mike-vrabel-no-one-is-infallible",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-kraft-on-mike-vrabel-no-one-is-infallible",
+      "permalink": "",
+      "title": "Robert Kraft on Mike Vrabel: \"No one is infallible\"",
+      "body_text": "Kraft addresses Vrabel's \"tumultuous\" offseason on First Take.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T19:27:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Kraft",
+        "Mike Vrabel",
+        "First Take"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-edge-rusher-rashan-gary-im-trying-to-be-great",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-edge-rusher-rashan-gary-im-trying-to-be-great",
+      "permalink": "",
+      "title": "Cowboys edge rusher Rashan Gary: I'm trying to be great",
+      "body_text": "The Cowboys traded Micah Parsons to the Packers before the start of the 2025 season.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-17T21:29:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashan Gary",
+        "The Cowboys",
+        "Micah Parsons"
+      ],
+      "resolved_player_ids": [
+        "00-0034967",
+        "00-0036932"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-agree-to-one-year-deal-with-c-ethan-pocic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-agree-to-one-year-deal-with-c-ethan-pocic",
+      "permalink": "",
+      "title": "Ravens agree to one-year deal with C Ethan Pocic",
+      "body_text": "Free agent center Ethan Pocic has agreed to a one-year deal with the Ravens, Adam Schefter of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-17T21:09:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ethan Pocic",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0033901"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cut-ol-zach-thomas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cut-ol-zach-thomas",
+      "permalink": "",
+      "title": "49ers cut OL Zach Thomas",
+      "body_text": "The 49ers cut offensive lineman Zach Thomas on Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-17T20:46:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zach Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0037618"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-release-statement-about-executive-ryan-golds-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-release-statement-about-executive-ryan-golds-suspension",
+      "permalink": "",
+      "title": "Cardinals release statement about executive Ryan Gold's suspension",
+      "body_text": "The Cardinals released a statement shortly after the NFL announced the indefinite suspension of Ryan Gold, the team's director of college scouting.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-17T20:36:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Gold",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-suspends-cardinals-executive-ryan-gold-indefinitely-for-gambling-violation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-suspends-cardinals-executive-ryan-gold-indefinitely-for-gambling-violation",
+      "permalink": "",
+      "title": "NFL suspends Cardinals executive Ryan Gold indefinitely for gambling violation",
+      "body_text": "The NFL has suspended Cardinals executive Ryan Gold indefinitely for violating the league's gambling policy, the league announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-17T20:23:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Gold"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-waive-dt-travis-shaw",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-waive-dt-travis-shaw",
+      "permalink": "",
+      "title": "Patriots waive DT Travis Shaw",
+      "body_text": "The Patriots made a roster move ahead of the start of training camp next week.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-17T19:16:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Shaw",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "SHA786436"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teleprompter-operator-scandal-is-another-example-of-the-value-of-inside-information",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teleprompter-operator-scandal-is-another-example-of-the-value-of-inside-information",
+      "permalink": "",
+      "title": "Teleprompter operator scandal is another example of the value of inside information",
+      "body_text": "The report that Gabriel Perez, President Trump's teleprompter operator, was allegedly using his knowledge of the contents of speeches to make prediction-market wagers on Kalshi is a symptom, not the disease.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T19:05:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gabriel Perez",
+        "President Trump"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sale-shows-the-supply-of-big-ticket-buyers-remains-viable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sale-shows-the-supply-of-big-ticket-buyers-remains-viable",
+      "permalink": "",
+      "title": "Seahawks sale shows the supply of big-ticket buyers remains viable",
+      "body_text": "The legalization of sports betting provides an extra boost to already rocketing NFL franchise values.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T18:24:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-levi-wallace-announces-his-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-levi-wallace-announces-his-retirement",
+      "permalink": "",
+      "title": "CB Levi Wallace announces his retirement",
+      "body_text": "Veteran cornerback Levi Wallace did not play in the NFL after landing on Jacksonville's injured reserve list last summer and he won't be coming back to the field in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-17T18:20:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Levi Wallace"
+      ],
+      "resolved_player_ids": [
+        "00-0034514"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-hates-the-nfls-uniform-policies-weve-got-to-have-more-fun-roger",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-hates-the-nfls-uniform-policies-weve-got-to-have-more-fun-roger",
+      "permalink": "",
+      "title": "Maxx Crosby hates the NFL's uniform policies: \"We've got to have more fun, Roger\"",
+      "body_text": "Crosby said that if he could change one rule, it would be to ease off on the restrictions on players' shoes.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-17T08:05:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-unc-is-way-ahead-of-where-it-was-a-year-ago-difference-is-night-and-day",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-unc-is-way-ahead-of-where-it-was-a-year-ago-difference-is-night-and-day",
+      "permalink": "",
+      "title": "Bill Belichick: UNC is \"way ahead\" of where it was a year ago, difference is \"night and day\"",
+      "body_text": "Bill Belichick’s first season as North Carolina’s head coach did not go as well as anyone affiliated with the university would have liked, with the program finishing 4-8 in 2025.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-17T17:45:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quarterback-series-includes-jayden-daniels-working-with-vr-headset",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quarterback-series-includes-jayden-daniels-working-with-vr-headset",
+      "permalink": "",
+      "title": "Quarterback series includes Jayden Daniels working with VR headset",
+      "body_text": "Ten years ago (or thereabouts), stories began to emerge about NFL quarterbacks using virtual reality to augment their training.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-16T11:46:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alvin-kamara-set-to-make-6-million-in-base-salary-on-new-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alvin-kamara-set-to-make-6-million-in-base-salary-on-new-deal",
+      "permalink": "",
+      "title": "Report: Alvin Kamara set to make $6 million in base salary on new deal",
+      "body_text": "On Wednesday, news emerged that running back Alvin Kamara had agreed to a new deal to stick with the Saints.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-16T14:55:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "On Wednesday"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nate-burleson-wants-to-host-the-nfl-today-but-will-wait-for-james-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nate-burleson-wants-to-host-the-nfl-today-but-will-wait-for-james-brown",
+      "permalink": "",
+      "title": "Nate Burleson wants to host The NFL Today, but will wait for James Brown",
+      "body_text": "James Brown, the long-time host of The NFL Today on CBS, has no plans to retire.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T00:54:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nate Burleson",
+        "James Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0021999",
+        "00-0029332"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-to-induct-chris-johnson-into-their-ring-of-honor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-to-induct-chris-johnson-into-their-ring-of-honor",
+      "permalink": "",
+      "title": "Titans to induct Chris Johnson into their Ring of Honor",
+      "body_text": "Johnson recently announced that he has been diagnosed with ALS.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-17T15:20:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Johnson",
+        "Honor Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0035456"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosbys-list-of-the-hardest-qbs-to-sack-mahomes-jackson-allen-mayfield",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosbys-list-of-the-hardest-qbs-to-sack-mahomes-jackson-allen-mayfield",
+      "permalink": "",
+      "title": "Maxx Crosby's list of the hardest QBs to sack: Mahomes, Jackson, Allen, Mayfield",
+      "body_text": "Raiders defensive end Maxx Crosby says four quarterbacks stand out as the hardest in the NFL to sack.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-17T15:18:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Maxx Crosby",
+        "Mayfield Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-athletic-takes-a-close-look-at-the-situation-involving-espn-draft-analyst-matt-miller",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-athletic-takes-a-close-look-at-the-situation-involving-espn-draft-analyst-matt-miller",
+      "permalink": "",
+      "title": "The Athletic takes a close look at the situation involving ESPN draft analyst Matt Miller",
+      "body_text": "Whenever someone is accused of any type of wrongdoing, the threshold question becomes whether there's any \"there\" there.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T15:09:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Athletic",
+        "Matt Miller"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-re-sign-ol-brady-christensen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-re-sign-ol-brady-christensen",
+      "permalink": "",
+      "title": "Panthers re-sign OL Brady Christensen",
+      "body_text": "The Panthers have brought back an offensive lineman.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-17T14:34:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brady Christensen",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036968"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-gm-eric-decosta-optimistic-about-zay-flowers-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-gm-eric-decosta-optimistic-about-zay-flowers-extension",
+      "permalink": "",
+      "title": "Ravens GM Eric DeCosta \"optimistic\" about Zay Flowers extension",
+      "body_text": "The Ravens will resume on-field work when training camp opens this month and they could get some off-field business done before the start of the season as well.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-17T13:33:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rookies-report-to-training-camp-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rookies-report-to-training-camp-today",
+      "permalink": "",
+      "title": "Seahawks rookies report to training camp today",
+      "body_text": "The first NFL training camp for the 2026 season will officially open today.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-17T13:09:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-already-some-chemistry-with-a-j-brown-excited-to-build-more",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-already-some-chemistry-with-a-j-brown-excited-to-build-more",
+      "permalink": "",
+      "title": "Drake Maye: Already some chemistry with A.J. Brown, excited to build more",
+      "body_text": "Wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-17T13:09:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/do-the-raiders-have-a-true-quarterback-competition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/do-the-raiders-have-a-true-quarterback-competition",
+      "permalink": "",
+      "title": "Do the Raiders have a true quarterback competition?",
+      "body_text": "Despite plenty of struggles since last winning the Super Bowl more than four years before Kirk Cousins was born, the Raiders have earned the first overall pick in the draft only twice: in 2007 and in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T12:28:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-has-about-10-more-countries-in-mind-for-games-including-japan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-has-about-10-more-countries-in-mind-for-games-including-japan",
+      "permalink": "",
+      "title": "Roger Goodell has \"about 10\" more countries in mind for games, including Japan",
+      "body_text": "The intentional push continues.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-17T04:36:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell",
+        "Japan The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dion-dawkins-josh-is-josh-but-everybody-else-has-to-be-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dion-dawkins-josh-is-josh-but-everybody-else-has-to-be-better",
+      "permalink": "",
+      "title": "Dion Dawkins: Josh is Josh, but everybody else has to be better",
+      "body_text": "In eight seasons, Josh Allen has won the MVP award once, finished second once and finished third twice.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-16T20:37:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dion Dawkins",
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0033904",
+        "00-0034857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-fourth-round-pick-febechi-nwaiwu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-fourth-round-pick-febechi-nwaiwu",
+      "permalink": "",
+      "title": "Texans sign fourth-round pick Febechi Nwaiwu",
+      "body_text": "The Texans have wrapped up their 2026 draft class.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-16T20:34:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Febechi Nwaiwu",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "NWA332675"
+      ],
+      "team_hint": "HOU"
+    }
+  ]
+}
