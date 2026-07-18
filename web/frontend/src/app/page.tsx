@@ -159,10 +159,12 @@ export default function MarketingHome() {
             </div>
           ))}
         </div>
-        <p className='relative z-[2] mt-6 max-w-[620px] text-center text-sm text-[#9aa3b8]'>
+        <p className='relative z-[2] mt-6 max-w-[660px] text-center text-sm text-[#9aa3b8]'>
           MAE gap, 2022–2024, weeks 3–18, half-PPR, both sides scored under identical
-          rules. Yahoo publishes no historical projections to grade against — we’re
-          capturing their live 2026 numbers every week and will post that receipt too.
+          rules. No Yahoo receipt yet — not because they won, but because Yahoo doesn’t
+          publish historical projections, so a backtest against them is impossible for
+          anyone to run. We’re logging their live 2026 numbers every week; that
+          head-to-head gets published by midseason.
         </p>
       </section>
 
