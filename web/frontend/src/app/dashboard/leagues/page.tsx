@@ -12,6 +12,7 @@ export default function LeaguesPage() {
   return (
     <PageContainer
       scrollable={true}
+      stickyHeader={false}
       pageTitle='Your Leagues'
       pageDescription='Connect your Sleeper account for personalized roster + advisor context.'
     >

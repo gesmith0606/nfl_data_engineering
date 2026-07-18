@@ -221,12 +221,12 @@ gh workflow run weekly-pipeline.yml
 
 - [x] All 8 production workflows defined  
 - [x] GitHub secrets exist (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, ANTHROPIC_API_KEY, ODDS_API_KEY, HF_TOKEN, GITHUB_TOKEN)  
-- [ ] Freshness endpoint built + tested  
-- [ ] deploy-web.yml HF refresh step added + ANTHROPIC_API_KEY sync via curl  
-- [ ] freshness-monitor.yml created + 404-tolerant  
-- [ ] Weekly pipeline dress rehearsal completed  
+- [x] Freshness endpoint built + tested (`web/api/routers/health_freshness.py`, `tests/web/test_health_freshness.py`; live 2026-07-18, `overall_stale: false`)  
+- [x] deploy-web.yml HF refresh step added + ANTHROPIC_API_KEY sync via curl (verified in run 29630566362: "ANTHROPIC_API_KEY synced to HF Space runtime")  
+- [x] freshness-monitor.yml created + 404-tolerant (running 6-hourly, 1.0 recent success)  
+- [ ] Weekly pipeline dress rehearsal completed (scheduled ~Aug 3–7, post-HOF weekend)  
 - [ ] Zero regressions in full test suite  
-- [ ] Conventional commits on all changes  
+- [x] Conventional commits on all changes (enforced practice; see git log)  
 
 ---
 

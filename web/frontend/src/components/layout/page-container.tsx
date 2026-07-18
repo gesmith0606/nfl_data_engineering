@@ -27,7 +27,8 @@ export default function PageContainer({
   pageTitle,
   pageDescription,
   infoContent,
-  pageHeaderAction
+  pageHeaderAction,
+  stickyHeader = true
 }: {
   children: React.ReactNode;
   scrollable?: boolean;
@@ -38,6 +39,9 @@ export default function PageContainer({
   pageDescription?: string;
   infoContent?: InfobarContent;
   pageHeaderAction?: React.ReactNode;
+  /** Opt out when page content has its own sticky top-0 bars (e.g. tab strips)
+   *  in the same scroll container — two elements pinned at top-0 overlap. */
+  stickyHeader?: boolean;
 }) {
   if (!access) {
     return (
@@ -58,7 +62,9 @@ export default function PageContainer({
   const inner = (
     <div className='flex min-w-0 flex-1 flex-col px-[var(--space-3)] py-[var(--space-4)] md:px-[var(--space-6)]'>
       {hasHeader && (
-        <div className='bg-background sticky top-0 z-10 mb-[var(--gap-stack)] flex items-start justify-between gap-[var(--space-3)] pb-[var(--space-4)] md:gap-[var(--space-4)]'>
+        <div
+          className={`bg-background ${stickyHeader ? 'sticky top-0 z-10' : ''} mb-[var(--gap-stack)] flex items-start justify-between gap-[var(--space-3)] pb-[var(--space-4)] md:gap-[var(--space-4)]`}
+        >
           <div className='min-w-0 flex-1'>
             <Heading
               title={pageTitle ?? ''}

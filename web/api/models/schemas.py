@@ -1274,6 +1274,13 @@ class LeagueOverviewResponse(BaseModel):
         description="Scoring rules present but not modeled (first downs, fumbles, etc.)",
     )
     user_roster: List[LeagueRosterPlayer] = Field(default_factory=list)
+    team_name: Optional[str] = Field(
+        None,
+        description=(
+            "The requesting user's team name in this league "
+            "(Sleeper league-users metadata); None when unset or no user_id given"
+        ),
+    )
 
 
 class StarterSlot(BaseModel):

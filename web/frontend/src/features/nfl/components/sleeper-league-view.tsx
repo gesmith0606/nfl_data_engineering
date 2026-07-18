@@ -37,6 +37,7 @@ import type {
   BestAvailablePlayer,
   ConnectedLeague,
   LeagueDraftPrepResponse,
+  LeagueOverviewResponse,
   MyWeekPlayer,
   MyWeekResponse,
   MyWeekSlot,
@@ -226,6 +227,9 @@ export function SleeperLeagueView() {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // H-4: overview prefetched on entering the confirm step so the user sees
+  // their team identity (team name, roster size, scoring) BEFORE committing.
+  const [preview, setPreview] = useState<LeagueOverviewResponse | null>(null);
   const { setContent } = useInfobar();
 
   // Hydrate from localStorage once on mount
@@ -300,12 +304,35 @@ export function SleeperLeagueView() {
     [connected.length],
   );
 
+  // Prefetch the league overview when the confirm step opens; the fetch is
+  // reused on confirm so previewing costs no extra round-trip.
+  useEffect(() => {
+    if (step.kind !== 'pick_roster') {
+      setPreview(null);
+      return;
+    }
+    let cancelled = false;
+    fetchLeagueOverview(step.league.league_id, step.user.user_id)
+      .then((overview) => {
+        if (!cancelled) setPreview(overview);
+      })
+      .catch(() => {
+        // Preview is best-effort — confirm still fetches and surfaces errors.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [step]);
+
   const handleConfirmRoster = useCallback(
     async (user: SleeperUser, league: SleeperLeague) => {
       setLoading(true);
       setError(null);
       try {
-        const overview = await fetchLeagueOverview(league.league_id, user.user_id);
+        const overview =
+          preview && preview.league_id === league.league_id
+            ? preview
+            : await fetchLeagueOverview(league.league_id, user.user_id);
         const entry: ConnectedLeague = {
           league_id: league.league_id,
           league_name: league.name,
@@ -329,7 +356,7 @@ export function SleeperLeagueView() {
         setLoading(false);
       }
     },
-    [],
+    [preview],
   );
 
   const handleDisconnect = useCallback(
@@ -422,6 +449,28 @@ export function SleeperLeagueView() {
             Joining <span className='font-medium'>{step.league.name}</span> — one of{' '}
             <span className='font-medium'>{step.league.total_rosters}</span> teams
           </p>
+          {preview ? (
+            <p className='text-sm mt-2'>
+              Your team:{' '}
+              <span className='font-medium'>
+                {preview.team_name ??
+                  `Team ${step.user.display_name ?? step.user.username}`}
+              </span>
+              {preview.user_roster.length > 0 && (
+                <span className='text-muted-foreground'>
+                  {' '}· {preview.user_roster.length} players rostered
+                </span>
+              )}
+              <span className='text-muted-foreground'>
+                {' '}· {preview.scoring_format_label}
+              </span>
+            </p>
+          ) : (
+            <p className='text-xs text-muted-foreground mt-2 flex items-center gap-1.5'>
+              <Icons.spinner className='h-3 w-3 animate-spin' />
+              Looking up your team…
+            </p>
+          )}
           <p className='text-xs text-muted-foreground mt-2'>
             We'll fetch your roster and re-score it under the league's custom
             settings.
