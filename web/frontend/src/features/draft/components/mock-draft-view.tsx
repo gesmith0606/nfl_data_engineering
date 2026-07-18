@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { advanceMockDraft } from '@/features/nfl/api/service'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/table'
 import { PressScale } from '@/lib/motion-primitives'
 import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors'
+import { slotOnClock } from '@/lib/nfl/draft-math'
 import { PickClock } from './pick-clock'
 import type { DraftConfig, MockDraftPickResponse } from '@/lib/nfl/types'
 
@@ -49,8 +50,10 @@ export function MockDraftView({
   const [draftGrade, setDraftGrade] = useState<string | null>(null)
   const [totalPts, setTotalPts] = useState<number | null>(null)
   const [totalVorp, setTotalVorp] = useState<number | null>(null)
+  const [expiredNotice, setExpiredNotice] = useState<string | null>(null)
   const logEndRef = useRef<HTMLDivElement>(null)
   const autoRunRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const noticeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const advanceMutation = useMutation({
     mutationFn: () => advanceMockDraft({ session_id: sessionId }),
@@ -82,6 +85,13 @@ export function MockDraftView({
     logEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [picks])
 
+  // Clear any pending "auto-dismiss" timeout on unmount.
+  useEffect(() => {
+    return () => {
+      if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current)
+    }
+  }, [])
+
   // Auto-run interval
   useEffect(() => {
     if (isRunning && !isComplete) {
@@ -107,6 +117,29 @@ export function MockDraftView({
   const totalPicks = config.n_teams * 15 // rough estimate
   const currentPick = picks.length
   const userPicks = picks.filter(p => p.is_user_turn)
+  const nextPickNo = currentPick + 1
+  const isUserTurnNext = slotOnClock(nextPickNo, config.n_teams) === config.user_pick
+
+  /**
+   * The clock expiring on the user's turn auto-drafts for them -- same
+   * action as "Advance Pick" (the backend already auto-drafts the advisor's
+   * top recommendation on the user's turn), just triggered by the timer
+   * instead of a click. Bots are unaffected: the clock reaching zero on an
+   * opponent's turn does nothing (the draft still advances only via
+   * "Advance Pick" / "Auto-Run", same as before).
+   */
+  const handleClockExpire = useCallback(() => {
+    if (isComplete || advanceMutation.isPending || isRunning) return
+    advanceMutation.mutate(undefined, {
+      onSuccess: data => {
+        if (data.is_user_turn && data.player_name) {
+          setExpiredNotice(`Clock expired — auto-drafted ${data.player_name}`)
+          if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current)
+          noticeTimeoutRef.current = setTimeout(() => setExpiredNotice(null), 4000)
+        }
+      }
+    })
+  }, [isComplete, isRunning, advanceMutation])
 
   return (
     <div className='space-y-[var(--gap-stack)]'>
@@ -159,12 +192,19 @@ export function MockDraftView({
         </span>
         {!isComplete && (
           <PickClock
-            pickNumber={currentPick + 1}
+            pickNumber={nextPickNo}
             timerSeconds={timerSeconds}
             accentColor={accentColor}
+            onExpire={isUserTurnNext ? handleClockExpire : undefined}
           />
         )}
       </div>
+
+      {expiredNotice && (
+        <p className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium ${WARN_TEXT}`}>
+          {expiredNotice}
+        </p>
+      )}
 
       {/* Results card when complete */}
       {isComplete && (

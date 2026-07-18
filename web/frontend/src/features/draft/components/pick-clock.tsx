@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import { DANGER_TEXT } from '@/lib/nfl/semantic-colors'
@@ -16,6 +16,8 @@ interface PickClockProps {
   timerSeconds: number | null
   /** Room-accent color for the ring/bar (falls back to the theme primary). */
   accentColor?: string
+  /** Called once when the countdown reaches zero; fires again after the next reset. */
+  onExpire?: () => void
 }
 
 const PULSE_THRESHOLD_SECONDS = 10
@@ -33,9 +35,15 @@ function formatClock(totalSeconds: number): string {
  * room accent (urgency trumps branding) and optionally plays a soft tick —
  * muted by default via the shared draft-audio mute control (use-turn-alert).
  */
-export function PickClock({ pickNumber, timerSeconds, accentColor = 'var(--primary)' }: PickClockProps) {
+export function PickClock({
+  pickNumber,
+  timerSeconds,
+  accentColor = 'var(--primary)',
+  onExpire
+}: PickClockProps) {
   const [remaining, setRemaining] = useState(timerSeconds ?? 0)
   const [muted, setMuted] = useState(true)
+  const expiredRef = useRef(false)
 
   useEffect(() => {
     setMuted(isAudioMuted())
@@ -44,6 +52,7 @@ export function PickClock({ pickNumber, timerSeconds, accentColor = 'var(--prima
   // Reset the countdown whenever the pick advances or the room's timer length changes.
   useEffect(() => {
     setRemaining(timerSeconds ?? 0)
+    expiredRef.current = false
   }, [pickNumber, timerSeconds])
 
   useEffect(() => {
@@ -58,6 +67,12 @@ export function PickClock({ pickNumber, timerSeconds, accentColor = 'var(--prima
     if (muted || remaining <= 0 || remaining > PULSE_THRESHOLD_SECONDS) return
     playTick()
   }, [remaining, muted])
+
+  useEffect(() => {
+    if (!timerSeconds || remaining > 0 || expiredRef.current) return
+    expiredRef.current = true
+    onExpire?.()
+  }, [remaining, timerSeconds, onExpire])
 
   if (!timerSeconds) return null
 

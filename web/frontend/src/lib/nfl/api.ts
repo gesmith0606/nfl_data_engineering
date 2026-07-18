@@ -447,7 +447,8 @@ export async function fetchDraftBoard(
   rosterFormat: string = 'standard',
   nTeams: number = 12,
   season: number = 2026,
-  sessionId?: string
+  sessionId?: string,
+  adpSource?: string
 ): Promise<DraftBoardResponse> {
   const params = new URLSearchParams({
     scoring,
@@ -456,6 +457,7 @@ export async function fetchDraftBoard(
     season: String(season)
   })
   if (sessionId) params.set('session_id', sessionId)
+  if (adpSource) params.set('adp_source', adpSource)
   return request<DraftBoardResponse>(`/api/draft/board?${params}`)
 }
 

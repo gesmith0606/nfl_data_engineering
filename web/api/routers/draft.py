@@ -195,7 +195,9 @@ def _load_cached_projections(scoring: str, season: int) -> Optional[pd.DataFrame
     return load_latest_preseason(season)
 
 
-def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
+def _load_draft_data(
+    scoring: str, season: int, adp_source: Optional[str] = None
+) -> pd.DataFrame:
     """Load projections, load ADP (if available), and compute value scores.
 
     Prefers the cached Gold preseason artifact so the web API serves the same
@@ -205,11 +207,14 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
 
     ``compute_value_scores`` is always applied afterwards: the Gold artifact
     carries raw projections only (no vorp/model_rank/adp_rank columns), and
-    merging ADP at request time keeps value tiers fresh with ``adp_latest.csv``.
+    merging ADP at request time keeps value tiers fresh.
 
     Args:
         scoring: Scoring format key (e.g. ``"half_ppr"``).
         season:  NFL season year.
+        adp_source: Optional per-source ADP key (``ffc``/``espn``); see
+            :func:`_load_adp_df` for the file-resolution order. ``None`` keeps
+            the legacy ``adp_latest.csv`` behavior.
 
     Returns:
         Enriched projection DataFrame ready for ``DraftBoard``.
@@ -240,7 +245,7 @@ def _load_draft_data(scoring: str, season: int) -> pd.DataFrame:
             f"--season {season}' when the API is reachable to populate the cache."
         )
 
-    enriched = compute_value_scores(projections, _load_adp_df())
+    enriched = compute_value_scores(projections, _load_adp_df(adp_source, scoring))
     # Positional tiers computed once on the full pre-draft pool so tier
     # numbers stay stable as players come off the board (recomputing per
     # available-only slice would renumber tiers mid-draft).
@@ -392,6 +397,7 @@ def _board_to_response(session_id: str, session: Dict) -> DraftBoardResponse:
         scoring_format=session.get("scoring_format", "half_ppr"),
         roster_format=session.get("roster_format", "standard"),
         n_teams=board.n_teams,
+        adp_source=session.get("adp_source"),
     )
 
 
@@ -423,13 +429,21 @@ def get_draft_board(
         ),
         pattern="^(espn|sleeper|yahoo|custom)$",
     ),
+    adp_source: Optional[str] = Query(
+        None,
+        description=(
+            "ADP source for the value-score merge (ffc/espn); defaults from "
+            "the platform preset when platform is set and this is omitted."
+        ),
+        pattern="^(ffc|espn)$",
+    ),
 ) -> DraftBoardResponse:
     """Return the current draft board.
 
     If ``session_id`` is provided and valid, the existing session is returned.
     Otherwise a new session is created with fresh projections. When
-    ``platform`` is given, any of ``scoring``/``roster_format`` left unset
-    default from that platform's preset (``PLATFORM_PRESETS`` in
+    ``platform`` is given, any of ``scoring``/``roster_format``/``adp_source``
+    left unset default from that platform's preset (``PLATFORM_PRESETS`` in
     ``src/config.py``); an explicit value always wins over the preset.
     """
     if session_id and session_id in _sessions:
@@ -440,11 +454,12 @@ def get_draft_board(
     resolved_roster_format = (
         roster_format or (preset or {}).get("roster") or "standard"
     )
+    resolved_adp_source = adp_source or (preset or {}).get("adp_source")
 
     # Create a new session
     _evict_oldest()
     try:
-        players_df = _load_draft_data(resolved_scoring, season)
+        players_df = _load_draft_data(resolved_scoring, season, resolved_adp_source)
     except Exception as exc:
         logger.exception("Failed to generate draft data")
         raise HTTPException(
@@ -462,6 +477,7 @@ def get_draft_board(
         "simulator": None,
         "scoring_format": resolved_scoring,
         "roster_format": resolved_roster_format,
+        "adp_source": resolved_adp_source,
         "pick_number": 0,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
@@ -573,8 +589,8 @@ def get_recommendations(
 def start_mock_draft(req: MockDraftStartRequest) -> MockDraftStartResponse:
     """Initialize a new mock draft simulation session.
 
-    When ``req.platform`` is set, any of ``scoring``/``roster_format`` left
-    unset (``None``) default from that platform's preset
+    When ``req.platform`` is set, any of ``scoring``/``roster_format``/
+    ``adp_source`` left unset (``None``) default from that platform's preset
     (``PLATFORM_PRESETS`` in ``src/config.py``).
     """
     if req.user_pick < 1 or req.user_pick > req.n_teams:
@@ -586,10 +602,11 @@ def start_mock_draft(req: MockDraftStartRequest) -> MockDraftStartResponse:
     preset = PLATFORM_PRESETS.get(req.platform) if req.platform else None
     scoring = req.scoring or (preset or {}).get("scoring_format") or "half_ppr"
     roster_format = req.roster_format or (preset or {}).get("roster") or "standard"
+    adp_source = req.adp_source or (preset or {}).get("adp_source")
 
     _evict_oldest()
     try:
-        players_df = _load_draft_data(scoring, req.season)
+        players_df = _load_draft_data(scoring, req.season, adp_source)
     except Exception as exc:
         logger.exception("Failed to generate mock draft data")
         raise HTTPException(
@@ -610,6 +627,7 @@ def start_mock_draft(req: MockDraftStartRequest) -> MockDraftStartResponse:
         "simulator": simulator,
         "scoring_format": scoring,
         "roster_format": roster_format,
+        "adp_source": adp_source,
         "pick_number": 0,
         "user_pick": req.user_pick,
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -851,15 +869,44 @@ def get_platform_presets() -> PlatformPresetsResponse:
 # ---------------------------------------------------------------------------
 
 
-def _load_adp_df() -> Optional[pd.DataFrame]:
-    """Load ``data/adp_latest.csv`` as a DataFrame, or None if unavailable."""
-    adp_path = _PROJECT_ROOT / "data" / "adp_latest.csv"
-    if not adp_path.exists():
-        return None
+def _load_adp_df(
+    source: Optional[str] = None, scoring: str = "half_ppr"
+) -> Optional[pd.DataFrame]:
+    """Load an ADP DataFrame, preferring a per-source file when ``source`` is given.
+
+    Resolution order when ``source`` is provided:
+
+    1. ``data/adp/adp_{source}_{scoring}.csv`` — exact scoring-format match.
+    2. Any ``data/adp/adp_{source}_*.csv`` (most recently modified) — the
+       source exists but not for this exact scoring format.
+    3. ``data/adp_latest.csv`` — legacy consensus fallback (also the path
+       used when ``source`` is ``None``).
+
+    Never raises: any read failure is logged and ``None`` is returned so
+    callers can proceed without an ADP merge.
+    """
+    candidate: Optional[Path] = None
+    if source:
+        exact_path = _PROJECT_ROOT / "data" / "adp" / f"adp_{source}_{scoring}.csv"
+        if exact_path.exists():
+            candidate = exact_path
+        else:
+            matches = sorted(
+                (_PROJECT_ROOT / "data" / "adp").glob(f"adp_{source}_*.csv"),
+                key=lambda p: p.stat().st_mtime,
+            )
+            if matches:
+                candidate = matches[-1]
+
+    if candidate is None:
+        candidate = _PROJECT_ROOT / "data" / "adp_latest.csv"
+        if not candidate.exists():
+            return None
+
     try:
-        return pd.read_csv(str(adp_path))
+        return pd.read_csv(str(candidate))
     except Exception:
-        logger.warning("Failed to read ADP file at %s", adp_path)
+        logger.warning("Failed to read ADP file at %s", candidate)
         return None
 
 

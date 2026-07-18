@@ -64,7 +64,6 @@ function renderDialog(config: DraftConfig, onConfigChange = vi.fn()) {
       <DraftConfigDialog
         config={config}
         onConfigChange={onConfigChange}
-        onStartMock={vi.fn()}
         open
         onOpenChange={vi.fn()}
         onNewDraft={vi.fn()}

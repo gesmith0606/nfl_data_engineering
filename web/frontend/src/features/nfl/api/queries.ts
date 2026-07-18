@@ -230,11 +230,12 @@ export const draftBoardQueryOptions = (
   rosterFormat: string = 'standard',
   nTeams: number = 12,
   season: number = 2026,
-  sessionId?: string
+  sessionId?: string,
+  adpSource?: string
 ) =>
   queryOptions({
     queryKey: nflKeys.draftBoard(sessionId),
-    queryFn: () => fetchDraftBoard(scoring, rosterFormat, nTeams, season, sessionId),
+    queryFn: () => fetchDraftBoard(scoring, rosterFormat, nTeams, season, sessionId, adpSource),
     staleTime: Infinity
   });
 

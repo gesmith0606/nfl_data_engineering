@@ -6,6 +6,7 @@ Uses mock projection data to avoid network dependencies on nfl-data-py.
 
 import sys
 from pathlib import Path
+from typing import Optional
 from unittest.mock import patch
 
 import numpy as np
@@ -68,7 +69,9 @@ def _make_mock_projections() -> pd.DataFrame:
     return df
 
 
-def _mock_load_draft_data(scoring: str, season: int) -> pd.DataFrame:
+def _mock_load_draft_data(
+    scoring: str, season: int, adp_source: Optional[str] = None
+) -> pd.DataFrame:
     """Mock replacement for _load_draft_data that returns synthetic data."""
     from draft_optimizer import compute_value_scores
 
@@ -494,6 +497,177 @@ class TestBoardPlatformDefaulting:
 
 
 # ---------------------------------------------------------------------------
+# Test: _load_adp_df source resolution (per-source file / glob / fallback)
+# ---------------------------------------------------------------------------
+
+
+class TestLoadAdpDfSourceResolution:
+    """_load_adp_df(source, scoring) file-resolution order."""
+
+    def test_exact_source_scoring_file(self, tmp_path):
+        from web.api.routers import draft as draft_module
+
+        adp_dir = tmp_path / "data" / "adp"
+        adp_dir.mkdir(parents=True)
+        (adp_dir / "adp_ffc_half_ppr.csv").write_text("player_name\nFoo\n")
+        with patch.object(draft_module, "_PROJECT_ROOT", tmp_path):
+            df = draft_module._load_adp_df("ffc", "half_ppr")
+        assert df is not None
+        assert df.iloc[0]["player_name"] == "Foo"
+
+    def test_glob_fallback_when_exact_scoring_missing(self, tmp_path):
+        """The source exists but not for this scoring format -- glob any adp_{source}_*.csv."""
+        from web.api.routers import draft as draft_module
+
+        adp_dir = tmp_path / "data" / "adp"
+        adp_dir.mkdir(parents=True)
+        (adp_dir / "adp_ffc_ppr.csv").write_text("player_name\nBar\n")
+        with patch.object(draft_module, "_PROJECT_ROOT", tmp_path):
+            df = draft_module._load_adp_df("ffc", "standard")
+        assert df is not None
+        assert df.iloc[0]["player_name"] == "Bar"
+
+    def test_falls_back_to_adp_latest_when_source_missing_entirely(self, tmp_path):
+        from web.api.routers import draft as draft_module
+
+        (tmp_path / "data").mkdir(parents=True)
+        (tmp_path / "data" / "adp_latest.csv").write_text("player_name\nLegacy\n")
+        with patch.object(draft_module, "_PROJECT_ROOT", tmp_path):
+            df = draft_module._load_adp_df("espn", "half_ppr")
+        assert df is not None
+        assert df.iloc[0]["player_name"] == "Legacy"
+
+    def test_none_source_uses_adp_latest_directly(self, tmp_path):
+        from web.api.routers import draft as draft_module
+
+        (tmp_path / "data").mkdir(parents=True)
+        (tmp_path / "data" / "adp_latest.csv").write_text("player_name\nConsensus\n")
+        with patch.object(draft_module, "_PROJECT_ROOT", tmp_path):
+            df = draft_module._load_adp_df(None, "half_ppr")
+        assert df is not None
+        assert df.iloc[0]["player_name"] == "Consensus"
+
+    def test_never_raises_when_nothing_exists(self, tmp_path):
+        from web.api.routers import draft as draft_module
+
+        (tmp_path / "data").mkdir(parents=True)
+        with patch.object(draft_module, "_PROJECT_ROOT", tmp_path):
+            df = draft_module._load_adp_df("ffc", "half_ppr")
+        assert df is None
+
+
+# ---------------------------------------------------------------------------
+# Test: adp_source threading -- platform default + explicit override
+# ---------------------------------------------------------------------------
+
+
+class TestAdpSourceThreading:
+    """adp_source flows from the platform preset (or an explicit param) into
+    _load_draft_data, and is echoed back on the board response."""
+
+    def test_board_platform_defaults_adp_source(self, _patch_load_draft_data):
+        from draft_optimizer import compute_value_scores
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        captured = {}
+
+        def _capture(scoring, season, adp_source=None):
+            captured["adp_source"] = adp_source
+            return compute_value_scores(_make_mock_projections())
+
+        with patch.object(draft_module, "_load_draft_data", side_effect=_capture):
+            resp = client.get("/api/draft/board", params={"platform": "espn"})
+        assert resp.status_code == 200, resp.text
+        assert captured["adp_source"] == "espn"
+        assert resp.json()["adp_source"] == "espn"
+
+    def test_board_sleeper_platform_defaults_to_ffc(self, _patch_load_draft_data):
+        from draft_optimizer import compute_value_scores
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        captured = {}
+
+        def _capture(scoring, season, adp_source=None):
+            captured["adp_source"] = adp_source
+            return compute_value_scores(_make_mock_projections())
+
+        with patch.object(draft_module, "_load_draft_data", side_effect=_capture):
+            resp = client.get("/api/draft/board", params={"platform": "sleeper"})
+        assert resp.status_code == 200, resp.text
+        assert captured["adp_source"] == "ffc"
+        assert resp.json()["adp_source"] == "ffc"
+
+    def test_board_explicit_adp_source_overrides_platform_preset(
+        self, _patch_load_draft_data
+    ):
+        from draft_optimizer import compute_value_scores
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        captured = {}
+
+        def _capture(scoring, season, adp_source=None):
+            captured["adp_source"] = adp_source
+            return compute_value_scores(_make_mock_projections())
+
+        with patch.object(draft_module, "_load_draft_data", side_effect=_capture):
+            resp = client.get(
+                "/api/draft/board",
+                # espn preset defaults adp_source=espn; explicit ffc should win.
+                params={"platform": "espn", "adp_source": "ffc"},
+            )
+        assert resp.status_code == 200, resp.text
+        assert captured["adp_source"] == "ffc"
+        assert resp.json()["adp_source"] == "ffc"
+
+    def test_board_no_platform_no_adp_source_is_none(self, _patch_load_draft_data):
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        resp = client.get("/api/draft/board")
+        assert resp.status_code == 200, resp.text
+        assert resp.json()["adp_source"] is None
+
+    def test_mock_start_platform_defaults_adp_source(self, _patch_load_draft_data):
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        resp = client.post(
+            "/api/draft/mock/start",
+            json={"platform": "sleeper", "user_pick": 3, "n_teams": 10},
+        )
+        assert resp.status_code == 200, resp.text
+        sid = resp.json()["session_id"]
+
+        board_resp = client.get("/api/draft/board", params={"session_id": sid})
+        assert board_resp.status_code == 200, board_resp.text
+        assert board_resp.json()["adp_source"] == "ffc"
+
+    def test_mock_start_explicit_adp_source_overrides_platform(
+        self, _patch_load_draft_data
+    ):
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        resp = client.post(
+            "/api/draft/mock/start",
+            json={
+                "platform": "sleeper",
+                "adp_source": "espn",
+                "user_pick": 3,
+                "n_teams": 10,
+            },
+        )
+        assert resp.status_code == 200, resp.text
+        sid = resp.json()["session_id"]
+
+        board_resp = client.get("/api/draft/board", params={"session_id": sid})
+        assert board_resp.json()["adp_source"] == "espn"
+
+
+# ---------------------------------------------------------------------------
 # Test: DST NaN-safety on the live board endpoint
 # ---------------------------------------------------------------------------
 
@@ -520,7 +694,7 @@ class TestDstNanSafetyOnBoard:
         )
         proj_with_dst = pd.concat([proj, dst_row], ignore_index=True)
 
-        def _mock_with_dst(scoring, season):
+        def _mock_with_dst(scoring, season, adp_source=None):
             return compute_value_scores(proj_with_dst)
 
         draft_module._sessions.clear()

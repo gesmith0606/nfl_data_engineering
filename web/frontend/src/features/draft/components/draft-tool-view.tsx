@@ -10,13 +10,13 @@ import { draftBoardQueryOptions } from '@/features/nfl/api/queries'
 import { useDraftState } from '../hooks/use-draft-state'
 import { DraftBoardTable } from './draft-board-table'
 import { DraftConfigDialog } from './draft-config-dialog'
+import { MockDraftSetupDialog } from './mock-draft-setup-dialog'
 import { MyRosterPanel } from './my-roster-panel'
 import { RecommendationsPanel } from './recommendations-panel'
 import { MockDraftView } from './mock-draft-view'
 import { LiveDraftPanel } from './live-draft-panel'
 import { MirrorTurnTracker } from './mirror-turn-tracker'
 import { PasteSyncPanel } from './paste-sync-panel'
-import { PickClock } from './pick-clock'
 import { requestTurnNotificationPermission } from '../hooks/use-turn-alert'
 import { usePlatformPresets } from '../hooks/use-platform-presets'
 import { PLATFORM_LABELS, isRoomPlatform, scoringLabel, PLATFORM_ACCENT } from '../utils/platform-presets'
@@ -57,10 +57,12 @@ export function DraftToolView() {
   } = useDraftState()
 
   const [configOpen, setConfigOpen] = useState(false)
+  const [mockSetupOpen, setMockSetupOpen] = useState(false)
 
   const presets = usePlatformPresets()
   const activePlatform = isRoomPlatform(config.platform) ? config.platform : 'custom'
   const activePreset = presets[activePlatform]
+  const mockTimerSeconds = config.timer_seconds !== undefined ? config.timer_seconds : activePreset.timer_seconds
 
   // Fetch the draft board (creates a new session on first call)
   const { data, isLoading, isError, refetch } = useQuery({
@@ -69,7 +71,8 @@ export function DraftToolView() {
       config.roster_format,
       config.n_teams,
       config.season,
-      sessionId ?? undefined
+      sessionId ?? undefined,
+      config.adp_source
     ),
     enabled: true
   })
@@ -111,20 +114,26 @@ export function DraftToolView() {
   if (mode === 'mock' && sessionId) {
     return (
       <FadeIn className='space-y-[var(--gap-stack)]'>
-        <div className='flex items-center gap-[var(--space-2)]'>
+        <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
           <Icons.clipboardText className='h-[var(--space-4)] w-[var(--space-4)]' />
           <h2 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
             Mock Draft Simulation
           </h2>
+          <span
+            className='inline-flex items-center gap-1 rounded-full border px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold'
+            style={{ color: PLATFORM_ACCENT[activePlatform], borderColor: PLATFORM_ACCENT[activePlatform] }}
+          >
+            {PLATFORM_LABELS[activePlatform]}-style room
+          </span>
           <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-            {config.n_teams} teams · Pick #{config.user_pick} · {config.scoring}
+            {config.n_teams} teams · Pick #{config.user_pick} · {scoringLabel(config.scoring)}
           </span>
         </div>
         <MockDraftView
           sessionId={sessionId}
           config={config}
           onReset={handleReset}
-          timerSeconds={activePreset.timer_seconds}
+          timerSeconds={mockTimerSeconds}
           accentColor={PLATFORM_ACCENT[activePlatform]}
         />
       </FadeIn>
@@ -281,9 +290,7 @@ export function DraftToolView() {
             <Button
               variant='outline'
               size='sm'
-              onClick={() => {
-                handleStartMock()
-              }}
+              onClick={() => setMockSetupOpen(true)}
             >
               <Icons.arrowRight className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
               Mock Draft
@@ -301,24 +308,6 @@ export function DraftToolView() {
           </PressScale>
         </div>
       </div>
-
-      {/* Draft-room chip + pick clock (light platform-flavored accent) */}
-      {data && (
-        <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
-          <span
-            className='inline-flex items-center gap-1 rounded-full border px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold'
-            style={{ color: PLATFORM_ACCENT[activePlatform], borderColor: PLATFORM_ACCENT[activePlatform] }}
-          >
-            {PLATFORM_LABELS[activePlatform]}-style room · {scoringLabel(config.scoring)} ·{' '}
-            {activePreset.timer_seconds}s clock
-          </span>
-          <PickClock
-            pickNumber={data.picks_taken + 1}
-            timerSeconds={activePreset.timer_seconds}
-            accentColor={PLATFORM_ACCENT[activePlatform]}
-          />
-        </div>
-      )}
 
       {/* Mirror-mode turn tracker + paste-sync (ESPN / Yahoo) */}
       {mirror && data && (
@@ -405,14 +394,22 @@ export function DraftToolView() {
         )}
       </DataLoadReveal>
 
-      {/* Config dialog */}
+      {/* Config dialog (manual board only — scoring/roster/teams/season) */}
       <DraftConfigDialog
         config={config}
         onConfigChange={setConfig}
-        onStartMock={handleStartMock}
         open={configOpen}
         onOpenChange={setConfigOpen}
         onNewDraft={handleNewDraft}
+      />
+
+      {/* Mock draft setup (slot/timer/rankings selection — never instant-starts) */}
+      <MockDraftSetupDialog
+        config={config}
+        onConfigChange={setConfig}
+        onStartMock={handleStartMock}
+        open={mockSetupOpen}
+        onOpenChange={setMockSetupOpen}
       />
     </FadeIn>
   )

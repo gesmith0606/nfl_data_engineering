@@ -692,6 +692,8 @@ export interface DraftBoardResponse {
   scoring_format: string
   roster_format: string
   n_teams: number
+  /** ADP source used for the value-score merge (ffc|espn); null when using the adp_latest.csv fallback. */
+  adp_source?: string | null
 }
 
 /** Request body for recording a draft pick. */
@@ -810,6 +812,8 @@ export interface MockDraftStartRequest {
   season: number
   /** Platform room preset (espn|sleeper|yahoo); backend fills unset fields. */
   platform?: string
+  /** ADP source for the value-score merge (ffc|espn); defaults from platform preset when unset. */
+  adp_source?: string
 }
 
 /** Response after starting a mock draft. */
@@ -861,6 +865,10 @@ export interface DraftConfig {
   season: number
   /** Draft-room style the config was pre-filled from ('espn'/'sleeper'/'yahoo'/'custom'). */
   platform?: string
+  /** ADP source for the value-score merge (ffc|espn); mock draft only. */
+  adp_source?: string
+  /** Pick clock length in seconds for mock draft; null/undefined = clock off. */
+  timer_seconds?: number | null
 }
 
 /** One platform's draft-room defaults from GET /api/draft/platforms. */

@@ -43,7 +43,9 @@ export const FALLBACK_PLATFORM_PRESETS: Record<RoomPlatform, DraftPlatformPreset
     roster_format: 'standard',
     rounds: 15,
     timer_seconds: 60,
-    adp_source: 'sleeper',
+    // No real Sleeper ADP source exists yet -- FFC is the best available real
+    // ADP, mirroring PLATFORM_PRESETS["sleeper"]["adp_source"] in src/config.py.
+    adp_source: 'ffc',
     roster_slots: {}
   },
   yahoo: {
@@ -51,7 +53,7 @@ export const FALLBACK_PLATFORM_PRESETS: Record<RoomPlatform, DraftPlatformPreset
     roster_format: 'standard',
     rounds: 16,
     timer_seconds: 90,
-    adp_source: 'yahoo',
+    adp_source: 'ffc',
     roster_slots: {}
   },
   custom: {

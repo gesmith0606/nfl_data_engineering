@@ -890,6 +890,13 @@ class DraftBoardResponse(BaseModel):
     scoring_format: str
     roster_format: str
     n_teams: int
+    adp_source: Optional[str] = Field(
+        None,
+        description=(
+            "ADP source used for the value-score merge (ffc/espn); None when "
+            "no per-source ADP file was requested (adp_latest.csv fallback)."
+        ),
+    )
 
 
 class DraftPickRequest(BaseModel):
@@ -1068,6 +1075,13 @@ class MockDraftStartRequest(BaseModel):
     season: int = 2026
     platform: Optional[str] = Field(
         None, description="espn / sleeper / yahoo / custom — see /draft/platforms"
+    )
+    adp_source: Optional[str] = Field(
+        None,
+        description=(
+            "ADP source for the value-score merge (ffc/espn); defaults from "
+            "the platform preset when platform is set and this is omitted."
+        ),
     )
 
 
