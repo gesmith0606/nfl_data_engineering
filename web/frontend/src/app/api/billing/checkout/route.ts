@@ -19,6 +19,16 @@ export async function POST(req: Request) {
     return Response.json({ error: 'Sign in to upgrade' }, { status: 401 });
   }
 
+  // Already premium (webhook-stamped metadata): a second checkout would
+  // create a second live subscription on the same account — double-billing
+  // plus a fresh trial. Manage/cancel goes through the portal instead.
+  if (user.publicMetadata?.premium === true) {
+    return Response.json(
+      { error: 'You already have an active subscription — manage it from the billing portal' },
+      { status: 409 }
+    );
+  }
+
   const origin = new URL(req.url).origin;
   const existingCustomerId = user.privateMetadata?.stripeCustomerId;
   const email = user.emailAddresses.find(

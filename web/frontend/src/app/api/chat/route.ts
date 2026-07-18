@@ -2,6 +2,7 @@ import { convertToModelMessages, streamText, stepCountIs, tool, UIMessage } from
 import { google } from '@ai-sdk/google';
 import { createGroq } from '@ai-sdk/groq';
 import { z } from 'zod';
+import { getSubscriptionStatus } from '@/lib/billing/subscription';
 import { resolveDefaultWeek } from '@/lib/week-context';
 import {
   buildLeagueContextPrompt,
@@ -133,6 +134,19 @@ async function fastapiGet<T>(path: string): Promise<FetchResult<T>> {
 }
 
 export async function POST(req: Request) {
+  // Premium gate: the advisor UI is behind PremiumGuard, but this route is
+  // what actually spends LLM tokens — enforce the same server-side verdict
+  // here so direct calls (and cancelled subscriptions) are locked out too.
+  // Billing disabled (no Clerk key) → hasAccess is true and behavior is
+  // unchanged, matching every other premium surface.
+  const subscription = await getSubscriptionStatus();
+  if (!subscription.hasAccess) {
+    return Response.json(
+      { error: 'GX-01 is a premium feature — upgrade at /pricing' },
+      { status: 403 }
+    );
+  }
+
   const body = (await req.json()) as { messages: UIMessage[]; leagues?: unknown };
   const messages = body.messages;
   // Connected Sleeper leagues sent by the client (see use-persistent-chat).
