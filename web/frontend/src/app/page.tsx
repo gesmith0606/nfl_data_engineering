@@ -22,12 +22,12 @@ export const metadata: Metadata = {
  */
 
 const NAV_ITEMS = [
-  { label: 'Draft Room', href: '/dashboard/draft' },
+  { label: 'News', href: '/dashboard/news' },
   { label: 'Rankings', href: '/dashboard/rankings' },
   { label: 'Scores', href: '/dashboard/predictions' },
-  { label: 'News', href: '/dashboard/news' },
   { label: 'Matchups', href: '/dashboard/matchups' },
-  { label: 'My League', href: '/dashboard/leagues' }
+  { label: 'My League', href: '/dashboard/leagues' },
+  { label: 'Draft Room', href: '/dashboard/draft' }
 ] as const;
 
 const RECEIPTS = [
