@@ -1,0 +1,72 @@
+{
+  "fetch_run_id": "2be257dc-e00b-4699-aaec-af3c8911c066",
+  "source": "rotowire",
+  "fetched_at": "2026-07-19T12:25:30.343643+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 3,
+  "items": [
+    {
+      "external_id": "nfl631725",
+      "url": "https://www.rotowire.com//football/player/makai-lemon-19231",
+      "permalink": "",
+      "title": "Makai Lemon: Ready for training camp",
+      "body_text": "Lemon (hamstring) noted Friday that he's \"feeling great\" and is \"100 percent\" ready to go for training camp, Olivia Reiner of The Philadelphia Inquirer reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-17T10:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon",
+        "Olivia Reiner",
+        "The Philadelphia"
+      ],
+      "resolved_player_ids": [
+        "LEM694125"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631720",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Entering final year of rookie deal",
+      "body_text": "Nacua is heading into the final season of his rookie contract, and the 2023 fifth-round pick is a candidate to get the franchise tag from the Rams for the 2027 campaign if a long-term deal isn't worked out before then, Brock Vierra of USA Today Rams Wire reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-17T08:17:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Brock Vierra",
+        "Today Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl631716",
+      "url": "https://www.rotowire.com//football/player/drake-maye-17673",
+      "permalink": "",
+      "title": "Drake Maye: Building chemistry with new top WR",
+      "body_text": "Maye noted Thursday that things have been going well with him and A.J. Brown since the wideout's arriving in a June trade, Kevin Patra of NFL.com reports. \"It has been awesome,\" Maye said on that topic. \"I'm really looking forward to playing with him. I'm looking forward to getting to camp and building some chemistry. And I know there's already some there for me. You just gotta throw it near him, and he'll make a play.\" Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-17T07:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Kevin Patra"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": null
+    }
+  ]
+}
