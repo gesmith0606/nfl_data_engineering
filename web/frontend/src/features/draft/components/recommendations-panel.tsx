@@ -10,13 +10,18 @@ import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
 import { DANGER_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors'
 import { computeTierExhaustion } from '../utils/tier-exhaustion'
 import { CopyQueueButton } from './copy-queue-button'
-import type { DraftPlayer, Position } from '@/lib/nfl/types'
+import { StackBadge } from './stack-badge'
+import type { DraftPlayer, Position, StackHint } from '@/lib/nfl/types'
 
 interface RecommendationsPanelProps {
   sessionId: string | null
   positionFilter: Position
   /** Current board pool (undrafted players) — powers the tier-exhaustion cue. */
   players?: DraftPlayer[]
+  /** Stack/overlap hints keyed by player_name (from useStackHints). */
+  hintsByPlayerName?: Map<string, StackHint[]>
+  /** All stack hints, for the "top hints" section. */
+  stackHints?: StackHint[]
 }
 
 /** >70% gone reads urgent, <30% reads safe; the middle band stays neutral. */
@@ -26,7 +31,20 @@ function goneProbabilityColor(p: number): string {
   return ''
 }
 
-export function RecommendationsPanel({ sessionId, positionFilter, players = [] }: RecommendationsPanelProps) {
+/** <1pt reads negligible (muted), >=3pt reads urgent (warn); the middle band stays neutral. */
+function waitCostColor(cost: number): string {
+  if (cost >= 3) return WARN_TEXT
+  if (cost < 1) return 'text-muted-foreground'
+  return ''
+}
+
+export function RecommendationsPanel({
+  sessionId,
+  positionFilter,
+  players = [],
+  hintsByPlayerName,
+  stackHints = []
+}: RecommendationsPanelProps) {
   const { data, isLoading, isError } = useQuery({
     ...draftRecommendationsQueryOptions(
       sessionId ?? '',
@@ -37,6 +55,8 @@ export function RecommendationsPanel({ sessionId, positionFilter, players = [] }
   })
 
   const tierWarnings = useMemo(() => computeTierExhaustion(players), [players])
+  const positionWait = data?.position_wait ?? []
+  const topStackHints = stackHints.slice(0, 5)
 
   return (
     <Card>
@@ -49,6 +69,13 @@ export function RecommendationsPanel({ sessionId, positionFilter, players = [] }
         </div>
       </CardHeader>
       <CardContent className='space-y-[var(--space-2)] pt-0'>
+        {positionWait.length > 0 && (
+          <p className='text-muted-foreground border-b pb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+            {positionWait
+              .map(w => `${w.position}: ${w.wait_cost > 0 ? '−' : '+'}${Math.abs(w.wait_cost).toFixed(1)} if you wait`)
+              .join(' · ')}
+          </p>
+        )}
         {tierWarnings.length > 0 && (
           <div className='space-y-0.5 border-b pb-[var(--space-2)]'>
             {tierWarnings.map(w => (
@@ -108,6 +135,16 @@ export function RecommendationsPanel({ sessionId, positionFilter, players = [] }
                                 {Math.round(rec.gone_probability * 100)}% gone by your next pick
                               </p>
                             )}
+                            {rec.wait_cost != null && (
+                              <p className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${waitCostColor(rec.wait_cost)}`}>
+                                Waiting costs ~{rec.wait_cost.toFixed(1)} pts of value
+                              </p>
+                            )}
+                            {hintsByPlayerName?.get(rec.player_name)?.map((hint, hi) => (
+                              <span key={`${hint.kind}-${hi}`} className='mt-0.5 block w-fit'>
+                                <StackBadge hint={hint} />
+                              </span>
+                            ))}
                           </div>
                         </div>
                         <span
@@ -119,6 +156,24 @@ export function RecommendationsPanel({ sessionId, positionFilter, players = [] }
                     </HoverLift>
                   ))}
                 </Stagger>
+
+                {topStackHints.length > 0 && (
+                  <div className='border-t pt-[var(--space-2)]'>
+                    <p className='text-muted-foreground mb-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-wide'>
+                      Stack Hints
+                    </p>
+                    <div className='space-y-1'>
+                      {topStackHints.map((hint, hi) => (
+                        <div key={`${hint.player_name}-${hi}`} className='flex items-center gap-[var(--space-2)]'>
+                          <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
+                            {hint.player_name}
+                          </span>
+                          <StackBadge hint={hint} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {data.reasoning && (
                   <p className='text-muted-foreground border-t pt-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] italic'>

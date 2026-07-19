@@ -40,11 +40,16 @@ function player(overrides: Partial<DraftPlayer>): DraftPlayer {
   }
 }
 
-function renderPanel(recommendations: DraftRecommendationsResponse['recommendations'], players: DraftPlayer[] = []) {
+function renderPanel(
+  recommendations: DraftRecommendationsResponse['recommendations'],
+  players: DraftPlayer[] = [],
+  positionWait: DraftRecommendationsResponse['position_wait'] = []
+) {
   vi.mocked(fetchDraftRecommendations).mockResolvedValue({
     recommendations,
     reasoning: '',
-    remaining_needs: {}
+    remaining_needs: {},
+    position_wait: positionWait
   })
   const client = new QueryClient()
   render(
@@ -84,6 +89,52 @@ describe('RecommendationsPanel — gone_probability', () => {
 
     const line = await screen.findByText('10% gone by your next pick')
     expect(line.className).toContain('text-muted-foreground')
+  })
+})
+
+describe('RecommendationsPanel — wait_cost', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('shows the waiting-costs line when wait_cost is present', async () => {
+    renderPanel([rec({ wait_cost: 3.2 })])
+
+    expect(await screen.findByText('Waiting costs ~3.2 pts of value')).toBeInTheDocument()
+  })
+
+  it('hides the line when wait_cost is null', async () => {
+    renderPanel([rec({ player_name: 'No Cost', wait_cost: null })])
+
+    expect(await screen.findByText('No Cost')).toBeInTheDocument()
+    expect(screen.queryByText(/Waiting costs/)).not.toBeInTheDocument()
+  })
+
+  it('uses the muted color below 1 point', async () => {
+    renderPanel([rec({ wait_cost: 0.4 })])
+
+    const line = await screen.findByText('Waiting costs ~0.4 pts of value')
+    expect(line.className).toContain('text-muted-foreground')
+  })
+
+  it('uses the warn color at/above 3 points', async () => {
+    renderPanel([rec({ wait_cost: 3.0 })])
+
+    const line = await screen.findByText('Waiting costs ~3.0 pts of value')
+    expect(line.className).toContain('--warn')
+  })
+
+  it('renders the position_wait summary strip', async () => {
+    renderPanel(
+      [rec({})],
+      [],
+      [
+        { position: 'RB', best_now_vorp: 10, expected_best_next_vorp: 5.9, wait_cost: 4.1 },
+        { position: 'TE', best_now_vorp: 3, expected_best_next_vorp: 2.2, wait_cost: 0.8 }
+      ]
+    )
+
+    expect(await screen.findByText('RB: −4.1 if you wait · TE: −0.8 if you wait')).toBeInTheDocument()
   })
 })
 

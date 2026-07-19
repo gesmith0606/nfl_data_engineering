@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import { advanceMockDraft } from '@/features/nfl/api/service'
+import { advanceMockDraft, undoMockDraftPick } from '@/features/nfl/api/service'
+import { isConflictError } from '@/lib/nfl/api'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
@@ -16,8 +17,10 @@ import {
 } from '@/components/ui/table'
 import { PressScale } from '@/lib/motion-primitives'
 import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors'
-import { slotOnClock } from '@/lib/nfl/draft-math'
+import { slotOnClock, picksUntilNextTurn } from '@/lib/nfl/draft-math'
 import { PickClock } from './pick-clock'
+import { UndoButton } from './undo-button'
+import { DraftReportCard } from './draft-report-card'
 import type { DraftConfig, MockDraftPickResponse } from '@/lib/nfl/types'
 
 interface MockDraftViewProps {
@@ -37,6 +40,11 @@ const GRADE_COLORS: Record<string, string> = {
   D: DANGER_TEXT
 }
 
+/** Bot-burst reveal pace -- fast enough to feel automatic, slow enough to read. */
+const BOT_BURST_INTERVAL_MS = 150
+/** Hard stop so a stuck backend response can't spin the skip loop forever. */
+const BOT_BURST_MAX_STEPS = 60
+
 export function MockDraftView({
   sessionId,
   config,
@@ -51,8 +59,10 @@ export function MockDraftView({
   const [totalPts, setTotalPts] = useState<number | null>(null)
   const [totalVorp, setTotalVorp] = useState<number | null>(null)
   const [expiredNotice, setExpiredNotice] = useState<string | null>(null)
+  const [botBurstActive, setBotBurstActive] = useState(false)
   const logEndRef = useRef<HTMLDivElement>(null)
   const autoRunRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const botBurstRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const noticeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const advanceMutation = useMutation({
@@ -65,20 +75,41 @@ export function MockDraftView({
         setTotalPts(data.total_pts)
         setTotalVorp(data.total_vorp)
         setIsRunning(false)
+        setBotBurstActive(false)
         if (autoRunRef.current) {
           clearInterval(autoRunRef.current)
           autoRunRef.current = null
         }
+      } else if (data.is_user_turn && !isRunning) {
+        // The pick that just landed was the user's -- kick off a skippable
+        // bot-burst reveal of the following opponent picks (FantasyPros-flow
+        // pacing) rather than making the user click Advance Pick repeatedly.
+        setBotBurstActive(true)
       }
     },
     onError: () => {
       setIsRunning(false)
+      setBotBurstActive(false)
       if (autoRunRef.current) {
         clearInterval(autoRunRef.current)
         autoRunRef.current = null
       }
     }
   })
+
+  const undoMutation = useMutation({
+    mutationFn: () => undoMockDraftPick(sessionId),
+    onSuccess: (data) => {
+      setPicks(prev => prev.slice(0, data.pick_number))
+      setIsComplete(false)
+      setDraftGrade(null)
+      setTotalPts(null)
+      setTotalVorp(null)
+      setBotBurstActive(false)
+      setIsRunning(false)
+    }
+  })
+  const undoIsConflict = undoMutation.isError && isConflictError(undoMutation.error)
 
   // Auto-scroll to latest pick
   useEffect(() => {
@@ -114,11 +145,62 @@ export function MockDraftView({
     }
   }, [isRunning, isComplete, advanceMutation])
 
+  const advanceMutateRef = useRef(advanceMutation.mutate)
+  advanceMutateRef.current = advanceMutation.mutate
+
+  /**
+   * Bot-burst reveal -- schedules ONE advance BOT_BURST_INTERVAL_MS after the
+   * last pick landed, then (as long as the burst is still active and that
+   * pick wasn't the user's turn / completion) relies on the resulting
+   * `picks` state update to re-run this effect and schedule the next one.
+   * Keyed off `picks.length` rather than the mutation object -- the mutation
+   * result is a fresh reference every render, which would otherwise tear
+   * down and reschedule the timer on unrelated re-renders.
+   */
+  useEffect(() => {
+    if (!botBurstActive || isComplete) return
+    const id = setTimeout(() => {
+      advanceMutateRef.current(undefined, {
+        onSuccess: data => {
+          if (data.is_user_turn || data.is_complete) setBotBurstActive(false)
+        }
+      })
+    }, BOT_BURST_INTERVAL_MS)
+    botBurstRef.current = id
+    return () => {
+      clearTimeout(id)
+      botBurstRef.current = null
+    }
+    // picks.length (not `picks`/`advanceMutation`) is the real trigger: each
+    // landed pick should reschedule exactly one more timer while bursting.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [botBurstActive, isComplete, picks.length])
+
+  /** Skip fast-forwards the bot burst: fire remaining advances with no delay between them. */
+  const handleSkipBurst = useCallback(() => {
+    if (!botBurstActive) return
+    setBotBurstActive(false)
+    if (botBurstRef.current) {
+      clearTimeout(botBurstRef.current)
+      botBurstRef.current = null
+    }
+    const runNext = (step: number) => {
+      if (step >= BOT_BURST_MAX_STEPS) return
+      advanceMutateRef.current(undefined, {
+        onSuccess: data => {
+          if (!data.is_user_turn && !data.is_complete) runNext(step + 1)
+        }
+      })
+    }
+    runNext(0)
+  }, [botBurstActive])
+
   const totalPicks = config.n_teams * 15 // rough estimate
   const currentPick = picks.length
   const userPicks = picks.filter(p => p.is_user_turn)
   const nextPickNo = currentPick + 1
   const isUserTurnNext = slotOnClock(nextPickNo, config.n_teams) === config.user_pick
+  const picksUntilTurn = picksUntilNextTurn(nextPickNo, config.user_pick, config.n_teams)
 
   /**
    * The clock expiring on the user's turn auto-drafts for them -- same
@@ -129,7 +211,7 @@ export function MockDraftView({
    * "Advance Pick" / "Auto-Run", same as before).
    */
   const handleClockExpire = useCallback(() => {
-    if (isComplete || advanceMutation.isPending || isRunning) return
+    if (isComplete || advanceMutation.isPending || isRunning || botBurstActive) return
     advanceMutation.mutate(undefined, {
       onSuccess: data => {
         if (data.is_user_turn && data.player_name) {
@@ -139,7 +221,9 @@ export function MockDraftView({
         }
       }
     })
-  }, [isComplete, isRunning, advanceMutation])
+  }, [isComplete, isRunning, botBurstActive, advanceMutation])
+
+  const controlsDisabled = isComplete || advanceMutation.isPending || isRunning || botBurstActive
 
   return (
     <div className='space-y-[var(--gap-stack)]'>
@@ -150,7 +234,7 @@ export function MockDraftView({
             variant='outline'
             size='sm'
             onClick={() => advanceMutation.mutate()}
-            disabled={isComplete || advanceMutation.isPending || isRunning}
+            disabled={controlsDisabled}
           >
             {advanceMutation.isPending ? (
               <Icons.spinner className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)] animate-spin' />
@@ -164,7 +248,7 @@ export function MockDraftView({
             variant='outline'
             size='sm'
             onClick={() => setIsRunning(prev => !prev)}
-            disabled={isComplete}
+            disabled={isComplete || botBurstActive}
           >
             {isRunning ? (
               <>
@@ -180,12 +264,25 @@ export function MockDraftView({
           </Button>
         </PressScale>
 
+        <UndoButton
+          label='Undo my last pick'
+          onUndo={() => undoMutation.mutate()}
+          isPending={undoMutation.isPending}
+          isConflict={undoIsConflict || picks.length === 0}
+        />
+
         <PressScale>
           <Button variant='outline' size='sm' onClick={onReset}>
             <Icons.close className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
             Reset
           </Button>
         </PressScale>
+
+        {!isComplete && picksUntilTurn > 0 && (
+          <span className='bg-muted text-muted-foreground inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
+            Next turn in {picksUntilTurn} pick{picksUntilTurn === 1 ? '' : 's'}
+          </span>
+        )}
 
         <span className='text-muted-foreground ml-auto text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
           Pick {currentPick} of ~{totalPicks}
@@ -204,6 +301,21 @@ export function MockDraftView({
         <p className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium ${WARN_TEXT}`}>
           {expiredNotice}
         </p>
+      )}
+
+      {/* Bot-burst ticker -- shown while opponent picks reveal in sequence after your pick. */}
+      {botBurstActive && (
+        <div className='flex items-center gap-[var(--space-2)] rounded-md border p-[var(--space-2)]'>
+          <Icons.spinner className='text-muted-foreground h-[var(--space-4)] w-[var(--space-4)] animate-spin' />
+          <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+            Bots picking...
+          </span>
+          <PressScale className='ml-auto'>
+            <Button variant='ghost' size='sm' onClick={handleSkipBurst}>
+              Skip
+            </Button>
+          </PressScale>
+        </div>
       )}
 
       {/* Results card when complete */}
@@ -252,11 +364,15 @@ export function MockDraftView({
               </div>
             </div>
 
-            <PressScale>
-              <Button onClick={onReset} size='sm'>
-                Run Again
-              </Button>
-            </PressScale>
+            <div className='flex flex-wrap gap-[var(--space-2)]'>
+              <PressScale>
+                <Button onClick={onReset} size='sm'>
+                  Run Again
+                </Button>
+              </PressScale>
+            </div>
+
+            <DraftReportCard sessionId={sessionId} enabled={isComplete} />
           </CardContent>
         </Card>
       )}

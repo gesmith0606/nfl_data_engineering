@@ -12,7 +12,8 @@ const DEFAULT_CONFIG: DraftConfig = {
   n_teams: 12,
   user_pick: 1,
   season: 2026,
-  platform: 'sleeper'
+  platform: 'sleeper',
+  strategy: 'balanced'
 }
 
 export function useDraftState() {
@@ -63,7 +64,8 @@ export function useDraftState() {
       ...(finalConfig.platform && finalConfig.platform !== 'custom'
         ? { platform: finalConfig.platform }
         : {}),
-      ...(finalConfig.adp_source ? { adp_source: finalConfig.adp_source } : {})
+      ...(finalConfig.adp_source ? { adp_source: finalConfig.adp_source } : {}),
+      ...(finalConfig.strategy ? { strategy: finalConfig.strategy } : {})
     })
     if (overrides) setConfig(finalConfig)
   }, [config, mockStartMutation, setConfig])

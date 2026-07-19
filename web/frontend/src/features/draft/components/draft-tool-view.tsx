@@ -1,13 +1,16 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Icons } from '@/components/icons'
 import { draftBoardQueryOptions } from '@/features/nfl/api/queries'
+import { undoDraftPick } from '@/features/nfl/api/service'
+import { isConflictError } from '@/lib/nfl/api'
 import { useDraftState } from '../hooks/use-draft-state'
+import { useStackHints } from '../hooks/use-stack-hints'
 import { DraftBoardTable } from './draft-board-table'
 import { DraftConfigDialog } from './draft-config-dialog'
 import { MockDraftSetupDialog } from './mock-draft-setup-dialog'
@@ -17,13 +20,18 @@ import { MockDraftView } from './mock-draft-view'
 import { LiveDraftPanel } from './live-draft-panel'
 import { MirrorTurnTracker } from './mirror-turn-tracker'
 import { PasteSyncPanel } from './paste-sync-panel'
+import { SleepersPanel } from './sleepers-panel'
+import { UndoButton } from './undo-button'
 import { requestTurnNotificationPermission } from '../hooks/use-turn-alert'
 import { usePlatformPresets } from '../hooks/use-platform-presets'
 import { PLATFORM_LABELS, isRoomPlatform, scoringLabel, PLATFORM_ACCENT } from '../utils/platform-presets'
+import { STRATEGY_LABELS, asDraftStrategy } from '../utils/draft-strategy'
 import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
 import type { DraftPlatform, Position } from '@/lib/nfl/types'
 
 const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K', 'DST']
+const MAIN_TABS = ['board', 'sleepers'] as const
+type MainTab = (typeof MAIN_TABS)[number]
 
 const MIRROR_COPY: Record<Exclude<DraftPlatform, 'sleeper'>, string> = {
   espn: 'ESPN has no public draft API, so picks can’t stream automatically. Mirror mode is still a co-pilot, not a chore: paste the draft room’s pick history any time and the whole board catches up in one shot (no per-pick clicking), while we track the clock, alert your turn, and call your pick from our board.',
@@ -58,6 +66,7 @@ export function DraftToolView() {
 
   const [configOpen, setConfigOpen] = useState(false)
   const [mockSetupOpen, setMockSetupOpen] = useState(false)
+  const [mainTab, setMainTab] = useState<MainTab>('board')
 
   const presets = usePlatformPresets()
   const activePlatform = isRoomPlatform(config.platform) ? config.platform : 'custom'
@@ -72,10 +81,17 @@ export function DraftToolView() {
       config.n_teams,
       config.season,
       sessionId ?? undefined,
-      config.adp_source
+      config.adp_source,
+      config.strategy
     ),
     enabled: true
   })
+
+  const undoMutation = useMutation({
+    mutationFn: () => undoDraftPick(sessionId as string),
+    onSuccess: () => void refetch()
+  })
+  const undoIsConflict = undoMutation.isError && isConflictError(undoMutation.error)
 
   // Store the session_id returned from the first board fetch
   useEffect(() => {
@@ -108,6 +124,12 @@ export function DraftToolView() {
   const remainingNeeds = data?.remaining_needs ?? {}
   const picksCount = data?.my_pick_count ?? 0
 
+  // Stack/overlap hints refetch whenever the roster changes (a parallel
+  // backend lane -- degrades to an empty map on 404/error).
+  const { hints: stackHints, hintsByPlayerName } = useStackHints(sessionId, roster)
+
+  const activeStrategy = asDraftStrategy(data?.strategy ?? config.strategy)
+
   // -------------------------------------------------------------------------
   // Mock draft mode
   // -------------------------------------------------------------------------
@@ -124,6 +146,9 @@ export function DraftToolView() {
             style={{ color: PLATFORM_ACCENT[activePlatform], borderColor: PLATFORM_ACCENT[activePlatform] }}
           >
             {PLATFORM_LABELS[activePlatform]}-style room
+          </span>
+          <span className='bg-muted text-muted-foreground inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold'>
+            {STRATEGY_LABELS[asDraftStrategy(config.strategy)]}
           </span>
           <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             {config.n_teams} teams · Pick #{config.user_pick} · {scoringLabel(config.scoring)}
@@ -247,23 +272,41 @@ export function DraftToolView() {
     <FadeIn className='space-y-[var(--gap-stack)]'>
       {/* Top toolbar */}
       <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
-        {/* Position filter */}
-        <Tabs
-          value={positionFilter}
-          onValueChange={v => setPositionFilter(v as Position)}
-        >
+        {/* Board / Sleepers switch */}
+        <Tabs value={mainTab} onValueChange={v => setMainTab(v as MainTab)}>
           <TabsList>
-            {POSITIONS.map(pos => (
-              <TabsTrigger
-                key={pos}
-                value={pos}
-                className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
-              >
-                {pos}
-              </TabsTrigger>
-            ))}
+            <TabsTrigger value='board' className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+              Board
+            </TabsTrigger>
+            <TabsTrigger value='sleepers' className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+              Sleepers
+            </TabsTrigger>
           </TabsList>
         </Tabs>
+
+        {/* Position filter (board tab only) */}
+        {mainTab === 'board' && (
+          <Tabs
+            value={positionFilter}
+            onValueChange={v => setPositionFilter(v as Position)}
+          >
+            <TabsList>
+              {POSITIONS.map(pos => (
+                <TabsTrigger
+                  key={pos}
+                  value={pos}
+                  className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                >
+                  {pos}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        )}
+
+        <span className='bg-muted text-muted-foreground inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold'>
+          {STRATEGY_LABELS[activeStrategy]}
+        </span>
 
         <div className='ml-auto flex items-center gap-[var(--space-2)]'>
           <PressScale>
@@ -296,6 +339,12 @@ export function DraftToolView() {
               Mock Draft
             </Button>
           </PressScale>
+          <UndoButton
+            label='Undo'
+            onUndo={() => undoMutation.mutate()}
+            isPending={undoMutation.isPending}
+            isConflict={undoIsConflict || (data?.picks_taken ?? 0) === 0}
+          />
           <PressScale>
             <Button
               variant='outline'
@@ -365,6 +414,8 @@ export function DraftToolView() {
               </PressScale>
             </div>
           </div>
+        ) : mainTab === 'sleepers' ? (
+          <SleepersPanel sessionId={sessionId} />
         ) : (
           <div className='flex flex-col gap-[var(--gap-stack)] lg:flex-row'>
             {/* Draft board (70%) */}
@@ -374,6 +425,7 @@ export function DraftToolView() {
                 positionFilter={positionFilter}
                 onDraft={handleDraftPlayer}
                 isPicking={pickMutation.isPending}
+                hintsByPlayerName={hintsByPlayerName}
               />
             </div>
 
@@ -383,11 +435,14 @@ export function DraftToolView() {
                 roster={roster}
                 remainingNeeds={remainingNeeds}
                 picksCount={picksCount}
+                rosterRisk={data?.roster_risk}
               />
               <RecommendationsPanel
                 sessionId={sessionId}
                 positionFilter={positionFilter}
                 players={players}
+                hintsByPlayerName={hintsByPlayerName}
+                stackHints={stackHints}
               />
             </div>
           </div>

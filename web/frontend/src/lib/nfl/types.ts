@@ -679,6 +679,26 @@ export interface DraftPlayer {
   tier?: number | null
   /** Standard deviation of ADP across sources/drafts; null when unavailable. */
   adp_stdev?: number | null
+  /** Season-points floor (real quantile band or a documented proxy); null when unavailable. */
+  floor?: number | null
+  /** Season-points ceiling — see `floor` for provenance. */
+  ceiling?: number | null
+}
+
+/** Draft strategy: re-ranks the pool by floor/ceiling band, or leaves the default (balanced) order. */
+export type DraftStrategy = 'floor' | 'balanced' | 'ceiling'
+
+/**
+ * Aggregate floor/ceiling exposure of the user's drafted roster.
+ * `volatility_index` is the mean of (ceiling - floor) / projected across
+ * rostered players that carry bands — higher means boomier/riskier. Null
+ * when no rostered player has bands.
+ */
+export interface RosterRisk {
+  floor_sum: number
+  ceiling_sum: number
+  projected_sum: number
+  volatility_index?: number | null
 }
 
 /** Full draft board state from the API. */
@@ -694,6 +714,10 @@ export interface DraftBoardResponse {
   n_teams: number
   /** ADP source used for the value-score merge (ffc|espn); null when using the adp_latest.csv fallback. */
   adp_source?: string | null
+  /** Draft strategy applied at session creation (floor|balanced|ceiling); defaults to balanced. */
+  strategy?: DraftStrategy | string
+  /** Aggregate floor/ceiling exposure of the user's roster; null when empty or bandless. */
+  roster_risk?: RosterRisk | null
 }
 
 /** Request body for recording a draft pick. */
@@ -722,6 +746,19 @@ export interface DraftRecommendation {
   recommendation_score: number
   /** Probability (0-1) the player is gone before your next pick; null when not modeled. */
   gone_probability?: number | null
+  /** This player's position's wait_cost (see PositionWait); null when it couldn't be computed. */
+  wait_cost?: number | null
+}
+
+/**
+ * Cost-of-waiting for one position: expected drop in best-available VORP
+ * between the current pick and the user's next pick.
+ */
+export interface PositionWait {
+  position: string
+  best_now_vorp: number
+  expected_best_next_vorp: number
+  wait_cost: number
 }
 
 /** Recommendations response. */
@@ -729,6 +766,8 @@ export interface DraftRecommendationsResponse {
   recommendations: DraftRecommendation[]
   reasoning: string
   remaining_needs: Record<string, number>
+  /** Per-position cost of waiting one pick; empty when the next pick number can't be determined. */
+  position_wait?: PositionWait[]
 }
 
 /** A recommendation during a live draft, with roster-fit + stack context. */
@@ -814,6 +853,8 @@ export interface MockDraftStartRequest {
   platform?: string
   /** ADP source for the value-score merge (ffc|espn); defaults from platform preset when unset. */
   adp_source?: string
+  /** Draft strategy (floor|balanced|ceiling); defaults to balanced. */
+  strategy?: DraftStrategy | string
 }
 
 /** Response after starting a mock draft. */
@@ -869,6 +910,8 @@ export interface DraftConfig {
   adp_source?: string
   /** Pick clock length in seconds for mock draft; null/undefined = clock off. */
   timer_seconds?: number | null
+  /** Draft strategy dial (floor|balanced|ceiling); defaults to balanced. */
+  strategy?: DraftStrategy | string
 }
 
 /** One platform's draft-room defaults from GET /api/draft/platforms. */
@@ -883,6 +926,122 @@ export interface DraftPlatformPreset {
 
 /** Response for GET /api/draft/platforms — one preset per supported room style. */
 export type DraftPlatformsResponse = Record<string, DraftPlatformPreset>
+
+// ---------------------------------------------------------------------------
+// Post-draft report (GET /api/draft/mock/report)
+// ---------------------------------------------------------------------------
+
+/** The highest-VORP player still available at the moment of a user pick. */
+export interface MockDraftReportAlternative {
+  player_name: string
+  vorp: number | null
+}
+
+/** One of the user's picks in a completed/in-progress mock draft, with receipts. */
+export interface MockDraftReportPick {
+  round: number
+  overall_pick: number
+  player_name: string
+  position: string
+  projected_points: number | null
+  vorp: number | null
+  adp_rank: number | null
+  /** overall_pick - adp_rank. Positive = steal (fell past ADP); negative = reach. */
+  adp_delta: number | null
+  best_alternative: MockDraftReportAlternative | null
+  /** This pick's vorp - best_alternative's vorp. */
+  vorp_delta: number | null
+}
+
+/** Whole-draft summary for the user's roster. */
+export interface MockDraftReportSummary {
+  total_projected: number
+  total_vorp: number
+  floor_sum: number | null
+  ceiling_sum: number | null
+  letter_grade: string
+  grade_notes: string[]
+}
+
+/** Response for GET /api/draft/mock/report. */
+export interface MockDraftReportResponse {
+  session_id: string
+  picks: MockDraftReportPick[]
+  summary: MockDraftReportSummary
+}
+
+// ---------------------------------------------------------------------------
+// Undo (POST /api/draft/undo, POST /api/draft/mock/undo)
+// ---------------------------------------------------------------------------
+
+export interface DraftUndoResponse {
+  success: boolean
+  player: DraftPlayer | null
+  message: string
+}
+
+export interface MockDraftUndoResponse {
+  success: boolean
+  /** Picks remaining on the board after undo. */
+  pick_number: number
+  message: string
+}
+
+// ---------------------------------------------------------------------------
+// Stack hints (GET /api/draft/stack-hints) — concurrent backend lane, may 404
+// ---------------------------------------------------------------------------
+
+export type StackHintKind = 'stack_bonus' | 'shared_ceiling_warning'
+
+export interface StackHint {
+  player_name: string
+  position: string
+  team: string | null
+  rostered_player_name: string
+  rho: number
+  n_games: number
+  kind: StackHintKind
+}
+
+export interface StackHintsResponse {
+  hints: StackHint[]
+}
+
+// ---------------------------------------------------------------------------
+// Sleepers (GET /api/draft/sleepers) — concurrent backend lane, may 404
+// ---------------------------------------------------------------------------
+
+export interface SleeperEdge {
+  player_name: string
+  position: string
+  team: string | null
+  model_rank: number
+  adp_rank: number | null
+  adp_gap: number | null
+  projected_points: number | null
+  reason: string
+}
+
+/** Backend may return either a bare array or `{ sleepers: [] }` at integration. */
+export type SleepersResponse = SleeperEdge[] | { sleepers: SleeperEdge[] }
+
+// ---------------------------------------------------------------------------
+// Draft Intel (GET /api/draft/intel) — concurrent backend lane, may 404
+// ---------------------------------------------------------------------------
+
+export interface DraftIntelManager {
+  user_id: string
+  display_name: string
+  team_name: string | null
+  tendencies: string
+  summary: string[]
+}
+
+export interface DraftIntelResponse {
+  league_id: string
+  seasons_analyzed: number
+  managers: DraftIntelManager[]
+}
 
 // ---------------------------------------------------------------------------
 // Teams / Roster / Defense-metrics types (Phase 64)

@@ -27,7 +27,8 @@ import {
   isRoomPlatform,
   type RoomPlatform
 } from '../utils/platform-presets'
-import type { DraftConfig } from '@/lib/nfl/types'
+import { DraftStrategyToggle } from './draft-strategy-toggle'
+import type { DraftConfig, DraftStrategy } from '@/lib/nfl/types'
 
 interface DraftConfigDialogProps {
   config: DraftConfig
@@ -239,6 +240,12 @@ export function DraftConfigDialog({
               </SelectContent>
             </Select>
           </div>
+
+          {/* Draft strategy dial -- only applied when a new session is created (Apply & New Draft below). */}
+          <DraftStrategyToggle
+            value={config.strategy}
+            onChange={(s: DraftStrategy) => update('strategy', s)}
+          />
         </div>
 
         <DialogFooter className='flex gap-[var(--space-2)] sm:flex-col'>

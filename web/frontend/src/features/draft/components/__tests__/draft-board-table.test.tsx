@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { DraftBoardTable } from '../draft-board-table'
-import type { DraftPlayer } from '@/lib/nfl/types'
+import type { DraftPlayer, StackHint } from '@/lib/nfl/types'
 
 function player(overrides: Partial<DraftPlayer>): DraftPlayer {
   return {
@@ -91,5 +91,66 @@ describe('DraftBoardTable', () => {
     const rowB = screen.getByText('B').closest('tr')
     expect(rowC?.className).toMatch(/border-t-2/)
     expect(rowB?.className).not.toMatch(/border-t-2/)
+  })
+
+  it('renders a stack badge on a row when a hint matches the player name', () => {
+    const hint: StackHint = {
+      player_name: 'Test Player',
+      position: 'WR',
+      team: 'KC',
+      rostered_player_name: 'Mahomes',
+      rho: 0.42,
+      n_games: 20,
+      kind: 'stack_bonus'
+    }
+    render(
+      <DraftBoardTable
+        players={[player({})]}
+        positionFilter='ALL'
+        onDraft={vi.fn()}
+        isPicking={false}
+        hintsByPlayerName={new Map([['Test Player', [hint]]])}
+      />
+    )
+
+    expect(screen.getByText('STACK +0.42 w/ Mahomes')).toBeInTheDocument()
+  })
+
+  it('renders an overlap badge for a shared_ceiling_warning hint', () => {
+    const hint: StackHint = {
+      player_name: 'Test Player',
+      position: 'WR',
+      team: 'KC',
+      rostered_player_name: 'Rice',
+      rho: 0.6,
+      n_games: 12,
+      kind: 'shared_ceiling_warning'
+    }
+    render(
+      <DraftBoardTable
+        players={[player({})]}
+        positionFilter='ALL'
+        onDraft={vi.fn()}
+        isPicking={false}
+        hintsByPlayerName={new Map([['Test Player', [hint]]])}
+      />
+    )
+
+    expect(screen.getByText('overlap w/ Rice')).toBeInTheDocument()
+  })
+
+  it('renders no badge when hintsByPlayerName has no entry for the player', () => {
+    render(
+      <DraftBoardTable
+        players={[player({})]}
+        positionFilter='ALL'
+        onDraft={vi.fn()}
+        isPicking={false}
+        hintsByPlayerName={new Map()}
+      />
+    )
+
+    expect(screen.queryByText(/STACK/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/overlap/)).not.toBeInTheDocument()
   })
 })
