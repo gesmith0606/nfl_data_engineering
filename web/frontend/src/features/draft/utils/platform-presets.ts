@@ -45,7 +45,7 @@ export const FALLBACK_PLATFORM_PRESETS: Record<RoomPlatform, DraftPlatformPreset
     timer_seconds: 60,
     // No real Sleeper ADP source exists yet -- FFC is the best available real
     // ADP, mirroring PLATFORM_PRESETS["sleeper"]["adp_source"] in src/config.py.
-    adp_source: 'ffc',
+    adp_source: 'sleeper',
     roster_slots: {}
   },
   yahoo: {

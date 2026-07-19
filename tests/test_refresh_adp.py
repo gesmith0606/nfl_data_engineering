@@ -156,7 +156,8 @@ class TestMainCli:
         assert (out_dir / "adp" / "adp_espn_half_ppr.csv").exists()
         assert not (out_dir / "adp_latest.csv").exists()
 
-    def test_sleeper_source_labels_legacy_and_skips_latest(self, tmp_path, monkeypatch):
+    def test_sleeper_rank_source_labels_legacy_and_skips_latest(self, tmp_path, monkeypatch):
+        """--source sleeper_rank is the legacy popularity index (NOT real ADP)."""
         out_dir = tmp_path / "data"
         monkeypatch.setattr(
             sys,
@@ -164,7 +165,7 @@ class TestMainCli:
             [
                 "refresh_adp.py",
                 "--source",
-                "sleeper",
+                "sleeper_rank",
                 "--output-dir",
                 str(out_dir),
             ],
@@ -175,7 +176,7 @@ class TestMainCli:
             rc = refresh_adp.main()
 
         assert rc == 0
-        source_csv = out_dir / "adp" / "adp_sleeper_half_ppr.csv"
+        source_csv = out_dir / "adp" / "adp_sleeper_rank_half_ppr.csv"
         assert source_csv.exists()
         df = pd.read_csv(source_csv)
         assert set(df["source"]) == {"sleeper_rank"}

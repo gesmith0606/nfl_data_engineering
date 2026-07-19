@@ -299,3 +299,88 @@ def fetch_espn_adp(year: int) -> pd.DataFrame:
         return _empty_adp_df()
 
     return pd.DataFrame(rows, columns=ADP_COLUMNS)
+
+
+# ---------------------------------------------------------------------------
+# Sleeper — real ADP (embedded in the season projections feed)
+# ---------------------------------------------------------------------------
+
+_SLEEPER_ADP_FIELD: Dict[str, str] = {
+    "ppr": "adp_ppr",
+    "half_ppr": "adp_half_ppr",
+    "standard": "adp_std",
+}
+
+_SLEEPER_ADP_POSITIONS = ("QB", "RB", "WR", "TE", "K", "DEF")
+
+
+def fetch_sleeper_adp(scoring: str, year: int) -> pd.DataFrame:
+    """Fetch real Sleeper ADP from their season projections feed.
+
+    Sleeper has no dedicated ADP endpoint, but the (undocumented) season
+    projections payload carries genuine crowd ADP per scoring format
+    (``stats.adp_half_ppr`` etc.) — this is actual draft-position data from
+    Sleeper drafts, NOT the ``search_rank`` popularity index the legacy
+    ``sleeper_rank`` source uses.
+
+    Args:
+        scoring: One of ``"ppr"``, ``"half_ppr"``, ``"standard"``.
+        year:    Draft season year.
+
+    Returns:
+        Normalized ADP DataFrame (see module docstring); ``stdev``/
+        ``times_drafted`` are ``NaN`` (not exposed). Empty on any error.
+    """
+    field = _SLEEPER_ADP_FIELD.get(scoring)
+    if field is None:
+        logger.warning(
+            "fetch_sleeper_adp: unknown scoring format '%s' — fail-open", scoring
+        )
+        return _empty_adp_df()
+
+    pos_params = "&".join(f"position[]={p}" for p in _SLEEPER_ADP_POSITIONS)
+    url = (
+        f"https://api.sleeper.app/projections/nfl/{year}"
+        f"?season_type=regular&{pos_params}&order_by={field}"
+    )
+    payload = _fetch_json(url, headers={"User-Agent": _USER_AGENT})
+    if not isinstance(payload, list) or not payload:
+        logger.warning("fetch_sleeper_adp: no rows from %s — fail-open", url)
+        return _empty_adp_df()
+
+    fetched_at = datetime.now(timezone.utc).isoformat()
+    rows: List[Dict[str, Any]] = []
+    for entry in payload:
+        if not isinstance(entry, dict):
+            continue
+        stats = entry.get("stats") or {}
+        player = entry.get("player") or {}
+        adp = _to_float(stats.get(field)) if isinstance(stats, dict) else None
+        if adp is None or adp <= 0:
+            continue
+        first = str(player.get("first_name") or "").strip()
+        last = str(player.get("last_name") or "").strip()
+        name = f"{first} {last}".strip()
+        if not name:
+            continue
+        rows.append(
+            {
+                "player_name": name,
+                "position": _normalize_position(player.get("position")),
+                "team": str(entry.get("team") or player.get("team") or "").upper(),
+                "adp": adp,
+                "stdev": None,
+                "times_drafted": None,
+                "source": "sleeper",
+                "scoring_format": scoring,
+                "fetched_at": fetched_at,
+                "name_key": normalize_name(name),
+            }
+        )
+
+    if not rows:
+        logger.warning("fetch_sleeper_adp: %s had no usable rows — fail-open", url)
+        return _empty_adp_df()
+
+    df = pd.DataFrame(rows, columns=ADP_COLUMNS)
+    return df.sort_values("adp").reset_index(drop=True)

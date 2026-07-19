@@ -173,8 +173,12 @@ def main():
     parser.add_argument('--top', type=int, default=500, help='Number of players to include (default: 500)')
     parser.add_argument('--output-dir', default='data', help='Output directory (default: data)')
     parser.add_argument(
-        '--source', choices=['ffc', 'espn', 'sleeper'], default=_DEFAULT_SOURCE,
-        help='ADP source: ffc/espn are real ADP, sleeper is the legacy search_rank popularity index (default: ffc)',
+        '--source', choices=['ffc', 'espn', 'sleeper', 'sleeper_rank'], default=_DEFAULT_SOURCE,
+        help=(
+            'ADP source: ffc/espn/sleeper are real ADP '
+            '(sleeper = crowd ADP from the Sleeper projections feed); '
+            'sleeper_rank is the legacy search_rank popularity index (default: ffc)'
+        ),
     )
     parser.add_argument(
         '--scoring', choices=['ppr', 'half_ppr', 'standard'], default=_DEFAULT_SCORING,
@@ -187,14 +191,16 @@ def main():
     print(f"Season: {args.season} | Top {args.top} players")
     print('=' * 50)
 
-    if args.source == 'sleeper':
+    if args.source == 'sleeper_rank':
         players = fetch_sleeper_players()
         adp_df = build_adp_from_sleeper_rank(players, top_n=args.top, scoring=args.scoring)
     else:
-        from src.adp_sources import fetch_espn_adp, fetch_ffc_adp
+        from src.adp_sources import fetch_espn_adp, fetch_ffc_adp, fetch_sleeper_adp
 
         if args.source == 'ffc':
             raw_df = fetch_ffc_adp(args.scoring, args.season, teams=args.teams)
+        elif args.source == 'sleeper':
+            raw_df = fetch_sleeper_adp(args.scoring, args.season)
         else:
             raw_df = fetch_espn_adp(args.season)
         adp_df = build_adp_from_real_source(raw_df).head(args.top)

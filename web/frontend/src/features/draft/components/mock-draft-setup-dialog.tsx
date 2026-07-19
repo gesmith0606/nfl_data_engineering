@@ -51,12 +51,12 @@ const TIMER_OPTIONS: Array<{ label: string; value: number | null }> = [
 const ADP_SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
   { label: 'Consensus ADP (FantasyPros-style, via FFC)', value: 'ffc' },
   { label: 'ESPN ADP', value: 'espn' },
-  { label: 'Sleeper popularity (not true ADP)', value: 'sleeper' }
+  { label: 'Sleeper ADP', value: 'sleeper' }
 ]
 
-/** Default rankings source for a platform preset — espn maps to ESPN ADP, everything else to consensus (FFC). */
+/** Default rankings source for a platform preset; unknown values fall back to consensus (FFC). */
 function defaultAdpSource(presetAdpSource: string | undefined): string {
-  return presetAdpSource === 'espn' ? 'espn' : 'ffc'
+  return presetAdpSource === 'espn' || presetAdpSource === 'sleeper' ? presetAdpSource : 'ffc'
 }
 
 /**

@@ -428,11 +428,11 @@ class TestPlatformPresets:
         assert espn["roster_slots"]["FLEX"] == 1
         assert sum(espn["roster_slots"].values()) > 0
 
-    def test_sleeper_preset_uses_ffc_adp_source(self):
-        """No real Sleeper ADP exists yet -- preset falls back to FFC."""
+    def test_sleeper_preset_uses_sleeper_adp_source(self):
+        """Sleeper rooms draft against Sleeper's own crowd ADP."""
         resp = client.get("/api/draft/platforms")
         sleeper = resp.json()["platforms"]["sleeper"]
-        assert sleeper["adp_source"] == "ffc"
+        assert sleeper["adp_source"] == "sleeper"
         assert sleeper["roster_format"] == "sleeper_default"
         assert sleeper["rounds"] == 15
         assert sleeper["timer_seconds"] == 60
@@ -582,7 +582,7 @@ class TestAdpSourceThreading:
         assert captured["adp_source"] == "espn"
         assert resp.json()["adp_source"] == "espn"
 
-    def test_board_sleeper_platform_defaults_to_ffc(self, _patch_load_draft_data):
+    def test_board_sleeper_platform_defaults_to_sleeper_adp(self, _patch_load_draft_data):
         from draft_optimizer import compute_value_scores
         from web.api.routers import draft as draft_module
 
@@ -596,8 +596,8 @@ class TestAdpSourceThreading:
         with patch.object(draft_module, "_load_draft_data", side_effect=_capture):
             resp = client.get("/api/draft/board", params={"platform": "sleeper"})
         assert resp.status_code == 200, resp.text
-        assert captured["adp_source"] == "ffc"
-        assert resp.json()["adp_source"] == "ffc"
+        assert captured["adp_source"] == "sleeper"
+        assert resp.json()["adp_source"] == "sleeper"
 
     def test_board_explicit_adp_source_overrides_platform_preset(
         self, _patch_load_draft_data
@@ -643,7 +643,7 @@ class TestAdpSourceThreading:
 
         board_resp = client.get("/api/draft/board", params={"session_id": sid})
         assert board_resp.status_code == 200, board_resp.text
-        assert board_resp.json()["adp_source"] == "ffc"
+        assert board_resp.json()["adp_source"] == "sleeper"
 
     def test_mock_start_explicit_adp_source_overrides_platform(
         self, _patch_load_draft_data

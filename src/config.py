@@ -321,10 +321,10 @@ PLATFORM_PRESETS: Dict[str, Dict[str, Any]] = {
         "roster": "sleeper_default",
         "rounds": 15,
         "timer_seconds": 60,
-        # No real Sleeper ADP source exists yet (Sleeper only exposes
-        # search_rank, a popularity index) — FFC is the best available real
-        # ADP until one ships. Revisit once Sleeper ADP is real.
-        "adp_source": "ffc",
+        # Real Sleeper crowd ADP ships via adp_sources.fetch_sleeper_adp
+        # (embedded in Sleeper's season projections feed) — a Sleeper room
+        # drafts against Sleeper's own market.
+        "adp_source": "sleeper",
     },
     "yahoo": {
         "scoring_format": "half_ppr",

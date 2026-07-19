@@ -253,3 +253,51 @@ class TestFetchEspnAdp:
         assert len(df) == 1
         assert pd.isna(df.iloc[0]["adp"])
         assert df.iloc[0]["position"] == "RB"
+
+
+class TestFetchSleeperAdp:
+    """fetch_sleeper_adp — real crowd ADP from the Sleeper projections feed."""
+
+    def _payload(self):
+        return [
+            {
+                "player_id": "4866",
+                "team": "ATL",
+                "player": {"first_name": "Bijan", "last_name": "Robinson", "position": "RB", "team": "ATL"},
+                "stats": {"adp_half_ppr": 1.5, "adp_ppr": 1.4, "adp_std": 2.1},
+            },
+            {
+                "player_id": "9999",
+                "team": "CIN",
+                "player": {"first_name": "Ja'Marr", "last_name": "Chase", "position": "WR", "team": "CIN"},
+                "stats": {"adp_half_ppr": 3.7},
+            },
+            # No ADP for the requested format -> excluded
+            {
+                "player_id": "1",
+                "team": "FA",
+                "player": {"first_name": "Practice", "last_name": "Squad", "position": "RB"},
+                "stats": {"adp_ppr": 250.0},
+            },
+        ]
+
+    def test_happy_path(self, monkeypatch):
+        from src import adp_sources
+
+        monkeypatch.setattr(adp_sources, "_fetch_json", lambda url, headers=None: self._payload())
+        df = adp_sources.fetch_sleeper_adp("half_ppr", 2026)
+        assert list(df["player_name"]) == ["Bijan Robinson", "Ja'Marr Chase"]
+        assert df.iloc[0]["adp"] == 1.5
+        assert (df["source"] == "sleeper").all()
+        assert (df["scoring_format"] == "half_ppr").all()
+
+    def test_unknown_scoring_fails_open(self):
+        from src import adp_sources
+
+        assert adp_sources.fetch_sleeper_adp("superflex_ppr", 2026).empty
+
+    def test_malformed_payload_fails_open(self, monkeypatch):
+        from src import adp_sources
+
+        monkeypatch.setattr(adp_sources, "_fetch_json", lambda url, headers=None: {"error": "nope"})
+        assert adp_sources.fetch_sleeper_adp("ppr", 2026).empty

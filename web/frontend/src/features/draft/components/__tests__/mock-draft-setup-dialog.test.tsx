@@ -106,11 +106,11 @@ describe('MockDraftSetupDialog', () => {
     expect(options).toEqual([
       'Consensus ADP (FantasyPros-style, via FFC)',
       'ESPN ADP',
-      'Sleeper popularity (not true ADP)'
+      'Sleeper ADP'
     ])
   })
 
-  it('defaults rankings source to ESPN ADP for the espn platform, Consensus otherwise', () => {
+  it('defaults rankings source to the platform own ADP (ESPN→ESPN, Sleeper→Sleeper)', () => {
     const espnRender = render(
       <Wrapper
         initialConfig={{ ...BASE_CONFIG, platform: 'espn' }}
@@ -128,9 +128,7 @@ describe('MockDraftSetupDialog', () => {
         configRef={{ current: BASE_CONFIG }}
       />
     )
-    expect(screen.getByLabelText('Rankings (ADP) source')).toHaveTextContent(
-      'Consensus ADP (FantasyPros-style, via FFC)'
-    )
+    expect(screen.getByLabelText('Rankings (ADP) source')).toHaveTextContent('Sleeper ADP')
   })
 
   it('keeps scoring/roster editable on a preset; editing switches to custom keeping the edit', () => {
