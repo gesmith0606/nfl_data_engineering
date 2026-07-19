@@ -20,7 +20,16 @@ from typing import Dict, Optional
 
 import numpy as np
 import pandas as pd
-from scipy.stats import norm
+
+
+def _norm_cdf(z: float) -> float:
+    """Standard normal CDF via ``math.erf`` — scipy-free on purpose.
+
+    The HF Spaces deployment image does not ship scipy; importing it here
+    took the whole API down on 2026-07-19 (module-level import chain:
+    draft router -> this module). erf is exact for our needs.
+    """
+    return 0.5 * (1.0 + math.erf(z / math.sqrt(2.0)))
 
 # Clamp bounds -- never report certainty either way. A player projected to
 # go pick 1 overall is still not *literally* 100% gone before pick 50 (an
@@ -71,7 +80,7 @@ def prob_gone_before(
         else _fallback_sigma(adp)
     )
     z = (pick_number - adp) / sigma
-    p = float(norm.cdf(z))
+    p = _norm_cdf(z)
     return min(_MAX_PROB, max(_MIN_PROB, p))
 
 
@@ -120,7 +129,11 @@ def prob_gone_before_vectorized(
     sigma = stdev.where(has_stdev, fallback_sigma)
 
     z = (pick_number - adp) / sigma
-    p = pd.Series(norm.cdf(z), index=df.index)
+    p = pd.Series(
+        [_norm_cdf(v) if math.isfinite(v) else np.nan for v in z],
+        index=df.index,
+        dtype=float,
+    )
     p = p.clip(lower=_MIN_PROB, upper=_MAX_PROB)
     p = p.where(adp.notna(), np.nan)
     return p
