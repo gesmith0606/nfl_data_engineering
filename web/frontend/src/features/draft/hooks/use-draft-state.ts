@@ -11,7 +11,9 @@ const DEFAULT_CONFIG: DraftConfig = {
   roster_format: 'standard',
   n_teams: 12,
   user_pick: 1,
-  season: 2026
+  season: 2026,
+  platform: 'sleeper',
+  strategy: 'balanced'
 }
 
 export function useDraftState() {
@@ -44,15 +46,29 @@ export function useDraftState() {
     pickMutation.mutate({ session_id: sessionId, player_id: playerId, by_me: byMe })
   }, [sessionId, pickMutation])
 
-  const handleStartMock = useCallback(() => {
+  /**
+   * Start a mock draft. `overrides` lets callers (the mock setup dialog's
+   * "Random" pick slot) supply a final value resolved at click time without
+   * waiting on a state update to land first -- `config` is merged with
+   * `overrides` for this call, and (when overrides are given) committed back
+   * to state so the rest of the UI reflects the resolved value.
+   */
+  const handleStartMock = useCallback((overrides?: Partial<DraftConfig>) => {
+    const finalConfig: DraftConfig = overrides ? { ...config, ...overrides } : config
     mockStartMutation.mutate({
-      scoring: config.scoring,
-      roster_format: config.roster_format,
-      n_teams: config.n_teams,
-      user_pick: config.user_pick,
-      season: config.season
+      scoring: finalConfig.scoring,
+      roster_format: finalConfig.roster_format,
+      n_teams: finalConfig.n_teams,
+      user_pick: finalConfig.user_pick,
+      season: finalConfig.season,
+      ...(finalConfig.platform && finalConfig.platform !== 'custom'
+        ? { platform: finalConfig.platform }
+        : {}),
+      ...(finalConfig.adp_source ? { adp_source: finalConfig.adp_source } : {}),
+      ...(finalConfig.strategy ? { strategy: finalConfig.strategy } : {})
     })
-  }, [config, mockStartMutation])
+    if (overrides) setConfig(finalConfig)
+  }, [config, mockStartMutation, setConfig])
 
   const resetDraft = useCallback(() => {
     setSessionId(null)

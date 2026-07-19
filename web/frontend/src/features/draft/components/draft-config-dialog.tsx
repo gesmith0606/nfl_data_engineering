@@ -14,29 +14,65 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Button } from '@/components/ui/button'
 import { PressScale } from '@/lib/motion-primitives'
-import type { DraftConfig } from '@/lib/nfl/types'
+import { usePlatformPresets } from '../hooks/use-platform-presets'
+import {
+  ROOM_PLATFORMS,
+  PLATFORM_LABELS,
+  PLATFORM_ACCENT,
+  applyPlatformPreset,
+  isRoomPlatform,
+  ROSTER_FORMAT_OPTIONS,
+  type RoomPlatform
+} from '../utils/platform-presets'
+import { DraftStrategyToggle } from './draft-strategy-toggle'
+import type { DraftConfig, DraftStrategy } from '@/lib/nfl/types'
 
 interface DraftConfigDialogProps {
   config: DraftConfig
   onConfigChange: (config: DraftConfig) => void
-  onStartMock: () => void
   open: boolean
   onOpenChange: (open: boolean) => void
   onNewDraft: () => void
 }
 
+/**
+ * Manual-board settings only (scoring/roster/teams/season). Mock draft has
+ * its own dedicated setup flow (`MockDraftSetupDialog`) with slot/timer/
+ * rankings selection, so this dialog no longer starts a mock -- that avoids
+ * a second "start mock with hidden defaults" path.
+ */
 export function DraftConfigDialog({
   config,
   onConfigChange,
-  onStartMock,
   open,
   onOpenChange,
   onNewDraft
 }: DraftConfigDialogProps) {
+  const presets = usePlatformPresets()
+
   function update<K extends keyof DraftConfig>(key: K, value: DraftConfig[K]) {
     onConfigChange({ ...config, [key]: value })
+  }
+
+  const activePlatform: RoomPlatform = isRoomPlatform(config.platform) ? config.platform : 'custom'
+  const activePreset = presets[activePlatform]
+
+  // Nothing is ever disabled: editing a preset-controlled field flips the
+  // room style to Custom while keeping the edit (matches the mock setup).
+  function updateAndUnlock<K extends keyof DraftConfig>(key: K, value: DraftConfig[K]) {
+    if (activePlatform !== 'custom') {
+      onConfigChange({ ...config, [key]: value, platform: 'custom' })
+    } else {
+      update(key, value)
+    }
+  }
+
+  function handlePlatformChange(next: string) {
+    if (!next || !isRoomPlatform(next)) return
+    onConfigChange(applyPlatformPreset(config, next, presets))
   }
 
   const teamCounts = [8, 10, 12, 14]
@@ -50,6 +86,39 @@ export function DraftConfigDialog({
         </DialogHeader>
 
         <div className='space-y-[var(--gap-stack)] py-[var(--space-2)]'>
+          {/* Draft room style */}
+          <div className='space-y-[var(--space-2)]'>
+            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+              Draft room style
+            </label>
+            <ToggleGroup
+              type='single'
+              variant='outline'
+              value={activePlatform}
+              onValueChange={handlePlatformChange}
+              className='w-full'
+            >
+              {ROOM_PLATFORMS.map(p => (
+                <ToggleGroupItem
+                  key={p}
+                  value={p}
+                  aria-label={`${PLATFORM_LABELS[p]} draft room style`}
+                  style={activePlatform === p ? { color: PLATFORM_ACCENT[p], borderColor: PLATFORM_ACCENT[p] } : undefined}
+                >
+                  {PLATFORM_LABELS[p]}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+            <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+              {activePlatform !== 'custom'
+                ? `${PLATFORM_LABELS[activePlatform]} presets applied — change anything below; edits switch you to Custom.`
+                : 'Custom — every setting is yours.'}
+            </p>
+            <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+              {activePreset.rounds} rounds · {activePreset.timer_seconds}s pick clock
+            </p>
+          </div>
+
           {/* Teams */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
             <label htmlFor='teams-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
@@ -105,9 +174,9 @@ export function DraftConfigDialog({
             </label>
             <Select
               value={config.scoring}
-              onValueChange={v => update('scoring', v as DraftConfig['scoring'])}
+              onValueChange={v => updateAndUnlock('scoring', v as DraftConfig['scoring'])}
             >
-              <SelectTrigger id='scoring-select' className='w-32'>
+              <SelectTrigger id='scoring-select' className='w-36'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -125,15 +194,17 @@ export function DraftConfigDialog({
             </label>
             <Select
               value={config.roster_format}
-              onValueChange={v => update('roster_format', v as DraftConfig['roster_format'])}
+              onValueChange={v => updateAndUnlock('roster_format', v as DraftConfig['roster_format'])}
             >
-              <SelectTrigger id='rosterformat-select' className='w-32'>
+              <SelectTrigger id='rosterformat-select' className='w-56'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='standard'>Standard</SelectItem>
-                <SelectItem value='superflex'>Superflex</SelectItem>
-                <SelectItem value='2qb'>2QB</SelectItem>
+                {ROSTER_FORMAT_OPTIONS.map(opt => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -156,6 +227,12 @@ export function DraftConfigDialog({
               </SelectContent>
             </Select>
           </div>
+
+          {/* Draft strategy dial -- only applied when a new session is created (Apply & New Draft below). */}
+          <DraftStrategyToggle
+            value={config.strategy}
+            onChange={(s: DraftStrategy) => update('strategy', s)}
+          />
         </div>
 
         <DialogFooter className='flex gap-[var(--space-2)] sm:flex-col'>
@@ -168,18 +245,6 @@ export function DraftConfigDialog({
               }}
             >
               Apply &amp; New Draft
-            </Button>
-          </PressScale>
-          <PressScale className='w-full'>
-            <Button
-              variant='outline'
-              className='w-full'
-              onClick={() => {
-                onStartMock()
-                onOpenChange(false)
-              }}
-            >
-              Start Mock Draft
             </Button>
           </PressScale>
         </DialogFooter>

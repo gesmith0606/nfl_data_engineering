@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -11,8 +11,10 @@ import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
 import { SUCCESS_BADGE } from '@/lib/nfl/semantic-colors'
 import { pickLabel } from '@/lib/nfl/draft-math'
 import { isServiceUnavailable } from '@/features/nfl/api/service'
+import { loadConnectedLeagues } from '@/lib/nfl/connected-leagues'
 import { useTurnAlert, requestTurnNotificationPermission } from '../hooks/use-turn-alert'
 import { CopyQueueButton } from './copy-queue-button'
+import { DraftIntelPanel } from './draft-intel-panel'
 import type { LiveDraftParams } from '@/lib/nfl/types'
 
 const MOMENT_BADGE: Record<string, string> = {
@@ -45,6 +47,12 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
     mySlot: ''
   })
   const [connected, setConnected] = useState(false)
+
+  // Opponent Intel needs a known league_id — read it from the same
+  // localStorage connected-leagues store League Sync writes to, rather than
+  // requiring a redundant league picker here. Purely additive: renders null
+  // (and never blocks connecting/drafting) when no league is connected.
+  const connectedLeagueId = useMemo(() => loadConnectedLeagues()[0]?.league_id ?? null, [])
 
   const params: LiveDraftParams = {
     draftId: form.draftId.trim() || undefined,
@@ -158,6 +166,9 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
           </PressScale>
         </div>
       </div>
+
+      {/* Opponent Intel — leagues-connected surface; never blocks connect/draft. */}
+      <DraftIntelPanel leagueId={connectedLeagueId} />
 
       {/* Live state */}
       {connected && (
