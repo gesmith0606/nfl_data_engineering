@@ -23,8 +23,8 @@ import {
   ROOM_PLATFORMS,
   PLATFORM_LABELS,
   PLATFORM_ACCENT,
-  asScoringFormat,
-  asRosterFormat,
+  applyPlatformPreset,
+  defaultAdpSource,
   isRoomPlatform,
   ROSTER_FORMAT_OPTIONS,
   type RoomPlatform
@@ -53,11 +53,6 @@ const ADP_SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
   { label: 'ESPN ADP', value: 'espn' },
   { label: 'Sleeper ADP', value: 'sleeper' }
 ]
-
-/** Default rankings source for a platform preset; unknown values fall back to consensus (FFC). */
-function defaultAdpSource(presetAdpSource: string | undefined): string {
-  return presetAdpSource === 'espn' || presetAdpSource === 'sleeper' ? presetAdpSource : 'ffc'
-}
 
 /**
  * Mock draft setup — the flow the toolbar "Mock Draft" button opens (never
@@ -95,21 +90,7 @@ export function MockDraftSetupDialog({
 
   function handlePlatformChange(next: string) {
     if (!next || !isRoomPlatform(next)) return
-    if (next === 'custom') {
-      onConfigChange({ ...config, platform: 'custom' })
-      return
-    }
-    const preset = presets[next]
-    const scoring = asScoringFormat(preset.scoring_format)
-    const rosterFormat = asRosterFormat(preset.roster_format)
-    onConfigChange({
-      ...config,
-      platform: next,
-      ...(scoring ? { scoring } : {}),
-      ...(rosterFormat ? { roster_format: rosterFormat } : {}),
-      timer_seconds: preset.timer_seconds ?? null,
-      adp_source: defaultAdpSource(preset.adp_source)
-    })
+    onConfigChange(applyPlatformPreset(config, next, presets, { includeTimerAndAdp: true }))
   }
 
   const teamCounts = [8, 10, 12, 14]

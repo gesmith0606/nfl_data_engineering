@@ -22,8 +22,7 @@ import {
   ROOM_PLATFORMS,
   PLATFORM_LABELS,
   PLATFORM_ACCENT,
-  asScoringFormat,
-  asRosterFormat,
+  applyPlatformPreset,
   isRoomPlatform,
   ROSTER_FORMAT_OPTIONS,
   type RoomPlatform
@@ -73,19 +72,7 @@ export function DraftConfigDialog({
 
   function handlePlatformChange(next: string) {
     if (!next || !isRoomPlatform(next)) return
-    if (next === 'custom') {
-      onConfigChange({ ...config, platform: 'custom' })
-      return
-    }
-    const preset = presets[next]
-    const scoring = asScoringFormat(preset.scoring_format)
-    const rosterFormat = asRosterFormat(preset.roster_format)
-    onConfigChange({
-      ...config,
-      platform: next,
-      ...(scoring ? { scoring } : {}),
-      ...(rosterFormat ? { roster_format: rosterFormat } : {})
-    })
+    onConfigChange(applyPlatformPreset(config, next, presets))
   }
 
   const teamCounts = [8, 10, 12, 14]

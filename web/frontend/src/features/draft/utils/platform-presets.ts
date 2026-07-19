@@ -1,4 +1,4 @@
-import type { DraftPlatformPreset, ScoringFormat } from '@/lib/nfl/types'
+import type { DraftConfig, DraftPlatformPreset, ScoringFormat } from '@/lib/nfl/types'
 
 /** Draft-room platforms the config dialog can pre-fill from. */
 export type RoomPlatform = 'espn' | 'sleeper' | 'yahoo' | 'custom'
@@ -100,6 +100,40 @@ export const ROSTER_FORMAT_OPTIONS: Array<{ label: string; value: string }> = [
 
 export function isRoomPlatform(value: string | undefined): value is RoomPlatform {
   return !!value && (ROOM_PLATFORMS as string[]).includes(value)
+}
+
+/** Default rankings source for a platform preset; unknown values fall back to consensus (FFC). */
+export function defaultAdpSource(presetAdpSource: string | undefined): string {
+  return presetAdpSource === 'espn' || presetAdpSource === 'sleeper' ? presetAdpSource : 'ffc'
+}
+
+/**
+ * Apply a room-platform preset onto a config — shared by the settings dialog,
+ * mock setup dialog, and the draft landing's platform-room chooser. 'custom'
+ * just flips the platform flag; a real platform pulls scoring/roster format
+ * (and, when requested, timer/ADP source) from its preset.
+ */
+export function applyPlatformPreset(
+  config: DraftConfig,
+  platform: RoomPlatform,
+  presets: Record<RoomPlatform, DraftPlatformPreset>,
+  options: { includeTimerAndAdp?: boolean } = {}
+): DraftConfig {
+  if (platform === 'custom') {
+    return { ...config, platform: 'custom' }
+  }
+  const preset = presets[platform]
+  const scoring = asScoringFormat(preset.scoring_format)
+  const rosterFormat = asRosterFormat(preset.roster_format)
+  return {
+    ...config,
+    platform,
+    ...(scoring ? { scoring } : {}),
+    ...(rosterFormat ? { roster_format: rosterFormat } : {}),
+    ...(options.includeTimerAndAdp
+      ? { timer_seconds: preset.timer_seconds ?? null, adp_source: defaultAdpSource(preset.adp_source) }
+      : {})
+  }
 }
 
 /** Human label for a scoring format value, for the header chip. */
