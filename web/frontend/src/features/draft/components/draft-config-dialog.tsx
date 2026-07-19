@@ -25,6 +25,7 @@ import {
   asScoringFormat,
   asRosterFormat,
   isRoomPlatform,
+  ROSTER_FORMAT_OPTIONS,
   type RoomPlatform
 } from '../utils/platform-presets'
 import { DraftStrategyToggle } from './draft-strategy-toggle'
@@ -58,8 +59,17 @@ export function DraftConfigDialog({
   }
 
   const activePlatform: RoomPlatform = isRoomPlatform(config.platform) ? config.platform : 'custom'
-  const isLocked = activePlatform !== 'custom'
   const activePreset = presets[activePlatform]
+
+  // Nothing is ever disabled: editing a preset-controlled field flips the
+  // room style to Custom while keeping the edit (matches the mock setup).
+  function updateAndUnlock<K extends keyof DraftConfig>(key: K, value: DraftConfig[K]) {
+    if (activePlatform !== 'custom') {
+      onConfigChange({ ...config, [key]: value, platform: 'custom' })
+    } else {
+      update(key, value)
+    }
+  }
 
   function handlePlatformChange(next: string) {
     if (!next || !isRoomPlatform(next)) return
@@ -112,21 +122,11 @@ export function DraftConfigDialog({
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
-            {isLocked ? (
-              <div className='flex items-center justify-between gap-[var(--space-2)]'>
-                <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  Locked to {PLATFORM_LABELS[activePlatform]} style — scoring and roster
-                  format are pre-filled to match.
-                </p>
-                <Button variant='ghost' size='sm' onClick={() => handlePlatformChange('custom')}>
-                  Unlock to customize
-                </Button>
-              </div>
-            ) : (
-              <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                Custom — scoring and roster format are yours to set.
-              </p>
-            )}
+            <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+              {activePlatform !== 'custom'
+                ? `${PLATFORM_LABELS[activePlatform]} presets applied — change anything below; edits switch you to Custom.`
+                : 'Custom — every setting is yours.'}
+            </p>
             <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
               {activePreset.rounds} rounds · {activePreset.timer_seconds}s pick clock
             </p>
@@ -187,10 +187,9 @@ export function DraftConfigDialog({
             </label>
             <Select
               value={config.scoring}
-              onValueChange={v => update('scoring', v as DraftConfig['scoring'])}
-              disabled={isLocked}
+              onValueChange={v => updateAndUnlock('scoring', v as DraftConfig['scoring'])}
             >
-              <SelectTrigger id='scoring-select' className='w-32'>
+              <SelectTrigger id='scoring-select' className='w-36'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -208,16 +207,17 @@ export function DraftConfigDialog({
             </label>
             <Select
               value={config.roster_format}
-              onValueChange={v => update('roster_format', v as DraftConfig['roster_format'])}
-              disabled={isLocked}
+              onValueChange={v => updateAndUnlock('roster_format', v as DraftConfig['roster_format'])}
             >
-              <SelectTrigger id='rosterformat-select' className='w-32'>
+              <SelectTrigger id='rosterformat-select' className='w-56'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='standard'>Standard</SelectItem>
-                <SelectItem value='superflex'>Superflex</SelectItem>
-                <SelectItem value='2qb'>2QB</SelectItem>
+                {ROSTER_FORMAT_OPTIONS.map(opt => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

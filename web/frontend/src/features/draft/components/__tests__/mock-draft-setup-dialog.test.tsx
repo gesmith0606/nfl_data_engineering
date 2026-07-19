@@ -97,13 +97,17 @@ describe('MockDraftSetupDialog', () => {
     expect(options).toEqual(['Off', '15s', '30s', '60s', '90s'])
   })
 
-  it('renders both rankings (ADP) source options', () => {
+  it('renders all three rankings (ADP) source options', () => {
     render(
       <Wrapper initialConfig={BASE_CONFIG} onStartMock={vi.fn()} configRef={{ current: BASE_CONFIG }} />
     )
     openSelect('Rankings (ADP) source')
     const options = screen.getAllByRole('option').map(o => o.textContent)
-    expect(options).toEqual(['Consensus ADP (FantasyPros-style, via FFC)', 'ESPN ADP'])
+    expect(options).toEqual([
+      'Consensus ADP (FantasyPros-style, via FFC)',
+      'ESPN ADP',
+      'Sleeper popularity (not true ADP)'
+    ])
   })
 
   it('defaults rankings source to ESPN ADP for the espn platform, Consensus otherwise', () => {
@@ -129,7 +133,7 @@ describe('MockDraftSetupDialog', () => {
     )
   })
 
-  it('locks scoring/roster format to the platform preset, and unlocking switches to custom', () => {
+  it('keeps scoring/roster editable on a preset; editing switches to custom keeping the edit', () => {
     render(
       <Wrapper
         initialConfig={{ ...BASE_CONFIG, platform: 'sleeper' }}
@@ -137,13 +141,13 @@ describe('MockDraftSetupDialog', () => {
         configRef={{ current: BASE_CONFIG }}
       />
     )
-    expect(screen.getByLabelText('Scoring')).toBeDisabled()
-    expect(screen.getByLabelText('Roster Format')).toBeDisabled()
-
-    fireEvent.click(screen.getByRole('button', { name: 'Unlock to customize' }))
-
     expect(screen.getByLabelText('Scoring')).not.toBeDisabled()
     expect(screen.getByLabelText('Roster Format')).not.toBeDisabled()
+
+    fireEvent.click(screen.getByLabelText('Scoring'))
+    fireEvent.click(screen.getByRole('option', { name: 'Standard' }))
+
+    expect(screen.getByText(/Custom — every setting is yours/)).toBeInTheDocument()
   })
 
   it('leaves scoring/roster format editable for Custom from the start', () => {

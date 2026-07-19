@@ -897,10 +897,19 @@ export interface AdpResponse {
   updated_at: string | null
 }
 
+/** Roster format — legacy generic shapes plus the platform-default shapes. */
+export type RosterFormat =
+  | 'standard'
+  | 'superflex'
+  | '2qb'
+  | 'espn_default'
+  | 'sleeper_default'
+  | 'yahoo_default'
+
 /** Draft configuration for starting a new draft. */
 export interface DraftConfig {
   scoring: ScoringFormat
-  roster_format: 'standard' | 'superflex' | '2qb'
+  roster_format: RosterFormat
   n_teams: number
   user_pick: number
   season: number

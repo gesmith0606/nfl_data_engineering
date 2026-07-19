@@ -97,12 +97,12 @@ describe('DraftConfigDialog — platform selector', () => {
     )
   })
 
-  it('disables scoring and roster format selects once locked to a platform', () => {
+  it('keeps scoring and roster format editable even on a platform preset', () => {
     vi.mocked(fetchDraftPlatforms).mockReturnValue(new Promise(() => {}))
     renderDialog({ ...BASE_CONFIG, platform: 'sleeper' })
 
-    expect(screen.getByLabelText('Scoring')).toBeDisabled()
-    expect(screen.getByLabelText('Roster Format')).toBeDisabled()
+    expect(screen.getByLabelText('Scoring')).not.toBeDisabled()
+    expect(screen.getByLabelText('Roster Format')).not.toBeDisabled()
   })
 
   it('leaves scoring and roster format editable for Custom', () => {
@@ -113,17 +113,17 @@ describe('DraftConfigDialog — platform selector', () => {
     expect(screen.getByLabelText('Roster Format')).not.toBeDisabled()
   })
 
-  it('"Unlock to customize" switches the platform to custom without changing scoring/roster', () => {
+  it('editing a preset-controlled field switches the platform to custom keeping the edit', () => {
     vi.mocked(fetchDraftPlatforms).mockReturnValue(new Promise(() => {}))
     const onConfigChange = renderDialog({ ...BASE_CONFIG, platform: 'sleeper' })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Unlock to customize' }))
+    fireEvent.click(screen.getByLabelText('Scoring'))
+    fireEvent.click(screen.getByRole('option', { name: 'Standard' }))
 
     expect(onConfigChange).toHaveBeenCalledWith(
       expect.objectContaining({
         platform: 'custom',
-        scoring: 'half_ppr',
-        roster_format: 'standard'
+        scoring: 'standard'
       })
     )
   })

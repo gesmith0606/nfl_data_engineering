@@ -67,7 +67,14 @@ export const FALLBACK_PLATFORM_PRESETS: Record<RoomPlatform, DraftPlatformPreset
 }
 
 const VALID_SCORING = new Set(['ppr', 'half_ppr', 'standard'])
-const VALID_ROSTER_FORMAT = new Set(['standard', 'superflex', '2qb'])
+const VALID_ROSTER_FORMAT = new Set([
+  'standard',
+  'superflex',
+  '2qb',
+  'espn_default',
+  'sleeper_default',
+  'yahoo_default'
+])
 
 /** Narrow an API scoring_format string to our enum; undefined when unrecognized (degrade gracefully). */
 export function asScoringFormat(value: string | undefined): ScoringFormat | undefined {
@@ -75,9 +82,21 @@ export function asScoringFormat(value: string | undefined): ScoringFormat | unde
 }
 
 /** Narrow an API roster_format string to our enum; undefined when unrecognized (degrade gracefully). */
-export function asRosterFormat(value: string | undefined): 'standard' | 'superflex' | '2qb' | undefined {
-  return value && VALID_ROSTER_FORMAT.has(value) ? (value as 'standard' | 'superflex' | '2qb') : undefined
+export function asRosterFormat(value: string | undefined): import('@/lib/nfl/types').RosterFormat | undefined {
+  return value && VALID_ROSTER_FORMAT.has(value)
+    ? (value as import('@/lib/nfl/types').RosterFormat)
+    : undefined
 }
+
+/** All roster formats offered in the setup/settings dialogs, platform shapes first. */
+export const ROSTER_FORMAT_OPTIONS: Array<{ label: string; value: string }> = [
+  { label: 'ESPN default (1 FLEX · 7 BN)', value: 'espn_default' },
+  { label: 'Sleeper default (2 FLEX · 5 BN)', value: 'sleeper_default' },
+  { label: 'Yahoo default (1 FLEX · 6 BN)', value: 'yahoo_default' },
+  { label: 'Standard', value: 'standard' },
+  { label: 'Superflex', value: 'superflex' },
+  { label: '2QB', value: '2qb' }
+]
 
 export function isRoomPlatform(value: string | undefined): value is RoomPlatform {
   return !!value && (ROOM_PLATFORMS as string[]).includes(value)
