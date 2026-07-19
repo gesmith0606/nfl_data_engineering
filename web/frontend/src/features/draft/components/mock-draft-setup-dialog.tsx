@@ -28,7 +28,8 @@ import {
   isRoomPlatform,
   type RoomPlatform
 } from '../utils/platform-presets'
-import type { DraftConfig } from '@/lib/nfl/types'
+import { DraftStrategyToggle } from './draft-strategy-toggle'
+import type { DraftConfig, DraftStrategy } from '@/lib/nfl/types'
 
 interface MockDraftSetupDialogProps {
   config: DraftConfig
@@ -305,6 +306,12 @@ export function MockDraftSetupDialog({
               </SelectContent>
             </Select>
           </div>
+
+          {/* Draft strategy dial */}
+          <DraftStrategyToggle
+            value={config.strategy}
+            onChange={(s: DraftStrategy) => update('strategy', s)}
+          />
         </div>
 
         <DialogFooter>

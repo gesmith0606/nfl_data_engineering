@@ -193,6 +193,33 @@ describe('MockDraftSetupDialog', () => {
     })
   })
 
+  it('renders the draft strategy dial (Safe floor / Balanced / Ceiling hunt)', () => {
+    render(
+      <Wrapper initialConfig={BASE_CONFIG} onStartMock={vi.fn()} configRef={{ current: BASE_CONFIG }} />
+    )
+    expect(screen.getByRole('radio', { name: /Safe floor draft strategy/i })).toBeInTheDocument()
+    expect(screen.getByRole('radio', { name: /Balanced draft strategy/i })).toBeInTheDocument()
+    expect(screen.getByRole('radio', { name: /Ceiling hunt draft strategy/i })).toBeInTheDocument()
+  })
+
+  it('carries the chosen strategy into the Start Mock Draft payload', () => {
+    const onStartMock = vi.fn()
+    const configRef = { current: BASE_CONFIG }
+    render(
+      <Wrapper
+        initialConfig={{ ...BASE_CONFIG, platform: 'sleeper' }}
+        onStartMock={onStartMock}
+        configRef={configRef}
+      />
+    )
+
+    fireEvent.click(screen.getByRole('radio', { name: /Ceiling hunt draft strategy/i }))
+    fireEvent.click(screen.getByRole('button', { name: 'Start Mock Draft' }))
+
+    expect(onStartMock).toHaveBeenCalledTimes(1)
+    expect(configRef.current).toMatchObject({ strategy: 'ceiling' })
+  })
+
   it('Random pick slot resolves to an in-range slot via onStartMock overrides', () => {
     const onStartMock = vi.fn()
     render(

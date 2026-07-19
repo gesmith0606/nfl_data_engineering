@@ -15,13 +15,16 @@ import { Icons } from '@/components/icons'
 import { PressScale } from '@/lib/motion-primitives'
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
 import { SUCCESS_BADGE, DANGER_BADGE, deltaTextClass } from '@/lib/nfl/semantic-colors'
-import type { DraftPlayer, Position, SortDirection } from '@/lib/nfl/types'
+import { StackBadge } from './stack-badge'
+import type { DraftPlayer, Position, SortDirection, StackHint } from '@/lib/nfl/types'
 
 interface DraftBoardTableProps {
   players: DraftPlayer[]
   positionFilter: Position
   onDraft: (playerId: string, byMe?: boolean) => void
   isPicking: boolean
+  /** Stack/overlap hints keyed by player_name; omitted rows simply render no badge. */
+  hintsByPlayerName?: Map<string, StackHint[]>
 }
 
 type SortKey = 'model_rank' | 'projected_points' | 'adp_rank' | 'adp_diff' | 'vorp'
@@ -67,7 +70,7 @@ function SortableHeader({
   )
 }
 
-export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }: DraftBoardTableProps) {
+export function DraftBoardTable({ players, positionFilter, onDraft, isPicking, hintsByPlayerName }: DraftBoardTableProps) {
   const [sortKey, setSortKey] = useState<SortKey>('model_rank')
   const [sortDir, setSortDir] = useState<SortDirection>('asc')
   const [search, setSearch] = useState('')
@@ -207,7 +210,7 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
                       {player.model_rank}
                     </TableCell>
                     <TableCell>
-                      <div className='flex items-center gap-[var(--space-2)]'>
+                      <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
                         <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
                           {player.player_name}
                         </span>
@@ -216,6 +219,9 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking }:
                         >
                           {player.position}
                         </span>
+                        {hintsByPlayerName?.get(player.player_name)?.map((hint, hi) => (
+                          <StackBadge key={`${hint.kind}-${hint.rostered_player_name}-${hi}`} hint={hint} />
+                        ))}
                       </div>
                     </TableCell>
                     <TableCell className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
