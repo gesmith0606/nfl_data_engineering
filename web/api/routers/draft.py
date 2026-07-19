@@ -1679,3 +1679,116 @@ def sync_pick_log(req: DraftSyncLogRequest) -> DraftSyncLogResponse:
         unmatched_count=len(parsed.unmatched_lines),
         picks_taken=board.picks_taken(),
     )
+
+
+# ---------------------------------------------------------------------------
+# NEW: Draft platform rooms -- stack hints / sleepers / league draft intel
+#
+# Isolated addition: new modules (src/draft_stacks.py, src/draft_sleepers.py,
+# src/draft_intel.py) + new endpoints only. Reuses the existing session store
+# (_sessions/_get_session) defined above but does not modify any existing
+# endpoint body.
+# ---------------------------------------------------------------------------
+
+from draft_intel import get_cached_league_draft_intel  # noqa: E402
+from draft_sleepers import build_sleeper_rows  # noqa: E402
+from draft_stacks import get_stack_hints  # noqa: E402
+
+from ..models.schemas import (  # noqa: E402
+    DraftIntelManager,
+    DraftIntelResponse,
+    DraftSleeperRow,
+    DraftSleepersResponse,
+    DraftStackHintsResponse,
+    ManagerTendencies,
+    StackHint,
+)
+
+
+@router.get("/stack-hints", response_model=DraftStackHintsResponse)
+def get_draft_stack_hints(
+    session_id: str = Query(..., description="Draft session ID"),
+) -> DraftStackHintsResponse:
+    """Correlation-network stack hints for the session's current roster.
+
+    For every still-available player, surfaces any stability-gated UC3
+    correlation edge linking them to a player already on the user's roster
+    (see ``src.draft_stacks``). Fail-open: no correlation artifact or an
+    empty roster both yield an empty ``hints`` list with HTTP 200.
+    """
+    session = _get_session(session_id)
+    board: DraftBoard = session["board"]
+    hints = get_stack_hints(board.available, board.my_roster)
+    return DraftStackHintsResponse(hints=[StackHint(**h) for h in hints])
+
+
+@router.get("/sleepers", response_model=DraftSleepersResponse)
+def get_draft_sleepers(
+    session_id: str = Query(..., description="Draft session ID"),
+    limit: int = Query(20, ge=1, le=100, description="Max sleeper rows to return"),
+    season: int = Query(
+        2026,
+        ge=2020,
+        le=2030,
+        description="NFL season used to compute the UC1 vacated-opportunity signal",
+    ),
+) -> DraftSleepersResponse:
+    """Sleepers tab: available players our model likes well above ADP,
+    and/or players flagged by the UC1 vacated-opportunity signal.
+
+    See ``src.draft_sleepers`` for the selection/blend logic. Fail-open: a
+    missing/unavailable vacated-opportunity dataset (e.g. no Bronze weekly
+    data locally) simply disables that half of the signal -- the ADP-gap
+    half still runs.
+    """
+    session = _get_session(session_id)
+    board: DraftBoard = session["board"]
+
+    vacated_df = None
+    try:
+        from graph_vacated_opportunity import build_vacated_opportunity_data
+
+        vacated_df = build_vacated_opportunity_data(season)
+    except Exception as exc:
+        logger.warning("Sleepers: vacated-opportunity signal unavailable: %s", exc)
+        vacated_df = None
+
+    rows = build_sleeper_rows(board.available, limit=limit, vacated_df=vacated_df)
+    return DraftSleepersResponse(sleepers=[DraftSleeperRow(**r) for r in rows])
+
+
+@router.get("/intel", response_model=DraftIntelResponse)
+def get_draft_intel(
+    league_id: str = Query(..., description="Sleeper league_id"),
+    max_seasons: int = Query(
+        3, ge=1, le=10, description="How many seasons of league history to walk back"
+    ),
+) -> DraftIntelResponse:
+    """Manager draft tendencies derived from a Sleeper league's history
+    chain (``previous_league_id``), pick data only -- no historical ADP.
+
+    See ``src.draft_intel`` for the tendency math and league-chain walk.
+    Fail-open: a broken/short chain or no completed drafts yields
+    ``seasons_analyzed=0, managers=[]`` with HTTP 200, never a 5xx.
+    """
+    try:
+        result = get_cached_league_draft_intel(league_id, max_seasons)
+    except Exception:
+        logger.exception("Draft intel failed for league %s", league_id)
+        result = {"league_id": league_id, "seasons_analyzed": 0, "managers": []}
+
+    managers = [
+        DraftIntelManager(
+            user_id=m["user_id"],
+            display_name=m["display_name"],
+            team_name=m.get("team_name"),
+            tendencies=ManagerTendencies(**m["tendencies"]),
+            summary=m["summary"],
+        )
+        for m in result.get("managers", [])
+    ]
+    return DraftIntelResponse(
+        league_id=result.get("league_id", league_id),
+        seasons_analyzed=result.get("seasons_analyzed", 0),
+        managers=managers,
+    )

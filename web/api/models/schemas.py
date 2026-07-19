@@ -1856,3 +1856,109 @@ class LeagueDraftPrepResponse(BaseModel):
         "market consensus on playing time and role, which is more reliable for first-year players.",
         description="Explanation surfaced to the UI explaining why rookies are sorted by ADP",
     )
+
+
+# ---------------------------------------------------------------------------
+# Draft platform rooms: stack hints / sleepers / league draft intel (new)
+# ---------------------------------------------------------------------------
+
+
+class StackHint(BaseModel):
+    """One correlation-network stack hint for a still-available player.
+
+    ``kind`` is ``stack_bonus`` when the available player is positively
+    correlated with a player already on the user's roster (rho >=
+    ``src.draft_stacks.STACK_BONUS_RHO_MIN``), or
+    ``shared_ceiling_warning`` when negatively correlated (rho <=
+    ``src.draft_stacks.SHARED_CEILING_RHO_MAX``).
+    """
+
+    player_name: str
+    position: str
+    team: Optional[str] = None
+    rostered_player_name: str
+    rho: float
+    n_games: int
+    kind: str = Field(..., description="stack_bonus / shared_ceiling_warning")
+
+
+class DraftStackHintsResponse(BaseModel):
+    """Response for GET /api/draft/stack-hints."""
+
+    hints: List[StackHint] = Field(default_factory=list)
+
+
+class DraftSleeperRow(BaseModel):
+    """One sleeper candidate: undervalued vs ADP and/or a UC1
+    vacated-opportunity signal (see ``src.draft_sleepers``).
+    """
+
+    player_name: str
+    position: str
+    team: Optional[str] = None
+    model_rank: Optional[int] = None
+    adp_rank: Optional[float] = None
+    adp_gap: Optional[float] = Field(
+        None, description="adp_rank - model_rank; positive = model likes them more"
+    )
+    projected_points: Optional[float] = None
+    reason: str = Field(
+        ..., description="Human-readable explanation built only from real signals"
+    )
+
+
+class DraftSleepersResponse(BaseModel):
+    """Response for GET /api/draft/sleepers."""
+
+    sleepers: List[DraftSleeperRow] = Field(default_factory=list)
+
+
+class ManagerTendencies(BaseModel):
+    """One Sleeper manager's draft tendencies, derived from real pick data
+    across their league-history chain (no historical ADP used).
+    """
+
+    first_round_by_season: Dict[str, Optional[str]] = Field(default_factory=dict)
+    modal_first_round_position: Optional[str] = Field(
+        None, description="Most common round-1 position across analyzed seasons"
+    )
+    opens_rb_rb_seasons: List[str] = Field(
+        default_factory=list,
+        description="Season labels where round 1 and round 2 were both RB",
+    )
+    wr_heavy_early_seasons: List[str] = Field(
+        default_factory=list,
+        description="Season labels with >= 2 WR picks in rounds 1-3",
+    )
+    position_counts_rounds_1_3: Dict[str, int] = Field(
+        default_factory=dict,
+        description="Position pick counts in rounds 1-3, summed across seasons",
+    )
+    early_position_shares: Dict[str, float] = Field(
+        default_factory=dict,
+        description="Share of rounds-1-3 picks at each position, across seasons",
+    )
+    qb_by_round_seasons: Dict[str, Optional[int]] = Field(
+        default_factory=dict,
+        description="Season -> round the manager's first QB was taken, or None",
+    )
+
+
+class DraftIntelManager(BaseModel):
+    """One manager's identity + tendencies for GET /api/draft/intel."""
+
+    user_id: str
+    display_name: str
+    team_name: Optional[str] = None
+    tendencies: ManagerTendencies
+    summary: List[str] = Field(
+        default_factory=list, description="Human-readable tendency sentences"
+    )
+
+
+class DraftIntelResponse(BaseModel):
+    """Response for GET /api/draft/intel."""
+
+    league_id: str
+    seasons_analyzed: int = 0
+    managers: List[DraftIntelManager] = Field(default_factory=list)
