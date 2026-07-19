@@ -836,6 +836,20 @@ class DraftPlayer(BaseModel):
             "(e.g. DST) or the board hasn't computed tiers."
         ),
     )
+    floor: Optional[float] = Field(
+        None,
+        description=(
+            "Season-points floor. From the projection source's own quantile "
+            "bands when present, else a documented in-repo proxy (the same "
+            "per-position multiplier band src.projection_engine's "
+            "add_floor_ceiling() falls back to when no quantile model is "
+            "available), applied to projected_points. None when neither "
+            "exists (e.g. DST, which has no projected_points at all)."
+        ),
+    )
+    ceiling: Optional[float] = Field(
+        None, description="Season-points ceiling -- see `floor` for provenance."
+    )
 
 
 class DraftBoardEntry(BaseModel):
@@ -863,6 +877,24 @@ class DraftBoardEntry(BaseModel):
     value_tier: str = "fair_value"
     bye_week: Optional[int] = None
     tier: Optional[int] = None
+    floor: Optional[float] = Field(
+        None, description="Season-points floor -- see DraftPlayer.floor for provenance"
+    )
+    ceiling: Optional[float] = Field(None, description="Season-points ceiling")
+
+
+class RosterRisk(BaseModel):
+    """Aggregate floor/ceiling exposure of the user's drafted roster.
+
+    ``volatility_index`` is the mean of ``(ceiling - floor) / projected``
+    across rostered players that carry bands -- higher means a boomier,
+    riskier roster construction. ``None`` when no rostered player has bands.
+    """
+
+    floor_sum: float
+    ceiling_sum: float
+    projected_sum: float
+    volatility_index: Optional[float] = None
 
 
 class DraftBoardResponse(BaseModel):
@@ -895,6 +927,23 @@ class DraftBoardResponse(BaseModel):
         description=(
             "ADP source used for the value-score merge (ffc/espn); None when "
             "no per-source ADP file was requested (adp_latest.csv fallback)."
+        ),
+    )
+    strategy: str = Field(
+        "balanced",
+        description=(
+            "Draft strategy used to order `players`/`board` (floor/balanced/"
+            "ceiling), set at session creation via the `strategy` query param. "
+            "floor/ceiling only actually re-rank when the pool carries "
+            "floor/ceiling bands; balanced is the legacy model_rank order."
+        ),
+    )
+    roster_risk: Optional[RosterRisk] = Field(
+        None,
+        description=(
+            "Aggregate floor/ceiling exposure of the user's drafted roster. "
+            "None when the roster is empty or none of its players carry "
+            "floor/ceiling bands."
         ),
     )
 
@@ -938,6 +987,35 @@ class DraftRecommendation(BaseModel):
             "ADP or the user's next pick number can't be determined."
         ),
     )
+    wait_cost: Optional[float] = Field(
+        None,
+        description=(
+            "This player's position's wait_cost (see PositionWait) -- how "
+            "much expected best-available VORP is lost at this position by "
+            "waiting one pick. None when it couldn't be computed (no next "
+            "pick number, or the position has no vorp/adp-eligible pool)."
+        ),
+    )
+
+
+class PositionWait(BaseModel):
+    """Cost-of-waiting for one position: expected drop in best-available VORP
+    between the current pick and the user's next pick.
+
+    ``expected_best_next_vorp`` is a probability-weighted expectation over
+    the position's whole candidate pool (see
+    :func:`src.draft_availability.expected_best_vorp_at_pick`), not just the
+    single current top player -- it accounts for the chance any given
+    candidate is drafted by someone else before the user is back on the
+    clock.
+    """
+
+    position: str
+    best_now_vorp: float
+    expected_best_next_vorp: float
+    wait_cost: float = Field(
+        ..., description="best_now_vorp - expected_best_next_vorp, rounded 1dp"
+    )
 
 
 class DraftRecommendationsResponse(BaseModel):
@@ -946,6 +1024,14 @@ class DraftRecommendationsResponse(BaseModel):
     recommendations: List[DraftRecommendation]
     reasoning: str
     remaining_needs: dict
+    position_wait: List[PositionWait] = Field(
+        default_factory=list,
+        description=(
+            "Per-position cost of waiting one pick, computed at the user's "
+            "next pick number. Empty when the next pick number can't be "
+            "determined (no user_pick / no mock-draft slot)."
+        ),
+    )
 
 
 class LiveDraftRecommendation(DraftRecommendation):
@@ -1083,6 +1169,14 @@ class MockDraftStartRequest(BaseModel):
             "the platform preset when platform is set and this is omitted."
         ),
     )
+    strategy: Optional[str] = Field(
+        None,
+        pattern="^(floor|balanced|ceiling)$",
+        description=(
+            "Draft strategy (floor/balanced/ceiling); defaults to balanced. "
+            "See DraftBoardResponse.strategy."
+        ),
+    )
 
 
 class MockDraftStartResponse(BaseModel):
@@ -1163,6 +1257,105 @@ class PlatformPresetsResponse(BaseModel):
     """Response for GET /api/draft/platforms."""
 
     platforms: Dict[str, PlatformPreset]
+
+
+# ---------------------------------------------------------------------------
+# Draft engine: post-draft report with receipts + undo (new)
+# ---------------------------------------------------------------------------
+
+
+class MockDraftReportAlternative(BaseModel):
+    """The highest-VORP player still available at the time of a user pick."""
+
+    player_name: str
+    vorp: Optional[float] = None
+
+
+class MockDraftReportPick(BaseModel):
+    """One of the user's picks in a completed/in-progress mock draft, with
+    receipts: what else was on the board, and how the pick compares to ADP.
+    """
+
+    round: int
+    overall_pick: int
+    player_name: str
+    position: str
+    projected_points: Optional[float] = None
+    vorp: Optional[float] = None
+    adp_rank: Optional[float] = None
+    adp_delta: Optional[float] = Field(
+        None,
+        description=(
+            "overall_pick - adp_rank. Positive means the player fell past "
+            "their ADP (a steal); negative means you reached for them ahead "
+            "of ADP. None when the player has no ADP."
+        ),
+    )
+    best_alternative: Optional[MockDraftReportAlternative] = Field(
+        None,
+        description=(
+            "Highest-VORP player still available at the moment of this pick "
+            "(per the recorded pick sequence). None if nobody else with a "
+            "VORP was available."
+        ),
+    )
+    vorp_delta: Optional[float] = Field(
+        None,
+        description="This pick's vorp - best_alternative's vorp.",
+    )
+
+
+class MockDraftReportSummary(BaseModel):
+    """Whole-draft summary for the user's roster."""
+
+    total_projected: float
+    total_vorp: float
+    floor_sum: Optional[float] = None
+    ceiling_sum: Optional[float] = None
+    letter_grade: str = Field(
+        ..., description="Reuses src.draft_optimizer._pick_grade -- single source of truth"
+    )
+    grade_notes: List[str] = Field(default_factory=list)
+
+
+class MockDraftReportResponse(BaseModel):
+    """Response for GET /api/draft/mock/report."""
+
+    session_id: str
+    picks: List[MockDraftReportPick]
+    summary: MockDraftReportSummary
+
+
+class DraftUndoRequest(BaseModel):
+    """Request to undo the most recent pick on a manual board session."""
+
+    session_id: str
+
+
+class DraftUndoResponse(BaseModel):
+    """Response after undoing a manual-board pick."""
+
+    success: bool
+    player: Optional[DraftPlayer] = None
+    message: str = ""
+
+
+class MockDraftUndoRequest(BaseModel):
+    """Request to undo back to before the user's most recent mock-draft pick."""
+
+    session_id: str
+
+
+class MockDraftUndoResponse(BaseModel):
+    """Response after undoing a mock-draft pick.
+
+    Reverts the user's last pick AND every bot pick made after it, putting
+    the user back on the clock at ``pick_number``.
+    """
+
+    success: bool
+    pick_number: int = Field(..., description="Picks remaining on the board after undo")
+    message: str = ""
 
 
 # ---------------------------------------------------------------------------

@@ -16,7 +16,7 @@ that case.
 from __future__ import annotations
 
 import math
-from typing import Optional
+from typing import Dict, Optional
 
 import numpy as np
 import pandas as pd
@@ -126,4 +126,94 @@ def prob_gone_before_vectorized(
     return p
 
 
-__all__ = ["prob_gone_before", "prob_gone_before_vectorized"]
+# "Cost of waiting" walk stops (inclusive) once a candidate is this likely to
+# survive to the target pick -- lower-VORP candidates beyond it contribute a
+# vanishing amount of expected value, so continuing the walk just wastes
+# cycles for no meaningful precision gain.
+_SURVIVAL_WALK_CAP = 0.98
+
+
+def expected_best_vorp_at_pick(
+    available_df: pd.DataFrame,
+    pick_number: float,
+    vorp_col: str = "vorp",
+    adp_col: str = "adp_rank",
+    stdev_col: str = "adp_stdev",
+) -> Dict[str, float]:
+    """Expected VORP of the best player still available at ``pick_number``,
+    per position -- the "cost of waiting" signal.
+
+    Walks each position's candidate pool in VORP-descending order and asks:
+    what is the probability THIS candidate is the best one still on the
+    board when the user is next on the clock? That requires the candidate
+    itself to survive to ``pick_number`` *and* every higher-VORP candidate
+    to already be gone::
+
+        P(candidate i is best available) = P(i survives) * PI_{j better than i} P(j gone)
+        E[position] = sum_i P(candidate i is best available) * vorp_i
+
+    The walk stops (inclusive of the candidate that triggers it) at the
+    first candidate whose survival probability is already
+    >= :data:`_SURVIVAL_WALK_CAP` -- see module docstring.
+
+    NaN-safe: players missing ``vorp_col`` or ``adp_col`` are excluded from
+    the walk for that position (no ADP means no availability model to run).
+
+    Args:
+        available_df: Board's available-player pool (needs a ``position``
+            column plus ``vorp_col``/``adp_col``/optionally ``stdev_col``).
+        pick_number: The overall pick number to evaluate availability at.
+        vorp_col: Column holding VORP.
+        adp_col: Column holding each player's ADP rank.
+        stdev_col: Column holding each player's ADP stdev; missing/
+            non-positive values fall back per :func:`prob_gone_before`.
+
+    Returns:
+        Dict mapping position -> expected VORP of the best player still
+        available at ``pick_number``. Positions with no vorp/adp-eligible
+        candidates are omitted (never a fabricated 0.0).
+    """
+    result: Dict[str, float] = {}
+    if available_df.empty or "position" not in available_df.columns:
+        return result
+    if vorp_col not in available_df.columns or adp_col not in available_df.columns:
+        return result
+
+    has_stdev = stdev_col in available_df.columns
+
+    for position, group in available_df.groupby("position"):
+        candidates = group.copy()
+        candidates[vorp_col] = pd.to_numeric(candidates[vorp_col], errors="coerce")
+        candidates[adp_col] = pd.to_numeric(candidates[adp_col], errors="coerce")
+        candidates = candidates.dropna(subset=[vorp_col, adp_col])
+        if candidates.empty:
+            continue
+        candidates = candidates.sort_values(vorp_col, ascending=False)
+
+        expected = 0.0
+        prob_all_better_gone = 1.0
+        for _, row in candidates.iterrows():
+            adp = float(row[adp_col])
+            stdev = (
+                float(row[stdev_col])
+                if has_stdev and pd.notna(row.get(stdev_col))
+                else None
+            )
+            gone_prob = prob_gone_before(pick_number, adp, stdev)
+            survive_prob = 1.0 - gone_prob
+            p_is_best = survive_prob * prob_all_better_gone
+            expected += p_is_best * float(row[vorp_col])
+            if survive_prob >= _SURVIVAL_WALK_CAP:
+                break
+            prob_all_better_gone *= gone_prob
+
+        result[str(position)] = expected
+
+    return result
+
+
+__all__ = [
+    "prob_gone_before",
+    "prob_gone_before_vectorized",
+    "expected_best_vorp_at_pick",
+]
