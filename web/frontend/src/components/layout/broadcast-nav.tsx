@@ -23,12 +23,12 @@ import { cn } from '@/lib/utils';
  */
 
 const PRIMARY = [
-  { label: 'News', href: '/dashboard/news' },
+  { label: 'Draft Room', href: '/dashboard/draft' },
   { label: 'Rankings', href: '/dashboard/rankings' },
   { label: 'Scores', href: '/dashboard/predictions' },
+  { label: 'News', href: '/dashboard/news' },
   { label: 'Matchups', href: '/dashboard/matchups' },
-  { label: 'My League', href: '/dashboard/leagues' },
-  { label: 'Draft Room', href: '/dashboard/draft' }
+  { label: 'My League', href: '/dashboard/leagues' }
 ] as const;
 
 const MORE = [

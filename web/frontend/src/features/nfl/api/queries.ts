@@ -4,15 +4,12 @@ import {
   fetchAlerts,
   fetchCurrentWeek,
   fetchDraftBoard,
-  fetchDraftIntel,
-  fetchDraftPlatforms,
   fetchLiveDraft,
   fetchDraftRecommendations,
   fetchGameSeasons,
   fetchGames,
   fetchHealth,
   fetchLineup,
-  fetchMockDraftReport,
   fetchNewsFeed,
   fetchPlayer,
   fetchPlayerBadges,
@@ -23,8 +20,6 @@ import {
   fetchProjections,
   fetchSentimentRankings,
   fetchSentimentSummary,
-  fetchSleepers,
-  fetchStackHints,
   fetchTopStories,
   fetchTeamDefenseMetrics,
   fetchTeamEvents,
@@ -60,7 +55,6 @@ export const nflKeys = {
     [...nflKeys.all, 'draft-recs', { sessionId, position }] as const,
   liveDraft: (key: string) => [...nflKeys.all, 'live-draft', key] as const,
   adp: () => [...nflKeys.all, 'adp'] as const,
-  draftPlatforms: () => [...nflKeys.all, 'draft-platforms'] as const,
   currentWeek: () => [...nflKeys.all, 'current-week'] as const,
   teamRoster: (team: string, season: number, week: number, side: string) =>
     [...nflKeys.all, 'team-roster', { team, season, week, side }] as const,
@@ -87,14 +81,7 @@ export const nflKeys = {
     ] as const,
   games: (season: number, week: number) =>
     [...nflKeys.all, 'games', { season, week }] as const,
-  gameSeasons: () => [...nflKeys.all, 'game-seasons'] as const,
-  mockDraftReport: (sessionId: string) =>
-    [...nflKeys.all, 'mock-draft-report', sessionId] as const,
-  stackHints: (sessionId: string, rosterSignature: string) =>
-    [...nflKeys.all, 'stack-hints', { sessionId, rosterSignature }] as const,
-  sleepers: (sessionId: string, limit: number) =>
-    [...nflKeys.all, 'sleepers', { sessionId, limit }] as const,
-  draftIntel: (leagueId: string) => [...nflKeys.all, 'draft-intel', leagueId] as const
+  gameSeasons: () => [...nflKeys.all, 'game-seasons'] as const
 };
 
 export const projectionsQueryOptions = (
@@ -241,13 +228,11 @@ export const draftBoardQueryOptions = (
   rosterFormat: string = 'standard',
   nTeams: number = 12,
   season: number = 2026,
-  sessionId?: string,
-  adpSource?: string,
-  strategy?: string
+  sessionId?: string
 ) =>
   queryOptions({
     queryKey: nflKeys.draftBoard(sessionId),
-    queryFn: () => fetchDraftBoard(scoring, rosterFormat, nTeams, season, sessionId, adpSource, strategy),
+    queryFn: () => fetchDraftBoard(scoring, rosterFormat, nTeams, season, sessionId),
     staleTime: Infinity
   });
 
@@ -297,20 +282,6 @@ export const adpQueryOptions = () =>
     queryKey: nflKeys.adp(),
     queryFn: () => fetchAdp(),
     staleTime: 60 * 60 * 1000
-  });
-
-/**
- * Per-platform draft-room presets. Backed by a parallel backend lane
- * (currently 404s) — `retry: false` so a 404 resolves to an error fast and
- * callers (`usePlatformPresets`) fall back to hardcoded defaults instead of
- * retrying a route that doesn't exist yet.
- */
-export const draftPlatformsQueryOptions = () =>
-  queryOptions({
-    queryKey: nflKeys.draftPlatforms(),
-    queryFn: () => fetchDraftPlatforms(),
-    staleTime: 60 * 60 * 1000,
-    retry: false
   });
 
 // ---------------------------------------------------------------------------
@@ -464,49 +435,4 @@ export const gameSeasonsQueryOptions = () =>
     queryKey: nflKeys.gameSeasons(),
     queryFn: () => fetchGameSeasons(),
     staleTime: 24 * 60 * 60 * 1000
-  });
-
-// ---------------------------------------------------------------------------
-// Post-draft report / stack hints / sleepers / draft intel
-// ---------------------------------------------------------------------------
-
-/** Post-draft report card for a mock session. Disabled until `enabled` (e.g. draft complete). */
-export const mockDraftReportQueryOptions = (sessionId: string, enabled: boolean) =>
-  queryOptions({
-    queryKey: nflKeys.mockDraftReport(sessionId),
-    queryFn: () => fetchMockDraftReport(sessionId),
-    enabled: !!sessionId && enabled,
-    retry: false
-  });
-
-/**
- * Stack/overlap hints against the user's current roster. `rosterSignature`
- * (e.g. a join of rostered player_ids) forces a refetch whenever the roster
- * changes, since the endpoint only takes a session_id. A parallel backend
- * lane that may 404 — `retry: false` so the UI degrades (hides) fast.
- */
-export const stackHintsQueryOptions = (sessionId: string, rosterSignature: string) =>
-  queryOptions({
-    queryKey: nflKeys.stackHints(sessionId, rosterSignature),
-    queryFn: () => fetchStackHints(sessionId),
-    enabled: !!sessionId,
-    retry: false
-  });
-
-/** Model-vs-ADP sleeper edges. Parallel backend lane that may 404. */
-export const sleepersQueryOptions = (sessionId: string, limit = 20) =>
-  queryOptions({
-    queryKey: nflKeys.sleepers(sessionId, limit),
-    queryFn: () => fetchSleepers(sessionId, limit),
-    enabled: !!sessionId,
-    retry: false
-  });
-
-/** Opponent-history intel for a connected league. Parallel backend lane that may 404. */
-export const draftIntelQueryOptions = (leagueId: string | null) =>
-  queryOptions({
-    queryKey: nflKeys.draftIntel(leagueId ?? ''),
-    queryFn: () => fetchDraftIntel(leagueId as string),
-    enabled: !!leagueId,
-    retry: false
   });

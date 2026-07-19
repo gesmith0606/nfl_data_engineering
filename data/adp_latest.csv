@@ -1,181 +1,501 @@
-adp_rank,player_name,position,team,sleeper_id,age,years_exp,source,scoring_format,adp,stdev,times_drafted,fetched_at,name_key
-1,Jahmyr Gibbs,RB,DET,,,,ffc,half_ppr,1.5,0.6,91.0,2026-07-18T22:47:55.457300+00:00,jahmyr gibbs
-2,Bijan Robinson,RB,ATL,,,,ffc,half_ppr,2.2,0.6,42.0,2026-07-18T22:47:55.457300+00:00,bijan robinson
-3,Puka Nacua,WR,LAR,,,,ffc,half_ppr,2.8,0.5,16.0,2026-07-18T22:47:55.457300+00:00,puka nacua
-4,Ja'Marr Chase,WR,CIN,,,,ffc,half_ppr,4.0,1.0,57.0,2026-07-18T22:47:55.457300+00:00,jamarr chase
-5,Christian McCaffrey,RB,SF,,,,ffc,half_ppr,4.9,1.6,48.0,2026-07-18T22:47:55.457300+00:00,christian mccaffrey
-6,Jonathan Taylor,RB,IND,,,,ffc,half_ppr,6.3,1.3,44.0,2026-07-18T22:47:55.457300+00:00,jonathan taylor
-7,Jaxon Smith-Njigba,WR,SEA,,,,ffc,half_ppr,6.6,1.4,76.0,2026-07-18T22:47:55.457300+00:00,jaxon smithnjigba
-8,Amon-Ra St. Brown,WR,DET,,,,ffc,half_ppr,8.4,1.5,51.0,2026-07-18T22:47:55.457300+00:00,amonra st brown
-9,De'Von Achane,RB,MIA,,,,ffc,half_ppr,9.6,1.0,16.0,2026-07-18T22:47:55.457300+00:00,devon achane
-10,Derrick Henry,RB,BAL,,,,ffc,half_ppr,10.1,1.6,35.0,2026-07-18T22:47:55.457300+00:00,derrick henry
-11,James Cook III,RB,BUF,,,,ffc,half_ppr,10.2,1.6,84.0,2026-07-18T22:47:55.457300+00:00,james cook
-12,CeeDee Lamb,WR,DAL,,,,ffc,half_ppr,12.7,2.0,75.0,2026-07-18T22:47:55.457300+00:00,ceedee lamb
-13,Drake London,WR,ATL,,,,ffc,half_ppr,13.1,2.4,13.0,2026-07-18T22:47:55.457300+00:00,drake london
-14,Justin Jefferson,WR,MIN,,,,ffc,half_ppr,13.8,2.4,70.0,2026-07-18T22:47:55.457300+00:00,justin jefferson
-15,Ashton Jeanty,RB,LV,,,,ffc,half_ppr,14.4,2.9,59.0,2026-07-18T22:47:55.457300+00:00,ashton jeanty
-16,A.J. Brown,WR,NE,,,,ffc,half_ppr,16.2,2.2,34.0,2026-07-18T22:47:55.457300+00:00,aj brown
-17,Saquon Barkley,RB,PHI,,,,ffc,half_ppr,16.7,3.0,95.0,2026-07-18T22:47:55.457300+00:00,saquon barkley
-18,Omarion Hampton,RB,LAC,,,,ffc,half_ppr,17.3,3.2,111.0,2026-07-18T22:47:55.457300+00:00,omarion hampton
-19,George Pickens,WR,DAL,,,,ffc,half_ppr,18.9,1.5,14.0,2026-07-18T22:47:55.457300+00:00,george pickens
-20,Kenneth Walker III,RB,KC,,,,ffc,half_ppr,19.2,2.9,59.0,2026-07-18T22:47:55.457300+00:00,kenneth walker
-21,Chase Brown,RB,CIN,,,,ffc,half_ppr,19.9,2.9,67.0,2026-07-18T22:47:55.457300+00:00,chase brown
-22,Chris Olave,WR,NO,,,,ffc,half_ppr,23.2,2.0,22.0,2026-07-18T22:47:55.457300+00:00,christopher olave
-23,Nico Collins,WR,HOU,,,,ffc,half_ppr,23.3,2.4,60.0,2026-07-18T22:47:55.457300+00:00,nico collins
-24,Tee Higgins,WR,CIN,,,,ffc,half_ppr,23.5,2.0,11.0,2026-07-18T22:47:55.457300+00:00,tee higgins
-25,Josh Jacobs,RB,GB,,,,ffc,half_ppr,25.9,2.9,42.0,2026-07-18T22:47:55.457300+00:00,joshua jacobs
-26,Jeremiyah Love,RB,ARI,,,,ffc,half_ppr,26.5,2.4,40.0,2026-07-18T22:47:55.457300+00:00,jeremiyah love
-27,Zay Flowers,WR,BAL,,,,ffc,half_ppr,26.7,1.7,9.0,2026-07-18T22:47:55.457300+00:00,zay flowers
-28,Rashee Rice,WR,KC,,,,ffc,half_ppr,26.9,3.4,47.0,2026-07-18T22:47:55.457300+00:00,rashee rice
-29,Garrett Wilson,WR,NYJ,,,,ffc,half_ppr,27.0,3.6,14.0,2026-07-18T22:47:55.457300+00:00,garrett wilson
-30,Josh Allen,QB,BUF,,,,ffc,half_ppr,28.2,6.2,76.0,2026-07-18T22:47:55.457300+00:00,joshua allen
-31,DeVonta Smith,WR,PHI,,,,ffc,half_ppr,29.8,3.4,52.0,2026-07-18T22:47:55.457300+00:00,devonta smith
-32,Breece Hall,RB,NYJ,,,,ffc,half_ppr,31.2,3.5,24.0,2026-07-18T22:47:55.457300+00:00,breece hall
-33,Kyren Williams,RB,LAR,,,,ffc,half_ppr,31.7,3.7,84.0,2026-07-18T22:47:55.457300+00:00,kyren williams
-34,Javonte Williams,RB,DAL,,,,ffc,half_ppr,34.1,3.7,54.0,2026-07-18T22:47:55.457300+00:00,javonte williams
-35,Tetairoa McMillan,WR,CAR,,,,ffc,half_ppr,34.6,3.5,52.0,2026-07-18T22:47:55.457300+00:00,tetairoa mcmillan
-36,Trey McBride,TE,ARI,,,,ffc,half_ppr,36.8,6.9,75.0,2026-07-18T22:47:55.457300+00:00,trey mcbride
-37,Terry McLaurin,WR,WAS,,,,ffc,half_ppr,37.0,3.9,43.0,2026-07-18T22:47:55.457300+00:00,terry mclaurin
-38,Cam Skattebo,RB,NYG,,,,ffc,half_ppr,37.1,2.9,36.0,2026-07-18T22:47:55.457300+00:00,cameron skattebo
-39,Ladd McConkey,WR,LAC,,,,ffc,half_ppr,37.9,3.6,74.0,2026-07-18T22:47:55.457300+00:00,ladd mcconkey
-40,Davante Adams,WR,LAR,,,,ffc,half_ppr,38.2,2.8,49.0,2026-07-18T22:47:55.457300+00:00,davante adams
-41,Travis Etienne Jr.,RB,NO,,,,ffc,half_ppr,39.5,3.0,33.0,2026-07-18T22:47:55.457300+00:00,travis etienne
-42,Malik Nabers,WR,NYG,,,,ffc,half_ppr,41.7,5.6,61.0,2026-07-18T22:47:55.457300+00:00,malik nabers
-43,Jameson Williams,WR,DET,,,,ffc,half_ppr,41.8,3.2,10.0,2026-07-18T22:47:55.457300+00:00,jameson williams
-44,Brock Bowers,TE,LV,,,,ffc,half_ppr,42.1,9.6,112.0,2026-07-18T22:47:55.457300+00:00,brock bowers
-45,Jaylen Waddle,WR,DEN,,,,ffc,half_ppr,42.9,4.5,38.0,2026-07-18T22:47:55.457300+00:00,jaylen waddle
-46,Joe Burrow,QB,CIN,,,,ffc,half_ppr,44.2,9.6,26.0,2026-07-18T22:47:55.457300+00:00,joseph burrow
-47,D'Andre Swift,RB,CHI,,,,ffc,half_ppr,45.5,5.4,21.0,2026-07-18T22:47:55.457300+00:00,dandre swift
-48,Emeka Egbuka,WR,TB,,,,ffc,half_ppr,46.0,5.1,112.0,2026-07-18T22:47:55.457300+00:00,emeka egbuka
-49,Luther Burden III,WR,CHI,,,,ffc,half_ppr,46.1,3.7,15.0,2026-07-18T22:47:55.457300+00:00,luther burden
-50,Bucky Irving,RB,TB,,,,ffc,half_ppr,46.7,4.6,27.0,2026-07-18T22:47:55.457300+00:00,bucky irving
-51,Quinshon Judkins,RB,CLE,,,,ffc,half_ppr,49.6,5.8,52.0,2026-07-18T22:47:55.457300+00:00,quinshon judkins
-52,Mike Evans,WR,SF,,,,ffc,half_ppr,50.0,4.8,50.0,2026-07-18T22:47:55.457300+00:00,michael evans
-53,Rome Odunze,WR,CHI,,,,ffc,half_ppr,53.4,4.3,27.0,2026-07-18T22:47:55.457300+00:00,rome odunze
-54,Colston Loveland,TE,CHI,,,,ffc,half_ppr,55.6,5.3,18.0,2026-07-18T22:47:55.457300+00:00,colston loveland
-55,Lamar Jackson,QB,BAL,,,,ffc,half_ppr,56.3,8.4,32.0,2026-07-18T22:47:55.457300+00:00,lamar jackson
-56,David Montgomery,RB,HOU,,,,ffc,half_ppr,56.3,4.5,77.0,2026-07-18T22:47:55.457300+00:00,david montgomery
-57,DK Metcalf,WR,PIT,,,,ffc,half_ppr,58.1,5.1,24.0,2026-07-18T22:47:55.457300+00:00,dk metcalf
-58,Bhayshul Tuten,RB,JAX,,,,ffc,half_ppr,58.2,5.1,40.0,2026-07-18T22:47:55.457300+00:00,bhayshul tuten
-59,Alec Pierce,WR,IND,,,,ffc,half_ppr,58.3,5.6,28.0,2026-07-18T22:47:55.457300+00:00,alec pierce
-60,TreVeyon Henderson,RB,NE,,,,ffc,half_ppr,59.7,4.0,66.0,2026-07-18T22:47:55.457300+00:00,treveyon henderson
-61,Christian Watson,WR,GB,,,,ffc,half_ppr,59.8,5.3,69.0,2026-07-18T22:47:55.457300+00:00,christian watson
-62,Tyler Warren,TE,IND,,,,ffc,half_ppr,61.7,6.4,64.0,2026-07-18T22:47:55.457300+00:00,tyler warren
-63,Dak Prescott,QB,DAL,,,,ffc,half_ppr,61.8,3.0,18.0,2026-07-18T22:47:55.457300+00:00,dak prescott
-64,Carnell Tate,WR,TEN,,,,ffc,half_ppr,62.6,5.7,44.0,2026-07-18T22:47:55.457300+00:00,carnell tate
-65,Drake Maye,QB,NE,,,,ffc,half_ppr,62.8,7.3,34.0,2026-07-18T22:47:55.457300+00:00,drake maye
-66,Marvin Harrison Jr.,WR,ARI,,,,ffc,half_ppr,63.2,6.5,60.0,2026-07-18T22:47:55.457300+00:00,marvin harrison
-67,DJ Moore,WR,BUF,,,,ffc,half_ppr,64.5,7.0,92.0,2026-07-18T22:47:55.457300+00:00,dj moore
-68,Courtland Sutton,WR,DEN,,,,ffc,half_ppr,67.0,7.0,50.0,2026-07-18T22:47:55.457300+00:00,courtland sutton
-69,Jadarian Price,RB,SEA,,,,ffc,half_ppr,67.9,5.8,56.0,2026-07-18T22:47:55.457300+00:00,jadarian price
-70,Rhamondre Stevenson,RB,NE,,,,ffc,half_ppr,71.8,7.4,24.0,2026-07-18T22:47:55.457300+00:00,rhamondre stevenson
-71,Parker Washington,WR,JAX,,,,ffc,half_ppr,73.4,6.8,24.0,2026-07-18T22:47:55.457300+00:00,parker washington
-72,Tony Pollard,RB,TEN,,,,ffc,half_ppr,74.4,6.8,23.0,2026-07-18T22:47:55.457300+00:00,anthony pollard
-73,Patrick Mahomes,QB,KC,,,,ffc,half_ppr,74.7,9.1,18.0,2026-07-18T22:47:55.457300+00:00,patrick mahomes
-74,Brian Thomas Jr.,WR,JAX,,,,ffc,half_ppr,75.3,6.6,99.0,2026-07-18T22:47:55.457300+00:00,brian thomas
-75,Tucker Kraft,TE,GB,,,,ffc,half_ppr,77.2,8.2,36.0,2026-07-18T22:47:55.457300+00:00,tucker kraft
-76,Justin Herbert,QB,LAC,,,,ffc,half_ppr,78.0,6.2,24.0,2026-07-18T22:47:55.457300+00:00,justin herbert
-77,Michael Wilson,WR,ARI,,,,ffc,half_ppr,78.7,9.6,30.0,2026-07-18T22:47:55.457300+00:00,michael wilson
-78,Rico Dowdle,RB,PIT,,,,ffc,half_ppr,79.2,6.9,39.0,2026-07-18T22:47:55.457300+00:00,rico dowdle
-79,Michael Pittman Jr.,WR,PIT,,,,ffc,half_ppr,79.5,5.8,47.0,2026-07-18T22:47:55.457300+00:00,michael pittman
-80,Sam LaPorta,TE,DET,,,,ffc,half_ppr,79.8,8.7,15.0,2026-07-18T22:47:55.457300+00:00,samuel laporta
-81,Harold Fannin Jr.,TE,CLE,,,,ffc,half_ppr,80.2,8.4,17.0,2026-07-18T22:47:55.457300+00:00,harold fannin
-82,Jordyn Tyson,WR,NO,,,,ffc,half_ppr,80.8,11.0,20.0,2026-07-18T22:47:55.457300+00:00,jordyn tyson
-83,Chuba Hubbard,RB,CAR,,,,ffc,half_ppr,82.5,6.5,43.0,2026-07-18T22:47:55.457300+00:00,chuba hubbard
-84,Jayden Reed,WR,GB,,,,ffc,half_ppr,82.7,7.2,20.0,2026-07-18T22:47:55.457300+00:00,jayden reed
-85,Chris Godwin Jr.,WR,TB,,,,ffc,half_ppr,82.7,6.6,42.0,2026-07-18T22:47:55.457300+00:00,christopher godwin
-86,Jayden Daniels,QB,WAS,,,,ffc,half_ppr,83.3,8.4,51.0,2026-07-18T22:47:55.457300+00:00,jayden daniels
-87,J.K. Dobbins,RB,DEN,,,,ffc,half_ppr,84.8,8.6,55.0,2026-07-18T22:47:55.457300+00:00,jk dobbins
-88,Trevor Lawrence,QB,JAX,,,,ffc,half_ppr,86.8,9.9,16.0,2026-07-18T22:47:55.457300+00:00,trevor lawrence
-89,Josh Downs,WR,IND,,,,ffc,half_ppr,87.3,8.9,19.0,2026-07-18T22:47:55.457300+00:00,joshua downs
-90,Jordan Addison,WR,MIN,,,,ffc,half_ppr,87.8,4.9,15.0,2026-07-18T22:47:55.457300+00:00,jordan addison
-91,Quentin Johnston,WR,LAC,,,,ffc,half_ppr,91.3,9.2,41.0,2026-07-18T22:47:55.457300+00:00,quentin johnston
-92,Xavier Worthy,WR,KC,,,,ffc,half_ppr,91.7,5.6,22.0,2026-07-18T22:47:55.457300+00:00,xavier worthy
-93,Seattle Defense,DST,SEA,,,,ffc,half_ppr,92.3,7.0,12.0,2026-07-18T22:47:55.457300+00:00,seattle defense
-94,Jared Goff,QB,DET,,,,ffc,half_ppr,92.8,14.3,13.0,2026-07-18T22:47:55.457300+00:00,jared goff
-95,Kyle Pitts Sr.,TE,ATL,,,,ffc,half_ppr,94.2,13.4,41.0,2026-07-18T22:47:55.457300+00:00,kyle pitts
-96,RJ Harvey,RB,DEN,,,,ffc,half_ppr,94.3,9.2,44.0,2026-07-18T22:47:55.457300+00:00,rj harvey
-97,Aaron Jones Sr.,RB,MIN,,,,ffc,half_ppr,95.7,9.7,13.0,2026-07-18T22:47:55.457300+00:00,aaron jones
-98,Jalen Hurts,QB,PHI,,,,ffc,half_ppr,97.2,12.2,90.0,2026-07-18T22:47:55.457300+00:00,jalen hurts
-99,Ricky Pearsall,WR,SF,,,,ffc,half_ppr,97.3,8.7,55.0,2026-07-18T22:47:55.457300+00:00,ricky pearsall
-100,Denver Defense,DST,DEN,,,,ffc,half_ppr,98.7,7.5,22.0,2026-07-18T22:47:55.457300+00:00,denver defense
-101,Romeo Doubs,WR,NE,,,,ffc,half_ppr,99.5,6.4,14.0,2026-07-18T22:47:55.457300+00:00,romeo doubs
-102,Kyle Monangai,RB,CHI,,,,ffc,half_ppr,99.6,11.1,51.0,2026-07-18T22:47:55.457300+00:00,kyle monangai
-103,Jakobi Meyers,WR,JAX,,,,ffc,half_ppr,99.9,6.5,13.0,2026-07-18T22:47:55.457300+00:00,jakobi meyers
-104,Wan'Dale Robinson,WR,TEN,,,,ffc,half_ppr,101.6,9.0,18.0,2026-07-18T22:47:55.457300+00:00,wandale robinson
-105,Khalil Shakir,WR,BUF,,,,ffc,half_ppr,102.8,8.2,13.0,2026-07-18T22:47:55.457300+00:00,khalil shakir
-106,Makai Lemon,WR,PHI,,,,ffc,half_ppr,103.1,8.1,57.0,2026-07-18T22:47:55.457300+00:00,makai lemon
-107,LA Rams Defense,DST,LAR,,,,ffc,half_ppr,104.4,8.2,36.0,2026-07-18T22:47:55.457300+00:00,la rams defense
-108,Matthew Stafford,QB,LAR,,,,ffc,half_ppr,104.8,14.5,52.0,2026-07-18T22:47:55.457300+00:00,matthew stafford
-109,Kenny Gainwell,RB,TB,,,,ffc,half_ppr,106.1,13.8,45.0,2026-07-18T22:47:55.457300+00:00,kenneth gainwell
-110,Rachaad White,RB,WAS,,,,ffc,half_ppr,106.7,11.5,40.0,2026-07-18T22:47:55.457300+00:00,rachaad white
-111,Brock Purdy,QB,SF,,,,ffc,half_ppr,107.2,12.4,25.0,2026-07-18T22:47:55.457300+00:00,brock purdy
-112,Caleb Williams,QB,CHI,,,,ffc,half_ppr,107.8,11.4,51.0,2026-07-18T22:47:55.457300+00:00,caleb williams
-113,George Kittle,TE,SF,,,,ffc,half_ppr,108.1,21.7,47.0,2026-07-18T22:47:55.457300+00:00,george kittle
-114,Houston Defense,DST,HOU,,,,ffc,half_ppr,109.6,7.1,24.0,2026-07-18T22:47:55.457300+00:00,houston defense
-115,Jalen Coker,WR,CAR,,,,ffc,half_ppr,110.0,5.0,10.0,2026-07-18T22:47:55.457300+00:00,jalen coker
-116,Matthew Golden,WR,GB,,,,ffc,half_ppr,111.7,8.0,19.0,2026-07-18T22:47:55.457300+00:00,matthew golden
-117,New England Defense,DST,NE,,,,ffc,half_ppr,112.0,9.9,8.0,2026-07-18T22:47:55.457300+00:00,new england defense
-118,Jayden Higgins,WR,HOU,,,,ffc,half_ppr,112.1,6.0,15.0,2026-07-18T22:47:55.457300+00:00,jayden higgins
-119,Travis Kelce,TE,KC,,,,ffc,half_ppr,112.8,20.0,12.0,2026-07-18T22:47:55.457300+00:00,travis kelce
-120,KC Concepcion,WR,CLE,,,,ffc,half_ppr,114.2,7.0,35.0,2026-07-18T22:47:55.457300+00:00,kc concepcion
-121,Blake Corum,RB,LAR,,,,ffc,half_ppr,115.9,15.1,66.0,2026-07-18T22:47:55.457300+00:00,blake corum
-122,Jacory Croskey-Merritt,RB,WAS,,,,ffc,half_ppr,120.5,13.4,26.0,2026-07-18T22:47:55.457300+00:00,jacory croskeymerritt
-123,Jordan Mason,RB,MIN,,,,ffc,half_ppr,121.7,13.7,33.0,2026-07-18T22:47:55.457300+00:00,jordan mason
-124,Mark Andrews,TE,BAL,,,,ffc,half_ppr,122.0,18.7,41.0,2026-07-18T22:47:55.457300+00:00,mark andrews
-125,Bo Nix,QB,DEN,,,,ffc,half_ppr,122.9,11.2,54.0,2026-07-18T22:47:55.457300+00:00,bo nix
-126,Philadelphia Defense,DST,PHI,,,,ffc,half_ppr,124.2,10.9,20.0,2026-07-18T22:47:55.457300+00:00,philadelphia defense
-127,Brandon Aubrey,K,DAL,,,,ffc,half_ppr,125.3,22.5,95.0,2026-07-18T22:47:55.457300+00:00,brandon aubrey
-128,Rashid Shaheed,WR,SEA,,,,ffc,half_ppr,126.9,6.8,51.0,2026-07-18T22:47:55.457300+00:00,rashid shaheed
-129,Jaxson Dart,QB,NYG,,,,ffc,half_ppr,127.4,9.1,27.0,2026-07-18T22:47:55.457300+00:00,jaxson dart
-130,Brandon Aiyuk,WR,SF,,,,ffc,half_ppr,128.0,18.4,5.0,2026-07-18T22:47:55.457300+00:00,brandon aiyuk
-131,Jake Ferguson,TE,DAL,,,,ffc,half_ppr,128.4,17.5,20.0,2026-07-18T22:47:55.457300+00:00,jacob ferguson
-132,Jauan Jennings,WR,MIN,,,,ffc,half_ppr,129.0,6.1,17.0,2026-07-18T22:47:55.457300+00:00,jauan jennings
-133,Jonathon Brooks,RB,CAR,,,,ffc,half_ppr,129.6,15.4,83.0,2026-07-18T22:47:55.457300+00:00,jonathon brooks
-134,Antonio Williams,WR,WAS,,,,ffc,half_ppr,130.4,8.7,5.0,2026-07-18T22:47:55.457300+00:00,antonio williams
-135,Dallas Goedert,TE,PHI,,,,ffc,half_ppr,130.7,17.0,33.0,2026-07-18T22:47:55.457300+00:00,dallas goedert
-136,Jacksonville Defense,DST,JAX,,,,ffc,half_ppr,131.2,8.8,8.0,2026-07-18T22:47:55.457300+00:00,jacksonville defense
-137,Baker Mayfield,QB,TB,,,,ffc,half_ppr,131.4,13.5,20.0,2026-07-18T22:47:55.457300+00:00,baker mayfield
-138,Woody Marks,RB,HOU,,,,ffc,half_ppr,132.2,14.3,5.0,2026-07-18T22:47:55.457300+00:00,woody marks
-139,Tre Tucker,WR,LV,,,,ffc,half_ppr,133.9,6.4,18.0,2026-07-18T22:47:55.457300+00:00,tre tucker
-140,Denzel Boston,WR,CLE,,,,ffc,half_ppr,134.0,6.6,30.0,2026-07-18T22:47:55.457300+00:00,denzel boston
-141,Cameron Dicker,K,LAC,,,,ffc,half_ppr,134.5,18.0,8.0,2026-07-18T22:47:55.457300+00:00,cameron dicker
-142,Jordan Love,QB,GB,,,,ffc,half_ppr,135.2,4.3,14.0,2026-07-18T22:47:55.457300+00:00,jordan love
-143,Omar Cooper Jr.,WR,NYJ,,,,ffc,half_ppr,136.1,9.5,21.0,2026-07-18T22:47:55.457300+00:00,omar cooper
-144,Jalen McMillan,WR,TB,,,,ffc,half_ppr,136.4,6.5,11.0,2026-07-18T22:47:55.457300+00:00,jalen mcmillan
-145,Jerry Jeudy,WR,CLE,,,,ffc,half_ppr,138.1,7.8,9.0,2026-07-18T22:47:55.457300+00:00,jerry jeudy
-146,Jalen Nailor,WR,LV,,,,ffc,half_ppr,139.7,2.1,7.0,2026-07-18T22:47:55.457300+00:00,jalen nailor
-147,Isiah Pacheco,RB,DET,,,,ffc,half_ppr,141.4,20.0,18.0,2026-07-18T22:47:55.457300+00:00,isiah pacheco
-148,Detroit Defense,DST,DET,,,,ffc,half_ppr,142.0,18.2,12.0,2026-07-18T22:47:55.457300+00:00,detroit defense
-149,Jason Myers,K,SEA,,,,ffc,half_ppr,142.6,23.7,7.0,2026-07-18T22:47:55.457300+00:00,jason myers
-150,Dalton Kincaid,TE,BUF,,,,ffc,half_ppr,142.6,25.7,7.0,2026-07-18T22:47:55.457300+00:00,dalton kincaid
-151,Minnesota Defense,DST,MIN,,,,ffc,half_ppr,142.9,18.3,11.0,2026-07-18T22:47:55.457300+00:00,minnesota defense
-152,Tyjae Spears,RB,TEN,,,,ffc,half_ppr,143.6,5.1,12.0,2026-07-18T22:47:55.457300+00:00,tyjae spears
-153,Tyler Loop,K,BAL,,,,ffc,half_ppr,145.2,14.6,13.0,2026-07-18T22:47:55.457300+00:00,tyler loop
-154,Adonai Mitchell,WR,NYJ,,,,ffc,half_ppr,146.7,10.3,6.0,2026-07-18T22:47:55.457300+00:00,adonai mitchell
-155,Ka'imi Fairbairn,K,HOU,,,,ffc,half_ppr,147.5,14.1,6.0,2026-07-18T22:47:55.457300+00:00,kaimi fairbairn
-156,Rashod Bateman,WR,BAL,,,,ffc,half_ppr,148.0,6.9,5.0,2026-07-18T22:47:55.457300+00:00,rashod bateman
-157,Cairo Santos,K,CHI,,,,ffc,half_ppr,148.2,10.6,11.0,2026-07-18T22:47:55.457300+00:00,cairo santos
-158,Sam Darnold,QB,SEA,,,,ffc,half_ppr,148.2,11.9,15.0,2026-07-18T22:47:55.457300+00:00,samuel darnold
-159,Chris Rodriguez Jr.,RB,JAX,,,,ffc,half_ppr,148.6,8.2,18.0,2026-07-18T22:47:55.457300+00:00,christopher rodriguez
-160,Kyler Murray,QB,MIN,,,,ffc,half_ppr,149.6,19.6,22.0,2026-07-18T22:47:55.457300+00:00,kyler murray
-161,Jake Bates,K,DET,,,,ffc,half_ppr,149.8,13.4,10.0,2026-07-18T22:47:55.457300+00:00,jacob bates
-162,Isaiah Likely,TE,NYG,,,,ffc,half_ppr,150.7,18.8,34.0,2026-07-18T22:47:55.457300+00:00,isaiah likely
-163,Zach Charbonnet,RB,SEA,,,,ffc,half_ppr,150.7,21.5,27.0,2026-07-18T22:47:55.457300+00:00,zachary charbonnet
-164,Hunter Henry,TE,NE,,,,ffc,half_ppr,150.8,17.2,5.0,2026-07-18T22:47:55.457300+00:00,hunter henry
-165,Baltimore Defense,DST,BAL,,,,ffc,half_ppr,152.9,20.1,28.0,2026-07-18T22:47:55.457300+00:00,baltimore defense
-166,Buffalo Defense,DST,BUF,,,,ffc,half_ppr,154.1,16.4,17.0,2026-07-18T22:47:55.457300+00:00,buffalo defense
-167,Cam Little,K,JAX,,,,ffc,half_ppr,154.6,19.5,12.0,2026-07-18T22:47:55.457300+00:00,cameron little
-168,Pittsburgh Defense,DST,PIT,,,,ffc,half_ppr,155.8,18.0,15.0,2026-07-18T22:47:55.457300+00:00,pittsburgh defense
-169,Tyler Bass,K,BUF,,,,ffc,half_ppr,155.8,23.4,5.0,2026-07-18T22:47:55.457300+00:00,tyler bass
-170,Malik Washington,WR,MIA,,,,ffc,half_ppr,159.8,18.2,5.0,2026-07-18T22:47:55.457300+00:00,malik washington
-171,LA Chargers Defense,DST,LAC,,,,ffc,half_ppr,161.3,13.7,35.0,2026-07-18T22:47:55.457300+00:00,la chargers defense
-172,Washington Defense,DST,WAS,,,,ffc,half_ppr,162.2,17.0,12.0,2026-07-18T22:47:55.457300+00:00,washington defense
-173,Chase McLaughlin,K,TB,,,,ffc,half_ppr,162.5,24.2,6.0,2026-07-18T22:47:55.457300+00:00,chase mclaughlin
-174,Chris Boswell,K,PIT,,,,ffc,half_ppr,164.9,22.6,7.0,2026-07-18T22:47:55.457300+00:00,christopher boswell
-175,Evan McPherson,K,CIN,,,,ffc,half_ppr,166.3,18.8,6.0,2026-07-18T22:47:55.457300+00:00,evan mcpherson
-176,Travis Hunter,WR,JAX,,,,ffc,half_ppr,167.0,12.0,6.0,2026-07-18T22:47:55.457300+00:00,travis hunter
-177,Harrison Butker,K,KC,,,,ffc,half_ppr,169.4,10.2,7.0,2026-07-18T22:47:55.457300+00:00,harrison butker
-178,Wil Lutz,K,DEN,,,,ffc,half_ppr,171.8,13.9,8.0,2026-07-18T22:47:55.457300+00:00,wil lutz
-179,NY Jets Defense,DST,NYJ,,,,ffc,half_ppr,177.6,25.3,5.0,2026-07-18T22:47:55.457300+00:00,ny jets defense
-180,Atlanta Defense,DST,ATL,,,,ffc,half_ppr,183.8,10.4,5.0,2026-07-18T22:47:55.457300+00:00,atlanta defense
+adp_rank,player_name,position,team,sleeper_id,age,years_exp
+1,Josh Allen,QB,BUF,4984,30.0,8
+2,Bijan Robinson,RB,ATL,9509,24.0,3
+3,Jahmyr Gibbs,RB,DET,9221,24.0,3
+4,Drake Maye,QB,NE,11564,23.0,2
+5,Ja'Marr Chase,WR,CIN,7564,26.0,5
+6,Jonathan Taylor,RB,IND,6813,27.0,6
+7,Christian McCaffrey,RB,SF,4034,30.0,9
+8,James Cook,RB,BUF,8138,26.0,4
+9,Puka Nacua,WR,LAR,9493,25.0,3
+10,Jaxon Smith-Njigba,WR,SEA,9488,24.0,3
+11,Kenneth Walker,RB,KC,8151,25.0,4
+12,Jayden Daniels,QB,WAS,11566,25.0,2
+13,De'Von Achane,RB,MIA,9226,24.0,3
+14,CeeDee Lamb,WR,DAL,6786,27.0,6
+15,Joe Burrow,QB,CIN,6770,29.0,6
+16,Amon-Ra St. Brown,WR,DET,7547,26.0,5
+17,Justin Jefferson,WR,MIN,6794,27.0,6
+18,Ashton Jeanty,RB,LV,12527,22.0,1
+19,Omarion Hampton,RB,LAC,12507,23.0,1
+20,Lamar Jackson,QB,BAL,4881,29.0,8
+21,Saquon Barkley,RB,PHI,4866,29.0,8
+22,Drake London,WR,ATL,8112,24.0,4
+23,Jeremiyah Love,RB,ARI,13287,21.0,0
+24,Caleb Williams,QB,CHI,11560,24.0,2
+25,Chase Brown,RB,CIN,9224,26.0,3
+26,Trey McBride,TE,ARI,8130,26.0,4
+27,Malik Nabers,WR,NYG,11632,22.0,2
+28,Josh Jacobs,RB,GB,5850,28.0,7
+29,A.J. Brown,WR,NE,5859,29.0,7
+30,Nico Collins,WR,HOU,7569,27.0,5
+31,Brock Bowers,TE,LV,11604,23.0,2
+32,Bucky Irving,RB,TB,11584,23.0,2
+33,George Pickens,WR,DAL,8137,25.0,4
+34,Jaxson Dart,QB,NYG,12508,23.0,1
+35,Derrick Henry,RB,BAL,3198,32.0,10
+36,Justin Herbert,QB,LAC,6797,28.0,6
+37,Chris Olave,WR,NO,8144,26.0,4
+38,Patrick Mahomes,QB,KC,4046,30.0,9
+39,Kyren Williams,RB,LAR,8150,25.0,4
+40,Jalen Hurts,QB,PHI,6904,27.0,6
+41,Breece Hall,RB,NYJ,8155,25.0,4
+42,Todd Gurley,RB,,2315,27.0,7
+43,Travis Etienne,RB,NO,7543,27.0,5
+44,Trevor Lawrence,QB,JAX,7523,26.0,5
+45,Javonte Williams,RB,DAL,7588,26.0,5
+46,Rashee Rice,WR,KC,10229,26.0,3
+47,Bo Nix,QB,DEN,11563,26.0,2
+48,Tee Higgins,WR,CIN,6801,27.0,6
+49,DeVonta Smith,WR,PHI,7525,27.0,5
+50,Brock Purdy,QB,SF,8183,26.0,4
+51,TreVeyon Henderson,RB,NE,12529,23.0,1
+52,Tetairoa McMillan,WR,CAR,12526,23.0,1
+53,Garrett Wilson,WR,NYJ,8146,25.0,4
+54,Fernando Mendoza,QB,LV,13269,22.0,0
+55,RJ Harvey,RB,DEN,12489,25.0,1
+56,Luther Burden,WR,CHI,12519,22.0,1
+57,Ladd McConkey,WR,LAC,11635,24.0,2
+58,Cam Skattebo,RB,NYG,12481,24.0,1
+59,Jaylen Waddle,WR,DEN,7526,27.0,5
+60,Emeka Egbuka,WR,TB,12514,23.0,1
+61,Bhayshul Tuten,RB,JAX,12490,23.0,1
+62,Bryce Ford-Wheaton,WR,,9499,26.0,3
+63,Dak Prescott,QB,DAL,3294,32.0,10
+64,Quinshon Judkins,RB,CLE,12512,22.0,1
+65,Davante Adams,WR,LAR,2133,33.0,12
+66,D'Andre Swift,RB,CHI,6790,27.0,6
+67,Mike Evans,WR,SF,2216,32.0,12
+68,Rome Odunze,WR,CHI,11620,24.0,2
+69,David Montgomery,RB,HOU,5892,29.0,7
+70,Colston Loveland,TE,CHI,12517,22.0,1
+71,Zay Flowers,WR,BAL,9997,25.0,3
+72,Jordan Love,QB,GB,6804,27.0,6
+73,Jaylen Warren,RB,PIT,8228,27.0,4
+74,Jameson Williams,WR,DET,8148,25.0,4
+75,Terry McLaurin,WR,WAS,5927,30.0,7
+76,Tyler Warren,TE,IND,12518,24.0,1
+77,Rhamondre Stevenson,RB,NE,7611,28.0,5
+78,DJ Moore,WR,BUF,4983,29.0,8
+79,Carnell Tate,WR,TEN,13279,21.0,0
+80,Kyle Monangai,RB,CHI,12534,24.0,1
+81,Jadarian Price,RB,SEA,13286,22.0,0
+82,Tony Pollard,RB,TEN,5967,29.0,7
+83,Tucker Kraft,TE,GB,9484,25.0,3
+84,Christian Watson,WR,GB,8167,27.0,4
+85,Harold Fannin,TE,CLE,12506,21.0,1
+86,Baker Mayfield,QB,TB,4892,31.0,8
+87,Rico Dowdle,RB,PIT,7021,28.0,6
+88,Jordyn Tyson,WR,NO,13281,21.0,0
+89,Chuba Hubbard,RB,CAR,7594,27.0,5
+90,Jared Goff,QB,DET,3163,31.0,10
+91,Brian Thomas,WR,JAX,11631,23.0,2
+92,Alec Pierce,WR,IND,8142,26.0,4
+93,Blake Corum,RB,LAR,11586,25.0,2
+94,Parker Washington,WR,JAX,9487,24.0,3
+95,Courtland Sutton,WR,DEN,5045,30.0,8
+96,Kyle Pitts,TE,ATL,7553,25.0,5
+97,DK Metcalf,WR,PIT,5846,28.0,7
+98,Tom Brady,QB,,167,45.0,23
+99,J.K. Dobbins,RB,DEN,6806,27.0,6
+100,Cam Ward,QB,TEN,12522,24.0,1
+101,Michael Wilson,WR,ARI,10232,26.0,3
+102,Jakobi Meyers,WR,JAX,5947,29.0,7
+103,Makai Lemon,WR,PHI,13294,22.0,0
+104,Marvin Harrison,WR,ARI,11628,23.0,2
+105,Sam LaPorta,TE,DET,10859,25.0,3
+106,Deebo Samuel,WR,,5872,30.0,7
+107,Brian Robinson,RB,ATL,8154,27.0,4
+108,C.J. Stroud,QB,HOU,9758,24.0,3
+109,Dalton Kincaid,TE,BUF,10236,26.0,3
+110,Tyler Shough,QB,NO,12545,26.0,1
+111,Oronde Gadsden,TE,LAC,12493,23.0,1
+112,George Kittle,TE,SF,4217,32.0,9
+113,Sam Darnold,QB,SEA,4943,29.0,8
+114,Aaron Jones,RB,MIN,4199,31.0,9
+115,Ricky Pearsall,WR,SF,11638,25.0,2
+116,Kenny Gainwell,RB,TB,7567,27.0,5
+117,Chris Godwin,WR,TB,4037,30.0,9
+118,Tyler Allgeier,RB,ARI,8132,26.0,4
+119,Antonio Brown,WR,,536,33.0,12
+120,Kyler Murray,QB,MIN,5849,28.0,7
+121,James Conner,RB,ARI,4137,31.0,9
+122,Hunter Henry,TE,NE,3214,31.0,10
+123,Dallas Goedert,TE,PHI,5022,31.0,8
+124,Jacory Croskey-Merritt,RB,WAS,12533,25.0,1
+125,Mark Andrews,TE,BAL,5012,30.0,8
+126,Jake Ferguson,TE,DAL,8110,27.0,4
+127,Bryce Young,QB,CAR,9228,24.0,3
+128,Michael Pittman,WR,PIT,6819,28.0,6
+129,Dalton Schultz,TE,HOU,5001,29.0,8
+130,Jordan Addison,WR,MIN,9756,24.0,3
+131,Zach Charbonnet,RB,SEA,9753,25.0,3
+132,Wan'Dale Robinson,WR,TEN,8126,25.0,4
+133,Matthew Stafford,QB,LAR,421,38.0,17
+134,Juwan Johnson,TE,NO,7002,29.0,6
+135,Quentin Johnston,WR,LAC,9754,24.0,3
+136,Romeo Doubs,WR,NE,8121,26.0,4
+137,Brenton Strange,TE,JAX,9480,25.0,3
+138,Gus Edwards,RB,,5248,29.0,7
+139,Thomas Odukoya,TE,,8924,28.0,4
+140,Woody Marks,RB,HOU,12474,25.0,1
+141,Travis Kelce,TE,KC,1466,36.0,13
+142,Kenyon Sadiq,TE,NYJ,13330,21.0,0
+143,Malik Willis,QB,MIA,8161,27.0,4
+144,Daniel Jones,QB,IND,5870,29.0,7
+145,Khalil Shakir,WR,BUF,8134,26.0,4
+146,Tyrone Tracy,RB,NYG,11655,26.0,2
+147,Ezekiel Elliott,RB,,3164,29.0,9
+148,Jonathon Brooks,RB,CAR,11583,22.0,2
+149,Jordan Mason,RB,MIN,8408,27.0,4
+150,Emmett Johnson,RB,KC,13337,22.0,0
+151,Isaiah Likely,TE,NYG,8131,26.0,4
+152,Jonah Coleman,RB,DEN,13345,22.0,0
+153,Trey Benson,RB,ARI,11589,23.0,2
+154,Keenan Allen,WR,,1479,33.0,13
+155,Travis Hunter,WR,JAX,12530,23.0,1
+156,Rob Gronkowski,TE,,515,32.0,12
+157,William Fuller,WR,,3157,27.0,6
+158,Rachaad White,RB,WAS,8136,27.0,4
+159,Jayden Reed,WR,GB,10222,26.0,3
+160,Alvin Kamara,RB,NO,4035,30.0,9
+161,Jalen Coker,WR,CAR,11646,24.0,2
+162,KC Concepcion,WR,CLE,13298,21.0,0
+163,Stefon Diggs,WR,,2449,32.0,11
+164,Josh Downs,WR,IND,9500,24.0,3
+165,Xavier Worthy,WR,KC,11624,23.0,2
+166,Tyjae Spears,RB,TEN,9508,25.0,3
+167,Jauan Jennings,WR,MIN,7049,28.0,6
+168,Henry Ruggs,WR,,6789,22.0,2
+169,Matthew Golden,WR,GB,12501,22.0,1
+170,Jayden Higgins,WR,HOU,12484,23.0,1
+171,AJ Barner,TE,SEA,11603,24.0,2
+172,Damien Harris,RB,,5890,27.0,5
+173,T.J. Hockenson,TE,MIN,5844,29.0,7
+174,Dylan Sampson,RB,CLE,12469,21.0,1
+175,Tyler Lockett,WR,,2374,33.0,11
+176,David Njoku,TE,LAC,4033,29.0,9
+177,Chig Okonkwo,TE,WAS,8210,26.0,4
+178,Denzel Boston,WR,CLE,13346,22.0,0
+179,Braelon Allen,RB,NYJ,11576,22.0,2
+180,Colby Parkinson,TE,LAR,6865,27.0,6
+181,Mason Taylor,TE,NYJ,12498,22.0,1
+182,Mike Washington,RB,LV,13305,23.0,0
+183,Eli Stowers,TE,PHI,13349,23.0,0
+184,Ty Simpson,QB,LAR,13275,23.0,0
+185,Terrance Ferguson,TE,LAR,12487,23.0,1
+186,Kimani Vidal,RB,LAC,11647,24.0,2
+187,Chris Rodriguez,RB,JAX,10219,26.0,3
+188,Theo Johnson,TE,NYG,11597,25.0,2
+189,Tyreek Hill,WR,,3321,31.0,10
+190,Omar Cooper,WR,NYJ,13276,22.0,0
+191,Tank Bigsby,RB,PHI,9225,23.0,3
+192,Cade Otton,TE,TB,8111,27.0,4
+193,Keaton Mitchell,RB,LAC,9511,24.0,3
+194,Noah Brown,WR,,4234,30.0,9
+195,Isiah Pacheco,RB,DET,8205,27.0,4
+196,Brandin Cooks,WR,,2197,32.0,12
+197,Gunnar Helm,TE,TEN,12502,23.0,1
+198,Sean Tucker,RB,TB,9506,24.0,3
+199,Antonio Williams,WR,WAS,13301,21.0,0
+200,Kaytron Allen,RB,WAS,13405,23.0,0
+201,Jerry Jeudy,WR,CLE,6783,27.0,6
+202,Emanuel Wilson,RB,SEA,11435,27.0,3
+203,Alshon Jeffery,WR,,1149,31.0,10
+204,Rashid Shaheed,WR,SEA,8676,27.0,4
+205,Adonai Mitchell,WR,NYJ,11625,23.0,2
+206,Adam Thielen,WR,,1689,35.0,13
+207,Kayshon Boutte,WR,NE,9504,24.0,3
+208,Jalen McMillan,WR,TB,11618,24.0,2
+209,Ray Davis,RB,BUF,11575,26.0,2
+210,Nicholas Singleton,RB,TEN,13288,22.0,0
+211,Dan Bailey,K,,899,33.0,11
+212,Devin Neal,RB,NO,12476,22.0,1
+213,Troy Franklin,WR,DEN,11627,23.0,2
+214,Pat Bryant,WR,DEN,12492,23.0,1
+215,Kaleb Johnson,RB,PIT,12504,22.0,1
+216,Jaylen Wright,RB,MIA,11643,23.0,2
+217,Chimere Dike,WR,TEN,12540,24.0,1
+218,Demond Claiborne,RB,MIN,13347,22.0,0
+219,Ben Roethlisberger,QB,PIT,138,39.0,18
+220,Brandon Aiyuk,WR,SF,6803,28.0,6
+221,Jake Tonges,TE,SF,8698,26.0,4
+222,Tre' Harris,WR,LAC,12509,24.0,1
+223,Calvin Ridley,WR,TEN,4981,31.0,8
+224,Kendre Miller,RB,NO,9757,24.0,3
+225,Brashard Smith,RB,KC,12455,23.0,1
+226,Justin Tucker,K,,1264,35.0,13
+227,Ja'Kobi Lane,WR,BAL,13293,22.0,0
+228,Tua Tagovailoa,QB,ATL,6768,28.0,6
+229,Amari Cooper,WR,,2309,31.0,10
+230,Isaac TeSlaa,WR,DET,12535,24.0,1
+231,Elic Ayomanor,WR,TEN,12499,23.0,1
+232,Zachariah Branch,WR,ATL,13320,22.0,0
+233,Tank Dell,WR,HOU,9502,26.0,3
+234,Frank Gore,RB,,232,38.0,17
+235,Tre Tucker,WR,LV,10213,25.0,3
+236,Jaydon Blue,RB,DAL,12457,22.0,1
+237,Jaylin Noel,WR,HOU,12536,23.0,1
+238,Audric Estime,RB,NO,11579,22.0,2
+239,Jarquez Hunter,RB,LAR,11569,23.0,1
+240,Marvin Mims,WR,DEN,9494,24.0,3
+241,Darnell Mooney,WR,NYG,7090,28.0,6
+242,Germie Bernard,WR,PIT,13274,22.0,0
+243,Kyle Williams,WR,NE,12547,23.0,1
+244,Ted Hurst,WR,TB,13317,22.0,0
+245,Jalen Nailor,WR,LV,8180,27.0,4
+246,Tyrell Williams,WR,,2583,29.0,7
+247,Michael Penix,QB,ATL,11559,26.0,2
+248,Tory Horton,WR,SEA,12497,23.0,1
+249,Ryan Flournoy,WR,DAL,11783,26.0,2
+250,Chris Carson,RB,,4273,27.0,5
+251,J.J. McCarthy,QB,MIN,11565,23.0,2
+252,Derek Carr,QB,,2028,34.0,11
+253,Jacoby Brissett,QB,ARI,3257,33.0,10
+254,Mike Davis,RB,,2431,29.0,7
+255,Elijah Sarratt,WR,BAL,13268,23.0,0
+256,Chris Brazzell,WR,CAR,13353,22.0,0
+257,Joshua Dobbs,QB,,4179,31.0,9
+258,Rashod Bateman,WR,BAL,7571,26.0,5
+259,Chris Bell,WR,MIA,13311,22.0,0
+260,Cooper Kupp,WR,SEA,4039,33.0,9
+261,Keon Coleman,WR,BUF,11637,23.0,2
+262,Jonnu Smith,TE,,4144,30.0,9
+263,Jack Bech,WR,LV,12483,23.0,1
+264,Devaughn Vele,WR,NO,11834,28.0,2
+265,Christian Kirk,WR,SF,4950,29.0,8
+266,Malachi Fields,WR,NYG,13285,22.0,0
+267,Michael Trigg,TE,DAL,13401,24.0,0
+268,Dontrelle Inman,WR,,2291,32.0,11
+269,Max Klare,TE,LAR,13278,22.0,0
+270,Joe Mixon,RB,,4018,29.0,9
+271,De'Zhaun Stribling,WR,SF,13417,23.0,0
+272,A.J. Green,WR,,830,34.0,12
+273,Blake Jarwin,TE,,4571,27.0,5
+274,Jimmy Garoppolo,QB,,1837,34.0,12
+275,Najee Harris,RB,,7528,27.0,5
+276,Cam Newton,QB,,954,32.0,11
+277,Robbie Gould,K,,49,40.0,18
+278,Shedeur Sanders,QB,CLE,12524,24.0,1
+279,Kenny Golladay,WR,,4131,29.0,6
+280,Michael Thomas,WR,,3199,31.0,8
+281,Titus Swen,RB,,9507,,1
+282,Leonard Fournette,RB,,3969,28.0,7
+283,Le'Veon Bell,RB,TB,1408,29.0,9
+284,Jerick McKinnon,RB,,2161,32.0,10
+285,Kareem Hunt,RB,,4098,30.0,9
+286,Tyler Boyd,WR,,3225,30.0,9
+287,Nick Chubb,RB,,4988,30.0,8
+288,Craig Reynolds,RB,,6659,29.0,7
+289,D'Onta Foreman,RB,,4111,28.0,8
+290,Darren Waller,TE,,2505,33.0,11
+291,Tanner Morgan,QB,,11214,24.0,1
+292,Mac Jones,QB,SF,7527,27.0,5
+293,Diontae Johnson,WR,,5937,29.0,6
+294,Tyree Jackson,TE,,6040,28.0,7
+295,Chase Edmonds,RB,,5000,29.0,8
+296,Jose Barbon,WR,,11504,23.0,1
+297,Anthony Richardson,QB,IND,9229,24.0,3
+298,Brett Hundley,QB,,2450,29.0,8
+299,Brian Cobbs,WR,,11502,23.0,1
+300,Scotty Washington,WR,,7237,28.0,6
+301,Jamaal Williams,RB,,4149,29.0,8
+302,Kevin Hogan,QB,,3318,30.0,7
+303,Connor Davis,TE,,7503,27.0,2
+304,Zack Moss,RB,,6845,27.0,5
+305,Geno Smith,QB,NYJ,1373,35.0,13
+306,Quinn Nordin,K,,8040,24.0,2
+307,Noah Gindorff,TE,,11225,24.0,1
+308,Russell Wilson,QB,,1234,37.0,14
+309,DeShon Williams,TE,,8102,,1
+310,Colt McCoy,QB,,533,36.0,13
+311,Ryan Succop,K,,391,36.0,14
+312,Zach Ertz,TE,,1339,35.0,13
+313,Avery Davis,WR,,11544,24.0,1
+314,Alex Kessman,K,CAR,7933,24.0,1
+315,Malik Flowers,WR,,11192,24.0,1
+316,Josh Imatorbhebhe,WR,,8008,23.0,1
+317,James White,RB,,1848,30.0,8
+318,Logan Woodside,QB,,5128,30.0,8
+319,Tucker McCann,K,,7446,24.0,2
+320,Anthony McFarland,RB,,6878,25.0,4
+321,Jack Sorenson,WR,,8420,25.0,1
+322,MyCole Pruitt,TE,,2446,32.0,10
+323,Gavin Holmes,WR,,11478,24.0,1
+324,Max Borghi,RB,,8218,22.0,1
+325,Jalen Sample,WR,,11158,24.0,1
+326,Ethan Fernea,WR,,8831,26.0,2
+327,Miles Sanders,RB,,6151,28.0,7
+328,Eric Tomlinson,TE,,2755,32.0,10
+329,Camerun Peoples,RB,,10211,23.0,1
+330,Ryan Griffin,QB,,1550,33.0,10
+331,Trey Ragas,RB,,7993,25.0,1
+332,Dustin Crum,QB,,8212,24.0,1
+333,Peter LeBlanc,WR,,12373,23.0,1
+334,Jared Cook,TE,,367,35.0,13
+335,Kadarius Toney,WR,,7606,25.0,3
+336,Mike Williams,WR,,4068,30.0,8
+337,Bennie Fowler,WR,,2003,30.0,8
+338,Aaron Dykes,RB,,11548,,1
+339,Aaron Fuller,WR,,6967,24.0,2
+340,Jermaine Burton,WR,,11640,24.0,1
+341,Zach Mathis,WR,,12168,24.0,1
+342,Aron Cruickshank,WR,,11267,22.0,1
+343,Tayon Fleet-Davis,RB,,8707,,1
+344,Leon Johnson,WR,,11863,23.0,1
+345,Jacob Hollister,TE,,4421,30.0,7
+346,David Bell,WR,,8118,24.0,3
+347,Ventell Bryant,WR,,6628,25.0,3
+348,Duece Watts,WR,,11204,24.0,1
+349,Isaiah Coulter,WR,,7085,24.0,3
+350,Sam Ficken,K,,3909,30.0,7
+351,Zach Heins,TE,,11864,24.0,1
+352,Alex Quevedo,K,,10858,24.0,1
+353,Josh Rosen,QB,,4863,25.0,5
+354,Elijah Collins,RB,,12066,24.0,1
+355,Isaac Rex,TE,,12126,26.0,1
+356,A.J. Rose,RB,,7918,24.0,1
+357,AJ McCarron,QB,,1895,33.0,10
+358,Kirk Merritt,WR,,7351,26.0,3
+359,Holton Ahlers,QB,,11216,23.0,1
+360,Davis Cheek,QB,,8560,23.0,1
+361,Aldrick Rosas,K,,3827,27.0,6
+362,Austin Proehl,WR,,5126,26.0,4
+363,Ahmarean Brown,WR,,11918,24.0,1
+364,Austin Ekeler,RB,,4663,30.0,9
+365,John Hall,WR,,11223,25.0,1
+366,DeAndre Hopkins,WR,,1426,33.0,13
+367,Marcus Kemp,WR,,4491,28.0,6
+368,Taysom Hill,TE,,4381,35.0,9
+369,La'Mical Perine,RB,,6908,26.0,4
+370,Allen Lazard,WR,,5185,30.0,7
+371,Ryan Tannehill,QB,,1049,35.0,12
+372,Gabe Davis,WR,,6943,26.0,6
+373,Nathan Rourke,QB,,8938,26.0,1
+374,Justin Fields,QB,KC,7591,27.0,5
+375,Matt Ryan,QB,,24,37.0,15
+376,Sean Ryan,WR,,11387,25.0,1
+377,Garrett Nussmeier,QB,KC,13404,24.0,0
+378,Montana Lemonious-Craig,WR,,13222,23.0,0
+379,D.J. Montgomery,WR,,6453,29.0,7
+380,Alize Mack,TE,,5975,26.0,4
+381,James Turner,K,,12156,24.0,1
+382,Donte Moncrief,WR,,1971,28.0,8
+383,Sammy Watkins,WR,,1817,29.0,9
+384,Kyle Sloter,QB,,4588,28.0,5
+385,Wendell Smallwood,RB,WAS,3309,27.0,6
+386,Sam Pinckney,WR,,12018,25.0,1
+387,Mason Crosby,K,,59,39.0,17
+388,Jordan Ta'amu,QB,,6730,25.0,4
+389,Andy Isabella,WR,,5915,28.0,6
+390,Philip Rivers,QB,,331,44.0,22
+391,Tyler Adams,WR,,11357,25.0,1
+392,Aaron Rodgers,QB,PIT,96,42.0,21
+393,Devonta Freeman,RB,,2168,30.0,8
+394,Jordan Petaia,TE,,12549,25.0,1
+395,Jermaine Jackson,WR,,11897,24.0,1
+396,Austin Reed,QB,,11931,25.0,1
+397,Jacob Kibodi,RB,,11900,26.0,1
+398,Benny Snell,RB,,6156,25.0,4
+399,Hassan Hall,RB,,11270,24.0,2
+400,Brayden Lenius,TE,,8105,25.0,1
+401,Kendall Blanton,TE,,6081,27.0,4
+402,Devin Ross,WR,,5292,28.0,5
+403,Sean Mannion,QB,,2394,31.0,9
+404,Michael Pratt,QB,,11561,23.0,1
+405,Gabe Brkic,K,,8260,,1
+406,Brandon Peters,QB,,8579,25.0,1
+407,Martavis Bryant,WR,,1916,32.0,10
+408,Chris Naggar,K,,8042,24.0,1
+409,David Blough,QB,,6450,28.0,5
+410,Randy Bullock,K,,1099,34.0,12
+411,Nathaniel Peat,RB,,12007,24.0,1
+412,Moose Muhammad,WR,,12966,24.0,0
+413,Matt Cole,WR,,7352,25.0,2
+414,OJ Hiliare,WR,,12033,23.0,1
+415,JaVonta Payton,WR,,8632,24.0,1
+416,Rodrigo Blankenship,K,,7062,26.0,3
+417,Ty James,WR,,11906,23.0,1
+418,Malachi Carter,WR,,11526,23.0,1
+419,Matthew Trickett,K,,11532,23.0,1
+420,J.P. Holtz,TE,,3695,30.0,7
+421,Jalen Milroe,QB,SEA,12510,23.0,1
+422,Nick Bowers,TE,,7308,28.0,4
+423,Sony Michel,RB,,4962,28.0,5
+424,Chris Coleman,WR,,11366,24.0,1
+425,Alex McNulty,K,,12180,,1
+426,Devon Garrison,TE,,12443,,1
+427,Darrell Daniels,TE,,4323,28.0,6
+428,Jesper Horsted,TE,,6075,27.0,5
+429,Randall Cobb,WR,,928,33.0,13
+430,Ian Book,QB,,7589,26.0,4
+431,Rashaad Penny,RB,,4985,28.0,6
+432,Jalen Jackson,RB,,12218,24.0,1
+433,Tanner Taula,TE,,11415,27.0,3
+434,Josh Lambo,K,,2671,32.0,7
+435,Louis Rees-Zammit,RB,,11652,24.0,1
+436,Trey Quinn,WR,,5139,27.0,5
+437,Mitch Van Vooren,WR,,13227,,1
+438,Stevie Scott,RB,,7904,23.0,2
+439,Daurice Fountain,WR,,5102,28.0,6
+440,Ryan Santoso,K,,5692,27.0,4
+441,Jack Podlesny,K,,11077,24.0,1
+442,Antonio Gibson,RB,,6945,27.0,6
+443,Cameron Brate,TE,,2214,31.0,9
+444,Zakhari Franklin,WR,,13161,25.0,0
+445,Kirk Cousins,QB,LV,1166,37.0,14
+446,Michael Walker,WR,,6363,25.0,3
+447,Joseph Scates,WR,,12222,24.0,1
+448,Jared Bernhardt,WR,,8663,25.0,1
+449,Kawaan Baker,WR,,7752,27.0,4
+450,Brett Maher,K,,4958,34.0,11
+451,Kobe Lewis,RB,,12026,24.0,1
+452,Garett Maag,WR,,11528,23.0,1
+453,Jamal Pettigrew,TE,,8741,24.0,1
+454,Curtis Samuel,WR,,4082,29.0,9
+455,Pooka Williams,RB,,7560,23.0,1
+456,Alex Hale,K,,12438,27.0,1
+457,Emory Jones,QB,,11961,25.0,2
+458,Trent Taylor,WR,,4218,31.0,9
+459,Will Howard,QB,PIT,12511,24.0,1
+460,Otis Anderson,RB,,8077,23.0,1
+461,Sterling Shepard,WR,,3200,33.0,10
+462,Donovan Peoples-Jones,WR,,6824,26.0,5
+463,Dylan Parham,TE,,8751,24.0,2
+464,Jonathan Garibay,K,,8812,,1
+465,D'Eriq King,QB,,8199,25.0,2
+466,Tyron Billy-Johnson,WR,,6063,28.0,5
+467,Jack Plummer,QB,,12009,25.0,1
+468,Racey McMath,WR,,7793,25.0,3
+469,Kody Case,WR,,11359,24.0,1
+470,Alexander Mattison,RB,,5987,27.0,7
+471,Thaddeus Moss,TE,,6919,24.0,2
+472,Jonathan Ward,RB,,7087,28.0,6
+473,Jadon Haselwood,WR,,9498,22.0,1
+474,D'Ernest Johnson,RB,,6694,29.0,7
+475,Jalen White,RB,,12953,23.0,1
+476,Maurice Ffrench,WR,,7234,24.0,2
+477,Raheem Mostert,RB,,2749,33.0,11
+478,Tavien Feaster,RB,ARI,7103,24.0,2
+479,Kellen Mond,QB,,7581,24.0,3
+480,Reggie Roberson,WR,,8175,24.0,1
+481,Drew Estrada,WR,,8543,25.0,1
+482,Dan Arnold,TE,,4741,28.0,6
+483,Casey Bauman,QB,,11848,24.0,1
+484,Hamze El-Zayat,WR,,12413,25.0,1
+485,Khalil Herbert,RB,,7608,27.0,5
+486,Zamir White,RB,,8139,26.0,4
+487,Terrell Bynum,WR,,11115,26.0,1
+488,Hunter Renfrow,WR,,5955,30.0,7
+489,Emmanuel Sanders,WR,,538,35.0,12
+490,Josh Reynolds,WR,,4171,31.0,9
+491,Isaiah Winstead,WR,,11232,25.0,1
+492,Quinn Ewers,QB,MIA,12500,23.0,1
+493,Will Dissly,TE,,5010,29.0,8
+494,Mike Glennon,QB,,1559,33.0,10
+495,Deshaun Watson,QB,CLE,4017,30.0,9
+496,Cade Klubnik,QB,NYJ,13303,22.0,0
+497,Jontre Kirklin,WR,,8628,25.0,2
+498,Antoine Green,WR,,11053,25.0,2
+499,Marcus Mariota,QB,WAS,2307,32.0,11
+500,Melvin Gordon,RB,,2320,30.0,9

@@ -38,42 +38,6 @@ function playChime() {
   }
 }
 
-const MUTE_STORAGE_KEY = 'draft.audioMuted'
-
-/** Is draft audio (pick-clock tick, etc.) muted? Defaults to muted (opt-in sound). */
-export function isAudioMuted(): boolean {
-  if (typeof window === 'undefined') return true
-  return window.localStorage.getItem(MUTE_STORAGE_KEY) !== '0'
-}
-
-/** Persist the mute preference — shared across every draft-audio consumer. */
-export function setAudioMuted(muted: boolean) {
-  if (typeof window === 'undefined') return
-  window.localStorage.setItem(MUTE_STORAGE_KEY, muted ? '1' : '0')
-}
-
-/** Single soft tick — same Web Audio pattern as the chime, for the pick clock. */
-export function playTick() {
-  if (isAudioMuted()) return
-  try {
-    audioCtx = audioCtx ?? new AudioContext()
-    void audioCtx.resume()
-    const t0 = audioCtx.currentTime
-    const osc = audioCtx.createOscillator()
-    const gain = audioCtx.createGain()
-    osc.type = 'sine'
-    osc.frequency.value = 1046.5 // C6 — short and soft, distinct from the turn chime
-    gain.gain.setValueAtTime(0.0001, t0)
-    gain.gain.exponentialRampToValueAtTime(0.15, t0 + 0.01)
-    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.12)
-    osc.connect(gain).connect(audioCtx.destination)
-    osc.start(t0)
-    osc.stop(t0 + 0.15)
-  } catch {
-    // Audio blocked (autoplay policy, no device) — silent no-op.
-  }
-}
-
 /** Ask for notification permission — call from a user gesture (Connect). */
 export function requestTurnNotificationPermission() {
   if (

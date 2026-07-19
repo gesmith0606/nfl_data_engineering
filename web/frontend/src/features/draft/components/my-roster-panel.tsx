@@ -2,34 +2,15 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Stagger } from '@/lib/motion-primitives'
-import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors'
-import type { DraftPlayer, RosterRisk } from '@/lib/nfl/types'
+import type { DraftPlayer } from '@/lib/nfl/types'
 
 interface MyRosterPanelProps {
   roster: DraftPlayer[]
   remainingNeeds: Record<string, number>
   picksCount: number
-  /** Aggregate floor/ceiling exposure of the roster; omitted/null hides the meter. */
-  rosterRisk?: RosterRisk | null
 }
 
 const POSITION_ORDER = ['QB', 'RB', 'WR', 'TE', 'K', 'FLEX', 'BENCH']
-
-const VOLATILITY_STEADY_MAX = 0.35
-const VOLATILITY_BALANCED_MAX = 0.55
-
-/* Bar-fill classes are kept as full literals (not built via string
- * interpolation) so Tailwind's static class-name scanner picks them up --
- * see the same note in lib/nfl/position-colors.ts. */
-function volatilityLabel(index: number): { label: string; textClass: string; barClass: string } {
-  if (index > VOLATILITY_BALANCED_MAX) {
-    return { label: 'Volatile roster — high ceiling, low floor', textClass: DANGER_TEXT, barClass: 'bg-[var(--danger)]' }
-  }
-  if (index >= VOLATILITY_STEADY_MAX) {
-    return { label: 'Balanced roster', textClass: WARN_TEXT, barClass: 'bg-[var(--warn)]' }
-  }
-  return { label: 'Steady roster', textClass: SUCCESS_TEXT, barClass: 'bg-[var(--success)]' }
-}
 
 function groupByPosition(players: DraftPlayer[]): Record<string, DraftPlayer[]> {
   return players.reduce<Record<string, DraftPlayer[]>>((acc, p) => {
@@ -40,7 +21,7 @@ function groupByPosition(players: DraftPlayer[]): Record<string, DraftPlayer[]> 
   }, {})
 }
 
-export function MyRosterPanel({ roster, remainingNeeds, picksCount, rosterRisk }: MyRosterPanelProps) {
+export function MyRosterPanel({ roster, remainingNeeds, picksCount }: MyRosterPanelProps) {
   const grouped = groupByPosition(roster)
 
   const sortedPositions = [
@@ -85,7 +66,7 @@ export function MyRosterPanel({ roster, remainingNeeds, picksCount, rosterRisk }
                           </span>
                         )}
                         <span className='text-muted-foreground font-mono text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tabular-nums'>
-                          {player.projected_points != null ? `${player.projected_points.toFixed(0)}pt` : '—'}
+                          {player.projected_points.toFixed(0)}pt
                         </span>
                       </div>
                     </div>
@@ -94,35 +75,6 @@ export function MyRosterPanel({ roster, remainingNeeds, picksCount, rosterRisk }
               </div>
             ))}
           </Stagger>
-        )}
-
-        {rosterRisk && (
-          <div className='border-t pt-[var(--space-2)]'>
-            <p className='text-muted-foreground mb-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-wide'>
-              Roster Risk
-            </p>
-            <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-              Floor {rosterRisk.floor_sum.toFixed(0)} · Ceiling {rosterRisk.ceiling_sum.toFixed(0)}
-            </p>
-            {rosterRisk.volatility_index != null && (
-              <div className='mt-[var(--space-1)]'>
-                {(() => {
-                  const { label, textClass, barClass } = volatilityLabel(rosterRisk.volatility_index)
-                  const pct = Math.min(100, Math.max(0, rosterRisk.volatility_index * 100))
-                  return (
-                    <>
-                      <span className='bg-muted block h-1.5 w-full overflow-hidden rounded-full'>
-                        <span className={`block h-full rounded-full ${barClass}`} style={{ width: `${pct}%` }} />
-                      </span>
-                      <p className={`mt-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${textClass}`}>
-                        {label}
-                      </p>
-                    </>
-                  )
-                })()}
-              </div>
-            )}
-          </div>
         )}
 
         {needs.length > 0 && (

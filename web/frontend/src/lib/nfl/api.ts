@@ -5,12 +5,9 @@ import type {
   DraftBoardResponse,
   DraftPickRequest,
   DraftPickResponse,
-  DraftIntelResponse,
-  DraftPlatformsResponse,
   DraftRecommendationsResponse,
   DraftSyncLogRequest,
   DraftSyncLogResponse,
-  DraftUndoResponse,
   GameSeasonsResponse,
   GamesResponse,
   HealthResponse,
@@ -19,10 +16,8 @@ import type {
   LiveDraftResponse,
   MockDraftPickRequest,
   MockDraftPickResponse,
-  MockDraftReportResponse,
   MockDraftStartRequest,
   MockDraftStartResponse,
-  MockDraftUndoResponse,
   NewsItem,
   PlayerCorrelationsResponse,
   PlayerEventBadges,
@@ -35,8 +30,6 @@ import type {
   SentimentRankingsResponse,
   SentimentSummary,
   SentimentWindow,
-  SleepersResponse,
-  StackHintsResponse,
   TeamDefenseMetricsResponse,
   TeamEvents,
   TeamLineup,
@@ -453,9 +446,7 @@ export async function fetchDraftBoard(
   rosterFormat: string = 'standard',
   nTeams: number = 12,
   season: number = 2026,
-  sessionId?: string,
-  adpSource?: string,
-  strategy?: string
+  sessionId?: string
 ): Promise<DraftBoardResponse> {
   const params = new URLSearchParams({
     scoring,
@@ -464,10 +455,6 @@ export async function fetchDraftBoard(
     season: String(season)
   })
   if (sessionId) params.set('session_id', sessionId)
-  if (adpSource) params.set('adp_source', adpSource)
-  // Strategy only applies at session creation -- ignored server-side when
-  // reusing an existing session_id, but harmless to always send.
-  if (strategy) params.set('strategy', strategy)
   return request<DraftBoardResponse>(`/api/draft/board?${params}`)
 }
 
@@ -530,16 +517,6 @@ export function isServiceUnavailable(err: unknown): boolean {
   return err instanceof ApiError && err.status === 503
 }
 
-/** Detect "nothing to undo" (409) so undo buttons can disable + explain why. */
-export function isConflictError(err: unknown): boolean {
-  return err instanceof ApiError && err.status === 409
-}
-
-/** Detect a missing/not-yet-shipped endpoint (404) so callers can degrade gracefully. */
-export function isNotFoundError(err: unknown): boolean {
-  return err instanceof ApiError && err.status === 404
-}
-
 /** Start a mock draft simulation session. */
 export async function startMockDraft(body: MockDraftStartRequest): Promise<MockDraftStartResponse> {
   return request<MockDraftStartResponse>('/api/draft/mock/start', {
@@ -559,76 +536,6 @@ export async function advanceMockDraft(body: MockDraftPickRequest): Promise<Mock
 /** Fetch latest ADP data. */
 export async function fetchAdp(): Promise<AdpResponse> {
   return request<AdpResponse>('/api/draft/adp')
-}
-
-/**
- * Fetch per-platform draft-room presets (scoring/roster format/rounds/timer/
- * ADP source). Callers should fall back to hardcoded defaults on failure —
- * this endpoint is a parallel backend lane and may 404 until it ships.
- */
-export async function fetchDraftPlatforms(): Promise<DraftPlatformsResponse> {
-  return request<DraftPlatformsResponse>('/api/draft/platforms')
-}
-
-/** Fetch the post-draft report card for a (in-progress or completed) mock session. */
-export async function fetchMockDraftReport(sessionId: string): Promise<MockDraftReportResponse> {
-  const params = new URLSearchParams({ session_id: sessionId })
-  return request<MockDraftReportResponse>(`/api/draft/mock/report?${params}`)
-}
-
-/** Undo the most recent pick on a manual-board session. 409 when nothing to undo. */
-export async function undoDraftPick(sessionId: string): Promise<DraftUndoResponse> {
-  return request<DraftUndoResponse>('/api/draft/undo', {
-    method: 'POST',
-    body: JSON.stringify({ session_id: sessionId })
-  })
-}
-
-/** Undo back to before the user's most recent mock-draft pick (reverts bot picks too). 409 when nothing to undo. */
-export async function undoMockDraftPick(sessionId: string): Promise<MockDraftUndoResponse> {
-  return request<MockDraftUndoResponse>('/api/draft/mock/undo', {
-    method: 'POST',
-    body: JSON.stringify({ session_id: sessionId })
-  })
-}
-
-/**
- * Fetch stack/overlap hints against the user's current roster.
- *
- * Parallel backend lane — callers should treat a 404 the same as "no hints"
- * and hide the UI rather than surfacing an error.
- */
-export async function fetchStackHints(sessionId: string): Promise<StackHintsResponse> {
-  const params = new URLSearchParams({ session_id: sessionId })
-  return request<StackHintsResponse>(`/api/draft/stack-hints?${params}`)
-}
-
-/**
- * Fetch model-vs-ADP sleeper edges for the current board.
- *
- * Parallel backend lane; the envelope may arrive as a bare array or
- * `{ sleepers: [] }` — normalize with `normalizeSleepers`.
- */
-export async function fetchSleepers(sessionId: string, limit = 20): Promise<SleepersResponse> {
-  const params = new URLSearchParams({ session_id: sessionId, limit: String(limit) })
-  return request<SleepersResponse>(`/api/draft/sleepers?${params}`)
-}
-
-/** Normalize the sleepers envelope (bare array or `{ sleepers: [] }`) to a flat array. */
-export function normalizeSleepers(data: SleepersResponse | undefined): import('./types').SleeperEdge[] {
-  if (!data) return []
-  return Array.isArray(data) ? data : data.sleepers
-}
-
-/**
- * Fetch opponent-history tendencies for a connected league.
- *
- * Parallel backend lane — callers should treat a 404/error as "needs league
- * history" rather than surfacing an error, and never block the draft flow.
- */
-export async function fetchDraftIntel(leagueId: string): Promise<DraftIntelResponse> {
-  const params = new URLSearchParams({ league_id: leagueId })
-  return request<DraftIntelResponse>(`/api/draft/intel?${params}`)
 }
 
 // ---------------------------------------------------------------------------

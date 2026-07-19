@@ -85,9 +85,7 @@ def _make_mock_draft_projections() -> pd.DataFrame:
     return df
 
 
-def _mock_load_draft_data(
-    scoring: str, season: int, adp_source: "str | None" = None
-) -> pd.DataFrame:
+def _mock_load_draft_data(scoring: str, season: int) -> pd.DataFrame:
     """Patch target for ``web.api.routers.draft._load_draft_data``."""
     from draft_optimizer import compute_value_scores
 
