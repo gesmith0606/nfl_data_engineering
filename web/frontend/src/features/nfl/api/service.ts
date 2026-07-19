@@ -29,8 +29,18 @@ export {
   startMockDraft,
   advanceMockDraft,
   fetchAdp,
+  fetchDraftPlatforms,
   syncPickLog,
   isServiceUnavailable,
+  isConflictError,
+  isNotFoundError,
+  fetchMockDraftReport,
+  undoDraftPick,
+  undoMockDraftPick,
+  fetchStackHints,
+  fetchSleepers,
+  normalizeSleepers,
+  fetchDraftIntel,
   // Multi-source rankings
   fetchMultiCompareRankings,
   // Game archive

@@ -1448,6 +1448,24 @@ def get_team_event_density(season: int, week: int) -> List[Dict[str, Any]]:
     # Silver for event flags
     silver_records = _load_silver_records(_find_silver_files(season, week))
 
+    # Offseason fallback: articles straddle season partition dirs (e.g. July
+    # 2026 stories may still be filed under season=2025 week=18 while the
+    # frontend asks for season=2026 week=01), which starves the strictly
+    # week-bucketed view. When the requested bucket is nearly empty, fall
+    # back to the trailing 30-day window across ALL buckets — the same
+    # cross-bucket strategy get_top_stories uses. In-season, the requested
+    # bucket is rich and this never fires.
+    _FALLBACK_MIN_RECORDS = 10
+    if len(silver_records) < _FALLBACK_MIN_RECORDS:
+        windowed = _load_recent_signal_records(WINDOW_DAYS["month"])
+        if len(windowed) > len(silver_records):
+            silver_records = windowed
+            # Bronze team hints for the requested season may not cover the
+            # straddled records — merge the roster-parquet player→team map
+            # as an attribution backstop.
+            for pid, team in _player_id_team_map().items():
+                pid_to_team.setdefault(pid, team)
+
     # team -> {"neg": int, "pos": int, "neu": int, "total": int, "flags": Counter}
     by_team: Dict[str, Dict[str, Any]] = {}
 
@@ -1458,7 +1476,10 @@ def get_team_event_density(season: int, week: int) -> List[Dict[str, Any]]:
 
         doc_id = str(rec.get("doc_id") or "")
         player_id = str(rec.get("player_id") or "")
-        team = ext_to_team.get(doc_id) or pid_to_team.get(player_id)
+        # Phase 72 subject attribution (team_abbr on the record itself) is the
+        # most direct hint — coach/team stories carry it with no player_id.
+        rec_team = str(rec.get("team_abbr") or "").upper() or None
+        team = rec_team or ext_to_team.get(doc_id) or pid_to_team.get(player_id)
         if not team or team not in NFL_TEAM_ABBRS:
             continue
 

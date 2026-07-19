@@ -804,18 +804,52 @@ class TeamSentiment(BaseModel):
 
 
 class DraftPlayer(BaseModel):
-    """A player on the draft board."""
+    """A player on the draft board.
+
+    ``projected_points``/``vorp`` are ``None`` (never NaN) for positions our
+    model doesn't project — DST is ADP-only today — so the row still appears
+    on the board, ranked by ADP, without crashing JSON serialization.
+    """
 
     player_id: str
     player_name: str
     position: str
     team: Optional[str] = None
-    projected_points: float
+    projected_points: Optional[float] = None
     model_rank: int
     adp_rank: Optional[float] = None
     adp_diff: Optional[float] = None
+    adp_stdev: Optional[float] = Field(
+        None,
+        description=(
+            "Real-ADP standard deviation from the FFC/ESPN source CSV "
+            "(src/adp_sources.py); None for the legacy sleeper_rank source"
+        ),
+    )
     value_tier: str = "fair_value"
-    vorp: float = 0.0
+    vorp: Optional[float] = None
+    tier: Optional[int] = Field(
+        None,
+        description=(
+            "Positional tier (1 = best), split at natural point-value gaps "
+            "within the player's position. None when points are unavailable "
+            "(e.g. DST) or the board hasn't computed tiers."
+        ),
+    )
+    floor: Optional[float] = Field(
+        None,
+        description=(
+            "Season-points floor. From the projection source's own quantile "
+            "bands when present, else a documented in-repo proxy (the same "
+            "per-position multiplier band src.projection_engine's "
+            "add_floor_ceiling() falls back to when no quantile model is "
+            "available), applied to projected_points. None when neither "
+            "exists (e.g. DST, which has no projected_points at all)."
+        ),
+    )
+    ceiling: Optional[float] = Field(
+        None, description="Season-points ceiling -- see `floor` for provenance."
+    )
 
 
 class DraftBoardEntry(BaseModel):
@@ -824,17 +858,43 @@ class DraftBoardEntry(BaseModel):
     Simplified view used by the AI chat tool ``getDraftBoard`` (see
     ``web/frontend/src/app/api/chat/route.ts``). Mirrors :class:`DraftPlayer`
     but exposes the advisor-friendly ``adp`` / ``bye_week`` field names.
+
+    ``projected_points``/``vorp`` are ``None`` for positions our model
+    doesn't project (e.g. DST) — see :class:`DraftPlayer`.
     """
 
     player_id: str
     player_name: str
     position: str
     team: Optional[str] = None
-    projected_points: float
+    projected_points: Optional[float] = None
     adp: Optional[float] = None
-    vorp: float = 0.0
+    adp_stdev: Optional[float] = Field(
+        None,
+        description="Real-ADP standard deviation, when the source CSV carries it",
+    )
+    vorp: Optional[float] = None
     value_tier: str = "fair_value"
     bye_week: Optional[int] = None
+    tier: Optional[int] = None
+    floor: Optional[float] = Field(
+        None, description="Season-points floor -- see DraftPlayer.floor for provenance"
+    )
+    ceiling: Optional[float] = Field(None, description="Season-points ceiling")
+
+
+class RosterRisk(BaseModel):
+    """Aggregate floor/ceiling exposure of the user's drafted roster.
+
+    ``volatility_index`` is the mean of ``(ceiling - floor) / projected``
+    across rostered players that carry bands -- higher means a boomier,
+    riskier roster construction. ``None`` when no rostered player has bands.
+    """
+
+    floor_sum: float
+    ceiling_sum: float
+    projected_sum: float
+    volatility_index: Optional[float] = None
 
 
 class DraftBoardResponse(BaseModel):
@@ -862,6 +922,30 @@ class DraftBoardResponse(BaseModel):
     scoring_format: str
     roster_format: str
     n_teams: int
+    adp_source: Optional[str] = Field(
+        None,
+        description=(
+            "ADP source used for the value-score merge (ffc/espn); None when "
+            "no per-source ADP file was requested (adp_latest.csv fallback)."
+        ),
+    )
+    strategy: str = Field(
+        "balanced",
+        description=(
+            "Draft strategy used to order `players`/`board` (floor/balanced/"
+            "ceiling), set at session creation via the `strategy` query param. "
+            "floor/ceiling only actually re-rank when the pool carries "
+            "floor/ceiling bands; balanced is the legacy model_rank order."
+        ),
+    )
+    roster_risk: Optional[RosterRisk] = Field(
+        None,
+        description=(
+            "Aggregate floor/ceiling exposure of the user's drafted roster. "
+            "None when the roster is empty or none of its players carry "
+            "floor/ceiling bands."
+        ),
+    )
 
 
 class DraftPickRequest(BaseModel):
@@ -881,16 +965,57 @@ class DraftPickResponse(BaseModel):
 
 
 class DraftRecommendation(BaseModel):
-    """A recommended draft pick."""
+    """A recommended draft pick.
+
+    ``projected_points``/``vorp`` are ``None`` for positions our model
+    doesn't project (e.g. DST) — see :class:`DraftPlayer`.
+    """
 
     player_id: str
     player_name: str
     position: str
     team: Optional[str] = None
-    projected_points: float
+    projected_points: Optional[float] = None
     model_rank: int
-    vorp: float
+    vorp: Optional[float] = None
     recommendation_score: float
+    gone_probability: Optional[float] = Field(
+        None,
+        description=(
+            "Probability this player is drafted before the user's next pick "
+            "(Phi((next_pick - adp) / sigma)). None when the player has no "
+            "ADP or the user's next pick number can't be determined."
+        ),
+    )
+    wait_cost: Optional[float] = Field(
+        None,
+        description=(
+            "This player's position's wait_cost (see PositionWait) -- how "
+            "much expected best-available VORP is lost at this position by "
+            "waiting one pick. None when it couldn't be computed (no next "
+            "pick number, or the position has no vorp/adp-eligible pool)."
+        ),
+    )
+
+
+class PositionWait(BaseModel):
+    """Cost-of-waiting for one position: expected drop in best-available VORP
+    between the current pick and the user's next pick.
+
+    ``expected_best_next_vorp`` is a probability-weighted expectation over
+    the position's whole candidate pool (see
+    :func:`src.draft_availability.expected_best_vorp_at_pick`), not just the
+    single current top player -- it accounts for the chance any given
+    candidate is drafted by someone else before the user is back on the
+    clock.
+    """
+
+    position: str
+    best_now_vorp: float
+    expected_best_next_vorp: float
+    wait_cost: float = Field(
+        ..., description="best_now_vorp - expected_best_next_vorp, rounded 1dp"
+    )
 
 
 class DraftRecommendationsResponse(BaseModel):
@@ -899,6 +1024,14 @@ class DraftRecommendationsResponse(BaseModel):
     recommendations: List[DraftRecommendation]
     reasoning: str
     remaining_needs: dict
+    position_wait: List[PositionWait] = Field(
+        default_factory=list,
+        description=(
+            "Per-position cost of waiting one pick, computed at the user's "
+            "next pick number. Empty when the next pick number can't be "
+            "determined (no user_pick / no mock-draft slot)."
+        ),
+    )
 
 
 class LiveDraftRecommendation(DraftRecommendation):
@@ -1013,13 +1146,37 @@ class DraftSyncLogResponse(BaseModel):
 
 
 class MockDraftStartRequest(BaseModel):
-    """Request to start a mock draft."""
+    """Request to start a mock draft.
 
-    scoring: str = "half_ppr"
-    roster_format: str = "standard"
+    ``platform`` (espn/sleeper/yahoo/custom, see ``PLATFORM_PRESETS`` in
+    ``src/config.py``) supplies defaults for any of ``scoring``/
+    ``roster_format`` the caller leaves at their own field default — pass
+    the platform's own values explicitly to opt out per-field.
+    """
+
+    scoring: Optional[str] = None
+    roster_format: Optional[str] = None
     n_teams: int = 12
     user_pick: int = 1
     season: int = 2026
+    platform: Optional[str] = Field(
+        None, description="espn / sleeper / yahoo / custom — see /draft/platforms"
+    )
+    adp_source: Optional[str] = Field(
+        None,
+        description=(
+            "ADP source for the value-score merge (ffc/espn); defaults from "
+            "the platform preset when platform is set and this is omitted."
+        ),
+    )
+    strategy: Optional[str] = Field(
+        None,
+        pattern="^(floor|balanced|ceiling)$",
+        description=(
+            "Draft strategy (floor/balanced/ceiling); defaults to balanced. "
+            "See DraftBoardResponse.strategy."
+        ),
+    )
 
 
 class MockDraftStartResponse(BaseModel):
@@ -1057,6 +1214,13 @@ class AdpPlayer(BaseModel):
     position: str
     team: Optional[str] = None
     adp_rank: float
+    stdev: Optional[float] = Field(
+        None,
+        description=(
+            "ADP standard deviation, when the source CSV carries it "
+            "(FFC/ESPN real-ADP sources; absent for legacy sleeper_rank)"
+        ),
+    )
 
 
 class AdpResponse(BaseModel):
@@ -1065,6 +1229,133 @@ class AdpResponse(BaseModel):
     players: List[AdpPlayer]
     source: str
     updated_at: Optional[str] = None
+
+
+# ---------------------------------------------------------------------------
+# Platform presets (v8.3 draft-tool upgrade)
+# ---------------------------------------------------------------------------
+
+
+class PlatformPreset(BaseModel):
+    """Platform-faithful draft-session defaults for one platform.
+
+    Mirrors one entry of ``src/config.py::PLATFORM_PRESETS``, with
+    ``roster_format`` resolved to its ``ROSTER_CONFIGS`` key and
+    ``roster_slots`` expanded to the actual slot-count dict so callers don't
+    need a second lookup.
+    """
+
+    scoring_format: Optional[str] = None
+    roster_format: Optional[str] = None
+    rounds: Optional[int] = None
+    timer_seconds: Optional[int] = None
+    adp_source: Optional[str] = None
+    roster_slots: Dict[str, int] = Field(default_factory=dict)
+
+
+class PlatformPresetsResponse(BaseModel):
+    """Response for GET /api/draft/platforms."""
+
+    platforms: Dict[str, PlatformPreset]
+
+
+# ---------------------------------------------------------------------------
+# Draft engine: post-draft report with receipts + undo (new)
+# ---------------------------------------------------------------------------
+
+
+class MockDraftReportAlternative(BaseModel):
+    """The highest-VORP player still available at the time of a user pick."""
+
+    player_name: str
+    vorp: Optional[float] = None
+
+
+class MockDraftReportPick(BaseModel):
+    """One of the user's picks in a completed/in-progress mock draft, with
+    receipts: what else was on the board, and how the pick compares to ADP.
+    """
+
+    round: int
+    overall_pick: int
+    player_name: str
+    position: str
+    projected_points: Optional[float] = None
+    vorp: Optional[float] = None
+    adp_rank: Optional[float] = None
+    adp_delta: Optional[float] = Field(
+        None,
+        description=(
+            "overall_pick - adp_rank. Positive means the player fell past "
+            "their ADP (a steal); negative means you reached for them ahead "
+            "of ADP. None when the player has no ADP."
+        ),
+    )
+    best_alternative: Optional[MockDraftReportAlternative] = Field(
+        None,
+        description=(
+            "Highest-VORP player still available at the moment of this pick "
+            "(per the recorded pick sequence). None if nobody else with a "
+            "VORP was available."
+        ),
+    )
+    vorp_delta: Optional[float] = Field(
+        None,
+        description="This pick's vorp - best_alternative's vorp.",
+    )
+
+
+class MockDraftReportSummary(BaseModel):
+    """Whole-draft summary for the user's roster."""
+
+    total_projected: float
+    total_vorp: float
+    floor_sum: Optional[float] = None
+    ceiling_sum: Optional[float] = None
+    letter_grade: str = Field(
+        ..., description="Reuses src.draft_optimizer._pick_grade -- single source of truth"
+    )
+    grade_notes: List[str] = Field(default_factory=list)
+
+
+class MockDraftReportResponse(BaseModel):
+    """Response for GET /api/draft/mock/report."""
+
+    session_id: str
+    picks: List[MockDraftReportPick]
+    summary: MockDraftReportSummary
+
+
+class DraftUndoRequest(BaseModel):
+    """Request to undo the most recent pick on a manual board session."""
+
+    session_id: str
+
+
+class DraftUndoResponse(BaseModel):
+    """Response after undoing a manual-board pick."""
+
+    success: bool
+    player: Optional[DraftPlayer] = None
+    message: str = ""
+
+
+class MockDraftUndoRequest(BaseModel):
+    """Request to undo back to before the user's most recent mock-draft pick."""
+
+    session_id: str
+
+
+class MockDraftUndoResponse(BaseModel):
+    """Response after undoing a mock-draft pick.
+
+    Reverts the user's last pick AND every bot pick made after it, putting
+    the user back on the clock at ``pick_number``.
+    """
+
+    success: bool
+    pick_number: int = Field(..., description="Picks remaining on the board after undo")
+    message: str = ""
 
 
 # ---------------------------------------------------------------------------
@@ -1565,3 +1856,109 @@ class LeagueDraftPrepResponse(BaseModel):
         "market consensus on playing time and role, which is more reliable for first-year players.",
         description="Explanation surfaced to the UI explaining why rookies are sorted by ADP",
     )
+
+
+# ---------------------------------------------------------------------------
+# Draft platform rooms: stack hints / sleepers / league draft intel (new)
+# ---------------------------------------------------------------------------
+
+
+class StackHint(BaseModel):
+    """One correlation-network stack hint for a still-available player.
+
+    ``kind`` is ``stack_bonus`` when the available player is positively
+    correlated with a player already on the user's roster (rho >=
+    ``src.draft_stacks.STACK_BONUS_RHO_MIN``), or
+    ``shared_ceiling_warning`` when negatively correlated (rho <=
+    ``src.draft_stacks.SHARED_CEILING_RHO_MAX``).
+    """
+
+    player_name: str
+    position: str
+    team: Optional[str] = None
+    rostered_player_name: str
+    rho: float
+    n_games: int
+    kind: str = Field(..., description="stack_bonus / shared_ceiling_warning")
+
+
+class DraftStackHintsResponse(BaseModel):
+    """Response for GET /api/draft/stack-hints."""
+
+    hints: List[StackHint] = Field(default_factory=list)
+
+
+class DraftSleeperRow(BaseModel):
+    """One sleeper candidate: undervalued vs ADP and/or a UC1
+    vacated-opportunity signal (see ``src.draft_sleepers``).
+    """
+
+    player_name: str
+    position: str
+    team: Optional[str] = None
+    model_rank: Optional[int] = None
+    adp_rank: Optional[float] = None
+    adp_gap: Optional[float] = Field(
+        None, description="adp_rank - model_rank; positive = model likes them more"
+    )
+    projected_points: Optional[float] = None
+    reason: str = Field(
+        ..., description="Human-readable explanation built only from real signals"
+    )
+
+
+class DraftSleepersResponse(BaseModel):
+    """Response for GET /api/draft/sleepers."""
+
+    sleepers: List[DraftSleeperRow] = Field(default_factory=list)
+
+
+class ManagerTendencies(BaseModel):
+    """One Sleeper manager's draft tendencies, derived from real pick data
+    across their league-history chain (no historical ADP used).
+    """
+
+    first_round_by_season: Dict[str, Optional[str]] = Field(default_factory=dict)
+    modal_first_round_position: Optional[str] = Field(
+        None, description="Most common round-1 position across analyzed seasons"
+    )
+    opens_rb_rb_seasons: List[str] = Field(
+        default_factory=list,
+        description="Season labels where round 1 and round 2 were both RB",
+    )
+    wr_heavy_early_seasons: List[str] = Field(
+        default_factory=list,
+        description="Season labels with >= 2 WR picks in rounds 1-3",
+    )
+    position_counts_rounds_1_3: Dict[str, int] = Field(
+        default_factory=dict,
+        description="Position pick counts in rounds 1-3, summed across seasons",
+    )
+    early_position_shares: Dict[str, float] = Field(
+        default_factory=dict,
+        description="Share of rounds-1-3 picks at each position, across seasons",
+    )
+    qb_by_round_seasons: Dict[str, Optional[int]] = Field(
+        default_factory=dict,
+        description="Season -> round the manager's first QB was taken, or None",
+    )
+
+
+class DraftIntelManager(BaseModel):
+    """One manager's identity + tendencies for GET /api/draft/intel."""
+
+    user_id: str
+    display_name: str
+    team_name: Optional[str] = None
+    tendencies: ManagerTendencies
+    summary: List[str] = Field(
+        default_factory=list, description="Human-readable tendency sentences"
+    )
+
+
+class DraftIntelResponse(BaseModel):
+    """Response for GET /api/draft/intel."""
+
+    league_id: str
+    seasons_analyzed: int = 0
+    managers: List[DraftIntelManager] = Field(default_factory=list)
