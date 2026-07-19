@@ -33,3 +33,15 @@ export function pickLabel(pickNo: number, nTeams: number): string {
   const inRound = ((pickNo - 1) % nTeams) + 1
   return `${round}.${String(inRound).padStart(2, '0')}`
 }
+
+/**
+ * How many picks until `slot` is next on the clock, counting from
+ * `currentPickNo` (inclusive). Returns 0 when `slot` is on the clock right
+ * now at `currentPickNo`. Powers the mock-draft header's "Next turn in N
+ * picks" chip.
+ */
+export function picksUntilNextTurn(currentPickNo: number, slot: number, nTeams: number): number {
+  if (slotOnClock(currentPickNo, nTeams) === slot) return 0
+  const next = nextPickForSlot(currentPickNo, slot, nTeams)
+  return next != null ? next - currentPickNo : 0
+}

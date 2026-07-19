@@ -22,12 +22,12 @@ export const metadata: Metadata = {
  */
 
 const NAV_ITEMS = [
-  { label: 'Draft Room', href: '/dashboard/draft' },
+  { label: 'News', href: '/dashboard/news' },
   { label: 'Rankings', href: '/dashboard/rankings' },
   { label: 'Scores', href: '/dashboard/predictions' },
-  { label: 'News', href: '/dashboard/news' },
   { label: 'Matchups', href: '/dashboard/matchups' },
-  { label: 'My League', href: '/dashboard/leagues' }
+  { label: 'My League', href: '/dashboard/leagues' },
+  { label: 'Draft Room', href: '/dashboard/draft' }
 ] as const;
 
 const RECEIPTS = [
@@ -46,6 +46,18 @@ const CORRELATIONS = [
   { pair: 'BURROW ↔ CHASE', rho: '+0.46', n: '63 gms' },
   { pair: 'HURTS ↔ SMITH', rho: '+0.34', n: '74 gms' }
 ] as const;
+
+/* Static rating chips for the matchup-ratings teaser — illustrative only, no
+ * data fetch on this page (Madden OVR is live-fetched on /dashboard/matchups). */
+const MATCHUP_RATINGS = [
+  { name: 'MAHOMES', rating: 97 },
+  { name: 'CMC', rating: 96 },
+  { name: 'CHASE', rating: 95 },
+  { name: 'PARSONS', rating: 91 }
+] as const;
+
+/* Sources shown side-by-side on the multi-source rankings compare table. */
+const RANKING_SOURCES = ['Ours', 'Sleeper', 'ESPN', 'Yahoo', 'Draft Sharks', 'FTN'] as const;
 
 function SectionKicker({ children }: { children: React.ReactNode }) {
   return (
@@ -251,6 +263,73 @@ export default function MarketingHome() {
             className='inline-block rounded-full bg-[var(--wc-peri,#5b67c7)] px-7 py-3 font-semibold text-white transition-colors hover:bg-[var(--wc-peri-bright,#6e7ce0)]'
           >
             Enter the draft room
+          </Link>
+        </div>
+      </section>
+
+      {/* Madden-style matchup ratings — unadvertised feature #1. */}
+      <section className='border-t border-white/10 bg-[#0b0e18] px-6 py-24 text-center'>
+        <SectionKicker>Matchup Ratings</SectionKicker>
+        <SectionTitle>Every matchup, rated 1–99.</SectionTitle>
+        <SectionSub>
+          A head-to-head field view for every game — live EA Madden OVR ratings for every
+          starter (a stat-based rating fills in for players Madden hasn’t rated yet), with
+          player-vs-player edges at every slot on the field.
+        </SectionSub>
+        <div className='mt-10 flex flex-wrap justify-center gap-3.5'>
+          {MATCHUP_RATINGS.map((r) => (
+            <span
+              key={r.name}
+              className='wc-display inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#131722] px-4 py-2 text-[15px] tracking-[0.05em] text-[#cfd6e4]'
+            >
+              <b
+                className='inline-flex h-7 w-7 items-center justify-center rounded-md text-[13px] font-black text-[#05070d]'
+                style={{ background: 'var(--wc-mint,#91edd0)' }}
+              >
+                {r.rating}
+              </b>
+              {r.name}
+            </span>
+          ))}
+        </div>
+        <div className='mt-9'>
+          <Link
+            href='/dashboard/matchups'
+            className='inline-block rounded-full bg-[var(--wc-peri,#5b67c7)] px-7 py-3 font-semibold text-white transition-colors hover:bg-[var(--wc-peri-bright,#6e7ce0)]'
+          >
+            See the matchup ratings
+          </Link>
+        </div>
+      </section>
+
+      {/* Multi-source rankings compare — unadvertised feature #2 (premium surface). */}
+      <section className='border-t border-white/10 bg-[#070a12] px-6 py-24 text-center'>
+        <SectionKicker>Rankings</SectionKicker>
+        <SectionTitle>
+          Five sources.
+          <br />
+          One table. Ours graded.
+        </SectionTitle>
+        <SectionSub>
+          Our model’s ranks next to Sleeper, ESPN, Yahoo, Draft Sharks, and FTN — same players,
+          same row, the gaps highlighted so you can see exactly where the consensus disagrees.
+        </SectionSub>
+        <div className='mt-10 flex flex-wrap justify-center gap-3.5'>
+          {RANKING_SOURCES.map((s) => (
+            <span
+              key={s}
+              className='wc-display inline-flex items-center rounded-full border border-white/10 bg-[#131722] px-4 py-2 text-[14px] tracking-[0.08em] text-[#cfd6e4]'
+            >
+              {s}
+            </span>
+          ))}
+        </div>
+        <div className='mt-10'>
+          <Link
+            href='/dashboard/rankings'
+            className='wc-display text-[15px] tracking-[0.12em] text-[var(--wc-mint,#91edd0)] hover:underline'
+          >
+            Compare the sources →
           </Link>
         </div>
       </section>
