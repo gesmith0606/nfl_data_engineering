@@ -1,0 +1,483 @@
+{
+  "fetch_run_id": "539d1352-ab5b-4754-ae6c-675fa4d8ba00",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-21T12:39:22.692442+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-on-limited-offseason-work-they-want-me-ready-for-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-on-limited-offseason-work-they-want-me-ready-for-camp",
+      "title": "Nico Collins on limited offseason work: They want me ready for camp",
+      "body_text": "Texans wide receiver Nico Collins was not a full participant in the team's offseason program, but he says there is no injury concern as the team moves toward training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-21T12:20:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nico Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-rj-harvey-watching-film-of-nfls-top-running-backs-as-he-looks-to-expand-his-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-rj-harvey-watching-film-of-nfls-top-running-backs-as-he-looks-to-expand-his-game",
+      "title": "Broncos' RJ Harvey watching film of NFL's top running backs as he looks to expand his game",
+      "body_text": "Broncos running back RJ Harvey is preparing for his second NFL season by studying some of the league's best running backs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-21T09:55:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-new-eagles-oc-sean-mannion-has-an-obsession-to-get-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-new-eagles-oc-sean-mannion-has-an-obsession-to-get-better",
+      "title": "Nick Sirianni: New Eagles OC Sean Mannion has an \"obsession to get better\"",
+      "body_text": "“I’m not at all concerned there as far as his inexperience on that because he's worked his ass off,” Sirianni said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-21T08:03:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni",
+        "New Eagles",
+        "Sean Mannion"
+      ],
+      "resolved_player_ids": [
+        "00-0032245"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-uses-free-speech-law-in-effort-to-defeat-jon-grudens-lawsuit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-uses-free-speech-law-in-effort-to-defeat-jon-grudens-lawsuit",
+      "title": "NFL uses free speech law in effort to defeat Jon Gruden's lawsuit",
+      "body_text": "The effort to delay getting to the merits of Gruden's case continues.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T06:04:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jon Gruden"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-reunites-with-estranged-family",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-reunites-with-estranged-family",
+      "title": "Aaron Rodgers reunites with estranged family",
+      "body_text": "The Steelers quarterback posted photos with his parents and his brother, Luke, on social media.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-21T02:13:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-commissioner-greg-sankey-says-talk-of-leaving-the-ncaa-is-real",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-commissioner-greg-sankey-says-talk-of-leaving-the-ncaa-is-real",
+      "title": "SEC Commissioner Greg Sankey says talk of leaving the NCAA is \"real\"",
+      "body_text": "As college football tries to navigate an era of chaos sparked by the reckoning from decades of antitrust violations, one of the most powerful conference claims it's serious about leaving the NCAA.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T00:58:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Commissioner Greg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-should-study-the-world-cup-championship-ceremony-for-ideas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-should-study-the-world-cup-championship-ceremony-for-ideas",
+      "title": "NFL should study the World Cup championship ceremony for ideas",
+      "body_text": "The NFL's post-Super Bowl ceremony is typically an exercise in loosely-controlled chaos.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T00:22:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "World Cup",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/more-espn-nfl-network-layoffs-are-coming-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/more-espn-nfl-network-layoffs-are-coming-tuesday",
+      "title": "More ESPN, NFL Network layoffs are coming Tuesday",
+      "body_text": "ESPN's clunky, on-air termination of NFL analyst Ryan Clark was just the beginning.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T00:11:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Clark"
+      ],
+      "resolved_player_ids": [
+        "00-0020840"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-clark-was-informed-of-his-firing-during-mondays-nfl-live",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-clark-was-informed-of-his-firing-during-mondays-nfl-live",
+      "title": "Ryan Clark was informed of his firing during Monday's NFL Live",
+      "body_text": "ESPN's approach was far from ideal.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T23:58:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Clark"
+      ],
+      "resolved_player_ids": [
+        "00-0020840"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-should-focus-its-push-for-grass-on-one-team-at-a-time-starting-with-the-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-should-focus-its-push-for-grass-on-one-team-at-a-time-starting-with-the-seahawks",
+      "title": "NFLPA should focus its push for grass on one team at a time, starting with the Seahawks",
+      "body_text": "With the World Cup over, it's time to remove the grass and reinstall the artificial surface at the various NFL stadiums that play American football on the fake stuff.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T19:21:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Seahawks With",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-s-jordan-whitehead-cleared-to-return-to-football-activities",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-s-jordan-whitehead-cleared-to-return-to-football-activities",
+      "title": "Free agent S Jordan Whitehead cleared to return to football activities",
+      "body_text": "Free agent safety Jordan Whitehead is cleared to resume his football career, Mike Garafolo of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-20T22:55:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Whitehead",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0034374"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-cuts-ties-with-ryan-clark",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-espn-cuts-ties-with-ryan-clark",
+      "title": "Report: ESPN cuts ties with Ryan Clark",
+      "body_text": "Clark is reportedly the first in a coming wave of layoffs.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T21:19:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Clark"
+      ],
+      "resolved_player_ids": [
+        "00-0020840"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/missouri-rb-ahmad-hardy-medically-cleared-from-gunshot-wound-but-return-still-tbd",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/missouri-rb-ahmad-hardy-medically-cleared-from-gunshot-wound-but-return-still-tbd",
+      "title": "Missouri RB Ahmad Hardy medically cleared from gunshot wound, but return still TBD",
+      "body_text": "Missouri running back Ahmad Hardy is medically cleared from a gunshot wound to the leg, but coach Eli Drinkwitz said Monday that a timetable for Hardy's return remains uncertain.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-20T20:58:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ahmad Hardy",
+        "Eli Drinkwitz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-are-expected-to-re-hire-michael-wilhoite-as-a-member-of-their-staff",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-are-expected-to-re-hire-michael-wilhoite-as-a-member-of-their-staff",
+      "title": "Broncos are expected to re-hire Michael Wilhoite as a member of their staff",
+      "body_text": "The Broncos are expected to re-hire outside linebackers coach Michael Wilhoite as a member of the staff, Matt Zenitz of CBS Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-20T20:29:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Wilhoite",
+        "The Broncos",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [
+        "00-0028836"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-place-nick-emmanwori-kenny-mcintosh-tyrone-broden-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-place-nick-emmanwori-kenny-mcintosh-tyrone-broden-on-pup-list",
+      "title": "Seahawks place Nick Emmanwori, Kenny McIntosh, Tyrone Broden on PUP list",
+      "body_text": "One of Seattle’s key defensive players is not yet ready to practice at training camp.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-20T20:25:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Emmanwori",
+        "Tyrone Broden"
+      ],
+      "resolved_player_ids": [
+        "00-0040733",
+        "00-0040053"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cfl-lb-jayden-dalke-killed-in-a-wreck",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cfl-lb-jayden-dalke-killed-in-a-wreck",
+      "title": "CFL LB Jayden Dalke killed in a wreck",
+      "body_text": "CFL linebacker Jayden Dalke was killed in a wreck Saturday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-20T20:04:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Dalke"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devonte-wyatt-agrees-to-three-year-extension-with-packers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devonte-wyatt-agrees-to-three-year-extension-with-packers",
+      "title": "Devonte Wyatt agrees to three-year extension with Packers",
+      "body_text": "Packers defensive tackle Devonte Wyatt is no longer in the final year of his contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-20T19:24:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Devonte Wyatt",
+        "Packers Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0037075"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/don-shulas-career-win-total-doesnt-include-two-playoff-bowl-victories-it-should",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/don-shulas-career-win-total-doesnt-include-two-playoff-bowl-victories-it-should",
+      "title": "Don Shula's career win total doesn't include two Playoff Bowl victories (it should)",
+      "body_text": "If/when someone seriously challenges Hall of Fame head coach Don Shula's all-time win record, the magic number shouldn't be 347.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T18:47:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Don Shula",
+        "Playoff Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-expect-lb-teddye-buchanan-to-return-from-torn-acl-sooner-than-later",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-expect-lb-teddye-buchanan-to-return-from-torn-acl-sooner-than-later",
+      "title": "Ravens expect LB Teddye Buchanan to return from torn ACL \"sooner than later\"",
+      "body_text": "Ravens General Manager Eric DeCosta had a positive update about linebacker Teddye Buchanan last week.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-20T18:43:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Teddye Buchanan",
+        "Ravens General",
+        "Manager Eric"
+      ],
+      "resolved_player_ids": [
+        "00-0040069"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-re-sign-dt-isaiah-iton",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-re-sign-dt-isaiah-iton",
+      "title": "Patriots re-sign DT Isaiah Iton",
+      "body_text": "The Patriots have brought back a young defensive player.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-20T18:21:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Isaiah Iton",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039644"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-owners-expect-another-extension-for-roger-goodell-in-the-coming-months",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-owners-expect-another-extension-for-roger-goodell-in-the-coming-months",
+      "title": "Report: Owners expect another extension for Roger Goodell \"in the coming months\"",
+      "body_text": "Goodell's deal expires in March.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T17:59:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ljarius-sneed-plans-to-reclaim-who-i-am-in-return-to-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ljarius-sneed-plans-to-reclaim-who-i-am-in-return-to-chiefs",
+      "title": "L'Jarius Sneed plans to \"reclaim who I am\" in return to Chiefs",
+      "body_text": "Cornerback L'Jarius Sneed is back with the Chiefs and he hopes that isn't the only way he turns back the clock during the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-20T17:15:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jarius Sneed",
+        "Chiefs Cornerback"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-leveon-bells-arrest-relates-to-child-support-payments",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-leveon-bells-arrest-relates-to-child-support-payments",
+      "title": "Report: Le'Veon Bell's arrest relates to child-support payments",
+      "body_text": "When news broke that former NFL running back Le'Veon Bell was arrested in Canton on a warrant from Michigan, there were no details as to the underlying reason for the move.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T17:13:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Veon Bell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/four-rookie-quarterbacks-remain-unsigned-including-fernando-mendoza",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/four-rookie-quarterbacks-remain-unsigned-including-fernando-mendoza",
+      "title": "Four rookie quarterbacks remain unsigned, including Fernando Mendoza",
+      "body_text": "Training camps will be opening soon.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T16:56:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-on-qb-battle-with-deshaun-watson-were-both-trying-to-be-the-best-version-of-ourselves",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-on-qb-battle-with-deshaun-watson-were-both-trying-to-be-the-best-version-of-ourselves",
+      "title": "Shedeur Sanders on QB battle with Deshaun Watson: We’re both trying to be the best version of ourselves",
+      "body_text": "Shedeur Sanders and Deshaun Watson are set to continue their competition to become Cleveland’s QB1 at training camp later this month.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-20T15:52:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-announce-white-bengal-stripe-game-vs-ravens-on-new-years-eve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-announce-white-bengal-stripe-game-vs-ravens-on-new-years-eve",
+      "title": "Bengals announce \"White Bengal Stripe\" game vs. Ravens on New Year's Eve",
+      "body_text": "The Bengals had had enough of playing the Ravens on the road in primetime, as it had happened for four consecutive seasons.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-20T14:46:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "White Bengal",
+        "New Year",
+        "Eve The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michigan-announces-a-d-warde-manuel-will-step-down-at-end-of-calendar-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michigan-announces-a-d-warde-manuel-will-step-down-at-end-of-calendar-year",
+      "title": "Michigan announces A.D. Warde Manuel will step down at end of calendar year",
+      "body_text": "Whenever a major institution finds itself in a pickle, there's an important question regarding the extent to which transparency will apply to the de-pickling process.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T14:41:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Warde Manuel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-to-hold-six-open-training-camp-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-to-hold-six-open-training-camp-practices",
+      "title": "Bengals to hold six open training camp practices",
+      "body_text": "The Bengals will kick off training camp in a little more than a week and the team announced that they will open six of their summer practice sessions to the general public.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-20T14:25:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-tells-campers-his-lesson-from-the-super-bowl-is-i-have-to-play-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-tells-campers-his-lesson-from-the-super-bowl-is-i-have-to-play-better",
+      "title": "Drake Maye tells campers his lesson from the Super Bowl is \"I have to play better\"",
+      "body_text": "Patriots quarterback Drake Maye hosted three football camps last week and told the assembled children that he takes responsibility for New England's loss in Super Bowl LX.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-20T14:23:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye",
+        "Super Bowl",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-g-grey-zabel-i-hate-the-rams-but-love-facing-the-best-of-the-best",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-g-grey-zabel-i-hate-the-rams-but-love-facing-the-best-of-the-best",
+      "title": "Seahawks G Grey Zabel: I hate the Rams, but love facing the best of the best",
+      "body_text": "Seahawks left guard Grey Zabel got to see plenty of the Rams during his rookie season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-20T13:55:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Grey Zabel"
+      ],
+      "resolved_player_ids": [
+        "00-0040639"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}

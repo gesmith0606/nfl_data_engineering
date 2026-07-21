@@ -1,0 +1,70 @@
+{
+  "fetch_run_id": "b2123698-2751-4a04-91df-5df3fe281266",
+  "source": "rotowire",
+  "fetched_at": "2026-07-21T12:39:35.425525+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 3,
+  "items": [
+    {
+      "external_id": "nfl631747",
+      "url": "https://www.rotowire.com//football/player/bucky-irving-17784",
+      "permalink": "",
+      "title": "Bucky Irving: Says he'll be ready for camp",
+      "body_text": "During his annual youth football camp, Irving (shoulder) told Mark Skol, Jr. of FOX13News on Sunday that he will be good to go for training camp. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-20T02:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bucky Irving",
+        "Mark Skol"
+      ],
+      "resolved_player_ids": [
+        "00-0039361"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631743",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "permalink": "",
+      "title": "Tucker Kraft: May start camp on PUP list",
+      "body_text": "Kraft (ACL) is likely to begin the first practice of training camp on July 29 on the active/PUP list, though the tight end expects to be a full-go for Week 1, Jason Wilde of Channel 3000 reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-20T01:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft",
+        "Jason Wilde"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631736",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Says he's ready for camp",
+      "body_text": "Skattebo (ankle) said Sunday that he's \"ready to go\" for training camp, Patricia Traina of SI.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-20T06:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Patricia Traina"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    }
+  ]
+}
