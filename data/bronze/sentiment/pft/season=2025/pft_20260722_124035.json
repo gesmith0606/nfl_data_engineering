@@ -1,0 +1,589 @@
+{
+  "fetch_run_id": "67be7af4-2579-4f24-ad02-b1eb00a0dcc9",
+  "source": "pft",
+  "fetched_at": "2026-07-22T12:40:35.768442+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-im-ready-to-rock-out-when-the-opportunity-comes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-im-ready-to-rock-out-when-the-opportunity-comes",
+      "permalink": "",
+      "title": "Deebo Samuel: I'm ready to rock out when the opportunity comes",
+      "body_text": "While training camps start to open around the league, there are a number of notable veteran players still looking for places to play during the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-22T11:45:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-panthers-veterans-report-to-camp-on-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-panthers-veterans-report-to-camp-on-wednesday",
+      "permalink": "",
+      "title": "Cardinals, Panthers veterans report to camp on Wednesday",
+      "body_text": "The two teams will play in the Hall of Fame Game on August 6.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-22T11:24:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Wednesday The",
+        "Fame Game"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-cb-brandon-johnson-cut-te-harrison-bryant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-cb-brandon-johnson-cut-te-harrison-bryant",
+      "permalink": "",
+      "title": "Seahawks sign CB Brandon Johnson, cut TE Harrison Bryant",
+      "body_text": "The Seahawks made a change to their 90-player roster on the eve of training camp.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-22T08:36:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Johnson",
+        "Harrison Bryant",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0036232"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pat-mcafee-addresses-espn-layoffs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pat-mcafee-addresses-espn-layoffs",
+      "permalink": "",
+      "title": "Pat McAfee addresses ESPN layoffs",
+      "body_text": "ESPN's clunky rollout of the latest round of layoffs, which included a long list of recognizable names, came at a time when ESPN is reportedly closing in on paying Pat McAfee $60 million per year.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-22T04:19:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arizona-department-of-gaming-is-investigating-cardinals-exec-ryan-gold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arizona-department-of-gaming-is-investigating-cardinals-exec-ryan-gold",
+      "permalink": "",
+      "title": "Arizona Department of Gaming is investigating Cardinals' exec Ryan Gold",
+      "body_text": "Suspended director of college scouting facing another potential problem.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-22T03:46:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Arizona Department",
+        "Ryan Gold"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-camp-looming-buccaneers-will-dive-in-on-baker-mayfield-negotiations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-camp-looming-buccaneers-will-dive-in-on-baker-mayfield-negotiations",
+      "permalink": "",
+      "title": "With camp looming, Buccaneers will \"dive in\" on Baker Mayfield negotiations",
+      "body_text": "Buccaneers quarterback Baker Mayfield has set a deadline.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-22T03:16:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-photo-shows-detailed-puka-nacua-bite-mark-on-woman-who-is-suing-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-photo-shows-detailed-puka-nacua-bite-mark-on-woman-who-is-suing-him",
+      "permalink": "",
+      "title": "New photo shows detailed Puka Nacua bite mark on woman who is suing him",
+      "body_text": "Rams receiver Puka Nacua's unusual 2026 began the night the year began, with a claim that he bit a woman on New Year's Eve.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-22T01:29:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "New Year"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-devon-witherspoon-further-along-in-contract-talks-than-christian-gonzalez",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-devon-witherspoon-further-along-in-contract-talks-than-christian-gonzalez",
+      "permalink": "",
+      "title": "Report: Devon Witherspoon \"further along\" in contract talks than Christian Gonzalez",
+      "body_text": "Patriots cornerback Christian Gonzalez wants a long-term deal, and the Patriots want to sign him to a long-term deal.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-22T00:46:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Devon Witherspoon",
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039169",
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/more-than-62-million-u-s-viewers-watched-2026-world-cup-final",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/more-than-62-million-u-s-viewers-watched-2026-world-cup-final",
+      "permalink": "",
+      "title": "More than 62 million U.S. viewers watched 2026 World Cup final",
+      "body_text": "No USMNT?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-22T00:09:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-and-family-had-been-working-toward-reconciliation-for-a-while",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aaron-rodgers-and-family-had-been-working-toward-reconciliation-for-a-while",
+      "permalink": "",
+      "title": "Report: Aaron Rodgers and family had been working toward reconciliation \"for a while\"",
+      "body_text": "It's very good news that Steelers quarterback Aaron Rodgers has reconciled with his family.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T23:52:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-freeman-is-all-in-on-notre-dame-and-doesnt-see-himself-anywhere-else",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-freeman-is-all-in-on-notre-dame-and-doesnt-see-himself-anywhere-else",
+      "permalink": "",
+      "title": "Marcus Freeman is \"all-in\" on Notre Dame and doesn't see himself anywhere else",
+      "body_text": "Even as he turned down an opportunity to interview for NFL jobs this offseason, Marcus Freeman left the door open for an eventual move to the pros.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-21T23:07:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcus Freeman",
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [
+        "00-0024711"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-laporta-fully-cleared-for-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-laporta-fully-cleared-for-training-camp",
+      "permalink": "",
+      "title": "Sam LaPorta fully cleared for training camp",
+      "body_text": "Lions tight end Sam LaPorta was fully cleared earlier this month, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-21T22:44:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-put-harold-landry-on-the-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-put-harold-landry-on-the-pup-list",
+      "permalink": "",
+      "title": "Patriots put Harold Landry on the PUP list",
+      "body_text": "Patriots players began reporting to training camp on Tuesday and the team used the occasion to make a handful of roster moves.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-21T21:16:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Harold Landry"
+      ],
+      "resolved_player_ids": [
+        "00-0034828"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-sign-cb-damarri-mathis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-sign-cb-damarri-mathis",
+      "permalink": "",
+      "title": "Browns sign CB Damarri Mathis",
+      "body_text": "The Browns made a change to their cornerback group before training camp gets underway next week.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-21T20:34:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Damarri Mathis",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0038105"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/georgia-rb-dante-dowdell-seriously-injured-in-atv-accident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/georgia-rb-dante-dowdell-seriously-injured-in-atv-accident",
+      "permalink": "",
+      "title": "Georgia RB Dante Dowdell seriously injured in ATV accident",
+      "body_text": "Georgia running back Dante Dowdell is being treated for serious injuries in an Atlanta hospital after an ATV accident, Bulldogs coach Kirby Smart told Mark Schlabach of ESPN on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-21T20:20:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dante Dowdell",
+        "Kirby Smart",
+        "Mark Schlabach"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/recovering-from-torn-acl-dolphins-rookie-wr-chris-bell-placed-on-nfi-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/recovering-from-torn-acl-dolphins-rookie-wr-chris-bell-placed-on-nfi-list",
+      "permalink": "",
+      "title": "Recovering from torn ACL, Dolphins rookie WR Chris Bell placed on NFI list",
+      "body_text": "One of Miami’s rookies is not yet ready to participate in training camp, though it is not a surprise.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-21T20:26:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Bell"
+      ],
+      "resolved_player_ids": [
+        "BEL267684"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-free-agent-dl-denico-autry-is-expected-to-retire",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-free-agent-dl-denico-autry-is-expected-to-retire",
+      "permalink": "",
+      "title": "Report: Free agent DL Denico Autry is expected to retire",
+      "body_text": "Free agent defensive lineman Denico Autry is expected to retire, Aaron Wilson of KPRC reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-21T20:04:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Denico Autry",
+        "Aaron Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0031254"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-is-expected-to-have-noah-eagle-call-play-by-play-for-49ers-rams-in-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/netflix-is-expected-to-have-noah-eagle-call-play-by-play-for-49ers-rams-in-australia",
+      "permalink": "",
+      "title": "Netflix is expected to have Noah Eagle call play-by-play for 49ers-Rams in Australia",
+      "body_text": "Netflix is expected to have Noah Eagle on the play-by-play call for the second game of the 2026 NFL regular season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-21T19:42:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Noah Eagle",
+        "Australia Netflix"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-cb-jaylon-guilbeau-on-nfi-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-cb-jaylon-guilbeau-on-nfi-list",
+      "permalink": "",
+      "title": "Panthers put CB Jaylon Guilbeau on NFI list",
+      "body_text": "The Panthers have added another player to their non-football injury list.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-21T19:31:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylon Guilbeau",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "GUI492414"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jacoby-brissett-cardinals-still-have-no-resolution-to-contract-dispute",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jacoby-brissett-cardinals-still-have-no-resolution-to-contract-dispute",
+      "permalink": "",
+      "title": "Report: Jacoby Brissett, Cardinals still have no resolution to contract dispute",
+      "body_text": "The Cardinals report to training camp on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-21T18:50:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-ties-layoffs-to-nfl-network-acquisition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-ties-layoffs-to-nfl-network-acquisition",
+      "permalink": "",
+      "title": "ESPN ties layoffs to NFL Network acquisition",
+      "body_text": "One of my all-time favorite jokes (which may or may not be the untold \"joke\" from Big Shield) is a simple one that was told by David Letterman during a week of shows from Las Vegas in 1987.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T19:10:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Big Shield",
+        "David Letterman",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-to-place-cb-jaycee-horn-ot-taylor-moton-on-nfi-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-to-place-cb-jaycee-horn-ot-taylor-moton-on-nfi-list",
+      "permalink": "",
+      "title": "Panthers to place CB Jaycee Horn, OT Taylor Moton on NFI list",
+      "body_text": "Carolina will not have two key veterans when they begin training camp.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-21T18:47:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaycee Horn",
+        "Taylor Moton"
+      ],
+      "resolved_player_ids": [
+        "00-0036944",
+        "00-0033284"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-uses-free-speech-law-in-effort-to-defeat-jon-grudens-lawsuit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-uses-free-speech-law-in-effort-to-defeat-jon-grudens-lawsuit",
+      "permalink": "",
+      "title": "NFL uses free speech law in effort to defeat Jon Gruden's lawsuit",
+      "body_text": "The effort to delay getting to the merits of Gruden's case continues.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T06:04:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jon Gruden"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-cam-skattebo-backflip-dude-at-least-stick-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-cam-skattebo-backflip-dude-at-least-stick-it",
+      "permalink": "",
+      "title": "John Harbaugh on Cam Skattebo backflip: \"Dude, at least stick it\"",
+      "body_text": "Giants running back Cam Skattebo was tempting fate when he decided to do a backflip at Fanatics Fest over the weekend.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-21T16:59:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Cam Skattebo",
+        "Fanatics Fest"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-newton-is-laid-off-by-espn-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-newton-is-laid-off-by-espn-too",
+      "permalink": "",
+      "title": "Cam Newton is laid off by ESPN, too",
+      "body_text": "The latest round of ESPN layoffs is impacting plenty of recognizable names — including a former NFL MVP.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T16:57:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Newton"
+      ],
+      "resolved_player_ids": [
+        "00-0027939"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-greenard-my-job-is-to-help-nolan-smith-jalyx-hunt-continue-to-grow",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-greenard-my-job-is-to-help-nolan-smith-jalyx-hunt-continue-to-grow",
+      "permalink": "",
+      "title": "Jonathan Greenard: My job is to help Nolan Smith, Jalyx Hunt continue to grow",
+      "body_text": "The Eagles traded for veteran edge rusher Jonathan Greenard in April and signed him to a new four-year contract because they think he can make an impact for them on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-21T16:50:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Greenard",
+        "Nolan Smith",
+        "Jalyx Hunt",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036224",
+        "00-0039013",
+        "00-0039740"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-pelissero-had-a-year-left-on-his-nfln-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-pelissero-had-a-year-left-on-his-nfln-deal",
+      "permalink": "",
+      "title": "Tom Pelissero had a year left on his NFLN deal",
+      "body_text": "When ESPN acquired NFL Network, frayed nerves at NFLN were calmed by the news that ESPN would honor the existing contracts with on-air personnel, and that ESPN would make a decision when the current deals end.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T16:37:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-clark-takes-the-high-road-after-espn-took-the-low-road",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-clark-takes-the-high-road-after-espn-took-the-low-road",
+      "permalink": "",
+      "title": "Ryan Clark takes the high road, after ESPN took the low road",
+      "body_text": "Clark responds with grace to Disney's Mickey Mouse move.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-21T16:04:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Clark",
+        "Mickey Mouse"
+      ],
+      "resolved_player_ids": [
+        "00-0020840"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-tyler-shough-top-nflpas-rising-stars-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-tyler-shough-top-nflpas-rising-stars-list",
+      "permalink": "",
+      "title": "Fernando Mendoza, Tyler Shough top NFLPA's Rising Stars list",
+      "body_text": "The NFL Players Association released its annual Rising Stars list on Tuesday and the first overall pick of this year's draft is one of the players at the top.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-21T16:22:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Tyler Shough",
+        "Rising Stars",
+        "Players Association"
+      ],
+      "resolved_player_ids": [
+        "MEN516487",
+        "00-0040743"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/four-rookie-quarterbacks-remain-unsigned-including-fernando-mendoza",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/four-rookie-quarterbacks-remain-unsigned-including-fernando-mendoza",
+      "permalink": "",
+      "title": "Four rookie quarterbacks remain unsigned, including Fernando Mendoza",
+      "body_text": "Training camps will be opening soon.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-20T16:56:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": null
+    }
+  ]
+}
