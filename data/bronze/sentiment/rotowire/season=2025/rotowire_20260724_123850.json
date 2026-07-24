@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "69b9a03a-50b9-479a-9310-d053552e252b",
+  "source": "rotowire",
+  "fetched_at": "2026-07-24T12:38:50.691312+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631838",
+      "url": "https://www.rotowire.com//football/player/quinshon-judkins-18516",
+      "permalink": "",
+      "title": "Quinshon Judkins: Should open at full speed",
+      "body_text": "Judkins (ankle/fibula) is in line to be full go at the start of training camp, Jeremy Fowler of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-23T03:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quinshon Judkins",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0040784"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631837",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "permalink": "",
+      "title": "Jacoby Brissett: Set to practice Thursday",
+      "body_text": "Coach Mike LaFleur said Brissett will practice Thursday, Darren Urban of the Cardinals' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-23T03:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Thursday Coach",
+        "Darren Urban"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl631835",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Avoids PUP list placement",
+      "body_text": "Nabers (knee) was not among the Giants placed on the active/PUP list Thursday, Dan Salomone of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-23T03:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Dan Salomone"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl631814",
+      "url": "https://www.rotowire.com//football/player/devonta-smith-15406",
+      "permalink": "",
+      "title": "DeVonta Smith: Top option in revamped WR room",
+      "body_text": "Smith is set to lead a revamped wide receiver room that includes rookie first-round pick Makai Lemon and trade acquisition Dontayvion Wicks, Tim McManus of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-23T11:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon",
+        "Dontayvion Wicks"
+      ],
+      "resolved_player_ids": [
+        "LEM694125",
+        "00-0038393"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631813",
+      "url": "https://www.rotowire.com//football/player/jonathon-brooks-17747",
+      "permalink": "",
+      "title": "Jonathon Brooks: Full-go on Day 1",
+      "body_text": "Brooks was a full participant in a training camp practice for the first time in his career Thursday and impressed Carolina's coaching staff with his performance, Anthony Rizzuti of USA Today Panthers Wire reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-23T10:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Brooks",
+        "Anthony Rizzuti",
+        "Today Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0039344"
+      ],
+      "team_hint": "CAR"
+    }
+  ]
+}

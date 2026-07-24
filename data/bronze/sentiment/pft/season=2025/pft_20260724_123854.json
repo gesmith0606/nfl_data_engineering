@@ -1,0 +1,611 @@
+{
+  "fetch_run_id": "d3417cfa-b8a1-48ea-a1a8-783ae4f6aa4c",
+  "source": "pft",
+  "fetched_at": "2026-07-24T12:38:54.773259+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-jeremiyah-love-is-a-mature-young-man-awesome-with-the-locker-room",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-jeremiyah-love-is-a-mature-young-man-awesome-with-the-locker-room",
+      "permalink": "",
+      "title": "Mike LaFleur: Jeremiyah Love is a mature young man, \"awesome with the locker room\"",
+      "body_text": "\"He's been awesome with the locker room. He is himself, but he also has some awareness that he's a rookie,\" LaFleur said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-24T12:25:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "LOV121782"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-there-arent-68-better-players-than-lamar-jackson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-there-arent-68-better-players-than-lamar-jackson",
+      "permalink": "",
+      "title": "Jesse Minter: There aren't 68 better players than Lamar Jackson",
+      "body_text": "Ravens quarterback Lamar Jackson's ranking in the NFL Network list of the league's top 100 players caught the eye of head coach Jesse Minter.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-24T12:25:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jesse Minter",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-breaks-extended-twitter-silence-to-express-agreement-with-ryan-clarks-ouster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-breaks-extended-twitter-silence-to-express-agreement-with-ryan-clarks-ouster",
+      "permalink": "",
+      "title": "Nick Bosa breaks extended Twitter silence to express agreement with Ryan Clark's ouster",
+      "body_text": "The story of the week came from ESPN, where a supposed exercise in removing red ink became, for NFL analyst Ryan Clark, more like a Red Wedding. 49ers defensive end Nick Bosa has chosen to chime in.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-24T10:40:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Bosa",
+        "Ryan Clark",
+        "Red Wedding"
+      ],
+      "resolved_player_ids": [
+        "00-0035717",
+        "00-0020840"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-links-lingering-brandon-aiyuk-issues-to-his-2024-contract-negotiations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-links-lingering-brandon-aiyuk-issues-to-his-2024-contract-negotiations",
+      "permalink": "",
+      "title": "George Kittle links lingering Brandon Aiyuk issues to his 2024 contract negotiations",
+      "body_text": "When 49ers tight end George Kittle last addressed receiver Brandon Aiyuk, during a visit with Pardon My Take, he told Commanders fan PFT Commenter, \"Have fun with that.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-07-24T09:55:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Brandon Aiyuk",
+        "My Take"
+      ],
+      "resolved_player_ids": [
+        "00-0033288",
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-unveil-their-two-new-alternate-uniforms",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-unveil-their-two-new-alternate-uniforms",
+      "permalink": "",
+      "title": "Rams unveil their two new alternate uniforms",
+      "body_text": "The Nikefication of the NFL continues.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-24T09:02:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Nikefication"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/whats-next-for-diego-pavia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/whats-next-for-diego-pavia",
+      "permalink": "",
+      "title": "What's next for Diego Pavia?",
+      "body_text": "After failing to win a chance at training camp to secure a spot as one of Lamar Jackson's backups, former Ravens quarterback Diego Pavia has entered the NFL's waiver system.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-24T08:37:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Diego Pavia",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "PAV369898",
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinshon-judkins-will-have-no-limitations-in-browns-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinshon-judkins-will-have-no-limitations-in-browns-training-camp",
+      "permalink": "",
+      "title": "Quinshon Judkins will have no limitations in Browns' training camp",
+      "body_text": "Judkins had surgery in December for a fractured fibula and dislocated ankle.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-24T08:30:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quinshon Judkins"
+      ],
+      "resolved_player_ids": [
+        "00-0040784"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-lineman-wins-preliminary-right-return-to-college-football-after-attending-rookie-minicamps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-lineman-wins-preliminary-right-return-to-college-football-after-attending-rookie-minicamps",
+      "permalink": "",
+      "title": "Texas lineman wins preliminary right return to college football after attending rookie minicamps",
+      "body_text": "The crowd that crows about college football chaos compelling Congressional intervention will love this one, even if it's not much of a surprise.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-24T08:22:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-ol-isaiah-adams-practices-despite-his-recent-arrest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-ol-isaiah-adams-practices-despite-his-recent-arrest",
+      "permalink": "",
+      "title": "Cardinals OL Isaiah Adams practices despite his recent arrest",
+      "body_text": "Cardinals offensive lineman Isaiah Adams, who faces four weapons charges after his recent arrest in Canada, took part in the team's first training camp practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-24T01:54:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaiah Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0039808"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-olb-nik-bonitto-i-still-have-a-lot-of-room-to-grow-in-my-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-olb-nik-bonitto-i-still-have-a-lot-of-room-to-grow-in-my-game",
+      "permalink": "",
+      "title": "Broncos OLB Nik Bonitto: I still have a lot of room to grow in my game",
+      "body_text": "Broncos outside linebacker Nik Bonitto made 13.5 sacks in 2024 and finished ninth in Defensive Player of the Year voting.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-24T01:27:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nik Bonitto",
+        "Defensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0037249"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garretts-cleveland-home-is-on-the-market-for-2-1-million",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garretts-cleveland-home-is-on-the-market-for-2-1-million",
+      "permalink": "",
+      "title": "Myles Garrett's Cleveland home is on the market for $2.1 million",
+      "body_text": "Usually, news of a player's home being put on the market is the spark for speculation that he may be looking for a new city in which to play.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-24T01:12:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-on-paris-johnson-josh-sweat-pup-list-is-just-maintenance",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-on-paris-johnson-josh-sweat-pup-list-is-just-maintenance",
+      "permalink": "",
+      "title": "Mike LaFleur: Paris Johnson, Josh Sweat landing on PUP list is \"just maintenance\"",
+      "body_text": "The Cardinals placed left tackle Paris Johnson and linebacker Josh Sweat on the physically unable to perform list on Thursday, but head coach Mike LaFleur didn't make it sound like either player is going to miss much time during training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-23T23:56:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Paris Johnson",
+        "Josh Sweat",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0038540",
+        "00-0034381"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-agree-to-terms-with-te-jeremiah-franklin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-agree-to-terms-with-te-jeremiah-franklin",
+      "permalink": "",
+      "title": "Patriots agree to terms with TE Jeremiah Franklin",
+      "body_text": "The Patriots agreed to terms with tight end Jeremiah Franklin, Matt Zenitz of CBS Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-23T22:26:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiah Franklin",
+        "The Patriots",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-will-practice-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-will-practice-on-thursday",
+      "permalink": "",
+      "title": "Jacoby Brissett will practice on Thursday",
+      "body_text": "The Cardinals QB did not take part in the team's offseason program.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-23T22:07:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-put-roy-robertson-harris-two-others-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-put-roy-robertson-harris-two-others-on-pup-list",
+      "permalink": "",
+      "title": "Giants put Roy Robertson-Harris, two others on PUP list",
+      "body_text": "Wide receiver Malik Nabers avoided the physically unable to perform list to open Giants training camp, but three of his teammates were less fortunate.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-23T21:56:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roy Robertson",
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-sweat-paris-johnson-among-cardinals-placed-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-sweat-paris-johnson-among-cardinals-placed-on-pup-list",
+      "permalink": "",
+      "title": "Josh Sweat, Paris Johnson among Cardinals placed on PUP list",
+      "body_text": "The Cardinals added four players to their physically unable to perform list on their first day of training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-23T21:08:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Sweat",
+        "Paris Johnson",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0034381",
+        "00-0038540"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-olb-jonathon-cooper-has-a-court-hearing-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-olb-jonathon-cooper-has-a-court-hearing-friday",
+      "permalink": "",
+      "title": "Broncos OLB Jonathon Cooper has a court hearing Friday",
+      "body_text": "Broncos outside linebacker Jonathon Cooper is scheduled for a court hearing on Friday before a Douglas County (Colorado) judge, Mike Klis of 9News reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-23T21:28:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Cooper",
+        "Friday Broncos",
+        "Douglas County",
+        "Mike Klis"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-waive-qb-diego-pavia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-waive-qb-diego-pavia",
+      "permalink": "",
+      "title": "Ravens waive QB Diego Pavia",
+      "body_text": "Undrafted rookie will be available to be claimed by another team.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-23T20:24:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Diego Pavia"
+      ],
+      "resolved_player_ids": [
+        "PAV369898"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-place-dt-maliek-collins-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-place-dt-maliek-collins-on-pup-list",
+      "permalink": "",
+      "title": "Browns place DT Maliek Collins on PUP list",
+      "body_text": "The Browns have made a roster move with training camp set to begin soon.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-23T20:59:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Maliek Collins",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0033131"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-te-caden-prieskorn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-te-caden-prieskorn",
+      "permalink": "",
+      "title": "Panthers sign TE Caden Prieskorn",
+      "body_text": "The Panthers agreed to terms with outside linebacker Cam Gill earlier Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-23T20:44:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caden Prieskorn",
+        "The Panthers",
+        "Cam Gill"
+      ],
+      "resolved_player_ids": [
+        "00-0040392",
+        "00-0036045"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-place-cbs-darrell-baker-jr-storm-duck-on-active-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-place-cbs-darrell-baker-jr-storm-duck-on-active-pup",
+      "permalink": "",
+      "title": "Dolphins place CBs Darrell Baker Jr., Storm Duck on active/PUP",
+      "body_text": "The Dolphins placed cornerbacks Darrell Baker Jr. and Storm Duck on the active/physically unable to perform list, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-23T20:33:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darrell Baker Jr",
+        "Storm Duck",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0037549",
+        "00-0039481"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-place-jc-latham-amani-hooker-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-place-jc-latham-amani-hooker-on-pup-list",
+      "permalink": "",
+      "title": "Titans place JC Latham, Amani Hooker on PUP list",
+      "body_text": "The Titans have made a series of roster moves on Thursday as they get set to begin training camp.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-23T20:22:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Amani Hooker",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035632"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-lb-nic-scourton-diagnosed-with-torn-acl-after-practice-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-lb-nic-scourton-diagnosed-with-torn-acl-after-practice-injury",
+      "permalink": "",
+      "title": "Panthers LB Nic Scourton diagnosed with torn ACL after practice injury",
+      "body_text": "Scourton will get a second opinion but is expected to miss the entire 2026 season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-23T20:09:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nic Scourton"
+      ],
+      "resolved_player_ids": [
+        "00-0040746"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-owner-carlie-irsay-gordon-will-present-adam-vinatieri-at-hall-of-fame-induction",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-owner-carlie-irsay-gordon-will-present-adam-vinatieri-at-hall-of-fame-induction",
+      "permalink": "",
+      "title": "Colts owner Carlie Irsay-Gordon will present Adam Vinatieri at Hall of Fame induction",
+      "body_text": "Adam Vinatieri began his career with the Patriots and played 10 seasons in New England, but he left and went to the Colts for 14 more.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-23T20:11:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carlie Irsay",
+        "Adam Vinatieri",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-agree-to-terms-with-olb-cam-gill-after-nic-scourtons-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-agree-to-terms-with-olb-cam-gill-after-nic-scourtons-injury",
+      "permalink": "",
+      "title": "Panthers agree to terms with OLB Cam Gill after Nic Scourton's injury",
+      "body_text": "The Panthers lost outside linebacker Nic Scourton to a right knee injury in the team's first training camp practice on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-23T19:38:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Gill",
+        "Nic Scourton",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036045",
+        "00-0040746"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-wr-malik-nabers-is-expected-to-avoid-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-wr-malik-nabers-is-expected-to-avoid-pup-list",
+      "permalink": "",
+      "title": "Giants WR Malik Nabers is expected to avoid PUP list",
+      "body_text": "The question remains about when Malik Nabers will return from rehab on his right knee, with the Giants hopeful he can play the season opener against the Cowboys.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-23T19:27:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-mvp-jack-plummer-to-work-out-for-49ers-dolphins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-mvp-jack-plummer-to-work-out-for-49ers-dolphins",
+      "permalink": "",
+      "title": "UFL MVP Jack Plummer to work out for 49ers, Dolphins",
+      "body_text": "The 49ers and Dolphins will be taking a look at the UFL's best player in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-23T19:01:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jack Plummer",
+        "Dolphins The"
+      ],
+      "resolved_player_ids": [
+        "00-0039501"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-jones-leaves-cbs-to-become-senior-writer-at-the-athletic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-jones-leaves-cbs-to-become-senior-writer-at-the-athletic",
+      "permalink": "",
+      "title": "Jonathan Jones leaves CBS to become \"senior writer\" at The Athletic",
+      "body_text": "The \"advanced talks\" have advanced all the way to a done deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-23T18:40:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Jones",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0032580"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-jonathon-brooks-looks-like-guy-i-remember",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-jonathon-brooks-looks-like-guy-i-remember",
+      "permalink": "",
+      "title": "Dave Canales: Jonathon Brooks looks like \"guy that I remember\"",
+      "body_text": "The first day of Panthers training camp saw running back Jonathon Brooks on the practice field.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-23T17:49:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Canales",
+        "Jonathon Brooks"
+      ],
+      "resolved_player_ids": [
+        "00-0039344"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-signs-rookie-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-signs-rookie-contract",
+      "permalink": "",
+      "title": "Fernando Mendoza signs rookie contract",
+      "body_text": "Mendoza is now officially a Raider with his fully guaranteed, four-year rookie deal.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-23T16:52:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "MEN516487"
+      ],
+      "team_hint": null
+    }
+  ]
+}
