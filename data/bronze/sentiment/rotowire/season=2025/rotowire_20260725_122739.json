@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "3f9bbfb0-f0fb-478c-9d69-45d86733d9b0",
+  "source": "rotowire",
+  "fetched_at": "2026-07-25T12:27:39.689630+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631854",
+      "url": "https://www.rotowire.com//football/player/rashee-rice-16963",
+      "permalink": "",
+      "title": "Rashee Rice: Poised to practice",
+      "body_text": "Rice (knee) has been cleared to practice ahead of training camp, Matt McMullen of the Chiefs' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-24T01:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl631853",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Cleared for full practices",
+      "body_text": "Chiefs head coach Andy Reid said Friday that Mahomes (knee) has \"been cleared to participate fully\" to begin training camp, Sam McDowell of The Kansas City Star reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-24T01:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Andy Reid",
+        "The Kansas",
+        "City Star"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl631844",
+      "url": "https://www.rotowire.com//football/player/james-conner-11691",
+      "permalink": "",
+      "title": "James Conner: Advances past injuries",
+      "body_text": "Conner (foot/ankle) participated in practice Thursday, Jess Root of USA Today reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-24T07:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Conner",
+        "Jess Root"
+      ],
+      "resolved_player_ids": [
+        "00-0033553"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631843",
+      "url": "https://www.rotowire.com//football/player/trey-benson-17767",
+      "permalink": "",
+      "title": "Trey Benson: Practices Thursday",
+      "body_text": "Benson (knee) participated in practice Thursday, Jess Root of USA Today reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-24T07:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Benson",
+        "Practices Thursday",
+        "Jess Root"
+      ],
+      "resolved_player_ids": [
+        "00-0039921"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl631842",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Will be eased in",
+      "body_text": "Though Nabers (knee) was not among the Giants placed on the active/PUP list Thursday, the team is expected to bring the wideout along slowly, Jordan Raanan of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-24T06:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Though Nabers",
+        "Jordan Raanan"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
