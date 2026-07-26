@@ -1,0 +1,590 @@
+{
+  "fetch_run_id": "b3bf8cd5-c4bc-4ac1-8120-83dbb9eaa5ce",
+  "source": "pft",
+  "fetched_at": "2026-07-26T12:31:30.752853+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-claim-wr-kobe-prentice-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-claim-wr-kobe-prentice-off-waivers",
+      "permalink": "",
+      "title": "Patriots claim WR Kobe Prentice off waivers",
+      "body_text": "The Patriots added a wide receiver to their roster on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T12:19:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kobe Prentice",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "PRE230806"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-rookie-mansoor-delane-says-his-injured-shoulder-is-getting-better-every-day",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-rookie-mansoor-delane-says-his-injured-shoulder-is-getting-better-every-day",
+      "permalink": "",
+      "title": "Chiefs rookie Mansoor Delane says his injured shoulder is getting better every day",
+      "body_text": "Chiefs rookie cornerback Mansoor Delane wore a yellow non-contact jersey at his first training camp practice as a result of the shoulder injury he suffered during the offseason.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-26T11:56:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mansoor Delane"
+      ],
+      "resolved_player_ids": [
+        "DEL076452"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-kyle-shanahan-accident-i-talked-to-him-hes-got-an-incredible-perspective",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-kyle-shanahan-accident-i-talked-to-him-hes-got-an-incredible-perspective",
+      "permalink": "",
+      "title": "Sean McVay on Kyle Shanahan accident: I talked to him, he's got an incredible perspective",
+      "body_text": "Shanahan suffered serious injuries in a car accident and is not able to perform his full coaching duties to start training camp.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-26T09:30:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-waive-linebacker-cam-jones-and-defensive-lineman-c-j-ravenell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-waive-linebacker-cam-jones-and-defensive-lineman-c-j-ravenell",
+      "permalink": "",
+      "title": "Giants waive linebacker Cam Jones and defensive lineman C.J. Ravenell",
+      "body_text": "The Giants opened up two spots on their 90-player roster ahead of training camp.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-26T08:11:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Jones",
+        "Ravenell The"
+      ],
+      "resolved_player_ids": [
+        "00-0038513"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-ownership-change-were-entering-a-new-chapter-in-our-organizations-history",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-ownership-change-were-entering-a-new-chapter-in-our-organizations-history",
+      "permalink": "",
+      "title": "Mike Macdonald on ownership change: \"We're entering a new chapter in our organization's history\"",
+      "body_text": "The Seahawks opened training camp on Saturday, only two weeks after the organization announced that the team would be sold to a group led by Vinod Khosla, pending league approval.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T02:36:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "The Seahawks",
+        "Vinod Khosla"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-mcbride-regrets-offseason-comments-about-cardinals-fans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-mcbride-regrets-offseason-comments-about-cardinals-fans",
+      "permalink": "",
+      "title": "Trey McBride regrets offseason comments about Cardinals fans",
+      "body_text": "Cardinals tight end Trey McBride had some things to say about Cardinals fans during the offseason.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T02:18:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-noncommittal-on-s-nick-emmanworis-availability-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-noncommittal-on-s-nick-emmanworis-availability-for-week-1",
+      "permalink": "",
+      "title": "Mike Macdonald noncommittal on S Nick Emmanwori's availability for Week 1",
+      "body_text": "Seahawks safety Nick Emmanwori required arthroscopic surgery on his right ankle earlier this month.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-26T00:16:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Nick Emmanwori"
+      ],
+      "resolved_player_ids": [
+        "00-0040733"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-dt-nnamdi-madubuike-lands-on-pup-but-cleared-to-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-dt-nnamdi-madubuike-lands-on-pup-but-cleared-to-return",
+      "permalink": "",
+      "title": "Ravens DT Nnamdi Madubuike lands on PUP but cleared to return",
+      "body_text": "Ravens defensive tackle Nnamdi Madubuike injured his neck in Week 2 last season and has not seen the field since.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-25T23:43:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nnamdi Madubuike"
+      ],
+      "resolved_player_ids": [
+        "00-0036130"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/despite-ongoing-legal-issue-alaric-jackson-will-practice-with-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/despite-ongoing-legal-issue-alaric-jackson-will-practice-with-rams",
+      "permalink": "",
+      "title": "Despite ongoing legal issue, Alaric Jackson will practice with Rams",
+      "body_text": "Even though Rams tackle Alaric Jackson won't be charged with a felony following an offseason domestic battery accusation, he could be entering a diversion program in lieu of a misdemeanor prosecution.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-25T23:08:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alaric Jackson",
+        "Rams Even"
+      ],
+      "resolved_player_ids": [
+        "00-0036603"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/given-the-limits-of-the-acclimation-period-the-nflpa-will-check-video-of-nic-scourton-acl-tear",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/given-the-limits-of-the-acclimation-period-the-nflpa-will-check-video-of-nic-scourton-acl-tear",
+      "permalink": "",
+      "title": "Given the limits of the acclimation period, the NFLPA will check video of Nic Scourton ACL tear",
+      "body_text": "Season-ending injuries are one of the constant risks of training camp, and Panthers linebacker Nic Scourton experienced one on the first day of 2026 practice.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-25T20:24:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nic Scourton"
+      ],
+      "resolved_player_ids": [
+        "00-0040746"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-place-dl-tvondre-sweat-on-the-active-non-football-injury-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-place-dl-tvondre-sweat-on-the-active-non-football-injury-list",
+      "permalink": "",
+      "title": "Jets place DL T'Vondre Sweat on the active/non-football injury list",
+      "body_text": "The Jets made three moves on Saturday ahead of the start of training camp next week.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-25T21:04:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Vondre Sweat",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-place-cb-kyler-gordon-on-active-pup-and-t-j-edwards-on-nfi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-place-cb-kyler-gordon-on-active-pup-and-t-j-edwards-on-nfi",
+      "permalink": "",
+      "title": "Bears place CB Kyler Gordon on active/PUP and T.J. Edwards on NFI",
+      "body_text": "Bears slot cornerback Kyler Gordon played only three games last season, twice landing on injured reserve.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-25T20:52:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Gordon"
+      ],
+      "resolved_player_ids": [
+        "00-0038111"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-second-round-lb-gabe-jacas-agrees-to-terms",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-second-round-lb-gabe-jacas-agrees-to-terms",
+      "permalink": "",
+      "title": "Patriots second-round LB Gabe Jacas agrees to terms",
+      "body_text": "Second-round linebacker Gabe Jacas did not report to training camp with his Patriots' teammates on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-25T20:27:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gabe Jacas"
+      ],
+      "resolved_player_ids": [
+        "JAC003008"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rices-knee-is-good-to-go-for-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rices-knee-is-good-to-go-for-training-camp",
+      "permalink": "",
+      "title": "Rashee Rice's knee is good to go for training camp",
+      "body_text": "Chiefs wide receiver Rashee Rice is cleared for training camp, coach Andy Reid said Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-24T22:13:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice",
+        "Andy Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dl-omarr-norman-lott-te-john-michael-gyllenborg-begin-chiefs-camp-on-active-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dl-omarr-norman-lott-te-john-michael-gyllenborg-begin-chiefs-camp-on-active-pup",
+      "permalink": "",
+      "title": "DL Omarr Norman-Lott, TE John Michael Gyllenborg begin Chiefs' camp on active/PUP",
+      "body_text": "Chiefs quarterback Patrick Mahomes and wide receiver Rashee Rice are cleared to participate in the opening of training camp.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-25T20:15:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omarr Norman",
+        "John Michael",
+        "Patrick Mahomes",
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-will-have-a-reduced-practice-schedule-to-keep-him-fresh",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-will-have-a-reduced-practice-schedule-to-keep-him-fresh",
+      "permalink": "",
+      "title": "Matthew Stafford will have a reduced practice schedule to keep him fresh",
+      "body_text": "Last year, after Rams quarterback Matthew Stafford didn't practice much in training camp due to a back problem, outsiders incorrectly assumed that coach Sean McVay was giving Stafford a break.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-25T20:07:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-expect-kyle-shanahan-to-be-cleared-from-concussion-long-before-season-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-expect-kyle-shanahan-to-be-cleared-from-concussion-long-before-season-opener",
+      "permalink": "",
+      "title": "49ers expect Kyle Shanahan to be cleared from concussion long before season opener",
+      "body_text": "The 49ers held their opening news conference Saturday, and General Manager John Lynch was conspicuously alone on the podium.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-25T20:01:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "General Manager",
+        "John Lynch"
+      ],
+      "resolved_player_ids": [
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-place-dl-b-j-hill-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-place-dl-b-j-hill-on-pup-list",
+      "permalink": "",
+      "title": "Bengals place DL B.J. Hill on PUP list",
+      "body_text": "The Bengals are set to open up training camp without defensive tackle B.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T19:40:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-lands-on-pup-list-to-open-49ers-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-lands-on-pup-list-to-open-49ers-camp",
+      "permalink": "",
+      "title": "George Kittle lands on PUP list to open 49ers camp",
+      "body_text": "There's been optimism about tight end George Kittle playing in Week 1 after tearing his Achilles in January, but he's not quite ready to practice yet. 49ers General Manager John Lynch said on Saturday that Kittle will be placed on the physically unable list to open training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T19:27:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "General Manager",
+        "John Lynch"
+      ],
+      "resolved_player_ids": [
+        "00-0033288",
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-activate-paris-johnson-off-the-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-activate-paris-johnson-off-the-pup-list",
+      "permalink": "",
+      "title": "Cardinals activate Paris Johnson off the PUP list",
+      "body_text": "After the Cardinals placed left tackle Paris Johnson on the physically unable to perform list this week, head coach Mike LaFleur said that he was dealing with a minor knee injury and would be \"back before you know it.\"",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T19:18:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Paris Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0038540"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-on-brandon-aiyuk-were-focused-on-players-that-are-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-on-brandon-aiyuk-were-focused-on-players-that-are-here",
+      "permalink": "",
+      "title": "John Lynch on Brandon Aiyuk: We're focused on players that are here",
+      "body_text": "Wide receiver Brandon Aiyuk has had a lot to say this offseason about his desire to play for the Commanders, but the 49ers have not released him and General Manager John Lynch did not make it sound like that is going to happen in the immediate future when he spoke to reporters from the team's training camp on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T19:12:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Lynch",
+        "Brandon Aiyuk",
+        "General Manager"
+      ],
+      "resolved_player_ids": [
+        "00-0010188",
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-agrees-to-rookie-deal-with-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-agrees-to-rookie-deal-with-rams",
+      "permalink": "",
+      "title": "Ty Simpson agrees to rookie deal with Rams",
+      "body_text": "Rams quarterback Ty Simpson started the day as the only 2026 first-round pick without a contract, but that is set to change.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T18:15:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson",
+        "Rams Rams"
+      ],
+      "resolved_player_ids": [
+        "SIM639376"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-put-dorance-armstrong-deatrich-wise-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-put-dorance-armstrong-deatrich-wise-on-pup-list",
+      "permalink": "",
+      "title": "Commanders put Dorance Armstrong, Deatrich Wise on PUP list",
+      "body_text": "The Commanders announced a handful of roster moves before the start of their training camp this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T18:10:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dorance Armstrong",
+        "Deatrich Wise",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0034373",
+        "00-0033947"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-aaron-donald-is-putting-himself-in-position-to-make-a-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-aaron-donald-is-putting-himself-in-position-to-make-a-decision",
+      "permalink": "",
+      "title": "Sean McVay: Aaron Donald is putting himself in position to make a decision",
+      "body_text": "Donald is weighing whether or not he will come out of retirement for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T18:02:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-three-players-cut-three-others",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-three-players-cut-three-others",
+      "permalink": "",
+      "title": "Panthers sign three players, cut three others",
+      "body_text": "The Panthers had several players in for workouts on Friday and that led to some roster shuffling on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T17:41:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-kraft-weve-offered-to-make-christian-gonzalez-the-top-paid-cornerback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-kraft-weve-offered-to-make-christian-gonzalez-the-top-paid-cornerback",
+      "permalink": "",
+      "title": "Robert Kraft: We've offered to make Christian Gonzalez the top-paid cornerback",
+      "body_text": "Cornerback Christian Gonzalez is at Patriots training camp as he continues to talk to the team about a contract extension and Saturday brought some idea of what those conversations have looked like this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-25T17:29:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Kraft",
+        "Christian Gonzalez",
+        "Cornerback Christian"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordyn-brooks-is-at-the-center-of-the-dolphins-cultural-change",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordyn-brooks-is-at-the-center-of-the-dolphins-cultural-change",
+      "permalink": "",
+      "title": "Jordyn Brooks is at the center of the Dolphins' cultural change",
+      "body_text": "The Dolphins have torn apart their roster in an effort to build a team.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-25T16:48:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordyn Brooks",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0036409"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romos-owi-arrest-came-after-he-participated-in-a-golf-tournament",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romos-owi-arrest-came-after-he-participated-in-a-golf-tournament",
+      "permalink": "",
+      "title": "Tony Romo's OWI arrest came after he participated in a golf tournament",
+      "body_text": "More details are emerging regarding the arrest of former Cowboys quarterback and current CBS analyst Tony Romo on suspicion of Operating While Intoxicated.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-25T12:36:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Romo",
+        "Operating While"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-suffered-severe-concussion-and-other-injuries-in-july-14-car-accident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-suffered-severe-concussion-and-other-injuries-in-july-14-car-accident",
+      "permalink": "",
+      "title": "Kyle Shanahan suffered \"severe concussion\" and other injuries in July 14 car accident",
+      "body_text": "Shanahan will participate in training-camp on a limited basis.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-25T16:18:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-wants-ncaa-and-nfl-playing-rules-to-be-standardized",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-wants-ncaa-and-nfl-playing-rules-to-be-standardized",
+      "permalink": "",
+      "title": "Bill Belichick wants NCAA and NFL playing rules to be standardized",
+      "body_text": "After 50 years in the NFL, Bill Belichick is starting his second season as a college coach.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-25T15:28:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bill Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

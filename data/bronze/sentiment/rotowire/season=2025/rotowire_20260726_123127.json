@@ -1,0 +1,115 @@
+{
+  "fetch_run_id": "7538d923-46c9-48a4-bf39-8fc5b73fa8ec",
+  "source": "rotowire",
+  "fetched_at": "2026-07-26T12:31:27.938489+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631871",
+      "url": "https://www.rotowire.com//football/player/ty-simpson-19275",
+      "permalink": "",
+      "title": "Ty Simpson: Agrees to rookie contract",
+      "body_text": "Simpson agreed to terms on a four-year, $25.4 million rookie contract with the Rams on Saturday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-25T11:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "SIM639376"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl631870",
+      "url": "https://www.rotowire.com//football/player/brandon-aiyuk-14386",
+      "permalink": "",
+      "title": "Brandon Aiyuk: Remains on left squad list",
+      "body_text": "San Francisco general manager John Lynch told reporters Saturday that Aiyuk (knee) will remain on the 49ers' reserve/left squad list, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-25T11:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "San Francisco",
+        "John Lynch",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036261",
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl631869",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Starting training camp on PUP",
+      "body_text": "The 49ers placed Kittle (Achilles) on the active/PUP list Saturday, Matt Maiocco of NBC Sports Bay Area reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-25T11:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Matt Maiocco",
+        "Sports Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl631854",
+      "url": "https://www.rotowire.com//football/player/rashee-rice-16963",
+      "permalink": "",
+      "title": "Rashee Rice: Poised to practice",
+      "body_text": "Rice (knee) has been cleared to practice ahead of training camp, Matt McMullen of the Chiefs' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-24T01:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl631853",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Cleared for full practices",
+      "body_text": "Chiefs head coach Andy Reid said Friday that Mahomes (knee) has \"been cleared to participate fully\" to begin training camp, Sam McDowell of The Kansas City Star reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-24T01:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Andy Reid",
+        "The Kansas",
+        "City Star"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    }
+  ]
+}
