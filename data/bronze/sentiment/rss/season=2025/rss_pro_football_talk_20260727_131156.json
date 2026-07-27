@@ -1,0 +1,497 @@
+{
+  "fetch_run_id": "44aa2f09-276d-4593-a887-afacb407ac1a",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-27T13:11:56.246386+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wanted-to-keep-shanahan-accident-quiet-and-some-in-the-media-complied",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wanted-to-keep-shanahan-accident-quiet-and-some-in-the-media-complied",
+      "title": "49ers wanted to keep Shanahan accident quiet, and some in the media complied",
+      "body_text": "Saturday's news that 49ers coach Kyle Shanahan had been in a serious car accident was surprising, to say the least.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T13:42:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-attends-roughly-30-minutes-of-49ers-practice-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-attends-roughly-30-minutes-of-49ers-practice-on-sunday",
+      "title": "Kyle Shanahan attends roughly 30 minutes of 49ers' practice on Sunday",
+      "body_text": "49ers coach Kyle Shanahan is recovering from various injuries sustained in a July 14 car accident.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T19:52:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-suffered-severe-concussion-and-other-injuries-in-july-14-car-accident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-suffered-severe-concussion-and-other-injuries-in-july-14-car-accident",
+      "title": "Kyle Shanahan suffered \"severe concussion\" and other injuries in July 14 car accident",
+      "body_text": "Shanahan will participate in training-camp on a limited basis.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-25T16:18:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-jared-wilsons-done-a-great-job-of-understanding-what-goes-into-playing-center",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-jared-wilsons-done-a-great-job-of-understanding-what-goes-into-playing-center",
+      "title": "Drake Maye: Jared Wilson's done \"a great job of understanding\" what goes into playing center",
+      "body_text": "A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-27T12:17:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye",
+        "Jared Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0039851",
+        "00-0040147"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-tries-to-soak-it-in-as-he-nears-end-of-career",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-tries-to-soak-it-in-as-he-nears-end-of-career",
+      "title": "Trent Williams tries to \"soak it in\" as he nears end of career",
+      "body_text": "When left tackle Trent Williams agreed to a new two-year contract with the 49ers this offseason, he said he believes that it will be the final one that he signs.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-27T11:56:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0027857"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-christian-gonzalezs-main-focus-is-football-not-his-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-christian-gonzalezs-main-focus-is-football-not-his-contract",
+      "title": "Drake Maye: Christian Gonzalez's main focus is football, not his contract",
+      "body_text": "Patriots cornerback Christian Gonzalez wants a new contract, but he's not sitting out training camp to get one.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-27T10:49:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye",
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039851",
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-says-he-feels-really-good-and-is-ready-to-go-for-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-says-he-feels-really-good-and-is-ready-to-go-for-training-camp",
+      "title": "Daniel Jones says he feels \"really good\" and is ready to go for training camp",
+      "body_text": "Jones suffered a torn Achilles tendon on December 7.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-27T08:05:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-outside-expectations-wont-change-the-rams-approach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-outside-expectations-wont-change-the-rams-approach",
+      "title": "Sean McVay: Outside expectations won't change the Rams' approach",
+      "body_text": "The Rams have a good problem, even if the only good problem is no problem.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-27T02:35:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pft-live-returns-on-monday-july-27",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pft-live-returns-on-monday-july-27",
+      "title": "PFT Live returns on Monday, July 27",
+      "body_text": "The hiatus flew by, as it always does.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-27T02:04:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-on-signing-his-new-deal-im-glad-its-over-with",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-on-signing-his-new-deal-im-glad-its-over-with",
+      "title": "Jacoby Brissett on signing his new deal: I'm glad it's over with",
+      "body_text": "Jacoby Brissett got himself a $10 million raise, negotiating the deal himself, but serving as his own agent cost him sleep.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-27T01:27:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-hard-knocks-we-are-proud-of-who-we-are-and-how-we-do-things",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-hard-knocks-we-are-proud-of-who-we-are-and-how-we-do-things",
+      "title": "Mike Macdonald on Hard Knocks: \"We are proud of who we are and how we do things\"",
+      "body_text": "The Seahawks will defend their second Super Bowl championship by welcoming Hard Knocks cameras and microphones into practice for the first time.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T23:45:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Hard Knocks",
+        "The Seahawks",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-foerster-coaching-the-49ers-in-kyle-shanahans-absence-is-really-a-group-thing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-foerster-coaching-the-49ers-in-kyle-shanahans-absence-is-really-a-group-thing",
+      "title": "Chris Foerster: Coaching the 49ers in Kyle Shanahan's absence is \"really a group thing\"",
+      "body_text": "With 49ers coach Kyle Shanahan limited at training camp due to a severe concussion suffered in a recent car accident, assistant head coach/offensive line Chris Foerster is running the team.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T23:27:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Foerster",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-jacoby-brissett-strike-a-new-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-jacoby-brissett-strike-a-new-deal",
+      "title": "Cardinals, Jacoby Brissett strike a new deal",
+      "body_text": "Brissett reportedly will have a base salary of $15.5 million with a max payout of $21 million.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T18:45:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-place-g-justin-dedich-on-nfi-list-db-alzillion-hamilton-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-place-g-justin-dedich-on-nfi-list-db-alzillion-hamilton-on-pup-list",
+      "title": "Rams place G Justin Dedich on NFI list, DB Al'zillion Hamilton on PUP list",
+      "body_text": "The Rams opened training camp this weekend, but a couple of players aren't ready to practice at this point.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T21:58:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Dedich",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039784"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-put-lb-jordan-turner-on-nfi-g-nick-gargiulo-on-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-put-lb-jordan-turner-on-nfi-g-nick-gargiulo-on-pup",
+      "title": "Broncos put LB Jordan Turner on NFI, G Nick Gargiulo on PUP",
+      "body_text": "The Broncos announced a pair of roster moves on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T21:30:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Turner",
+        "Nick Gargiulo",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0040634",
+        "00-0039438"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-put-gabe-jacas-on-non-football-injury-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-put-gabe-jacas-on-non-football-injury-list",
+      "title": "Patriots put Gabe Jacas on non-football injury list",
+      "body_text": "The Patriots signed second-round pick Gabe Jacas this weekend, but the rookie is not ready to start practicing with the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T21:22:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gabe Jacas",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "JAC003008"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-brian-branch-kerby-joseph-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-brian-branch-kerby-joseph-on-pup-list",
+      "title": "Lions place Brian Branch, Kerby Joseph on PUP list",
+      "body_text": "A pair of safeties are set to start Lions training camp on the physically unable to perform list.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T20:24:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Branch",
+        "Kerby Joseph"
+      ],
+      "resolved_player_ids": [
+        "00-0039141",
+        "00-0037667"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-owi-arrest-tony-romo-withdraws-from-texas-state-open",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-owi-arrest-tony-romo-withdraws-from-texas-state-open",
+      "title": "After OWI arrest, Tony Romo withdraws from Texas State Open",
+      "body_text": "Tony Romo has yet to say anything publicly since Thursday's arrest in Milwaukee for suspicion of operating while intoxicated.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T20:18:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Romo",
+        "Texas State",
+        "Open Tony"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-on-jacoby-brissett-deal-now-we-can-move-on-with-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-on-jacoby-brissett-deal-now-we-can-move-on-with-football",
+      "title": "Mike LaFleur on Jacoby Brissett deal: Now we can move on with football",
+      "body_text": "Brissett is set to start practicing with the first team on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T20:17:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jeudy-pushes-back-against-characterization-of-video-regarding-qb-preference",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jeudy-pushes-back-against-characterization-of-video-regarding-qb-preference",
+      "title": "Jerry Jeudy pushes back against characterization of video regarding QB preference",
+      "body_text": "On Sunday, a video emerged that purported to show Browns receiver Jerry Jeudy stating his preference at quarterback.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T20:04:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jeudy",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0036407"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-place-ol-cole-van-lanen-on-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-place-ol-cole-van-lanen-on-pup-list",
+      "title": "Jaguars place OL Cole Van Lanen on PUP list",
+      "body_text": "The Jaguars put a pair of offensive linemen on their physically unable to perform list ahead of the start of their training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T19:59:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cole Van",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-signing-with-washington-intriguing-to-stefon-diggs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-signing-with-washington-intriguing-to-stefon-diggs",
+      "title": "Report: Signing with Washington \"intriguing\" to Stefon Diggs",
+      "body_text": "A recent report indicated five teams have been keeping tabs on free agent wide receiver Stefon Diggs heading into free agency and there's now word of a team that has caught Diggs's eye.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T19:47:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-nick-bosa-looks-better-than-he-did-before-he-tore-his-acl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-nick-bosa-looks-better-than-he-did-before-he-tore-his-acl",
+      "title": "Trent Williams: Nick Bosa looks better than he did before he tore his ACL",
+      "body_text": "49ers defensive end Nick Bosa avoided the physically unable to perform list to open training camp and his performance in the first day of practice impressed one of his longtime teammates.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T19:31:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Williams",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0027857",
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-im-competing-with-not-against-kirk-cousins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-im-competing-with-not-against-kirk-cousins",
+      "title": "Fernando Mendoza: I'm competing with, not against, Kirk Cousins",
+      "body_text": "Fernando Mendoza signed his rookie deal last week and that leaves the quarterback with nothing to focus on other than football when the Raiders open training camp this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T19:17:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "MEN516487",
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nathaniel-hacketts-rookie-remark-about-jeremiyah-love-is-getting-overblown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nathaniel-hacketts-rookie-remark-about-jeremiyah-love-is-getting-overblown",
+      "title": "Nathaniel Hackett's \"definitely a rookie\" remark about Jeremiyah Love is getting overblown",
+      "body_text": "We're in the business of finding and sharing and analyzing interesting remarks from anyone in the NFL ecosystem.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T18:30:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nathaniel Hackett",
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "LOV121782"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-bring-back-dl-kevin-givens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-bring-back-dl-kevin-givens",
+      "title": "49ers bring back DL Kevin Givens",
+      "body_text": "Defensive lineman Kevin Givens spent the last seven seasons with the 49ers and he'll have a chance to make it eight in a row.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T17:20:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kevin Givens"
+      ],
+      "resolved_player_ids": [
+        "00-0035026"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ed-policy-packers-will-bring-more-major-events-to-lambeau-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ed-policy-packers-will-bring-more-major-events-to-lambeau-field",
+      "title": "Ed Policy: Packers will bring more \"major events\" to Lambeau Field",
+      "body_text": "On Friday, Packers president and CEO Ed Policy reiterated his concern about the basic financial differences between a publicly-owned team and the 31 privately-held franchises.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T15:40:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ed Policy",
+        "Lambeau Field",
+        "On Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-are-cooperating-with-nflpa-in-investigation-of-nic-scourtons-acl-tear",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-are-cooperating-with-nflpa-in-investigation-of-nic-scourtons-acl-tear",
+      "title": "Panthers are cooperating with NFLPA investigation of Nic Scourton's ACL tear",
+      "body_text": "On the first day of 2026 training-camp practice, Panthers linebacker Nic Scourton suffered a season-ending ACL tear.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T15:03:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nic Scourton"
+      ],
+      "resolved_player_ids": [
+        "00-0040746"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/despite-no-second-contract-puka-nacua-apparently-wont-be-holding-in",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/despite-no-second-contract-puka-nacua-apparently-wont-be-holding-in",
+      "title": "Despite no second contract, Puka Nacua apparently won't be holding in",
+      "body_text": "Off-field issue complicates Nacua's effort to get a new deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-26T14:38:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-put-sixth-rounder-anterio-thompson-on-nfi-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-put-sixth-rounder-anterio-thompson-on-nfi-list",
+      "title": "Falcons put sixth-rounder Anterio Thompson on NFI list",
+      "body_text": "The Falcons are gearing up for the start of training camp later this week and part of their preparation includes a roster move involving one of their draft picks.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-26T12:41:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anterio Thompson",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "THO460712"
+      ],
+      "team_hint": "ATL"
+    }
+  ]
+}
