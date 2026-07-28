@@ -1,0 +1,118 @@
+{
+  "fetch_run_id": "dfb14276-562d-4474-af3a-e7222a9ab37f",
+  "source": "rotowire",
+  "fetched_at": "2026-07-28T12:45:36.564547+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl631956",
+      "url": "https://www.rotowire.com//football/player/vita-vea-12500",
+      "permalink": "",
+      "title": "Vita Vea: Makes trade request",
+      "body_text": "Vea and his representation have requested a trade from the Buccaneers, Mike Garafolo of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-27T03:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Vita Vea",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "nfl631953",
+      "url": "https://www.rotowire.com//football/player/chris-brooks-16741",
+      "permalink": "",
+      "title": "Chris Brooks: Placed on NFI list",
+      "body_text": "The Packers have placed Brooks (undisclosed) on the active/non-football injury list ahead of training camp, Matt Schneidman of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-27T01:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Brooks",
+        "The Packers",
+        "Matt Schneidman",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0038685"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl631952",
+      "url": "https://www.rotowire.com//football/player/alec-pierce-16022",
+      "permalink": "",
+      "title": "Alec Pierce: Opens camp on PUP list",
+      "body_text": "The Colts placed Pierce (ankle) on the active/PUP list Monday, Stephen Holder of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-27T01:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "The Colts",
+        "Stephen Holder"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "nfl631951",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "permalink": "",
+      "title": "Tucker Kraft: Lands on PUP list",
+      "body_text": "The Packers have placed Kraft (ACL) on the active/PUP list Monday ahead of training camp, Matt Schneidman of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-27T01:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft",
+        "The Packers",
+        "Matt Schneidman",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl631949",
+      "url": "https://www.rotowire.com//football/player/george-holani-17968",
+      "permalink": "",
+      "title": "George Holani: Alternating with first team",
+      "body_text": "Holani and rookie first-round pick Jadarian Price have split first-team reps during the early days of training camp, Gregg Bell of The News Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-27T11:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Holani",
+        "Jadarian Price",
+        "Gregg Bell",
+        "The News"
+      ],
+      "resolved_player_ids": [
+        "00-0039299",
+        "00-0041512"
+      ],
+      "team_hint": null
+    }
+  ]
+}
