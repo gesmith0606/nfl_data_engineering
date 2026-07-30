@@ -1,0 +1,507 @@
+{
+  "fetch_run_id": "dd7e1e6e-5482-43c4-a196-22aa2ec894cd",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-07-30T12:41:59.906695+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-guyton-focused-on-coming-to-work-and-getting-better-amid-cowboys-left-tackle-competition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-guyton-focused-on-coming-to-work-and-getting-better-amid-cowboys-left-tackle-competition",
+      "title": "Tyler Guyton focused on \"coming to work and getting better\" amid Cowboys left tackle competition",
+      "body_text": "When the Cowboys drafted Tyler Guyton in the first round of the 2024 draft, they probably didn't envision him competing with a seventh-round pick from the same class entering his third NFL season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-30T12:24:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Guyton"
+      ],
+      "resolved_player_ids": [
+        "00-0039341"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-on-aaron-donald-a-difficult-decision-dont-want-to-push-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-on-aaron-donald-a-difficult-decision-dont-want-to-push-him",
+      "title": "Myles Garrett on Aaron Donald: A difficult decision, don't want to push him",
+      "body_text": "Garrett thinks a pairing with Donald would lead to \"great things.\"",
+      "author": "Josh Alper",
+      "published_at": "2026-07-30T11:27:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-anderson-i-had-two-high-ankle-sprains-on-the-metlife-turf-real-grass-is-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-anderson-i-had-two-high-ankle-sprains-on-the-metlife-turf-real-grass-is-better",
+      "title": "Will Anderson: I had two high-ankle sprains on the MetLife turf, real grass is better",
+      "body_text": "Anderson has missed games due to injuries twice in his NFL career. Both times, the injuries were suffered at MetLife Stadium.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-30T08:52:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Anderson"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devon-achane-if-teams-arent-taking-the-dolphins-seriously-theyll-have-a-long-day",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devon-achane-if-teams-arent-taking-the-dolphins-seriously-theyll-have-a-long-day",
+      "title": "De'Von Achane: If teams aren't taking the Dolphins seriously, they'll have a long day",
+      "body_text": "\"We're kind of used to that,\" Achane said of being overlooked. \"We don't pay no mind to that.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-30T07:50:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Von Achane"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamal-adams-on-joining-the-vikings-the-skys-the-limit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamal-adams-on-joining-the-vikings-the-skys-the-limit",
+      "title": "Jamal Adams on joining the Vikings: \"The sky's the limit\"",
+      "body_text": "Veteran defender Jamal Adams joined the Vikings not long before the opening of training camp.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-30T03:22:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamal Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0033872"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-should-have-promptly-disclosed-that-kyle-shanahan-was-in-an-accident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-should-have-promptly-disclosed-that-kyle-shanahan-was-in-an-accident",
+      "title": "49ers should have promptly disclosed that Kyle Shanahan was in an accident",
+      "body_text": "The 2026 offseason has featured multiple P.R. failures by NFL teams.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-30T02:25:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-on-landing-at-69-on-players-top-100-i-dont-care-about-rankings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-on-landing-at-69-on-players-top-100-i-dont-care-about-rankings",
+      "title": "Lamar Jackson on landing at 69 on player's top 100 list: \"I don't care about rankings\"",
+      "body_text": "With training camps open, list season has mercifully ended.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-30T01:59:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-gabe-jacas-injury-waiver-is-unusual",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-gabe-jacas-injury-waiver-is-unusual",
+      "title": "The Gabe Jacas injury waiver is unusual",
+      "body_text": "The Patriots and linebacker Gabe Jacas took a long time to work out a rookie contract for reasons unrelated to the standard terms of his rookie deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-30T01:36:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Gabe",
+        "The Patriots",
+        "Gabe Jacas"
+      ],
+      "resolved_player_ids": [
+        "JAC003008"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinnen-williams-wants-to-be-in-dallas-for-the-long-haul",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinnen-williams-wants-to-be-in-dallas-for-the-long-haul",
+      "title": "Quinnen Williams wants to be in Dallas \"for the long haul\"",
+      "body_text": "The Cowboys gave up two high draft picks to get Quinnen Williams from the Jets.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T23:31:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinnen Williams",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0035718"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-chargers-lb-billy-ray-smith-dies-at-64",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-chargers-lb-billy-ray-smith-dies-at-64",
+      "title": "Former Chargers LB Billy Ray Smith dies at 64",
+      "body_text": "Former Chargers linebacker Billy Ray Smith Jr. died Wednesday, his family announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T00:23:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Chargers",
+        "Billy Ray"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/taysom-hill-bids-farewell-to-new-orleans-though-his-future-is-unclear",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/taysom-hill-bids-farewell-to-new-orleans-though-his-future-is-unclear",
+      "title": "Taysom Hill bids farewell to New Orleans, though his future is unclear",
+      "body_text": "Hill spent nine seasons with the Saints, playing quarterback, wide receiver and tight end.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T00:09:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taysom Hill",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0033357"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-confirms-bryan-bresees-knee-injury-doesnt-look-great",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-confirms-bryan-bresees-knee-injury-doesnt-look-great",
+      "title": "Kellen Moore confirms Bryan Bresee's knee injury \"doesn't look great\"",
+      "body_text": "Not long after defensive tackle Bryan Bresee went down with a knee injury came word that the Saints feared a torn ACL.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T23:57:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kellen Moore",
+        "Bryan Bresee"
+      ],
+      "resolved_player_ids": [
+        "00-0029234",
+        "00-0038995"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-undrafted-rookie-wr-kyre-duplessis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-undrafted-rookie-wr-kyre-duplessis",
+      "title": "Seahawks sign undrafted rookie WR Kyre Duplessis",
+      "body_text": "The Seahawks signed wide receiver Kyre Duplessis on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T23:01:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyre Duplessis",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-i-have-a-little-more-reason-to-go-out-there-and-whoop-ass",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-i-have-a-little-more-reason-to-go-out-there-and-whoop-ass",
+      "title": "Maxx Crosby: I have a little more reason to go out there and whoop ass",
+      "body_text": "Maxx Crosby has a chip on his shoulder, but the Raiders pass rusher says it's always there \"no matter what.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T22:39:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-doesnt-have-a-chip-on-his-shoulder-but-he-is-motivated",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-doesnt-have-a-chip-on-his-shoulder-but-he-is-motivated",
+      "title": "Alvin Kamara doesn't have a chip on his shoulder, but he is motivated",
+      "body_text": "Running back Alvin Kamara agreed to a reported $5.5 million pay cut to stay in New Orleans, because \"this is where I wanted to be.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T22:04:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alvin Kamara",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-on-jonathon-cooper-were-staying-the-course-with-league-protocol",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-on-jonathon-cooper-were-staying-the-course-with-league-protocol",
+      "title": "Sean Payton on Jonathon Cooper: We're staying the course with league protocol",
+      "body_text": "Broncos linebacker Jonathon Cooper didn't take part in the team's minicamp after being arrested twice on domestic violence charges, but he is back with the team and participated in their first practice of training camp on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-29T21:34:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Jonathon Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-make-three-moves-including-activating-og-aaron-banks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-make-three-moves-including-activating-og-aaron-banks",
+      "title": "Packers make three moves, including activating OG Aaron Banks",
+      "body_text": "The Packers made three moves on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T21:21:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Banks",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0036551"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-theres-always-distractions-these-happen-to-be-two-of-our-biggest-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-theres-always-distractions-these-happen-to-be-two-of-our-biggest-players",
+      "title": "Todd Bowles: There's always distractions, these happen to be two of our biggest players",
+      "body_text": "The Buccaneers entered training camp with a pair of contract impasses taking center stage.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-29T20:59:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Bowles",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/harold-fannin-fully-cleared-after-offseason-groin-surgery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/harold-fannin-fully-cleared-after-offseason-groin-surgery",
+      "title": "Harold Fannin fully cleared after offseason groin surgery",
+      "body_text": "Browns tight end Harold Fannin Jr. missed all of the offseason program with an undisclosed injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T20:58:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Harold Fannin",
+        "Harold Fannin Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040663"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-were-all-supporting-one-another-and-working-together",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-were-all-supporting-one-another-and-working-together",
+      "title": "Kirk Cousins on Raiders QBs: We're all supporting one another and working together",
+      "body_text": "Raiders head coach Klint Kubiak was clear with reporters on Tuesday that Kirk Cousins is Las Vegas’ starter, with No. 1 overall pick Fernando Mendoza a part of the group pushing the signal-caller.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-29T20:55:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Klint Kubiak",
+        "Las Vegas",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0029604",
+        "MEN516487"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-leads-off-11-on-11-work-at-vikings-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-leads-off-11-on-11-work-at-vikings-camp",
+      "title": "Kyler Murray leads off 11-on-11 work at Vikings camp",
+      "body_text": "Murray is competing with J.J. McCarthy for the starting quarterback job.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-29T20:44:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-ol-giovanni-manu-on-active-nfi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-ol-giovanni-manu-on-active-nfi",
+      "title": "Lions place OL Giovanni Manu on active/NFI",
+      "body_text": "The Lions placed offensive lineman Giovanni Manu on the active/non-football injury list, the team announced Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T20:43:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Giovanni Manu",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039362"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-beane-on-keon-coleman-you-feel-a-guy-who-has-really-matured",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-beane-on-keon-coleman-you-feel-a-guy-who-has-really-matured",
+      "title": "Brandon Beane on Keon Coleman: You feel a guy who has really matured",
+      "body_text": "Bills receiver Keon Coleman became a lightning rod when team owner Terry Pegula referenced him during his January press conference just after firing former head coach Sean McDermott.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-29T20:35:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Beane",
+        "Keon Coleman",
+        "Terry Pegula"
+      ],
+      "resolved_player_ids": [
+        "00-0039901"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-activate-montez-sweat-from-nfi-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-activate-montez-sweat-from-nfi-list",
+      "title": "Bears activate Montez Sweat from NFI list",
+      "body_text": "The Bears will have one of their best defensive players back on the practice field Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-29T20:33:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Montez Sweat",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0035647"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-sign-dt-travis-shaw",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-sign-dt-travis-shaw",
+      "title": "Buccaneers sign DT Travis Shaw",
+      "body_text": "Safety Ifeatu Melifonwu wasn't the only defensive player to join the Buccaneers on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-29T20:18:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Shaw",
+        "Safety Ifeatu"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-participates-in-practice-but-joe-schoen-offers-no-guarantee-about-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-participates-in-practice-but-joe-schoen-offers-no-guarantee-about-week-1",
+      "title": "Malik Nabers participates in practice, but Joe Schoen offers no guarantee about Week 1",
+      "body_text": "Malik Nabers participated in individual drills during the Giants' first practice of the summer.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T20:12:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers",
+        "Joe Schoen"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-wr-casey-washington",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-wr-casey-washington",
+      "title": "Panthers sign WR Casey Washington",
+      "body_text": "The Panthers saw a wide receiver go down with an injury at Wednesday's practice and they added another player to the position group later in the day.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-29T20:05:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Casey Washington",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0039394"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-expects-to-come-off-active-pup-very-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-expects-to-come-off-active-pup-very-soon",
+      "title": "Tucker Kraft expects to come off active/PUP \"very soon\"",
+      "body_text": "Packers General Manager Brian Gutekunst said earlier Wednesday that tight end Tucker Kraft will return \"sooner rather than later.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-07-29T19:44:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tucker Kraft",
+        "Packers General",
+        "Manager Brian"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-mia-bieniemy-is-out-of-icu-making-progress",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-mia-bieniemy-is-out-of-icu-making-progress",
+      "title": "Andy Reid: Mia Bieniemy is out of ICU, making progress",
+      "body_text": "Chiefs head coach Andy Reid shared a positive update on the condition of offensive coordinator Eric Bieniemy's wife Mia on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-29T19:31:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Reid",
+        "Mia Bieniemy",
+        "Eric Bieniemy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-on-his-contract-i-have-faith-things-are-moving-in-the-right-direction",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-on-his-contract-i-have-faith-things-are-moving-in-the-right-direction",
+      "title": "Jonathan Taylor on his contract: I have faith things are moving in the right direction",
+      "body_text": "The Lions and Falcons are each dealing with apparent hold-ins by their respective star running backs.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-29T19:23:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "DET"
+    }
+  ]
+}

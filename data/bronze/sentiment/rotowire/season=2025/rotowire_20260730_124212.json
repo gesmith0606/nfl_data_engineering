@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "7f9fcb97-3ae3-43d0-8ce2-aa220668a559",
+  "source": "rotowire",
+  "fetched_at": "2026-07-30T12:42:12.019460+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632176",
+      "url": "https://www.rotowire.com//football/player/taysom-hill-12063",
+      "permalink": "",
+      "title": "Taysom Hill: Says farewell to New Orleans",
+      "body_text": "Hill posted a farewell message to the Saints on his personal X account Wednesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-29T04:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Taysom Hill",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0033357"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl632173",
+      "url": "https://www.rotowire.com//football/player/james-cook-15876",
+      "permalink": "",
+      "title": "James Cook: More balanced approach in 2026?",
+      "body_text": "New coach Joe Brady acknowledged this week that Cook's workload was high after the running back took 309 carries over 17 regular-season games, and the coach discussed the potential of sharing the load a bit more this season, Chris Brown of the Bills' official site reports. Said Brady, \"I don't think you ever go into each game with a mindset of, 'This is how many carries he's going to have.' But it does pile up throughout the season, and I give him a lot of credit. I would love to be able to get Ray (Davis), Ty (Johnson), Frank (Gore Jr.) those guys involved and I hope those opportunities come up this year. James was just playing at such a high level last year. And this year again we're looking at everything.\" Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-29T04:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Cook",
+        "Joe Brady",
+        "Chris Brown",
+        "Said Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0037248",
+        "00-0035424"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl632166",
+      "url": "https://www.rotowire.com//football/player/ceedee-lamb-14411",
+      "permalink": "",
+      "title": "CeeDee Lamb: Playing usual role in training camp",
+      "body_text": "Lamb worked with the Cowboys' first-team offense in the first team drill of Wednesday's practice, Jon Machota of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-29T03:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jon Machota",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl632158",
+      "url": "https://www.rotowire.com//football/player/deshaun-watson-11712",
+      "permalink": "",
+      "title": "Deshaun Watson: Handles first-team reps Wednesday",
+      "body_text": "Watson took all the first-team QB reps during Wednesday's practice, Daniel Oyefusi of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-29T02:59:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "Wednesday Watson",
+        "Daniel Oyefusi"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632155",
+      "url": "https://www.rotowire.com//football/player/ricky-pearsall-17761",
+      "permalink": "",
+      "title": "Ricky Pearsall: Concern over knee issue",
+      "body_text": "The 49ers have some \"concern\" about Pearsall's latest knee issue and are \"exploring all options\" when it comes to what the next step will be in addressing it, Nick Wagoner of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-29T02:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ricky Pearsall",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [
+        "00-0039916"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}
