@@ -1163,7 +1163,7 @@ services:
 
 **Connection Module:** `src/graph_db.py`
 - `GraphDB` class: authenticate to Neo4j, run Cypher, fallback to pandas if unavailable
-- Environment: `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` (see `.env.example`)
+- Environment: `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` (set in `.env`)
 - Usage: `graph_db.query(cypher)` auto-detects connection availability
 
 ### Integration with Projections

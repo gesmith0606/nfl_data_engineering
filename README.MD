@@ -244,8 +244,8 @@ python scripts/check_pipeline_health.py --season 2024 --week 10
 Without credentials, all scripts read and write to `data/` locally. To enable S3:
 
 ```bash
-cp .env.example .env
-# Add AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION=us-east-2
+# Create .env in the repo root (gitignored, per-machine) and add:
+# AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION=us-east-2
 ```
 
 S3 buckets: `nfl-raw` (Bronze), `nfl-refined` (Silver), `nfl-trusted` (Gold).
@@ -299,7 +299,6 @@ nfl_data_engineering/
 │
 ├── .github/workflows/weekly-pipeline.yml       # Tuesday cron; auto-opens issue on failure
 ├── .planning/                                  # Phase planning docs and roadmap
-├── .env.example                                # Credentials template
 └── requirements.txt                            # Python dependencies
 ```
 

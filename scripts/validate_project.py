@@ -43,7 +43,6 @@ def validate_project_structure():
         'README.md',
         'requirements.txt',
         '.env',
-        '.env.example',
         'development_tasks.md',
         'src/__init__.py',
         'src/config.py',
