@@ -1,0 +1,597 @@
+{
+  "fetch_run_id": "c0f5f657-7cc5-4135-a3f1-6ddc9e9c5a30",
+  "source": "pft",
+  "fetched_at": "2026-07-31T12:46:30.311994+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-te-anthony-firkser",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-te-anthony-firkser",
+      "permalink": "",
+      "title": "Lions sign TE Anthony Firkser",
+      "body_text": "Tight end Anthony Firkser is back with the Lions.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T12:37:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Firkser"
+      ],
+      "resolved_player_ids": [
+        "00-0033455"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oc-grant-udinski-to-call-majority-of-jaguars-plays-in-preseason",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oc-grant-udinski-to-call-majority-of-jaguars-plays-in-preseason",
+      "permalink": "",
+      "title": "OC Grant Udinski to call majority of Jaguars plays in preseason",
+      "body_text": "Jaguars offensive coordinator Grant Udinski landed head coaching interviews this offseason and he'll do some work to build up his credentials for the next step up the ladder this preseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T12:31:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Grant Udinski"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-to-sign-db-sam-webb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-to-sign-db-sam-webb",
+      "permalink": "",
+      "title": "Broncos to sign DB Sam Webb",
+      "body_text": "Defensive back Sam Webb tried out for the Broncos on Thursday and he'll be sticking around Denver for a while.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T12:15:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Webb"
+      ],
+      "resolved_player_ids": [
+        "00-0037516"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kayshon-boutte-my-feet-are-here-today-not-thinking-about-whats-next",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kayshon-boutte-my-feet-are-here-today-not-thinking-about-whats-next",
+      "permalink": "",
+      "title": "Kayshon Boutte: My feet are here today, not thinking about what's next",
+      "body_text": "A report in June said that Patriots wide receiver Kayshon Boutte is interested in being traded and Boutte got a chance to address his feelings about being in New England on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T12:00:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kayshon Boutte",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0038608"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-veteran-austin-jackson-jeff-hafley-practices-are-fun-like-brian-flores-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-veteran-austin-jackson-jeff-hafley-practices-are-fun-like-brian-flores-practices",
+      "permalink": "",
+      "title": "Dolphins veteran Austin Jackson: Jeff Hafley practices are fun, like Brian Flores practices",
+      "body_text": "Dolphins offensive tackle Austin Jackson has been in Miami since he was the team's first-round draft pick in 2020, which means Jeff Hafley is his third head coach.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-31T11:04:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Austin Jackson",
+        "Jeff Hafley",
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [
+        "00-0036248"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-returns-to-the-49ers-on-a-one-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-returns-to-the-49ers-on-a-one-year-deal",
+      "permalink": "",
+      "title": "Deebo Samuel returns to the 49ers on a one-year deal",
+      "body_text": "It's reportedly a one-year deal worth up to $7 million.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-31T01:23:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-jalen-carter-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-jalen-carter-deal",
+      "permalink": "",
+      "title": "Inside the Jalen Carter deal",
+      "body_text": "Earlier this week, Eagles defensive tackle Jalen Carter became the highest-paid interior defensive lineman in NFL history.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-31T03:02:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-tyler-allgeier-on-welcoming-jeremiyah-love-theres-no-point-being-a-jerk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-tyler-allgeier-on-welcoming-jeremiyah-love-theres-no-point-being-a-jerk",
+      "permalink": "",
+      "title": "Cardinals RB Tyler Allgeier on welcoming Jeremiyah Love: \"There's no point being a jerk\"",
+      "body_text": "It's the second time in Allgeier's career that his team has used a high first-round pick on a running back.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-31T08:43:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Allgeier",
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0037263",
+        "00-0041027"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-carters-deal-has-a-250-000-annual-weight-bonus",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-carters-deal-has-a-250-000-annual-weight-bonus",
+      "permalink": "",
+      "title": "Jalen Carter's deal has a $250,000 annual \"weight bonus\"",
+      "body_text": "After signing defensive tackle Jalen Carter to a record-setting deal, Eagles G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-31T02:44:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-cowboys-nickname-offense-greatest-offense-there-is",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-cowboys-nickname-offense-greatest-offense-there-is",
+      "permalink": "",
+      "title": "Dak Prescott, Cowboys nickname their offense \"Greatest Offense There Is\"",
+      "body_text": "The Cowboys are talking the talk.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-31T01:04:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott",
+        "Greatest Offense",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-ulbrichs-wife-cristina-dies-after-a-battle-with-cancer",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-ulbrichs-wife-cristina-dies-after-a-battle-with-cancer",
+      "permalink": "",
+      "title": "Jeff Ulbrich's wife, Cristina, dies after a battle with cancer",
+      "body_text": "Falcons defensive coordinator Jeff Ulbrich has been absent from the start of training camp for personal reasons.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-31T00:21:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeff Ulbrich"
+      ],
+      "resolved_player_ids": [
+        "00-0019586"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-appreciates-jerry-jones-kind-words",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-appreciates-jerry-jones-kind-words",
+      "permalink": "",
+      "title": "George Pickens appreciates Jerry Jones' kind words",
+      "body_text": "George Pickens heard Jerry Jones' comment from Tuesday about the wide receiver potentially being \"a Cowboy for the rest of his career.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T23:44:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-wr-dante-pettis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-wr-dante-pettis",
+      "permalink": "",
+      "title": "Bills sign WR Dante Pettis",
+      "body_text": "The Bills worked out veteran wide receiver KhaDarel Hodge, Dante Pettis and Isaiah Whitehead.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T23:02:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dante Pettis",
+        "The Bills",
+        "Isaiah Whitehead"
+      ],
+      "resolved_player_ids": [
+        "00-0034860"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-rb-derrick-henry-has-no-thoughts-of-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-rb-derrick-henry-has-no-thoughts-of-retirement",
+      "permalink": "",
+      "title": "Ravens RB Derrick Henry has no thoughts of retirement",
+      "body_text": "Ravens running back Derrick Henry is 32.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T22:43:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-to-sign-wr-kaden-prather",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-to-sign-wr-kaden-prather",
+      "permalink": "",
+      "title": "Packers to sign WR Kaden Prather",
+      "body_text": "Wide receiver Kaden Prather is going from the UFL to the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-30T21:58:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kaden Prather"
+      ],
+      "resolved_player_ids": [
+        "00-0040239"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-after-super-bowl-season-i-think-i-can-always-get-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-after-super-bowl-season-i-think-i-can-always-get-better",
+      "permalink": "",
+      "title": "Sam Darnold after Super Bowl season: \"I think I can always get better\"",
+      "body_text": "Quarterback Sam Darnold made the most of his first year in Minnesota.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-30T21:57:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold",
+        "Super Bowl",
+        "Quarterback Sam"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/t-j-watt-embracing-a-chance-to-play-both-sides-youre-going-to-see-us-move-around",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/t-j-watt-embracing-a-chance-to-play-both-sides-youre-going-to-see-us-move-around",
+      "permalink": "",
+      "title": "T.J. Watt embracing a chance to play both sides: You're going to see us move around",
+      "body_text": "Steelers outside linebacker T.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T21:52:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-worked-out-three-rbs-after-jordan-james-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-worked-out-three-rbs-after-jordan-james-injury",
+      "permalink": "",
+      "title": "49ers worked out three RBs after Jordan James' injury",
+      "body_text": "49ers running back Jordan James was competing with Kaelon Black — a third-round pick this spring — for the primary backup job behind Christian McCaffrey until his injury on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T21:39:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan James",
+        "Kaelon Black"
+      ],
+      "resolved_player_ids": [
+        "00-0040177",
+        "00-0041052"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/palo-alto-police-wont-release-bodycam-video-or-911-call-from-kyle-shanahan-crash",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/palo-alto-police-wont-release-bodycam-video-or-911-call-from-kyle-shanahan-crash",
+      "permalink": "",
+      "title": "Palo Alto police won't release bodycam video or 911 call from Kyle Shanahan crash",
+      "body_text": "Some information has been released by the authorities in connection with 49ers coach Kyle Shanahan's recent car accident.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-30T21:20:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Palo Alto",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-agrees-to-four-year-extension-with-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-agrees-to-four-year-extension-with-saints",
+      "permalink": "",
+      "title": "Chris Olave agrees to four-year extension with Saints",
+      "body_text": "Olave's deal is worth $132 million with $90 million guaranteed.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-30T21:06:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "Saints Olave"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-s-jordan-whitehead-visits-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-s-jordan-whitehead-visits-steelers",
+      "permalink": "",
+      "title": "Free agent S Jordan Whitehead visits Steelers",
+      "body_text": "The Steelers hosted veteran safety Jordan Whitehead for a free agent visit on Thursday, according to the NFL personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T21:06:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Whitehead",
+        "Steelers The"
+      ],
+      "resolved_player_ids": [
+        "00-0034374"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aidan-hutchinson-its-extremely-liberating-to-focus-on-football-with-injury-behind-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aidan-hutchinson-its-extremely-liberating-to-focus-on-football-with-injury-behind-me",
+      "permalink": "",
+      "title": "Aidan Hutchinson: It's \"extremely liberating\" to focus on football with injury behind me",
+      "body_text": "A year ago, Lions defensive end Aidan Hutchinson was full-go in training camp, but he was still focused on recovering from the broken leg that had ended his 2024 season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-30T20:59:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-claypool-tried-out-for-colts-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-claypool-tried-out-for-colts-on-thursday",
+      "permalink": "",
+      "title": "Chase Claypool tried out for Colts on Thursday",
+      "body_text": "The Colts brought in a familiar name for a tryout, but it doesn't appear as if it was successful.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-30T20:55:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chase Claypool",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0036326"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-wr-quincy-skinner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-wr-quincy-skinner",
+      "permalink": "",
+      "title": "Jets sign WR Quincy Skinner",
+      "body_text": "The Jets shuffled up their wide receiver group on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-30T20:46:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quincy Skinner",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0040553"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-on-patrick-mahomes-you-see-the-strength-in-his-legs-which-is-important",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-on-patrick-mahomes-you-see-the-strength-in-his-legs-which-is-important",
+      "permalink": "",
+      "title": "Andy Reid on Patrick Mahomes: You see the strength in his legs, which is important",
+      "body_text": "It continues to sound like Mahomes will be ready to start the season after suffering a torn ACL in December.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-30T20:29:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/undrafted-rookie-qb-jack-strand-working-with-falcons-first-team-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/undrafted-rookie-qb-jack-strand-working-with-falcons-first-team-offense",
+      "permalink": "",
+      "title": "Undrafted rookie QB Jack Strand working with Falcons' first-team offense",
+      "body_text": "In 2024, the Falcons signed Kirk Cousins in free agency and then drafted Michael Penix in the first round.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T20:42:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jack Strand",
+        "Kirk Cousins",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0041194",
+        "00-0029604",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-wr-liam-clifford",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-wr-liam-clifford",
+      "permalink": "",
+      "title": "Colts sign WR Liam Clifford",
+      "body_text": "The Colts have added a receiver.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-30T19:54:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Liam Clifford",
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-when-im-ready-im-ready",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-when-im-ready-im-ready",
+      "permalink": "",
+      "title": "Malik Nabers: When I'm ready, I'm ready",
+      "body_text": "Nabers said he feels great, but isn't setting any target date for a full return.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-30T19:50:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/veteran-dt-johnathan-hankins-retires",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/veteran-dt-johnathan-hankins-retires",
+      "permalink": "",
+      "title": "Veteran DT Johnathan Hankins retires",
+      "body_text": "Veteran defensive tackle Johnathan Hankins has hung up his cleats.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T19:40:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnathan Hankins"
+      ],
+      "resolved_player_ids": [
+        "00-0030063"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-suggests-joey-bosa-wont-play-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-suggests-joey-bosa-wont-play-this-season",
+      "permalink": "",
+      "title": "Nick Bosa suggests Joey Bosa won't play this season",
+      "body_text": "Defensive end Joey Bosa remains a free agent and apparently it's going to remain that way for the foreseeable future. 49ers defensive end Nick Bosa said May 28 that his older brother was \"working on his golf game\" and not thinking about football.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-30T19:28:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Bosa",
+        "Joey Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717",
+        "00-0033156"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}

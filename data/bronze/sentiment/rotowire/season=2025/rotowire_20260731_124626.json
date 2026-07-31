@@ -1,0 +1,111 @@
+{
+  "fetch_run_id": "54cb7d18-8004-417e-b62e-f6a29bc5880d",
+  "source": "rotowire",
+  "fetched_at": "2026-07-31T12:46:26.597794+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632299",
+      "url": "https://www.rotowire.com//football/player/deebo-samuel-13429",
+      "permalink": "",
+      "title": "Deebo Samuel: Back in San Francisco",
+      "body_text": "Samuel and the 49ers agreed on a one-year, $7 million contract Thursday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-30T06:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel",
+        "San Francisco",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl632275",
+      "url": "https://www.rotowire.com//football/player/anthony-richardson-16653",
+      "permalink": "",
+      "title": "Anthony Richardson: In battle for No. 2 role",
+      "body_text": "Richardson is in a competition for the backup quarterback role in Indianapolis ahead of the 2026 campaign, JJ Stankevitz of the Colts' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-30T04:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "nfl632251",
+      "url": "https://www.rotowire.com//football/player/chris-olave-15895",
+      "permalink": "",
+      "title": "Chris Olave: Signing four-year extension",
+      "body_text": "Olave is signing a four-year extension worth up to $132 million, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-30T02:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632239",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Feeling 'great' at practice",
+      "body_text": "Nabers (knee) said Thursday that he \"felt great\" after practicing Wednesday for the first time since having his torn ACL surgically repaired in October, Matt Citak of the Giants' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-30T12:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Matt Citak"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl632238",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "permalink": "",
+      "title": "A.J. Brown: Clicks with Maye on Thursday",
+      "body_text": "During Thursday's padded practice, Brown and QB Drake Maye routinely connected throughout the session, Mark Daniels of MassLive.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-30T11:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday During",
+        "Drake Maye",
+        "Mark Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": null
+    }
+  ]
+}
