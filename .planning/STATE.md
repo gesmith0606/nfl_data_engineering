@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: launch-2026
 milestone_name: Pre-August Paid Launch
 status: active
-stopped_at: WS1 pipeline-reliability + WS3 UX polish complete (PR #63); WS2 billing go-live is user-owned; dress rehearsal scheduled ~Aug 3-7.
-last_updated: "2026-07-18T00:00:00.000Z"
-last_activity: 2026-07-18
+stopped_at: HF-Space staleness incident fixed (deploy-web daily cron, issue #71); all 8 workflows evidence-green; remaining rehearsal ~Aug 3-7 is --ml + sunday-refresh live-path only; WS2 billing go-live is user-owned.
+last_updated: "2026-07-30T00:00:00.000Z"
+last_activity: 2026-07-30
 ---
 
 # Project State
@@ -46,10 +46,16 @@ runbook in `WORKFLOW_READINESS.md`).
 
 1. **Billing go-live (user-owned):** execute `docs/BILLING_LAUNCH.md` — Clerk
    prod app, Stripe $7.99/mo product, 7 Vercel env vars, §5 QA, §4 launch order.
-2. **Dress rehearsal ~Aug 3–7:** dispatch all workflows once, verify end-to-end
-   (runbook: `WORKFLOW_READINESS.md`).
+   Plan of record was paid-by-Aug-1 — now the critical path.
+2. **Dress rehearsal ~Aug 3–7 (scope narrowed 07-30):** all 8 workflows have
+   green runs within the last 6 days (see WORKFLOW_READINESS.md addendum);
+   remaining value is weekly-pipeline `--ml` against live preseason data +
+   sunday-refresh non-no-op injury path.
 3. **Ops risks to watch:** Anthropic API credit balance (ran dry 07-09 — set
    billing alerts/auto-reload); concurrent data-commit rebase races.
+   RESOLVED 07-30: HF Space staleness (issue #71) — bot data commits never
+   trigger deploy-web's push paths (GITHUB_TOKEN suppression), Space drifted
+   11 days stale; fixed with a daily 14:30 UTC cron on deploy-web.yml.
 4. **In-season gates (Sept+):** line-capture verdict by w10 (mean >+0.3,
    n≥150); prop-implied `--props-blend` eval once Sunday snapshots accumulate;
    RB +0.26 consensus gap levers; PFF decision ~Nov.

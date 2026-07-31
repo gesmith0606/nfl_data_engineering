@@ -266,3 +266,38 @@ day is fine; deploy-web last so it publishes everything.
 (anchor-ON trial 2026-07-10: no top-40 effect, deep-bench sleepers only —
 see .planning/GRAPH_USECASES_2026_07.md). Use it when generating
 sleeper/deep-league boards, not the default published projections.  
+
+---
+
+## Rehearsal Status Addendum (2026-07-30)
+
+### Incident: HF Space 11-days stale (issue #71) — root cause + fix
+
+The freshness monitor flagged `overall_stale: true` from 2026-07-25 (issue
+#71): the live HF Space was serving the 2026-07-19 build while the repo
+received fresh data commits daily. **Root cause:** data commits are pushed
+by workflows using `GITHUB_TOKEN`, and GitHub suppresses push-event
+workflow triggers for those commits — so deploy-web's `data/**` path
+filter only ever fires on *human* pushes (none touched trigger paths
+after 2026-07-19). **Fix (this commit):** daily `schedule` cron
+(14:30 UTC) added to deploy-web.yml so the CACHE_BUST bump + factory
+rebuild happens every day regardless of who pushed the data.
+
+### Evidence-based workflow status (scheduled runs, week of 2026-07-24→30)
+
+| Runbook # | Workflow | Latest green run | Date |
+|-----------|----------|------------------|------|
+| 1 | weekly-reference-refresh | 30344299601 | 2026-07-28 |
+| 2 | weekly-pipeline | 30348694708 (6m05s, sanity gate green) | 2026-07-28 |
+| 3 | odds-capture | 30586870895 | 2026-07-30 |
+| 4 | weekly-external-projections | 30370557887 | 2026-07-28 |
+| 5 | daily-sentiment (incl. odds watchdog) | 30543543171 | 2026-07-30 |
+| 6 | sunday-refresh | 30211977820 (no-op path, clean) | 2026-07-26 |
+| 7 | deploy-web | triggered 2026-07-30 by the cron-fix push | 2026-07-30 |
+| — | freshness-monitor | 30594631079 — **correctly detected** the stale Space | 2026-07-30 |
+
+All 8 production workflows + monitor have green runs within the last 6
+days; the monitor also proved it catches real staleness. The formal
+manual-dispatch pass (~Aug 3–7, post-HOF) remains worthwhile only for:
+weekly-pipeline `--ml` verification against live preseason data, and
+sunday-refresh exercising its non-no-op injury path.

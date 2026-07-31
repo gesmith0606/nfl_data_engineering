@@ -8,6 +8,15 @@ on:
       - "src/**"
       - "data/**"
       - ".github/workflows/deploy-web.yml"
+  # Daily refresh: the data-committing workflows push with GITHUB_TOKEN, and
+  # GitHub never fires push-triggered workflows for those commits — so the
+  # `data/**` path filter above only catches HUMAN pushes. Without this cron
+  # the HF Space (data baked into its Docker image at build time) drifts
+  # stale as soon as human pushes pause (11 days stale by 2026-07-30,
+  # issue #71). 14:30 UTC sits after daily-sentiment (12:00), morning
+  # odds-capture (13:00) and the Tuesday pipeline/reference/external runs.
+  schedule:
+    - cron: "30 14 * * *"
   workflow_dispatch:
 
 env:
