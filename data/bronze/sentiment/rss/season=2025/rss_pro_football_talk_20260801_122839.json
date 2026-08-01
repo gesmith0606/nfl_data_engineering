@@ -1,0 +1,509 @@
+{
+  "fetch_run_id": "96a90083-e407-4f64-885a-daf784e380bd",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-01T12:28:39.697650+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-k-dobbins-sean-payton-is-my-favorite-head-coach-ive-ever-played-for",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-k-dobbins-sean-payton-is-my-favorite-head-coach-ive-ever-played-for",
+      "title": "J.K. Dobbins: Sean Payton is my favorite head coach I've ever played for",
+      "body_text": "\"This organization is amazing,\" Dobbins said. \"I was born to be a Bronco.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-01T08:14:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-sec-finally-strike-a-deal-on-the-protect-college-sports-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-sec-finally-strike-a-deal-on-the-protect-college-sports-act",
+      "title": "Big Ten, SEC finally strike a deal on the Protect College Sports Act",
+      "body_text": "The so-called \"Protect College Sports Act\" had stalled, thanks in large part to lingering objections from the Big Ten and the SEC.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T03:30:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Big Ten",
+        "Protect College",
+        "Sports Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-myles-garrett-trade-was-andrew-berrys-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jimmy-haslam-myles-garrett-trade-was-andrew-berrys-decision",
+      "title": "Jimmy Haslam: Myles Garrett trade was Andrew Berry's decision",
+      "body_text": "Nearly two months to the day after the Browns surprised everyone by trading defensive end Myles Garrett to the Rams, Btowns owner Jimmy Haslam addressed the move in a Friday press conference.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T02:38:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jimmy Haslam",
+        "Myles Garrett",
+        "Andrew Berry"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-hears-cowboys-trade-chatter-it-doesnt-change-anything-for-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-hears-cowboys-trade-chatter-it-doesnt-change-anything-for-me",
+      "title": "Maxx Crosby hears Cowboys' trade chatter: It doesn't change anything for me",
+      "body_text": "The Cowboys had interest in a trade for Raiders pass rusher Maxx Crosby.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-01T02:17:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Maxx Crosby",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-grants-class-wide-injunction-in-fifth-year-lawsuit-ncaa",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-grants-class-wide-injunction-in-fifth-year-lawsuit-ncaa",
+      "title": "Judge grants class-wide injunction in fifth-year lawsuit against NCAA",
+      "body_text": "The NCAA's adoption of a rule giving athletes five seasons of eligibility in four years has had a consequence that may have been unintended.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T02:13:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/unc-g-m-michael-lombardi-welcomes-the-opportunity-to-clear-his-name",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/unc-g-m-michael-lombardi-welcomes-the-opportunity-to-clear-his-name",
+      "title": "UNC G.M. Michael Lombardi \"welcomes the opportunity to clear his name\"",
+      "body_text": "North Carolina isn't saying much about UNC football G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T01:48:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Lombardi",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donald-if-theres-an-arrow-its-trending-upward",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donald-if-theres-an-arrow-its-trending-upward",
+      "title": "Sean McVay on Aaron Donald: If there’s an arrow, it’s trending upward",
+      "body_text": "The Rams coach doesn't expect the defensive lineman to decide whether he returns until after the team's training camp ends.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-01T01:18:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-chris-olave-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-chris-olave-deal",
+      "title": "Inside the Chris Olave deal",
+      "body_text": "One of the various training-camp hold-ins ended on Thursday, when the Saints signed receiver Chris Olave to a new deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T01:00:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Olave"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-doesnt-practice-friday-john-harbaugh-calls-it-part-of-the-process",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-doesnt-practice-friday-john-harbaugh-calls-it-part-of-the-process",
+      "title": "Malik Nabers doesn't practice Friday, John Harbaugh calls it \"part of the process\"",
+      "body_text": "The first days of Giants training camp featured a lot of positive reports about how wide receiver Malik Nabers has healed from last season's torn ACL, but there were none to add to the list on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T19:41:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-trying-to-build-connections-with-both-quarterbacks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-trying-to-build-connections-with-both-quarterbacks",
+      "title": "Justin Jefferson trying to build connection with both quarterbacks",
+      "body_text": "Kyler Murray and J.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-31T23:43:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Jefferson",
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0035228"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-says-cowboys-investigating-trades-big-name-veteran-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-says-cowboys-investigating-trades-big-name-veteran-signings",
+      "title": "Stephen Jones says Cowboys investigating trades, big-name veteran signings",
+      "body_text": "The Cowboys have been trade-happy the past year in rebuilding their defense.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-31T22:08:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stephen Jones",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037551"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-olb-adbul-carters-goal-is-defensive-player-of-the-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-olb-adbul-carters-goal-is-defensive-player-of-the-year",
+      "title": "Giants OLB Adbul Carter's goal is Defensive Player of the Year",
+      "body_text": "As a rookie, Giants outside linebacker Abdul Carter earned two benchings, totaled four sacks and finished fifth in Defensive Rookie of the Year voting.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-31T21:35:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adbul Carter",
+        "Defensive Player",
+        "Abdul Carter",
+        "Defensive Rookie"
+      ],
+      "resolved_player_ids": [
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-rookie-wide-receiver-chris-brazzell-on-ir-sign-tight-end-chamon-metayer",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-rookie-wide-receiver-chris-brazzell-on-ir-sign-tight-end-chamon-metayer",
+      "title": "Panthers put rookie wide receiver Chris Brazzell on IR, sign tight end Chamon Metayer",
+      "body_text": "Panthers rookie wide receiver Chris Brazzell's season is officially over.",
+      "author": "Michael David Smith",
+      "published_at": "2026-07-31T19:30:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Brazzell",
+        "Chamon Metayer"
+      ],
+      "resolved_player_ids": [
+        "00-0041047"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-deebo-samuel-is-a-hell-of-a-pickup-for-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-deebo-samuel-is-a-hell-of-a-pickup-for-us",
+      "title": "Mike Evans: Deebo Samuel is a hell of a pickup for us",
+      "body_text": "Count Mike Evans among those happy to see Deebo Samuel is back with the 49ers.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-31T20:59:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans",
+        "Deebo Samuel",
+        "Count Mike"
+      ],
+      "resolved_player_ids": [
+        "00-0031408",
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-ls-cal-adomitis-cut-k-lenny-krieg-wr-brenden-rice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-ls-cal-adomitis-cut-k-lenny-krieg-wr-brenden-rice",
+      "title": "Packers sign LS Cal Adomitis, cut K Lenny Krieg, WR Brenden Rice",
+      "body_text": "The Packers signed long snapper Cal Adomitis and wide receiver Kaden Prather on Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-31T20:53:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cal Adomitis",
+        "Lenny Krieg",
+        "Brenden Rice",
+        "The Packers",
+        "Kaden Prather"
+      ],
+      "resolved_player_ids": [
+        "00-0037412",
+        "00-0040003",
+        "00-0039415",
+        "00-0040239"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-has-no-hesitation-about-practicing-without-a-contract-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-has-no-hesitation-about-practicing-without-a-contract-extension",
+      "title": "Tucker Kraft has no hesitation about practicing without a contract extension",
+      "body_text": "The Packers took tight end Tucker Kraft off the PUP list on Friday and he will start being phased into the team's practices over the near future.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T20:46:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tucker Kraft",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-i-do-dumb-things-sometimes-but-i-learn-from-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-i-do-dumb-things-sometimes-but-i-learn-from-it",
+      "title": "Cam Skattebo: I do dumb things sometimes, but I learn from it",
+      "body_text": "Skattebo's botched backflip led to a meeting with John Harbaugh.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T20:19:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-cb-quinton-newsome",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-cb-quinton-newsome",
+      "title": "Cardinals sign CB Quinton Newsome",
+      "body_text": "The Cardinals signed cornerback Quinton Newsome, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-31T20:24:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinton Newsome",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0039767"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-dt-alfred-collins-from-active-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-dt-alfred-collins-from-active-pup",
+      "title": "49ers activate DT Alfred Collins from active/PUP",
+      "body_text": "The 49ers activated defensive tackle Alfred Collins from the active/physically unable to perform list, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-07-31T20:10:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alfred Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0040721"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-foerster-on-49ers-practice-scuffles-things-happen-on-first-day-in-pads",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-foerster-on-49ers-practice-scuffles-things-happen-on-first-day-in-pads",
+      "title": "Chris Foerster on 49ers practice scuffles: Things happen on first day in pads",
+      "body_text": "The 49ers put on the pads for the first time this year during Friday's practice and things didn't take long to heat up on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T19:26:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Foerster"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ol-andrus-peat-announces-his-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ol-andrus-peat-announces-his-retirement",
+      "title": "OL Andrus Peat announces his retirement",
+      "body_text": "Veteran offensive lineman Andrus Peat announced his retirement on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T19:02:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andrus Peat"
+      ],
+      "resolved_player_ids": [
+        "00-0032203"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/what-happens-with-the-bucs-and-baker-mayfield-in-2027",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/what-happens-with-the-bucs-and-baker-mayfield-in-2027",
+      "title": "What happens with the Bucs and Baker Mayfield in 2027?",
+      "body_text": "If, as it appears, quarterback Baker Mayfield doesn't sign a new contract with the Buccaneers until after the 2026 season, what happens next?",
+      "author": "Mike Florio",
+      "published_at": "2026-07-31T18:33:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-deandre-hopkins-to-join-georgia-tech-coaching-staff",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-deandre-hopkins-to-join-georgia-tech-coaching-staff",
+      "title": "Report: DeAndre Hopkins to join Georgia Tech coaching staff",
+      "body_text": "After spending some time with the Patriots during training camp, DeAndre Hopkins has found a more permanent job in coaching.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-31T18:31:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Georgia Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-activate-lb-adisa-issac-cb-bilhal-kone",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-activate-lb-adisa-issac-cb-bilhal-kone",
+      "title": "Ravens activate LB Adisa Issac, CB Bilhal Kone",
+      "body_text": "The Ravens got a pair of defensive players back from the physically unable to perform list on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T18:18:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adisa Issac",
+        "Bilhal Kone",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0040073"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-i-feel-great-limited-practices-are-a-precaution",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-i-feel-great-limited-practices-are-a-precaution",
+      "title": "Tua Tagovailoa: I feel great, limited practices are a precaution",
+      "body_text": "Falcons quarterback Tua Tagovailoa spoke about the back issue that has limited him in practice this week for the first time on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T18:11:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-watt-will-replace-tony-romo-during-his-cbs-leave",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-watt-will-replace-tony-romo-during-his-cbs-leave",
+      "title": "J.J. Watt will replace Tony Romo during his CBS leave",
+      "body_text": "With CBS placing No. 1 NFL analyst Tony Romo on leave following a recent arrest for suspicion of operating while intoxicated, his spot needs to be filled.",
+      "author": "Mike Florio",
+      "published_at": "2026-07-31T17:59:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-te-josiah-deguara-wr-trenton-irwin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-te-josiah-deguara-wr-trenton-irwin",
+      "title": "49ers sign TE Josiah Deguara, WR Trenton Irwin",
+      "body_text": "The 49ers have brought in a pair of offensive players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-31T17:13:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josiah Deguara",
+        "Trenton Irwin"
+      ],
+      "resolved_player_ids": [
+        "00-0036332",
+        "00-0035341"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-chris-olaves-new-deal-is-awesome-for-him-our-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-chris-olaves-new-deal-is-awesome-for-him-our-team",
+      "title": "Kellen Moore: Chris Olave's new deal is awesome for him, our team",
+      "body_text": "On Thursday, the Saints agreed to a four-year extension with Chris Olave, ending the receiver’s brief hold-in as he sought a new deal.",
+      "author": "Myles Simmons",
+      "published_at": "2026-07-31T16:19:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kellen Moore",
+        "Chris Olave",
+        "On Thursday"
+      ],
+      "resolved_player_ids": [
+        "00-0029234",
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-feels-lighter-on-his-feet-after-putting-on-10-pounds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-feels-lighter-on-his-feet-after-putting-on-10-pounds",
+      "title": "Travis Hunter feels lighter on his feet after putting on 10 pounds",
+      "body_text": "Travis Hunter's mixture of size and speed made him a two-way player at Colorado and it led the Jaguars to trade up to take him with the second overall pick of the 2025 draft, but that didn't stop him from changing his body ahead of his second NFL season.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T16:12:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-cb-d-j-miller",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-cb-d-j-miller",
+      "title": "Bills sign CB D.J. Miller",
+      "body_text": "The Bills announced a pair of roster moves on Friday morning.",
+      "author": "Josh Alper",
+      "published_at": "2026-07-31T15:43:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Miller The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "fetch_run_id": "447816d7-1ec7-4a8b-8c59-9fec1f1f6c2a",
+  "source": "rotowire",
+  "fetched_at": "2026-08-01T12:28:52.333176+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632332",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "permalink": "",
+      "title": "Tucker Kraft: Logs first practice since ACL tear",
+      "body_text": "Kraft (knee), who was activated from the active/PUP list Friday, took part in individual drills at his first practice of Packers training camp, Matt Schneidman of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-31T03:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft",
+        "Matt Schneidman",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl632327",
+      "url": "https://www.rotowire.com//football/player/kenneth-gainwell-15222",
+      "permalink": "",
+      "title": "Kenneth Gainwell: Getting receiving work in camp",
+      "body_text": "Gainwell has been utilized primarily as a receiver out of the backfield in training camp while Bucky Irving has handled most of the rushing workload, Adam Silvon of Pewterreport.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-31T01:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Gainwell",
+        "Bucky Irving",
+        "Adam Silvon"
+      ],
+      "resolved_player_ids": [
+        "00-0036919",
+        "00-0039361"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632326",
+      "url": "https://www.rotowire.com//football/player/chris-olave-15895",
+      "permalink": "",
+      "title": "Chris Olave: Handles team drills during ramp-up",
+      "body_text": "Olave took part in the first session of 11-on-11 team drills during Friday's training camp practice, Ross Jackson of LouisianaSports.net reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-31T01:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "Ross Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632323",
+      "url": "https://www.rotowire.com//football/player/drake-maye-17673",
+      "permalink": "",
+      "title": "Drake Maye: Connecting with Brown in practice",
+      "body_text": "Maye was sharp at Friday's practice, which he started off with a long touchdown pass to A.J. Brown on the first play of the 11-on-11 period, Paul Perillo of the Patriots' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-31T12:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Paul Perillo"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl632322",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "permalink": "",
+      "title": "A.J. Brown: Building connection with Maye",
+      "body_text": "After the connection between Brown and QB Drake Maye got off to a slow start in training camp, Paul Perillo of the Patriots' official site notes that \"there have been some serious signs of life since the pads came on Thursday morning.\" Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-07-31T12:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Maye After",
+        "Drake Maye",
+        "Paul Perillo"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    }
+  ]
+}
