@@ -14,19 +14,19 @@ import {
   useInfobar
 } from '@/components/ui/infobar';
 
-// Default/fallback data when no content is set
+// Default/fallback data when no page has set its own infobar content
+// (P2 audit finding, 2026-08-01): this used to be shadcn-starter demo copy
+// ("Documentation / Getting Started / Installation Guide") left over from
+// the template and shown in production on every route that doesn't call
+// `useInfobar().setContent`. Replaced with real, NFL-appropriate copy.
 const defaultData = {
-  title: 'Documentation',
+  title: 'GIQ',
   sections: [
     {
-      title: 'Getting Started',
-      description: 'Learn how to get started with this application.',
-      links: [
-        {
-          title: 'Installation Guide',
-          url: '#'
-        }
-      ]
+      title: 'About GIQ',
+      description:
+        'Fantasy football projections, game predictions, and player analytics powered by machine learning — ensemble models measured against the market and consensus every week.',
+      links: []
     }
   ]
 };

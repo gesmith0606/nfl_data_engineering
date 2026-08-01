@@ -1,4 +1,5 @@
 import PageContainer from '@/components/layout/page-container';
+import { RouteSkeleton } from '@/components/layout/route-skeleton';
 import { PlayerSearch } from '@/features/nfl/components/player-search';
 import { Suspense } from 'react';
 
@@ -13,7 +14,7 @@ export default function PlayersPage() {
       pageTitle='Player Search'
       pageDescription='Search and view detailed player projections'
     >
-      <Suspense>
+      <Suspense fallback={<RouteSkeleton rows={2} />}>
         <PlayerSearch />
       </Suspense>
     </PageContainer>

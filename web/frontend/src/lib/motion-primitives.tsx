@@ -54,7 +54,22 @@ export interface FadeInProps extends DivMotionProps {
 
 export function FadeIn({ children, delay = 0, rise = 8, slide, duration = 'base', className, style, ...rest }: FadeInProps) {
   const reduceMotion = useReducedMotion();
-  if (reduceMotion) return <PassThrough className={className} style={style}>{children}</PassThrough>;
+  // Safety net (P1 audit 2026-08-01): the entrance animation below is driven
+  // by requestAnimationFrame, which browsers throttle or fully suspend in
+  // backgrounded/occluded tabs and under main-thread contention. When that
+  // happens the animation can freeze mid-flight, leaving fully-loaded page
+  // content permanently invisible (opacity stuck near 0) with no console
+  // error — the "suspended void" signature from the dashboard/games,
+  // rankings, players, lineups, and matchups routes. `onAnimationComplete`
+  // clears this in the normal case almost immediately; the timeout is a
+  // floor for the abnormal case and never fires on a healthy animation.
+  const [settled, setSettled] = React.useState(false);
+  React.useEffect(() => {
+    const timer = setTimeout(() => setSettled(true), 900 + delay * 1000);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  if (reduceMotion || settled) return <PassThrough className={className} style={style}>{children}</PassThrough>;
   const from = slide !== undefined ? { opacity: 0, x: slide } : { opacity: 0, y: rise };
   const to = slide !== undefined ? { opacity: 1, x: 0 } : { opacity: 1, y: 0 };
   return (
@@ -62,6 +77,7 @@ export function FadeIn({ children, delay = 0, rise = 8, slide, duration = 'base'
       initial={from}
       animate={to}
       transition={{ duration: MOTION[duration], delay, ease: EASE.outStandard }}
+      onAnimationComplete={() => setSettled(true)}
       className={className}
       style={style}
       {...rest}
@@ -81,7 +97,18 @@ export interface StaggerProps extends DivMotionProps {
 
 export function Stagger({ children, step = STAGGER_STEP, delay = 0, className, style, ...rest }: StaggerProps) {
   const reduceMotion = useReducedMotion();
-  if (reduceMotion) return <PassThrough className={className} style={style}>{children}</PassThrough>;
+  // Safety net — see FadeIn above. Scales the floor with the orchestrated
+  // child count so a large grid still gets a fair shot at finishing for real
+  // before the fallback forces it visible.
+  const childCount = React.Children.count(children);
+  const [settled, setSettled] = React.useState(false);
+  React.useEffect(() => {
+    const floor = 900 + (delay + childCount * step) * 1000;
+    const timer = setTimeout(() => setSettled(true), floor);
+    return () => clearTimeout(timer);
+  }, [delay, step, childCount]);
+
+  if (reduceMotion || settled) return <PassThrough className={className} style={style}>{children}</PassThrough>;
   // Preserve original child keys so list reorders animate correctly. React.Children.map
   // prefixes keys with `.$` but keeps the original segment intact after the prefix;
   // we still fall back to the map index for childless / keyless fragments.
@@ -94,6 +121,7 @@ export function Stagger({ children, step = STAGGER_STEP, delay = 0, className, s
       initial='hidden'
       animate='visible'
       variants={{ hidden: {}, visible: { transition: { staggerChildren: step, delayChildren: delay } } }}
+      onAnimationComplete={() => setSettled(true)}
       className={className}
       style={style}
       {...rest}
